@@ -1,0 +1,25 @@
+{
+  "name": "geometric-optics",
+  "version": "1.0.0-dev.0",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phetsims/geometric-optics.git"
+  },
+  "devDependencies": {
+    "grunt": "~1.1.0"
+  },
+  "phet": {
+    "requirejsNamespace": "GEOMETRIC_OPTICS",
+    "simulation": true,
+    "runnable": true,
+    "colorProfile": true,
+    "supportedBrands": [
+      "phet",
+      "adapted-from-phet"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "../chipper/eslint/sim_eslintrc.js"
+  }
+}
