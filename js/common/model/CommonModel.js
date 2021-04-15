@@ -6,19 +6,15 @@
 
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import CommonModel from '../../common/model/CommonModel.js';
 
-class GeometricOpticsModel extends CommonModel {
+class CommonModel {
 
   /**
    * @param {Tandem} tandem
    */
   constructor( tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
-
-    super( {
-      tandem: tandem
-    } );
+    //TODO
   }
 
   /**
@@ -26,10 +22,10 @@ class GeometricOpticsModel extends CommonModel {
    * @public
    */
   reset() {
-    super.reset();
+    //TODO
   }
 
 }
 
-geometricOptics.register( 'GeometricOpticsModel', GeometricOpticsModel );
-export default GeometricOpticsModel;
+geometricOptics.register( 'CommonModel', CommonModel );
+export default CommonModel;

@@ -1,17 +1,17 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * @author veillette
+ * @author Martin Veillette
  */
 
-import ScreenView from '../../../../joist/js/ScreenView.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsModel from '../model/GeometricOpticsModel.js';
+import CommonScreenView from '../../common/view/CommonScreenView.js';
 
-class GeometricOpticsScreenView extends ScreenView {
+class GeometricOpticsScreenView extends CommonScreenView {
 
   /**
    * @param {GeometricOpticsModel} model
@@ -21,7 +21,7 @@ class GeometricOpticsScreenView extends ScreenView {
     assert && assert( model instanceof GeometricOpticsModel, 'invalid model' );
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    super( {
+    super( model, {
       tandem: tandem
     } );
 
@@ -43,16 +43,7 @@ class GeometricOpticsScreenView extends ScreenView {
    * @public
    */
   reset() {
-    //TODO
-  }
-
-  /**
-   * Steps the view.
-   * @param {number} dt - time step, in seconds
-   * @public
-   */
-  step( dt ) {
-    //TODO
+    super.reset();
   }
 }
 
