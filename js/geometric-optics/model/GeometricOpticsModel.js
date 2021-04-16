@@ -16,9 +16,7 @@ class GeometricOpticsModel extends CommonModel {
   constructor( tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    super( {
-      tandem: tandem
-    } );
+    super( tandem );
   }
 
   /**
