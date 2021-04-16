@@ -21,9 +21,7 @@ class GeometricOpticsScreenView extends CommonScreenView {
     assert && assert( model instanceof GeometricOpticsModel, 'invalid model' );
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    super( model, {
-      tandem: tandem
-    } );
+    super( model, tandem );
 
     const resetAllButton = new ResetAllButton( {
       listener: () => {
