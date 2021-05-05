@@ -1,5 +1,56 @@
 {
   "geometric-optics.title": {
     "value": "Geometric Optics"
+  },
+  "screen.mirror": {
+    "value": "Mirror"
+  },
+  "screen.lens": {
+    "value": "Lens"
+  },
+  "focalPoint": {
+    "value": "Focal Point"
+  },
+  "curvatureRadius": {
+    "value": "Curvature Radius"
+  },
+  "refractiveIndex": {
+    "value": "Refractive Index"
+  },
+  "diameter": {
+    "value": "Diameter"
+  },
+  "guides": {
+    "value": "Guides"
+  },
+  "virtualImage": {
+    "value": "Virtual Image"
+  },
+  "rulers": {
+    "value": "Rulers"
+  },
+  "none": {
+    "value": "None"
+  },
+  "marginal": {
+    "value": "Marginal"
+  },
+  "principal": {
+    "value": "Principal"
+  },
+  "many": {
+    "value": "Many"
+  },
+  "diverging": {
+    "value": "Diverging"
+  },
+  "converging": {
+    "value": "Converging"
+  },
+  "movablePoint": {
+    "value": "Movable Point"
+  },
+  "metersPattern": {
+    "value": "{{meters}} m"
   }
 }

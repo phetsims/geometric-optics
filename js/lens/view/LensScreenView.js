@@ -7,18 +7,19 @@
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
-import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsModel from '../model/GeometricOpticsModel.js';
 import CommonScreenView from '../../common/view/CommonScreenView.js';
+import geometricOptics from '../../geometricOptics.js';
+import LensModel from '../model/LensModel.js';
 
-class GeometricOpticsScreenView extends CommonScreenView {
+
+class LensScreenView extends CommonScreenView {
 
   /**
-   * @param {GeometricOpticsModel} model
+   * @param {LensModel} model
    * @param {Tandem} tandem
    */
   constructor( model, tandem ) {
-    assert && assert( model instanceof GeometricOpticsModel, 'invalid model' );
+    assert && assert( model instanceof LensModel, 'invalid model' );
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     super( model, tandem );
@@ -27,6 +28,7 @@ class GeometricOpticsScreenView extends CommonScreenView {
       listener: () => {
         this.interruptSubtreeInput(); // cancel interactions that may be in progress
         model.reset();
+        super.reset();
         this.reset();
       },
       right: this.layoutBounds.maxX - GeometricOpticsConstants.SCREEN_VIEW_X_MARGIN,
@@ -45,5 +47,5 @@ class GeometricOpticsScreenView extends CommonScreenView {
   }
 }
 
-geometricOptics.register( 'GeometricOpticsScreenView', GeometricOpticsScreenView );
-export default GeometricOpticsScreenView;
+geometricOptics.register( 'LensScreenView', LensScreenView );
+export default LensScreenView;

@@ -39,13 +39,11 @@ There are a few top-level model elements in Common Model:
 
 There are a few top-level model elements in Common Screen:
 
-* [ScreenViewNode]
 * [LensNode] is responsible for the lens
 * [FocalPointsNode] lays out the focal points, and the optical axis.
 * [TargetImageNode] is 
 * [SourceObjectNode] is the 
 * [LightRaysNode]
 * [GuidesNode]   
-* [ScreenNode]
-* [LensControlPanel]
+* [ProjectorScreenNode]
 * [ControlPanel]
