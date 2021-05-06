@@ -4,13 +4,13 @@
  * @author Martin Veillette
  */
 
-import Multilink from '../../../../axon/js/Multilink.js';
 import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColorProfile from '../GeometricOpticsColorProfile.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import Property from '../../../../axon/js/Property.js';
 
 const SIZE = GeometricOpticsConstants.FOCAL_POINT_SIZE;
 const LINE_WIDTH = GeometricOpticsConstants.FOCAL_POINT_LINE_WIDTH;
@@ -45,8 +45,7 @@ class FocalPointsNode extends Node {
     // focal point to the left of the optical element if the focal length is positive
     const negativeFocalPoint = new PlusNode( plusNodeOptions );
 
-    // eslint-disable-next-line no-unused-vars
-    const multilink = new Multilink( [ lens.positionProperty, lens.focalLengthProperty ], ( position, focalLength ) => {
+    Property.multilink( [ lens.positionProperty, lens.focalLengthProperty ], ( position, focalLength ) => {
       positiveFocalPoint.center = modelViewTransform.modelToViewPosition( position.plusXY( focalLength, 0 ) );
       negativeFocalPoint.center = modelViewTransform.modelToViewPosition( position.plusXY( -focalLength, 0 ) );
     } );

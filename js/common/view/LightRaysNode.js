@@ -4,7 +4,7 @@
  * @author Martin Veillette
  */
 
-import Multilink from '../../../../axon/js/Multilink.js';
+import Property from '../../../../axon/js/Property.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -35,7 +35,7 @@ class LightRaysNode extends Node {
     this.addChild( virtualRayPath );
 
 
-    const multilink = new Multilink( [ lightRays.sourceObject.positionProperty, lightRays.lens.positionProperty, lightRays.modeProperty, lightRays.lens.diameterProperty, lightRays.lens.focalLengthProperty ],
+    Property.multilink( [ lightRays.sourceObject.positionProperty, lightRays.lens.positionProperty, lightRays.modeProperty, lightRays.lens.diameterProperty, lightRays.lens.focalLengthProperty ],
       () => {
         // Move this node as the model representation moves
         realRayPath.shape = modelViewTransform.modelToViewShape( lightRays.realRay );

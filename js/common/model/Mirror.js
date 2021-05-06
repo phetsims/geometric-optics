@@ -8,12 +8,12 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Multilink from '../../../../axon/js/Multilink.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import CurvatureTypes from './CurvatureTypes.js';
 import OpticalElement from './OpticalElement.js';
+import Property from '../../../../axon/js/Property.js';
 
 class Mirror extends OpticalElement {
 
@@ -34,7 +34,7 @@ class Mirror extends OpticalElement {
 
     this.shape = new Shape();
 
-    const multilink = new Multilink( [
+    Property.multilink( [
       this.positionProperty,
       this.radiusOfCurvatureProperty,
       this.diameterProperty,
@@ -46,7 +46,6 @@ class Mirror extends OpticalElement {
         const top = position.plusXY( 0, halfHeight );
         const bottom = position.plusXY( 0, -halfHeight );
         const left = position.plusXY( -2 * halfWidth, 0 );
-        const right = position.plusXY( 2 * halfWidth, 0 );
         this.shape = new Shape()
           .moveToPoint( top )
           .quadraticCurveToPoint( left, bottom )

@@ -7,12 +7,12 @@
  * @author Martin Veillette
  */
 
-import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
+import Property from '../../../../axon/js/Property.js';
 
 class TargetImage {
 
@@ -37,7 +37,7 @@ class TargetImage {
     this.lens = lens;
 
     // updates the position of the image
-    const multilink = new Multilink( [ sourceObject.positionProperty, lens.positionProperty, lens.focalLengthProperty ],
+    Property.multilink( [ sourceObject.positionProperty, lens.positionProperty, lens.focalLengthProperty ],
       ( objectPosition, lensPosition, focalLength ) => {
         const distanceObject = lensPosition.x - objectPosition.x;
         const heightObject = objectPosition.y - lensPosition.y;

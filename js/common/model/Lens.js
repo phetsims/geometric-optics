@@ -8,7 +8,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -16,6 +15,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import CurvatureTypes from './CurvatureTypes.js';
 import OpticalElement from './OpticalElement.js';
+import Property from '../../../../axon/js/Property.js';
 
 const INDEX_OF_REFRACTION_DEFAULT = GeometricOpticsConstants.INDEX_OF_REFRACTION_RANGE.defaultValue;
 
@@ -49,7 +49,7 @@ class Lens extends OpticalElement {
     this.shape = new Shape();
 
     // updates the shape of the lens
-    const multilink = new Multilink( [
+    Property.multilink( [
       this.positionProperty,
       this.radiusOfCurvatureProperty,
       this.indexOfRefractionProperty,

@@ -7,13 +7,13 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import Multilink from '../../../../axon/js/Multilink.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import Property from '../../../../axon/js/Property.js';
 
 const LENS_TIP_OFFSET = GeometricOpticsConstants.LENS_TIP_OFFSET;
 
@@ -37,8 +37,7 @@ class LightRays {
     this.realRay = new Shape();
     this.virtualRay = new Shape();
 
-    // eslint-disable-next-line no-unused-vars
-    const multilink = new Multilink(
+    Property.multilink(
       [
         sourceObject.positionProperty,
         lens.positionProperty,

@@ -6,7 +6,6 @@
  * @author Martin Veillette
  */
 
-import Multilink from '../../../../axon/js/Multilink.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -15,6 +14,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColorProfile from '../GeometricOpticsColorProfile.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import Property from '../../../../axon/js/Property.js';
 
 const FILL = GeometricOpticsColorProfile.lensFillProperty;
 const STROKE = GeometricOpticsColorProfile.lensStrokeProperty;
@@ -47,7 +47,7 @@ class LensNode extends Node {
     } );
 
     // update the shape and position of the lens
-    const multilink = new Multilink( [
+    Property.multilink( [
         lens.positionProperty,
         lens.radiusOfCurvatureProperty,
         lens.indexOfRefractionProperty,
