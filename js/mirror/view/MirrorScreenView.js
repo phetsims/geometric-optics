@@ -27,7 +27,6 @@ class MirrorScreenView extends ScreenView {
       listener: () => {
         this.interruptSubtreeInput(); // cancel interactions that may be in progress
         model.reset();
-        super.reset();
         this.reset();
       },
       right: this.layoutBounds.maxX - GeometricOpticsConstants.SCREEN_VIEW_X_MARGIN,
@@ -42,7 +41,6 @@ class MirrorScreenView extends ScreenView {
    * @public
    */
   reset() {
-    super.reset();
   }
 }
 
