@@ -9,13 +9,13 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import CurvatureTypes from './CurvatureTypes.js';
 import OpticalElement from './OpticalElement.js';
-import Property from '../../../../axon/js/Property.js';
 
 const INDEX_OF_REFRACTION_DEFAULT = GeometricOpticsConstants.INDEX_OF_REFRACTION_RANGE.defaultValue;
 
@@ -39,8 +39,6 @@ class Lens extends OpticalElement {
         return signRadius * radiusOfCurvature / ( 2 * ( indexOfRefraction - 1 ) );
       }
     );
-
-
 
     // @public (read-only) Shape of the lens
     this.shape = new Shape();
@@ -90,7 +88,6 @@ class Lens extends OpticalElement {
       }
     } );
 
-
   }
 
   /**
@@ -105,10 +102,11 @@ class Lens extends OpticalElement {
   /**
    * Returns a normalized value (between 0 and 1) for the index of refraction
    * @param {number} index - index of refraction
+   * @public
    * @returns {number}
    */
-  getNormalizedValue(index){
-    return GeometricOpticsConstants.INDEX_OF_REFRACTION_RANGE.getNormalizedValue( index )
+  getNormalizedValue( index ) {
+    return GeometricOpticsConstants.INDEX_OF_REFRACTION_RANGE.getNormalizedValue( index );
   }
 }
 
