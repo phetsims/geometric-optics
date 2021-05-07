@@ -6,6 +6,7 @@
  * @author Martin Veillette
  */
 
+import Property from '../../../../axon/js/Property.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -14,7 +15,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColorProfile from '../GeometricOpticsColorProfile.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-import Property from '../../../../axon/js/Property.js';
 
 const FILL = GeometricOpticsColorProfile.lensFillProperty;
 const STROKE = GeometricOpticsColorProfile.lensStrokeProperty;
@@ -57,9 +57,10 @@ class LensNode extends Node {
         lensPath.shape = modelViewTransform.modelToViewShape( lens.shape );
       } );
 
-    // link the normalized index of refraction to the opacity of the fill of the lens
-    lens.normalizedIndexProperty.link( index => {
-      lensPath.fill = new Color( FILL.value.red, FILL.value.green, FILL.value.blue, index );
+    // link the index of refraction to the opacity of the fill of the lens
+    lens.indexOfRefractionProperty.link( index => {
+      const normalizedIndex = lens.getNormalizedValue( index );
+      lensPath.fill = new Color( FILL.value.red, FILL.value.green, FILL.value.blue, normalizedIndex );
     } );
 
     this.addInputListener( dragListener );

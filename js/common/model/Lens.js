@@ -40,10 +40,7 @@ class Lens extends OpticalElement {
       }
     );
 
-    // @public {Property.<number>} a normalized value (between 0 and 1) of the index of refraction
-    this.normalizedIndexProperty = new DerivedProperty( [ this.indexOfRefractionProperty ], index =>
-      GeometricOpticsConstants.INDEX_OF_REFRACTION_RANGE.getNormalizedValue( index )
-    );
+
 
     // @public (read-only) Shape of the lens
     this.shape = new Shape();
@@ -103,6 +100,15 @@ class Lens extends OpticalElement {
   reset() {
     this.indexOfRefractionProperty.reset();
     super.reset();
+  }
+
+  /**
+   * Returns a normalized value (between 0 and 1) for the index of refraction
+   * @param {number} index - index of refraction
+   * @returns {number}
+   */
+  getNormalizedValue(index){
+    return GeometricOpticsConstants.INDEX_OF_REFRACTION_RANGE.getNormalizedValue( index )
   }
 }
 
