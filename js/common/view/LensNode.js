@@ -59,7 +59,7 @@ class LensNode extends Node {
 
     // link the index of refraction to the opacity of the fill of the lens
     lens.indexOfRefractionProperty.link( index => {
-      const normalizedIndex = lens.getNormalizedValue( index );
+      const normalizedIndex = lens.getNormalizedIndex( index );
       lensPath.fill = new Color( FILL.value.red, FILL.value.green, FILL.value.blue, normalizedIndex );
     } );
 

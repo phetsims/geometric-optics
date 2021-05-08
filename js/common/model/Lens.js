@@ -105,8 +105,18 @@ class Lens extends OpticalElement {
    * @public
    * @returns {number}
    */
-  getNormalizedValue( index ) {
+  getNormalizedIndex( index ) {
     return GeometricOpticsConstants.INDEX_OF_REFRACTION_RANGE.getNormalizedValue( index );
+  }
+
+  /**
+   * Returns a normalized value (with a max of 1) for the diameter
+   * @param {number} diameter - diameter
+   * @public
+   * @returns {number}
+   */
+  getNormalizedDiameter( diameter ) {
+    return diameter / GeometricOpticsConstants.DIAMETER_RANGE.max;
   }
 }
 

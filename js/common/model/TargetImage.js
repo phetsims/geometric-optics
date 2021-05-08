@@ -13,6 +13,7 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import Property from '../../../../axon/js/Property.js';
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 
 class TargetImage {
 
@@ -36,6 +37,9 @@ class TargetImage {
     // @public (read-only) {Lens}
     this.lens = lens;
 
+    // @public (read-only) {Property.<boolean>}
+    this.isVirtualImageProperty = new BooleanProperty( false );
+
     // updates the position of the image
     Property.multilink( [ sourceObject.positionProperty, lens.positionProperty, lens.focalLengthProperty ],
       ( objectPosition, lensPosition, focalLength ) => {
@@ -46,6 +50,8 @@ class TargetImage {
         const magnification = -1 * distanceImage / distanceObject;
         const yOffset = heightObject * magnification;
         this.positionProperty.value = lensPosition.plus( new Vector2( distanceImage, yOffset ) );
+        this.isVirtualImageProperty.value = this.isVirtualImage();
+        this.updateScale();
       } );
 
   }
@@ -61,7 +67,7 @@ class TargetImage {
 
 
   /**
-   * updates the scale of the image
+   * Updates the scale of the image
    * @public
    */
   updateScale() {

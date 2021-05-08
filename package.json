@@ -17,6 +17,8 @@
     "supportedBrands": [
       "phet",
       "adapted-from-phet"
+    ],
+    "phetLibs": [
     ]
   },
   "eslintConfig": {
