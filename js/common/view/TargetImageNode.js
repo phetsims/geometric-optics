@@ -19,30 +19,40 @@ class TargetImageNode extends Node {
   constructor( targetImage, modelViewTransform, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    super();
+    super( { tandem: tandem } );
 
-    const object = new Image( targetImage.sourceObject.typeProperty.value.target );
-    object.scale( 0.5, 0.5 );
+    const typeProperty = targetImage.sourceObject.typeProperty;
 
-    targetImage.sourceObject.typeProperty.link( type => {
-      object.image = type.target;
-    } );
+    const object = new Image( typeProperty.value.target, { scale: 0.5 } );
 
-    targetImage.positionProperty.link( position => {
+    function updateFrame() {
+      const isVirtual = targetImage.isVirtualImageProperty.value;
+      object.image = isVirtual ? typeProperty.value.source : typeProperty.value.target;
+    }
+
+    function updateScale() {
+      const position = targetImage.positionProperty.value;
       const scale = Math.abs( targetImage.scaleProperty.value );
       const verticalOffset = targetImage.isVirtualImage() ? -40 : -136;
       const horizontalOffset = targetImage.isVirtualImage() ? -30 : -25;
       object.translation = modelViewTransform.modelToViewPosition( position ).plusXY( horizontalOffset * scale, verticalOffset * scale );
       object.setScaleMagnitude( scale * 0.5 );
+    }
+
+    targetImage.sourceObject.typeProperty.link( type => {
+      updateFrame();
+    } );
+
+    targetImage.positionProperty.link( position => {
+      updateScale();
     } );
 
     targetImage.isVirtualImageProperty.link( isVirtual => {
-      if ( isVirtual ) {
-        object.image = targetImage.sourceObject.typeProperty.value.source;
-      }
-      else {
-        object.image = targetImage.sourceObject.typeProperty.value.target;
-      }
+      updateFrame();
+    } );
+
+    targetImage.lens.curvatureTypeProperty.link( curvatureType => {
+      updateScale();
     } );
 
     targetImage.lens.diameterProperty.link( diameter => {
