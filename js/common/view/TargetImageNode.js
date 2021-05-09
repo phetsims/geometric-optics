@@ -22,7 +22,7 @@ class TargetImageNode extends Node {
     super();
 
     const object = new Image( targetImage.sourceObject.typeProperty.value.target );
-    object.scale( -0.5, -0.5 );
+    object.scale( 0.5, 0.5 );
 
     targetImage.sourceObject.typeProperty.link( type => {
       object.image = type.target;
@@ -30,13 +30,19 @@ class TargetImageNode extends Node {
 
     targetImage.positionProperty.link( position => {
       const scale = Math.abs( targetImage.scaleProperty.value );
-      const sign = targetImage.isVirtualImage() ? -1 : 1;
-      object.translation = modelViewTransform.modelToViewPosition( position ).plusXY( -sign * 25 * scale, -sign * 136 * scale );
+      const verticalOffset = targetImage.isVirtualImage() ? -40 : -136;
+      const horizontalOffset = targetImage.isVirtualImage() ? -30 : -25;
+      object.translation = modelViewTransform.modelToViewPosition( position ).plusXY( horizontalOffset * scale, verticalOffset * scale );
       object.setScaleMagnitude( scale * 0.5 );
     } );
 
     targetImage.isVirtualImageProperty.link( isVirtual => {
-      object.scale( -1, -1 );
+      if ( isVirtual ) {
+        object.image = targetImage.sourceObject.typeProperty.value.source;
+      }
+      else {
+        object.image = targetImage.sourceObject.typeProperty.value.target;
+      }
     } );
 
     targetImage.lens.diameterProperty.link( diameter => {
