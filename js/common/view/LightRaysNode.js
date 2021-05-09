@@ -14,10 +14,11 @@ class LightRaysNode extends Node {
 
   /**
    * @param {LightRays} lightRays
+   * @param {Property.<boolean>} visibleVirtualImageProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
    */
-  constructor( lightRays, modelViewTransform, tandem ) {
+  constructor( lightRays, visibleVirtualImageProperty, modelViewTransform, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     super();
@@ -43,6 +44,7 @@ class LightRaysNode extends Node {
       }
     );
 
+    visibleVirtualImageProperty.linkAttribute( virtualRayPath, 'visible' );
   }
 
   /**
