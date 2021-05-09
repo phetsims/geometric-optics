@@ -1,3 +1,26 @@
 {
-
+  "pencil.png": {
+    "text": [
+      ""
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/190958/pencil-icon, edited by Patrick Wolfert"
+  },
+  "pencil_3d.png": {
+    "text": [
+      ""
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/190958/pencil-icon, edited by Patrick Wolfert"
+  },
+  "pencil_3d_reversed.png": {
+    "text": [
+      ""
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/190958/pencil-icon, edited by Patrick Wolfert"
+  }
 }

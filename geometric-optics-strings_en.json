@@ -52,5 +52,20 @@
   },
   "metersPattern": {
     "value": "{{meters}} m"
+  },
+  "object.light": {
+    "value": "Light"
+  },
+  "object.rocket": {
+    "value": "Rocket"
+  },
+  "object.pencil": {
+    "value": "Pencil"
+  },
+  "object.arrow": {
+    "value": "Arrow"
+  },
+  "object.tree": {
+    "value": "Tree"
   }
 }

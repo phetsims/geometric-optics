@@ -20,6 +20,7 @@ import LightRaysNode from './LightRaysNode.js';
 import SourceObjectNode from './SourceObjectNode.js';
 import TargetImageNode from './TargetImageNode.js';
 import VisibleProperties from './VisibleProperties.js';
+import SourceObjectComboBox from './SourceObjectComboBox.js';
 
 const ZOOM_DEFAULT = GeometricOpticsConstants.ZOOM_RANGE.defaultValue;
 const SCALE_FACTOR = 4 / 3;
@@ -80,6 +81,9 @@ class CommonScreenView extends ScreenView {
 
     this.visibleProperties.visibleFocalPointProperty.linkAttribute( focalPointsNode, 'visible' );
 
+    const comboBox = new SourceObjectComboBox( model.sourceObject.typeProperty, tandem );
+
+
     // scale the playAreaNode
     this.zoomLevelProperty.link( ( zoomLevel, oldZoomLevel ) => {
 
@@ -97,8 +101,11 @@ class CommonScreenView extends ScreenView {
     this.addChild( magnifyingGlassZoomButtonGroup );
     this.addChild( controlPanel );
     this.addChild( playAreaNode );
+    this.addChild( comboBox );
+
 
     controlPanel.centerBottom = ScreenView.DEFAULT_LAYOUT_BOUNDS.eroded( GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN ).centerBottom;
+    comboBox.rightTop = ScreenView.DEFAULT_LAYOUT_BOUNDS.eroded( GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN ).rightTop;
     magnifyingGlassZoomButtonGroup.top = 10;
     magnifyingGlassZoomButtonGroup.left = 10;
   }

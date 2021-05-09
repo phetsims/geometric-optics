@@ -9,7 +9,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
-import picture_c_3d_png from '../../../images/picture_c_3d_png.js';
 
 class SourceObjectNode extends Node {
 
@@ -29,7 +28,11 @@ class SourceObjectNode extends Node {
         transform: modelViewTransform
       } );
 
-    const object = new Image( picture_c_3d_png );
+    const object = new Image( sourceObject.typeProperty.value.source );
+
+    sourceObject.typeProperty.link( type => {
+      object.image = type.source;
+    } );
     object.scale( 0.5 );
 
     object.addInputListener( dragListener );

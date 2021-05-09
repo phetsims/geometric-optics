@@ -8,8 +8,6 @@ import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import picture_c_3d_png from '../../../images/picture_c_3d_reversed_png.js';
-
 
 class TargetImageNode extends Node {
 
@@ -23,8 +21,12 @@ class TargetImageNode extends Node {
 
     super();
 
-    const object = new Image( picture_c_3d_png );
+    const object = new Image( targetImage.sourceObject.typeProperty.value.target );
     object.scale( -0.5, -0.5 );
+
+    targetImage.sourceObject.typeProperty.link( type => {
+      object.image = type.target;
+    } );
 
     targetImage.positionProperty.link( position => {
       const scale = Math.abs( targetImage.scaleProperty.value );
