@@ -41,6 +41,7 @@ class CommonScreenView extends ScreenView {
 
     const centerPoint = ScreenView.DEFAULT_LAYOUT_BOUNDS.getCenter();
 
+    // TODO why a this?
     this.modelViewTransform = ModelViewTransform2.createOffsetXYScaleMapping( centerPoint, 200, -200 );
 
     this.visibleProperties = new VisibleProperties( tandem );
@@ -48,7 +49,7 @@ class CommonScreenView extends ScreenView {
     const sourceObjectNode = new SourceObjectNode( model.sourceObject, this.modelViewTransform, tandem );
     const lensNode = new LensNode( model.lens, this.modelViewTransform, tandem );
     const lightRaysNode = new LightRaysNode( model.lightRays, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
-    const targetImageNode = new TargetImageNode( model.targetImage, this.modelViewTransform, tandem );
+    const targetImageNode = new TargetImageNode( model.targetImage, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
 
     const focalPointsNode = new FocalPointsNode( model.lens, this.modelViewTransform, tandem );
 

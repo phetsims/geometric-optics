@@ -13,10 +13,11 @@ class TargetImageNode extends Node {
 
   /**
    * @param {TargetImage} targetImage
+   * @param {Property.<boolean>} visibleVirtualImageProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
    */
-  constructor( targetImage, modelViewTransform, tandem ) {
+  constructor( targetImage, visibleVirtualImageProperty, modelViewTransform, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     super( { tandem: tandem } );
@@ -39,24 +40,39 @@ class TargetImageNode extends Node {
       object.setScaleMagnitude( scale * 0.5 );
     }
 
+    function updateImage() {
+      const isVirtual = targetImage.isVirtualImageProperty.value;
+      object.image = isVirtual ? typeProperty.value.source : typeProperty.value.target;
+      const showVirtualImage = visibleVirtualImageProperty.value;
+      const isSourceToTheLeft = ( targetImage.sourceObject.positionProperty.value.x < targetImage.lens.positionProperty.value.x );
+      object.visible = ( ( isVirtual ) ? showVirtualImage : true ) && isSourceToTheLeft;
+    }
+
     targetImage.sourceObject.typeProperty.link( type => {
       updateFrame();
     } );
 
     targetImage.positionProperty.link( position => {
       updateScale();
+      updateImage();
     } );
 
     targetImage.isVirtualImageProperty.link( isVirtual => {
       updateFrame();
+      updateImage();
     } );
 
     targetImage.lens.curvatureTypeProperty.link( curvatureType => {
       updateScale();
+      updateImage();
     } );
 
     targetImage.lens.diameterProperty.link( diameter => {
       object.setImageOpacity( targetImage.lens.getNormalizedDiameter( diameter ) );
+    } );
+
+    visibleVirtualImageProperty.link( visible => {
+      updateImage();
     } );
 
     this.addChild( object );

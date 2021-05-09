@@ -158,7 +158,7 @@ class LightRays {
             // Draw virtual marginal rays
             if ( Cx > -5 * R || isVirtualImage ) {
               // Last condition needed to prevent problems that occur when image at infinity
-              this.virtualRay.moveTo( Ax, Ay );
+              this.virtualRay.moveTo( Bx, By );
               this.virtualRay.lineTo( Cx, Cy );
               this.virtualRay.moveTo( Bx, By + h );
               this.virtualRay.lineTo( Cx, Cy );
@@ -171,37 +171,45 @@ class LightRays {
         break;
       case LightRays.Modes.PRINCIPAL_RAYS:
 
-        // Ray passing through center of lens
-        this.realRay.moveTo( Ax, Ay );
-        this.realRay.lineTo( Bx, By );
-        this.realRay.lineTo( Cx, Cy );
-        m1 = ( By - Ay ) / ( Bx - Ax );
-        this.realRay.lineTo( Cx + R, Cy + ( m1 * R ) );
+        if ( Ax < Bx ) {
+          // Ray passing through center of lens
+          this.realRay.moveTo( Ax, Ay );
+          this.realRay.lineTo( Bx, By );
+          if ( Cx > Bx ) {
+            this.realRay.lineTo( Cx, Cy );
+          }
+          m1 = ( By - Ay ) / ( Bx - Ax );
+          this.realRay.lineTo( Cx + R, Cy + ( m1 * R ) );
 
-        // Ray parallel to the optical axis and that passes through the focal point on the other side of the lens
-        this.realRay.moveTo( Ax, Ay );
-        this.realRay.horizontalLineTo( Bx );
-        this.realRay.lineTo( Cx, Cy );
-        m2 = ( By - Ay ) / f;
-        this.realRay.lineTo( Cx + R, Cy + ( m2 * R ) );
+          // Ray parallel to the optical axis and that passes through the focal point on the other side of the lens
+          this.realRay.moveTo( Ax, Ay );
+          this.realRay.horizontalLineTo( Bx );
+          if ( Cx > Bx ) {
+            this.realRay.lineTo( Cx, Cy );
+          }
+          m2 = ( By - Ay ) / f;
+          this.realRay.lineTo( Cx + R, Cy + ( m2 * R ) );
 
-        // Ray that passes through the focal point of the lens and emerge parallel to the optical axis after the lens.
-        this.realRay.moveTo( Ax, Ay );
-        m3 = ( By - Ay ) / ( Bx - f - Ax );
-        this.realRay.lineTo( Bx, By + m3 * f );
-        this.realRay.horizontalLineToRelative( R );
-        this.realRay.lineTo( Cx, Cy );
+          // Ray that passes through the focal point of the lens and emerge parallel to the optical axis after the lens.
+          this.realRay.moveTo( Ax, Ay );
+          m3 = ( By - Ay ) / ( Bx - f - Ax );
+          this.realRay.lineTo( Bx, By + m3 * f );
+          if ( Cx > Bx ) {
+            this.realRay.lineTo( Cx, Cy );
+          }
+          this.realRay.horizontalLineToRelative( R );
 
-        // Draw principal virtual rays
-        if ( isVirtualImage ) {
-          this.virtualRay.moveTo( Ax, Ay );
-          this.virtualRay.lineTo( Cx, Cy );
-          this.virtualRay.moveTo( Bx, Cy );
-          this.virtualRay.lineTo( Cx, Cy );
-          this.virtualRay.moveTo( Bx, Ay );
-          this.virtualRay.lineTo( Cx, Cy );
+
+          // Draw principal virtual rays
+          if ( isVirtualImage ) {
+            this.virtualRay.moveTo( Bx, By );
+            this.virtualRay.lineTo( Cx, Cy );
+            this.virtualRay.moveTo( Bx, Cy );
+            this.virtualRay.lineTo( Cx, Cy );
+            this.virtualRay.moveTo( Bx, Ay );
+            this.virtualRay.lineTo( Cx, Cy );
+          }
         }
-
         break;
       case LightRays.Modes.MANY_RAYS:
         // eslint-disable-next-line no-case-declarations
