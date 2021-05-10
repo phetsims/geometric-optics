@@ -12,6 +12,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import SourceObjectTypes from './SourceObjectTypes.js';
+import Utils from '../../../../dot/js/Utils.js';
 
 const DEFAULT_SOURCE_POINT_1 = GeometricOpticsConstants.DEFAULT_SOURCE_POINT_1;
 const DEFAULT_SOURCE_POINT_2 = GeometricOpticsConstants.DEFAULT_SOURCE_POINT_2;
@@ -60,6 +61,29 @@ class SourceObject {
    */
   getPosition() {
     return this.positionProperty.value;
+  }
+
+  /**
+   * Returns the vertical offset of the movable position with respect to the source/object.
+   * @returns {number}
+   * @public
+   */
+  getVerticalOffset() {
+    return this.movablePositionProperty.value.y - this.positionProperty.value.y;
+  }
+
+  /**
+   * Sets the vertical offset of the movable position with respect to the source/object.
+   * @returns {Vector2}
+   * @public
+   */
+  clampVerticalOffset( verticalOffset ) {
+    const min = -0.5;
+    const max = 0.0;
+    const yConstrained = Utils.clamp( verticalOffset, min, max );
+    const yValue = this.positionProperty.value.y + yConstrained;
+    this.movablePositionProperty.value.setY( yValue );
+    this.movablePositionProperty.value.setX( this.positionProperty.value.x );
   }
 
   /**
