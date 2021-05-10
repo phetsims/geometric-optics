@@ -61,7 +61,7 @@
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "by Patrick Wolfert; original image by PrinterKiller, downloaded from https://openclipart.org/detail/161173/tree",
+    "notes": "by Patrick Wolfert; original image by PrinterKiller, downloaded from https://openclipart.org/detail/161173/tree"
   },
   "tree-3d-reversed.png": {
     "text": [
@@ -80,6 +80,14 @@
     "notes": ""
   },
   "lamp-red.png": {
+    "text": [
+      ""
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": ""
+  },
+  "screen-3d.png": {
     "text": [
       ""
     ],
