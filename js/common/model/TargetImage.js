@@ -38,7 +38,7 @@ class TargetImage {
     this.lens = lens;
 
     // @public (read-only) {Property.<boolean>}
-    this.isVirtualImageProperty = new BooleanProperty( false );
+    this.isInvertedImageProperty = new BooleanProperty( false );
 
     // updates the position of the image
     Property.multilink( [ sourceObject.positionProperty, lens.positionProperty, lens.focalLengthProperty ],
@@ -50,7 +50,7 @@ class TargetImage {
         const magnification = -1 * distanceImage / distanceObject;
         const yOffset = heightObject * magnification;
         this.positionProperty.value = lensPosition.plus( new Vector2( distanceImage, yOffset ) );
-        this.isVirtualImageProperty.value = this.isVirtualImage();
+        this.isInvertedImageProperty.value = this.isInvertedImage();
         this.updateScale();
       } );
 
@@ -133,7 +133,7 @@ class TargetImage {
    * @public
    * @returns {boolean}
    */
-  isVirtualImage() {
+  isInvertedImage() {
     return this.getObjectLensDistance() < this.getFocalLength() || this.getFocalLength() < 0;
   }
 }

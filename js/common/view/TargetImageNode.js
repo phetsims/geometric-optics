@@ -27,21 +27,21 @@ class TargetImageNode extends Node {
     const object = new Image( typeProperty.value.target, { scale: 0.5 } );
 
     function updateFrame() {
-      const isVirtual = targetImage.isVirtualImageProperty.value;
+      const isVirtual = targetImage.isInvertedImageProperty.value;
       object.image = isVirtual ? typeProperty.value.source : typeProperty.value.target;
     }
 
     function updateScale() {
       const position = targetImage.positionProperty.value;
       const scale = Math.abs( targetImage.scaleProperty.value );
-      const verticalOffset = targetImage.isVirtualImage() ? -40 : -136;
-      const horizontalOffset = targetImage.isVirtualImage() ? -30 : -25;
+      const verticalOffset = targetImage.isInvertedImage() ? -40 : -136;
+      const horizontalOffset = targetImage.isInvertedImage() ? -30 : -25;
       object.translation = modelViewTransform.modelToViewPosition( position ).plusXY( horizontalOffset * scale, verticalOffset * scale );
       object.setScaleMagnitude( scale * 0.5 );
     }
 
     function updateImage() {
-      const isVirtual = targetImage.isVirtualImageProperty.value;
+      const isVirtual = targetImage.isInvertedImageProperty.value;
       object.image = isVirtual ? typeProperty.value.source : typeProperty.value.target;
       const showVirtualImage = visibleVirtualImageProperty.value;
       const isSourceToTheLeft = ( targetImage.sourceObject.positionProperty.value.x < targetImage.lens.positionProperty.value.x );
@@ -57,7 +57,7 @@ class TargetImageNode extends Node {
       updateImage();
     } );
 
-    targetImage.isVirtualImageProperty.link( isVirtual => {
+    targetImage.isInvertedImageProperty.link( isVirtual => {
       updateFrame();
       updateImage();
     } );

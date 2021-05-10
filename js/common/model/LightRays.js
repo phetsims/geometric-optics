@@ -105,7 +105,7 @@ class LightRays {
     let m2;
     let m3;
 
-    const isVirtualImage = this.targetImage.isVirtualImage();
+    const isVirtualImage = this.targetImage.isInvertedImage();
     const objectLensDistance = this.targetImage.getObjectLensDistance();
 
     // Draw different rays depending on the mode
