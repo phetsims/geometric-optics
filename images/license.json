@@ -7,7 +7,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/190958/pencil-icon, edited by Patrick Wolfert"
   },
-  "pencil_3d.png": {
+  "pencil-3d.png": {
     "text": [
       ""
     ],
@@ -15,12 +15,76 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/190958/pencil-icon, edited by Patrick Wolfert"
   },
-  "pencil_3d_reversed.png": {
+  "pencil-3d-reversed.png": {
     "text": [
       ""
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
     "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/190958/pencil-icon, edited by Patrick Wolfert"
+  },
+  "rocket.png": {
+    "text": [
+      ""
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/178310/rocket, edited by Patrick Wolfert"
+  },
+  "rocket-3d.png": {
+    "text": [
+      ""
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/178310/rocket, edited by Patrick Wolfert"
+  },
+  "rocket-3d-reversed.png": {
+    "text": [
+      ""
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "by williamtheaker, downloaded from https://openclipart.org/detail/178310/rocket, edited by Patrick Wolfert"
+  },
+  "tree.png": {
+    "text": [
+      ""
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "by Patrick Wolfert; original image by PrinterKiller, downloaded from https://openclipart.org/detail/161173/tree"
+  },
+  "tree-3d.png": {
+    "text": [
+      ""
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "by Patrick Wolfert; original image by PrinterKiller, downloaded from https://openclipart.org/detail/161173/tree",
+  },
+  "tree-3d-reversed.png": {
+    "text": [
+      ""
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "by Patrick Wolfert; original image by PrinterKiller, downloaded from https://openclipart.org/detail/161173/tree"
+  },
+  "lamp-blue.png": {
+    "text": [
+      ""
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": ""
+  },
+  "lamp-red.png": {
+    "text": [
+      ""
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": ""
   }
 }
