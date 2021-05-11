@@ -40,9 +40,6 @@ class Lens extends OpticalElement {
       }
     );
 
-    // @public (read-only) Shape of the lens
-    this.shape = new Shape();
-
     // updates the shape of the lens
     Property.multilink( [
       this.positionProperty,
@@ -109,15 +106,6 @@ class Lens extends OpticalElement {
     return GeometricOpticsConstants.INDEX_OF_REFRACTION_RANGE.getNormalizedValue( index );
   }
 
-  /**
-   * Returns a normalized value (with a max of 1) for the diameter
-   * @param {number} diameter - diameter
-   * @public
-   * @returns {number}
-   */
-  getNormalizedDiameter( diameter ) {
-    return diameter / GeometricOpticsConstants.DIAMETER_RANGE.max;
-  }
 }
 
 geometricOptics.register( 'Lens', Lens );
