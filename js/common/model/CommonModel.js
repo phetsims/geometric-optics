@@ -24,7 +24,7 @@ class CommonModel {
     this.sourceObject = new SourceObject( tandem );
     this.lens = new Lens( tandem );
     this.targetImage = new TargetImage( this.sourceObject, this.lens, tandem );
-    this.lightRays = new LightRays( this.sourceObject, this.lens, this.targetImage, tandem );
+    this.lightRays = new LightRays( this.sourceObject.positionProperty, this.lens, this.targetImage, tandem );
   }
 
   /**

@@ -20,18 +20,18 @@ const LENS_TIP_OFFSET = GeometricOpticsConstants.LENS_TIP_OFFSET;
 class LightRays {
 
   /**
-   * @param {SourceObject} sourceObject
+   * @param {Property.<Vector2>} sourceObjectPositionProperty
    * @param {Lens} lens
    * @param {TargetImage} targetImage
    * @param {Tandem} tandem
    */
-  constructor( sourceObject, lens, targetImage, tandem ) {
+  constructor( sourceObjectPositionProperty, lens, targetImage, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     this.modeProperty = new EnumerationProperty( LightRays.Modes, LightRays.Modes.NO_RAYS );
 
     this.lens = lens;
-    this.sourceObject = sourceObject;
+    this.sourceObjectPositionProperty = sourceObjectPositionProperty;
     this.targetImage = targetImage;
 
     this.realRay = new Shape();
@@ -39,7 +39,7 @@ class LightRays {
 
     Property.multilink(
       [
-        sourceObject.positionProperty,
+        sourceObjectPositionProperty,
         lens.positionProperty,
         this.modeProperty,
         lens.diameterProperty,
@@ -106,7 +106,7 @@ class LightRays {
     let m3;
 
     const isVirtualImage = this.targetImage.isInvertedImage();
-    const objectLensDistance = this.targetImage.getObjectLensDistance();
+    const objectLensDistance = this.getObjectLensDistance();
 
     // Draw different rays depending on the mode
     switch( mode ) {
@@ -245,6 +245,16 @@ class LightRays {
       default:
         throw new Error( `Can't generate rays: ${mode}` );
     }
+  }
+
+  /**
+   * Returns the horizontal distance between the object and the optical element.
+   * A negative distance indicates that the object is to the right of the optical element.
+   * @public
+   * @returns {number}
+   */
+  getObjectLensDistance() {
+    return this.lens.positionProperty.value.x - this.sourceObjectPositionProperty.value.x;
   }
 }
 
