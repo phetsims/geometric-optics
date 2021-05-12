@@ -41,11 +41,11 @@
   "many": {
     "value": "Many"
   },
-  "diverging": {
-    "value": "Diverging"
+  "concave": {
+    "value": "Concave"
   },
-  "converging": {
-    "value": "Converging"
+  "convex": {
+    "value": "Convex"
   },
   "movablePoint": {
     "value": "Movable Point"

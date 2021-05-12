@@ -27,7 +27,7 @@ class Mirror extends OpticalElement {
 
     this.focalLengthProperty = new DerivedProperty(
       [ this.radiusOfCurvatureProperty, this.curvatureTypeProperty ], ( radiusOfCurvature, type ) => {
-        const signRadius = type === CurvatureTypes.CONVERGING ? 1 : -1;
+        const signRadius = type === CurvatureTypes.CONVEX ? 1 : -1;
         return signRadius * radiusOfCurvature / ( 2 );
       }
     );
@@ -41,7 +41,7 @@ class Mirror extends OpticalElement {
       this.curvatureTypeProperty ], ( position, radius, diameter, type ) => {
       const halfHeight = diameter / 2;
 
-      if ( type === CurvatureTypes.CONVERGING ) {
+      if ( type === CurvatureTypes.CONVEX ) {
         const halfWidth = 1 / 2 * halfHeight * halfHeight / radius;
         const top = position.plusXY( 0, halfHeight );
         const bottom = position.plusXY( 0, -halfHeight );

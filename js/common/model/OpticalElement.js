@@ -40,7 +40,7 @@ class OpticalElement {
     this.diameterProperty = new NumberProperty( DIAMETER_DEFAULT, { range: GeometricOpticsConstants.DIAMETER_RANGE } );
 
     // @public {EnumerationProperty.<CurvatureTypes>} Type of Curvature of the optical element.
-    this.curvatureTypeProperty = new EnumerationProperty( CurvatureTypes, CurvatureTypes.CONVERGING );
+    this.curvatureTypeProperty = new EnumerationProperty( CurvatureTypes, CurvatureTypes.CONVEX );
 
     // @public {EnumerationProperty.<TransmissionTypes>} Type of transmission of the optical element.
     this.transmissionTypeProperty = new EnumerationProperty( TransmissionTypes, TransmissionTypes.REFLECTED );

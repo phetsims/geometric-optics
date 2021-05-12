@@ -10,8 +10,8 @@ import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import geometricOptics from '../../geometricOptics.js';
 
 const CurvatureTypes = Enumeration.byKeys( [
-  'CONVERGING',
-  'DIVERGING'
+  'CONVEX',
+  'CONCAVE'
 ] );
 
 geometricOptics.register( 'CurvatureTypes', CurvatureTypes );

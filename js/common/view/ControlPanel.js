@@ -35,8 +35,8 @@ const principalString = geometricOpticsStrings.principal;
 const curvatureRadiusString = geometricOpticsStrings.curvatureRadius;
 const diameterString = geometricOpticsStrings.diameter;
 const refractiveIndexString = geometricOpticsStrings.refractiveIndex;
-const convergingString = geometricOpticsStrings.converging;
-const divergingString = geometricOpticsStrings.diverging;
+const concaveString = geometricOpticsStrings.concave;
+const convexString = geometricOpticsStrings.convex;
 const focalPointString = geometricOpticsStrings.focalPoint;
 const rulersString = geometricOpticsStrings.rulers;
 const virtualImageString = geometricOpticsStrings.virtualImage;
@@ -84,12 +84,12 @@ class ControlPanel extends Panel {
     const Types = CurvatureTypes;
     const curvatureTypesRadioButtonGroupItems = [
       {
-        value: Types.CONVERGING,
-        node: new Text( convergingString )
+        value: Types.CONCAVE,
+        node: new Text( concaveString )
       },
       {
-        value: Types.DIVERGING,
-        node: new Text( divergingString )
+        value: Types.CONVEX,
+        node: new Text( convexString )
       }
     ];
 

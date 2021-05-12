@@ -35,7 +35,7 @@ class Lens extends OpticalElement {
     // @public {Property.<number>} focal length of the lens - negative indicates the lens is diverging.
     this.focalLengthProperty = new DerivedProperty(
       [ this.radiusOfCurvatureProperty, this.indexOfRefractionProperty, this.curvatureTypeProperty ], ( radiusOfCurvature, indexOfRefraction, type ) => {
-        const signRadius = type === CurvatureTypes.CONVERGING ? 1 : -1;
+        const signRadius = type === CurvatureTypes.CONVEX ? 1 : -1;
         return signRadius * radiusOfCurvature / ( 2 * ( indexOfRefraction - 1 ) );
       }
     );
@@ -49,7 +49,7 @@ class Lens extends OpticalElement {
       this.curvatureTypeProperty ], ( position, radius, index, diameter, type ) => {
       const halfHeight = diameter / 2;
 
-      if ( type === CurvatureTypes.CONVERGING ) {
+      if ( type === CurvatureTypes.CONVEX ) {
         const halfWidth = 1 / 2 * halfHeight * halfHeight / ( radius + 1 );
         const top = position.plusXY( 0, halfHeight );
         const bottom = position.plusXY( 0, -halfHeight );
