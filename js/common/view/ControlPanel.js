@@ -5,6 +5,7 @@
  */
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
+import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
@@ -46,14 +47,19 @@ const guidesString = geometricOpticsStrings.guides;
 class ControlPanel extends Panel {
 
   /**
-   * @param {Lens} lens
+   * @param {OpticalElement} opticalElement
    * @param {LightRays} lightRays
    * @param {VisibleProperties} visibleProperties
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
+   * @param {Object} [options]
    */
-  constructor( lens, lightRays, visibleProperties, modelViewTransform, tandem ) {
+  constructor( opticalElement, lightRays, visibleProperties, modelViewTransform, tandem, options ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+
+    options = merge( {
+      hasMedia: true
+    }, options );
 
     const Modes = LightRays.Modes;
     const rayModesRadioButtonGroupItems = [
@@ -74,7 +80,6 @@ class ControlPanel extends Panel {
         node: new Text( noneString )
       }
     ];
-
 
     const Types = CurvatureTypes;
     const curvatureTypesRadioButtonGroupItems = [
@@ -116,9 +121,23 @@ class ControlPanel extends Panel {
         }
       };
 
-    const curvatureRadiusControl = new NumberControl( curvatureRadiusString, lens.radiusOfCurvatureProperty, RADIUS_OF_CURVATURE_RANGE, lengthNumberControlOptions );
-    const indexOfRefractionControl = new NumberControl( refractiveIndexString, lens.indexOfRefractionProperty, INDEX_OF_REFRACTION_RANGE, indexOfRefractionNumberControlOptions );
-    const diameterControl = new NumberControl( diameterString, lens.diameterProperty, DIAMETER_RANGE, lengthNumberControlOptions );
+    const curvatureRadiusControl = new NumberControl( curvatureRadiusString, opticalElement.radiusOfCurvatureProperty, RADIUS_OF_CURVATURE_RANGE, lengthNumberControlOptions );
+
+
+    const diameterControl = new NumberControl( diameterString, opticalElement.diameterProperty, DIAMETER_RANGE, lengthNumberControlOptions );
+
+    let indexOfRefractionControl;
+    let controls;
+    if ( options.hasMedia ) {
+      indexOfRefractionControl = new NumberControl( refractiveIndexString, opticalElement.indexOfRefractionProperty, INDEX_OF_REFRACTION_RANGE, indexOfRefractionNumberControlOptions );
+      controls = [ curvatureRadiusControl,
+        indexOfRefractionControl,
+        diameterControl ];
+    }
+    else {
+      controls = [ curvatureRadiusControl,
+        diameterControl ];
+    }
 
     const rayModesRadioButtonGroup = new VerticalAquaRadioButtonGroup(
       lightRays.modeProperty,
@@ -164,7 +183,7 @@ class ControlPanel extends Panel {
     const separator = new Line( 0, 10, 0, 100, { stroke: 'gray', lineWidth: 1 } );
 
     const curvatureTypesRadioButtonGroup = new VerticalAquaRadioButtonGroup(
-      lens.curvatureTypeProperty,
+      opticalElement.curvatureTypeProperty,
       curvatureTypesRadioButtonGroupItems, {
         spacing: 8,
         align: 'left',
@@ -179,10 +198,7 @@ class ControlPanel extends Panel {
       spacing: 8,
       align: 'left',
       children: [ rayModesRadioButtonGroup,
-        separator,
-        curvatureRadiusControl,
-        indexOfRefractionControl,
-        diameterControl,
+        separator, ...controls,
         curvatureTypesRadioButtonGroup, checkboxGroup ]
     } ), {
       xAlign: 'left'
