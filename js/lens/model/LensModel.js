@@ -23,10 +23,9 @@ class LensModel extends CommonModel {
     super( tandem );
 
     this.sourceObject = new SourceObject( tandem );
-    this.lens = new Lens( tandem );
-    this.opticalElement = this.lens;
-    this.targetImage = new TargetImage( this.sourceObject, this.lens, tandem );
-    this.lightRays = new LightRays( this.sourceObject.positionProperty, this.lens, this.targetImage, tandem );
+    this.opticalElement = new Lens( tandem );
+    this.targetImage = new TargetImage( this.sourceObject, this.opticalElement, tandem );
+    this.lightRays = new LightRays( this.sourceObject.positionProperty, this.opticalElement, this.targetImage, tandem );
   }
 
   /**
@@ -34,7 +33,7 @@ class LensModel extends CommonModel {
    * @public
    */
   reset() {
-    this.lens.reset();
+    this.opticalElement.reset();
     this.sourceObject.reset();
     this.targetImage.reset();
     this.lightRays.reset();

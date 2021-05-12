@@ -33,8 +33,6 @@ class LensScreenView extends CommonScreenView {
     const lensNode = new LensNode( model.lens, this.modelViewTransform, tandem );
     this.playAreaNode.addChild( lensNode );
 
-    // create control panel
-
     const resetAllButton = new ResetAllButton( {
       listener: () => {
         this.interruptSubtreeInput(); // cancel interactions that may be in progress
