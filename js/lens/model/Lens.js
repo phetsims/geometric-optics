@@ -13,9 +13,9 @@ import Property from '../../../../axon/js/Property.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-import CurvatureTypes from './CurvatureTypes.js';
-import OpticalElement from './OpticalElement.js';
+import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
+import CurvatureTypes from '../../common/model/CurvatureTypes.js';
+import OpticalElement from '../../common/model/OpticalElement.js';
 
 const INDEX_OF_REFRACTION_DEFAULT = GeometricOpticsConstants.INDEX_OF_REFRACTION_RANGE.defaultValue;
 

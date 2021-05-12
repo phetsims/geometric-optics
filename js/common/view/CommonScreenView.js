@@ -13,9 +13,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import CommonModel from '../model/CommonModel.js';
-import ControlPanel from './ControlPanel.js';
 import FocalPointsNode from './FocalPointsNode.js';
-import LensNode from './LensNode.js';
 import LightRaysNode from './LightRaysNode.js';
 import SourceObjectNode from './SourceObjectNode.js';
 import TargetImageNode from './TargetImageNode.js';
@@ -46,11 +44,10 @@ class CommonScreenView extends ScreenView {
     this.visibleProperties = new VisibleProperties( tandem );
 
     const sourceObjectNode = new SourceObjectNode( model.sourceObject, this.visibleProperties.visibleMovablePointProperty, this.modelViewTransform, tandem );
-    const lensNode = new LensNode( model.lens, this.modelViewTransform, tandem );
     const lightRaysNode = new LightRaysNode( model.lightRays, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
     const targetImageNode = new TargetImageNode( model.targetImage, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
 
-    const focalPointsNode = new FocalPointsNode( model.lens, this.modelViewTransform, tandem );
+    const focalPointsNode = new FocalPointsNode( model.opticalElement, this.modelViewTransform, tandem );
 
     this.zoomLevelProperty = new NumberProperty( ZOOM_DEFAULT, { range: GeometricOpticsConstants.ZOOM_RANGE } );
 
@@ -67,17 +64,14 @@ class CommonScreenView extends ScreenView {
       }
     } );
 
-    // create control panel
-    const controlPanel = new ControlPanel( model.lens, model.lightRays, this.visibleProperties, this.modelViewTransform, tandem );
 
     // layer for all the nodes within the play area
-    const playAreaNode = new Node();
+    this.playAreaNode = new Node();
 
-    playAreaNode.addChild( sourceObjectNode );
-    playAreaNode.addChild( lensNode );
-    playAreaNode.addChild( targetImageNode );
-    playAreaNode.addChild( focalPointsNode );
-    playAreaNode.addChild( lightRaysNode );
+    this.playAreaNode.addChild( sourceObjectNode );
+    this.playAreaNode.addChild( targetImageNode );
+    this.playAreaNode.addChild( focalPointsNode );
+    this.playAreaNode.addChild( lightRaysNode );
 
     this.visibleProperties.visibleFocalPointProperty.linkAttribute( focalPointsNode, 'visible' );
 
@@ -93,18 +87,17 @@ class CommonScreenView extends ScreenView {
       if ( oldZoomLevel ) {
         const scale = Math.pow( SCALE_FACTOR, zoomLevel - oldZoomLevel );
         const translateVector = centerPoint.times( 1 / scale - 1 );
-        playAreaNode.scale( scale );
-        playAreaNode.translate( translateVector );
+        this.playAreaNode.scale( scale );
+        this.playAreaNode.translate( translateVector );
       }
     } );
 
     this.addChild( magnifyingGlassZoomButtonGroup );
-    this.addChild( controlPanel );
-    this.addChild( playAreaNode );
+
+    this.addChild( this.playAreaNode );
     this.addChild( comboBox );
 
 
-    controlPanel.centerBottom = ScreenView.DEFAULT_LAYOUT_BOUNDS.eroded( GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN ).centerBottom;
     comboBox.rightTop = ScreenView.DEFAULT_LAYOUT_BOUNDS.eroded( GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN ).rightTop;
     magnifyingGlassZoomButtonGroup.top = 10;
     magnifyingGlassZoomButtonGroup.left = 10;

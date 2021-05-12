@@ -14,14 +14,14 @@ import GeometricOpticsColorProfile from '../GeometricOpticsColorProfile.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import OpticalElementNode from './OpticalElementNode.js';
 
-const FILL = GeometricOpticsColorProfile.lensFillProperty;
-const STROKE = GeometricOpticsColorProfile.lensStrokeProperty;
-const LINE_WIDTH = GeometricOpticsConstants.LENS_LINE_WIDTH;
+const FILL = GeometricOpticsColorProfile.mirrorFillProperty;
+const STROKE = GeometricOpticsColorProfile.mirrorStrokeProperty;
+const LINE_WIDTH = GeometricOpticsConstants.OPTICAL_ELEMENT_LINE_WIDTH;
 
 class MirrorNode extends OpticalElementNode {
 
   /**
-   * @param {Lens} mirror
+   * @param {OpticalElement} mirror
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
    * @param {Object} [options]

@@ -11,8 +11,8 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import CurvatureTypes from './CurvatureTypes.js';
-import OpticalElement from './OpticalElement.js';
+import CurvatureTypes from '../../common/model/CurvatureTypes.js';
+import OpticalElement from '../../common/model/OpticalElement.js';
 import Property from '../../../../axon/js/Property.js';
 
 class Mirror extends OpticalElement {
@@ -83,7 +83,7 @@ class Mirror extends OpticalElement {
    * @public
    */
   reset() {
-    this.super.reset();
+    super.reset();
   }
 
 }

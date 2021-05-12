@@ -17,7 +17,7 @@ import OpticalElementNode from './OpticalElementNode.js';
 
 const FILL = GeometricOpticsColorProfile.lensFillProperty;
 const STROKE = GeometricOpticsColorProfile.lensStrokeProperty;
-const LINE_WIDTH = GeometricOpticsConstants.LENS_LINE_WIDTH;
+const LINE_WIDTH = GeometricOpticsConstants.OPTICAL_ELEMENT_LINE_WIDTH;
 
 class LensNode extends OpticalElementNode {
 

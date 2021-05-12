@@ -65,9 +65,9 @@ const GeometricOpticsConstants = {
   //                              RAYS
 
 
-  LENS_TIP_OFFSET: 0.025, // meters
+  OPTICAL_ELEMENT_TIP_OFFSET: 0.025, // meters
 
-  LENS_LINE_WIDTH: 2,
+  OPTICAL_ELEMENT_LINE_WIDTH: 2,
 
 
   //----------------------------------------------------------------------------------------

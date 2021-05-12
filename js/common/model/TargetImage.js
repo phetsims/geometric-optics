@@ -19,10 +19,10 @@ class TargetImage {
 
   /**
    * @param {SourceObject} sourceObject
-   * @param {Lens} lens
+   * @param {OpticalElement} opticalElement
    * @param {Tandem} tandem
    */
-  constructor( sourceObject, lens, tandem ) {
+  constructor( sourceObject, opticalElement, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     // @public {Property.<Vector2>} position of the image
@@ -34,22 +34,22 @@ class TargetImage {
     // @public (read-only) {SourceObject}
     this.sourceObject = sourceObject;
 
-    // @public (read-only) {Lens}
-    this.lens = lens;
+    // @public (read-only) {OpticalElement}
+    this.opticalElement = opticalElement;
 
     // @public (read-only) {Property.<boolean>}
     this.isInvertedImageProperty = new BooleanProperty( false );
 
     // updates the position of the image
-    Property.multilink( [ sourceObject.positionProperty, lens.positionProperty, lens.focalLengthProperty ],
-      ( objectPosition, lensPosition, focalLength ) => {
-        const distanceObject = lensPosition.x - objectPosition.x;
-        const heightObject = objectPosition.y - lensPosition.y;
+    Property.multilink( [ sourceObject.positionProperty, opticalElement.positionProperty, opticalElement.focalLengthProperty ],
+      ( objectPosition, opticalElementPosition, focalLength ) => {
+        const distanceObject = opticalElementPosition.x - objectPosition.x;
+        const heightObject = objectPosition.y - opticalElementPosition.y;
         const f = focalLength;
         const distanceImage = ( f * distanceObject ) / ( distanceObject - f );
         const magnification = -1 * distanceImage / distanceObject;
         const yOffset = heightObject * magnification;
-        this.positionProperty.value = lensPosition.plus( new Vector2( distanceImage, yOffset ) );
+        this.positionProperty.value = opticalElementPosition.plus( new Vector2( distanceImage, yOffset ) );
         this.isInvertedImageProperty.value = this.isInvertedImage();
         this.updateScale();
       } );
@@ -83,7 +83,7 @@ class TargetImage {
    */
   getHeight() {
     return this.getMagnification() * ( this.sourceObject.positionProperty.value.y -
-                                       this.lens.positionProperty.value.y );
+                                       this.opticalElement.positionProperty.value.y );
   }
 
   /**
@@ -103,7 +103,7 @@ class TargetImage {
    * @returns {number}
    */
   getObjectLensDistance() {
-    return this.lens.positionProperty.value.x - this.sourceObject.positionProperty.value.x;
+    return this.opticalElement.positionProperty.value.x - this.sourceObject.positionProperty.value.x;
   }
 
   /**
@@ -113,11 +113,11 @@ class TargetImage {
    * @returns {number}
    */
   getFocalLength() {
-    return this.lens.focalLengthProperty.value;
+    return this.opticalElement.focalLengthProperty.value;
   }
 
   /**
-   * Returns the horizontal distance of the image from the lens.
+   * Returns the horizontal distance of the image from the opticalElement.
    * A negative distance indicates that the image os to the left of the optical element.
    * @public
    * @returns {number}

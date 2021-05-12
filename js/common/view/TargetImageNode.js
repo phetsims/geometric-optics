@@ -44,7 +44,7 @@ class TargetImageNode extends Node {
       const isVirtual = targetImage.isInvertedImageProperty.value;
       object.image = isVirtual ? typeProperty.value.source : typeProperty.value.target;
       const showVirtualImage = visibleVirtualImageProperty.value;
-      const isSourceToTheLeft = ( targetImage.sourceObject.positionProperty.value.x < targetImage.lens.positionProperty.value.x );
+      const isSourceToTheLeft = ( targetImage.sourceObject.positionProperty.value.x < targetImage.opticalElement.positionProperty.value.x );
       object.visible = ( ( isVirtual ) ? showVirtualImage : true ) && isSourceToTheLeft;
     }
 
@@ -62,13 +62,13 @@ class TargetImageNode extends Node {
       updateImage();
     } );
 
-    targetImage.lens.curvatureTypeProperty.link( curvatureType => {
+    targetImage.opticalElement.curvatureTypeProperty.link( curvatureType => {
       updateScale();
       updateImage();
     } );
 
-    targetImage.lens.diameterProperty.link( diameter => {
-      object.setImageOpacity( targetImage.lens.getNormalizedDiameter( diameter ) );
+    targetImage.opticalElement.diameterProperty.link( diameter => {
+      object.setImageOpacity( targetImage.opticalElement.getNormalizedDiameter( diameter ) );
     } );
 
     visibleVirtualImageProperty.link( visible => {

@@ -4,14 +4,15 @@
  * @author Martin Veillette
  */
 
-import ScreenView from '../../../../joist/js/ScreenView.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
+import MirrorNode from '../../common/view/MirrorNode.js';
 import geometricOptics from '../../geometricOptics.js';
 import MirrorModel from '../model/MirrorModel.js';
+import CommonScreenView from '../../common/view/CommonScreenView.js';
 
-class MirrorScreenView extends ScreenView {
+class MirrorScreenView extends CommonScreenView {
 
   /**
    * @param {MirrorModel} model
@@ -21,7 +22,11 @@ class MirrorScreenView extends ScreenView {
     assert && assert( model instanceof MirrorModel, 'invalid model' );
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    super( { tandem: tandem } );
+    super( model, tandem );
+
+    const mirrorNode = new MirrorNode( model.opticalElement, this.modelViewTransform, tandem );
+    this.playAreaNode.addChild( mirrorNode );
+
 
     const resetAllButton = new ResetAllButton( {
       listener: () => {

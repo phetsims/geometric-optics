@@ -9,7 +9,7 @@ import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import Circle from '../../../scenery/js/nodes/Circle.js';
 import GeometricOpticsColorProfile from '../common/GeometricOpticsColorProfile.js';
 import geometricOptics from '../geometricOptics.js';
-import geometricOpticsString from '../geometricOpticsStrings.js';
+import geometricOpticsStrings from '../geometricOpticsStrings.js';
 import MirrorModel from './model/MirrorModel.js';
 import MirrorScreenView from './view/MirrorScreenView.js';
 
@@ -21,7 +21,7 @@ class MirrorScreen extends Screen {
   constructor( tandem ) {
 
     const options = {
-      name: geometricOpticsString.screen.mirror,
+      name: geometricOpticsStrings.screen.mirror,
       homeScreenIcon: new ScreenIcon( new Circle( 4, { fill: 'green' } ) ),
       backgroundColorProperty: GeometricOpticsColorProfile.screenBackgroundColorProperty,
       tandem: tandem

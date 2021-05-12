@@ -36,7 +36,7 @@ class LightRaysNode extends Node {
     this.addChild( virtualRayPath );
 
 
-    Property.multilink( [ lightRays.sourceObjectPositionProperty, lightRays.lens.positionProperty, lightRays.modeProperty, lightRays.lens.diameterProperty, lightRays.lens.focalLengthProperty ],
+    Property.multilink( [ lightRays.sourceObjectPositionProperty, lightRays.opticalElement.positionProperty, lightRays.modeProperty, lightRays.opticalElement.diameterProperty, lightRays.opticalElement.focalLengthProperty ],
       () => {
         // Move this node as the model representation moves
         realRayPath.shape = modelViewTransform.modelToViewShape( lightRays.realRay );
