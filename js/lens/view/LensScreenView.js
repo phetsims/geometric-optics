@@ -10,7 +10,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import CommonScreenView from '../../common/view/CommonScreenView.js';
 import ControlPanel from '../../common/view/ControlPanel.js';
-import LensNode from '../../common/view/LensNode.js';
+import LensNode from './LensNode.js';
 import geometricOptics from '../../geometricOptics.js';
 import LensModel from '../model/LensModel.js';
 

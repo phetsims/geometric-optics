@@ -11,9 +11,9 @@ import merge from '../../../../phet-core/js/merge.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsColorProfile from '../GeometricOpticsColorProfile.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-import OpticalElementNode from './OpticalElementNode.js';
+import GeometricOpticsColorProfile from '../../common/GeometricOpticsColorProfile.js';
+import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
+import OpticalElementNode from '../../common/view/OpticalElementNode.js';
 
 const FILL = GeometricOpticsColorProfile.lensFillProperty;
 const STROKE = GeometricOpticsColorProfile.lensStrokeProperty;

@@ -20,11 +20,11 @@ const STROKE = GeometricOpticsColorProfile.focalPointStrokeProperty;
 class FocalPointsNode extends Node {
 
   /**
-   * @param {Lens} lens
+   * @param {OpticalElement} opticalElement
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
    */
-  constructor( lens, modelViewTransform, tandem ) {
+  constructor( opticalElement, modelViewTransform, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     super();
@@ -45,7 +45,7 @@ class FocalPointsNode extends Node {
     // focal point to the left of the optical element if the focal length is positive
     const negativeFocalPoint = new PlusNode( plusNodeOptions );
 
-    Property.multilink( [ lens.positionProperty, lens.focalLengthProperty ], ( position, focalLength ) => {
+    Property.multilink( [ opticalElement.positionProperty, opticalElement.focalLengthProperty ], ( position, focalLength ) => {
       positiveFocalPoint.center = modelViewTransform.modelToViewPosition( position.plusXY( focalLength, 0 ) );
       negativeFocalPoint.center = modelViewTransform.modelToViewPosition( position.plusXY( -focalLength, 0 ) );
     } );

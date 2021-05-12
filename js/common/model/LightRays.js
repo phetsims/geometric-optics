@@ -104,14 +104,14 @@ class LightRays {
     let m3;
 
     const isVirtualImage = this.targetImage.isInvertedImage();
-    const objectLensDistance = this.getObjectLensDistance();
+    const objectOpticalElementDistance = this.getObjectOpticalElementDistance();
 
     // Draw different rays depending on the mode
     switch( mode ) {
       case LightRays.Modes.MARGINAL_RAYS:
 
         // Draw different rays depending on the mode
-        if ( objectLensDistance > 0 ) {
+        if ( objectOpticalElementDistance > 0 ) {
           if ( !isVirtualImage ) {
 
             // ray passing through the top of opticalElement
@@ -251,7 +251,7 @@ class LightRays {
    * @public
    * @returns {number}
    */
-  getObjectLensDistance() {
+  getObjectOpticalElementDistance() {
     return this.opticalElement.positionProperty.value.x - this.sourceObjectPositionProperty.value.x;
   }
 }

@@ -72,7 +72,7 @@ class TargetImage {
    */
   updateScale() {
     const focalLength = this.getFocalLength();
-    this.scaleProperty.value = focalLength / ( this.getObjectLensDistance() - focalLength );
+    this.scaleProperty.value = focalLength / ( this.getObjectOpticalElementDistance() - focalLength );
   }
 
   /**
@@ -93,7 +93,7 @@ class TargetImage {
    * @returns {number}
    */
   getMagnification() {
-    return -1 * this.getImageLensDistance() / this.getObjectLensDistance();
+    return -1 * this.getImageOpticalElementDistance() / this.getObjectOpticalElementDistance();
   }
 
   /**
@@ -102,7 +102,7 @@ class TargetImage {
    * @public
    * @returns {number}
    */
-  getObjectLensDistance() {
+  getObjectOpticalElementDistance() {
     return this.opticalElement.positionProperty.value.x - this.sourceObject.positionProperty.value.x;
   }
 
@@ -122,9 +122,9 @@ class TargetImage {
    * @public
    * @returns {number}
    */
-  getImageLensDistance() {
-    const distanceObject = this.getObjectLensDistance();
-    const f = this.getObjectLensDistance();
+  getImageOpticalElementDistance() {
+    const distanceObject = this.getObjectOpticalElementDistance();
+    const f = this.getFocalLength();
     return ( f * distanceObject ) / ( distanceObject - f );
   }
 
@@ -134,7 +134,7 @@ class TargetImage {
    * @returns {boolean}
    */
   isInvertedImage() {
-    return this.getObjectLensDistance() < this.getFocalLength() || this.getFocalLength() < 0;
+    return this.getObjectOpticalElementDistance() < this.getFocalLength() || this.getFocalLength() < 0;
   }
 }
 
