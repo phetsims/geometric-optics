@@ -10,17 +10,18 @@ import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import geometricOptics from '../../geometricOptics.js';
 
-import rocket_3d_png from '../../../images/rocket_3d_png.js';
-import rocket_png from '../../../images/rocket_png.js';
-import rocket_3d_png_reversed from '../../../images/rocket_3d_png_reversed.js';
-import lamp_red_png from '../../../images/lamp_red_png.js';
-//import lamp_blue_png from '../../../images/lamp_blue_png.js';
-import pencil_png from '../../../images/pencil_png.js';
-import pencil_3d_png from '../../../images/pencil_3d_png.js';
-import pencil_3d_reversed_png from '../../../images/pencil_3d_reversed_png.js';
-import tree_png from '../../../images/tree_png.js';
-import tree_3d_png from '../../../images/tree_3d_png.js';
-import tree_3d_reversed_png from '../../../images/tree_3d_reversed_png.js';
+import rocket3dImage from '../../../images/rocket-3d_png.js';
+import rocketImage from '../../../images/rocket_png.js';
+import rocket3dReversedImage from '../../../images/rocket-3d-reversed_png.js';
+import lampRedImage from '../../../images/lamp-red_png.js';
+import lampBlueImage from '../../../images/lamp-blue_png.js';
+import pencilImage from '../../../images/pencil_png.js';
+import pencil3dImage from '../../../images/pencil-3d_png.js';
+import pencil3dReversedImage from '../../../images/pencil-3d-reversed_png.js';
+import treeImage from '../../../images/tree_png.js';
+import tree3dImage from '../../../images/tree-3d_png.js';
+import tree3dReversedImage from '../../../images/tree-3d-reversed_png.js';
+import screen3dImage from '../../../images/screen-3d_png.js';
 
 const pencilString = geometricOpticsStrings.object.pencil;
 const rocketString = geometricOpticsStrings.object.rocket;
@@ -47,10 +48,10 @@ const typeGenerator = ( logo, source, target, label, isObject ) => {
 };
 
 const SourceObjectTypes = Enumeration.byMap( {
-  PENCIL: typeGenerator( pencil_png, pencil_3d_png, pencil_3d_reversed_png, pencilString, true ),
-  TREE: typeGenerator( tree_png, tree_3d_png, tree_3d_reversed_png, treeString, true ),
-  ROCKET: typeGenerator( rocket_png, rocket_3d_png, rocket_3d_png_reversed, rocketString, true ),
-  LIGHT: typeGenerator( lamp_red_png, lamp_red_png, lamp_red_png, lightString, false )
+  PENCIL: typeGenerator( pencilImage, pencil3dImage, pencil3dReversedImage, pencilString, true ),
+  TREE: typeGenerator( treeImage, tree3dImage, tree3dReversedImage, treeString, true ),
+  ROCKET: typeGenerator( rocketImage, rocket3dImage, rocket3dReversedImage, rocketString, true ),
+  LIGHT: typeGenerator( lampRedImage, lampBlueImage, screen3dImage, lightString, false )
 } );
 
 
