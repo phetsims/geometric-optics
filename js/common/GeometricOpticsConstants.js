@@ -9,7 +9,9 @@
 import Dimension2 from '../../../dot/js/Dimension2.js';
 import RangeWithValue from '../../../dot/js/RangeWithValue.js';
 import Vector2 from '../../../dot/js/Vector2.js';
+import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import geometricOptics from '../geometricOptics.js';
+import CurvatureTypes from './model/CurvatureTypes.js';
 
 const GeometricOpticsConstants = {
 
@@ -30,12 +32,21 @@ const GeometricOpticsConstants = {
   //----------------------------------------------------------------------------------------
   //                                 LENS
 
+  LENS_INITIAL_POSITION: Vector2.ZERO,
+  LENS_INITIAL_CURVATURE_TYPE: CurvatureTypes.CONVEX,
+  LENS_INDEX_OF_REFRACTION_RANGE: new RangeWithValue( 1.20, 1.87, 1.53 ),
+  LENS_RADIUS_OF_CURVATURE_RANGE: new RangeWithValue( 0.3, 1.3, 0.8 ),
+  LENS_DIAMETER_RANGE: new RangeWithValue( 0.3, 1.3, 0.8 ),
 
-  INDEX_OF_REFRACTION_RANGE: new RangeWithValue( 1.20, 1.87, 1.53 ),
+  //----------------------------------------------------------------------------------------
+  //                                 MIRROR
 
-  RADIUS_OF_CURVATURE_RANGE: new RangeWithValue( 0.3, 1.3, 0.8 ),
 
-  DIAMETER_RANGE: new RangeWithValue( 0.3, 1.3, 0.8 ),
+  MIRROR_INITIAL_POSITION: new Vector2( 1, 0 ),
+  MIRROR_INITIAL_CURVATURE_TYPE: CurvatureTypes.CONVEX,
+  MIRROR_RADIUS_OF_CURVATURE_RANGE: new RangeWithValue( 1.5, 3.0, 2.0 ),
+  MIRROR_DIAMETER_RANGE: new RangeWithValue( 0.5, 1.5, 0.8 ),
+
 
   //----------------------------------------------------------------------------------------
   //                                 FOCAL POINT
@@ -89,8 +100,21 @@ const GeometricOpticsConstants = {
   MASK_BR_CORNER: new Vector2( 220, 642 ),
   MASK_TR_CORNER: new Vector2( 220, 35 ),
 
-  FULL_BRIGHT_SPOT_HEIGHT: 0.07 // Meters
+  FULL_BRIGHT_SPOT_HEIGHT: 0.07, // Meters
 
+
+  //----------------------------------------------------------------------------------------
+  //                        DECIMAL PLACES
+
+  METER_DECIMAL_PLACES: 1, // for all distance related values
+  INDEX_DECIMAL_PLACES: 2, // for the index of refraction values
+
+  //----------------------------------------------------------------------------------------
+  //                                 FONTS
+
+  EQUATION_FONT: new PhetFont( 18 ),
+  CHECKBOX_FONT: new PhetFont( 16 ),
+  TITLE_FONT: new PhetFont( 16 )
 };
 
 geometricOptics.register( 'GeometricOpticsConstants', GeometricOpticsConstants );

@@ -2,7 +2,8 @@
 
 /**
  * Model element of the lens
- * Responsible for the index of refraction, radius of curvature, diameter the lens and the shape of the lens.
+ * Responsible for the index of refraction, radius of curvature, diameter the lens
+ * and the shape of the lens.
  *
  * @author Martin Veillette
  */
@@ -12,12 +13,17 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import TransmissionTypes from '../../common/model/TransmissionTypes.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import CurvatureTypes from '../../common/model/CurvatureTypes.js';
 import OpticalElement from '../../common/model/OpticalElement.js';
 
-const INDEX_OF_REFRACTION_DEFAULT = GeometricOpticsConstants.INDEX_OF_REFRACTION_RANGE.defaultValue;
+const INDEX_OF_REFRACTION_RANGE = GeometricOpticsConstants.LENS_INDEX_OF_REFRACTION_RANGE;
+const RADIUS_OF_CURVATURE_RANGE = GeometricOpticsConstants.LENS_RADIUS_OF_CURVATURE_RANGE;
+const DIAMETER_RANGE = GeometricOpticsConstants.LENS_DIAMETER_RANGE;
+const INITIAL_CURVATURE_TYPE = GeometricOpticsConstants.LENS_INITIAL_CURVATURE_TYPE;
+const INITIAL_POSITION = GeometricOpticsConstants.LENS_INITIAL_POSITION;
 
 class Lens extends OpticalElement {
 
@@ -27,14 +33,26 @@ class Lens extends OpticalElement {
   constructor( tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    super( tandem );
+    /**
+     * @param {Vector2} position
+     * @param {RangeWithValue} radiusOfCurvatureRange
+     * @param {RangeWithValue} diameterRange
+     * @param {CurvatureTypes} curvatureType
+     * @param {TransmissionTypes} transmissionType
+     * @param {Tandem} tandem
+     */
+
+    super( INITIAL_POSITION, RADIUS_OF_CURVATURE_RANGE, DIAMETER_RANGE,
+      INITIAL_CURVATURE_TYPE, TransmissionTypes.TRANSMITTED, tandem );
 
     // @public {Property.<number>}  index of refraction of the lens
-    this.indexOfRefractionProperty = new NumberProperty( INDEX_OF_REFRACTION_DEFAULT, { range: GeometricOpticsConstants.INDEX_OF_REFRACTION_RANGE } );
+    this.indexOfRefractionProperty = new NumberProperty( INDEX_OF_REFRACTION_RANGE.defaultValue,
+      { range: INDEX_OF_REFRACTION_RANGE } );
 
     // @public {Property.<number>} focal length of the lens - negative indicates the lens is diverging.
     this.focalLengthProperty = new DerivedProperty(
-      [ this.radiusOfCurvatureProperty, this.indexOfRefractionProperty, this.curvatureTypeProperty ], ( radiusOfCurvature, indexOfRefraction, type ) => {
+      [ this.radiusOfCurvatureProperty, this.indexOfRefractionProperty, this.curvatureTypeProperty ],
+      ( radiusOfCurvature, indexOfRefraction, type ) => {
         const signRadius = type === CurvatureTypes.CONVEX ? 1 : -1;
         return signRadius * radiusOfCurvature / ( 2 * ( indexOfRefraction - 1 ) );
       }
@@ -103,7 +121,7 @@ class Lens extends OpticalElement {
    * @returns {number}
    */
   getNormalizedIndex( index ) {
-    return GeometricOpticsConstants.INDEX_OF_REFRACTION_RANGE.getNormalizedValue( index );
+    return this.indexOfRefractionProperty.range.getNormalizedValue( index );
   }
 
 }

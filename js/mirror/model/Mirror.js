@@ -10,11 +10,17 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import TransmissionTypes from '../../common/model/TransmissionTypes.js';
 import geometricOptics from '../../geometricOptics.js';
 import CurvatureTypes from '../../common/model/CurvatureTypes.js';
 import OpticalElement from '../../common/model/OpticalElement.js';
 import Property from '../../../../axon/js/Property.js';
+
+const RADIUS_OF_CURVATURE_RANGE = GeometricOpticsConstants.MIRROR_RADIUS_OF_CURVATURE_RANGE;
+const DIAMETER_RANGE = GeometricOpticsConstants.MIRROR_DIAMETER_RANGE;
+const INITIAL_CURVATURE_TYPE = GeometricOpticsConstants.MIRROR_INITIAL_CURVATURE_TYPE;
+const INITIAL_POSITION = GeometricOpticsConstants.MIRROR_INITIAL_POSITION;
 
 class Mirror extends OpticalElement {
 
@@ -24,17 +30,24 @@ class Mirror extends OpticalElement {
   constructor( tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    super( tandem );
+    /**
+     * @param {Vector2} position
+     * @param {RangeWithValue} radiusOfCurvatureRange
+     * @param {RangeWithValue} diameterRange
+     * @param {CurvatureTypes} curvatureType
+     * @param {TransmissionTypes} transmissionType
+     * @param {Tandem} tandem
+     */
 
-    this.focalLengthProperty = new DerivedProperty(
+    super( INITIAL_POSITION, RADIUS_OF_CURVATURE_RANGE, DIAMETER_RANGE,
+      INITIAL_CURVATURE_TYPE, TransmissionTypes.REFLECTED, tandem );
+
+      this.focalLengthProperty = new DerivedProperty(
       [ this.radiusOfCurvatureProperty, this.curvatureTypeProperty ], ( radiusOfCurvature, type ) => {
         const signRadius = type === CurvatureTypes.CONVEX ? -1 : 1;
         return signRadius * radiusOfCurvature / ( 2 );
       }
     );
-
-    this.transmissionTypeProperty.value = TransmissionTypes.REFLECTED;
-
 
     this.shape = new Shape();
 

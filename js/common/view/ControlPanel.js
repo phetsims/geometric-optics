@@ -5,7 +5,6 @@
  */
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
@@ -22,10 +21,7 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import CurvatureTypes from '../model/CurvatureTypes.js';
 import LightRays from '../model/LightRays.js';
-
-const RADIUS_OF_CURVATURE_RANGE = GeometricOpticsConstants.RADIUS_OF_CURVATURE_RANGE;
-const INDEX_OF_REFRACTION_RANGE = GeometricOpticsConstants.INDEX_OF_REFRACTION_RANGE;
-const DIAMETER_RANGE = GeometricOpticsConstants.DIAMETER_RANGE;
+import TransmissionTypes from '../model/TransmissionTypes.js';
 
 const metersPattern = geometricOpticsStrings.metersPattern;
 const noneString = geometricOpticsStrings.none;
@@ -56,10 +52,6 @@ class ControlPanel extends Panel {
    */
   constructor( opticalElement, lightRays, visibleProperties, modelViewTransform, tandem, options ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
-
-    options = merge( {
-      hasMedia: true
-    }, options );
 
     const Modes = LightRays.Modes;
     const rayModesRadioButtonGroupItems = [
@@ -99,7 +91,7 @@ class ControlPanel extends Panel {
         delta: 0.01,
         layoutFunction: NumberControl.createLayoutFunction3(),
         numberDisplayOptions: {
-          decimalPlaces: 2
+          decimalPlaces: GeometricOpticsConstants.INDEX_DECIMAL_PLACES
         },
         sliderOptions: {
           trackSize: new Dimension2( 120, 4 )
@@ -111,7 +103,7 @@ class ControlPanel extends Panel {
         delta: 0.1,
         layoutFunction: NumberControl.createLayoutFunction3(),
         numberDisplayOptions: {
-          decimalPlaces: 1,
+          decimalPlaces: GeometricOpticsConstants.METER_DECIMAL_PLACES,
           valuePattern: StringUtils.fillIn( metersPattern, {
             meters: SunConstants.VALUE_NAMED_PLACEHOLDER
           } )
@@ -121,15 +113,27 @@ class ControlPanel extends Panel {
         }
       };
 
-    const curvatureRadiusControl = new NumberControl( curvatureRadiusString, opticalElement.radiusOfCurvatureProperty, RADIUS_OF_CURVATURE_RANGE, lengthNumberControlOptions );
 
+    const curvatureRadiusControl = new NumberControl(
+      curvatureRadiusString,
+      opticalElement.radiusOfCurvatureProperty,
+      opticalElement.radiusOfCurvatureProperty.range,
+      lengthNumberControlOptions );
 
-    const diameterControl = new NumberControl( diameterString, opticalElement.diameterProperty, DIAMETER_RANGE, lengthNumberControlOptions );
+    const diameterControl = new NumberControl(
+      diameterString,
+      opticalElement.diameterProperty,
+      opticalElement.diameterProperty.range,
+      lengthNumberControlOptions );
 
-    let indexOfRefractionControl;
     let controls;
-    if ( options.hasMedia ) {
-      indexOfRefractionControl = new NumberControl( refractiveIndexString, opticalElement.indexOfRefractionProperty, INDEX_OF_REFRACTION_RANGE, indexOfRefractionNumberControlOptions );
+    if ( opticalElement.transmissionType === TransmissionTypes.TRANSMITTED ) {
+      const indexOfRefractionControl = new NumberControl(
+        refractiveIndexString,
+        opticalElement.indexOfRefractionProperty,
+        opticalElement.indexOfRefractionProperty.range,
+        indexOfRefractionNumberControlOptions );
+
       controls = [ curvatureRadiusControl,
         indexOfRefractionControl,
         diameterControl ];
@@ -138,6 +142,7 @@ class ControlPanel extends Panel {
       controls = [ curvatureRadiusControl,
         diameterControl ];
     }
+
 
     const rayModesRadioButtonGroup = new VerticalAquaRadioButtonGroup(
       lightRays.modeProperty,
