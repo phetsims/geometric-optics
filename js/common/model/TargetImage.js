@@ -14,7 +14,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import Property from '../../../../axon/js/Property.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import TransmissionTypes from './TransmissionTypes.js';
 
 class TargetImage {
 
@@ -44,17 +43,16 @@ class TargetImage {
     // updates the position of the image
     Property.multilink( [ sourceObject.positionProperty,
         opticalElement.positionProperty,
-        opticalElement.focalLengthProperty,
-        opticalElement.transmissionTypeProperty ],
-      ( objectPosition, opticalElementPosition, focalLength, transmissionType ) => {
+        opticalElement.focalLengthProperty ],
+      ( objectPosition, opticalElementPosition, focalLength ) => {
         const distanceObject = opticalElementPosition.x - objectPosition.x;
         const heightObject = objectPosition.y - opticalElementPosition.y;
         const f = focalLength;
-        const sign = ( transmissionType === TransmissionTypes.TRANSMITTED ) ? 1 : -1;
+        const sign = opticalElement.isLens() ? 1 : -1;
         const distanceImage = sign * ( f * distanceObject ) / ( distanceObject - f );
         const magnification = -1 * distanceImage / distanceObject;
-        const yOffset = heightObject * magnification;
-        this.positionProperty.value = opticalElementPosition.plus( new Vector2( distanceImage, sign * yOffset ) );
+        const yOffset = sign * heightObject * magnification;
+        this.positionProperty.value = opticalElementPosition.plus( new Vector2( distanceImage, yOffset ) );
         this.isInvertedImageProperty.value = this.isInvertedImage();
         this.updateScale();
       } );
@@ -69,7 +67,6 @@ class TargetImage {
     this.positionProperty.reset();
     this.scaleProperty.reset();
   }
-
 
   /**
    * Updates the scale of the image
@@ -135,19 +132,46 @@ class TargetImage {
 
   /**
    * Returns a boolean indicating if the image is inverted
+   * For a lens, the image is inverted if the image is on the opposite side of the object
+   * For a mirror, the image is inverted if the image is on the same side of the object
    * @public
    * @returns {boolean}
    */
   isInvertedImage() {
-    if ( this.opticalElement.transmissionTypeProperty.value === TransmissionTypes.TRANSMITTED ) {
-      return this.getObjectOpticalElementDistance() < this.getFocalLength() || this.getFocalLength() < 0;
-    }
-    else {
-      return this.getObjectOpticalElementDistance() > this.getFocalLength() || this.getFocalLength() > 0;
-    }
+    return this.opticalElement.isLens() ? this.isOppositeSide() : this.isSameSide();
+  }
+
+  /**
+   * Returns a boolean indicating if the image is virtual
+   * For a lens, the image is virtual if the image is on the same side as the object
+   * For a mirror, the image is virtual if the image is on the opposite of the object
+   *
+   * @public
+   * @returns {boolean}
+   */
+  isVirtualImage() {
+    return this.opticalElement.isLens() ? this.isSameSide() : this.isOppositeSide();
+  }
+
+  /**
+   * Returns a boolean indicating if the image is on the same (spatial) side of the object (with respect to the optical element)
+   * @public
+   * @returns {boolean}
+   */
+  isSameSide() {
+    const sign = Math.sign( this.getImageOpticalElementDistance() * this.getObjectOpticalElementDistance() );
+    return sign === 1;
+  }
+
+  /**
+   * Returns a boolean indicating if the image is on the opposite side of the optical element from the object
+   * @public
+   * @returns {boolean}
+   */
+  isOppositeSide() {
+    return !this.isSameSide();
   }
 }
-
 
 geometricOptics.register( 'TargetImage', TargetImage );
 export default TargetImage;

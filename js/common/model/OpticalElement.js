@@ -74,6 +74,25 @@ class OpticalElement {
   getNormalizedDiameter( diameter ) {
     return diameter / GeometricOpticsConstants.DIAMETER_RANGE.max;
   }
+
+
+  /**
+   * Returns a boolean indicating if the optical element is a lens
+   * @public
+   * @returns {boolean}
+   */
+  isLens() {
+    return this.transmissionTypeProperty.value === TransmissionTypes.TRANSMITTED;
+  }
+
+  /**
+   * Returns a boolean indicating if the optical element is a mirror
+   * @public
+   * @returns {boolean}
+   */
+  isMirror() {
+    return !this.hasLens();
+  }
 }
 
 geometricOptics.register( 'OpticalElement', OpticalElement );
