@@ -10,6 +10,7 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import TransmissionTypes from '../../common/model/TransmissionTypes.js';
 import geometricOptics from '../../geometricOptics.js';
 import CurvatureTypes from '../../common/model/CurvatureTypes.js';
 import OpticalElement from '../../common/model/OpticalElement.js';
@@ -27,10 +28,13 @@ class Mirror extends OpticalElement {
 
     this.focalLengthProperty = new DerivedProperty(
       [ this.radiusOfCurvatureProperty, this.curvatureTypeProperty ], ( radiusOfCurvature, type ) => {
-        const signRadius = type === CurvatureTypes.CONVEX ? 1 : -1;
+        const signRadius = type === CurvatureTypes.CONVEX ? -1 : 1;
         return signRadius * radiusOfCurvature / ( 2 );
       }
     );
+
+    this.transmissionTypeProperty.value = TransmissionTypes.REFLECTED;
+
 
     this.shape = new Shape();
 
@@ -43,9 +47,9 @@ class Mirror extends OpticalElement {
 
       if ( type === CurvatureTypes.CONVEX ) {
         const halfWidth = 1 / 2 * halfHeight * halfHeight / radius;
-        const top = position.plusXY( 0, halfHeight );
-        const bottom = position.plusXY( 0, -halfHeight );
-        const left = position.plusXY( -2 * halfWidth, 0 );
+        const top = position.plusXY( halfWidth, halfHeight );
+        const bottom = position.plusXY( halfWidth, -halfHeight );
+        const left = position.plusXY( -halfWidth, 0 );
         this.shape = new Shape()
           .moveToPoint( top )
           .quadraticCurveToPoint( left, bottom )
@@ -54,24 +58,20 @@ class Mirror extends OpticalElement {
       }
       else {
         const halfWidth = 1 / 2 * halfHeight * halfHeight / radius;
-        const midWidth = 1 / 2 * halfHeight * halfHeight / radius * 0.1;
+        const midWidth = 1 / 2 * halfHeight * halfHeight / radius;
         const topLeft = position.plusXY( -halfWidth, halfHeight );
-        const topRight = position.plusXY( halfWidth, halfHeight );
+        const topMid = position.plusXY( 0, halfHeight );
         const bottomLeft = position.plusXY( -halfWidth, -halfHeight );
-        const bottomRight = position.plusXY( halfWidth, -halfHeight );
-        const midLeft = position.plusXY( -midWidth / 2, 0 );
-        const midRight = position.plusXY( midWidth / 2, 0 );
+        const bottomMid = position.plusXY( 0, -halfHeight );
+        const midLeft = position.plusXY( midWidth, 0 );
 
         this.shape = new Shape()
           .moveToPoint( topLeft )
-          .lineToPoint( topRight )
-          .quadraticCurveToPoint( midRight, bottomRight )
+          .lineToPoint( topMid )
+          .lineToPoint( bottomMid )
           .lineToPoint( bottomLeft )
           .quadraticCurveToPoint( midLeft, topLeft )
           .close();
-
-        this.shape.moveToPoint( topLeft.average( topRight ) )
-          .lineToPoint( bottomRight.average( bottomLeft ) );
       }
     } );
 

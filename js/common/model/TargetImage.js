@@ -14,6 +14,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import Property from '../../../../axon/js/Property.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import TransmissionTypes from './TransmissionTypes.js';
 
 class TargetImage {
 
@@ -41,15 +42,19 @@ class TargetImage {
     this.isInvertedImageProperty = new BooleanProperty( false );
 
     // updates the position of the image
-    Property.multilink( [ sourceObject.positionProperty, opticalElement.positionProperty, opticalElement.focalLengthProperty ],
-      ( objectPosition, opticalElementPosition, focalLength ) => {
+    Property.multilink( [ sourceObject.positionProperty,
+        opticalElement.positionProperty,
+        opticalElement.focalLengthProperty,
+        opticalElement.transmissionTypeProperty ],
+      ( objectPosition, opticalElementPosition, focalLength, transmissionType ) => {
         const distanceObject = opticalElementPosition.x - objectPosition.x;
         const heightObject = objectPosition.y - opticalElementPosition.y;
         const f = focalLength;
-        const distanceImage = ( f * distanceObject ) / ( distanceObject - f );
+        const sign = ( transmissionType === TransmissionTypes.TRANSMITTED ) ? 1 : -1;
+        const distanceImage = sign * ( f * distanceObject ) / ( distanceObject - f );
         const magnification = -1 * distanceImage / distanceObject;
         const yOffset = heightObject * magnification;
-        this.positionProperty.value = opticalElementPosition.plus( new Vector2( distanceImage, yOffset ) );
+        this.positionProperty.value = opticalElementPosition.plus( new Vector2( distanceImage, sign * yOffset ) );
         this.isInvertedImageProperty.value = this.isInvertedImage();
         this.updateScale();
       } );
@@ -129,14 +134,20 @@ class TargetImage {
   }
 
   /**
-   * Returns a boolean indicating if the image is virtual
+   * Returns a boolean indicating if the image is inverted
    * @public
    * @returns {boolean}
    */
   isInvertedImage() {
-    return this.getObjectOpticalElementDistance() < this.getFocalLength() || this.getFocalLength() < 0;
+    if ( this.opticalElement.transmissionTypeProperty.value === TransmissionTypes.TRANSMITTED ) {
+      return this.getObjectOpticalElementDistance() < this.getFocalLength() || this.getFocalLength() < 0;
+    }
+    else {
+      return this.getObjectOpticalElementDistance() > this.getFocalLength() || this.getFocalLength() > 0;
+    }
   }
 }
+
 
 geometricOptics.register( 'TargetImage', TargetImage );
 export default TargetImage;

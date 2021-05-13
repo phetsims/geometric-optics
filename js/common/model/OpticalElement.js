@@ -43,7 +43,7 @@ class OpticalElement {
     this.curvatureTypeProperty = new EnumerationProperty( CurvatureTypes, CurvatureTypes.CONVEX );
 
     // @public {EnumerationProperty.<TransmissionTypes>} Type of transmission of the optical element.
-    this.transmissionTypeProperty = new EnumerationProperty( TransmissionTypes, TransmissionTypes.REFLECTED );
+    this.transmissionTypeProperty = new EnumerationProperty( TransmissionTypes, TransmissionTypes.TRANSMITTED );
 
     // @public Shape of the optical element
     this.shape = new Shape();
