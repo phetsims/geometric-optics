@@ -41,7 +41,7 @@ class LensNode extends OpticNode {
     lens.indexOfRefractionProperty.link( index => {
       const normalizedIndex = lens.getNormalizedIndex( index );
       const fill = FILL.value;
-      this.opticPath.fill = new Color( fill.red, fill.green, fill.blue, normalizedIndex );
+      this.fillPath.fill = new Color( fill.red, fill.green, fill.blue, normalizedIndex );
     } );
 
   }

@@ -49,58 +49,66 @@ class Mirror extends Optic {
   }
 
   /**
-   * Returns the shape of a convex mirror.
+   * Returns the shape of a mirror.
+   * The center point of the mirror is 'position'
    * @param {Vector2} position
    * @param {number} radius
    * @param {number} diameter
-   * @returns {Shape}
+   * @param {Optic.Curve} curve
+   * @returns {fillShape: <Shape>,outlineShape: <Shape>};
    * @public
    */
-  getConvexShape( position, radius, diameter ) {
+  getFillAndOutlineShapes( position, radius, diameter, curve ) {
 
+    // convenience variables
     const halfHeight = diameter / 2;
-    const halfWidth = 1 / 2 * halfHeight * halfHeight / radius;
-    const top = position.plusXY( halfWidth, halfHeight );
-    const bottom = position.plusXY( halfWidth, -halfHeight );
-    const left = position.plusXY( -halfWidth, 0 );
-    const convexShape = new Shape()
-      .moveToPoint( top )
-      .quadraticCurveToPoint( left, bottom )
-      .close();
-    convexShape.moveToPoint( top ).lineToPoint( bottom );
-    return convexShape;
+    const halfWidth = radius - Math.sqrt( radius * radius - halfHeight * halfHeight );
+    const thickness = 0.05;
+    const verticalOffset = 2 * thickness * halfWidth / halfHeight;
+
+    const shapes = {};
+
+    if ( this.isConvex( curve ) ) {
+
+      const top = position.plusXY( halfWidth, halfHeight );
+      const bottom = position.plusXY( halfWidth, -halfHeight );
+      const left = position.plusXY( -halfWidth, 0 );
+
+      shapes.fillShape = new Shape()
+        .moveToPoint( top )
+        .quadraticCurveToPoint( left, bottom )
+        .lineToPoint( bottom.plusXY( thickness, verticalOffset ) )
+        .quadraticCurveToPoint( left.plusXY( thickness, 0 ), top.plusXY( thickness, -verticalOffset ) )
+        .close();
+
+      shapes.outlineShape = new Shape()
+        .moveToPoint( top )
+        .quadraticCurveToPoint( left, bottom );
+
+
+    }
+    else {
+
+      const topLeft = position.plusXY( -halfWidth, halfHeight );
+      const bottomLeft = position.plusXY( -halfWidth, -halfHeight );
+      const midLeft = position.plusXY( halfWidth, 0 );
+
+      shapes.fillShape = new Shape()
+        .moveToPoint( topLeft )
+        .quadraticCurveToPoint( midLeft, bottomLeft )
+        .lineToPoint( bottomLeft.plusXY( thickness, -verticalOffset ) )
+        .quadraticCurveToPoint( midLeft.plusXY( thickness, 0 ), topLeft.plusXY( thickness, verticalOffset ) )
+        .close();
+
+      shapes.outlineShape = new Shape()
+        .moveToPoint( topLeft )
+        .quadraticCurveToPoint( midLeft, bottomLeft );
+    }
+
+    return shapes;
   }
 
 
-  /**
-   * Returns the shape of a concave mirror.
-   * @param {Vector2} position
-   * @param {number} radius
-   * @param {number} diameter
-   * @returns {Shape}
-   * @public
-   */
-  getConcaveShape( position, radius, diameter ) {
-
-    const halfHeight = diameter / 2;
-    const halfWidth = 1 / 2 * halfHeight * halfHeight / radius;
-    const midWidth = 1 / 2 * halfHeight * halfHeight / radius;
-    const topLeft = position.plusXY( -halfWidth, halfHeight );
-    const topMid = position.plusXY( 0, halfHeight );
-    const bottomLeft = position.plusXY( -halfWidth, -halfHeight );
-    const bottomMid = position.plusXY( 0, -halfHeight );
-    const midLeft = position.plusXY( midWidth, 0 );
-
-    const concaveShape = new Shape()
-      .moveToPoint( topLeft )
-      .lineToPoint( topMid )
-      .lineToPoint( bottomMid )
-      .lineToPoint( bottomLeft )
-      .quadraticCurveToPoint( midLeft, topLeft )
-      .close();
-
-    return concaveShape;
-  }
 }
 
 geometricOptics.register( 'Mirror', Mirror );

@@ -34,18 +34,26 @@ class OpticNode extends Node {
       } );
 
     // create the path of the optic
+    // @protected {Path}
+    this.fillPath = new Path( modelViewTransform.modelToViewShape( optic.outlineAndFillProperty.value.fillShape ), {
+      fill: options.fill
+    } );
+
+    // create the path of the optic
     // @public {Path}
-    this.opticPath = new Path( modelViewTransform.modelToViewShape( optic.shapeProperty.value ), {
+    this.outlinePath = new Path( modelViewTransform.modelToViewShape( optic.outlineAndFillProperty.value.outlineShape ), {
       stroke: options.stroke,
       lineWidth: options.lineWidth
     } );
 
-    optic.shapeProperty.link( shape => {
-      this.opticPath.shape = modelViewTransform.modelToViewShape( shape );
+    optic.outlineAndFillProperty.link( shapes => {
+      this.fillPath.shape = modelViewTransform.modelToViewShape( shapes.fillShape );
+      this.outlinePath.shape = modelViewTransform.modelToViewShape( shapes.outlineShape );
     } );
 
     this.addInputListener( dragListener );
-    this.addChild( this.opticPath );
+    this.addChild( this.outlinePath );
+    this.addChild( this.fillPath );
 
   }
 }

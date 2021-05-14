@@ -41,8 +41,8 @@ class Lens extends Optic {
     this.focalLengthProperty = new DerivedProperty(
       [ this.radiusOfCurvatureProperty, this.indexOfRefractionProperty, this.curveProperty ],
       ( radiusOfCurvature, indexOfRefraction, curve ) => {
-        const signRadius = this.isConvex( curve ) ? 1 : -1;
-        return signRadius * radiusOfCurvature / ( 2 * ( indexOfRefraction - 1 ) );
+        const signCurve = this.isConvex( curve ) ? 1 : -1;
+        return signCurve * radiusOfCurvature / ( 2 * ( indexOfRefraction - 1 ) );
       }
     );
 
@@ -68,62 +68,58 @@ class Lens extends Optic {
   }
 
   /**
-   * Returns the shape of a symmetric convex lens.
-   * The center of the lens is at the point 'position'
+   * Returns the shape of a mirror.
+   * The center point of the mirror is 'position'
    * @param {Vector2} position
    * @param {number} radius
    * @param {number} diameter
+   * @param {Optic.Curve} curve
    * @returns {Shape}
    * @public
    */
-  getConvexShape( position, radius, diameter ) {
+  getFillAndOutlineShapes( position, radius, diameter, curve ) {
+
     const halfHeight = diameter / 2;
     const halfWidth = 1 / 2 * halfHeight * halfHeight / ( radius + 1 );
-    const top = position.plusXY( 0, halfHeight );
-    const bottom = position.plusXY( 0, -halfHeight );
-    const left = position.plusXY( -2 * halfWidth, 0 );
-    const right = position.plusXY( 2 * halfWidth, 0 );
-    const convexShape = new Shape()
-      .moveToPoint( top )
-      .quadraticCurveToPoint( left, bottom )
-      .quadraticCurveToPoint( right, top )
-      .close();
-    convexShape.moveToPoint( top ).lineToPoint( bottom );
-    return convexShape;
+
+    const shapes = {};
+
+    if ( this.isConvex( curve ) ) {
+      const top = position.plusXY( 0, halfHeight );
+      const bottom = position.plusXY( 0, -halfHeight );
+      const left = position.plusXY( -2 * halfWidth, 0 );
+      const right = position.plusXY( 2 * halfWidth, 0 );
+      shapes.fillShape = new Shape()
+        .moveToPoint( top )
+        .quadraticCurveToPoint( left, bottom )
+        .quadraticCurveToPoint( right, top )
+        .close();
+      shapes.outlineShape = shapes.fillShape.moveToPoint( top ).lineToPoint( bottom );
+
+    }
+    else {
+      const midWidth = 1 / 2 * halfHeight * halfHeight / ( radius + 1 );
+      const topLeft = position.plusXY( -halfWidth, halfHeight );
+      const topRight = position.plusXY( halfWidth, halfHeight );
+      const bottomLeft = position.plusXY( -halfWidth, -halfHeight );
+      const bottomRight = position.plusXY( halfWidth, -halfHeight );
+      const midLeft = position.plusXY( midWidth / 2, 0 );
+      const midRight = position.plusXY( -midWidth / 2, 0 );
+
+      shapes.fillShape = new Shape()
+        .moveToPoint( topLeft )
+        .lineToPoint( topRight )
+        .quadraticCurveToPoint( midRight, bottomRight )
+        .lineToPoint( bottomLeft )
+        .quadraticCurveToPoint( midLeft, topLeft )
+        .close();
+
+      shapes.outlineShape = shapes.fillShape.moveToPoint( topLeft.average( topRight ) )
+        .lineToPoint( bottomRight.average( bottomLeft ) );
+    }
+    return shapes;
   }
 
-  /**
-   * Returns the shape of a symmetric concave lens.
-   * The center of the lens is at the point 'position'
-   * @param {Vector2} position
-   * @param {number} radius
-   * @param {number} diameter
-   * @returns {Shape}
-   * @public
-   */
-  getConcaveShape( position, radius, diameter ) {
-    const halfHeight = diameter / 2;
-    const halfWidth = 1 / 2 * halfHeight * halfHeight / ( radius + 1 );
-    const midWidth = 1 / 2 * halfHeight * halfHeight / ( radius + 1 );
-    const topLeft = position.plusXY( -halfWidth, halfHeight );
-    const topRight = position.plusXY( halfWidth, halfHeight );
-    const bottomLeft = position.plusXY( -halfWidth, -halfHeight );
-    const bottomRight = position.plusXY( halfWidth, -halfHeight );
-    const midLeft = position.plusXY( midWidth / 2, 0 );
-    const midRight = position.plusXY( -midWidth / 2, 0 );
-
-    const concaveShape = new Shape()
-      .moveToPoint( topLeft )
-      .lineToPoint( topRight )
-      .quadraticCurveToPoint( midRight, bottomRight )
-      .lineToPoint( bottomLeft )
-      .quadraticCurveToPoint( midLeft, topLeft )
-      .close();
-
-    concaveShape.moveToPoint( topLeft.average( topRight ) )
-      .lineToPoint( bottomRight.average( bottomLeft ) );
-    return concaveShape;
-  }
 }
 
 geometricOptics.register( 'Lens', Lens );

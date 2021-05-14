@@ -50,20 +50,14 @@ class Optic {
     // @private {Optic.Type} Type of transmission of the optical element.
     this.type = type;
 
-    // @public {DerivedProperty.<Shape>} shape of the optical element
-    this.shapeProperty = new DerivedProperty(
-      [
+    // @public {DerivedProperty.<Object>} shapes (fill and outline) of the optical element
+    this.outlineAndFillProperty = new DerivedProperty( [
         this.positionProperty,
         this.radiusOfCurvatureProperty,
         this.diameterProperty,
         this.curveProperty ],
       ( position, radius, diameter, curve ) => {
-        if ( this.isConvex( curve ) ) {
-          return this.getConvexShape( position, radius, diameter );
-        }
-        else {
-          return this.getConcaveShape( position, radius, diameter );
-        }
+        return this.getFillAndOutlineShapes( position, radius, diameter, curve );
       } );
 
     // @public - must be implemented by subtype
@@ -135,12 +129,7 @@ class Optic {
   /**
    * @public @abstract
    */
-  getConcaveShape() { throw new Error( 'must be implemented by subtype' ); }
-
-  /**
-   * @public @abstract
-   */
-  getConvexShape() { throw new Error( 'must be implemented by subtype' ); }
+  getFillAndOutlineShapes() { throw new Error( 'must be implemented by subtype' ); }
 
 }
 
