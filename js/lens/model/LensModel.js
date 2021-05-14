@@ -6,7 +6,7 @@
 
 import Tandem from '../../../../tandem/js/Tandem.js';
 import CommonModel from '../../common/model/CommonModel.js';
-import FocalPoints from '../../common/model/FocalPoints.js';
+import FocalPoint from '../../common/model/FocalPoint.js';
 import Lens from './Lens.js';
 import LightRays from '../../common/model/LightRays.js';
 import TargetImage from '../../common/model/TargetImage.js';
@@ -24,7 +24,9 @@ class LensModel extends CommonModel {
 
 
     this.optic = new Lens( tandem );
-    this.focalPoints = new FocalPoints( this.optic.positionProperty, this.optic.focalLengthProperty, tandem );
+    this.firstFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty, tandem );
+    this.secondFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty, tandem, { multiplicativeFactor: -1 } );
+
     this.targetImage = new TargetImage( this.sourceObject, this.optic, tandem );
     this.lightRays = new LightRays( this.sourceObject.positionProperty, this.optic, this.targetImage, tandem );
   }

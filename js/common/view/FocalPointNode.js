@@ -1,6 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
+ * Create a cross to represent a focal point.
  * @author Martin Veillette
  */
 
@@ -16,14 +17,14 @@ const LINE_WIDTH = GeometricOpticsConstants.FOCAL_POINT_LINE_WIDTH;
 const FILL = GeometricOpticsColorProfile.focalPointFillProperty;
 const STROKE = GeometricOpticsColorProfile.focalPointStrokeProperty;
 
-class FocalPointsNode extends Node {
+class FocalPointNode extends Node {
 
   /**
-   * @param {FocalPoints} focalPoints
+   * @param {FocalPoint} focalPoint
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
    */
-  constructor( focalPoints, modelViewTransform, tandem ) {
+  constructor( focalPoint, modelViewTransform, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     super();
@@ -39,24 +40,16 @@ class FocalPointsNode extends Node {
       };
 
     // focal point to the right of the optical element if the focal length is positive
-    const firstFocalPoint = new PlusNode( plusNodeOptions );
+    const focalCrossNode = new PlusNode( plusNodeOptions );
 
-    // focal point to the left of the optical element if the focal length is positive
-    const secondFocalPoint = new PlusNode( plusNodeOptions );
-
-    focalPoints.firstPositionProperty.link( position => {
-      firstFocalPoint.center = modelViewTransform.modelToViewPosition( position );
+    focalPoint.positionProperty.link( position => {
+      focalCrossNode.center = modelViewTransform.modelToViewPosition( position );
     } );
 
-    focalPoints.secondPositionProperty.link( position => {
-      secondFocalPoint.center = modelViewTransform.modelToViewPosition( position );
-    } );
-
-    this.addChild( firstFocalPoint );
-    this.addChild( secondFocalPoint );
+    this.addChild( focalCrossNode );
   }
 
 }
 
-geometricOptics.register( 'FocalPointsNode', FocalPointsNode );
-export default FocalPointsNode;
+geometricOptics.register( 'FocalPointNode', FocalPointNode );
+export default FocalPointNode;

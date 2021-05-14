@@ -13,7 +13,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import CommonModel from '../model/CommonModel.js';
-import FocalPointsNode from './FocalPointsNode.js';
+import FocalPointNode from './FocalPointNode.js';
 import LightRaysNode from './LightRaysNode.js';
 import SourceObjectNode from './SourceObjectNode.js';
 import TargetImageNode from './TargetImageNode.js';
@@ -47,7 +47,8 @@ class CommonScreenView extends ScreenView {
     const lightRaysNode = new LightRaysNode( model.lightRays, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
     const targetImageNode = new TargetImageNode( model.targetImage, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
 
-    const focalPointsNode = new FocalPointsNode( model.focalPoints, this.modelViewTransform, tandem );
+    const firstFocalPointNode = new FocalPointNode( model.firstFocalPoint, this.modelViewTransform, tandem );
+    const secondFocalPointNode = new FocalPointNode( model.secondFocalPoint, this.modelViewTransform, tandem );
 
     this.zoomLevelProperty = new NumberProperty( ZOOM_DEFAULT, { range: GeometricOpticsConstants.ZOOM_RANGE } );
 
@@ -70,10 +71,12 @@ class CommonScreenView extends ScreenView {
 
     this.playAreaNode.addChild( sourceObjectNode );
     this.playAreaNode.addChild( targetImageNode );
-    this.playAreaNode.addChild( focalPointsNode );
+    this.playAreaNode.addChild( firstFocalPointNode );
+    this.playAreaNode.addChild( secondFocalPointNode );
     this.playAreaNode.addChild( lightRaysNode );
 
-    this.visibleProperties.visibleFocalPointProperty.linkAttribute( focalPointsNode, 'visible' );
+    this.visibleProperties.visibleFocalPointProperty.linkAttribute( firstFocalPointNode, 'visible' );
+    this.visibleProperties.visibleFocalPointProperty.linkAttribute( secondFocalPointNode, 'visible' );
 
     const comboBox = new SourceObjectComboBox( model.sourceObject.representationProperty, tandem );
 
