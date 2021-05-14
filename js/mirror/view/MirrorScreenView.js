@@ -30,13 +30,14 @@ class MirrorScreenView extends CommonScreenView {
     this.playAreaNode.addChild( mirrorNode );
 
     const controlPanel = new ControlPanel( model.optic, model.lightRays, this.visibleProperties, this.modelViewTransform, tandem );
+    controlPanel.centerBottom = ScreenView.DEFAULT_LAYOUT_BOUNDS.eroded( GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN ).centerBottom;
     this.addChild( controlPanel );
 
     const resetAllButton = new ResetAllButton( {
       listener: () => {
-        this.interruptSubtreeInput(); // cancel interactions that may be in progress
-        model.reset();
-        this.reset();
+      this.interruptSubtreeInput(); // cancel interactions that may be in progress
+      model.reset();
+      this.reset();
       },
       right: this.layoutBounds.maxX - GeometricOpticsConstants.SCREEN_VIEW_X_MARGIN,
       bottom: this.layoutBounds.maxY - GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN,

@@ -7,6 +7,7 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import MagnifyingGlassZoomButtonGroup from '../../../../scenery-phet/js/MagnifyingGlassZoomButtonGroup.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -49,6 +50,7 @@ class CommonScreenView extends ScreenView {
 
     const firstFocalPointNode = new FocalPointNode( model.firstFocalPoint, this.modelViewTransform, tandem );
     const secondFocalPointNode = new FocalPointNode( model.secondFocalPoint, this.modelViewTransform, tandem );
+    const focalPointsLayer = new Node( { children: [ firstFocalPointNode, secondFocalPointNode ] } );
 
     this.zoomLevelProperty = new NumberProperty( ZOOM_DEFAULT, { range: GeometricOpticsConstants.ZOOM_RANGE } );
 
@@ -71,12 +73,10 @@ class CommonScreenView extends ScreenView {
 
     this.playAreaNode.addChild( sourceObjectNode );
     this.playAreaNode.addChild( targetImageNode );
-    this.playAreaNode.addChild( firstFocalPointNode );
-    this.playAreaNode.addChild( secondFocalPointNode );
+    this.playAreaNode.addChild( focalPointsLayer );
     this.playAreaNode.addChild( lightRaysNode );
 
-    this.visibleProperties.visibleFocalPointProperty.linkAttribute( firstFocalPointNode, 'visible' );
-    this.visibleProperties.visibleFocalPointProperty.linkAttribute( secondFocalPointNode, 'visible' );
+    this.visibleProperties.visibleFocalPointProperty.linkAttribute( focalPointsLayer, 'visible' );
 
     const comboBox = new SourceObjectComboBox( model.sourceObject.representationProperty, tandem );
 
