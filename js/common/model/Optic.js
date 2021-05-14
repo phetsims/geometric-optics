@@ -79,6 +79,24 @@ class Optic {
   }
 
   /**
+   * @public
+   * @returns {Vector2}
+   */
+  getFirstFocalPointPosition() {
+    const firstFocalPosition = this.positionProperty.value.plusXY( this.focalLengthProperty.value, 0 );
+    return firstFocalPosition;
+  }
+
+  /**
+   * @public
+   * @returns {Vector2}
+   */
+  getSecondFocalPointPosition() {
+    const firstFocalPosition = this.positionProperty.value.plusXY( -this.focalLengthProperty.value, 0 );
+    return firstFocalPosition;
+  }
+
+  /**
    * Returns a boolean indicating if the optical element is a lens
    * @public
    * @returns {boolean}

@@ -25,7 +25,7 @@ class OpticNode extends Node {
 
     super( options );
 
-    // create a drag listener on this node
+    // create a drag listener on the fill of the opticalElement
     const dragListener = new DragListener(
       {
         positionProperty: optic.positionProperty,
@@ -39,20 +39,19 @@ class OpticNode extends Node {
       fill: options.fill
     } );
 
-    // create the path of the optic
-    // @public {Path}
-    this.outlinePath = new Path( modelViewTransform.modelToViewShape( optic.outlineAndFillProperty.value.outlineShape ), {
+    // create the outline path of the optic {Path}
+    const outlinePath = new Path( modelViewTransform.modelToViewShape( optic.outlineAndFillProperty.value.outlineShape ), {
       stroke: options.stroke,
       lineWidth: options.lineWidth
     } );
 
     optic.outlineAndFillProperty.link( shapes => {
       this.fillPath.shape = modelViewTransform.modelToViewShape( shapes.fillShape );
-      this.outlinePath.shape = modelViewTransform.modelToViewShape( shapes.outlineShape );
+      outlinePath.shape = modelViewTransform.modelToViewShape( shapes.outlineShape );
     } );
 
     this.addInputListener( dragListener );
-    this.addChild( this.outlinePath );
+    this.addChild( outlinePath );
     this.addChild( this.fillPath );
 
   }

@@ -10,7 +10,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColorProfile from '../GeometricOpticsColorProfile.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-import Property from '../../../../axon/js/Property.js';
 
 const SIZE = GeometricOpticsConstants.FOCAL_POINT_SIZE;
 const LINE_WIDTH = GeometricOpticsConstants.FOCAL_POINT_LINE_WIDTH;
@@ -20,11 +19,11 @@ const STROKE = GeometricOpticsColorProfile.focalPointStrokeProperty;
 class FocalPointsNode extends Node {
 
   /**
-   * @param {Optic} optic
+   * @param {FocalPoints} focalPoints
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
    */
-  constructor( optic, modelViewTransform, tandem ) {
+  constructor( focalPoints, modelViewTransform, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     super();
@@ -40,18 +39,21 @@ class FocalPointsNode extends Node {
       };
 
     // focal point to the right of the optical element if the focal length is positive
-    const positiveFocalPoint = new PlusNode( plusNodeOptions );
+    const firstFocalPoint = new PlusNode( plusNodeOptions );
 
     // focal point to the left of the optical element if the focal length is positive
-    const negativeFocalPoint = new PlusNode( plusNodeOptions );
+    const secondFocalPoint = new PlusNode( plusNodeOptions );
 
-    Property.multilink( [ optic.positionProperty, optic.focalLengthProperty ], ( position, focalLength ) => {
-      positiveFocalPoint.center = modelViewTransform.modelToViewPosition( position.plusXY( focalLength, 0 ) );
-      negativeFocalPoint.center = modelViewTransform.modelToViewPosition( position.plusXY( -focalLength, 0 ) );
+    focalPoints.firstPositionProperty.link( position => {
+      firstFocalPoint.center = modelViewTransform.modelToViewPosition( position );
     } );
 
-    this.addChild( positiveFocalPoint );
-    this.addChild( negativeFocalPoint );
+    focalPoints.secondPositionProperty.link( position => {
+      secondFocalPoint.center = modelViewTransform.modelToViewPosition( position );
+    } );
+
+    this.addChild( firstFocalPoint );
+    this.addChild( secondFocalPoint );
   }
 
 }

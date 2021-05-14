@@ -8,6 +8,7 @@
 
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
+import SourceObject from './SourceObject.js';
 
 class CommonModel {
 
@@ -16,6 +17,8 @@ class CommonModel {
    */
   constructor( tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+
+    this.sourceObject = new SourceObject( tandem );
   }
 
 }
