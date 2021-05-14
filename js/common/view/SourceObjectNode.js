@@ -29,17 +29,17 @@ class SourceObjectNode extends Node {
     super();
     const sourceObjectImage = new Image( sourceObject.representationProperty.value.source, { scale: OVERALL_SCALE_FACTOR } );
 
-    const leftTopModelPositionProperty = new Vector2Property( sourceObject.positionProperty.value.minus( OFFSET_VECTOR ) );
+    this.leftTopModelPositionProperty = new Vector2Property( sourceObject.positionProperty.value.minus( OFFSET_VECTOR ) );
 
     const sourceObjectDragListener = new DragListener( {
-      positionProperty: leftTopModelPositionProperty,
+      positionProperty: this.leftTopModelPositionProperty,
       transform: modelViewTransform
     } );
 
 
     sourceObjectImage.addInputListener( sourceObjectDragListener );
 
-    leftTopModelPositionProperty.link( position => {
+    this.leftTopModelPositionProperty.link( position => {
       const offsetPosition = position.plus( OFFSET_VECTOR );
       sourceObject.setMovablePoint( offsetPosition.plusXY( 0, sourceObject.getVerticalOffset() ) );
       sourceObject.positionProperty.value = offsetPosition;
@@ -71,6 +71,12 @@ class SourceObjectNode extends Node {
     this.addChild( movablePoint );
   }
 
+  /**
+   * @public
+   */
+  reset() {
+    this.leftTopModelPositionProperty.reset();
+  }
 }
 
 geometricOptics.register( 'SourceObjectNode', SourceObjectNode );

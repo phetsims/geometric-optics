@@ -26,6 +26,15 @@ class CommonModel {
 
   }
 
+
+  /**
+   * Resets the model
+   * @public
+   */
+  reset() {
+    this.sourceObject.reset();
+  }
+
   /**
    * @protected
    * @param {Optic} optic
@@ -43,6 +52,8 @@ class CommonModel {
 
     // @public
     this.lightRays = new LightRays( this.sourceObject.positionProperty, optic, this.targetImage, tandem );
+
+
   }
 
 }

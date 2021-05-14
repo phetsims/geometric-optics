@@ -44,7 +44,7 @@ class CommonScreenView extends ScreenView {
 
     this.visibleProperties = new VisibleProperties( tandem );
 
-    const sourceObjectNode = new SourceObjectNode( model.sourceObject, this.visibleProperties.visibleMovablePointProperty, this.modelViewTransform, tandem );
+    this.sourceObjectNode = new SourceObjectNode( model.sourceObject, this.visibleProperties.visibleMovablePointProperty, this.modelViewTransform, tandem );
     const lightRaysNode = new LightRaysNode( model.lightRays, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
     const targetImageNode = new TargetImageNode( model.targetImage, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
 
@@ -71,7 +71,7 @@ class CommonScreenView extends ScreenView {
     // layer for all the nodes within the play area
     this.playAreaNode = new Node();
 
-    this.playAreaNode.addChild( sourceObjectNode );
+    this.playAreaNode.addChild( this.sourceObjectNode );
     this.playAreaNode.addChild( targetImageNode );
     this.playAreaNode.addChild( focalPointsLayer );
     this.playAreaNode.addChild( lightRaysNode );
@@ -126,6 +126,7 @@ class CommonScreenView extends ScreenView {
   reset() {
     this.zoomLevelProperty.reset();
     this.visibleProperties.reset();
+    this.sourceObjectNode.reset();
   }
 
 }

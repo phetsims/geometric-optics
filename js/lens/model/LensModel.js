@@ -29,8 +29,8 @@ class LensModel extends CommonModel {
    * @public
    */
   reset() {
+    super.reset();
     this.optic.reset();
-    this.sourceObject.reset();
     this.targetImage.reset();
     this.lightRays.reset();
   }
