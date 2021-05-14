@@ -125,7 +125,7 @@ class ControlPanel extends Panel {
       lengthNumberControlOptions );
 
     let controls;
-    if ( optic.type === Optic.Type.LENS ) {
+    if ( optic.isLens() ) {
       const indexOfRefractionControl = new NumberControl(
         refractiveIndexString,
         optic.indexOfRefractionProperty,

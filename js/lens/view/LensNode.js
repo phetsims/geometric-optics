@@ -37,10 +37,6 @@ class LensNode extends OpticNode {
 
     super( lens, modelViewTransform, tandem, options );
 
-    // lens.shapeProperty.link( shape => {
-    //   this.opticPath.shape = modelViewTransform.modelToViewShape( shape );
-    // } );
-
     // link the index of refraction to the opacity of the fill of the lens
     lens.indexOfRefractionProperty.link( index => {
       const normalizedIndex = lens.getNormalizedIndex( index );

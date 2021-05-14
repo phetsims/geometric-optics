@@ -14,7 +14,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
-
 import Optic from '../../common/model/Optic.js';
 
 const INDEX_OF_REFRACTION_RANGE = GeometricOpticsConstants.LENS_INDEX_OF_REFRACTION_RANGE;
@@ -41,27 +40,12 @@ class Lens extends Optic {
     // @public {DerivedProperty.<number>} focal length of the lens - negative indicates the lens is concave.
     this.focalLengthProperty = new DerivedProperty(
       [ this.radiusOfCurvatureProperty, this.indexOfRefractionProperty, this.curveProperty ],
-      ( radiusOfCurvature, indexOfRefraction, type ) => {
-        const signRadius = type === Optic.Curve.CONVEX ? 1 : -1;
+      ( radiusOfCurvature, indexOfRefraction, curve ) => {
+        const signRadius = this.isConvex( curve ) ? 1 : -1;
         return signRadius * radiusOfCurvature / ( 2 * ( indexOfRefraction - 1 ) );
       }
     );
 
-    // @public {DerivedProperty.<Shape>} shape of the lens
-    this.shapeProperty = new DerivedProperty(
-      [
-        this.positionProperty,
-        this.radiusOfCurvatureProperty,
-        this.diameterProperty,
-        this.curveProperty ],
-      ( position, radius, diameter, type ) => {
-        if ( type === Optic.Curve.CONVEX ) {
-          return this.getConvexShape( position, radius, diameter );
-        }
-        else {
-          return this.getConcaveShape( position, radius, diameter );
-        }
-      } );
   }
 
   /**

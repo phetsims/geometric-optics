@@ -8,6 +8,7 @@
  * @author Martin Veillette
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -15,9 +16,6 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import Shape from '../../../../kite/js/Shape.js';
-import Property from '../../../../axon/js/Property.js';
-
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 
 class Optic {
@@ -34,7 +32,8 @@ class Optic {
   constructor( position, radiusOfCurvatureRange, diameterRange, curve, type, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
     assert && assert( position instanceof Vector2, 'invalid position' );
-    assert && assert( radiusOfCurvatureRange instanceof RangeWithValue, 'invalied' );
+    assert && assert( radiusOfCurvatureRange instanceof RangeWithValue, 'invalid radiusOfCurvature' );
+    assert && assert( diameterRange instanceof RangeWithValue, 'invalid diameterRange' );
 
     // @public {Property.<Vector2>} Position of the optical element
     this.positionProperty = new Vector2Property( position );
@@ -48,16 +47,29 @@ class Optic {
     // @public {EnumerationProperty.<Optic.Curve>} Type of Curvature of the optical element.
     this.curveProperty = new EnumerationProperty( Optic.Curve, curve );
 
-    // @public (read-only) {Optic.Type} Type of transmission of the optical element.
+    // @private {Optic.Type} Type of transmission of the optical element.
     this.type = type;
 
-    // @public {Shape} shape of the optical element
-    this.shapeProperty = new Property( new Shape() );
+    // @public {DerivedProperty.<Shape>} shape of the optical element
+    this.shapeProperty = new DerivedProperty(
+      [
+        this.positionProperty,
+        this.radiusOfCurvatureProperty,
+        this.diameterProperty,
+        this.curveProperty ],
+      ( position, radius, diameter, curve ) => {
+        if ( this.isConvex( curve ) ) {
+          return this.getConvexShape( position, radius, diameter );
+        }
+        else {
+          return this.getConcaveShape( position, radius, diameter );
+        }
+      } );
 
     // @public - must be implemented by subtype
     this.focalLengthProperty = new Error( 'must be implemented by subtype' );
 
-    // @public (read-only)
+    // @private
     this.diameterRange = diameterRange;
   }
 
@@ -71,17 +83,6 @@ class Optic {
     this.radiusOfCurvatureProperty.reset();
     this.curveProperty.reset();
   }
-
-  /**
-   * Returns a normalized value (with a max of 1) for the diameter
-   * @param {number} diameter - diameter
-   * @public
-   * @returns {number}
-   */
-  getNormalizedDiameter( diameter ) {
-    return diameter / this.diameterRange.max;
-  }
-
 
   /**
    * Returns a boolean indicating if the optical element is a lens
@@ -100,6 +101,47 @@ class Optic {
   isMirror() {
     return this.type === Optic.Type.MIRROR;
   }
+
+  /**
+   * Returns a boolean indicating if the optical element is concave
+   * @public
+   * @param {Optic.Curve} curve
+   * @returns {boolean}
+   */
+  isConcave( curve ) {
+    return curve === Optic.Curve.CONCAVE;
+  }
+
+  /**
+   * Returns a boolean indicating if the optical element is convex
+   * @public
+   * @param {Optic.Curve} curve
+   * @returns {boolean}
+   */
+  isConvex( curve ) {
+    return curve === Optic.Curve.CONVEX;
+  }
+
+  /**
+   * Returns a normalized value (with a max of 1) for the diameter
+   * @param {number} diameter - diameter
+   * @public
+   * @returns {number}
+   */
+  getNormalizedDiameter( diameter ) {
+    return diameter / this.diameterRange.max;
+  }
+
+  /**
+   * @public @abstract
+   */
+  getConcaveShape() { throw new Error( 'must be implemented by subtype' ); }
+
+  /**
+   * @public @abstract
+   */
+  getConvexShape() { throw new Error( 'must be implemented by subtype' ); }
+
 }
 
 Optic.Type = Enumeration.byKeys( [

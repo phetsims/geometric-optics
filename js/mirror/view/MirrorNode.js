@@ -36,10 +36,6 @@ class MirrorNode extends OpticNode {
 
     super( mirror, modelViewTransform, tandem, options );
 
-    // mirror.shapeProperty.link( shape => {
-    //   this.opticPath.shape = modelViewTransform.modelToViewShape( shape );
-    // } );
-
   }
 }
 

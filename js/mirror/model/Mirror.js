@@ -30,28 +30,13 @@ class Mirror extends Optic {
     super( INITIAL_POSITION, RADIUS_OF_CURVATURE_RANGE, DIAMETER_RANGE,
       INITIAL_CURVATURE_TYPE, Optic.Type.MIRROR, tandem );
 
-    // @public (read-only) {DerivedProperty.<number>}
+    // @public (read-only) {DerivedProperty.<number>} focal length in meters
     this.focalLengthProperty = new DerivedProperty(
-      [ this.radiusOfCurvatureProperty, this.curveProperty ], ( radiusOfCurvature, type ) => {
-        const signRadius = type === Optic.Curve.CONVEX ? -1 : 1;
-        return signRadius * radiusOfCurvature / ( 2 );
+      [ this.radiusOfCurvatureProperty, this.curveProperty ], ( radiusOfCurvature, curve ) => {
+        const curveSign = this.isConvex( curve ) ? -1 : 1;
+        return curveSign * radiusOfCurvature / 2;
       }
     );
-
-    // @public {DerivedProperty.<Shape>} shape of the mirror
-    this.shapeProperty = new DerivedProperty( [
-        this.positionProperty,
-        this.radiusOfCurvatureProperty,
-        this.diameterProperty,
-        this.curveProperty ],
-      ( position, radius, diameter, type ) => {
-        if ( type === Optic.Curve.CONVEX ) {
-          return this.getConvexShape( position, radius, diameter );
-        }
-        else {
-          return this.getConcaveShape( position, radius, diameter );
-        }
-      } );
 
   }
 
