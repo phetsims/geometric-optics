@@ -5,7 +5,6 @@
  */
 
 import ScreenView from '../../../../joist/js/ScreenView.js';
-import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import ControlPanel from '../../common/view/ControlPanel.js';
@@ -27,24 +26,11 @@ class MirrorScreenView extends CommonScreenView {
     super( model, tandem );
 
     const mirrorNode = new MirrorNode( model.optic, this.modelViewTransform, tandem );
-    this.playAreaNode.addChild( mirrorNode );
+    this.playAreaNode.insertChild( 0, mirrorNode );
 
     const controlPanel = new ControlPanel( model.optic, model.lightRays, this.visibleProperties, this.modelViewTransform, tandem );
     controlPanel.centerBottom = ScreenView.DEFAULT_LAYOUT_BOUNDS.eroded( GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN ).centerBottom;
     this.addChild( controlPanel );
-
-    const resetAllButton = new ResetAllButton( {
-      listener: () => {
-      this.interruptSubtreeInput(); // cancel interactions that may be in progress
-      model.reset();
-      this.reset();
-      },
-      right: this.layoutBounds.maxX - GeometricOpticsConstants.SCREEN_VIEW_X_MARGIN,
-      bottom: this.layoutBounds.maxY - GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN,
-      tandem: tandem.createTandem( 'resetAllButton' )
-    } );
-    this.addChild( resetAllButton );
-    controlPanel.centerBottom = ScreenView.DEFAULT_LAYOUT_BOUNDS.eroded( GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN ).centerBottom;
 
   }
 
@@ -53,6 +39,7 @@ class MirrorScreenView extends CommonScreenView {
    * @public
    */
   reset() {
+    super.reset();
   }
 }
 
