@@ -27,7 +27,7 @@ class SourceObjectNode extends Node {
   constructor( sourceObject, visibleMovablePointProperty, modelViewTransform, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
     super();
-    const sourceObjectImage = new Image( sourceObject.typeProperty.value.source, { scale: OVERALL_SCALE_FACTOR } );
+    const sourceObjectImage = new Image( sourceObject.representationProperty.value.source, { scale: OVERALL_SCALE_FACTOR } );
 
     const leftTopModelPositionProperty = new Vector2Property( sourceObject.positionProperty.value.minus( OFFSET_VECTOR ) );
 
@@ -55,7 +55,7 @@ class SourceObjectNode extends Node {
 
     movablePoint.addInputListener( movablePointDragListener );
 
-    sourceObject.typeProperty.link( type => {
+    sourceObject.representationProperty.link( type => {
       sourceObjectImage.image = type.source;
     } );
 

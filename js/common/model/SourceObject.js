@@ -11,7 +11,7 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-import SourceObjectTypes from './SourceObjectTypes.js';
+import SourceObjectRepresentation from './SourceObjectRepresentation.js';
 import Utils from '../../../../dot/js/Utils.js';
 
 const DEFAULT_SOURCE_POINT_1 = GeometricOpticsConstants.DEFAULT_SOURCE_POINT_1;
@@ -31,8 +31,8 @@ class SourceObject {
     // @public {Property.<Vector2>} position of the movable point
     this.movablePositionProperty = new Vector2Property( DEFAULT_SOURCE_POINT_2 );
 
-    // @public {EnumerationProperty.<SourceObjectTypes>}  type of the image used as a representation of the object
-    this.typeProperty = new EnumerationProperty( SourceObjectTypes, SourceObjectTypes.PENCIL );
+    // @public {EnumerationProperty.<SourceObjectRepresentation>}  type of the image used as a representation of the object
+    this.representationProperty = new EnumerationProperty( SourceObjectRepresentation, SourceObjectRepresentation.PENCIL );
   }
 
   /**
@@ -42,7 +42,7 @@ class SourceObject {
   reset() {
     this.positionProperty.reset();
     this.movablePositionProperty.reset();
-    this.typeProperty.reset();
+    this.representationProperty.reset();
   }
 
   /**

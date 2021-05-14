@@ -22,33 +22,33 @@ class TargetImageNode extends Node {
 
     super( { tandem: tandem } );
 
-    const typeProperty = targetImage.sourceObject.typeProperty;
+    const representationProperty = targetImage.sourceObject.representationProperty;
 
-    const object = new Image( typeProperty.value.target, { scale: 0.5 } );
+    const object = new Image( representationProperty.value.target, { scale: 0.5 } );
 
     function updateFrame() {
-      const isVirtual = targetImage.isInvertedImageProperty.value;
-      object.image = isVirtual ? typeProperty.value.source : typeProperty.value.target;
+      const isVirtual = targetImage.isInvertedProperty.value;
+      object.image = isVirtual ? representationProperty.value.source : representationProperty.value.target;
     }
 
     function updateScale() {
       const position = targetImage.positionProperty.value;
       const scale = Math.abs( targetImage.scaleProperty.value );
-      const verticalOffset = targetImage.isInvertedImage() ? -40 : -136;
-      const horizontalOffset = targetImage.isInvertedImage() ? -30 : -25;
+      const verticalOffset = targetImage.isInverted() ? -40 : -136;
+      const horizontalOffset = targetImage.isInverted() ? -30 : -25;
       object.translation = modelViewTransform.modelToViewPosition( position ).plusXY( horizontalOffset * scale, verticalOffset * scale );
       object.setScaleMagnitude( scale * 0.5 );
     }
 
     function updateImage() {
-      const isVirtual = targetImage.isInvertedImageProperty.value;
-      object.image = isVirtual ? typeProperty.value.source : typeProperty.value.target;
+      const isVirtual = targetImage.isInvertedProperty.value;
+      object.image = isVirtual ? representationProperty.value.source : representationProperty.value.target;
       const showVirtualImage = visibleVirtualImageProperty.value;
       const isSourceToTheLeft = ( targetImage.sourceObject.positionProperty.value.x < targetImage.opticalElement.positionProperty.value.x );
       object.visible = ( ( isVirtual ) ? showVirtualImage : true ) && isSourceToTheLeft;
     }
 
-    targetImage.sourceObject.typeProperty.link( type => {
+    targetImage.sourceObject.representationProperty.link( type => {
       updateFrame();
     } );
 
@@ -57,12 +57,12 @@ class TargetImageNode extends Node {
       updateImage();
     } );
 
-    targetImage.isInvertedImageProperty.link( isVirtual => {
+    targetImage.isInvertedProperty.link( isVirtual => {
       updateFrame();
       updateImage();
     } );
 
-    targetImage.opticalElement.curvatureTypeProperty.link( curvatureType => {
+    targetImage.opticalElement.curveProperty.link( curvatureType => {
       updateScale();
       updateImage();
     } );

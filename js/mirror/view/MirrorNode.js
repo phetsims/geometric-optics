@@ -42,7 +42,7 @@ class MirrorNode extends OpticalElementNode {
         mirror.positionProperty,
         mirror.radiusOfCurvatureProperty,
         mirror.diameterProperty,
-        mirror.curvatureTypeProperty ],
+        mirror.curveProperty ],
       () => {
         this.opticalElementPath.shape = modelViewTransform.modelToViewShape( mirror.shape );
       } );

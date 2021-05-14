@@ -38,7 +38,7 @@ class TargetImage {
     this.opticalElement = opticalElement;
 
     // @public (read-only) {Property.<boolean>}
-    this.isInvertedImageProperty = new BooleanProperty( false );
+    this.isInvertedProperty = new BooleanProperty( false );
 
     // updates the position of the image
     Property.multilink( [ sourceObject.positionProperty,
@@ -53,7 +53,7 @@ class TargetImage {
         const magnification = -1 * distanceImage / distanceObject;
         const yOffset = sign * heightObject * magnification;
         this.positionProperty.value = opticalElementPosition.plus( new Vector2( distanceImage, yOffset ) );
-        this.isInvertedImageProperty.value = this.isInvertedImage();
+        this.isInvertedProperty.value = this.isInverted();
         this.updateScale();
       } );
 
@@ -137,7 +137,7 @@ class TargetImage {
    * @public
    * @returns {boolean}
    */
-  isInvertedImage() {
+  isInverted() {
     return this.opticalElement.isLens() ? this.isOppositeSide() : this.isSameSide();
   }
 
@@ -149,7 +149,7 @@ class TargetImage {
    * @public
    * @returns {boolean}
    */
-  isVirtualImage() {
+  isVirtual() {
     return this.opticalElement.isLens() ? this.isSameSide() : this.isOppositeSide();
   }
 

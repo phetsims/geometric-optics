@@ -44,7 +44,7 @@ class LensNode extends OpticalElementNode {
         lens.radiusOfCurvatureProperty,
         lens.indexOfRefractionProperty,
         lens.diameterProperty,
-        lens.curvatureTypeProperty ],
+        lens.curveProperty ],
       () => {
         this.opticalElementPath.shape = modelViewTransform.modelToViewShape( lens.shape );
       } );

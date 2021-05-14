@@ -19,9 +19,8 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-import CurvatureTypes from '../model/CurvatureTypes.js';
 import LightRays from '../model/LightRays.js';
-import TransmissionTypes from '../model/TransmissionTypes.js';
+import OpticalElement from '../model/OpticalElement.js';
 
 const metersPattern = geometricOpticsStrings.metersPattern;
 const noneString = geometricOpticsStrings.none;
@@ -39,7 +38,6 @@ const virtualImageString = geometricOpticsStrings.virtualImage;
 const movablePointString = geometricOpticsStrings.movablePoint;
 const guidesString = geometricOpticsStrings.guides;
 
-
 class ControlPanel extends Panel {
 
   /**
@@ -53,34 +51,34 @@ class ControlPanel extends Panel {
   constructor( opticalElement, lightRays, visibleProperties, modelViewTransform, tandem, options ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    const Modes = LightRays.Modes;
-    const rayModesRadioButtonGroupItems = [
+    const Mode = LightRays.Mode;
+    const rayModeRadioButtonGroupItems = [
       {
-        value: Modes.MARGINAL_RAYS,
+        value: Mode.MARGINAL_RAYS,
         node: new Text( marginalString )
       },
       {
-        value: Modes.PRINCIPAL_RAYS,
+        value: Mode.PRINCIPAL_RAYS,
         node: new Text( principalString )
       },
       {
-        value: Modes.MANY_RAYS,
+        value: Mode.MANY_RAYS,
         node: new Text( manyString )
       },
       {
-        value: Modes.NO_RAYS,
+        value: Mode.NO_RAYS,
         node: new Text( noneString )
       }
     ];
 
-    const Types = CurvatureTypes;
+    const Curve = OpticalElement.Curve;
     const curvatureTypesRadioButtonGroupItems = [
       {
-        value: Types.CONCAVE,
+        value: Curve.CONCAVE,
         node: new Text( concaveString )
       },
       {
-        value: Types.CONVEX,
+        value: Curve.CONVEX,
         node: new Text( convexString )
       }
     ];
@@ -127,7 +125,7 @@ class ControlPanel extends Panel {
       lengthNumberControlOptions );
 
     let controls;
-    if ( opticalElement.transmissionType === TransmissionTypes.TRANSMITTED ) {
+    if ( opticalElement.type === OpticalElement.Type.LENS ) {
       const indexOfRefractionControl = new NumberControl(
         refractiveIndexString,
         opticalElement.indexOfRefractionProperty,
@@ -144,9 +142,9 @@ class ControlPanel extends Panel {
     }
 
 
-    const rayModesRadioButtonGroup = new VerticalAquaRadioButtonGroup(
+    const rayModeRadioButtonGroup = new VerticalAquaRadioButtonGroup(
       lightRays.modeProperty,
-      rayModesRadioButtonGroupItems, {
+      rayModeRadioButtonGroupItems, {
         spacing: 8,
         align: 'left',
         radioButtonOptions: {
@@ -188,7 +186,7 @@ class ControlPanel extends Panel {
     const separator = new Line( 0, 10, 0, 100, { stroke: 'gray', lineWidth: 1 } );
 
     const curvatureTypesRadioButtonGroup = new VerticalAquaRadioButtonGroup(
-      opticalElement.curvatureTypeProperty,
+      opticalElement.curveProperty,
       curvatureTypesRadioButtonGroupItems, {
         spacing: 8,
         align: 'left',
@@ -202,7 +200,7 @@ class ControlPanel extends Panel {
     const content = new AlignBox( new HBox( {
       spacing: 8,
       align: 'left',
-      children: [ rayModesRadioButtonGroup,
+      children: [ rayModeRadioButtonGroup,
         separator, ...controls,
         curvatureTypesRadioButtonGroup, checkboxGroup ]
     } ), {

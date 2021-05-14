@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Enumeration for the different curvature types of optical elements
+ * Enumeration of the representation of the objects
  *
  * @author Martin Veillette
  */
@@ -37,7 +37,7 @@ const treeString = geometricOpticsStrings.object.tree;
  * @param {boolean} isObject
  * @returns {{isObject, logo, source, label, target}}
  */
-const typeGenerator = ( logo, source, target, label, isObject ) => {
+const representationGenerator = ( logo, source, target, label, isObject ) => {
   return {
     logo: logo,
     source: source,
@@ -47,13 +47,13 @@ const typeGenerator = ( logo, source, target, label, isObject ) => {
   };
 };
 
-const SourceObjectTypes = Enumeration.byMap( {
-  PENCIL: typeGenerator( pencilImage, pencil3dImage, pencil3dReversedImage, pencilString, true ),
-  TREE: typeGenerator( treeImage, tree3dImage, tree3dReversedImage, treeString, true ),
-  ROCKET: typeGenerator( rocketImage, rocket3dImage, rocket3dReversedImage, rocketString, true ),
-  LIGHT: typeGenerator( lampRedImage, lampBlueImage, screen3dImage, lightString, false )
+const SourceObjectRepresentation = Enumeration.byMap( {
+  PENCIL: representationGenerator( pencilImage, pencil3dImage, pencil3dReversedImage, pencilString, true ),
+  TREE: representationGenerator( treeImage, tree3dImage, tree3dReversedImage, treeString, true ),
+  ROCKET: representationGenerator( rocketImage, rocket3dImage, rocket3dReversedImage, rocketString, true ),
+  LIGHT: representationGenerator( lampRedImage, lampBlueImage, screen3dImage, lightString, false )
 } );
 
 
-geometricOptics.register( 'SourceObjectTypes', SourceObjectTypes );
-export default SourceObjectTypes;
+geometricOptics.register( 'SourceObjectRepresentation', SourceObjectRepresentation );
+export default SourceObjectRepresentation;

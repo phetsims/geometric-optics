@@ -11,7 +11,7 @@ import RangeWithValue from '../../../dot/js/RangeWithValue.js';
 import Vector2 from '../../../dot/js/Vector2.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import geometricOptics from '../geometricOptics.js';
-import CurvatureTypes from './model/CurvatureTypes.js';
+import OpticalElement from './model/OpticalElement.js';
 
 const GeometricOpticsConstants = {
 
@@ -33,7 +33,7 @@ const GeometricOpticsConstants = {
   //                                 LENS
 
   LENS_INITIAL_POSITION: Vector2.ZERO,
-  LENS_INITIAL_CURVATURE_TYPE: CurvatureTypes.CONVEX,
+  LENS_INITIAL_CURVATURE_TYPE: OpticalElement.Curve.CONVEX,
   LENS_INDEX_OF_REFRACTION_RANGE: new RangeWithValue( 1.20, 1.87, 1.53 ),
   LENS_RADIUS_OF_CURVATURE_RANGE: new RangeWithValue( 0.3, 1.3, 0.8 ),
   LENS_DIAMETER_RANGE: new RangeWithValue( 0.3, 1.3, 0.8 ),
@@ -43,7 +43,7 @@ const GeometricOpticsConstants = {
 
 
   MIRROR_INITIAL_POSITION: new Vector2( 1, 0 ),
-  MIRROR_INITIAL_CURVATURE_TYPE: CurvatureTypes.CONVEX,
+  MIRROR_INITIAL_CURVATURE_TYPE: OpticalElement.Curve.CONVEX,
   MIRROR_RADIUS_OF_CURVATURE_RANGE: new RangeWithValue( 1.5, 3.0, 2.0 ),
   MIRROR_DIAMETER_RANGE: new RangeWithValue( 0.5, 1.5, 0.8 ),
 

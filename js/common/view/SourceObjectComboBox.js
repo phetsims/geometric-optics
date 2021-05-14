@@ -11,14 +11,14 @@ import ComboBox from '../../../../sun/js/ComboBox.js';
 import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import SourceObjectTypes from '../model/SourceObjectTypes.js';
+import SourceObjectRepresentation from '../model/SourceObjectRepresentation.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 
 class SourceObjectComboBox extends Node {
 
   /**
-   * @param {EnumerationProperty.<SourceObjectTypes>} selectedItemProperty
+   * @param {EnumerationProperty.<SourceObjectRepresentation>} selectedItemProperty
    * @param {Tandem} tandem
    */
   constructor( selectedItemProperty, tandem ) {
@@ -28,7 +28,7 @@ class SourceObjectComboBox extends Node {
 
     const items = [];
 
-    SourceObjectTypes.VALUES.forEach( type => {
+    SourceObjectRepresentation.VALUES.forEach( type => {
       const text = new Text( type.label, { font: new PhetFont( { size: 20 } ) } );
       const logo = new Image( type.logo, { scale: 0.05 } );
       const hbox = new HBox( { children: [ logo, text ] } );

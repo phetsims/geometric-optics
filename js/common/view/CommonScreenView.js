@@ -75,7 +75,7 @@ class CommonScreenView extends ScreenView {
 
     this.visibleProperties.visibleFocalPointProperty.linkAttribute( focalPointsNode, 'visible' );
 
-    const comboBox = new SourceObjectComboBox( model.sourceObject.typeProperty, tandem );
+    const comboBox = new SourceObjectComboBox( model.sourceObject.representationProperty, tandem );
 
 
     // scale the playAreaNode

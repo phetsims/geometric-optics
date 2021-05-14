@@ -11,9 +11,8 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
-import TransmissionTypes from '../../common/model/TransmissionTypes.js';
 import geometricOptics from '../../geometricOptics.js';
-import CurvatureTypes from '../../common/model/CurvatureTypes.js';
+
 import OpticalElement from '../../common/model/OpticalElement.js';
 import Property from '../../../../axon/js/Property.js';
 
@@ -30,75 +29,95 @@ class Mirror extends OpticalElement {
   constructor( tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    /**
-     * @param {Vector2} position
-     * @param {RangeWithValue} radiusOfCurvatureRange
-     * @param {RangeWithValue} diameterRange
-     * @param {CurvatureTypes} curvatureType
-     * @param {TransmissionTypes} transmissionType
-     * @param {Tandem} tandem
-     */
-
     super( INITIAL_POSITION, RADIUS_OF_CURVATURE_RANGE, DIAMETER_RANGE,
-      INITIAL_CURVATURE_TYPE, TransmissionTypes.REFLECTED, tandem );
+      INITIAL_CURVATURE_TYPE, OpticalElement.Type.MIRROR, tandem );
 
-      this.focalLengthProperty = new DerivedProperty(
-      [ this.radiusOfCurvatureProperty, this.curvatureTypeProperty ], ( radiusOfCurvature, type ) => {
-        const signRadius = type === CurvatureTypes.CONVEX ? -1 : 1;
+    // @public (read-only) {DerivedProperty.<number>}
+    this.focalLengthProperty = new DerivedProperty(
+      [ this.radiusOfCurvatureProperty, this.curveProperty ], ( radiusOfCurvature, type ) => {
+        const signRadius = type === OpticalElement.Curve.CONVEX ? -1 : 1;
         return signRadius * radiusOfCurvature / ( 2 );
       }
     );
 
-    this.shape = new Shape();
-
+    // update the shape of the mirror
     Property.multilink( [
-      this.positionProperty,
-      this.radiusOfCurvatureProperty,
-      this.diameterProperty,
-      this.curvatureTypeProperty ], ( position, radius, diameter, type ) => {
-      const halfHeight = diameter / 2;
-
-      if ( type === CurvatureTypes.CONVEX ) {
-        const halfWidth = 1 / 2 * halfHeight * halfHeight / radius;
-        const top = position.plusXY( halfWidth, halfHeight );
-        const bottom = position.plusXY( halfWidth, -halfHeight );
-        const left = position.plusXY( -halfWidth, 0 );
-        this.shape = new Shape()
-          .moveToPoint( top )
-          .quadraticCurveToPoint( left, bottom )
-          .close();
-        this.shape.moveToPoint( top ).lineToPoint( bottom );
-      }
-      else {
-        const halfWidth = 1 / 2 * halfHeight * halfHeight / radius;
-        const midWidth = 1 / 2 * halfHeight * halfHeight / radius;
-        const topLeft = position.plusXY( -halfWidth, halfHeight );
-        const topMid = position.plusXY( 0, halfHeight );
-        const bottomLeft = position.plusXY( -halfWidth, -halfHeight );
-        const bottomMid = position.plusXY( 0, -halfHeight );
-        const midLeft = position.plusXY( midWidth, 0 );
-
-        this.shape = new Shape()
-          .moveToPoint( topLeft )
-          .lineToPoint( topMid )
-          .lineToPoint( bottomMid )
-          .lineToPoint( bottomLeft )
-          .quadraticCurveToPoint( midLeft, topLeft )
-          .close();
-      }
-    } );
-
+        this.positionProperty,
+        this.radiusOfCurvatureProperty,
+        this.diameterProperty,
+        this.curveProperty ],
+      ( position, radius, diameter, type ) => {
+        if ( type === OpticalElement.Curve.CONVEX ) {
+          this.shape = this.getConvexShape( position, radius, diameter );
+        }
+        else {
+          this.shape = this.getConcaveShape( position, radius, diameter );
+        }
+      } );
 
   }
 
   /**
-   * Resets the model.
+   * Resets the mirror
    * @public
    */
   reset() {
     super.reset();
   }
 
+  /**
+   * Returns the shape of a convex mirror.
+   * @param {Vector2} position
+   * @param {number} radius
+   * @param {number} diameter
+   * @returns {Shape}
+   * @public
+   */
+  getConvexShape( position, radius, diameter ) {
+
+    const halfHeight = diameter / 2;
+    const halfWidth = 1 / 2 * halfHeight * halfHeight / radius;
+    const top = position.plusXY( halfWidth, halfHeight );
+    const bottom = position.plusXY( halfWidth, -halfHeight );
+    const left = position.plusXY( -halfWidth, 0 );
+    const convexShape = new Shape()
+      .moveToPoint( top )
+      .quadraticCurveToPoint( left, bottom )
+      .close();
+    convexShape.moveToPoint( top ).lineToPoint( bottom );
+    return convexShape;
+  }
+
+
+  /**
+   * Returns the shape of a concave mirror.
+   * @param {Vector2} position
+   * @param {number} radius
+   * @param {number} diameter
+   * @returns {Shape}
+   * @public
+   */
+  getConcaveShape( position, radius, diameter ) {
+
+    const halfHeight = diameter / 2;
+    const halfWidth = 1 / 2 * halfHeight * halfHeight / radius;
+    const midWidth = 1 / 2 * halfHeight * halfHeight / radius;
+    const topLeft = position.plusXY( -halfWidth, halfHeight );
+    const topMid = position.plusXY( 0, halfHeight );
+    const bottomLeft = position.plusXY( -halfWidth, -halfHeight );
+    const bottomMid = position.plusXY( 0, -halfHeight );
+    const midLeft = position.plusXY( midWidth, 0 );
+
+    const concaveShape = new Shape()
+      .moveToPoint( topLeft )
+      .lineToPoint( topMid )
+      .lineToPoint( bottomMid )
+      .lineToPoint( bottomLeft )
+      .quadraticCurveToPoint( midLeft, topLeft )
+      .close();
+
+    return concaveShape;
+  }
 }
 
 geometricOptics.register( 'Mirror', Mirror );

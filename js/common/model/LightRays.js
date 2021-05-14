@@ -28,7 +28,7 @@ class LightRays {
   constructor( sourceObjectPositionProperty, opticalElement, targetImage, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    this.modeProperty = new EnumerationProperty( LightRays.Modes, LightRays.Modes.NO_RAYS );
+    this.modeProperty = new EnumerationProperty( LightRays.Mode, LightRays.Mode.NO_RAYS );
 
     this.opticalElement = opticalElement;
     this.sourceObjectPositionProperty = sourceObjectPositionProperty;
@@ -44,7 +44,7 @@ class LightRays {
         this.modeProperty,
         opticalElement.diameterProperty,
         opticalElement.focalLengthProperty,
-        opticalElement.curvatureTypeProperty ],
+        opticalElement.curveProperty ],
       ( sourcePosition, opticalElementPosition, mode, diameter, focalLength, type ) => {
 
         this.drawRays( mode,
@@ -69,7 +69,7 @@ class LightRays {
    *   object with the specified color from point 1 through
    *   the opticalElement to point 2.
    *
-   * @param {Modes} mode
+   * @param {Mode} mode
    * @param {Vector2} sourcePoint
    * @param {Vector2} opticalElementPoint
    * @param {Vector2} targetPoint
@@ -103,12 +103,12 @@ class LightRays {
     let m2;
     let m3;
 
-    const isVirtualImage = this.targetImage.isInvertedImage();
+    const isVirtualImage = this.targetImage.isInverted();
     const objectOpticalElementDistance = this.getObjectOpticalElementDistance();
 
     // Draw different rays depending on the mode
     switch( mode ) {
-      case LightRays.Modes.MARGINAL_RAYS:
+      case LightRays.Mode.MARGINAL_RAYS:
 
         // Draw different rays depending on the mode
         if ( objectOpticalElementDistance > 0 ) {
@@ -167,7 +167,7 @@ class LightRays {
         }
 
         break;
-      case LightRays.Modes.PRINCIPAL_RAYS:
+      case LightRays.Mode.PRINCIPAL_RAYS:
 
         if ( Ax < Bx ) {
           // Ray passing through center of opticalElement
@@ -209,7 +209,7 @@ class LightRays {
           }
         }
         break;
-      case LightRays.Modes.MANY_RAYS:
+      case LightRays.Mode.MANY_RAYS:
         // eslint-disable-next-line no-case-declarations
         const N = 25; // Number of rays
         // eslint-disable-next-line no-case-declarations
@@ -237,7 +237,7 @@ class LightRays {
           }
         }
         break;
-      case LightRays.Modes.NO_RAYS:
+      case LightRays.Mode.NO_RAYS:
         // no op
         break;
       default:
@@ -256,12 +256,12 @@ class LightRays {
   }
 }
 
-// Enumeration for the different ray modes
+// Enumeration for the different ray Mode
 // NO_RAYS implies that no rays are displayed.
 // MARGINAL_RAYS show the rays at the top, center and middle of the opticalElement.
 // PRINCIPAL_RAYS show the principal rays, according to the ray tracing method.
 // MANY_RAYS show a shower of rays.
-LightRays.Modes = Enumeration.byKeys( [
+LightRays.Mode = Enumeration.byKeys( [
   'NO_RAYS',
   'MARGINAL_RAYS',
   'PRINCIPAL_RAYS',

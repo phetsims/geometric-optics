@@ -13,10 +13,10 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
+import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import CurvatureTypes from './CurvatureTypes.js';
-import TransmissionTypes from './TransmissionTypes.js';
+
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 
 class OpticalElement {
@@ -26,15 +26,13 @@ class OpticalElement {
    * @param {Vector2} position
    * @param {RangeWithValue} radiusOfCurvatureRange
    * @param {RangeWithValue} diameterRange
-   * @param {CurvatureTypes} curvatureType
-   * @param {TransmissionTypes} transmissionType
+   * @param {OpticalElement.Curve} curve
+   * @param {OpticalElement.Type} type
    * @param {Tandem} tandem
    */
-  constructor( position, radiusOfCurvatureRange, diameterRange, curvatureType, transmissionType, tandem ) {
+  constructor( position, radiusOfCurvatureRange, diameterRange, curve, type, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
     assert && assert( position instanceof Vector2, 'invalid position' );
-  //  assert && assert( curvatureType instanceof CurvatureTypes, 'invalid curvatureType' );
-    //assert && assert( transmissionType instanceof TransmissionTypes, 'invalid transmissionType' );
     assert && assert( radiusOfCurvatureRange instanceof RangeWithValue, 'invalied' );
 
     // @public {Property.<Vector2>} Position of the optical element
@@ -46,11 +44,11 @@ class OpticalElement {
     // @public {Property.<number>} Height of the optical element - controls the optical aperture of the optical element
     this.diameterProperty = new NumberProperty( diameterRange.defaultValue, { range: diameterRange } );
 
-    // @public {EnumerationProperty.<CurvatureTypes>} Type of Curvature of the optical element.
-    this.curvatureTypeProperty = new EnumerationProperty( CurvatureTypes, curvatureType );
+    // @public {EnumerationProperty.<OpticalElement.Curve>} Type of Curvature of the optical element.
+    this.curveProperty = new EnumerationProperty( OpticalElement.Curve, curve );
 
-    // @public {TransmissionTypes} Type of transmission of the optical element.
-    this.transmissionType = transmissionType;
+    // @public {OpticalElement.Type} Type of transmission of the optical element.
+    this.type = type;
 
     // @public Shape of the optical element
     this.shape = new Shape();
@@ -70,7 +68,7 @@ class OpticalElement {
     this.positionProperty.reset();
     this.diameterProperty.reset();
     this.radiusOfCurvatureProperty.reset();
-    this.curvatureTypeProperty.reset();
+    this.curveProperty.reset();
   }
 
   /**
@@ -90,7 +88,7 @@ class OpticalElement {
    * @returns {boolean}
    */
   isLens() {
-    return this.transmissionType === TransmissionTypes.TRANSMITTED;
+    return this.type === OpticalElement.Type.LENS;
   }
 
   /**
@@ -102,6 +100,16 @@ class OpticalElement {
     return !this.hasLens();
   }
 }
+
+OpticalElement.Type = Enumeration.byKeys( [
+  'LENS', // lens
+  'MIRROR' //mirror
+] );
+
+OpticalElement.Curve = Enumeration.byKeys( [
+  'CONVEX',
+  'CONCAVE'
+] );
 
 geometricOptics.register( 'OpticalElement', OpticalElement );
 export default OpticalElement;
