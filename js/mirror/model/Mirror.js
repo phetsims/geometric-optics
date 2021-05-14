@@ -12,9 +12,7 @@ import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import geometricOptics from '../../geometricOptics.js';
-
 import Optic from '../../common/model/Optic.js';
-import Property from '../../../../axon/js/Property.js';
 
 const RADIUS_OF_CURVATURE_RANGE = GeometricOpticsConstants.MIRROR_RADIUS_OF_CURVATURE_RANGE;
 const DIAMETER_RANGE = GeometricOpticsConstants.MIRROR_DIAMETER_RANGE;
@@ -40,18 +38,18 @@ class Mirror extends Optic {
       }
     );
 
-    // update the shape of the mirror
-    Property.multilink( [
+    // @public {DerivedProperty.<Shape>} shape of the mirror
+    this.shapeProperty = new DerivedProperty( [
         this.positionProperty,
         this.radiusOfCurvatureProperty,
         this.diameterProperty,
         this.curveProperty ],
       ( position, radius, diameter, type ) => {
         if ( type === Optic.Curve.CONVEX ) {
-          this.shape = this.getConvexShape( position, radius, diameter );
+          return this.getConvexShape( position, radius, diameter );
         }
         else {
-          this.shape = this.getConcaveShape( position, radius, diameter );
+          return this.getConcaveShape( position, radius, diameter );
         }
       } );
 

@@ -12,10 +12,11 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import Shape from '../../../../kite/js/Shape.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
+import Shape from '../../../../kite/js/Shape.js';
+import Property from '../../../../axon/js/Property.js';
 
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 
@@ -47,14 +48,14 @@ class Optic {
     // @public {EnumerationProperty.<Optic.Curve>} Type of Curvature of the optical element.
     this.curveProperty = new EnumerationProperty( Optic.Curve, curve );
 
-    // @public {Optic.Type} Type of transmission of the optical element.
+    // @public (read-only) {Optic.Type} Type of transmission of the optical element.
     this.type = type;
 
-    // @public Shape of the optical element
-    this.shape = new Shape();
+    // @public {Shape} shape of the optical element
+    this.shapeProperty = new Property( new Shape() );
 
-    // @public
-    this.focalLengthProperty = null;
+    // @public - must be implemented by subtype
+    this.focalLengthProperty = new Error( 'must be implemented by subtype' );
 
     // @public (read-only)
     this.diameterRange = diameterRange;
@@ -97,7 +98,7 @@ class Optic {
    * @returns {boolean}
    */
   isMirror() {
-    return !this.hasLens();
+    return this.type === Optic.Type.MIRROR;
   }
 }
 

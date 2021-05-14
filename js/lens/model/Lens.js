@@ -10,7 +10,6 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -48,18 +47,19 @@ class Lens extends Optic {
       }
     );
 
-    // updates the shape of the lens
-    Property.multilink( [
+    // @public {DerivedProperty.<Shape>} shape of the lens
+    this.shapeProperty = new DerivedProperty(
+      [
         this.positionProperty,
         this.radiusOfCurvatureProperty,
         this.diameterProperty,
         this.curveProperty ],
       ( position, radius, diameter, type ) => {
         if ( type === Optic.Curve.CONVEX ) {
-          this.shape = this.getConvexShape( position, radius, diameter );
+          return this.getConvexShape( position, radius, diameter );
         }
         else {
-          this.shape = this.getConcaveShape( position, radius, diameter );
+          return this.getConcaveShape( position, radius, diameter );
         }
       } );
   }

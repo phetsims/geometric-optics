@@ -6,7 +6,6 @@
  * @author Martin Veillette
  */
 
-import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -37,15 +36,10 @@ class MirrorNode extends OpticNode {
 
     super( mirror, modelViewTransform, tandem, options );
 
-    // update the shape and position of the mirror
-    Property.multilink( [
-        mirror.positionProperty,
-        mirror.radiusOfCurvatureProperty,
-        mirror.diameterProperty,
-        mirror.curveProperty ],
-      () => {
-        this.opticPath.shape = modelViewTransform.modelToViewShape( mirror.shape );
-      } );
+    // mirror.shapeProperty.link( shape => {
+    //   this.opticPath.shape = modelViewTransform.modelToViewShape( shape );
+    // } );
+
   }
 }
 

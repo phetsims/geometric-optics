@@ -6,7 +6,6 @@
  * @author Martin Veillette
  */
 
-import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -38,21 +37,15 @@ class LensNode extends OpticNode {
 
     super( lens, modelViewTransform, tandem, options );
 
-    // update the shape and position of the lens
-    Property.multilink( [
-        lens.positionProperty,
-        lens.radiusOfCurvatureProperty,
-        lens.indexOfRefractionProperty,
-        lens.diameterProperty,
-        lens.curveProperty ],
-      () => {
-        this.opticPath.shape = modelViewTransform.modelToViewShape( lens.shape );
-      } );
+    // lens.shapeProperty.link( shape => {
+    //   this.opticPath.shape = modelViewTransform.modelToViewShape( shape );
+    // } );
 
     // link the index of refraction to the opacity of the fill of the lens
     lens.indexOfRefractionProperty.link( index => {
       const normalizedIndex = lens.getNormalizedIndex( index );
-      this.opticPath.fill = new Color( FILL.value.red, FILL.value.green, FILL.value.blue, normalizedIndex );
+      const fill = FILL.value;
+      this.opticPath.fill = new Color( fill.red, fill.green, fill.blue, normalizedIndex );
     } );
 
   }

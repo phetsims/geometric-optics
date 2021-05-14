@@ -35,11 +35,14 @@ class OpticNode extends Node {
 
     // create the path of the optic
     // @public {Path}
-    this.opticPath = new Path( modelViewTransform.modelToViewShape( optic.shape ), {
+    this.opticPath = new Path( modelViewTransform.modelToViewShape( optic.shapeProperty.value ), {
       stroke: options.stroke,
       lineWidth: options.lineWidth
     } );
 
+    optic.shapeProperty.link( shape => {
+      this.opticPath.shape = modelViewTransform.modelToViewShape( shape );
+    } );
 
     this.addInputListener( dragListener );
     this.addChild( this.opticPath );
