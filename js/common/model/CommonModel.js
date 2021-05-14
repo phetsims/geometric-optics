@@ -21,7 +21,7 @@ class CommonModel {
   constructor( tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    // @public
+    // @public {SourceObject} the object/ source
     this.sourceObject = new SourceObject( tandem );
 
   }
@@ -41,18 +41,17 @@ class CommonModel {
    * @param {tandem} tandem
    */
   createCommonComponents( optic, tandem ) {
-    // @public
+    // @public {FocalPoint} first principal focal point
     this.firstFocalPoint = new FocalPoint( optic.positionProperty, optic.focalLengthProperty, tandem );
 
-    // @public
+    // @public {FocalPoint} second principal focal point
     this.secondFocalPoint = new FocalPoint( optic.positionProperty, optic.focalLengthProperty, tandem, { multiplicativeFactor: -1 } );
 
-    // @public
+    // @public {TargetImage} target/ image
     this.targetImage = new TargetImage( this.sourceObject, optic, tandem );
 
-    // @public
+    // @public {LightRays} model of the light rays
     this.lightRays = new LightRays( this.sourceObject.positionProperty, optic, this.targetImage, tandem );
-
 
   }
 
