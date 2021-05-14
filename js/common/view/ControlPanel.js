@@ -20,7 +20,7 @@ import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import LightRays from '../model/LightRays.js';
-import OpticalElement from '../model/OpticalElement.js';
+import Optic from '../model/Optic.js';
 
 const metersPattern = geometricOpticsStrings.metersPattern;
 const noneString = geometricOpticsStrings.none;
@@ -41,14 +41,14 @@ const guidesString = geometricOpticsStrings.guides;
 class ControlPanel extends Panel {
 
   /**
-   * @param {OpticalElement} opticalElement
+   * @param {Optic} optic
    * @param {LightRays} lightRays
    * @param {VisibleProperties} visibleProperties
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( opticalElement, lightRays, visibleProperties, modelViewTransform, tandem, options ) {
+  constructor( optic, lightRays, visibleProperties, modelViewTransform, tandem, options ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     const Mode = LightRays.Mode;
@@ -71,7 +71,7 @@ class ControlPanel extends Panel {
       }
     ];
 
-    const Curve = OpticalElement.Curve;
+    const Curve = Optic.Curve;
     const curvatureTypesRadioButtonGroupItems = [
       {
         value: Curve.CONCAVE,
@@ -114,22 +114,22 @@ class ControlPanel extends Panel {
 
     const curvatureRadiusControl = new NumberControl(
       curvatureRadiusString,
-      opticalElement.radiusOfCurvatureProperty,
-      opticalElement.radiusOfCurvatureProperty.range,
+      optic.radiusOfCurvatureProperty,
+      optic.radiusOfCurvatureProperty.range,
       lengthNumberControlOptions );
 
     const diameterControl = new NumberControl(
       diameterString,
-      opticalElement.diameterProperty,
-      opticalElement.diameterProperty.range,
+      optic.diameterProperty,
+      optic.diameterProperty.range,
       lengthNumberControlOptions );
 
     let controls;
-    if ( opticalElement.type === OpticalElement.Type.LENS ) {
+    if ( optic.type === Optic.Type.LENS ) {
       const indexOfRefractionControl = new NumberControl(
         refractiveIndexString,
-        opticalElement.indexOfRefractionProperty,
-        opticalElement.indexOfRefractionProperty.range,
+        optic.indexOfRefractionProperty,
+        optic.indexOfRefractionProperty.range,
         indexOfRefractionNumberControlOptions );
 
       controls = [ curvatureRadiusControl,
@@ -186,7 +186,7 @@ class ControlPanel extends Panel {
     const separator = new Line( 0, 10, 0, 100, { stroke: 'gray', lineWidth: 1 } );
 
     const curvatureTypesRadioButtonGroup = new VerticalAquaRadioButtonGroup(
-      opticalElement.curveProperty,
+      optic.curveProperty,
       curvatureTypesRadioButtonGroupItems, {
         spacing: 8,
         align: 'left',

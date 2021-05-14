@@ -16,40 +16,47 @@ class TargetImage {
 
   /**
    * @param {SourceObject} sourceObject
-   * @param {OpticalElement} opticalElement
+   * @param {Optic} optic
    * @param {Tandem} tandem
    */
-  constructor( sourceObject, opticalElement, tandem ) {
+  constructor( sourceObject, optic, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     // @public (read-only) {SourceObject}
     this.sourceObject = sourceObject;
 
-    // @public (read-only) {OpticalElement}
-    this.opticalElement = opticalElement;
+    // @public (read-only) {Optic}
+    this.optic = optic;
 
     // @public (read-only) {DerivedProperty.<boolean>}
     this.isInvertedProperty = new DerivedProperty( [ sourceObject.positionProperty,
-      opticalElement.positionProperty,
-      opticalElement.focalLengthProperty ], () => {
+      optic.positionProperty,
+      optic.focalLengthProperty ], () => {
       return this.isInverted();
     } );
 
     // @public (read-only) {DerivedProperty.<number>}
     this.scaleProperty = new DerivedProperty( [ sourceObject.positionProperty,
-      opticalElement.positionProperty,
-      opticalElement.focalLengthProperty ], () => {
+      optic.positionProperty,
+      optic.focalLengthProperty ], () => {
       return this.scale();
     } );
 
     // updates the position of the image
     // @public (read-only) {DerivedProperty.<Vector2>}
     this.positionProperty = new DerivedProperty( [ sourceObject.positionProperty,
-        opticalElement.positionProperty,
-        opticalElement.focalLengthProperty ],
-      ( objectPosition, opticalElementPosition, focalLength ) => {
-        return this.position( objectPosition, opticalElementPosition, focalLength );
+        optic.positionProperty,
+        optic.focalLengthProperty ],
+      ( objectPosition, opticPosition, focalLength ) => {
+        return this.position( objectPosition, opticPosition, focalLength );
       } );
+
+  }
+
+  /**
+   * @public
+   */
+  reset() {
 
   }
 
@@ -61,7 +68,7 @@ class TargetImage {
    */
   scale() {
     const focalLength = this.getFocalLength();
-    return focalLength / ( this.getObjectOpticalElementDistance() - focalLength );
+    return focalLength / ( this.getObjectOpticDistance() - focalLength );
   }
 
   /**
@@ -72,7 +79,7 @@ class TargetImage {
    */
   getHeight() {
     return this.getMagnification() * ( this.sourceObject.positionProperty.value.y -
-                                       this.opticalElement.positionProperty.value.y );
+                                       this.optic.positionProperty.value.y );
   }
 
   /**
@@ -82,7 +89,7 @@ class TargetImage {
    * @returns {number}
    */
   getMagnification() {
-    return -1 * this.getImageOpticalElementDistance() / this.getObjectOpticalElementDistance();
+    return -1 * this.getImageOpticDistance() / this.getObjectOpticDistance();
   }
 
   /**
@@ -91,8 +98,8 @@ class TargetImage {
    * @public
    * @returns {number}
    */
-  getObjectOpticalElementDistance() {
-    return this.opticalElement.positionProperty.value.x - this.sourceObject.positionProperty.value.x;
+  getObjectOpticDistance() {
+    return this.optic.positionProperty.value.x - this.sourceObject.positionProperty.value.x;
   }
 
   /**
@@ -102,17 +109,17 @@ class TargetImage {
    * @returns {number}
    */
   getFocalLength() {
-    return this.opticalElement.focalLengthProperty.value;
+    return this.optic.focalLengthProperty.value;
   }
 
   /**
-   * Returns the horizontal distance of the image from the opticalElement.
+   * Returns the horizontal distance of the image from the optic.
    * A negative distance indicates that the image os to the left of the optical element.
    * @public
    * @returns {number}
    */
-  getImageOpticalElementDistance() {
-    const distanceObject = this.getObjectOpticalElementDistance();
+  getImageOpticDistance() {
+    const distanceObject = this.getObjectOpticDistance();
     const f = this.getFocalLength();
     return ( f * distanceObject ) / ( distanceObject - f );
   }
@@ -125,7 +132,7 @@ class TargetImage {
    * @returns {boolean}
    */
   isInverted() {
-    return this.opticalElement.isLens() ? this.isOppositeSide() : this.isSameSide();
+    return this.optic.isLens() ? this.isOppositeSide() : this.isSameSide();
   }
 
   /**
@@ -137,7 +144,7 @@ class TargetImage {
    * @returns {boolean}
    */
   isVirtual() {
-    return this.opticalElement.isLens() ? this.isSameSide() : this.isOppositeSide();
+    return this.optic.isLens() ? this.isSameSide() : this.isOppositeSide();
   }
 
   /**
@@ -146,7 +153,7 @@ class TargetImage {
    * @returns {boolean}
    */
   isSameSide() {
-    const sign = Math.sign( this.getImageOpticalElementDistance() * this.getObjectOpticalElementDistance() );
+    const sign = Math.sign( this.getImageOpticDistance() * this.getObjectOpticDistance() );
     return sign === 1;
   }
 
@@ -162,20 +169,20 @@ class TargetImage {
   /**
    * returns the position of the image
    * @param {Vector2} objectPosition
-   * @param {Vector2} opticalElementPosition
+   * @param {Vector2} opticPosition
    * @param {number} focalLength
    * @returns {Vector2}
    * @public
    */
-  position( objectPosition, opticalElementPosition, focalLength ) {
-    const distanceObject = opticalElementPosition.x - objectPosition.x;
-    const heightObject = objectPosition.y - opticalElementPosition.y;
+  position( objectPosition, opticPosition, focalLength ) {
+    const distanceObject = opticPosition.x - objectPosition.x;
+    const heightObject = objectPosition.y - opticPosition.y;
     const f = focalLength;
-    const sign = this.opticalElement.isLens() ? 1 : -1;
+    const sign = this.optic.isLens() ? 1 : -1;
     const distanceImage = sign * ( f * distanceObject ) / ( distanceObject - f );
     const magnification = -1 * distanceImage / distanceObject;
     const yOffset = sign * heightObject * magnification;
-    return opticalElementPosition.plus( new Vector2( distanceImage, yOffset ) );
+    return opticPosition.plus( new Vector2( distanceImage, yOffset ) );
   }
 }
 

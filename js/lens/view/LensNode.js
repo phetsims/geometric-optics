@@ -13,13 +13,13 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColorProfile from '../../common/GeometricOpticsColorProfile.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
-import OpticalElementNode from '../../common/view/OpticalElementNode.js';
+import OpticNode from '../../common/view/OpticNode.js';
 
 const FILL = GeometricOpticsColorProfile.lensFillProperty;
 const STROKE = GeometricOpticsColorProfile.lensStrokeProperty;
 const LINE_WIDTH = GeometricOpticsConstants.OPTICAL_ELEMENT_LINE_WIDTH;
 
-class LensNode extends OpticalElementNode {
+class LensNode extends OpticNode {
 
   /**
    * @param {Lens} lens
@@ -46,13 +46,13 @@ class LensNode extends OpticalElementNode {
         lens.diameterProperty,
         lens.curveProperty ],
       () => {
-        this.opticalElementPath.shape = modelViewTransform.modelToViewShape( lens.shape );
+        this.opticPath.shape = modelViewTransform.modelToViewShape( lens.shape );
       } );
 
     // link the index of refraction to the opacity of the fill of the lens
     lens.indexOfRefractionProperty.link( index => {
       const normalizedIndex = lens.getNormalizedIndex( index );
-      this.opticalElementPath.fill = new Color( FILL.value.red, FILL.value.green, FILL.value.blue, normalizedIndex );
+      this.opticPath.fill = new Color( FILL.value.red, FILL.value.green, FILL.value.blue, normalizedIndex );
     } );
 
   }

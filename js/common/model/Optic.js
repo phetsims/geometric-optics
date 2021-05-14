@@ -19,15 +19,15 @@ import geometricOptics from '../../geometricOptics.js';
 
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 
-class OpticalElement {
+class Optic {
 
   /**
    *
    * @param {Vector2} position
    * @param {RangeWithValue} radiusOfCurvatureRange
    * @param {RangeWithValue} diameterRange
-   * @param {OpticalElement.Curve} curve
-   * @param {OpticalElement.Type} type
+   * @param {Optic.Curve} curve
+   * @param {Optic.Type} type
    * @param {Tandem} tandem
    */
   constructor( position, radiusOfCurvatureRange, diameterRange, curve, type, tandem ) {
@@ -44,10 +44,10 @@ class OpticalElement {
     // @public {Property.<number>} Height of the optical element - controls the optical aperture of the optical element
     this.diameterProperty = new NumberProperty( diameterRange.defaultValue, { range: diameterRange } );
 
-    // @public {EnumerationProperty.<OpticalElement.Curve>} Type of Curvature of the optical element.
-    this.curveProperty = new EnumerationProperty( OpticalElement.Curve, curve );
+    // @public {EnumerationProperty.<Optic.Curve>} Type of Curvature of the optical element.
+    this.curveProperty = new EnumerationProperty( Optic.Curve, curve );
 
-    // @public {OpticalElement.Type} Type of transmission of the optical element.
+    // @public {Optic.Type} Type of transmission of the optical element.
     this.type = type;
 
     // @public Shape of the optical element
@@ -88,7 +88,7 @@ class OpticalElement {
    * @returns {boolean}
    */
   isLens() {
-    return this.type === OpticalElement.Type.LENS;
+    return this.type === Optic.Type.LENS;
   }
 
   /**
@@ -101,15 +101,15 @@ class OpticalElement {
   }
 }
 
-OpticalElement.Type = Enumeration.byKeys( [
+Optic.Type = Enumeration.byKeys( [
   'LENS', // lens
   'MIRROR' //mirror
 ] );
 
-OpticalElement.Curve = Enumeration.byKeys( [
+Optic.Curve = Enumeration.byKeys( [
   'CONVEX',
   'CONCAVE'
 ] );
 
-geometricOptics.register( 'OpticalElement', OpticalElement );
-export default OpticalElement;
+geometricOptics.register( 'Optic', Optic );
+export default Optic;

@@ -13,7 +13,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import geometricOptics from '../../geometricOptics.js';
 
-import OpticalElement from '../../common/model/OpticalElement.js';
+import Optic from '../../common/model/Optic.js';
 import Property from '../../../../axon/js/Property.js';
 
 const RADIUS_OF_CURVATURE_RANGE = GeometricOpticsConstants.MIRROR_RADIUS_OF_CURVATURE_RANGE;
@@ -21,7 +21,7 @@ const DIAMETER_RANGE = GeometricOpticsConstants.MIRROR_DIAMETER_RANGE;
 const INITIAL_CURVATURE_TYPE = GeometricOpticsConstants.MIRROR_INITIAL_CURVATURE_TYPE;
 const INITIAL_POSITION = GeometricOpticsConstants.MIRROR_INITIAL_POSITION;
 
-class Mirror extends OpticalElement {
+class Mirror extends Optic {
 
   /**
    * @param {Tandem} tandem
@@ -30,12 +30,12 @@ class Mirror extends OpticalElement {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     super( INITIAL_POSITION, RADIUS_OF_CURVATURE_RANGE, DIAMETER_RANGE,
-      INITIAL_CURVATURE_TYPE, OpticalElement.Type.MIRROR, tandem );
+      INITIAL_CURVATURE_TYPE, Optic.Type.MIRROR, tandem );
 
     // @public (read-only) {DerivedProperty.<number>}
     this.focalLengthProperty = new DerivedProperty(
       [ this.radiusOfCurvatureProperty, this.curveProperty ], ( radiusOfCurvature, type ) => {
-        const signRadius = type === OpticalElement.Curve.CONVEX ? -1 : 1;
+        const signRadius = type === Optic.Curve.CONVEX ? -1 : 1;
         return signRadius * radiusOfCurvature / ( 2 );
       }
     );
@@ -47,7 +47,7 @@ class Mirror extends OpticalElement {
         this.diameterProperty,
         this.curveProperty ],
       ( position, radius, diameter, type ) => {
-        if ( type === OpticalElement.Curve.CONVEX ) {
+        if ( type === Optic.Curve.CONVEX ) {
           this.shape = this.getConvexShape( position, radius, diameter );
         }
         else {

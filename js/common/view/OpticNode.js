@@ -12,15 +12,15 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 
-class OpticalElementNode extends Node {
+class OpticNode extends Node {
 
   /**
-   * @param {OpticalElement} opticalElement
+   * @param {Optic} optic
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( opticalElement, modelViewTransform, tandem, options ) {
+  constructor( optic, modelViewTransform, tandem, options ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     super( options );
@@ -28,24 +28,24 @@ class OpticalElementNode extends Node {
     // create a drag listener on this node
     const dragListener = new DragListener(
       {
-        positionProperty: opticalElement.positionProperty,
+        positionProperty: optic.positionProperty,
         transform: modelViewTransform,
         applyOffset: false
       } );
 
-    // create the path of the opticalElement
+    // create the path of the optic
     // @public {Path}
-    this.opticalElementPath = new Path( modelViewTransform.modelToViewShape( opticalElement.shape ), {
+    this.opticPath = new Path( modelViewTransform.modelToViewShape( optic.shape ), {
       stroke: options.stroke,
       lineWidth: options.lineWidth
     } );
 
 
     this.addInputListener( dragListener );
-    this.addChild( this.opticalElementPath );
+    this.addChild( this.opticPath );
 
   }
 }
 
-geometricOptics.register( 'OpticalElementNode', OpticalElementNode );
-export default OpticalElementNode;
+geometricOptics.register( 'OpticNode', OpticNode );
+export default OpticNode;

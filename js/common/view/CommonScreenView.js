@@ -47,7 +47,7 @@ class CommonScreenView extends ScreenView {
     const lightRaysNode = new LightRaysNode( model.lightRays, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
     const targetImageNode = new TargetImageNode( model.targetImage, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
 
-    const focalPointsNode = new FocalPointsNode( model.opticalElement, this.modelViewTransform, tandem );
+    const focalPointsNode = new FocalPointsNode( model.optic, this.modelViewTransform, tandem );
 
     this.zoomLevelProperty = new NumberProperty( ZOOM_DEFAULT, { range: GeometricOpticsConstants.ZOOM_RANGE } );
 

@@ -26,10 +26,10 @@ class MirrorScreenView extends CommonScreenView {
 
     super( model, tandem );
 
-    const mirrorNode = new MirrorNode( model.opticalElement, this.modelViewTransform, tandem );
+    const mirrorNode = new MirrorNode( model.optic, this.modelViewTransform, tandem );
     this.playAreaNode.addChild( mirrorNode );
 
-    const controlPanel = new ControlPanel( model.opticalElement, model.lightRays, this.visibleProperties, this.modelViewTransform, tandem );
+    const controlPanel = new ControlPanel( model.optic, model.lightRays, this.visibleProperties, this.modelViewTransform, tandem );
     this.addChild( controlPanel );
 
     const resetAllButton = new ResetAllButton( {

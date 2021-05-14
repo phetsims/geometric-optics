@@ -16,7 +16,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 
-import OpticalElement from '../../common/model/OpticalElement.js';
+import Optic from '../../common/model/Optic.js';
 
 const INDEX_OF_REFRACTION_RANGE = GeometricOpticsConstants.LENS_INDEX_OF_REFRACTION_RANGE;
 const RADIUS_OF_CURVATURE_RANGE = GeometricOpticsConstants.LENS_RADIUS_OF_CURVATURE_RANGE;
@@ -24,7 +24,7 @@ const DIAMETER_RANGE = GeometricOpticsConstants.LENS_DIAMETER_RANGE;
 const INITIAL_CURVATURE_TYPE = GeometricOpticsConstants.LENS_INITIAL_CURVATURE_TYPE;
 const INITIAL_POSITION = GeometricOpticsConstants.LENS_INITIAL_POSITION;
 
-class Lens extends OpticalElement {
+class Lens extends Optic {
 
   /**
    * @param {Tandem} tandem
@@ -33,7 +33,7 @@ class Lens extends OpticalElement {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     super( INITIAL_POSITION, RADIUS_OF_CURVATURE_RANGE, DIAMETER_RANGE,
-      INITIAL_CURVATURE_TYPE, OpticalElement.Type.LENS, tandem );
+      INITIAL_CURVATURE_TYPE, Optic.Type.LENS, tandem );
 
     // @public {Property.<number>}  index of refraction of the lens
     this.indexOfRefractionProperty = new NumberProperty( INDEX_OF_REFRACTION_RANGE.defaultValue,
@@ -43,7 +43,7 @@ class Lens extends OpticalElement {
     this.focalLengthProperty = new DerivedProperty(
       [ this.radiusOfCurvatureProperty, this.indexOfRefractionProperty, this.curveProperty ],
       ( radiusOfCurvature, indexOfRefraction, type ) => {
-        const signRadius = type === OpticalElement.Curve.CONVEX ? 1 : -1;
+        const signRadius = type === Optic.Curve.CONVEX ? 1 : -1;
         return signRadius * radiusOfCurvature / ( 2 * ( indexOfRefraction - 1 ) );
       }
     );
@@ -55,7 +55,7 @@ class Lens extends OpticalElement {
         this.diameterProperty,
         this.curveProperty ],
       ( position, radius, diameter, type ) => {
-        if ( type === OpticalElement.Curve.CONVEX ) {
+        if ( type === Optic.Curve.CONVEX ) {
           this.shape = this.getConvexShape( position, radius, diameter );
         }
         else {

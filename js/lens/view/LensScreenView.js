@@ -27,10 +27,10 @@ class LensScreenView extends CommonScreenView {
 
     super( model, tandem );
 
-    const controlPanel = new ControlPanel( model.opticalElement, model.lightRays, this.visibleProperties, this.modelViewTransform, tandem );
+    const controlPanel = new ControlPanel( model.optic, model.lightRays, this.visibleProperties, this.modelViewTransform, tandem );
     this.addChild( controlPanel );
 
-    const lensNode = new LensNode( model.opticalElement, this.modelViewTransform, tandem );
+    const lensNode = new LensNode( model.optic, this.modelViewTransform, tandem );
     this.playAreaNode.addChild( lensNode );
 
     const resetAllButton = new ResetAllButton( {

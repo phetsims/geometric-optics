@@ -12,16 +12,16 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColorProfile from '../../common/GeometricOpticsColorProfile.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
-import OpticalElementNode from '../../common/view/OpticalElementNode.js';
+import OpticNode from '../../common/view/OpticNode.js';
 
 const FILL = GeometricOpticsColorProfile.mirrorFillProperty;
 const STROKE = GeometricOpticsColorProfile.mirrorStrokeProperty;
 const LINE_WIDTH = GeometricOpticsConstants.OPTICAL_ELEMENT_LINE_WIDTH;
 
-class MirrorNode extends OpticalElementNode {
+class MirrorNode extends OpticNode {
 
   /**
-   * @param {OpticalElement} mirror
+   * @param {Optic} mirror
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
    * @param {Object} [options]
@@ -44,7 +44,7 @@ class MirrorNode extends OpticalElementNode {
         mirror.diameterProperty,
         mirror.curveProperty ],
       () => {
-        this.opticalElementPath.shape = modelViewTransform.modelToViewShape( mirror.shape );
+        this.opticPath.shape = modelViewTransform.modelToViewShape( mirror.shape );
       } );
   }
 }
