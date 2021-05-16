@@ -114,7 +114,7 @@ class TargetImage {
 
   /**
    * Returns the horizontal distance of the image from the optic.
-   * A negative distance indicates that the image os to the left of the optical element.
+   * A negative distance indicates that the image is to the left of the optical element.
    * @public
    * @returns {number}
    */
@@ -136,6 +136,14 @@ class TargetImage {
   }
 
   /**
+   * @public
+   * @returns {boolean}
+   */
+  isUpright() {
+    return !this.isInverted();
+  }
+
+  /**
    * Returns a boolean indicating if the image is virtual
    * For a lens, the image is virtual if the image is on the same side as the object
    * For a mirror, the image is virtual if the image is on the opposite of the object
@@ -145,6 +153,14 @@ class TargetImage {
    */
   isVirtual() {
     return this.optic.isLens() ? this.isSameSide() : this.isOppositeSide();
+  }
+
+  /**
+   * @public
+   * @returns {boolean}
+   */
+  isReal() {
+    return !this.isVirtual();
   }
 
   /**

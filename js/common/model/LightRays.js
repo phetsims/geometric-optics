@@ -103,7 +103,8 @@ class LightRays {
     let m2;
     let m3;
 
-    const isVirtualImage = this.targetImage.isInverted();
+    const isInverted = this.targetImage.isInverted();
+  //  const isVirtual = this.targetImage.isVirtual();
     const objectOpticDistance = this.getObjectOpticDistance();
 
     // Draw different rays depending on the mode
@@ -112,7 +113,7 @@ class LightRays {
 
         // Draw different rays depending on the mode
         if ( objectOpticDistance > 0 ) {
-          if ( !isVirtualImage ) {
+          if ( !isInverted ) {
 
             // ray passing through the top of optic
             this.realRay.moveTo( Ax, Ay );
@@ -154,7 +155,7 @@ class LightRays {
             this.realRay.lineTo( Bx + R, By - h + ( m3 * R ) );
 
             // Draw virtual marginal rays
-            if ( Cx > -5 * R || isVirtualImage ) {
+            if ( Cx > -5 * R || isInverted ) {
               // Last condition needed to prevent problems that occur when image at infinity
               this.virtualRay.moveTo( Bx, By );
               this.virtualRay.lineTo( Cx, Cy );
@@ -199,7 +200,7 @@ class LightRays {
 
 
           // Draw principal virtual rays
-          if ( isVirtualImage ) {
+          if ( isInverted ) {
             this.virtualRay.moveTo( Bx, By );
             this.virtualRay.lineTo( Cx, Cy );
             this.virtualRay.moveTo( Bx, Cy );
@@ -226,7 +227,7 @@ class LightRays {
             this.realRay.lineTo( Bx, Ay - m * ( Bx - Ax ) );
             m2 = ( Cy - ( Ay - m * ( Bx - Ax ) ) ) / ( Cx - Bx );
             this.realRay.lineTo( Bx + R, Ay - m * ( Bx - Ax ) + m2 * R );
-            if ( Cx < Ax && Cx > -5 * R || isVirtualImage ) {
+            if ( Cx < Ax && Cx > -5 * R || isInverted ) {
               this.virtualRay.moveTo( Bx, Ay - m * ( Bx - Ax ) );
               this.virtualRay.lineTo( Cx, Cy );
             }
