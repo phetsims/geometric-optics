@@ -14,6 +14,13 @@ f= R/(2(1-n))) where n and R are respectively the index of refraction and the ra
 
 The focal length of the mirror is given by f = R/2. 
 
+The focal length f is positive for converging optical element ( convex lenses 
+and concave mirrors) and negative for diverging optical element ( concave lenses
+and convex mirrors)
+
+The image distance di is positive for real images and negative for virtual images.
+
+
 The position of the image is determined in the thin lens approximation, i.e.
 1/d_o+1/d_i = 1/f 
 where d_o is the distance to the object, d_i is the distance to the image 

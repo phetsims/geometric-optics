@@ -31,9 +31,11 @@ class Mirror extends Optic {
       INITIAL_CURVATURE_TYPE, Optic.Type.MIRROR, tandem );
 
     // @public (read-only) {DerivedProperty.<number>} focal length in meters
+    // positive indicates the mirror is concave (converging).
+    // negative indicate the lens is convex (diverging)
     this.focalLengthProperty = new DerivedProperty(
       [ this.radiusOfCurvatureProperty, this.curveProperty ], ( radiusOfCurvature, curve ) => {
-        const curveSign = this.isConvex( curve ) ? -1 : 1;
+        const curveSign = this.isConcave( curve ) ? 1 : -1;
         return curveSign * radiusOfCurvature / 2;
       }
     );

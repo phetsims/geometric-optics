@@ -37,7 +37,9 @@ class Lens extends Optic {
     this.indexOfRefractionProperty = new NumberProperty( INDEX_OF_REFRACTION_RANGE.defaultValue,
       { range: INDEX_OF_REFRACTION_RANGE } );
 
-    // @public {DerivedProperty.<number>} focal length of the lens - negative indicates the lens is concave.
+    // @public {DerivedProperty.<number>} focal length of the lens
+    // positive indicate the lens is convex (converging)
+    // negative indicates the lens is concave (diverging).
     this.focalLengthProperty = new DerivedProperty(
       [ this.radiusOfCurvatureProperty, this.indexOfRefractionProperty, this.curveProperty ],
       ( radiusOfCurvature, indexOfRefraction, curve ) => {

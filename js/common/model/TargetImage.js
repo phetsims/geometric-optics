@@ -73,7 +73,7 @@ class TargetImage {
 
   /**
    * Returns the height of the image in meter.
-   * The height can be negative if the image is upside down.
+   * The height can be negative if the image is inverted
    * @public
    * @returns {number}
    */
@@ -114,6 +114,7 @@ class TargetImage {
 
   /**
    * Returns the horizontal distance of the image from the optic.
+   * A negative distance indicates that the image is to the left of the optical element.
    * A negative distance indicates that the image is to the left of the optical element.
    * @public
    * @returns {number}

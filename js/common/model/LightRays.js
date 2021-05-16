@@ -45,12 +45,15 @@ class LightRays {
         optic.diameterProperty,
         optic.focalLengthProperty,
         optic.curveProperty ],
-      ( sourcePosition, opticPosition, mode, diameter, focalLength, type ) => {
+      ( sourcePosition, opticPosition, mode, opticDiameter, focalLength, curve ) => {
 
         this.drawRays( mode,
           sourcePosition,
           opticPosition,
-          targetImage.positionProperty.value
+          targetImage.positionProperty.value,
+          opticDiameter,
+          focalLength,
+          curve
         );
       } );
 
@@ -73,9 +76,17 @@ class LightRays {
    * @param {Vector2} sourcePoint
    * @param {Vector2} opticPoint
    * @param {Vector2} targetPoint
+   * @param {number} opticDiameter
+   * @param {number} focalLength
    * @private
    */
-  drawRays( mode, sourcePoint, opticPoint, targetPoint ) {
+  drawRays( mode,
+            sourcePoint,
+            opticPoint,
+            targetPoint,
+            opticDiameter,
+            focalLength
+  ) {
 
     this.realRay = new Shape();
     this.virtualRay = new Shape();
@@ -90,9 +101,9 @@ class LightRays {
     const Cy = targetPoint.y;
 
     // Radius of optic minus a bit so marginal ray hits inside optic
-    const h = this.optic.diameterProperty.value / 2 - OPTICAL_ELEMENT_TIP_OFFSET;
+    const h = opticDiameter / 2 - OPTICAL_ELEMENT_TIP_OFFSET;
 
-    const f = this.optic.focalLengthProperty.value;
+    const f = focalLength;
 
     // Length of the ray (enough to go off the screen)
     const R = 30; // in meters
@@ -104,8 +115,8 @@ class LightRays {
     let m3;
 
     const isInverted = this.targetImage.isInverted();
-  //  const isVirtual = this.targetImage.isVirtual();
-    const objectOpticDistance = this.getObjectOpticDistance();
+    //  const isVirtual = this.targetImage.isVirtual();
+    const objectOpticDistance = this.getObjectOpticDistance( sourcePoint, opticPoint );
 
     // Draw different rays depending on the mode
     switch( mode ) {
@@ -250,10 +261,12 @@ class LightRays {
    * Returns the horizontal distance between the object and the optical element.
    * A negative distance indicates that the object is to the right of the optical element.
    * @public
+   * @param {Vector2} objectPosition
+   * @param {Vector2} opticPosition
    * @returns {number}
    */
-  getObjectOpticDistance() {
-    return this.optic.positionProperty.value.x - this.sourceObjectPositionProperty.value.x;
+  getObjectOpticDistance( objectPosition, opticPosition ) {
+    return opticPosition.x - objectPosition.x;
   }
 }
 

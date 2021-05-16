@@ -47,8 +47,19 @@ class Optic {
     // @public {EnumerationProperty.<Optic.Curve>} Type of Curvature of the optical element.
     this.curveProperty = new EnumerationProperty( Optic.Curve, curve );
 
-    // @private {Optic.Type} Type of transmission of the optical element.
+    // @private {Optic.Type} Type of the optical element ( possible choices are LENS and MIRROR)
     this.type = type;
+
+    // @public {DerivedProperty.<boolean>} is the optical element converging.
+    this.isConvergingProperty = new DerivedProperty( [ this.curveProperty ], curve => {
+      return this.isConverging( curve );
+    } );
+
+    // @public {DerivedProperty.<number>} is the optical element converging.
+    // +1 is the optical element is converging and -1 if it is diverging
+    this.convergingSignProperty = new DerivedProperty( [ this.curveProperty ], curve => {
+      return this.isConverging( curve ) ? 1 : -1;
+    } );
 
     // @public {DerivedProperty.<Object>} shapes (fill and outline) of the optical element
     this.outlineAndFillProperty = new DerivedProperty( [
@@ -132,6 +143,28 @@ class Optic {
    */
   isConvex( curve ) {
     return curve === Optic.Curve.CONVEX;
+  }
+
+  /**
+   * Returns a boolean indicating if the optical element has the potential to converge rays.
+   * This is solely a property of the optical element.
+   * A convex lens and a concave mirror are converging optical elements.
+   * @public
+   * @param {Optic.Curve} curve
+   * @returns {boolean}
+   */
+  isConverging( curve ) {
+    return ( this.isConvex( curve ) && this.isLens() ) || ( this.isConcave( curve ) && this.isMirror() );
+  }
+
+  /**
+   * Returns a boolean indicating if the optical element is convex
+   * @public
+   * @param {Optic.Curve} curve
+   * @returns {boolean}
+   */
+  isDiverging( curve ) {
+    return !this.isConverging();
   }
 
   /**
