@@ -3,7 +3,7 @@
 /**
  * Abstract class of an optical element in the simulation.
  * An optical element is the base class for a lens or a mirror.
- * Responsibility include the radius of curvature, the diameter and the curvatureType
+ * Responsibility include the radius of curvature, the diameter and the curve
  *
  * @author Martin Veillette
  */
@@ -58,7 +58,7 @@ class Optic {
     // @public {DerivedProperty.<number>} is the optical element converging.
     // +1 is the optical element is converging and -1 if it is diverging
     this.convergingSignProperty = new DerivedProperty( [ this.curveProperty ], curve => {
-      return this.isConverging( curve ) ? 1 : -1;
+      return this.getConvergingSign( curve );
     } );
 
     // @public {DerivedProperty.<Object>} shapes (fill and outline) of the optical element
@@ -90,21 +90,28 @@ class Optic {
   }
 
   /**
+   * Returns the position of the first focal point
+   * the first focal point is a focal length away of the optical element. It is to the
+   * right of the optical element for a convex optical element.
+   * but to the left for a concave optical element.
    * @public
    * @returns {Vector2}
    */
   getFirstFocalPointPosition() {
-    const firstFocalPosition = this.positionProperty.value.plusXY( this.focalLengthProperty.value, 0 );
+    const firstFocalPosition = this.getPosition().plusXY(
+      this.getConvexSign( this.getCurve() ) * this.getFocalLength(), 0 );
     return firstFocalPosition;
   }
 
   /**
+   * returns the position of the second focal point
    * @public
    * @returns {Vector2}
    */
   getSecondFocalPointPosition() {
-    const firstFocalPosition = this.positionProperty.value.plusXY( -this.focalLengthProperty.value, 0 );
-    return firstFocalPosition;
+    const secondFocalPosition = this.getPosition().minusXY(
+      this.getConvexSign( this.getCurve() ) * this.getFocalLength(), 0 );
+    return secondFocalPosition;
   }
 
   /**
@@ -165,6 +172,55 @@ class Optic {
    */
   isDiverging( curve ) {
     return !this.isConverging();
+  }
+
+  /**
+   * Convenience function for mathematical operations.
+   * Returns a value of +1 is the optical element is converging and -1 is the element is diverging.
+   * @public
+   * @param {Optic.curve} curve
+   * @returns {number}
+   */
+  getConvergingSign( curve ) {
+    return this.isConverging( curve ) ? 1 : -1;
+  }
+
+  /**
+   * Convenience function for mathematical operations.
+   * Returns a value of +1 is the optical element is convex and -1 is the element is concave.
+   * @public
+   * @param {Optic.Curve} curve
+   * @returns {number}
+   */
+  getConvexSign( curve ) {
+    return this.isConvex( curve ) ? 1 : -1;
+  }
+
+  /**
+   * Returns the type of optical element (Possible values are CONCAVE and CONVEX).
+   * @public
+   * @returns {Optic.Type}
+   */
+  getCurve() {
+    return this.curveProperty.value;
+  }
+
+  /**
+   * Returns the focal length of the optical element
+   * @public
+   * @returns {number}
+   */
+  getFocalLength() {
+    return this.focalLengthProperty.value;
+  }
+
+  /**
+   * Returns the position of the optical element
+   * @public
+   * @returns {Vector2}
+   */
+  getPosition() {
+    return this.positionProperty.value;
   }
 
   /**
