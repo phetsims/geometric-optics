@@ -29,18 +29,18 @@
         "url": "https://github.com/phetsims/geometric-optics.git"
       },
       "devDependencies": {
-        "grunt": "~1.1.0"
+        "grunt": "~1.4.0"
       },
       "phet": {
         "requirejsNamespace": "GEOMETRIC_OPTICS",
         "simulation": true,
         "runnable": true,
         "colorProfile": true,
-        "readmeCreatedManually": true,
         "supportedBrands": [
           "phet",
           "adapted-from-phet"
-        ]
+        ],
+        "phetLibs": []
       },
       "eslintConfig": {
         "extends": "../chipper/eslint/sim_eslintrc.js"
@@ -49,16 +49,16 @@
   window.phet.chipper.stringRepos =
     [
       {
+        "repo": "geometric-optics",
+        "requirejsNamespace": "GEOMETRIC_OPTICS"
+      },
+      {
         "repo": "joist",
         "requirejsNamespace": "JOIST"
       },
       {
         "repo": "scenery-phet",
         "requirejsNamespace": "SCENERY_PHET"
-      },
-      {
-        "repo": "geometric-optics",
-        "requirejsNamespace": "GEOMETRIC_OPTICS"
       },
       {
         "repo": "sun",
