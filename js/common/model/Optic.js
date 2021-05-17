@@ -178,7 +178,7 @@ class Optic {
    * Convenience function for mathematical operations.
    * Returns a value of +1 is the optical element is converging and -1 is the element is diverging.
    * @public
-   * @param {Optic.curve} curve
+   * @param {Optic.Curve} curve
    * @returns {number}
    */
   getConvergingSign( curve ) {

@@ -51,6 +51,14 @@ class TargetImage {
         return this.position( objectPosition, opticPosition, focalLength );
       } );
 
+    this.imageOpticDistanceProperty = new DerivedProperty(
+      [ sourceObject.positionProperty,
+        optic.positionProperty,
+        optic.focalLengthProperty ],
+      ( objectPosition, opticPosition, focalLength ) => {
+        return this.getImageOpticDistance();
+        //objectPosition, opticPosition, focalLength );
+      } );
   }
 
   /**
@@ -78,8 +86,8 @@ class TargetImage {
    * @returns {number}
    */
   getHeight() {
-    return this.getMagnification() * ( this.sourceObject.positionProperty.value.y -
-                                       this.optic.positionProperty.value.y );
+    return this.getMagnification() * ( this.sourceObject.getPosition().y -
+                                       this.optic.getPosition().y );
   }
 
   /**
@@ -99,7 +107,7 @@ class TargetImage {
    * @returns {number}
    */
   getObjectOpticDistance() {
-    return this.optic.positionProperty.value.x - this.sourceObject.positionProperty.value.x;
+    return this.optic.getPosition().x - this.sourceObject.getPosition().x;
   }
 
   /**
@@ -109,13 +117,14 @@ class TargetImage {
    * @returns {number}
    */
   getFocalLength() {
-    return this.optic.focalLengthProperty.value;
+    return this.optic.getFocalLength();
   }
 
   /**
    * Returns the horizontal distance of the image from the optic.
-   * A negative distance indicates that the image is to the left of the optical element.
-   * A negative distance indicates that the image is to the left of the optical element.
+   * Calculated based on the thin lens law/ mirror equation.
+   * For a lens, a positive distance, indicates that the image is on the opposite of object (wrt to the lens)
+   * For a mirror, a positive distance indicates that the image is on the same side as the object..
    * @public
    * @returns {number}
    */
