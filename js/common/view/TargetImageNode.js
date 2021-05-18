@@ -28,8 +28,8 @@ class TargetImageNode extends Node {
     const imageProperty = new DerivedProperty( [ targetImage.representationProperty, targetImage.isVirtualProperty ],
       ( representation, isVirtual ) => {
         const realImage = optic.isLens() ? representation.targetInverted :
-                          representation.sourceInverted;
-        const virtualImage = optic.isLens() ? representation.sourceUpright :
+                          representation.objectInverted;
+        const virtualImage = optic.isLens() ? representation.objectUpright :
                              representation.targetUpright;
         return isVirtual ? virtualImage : realImage;
       } );

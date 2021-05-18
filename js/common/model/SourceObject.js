@@ -31,7 +31,7 @@ class SourceObject {
     // @public {Property.<Vector2>} position of the movable point
     this.movablePositionProperty = new Vector2Property( DEFAULT_SOURCE_POINT_2 );
 
-    // @public {EnumerationProperty.<SourceObjectRepresentation>}  type of the image used as a representation of the object
+    // @public {EnumerationProperty.<SourceObjectRepresentation>}  representation of the object
     this.representationProperty = new EnumerationProperty( SourceObjectRepresentation, SourceObjectRepresentation.PENCIL );
   }
 
@@ -92,21 +92,21 @@ class SourceObject {
   }
 
   /**
-   * Returns the source representation of the source/object.
+   * Returns the upright object representation of the source/object.
    * @returns {Image}
    * @public
    */
-  getRepresentationSourceUpright() {
-    return this.representationProperty.value.sourceUpright;
+  getRepresentationObjectUpright() {
+    return this.representationProperty.value.objectUpright;
   }
 
   /**
-   * Returns the source representation of the source/object.
+   * Returns the inverted object representation of the source/object.
    * @returns {Image}
    * @public
    */
-  getRepresentationSourceInverted() {
-    return this.representationProperty.value.sourceInverted;
+  getRepresentationObjectInverted() {
+    return this.representationProperty.value.objectInverted;
   }
 
   /**
@@ -119,7 +119,7 @@ class SourceObject {
   }
 
   /**
-   * Returns the target representation of the source/object.
+   * Returns the inverted target representation of the source/object.
    * @returns {Image}
    * @public
    */
@@ -128,7 +128,7 @@ class SourceObject {
   }
 
   /**
-   * Returns the target representation of the source/object.
+   * Returns the upright target representation of the source/object.
    * @returns {Image}
    * @public
    */
