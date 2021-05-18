@@ -39,7 +39,7 @@ class TargetImage {
     this.scaleProperty = new DerivedProperty( [ sourceObject.positionProperty,
       optic.positionProperty,
       optic.focalLengthProperty ], () => {
-      return this.scale();
+      return this.getScale();
     } );
 
     // updates the position of the image
@@ -48,7 +48,7 @@ class TargetImage {
         optic.positionProperty,
         optic.focalLengthProperty ],
       ( objectPosition, opticPosition, focalLength ) => {
-        return this.position( objectPosition, opticPosition, focalLength );
+        return this.getPosition( objectPosition, opticPosition, focalLength );
       } );
 
     this.imageOpticDistanceProperty = new DerivedProperty(
@@ -74,7 +74,7 @@ class TargetImage {
    * @returns {number}
    * @public
    */
-  scale() {
+  getScale() {
     const focalLength = this.getFocalLength();
     return focalLength / ( this.getObjectOpticDistance() - focalLength );
   }
@@ -200,7 +200,7 @@ class TargetImage {
    * @returns {Vector2}
    * @public
    */
-  position( objectPosition, opticPosition, focalLength ) {
+  getPosition( objectPosition, opticPosition, focalLength ) {
     const distanceObject = opticPosition.x - objectPosition.x;
     const heightObject = objectPosition.y - opticPosition.y;
     const f = focalLength;

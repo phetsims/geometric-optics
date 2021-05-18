@@ -82,6 +82,8 @@ class Lens extends Optic {
   getFillAndOutlineShapes( position, radius, diameter, curve ) {
 
     const halfHeight = diameter / 2;
+
+    // the width of the lens changes with the radius of curvature
     const halfWidth = 1 / 2 * halfHeight * halfHeight / ( radius + 1 );
 
     const shapes = {};
@@ -91,11 +93,15 @@ class Lens extends Optic {
       const bottom = position.plusXY( 0, -halfHeight );
       const left = position.plusXY( -2 * halfWidth, 0 );
       const right = position.plusXY( 2 * halfWidth, 0 );
+
+      // shape of convex lens
       shapes.fillShape = new Shape()
         .moveToPoint( top )
         .quadraticCurveToPoint( left, bottom )
         .quadraticCurveToPoint( right, top )
         .close();
+
+      // straight vertical middle line
       shapes.outlineShape = shapes.fillShape.moveToPoint( top ).lineToPoint( bottom );
 
     }
@@ -108,6 +114,7 @@ class Lens extends Optic {
       const midLeft = position.plusXY( midWidth / 2, 0 );
       const midRight = position.plusXY( -midWidth / 2, 0 );
 
+      // shape of concave lens
       shapes.fillShape = new Shape()
         .moveToPoint( topLeft )
         .lineToPoint( topRight )
@@ -116,6 +123,7 @@ class Lens extends Optic {
         .quadraticCurveToPoint( midLeft, topLeft )
         .close();
 
+      // straight vertical middle line
       shapes.outlineShape = shapes.fillShape.moveToPoint( topLeft.average( topRight ) )
         .lineToPoint( bottomRight.average( bottomLeft ) );
     }

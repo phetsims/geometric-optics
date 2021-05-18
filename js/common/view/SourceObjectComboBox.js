@@ -31,8 +31,8 @@ class SourceObjectComboBox extends Node {
     SourceObjectRepresentation.VALUES.forEach( type => {
       const text = new Text( type.label, { font: new PhetFont( { size: 20 } ) } );
       const logo = new Image( type.logo, { scale: 0.05 } );
-      const hbox = new HBox( { children: [ logo, text ] } );
-      items.push( new ComboBoxItem( hbox, type ) );
+      const hBox = new HBox( { children: [ logo, text ] } );
+      items.push( new ComboBoxItem( hBox, type ) );
     } );
 
     const listParent = new Node();

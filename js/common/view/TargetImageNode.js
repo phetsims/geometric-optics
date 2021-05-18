@@ -32,7 +32,7 @@ class TargetImageNode extends Node {
     }
 
     function updateScale() {
-      const position = targetImage.positionProperty.value;
+      const position = targetImage.getPositionProperty.value;
       const scale = Math.abs( targetImage.scaleProperty.value );
       const verticalOffset = targetImage.isInverted() ? -40 : -136;
       const horizontalOffset = targetImage.isInverted() ? -30 : -25;

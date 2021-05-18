@@ -73,6 +73,15 @@ class SourceObject {
   }
 
   /**
+   * Returns the representation of the source/object.
+   * @returns {SourceObjectRepresentation}
+   * @public
+   */
+  getRepresentation() {
+    return this.representationProperty.value;
+  }
+
+  /**
    * Sets the vertical offset of the movable position with respect to the source/object.
    * @returns {Vector2}
    * @public
