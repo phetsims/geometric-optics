@@ -209,7 +209,7 @@ class Optic {
   /**
    * Returns the type of optical element (Possible values are CONCAVE and CONVEX).
    * @public
-   * @returns {Optic.Type}
+   * @returns {Optic.Curve}
    */
   getCurve() {
     return this.curveProperty.value;

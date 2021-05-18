@@ -38,7 +38,7 @@ class GeometricOpticsModel {
   /**
    * @protected
    * @param {Optic} optic
-   * @param {tandem} tandem
+   * @param {Tandem} tandem
    */
   createCommonComponents( optic, tandem ) {
     // @public {FocalPoint} first principal focal point

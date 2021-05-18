@@ -21,7 +21,7 @@ class LightRays {
 
   /**
    * @param {Property.<Vector2>} sourceObjectPositionProperty
-   * @param {optic} optic
+   * @param {Optic} optic
    * @param {TargetImage} targetImage
    * @param {Tandem} tandem
    */
@@ -61,8 +61,7 @@ class LightRays {
           opticPosition,
           targetImage.positionProperty.value,
           opticDiameter,
-          focalLength,
-          curve
+          focalLength
         );
       } );
 
@@ -94,8 +93,7 @@ class LightRays {
             opticPoint,
             targetPoint,
             opticDiameter,
-            focalLength
-  ) {
+            focalLength ) {
 
     this.realRay = new Shape();
     this.virtualRay = new Shape();

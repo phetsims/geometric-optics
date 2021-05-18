@@ -57,7 +57,7 @@ There are a few top-level model elements in Common Model:
 
 * [Lens] is responsible for the lens position, diameter, curvature 
   radius and refractive index. The previous properties are used to 
-  determined the focal length.
+  determine the focal length.
 * [TargetImage] 
 * [SourceObject] 
 * [LightRays]

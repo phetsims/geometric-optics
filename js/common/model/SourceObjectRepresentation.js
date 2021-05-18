@@ -34,10 +34,12 @@ const treeString = geometricOpticsStrings.object.tree;
  * Generator of type
  * @param {Image} logo
  * @param {Image} sourceUpright
+ * @param {Image} sourceInverted
+ * @param {Image} targetUpright
  * @param {Image} targetInverted
  * @param {string} label
  * @param {boolean} isObject
- * @returns {{isObject, logo, sourceUpright, label, targetInverted}}
+ * @returns {{targetInverted, targetUpright, sourceUpright, sourceInverted, isObject, logo, label}}
  */
 const representationGenerator = ( logo, sourceUpright, sourceInverted, targetUpright, targetInverted, label, isObject ) => {
   return {
