@@ -28,21 +28,21 @@ class TargetImageNode extends Node {
     const object = new Image( representationProperty.value.target, { scale: 0.5 } );
 
     function updateFrame() {
-      const isVirtual = targetImage.isInverted();
+      const isVirtual = targetImage.isVirtual();
       object.image = isVirtual ? representationProperty.value.source : representationProperty.value.target;
     }
 
     function updateScale() {
       const position = targetImage.positionProperty.value;
       const scale = Math.abs( targetImage.scaleProperty.value );
-      const verticalOffset = targetImage.isInverted() ? -40 : -136;
-      const horizontalOffset = targetImage.isInverted() ? -30 : -25;
+      const verticalOffset = targetImage.isVirtual() ? -40 : -136;
+      const horizontalOffset = targetImage.isVirtual() ? -30 : -25;
       object.translation = modelViewTransform.modelToViewPosition( position ).plusXY( horizontalOffset * scale, verticalOffset * scale );
       object.setScaleMagnitude( scale * 0.5 );
     }
 
     function updateImage() {
-      const isVirtual = targetImage.isInverted();
+      const isVirtual = targetImage.isVirtual();
       object.image = isVirtual ? representationProperty.value.source : representationProperty.value.target;
       const showVirtualImage = visibleVirtualImageProperty.value;
       const isSourceToTheLeft = targetImage.isObjectOpticDistancePositive();

@@ -190,7 +190,7 @@ class TargetImage {
    * @returns {boolean}
    */
   isInverted() {
-    return this.optic.isLens() ? this.isImageOpticDistanceNegative() : this.isImageOpticDistancePositive();
+    return this.isImageOpticDistancePositive();
   }
 
   /**
@@ -211,7 +211,7 @@ class TargetImage {
    * @returns {boolean}
    */
   isVirtual() {
-    return this.optic.isLens() ? this.isImageOpticDistancePositive() : this.isImageOpticDistanceNegative();
+    return this.isImageOpticDistanceNegative();
   }
 
   /**
