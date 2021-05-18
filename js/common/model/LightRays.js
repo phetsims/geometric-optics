@@ -126,8 +126,10 @@ class LightRays {
     let m3;
 
     const isVirtual = this.targetImage.isVirtual();
+    const isReal = !isVirtual;
+
     const objectOpticDistance = Bx - Ax;
-    // const imageOpticDistance = ( Cx - Bx ) * this.optic.getTypeSign();
+    const imageOpticDistance = ( Cx - Bx ) * this.optic.getTypeSign();
 
 
     // Draw rays only of the object is to the left of the lens.
@@ -137,7 +139,7 @@ class LightRays {
       switch( mode ) {
         case LightRays.Mode.MARGINAL_RAYS:
 
-          if ( !isVirtual ) {
+          if ( isReal ) {
 
             // ray passing through the top of optic
             this.realRay.moveTo( Ax, Ay );
@@ -198,7 +200,7 @@ class LightRays {
           // Ray passing through center of optic
           this.realRay.moveTo( Ax, Ay );
           this.realRay.lineTo( Bx, By );
-          if ( Cx > Bx ) {
+          if ( imageOpticDistance > 0 ) {
             this.realRay.lineTo( Cx, Cy );
           }
           m1 = this.optic.getTypeSign() * ( By - Ay ) / ( Bx - Ax );
@@ -207,7 +209,7 @@ class LightRays {
           // Ray parallel to the optical axis and that passes through the focal point on the other side of the optic
           this.realRay.moveTo( Ax, Ay );
           this.realRay.horizontalLineTo( Bx );
-          if ( Cx > Bx ) {
+          if ( imageOpticDistance > 0 ) {
             this.realRay.lineTo( Cx, Cy );
           }
           m2 = this.optic.getTypeSign() * ( By - Ay ) / f;
@@ -217,7 +219,7 @@ class LightRays {
           this.realRay.moveTo( Ax, Ay );
           m3 = ( By - Ay ) / ( Bx - f - Ax );
           this.realRay.lineTo( Bx, By + m3 * f );
-          if ( Cx > Bx ) {
+          if ( imageOpticDistance > 0 ) {
             this.realRay.lineTo( Cx, Cy );
           }
           this.realRay.horizontalLineToRelative( signedR );
