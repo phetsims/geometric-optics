@@ -17,7 +17,9 @@ import lampRedImage from '../../../images/lamp-red_png.js';
 import lampBlueImage from '../../../images/lamp-blue_png.js';
 import pencilImage from '../../../images/pencil_png.js';
 import pencil3dImage from '../../../images/pencil-3d_png.js';
+import pencil3dInvertedImage from '../../../images/pencil-3d-inverted_png.js';
 import pencil3dReversedImage from '../../../images/pencil-3d-reversed_png.js';
+import pencil3dReversedInvertedImage from '../../../images/pencil-3d-reversed-inverted_png.js';
 import treeImage from '../../../images/tree_png.js';
 import tree3dImage from '../../../images/tree-3d_png.js';
 import tree3dReversedImage from '../../../images/tree-3d-reversed_png.js';
@@ -31,27 +33,49 @@ const treeString = geometricOpticsStrings.object.tree;
 /**
  * Generator of type
  * @param {Image} logo
- * @param {Image} source
- * @param {Image} target
+ * @param {Image} sourceUpright
+ * @param {Image} targetInverted
  * @param {string} label
  * @param {boolean} isObject
- * @returns {{isObject, logo, source, label, target}}
+ * @returns {{isObject, logo, sourceUpright, label, targetInverted}}
  */
-const representationGenerator = ( logo, source, target, label, isObject ) => {
+const representationGenerator = ( logo, sourceUpright, sourceInverted, targetUpright, targetInverted, label, isObject ) => {
   return {
     logo: logo,
-    source: source,
-    target: target,
+    sourceUpright: sourceUpright,
+    sourceInverted: sourceInverted,
+    targetUpright: targetUpright,
+    targetInverted: targetInverted,
     label: label,
     isObject: isObject
   };
 };
 
 const SourceObjectRepresentation = Enumeration.byMap( {
-  PENCIL: representationGenerator( pencilImage, pencil3dImage, pencil3dReversedImage, pencilString, true ),
-  TREE: representationGenerator( treeImage, tree3dImage, tree3dReversedImage, treeString, true ),
-  ROCKET: representationGenerator( rocketImage, rocket3dImage, rocket3dReversedImage, rocketString, true ),
-  LIGHT: representationGenerator( lampRedImage, lampBlueImage, screen3dImage, lightString, false )
+  PENCIL: representationGenerator( pencilImage,
+    pencil3dImage,
+    pencil3dInvertedImage,
+    pencil3dReversedInvertedImage,
+    pencil3dReversedImage,
+    pencilString, true ),
+  TREE: representationGenerator( treeImage,
+    tree3dImage,
+    tree3dImage,
+    tree3dReversedImage,
+    tree3dReversedImage,
+    treeString, true ),
+  ROCKET: representationGenerator( rocketImage,
+    rocket3dImage,
+    rocket3dImage,
+    rocket3dReversedImage,
+    rocket3dReversedImage,
+    rocketString, true ),
+  LIGHT: representationGenerator( lampRedImage,
+    lampBlueImage,
+    lampBlueImage,
+    screen3dImage,
+    screen3dImage,
+    lightString, false )
 } );
 
 

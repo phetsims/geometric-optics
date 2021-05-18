@@ -8,6 +8,7 @@ import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 class TargetImageNode extends Node {
 
@@ -25,11 +26,20 @@ class TargetImageNode extends Node {
 
     const representationProperty = targetImage.representationProperty;
 
-    const object = new Image( representationProperty.value.target, { scale: 0.5 } );
+    // {Property.<Image>}
+    const imageProperty = new DerivedProperty( [ representationProperty, targetImage.isVirtualProperty ],
+      ( representation, isVirtual ) => {
+        const realImage = optic.isLens() ? representation.targetInverted :
+                          representation.sourceInverted;
+        const virtualImage = optic.isLens() ? representation.sourceUpright :
+                             representation.targetUpright;
+        return isVirtual ? virtualImage : realImage;
+      } );
+
+    const target = new Image( imageProperty.value, { scale: 0.5 } );
 
     function updateFrame() {
-      const isVirtual = targetImage.isVirtual();
-      object.image = isVirtual ? representationProperty.value.source : representationProperty.value.target;
+      target.image = imageProperty.value;
     }
 
     function updateScale() {
@@ -37,17 +47,21 @@ class TargetImageNode extends Node {
       const scale = Math.abs( targetImage.scaleProperty.value );
       const verticalOffset = targetImage.isVirtual() ? -40 : -136;
       const horizontalOffset = targetImage.isVirtual() ? -30 : -25;
-      object.translation = modelViewTransform.modelToViewPosition( position ).plusXY( horizontalOffset * scale, verticalOffset * scale );
-      object.setScaleMagnitude( scale * 0.5 );
+      target.translation = modelViewTransform.modelToViewPosition( position ).plusXY( horizontalOffset * scale, verticalOffset * scale );
+      target.setScaleMagnitude( scale * 0.5 );
     }
 
     function updateImage() {
       const isVirtual = targetImage.isVirtual();
-      object.image = isVirtual ? representationProperty.value.source : representationProperty.value.target;
+      target.image = imageProperty.value;
       const showVirtualImage = visibleVirtualImageProperty.value;
       const isSourceToTheLeft = targetImage.isObjectOpticDistancePositive();
-      object.visible = ( ( isVirtual ) ? showVirtualImage : true ) && isSourceToTheLeft;
+      target.visible = ( ( isVirtual ) ? showVirtualImage : true ) && isSourceToTheLeft;
     }
+
+    imageProperty.link( image => {
+      target.image = imageProperty.value;
+    } );
 
     representationProperty.link( type => {
       updateFrame();
@@ -69,14 +83,14 @@ class TargetImageNode extends Node {
     } );
 
     optic.diameterProperty.link( diameter => {
-      object.setImageOpacity( optic.getNormalizedDiameter( diameter ) );
+      target.setImageOpacity( optic.getNormalizedDiameter( diameter ) );
     } );
 
     visibleVirtualImageProperty.link( visible => {
       updateImage();
     } );
 
-    this.addChild( object );
+    this.addChild( target );
   }
 
 }

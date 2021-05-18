@@ -96,8 +96,17 @@ class SourceObject {
    * @returns {Image}
    * @public
    */
-  getRepresentationSource() {
-    return this.representationProperty.value.source;
+  getRepresentationSourceUpright() {
+    return this.representationProperty.value.sourceUpright;
+  }
+
+  /**
+   * Returns the source representation of the source/object.
+   * @returns {Image}
+   * @public
+   */
+  getRepresentationSourceInverted() {
+    return this.representationProperty.value.sourceInverted;
   }
 
   /**
@@ -114,8 +123,17 @@ class SourceObject {
    * @returns {Image}
    * @public
    */
-  getRepresentationTarget() {
-    return this.representationProperty.value.target;
+  getRepresentationTargetInverted() {
+    return this.representationProperty.value.targetInverted;
+  }
+
+  /**
+   * Returns the target representation of the source/object.
+   * @returns {Image}
+   * @public
+   */
+  getRepresentationTargetUpright() {
+    return this.representationProperty.value.targetUpright;
   }
 
   /**

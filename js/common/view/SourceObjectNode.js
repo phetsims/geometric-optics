@@ -28,7 +28,7 @@ class SourceObjectNode extends Node {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
     super();
 
-    const sourceObjectImage = new Image( sourceObject.getRepresentationSource(), { scale: OVERALL_SCALE_FACTOR } );
+    const sourceObjectImage = new Image( sourceObject.getRepresentationSourceUpright(), { scale: OVERALL_SCALE_FACTOR } );
 
     this.leftTopModelPositionProperty = new Vector2Property( sourceObject.getPosition().minus( OFFSET_VECTOR ) );
 
@@ -57,7 +57,7 @@ class SourceObjectNode extends Node {
     movablePoint.addInputListener( movablePointDragListener );
 
     sourceObject.representationProperty.link( representation => {
-      sourceObjectImage.image = representation.source;
+      sourceObjectImage.image = representation.sourceUpright;
     } );
 
     sourceObject.movablePositionProperty.link( position => {
