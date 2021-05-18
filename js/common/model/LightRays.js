@@ -100,14 +100,16 @@ class LightRays {
     this.realRay = new Shape();
     this.virtualRay = new Shape();
 
-    const Ax = sourcePoint.x;
-    const Ay = sourcePoint.y;
-
-    const Bx = opticPoint.x;
-    const By = opticPoint.y;
-
-    const Cx = targetPoint.x;
-    const Cy = targetPoint.y;
+    // convenience variables
+    const A = sourcePoint;
+    const B = opticPoint;
+    const C = targetPoint;
+    const Ax = A.x;
+    const Ay = A.y;
+    const Bx = B.x;
+    const By = B.y;
+    const Cx = C.x;
+    const Cy = C.y;
 
     // Radius of optic minus a bit so marginal ray hits inside optic
     const h = opticDiameter / 2 - OPTICAL_ELEMENT_TIP_OFFSET;
@@ -119,17 +121,17 @@ class LightRays {
 
     const signedR = R * this.optic.getTypeSign(); // in meters
 
+    const objectOpticDistance = Bx - Ax;
+    const imageOpticDistance = ( Cx - Bx ) * this.optic.getTypeSign();
+
+    const isVirtual = this.targetImage.isVirtual();
+    const isReal = !isVirtual;
+
     // Used to store slope of line towards C
     let m;
     let m1;
     let m2;
     let m3;
-
-    const isVirtual = this.targetImage.isVirtual();
-    const isReal = !isVirtual;
-
-    const objectOpticDistance = Bx - Ax;
-    const imageOpticDistance = ( Cx - Bx ) * this.optic.getTypeSign();
 
 
     // Draw rays only of the object is to the left of the lens.
@@ -142,20 +144,20 @@ class LightRays {
           if ( isReal ) {
 
             // ray passing through the top of optic
-            this.realRay.moveTo( Ax, Ay );
+            this.realRay.moveToPoint( A );
             this.realRay.lineTo( Bx, By + h );
             m1 = ( Cy - ( By + h ) ) / ( Cx - Bx );
             this.realRay.lineTo( Bx + signedR, By + h + ( m1 * signedR ) );
 
             // ray passing through the center of optic
-            this.realRay.moveTo( Ax, Ay );
-            this.realRay.lineTo( Bx, By );
+            this.realRay.moveToPoint( A );
+            this.realRay.lineToPoint( B );
             // Cannot draw line directly to C since it may be at infinity.
             m2 = ( Cy - By ) / ( Cx - Bx );
             this.realRay.lineTo( Bx + signedR, By + ( m2 * signedR ) );
 
             // ray passing through the bottom of the optic
-            this.realRay.moveTo( Ax, Ay );
+            this.realRay.moveToPoint( A );
             this.realRay.lineTo( Bx, By - h );
             m3 = ( Cy - ( By - h ) ) / ( Cx - Bx );
             this.realRay.lineTo( Bx + signedR, By - h + ( m3 * signedR ) );
@@ -163,19 +165,19 @@ class LightRays {
           else {
 
             // ray passing through the top of the optic
-            this.realRay.moveTo( Ax, Ay );
+            this.realRay.moveToPoint( A );
             this.realRay.lineTo( Bx, By + h );
             m1 = ( ( By + h ) - Cy ) / ( Bx - Cx );
             this.realRay.lineTo( Bx + signedR, By + h + ( m1 * signedR ) );
 
             // ray passing through the middle of the optic
-            this.realRay.moveTo( Ax, Ay );
-            this.realRay.lineTo( Bx, By );
+            this.realRay.moveToPoint( A );
+            this.realRay.lineToPoint( B );
             m2 = ( By - Cy ) / ( Bx - Cx );
             this.realRay.lineTo( Bx + signedR, By + ( m2 * signedR ) );
 
             // ray passing through the bottom of the optic
-            this.realRay.moveTo( Ax, Ay );
+            this.realRay.moveToPoint( A );
             this.realRay.lineTo( Bx, By - h );
             m3 = ( ( By - h ) - Cy ) / ( Bx - Cx );
             this.realRay.lineTo( Bx + signedR, By - h + ( m3 * signedR ) );
@@ -183,12 +185,12 @@ class LightRays {
             // Draw virtual marginal rays
             if ( Cx > -5 * signedR || isVirtual ) {
               // Last condition needed to prevent problems that occur when image at infinity
-              this.virtualRay.moveTo( Bx, By );
-              this.virtualRay.lineTo( Cx, Cy );
+              this.virtualRay.lineToPoint( B );
+              this.virtualRay.lineToPoint( C );
               this.virtualRay.moveTo( Bx, By + h );
-              this.virtualRay.lineTo( Cx, Cy );
+              this.virtualRay.lineToPoint( C );
               this.virtualRay.moveTo( Bx, By - h );
-              this.virtualRay.lineTo( Cx, Cy );
+              this.virtualRay.lineToPoint( C );
             }
           }
 
@@ -198,41 +200,48 @@ class LightRays {
 
 
           // Ray passing through center of optic
-          this.realRay.moveTo( Ax, Ay );
-          this.realRay.lineTo( Bx, By );
+          this.realRay.moveToPoint( A );
+          this.realRay.lineToPoint( B );
+
           if ( imageOpticDistance > 0 ) {
-            this.realRay.lineTo( Cx, Cy );
+            this.realRay.lineToPoint( C );
           }
+
           m1 = this.optic.getTypeSign() * ( By - Ay ) / ( Bx - Ax );
           this.realRay.lineTo( Cx + signedR, Cy + ( m1 * signedR ) );
 
           // Ray parallel to the optical axis and that passes through the focal point on the other side of the optic
-          this.realRay.moveTo( Ax, Ay );
+          this.realRay.moveToPoint( A );
           this.realRay.horizontalLineTo( Bx );
+
           if ( imageOpticDistance > 0 ) {
-            this.realRay.lineTo( Cx, Cy );
+            this.realRay.lineToPoint( C );
           }
+
           m2 = this.optic.getTypeSign() * ( By - Ay ) / f;
           this.realRay.lineTo( Cx + signedR, Cy + ( m2 * signedR ) );
 
           // Ray that passes through the focal point of the optic and emerge parallel to the optical axis after the optic.
-          this.realRay.moveTo( Ax, Ay );
+          this.realRay.moveToPoint( A );
+
           m3 = ( By - Ay ) / ( Bx - f - Ax );
           this.realRay.lineTo( Bx, By + m3 * f );
+
           if ( imageOpticDistance > 0 ) {
-            this.realRay.lineTo( Cx, Cy );
+            this.realRay.lineToPoint( C );
           }
+
           this.realRay.horizontalLineToRelative( signedR );
 
 
           // Draw principal virtual rays
           if ( isVirtual ) {
-            this.virtualRay.moveTo( Bx, By );
-            this.virtualRay.lineTo( Cx, Cy );
+            this.virtualRay.lineToPoint( B );
+            this.virtualRay.lineToPoint( C );
             this.virtualRay.moveTo( Bx, Cy );
-            this.virtualRay.lineTo( Cx, Cy );
+            this.virtualRay.lineToPoint( C );
             this.virtualRay.moveTo( Bx, Ay );
-            this.virtualRay.lineTo( Cx, Cy );
+            this.virtualRay.lineToPoint( C );
           }
 
           break;
@@ -249,17 +258,17 @@ class LightRays {
           for ( let i = 5; i < ( N - 5 ); i++ ) {
             m = Math.tan( Utils.toRadians( 90 - i * deltaTheta ) );
             if ( m > bottomSlope && m < topSlope ) {
-              this.realRay.moveTo( Ax, Ay );
+              this.realRay.moveToPoint( A );
               this.realRay.lineTo( Bx, Ay - m * ( Bx - Ax ) );
               m2 = ( Cy - ( Ay - m * ( Bx - Ax ) ) ) / ( Cx - Bx );
               this.realRay.lineTo( Bx + signedR, Ay - m * ( Bx - Ax ) + m2 * signedR );
               if ( Cx < Ax && Cx > -5 * signedR || isVirtual ) {
                 this.virtualRay.moveTo( Bx, Ay - m * ( Bx - Ax ) );
-                this.virtualRay.lineTo( Cx, Cy );
+                this.virtualRay.lineToPoint( C );
               }
             }
             else {
-              this.realRay.moveTo( Ax, Ay );
+              this.realRay.moveToPoint( A );
               this.realRay.lineTo( Ax + R, Ay - m * R );
             }
           }
