@@ -8,9 +8,9 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import MirrorNode from './MirrorNode.js';
 import geometricOptics from '../../geometricOptics.js';
 import MirrorModel from '../model/MirrorModel.js';
-import CommonScreenView from '../../common/view/CommonScreenView.js';
+import GeometricOpticsScreenView from '../../common/view/GeometricOpticsScreenView.js';
 
-class MirrorScreenView extends CommonScreenView {
+class MirrorScreenView extends GeometricOpticsScreenView {
 
   /**
    * @param {MirrorModel} model

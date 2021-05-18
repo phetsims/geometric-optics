@@ -13,7 +13,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-import CommonModel from '../model/CommonModel.js';
+import GeometricOpticsModel from '../model/GeometricOpticsModel.js';
 import ControlPanel from './ControlPanel.js';
 import FocalPointNode from './FocalPointNode.js';
 import LightRaysNode from './LightRaysNode.js';
@@ -25,14 +25,14 @@ import SourceObjectComboBox from './SourceObjectComboBox.js';
 const ZOOM_DEFAULT = GeometricOpticsConstants.ZOOM_RANGE.defaultValue;
 const SCALE_FACTOR = 4 / 3;
 
-class CommonScreenView extends ScreenView {
+class GeometricOpticsScreenView extends ScreenView {
 
   /**
-   * @param {CommonModel} model
+   * @param {GeometricOpticsModel} model
    * @param {Tandem} tandem
    */
   constructor( model, tandem ) {
-    assert && assert( model instanceof CommonModel, 'invalid model' );
+    assert && assert( model instanceof GeometricOpticsModel, 'invalid model' );
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     super( {
@@ -136,5 +136,5 @@ class CommonScreenView extends ScreenView {
 
 }
 
-geometricOptics.register( 'CommonScreenView', CommonScreenView );
-export default CommonScreenView;
+geometricOptics.register( 'GeometricOpticsScreenView', GeometricOpticsScreenView );
+export default GeometricOpticsScreenView;

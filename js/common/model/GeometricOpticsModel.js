@@ -13,7 +13,7 @@ import LightRays from './LightRays.js';
 import SourceObject from './SourceObject.js';
 import TargetImage from './TargetImage.js';
 
-class CommonModel {
+class GeometricOpticsModel {
 
   /**
    * @param {Tandem} tandem
@@ -57,5 +57,5 @@ class CommonModel {
 
 }
 
-geometricOptics.register( 'CommonModel', CommonModel );
-export default CommonModel;
+geometricOptics.register( 'GeometricOpticsModel', GeometricOpticsModel );
+export default GeometricOpticsModel;

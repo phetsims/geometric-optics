@@ -5,11 +5,11 @@
  */
 
 import Tandem from '../../../../tandem/js/Tandem.js';
-import CommonModel from '../../common/model/CommonModel.js';
+import GeometricOpticsModel from '../../common/model/GeometricOpticsModel.js';
 import Lens from './Lens.js';
 import geometricOptics from '../../geometricOptics.js';
 
-class LensModel extends CommonModel {
+class LensModel extends GeometricOpticsModel {
 
   /**
    * @param {Tandem} tandem

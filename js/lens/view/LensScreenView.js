@@ -5,13 +5,13 @@
  */
 
 import Tandem from '../../../../tandem/js/Tandem.js';
-import CommonScreenView from '../../common/view/CommonScreenView.js';
+import GeometricOpticsScreenView from '../../common/view/GeometricOpticsScreenView.js';
 import LensNode from './LensNode.js';
 import geometricOptics from '../../geometricOptics.js';
 import LensModel from '../model/LensModel.js';
 
 
-class LensScreenView extends CommonScreenView {
+class LensScreenView extends GeometricOpticsScreenView {
 
   /**
    * @param {LensModel} model
