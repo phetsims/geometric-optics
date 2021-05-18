@@ -115,7 +115,7 @@ class LightRays {
     const f = focalLength;
 
     // Length of the ray (enough to go off the screen)
-    const R = 30 // in meters
+    const R = 30; // in meters
 
     const signedR = R * this.optic.getTypeSign(); // in meters
 
