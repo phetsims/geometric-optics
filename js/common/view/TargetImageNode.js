@@ -38,10 +38,6 @@ class TargetImageNode extends Node {
 
     const target = new Image( imageProperty.value, { scale: 0.5 } );
 
-    function updateFrame() {
-      target.image = imageProperty.value;
-    }
-
     function updateScale() {
       const position = targetImage.positionProperty.value;
       const scale = Math.abs( targetImage.scaleProperty.value );
@@ -63,17 +59,12 @@ class TargetImageNode extends Node {
       target.image = imageProperty.value;
     } );
 
-    representationProperty.link( type => {
-      updateFrame();
-    } );
-
     targetImage.positionProperty.link( position => {
       updateScale();
       updateImage();
     } );
 
-    targetImage.isInvertedProperty.link( isVirtual => {
-      updateFrame();
+    targetImage.isVirtualProperty.link( isVirtual => {
       updateImage();
     } );
 
