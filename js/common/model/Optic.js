@@ -99,7 +99,7 @@ class Optic {
    */
   getFirstFocalPointPosition() {
     const firstFocalPosition = this.getPosition().plusXY(
-      this.getConvexSign( this.getCurve() ) * this.getFocalLength(), 0 );
+      this.getCurveSign( this.getCurve() ) * this.getFocalLength(), 0 );
     return firstFocalPosition;
   }
 
@@ -110,7 +110,7 @@ class Optic {
    */
   getSecondFocalPointPosition() {
     const secondFocalPosition = this.getPosition().minusXY(
-      this.getConvexSign( this.getCurve() ) * this.getFocalLength(), 0 );
+      this.getCurveSign( this.getCurve() ) * this.getFocalLength(), 0 );
     return secondFocalPosition;
   }
 
@@ -192,8 +192,18 @@ class Optic {
    * @param {Optic.Curve} curve
    * @returns {number}
    */
-  getConvexSign( curve ) {
+  getCurveSign( curve ) {
     return this.isConvex( curve ) ? 1 : -1;
+  }
+
+  /**
+   * Convenience function for mathematical operations.
+   * Returns a value of +1 is the optical element is a lens and -1 is the element is a mirror.
+   * @public
+   * @returns {number}
+   */
+  getTypeSign() {
+    return this.isLens() ? 1 : -1;
   }
 
   /**

@@ -14,6 +14,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import CommonModel from '../model/CommonModel.js';
+import ControlPanel from './ControlPanel.js';
 import FocalPointNode from './FocalPointNode.js';
 import LightRaysNode from './LightRaysNode.js';
 import SourceObjectNode from './SourceObjectNode.js';
@@ -67,6 +68,10 @@ class CommonScreenView extends ScreenView {
       }
     } );
 
+    const controlPanel = new ControlPanel( model.optic, model.lightRays, this.visibleProperties, this.modelViewTransform, tandem,
+      { hasIndex: model.optic.isLens() } );
+    this.addChild( controlPanel );
+    controlPanel.centerBottom = ScreenView.DEFAULT_LAYOUT_BOUNDS.eroded( GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN ).centerBottom;
 
     // layer for all the nodes within the play area
     this.playAreaNode = new Node();

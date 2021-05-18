@@ -204,10 +204,10 @@ class TargetImage {
     const distanceObject = opticPosition.x - objectPosition.x;
     const heightObject = objectPosition.y - opticPosition.y;
     const f = focalLength;
-    const sign = this.optic.isLens() ? 1 : -1;
-    const distanceImage = sign * ( f * distanceObject ) / ( distanceObject - f );
+    const typeSign = this.optic.getTypeSign();
+    const distanceImage = typeSign * ( f * distanceObject ) / ( distanceObject - f );
     const magnification = -1 * distanceImage / distanceObject;
-    const yOffset = sign * heightObject * magnification;
+    const yOffset = typeSign * heightObject * magnification;
     return opticPosition.plus( new Vector2( distanceImage, yOffset ) );
   }
 }

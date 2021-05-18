@@ -5,6 +5,7 @@
  */
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
+import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
@@ -46,10 +47,14 @@ class ControlPanel extends Panel {
    * @param {VisibleProperties} visibleProperties
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
-   * @param {Object} [options]
+   * @param {Object} config
    */
-  constructor( optic, lightRays, visibleProperties, modelViewTransform, tandem, options ) {
+  constructor( optic, lightRays, visibleProperties, modelViewTransform, tandem, config ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+
+    config = merge( {
+      hasIndex: false
+    }, config );
 
     const Mode = LightRays.Mode;
     const rayModeRadioButtonGroupItems = [
@@ -125,7 +130,7 @@ class ControlPanel extends Panel {
       lengthNumberControlOptions );
 
     let controls;
-    if ( optic.isLens() ) {
+    if ( config.hasIndex ) {
       const indexOfRefractionControl = new NumberControl(
         refractiveIndexString,
         optic.indexOfRefractionProperty,

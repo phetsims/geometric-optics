@@ -35,8 +35,10 @@ class Mirror extends Optic {
     // negative indicate the lens is convex (diverging)
     this.focalLengthProperty = new DerivedProperty(
       [ this.radiusOfCurvatureProperty, this.curveProperty ], ( radiusOfCurvature, curve ) => {
-        const curveSign = this.isConcave( curve ) ? 1 : -1;
-        return curveSign * radiusOfCurvature / 2;
+
+        // curveSign is +1 for convex and -1 for concave
+        const curveSign = this.getCurveSign( curve );
+        return -curveSign * radiusOfCurvature / 2;
       }
     );
 

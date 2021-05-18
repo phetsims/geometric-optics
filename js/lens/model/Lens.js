@@ -43,8 +43,8 @@ class Lens extends Optic {
     this.focalLengthProperty = new DerivedProperty(
       [ this.radiusOfCurvatureProperty, this.indexOfRefractionProperty, this.curveProperty ],
       ( radiusOfCurvature, indexOfRefraction, curve ) => {
-        const signCurve = this.isConvex( curve ) ? 1 : -1;
-        return signCurve * radiusOfCurvature / ( 2 * ( indexOfRefraction - 1 ) );
+        const curveSign = this.getCurveSign( curve );
+        return curveSign * radiusOfCurvature / ( 2 * ( indexOfRefraction - 1 ) );
       }
     );
 
@@ -76,7 +76,7 @@ class Lens extends Optic {
    * @param {number} radius
    * @param {number} diameter
    * @param {Optic.Curve} curve
-   * @returns {Shape}
+   * @returns {fillShape: <Shape>,outlineShape: <Shape>};
    * @public
    */
   getFillAndOutlineShapes( position, radius, diameter, curve ) {
