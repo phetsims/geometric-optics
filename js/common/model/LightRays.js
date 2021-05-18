@@ -28,13 +28,22 @@ class LightRays {
   constructor( sourceObjectPositionProperty, optic, targetImage, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
+    // @private
     this.modeProperty = new EnumerationProperty( LightRays.Mode, LightRays.Mode.NO_RAYS );
 
+    // @private {Optic}
     this.optic = optic;
+
+    // @private {Vector2}
     this.sourceObjectPositionProperty = sourceObjectPositionProperty;
+
+    // @private {TargetImage}
     this.targetImage = targetImage;
 
+    // @public (read-only)
     this.realRay = new Shape();
+
+    // @public (read-only)
     this.virtualRay = new Shape();
 
     Property.multilink(
@@ -106,7 +115,9 @@ class LightRays {
     const f = focalLength;
 
     // Length of the ray (enough to go off the screen)
-    const R = 30; // in meters
+    const R = 30 // in meters
+
+    const signedR = R * this.optic.getTypeSign(); // in meters
 
     // Used to store slope of line towards C
     let m;
@@ -116,8 +127,10 @@ class LightRays {
 
     const isInverted = this.targetImage.isInverted();
     //  const isVirtual = this.targetImage.isVirtual();
-    const objectOpticDistance = this.getObjectOpticDistance( sourcePoint, opticPoint );
+    const objectOpticDistance = Bx - Ax;
+    const imageOpticDistance = ( Cx - Bx ) * this.optic.getTypeSign();
 
+    console.log( isInverted );
     // Draw different rays depending on the mode
     switch( mode ) {
       case LightRays.Mode.MARGINAL_RAYS:
@@ -130,20 +143,20 @@ class LightRays {
             this.realRay.moveTo( Ax, Ay );
             this.realRay.lineTo( Bx, By + h );
             m1 = ( Cy - ( By + h ) ) / ( Cx - Bx );
-            this.realRay.lineTo( Bx + R, By + h + ( m1 * R ) );
+            this.realRay.lineTo( Bx + signedR, By + h + ( m1 * signedR ) );
 
             // ray passing through the center of optic
             this.realRay.moveTo( Ax, Ay );
             this.realRay.lineTo( Bx, By );
             // Cannot draw line directly to C since it may be at infinity.
             m2 = ( Cy - By ) / ( Cx - Bx );
-            this.realRay.lineTo( Bx + R, By + ( m2 * R ) );
+            this.realRay.lineTo( Bx + signedR, By + ( m2 * signedR ) );
 
             // ray passing through the bottom of the optic
             this.realRay.moveTo( Ax, Ay );
             this.realRay.lineTo( Bx, By - h );
             m3 = ( Cy - ( By - h ) ) / ( Cx - Bx );
-            this.realRay.lineTo( Bx + R, By - h + ( m3 * R ) );
+            this.realRay.lineTo( Bx + signedR, By - h + ( m3 * signedR ) );
           }
           else {
 
@@ -151,22 +164,22 @@ class LightRays {
             this.realRay.moveTo( Ax, Ay );
             this.realRay.lineTo( Bx, By + h );
             m1 = ( ( By + h ) - Cy ) / ( Bx - Cx );
-            this.realRay.lineTo( Bx + R, By + h + ( m1 * R ) );
+            this.realRay.lineTo( Bx + signedR, By + h + ( m1 * signedR ) );
 
             // ray passing through the middle of the optic
             this.realRay.moveTo( Ax, Ay );
             this.realRay.lineTo( Bx, By );
             m2 = ( By - Cy ) / ( Bx - Cx );
-            this.realRay.lineTo( Bx + R, By + ( m2 * R ) );
+            this.realRay.lineTo( Bx + signedR, By + ( m2 * signedR ) );
 
             // ray passing through the bottom of the optic
             this.realRay.moveTo( Ax, Ay );
             this.realRay.lineTo( Bx, By - h );
             m3 = ( ( By - h ) - Cy ) / ( Bx - Cx );
-            this.realRay.lineTo( Bx + R, By - h + ( m3 * R ) );
+            this.realRay.lineTo( Bx + signedR, By - h + ( m3 * signedR ) );
 
             // Draw virtual marginal rays
-            if ( Cx > -5 * R || isInverted ) {
+            if ( Cx > -5 * signedR || isInverted ) {
               // Last condition needed to prevent problems that occur when image at infinity
               this.virtualRay.moveTo( Bx, By );
               this.virtualRay.lineTo( Cx, Cy );
@@ -181,15 +194,15 @@ class LightRays {
         break;
       case LightRays.Mode.PRINCIPAL_RAYS:
 
-        if ( Ax < Bx ) {
+        if ( objectOpticDistance > 0 ) {
           // Ray passing through center of optic
           this.realRay.moveTo( Ax, Ay );
           this.realRay.lineTo( Bx, By );
           if ( Cx > Bx ) {
             this.realRay.lineTo( Cx, Cy );
           }
-          m1 = ( By - Ay ) / ( Bx - Ax );
-          this.realRay.lineTo( Cx + R, Cy + ( m1 * R ) );
+          m1 = this.optic.getTypeSign() * ( By - Ay ) / ( Bx - Ax );
+          this.realRay.lineTo( Cx + signedR, Cy + ( m1 * signedR ) );
 
           // Ray parallel to the optical axis and that passes through the focal point on the other side of the optic
           this.realRay.moveTo( Ax, Ay );
@@ -197,8 +210,8 @@ class LightRays {
           if ( Cx > Bx ) {
             this.realRay.lineTo( Cx, Cy );
           }
-          m2 = ( By - Ay ) / f;
-          this.realRay.lineTo( Cx + R, Cy + ( m2 * R ) );
+          m2 = this.optic.getTypeSign() * ( By - Ay ) / f;
+          this.realRay.lineTo( Cx + signedR, Cy + ( m2 * signedR ) );
 
           // Ray that passes through the focal point of the optic and emerge parallel to the optical axis after the optic.
           this.realRay.moveTo( Ax, Ay );
@@ -207,7 +220,7 @@ class LightRays {
           if ( Cx > Bx ) {
             this.realRay.lineTo( Cx, Cy );
           }
-          this.realRay.horizontalLineToRelative( R );
+          this.realRay.horizontalLineToRelative( signedR );
 
 
           // Draw principal virtual rays
@@ -257,17 +270,6 @@ class LightRays {
     }
   }
 
-  /**
-   * Returns the horizontal distance between the object and the optical element.
-   * A negative distance indicates that the object is to the right of the optical element.
-   * @public
-   * @param {Vector2} objectPosition
-   * @param {Vector2} opticPosition
-   * @returns {number}
-   */
-  getObjectOpticDistance( objectPosition, opticPosition ) {
-    return opticPosition.x - objectPosition.x;
-  }
 }
 
 // Enumeration for the different ray Mode
