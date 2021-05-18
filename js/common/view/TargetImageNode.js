@@ -24,10 +24,8 @@ class TargetImageNode extends Node {
 
     super( { tandem: tandem } );
 
-    const representationProperty = targetImage.representationProperty;
-
     // {Property.<Image>}
-    const imageProperty = new DerivedProperty( [ representationProperty, targetImage.isVirtualProperty ],
+    const imageProperty = new DerivedProperty( [ targetImage.representationProperty, targetImage.isVirtualProperty ],
       ( representation, isVirtual ) => {
         const realImage = optic.isLens() ? representation.targetInverted :
                           representation.sourceInverted;
@@ -36,49 +34,51 @@ class TargetImageNode extends Node {
         return isVirtual ? virtualImage : realImage;
       } );
 
+    // creates the target image
     const target = new Image( imageProperty.value, { scale: 0.5 } );
 
     function updateScale() {
       const position = targetImage.positionProperty.value;
       const scale = Math.abs( targetImage.scaleProperty.value );
-      const verticalOffset = targetImage.isVirtual() ? -40 : -136;
-      const horizontalOffset = targetImage.isVirtual() ? -30 : -25;
+      const verticalOffset = targetImage.isVirtual() ? -40 : -145;
+      const horizontalOffset = targetImage.isVirtual() ? -30 : -22;
       target.translation = modelViewTransform.modelToViewPosition( position ).plusXY( horizontalOffset * scale, verticalOffset * scale );
       target.setScaleMagnitude( scale * 0.5 );
     }
 
-    function updateImage() {
-      const isVirtual = targetImage.isVirtual();
-      target.image = imageProperty.value;
+    function updateVisibility() {
       const showVirtualImage = visibleVirtualImageProperty.value;
-      const isSourceToTheLeft = targetImage.isObjectOpticDistancePositive();
-      target.visible = ( ( isVirtual ) ? showVirtualImage : true ) && isSourceToTheLeft;
+      const isObjectDistancePositive = targetImage.isObjectOpticDistancePositive();
+      target.visible = ( ( targetImage.isVirtual() ) ? showVirtualImage : true ) && isObjectDistancePositive;
     }
 
     imageProperty.link( image => {
-      target.image = imageProperty.value;
+      target.image = image;
     } );
 
     targetImage.positionProperty.link( position => {
       updateScale();
-      updateImage();
+      updateVisibility();
     } );
 
     targetImage.isVirtualProperty.link( isVirtual => {
-      updateImage();
+      updateVisibility();
     } );
 
     optic.curveProperty.link( curvatureType => {
       updateScale();
-      updateImage();
+      updateVisibility();
     } );
 
+
+    // updates the opacity of the image
     optic.diameterProperty.link( diameter => {
       target.setImageOpacity( optic.getNormalizedDiameter( diameter ) );
     } );
 
+    // updates the visibility of the image based on the checkbox toggle
     visibleVirtualImageProperty.link( visible => {
-      updateImage();
+      updateVisibility();
     } );
 
     this.addChild( target );
