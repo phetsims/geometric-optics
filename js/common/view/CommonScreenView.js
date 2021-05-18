@@ -47,7 +47,7 @@ class CommonScreenView extends ScreenView {
 
     this.sourceObjectNode = new SourceObjectNode( model.sourceObject, this.visibleProperties.visibleMovablePointProperty, this.modelViewTransform, tandem );
     const lightRaysNode = new LightRaysNode( model.lightRays, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
-    const targetImageNode = new TargetImageNode( model.targetImage, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
+    const targetImageNode = new TargetImageNode( model.targetImage, model.optic, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
 
     const firstFocalPointNode = new FocalPointNode( model.firstFocalPoint, this.modelViewTransform, tandem );
     const secondFocalPointNode = new FocalPointNode( model.secondFocalPoint, this.modelViewTransform, tandem );

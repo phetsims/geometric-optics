@@ -27,9 +27,10 @@ class SourceObjectNode extends Node {
   constructor( sourceObject, visibleMovablePointProperty, modelViewTransform, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
     super();
-    const sourceObjectImage = new Image( sourceObject.representationProperty.value.source, { scale: OVERALL_SCALE_FACTOR } );
 
-    this.leftTopModelPositionProperty = new Vector2Property( sourceObject.positionProperty.value.minus( OFFSET_VECTOR ) );
+    const sourceObjectImage = new Image( sourceObject.getRepresentationSource(), { scale: OVERALL_SCALE_FACTOR } );
+
+    this.leftTopModelPositionProperty = new Vector2Property( sourceObject.getPosition().minus( OFFSET_VECTOR ) );
 
     const sourceObjectDragListener = new DragListener( {
       positionProperty: this.leftTopModelPositionProperty,
@@ -42,7 +43,7 @@ class SourceObjectNode extends Node {
     this.leftTopModelPositionProperty.link( position => {
       const offsetPosition = position.plus( OFFSET_VECTOR );
       sourceObject.setMovablePoint( offsetPosition.plusXY( 0, sourceObject.getVerticalOffset() ) );
-      sourceObject.positionProperty.value = offsetPosition;
+      sourceObject.setPosition( offsetPosition );
       sourceObjectImage.leftTop = modelViewTransform.modelToViewPosition( position );
     } );
 
@@ -55,8 +56,8 @@ class SourceObjectNode extends Node {
 
     movablePoint.addInputListener( movablePointDragListener );
 
-    sourceObject.representationProperty.link( type => {
-      sourceObjectImage.image = type.source;
+    sourceObject.representationProperty.link( representation => {
+      sourceObjectImage.image = representation.source;
     } );
 
     sourceObject.movablePositionProperty.link( position => {

@@ -64,6 +64,16 @@ class SourceObject {
   }
 
   /**
+   * Sets the position of the source
+   * @param {Vector2} position
+   * @public
+   */
+  setPosition( position ) {
+    this.positionProperty.value = position;
+  }
+
+
+  /**
    * Returns the vertical offset of the movable position with respect to the source/object.
    * @returns {number}
    * @public
@@ -79,6 +89,33 @@ class SourceObject {
    */
   getRepresentation() {
     return this.representationProperty.value;
+  }
+
+  /**
+   * Returns the source representation of the source/object.
+   * @returns {Image}
+   * @public
+   */
+  getRepresentationSource() {
+    return this.representationProperty.value.source;
+  }
+
+  /**
+   * Returns the logo representation of the source/object.
+   * @returns {Image}
+   * @public
+   */
+  getRepresentationLogo() {
+    return this.representationProperty.value.logo;
+  }
+
+  /**
+   * Returns the target representation of the source/object.
+   * @returns {Image}
+   * @public
+   */
+  getRepresentationTarget() {
+    return this.representationProperty.value.target;
   }
 
   /**

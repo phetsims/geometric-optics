@@ -28,11 +28,11 @@ class SourceObjectComboBox extends Node {
 
     const items = [];
 
-    SourceObjectRepresentation.VALUES.forEach( type => {
-      const text = new Text( type.label, { font: new PhetFont( { size: 20 } ) } );
-      const logo = new Image( type.logo, { scale: 0.05 } );
+    SourceObjectRepresentation.VALUES.forEach( representation => {
+      const text = new Text( representation.label, { font: new PhetFont( { size: 20 } ) } );
+      const logo = new Image( representation.logo, { scale: 0.05 } );
       const hBox = new HBox( { children: [ logo, text ] } );
-      items.push( new ComboBoxItem( hBox, type ) );
+      items.push( new ComboBoxItem( hBox, representation ) );
     } );
 
     const listParent = new Node();

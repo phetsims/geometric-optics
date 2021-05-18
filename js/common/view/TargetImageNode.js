@@ -13,26 +13,27 @@ class TargetImageNode extends Node {
 
   /**
    * @param {TargetImage} targetImage
+   * @param {Optic} optic
    * @param {Property.<boolean>} visibleVirtualImageProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
    */
-  constructor( targetImage, visibleVirtualImageProperty, modelViewTransform, tandem ) {
+  constructor( targetImage, optic, visibleVirtualImageProperty, modelViewTransform, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     super( { tandem: tandem } );
 
-    const representationProperty = targetImage.sourceObject.representationProperty;
+    const representationProperty = targetImage.representationProperty;
 
     const object = new Image( representationProperty.value.target, { scale: 0.5 } );
 
     function updateFrame() {
-      const isVirtual = targetImage.isInvertedProperty.value;
+      const isVirtual = targetImage.isInverted();
       object.image = isVirtual ? representationProperty.value.source : representationProperty.value.target;
     }
 
     function updateScale() {
-      const position = targetImage.getPositionProperty.value;
+      const position = targetImage.positionProperty.value;
       const scale = Math.abs( targetImage.scaleProperty.value );
       const verticalOffset = targetImage.isInverted() ? -40 : -136;
       const horizontalOffset = targetImage.isInverted() ? -30 : -25;
@@ -41,14 +42,14 @@ class TargetImageNode extends Node {
     }
 
     function updateImage() {
-      const isVirtual = targetImage.isInvertedProperty.value;
+      const isVirtual = targetImage.isInverted();
       object.image = isVirtual ? representationProperty.value.source : representationProperty.value.target;
       const showVirtualImage = visibleVirtualImageProperty.value;
-      const isSourceToTheLeft = ( targetImage.sourceObject.positionProperty.value.x < targetImage.optic.positionProperty.value.x );
+      const isSourceToTheLeft = targetImage.isObjectOpticDistancePositive();
       object.visible = ( ( isVirtual ) ? showVirtualImage : true ) && isSourceToTheLeft;
     }
 
-    targetImage.sourceObject.representationProperty.link( type => {
+    representationProperty.link( type => {
       updateFrame();
     } );
 
@@ -62,13 +63,13 @@ class TargetImageNode extends Node {
       updateImage();
     } );
 
-    targetImage.optic.curveProperty.link( curvatureType => {
+    optic.curveProperty.link( curvatureType => {
       updateScale();
       updateImage();
     } );
 
-    targetImage.optic.diameterProperty.link( diameter => {
-      object.setImageOpacity( targetImage.optic.getNormalizedDiameter( diameter ) );
+    optic.diameterProperty.link( diameter => {
+      object.setImageOpacity( optic.getNormalizedDiameter( diameter ) );
     } );
 
     visibleVirtualImageProperty.link( visible => {
