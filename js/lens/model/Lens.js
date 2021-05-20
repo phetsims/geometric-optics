@@ -102,7 +102,7 @@ class Lens extends Optic {
         .close();
 
       // straight vertical middle line
-      shapes.outlineShape = shapes.fillShape.moveToPoint( top ).lineToPoint( bottom );
+      shapes.outlineShape = shapes.fillShape;
 
     }
     else {
@@ -124,8 +124,7 @@ class Lens extends Optic {
         .close();
 
       // straight vertical middle line
-      shapes.outlineShape = shapes.fillShape.moveToPoint( topLeft.average( topRight ) )
-        .lineToPoint( bottomRight.average( bottomLeft ) );
+      shapes.outlineShape = shapes.fillShape;
     }
     return shapes;
   }

@@ -87,8 +87,8 @@ class Mirror extends Optic {
 
       shapes.outlineShape = new Shape()
         .moveToPoint( top )
-        .quadraticCurveToPoint( left, bottom );
-
+        .quadraticCurveToPoint( left, bottom )
+        .quadraticCurveToPoint( left, top );
 
     }
     else {
@@ -106,7 +106,8 @@ class Mirror extends Optic {
 
       shapes.outlineShape = new Shape()
         .moveToPoint( topLeft )
-        .quadraticCurveToPoint( midLeft, bottomLeft );
+        .quadraticCurveToPoint( midLeft, bottomLeft )
+        .quadraticCurveToPoint( midLeft, topLeft );
     }
 
     return shapes;

@@ -7,7 +7,9 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Ray2 from '../../../../dot/js/Ray2.js';
 import Utils from '../../../../dot/js/Utils.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -126,7 +128,6 @@ class LightRays {
     const isReal = !isVirtual;
 
     // Used to store slope of line towards C
-    let m;
     let m1;
     let m2;
     let m3;
@@ -249,31 +250,38 @@ class LightRays {
           // eslint-disable-next-line no-case-declarations
           const deltaTheta = 180 / N; // Degrees between adjacent arrays
           // eslint-disable-next-line no-case-declarations
-          const bottomSlope = ( Ay - By - h ) / ( Bx - Ax );
+          const outlineShape = this.optic.outlineAndFillProperty.value.outlineShape;
           // eslint-disable-next-line no-case-declarations
-          const topSlope = ( Ay - By + h ) / ( Bx - Ax );
+          const s = this.optic.isConcave( this.optic.getCurve() ) ? 0 : 0;
 
           for ( let i = 5; i < ( N - 5 ); i++ ) {
-            m = Math.tan( Utils.toRadians( 90 - i * deltaTheta ) );
-            if ( m > bottomSlope && m < topSlope ) {
+            const angle = Utils.toRadians( 90 - i * deltaTheta );
+
+            const ray = new Ray2( A, Vector2.createPolar( 1, angle ) );
+            const intersections = outlineShape.intersection( ray );
+
+            if ( intersections && intersections[ s ] && intersections[ s ].point ) {
               this.realRay.moveToPoint( A );
-              this.realRay.lineTo( Bx, Ay - m * ( Bx - Ax ) );
-              m2 = ( Cy - ( Ay - m * ( Bx - Ax ) ) ) / ( Cx - Bx );
-              this.realRay.lineTo( Bx + signedR, Ay - m * ( Bx - Ax ) + m2 * signedR );
+              const intersectionPoint = intersections[ s ].point;
+              this.realRay.lineToPoint( intersectionPoint );
+              m2 = ( Cy - intersectionPoint.y ) / ( Cx - intersectionPoint.x );
+
+              this.realRay.lineTo( intersectionPoint.x + signedR, intersectionPoint.y + m2 * signedR );
+
               if ( Cx < Ax && Cx > -5 * signedR || isVirtual ) {
-                this.virtualRay.moveTo( Bx, Ay - m * ( Bx - Ax ) );
+                this.virtualRay.moveToPoint( intersectionPoint );
                 this.virtualRay.lineToPoint( C );
               }
             }
             else {
+              const m = Math.tan( angle );
               this.realRay.moveToPoint( A );
-              this.realRay.lineTo( Ax + R, Ay - m * R );
+              this.realRay.lineTo( Ax + R, Ay + m * R );
             }
           }
-
           break;
         case LightRays.Mode.NO_RAYS:
-          // no op
+
           break;
         default:
           throw new Error( `Can't generate rays: ${mode}` );
