@@ -77,6 +77,14 @@ class TargetImage {
         return this.isVirtual();
       } );
 
+
+    // light intensity of the image (Hollywood) - a value between 0 and 1
+    // @public (read-only) {DerivedProperty.<number>}
+    this.lightIntensityProperty = new DerivedProperty( [ this.scaleProperty, optic.diameterProperty ], ( scale, diameter ) => {
+      const distanceFactor = Math.min( 1, Math.abs( 1 / scale ) );
+      const diameterFactor = optic.getNormalizedDiameter( diameter );
+      return distanceFactor * diameterFactor;
+    } );
   }
 
   /**

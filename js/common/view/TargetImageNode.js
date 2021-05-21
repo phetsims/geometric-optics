@@ -52,16 +52,9 @@ class TargetImageNode extends Node {
       target.visible = ( ( targetImage.isVirtual() ) ? showVirtualImage : true ) && isObjectDistancePositive;
     }
 
-    imageProperty.link( image => {
-      target.image = image;
-    } );
 
     targetImage.positionProperty.link( position => {
       updateScale();
-      updateVisibility();
-    } );
-
-    targetImage.isVirtualProperty.link( isVirtual => {
       updateVisibility();
     } );
 
@@ -70,16 +63,23 @@ class TargetImageNode extends Node {
       updateVisibility();
     } );
 
-
-    // updates the opacity of the image
-    optic.diameterProperty.link( diameter => {
-      target.setImageOpacity( optic.getNormalizedDiameter( diameter ) );
+    targetImage.isVirtualProperty.link( isVirtual => {
+      updateVisibility();
     } );
 
     // updates the visibility of the image based on the checkbox toggle
     visibleVirtualImageProperty.link( visible => {
       updateVisibility();
     } );
+
+    targetImage.lightIntensityProperty.link( intensity => {
+      target.opacity = intensity;
+    } );
+
+    imageProperty.link( image => {
+      target.image = image;
+    } );
+
 
     this.addChild( target );
   }
