@@ -292,7 +292,7 @@ class LightRays {
 
 // Enumeration for the different ray Mode
 // NO_RAYS implies that no rays are displayed.
-// MARGINAL_RAYS show the rays at the top, center and middle of the optic.
+// MARGINAL_RAYS show the rays at the top, center and bottom of the optic.
 // PRINCIPAL_RAYS show the principal rays, according to the ray tracing method.
 // MANY_RAYS show a shower of rays.
 LightRays.Mode = Enumeration.byKeys( [
