@@ -9,7 +9,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
-import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 
@@ -37,39 +36,44 @@ class SourceObjectNode extends Node {
       transform: modelViewTransform
     } );
 
-
     sourceObjectImage.addInputListener( sourceObjectDragListener );
 
     this.leftTopModelPositionProperty.link( position => {
       const offsetPosition = position.plus( OFFSET_VECTOR );
-      sourceObject.setMovablePoint( offsetPosition.plusXY( 0, sourceObject.getVerticalOffset() ) );
       sourceObject.setPosition( offsetPosition );
       sourceObjectImage.leftTop = modelViewTransform.modelToViewPosition( position );
     } );
 
-    const movablePoint = new Circle( 10, { fill: 'yellow' } );
+    const movableNode = new Node();
+
+    const movableCirclePositionProperty = new Vector2Property( sourceObject.movablePositionProperty.value );
 
     const movablePointDragListener = new DragListener( {
-      positionProperty: sourceObject.movablePositionProperty,
+      positionProperty: movableCirclePositionProperty,
       transform: modelViewTransform
     } );
 
-    movablePoint.addInputListener( movablePointDragListener );
+    movableNode.addInputListener( movablePointDragListener );
 
     sourceObject.representationProperty.link( representation => {
       sourceObjectImage.image = representation.objectUpright;
+      movableNode.removeAllChildren();
+      movableNode.addChild( sourceObject.getSecondSource() );
+      movableNode.leftTop = modelViewTransform.modelToViewPosition( sourceObject.movablePositionProperty.value );
+    } );
+
+    movableCirclePositionProperty.link( position => {
+      sourceObject.setMovablePoint( position );
     } );
 
     sourceObject.movablePositionProperty.link( position => {
-      const freeVerticalOffset = position.y - sourceObject.positionProperty.value.y;
-      sourceObject.clampVerticalOffset( freeVerticalOffset );
-      movablePoint.center = modelViewTransform.modelToViewPosition( sourceObject.getMovablePosition() );
+      movableNode.leftTop = modelViewTransform.modelToViewPosition( position );
     } );
 
-    visibleMovablePointProperty.linkAttribute( movablePoint, 'visible' );
+    visibleMovablePointProperty.linkAttribute( movableNode, 'visible' );
 
     this.addChild( sourceObjectImage );
-    this.addChild( movablePoint );
+    this.addChild( movableNode );
   }
 
   /**

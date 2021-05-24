@@ -7,9 +7,11 @@
  */
 
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
+import merge from '../../../../phet-core/js/merge.js';
+import Circle from '../../../../scenery/js/nodes/Circle.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import geometricOptics from '../../geometricOptics.js';
-
+import Image from '../../../../scenery/js/nodes/Image.js';
 import rocket3dImage from '../../../images/rocket-3d_png.js';
 import rocketImage from '../../../images/rocket_png.js';
 import rocket3dReversedImage from '../../../images/rocket-3d-reversed_png.js';
@@ -29,61 +31,70 @@ const pencilString = geometricOpticsStrings.object.pencil;
 const rocketString = geometricOpticsStrings.object.rocket;
 const lightString = geometricOpticsStrings.object.light;
 const treeString = geometricOpticsStrings.object.tree;
+const circleNode = new Circle( 10, { fill: 'yellow' } );
+const circleImage = circleNode.rasterized();
 
-/**
- * Generator of representation
- * @param {Image} logo
- * @param {Image} objectUpright
- * @param {Image} objectInverted
- * @param {Image} targetUpright
- * @param {Image} targetInverted
- * @param {string} label
- * @param {boolean} isObject
- * @returns {{targetInverted, targetUpright, objectUpright, objectInverted, isObject, logo, label}}
- */
-const representationGenerator = ( logo,
-                                  objectUpright,
-                                  objectInverted,
-                                  targetUpright,
-                                  targetInverted,
-                                  label,
-                                  isObject ) => {
-  return {
-    logo: logo,
-    objectUpright: objectUpright,
-    objectInverted: objectInverted,
-    targetUpright: targetUpright,
-    targetInverted: targetInverted,
-    label: label,
-    isObject: isObject
-  };
-};
+class RepresentationGenerator {
+  /**
+   * Generator of representation
+   * @param {Image} logo
+   * @param {Image} objectUpright
+   * @param {Image} objectInverted
+   * @param {Image} targetUpright
+   * @param {Image} targetInverted
+   * @param {string} label
+   * @param {boolean} isObject
+   */
+  constructor( logo,
+               objectUpright,
+               objectInverted,
+               targetUpright,
+               targetInverted,
+               label,
+               isObject, options ) {
+
+    options = merge( {
+      source: circleImage
+    }, options );
+
+    this.logo = logo;
+    this.objectUpright = objectUpright;
+    this.objectInverted = objectInverted;
+    this.targetUpright = targetUpright;
+    this.targetInverted = targetInverted;
+    this.label = label;
+    this.isObject = isObject;
+    this.source = options.source;
+  }
+
+
+}
 
 const SourceObjectRepresentation = Enumeration.byMap( {
-  PENCIL: representationGenerator( pencilImage,
+  PENCIL: new RepresentationGenerator( pencilImage,
     pencil3dImage,
     pencil3dInvertedImage,
     pencil3dReversedInvertedImage,
     pencil3dReversedImage,
     pencilString, true ),
-  TREE: representationGenerator( treeImage,
+  TREE: new RepresentationGenerator( treeImage,
     tree3dImage,
     tree3dImage,
     tree3dReversedImage,
     tree3dReversedImage,
     treeString, true ),
-  ROCKET: representationGenerator( rocketImage,
+  ROCKET: new RepresentationGenerator( rocketImage,
     rocket3dImage,
     rocket3dImage,
     rocket3dReversedImage,
     rocket3dReversedImage,
     rocketString, true ),
-  LIGHT: representationGenerator( lampRedImage,
+  LIGHT: new RepresentationGenerator( lampRedImage,
     lampBlueImage,
     lampBlueImage,
     screen3dImage,
     screen3dImage,
-    lightString, false )
+    lightString, false, { source: new Image( lampRedImage ) } )
 } );
 
 

@@ -13,9 +13,13 @@ import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import SourceObjectRepresentation from './SourceObjectRepresentation.js';
 import Utils from '../../../../dot/js/Utils.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 
 const DEFAULT_SOURCE_POINT_1 = GeometricOpticsConstants.DEFAULT_SOURCE_POINT_1;
 const DEFAULT_SOURCE_POINT_2 = GeometricOpticsConstants.DEFAULT_SOURCE_POINT_2;
+const verticalOffsetRange = new RangeWithValue( -0.5, 0, -0.1 );
 
 class SourceObject {
 
@@ -25,14 +29,33 @@ class SourceObject {
   constructor( tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    // @public {Property.<Vector2>} position of the source
+    // @public {Property.<Vector2>} position of the source/object
     this.positionProperty = new Vector2Property( DEFAULT_SOURCE_POINT_1 );
 
-    // @public {Property.<Vector2>} position of the movable point
-    this.movablePositionProperty = new Vector2Property( DEFAULT_SOURCE_POINT_2 );
+    // @public {Property.<Vector2>} position of the second source
+    this.unconstrainedMovablePositionProperty = new Vector2Property( DEFAULT_SOURCE_POINT_2 );
 
-    // @public {EnumerationProperty.<SourceObjectRepresentation>}  representation of the object
+    // @public {Property.<number>} vertical offset of second object with respect to first
+    this.verticalOffsetProperty = new NumberProperty( verticalOffsetRange.defaultValue );
+
+    // @public {EnumerationProperty.<SourceObjectRepresentation>}  representation of the source/object
     this.representationProperty = new EnumerationProperty( SourceObjectRepresentation, SourceObjectRepresentation.PENCIL );
+
+    // @public {Property.<Vector2>} position of the movable point (source/object)
+    this.movablePositionProperty =
+      new DerivedProperty( [ this.positionProperty,
+          this.verticalOffsetProperty,
+          this.unconstrainedMovablePositionProperty,
+          this.representationProperty ],
+        ( position, verticalOffset, unconstrainedPosition, representation ) => {
+          if ( representation.isObject ) {
+            return position.plusXY( 0, verticalOffset );
+          }
+          else {
+            return unconstrainedPosition;
+          }
+        } );
+
   }
 
   /**
@@ -41,17 +64,9 @@ class SourceObject {
    */
   reset() {
     this.positionProperty.reset();
-    this.movablePositionProperty.reset();
     this.representationProperty.reset();
-  }
-
-  /**
-   * Sets position of the movable point.
-   * @param {Vector2} location
-   * @public
-   */
-  setMovablePoint( location ) {
-    this.movablePositionProperty.value = location;
+    this.verticalOffsetProperty.reset();
+    this.unconstrainedMovablePositionProperty.reset();
   }
 
   /**
@@ -70,16 +85,6 @@ class SourceObject {
    */
   setPosition( position ) {
     this.positionProperty.value = position;
-  }
-
-
-  /**
-   * Returns the vertical offset of the movable position with respect to the source/object.
-   * @returns {number}
-   * @public
-   */
-  getVerticalOffset() {
-    return this.movablePositionProperty.value.y - this.positionProperty.value.y;
   }
 
   /**
@@ -119,6 +124,24 @@ class SourceObject {
   }
 
   /**
+   * Returns the logo representation of the source/object.
+   * @returns {Image}
+   * @public
+   */
+  getSecondSource() {
+    return this.representationProperty.value.source;
+  }
+
+  /**
+   * Returns true if the representation is an object (as opposed to a source).
+   * @returns {boolean}
+   * @public
+   */
+  isObject() {
+    return this.representationProperty.value.isObject;
+  }
+
+  /**
    * Returns the inverted target representation of the source/object.
    * @returns {Image}
    * @public
@@ -137,26 +160,19 @@ class SourceObject {
   }
 
   /**
-   * Sets the vertical offset of the movable position with respect to the source/object.
-   * @returns {Vector2}
+   * Sets the movable point
+   * @param {Vector2} position
    * @public
    */
-  clampVerticalOffset( verticalOffset ) {
-    const min = -0.5;
-    const max = 0.0;
-    const yConstrained = Utils.clamp( verticalOffset, min, max );
-    const yValue = this.positionProperty.value.y + yConstrained;
-    this.movablePositionProperty.value.setY( yValue );
-    this.movablePositionProperty.value.setX( this.positionProperty.value.x );
-  }
-
-  /**
-   * Returns the position of the movable point
-   * @returns {Vector2}
-   * @public
-   */
-  getMovablePosition() {
-    return this.movablePositionProperty.value;
+  setMovablePoint( position ) {
+    if ( this.isObject() ) {
+      const unconstrainedVerticalOffset = position.y - this.positionProperty.value.y;
+      const verticalOffset = Utils.clamp( unconstrainedVerticalOffset, verticalOffsetRange.min, verticalOffsetRange.max );
+      this.verticalOffsetProperty.value = verticalOffset;
+    }
+    else {
+      this.unconstrainedMovablePositionProperty.value = position;
+    }
   }
 }
 
