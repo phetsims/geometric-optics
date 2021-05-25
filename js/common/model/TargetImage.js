@@ -30,9 +30,6 @@ class TargetImage {
     // @private (read-only) {Optic}
     this.optic = optic;
 
-    // @public (read-only) {SourceObject}
-    this.representationProperty = sourceObject.representationProperty;
-
     // @public (read-only) {DerivedProperty.<number>}
     this.imageOpticDistanceProperty = new DerivedProperty(
       [ sourceObject.positionProperty,

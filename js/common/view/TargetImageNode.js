@@ -13,19 +13,25 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 class TargetImageNode extends Node {
 
   /**
+   * @param {EnumerationProperty.<SourceObjectRepresentation>} representationProperty
    * @param {TargetImage} targetImage
    * @param {Optic} optic
    * @param {Property.<boolean>} visibleVirtualImageProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
    */
-  constructor( targetImage, optic, visibleVirtualImageProperty, modelViewTransform, tandem ) {
+  constructor( representationProperty,
+               targetImage,
+               optic,
+               visibleVirtualImageProperty,
+               modelViewTransform,
+               tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     super( { tandem: tandem } );
 
     // {Property.<Image>}
-    const imageProperty = new DerivedProperty( [ targetImage.representationProperty, targetImage.isVirtualProperty ],
+    const imageProperty = new DerivedProperty( [ representationProperty, targetImage.isVirtualProperty ],
       ( representation, isVirtual ) => {
         const realImage = optic.isLens() ? representation.targetInverted :
                           representation.objectInverted;

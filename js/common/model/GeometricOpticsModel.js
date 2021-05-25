@@ -6,11 +6,13 @@
  * @author Martin Veillette
  */
 
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import FocalPoint from './FocalPoint.js';
 import LightRays from './LightRays.js';
 import SourceObject from './SourceObject.js';
+import SourceObjectRepresentation from './SourceObjectRepresentation.js';
 import TargetImage from './TargetImage.js';
 
 class GeometricOpticsModel {
@@ -21,9 +23,11 @@ class GeometricOpticsModel {
   constructor( tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    // @public {SourceObject} the object/ source
-    this.sourceObject = new SourceObject( tandem );
+    // @public {EnumerationProperty.<SourceObjectRepresentation>}  representation of the source/object
+    this.representationProperty = new EnumerationProperty( SourceObjectRepresentation, SourceObjectRepresentation.PENCIL );
 
+    // @public {SourceObject} the object/ source
+    this.sourceObject = new SourceObject( this.representationProperty, tandem );
   }
 
 
@@ -32,6 +36,7 @@ class GeometricOpticsModel {
    * @public
    */
   reset() {
+    this.representationProperty.reset();
     this.sourceObject.reset();
   }
 
@@ -54,6 +59,7 @@ class GeometricOpticsModel {
     this.lightRays = new LightRays( this.sourceObject.positionProperty, optic, this.targetImage, tandem );
 
   }
+
 
 }
 

@@ -66,8 +66,6 @@ class RepresentationGenerator {
     this.isObject = isObject;
     this.source = options.source;
   }
-
-
 }
 
 const SourceObjectRepresentation = Enumeration.byMap( {

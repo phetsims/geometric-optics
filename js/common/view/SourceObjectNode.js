@@ -18,16 +18,17 @@ const OFFSET_VECTOR = new Vector2( 0.15, -0.18 );
 class SourceObjectNode extends Node {
 
   /**
+   * @param {EnumerationProperty.<SourceObjectRepresentation>} representationProperty
    * @param {SourceObject} sourceObject
    * @param {Property.<boolean>} visibleMovablePointProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
    * */
-  constructor( sourceObject, visibleMovablePointProperty, modelViewTransform, tandem ) {
+  constructor( representationProperty, sourceObject, visibleMovablePointProperty, modelViewTransform, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
     super();
 
-    const sourceObjectImage = new Image( sourceObject.getRepresentationObjectUpright(), { scale: OVERALL_SCALE_FACTOR } );
+    const sourceObjectImage = new Image( representationProperty.value.objectUpright, { scale: OVERALL_SCALE_FACTOR } );
 
     this.leftTopModelPositionProperty = new Vector2Property( sourceObject.getPosition().minus( OFFSET_VECTOR ) );
 
@@ -55,15 +56,15 @@ class SourceObjectNode extends Node {
 
     movableNode.addInputListener( movablePointDragListener );
 
-    sourceObject.representationProperty.link( representation => {
+    representationProperty.link( representation => {
       sourceObjectImage.image = representation.objectUpright;
       movableNode.removeAllChildren();
-      movableNode.addChild( sourceObject.getSecondSource() );
+      movableNode.addChild( representation.source );
       movableNode.leftTop = modelViewTransform.modelToViewPosition( sourceObject.movablePositionProperty.value );
     } );
 
     movableCirclePositionProperty.link( position => {
-      sourceObject.setMovablePoint( position );
+      sourceObject.setMovablePoint( representationProperty, position );
     } );
 
     sourceObject.movablePositionProperty.link( position => {
