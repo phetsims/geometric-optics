@@ -14,6 +14,7 @@ import LightRays from './LightRays.js';
 import SourceObject from './SourceObject.js';
 import SourceObjectRepresentation from './SourceObjectRepresentation.js';
 import TargetImage from './TargetImage.js';
+import LightRayMode from './LightRayMode.js';
 
 class GeometricOpticsModel {
 
@@ -26,6 +27,9 @@ class GeometricOpticsModel {
     // @public {EnumerationProperty.<SourceObjectRepresentation>}  representation of the source/object
     this.representationProperty = new EnumerationProperty( SourceObjectRepresentation, SourceObjectRepresentation.PENCIL );
 
+    // @public {EnumerationProperty.<LightRayMode>}  modes for the different kind of light rays
+    this.lightRayModeProperty = new EnumerationProperty( LightRayMode, LightRayMode.NO_RAYS );
+
     // @public {SourceObject} the object/ source
     this.sourceObject = new SourceObject( this.representationProperty, tandem );
   }
@@ -37,6 +41,7 @@ class GeometricOpticsModel {
    */
   reset() {
     this.representationProperty.reset();
+    this.lightRayModeProperty.reset();
     this.sourceObject.reset();
   }
 
@@ -53,11 +58,16 @@ class GeometricOpticsModel {
     this.secondFocalPoint = new FocalPoint( optic.positionProperty, optic.focalLengthProperty, tandem, { multiplicativeFactor: -1 } );
 
     // @public {TargetImage} target/ image
-    this.targetImage = new TargetImage( this.sourceObject, optic, tandem );
+    this.targetImage = new TargetImage( this.sourceObject.positionProperty, optic, tandem );
+
+    // @public {TargetImage} target/ image
+    this.movableTargetImage = new TargetImage( this.sourceObject.movablePositionProperty, optic, tandem );
 
     // @public {LightRays} model of the light rays
-    this.lightRays = new LightRays( this.sourceObject.positionProperty, optic, this.targetImage, tandem );
+    this.lightRays = new LightRays( this.lightRayModeProperty, this.sourceObject.positionProperty, optic, this.targetImage, tandem );
 
+    // @public {LightRays} model of the light rays
+    this.movableLightRays = new LightRays( this.lightRayModeProperty, this.sourceObject.movablePositionProperty, optic, this.movableTargetImage, tandem );
   }
 
 

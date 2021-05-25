@@ -47,6 +47,9 @@ class GeometricOpticsScreenView extends ScreenView {
 
     this.sourceObjectNode = new SourceObjectNode( model.representationProperty, model.sourceObject, this.visibleProperties.visibleMovablePointProperty, this.modelViewTransform, tandem );
     const lightRaysNode = new LightRaysNode( model.lightRays, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
+
+    const movableLightRaysNode = new LightRaysNode( model.movableLightRays, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
+
     const targetImageNode = new TargetImageNode( model.representationProperty, model.targetImage, model.optic, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
 
     const firstFocalPointNode = new FocalPointNode( model.firstFocalPoint, this.modelViewTransform, tandem );
@@ -68,7 +71,7 @@ class GeometricOpticsScreenView extends ScreenView {
       }
     } );
 
-    const controlPanel = new ControlPanel( model.optic, model.lightRays, this.visibleProperties, this.modelViewTransform, tandem,
+    const controlPanel = new ControlPanel( model.optic, model.lightRayModeProperty, this.visibleProperties, this.modelViewTransform, tandem,
       { hasIndex: model.optic.isLens() } );
     this.addChild( controlPanel );
     controlPanel.centerBottom = ScreenView.DEFAULT_LAYOUT_BOUNDS.eroded( GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN ).centerBottom;
@@ -80,8 +83,10 @@ class GeometricOpticsScreenView extends ScreenView {
     this.playAreaNode.addChild( targetImageNode );
     this.playAreaNode.addChild( focalPointsLayer );
     this.playAreaNode.addChild( lightRaysNode );
+    this.playAreaNode.addChild( movableLightRaysNode );
 
     this.visibleProperties.visibleFocalPointProperty.linkAttribute( focalPointsLayer, 'visible' );
+    this.visibleProperties.visibleMovablePointProperty.linkAttribute( movableLightRaysNode, 'visible' );
 
     const comboBox = new SourceObjectComboBox( model.representationProperty, tandem );
 

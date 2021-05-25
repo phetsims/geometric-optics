@@ -14,15 +14,15 @@ import geometricOptics from '../../geometricOptics.js';
 class TargetImage {
 
   /**
-   * @param {SourceObject} sourceObject
+   * @param {Vector2Property} objectPositionProperty
    * @param {Optic} optic
    * @param {Tandem} tandem
    */
-  constructor( sourceObject, optic, tandem ) {
+  constructor( objectPositionProperty, optic, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     // @private {Vector2}
-    this.objectPositionProperty = sourceObject.positionProperty;
+    this.objectPositionProperty = objectPositionProperty;
 
     // @private {Vector2}
     this.opticPositionProperty = optic.positionProperty;
@@ -32,7 +32,7 @@ class TargetImage {
 
     // @public (read-only) {DerivedProperty.<number>}
     this.imageOpticDistanceProperty = new DerivedProperty(
-      [ sourceObject.positionProperty,
+      [ objectPositionProperty,
         optic.positionProperty,
         optic.focalLengthProperty ],
       ( objectPosition, opticPosition, focalLength ) => {
@@ -42,7 +42,7 @@ class TargetImage {
 
     // updates the position of the image
     // @public (read-only) {DerivedProperty.<Vector2>}
-    this.positionProperty = new DerivedProperty( [ sourceObject.positionProperty,
+    this.positionProperty = new DerivedProperty( [ objectPositionProperty,
         optic.positionProperty,
         optic.focalLengthProperty ],
       ( objectPosition, opticPosition, focalLength ) => {
@@ -51,7 +51,7 @@ class TargetImage {
 
 
     // @public (read-only) {DerivedProperty.<number>}
-    this.scaleProperty = new DerivedProperty( [ sourceObject.positionProperty,
+    this.scaleProperty = new DerivedProperty( [ objectPositionProperty,
         optic.positionProperty,
         optic.focalLengthProperty ],
       ( objectPosition, opticPosition, focalLength ) => {
@@ -59,7 +59,7 @@ class TargetImage {
       } );
 
     // @public (read-only) {DerivedProperty.<boolean>}
-    this.isInvertedProperty = new DerivedProperty( [ sourceObject.positionProperty,
+    this.isInvertedProperty = new DerivedProperty( [ objectPositionProperty,
         optic.positionProperty,
         optic.focalLengthProperty ],
       ( objectPosition, opticPosition, focalLength ) => {
@@ -67,7 +67,7 @@ class TargetImage {
       } );
 
     // @public (read-only) {DerivedProperty.<boolean>}
-    this.isVirtualProperty = new DerivedProperty( [ sourceObject.positionProperty,
+    this.isVirtualProperty = new DerivedProperty( [ objectPositionProperty,
         optic.positionProperty,
         optic.focalLengthProperty ],
       ( objectPosition, opticPosition, focalLength ) => {

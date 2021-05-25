@@ -20,7 +20,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-import LightRays from '../model/LightRays.js';
+import LightRayMode from '../model/LightRayMode.js';
 import Optic from '../model/Optic.js';
 
 const metersPattern = geometricOpticsStrings.metersPattern;
@@ -43,35 +43,34 @@ class ControlPanel extends Panel {
 
   /**
    * @param {Optic} optic
-   * @param {LightRays} lightRays
+   * @param {EnumerationProperty.<LightRayMode>} lightRayModeProperty
    * @param {VisibleProperties} visibleProperties
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
    * @param {Object} config
    */
-  constructor( optic, lightRays, visibleProperties, modelViewTransform, tandem, config ) {
+  constructor( optic, lightRayModeProperty, visibleProperties, modelViewTransform, tandem, config ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     config = merge( {
       hasIndex: false
     }, config );
 
-    const Mode = LightRays.Mode;
     const rayModeRadioButtonGroupItems = [
       {
-        value: Mode.MARGINAL_RAYS,
+        value: LightRayMode.MARGINAL_RAYS,
         node: new Text( marginalString )
       },
       {
-        value: Mode.PRINCIPAL_RAYS,
+        value: LightRayMode.PRINCIPAL_RAYS,
         node: new Text( principalString )
       },
       {
-        value: Mode.MANY_RAYS,
+        value: LightRayMode.MANY_RAYS,
         node: new Text( manyString )
       },
       {
-        value: Mode.NO_RAYS,
+        value: LightRayMode.NO_RAYS,
         node: new Text( noneString )
       }
     ];
@@ -148,7 +147,7 @@ class ControlPanel extends Panel {
 
 
     const rayModeRadioButtonGroup = new VerticalAquaRadioButtonGroup(
-      lightRays.modeProperty,
+      lightRayModeProperty,
       rayModeRadioButtonGroupItems, {
         spacing: 8,
         align: 'left',

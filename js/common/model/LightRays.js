@@ -6,34 +6,34 @@
  * @author Martin Veillette
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Ray2 from '../../../../dot/js/Ray2.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
-import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Property from '../../../../axon/js/Property.js';
+import LightRayMode from './LightRayMode.js';
 
 const OPTICAL_ELEMENT_TIP_OFFSET = GeometricOpticsConstants.OPTICAL_ELEMENT_TIP_OFFSET;
 
 class LightRays {
 
   /**
+   * @param {EnumerationProperty.<LightRayMode>} lightRayModeProperty
    * @param {Property.<Vector2>} sourceObjectPositionProperty
    * @param {Optic} optic
    * @param {TargetImage} targetImage
    * @param {Tandem} tandem
    */
-  constructor( sourceObjectPositionProperty, optic, targetImage, tandem ) {
+  constructor( lightRayModeProperty, sourceObjectPositionProperty, optic, targetImage, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    // @private
-    this.modeProperty = new EnumerationProperty( LightRays.Mode, LightRays.Mode.NO_RAYS );
+    // @public
+    this.modeProperty = lightRayModeProperty;
 
-    // @private {Optic}
+    // @public {Optic}
     this.optic = optic;
 
     // @private {Vector2}
@@ -52,7 +52,7 @@ class LightRays {
       [
         sourceObjectPositionProperty,
         optic.positionProperty,
-        this.modeProperty,
+        lightRayModeProperty,
         optic.diameterProperty,
         optic.focalLengthProperty,
         optic.curveProperty ],
@@ -74,7 +74,6 @@ class LightRays {
    * @public
    */
   reset() {
-    this.modeProperty.reset();
   }
 
   /**
@@ -138,7 +137,7 @@ class LightRays {
 
       // Draw different rays depending on the mode
       switch( mode ) {
-        case LightRays.Mode.MARGINAL_RAYS:
+        case LightRayMode.MARGINAL_RAYS:
 
           if ( isReal ) {
 
@@ -195,7 +194,7 @@ class LightRays {
 
 
           break;
-        case LightRays.Mode.PRINCIPAL_RAYS:
+        case LightRayMode.PRINCIPAL_RAYS:
 
 
           // Ray passing through center of optic
@@ -244,7 +243,7 @@ class LightRays {
           }
 
           break;
-        case LightRays.Mode.MANY_RAYS:
+        case LightRayMode.MANY_RAYS:
           // eslint-disable-next-line no-case-declarations
           const N = 25; // Number of rays
           // eslint-disable-next-line no-case-declarations
@@ -280,7 +279,7 @@ class LightRays {
             }
           }
           break;
-        case LightRays.Mode.NO_RAYS:
+        case LightRayMode.NO_RAYS:
 
           break;
         default:
@@ -290,17 +289,6 @@ class LightRays {
   }
 }
 
-// Enumeration for the different ray Mode
-// NO_RAYS implies that no rays are displayed.
-// MARGINAL_RAYS show the rays at the top, center and bottom of the optic.
-// PRINCIPAL_RAYS show the principal rays, according to the ray tracing method.
-// MANY_RAYS show a shower of rays.
-LightRays.Mode = Enumeration.byKeys( [
-  'NO_RAYS',
-  'MARGINAL_RAYS',
-  'PRINCIPAL_RAYS',
-  'MANY_RAYS'
-] );
 
 geometricOptics.register( 'LightRays', LightRays );
 export default LightRays;
