@@ -9,7 +9,7 @@ import GeometricOpticsScreenView from '../../common/view/GeometricOpticsScreenVi
 import LensNode from './LensNode.js';
 import geometricOptics from '../../geometricOptics.js';
 import LensModel from '../model/LensModel.js';
-
+import ScreenNode from './ScreenNode.js';
 
 class LensScreenView extends GeometricOpticsScreenView {
 
@@ -27,6 +27,9 @@ class LensScreenView extends GeometricOpticsScreenView {
     const lensNode = new LensNode( model.optic, this.modelViewTransform, tandem );
     this.playAreaNode.insertChild( 0, lensNode );
 
+    const screenNode = new ScreenNode( model.screenPositionProperty, this.modelViewTransform, tandem );
+
+    this.addChild( screenNode );
   }
 
   /**
