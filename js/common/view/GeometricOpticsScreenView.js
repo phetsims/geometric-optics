@@ -20,7 +20,7 @@ import LightRaysNode from './LightRaysNode.js';
 import SourceObjectNode from './SourceObjectNode.js';
 import TargetImageNode from './TargetImageNode.js';
 import VisibleProperties from './VisibleProperties.js';
-import SourceObjectComboBox from './SourceObjectComboBox.js';
+import RepresentationComboBox from './RepresentationComboBox.js';
 
 const ZOOM_DEFAULT = GeometricOpticsConstants.ZOOM_RANGE.defaultValue;
 const SCALE_FACTOR = 4 / 3;
@@ -46,8 +46,8 @@ class GeometricOpticsScreenView extends ScreenView {
     this.visibleProperties = new VisibleProperties( tandem );
 
     this.sourceObjectNode = new SourceObjectNode( model.representationProperty, model.sourceObject, this.visibleProperties.visibleMovablePointProperty, this.modelViewTransform, tandem );
-    const lightRaysNode = new LightRaysNode( model.lightRays, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
 
+    const lightRaysNode = new LightRaysNode( model.lightRays, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
     const movableLightRaysNode = new LightRaysNode( model.movableLightRays, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
 
     const targetImageNode = new TargetImageNode( model.representationProperty, model.targetImage, model.optic, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
@@ -88,7 +88,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
     this.visibleProperties.visibleMovablePointProperty.linkAttribute( movableLightRaysNode, 'visible' );
 
-    const comboBox = new SourceObjectComboBox( model.representationProperty, tandem );
+    const comboBox = new RepresentationComboBox( model.representationProperty, tandem );
 
 
     // scale the playAreaNode

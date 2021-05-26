@@ -15,7 +15,7 @@ import SourceObjectRepresentation from '../model/SourceObjectRepresentation.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 
-class SourceObjectComboBox extends Node {
+class RepresentationComboBox extends Node {
 
   /**
    * @param {EnumerationProperty.<SourceObjectRepresentation>} selectedItemProperty
@@ -47,5 +47,5 @@ class SourceObjectComboBox extends Node {
   }
 }
 
-geometricOptics.register( 'SourceObjectComboBox', SourceObjectComboBox );
-export default SourceObjectComboBox;
+geometricOptics.register( 'SourceObjectComboBox', RepresentationComboBox );
+export default RepresentationComboBox;
