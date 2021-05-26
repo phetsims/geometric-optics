@@ -52,8 +52,8 @@ class GeometricOpticsScreenView extends ScreenView {
 
     const targetImageNode = new TargetImageNode( model.representationProperty, model.targetImage, model.optic, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
 
-    const firstFocalPointNode = new FocalPointNode( model.firstFocalPoint, this.modelViewTransform, tandem );
-    const secondFocalPointNode = new FocalPointNode( model.secondFocalPoint, this.modelViewTransform, tandem );
+    const firstFocalPointNode = new FocalPointNode( model.firstFocalPoint, this.visibleProperties.visibleFocalPointProperty, this.modelViewTransform, tandem );
+    const secondFocalPointNode = new FocalPointNode( model.secondFocalPoint, this.visibleProperties.visibleFocalPointProperty, this.modelViewTransform, tandem );
     const focalPointsLayer = new Node( { children: [ firstFocalPointNode, secondFocalPointNode ] } );
 
     this.zoomLevelProperty = new NumberProperty( ZOOM_DEFAULT, { range: GeometricOpticsConstants.ZOOM_RANGE } );
@@ -85,7 +85,7 @@ class GeometricOpticsScreenView extends ScreenView {
     this.playAreaNode.addChild( lightRaysNode );
     this.playAreaNode.addChild( movableLightRaysNode );
 
-    this.visibleProperties.visibleFocalPointProperty.linkAttribute( focalPointsLayer, 'visible' );
+
     this.visibleProperties.visibleMovablePointProperty.linkAttribute( movableLightRaysNode, 'visible' );
 
     const comboBox = new SourceObjectComboBox( model.representationProperty, tandem );

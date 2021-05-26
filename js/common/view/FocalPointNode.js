@@ -21,10 +21,11 @@ class FocalPointNode extends Node {
 
   /**
    * @param {FocalPoint} focalPoint
+   * @param {Property.<boolean>} visibleProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
    */
-  constructor( focalPoint, modelViewTransform, tandem ) {
+  constructor( focalPoint, visibleProperty, modelViewTransform, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     super();
@@ -47,6 +48,8 @@ class FocalPointNode extends Node {
     } );
 
     this.addChild( focalCrossNode );
+
+    visibleProperty.linkAttribute( this, 'visible' );
   }
 
 }
