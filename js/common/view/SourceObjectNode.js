@@ -1,6 +1,11 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
+ * View of the source/object
+ * The sourceObject is represented by an object or a source of light
+ * The sourceObject can be dragged
+ * A secondary object can be dragged as a point or source of light
+ *
  * @author Martin Veillette
  */
 
@@ -28,10 +33,12 @@ class SourceObjectNode extends Node {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
     super();
 
+    // image of the source/object. the source/object is upright and right facing
     const sourceObjectImage = new Image( representationProperty.value.objectUpright, { scale: OVERALL_SCALE_FACTOR } );
 
     this.leftTopModelPositionProperty = new Vector2Property( sourceObject.getPosition().minus( OFFSET_VECTOR ) );
 
+    // create drag listener for image
     const sourceObjectDragListener = new DragListener( {
       positionProperty: this.leftTopModelPositionProperty,
       transform: modelViewTransform
@@ -55,6 +62,7 @@ class SourceObjectNode extends Node {
     } );
 
     movableNode.addInputListener( movablePointDragListener );
+
 
     representationProperty.link( representation => {
       sourceObjectImage.image = representation.objectUpright;

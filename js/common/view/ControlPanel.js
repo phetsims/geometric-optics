@@ -1,6 +1,9 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
+ * Main control panel for the optical element properties, visibility checkboxes  and the lighrays mode
+ * Appears at the bottom of the simulation
+ *
  * @author Martin Veillette
  */
 
@@ -56,50 +59,22 @@ class ControlPanel extends Panel {
       hasLens: false
     }, config );
 
+    // items for ray Mode radio buttons
     const rayModeRadioButtonGroupItems = [
-      {
-        value: LightRayMode.MARGINAL_RAYS,
-        node: new Text( marginalString )
-      },
-      {
-        value: LightRayMode.PRINCIPAL_RAYS,
-        node: new Text( principalString )
-      },
-      {
-        value: LightRayMode.MANY_RAYS,
-        node: new Text( manyString )
-      },
-      {
-        value: LightRayMode.NO_RAYS,
-        node: new Text( noneString )
-      }
+      { value: LightRayMode.MARGINAL_RAYS, node: new Text( marginalString ) },
+      { value: LightRayMode.PRINCIPAL_RAYS, node: new Text( principalString ) },
+      { value: LightRayMode.MANY_RAYS, node: new Text( manyString ) },
+      { value: LightRayMode.NO_RAYS, node: new Text( noneString ) }
     ];
 
+    // items for the type of curve for optical element
     const Curve = Optic.Curve;
     const curvatureTypesRadioButtonGroupItems = [
-      {
-        value: Curve.CONCAVE,
-        node: new Text( concaveString )
-      },
-      {
-        value: Curve.CONVEX,
-        node: new Text( convexString )
-      }
+      { value: Curve.CONCAVE, node: new Text( concaveString ) },
+      { value: Curve.CONVEX, node: new Text( convexString ) }
     ];
 
-
-    const indexOfRefractionNumberControlOptions =
-      {
-        delta: 0.01,
-        layoutFunction: NumberControl.createLayoutFunction3(),
-        numberDisplayOptions: {
-          decimalPlaces: GeometricOpticsConstants.INDEX_DECIMAL_PLACES
-        },
-        sliderOptions: {
-          trackSize: new Dimension2( 120, 4 )
-        }
-      };
-
+    // options for number controls that have length units
     const lengthNumberControlOptions =
       {
         delta: 0.1,
@@ -115,37 +90,57 @@ class ControlPanel extends Panel {
         }
       };
 
-
+    // create number control for the radius of curvature of optical element
     const curvatureRadiusControl = new NumberControl(
       curvatureRadiusString,
       optic.radiusOfCurvatureProperty,
       optic.radiusOfCurvatureProperty.range,
       lengthNumberControlOptions );
 
+    // create number control for the diameter of optical element
     const diameterControl = new NumberControl(
       diameterString,
       optic.diameterProperty,
       optic.diameterProperty.range,
       lengthNumberControlOptions );
 
-    let controls;
+    // array of number controls
+    let controls = [];
+
     if ( config.hasLens ) {
+
+      // options for index of refraction control
+      const indexOfRefractionNumberControlOptions =
+        {
+          delta: 0.01,
+          layoutFunction: NumberControl.createLayoutFunction3(),
+          numberDisplayOptions: {
+            decimalPlaces: GeometricOpticsConstants.INDEX_DECIMAL_PLACES
+          },
+          sliderOptions: {
+            trackSize: new Dimension2( 120, 4 )
+          }
+        };
+
+      // create number control for the index of refraction of lens
       const indexOfRefractionControl = new NumberControl(
         refractiveIndexString,
         optic.indexOfRefractionProperty,
         optic.indexOfRefractionProperty.range,
         indexOfRefractionNumberControlOptions );
 
+      // add three number controls
       controls = [ curvatureRadiusControl,
         indexOfRefractionControl,
         diameterControl ];
     }
     else {
+      // if not a lens, add two number controls
       controls = [ curvatureRadiusControl,
         diameterControl ];
     }
 
-
+    // create button radio group for the light ray mode
     const rayModeRadioButtonGroup = new VerticalAquaRadioButtonGroup(
       lightRayModeProperty,
       rayModeRadioButtonGroupItems, {
@@ -158,6 +153,7 @@ class ControlPanel extends Panel {
         mouseAreaXDilation: 10
       } );
 
+    // create checkbox group for visibility settings
     const checkboxGroupItems = [
       {
         node: new Text( focalPointString ),
@@ -185,10 +181,13 @@ class ControlPanel extends Panel {
         tandem: tandem
       }
     ];
+
+    // create check box group
     const checkboxGroup = new VerticalCheckboxGroup( checkboxGroupItems );
 
     const separator = new Line( 0, 10, 0, 100, { stroke: 'gray', lineWidth: 1 } );
 
+    // create radio button group for the type of curve (Convex and concave)
     const curvatureTypesRadioButtonGroup = new VerticalAquaRadioButtonGroup(
       optic.curveProperty,
       curvatureTypesRadioButtonGroupItems, {
@@ -201,6 +200,7 @@ class ControlPanel extends Panel {
         mouseAreaXDilation: 10
       } );
 
+    // add all elements of the panel in a horizontal HBox
     const content = new AlignBox( new HBox( {
       spacing: 8,
       align: 'left',

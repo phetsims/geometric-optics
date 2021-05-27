@@ -1,6 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
+ * Common screen view for the simulation
+ *
  * @author Martin Veillette
  */
 
