@@ -23,16 +23,18 @@ class LensScreenView extends GeometricOpticsScreenView {
 
     super( model, tandem );
 
-
     const lensNode = new LensNode( model.optic, this.modelViewTransform, tandem );
     this.playAreaNode.insertChild( 0, lensNode );
 
-    const screenNode = new ScreenNode( model.screen,
+    // create screen associated with light source
+    // @private {ScreenNode}
+    this.screenNode = new ScreenNode( model.screen,
       model.representationProperty,
       this.visibleProperties.visibleMovablePointProperty,
       this.modelViewTransform, tandem );
 
-    this.insertChild( 0, screenNode );
+    //  add the screen at the bottom of the z-layer
+    this.insertChild( 0, this.screenNode );
   }
 
   /**
@@ -41,6 +43,7 @@ class LensScreenView extends GeometricOpticsScreenView {
    */
   reset() {
     super.reset();
+    this.screenNode.reset();
   }
 }
 

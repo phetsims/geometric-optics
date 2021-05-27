@@ -41,13 +41,13 @@ class ScreenNode extends Node {
     // difference between the left top position of the image and the "center" of the blackboard
     const offset = new Vector2( -0.3, 0.75 );
 
-    // create a property for the left top position of the screen target
-    const imagePositionProperty = new Vector2Property( screen.positionProperty.value.plus( offset ) );
+    // @private create a property for the left top position of the screen target
+    this.imagePositionProperty = new Vector2Property( screen.positionProperty.value.plus( offset ) );
 
     // create a drag listener for the image
     const dragListener = new DragListener(
       {
-        positionProperty: imagePositionProperty,
+        positionProperty: this.imagePositionProperty,
         transform: modelViewTransform,
         mapPosition: position => {
           // horizontal position of the lens
@@ -59,7 +59,7 @@ class ScreenNode extends Node {
       } );
 
     // update position of screen target
-    imagePositionProperty.link( position => {
+    this.imagePositionProperty.link( position => {
       screen.positionProperty.value = position.minus( offset );
       screenImage.leftTop = modelViewTransform.modelToViewPosition( position );
     } );
@@ -99,6 +99,14 @@ class ScreenNode extends Node {
     const movableSpotlightNode = addSpotLightNode( screen.spotlightTwo );
 
     visibleMovablePointProperty.linkAttribute( movableSpotlightNode, 'visible' );
+  }
+
+  /**
+   * Resets the view.
+   * @public
+   */
+  reset() {
+    this.imagePositionProperty.reset();
   }
 }
 
