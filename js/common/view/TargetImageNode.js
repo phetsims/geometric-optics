@@ -30,7 +30,7 @@ class TargetImageNode extends Node {
 
     super( { tandem: tandem } );
 
-    // {Property.<Image>}
+    // {Property.<HTMLImageElement>}
     const imageProperty = new DerivedProperty( [ representationProperty, targetImage.isVirtualProperty ],
       ( representation, isVirtual ) => {
         const realImage = optic.isLens() ? representation.targetInverted :
@@ -82,10 +82,19 @@ class TargetImageNode extends Node {
       target.opacity = intensity;
     } );
 
+    // update the image and its visibility
     imageProperty.link( image => {
-      target.image = image;
-    } );
+      if ( representationProperty.value.isObject ) {
+        this.visible = true;
 
+        // update the image
+        target.image = image;
+      }
+      else {
+        // make this entire node invisible if  representation is not an object.
+        this.visible = false;
+      }
+    } );
 
     this.addChild( target );
   }

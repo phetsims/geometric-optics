@@ -27,9 +27,12 @@ class LensScreenView extends GeometricOpticsScreenView {
     const lensNode = new LensNode( model.optic, this.modelViewTransform, tandem );
     this.playAreaNode.insertChild( 0, lensNode );
 
-    const screenNode = new ScreenNode( model.screenPositionProperty, this.modelViewTransform, tandem );
+    const screenNode = new ScreenNode( model.screen,
+      model.representationProperty,
+      this.visibleProperties.visibleMovablePointProperty,
+      this.modelViewTransform, tandem );
 
-    this.addChild( screenNode );
+    this.insertChild( 0, screenNode );
   }
 
   /**

@@ -89,6 +89,13 @@ const GeometricOpticsColorProfile = new ColorProfile( [ 'default' ], {
   },
 
   //--------------------------------------------------------------------------
+  //                              SCREEN (BLACKBOARD)
+
+  screenSpotlightFill: {
+    default: 'yellow'
+  },
+
+  //--------------------------------------------------------------------------
   //                              GUIDES
 
   guidesFill: {
