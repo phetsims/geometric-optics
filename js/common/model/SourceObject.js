@@ -23,7 +23,7 @@ const verticalOffsetRange = new RangeWithValue( -0.5, 0, -0.1 );
 class SourceObject {
 
   /**
-   * @param {EnumerationProperty.<SourceObjectRepresentation>} representationProperty
+   * @param {EnumerationProperty.<Representation>} representationProperty
    * @param {Tandem} tandem
    */
   constructor( representationProperty, tandem ) {
@@ -85,7 +85,7 @@ class SourceObject {
 
   /**
    * Sets the movable point
-   * @param {EnumerationProperty.<SourceObjectRepresentation>} representationProperty
+   * @param {EnumerationProperty.<Representation>} representationProperty
    * @param {Vector2} position
    * @public
    */

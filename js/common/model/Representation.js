@@ -44,6 +44,7 @@ class RepresentationGenerator {
    * @param {Image} targetInverted
    * @param {string} label
    * @param {boolean} isObject
+   * @param {Object} [options]
    */
   constructor( logo,
                objectUpright,

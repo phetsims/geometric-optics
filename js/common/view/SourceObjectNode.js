@@ -18,7 +18,7 @@ const OFFSET_VECTOR = new Vector2( 0.15, -0.18 );
 class SourceObjectNode extends Node {
 
   /**
-   * @param {EnumerationProperty.<SourceObjectRepresentation>} representationProperty
+   * @param {EnumerationProperty.<Representation>} representationProperty
    * @param {SourceObject} sourceObject
    * @param {Property.<boolean>} visibleMovablePointProperty
    * @param {ModelViewTransform2} modelViewTransform

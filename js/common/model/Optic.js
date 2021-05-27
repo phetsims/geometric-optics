@@ -171,7 +171,7 @@ class Optic {
    * @returns {boolean}
    */
   isDiverging( curve ) {
-    return !this.isConverging();
+    return !this.isConverging(curve);
   }
 
   /**

@@ -13,7 +13,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 class TargetImageNode extends Node {
 
   /**
-   * @param {EnumerationProperty.<SourceObjectRepresentation>} representationProperty
+   * @param {EnumerationProperty.<Representation>} representationProperty
    * @param {TargetImage} targetImage
    * @param {Optic} optic
    * @param {Property.<boolean>} visibleVirtualImageProperty
