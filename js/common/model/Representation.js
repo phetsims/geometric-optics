@@ -41,7 +41,7 @@ class RepresentationGenerator {
    * @param {HTMLImageElement} rightFacingUpright
    * @param {HTMLImageElement} rightFacingInverted
    * @param {HTMLImageElement} leftFacingUpright
-   * @param HTMLImageElement} leftFacingInverted
+   * @param {HTMLImageElement} leftFacingInverted
    * @param {string} label
    * @param {boolean} isObject
    * @param {Object} [options]
