@@ -34,7 +34,7 @@ class SourceObjectNode extends Node {
     super();
 
     // image of the source/object. the source/object is upright and right facing
-    const sourceObjectImage = new Image( representationProperty.value.objectUpright, { scale: OVERALL_SCALE_FACTOR } );
+    const sourceObjectImage = new Image( representationProperty.value.rightFacingUpright, { scale: OVERALL_SCALE_FACTOR } );
 
     this.leftTopModelPositionProperty = new Vector2Property( sourceObject.getPosition().minus( OFFSET_VECTOR ) );
 
@@ -65,7 +65,7 @@ class SourceObjectNode extends Node {
 
 
     representationProperty.link( representation => {
-      sourceObjectImage.image = representation.objectUpright;
+      sourceObjectImage.image = representation.rightFacingUpright;
       movableNode.removeAllChildren();
       movableNode.addChild( representation.source );
       movableNode.leftTop = modelViewTransform.modelToViewPosition( sourceObject.movablePositionProperty.value );

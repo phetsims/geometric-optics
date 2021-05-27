@@ -37,20 +37,20 @@ const circleImage = circleNode.rasterized();
 class RepresentationGenerator {
   /**
    * Generator of representation
-   * @param {Image} logo
-   * @param {Image} objectUpright
-   * @param {Image} objectInverted
-   * @param {Image} targetUpright
-   * @param {Image} targetInverted
+   * @param {HTMLImageElement} logo
+   * @param {HTMLImageElement} rightFacingUpright
+   * @param {HTMLImageElement} rightFacingInverted
+   * @param {HTMLImageElement} leftFacingUpright
+   * @param HTMLImageElement} leftFacingInverted
    * @param {string} label
    * @param {boolean} isObject
    * @param {Object} [options]
    */
   constructor( logo,
-               objectUpright,
-               objectInverted,
-               targetUpright,
-               targetInverted,
+               rightFacingUpright,
+               rightFacingInverted,
+               leftFacingUpright,
+               leftFacingInverted,
                label,
                isObject, options ) {
 
@@ -59,10 +59,10 @@ class RepresentationGenerator {
     }, options );
 
     this.logo = logo;
-    this.objectUpright = objectUpright;
-    this.objectInverted = objectInverted;
-    this.targetUpright = targetUpright;
-    this.targetInverted = targetInverted;
+    this.rightFacingUpright = rightFacingUpright;
+    this.rightFacingInverted = rightFacingInverted;
+    this.leftFacingUpright = leftFacingUpright;
+    this.leftFacingInverted = leftFacingInverted;
     this.label = label;
     this.isObject = isObject;
     this.source = options.source;

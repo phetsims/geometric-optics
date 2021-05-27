@@ -33,10 +33,10 @@ class TargetImageNode extends Node {
     // {Property.<HTMLImageElement>}
     const imageProperty = new DerivedProperty( [ representationProperty, targetImage.isVirtualProperty ],
       ( representation, isVirtual ) => {
-        const realImage = optic.isLens() ? representation.targetInverted :
-                          representation.objectInverted;
-        const virtualImage = optic.isLens() ? representation.objectUpright :
-                             representation.targetUpright;
+        const realImage = optic.isLens() ? representation.leftFacingInverted :
+                          representation.rightFacingInverted;
+        const virtualImage = optic.isLens() ? representation.rightFacingUpright :
+                             representation.leftFacingUpright;
         return isVirtual ? virtualImage : realImage;
       } );
 
