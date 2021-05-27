@@ -12,7 +12,7 @@ import geometricOptics from '../../geometricOptics.js';
 import FocalPoint from './FocalPoint.js';
 import LightRays from './LightRays.js';
 import SourceObject from './SourceObject.js';
-import SourceObjectRepresentation from './SourceObjectRepresentation.js';
+import Representation from './Representation.js';
 import TargetImage from './TargetImage.js';
 import LightRayMode from './LightRayMode.js';
 
@@ -24,8 +24,8 @@ class GeometricOpticsModel {
   constructor( tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    // @public {EnumerationProperty.<SourceObjectRepresentation>}  representation of the source/object
-    this.representationProperty = new EnumerationProperty( SourceObjectRepresentation, SourceObjectRepresentation.PENCIL );
+    // @public {EnumerationProperty.<Representation>}  representation of the source/object
+    this.representationProperty = new EnumerationProperty( Representation, Representation.PENCIL );
 
     // @public {EnumerationProperty.<LightRayMode>}  modes for the different kind of light rays
     this.lightRayModeProperty = new EnumerationProperty( LightRayMode, LightRayMode.NO_RAYS );

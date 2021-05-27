@@ -68,7 +68,7 @@ class RepresentationGenerator {
   }
 }
 
-const SourceObjectRepresentation = Enumeration.byMap( {
+const Representation = Enumeration.byMap( {
   PENCIL: new RepresentationGenerator( pencilImage,
     pencil3dImage,
     pencil3dInvertedImage,
@@ -96,5 +96,5 @@ const SourceObjectRepresentation = Enumeration.byMap( {
 } );
 
 
-geometricOptics.register( 'SourceObjectRepresentation', SourceObjectRepresentation );
-export default SourceObjectRepresentation;
+geometricOptics.register( 'Representation', Representation );
+export default Representation;
