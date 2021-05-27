@@ -72,7 +72,7 @@ class GeometricOpticsScreenView extends ScreenView {
     } );
 
     const controlPanel = new ControlPanel( model.optic, model.lightRayModeProperty, this.visibleProperties, this.modelViewTransform, tandem,
-      { hasIndex: model.optic.isLens() } );
+      { hasLens: model.optic.isLens() } );
     this.addChild( controlPanel );
     controlPanel.centerBottom = ScreenView.DEFAULT_LAYOUT_BOUNDS.eroded( GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN ).centerBottom;
 
@@ -88,7 +88,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
     this.visibleProperties.visibleMovablePointProperty.linkAttribute( movableLightRaysNode, 'visible' );
 
-    const comboBox = new RepresentationComboBox( model.representationProperty, tandem );
+    const comboBox = new RepresentationComboBox( model.representationProperty, tandem, { hasLens: model.optic.isLens() } );
 
 
     // scale the playAreaNode

@@ -15,6 +15,7 @@ import SourceObject from './SourceObject.js';
 import Representation from './Representation.js';
 import TargetImage from './TargetImage.js';
 import LightRayMode from './LightRayMode.js';
+import Property from '../../../../axon/js/Property.js';
 
 class GeometricOpticsModel {
 
@@ -25,7 +26,7 @@ class GeometricOpticsModel {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     // @public {EnumerationProperty.<Representation>}  representation of the source/object
-    this.representationProperty = new EnumerationProperty( Representation, Representation.PENCIL );
+    this.representationProperty = new Property( Representation.PENCIL );
 
     // @public {EnumerationProperty.<LightRayMode>}  modes for the different kind of light rays
     this.lightRayModeProperty = new EnumerationProperty( LightRayMode, LightRayMode.NO_RAYS );

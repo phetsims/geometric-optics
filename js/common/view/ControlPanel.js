@@ -53,7 +53,7 @@ class ControlPanel extends Panel {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     config = merge( {
-      hasIndex: false
+      hasLens: false
     }, config );
 
     const rayModeRadioButtonGroupItems = [
@@ -129,7 +129,7 @@ class ControlPanel extends Panel {
       lengthNumberControlOptions );
 
     let controls;
-    if ( config.hasIndex ) {
+    if ( config.hasLens ) {
       const indexOfRefractionControl = new NumberControl(
         refractiveIndexString,
         optic.indexOfRefractionProperty,

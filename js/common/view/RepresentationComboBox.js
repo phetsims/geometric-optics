@@ -4,6 +4,7 @@
  * @author Martin Veillette
  */
 
+import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -20,19 +21,28 @@ class RepresentationComboBox extends Node {
   /**
    * @param {EnumerationProperty.<Representation>} selectedItemProperty
    * @param {Tandem} tandem
+   * @param {Object} config
    */
-  constructor( selectedItemProperty, tandem ) {
+  constructor( selectedItemProperty, tandem, config ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+
+    config = merge( {
+      hasLens: false
+    }, config );
 
     super();
 
     const items = [];
 
     Representation.VALUES.forEach( representation => {
-      const text = new Text( representation.label, { font: new PhetFont( { size: 20 } ) } );
-      const logo = new Image( representation.logo, { scale: 0.05 } );
-      const hBox = new HBox( { children: [ logo, text ] } );
-      items.push( new ComboBoxItem( hBox, representation ) );
+
+      // the combo box should not include non-object for mirror screen
+      if ( config.hasLens || representation.isObject ) {
+        const text = new Text( representation.label, { font: new PhetFont( { size: 20 } ) } );
+        const logo = new Image( representation.logo, { scale: 0.05 } );
+        const hBox = new HBox( { children: [ logo, text ] } );
+        items.push( new ComboBoxItem( hBox, representation ) );
+      }
     } );
 
     const listParent = new Node();
