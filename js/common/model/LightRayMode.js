@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- *  Enumeration for the different ray Mode
+ * Enumeration for the different ray Mode
  *
  * @author Martin Veillette
  */

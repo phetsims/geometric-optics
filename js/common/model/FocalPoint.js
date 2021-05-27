@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Class for a focal point
+ * Model for a focal point
  *
  * @author Martin Veillette
  */
@@ -27,11 +27,10 @@ class FocalPoint {
       multiplicativeFactor: 1
     }, options );
 
-    // @public {DerivedProperty.<Vector2>} Position of the first focal point
+    // @public (read-only) {DerivedProperty.<Vector2>} Position of the focal point
     this.positionProperty = new DerivedProperty( [ opticPositionProperty, focalLengthProperty ], ( opticPosition, focalLength ) => {
       return opticPosition.plusXY( options.multiplicativeFactor * focalLength, 0 );
     } );
-
   }
 }
 

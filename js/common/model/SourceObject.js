@@ -1,7 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Model element of the source or object
+ * Model element for object (in the sense commonly used in geometric optic) or source of light
+ * The sourceObject has a position and a second movable position within it.
  *
  * @author Martin Veillette
  */
@@ -32,10 +33,10 @@ class SourceObject {
     // @public {Property.<Vector2>} position of the source/object
     this.positionProperty = new Vector2Property( DEFAULT_SOURCE_POINT_1 );
 
-    // @public {Property.<Vector2>} position of the second source
+    // @private {Property.<Vector2>} position of the second source of light
     this.unconstrainedMovablePositionProperty = new Vector2Property( DEFAULT_SOURCE_POINT_2 );
 
-    // @public {Property.<number>} vertical offset of second object with respect to first
+    // @private {Property.<number>} vertical offset (in meters) of second object with respect to the first
     this.verticalOffsetProperty = new NumberProperty( verticalOffsetRange.defaultValue );
 
     // @public {Property.<Vector2>} position of the movable point (source/object)

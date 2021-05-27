@@ -22,11 +22,11 @@ class Optic {
 
   /**
    *
-   * @param {Vector2} position
-   * @param {RangeWithValue} radiusOfCurvatureRange
-   * @param {RangeWithValue} diameterRange
-   * @param {Optic.Curve} curve
-   * @param {Optic.Type} type
+   * @param {Vector2} position - center of the optical element
+   * @param {RangeWithValue} radiusOfCurvatureRange - range of radius of curvature (in meters)
+   * @param {RangeWithValue} diameterRange - range of height for optical element (in meters)
+   * @param {Optic.Curve} curve - initial curve of optical element - acceptable values (CONVEX and CONCAVE)
+   * @param {Optic.Type} type - initial type of optical element - acceptable values (MIRROR and LENS)
    * @param {Tandem} tandem
    */
   constructor( position, radiusOfCurvatureRange, diameterRange, curve, type, tandem ) {
@@ -47,7 +47,7 @@ class Optic {
     // @public {EnumerationProperty.<Optic.Curve>} Type of Curvature of the optical element.
     this.curveProperty = new EnumerationProperty( Optic.Curve, curve );
 
-    // @private {Optic.Type} Type of the optical element ( possible choices are LENS and MIRROR)
+    // @private {Optic.Type} Type of the optical element ( valid choices: LENS and MIRROR)
     this.type = type;
 
     // @public {DerivedProperty.<boolean>} is the optical element converging.

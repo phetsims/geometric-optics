@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Enumeration of the representation of the objects
+ * Enumeration of the representation of the objects and source of light
  *
  * @author Martin Veillette
  */

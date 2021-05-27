@@ -2,6 +2,7 @@
 
 /**
  * View-specific Properties for checkboxes.
+ *
  * @author Martin Veillette
  */
 

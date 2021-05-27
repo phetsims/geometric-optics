@@ -1,6 +1,10 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
+ * View of the image (both real and virtual)
+ * This scenery node is responsible for scaling the image, setting its position,
+ * its representation, and assigning the appropriate orientation of the image.
+ *
  * @author Martin Veillette
  */
 
@@ -84,15 +88,15 @@ class TargetImageNode extends Node {
 
     // update the image and its visibility
     imageProperty.link( image => {
+
+      // make this entire node invisible if the representation is not an object.
+      this.visible = representationProperty.value.isObject;
+
+      // update the representation if it is an object
       if ( representationProperty.value.isObject ) {
-        this.visible = true;
 
         // update the image
         target.image = image;
-      }
-      else {
-        // make this entire node invisible if  representation is not an object.
-        this.visible = false;
       }
     } );
 
