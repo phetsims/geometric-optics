@@ -47,5 +47,5 @@ class RepresentationComboBox extends Node {
   }
 }
 
-geometricOptics.register( 'SourceObjectComboBox', RepresentationComboBox );
+geometricOptics.register( 'RepresentationComboBox', RepresentationComboBox );
 export default RepresentationComboBox;
