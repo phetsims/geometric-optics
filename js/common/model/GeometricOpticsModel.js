@@ -67,13 +67,13 @@ class GeometricOpticsModel {
     // @public {TargetImage} target/ image
     this.targetImage = new TargetImage( this.sourceObject.positionProperty, optic, tandem );
 
-    // @public {TargetImage} target/ image
+    // @public {TargetImage} movable target/ image
     this.movableTargetImage = new TargetImage( this.sourceObject.movablePositionProperty, optic, tandem );
 
     // @public {LightRays} model of the light rays
     this.lightRays = new LightRays( this.lightRayModeProperty, this.sourceObject.positionProperty, optic, this.targetImage, tandem );
 
-    // @public {LightRays} model of the light rays
+    // @public {LightRays} model of the "movable" light rays
     this.movableLightRays = new LightRays( this.lightRayModeProperty, this.sourceObject.movablePositionProperty, optic, this.movableTargetImage, tandem );
   }
 
