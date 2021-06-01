@@ -16,6 +16,7 @@ import geometricOptics from '../../geometricOptics.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import Circle from '../../../../scenery/js/nodes/Circle.js';
 
 const OVERALL_SCALE_FACTOR = 0.5;
 const OFFSET_VECTOR = new Vector2( 0.15, -0.18 );
@@ -64,11 +65,27 @@ class SourceObjectNode extends Node {
     movableNode.addInputListener( movablePointDragListener );
 
 
+    function setMovableNodePosition( position ) {
+      const viewPosition = modelViewTransform.modelToViewPosition( position );
+      if ( representationProperty.value.isObject ) {
+        movableNode.center = viewPosition;
+      }
+      else {
+        movableNode.leftTop = viewPosition.minus( modelViewTransform.modelToViewDelta( OFFSET_VECTOR ) );
+      }
+    }
+
     representationProperty.link( representation => {
       sourceObjectImage.image = representation.rightFacingUpright;
+
       movableNode.removeAllChildren();
-      movableNode.addChild( representation.source );
-      movableNode.leftTop = modelViewTransform.modelToViewPosition( sourceObject.movablePositionProperty.value );
+      if ( representation.isObject ) {
+        movableNode.addChild( new Circle( 3, { fill: 'black' } ) );
+      }
+      else {
+        movableNode.addChild( new Image( representation.source, { scale: OVERALL_SCALE_FACTOR } ) );
+      }
+      setMovableNodePosition( sourceObject.movablePositionProperty.value );
     } );
 
     movableCirclePositionProperty.link( position => {
@@ -76,7 +93,7 @@ class SourceObjectNode extends Node {
     } );
 
     sourceObject.movablePositionProperty.link( position => {
-      movableNode.leftTop = modelViewTransform.modelToViewPosition( position );
+      setMovableNodePosition( position );
     } );
 
     visibleMovablePointProperty.linkAttribute( movableNode, 'visible' );

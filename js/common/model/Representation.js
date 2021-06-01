@@ -8,10 +8,8 @@
 
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
-import Circle from '../../../../scenery/js/nodes/Circle.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import geometricOptics from '../../geometricOptics.js';
-import Image from '../../../../scenery/js/nodes/Image.js';
 import rocket3dImage from '../../../images/rocket-3d_png.js';
 import rocketImage from '../../../images/rocket_png.js';
 import rocket3dReversedImage from '../../../images/rocket-3d-reversed_png.js';
@@ -31,8 +29,6 @@ const pencilString = geometricOpticsStrings.object.pencil;
 const rocketString = geometricOpticsStrings.object.rocket;
 const lightString = geometricOpticsStrings.object.light;
 const treeString = geometricOpticsStrings.object.tree;
-const circleNode = new Circle( 10, { fill: 'yellow' } );
-const circleImage = circleNode.rasterized();
 
 class RepresentationGenerator {
   /**
@@ -55,7 +51,9 @@ class RepresentationGenerator {
                isObject, options ) {
 
     options = merge( {
-      source: circleImage
+
+      // {HTMLImageElement||null} image for source of light
+      source: null
     }, options );
 
     this.logo = logo;
@@ -93,7 +91,7 @@ const Representation = Enumeration.byMap( {
     lampBlueImage,
     screen3dImage,
     screen3dImage,
-    lightString, false, { source: new Image( lampRedImage ) } )
+    lightString, false, { source: lampRedImage } )
 } );
 
 
