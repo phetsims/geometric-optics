@@ -15,12 +15,14 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
 import GeometricOpticsModel from '../model/GeometricOpticsModel.js';
 import ControlPanel from './ControlPanel.js';
 import FocalPointNode from './FocalPointNode.js';
 import LightRaysNode from './LightRaysNode.js';
 import SourceObjectNode from './SourceObjectNode.js';
 import TargetImageNode from './TargetImageNode.js';
+import TrackingDiskNode from './TrackingDiskNode.js';
 import VisibleProperties from './VisibleProperties.js';
 import RepresentationComboBox from './RepresentationComboBox.js';
 
@@ -128,6 +130,15 @@ class GeometricOpticsScreenView extends ScreenView {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
     this.addChild( resetAllButton );
+
+
+    // add disks at some useful locations
+    if ( GeometricOpticsQueryParameters.showDebugPoints ) {
+      this.addChild( new TrackingDiskNode( model.targetImage.positionProperty, this.modelViewTransform, tandem, { fill: 'magenta' } ) );
+      this.addChild( new TrackingDiskNode( model.sourceObject.positionProperty, this.modelViewTransform, tandem, { fill: 'magenta' } ) );
+      this.addChild( new TrackingDiskNode( model.optic.positionProperty, this.modelViewTransform, tandem, { fill: 'magenta' } ) );
+    }
+
 
   }
 

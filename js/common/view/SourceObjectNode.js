@@ -33,12 +33,12 @@ class SourceObjectNode extends Node {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
     super();
 
-    // image of the source/object. the source/object is upright and right facing
+    // representation (image)  of the source/object. the source/object is upright and right facing
     const sourceObjectImage = new Image( representationProperty.value.rightFacingUpright, { scale: OVERALL_SCALE_FACTOR } );
 
     this.leftTopModelPositionProperty = new Vector2Property( sourceObject.getPosition().minus( OFFSET_VECTOR ) );
 
-    // create drag listener for image
+    // create drag listener for source
     const sourceObjectDragListener = new DragListener( {
       positionProperty: this.leftTopModelPositionProperty,
       transform: modelViewTransform
@@ -65,7 +65,7 @@ class SourceObjectNode extends Node {
 
 
     representationProperty.link( representation => {
-      sourceObjectImage.image = representation.rightFacingUpright;
+      sourceObjectImage.source = representation.rightFacingUpright;
       movableNode.removeAllChildren();
       movableNode.addChild( representation.source );
       movableNode.leftTop = modelViewTransform.modelToViewPosition( sourceObject.movablePositionProperty.value );
