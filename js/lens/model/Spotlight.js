@@ -13,6 +13,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 
 const OPTICAL_ELEMENT_TIP_OFFSET = GeometricOpticsConstants.OPTICAL_ELEMENT_TIP_OFFSET;
+const MASK_CORNERS = GeometricOpticsConstants.MASK_CORNERS;
 
 class Spotlight {
 
@@ -76,10 +77,10 @@ class Spotlight {
    * @returns {Shape}
    */
   getScreenShape( screenPosition ) {
-    const leftTop = screenPosition.plusXY( -0.25, 0.33 );
-    const leftBottom = screenPosition.plusXY( -0.25, -0.56 );
-    const rightBottom = screenPosition.plusXY( 0.25, -0.88 );
-    const rightTop = screenPosition.plusXY( 0.25, 0.67 );
+    const leftTop = screenPosition.plus( MASK_CORNERS.LEFT_TOP );
+    const leftBottom = screenPosition.plus( MASK_CORNERS.LEFT_BOTTOM );
+    const rightBottom = screenPosition.plus( MASK_CORNERS.RIGHT_BOTTOM );
+    const rightTop = screenPosition.plus( MASK_CORNERS.RIGHT_TOP );
     return new Shape()
       .moveToPoint( leftTop )
       .lineToPoint( leftBottom )

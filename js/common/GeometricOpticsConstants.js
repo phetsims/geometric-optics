@@ -92,13 +92,12 @@ const GeometricOpticsConstants = {
   //----------------------------------------------------------------------------------------
   //                             PROJECTION SCREEN
 
-
-  SCREEN_HEIGHT_IN_METERS: 1.5,
-
-  MASK_TL_CORNER: new Vector2( 11, 168 ),
-  MASK_BL_CORNER: new Vector2( 11, 523 ),
-  MASK_BR_CORNER: new Vector2( 220, 642 ),
-  MASK_TR_CORNER: new Vector2( 220, 35 ),
+  MASK_CORNERS: {
+    LEFT_TOP: new Vector2( -0.25, 0.33 ),
+    LEFT_BOTTOM: new Vector2( -0.25, -0.56 ),
+    RIGHT_BOTTOM: new Vector2( 0.25, -0.88 ),
+    RIGHT_TOP: new Vector2( 0.25, 0.67 )
+  },
 
   FULL_BRIGHT_SPOT_HEIGHT: 0.07, // Meters
 
