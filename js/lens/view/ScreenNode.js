@@ -58,7 +58,7 @@ class ScreenNode extends Node {
         }
       } );
 
-    // update position of screen target
+    // update the position of screen target
     this.imagePositionProperty.link( position => {
       screen.positionProperty.value = position.minus( offset );
       screenImage.leftTop = modelViewTransform.modelToViewPosition( position );
@@ -83,21 +83,34 @@ class ScreenNode extends Node {
      */
     const addSpotLightNode = spotlight => {
 
+      // create spotlight
       const spotlightNode = new Path( new Shape( spotlight.shapeProperty.value ),
-        { fill: SPOTLIGHT_FILL, opacity: 0.1 } );
+        { fill: SPOTLIGHT_FILL } );
 
+      // update the intensity of light to the opacity of the scenery node
+      spotlight.intensityProperty.link( intensity => {
+        spotlightNode.opacity = intensity;
+      } );
+
+      // update the shape of the spotlight
       spotlight.shapeProperty.link( shape => {
         spotlightNode.shape = modelViewTransform.modelToViewShape( shape );
       } );
+
+      // add the spotlight to this node
       this.addChild( spotlightNode );
 
+      // return the scenery node as a reference
       return spotlightNode;
     };
 
+    // add spotlight due to always present source
     addSpotLightNode( screen.spotlightOne );
 
+    // add second spotlight for the "movable point"
     const movableSpotlightNode = addSpotLightNode( screen.spotlightTwo );
 
+    // link the visibility of the movable spot light node to the visible point property
     visibleMovablePointProperty.linkAttribute( movableSpotlightNode, 'visible' );
   }
 

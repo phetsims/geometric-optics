@@ -14,6 +14,7 @@ import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 
 const OPTICAL_ELEMENT_TIP_OFFSET = GeometricOpticsConstants.OPTICAL_ELEMENT_TIP_OFFSET;
 const MASK_CORNERS = GeometricOpticsConstants.MASK_CORNERS;
+const FULL_BRIGHT_SPOT_HEIGHT = GeometricOpticsConstants.FULL_BRIGHT_SPOT_HEIGHT;
 
 class Spotlight {
 
@@ -37,6 +38,20 @@ class Spotlight {
     ) => {
       return this.getIntersection( screenPosition, opticPosition, opticDiameter, targetPosition );
     } );
+
+    // determine the light intensity of the spot
+    // a number ranging from 0 to 1
+    // @public (read-only) {Property.<number>}
+    this.intensityProperty = new DerivedProperty( [
+      screenPositionProperty,
+      optic.positionProperty,
+      optic.diameterProperty,
+      targetImagePositionProperty ], (
+      screenPosition, opticPosition, opticDiameter, targetPosition
+    ) => {
+      return this.getLightIntensity( screenPosition, opticPosition, opticDiameter, targetPosition );
+    } );
+
   }
 
   /**
@@ -99,7 +114,10 @@ class Spotlight {
    */
   getDiskShape( screenPosition, opticPosition, opticDiameter, targetPosition ) {
     const diskPosition = this.getDiskPosition( screenPosition, opticPosition, targetPosition );
+
     const radiusY = this.getDiskRadius( screenPosition, opticPosition, opticDiameter - OPTICAL_ELEMENT_TIP_OFFSET, targetPosition );
+
+    // ellipse is half as wide as high
     const radiusX = 1 / 2 * radiusY;
     return Shape.ellipse( diskPosition, radiusX, radiusY, 2 * Math.PI );
   }
@@ -117,6 +135,24 @@ class Spotlight {
       [ this.getDiskShape( screenPosition, opticPosition, opticDiameter, targetPosition ),
         this.getScreenShape( screenPosition ) ] );
   }
+
+  /**
+   * @private
+   * @param {Vector2} screenPosition
+   * @param {Vector2} opticPosition
+   * @param {number} opticDiameter
+   * @param {Vector2} targetPosition
+   * @returns {number} number between 0 and 1
+   */
+  getLightIntensity( screenPosition, opticPosition, opticDiameter, targetPosition ) {
+
+    // get the height of spotlight
+    const spotlightHeight = 2 * this.getDiskRadius( screenPosition, opticPosition, opticDiameter, targetPosition );
+
+    const maxIntensity = Math.max( 0, FULL_BRIGHT_SPOT_HEIGHT / spotlightHeight );
+    return Math.min( 1, maxIntensity );
+  }
+
 }
 
 geometricOptics.register( 'Spotlight', Spotlight );

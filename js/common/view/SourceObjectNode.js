@@ -65,7 +65,7 @@ class SourceObjectNode extends Node {
 
 
     representationProperty.link( representation => {
-      sourceObjectImage.source = representation.rightFacingUpright;
+      sourceObjectImage.image = representation.rightFacingUpright;
       movableNode.removeAllChildren();
       movableNode.addChild( representation.source );
       movableNode.leftTop = modelViewTransform.modelToViewPosition( sourceObject.movablePositionProperty.value );
