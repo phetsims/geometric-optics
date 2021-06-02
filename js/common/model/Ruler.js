@@ -18,9 +18,11 @@ class Ruler {
    * @param {Object} [options]
    */
   constructor( position, length, options ) {
-    options = merge( {
+
+    options = merge( { // why is options greyed out
       orientation: 'horizontal'
     }, options );
+
     this.positionProperty = new Vector2Property( position );
     this.length = length;
   }

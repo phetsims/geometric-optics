@@ -38,7 +38,16 @@ class GeometricOpticsRulerNode extends RulerNode {
       translateNode: true
     } );
     this.addInputListener( dragListener );
-    this.rotation = -Math.PI / 2;
+
+    // rotate to create vertical ruler
+    const rulerOrientation = options.orientation;
+    if ( rulerOrientation === 'vertical' ) {
+      this.rotation = -Math.PI / 2;
+    }
+
+    // rulers only appear when box is checked
+    visibleProperty.linkAttribute( this, 'visible' );
+
   }
 }
 

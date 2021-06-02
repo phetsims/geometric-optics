@@ -80,7 +80,9 @@ class GeometricOpticsScreenView extends ScreenView {
     const secondFocalPointNode = new FocalPointNode( model.secondFocalPoint, this.visibleProperties.visibleFocalPointProperty, this.modelViewTransform, tandem );
     const focalPointsLayer = new Node( { children: [ firstFocalPointNode, secondFocalPointNode ] } );
 
-    const horizontalRulerNode = new GeometricOpticsRulerNode( model.horizontalRuler, this.visibleProperties.visibleRulersProperty, this.modelViewTransform );
+    // rulers
+    const horizontalRulerNode = new GeometricOpticsRulerNode( model.horizontalRuler, this.visibleProperties.visibleRulersProperty, this.modelViewTransform, { orientation: 'horizontal' } ); // but I should be able to pass in no options here?
+    const verticalRulerNode = new GeometricOpticsRulerNode( model.verticalRuler, this.visibleProperties.visibleRulersProperty, this.modelViewTransform, { orientation: 'vertical' } );
 
     const controlPanel = new ControlPanel( model.optic, model.lightRayModeProperty, this.visibleProperties, this.modelViewTransform, tandem,
       { hasLens: model.optic.isLens() } );
@@ -96,7 +98,7 @@ class GeometricOpticsScreenView extends ScreenView {
     this.playAreaNode.addChild( lightRaysNode );
     this.playAreaNode.addChild( movableLightRaysNode );
     this.playAreaNode.addChild( horizontalRulerNode );
-
+    this.playAreaNode.addChild( verticalRulerNode );
 
     this.visibleProperties.visibleMovablePointProperty.linkAttribute( movableLightRaysNode, 'visible' );
 
