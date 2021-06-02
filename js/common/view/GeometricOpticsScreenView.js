@@ -60,6 +60,7 @@ class GeometricOpticsScreenView extends ScreenView {
     const secondFocalPointNode = new FocalPointNode( model.secondFocalPoint, this.visibleProperties.visibleFocalPointProperty, this.modelViewTransform, tandem );
     const focalPointsLayer = new Node( { children: [ firstFocalPointNode, secondFocalPointNode ] } );
 
+    // @private {Property.<number>} property that controls zoom in play area
     this.zoomLevelProperty = new NumberProperty( ZOOM_DEFAULT, { range: GeometricOpticsConstants.ZOOM_RANGE } );
 
     // create magnifying buttons for zooming in and out
