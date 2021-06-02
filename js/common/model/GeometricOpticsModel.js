@@ -16,6 +16,8 @@ import Representation from './Representation.js';
 import TargetImage from './TargetImage.js';
 import LightRayMode from './LightRayMode.js';
 import Property from '../../../../axon/js/Property.js';
+import Ruler from './Ruler.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 
 class GeometricOpticsModel {
 
@@ -33,6 +35,10 @@ class GeometricOpticsModel {
 
     // @public {SourceObject} the object/ source
     this.sourceObject = new SourceObject( this.representationProperty, tandem );
+
+    this.horizontalRuler = new Ruler( new Vector2( 1, 2 ), 1 );
+    this.verticalRuler = new Ruler( new Vector2( -1, -1 ), 1, { orientation: 'vertical' } );
+
   }
 
 
