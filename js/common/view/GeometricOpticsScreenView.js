@@ -25,10 +25,10 @@ import TargetImageNode from './TargetImageNode.js';
 import TrackingDiskNode from './TrackingDiskNode.js';
 import VisibleProperties from './VisibleProperties.js';
 import RepresentationComboBox from './RepresentationComboBox.js';
-import OpticalAxisNode from './OpticalAxisNode.js';
+import OpticalAxisLine from './OpticalAxisLine.js';
 
 const ZOOM_DEFAULT = GeometricOpticsConstants.ZOOM_RANGE.defaultValue;
-const SCALE_FACTOR = 4 / 3;
+const ZOOM_SCALE_FACTOR = GeometricOpticsConstants.ZOOM_SCALE_FACTOR;
 
 class GeometricOpticsScreenView extends ScreenView {
 
@@ -50,19 +50,6 @@ class GeometricOpticsScreenView extends ScreenView {
 
     this.visibleProperties = new VisibleProperties( tandem );
 
-    this.sourceObjectNode = new SourceObjectNode( model.representationProperty, model.sourceObject, this.visibleProperties.visibleMovablePointProperty, this.modelViewTransform, tandem );
-
-    const opticalAxisNode = new OpticalAxisNode( model.optic.positionProperty, this.modelViewTransform );
-
-    const lightRaysNode = new LightRaysNode( model.lightRays, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
-    const movableLightRaysNode = new LightRaysNode( model.movableLightRays, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
-
-    const targetImageNode = new TargetImageNode( model.representationProperty, model.targetImage, model.optic, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
-
-    const firstFocalPointNode = new FocalPointNode( model.firstFocalPoint, this.visibleProperties.visibleFocalPointProperty, this.modelViewTransform, tandem );
-    const secondFocalPointNode = new FocalPointNode( model.secondFocalPoint, this.visibleProperties.visibleFocalPointProperty, this.modelViewTransform, tandem );
-    const focalPointsLayer = new Node( { children: [ firstFocalPointNode, secondFocalPointNode ] } );
-
     // @private {Property.<number>} property that controls zoom in play area
     this.zoomLevelProperty = new NumberProperty( ZOOM_DEFAULT, { range: GeometricOpticsConstants.ZOOM_RANGE } );
 
@@ -79,6 +66,20 @@ class GeometricOpticsScreenView extends ScreenView {
       }
     } );
 
+    this.sourceObjectNode = new SourceObjectNode( model.representationProperty, model.sourceObject, this.visibleProperties.visibleMovablePointProperty, this.modelViewTransform, tandem );
+
+    const opticalAxisLine = new OpticalAxisLine( model.optic.positionProperty, ScreenView.DEFAULT_LAYOUT_BOUNDS, this.modelViewTransform );
+
+    const lightRaysNode = new LightRaysNode( model.lightRays, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
+    const movableLightRaysNode = new LightRaysNode( model.movableLightRays, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
+
+    const targetImageNode = new TargetImageNode( model.representationProperty, model.targetImage, model.optic, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
+
+    const firstFocalPointNode = new FocalPointNode( model.firstFocalPoint, this.visibleProperties.visibleFocalPointProperty, this.modelViewTransform, tandem );
+    const secondFocalPointNode = new FocalPointNode( model.secondFocalPoint, this.visibleProperties.visibleFocalPointProperty, this.modelViewTransform, tandem );
+    const focalPointsLayer = new Node( { children: [ firstFocalPointNode, secondFocalPointNode ] } );
+
+
     const controlPanel = new ControlPanel( model.optic, model.lightRayModeProperty, this.visibleProperties, this.modelViewTransform, tandem,
       { hasLens: model.optic.isLens() } );
     this.addChild( controlPanel );
@@ -86,7 +87,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // layer for all the nodes within the play area
     this.playAreaNode = new Node();
-    this.playAreaNode.addChild( opticalAxisNode );
+    this.playAreaNode.addChild( opticalAxisLine );
     this.playAreaNode.addChild( this.sourceObjectNode );
     this.playAreaNode.addChild( targetImageNode );
     this.playAreaNode.addChild( focalPointsLayer );
@@ -106,7 +107,7 @@ class GeometricOpticsScreenView extends ScreenView {
       // TODO: combine the two Node transformations
       // TODO: find a way to stop relying on oldZoomLevel
       if ( oldZoomLevel ) {
-        const scale = Math.pow( SCALE_FACTOR, zoomLevel - oldZoomLevel );
+        const scale = Math.pow( ZOOM_SCALE_FACTOR, zoomLevel - oldZoomLevel );
         const translateVector = centerPoint.times( 1 / scale - 1 );
         this.playAreaNode.scale( scale );
         this.playAreaNode.translate( translateVector );

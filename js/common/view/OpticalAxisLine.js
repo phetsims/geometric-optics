@@ -8,35 +8,43 @@
 
 import Line from '../../../../scenery/js/nodes/Line.js';
 import geometricOptics from '../../geometricOptics.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
 import GeometricOpticsColorProfile from '../GeometricOpticsColorProfile.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
 const LINE_WIDTH = GeometricOpticsConstants.OPTICAL_AXIS_LINE_WIDTH;
 const STROKE = GeometricOpticsColorProfile.opticalAxisStrokeProperty;
 
-class OpticalAxisNode extends Node {
+class OpticalAxisLine extends Line {
   /**
    *
    * @param {Property.<Vector2>} opticPositionProperty
+   * @param {Bounds2} screenViewBounds
    * @param {ModelViewTransform2} modelViewTransform
    */
-  constructor( opticPositionProperty, modelViewTransform ) {
-    super();
+  constructor( opticPositionProperty, screenViewBounds, modelViewTransform ) {
+
+    // determine initial position of line in view
     const yPosition = modelViewTransform.modelToViewY( opticPositionProperty.value.y );
-    const line = new Line( 0, yPosition, 1000, yPosition, {
+
+    // set min and max X to extend far beyond sim bounds
+    const lineMinX = screenViewBounds.minX - screenViewBounds.width;
+    const lineMaxX = screenViewBounds.maxX + screenViewBounds.width;
+
+    // create optical axis line
+    super( lineMinX, yPosition, lineMaxX, yPosition, {
       linewidth: LINE_WIDTH,
       stroke: STROKE
     } );
+
+    // update y-position of line based on position of optic
     opticPositionProperty.link( position => {
       const yView = modelViewTransform.modelToViewY( position.y );
-      line.setY1( yView );
-      line.setY2( yView );
+      this.setY1( yView );
+      this.setY2( yView );
     } );
-    this.addChild( line );
   }
 }
 
-geometricOptics.register( 'OpticalAxisNode', OpticalAxisNode );
+geometricOptics.register( 'OpticalAxisLine', OpticalAxisLine );
 
-export default OpticalAxisNode;
+export default OpticalAxisLine;

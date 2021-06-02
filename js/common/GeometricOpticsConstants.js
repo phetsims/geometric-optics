@@ -28,6 +28,7 @@ const GeometricOpticsConstants = {
   DEFAULT_SOURCE_POINT_2: new Vector2( -1.5, -0.2 ),
 
   ZOOM_RANGE: new RangeWithValue( 1, 5, 4 ),
+  ZOOM_SCALE_FACTOR: 4 / 3,
 
   //----------------------------------------------------------------------------------------
   //                                 LENS
