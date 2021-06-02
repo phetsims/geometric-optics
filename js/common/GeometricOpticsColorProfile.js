@@ -60,7 +60,7 @@ const GeometricOpticsColorProfile = new ColorProfile( [ 'default' ], {
   //                           OPTICAL AXIS
 
   opticalAxisStroke: {
-    default: 'rgb(0, 0, 0)'
+    default: 'rgb(0,255,247)'
   },
 
   //--------------------------------------------------------------------------

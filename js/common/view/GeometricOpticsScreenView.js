@@ -25,6 +25,7 @@ import TargetImageNode from './TargetImageNode.js';
 import TrackingDiskNode from './TrackingDiskNode.js';
 import VisibleProperties from './VisibleProperties.js';
 import RepresentationComboBox from './RepresentationComboBox.js';
+import OpticalAxisNode from './OpticalAxisNode.js';
 
 const ZOOM_DEFAULT = GeometricOpticsConstants.ZOOM_RANGE.defaultValue;
 const SCALE_FACTOR = 4 / 3;
@@ -50,6 +51,8 @@ class GeometricOpticsScreenView extends ScreenView {
     this.visibleProperties = new VisibleProperties( tandem );
 
     this.sourceObjectNode = new SourceObjectNode( model.representationProperty, model.sourceObject, this.visibleProperties.visibleMovablePointProperty, this.modelViewTransform, tandem );
+
+    const opticalAxisNode = new OpticalAxisNode( model.optic.positionProperty, this.modelViewTransform );
 
     const lightRaysNode = new LightRaysNode( model.lightRays, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
     const movableLightRaysNode = new LightRaysNode( model.movableLightRays, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
@@ -83,7 +86,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // layer for all the nodes within the play area
     this.playAreaNode = new Node();
-
+    this.playAreaNode.addChild( opticalAxisNode );
     this.playAreaNode.addChild( this.sourceObjectNode );
     this.playAreaNode.addChild( targetImageNode );
     this.playAreaNode.addChild( focalPointsLayer );
