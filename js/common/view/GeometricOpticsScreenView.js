@@ -81,8 +81,8 @@ class GeometricOpticsScreenView extends ScreenView {
     const focalPointsLayer = new Node( { children: [ firstFocalPointNode, secondFocalPointNode ] } );
 
     // rulers
-    const horizontalRulerNode = new GeometricOpticsRulerNode( model.horizontalRuler, this.visibleProperties.visibleRulersProperty, this.modelViewTransform, { orientation: 'horizontal' } ); // but I should be able to pass in no options here?
-    const verticalRulerNode = new GeometricOpticsRulerNode( model.verticalRuler, this.visibleProperties.visibleRulersProperty, this.modelViewTransform, { orientation: 'vertical' } );
+    const horizontalRulerNode = new GeometricOpticsRulerNode( model.horizontalRuler, this.visibleProperties.visibleRulersProperty, this.modelViewTransform );
+    const verticalRulerNode = new GeometricOpticsRulerNode( model.verticalRuler, this.visibleProperties.visibleRulersProperty, this.modelViewTransform );
 
     const controlPanel = new ControlPanel( model.optic, model.lightRayModeProperty, this.visibleProperties, this.modelViewTransform, tandem,
       { hasLens: model.optic.isLens() } );

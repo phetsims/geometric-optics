@@ -40,8 +40,7 @@ class GeometricOpticsRulerNode extends RulerNode {
     this.addInputListener( dragListener );
 
     // rotate to create vertical ruler
-    const rulerOrientation = options.orientation;
-    if ( rulerOrientation === 'vertical' ) {
+    if ( ruler.orientation !== 'horizontal' ) {
       this.rotation = -Math.PI / 2;
     }
 
