@@ -7,8 +7,8 @@
  */
 
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
-import geometricOptics from '../../geometricOptics.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
+import geometricOptics from '../../geometricOptics.js';
 
 const RULER_HEIGHT = 40;
 
@@ -66,6 +66,18 @@ class GeometricOpticsRulerNode extends RulerNode {
     // update ruler visibility
     visibleProperty.linkAttribute( this, 'visible' );
 
+    // @private
+    this.resetLeftTopPosition = () => {
+      this.leftTop = modelViewTransform.modelToViewPosition( ruler.positionProperty.value );
+    };
+
+  }
+
+  /**
+   * @public
+   */
+  reset() {
+    this.resetLeftTopPosition();
   }
 }
 

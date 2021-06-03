@@ -21,12 +21,12 @@ import ControlPanel from './ControlPanel.js';
 import FocalPointNode from './FocalPointNode.js';
 import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
 import LightRaysNode from './LightRaysNode.js';
+import OpticalAxisLine from './OpticalAxisLine.js';
+import RepresentationComboBox from './RepresentationComboBox.js';
 import SourceObjectNode from './SourceObjectNode.js';
 import TargetImageNode from './TargetImageNode.js';
 import TrackingDiskNode from './TrackingDiskNode.js';
 import VisibleProperties from './VisibleProperties.js';
-import RepresentationComboBox from './RepresentationComboBox.js';
-import OpticalAxisLine from './OpticalAxisLine.js';
 
 const ZOOM_DEFAULT = GeometricOpticsConstants.ZOOM_RANGE.defaultValue;
 const ZOOM_SCALE_FACTOR = GeometricOpticsConstants.ZOOM_SCALE_FACTOR;
@@ -81,8 +81,8 @@ class GeometricOpticsScreenView extends ScreenView {
     const focalPointsLayer = new Node( { children: [ firstFocalPointNode, secondFocalPointNode ] } );
 
     // rulers
-    const horizontalRulerNode = new GeometricOpticsRulerNode( model.horizontalRuler, this.visibleProperties.visibleRulersProperty, this.modelViewTransform );
-    const verticalRulerNode = new GeometricOpticsRulerNode( model.verticalRuler, this.visibleProperties.visibleRulersProperty, this.modelViewTransform );
+    this.horizontalRulerNode = new GeometricOpticsRulerNode( model.horizontalRuler, this.visibleProperties.visibleRulersProperty, this.modelViewTransform );
+    this.verticalRulerNode = new GeometricOpticsRulerNode( model.verticalRuler, this.visibleProperties.visibleRulersProperty, this.modelViewTransform );
 
     const controlPanel = new ControlPanel( model.optic, model.lightRayModeProperty, this.visibleProperties, this.modelViewTransform, tandem,
       { hasLens: model.optic.isLens() } );
@@ -97,8 +97,8 @@ class GeometricOpticsScreenView extends ScreenView {
     this.playAreaNode.addChild( focalPointsLayer );
     this.playAreaNode.addChild( lightRaysNode );
     this.playAreaNode.addChild( movableLightRaysNode );
-    this.playAreaNode.addChild( horizontalRulerNode );
-    this.playAreaNode.addChild( verticalRulerNode );
+    this.playAreaNode.addChild( this.horizontalRulerNode );
+    this.playAreaNode.addChild( this.verticalRulerNode );
 
     this.visibleProperties.visibleMovablePointProperty.linkAttribute( movableLightRaysNode, 'visible' );
 
@@ -160,6 +160,9 @@ class GeometricOpticsScreenView extends ScreenView {
     this.zoomLevelProperty.reset();
     this.visibleProperties.reset();
     this.sourceObjectNode.reset();
+    this.horizontalRulerNode.reset();
+    this.verticalRulerNode.reset();
+
   }
 
 }
