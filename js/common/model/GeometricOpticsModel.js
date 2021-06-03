@@ -7,17 +7,17 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import FocalPoint from './FocalPoint.js';
-import LightRays from './LightRays.js';
-import SourceObject from './SourceObject.js';
-import Representation from './Representation.js';
-import TargetImage from './TargetImage.js';
 import LightRayMode from './LightRayMode.js';
-import Property from '../../../../axon/js/Property.js';
+import LightRays from './LightRays.js';
+import Representation from './Representation.js';
 import Ruler from './Ruler.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
+import SourceObject from './SourceObject.js';
+import TargetImage from './TargetImage.js';
 
 class GeometricOpticsModel {
 
@@ -36,7 +36,8 @@ class GeometricOpticsModel {
     // @public {SourceObject} the object/ source
     this.sourceObject = new SourceObject( this.representationProperty, tandem );
 
-    this.horizontalRuler = new Ruler( new Vector2( 1, 1 ), 1, { orientation: 'horizontal' } );
+    // @public {Ruler} rulers for the simulations
+    this.horizontalRuler = new Ruler( new Vector2( 1, 1 ), 1 );
     this.verticalRuler = new Ruler( new Vector2( 0, 0 ), 1, { orientation: 'vertical' } );
 
   }
