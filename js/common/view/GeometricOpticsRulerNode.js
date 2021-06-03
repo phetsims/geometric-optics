@@ -10,6 +10,7 @@ import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import geometricOptics from '../../geometricOptics.js';
 import merge from '../../../../phet-core/js/merge.js';
+import Ruler from '../model/Ruler.js';
 
 const RULER_HEIGHT = 40;
 
@@ -61,7 +62,7 @@ class GeometricOpticsRulerNode extends RulerNode {
     this.addInputListener( dragListener );
 
     // update the rotation of the ruler
-    if ( ruler.orientation !== 'horizontal' ) {
+    if ( ruler.orientation === Ruler.Orientation.VERTICAL ) {
       this.rotation = -Math.PI / 2;
     }
 

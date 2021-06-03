@@ -6,6 +6,7 @@
  * @author Sarah Chang, Swarthmore College
  */
 
+import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
 import geometricOptics from '../../geometricOptics.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
@@ -20,7 +21,7 @@ class Ruler {
   constructor( position, length, options ) {
 
     options = merge( {
-      orientation: 'horizontal'
+      orientation: Ruler.Orientation.HORIZONTAL
     }, options );
 
     // @public {Property.<Vector2>} position of the ruler
@@ -33,13 +34,20 @@ class Ruler {
     this.orientation = options.orientation;
   }
 
+
   /**
    * @public
    */
   reset() {
     this.positionProperty.reset();
   }
+
 }
+
+Ruler.Orientation = Enumeration.byKeys(
+  [ 'VERTICAL',
+    'HORIZONTAL' ]
+);
 
 geometricOptics.register( 'Ruler', Ruler );
 export default Ruler;
