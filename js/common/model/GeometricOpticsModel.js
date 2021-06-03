@@ -40,6 +40,7 @@ class GeometricOpticsModel {
     this.horizontalRuler = new Ruler( new Vector2( 0.5, 1 ), 1 );
     this.verticalRuler = new Ruler( new Vector2( 0, 0 ), 1, { orientation: Ruler.Orientation.VERTICAL } );
 
+
   }
 
 
