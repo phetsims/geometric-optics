@@ -9,6 +9,7 @@
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import geometricOptics from '../../geometricOptics.js';
+import merge from '../../../../phet-core/js/merge.js';
 
 const RULER_HEIGHT = 40;
 
@@ -21,6 +22,10 @@ class GeometricOpticsRulerNode extends RulerNode {
    * @param {Object} [options]
    */
   constructor( ruler, visibleProperty, modelViewTransform, options ) {
+
+    options = merge( {
+      opacity: 0.8
+    }, options );
 
     // define the length ruler
     const rulerWidth = modelViewTransform.modelToViewDeltaX( ruler.length );
