@@ -42,11 +42,16 @@ class GeometricOpticsRulerNode extends RulerNode {
 
     super( rulerWidth, rulerHeight, majorTickWidth, majorTickLabels, units, options );
 
-    // add drag listenr
+    // add drag listener
     const dragListener = new DragListener( {
       positionProperty: ruler.positionProperty,
       transform: modelViewTransform,
-      translateNode: true
+      translateNode: true,
+      start: () => {
+
+        // move this node on top of all the nodes
+        this.moveToFront();
+      }
     } );
     this.addInputListener( dragListener );
 
