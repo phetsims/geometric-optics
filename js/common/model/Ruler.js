@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Model for moveable ruler
+ * Model for movable ruler with option for orientation.
  *
  * @author Sarah Chang, Swarthmore College
  */
@@ -19,12 +19,14 @@ class Ruler {
    */
   constructor( position, length, options ) {
 
-    options = merge( { // why is options greyed out
+    options = merge( {
       orientation: 'horizontal'
     }, options );
 
     this.positionProperty = new Vector2Property( position );
     this.length = length;
+
+    this.orientation = options.orientation;
   }
 }
 
