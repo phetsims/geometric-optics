@@ -36,8 +36,8 @@ class GeometricOpticsModel {
     // @public {SourceObject} the object/ source
     this.sourceObject = new SourceObject( this.representationProperty, tandem );
 
-    this.horizontalRuler = new Ruler( new Vector2( 1, 2 ), 1, { orientation: 'horizontal' } );
-    this.verticalRuler = new Ruler( new Vector2( 3, -3 ), 1, { orientation: 'vertical' } );
+    this.horizontalRuler = new Ruler( new Vector2( 1, 1 ), 1, { orientation: 'horizontal' } );
+    this.verticalRuler = new Ruler( new Vector2( 0, 0 ), 1, { orientation: 'vertical' } );
 
   }
 

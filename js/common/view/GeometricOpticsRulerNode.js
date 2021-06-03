@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Scenery node for ruler in the Geometric Optics simulation
+ * Scenery node for a movable ruler in the Geometric Optics simulation
  *
  * @author Sarah Chang, Swarthmore College
  */
@@ -21,17 +21,28 @@ class GeometricOpticsRulerNode extends RulerNode {
    * @param {Object} [options]
    */
   constructor( ruler, visibleProperty, modelViewTransform, options ) {
+
+    // define the length ruler
     const rulerWidth = modelViewTransform.modelToViewDeltaX( ruler.length );
+
+    // define the height of the ruler in view coordinates
     const rulerHeight = RULER_HEIGHT;
+
+    // separation between the major ticks mark
     const majorTickWidth = modelViewTransform.modelToViewDeltaX( 0.2 );
+
+    // create major ticks label
     const majorTickLabels = [];
     for ( let i = 0; i <= 5; i++ ) {
       majorTickLabels[ i ] = ( i * 20 ).toString();
     }
+
+    // units {string}
     const units = 'cm';
 
     super( rulerWidth, rulerHeight, majorTickWidth, majorTickLabels, units, options );
 
+    // add drag listenr
     const dragListener = new DragListener( {
       positionProperty: ruler.positionProperty,
       transform: modelViewTransform,
@@ -39,12 +50,15 @@ class GeometricOpticsRulerNode extends RulerNode {
     } );
     this.addInputListener( dragListener );
 
-    // rotate to create vertical ruler
+    // update the rotation of the ruler
     if ( ruler.orientation !== 'horizontal' ) {
       this.rotation = -Math.PI / 2;
     }
 
-    // rulers only appear when box is checked
+    // set position of the ruler
+    this.leftTop = modelViewTransform.modelToViewPosition( ruler.positionProperty.value );
+
+    // update ruler visibility
     visibleProperty.linkAttribute( this, 'visible' );
 
   }
