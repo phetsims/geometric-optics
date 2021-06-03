@@ -28,7 +28,8 @@ class GeometricOpticsRulerNode extends RulerNode {
     options = merge( {
       opacity: 0.8,
       minorTicksPerMajorTick: 4,
-      majorTickDistance: 0.2  // in model coordinate (m)
+      majorTickDistance: 0.2, // in model coordinate (m)
+      majorTickLineWidth: 2
     }, options );
 
     // define the length ruler
