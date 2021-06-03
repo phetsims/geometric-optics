@@ -32,7 +32,7 @@ class OpticalAxisLine extends Line {
 
     // create optical axis line
     super( lineMinX, yPosition, lineMaxX, yPosition, {
-      linewidth: LINE_WIDTH,
+      lineWidth: LINE_WIDTH,
       stroke: STROKE
     } );
 
