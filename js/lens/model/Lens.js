@@ -12,9 +12,9 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import Optic from '../../common/model/Optic.js';
+import geometricOptics from '../../geometricOptics.js';
 
 const INDEX_OF_REFRACTION_RANGE = GeometricOpticsConstants.LENS_INDEX_OF_REFRACTION_RANGE;
 const RADIUS_OF_CURVATURE_RANGE = GeometricOpticsConstants.LENS_RADIUS_OF_CURVATURE_RANGE;
@@ -37,7 +37,7 @@ class Lens extends Optic {
     this.indexOfRefractionProperty = new NumberProperty( INDEX_OF_REFRACTION_RANGE.defaultValue,
       { range: INDEX_OF_REFRACTION_RANGE } );
 
-    // @public {DerivedProperty.<number>} focal length of the lens
+    // @public {Property.<number>} focal length of the lens
     // positive indicate the lens is convex (converging)
     // negative indicates the lens is concave (diverging).
     this.focalLengthProperty = new DerivedProperty(

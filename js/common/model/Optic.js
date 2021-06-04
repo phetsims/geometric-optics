@@ -11,12 +11,12 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 
 class Optic {
 
@@ -50,18 +50,18 @@ class Optic {
     // @private {Optic.Type} Type of the optical element ( valid choices: LENS and MIRROR)
     this.type = type;
 
-    // @public {DerivedProperty.<boolean>} is the optical element converging.
+    // @public {Property.<boolean>} is the optical element converging.
     this.isConvergingProperty = new DerivedProperty( [ this.curveProperty ], curve => {
       return this.isConverging( curve );
     } );
 
-    // @public {DerivedProperty.<number>} is the optical element converging.
+    // @public {Property.<number>} is the optical element converging.
     // +1 is the optical element is converging and -1 if it is diverging
     this.convergingSignProperty = new DerivedProperty( [ this.curveProperty ], curve => {
       return this.getConvergingSign( curve );
     } );
 
-    // @public {DerivedProperty.<Object>} shapes (fill and outline) of the optical element
+    // @public {Property.<Object>} shapes (fill and outline) of the optical element
     this.outlineAndFillProperty = new DerivedProperty( [
         this.positionProperty,
         this.radiusOfCurvatureProperty,

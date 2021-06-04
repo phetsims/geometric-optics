@@ -30,7 +30,7 @@ class TargetImage {
     // @private (read-only) {Optic}
     this.optic = optic;
 
-    // @public (read-only) {DerivedProperty.<number>}
+    // @public (read-only) {Property.<number>}
     this.imageOpticDistanceProperty = new DerivedProperty(
       [ objectPositionProperty,
         optic.positionProperty,
@@ -41,7 +41,7 @@ class TargetImage {
       } );
 
     // updates the position of the image
-    // @public (read-only) {DerivedProperty.<Vector2>}
+    // @public (read-only) {Property.<Vector2>}
     this.positionProperty = new DerivedProperty( [ objectPositionProperty,
         optic.positionProperty,
         optic.focalLengthProperty ],
@@ -50,7 +50,7 @@ class TargetImage {
       } );
 
 
-    // @public (read-only) {DerivedProperty.<number>}
+    // @public (read-only) {Property.<number>}
     this.scaleProperty = new DerivedProperty( [ objectPositionProperty,
         optic.positionProperty,
         optic.focalLengthProperty ],
@@ -58,7 +58,7 @@ class TargetImage {
         return this.getScale( objectPosition, opticPosition, focalLength );
       } );
 
-    // @public (read-only) {DerivedProperty.<boolean>}
+    // @public (read-only) {Property.<boolean>}
     this.isInvertedProperty = new DerivedProperty( [ objectPositionProperty,
         optic.positionProperty,
         optic.focalLengthProperty ],
@@ -66,7 +66,7 @@ class TargetImage {
         return this.isInverted();
       } );
 
-    // @public (read-only) {DerivedProperty.<boolean>}
+    // @public (read-only) {Property.<boolean>}
     this.isVirtualProperty = new DerivedProperty( [ objectPositionProperty,
         optic.positionProperty,
         optic.focalLengthProperty ],
@@ -76,7 +76,7 @@ class TargetImage {
 
 
     // light intensity of the image (Hollywood) - a value between 0 and 1
-    // @public (read-only) {DerivedProperty.<number>}
+    // @public (read-only) {Property.<number>}
     this.lightIntensityProperty = new DerivedProperty( [ this.scaleProperty, optic.diameterProperty ], ( scale, diameter ) => {
       const distanceFactor = Math.min( 1, Math.abs( 1 / scale ) );
       const diameterFactor = optic.getNormalizedDiameter( diameter );

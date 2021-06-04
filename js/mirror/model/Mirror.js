@@ -11,8 +11,8 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
-import geometricOptics from '../../geometricOptics.js';
 import Optic from '../../common/model/Optic.js';
+import geometricOptics from '../../geometricOptics.js';
 
 const RADIUS_OF_CURVATURE_RANGE = GeometricOpticsConstants.MIRROR_RADIUS_OF_CURVATURE_RANGE;
 const DIAMETER_RANGE = GeometricOpticsConstants.MIRROR_DIAMETER_RANGE;
@@ -30,7 +30,7 @@ class Mirror extends Optic {
     super( INITIAL_POSITION, RADIUS_OF_CURVATURE_RANGE, DIAMETER_RANGE,
       INITIAL_CURVATURE_TYPE, Optic.Type.MIRROR, tandem );
 
-    // @public (read-only) {DerivedProperty.<number>} focal length in meters
+    // @public (read-only) {Property.<number>} focal length in meters
     // positive indicates the mirror is concave (converging).
     // negative indicate the lens is convex (diverging)
     this.focalLengthProperty = new DerivedProperty(
