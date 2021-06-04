@@ -27,7 +27,7 @@ class GeometricOpticsModel {
   constructor( tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    // @public {EnumerationProperty.<Representation>}  representation of the source/object
+    // @public {Property.<Representation>}  representation of the source/object
     this.representationProperty = new Property( Representation.PENCIL );
 
     // @public {EnumerationProperty.<LightRayMode>}  modes for the different kind of light rays

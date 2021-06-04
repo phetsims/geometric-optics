@@ -7,15 +7,15 @@
  * @author Martin Veillette
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
+
+import Utils from '../../../../dot/js/Utils.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-
-import Utils from '../../../../dot/js/Utils.js';
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 
 const DEFAULT_SOURCE_POINT_1 = GeometricOpticsConstants.DEFAULT_SOURCE_POINT_1;
 const DEFAULT_SOURCE_POINT_2 = GeometricOpticsConstants.DEFAULT_SOURCE_POINT_2;
@@ -24,7 +24,7 @@ const verticalOffsetRange = new RangeWithValue( -0.5, 0, -0.1 );
 class SourceObject {
 
   /**
-   * @param {EnumerationProperty.<Representation>} representationProperty
+   * @param {Property.<Representation>} representationProperty
    * @param {Tandem} tandem
    */
   constructor( representationProperty, tandem ) {
@@ -86,7 +86,7 @@ class SourceObject {
 
   /**
    * Sets the movable point
-   * @param {EnumerationProperty.<Representation>} representationProperty
+   * @param {Property.<Representation>} representationProperty
    * @param {Vector2} position
    * @public
    */
