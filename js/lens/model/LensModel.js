@@ -6,8 +6,8 @@
 
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsModel from '../../common/model/GeometricOpticsModel.js';
-import Lens from './Lens.js';
 import geometricOptics from '../../geometricOptics.js';
+import Lens from './Lens.js';
 import Screen from './Screen.js';
 
 class LensModel extends GeometricOpticsModel {
@@ -20,10 +20,12 @@ class LensModel extends GeometricOpticsModel {
 
     super( tandem );
 
+    // @public {Lens}
     this.optic = new Lens( tandem );
 
     this.createCommonComponents( this.optic, tandem );
 
+    // @public {Screen}
     this.screen = new Screen( this.optic,
       this.targetImage.positionProperty,
       this.movableTargetImage.positionProperty, tandem );

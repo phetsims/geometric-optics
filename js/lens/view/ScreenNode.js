@@ -41,7 +41,7 @@ class ScreenNode extends Node {
     // difference between the left top position of the image and the "center" of the blackboard
     const offset = new Vector2( -0.3, 0.75 );
 
-    // @private create a property for the left top position of the screen target
+    // @private {Property.<Vector2} create a property for the left top position of the screen target
     this.imagePositionProperty = new Vector2Property( screen.positionProperty.value.plus( offset ) );
 
     // create a drag listener for the image

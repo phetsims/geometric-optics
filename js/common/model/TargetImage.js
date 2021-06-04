@@ -21,10 +21,10 @@ class TargetImage {
   constructor( objectPositionProperty, optic, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    // @private {Vector2}
+    // @private {Property.<Vector2>}
     this.objectPositionProperty = objectPositionProperty;
 
-    // @private {Vector2}
+    // @private {Property.<Vector2>}
     this.opticPositionProperty = optic.positionProperty;
 
     // @private (read-only) {Optic}

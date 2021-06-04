@@ -6,8 +6,8 @@
 
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsModel from '../../common/model/GeometricOpticsModel.js';
-import Mirror from './Mirror.js';
 import geometricOptics from '../../geometricOptics.js';
+import Mirror from './Mirror.js';
 
 class MirrorModel extends GeometricOpticsModel {
 
@@ -19,6 +19,7 @@ class MirrorModel extends GeometricOpticsModel {
 
     super( tandem );
 
+    // @public {Mirror}
     this.optic = new Mirror( tandem );
 
     this.createCommonComponents( this.optic, tandem );

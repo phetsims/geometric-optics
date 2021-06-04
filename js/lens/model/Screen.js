@@ -23,13 +23,13 @@ class Screen {
   constructor( optic, targetImagePositionProperty, movableImagePositionProperty, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    // @public
+    // @public {Property.<Vector2>}
     this.positionProperty = new Vector2Property( new Vector2( 2, 0 ) );
 
     //@ public (read-only) {Property.<Vector2>} position of the optic
     this.opticPositionProperty = optic.positionProperty;
 
-    // @public (read-only)
+    // @public (read-only) {Spotlight}
     this.spotlightOne = new Spotlight(
       this.positionProperty,
       optic,
@@ -37,7 +37,7 @@ class Screen {
       tandem
     );
 
-    // @public (read-only)
+    // @public (read-only) {Spotlight}
     this.spotlightTwo = new Spotlight(
       this.positionProperty,
       optic,
