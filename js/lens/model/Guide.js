@@ -17,7 +17,7 @@ class Guide {
       location: Guide.Location.TOP
     }, config );
 
-    // @public {Property.<Vector2>}
+    // @public {Property.<Vector2>} position of the fulcrum point
     this.fulcrumPositionProperty = new DerivedProperty( [ optic.positionProperty, optic.diameterProperty ],
       ( opticPosition, opticDiameter ) => {
         const sign = ( config.location === Guide.Location.TOP ) ? +1 : -1;

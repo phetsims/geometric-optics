@@ -10,8 +10,11 @@ import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
+import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 
 const GUIDE_FULCRUM_RADIUS = GeometricOpticsConstants.GUIDE_FULCRUM_RADIUS;
+const GUIDE_WIDTH = GeometricOpticsConstants.GUIDE_WIDTH;
+const GUIDE_HEIGHT = GeometricOpticsConstants.GUIDE_HEIGHT;
 
 class GuideNode extends Node {
 
@@ -29,6 +32,10 @@ class GuideNode extends Node {
     }, options );
 
     super();
+
+    const viewGuideWidth = modelViewTransform.modelToViewDeltaX( GUIDE_WIDTH );
+    const viewGuideHeight = modelViewTransform.modelToViewDeltaX( GUIDE_HEIGHT );
+
     const fulcrumCircle = new Circle( GUIDE_FULCRUM_RADIUS, options );
     const leftGuideRectangle = new Rectangle( fulcrumCircle.x, fulcrumCircle.y - viewGuideHeight / 2, viewGuideWidth, viewGuideHeight, options );
 
