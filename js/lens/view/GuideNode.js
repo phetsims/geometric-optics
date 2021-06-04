@@ -72,7 +72,9 @@ class GuideNode extends Node {
         oldAngle = 0;
       }
 
+
       // rotate the guide
+
       const viewFulcrumPosition = modelViewTransform.modelToViewPosition( guide.fulcrumPositionProperty.value );
       leftGuideRectangle.rotateAround( viewFulcrumPosition, -angle + oldAngle );
       rightGuideRectangle.rotateAround( viewFulcrumPosition, -angle + oldAngle );
