@@ -9,6 +9,7 @@ import GeometricOpticsModel from '../../common/model/GeometricOpticsModel.js';
 import geometricOptics from '../../geometricOptics.js';
 import Lens from './Lens.js';
 import Screen from './Screen.js';
+import Guide from './Guide.js';
 
 class LensModel extends GeometricOpticsModel {
 
@@ -24,6 +25,8 @@ class LensModel extends GeometricOpticsModel {
     this.optic = new Lens( tandem );
 
     this.createCommonComponents( this.optic, tandem );
+
+    this.topGuide = new Guide( this.sourceObject.positionProperty, this.optic );
 
     // @public {Screen}
     this.screen = new Screen( this.optic,
