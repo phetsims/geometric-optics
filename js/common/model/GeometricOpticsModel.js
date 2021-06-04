@@ -62,6 +62,8 @@ class GeometricOpticsModel {
    * @param {Tandem} tandem
    */
   createCommonComponents( optic, tandem ) {
+    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+
     // @public {FocalPoint} first principal focal point
     this.firstFocalPoint = new FocalPoint( optic.positionProperty, optic.focalLengthProperty, tandem );
 
