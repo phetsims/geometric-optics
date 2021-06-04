@@ -25,7 +25,7 @@ class GuideNode extends Node {
     }, options );
 
     super();
-    const fulcrumCircle = new Circle( 10, { fill: 'white' } );
+    const fulcrumCircle = new Circle( 10, options );
     this.addChild( fulcrumCircle );
     guide.fulcrumPositionProperty.link( position => {
       fulcrumCircle.center = modelViewTransform.modelToViewPosition( position );

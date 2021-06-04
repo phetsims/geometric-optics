@@ -24,10 +24,11 @@ class LensScreenView extends GeometricOpticsScreenView {
 
     super( model, tandem );
 
+    // TODO: find a more robust way to insert nodes after the light rays
     const lensNode = new LensNode( model.optic, this.modelViewTransform, tandem );
-    this.playAreaNode.insertChild( 0, lensNode );
+    this.playAreaNode.insertChild( 6, lensNode );
     const topGuideNode = new GuideNode( model.topGuide, this.modelViewTransform );
-    this.playAreaNode.insertChild( 1, topGuideNode );
+    this.playAreaNode.insertChild( 7, topGuideNode );
 
     // create screen associated with light source
     // @private {ScreenNode}
