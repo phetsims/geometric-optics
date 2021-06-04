@@ -6,6 +6,7 @@
  * @author Martin Veillette
  */
 
+import Property from '../../../../axon/js/Property.js';
 import Ray2 from '../../../../dot/js/Ray2.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -13,7 +14,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-import Property from '../../../../axon/js/Property.js';
 import LightRayMode from './LightRayMode.js';
 
 const OPTICAL_ELEMENT_TIP_OFFSET = GeometricOpticsConstants.OPTICAL_ELEMENT_TIP_OFFSET;
@@ -56,7 +56,7 @@ class LightRays {
         optic.diameterProperty,
         optic.focalLengthProperty,
         optic.curveProperty ],
-      ( sourcePosition, opticPosition, mode, opticDiameter, focalLength, curve ) => {
+      ( sourcePosition, opticPosition, mode, opticDiameter, focalLength ) => {
 
         this.drawRays( mode,
           sourcePosition,

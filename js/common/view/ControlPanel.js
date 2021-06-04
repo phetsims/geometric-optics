@@ -105,7 +105,7 @@ class ControlPanel extends Panel {
       lengthNumberControlOptions );
 
     // array of number controls
-    let controls = [];
+    let controls;
 
     if ( config.hasLens ) {
 

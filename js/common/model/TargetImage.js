@@ -62,7 +62,7 @@ class TargetImage {
     this.isInvertedProperty = new DerivedProperty( [ objectPositionProperty,
         optic.positionProperty,
         optic.focalLengthProperty ],
-      ( objectPosition, opticPosition, focalLength ) => {
+      () => {
         return this.isInverted();
       } );
 
@@ -70,7 +70,7 @@ class TargetImage {
     this.isVirtualProperty = new DerivedProperty( [ objectPositionProperty,
         optic.positionProperty,
         optic.focalLengthProperty ],
-      ( objectPosition, opticPosition, focalLength ) => {
+      () => {
         return this.isVirtual();
       } );
 

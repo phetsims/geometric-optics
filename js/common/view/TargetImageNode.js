@@ -8,11 +8,11 @@
  * @author Martin Veillette
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 class TargetImageNode extends Node {
 
@@ -63,22 +63,22 @@ class TargetImageNode extends Node {
     }
 
 
-    targetImage.positionProperty.link( position => {
+    targetImage.positionProperty.link( () => {
       updateScale();
       updateVisibility();
     } );
 
-    optic.curveProperty.link( curvatureType => {
+    optic.curveProperty.link( () => {
       updateScale();
       updateVisibility();
     } );
 
-    targetImage.isVirtualProperty.link( isVirtual => {
+    targetImage.isVirtualProperty.link( () => {
       updateVisibility();
     } );
 
     // updates the visibility of the image based on the checkbox toggle
-    visibleVirtualImageProperty.link( visible => {
+    visibleVirtualImageProperty.link( () => {
       updateVisibility();
     } );
 
