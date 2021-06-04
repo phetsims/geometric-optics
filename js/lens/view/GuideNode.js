@@ -30,10 +30,32 @@ class GuideNode extends Node {
 
     super();
     const fulcrumCircle = new Circle( GUIDE_FULCRUM_RADIUS, options );
-    this.addChild( fulcrumCircle );
+    const leftGuideRectangle = new Rectangle( fulcrumCircle.x, fulcrumCircle.y - viewGuideHeight / 2, viewGuideWidth, viewGuideHeight, options );
+
     guide.fulcrumPositionProperty.link( position => {
-      fulcrumCircle.center = modelViewTransform.modelToViewPosition( position );
+      const viewPosition = modelViewTransform.modelToViewPosition( position );
+      fulcrumCircle.center = viewPosition;
+
+
+      leftGuideRectangle.center = viewPosition.plusXY( -viewGuideWidth / 2 * Math.cos( guide.rotationAngleProperty.value ),
+        viewGuideWidth / 2 * Math.sin( guide.rotationAngleProperty.value ) );
     } );
+
+    guide.rotationAngleProperty.link( ( angle, oldAngle ) => {
+      if ( oldAngle === null ) {
+        oldAngle = 0;
+      }
+      const fulcrumPosition = modelViewTransform.modelToViewPosition( guide.fulcrumPositionProperty.value );
+      leftGuideRectangle.rotateAround( fulcrumPosition, -angle + oldAngle );
+
+      // position of the rectangle guide
+      leftGuideRectangle.center = fulcrumPosition.plusXY( -viewGuideWidth / 2 * Math.cos( angle ),
+        viewGuideWidth / 2 * Math.sin( angle ) );
+    } );
+
+
+    this.addChild( leftGuideRectangle );
+    this.addChild( fulcrumCircle );
   }
 }
 

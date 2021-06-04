@@ -25,6 +25,12 @@ class Guide {
         return opticPosition.plusXY( 0, sign * opticDiameter / 2 );
       } );
 
+    // @public (read-only) {Property.<number>} angle of rotation of the left-guide with respect to the x-axis
+    this.rotationAngleProperty = new DerivedProperty( [ objectPositionProperty, this.fulcrumPositionProperty ],
+      ( objectPosition, fulcrumPosition ) => {
+        const displacementVector = fulcrumPosition.minus( objectPosition );
+        return displacementVector.getAngle();
+      } );
   }
 }
 
