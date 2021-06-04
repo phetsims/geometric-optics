@@ -2,7 +2,7 @@
 
 /**
  * View element for the guides at both ends of the lens
- *
+ * test
  * @author Sarah Chang, Swarthmore College
  */
 import merge from '../../../../phet-core/js/merge.js';
