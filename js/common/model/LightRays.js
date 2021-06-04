@@ -30,13 +30,13 @@ class LightRays {
   constructor( lightRayModeProperty, sourceObjectPositionProperty, optic, targetImage, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    // @public
+    // @public {EnumerationProperty.<LightRayMode>}
     this.modeProperty = lightRayModeProperty;
 
     // @public {Optic}
     this.optic = optic;
 
-    // @private {Vector2}
+    // @private {Property.<Vector2>}
     this.sourceObjectPositionProperty = sourceObjectPositionProperty;
 
     // @private {TargetImage}
