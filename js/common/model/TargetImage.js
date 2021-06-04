@@ -14,7 +14,7 @@ import geometricOptics from '../../geometricOptics.js';
 class TargetImage {
 
   /**
-   * @param {Vector2Property} objectPositionProperty
+   * @param {Property.<Vector2>} objectPositionProperty
    * @param {Optic} optic
    * @param {Tandem} tandem
    */

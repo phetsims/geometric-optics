@@ -71,10 +71,10 @@ class Optic {
         return this.getFillAndOutlineShapes( position, radius, diameter, curve );
       } );
 
-    // @public - must be implemented by subtype
+    // @public {Property.<number>} - must be implemented by subtype
     this.focalLengthProperty = new Error( 'must be implemented by subtype' );
 
-    // @private
+    // @private {number}
     this.diameterRange = diameterRange;
   }
 

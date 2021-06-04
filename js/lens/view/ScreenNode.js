@@ -7,16 +7,16 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import DragListener from '../../../../scenery/js/listeners/DragListener.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsColorProfile from '../../common/GeometricOpticsColorProfile.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import Image from '../../../../scenery/js/nodes/Image.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import screen3dImage from '../../../images/screen-3d_png.js';
-import Path from '../../../../scenery/js/nodes/Path.js';
 import Shape from '../../../../kite/js/Shape.js';
+import DragListener from '../../../../scenery/js/listeners/DragListener.js';
+import Image from '../../../../scenery/js/nodes/Image.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import screen3dImage from '../../../images/screen-3d_png.js';
+import GeometricOpticsColorProfile from '../../common/GeometricOpticsColorProfile.js';
+import geometricOptics from '../../geometricOptics.js';
 
 const SPOTLIGHT_FILL = GeometricOpticsColorProfile.screenSpotlightFillProperty;
 
@@ -24,7 +24,7 @@ class ScreenNode extends Node {
 
   /**
    * @param {Screen} screen
-   * @param {EnumerationProperty.<Representation>} representationProperty
+   * @param {Property.<Representation>} representationProperty
    * @param {Property.<boolean>} visibleMovablePointProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem

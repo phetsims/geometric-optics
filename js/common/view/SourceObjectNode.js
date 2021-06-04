@@ -9,14 +9,14 @@
  * @author Martin Veillette
  */
 
+import Vector2 from '../../../../dot/js/Vector2.js';
+import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
+import Circle from '../../../../scenery/js/nodes/Circle.js';
+import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import Image from '../../../../scenery/js/nodes/Image.js';
-import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import Circle from '../../../../scenery/js/nodes/Circle.js';
 
 const OVERALL_SCALE_FACTOR = 0.5;
 const OFFSET_VECTOR = new Vector2( 0.15, -0.18 );
@@ -24,7 +24,7 @@ const OFFSET_VECTOR = new Vector2( 0.15, -0.18 );
 class SourceObjectNode extends Node {
 
   /**
-   * @param {EnumerationProperty.<Representation>} representationProperty
+   * @param {Property.<Representation>} representationProperty
    * @param {SourceObject} sourceObject
    * @param {Property.<boolean>} visibleMovablePointProperty
    * @param {ModelViewTransform2} modelViewTransform

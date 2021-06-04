@@ -16,8 +16,8 @@ class Screen {
 
   /**
    * @param {Optic} optic
-   * @param {Vector2Property} targetImagePositionProperty
-   * @param {Vector2Property} movableImagePositionProperty
+   * @param {Property.<Vector2>} targetImagePositionProperty
+   * @param {Property.<Vector2>} movableImagePositionProperty
    * @param {Tandem} tandem
    */
   constructor( optic, targetImagePositionProperty, movableImagePositionProperty, tandem ) {

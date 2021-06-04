@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Main control panel for the optical element properties, visibility checkboxes  and the lightrays mode
+ * Main control panel for the optical element properties, visibility checkboxes  and the light rays mode
  * Appears at the bottom of the simulation
  *
  * @author Martin Veillette

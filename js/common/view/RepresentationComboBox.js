@@ -6,6 +6,8 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import HBox from '../../../../scenery/js/nodes/HBox.js';
+import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
@@ -13,13 +15,11 @@ import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import Representation from '../model/Representation.js';
-import Image from '../../../../scenery/js/nodes/Image.js';
-import HBox from '../../../../scenery/js/nodes/HBox.js';
 
 class RepresentationComboBox extends Node {
 
   /**
-   * @param {EnumerationProperty.<Representation>} selectedItemProperty
+   * @param {Property.<Representation>} selectedItemProperty
    * @param {Tandem} tandem
    * @param {Object} config
    */

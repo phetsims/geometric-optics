@@ -9,8 +9,8 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
+import geometricOptics from '../../geometricOptics.js';
 
 const OPTICAL_ELEMENT_TIP_OFFSET = GeometricOpticsConstants.OPTICAL_ELEMENT_TIP_OFFSET;
 const MASK_CORNERS = GeometricOpticsConstants.MASK_CORNERS;
@@ -19,9 +19,9 @@ const FULL_BRIGHT_SPOT_HEIGHT = GeometricOpticsConstants.FULL_BRIGHT_SPOT_HEIGHT
 class Spotlight {
 
   /**
-   * @param {Vector2Property} screenPositionProperty
+   * @param {Property.<Vector2>} screenPositionProperty
    * @param {Optic} optic
-   * @param {Vector2Property} targetImagePositionProperty
+   * @param {Property.<Vector2>} targetImagePositionProperty
    * @param {Tandem} tandem
    */
   constructor( screenPositionProperty, optic, targetImagePositionProperty, tandem ) {
