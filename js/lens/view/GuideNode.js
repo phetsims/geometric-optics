@@ -5,7 +5,7 @@
  *
  * @author Sarah Chang, Swarthmore College
  */
-
+import merge from '../../../../phet-core/js/merge.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -19,6 +19,11 @@ class GuideNode extends Node {
    * @param {Object} [options]
    */
   constructor( guide, modelViewTransform, options ) {
+
+    options = merge( {
+      fill: 'white'
+    }, options );
+
     super();
     const fulcrumCircle = new Circle( 10, { fill: 'white' } );
     this.addChild( fulcrumCircle );
