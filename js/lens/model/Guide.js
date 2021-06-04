@@ -31,6 +31,12 @@ class Guide {
         const displacementVector = fulcrumPosition.minus( objectPosition );
         return displacementVector.getAngle();
       } );
+
+    // @public (read-only) {Property.<number>} i
+    this.internalAngleProperty = new DerivedProperty( [ optic.focalLengthProperty, optic.diameterProperty ],
+      ( focalLength, diameter ) => {
+        return Math.PI - Math.atan( diameter / ( 4 * focalLength ) ) - Math.atan( diameter / focalLength );
+      } );
   }
 }
 
