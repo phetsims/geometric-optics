@@ -93,8 +93,7 @@ class SourceObject {
   setMovablePoint( representationProperty, position ) {
     if ( representationProperty.value.isObject ) {
       const unconstrainedVerticalOffset = position.y - this.positionProperty.value.y;
-      const verticalOffset = Utils.clamp( unconstrainedVerticalOffset, verticalOffsetRange.min, verticalOffsetRange.max );
-      this.verticalOffsetProperty.value = verticalOffset;
+      this.verticalOffsetProperty.value = Utils.clamp( unconstrainedVerticalOffset, verticalOffsetRange.min, verticalOffsetRange.max );
     }
     else {
       this.unconstrainedMovablePositionProperty.value = position;

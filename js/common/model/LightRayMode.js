@@ -9,6 +9,7 @@
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import geometricOptics from '../../geometricOptics.js';
 
+// {Enumeration}
 const LightRayMode = Enumeration.byKeys( [
   'NO_RAYS', // NO_RAYS implies that no rays are displayed.
   'MARGINAL_RAYS', // MARGINAL_RAYS show the rays at the top, center and bottom of the optic.

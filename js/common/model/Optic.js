@@ -98,9 +98,8 @@ class Optic {
    * @returns {Vector2}
    */
   getFirstFocalPointPosition() {
-    const firstFocalPosition = this.getPosition().plusXY(
+    return this.getPosition().plusXY(
       this.getCurveSign( this.getCurve() ) * this.getFocalLength(), 0 );
-    return firstFocalPosition;
   }
 
   /**
@@ -109,9 +108,8 @@ class Optic {
    * @returns {Vector2}
    */
   getSecondFocalPointPosition() {
-    const secondFocalPosition = this.getPosition().minusXY(
+    return this.getPosition().minusXY(
       this.getCurveSign( this.getCurve() ) * this.getFocalLength(), 0 );
-    return secondFocalPosition;
   }
 
   /**
