@@ -9,6 +9,9 @@ import merge from '../../../../phet-core/js/merge.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
+import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
+
+const GUIDE_FULCRUM_RADIUS = GeometricOpticsConstants.GUIDE_FULCRUM_RADIUS;
 
 class GuideNode extends Node {
 
@@ -21,11 +24,12 @@ class GuideNode extends Node {
   constructor( guide, modelViewTransform, options ) {
 
     options = merge( {
-      fill: 'white'
+      fill: 'white',
+      stroke: 'black'
     }, options );
 
     super();
-    const fulcrumCircle = new Circle( 10, options );
+    const fulcrumCircle = new Circle( GUIDE_FULCRUM_RADIUS, options );
     this.addChild( fulcrumCircle );
     guide.fulcrumPositionProperty.link( position => {
       fulcrumCircle.center = modelViewTransform.modelToViewPosition( position );

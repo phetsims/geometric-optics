@@ -89,6 +89,7 @@ const GeometricOpticsConstants = {
   GUIDE_LINE_WIDTH: 1,
   GUIDE_WIDTH: 0.48, // Meters
   GUIDE_HEIGHT: 0.03, // Meters
+  GUIDE_FULCRUM_RADIUS: 5,
 
   //----------------------------------------------------------------------------------------
   //                             PROJECTION SCREEN
