@@ -33,7 +33,7 @@ class Guide {
       } );
 
     // @public (read-only) {Property.<number>} angle of rotation of the left-guide with respect to the x-axis
-    this.rotationAngleProperty = new DerivedProperty( [ objectPositionProperty, this.fulcrumPositionProperty ],
+    this.incidentAngleProperty = new DerivedProperty( [ objectPositionProperty, this.fulcrumPositionProperty ],
       ( objectPosition, fulcrumPosition ) => {
         const displacementVector = fulcrumPosition.minus( objectPosition );
         return displacementVector.getAngle();
@@ -65,8 +65,8 @@ class Guide {
    * @public
    * @returns {number}
    */
-  getRotationAngle() {
-    return this.rotationAngleProperty.value;
+  getIncidentAngle() {
+    return this.incidentAngleProperty.value;
   }
 
   /**

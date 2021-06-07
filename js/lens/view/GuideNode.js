@@ -63,13 +63,13 @@ class GuideNode extends Node {
       fulcrumCircle.center = viewFulcrumPosition;
 
       // position the rectangle
-      setRectanglePosition( incomingRectangle, viewFulcrumPosition, guide.getRotationAngle(), false );
+      setRectanglePosition( incomingRectangle, viewFulcrumPosition, guide.getIncidentAngle(), false );
       setRectanglePosition( outgoingRectangle, viewFulcrumPosition,
-        guide.getRotationAngle() - guide.getInternalAngle(), true );
+        guide.getIncidentAngle() - guide.getInternalAngle(), true );
     } );
 
     // rotate the guide
-    guide.rotationAngleProperty.link( ( angle, oldAngle ) => {
+    guide.incidentAngleProperty.link( ( angle, oldAngle ) => {
 
       // for first angle
       if ( oldAngle === null ) {
@@ -96,7 +96,7 @@ class GuideNode extends Node {
 
       // position the rectangle
       setRectanglePosition( outgoingRectangle, viewFulcrumPosition,
-        guide.getRotationAngle() - internalAngle, true );
+        guide.getIncidentAngle() - internalAngle, true );
 
     } );
 
