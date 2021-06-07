@@ -18,7 +18,7 @@ import pencilImage from '../../../images/pencil_png.js';
 import rocket3dReversedImage from '../../../images/rocket-3d-reversed_png.js';
 import rocket3dImage from '../../../images/rocket-3d_png.js';
 import rocketImage from '../../../images/rocket_png.js';
-import screen3dImage from '../../../images/screen-3d_png.js';
+import projectorScreen3dImage from '../../../images/projector-screen-3d_png.js';
 import tree3dReversedImage from '../../../images/tree-3d-reversed_png.js';
 import tree3dImage from '../../../images/tree-3d_png.js';
 import treeImage from '../../../images/tree_png.js';
@@ -89,8 +89,8 @@ const Representation = Enumeration.byMap( {
   LIGHT: new RepresentationGenerator( lampRedImage,
     lampBlueImage,
     lampBlueImage,
-    screen3dImage,
-    screen3dImage,
+    projectorScreen3dImage,
+    projectorScreen3dImage,
     lightString, false, { source: lampRedImage } )
 } );
 

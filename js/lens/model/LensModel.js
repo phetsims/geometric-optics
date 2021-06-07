@@ -31,7 +31,7 @@ class LensModel extends GeometricOpticsModel {
     this.bottomGuide = new Guide( this.sourceObject.positionProperty, this.optic, { location: Guide.Location.BOTTOM } );
 
     // @public {ProjectorScreen}
-    this.screen = new ProjectorScreen( this.optic.positionProperty,
+    this.projectorScreen = new ProjectorScreen( this.optic.positionProperty,
       this.optic.diameterProperty,
       this.targetImage.positionProperty,
       this.movableTargetImage.positionProperty, tandem );
@@ -46,7 +46,7 @@ class LensModel extends GeometricOpticsModel {
     this.optic.reset();
     this.targetImage.reset();
     this.lightRays.reset();
-    this.screen.reset();
+    this.projectorScreen.reset();
   }
 
 }

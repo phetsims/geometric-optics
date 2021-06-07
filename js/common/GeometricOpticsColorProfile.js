@@ -89,9 +89,9 @@ const GeometricOpticsColorProfile = new ColorProfile( [ 'default' ], {
   },
 
   //--------------------------------------------------------------------------
-  //                              SCREEN (BLACKBOARD)
+  //                     PROJECTOR SCREEN (BLACKBOARD)
 
-  screenSpotlightFill: {
+  projectorScreenSpotlightFill: {
     default: 'yellow'
   },
 
