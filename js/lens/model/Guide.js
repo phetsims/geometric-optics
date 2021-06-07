@@ -14,12 +14,12 @@ import geometricOptics from '../../geometricOptics.js';
 class Guide {
   /**
    *
-   * @param objectPositionProperty
-   * @param optic
-   * @param config
+   * @param {Property.<Vector2>} objectPositionProperty
+   * @param {Optic} optic
+   * @param {object} config
    */
-
   constructor( objectPositionProperty, optic, config ) {
+
     config = merge( {
       location: Guide.Location.TOP
     }, config );
@@ -39,7 +39,7 @@ class Guide {
         return displacementVector.getAngle();
       } );
 
-    // @public (read-only) {Property.<number>} i
+    // @public (read-only) {Property.<number>} find the internal angle between the two rectangles.
     this.internalAngleProperty = new DerivedProperty( [ optic.focalLengthProperty, optic.diameterProperty ],
       ( focalLength, diameter ) => {
         if ( optic.isConcave( optic.getCurve() ) ) {
@@ -47,8 +47,7 @@ class Guide {
           // return -Math.atan( diameter / ( 4 * focalLength ) ) + Math.atan( 3 * diameter / ( 4 * focalLength ) );
         }
         else {
-          // return 2 * Math.atan( diameter / ( 4 * focalLength ) );
-          return Math.atan( diameter / ( 2 * focalLength ) );
+          return 2 * Math.atan( diameter / ( 4 * focalLength ) );
         }
       } );
   }
