@@ -16,6 +16,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
+import FocalPoint from '../model/FocalPoint.js';
 import GeometricOpticsModel from '../model/GeometricOpticsModel.js';
 import ControlPanel from './ControlPanel.js';
 import FocalPointNode from './FocalPointNode.js';
@@ -142,13 +143,19 @@ class GeometricOpticsScreenView extends ScreenView {
     this.addChild( resetAllButton );
 
 
-    // add disks at some useful locations
+    // add disks at position of optic, source and target
     if ( GeometricOpticsQueryParameters.showDebugPoints ) {
       this.addChild( new TrackingDiskNode( model.targetImage.positionProperty, this.modelViewTransform, tandem, { fill: 'magenta' } ) );
       this.addChild( new TrackingDiskNode( model.sourceObject.positionProperty, this.modelViewTransform, tandem, { fill: 'magenta' } ) );
       this.addChild( new TrackingDiskNode( model.optic.positionProperty, this.modelViewTransform, tandem, { fill: 'magenta' } ) );
     }
 
+    // add disks at the position 2f for optic
+    if ( GeometricOpticsQueryParameters.show2fPoint ) {
+      const twofPoint = new FocalPoint( model.optic.positionProperty, model.optic.focalLengthProperty, tandem,
+        { multiplicativeFactor: -2 } );
+      this.addChild( new TrackingDiskNode( twofPoint.positionProperty, this.modelViewTransform, tandem, { fill: 'black' } ) );
+    }
 
   }
 
