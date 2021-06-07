@@ -1,7 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Model element of the spotlight.
+ * Model element of the spotlight. Responsible for the shape of the spotlight (cropped to the screen shape)
+ * and its light intensity
  *
  * @author Martin Veillette
  */
@@ -13,44 +14,50 @@ import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import geometricOptics from '../../geometricOptics.js';
 
 const OPTICAL_ELEMENT_TIP_OFFSET = GeometricOpticsConstants.OPTICAL_ELEMENT_TIP_OFFSET;
-const MASK_CORNERS = GeometricOpticsConstants.MASK_CORNERS;
 const FULL_BRIGHT_SPOT_HEIGHT = GeometricOpticsConstants.FULL_BRIGHT_SPOT_HEIGHT;
 
 class Spotlight {
 
   /**
    * @param {Property.<Vector2>} screenPositionProperty
-   * @param {Optic} optic
+   * @param {Property.<Vector2>} opticPositionProperty
+   * @param {Property.<number>} opticDiameterProperty
    * @param {Property.<Vector2>} targetImagePositionProperty
+   * @param {function} getScreenShape - returns the shape of the screen {Shape}
    * @param {Tandem} tandem
    */
-  constructor( screenPositionProperty, optic, targetImagePositionProperty, tandem ) {
+  constructor( screenPositionProperty,
+               opticPositionProperty,
+               opticDiameterProperty,
+               targetImagePositionProperty,
+               getScreenShape,
+               tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+
+    this.getScreenShape = getScreenShape;
 
     // determine the intersection of the screen and spotlight
     // @public (read-only) {Property.<Shape>}
     this.shapeProperty = new DerivedProperty( [
-      screenPositionProperty,
-      optic.positionProperty,
-      optic.diameterProperty,
-      targetImagePositionProperty ], (
-      screenPosition, opticPosition, opticDiameter, targetPosition
-    ) => {
-      return this.getIntersection( screenPosition, opticPosition, opticDiameter, targetPosition );
-    } );
+        screenPositionProperty,
+        opticPositionProperty,
+        opticDiameterProperty,
+        targetImagePositionProperty ],
+      ( screenPosition, opticPosition, opticDiameter, targetPosition ) => {
+        return this.getIntersection( screenPosition, opticPosition, opticDiameter, targetPosition );
+      } );
 
     // determine the light intensity of the spot
     // a number ranging from 0 to 1
     // @public (read-only) {Property.<number>}
     this.intensityProperty = new DerivedProperty( [
-      screenPositionProperty,
-      optic.positionProperty,
-      optic.diameterProperty,
-      targetImagePositionProperty ], (
-      screenPosition, opticPosition, opticDiameter, targetPosition
-    ) => {
-      return this.getLightIntensity( screenPosition, opticPosition, opticDiameter, targetPosition );
-    } );
+        screenPositionProperty,
+        opticPositionProperty,
+        opticDiameterProperty,
+        targetImagePositionProperty ],
+      ( screenPosition, opticPosition, opticDiameter, targetPosition ) => {
+        return this.getLightIntensity( screenPosition, opticPosition, opticDiameter, targetPosition );
+      } );
 
   }
 
@@ -63,6 +70,8 @@ class Spotlight {
    * @returns {number}
    */
   getDiskRadius( screenPosition, opticPosition, opticDiameter, targetPosition ) {
+
+    // ratio of the distance of the screen/ target measure from the optic.
     const blend = ( screenPosition.x - opticPosition.x ) / ( targetPosition.x - opticPosition.x );
 
     const
@@ -89,24 +98,6 @@ class Spotlight {
   /**
    * @private
    * @param {Vector2} screenPosition
-   * @returns {Shape}
-   */
-  getScreenShape( screenPosition ) {
-    const leftTop = screenPosition.plus( MASK_CORNERS.LEFT_TOP );
-    const leftBottom = screenPosition.plus( MASK_CORNERS.LEFT_BOTTOM );
-    const rightBottom = screenPosition.plus( MASK_CORNERS.RIGHT_BOTTOM );
-    const rightTop = screenPosition.plus( MASK_CORNERS.RIGHT_TOP );
-    return new Shape()
-      .moveToPoint( leftTop )
-      .lineToPoint( leftBottom )
-      .lineToPoint( rightBottom )
-      .lineToPoint( rightTop )
-      .close();
-  }
-
-  /**
-   * @private
-   * @param {Vector2} screenPosition
    * @param {Vector2} opticPosition
    * @param {number} opticDiameter
    * @param {Vector2} targetPosition
@@ -117,9 +108,9 @@ class Spotlight {
 
     const radiusY = this.getDiskRadius( screenPosition, opticPosition, opticDiameter - OPTICAL_ELEMENT_TIP_OFFSET, targetPosition );
 
-    // ellipse is half as wide as high
+    // ellipse width is half the height to give an approximation of 3D effect
     const radiusX = 1 / 2 * radiusY;
-    return Shape.ellipse( diskPosition, radiusX, radiusY, 2 * Math.PI );
+    return Shape.ellipse( diskPosition.x, diskPosition.y, radiusX, radiusY, 2 * Math.PI );
   }
 
   /**
@@ -133,24 +124,29 @@ class Spotlight {
   getIntersection( screenPosition, opticPosition, opticDiameter, targetPosition ) {
     return Shape.intersection(
       [ this.getDiskShape( screenPosition, opticPosition, opticDiameter, targetPosition ),
-        this.getScreenShape( screenPosition ) ] );
+        this.getScreenShape() ] );
   }
 
   /**
+   * get the normalized (between 0 and 1) light intensity of the spotlight
+   * Physically, a spotlight is dimmer when the light is spread on a larger surface.
+   * To preserve dynamic range, the spotlight is instead inversely proportional to the diameter of the spotlight.
+   *
+   * The value for the intensity saturates to 1 for a spotlight height smaller than FULL_BRIGHT_SPOT_HEIGHT
    * @private
    * @param {Vector2} screenPosition
    * @param {Vector2} opticPosition
    * @param {number} opticDiameter
    * @param {Vector2} targetPosition
-   * @returns {number} number between 0 and 1
+   * @returns {number} a value between 0 and 1
    */
   getLightIntensity( screenPosition, opticPosition, opticDiameter, targetPosition ) {
 
     // get the height of spotlight
     const spotlightHeight = 2 * this.getDiskRadius( screenPosition, opticPosition, opticDiameter, targetPosition );
 
-    const maxIntensity = Math.max( 0, FULL_BRIGHT_SPOT_HEIGHT / spotlightHeight );
-    return Math.min( 1, maxIntensity );
+    // intensity saturates to 1 for a spotlight height less than FULL_BRIGHT_SPOT_HEIGHT
+    return Math.min( 1, FULL_BRIGHT_SPOT_HEIGHT / spotlightHeight );
   }
 
 }
