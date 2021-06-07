@@ -18,8 +18,8 @@ const GeometricOpticsQueryParameters = QueryStringMachine.getAll( {
     public: false
   },
 
-  // show the position of a point at a distance 2f from the optic.
-  show2fPoint: {
+  // show the position of points at a distance 2f from the optic.
+  show2fPoints: {
     type: 'flag',
     public: false
   }

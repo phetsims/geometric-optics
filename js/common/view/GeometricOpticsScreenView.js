@@ -150,11 +150,14 @@ class GeometricOpticsScreenView extends ScreenView {
       this.addChild( new TrackingDiskNode( model.optic.positionProperty, this.modelViewTransform, tandem, { fill: 'magenta' } ) );
     }
 
-    // add disks at the position 2f for optic
-    if ( GeometricOpticsQueryParameters.show2fPoint ) {
-      const twofPoint = new FocalPoint( model.optic.positionProperty, model.optic.focalLengthProperty, tandem,
+    // add disks at the position2 2f for optic
+    if ( GeometricOpticsQueryParameters.show2fPoints ) {
+      const minus2fPoint = new FocalPoint( model.optic.positionProperty, model.optic.focalLengthProperty, tandem,
         { multiplicativeFactor: -2 } );
-      this.addChild( new TrackingDiskNode( twofPoint.positionProperty, this.modelViewTransform, tandem, { fill: 'black' } ) );
+      const plus2fPoint = new FocalPoint( model.optic.positionProperty, model.optic.focalLengthProperty, tandem,
+        { multiplicativeFactor: 2 } );
+      this.addChild( new TrackingDiskNode( minus2fPoint.positionProperty, this.modelViewTransform, tandem, { fill: 'black' } ) );
+      this.addChild( new TrackingDiskNode( plus2fPoint.positionProperty, this.modelViewTransform, tandem, { fill: 'black' } ) );
     }
 
   }
