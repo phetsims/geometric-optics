@@ -28,8 +28,14 @@ class GuideNode extends Node {
   constructor( guide, modelViewTransform, options ) {
 
     options = merge( {
-      fill: 'white',
-      stroke: 'black'
+      rectangle: {
+        fill: 'white',
+        stroke: 'black'
+      },
+      circle: {
+        fill: 'grey',
+        stroke: 'black'
+      }
     }, options );
 
     super();
@@ -38,11 +44,11 @@ class GuideNode extends Node {
     const viewRectangleHeight = -1 * modelViewTransform.modelToViewDeltaY( GUIDE_RECTANGLE_HEIGHT );
 
     // create fulcrum circle
-    const fulcrumCircle = new Circle( GUIDE_FULCRUM_RADIUS, options );
+    const fulcrumCircle = new Circle( GUIDE_FULCRUM_RADIUS, options.circle );
 
     // create rectangle pointing to the object
-    const incidentRectangle = new Rectangle( fulcrumCircle.x, fulcrumCircle.y - viewRectangleHeight / 2, viewRectangleWidth, viewRectangleHeight, options );
-    const transmittedRectangle = new Rectangle( fulcrumCircle.x, fulcrumCircle.y - viewRectangleHeight / 2, viewRectangleWidth, viewRectangleHeight, options );
+    const incidentRectangle = new Rectangle( fulcrumCircle.x, fulcrumCircle.y - viewRectangleHeight / 2, viewRectangleWidth, viewRectangleHeight, options.rectangle );
+    const transmittedRectangle = new Rectangle( fulcrumCircle.x, fulcrumCircle.y - viewRectangleHeight / 2, viewRectangleWidth, viewRectangleHeight, options.rectangle );
 
     /**
      * set the position of the rectangle such that its right end center is on the fulcrum point.
@@ -54,7 +60,6 @@ class GuideNode extends Node {
 
       rectangleNode.center = Vector2.createPolar( -1 * viewRectangleWidth / 2, -angle ).plus( viewFulcrumPosition );
     };
-
 
     // update the position of the fulcrum
     guide.fulcrumPositionProperty.link( position => {
