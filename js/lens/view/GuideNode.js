@@ -35,24 +35,27 @@ class GuideNode extends Node {
     super();
 
     const viewGuideWidth = modelViewTransform.modelToViewDeltaX( GUIDE_WIDTH );
-    const viewGuideHeight = modelViewTransform.modelToViewDeltaX( GUIDE_HEIGHT );
+    const viewGuideHeight = -1 * modelViewTransform.modelToViewDeltaY( GUIDE_HEIGHT );
 
     // create fulcrum circle
     const fulcrumCircle = new Circle( GUIDE_FULCRUM_RADIUS, options );
 
     // create guide rectangle pointing to the object
-    const leftGuideRectangle = new Rectangle( fulcrumCircle.x, fulcrumCircle.y - viewGuideHeight / 2, viewGuideWidth, viewGuideHeight, options );
-    const rightGuideRectangle = new Rectangle( fulcrumCircle.x, fulcrumCircle.y - viewGuideHeight / 2, viewGuideWidth, viewGuideHeight, options );
+    const incomingRectangle = new Rectangle( fulcrumCircle.x, fulcrumCircle.y - viewGuideHeight / 2, viewGuideWidth, viewGuideHeight, options );
+    const outgoingRectangle = new Rectangle( fulcrumCircle.x, fulcrumCircle.y - viewGuideHeight / 2, viewGuideWidth, viewGuideHeight, options );
 
     /**
      * set the position of the guide rectangle such that its right end center is on the fulcrum point.
-     * @param  {Node} rectangleNode
+     * @param {Node} rectangleNode
      * @param {Vector2} viewFulcrumPosition
      * @param {number} angle
+     * @param {boolean} isOutgoing
      */
-    const setGuideRectanglePosition = ( rectangleNode, viewFulcrumPosition, angle ) => {
-      rectangleNode.center = Vector2.createPolar( -viewGuideWidth / 2, -angle ).plus( viewFulcrumPosition );
+    const setRectanglePosition = ( rectangleNode, viewFulcrumPosition, angle, isOutgoing ) => {
+      const sign = isOutgoing ? -1 : 1;
+      rectangleNode.center = Vector2.createPolar( -1 * sign * viewGuideWidth / 2, -angle ).plus( viewFulcrumPosition );
     };
+
 
     // update the position of the fulcrum
     guide.fulcrumPositionProperty.link( position => {
@@ -60,8 +63,9 @@ class GuideNode extends Node {
       fulcrumCircle.center = viewFulcrumPosition;
 
       // position the rectangle
-      setGuideRectanglePosition( leftGuideRectangle, viewFulcrumPosition, guide.rotationAngleProperty.value );
-      setGuideRectanglePosition( rightGuideRectangle, viewFulcrumPosition, guide.rotationAngleProperty.value + guide.internalAngleProperty.value );
+      setRectanglePosition( incomingRectangle, viewFulcrumPosition, guide.getRotationAngle(), false );
+      setRectanglePosition( outgoingRectangle, viewFulcrumPosition,
+        guide.getRotationAngle() - guide.getInternalAngle(), true );
     } );
 
     // rotate the guide
@@ -72,26 +76,33 @@ class GuideNode extends Node {
         oldAngle = 0;
       }
 
-
       // rotate the guide
-
       const viewFulcrumPosition = modelViewTransform.modelToViewPosition( guide.fulcrumPositionProperty.value );
-      leftGuideRectangle.rotateAround( viewFulcrumPosition, -angle + oldAngle );
-      rightGuideRectangle.rotateAround( viewFulcrumPosition, -angle + oldAngle );
+      incomingRectangle.rotateAround( viewFulcrumPosition, -angle + oldAngle );
+      outgoingRectangle.rotateAround( viewFulcrumPosition, -angle + oldAngle );
 
       // position of the rectangle guide
-      setGuideRectanglePosition( leftGuideRectangle, viewFulcrumPosition, angle );
-      setGuideRectanglePosition( rightGuideRectangle, viewFulcrumPosition, angle + guide.internalAngleProperty.value );
+      setRectanglePosition( incomingRectangle, viewFulcrumPosition, angle, false );
+      setRectanglePosition( outgoingRectangle, viewFulcrumPosition, angle - guide.getInternalAngle(), true );
     } );
 
-    guide.internalAngleProperty.link( internalAngle => {
-      const viewFulcrumPosition = modelViewTransform.modelToViewPosition( guide.fulcrumPositionProperty.value );
-      rightGuideRectangle.rotateAround( viewFulcrumPosition, internalAngle );
+    guide.internalAngleProperty.link( ( internalAngle, oldInternalAngle ) => {
+      // for first angle
+      if ( oldInternalAngle === null ) {
+        oldInternalAngle = 0;
+      }
+      const viewFulcrumPosition = modelViewTransform.modelToViewPosition( guide.getPosition() );
+      outgoingRectangle.rotateAround( viewFulcrumPosition, internalAngle - oldInternalAngle );
+
+      // position the rectangle
+      setRectanglePosition( outgoingRectangle, viewFulcrumPosition,
+        guide.getRotationAngle() - internalAngle, true );
+
     } );
 
     // add to scene graph
-    this.addChild( leftGuideRectangle );
-    this.addChild( rightGuideRectangle );
+    this.addChild( incomingRectangle );
+    this.addChild( outgoingRectangle );
     this.addChild( fulcrumCircle );
   }
 }

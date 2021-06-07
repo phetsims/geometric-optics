@@ -12,6 +12,13 @@ import merge from '../../../../phet-core/js/merge.js';
 import geometricOptics from '../../geometricOptics.js';
 
 class Guide {
+  /**
+   *
+   * @param objectPositionProperty
+   * @param optic
+   * @param config
+   */
+
   constructor( objectPositionProperty, optic, config ) {
     config = merge( {
       location: Guide.Location.TOP
@@ -35,8 +42,39 @@ class Guide {
     // @public (read-only) {Property.<number>} i
     this.internalAngleProperty = new DerivedProperty( [ optic.focalLengthProperty, optic.diameterProperty ],
       ( focalLength, diameter ) => {
-        return Math.PI - Math.atan( diameter / ( 4 * focalLength ) ) - Math.atan( diameter / focalLength );
+        if ( optic.isConcave( optic.getCurve() ) ) {
+          return Math.atan( diameter / ( 2 * focalLength ) );
+          // return -Math.atan( diameter / ( 4 * focalLength ) ) + Math.atan( 3 * diameter / ( 4 * focalLength ) );
+        }
+        else {
+          // return 2 * Math.atan( diameter / ( 4 * focalLength ) );
+          return Math.atan( diameter / ( 2 * focalLength ) );
+        }
       } );
+  }
+
+  /**
+   * @public
+   * @returns {number}
+   */
+  getInternalAngle() {
+    return this.internalAngleProperty.value;
+  }
+
+  /**
+   * @public
+   * @returns {number}
+   */
+  getRotationAngle() {
+    return this.rotationAngleProperty.value;
+  }
+
+  /**
+   * @public
+   * @returns {Vector2}
+   */
+  getPosition() {
+    return this.fulcrumPositionProperty.value;
   }
 }
 
