@@ -28,6 +28,8 @@ class LensModel extends GeometricOpticsModel {
 
     this.topGuide = new Guide( this.sourceObject.positionProperty, this.optic );
 
+    this.bottomGuide = new Guide( this.sourceObject.positionProperty, this.optic, { location: Guide.Location.BOTTOM } );
+
     // @public {Screen}
     this.screen = new Screen( this.optic.positionProperty,
       this.optic.diameterProperty,

@@ -29,6 +29,8 @@ class LensScreenView extends GeometricOpticsScreenView {
     this.playAreaNode.insertChild( 6, lensNode );
     const topGuideNode = new GuideNode( model.topGuide, this.modelViewTransform );
     this.playAreaNode.insertChild( 7, topGuideNode );
+    const bottomGuideNode = new GuideNode( model.bottomGuide, this.modelViewTransform );
+    this.playAreaNode.insertChild( 8, bottomGuideNode );
 
     // create screen associated with light source
     // @private {ScreenNode}

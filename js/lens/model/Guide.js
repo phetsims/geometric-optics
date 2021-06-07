@@ -42,12 +42,13 @@ class Guide {
     // @public (read-only) {Property.<number>} find the internal angle between the two rectangles.
     this.internalAngleProperty = new DerivedProperty( [ optic.focalLengthProperty, optic.diameterProperty ],
       ( focalLength, diameter ) => {
+        const sign = ( config.location === Guide.Location.TOP ) ? +1 : -1;
         if ( optic.isConcave( optic.getCurve() ) ) {
-          return Math.atan( diameter / ( 2 * focalLength ) );
-          // return -Math.atan( diameter / ( 4 * focalLength ) ) + Math.atan( 3 * diameter / ( 4 * focalLength ) );
+          // return sign * Math.atan( diameter / ( 2 * focalLength ) );
+          return sign * ( -Math.atan( diameter / ( 4 * focalLength ) ) + Math.atan( 3 * diameter / ( 4 * focalLength ) ) );
         }
         else {
-          return 2 * Math.atan( diameter / ( 4 * focalLength ) );
+          return sign * 2 * Math.atan( diameter / ( 4 * focalLength ) );
         }
       } );
   }
