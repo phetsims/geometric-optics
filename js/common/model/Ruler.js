@@ -6,10 +6,10 @@
  * @author Sarah Chang, Swarthmore College
  */
 
+import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
 import geometricOptics from '../../geometricOptics.js';
-import Vector2Property from '../../../../dot/js/Vector2Property.js';
 
 class Ruler {
   /**

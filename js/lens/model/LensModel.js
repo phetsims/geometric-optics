@@ -7,9 +7,9 @@
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsModel from '../../common/model/GeometricOpticsModel.js';
 import geometricOptics from '../../geometricOptics.js';
+import Guide from './Guide.js';
 import Lens from './Lens.js';
 import Screen from './Screen.js';
-import Guide from './Guide.js';
 
 class LensModel extends GeometricOpticsModel {
 

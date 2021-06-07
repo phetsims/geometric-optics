@@ -7,10 +7,10 @@
  * @author Martin Veillette
  */
 
+import merge from '../../../../phet-core/js/merge.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import merge from '../../../../phet-core/js/merge.js';
 
 class TrackingDiskNode extends Circle {
 

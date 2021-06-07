@@ -5,13 +5,13 @@
  *
  * @author Sarah Chang, Swarthmore College
  */
+import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
+import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
+import geometricOptics from '../../geometricOptics.js';
 
 const GUIDE_FULCRUM_RADIUS = GeometricOpticsConstants.GUIDE_FULCRUM_RADIUS;
 const GUIDE_WIDTH = GeometricOpticsConstants.GUIDE_WIDTH;

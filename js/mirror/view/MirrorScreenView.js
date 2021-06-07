@@ -5,10 +5,10 @@
  */
 
 import Tandem from '../../../../tandem/js/Tandem.js';
-import MirrorNode from './MirrorNode.js';
+import GeometricOpticsScreenView from '../../common/view/GeometricOpticsScreenView.js';
 import geometricOptics from '../../geometricOptics.js';
 import MirrorModel from '../model/MirrorModel.js';
-import GeometricOpticsScreenView from '../../common/view/GeometricOpticsScreenView.js';
+import MirrorNode from './MirrorNode.js';
 
 class MirrorScreenView extends GeometricOpticsScreenView {
 

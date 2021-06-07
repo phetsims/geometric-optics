@@ -6,11 +6,11 @@
 
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsScreenView from '../../common/view/GeometricOpticsScreenView.js';
-import LensNode from './LensNode.js';
 import geometricOptics from '../../geometricOptics.js';
 import LensModel from '../model/LensModel.js';
-import ScreenNode from './ScreenNode.js';
 import GuideNode from './GuideNode.js';
+import LensNode from './LensNode.js';
+import ScreenNode from './ScreenNode.js';
 
 class LensScreenView extends GeometricOpticsScreenView {
 
