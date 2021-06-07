@@ -40,15 +40,16 @@ class Guide {
       } );
 
     // @public (read-only) {Property.<number>} find the internal angle between the two rectangles.
-    this.internalAngleProperty = new DerivedProperty( [ optic.focalLengthProperty, optic.diameterProperty ],
-      ( focalLength, diameter ) => {
-        const sign = ( config.location === Guide.Location.TOP ) ? +1 : -1;
+    this.transmittedAngleProperty = new DerivedProperty( [ optic.focalLengthProperty, optic.diameterProperty, this.incidentAngleProperty ],
+      ( focalLength, diameter, incidentAngle ) => {
+        const sign = ( config.location === Guide.Location.TOP ) ? -1 : 1;
+        const commonAngle = incidentAngle + Math.PI;
         if ( optic.isConcave( optic.getCurve() ) ) {
           // return sign * Math.atan( diameter / ( 2 * focalLength ) );
-          return sign * ( -Math.atan( diameter / ( 4 * focalLength ) ) + Math.atan( 3 * diameter / ( 4 * focalLength ) ) );
+          return commonAngle + sign * ( -Math.atan( diameter / ( 4 * focalLength ) ) + Math.atan( 3 * diameter / ( 4 * focalLength ) ) );
         }
         else {
-          return sign * 2 * Math.atan( diameter / ( 4 * focalLength ) );
+          return commonAngle + sign * 2 * Math.atan( diameter / ( 4 * focalLength ) );
         }
       } );
   }
@@ -57,8 +58,8 @@ class Guide {
    * @public
    * @returns {number}
    */
-  getInternalAngle() {
-    return this.internalAngleProperty.value;
+  getTransmittedAngle() {
+    return this.transmittedAngleProperty.value;
   }
 
   /**

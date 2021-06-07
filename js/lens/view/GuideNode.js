@@ -49,11 +49,10 @@ class GuideNode extends Node {
      * @param {Node} rectangleNode
      * @param {Vector2} viewFulcrumPosition
      * @param {number} angle
-     * @param {boolean} isOutgoing
      */
-    const setRectanglePosition = ( rectangleNode, viewFulcrumPosition, angle, isOutgoing ) => {
-      const sign = isOutgoing ? -1 : 1;
-      rectangleNode.center = Vector2.createPolar( -1 * sign * viewGuideWidth / 2, -angle ).plus( viewFulcrumPosition );
+    const setRectanglePosition = ( rectangleNode, viewFulcrumPosition, angle ) => {
+
+      rectangleNode.center = Vector2.createPolar( -1 * viewGuideWidth / 2, -angle ).plus( viewFulcrumPosition );
     };
 
 
@@ -63,9 +62,8 @@ class GuideNode extends Node {
       fulcrumCircle.center = viewFulcrumPosition;
 
       // position the rectangle
-      setRectanglePosition( incomingRectangle, viewFulcrumPosition, guide.getIncidentAngle(), false );
-      setRectanglePosition( outgoingRectangle, viewFulcrumPosition,
-        guide.getIncidentAngle() - guide.getInternalAngle(), true );
+      setRectanglePosition( incomingRectangle, viewFulcrumPosition, guide.getIncidentAngle() );
+      setRectanglePosition( outgoingRectangle, viewFulcrumPosition, guide.getTransmittedAngle() );
     } );
 
     // rotate the guide
@@ -77,26 +75,23 @@ class GuideNode extends Node {
       }
 
       // rotate the guide
-      const viewFulcrumPosition = modelViewTransform.modelToViewPosition( guide.fulcrumPositionProperty.value );
+      const viewFulcrumPosition = modelViewTransform.modelToViewPosition( guide.getPosition() );
       incomingRectangle.rotateAround( viewFulcrumPosition, -angle + oldAngle );
-      outgoingRectangle.rotateAround( viewFulcrumPosition, -angle + oldAngle );
 
       // position of the rectangle guide
-      setRectanglePosition( incomingRectangle, viewFulcrumPosition, angle, false );
-      setRectanglePosition( outgoingRectangle, viewFulcrumPosition, angle - guide.getInternalAngle(), true );
+      setRectanglePosition( incomingRectangle, viewFulcrumPosition, angle );
     } );
 
-    guide.internalAngleProperty.link( ( internalAngle, oldInternalAngle ) => {
+    guide.transmittedAngleProperty.link( ( transmittedAngle, oldTransmittedAngle ) => {
       // for first angle
-      if ( oldInternalAngle === null ) {
-        oldInternalAngle = 0;
+      if ( oldTransmittedAngle === null ) {
+        oldTransmittedAngle = 0;
       }
       const viewFulcrumPosition = modelViewTransform.modelToViewPosition( guide.getPosition() );
-      outgoingRectangle.rotateAround( viewFulcrumPosition, internalAngle - oldInternalAngle );
+      outgoingRectangle.rotateAround( viewFulcrumPosition, -transmittedAngle + oldTransmittedAngle );
 
       // position the rectangle
-      setRectanglePosition( outgoingRectangle, viewFulcrumPosition,
-        guide.getIncidentAngle() - internalAngle, true );
+      setRectanglePosition( outgoingRectangle, viewFulcrumPosition, transmittedAngle );
 
     } );
 
