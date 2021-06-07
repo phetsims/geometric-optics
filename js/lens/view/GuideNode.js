@@ -14,8 +14,8 @@ import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import geometricOptics from '../../geometricOptics.js';
 
 const GUIDE_FULCRUM_RADIUS = GeometricOpticsConstants.GUIDE_FULCRUM_RADIUS;
-const GUIDE_WIDTH = GeometricOpticsConstants.GUIDE_WIDTH;
-const GUIDE_HEIGHT = GeometricOpticsConstants.GUIDE_HEIGHT;
+const GUIDE_RECTANGLE_WIDTH = GeometricOpticsConstants.GUIDE_RECTANGLE_WIDTH;
+const GUIDE_RECTANGLE_HEIGHT = GeometricOpticsConstants.GUIDE_RECTANGLE_HEIGHT;
 
 class GuideNode extends Node {
 
@@ -34,25 +34,25 @@ class GuideNode extends Node {
 
     super();
 
-    const viewGuideWidth = modelViewTransform.modelToViewDeltaX( GUIDE_WIDTH );
-    const viewGuideHeight = -1 * modelViewTransform.modelToViewDeltaY( GUIDE_HEIGHT );
+    const viewRectangleWidth = modelViewTransform.modelToViewDeltaX( GUIDE_RECTANGLE_WIDTH );
+    const viewRectangleHeight = -1 * modelViewTransform.modelToViewDeltaY( GUIDE_RECTANGLE_HEIGHT );
 
     // create fulcrum circle
     const fulcrumCircle = new Circle( GUIDE_FULCRUM_RADIUS, options );
 
-    // create guide rectangle pointing to the object
-    const incomingRectangle = new Rectangle( fulcrumCircle.x, fulcrumCircle.y - viewGuideHeight / 2, viewGuideWidth, viewGuideHeight, options );
-    const outgoingRectangle = new Rectangle( fulcrumCircle.x, fulcrumCircle.y - viewGuideHeight / 2, viewGuideWidth, viewGuideHeight, options );
+    // create rectangle pointing to the object
+    const incidentRectangle = new Rectangle( fulcrumCircle.x, fulcrumCircle.y - viewRectangleHeight / 2, viewRectangleWidth, viewRectangleHeight, options );
+    const transmittedRectangle = new Rectangle( fulcrumCircle.x, fulcrumCircle.y - viewRectangleHeight / 2, viewRectangleWidth, viewRectangleHeight, options );
 
     /**
-     * set the position of the guide rectangle such that its right end center is on the fulcrum point.
+     * set the position of the rectangle such that its right end center is on the fulcrum point.
      * @param {Node} rectangleNode
      * @param {Vector2} viewFulcrumPosition
      * @param {number} angle
      */
     const setRectanglePosition = ( rectangleNode, viewFulcrumPosition, angle ) => {
 
-      rectangleNode.center = Vector2.createPolar( -1 * viewGuideWidth / 2, -angle ).plus( viewFulcrumPosition );
+      rectangleNode.center = Vector2.createPolar( -1 * viewRectangleWidth / 2, -angle ).plus( viewFulcrumPosition );
     };
 
 
@@ -62,42 +62,44 @@ class GuideNode extends Node {
       fulcrumCircle.center = viewFulcrumPosition;
 
       // position the rectangle
-      setRectanglePosition( incomingRectangle, viewFulcrumPosition, guide.getIncidentAngle() );
-      setRectanglePosition( outgoingRectangle, viewFulcrumPosition, guide.getTransmittedAngle() );
+      setRectanglePosition( incidentRectangle, viewFulcrumPosition, guide.getIncidentAngle() );
+      setRectanglePosition( transmittedRectangle, viewFulcrumPosition, guide.getTransmittedAngle() );
     } );
 
-    // rotate the guide
-    guide.incidentAngleProperty.link( ( angle, oldAngle ) => {
+    /**
+     * Set the angle and position of a rectangle around the fulcrum
+     * @param {number} angle - current angle of rectangle
+     * @param {number} oldAngle - previous angle of rectangle
+     * @param {Rectangle} rectangle - incident or transmitted rectangle to be rotated and positioned
+     */
+    const setAnglePosition = ( angle, oldAngle, rectangle ) => {
 
       // for first angle
       if ( oldAngle === null ) {
         oldAngle = 0;
       }
 
-      // rotate the guide
+      // rotate the rectangle
       const viewFulcrumPosition = modelViewTransform.modelToViewPosition( guide.getPosition() );
-      incomingRectangle.rotateAround( viewFulcrumPosition, -angle + oldAngle );
+      rectangle.rotateAround( viewFulcrumPosition, -angle + oldAngle );
 
-      // position of the rectangle guide
-      setRectanglePosition( incomingRectangle, viewFulcrumPosition, angle );
+      // position of the rectangle
+      setRectanglePosition( rectangle, viewFulcrumPosition, angle );
+    };
+
+    // update position and angle of incident rectangle
+    guide.incidentAngleProperty.link( ( angle, oldAngle ) => {
+      setAnglePosition( angle, oldAngle, incidentRectangle );
     } );
 
+    // update position and angle of transmitted rectangle
     guide.transmittedAngleProperty.link( ( transmittedAngle, oldTransmittedAngle ) => {
-      // for first angle
-      if ( oldTransmittedAngle === null ) {
-        oldTransmittedAngle = 0;
-      }
-      const viewFulcrumPosition = modelViewTransform.modelToViewPosition( guide.getPosition() );
-      outgoingRectangle.rotateAround( viewFulcrumPosition, -transmittedAngle + oldTransmittedAngle );
-
-      // position the rectangle
-      setRectanglePosition( outgoingRectangle, viewFulcrumPosition, transmittedAngle );
-
+      setAnglePosition( transmittedAngle, oldTransmittedAngle, transmittedRectangle );
     } );
 
     // add to scene graph
-    this.addChild( incomingRectangle );
-    this.addChild( outgoingRectangle );
+    this.addChild( incidentRectangle );
+    this.addChild( transmittedRectangle );
     this.addChild( fulcrumCircle );
   }
 }
