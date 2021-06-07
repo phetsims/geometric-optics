@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Model element of screen. A target screen has a position, a screen shape and two spotlights.
+ * Model element of projector screen. A target screen has a position, a screen shape and two spotlights.
  *
  * @author Martin Veillette
  */
@@ -16,7 +16,7 @@ import Spotlight from './Spotlight.js';
 
 const MASK_CORNERS = GeometricOpticsConstants.MASK_CORNERS;
 
-class Screen {
+class ProjectorScreen {
 
   /**
    * @param {Property.<Vector2>} opticPositionProperty
@@ -87,5 +87,5 @@ class Screen {
   }
 }
 
-geometricOptics.register( 'Screen', Screen );
-export default Screen;
+geometricOptics.register( 'ProjectorScreen', ProjectorScreen );
+export default ProjectorScreen;

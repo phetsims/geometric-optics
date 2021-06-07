@@ -10,7 +10,7 @@ import geometricOptics from '../../geometricOptics.js';
 import LensModel from '../model/LensModel.js';
 import GuideNode from './GuideNode.js';
 import LensNode from './LensNode.js';
-import ScreenNode from './ScreenNode.js';
+import ProjectorScreenNode from './ProjectorScreenNode.js';
 
 class LensScreenView extends GeometricOpticsScreenView {
 
@@ -33,8 +33,8 @@ class LensScreenView extends GeometricOpticsScreenView {
     this.playAreaNode.insertChild( 8, bottomGuideNode );
 
     // create screen associated with light source
-    // @private {ScreenNode}
-    this.screenNode = new ScreenNode( model.screen,
+    // @private {ProjectorScreenNode}
+    this.screenNode = new ProjectorScreenNode( model.screen,
       model.representationProperty,
       this.visibleProperties.visibleMovablePointProperty,
       this.modelViewTransform, tandem );

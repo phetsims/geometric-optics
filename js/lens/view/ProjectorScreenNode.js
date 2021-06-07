@@ -20,7 +20,7 @@ import geometricOptics from '../../geometricOptics.js';
 
 const SPOTLIGHT_FILL = GeometricOpticsColorProfile.screenSpotlightFillProperty;
 
-class ScreenNode extends Node {
+class ProjectorScreenNode extends Node {
 
   /**
    * @param {Screen} screen
@@ -123,5 +123,5 @@ class ScreenNode extends Node {
   }
 }
 
-geometricOptics.register( 'ScreenNode', ScreenNode );
-export default ScreenNode;
+geometricOptics.register( 'ProjectorScreenNode', ProjectorScreenNode );
+export default ProjectorScreenNode;
