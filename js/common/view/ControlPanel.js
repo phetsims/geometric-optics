@@ -24,7 +24,6 @@ import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import LightRayMode from '../model/LightRayMode.js';
-import Optic from '../model/Optic.js';
 
 const metersPattern = geometricOpticsStrings.metersPattern;
 const noneString = geometricOpticsStrings.none;
@@ -34,8 +33,6 @@ const principalString = geometricOpticsStrings.principal;
 const curvatureRadiusString = geometricOpticsStrings.curvatureRadius;
 const diameterString = geometricOpticsStrings.diameter;
 const refractiveIndexString = geometricOpticsStrings.refractiveIndex;
-const concaveString = geometricOpticsStrings.concave;
-const convexString = geometricOpticsStrings.convex;
 const focalPointString = geometricOpticsStrings.focalPoint;
 const rulersString = geometricOpticsStrings.rulers;
 const virtualImageString = geometricOpticsStrings.virtualImage;
@@ -65,13 +62,6 @@ class ControlPanel extends Panel {
       { value: LightRayMode.PRINCIPAL_RAYS, node: new Text( principalString ) },
       { value: LightRayMode.MANY_RAYS, node: new Text( manyString ) },
       { value: LightRayMode.NO_RAYS, node: new Text( noneString ) }
-    ];
-
-    // items for the type of curve for optical element
-    const Curve = Optic.Curve;
-    const curvatureTypesRadioButtonGroupItems = [
-      { value: Curve.CONCAVE, node: new Text( concaveString ) },
-      { value: Curve.CONVEX, node: new Text( convexString ) }
     ];
 
     // options for number controls that have length units
@@ -187,26 +177,13 @@ class ControlPanel extends Panel {
 
     const separator = new Line( 0, 10, 0, 100, { stroke: 'gray', lineWidth: 1 } );
 
-    // create radio button group for the type of curve (Convex and concave)
-    const curvatureTypesRadioButtonGroup = new VerticalAquaRadioButtonGroup(
-      optic.curveProperty,
-      curvatureTypesRadioButtonGroupItems, {
-        spacing: 8,
-        align: 'left',
-        radioButtonOptions: {
-          radius: 7
-        },
-        touchAreaXDilation: 10,
-        mouseAreaXDilation: 10
-      } );
-
     // add all elements of the panel in a horizontal HBox
     const content = new AlignBox( new HBox( {
       spacing: 8,
       align: 'left',
       children: [ rayModeRadioButtonGroup,
         separator, ...controls,
-        curvatureTypesRadioButtonGroup, checkboxGroup ]
+        checkboxGroup ]
     } ), {
       xAlign: 'left'
     } );
