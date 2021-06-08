@@ -15,11 +15,25 @@ import geometricOptics from '../../geometricOptics.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 
+const RADIUS_OF_CURVATURE = 30; // in view coordinates
+const DIAMETER = 50; // in view coordinates
+const FILL = 'rgb(133,153,197)';
+const STROKE = 'white';
+const THICKNESS = 5; // thickness of mirror
+
 class CurveControl extends RectangularRadioButtonGroup {
+
+  /**
+   *
+   * @param {Enumeration.<Optic.Curve>} curveProperty
+   * @param {Optic} optic
+   * @param {Object} [options]
+   */
   constructor( curveProperty, optic, options ) {
+
     options = merge( {
       spacing: 5, // vertical separation of the buttons
-      cornerRadius: 10,
+      cornerRadius: 5,
       baseColor: 'rgba(0,0,0,0)',
       buttonContentXMargin: 20,
       buttonContentYMargin: 5,
@@ -36,12 +50,16 @@ class CurveControl extends RectangularRadioButtonGroup {
      * @returns {Node} iconNode
      */
     const createIconNode = curve => {
-      const iconShapes = optic.getFillAndOutlineShapes( new Vector2( 0, 0 ), 30, 50, curve, { thickness: 5 } );
 
+      // create icon shapes {fillShape, outlineShape}
+      const iconShapes = optic.getFillAndOutlineShapes( new Vector2( 0, 0 ), RADIUS_OF_CURVATURE, DIAMETER, curve, { thickness: THICKNESS } );
+
+      // create node to layout the paths for the icon
       const iconNode = new Node();
-      const iconFillNode = new Path( iconShapes.fillShape, { fill: 'rgb(133,153,197)' } );
-      const iconOutlineNode = new Path( iconShapes.outlineShape, { stroke: 'white' } );
+      const iconFillNode = new Path( iconShapes.fillShape, { fill: FILL } );
+      const iconOutlineNode = new Path( iconShapes.outlineShape, { stroke: STROKE } );
 
+      // adding the paths to the icon node
       iconNode.setChildren( [ iconFillNode, iconOutlineNode ] );
 
       return iconNode;
