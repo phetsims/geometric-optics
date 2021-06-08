@@ -136,7 +136,13 @@ class TargetImage {
    * @returns {number}
    */
   getMagnification( objectPosition, opticPosition, focalLength ) {
-    return -1 * this.getImageOpticDistance() / this.getObjectOpticDistance( objectPosition, opticPosition );
+    const objectOpticDistance = this.getObjectOpticDistance( objectPosition, opticPosition );
+    if ( objectOpticDistance === 0 ) {
+      return 10e6;
+    }
+    else {
+      return -1 * this.getImageOpticDistance() / this.getObjectOpticDistance( objectPosition, opticPosition );
+    }
   }
 
   /**
