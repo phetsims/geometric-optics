@@ -16,7 +16,7 @@ const GeometricOpticsColorProfile = new ColorProfile( [ 'default' ], {
   //                                SCREEN
 
   screenBackgroundColor: {
-    default: 'rgb(38, 0, 163)' // dark blue
+    default: 'rgb(27,27,96)' // dark blue
   },
 
   //--------------------------------------------------------------------------

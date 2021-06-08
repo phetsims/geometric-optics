@@ -9,6 +9,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Shape from '../../../../kite/js/Shape.js';
+import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import Optic from '../../common/model/Optic.js';
@@ -59,16 +60,20 @@ class Mirror extends Optic {
    * @param {number} radius
    * @param {number} diameter
    * @param {Optic.Curve} curve
+   * @param {Object} [options]
    * @returns {fillShape: <Shape>,outlineShape: <Shape>};
    * @public
    */
-  getFillAndOutlineShapes( position, radius, diameter, curve ) {
+  getFillAndOutlineShapes( position, radius, diameter, curve, options ) {
+
+    options = merge( {
+      thickness: 0.05 // thickness of mirror
+    }, options );
 
     // convenience variables
     const halfHeight = diameter / 2;
     const halfWidth = radius - Math.sqrt( radius * radius - halfHeight * halfHeight );
-    const thickness = 0.05;
-    const verticalOffset = 2 * thickness * halfWidth / halfHeight;
+    const verticalOffset = 2 * options.thickness * halfWidth / halfHeight;
 
     const shapes = {};
 
@@ -81,8 +86,8 @@ class Mirror extends Optic {
       shapes.fillShape = new Shape()
         .moveToPoint( top )
         .quadraticCurveToPoint( left, bottom )
-        .lineToPoint( bottom.plusXY( thickness, verticalOffset ) )
-        .quadraticCurveToPoint( left.plusXY( thickness, 0 ), top.plusXY( thickness, -verticalOffset ) )
+        .lineToPoint( bottom.plusXY( options.thickness, verticalOffset ) )
+        .quadraticCurveToPoint( left.plusXY( options.thickness, 0 ), top.plusXY( options.thickness, -verticalOffset ) )
         .close();
 
       shapes.outlineShape = new Shape()
@@ -100,8 +105,8 @@ class Mirror extends Optic {
       shapes.fillShape = new Shape()
         .moveToPoint( topLeft )
         .quadraticCurveToPoint( midLeft, bottomLeft )
-        .lineToPoint( bottomLeft.plusXY( thickness, -verticalOffset ) )
-        .quadraticCurveToPoint( midLeft.plusXY( thickness, 0 ), topLeft.plusXY( thickness, verticalOffset ) )
+        .lineToPoint( bottomLeft.plusXY( options.thickness, -verticalOffset ) )
+        .quadraticCurveToPoint( midLeft.plusXY( options.thickness, 0 ), topLeft.plusXY( options.thickness, verticalOffset ) )
         .close();
 
       shapes.outlineShape = new Shape()

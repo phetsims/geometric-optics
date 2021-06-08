@@ -28,6 +28,7 @@ import SourceObjectNode from './SourceObjectNode.js';
 import TargetImageNode from './TargetImageNode.js';
 import TrackingDiskNode from './TrackingDiskNode.js';
 import VisibleProperties from './VisibleProperties.js';
+import CurveControl from './CurveControl.js';
 
 const ZOOM_DEFAULT = GeometricOpticsConstants.ZOOM_RANGE.defaultValue;
 const ZOOM_SCALE_FACTOR = GeometricOpticsConstants.ZOOM_SCALE_FACTOR;
@@ -89,6 +90,10 @@ class GeometricOpticsScreenView extends ScreenView {
       { hasLens: model.optic.isLens() } );
     this.addChild( controlPanel );
     controlPanel.centerBottom = ScreenView.DEFAULT_LAYOUT_BOUNDS.eroded( GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN ).centerBottom;
+
+    const curveControl = new CurveControl( model.optic.curveProperty, model.optic );
+    this.addChild( curveControl );
+    curveControl.leftBottom = ScreenView.DEFAULT_LAYOUT_BOUNDS.eroded( GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN ).leftBottom;
 
     // layer for all the nodes within the play area
     this.playAreaNode = new Node();
