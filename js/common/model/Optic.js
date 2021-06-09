@@ -90,29 +90,6 @@ class Optic {
   }
 
   /**
-   * Returns the position of the first focal point
-   * the first focal point is a focal length away of the optical element. It is to the
-   * right of the optical element for a convex optical element.
-   * but to the left for a concave optical element.
-   * @public
-   * @returns {Vector2}
-   */
-  getFirstFocalPointPosition() {
-    return this.getPosition().plusXY(
-      this.getCurveSign( this.getCurve() ) * this.getFocalLength(), 0 );
-  }
-
-  /**
-   * returns the position of the second focal point
-   * @public
-   * @returns {Vector2}
-   */
-  getSecondFocalPointPosition() {
-    return this.getPosition().minusXY(
-      this.getCurveSign( this.getCurve() ) * this.getFocalLength(), 0 );
-  }
-
-  /**
    * sets the y position of the optical element while keeping the x-coordinate constant
    * @public
    * @param {number} yCoordinate
