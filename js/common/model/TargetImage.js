@@ -160,28 +160,6 @@ class TargetImage {
   }
 
   /**
-   * returns the position of the image
-   * @param {Vector2} objectPosition
-   * @param {Vector2} opticPosition
-   * @param {number} focalLength
-   * @returns {Vector2}
-   * @public
-   */
-  getPosition( objectPosition, opticPosition, focalLength ) {
-
-    // height of the object, measured from the optical axis
-    const height = this.getHeight( objectPosition, opticPosition, focalLength );
-
-    // horizontal distance between image and optic.
-    const imageOpticDistance = this.getImageOpticDistance();
-
-    // recall that the meaning of imageOpticDistance is different for a lens and mirror.
-    const horizontalDisplacement = this.optic.getTypeSign() * imageOpticDistance;
-
-    return opticPosition.plusXY( horizontalDisplacement, height );
-  }
-
-  /**
    * Returns the horizontal distance of the image from the optic.
    * Calculated based on the thin lens law/ mirror equation.
    * For a lens, a positive distance, indicates that the image is on the opposite of object (wrt to the lens)
@@ -211,6 +189,28 @@ class TargetImage {
    */
   isUpright() {
     return !this.isInverted();
+  }
+
+  /**
+   * returns the position of the image
+   * @param {Vector2} objectPosition
+   * @param {Vector2} opticPosition
+   * @param {number} focalLength
+   * @returns {Vector2}
+   * @public
+   */
+  getPosition( objectPosition, opticPosition, focalLength ) {
+
+    // height of the object, measured from the optical axis
+    const height = this.getHeight( objectPosition, opticPosition, focalLength );
+
+    // horizontal distance between image and optic.
+    const imageOpticDistance = this.getImageOpticDistance();
+
+    // recall that the meaning of imageOpticDistance is different for a lens and mirror.
+    const horizontalDisplacement = this.optic.getTypeSign() * imageOpticDistance;
+
+    return opticPosition.plusXY( horizontalDisplacement, height );
   }
 
   /**

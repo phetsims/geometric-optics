@@ -22,10 +22,11 @@ class GuideNode extends Node {
   /**
    *
    * @param {Guide} guide
+   * @param {Property.<boolean>} visibleProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( guide, modelViewTransform, options ) {
+  constructor( guide, visibleProperty, modelViewTransform, options ) {
 
     options = merge( {
       rectangle: {
@@ -106,6 +107,10 @@ class GuideNode extends Node {
     this.addChild( incidentRectangle );
     this.addChild( transmittedRectangle );
     this.addChild( fulcrumCircle );
+
+    // update guides visibility based on checkbox
+    visibleProperty.linkAttribute( this, 'visible' );
+
   }
 }
 
