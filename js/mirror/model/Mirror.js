@@ -65,10 +65,12 @@ class Mirror extends Optic {
    * @param {number} diameter - vertical height of the mirror
    * @param {Optic.Curve} curve
    * @param {Object} [options]
-   * @returns {fillShape: <Shape>,outlineShape: <Shape>}
+   * @returns {{fillShape: <Shape>,outlineShape: <Shape>}}
    * @public
    */
   getFillAndOutlineShapes( position, radius, diameter, curve, options ) {
+
+    assert && assert( radius > diameter / 2, 'the radius of curvature is too small when compared to the diameter' );
 
     options = merge( {
       thickness: 0.05 // horizontal separation between the two edges of the surfaces at the middle part

@@ -70,63 +70,73 @@ class Lens extends Optic {
   }
 
   /**
-   * Returns the shape of a mirror.
-   * The center point of the mirror is 'position'
+   * Returns the shapes of a lens. In the case of a lens, the outline and fills shape are identical.
+   *
+   * The lens shape is approximated as a parabolic lens.
+   * The radius of curvature of the lens does not match the value of radius but is instead "hollywooded".
+   * This gives the flexibility to draw lenses with radius of curvature that is larger than diameter/2, a physical impossibility.
+   * The center point of the lens is 'position'
    * @param {Vector2} position
-   * @param {number} radius
-   * @param {number} diameter
+   * @param {number} radius - radius of curvature
+   * @param {number} diameter - height of the lens
    * @param {Optic.Curve} curve
-   * @returns {fillShape: <Shape>,outlineShape: <Shape>};
+   * @returns {{fillShape: <Shape>,outlineShape: <Shape>}}
    * @public
    */
   getFillAndOutlineShapes( position, radius, diameter, curve ) {
 
     const halfHeight = diameter / 2;
 
-    // the width of the lens changes with the radius of curvature
+    // the width of the lens changes with the radius of curvature: hollywood
+    // physically correct:   halfWidth = radius - Math.sqrt( radius^2 - halfHeight^2)
     const halfWidth = 1 / 2 * halfHeight * halfHeight / ( radius + 1 );
 
-    const shapes = {};
+    // {Shape} shape of lens
+    let shape;
 
     if ( this.isConvex( curve ) ) {
+
+      // two extrema points of the lens
       const top = position.plusXY( 0, halfHeight );
       const bottom = position.plusXY( 0, -halfHeight );
+
+      // two control points on the optical axis, note that the shape does not go through these points
+      // The shape will go through the two points: position.plusXY(  -halfWidth, 0 )  and position.plusXY(  halfWidth, 0 )
       const left = position.plusXY( -2 * halfWidth, 0 );
       const right = position.plusXY( 2 * halfWidth, 0 );
 
       // shape of convex lens
-      shapes.fillShape = new Shape()
+      shape = new Shape()
         .moveToPoint( top )
         .quadraticCurveToPoint( left, bottom )
         .quadraticCurveToPoint( right, top )
         .close();
-
-      // straight vertical middle line
-      shapes.outlineShape = shapes.fillShape;
-
     }
     else {
       const midWidth = 1 / 2 * halfHeight * halfHeight / ( radius + 1 );
+
+      // four corners of the concave shape
       const topLeft = position.plusXY( -halfWidth, halfHeight );
       const topRight = position.plusXY( halfWidth, halfHeight );
       const bottomLeft = position.plusXY( -halfWidth, -halfHeight );
       const bottomRight = position.plusXY( halfWidth, -halfHeight );
+
+      // control points
       const midLeft = position.plusXY( midWidth / 2, 0 );
       const midRight = position.plusXY( -midWidth / 2, 0 );
 
       // shape of concave lens
-      shapes.fillShape = new Shape()
+      shape = new Shape()
         .moveToPoint( topLeft )
         .lineToPoint( topRight )
         .quadraticCurveToPoint( midRight, bottomRight )
         .lineToPoint( bottomLeft )
         .quadraticCurveToPoint( midLeft, topLeft )
         .close();
-
-      // straight vertical middle line
-      shapes.outlineShape = shapes.fillShape;
     }
-    return shapes;
+
+    // the outline shape is the same as the fill shape for a lens
+    return { fillShape: shape, outlineShape: shape };
   }
 
 }
