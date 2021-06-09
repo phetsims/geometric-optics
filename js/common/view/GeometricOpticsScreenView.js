@@ -19,6 +19,7 @@ import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js
 import FocalPoint from '../model/FocalPoint.js';
 import GeometricOpticsModel from '../model/GeometricOpticsModel.js';
 import ControlPanel from './ControlPanel.js';
+import CurveControl from './CurveControl.js';
 import FocalPointNode from './FocalPointNode.js';
 import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
 import LightRaysNode from './LightRaysNode.js';
@@ -28,7 +29,6 @@ import SourceObjectNode from './SourceObjectNode.js';
 import TargetImageNode from './TargetImageNode.js';
 import TrackingDiskNode from './TrackingDiskNode.js';
 import VisibleProperties from './VisibleProperties.js';
-import CurveControl from './CurveControl.js';
 
 const ZOOM_DEFAULT = GeometricOpticsConstants.ZOOM_RANGE.defaultValue;
 const ZOOM_SCALE_FACTOR = GeometricOpticsConstants.ZOOM_SCALE_FACTOR;
@@ -47,7 +47,7 @@ class GeometricOpticsScreenView extends ScreenView {
       tandem: tandem
     } );
 
-    const centerPoint = ScreenView.DEFAULT_LAYOUT_BOUNDS.getCenter();
+    const centerPoint = this.layoutBounds.getCenter();
 
     this.modelViewTransform = ModelViewTransform2.createOffsetXYScaleMapping( centerPoint, 200, -200 );
 
