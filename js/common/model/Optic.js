@@ -113,6 +113,15 @@ class Optic {
   }
 
   /**
+   * sets the y position of the optical element while keeping the x-coordinate constant
+   * @public
+   * @param {number} yCoordinate
+   */
+  setVerticalCoordinate( yCoordinate ) {
+    this.positionProperty.value = new Vector2( this.positionProperty.value.x, yCoordinate );
+  }
+
+  /**
    * Returns a boolean indicating if the optical element is a lens
    * @public
    * @returns {boolean}

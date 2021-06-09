@@ -6,6 +6,7 @@
  * @author Martin Veillette
  */
 
+import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -25,13 +26,20 @@ class OpticNode extends Node {
 
     super( options );
 
+    // position (in model coordinate) for the drag listener.
+    const positionProperty = new Vector2Property( optic.positionProperty.value );
+
     // create a drag listener on the fill of the opticalElement
     const dragListener = new DragListener(
       {
-        positionProperty: optic.positionProperty,
+        positionProperty: positionProperty,
         transform: modelViewTransform,
         applyOffset: false
       } );
+
+    positionProperty.link( position => {
+      optic.setVerticalCoordinate( position.y );
+    } );
 
     // create the path of the optic
     // @protected {Path}
