@@ -1,8 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Model element of the lens
- * Responsible for the index of refraction, radius of curvature and diameter the lens
+ * Model element of a movable parabolic mirror with radius of curvature and diameter.
+ * Its focal length and shape are determined
  *
  * @author Martin Veillette
  */
@@ -16,10 +16,10 @@ import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import Optic from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 
+const INITIAL_POSITION = GeometricOpticsConstants.MIRROR_INITIAL_POSITION;
 const RADIUS_OF_CURVATURE_RANGE = GeometricOpticsConstants.MIRROR_RADIUS_OF_CURVATURE_RANGE;
 const DIAMETER_RANGE = GeometricOpticsConstants.MIRROR_DIAMETER_RANGE;
 const INITIAL_CURVATURE_TYPE = GeometricOpticsConstants.MIRROR_INITIAL_CURVATURE_TYPE;
-const INITIAL_POSITION = GeometricOpticsConstants.MIRROR_INITIAL_POSITION;
 
 class Mirror extends Optic {
 
@@ -41,9 +41,7 @@ class Mirror extends Optic {
         // curveSign is +1 for convex and -1 for concave
         const curveSign = this.getCurveSign( curve );
         return -curveSign * radiusOfCurvature / 2;
-      }
-    );
-
+      } );
   }
 
   /**
@@ -55,15 +53,19 @@ class Mirror extends Optic {
   }
 
   /**
-   * Returns the shape of a mirror.
+   * Returns the shape of a parabolic mirror.
+   * The shape is designed as a "first surface mirror".
+   * The returned object contains an outline shape, representing the reflecting coating,
+   * and a fill shape representing the base backing of the mirror.
    * The center point of the mirror is 'position'
+   * The shapes are drawn using quadratic Bezier curves.
    *
    * @param {Vector2} position
-   * @param {number} radius
-   * @param {number} diameter
+   * @param {number} radius - radius of curvature at the center of the mirror
+   * @param {number} diameter - vertical height of the mirror
    * @param {Optic.Curve} curve
    * @param {Object} [options]
-   * @returns {fillShape: <Shape>,outlineShape: <Shape>};
+   * @returns {fillShape: <Shape>,outlineShape: <Shape>}
    * @public
    */
   getFillAndOutlineShapes( position, radius, diameter, curve, options ) {
@@ -72,76 +74,49 @@ class Mirror extends Optic {
       thickness: 0.05 // horizontal separation between the two edges of the surfaces at the middle part
     }, options );
 
-    //TODO: abstract some of the shapes
-
-    // convenience variables
+    // convenience variable
     const halfHeight = diameter / 2;
 
-    // half of the width of the shape along the x -axis
+    // half of the width of the outline shape of the mirror along the x -axis
     const halfWidth = radius - Math.sqrt( radius * radius - halfHeight * halfHeight );
 
-    // vector offset between the two corners of the shape
+    // top and bottom surfaces must be tilted to generate right angle corners
     const angle = Math.atan( halfHeight / radius );
-    const sign = ( curve === Optic.Curve.CONCAVE ) ? +1 : -1;
-    const offsetTopVector = Vector2.createPolar( options.thickness, angle * sign );
-    const offsetBottomVector = Vector2.createPolar( options.thickness, -angle * sign );
 
-    const shapes = {};
+    // curveSign is +1 for convex and -1 for concave
+    const curveSign = this.getCurveSign( curve );
 
-    if ( this.isConvex( curve ) ) {
+    // vector offset between the two corners of the shape
+    const offsetTopVector = Vector2.createPolar( options.thickness, -curveSign * angle );
+    const offsetBottomVector = Vector2.createPolar( options.thickness, curveSign * angle );
 
-      // top left of the shape
-      const top = position.plusXY( halfWidth, halfHeight );
+    // four corners of the mirror shape
+    const topLeft = position.plusXY( curveSign * halfWidth, halfHeight );
+    const topRight = topLeft.plus( offsetTopVector );
+    const bottomLeft = position.plusXY( curveSign * halfWidth, -halfHeight );
+    const bottomRight = bottomLeft.plus( offsetBottomVector );
 
-      // bottom left of the shape
-      const bottom = position.plusXY( halfWidth, -halfHeight );
+    // control points: Note that the curve will not go through the control points.
+    // rather, it will go through the two following points: position and position.plusXY( options.thickness, 0 )
+    const midLeft = position.plusXY( -curveSign * halfWidth, 0 );
+    const midRight = midLeft.plusXY( options.thickness, 0 );
 
-      // control point - the shape will not go through this point
-      const left = position.plusXY( -halfWidth, 0 );
-
-      shapes.fillShape = new Shape()
-        .moveToPoint( top )
-        .quadraticCurveToPoint( left, bottom ) //
-        .lineToPoint( bottom.plus( offsetBottomVector ) )
-        .quadraticCurveToPoint( left.plusXY( options.thickness, 0 ), top.plus( offsetTopVector ) )
-        .close();
-
-      shapes.outlineShape = new Shape()
-        .moveToPoint( top )
-        .quadraticCurveToPoint( left, bottom )
-        .quadraticCurveToPoint( left, top );
-
-    }
-    else {
-      // concave shape
-
-      // position of the shape
-      const topLeft = position.plusXY( -halfWidth, halfHeight );
-      const bottomLeft = position.plusXY( -halfWidth, -halfHeight );
-      const bottomRight = bottomLeft.plus( offsetBottomVector );
-      const topRight = topLeft.plus( offsetTopVector );
-
-      // control points
-      const midLeft = position.plusXY( halfWidth, 0 );
-      const midRight = midLeft.plusXY( options.thickness, 0 );
-
-      shapes.fillShape = new Shape()
+    // shapes drawn from top to bottom in counterclockwise fashion.
+    const shapes = {
+      fillShape: new Shape()
         .moveToPoint( topLeft )
         .quadraticCurveToPoint( midLeft, bottomLeft )
         .lineToPoint( bottomRight )
         .quadraticCurveToPoint( midRight, topRight )
-        .close();
-
-      shapes.outlineShape = new Shape()
+        .close(),
+      outlineShape: new Shape()
         .moveToPoint( topLeft )
         .quadraticCurveToPoint( midLeft, bottomLeft )
-        .quadraticCurveToPoint( midLeft, topLeft );
-    }
+        .quadraticCurveToPoint( midLeft, topLeft )
+    };
 
     return shapes;
   }
-
-
 }
 
 geometricOptics.register( 'Mirror', Mirror );
