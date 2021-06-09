@@ -41,25 +41,30 @@ class GuideNode extends Node {
 
     super();
 
+    // width and height of the guide rectangles
     const viewRectangleWidth = modelViewTransform.modelToViewDeltaX( GUIDE_RECTANGLE_WIDTH );
-    const viewRectangleHeight = -1 * modelViewTransform.modelToViewDeltaY( GUIDE_RECTANGLE_HEIGHT );
+    const viewRectangleHeight = Math.abs( modelViewTransform.modelToViewDeltaY( GUIDE_RECTANGLE_HEIGHT ) );
 
     // create fulcrum circle
     const fulcrumCircle = new Circle( GUIDE_FULCRUM_RADIUS, options.circle );
 
-    // create rectangle pointing to the object
+    // create two rectangles, with left center side laying on fulcrum circle (initially)
     const incidentRectangle = new Rectangle( fulcrumCircle.x, fulcrumCircle.y - viewRectangleHeight / 2, viewRectangleWidth, viewRectangleHeight, options.rectangle );
     const transmittedRectangle = new Rectangle( fulcrumCircle.x, fulcrumCircle.y - viewRectangleHeight / 2, viewRectangleWidth, viewRectangleHeight, options.rectangle );
 
     /**
-     * set the position of the rectangle such that its right end center is on the fulcrum point.
+     * set the position of the rectangle such that its left center is on the fulcrum point.
      * @param {Node} rectangleNode
      * @param {Vector2} viewFulcrumPosition
-     * @param {number} angle
+     * @param {number} angle - "model" angle of the rectangle, measured from the positive x -axis
      */
     const setRectanglePosition = ( rectangleNode, viewFulcrumPosition, angle ) => {
 
-      rectangleNode.center = Vector2.createPolar( -1 * viewRectangleWidth / 2, -angle ).plus( viewFulcrumPosition );
+      // y-inverted modelViewTransform
+      const viewAngle = -angle;
+
+      // center of the rectangle is offset from the fulcrum point
+      rectangleNode.center = Vector2.createPolar( viewRectangleWidth / 2, viewAngle ).plus( viewFulcrumPosition );
     };
 
     // update the position of the fulcrum
@@ -67,15 +72,15 @@ class GuideNode extends Node {
       const viewFulcrumPosition = modelViewTransform.modelToViewPosition( position );
       fulcrumCircle.center = viewFulcrumPosition;
 
-      // position the rectangle
+      // position the rectangles
       setRectanglePosition( incidentRectangle, viewFulcrumPosition, guide.getIncidentAngle() );
       setRectanglePosition( transmittedRectangle, viewFulcrumPosition, guide.getTransmittedAngle() );
     } );
 
     /**
      * Set the angle and position of a rectangle around the fulcrum
-     * @param {number} angle - current angle of rectangle
-     * @param {number} oldAngle - previous angle of rectangle
+     * @param {number} angle - current "model" angle
+     * @param {number} oldAngle - previous "model" angle
      * @param {Rectangle} rectangle - incident or transmitted rectangle to be rotated and positioned
      */
     const setAnglePosition = ( angle, oldAngle, rectangle ) => {
@@ -87,6 +92,9 @@ class GuideNode extends Node {
 
       // rotate the rectangle
       const viewFulcrumPosition = modelViewTransform.modelToViewPosition( guide.getPosition() );
+
+      // the model view transform is Y-inverted
+      // therefore a counterclockwise rotation in the model is clockwise is the view
       rectangle.rotateAround( viewFulcrumPosition, -angle + oldAngle );
 
       // position of the rectangle
