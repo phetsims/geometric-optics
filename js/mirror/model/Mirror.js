@@ -73,7 +73,7 @@ class Mirror extends Optic {
     assert && assert( radius > diameter / 2, 'the radius of curvature is too small when compared to the diameter' );
 
     options = merge( {
-      thickness: 0.05 // horizontal separation between the two edges of the surfaces at the middle part
+      thickness: 0.50 // horizontal separation between the two edges of the surfaces at the middle part
     }, options );
 
     // convenience variable
@@ -88,7 +88,8 @@ class Mirror extends Optic {
     // curveSign is +1 for convex and -1 for concave
     const curveSign = this.getCurveSign( curve );
 
-    // vector offset between the two corners of the shape
+    // vector offset between the two top corners and bottom corners of the shape
+    // with a magnitude of option.thickness
     const offsetTopVector = Vector2.createPolar( options.thickness, -curveSign * angle );
     const offsetBottomVector = Vector2.createPolar( options.thickness, curveSign * angle );
 
