@@ -3,7 +3,7 @@
 /**
  * View for optical axis
  *
- * @author Sarah Chang, Swarthmore College
+ * @author Sarah Chang (Swarthmore College)
  */
 
 import Line from '../../../../scenery/js/nodes/Line.js';

@@ -3,7 +3,7 @@
 /**
  * Scenery node for a movable ruler in the Geometric Optics simulation
  *
- * @author Sarah Chang, Swarthmore College
+ * @author Sarah Chang (Swarthmore College)
  */
 
 import Utils from '../../../../dot/js/Utils.js';

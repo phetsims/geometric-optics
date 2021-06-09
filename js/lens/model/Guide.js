@@ -3,7 +3,7 @@
 /**
  * Model element for the guides at both ends of the lens
  *
- * @author Sarah Chang, Swarthmore College
+ * @author Sarah Chang (Swarthmore College)
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';

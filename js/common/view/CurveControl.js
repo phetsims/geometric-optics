@@ -4,7 +4,7 @@
 /**
  * Controls the value of the curve property to determine the shape of the optic displayed in play area
  *
- * @author Sarah Chang, Swarthmore College
+ * @author Sarah Chang (Swarthmore College)
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';

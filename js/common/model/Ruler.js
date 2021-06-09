@@ -3,7 +3,7 @@
 /**
  * Model for movable ruler with option for orientation.
  *
- * @author Sarah Chang, Swarthmore College
+ * @author Sarah Chang (Swarthmore College)
  */
 
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
