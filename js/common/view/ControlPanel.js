@@ -172,6 +172,11 @@ class ControlPanel extends Panel {
       }
     ];
 
+    // if using mirror, remove guides checkbox
+    if ( !config.hasLens ) {
+      checkboxGroupItems.pop();
+    }
+
     // create check box group
     const checkboxGroup = new VerticalCheckboxGroup( checkboxGroupItems );
 
