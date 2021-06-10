@@ -16,14 +16,8 @@ import Ruler from '../model/Ruler.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 
 const centimetersString = geometricOpticsStrings.centimeters;
-//import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
-// const MIN_SCENE_WIDTH = GeometricOpticsConstants.MIN_SCENE_WIDTH;
-// const MIN_SCENE_HEIGHT = GeometricOpticsConstants.MIN_SCENE_HEIGHT;
-// const SCREEN_VIEW_X_MARGIN = GeometricOpticsConstants.SCREEN_VIEW_X_MARGIN;
-// const SCREEN_VIEW_Y_MARGIN = GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN;
-
-const RULER_HEIGHT = 40;
+const RULER_HEIGHT = 40; //  in view coordinates
 
 class GeometricOpticsRulerNode extends RulerNode {
   /**
@@ -46,9 +40,6 @@ class GeometricOpticsRulerNode extends RulerNode {
     // define the length ruler
     const rulerWidth = modelViewTransform.modelToViewDeltaX( ruler.length );
 
-    // define the height of the ruler in view coordinates
-    const rulerHeight = RULER_HEIGHT;
-
     // separation between the major ticks mark
     const majorTickWidth = modelViewTransform.modelToViewDeltaX( options.majorTickDistance );
 
@@ -60,7 +51,7 @@ class GeometricOpticsRulerNode extends RulerNode {
       majorTickLabels[ i ] = Utils.toFixed( i * options.majorTickDistance * 100, 0 );
     }
 
-    super( rulerWidth, rulerHeight, majorTickWidth, majorTickLabels, centimetersString, options );
+    super( rulerWidth, RULER_HEIGHT, majorTickWidth, majorTickLabels, centimetersString, options );
 
     // {Bounds2} the bounds of the ruler to stay within the devBounds
     let rulerBounds;
