@@ -77,7 +77,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // create the optical axis attached to the optical element
     const opticalAxisLine = new OpticalAxisLine( model.optic.positionProperty,
-      ScreenView.DEFAULT_LAYOUT_BOUNDS, this.modelViewTransform );
+      this.layoutBounds, this.modelViewTransform );
 
     // create the light rays associated with the object
     const lightRaysNode = new LightRaysNode( model.lightRays,
@@ -111,13 +111,13 @@ class GeometricOpticsScreenView extends ScreenView {
     const controlPanel = new ControlPanel( model.optic,
       model.lightRayModeProperty, this.visibleProperties, this.modelViewTransform, tandem,
       { hasLens: model.optic.isLens() } );
-    controlPanel.centerBottom = ScreenView.DEFAULT_LAYOUT_BOUNDS.eroded(
+    controlPanel.centerBottom = this.layoutBounds.eroded(
       GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN ).centerBottom;
 
     // create the control buttons to toggle between convex and concave optic
     const curveControl = new CurveControl( model.optic.curveProperty, model.optic );
     this.addChild( curveControl );
-    curveControl.leftBottom = ScreenView.DEFAULT_LAYOUT_BOUNDS.eroded(
+    curveControl.leftBottom = this.layoutBounds.eroded(
       GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN ).leftBottom;
 
     // @protected layer for all the nodes within the play area: Play are ode is subject to zoom in and out
@@ -155,7 +155,7 @@ class GeometricOpticsScreenView extends ScreenView {
     this.addChild( comboBox );
     this.addChild( controlPanel );
 
-    comboBox.rightTop = ScreenView.DEFAULT_LAYOUT_BOUNDS.eroded( GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN ).rightTop;
+    comboBox.rightTop = this.layoutBounds.eroded( GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN ).rightTop;
     magnifyingGlassZoomButtonGroup.top = 10;
     magnifyingGlassZoomButtonGroup.left = 10;
 
