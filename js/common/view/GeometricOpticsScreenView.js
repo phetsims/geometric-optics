@@ -63,6 +63,12 @@ class GeometricOpticsScreenView extends ScreenView {
     // @private {Property.<number>} property that controls zoom in play area
     this.zoomLevelProperty = new NumberProperty( ZOOM_RANGE.defaultValue, { range: ZOOM_RANGE } );
 
+    //----------------------------------------------------------------------
+    //                          scenery nodes for play area
+
+    // @protected layer for all the nodes within the play area: Play area layer is subject to zoom in/out
+    this.playAreaNode = new Node();
+
     // @private create the source/object on the left hand side of screen
     this.sourceObjectNode = new SourceObjectNode( model.representationProperty,
       model.sourceObject, this.visibleProperties.visibleMovablePointProperty, this.modelViewTransform, tandem );
@@ -98,9 +104,6 @@ class GeometricOpticsScreenView extends ScreenView {
       this.visibleProperties.visibleRulersProperty, this.dragBoundsProperty, this.modelViewTransform );
     this.verticalRulerNode = new GeometricOpticsRulerNode( model.verticalRuler,
       this.visibleProperties.visibleRulersProperty, this.dragBoundsProperty, this.modelViewTransform );
-
-    // @protected layer for all the nodes within the play area: Play are ode is subject to zoom in and out
-    this.playAreaNode = new Node();
 
     // add children that need to be zoomed in/out. order is important
     this.playAreaNode.addChild( opticalAxisLine );
@@ -172,6 +175,9 @@ class GeometricOpticsScreenView extends ScreenView {
     this.addChild( controlPanel );
     this.addChild( resetAllButton );
     this.addChild( this.playAreaNode );
+
+    //------------------------------------------------------------
+    //                  Query Parameters
 
     // add disks at position of optic, source and target
     if ( GeometricOpticsQueryParameters.showDebugPoints ) {
