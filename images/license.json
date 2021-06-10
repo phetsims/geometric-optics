@@ -1,5 +1,5 @@
 {
-  "pencil.png": {
+  "pencil-logo.png": {
     "text": [
       ""
     ],
@@ -7,7 +7,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/190958/pencil-icon, edited by Patrick Wolfert"
   },
-  "pencil-3d.png": {
+  "pencil-3d-right-facing-upright.png": {
     "text": [
       ""
     ],
@@ -15,7 +15,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/190958/pencil-icon, edited by Patrick Wolfert"
   },
-  "pencil-3d-inverted.png": {
+  "pencil-3d-right-facing-inverted.png": {
     "text": [
       ""
     ],
@@ -23,7 +23,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/190958/pencil-icon, edited by Patrick Wolfert"
   },
-  "pencil-3d-reversed.png": {
+  "pencil-3d-left-facing-inverted.png": {
     "text": [
       ""
     ],
@@ -31,7 +31,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/190958/pencil-icon, edited by Patrick Wolfert"
   },
-  "pencil-3d-reversed-inverted.png": {
+  "pencil-3d-left-facing-upright.png": {
     "text": [
       ""
     ],
@@ -39,7 +39,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/190958/pencil-icon, edited by Patrick Wolfert"
   },
-  "rocket.png": {
+  "rocket-logo.png": {
     "text": [
       ""
     ],
@@ -47,7 +47,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/178310/rocket, edited by Patrick Wolfert"
   },
-  "rocket-3d.png": {
+  "rocket-3d-right-facing-upright.png": {
     "text": [
       ""
     ],
@@ -55,7 +55,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/178310/rocket, edited by Patrick Wolfert"
   },
-  "rocket-3d-reversed.png": {
+  "rocket-3d-left-facing-inverted.png": {
     "text": [
       ""
     ],
@@ -63,7 +63,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "by williamtheaker, downloaded from https://openclipart.org/detail/178310/rocket, edited by Patrick Wolfert"
   },
-  "tree.png": {
+  "tree-logo.png": {
     "text": [
       ""
     ],
@@ -71,7 +71,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "by Patrick Wolfert; original image by PrinterKiller, downloaded from https://openclipart.org/detail/161173/tree"
   },
-  "tree-3d.png": {
+  "tree-3d-right-facing-upright.png": {
     "text": [
       ""
     ],
@@ -79,7 +79,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "by Patrick Wolfert; original image by PrinterKiller, downloaded from https://openclipart.org/detail/161173/tree"
   },
-  "tree-3d-reversed.png": {
+  "tree-3d-left-facing-inverted.png": {
     "text": [
       ""
     ],

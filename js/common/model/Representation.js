@@ -10,18 +10,18 @@ import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
 import lampBlueImage from '../../../images/lamp-blue_png.js';
 import lampRedImage from '../../../images/lamp-red_png.js';
-import pencil3dInvertedImage from '../../../images/pencil-3d-inverted_png.js';
-import pencil3dReversedInvertedImage from '../../../images/pencil-3d-reversed-inverted_png.js';
-import pencil3dReversedImage from '../../../images/pencil-3d-reversed_png.js';
-import pencil3dImage from '../../../images/pencil-3d_png.js';
-import pencilImage from '../../../images/pencil_png.js';
-import rocket3dReversedImage from '../../../images/rocket-3d-reversed_png.js';
-import rocket3dImage from '../../../images/rocket-3d_png.js';
-import rocketImage from '../../../images/rocket_png.js';
+import pencil3dRightFacingInvertedImage from '../../../images/pencil-3d-right-facing-inverted_png.js';
+import pencil3dLeftFacingUprightImage from '../../../images/pencil-3d-left-facing-upright_png.js';
+import pencil3dLeftFacingInvertedImage from '../../../images/pencil-3d-left-facing-inverted_png.js';
+import pencil3dRightFacingUprightImage from '../../../images/pencil-3d-right-facing-upright_png.js';
+import pencilLogoImage from '../../../images/pencil-logo_png.js';
+import rocket3dLeftFacingInvertedImage from '../../../images/rocket-3d-left-facing-inverted_png.js';
+import rocket3dRightFacingUprightImage from '../../../images/rocket-3d-right-facing-upright_png.js';
+import rocketLogoImage from '../../../images/rocket-logo_png.js';
 import projectorScreen3dImage from '../../../images/projector-screen-3d_png.js';
-import tree3dReversedImage from '../../../images/tree-3d-reversed_png.js';
-import tree3dImage from '../../../images/tree-3d_png.js';
-import treeImage from '../../../images/tree_png.js';
+import tree3dLeftFacingInvertedImage from '../../../images/tree-3d-left-facing-inverted_png.js';
+import tree3dRightFacingUprightImage from '../../../images/tree-3d-right-facing-upright_png.js';
+import treeLogoImage from '../../../images/tree-logo_png.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 
@@ -68,23 +68,23 @@ class RepresentationGenerator {
 }
 
 const Representation = Enumeration.byMap( {
-  PENCIL: new RepresentationGenerator( pencilImage,
-    pencil3dImage,
-    pencil3dInvertedImage,
-    pencil3dReversedInvertedImage,
-    pencil3dReversedImage,
+  PENCIL: new RepresentationGenerator( pencilLogoImage,
+    pencil3dRightFacingUprightImage,
+    pencil3dRightFacingInvertedImage,
+    pencil3dLeftFacingUprightImage,
+    pencil3dLeftFacingInvertedImage,
     pencilString, true ),
-  TREE: new RepresentationGenerator( treeImage,
-    tree3dImage,
-    tree3dImage,
-    tree3dReversedImage,
-    tree3dReversedImage,
+  TREE: new RepresentationGenerator( treeLogoImage,
+    tree3dRightFacingUprightImage,
+    tree3dRightFacingUprightImage,
+    tree3dLeftFacingInvertedImage,
+    tree3dLeftFacingInvertedImage,
     treeString, true ),
-  ROCKET: new RepresentationGenerator( rocketImage,
-    rocket3dImage,
-    rocket3dImage,
-    rocket3dReversedImage,
-    rocket3dReversedImage,
+  ROCKET: new RepresentationGenerator( rocketLogoImage,
+    rocket3dRightFacingUprightImage,
+    rocket3dRightFacingUprightImage,
+    rocket3dLeftFacingInvertedImage,
+    rocket3dLeftFacingInvertedImage,
     rocketString, true ),
   LIGHT: new RepresentationGenerator( lampRedImage,
     lampBlueImage,

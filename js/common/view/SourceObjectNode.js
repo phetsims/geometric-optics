@@ -19,7 +19,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 
 const OVERALL_SCALE_FACTOR = 0.5;
-const OFFSET_VECTOR = new Vector2( 0.15, -0.18 );
+const OFFSET_VECTOR = new Vector2( 0.16, -0.19 );
 
 class SourceObjectNode extends Node {
 
