@@ -18,10 +18,10 @@ const GeometricOpticsConstants = {
   //----------------------------------------------------------------------------------------
   //                         UNIVERSAL CONSTANTS
 
-  SCREEN_VIEW_X_MARGIN: 15,
-  SCREEN_VIEW_Y_MARGIN: 15,
+  SCREEN_VIEW_X_MARGIN: 15, // margin along horizontal axis of screen (in view coordinates)
+  SCREEN_VIEW_Y_MARGIN: 15, // margin along vertical axis of screen
 
-  MIN_SCENE_WIDTH: 3.8, // Meters
+  MIN_SCENE_WIDTH: 3.8, // Meters (model coordinates)
   MIN_SCENE_HEIGHT: 2.3, // Meters
 
   DEFAULT_SOURCE_POINT_1: new Vector2( -1.5, 0.0 ),

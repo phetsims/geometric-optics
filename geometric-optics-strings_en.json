@@ -64,5 +64,8 @@
   },
   "object.tree": {
     "value": "Tree"
+  },
+  "centimeters": {
+    "value": "cm"
   }
 }

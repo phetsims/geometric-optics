@@ -13,6 +13,9 @@ import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import geometricOptics from '../../geometricOptics.js';
 import Ruler from '../model/Ruler.js';
+import geometricOpticsStrings from '../../geometricOpticsStrings.js';
+
+const centimetersString = geometricOpticsStrings.centimeters;
 //import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
 // const MIN_SCENE_WIDTH = GeometricOpticsConstants.MIN_SCENE_WIDTH;
@@ -57,10 +60,7 @@ class GeometricOpticsRulerNode extends RulerNode {
       majorTickLabels[ i ] = Utils.toFixed( i * options.majorTickDistance * 100, 0 );
     }
 
-    // units {string}
-    const units = 'cm';
-
-    super( rulerWidth, rulerHeight, majorTickWidth, majorTickLabels, units, options );
+    super( rulerWidth, rulerHeight, majorTickWidth, majorTickLabels, centimetersString, options );
 
     // {Bounds2} the bounds of the ruler to stay within the devBounds
     let rulerBounds;
