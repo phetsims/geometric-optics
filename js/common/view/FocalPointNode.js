@@ -5,8 +5,8 @@
  * @author Martin Veillette
  */
 
+import merge from '../../../../phet-core/js/merge.js';
 import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColorProfile from '../GeometricOpticsColorProfile.js';
@@ -17,37 +17,34 @@ const LINE_WIDTH = GeometricOpticsConstants.FOCAL_POINT_LINE_WIDTH;
 const FILL = GeometricOpticsColorProfile.focalPointFillProperty;
 const STROKE = GeometricOpticsColorProfile.focalPointStrokeProperty;
 
-class FocalPointNode extends Node {
+class FocalPointNode extends PlusNode {
 
   /**
    * @param {FocalPoint} focalPoint
    * @param {Property.<boolean>} visibleProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
+   * @param {Object} [options]
    */
-  constructor( focalPoint, visibleProperty, modelViewTransform, tandem ) {
+  constructor( focalPoint, visibleProperty, modelViewTransform, tandem, options ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    super();
-
     // options for plus Node. Rotated by 45 degrees to create an X shape.
-    const plusNodeOptions =
+    options = merge(
       {
         size: SIZE,
         fill: FILL,
         stroke: STROKE,
         lineWidth: LINE_WIDTH,
         rotation: Math.PI / 4
-      };
+      }, options );
 
-    // focal point to the right of the optical element if the focal length is positive
-    const focalCrossNode = new PlusNode( plusNodeOptions );
+    super( options );
 
     focalPoint.positionProperty.link( position => {
-      focalCrossNode.center = modelViewTransform.modelToViewPosition( position );
+      super.center = modelViewTransform.modelToViewPosition( position );
     } );
 
-    this.addChild( focalCrossNode );
 
     visibleProperty.linkAttribute( this, 'visible' );
   }
