@@ -13,14 +13,8 @@ import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import geometricOptics from '../../geometricOptics.js';
 import Ruler from '../model/Ruler.js';
-//import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
-// const MIN_SCENE_WIDTH = GeometricOpticsConstants.MIN_SCENE_WIDTH;
-// const MIN_SCENE_HEIGHT = GeometricOpticsConstants.MIN_SCENE_HEIGHT;
-// const SCREEN_VIEW_X_MARGIN = GeometricOpticsConstants.SCREEN_VIEW_X_MARGIN;
-// const SCREEN_VIEW_Y_MARGIN = GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN;
-
-const RULER_HEIGHT = 40;
+const RULER_HEIGHT = 40; //  in view coordinates
 
 class GeometricOpticsRulerNode extends RulerNode {
   /**
@@ -43,9 +37,6 @@ class GeometricOpticsRulerNode extends RulerNode {
     // define the length ruler
     const rulerWidth = modelViewTransform.modelToViewDeltaX( ruler.length );
 
-    // define the height of the ruler in view coordinates
-    const rulerHeight = RULER_HEIGHT;
-
     // separation between the major ticks mark
     const majorTickWidth = modelViewTransform.modelToViewDeltaX( options.majorTickDistance );
 
@@ -60,7 +51,7 @@ class GeometricOpticsRulerNode extends RulerNode {
     // units {string}
     const units = 'cm';
 
-    super( rulerWidth, rulerHeight, majorTickWidth, majorTickLabels, units, options );
+    super( rulerWidth, RULER_HEIGHT, majorTickWidth, majorTickLabels, units, options );
 
     // {Bounds2} the bounds of the ruler to stay within the devBounds
     let rulerBounds;
