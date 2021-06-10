@@ -1,7 +1,9 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Create a cross to represent a focal point.
+ * Scenery Node of a X shape representing a focal point.
+ * Visibility and position of the focal point can be updated.
+ *
  * @author Martin Veillette
  */
 
@@ -41,11 +43,12 @@ class FocalPointNode extends PlusNode {
 
     super( options );
 
+    // update the position of this node
     focalPoint.positionProperty.link( position => {
       super.center = modelViewTransform.modelToViewPosition( position );
     } );
 
-
+    // update the visibility of this node
     visibleProperty.linkAttribute( this, 'visible' );
   }
 
