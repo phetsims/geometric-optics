@@ -7,7 +7,6 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
@@ -26,13 +25,13 @@ const RULER_HEIGHT = 40;
 class GeometricOpticsRulerNode extends RulerNode {
   /**
    *
-   * @param {Ruler} ruler
+   * @param {Ruler} ruler - model for ruler
    * @param {Property.<boolean>} visibleProperty
-   * @param {Property.<Bounds2>} dragBoundsProperty
+   * @param {Bounds2} layoutBounds - bounds of screen view
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( ruler, visibleProperty, dragBoundsProperty, modelViewTransform, options ) {
+  constructor( ruler, visibleProperty, layoutBounds, modelViewTransform, options ) {
 
     options = merge( {
       opacity: 0.8,
@@ -62,9 +61,28 @@ class GeometricOpticsRulerNode extends RulerNode {
     const units = 'cm';
 
     super( rulerWidth, rulerHeight, majorTickWidth, majorTickLabels, units, options );
-    const devBounds = new Bounds2( 0, 0, 1, 1 );
-    const rulerDragBoundsProperty = new Property( devBounds );
-    // add drag listener
+
+    // {Bounds2} the bounds of the ruler to stay within the devBounds
+    let rulerBounds;
+
+    if ( ruler.orientation === Ruler.Orientation.VERTICAL ) {
+
+      // update the rotation of the ruler
+      this.rotation = -Math.PI / 2;
+
+      // making sure that the right top of the ruler stays within the screen
+      rulerBounds = layoutBounds.withOffsets( 0, -this.height, -this.width, 0 );
+    }
+    else {
+
+      // making sure that the right bottom of the ruler stays within the screen
+      rulerBounds = layoutBounds.withOffsets( 0, 0, -this.width, -this.height );
+    }
+
+    // create property for dragBounds of ruler
+    const rulerDragBoundsProperty = new Property( modelViewTransform.viewToModelBounds( rulerBounds ) );
+
+    // create and add drag listener
     const dragListener = new DragListener( {
       positionProperty: ruler.positionProperty,
       dragBoundsProperty: rulerDragBoundsProperty,
@@ -78,12 +96,7 @@ class GeometricOpticsRulerNode extends RulerNode {
     } );
     this.addInputListener( dragListener );
 
-    // update the rotation of the ruler
-    if ( ruler.orientation === Ruler.Orientation.VERTICAL ) {
-      this.rotation = -Math.PI / 2;
-    }
-
-    // set position of the ruler
+    // set initial position of the ruler
     this.leftTop = modelViewTransform.modelToViewPosition( ruler.positionProperty.value );
 
     // update ruler visibility

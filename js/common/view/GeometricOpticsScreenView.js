@@ -101,9 +101,9 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // @private create rulers
     this.horizontalRulerNode = new GeometricOpticsRulerNode( model.horizontalRuler,
-      this.visibleProperties.visibleRulersProperty, this.dragBoundsProperty, this.modelViewTransform );
+      this.visibleProperties.visibleRulersProperty, this.layoutBounds, this.modelViewTransform );
     this.verticalRulerNode = new GeometricOpticsRulerNode( model.verticalRuler,
-      this.visibleProperties.visibleRulersProperty, this.dragBoundsProperty, this.modelViewTransform );
+      this.visibleProperties.visibleRulersProperty, this.layoutBounds, this.modelViewTransform );
 
     // add children that need to be zoomed in/out. order is important
     this.playAreaNode.addChild( opticalAxisLine );
