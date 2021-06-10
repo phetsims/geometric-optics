@@ -30,7 +30,9 @@ import TargetImageNode from './TargetImageNode.js';
 import TrackingDiskNode from './TrackingDiskNode.js';
 import VisibleProperties from './VisibleProperties.js';
 
-const ZOOM_DEFAULT = GeometricOpticsConstants.ZOOM_RANGE.defaultValue;
+const SCREEN_VIEW_X_MARGIN = GeometricOpticsConstants.SCREEN_VIEW_X_MARGIN;
+const SCREEN_VIEW_Y_MARGIN = GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN;
+const ZOOM_RANGE = GeometricOpticsConstants.ZOOM_RANGE;
 const ZOOM_SCALE_FACTOR = GeometricOpticsConstants.ZOOM_SCALE_FACTOR;
 
 class GeometricOpticsScreenView extends ScreenView {
@@ -52,24 +54,14 @@ class GeometricOpticsScreenView extends ScreenView {
     // @protected create a Y inverted modelViewTransform with isometric scaling along X and Y
     this.modelViewTransform = ModelViewTransform2.createOffsetXYScaleMapping( centerPoint, 200, -200 );
 
+    // convenience variable for laying out scenery nodes
+    const erodedLayoutBounds = this.layoutBounds.erodedXY( SCREEN_VIEW_X_MARGIN, SCREEN_VIEW_Y_MARGIN );
+
     // @protected create visible properties associated with checkboxes
     this.visibleProperties = new VisibleProperties( tandem );
 
     // @private {Property.<number>} property that controls zoom in play area
-    this.zoomLevelProperty = new NumberProperty( ZOOM_DEFAULT, { range: GeometricOpticsConstants.ZOOM_RANGE } );
-
-    // create magnifying buttons for zooming in and out
-    const magnifyingGlassZoomButtonGroup = new MagnifyingGlassZoomButtonGroup( this.zoomLevelProperty, {
-      orientation: 'horizontal',
-      spacing: 8,
-      mouseAreaXDilation: 10,
-      mouseAreaYDilation: 5,
-      touchAreaXDilation: 10,
-      touchAreaYDilation: 5,
-      magnifyingGlassNodeOptions: {
-        glassRadius: 8  // like ZoomButton,
-      }
-    } );
+    this.zoomLevelProperty = new NumberProperty( ZOOM_RANGE.defaultValue, { range: ZOOM_RANGE } );
 
     // @private create the source/object on the left hand side of screen
     this.sourceObjectNode = new SourceObjectNode( model.representationProperty,
@@ -107,19 +99,6 @@ class GeometricOpticsScreenView extends ScreenView {
     this.verticalRulerNode = new GeometricOpticsRulerNode( model.verticalRuler,
       this.visibleProperties.visibleRulersProperty, this.dragBoundsProperty, this.modelViewTransform );
 
-    // create control panel at the bottom of the screen
-    const controlPanel = new ControlPanel( model.optic,
-      model.lightRayModeProperty, this.visibleProperties, this.modelViewTransform, tandem,
-      { hasLens: model.optic.isLens() } );
-    controlPanel.centerBottom = this.layoutBounds.eroded(
-      GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN ).centerBottom;
-
-    // create the control buttons to toggle between convex and concave optic
-    const curveControl = new CurveControl( model.optic.curveProperty, model.optic );
-    this.addChild( curveControl );
-    curveControl.leftBottom = this.layoutBounds.eroded(
-      GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN ).leftBottom;
-
     // @protected layer for all the nodes within the play area: Play are ode is subject to zoom in and out
     this.playAreaNode = new Node();
 
@@ -132,9 +111,6 @@ class GeometricOpticsScreenView extends ScreenView {
     this.playAreaNode.addChild( movableLightRaysNode );
     this.playAreaNode.addChild( this.horizontalRulerNode );
     this.playAreaNode.addChild( this.verticalRulerNode );
-
-    const comboBox = new RepresentationComboBox( model.representationProperty, tandem,
-      { hasLens: model.optic.isLens() } );
 
     // @private scale the playAreaNode
     this.zoomLevelProperty.link( ( zoomLevel, oldZoomLevel ) => {
@@ -150,27 +126,52 @@ class GeometricOpticsScreenView extends ScreenView {
       }
     } );
 
-    this.addChild( magnifyingGlassZoomButtonGroup );
-    this.addChild( this.playAreaNode );
-    this.addChild( comboBox );
-    this.addChild( controlPanel );
+    //----------------------------------------------------------------------------
+    //               Buttons, Controls and Panels
 
-    comboBox.rightTop = this.layoutBounds.eroded( GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN ).rightTop;
-    magnifyingGlassZoomButtonGroup.top = 10;
-    magnifyingGlassZoomButtonGroup.left = 10;
+    // create control panel at the bottom of the screen
+    const controlPanel = new ControlPanel( model.optic,
+      model.lightRayModeProperty, this.visibleProperties, this.modelViewTransform, tandem,
+      { hasLens: model.optic.isLens() } );
+    controlPanel.centerBottom = erodedLayoutBounds.centerBottom;
 
-    // create reset all button
+    // create the control buttons to toggle between convex and concave optic at the left bottom
+    const curveControl = new CurveControl( model.optic.curveProperty, model.optic );
+    curveControl.leftBottom = erodedLayoutBounds.leftBottom;
+
+    // create the combo box at the right top.
+    const comboBox = new RepresentationComboBox( model.representationProperty, tandem,
+      { hasLens: model.optic.isLens() } );
+    comboBox.rightTop = erodedLayoutBounds.rightTop;
+
+    // create magnifying buttons for zooming in and out at the left top
+    const magnifyingGlassZoomButtonGroup = new MagnifyingGlassZoomButtonGroup( this.zoomLevelProperty, {
+      orientation: 'horizontal',
+      spacing: 8,
+      magnifyingGlassNodeOptions: {
+        glassRadius: 8
+      }
+    } );
+    magnifyingGlassZoomButtonGroup.leftTop = erodedLayoutBounds.leftTop;
+
+    // create reset all button at the right bottom
     const resetAllButton = new ResetAllButton( {
       listener: () => {
         this.interruptSubtreeInput(); // cancel interactions that may be in progress
         model.reset();
         this.reset();
       },
-      right: this.layoutBounds.maxX - GeometricOpticsConstants.SCREEN_VIEW_X_MARGIN,
-      bottom: this.layoutBounds.maxY - GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN,
+      rightBottom: erodedLayoutBounds.rightBottom,
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
+
+    // add playAreaNode and controls to the scene graph
+    this.addChild( magnifyingGlassZoomButtonGroup );
+    this.addChild( comboBox );
+    this.addChild( curveControl );
+    this.addChild( controlPanel );
     this.addChild( resetAllButton );
+    this.addChild( this.playAreaNode );
 
     // add disks at position of optic, source and target
     if ( GeometricOpticsQueryParameters.showDebugPoints ) {
