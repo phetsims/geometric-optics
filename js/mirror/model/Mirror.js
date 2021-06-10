@@ -73,7 +73,7 @@ class Mirror extends Optic {
     assert && assert( radius > diameter / 2, 'the radius of curvature is too small when compared to the diameter' );
 
     options = merge( {
-      thickness: 0.50 // horizontal separation between the two edges of the surfaces at the middle part
+      thickness: 0.05 // horizontal separation between the two edges of the surfaces at the middle part
     }, options );
 
     // convenience variable
