@@ -27,6 +27,7 @@ import OpticalAxisLine from './OpticalAxisLine.js';
 import RepresentationComboBox from './RepresentationComboBox.js';
 import SourceObjectNode from './SourceObjectNode.js';
 import TargetImageNode from './TargetImageNode.js';
+import ToolboxPanel from './ToolboxPanel.js';
 import TrackingDiskNode from './TrackingDiskNode.js';
 import VisibleProperties from './VisibleProperties.js';
 
@@ -138,6 +139,10 @@ class GeometricOpticsScreenView extends ScreenView {
       { hasLens: model.optic.isLens() } );
     controlPanel.centerBottom = erodedLayoutBounds.centerBottom;
 
+    // create toolbox panel at the top right corner of the screen
+    const toolboxPanel = new ToolboxPanel();
+    toolboxPanel.rightCenter = erodedLayoutBounds.rightCenter;
+
     // create the control buttons to toggle between convex and concave optic at the left bottom
     const curveControl = new CurveControl( model.optic.curveProperty, model.optic );
     curveControl.leftBottom = erodedLayoutBounds.leftBottom;
@@ -173,6 +178,7 @@ class GeometricOpticsScreenView extends ScreenView {
     this.addChild( comboBox );
     this.addChild( curveControl );
     this.addChild( controlPanel );
+    this.addChild( toolboxPanel );
     this.addChild( resetAllButton );
     this.addChild( this.playAreaNode );
 
