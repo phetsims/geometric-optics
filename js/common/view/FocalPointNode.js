@@ -45,7 +45,7 @@ class FocalPointNode extends PlusNode {
 
     // update the position of this node
     focalPoint.positionProperty.link( position => {
-      super.center = modelViewTransform.modelToViewPosition( position );
+      this.center = modelViewTransform.modelToViewPosition( position );
     } );
 
     // update the visibility of this node
