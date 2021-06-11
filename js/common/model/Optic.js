@@ -11,6 +11,7 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Matrix3 from '../../../../dot/js/Matrix3.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
@@ -63,12 +64,11 @@ class Optic {
 
     // @public {Property.<Object>} shapes (fill and outline) of the optical element
     this.outlineAndFillProperty = new DerivedProperty( [
-        this.positionProperty,
         this.radiusOfCurvatureProperty,
         this.diameterProperty,
         this.curveProperty ],
-      ( position, radius, diameter, curve ) => {
-        return this.getFillAndOutlineShapes( position, radius, diameter, curve );
+      ( radius, diameter, curve ) => {
+        return this.getFillAndOutlineShapes( radius, diameter, curve );
       } );
 
     // @public {Property.<number>} - must be implemented by subtype
@@ -231,6 +231,16 @@ class Optic {
    * @public @abstract
    */
   getFillAndOutlineShapes() { throw new Error( 'must be implemented by subtype' ); }
+
+  /**
+   * returns a shape translated by the model position of the optic
+   * @public
+   * @param {Shape} shape
+   * @returns {Shape}
+   */
+  translatedShape( shape ) {
+    return shape.transformed( Matrix3.translationFromVector( this.getPosition() ) );
+  }
 
 }
 

@@ -57,10 +57,8 @@ class Mirror extends Optic {
    * The shape is designed as a "first surface mirror".
    * The returned object contains an outline shape, representing the reflecting coating,
    * and a fill shape representing the base backing of the mirror.
-   * The center point of the mirror is 'position'
    * The shapes are drawn using quadratic Bezier curves.
    *
-   * @param {Vector2} position
    * @param {number} radius - radius of curvature at the center of the mirror
    * @param {number} diameter - vertical height of the mirror
    * @param {Optic.Curve} curve
@@ -68,7 +66,7 @@ class Mirror extends Optic {
    * @returns {{fillShape: <Shape>,outlineShape: <Shape>}}
    * @public
    */
-  getFillAndOutlineShapes( position, radius, diameter, curve, options ) {
+  getFillAndOutlineShapes( radius, diameter, curve, options ) {
 
     assert && assert( radius > diameter / 2, 'the radius of curvature is too small when compared to the diameter' );
 
@@ -94,14 +92,14 @@ class Mirror extends Optic {
     const offsetBottomVector = Vector2.createPolar( options.thickness, curveSign * angle );
 
     // four corners of the mirror shape
-    const topLeft = position.plusXY( curveSign * halfWidth, halfHeight );
+    const topLeft = new Vector2( curveSign * halfWidth, halfHeight );
     const topRight = topLeft.plus( offsetTopVector );
-    const bottomLeft = position.plusXY( curveSign * halfWidth, -halfHeight );
+    const bottomLeft = new Vector2( curveSign * halfWidth, -halfHeight );
     const bottomRight = bottomLeft.plus( offsetBottomVector );
 
     // control points: Note that the curve will not go through the control points.
     // rather, it will go through the two following points: position and position.plusXY( options.thickness, 0 )
-    const midLeft = position.plusXY( -curveSign * halfWidth, 0 );
+    const midLeft = new Vector2( -curveSign * halfWidth, 0 );
     const midRight = midLeft.plusXY( options.thickness, 0 );
 
     // shapes drawn from top to bottom in counterclockwise fashion.
