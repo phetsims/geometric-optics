@@ -30,12 +30,11 @@ class OpticNode extends Node {
     const positionProperty = new Vector2Property( optic.positionProperty.value );
 
     // create a drag listener on the fill of the opticalElement
-    const dragListener = new DragListener(
-      {
-        positionProperty: positionProperty,
-        transform: modelViewTransform,
-        applyOffset: false
-      } );
+    const dragListener = new DragListener( {
+      positionProperty: positionProperty,
+      transform: modelViewTransform,
+      applyOffset: false
+    } );
 
     positionProperty.link( position => {
       optic.setVerticalCoordinate( position.y );
@@ -58,9 +57,13 @@ class OpticNode extends Node {
       outlinePath.shape = modelViewTransform.modelToViewShape( shapes.outlineShape );
     } );
 
+    optic.positionProperty.link( position => {
+      this.translation = modelViewTransform.modelToViewDelta( position );
+    } );
+
     this.addInputListener( dragListener );
-    this.addChild( outlinePath );
     this.addChild( this.fillPath );
+    this.addChild( outlinePath );
 
   }
 }

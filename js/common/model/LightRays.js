@@ -249,7 +249,9 @@ class LightRays {
           // eslint-disable-next-line no-case-declarations
           const deltaTheta = 180 / N; // Degrees between adjacent arrays
           // eslint-disable-next-line no-case-declarations
-          const outlineShape = this.optic.outlineAndFillProperty.value.outlineShape;
+          const staticShape = this.optic.outlineAndFillProperty.value.outlineShape;
+          // eslint-disable-next-line no-case-declarations
+          const outlineShape = this.optic.translatedShape( staticShape );
           // eslint-disable-next-line no-case-declarations
           const s = this.optic.isConcave( this.optic.getCurve() ) ? 0 : 0;
 

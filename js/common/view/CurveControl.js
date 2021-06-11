@@ -7,13 +7,12 @@
  * @author Sarah Chang (Swarthmore College)
  */
 
-import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
-import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
-import Optic from '../model/Optic.js';
-import geometricOptics from '../../geometricOptics.js';
-import Path from '../../../../scenery/js/nodes/Path.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
+import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
+import geometricOptics from '../../geometricOptics.js';
+import Optic from '../model/Optic.js';
 
 const RADIUS_OF_CURVATURE = 30; // in view coordinates
 const DIAMETER = 50; // in view coordinates
@@ -52,7 +51,7 @@ class CurveControl extends RectangularRadioButtonGroup {
     const createIconNode = curve => {
 
       // create icon shapes {fillShape, outlineShape}
-      const iconShapes = optic.getFillAndOutlineShapes( new Vector2( 0, 0 ), RADIUS_OF_CURVATURE, DIAMETER, curve, { thickness: THICKNESS } );
+      const iconShapes = optic.getFillAndOutlineShapes( RADIUS_OF_CURVATURE, DIAMETER, curve, { thickness: THICKNESS } );
 
       // create node to layout the paths for the icon
       const iconNode = new Node();
@@ -68,7 +67,10 @@ class CurveControl extends RectangularRadioButtonGroup {
     const convexNode = createIconNode( Optic.Curve.CONVEX );
     const concaveNode = createIconNode( Optic.Curve.CONCAVE );
 
-    super( curveProperty, [ { value: Optic.Curve.CONCAVE, node: concaveNode }, { value: Optic.Curve.CONVEX, node: convexNode } ], options );
+    super( curveProperty, [
+        { value: Optic.Curve.CONCAVE, node: concaveNode },
+        { value: Optic.Curve.CONVEX, node: convexNode } ],
+      options );
   }
 }
 

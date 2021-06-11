@@ -10,6 +10,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
@@ -75,15 +76,15 @@ class Lens extends Optic {
    * The lens shape is approximated as a parabolic lens.
    * The radius of curvature of the lens does not match the value of radius but is instead "hollywooded".
    * This gives the flexibility to draw lenses with radius of curvature that is larger than diameter/2, a physical impossibility.
-   * The center point of the lens is 'position'
-   * @param {Vector2} position
+   * The center point of the lens is '0,0'
+   *
    * @param {number} radius - radius of curvature
    * @param {number} diameter - height of the lens
    * @param {Optic.Curve} curve
    * @returns {{fillShape: <Shape>,outlineShape: <Shape>}}
    * @public
    */
-  getFillAndOutlineShapes( position, radius, diameter, curve ) {
+  getFillAndOutlineShapes( radius, diameter, curve ) {
 
     const halfHeight = diameter / 2;
 
@@ -97,13 +98,13 @@ class Lens extends Optic {
     if ( this.isConvex( curve ) ) {
 
       // two extrema points of the lens
-      const top = position.plusXY( 0, halfHeight );
-      const bottom = position.plusXY( 0, -halfHeight );
+      const top = new Vector2( 0, halfHeight );
+      const bottom = new Vector2( 0, -halfHeight );
 
       // two control points on the optical axis, note that the shape does not go through these points
       // The shape will go through the two points: position.plusXY(  -halfWidth, 0 )  and position.plusXY(  halfWidth, 0 )
-      const left = position.plusXY( -2 * halfWidth, 0 );
-      const right = position.plusXY( 2 * halfWidth, 0 );
+      const left = new Vector2( -2 * halfWidth, 0 );
+      const right = new Vector2( 2 * halfWidth, 0 );
 
       // shape of convex lens
       shape = new Shape()
@@ -116,14 +117,14 @@ class Lens extends Optic {
       const midWidth = 1 / 2 * halfHeight * halfHeight / ( radius + 1 );
 
       // four corners of the concave shape
-      const topLeft = position.plusXY( -halfWidth, halfHeight );
-      const topRight = position.plusXY( halfWidth, halfHeight );
-      const bottomLeft = position.plusXY( -halfWidth, -halfHeight );
-      const bottomRight = position.plusXY( halfWidth, -halfHeight );
+      const topLeft = new Vector2( -halfWidth, halfHeight );
+      const topRight = new Vector2( halfWidth, halfHeight );
+      const bottomLeft = new Vector2( -halfWidth, -halfHeight );
+      const bottomRight = new Vector2( halfWidth, -halfHeight );
 
       // control points
-      const midLeft = position.plusXY( midWidth / 2, 0 );
-      const midRight = position.plusXY( -midWidth / 2, 0 );
+      const midLeft = new Vector2( midWidth / 2, 0 );
+      const midRight = new Vector2( -midWidth / 2, 0 );
 
       // shape of concave lens
       shape = new Shape()
@@ -134,6 +135,9 @@ class Lens extends Optic {
         .quadraticCurveToPoint( midLeft, topLeft )
         .close();
     }
+
+    // translate shape by position vector
+    // const translatedShape = shape.transformed( Matrix3.translationFromVector( position ) );
 
     // the outline shape is the same as the fill shape for a lens
     return { fillShape: shape, outlineShape: shape };
