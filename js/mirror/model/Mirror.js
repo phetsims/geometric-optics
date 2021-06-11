@@ -57,7 +57,6 @@ class Mirror extends Optic {
    * The shape is designed as a "first surface mirror".
    * The returned object contains an outline shape, representing the reflecting coating,
    * and a fill shape representing the base backing of the mirror.
-   * The center point of the mirror is 'position'
    * The shapes are drawn using quadratic Bezier curves.
    *
    * @param {number} radius - radius of curvature at the center of the mirror
