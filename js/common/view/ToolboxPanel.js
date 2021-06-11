@@ -23,7 +23,7 @@ class ToolboxPanel extends Panel {
       stroke: 'white'
     }, options );
 
-    const icons = new Circle( 50 );
+    const icons = new Circle( 50, { fill: 'pink' } );
 
     super( icons, options );
 
