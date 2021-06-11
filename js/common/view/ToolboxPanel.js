@@ -8,8 +8,10 @@
  * @author Sarah Chang (Swarthmore College)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
+import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Panel from '../../../../sun/js/Panel.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -17,10 +19,11 @@ import geometricOptics from '../../geometricOptics.js';
 class ToolboxPanel extends Panel {
   /**
    *
+   * @param {GeometricOpticsRulerNode} horizontalRulerNode
    * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( tandem, options ) {
+  constructor( horizontalRulerNode, tandem, options ) {
 
     options = merge( {
       align: 'center',
@@ -74,10 +77,27 @@ class ToolboxPanel extends Panel {
 
     const toolbox = new HBox( {
       spacing: 30,
-      children: [ horizontalRulerIconNode, verticalRulerIconNode ]
+      children: [ horizontalRulerIconNode, verticalRulerIconNode ],
+      excludeInvisibleChildrenFromBounds: false
     } );
 
     super( toolbox, options );
+
+    const horizontalRulerVisibleProperty = new BooleanProperty( false );
+
+    // icon disappears when ruler appears
+    horizontalRulerVisibleProperty.link( visible => {
+      horizontalRulerNode.visible = visible;
+      horizontalRulerIconNode.visible = !visible;
+    } );
+
+    horizontalRulerIconNode.addInputListener( DragListener.createForwardingListener( event => {
+      if ( horizontalRulerVisibleProperty.value === false ) {
+        horizontalRulerVisibleProperty.value = true;
+        //horizontalRulerNode.startBaseDrag( event );
+      }
+
+    } ) );
 
   }
 }

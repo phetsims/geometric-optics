@@ -101,6 +101,7 @@ class GeometricOpticsScreenView extends ScreenView {
     const focalPointsLayer = new Node( { children: [ firstFocalPointNode, secondFocalPointNode ] } );
 
     // @private create rulers
+    // TODO: pass in toolbox bounds
     this.horizontalRulerNode = new GeometricOpticsRulerNode( model.horizontalRuler,
       this.visibleProperties.visibleRulersProperty, this.layoutBounds, this.modelViewTransform );
     this.verticalRulerNode = new GeometricOpticsRulerNode( model.verticalRuler,
@@ -140,7 +141,7 @@ class GeometricOpticsScreenView extends ScreenView {
     controlPanel.centerBottom = erodedLayoutBounds.centerBottom;
 
     // create toolbox panel at the top right corner of the screen
-    const toolboxPanel = new ToolboxPanel( tandem );
+    const toolboxPanel = new ToolboxPanel( this.horizontalRulerNode, tandem );
     toolboxPanel.rightTop = erodedLayoutBounds.rightTop;
 
     // create the control buttons to toggle between convex and concave optic at the left bottom

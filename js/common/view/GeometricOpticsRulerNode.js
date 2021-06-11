@@ -83,6 +83,14 @@ class GeometricOpticsRulerNode extends RulerNode {
 
         // move this node on top of all the nodes
         this.moveToFront();
+      },
+
+      drag: () => {
+
+      },
+
+      end: () => {
+
       }
     } );
     this.addInputListener( dragListener );
