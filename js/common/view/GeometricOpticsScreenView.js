@@ -140,17 +140,17 @@ class GeometricOpticsScreenView extends ScreenView {
     controlPanel.centerBottom = erodedLayoutBounds.centerBottom;
 
     // create toolbox panel at the top right corner of the screen
-    const toolboxPanel = new ToolboxPanel();
-    toolboxPanel.rightCenter = erodedLayoutBounds.rightCenter;
+    const toolboxPanel = new ToolboxPanel( tandem );
+    toolboxPanel.rightTop = erodedLayoutBounds.rightTop;
 
     // create the control buttons to toggle between convex and concave optic at the left bottom
     const curveControl = new CurveControl( model.optic.curveProperty, model.optic );
     curveControl.leftBottom = erodedLayoutBounds.leftBottom;
 
-    // create the combo box at the right top.
+    // create the combo box at the right top below the toolbox panel.
     const comboBox = new RepresentationComboBox( model.representationProperty, tandem,
       { hasLens: model.optic.isLens() } );
-    comboBox.rightTop = erodedLayoutBounds.rightTop;
+    comboBox.rightTop = toolboxPanel.rightBottom.plusXY( 0, 5 );
 
     // create magnifying buttons for zooming in and out at the left top
     const magnifyingGlassZoomButtonGroup = new MagnifyingGlassZoomButtonGroup( this.zoomLevelProperty, {
