@@ -54,6 +54,7 @@ approximately determine the position of the image without performing raytracing.
 
 
 
+
 The focal length of the lens is given by
 f= R/(2(1-n))) where n and R are respectively the index of refraction and the radius of curvature of the lens. 
 
@@ -80,3 +81,5 @@ The principal rays mode denote rays that help identify the position of the image
 The marginal rays are the rays that start at the object and touch the edge of the lens.
 
 The lenses are considered to be ideal and free of spherical and comatic aberrations.
+=======
+>>>>>>> 45d051a (more doc #36)
