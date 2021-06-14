@@ -39,7 +39,7 @@ const virtualImageString = geometricOpticsStrings.virtualImage;
 const movablePointString = geometricOpticsStrings.movablePoint;
 const guidesString = geometricOpticsStrings.guides;
 
-class ControlPanel extends Panel {
+class GeometricOpticsControlPanel extends Panel {
 
   /**
    * @param {Optic} optic
@@ -198,5 +198,5 @@ class ControlPanel extends Panel {
   }
 }
 
-geometricOptics.register( 'ControlPanel', ControlPanel );
-export default ControlPanel;
+geometricOptics.register( 'GeometricOpticsControlPanel', GeometricOpticsControlPanel );
+export default GeometricOpticsControlPanel;
