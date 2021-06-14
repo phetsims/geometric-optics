@@ -19,7 +19,7 @@ import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
 import FocalPoint from '../model/FocalPoint.js';
 import GeometricOpticsModel from '../model/GeometricOpticsModel.js';
-import ControlPanel from './ControlPanel.js';
+import GeometricOpticsControlPanel from './GeometricOpticsControlPanel.js';
 import CurveControl from './CurveControl.js';
 import FocalPointNode from './FocalPointNode.js';
 import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
@@ -127,10 +127,10 @@ class GeometricOpticsScreenView extends ScreenView {
     //               Buttons, Controls and Panels
 
     // create control panel at the bottom of the screen
-    const controlPanel = new ControlPanel( model.optic,
+    const geometricOpticsControlPanel = new GeometricOpticsControlPanel( model.optic,
       model.lightRayModeProperty, this.visibleProperties, this.modelViewTransform, tandem,
       { hasLens: model.optic.isLens() } );
-    controlPanel.centerBottom = erodedLayoutBounds.centerBottom;
+    geometricOpticsControlPanel.centerBottom = erodedLayoutBounds.centerBottom;
 
     // @private create rulers
     // TODO: pass in toolbox bounds
@@ -184,7 +184,7 @@ class GeometricOpticsScreenView extends ScreenView {
     this.addChild( magnifyingGlassZoomButtonGroup );
     this.addChild( comboBox );
     this.addChild( curveControl );
-    this.addChild( controlPanel );
+    this.addChild( geometricOpticsControlPanel );
     this.addChild( toolboxPanel );
     this.addChild( eyeToggleButton );
     this.addChild( resetAllButton );
