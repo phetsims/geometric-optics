@@ -21,6 +21,7 @@ const centimetersString = geometricOpticsStrings.centimeters;
 
 const RULER_HEIGHT = 40; //  in view coordinates
 const ZOOM_SCALE_FACTOR = GeometricOpticsConstants.ZOOM_SCALE_FACTOR;
+const ZOOM_RANGE = GeometricOpticsConstants.ZOOM_RANGE;
 
 class GeometricOpticsRulerNode extends Node {
   /**
@@ -34,33 +35,38 @@ class GeometricOpticsRulerNode extends Node {
    */
   constructor( ruler, visibleProperty, zoomLevelProperty, layoutBounds, modelViewTransform, options ) {
 
-    super();
     options = merge( {
-      opacity: 0.8,
-      minorTicksPerMajorTick: 4,
-      majorTickDistance: 0.2, // in model coordinate (m)
-      majorTickLineWidth: 2
+      rulerOptions: {
+        opacity: 0.8,
+        minorTicksPerMajorTick: 4,
+        majorTickDistance: 0.2, // in model coordinate (m)
+        majorTickLineWidth: 2
+      }
     }, options );
+
+    super( options );
 
     // define the length ruler
     const rulerWidth = modelViewTransform.modelToViewDeltaX( ruler.length );
 
     // separation between the major ticks mark
-    const majorTickWidth = modelViewTransform.modelToViewDeltaX( options.majorTickDistance );
+    const majorTickWidth = modelViewTransform.modelToViewDeltaX( options.rulerOptions.majorTickDistance );
 
-    const numberOfMajorTicks = ruler.length / options.majorTickDistance + 1;
+    const numberOfMajorTicks = ruler.length / options.rulerOptions.majorTickDistance + 1;
 
     zoomLevelProperty.link( zoomLevel => {
-      console.log( ruler.length );
+
       this.removeAllChildren();
 
       // create major ticks label
       const majorTickLabels = [];
+
       for ( let i = 0; i < numberOfMajorTicks; i++ ) {
-        majorTickLabels[ i ] = Utils.toFixed( i * options.majorTickDistance * 100 * Math.pow( ZOOM_SCALE_FACTOR, zoomLevel - 2 ), 0 );
+        const majorTickInterval = options.rulerOptions.majorTickDistance * 100 * Math.pow( ZOOM_SCALE_FACTOR, zoomLevel - ZOOM_RANGE.defaultValue );
+        majorTickLabels[ i ] = Utils.toFixed( i * majorTickInterval, 0 );
       }
 
-      const rulerNode = new RulerNode( rulerWidth, RULER_HEIGHT, majorTickWidth, majorTickLabels, centimetersString, options );
+      const rulerNode = new RulerNode( rulerWidth, RULER_HEIGHT, majorTickWidth, majorTickLabels, centimetersString, options.rulerOptions );
 
       this.addChild( rulerNode );
 
