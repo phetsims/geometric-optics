@@ -12,8 +12,8 @@ import merge from '../../../../phet-core/js/merge.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import geometricOptics from '../../geometricOptics.js';
-import Ruler from '../model/Ruler.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
+import Ruler from '../model/Ruler.js';
 
 const centimetersString = geometricOpticsStrings.centimeters;
 
