@@ -13,23 +13,28 @@ import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
+import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Ruler from '../model/Ruler.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 
 const centimetersString = geometricOpticsStrings.centimeters;
 
 const RULER_HEIGHT = 40; //  in view coordinates
+const ZOOM_SCALE_FACTOR = GeometricOpticsConstants.ZOOM_SCALE_FACTOR;
 
-class GeometricOpticsRulerNode extends RulerNode {
+class GeometricOpticsRulerNode extends Node {
   /**
    *
    * @param {Ruler} ruler - model for ruler
    * @param {Property.<boolean>} visibleProperty
+   * @param {Property.<number>} zoomLevelProperty
    * @param {Bounds2} layoutBounds - bounds of screen view
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( ruler, visibleProperty, layoutBounds, modelViewTransform, options ) {
+  constructor( ruler, visibleProperty, zoomLevelProperty, layoutBounds, modelViewTransform, options ) {
 
+    super();
     options = merge( {
       opacity: 0.8,
       minorTicksPerMajorTick: 4,
@@ -45,13 +50,21 @@ class GeometricOpticsRulerNode extends RulerNode {
 
     const numberOfMajorTicks = ruler.length / options.majorTickDistance + 1;
 
-    // create major ticks label
-    const majorTickLabels = [];
-    for ( let i = 0; i < numberOfMajorTicks; i++ ) {
-      majorTickLabels[ i ] = Utils.toFixed( i * options.majorTickDistance * 100, 0 );
-    }
+    zoomLevelProperty.link( zoomLevel => {
+      console.log( ruler.length );
+      this.removeAllChildren();
 
-    super( rulerWidth, RULER_HEIGHT, majorTickWidth, majorTickLabels, centimetersString, options );
+      // create major ticks label
+      const majorTickLabels = [];
+      for ( let i = 0; i < numberOfMajorTicks; i++ ) {
+        majorTickLabels[ i ] = Utils.toFixed( i * options.majorTickDistance * 100 * Math.pow( ZOOM_SCALE_FACTOR, zoomLevel - 2 ), 0 );
+      }
+
+      const rulerNode = new RulerNode( rulerWidth, RULER_HEIGHT, majorTickWidth, majorTickLabels, centimetersString, options );
+
+      this.addChild( rulerNode );
+
+    } );
 
     // {Bounds2} the bounds of the ruler to stay within the devBounds
     let rulerBounds;

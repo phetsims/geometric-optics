@@ -101,13 +101,6 @@ class GeometricOpticsScreenView extends ScreenView {
       this.visibleProperties.visibleFocalPointProperty, this.modelViewTransform, tandem );
     const focalPointsLayer = new Node( { children: [ firstFocalPointNode, secondFocalPointNode ] } );
 
-    // @private create rulers
-    // TODO: pass in toolbox bounds
-    this.horizontalRulerNode = new GeometricOpticsRulerNode( model.horizontalRuler,
-      this.visibleProperties.visibleRulersProperty, this.layoutBounds, this.modelViewTransform );
-    this.verticalRulerNode = new GeometricOpticsRulerNode( model.verticalRuler,
-      this.visibleProperties.visibleRulersProperty, this.layoutBounds, this.modelViewTransform );
-
     // add children that need to be zoomed in/out. order is important
     this.playAreaNode.addChild( opticalAxisLine );
     this.playAreaNode.addChild( this.sourceObjectNode );
@@ -115,8 +108,6 @@ class GeometricOpticsScreenView extends ScreenView {
     this.playAreaNode.addChild( focalPointsLayer );
     this.playAreaNode.addChild( lightRaysNode );
     this.playAreaNode.addChild( movableLightRaysNode );
-    this.playAreaNode.addChild( this.horizontalRulerNode );
-    this.playAreaNode.addChild( this.verticalRulerNode );
 
     // @private scale the playAreaNode
     this.zoomLevelProperty.link( ( zoomLevel, oldZoomLevel ) => {
@@ -141,9 +132,17 @@ class GeometricOpticsScreenView extends ScreenView {
       { hasLens: model.optic.isLens() } );
     controlPanel.centerBottom = erodedLayoutBounds.centerBottom;
 
+    // @private create rulers
+    // TODO: pass in toolbox bounds
+    this.horizontalRulerNode = new GeometricOpticsRulerNode( model.horizontalRuler,
+      this.visibleProperties.visibleRulersProperty, this.zoomLevelProperty, this.layoutBounds, this.modelViewTransform );
+    this.verticalRulerNode = new GeometricOpticsRulerNode( model.verticalRuler,
+      this.visibleProperties.visibleRulersProperty, this.zoomLevelProperty, this.layoutBounds, this.modelViewTransform );
+
     // create toolbox panel at the top right corner of the screen
     const toolboxPanel = new ToolboxPanel( this.horizontalRulerNode, tandem );
     toolboxPanel.rightTop = erodedLayoutBounds.rightTop;
+
 
     // create the control buttons to toggle between convex and concave optic at the left bottom
     const curveControl = new CurveControl( model.optic.curveProperty, model.optic );
@@ -190,6 +189,8 @@ class GeometricOpticsScreenView extends ScreenView {
     this.addChild( eyeToggleButton );
     this.addChild( resetAllButton );
     this.addChild( this.playAreaNode );
+    this.addChild( this.horizontalRulerNode );
+    this.addChild( this.verticalRulerNode );
 
     //------------------------------------------------------------
     //                  Query Parameters
