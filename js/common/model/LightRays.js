@@ -20,7 +20,7 @@ class LightRays {
   /**
    * @param {EnumerationProperty.<LightRayMode>} lightRayModeProperty
    * @param {Property.<Vector2>} sourceObjectPositionProperty
-   * @param {Optic} optic
+   * @param {Optic} opticK
    * @param {TargetImage} targetImage
    * @param {Tandem} tandem
    */

@@ -9,6 +9,7 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import EyeToggleButton from '../../../../scenery-phet/js/buttons/EyeToggleButton.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import MagnifyingGlassZoomButtonGroup from '../../../../scenery-phet/js/MagnifyingGlassZoomButtonGroup.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -174,12 +175,19 @@ class GeometricOpticsScreenView extends ScreenView {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
+    // create the eyeToggle button above the reset all button
+    const eyeToggleButton = new EyeToggleButton( this.visibleProperties.visibleRayTracingProperty,
+      { baseColor: 'yellow' } );
+    eyeToggleButton.centerBottom = resetAllButton.centerTop.plusXY( 0, -8 );
+
+
     // add playAreaNode and controls to the scene graph
     this.addChild( magnifyingGlassZoomButtonGroup );
     this.addChild( comboBox );
     this.addChild( curveControl );
     this.addChild( controlPanel );
     this.addChild( toolboxPanel );
+    this.addChild( eyeToggleButton );
     this.addChild( resetAllButton );
     this.addChild( this.playAreaNode );
 

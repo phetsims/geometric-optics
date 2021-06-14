@@ -23,6 +23,7 @@ class VisibleProperties {
     this.visibleVirtualImageProperty = new BooleanProperty( false );
     this.visibleMovablePointProperty = new BooleanProperty( false );
     this.visibleGuidesProperty = new BooleanProperty( false );
+    this.visibleRayTracingProperty = new BooleanProperty( false );
   }
 
   /**
