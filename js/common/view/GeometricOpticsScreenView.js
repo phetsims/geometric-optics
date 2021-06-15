@@ -23,6 +23,7 @@ import GeometricOpticsControlPanel from './GeometricOpticsControlPanel.js';
 import CurveControl from './CurveControl.js';
 import FocalPointNode from './FocalPointNode.js';
 import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
+import LabelsNode from './LabelsNode.js';
 import LightRaysNode from './LightRaysNode.js';
 import OpticalAxisLine from './OpticalAxisLine.js';
 import RepresentationComboBox from './RepresentationComboBox.js';
@@ -109,6 +110,7 @@ class GeometricOpticsScreenView extends ScreenView {
     this.playAreaNode.addChild( lightRaysNode );
     this.playAreaNode.addChild( movableLightRaysNode );
 
+
     // @private scale the playAreaNode
     this.zoomLevelProperty.link( ( zoomLevel, oldZoomLevel ) => {
 
@@ -179,6 +181,8 @@ class GeometricOpticsScreenView extends ScreenView {
       { baseColor: 'yellow' } );
     eyeToggleButton.centerBottom = resetAllButton.centerTop.plusXY( 0, -8 );
 
+    // labels
+    const labelsNode = new LabelsNode( model, this.visibleProperties.visibleLabelsProperty, this.modelViewTransform, this.zoomLevelProperty );
 
     // add playAreaNode and controls to the scene graph
     this.addChild( magnifyingGlassZoomButtonGroup );
@@ -189,6 +193,7 @@ class GeometricOpticsScreenView extends ScreenView {
     this.addChild( eyeToggleButton );
     this.addChild( resetAllButton );
     this.addChild( this.playAreaNode );
+    this.addChild( labelsNode );
     this.addChild( this.horizontalRulerNode );
     this.addChild( this.verticalRulerNode );
 

@@ -8,6 +8,18 @@
   "screen.lens": {
     "value": "Lens"
   },
+  "mirror": {
+    "value": "Mirror"
+  },
+  "lens": {
+    "value": "Lens"
+  },
+  "object": {
+    "value": "Object"
+  },
+  "image": {
+    "value": "image"
+  },
   "focalPoint": {
     "value": "Focal Point"
   },
@@ -56,16 +68,16 @@
   "metersPattern": {
     "value": "{{meters}} m"
   },
-  "object.light": {
+  "light": {
     "value": "Light"
   },
-  "object.rocket": {
+  "rocket": {
     "value": "Rocket"
   },
-  "object.pencil": {
+  "pencil": {
     "value": "Pencil"
   },
-  "object.tree": {
+  "tree": {
     "value": "Tree"
   },
   "centimeters": {

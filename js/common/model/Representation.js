@@ -25,10 +25,10 @@ import treeLogoImage from '../../../images/tree-logo_png.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 
-const pencilString = geometricOpticsStrings.object.pencil;
-const rocketString = geometricOpticsStrings.object.rocket;
-const lightString = geometricOpticsStrings.object.light;
-const treeString = geometricOpticsStrings.object.tree;
+const pencilString = geometricOpticsStrings.pencil;
+const rocketString = geometricOpticsStrings.rocket;
+const lightString = geometricOpticsStrings.light;
+const treeString = geometricOpticsStrings.tree;
 
 class RepresentationGenerator {
   /**
