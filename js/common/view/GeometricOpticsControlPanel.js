@@ -38,6 +38,7 @@ const rulersString = geometricOpticsStrings.rulers;
 const virtualImageString = geometricOpticsStrings.virtualImage;
 const movablePointString = geometricOpticsStrings.movablePoint;
 const guidesString = geometricOpticsStrings.guides;
+const labelsString = geometricOpticsStrings.labels;
 
 class GeometricOpticsControlPanel extends Panel {
 
@@ -148,6 +149,11 @@ class GeometricOpticsControlPanel extends Panel {
       {
         node: new Text( focalPointString ),
         property: visibleProperties.visibleFocalPointProperty,
+        tandem: tandem
+      },
+      {
+        node: new Text( labelsString ),
+        property: visibleProperties.visibleLabelsProperty,
         tandem: tandem
       },
       {

@@ -24,6 +24,7 @@ class VisibleProperties {
     this.visibleMovablePointProperty = new BooleanProperty( false );
     this.visibleGuidesProperty = new BooleanProperty( false );
     this.visibleRayTracingProperty = new BooleanProperty( false );
+    this.visibleLabelsProperty = new BooleanProperty( false );
   }
 
   /**

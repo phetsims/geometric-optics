@@ -11,6 +11,9 @@
   "focalPoint": {
     "value": "Focal Point"
   },
+  "labels": {
+    "value": "Labels"
+  },
   "curvatureRadius": {
     "value": "Curvature Radius"
   },
