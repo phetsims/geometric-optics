@@ -112,17 +112,18 @@ class GeometricOpticsScreenView extends ScreenView {
 
 
     // @private scale the playAreaNode
-    this.zoomLevelProperty.link( ( zoomLevel, oldZoomLevel ) => {
+    this.zoomLevelProperty.lazyLink( ( zoomLevel, oldZoomLevel ) => {
 
       // TODO: works, but this is a very clumsy way to scale.
       // TODO: combine the two Node transformations
       // TODO: find a way to stop relying on oldZoomLevel
-      if ( oldZoomLevel ) {
-        const scale = Math.pow( ZOOM_SCALE_FACTOR, zoomLevel - oldZoomLevel );
-        const translateVector = centerPoint.times( 1 / scale - 1 );
-        this.playAreaNode.scale( scale );
+        const scale = GeometricOpticsScreenView.scaleFunction( zoomLevel );
+        const oldScale = GeometricOpticsScreenView.scaleFunction( oldZoomLevel );
+        const relativeScale = scale / oldScale;
+        const translateVector = centerPoint.times( 1 / relativeScale - 1 );
+        this.playAreaNode.scale( relativeScale );
         this.playAreaNode.translate( translateVector );
-      }
+
     } );
 
     //----------------------------------------------------------------------------
@@ -234,7 +235,19 @@ class GeometricOpticsScreenView extends ScreenView {
     this.horizontalRulerNode.reset();
     this.verticalRulerNode.reset();
   }
+
+
+  /**
+   * Scale function
+   * @public
+   *
+   * @returns {number}
+   */
+  static scaleFunction( zoomLevel ) {
+    return Math.pow( ZOOM_SCALE_FACTOR, zoomLevel )
+  }
 }
+
 
 geometricOptics.register( 'GeometricOpticsScreenView', GeometricOpticsScreenView );
 export default GeometricOpticsScreenView;
