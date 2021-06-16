@@ -41,7 +41,8 @@ class GeometricOpticsRulerNode extends Node {
         opacity: 0.8,
         minorTicksPerMajorTick: 4,
         majorTickDistance: 0.1, // in model coordinate (m)
-        majorTickFont: new PhetFont( 16 )
+        majorTickFont: new PhetFont( 16 ),
+        insetsWidth: 0
       }
     }, options );
 
