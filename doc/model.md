@@ -1,7 +1,7 @@
 # Geometric Optics - Model Description
 
 The simulation describes light propagation through a lens in terms of rays. The
-rays in geometric optics are useful abstraction useful for approximating the
+rays in geometric optics are useful abstraction for approximating the
 paths along which light propagates.
 
 The magnitude of the focal length of the lens is given by f= R/(2(1-n)))
@@ -23,7 +23,7 @@ For lenses, the image distance d_i is positive for images on the far side of the
 object (real images). If the image and object are on the same side of the lens,
 the image distance is negative (and the image virtual).
 
-A similar equation holds for mirrors, butw where the sign convention of the
+A similar equation holds for mirrors, but where the sign convention of the
 distance is reversed. The image distance d_i is positive for images on the same
 side of the object (real images). If the image is on the far side of the object,
 the image distance is negative (and the image virtual).
@@ -81,5 +81,4 @@ The principal rays mode denote rays that help identify the position of the image
 The marginal rays are the rays that start at the object and touch the edge of the lens.
 
 The lenses are considered to be ideal and free of spherical and comatic aberrations.
-=======
->>>>>>> 45d051a (more doc #36)
+
