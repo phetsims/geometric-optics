@@ -9,18 +9,19 @@
 import Property from '../../../../axon/js/Property.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Ruler from '../model/Ruler.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import GeometricOpticsScreenView from './GeometricOpticsScreenView.js';
 
 const centimetersString = geometricOpticsStrings.centimeters;
 
 const RULER_HEIGHT = 40; //  in view coordinates
-const ZOOM_SCALE_FACTOR = GeometricOpticsConstants.ZOOM_SCALE_FACTOR;
 const ZOOM_RANGE = GeometricOpticsConstants.ZOOM_RANGE;
 
 class GeometricOpticsRulerNode extends Node {
@@ -36,11 +37,11 @@ class GeometricOpticsRulerNode extends Node {
   constructor( ruler, visibleProperty, zoomLevelProperty, layoutBounds, modelViewTransform, options ) {
 
     options = merge( {
-      rulerOptions: {
+      ruler: {
         opacity: 0.8,
         minorTicksPerMajorTick: 4,
-        majorTickDistance: 0.2, // in model coordinate (m)
-        majorTickLineWidth: 2
+        majorTickDistance: 0.1, // in model coordinate (m)
+        majorTickFont: new PhetFont( 16 )
       }
     }, options );
 
@@ -50,9 +51,9 @@ class GeometricOpticsRulerNode extends Node {
     const rulerWidth = modelViewTransform.modelToViewDeltaX( ruler.length );
 
     // separation between the major ticks mark
-    const majorTickWidth = modelViewTransform.modelToViewDeltaX( options.rulerOptions.majorTickDistance );
+    const majorTickWidth = modelViewTransform.modelToViewDeltaX( options.ruler.majorTickDistance );
 
-    const numberOfMajorTicks = ruler.length / options.rulerOptions.majorTickDistance + 1;
+    const numberOfMajorTicks = ruler.length / options.ruler.majorTickDistance + 1;
 
     zoomLevelProperty.link( zoomLevel => {
 
@@ -62,11 +63,27 @@ class GeometricOpticsRulerNode extends Node {
       const majorTickLabels = [];
 
       for ( let i = 0; i < numberOfMajorTicks; i++ ) {
-        const majorTickInterval = options.rulerOptions.majorTickDistance * 100 * Math.pow( ZOOM_SCALE_FACTOR, zoomLevel - ZOOM_RANGE.defaultValue );
-        majorTickLabels[ i ] = Utils.toFixed( i * majorTickInterval, 0 );
+        const scale = GeometricOpticsScreenView.scaleFunction( zoomLevel );
+        const defaultScale = GeometricOpticsScreenView.scaleFunction( ZOOM_RANGE.defaultValue );
+        const relativeScale = defaultScale / scale;
+
+        const centimetersInMeters = 100;
+        const majorTickInterval = options.ruler.majorTickDistance * centimetersInMeters * relativeScale;
+
+        if ( i % 2 === 0 ) {
+          majorTickLabels[ i ] = Utils.toFixed( i * majorTickInterval, 0 );
+        }
+        else {
+          majorTickLabels[ i ] = '';
+        }
       }
 
-      const rulerNode = new RulerNode( rulerWidth, RULER_HEIGHT, majorTickWidth, majorTickLabels, centimetersString, options.rulerOptions );
+      const rulerNode = new RulerNode( rulerWidth,
+        RULER_HEIGHT,
+        majorTickWidth,
+        majorTickLabels,
+        centimetersString,
+        options.ruler );
 
       this.addChild( rulerNode );
 
