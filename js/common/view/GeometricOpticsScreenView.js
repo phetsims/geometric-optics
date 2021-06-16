@@ -117,12 +117,12 @@ class GeometricOpticsScreenView extends ScreenView {
       // TODO: works, but this is a very clumsy way to scale.
       // TODO: combine the two Node transformations
       // TODO: find a way to stop relying on oldZoomLevel
-        const scale = GeometricOpticsScreenView.scaleFunction( zoomLevel );
-        const oldScale = GeometricOpticsScreenView.scaleFunction( oldZoomLevel );
-        const relativeScale = scale / oldScale;
-        const translateVector = centerPoint.times( 1 / relativeScale - 1 );
-        this.playAreaNode.scale( relativeScale );
-        this.playAreaNode.translate( translateVector );
+      const scale = GeometricOpticsScreenView.scaleFunction( zoomLevel );
+      const oldScale = GeometricOpticsScreenView.scaleFunction( oldZoomLevel );
+      const relativeScale = scale / oldScale;
+      const translateVector = centerPoint.times( 1 / relativeScale - 1 );
+      this.playAreaNode.scale( relativeScale );
+      this.playAreaNode.translate( translateVector );
 
     } );
 
@@ -183,7 +183,7 @@ class GeometricOpticsScreenView extends ScreenView {
     eyeToggleButton.centerBottom = resetAllButton.centerTop.plusXY( 0, -8 );
 
     // labels
-    const labelsNode = new LabelsNode( model, this.visibleProperties, this.modelViewTransform, this.zoomLevelProperty );
+    const labelsNode = new LabelsNode( model, this, this.visibleProperties, this.modelViewTransform, this.zoomLevelProperty );
 
     // add playAreaNode and controls to the scene graph
     this.addChild( magnifyingGlassZoomButtonGroup );

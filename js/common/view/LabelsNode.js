@@ -7,14 +7,16 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import LabelNode from './LabelNode.js';
 
-// const objectString = geometricOpticsStrings.object;
-// const imageString = geometricOpticsStrings.image;
+const objectString = geometricOpticsStrings.object;
+const imageString = geometricOpticsStrings.image;
 const convexString = geometricOpticsStrings.convex;
 const concaveString = geometricOpticsStrings.concave;
 const focalPointString = geometricOpticsStrings.focalPoint;
@@ -25,12 +27,13 @@ class LabelsNode extends Node {
   /**
    *
    * @param {GeometricOpticsModel} model
+   * @param {GeometricOpticsScreenView} view
    * @param {VisibleProperties} visibleProperties
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Property.<boolean>} zoomLevelProperty
    * @param {Object} [options]
    */
-  constructor( model, visibleProperties, modelViewTransform, zoomLevelProperty, options ) {
+  constructor( model, view, visibleProperties, modelViewTransform, zoomLevelProperty, options ) {
 
     options = merge( {}, options );
 
@@ -48,8 +51,12 @@ class LabelsNode extends Node {
       visibleProperties.visibleFocalPointProperty,
       modelViewTransform );
 
+    const opticLabelPositionProperty = new DerivedProperty( [ model.optic.positionProperty, model.optic.diameterProperty ], ( position, diameter ) =>
+      position.minusXY( 0, diameter / 2 )
+    );
+
     // create optic label with empty string
-    const opticLabel = new LabelNode( '', model.optic.positionProperty, new BooleanProperty( true ), modelViewTransform );
+    const opticLabel = new LabelNode( '', opticLabelPositionProperty, new BooleanProperty( true ), modelViewTransform );
 
     // update the label string
     model.optic.curveProperty.link( curve => {
@@ -67,7 +74,24 @@ class LabelsNode extends Node {
       opticLabel.setText( curveOpticString );
     } );
 
+    // create image label
+    const imageLabel = new LabelNode( imageString, model.targetImage.positionProperty, new BooleanProperty( true ), modelViewTransform );
+
+
+    // create object label
+    const objectLabel = new LabelNode( objectString, model.sourceObject.positionProperty, new BooleanProperty( true ), modelViewTransform );
+
+    // update the visibility of object and image labels.
+    Property.multilink( [ model.representationProperty, model.targetImage.isVirtualProperty, visibleProperties.visibleVirtualImageProperty ],
+      ( representation, isVirtual, showVirtual ) => {
+        objectLabel.visible = representation.isObject;
+        imageLabel.visible = representation.isObject && ( isVirtual ? showVirtual : true );
+      } );
+
+
     // add the labels to this node
+    this.addChild( objectLabel );
+    this.addChild( imageLabel );
     this.addChild( opticLabel );
     this.addChild( firstFocalPointLabel );
     this.addChild( secondFocalPointLabel );

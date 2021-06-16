@@ -42,7 +42,7 @@ class LabelNode extends Node {
     // @private
     this.options = options;
 
-    // create text
+    // @private create text
     this.text = new Text( string, options.text );
 
     // @private create background for label, update the size and position later.
