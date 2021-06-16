@@ -41,7 +41,7 @@ class GeometricOpticsRulerNode extends Node {
         opacity: 0.8,
         minorTicksPerMajorTick: 4,
         majorTickDistance: 0.1, // in model coordinate (m)
-        majorTickFont: new PhetFont( 16 ),
+        majorTickFont: new PhetFont( 13 ),
         insetsWidth: 0
       }
     }, options );
@@ -78,6 +78,12 @@ class GeometricOpticsRulerNode extends Node {
           majorTickLabels[ i ] = '';
         }
       }
+
+
+      // set the units at the end of ruler
+      options.ruler = merge( {
+        unitsMajorTickIndex: numberOfMajorTicks - 3
+      }, options.ruler );
 
       const rulerNode = new RulerNode( rulerWidth,
         RULER_HEIGHT,
