@@ -19,9 +19,9 @@ import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
 import FocalPoint from '../model/FocalPoint.js';
 import GeometricOpticsModel from '../model/GeometricOpticsModel.js';
-import GeometricOpticsControlPanel from './GeometricOpticsControlPanel.js';
 import CurveControl from './CurveControl.js';
 import FocalPointNode from './FocalPointNode.js';
+import GeometricOpticsControlPanel from './GeometricOpticsControlPanel.js';
 import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
 import LabelsNode from './LabelsNode.js';
 import LightRaysNode from './LightRaysNode.js';
@@ -183,7 +183,7 @@ class GeometricOpticsScreenView extends ScreenView {
     eyeToggleButton.centerBottom = resetAllButton.centerTop.plusXY( 0, -8 );
 
     // labels
-    const labelsNode = new LabelsNode( model, this.visibleProperties.visibleLabelsProperty, this.modelViewTransform, this.zoomLevelProperty );
+    const labelsNode = new LabelsNode( model, this.visibleProperties, this.modelViewTransform, this.zoomLevelProperty );
 
     // add playAreaNode and controls to the scene graph
     this.addChild( magnifyingGlassZoomButtonGroup );
@@ -244,7 +244,7 @@ class GeometricOpticsScreenView extends ScreenView {
    * @returns {number}
    */
   static scaleFunction( zoomLevel ) {
-    return Math.pow( ZOOM_SCALE_FACTOR, zoomLevel )
+    return Math.pow( ZOOM_SCALE_FACTOR, zoomLevel );
   }
 }
 

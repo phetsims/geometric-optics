@@ -6,72 +6,74 @@
  * @author Sarah Chang (Swarthmore College)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import geometricOptics from '../../geometricOptics.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
+import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
-// import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import LabelNode from './LabelNode.js';
 
 // const objectString = geometricOpticsStrings.object;
 // const imageString = geometricOpticsStrings.image;
-// const convexString = geometricOpticsStrings.convex;
-// const concaveString = geometricOpticsStrings.concave;
+const convexString = geometricOpticsStrings.convex;
+const concaveString = geometricOpticsStrings.concave;
 const focalPointString = geometricOpticsStrings.focalPoint;
-// const lensString = geometricOpticsStrings.lens;
-// const mirrorString = geometricOpticsStrings.mirror;
-//
-// const ZOOM_SCALE_FACTOR = GeometricOpticsConstants.ZOOM_SCALE_FACTOR;
+const lensString = geometricOpticsStrings.lens;
+const mirrorString = geometricOpticsStrings.mirror;
 
 class LabelsNode extends Node {
   /**
    *
    * @param {GeometricOpticsModel} model
-   * @param {Property.<boolean>} visibleProperty
+   * @param {VisibleProperties} visibleProperties
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Property.<boolean>} zoomLevelProperty
    * @param {Object} [options]
    */
-  constructor( model, visibleProperty, modelViewTransform, zoomLevelProperty, options ) {
-    options = merge( {
-      text: { fill: 'white' },
-      xMargin: 50,
-      yMargin: 10
-    }, options );
+  constructor( model, visibleProperties, modelViewTransform, zoomLevelProperty, options ) {
+
+    options = merge( {}, options );
 
     super( options );
 
-    const focalPointLabel = new Text( focalPointString, options.text );
-    const backgroundRectangle = new Rectangle( 0, 0, 1, 1, {
-      fill: 'grey',
-      opacity: 0.5,
-      cornerRadius: 10
+    // create first focal point label
+    const firstFocalPointLabel = new LabelNode( focalPointString,
+      model.firstFocalPoint.positionProperty,
+      visibleProperties.visibleFocalPointProperty,
+      modelViewTransform );
+
+    // create second focal point label
+    const secondFocalPointLabel = new LabelNode( focalPointString,
+      model.secondFocalPoint.positionProperty,
+      visibleProperties.visibleFocalPointProperty,
+      modelViewTransform );
+
+    // create optic label with empty string
+    const opticLabel = new LabelNode( '', model.optic.positionProperty, new BooleanProperty( true ), modelViewTransform );
+
+    // update the label string
+    model.optic.curveProperty.link( curve => {
+
+      // string associated with curve
+      const curveString = model.optic.isConvex( curve ) ? convexString : concaveString;
+
+      // string associated with type of optic
+      const opticString = model.optic.isLens() ? lensString : mirrorString;
+
+      // TODO: need to think about i18n
+      const curveOpticString = curveString + ' ' + opticString;
+
+      // update the text of label
+      opticLabel.setText( curveOpticString );
     } );
 
-    model.firstFocalPoint.positionProperty.link( position => {
-      focalPointLabel.centerTop = modelViewTransform.modelToViewPosition( position ).plusXY( 0, 10 );
-      backgroundRectangle.setRectWidth( focalPointLabel.width + options.xMargin * 2 );
-      backgroundRectangle.setRectHeight( focalPointLabel.height + options.yMargin * 2 );
-      backgroundRectangle.center = focalPointLabel.center;
-    } );
+    // add the labels to this node
+    this.addChild( opticLabel );
+    this.addChild( firstFocalPointLabel );
+    this.addChild( secondFocalPointLabel );
 
-    zoomLevelProperty.link( ( zoomLevel, oldZoomLevel ) => {
-      if ( oldZoomLevel ) {
-
-        focalPointLabel.centerTop = modelViewTransform.modelToViewPosition( model.firstFocalPoint.positionProperty.value )
-          .plusXY( 0, 10 );
-
-        backgroundRectangle.setRectWidth( focalPointLabel.width + options.xMargin * 2 );
-        backgroundRectangle.setRectHeight( focalPointLabel.height + options.yMargin * 2 );
-        backgroundRectangle.center = focalPointLabel.center;
-      }
-    } );
-
-    this.addChild( backgroundRectangle );
-
-    this.addChild( focalPointLabel );
-
+    // update the visibility of the labels
+    visibleProperties.visibleLabelsProperty.linkAttribute( this, 'visible' );
   }
 }
 
