@@ -23,7 +23,7 @@ import GeometricOpticsModel from '../model/GeometricOpticsModel.js';
 import CurveControl from './CurveControl.js';
 import FocalPointNode from './FocalPointNode.js';
 import GeometricOpticsControlPanel from './GeometricOpticsControlPanel.js';
-import GeometricOpticRulersLayer from './GeometricOpticsRulesrLayer.js';
+import GeometricOpticRulersLayer from './GeometricOpticsRulersLayer.js';
 import LabelsNode from './LabelsNode.js';
 import LightRaysNode from './LightRaysNode.js';
 import OpticalAxisLine from './OpticalAxisLine.js';
