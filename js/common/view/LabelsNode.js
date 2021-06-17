@@ -29,11 +29,11 @@ class LabelsNode extends Node {
    * @param {GeometricOpticsModel} model
    * @param {GeometricOpticsScreenView} view
    * @param {VisibleProperties} visibleProperties
-   * @param {ModelViewTransform2} modelViewTransform
+   * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
    * @param {Property.<boolean>} zoomLevelProperty
    * @param {Object} [options]
    */
-  constructor( model, view, visibleProperties, modelViewTransform, zoomLevelProperty, options ) {
+  constructor( model, view, visibleProperties, modelViewTransformProperty, zoomLevelProperty, options ) {
 
     options = merge( {}, options );
 
@@ -43,20 +43,20 @@ class LabelsNode extends Node {
     const firstFocalPointLabel = new LabelNode( focalPointString,
       model.firstFocalPoint.positionProperty,
       visibleProperties.visibleFocalPointProperty,
-      modelViewTransform );
+      modelViewTransformProperty );
 
     // create second focal point label
     const secondFocalPointLabel = new LabelNode( focalPointString,
       model.secondFocalPoint.positionProperty,
       visibleProperties.visibleFocalPointProperty,
-      modelViewTransform );
+      modelViewTransformProperty );
 
     const opticLabelPositionProperty = new DerivedProperty( [ model.optic.positionProperty, model.optic.diameterProperty ], ( position, diameter ) =>
       position.minusXY( 0, diameter / 2 )
     );
 
     // create optic label with empty string
-    const opticLabel = new LabelNode( '', opticLabelPositionProperty, new BooleanProperty( true ), modelViewTransform );
+    const opticLabel = new LabelNode( '', opticLabelPositionProperty, new BooleanProperty( true ), modelViewTransformProperty );
 
     // update the label string
     model.optic.curveProperty.link( curve => {
@@ -75,11 +75,11 @@ class LabelsNode extends Node {
     } );
 
     // create image label
-    const imageLabel = new LabelNode( imageString, model.targetImage.positionProperty, new BooleanProperty( true ), modelViewTransform );
+    const imageLabel = new LabelNode( imageString, model.targetImage.positionProperty, new BooleanProperty( true ), modelViewTransformProperty );
 
 
     // create object label
-    const objectLabel = new LabelNode( objectString, model.sourceObject.positionProperty, new BooleanProperty( true ), modelViewTransform );
+    const objectLabel = new LabelNode( objectString, model.sourceObject.positionProperty, new BooleanProperty( true ), modelViewTransformProperty );
 
     // update the visibility of object and image labels.
     Property.multilink( [ model.representationProperty, model.targetImage.isVirtualProperty, visibleProperties.visibleVirtualImageProperty ],

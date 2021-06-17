@@ -193,7 +193,7 @@ class GeometricOpticsScreenView extends ScreenView {
     eyeToggleButton.centerBottom = resetAllButton.centerTop.plusXY( 0, -8 );
 
     // labels
-    const labelsNode = new LabelsNode( model, this, this.visibleProperties, this.modelViewTransform, this.zoomLevelProperty );
+    const labelsNode = new LabelsNode( model, this, this.visibleProperties, this.zoomModelViewTransformProperty, this.zoomLevelProperty );
 
     // add playAreaNode and controls to the scene graph
     this.addChild( magnifyingGlassZoomButtonGroup );

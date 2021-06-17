@@ -12,18 +12,17 @@ import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import geometricOptics from '../../geometricOptics.js';
 
-/**
- * Create and add a label node
- *
- * @param {string} string
- * @param {Property.<Vector2>} positionProperty
- * @param {Property.<boolean>} visibleProperty
- * @param {ModelViewTransform2} modelViewTransform
- * @param {Object} [options]
- */
 class LabelNode extends Node {
-
-  constructor( string, positionProperty, visibleProperty, modelViewTransform, options ) {
+  /**
+   * Create and add a label node
+   *
+   * @param {string} string
+   * @param {Property.<Vector2>} positionProperty
+   * @param {Property.<boolean>} visibleProperty
+   * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
+   * @param {Object} [options]
+   */
+  constructor( string, positionProperty, visibleProperty, modelViewTransformProperty, options ) {
 
     options = merge( {
       text: { fill: 'white' },
@@ -55,12 +54,16 @@ class LabelNode extends Node {
     this.positionProperty = positionProperty;
 
     // @private
-    this.modelViewTransform = modelViewTransform;
+    this.modelViewTransformProperty = modelViewTransformProperty;
 
     // add the children to this node
     this.addChild( this.backgroundRectangle );
     this.addChild( this.text );
 
+    // update the position of the labels when the zoom level changes
+    modelViewTransformProperty.link( () => {
+      this.setLabelPosition();
+    } );
 
     // update the position of the text and background
     positionProperty.link( () => {
@@ -88,7 +91,7 @@ class LabelNode extends Node {
    * @public
    */
   setLabelPosition() {
-    this.centerTop = this.modelViewTransform.modelToViewPosition( this.positionProperty.value ).plusXY( 0, this.options.labelOffset );
+    this.centerTop = this.modelViewTransformProperty.value.modelToViewPosition( this.positionProperty.value ).plusXY( 0, this.options.labelOffset );
   }
 
   /**
