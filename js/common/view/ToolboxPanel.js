@@ -48,14 +48,9 @@ class ToolboxPanel extends Panel {
         majorTickLabels.push( '' );
       }
       const majorTickWidth = rulerWidth / ( majorTickLabels.length - 1 );
-      const unitsString = '';
+      const units = ''; // empty string for units
 
-      const rulerIconNode = new RulerNode(
-        rulerWidth,
-        rulerHeight,
-        majorTickWidth,
-        majorTickLabels,
-        unitsString, {
+      const rulerIconNode = new RulerNode( rulerWidth, rulerHeight, majorTickWidth, majorTickLabels, units, {
           tickMarksOnBottom: false,
           minorTicksPerMajorTick: 1,
           majorTickHeight: ( 0.6 * rulerHeight ) / 2,
