@@ -37,6 +37,8 @@ const SCREEN_VIEW_X_MARGIN = GeometricOpticsConstants.SCREEN_VIEW_X_MARGIN;
 const SCREEN_VIEW_Y_MARGIN = GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN;
 const ZOOM_RANGE = GeometricOpticsConstants.ZOOM_RANGE;
 const ZOOM_SCALE_FACTOR = GeometricOpticsConstants.ZOOM_SCALE_FACTOR;
+const NOMINAL_VIEW_MODEL_CONVERSION = GeometricOpticsConstants.NOMINAL_VIEW_MODEL_CONVERSION;
+const ORIGIN_POINT = GeometricOpticsConstants.ORIGIN_POINT;
 
 class GeometricOpticsScreenView extends ScreenView {
 
@@ -52,10 +54,6 @@ class GeometricOpticsScreenView extends ScreenView {
       tandem: tandem
     } );
 
-    const centerPoint = this.layoutBounds.getCenter();
-
-    // @protected create a Y inverted modelViewTransform with isometric scaling along X and Y
-    this.modelViewTransform = ModelViewTransform2.createOffsetXYScaleMapping( centerPoint, 200, -200 );
 
     // convenience variable for laying out scenery nodes
     const erodedLayoutBounds = this.layoutBounds.erodedXY( SCREEN_VIEW_X_MARGIN, SCREEN_VIEW_Y_MARGIN );
@@ -65,6 +63,9 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // @private {Property.<number>} property that controls zoom in play area
     this.zoomLevelProperty = new NumberProperty( ZOOM_RANGE.defaultValue, { range: ZOOM_RANGE } );
+
+    // @protected create a Y inverted modelViewTransform with isometric scaling along X and Y
+    this.modelViewTransform = GeometricOpticsScreenView.getModelViewTransform( ZOOM_RANGE.defaultValue );
 
     //----------------------------------------------------------------------
     //                          scenery nodes for play area
@@ -111,16 +112,19 @@ class GeometricOpticsScreenView extends ScreenView {
     this.playAreaNode.addChild( movableLightRaysNode );
 
 
-    // @private scale the playAreaNode
+    // scale the playAreaNode
     this.zoomLevelProperty.lazyLink( ( zoomLevel, oldZoomLevel ) => {
+
+      // scaling factor between zoom levels
+      const relativeScale = GeometricOpticsScreenView.getRelativeScale( zoomLevel, oldZoomLevel );
+
+      // offset of the play areaNode such that the origin point remains fixed through zoom
+      const translateVector = ORIGIN_POINT.times( 1 / relativeScale - 1 );
 
       // TODO: works, but this is a very clumsy way to scale.
       // TODO: combine the two Node transformations
-      // TODO: find a way to stop relying on oldZoomLevel
-      const scale = GeometricOpticsScreenView.scaleFunction( zoomLevel );
-      const oldScale = GeometricOpticsScreenView.scaleFunction( oldZoomLevel );
-      const relativeScale = scale / oldScale;
-      const translateVector = centerPoint.times( 1 / relativeScale - 1 );
+
+      // scale and translate the playArea
       this.playAreaNode.scale( relativeScale );
       this.playAreaNode.translate( translateVector );
 
@@ -145,7 +149,6 @@ class GeometricOpticsScreenView extends ScreenView {
     // create toolbox panel at the top right corner of the screen
     const toolboxPanel = new ToolboxPanel( this.horizontalRulerNode, tandem );
     toolboxPanel.rightTop = erodedLayoutBounds.rightTop;
-
 
     // create the control buttons to toggle between convex and concave optic at the left bottom
     const curveControl = new CurveControl( model.optic.curveProperty, model.optic );
@@ -246,6 +249,52 @@ class GeometricOpticsScreenView extends ScreenView {
   static scaleFunction( zoomLevel ) {
     return Math.pow( ZOOM_SCALE_FACTOR, zoomLevel );
   }
+
+  /**
+   * returns the relative scale between a zoom level and a previous old zoom level
+   * @public
+   * @param {number} zoomLevel
+   * @param {number} oldZoomLevel
+   * @returns {number}
+   */
+  static getRelativeScale( zoomLevel, oldZoomLevel ) {
+    const scale = GeometricOpticsScreenView.scaleFunction( zoomLevel );
+    const oldScale = GeometricOpticsScreenView.scaleFunction( oldZoomLevel );
+    return scale / oldScale;
+  }
+
+
+  /**
+   * Returns the absolute scaling factor measured from the initial zoom level
+   * The abscolute scale returns 1 if the zoom level is the initial zoom level value
+   * @public
+   * @param {number} zoomLevel
+   * @returns {number}
+   */
+  static getAbsoluteScale( zoomLevel ) {
+    return GeometricOpticsScreenView.getRelativeScale( zoomLevel, ZOOM_RANGE.defaultValue );
+  }
+
+  /**
+   * returns a model view transform appropriate for the zoom level
+   * @public
+   * @param {number} zoomLevel
+   * @returns {ModelViewTransform2}
+   */
+  static getModelViewTransform( zoomLevel ) {
+
+    // scaling factor between zoom level measured from the initial zoom level
+    const absoluteScale = GeometricOpticsScreenView.getAbsoluteScale( zoomLevel );
+
+    // number of view coordinates for 1 meter
+    const viewModelScale = NOMINAL_VIEW_MODEL_CONVERSION * absoluteScale;
+
+    // create a Y inverted modelViewTransform with isometric scaling along X and Y
+    return ModelViewTransform2.createOffsetXYScaleMapping( ORIGIN_POINT, viewModelScale, -viewModelScale );
+
+  }
+
+
 }
 
 

@@ -27,7 +27,9 @@ const GeometricOpticsConstants = {
   ZOOM_RANGE: new RangeWithValue( 1, 3, 2 ),
   ZOOM_SCALE_FACTOR: 2, // should not be changed to keep major tick labels as multiples of 10
 
-  INITIAL_VIEW_MODEL_CONVERSION: 200, // view coordinates per meter in initial zoom level
+
+  ORIGIN_POINT: new Vector2( 1024 / 2, 618 / 2 - 50 ), // view position of the model origin (0,0)
+  NOMINAL_VIEW_MODEL_CONVERSION: 200, // view coordinates per meter in initial zoom level
 
   //----------------------------------------------------------------------------------------
   //                                 LENS
