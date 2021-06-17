@@ -19,7 +19,6 @@ class VisibleProperties {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     this.visibleFocalPointProperty = new BooleanProperty( true );
-    this.visibleRulersProperty = new BooleanProperty( false );
     this.visibleVirtualImageProperty = new BooleanProperty( false );
     this.visibleMovablePointProperty = new BooleanProperty( false );
     this.visibleGuidesProperty = new BooleanProperty( false );

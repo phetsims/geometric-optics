@@ -34,7 +34,6 @@ const curvatureRadiusString = geometricOpticsStrings.curvatureRadius;
 const diameterString = geometricOpticsStrings.diameter;
 const refractiveIndexString = geometricOpticsStrings.refractiveIndex;
 const focalPointString = geometricOpticsStrings.focalPoint;
-const rulersString = geometricOpticsStrings.rulers;
 const virtualImageString = geometricOpticsStrings.virtualImage;
 const movablePointString = geometricOpticsStrings.movablePoint;
 const guidesString = geometricOpticsStrings.guides;
@@ -154,11 +153,6 @@ class GeometricOpticsControlPanel extends Panel {
       {
         node: new Text( labelsString ),
         property: visibleProperties.visibleLabelsProperty,
-        tandem: tandem
-      },
-      {
-        node: new Text( rulersString ),
-        property: visibleProperties.visibleRulersProperty,
         tandem: tandem
       },
       {
