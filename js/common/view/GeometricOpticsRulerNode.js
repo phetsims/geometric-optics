@@ -90,7 +90,7 @@ class GeometricOpticsRulerNode extends RulerNode {
       else {
 
         // making sure that the right bottom of the ruler stays within the screen
-        rulerBounds = visibleBounds.value.withOffsets( 0, 0, -this.width, -this.height );
+        rulerBounds = visibleBounds.withOffsets( 0, 0, -this.width, -this.height );
       }
       return modelViewTransform.viewToModelBounds( rulerBounds );
     } );
