@@ -6,6 +6,7 @@
  * @author Martin Veillette
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -66,6 +67,12 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // @protected create a Y inverted modelViewTransform with isometric scaling along X and Y
     this.modelViewTransform = GeometricOpticsScreenView.getModelViewTransform( ZOOM_RANGE.defaultValue );
+
+
+    // @protected modelViewTransform
+    this.zoomModelViewTransformProperty = new DerivedProperty( [ this.zoomLevelProperty ], zoomLevel => {
+      return GeometricOpticsScreenView.getModelViewTransform( zoomLevel );
+    } );
 
     //----------------------------------------------------------------------
     //                          scenery nodes for play area
