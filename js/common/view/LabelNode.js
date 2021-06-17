@@ -11,6 +11,9 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import geometricOptics from '../../geometricOptics.js';
+import GeometricOpticsColorProfile from '../GeometricOpticsColorProfile.js';
+
+const BACKGROUND_COLOR = GeometricOpticsColorProfile.screenBackgroundColorProperty;
 
 class LabelNode extends Node {
   /**
@@ -27,7 +30,7 @@ class LabelNode extends Node {
     options = merge( {
       text: { fill: 'white' },
       background: {
-        fill: 'grey',
+        fill: BACKGROUND_COLOR,
         opacity: 0.5,
         cornerRadius: 4
       },
