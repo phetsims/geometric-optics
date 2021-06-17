@@ -155,7 +155,7 @@ class GeometricOpticsScreenView extends ScreenView {
     const toolboxPanel = new ToolboxPanel( model.rulers, tandem );
     toolboxPanel.rightTop = erodedLayoutBounds.rightTop;
 
-    const rulersLayer = new GeometricOpticRulersLayer( model.rulers, this.visibleBoundsProperty,
+    this.rulersLayer = new GeometricOpticRulersLayer( model.rulers, this.visibleBoundsProperty,
       this.absoluteScaleProperty,
       this.zoomModelViewTransformProperty, tandem );
 
@@ -207,7 +207,7 @@ class GeometricOpticsScreenView extends ScreenView {
     this.addChild( resetAllButton );
     this.addChild( this.playAreaNode );
     this.addChild( labelsNode );
-    this.addChild( rulersLayer );
+    this.addChild( this.rulersLayer );
 
     //------------------------------------------------------------
     //                  Query Parameters
@@ -243,8 +243,7 @@ class GeometricOpticsScreenView extends ScreenView {
     this.zoomLevelProperty.reset();
     this.visibleProperties.reset();
     this.sourceObjectNode.reset();
-    this.horizontalRulerNode.reset();
-    this.verticalRulerNode.reset();
+    this.rulersLayer.reset();
   }
 
   /**

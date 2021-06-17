@@ -47,7 +47,6 @@ class GeometricOpticsRulerNode extends RulerNode {
 
     const numberOfMajorTicks = ruler.length / options.majorTickDistance + 1;
 
-
     // create major ticks label
     const majorTickLabels = [];
 
@@ -63,6 +62,11 @@ class GeometricOpticsRulerNode extends RulerNode {
         majorTickLabels[ i ] = '';
       }
     }
+
+    // set the units at the end of ruler
+    options = merge( {
+      unitsMajorTickIndex: numberOfMajorTicks - 3
+    }, options );
 
     super( rulerWidth,
       RULER_HEIGHT,

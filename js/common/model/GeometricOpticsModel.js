@@ -54,8 +54,8 @@ class GeometricOpticsModel {
     this.representationProperty.reset();
     this.lightRayModeProperty.reset();
     this.sourceObject.reset();
-    this.verticalRuler.reset();
-    this.horizontalRuler.reset();
+    this.rulers.vertical.reset();
+    this.rulers.horizontal.reset();
   }
 
   /**

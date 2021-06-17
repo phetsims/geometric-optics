@@ -56,8 +56,13 @@ class GeometricOpticRulersLayer extends Node {
       addRulerNode( rulers.horizontal, absoluteScale );
       addRulerNode( rulers.vertical, absoluteScale );
     } );
+  }
 
-
+  /**
+   * Resets the view.
+   * @public
+   */
+  reset() {
   }
 }
 
