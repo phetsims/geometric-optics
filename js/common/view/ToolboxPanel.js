@@ -77,7 +77,7 @@ class ToolboxPanel extends Panel {
 
     const toolbox = new HBox( {
       spacing: 30,
-      children: [ horizontalRulerIconNode, verticalRulerIconNode ],
+      children: [ verticalRulerIconNode, horizontalRulerIconNode ],
       excludeInvisibleChildrenFromBounds: false
     } );
 
