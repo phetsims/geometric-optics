@@ -23,7 +23,7 @@ import GeometricOpticsModel from '../model/GeometricOpticsModel.js';
 import CurveControl from './CurveControl.js';
 import FocalPointNode from './FocalPointNode.js';
 import GeometricOpticsControlPanel from './GeometricOpticsControlPanel.js';
-import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
+import GeometricOpticRulersLayer from './GeometricOpticsRulesrLayer.js';
 import LabelsNode from './LabelsNode.js';
 import LightRaysNode from './LightRaysNode.js';
 import OpticalAxisLine from './OpticalAxisLine.js';
@@ -66,12 +66,17 @@ class GeometricOpticsScreenView extends ScreenView {
     this.zoomLevelProperty = new NumberProperty( ZOOM_RANGE.defaultValue, { range: ZOOM_RANGE } );
 
     // @protected create a Y inverted modelViewTransform with isometric scaling along X and Y
-    this.modelViewTransform = GeometricOpticsScreenView.getModelViewTransform( ZOOM_RANGE.defaultValue );
+    this.modelViewTransform = this.getModelViewTransform( ZOOM_RANGE.defaultValue );
 
 
-    // @protected modelViewTransform
+    // @protected {Property.<ModelViewTransform2>} modelViewTransform
     this.zoomModelViewTransformProperty = new DerivedProperty( [ this.zoomLevelProperty ], zoomLevel => {
-      return GeometricOpticsScreenView.getModelViewTransform( zoomLevel );
+      return this.getModelViewTransform( zoomLevel );
+    } );
+
+    // @protected {Property.<number>} zoom scale associate with the zoom level
+    this.absoluteScaleProperty = new DerivedProperty( [ this.zoomLevelProperty ], zoomLevel => {
+      return this.getAbsoluteScale( zoomLevel );
     } );
 
     //----------------------------------------------------------------------
@@ -123,7 +128,7 @@ class GeometricOpticsScreenView extends ScreenView {
     this.zoomLevelProperty.lazyLink( ( zoomLevel, oldZoomLevel ) => {
 
       // scaling factor between zoom levels
-      const relativeScale = GeometricOpticsScreenView.getRelativeScale( zoomLevel, oldZoomLevel );
+      const relativeScale = this.getRelativeScale( zoomLevel, oldZoomLevel );
 
       // offset of the play areaNode such that the origin point remains fixed through zoom
       const translateVector = ORIGIN_POINT.times( 1 / relativeScale - 1 );
@@ -146,16 +151,13 @@ class GeometricOpticsScreenView extends ScreenView {
       { hasLens: model.optic.isLens() } );
     geometricOpticsControlPanel.centerBottom = erodedLayoutBounds.centerBottom;
 
-    // @private create rulers
-    // TODO: pass in toolbox bounds
-    this.horizontalRulerNode = new GeometricOpticsRulerNode( model.horizontalRuler,
-      this.visibleProperties.visibleRulersProperty, this.zoomLevelProperty, this.layoutBounds, this.modelViewTransform );
-    this.verticalRulerNode = new GeometricOpticsRulerNode( model.verticalRuler,
-      this.visibleProperties.visibleRulersProperty, this.zoomLevelProperty, this.layoutBounds, this.modelViewTransform );
-
     // create toolbox panel at the top right corner of the screen
-    const toolboxPanel = new ToolboxPanel( this.horizontalRulerNode, tandem );
+    const toolboxPanel = new ToolboxPanel( model.rulers, tandem );
     toolboxPanel.rightTop = erodedLayoutBounds.rightTop;
+
+    const rulersLayer = new GeometricOpticRulersLayer( model.rulers, this.visibleBoundsProperty,
+      this.absoluteScaleProperty,
+      this.zoomModelViewTransformProperty, tandem );
 
     // create the control buttons to toggle between convex and concave optic at the left bottom
     const curveControl = new CurveControl( model.optic.curveProperty, model.optic );
@@ -205,8 +207,7 @@ class GeometricOpticsScreenView extends ScreenView {
     this.addChild( resetAllButton );
     this.addChild( this.playAreaNode );
     this.addChild( labelsNode );
-    this.addChild( this.horizontalRulerNode );
-    this.addChild( this.verticalRulerNode );
+    this.addChild( rulersLayer );
 
     //------------------------------------------------------------
     //                  Query Parameters
@@ -246,14 +247,13 @@ class GeometricOpticsScreenView extends ScreenView {
     this.verticalRulerNode.reset();
   }
 
-
   /**
    * Scale function
    * @public
    *
    * @returns {number}
    */
-  static scaleFunction( zoomLevel ) {
+  scaleFunction( zoomLevel ) {
     return Math.pow( ZOOM_SCALE_FACTOR, zoomLevel );
   }
 
@@ -264,9 +264,9 @@ class GeometricOpticsScreenView extends ScreenView {
    * @param {number} oldZoomLevel
    * @returns {number}
    */
-  static getRelativeScale( zoomLevel, oldZoomLevel ) {
-    const scale = GeometricOpticsScreenView.scaleFunction( zoomLevel );
-    const oldScale = GeometricOpticsScreenView.scaleFunction( oldZoomLevel );
+  getRelativeScale( zoomLevel, oldZoomLevel ) {
+    const scale = this.scaleFunction( zoomLevel );
+    const oldScale = this.scaleFunction( oldZoomLevel );
     return scale / oldScale;
   }
 
@@ -278,8 +278,8 @@ class GeometricOpticsScreenView extends ScreenView {
    * @param {number} zoomLevel
    * @returns {number}
    */
-  static getAbsoluteScale( zoomLevel ) {
-    return GeometricOpticsScreenView.getRelativeScale( zoomLevel, ZOOM_RANGE.defaultValue );
+  getAbsoluteScale( zoomLevel ) {
+    return this.getRelativeScale( zoomLevel, ZOOM_RANGE.defaultValue );
   }
 
   /**
@@ -288,10 +288,10 @@ class GeometricOpticsScreenView extends ScreenView {
    * @param {number} zoomLevel
    * @returns {ModelViewTransform2}
    */
-  static getModelViewTransform( zoomLevel ) {
+  getModelViewTransform( zoomLevel ) {
 
     // scaling factor between zoom level measured from the initial zoom level
-    const absoluteScale = GeometricOpticsScreenView.getAbsoluteScale( zoomLevel );
+    const absoluteScale = this.getAbsoluteScale( zoomLevel );
 
     // number of view coordinates for 1 meter
     const viewModelScale = NOMINAL_VIEW_MODEL_CONVERSION * absoluteScale;

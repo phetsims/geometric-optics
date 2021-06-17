@@ -18,12 +18,12 @@ import geometricOptics from '../../geometricOptics.js';
 
 class ToolboxPanel extends Panel {
   /**
-   *
-   * @param {GeometricOpticsRulerNode} horizontalRulerNode
+   * @param {{horizontal: <Ruler>, vertical:<Ruler>}} rulers - model of rulers
    * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( horizontalRulerNode, tandem, options ) {
+  constructor( rulers, tandem, options ) {
+
 
     options = merge( {
       align: 'center',
@@ -41,20 +41,21 @@ class ToolboxPanel extends Panel {
      */
     const getRulerIcon = isVertical => {
 
-      const rulerWidth = 397;
-      const rulerHeight = 0.175 * rulerWidth;
+      const rulerWidth = 400;
+      const rulerHeight = 0.18 * rulerWidth;
       const majorTickLabels = [ '' ];
       for ( let i = 1; i < 5; i++ ) { // create 5 empty strings for labels
         majorTickLabels.push( '' );
       }
       const majorTickWidth = rulerWidth / ( majorTickLabels.length - 1 );
+      const unitsString = '';
+
       const rulerIconNode = new RulerNode(
         rulerWidth,
         rulerHeight,
         majorTickWidth,
         majorTickLabels,
-        '',
-        {
+        unitsString, {
           tickMarksOnBottom: false,
           minorTicksPerMajorTick: 1,
           majorTickHeight: ( 0.6 * rulerHeight ) / 2,
@@ -87,11 +88,11 @@ class ToolboxPanel extends Panel {
 
     // icon disappears when ruler appears
     horizontalRulerVisibleProperty.link( visible => {
-      horizontalRulerNode.visible = visible;
+      // horizontalRulerNode.visible = visible;
       horizontalRulerIconNode.visible = !visible;
     } );
 
-    horizontalRulerIconNode.addInputListener( DragListener.createForwardingListener( event => {
+    horizontalRulerIconNode.addInputListener( DragListener.createForwardingListener( () => {
       if ( horizontalRulerVisibleProperty.value === false ) {
         horizontalRulerVisibleProperty.value = true;
         //horizontalRulerNode.startBaseDrag( event );

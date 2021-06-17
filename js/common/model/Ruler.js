@@ -27,8 +27,11 @@ class Ruler {
     // @public {Property.<Vector2>} position of the ruler
     this.positionProperty = new Vector2Property( position );
 
-    // @public (read-only) {number} length of the ruler in meters.
+    // @public {number} length of the ruler in meters.
     this.length = length;
+
+    // @private
+    this.nominalLength = length;
 
     // @public (read-only) {string} orientation of the ruler (valid choices are vertical and horizontal).
     this.orientation = options.orientation;
@@ -40,6 +43,14 @@ class Ruler {
    */
   reset() {
     this.positionProperty.reset();
+  }
+
+  /**
+   * @public
+   * @param {number} absoluteScale
+   */
+  scaleLength( absoluteScale ) {
+    this.length = this.nominalLength * absoluteScale;
   }
 
 }
