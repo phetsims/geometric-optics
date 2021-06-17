@@ -6,7 +6,7 @@
  * @author Sarah Chang (Swarthmore College)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -75,26 +75,25 @@ class GeometricOpticsRulerNode extends RulerNode {
       centimetersString,
       options );
 
+    const rulerDragBoundsProperty = new DerivedProperty( [ visibleBoundsProperty ], visibleBounds => {
+      // {Bounds2} the bounds of the ruler to stay within the devBounds
+      let rulerBounds;
 
-    // {Bounds2} the bounds of the ruler to stay within the devBounds
-    let rulerBounds;
+      if ( ruler.orientation === Ruler.Orientation.VERTICAL ) {
 
-    if ( ruler.orientation === Ruler.Orientation.VERTICAL ) {
+        // update the rotation of the ruler
+        this.rotation = -Math.PI / 2;
 
-      // update the rotation of the ruler
-      this.rotation = -Math.PI / 2;
+        // making sure that the right top of the ruler stays within the screen
+        rulerBounds = visibleBounds.withOffsets( 0, -this.height, -this.width, 0 );
+      }
+      else {
 
-      // making sure that the right top of the ruler stays within the screen
-      rulerBounds = visibleBoundsProperty.value.withOffsets( 0, -this.height, -this.width, 0 );
-    }
-    else {
-
-      // making sure that the right bottom of the ruler stays within the screen
-      rulerBounds = visibleBoundsProperty.value.withOffsets( 0, 0, -this.width, -this.height );
-    }
-
-    // create property for dragBounds of ruler
-    const rulerDragBoundsProperty = new Property( modelViewTransform.viewToModelBounds( rulerBounds ) );
+        // making sure that the right bottom of the ruler stays within the screen
+        rulerBounds = visibleBounds.value.withOffsets( 0, 0, -this.width, -this.height );
+      }
+      return modelViewTransform.viewToModelBounds( rulerBounds );
+    } );
 
     // create and add drag listener
     const dragListener = new DragListener( {
