@@ -21,14 +21,13 @@ const GeometricOpticsConstants = {
   SCREEN_VIEW_X_MARGIN: 15, // margin along horizontal axis of screen (in view coordinates)
   SCREEN_VIEW_Y_MARGIN: 15, // margin along vertical axis of screen
 
-  MIN_SCENE_WIDTH: 3.8, // Meters (model coordinates)
-  MIN_SCENE_HEIGHT: 2.3, // Meters
-
   DEFAULT_SOURCE_POINT_1: new Vector2( -1.5, 0.0 ),
   DEFAULT_SOURCE_POINT_2: new Vector2( -1.5, -0.2 ),
 
   ZOOM_RANGE: new RangeWithValue( 1, 3, 2 ),
   ZOOM_SCALE_FACTOR: 2, // should not be changed to keep major tick labels as multiples of 10
+
+  INITIAL_VIEW_MODEL_CONVERSION: 200, // view coordinates per meter in initial zoom level
 
   //----------------------------------------------------------------------------------------
   //                                 LENS
@@ -42,7 +41,6 @@ const GeometricOpticsConstants = {
   //----------------------------------------------------------------------------------------
   //                                 MIRROR
 
-
   MIRROR_INITIAL_POSITION: new Vector2( 1, 0 ),
   MIRROR_INITIAL_CURVATURE_TYPE: Optic.Curve.CONVEX,
   MIRROR_RADIUS_OF_CURVATURE_RANGE: new RangeWithValue( 1.5, 2.5, 2.0 ),
@@ -52,9 +50,8 @@ const GeometricOpticsConstants = {
   //----------------------------------------------------------------------------------------
   //                                 FOCAL POINT
 
-
   FOCAL_POINT_LINE_WIDTH: 1,
-  FOCAL_POINT_SIZE: new Dimension2( 15, 3 ),
+  FOCAL_POINT_SIZE: new Dimension2( 15, 3 ), // width of the X sign and "thickness" in X sign
 
   //----------------------------------------------------------------------------------------
   //                           OPTICAL AXIS
@@ -64,27 +61,17 @@ const GeometricOpticsConstants = {
   //----------------------------------------------------------------------------------------
   //                             OBJECT VIEW
 
-
-  PICTURE_HEIGHT_IN_METERS: 0.73,
-  PICTURE_X_ANCHOR: 0.57,
-  PICTURE_Y_ANCHOR: 0.2,
-  SECOND_POINT_Y_SPAN_IN_METERS: 0.32, // PICTURE_HEIGHT_IN_METERS * (1 - ObjectView.PICTURE_Y_ANCHOR * 2),
-
-  SECOND_POINT_SIZE: 12,
-
+  OBJECT_SIZE: new Dimension2( 15, 3 ), // in meters
+  OBJECT_ANCHOR_VECTOR: new Vector2( 0.16, -0.19 ), // in meters, displacement vector between top left image and anchor
 
   //----------------------------------------------------------------------------------------
   //                              RAYS
 
-
   OPTICAL_ELEMENT_TIP_OFFSET: 0.0, // meters
-
   OPTICAL_ELEMENT_LINE_WIDTH: 2,
-
 
   //----------------------------------------------------------------------------------------
   //                              GUIDES
-
 
   GUIDE_LINE_WIDTH: 1,
   GUIDE_RECTANGLE_WIDTH: 0.48, // Meters
@@ -102,7 +89,6 @@ const GeometricOpticsConstants = {
   },
 
   FULL_BRIGHT_SPOT_HEIGHT: 0.07, // Meters
-
 
   //----------------------------------------------------------------------------------------
   //                        DECIMAL PLACES
