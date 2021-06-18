@@ -40,7 +40,7 @@ class LensScreenView extends GeometricOpticsScreenView {
       this.modelViewTransform, tandem );
 
     //  add the screen at the bottom of the z-layer
-    this.insertChild( 0, this.projectorScreenNode );
+    this.playAreaNode.insertChild( 0, this.projectorScreenNode );
   }
 
   /**
