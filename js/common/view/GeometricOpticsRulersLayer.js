@@ -8,7 +8,6 @@
  * @author Martin Veillette
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
@@ -46,7 +45,6 @@ class GeometricOpticRulersLayer extends Node {
       };
 
       const rulerNode = new GeometricOpticsRulerNode( ruler,
-        new BooleanProperty( true ),
         visibleBoundsProperty,
         modelViewTransformProperty.value, rulerOptions );
 

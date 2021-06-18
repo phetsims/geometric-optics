@@ -24,12 +24,11 @@ class GeometricOpticsRulerNode extends RulerNode {
   /**
    *
    * @param {Ruler} ruler - model for ruler
-   * @param {Property.<boolean>} visibleProperty
    * @param {Property.<Bounds2>} visibleBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( ruler, visibleProperty, visibleBoundsProperty, modelViewTransform, options ) {
+  constructor( ruler, visibleBoundsProperty, modelViewTransform, options ) {
 
     options = merge( {
       opacity: 0.8,
@@ -108,10 +107,6 @@ class GeometricOpticsRulerNode extends RulerNode {
       }
     } );
     this.addInputListener( this.dragListener );
-
-
-    // update ruler visibility
-    visibleProperty.linkAttribute( this, 'visible' );
 
     // @private
     this.resetLeftTopPosition = () => {
