@@ -22,7 +22,12 @@ class GeometricOpticRulersLayer extends Node {
    * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( rulers, visibleBoundsProperty, absoluteScaleProperty, modelViewTransformProperty, tandem, options ) {
+  constructor( rulers,
+               visibleBoundsProperty,
+               absoluteScaleProperty,
+               modelViewTransformProperty,
+               tandem,
+               options ) {
 
     super( options );
 
