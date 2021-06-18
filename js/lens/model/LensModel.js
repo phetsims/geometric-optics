@@ -9,7 +9,8 @@ import GeometricOpticsModel from '../../common/model/GeometricOpticsModel.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from './Guide.js';
 import Lens from './Lens.js';
-import ProjectorScreen from './ProjectorScreen.js';
+
+// import ProjectorScreen from './ProjectorScreen.js';
 
 class LensModel extends GeometricOpticsModel {
 
@@ -30,11 +31,11 @@ class LensModel extends GeometricOpticsModel {
 
     this.bottomGuide = new Guide( this.sourceObject.positionProperty, this.optic, { location: Guide.Location.BOTTOM } );
 
-    // @public {ProjectorScreen}
-    this.projectorScreen = new ProjectorScreen( this.optic.positionProperty,
-      this.optic.diameterProperty,
-      this.targetImage.positionProperty,
-      this.movableTargetImage.positionProperty, tandem );
+    // // @public {ProjectorScreen}
+    // this.projectorScreen = new ProjectorScreen( this.optic.positionProperty,
+    //   this.optic.diameterProperty,
+    //   this.targetImage.positionProperty,
+    //   this.movableTargetImage.positionProperty, tandem );
   }
 
   /**
