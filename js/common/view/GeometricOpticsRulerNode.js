@@ -101,12 +101,10 @@ class GeometricOpticsRulerNode extends RulerNode {
         this.moveToFront();
       },
 
-      drag: () => {
-
-      },
-
       end: () => {
 
+        // Drop in toolbox, using the bounds ruler
+        // TODO
       }
     } );
     this.addInputListener( this.dragListener );

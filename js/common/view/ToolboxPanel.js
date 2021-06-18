@@ -47,7 +47,12 @@ class ToolboxPanel extends Panel {
     super( toolbox, options );
 
 
-    const createForwardEvent = ( iconNode, rulerNode ) => {
+    /**
+     * Add input listener on iconNode to forward events to rulerNode
+     * @param {Node} iconNode
+     * @param {Node} rulerNode
+     */
+    const createForwardListener = ( iconNode, rulerNode ) => {
 
       const visibleIconProperty = new BooleanProperty( true );
 
@@ -65,8 +70,8 @@ class ToolboxPanel extends Panel {
       } ) );
     };
 
-    createForwardEvent( horizontalRulerIconNode, rulersLayer.horizontalRulerNode );
-    createForwardEvent( verticalRulerIconNode, rulersLayer.verticalRulerNode );
+    createForwardListener( horizontalRulerIconNode, rulersLayer.horizontalRulerNode );
+    createForwardListener( verticalRulerIconNode, rulersLayer.verticalRulerNode );
   }
 
   /**
