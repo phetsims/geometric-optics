@@ -6,6 +6,8 @@
  * @author Martin Veillette
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
@@ -17,6 +19,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import projectorScreen3dImage from '../../../images/projector-screen-3d_png.js';
 import GeometricOpticsColorProfile from '../../common/GeometricOpticsColorProfile.js';
 import geometricOptics from '../../geometricOptics.js';
+import Circle from '../../../../scenery/js/nodes/Circle.js';
 
 const SPOTLIGHT_FILL = GeometricOpticsColorProfile.projectorScreenSpotlightFillProperty;
 
@@ -26,11 +29,18 @@ class ProjectorScreenNode extends Node {
    * @param {ProjectorScreen} projectorScreen
    * @param {Property.<Representation>} representationProperty
    * @param {Property.<boolean>} visibleMovablePointProperty
+   * @param {Property.<Bounds2>} visibleBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( projectorScreen, representationProperty, visibleMovablePointProperty, modelViewTransform, tandem, options ) {
+  constructor( projectorScreen,
+               representationProperty,
+               visibleMovablePointProperty,
+               visibleBoundsProperty,
+               modelViewTransform,
+               tandem,
+               options ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     super( options );
@@ -44,23 +54,40 @@ class ProjectorScreenNode extends Node {
     // @private {Property.<Vector2} create a property for the left top position of the projectorScreen target
     this.imagePositionProperty = new Vector2Property( projectorScreen.positionProperty.value.plus( offset ) );
 
+    const circle = new Circle( { radius: 10, fill: 'pink' } );
+    this.addChild( circle );
+
+    this.imagePositionProperty.link( position => {
+      circle.center = modelViewTransform.modelToViewPosition( position );
+    } );
+
+    // keep at least half of the projector screen within visible bounds and right of the optic
+    const projectorScreenDragBoundsProperty = new DerivedProperty( [ visibleBoundsProperty ], visibleBounds => {
+      const viewBounds = new Bounds2( modelViewTransform.modelToViewX( projectorScreen.opticPositionProperty.value.x ),
+        visibleBounds.minY - this.height / 2,
+        visibleBounds.maxX - this.width / 2,
+        visibleBounds.maxY - this.height / 2 );
+      return modelViewTransform.viewToModelBounds( viewBounds );
+    } );
+
     // create a drag listener for the image
     const dragListener = new DragListener(
       {
         positionProperty: this.imagePositionProperty,
-        transform: modelViewTransform,
-        mapPosition: position => {
-          // horizontal position of the lens
-          const xLens = projectorScreen.opticPositionProperty.value.x;
+        dragBoundsProperty: projectorScreenDragBoundsProperty,
+        transform: modelViewTransform
 
-          // image position is bounded on the left by the lens
-          return ( position.x < xLens ) ? new Vector2( xLens, position.y ) : position;
-        }
       } );
+
+    // always keep projector screen in visible/drag bounds when visible bounds are changed
+    projectorScreenDragBoundsProperty.link( dragBounds => {
+      this.imagePositionProperty.value = dragBounds.closestPointTo( this.imagePositionProperty.value );
+    } );
 
     // update the position of projectorScreen target
     this.imagePositionProperty.link( position => {
       projectorScreen.positionProperty.value = position.minus( offset );
+
       projectorScreenImage.leftTop = modelViewTransform.modelToViewPosition( position );
     } );
 
