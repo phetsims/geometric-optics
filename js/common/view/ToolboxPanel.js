@@ -34,42 +34,9 @@ class ToolboxPanel extends Panel {
       stroke: 'grey'
     }, options );
 
-    /**
-     * Returns a small ruler icon
-     * @param {boolean} isVertical
-     * @returns {RulerNode} rulerIconNode
-     */
-    const getRulerIcon = isVertical => {
-
-      const rulerWidth = 400;
-      const rulerHeight = 0.18 * rulerWidth;
-      const majorTickLabels = [ '' ];
-      for ( let i = 1; i < 5; i++ ) { // create 5 empty strings for labels
-        majorTickLabels.push( '' );
-      }
-      const majorTickWidth = rulerWidth / ( majorTickLabels.length - 1 );
-      const units = ''; // empty string for units
-
-      const rulerIconNode = new RulerNode( rulerWidth, rulerHeight, majorTickWidth, majorTickLabels, units, {
-          tickMarksOnBottom: false,
-          minorTicksPerMajorTick: 1,
-          majorTickHeight: ( 0.6 * rulerHeight ) / 2,
-          minorTickHeight: ( 0.4 * rulerHeight ) / 2,
-          majorTickLineWidth: 2
-        }
-      );
-      rulerIconNode.scale( 0.12 );
-
-      // rotate to create vertical ruler
-      if ( isVertical ) {
-        rulerIconNode.rotate( -Math.PI / 2 );
-      }
-
-      return rulerIconNode;
-    };
-
-    const horizontalRulerIconNode = getRulerIcon( false );
-    const verticalRulerIconNode = getRulerIcon( true );
+    // create two icons for rulers: A vertical and a Horizontal ruler
+    const horizontalRulerIconNode = ToolboxPanel.getRulerIcon( false );
+    const verticalRulerIconNode = ToolboxPanel.getRulerIcon( true );
 
     const toolbox = new HBox( {
       spacing: 30,
@@ -95,6 +62,41 @@ class ToolboxPanel extends Panel {
 
     } ) );
 
+  }
+
+  /**
+   * Returns a small ruler icon
+   * @private
+   * @param {boolean} isVertical
+   * @returns {RulerNode} rulerIconNode
+   */
+  static getRulerIcon( isVertical ) {
+
+    const rulerWidth = 400;
+    const rulerHeight = 0.18 * rulerWidth;
+    const majorTickLabels = [ '' ];
+    for ( let i = 1; i < 5; i++ ) { // create 5 empty strings for labels
+      majorTickLabels.push( '' );
+    }
+    const majorTickWidth = rulerWidth / ( majorTickLabels.length - 1 );
+    const units = ''; // empty string for units
+
+    const rulerIconNode = new RulerNode( rulerWidth, rulerHeight, majorTickWidth, majorTickLabels, units, {
+        tickMarksOnBottom: false,
+        minorTicksPerMajorTick: 1,
+        majorTickHeight: ( 0.6 * rulerHeight ) / 2,
+        minorTickHeight: ( 0.4 * rulerHeight ) / 2,
+        majorTickLineWidth: 2
+      }
+    );
+    rulerIconNode.scale( 0.12 );
+
+    // rotate to create vertical ruler
+    if ( isVertical ) {
+      rulerIconNode.rotate( -Math.PI / 2 );
+    }
+
+    return rulerIconNode;
   }
 }
 
