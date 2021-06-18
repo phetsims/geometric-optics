@@ -89,8 +89,9 @@ class GeometricOpticsRulerNode extends RulerNode {
       visibleBounds.withOffsets( 0, 0, -this.width, -this.height )
     );
 
-    // create and add drag listener
-    const dragListener = new DragListener( {
+
+    // @public create and add drag listener
+    this.dragListener = new DragListener( {
       positionProperty: ruler.positionProperty,
       dragBoundsProperty: rulerDragBoundsProperty,
       translateNode: true,
@@ -108,7 +109,7 @@ class GeometricOpticsRulerNode extends RulerNode {
 
       }
     } );
-    this.addInputListener( dragListener );
+    this.addInputListener( this.dragListener );
 
 
     // update ruler visibility
@@ -153,6 +154,18 @@ class GeometricOpticsRulerNode extends RulerNode {
       // set initial position of the ruler
       this.leftTop = this.ruler.positionProperty.value;
     }
+  }
+
+
+  /**
+   * Forward an event from the toolbox to start dragging this node
+   * @param {SceneryEvent} event
+   * @public
+   */
+  startDrag( event ) {
+
+    // Forward the event to the drag listener
+    this.dragListener.press( event, this );
   }
 }
 

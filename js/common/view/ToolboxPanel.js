@@ -18,11 +18,11 @@ import geometricOptics from '../../geometricOptics.js';
 
 class ToolboxPanel extends Panel {
   /**
-   * @param {{horizontal: <Ruler>, vertical:<Ruler>}} rulers - model of rulers
+   * @param {GeometricOpticRulersLayer} rulersLayer
    * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( rulers, tandem, options ) {
+  constructor( rulersLayer, tandem, options ) {
 
 
     options = merge( {
@@ -46,22 +46,27 @@ class ToolboxPanel extends Panel {
 
     super( toolbox, options );
 
-    const horizontalRulerVisibleProperty = new BooleanProperty( false );
 
-    // icon disappears when ruler appears
-    horizontalRulerVisibleProperty.link( visible => {
-      // horizontalRulerNode.visible = visible;
-      horizontalRulerIconNode.visible = !visible;
-    } );
+    const createForwardEvent = ( iconNode, rulerNode ) => {
 
-    horizontalRulerIconNode.addInputListener( DragListener.createForwardingListener( () => {
-      if ( horizontalRulerVisibleProperty.value === false ) {
-        horizontalRulerVisibleProperty.value = true;
-        //horizontalRulerNode.startBaseDrag( event );
-      }
+      const visibleIconProperty = new BooleanProperty( true );
 
-    } ) );
+      visibleIconProperty.link( visible => {
+        iconNode.visible = visible;
+        rulerNode.visible = !visible;
+      } );
 
+      iconNode.addInputListener( DragListener.createForwardingListener( event => {
+        if ( visibleIconProperty.value ) {
+          visibleIconProperty.value = false;
+          rulerNode.center = this.globalToParentPoint( event.pointer.point );
+          rulerNode.startDrag( event );
+        }
+      } ) );
+    };
+
+    createForwardEvent( horizontalRulerIconNode, rulersLayer.horizontalRulerNode );
+    createForwardEvent( verticalRulerIconNode, rulersLayer.verticalRulerNode );
   }
 
   /**

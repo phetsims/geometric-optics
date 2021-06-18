@@ -145,6 +145,11 @@ class GeometricOpticsScreenView extends ScreenView {
     //----------------------------------------------------------------------------
     //               Buttons, Controls and Panels
 
+    // create Rulers
+    this.rulersLayer = new GeometricOpticRulersLayer( model.rulers, this.visibleBoundsProperty,
+      this.absoluteScaleProperty,
+      this.zoomModelViewTransformProperty, tandem );
+
     // create control panel at the bottom of the screen
     const geometricOpticsControlPanel = new GeometricOpticsControlPanel( model.optic,
       model.lightRayModeProperty, this.visibleProperties, this.modelViewTransform, tandem,
@@ -152,12 +157,8 @@ class GeometricOpticsScreenView extends ScreenView {
     geometricOpticsControlPanel.centerBottom = erodedLayoutBounds.centerBottom;
 
     // create toolbox panel at the top right corner of the screen
-    const toolboxPanel = new ToolboxPanel( model.rulers, tandem );
+    const toolboxPanel = new ToolboxPanel( this.rulersLayer, tandem );
     toolboxPanel.rightTop = erodedLayoutBounds.rightTop;
-
-    this.rulersLayer = new GeometricOpticRulersLayer( model.rulers, this.visibleBoundsProperty,
-      this.absoluteScaleProperty,
-      this.zoomModelViewTransformProperty, tandem );
 
     // create the control buttons to toggle between convex and concave optic at the left bottom
     const curveControl = new CurveControl( model.optic.curveProperty, model.optic );
