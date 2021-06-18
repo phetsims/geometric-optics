@@ -75,31 +75,24 @@ class GeometricOpticsRulerNode extends RulerNode {
       centimetersString,
       options );
 
-    const rulerDragBoundsProperty = new DerivedProperty( [ visibleBoundsProperty ], visibleBounds => {
-      // {Bounds2} the bounds of the ruler to stay within the devBounds
-      let rulerBounds;
+    // @private
+    this.ruler = ruler;
 
-      if ( ruler.orientation === Ruler.Orientation.VERTICAL ) {
+    this.setOrientation();
+    this.setPosition();
 
-        // update the rotation of the ruler
-        this.rotation = -Math.PI / 2;
-
-        // making sure that the right top of the ruler stays within the screen
-        rulerBounds = visibleBounds.withOffsets( 0, -this.height, -this.width, 0 );
-      }
-      else {
-
-        // making sure that the right bottom of the ruler stays within the screen
-        rulerBounds = visibleBounds.withOffsets( 0, 0, -this.width, -this.height );
-      }
-      return modelViewTransform.viewToModelBounds( rulerBounds );
-    } );
+    const rulerDragBoundsProperty = new DerivedProperty( [ visibleBoundsProperty ], visibleBounds =>
+      // if vertical the the right top of the ruler stays within the screen
+      // if horizontal sure that the right bottom of the ruler stays within the screen
+      ( ruler.orientation === Ruler.Orientation.VERTICAL ) ?
+      visibleBounds.withOffsets( 0, -this.height, -this.width, 0 ) :
+      visibleBounds.withOffsets( 0, 0, -this.width, -this.height )
+    );
 
     // create and add drag listener
     const dragListener = new DragListener( {
       positionProperty: ruler.positionProperty,
       dragBoundsProperty: rulerDragBoundsProperty,
-      transform: modelViewTransform,
       translateNode: true,
       start: () => {
 
@@ -117,15 +110,13 @@ class GeometricOpticsRulerNode extends RulerNode {
     } );
     this.addInputListener( dragListener );
 
-    // set initial position of the ruler
-    this.leftTop = modelViewTransform.modelToViewPosition( ruler.positionProperty.value );
 
     // update ruler visibility
     visibleProperty.linkAttribute( this, 'visible' );
 
     // @private
     this.resetLeftTopPosition = () => {
-      this.leftTop = modelViewTransform.modelToViewPosition( ruler.positionProperty.value );
+      this.leftTop = ruler.positionProperty.value;
     };
 
   }
@@ -134,7 +125,34 @@ class GeometricOpticsRulerNode extends RulerNode {
    * @public
    */
   reset() {
-    this.resetLeftTopPosition();
+    this.setPosition();
+  }
+
+  /**
+   * @public
+   */
+  setOrientation() {
+    if ( this.ruler.orientation === Ruler.Orientation.VERTICAL ) {
+
+      // update the rotation of the ruler
+      this.rotation = -Math.PI / 2;
+    }
+  }
+
+  /**
+   * @public
+   */
+  setPosition() {
+    if ( this.ruler.orientation === Ruler.Orientation.VERTICAL ) {
+
+      // set initial position of the ruler - leftBottom since rotated 90 degrees
+      this.leftBottom = this.ruler.positionProperty.value;
+    }
+    else {
+
+      // set initial position of the ruler
+      this.leftTop = this.ruler.positionProperty.value;
+    }
   }
 }
 

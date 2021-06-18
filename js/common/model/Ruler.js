@@ -24,7 +24,7 @@ class Ruler {
       orientation: Ruler.Orientation.HORIZONTAL
     }, options );
 
-    // @public {Property.<Vector2>} position of the ruler
+    // @public {Property.<Vector2>} position of the ruler in view coordinates
     this.positionProperty = new Vector2Property( position );
 
     // @public {number} length of the ruler in meters.

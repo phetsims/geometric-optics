@@ -38,8 +38,8 @@ class GeometricOpticsModel {
 
     // @public rulers for the simulations
     this.rulers = {
-      horizontal: new Ruler( new Vector2( 0.5, 1 ), 2.6 ),
-      vertical: new Ruler( new Vector2( 0, 0 ), 1, { orientation: Ruler.Orientation.VERTICAL } )
+      horizontal: new Ruler( new Vector2( 200, 100 ), 2.6 ),
+      vertical: new Ruler( new Vector2( 100, 300 ), 1, { orientation: Ruler.Orientation.VERTICAL } )
     };
 
 

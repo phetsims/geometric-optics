@@ -27,9 +27,10 @@ class GeometricOpticRulersLayer extends Node {
     super( options );
 
     /**
-     *
+     * Create and Add GeometricOpticsRulerNode
      * @param {Ruler} ruler
      * @param {number} absoluteScale
+     * @returns {GeometricOpticsRulerNode}
      */
     const addRulerNode = ( ruler, absoluteScale ) => {
 
@@ -45,6 +46,8 @@ class GeometricOpticRulersLayer extends Node {
         modelViewTransformProperty.value, rulerOptions );
 
       this.addChild( rulerNode );
+
+      return rulerNode
     };
 
     // update rulerNode
@@ -53,8 +56,8 @@ class GeometricOpticRulersLayer extends Node {
       // remove all children
       this.removeAllChildren();
 
-      addRulerNode( rulers.horizontal, absoluteScale );
-      addRulerNode( rulers.vertical, absoluteScale );
+      this.horizontalRulerNode = addRulerNode( rulers.horizontal, absoluteScale );
+      this.verticalRulerNode = addRulerNode( rulers.vertical, absoluteScale );
     } );
   }
 
@@ -63,6 +66,8 @@ class GeometricOpticRulersLayer extends Node {
    * @public
    */
   reset() {
+    this.horizontalRulerNode.reset();
+    this.verticalRulerNode.reset();
   }
 }
 
