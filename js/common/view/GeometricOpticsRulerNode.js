@@ -82,7 +82,7 @@ class GeometricOpticsRulerNode extends RulerNode {
     this.setPosition();
 
     const rulerDragBoundsProperty = new DerivedProperty( [ visibleBoundsProperty ], visibleBounds =>
-      // if vertical the the right top of the ruler stays within the screen
+      // if vertical the right top of the ruler stays within the screen
       // if horizontal sure that the right bottom of the ruler stays within the screen
       ( ruler.orientation === Ruler.Orientation.VERTICAL ) ?
       visibleBounds.withOffsets( 0, -this.height, -this.width, 0 ) :

@@ -18,8 +18,7 @@
       "phet",
       "adapted-from-phet"
     ],
-    "phetLibs": [
-    ]
+    "phetLibs": []
   },
   "eslintConfig": {
     "extends": "../chipper/eslint/sim_eslintrc.js"

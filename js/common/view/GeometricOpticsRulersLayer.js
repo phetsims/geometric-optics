@@ -47,7 +47,7 @@ class GeometricOpticRulersLayer extends Node {
 
       this.addChild( rulerNode );
 
-      return rulerNode
+      return rulerNode;
     };
 
     // update rulerNode
