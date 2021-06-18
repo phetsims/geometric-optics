@@ -120,6 +120,7 @@ class GeometricOpticsRulerNode extends RulerNode {
    */
   reset() {
     this.setPosition();
+    this.visible = false;
   }
 
   /**
