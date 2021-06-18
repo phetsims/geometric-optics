@@ -19,7 +19,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import projectorScreen3dImage from '../../../images/projector-screen-3d_png.js';
 import GeometricOpticsColorProfile from '../../common/GeometricOpticsColorProfile.js';
 import geometricOptics from '../../geometricOptics.js';
-import Circle from '../../../../scenery/js/nodes/Circle.js';
 
 const SPOTLIGHT_FILL = GeometricOpticsColorProfile.projectorScreenSpotlightFillProperty;
 
@@ -54,13 +53,8 @@ class ProjectorScreenNode extends Node {
     // @private {Property.<Vector2} create a property for the left top position of the projectorScreen target
     this.imagePositionProperty = new Vector2Property( projectorScreen.positionProperty.value.plus( offset ) );
 
-    const circle = new Circle( { radius: 10, fill: 'pink' } );
-    this.addChild( circle );
 
-    this.imagePositionProperty.link( position => {
-      circle.center = modelViewTransform.modelToViewPosition( position );
-    } );
-
+    // TODO: this doesnt handle zoom
     // keep at least half of the projector screen within visible bounds and right of the optic
     const projectorScreenDragBoundsProperty = new DerivedProperty( [ visibleBoundsProperty ], visibleBounds => {
       const viewBounds = new Bounds2( modelViewTransform.modelToViewX( projectorScreen.opticPositionProperty.value.x ),
@@ -71,13 +65,11 @@ class ProjectorScreenNode extends Node {
     } );
 
     // create a drag listener for the image
-    const dragListener = new DragListener(
-      {
-        positionProperty: this.imagePositionProperty,
-        dragBoundsProperty: projectorScreenDragBoundsProperty,
-        transform: modelViewTransform
-
-      } );
+    const dragListener = new DragListener( {
+      positionProperty: this.imagePositionProperty,
+      dragBoundsProperty: projectorScreenDragBoundsProperty,
+      transform: modelViewTransform
+    } );
 
     // always keep projector screen in visible/drag bounds when visible bounds are changed
     projectorScreenDragBoundsProperty.link( dragBounds => {
@@ -87,7 +79,6 @@ class ProjectorScreenNode extends Node {
     // update the position of projectorScreen target
     this.imagePositionProperty.link( position => {
       projectorScreen.positionProperty.value = position.minus( offset );
-
       projectorScreenImage.leftTop = modelViewTransform.modelToViewPosition( position );
     } );
 
