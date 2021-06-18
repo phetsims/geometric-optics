@@ -38,8 +38,7 @@ class GeometricOpticsRulerNode extends RulerNode {
       minorTicksPerMajorTick: 4,
       majorTickDistance: 0.1, // in model coordinate (m)
       majorTickFont: new PhetFont( 13 ),
-      insetsWidth: 0,
-      sarahChangIsGoingHiking: 20
+      insetsWidth: 0
     }, options );
 
     // define the length ruler
