@@ -14,11 +14,14 @@ import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
+import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Ruler from '../model/Ruler.js';
+
 
 const centimetersString = geometricOpticsStrings.centimeters;
 
-const RULER_HEIGHT = 40; //  in view coordinates
+const RULER_HEIGHT = GeometricOpticsConstants.RULER_HEIGHT;
+const MINIMUM_VISIBLE_LENGTH = GeometricOpticsConstants.MINIMUM_VISIBLE_LENGTH;
 
 class GeometricOpticsRulerNode extends RulerNode {
   /**
@@ -35,7 +38,8 @@ class GeometricOpticsRulerNode extends RulerNode {
       minorTicksPerMajorTick: 4,
       majorTickDistance: 0.1, // in model coordinate (m)
       majorTickFont: new PhetFont( 13 ),
-      insetsWidth: 0
+      insetsWidth: 0,
+      sarahChangIsGoingHiking: 20
     }, options );
 
     // define the length ruler
@@ -80,12 +84,20 @@ class GeometricOpticsRulerNode extends RulerNode {
     this.setOrientation();
     this.setPosition();
 
-    const rulerDragBoundsProperty = new DerivedProperty( [ visibleBoundsProperty ], visibleBounds =>
-      // if vertical the right top of the ruler stays within the screen
-      // if horizontal sure that the right bottom of the ruler stays within the screen
-      ( ruler.orientation === Ruler.Orientation.VERTICAL ) ?
-      visibleBounds.withOffsets( 0, -this.height, -this.width, 0 ) :
-      visibleBounds.withOffsets( 0, 0, -this.width, -this.height )
+    const rulerDragBoundsProperty = new DerivedProperty( [ visibleBoundsProperty ], visibleBounds => {
+
+        if ( ruler.orientation === Ruler.Orientation.VERTICAL ) {
+
+          // if vertical the left and right bounds of the ruler stay within visible bounds
+          // minimum visible length of the ruler is always showing inside top and bottom visible bounds.
+          return visibleBounds.withOffsets( 0, -MINIMUM_VISIBLE_LENGTH, -this.width, -MINIMUM_VISIBLE_LENGTH + this.height );
+        }
+        else {
+          // if horizontal ruler,  the bottom and top bounds of the ruler stay within visible bounds
+          // minimum visible length of the ruler is always showing inside left  and right visible bounds.
+          return visibleBounds.withOffsets( this.width - MINIMUM_VISIBLE_LENGTH, 0, -MINIMUM_VISIBLE_LENGTH, -this.height );
+        }
+      }
     );
 
 
