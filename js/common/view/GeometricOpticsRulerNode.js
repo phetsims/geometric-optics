@@ -99,12 +99,10 @@ class GeometricOpticsRulerNode extends RulerNode {
       }
     );
 
-
     // @public create and add drag listener
     this.dragListener = new DragListener( {
       positionProperty: ruler.positionProperty,
       dragBoundsProperty: rulerDragBoundsProperty,
-      translateNode: true,
       start: () => {
 
         // move this node on top of all the nodes
@@ -118,6 +116,16 @@ class GeometricOpticsRulerNode extends RulerNode {
       }
     } );
     this.addInputListener( this.dragListener );
+
+    // always keep ruler in visible/drag bounds when visible bounds are changed
+    rulerDragBoundsProperty.link( dragBounds => {
+      ruler.positionProperty.value = dragBounds.closestPointTo( ruler.positionProperty.value );
+    } );
+
+    // update ruler node position based on ruler model position
+    ruler.positionProperty.link( position => {
+      this.setPosition();
+    } );
 
     // @private
     this.resetLeftTopPosition = () => {
