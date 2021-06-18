@@ -32,11 +32,11 @@ class VisibleProperties {
    */
   reset() {
     this.visibleFocalPointProperty.reset();
-    this.visibleRulersProperty.reset();
     this.visibleVirtualImageProperty.reset();
     this.visibleMovablePointProperty.reset();
     this.visibleGuidesProperty.reset();
-
+    this.visibleRayTracingProperty.reset();
+    this.visibleLabelsProperty.reset();
   }
 }
 
