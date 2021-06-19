@@ -48,7 +48,7 @@ class GeometricOpticsRulerNode extends RulerNode {
     // separation between the major ticks mark
     const majorTickWidth = modelViewTransform.modelToViewDeltaX( options.majorTickDistance );
 
-    const numberOfMajorTicks = ruler.length / options.majorTickDistance + 1;
+    const numberOfMajorTicks = Math.floor( rulerWidth / majorTickWidth ) + 1;
 
     // create major ticks label
     const majorTickLabels = [];
@@ -155,7 +155,7 @@ class GeometricOpticsRulerNode extends RulerNode {
    * @public
    */
   dispose() {
-  //  this.visibleProperty.unlinkAttribute( this, 'visible' );
+    //  this.visibleProperty.unlinkAttribute( this, 'visible' );
   }
 
   /**
