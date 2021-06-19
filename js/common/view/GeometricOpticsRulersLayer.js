@@ -1,9 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * A maximum of 1 horizontal ruler and 1 vertical ruler can be dragged out from this toolbox panel.
- * The toolbox panel shows a miniature version of these rulers.
- * Appears in the top right corner of the simulation.
+ * A layer that contains 1 horizontal ruler and 1 vertical ruler
  *
  * @author Martin Veillette
  */
@@ -38,27 +36,31 @@ class GeometricOpticRulersLayer extends Node {
      */
     const addRulerNode = ( ruler, absoluteScale ) => {
 
+      // we want to scale model length inversely as the scale such that the view length remains the same
       ruler.scaleLength( 1 / absoluteScale );
 
       const rulerOptions = {
         majorTickDistance: 0.1 / absoluteScale // in model coordinate (m)
       };
 
-      const rulerNode = new GeometricOpticsRulerNode( ruler,
+      const rulerNode = new GeometricOpticsRulerNode(
+        ruler,
         visibleBoundsProperty,
-        modelViewTransformProperty.value, rulerOptions );
+        modelViewTransformProperty.value,
+        rulerOptions );
 
       this.addChild( rulerNode );
 
       return rulerNode;
     };
 
-    // update rulerNode
+    // update rulers when scale changes
     absoluteScaleProperty.link( absoluteScale => {
 
-      // remove all children
+      // since RulerNode is not mutable, remove all children
       this.removeAllChildren();
 
+      // create and add rulers, keeping a reference to the added ruler
       this.horizontalRulerNode = addRulerNode( rulers.horizontal, absoluteScale );
       this.verticalRulerNode = addRulerNode( rulers.vertical, absoluteScale );
     } );
@@ -71,6 +73,15 @@ class GeometricOpticRulersLayer extends Node {
   reset() {
     this.horizontalRulerNode.reset();
     this.verticalRulerNode.reset();
+  }
+
+  /**
+   * @public
+   * @param {Bounds2} bounds
+   */
+  setToolboxPanelBounds( bounds ) {
+    this.horizontalRulerNode.setToolboxPanelBounds( bounds );
+    this.verticalRulerNode.setToolboxPanelBounds( bounds );
   }
 }
 

@@ -160,6 +160,9 @@ class GeometricOpticsScreenView extends ScreenView {
     const toolboxPanel = new ToolboxPanel( this.rulersLayer, tandem );
     toolboxPanel.rightTop = erodedLayoutBounds.rightTop;
 
+    // pass the bounds of the toolbox to the rulers for their return to toolbox
+    this.rulersLayer.setToolboxPanelBounds( toolboxPanel.bounds );
+
     // create the control buttons to toggle between convex and concave optic at the left bottom
     const curveControl = new CurveControl( model.optic.curveProperty, model.optic );
     curveControl.leftBottom = erodedLayoutBounds.leftBottom;

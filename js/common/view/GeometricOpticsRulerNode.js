@@ -112,7 +112,9 @@ class GeometricOpticsRulerNode extends RulerNode {
       end: () => {
 
         // Drop in toolbox, using the bounds ruler
-        // TODO
+        if ( this.panelBounds.intersectsBounds( this.bounds ) ) {
+          this.visible = false
+        }
       }
     } );
     this.addInputListener( this.dragListener );
@@ -179,6 +181,14 @@ class GeometricOpticsRulerNode extends RulerNode {
 
     // Forward the event to the drag listener
     this.dragListener.press( event, this );
+  }
+
+  /**
+   * @public
+   * @param {Bounds2} bounds
+   */
+  setToolboxPanelBounds( bounds ) {
+    this.panelBounds = bounds;
   }
 }
 
