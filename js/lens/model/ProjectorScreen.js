@@ -20,7 +20,7 @@ class ProjectorScreen {
 
   /**
    * @param {Property.<Vector2>} opticPositionProperty
-   * @param {Property.<number} opticDiameterProperty
+   * @param {Property.<number>} opticDiameterProperty
    * @param {Property.<Vector2>} targetImagePositionProperty
    * @param {Property.<Vector2>} movableImagePositionProperty
    * @param {Tandem} tandem
