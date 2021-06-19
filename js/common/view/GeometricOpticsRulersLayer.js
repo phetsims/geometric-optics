@@ -6,6 +6,7 @@
  * @author Martin Veillette
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
@@ -28,13 +29,20 @@ class GeometricOpticRulersLayer extends Node {
 
     super( options );
 
+    // @public
+    this.visibleHorizontalProperty = new BooleanProperty( false );
+
+    // @public
+    this.visibleVerticalProperty = new BooleanProperty( false );
+
     /**
      * Create and Add GeometricOpticsRulerNode
      * @param {Ruler} ruler
      * @param {number} absoluteScale
+     * @param {Property.<boolean>} visibleProperty
      * @returns {GeometricOpticsRulerNode}
      */
-    const addRulerNode = ( ruler, absoluteScale ) => {
+    const addRulerNode = ( ruler, absoluteScale, visibleProperty ) => {
 
       // we want to scale model length inversely as the scale such that the view length remains the same
       ruler.scaleLength( 1 / absoluteScale );
@@ -45,6 +53,7 @@ class GeometricOpticRulersLayer extends Node {
 
       const rulerNode = new GeometricOpticsRulerNode(
         ruler,
+        visibleProperty,
         visibleBoundsProperty,
         modelViewTransformProperty.value,
         rulerOptions );
@@ -61,8 +70,11 @@ class GeometricOpticRulersLayer extends Node {
       this.removeAllChildren();
 
       // create and add rulers, keeping a reference to the added ruler
-      this.horizontalRulerNode = addRulerNode( rulers.horizontal, absoluteScale );
-      this.verticalRulerNode = addRulerNode( rulers.vertical, absoluteScale );
+      this.horizontalRulerNode = addRulerNode( rulers.horizontal, absoluteScale, this.visibleHorizontalProperty );
+      this.verticalRulerNode = addRulerNode( rulers.vertical, absoluteScale, this.visibleVerticalProperty );
+
+      this.horizontalRulerNode.setToolboxPanelBounds( this.toolboxPanelBounds );
+      this.verticalRulerNode.setToolboxPanelBounds( this.toolboxPanelBounds );
     } );
   }
 
@@ -73,15 +85,19 @@ class GeometricOpticRulersLayer extends Node {
   reset() {
     this.horizontalRulerNode.reset();
     this.verticalRulerNode.reset();
+    this.visibleHorizontalProperty.reset();
+    this.visibleVerticalProperty.reset();
   }
 
   /**
+   * passes the panel bounds to each ruler
    * @public
    * @param {Bounds2} bounds
    */
   setToolboxPanelBounds( bounds ) {
-    this.horizontalRulerNode.setToolboxPanelBounds( bounds );
-    this.verticalRulerNode.setToolboxPanelBounds( bounds );
+    this.toolboxPanelBounds = bounds;
+    this.horizontalRulerNode.setToolboxPanelBounds( this.toolboxPanelBounds );
+    this.verticalRulerNode.setToolboxPanelBounds( this.toolboxPanelBounds );
   }
 }
 

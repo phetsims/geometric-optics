@@ -27,11 +27,12 @@ class GeometricOpticsRulerNode extends RulerNode {
   /**
    *
    * @param {Ruler} ruler - model for ruler
+   * @param {Property.<boolean>} visibleProperty
    * @param {Property.<Bounds2>} visibleBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( ruler, visibleBoundsProperty, modelViewTransform, options ) {
+  constructor( ruler, visibleProperty, visibleBoundsProperty, modelViewTransform, options ) {
 
     options = merge( {
       opacity: 0.8,
@@ -80,6 +81,9 @@ class GeometricOpticsRulerNode extends RulerNode {
     // @private
     this.ruler = ruler;
 
+    // @private
+    this.visibleProperty = visibleProperty;
+
     this.setOrientation();
     this.setPosition();
 
@@ -113,7 +117,7 @@ class GeometricOpticsRulerNode extends RulerNode {
 
         // Drop in toolbox, using the bounds ruler
         if ( this.panelBounds.intersectsBounds( this.bounds ) ) {
-          this.visible = false
+          visibleProperty.value = false
         }
       }
     } );
@@ -129,6 +133,9 @@ class GeometricOpticsRulerNode extends RulerNode {
       this.setPosition();
     } );
 
+    visibleProperty.linkAttribute( this, 'visible' )
+
+
     // @private
     this.resetLeftTopPosition = () => {
       this.leftTop = ruler.positionProperty.value;
@@ -142,6 +149,13 @@ class GeometricOpticsRulerNode extends RulerNode {
   reset() {
     this.setPosition();
     this.visible = false;
+  }
+
+  /**
+   * @public
+   */
+  dispose() {
+  //  this.visibleProperty.unlinkAttribute( this, 'visible' );
   }
 
   /**

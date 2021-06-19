@@ -52,26 +52,23 @@ class ToolboxPanel extends Panel {
      * @param {Node} iconNode
      * @param {Node} rulerNode
      */
-    const createForwardListener = ( iconNode, rulerNode ) => {
+    const createForwardListener = ( iconNode, rulerNode, visibleRulerProperty ) => {
 
-      const visibleIconProperty = new BooleanProperty( true );
-
-      visibleIconProperty.link( visible => {
-        iconNode.visible = visible;
-        rulerNode.visible = !visible;
+      visibleRulerProperty.link( visible => {
+        iconNode.visible = !visible;
       } );
 
       iconNode.addInputListener( DragListener.createForwardingListener( event => {
-        if ( visibleIconProperty.value ) {
-          visibleIconProperty.value = false;
+        if ( !visibleRulerProperty.value ) {
+          visibleRulerProperty.value = true;
           rulerNode.center = this.globalToParentPoint( event.pointer.point );
           rulerNode.startDrag( event );
         }
       } ) );
     };
 
-    createForwardListener( horizontalRulerIconNode, rulersLayer.horizontalRulerNode );
-    createForwardListener( verticalRulerIconNode, rulersLayer.verticalRulerNode );
+    createForwardListener( horizontalRulerIconNode, rulersLayer.horizontalRulerNode, rulersLayer.visibleHorizontalProperty );
+    createForwardListener( verticalRulerIconNode, rulersLayer.verticalRulerNode, rulersLayer.visibleVerticalProperty );
   }
 
   /**
