@@ -8,7 +8,6 @@
  * @author Sarah Chang (Swarthmore College)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
@@ -51,6 +50,7 @@ class ToolboxPanel extends Panel {
      * Add input listener on iconNode to forward events to rulerNode
      * @param {Node} iconNode
      * @param {Node} rulerNode
+     * @param {Property.<boolean>} visibleRulerProperty
      */
     const createForwardListener = ( iconNode, rulerNode, visibleRulerProperty ) => {
 

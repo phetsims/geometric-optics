@@ -117,7 +117,7 @@ class GeometricOpticsRulerNode extends RulerNode {
 
         // Drop in toolbox, using the bounds ruler
         if ( this.panelBounds.intersectsBounds( this.bounds ) ) {
-          visibleProperty.value = false
+          visibleProperty.value = false;
         }
       }
     } );
@@ -133,7 +133,7 @@ class GeometricOpticsRulerNode extends RulerNode {
       this.setPosition();
     } );
 
-    visibleProperty.linkAttribute( this, 'visible' )
+    visibleProperty.linkAttribute( this, 'visible' );
 
 
     // @private
