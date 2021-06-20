@@ -129,7 +129,7 @@ class GeometricOpticsRulerNode extends RulerNode {
     } );
 
     // update ruler node position based on ruler model position
-    ruler.positionProperty.link( position => {
+    ruler.positionProperty.link( () => {
       this.setPosition();
     } );
 
