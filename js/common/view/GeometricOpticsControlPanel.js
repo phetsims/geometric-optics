@@ -15,6 +15,7 @@ import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
+import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Panel from '../../../../sun/js/Panel.js';
 import SunConstants from '../../../../sun/js/SunConstants.js';
 import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
@@ -38,6 +39,10 @@ const virtualImageString = geometricOpticsStrings.virtualImage;
 const movablePointString = geometricOpticsStrings.movablePoint;
 const guidesString = geometricOpticsStrings.guides;
 const labelsString = geometricOpticsStrings.labels;
+const rayModeTitleString = geometricOpticsStrings.rayModeTitle;
+
+const CONTROL_PANEL_FONT = GeometricOpticsConstants.CONTROL_PANEL_FONT;
+const TITLE_FONT = GeometricOpticsConstants.TITLE_FONT;
 
 class GeometricOpticsControlPanel extends Panel {
 
@@ -58,10 +63,10 @@ class GeometricOpticsControlPanel extends Panel {
 
     // items for ray Mode radio buttons
     const rayModeRadioButtonGroupItems = [
-      { value: LightRayMode.MARGINAL_RAYS, node: new Text( marginalString ) },
-      { value: LightRayMode.PRINCIPAL_RAYS, node: new Text( principalString ) },
-      { value: LightRayMode.MANY_RAYS, node: new Text( manyString ) },
-      { value: LightRayMode.NO_RAYS, node: new Text( noneString ) }
+      { value: LightRayMode.MARGINAL_RAYS, node: new Text( marginalString, { font: CONTROL_PANEL_FONT } ) },
+      { value: LightRayMode.PRINCIPAL_RAYS, node: new Text( principalString, { font: CONTROL_PANEL_FONT } ) },
+      { value: LightRayMode.MANY_RAYS, node: new Text( manyString, { font: CONTROL_PANEL_FONT } ) },
+      { value: LightRayMode.NO_RAYS, node: new Text( noneString, { font: CONTROL_PANEL_FONT } ) }
     ];
 
     // options for number controls that have length units
@@ -74,6 +79,9 @@ class GeometricOpticsControlPanel extends Panel {
           valuePattern: StringUtils.fillIn( metersPattern, {
             meters: SunConstants.VALUE_NAMED_PLACEHOLDER
           } )
+        },
+        titleNodeOptions: {
+          font: CONTROL_PANEL_FONT
         },
         sliderOptions: {
           trackSize: new Dimension2( 120, 4 )
@@ -107,6 +115,9 @@ class GeometricOpticsControlPanel extends Panel {
           numberDisplayOptions: {
             decimalPlaces: GeometricOpticsConstants.INDEX_DECIMAL_PLACES
           },
+          titleNodeOptions: {
+            font: CONTROL_PANEL_FONT
+          },
           sliderOptions: {
             trackSize: new Dimension2( 120, 4 )
           }
@@ -130,6 +141,9 @@ class GeometricOpticsControlPanel extends Panel {
         diameterControl ];
     }
 
+    // create title for radio button group for light ray mode
+    const rayModeTitle = new Text( rayModeTitleString, { font: TITLE_FONT } );
+
     // create button radio group for the light ray mode
     const rayModeRadioButtonGroup = new VerticalAquaRadioButtonGroup(
       lightRayModeProperty,
@@ -143,30 +157,37 @@ class GeometricOpticsControlPanel extends Panel {
         mouseAreaXDilation: 10
       } );
 
+    // create vertical box for ray modes
+    const rayModesBox = new VBox( {
+      children: [ rayModeTitle, rayModeRadioButtonGroup ],
+      align: 'left',
+      spacing: 8
+    } );
+
     // create checkbox group for visibility settings
     const checkboxGroupItems = [
       {
-        node: new Text( focalPointString ),
+        node: new Text( focalPointString, { font: CONTROL_PANEL_FONT } ),
         property: visibleProperties.visibleFocalPointProperty,
         tandem: tandem
       },
       {
-        node: new Text( labelsString ),
+        node: new Text( labelsString, { font: CONTROL_PANEL_FONT } ),
         property: visibleProperties.visibleLabelsProperty,
         tandem: tandem
       },
       {
-        node: new Text( virtualImageString ),
+        node: new Text( virtualImageString, { font: CONTROL_PANEL_FONT } ),
         property: visibleProperties.visibleVirtualImageProperty,
         tandem: tandem
       },
       {
-        node: new Text( movablePointString ),
+        node: new Text( movablePointString, { font: CONTROL_PANEL_FONT } ),
         property: visibleProperties.visibleMovablePointProperty,
         tandem: tandem
       },
       {
-        node: new Text( guidesString ),
+        node: new Text( guidesString, { font: CONTROL_PANEL_FONT } ),
         property: visibleProperties.visibleGuidesProperty,
         tandem: tandem
       }
@@ -189,7 +210,7 @@ class GeometricOpticsControlPanel extends Panel {
     const content = new AlignBox( new HBox( {
       spacing: 8,
       align: 'left',
-      children: [ rayModeRadioButtonGroup,
+      children: [ rayModesBox,
         leftSeparator, ...controls, rightSeparator,
         checkboxGroup ]
     } ), {

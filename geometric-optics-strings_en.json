@@ -82,5 +82,8 @@
   },
   "centimeters": {
     "value": "cm"
+  },
+  "rayModeTitle": {
+    "value": "Rays"
   }
 }
