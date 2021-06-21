@@ -14,8 +14,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColorProfile from '../GeometricOpticsColorProfile.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
-const SIZE = GeometricOpticsConstants.FOCAL_POINT_SIZE;
-const LINE_WIDTH = GeometricOpticsConstants.FOCAL_POINT_LINE_WIDTH;
+const FOCAL_POINT_OPTIONS = GeometricOpticsConstants.FOCAL_POINT_OPTIONS;
 const FILL = GeometricOpticsColorProfile.focalPointFillProperty;
 const STROKE = GeometricOpticsColorProfile.focalPointStrokeProperty;
 
@@ -32,12 +31,11 @@ class FocalPointNode extends PlusNode {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     // options for plus Node. Rotated by 45 degrees to create an X shape.
-    options = merge(
+    options = merge( FOCAL_POINT_OPTIONS,
       {
-        size: SIZE,
         fill: FILL,
         stroke: STROKE,
-        lineWidth: LINE_WIDTH,
+
         rotation: Math.PI / 4
       }, options );
 
@@ -51,6 +49,24 @@ class FocalPointNode extends PlusNode {
     // update the visibility of this node
     visibleProperty.linkAttribute( this, 'visible' );
   }
+
+  /**
+   * @public
+   * @param {Object} [options]
+   * @returns {PlusNode}
+   */
+  static createIcon( options ) {
+    options = merge( FOCAL_POINT_OPTIONS,
+      {
+        fill: FILL,
+        stroke: STROKE,
+
+        rotation: Math.PI / 4
+      }, options );
+
+    return new PlusNode( options );
+  }
+
 
 }
 

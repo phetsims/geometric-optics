@@ -25,6 +25,7 @@ import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import LightRayMode from '../model/LightRayMode.js';
+import FocalPointNode from './FocalPointNode.js';
 
 const metersPattern = geometricOpticsStrings.metersPattern;
 const noneString = geometricOpticsStrings.none;
@@ -172,16 +173,33 @@ class GeometricOpticsControlPanel extends Panel {
      * @param {Property} property
      * @returns {{node: Text, tandem: Tandem, property}}
      */
-    const createCheckboxGroupItem = ( string, property ) => {
+    const createCheckboxGroupItem = ( string, property, options ) => {
+      options = merge( {
+        icon: null
+      }, options );
+      const text = new Text( string, { font: CONTROL_PANEL_FONT, maxWidth: 100 } );
+      let hBox;
+      if ( options.icon ) {
+        hBox = new HBox( {
+          children: [ text, options.icon ]
+        } );
+      }
+      else {
+        hBox = text;
+      }
       return {
-        node: new Text( string, { font: CONTROL_PANEL_FONT, maxWidth: 100 } ),
+        node: hBox,
         property: property,
         tandem: tandem
       };
     };
+
+    // create focal point icon
+    const focalPointIcon = FocalPointNode.createIcon( { stroke: 'black' } );
+
     // create checkbox group for visibility settings
     const checkboxGroupItems = [
-      createCheckboxGroupItem( focalPointString, visibleProperties.visibleFocalPointProperty ),
+      createCheckboxGroupItem( focalPointString, visibleProperties.visibleFocalPointProperty, { icon: focalPointIcon } ),
       createCheckboxGroupItem( labelsString, visibleProperties.visibleLabelsProperty ),
       createCheckboxGroupItem( virtualImageString, visibleProperties.visibleVirtualImageProperty ),
       createCheckboxGroupItem( movablePointString, visibleProperties.visibleMovablePointProperty ),

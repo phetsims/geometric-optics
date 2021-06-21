@@ -51,9 +51,11 @@ const GeometricOpticsConstants = {
 
   //----------------------------------------------------------------------------------------
   //                                 FOCAL POINT
+  FOCAL_POINT_OPTIONS: {
+    size: new Dimension2( 15, 3 ),  // width of the X sign and "thickness" in X sign
+    lineWidth: 1
+  },
 
-  FOCAL_POINT_LINE_WIDTH: 1,
-  FOCAL_POINT_SIZE: new Dimension2( 15, 3 ), // width of the X sign and "thickness" in X sign
 
   //----------------------------------------------------------------------------------------
   //                           OPTICAL AXIS
