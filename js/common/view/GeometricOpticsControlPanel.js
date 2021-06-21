@@ -63,10 +63,10 @@ class GeometricOpticsControlPanel extends Panel {
 
     // items for ray Mode radio buttons
     const rayModeRadioButtonGroupItems = [
-      { value: LightRayMode.MARGINAL_RAYS, node: new Text( marginalString, { font: CONTROL_PANEL_FONT } ) },
-      { value: LightRayMode.PRINCIPAL_RAYS, node: new Text( principalString, { font: CONTROL_PANEL_FONT } ) },
-      { value: LightRayMode.MANY_RAYS, node: new Text( manyString, { font: CONTROL_PANEL_FONT } ) },
-      { value: LightRayMode.NO_RAYS, node: new Text( noneString, { font: CONTROL_PANEL_FONT } ) }
+      { value: LightRayMode.MARGINAL_RAYS, node: new Text( marginalString, { font: CONTROL_PANEL_FONT, maxWidth: 100 } ) },
+      { value: LightRayMode.PRINCIPAL_RAYS, node: new Text( principalString, { font: CONTROL_PANEL_FONT, maxWidth: 100 } ) },
+      { value: LightRayMode.MANY_RAYS, node: new Text( manyString, { font: CONTROL_PANEL_FONT, maxWidth: 100 } ) },
+      { value: LightRayMode.NO_RAYS, node: new Text( noneString, { font: CONTROL_PANEL_FONT, maxWidth: 100 } ) }
     ];
 
     const commonNumberControlOptions =
@@ -74,12 +74,14 @@ class GeometricOpticsControlPanel extends Panel {
         layoutFunction: NumberControl.createLayoutFunction3( { ySpacing: 12 } ),
 
         titleNodeOptions: {
-          font: CONTROL_PANEL_FONT
+          font: CONTROL_PANEL_FONT,
+          maxWidth: 160
         },
         sliderOptions: {
           trackSize: new Dimension2( 120, 4 ),
           thumbSize: new Dimension2( 10, 20 )
-        }
+        },
+        numberDisplayOptions: { maxWidth: 100 }
       };
 
     // options for number controls that have length units
@@ -142,7 +144,7 @@ class GeometricOpticsControlPanel extends Panel {
     }
 
     // create title for radio button group for light ray mode
-    const rayModeTitle = new Text( rayModeTitleString, { font: TITLE_FONT } );
+    const rayModeTitle = new Text( rayModeTitleString, { font: TITLE_FONT, maxWidth: 100 } );
 
     // create button radio group for the light ray mode
     const rayModeRadioButtonGroup = new VerticalAquaRadioButtonGroup(
@@ -172,7 +174,7 @@ class GeometricOpticsControlPanel extends Panel {
      */
     const createCheckboxGroupItem = ( string, property ) => {
       return {
-        node: new Text( string, { font: CONTROL_PANEL_FONT } ),
+        node: new Text( string, { font: CONTROL_PANEL_FONT, maxWidth: 100 } ),
         property: property,
         tandem: tandem
       };
