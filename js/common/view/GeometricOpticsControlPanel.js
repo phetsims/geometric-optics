@@ -180,20 +180,23 @@ class GeometricOpticsControlPanel extends Panel {
     // create check box group
     const checkboxGroup = new VerticalCheckboxGroup( checkboxGroupItems );
 
-    const separator = new Line( 0, 10, 0, 100, { stroke: 'gray', lineWidth: 1 } );
+    const checkboxGroupHeight = checkboxGroup.height;
+
+    const leftSeparator = new Line( 0, 0, 0, checkboxGroupHeight, { stroke: 'gray', lineWidth: 1 } );
+    const rightSeparator = new Line( 0, 0, 0, checkboxGroupHeight, { stroke: 'gray', lineWidth: 1 } );
 
     // add all elements of the panel in a horizontal HBox
     const content = new AlignBox( new HBox( {
       spacing: 8,
       align: 'left',
       children: [ rayModeRadioButtonGroup,
-        separator, ...controls,
+        leftSeparator, ...controls, rightSeparator,
         checkboxGroup ]
     } ), {
       xAlign: 'left'
     } );
 
-    super( content );
+    super( content, { xMargin: 10, yMargin: 10 } );
 
   }
 }
