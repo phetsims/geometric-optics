@@ -29,10 +29,16 @@ class GeometricOpticsRulerNode extends RulerNode {
    * @param {Ruler} ruler - model for ruler
    * @param {Property.<boolean>} visibleProperty
    * @param {Property.<Bounds2>} visibleBoundsProperty
+   * @param {Bounds2} panelBounds
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( ruler, visibleProperty, visibleBoundsProperty, modelViewTransform, options ) {
+  constructor( ruler,
+               visibleProperty,
+               visibleBoundsProperty,
+               panelBounds,
+               modelViewTransform,
+               options ) {
 
     options = merge( {
       opacity: 0.8,
@@ -84,15 +90,18 @@ class GeometricOpticsRulerNode extends RulerNode {
     // @private
     this.visibleProperty = visibleProperty;
 
+    // @public {Bounds2} bounds of the panel
+    this.panelBounds = panelBounds;
+
     this.setOrientation();
     this.setPosition();
 
     const rulerDragBoundsProperty = new DerivedProperty( [ visibleBoundsProperty ], visibleBounds => {
 
-        if ( ruler.orientation === Ruler.Orientation.VERTICAL ) {
+      if ( ruler.orientation === Ruler.Orientation.VERTICAL ) {
 
-          // if vertical the left and right bounds of the ruler stay within visible bounds
-          // minimum visible length of the ruler is always showing inside top and bottom visible bounds.
+        // if vertical the left and right bounds of the ruler stay within visible bounds
+        // minimum visible length of the ruler is always showing inside top and bottom visible bounds.
           return visibleBounds.withOffsets( 0, -MINIMUM_VISIBLE_LENGTH, -this.width, -MINIMUM_VISIBLE_LENGTH + this.height );
         }
         else {
@@ -133,6 +142,7 @@ class GeometricOpticsRulerNode extends RulerNode {
       this.setPosition();
     } );
 
+    // update the visibility of this node
     visibleProperty.linkAttribute( this, 'visible' );
 
 
@@ -148,7 +158,6 @@ class GeometricOpticsRulerNode extends RulerNode {
    */
   reset() {
     this.setPosition();
-    this.visible = false;
   }
 
   /**
@@ -185,7 +194,6 @@ class GeometricOpticsRulerNode extends RulerNode {
     }
   }
 
-
   /**
    * Forward an event from the toolbox to start dragging this node
    * @param {SceneryEvent} event
@@ -198,6 +206,8 @@ class GeometricOpticsRulerNode extends RulerNode {
   }
 
   /**
+   * update toolbox panel bounds
+   *
    * @public
    * @param {Bounds2} bounds
    */

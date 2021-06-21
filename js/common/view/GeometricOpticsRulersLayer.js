@@ -3,10 +3,14 @@
 /**
  * A layer that contains 1 horizontal ruler and 1 vertical ruler
  *
+ * Since the GeometricOpticRulerNode is non mutable, a new ruler node is
+ *
+ *
  * @author Martin Veillette
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
@@ -29,11 +33,14 @@ class GeometricOpticRulersLayer extends Node {
 
     super( options );
 
-    // @public
+    // @public {Property.<boolean>}
     this.visibleHorizontalProperty = new BooleanProperty( false );
 
-    // @public
+    // @public {Property.<boolean>}
     this.visibleVerticalProperty = new BooleanProperty( false );
+
+    // @public {Bounds2} - will be updated later.
+    this.toolboxPanelBounds = Bounds2.EVERYTHING;
 
     /**
      * Create and Add GeometricOpticsRulerNode
@@ -55,6 +62,7 @@ class GeometricOpticRulersLayer extends Node {
         ruler,
         visibleProperty,
         visibleBoundsProperty,
+        this.toolboxPanelBounds,
         modelViewTransformProperty.value,
         rulerOptions );
 
@@ -73,8 +81,6 @@ class GeometricOpticRulersLayer extends Node {
       this.horizontalRulerNode = addRulerNode( rulers.horizontal, absoluteScale, this.visibleHorizontalProperty );
       this.verticalRulerNode = addRulerNode( rulers.vertical, absoluteScale, this.visibleVerticalProperty );
 
-      this.horizontalRulerNode.setToolboxPanelBounds( this.toolboxPanelBounds );
-      this.verticalRulerNode.setToolboxPanelBounds( this.toolboxPanelBounds );
     } );
   }
 
@@ -90,12 +96,22 @@ class GeometricOpticRulersLayer extends Node {
   }
 
   /**
-   * passes the panel bounds to each ruler
+   * set the panel bounds of the toolbox
    * @public
    * @param {Bounds2} bounds
    */
   setToolboxPanelBounds( bounds ) {
     this.toolboxPanelBounds = bounds;
+
+    // passed the toolbox bounds to the ruler Nodes
+    this.assignToolboxPanelBounds();
+  }
+
+  /**
+   * updates the panel bounds to each ruler
+   * @public
+   */
+  assignToolboxPanelBounds() {
     this.horizontalRulerNode.setToolboxPanelBounds( this.toolboxPanelBounds );
     this.verticalRulerNode.setToolboxPanelBounds( this.toolboxPanelBounds );
   }
