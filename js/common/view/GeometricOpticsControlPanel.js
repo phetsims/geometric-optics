@@ -73,7 +73,7 @@ class GeometricOpticsControlPanel extends Panel {
     const lengthNumberControlOptions =
       {
         delta: 0.1,
-        layoutFunction: NumberControl.createLayoutFunction3(),
+        layoutFunction: NumberControl.createLayoutFunction3( { ySpacing: 12 } ),
         numberDisplayOptions: {
           decimalPlaces: GeometricOpticsConstants.METER_DECIMAL_PLACES,
           valuePattern: StringUtils.fillIn( metersPattern, {
@@ -84,7 +84,8 @@ class GeometricOpticsControlPanel extends Panel {
           font: CONTROL_PANEL_FONT
         },
         sliderOptions: {
-          trackSize: new Dimension2( 120, 4 )
+          trackSize: new Dimension2( 120, 4 ),
+          thumbSize: new Dimension2( 10, 20 )
         }
       };
 
@@ -111,7 +112,7 @@ class GeometricOpticsControlPanel extends Panel {
       const indexOfRefractionNumberControlOptions =
         {
           delta: 0.01,
-          layoutFunction: NumberControl.createLayoutFunction3(),
+          layoutFunction: NumberControl.createLayoutFunction3( { ySpacing: 12 } ),
           numberDisplayOptions: {
             decimalPlaces: GeometricOpticsConstants.INDEX_DECIMAL_PLACES
           },
@@ -119,7 +120,8 @@ class GeometricOpticsControlPanel extends Panel {
             font: CONTROL_PANEL_FONT
           },
           sliderOptions: {
-            trackSize: new Dimension2( 120, 4 )
+            trackSize: new Dimension2( 120, 4 ),
+            thumbSize: new Dimension2( 10, 20 )
           }
         };
 
@@ -148,7 +150,7 @@ class GeometricOpticsControlPanel extends Panel {
     const rayModeRadioButtonGroup = new VerticalAquaRadioButtonGroup(
       lightRayModeProperty,
       rayModeRadioButtonGroupItems, {
-        spacing: 8,
+        spacing: 4,
         align: 'left',
         radioButtonOptions: {
           radius: 7
@@ -161,7 +163,7 @@ class GeometricOpticsControlPanel extends Panel {
     const rayModesBox = new VBox( {
       children: [ rayModeTitle, rayModeRadioButtonGroup ],
       align: 'left',
-      spacing: 8
+      spacing: 4
     } );
 
     // create checkbox group for visibility settings
@@ -199,17 +201,19 @@ class GeometricOpticsControlPanel extends Panel {
     }
 
     // create check box group
-    const checkboxGroup = new VerticalCheckboxGroup( checkboxGroupItems );
+    const checkboxGroup = new VerticalCheckboxGroup( checkboxGroupItems, { spacing: 4, checkboxOptions: { boxWidth: 14 } } );
 
-    const checkboxGroupHeight = checkboxGroup.height;
+    // length of vertical line should be the height of the tallest control panel element
+    const verticalSeparatorLength = Math.max( checkboxGroup.height, rayModesBox.height );
 
-    const leftSeparator = new Line( 0, 0, 0, checkboxGroupHeight, { stroke: 'gray', lineWidth: 1 } );
-    const rightSeparator = new Line( 0, 0, 0, checkboxGroupHeight, { stroke: 'gray', lineWidth: 1 } );
+    // create vertical lines to separate control panel elements
+    const leftSeparator = new Line( 0, 0, 0, verticalSeparatorLength, { stroke: 'gray', lineWidth: 1 } );
+    const rightSeparator = new Line( 0, 0, 0, verticalSeparatorLength, { stroke: 'gray', lineWidth: 1 } );
 
     // add all elements of the panel in a horizontal HBox
     const content = new AlignBox( new HBox( {
-      spacing: 8,
-      align: 'left',
+      spacing: 20,
+      align: 'center',
       children: [ rayModesBox,
         leftSeparator, ...controls, rightSeparator,
         checkboxGroup ]
@@ -217,7 +221,7 @@ class GeometricOpticsControlPanel extends Panel {
       xAlign: 'left'
     } );
 
-    super( content, { xMargin: 10, yMargin: 10 } );
+    super( content, { xMargin: 15, yMargin: 10, fill: 'rgb(240,240,240)' } );
 
   }
 }

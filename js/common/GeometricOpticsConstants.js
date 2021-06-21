@@ -108,8 +108,8 @@ const GeometricOpticsConstants = {
   //                                 FONTS
 
   EQUATION_FONT: new PhetFont( 18 ),
-  CONTROL_PANEL_FONT: new PhetFont( 16 ),
-  TITLE_FONT: new PhetFont( { weight: 'bold', size: 16 } )
+  CONTROL_PANEL_FONT: new PhetFont( 14 ),
+  TITLE_FONT: new PhetFont( { weight: 'bold', size: 14 } )
 };
 
 geometricOptics.register( 'GeometricOpticsConstants', GeometricOpticsConstants );
