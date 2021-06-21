@@ -69,17 +69,10 @@ class GeometricOpticsControlPanel extends Panel {
       { value: LightRayMode.NO_RAYS, node: new Text( noneString, { font: CONTROL_PANEL_FONT } ) }
     ];
 
-    // options for number controls that have length units
-    const lengthNumberControlOptions =
+    const commonNumberControlOptions =
       {
-        delta: 0.1,
         layoutFunction: NumberControl.createLayoutFunction3( { ySpacing: 12 } ),
-        numberDisplayOptions: {
-          decimalPlaces: GeometricOpticsConstants.METER_DECIMAL_PLACES,
-          valuePattern: StringUtils.fillIn( metersPattern, {
-            meters: SunConstants.VALUE_NAMED_PLACEHOLDER
-          } )
-        },
+
         titleNodeOptions: {
           font: CONTROL_PANEL_FONT
         },
@@ -88,6 +81,18 @@ class GeometricOpticsControlPanel extends Panel {
           thumbSize: new Dimension2( 10, 20 )
         }
       };
+
+    // options for number controls that have length units
+    const lengthNumberControlOptions = merge( commonNumberControlOptions,
+      {
+        delta: 0.1,
+        numberDisplayOptions: {
+          decimalPlaces: GeometricOpticsConstants.METER_DECIMAL_PLACES,
+          valuePattern: StringUtils.fillIn( metersPattern, {
+            meters: SunConstants.VALUE_NAMED_PLACEHOLDER
+          } )
+        }
+      } );
 
     // create number control for the radius of curvature of optical element
     const curvatureRadiusControl = new NumberControl(
@@ -109,21 +114,14 @@ class GeometricOpticsControlPanel extends Panel {
     if ( config.hasLens ) {
 
       // options for index of refraction control
-      const indexOfRefractionNumberControlOptions =
+      const indexOfRefractionNumberControlOptions = merge( commonNumberControlOptions,
         {
           delta: 0.01,
-          layoutFunction: NumberControl.createLayoutFunction3( { ySpacing: 12 } ),
           numberDisplayOptions: {
             decimalPlaces: GeometricOpticsConstants.INDEX_DECIMAL_PLACES
-          },
-          titleNodeOptions: {
-            font: CONTROL_PANEL_FONT
-          },
-          sliderOptions: {
-            trackSize: new Dimension2( 120, 4 ),
-            thumbSize: new Dimension2( 10, 20 )
           }
-        };
+        } );
+
 
       // create number control for the index of refraction of lens
       const indexOfRefractionControl = new NumberControl(
@@ -166,33 +164,26 @@ class GeometricOpticsControlPanel extends Panel {
       spacing: 4
     } );
 
+    /**
+     * create a checkbox Group item
+     * @param {string} string
+     * @param {Property} property
+     * @returns {{node: Text, tandem: Tandem, property}}
+     */
+    const createCheckboxGroupItem = ( string, property ) => {
+      return {
+        node: new Text( string, { font: CONTROL_PANEL_FONT } ),
+        property: property,
+        tandem: tandem
+      };
+    };
     // create checkbox group for visibility settings
     const checkboxGroupItems = [
-      {
-        node: new Text( focalPointString, { font: CONTROL_PANEL_FONT } ),
-        property: visibleProperties.visibleFocalPointProperty,
-        tandem: tandem
-      },
-      {
-        node: new Text( labelsString, { font: CONTROL_PANEL_FONT } ),
-        property: visibleProperties.visibleLabelsProperty,
-        tandem: tandem
-      },
-      {
-        node: new Text( virtualImageString, { font: CONTROL_PANEL_FONT } ),
-        property: visibleProperties.visibleVirtualImageProperty,
-        tandem: tandem
-      },
-      {
-        node: new Text( movablePointString, { font: CONTROL_PANEL_FONT } ),
-        property: visibleProperties.visibleMovablePointProperty,
-        tandem: tandem
-      },
-      {
-        node: new Text( guidesString, { font: CONTROL_PANEL_FONT } ),
-        property: visibleProperties.visibleGuidesProperty,
-        tandem: tandem
-      }
+      createCheckboxGroupItem( focalPointString, visibleProperties.visibleFocalPointProperty ),
+      createCheckboxGroupItem( labelsString, visibleProperties.visibleLabelsProperty ),
+      createCheckboxGroupItem( virtualImageString, visibleProperties.visibleVirtualImageProperty ),
+      createCheckboxGroupItem( movablePointString, visibleProperties.visibleMovablePointProperty ),
+      createCheckboxGroupItem( guidesString, visibleProperties.visibleGuidesProperty )
     ];
 
     // if using mirror, remove guides checkbox
