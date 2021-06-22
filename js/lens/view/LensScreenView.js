@@ -10,8 +10,7 @@ import geometricOptics from '../../geometricOptics.js';
 import LensModel from '../model/LensModel.js';
 import GuideNode from './GuideNode.js';
 import LensNode from './LensNode.js';
-
-// import ProjectorScreenNode from './ProjectorScreenNode.js';
+import ProjectorScreenNode from './ProjectorScreenNode.js';
 
 class LensScreenView extends GeometricOpticsScreenView {
 
@@ -35,14 +34,14 @@ class LensScreenView extends GeometricOpticsScreenView {
 
     // create projector screen associated with light source
     // @private {ProjectorScreenNode}
-    // this.projectorScreenNode = new ProjectorScreenNode( model.projectorScreen,
-    //   model.representationProperty,
-    //   this.visibleProperties.visibleMovablePointProperty,
-    //   this.visibleBoundsProperty,
-    //   this.modelViewTransform, tandem );
-    //
-    // //  add the screen at the bottom of the z-layer
-    // this.playAreaNode.insertChild( 0, this.projectorScreenNode );
+    this.projectorScreenNode = new ProjectorScreenNode( model.projectorScreen,
+      model.representationProperty,
+      this.visibleProperties.visibleMovablePointProperty,
+      this.visibleBoundsProperty,
+      this.modelViewTransform, tandem );
+
+    //  add the screen at the bottom of the z-layer
+    this.playAreaNode.insertChild( 0, this.projectorScreenNode );
   }
 
   /**
@@ -51,7 +50,7 @@ class LensScreenView extends GeometricOpticsScreenView {
    */
   reset() {
     super.reset();
-    // this.projectorScreenNode.reset();
+    this.projectorScreenNode.reset();
   }
 }
 
