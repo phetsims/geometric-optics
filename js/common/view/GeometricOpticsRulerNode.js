@@ -167,6 +167,7 @@ class GeometricOpticsRulerNode extends RulerNode {
    */
   dispose() {
     this.disposeListeners();
+    super.dispose();
   }
 
   /**
