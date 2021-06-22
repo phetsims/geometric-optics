@@ -17,7 +17,6 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Ruler from '../model/Ruler.js';
 
-
 const centimetersString = geometricOpticsStrings.centimeters;
 
 const RULER_HEIGHT = GeometricOpticsConstants.RULER_HEIGHT;
