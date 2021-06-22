@@ -62,28 +62,40 @@ class GeometricOpticsControlPanel extends Panel {
       hasLens: false
     }, config );
 
+    /**
+     * create an item for the Radio Button Group
+     * @param {LightRayMode} mode
+     * @param {string} string
+     * @returns {{node: Text, value: LightRayMode}} item
+     */
+    const createRayModeRadioButtonGroupItem = ( mode, string ) => {
+      return {
+        value: mode,
+        node: new Text( string, { font: CONTROL_PANEL_FONT, maxWidth: 100 } )
+      };
+    };
+
     // items for ray Mode radio buttons
     const rayModeRadioButtonGroupItems = [
-      { value: LightRayMode.MARGINAL_RAYS, node: new Text( marginalString, { font: CONTROL_PANEL_FONT, maxWidth: 100 } ) },
-      { value: LightRayMode.PRINCIPAL_RAYS, node: new Text( principalString, { font: CONTROL_PANEL_FONT, maxWidth: 100 } ) },
-      { value: LightRayMode.MANY_RAYS, node: new Text( manyString, { font: CONTROL_PANEL_FONT, maxWidth: 100 } ) },
-      { value: LightRayMode.NO_RAYS, node: new Text( noneString, { font: CONTROL_PANEL_FONT, maxWidth: 100 } ) }
+      createRayModeRadioButtonGroupItem( LightRayMode.MARGINAL_RAYS, marginalString ),
+      createRayModeRadioButtonGroupItem( LightRayMode.PRINCIPAL_RAYS, principalString ),
+      createRayModeRadioButtonGroupItem( LightRayMode.MANY_RAYS, manyString ),
+      createRayModeRadioButtonGroupItem( LightRayMode.NO_RAYS, noneString )
     ];
 
-    const commonNumberControlOptions =
-      {
-        layoutFunction: NumberControl.createLayoutFunction3( { ySpacing: 12 } ),
-
-        titleNodeOptions: {
-          font: CONTROL_PANEL_FONT,
-          maxWidth: 160
-        },
-        sliderOptions: {
-          trackSize: new Dimension2( 120, 4 ),
-          thumbSize: new Dimension2( 10, 20 )
-        },
-        numberDisplayOptions: { maxWidth: 100 }
-      };
+    // options common to all number controls
+    const commonNumberControlOptions = {
+      layoutFunction: NumberControl.createLayoutFunction3( { ySpacing: 12 } ),
+      titleNodeOptions: {
+        font: CONTROL_PANEL_FONT,
+        maxWidth: 160
+      },
+      sliderOptions: {
+        trackSize: new Dimension2( 120, 4 ),
+        thumbSize: new Dimension2( 10, 20 )
+      },
+      numberDisplayOptions: { maxWidth: 100 }
+    };
 
     // options for number controls that have length units
     const lengthNumberControlOptions = merge( commonNumberControlOptions,
@@ -125,7 +137,6 @@ class GeometricOpticsControlPanel extends Panel {
           }
         } );
 
-
       // create number control for the index of refraction of lens
       const indexOfRefractionControl = new NumberControl(
         refractiveIndexString,
@@ -134,14 +145,12 @@ class GeometricOpticsControlPanel extends Panel {
         indexOfRefractionNumberControlOptions );
 
       // add three number controls
-      controls = [ curvatureRadiusControl,
-        indexOfRefractionControl,
-        diameterControl ];
+      controls = [ curvatureRadiusControl, indexOfRefractionControl, diameterControl ];
     }
     else {
-      // if not a lens, add two number controls
-      controls = [ curvatureRadiusControl,
-        diameterControl ];
+
+      // only lens has an index of refraction, add curvature and diameter controls
+      controls = [ curvatureRadiusControl, diameterControl ];
     }
 
     // create title for radio button group for light ray mode
@@ -153,9 +162,7 @@ class GeometricOpticsControlPanel extends Panel {
       rayModeRadioButtonGroupItems, {
         spacing: 4,
         align: 'left',
-        radioButtonOptions: {
-          radius: 7
-        },
+        radioButtonOptions: { radius: 7 },
         touchAreaXDilation: 10,
         mouseAreaXDilation: 10
       } );
@@ -171,24 +178,22 @@ class GeometricOpticsControlPanel extends Panel {
      * create a checkbox Group item
      * @param {string} string
      * @param {Property} property
-     * @returns {{node: Text, tandem: Tandem, property}}
+     * @param {Object} [options]
+     * @returns {{node: Node, property: Property, tandem: Tandem}} item
      */
     const createCheckboxGroupItem = ( string, property, options ) => {
       options = merge( {
-        icon: null
+        icon: null // {null||Node}
       }, options );
+
+      // text for the checkbox
       const text = new Text( string, { font: CONTROL_PANEL_FONT, maxWidth: 100 } );
-      let hBox;
-      if ( options.icon ) {
-        hBox = new HBox( {
-          children: [ text, options.icon ]
-        } );
-      }
-      else {
-        hBox = text;
-      }
+
+      // create hBox if icon is present, otherwise merely attach text
+      const node = ( options.icon ) ? new HBox( { children: [ text, options.icon ] } ) : text;
+
       return {
-        node: hBox,
+        node: node,
         property: property,
         tandem: tandem
       };
@@ -212,26 +217,32 @@ class GeometricOpticsControlPanel extends Panel {
     }
 
     // create check box group
-    const checkboxGroup = new VerticalCheckboxGroup( checkboxGroupItems, { spacing: 4, checkboxOptions: { boxWidth: 14 } } );
+    const checkboxGroup = new VerticalCheckboxGroup( checkboxGroupItems, {
+      spacing: 4,
+      checkboxOptions: { boxWidth: 14 }
+    } );
 
     // length of vertical line should be the height of the tallest control panel element
     const verticalSeparatorLength = Math.max( checkboxGroup.height, rayModesBox.height );
 
     // create vertical lines to separate control panel elements
-    const leftSeparator = new Line( 0, 0, 0, verticalSeparatorLength, { stroke: 'gray', lineWidth: 1 } );
-    const rightSeparator = new Line( 0, 0, 0, verticalSeparatorLength, { stroke: 'gray', lineWidth: 1 } );
+    const lineOptions = { stroke: 'gray', lineWidth: 1 };
+    const leftSeparator = new Line( 0, 0, 0, verticalSeparatorLength, lineOptions );
+    const rightSeparator = new Line( 0, 0, 0, verticalSeparatorLength, lineOptions );
 
     // add all elements of the panel in a horizontal HBox
     const content = new AlignBox( new HBox( {
-      spacing: 20,
-      align: 'center',
-      children: [ rayModesBox,
-        leftSeparator, ...controls, rightSeparator,
-        checkboxGroup ]
-    } ), {
-      xAlign: 'left'
-    } );
+        children: [ rayModesBox,
+          leftSeparator,
+          ...controls,
+          rightSeparator,
+          checkboxGroup ],
+        spacing: 20,
+        align: 'center'
+      } ),
+      { xAlign: 'left' } );
 
+    // create and add panel
     super( content, { xMargin: 15, yMargin: 10, fill: 'rgb(240,240,240)' } );
 
   }
