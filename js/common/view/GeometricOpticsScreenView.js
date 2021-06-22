@@ -10,7 +10,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import EyeToggleButton from '../../../../scenery-phet/js/buttons/EyeToggleButton.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import MagnifyingGlassZoomButtonGroup from '../../../../scenery-phet/js/MagnifyingGlassZoomButtonGroup.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -28,6 +27,7 @@ import LabelsNode from './LabelsNode.js';
 import LightRaysNode from './LightRaysNode.js';
 import OpticalAxisLine from './OpticalAxisLine.js';
 import RepresentationComboBox from './RepresentationComboBox.js';
+import ShowHideToggleButton from './ShowHideToggleButton.js';
 import SourceObjectNode from './SourceObjectNode.js';
 import TargetImageNode from './TargetImageNode.js';
 import ToolboxPanel from './ToolboxPanel.js';
@@ -193,10 +193,9 @@ class GeometricOpticsScreenView extends ScreenView {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
-    // create the eyeToggle button above the reset all button
-    const eyeToggleButton = new EyeToggleButton( this.visibleProperties.visibleRayTracingProperty,
-      { baseColor: 'yellow' } );
-    eyeToggleButton.centerBottom = resetAllButton.centerTop.plusXY( 0, -8 );
+    // create the show/hide eye toggle button above the reset all button
+    const showHideToggleButton = new ShowHideToggleButton( this.visibleProperties.visibleRayTracingProperty );
+    showHideToggleButton.centerBottom = resetAllButton.centerTop.plusXY( 0, -8 );
 
     // labels
     const labelsNode = new LabelsNode( model, this, this.visibleProperties, this.zoomModelViewTransformProperty, this.zoomLevelProperty );
@@ -207,7 +206,7 @@ class GeometricOpticsScreenView extends ScreenView {
     this.addChild( curveControl );
     this.addChild( geometricOpticsControlPanel );
     this.addChild( toolboxPanel );
-    this.addChild( eyeToggleButton );
+    this.addChild( showHideToggleButton );
     this.addChild( resetAllButton );
     this.addChild( this.playAreaNode );
     this.addChild( labelsNode );
