@@ -49,7 +49,7 @@ class GeometricOpticsControlPanel extends Panel {
 
   /**
    * @param {Optic} optic
-   * @param {EnumerationProperty.<LightRayMode>} lightRayModeProperty
+   * @param {Property.<LightRayMode>} lightRayModeProperty
    * @param {VisibleProperties} visibleProperties
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem

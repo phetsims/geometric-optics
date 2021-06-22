@@ -55,7 +55,6 @@ class GeometricOpticsScreenView extends ScreenView {
       tandem: tandem
     } );
 
-
     // convenience variable for laying out scenery nodes
     const erodedLayoutBounds = this.layoutBounds.erodedXY( SCREEN_VIEW_X_MARGIN, SCREEN_VIEW_Y_MARGIN );
 
