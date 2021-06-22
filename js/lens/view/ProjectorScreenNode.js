@@ -47,12 +47,14 @@ class ProjectorScreenNode extends Node {
     // create projectorScreen target
     const projectorScreenImage = new Image( projectorScreen3dImage, { scale: 0.5 } );
 
+    // add projectorScreen image to scene graph
+    this.addChild( projectorScreenImage );
+
     // difference between the left top position of the image and the "center" of the blackboard
     const offset = new Vector2( -0.3, 0.75 );
 
     // @private {Property.<Vector2} create a property for the left top position of the projectorScreen target
     this.imagePositionProperty = new Vector2Property( projectorScreen.positionProperty.value.plus( offset ) );
-
 
     // TODO: this doesnt handle zoom
     // keep at least half of the projector screen within visible bounds and right of the optic
@@ -84,9 +86,6 @@ class ProjectorScreenNode extends Node {
 
     // add input listener to projectorScreen target
     projectorScreenImage.addInputListener( dragListener );
-
-    // add projectorScreen image to scene graph
-    this.addChild( projectorScreenImage );
 
     representationProperty.link( representation => {
       // display this node if this is a source, that is not an object
