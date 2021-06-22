@@ -144,12 +144,6 @@ class GeometricOpticsRulerNode extends RulerNode {
     // update the visibility of this node
     visibleProperty.linkAttribute( this, 'visible' );
 
-
-    // @private
-    this.resetLeftTopPosition = () => {
-      this.leftTop = ruler.positionProperty.value;
-    };
-
   }
 
   /**
@@ -163,7 +157,6 @@ class GeometricOpticsRulerNode extends RulerNode {
    * @public
    */
   dispose() {
-    //  this.visibleProperty.unlinkAttribute( this, 'visible' );
   }
 
   /**
