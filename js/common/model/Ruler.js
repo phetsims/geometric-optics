@@ -53,6 +53,14 @@ class Ruler {
     this.length = this.nominalLength * absoluteScale;
   }
 
+  /**
+   * @public
+   * @returns {boolean}
+   */
+  isHorizontal() {
+    return this.orientation === Ruler.Orientation.HORIZONTAL;
+  }
+
 }
 
 Ruler.Orientation = Enumeration.byKeys(

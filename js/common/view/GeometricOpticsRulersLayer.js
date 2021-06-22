@@ -54,8 +54,12 @@ class GeometricOpticRulersLayer extends Node {
       // we want to scale model length inversely as the scale such that the view length remains the same
       ruler.scaleLength( 1 / absoluteScale );
 
+      // only vertical ruler has tick marks on bottom
+      const tickMarksOnBottom = !ruler.isHorizontal();
+
       const rulerOptions = {
-        majorTickDistance: 0.1 / absoluteScale // in model coordinate (m)
+        majorTickDistance: 0.1 / absoluteScale, // in model coordinate (m)
+        tickMarksOnBottom: tickMarksOnBottom
       };
 
       const rulerNode = new GeometricOpticsRulerNode(
