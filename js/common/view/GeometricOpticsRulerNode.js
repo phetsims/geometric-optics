@@ -97,10 +97,10 @@ class GeometricOpticsRulerNode extends RulerNode {
 
     const rulerDragBoundsProperty = new DerivedProperty( [ visibleBoundsProperty ], visibleBounds => {
 
-      if ( ruler.orientation === Ruler.Orientation.VERTICAL ) {
+        if ( ruler.orientation === Ruler.Orientation.VERTICAL ) {
 
-        // if vertical the left and right bounds of the ruler stay within visible bounds
-        // minimum visible length of the ruler is always showing inside top and bottom visible bounds.
+          // if vertical the left and right bounds of the ruler stay within visible bounds
+          // minimum visible length of the ruler is always showing inside top and bottom visible bounds.
           return visibleBounds.withOffsets( 0, -MINIMUM_VISIBLE_LENGTH, -this.width, -MINIMUM_VISIBLE_LENGTH + this.height );
         }
         else {
@@ -132,18 +132,27 @@ class GeometricOpticsRulerNode extends RulerNode {
     this.addInputListener( this.dragListener );
 
     // always keep ruler in visible/drag bounds when visible bounds are changed
-    rulerDragBoundsProperty.link( dragBounds => {
+    const dragBoundsListener = dragBounds => {
       ruler.positionProperty.value = dragBounds.closestPointTo( ruler.positionProperty.value );
-    } );
+    };
+
+    rulerDragBoundsProperty.link( dragBoundsListener );
+
+    const positionListener = () => this.setPosition();
 
     // update ruler node position based on ruler model position
-    ruler.positionProperty.link( () => {
-      this.setPosition();
-    } );
+    ruler.positionProperty.link( positionListener );
 
     // update the visibility of this node
-    visibleProperty.linkAttribute( this, 'visible' );
+    const visibleListener = visibleProperty.linkAttribute( this, 'visible' );
 
+    // @public
+    this.disposeListeners = () => {
+      ruler.positionProperty.unlink( positionListener );
+      visibleProperty.unlinkAttribute( visibleListener );
+      rulerDragBoundsProperty.unlink( dragBoundsListener );
+      this.removeInputListener( this.dragListener );
+    };
   }
 
   /**
@@ -157,6 +166,7 @@ class GeometricOpticsRulerNode extends RulerNode {
    * @public
    */
   dispose() {
+    this.disposeListeners();
   }
 
   /**

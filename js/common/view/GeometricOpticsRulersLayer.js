@@ -75,11 +75,15 @@ class GeometricOpticRulersLayer extends Node {
       return rulerNode;
     };
 
+
     // update rulers when scale changes
     absoluteScaleProperty.link( absoluteScale => {
 
       // since RulerNode is not mutable, remove all children
       this.removeAllChildren();
+
+      // dispose of the rulers
+      this.disposeRulers();
 
       // create and add rulers, keeping a reference to the added ruler
       this.horizontalRulerNode = addRulerNode( rulers.horizontal, absoluteScale, this.visibleHorizontalProperty );
@@ -118,6 +122,19 @@ class GeometricOpticRulersLayer extends Node {
   assignToolboxPanelBounds() {
     this.horizontalRulerNode.setToolboxPanelBounds( this.toolboxPanelBounds );
     this.verticalRulerNode.setToolboxPanelBounds( this.toolboxPanelBounds );
+  }
+
+  /**
+   * @public
+   */
+  disposeRulers() {
+    if ( this.horizontalRulerNode ) {
+      this.horizontalRulerNode.dispose();
+    }
+
+    if ( this.verticalRulerNode ) {
+      this.verticalRulerNode.dispose();
+    }
   }
 }
 
