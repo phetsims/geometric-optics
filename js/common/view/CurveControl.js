@@ -79,13 +79,26 @@ class CurveControl extends RectangularRadioButtonGroup {
     const convexNode = createIconNode( Optic.Curve.CONVEX );
     const concaveNode = createIconNode( Optic.Curve.CONCAVE );
 
-    // create the rectangular radio button group with the icons
-    super( curveProperty, [
-        { value: Optic.Curve.CONCAVE, node: concaveNode },
-        { value: Optic.Curve.CONVEX, node: convexNode } ],
-      options );
+    // set order of buttons
+    let concaveConvexNodes;
 
-    // use if statement to switch order for mirror/lens concave/convex
+    // convex lens is top button, concave lens is bottom button
+    if ( optic.isLens() ) {
+      concaveConvexNodes = [
+        { value: Optic.Curve.CONVEX, node: convexNode },
+        { value: Optic.Curve.CONCAVE, node: concaveNode } ];
+    }
+
+    // concave mirror is top button, convex mirror is bottom button
+    else if ( optic.isMirror() ) {
+      concaveConvexNodes = [
+        { value: Optic.Curve.CONCAVE, node: concaveNode },
+        { value: Optic.Curve.CONVEX, node: convexNode } ];
+    }
+
+    // create the rectangular radio button group with the icons
+    super( curveProperty, concaveConvexNodes, options );
+
   }
 }
 
