@@ -68,7 +68,6 @@ class GeometricOpticsScreenView extends ScreenView {
     // @protected create a Y inverted modelViewTransform with isometric scaling along X and Y
     this.modelViewTransform = this.getModelViewTransform( ZOOM_RANGE.defaultValue );
 
-
     // @protected {Property.<ModelViewTransform2>} modelViewTransform
     this.zoomModelViewTransformProperty = new DerivedProperty( [ this.zoomLevelProperty ], zoomLevel => {
       return this.getModelViewTransform( zoomLevel );
@@ -93,7 +92,9 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // @private create the source/object on the left hand side of screen
     this.sourceObjectNode = new SourceObjectNode( model.representationProperty,
-      model.sourceObject, this.visibleProperties.visibleMovablePointProperty, this.modelViewTransform, tandem );
+      model.sourceObject, this.visibleProperties.visibleMovablePointProperty,
+      this.visibleModelBoundsProperty,
+      this.modelViewTransform, tandem );
 
     // create the optical axis attached to the optical element
     const opticalAxisLine = new OpticalAxisLine( model.optic.positionProperty,

@@ -33,7 +33,12 @@ class LabelsNode extends Node {
    * @param {Property.<boolean>} zoomLevelProperty
    * @param {Object} [options]
    */
-  constructor( model, view, visibleProperties, modelViewTransformProperty, zoomLevelProperty, options ) {
+  constructor( model,
+               view,
+               visibleProperties,
+               modelViewTransformProperty,
+               zoomLevelProperty,
+               options ) {
 
     options = merge( {}, options );
 
@@ -58,36 +63,25 @@ class LabelsNode extends Node {
     // create optic label with empty string
     const opticLabel = new LabelNode( '', opticLabelPositionProperty, new BooleanProperty( true ), modelViewTransformProperty );
 
-    // update the label string
+    // update the label string of the optic
     model.optic.curveProperty.link( curve => {
 
       let curveOpticString;
 
-      // string associated with optic
+      // string associated with optic and curve
       if ( model.optic.isConvex( curve ) ) {
-        if ( model.optic.isLens() ) {
-          curveOpticString = convexLensString;
-        }
-        else if ( model.optic.isMirror() ) {
-          curveOpticString = convexMirrorString;
-        }
+        curveOpticString = model.optic.isLens() ? convexLensString : convexMirrorString;
       }
       else if ( model.optic.isConcave( curve ) ) {
-        if ( model.optic.isLens() ) {
-          curveOpticString = concaveLensString;
-        }
-        else if ( model.optic.isMirror() ) {
-          curveOpticString = concaveMirrorString;
-        }
+        curveOpticString = model.optic.isLens() ? concaveLensString : concaveMirrorString;
       }
 
-      // update the text of label
+      // update the text of label for optic
       opticLabel.setText( curveOpticString );
     } );
 
     // create image label
     const imageLabel = new LabelNode( imageString, model.targetImage.positionProperty, new BooleanProperty( true ), modelViewTransformProperty );
-
 
     // create object label
     const objectLabel = new LabelNode( objectString, model.sourceObject.positionProperty, new BooleanProperty( true ), modelViewTransformProperty );
@@ -98,7 +92,6 @@ class LabelsNode extends Node {
         objectLabel.visible = representation.isObject;
         imageLabel.visible = representation.isObject && ( isVirtual ? showVirtual : true );
       } );
-
 
     // add the labels to this node
     this.addChild( objectLabel );
@@ -113,5 +106,4 @@ class LabelsNode extends Node {
 }
 
 geometricOptics.register( 'LabelsNode', LabelsNode );
-
 export default LabelsNode;
