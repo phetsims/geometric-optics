@@ -14,6 +14,18 @@
   "lens": {
     "value": "Lens"
   },
+  "concaveMirror": {
+    "value": "Concave Mirror"
+  },
+  "concaveLens": {
+    "value": "Concave Lens"
+  },
+  "convexMirror": {
+    "value": "Convex Mirror"
+  },
+  "convexLens": {
+    "value": "Convex Lens"
+  },
   "object": {
     "value": "Object"
   },

@@ -17,11 +17,11 @@ import LabelNode from './LabelNode.js';
 
 const objectString = geometricOpticsStrings.object;
 const imageString = geometricOpticsStrings.image;
-const convexString = geometricOpticsStrings.convex;
-const concaveString = geometricOpticsStrings.concave;
 const focalPointString = geometricOpticsStrings.focalPoint;
-const lensString = geometricOpticsStrings.lens;
-const mirrorString = geometricOpticsStrings.mirror;
+const convexLensString = geometricOpticsStrings.convexLens;
+const concaveLensString = geometricOpticsStrings.concaveLens;
+const convexMirrorString = geometricOpticsStrings.convexMirror;
+const concaveMirrorString = geometricOpticsStrings.concaveMirror;
 
 class LabelsNode extends Node {
   /**
@@ -61,14 +61,11 @@ class LabelsNode extends Node {
     // update the label string
     model.optic.curveProperty.link( curve => {
 
-      // string associated with curve
-      const curveString = model.optic.isConvex( curve ) ? convexString : concaveString;
-
-      // string associated with type of optic
-      const opticString = model.optic.isLens() ? lensString : mirrorString;
-
-      // TODO: need to think about i18n
-      const curveOpticString = curveString + ' ' + opticString;
+      // string associated with optic
+      const curveOpticString = ( model.optic.isConvex( curve ) && model.optic.isLens() ) ? convexLensString
+                                                                                         : ( model.optic.isConvex( curve ) && model.optic.isMirror() ) ? convexMirrorString
+                                                                                                                                                       : ( model.optic.isConcave( curve ) && model.optic.isLens() ) ? concaveLensString
+                                                                                                                                                                                                                    : concaveMirrorString;
 
       // update the text of label
       opticLabel.setText( curveOpticString );
