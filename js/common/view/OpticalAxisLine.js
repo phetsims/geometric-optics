@@ -18,22 +18,20 @@ class OpticalAxisLine extends Line {
   /**
    *
    * @param {Property.<Vector2>} opticPositionProperty
-   * @param {Bounds2} screenViewBounds
+   * @param {Bounds2} visibleModelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    */
-  constructor( opticPositionProperty, screenViewBounds, modelViewTransform ) {
+  constructor( opticPositionProperty, visibleModelBoundsProperty, modelViewTransform ) {
 
-    // determine initial position of line in view
-    const yPosition = modelViewTransform.modelToViewY( opticPositionProperty.value.y );
-
-    // set min and max X to extend far beyond sim bounds
-    const lineMinX = screenViewBounds.minX - 8 * screenViewBounds.width;
-    const lineMaxX = screenViewBounds.maxX + 8 * screenViewBounds.width;
-
-    // create optical axis line
-    super( lineMinX, yPosition, lineMaxX, yPosition, {
+    // create optical axis line, with arbitrary length values.
+    super( 0, 0, 1, 0, {
       lineWidth: LINE_WIDTH,
       stroke: STROKE
+    } );
+
+    visibleModelBoundsProperty.link( bounds => {
+      this.setX1( modelViewTransform.modelToViewX( bounds.minX ) );
+      this.setX2( modelViewTransform.modelToViewX( bounds.maxX ) );
     } );
 
     // update y-position of line based on position of optic
