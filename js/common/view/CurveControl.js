@@ -24,7 +24,7 @@ class CurveControl extends RectangularRadioButtonGroup {
 
   /**
    *
-   * @param {Enumeration.<Optic.Curve>} curveProperty
+   * @param {Property.<Optic.Curve>} curveProperty
    * @param {Optic} optic
    * @param {Object} [options]
    */

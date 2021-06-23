@@ -45,7 +45,7 @@ class Optic {
     // @public {Property.<number>} Height of the optical element - controls the optical aperture of the optical element
     this.diameterProperty = new NumberProperty( diameterRange.defaultValue, { range: diameterRange } );
 
-    // @public {EnumerationProperty.<Optic.Curve>} Type of Curvature of the optical element.
+    // @public {Property.<Optic.Curve>} Type of Curvature of the optical element.
     this.curveProperty = new EnumerationProperty( Optic.Curve, curve );
 
     // @private {Optic.Type} Type of the optical element ( valid choices: LENS and MIRROR)

@@ -18,7 +18,7 @@ const OPTICAL_ELEMENT_TIP_OFFSET = GeometricOpticsConstants.OPTICAL_ELEMENT_TIP_
 class LightRays {
 
   /**
-   * @param {EnumerationProperty.<LightRayMode>} lightRayModeProperty
+   * @param {Property.<LightRayMode>} lightRayModeProperty
    * @param {Property.<Vector2>} sourceObjectPositionProperty
    * @param {Optic} optic
    * @param {TargetImage} targetImage
@@ -27,7 +27,7 @@ class LightRays {
   constructor( lightRayModeProperty, sourceObjectPositionProperty, optic, targetImage, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    // @public {EnumerationProperty.<LightRayMode>}
+    // @public {Property.<LightRayMode>}
     this.modeProperty = lightRayModeProperty;
 
     // @public {Optic}

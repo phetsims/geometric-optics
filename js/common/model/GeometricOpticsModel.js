@@ -30,7 +30,7 @@ class GeometricOpticsModel {
     // @public {Property.<Representation>}  representation of the source/object
     this.representationProperty = new Property( Representation.PENCIL );
 
-    // @public {EnumerationProperty.<LightRayMode>}  modes for the different kind of light rays
+    // @public {Property.<LightRayMode>}  modes for the different kind of light rays
     this.lightRayModeProperty = new EnumerationProperty( LightRayMode, LightRayMode.NO_RAYS );
 
     // @public {SourceObject} the object/ source
