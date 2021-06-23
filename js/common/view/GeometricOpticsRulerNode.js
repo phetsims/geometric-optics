@@ -15,7 +15,6 @@ import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-import Ruler from '../model/Ruler.js';
 
 const centimetersString = geometricOpticsStrings.centimeters;
 
@@ -97,7 +96,7 @@ class GeometricOpticsRulerNode extends RulerNode {
 
     const rulerDragBoundsProperty = new DerivedProperty( [ visibleBoundsProperty ], visibleBounds => {
 
-        if ( ruler.orientation === Ruler.Orientation.VERTICAL ) {
+        if ( ruler.isVertical() ) {
 
           // if vertical the left and right bounds of the ruler stay within visible bounds
           // minimum visible length of the ruler is always showing inside top and bottom visible bounds.
@@ -174,7 +173,7 @@ class GeometricOpticsRulerNode extends RulerNode {
    * @public
    */
   setOrientation() {
-    if ( this.ruler.orientation === Ruler.Orientation.VERTICAL ) {
+    if ( this.ruler.isVertical() ) {
 
       // update the rotation of the ruler
       this.rotation = -Math.PI / 2;
@@ -185,7 +184,7 @@ class GeometricOpticsRulerNode extends RulerNode {
    * @public
    */
   setPosition() {
-    if ( this.ruler.orientation === Ruler.Orientation.VERTICAL ) {
+    if ( this.ruler.isVertical() ) {
 
       // set initial position of the ruler - leftBottom since rotated 90 degrees
       this.leftBottom = this.ruler.positionProperty.value;

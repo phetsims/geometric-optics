@@ -61,6 +61,13 @@ class Ruler {
     return this.orientation === Ruler.Orientation.HORIZONTAL;
   }
 
+  /**
+   * @public
+   * @returns {boolean}
+   */
+  isVertical() {
+    return this.orientation === Ruler.Orientation.VERTICAL;
+  }
 }
 
 Ruler.Orientation = Enumeration.byKeys(

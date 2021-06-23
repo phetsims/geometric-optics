@@ -55,7 +55,7 @@ class GeometricOpticRulersLayer extends Node {
       ruler.scaleLength( 1 / absoluteScale );
 
       // only vertical ruler has tick marks on bottom
-      const tickMarksOnBottom = !ruler.isHorizontal();
+      const tickMarksOnBottom = ruler.isVertical();
 
       const rulerOptions = {
         majorTickDistance: 0.1 / absoluteScale, // in model coordinate (m)
