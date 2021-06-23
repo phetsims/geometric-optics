@@ -9,6 +9,8 @@
  * @author Martin Veillette
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
@@ -27,10 +29,15 @@ class SourceObjectNode extends Node {
    * @param {Property.<Representation>} representationProperty
    * @param {SourceObject} sourceObject
    * @param {Property.<boolean>} visibleMovablePointProperty
+   * @param {Property.<Bounds2>} visibleModelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
    * */
-  constructor( representationProperty, sourceObject, visibleMovablePointProperty, modelViewTransform, tandem ) {
+  constructor( representationProperty,
+               sourceObject,
+               visibleMovablePointProperty,
+               visibleModelBoundsProperty,
+               modelViewTransform, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
     super();
 
@@ -39,10 +46,34 @@ class SourceObjectNode extends Node {
 
     this.leftTopModelPositionProperty = new Vector2Property( sourceObject.getPosition().minus( OFFSET_VECTOR ) );
 
+    this.addChild( sourceObjectImage );
+
+    // TODO: the model should give its size to the view rather than the other way around.
+    // determine the size  in model coordinates
+
+    const modelChildHeight = Math.abs( modelViewTransform.viewToModelDeltaY( this.height ) );
+    const modelChildWidth = modelViewTransform.viewToModelDeltaX( this.width );
+
+    // keep at least half of the projector screen within visible bounds and right of the optic
+    const dragBoundsProperty = new DerivedProperty( [ visibleModelBoundsProperty ],
+      visibleBounds => {
+        const viewBounds = new Bounds2( visibleBounds.minX,
+          visibleBounds.minY + modelChildHeight / 2,
+          -modelChildWidth,
+          visibleBounds.maxY + modelChildHeight / 2 );
+        return viewBounds;
+      } );
+
     // create drag listener for source
     const sourceObjectDragListener = new DragListener( {
       positionProperty: this.leftTopModelPositionProperty,
-      transform: modelViewTransform
+      transform: modelViewTransform,
+      dragBoundsProperty: dragBoundsProperty
+    } );
+
+    // always keep image screen in visible/drag bounds when visible bounds are changed
+    dragBoundsProperty.link( dragBounds => {
+      this.leftTopModelPositionProperty.value = dragBounds.closestPointTo( this.leftTopModelPositionProperty.value );
     } );
 
     sourceObjectImage.addInputListener( sourceObjectDragListener );
@@ -98,7 +129,6 @@ class SourceObjectNode extends Node {
 
     visibleMovablePointProperty.linkAttribute( movableNode, 'visible' );
 
-    this.addChild( sourceObjectImage );
     this.addChild( movableNode );
   }
 
