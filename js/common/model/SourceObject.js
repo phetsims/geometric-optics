@@ -23,10 +23,11 @@ const verticalOffsetRange = new RangeWithValue( -0.5, 0, -0.1 );
 class SourceObject {
 
   /**
+   * @param {Property.<Vector2>} opticPositionProperty
    * @param {Property.<Representation>} representationProperty
    * @param {Tandem} tandem
    */
-  constructor( representationProperty, tandem ) {
+  constructor( opticPositionProperty, representationProperty, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     // @public {Property.<Vector2>} position of the source/object
@@ -37,6 +38,12 @@ class SourceObject {
 
     // @private {Property.<number>} vertical offset (in meters) of second object with respect to the first
     this.verticalOffsetProperty = new NumberProperty( verticalOffsetRange.defaultValue );
+
+    // @public {Vector2|null} initial Position of the optic
+    this.initialOpticPosition = null;
+
+    // @public {read-only} initial position of the optic
+    this.opticPositionProperty = opticPositionProperty;
 
     // @public {Property.<Vector2>} position of the movable point (source/object)
     this.movablePositionProperty =
@@ -52,7 +59,6 @@ class SourceObject {
             return unconstrainedPosition;
           }
         } );
-
   }
 
   /**
@@ -97,6 +103,15 @@ class SourceObject {
     else {
       this.unconstrainedMovablePositionProperty.value = position;
     }
+  }
+
+  /**
+   * get the position of the optic
+   * @public
+   * @returns {Vector2} position
+   */
+  getOpticPosition() {
+    return this.opticPositionProperty.value;
   }
 }
 

@@ -59,7 +59,7 @@ class SourceObjectNode extends Node {
       visibleBounds => {
         const viewBounds = new Bounds2( visibleBounds.minX,
           visibleBounds.minY + modelChildHeight / 2,
-          -modelChildWidth,
+          sourceObject.getOpticPosition().x - modelChildWidth,
           visibleBounds.maxY + modelChildHeight / 2 );
         return viewBounds;
       } );
