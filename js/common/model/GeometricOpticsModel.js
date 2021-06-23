@@ -33,9 +33,6 @@ class GeometricOpticsModel {
     // @public {Property.<LightRayMode>}  modes for the different kind of light rays
     this.lightRayModeProperty = new EnumerationProperty( LightRayMode, LightRayMode.NO_RAYS );
 
-    // @public {SourceObject} the object/ source
-    this.sourceObject = new SourceObject( this.representationProperty, tandem );
-
     // @public rulers for the simulations
     this.rulers = {
       horizontal: new Ruler( new Vector2( 200, 100 ), 2.6 ),
@@ -65,6 +62,9 @@ class GeometricOpticsModel {
    */
   createCommonComponents( optic, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+
+    // @public {SourceObject} the object/ source
+    this.sourceObject = new SourceObject( optic.positionProperty, this.representationProperty, tandem );
 
     // @public {FocalPoint} first principal focal point
     this.firstFocalPoint = new FocalPoint( optic.positionProperty, optic.focalLengthProperty, tandem );
