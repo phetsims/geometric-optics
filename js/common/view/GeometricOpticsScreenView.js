@@ -214,14 +214,14 @@ class GeometricOpticsScreenView extends ScreenView {
     const labelsNode = new LabelsNode( model, this, this.visibleProperties, this.zoomModelViewTransformProperty, this.zoomLevelProperty );
 
     // add playAreaNode and controls to the scene graph
-    this.addChild( magnifyingGlassZoomButtonGroup );
-    this.addChild( comboBox );
     this.addChild( curveControl );
     this.addChild( geometricOpticsControlPanel );
-    this.addChild( toolboxPanel );
     this.addChild( showHideToggleButton );
     this.addChild( resetAllButton );
     this.addChild( this.playAreaNode );
+    this.addChild( toolboxPanel );
+    this.addChild( magnifyingGlassZoomButtonGroup );
+    this.addChild( comboBox );
     this.addChild( labelsNode );
     this.addChild( this.rulersLayer );
 
