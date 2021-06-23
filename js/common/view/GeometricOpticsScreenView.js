@@ -183,7 +183,11 @@ class GeometricOpticsScreenView extends ScreenView {
       orientation: 'horizontal',
       spacing: 8,
       magnifyingGlassNodeOptions: {
-        glassRadius: 8
+        scale: 0.5
+      },
+      buttonOptions: {
+        xMargin: 5,
+        yMargin: 4
       }
     } );
     magnifyingGlassZoomButtonGroup.leftTop = erodedLayoutBounds.leftTop;
