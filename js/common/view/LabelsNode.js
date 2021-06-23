@@ -61,11 +61,25 @@ class LabelsNode extends Node {
     // update the label string
     model.optic.curveProperty.link( curve => {
 
+      let curveOpticString;
+
       // string associated with optic
-      const curveOpticString = ( model.optic.isConvex( curve ) && model.optic.isLens() ) ? convexLensString
-                                                                                         : ( model.optic.isConvex( curve ) && model.optic.isMirror() ) ? convexMirrorString
-                                                                                                                                                       : ( model.optic.isConcave( curve ) && model.optic.isLens() ) ? concaveLensString
-                                                                                                                                                                                                                    : concaveMirrorString;
+      if ( model.optic.isConvex( curve ) ) {
+        if ( model.optic.isLens() ) {
+          curveOpticString = convexLensString;
+        }
+        else if ( model.optic.isMirror() ) {
+          curveOpticString = convexMirrorString;
+        }
+      }
+      else if ( model.optic.isConcave( curve ) ) {
+        if ( model.optic.isLens() ) {
+          curveOpticString = concaveLensString;
+        }
+        else if ( model.optic.isMirror() ) {
+          curveOpticString = concaveMirrorString;
+        }
+      }
 
       // update the text of label
       opticLabel.setText( curveOpticString );
