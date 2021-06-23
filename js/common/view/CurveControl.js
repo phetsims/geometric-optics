@@ -10,15 +10,17 @@
 import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
+import Spacer from '../../../../scenery/js/nodes/Spacer.js';
 import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from '../model/Optic.js';
 
-const RADIUS_OF_CURVATURE = 30; // in view coordinates
-const DIAMETER = 50; // in view coordinates
+const RADIUS_OF_CURVATURE = 18; // in view coordinates
+const DIAMETER = 30; // in view coordinates
 const FILL = 'rgb(133,153,197)';
 const STROKE = 'white';
-const THICKNESS = 5; // thickness of mirror
+const THICKNESS = 3; // thickness of mirror
+const STRUT_LENGTH = 42;
 
 class CurveControl extends RectangularRadioButtonGroup {
 
@@ -31,11 +33,11 @@ class CurveControl extends RectangularRadioButtonGroup {
   constructor( curveProperty, optic, options ) {
 
     options = merge( {
-      spacing: 5, // vertical separation of the buttons
-      cornerRadius: 5,
+      spacing: 10, // vertical separation of the buttons
+      cornerRadius: 3,
       baseColor: 'rgba(0,0,0,0)',
-      buttonContentXMargin: 20,
-      buttonContentYMargin: 5,
+      buttonContentXMargin: 0,
+      buttonContentYMargin: 0,
       selectedStroke: 'yellow',
       deselectedStroke: 'grey',
       deselectedLineWidth: 2,
@@ -46,7 +48,7 @@ class CurveControl extends RectangularRadioButtonGroup {
      * Creates icon for button to switch between convex/concave lens/mirror
      *
      * @param {Optic.Curve} curve
-     * @returns {Node} iconNode
+     * @returns {Node}
      */
     const createIconNode = curve => {
 
@@ -57,20 +59,33 @@ class CurveControl extends RectangularRadioButtonGroup {
       const iconNode = new Node();
       const iconFillNode = new Path( iconShapes.fillShape, { fill: FILL } );
       const iconOutlineNode = new Path( iconShapes.outlineShape, { stroke: STROKE } );
-
-      // adding the paths to the icon node
       iconNode.setChildren( [ iconFillNode, iconOutlineNode ] );
 
-      return iconNode;
+      // create spacer to ensure both lens and mirror icons are the same size
+      const iconSpacer = new Spacer( STRUT_LENGTH, STRUT_LENGTH );
+
+      // make sure the spacer is larger than icon
+      assert && assert( iconSpacer.width > iconNode.width, 'spacer width is smaller than icon content' );
+      assert && assert( iconSpacer.height > iconNode.height, 'spacer height is smaller than icon content' );
+
+      // center the icon in the spacer
+      iconNode.center = iconSpacer.center;
+
+      // return a node layer containing the icon and spacer
+      return new Node( { children: [ iconNode, iconSpacer ] } );
     };
 
+    // create the icons
     const convexNode = createIconNode( Optic.Curve.CONVEX );
     const concaveNode = createIconNode( Optic.Curve.CONCAVE );
 
+    // create the rectangular radio button group with the icons
     super( curveProperty, [
         { value: Optic.Curve.CONCAVE, node: concaveNode },
         { value: Optic.Curve.CONVEX, node: convexNode } ],
       options );
+
+    // use if statement to switch order for mirror/lens concave/convex
   }
 }
 
