@@ -79,6 +79,12 @@ class GeometricOpticsScreenView extends ScreenView {
       return this.getAbsoluteScale( zoomLevel );
     } );
 
+    // @protected {Property.<Bounds2>} visibleModelBoundsProperty
+    this.visibleModelBoundsProperty = new DerivedProperty( [ this.visibleBoundsProperty, this.zoomModelViewTransformProperty ],
+      ( visibleBounds, zoomModelViewTransform ) => {
+        return zoomModelViewTransform.viewToModelBounds( visibleBounds );
+      } );
+
     //----------------------------------------------------------------------
     //                          scenery nodes for play area
 

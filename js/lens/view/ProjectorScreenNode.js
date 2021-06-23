@@ -28,7 +28,7 @@ class ProjectorScreenNode extends Node {
    * @param {ProjectorScreen} projectorScreen
    * @param {Property.<Representation>} representationProperty
    * @param {Property.<boolean>} visibleMovablePointProperty
-   * @param {Property.<Bounds2>} visibleBoundsProperty
+   * @param {Property.<Bounds2>} visibleModelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
    * @param {Object} [options]
@@ -36,7 +36,7 @@ class ProjectorScreenNode extends Node {
   constructor( projectorScreen,
                representationProperty,
                visibleMovablePointProperty,
-               visibleBoundsProperty,
+               visibleModelBoundsProperty,
                modelViewTransform,
                tandem,
                options ) {
@@ -56,15 +56,20 @@ class ProjectorScreenNode extends Node {
     // @private {Property.<Vector2} create a property for the left top position of the projectorScreen target
     this.imagePositionProperty = new Vector2Property( projectorScreen.positionProperty.value.plus( offset ) );
 
-    // TODO: this doesnt handle zoom
+    // TODO: the model should give its size to the view rather than the other way around.
+    // determine the size of the projector in model coordinates
+    const modelChildHeight = Math.abs( modelViewTransform.viewToModelDeltaY( this.height ) );
+    const modelChildWidth = modelViewTransform.viewToModelDeltaX( this.width );
+
     // keep at least half of the projector screen within visible bounds and right of the optic
-    const projectorScreenDragBoundsProperty = new DerivedProperty( [ visibleBoundsProperty ], visibleBounds => {
-      const viewBounds = new Bounds2( modelViewTransform.modelToViewX( projectorScreen.opticPositionProperty.value.x ),
-        visibleBounds.minY - this.height / 2,
-        visibleBounds.maxX - this.width / 2,
-        visibleBounds.maxY - this.height / 2 );
-      return modelViewTransform.viewToModelBounds( viewBounds );
-    } );
+    const projectorScreenDragBoundsProperty = new DerivedProperty( [ visibleModelBoundsProperty, projectorScreen.opticPositionProperty ],
+      ( visibleBounds, opticPosition ) => {
+        const viewBounds = new Bounds2( opticPosition.x,
+          visibleBounds.minY + modelChildHeight / 2,
+          visibleBounds.maxX - modelChildWidth / 2,
+          visibleBounds.maxY + modelChildHeight / 2 );
+        return viewBounds;
+      } );
 
     // create a drag listener for the image
     const dragListener = new DragListener( {
