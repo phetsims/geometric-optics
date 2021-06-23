@@ -17,9 +17,9 @@ import Optic from '../model/Optic.js';
 
 const RADIUS_OF_CURVATURE = 18; // in view coordinates
 const DIAMETER = 30; // in view coordinates
-const FILL = 'rgb(133,153,197)';
-const STROKE = 'white';
-const THICKNESS = 3; // thickness of mirror
+const FILL = 'rgb(133,153,197)'; // for body of optic
+const STROKE = 'white'; // for outline of optic
+const THICKNESS = 4; // thickness of mirror
 const STRUT_LENGTH = 42;
 
 class CurveControl extends RectangularRadioButtonGroup {
@@ -62,7 +62,8 @@ class CurveControl extends RectangularRadioButtonGroup {
       iconNode.setChildren( [ iconFillNode, iconOutlineNode ] );
 
       // create spacer to ensure both lens and mirror icons are the same size
-      const iconSpacer = new Spacer( STRUT_LENGTH, STRUT_LENGTH );
+      const iconSpacer = new Spacer( STRUT_LENGTH - 2 * options.buttonContentXMargin,
+        STRUT_LENGTH - 2 * options.buttonContentYMargin );
 
       // make sure the spacer is larger than icon
       assert && assert( iconSpacer.width > iconNode.width, 'spacer width is smaller than icon content' );
