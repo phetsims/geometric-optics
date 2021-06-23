@@ -5,7 +5,6 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -14,7 +13,10 @@ import ComboBox from '../../../../sun/js/ComboBox.js';
 import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
+import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Representation from '../model/Representation.js';
+
+const COMBO_BOX_FONT = GeometricOpticsConstants.COMBO_BOX_FONT;
 
 class RepresentationComboBox extends Node {
 
@@ -38,9 +40,9 @@ class RepresentationComboBox extends Node {
 
       // the combo box should not include non-object for mirror screen
       if ( config.hasLens || representation.isObject ) {
-        const text = new Text( representation.label, { font: new PhetFont( { size: 20 } ) } );
+        const text = new Text( representation.label, { font: COMBO_BOX_FONT } );
         const logo = new Image( representation.logo, { scale: 0.05 } );
-        const hBox = new HBox( { children: [ logo, text ] } );
+        const hBox = new HBox( { spacing: 5, children: [ logo, text ] } );
         items.push( new ComboBoxItem( hBox, representation ) );
       }
     } );
@@ -48,8 +50,10 @@ class RepresentationComboBox extends Node {
     const listParent = new Node();
 
     const comboBox = new ComboBox( items, selectedItemProperty, listParent, {
-      highlightFill: 'yellow',
-      listPosition: 'below'
+      highlightFill: 'rgb(168,192,245)',
+      listPosition: 'below',
+      xMargin: 10,
+      yMargin: 2
     } );
 
     this.addChild( comboBox );
