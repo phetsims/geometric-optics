@@ -106,6 +106,10 @@ const GeometricOpticsConstants = {
   METER_DECIMAL_PLACES: 1, // for all distance related values
   INDEX_DECIMAL_PLACES: 2, // for the index of refraction values
 
+  //--------------------------------------------------------------------------------------
+  //                               BUTTONS
+  BUTTON_RADIUS: 24,
+
   //----------------------------------------------------------------------------------------
   //                                 FONTS
 

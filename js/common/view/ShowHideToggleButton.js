@@ -11,6 +11,9 @@ import merge from '../../../../phet-core/js/merge.js';
 import BooleanRoundToggleButton from '../../../../sun/js/buttons/BooleanRoundToggleButton.js';
 import FontAwesomeNode from '../../../../sun/js/FontAwesomeNode.js';
 import geometricOptics from '../../geometricOptics.js';
+import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+
+const BUTTON_RADIUS = GeometricOpticsConstants.BUTTON_RADIUS;
 
 class ShowHideToggleButton extends BooleanRoundToggleButton {
   /**
@@ -21,9 +24,9 @@ class ShowHideToggleButton extends BooleanRoundToggleButton {
   constructor( visibleProperty, options ) {
     options = merge( {
       baseColor: 'yellow',
-      xMargin: 5,
-      yMargin: 5,
-      radius: 22
+      xMargin: 6,
+      yMargin: 6,
+      radius: BUTTON_RADIUS
     }, options );
 
     // create nodes for open and closed eye icons

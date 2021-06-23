@@ -40,6 +40,7 @@ const ZOOM_RANGE = GeometricOpticsConstants.ZOOM_RANGE;
 const ZOOM_SCALE_FACTOR = GeometricOpticsConstants.ZOOM_SCALE_FACTOR;
 const NOMINAL_VIEW_MODEL_CONVERSION = GeometricOpticsConstants.NOMINAL_VIEW_MODEL_CONVERSION;
 const ORIGIN_POINT = GeometricOpticsConstants.ORIGIN_POINT;
+const BUTTON_RADIUS = GeometricOpticsConstants.BUTTON_RADIUS;
 
 class GeometricOpticsScreenView extends ScreenView {
 
@@ -189,12 +190,13 @@ class GeometricOpticsScreenView extends ScreenView {
         this.reset();
       },
       rightBottom: erodedLayoutBounds.rightBottom,
+      radius: BUTTON_RADIUS,
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
     // create the show/hide eye toggle button above the reset all button
     const showHideToggleButton = new ShowHideToggleButton( this.visibleProperties.visibleRayTracingProperty );
-    showHideToggleButton.centerBottom = resetAllButton.centerTop.plusXY( 0, -8 );
+    showHideToggleButton.centerBottom = resetAllButton.centerTop.plusXY( 0, -22 );
 
     // labels
     const labelsNode = new LabelsNode( model, this, this.visibleProperties, this.zoomModelViewTransformProperty, this.zoomLevelProperty );
