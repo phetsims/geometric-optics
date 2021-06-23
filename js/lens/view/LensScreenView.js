@@ -37,7 +37,7 @@ class LensScreenView extends GeometricOpticsScreenView {
     this.projectorScreenNode = new ProjectorScreenNode( model.projectorScreen,
       model.representationProperty,
       this.visibleProperties.visibleMovablePointProperty,
-      this.visibleBoundsProperty,
+      this.visibleModelBoundsProperty,
       this.modelViewTransform, tandem );
 
     //  add the screen at the bottom of the z-layer
