@@ -120,10 +120,10 @@ class GeometricOpticsRulerNode extends RulerNode {
         this.moveToFront();
       },
 
-      end: () => {
+      end: event => {
 
-        // Drop in toolbox, using the bounds ruler
-        if ( this.panelBounds.intersectsBounds( this.bounds ) ) {
+        // return ruler to toolbox if the pointer is within the toolbox
+        if ( this.panelBounds.containsPoint( this.globalToParentPoint( event.pointer.point ) ) ) {
           visibleProperty.value = false;
         }
       }
