@@ -16,7 +16,7 @@ class Guide {
    *
    * @param {Property.<Vector2>} objectPositionProperty
    * @param {Optic} optic
-   * @param {object} options
+   * @param {Object} [options]
    */
   constructor( objectPositionProperty, optic, options ) {
 
