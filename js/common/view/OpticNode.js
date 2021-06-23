@@ -6,7 +6,6 @@
  * @author Martin Veillette
  */
 
-import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -26,18 +25,26 @@ class OpticNode extends Node {
 
     super( options );
 
-    // position (in model coordinate) for the drag listener.
-    const positionProperty = new Vector2Property( optic.positionProperty.value );
-
-    // create a drag listener on the fill of the opticalElement
+    // create a drag listener on the fill of the opticalElement (see #22)
+    let clickOffset;
     const dragListener = new DragListener( {
-      positionProperty: positionProperty,
-      transform: modelViewTransform,
-      applyOffset: false
-    } );
+      start: event => {
 
-    positionProperty.link( position => {
-      optic.setVerticalCoordinate( position.y );
+        // click offset in model coordinate between the press drag and the center of the optic
+        clickOffset = modelViewTransform.viewToModelPosition(
+          this.globalToParentPoint( event.pointer.point ) ).minus( optic.positionProperty.value );
+      },
+      drag: event => {
+
+        // position of the cursor in model coordinates
+        const cursorModelPosition = modelViewTransform.viewToModelPosition(
+          this.globalToParentPoint( event.pointer.point ) );
+
+        const unconstrainedModelPosition = cursorModelPosition.minus( clickOffset );
+
+        // constrained optic to merely move vertically
+        optic.setVerticalCoordinate( unconstrainedModelPosition.y );
+      }
     } );
 
     // create the path of the optic
