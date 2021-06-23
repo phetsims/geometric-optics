@@ -44,7 +44,7 @@ const GeometricOpticsConstants = {
   //                                 MIRROR
 
   MIRROR_INITIAL_POSITION: new Vector2( 1, 0 ),
-  MIRROR_INITIAL_CURVATURE_TYPE: Optic.Curve.CONVEX,
+  MIRROR_INITIAL_CURVATURE_TYPE: Optic.Curve.CONCAVE,
   MIRROR_RADIUS_OF_CURVATURE_RANGE: new RangeWithValue( 1.5, 2.5, 2.0 ),
   MIRROR_DIAMETER_RANGE: new RangeWithValue( 0.3, 1.5, 0.8 ),
 

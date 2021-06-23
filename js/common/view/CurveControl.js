@@ -75,29 +75,24 @@ class CurveControl extends RectangularRadioButtonGroup {
       return new Node( { children: [ iconNode, iconSpacer ] } );
     };
 
-    // create the icons
-    const convexNode = createIconNode( Optic.Curve.CONVEX );
-    const concaveNode = createIconNode( Optic.Curve.CONCAVE );
+    // create an array of items for buttons for each curve.
+    const buttonItems = Optic.Curve.VALUES.map( curve => {
+      return {
+        value: curve,
+        node: createIconNode( curve )
+      };
+    } );
 
-    // set order of buttons
-    let concaveConvexNodes;
+    // the icon that is converging should be the first in the button items
+    // find the curve of the first item
+    const firstCurve = buttonItems[ 0 ].value;
 
-    // convex lens is top button, concave lens is bottom button
-    if ( optic.isLens() ) {
-      concaveConvexNodes = [
-        { value: Optic.Curve.CONVEX, node: convexNode },
-        { value: Optic.Curve.CONCAVE, node: concaveNode } ];
-    }
-
-    // concave mirror is top button, convex mirror is bottom button
-    else if ( optic.isMirror() ) {
-      concaveConvexNodes = [
-        { value: Optic.Curve.CONCAVE, node: concaveNode },
-        { value: Optic.Curve.CONVEX, node: convexNode } ];
+    if ( optic.isDiverging( firstCurve ) ) {
+      buttonItems.reverse();
     }
 
     // create the rectangular radio button group with the icons
-    super( curveProperty, concaveConvexNodes, options );
+    super( curveProperty, buttonItems, options );
 
   }
 }
