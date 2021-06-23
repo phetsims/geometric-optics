@@ -24,7 +24,7 @@ const GeometricOpticsConstants = {
   DEFAULT_SOURCE_POINT_1: new Vector2( -1.5, 0.0 ),
   DEFAULT_SOURCE_POINT_2: new Vector2( -1.5, -0.2 ),
 
-  ZOOM_RANGE: new RangeWithValue( 1, 3, 2 ),
+  ZOOM_RANGE: new RangeWithValue( 1, 3, 3 ),
   ZOOM_SCALE_FACTOR: 2, // should not be changed to keep major tick labels as multiples of 10
 
 

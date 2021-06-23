@@ -27,8 +27,8 @@ class OpticalAxisLine extends Line {
     const yPosition = modelViewTransform.modelToViewY( opticPositionProperty.value.y );
 
     // set min and max X to extend far beyond sim bounds
-    const lineMinX = screenViewBounds.minX - screenViewBounds.width;
-    const lineMaxX = screenViewBounds.maxX + screenViewBounds.width;
+    const lineMinX = screenViewBounds.minX - 8 * screenViewBounds.width;
+    const lineMaxX = screenViewBounds.maxX + 8 * screenViewBounds.width;
 
     // create optical axis line
     super( lineMinX, yPosition, lineMaxX, yPosition, {
