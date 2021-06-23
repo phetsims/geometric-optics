@@ -107,7 +107,7 @@ const GeometricOpticsConstants = {
   INDEX_DECIMAL_PLACES: 2, // for the index of refraction values
 
   //--------------------------------------------------------------------------------------
-  //                               BUTTONS
+  //                           SHOW/HIDE & RESET BUTTONS
   BUTTON_RADIUS: 24,
 
   //----------------------------------------------------------------------------------------
