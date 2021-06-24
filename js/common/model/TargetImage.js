@@ -93,13 +93,6 @@ class TargetImage {
   }
 
   /**
-   * @public
-   */
-  reset() {
-
-  }
-
-  /**
    * Returns the horizontal distance between the object and the optical element.
    * A negative distance indicates that the object is to the right of the optical element.
    * @public
