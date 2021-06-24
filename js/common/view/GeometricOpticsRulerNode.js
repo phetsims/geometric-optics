@@ -150,6 +150,7 @@ class GeometricOpticsRulerNode extends RulerNode {
       ruler.positionProperty.unlink( positionListener );
       visibleProperty.unlinkAttribute( visibleListener );
       rulerDragBoundsProperty.unlink( dragBoundsListener );
+      rulerDragBoundsProperty.dispose();
       this.removeInputListener( this.dragListener );
     };
   }
