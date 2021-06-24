@@ -67,13 +67,6 @@ class LightRays {
   }
 
   /**
-   * Resets the model.
-   * @public
-   */
-  reset() {
-  }
-
-  /**
    * Draws a specific set of rays onto the specified this.realRay
    *   object with the specified color from point 1 through
    *   the optic to point 2.
