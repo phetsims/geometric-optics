@@ -132,7 +132,7 @@ class Spotlight {
 
     const radiusY = this.getDiskRadius( screenPosition, opticPosition, opticDiameter - OPTICAL_ELEMENT_TIP_OFFSET, targetPosition );
 
-    assert && assert( radiusY.isFinite(), 'y radius is not finite' );
+    assert && assert( isFinite( radiusY ), 'y radius is not finite' );
 
     // ellipse width is half the height to give an approximation of 3D effect
     const radiusX = 1 / 2 * radiusY;
