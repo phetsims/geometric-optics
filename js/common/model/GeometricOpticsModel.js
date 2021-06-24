@@ -11,6 +11,7 @@ import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
+import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import FocalPoint from './FocalPoint.js';
 import LightRayMode from './LightRayMode.js';
 import LightRays from './LightRays.js';
@@ -18,6 +19,9 @@ import Representation from './Representation.js';
 import Ruler from './Ruler.js';
 import SourceObject from './SourceObject.js';
 import TargetImage from './TargetImage.js';
+
+const HORIZONTAL_RULER_LENGTH = GeometricOpticsConstants.HORIZONTAL_RULER_LENGTH;
+const VERTICAL_RULER_LENGTH = GeometricOpticsConstants.VERTICAL_RULER_LENGTH;
 
 class GeometricOpticsModel {
 
@@ -35,8 +39,8 @@ class GeometricOpticsModel {
 
     // @public rulers for the simulations
     this.rulers = {
-      horizontal: new Ruler( new Vector2( 200, 100 ), 2.6 ),
-      vertical: new Ruler( new Vector2( 100, 300 ), 1, { orientation: Ruler.Orientation.VERTICAL } )
+      horizontal: new Ruler( new Vector2( 200, 100 ), HORIZONTAL_RULER_LENGTH ),
+      vertical: new Ruler( new Vector2( 100, 300 ), VERTICAL_RULER_LENGTH, { orientation: Ruler.Orientation.VERTICAL } )
     };
 
 
