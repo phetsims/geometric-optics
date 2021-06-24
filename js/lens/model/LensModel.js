@@ -44,7 +44,6 @@ class LensModel extends GeometricOpticsModel {
   reset() {
     super.reset();
     this.optic.reset();
-    this.targetImage.reset();
     this.lightRays.reset();
     this.projectorScreen.reset();
   }
