@@ -39,8 +39,9 @@ class TargetImage {
         const opticObjectDistance = this.getObjectOpticDistance( objectPosition, opticPosition );
         if ( opticObjectDistance === focalLength ) {
 
+          console.log( 'focalLength is equal to object distance' );
           // the object is located on the focal point. Set the image distance to be very large
-          return 10000000;
+          return 10e6;
         }
         else {
           return ( focalLength * opticObjectDistance ) / ( opticObjectDistance - focalLength );
@@ -145,6 +146,8 @@ class TargetImage {
   getMagnification( objectPosition, opticPosition, focalLength ) {
     const objectOpticDistance = this.getObjectOpticDistance( objectPosition, opticPosition );
     if ( objectOpticDistance === 0 ) {
+
+      console.log( 'object distance is zero' );
       return 10e6;
     }
     else {
