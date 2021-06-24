@@ -140,8 +140,9 @@ class TargetImage {
     const objectOpticDistance = this.getObjectOpticDistance( objectPosition, opticPosition );
     if ( objectOpticDistance === 0 ) {
 
+      // if the object is right on the lens or mirror, there is no magnification
       console.log( 'object distance is zero' );
-      return 10e6;
+      return 1;
     }
     else {
       return -1 * this.getImageOpticDistance() / this.getObjectOpticDistance( objectPosition, opticPosition );
