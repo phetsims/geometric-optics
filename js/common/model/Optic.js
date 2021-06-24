@@ -200,15 +200,6 @@ class Optic {
   }
 
   /**
-   * Returns the focal length of the optical element
-   * @public
-   * @returns {number}
-   */
-  getFocalLength() {
-    return this.focalLengthProperty.value;
-  }
-
-  /**
    * Returns the position of the optical element
    * @public
    * @returns {Vector2}
