@@ -77,10 +77,10 @@ const GeometricOpticsConstants = {
 
   //--------------------------------------------------------------------------------------
   //                               RULER
-  RULER_HEIGHT: 40,
-  MINIMUM_VISIBLE_LENGTH: 40,
-  HORIZONTAL_RULER_LENGTH: 2.6,
-  VERTICAL_RULER_LENGTH: 1.6,
+  RULER_HEIGHT: 40, // in view coordinates
+  MINIMUM_VISIBLE_LENGTH: 40, // portion of the ruler always within visible bounds, in view coordinates
+  HORIZONTAL_RULER_LENGTH: 2.6, // in model coordinates
+  VERTICAL_RULER_LENGTH: 1.6, // in model coordinates
 
   //----------------------------------------------------------------------------------------
   //                              GUIDES

@@ -27,8 +27,8 @@ class TargetImage {
     // @private {Property.<Vector2>}
     this.opticPositionProperty = optic.positionProperty;
 
-    // @private (read-only) {Optic}
-    this.optic = optic;
+    // @private (read-only) {function}
+    this.opticGetTypeSign = optic.getTypeSign.bind( optic );
 
     // @public (read-only) {Property.<number>}
     this.imageOpticDistanceProperty = new DerivedProperty(
@@ -212,7 +212,7 @@ class TargetImage {
     const imageOpticDistance = this.getImageOpticDistance();
 
     // recall that the meaning of imageOpticDistance is different for a lens and mirror.
-    const horizontalDisplacement = this.optic.getTypeSign() * imageOpticDistance;
+    const horizontalDisplacement = this.opticGetTypeSign() * imageOpticDistance;
 
     return opticPosition.plusXY( horizontalDisplacement, height );
   }
