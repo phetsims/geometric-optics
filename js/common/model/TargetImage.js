@@ -37,7 +37,14 @@ class TargetImage {
         optic.focalLengthProperty ],
       ( objectPosition, opticPosition, focalLength ) => {
         const opticObjectDistance = this.getObjectOpticDistance( objectPosition, opticPosition );
-        return ( focalLength * opticObjectDistance ) / ( opticObjectDistance - focalLength );
+        if ( opticObjectDistance === focalLength ) {
+
+          // the object is located on the focal point. Set the image distance to be very large
+          return 10000000;
+        }
+        else {
+          return ( focalLength * opticObjectDistance ) / ( opticObjectDistance - focalLength );
+        }
       } );
 
     // updates the position of the image
