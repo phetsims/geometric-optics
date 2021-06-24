@@ -61,6 +61,28 @@ class Spotlight {
 
   }
 
+
+  /**
+   * get ratio of the distance of the screen/ target measure from the optic.
+   * @private
+   * @param {Vector2} screenPosition
+   * @param {Vector2} opticPosition
+   * @param {Vector2} targetPosition
+   * @returns {number}
+   */
+  getRatio( screenPosition, opticPosition, targetPosition ) {
+    const targetOpticDistance = ( targetPosition.x - opticPosition.x );
+
+    if ( targetOpticDistance === 0 ) {
+
+      // a really large number to prevent infinity
+      return 10e6;
+    }
+    else {
+      return ( screenPosition.x - opticPosition.x ) / targetOpticDistance;
+    }
+  }
+
   /**
    * @private
    * @param {Vector2} screenPosition
@@ -72,7 +94,7 @@ class Spotlight {
   getDiskRadius( screenPosition, opticPosition, opticDiameter, targetPosition ) {
 
     // ratio of the distance of the screen/ target measure from the optic.
-    const blend = ( screenPosition.x - opticPosition.x ) / ( targetPosition.x - opticPosition.x );
+    const blend = this.getRatio( screenPosition, opticPosition, targetPosition );
 
     const
       topMarginalPosition = opticPosition.plusXY( 0, opticDiameter / 2 ).blend( targetPosition, blend );
@@ -90,7 +112,7 @@ class Spotlight {
    * @returns {Vector2}
    */
   getDiskPosition( screenPosition, opticPosition, targetPosition ) {
-    const blend = ( screenPosition.x - opticPosition.x ) / ( targetPosition.x - opticPosition.x );
+    const blend = this.getRatio( screenPosition, opticPosition, targetPosition );
 
     return opticPosition.blend( targetPosition, blend );
   }
@@ -145,10 +167,14 @@ class Spotlight {
     // get the height of spotlight
     const spotlightHeight = 2 * this.getDiskRadius( screenPosition, opticPosition, opticDiameter, targetPosition );
 
-    // intensity saturates to 1 for a spotlight height less than FULL_BRIGHT_SPOT_HEIGHT
-    return Math.min( 1, FULL_BRIGHT_SPOT_HEIGHT / spotlightHeight );
+    if ( spotlightHeight === 0 ) {
+      return 1;
+    }
+    else {
+      // intensity saturates to 1 for a spotlight height less than FULL_BRIGHT_SPOT_HEIGHT
+      return Math.min( 1, FULL_BRIGHT_SPOT_HEIGHT / spotlightHeight );
+    }
   }
-
 }
 
 geometricOptics.register( 'Spotlight', Spotlight );
