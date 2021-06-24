@@ -30,12 +30,22 @@ class ToolboxPanel extends Panel {
       xMargin: 10,
       yMargin: 7,
       fill: 'white',
-      stroke: 'grey'
+      stroke: 'grey',
+      touchAreaDilationX: 80,
+      touchAreaDilationY: 80,
+      mouseAreaDilationX: 80,
+      mouseAreaDilationY: 80
     }, options );
 
     // create two icons for rulers: A vertical and a Horizontal ruler
     const horizontalRulerIconNode = ToolboxPanel.getRulerIcon( false );
     const verticalRulerIconNode = ToolboxPanel.getRulerIcon( true );
+
+    // increase touchArea and mouseArea for both rulers
+    horizontalRulerIconNode.touchArea = horizontalRulerIconNode.localBounds.dilatedXY( options.touchAreaDilationX, options.touchAreaDilationY );
+    horizontalRulerIconNode.mouseArea = horizontalRulerIconNode.localBounds.dilatedXY( options.mouseAreaDilationX, options.mouseAreaDilationY );
+    verticalRulerIconNode.touchArea = verticalRulerIconNode.localBounds.dilatedXY( options.touchAreaDilationX, options.touchAreaDilationY );
+    verticalRulerIconNode.mouseArea = verticalRulerIconNode.localBounds.dilatedXY( options.mouseAreaDilationX, options.mouseAreaDilationY );
 
     const toolbox = new HBox( {
       spacing: 30,
