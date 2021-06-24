@@ -7,6 +7,9 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import Ray2 from '../../../../dot/js/Ray2.js';
+import Utils from '../../../../dot/js/Utils.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -235,41 +238,41 @@ class LightRays {
           break;
         case LightRayMode.MANY_RAYS:
           // eslint-disable-next-line no-case-declarations
-          // const N = 25; // Number of rays
-          // // eslint-disable-next-line no-case-declarations
-          // const deltaTheta = 180 / N; // Degrees between adjacent arrays
-          // // eslint-disable-next-line no-case-declarations
-          // const staticShape = this.optic.outlineAndFillProperty.value.outlineShape;
-          // // eslint-disable-next-line no-case-declarations
-          // const outlineShape = this.optic.translatedShape( staticShape );
-          // // eslint-disable-next-line no-case-declarations
-          // const s = this.optic.isConcave( this.optic.getCurve() ) ? 0 : 0;
+          const N = 25; // Number of rays
+          // eslint-disable-next-line no-case-declarations
+          const deltaTheta = 180 / N; // Degrees between adjacent arrays
+          // eslint-disable-next-line no-case-declarations
+          const staticShape = this.optic.outlineAndFillProperty.value.outlineShape;
+          // eslint-disable-next-line no-case-declarations
+          const outlineShape = this.optic.translatedShape( staticShape );
+          // eslint-disable-next-line no-case-declarations
+          const s = this.optic.isConcave( this.optic.getCurve() ) ? 0 : 0;
 
-          // for ( let i = 5; i < ( N - 5 ); i++ ) {
-          //   const angle = Utils.toRadians( 90 - i * deltaTheta );
-          //
-          //   const ray = new Ray2( A, Vector2.createPolar( 1, angle ) );
-          //   const intersections = outlineShape.intersection( ray );
-          //
-          //   if ( intersections && intersections[ s ] && intersections[ s ].point ) {
-          //     this.realRay.moveToPoint( A );
-          //     const intersectionPoint = intersections[ s ].point;
-          //     this.realRay.lineToPoint( intersectionPoint );
-          //     m2 = ( Cy - intersectionPoint.y ) / ( Cx - intersectionPoint.x );
-          //
-          //     this.realRay.lineTo( intersectionPoint.x + signedR, intersectionPoint.y + m2 * signedR );
-          //
-          //     if ( Cx < Ax && Cx > -5 * signedR || isVirtual ) {
-          //       this.virtualRay.moveToPoint( intersectionPoint );
-          //       this.virtualRay.lineToPoint( C );
-          //     }
-          //   }
-          //   else {
-          //     const m = Math.tan( angle );
-          //     this.realRay.moveToPoint( A );
-          //     this.realRay.lineTo( Ax + R, Ay + m * R );
-          //   }
-          // }
+          for ( let i = 5; i < ( N - 5 ); i++ ) {
+            const angle = Utils.toRadians( 90 - i * deltaTheta );
+
+            const ray = new Ray2( A, Vector2.createPolar( 1, angle ) );
+            const intersections = outlineShape.intersection( ray );
+
+            if ( intersections && intersections[ s ] && intersections[ s ].point ) {
+              this.realRay.moveToPoint( A );
+              const intersectionPoint = intersections[ s ].point;
+              this.realRay.lineToPoint( intersectionPoint );
+              m2 = ( Cy - intersectionPoint.y ) / ( Cx - intersectionPoint.x );
+
+              this.realRay.lineTo( intersectionPoint.x + signedR, intersectionPoint.y + m2 * signedR );
+
+              if ( Cx < Ax && Cx > -5 * signedR || isVirtual ) {
+                this.virtualRay.moveToPoint( intersectionPoint );
+                this.virtualRay.lineToPoint( C );
+              }
+            }
+            else {
+              const m = Math.tan( angle );
+              this.realRay.moveToPoint( A );
+              this.realRay.lineTo( Ax + R, Ay + m * R );
+            }
+          }
           break;
         case LightRayMode.NO_RAYS:
 
