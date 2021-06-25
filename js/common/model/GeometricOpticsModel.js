@@ -7,7 +7,9 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -30,6 +32,10 @@ class GeometricOpticsModel {
    */
   constructor( tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+
+    this.timeRange = new RangeWithValue( 0, 1, 0.01 );
+
+    this.timeProperty = new NumberProperty( this.timeRange.defaultValue );
 
     // @public {Property.<Representation>}  representation of the source/object
     this.representationProperty = new Property( Representation.PENCIL );
@@ -83,10 +89,10 @@ class GeometricOpticsModel {
     this.movableTargetImage = new TargetImage( this.sourceObject.movablePositionProperty, optic, tandem );
 
     // @public {LightRays} model of the light rays
-    this.lightRays = new LightRays( this.lightRayModeProperty, this.sourceObject.positionProperty, optic, this.targetImage, tandem );
+    this.lightRays = new LightRays( this.timeProperty, this.lightRayModeProperty, this.sourceObject.positionProperty, optic, this.targetImage, tandem );
 
     // @public {LightRays} model of the "movable" light rays
-    this.movableLightRays = new LightRays( this.lightRayModeProperty, this.sourceObject.movablePositionProperty, optic, this.movableTargetImage, tandem );
+    this.movableLightRays = new LightRays( this.timeProperty, this.lightRayModeProperty, this.sourceObject.movablePositionProperty, optic, this.movableTargetImage, tandem );
   }
 
 

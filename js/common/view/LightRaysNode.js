@@ -41,7 +41,8 @@ class LightRaysNode extends Node {
         lightRays.optic.positionProperty,
         lightRays.modeProperty,
         lightRays.optic.diameterProperty,
-        lightRays.optic.focalLengthProperty ],
+        lightRays.optic.focalLengthProperty,
+        lightRays.timeProperty ],
       () => {
         // update this node as the model representation moves
         realRayPath.shape = modelViewTransform.modelToViewShape( lightRays.realRay );

@@ -13,6 +13,7 @@ import ScreenView from '../../../../joist/js/ScreenView.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import MagnifyingGlassZoomButtonGroup from '../../../../scenery-phet/js/MagnifyingGlassZoomButtonGroup.js';
+import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -153,6 +154,16 @@ class GeometricOpticsScreenView extends ScreenView {
     //----------------------------------------------------------------------------
     //               Buttons, Controls and Panels
 
+
+    const timerControl = new NumberControl(
+      'time',
+      model.timeProperty,
+      model.timeRange, {
+        delta: 0.01,
+        numberDisplayOptions: { decimalPlaces: 2 }
+      } );
+
+    this.addChild( timerControl );
     // create Rulers
     this.rulersLayer = new GeometricOpticRulersLayer( model.rulers, this.visibleBoundsProperty,
       this.absoluteScaleProperty,
@@ -225,6 +236,7 @@ class GeometricOpticsScreenView extends ScreenView {
     this.addChild( labelsNode );
     this.addChild( this.rulersLayer );
 
+    timerControl.leftTop = magnifyingGlassZoomButtonGroup.leftBottom;
     //------------------------------------------------------------
     //                  Query Parameters
 
