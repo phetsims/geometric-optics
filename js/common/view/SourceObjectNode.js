@@ -13,12 +13,19 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
+import merge from '../../../../phet-core/js/merge.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
+import GeometricOpticsColorProfile from '../GeometricOpticsColorProfile.js';
+import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+
+const MOVABLE_POINT_OPTIONS = GeometricOpticsConstants.MOVABLE_POINT_OPTIONS;
+const MOVABLE_POINT_FILL = GeometricOpticsColorProfile.movablePointFillProperty;
+const MOVABLE_POINT_STROKE = GeometricOpticsColorProfile.movablePointStrokeProperty;
 
 const OVERALL_SCALE_FACTOR = 0.5;
 const OFFSET_VECTOR = new Vector2( 0.16, -0.19 );
@@ -111,7 +118,7 @@ class SourceObjectNode extends Node {
 
       movableNode.removeAllChildren();
       if ( representation.isObject ) {
-        movableNode.addChild( new Circle( 3, { fill: 'black' } ) );
+        movableNode.addChild( SourceObjectNode.createMovablePointIcon() );
       }
       else {
         movableNode.addChild( new Image( representation.source, { scale: OVERALL_SCALE_FACTOR } ) );
@@ -130,6 +137,20 @@ class SourceObjectNode extends Node {
     visibleMovablePointProperty.linkAttribute( movableNode, 'visible' );
 
     this.addChild( movableNode );
+  }
+
+  /**
+   * @public
+   * @param {Object} [options]
+   * @returns {Circle}
+   */
+  static createMovablePointIcon( options ) {
+    options = merge( MOVABLE_POINT_OPTIONS, {
+      fill: MOVABLE_POINT_FILL,
+      stroke: MOVABLE_POINT_STROKE
+    }, options );
+
+    return new Circle( options );
   }
 
   /**

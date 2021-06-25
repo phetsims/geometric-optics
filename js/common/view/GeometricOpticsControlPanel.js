@@ -26,6 +26,7 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import LightRayMode from '../model/LightRayMode.js';
 import FocalPointNode from './FocalPointNode.js';
+import SourceObjectNode from './SourceObjectNode.js';
 
 const metersPattern = geometricOpticsStrings.metersPattern;
 const noneString = geometricOpticsStrings.none;
@@ -190,7 +191,7 @@ class GeometricOpticsControlPanel extends Panel {
       const text = new Text( string, { font: CONTROL_PANEL_FONT, maxWidth: 100 } );
 
       // create hBox if icon is present, otherwise merely attach text
-      const node = ( options.icon ) ? new HBox( { children: [ text, options.icon ] } ) : text;
+      const node = ( options.icon ) ? new HBox( { children: [ text, options.icon ], spacing: 3 } ) : text;
 
       return {
         node: node,
@@ -202,12 +203,15 @@ class GeometricOpticsControlPanel extends Panel {
     // create focal point icon
     const focalPointIcon = FocalPointNode.createIcon( { stroke: 'black' } );
 
+    // create movable point icon
+    const movablePointIcon = SourceObjectNode.createMovablePointIcon();
+
     // create checkbox group for visibility settings
     const checkboxGroupItems = [
       createCheckboxGroupItem( focalPointString, visibleProperties.visibleFocalPointProperty, { icon: focalPointIcon } ),
       createCheckboxGroupItem( labelsString, visibleProperties.visibleLabelsProperty ),
       createCheckboxGroupItem( virtualImageString, visibleProperties.visibleVirtualImageProperty ),
-      createCheckboxGroupItem( movablePointString, visibleProperties.visibleMovablePointProperty ),
+      createCheckboxGroupItem( movablePointString, visibleProperties.visibleMovablePointProperty, { icon: movablePointIcon } ),
       createCheckboxGroupItem( guidesString, visibleProperties.visibleGuidesProperty )
     ];
 

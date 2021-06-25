@@ -67,10 +67,10 @@ const GeometricOpticsColorProfile = new ColorProfile( [ 'default' ], {
   //                             OBJECT
 
   movablePointFill: {
-    default: 'rgb(255, 0, 0)'
+    default: 'red'
   },
   movablePointStroke: {
-    default: 'rgb(255, 0, 0)'
+    default: 'black'
   },
 
   //--------------------------------------------------------------------------
