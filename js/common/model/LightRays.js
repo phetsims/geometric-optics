@@ -107,8 +107,13 @@ class LightRays {
     const sourceOpticVector = optic.positionProperty.value.minus( sourcePosition );
     const sourceBottomOpticVector = sourceOpticVector.minusXY( 0, h );
     const sourceTopOpticVector = sourceOpticVector.plusXY( 0, h );
+
+
     const sourceFirstFocalVector = sourceOpticVector.minusXY( f, 0 );
 
+    if ( sourceFirstFocalVector.x < 0 ) {
+      sourceFirstFocalVector.negate();
+    }
     const apertureAngle = sourceTopOpticVector.getAngle() - sourceBottomOpticVector.getAngle();
 
     if ( lightRayMode === LightRayMode.MARGINAL_RAYS ) {
@@ -122,20 +127,18 @@ class LightRays {
       directions.push( sourceOpticVector.normalized() );
 
       // ray going through the bottom of the optic
-
       directions.push( sourceBottomOpticVector.normalized() );
 
     }
     else if ( lightRayMode === LightRayMode.PRINCIPAL_RAYS ) {
 
       // horizontal ray
-      directions.push( Vector2.X_UNIT );
+      directions.push( new Vector2( 1, 0 ) );
 
       // ray going through the optic
       directions.push( sourceOpticVector.normalized() );
 
       // ray going through the focal point
-
       directions.push( sourceFirstFocalVector.normalized() );
 
     }
