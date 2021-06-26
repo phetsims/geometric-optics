@@ -154,12 +154,17 @@ class LightRays {
     }
     else if ( lightRayMode === LightRayMode.MANY_RAYS ) {
 
-      const startingAngle = Math.min( Math.PI / 4, apertureAngle );
+      // starting angle for showers of rays
+      const startingAngle = Math.min( Math.PI / 4, 2 * apertureAngle );
 
+      // symmetric condition for end angle
       const endAngle = -startingAngle;
 
-      const N = 15; // Number of rays
-      const deltaTheta = ( endAngle - startingAngle ) / ( N - 1 ); // Degrees between adjacent arrays
+      // Number of rays
+      const N = 25;
+
+      // Degrees between adjacent arrays
+      const deltaTheta = ( endAngle - startingAngle ) / ( N - 1 );
 
       // create a show of equidistant rays between startingAngle and endAngle
       for ( let i = 0; i < N; i++ ) {

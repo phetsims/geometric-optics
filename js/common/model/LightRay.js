@@ -59,18 +59,18 @@ class LightRay {
     // @public (read-only)
     this.virtualRay = new Shape();
 
+    // {Shape} shape that intersects rays
     let intersectionShape;
 
     if ( lightRayMode === LightRayMode.PRINCIPAL_RAYS ) {
 
+      // a straight vertical line going through the middle of the optic
       intersectionShape = Shape.lineSegment( opticPoint.x, -5, opticPoint.x, 5 );
     }
     else {
       const staticShape = optic.outlineAndFillProperty.value.outlineShape;
       intersectionShape = optic.translatedShape( staticShape );
     }
-
-    // Draw rays only of the object is to the left of the lens.
 
     const ray = new Ray2( sourcePoint, direction );
     const intersections = intersectionShape.intersection( ray );
@@ -80,9 +80,11 @@ class LightRay {
       this.realRay.moveToPoint( sourcePoint );
 
       const intersectionPoint = intersections[ 0 ].point;
-      const objectOpticDistance = intersectionPoint.x - sourcePoint.x;
+      const objectOpticDistance = intersectionPoint.distance( sourcePoint );
       const rayBeyondOptic = ( distanceTraveled > objectOpticDistance );
+
       const ratio = Math.min( distanceTraveled / objectOpticDistance, 1 );
+
       this.realRay.lineToPoint( sourcePoint.blend( intersectionPoint, ratio ) );
 
       if ( rayBeyondOptic ) {
@@ -92,11 +94,11 @@ class LightRay {
 
         this.realRay.lineToRelative( x, m2 * x );
 
-        const ratio = Math.min( Math.abs( ( endX - intersectionPoint.x ) /
-                                          ( targetPoint.x - intersectionPoint.x ) ), 1 );
-
         if ( isVirtual ) {
           this.virtualRay.moveToPoint( intersectionPoint );
+
+          const ratio = Math.min( Math.abs( ( endX - intersectionPoint.x ) /
+                                            ( targetPoint.x - intersectionPoint.x ) ), 1 );
 
           this.virtualRay.lineToPoint( intersectionPoint.blend( targetPoint, ratio ) );
         }
