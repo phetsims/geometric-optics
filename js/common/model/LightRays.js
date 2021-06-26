@@ -99,28 +99,38 @@ class LightRays {
    * @returns {Vector2[]}
    */
   getRayDirections( sourcePosition, optic, lightRayMode ) {
+
+    // {Vector2[]} directions of the light rays emanating from the object
     const directions = [];
 
+    // convenience variables
     const f = optic.focalLengthProperty.value;
     const h = optic.diameterProperty.value / 2;
 
+    // vector from source to optic
     const sourceOpticVector = optic.positionProperty.value.minus( sourcePosition );
+
+    // vector from source to bottom of Optic
     const sourceBottomOpticVector = sourceOpticVector.minusXY( 0, h );
+
+    // vector from source to top of optic
     const sourceTopOpticVector = sourceOpticVector.plusXY( 0, h );
 
+    // aperture angle from the source to the optic
+    const apertureAngle = sourceTopOpticVector.getAngle() - sourceBottomOpticVector.getAngle();
 
+    // vector from source to first focal point
     const sourceFirstFocalVector = sourceOpticVector.minusXY( f, 0 );
 
+    // the vector should point to the right (to indicate the direction of the light rays)
     if ( sourceFirstFocalVector.x < 0 ) {
       sourceFirstFocalVector.negate();
     }
-    const apertureAngle = sourceTopOpticVector.getAngle() - sourceBottomOpticVector.getAngle();
+
 
     if ( lightRayMode === LightRayMode.MARGINAL_RAYS ) {
 
-
       // ray at the top of optic
-
       directions.push( sourceTopOpticVector.normalized() );
 
       // ray going through the optic
@@ -148,9 +158,10 @@ class LightRays {
 
       const endAngle = -startingAngle;
 
-      const N = 10; // Number of rays
+      const N = 15; // Number of rays
       const deltaTheta = ( endAngle - startingAngle ) / ( N - 1 ); // Degrees between adjacent arrays
 
+      // create a show of equidistant rays between startingAngle and endAngle
       for ( let i = 0; i < N; i++ ) {
         const angle = startingAngle + i * deltaTheta;
         directions.push( Vector2.createPolar( 1, angle ) );
