@@ -4,7 +4,6 @@
  * @author Martin Veillette
  */
 
-import Property from '../../../../axon/js/Property.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -35,16 +34,10 @@ class LightRaysNode extends Node {
     this.addChild( realRayPath );
     this.addChild( virtualRayPath );
 
-    // TODO: find better way to update the view
-    Property.multilink( [
-        lightRays.sourceObjectPositionProperty,
-        lightRays.optic.positionProperty,
-        lightRays.modeProperty,
-        lightRays.optic.diameterProperty,
-        lightRays.optic.focalLengthProperty,
-        lightRays.timeProperty ],
+    lightRays.raysProcessedEmitter.addListener(
       () => {
-        // update this node as the model representation moves
+
+        // update this node as the model representation changes
         realRayPath.shape = modelViewTransform.modelToViewShape( lightRays.realRay );
         virtualRayPath.shape = modelViewTransform.modelToViewShape( lightRays.virtualRay );
       }

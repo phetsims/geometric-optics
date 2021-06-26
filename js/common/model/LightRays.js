@@ -6,6 +6,7 @@
  * @author Martin Veillette
  */
 
+import Emitter from '../../../../axon/js/Emitter.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
@@ -47,6 +48,9 @@ class LightRays {
     // @public (read-only)
     this.virtualRay = new Shape();
 
+    // @public When are the rays are all processed
+    this.raysProcessedEmitter = new Emitter();
+
     Property.multilink( [
         sourceObjectPositionProperty,
         optic.positionProperty,
@@ -86,6 +90,8 @@ class LightRays {
           // add this new virtual lightRay to the virtualRay
           this.addRayShape( lightRay.virtualRay, this.virtualRay );
         } );
+
+        this.raysProcessedEmitter.emit();
       } );
   }
 
