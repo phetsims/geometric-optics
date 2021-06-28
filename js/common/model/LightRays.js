@@ -53,13 +53,13 @@ class LightRays {
 
     Property.multilink( [
         sourceObjectPositionProperty,
-        optic.positionProperty,
         lightRayModeProperty,
         timeProperty,
+        optic.positionProperty,
         optic.diameterProperty,
         optic.focalLengthProperty,
         optic.curveProperty ],
-      ( sourcePosition, opticPosition, lightRayMode, time, opticDiameter, focalLength ) => {
+      ( sourcePosition, lightRayMode, time ) => {
 
         this.realRay = new Shape();
 
