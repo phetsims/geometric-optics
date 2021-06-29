@@ -136,9 +136,6 @@ class Lens extends Optic {
         .close();
     }
 
-    // translate shape by position vector
-    // const translatedShape = shape.transformed( Matrix3.translationFromVector( position ) );
-
     // the outline shape is the same as the fill shape for a lens
     return { fillShape: shape, outlineShape: shape };
   }
