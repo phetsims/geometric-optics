@@ -136,15 +136,30 @@ class LightRays {
 
     if ( lightRayMode === LightRayMode.MARGINAL_RAYS ) {
 
-      // ray at the top of optic
-      directions.push( sourceTopOpticVector.normalized() );
+      if ( optic.isMirror() ) {
+        // vector from source to bottom of Optic
+        const sourceTopLeftOpticVector = optic.outlineAndFillProperty.value.topLeft.minus( sourcePosition );
 
-      // ray going through the optic
-      directions.push( sourceOpticVector.normalized() );
+        // vector from source to top of optic
+        const sourceBottomLeftOpticVector = optic.outlineAndFillProperty.value.bottomLeft.minus( sourcePosition );
 
-      // ray going through the bottom of the optic
-      directions.push( sourceBottomOpticVector.normalized() );
+        // ray at the top of optic
+        directions.push( sourceTopLeftOpticVector.normalized() );
 
+        // ray going through the optic
+        directions.push( sourceBottomLeftOpticVector.normalized() );
+
+      }
+      else {
+        // ray at the top of optic
+        directions.push( sourceTopOpticVector.normalized() );
+
+        // ray going through the optic
+        directions.push( sourceOpticVector.normalized() );
+
+        // ray going through the bottom of the optic
+        directions.push( sourceBottomOpticVector.normalized() );
+      }
     }
     else if ( lightRayMode === LightRayMode.PRINCIPAL_RAYS ) {
 

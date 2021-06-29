@@ -113,6 +113,55 @@ class LightRay {
 
 
   }
+
+  /**
+   *
+   * @param sourcePoint
+   * @param direction
+   * @param optic
+   * @param targetPoint
+   * @param frontShape
+   * @param backShape
+   * @param middleShape
+   * @param topShape
+   * @param bottomShape
+   */
+  findIntersectionsPoint( sourcePoint,
+                          direction,
+                          optic,
+                          targetPoint,
+                          frontShape,
+                          backShape,
+                          middleShape,
+                          topShape,
+                          bottomShape ) {
+
+    const ray = new Ray2( sourcePoint, direction );
+    const frontIntersections = frontShape.intersection( ray );
+    const backIntersections = backShape.intersection( ray );
+    const topIntersections = frontShape.intersection( ray );
+    const middleIntersections = middleShape.intersection( ray );
+
+  }
+
+  /**
+   * Find the nearest intersection between a light ray and the set of prisms in the play area
+   * @private
+   * @param {Ray2} incidentRay - model of the ray
+   * @param {Ob} prisms
+   * @returns {Intersection|null} - returns the intersection if one was found or null if no intersections
+   */
+  getIntersection( incidentRay, prisms ) {
+    let allIntersections = [];
+    prisms.forEach( prism => {
+      prism.getIntersections( incidentRay ).forEach( intersection => allIntersections.push( intersection ) );
+    } );
+
+    // Get the closest one (which would be hit first)
+    allIntersections = _.sortBy( allIntersections, allIntersection => allIntersection.point.distance( incidentRay.tail ) );
+    return allIntersections.length === 0 ? null : allIntersections[ 0 ];
+  }
+
 }
 
 geometricOptics.register( 'LightRay', LightRay );
