@@ -72,97 +72,130 @@ class LightRay {
       intersectionShape = optic.translatedShape( staticShape );
     }
 
-    const ray = new Ray2( sourcePoint, direction );
-    const intersections = intersectionShape.intersection( ray );
+    if ( optic.isMirror() || lightRayMode === LightRayMode.PRINCIPAL_RAYS ) {
+      const ray = new Ray2( sourcePoint, direction );
+      const intersections = intersectionShape.intersection( ray );
 
-    if ( intersections && intersections[ 0 ] && intersections[ 0 ].point ) {
+      if ( intersections && intersections[ 0 ] && intersections[ 0 ].point ) {
 
-      this.realRay.moveToPoint( sourcePoint );
+        this.realRay.moveToPoint( sourcePoint );
 
-      const intersectionPoint = intersections[ 0 ].point;
-      const objectOpticDistance = intersectionPoint.distance( sourcePoint );
-      const rayBeyondOptic = ( distanceTraveled > objectOpticDistance );
+        const intersectionPoint = intersections[ 0 ].point;
+        const objectOpticDistance = intersectionPoint.distance( sourcePoint );
+        const rayBeyondOptic = ( distanceTraveled > objectOpticDistance );
 
-      const ratio = Math.min( distanceTraveled / objectOpticDistance, 1 );
+        const ratio = Math.min( distanceTraveled / objectOpticDistance, 1 );
 
-      this.realRay.lineToPoint( sourcePoint.blend( intersectionPoint, ratio ) );
+        this.realRay.lineToPoint( sourcePoint.blend( intersectionPoint, ratio ) );
 
-      if ( rayBeyondOptic ) {
+        if ( rayBeyondOptic ) {
 
-        const m2 = ( targetPoint.y - intersectionPoint.y ) / ( targetPoint.x - intersectionPoint.x );
-        const x = ( endX - intersectionPoint.x ) * optic.getTypeSign();
+          const m2 = ( targetPoint.y - intersectionPoint.y ) / ( targetPoint.x - intersectionPoint.x );
+          const x = ( endX - intersectionPoint.x ) * optic.getTypeSign();
 
-        this.realRay.lineToRelative( x, m2 * x );
+          this.realRay.lineToRelative( x, m2 * x );
 
-        if ( isVirtual ) {
-          this.virtualRay.moveToPoint( intersectionPoint );
+          if ( isVirtual ) {
+            this.virtualRay.moveToPoint( intersectionPoint );
 
-          const ratio = Math.min( Math.abs( ( endX - intersectionPoint.x ) /
-                                            ( targetPoint.x - intersectionPoint.x ) ), 1 );
+            const ratio = Math.min( Math.abs( ( endX - intersectionPoint.x ) /
+                                              ( targetPoint.x - intersectionPoint.x ) ), 1 );
 
-          this.virtualRay.lineToPoint( intersectionPoint.blend( targetPoint, ratio ) );
+            this.virtualRay.lineToPoint( intersectionPoint.blend( targetPoint, ratio ) );
+          }
         }
+      }
+      else {
+        this.realRay.moveToPoint( sourcePoint );
+
+        this.realRay.lineToPointRelative( direction.multiply( distanceTraveled ) );
+
       }
     }
     else {
-      this.realRay.moveToPoint( sourcePoint );
 
-      this.realRay.lineToPointRelative( direction.multiply( distanceTraveled ) );
+      const shapes = optic.outlineAndFillProperty.value;
+      const frontShape = optic.translatedShape( shapes.frontShape );
+      const backShape = optic.translatedShape( shapes.backShape );
+      const middleShape = optic.translatedShape( shapes.middleShape );
 
+      const ray = new Ray2( sourcePoint, direction );
+      const middleIntersections = middleShape.intersection( ray );
+      const frontIntersections = frontShape.intersection( ray );
+
+      if ( middleIntersections && middleIntersections[ 0 ] && middleIntersections[ 0 ].point ) {
+        const midPoint = middleIntersections[ 0 ].point;
+
+        const direction = midPoint.minus( targetPoint ).normalized();
+        if ( direction.x < 0 ) {
+          direction.negate();
+        }
+        if ( targetPoint.x - opticPoint.x > 0 ) {
+          if ( direction.x > 0 ) {
+            direction.negate();
+          }
+        }
+
+        const ray2 = new Ray2( targetPoint, direction );
+
+        const backIntersections = backShape.intersection( ray2 );
+
+        if ( backIntersections && backIntersections[ 0 ] && backIntersections[ 0 ].point ) {
+          const backPoint = backIntersections[ 0 ].point;
+
+          if ( frontIntersections && frontIntersections[ 0 ] && frontIntersections[ 0 ].point ) {
+
+            const frontPoint = frontIntersections[ 0 ].point;
+
+            const objectOpticDistance = frontPoint.distance( sourcePoint );
+
+            const ratio = Math.min( distanceTraveled / objectOpticDistance, 1 );
+
+            const rayBeyondOptic = ( distanceTraveled > objectOpticDistance );
+
+            this.realRay.moveToPoint( sourcePoint )
+              .lineToPoint( sourcePoint.blend( frontPoint, ratio ) );
+
+            if ( rayBeyondOptic ) {
+
+              const objectBackDistance = frontPoint.distance( backPoint );
+
+              const ratio = Math.min( ( distanceTraveled - objectOpticDistance ) / objectBackDistance, 1 );
+              this.realRay.lineToPoint( frontPoint.blend( backPoint, ratio ) );
+
+
+              const rayBeyondOptic2 = ( distanceTraveled > objectOpticDistance + objectBackDistance );
+
+              if ( rayBeyondOptic2 ) {
+
+                const ratio = Math.min( ( distanceTraveled - objectOpticDistance ) / objectBackDistance, 1 );
+                this.realRay.lineToPoint( frontPoint.blend( backPoint, ratio ) );
+
+                const m2 = ( targetPoint.y - backPoint.y ) / ( targetPoint.x - backPoint.x );
+                const x = ( endX - backPoint.x ) * optic.getTypeSign();
+
+                this.realRay.lineToRelative( x, m2 * x );
+
+                if ( isVirtual ) {
+                  this.virtualRay.moveToPoint( backPoint );
+
+                  const ratio = Math.min( Math.abs( ( endX - backPoint.x ) /
+                                                    ( targetPoint.x - backPoint.x ) ), 1 );
+
+                  this.virtualRay.lineToPoint( backPoint.blend( targetPoint, ratio ) );
+                }
+              }
+            }
+          }
+        }
+      }
     }
-
-
   }
-
-  /**
-   *
-   * @param sourcePoint
-   * @param direction
-   * @param optic
-   * @param targetPoint
-   * @param frontShape
-   * @param backShape
-   * @param middleShape
-   * @param topShape
-   * @param bottomShape
-   */
-  findIntersectionsPoint( sourcePoint,
-                          direction,
-                          optic,
-                          targetPoint,
-                          frontShape,
-                          backShape,
-                          middleShape,
-                          topShape,
-                          bottomShape ) {
-
-    const ray = new Ray2( sourcePoint, direction );
-    const frontIntersections = frontShape.intersection( ray );
-    const backIntersections = backShape.intersection( ray );
-    const topIntersections = frontShape.intersection( ray );
-    const middleIntersections = middleShape.intersection( ray );
-
-  }
-
-  /**
-   * Find the nearest intersection between a light ray and the set of prisms in the play area
-   * @private
-   * @param {Ray2} incidentRay - model of the ray
-   * @param {Ob} prisms
-   * @returns {Intersection|null} - returns the intersection if one was found or null if no intersections
-   */
-  getIntersection( incidentRay, prisms ) {
-    let allIntersections = [];
-    prisms.forEach( prism => {
-      prism.getIntersections( incidentRay ).forEach( intersection => allIntersections.push( intersection ) );
-    } );
-
-    // Get the closest one (which would be hit first)
-    allIntersections = _.sortBy( allIntersections, allIntersection => allIntersection.point.distance( incidentRay.tail ) );
-    return allIntersections.length === 0 ? null : allIntersections[ 0 ];
-  }
-
 }
 
-geometricOptics.register( 'LightRay', LightRay );
+geometricOptics
+  .register(
+    'LightRay',
+    LightRay
+  );
 export default LightRay;

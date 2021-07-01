@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Model element of the Light Rays
+ * Model element of the Light Rays, a bundle of 'Light Ray's emerging from a source point.
  *
  * @author Martin Veillette
  */
@@ -101,7 +101,7 @@ class LightRays {
    * @private
    * @param {LightRayMode} lightRayMode
    * @param {Vector2} sourcePosition
-   * @param {optic} optic
+   * @param {Optic} optic
    * @returns {Vector2[]}
    */
   getRayDirections( sourcePosition, optic, lightRayMode ) {
@@ -147,18 +147,25 @@ class LightRays {
         const sourceBottomLeftOpticVector = optic.outlineAndFillProperty.value.bottomLeft.minus( sourcePosition );
 
         // ray at the top of optic
-        directions.push( sourceTopLeftOpticVector.normalized() );
+        directions.push( sourceTopLeftOpticVector.minusXY( 0, 1e-4 ).normalized() );
 
         // ray going through the optic
-        directions.push( sourceBottomLeftOpticVector.normalized() );
+        directions.push( sourceBottomLeftOpticVector.plusXY( 0, 1e-4 ).normalized() );
 
+      }
+      else if ( optic.isLens() && optic.isConvex( optic.getCurve() ) ) {
+        // ray at the top of optic
+        directions.push( sourceTopOpticVector.minusXY( 0, 1e-4 ).normalized() );
+
+        // ray going through the bottom of the optic
+        directions.push( sourceBottomOpticVector.plusXY( 0, 1e-4 ).normalized() );
       }
       else {
         // ray at the top of optic
-        directions.push( sourceTopOpticVector.normalized() );
+        directions.push( sourceTopOpticVector.minusXY( 0, 1e-1 ).normalized() );
 
         // ray going through the bottom of the optic
-        directions.push( sourceBottomOpticVector.normalized() );
+        directions.push( sourceBottomOpticVector.plusXY( 0, 1e-1 ).normalized() );
       }
     }
     else if ( lightRayMode === LightRayMode.PRINCIPAL_RAYS ) {

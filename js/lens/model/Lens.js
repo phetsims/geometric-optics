@@ -94,6 +94,8 @@ class Lens extends Optic {
 
     // {Shape} shape of lens
     let shape;
+    let frontShape;
+    let backShape;
 
     if ( this.isConvex( curve ) ) {
 
@@ -112,6 +114,19 @@ class Lens extends Optic {
         .quadraticCurveToPoint( left, bottom )
         .quadraticCurveToPoint( right, top )
         .close();
+
+      frontShape = new Shape()
+        .moveToPoint( top )
+        .quadraticCurveToPoint( left, bottom )
+        .quadraticCurveToPoint( left, top )
+        .close();
+
+      backShape = new Shape()
+        .moveToPoint( top )
+        .quadraticCurveToPoint( right, bottom )
+        .quadraticCurveToPoint( right, top )
+        .close();
+
     }
     else {
       const midWidth = 1 / 2 * halfHeight * halfHeight / ( radius + 1 );
@@ -134,10 +149,33 @@ class Lens extends Optic {
         .lineToPoint( bottomLeft )
         .quadraticCurveToPoint( midLeft, topLeft )
         .close();
+
+      frontShape = new Shape()
+        .moveToPoint( topLeft )
+        .quadraticCurveToPoint( midLeft, bottomLeft )
+        .quadraticCurveToPoint( midLeft, topLeft )
+        .close();
+
+      backShape = new Shape()
+        .moveToPoint( topRight )
+        .quadraticCurveToPoint( midRight, bottomRight )
+        .quadraticCurveToPoint( midRight, topRight )
+        .close();
     }
 
+    // two extrema points of the lens
+    const top = new Vector2( 0, halfHeight );
+    const bottom = new Vector2( 0, -halfHeight );
+    const middleShape = new Shape().moveToPoint( top ).lineToPoint( bottom );
+
     // the outline shape is the same as the fill shape for a lens
-    return { fillShape: shape, outlineShape: shape };
+    return {
+      fillShape: shape,
+      outlineShape: shape,
+      frontShape: frontShape,
+      backShape: backShape,
+      middleShape: middleShape
+    };
   }
 
 }
