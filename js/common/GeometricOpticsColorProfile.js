@@ -60,7 +60,7 @@ const GeometricOpticsColorProfile = new ColorProfile( [ 'default' ], {
   //                           OPTICAL AXIS
 
   opticalAxisStroke: {
-    default: 'rgb(0,255,247)'
+    default: 'rgb(100, 100, 245)'
   },
 
   //--------------------------------------------------------------------------
@@ -76,16 +76,20 @@ const GeometricOpticsColorProfile = new ColorProfile( [ 'default' ], {
   //--------------------------------------------------------------------------
   //                              RAYS
 
-  virtualRayStroke: {
-    default: 'rgb(0, 255, 0)'
+  virtualRayOneStroke: {
+    default: 'rgb(6,191,60)'
+  },
+
+  virtualRayTwoStroke: {
+    default: 'rgb(239,74,226)'
   },
 
   realRayOneStroke: {
-    default: 'rgb(255, 255, 255)'
+    default: 'rgb(189,248,158)'
   },
 
   realRayTwoStroke: {
-    default: 'rgb(255, 255, 0)'
+    default: 'rgb(255,207,232)'
   },
 
   //--------------------------------------------------------------------------

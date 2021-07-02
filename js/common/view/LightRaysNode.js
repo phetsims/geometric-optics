@@ -8,6 +8,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
+import merge from '../../../../phet-core/js/merge.js';
 
 class LightRaysNode extends Node {
 
@@ -16,19 +17,27 @@ class LightRaysNode extends Node {
    * @param {Property.<boolean>} visibleVirtualImageProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
+   * @param {Object} [options]
    */
-  constructor( lightRays, visibleVirtualImageProperty, modelViewTransform, tandem ) {
+  constructor( lightRays, visibleVirtualImageProperty, modelViewTransform, tandem, options ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+
+    options = merge( {
+      realRayStroke: 'white',
+      realRayLineWidth: 2,
+      virtualRayStroke: 'white',
+      virtualRayLineWidth: 2
+    }, options );
 
     super();
 
     const realRayPath = new Path( modelViewTransform.modelToViewShape( lightRays.realRay ), {
-      stroke: 'pink',
-      lineWidth: 2
+      stroke: options.realRayStroke,
+      lineWidth: options.realRayLineWidth
     } );
     const virtualRayPath = new Path( modelViewTransform.modelToViewShape( lightRays.virtualRay ), {
-      stroke: 'green',
-      lineWidth: 2
+      stroke: options.virtualRayStroke,
+      lineWidth: options.virtualRayLineWidth
     } );
 
     this.addChild( realRayPath );

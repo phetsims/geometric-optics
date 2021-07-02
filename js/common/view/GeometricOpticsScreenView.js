@@ -17,6 +17,7 @@ import MagnifyingGlassZoomButtonGroup from '../../../../scenery-phet/js/Magnifyi
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
+import GeometricOpticsColorProfile from '../GeometricOpticsColorProfile.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
 import FocalPoint from '../model/FocalPoint.js';
@@ -44,6 +45,10 @@ const ZOOM_SCALE_FACTOR = GeometricOpticsConstants.ZOOM_SCALE_FACTOR;
 const NOMINAL_VIEW_MODEL_CONVERSION = GeometricOpticsConstants.NOMINAL_VIEW_MODEL_CONVERSION;
 const ORIGIN_POINT = GeometricOpticsConstants.ORIGIN_POINT;
 const BUTTON_RADIUS = GeometricOpticsConstants.BUTTON_RADIUS;
+const virtualRayOneStroke = GeometricOpticsColorProfile.virtualRayOneStrokeProperty;
+const virtualRayTwoStroke = GeometricOpticsColorProfile.virtualRayTwoStrokeProperty;
+const realRayOneStroke = GeometricOpticsColorProfile.realRayOneStrokeProperty;
+const realRayTwoStroke = GeometricOpticsColorProfile.realRayTwoStrokeProperty;
 
 class GeometricOpticsScreenView extends ScreenView {
 
@@ -108,11 +113,17 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // create the light rays associated with the object
     const lightRaysNode = new LightRaysNode( model.lightRays,
-      this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
+      this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem, {
+        realRayStroke: realRayOneStroke,
+        virtualRayStroke: virtualRayOneStroke
+      } );
 
     // create the light rays associated with the movable point
     const movableLightRaysNode = new LightRaysNode( model.movableLightRays,
-      this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
+      this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem, {
+        realRayStroke: realRayTwoStroke,
+        virtualRayStroke: virtualRayTwoStroke
+      } );
 
     // the movable light rays visibility is tied to the status of the checkbox
     this.visibleProperties.visibleMovablePointProperty.linkAttribute( movableLightRaysNode, 'visible' );
