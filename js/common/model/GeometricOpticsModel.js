@@ -83,6 +83,21 @@ class GeometricOpticsModel {
     this.sourceObject.reset();
     this.rulers.vertical.reset();
     this.rulers.horizontal.reset();
+    this.timeProperty.reset();
+    this.enableImageProperty.reset();
+    this.enableMovableImageProperty.reset();
+  }
+
+
+  /**
+   * @public
+   * @param {number} dt
+   */
+  incrementTimer( dt ) {
+    if ( this.timeRange.contains( this.timeProperty.value ) ) {
+      this.timeProperty.value = this.timeProperty.value + dt;
+    }
+
   }
 
   /**

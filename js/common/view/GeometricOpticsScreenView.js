@@ -59,6 +59,9 @@ class GeometricOpticsScreenView extends ScreenView {
       tandem: tandem
     } );
 
+    // @protected
+    this.model = model;
+
     // convenience variable for laying out scenery nodes
     const erodedLayoutBounds = this.layoutBounds.erodedXY( SCREEN_VIEW_X_MARGIN, SCREEN_VIEW_Y_MARGIN );
 
@@ -286,6 +289,15 @@ class GeometricOpticsScreenView extends ScreenView {
     this.visibleProperties.reset();
     this.sourceObjectNode.reset();
     this.rulersLayer.reset();
+  }
+
+  /**
+   * @public
+   */
+  step( dt ) {
+    if ( this.visibleProperties.visibleRayTracingProperty.value ) {
+      this.model.incrementTimer( dt );
+    }
   }
 
   /**
