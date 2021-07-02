@@ -97,10 +97,16 @@ class LightRay {
           const m2 = ( targetPoint.y - intersectionPoint.y ) / ( targetPoint.x - intersectionPoint.x );
           const x = ( endX - intersectionPoint.x ) * optic.getTypeSign();
 
-          if ( x < ( targetPoint.x - intersectionPoint.x ) && !isVirtual ) {
-            this.isTargetReachedProperty.value = true;
-          }
+          if ( !isVirtual ) {
+            if ( lightRayMode === LightRayMode.PRINCIPAL_RAYS && x > ( targetPoint.x - intersectionPoint.x ) ) {
 
+              this.isTargetReachedProperty.value = true;
+
+            }
+            else if ( optic.isMirror() && x < ( targetPoint.x - intersectionPoint.x ) ) {
+              this.isTargetReachedProperty.value = true;
+            }
+          }
           this.realRay.lineToRelative( x, m2 * x );
 
           if ( isVirtual ) {
@@ -224,5 +230,9 @@ class LightRay {
   }
 }
 
-geometricOptics.register( 'LightRay', LightRay );
+geometricOptics
+  .register(
+    'LightRay',
+    LightRay
+  );
 export default LightRay;

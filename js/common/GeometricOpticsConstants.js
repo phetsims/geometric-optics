@@ -31,7 +31,7 @@ const GeometricOpticsConstants = {
   ORIGIN_POINT: new Vector2( 1024 / 2, 618 / 2 - 50 ), // view position of the model origin (0,0)
   NOMINAL_VIEW_MODEL_CONVERSION: 200, // view coordinates per meter in initial zoom level
 
-  HORIZONTAL_SPEED: 5, // (speed in meter per second for light)
+  HORIZONTAL_SPEED: 1, // (speed in meter per second for light)
   //----------------------------------------------------------------------------------------
   //                                 LENS
 

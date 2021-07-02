@@ -34,7 +34,7 @@ class GeometricOpticsModel {
   constructor( tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    this.timeRange = new RangeWithValue( 0, 1, 0.01 );
+    this.timeRange = new RangeWithValue( 0, 5, 0.01 );
 
     this.timeProperty = new NumberProperty( this.timeRange.defaultValue );
 
