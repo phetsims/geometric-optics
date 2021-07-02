@@ -36,13 +36,6 @@ class VisibleProperties {
     // @public {Property.<boolean>} controls the visibility of the labels
     this.visibleLabelsProperty = new BooleanProperty( false );
 
-    // @public {Property.<boolean>} the image/target can be seen if enabled
-    this.enableImageProperty = new BooleanProperty( false );
-
-    // @public {Property.<boolean>} the image associated with movable target can be seen if enabled
-    this.enableMovableImageProperty = new BooleanProperty( false );
-
-
   }
 
   /**

@@ -21,6 +21,7 @@ import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
 import FocalPoint from '../model/FocalPoint.js';
 import GeometricOpticsModel from '../model/GeometricOpticsModel.js';
+import LightRayMode from '../model/LightRayMode.js';
 import CurveControl from './CurveControl.js';
 import FocalPointNode from './FocalPointNode.js';
 import GeometricOpticsControlPanel from './GeometricOpticsControlPanel.js';
@@ -115,7 +116,11 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // create the target image
     const targetImageNode = new TargetImageNode( model.representationProperty,
-      model.targetImage, model.optic, this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem );
+      model.targetImage,
+      model.optic,
+      model.enableImageProperty,
+      this.visibleProperties.visibleVirtualImageProperty,
+      this.modelViewTransform, tandem );
 
     // create two focal points
     const firstFocalPointNode = new FocalPointNode( model.firstFocalPoint,
@@ -220,6 +225,15 @@ class GeometricOpticsScreenView extends ScreenView {
     // create the show/hide eye toggle button above the reset all button
     const showHideToggleButton = new ShowHideToggleButton( this.visibleProperties.visibleRayTracingProperty );
     showHideToggleButton.centerBottom = resetAllButton.centerTop.plusXY( 0, -22 );
+
+
+    this.visibleProperties.visibleRayTracingProperty.link( visible => {
+      model.timeProperty.value = 0;
+      if ( model.lightRayModeProperty.value !== LightRayMode.NO_RAYS && !visible ) {
+        model.enableImageProperty.value = false;
+        model.enableMovableImageProperty.value = false;
+      }
+    } );
 
     // labels
     const labelsNode = new LabelsNode( model, this, this.visibleProperties, this.zoomModelViewTransformProperty, this.zoomLevelProperty );

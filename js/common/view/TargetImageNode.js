@@ -20,6 +20,7 @@ class TargetImageNode extends Node {
    * @param {Property.<Representation>} representationProperty
    * @param {TargetImage} targetImage
    * @param {Optic} optic
+   * @param {Property.<boolean>} enableImageProperty
    * @param {Property.<boolean>} visibleVirtualImageProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
@@ -27,6 +28,7 @@ class TargetImageNode extends Node {
   constructor( representationProperty,
                targetImage,
                optic,
+               enableImageProperty,
                visibleVirtualImageProperty,
                modelViewTransform,
                tandem ) {
@@ -59,7 +61,8 @@ class TargetImageNode extends Node {
     function updateVisibility() {
       const showVirtualImage = visibleVirtualImageProperty.value;
       const isObjectDistancePositive = targetImage.isObjectOpticDistancePositive();
-      target.visible = ( ( targetImage.isVirtual() ) ? showVirtualImage : true ) && isObjectDistancePositive;
+      target.visible = ( ( targetImage.isVirtual() ) ? showVirtualImage : true ) && isObjectDistancePositive
+                       && enableImageProperty.value;
     }
 
 
@@ -101,6 +104,10 @@ class TargetImageNode extends Node {
     } );
 
     this.addChild( target );
+
+    enableImageProperty.link( () => {
+      updateVisibility();
+    } );
   }
 
 }

@@ -20,12 +20,18 @@ class LightRays {
   /**
    * @param {Property.<number>} timeProperty
    * @param {Property.<LightRayMode>} lightRayModeProperty
+   * @param {Property.<boolean>} enableImageProperty
    * @param {Property.<Vector2>} sourceObjectPositionProperty
    * @param {Optic} optic
    * @param {TargetImage} targetImage
    * @param {Tandem} tandem
    */
-  constructor( timeProperty, lightRayModeProperty, sourceObjectPositionProperty, optic, targetImage, tandem ) {
+  constructor( timeProperty,
+               lightRayModeProperty,
+               enableImageProperty,
+               sourceObjectPositionProperty,
+               optic,
+               targetImage, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     // @public {Property.<LightRayMode>}
@@ -84,6 +90,9 @@ class LightRays {
             lightRayMode,
             tandem );
 
+          if ( lightRay.isTargetReachedProperty.value ) {
+            enableImageProperty.value = true;
+          }
           // add this new real lightRay to the realRay
           this.addRayShape( lightRay.realRay, this.realRay );
 

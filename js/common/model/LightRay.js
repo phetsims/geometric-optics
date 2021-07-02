@@ -6,6 +6,7 @@
  * @author Martin Veillette
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Ray2 from '../../../../dot/js/Ray2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -59,6 +60,9 @@ class LightRay {
     // @public (read-only)
     this.virtualRay = new Shape();
 
+    // @public (read-only)
+    this.isTargetReachedProperty = new BooleanProperty( false );
+
     // {Shape} shape that intersects rays
     let intersectionShape;
 
@@ -93,6 +97,10 @@ class LightRay {
           const m2 = ( targetPoint.y - intersectionPoint.y ) / ( targetPoint.x - intersectionPoint.x );
           const x = ( endX - intersectionPoint.x ) * optic.getTypeSign();
 
+          if ( x < ( targetPoint.x - intersectionPoint.x ) && !isVirtual ) {
+            this.isTargetReachedProperty.value = true;
+          }
+
           this.realRay.lineToRelative( x, m2 * x );
 
           if ( isVirtual ) {
@@ -101,6 +109,9 @@ class LightRay {
             const ratio = Math.min( Math.abs( ( endX - intersectionPoint.x ) /
                                               ( targetPoint.x - intersectionPoint.x ) ), 1 );
 
+            if ( ratio === 1 ) {
+              this.isTargetReachedProperty.value = true;
+            }
             this.virtualRay.lineToPoint( intersectionPoint.blend( targetPoint, ratio ) );
           }
         }
@@ -112,24 +123,36 @@ class LightRay {
 
       }
     }
+
     else {
 
-      const shapes = optic.outlineAndFillProperty.value;
-      const frontShape = optic.translatedShape( shapes.frontShape );
-      const backShape = optic.translatedShape( shapes.backShape );
-      const middleShape = optic.translatedShape( shapes.middleShape );
+      const
+        shapes = optic.outlineAndFillProperty.value;
+      const
+        frontShape = optic.translatedShape( shapes.frontShape );
+      const
+        backShape = optic.translatedShape( shapes.backShape );
+      const
+        middleShape = optic.translatedShape( shapes.middleShape );
 
-      const ray = new Ray2( sourcePoint, direction );
-      const middleIntersections = middleShape.intersection( ray );
-      const frontIntersections = frontShape.intersection( ray );
+      const
+        ray = new Ray2( sourcePoint, direction );
+      const
+        middleIntersections = middleShape.intersection( ray );
+      const
+        frontIntersections = frontShape.intersection( ray );
 
-      if ( middleIntersections && middleIntersections[ 0 ] && middleIntersections[ 0 ].point ) {
+      if ( middleIntersections && middleIntersections[ 0 ]
+           && middleIntersections[ 0 ].point
+      ) {
         const midPoint = middleIntersections[ 0 ].point;
 
         const direction = midPoint.minus( targetPoint ).normalized();
+
         if ( direction.x < 0 ) {
           direction.negate();
         }
+
         if ( targetPoint.x - opticPoint.x > 0 ) {
           if ( direction.x > 0 ) {
             direction.negate();
@@ -174,6 +197,11 @@ class LightRay {
                 const m2 = ( targetPoint.y - backPoint.y ) / ( targetPoint.x - backPoint.x );
                 const x = ( endX - backPoint.x ) * optic.getTypeSign();
 
+
+                if ( endX > targetPoint.x && !isVirtual ) {
+                  this.isTargetReachedProperty.value = true;
+                }
+
                 this.realRay.lineToRelative( x, m2 * x );
 
                 if ( isVirtual ) {
@@ -182,6 +210,9 @@ class LightRay {
                   const ratio = Math.min( Math.abs( ( endX - backPoint.x ) /
                                                     ( targetPoint.x - backPoint.x ) ), 1 );
 
+                  if ( ratio === 1 ) {
+                    this.isTargetReachedProperty.value = true;
+                  }
                   this.virtualRay.lineToPoint( backPoint.blend( targetPoint, ratio ) );
                 }
               }
@@ -193,9 +224,5 @@ class LightRay {
   }
 }
 
-geometricOptics
-  .register(
-    'LightRay',
-    LightRay
-  );
+geometricOptics.register( 'LightRay', LightRay );
 export default LightRay;

@@ -6,6 +6,7 @@
  * @author Martin Veillette
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
@@ -37,11 +38,30 @@ class GeometricOpticsModel {
 
     this.timeProperty = new NumberProperty( this.timeRange.defaultValue );
 
+    // @public {Property.<boolean>} the image/target can be seen if enabled
+    this.enableImageProperty = new BooleanProperty( false );
+
+    // @public {Property.<boolean>} the image associated with movable target can be seen if enabled
+    this.enableMovableImageProperty = new BooleanProperty( false );
+
     // @public {Property.<Representation>}  representation of the source/object
     this.representationProperty = new Property( Representation.PENCIL );
 
     // @public {Property.<LightRayMode>}  modes for the different kind of light rays
     this.lightRayModeProperty = new EnumerationProperty( LightRayMode, LightRayMode.NO_RAYS );
+
+    this.lightRayModeProperty.link( lightRayMode => {
+      if ( lightRayMode === LightRayMode.NO_RAYS ) {
+        this.enableImageProperty.value = true;
+        this.enableMovableImageProperty.value = true;
+      }
+      else {
+        this.enableImageProperty.value = false;
+        this.enableMovableImageProperty.value = false;
+      }
+
+    } );
+
 
     // @public rulers for the simulations
     this.rulers = {
@@ -89,10 +109,20 @@ class GeometricOpticsModel {
     this.movableTargetImage = new TargetImage( this.sourceObject.movablePositionProperty, optic, tandem );
 
     // @public {LightRays} model of the light rays
-    this.lightRays = new LightRays( this.timeProperty, this.lightRayModeProperty, this.sourceObject.positionProperty, optic, this.targetImage, tandem );
+    this.lightRays = new LightRays( this.timeProperty,
+      this.lightRayModeProperty,
+      this.enableImageProperty,
+      this.sourceObject.positionProperty,
+      optic, this.targetImage,
+      tandem );
 
     // @public {LightRays} model of the "movable" light rays
-    this.movableLightRays = new LightRays( this.timeProperty, this.lightRayModeProperty, this.sourceObject.movablePositionProperty, optic, this.movableTargetImage, tandem );
+    this.movableLightRays = new LightRays( this.timeProperty,
+      this.lightRayModeProperty,
+      this.enableMovableImageProperty,
+      this.sourceObject.movablePositionProperty,
+      optic, this.movableTargetImage,
+      tandem );
   }
 
 
