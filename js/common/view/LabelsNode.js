@@ -87,10 +87,10 @@ class LabelsNode extends Node {
     const objectLabel = new LabelNode( objectString, model.sourceObject.positionProperty, new BooleanProperty( true ), modelViewTransformProperty );
 
     // update the visibility of the object and image labels
-    Property.multilink( [ model.representationProperty, model.enableImageProperty ],
-      ( representation, isEnabled ) => {
+    Property.multilink( [ model.representationProperty, model.enableImageProperty, model.targetImage.isVirtualProperty, visibleProperties.visibleVirtualImageProperty ],
+      ( representation, isEnabled, isVirtual, showVirtual ) => {
         objectLabel.visible = representation.isObject;
-        imageLabel.visible = isEnabled;
+        imageLabel.visible = isEnabled && ( isVirtual ? showVirtual : true );
       } );
 
     // add the labels to this node
