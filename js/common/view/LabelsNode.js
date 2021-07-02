@@ -90,7 +90,7 @@ class LabelsNode extends Node {
     Property.multilink( [ model.representationProperty, model.enableImageProperty, model.targetImage.isVirtualProperty, visibleProperties.visibleVirtualImageProperty ],
       ( representation, isEnabled, isVirtual, showVirtual ) => {
         objectLabel.visible = representation.isObject;
-        imageLabel.visible = isEnabled && ( isVirtual ? showVirtual : true );
+        imageLabel.visible = isEnabled && ( isVirtual ? showVirtual : true ) && representation.isObject;
       } );
 
     // add the labels to this node

@@ -27,6 +27,8 @@ class ProjectorScreenNode extends Node {
   /**
    * @param {ProjectorScreen} projectorScreen
    * @param {Property.<Representation>} representationProperty
+   * @param {Property.<boolean>} enableSpotlightProperty
+   * @param {Property.<boolean>} enableMovableSpotlightProperty
    * @param {Property.<boolean>} visibleMovablePointProperty
    * @param {Property.<Bounds2>} visibleModelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
@@ -35,6 +37,8 @@ class ProjectorScreenNode extends Node {
    */
   constructor( projectorScreen,
                representationProperty,
+               enableSpotlightProperty,
+               enableMovableSpotlightProperty,
                visibleMovablePointProperty,
                visibleModelBoundsProperty,
                modelViewTransform,
@@ -99,11 +103,11 @@ class ProjectorScreenNode extends Node {
 
     /**
      * Create and add a spotlight on projectorScreen
-     * Returns the added scenery node as a reference
      * @param {Spotlight} spotlight
-     * @returns {Node}
+     * @params {Property.<boolean>} visibleProperty
+     *
      */
-    const addSpotLightNode = spotlight => {
+    const addSpotLightNode = ( spotlight, visibleProperty ) => {
 
       // create spotlight
       const spotlightNode = new Path( new Shape( spotlight.shapeProperty.value ),
@@ -119,21 +123,23 @@ class ProjectorScreenNode extends Node {
         spotlightNode.shape = modelViewTransform.modelToViewShape( shape );
       } );
 
+      visibleProperty.linkAttribute( spotlightNode, 'visible' );
+
       // add the spotlight to this node
       this.addChild( spotlightNode );
-
-      // return the scenery node as a reference
-      return spotlightNode;
     };
 
     // add spotlight due to always present source
-    addSpotLightNode( projectorScreen.spotlightOne );
+    addSpotLightNode( projectorScreen.spotlightOne, enableSpotlightProperty );
+
+    // create a property for the visibility of the movable spotlight
+    const visibleMovableSpotlightProperty = new DerivedProperty( [ enableMovableSpotlightProperty, visibleMovablePointProperty ],
+      ( enableMovableSpotlight, visibleMovablePoint ) => {
+        return enableMovableSpotlight && visibleMovablePoint;
+      } );
 
     // add second spotlight for the "movable point"
-    const movableSpotlightNode = addSpotLightNode( projectorScreen.spotlightTwo );
-
-    // link the visibility of the movable spot light node to the visible point property
-    visibleMovablePointProperty.linkAttribute( movableSpotlightNode, 'visible' );
+    addSpotLightNode( projectorScreen.spotlightTwo, visibleMovableSpotlightProperty );
   }
 
   /**

@@ -36,6 +36,8 @@ class LensScreenView extends GeometricOpticsScreenView {
     // @private {ProjectorScreenNode}
     this.projectorScreenNode = new ProjectorScreenNode( model.projectorScreen,
       model.representationProperty,
+      model.enableImageProperty,
+      model.enableMovableImageProperty,
       this.visibleProperties.visibleMovablePointProperty,
       this.visibleModelBoundsProperty,
       this.modelViewTransform, tandem );
