@@ -13,7 +13,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColorProfile from '../GeometricOpticsColorProfile.js';
 
-const BACKGROUND_COLOR = GeometricOpticsColorProfile.screenBackgroundColorProperty;
+const BACKGROUND_COLOR = GeometricOpticsColorProfile.labelBackgroundFillProperty;
 
 class LabelNode extends Node {
   /**

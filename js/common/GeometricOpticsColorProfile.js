@@ -100,6 +100,14 @@ const GeometricOpticsColorProfile = new ColorProfile( [ 'default' ], {
   },
 
   //--------------------------------------------------------------------------
+  //                              LABELS
+
+  labelBackgroundFill: {
+    default: 'rgb(27,27,96)'
+  },
+
+
+  //--------------------------------------------------------------------------
   //                              GUIDES
 
   guidesFill: {
