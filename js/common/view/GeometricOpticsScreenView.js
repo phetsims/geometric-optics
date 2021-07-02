@@ -8,6 +8,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -229,14 +230,20 @@ class GeometricOpticsScreenView extends ScreenView {
     const showHideToggleButton = new ShowHideToggleButton( this.visibleProperties.visibleRayTracingProperty );
     showHideToggleButton.centerBottom = resetAllButton.centerTop.plusXY( 0, -22 );
 
-
-    this.visibleProperties.visibleRayTracingProperty.link( visible => {
-      model.timeProperty.value = 0;
-      if ( model.lightRayModeProperty.value !== LightRayMode.NO_RAYS && !visible ) {
-        model.enableImageProperty.value = false;
-        model.enableMovableImageProperty.value = false;
-      }
-    } );
+    Property.multilink( [ model.lightRayModeProperty, this.visibleProperties.visibleRayTracingProperty ],
+      ( lightRayMode, showHide ) => {
+        if ( lightRayMode === LightRayMode.NO_RAYS ) {
+          model.enableImageProperty.value = showHide;
+          model.enableMovableImageProperty.value = showHide;
+        }
+        else {
+          if ( !showHide ) {
+            model.enableImageProperty.value = false;
+            model.enableMovableImageProperty.value = false;
+            model.timeProperty.value = 0;
+          }
+        }
+      } );
 
     // labels
     const labelsNode = new LabelsNode( model, this, this.visibleProperties, this.zoomModelViewTransformProperty, this.zoomLevelProperty );

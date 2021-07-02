@@ -50,19 +50,6 @@ class GeometricOpticsModel {
     // @public {Property.<LightRayMode>}  modes for the different kind of light rays
     this.lightRayModeProperty = new EnumerationProperty( LightRayMode, LightRayMode.NO_RAYS );
 
-    this.lightRayModeProperty.link( lightRayMode => {
-      if ( lightRayMode === LightRayMode.NO_RAYS ) {
-        this.enableImageProperty.value = true;
-        this.enableMovableImageProperty.value = true;
-      }
-      else {
-        this.enableImageProperty.value = false;
-        this.enableMovableImageProperty.value = false;
-      }
-
-    } );
-
-
     // @public rulers for the simulations
     this.rulers = {
       horizontal: new Ruler( new Vector2( 200, 100 ), HORIZONTAL_RULER_LENGTH ),
