@@ -53,7 +53,7 @@ const GeometricOpticsColorProfile = new ColorProfile( [ 'default' ], {
   },
 
   focalPointStroke: {
-    default: 'rgb(255, 255, 255)'
+    default: 'rgb(255, 255, 0)'
   },
 
   //--------------------------------------------------------------------------
