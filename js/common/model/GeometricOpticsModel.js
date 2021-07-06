@@ -114,20 +114,22 @@ class GeometricOpticsModel {
     this.lightRays = new LightRays( this.timeProperty,
       this.lightRayModeProperty,
       this.enableImageProperty,
+      this.representationProperty,
       this.sourceObject.positionProperty,
-      optic, this.targetImage,
+      optic,
+      this.targetImage,
       tandem );
 
     // @public {LightRays} model of the "movable" light rays
     this.movableLightRays = new LightRays( this.timeProperty,
       this.lightRayModeProperty,
       this.enableMovableImageProperty,
+      this.representationProperty,
       this.sourceObject.movablePositionProperty,
-      optic, this.movableTargetImage,
+      optic,
+      this.movableTargetImage,
       tandem );
   }
-
-
 }
 
 geometricOptics.register( 'GeometricOpticsModel', GeometricOpticsModel );

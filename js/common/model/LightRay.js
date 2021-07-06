@@ -230,9 +230,5 @@ class LightRay {
   }
 }
 
-geometricOptics
-  .register(
-    'LightRay',
-    LightRay
-  );
+geometricOptics.register( 'LightRay', LightRay );
 export default LightRay;

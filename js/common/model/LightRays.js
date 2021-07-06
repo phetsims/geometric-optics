@@ -21,6 +21,7 @@ class LightRays {
    * @param {Property.<number>} timeProperty
    * @param {Property.<LightRayMode>} lightRayModeProperty
    * @param {Property.<boolean>} enableImageProperty
+   * @param {Property.<Representation>} representationProperty
    * @param {Property.<Vector2>} sourceObjectPositionProperty
    * @param {Optic} optic
    * @param {TargetImage} targetImage
@@ -29,6 +30,7 @@ class LightRays {
   constructor( timeProperty,
                lightRayModeProperty,
                enableImageProperty,
+               representationProperty,
                sourceObjectPositionProperty,
                optic,
                targetImage, tandem ) {
@@ -61,6 +63,7 @@ class LightRays {
         sourceObjectPositionProperty,
         lightRayModeProperty,
         timeProperty,
+        representationProperty,
         optic.positionProperty,
         optic.diameterProperty,
         optic.focalLengthProperty,
@@ -222,6 +225,14 @@ class LightRays {
       typeRayShape.addSubpath( subPath );
     } );
 
+  }
+
+  /**
+   * @public
+   * @param {Property.<Vector2>} positionProperty
+   */
+  setProjectorPositionProperty( positionProperty ) {
+    this.screenProjectorPositionProperty = positionProperty;
   }
 }
 
