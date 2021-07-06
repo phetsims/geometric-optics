@@ -38,7 +38,7 @@ const diameterString = geometricOpticsStrings.diameter;
 const refractiveIndexString = geometricOpticsStrings.refractiveIndex;
 const focalPointString = geometricOpticsStrings.focalPoint;
 const virtualImageString = geometricOpticsStrings.virtualImage;
-const movablePointString = geometricOpticsStrings.movablePoint;
+const secondSourceString = geometricOpticsStrings.secondSource;
 const guidesString = geometricOpticsStrings.guides;
 const labelsString = geometricOpticsStrings.labels;
 const rayModeTitleString = geometricOpticsStrings.rayModeTitle;
@@ -211,7 +211,7 @@ class GeometricOpticsControlPanel extends Panel {
       createCheckboxGroupItem( focalPointString, visibleProperties.visibleFocalPointProperty, { icon: focalPointIcon } ),
       createCheckboxGroupItem( labelsString, visibleProperties.visibleLabelsProperty ),
       createCheckboxGroupItem( virtualImageString, visibleProperties.visibleVirtualImageProperty ),
-      createCheckboxGroupItem( movablePointString, visibleProperties.visibleMovablePointProperty, { icon: movablePointIcon } ),
+      createCheckboxGroupItem( secondSourceString, visibleProperties.visibleMovablePointProperty, { icon: movablePointIcon } ),
       createCheckboxGroupItem( guidesString, visibleProperties.visibleGuidesProperty )
     ];
 

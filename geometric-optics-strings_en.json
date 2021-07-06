@@ -74,8 +74,8 @@
   "convex": {
     "value": "Convex"
   },
-  "movablePoint": {
-    "value": "Movable Point"
+  "secondSource": {
+    "value": "Second Source"
   },
   "metersPattern": {
     "value": "{{meters}} m"
