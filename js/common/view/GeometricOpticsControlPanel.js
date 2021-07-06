@@ -191,7 +191,7 @@ class GeometricOpticsControlPanel extends Panel {
       const text = new Text( string, { font: CONTROL_PANEL_FONT, maxWidth: 100 } );
 
       // create hBox if icon is present, otherwise merely attach text
-      const node = ( options.icon ) ? new HBox( { children: [ text, options.icon ], spacing: 3 } ) : text;
+      const node = ( options.icon ) ? new HBox( { children: [ text, options.icon ], spacing: 8 } ) : text;
 
       return {
         node: node,
