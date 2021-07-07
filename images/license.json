@@ -55,6 +55,22 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/178310/rocket, edited by Patrick Wolfert"
   },
+  "rocket-3d-right-facing-inverted.png": {
+    "text": [
+      ""
+    ],
+    "projectURL": "https://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/178310/rocket, edited by Patrick Wolfert"
+  },
+  "rocket-3d-left-facing-upright.png": {
+    "text": [
+      ""
+    ],
+    "projectURL": "https://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/178310/rocket, edited by Patrick Wolfert"
+  },
   "rocket-3d-left-facing-inverted.png": {
     "text": [
       ""
@@ -72,6 +88,22 @@
     "notes": "by Patrick Wolfert; original image by PrinterKiller, downloaded from https://openclipart.org/detail/161173/tree"
   },
   "tree-3d-right-facing-upright.png": {
+    "text": [
+      ""
+    ],
+    "projectURL": "https://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "by Patrick Wolfert; original image by PrinterKiller, downloaded from https://openclipart.org/detail/161173/tree"
+  },
+  "tree-3d-right-facing-inverted.png": {
+    "text": [
+      ""
+    ],
+    "projectURL": "https://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "by Patrick Wolfert; original image by PrinterKiller, downloaded from https://openclipart.org/detail/161173/tree"
+  },
+  "tree-3d-left-facing-upright.png": {
     "text": [
       ""
     ],

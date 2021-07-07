@@ -17,10 +17,14 @@ import pencil3dRightFacingUprightImage from '../../../images/pencil-3d-right-fac
 import pencilLogoImage from '../../../images/pencil-logo_png.js';
 import projectorScreen3dImage from '../../../images/projector-screen-3d_png.js';
 import rocket3dLeftFacingInvertedImage from '../../../images/rocket-3d-left-facing-inverted_png.js';
+import rocket3dLeftFacingUprightImage from '../../../images/rocket-3d-left-facing-upright_png.js';
 import rocket3dRightFacingUprightImage from '../../../images/rocket-3d-right-facing-upright_png.js';
+import rocket3dRightFacingInvertedImage from '../../../images/rocket-3d-right-facing-inverted_png.js';
 import rocketLogoImage from '../../../images/rocket-logo_png.js';
 import tree3dLeftFacingInvertedImage from '../../../images/tree-3d-left-facing-inverted_png.js';
+import tree3dLeftFacingUprightImage from '../../../images/tree-3d-left-facing-upright_png.js';
 import tree3dRightFacingUprightImage from '../../../images/tree-3d-right-facing-upright_png.js';
+import tree3dRightFacingInvertedImage from '../../../images/tree-3d-right-facing-inverted_png.js';
 import treeLogoImage from '../../../images/tree-logo_png.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
@@ -76,14 +80,14 @@ const Representation = Enumeration.byMap( {
     pencilString, true ),
   TREE: new RepresentationGenerator( treeLogoImage,
     tree3dRightFacingUprightImage,
-    tree3dRightFacingUprightImage,
-    tree3dLeftFacingInvertedImage,
+    tree3dRightFacingInvertedImage,
+    tree3dLeftFacingUprightImage,
     tree3dLeftFacingInvertedImage,
     treeString, true ),
   ROCKET: new RepresentationGenerator( rocketLogoImage,
     rocket3dRightFacingUprightImage,
-    rocket3dRightFacingUprightImage,
-    rocket3dLeftFacingInvertedImage,
+    rocket3dRightFacingInvertedImage,
+    rocket3dLeftFacingUprightImage,
     rocket3dLeftFacingInvertedImage,
     rocketString, true ),
   LIGHT: new RepresentationGenerator( lampRedImage,
