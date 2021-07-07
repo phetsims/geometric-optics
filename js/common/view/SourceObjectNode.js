@@ -118,7 +118,9 @@ class SourceObjectNode extends Node {
         movableNode.center = viewPosition;
       }
       else {
-        movableNode.leftTop = viewPosition.minus( modelViewTransform.modelToViewDelta( OFFSET_VECTOR ) );
+        movableNode.leftTop = viewPosition.minus( modelViewTransform.modelToViewDelta( OFFSET_VECTOR.plusXY(
+          0.34, -0.04 ) ) );
+
       }
     }
 
@@ -148,6 +150,7 @@ class SourceObjectNode extends Node {
         const offsetPosition = this.leftTopModelPositionProperty.value.plus( OFFSET_VECTOR ).plusXY( 0.34, -0.04 );
         sourceObject.setPosition( offsetPosition );
         sourceObjectImage.leftTop = modelViewTransform.modelToViewPosition( this.leftTopModelPositionProperty.value );
+
 
       }
       setMovableNodePosition( sourceObject.movablePositionProperty.value );
