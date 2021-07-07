@@ -147,10 +147,9 @@ class GeometricOpticsScreenView extends ScreenView {
     this.playAreaNode.addChild( opticalAxisLine );
     this.playAreaNode.addChild( this.sourceObjectNode );
     this.playAreaNode.addChild( targetImageNode );
-    this.playAreaNode.addChild( focalPointsLayer );
     this.playAreaNode.addChild( lightRaysNode );
     this.playAreaNode.addChild( movableLightRaysNode );
-
+    this.playAreaNode.addChild( focalPointsLayer );
 
     // scale the playAreaNode
     this.zoomLevelProperty.lazyLink( ( zoomLevel, oldZoomLevel ) => {
