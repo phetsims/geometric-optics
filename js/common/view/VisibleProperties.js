@@ -31,7 +31,7 @@ class VisibleProperties {
     this.visibleGuidesProperty = new BooleanProperty( false );
 
     // @public {Property.<boolean>} controls the visibility of the ray tracing
-    this.visibleRayTracingProperty = new BooleanProperty( false );
+    this.visibleRayTracingProperty = new BooleanProperty( true );
 
     // @public {Property.<boolean>} controls the visibility of the labels
     this.visibleLabelsProperty = new BooleanProperty( false );

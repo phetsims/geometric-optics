@@ -48,7 +48,7 @@ class GeometricOpticsModel {
     this.representationProperty = new Property( Representation.PENCIL );
 
     // @public {Property.<LightRayMode>}  modes for the different kind of light rays
-    this.lightRayModeProperty = new EnumerationProperty( LightRayMode, LightRayMode.NO_RAYS );
+    this.lightRayModeProperty = new EnumerationProperty( LightRayMode, LightRayMode.MARGINAL_RAYS );
 
     // @public rulers for the simulations
     this.rulers = {
