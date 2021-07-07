@@ -86,9 +86,18 @@ class SourceObjectNode extends Node {
     sourceObjectImage.addInputListener( sourceObjectDragListener );
 
     this.leftTopModelPositionProperty.link( position => {
-      const offsetPosition = position.plus( OFFSET_VECTOR );
-      sourceObject.setPosition( offsetPosition );
-      sourceObjectImage.leftTop = modelViewTransform.modelToViewPosition( position );
+
+      if ( representationProperty.value.isObject ) {
+        const offsetPosition = position.plus( OFFSET_VECTOR );
+        sourceObject.setPosition( offsetPosition );
+        sourceObjectImage.leftTop = modelViewTransform.modelToViewPosition( position );
+      }
+      else {
+        // address position of source of light #79
+        const offsetPosition = position.plus( OFFSET_VECTOR ).plusXY( 0.34, -0.04 );
+        sourceObject.setPosition( offsetPosition );
+        sourceObjectImage.leftTop = modelViewTransform.modelToViewPosition( position );
+      }
     } );
 
     const movableNode = new Node();
@@ -119,9 +128,27 @@ class SourceObjectNode extends Node {
       movableNode.removeAllChildren();
       if ( representation.isObject ) {
         movableNode.addChild( SourceObjectNode.createMovablePointIcon() );
+        sourceObjectImage.setScaleMagnitude( OVERALL_SCALE_FACTOR );
+
+        // address position of source of light #79
+        const offsetPosition = this.leftTopModelPositionProperty.value.plus( OFFSET_VECTOR );
+        sourceObject.setPosition( offsetPosition );
+        sourceObjectImage.leftTop = modelViewTransform.modelToViewPosition( this.leftTopModelPositionProperty.value );
       }
       else {
-        movableNode.addChild( new Image( representation.source, { scale: OVERALL_SCALE_FACTOR } ) );
+        const movableImage = new Image( representation.source, { scale: OVERALL_SCALE_FACTOR } );
+        movableNode.addChild( movableImage );
+
+
+        // set size of source of lights
+        sourceObjectImage.setScaleMagnitude( 1.5 );
+        movableImage.setScaleMagnitude( 1.5 );
+
+        // address position of source of light #79
+        const offsetPosition = this.leftTopModelPositionProperty.value.plus( OFFSET_VECTOR ).plusXY( 0.34, -0.04 );
+        sourceObject.setPosition( offsetPosition );
+        sourceObjectImage.leftTop = modelViewTransform.modelToViewPosition( this.leftTopModelPositionProperty.value );
+
       }
       setMovableNodePosition( sourceObject.movablePositionProperty.value );
     } );
