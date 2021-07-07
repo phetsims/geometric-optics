@@ -23,7 +23,7 @@ class MirrorScreenView extends GeometricOpticsScreenView {
     super( model, tandem );
 
     const mirrorNode = new MirrorNode( model.optic, this.modelViewTransform, tandem );
-    this.playAreaNode.insertChild( 0, mirrorNode );
+    this.playAreaNode.insertChild( 3, mirrorNode );
 
   }
 
