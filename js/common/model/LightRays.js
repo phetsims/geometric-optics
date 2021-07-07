@@ -23,6 +23,7 @@ class LightRays {
    * @param {Property.<boolean>} enableImageProperty
    * @param {Property.<Representation>} representationProperty
    * @param {Property.<Vector2>} sourceObjectPositionProperty
+   * @param {Property.<Vector2>} projectorScreenPositionProperty
    * @param {Optic} optic
    * @param {TargetImage} targetImage
    * @param {Tandem} tandem
@@ -32,6 +33,7 @@ class LightRays {
                enableImageProperty,
                representationProperty,
                sourceObjectPositionProperty,
+               projectorScreenPositionProperty,
                optic,
                targetImage, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
@@ -64,11 +66,12 @@ class LightRays {
         lightRayModeProperty,
         timeProperty,
         representationProperty,
+        projectorScreenPositionProperty,
         optic.positionProperty,
         optic.diameterProperty,
         optic.focalLengthProperty,
         optic.curveProperty ],
-      ( sourcePosition, lightRayMode, time ) => {
+      ( sourcePosition, lightRayMode, time, representation ) => {
 
         this.realRay = new Shape();
 
@@ -81,6 +84,10 @@ class LightRays {
         // {Vector2[]} get the initial directions of the rays
         const directions = this.getRayDirections( sourcePosition, optic, lightRayMode );
 
+        let lightRayOptions = {};
+        if ( !representation.isObject ) {
+          lightRayOptions = { finalX: projectorScreenPositionProperty.value.x };
+        }
         directions.forEach( direction => {
 
           // determine the lightRay
@@ -91,7 +98,9 @@ class LightRays {
             targetPoint,
             isVirtual,
             lightRayMode,
-            tandem );
+            tandem,
+            lightRayOptions );
+
 
           if ( lightRay.isTargetReachedProperty.value ) {
             enableImageProperty.value = true;
@@ -225,14 +234,6 @@ class LightRays {
       typeRayShape.addSubpath( subPath );
     } );
 
-  }
-
-  /**
-   * @public
-   * @param {Property.<Vector2>} positionProperty
-   */
-  setProjectorPositionProperty( positionProperty ) {
-    this.screenProjectorPositionProperty = positionProperty;
   }
 }
 

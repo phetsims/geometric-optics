@@ -118,6 +118,7 @@ class GeometricOpticsModel {
       this.enableImageProperty,
       this.representationProperty,
       this.sourceObject.positionProperty,
+      this.projectorScreenPositionProperty,
       optic,
       this.targetImage,
       tandem );
@@ -128,6 +129,7 @@ class GeometricOpticsModel {
       this.enableMovableImageProperty,
       this.representationProperty,
       this.sourceObject.movablePositionProperty,
+      this.projectorScreenPositionProperty,
       optic,
       this.movableTargetImage,
       tandem );

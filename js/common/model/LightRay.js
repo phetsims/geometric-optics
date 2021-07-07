@@ -46,13 +46,16 @@ class LightRay {
       finalX: null // {number|null}
     }, config );
 
-
     const opticPoint = optic.getPosition();
 
     const distanceTraveled = HORIZONTAL_SPEED * time;
 
+    let endX = sourcePoint.x + distanceTraveled;
     // final x position of the reals rays
-    const endX = sourcePoint.x + distanceTraveled;
+
+    if ( config.finalX ) {
+      endX = Math.min( endX, config.finalX );
+    }
 
     // @public (read-only)
     this.realRay = new Shape();
@@ -86,7 +89,7 @@ class LightRay {
 
         const intersectionPoint = intersections[ 0 ].point;
         const objectOpticDistance = intersectionPoint.distance( sourcePoint );
-        const rayBeyondOptic = ( distanceTraveled > objectOpticDistance );
+        const rayBeyondOptic = ( endX - sourcePoint.x > objectOpticDistance );
 
         const ratio = Math.min( distanceTraveled / objectOpticDistance, 1 );
 

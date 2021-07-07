@@ -38,9 +38,6 @@ class LensModel extends GeometricOpticsModel {
       this.targetImage.positionProperty,
       this.movableTargetImage.positionProperty, tandem );
 
-
-    this.lightRays.setProjectorPositionProperty( this.projectorScreen.positionProperty );
-    this.movableLightRays.setProjectorPositionProperty( this.projectorScreen.positionProperty );
   }
 
   /**
