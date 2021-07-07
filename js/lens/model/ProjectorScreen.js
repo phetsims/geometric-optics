@@ -6,8 +6,6 @@
  * @author Martin Veillette
  */
 
-import Vector2 from '../../../../dot/js/Vector2.js';
-import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
@@ -19,13 +17,15 @@ const MASK_CORNERS = GeometricOpticsConstants.MASK_CORNERS;
 class ProjectorScreen {
 
   /**
+   * @param {Property.<Vector2>} projectorScreenPositionProperty
    * @param {Property.<Vector2>} opticPositionProperty
    * @param {Property.<number>} opticDiameterProperty
    * @param {Property.<Vector2>} targetImagePositionProperty
    * @param {Property.<Vector2>} movableImagePositionProperty
    * @param {Tandem} tandem
    */
-  constructor( opticPositionProperty,
+  constructor( projectorScreenPositionProperty,
+               opticPositionProperty,
                opticDiameterProperty,
                targetImagePositionProperty,
                movableImagePositionProperty,
@@ -33,7 +33,7 @@ class ProjectorScreen {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     // @public {Property.<Vector2>} position of the center of the screen
-    this.positionProperty = new Vector2Property( new Vector2( 2, 0 ) );
+    this.positionProperty = projectorScreenPositionProperty;
 
     // @public (read-only) {Property.<Vector2>} position of the optic
     this.opticPositionProperty = opticPositionProperty;
