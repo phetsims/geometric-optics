@@ -7,20 +7,26 @@
  */
 
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
+import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
+import GeometricOpticsColorProfile from '../GeometricOpticsColorProfile.js';
+import LightRayMode from '../model/LightRayMode.js';
+
+const OPTICAL_CENTER_LINE_STROKE = GeometricOpticsColorProfile.opticalAxisStrokeProperty;
 
 class OpticNode extends Node {
 
   /**
    * @param {Optic} optic
+   * @param {Property.<LightRayMode>} lightRayModeProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( optic, modelViewTransform, tandem, options ) {
+  constructor( optic, lightRayModeProperty, modelViewTransform, tandem, options ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     super( options );
@@ -59,6 +65,13 @@ class OpticNode extends Node {
       lineWidth: options.lineWidth
     } );
 
+    const xPosition = modelViewTransform.modelToViewX( 0 );
+    const opticCenterLine = new Line( xPosition, -2000, xPosition, 3050, {
+      stroke: OPTICAL_CENTER_LINE_STROKE,
+      lineDash: [ 8, 5 ]
+    } );
+
+
     optic.outlineAndFillProperty.link( shapes => {
       this.fillPath.shape = modelViewTransform.modelToViewShape( shapes.fillShape );
       outlinePath.shape = modelViewTransform.modelToViewShape( shapes.outlineShape );
@@ -71,7 +84,14 @@ class OpticNode extends Node {
     this.addInputListener( dragListener );
     this.addChild( this.fillPath );
     this.addChild( outlinePath );
+    this.addChild( opticCenterLine );
 
+
+    lightRayModeProperty.link( lightRayMode => {
+
+      opticCenterLine.visible = lightRayMode === LightRayMode.PRINCIPAL_RAYS;
+
+    } );
   }
 }
 

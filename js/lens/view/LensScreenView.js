@@ -25,7 +25,7 @@ class LensScreenView extends GeometricOpticsScreenView {
     super( model, tandem );
 
     // TODO: find a more robust way to insert nodes in relation to other nodes in the play area
-    const lensNode = new LensNode( model.optic, this.modelViewTransform, tandem );
+    const lensNode = new LensNode( model.optic, model.lightRayModeProperty, this.modelViewTransform, tandem );
     this.playAreaNode.insertChild( 3, lensNode );
     const topGuideNode = new GuideNode( model.topGuide, this.visibleProperties.visibleGuidesProperty, this.modelViewTransform );
     this.playAreaNode.insertChild( 7, topGuideNode );

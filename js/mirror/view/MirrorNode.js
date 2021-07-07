@@ -21,11 +21,12 @@ class MirrorNode extends OpticNode {
 
   /**
    * @param {Optic} mirror
+   * @param {Property.<LightRayMode>} lightRayModeProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( mirror, modelViewTransform, tandem, options ) {
+  constructor( mirror, lightRayModeProperty, modelViewTransform, tandem, options ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     options = merge( {
@@ -34,7 +35,7 @@ class MirrorNode extends OpticNode {
       lineWidth: LINE_WIDTH
     }, options );
 
-    super( mirror, modelViewTransform, tandem, options );
+    super( mirror, lightRayModeProperty, modelViewTransform, tandem, options );
 
   }
 }
