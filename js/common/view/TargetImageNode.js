@@ -57,18 +57,18 @@ class TargetImageNode extends Node {
       let horizontalOffset;
       if ( representationProperty.value === Representation.PENCIL ) {
         if ( optic.isLens() ) {
-          verticalOffset = targetImage.isVirtual() ? -40 : -145;
-          horizontalOffset = targetImage.isVirtual() ? -30 : -22;
+          verticalOffset = targetImage.isVirtual() ? -37 : -145;
+          horizontalOffset = targetImage.isVirtual() ? -31 : -22;
         }
         else {
-          verticalOffset = targetImage.isVirtual() ? -40 : -145;
-          horizontalOffset = targetImage.isVirtual() ? -22 : -30;
+          verticalOffset = targetImage.isVirtual() ? -37 : -145;
+          horizontalOffset = targetImage.isVirtual() ? -24 : -31;
         }
       }
       else if ( representationProperty.value === Representation.TREE ) {
         if ( optic.isLens() ) {
           verticalOffset = targetImage.isVirtual() ? -40 : -150;
-          horizontalOffset = targetImage.isVirtual() ? -30 : -22;
+          horizontalOffset = targetImage.isVirtual() ? -32 : -22;
         }
         else {
           verticalOffset = targetImage.isVirtual() ? -40 : -150;
