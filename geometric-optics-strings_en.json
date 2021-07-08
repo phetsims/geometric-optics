@@ -8,12 +8,6 @@
   "screen.lens": {
     "value": "Lens"
   },
-  "mirror": {
-    "value": "Mirror"
-  },
-  "lens": {
-    "value": "Lens"
-  },
   "concaveMirror": {
     "value": "Concave Mirror"
   },
@@ -53,9 +47,6 @@
   "virtualImage": {
     "value": "Virtual Image"
   },
-  "rulers": {
-    "value": "Rulers"
-  },
   "none": {
     "value": "None"
   },
@@ -67,12 +58,6 @@
   },
   "many": {
     "value": "Many"
-  },
-  "concave": {
-    "value": "Concave"
-  },
-  "convex": {
-    "value": "Convex"
   },
   "secondSource": {
     "value": "Second Source"
