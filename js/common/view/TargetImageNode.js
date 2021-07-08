@@ -139,7 +139,11 @@ class TargetImageNode extends Node {
 
         // update the image
         target.image = image;
+
+        // update the scale of the image
+        updateScale();
       }
+
     } );
 
     this.addChild( target );
