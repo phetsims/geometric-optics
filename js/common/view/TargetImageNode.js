@@ -13,6 +13,7 @@ import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
+import Representation from '../model/Representation.js';
 
 class TargetImageNode extends Node {
 
@@ -52,8 +53,46 @@ class TargetImageNode extends Node {
     function updateScale() {
       const position = targetImage.positionProperty.value;
       const scale = Math.abs( targetImage.scaleProperty.value );
-      const verticalOffset = targetImage.isVirtual() ? -40 : -145;
-      const horizontalOffset = targetImage.isVirtual() ? -30 : -22;
+      let verticalOffset;
+      let horizontalOffset;
+      if ( representationProperty.value === Representation.PENCIL ) {
+        if ( optic.isLens() ) {
+          verticalOffset = targetImage.isVirtual() ? -40 : -145;
+          horizontalOffset = targetImage.isVirtual() ? -30 : -22;
+        }
+        else {
+          verticalOffset = targetImage.isVirtual() ? -40 : -145;
+          horizontalOffset = targetImage.isVirtual() ? -22 : -30;
+        }
+      }
+      else if ( representationProperty.value === Representation.TREE ) {
+        if ( optic.isLens() ) {
+          verticalOffset = targetImage.isVirtual() ? -40 : -150;
+          horizontalOffset = targetImage.isVirtual() ? -30 : -22;
+        }
+        else {
+          verticalOffset = targetImage.isVirtual() ? -40 : -150;
+          horizontalOffset = targetImage.isVirtual() ? -22 : -30;
+        }
+      }
+
+      else if ( representationProperty.value === Representation.ROCKET ) {
+        if ( optic.isLens() ) {
+          verticalOffset = targetImage.isVirtual() ? -40 : -165;
+          horizontalOffset = targetImage.isVirtual() ? -30 : -22;
+        }
+        else {
+          verticalOffset = targetImage.isVirtual() ? -40 : -165;
+          horizontalOffset = targetImage.isVirtual() ? -22 : -30;
+        }
+
+      }
+      else {
+        verticalOffset = targetImage.isVirtual() ? -40 : -145;
+        horizontalOffset = targetImage.isVirtual() ? -30 : -22;
+      }
+
+
       target.translation = modelViewTransform.modelToViewPosition( position ).plusXY( horizontalOffset * scale, verticalOffset * scale );
       target.setScaleMagnitude( scale * 0.5 );
     }
