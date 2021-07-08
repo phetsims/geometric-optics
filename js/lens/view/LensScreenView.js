@@ -29,22 +29,21 @@ class LensScreenView extends GeometricOpticsScreenView {
     const lensNode = new LensNode( model.optic, model.lightRayModeProperty, this.modelViewTransform, tandem );
     this.playAreaNode.insertChild( 3, lensNode );
 
-
-    // create visible property for the first guides (associated with the object)
+    // {Property.<boolean>} create visible property for the first guides (associated with the object)
     const visibleFirstGuidesProperty = new DerivedProperty( [ this.visibleProperties.visibleGuidesProperty,
       this.visibleProperties.visibleMovablePointProperty ], ( visibleGuides, visibleSecondSource ) => visibleGuides && !visibleSecondSource );
 
-    // create visible property for the second guides (associated with the second source)
+    // {Property.<boolean>} create visible property for the second guides (associated with the second source)
     const visibleSecondGuidesProperty = new DerivedProperty( [ this.visibleProperties.visibleGuidesProperty,
       this.visibleProperties.visibleMovablePointProperty ], ( visibleGuides, visibleSecondSource ) => visibleGuides && visibleSecondSource );
 
-    // create top and bottom guides associated with the object
+    // create and add top and bottom guides associated with the object
     const firstTopGuideNode = new GuideNode( model.firstTopGuide, visibleFirstGuidesProperty, this.modelViewTransform );
     const firstBottomGuideNode = new GuideNode( model.firstBottomGuide, visibleFirstGuidesProperty, this.modelViewTransform );
     this.playAreaNode.insertChild( 7, firstBottomGuideNode );
     this.playAreaNode.insertChild( 8, firstTopGuideNode );
 
-    // create top and bottom guides associated with the second source
+    // create and add top and bottom guides associated with the second source
     const secondTopGuideNode = new GuideNode( model.secondTopGuide, visibleSecondGuidesProperty, this.modelViewTransform );
     const secondBottomGuideNode = new GuideNode( model.secondBottomGuide, visibleSecondGuidesProperty, this.modelViewTransform );
     this.playAreaNode.insertChild( 9, secondBottomGuideNode );
