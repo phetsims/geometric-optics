@@ -4,6 +4,7 @@
  * @author Martin Veillette
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsScreenView from '../../common/view/GeometricOpticsScreenView.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -27,10 +28,27 @@ class LensScreenView extends GeometricOpticsScreenView {
     // TODO: find a more robust way to insert nodes in relation to other nodes in the play area
     const lensNode = new LensNode( model.optic, model.lightRayModeProperty, this.modelViewTransform, tandem );
     this.playAreaNode.insertChild( 3, lensNode );
-    const topGuideNode = new GuideNode( model.topGuide, this.visibleProperties.visibleGuidesProperty, this.modelViewTransform );
-    this.playAreaNode.insertChild( 7, topGuideNode );
-    const bottomGuideNode = new GuideNode( model.bottomGuide, this.visibleProperties.visibleGuidesProperty, this.modelViewTransform );
-    this.playAreaNode.insertChild( 8, bottomGuideNode );
+
+
+    // create visible property for the first guides (associated with the object)
+    const visibleFirstGuidesProperty = new DerivedProperty( [ this.visibleProperties.visibleGuidesProperty,
+      this.visibleProperties.visibleMovablePointProperty ], ( visibleGuides, visibleSecondSource ) => visibleGuides && !visibleSecondSource );
+
+    // create visible property for the second guides (associated with the second source)
+    const visibleSecondGuidesProperty = new DerivedProperty( [ this.visibleProperties.visibleGuidesProperty,
+      this.visibleProperties.visibleMovablePointProperty ], ( visibleGuides, visibleSecondSource ) => visibleGuides && visibleSecondSource );
+
+    // create top and bottom guides associated with the object
+    const firstTopGuideNode = new GuideNode( model.firstTopGuide, visibleFirstGuidesProperty, this.modelViewTransform );
+    const firstBottomGuideNode = new GuideNode( model.firstBottomGuide, visibleFirstGuidesProperty, this.modelViewTransform );
+    this.playAreaNode.insertChild( 7, firstBottomGuideNode );
+    this.playAreaNode.insertChild( 8, firstTopGuideNode );
+
+    // create top and bottom guides associated with the second source
+    const secondTopGuideNode = new GuideNode( model.secondTopGuide, visibleSecondGuidesProperty, this.modelViewTransform );
+    const secondBottomGuideNode = new GuideNode( model.secondBottomGuide, visibleSecondGuidesProperty, this.modelViewTransform );
+    this.playAreaNode.insertChild( 9, secondBottomGuideNode );
+    this.playAreaNode.insertChild( 10, secondTopGuideNode );
 
     // create projector screen associated with light source
     // @private {ProjectorScreenNode}
