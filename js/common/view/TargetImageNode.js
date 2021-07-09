@@ -104,6 +104,8 @@ class TargetImageNode extends Node {
                        && enableImageProperty.value;
     }
 
+    // see #94
+    targetImage.scaleProperty.link( updateScale );
 
     targetImage.positionProperty.link( () => {
       updateScale();
