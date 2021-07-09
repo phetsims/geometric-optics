@@ -8,6 +8,7 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
+import Line from '../../../../kite/js/segments/Line.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
@@ -57,6 +58,13 @@ class ProjectorScreen {
       this.getScreenShape.bind( this ),
       tandem
     );
+
+    // convenience variable to create a line that splits the middle of the screen vertically
+    const top = MASK_CORNERS.LEFT_TOP.average( MASK_CORNERS.RIGHT_TOP );
+    const bottom = MASK_CORNERS.LEFT_BOTTOM.average( MASK_CORNERS.RIGHT_BOTTOM );
+
+    // @public (read-only) {Shape} vertical line that bisects the middle portion of the screen
+    this.bisectorLine = new Line( top, bottom );
   }
 
   /**
