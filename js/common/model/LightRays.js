@@ -84,10 +84,6 @@ class LightRays {
         // {Vector2[]} get the initial directions of the rays
         const directions = this.getRayDirections( sourcePosition, optic, lightRayMode );
 
-        let lightRayOptions = {};
-        if ( !representation.isObject ) {
-          lightRayOptions = { finalX: projectorScreen.positionProperty.value.x };
-        }
         directions.forEach( direction => {
 
           // determine the lightRay
@@ -98,8 +94,8 @@ class LightRays {
             targetPoint,
             isVirtual,
             lightRayMode,
-            tandem,
-            lightRayOptions );
+            projectorScreen.bisectorLine,
+            tandem );
 
 
           if ( lightRay.isTargetReachedProperty.value ) {

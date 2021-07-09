@@ -28,6 +28,7 @@ class LightRay {
    * @param {Vector2} targetPoint
    * @param {boolean} isVirtual
    * @param {LightRayMode} lightRayMode
+   * @param {Shape} projectorScreenBisectorLine
    * @param {Tandem} tandem
    * @param {Object} config
    */
@@ -38,13 +39,12 @@ class LightRay {
                targetPoint,
                isVirtual,
                lightRayMode,
+               projectorScreenBisectorLine,
                tandem,
                config ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    config = merge( {
-      finalX: null // {number|null}
-    }, config );
+    config = merge( {}, config );
 
     const opticPoint = optic.getPosition();
 
