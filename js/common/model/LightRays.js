@@ -23,7 +23,7 @@ class LightRays {
    * @param {Property.<boolean>} enableImageProperty
    * @param {Property.<Representation>} representationProperty
    * @param {Property.<Vector2>} sourceObjectPositionProperty
-   * @param {Property.<Vector2>} projectorScreenPositionProperty
+   * @param {ProjectorScreen} projectorScreen
    * @param {Optic} optic
    * @param {TargetImage} targetImage
    * @param {Tandem} tandem
@@ -33,7 +33,7 @@ class LightRays {
                enableImageProperty,
                representationProperty,
                sourceObjectPositionProperty,
-               projectorScreenPositionProperty,
+               projectorScreen,
                optic,
                targetImage, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
@@ -66,7 +66,7 @@ class LightRays {
         lightRayModeProperty,
         timeProperty,
         representationProperty,
-        projectorScreenPositionProperty,
+        projectorScreen.positionProperty,
         optic.positionProperty,
         optic.diameterProperty,
         optic.focalLengthProperty,
@@ -86,7 +86,7 @@ class LightRays {
 
         let lightRayOptions = {};
         if ( !representation.isObject ) {
-          lightRayOptions = { finalX: projectorScreenPositionProperty.value.x };
+          lightRayOptions = { finalX: projectorScreen.positionProperty.value.x };
         }
         directions.forEach( direction => {
 
