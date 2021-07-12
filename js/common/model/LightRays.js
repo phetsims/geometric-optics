@@ -95,6 +95,7 @@ class LightRays {
             isVirtual,
             lightRayMode,
             projectorScreen.bisectorLine,
+            representationProperty,
             tandem );
 
 
