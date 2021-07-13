@@ -133,9 +133,10 @@ class LightRays {
     // convenience variables
     const f = optic.focalLengthProperty.value;
     const h = optic.diameterProperty.value / 2;
+    const opticPosition = optic.positionProperty.value;
 
     // vector from source to optic
-    const sourceOpticVector = optic.positionProperty.value.minus( sourcePosition );
+    const sourceOpticVector = opticPosition.minus( sourcePosition );
 
     // vector from source to bottom of Optic
     const sourceBottomOpticVector = sourceOpticVector.minusXY( 0, h );
@@ -162,10 +163,10 @@ class LightRays {
 
       if ( optic.isMirror() ) {
         // vector from source to bottom of Optic
-        const sourceTopLeftOpticVector = optic.outlineAndFillProperty.value.topLeft.minus( sourcePosition );
+        const sourceTopLeftOpticVector = sourceOpticVector.plus( optic.outlineAndFillProperty.value.topLeft );
 
         // vector from source to top of optic
-        const sourceBottomLeftOpticVector = optic.outlineAndFillProperty.value.bottomLeft.minus( sourcePosition );
+        const sourceBottomLeftOpticVector = sourceOpticVector.plus( optic.outlineAndFillProperty.value.bottomLeft );
 
         // ray at the top of optic
         directions.push( sourceTopLeftOpticVector.minusXY( 0, 1e-4 ).normalized() );

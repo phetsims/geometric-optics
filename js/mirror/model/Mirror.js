@@ -115,8 +115,8 @@ class Mirror extends Optic {
         .quadraticCurveToPoint( midLeft, bottomLeft )
         .quadraticCurveToPoint( midLeft, topLeft )
         .close(),
-      topLeft: topLeft.plus( this.positionProperty.value ),
-      bottomLeft: bottomLeft.plus( this.positionProperty.value )
+      topLeft: topLeft,
+      bottomLeft: bottomLeft
     };
 
     return shapes;
