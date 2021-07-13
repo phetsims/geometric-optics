@@ -39,7 +39,6 @@ class TargetImage {
         const opticObjectDistance = this.getObjectOpticDistance( objectPosition, opticPosition );
         if ( opticObjectDistance === focalLength ) {
 
-          console.log( 'focalLength is equal to object distance' );
           // the object is located on the focal point. Set the image distance to be very large
           return 10e6;
         }
@@ -141,7 +140,6 @@ class TargetImage {
     if ( objectOpticDistance === 0 ) {
 
       // if the object is right on the lens or mirror, there is no magnification
-      console.log( 'object distance is zero' );
       return 1;
     }
     else {
