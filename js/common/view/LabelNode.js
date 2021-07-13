@@ -80,7 +80,7 @@ class LabelNode extends Node {
 
   /**
    * Set a string for the label
-   * @public
+   * @private
    * @param {string} label
    */
   setText( label ) {
@@ -91,7 +91,7 @@ class LabelNode extends Node {
 
   /**
    * set position and size of label
-   * @public
+   * @private
    */
   setLabelPosition() {
     this.centerTop = this.modelViewTransformProperty.value.modelToViewPosition( this.positionProperty.value ).plusXY( 0, this.options.labelOffset );
@@ -99,7 +99,7 @@ class LabelNode extends Node {
 
   /**
    * set rectangle size and position based on text size
-   * @public
+   * @private
    */
   setRectangleSize() {
     this.backgroundRectangle.setRectWidth( this.text.width + this.options.xMargin * 2 );
