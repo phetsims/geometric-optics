@@ -8,6 +8,7 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Ray2 from '../../../../dot/js/Ray2.js';
+import Line from '../../../../kite/js/segments/Line.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -51,6 +52,8 @@ class LightRay {
 
     const distanceTraveled = HORIZONTAL_SPEED * time;
 
+    this.initialRay = new Ray2( sourcePoint, direction );
+
     // @public (read-only)
     this.realRay = new Shape();
 
@@ -63,26 +66,25 @@ class LightRay {
 
     this.setFirstPoint( sourcePoint, direction, optic, lightRayMode );
 
-    this.opticIntersectionPoints = this.getOpticIntersectionPoints( sourcePoint,
+    this.opticRays = this.getOpticRays( sourcePoint,
       direction,
       optic,
       targetPoint,
       lightRayMode );
 
-    const virtualStartingPoint = isVirtual ? this.getVirtualRayStartingPoint( this.opticIntersectionPoints, optic ) : null;
+    const virtualStartingPoint = isVirtual ?
+                                 this.getVirtualRayStartingPoint( this.opticRays, optic ) : null;
 
     let projectorPoint = null;
     if ( representationProperty.value !== representationProperty.value.isObject ) {
 
-      const emergingRay = ( this.firstPoint ) ?
-                          this.getTransmittedRay( this.firstPoint, targetPoint, optic ) :
-                          new Ray2( sourcePoint, direction );
-      projectorPoint = this.getPointOnProjectorScreen( emergingRay, projectorScreenBisectorLine );
+      const lastRay = this.opticRays[ this.opticRays.length - 1 ];
+      projectorPoint = this.getPointOnProjectorScreen( lastRay, projectorScreenBisectorLine );
 
     }
-    if ( projectorPoint ) {
-      this.points = this.opticIntersectionPoints.push( projectorPoint );
-    }
+
+    // @public {Vector2}
+    this.finalPoint = this.getFinalPointAndRay( distanceTraveled );
 
 
   }
@@ -119,38 +121,43 @@ class LightRay {
    * @param {Optic} optic
    * @param {Vector2} targetPoint
    * @param {LightRayMode} lightRayMode
-   * @returns {Vector2[]} intersectionPoints
+   * @returns {Ray2[]} Rays
    */
-  getOpticIntersectionPoints( sourcePoint,
-                              direction,
-                              optic,
-                              targetPoint,
-                              lightRayMode ) {
+  getOpticRays( sourcePoint,
+                direction,
+                optic,
+                targetPoint,
+                lightRayMode ) {
 
-    const intersectionPoints = [];
+    const rays = [];
+
+    rays.push( this.initialRay );
 
     if ( this.firstPoint ) {
 
       if ( optic.isMirror() || lightRayMode === LightRayMode.PRINCIPAL_RAYS ) {
 
-        intersectionPoints.push( this.firstPoint );
+        rays.push( this.getTransmittedRay( this.firstPoint, targetPoint, optic ) );
       }
       else {
 
-        const initialRay = new Ray2( sourcePoint, direction );
-        const frontIntersection = this.getLensFrontShape( optic ).intersection( initialRay );
+        const frontIntersection = this.getLensFrontShape( optic ).intersection( this.initialRay );
         const frontPoint = this.getPoint( frontIntersection );
 
         const transmittedRay = this.getTransmittedRay( this.firstPoint, targetPoint, optic );
+
         const backIntersection = this.getLensBackShape( optic ).intersection( transmittedRay );
         const backPoint = this.getPoint( backIntersection );
 
         if ( frontPoint && backPoint ) {
-          intersectionPoints.push( frontPoint, backPoint );
+          const internalRay = new Ray2( frontPoint, backPoint.minus( frontPoint ).normalized() );
+
+          const transmittedRay = this.getTransmittedRay( backPoint, targetPoint, optic );
+          rays.push( internalRay, transmittedRay );
         }
       }
     }
-    return intersectionPoints;
+    return rays;
   }
 
   /**
@@ -236,14 +243,15 @@ class LightRay {
 
   /**
    * @private
-   * @param {Vector2[]} opticIntersectionPoints
+   * @param {Ray2[]} opticRays
    * @param {Optic} optic
    * @returns {Vector2|null} startingPoint
    */
-  getVirtualRayStartingPoint( opticIntersectionPoints, optic ) {
+  getVirtualRayStartingPoint( opticRays, optic ) {
 
-    if ( opticIntersectionPoints.length > 0 ) {
-      return opticIntersectionPoints[ opticIntersectionPoints.length - 1 ];
+    if ( opticRays.length > 1 ) {
+      const lastRay = opticRays[ opticRays.length - 1 ];
+      return lastRay.position;
     }
     else {
       return null;
@@ -263,18 +271,63 @@ class LightRay {
 
   /**
    * @private
-   * @param  {number} distance
    */
-  getFinalRealPoint( sourcePoint, distance ) {
-
-    const intersectionPoints = Array.from( this.opticIntersectionPoints );
-    let lightDistance = 0;
-    let firstPoint = sourcePoint;
-    while ( lightDistance < distance ) {
-      const point = intersectionPoints.shift();
-      lightDistance = lightDistance + firstPoint.distance( point );
-      firstPoint = point;
+  convertRaysToLine() {
+    const linesRay = [];
+    for ( let i = 1; i++; i < this.opticRays.length ) {
+      const line = new Line( this.opticRays[ i - 1 ].position, this.opticRays[ i ].position );
+      linesRay.push( line );
     }
+    linesRay.push( this.opticRays[ this.opticRays.length - 1 ] );
+
+    // @public {Line||Ray[]}
+    this.linesRay = linesRay;
+  }
+
+  /**
+   * @private
+   * @param {number} distance
+   * @returns {{point, ray}}
+   */
+  getFinalPointAndRay( distance ) {
+
+    let totalDistance = 0;
+    const numberOfRays = this.opticRays.length;
+
+    let i = 1;
+
+    if ( numberOfRays > 1 ) {
+      while ( totalDistance < distance && i < numberOfRays ) {
+        const additionalDistance = this.opticRays[ i - 1 ].position.distance( this.opticRays[ i ].position );
+        totalDistance = totalDistance + additionalDistance;
+        i++;
+      }
+    }
+
+    const excessDistance = totalDistance - distance;
+
+    if ( excessDistance > 0 ) {
+
+      return {
+        finalPoint: this.opticRays[ i - 2 ].pointAtDistance( excessDistance ),
+        ray: this.opticRays[ i - 2 ]
+      };
+    }
+    else {
+      return {
+        finalPoint: this.opticRays[ i - 1 ].pointAtDistance( -excessDistance ),
+        ray: this.opticRays[ i - 1 ]
+      };
+
+    }
+
+  }
+
+  /**
+   * @private
+   */
+  realRayToShape() {
+
 
   }
 }
