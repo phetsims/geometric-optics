@@ -2,28 +2,25 @@
 
 /**
  * Model element of the Light Ray
+ * A Light Ray is made of several sub rays
  *
  * @author Martin Veillette
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Ray2 from '../../../../dot/js/Ray2.js';
-import Line from '../../../../kite/js/segments/Line.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import LightRayMode from './LightRayMode.js';
-
 
 const HORIZONTAL_SPEED = GeometricOpticsConstants.HORIZONTAL_SPEED;
 
 class LightRay {
 
   /**
-   * @param {Vector2} sourcePoint - the ray's point of origin
-   * @param {Vector2} direction - the ray's unit direction vector
+   * @param {Ray2} initialRay
    * @param {number} time
    * @param {Optic} optic
    * @param {Vector2} targetPoint
@@ -32,10 +29,8 @@ class LightRay {
    * @param {Shape} projectorScreenBisectorLine
    * @param {Property.<Representation>} representationProperty
    * @param {Tandem} tandem
-   * @param {Object} config
    */
-  constructor( sourcePoint,
-               direction,
+  constructor( initialRay,
                time,
                optic,
                targetPoint,
@@ -43,16 +38,11 @@ class LightRay {
                lightRayMode,
                projectorScreenBisectorLine,
                representationProperty,
-               tandem,
-               config ) {
+               tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    config = merge( {}, config );
-
-
-    const distanceTraveled = HORIZONTAL_SPEED * time;
-
-    this.initialRay = new Ray2( sourcePoint, direction );
+    // @private  maximum travel distance for rays
+    this.distanceTraveled = HORIZONTAL_SPEED * time;
 
     // @public (read-only)
     this.realRay = new Shape();
@@ -61,90 +51,96 @@ class LightRay {
     this.virtualRay = new Shape();
 
     // @public (read-only)
-    this.isTargetReachedProperty = new BooleanProperty( false );
+    this.isTargetReached = false;
 
+    // @private {Vector2||null} - a null value implies that the initialRay does not intersect the optic
+    this.firstPoint = this.getFirstPoint( initialRay, optic, lightRayMode );
 
-    this.setFirstPoint( sourcePoint, direction, optic, lightRayMode );
+    // @private {Ray2[]}
+    this.opticRays = this.getOpticRays( initialRay, this.firstPoint, optic, lightRayMode, targetPoint );
 
-    this.opticRays = this.getOpticRays( sourcePoint,
-      direction,
-      optic,
-      targetPoint,
-      lightRayMode );
+    // @public {Vector2||null}
+    this.projectorPoint = null;
 
-    const virtualStartingPoint = isVirtual ?
-                                 this.getVirtualRayStartingPoint( this.opticRays, optic ) : null;
+    // if a projector screen is present, get the point of intersection of the ray and projector screen (if intersecting)
+    if ( !representationProperty.value.isObject ) {
 
-    let projectorPoint = null;
-    if ( representationProperty.value !== representationProperty.value.isObject ) {
-
+      // the projector screen can only intersect with the last ray
       const lastRay = this.opticRays[ this.opticRays.length - 1 ];
-      projectorPoint = this.getPointOnProjectorScreen( lastRay, projectorScreenBisectorLine );
+
+      // @public {Vector2||null} a null value implies that the lastRay is unimpeded.
+      this.projectorPoint = this.getPointOnProjectorScreen( lastRay, projectorScreenBisectorLine );
 
     }
 
-    // @public {Vector2}
-    this.finalPoint = this.getFinalPointAndRay( distanceTraveled );
+    this.distanceArray = this.getDistanceArray( this.opticRays, this.projectorPoint );
 
+
+    // @public {Vector2||null}
+    this.virtualStartingPoint = isVirtual ?
+                                this.getVirtualRayStartingPoint( this.opticRays, optic ) : null;
+
+    this.virtualRayNominalDistance = 0;
+    if ( this.virtualStartingPoint instanceof Vector2 ) {
+      this.virtualRayNominalDistance = this.virtualStartingPoint.distance( targetPoint );
+    }
+
+    this.realRayToShape();
 
   }
 
 
   /**
-   * set the first intersection Point
+   * get the first intersection Point
    *
    * @private
-   * @param {Vector2} sourcePoint
-   * @param {Vector2} direction
+   * @param {Ray2} initialRay
    * @param {Optic} optic
    * @param {LightRayMode} lightRayMode
+   * @returns {Vector2||null}
    */
-  setFirstPoint( sourcePoint,
-                 direction,
+  getFirstPoint( initialRay,
                  optic,
                  lightRayMode ) {
 
-
-    const initialRay = new Ray2( sourcePoint, direction );
     const firstIntersection = this.getFirstShape( optic, lightRayMode ).intersection( initialRay );
 
-    // @public {Vector2|null}
-    this.firstPoint = this.getPoint( firstIntersection );
+    return this.getPoint( firstIntersection );
   }
 
   /**
    * get all the points that intersect with the optic
    *
    * @private
-   * @param {Vector2} sourcePoint
-   * @param {Vector2} direction
+   * @param {Ray2} initialRay
+   * @param {Vector2||null} firstPoint
    * @param {Optic} optic
-   * @param {Vector2} targetPoint
    * @param {LightRayMode} lightRayMode
+   * @param {Vector2} targetPoint
    * @returns {Ray2[]} Rays
    */
-  getOpticRays( sourcePoint,
-                direction,
+  getOpticRays( initialRay,
+                firstPoint,
                 optic,
-                targetPoint,
-                lightRayMode ) {
+                lightRayMode,
+                targetPoint ) {
 
     const rays = [];
 
-    rays.push( this.initialRay );
+    rays.push( initialRay );
 
-    if ( this.firstPoint ) {
+    if ( firstPoint instanceof Vector2 ) {
 
       if ( optic.isMirror() || lightRayMode === LightRayMode.PRINCIPAL_RAYS ) {
 
-        rays.push( this.getTransmittedRay( this.firstPoint, targetPoint, optic ) );
+        rays.push( this.getTransmittedRay( firstPoint, targetPoint, optic ) );
       }
       else {
 
-        const frontIntersection = this.getLensFrontShape( optic ).intersection( this.initialRay );
+        const frontIntersection = this.getLensFrontShape( optic ).intersection( initialRay );
         const frontPoint = this.getPoint( frontIntersection );
 
-        const transmittedRay = this.getTransmittedRay( this.firstPoint, targetPoint, optic );
+        const transmittedRay = this.getTransmittedRay( firstPoint, targetPoint, optic );
 
         const backIntersection = this.getLensBackShape( optic ).intersection( transmittedRay );
         const backPoint = this.getPoint( backIntersection );
@@ -192,7 +188,7 @@ class LightRay {
   getFirstShape( optic,
                  lightRayMode ) {
 
-    if ( lightRayMode === LightRayMode.PRINCIPAL ) {
+    if ( lightRayMode === LightRayMode.PRINCIPAL_RAYS ) {
 
       const opticPoint = optic.positionProperty.value;
 
@@ -271,21 +267,6 @@ class LightRay {
 
   /**
    * @private
-   */
-  convertRaysToLine() {
-    const linesRay = [];
-    for ( let i = 1; i++; i < this.opticRays.length ) {
-      const line = new Line( this.opticRays[ i - 1 ].position, this.opticRays[ i ].position );
-      linesRay.push( line );
-    }
-    linesRay.push( this.opticRays[ this.opticRays.length - 1 ] );
-
-    // @public {Line||Ray[]}
-    this.linesRay = linesRay;
-  }
-
-  /**
-   * @private
    * @param {number} distance
    * @returns {{point, ray}}
    */
@@ -328,7 +309,75 @@ class LightRay {
    */
   realRayToShape() {
 
+    let remainingDistance = this.distanceTraveled;
+    let i = 0;
 
+    while ( remainingDistance > 0 ) {
+      if ( !( this.opticRays[ i ] instanceof Ray2 ) ) {
+        // debugger;
+      }
+      const startingPoint = this.opticRays[ i ].position;
+      const direction = this.opticRays[ i ].direction;
+      const rayDistance = this.distanceArray[ i ];
+
+      let endPoint;
+      if ( remainingDistance - rayDistance > 0 ) {
+        endPoint = this.opticRays[ i ].pointAtDistance( rayDistance );
+        remainingDistance = remainingDistance - rayDistance;
+      }
+      else {
+        endPoint = this.opticRays[ i ].pointAtDistance( remainingDistance );
+        remainingDistance = 0;
+      }
+
+      this.realRay.moveToPoint( startingPoint ).lineToPoint( endPoint );
+
+      if ( this.virtualStartingPoint === startingPoint ) {
+
+        const virtualRay = new Ray2( startingPoint, direction.negated() );
+        const virtualRayDistance = Math.min( this.virtualRayNominalDistance );
+        const virtualEndPoint = virtualRay.pointAtDistance( virtualRayDistance );
+
+        this.virtualRay.moveToPoint( this.virtualStartingPoint ).lineToPoint( virtualEndPoint );
+      }
+      i++;
+    }
+  }
+
+  /**
+   * @private
+   * @param {Ray2[]} opticRays
+   * @param {Vector2||null} screenPoint
+   * @returns {number[]} distances
+   */
+  getDistanceArray( opticRays, screenPoint ) {
+
+    // array of distance travelled by rays
+    const distanceArray = [];
+
+    // number of rays
+    const numberOfRays = this.opticRays.length;
+
+    // loop over the array of rays (excluding the last ray)
+    for ( let i = 0; i < numberOfRays - 1; i++ ) {
+      // determine the length travelled by ray
+      const distance = this.opticRays[ i ].position.distance( this.opticRays[ i + 1 ].position );
+      distanceArray.push( distance );
+    }
+
+    // address the last ray
+
+    // if screePoint is present, find the distance of last ray
+    if ( screenPoint instanceof Vector2 ) {
+      const distance = this.opticRays[ numberOfRays - 1 ].position.distance( screenPoint );
+      distanceArray.push( distance );
+    }
+    else {
+
+      // if there is no screen the ray is not bounded
+      distanceArray.push( Infinity );
+    }
+    return distanceArray;
   }
 }
 

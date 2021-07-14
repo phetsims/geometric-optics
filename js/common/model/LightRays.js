@@ -8,6 +8,7 @@
 
 import Emitter from '../../../../axon/js/Emitter.js';
 import Property from '../../../../axon/js/Property.js';
+import Ray2 from '../../../../dot/js/Ray2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -86,9 +87,10 @@ class LightRays {
 
         directions.forEach( direction => {
 
+          const initialRay = new Ray2( sourcePosition, direction );
+
           // determine the lightRay
-          const lightRay = new LightRay( sourcePosition,
-            direction,
+          const lightRay = new LightRay( initialRay,
             time,
             optic,
             targetPoint,
@@ -99,7 +101,7 @@ class LightRays {
             tandem );
 
 
-          if ( lightRay.isTargetReachedProperty.value ) {
+          if ( lightRay.isTargetReached ) {
             enableImageProperty.value = true;
           }
           // add this new real lightRay to the realRay
