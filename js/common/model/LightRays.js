@@ -86,6 +86,11 @@ class LightRays {
         // {Vector2[]} get the initial directions of the rays
         const directions = this.getRayDirections( sourcePosition, optic, lightRayMode );
 
+        const isProjectorScreenPresent = !representation.isObject;
+
+        // is the light ray mode set to Principal Rays
+        const isPrincipalRayMode = lightRayMode === LightRayMode.PRINCIPAL_RAYS;
+
         directions.forEach( direction => {
 
           const initialRay = new Ray( sourcePosition, direction );
@@ -96,9 +101,9 @@ class LightRays {
             optic,
             targetPoint,
             isVirtual,
-            lightRayMode,
+            isPrincipalRayMode,
+            isProjectorScreenPresent,
             projectorScreen.getBisectorLine.bind( projectorScreen ),
-            representationProperty,
             tandem );
 
 

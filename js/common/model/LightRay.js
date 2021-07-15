@@ -2,7 +2,9 @@
 
 /**
  * Model element of the Light Ray
- * A Light Ray is made of several sub rays
+ * A LightRay is made of several contiguous Rays
+ * A light Ray can fork to have real and virtual ray components.
+ * The lightRay has a flag that determine if it has reached a target
  *
  * @author Martin Veillette
  */
@@ -13,7 +15,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-import LightRayMode from './LightRayMode.js';
 
 const LIGHT_SPEED = GeometricOpticsConstants.LIGHT_SPEED;
 
@@ -25,9 +26,9 @@ class LightRay {
    * @param {Optic} optic
    * @param {Vector2} targetPoint
    * @param {boolean} isVirtual - is the image virtual
-   * @param {LightRayMode} lightRayMode
-   * @param {Function} getProjectorScreenBisectorLine - returns a Shape
-   * @param {Property.<Representation>} representationProperty
+   * @param {boolean} isPrincipalRayMode - is the light ray mode set to Principal rays
+   * @param {boolean} isProjectorScreenPresent - is there a projector screen in the play area
+   * @param {function} getProjectorScreenBisectorLine - returns a Shape
    * @param {Tandem} tandem
    */
   constructor( initialRay,
@@ -35,9 +36,9 @@ class LightRay {
                optic,
                targetPoint,
                isVirtual,
-               lightRayMode,
+               isPrincipalRayMode,
+               isProjectorScreenPresent,
                getProjectorScreenBisectorLine,
-               representationProperty,
                tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
@@ -51,13 +52,10 @@ class LightRay {
     const distanceTraveled = LIGHT_SPEED * time;
 
     // {Vector2|null} - a null value implies that the initialRay does not intersect the optic
-    const firstPoint = this.getFirstPoint( initialRay, optic, lightRayMode );
+    const firstPoint = this.getFirstPoint( initialRay, optic, isPrincipalRayMode );
 
     // @private {Ray[]} - a collection of sequential rays
-    this.realRays = this.getRealRays( initialRay, firstPoint, optic, lightRayMode, targetPoint );
-
-    // is there a projector screen
-    const isProjectorScreenPresent = !representationProperty.value.isObject;
+    this.realRays = this.getRealRays( initialRay, firstPoint, optic, isPrincipalRayMode, targetPoint );
 
     if ( isProjectorScreenPresent ) {
 
@@ -136,14 +134,14 @@ class LightRay {
    * @private
    * @param {Ray} initialRay
    * @param {Optic} optic
-   * @param {LightRayMode} lightRayMode
+   * @param {boolean} isPrincipalRayMode
    * @returns {Vector2|null}
    */
   getFirstPoint( initialRay,
                  optic,
-                 lightRayMode ) {
+                 isPrincipalRayMode ) {
 
-    const firstIntersection = this.getFirstShape( optic, lightRayMode ).intersection( initialRay );
+    const firstIntersection = this.getFirstShape( optic, isPrincipalRayMode ).intersection( initialRay );
 
     return this.getPoint( firstIntersection );
   }
@@ -158,53 +156,61 @@ class LightRay {
    * @param {Ray} initialRay
    * @param {Vector2|null} firstPoint
    * @param {Optic} optic
-   * @param {LightRayMode} lightRayMode
+   * @param {boolean} isPrincipalRayMode
    * @param {Vector2} targetPoint
    * @returns {Ray[]} Rays
    */
   getRealRays( initialRay,
                firstPoint,
                optic,
-               lightRayMode,
+               isPrincipalRayMode,
                targetPoint ) {
 
+    // array to store all the rays
     const rays = [];
-
 
     if ( firstPoint instanceof Vector2 ) {
 
-      if ( optic.isMirror() || lightRayMode === LightRayMode.PRINCIPAL_RAYS ) {
-
-        rays.push( initialRay );
+      if ( optic.isMirror() || isPrincipalRayMode ) {
 
         // update the final point of the initial ray
         initialRay.setFinalPoint( firstPoint );
 
-        // add the transmitted ray
-        rays.push( this.getTransmittedRay( firstPoint, targetPoint, optic ) );
+        // add the initial and transmitted ray
+        rays.push( initialRay, this.getTransmittedRay( firstPoint, targetPoint, optic ) );
       }
       else {
 
         const frontIntersection = this.getLensFrontShape( optic ).intersection( initialRay );
+
+        // {Vector2|null} front shape point intersecting the initial ray
         const frontPoint = this.getPoint( frontIntersection );
+
+        // create a semi infinite ray starting at firstPoint parallel to the target point
         const transmittedRay = this.getTransmittedRay( firstPoint, targetPoint, optic );
 
         const backIntersection = this.getLensBackShape( optic ).intersection( transmittedRay );
+
+        // {Vector2|null} back shape point intersecting the transmitted ray
         const backPoint = this.getPoint( backIntersection );
 
-        if ( frontPoint && backPoint ) {
+        // add rays only if the front and back shapes are intersected
+        if ( frontPoint instanceof Vector2 && backPoint instanceof Vector2 ) {
 
-          rays.push( initialRay );
-
+          // set initial ray final point to be the front point of the lens
           initialRay.setFinalPoint( frontPoint );
 
+          // ray that spans the front  the back of the lens
           const internalRay = new Ray( frontPoint, backPoint.minus( frontPoint ).normalized() );
 
+          // set the internal ray back point
           internalRay.setFinalPoint( backPoint );
 
+          // create a semi-infinite ray, starting at the back point, parallel to target point
           const transmittedRay = this.getTransmittedRay( backPoint, targetPoint, optic );
 
-          rays.push( internalRay, transmittedRay );
+          // add the rays
+          rays.push( initialRay, internalRay, transmittedRay );
         }
       }
     }
@@ -212,6 +218,7 @@ class LightRay {
   }
 
   /**
+   * shape of the curved front (left hand side) of the lens
    * @private
    * @param {Optic} optic
    * @returns {Shape}
@@ -224,6 +231,7 @@ class LightRay {
   }
 
   /**
+   * shape of the curved back (right hand side) of the lens
    * @private
    * @param {Optic} optic
    * @returns {Shape}
@@ -238,14 +246,14 @@ class LightRay {
    * get the shape that the initial ray will intersect
    * @private
    * @param {Optic} optic
-   * @param {LightRayMode} lightRayMode
+   * @param {boolean} isPrincipalRayMode
    * @returns {Shape}
    */
   getFirstShape( optic,
-                 lightRayMode ) {
+                 isPrincipalRayMode ) {
 
     // for principal rays, the rays are refracted at a vertical line
-    if ( lightRayMode === LightRayMode.PRINCIPAL_RAYS ) {
+    if ( isPrincipalRayMode ) {
 
       const opticPoint = optic.positionProperty.value;
 
@@ -270,11 +278,14 @@ class LightRay {
   /**
    * process a point from the intersection
    * returns null if the point cannot be found
+   *
    * @private
-   * @param {Intersection} intersection
+   * @param {Intersection[]} intersection
    * @returns {Vector2|null}
    */
   getPoint( intersection ) {
+
+    // all shapes have been defined as line (straight or curved) so there can only be one intersection point at most
     if ( intersection && intersection[ 0 ] && intersection[ 0 ].point ) {
       return intersection[ 0 ].point;
     }
@@ -370,11 +381,13 @@ class LightRay {
   }
 
   /**
+   * has the light ray a virtual component (virtual ray)
    * @private
    * @returns {boolean}
    */
   hasVirtualComponent( isImageVirtual, realRays ) {
 
+    // is the image virtual and has the real rays refracted
     return isImageVirtual && realRays.length > 1;
   }
 
