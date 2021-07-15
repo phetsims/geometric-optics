@@ -26,8 +26,8 @@ class ShowHideToggleButton extends BooleanRoundToggleButton {
   constructor( visibleProperty, options ) {
     options = merge( {
       baseColor: 'yellow',
-      xMargin: 6,
-      yMargin: 6,
+      xMargin: 9,
+      yMargin: 9,
       radius: BUTTON_RADIUS,
       icon: {
         fill: 'black'
