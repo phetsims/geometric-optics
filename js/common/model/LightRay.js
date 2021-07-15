@@ -255,10 +255,7 @@ class LightRay {
     // for principal rays, the rays are refracted at a vertical line
     if ( isPrincipalRayMode ) {
 
-      const opticPoint = optic.positionProperty.value;
-
-      // a straight vertical line going through the middle of the optic
-      return Shape.lineSegment( opticPoint.x, -5, opticPoint.x, 5 );
+      return optic.getPrincipalLine();
     }
     else if ( optic.isLens() ) {
 

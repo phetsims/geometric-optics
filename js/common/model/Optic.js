@@ -15,6 +15,7 @@ import Matrix3 from '../../../../dot/js/Matrix3.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
+import Shape from '../../../../kite/js/Shape.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -222,6 +223,21 @@ class Optic {
    * @public @abstract
    */
   getFillAndOutlineShapes() { throw new Error( 'must be implemented by subtype' ); }
+
+  /**
+   * Returns the shape of the vertical line
+   * @public
+   * @returns {Shape}
+   */
+  getPrincipalLine() {
+
+    const opticPoint = this.positionProperty.value;
+
+    const yMax = 20;
+
+    // a straight vertical line going through the middle of the optic
+    return Shape.lineSegment( opticPoint.x, yMax, opticPoint.x, -yMax );
+  }
 
   /**
    * returns a shape translated by the model position of the optic

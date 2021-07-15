@@ -7,7 +7,6 @@
  */
 
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
-import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -65,12 +64,12 @@ class OpticNode extends Node {
       lineWidth: options.lineWidth
     } );
 
-    const xPosition = modelViewTransform.modelToViewX( 0 );
-    const opticCenterLine = new Line( xPosition, -2000, xPosition, 3050, {
-      stroke: OPTICAL_CENTER_LINE_STROKE,
-      lineDash: [ 8, 5 ]
-    } );
-
+    // create a vertical dashed line, through the optic - indicating the crossing plane of principal rays.
+    const opticCenterLine = new Path(
+      modelViewTransform.modelToViewShape( optic.getPrincipalLine() ), {
+        stroke: OPTICAL_CENTER_LINE_STROKE,
+        lineDash: [ 8, 5 ]
+      } );
 
     optic.outlineAndFillProperty.link( shapes => {
       this.fillPath.shape = modelViewTransform.modelToViewShape( shapes.fillShape );
