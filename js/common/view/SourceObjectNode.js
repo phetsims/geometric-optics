@@ -130,6 +130,7 @@ class SourceObjectNode extends Node {
       movableNode.removeAllChildren();
       if ( representation.isObject ) {
         movableNode.addChild( SourceObjectNode.createMovablePointIcon() );
+        movableNode.touchArea = movableNode.localBounds.dilated( 10 );
         sourceObjectImage.setScaleMagnitude( OVERALL_SCALE_FACTOR );
 
         // address position of source of light #79
