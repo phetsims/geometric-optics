@@ -7,7 +7,7 @@
  * @author Martin Veillette
  */
 
-import Ray2 from '../../../../dot/js/Ray2.js';
+import Ray from './Ray.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -15,18 +15,18 @@ import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import LightRayMode from './LightRayMode.js';
 
-const HORIZONTAL_SPEED = GeometricOpticsConstants.HORIZONTAL_SPEED;
+const LIGHT_SPEED = GeometricOpticsConstants.LIGHT_SPEED;
 
 class LightRay {
 
   /**
-   * @param {Ray2} initialRay
+   * @param {Ray} initialRay
    * @param {number} time
    * @param {Optic} optic
    * @param {Vector2} targetPoint
-   * @param {boolean} isVirtual
+   * @param {boolean} isVirtual - is the image virtual
    * @param {LightRayMode} lightRayMode
-   * @param {Shape} projectorScreenBisectorLine
+   * @param {Function} getProjectorScreenBisectorLine - returns a Shape
    * @param {Property.<Representation>} representationProperty
    * @param {Tandem} tandem
    */
@@ -36,57 +36,97 @@ class LightRay {
                targetPoint,
                isVirtual,
                lightRayMode,
-               projectorScreenBisectorLine,
+               getProjectorScreenBisectorLine,
                representationProperty,
                tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    // @private  maximum travel distance for rays
-    this.distanceTraveled = HORIZONTAL_SPEED * time;
+    // @public (read-only) - shape of the real rays
+    this.realShape = new Shape();
 
-    // @public (read-only)
-    this.realRay = new Shape();
+    // @public (read-only) - shape of the virtual rays
+    this.virtualShape = new Shape();
 
-    // @public (read-only)
-    this.virtualRay = new Shape();
+    // {number} maximum travel distance if unimpeded
+    const distanceTraveled = LIGHT_SPEED * time;
 
-    // @public (read-only)
-    this.isTargetReached = false;
+    // {Vector2|null} - a null value implies that the initialRay does not intersect the optic
+    const firstPoint = this.getFirstPoint( initialRay, optic, lightRayMode );
 
-    // @private {Vector2||null} - a null value implies that the initialRay does not intersect the optic
-    this.firstPoint = this.getFirstPoint( initialRay, optic, lightRayMode );
+    // @private {Ray[]} - a collection of sequential rays
+    this.realRays = this.getRealRays( initialRay, firstPoint, optic, lightRayMode, targetPoint );
 
-    // @private {Ray2[]}
-    this.opticRays = this.getOpticRays( initialRay, this.firstPoint, optic, lightRayMode, targetPoint );
+    // is there a projector screen
+    const isProjectorScreenPresent = !representationProperty.value.isObject;
 
-    // @public {Vector2||null}
-    this.projectorPoint = null;
+    if ( isProjectorScreenPresent ) {
 
-    // if a projector screen is present, get the point of intersection of the ray and projector screen (if intersecting)
-    if ( !representationProperty.value.isObject ) {
-
-      // the projector screen can only intersect with the last ray
-      const lastRay = this.opticRays[ this.opticRays.length - 1 ];
-
-      // @public {Vector2||null} a null value implies that the lastRay is unimpeded.
-      this.projectorPoint = this.getPointOnProjectorScreen( lastRay, projectorScreenBisectorLine );
-
+      // if the last ray intercepts the projector screen, its final point will be set on the last ray
+      this.setFinalPointProjectorScreen( this.realRays, getProjectorScreenBisectorLine() );
     }
 
-    this.distanceArray = this.getDistanceArray( this.opticRays, this.projectorPoint );
+    // @private {boolean}
+    this.hasVirtualRay = this.hasVirtualComponent( isVirtual, this.realRays );
 
+    // is there a virtual image AND has the lightRay a virtual component
+    if ( this.hasVirtualRay ) {
 
-    // @public {Vector2||null}
-    this.virtualStartingPoint = isVirtual ?
-                                this.getVirtualRayStartingPoint( this.opticRays, optic ) : null;
-
-    this.virtualRayNominalDistance = 0;
-    if ( this.virtualStartingPoint instanceof Vector2 ) {
-      this.virtualRayNominalDistance = this.virtualStartingPoint.distance( targetPoint );
+      // @private {Ray} - there is a maximum of one virtual ray per lightRay
+      this.virtualRay = this.getVirtualRay( this.realRays, targetPoint );
     }
 
-    this.realRayToShape();
+    // @public (read-only)
+    this.isTargetReached = this.getHasReachedTarget(
+      distanceTraveled,
+      isProjectorScreenPresent,
+      targetPoint );
 
+    // process rays to convert them to virtualShape and realShape
+    this.raysToShape( distanceTraveled );
+
+  }
+
+  /**
+   * has the rays reached the target (projector screen or target point)
+   * @private
+   * @param {number} distanceTraveled
+   * @param {boolean} isProjectorScreenPresent
+   * @param {Vector2} targetPoint
+   * @returns {boolean}
+   */
+  getHasReachedTarget( distanceTraveled,
+                       isProjectorScreenPresent,
+                       targetPoint ) {
+
+    let distance = 0;
+
+    if ( isProjectorScreenPresent ) {
+
+      // distance to screen
+      for ( let i = 0; i < this.realRays.length; i++ ) {
+        distance = distance + this.realRays[ i ].getLength();
+      }
+    }
+    else {
+
+      // exclude the last real ray in the calculation of length
+      for ( let i = 0; i < this.realRays.length - 1; i++ ) {
+        distance = distance + this.realRays[ i ].getLength();
+      }
+
+      // if the image is virtual, the target point is along the virtual ray,
+      // otherwise, the target point probably lies along the last real ray
+      const targetRay = this.hasVirtualRay ? this.virtualRay :
+                        this.realRays[ this.realRays.length - 1 ];
+
+      if ( targetRay instanceof Ray ) {
+
+        // add the last bit of distance to the target
+        distance = distance + targetRay.getDistanceTo( targetPoint );
+      }
+    }
+
+    return this.realRays.length > 0 && distanceTraveled > distance;
   }
 
 
@@ -94,10 +134,10 @@ class LightRay {
    * get the first intersection Point
    *
    * @private
-   * @param {Ray2} initialRay
+   * @param {Ray} initialRay
    * @param {Optic} optic
    * @param {LightRayMode} lightRayMode
-   * @returns {Vector2||null}
+   * @returns {Vector2|null}
    */
   getFirstPoint( initialRay,
                  optic,
@@ -109,46 +149,61 @@ class LightRay {
   }
 
   /**
-   * get all the points that intersect with the optic
+   * get all the real rays that form a light ray
+   *
+   * The transmitted ray (last ray) is set to be of infinite length by default
+   * This can be corrected later if the ray is intercepted by a projector screen
    *
    * @private
-   * @param {Ray2} initialRay
-   * @param {Vector2||null} firstPoint
+   * @param {Ray} initialRay
+   * @param {Vector2|null} firstPoint
    * @param {Optic} optic
    * @param {LightRayMode} lightRayMode
    * @param {Vector2} targetPoint
-   * @returns {Ray2[]} Rays
+   * @returns {Ray[]} Rays
    */
-  getOpticRays( initialRay,
-                firstPoint,
-                optic,
-                lightRayMode,
-                targetPoint ) {
+  getRealRays( initialRay,
+               firstPoint,
+               optic,
+               lightRayMode,
+               targetPoint ) {
 
     const rays = [];
 
-    rays.push( initialRay );
 
     if ( firstPoint instanceof Vector2 ) {
 
       if ( optic.isMirror() || lightRayMode === LightRayMode.PRINCIPAL_RAYS ) {
 
+        rays.push( initialRay );
+
+        // update the final point of the initial ray
+        initialRay.setFinalPoint( firstPoint );
+
+        // add the transmitted ray
         rays.push( this.getTransmittedRay( firstPoint, targetPoint, optic ) );
       }
       else {
 
         const frontIntersection = this.getLensFrontShape( optic ).intersection( initialRay );
         const frontPoint = this.getPoint( frontIntersection );
-
         const transmittedRay = this.getTransmittedRay( firstPoint, targetPoint, optic );
 
         const backIntersection = this.getLensBackShape( optic ).intersection( transmittedRay );
         const backPoint = this.getPoint( backIntersection );
 
         if ( frontPoint && backPoint ) {
-          const internalRay = new Ray2( frontPoint, backPoint.minus( frontPoint ).normalized() );
+
+          rays.push( initialRay );
+
+          initialRay.setFinalPoint( frontPoint );
+
+          const internalRay = new Ray( frontPoint, backPoint.minus( frontPoint ).normalized() );
+
+          internalRay.setFinalPoint( backPoint );
 
           const transmittedRay = this.getTransmittedRay( backPoint, targetPoint, optic );
+
           rays.push( internalRay, transmittedRay );
         }
       }
@@ -180,6 +235,7 @@ class LightRay {
   }
 
   /**
+   * get the shape that the initial ray will intersect
    * @private
    * @param {Optic} optic
    * @param {LightRayMode} lightRayMode
@@ -188,6 +244,7 @@ class LightRay {
   getFirstShape( optic,
                  lightRayMode ) {
 
+    // for principal rays, the rays are refracted at a vertical line
     if ( lightRayMode === LightRayMode.PRINCIPAL_RAYS ) {
 
       const opticPoint = optic.positionProperty.value;
@@ -196,18 +253,25 @@ class LightRay {
       return Shape.lineSegment( opticPoint.x, -5, opticPoint.x, 5 );
     }
     else if ( optic.isLens() ) {
+
+      // get the vertical (middle) line spanning the lens
       const staticShape = optic.outlineAndFillProperty.value.middleShape;
+
       return optic.translatedShape( staticShape );
     }
-    else { // isMirror
+    else { // isMirror &&  not principal rays
+
+      // get the first surface of the mirror
       const staticShape = optic.outlineAndFillProperty.value.outlineShape;
       return optic.translatedShape( staticShape );
     }
   }
 
   /**
+   * process a point from the intersection
+   * returns null if the point cannot be found
    * @private
-   * @param intersection
+   * @param {Intersection} intersection
    * @returns {Vector2|null}
    */
   getPoint( intersection ) {
@@ -220,11 +284,13 @@ class LightRay {
   }
 
   /**
+   * returns a semi infinite ray starting at originPoint
+   * The ray is along (or opposite to) the direction of targetPoint
    * @private
    * @param {Vector2} originPoint
    * @param {Vector2} targetPoint
    * @param {Optic} optic
-   * @returns {Ray2}
+   * @returns {Ray}
    */
   getTransmittedRay( originPoint, targetPoint, optic ) {
 
@@ -234,150 +300,142 @@ class LightRay {
     if ( optic.isLens() && direction.x < 0 || optic.isMirror() && direction.x > 0 ) {
       direction.negate();
     }
-    return new Ray2( originPoint, direction );
+    return new Ray( originPoint, direction );
   }
 
   /**
+   * returns a virtual ray that is opposite to the last real ray
+   * If the virtual ray does not exist or does not line up with the target point, it returns null
    * @private
-   * @param {Ray2[]} opticRays
-   * @param {Optic} optic
-   * @returns {Vector2|null} startingPoint
+   * @param {Ray[]} realRays
+   * @param {Vector2} targetPoint
+   * @returns {Ray|null} virtualRay
    */
-  getVirtualRayStartingPoint( opticRays, optic ) {
+  getVirtualRay( realRays, targetPoint ) {
 
-    if ( opticRays.length > 1 ) {
-      const lastRay = opticRays[ opticRays.length - 1 ];
-      return lastRay.position;
+    // to have a virtual ray, the initial ray must be deflected
+    if ( realRays.length > 1 ) {
+
+      // last real ray
+      const lastRay = realRays[ realRays.length - 1 ];
+
+      // virtual ray propagates in the opposite direction to the ray but same initial position
+      const virtualRay = new Ray( lastRay.position, lastRay.direction.negated() );
+
+      // ensure that the virtual ray is along the target point
+      if ( virtualRay.isFinalPointAlongRay( targetPoint, 1e-4 ) ) {
+
+        // set the target point to assign the length of ray
+        virtualRay.setFinalPoint( targetPoint );
+
+        return virtualRay;
+      }
+      else {
+
+        // no virtual ray to return
+        return null;
+      }
     }
     else {
+
+      // no virtual ray to return
       return null;
     }
   }
 
   /**
+   * set the final point of the real ray if it intersects with the vertical median of the projector
    * @private
-   * @param {Ray2} transmittedRay
+   * @param {Ray[]} realRays
    * @param {Shape} projectorScreenBisectorLine
-   * @returns {Vector2|null}
    */
-  getPointOnProjectorScreen( transmittedRay, projectorScreenBisectorLine ) {
-    const intersection = projectorScreenBisectorLine.intersection( transmittedRay );
-    return this.getPoint( intersection );
-  }
+  setFinalPointProjectorScreen( realRays, projectorScreenBisectorLine ) {
 
-  /**
-   * @private
-   * @param {number} distance
-   * @returns {{point, ray}}
-   */
-  getFinalPointAndRay( distance ) {
+    //ensure that real rays has at least one ray
+    if ( realRays.length > 0 ) {
 
-    let totalDistance = 0;
-    const numberOfRays = this.opticRays.length;
+      // the projector screen can only intersect with the last ray
+      const lastRay = realRays[ realRays.length - 1 ];
 
-    let i = 1;
+      const intersection = projectorScreenBisectorLine.intersection( lastRay );
 
-    if ( numberOfRays > 1 ) {
-      while ( totalDistance < distance && i < numberOfRays ) {
-        const additionalDistance = this.opticRays[ i - 1 ].position.distance( this.opticRays[ i ].position );
-        totalDistance = totalDistance + additionalDistance;
-        i++;
+      // {Vector2|null}
+      const pointOnScreen = this.getPoint( intersection );
+
+      // if intersection is found, set the transmittedRay final point
+      if ( pointOnScreen instanceof Vector2 ) {
+        lastRay.setFinalPoint( pointOnScreen );
       }
     }
-
-    const excessDistance = totalDistance - distance;
-
-    if ( excessDistance > 0 ) {
-
-      return {
-        finalPoint: this.opticRays[ i - 2 ].pointAtDistance( excessDistance ),
-        ray: this.opticRays[ i - 2 ]
-      };
-    }
-    else {
-      return {
-        finalPoint: this.opticRays[ i - 1 ].pointAtDistance( -excessDistance ),
-        ray: this.opticRays[ i - 1 ]
-      };
-
-    }
-
   }
 
   /**
    * @private
+   * @returns {boolean}
    */
-  realRayToShape() {
+  hasVirtualComponent( isImageVirtual, realRays ) {
 
-    let remainingDistance = this.distanceTraveled;
+    return isImageVirtual && realRays.length > 1;
+  }
+
+  /**
+   * process all the rays (virtual and real) into shape lines.
+   * @private
+   * @param {number} distanceTraveled
+   *
+   */
+  raysToShape( distanceTraveled ) {
+
+    // distance to travel
+    let remainingDistance = distanceTraveled;
+
+    // counter for real rays
     let i = 0;
 
-    while ( remainingDistance > 0 ) {
-      if ( !( this.opticRays[ i ] instanceof Ray2 ) ) {
-        // debugger;
+    // process until we cover the entire distance  or until we ran out of rays
+    while ( remainingDistance > 0 && i < this.realRays.length ) {
+
+      // ray being processed
+      const currentRay = this.realRays[ i ];
+
+      // determine the distance covered by the line ray
+      const realRayDistance = Math.min( remainingDistance, currentRay.getLength() );
+
+      // update the real shape based on the traveling distance of the ray being processed
+      this.updateShape( this.realShape, currentRay, realRayDistance );
+
+      // wait to process virtual ray until the virtual starting point matches the starting point of the ray being processed
+      if ( this.virtualRay instanceof Ray && this.virtualRay.position === currentRay.position ) {
+
+        // determine the distance of the virtual ray
+        const virtualRayDistance = Math.min( remainingDistance, this.virtualRay.getLength() );
+
+        // update the virtual ray shape based on the virtual ray
+        this.updateShape( this.virtualShape, this.virtualRay, virtualRayDistance );
       }
-      const startingPoint = this.opticRays[ i ].position;
-      const direction = this.opticRays[ i ].direction;
-      const rayDistance = this.distanceArray[ i ];
+      // update the value of the distance remaining
+      remainingDistance = remainingDistance - realRayDistance;
 
-      let endPoint;
-      if ( remainingDistance - rayDistance > 0 ) {
-        endPoint = this.opticRays[ i ].pointAtDistance( rayDistance );
-        remainingDistance = remainingDistance - rayDistance;
-      }
-      else {
-        endPoint = this.opticRays[ i ].pointAtDistance( remainingDistance );
-        remainingDistance = 0;
-      }
-
-      this.realRay.moveToPoint( startingPoint ).lineToPoint( endPoint );
-
-      if ( this.virtualStartingPoint === startingPoint ) {
-
-        const virtualRay = new Ray2( startingPoint, direction.negated() );
-        const virtualRayDistance = Math.min( this.virtualRayNominalDistance );
-        const virtualEndPoint = virtualRay.pointAtDistance( virtualRayDistance );
-
-        this.virtualRay.moveToPoint( this.virtualStartingPoint ).lineToPoint( virtualEndPoint );
-      }
+      // update the realRay counter
       i++;
     }
   }
 
   /**
    * @private
-   * @param {Ray2[]} opticRays
-   * @param {Vector2||null} screenPoint
-   * @returns {number[]} distances
+   *
+   * @param {Shape} shape
+   * @param {Ray} ray
+   * @param {number} travelDistance
    */
-  getDistanceArray( opticRays, screenPoint ) {
+  updateShape( shape, ray, travelDistance ) {
 
-    // array of distance travelled by rays
-    const distanceArray = [];
+    // determine the end point based on the travel distance
+    const endPoint = ray.pointAtDistance( travelDistance );
 
-    // number of rays
-    const numberOfRays = this.opticRays.length;
+    // add line to shape
+    shape.moveToPoint( ray.position ).lineToPoint( endPoint );
 
-    // loop over the array of rays (excluding the last ray)
-    for ( let i = 0; i < numberOfRays - 1; i++ ) {
-      // determine the length travelled by ray
-      const distance = this.opticRays[ i ].position.distance( this.opticRays[ i + 1 ].position );
-      distanceArray.push( distance );
-    }
-
-    // address the last ray
-
-    // if screePoint is present, find the distance of last ray
-    if ( screenPoint instanceof Vector2 ) {
-      const distance = this.opticRays[ numberOfRays - 1 ].position.distance( screenPoint );
-      distanceArray.push( distance );
-    }
-    else {
-
-      // if there is no screen the ray is not bounded
-      distanceArray.push( Infinity );
-    }
-    return distanceArray;
   }
 }
 

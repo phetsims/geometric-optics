@@ -6,6 +6,7 @@
  * @author Martin Veillette
  */
 
+import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Line from '../../../../kite/js/segments/Line.js';
@@ -59,12 +60,6 @@ class ProjectorScreen {
       tandem
     );
 
-    // convenience variable to create a line that splits the middle of the screen vertically
-    const top = MASK_CORNERS.LEFT_TOP.average( MASK_CORNERS.RIGHT_TOP );
-    const bottom = MASK_CORNERS.LEFT_BOTTOM.average( MASK_CORNERS.RIGHT_BOTTOM );
-
-    // @public (read-only) {Shape} vertical line that bisects the middle portion of the screen
-    this.bisectorLine = new Line( top, bottom );
   }
 
   /**
@@ -76,22 +71,44 @@ class ProjectorScreen {
   }
 
   /**
+   * gets the vertical line that bisects the middle portion of the screen
+   * @private
+   * @returns {Shape}
+   */
+  getBisectorLine() {
+
+    // convenience variable to create a line that splits the middle of the screen vertically
+    const top = MASK_CORNERS.LEFT_TOP.average( MASK_CORNERS.RIGHT_TOP );
+    const bottom = MASK_CORNERS.LEFT_BOTTOM.average( MASK_CORNERS.RIGHT_BOTTOM );
+
+    const verticalLine = new Line( top, bottom );
+
+    return this.translatedShape( verticalLine );
+  }
+
+  /**
    * gets the shape of the screen
    * @private
    * @returns {Shape}
    */
   getScreenShape() {
-    const position = this.positionProperty.value;
-    const leftTop = position.plus( MASK_CORNERS.LEFT_TOP );
-    const leftBottom = position.plus( MASK_CORNERS.LEFT_BOTTOM );
-    const rightBottom = position.plus( MASK_CORNERS.RIGHT_BOTTOM );
-    const rightTop = position.plus( MASK_CORNERS.RIGHT_TOP );
-    return new Shape()
-      .moveToPoint( leftTop )
-      .lineToPoint( leftBottom )
-      .lineToPoint( rightBottom )
-      .lineToPoint( rightTop )
+    const screenShape = new Shape()
+      .moveToPoint( MASK_CORNERS.LEFT_TOP )
+      .lineToPoint( MASK_CORNERS.LEFT_BOTTOM )
+      .lineToPoint( MASK_CORNERS.RIGHT_BOTTOM )
+      .lineToPoint( MASK_CORNERS.RIGHT_TOP )
       .close();
+    return this.translatedShape( screenShape );
+  }
+
+  /**
+   * returns a shape translated by the model position of the screenProjector
+   * @public
+   * @param {Shape} shape
+   * @returns {Shape}
+   */
+  translatedShape( shape ) {
+    return shape.transformed( Matrix3.translationFromVector( this.positionProperty.value ) );
   }
 }
 

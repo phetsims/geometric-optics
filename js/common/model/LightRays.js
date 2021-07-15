@@ -8,7 +8,7 @@
 
 import Emitter from '../../../../axon/js/Emitter.js';
 import Property from '../../../../axon/js/Property.js';
-import Ray2 from '../../../../dot/js/Ray2.js';
+import Ray from './Ray.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -81,13 +81,14 @@ class LightRays {
 
         const targetPoint = targetImage.positionProperty.value;
         const isVirtual = targetImage.isVirtual();
+        enableImageProperty.value = false;
 
         // {Vector2[]} get the initial directions of the rays
         const directions = this.getRayDirections( sourcePosition, optic, lightRayMode );
 
         directions.forEach( direction => {
 
-          const initialRay = new Ray2( sourcePosition, direction );
+          const initialRay = new Ray( sourcePosition, direction );
 
           // determine the lightRay
           const lightRay = new LightRay( initialRay,
@@ -96,7 +97,7 @@ class LightRays {
             targetPoint,
             isVirtual,
             lightRayMode,
-            projectorScreen.bisectorLine,
+            projectorScreen.getBisectorLine.bind( projectorScreen ),
             representationProperty,
             tandem );
 
@@ -105,10 +106,10 @@ class LightRays {
             enableImageProperty.value = true;
           }
           // add this new real lightRay to the realRay
-          this.addRayShape( lightRay.realRay, this.realRay );
+          this.addRayShape( lightRay.realShape, this.realRay );
 
           // add this new virtual lightRay to the virtualRay
-          this.addRayShape( lightRay.virtualRay, this.virtualRay );
+          this.addRayShape( lightRay.virtualShape, this.virtualRay );
         } );
 
         this.raysProcessedEmitter.emit();
