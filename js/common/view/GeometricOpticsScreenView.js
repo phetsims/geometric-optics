@@ -331,7 +331,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
   /**
    * Returns the absolute scaling factor measured from the initial zoom level
-   * The abscolute scale returns 1 if the zoom level is the initial zoom level value
+   * The absolute scale returns 1 if the zoom level is the initial zoom level value
    * @public
    * @param {number} zoomLevel
    * @returns {number}
