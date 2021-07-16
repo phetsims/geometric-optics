@@ -133,20 +133,27 @@ class LightRays {
 
     // convenience variables
     const f = optic.focalLengthProperty.value;
-    const h = optic.diameterProperty.value / 2;
     const opticPosition = optic.positionProperty.value;
+
+    // the top of the optic
+    const topPoint = optic.getExtramumPoint( sourcePosition,
+      this.targetImage.positionProperty.value, { location: Optic.Location.TOP } );
+
+    // the bottom of the optic
+    const bottomPoint = optic.getExtramumPoint( sourcePosition,
+      this.targetImage.positionProperty.value, { location: Optic.Location.BOTTOM } );
+
+    // direction of a ray to the top of the optic
+    const topDirection = topPoint.minus( sourcePosition ).normalized();
+
+    // direction of a ray to the bottom of the optic
+    const bottomDirection = bottomPoint.minus( sourcePosition ).normalized();
+
+    // aperture angle from the source to the optic
+    const apertureAngle = topDirection.getAngle() - bottomDirection.getAngle();
 
     // vector from source to optic
     const sourceOpticVector = opticPosition.minus( sourcePosition );
-
-    // vector from source to bottom of Optic
-    const sourceBottomOpticVector = sourceOpticVector.minusXY( 0, h );
-
-    // vector from source to top of optic
-    const sourceTopOpticVector = sourceOpticVector.plusXY( 0, h );
-
-    // aperture angle from the source to the optic
-    const apertureAngle = sourceTopOpticVector.getAngle() - sourceBottomOpticVector.getAngle();
 
     // vector from source to first focal point
     const sourceFirstFocalVector = sourceOpticVector.minusXY( f, 0 );
@@ -156,20 +163,10 @@ class LightRays {
       sourceFirstFocalVector.negate();
     }
 
-
     if ( lightRayMode === LightRayMode.MARGINAL_RAYS ) {
 
       // direction for ray going through the center of optic
       directions.push( sourceOpticVector.normalized() );
-
-      // direction going through the top of the optic
-      const topDirection = optic.getExtramumIncidentDirection( sourcePosition,
-        this.targetImage.positionProperty.value, { location: Optic.Location.TOP } );
-
-      // direction going to the bottom of the optic
-      const bottomDirection = optic.getExtramumIncidentDirection( sourcePosition,
-        this.targetImage.positionProperty.value, { location: Optic.Location.BOTTOM } );
-
 
       directions.push( topDirection, bottomDirection );
     }
@@ -194,7 +191,7 @@ class LightRays {
       const endAngle = -startingAngle;
 
       // number of rays
-      const N = 25;
+      const N = 50;
 
       // Degrees between adjacent arrays
       const deltaTheta = ( endAngle - startingAngle ) / ( N - 1 );

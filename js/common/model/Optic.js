@@ -19,7 +19,6 @@ import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import Guide from '../../lens/model/Guide.js';
 
 class Optic {
 
@@ -246,65 +245,74 @@ class Optic {
   }
 
   /**
+   * returns the most extreme position within the optic that would ensure that a ray would
+   * be transmitted  (or reflected).
+   * (see #111)
+   *
    * @public
    * @param {Vector2} sourcePoint
    * @param {Vector2} targetPoint
    * @param {Object} [options]
+   * @returns {Vector2}
    */
-  getExtramumIncidentDirection( sourcePoint, targetPoint, options ) {
+  getExtramumPoint( sourcePoint, targetPoint, options ) {
     options = merge( {
       location: Optic.Location.TOP
     }, options );
 
-    const isTop = ( options.location === Optic.Location.TOP );
-    const isConcave = this.isConcave( this.getCurve() );
-
-    // erode the bounds a tiny bit such that such that the direction is always valid even with numerical error
+    // erode the bounds a tiny bit such that such that the point is always within the bounds
     const opticBounds = this.getOpticBounds().erodedY( 1e-6 );
 
+    // convenience variables
+    const isTop = ( options.location === Optic.Location.TOP );
+    const isConcave = this.isConcave( this.getCurve() );
     const leftPoint = isTop ? opticBounds.leftTop : opticBounds.leftBottom;
     const rightPoint = isTop ? opticBounds.rightTop : opticBounds.rightBottom;
     const centerPoint = isTop ? opticBounds.centerTop : opticBounds.centerBottom;
-
     const opticPoint = this.positionProperty.value;
 
-    let direction;
+    // extrema point along the direction of the ray - may not be on the optic itself
+    let spotPoint;
+
     if ( this.isMirror() ) {
-      if ( isConcave ) {
-        direction = leftPoint.minus( sourcePoint ).normalized();
-      }
-      else {
-        direction = rightPoint.minus( sourcePoint ).normalized();
-      }
+
+      // since mirror reflect light, the spot point on the mirror itself
+      spotPoint = isConcave ? leftPoint : rightPoint;
     }
     else {
+      // must be lens
+
       if ( isConcave ) {
 
         // displacement vector from targetPoint to the right corner of the lens
         const rightTarget = rightPoint.minus( targetPoint );
 
-        // displacement vector from source point to the left corner of the lens
+        // displacement vector from sourcePoint to the left corner of the lens
         const leftSource = leftPoint.minus( sourcePoint );
 
+        // yOffset (from center of lens) of a ray directed from targetPoint to the right corner of lens
+        const yOffset1 = ( rightPoint.y - opticPoint.y ) + ( opticPoint.x - rightPoint.x ) *
+                         rightTarget.y / rightTarget.x;
 
-        // y position of a ray directed from targetPoint to the right corner of lens
-        const rightY = ( rightPoint.y - opticPoint.y ) + ( opticPoint.x - rightPoint.x ) * rightTarget.y / rightTarget.x;
+        // yOffset (from center of lens) of a ray directed from targetPoint to the right corner of lens
+        const yOffset2 = ( leftPoint.y - opticPoint.y ) + ( opticPoint.x - leftPoint.x ) * leftSource.y / leftSource.x;
 
-        // y position of a ray directed from targetPoint to the right corner of lens
-        const leftY = ( leftPoint.y - opticPoint.y ) + ( opticPoint.x - leftPoint.x ) * leftSource.y / leftSource.x;
+        // find the smallest offset to ensure that a ray will always hit both front and back surfaces
+        const offsetY = Math.abs( yOffset1 ) < Math.abs( yOffset2 ) ? yOffset1 : yOffset2;
 
-
-        const isInside = Math.abs( rightY ) > Math.abs( leftY );
-        const offsetY = isInside ? leftY : rightY;
-
-        direction = opticPoint.plusXY( 0, offsetY ).minus( sourcePoint ).normalized();
+        // get the direction of the ray as measured from the source
+        spotPoint = opticPoint.plusXY( 0, offsetY );
       }
 
       else {
-        direction = centerPoint.minus( sourcePoint ).normalized();
+        // must be a convex lens
+
+        // spot is based on the edge point (which is centered horizontally on the optic)
+        spotPoint = centerPoint;
       }
     }
-    return direction;
+
+    return spotPoint;
   }
 }
 
@@ -318,9 +326,9 @@ Optic.Curve = Enumeration.byKeys( [
   'CONCAVE'
 ] );
 
-Optic.Location = Enumeration.byKeys(
-  [ 'TOP',
-    'BOTTOM' ] );
+Optic.Location = Enumeration.byKeys( [
+  'TOP',
+  'BOTTOM' ] );
 
 geometricOptics.register( 'Optic', Optic );
 export default Optic;
