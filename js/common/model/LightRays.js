@@ -8,6 +8,7 @@
 
 import Emitter from '../../../../axon/js/Emitter.js';
 import Property from '../../../../axon/js/Property.js';
+import Ray from './Ray.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -24,7 +25,7 @@ class LightRays {
    * @param {Property.<boolean>} enableImageProperty
    * @param {Property.<Representation>} representationProperty
    * @param {Property.<Vector2>} sourceObjectPositionProperty
-   * @param {Property.<Vector2>} projectorScreenPositionProperty
+   * @param {ProjectorScreen} projectorScreen
    * @param {Optic} optic
    * @param {TargetImage} targetImage
    * @param {Tandem} tandem
@@ -34,7 +35,7 @@ class LightRays {
                enableImageProperty,
                representationProperty,
                sourceObjectPositionProperty,
-               projectorScreenPositionProperty,
+               projectorScreen,
                optic,
                targetImage, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
@@ -67,7 +68,7 @@ class LightRays {
         lightRayModeProperty,
         timeProperty,
         representationProperty,
-        projectorScreenPositionProperty,
+        projectorScreen.positionProperty,
         optic.positionProperty,
         optic.diameterProperty,
         optic.focalLengthProperty,
@@ -81,36 +82,40 @@ class LightRays {
 
         const targetPoint = targetImage.positionProperty.value;
         const isVirtual = targetImage.isVirtual();
+        enableImageProperty.value = false;
 
         // {Vector2[]} get the initial directions of the rays
         const directions = this.getRayDirections( sourcePosition, optic, lightRayMode );
 
-        let lightRayOptions = {};
-        if ( !representation.isObject ) {
-          lightRayOptions = { finalX: projectorScreenPositionProperty.value.x };
-        }
+        const isProjectorScreenPresent = !representation.isObject;
+
+        // is the light ray mode set to Principal Rays
+        const isPrincipalRayMode = lightRayMode === LightRayMode.PRINCIPAL_RAYS;
+
         directions.forEach( direction => {
 
+          const initialRay = new Ray( sourcePosition, direction );
+
           // determine the lightRay
-          const lightRay = new LightRay( sourcePosition,
-            direction,
+          const lightRay = new LightRay( initialRay,
             time,
             optic,
             targetPoint,
             isVirtual,
-            lightRayMode,
-            tandem,
-            lightRayOptions );
+            isPrincipalRayMode,
+            isProjectorScreenPresent,
+            projectorScreen.getBisectorLine.bind( projectorScreen ),
+            tandem );
 
 
-          if ( lightRay.isTargetReachedProperty.value ) {
+          if ( lightRay.isTargetReached ) {
             enableImageProperty.value = true;
           }
           // add this new real lightRay to the realRay
-          this.addRayShape( lightRay.realRay, this.realRay );
+          this.addRayShape( lightRay.realShape, this.realRay );
 
           // add this new virtual lightRay to the virtualRay
-          this.addRayShape( lightRay.virtualRay, this.virtualRay );
+          this.addRayShape( lightRay.virtualShape, this.virtualRay );
         } );
 
         this.raysProcessedEmitter.emit();

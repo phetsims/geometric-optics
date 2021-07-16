@@ -6,6 +6,10 @@
  * @author Martin Veillette
  */
 
+import Matrix3 from '../../../../dot/js/Matrix3.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import Vector2Property from '../../../../dot/js/Vector2Property.js';
+import Line from '../../../../kite/js/segments/Line.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
@@ -17,15 +21,13 @@ const MASK_CORNERS = GeometricOpticsConstants.MASK_CORNERS;
 class ProjectorScreen {
 
   /**
-   * @param {Property.<Vector2>} projectorScreenPositionProperty
    * @param {Property.<Vector2>} opticPositionProperty
    * @param {Property.<number>} opticDiameterProperty
    * @param {Property.<Vector2>} targetImagePositionProperty
    * @param {Property.<Vector2>} movableImagePositionProperty
    * @param {Tandem} tandem
    */
-  constructor( projectorScreenPositionProperty,
-               opticPositionProperty,
+  constructor( opticPositionProperty,
                opticDiameterProperty,
                targetImagePositionProperty,
                movableImagePositionProperty,
@@ -33,7 +35,7 @@ class ProjectorScreen {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     // @public {Property.<Vector2>} position of the center of the screen
-    this.positionProperty = projectorScreenPositionProperty;
+    this.positionProperty = new Vector2Property( new Vector2( 2, 0 ) );
 
     // @public (read-only) {Property.<Vector2>} position of the optic
     this.opticPositionProperty = opticPositionProperty;
@@ -57,6 +59,7 @@ class ProjectorScreen {
       this.getScreenShape.bind( this ),
       tandem
     );
+
   }
 
   /**
@@ -68,22 +71,44 @@ class ProjectorScreen {
   }
 
   /**
+   * gets the vertical line that bisects the middle portion of the screen
+   * @private
+   * @returns {Shape}
+   */
+  getBisectorLine() {
+
+    // convenience variable to create a line that splits the middle of the screen vertically
+    const top = MASK_CORNERS.LEFT_TOP.average( MASK_CORNERS.RIGHT_TOP );
+    const bottom = MASK_CORNERS.LEFT_BOTTOM.average( MASK_CORNERS.RIGHT_BOTTOM );
+
+    const verticalLine = new Line( top, bottom );
+
+    return this.translatedShape( verticalLine );
+  }
+
+  /**
    * gets the shape of the screen
    * @private
    * @returns {Shape}
    */
   getScreenShape() {
-    const position = this.positionProperty.value;
-    const leftTop = position.plus( MASK_CORNERS.LEFT_TOP );
-    const leftBottom = position.plus( MASK_CORNERS.LEFT_BOTTOM );
-    const rightBottom = position.plus( MASK_CORNERS.RIGHT_BOTTOM );
-    const rightTop = position.plus( MASK_CORNERS.RIGHT_TOP );
-    return new Shape()
-      .moveToPoint( leftTop )
-      .lineToPoint( leftBottom )
-      .lineToPoint( rightBottom )
-      .lineToPoint( rightTop )
+    const screenShape = new Shape()
+      .moveToPoint( MASK_CORNERS.LEFT_TOP )
+      .lineToPoint( MASK_CORNERS.LEFT_BOTTOM )
+      .lineToPoint( MASK_CORNERS.RIGHT_BOTTOM )
+      .lineToPoint( MASK_CORNERS.RIGHT_TOP )
       .close();
+    return this.translatedShape( screenShape );
+  }
+
+  /**
+   * returns a shape translated by the model position of the screenProjector
+   * @public
+   * @param {Shape} shape
+   * @returns {Shape}
+   */
+  translatedShape( shape ) {
+    return shape.transformed( Matrix3.translationFromVector( this.positionProperty.value ) );
   }
 }
 

@@ -12,9 +12,9 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
+import ProjectorScreen from '../../lens/model/ProjectorScreen.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import FocalPoint from './FocalPoint.js';
 import LightRayMode from './LightRayMode.js';
@@ -57,8 +57,6 @@ class GeometricOpticsModel {
       vertical: new Ruler( new Vector2( 100, 300 ), VERTICAL_RULER_LENGTH, { orientation: Ruler.Orientation.VERTICAL } )
     };
 
-    // @public Position of the screen (see #13)
-    this.projectorScreenPositionProperty = new Vector2Property( new Vector2( 2, 0 ) );
   }
 
 
@@ -75,6 +73,7 @@ class GeometricOpticsModel {
     this.timeProperty.reset();
     this.enableImageProperty.reset();
     this.enableMovableImageProperty.reset();
+    this.projectorScreen.reset();
   }
 
 
@@ -112,13 +111,20 @@ class GeometricOpticsModel {
     // @public {TargetImage} movable target/ image
     this.movableTargetImage = new TargetImage( this.sourceObject.movablePositionProperty, optic, tandem );
 
+    // @public {ProjectorScreen}
+    this.projectorScreen = new ProjectorScreen(
+      optic.positionProperty,
+      optic.diameterProperty,
+      this.targetImage.positionProperty,
+      this.movableTargetImage.positionProperty, tandem );
+
     // @public {LightRays} model of the light rays
     this.lightRays = new LightRays( this.timeProperty,
       this.lightRayModeProperty,
       this.enableImageProperty,
       this.representationProperty,
       this.sourceObject.positionProperty,
-      this.projectorScreenPositionProperty,
+      this.projectorScreen,
       optic,
       this.targetImage,
       tandem );
@@ -129,7 +135,7 @@ class GeometricOpticsModel {
       this.enableMovableImageProperty,
       this.representationProperty,
       this.sourceObject.movablePositionProperty,
-      this.projectorScreenPositionProperty,
+      this.projectorScreen,
       optic,
       this.movableTargetImage,
       tandem );
