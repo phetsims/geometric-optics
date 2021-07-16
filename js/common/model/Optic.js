@@ -16,8 +16,10 @@ import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
+import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
+import Guide from '../../lens/model/Guide.js';
 
 class Optic {
 
@@ -233,6 +235,77 @@ class Optic {
     return shape.transformed( Matrix3.translationFromVector( this.getPosition() ) );
   }
 
+  /**
+   * @public
+   * @returns {Bounds2}
+   */
+  getOpticBounds() {
+    const outlineShape = this.outlineAndFillProperty.value.outlineShape;
+    const translatedShape = this.translatedShape( outlineShape );
+    return translatedShape.getBounds();
+  }
+
+  /**
+   * @public
+   * @param {Vector2} sourcePoint
+   * @param {Vector2} targetPoint
+   * @param {Object} [options]
+   */
+  getExtramumIncidentDirection( sourcePoint, targetPoint, options ) {
+    options = merge( {
+      location: Optic.Location.TOP
+    }, options );
+
+    const isTop = ( options.location === Optic.Location.TOP );
+    const isConcave = this.isConcave( this.getCurve() );
+
+    // erode the bounds a tiny bit such that such that the direction is always valid even with numerical error
+    const opticBounds = this.getOpticBounds().erodedY( 1e-6 );
+
+    const leftPoint = isTop ? opticBounds.leftTop : opticBounds.leftBottom;
+    const rightPoint = isTop ? opticBounds.rightTop : opticBounds.rightBottom;
+    const centerPoint = isTop ? opticBounds.centerTop : opticBounds.centerBottom;
+
+    const opticPoint = this.positionProperty.value;
+
+    let direction;
+    if ( this.isMirror() ) {
+      if ( isConcave ) {
+        direction = leftPoint.minus( sourcePoint ).normalized();
+      }
+      else {
+        direction = rightPoint.minus( sourcePoint ).normalized();
+      }
+    }
+    else {
+      if ( isConcave ) {
+
+        // displacement vector from targetPoint to the right corner of the lens
+        const rightTarget = rightPoint.minus( targetPoint );
+
+        // displacement vector from source point to the left corner of the lens
+        const leftSource = leftPoint.minus( sourcePoint );
+
+
+        // y position of a ray directed from targetPoint to the right corner of lens
+        const rightY = ( rightPoint.y - opticPoint.y ) + ( opticPoint.x - rightPoint.x ) * rightTarget.y / rightTarget.x;
+
+        // y position of a ray directed from targetPoint to the right corner of lens
+        const leftY = ( leftPoint.y - opticPoint.y ) + ( opticPoint.x - leftPoint.x ) * leftSource.y / leftSource.x;
+
+
+        const isInside = Math.abs( rightY ) > Math.abs( leftY );
+        const offsetY = isInside ? leftY : rightY;
+
+        direction = opticPoint.plusXY( 0, offsetY ).minus( sourcePoint ).normalized();
+      }
+
+      else {
+        direction = centerPoint.minus( sourcePoint ).normalized();
+      }
+    }
+    return direction;
+  }
 }
 
 Optic.Type = Enumeration.byKeys( [
@@ -244,6 +317,10 @@ Optic.Curve = Enumeration.byKeys( [
   'CONVEX',
   'CONCAVE'
 ] );
+
+Optic.Location = Enumeration.byKeys(
+  [ 'TOP',
+    'BOTTOM' ] );
 
 geometricOptics.register( 'Optic', Optic );
 export default Optic;

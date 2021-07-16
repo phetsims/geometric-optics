@@ -14,6 +14,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import LightRay from './LightRay.js';
 import LightRayMode from './LightRayMode.js';
+import Optic from './Optic.js';
 
 class LightRays {
 
@@ -158,47 +159,29 @@ class LightRays {
 
     if ( lightRayMode === LightRayMode.MARGINAL_RAYS ) {
 
-      // ray going through the optic
+      // direction for ray going through the center of optic
       directions.push( sourceOpticVector.normalized() );
 
-      if ( optic.isMirror() ) {
-        // vector from source to bottom of Optic
-        const sourceTopLeftOpticVector = sourceOpticVector.plus( optic.outlineAndFillProperty.value.topLeft );
+      // direction going through the top of the optic
+      const topDirection = optic.getExtramumIncidentDirection( sourcePosition,
+        this.targetImage.positionProperty.value, { location: Optic.Location.TOP } );
 
-        // vector from source to top of optic
-        const sourceBottomLeftOpticVector = sourceOpticVector.plus( optic.outlineAndFillProperty.value.bottomLeft );
+      // direction going to the bottom of the optic
+      const bottomDirection = optic.getExtramumIncidentDirection( sourcePosition,
+        this.targetImage.positionProperty.value, { location: Optic.Location.BOTTOM } );
 
-        // ray at the top of optic
-        directions.push( sourceTopLeftOpticVector.minusXY( 0, 1e-4 ).normalized() );
 
-        // ray going through the optic
-        directions.push( sourceBottomLeftOpticVector.plusXY( 0, 1e-4 ).normalized() );
-
-      }
-      else if ( optic.isLens() && optic.isConvex( optic.getCurve() ) ) {
-        // ray at the top of optic
-        directions.push( sourceTopOpticVector.minusXY( 0, 1e-4 ).normalized() );
-
-        // ray going through the bottom of the optic
-        directions.push( sourceBottomOpticVector.plusXY( 0, 1e-4 ).normalized() );
-      }
-      else {
-        // ray at the top of optic
-        directions.push( sourceTopOpticVector.minusXY( 0, 1e-1 ).normalized() );
-
-        // ray going through the bottom of the optic
-        directions.push( sourceBottomOpticVector.plusXY( 0, 1e-1 ).normalized() );
-      }
+      directions.push( topDirection, bottomDirection );
     }
     else if ( lightRayMode === LightRayMode.PRINCIPAL_RAYS ) {
 
-      // horizontal ray
+      // horizontal direction
       directions.push( new Vector2( 1, 0 ) );
 
-      // ray going through the optic
+      // direction for ray going through the center of optic
       directions.push( sourceOpticVector.normalized() );
 
-      // ray going through the focal point
+      // direction for ray going through the focal point
       directions.push( sourceFirstFocalVector.normalized() );
 
     }
@@ -210,7 +193,7 @@ class LightRays {
       // symmetric condition for end angle
       const endAngle = -startingAngle;
 
-      // Number of rays
+      // number of rays
       const N = 25;
 
       // Degrees between adjacent arrays
