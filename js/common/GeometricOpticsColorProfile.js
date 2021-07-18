@@ -6,128 +6,128 @@
  * @author Martin Veillette
  */
 
-import ColorProfile from '../../../scenery-phet/js/ColorProfile.js';
+import ProfileColorProperty from '../../../scenery/js/util/ProfileColorProperty.js';
 import geometricOptics from '../geometricOptics.js';
 
-const GeometricOpticsColorProfile = new ColorProfile( [ 'default' ], {
+const GeometricOpticsColorProfile = {
 
 
   //--------------------------------------------------------------------------
   //                                SCREEN
 
-  screenBackgroundColor: {
+  screenBackgroundColorProperty: new ProfileColorProperty( 'screenBackgroundColor', {
     default: 'rgb(27,27,96)' // dark blue
-  },
+  } ),
 
   //--------------------------------------------------------------------------
   //                                 LENS
 
-  lensFill: {
+  lensFillProperty: new ProfileColorProperty( 'lensFill', {
     default: 'rgb(100, 100, 245)'
-  },
+  } ),
 
-  lensStroke: {
+  lensStrokeProperty: new ProfileColorProperty( 'lensStroke', {
     default: 'rgb(255, 255, 255)'
-  },
+  } ),
 
-  lensMidStroke: {
+  lensMidStrokeProperty: new ProfileColorProperty( 'lensMidStroke', {
     default: 'rgb(255, 255, 255)'
-  },
+  } ),
 
   //--------------------------------------------------------------------------
   //                                 MIRROR
 
-  mirrorFill: {
+  mirrorFillProperty: new ProfileColorProperty( 'mirrorFill', {
     default: 'rgb(100, 100, 245)'
-  },
+  } ),
 
-  mirrorStroke: {
+  mirrorStrokeProperty: new ProfileColorProperty( 'mirrorStroke', {
     default: 'rgb(255, 255, 255)'
-  },
+  } ),
 
   //--------------------------------------------------------------------------
   //                                 FOCAL POINT
 
-  focalPointFill: {
+  focalPointFillProperty: new ProfileColorProperty( 'focalPointFill', {
     default: 'rgb(255, 255, 0)'
-  },
+  } ),
 
-  focalPointStroke: {
+  focalPointStrokeProperty: new ProfileColorProperty( 'focalPointStroke', {
     default: 'rgb(255, 255, 0)'
-  },
+  } ),
 
   //--------------------------------------------------------------------------
   //                           OPTICAL AXIS
 
-  opticalAxisStroke: {
+  opticalAxisStrokeProperty: new ProfileColorProperty( 'opticalAxisStroke', {
     default: 'rgb(133,133,182)'
-  },
+  } ),
 
   //--------------------------------------------------------------------------
   //                             OBJECT
 
-  movablePointFill: {
+  movablePointFillProperty: new ProfileColorProperty( 'movablePointFill', {
     default: 'red'
-  },
-  movablePointStroke: {
+  } ),
+  movablePointStrokeProperty: new ProfileColorProperty( 'movablePointStroke', {
     default: 'black'
-  },
+  } ),
 
   //--------------------------------------------------------------------------
   //                              RAYS
 
-  virtualRayOneStroke: {
+  virtualRayOneStrokeProperty: new ProfileColorProperty( 'virtualRayOneStroke', {
     default: 'rgb(59,177,122)'
-  },
+  } ),
 
-  virtualRayTwoStroke: {
+  virtualRayTwoStrokeProperty: new ProfileColorProperty( 'virtualRayTwoStroke', {
     default: 'rgb(238,106,205)'
-  },
+  } ),
 
-  realRayOneStroke: {
+  realRayOneStrokeProperty: new ProfileColorProperty( 'realRayOneStroke', {
     default: 'rgb(160,226,195)'
-  },
+  } ),
 
-  realRayTwoStroke: {
+  realRayTwoStrokeProperty: new ProfileColorProperty( 'realRayTwoStroke', {
     default: 'rgb(255,207,232)'
-  },
+  } ),
 
   //--------------------------------------------------------------------------
   //                     PROJECTOR SCREEN (BLACKBOARD)
 
-  projectorScreenSpotlightFill: {
+  projectorScreenSpotlightFillProperty: new ProfileColorProperty( 'projectorScreenSpotlightFill', {
     default: 'yellow'
-  },
+  } ),
 
   //--------------------------------------------------------------------------
   //                              LABELS
 
-  labelBackgroundFill: {
+  labelBackgroundFillProperty: new ProfileColorProperty( 'labelBackgroundFill', {
     default: 'rgb(27,27,96)'
-  },
+  } ),
 
 
   //--------------------------------------------------------------------------
   //                              GUIDES
 
-  guidesFill: {
+  guidesFillProperty: new ProfileColorProperty( 'guidesFill', {
     default: 'rgb(255, 255, 0)'
-  },
-  guidesStroke: {
+  } ),
+  guidesStrokeProperty: new ProfileColorProperty( 'guidesStroke', {
     default: 'rgb(255, 0, 0)'
-  },
+  } ),
 
   //--------------------------------------------------------------------------
   //                           CONTROL PANEL
 
-  panelStroke: {
+  panelStrokeProperty: new ProfileColorProperty( 'panelStroke', {
     default: 'rgb(217,205,205)'
-  },
-  panelFill: {
+  } ),
+  panelFillProperty: new ProfileColorProperty( 'panelFill', {
     default: 'rgb(240,234,227)'
-  }
+  } )
 
-} );
+};
 
 geometricOptics.register( 'GeometricOpticsColorProfile', GeometricOpticsColorProfile );
 export default GeometricOpticsColorProfile;
