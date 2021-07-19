@@ -14,6 +14,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
+import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
@@ -22,6 +23,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsColorProfile from '../geometricOpticsColorProfile.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import Representation from '../model/Representation.js';
 
 const MOVABLE_POINT_OPTIONS = GeometricOpticsConstants.MOVABLE_POINT_OPTIONS;
 const MOVABLE_POINT_FILL = geometricOpticsColorProfile.movablePointFillProperty;
@@ -29,6 +31,14 @@ const MOVABLE_POINT_STROKE = geometricOpticsColorProfile.movablePointStrokePrope
 
 const OVERALL_SCALE_FACTOR = 0.5;
 const OFFSET_VECTOR = new Vector2( 0.16, -0.19 );
+const CUEING_ARROW_LENGTH = 20;
+const CUEING_ARROW_OPTIONS = {
+  fill: 'rgb( 100, 200, 255 )',
+  tailWidth: 8,
+  headWidth: 14,
+  headHeight: 6,
+  cursor: 'pointer'
+};
 
 class SourceObjectNode extends Node {
 
@@ -44,15 +54,20 @@ class SourceObjectNode extends Node {
                sourceObject,
                visibleMovablePointProperty,
                visibleModelBoundsProperty,
-               modelViewTransform, tandem ) {
+               modelViewTransform,
+               tandem ) {
+
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+
     super();
 
     // representation (image)  of the source/object. the source/object is upright and right facing
     const sourceObjectImage = new Image( representationProperty.value.rightFacingUpright, { scale: OVERALL_SCALE_FACTOR } );
 
+    // {Property.<Vector2>} position to track the left top position of this node in model coordinates.
     this.leftTopModelPositionProperty = new Vector2Property( sourceObject.getPosition().minus( OFFSET_VECTOR ) );
 
+    // add the representation to this node
     this.addChild( sourceObjectImage );
 
     // TODO: the model should give its size to the view rather than the other way around.
@@ -64,11 +79,10 @@ class SourceObjectNode extends Node {
     // keep at least half of the projector screen within visible bounds and right of the optic
     const dragBoundsProperty = new DerivedProperty( [ visibleModelBoundsProperty ],
       visibleBounds => {
-        const viewBounds = new Bounds2( visibleBounds.minX,
+        return new Bounds2( visibleBounds.minX,
           visibleBounds.minY + modelChildHeight / 2,
           sourceObject.getOpticPosition().x - modelChildWidth,
           visibleBounds.maxY + modelChildHeight / 2 );
-        return viewBounds;
       } );
 
     // create drag listener for source
@@ -83,7 +97,9 @@ class SourceObjectNode extends Node {
       this.leftTopModelPositionProperty.value = dragBounds.closestPointTo( this.leftTopModelPositionProperty.value );
     } );
 
+    // add the drag listener to the image representation
     sourceObjectImage.addInputListener( sourceObjectDragListener );
+
 
     this.leftTopModelPositionProperty.link( position => {
 
@@ -100,13 +116,40 @@ class SourceObjectNode extends Node {
       }
     } );
 
+    // create a node to hold the second source
     const movableNode = new Node();
 
+    // Property for the position of the movable node
     const movableCirclePositionProperty = new Vector2Property( sourceObject.movablePositionProperty.value );
 
+    // create the icon for second source (for object source)
+    const circleIcon = SourceObjectNode.createMovablePointIcon();
+
+    // create a layer to host the cueing arrows
+    this.cueingArrowsLayer = new Node();
+
+    // create and add curing arrow
+    const upArrowNode = new ArrowNode( 0, 0, 0, -CUEING_ARROW_LENGTH, CUEING_ARROW_OPTIONS );
+    const downArrowNode = new ArrowNode( 0, 0, 0, +CUEING_ARROW_LENGTH, CUEING_ARROW_OPTIONS );
+    upArrowNode.bottom = circleIcon.top - 10;
+    downArrowNode.top = circleIcon.bottom + 10;
+    this.cueingArrowsLayer.addChild( upArrowNode );
+    this.cueingArrowsLayer.addChild( downArrowNode );
+
+    // create the light image for the second source
+    const movableImage = new Image( Representation.LIGHT.source, { scale: OVERALL_SCALE_FACTOR } );
+
+    // create drag listener for second source
     const movablePointDragListener = new DragListener( {
       positionProperty: movableCirclePositionProperty,
-      transform: modelViewTransform
+      transform: modelViewTransform,
+      end: () => {
+        if ( representationProperty.value.isObject ) {
+
+          // turn off visibility of cueing arrow (see #81) after end event
+          this.cueingArrowsLayer.visible = false;
+        }
+      }
     } );
 
     movableNode.addInputListener( movablePointDragListener );
@@ -124,13 +167,20 @@ class SourceObjectNode extends Node {
       }
     }
 
+
     representationProperty.link( representation => {
       sourceObjectImage.image = representation.rightFacingUpright;
 
+      // remove all children to the movable node
       movableNode.removeAllChildren();
+
       if ( representation.isObject ) {
-        movableNode.addChild( SourceObjectNode.createMovablePointIcon() );
-        movableNode.touchArea = movableNode.localBounds.dilated( 10 );
+
+        // add circle and cueing arrows
+        movableNode.addChild( circleIcon );
+        movableNode.touchArea = circleIcon.bounds.dilated( 10 );
+        movableNode.addChild( this.cueingArrowsLayer );
+
         sourceObjectImage.setScaleMagnitude( OVERALL_SCALE_FACTOR );
 
         // address position of source of light #79
@@ -139,9 +189,9 @@ class SourceObjectNode extends Node {
         sourceObjectImage.leftTop = modelViewTransform.modelToViewPosition( this.leftTopModelPositionProperty.value );
       }
       else {
-        const movableImage = new Image( representation.source, { scale: OVERALL_SCALE_FACTOR } );
-        movableNode.addChild( movableImage );
 
+        // add second light source
+        movableNode.addChild( movableImage );
 
         // set size of source of lights
         sourceObjectImage.setScaleMagnitude( 1.5 );
@@ -171,9 +221,10 @@ class SourceObjectNode extends Node {
   }
 
   /**
+   * create an icon for the second source
    * @public
    * @param {Object} [options]
-   * @returns {Circle}
+   * @returns {Node}
    */
   static createMovablePointIcon( options ) {
     options = merge( MOVABLE_POINT_OPTIONS, {
@@ -189,6 +240,7 @@ class SourceObjectNode extends Node {
    */
   reset() {
     this.leftTopModelPositionProperty.reset();
+    this.cueingArrowsLayer.visible = true;
   }
 }
 
