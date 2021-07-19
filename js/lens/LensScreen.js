@@ -7,7 +7,7 @@
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import Rectangle from '../../../scenery/js/nodes/Rectangle.js';
-import GeometricOpticsColorProfile from '../common/GeometricOpticsColorProfile.js';
+import geometricOpticsColorProfile from '../common/geometricOpticsColorProfile.js';
 import geometricOptics from '../geometricOptics.js';
 import geometricOpticsStrings from '../geometricOpticsStrings.js';
 import LensModel from './model/LensModel.js';
@@ -24,7 +24,7 @@ class LensScreen extends Screen {
 
       name: geometricOpticsStrings.screen.lens,
       homeScreenIcon: new ScreenIcon( new Rectangle( 0, 0, 3, 3, { fill: 'pink' } ) ),
-      backgroundColorProperty: GeometricOpticsColorProfile.screenBackgroundColorProperty,
+      backgroundColorProperty: geometricOpticsColorProfile.screenBackgroundColorProperty,
       tandem: tandem
     };
 

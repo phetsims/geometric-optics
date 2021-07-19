@@ -11,10 +11,10 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsColorProfile from '../GeometricOpticsColorProfile.js';
+import geometricOpticsColorProfile from '../geometricOpticsColorProfile.js';
 import LightRayMode from '../model/LightRayMode.js';
 
-const OPTICAL_CENTER_LINE_STROKE = GeometricOpticsColorProfile.opticalAxisStrokeProperty;
+const OPTICAL_CENTER_LINE_STROKE = geometricOpticsColorProfile.opticalAxisStrokeProperty;
 
 class OpticNode extends Node {
 

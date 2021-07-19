@@ -11,9 +11,9 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsColorProfile from '../GeometricOpticsColorProfile.js';
+import geometricOpticsColorProfile from '../geometricOpticsColorProfile.js';
 
-const BACKGROUND_COLOR = GeometricOpticsColorProfile.labelBackgroundFillProperty;
+const BACKGROUND_COLOR = geometricOpticsColorProfile.labelBackgroundFillProperty;
 
 class LabelNode extends Node {
   /**

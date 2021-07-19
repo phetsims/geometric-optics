@@ -17,7 +17,7 @@ import MagnifyingGlassZoomButtonGroup from '../../../../scenery-phet/js/Magnifyi
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsColorProfile from '../GeometricOpticsColorProfile.js';
+import geometricOpticsColorProfile from '../geometricOpticsColorProfile.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
 import FocalPoint from '../model/FocalPoint.js';
@@ -45,10 +45,10 @@ const ZOOM_SCALE_FACTOR = GeometricOpticsConstants.ZOOM_SCALE_FACTOR;
 const NOMINAL_VIEW_MODEL_CONVERSION = GeometricOpticsConstants.NOMINAL_VIEW_MODEL_CONVERSION;
 const ORIGIN_POINT = GeometricOpticsConstants.ORIGIN_POINT;
 const BUTTON_RADIUS = GeometricOpticsConstants.BUTTON_RADIUS;
-const virtualRayOneStroke = GeometricOpticsColorProfile.virtualRayOneStrokeProperty;
-const virtualRayTwoStroke = GeometricOpticsColorProfile.virtualRayTwoStrokeProperty;
-const realRayOneStroke = GeometricOpticsColorProfile.realRayOneStrokeProperty;
-const realRayTwoStroke = GeometricOpticsColorProfile.realRayTwoStrokeProperty;
+const virtualRayOneStroke = geometricOpticsColorProfile.virtualRayOneStrokeProperty;
+const virtualRayTwoStroke = geometricOpticsColorProfile.virtualRayTwoStrokeProperty;
+const realRayOneStroke = geometricOpticsColorProfile.realRayOneStrokeProperty;
+const realRayTwoStroke = geometricOpticsColorProfile.realRayTwoStrokeProperty;
 
 class GeometricOpticsScreenView extends ScreenView {
 

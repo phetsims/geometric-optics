@@ -20,12 +20,12 @@ import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsColorProfile from '../GeometricOpticsColorProfile.js';
+import geometricOpticsColorProfile from '../geometricOpticsColorProfile.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
 const MOVABLE_POINT_OPTIONS = GeometricOpticsConstants.MOVABLE_POINT_OPTIONS;
-const MOVABLE_POINT_FILL = GeometricOpticsColorProfile.movablePointFillProperty;
-const MOVABLE_POINT_STROKE = GeometricOpticsColorProfile.movablePointStrokeProperty;
+const MOVABLE_POINT_FILL = geometricOpticsColorProfile.movablePointFillProperty;
+const MOVABLE_POINT_STROKE = geometricOpticsColorProfile.movablePointStrokeProperty;
 
 const OVERALL_SCALE_FACTOR = 0.5;
 const OFFSET_VECTOR = new Vector2( 0.16, -0.19 );

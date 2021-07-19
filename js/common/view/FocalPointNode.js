@@ -11,12 +11,12 @@ import merge from '../../../../phet-core/js/merge.js';
 import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsColorProfile from '../GeometricOpticsColorProfile.js';
+import geometricOpticsColorProfile from '../geometricOpticsColorProfile.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
 const FOCAL_POINT_OPTIONS = GeometricOpticsConstants.FOCAL_POINT_OPTIONS;
-const FILL = GeometricOpticsColorProfile.focalPointFillProperty;
-const STROKE = GeometricOpticsColorProfile.focalPointStrokeProperty;
+const FILL = geometricOpticsColorProfile.focalPointFillProperty;
+const STROKE = geometricOpticsColorProfile.focalPointStrokeProperty;
 
 class FocalPointNode extends PlusNode {
 

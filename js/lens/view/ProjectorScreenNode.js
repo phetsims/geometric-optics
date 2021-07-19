@@ -17,10 +17,10 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import projectorScreen3dImage from '../../../images/projector-screen-3d_png.js';
-import GeometricOpticsColorProfile from '../../common/GeometricOpticsColorProfile.js';
+import geometricOpticsColorProfile from '../../common/geometricOpticsColorProfile.js';
 import geometricOptics from '../../geometricOptics.js';
 
-const SPOTLIGHT_FILL = GeometricOpticsColorProfile.projectorScreenSpotlightFillProperty;
+const SPOTLIGHT_FILL = geometricOpticsColorProfile.projectorScreenSpotlightFillProperty;
 
 class ProjectorScreenNode extends Node {
 

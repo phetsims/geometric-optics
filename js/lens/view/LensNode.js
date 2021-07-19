@@ -9,13 +9,13 @@
 import merge from '../../../../phet-core/js/merge.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import GeometricOpticsColorProfile from '../../common/GeometricOpticsColorProfile.js';
+import geometricOpticsColorProfile from '../../common/geometricOpticsColorProfile.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import OpticNode from '../../common/view/OpticNode.js';
 import geometricOptics from '../../geometricOptics.js';
 
-const FILL = GeometricOpticsColorProfile.lensFillProperty;
-const STROKE = GeometricOpticsColorProfile.lensStrokeProperty;
+const FILL = geometricOpticsColorProfile.lensFillProperty;
+const STROKE = geometricOpticsColorProfile.lensStrokeProperty;
 const LINE_WIDTH = GeometricOpticsConstants.OPTICAL_ELEMENT_LINE_WIDTH;
 
 class LensNode extends OpticNode {

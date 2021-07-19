@@ -8,11 +8,11 @@
 
 import Line from '../../../../scenery/js/nodes/Line.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsColorProfile from '../GeometricOpticsColorProfile.js';
+import geometricOpticsColorProfile from '../geometricOpticsColorProfile.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
 const LINE_WIDTH = GeometricOpticsConstants.OPTICAL_AXIS_LINE_WIDTH;
-const STROKE = GeometricOpticsColorProfile.opticalAxisStrokeProperty;
+const STROKE = geometricOpticsColorProfile.opticalAxisStrokeProperty;
 
 class OpticalAxisLine extends Line {
   /**
