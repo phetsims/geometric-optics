@@ -96,7 +96,9 @@ class ProjectorScreenNode extends Node {
     // add input listener to projectorScreen target
     projectorScreenImage.addInputListener( dragListener );
 
+    // add a listener to trigger the visibility of this node
     representationProperty.link( representation => {
+
       // display this node if this is a source, that is not an object
       this.visible = !representation.isObject;
     } );
@@ -104,8 +106,7 @@ class ProjectorScreenNode extends Node {
     /**
      * Create and add a spotlight on projectorScreen
      * @param {Spotlight} spotlight
-     * @params {Property.<boolean>} visibleProperty
-     *
+     * @param {Property.<boolean>} visibleProperty
      */
     const addSpotLightNode = ( spotlight, visibleProperty ) => {
 
@@ -132,7 +133,7 @@ class ProjectorScreenNode extends Node {
     // add spotlight due to always present source
     addSpotLightNode( projectorScreen.spotlightOne, enableSpotlightProperty );
 
-    // create a property for the visibility of the movable spotlight
+    // {Property.<boolean>} create a property for the visibility of the movable spotlight
     const visibleMovableSpotlightProperty = new DerivedProperty( [ enableMovableSpotlightProperty, visibleMovablePointProperty ],
       ( enableMovableSpotlight, visibleMovablePoint ) => {
         return enableMovableSpotlight && visibleMovablePoint;
