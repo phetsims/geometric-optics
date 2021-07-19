@@ -35,8 +35,10 @@ class GeometricOpticsModel {
   constructor( tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
+    // @private - time range (in seconds) for the animation
     this.timeRange = new RangeWithValue( 0, 5, 0.01 );
 
+    // @public (read-only) {Property.<number>}
     this.timeProperty = new NumberProperty( this.timeRange.defaultValue );
 
     // @public {Property.<boolean>} the image/target can be seen if enabled
@@ -50,6 +52,11 @@ class GeometricOpticsModel {
 
     // @public {Property.<LightRayMode>}  modes for the different kind of light rays
     this.lightRayModeProperty = new EnumerationProperty( LightRayMode, LightRayMode.MARGINAL_RAYS );
+
+    // reset the timer when changing light ray mode
+    this.lightRayModeProperty.link( () => {
+      this.timeProperty.reset();
+    } );
 
     // @public rulers for the simulations
     this.rulers = {
