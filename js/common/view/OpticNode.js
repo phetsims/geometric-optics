@@ -21,11 +21,12 @@ class OpticNode extends Node {
   /**
    * @param {Optic} optic
    * @param {Property.<LightRayMode>} lightRayModeProperty
+   * @param {Property.<Bounds2>} visibleModelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( optic, lightRayModeProperty, modelViewTransform, tandem, options ) {
+  constructor( optic, lightRayModeProperty, visibleModelBoundsProperty, modelViewTransform, tandem, options ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     super( options );

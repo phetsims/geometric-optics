@@ -24,10 +24,11 @@ class LensNode extends OpticNode {
    * @param {Lens} lens
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Property.<LightRayMode>} lightRayModeProperty
+   * @param {Property.<Bounds2>} visibleModelBoundsProperty
    * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( lens, lightRayModeProperty, modelViewTransform, tandem, options ) {
+  constructor( lens, lightRayModeProperty, visibleModelBoundsProperty, modelViewTransform, tandem, options ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     options = merge( {
@@ -36,7 +37,7 @@ class LensNode extends OpticNode {
       lineWidth: LINE_WIDTH
     }, options );
 
-    super( lens, lightRayModeProperty, modelViewTransform, tandem, options );
+    super( lens, lightRayModeProperty, visibleModelBoundsProperty, modelViewTransform, tandem, options );
 
     // link the index of refraction to the opacity of the fill of the lens
     lens.indexOfRefractionProperty.link( index => {
