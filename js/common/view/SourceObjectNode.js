@@ -33,10 +33,10 @@ const OVERALL_SCALE_FACTOR = 0.5;
 const OFFSET_VECTOR = new Vector2( 0.16, -0.19 );
 const CUEING_ARROW_LENGTH = 20;
 const CUEING_ARROW_OPTIONS = {
-  fill: 'rgb( 100, 200, 255 )',
-  tailWidth: 8,
-  headWidth: 14,
-  headHeight: 6,
+  fill: 'rgb(255,0,0)',
+  tailWidth: 6,
+  headWidth: 12,
+  headHeight: 7,
   cursor: 'pointer'
 };
 
@@ -131,8 +131,8 @@ class SourceObjectNode extends Node {
     // create and add curing arrow
     const upArrowNode = new ArrowNode( 0, 0, 0, -CUEING_ARROW_LENGTH, CUEING_ARROW_OPTIONS );
     const downArrowNode = new ArrowNode( 0, 0, 0, +CUEING_ARROW_LENGTH, CUEING_ARROW_OPTIONS );
-    upArrowNode.bottom = circleIcon.top - 10;
-    downArrowNode.top = circleIcon.bottom + 10;
+    upArrowNode.bottom = circleIcon.top - 5;
+    downArrowNode.top = circleIcon.bottom + 5;
     this.cueingArrowsLayer.addChild( upArrowNode );
     this.cueingArrowsLayer.addChild( downArrowNode );
 
