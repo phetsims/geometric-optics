@@ -157,7 +157,7 @@ class GeometricOpticsScreenView extends ScreenView {
     this.playAreaModelBoundsProperty = new DerivedProperty( [ this.visibleBoundsProperty,
         this.zoomModelViewTransformProperty ],
       ( visibleBounds, zoomModelViewTransform ) => {
-        const playAreaBounds = new Bounds2( visibleBounds.minX, toolboxPanel.bottom,
+        const playAreaBounds = new Bounds2( visibleBounds.minX, 0,
           visibleBounds.maxX, geometricOpticsControlPanel.top );
         return zoomModelViewTransform.viewToModelBounds( playAreaBounds );
       } );
