@@ -1,5 +1,5 @@
 {
-  "comment": "# geometric-optics 1.0.0-dev.5 Mon Jul 19 2021 15:15:00 GMT-0400 (Eastern Daylight Time)",
+  "comment": "# geometric-optics 1.0.0-dev.6 Tue Jul 20 2021 10:45:31 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "f360fa1bd09a47b3c9e49cd90c8dddd136a13e0c",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "d8ff29efba5ad8196a9ab3bf5e561eb72df432f3",
+    "sha": "b10469dff1ddc2d4a74cd805bc6c071e26bddeba",
     "branch": "master"
   },
   "dot": {
@@ -21,11 +21,11 @@
     "branch": "master"
   },
   "geometric-optics": {
-    "sha": "35393beaf03245d73907305fe6a947c312831f27",
+    "sha": "6ce567dc2c1238001d2c6f3fb4b874f5d668f2ea",
     "branch": "master"
   },
   "joist": {
-    "sha": "daf5868b429e6b77c8247fd385e4187ad8746e1c",
+    "sha": "a3cebc821868063219620827fa35eb2fabfffe42",
     "branch": "master"
   },
   "kite": {
@@ -37,7 +37,7 @@
     "branch": "master"
   },
   "phet-io": {
-    "sha": "561542d3e189a5933218ff1b673e57dc64ad73ee",
+    "sha": "707b7f190243ae53d53e70a0fd1cdfa6d41210d7",
     "branch": "master"
   },
   "phet-io-client-guides": {
@@ -53,7 +53,7 @@
     "branch": "master"
   },
   "phetmarks": {
-    "sha": "3b540bd68fa23b64516a06fc31cafb623d801151",
+    "sha": "8d06d73911f716cbbe234a4e3684f271d93eb963",
     "branch": "master"
   },
   "query-string-machine": {
@@ -61,23 +61,23 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "3bc1fb6be658418a62057a39c42420ea6089e4a6",
+    "sha": "9290cf4d314a9232176d541aa56ee2dfc402db74",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "f7d4332cc306a74f667d26e09abf5a97a991d64a",
+    "sha": "ac582afc51c1934c458e7c3ec8fa552c0d760465",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "28aaef3d117595af88e9cedd4663061630625568",
+    "sha": "117af50b90625863b09b7b8e7e8ae3f2def2608c",
     "branch": "master"
   },
   "studio": {
-    "sha": "90c5196546dacef1b6c407cd6e6434dbcb92a9b2",
+    "sha": "452fa2179eccec8ed01fef2ff5d167242126f19e",
     "branch": "master"
   },
   "sun": {
-    "sha": "fd62a8b82fe5d468ba30dde755667cbdd4aea57d",
+    "sha": "f871084cac8882d80b861afbd729682654a1ffa2",
     "branch": "master"
   },
   "tambo": {
