@@ -26,7 +26,7 @@ class LensScreenView extends GeometricOpticsScreenView {
     super( model, tandem );
 
     // TODO: find a more robust way to insert nodes in relation to other nodes in the play area
-    const lensNode = new LensNode( model.optic, model.lightRayModeProperty, this.visibleModelBoundsProperty, this.modelViewTransform, tandem );
+    const lensNode = new LensNode( model.optic, model.lightRayModeProperty, this.playAreaModelBoundsProperty, this.modelViewTransform, tandem );
     this.playAreaNode.insertChild( 3, lensNode );
 
     // {Property.<boolean>} create visible property for the first guides (associated with the object)
@@ -56,7 +56,7 @@ class LensScreenView extends GeometricOpticsScreenView {
       model.enableImageProperty,
       model.enableMovableImageProperty,
       this.visibleProperties.visibleMovablePointProperty,
-      this.visibleModelBoundsProperty,
+      this.playAreaModelBoundsProperty,
       this.modelViewTransform, tandem );
 
     //  add the screen at the bottom of the z-layer

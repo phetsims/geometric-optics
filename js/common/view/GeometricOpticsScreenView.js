@@ -9,6 +9,7 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -89,86 +90,6 @@ class GeometricOpticsScreenView extends ScreenView {
       return this.getAbsoluteScale( zoomLevel );
     } );
 
-    // @protected {Property.<Bounds2>} visibleModelBoundsProperty
-    this.visibleModelBoundsProperty = new DerivedProperty( [ this.visibleBoundsProperty, this.zoomModelViewTransformProperty ],
-      ( visibleBounds, zoomModelViewTransform ) => {
-        return zoomModelViewTransform.viewToModelBounds( visibleBounds );
-      } );
-
-    //----------------------------------------------------------------------
-    //                          scenery nodes for play area
-
-    // @protected layer for all the nodes within the play area: Play area layer is subject to zoom in/out
-    this.playAreaNode = new Node();
-
-    // @private create the source/object on the left hand side of screen
-    this.sourceObjectNode = new SourceObjectNode( model.representationProperty,
-      model.sourceObject, this.visibleProperties.visibleMovablePointProperty,
-      this.visibleModelBoundsProperty,
-      this.modelViewTransform, tandem );
-
-    // create the optical axis attached to the optical element
-    const opticalAxisLine = new OpticalAxisLine( model.optic.positionProperty,
-      this.visibleModelBoundsProperty, this.modelViewTransform );
-
-    // create the light rays associated with the object
-    const lightRaysNode = new LightRaysNode( model.lightRays,
-      this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem, {
-        realRayStroke: realRayOneStroke,
-        virtualRayStroke: virtualRayOneStroke
-      } );
-
-    // create the light rays associated with the movable point
-    const movableLightRaysNode = new LightRaysNode( model.movableLightRays,
-      this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem, {
-        realRayStroke: realRayTwoStroke,
-        virtualRayStroke: virtualRayTwoStroke
-      } );
-
-    // the movable light rays visibility is tied to the status of the checkbox
-    this.visibleProperties.visibleMovablePointProperty.linkAttribute( movableLightRaysNode, 'visible' );
-
-    // create the target image
-    const targetImageNode = new TargetImageNode( model.representationProperty,
-      model.targetImage,
-      model.optic,
-      model.enableImageProperty,
-      this.visibleProperties.visibleVirtualImageProperty,
-      this.modelViewTransform, tandem );
-
-    // create two focal points
-    const firstFocalPointNode = new FocalPointNode( model.firstFocalPoint,
-      this.visibleProperties.visibleFocalPointProperty, this.modelViewTransform, tandem );
-    const secondFocalPointNode = new FocalPointNode( model.secondFocalPoint,
-      this.visibleProperties.visibleFocalPointProperty, this.modelViewTransform, tandem );
-    const focalPointsLayer = new Node( { children: [ firstFocalPointNode, secondFocalPointNode ] } );
-
-    // add children that need to be zoomed in/out. order is important
-    this.playAreaNode.addChild( opticalAxisLine );
-    this.playAreaNode.addChild( this.sourceObjectNode );
-    this.playAreaNode.addChild( targetImageNode );
-    this.playAreaNode.addChild( lightRaysNode );
-    this.playAreaNode.addChild( movableLightRaysNode );
-    this.playAreaNode.addChild( focalPointsLayer );
-
-    // scale the playAreaNode
-    this.zoomLevelProperty.lazyLink( ( zoomLevel, oldZoomLevel ) => {
-
-      // scaling factor between zoom levels
-      const relativeScale = this.getRelativeScale( zoomLevel, oldZoomLevel );
-
-      // offset of the play areaNode such that the origin point remains fixed through zoom
-      const translateVector = ORIGIN_POINT.times( 1 / relativeScale - 1 );
-
-      // TODO: works, but this is a very clumsy way to scale.
-      // TODO: combine the two Node transformations
-
-      // scale and translate the playArea
-      this.playAreaNode.scale( relativeScale );
-      this.playAreaNode.translate( translateVector );
-
-    } );
-
     //----------------------------------------------------------------------------
     //               Buttons, Controls and Panels
 
@@ -229,6 +150,93 @@ class GeometricOpticsScreenView extends ScreenView {
     const showHideToggleButton = new ShowHideToggleButton( this.visibleProperties.visibleRayTracingProperty );
     showHideToggleButton.centerBottom = resetAllButton.centerTop.plusXY( 0, -22 );
 
+    //-------------------------------------------------------------------
+
+
+    // @protected {Property.<Bounds2>} playAreaModelBoundsProperty
+    this.playAreaModelBoundsProperty = new DerivedProperty( [ this.visibleBoundsProperty,
+        this.zoomModelViewTransformProperty ],
+      ( visibleBounds, zoomModelViewTransform ) => {
+        const playAreaBounds = new Bounds2( visibleBounds.minX, toolboxPanel.bottom,
+          visibleBounds.maxX, geometricOpticsControlPanel.top );
+        return zoomModelViewTransform.viewToModelBounds( playAreaBounds );
+      } );
+
+    //----------------------------------------------------------------------
+    //                          scenery nodes for play area
+
+    // @protected layer for all the nodes within the play area: Play area layer is subject to zoom in/out
+    this.playAreaNode = new Node();
+
+    // @private create the source/object on the left hand side of screen
+    this.sourceObjectNode = new SourceObjectNode( model.representationProperty,
+      model.sourceObject, this.visibleProperties.visibleMovablePointProperty,
+      this.playAreaModelBoundsProperty,
+      this.modelViewTransform, tandem );
+
+    // create the optical axis attached to the optical element
+    const opticalAxisLine = new OpticalAxisLine( model.optic.positionProperty,
+      this.playAreaModelBoundsProperty, this.modelViewTransform );
+
+    // create the light rays associated with the object
+    const lightRaysNode = new LightRaysNode( model.lightRays,
+      this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem, {
+        realRayStroke: realRayOneStroke,
+        virtualRayStroke: virtualRayOneStroke
+      } );
+
+    // create the light rays associated with the movable point
+    const movableLightRaysNode = new LightRaysNode( model.movableLightRays,
+      this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem, {
+        realRayStroke: realRayTwoStroke,
+        virtualRayStroke: virtualRayTwoStroke
+      } );
+
+    // the movable light rays visibility is tied to the status of the checkbox
+    this.visibleProperties.visibleMovablePointProperty.linkAttribute( movableLightRaysNode, 'visible' );
+
+    // create the target image
+    const targetImageNode = new TargetImageNode( model.representationProperty,
+      model.targetImage,
+      model.optic,
+      model.enableImageProperty,
+      this.visibleProperties.visibleVirtualImageProperty,
+      this.modelViewTransform, tandem );
+
+    // create two focal points
+    const firstFocalPointNode = new FocalPointNode( model.firstFocalPoint,
+      this.visibleProperties.visibleFocalPointProperty, this.modelViewTransform, tandem );
+    const secondFocalPointNode = new FocalPointNode( model.secondFocalPoint,
+      this.visibleProperties.visibleFocalPointProperty, this.modelViewTransform, tandem );
+    const focalPointsLayer = new Node( { children: [ firstFocalPointNode, secondFocalPointNode ] } );
+
+    // add children that need to be zoomed in/out. order is important
+    this.playAreaNode.addChild( opticalAxisLine );
+    this.playAreaNode.addChild( this.sourceObjectNode );
+    this.playAreaNode.addChild( targetImageNode );
+    this.playAreaNode.addChild( lightRaysNode );
+    this.playAreaNode.addChild( movableLightRaysNode );
+    this.playAreaNode.addChild( focalPointsLayer );
+
+    // scale the playAreaNode
+    this.zoomLevelProperty.lazyLink( ( zoomLevel, oldZoomLevel ) => {
+
+      // scaling factor between zoom levels
+      const relativeScale = this.getRelativeScale( zoomLevel, oldZoomLevel );
+
+      // offset of the play areaNode such that the origin point remains fixed through zoom
+      const translateVector = ORIGIN_POINT.times( 1 / relativeScale - 1 );
+
+      // TODO: works, but this is a very clumsy way to scale.
+      // TODO: combine the two Node transformations
+
+      // scale and translate the playArea
+      this.playAreaNode.scale( relativeScale );
+      this.playAreaNode.translate( translateVector );
+
+    } );
+
+
     Property.multilink( [ model.lightRayModeProperty, this.visibleProperties.visibleRayTracingProperty ],
       ( lightRayMode, showHide ) => {
         if ( lightRayMode === LightRayMode.NO_RAYS ) {
@@ -245,7 +253,9 @@ class GeometricOpticsScreenView extends ScreenView {
       } );
 
     // labels
-    const labelsNode = new LabelsNode( model, this, this.visibleProperties, this.zoomModelViewTransformProperty, this.zoomLevelProperty );
+    const labelsNode = new LabelsNode( model, this, this.visibleProperties,
+      this.zoomModelViewTransformProperty,
+      this.zoomLevelProperty );
 
     // add playAreaNode and controls to the scene graph
     this.addChild( curveControl );
@@ -359,9 +369,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
   }
 
-
 }
-
 
 geometricOptics.register( 'GeometricOpticsScreenView', GeometricOpticsScreenView );
 export default GeometricOpticsScreenView;
