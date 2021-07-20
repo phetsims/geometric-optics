@@ -18,7 +18,7 @@ import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
 const DEFAULT_SOURCE_POINT_1 = GeometricOpticsConstants.DEFAULT_SOURCE_POINT_1;
 const DEFAULT_SOURCE_POINT_2 = GeometricOpticsConstants.DEFAULT_SOURCE_POINT_2;
-const verticalOffsetRange = new RangeWithValue( -0.5, 0, -0.1 );
+const verticalOffsetRange = new RangeWithValue( -0.5, 0, -0.3 );
 
 class SourceObject {
 
