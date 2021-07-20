@@ -93,9 +93,9 @@ class Lens extends Optic {
     const halfWidth = 1 / 2 * halfHeight * halfHeight / ( radius + 1 );
 
     // {Shape} shape of lens
-    let shape;
-    let frontShape;
-    let backShape;
+    let shape; // the outline of the lens (including top and bottom)
+    let frontShape; // the left facing portion of the lens
+    let backShape; // the right facing  portion of the lens
 
     if ( this.isConvex( curve ) ) {
 
