@@ -8,7 +8,6 @@
 
 import Emitter from '../../../../axon/js/Emitter.js';
 import Property from '../../../../axon/js/Property.js';
-import Ray from './Ray.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -16,6 +15,7 @@ import geometricOptics from '../../geometricOptics.js';
 import LightRay from './LightRay.js';
 import LightRayMode from './LightRayMode.js';
 import Optic from './Optic.js';
+import Ray from './Ray.js';
 
 class LightRays {
 
@@ -140,38 +140,27 @@ class LightRays {
     const f = optic.focalLengthProperty.value;
     const opticPosition = optic.positionProperty.value;
 
-    // the top of the optic
-    const topPoint = optic.getExtramumPoint( sourcePosition,
-      this.targetImage.positionProperty.value, { location: Optic.Location.TOP } );
-
-    // the bottom of the optic
-    const bottomPoint = optic.getExtramumPoint( sourcePosition,
-      this.targetImage.positionProperty.value, { location: Optic.Location.BOTTOM } );
-
-    // direction of a ray to the top of the optic
-    const topDirection = topPoint.minus( sourcePosition ).normalized();
-
-    // direction of a ray to the bottom of the optic
-    const bottomDirection = bottomPoint.minus( sourcePosition ).normalized();
-
-    // aperture angle from the source to the optic
-    const apertureAngle = topDirection.getAngle() - bottomDirection.getAngle();
-
     // vector from source to optic
     const sourceOpticVector = opticPosition.minus( sourcePosition );
-
-    // vector from source to first focal point
-    const sourceFirstFocalVector = sourceOpticVector.minusXY( f, 0 );
-
-    // the vector should point to the right (to indicate the direction of the light rays)
-    if ( sourceFirstFocalVector.x < 0 ) {
-      sourceFirstFocalVector.negate();
-    }
 
     if ( lightRayMode === LightRayMode.MARGINAL_RAYS ) {
 
       // direction for ray going through the center of optic
       directions.push( sourceOpticVector.normalized() );
+
+      // the top of the optic
+      const topPoint = optic.getExtramumPoint( sourcePosition,
+        this.targetImage.positionProperty.value, { location: Optic.Location.TOP } );
+
+      // the bottom of the optic
+      const bottomPoint = optic.getExtramumPoint( sourcePosition,
+        this.targetImage.positionProperty.value, { location: Optic.Location.BOTTOM } );
+
+      // direction of a ray to the top of the optic
+      const topDirection = topPoint.minus( sourcePosition ).normalized();
+
+      // direction of a ray to the bottom of the optic
+      const bottomDirection = bottomPoint.minus( sourcePosition ).normalized();
 
       directions.push( topDirection, bottomDirection );
     }
@@ -183,6 +172,14 @@ class LightRays {
       // direction for ray going through the center of optic
       directions.push( sourceOpticVector.normalized() );
 
+      // vector from source to first focal point
+      const sourceFirstFocalVector = sourceOpticVector.minusXY( f, 0 );
+
+      // the vector should point to the right (to indicate the direction of the light rays)
+      if ( sourceFirstFocalVector.x < 0 ) {
+        sourceFirstFocalVector.negate();
+      }
+
       // direction for ray going through the focal point
       directions.push( sourceFirstFocalVector.normalized() );
 
@@ -190,13 +187,13 @@ class LightRays {
     else if ( lightRayMode === LightRayMode.MANY_RAYS ) {
 
       // starting angle for showers of rays
-      const startingAngle = Math.min( Math.PI / 4, 2 * apertureAngle );
+      const startingAngle = Math.PI / 4;
 
       // symmetric condition for end angle
       const endAngle = -startingAngle;
 
       // number of rays
-      const N = 50;
+      const N = 15;
 
       // Degrees between adjacent arrays
       const deltaTheta = ( endAngle - startingAngle ) / ( N - 1 );

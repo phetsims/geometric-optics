@@ -9,12 +9,12 @@
  * @author Martin Veillette
  */
 
-import Ray from './Ray.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import Ray from './Ray.js';
 
 const LIGHT_SPEED = GeometricOpticsConstants.LIGHT_SPEED;
 
@@ -169,6 +169,9 @@ class LightRay {
     // array to store all the rays
     const rays = [];
 
+    // add the initial ray
+    rays.push( initialRay );
+
     if ( firstPoint instanceof Vector2 ) {
 
       if ( optic.isMirror() || isPrincipalRayMode ) {
@@ -177,7 +180,7 @@ class LightRay {
         initialRay.setFinalPoint( firstPoint );
 
         // add the initial and transmitted ray
-        rays.push( initialRay, this.getTransmittedRay( firstPoint, targetPoint, optic ) );
+        rays.push( this.getTransmittedRay( firstPoint, targetPoint, optic ) );
       }
       else {
 
@@ -193,6 +196,7 @@ class LightRay {
 
         // {Vector2|null} back shape point intersecting the transmitted ray
         const backPoint = this.getPoint( backIntersection );
+
 
         // add rays only if the front and back shapes are intersected
         if ( frontPoint instanceof Vector2 && backPoint instanceof Vector2 ) {
@@ -210,7 +214,7 @@ class LightRay {
           const transmittedRay = this.getTransmittedRay( backPoint, targetPoint, optic );
 
           // add the rays
-          rays.push( initialRay, internalRay, transmittedRay );
+          rays.push( internalRay, transmittedRay );
         }
       }
     }
