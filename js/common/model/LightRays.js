@@ -80,20 +80,28 @@ class LightRays {
         // @public (read-only)
         this.virtualRay = new Shape();
 
+        // {Vector2} the position the target
         const targetPoint = targetImage.positionProperty.value;
+
+        // {boolean} is the image virtual
         const isVirtual = targetImage.isVirtual();
-        enableImageProperty.value = false;
 
         // {Vector2[]} get the initial directions of the rays
         const directions = this.getRayDirections( sourcePosition, optic, lightRayMode );
 
+        // {boolean} is there a projector on the play area
         const isProjectorScreenPresent = !representation.isObject;
 
         // is the light ray mode set to Principal Rays
         const isPrincipalRayMode = lightRayMode === LightRayMode.PRINCIPAL_RAYS;
 
+        // set the enable image property to false initially  (unless there are no rays)
+        enableImageProperty.value = lightRayMode === LightRayMode.NO_RAYS;
+
+        // loop over the direction of each ray
         directions.forEach( direction => {
 
+          // initial ray starting at the source position
           const initialRay = new Ray( sourcePosition, direction );
 
           // determine the lightRay
@@ -108,6 +116,7 @@ class LightRays {
             tandem );
 
 
+          // set the enable image to true after the first ray reaches its target
           if ( lightRay.isTargetReached ) {
             enableImageProperty.value = true;
           }
