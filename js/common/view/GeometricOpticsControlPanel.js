@@ -99,7 +99,7 @@ class GeometricOpticsControlPanel extends Panel {
     };
 
     // options for number controls that have length units
-    const lengthNumberControlOptions = merge( commonNumberControlOptions,
+    const lengthNumberControlOptions = merge( {}, commonNumberControlOptions,
       {
         delta: 0.1,
         numberDisplayOptions: {

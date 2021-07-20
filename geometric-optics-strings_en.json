@@ -63,7 +63,7 @@
     "value": "Second Source"
   },
   "metersPattern": {
-    "value": "{{meters}} m"
+    "value": "{{meters}} cm"
   },
   "light": {
     "value": "Light"
