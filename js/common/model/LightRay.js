@@ -124,6 +124,7 @@ class LightRay {
       }
     }
 
+    // only rays that have been refracted (or reflected) that have traveled long enough can reach the target.
     return this.realRays.length > 1 && distanceTraveled > distance;
   }
 
