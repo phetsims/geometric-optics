@@ -6,6 +6,7 @@
  * @author Martin Veillette
  */
 
+import Shape from '../../../../kite/js/Shape.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -30,6 +31,7 @@ class OpticNode extends Node {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     super( options );
+
 
     // create a drag listener on the fill of the opticalElement (see #22)
     let clickOffset;
@@ -57,18 +59,6 @@ class OpticNode extends Node {
       }
     } );
 
-    // update position of optic if the bounds change
-    playAreaModelBoundsProperty.link( bounds => {
-
-      // set drag bounds on the model position
-      const dragBoundsOpticPosition = bounds.closestPointTo( optic.positionProperty.value );
-
-      // constrained optic to merely move vertically
-      optic.setVerticalCoordinate( dragBoundsOpticPosition.y );
-
-
-    } );
-
     // create the path of the optic
     // @protected {Path}
     this.fillPath = new Path( modelViewTransform.modelToViewShape( optic.outlineAndFillProperty.value.fillShape ), {
@@ -88,21 +78,50 @@ class OpticNode extends Node {
         lineDash: [ 8, 5 ]
       } );
 
+
+    /**
+     * clip the center line based on model bounds
+     * @param {Bounds2} modelBounds
+     */
+    const clipCenterLine = modelBounds => {
+      opticCenterLine.clipArea = Shape.bounds( modelViewTransform.modelToViewBounds( modelBounds ) );
+    };
+
+    // update position of optic if the bounds change
+    playAreaModelBoundsProperty.link( bounds => {
+
+      // set drag bounds on the model position
+      const dragBoundsOpticPosition = bounds.closestPointTo( optic.positionProperty.value );
+
+      // constrained optic to merely move vertically
+      optic.setVerticalCoordinate( dragBoundsOpticPosition.y );
+
+      // clip the ends of the center line based on play area bounds
+      clipCenterLine( bounds );
+    } );
+
+    // modify the shape of the optic
     optic.outlineAndFillProperty.link( shapes => {
       this.fillPath.shape = modelViewTransform.modelToViewShape( shapes.fillShape );
       outlinePath.shape = modelViewTransform.modelToViewShape( shapes.outlineShape );
     } );
 
-    // move this node
+    // layer for the optic
+    const opticLayer = new Node();
+
+    // move the optic layer
     optic.positionProperty.link( position => {
-      this.translation = modelViewTransform.modelToViewDelta( position );
+      opticLayer.translation = modelViewTransform.modelToViewDelta( position );
     } );
 
-    this.addInputListener( dragListener );
-    this.addChild( this.fillPath );
-    this.addChild( outlinePath );
-    this.addChild( opticCenterLine );
+    // add child and listener to the optic layer
+    opticLayer.addInputListener( dragListener );
+    opticLayer.addChild( this.fillPath );
+    opticLayer.addChild( outlinePath );
 
+    // add the optic and center line to this node
+    this.addChild( opticLayer );
+    this.addChild( opticCenterLine );
 
     // set the optic center line to visible when mode is on Principal Ray
     lightRayModeProperty.link( lightRayMode => {

@@ -232,12 +232,12 @@ class Optic {
    */
   getPrincipalLine() {
 
-    const opticPoint = this.positionProperty.value;
-
-    const yMax = 20;
+    const yMax = 20; // in meters
 
     // a straight vertical line going through the middle of the optic
-    return Shape.lineSegment( opticPoint.x, yMax, opticPoint.x, -yMax );
+    const verticalLine = Shape.lineSegment( 0, yMax, 0, -yMax );
+
+    return this.translatedShape( verticalLine );
   }
 
   /**
