@@ -93,6 +93,7 @@ class OpticNode extends Node {
       outlinePath.shape = modelViewTransform.modelToViewShape( shapes.outlineShape );
     } );
 
+    // move this node
     optic.positionProperty.link( position => {
       this.translation = modelViewTransform.modelToViewDelta( position );
     } );
@@ -103,6 +104,7 @@ class OpticNode extends Node {
     this.addChild( opticCenterLine );
 
 
+    // set the optic center line to visible when mode is on Principal Ray
     lightRayModeProperty.link( lightRayMode => {
 
       opticCenterLine.visible = lightRayMode === LightRayMode.PRINCIPAL_RAYS;
