@@ -21,12 +21,12 @@ class OpticNode extends Node {
   /**
    * @param {Optic} optic
    * @param {Property.<LightRayMode>} lightRayModeProperty
-   * @param {Property.<Bounds2>} visibleModelBoundsProperty
+   * @param {Property.<Bounds2>} playAreaModelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( optic, lightRayModeProperty, visibleModelBoundsProperty, modelViewTransform, tandem, options ) {
+  constructor( optic, lightRayModeProperty, playAreaModelBoundsProperty, modelViewTransform, tandem, options ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     super( options );
@@ -50,17 +50,18 @@ class OpticNode extends Node {
         const unconstrainedModelPosition = cursorModelPosition.minus( clickOffset );
 
         // set drag bounds on the model position
-        const dragBoundPosition = visibleModelBoundsProperty.value.closestPointTo( unconstrainedModelPosition );
+        const dragBoundPosition = playAreaModelBoundsProperty.value.closestPointTo( unconstrainedModelPosition );
 
         // constrained optic to merely move vertically
         optic.setVerticalCoordinate( dragBoundPosition.y );
       }
     } );
 
-    visibleModelBoundsProperty.link( bounds => {
+    // update position of optic if the bounds change
+    playAreaModelBoundsProperty.link( bounds => {
 
       // set drag bounds on the model position
-      const dragBoundsOpticPosition = visibleModelBoundsProperty.value.closestPointTo( optic.positionProperty.value );
+      const dragBoundsOpticPosition = bounds.closestPointTo( optic.positionProperty.value );
 
       // constrained optic to merely move vertically
       optic.setVerticalCoordinate( dragBoundsOpticPosition.y );
