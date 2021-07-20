@@ -124,7 +124,7 @@ class LightRay {
       }
     }
 
-    return this.realRays.length > 0 && distanceTraveled > distance;
+    return this.realRays.length > 1 && distanceTraveled > distance;
   }
 
 
