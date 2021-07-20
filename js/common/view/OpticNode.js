@@ -57,6 +57,17 @@ class OpticNode extends Node {
       }
     } );
 
+    visibleModelBoundsProperty.link( bounds => {
+
+      // set drag bounds on the model position
+      const dragBoundsOpticPosition = visibleModelBoundsProperty.value.closestPointTo( optic.positionProperty.value );
+
+      // constrained optic to merely move vertically
+      optic.setVerticalCoordinate( dragBoundsOpticPosition.y );
+
+
+    } );
+
     // create the path of the optic
     // @protected {Path}
     this.fillPath = new Path( modelViewTransform.modelToViewShape( optic.outlineAndFillProperty.value.fillShape ), {
