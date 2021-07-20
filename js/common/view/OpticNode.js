@@ -46,10 +46,14 @@ class OpticNode extends Node {
         const cursorModelPosition = modelViewTransform.viewToModelPosition(
           this.globalToParentPoint( event.pointer.point ) );
 
+        // model position for the optic
         const unconstrainedModelPosition = cursorModelPosition.minus( clickOffset );
 
+        // set drag bounds on the model position
+        const dragBoundPosition = visibleModelBoundsProperty.value.closestPointTo( unconstrainedModelPosition );
+
         // constrained optic to merely move vertically
-        optic.setVerticalCoordinate( unconstrainedModelPosition.y );
+        optic.setVerticalCoordinate( dragBoundPosition.y );
       }
     } );
 
