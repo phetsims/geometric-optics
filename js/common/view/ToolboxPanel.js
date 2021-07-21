@@ -64,6 +64,7 @@ class ToolboxPanel extends Panel {
      */
     const createForwardListener = ( iconNode, rulerNode, visibleRulerProperty ) => {
 
+      // ruler node and icon node have opposite visibilities
       visibleRulerProperty.link( visible => {
         iconNode.visible = !visible;
       } );
