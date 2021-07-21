@@ -11,9 +11,11 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import geometricOptics from '../../geometricOptics.js';
+import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import geometricOpticsColorProfile from '../geometricOpticsColorProfile.js';
 
 const BACKGROUND_COLOR = geometricOpticsColorProfile.labelBackgroundFillProperty;
+const LABEL_FONT = GeometricOpticsConstants.LABEL_FONT;
 
 class LabelNode extends Node {
   /**
@@ -28,15 +30,18 @@ class LabelNode extends Node {
   constructor( string, positionProperty, visibleProperty, modelViewTransformProperty, options ) {
 
     options = merge( {
-      text: { fill: 'white' },
+      text: {
+        fill: 'white',
+        font: LABEL_FONT
+      },
       background: {
         fill: BACKGROUND_COLOR,
         opacity: 0.5,
         cornerRadius: 4
       },
       labelOffset: 20, /// vertical offset (in view coordinates) wrt firstPositionProperty
-      xMargin: 10,
-      yMargin: 10
+      xMargin: 5,
+      yMargin: 5
     }, options );
 
     super( options );
