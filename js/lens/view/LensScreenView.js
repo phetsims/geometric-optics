@@ -34,8 +34,9 @@ class LensScreenView extends GeometricOpticsScreenView {
       this.visibleProperties.visibleSecondSourceProperty ], ( visibleGuides, visibleSecondSource ) => visibleGuides && !visibleSecondSource );
 
     // {Property.<boolean>} create visible property for the second guides (associated with the second source)
-    const visibleSecondGuidesProperty = new DerivedProperty( [ this.visibleProperties.visibleGuidesProperty,
-      this.visibleProperties.visibleSecondSourceProperty ], ( visibleGuides, visibleSecondSource ) => visibleGuides && visibleSecondSource );
+    const visibleSecondGuidesProperty = DerivedProperty.and( [
+      this.visibleProperties.visibleGuidesProperty,
+      this.visibleProperties.visibleSecondSourceProperty ] );
 
     // create and add top and bottom guides associated with the object
     const firstTopGuideNode = new GuideNode( model.firstTopGuide, visibleFirstGuidesProperty, this.modelViewTransform );
