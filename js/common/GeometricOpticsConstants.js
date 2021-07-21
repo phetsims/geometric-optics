@@ -59,9 +59,9 @@ const GeometricOpticsConstants = {
   },
 
   //----------------------------------------------------------------------------------------
-  //                           MOVABLE POINT
+  //                           SECOND SOURCE POINT
 
-  MOVABLE_POINT_OPTIONS: { radius: 5 },
+  SECOND_SOURCE_POINT_OPTIONS: { radius: 5 },
 
 
   //----------------------------------------------------------------------------------------

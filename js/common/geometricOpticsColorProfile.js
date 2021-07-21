@@ -66,10 +66,10 @@ const geometricOpticsColorProfile = {
   //--------------------------------------------------------------------------
   //                             OBJECT
 
-  movablePointFillProperty: new ProfileColorProperty( 'movablePointFill', {
+  secondSourcePointFillProperty: new ProfileColorProperty( 'secondSourcePointFill', {
     default: 'red'
   } ),
-  movablePointStrokeProperty: new ProfileColorProperty( 'movablePointStroke', {
+  secondSourcePointStrokeProperty: new ProfileColorProperty( 'secondSourcePointStroke', {
     default: 'black'
   } ),
 

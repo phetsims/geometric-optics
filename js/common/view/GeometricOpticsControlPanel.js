@@ -202,15 +202,15 @@ class GeometricOpticsControlPanel extends Panel {
     // create focal point icon
     const focalPointIcon = FocalPointNode.createIcon( { stroke: 'black' } );
 
-    // create movable point icon
-    const movablePointIcon = SourceObjectNode.createMovablePointIcon();
+    // create second source point icon
+    const secondSourcePointIcon = SourceObjectNode.createSecondSourcePointIcon();
 
     // create checkbox group for visibility settings
     const checkboxGroupItems = [
       createCheckboxGroupItem( focalPointString, visibleProperties.visibleFocalPointProperty, { icon: focalPointIcon } ),
       createCheckboxGroupItem( labelsString, visibleProperties.visibleLabelsProperty ),
       createCheckboxGroupItem( virtualImageString, visibleProperties.visibleVirtualImageProperty ),
-      createCheckboxGroupItem( secondSourceString, visibleProperties.visibleSecondSourceProperty, { icon: movablePointIcon } ),
+      createCheckboxGroupItem( secondSourceString, visibleProperties.visibleSecondSourceProperty, { icon: secondSourcePointIcon } ),
       createCheckboxGroupItem( guidesString, visibleProperties.visibleGuidesProperty )
     ];
 

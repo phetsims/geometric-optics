@@ -185,14 +185,14 @@ class GeometricOpticsScreenView extends ScreenView {
         virtualRayStroke: virtualRayOneStroke
       } );
 
-    // create the light rays associated with the movable point
+    // create the light rays associated with the second source
     const secondSourceLightRaysNode = new LightRaysNode( model.secondLightRays,
       this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem, {
         realRayStroke: realRayTwoStroke,
         virtualRayStroke: virtualRayTwoStroke
       } );
 
-    // the movable light rays visibility is tied to the status of the checkbox
+    // the second source light rays visibility is tied to the status of the checkbox
     this.visibleProperties.visibleSecondSourceProperty.linkAttribute( secondSourceLightRaysNode, 'visible' );
 
     // create the target image
