@@ -41,7 +41,7 @@ class GeometricOpticsRulerNode extends RulerNode {
     options = merge( {
       opacity: 0.8,
       minorTicksPerMajorTick: 4,
-      majorTickDistance: 0.1, // in model coordinate (m)
+      majorTickDistance: 10, // in model coordinate (cm)
       majorTickFont: new PhetFont( 13 ),
       insetsWidth: 0
     }, options );
@@ -59,8 +59,7 @@ class GeometricOpticsRulerNode extends RulerNode {
 
     for ( let i = 0; i < numberOfMajorTicks; i++ ) {
 
-      const centimetersInMeters = 100;
-      const majorTickInterval = options.majorTickDistance * centimetersInMeters;
+      const majorTickInterval = options.majorTickDistance;
 
       if ( i % 2 === 0 ) {
         majorTickLabels[ i ] = Utils.toFixed( i * majorTickInterval, 0 );

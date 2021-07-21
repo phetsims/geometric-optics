@@ -27,7 +27,7 @@ class Ruler {
     // @public {Property.<Vector2>} position of the ruler in view coordinates
     this.positionProperty = new Vector2Property( position );
 
-    // @public {number} length of the ruler in meters.
+    // @public {number} length of the ruler in centimeters.
     this.length = length;
 
     // @private

@@ -28,7 +28,7 @@ import LightRayMode from '../model/LightRayMode.js';
 import FocalPointNode from './FocalPointNode.js';
 import SourceObjectNode from './SourceObjectNode.js';
 
-const metersPattern = geometricOpticsStrings.metersPattern;
+const centimetersPattern = geometricOpticsStrings.centimetersPattern;
 const noneString = geometricOpticsStrings.none;
 const manyString = geometricOpticsStrings.many;
 const marginalString = geometricOpticsStrings.marginal;
@@ -101,10 +101,9 @@ class GeometricOpticsControlPanel extends Panel {
     // options for number controls that have length units
     const lengthNumberControlOptions = merge( {}, commonNumberControlOptions,
       {
-        delta: 0.1,
         numberDisplayOptions: {
-          decimalPlaces: GeometricOpticsConstants.METER_DECIMAL_PLACES,
-          valuePattern: StringUtils.fillIn( metersPattern, {
+          decimalPlaces: GeometricOpticsConstants.CENTIMETER_DECIMAL_PLACES,
+          valuePattern: StringUtils.fillIn( centimetersPattern, {
             meters: SunConstants.VALUE_NAMED_PLACEHOLDER
           } )
         }

@@ -86,11 +86,12 @@ class Lens extends Optic {
    */
   getFillAndOutlineShapes( radius, diameter, curve ) {
 
+    const FUDGE_LENGTH = 100; // arbitrary length
     const halfHeight = diameter / 2;
 
     // the width of the lens changes with the radius of curvature: hollywood
     // physically correct:   halfWidth = radius - Math.sqrt( radius^2 - halfHeight^2)
-    const halfWidth = 1 / 2 * halfHeight * halfHeight / ( radius + 1 );
+    const halfWidth = 1 / 2 * halfHeight * halfHeight / ( radius + FUDGE_LENGTH );
 
     // {Shape} shape of lens
     let shape; // the outline of the lens (including top and bottom)
@@ -129,7 +130,7 @@ class Lens extends Optic {
 
     }
     else {
-      const midWidth = 1 / 2 * halfHeight * halfHeight / ( radius + 1 );
+      const midWidth = halfWidth;
 
       // four corners of the concave shape
       const topLeft = new Vector2( -halfWidth, halfHeight );

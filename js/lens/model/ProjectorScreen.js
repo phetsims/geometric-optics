@@ -35,7 +35,7 @@ class ProjectorScreen {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     // @public {Property.<Vector2>} position of the center of the screen
-    this.positionProperty = new Vector2Property( new Vector2( 2, 0 ) );
+    this.positionProperty = new Vector2Property( new Vector2( 200, 0 ) );
 
     // @public (read-only) {Property.<Vector2>} position of the optic
     this.opticPositionProperty = opticPositionProperty;

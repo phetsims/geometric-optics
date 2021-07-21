@@ -21,33 +21,34 @@ const GeometricOpticsConstants = {
   SCREEN_VIEW_X_MARGIN: 15, // margin along horizontal axis of screen (in view coordinates)
   SCREEN_VIEW_Y_MARGIN: 15, // margin along vertical axis of screen
 
-  DEFAULT_SOURCE_POINT_1: new Vector2( -1.5, 0.0 ),
-  DEFAULT_SOURCE_POINT_2: new Vector2( -1.5, -0.2 ),
+  DEFAULT_SOURCE_POINT_1: new Vector2( -150, 0.0 ), // centimeters
+  DEFAULT_SOURCE_POINT_2: new Vector2( -150, -20 ), // centimeters
 
   ZOOM_RANGE: new RangeWithValue( 1, 3, 3 ),
   ZOOM_SCALE_FACTOR: 2, // should not be changed to keep major tick labels as multiples of 10
 
 
   ORIGIN_POINT: new Vector2( 1024 / 2, 618 / 2 - 50 ), // view position of the model origin (0,0)
-  NOMINAL_VIEW_MODEL_CONVERSION: 200, // view coordinates per meter in initial zoom level
+  NOMINAL_VIEW_MODEL_CONVERSION: 2, // view coordinates per cm in initial zoom level
 
-  LIGHT_SPEED: 5, // (speed in meter per second for light)
+  LIGHT_SPEED: 500, // (speed in centimeter per second for light for the purpose of the animation
+
   //----------------------------------------------------------------------------------------
   //                                 LENS
 
   LENS_INITIAL_POSITION: Vector2.ZERO,
   LENS_INITIAL_CURVATURE_TYPE: Optic.Curve.CONVEX,
   LENS_INDEX_OF_REFRACTION_RANGE: new RangeWithValue( 1.20, 1.87, 1.53 ),
-  LENS_RADIUS_OF_CURVATURE_RANGE: new RangeWithValue( 0.3, 1.3, 0.8 ),
-  LENS_DIAMETER_RANGE: new RangeWithValue( 0.3, 1.3, 0.8 ),
+  LENS_RADIUS_OF_CURVATURE_RANGE: new RangeWithValue( 30, 130, 80 ), // centimeters
+  LENS_DIAMETER_RANGE: new RangeWithValue( 30, 130, 80 ), // centimeters
 
   //----------------------------------------------------------------------------------------
   //                                 MIRROR
 
-  MIRROR_INITIAL_POSITION: new Vector2( 1, 0 ),
+  MIRROR_INITIAL_POSITION: new Vector2( 100, 0 ), // centimeters
   MIRROR_INITIAL_CURVATURE_TYPE: Optic.Curve.CONCAVE,
-  MIRROR_RADIUS_OF_CURVATURE_RANGE: new RangeWithValue( 1.5, 2.5, 2.0 ),
-  MIRROR_DIAMETER_RANGE: new RangeWithValue( 0.3, 1.5, 0.8 ),
+  MIRROR_RADIUS_OF_CURVATURE_RANGE: new RangeWithValue( 150, 250, 200 ), // centimeters
+  MIRROR_DIAMETER_RANGE: new RangeWithValue( 30, 150, 80 ), // centimeters
 
 
   //----------------------------------------------------------------------------------------
@@ -71,13 +72,13 @@ const GeometricOpticsConstants = {
   //----------------------------------------------------------------------------------------
   //                             OBJECT VIEW
 
-  OBJECT_SIZE: new Dimension2( 15, 3 ), // in meters
-  OBJECT_ANCHOR_VECTOR: new Vector2( 0.16, -0.19 ), // in meters, displacement vector between top left image and anchor
+  OBJECT_SIZE: new Dimension2( 15, 3 ), // in centimeters
+  OBJECT_ANCHOR_VECTOR: new Vector2( 16, -19 ), // in centimeters, displacement vector between top left image and anchor
 
   //----------------------------------------------------------------------------------------
   //                              RAYS
 
-  OPTICAL_ELEMENT_TIP_OFFSET: 0.0, // meters
+  OPTICAL_ELEMENT_TIP_OFFSET: 0.0, // centimeters
   OPTICAL_ELEMENT_LINE_WIDTH: 2,
 
 
@@ -85,33 +86,33 @@ const GeometricOpticsConstants = {
   //                               RULER
   RULER_HEIGHT: 40, // in view coordinates
   MINIMUM_VISIBLE_LENGTH: 40, // portion of the ruler always within visible bounds, in view coordinates
-  HORIZONTAL_RULER_LENGTH: 2.6, // in model coordinates
-  VERTICAL_RULER_LENGTH: 1.6, // in model coordinates
+  HORIZONTAL_RULER_LENGTH: 260, // centimeters
+  VERTICAL_RULER_LENGTH: 160, // centimeters
 
   //----------------------------------------------------------------------------------------
   //                              GUIDES
 
   GUIDE_LINE_WIDTH: 1,
-  GUIDE_RECTANGLE_WIDTH: 0.48, // Meters
-  GUIDE_RECTANGLE_HEIGHT: 0.03, // Meters
-  GUIDE_FULCRUM_RADIUS: 5,
+  GUIDE_RECTANGLE_WIDTH: 48, // centimeters  - length of the guide
+  GUIDE_RECTANGLE_HEIGHT: 3, // in view coordinates
+  GUIDE_FULCRUM_RADIUS: 5, // in view coordinates
 
   //----------------------------------------------------------------------------------------
   //                             PROJECTION SCREEN
 
   MASK_CORNERS: {
-    LEFT_TOP: new Vector2( -0.25, 0.33 ),
-    LEFT_BOTTOM: new Vector2( -0.25, -0.56 ),
-    RIGHT_BOTTOM: new Vector2( 0.25, -0.88 ),
-    RIGHT_TOP: new Vector2( 0.25, 0.67 )
+    LEFT_TOP: new Vector2( -25, 33 ), // centimeters
+    LEFT_BOTTOM: new Vector2( -25, -56 ),
+    RIGHT_BOTTOM: new Vector2( 25, -88 ),
+    RIGHT_TOP: new Vector2( 25, 67 )
   },
 
-  FULL_BRIGHT_SPOT_HEIGHT: 0.07, // Meters
+  FULL_BRIGHT_SPOT_HEIGHT: 7, // centimeters
 
   //----------------------------------------------------------------------------------------
   //                        DECIMAL PLACES
 
-  METER_DECIMAL_PLACES: 1, // for all distance related values
+  CENTIMETER_DECIMAL_PLACES: 0, // for all distance related values
   INDEX_DECIMAL_PLACES: 2, // for the index of refraction values
 
   //--------------------------------------------------------------------------------------

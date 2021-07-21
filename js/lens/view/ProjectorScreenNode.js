@@ -55,7 +55,7 @@ class ProjectorScreenNode extends Node {
     this.addChild( projectorScreenImage );
 
     // difference between the left top position of the image and the "center" of the blackboard
-    const offset = new Vector2( -0.3, 0.75 );
+    const offset = new Vector2( -30, 75 );
 
     // @private {Property.<Vector2} create a property for the left top position of the projectorScreen target
     this.imagePositionProperty = new Vector2Property( projectorScreen.positionProperty.value.plus( offset ) );

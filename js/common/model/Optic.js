@@ -26,8 +26,8 @@ class Optic {
   /**
    *
    * @param {Vector2} position - center of the optical element
-   * @param {RangeWithValue} radiusOfCurvatureRange - range of radius of curvature (in meters)
-   * @param {RangeWithValue} diameterRange - range of height for optical element (in meters)
+   * @param {RangeWithValue} radiusOfCurvatureRange - range of radius of curvature (in centimeters)
+   * @param {RangeWithValue} diameterRange - range of height for optical element (in centimeters)
    * @param {Optic.Curve} curve - initial curve of optical element - acceptable values (CONVEX and CONCAVE)
    * @param {Optic.Type} type - initial type of optical element - acceptable values (MIRROR and LENS)
    * @param {Tandem} tandem
@@ -232,7 +232,7 @@ class Optic {
    */
   getPrincipalLine() {
 
-    const yMax = 20; // in meters
+    const yMax = 200; // in centimeters
 
     // a straight vertical line going through the middle of the optic
     const verticalLine = Shape.lineSegment( 0, yMax, 0, -yMax );

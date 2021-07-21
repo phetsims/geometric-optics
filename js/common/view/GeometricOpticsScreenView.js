@@ -361,7 +361,7 @@ class GeometricOpticsScreenView extends ScreenView {
     // scaling factor between zoom level measured from the initial zoom level
     const absoluteScale = this.getAbsoluteScale( zoomLevel );
 
-    // number of view coordinates for 1 meter
+    // number of view coordinates for 1 model coordinate
     const viewModelScale = NOMINAL_VIEW_MODEL_CONVERSION * absoluteScale;
 
     // create a Y inverted modelViewTransform with isometric scaling along X and Y

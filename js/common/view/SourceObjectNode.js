@@ -30,7 +30,8 @@ const MOVABLE_POINT_FILL = geometricOpticsColorProfile.movablePointFillProperty;
 const MOVABLE_POINT_STROKE = geometricOpticsColorProfile.movablePointStrokeProperty;
 
 const OVERALL_SCALE_FACTOR = 0.5;
-const OFFSET_VECTOR = new Vector2( 0.16, -0.19 );
+const OFFSET_VECTOR = new Vector2( 16, -19 ); /// in model coordinates
+const LIGHT_OFFSET_VECTOR = new Vector2( 50, -23 ); // in model coordinates
 const CUEING_ARROW_LENGTH = 20;
 const CUEING_ARROW_OPTIONS = {
   fill: 'rgb(255,0,0)',
@@ -110,7 +111,7 @@ class SourceObjectNode extends Node {
       }
       else {
         // address position of source of light #79
-        const offsetPosition = position.plus( OFFSET_VECTOR ).plusXY( 0.34, -0.04 );
+        const offsetPosition = position.plus( LIGHT_OFFSET_VECTOR );
         sourceObject.setPosition( offsetPosition );
         sourceObjectImage.leftTop = modelViewTransform.modelToViewPosition( position );
       }
@@ -161,8 +162,7 @@ class SourceObjectNode extends Node {
         movableNode.center = viewPosition;
       }
       else {
-        movableNode.leftTop = viewPosition.minus( modelViewTransform.modelToViewDelta( OFFSET_VECTOR.plusXY(
-          0.34, -0.04 ) ) );
+        movableNode.leftTop = viewPosition.minus( modelViewTransform.modelToViewDelta( LIGHT_OFFSET_VECTOR ) );
 
       }
     }
@@ -198,7 +198,7 @@ class SourceObjectNode extends Node {
         movableImage.setScaleMagnitude( 1.5 );
 
         // address position of source of light #79
-        const offsetPosition = this.leftTopModelPositionProperty.value.plus( OFFSET_VECTOR ).plusXY( 0.34, -0.04 );
+        const offsetPosition = this.leftTopModelPositionProperty.value.plus( LIGHT_OFFSET_VECTOR );
         sourceObject.setPosition( offsetPosition );
         sourceObjectImage.leftTop = modelViewTransform.modelToViewPosition( this.leftTopModelPositionProperty.value );
 

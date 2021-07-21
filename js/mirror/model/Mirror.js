@@ -32,7 +32,7 @@ class Mirror extends Optic {
     super( INITIAL_POSITION, RADIUS_OF_CURVATURE_RANGE, DIAMETER_RANGE,
       INITIAL_CURVATURE_TYPE, Optic.Type.MIRROR, tandem );
 
-    // @public (read-only) {Property.<number>} focal length in meters
+    // @public (read-only) {Property.<number>} focal length in centimeters
     // positive indicates the mirror is concave (converging).
     // negative indicate the lens is convex (diverging)
     this.focalLengthProperty = new DerivedProperty(
@@ -71,7 +71,7 @@ class Mirror extends Optic {
     assert && assert( radius > diameter / 2, 'the radius of curvature is too small when compared to the diameter' );
 
     options = merge( {
-      thickness: 0.05 // horizontal separation between the two edges of the surfaces at the middle part
+      thickness: 5 // horizontal separation between the two edges of the surfaces at the middle part
     }, options );
 
     // convenience variable

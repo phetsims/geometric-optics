@@ -148,7 +148,7 @@ class TargetImage {
   }
 
   /**
-   * Returns the height of the image in meter.
+   * Returns the height of the image in model coordinates.
    * The height can be negative if the image is inverted
    * @public
    * @param {Vector2} objectPosition

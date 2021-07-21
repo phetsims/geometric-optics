@@ -18,7 +18,7 @@ import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
 const DEFAULT_SOURCE_POINT_1 = GeometricOpticsConstants.DEFAULT_SOURCE_POINT_1;
 const DEFAULT_SOURCE_POINT_2 = GeometricOpticsConstants.DEFAULT_SOURCE_POINT_2;
-const verticalOffsetRange = new RangeWithValue( -0.5, 0, -0.3 );
+const verticalOffsetRange = new RangeWithValue( -50, 0, -30 );
 
 class SourceObject {
 
@@ -36,7 +36,7 @@ class SourceObject {
     // @private {Property.<Vector2>} position of the second source of light
     this.unconstrainedMovablePositionProperty = new Vector2Property( DEFAULT_SOURCE_POINT_2 );
 
-    // @private {Property.<number>} vertical offset (in meters) of second object with respect to the first
+    // @private {Property.<number>} vertical offset (in centimeters) of second object with respect to the first
     this.verticalOffsetProperty = new NumberProperty( verticalOffsetRange.defaultValue );
 
     // @public {Vector2|null} initial Position of the optic
