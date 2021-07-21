@@ -68,11 +68,10 @@ class ProjectorScreenNode extends Node {
     // keep at least half of the projector screen within visible bounds and right of the optic
     const projectorScreenDragBoundsProperty = new DerivedProperty( [ visibleModelBoundsProperty, projectorScreen.opticPositionProperty ],
       ( visibleBounds, opticPosition ) => {
-        const viewBounds = new Bounds2( opticPosition.x,
+        return new Bounds2( opticPosition.x,
           visibleBounds.minY + modelChildHeight / 2,
           visibleBounds.maxX - modelChildWidth / 2,
           visibleBounds.maxY + modelChildHeight / 2 );
-        return viewBounds;
       } );
 
     // create a drag listener for the image
