@@ -8,6 +8,7 @@
 
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
+import lampBlueLogoImage from '../../../images/lamp-blue-logo_png.js';
 import lampBlueImage from '../../../images/lamp-blue_png.js';
 import lampRedImage from '../../../images/lamp-red_png.js';
 import pencil3dLeftFacingInvertedImage from '../../../images/pencil-3d-left-facing-inverted_png.js';
@@ -90,7 +91,7 @@ const Representation = Enumeration.byMap( {
     rocket3dLeftFacingUprightImage,
     rocket3dLeftFacingInvertedImage,
     rocketString, true ),
-  LIGHT: new RepresentationGenerator( lampRedImage,
+  LIGHT: new RepresentationGenerator( lampBlueLogoImage,
     lampBlueImage,
     lampBlueImage,
     projectorScreen3dImage,
