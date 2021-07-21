@@ -34,7 +34,7 @@ class LabelNode extends Node {
         opacity: 0.5,
         cornerRadius: 4
       },
-      labelOffset: 20, /// vertical offset (in view coordinates) wrt positionProperty
+      labelOffset: 20, /// vertical offset (in view coordinates) wrt firstPositionProperty
       xMargin: 10,
       yMargin: 10
     }, options );

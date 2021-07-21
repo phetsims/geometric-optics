@@ -42,10 +42,10 @@ class GeometricOpticsModel {
     this.timeProperty = new NumberProperty( this.timeRange.defaultValue );
 
     // @public {Property.<boolean>} the image/target can be seen if enabled
-    this.enableImageProperty = new BooleanProperty( false );
+    this.enableFirstTargetProperty = new BooleanProperty( false );
 
-    // @public {Property.<boolean>} the image associated with movable target can be seen if enabled
-    this.enableMovableImageProperty = new BooleanProperty( false );
+    // @public {Property.<boolean>} the image associated with second source can be seen if enabled
+    this.enableSecondTargetProperty = new BooleanProperty( false );
 
     // @public {Property.<Representation>}  representation of the source/object
     this.representationProperty = new Property( Representation.PENCIL );
@@ -78,8 +78,8 @@ class GeometricOpticsModel {
     this.rulers.vertical.reset();
     this.rulers.horizontal.reset();
     this.timeProperty.reset();
-    this.enableImageProperty.reset();
-    this.enableMovableImageProperty.reset();
+    this.enableFirstTargetProperty.reset();
+    this.enableSecondTargetProperty.reset();
     this.projectorScreen.reset();
   }
 
@@ -113,38 +113,38 @@ class GeometricOpticsModel {
     this.secondFocalPoint = new FocalPoint( optic.positionProperty, optic.focalLengthProperty, tandem, { multiplicativeFactor: -1 } );
 
     // @public {TargetImage} target/ image
-    this.targetImage = new TargetImage( this.sourceObject.positionProperty, optic, tandem );
+    this.firstTargetImage = new TargetImage( this.sourceObject.firstPositionProperty, optic, tandem );
 
-    // @public {TargetImage} movable target/ image
-    this.movableTargetImage = new TargetImage( this.sourceObject.secondSourcePositionProperty, optic, tandem );
+    // @public {TargetImage} target/ image associated with the second source
+    this.secondTargetImage = new TargetImage( this.sourceObject.secondPositionProperty, optic, tandem );
 
     // @public {ProjectorScreen}
     this.projectorScreen = new ProjectorScreen(
       optic.positionProperty,
       optic.diameterProperty,
-      this.targetImage.positionProperty,
-      this.movableTargetImage.positionProperty, tandem );
+      this.firstTargetImage.positionProperty,
+      this.secondTargetImage.positionProperty, tandem );
 
-    // @public {LightRays} model of the light rays
-    this.lightRays = new LightRays( this.timeProperty,
+    // @public {LightRays} model of the light rays associated to the first source
+    this.firstLightRays = new LightRays( this.timeProperty,
       this.lightRayModeProperty,
-      this.enableImageProperty,
+      this.enableFirstTargetProperty,
       this.representationProperty,
-      this.sourceObject.positionProperty,
+      this.sourceObject.firstPositionProperty,
       this.projectorScreen,
       optic,
-      this.targetImage,
+      this.firstTargetImage,
       tandem );
 
-    // @public {LightRays} model of the "movable" light rays
-    this.movableLightRays = new LightRays( this.timeProperty,
+    // @public {LightRays} model of the light rays associated with the second source
+    this.secondLightRays = new LightRays( this.timeProperty,
       this.lightRayModeProperty,
-      this.enableMovableImageProperty,
+      this.enableSecondTargetProperty,
       this.representationProperty,
-      this.sourceObject.secondSourcePositionProperty,
+      this.sourceObject.secondPositionProperty,
       this.projectorScreen,
       optic,
-      this.movableTargetImage,
+      this.secondTargetImage,
       tandem );
   }
 }

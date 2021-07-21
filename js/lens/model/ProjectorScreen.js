@@ -23,14 +23,14 @@ class ProjectorScreen {
   /**
    * @param {Property.<Vector2>} opticPositionProperty
    * @param {Property.<number>} opticDiameterProperty
-   * @param {Property.<Vector2>} targetImagePositionProperty
-   * @param {Property.<Vector2>} movableImagePositionProperty
+   * @param {Property.<Vector2>} firstTargetPositionProperty
+   * @param {Property.<Vector2>} secondTargetPositionProperty
    * @param {Tandem} tandem
    */
   constructor( opticPositionProperty,
                opticDiameterProperty,
-               targetImagePositionProperty,
-               movableImagePositionProperty,
+               firstTargetPositionProperty,
+               secondTargetPositionProperty,
                tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
@@ -41,21 +41,21 @@ class ProjectorScreen {
     this.opticPositionProperty = opticPositionProperty;
 
     // @public (read-only) {Spotlight}
-    this.spotlightOne = new Spotlight(
+    this.firstSpotlight = new Spotlight(
       this.positionProperty,
       opticPositionProperty,
       opticDiameterProperty,
-      targetImagePositionProperty,
+      firstTargetPositionProperty,
       this.getScreenShape.bind( this ),
       tandem
     );
 
     // @public (read-only) {Spotlight}
-    this.spotlightTwo = new Spotlight(
+    this.secondSpotlight = new Spotlight(
       this.positionProperty,
       opticPositionProperty,
       opticDiameterProperty,
-      movableImagePositionProperty,
+      secondTargetPositionProperty,
       this.getScreenShape.bind( this ),
       tandem
     );

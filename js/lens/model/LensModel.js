@@ -25,11 +25,11 @@ class LensModel extends GeometricOpticsModel {
 
     this.createCommonComponents( this.optic, tandem );
 
-    this.firstTopGuide = new Guide( this.sourceObject.positionProperty, this.optic );
-    this.firstBottomGuide = new Guide( this.sourceObject.positionProperty, this.optic, { location: Guide.Location.BOTTOM } );
+    this.firstTopGuide = new Guide( this.sourceObject.firstPositionProperty, this.optic );
+    this.firstBottomGuide = new Guide( this.sourceObject.firstPositionProperty, this.optic, { location: Guide.Location.BOTTOM } );
 
-    this.secondTopGuide = new Guide( this.sourceObject.secondSourcePositionProperty, this.optic );
-    this.secondBottomGuide = new Guide( this.sourceObject.secondSourcePositionProperty, this.optic, { location: Guide.Location.BOTTOM } );
+    this.secondTopGuide = new Guide( this.sourceObject.secondPositionProperty, this.optic );
+    this.secondBottomGuide = new Guide( this.sourceObject.secondPositionProperty, this.optic, { location: Guide.Location.BOTTOM } );
 
 
   }

@@ -179,14 +179,14 @@ class GeometricOpticsScreenView extends ScreenView {
       this.playAreaModelBoundsProperty, this.modelViewTransform );
 
     // create the light rays associated with the object
-    const lightRaysNode = new LightRaysNode( model.lightRays,
+    const lightRaysNode = new LightRaysNode( model.firstLightRays,
       this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem, {
         realRayStroke: realRayOneStroke,
         virtualRayStroke: virtualRayOneStroke
       } );
 
     // create the light rays associated with the movable point
-    const secondSourceLightRaysNode = new LightRaysNode( model.movableLightRays,
+    const secondSourceLightRaysNode = new LightRaysNode( model.secondLightRays,
       this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem, {
         realRayStroke: realRayTwoStroke,
         virtualRayStroke: virtualRayTwoStroke
@@ -197,9 +197,9 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // create the target image
     const targetImageNode = new TargetImageNode( model.representationProperty,
-      model.targetImage,
+      model.firstTargetImage,
       model.optic,
-      model.enableImageProperty,
+      model.enableFirstTargetProperty,
       this.visibleProperties.visibleVirtualImageProperty,
       this.modelViewTransform, tandem );
 
@@ -240,13 +240,13 @@ class GeometricOpticsScreenView extends ScreenView {
     Property.multilink( [ model.lightRayModeProperty, this.visibleProperties.visibleRayTracingProperty ],
       ( lightRayMode, showHide ) => {
         if ( lightRayMode === LightRayMode.NO_RAYS ) {
-          model.enableImageProperty.value = showHide;
-          model.enableMovableImageProperty.value = showHide;
+          model.enableFirstTargetProperty.value = showHide;
+          model.enableSecondTargetProperty.value = showHide;
         }
         else {
           if ( !showHide ) {
-            model.enableImageProperty.value = false;
-            model.enableMovableImageProperty.value = false;
+            model.enableFirstTargetProperty.value = false;
+            model.enableSecondTargetProperty.value = false;
             model.timeProperty.value = 0;
           }
         }
@@ -274,9 +274,9 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // add disks at position of optic, source and target
     if ( GeometricOpticsQueryParameters.showDebugPoints ) {
-      this.addChild( new TrackingDiskNode( model.targetImage.positionProperty, this.modelViewTransform, tandem,
+      this.addChild( new TrackingDiskNode( model.firstTargetImage.positionProperty, this.modelViewTransform, tandem,
         { fill: 'magenta' } ) );
-      this.addChild( new TrackingDiskNode( model.sourceObject.positionProperty, this.modelViewTransform, tandem,
+      this.addChild( new TrackingDiskNode( model.sourceObject.firstPositionProperty, this.modelViewTransform, tandem,
         { fill: 'magenta' } ) );
       this.addChild( new TrackingDiskNode( model.optic.positionProperty, this.modelViewTransform, tandem,
         { fill: 'magenta' } ) );

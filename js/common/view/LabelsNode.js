@@ -81,13 +81,13 @@ class LabelsNode extends Node {
     } );
 
     // create image label
-    const imageLabel = new LabelNode( imageString, model.targetImage.positionProperty, new BooleanProperty( true ), modelViewTransformProperty );
+    const imageLabel = new LabelNode( imageString, model.firstTargetImage.positionProperty, new BooleanProperty( true ), modelViewTransformProperty );
 
     // create object label
-    const objectLabel = new LabelNode( objectString, model.sourceObject.positionProperty, new BooleanProperty( true ), modelViewTransformProperty );
+    const objectLabel = new LabelNode( objectString, model.sourceObject.firstPositionProperty, new BooleanProperty( true ), modelViewTransformProperty );
 
     // update the visibility of the object and image labels
-    Property.multilink( [ model.representationProperty, model.enableImageProperty, model.targetImage.isVirtualProperty, visibleProperties.visibleVirtualImageProperty ],
+    Property.multilink( [ model.representationProperty, model.enableFirstTargetProperty, model.firstTargetImage.isVirtualProperty, visibleProperties.visibleVirtualImageProperty ],
       ( representation, isEnabled, isVirtual, showVirtual ) => {
         objectLabel.visible = representation.isObject;
         imageLabel.visible = isEnabled && ( isVirtual ? showVirtual : true ) && representation.isObject;

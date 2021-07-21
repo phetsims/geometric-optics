@@ -2,7 +2,7 @@
 
 /**
  * Model element for object (in the sense commonly used in geometric optic) or source of light
- * The sourceObject has a position and a second movable position within it.
+ * The sourceObject has a position and a "second source" position within it.
  *
  * @author Martin Veillette
  */
@@ -31,7 +31,7 @@ class SourceObject {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     // @public {Property.<Vector2>} position of the source/object
-    this.positionProperty = new Vector2Property( DEFAULT_SOURCE_POINT_1 );
+    this.firstPositionProperty = new Vector2Property( DEFAULT_SOURCE_POINT_1 );
 
     // @private {Property.<Vector2>} position of the second source of light
     this.unconstrainedSecondSourcePositionProperty = new Vector2Property( DEFAULT_SOURCE_POINT_2 );
@@ -46,8 +46,8 @@ class SourceObject {
     this.opticPositionProperty = opticPositionProperty;
 
     // @public {Property.<Vector2>} position of the second source (source/object)
-    this.secondSourcePositionProperty =
-      new DerivedProperty( [ this.positionProperty,
+    this.secondPositionProperty =
+      new DerivedProperty( [ this.firstPositionProperty,
           this.verticalOffsetProperty,
           this.unconstrainedSecondSourcePositionProperty,
           representationProperty ],
@@ -66,7 +66,7 @@ class SourceObject {
    * @public
    */
   reset() {
-    this.positionProperty.reset();
+    this.firstPositionProperty.reset();
     this.verticalOffsetProperty.reset();
     this.unconstrainedSecondSourcePositionProperty.reset();
   }
@@ -77,7 +77,7 @@ class SourceObject {
    * @public
    */
   getPosition() {
-    return this.positionProperty.value;
+    return this.firstPositionProperty.value;
   }
 
   /**
@@ -86,18 +86,18 @@ class SourceObject {
    * @public
    */
   setPosition( position ) {
-    this.positionProperty.value = position;
+    this.firstPositionProperty.value = position;
   }
 
   /**
-   * Sets the movable point
+   * Sets the second source point
    * @param {Property.<Representation>} representationProperty
    * @param {Vector2} position
    * @public
    */
-  setMovablePoint( representationProperty, position ) {
+  setSecondPoint( representationProperty, position ) {
     if ( representationProperty.value.isObject ) {
-      const unconstrainedVerticalOffset = position.y - this.positionProperty.value.y;
+      const unconstrainedVerticalOffset = position.y - this.firstPositionProperty.value.y;
       this.verticalOffsetProperty.value = Utils.clamp( unconstrainedVerticalOffset, verticalOffsetRange.min, verticalOffsetRange.max );
     }
     else {
