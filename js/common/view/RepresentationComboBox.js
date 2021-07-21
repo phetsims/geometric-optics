@@ -41,8 +41,8 @@ class RepresentationComboBox extends Node {
       // the combo box should not include non-object for mirror screen
       if ( config.hasLens || representation.isObject ) {
         const text = new Text( representation.label, { font: COMBO_BOX_FONT } );
-        const logo = new Image( representation.logo, { scale: 0.05 } );
-        const hBox = new HBox( { spacing: 5, children: [ logo, text ] } );
+        const logoImage = new Image( representation.logo, { scale: 0.05 } );
+        const hBox = new HBox( { spacing: 5, children: [ logoImage, text ] } );
         items.push( new ComboBoxItem( hBox, representation ) );
       }
     } );
