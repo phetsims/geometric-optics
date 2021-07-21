@@ -72,7 +72,7 @@ class ProjectorScreen {
 
   /**
    * gets the vertical line that bisects the middle portion of the screen
-   * @private
+   * @public
    * @returns {Shape}
    */
   getBisectorLine() {
