@@ -232,7 +232,7 @@ class Optic {
    */
   getPrincipalLine() {
 
-    const yMax = 200; // in centimeters
+    const yMax = 800; // in centimeters
 
     // a straight vertical line going through the middle of the optic
     const verticalLine = Shape.lineSegment( 0, yMax, 0, -yMax );

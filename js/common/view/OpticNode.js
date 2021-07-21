@@ -97,7 +97,7 @@ class OpticNode extends Node {
       optic.setVerticalCoordinate( dragBoundsOpticPosition.y );
 
       // clip the ends of the center line based on play area bounds
-      clipCenterLine( bounds );
+     clipCenterLine( bounds );
     } );
 
     // modify the shape of the optic
