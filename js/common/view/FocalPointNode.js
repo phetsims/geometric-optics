@@ -31,7 +31,7 @@ class FocalPointNode extends PlusNode {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     // options for plus Node. Rotated by 45 degrees to create an X shape.
-    options = merge( FOCAL_POINT_OPTIONS,
+    options = merge( {}, FOCAL_POINT_OPTIONS,
       {
         fill: FILL,
         stroke: STROKE,
@@ -56,7 +56,7 @@ class FocalPointNode extends PlusNode {
    * @returns {PlusNode}
    */
   static createIcon( options ) {
-    options = merge( FOCAL_POINT_OPTIONS,
+    options = merge( {}, FOCAL_POINT_OPTIONS,
       {
         fill: FILL,
         stroke: STROKE,

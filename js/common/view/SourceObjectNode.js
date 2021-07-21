@@ -227,7 +227,7 @@ class SourceObjectNode extends Node {
    * @returns {Node}
    */
   static createMovablePointIcon( options ) {
-    options = merge( MOVABLE_POINT_OPTIONS, {
+    options = merge( {}, MOVABLE_POINT_OPTIONS, {
       fill: MOVABLE_POINT_FILL,
       stroke: MOVABLE_POINT_STROKE
     }, options );

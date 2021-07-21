@@ -130,7 +130,7 @@ class GeometricOpticsControlPanel extends Panel {
     if ( config.hasLens ) {
 
       // options for index of refraction control
-      const indexOfRefractionNumberControlOptions = merge( commonNumberControlOptions,
+      const indexOfRefractionNumberControlOptions = merge( {}, commonNumberControlOptions,
         {
           delta: 0.01,
           numberDisplayOptions: {
