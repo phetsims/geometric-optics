@@ -103,7 +103,7 @@ class Mirror extends Optic {
     const midRight = midLeft.plusXY( options.thickness, 0 );
 
     // shapes drawn from top to bottom in counterclockwise fashion.
-    const shapes = {
+    return {
       fillShape: new Shape()
         .moveToPoint( topLeft )
         .quadraticCurveToPoint( midLeft, bottomLeft )
@@ -116,8 +116,6 @@ class Mirror extends Optic {
         .quadraticCurveToPoint( midLeft, topLeft )
         .close()
     };
-
-    return shapes;
   }
 }
 
