@@ -80,7 +80,7 @@ class GuideNode extends Node {
     /**
      * Set the angle and position of a rectangle around the fulcrum
      * @param {number} angle - current "model" angle
-     * @param {number} oldAngle - previous "model" angle
+     * @param {number|null} oldAngle - previous "model" angle
      * @param {Rectangle} rectangle - incident or transmitted rectangle to be rotated and positioned
      */
     const setAnglePosition = ( angle, oldAngle, rectangle ) => {
