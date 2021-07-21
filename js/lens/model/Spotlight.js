@@ -148,9 +148,19 @@ class Spotlight {
    * @returns {Shape}
    */
   getIntersection( screenPosition, opticPosition, opticDiameter, targetPosition ) {
-    return Shape.intersection(
-      [ this.getDiskShape( screenPosition, opticPosition, opticDiameter, targetPosition ),
-        this.getScreenShape() ] );
+
+    // translated screen shape
+    const screenShape = this.getScreenShape();
+
+    // unclipped elliptical disk shape
+    const diskShape = this.getDiskShape( screenPosition, opticPosition, opticDiameter, targetPosition );
+
+    assert && assert( screenShape instanceof Shape, 'screenShape is not a Shape' );
+    assert && assert( diskShape instanceof Shape, 'diskShape is not a Shape' );
+    assert && assert( diskShape.getArea() > 0, 'diskShape area is not positive definite' );
+
+    // find the intersection of the two shapes
+    return Shape.intersection( [ screenShape, diskShape ] );
   }
 
   /**
