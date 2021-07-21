@@ -34,7 +34,7 @@ class SourceObject {
     this.positionProperty = new Vector2Property( DEFAULT_SOURCE_POINT_1 );
 
     // @private {Property.<Vector2>} position of the second source of light
-    this.unconstrainedMovablePositionProperty = new Vector2Property( DEFAULT_SOURCE_POINT_2 );
+    this.unconstrainedSecondSourcePositionProperty = new Vector2Property( DEFAULT_SOURCE_POINT_2 );
 
     // @private {Property.<number>} vertical offset (in centimeters) of second object with respect to the first
     this.verticalOffsetProperty = new NumberProperty( verticalOffsetRange.defaultValue );
@@ -45,11 +45,11 @@ class SourceObject {
     // @public {read-only} initial position of the optic
     this.opticPositionProperty = opticPositionProperty;
 
-    // @public {Property.<Vector2>} position of the movable point (source/object)
-    this.movablePositionProperty =
+    // @public {Property.<Vector2>} position of the second source (source/object)
+    this.secondSourcePositionProperty =
       new DerivedProperty( [ this.positionProperty,
           this.verticalOffsetProperty,
-          this.unconstrainedMovablePositionProperty,
+          this.unconstrainedSecondSourcePositionProperty,
           representationProperty ],
         ( position, verticalOffset, unconstrainedPosition, representation ) => {
           if ( representation.isObject ) {
@@ -68,7 +68,7 @@ class SourceObject {
   reset() {
     this.positionProperty.reset();
     this.verticalOffsetProperty.reset();
-    this.unconstrainedMovablePositionProperty.reset();
+    this.unconstrainedSecondSourcePositionProperty.reset();
   }
 
   /**
@@ -101,7 +101,7 @@ class SourceObject {
       this.verticalOffsetProperty.value = Utils.clamp( unconstrainedVerticalOffset, verticalOffsetRange.min, verticalOffsetRange.max );
     }
     else {
-      this.unconstrainedMovablePositionProperty.value = position;
+      this.unconstrainedSecondSourcePositionProperty.value = position;
     }
   }
 

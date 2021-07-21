@@ -121,7 +121,7 @@ class SourceObjectNode extends Node {
     const movableNode = new Node();
 
     // Property for the position of the movable node
-    const movableCirclePositionProperty = new Vector2Property( sourceObject.movablePositionProperty.value );
+    const movableCirclePositionProperty = new Vector2Property( sourceObject.secondSourcePositionProperty.value );
 
     // create the icon for second source (for object source)
     const circleIcon = SourceObjectNode.createMovablePointIcon();
@@ -204,14 +204,14 @@ class SourceObjectNode extends Node {
 
 
       }
-      setMovableNodePosition( sourceObject.movablePositionProperty.value );
+      setMovableNodePosition( sourceObject.secondSourcePositionProperty.value );
     } );
 
     movableCirclePositionProperty.link( position => {
       sourceObject.setMovablePoint( representationProperty, position );
     } );
 
-    sourceObject.movablePositionProperty.link( position => {
+    sourceObject.secondSourcePositionProperty.link( position => {
       setMovableNodePosition( position );
     } );
 

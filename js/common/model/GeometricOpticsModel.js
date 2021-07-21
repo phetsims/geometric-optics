@@ -116,7 +116,7 @@ class GeometricOpticsModel {
     this.targetImage = new TargetImage( this.sourceObject.positionProperty, optic, tandem );
 
     // @public {TargetImage} movable target/ image
-    this.movableTargetImage = new TargetImage( this.sourceObject.movablePositionProperty, optic, tandem );
+    this.movableTargetImage = new TargetImage( this.sourceObject.secondSourcePositionProperty, optic, tandem );
 
     // @public {ProjectorScreen}
     this.projectorScreen = new ProjectorScreen(
@@ -141,7 +141,7 @@ class GeometricOpticsModel {
       this.lightRayModeProperty,
       this.enableMovableImageProperty,
       this.representationProperty,
-      this.sourceObject.movablePositionProperty,
+      this.sourceObject.secondSourcePositionProperty,
       this.projectorScreen,
       optic,
       this.movableTargetImage,

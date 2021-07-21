@@ -186,14 +186,14 @@ class GeometricOpticsScreenView extends ScreenView {
       } );
 
     // create the light rays associated with the movable point
-    const movableLightRaysNode = new LightRaysNode( model.movableLightRays,
+    const secondSourceLightRaysNode = new LightRaysNode( model.movableLightRays,
       this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem, {
         realRayStroke: realRayTwoStroke,
         virtualRayStroke: virtualRayTwoStroke
       } );
 
     // the movable light rays visibility is tied to the status of the checkbox
-    this.visibleProperties.visibleSecondSourceProperty.linkAttribute( movableLightRaysNode, 'visible' );
+    this.visibleProperties.visibleSecondSourceProperty.linkAttribute( secondSourceLightRaysNode, 'visible' );
 
     // create the target image
     const targetImageNode = new TargetImageNode( model.representationProperty,
@@ -215,7 +215,7 @@ class GeometricOpticsScreenView extends ScreenView {
     this.playAreaNode.addChild( this.sourceObjectNode );
     this.playAreaNode.addChild( targetImageNode );
     this.playAreaNode.addChild( lightRaysNode );
-    this.playAreaNode.addChild( movableLightRaysNode );
+    this.playAreaNode.addChild( secondSourceLightRaysNode );
     this.playAreaNode.addChild( focalPointsLayer );
 
     // scale the playAreaNode
