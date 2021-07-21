@@ -80,7 +80,7 @@ class LabelNode extends Node {
 
   /**
    * Set a string for the label
-   * @private
+   * @public
    * @param {string} label
    */
   setText( label ) {

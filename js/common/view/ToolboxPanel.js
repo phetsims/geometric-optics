@@ -59,7 +59,7 @@ class ToolboxPanel extends Panel {
     /**
      * Add input listener on iconNode to forward events to rulerNode
      * @param {Node} iconNode
-     * @param {Node} rulerNode
+     * @param {GeometricOpticsRulerNode} rulerNode
      * @param {Property.<boolean>} visibleRulerProperty
      */
     const createForwardListener = ( iconNode, rulerNode, visibleRulerProperty ) => {
