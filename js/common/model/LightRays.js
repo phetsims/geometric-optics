@@ -27,7 +27,7 @@ class LightRays {
    * @param {Property.<Vector2>} sourceObjectPositionProperty
    * @param {ProjectorScreen} projectorScreen
    * @param {Optic} optic
-   * @param {TargetImage} targetImage
+   * @param {Target} target
    * @param {Tandem} tandem
    */
   constructor( timeProperty,
@@ -37,7 +37,7 @@ class LightRays {
                sourceObjectPositionProperty,
                projectorScreen,
                optic,
-               targetImage, tandem ) {
+               target, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     // @public {Property.<LightRayMode>}
@@ -51,8 +51,8 @@ class LightRays {
     // @private {Property.<Vector2>}
     this.sourceObjectPositionProperty = sourceObjectPositionProperty;
 
-    // @private {TargetImage}
-    this.targetImage = targetImage;
+    // @private {Target}
+    this.target = target;
 
     // @public (read-only)
     this.realRay = new Shape();
@@ -81,10 +81,10 @@ class LightRays {
         this.virtualRay = new Shape();
 
         // {Vector2} the position the target
-        const targetPoint = targetImage.positionProperty.value;
+        const targetPoint = target.positionProperty.value;
 
         // {boolean} is the image virtual
-        const isVirtual = targetImage.isVirtual();
+        const isVirtual = target.isVirtual();
 
         // {Vector2[]} get the initial directions of the rays
         const directions = this.getRayDirections( sourcePosition, optic, lightRayMode );
@@ -159,11 +159,11 @@ class LightRays {
 
       // the top of the optic
       const topPoint = optic.getExtremumPoint( sourcePosition,
-        this.targetImage.positionProperty.value, { location: Optic.Location.TOP } );
+        this.target.positionProperty.value, { location: Optic.Location.TOP } );
 
       // the bottom of the optic
       const bottomPoint = optic.getExtremumPoint( sourcePosition,
-        this.targetImage.positionProperty.value, { location: Optic.Location.BOTTOM } );
+        this.target.positionProperty.value, { location: Optic.Location.BOTTOM } );
 
       // direction of a ray to the top of the optic
       const topDirection = topPoint.minus( sourcePosition ).normalized();

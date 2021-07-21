@@ -34,7 +34,7 @@ import OpticalAxisLine from './OpticalAxisLine.js';
 import RepresentationComboBox from './RepresentationComboBox.js';
 import ShowHideToggleButton from './ShowHideToggleButton.js';
 import SourceObjectNode from './SourceObjectNode.js';
-import TargetImageNode from './TargetImageNode.js';
+import TargetNode from './TargetNode.js';
 import ToolboxPanel from './ToolboxPanel.js';
 import TrackingDiskNode from './TrackingDiskNode.js';
 import VisibleProperties from './VisibleProperties.js';
@@ -196,8 +196,8 @@ class GeometricOpticsScreenView extends ScreenView {
     this.visibleProperties.visibleSecondSourceProperty.linkAttribute( secondSourceLightRaysNode, 'visible' );
 
     // create the target image
-    const targetImageNode = new TargetImageNode( model.representationProperty,
-      model.firstTargetImage,
+    const targetNode = new TargetNode( model.representationProperty,
+      model.firstTarget,
       model.optic,
       model.enableFirstTargetProperty,
       this.visibleProperties.visibleVirtualImageProperty,
@@ -213,7 +213,7 @@ class GeometricOpticsScreenView extends ScreenView {
     // add children that need to be zoomed in/out. order is important
     this.playAreaNode.addChild( opticalAxisLine );
     this.playAreaNode.addChild( this.sourceObjectNode );
-    this.playAreaNode.addChild( targetImageNode );
+    this.playAreaNode.addChild( targetNode );
     this.playAreaNode.addChild( lightRaysNode );
     this.playAreaNode.addChild( secondSourceLightRaysNode );
     this.playAreaNode.addChild( focalPointsLayer );
@@ -274,7 +274,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // add disks at position of optic, source and target
     if ( GeometricOpticsQueryParameters.showDebugPoints ) {
-      this.addChild( new TrackingDiskNode( model.firstTargetImage.positionProperty, this.modelViewTransform, tandem,
+      this.addChild( new TrackingDiskNode( model.firstTarget.positionProperty, this.modelViewTransform, tandem,
         { fill: 'magenta' } ) );
       this.addChild( new TrackingDiskNode( model.sourceObject.firstPositionProperty, this.modelViewTransform, tandem,
         { fill: 'magenta' } ) );

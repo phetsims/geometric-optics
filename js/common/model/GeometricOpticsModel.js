@@ -22,7 +22,7 @@ import LightRays from './LightRays.js';
 import Representation from './Representation.js';
 import Ruler from './Ruler.js';
 import SourceObject from './SourceObject.js';
-import TargetImage from './TargetImage.js';
+import Target from './Target.js';
 
 const HORIZONTAL_RULER_LENGTH = GeometricOpticsConstants.HORIZONTAL_RULER_LENGTH;
 const VERTICAL_RULER_LENGTH = GeometricOpticsConstants.VERTICAL_RULER_LENGTH;
@@ -112,18 +112,18 @@ class GeometricOpticsModel {
     // @public {FocalPoint} second principal focal point
     this.secondFocalPoint = new FocalPoint( optic.positionProperty, optic.focalLengthProperty, tandem, { multiplicativeFactor: -1 } );
 
-    // @public {TargetImage} target/ image
-    this.firstTargetImage = new TargetImage( this.sourceObject.firstPositionProperty, optic, tandem );
+    // @public {Target} target/ image
+    this.firstTarget = new Target( this.sourceObject.firstPositionProperty, optic, tandem );
 
-    // @public {TargetImage} target/ image associated with the second source
-    this.secondTargetImage = new TargetImage( this.sourceObject.secondPositionProperty, optic, tandem );
+    // @public {Target} target/ image associated with the second source
+    this.secondTarget = new Target( this.sourceObject.secondPositionProperty, optic, tandem );
 
     // @public {ProjectorScreen}
     this.projectorScreen = new ProjectorScreen(
       optic.positionProperty,
       optic.diameterProperty,
-      this.firstTargetImage.positionProperty,
-      this.secondTargetImage.positionProperty, tandem );
+      this.firstTarget.positionProperty,
+      this.secondTarget.positionProperty, tandem );
 
     // @public {LightRays} model of the light rays associated to the first source
     this.firstLightRays = new LightRays( this.timeProperty,
@@ -133,7 +133,7 @@ class GeometricOpticsModel {
       this.sourceObject.firstPositionProperty,
       this.projectorScreen,
       optic,
-      this.firstTargetImage,
+      this.firstTarget,
       tandem );
 
     // @public {LightRays} model of the light rays associated with the second source
@@ -144,7 +144,7 @@ class GeometricOpticsModel {
       this.sourceObject.secondPositionProperty,
       this.projectorScreen,
       optic,
-      this.secondTargetImage,
+      this.secondTarget,
       tandem );
   }
 }

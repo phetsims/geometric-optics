@@ -22,14 +22,14 @@ class Spotlight {
    * @param {Property.<Vector2>} screenPositionProperty
    * @param {Property.<Vector2>} opticPositionProperty
    * @param {Property.<number>} opticDiameterProperty
-   * @param {Property.<Vector2>} targetImagePositionProperty
+   * @param {Property.<Vector2>} targetPositionProperty
    * @param {function} getScreenShape - returns the shape of the screen {Shape}
    * @param {Tandem} tandem
    */
   constructor( screenPositionProperty,
                opticPositionProperty,
                opticDiameterProperty,
-               targetImagePositionProperty,
+               targetPositionProperty,
                getScreenShape,
                tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
@@ -42,7 +42,7 @@ class Spotlight {
         screenPositionProperty,
         opticPositionProperty,
         opticDiameterProperty,
-        targetImagePositionProperty ],
+        targetPositionProperty ],
       ( screenPosition, opticPosition, opticDiameter, targetPosition ) => {
         return this.getIntersection( screenPosition, opticPosition, opticDiameter, targetPosition );
       } );
@@ -54,7 +54,7 @@ class Spotlight {
         screenPositionProperty,
         opticPositionProperty,
         opticDiameterProperty,
-        targetImagePositionProperty ],
+        targetPositionProperty ],
       ( screenPosition, opticPosition, opticDiameter, targetPosition ) => {
         return this.getLightIntensity( screenPosition, opticPosition, opticDiameter, targetPosition );
       } );

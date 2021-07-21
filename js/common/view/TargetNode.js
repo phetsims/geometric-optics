@@ -15,11 +15,11 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import Representation from '../model/Representation.js';
 
-class TargetImageNode extends Node {
+class TargetNode extends Node {
 
   /**
    * @param {Property.<Representation>} representationProperty
-   * @param {TargetImage} targetImage
+   * @param {Target} target
    * @param {Optic} optic
    * @param {Property.<boolean>} enableImageProperty
    * @param {Property.<boolean>} visibleVirtualImageProperty
@@ -27,7 +27,7 @@ class TargetImageNode extends Node {
    * @param {Tandem} tandem
    */
   constructor( representationProperty,
-               targetImage,
+               target,
                optic,
                enableImageProperty,
                visibleVirtualImageProperty,
@@ -38,7 +38,7 @@ class TargetImageNode extends Node {
     super( { tandem: tandem } );
 
     // {Property.<HTMLImageElement>}
-    const imageProperty = new DerivedProperty( [ representationProperty, targetImage.isVirtualProperty ],
+    const imageProperty = new DerivedProperty( [ representationProperty, target.isVirtualProperty ],
       ( representation, isVirtual ) => {
         const realImage = optic.isLens() ? representation.leftFacingInverted :
                           representation.rightFacingInverted;
@@ -48,66 +48,66 @@ class TargetImageNode extends Node {
       } );
 
     // creates the target image
-    const target = new Image( imageProperty.value, { scale: 0.5 } );
+    const targetImage = new Image( imageProperty.value, { scale: 0.5 } );
 
     function updateScale() {
-      const position = targetImage.positionProperty.value;
-      const scale = Math.abs( targetImage.scaleProperty.value );
+      const position = target.positionProperty.value;
+      const scale = Math.abs( target.scaleProperty.value );
       let verticalOffset;
       let horizontalOffset;
       if ( representationProperty.value === Representation.PENCIL ) {
         if ( optic.isLens() ) {
-          verticalOffset = targetImage.isVirtual() ? -37 : -145;
-          horizontalOffset = targetImage.isVirtual() ? -31 : -22;
+          verticalOffset = target.isVirtual() ? -37 : -145;
+          horizontalOffset = target.isVirtual() ? -31 : -22;
         }
         else {
-          verticalOffset = targetImage.isVirtual() ? -37 : -145;
-          horizontalOffset = targetImage.isVirtual() ? -24 : -31;
+          verticalOffset = target.isVirtual() ? -37 : -145;
+          horizontalOffset = target.isVirtual() ? -24 : -31;
         }
       }
       else if ( representationProperty.value === Representation.TREE ) {
         if ( optic.isLens() ) {
-          verticalOffset = targetImage.isVirtual() ? -40 : -150;
-          horizontalOffset = targetImage.isVirtual() ? -32 : -22;
+          verticalOffset = target.isVirtual() ? -40 : -150;
+          horizontalOffset = target.isVirtual() ? -32 : -22;
         }
         else {
-          verticalOffset = targetImage.isVirtual() ? -40 : -150;
-          horizontalOffset = targetImage.isVirtual() ? -22 : -30;
+          verticalOffset = target.isVirtual() ? -40 : -150;
+          horizontalOffset = target.isVirtual() ? -22 : -30;
         }
       }
 
       else if ( representationProperty.value === Representation.ROCKET ) {
         if ( optic.isLens() ) {
-          verticalOffset = targetImage.isVirtual() ? -40 : -165;
-          horizontalOffset = targetImage.isVirtual() ? -30 : -22;
+          verticalOffset = target.isVirtual() ? -40 : -165;
+          horizontalOffset = target.isVirtual() ? -30 : -22;
         }
         else {
-          verticalOffset = targetImage.isVirtual() ? -40 : -165;
-          horizontalOffset = targetImage.isVirtual() ? -22 : -30;
+          verticalOffset = target.isVirtual() ? -40 : -165;
+          horizontalOffset = target.isVirtual() ? -22 : -30;
         }
 
       }
       else {
-        verticalOffset = targetImage.isVirtual() ? -40 : -145;
-        horizontalOffset = targetImage.isVirtual() ? -30 : -22;
+        verticalOffset = target.isVirtual() ? -40 : -145;
+        horizontalOffset = target.isVirtual() ? -30 : -22;
       }
 
 
-      target.translation = modelViewTransform.modelToViewPosition( position ).plusXY( horizontalOffset * scale, verticalOffset * scale );
-      target.setScaleMagnitude( scale * 0.5 );
+      targetImage.translation = modelViewTransform.modelToViewPosition( position ).plusXY( horizontalOffset * scale, verticalOffset * scale );
+      targetImage.setScaleMagnitude( scale * 0.5 );
     }
 
     function updateVisibility() {
       const showVirtualImage = visibleVirtualImageProperty.value;
-      const isObjectDistancePositive = targetImage.isObjectOpticDistancePositive();
-      target.visible = ( ( targetImage.isVirtual() ) ? showVirtualImage : true ) && isObjectDistancePositive
-                       && enableImageProperty.value;
+      const isObjectDistancePositive = target.isObjectOpticDistancePositive();
+      targetImage.visible = ( ( target.isVirtual() ) ? showVirtualImage : true ) && isObjectDistancePositive
+                            && enableImageProperty.value;
     }
 
     // see #94
-    targetImage.scaleProperty.link( updateScale );
+    target.scaleProperty.link( updateScale );
 
-    targetImage.positionProperty.link( () => {
+    target.positionProperty.link( () => {
       updateScale();
       updateVisibility();
     } );
@@ -117,7 +117,7 @@ class TargetImageNode extends Node {
       updateVisibility();
     } );
 
-    targetImage.isVirtualProperty.link( () => {
+    target.isVirtualProperty.link( () => {
       updateVisibility();
     } );
 
@@ -126,8 +126,8 @@ class TargetImageNode extends Node {
       updateVisibility();
     } );
 
-    targetImage.lightIntensityProperty.link( intensity => {
-      target.opacity = intensity;
+    target.lightIntensityProperty.link( intensity => {
+      targetImage.opacity = intensity;
     } );
 
     // update the image and its visibility
@@ -140,7 +140,7 @@ class TargetImageNode extends Node {
       if ( representationProperty.value.isObject ) {
 
         // update the image
-        target.image = image;
+        targetImage.image = image;
 
         // update the scale of the image
         updateScale();
@@ -148,7 +148,7 @@ class TargetImageNode extends Node {
 
     } );
 
-    this.addChild( target );
+    this.addChild( targetImage );
 
     enableImageProperty.link( () => {
       updateVisibility();
@@ -157,5 +157,5 @@ class TargetImageNode extends Node {
 
 }
 
-geometricOptics.register( 'TargetImageNode', TargetImageNode );
-export default TargetImageNode;
+geometricOptics.register( 'TargetNode', TargetNode );
+export default TargetNode;

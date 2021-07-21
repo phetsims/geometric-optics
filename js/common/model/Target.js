@@ -11,7 +11,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 
-class TargetImage {
+class Target {
 
   /**
    * @param {Property.<Vector2>} objectPositionProperty
@@ -254,5 +254,5 @@ class TargetImage {
   }
 }
 
-geometricOptics.register( 'TargetImage', TargetImage );
-export default TargetImage;
+geometricOptics.register( 'Target', Target );
+export default Target;
