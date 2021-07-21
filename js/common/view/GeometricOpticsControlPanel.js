@@ -210,7 +210,7 @@ class GeometricOpticsControlPanel extends Panel {
       createCheckboxGroupItem( focalPointString, visibleProperties.visibleFocalPointProperty, { icon: focalPointIcon } ),
       createCheckboxGroupItem( labelsString, visibleProperties.visibleLabelsProperty ),
       createCheckboxGroupItem( virtualImageString, visibleProperties.visibleVirtualImageProperty ),
-      createCheckboxGroupItem( secondSourceString, visibleProperties.visibleMovablePointProperty, { icon: movablePointIcon } ),
+      createCheckboxGroupItem( secondSourceString, visibleProperties.visibleSecondSourceProperty, { icon: movablePointIcon } ),
       createCheckboxGroupItem( guidesString, visibleProperties.visibleGuidesProperty )
     ];
 

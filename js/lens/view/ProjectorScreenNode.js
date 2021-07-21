@@ -29,7 +29,7 @@ class ProjectorScreenNode extends Node {
    * @param {Property.<Representation>} representationProperty
    * @param {Property.<boolean>} enableSpotlightProperty
    * @param {Property.<boolean>} enableMovableSpotlightProperty
-   * @param {Property.<boolean>} visibleMovablePointProperty
+   * @param {Property.<boolean>} visibleSecondSourceProperty
    * @param {Property.<Bounds2>} visibleModelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
@@ -39,7 +39,7 @@ class ProjectorScreenNode extends Node {
                representationProperty,
                enableSpotlightProperty,
                enableMovableSpotlightProperty,
-               visibleMovablePointProperty,
+               visibleSecondSourceProperty,
                visibleModelBoundsProperty,
                modelViewTransform,
                tandem,
@@ -133,7 +133,7 @@ class ProjectorScreenNode extends Node {
     addSpotLightNode( projectorScreen.spotlightOne, enableSpotlightProperty );
 
     // {Property.<boolean>} create a property for the visibility of the movable spotlight
-    const visibleMovableSpotlightProperty = new DerivedProperty( [ enableMovableSpotlightProperty, visibleMovablePointProperty ],
+    const visibleMovableSpotlightProperty = new DerivedProperty( [ enableMovableSpotlightProperty, visibleSecondSourceProperty ],
       ( enableMovableSpotlight, visibleMovablePoint ) => {
         return enableMovableSpotlight && visibleMovablePoint;
       } );

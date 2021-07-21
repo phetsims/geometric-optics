@@ -46,14 +46,14 @@ class SourceObjectNode extends Node {
   /**
    * @param {Property.<Representation>} representationProperty
    * @param {SourceObject} sourceObject
-   * @param {Property.<boolean>} visibleMovablePointProperty
+   * @param {Property.<boolean>} visibleSecondSourceProperty
    * @param {Property.<Bounds2>} visibleModelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
    * */
   constructor( representationProperty,
                sourceObject,
-               visibleMovablePointProperty,
+               visibleSecondSourceProperty,
                visibleModelBoundsProperty,
                modelViewTransform,
                tandem ) {
@@ -215,7 +215,7 @@ class SourceObjectNode extends Node {
       setMovableNodePosition( position );
     } );
 
-    visibleMovablePointProperty.linkAttribute( movableNode, 'visible' );
+    visibleSecondSourceProperty.linkAttribute( movableNode, 'visible' );
 
     this.addChild( movableNode );
   }

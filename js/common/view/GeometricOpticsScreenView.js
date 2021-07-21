@@ -170,7 +170,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // @private create the source/object on the left hand side of screen
     this.sourceObjectNode = new SourceObjectNode( model.representationProperty,
-      model.sourceObject, this.visibleProperties.visibleMovablePointProperty,
+      model.sourceObject, this.visibleProperties.visibleSecondSourceProperty,
       this.playAreaModelBoundsProperty,
       this.modelViewTransform, tandem );
 
@@ -193,7 +193,7 @@ class GeometricOpticsScreenView extends ScreenView {
       } );
 
     // the movable light rays visibility is tied to the status of the checkbox
-    this.visibleProperties.visibleMovablePointProperty.linkAttribute( movableLightRaysNode, 'visible' );
+    this.visibleProperties.visibleSecondSourceProperty.linkAttribute( movableLightRaysNode, 'visible' );
 
     // create the target image
     const targetImageNode = new TargetImageNode( model.representationProperty,

@@ -24,8 +24,8 @@ class VisibleProperties {
     // @public {Property.<boolean>} control the visibility of the virtual image, when present
     this.visibleVirtualImageProperty = new BooleanProperty( false );
 
-    // @public {Property.<boolean>} control the visibility of the movable point
-    this.visibleMovablePointProperty = new BooleanProperty( false );
+    // @public {Property.<boolean>} control the visibility of the second source
+    this.visibleSecondSourceProperty = new BooleanProperty( false );
 
     // @public {Property.<boolean>} controls the visibility of the guides
     this.visibleGuidesProperty = new BooleanProperty( false );
@@ -45,7 +45,7 @@ class VisibleProperties {
   reset() {
     this.visibleFocalPointProperty.reset();
     this.visibleVirtualImageProperty.reset();
-    this.visibleMovablePointProperty.reset();
+    this.visibleSecondSourceProperty.reset();
     this.visibleGuidesProperty.reset();
     this.visibleRayTracingProperty.reset();
     this.visibleLabelsProperty.reset();
