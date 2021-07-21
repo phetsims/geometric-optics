@@ -12,6 +12,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
+import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import Optic from '../../common/model/Optic.js';
@@ -74,24 +75,31 @@ class Lens extends Optic {
    * Returns the shapes of a lens. In the case of a lens, the outline and fills shape are identical.
    *
    * The lens shape is approximated as a parabolic lens.
-   * The radius of curvature of the lens does not match the value of radius but is instead "hollywooded".
+   * The radius of curvature of the lens does necessarily match the value of radius and can be instead "hollywooded".
    * This gives the flexibility to draw lenses with radius of curvature that is larger than diameter/2, a physical impossibility.
    * The center point of the lens is '0,0'
    *
    * @param {number} radius - radius of curvature
    * @param {number} diameter - height of the lens
    * @param {Optic.Curve} curve
+   * @param {Object} [options]
    * @returns {{fillShape: <Shape>,outlineShape: <Shape>}}
    * @public
    */
-  getFillAndOutlineShapes( radius, diameter, curve ) {
+  getFillAndOutlineShapes( radius, diameter, curve, options ) {
 
-    const FUDGE_LENGTH = 100; // arbitrary length
+    options = merge( {
+        isHollywood: true, // is the radius of curvature parameter matching the shape of the lens
+        offsetRadius: 100
+      },
+      options );
+
     const halfHeight = diameter / 2;
 
-    // the width of the lens changes with the radius of curvature: hollywood
-    // physically correct:   halfWidth = radius - Math.sqrt( radius^2 - halfHeight^2)
-    const halfWidth = 1 / 2 * halfHeight * halfHeight / ( radius + FUDGE_LENGTH );
+    // the width of the lens changes with the radius
+    const halfWidth = options.isHollywood ?
+                      1 / 2 * halfHeight * halfHeight / ( radius + options.offsetRadius ) :
+                      radius - Math.sqrt( radius ** 2 - halfHeight ** 2 );
 
     // {Shape} shape of lens
     let shape; // the outline of the lens (including top and bottom)

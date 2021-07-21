@@ -15,7 +15,7 @@ import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularR
 import geometricOptics from '../../geometricOptics.js';
 import Optic from '../model/Optic.js';
 
-const RADIUS_OF_CURVATURE = 18; // in view coordinates
+const RADIUS_OF_CURVATURE = 22; // in view coordinates
 const DIAMETER = 30; // in view coordinates
 const FILL = 'rgb(133,153,197)'; // for body of optic
 const STROKE = 'white'; // for outline of optic
@@ -53,7 +53,8 @@ class CurveControl extends RectangularRadioButtonGroup {
     const createIconNode = curve => {
 
       // create icon shapes {fillShape, outlineShape}
-      const iconShapes = optic.getFillAndOutlineShapes( RADIUS_OF_CURVATURE, DIAMETER, curve, { thickness: THICKNESS } );
+      const iconShapes = optic.getFillAndOutlineShapes( RADIUS_OF_CURVATURE, DIAMETER, curve,
+        { thickness: THICKNESS, isHollywood: false } );
 
       // create node to layout the paths for the icon
       const iconNode = new Node();
