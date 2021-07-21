@@ -271,7 +271,7 @@ class Optic {
    * @param {Object} [options]
    * @returns {Vector2}
    */
-  getExtramumPoint( sourcePoint, targetPoint, options ) {
+  getExtremumPoint( sourcePoint, targetPoint, options ) {
     options = merge( {
       location: Optic.Location.TOP
     }, options );

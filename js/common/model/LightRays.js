@@ -158,11 +158,11 @@ class LightRays {
       directions.push( sourceOpticVector.normalized() );
 
       // the top of the optic
-      const topPoint = optic.getExtramumPoint( sourcePosition,
+      const topPoint = optic.getExtremumPoint( sourcePosition,
         this.targetImage.positionProperty.value, { location: Optic.Location.TOP } );
 
       // the bottom of the optic
-      const bottomPoint = optic.getExtramumPoint( sourcePosition,
+      const bottomPoint = optic.getExtremumPoint( sourcePosition,
         this.targetImage.positionProperty.value, { location: Optic.Location.BOTTOM } );
 
       // direction of a ray to the top of the optic
