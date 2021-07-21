@@ -8,6 +8,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Graph from '../../../../kite/js/ops/Graph.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
@@ -160,7 +161,7 @@ class Spotlight {
     assert && assert( diskShape.getArea() > 0, 'diskShape area is not positive definite' );
 
     // find the intersection of the two shapes
-    return Shape.intersection( [ screenShape, diskShape ] );
+    return Graph.binaryResult( screenShape, diskShape, Graph.BINARY_NONZERO_INTERSECTION );
   }
 
   /**
