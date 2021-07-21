@@ -184,7 +184,9 @@ class LightRay {
         rays.push( this.getTransmittedRay( firstPoint, targetPoint, optic ) );
       }
       else {
+        // must be lens with light ray mode that is not principal rays
 
+        // determine intersection of initial right with the front shape of the lens
         const frontIntersection = this.getLensFrontShape( optic ).intersection( initialRay );
 
         // {Vector2|null} front shape point intersecting the initial ray
@@ -193,29 +195,44 @@ class LightRay {
         // create a semi infinite ray starting at firstPoint parallel to the target point
         const transmittedRay = this.getTransmittedRay( firstPoint, targetPoint, optic );
 
+        // determine the intersection of the transmitted ray with the back shape of the optic
         const backIntersection = this.getLensBackShape( optic ).intersection( transmittedRay );
 
         // {Vector2|null} back shape point intersecting the transmitted ray
         const backPoint = this.getPoint( backIntersection );
 
 
-        // add rays only if the front and back shapes are intersected
-        if ( frontPoint instanceof Vector2 && backPoint instanceof Vector2 ) {
+        // add additional rays only if the front lens is hit
+        if ( frontPoint instanceof Vector2 ) {
 
           // set initial ray final point to be the front point of the lens
           initialRay.setFinalPoint( frontPoint );
 
-          // ray that spans the front  the back of the lens
-          const internalRay = new Ray( frontPoint, backPoint.minus( frontPoint ).normalized() );
+          // if back point is hit add transmitted and internal ray
+          if ( backPoint instanceof Vector2 ) {
 
-          // set the internal ray back point
-          internalRay.setFinalPoint( backPoint );
+            // ray that spans the front  the back of the lens
+            const internalRay = new Ray( frontPoint, backPoint.minus( frontPoint ).normalized() );
 
-          // create a semi-infinite ray, starting at the back point, parallel to target point
-          const transmittedRay = this.getTransmittedRay( backPoint, targetPoint, optic );
+            // set the internal ray back point
+            internalRay.setFinalPoint( backPoint );
 
-          // add the rays
-          rays.push( internalRay, transmittedRay );
+            // create a semi-infinite ray, starting at the back point, parallel to target point
+            const transmittedRay = this.getTransmittedRay( backPoint, targetPoint, optic );
+
+            // add the rays
+            rays.push( internalRay, transmittedRay );
+          }
+          else {
+            // back shape is not hit
+            // see issue #124
+
+            // create a semi-infinite ray, starting at the front point, parallel to target point
+            const transmittedRay = this.getTransmittedRay( frontPoint, targetPoint, optic );
+
+            // add the rays
+            rays.push( transmittedRay );
+          }
         }
       }
     }
