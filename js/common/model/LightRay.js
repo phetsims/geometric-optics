@@ -4,7 +4,7 @@
  * Model element of the Light Ray
  * A LightRay is made of several contiguous Rays
  * A light Ray can fork to have real and virtual ray components.
- * The lightRay has a flag that determine if it has reached a target
+ * The lightRay has a flag that determines if it has reached a target
  *
  * @author Martin Veillette
  */
