@@ -133,10 +133,8 @@ class ProjectorScreenNode extends Node {
     addSpotLightNode( projectorScreen.spotlightOne, enableFirstSpotlightProperty );
 
     // {Property.<boolean>} create a property for the visibility of the second source spotlight
-    const visibleSecondSourceSpotlightProperty = new DerivedProperty( [ enableSecondSpotlightProperty, visibleSecondSourceProperty ],
-      ( enableSecondSpotlight, visibleMovablePoint ) => {
-        return enableSecondSpotlight && visibleMovablePoint;
-      } );
+    const visibleSecondSourceSpotlightProperty = DerivedProperty.and(
+      [ enableSecondSpotlightProperty, visibleSecondSourceProperty ] );
 
     // add second spotlight for the "second source"
     addSpotLightNode( projectorScreen.spotlightTwo, visibleSecondSourceSpotlightProperty );
