@@ -27,9 +27,9 @@ class ProjectorScreenNode extends Node {
   /**
    * @param {ProjectorScreen} projectorScreen
    * @param {Property.<Representation>} representationProperty
-   * @param {Property.<boolean>} enableSpotlightProperty
-   * @param {Property.<boolean>} enableMovableSpotlightProperty
-   * @param {Property.<boolean>} visibleSecondSourceProperty
+   * @param {Property.<boolean>} enableFirstSpotlightProperty - have the rays from the first source reached the screen
+   * @param {Property.<boolean>} enableSecondSpotlightProperty - have the rays from the second source reached the screen
+   * @param {Property.<boolean>} visibleSecondSourceProperty - is the second source checkbox on.
    * @param {Property.<Bounds2>} visibleModelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
@@ -37,8 +37,8 @@ class ProjectorScreenNode extends Node {
    */
   constructor( projectorScreen,
                representationProperty,
-               enableSpotlightProperty,
-               enableMovableSpotlightProperty,
+               enableFirstSpotlightProperty,
+               enableSecondSpotlightProperty,
                visibleSecondSourceProperty,
                visibleModelBoundsProperty,
                modelViewTransform,
@@ -130,16 +130,16 @@ class ProjectorScreenNode extends Node {
     };
 
     // add spotlight due to always present source
-    addSpotLightNode( projectorScreen.spotlightOne, enableSpotlightProperty );
+    addSpotLightNode( projectorScreen.spotlightOne, enableFirstSpotlightProperty );
 
-    // {Property.<boolean>} create a property for the visibility of the movable spotlight
-    const visibleMovableSpotlightProperty = new DerivedProperty( [ enableMovableSpotlightProperty, visibleSecondSourceProperty ],
-      ( enableMovableSpotlight, visibleMovablePoint ) => {
-        return enableMovableSpotlight && visibleMovablePoint;
+    // {Property.<boolean>} create a property for the visibility of the second source spotlight
+    const visibleSecondSourceSpotlightProperty = new DerivedProperty( [ enableSecondSpotlightProperty, visibleSecondSourceProperty ],
+      ( enableSecondSpotlight, visibleMovablePoint ) => {
+        return enableSecondSpotlight && visibleMovablePoint;
       } );
 
-    // add second spotlight for the "movable point"
-    addSpotLightNode( projectorScreen.spotlightTwo, visibleMovableSpotlightProperty );
+    // add second spotlight for the "second source"
+    addSpotLightNode( projectorScreen.spotlightTwo, visibleSecondSourceSpotlightProperty );
   }
 
   /**
