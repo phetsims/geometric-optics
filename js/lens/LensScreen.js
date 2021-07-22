@@ -1,13 +1,14 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * @author veillette
+ * @author Martin Veillette
  */
 
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
-import Rectangle from '../../../scenery/js/nodes/Rectangle.js';
 import geometricOpticsColorProfile from '../common/geometricOpticsColorProfile.js';
+import Optic from '../common/model/Optic.js';
+import CurveControl from '../common/view/CurveControl.js';
 import geometricOptics from '../geometricOptics.js';
 import geometricOpticsStrings from '../geometricOpticsStrings.js';
 import LensModel from './model/LensModel.js';
@@ -20,13 +21,22 @@ class LensScreen extends Screen {
    */
   constructor( tandem ) {
 
+    // create icon for lens
+    const iconNode = CurveControl.createIconNode(
+      20,
+      30,
+      Optic.Curve.CONVEX,
+      Optic.Type.LENS,
+      { outline: { stroke: 'black' } } );
+
     const options = {
 
       name: geometricOpticsStrings.screen.lens,
-      homeScreenIcon: new ScreenIcon( new Rectangle( 0, 0, 3, 3, { fill: 'pink' } ) ),
+      homeScreenIcon: new ScreenIcon( iconNode ),
       backgroundColorProperty: geometricOpticsColorProfile.screenBackgroundColorProperty,
       tandem: tandem
     };
+
 
     super(
       () => new LensModel( tandem.createTandem( 'model' ) ),

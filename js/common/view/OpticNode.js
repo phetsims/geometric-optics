@@ -72,9 +72,8 @@ class OpticNode extends Node {
       }
     } );
 
-    // create the path of the optic
-    // @protected {Path}
-    this.fillPath = new Path( modelViewTransform.modelToViewShape( optic.shapesProperty.value.fillShape ), {
+    // {Path} create the fill (or backing) path of the optic
+    const fillPath = new Path( modelViewTransform.modelToViewShape( optic.shapesProperty.value.fillShape ), {
       fill: options.fill
     } );
 
@@ -82,7 +81,7 @@ class OpticNode extends Node {
     optic.indexOfRefractionProperty.link( index => {
       const normalizedIndex = optic.getNormalizedIndex( index );
       const fill = options.fill.value;
-      this.fillPath.fill = new Color( fill.red, fill.green, fill.blue, normalizedIndex );
+      fillPath.fill = new Color( fill.red, fill.green, fill.blue, normalizedIndex );
     } );
 
     // create the outline path of the optic {Path}
@@ -122,7 +121,7 @@ class OpticNode extends Node {
 
     // modify the shape of the optic
     optic.shapesProperty.link( shapes => {
-      this.fillPath.shape = modelViewTransform.modelToViewShape( shapes.fillShape );
+      fillPath.shape = modelViewTransform.modelToViewShape( shapes.fillShape );
       outlinePath.shape = modelViewTransform.modelToViewShape( shapes.outlineShape );
     } );
 
@@ -136,7 +135,7 @@ class OpticNode extends Node {
 
     // add child and listener to the optic layer
     opticLayer.addInputListener( dragListener );
-    opticLayer.addChild( this.fillPath );
+    opticLayer.addChild( fillPath );
     opticLayer.addChild( outlinePath );
 
     // add the optic and center line to this node

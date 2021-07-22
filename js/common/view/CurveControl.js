@@ -36,52 +36,22 @@ class CurveControl extends RectangularRadioButtonGroup {
       spacing: 10, // vertical separation of the buttons
       cornerRadius: 3,
       baseColor: 'rgba(0,0,0,0)',
-      buttonContentXMargin: 0,
-      buttonContentYMargin: 0,
       selectedStroke: 'yellow',
       deselectedStroke: 'grey',
       deselectedLineWidth: 2,
-      selectedLineWidth: 2
+      selectedLineWidth: 2,
+      buttonContentXMargin: 0,
+      buttonContentYMargin: 0
     }, options );
-
-    /**
-     * Creates icon for button to switch between convex/concave lens/mirror
-     *
-     * @param {Optic.Curve} curve
-     * @returns {Node}
-     */
-    const createIconNode = curve => {
-
-      // create icon shapes {fillShape, frontShape}
-      const iconShapes = optic.getShapes( RADIUS_OF_CURVATURE, DIAMETER, curve,
-        { thickness: THICKNESS, isHollywood: false } );
-
-      // create node to layout the paths for the icon
-      const iconNode = new Node();
-      const iconFillNode = new Path( iconShapes.fillShape, { fill: FILL } );
-      const iconOutlineNode = new Path( iconShapes.outlineShape, { stroke: STROKE } );
-      iconNode.setChildren( [ iconFillNode, iconOutlineNode ] );
-
-      // create spacer to ensure both lens and mirror icons are the same size
-      const iconSpacer = new Spacer( STRUT_LENGTH - 2 * options.buttonContentXMargin,
-        STRUT_LENGTH - 2 * options.buttonContentYMargin );
-
-      // make sure the spacer is larger than icon
-      assert && assert( iconSpacer.width > iconNode.width, 'spacer width is smaller than icon content' );
-      assert && assert( iconSpacer.height > iconNode.height, 'spacer height is smaller than icon content' );
-
-      // center the icon in the spacer
-      iconNode.center = iconSpacer.center;
-
-      // return a node layer containing the icon and spacer
-      return new Node( { children: [ iconNode, iconSpacer ] } );
-    };
 
     // create an array of items for buttons for each curve.
     const buttonItems = Optic.Curve.VALUES.map( curve => {
       return {
         value: curve,
-        node: createIconNode( curve )
+        node: CurveControl.createIconNode( RADIUS_OF_CURVATURE, DIAMETER, curve, optic.type, {
+          buttonContentXMargin: options.buttonContentXMargin,
+          buttonContentYMargin: options.buttonContentYMargin
+        } )
       };
     } );
 
@@ -97,8 +67,57 @@ class CurveControl extends RectangularRadioButtonGroup {
     super( curveProperty, buttonItems, options );
 
   }
+
+  /**
+   * Creates centered icon representation of convex/concave, lens/mirror.
+   *
+   * @param {number} radius - radius of curvature
+   * @param {number} diameter - height of the optic
+   * @param {Optic.Curve} curve
+   * @param {Optic.Type} type
+   * @param {Object} [options]
+   * @returns {Node}
+   * @public
+   */
+  static createIconNode( radius, diameter, curve, type, options ) {
+
+    options = merge(
+      {
+        thickness: THICKNESS, // thickness of the backing of the mirror
+        isHollywood: false, // is the curvature radius accurate description of shape
+        form: { fill: FILL }, /// options for the form of the icon
+        outline: { stroke: STROKE }, // options for the contour or reflective surface
+        buttonContentXMargin: 0,
+        buttonContentYMargin: 0
+      },
+      options );
+
+    // get appropriate icon shapes
+    const iconShapes = ( type === Optic.Type.LENS ) ?
+                       Optic.getLensShapes( radius, diameter, curve, options ) :
+                       Optic.getMirrorShapes( radius, diameter, curve, options );
+
+    // create node to layout the paths for the icon
+    const iconNode = new Node();
+    const iconFillNode = new Path( iconShapes.fillShape, options.form );
+    const iconOutlineNode = new Path( iconShapes.outlineShape, options.outline );
+    iconNode.setChildren( [ iconFillNode, iconOutlineNode ] );
+
+    // create spacer to ensure both lens and mirror icons are the same size
+    const iconSpacer = new Spacer( STRUT_LENGTH - 2 * options.buttonContentXMargin,
+      STRUT_LENGTH - 2 * options.buttonContentYMargin );
+
+    // make sure the spacer is larger than icon
+    assert && assert( iconSpacer.width > iconNode.width, 'spacer width is smaller than icon content' );
+    assert && assert( iconSpacer.height > iconNode.height, 'spacer height is smaller than icon content' );
+
+    // center the icon in the spacer
+    iconNode.center = iconSpacer.center;
+
+    // return a node layer containing the icon and spacer
+    return new Node( { children: [ iconNode, iconSpacer ] } );
+  }
 }
 
 geometricOptics.register( 'CurveControl', CurveControl );
-
 export default CurveControl;
