@@ -158,10 +158,17 @@ class Spotlight {
 
     assert && assert( screenShape instanceof Shape, 'screenShape is not a Shape' );
     assert && assert( diskShape instanceof Shape, 'diskShape is not a Shape' );
-    assert && assert( diskShape.getArea() > 0, 'diskShape area is not positive definite' );
 
-    // find the intersection of the two shapes
-    return Graph.binaryResult( screenShape, diskShape, Graph.BINARY_NONZERO_INTERSECTION );
+    if ( diskShape.getArea() === 0 ) {
+
+      // empty shape
+      return new Shape();
+    }
+    else {
+
+      // find the intersection of the two shapes
+      return Graph.binaryResult( screenShape, diskShape, Graph.BINARY_NONZERO_INTERSECTION );
+    }
   }
 
   /**
