@@ -10,7 +10,6 @@ import GeometricOpticsScreenView from '../../common/view/GeometricOpticsScreenVi
 import geometricOptics from '../../geometricOptics.js';
 import LensModel from '../model/LensModel.js';
 import GuideNode from './GuideNode.js';
-import LensNode from './LensNode.js';
 import ProjectorScreenNode from './ProjectorScreenNode.js';
 
 class LensScreenView extends GeometricOpticsScreenView {
@@ -25,10 +24,6 @@ class LensScreenView extends GeometricOpticsScreenView {
 
     super( model, tandem );
 
-    // TODO: find a more robust way to insert nodes in relation to other nodes in the play area
-    const lensNode = new LensNode( model.optic, model.lightRayModeProperty, this.playAreaModelBoundsProperty, this.modelViewTransform, tandem );
-    this.playAreaNode.insertChild( 3, lensNode );
-
     // {Property.<boolean>} create visible property for the first guides (associated with the object)
     const visibleFirstGuidesProperty = new DerivedProperty( [ this.visibleProperties.visibleGuidesProperty,
       this.visibleProperties.visibleSecondSourceProperty ], ( visibleGuides, visibleSecondSource ) => visibleGuides && !visibleSecondSource );
@@ -41,6 +36,8 @@ class LensScreenView extends GeometricOpticsScreenView {
     // create and add top and bottom guides associated with the object
     const firstTopGuideNode = new GuideNode( model.firstTopGuide, visibleFirstGuidesProperty, this.modelViewTransform );
     const firstBottomGuideNode = new GuideNode( model.firstBottomGuide, visibleFirstGuidesProperty, this.modelViewTransform );
+
+    // TODO: find a more robust way to insert nodes in relation to other nodes in the play area
     this.playAreaNode.insertChild( 7, firstBottomGuideNode );
     this.playAreaNode.insertChild( 8, firstTopGuideNode );
 

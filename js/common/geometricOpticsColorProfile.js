@@ -20,30 +20,16 @@ const geometricOpticsColorProfile = {
   } ),
 
   //--------------------------------------------------------------------------
-  //                                 LENS
+  //                                 Optic
 
-  lensFillProperty: new ProfileColorProperty( 'lensFill', {
+  opticFillProperty: new ProfileColorProperty( 'opticFill', {
     default: 'rgb(100, 100, 245)'
   } ),
 
-  lensStrokeProperty: new ProfileColorProperty( 'lensStroke', {
+  opticStrokeProperty: new ProfileColorProperty( 'opticStroke', {
     default: 'rgb(255, 255, 255)'
   } ),
 
-  lensMidStrokeProperty: new ProfileColorProperty( 'lensMidStroke', {
-    default: 'rgb(255, 255, 255)'
-  } ),
-
-  //--------------------------------------------------------------------------
-  //                                 MIRROR
-
-  mirrorFillProperty: new ProfileColorProperty( 'mirrorFill', {
-    default: 'rgb(100, 100, 245)'
-  } ),
-
-  mirrorStrokeProperty: new ProfileColorProperty( 'mirrorStroke', {
-    default: 'rgb(255, 255, 255)'
-  } ),
 
   //--------------------------------------------------------------------------
   //                                 FOCAL POINT

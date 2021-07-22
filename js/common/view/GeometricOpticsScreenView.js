@@ -31,6 +31,7 @@ import GeometricOpticRulersLayer from './GeometricOpticsRulersLayer.js';
 import LabelsNode from './LabelsNode.js';
 import LightRaysNode from './LightRaysNode.js';
 import OpticalAxisLine from './OpticalAxisLine.js';
+import OpticNode from './OpticNode.js';
 import RepresentationComboBox from './RepresentationComboBox.js';
 import ShowHideToggleButton from './ShowHideToggleButton.js';
 import SourceObjectNode from './SourceObjectNode.js';
@@ -178,6 +179,8 @@ class GeometricOpticsScreenView extends ScreenView {
     const opticalAxisLine = new OpticalAxisLine( model.optic.positionProperty,
       this.playAreaModelBoundsProperty, this.modelViewTransform );
 
+    const opticNode = new OpticNode( model.optic, model.lightRayModeProperty, this.playAreaModelBoundsProperty, this.modelViewTransform, tandem );
+
     // create the light rays associated with the object
     const lightRaysNode = new LightRaysNode( model.firstLightRays,
       this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem, {
@@ -213,6 +216,7 @@ class GeometricOpticsScreenView extends ScreenView {
     // add children that need to be zoomed in/out. order is important
     this.playAreaNode.addChild( opticalAxisLine );
     this.playAreaNode.addChild( this.sourceObjectNode );
+    this.playAreaNode.addChild( opticNode );
     this.playAreaNode.addChild( targetNode );
     this.playAreaNode.addChild( lightRaysNode );
     this.playAreaNode.addChild( secondSourceLightRaysNode );

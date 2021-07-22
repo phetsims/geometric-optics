@@ -8,7 +8,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsScreenView from '../../common/view/GeometricOpticsScreenView.js';
 import geometricOptics from '../../geometricOptics.js';
 import MirrorModel from '../model/MirrorModel.js';
-import MirrorNode from './MirrorNode.js';
 
 class MirrorScreenView extends GeometricOpticsScreenView {
 
@@ -21,10 +20,6 @@ class MirrorScreenView extends GeometricOpticsScreenView {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     super( model, tandem );
-
-    const mirrorNode = new MirrorNode( model.optic, model.lightRayModeProperty, this.playAreaModelBoundsProperty, this.modelViewTransform, tandem );
-    this.playAreaNode.insertChild( 3, mirrorNode );
-
   }
 
   /**

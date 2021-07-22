@@ -7,15 +7,22 @@
  */
 
 import Shape from '../../../../kite/js/Shape.js';
+import merge from '../../../../phet-core/js/merge.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
+import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsColorProfile from '../geometricOpticsColorProfile.js';
+import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import LightRayMode from '../model/LightRayMode.js';
 
 const OPTICAL_CENTER_LINE_STROKE = geometricOpticsColorProfile.opticalAxisStrokeProperty;
+
+const FILL = geometricOpticsColorProfile.opticFillProperty;
+const STROKE = geometricOpticsColorProfile.opticStrokeProperty;
+const LINE_WIDTH = GeometricOpticsConstants.OPTICAL_ELEMENT_LINE_WIDTH;
 
 class OpticNode extends Node {
 
@@ -29,6 +36,12 @@ class OpticNode extends Node {
    */
   constructor( optic, lightRayModeProperty, playAreaModelBoundsProperty, modelViewTransform, tandem, options ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+
+    options = merge( {
+      fill: FILL,
+      stroke: STROKE,
+      lineWidth: LINE_WIDTH
+    }, options );
 
     super( options );
 
@@ -65,6 +78,13 @@ class OpticNode extends Node {
       fill: options.fill
     } );
 
+    // link the index of refraction to the opacity of the fill of the lens
+    optic.indexOfRefractionProperty.link( index => {
+      const normalizedIndex = optic.getNormalizedIndex( index );
+      const fill = options.fill.value;
+      this.fillPath.fill = new Color( fill.red, fill.green, fill.blue, normalizedIndex );
+    } );
+
     // create the outline path of the optic {Path}
     const outlinePath = new Path( modelViewTransform.modelToViewShape( optic.outlineAndFillProperty.value.outlineShape ), {
       stroke: options.stroke,
@@ -97,7 +117,7 @@ class OpticNode extends Node {
       optic.setVerticalCoordinate( dragBoundsOpticPosition.y );
 
       // clip the ends of the center line based on play area bounds
-     clipCenterLine( bounds );
+      clipCenterLine( bounds );
     } );
 
     // modify the shape of the optic

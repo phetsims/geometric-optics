@@ -249,7 +249,12 @@ class Optic {
    * @returns {number}
    */
   getNormalizedIndex( index ) {
-    return this.indexOfRefractionProperty.range.getNormalizedValue( index );
+    if ( this.isLens() ) {
+      return this.indexOfRefractionProperty.range.getNormalizedValue( index );
+    }
+    else {
+      return 1;
+    }
   }
 
   /**
