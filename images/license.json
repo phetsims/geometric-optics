@@ -5,7 +5,7 @@
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/190958/pencil-icon, edited by Patrick Wolfert"
+    "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/190958/pencil-icon, edited by Patrick Wolfert, edited by Sarah Chang"
   },
   "pencil-3d-right-facing-upright.png": {
     "text": [
@@ -45,7 +45,7 @@
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/178310/rocket, edited by Patrick Wolfert"
+    "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/178310/rocket, edited by Patrick Wolfert, edited by Sarah Chang"
   },
   "rocket-3d-right-facing-upright.png": {
     "text": [
@@ -133,7 +133,7 @@
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": ""
+    "notes": "created by Patrick Wolfert, edited by Sarah Chang"
   },
   "lamp-red.png": {
     "text": [
@@ -141,7 +141,7 @@
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": ""
+    "notes": "created by Patrick Wolfert"
   },
   "projector-screen-3d.png": {
     "text": [
@@ -149,6 +149,6 @@
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": ""
+    "notes": "created by Patrick Wolfert"
   }
 }
