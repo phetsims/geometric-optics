@@ -66,9 +66,8 @@ class Optic {
     // @private {Optic.Type} Type of the optical element ( valid choices: LENS and MIRROR)
     this.type = type;
 
-    // @public {Property.<number>} focal length of the lens
-    // positive indicate the lens is convex (converging)
-    // negative indicates the lens is concave (diverging).
+    // @public {Property.<number>} focal length of the optic
+    // positive indicate the optic is converging whereas negative indicates the optic is diverging.
     this.focalLengthProperty = new DerivedProperty(
       [ this.radiusOfCurvatureProperty, this.indexOfRefractionProperty, this.curveProperty ],
       ( radiusOfCurvature, indexOfRefraction, curve ) => {
@@ -89,12 +88,12 @@ class Optic {
     } );
 
     // @public {Property.<Object>} shapes (fill and outline) of the optical element
-    this.outlineAndFillProperty = new DerivedProperty( [
+    this.shapesProperty = new DerivedProperty( [
         this.radiusOfCurvatureProperty,
         this.diameterProperty,
         this.curveProperty ],
       ( radius, diameter, curve ) => {
-        return this.getFillAndOutlineShapes( radius, diameter, curve );
+        return this.getShapes( radius, diameter, curve );
       } );
 
     // @private {number}
@@ -258,20 +257,27 @@ class Optic {
   }
 
   /**
-   * Returns the shape of a parabolic mirror.
-   * The shape is designed as a "first surface mirror".
-   * The returned object contains an outline shape, representing the reflecting coating,
-   * and a fill shape representing the base backing of the mirror.
-   * The shapes are drawn using quadratic Bezier curves.
+   * Returns the shapes of the optic
+   * The outline shape, represents the reflecting coating of a mirror, or the external surface of the lens
+   * The fill shape represents the entire shape of the lens, or in the case of mirror, the backing of the mirror
+   * The front shape is the left facing contour of the optic. This can be used for ray hit testing
+   * The back shape is the right facing contour of the optic. back shape is null for mirror
+   * The middle shape is the imaginary vertical line that splits a lens into two halves. Null for mirror.
    *
    * @param {number} radius - radius of curvature at the center of the mirror
    * @param {number} diameter - vertical height of the mirror
    * @param {Optic.Curve} curve
    * @param {Object} [options]
-   * @returns {{fillShape: <Shape>,outlineShape: <Shape>}}
+   * @returns {{
+      fillShape: <Shape>,
+      outlineShape: <Shape>,
+      frontShape: <Shape>,
+      backShape: <Shape|null>,
+      middleShape: <Shape|null>
+    }}
    * @public
    */
-  getFillAndOutlineShapes( radius, diameter, curve, options ) {
+  getShapes( radius, diameter, curve, options ) {
     if ( this.isLens() ) {
       return this.getLensShapes( radius, diameter, curve, options );
     }
@@ -291,7 +297,13 @@ class Optic {
    * @param {number} diameter - vertical height of the mirror
    * @param {Optic.Curve} curve
    * @param {Object} [options]
-   * @returns {{fillShape: <Shape>,outlineShape: <Shape>}}
+   * @returns {{
+      fillShape: <Shape>,
+      outlineShape: <Shape>,
+      frontShape: <Shape>,
+      backShape: <null>,
+      middleShape: <null>
+    }}
    * @public
    */
   getMirrorShapes( radius, diameter, curve, options ) {
@@ -306,9 +318,9 @@ class Optic {
     const halfHeight = diameter / 2;
 
     // half of the width of the outline shape of the mirror along the x -axis
-    const halfWidth = radius - Math.sqrt( radius * radius - halfHeight * halfHeight );
+    const halfWidth = radius - Math.sqrt( radius ** 2 - halfHeight ** 2 );
 
-    // top and bottom surfaces must be tilted to generate right angle corners
+    // top and bottom surfaces of fill shape must be tilted to generate right angle corners
     const angle = Math.atan( halfHeight / radius );
 
     // curveSign is +1 for convex and -1 for concave
@@ -331,18 +343,28 @@ class Optic {
     const midRight = midLeft.plusXY( options.thickness, 0 );
 
     // shapes drawn from top to bottom in counterclockwise fashion.
+
+    // front shape of mirror front - with zero area.
+    const frontShape = new Shape()
+      .moveToPoint( topLeft )
+      .quadraticCurveToPoint( midLeft, bottomLeft )
+      .quadraticCurveToPoint( midLeft, topLeft )
+      .close();
+
+    // shape of entire mirror, including mirror backing
+    const fillShape = new Shape()
+      .moveToPoint( topLeft )
+      .quadraticCurveToPoint( midLeft, bottomLeft )
+      .lineToPoint( bottomRight )
+      .quadraticCurveToPoint( midRight, topRight )
+      .close();
+
     return {
-      fillShape: new Shape()
-        .moveToPoint( topLeft )
-        .quadraticCurveToPoint( midLeft, bottomLeft )
-        .lineToPoint( bottomRight )
-        .quadraticCurveToPoint( midRight, topRight )
-        .close(),
-      outlineShape: new Shape()
-        .moveToPoint( topLeft )
-        .quadraticCurveToPoint( midLeft, bottomLeft )
-        .quadraticCurveToPoint( midLeft, topLeft )
-        .close()
+      fillShape: fillShape,
+      outlineShape: frontShape,
+      frontShape: frontShape,
+      backShape: null,
+      middleShape: null
     };
   }
 
@@ -358,7 +380,13 @@ class Optic {
    * @param {number} diameter - height of the lens
    * @param {Optic.Curve} curve
    * @param {Object} [options]
-   * @returns {{fillShape: <Shape>,outlineShape: <Shape>}}
+   * @returns {{
+      fillShape: <Shape>,
+      outlineShape: <Shape>,
+      frontShape: <Shape>,
+      backShape: <Shape>,
+      middleShape: <Shape>
+    }}
    * @public
    */
   getLensShapes( radius, diameter, curve, options ) {
@@ -377,7 +405,7 @@ class Optic {
                       radius - Math.sqrt( radius ** 2 - halfHeight ** 2 );
 
     // {Shape} shape of lens
-    let shape; // the outline of the lens (including top and bottom)
+    let outlineShape; // the outline of the lens (including top and bottom)
     let frontShape; // the left facing portion of the lens
     let backShape; // the right facing  portion of the lens
 
@@ -393,7 +421,7 @@ class Optic {
       const right = new Vector2( 2 * halfWidth, 0 );
 
       // shape of convex lens
-      shape = new Shape()
+      outlineShape = new Shape()
         .moveToPoint( top )
         .quadraticCurveToPoint( left, bottom )
         .quadraticCurveToPoint( right, top )
@@ -426,7 +454,7 @@ class Optic {
       const midRight = new Vector2( -midWidth / 2, 0 );
 
       // shape of concave lens
-      shape = new Shape()
+      outlineShape = new Shape()
         .moveToPoint( topLeft )
         .lineToPoint( topRight )
         .quadraticCurveToPoint( midRight, bottomRight )
@@ -454,8 +482,8 @@ class Optic {
 
     // the outline shape is the same as the fill shape for a lens
     return {
-      fillShape: shape,
-      outlineShape: shape,
+      fillShape: outlineShape,
+      outlineShape: outlineShape,
       frontShape: frontShape,
       backShape: backShape,
       middleShape: middleShape
@@ -492,7 +520,7 @@ class Optic {
    * @returns {Bounds2}
    */
   getOpticBounds() {
-    const outlineShape = this.outlineAndFillProperty.value.outlineShape;
+    const outlineShape = this.shapesProperty.value.outlineShape;
     const translatedShape = this.translatedShape( outlineShape );
     return translatedShape.getBounds();
   }

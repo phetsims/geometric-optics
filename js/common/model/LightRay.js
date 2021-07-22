@@ -248,7 +248,7 @@ class LightRay {
   getLensFrontShape( optic ) {
 
     assert && assert( optic.isLens(), 'optic must be Lens' );
-    const shapes = optic.outlineAndFillProperty.value;
+    const shapes = optic.shapesProperty.value;
     return optic.translatedShape( shapes.frontShape );
   }
 
@@ -260,7 +260,7 @@ class LightRay {
    */
   getLensBackShape( optic ) {
     assert && assert( optic.isLens(), 'optic must be Lens' );
-    const shapes = optic.outlineAndFillProperty.value;
+    const shapes = optic.shapesProperty.value;
     return optic.translatedShape( shapes.backShape );
   }
 
@@ -282,14 +282,14 @@ class LightRay {
     else if ( optic.isLens() ) {
 
       // get the vertical (middle) line spanning the lens
-      const staticShape = optic.outlineAndFillProperty.value.middleShape;
+      const staticShape = optic.shapesProperty.value.middleShape;
 
       return optic.translatedShape( staticShape );
     }
     else { // isMirror &&  not principal rays
 
       // get the first surface of the mirror
-      const staticShape = optic.outlineAndFillProperty.value.outlineShape;
+      const staticShape = optic.shapesProperty.value.frontShape;
       return optic.translatedShape( staticShape );
     }
   }

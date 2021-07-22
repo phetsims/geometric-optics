@@ -52,8 +52,8 @@ class CurveControl extends RectangularRadioButtonGroup {
      */
     const createIconNode = curve => {
 
-      // create icon shapes {fillShape, outlineShape}
-      const iconShapes = optic.getFillAndOutlineShapes( RADIUS_OF_CURVATURE, DIAMETER, curve,
+      // create icon shapes {fillShape, frontShape}
+      const iconShapes = optic.getShapes( RADIUS_OF_CURVATURE, DIAMETER, curve,
         { thickness: THICKNESS, isHollywood: false } );
 
       // create node to layout the paths for the icon

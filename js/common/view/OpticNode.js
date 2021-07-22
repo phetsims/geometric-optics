@@ -74,7 +74,7 @@ class OpticNode extends Node {
 
     // create the path of the optic
     // @protected {Path}
-    this.fillPath = new Path( modelViewTransform.modelToViewShape( optic.outlineAndFillProperty.value.fillShape ), {
+    this.fillPath = new Path( modelViewTransform.modelToViewShape( optic.shapesProperty.value.fillShape ), {
       fill: options.fill
     } );
 
@@ -86,7 +86,7 @@ class OpticNode extends Node {
     } );
 
     // create the outline path of the optic {Path}
-    const outlinePath = new Path( modelViewTransform.modelToViewShape( optic.outlineAndFillProperty.value.outlineShape ), {
+    const outlinePath = new Path( modelViewTransform.modelToViewShape( optic.shapesProperty.value.outlineShape ), {
       stroke: options.stroke,
       lineWidth: options.lineWidth
     } );
@@ -121,7 +121,7 @@ class OpticNode extends Node {
     } );
 
     // modify the shape of the optic
-    optic.outlineAndFillProperty.link( shapes => {
+    optic.shapesProperty.link( shapes => {
       this.fillPath.shape = modelViewTransform.modelToViewShape( shapes.fillShape );
       outlinePath.shape = modelViewTransform.modelToViewShape( shapes.outlineShape );
     } );
