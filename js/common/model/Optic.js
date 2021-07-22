@@ -28,11 +28,18 @@ class Optic {
    * @param {Vector2} position - center of the optical element
    * @param {RangeWithValue} radiusOfCurvatureRange - range of radius of curvature (in centimeters)
    * @param {RangeWithValue} diameterRange - range of height for optical element (in centimeters)
+   * @param {RangeWithValue} indexOfRefractionRange
    * @param {Optic.Curve} curve - initial curve of optical element - acceptable values (CONVEX and CONCAVE)
    * @param {Optic.Type} type - initial type of optical element - acceptable values (MIRROR and LENS)
    * @param {Tandem} tandem
    */
-  constructor( position, radiusOfCurvatureRange, diameterRange, curve, type, tandem ) {
+  constructor( position,
+               radiusOfCurvatureRange,
+               diameterRange,
+               indexOfRefractionRange,
+               curve,
+               type,
+               tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
     assert && assert( position instanceof Vector2, 'invalid position' );
     assert && assert( radiusOfCurvatureRange instanceof RangeWithValue, 'invalid radiusOfCurvature' );
@@ -42,16 +49,33 @@ class Optic {
     this.positionProperty = new Vector2Property( position );
 
     // @public {Property.<number>} Radius of curvature of the optical element - The convention is positive as converging.
-    this.radiusOfCurvatureProperty = new NumberProperty( radiusOfCurvatureRange.defaultValue, { range: radiusOfCurvatureRange } );
+    this.radiusOfCurvatureProperty = new NumberProperty( radiusOfCurvatureRange.defaultValue,
+      { range: radiusOfCurvatureRange } );
 
     // @public {Property.<number>} Height of the optical element - controls the optical aperture of the optical element
-    this.diameterProperty = new NumberProperty( diameterRange.defaultValue, { range: diameterRange } );
+    this.diameterProperty = new NumberProperty( diameterRange.defaultValue,
+      { range: diameterRange } );
+
+    // @public {Property.<number>}  index of refraction of the lens
+    this.indexOfRefractionProperty = new NumberProperty( indexOfRefractionRange.defaultValue,
+      { range: indexOfRefractionRange } );
 
     // @public {Property.<Optic.Curve>} Type of Curvature of the optical element.
     this.curveProperty = new EnumerationProperty( Optic.Curve, curve );
 
     // @private {Optic.Type} Type of the optical element ( valid choices: LENS and MIRROR)
     this.type = type;
+
+    // @public {Property.<number>} focal length of the lens
+    // positive indicate the lens is convex (converging)
+    // negative indicates the lens is concave (diverging).
+    this.focalLengthProperty = new DerivedProperty(
+      [ this.radiusOfCurvatureProperty, this.indexOfRefractionProperty, this.curveProperty ],
+      ( radiusOfCurvature, indexOfRefraction, curve ) => {
+        const curveSign = this.getCurveSign( curve );
+        return curveSign * radiusOfCurvature / ( 2 * ( indexOfRefraction - 1 ) );
+      }
+    );
 
     // @public {Property.<boolean>} is the optical element converging.
     this.isConvergingProperty = new DerivedProperty( [ this.curveProperty ], curve => {
@@ -73,9 +97,6 @@ class Optic {
         return this.getFillAndOutlineShapes( radius, diameter, curve );
       } );
 
-    // @public {Property.<number>} - must be implemented by subtype
-    this.focalLengthProperty = new Error( 'must be implemented by subtype' );
-
     // @private {number}
     this.diameterRange = diameterRange;
   }
@@ -89,6 +110,7 @@ class Optic {
     this.diameterProperty.reset();
     this.radiusOfCurvatureProperty.reset();
     this.curveProperty.reset();
+    this.indexOfRefractionProperty.reset();
   }
 
   /**
@@ -221,9 +243,219 @@ class Optic {
   }
 
   /**
-   * @public @abstract
+   * Returns a normalized value (between 0 and 1) for the index of refraction
+   * @param {number} index - index of refraction
+   * @public
+   * @returns {number}
    */
-  getFillAndOutlineShapes() { throw new Error( 'must be implemented by subtype' ); }
+  getNormalizedIndex( index ) {
+    return this.indexOfRefractionProperty.range.getNormalizedValue( index );
+  }
+
+  /**
+   * Returns the shape of a parabolic mirror.
+   * The shape is designed as a "first surface mirror".
+   * The returned object contains an outline shape, representing the reflecting coating,
+   * and a fill shape representing the base backing of the mirror.
+   * The shapes are drawn using quadratic Bezier curves.
+   *
+   * @param {number} radius - radius of curvature at the center of the mirror
+   * @param {number} diameter - vertical height of the mirror
+   * @param {Optic.Curve} curve
+   * @param {Object} [options]
+   * @returns {{fillShape: <Shape>,outlineShape: <Shape>}}
+   * @public
+   */
+  getFillAndOutlineShapes( radius, diameter, curve, options ) {
+    if ( this.isLens() ) {
+      return this.getLensShapes( radius, diameter, curve, options );
+    }
+    else {
+      return this.getMirrorShapes( radius, diameter, curve, options );
+    }
+  }
+
+  /**
+   * Returns the shape of a parabolic mirror.
+   * The shape is designed as a "first surface mirror".
+   * The returned object contains an outline shape, representing the reflecting coating,
+   * and a fill shape representing the base backing of the mirror.
+   * The shapes are drawn using quadratic Bezier curves.
+   *
+   * @param {number} radius - radius of curvature at the center of the mirror
+   * @param {number} diameter - vertical height of the mirror
+   * @param {Optic.Curve} curve
+   * @param {Object} [options]
+   * @returns {{fillShape: <Shape>,outlineShape: <Shape>}}
+   * @public
+   */
+  getMirrorShapes( radius, diameter, curve, options ) {
+
+    assert && assert( radius > diameter / 2, 'the radius of curvature is too small when compared to the diameter' );
+
+    options = merge( {
+      thickness: 5 // horizontal separation between the two edges of the surfaces at the middle part
+    }, options );
+
+    // convenience variable
+    const halfHeight = diameter / 2;
+
+    // half of the width of the outline shape of the mirror along the x -axis
+    const halfWidth = radius - Math.sqrt( radius * radius - halfHeight * halfHeight );
+
+    // top and bottom surfaces must be tilted to generate right angle corners
+    const angle = Math.atan( halfHeight / radius );
+
+    // curveSign is +1 for convex and -1 for concave
+    const curveSign = this.getCurveSign( curve );
+
+    // vector offset between the two top corners and bottom corners of the shape
+    // with a magnitude of option.thickness
+    const offsetTopVector = Vector2.createPolar( options.thickness, -curveSign * angle );
+    const offsetBottomVector = Vector2.createPolar( options.thickness, curveSign * angle );
+
+    // four corners of the mirror shape
+    const topLeft = new Vector2( curveSign * halfWidth, halfHeight );
+    const topRight = topLeft.plus( offsetTopVector );
+    const bottomLeft = new Vector2( curveSign * halfWidth, -halfHeight );
+    const bottomRight = bottomLeft.plus( offsetBottomVector );
+
+    // control points: Note that the curve will not go through the control points.
+    // rather, it will go through the two following points: position and position.plusXY( options.thickness, 0 )
+    const midLeft = new Vector2( -curveSign * halfWidth, 0 );
+    const midRight = midLeft.plusXY( options.thickness, 0 );
+
+    // shapes drawn from top to bottom in counterclockwise fashion.
+    return {
+      fillShape: new Shape()
+        .moveToPoint( topLeft )
+        .quadraticCurveToPoint( midLeft, bottomLeft )
+        .lineToPoint( bottomRight )
+        .quadraticCurveToPoint( midRight, topRight )
+        .close(),
+      outlineShape: new Shape()
+        .moveToPoint( topLeft )
+        .quadraticCurveToPoint( midLeft, bottomLeft )
+        .quadraticCurveToPoint( midLeft, topLeft )
+        .close()
+    };
+  }
+
+  /**
+   * Returns the shapes of a lens. In the case of a lens, the outline and fills shape are identical.
+   *
+   * The lens shape is approximated as a parabolic lens.
+   * The radius of curvature of the lens does necessarily match the value of radius and can be instead "hollywooded".
+   * This gives the flexibility to draw lenses with radius of curvature that is larger than diameter/2, a physical impossibility.
+   * The center point of the lens is '0,0'
+   *
+   * @param {number} radius - radius of curvature
+   * @param {number} diameter - height of the lens
+   * @param {Optic.Curve} curve
+   * @param {Object} [options]
+   * @returns {{fillShape: <Shape>,outlineShape: <Shape>}}
+   * @public
+   */
+  getLensShapes( radius, diameter, curve, options ) {
+
+    options = merge( {
+        isHollywood: true, // is the radius of curvature parameter matching the shape of the lens
+        offsetRadius: 100
+      },
+      options );
+
+    const halfHeight = diameter / 2;
+
+    // the width of the lens changes with the radius
+    const halfWidth = options.isHollywood ?
+                      1 / 2 * halfHeight * halfHeight / ( radius + options.offsetRadius ) :
+                      radius - Math.sqrt( radius ** 2 - halfHeight ** 2 );
+
+    // {Shape} shape of lens
+    let shape; // the outline of the lens (including top and bottom)
+    let frontShape; // the left facing portion of the lens
+    let backShape; // the right facing  portion of the lens
+
+    if ( this.isConvex( curve ) ) {
+
+      // two extrema points of the lens
+      const top = new Vector2( 0, halfHeight );
+      const bottom = new Vector2( 0, -halfHeight );
+
+      // two control points on the optical axis, note that the shape does not go through these points
+      // The shape will go through the two points: position.plusXY(  -halfWidth, 0 )  and position.plusXY(  halfWidth, 0 )
+      const left = new Vector2( -2 * halfWidth, 0 );
+      const right = new Vector2( 2 * halfWidth, 0 );
+
+      // shape of convex lens
+      shape = new Shape()
+        .moveToPoint( top )
+        .quadraticCurveToPoint( left, bottom )
+        .quadraticCurveToPoint( right, top )
+        .close();
+
+      frontShape = new Shape()
+        .moveToPoint( top )
+        .quadraticCurveToPoint( left, bottom )
+        .quadraticCurveToPoint( left, top )
+        .close();
+
+      backShape = new Shape()
+        .moveToPoint( top )
+        .quadraticCurveToPoint( right, bottom )
+        .quadraticCurveToPoint( right, top )
+        .close();
+
+    }
+    else {
+      const midWidth = halfWidth;
+
+      // four corners of the concave shape
+      const topLeft = new Vector2( -halfWidth, halfHeight );
+      const topRight = new Vector2( halfWidth, halfHeight );
+      const bottomLeft = new Vector2( -halfWidth, -halfHeight );
+      const bottomRight = new Vector2( halfWidth, -halfHeight );
+
+      // control points
+      const midLeft = new Vector2( midWidth / 2, 0 );
+      const midRight = new Vector2( -midWidth / 2, 0 );
+
+      // shape of concave lens
+      shape = new Shape()
+        .moveToPoint( topLeft )
+        .lineToPoint( topRight )
+        .quadraticCurveToPoint( midRight, bottomRight )
+        .lineToPoint( bottomLeft )
+        .quadraticCurveToPoint( midLeft, topLeft )
+        .close();
+
+      frontShape = new Shape()
+        .moveToPoint( topLeft )
+        .quadraticCurveToPoint( midLeft, bottomLeft )
+        .quadraticCurveToPoint( midLeft, topLeft )
+        .close();
+
+      backShape = new Shape()
+        .moveToPoint( topRight )
+        .quadraticCurveToPoint( midRight, bottomRight )
+        .quadraticCurveToPoint( midRight, topRight )
+        .close();
+    }
+
+    // two extrema points of the lens
+    const top = new Vector2( 0, halfHeight );
+    const bottom = new Vector2( 0, -halfHeight );
+    const middleShape = new Shape().moveToPoint( top ).lineToPoint( bottom );
+
+    // the outline shape is the same as the fill shape for a lens
+    return {
+      fillShape: shape,
+      outlineShape: shape,
+      frontShape: frontShape,
+      backShape: backShape,
+      middleShape: middleShape
+    };
+  }
 
   /**
    * Returns the shape of the vertical line

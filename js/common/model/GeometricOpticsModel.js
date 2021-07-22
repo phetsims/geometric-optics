@@ -19,6 +19,7 @@ import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import FocalPoint from './FocalPoint.js';
 import LightRayMode from './LightRayMode.js';
 import LightRays from './LightRays.js';
+import Optic from './Optic.js';
 import Representation from './Representation.js';
 import Ruler from './Ruler.js';
 import SourceObject from './SourceObject.js';
@@ -30,10 +31,26 @@ const VERTICAL_RULER_LENGTH = GeometricOpticsConstants.VERTICAL_RULER_LENGTH;
 class GeometricOpticsModel {
 
   /**
+   *
+   * @param {Vector2} position - center of the optical element
+   * @param {RangeWithValue} radiusOfCurvatureRange - range of radius of curvature (in centimeters)
+   * @param {RangeWithValue} diameterRange - range of height for optical element (in centimeters)
+   * @param {RangeWithValue} indexOfRefractionRange
+   * @param {Optic.Curve} curve - initial curve of optical element - acceptable values (CONVEX and CONCAVE)
+   * @param {Optic.Type} type - initial type of optical element - acceptable values (MIRROR and LENS)
    * @param {Tandem} tandem
    */
-  constructor( tandem ) {
+  constructor( position,
+               radiusOfCurvatureRange,
+               diameterRange,
+               indexOfRefractionRange,
+               curve,
+               type,
+               tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+    assert && assert( position instanceof Vector2, 'invalid position' );
+    assert && assert( radiusOfCurvatureRange instanceof RangeWithValue, 'invalid radiusOfCurvature' );
+    assert && assert( diameterRange instanceof RangeWithValue, 'invalid diameterRange' );
 
     // @private - time range (in seconds) for the animation
     this.timeRange = new RangeWithValue( 0, 5, 0.01 );
@@ -64,6 +81,60 @@ class GeometricOpticsModel {
       vertical: new Ruler( new Vector2( 100, 300 ), VERTICAL_RULER_LENGTH, { orientation: Ruler.Orientation.VERTICAL } )
     };
 
+    // @public
+    this.optic = new Optic( position,
+      radiusOfCurvatureRange,
+      diameterRange,
+      indexOfRefractionRange,
+      curve,
+      type,
+      tandem );
+
+
+    // @public {SourceObject} the object/ source
+    this.sourceObject = new SourceObject( this.optic.positionProperty, this.representationProperty, tandem );
+
+    // @public {FocalPoint} first principal focal point
+    this.firstFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty, tandem );
+
+    // @public {FocalPoint} second principal focal point
+    this.secondFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty, tandem, { multiplicativeFactor: -1 } );
+
+    // @public {Target} target/ image
+    this.firstTarget = new Target( this.sourceObject.firstPositionProperty, this.optic, tandem );
+
+    // @public {Target} target/ image associated with the second source
+    this.secondTarget = new Target( this.sourceObject.secondPositionProperty, this.optic, tandem );
+
+    // @public {ProjectorScreen}
+    this.projectorScreen = new ProjectorScreen(
+      this.optic.positionProperty,
+      this.optic.diameterProperty,
+      this.firstTarget.positionProperty,
+      this.secondTarget.positionProperty, tandem );
+
+    // @public {LightRays} model of the light rays associated to the first source
+    this.firstLightRays = new LightRays( this.timeProperty,
+      this.lightRayModeProperty,
+      this.enableFirstTargetProperty,
+      this.representationProperty,
+      this.sourceObject.firstPositionProperty,
+      this.projectorScreen,
+      this.optic,
+      this.firstTarget,
+      tandem );
+
+    // @public {LightRays} model of the light rays associated with the second source
+    this.secondLightRays = new LightRays( this.timeProperty,
+      this.lightRayModeProperty,
+      this.enableSecondTargetProperty,
+      this.representationProperty,
+      this.sourceObject.secondPositionProperty,
+      this.projectorScreen,
+      this.optic,
+      this.secondTarget,
+      tandem );
+
   }
 
 
@@ -81,6 +152,7 @@ class GeometricOpticsModel {
     this.enableFirstTargetProperty.reset();
     this.enableSecondTargetProperty.reset();
     this.projectorScreen.reset();
+    this.optic.reset();
   }
 
 
@@ -95,58 +167,6 @@ class GeometricOpticsModel {
 
   }
 
-  /**
-   * @protected
-   * @param {Optic} optic
-   * @param {Tandem} tandem
-   */
-  createCommonComponents( optic, tandem ) {
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
-
-    // @public {SourceObject} the object/ source
-    this.sourceObject = new SourceObject( optic.positionProperty, this.representationProperty, tandem );
-
-    // @public {FocalPoint} first principal focal point
-    this.firstFocalPoint = new FocalPoint( optic.positionProperty, optic.focalLengthProperty, tandem );
-
-    // @public {FocalPoint} second principal focal point
-    this.secondFocalPoint = new FocalPoint( optic.positionProperty, optic.focalLengthProperty, tandem, { multiplicativeFactor: -1 } );
-
-    // @public {Target} target/ image
-    this.firstTarget = new Target( this.sourceObject.firstPositionProperty, optic, tandem );
-
-    // @public {Target} target/ image associated with the second source
-    this.secondTarget = new Target( this.sourceObject.secondPositionProperty, optic, tandem );
-
-    // @public {ProjectorScreen}
-    this.projectorScreen = new ProjectorScreen(
-      optic.positionProperty,
-      optic.diameterProperty,
-      this.firstTarget.positionProperty,
-      this.secondTarget.positionProperty, tandem );
-
-    // @public {LightRays} model of the light rays associated to the first source
-    this.firstLightRays = new LightRays( this.timeProperty,
-      this.lightRayModeProperty,
-      this.enableFirstTargetProperty,
-      this.representationProperty,
-      this.sourceObject.firstPositionProperty,
-      this.projectorScreen,
-      optic,
-      this.firstTarget,
-      tandem );
-
-    // @public {LightRays} model of the light rays associated with the second source
-    this.secondLightRays = new LightRays( this.timeProperty,
-      this.lightRayModeProperty,
-      this.enableSecondTargetProperty,
-      this.representationProperty,
-      this.sourceObject.secondPositionProperty,
-      this.projectorScreen,
-      optic,
-      this.secondTarget,
-      tandem );
-  }
 }
 
 geometricOptics.register( 'GeometricOpticsModel', GeometricOpticsModel );
