@@ -30,7 +30,7 @@ class Optic {
    * @param {RangeWithValue} diameterRange - range of height for optical element (in centimeters)
    * @param {RangeWithValue} indexOfRefractionRange
    * @param {Optic.Curve} curve - initial curve of optical element - acceptable values (CONVEX and CONCAVE)
-   * @param {Optic.Type} type - initial type of optical element - acceptable values (MIRROR and LENS)
+   * @param {Optic.Type} type - type of optical element - acceptable values (MIRROR and LENS)
    * @param {Tandem} tandem
    */
   constructor( position,
@@ -71,8 +71,12 @@ class Optic {
     this.focalLengthProperty = new DerivedProperty(
       [ this.radiusOfCurvatureProperty, this.indexOfRefractionProperty, this.curveProperty ],
       ( radiusOfCurvature, indexOfRefraction, curve ) => {
-        const curveSign = this.getCurveSign( curve );
-        return curveSign * radiusOfCurvature / ( 2 * ( indexOfRefraction - 1 ) );
+
+        // a positive sign indicate the optic is converging
+        // sign is determined based on the curve and the type of optic.
+        const sign = this.getConvergingSign( curve );
+
+        return sign * radiusOfCurvature / ( 2 * ( indexOfRefraction - 1 ) );
       }
     );
 
