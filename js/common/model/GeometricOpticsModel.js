@@ -32,7 +32,7 @@ class GeometricOpticsModel {
 
   /**
    *
-   * @param {Vector2} position - center of the optical element
+   * @param {Vector2} opticPosition - center of the optical element
    * @param {RangeWithValue} radiusOfCurvatureRange - range of radius of curvature (in centimeters)
    * @param {RangeWithValue} diameterRange - range of height for optical element (in centimeters)
    * @param {RangeWithValue} indexOfRefractionRange
@@ -40,7 +40,7 @@ class GeometricOpticsModel {
    * @param {Optic.Type} type - initial type of optical element - acceptable values (MIRROR and LENS)
    * @param {Tandem} tandem
    */
-  constructor( position,
+  constructor( opticPosition,
                radiusOfCurvatureRange,
                diameterRange,
                indexOfRefractionRange,
@@ -48,7 +48,7 @@ class GeometricOpticsModel {
                type,
                tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
-    assert && assert( position instanceof Vector2, 'invalid position' );
+    assert && assert( opticPosition instanceof Vector2, 'invalid position' );
     assert && assert( radiusOfCurvatureRange instanceof RangeWithValue, 'invalid radiusOfCurvature' );
     assert && assert( diameterRange instanceof RangeWithValue, 'invalid diameterRange' );
 
@@ -82,14 +82,13 @@ class GeometricOpticsModel {
     };
 
     // @public
-    this.optic = new Optic( position,
+    this.optic = new Optic( opticPosition,
       radiusOfCurvatureRange,
       diameterRange,
       indexOfRefractionRange,
       curve,
       type,
       tandem );
-
 
     // @public {SourceObject} the object/ source
     this.sourceObject = new SourceObject( this.optic.positionProperty, this.representationProperty, tandem );
@@ -137,7 +136,6 @@ class GeometricOpticsModel {
 
   }
 
-
   /**
    * Resets the model
    * @public
@@ -155,7 +153,6 @@ class GeometricOpticsModel {
     this.optic.reset();
   }
 
-
   /**
    * @public
    * @param {number} dt
@@ -164,9 +161,7 @@ class GeometricOpticsModel {
     if ( this.timeRange.contains( this.timeProperty.value ) ) {
       this.timeProperty.value = this.timeProperty.value + dt;
     }
-
   }
-
 }
 
 geometricOptics.register( 'GeometricOpticsModel', GeometricOpticsModel );
