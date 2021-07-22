@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Scenery node for a label that appear below each element in the simulation when toggled.
+ * Scenery node for a label that appears below each element in the simulation when toggled.
  *
  * @author Sarah Chang (Swarthmore College)
  */
@@ -39,7 +39,7 @@ class LabelNode extends Node {
         opacity: 0.5,
         cornerRadius: 4
       },
-      labelOffset: 20, /// vertical offset (in view coordinates) wrt firstPositionProperty
+      labelOffset: 12, // vertical offset (in view coordinates) wrt firstPositionProperty
       xMargin: 5,
       yMargin: 5
     }, options );

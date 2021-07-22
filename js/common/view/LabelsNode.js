@@ -56,6 +56,7 @@ class LabelsNode extends Node {
       visibleProperties.visibleFocalPointProperty,
       modelViewTransformProperty );
 
+    // define optic label position
     const opticLabelPositionProperty = new DerivedProperty( [ model.optic.positionProperty, model.optic.diameterProperty ], ( position, diameter ) =>
       position.minusXY( 0, diameter / 2 )
     );
@@ -80,11 +81,19 @@ class LabelsNode extends Node {
       opticLabel.setText( curveOpticString );
     } );
 
+    // define image label position
+    const imageLabelPositionProperty = new DerivedProperty( [ model.firstTarget.positionProperty ],
+      position => position.minusXY( 0, 14 ) );
+
     // create image label
-    const imageLabel = new LabelNode( imageString, model.firstTarget.positionProperty, new BooleanProperty( true ), modelViewTransformProperty );
+    const imageLabel = new LabelNode( imageString, imageLabelPositionProperty, new BooleanProperty( true ), modelViewTransformProperty );
+
+    // define object label position
+    const objectLabelPositionProperty = new DerivedProperty( [ model.sourceObject.firstPositionProperty ],
+      position => position.minusXY( 0, 66 ) );
 
     // create object label
-    const objectLabel = new LabelNode( objectString, model.sourceObject.firstPositionProperty, new BooleanProperty( true ), modelViewTransformProperty );
+    const objectLabel = new LabelNode( objectString, objectLabelPositionProperty, new BooleanProperty( true ), modelViewTransformProperty );
 
     // update the visibility of the object and image labels
     Property.multilink( [ model.representationProperty, model.enableFirstTargetProperty, model.firstTarget.isVirtualProperty, visibleProperties.visibleVirtualImageProperty ],
