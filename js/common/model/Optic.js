@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Abstract class of an optical element in the simulation.
+ * A class of an optical element in the simulation.
  * An optical element is the base class for a lens or a mirror.
  * Responsibility include the radius of curvature, the diameter and the curve
  *
@@ -246,6 +246,160 @@ class Optic {
   }
 
   /**
+   * returns a shape translated by the model position of the optic
+   * @public
+   * @param {Shape} shape
+   * @returns {Shape}
+   */
+  translatedShape( shape ) {
+    return shape.transformed( Matrix3.translationFromVector( this.getPosition() ) );
+  }
+
+  /**
+   * @public
+   * @returns {Bounds2}
+   */
+  getOpticBounds() {
+    const outlineShape = this.shapesProperty.value.outlineShape;
+    const translatedShape = this.translatedShape( outlineShape );
+    return translatedShape.getBounds();
+  }
+
+  /**
+   * Returns a normalized value (between 0 and 1) for the index of refraction
+   * @param {number} index - index of refraction
+   * @public
+   * @returns {number}
+   */
+  getNormalizedIndex( index ) {
+    if ( this.isLens() ) {
+      return this.indexOfRefractionProperty.range.getNormalizedValue( index );
+    }
+    else {
+
+      // return the maximum value for mirror
+      return 1;
+    }
+  }
+
+  /**
+   * Returns the shapes of the optic
+   * The outline shape, represents the reflecting coating of a mirror, or the external surface of the lens
+   * The fill shape represents the entire shape of the lens, or in the case of mirror, the backing of the mirror
+   * The front shape is the left facing contour of the optic. This can be used for ray hit testing
+   * The back shape is the right facing contour of the optic. back shape is null for mirror
+   * The middle shape is the imaginary vertical line that splits a lens into two halves. Null for mirror.
+   *
+   * @param {number} radius - radius of curvature at the center of the mirror
+   * @param {number} diameter - vertical height of the mirror
+   * @param {Optic.Curve} curve
+   * @param {Object} [options]
+   * @returns {{
+      fillShape: <Shape>,
+      outlineShape: <Shape>,
+      frontShape: <Shape>,
+      backShape: <Shape|null>,
+      middleShape: <Shape|null>
+    }}
+   * @public
+   */
+  getShapes( radius, diameter, curve, options ) {
+    if ( this.isLens() ) {
+      return Optic.getLensShapes( radius, diameter, curve, options );
+    }
+    else {
+      return Optic.getMirrorShapes( radius, diameter, curve, options );
+    }
+  }
+
+  /**
+   * Returns the shape of the vertical line
+   * @public
+   * @returns {Shape}
+   */
+  getPrincipalLine() {
+
+    // a very large extent
+    const yMax = 800; // in centimeters
+
+    // a straight vertical line going through the middle of the optic
+    const verticalLine = Shape.lineSegment( 0, yMax, 0, -yMax );
+
+    return this.translatedShape( verticalLine );
+  }
+
+  /**
+   * returns the most extreme position within the optic that would ensure that a ray would
+   * be transmitted  (or reflected).
+   * (see #111)
+   *
+   * @public
+   * @param {Vector2} sourcePoint
+   * @param {Vector2} targetPoint
+   * @param {Object} [options]
+   * @returns {Vector2}
+   */
+  getExtremumPoint( sourcePoint, targetPoint, options ) {
+    options = merge( {
+      location: Optic.Location.TOP
+    }, options );
+
+    // erode the bounds a tiny bit such that such that the point is always within the bounds
+    const opticBounds = this.getOpticBounds().erodedY( 1e-6 );
+
+    // convenience variables
+    const isTop = ( options.location === Optic.Location.TOP );
+    const isConcave = this.isConcave( this.getCurve() );
+    const leftPoint = isTop ? opticBounds.leftTop : opticBounds.leftBottom;
+    const rightPoint = isTop ? opticBounds.rightTop : opticBounds.rightBottom;
+    const centerPoint = isTop ? opticBounds.centerTop : opticBounds.centerBottom;
+    const opticPoint = this.getPosition();
+
+    // extrema point along the direction of the ray - may not be on the optic itself
+    let spotPoint;
+
+    if ( this.isMirror() ) {
+
+      // since mirror reflect light, the spot point on the mirror itself
+      spotPoint = isConcave ? leftPoint : rightPoint;
+    }
+    else {
+      // must be lens
+
+      if ( isConcave ) {
+
+        // displacement vector from targetPoint to the right corner of the lens
+        const rightTarget = rightPoint.minus( targetPoint );
+
+        // displacement vector from sourcePoint to the left corner of the lens
+        const leftSource = leftPoint.minus( sourcePoint );
+
+        // yOffset (from center of lens) of a ray directed from targetPoint to the right corner of lens
+        const yOffset1 = ( rightPoint.y - opticPoint.y ) + ( opticPoint.x - rightPoint.x ) *
+                         rightTarget.y / rightTarget.x;
+
+        // yOffset (from center of lens) of a ray directed from targetPoint to the right corner of lens
+        const yOffset2 = ( leftPoint.y - opticPoint.y ) + ( opticPoint.x - leftPoint.x ) * leftSource.y / leftSource.x;
+
+        // find the smallest offset to ensure that a ray will always hit both front and back surfaces
+        const offsetY = Math.abs( yOffset1 ) < Math.abs( yOffset2 ) ? yOffset1 : yOffset2;
+
+        // get the direction of the ray as measured from the source
+        spotPoint = opticPoint.plusXY( 0, offsetY );
+      }
+
+      else {
+        // must be a convex lens
+
+        // spot is based on the edge point (which is centered horizontally on the optic)
+        spotPoint = centerPoint;
+      }
+    }
+
+    return spotPoint;
+  }
+
+  /**
    * Returns the shape of a parabolic mirror.
    * The shape is designed as a "first surface mirror".
    * The returned object contains an outline shape, representing the reflecting coating,
@@ -447,160 +601,6 @@ class Optic {
       backShape: backShape,
       middleShape: middleShape
     };
-  }
-
-  /**
-   * returns a shape translated by the model position of the optic
-   * @public
-   * @param {Shape} shape
-   * @returns {Shape}
-   */
-  translatedShape( shape ) {
-    return shape.transformed( Matrix3.translationFromVector( this.getPosition() ) );
-  }
-
-  /**
-   * @public
-   * @returns {Bounds2}
-   */
-  getOpticBounds() {
-    const outlineShape = this.shapesProperty.value.outlineShape;
-    const translatedShape = this.translatedShape( outlineShape );
-    return translatedShape.getBounds();
-  }
-
-  /**
-   * Returns a normalized value (between 0 and 1) for the index of refraction
-   * @param {number} index - index of refraction
-   * @public
-   * @returns {number}
-   */
-  getNormalizedIndex( index ) {
-    if ( this.isLens() ) {
-      return this.indexOfRefractionProperty.range.getNormalizedValue( index );
-    }
-    else {
-
-      // return the maximum value for mirror
-      return 1;
-    }
-  }
-
-  /**
-   * Returns the shapes of the optic
-   * The outline shape, represents the reflecting coating of a mirror, or the external surface of the lens
-   * The fill shape represents the entire shape of the lens, or in the case of mirror, the backing of the mirror
-   * The front shape is the left facing contour of the optic. This can be used for ray hit testing
-   * The back shape is the right facing contour of the optic. back shape is null for mirror
-   * The middle shape is the imaginary vertical line that splits a lens into two halves. Null for mirror.
-   *
-   * @param {number} radius - radius of curvature at the center of the mirror
-   * @param {number} diameter - vertical height of the mirror
-   * @param {Optic.Curve} curve
-   * @param {Object} [options]
-   * @returns {{
-      fillShape: <Shape>,
-      outlineShape: <Shape>,
-      frontShape: <Shape>,
-      backShape: <Shape|null>,
-      middleShape: <Shape|null>
-    }}
-   * @public
-   */
-  getShapes( radius, diameter, curve, options ) {
-    if ( this.isLens() ) {
-      return Optic.getLensShapes( radius, diameter, curve, options );
-    }
-    else {
-      return Optic.getMirrorShapes( radius, diameter, curve, options );
-    }
-  }
-
-  /**
-   * Returns the shape of the vertical line
-   * @public
-   * @returns {Shape}
-   */
-  getPrincipalLine() {
-
-    // a very large extent
-    const yMax = 800; // in centimeters
-
-    // a straight vertical line going through the middle of the optic
-    const verticalLine = Shape.lineSegment( 0, yMax, 0, -yMax );
-
-    return this.translatedShape( verticalLine );
-  }
-
-  /**
-   * returns the most extreme position within the optic that would ensure that a ray would
-   * be transmitted  (or reflected).
-   * (see #111)
-   *
-   * @public
-   * @param {Vector2} sourcePoint
-   * @param {Vector2} targetPoint
-   * @param {Object} [options]
-   * @returns {Vector2}
-   */
-  getExtremumPoint( sourcePoint, targetPoint, options ) {
-    options = merge( {
-      location: Optic.Location.TOP
-    }, options );
-
-    // erode the bounds a tiny bit such that such that the point is always within the bounds
-    const opticBounds = this.getOpticBounds().erodedY( 1e-6 );
-
-    // convenience variables
-    const isTop = ( options.location === Optic.Location.TOP );
-    const isConcave = this.isConcave( this.getCurve() );
-    const leftPoint = isTop ? opticBounds.leftTop : opticBounds.leftBottom;
-    const rightPoint = isTop ? opticBounds.rightTop : opticBounds.rightBottom;
-    const centerPoint = isTop ? opticBounds.centerTop : opticBounds.centerBottom;
-    const opticPoint = this.getPosition();
-
-    // extrema point along the direction of the ray - may not be on the optic itself
-    let spotPoint;
-
-    if ( this.isMirror() ) {
-
-      // since mirror reflect light, the spot point on the mirror itself
-      spotPoint = isConcave ? leftPoint : rightPoint;
-    }
-    else {
-      // must be lens
-
-      if ( isConcave ) {
-
-        // displacement vector from targetPoint to the right corner of the lens
-        const rightTarget = rightPoint.minus( targetPoint );
-
-        // displacement vector from sourcePoint to the left corner of the lens
-        const leftSource = leftPoint.minus( sourcePoint );
-
-        // yOffset (from center of lens) of a ray directed from targetPoint to the right corner of lens
-        const yOffset1 = ( rightPoint.y - opticPoint.y ) + ( opticPoint.x - rightPoint.x ) *
-                         rightTarget.y / rightTarget.x;
-
-        // yOffset (from center of lens) of a ray directed from targetPoint to the right corner of lens
-        const yOffset2 = ( leftPoint.y - opticPoint.y ) + ( opticPoint.x - leftPoint.x ) * leftSource.y / leftSource.x;
-
-        // find the smallest offset to ensure that a ray will always hit both front and back surfaces
-        const offsetY = Math.abs( yOffset1 ) < Math.abs( yOffset2 ) ? yOffset1 : yOffset2;
-
-        // get the direction of the ray as measured from the source
-        spotPoint = opticPoint.plusXY( 0, offsetY );
-      }
-
-      else {
-        // must be a convex lens
-
-        // spot is based on the edge point (which is centered horizontally on the optic)
-        spotPoint = centerPoint;
-      }
-    }
-
-    return spotPoint;
   }
 }
 
