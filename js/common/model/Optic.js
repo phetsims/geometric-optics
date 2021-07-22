@@ -105,6 +105,147 @@ class Optic {
   }
 
   /**
+   * Resets the model.
+   * @public
+   */
+  reset() {
+    this.positionProperty.reset();
+    this.diameterProperty.reset();
+    this.radiusOfCurvatureProperty.reset();
+    this.curveProperty.reset();
+    this.indexOfRefractionProperty.reset();
+  }
+
+  /**
+   * sets the y position of the optical element while keeping the x-coordinate constant
+   * @public
+   * @param {number} yCoordinate
+   */
+  setVerticalCoordinate( yCoordinate ) {
+    this.positionProperty.value = new Vector2( this.positionProperty.value.x, yCoordinate );
+  }
+
+  /**
+   * Returns a boolean indicating if the optical element is a lens
+   * @public
+   * @returns {boolean}
+   */
+  isLens() {
+    return this.type === Optic.Type.LENS;
+  }
+
+  /**
+   * Returns a boolean indicating if the optical element is a mirror
+   * @public
+   * @returns {boolean}
+   */
+  isMirror() {
+    return this.type === Optic.Type.MIRROR;
+  }
+
+  /**
+   * Returns a boolean indicating if the optical element is concave
+   * @public
+   * @param {Optic.Curve} curve
+   * @returns {boolean}
+   */
+  isConcave( curve ) {
+    return curve === Optic.Curve.CONCAVE;
+  }
+
+  /**
+   * Returns a boolean indicating if the optical element is convex
+   * @public
+   * @param {Optic.Curve} curve
+   * @returns {boolean}
+   */
+  isConvex( curve ) {
+    return curve === Optic.Curve.CONVEX;
+  }
+
+  /**
+   * Returns a boolean indicating if the optical element has the potential to converge rays.
+   * This is solely a property of the optical element.
+   * A convex lens and a concave mirror are converging optical elements.
+   * @public
+   * @param {Optic.Curve} curve
+   * @returns {boolean}
+   */
+  isConverging( curve ) {
+    return ( this.isConvex( curve ) && this.isLens() ) || ( this.isConcave( curve ) && this.isMirror() );
+  }
+
+  /**
+   * Returns a boolean indicating if the optical element is convex
+   * @public
+   * @param {Optic.Curve} curve
+   * @returns {boolean}
+   */
+  isDiverging( curve ) {
+    return !this.isConverging( curve );
+  }
+
+  /**
+   * Convenience function for mathematical operations.
+   * Returns a value of +1 is the optical element is converging and -1 is the element is diverging.
+   * @public
+   * @param {Optic.Curve} curve
+   * @returns {number}
+   */
+  getConvergingSign( curve ) {
+    return this.isConverging( curve ) ? 1 : -1;
+  }
+
+  /**
+   * Convenience function for mathematical operations.
+   * Returns a value of +1 is the optical element is convex and -1 is the element is concave.
+   * @public
+   * @param {Optic.Curve} curve
+   * @returns {number}
+   */
+  getCurveSign( curve ) {
+    return this.isConvex( curve ) ? 1 : -1;
+  }
+
+  /**
+   * Convenience function for mathematical operations.
+   * Returns a value of +1 is the optical element is a lens and -1 is the element is a mirror.
+   * @public
+   * @returns {number}
+   */
+  getTypeSign() {
+    return this.isLens() ? 1 : -1;
+  }
+
+  /**
+   * Returns the type of optical element (Possible values are CONCAVE and CONVEX).
+   * @public
+   * @returns {Optic.Curve}
+   */
+  getCurve() {
+    return this.curveProperty.value;
+  }
+
+  /**
+   * Returns the position of the optical element
+   * @public
+   * @returns {Vector2}
+   */
+  getPosition() {
+    return this.positionProperty.value;
+  }
+
+  /**
+   * Returns a normalized value (with a max of 1) for the diameter
+   * @param {number} diameter - diameter
+   * @public
+   * @returns {number}
+   */
+  getNormalizedDiameter( diameter ) {
+    return diameter / this.diameterRange.max;
+  }
+
+  /**
    * Returns the shape of a parabolic mirror.
    * The shape is designed as a "first surface mirror".
    * The returned object contains an outline shape, representing the reflecting coating,
@@ -309,177 +450,6 @@ class Optic {
   }
 
   /**
-   * Resets the model.
-   * @public
-   */
-  reset() {
-    this.positionProperty.reset();
-    this.diameterProperty.reset();
-    this.radiusOfCurvatureProperty.reset();
-    this.curveProperty.reset();
-    this.indexOfRefractionProperty.reset();
-  }
-
-  /**
-   * sets the y position of the optical element while keeping the x-coordinate constant
-   * @public
-   * @param {number} yCoordinate
-   */
-  setVerticalCoordinate( yCoordinate ) {
-    this.positionProperty.value = new Vector2( this.positionProperty.value.x, yCoordinate );
-  }
-
-  /**
-   * Returns a boolean indicating if the optical element is a lens
-   * @public
-   * @returns {boolean}
-   */
-  isLens() {
-    return this.type === Optic.Type.LENS;
-  }
-
-  /**
-   * Returns a boolean indicating if the optical element is a mirror
-   * @public
-   * @returns {boolean}
-   */
-  isMirror() {
-    return this.type === Optic.Type.MIRROR;
-  }
-
-  /**
-   * Returns a boolean indicating if the optical element is concave
-   * @public
-   * @param {Optic.Curve} curve
-   * @returns {boolean}
-   */
-  isConcave( curve ) {
-    return curve === Optic.Curve.CONCAVE;
-  }
-
-  /**
-   * Returns a boolean indicating if the optical element is convex
-   * @public
-   * @param {Optic.Curve} curve
-   * @returns {boolean}
-   */
-  isConvex( curve ) {
-    return curve === Optic.Curve.CONVEX;
-  }
-
-  /**
-   * Returns a boolean indicating if the optical element has the potential to converge rays.
-   * This is solely a property of the optical element.
-   * A convex lens and a concave mirror are converging optical elements.
-   * @public
-   * @param {Optic.Curve} curve
-   * @returns {boolean}
-   */
-  isConverging( curve ) {
-    return ( this.isConvex( curve ) && this.isLens() ) || ( this.isConcave( curve ) && this.isMirror() );
-  }
-
-  /**
-   * Returns a boolean indicating if the optical element is convex
-   * @public
-   * @param {Optic.Curve} curve
-   * @returns {boolean}
-   */
-  isDiverging( curve ) {
-    return !this.isConverging( curve );
-  }
-
-  /**
-   * Convenience function for mathematical operations.
-   * Returns a value of +1 is the optical element is converging and -1 is the element is diverging.
-   * @public
-   * @param {Optic.Curve} curve
-   * @returns {number}
-   */
-  getConvergingSign( curve ) {
-    return this.isConverging( curve ) ? 1 : -1;
-  }
-
-  /**
-   * Convenience function for mathematical operations.
-   * Returns a value of +1 is the optical element is convex and -1 is the element is concave.
-   * @public
-   * @param {Optic.Curve} curve
-   * @returns {number}
-   */
-  getCurveSign( curve ) {
-    return this.isConvex( curve ) ? 1 : -1;
-  }
-
-  /**
-   * Convenience function for mathematical operations.
-   * Returns a value of +1 is the optical element is a lens and -1 is the element is a mirror.
-   * @public
-   * @returns {number}
-   */
-  getTypeSign() {
-    return this.isLens() ? 1 : -1;
-  }
-
-  /**
-   * Returns the type of optical element (Possible values are CONCAVE and CONVEX).
-   * @public
-   * @returns {Optic.Curve}
-   */
-  getCurve() {
-    return this.curveProperty.value;
-  }
-
-  /**
-   * Returns the position of the optical element
-   * @public
-   * @returns {Vector2}
-   */
-  getPosition() {
-    return this.positionProperty.value;
-  }
-
-  /**
-   * Returns a normalized value (with a max of 1) for the diameter
-   * @param {number} diameter - diameter
-   * @public
-   * @returns {number}
-   */
-  getNormalizedDiameter( diameter ) {
-    return diameter / this.diameterRange.max;
-  }
-
-  /**
-   * Returns a normalized value (between 0 and 1) for the index of refraction
-   * @param {number} index - index of refraction
-   * @public
-   * @returns {number}
-   */
-  getNormalizedIndex( index ) {
-    if ( this.isLens() ) {
-      return this.indexOfRefractionProperty.range.getNormalizedValue( index );
-    }
-    else {
-      return 1;
-    }
-  }
-
-  /**
-   * Returns the shape of the vertical line
-   * @public
-   * @returns {Shape}
-   */
-  getPrincipalLine() {
-
-    const yMax = 800; // in centimeters
-
-    // a straight vertical line going through the middle of the optic
-    const verticalLine = Shape.lineSegment( 0, yMax, 0, -yMax );
-
-    return this.translatedShape( verticalLine );
-  }
-
-  /**
    * returns a shape translated by the model position of the optic
    * @public
    * @param {Shape} shape
@@ -497,6 +467,69 @@ class Optic {
     const outlineShape = this.shapesProperty.value.outlineShape;
     const translatedShape = this.translatedShape( outlineShape );
     return translatedShape.getBounds();
+  }
+
+  /**
+   * Returns a normalized value (between 0 and 1) for the index of refraction
+   * @param {number} index - index of refraction
+   * @public
+   * @returns {number}
+   */
+  getNormalizedIndex( index ) {
+    if ( this.isLens() ) {
+      return this.indexOfRefractionProperty.range.getNormalizedValue( index );
+    }
+    else {
+
+      // return the maximum value for mirror
+      return 1;
+    }
+  }
+
+  /**
+   * Returns the shapes of the optic
+   * The outline shape, represents the reflecting coating of a mirror, or the external surface of the lens
+   * The fill shape represents the entire shape of the lens, or in the case of mirror, the backing of the mirror
+   * The front shape is the left facing contour of the optic. This can be used for ray hit testing
+   * The back shape is the right facing contour of the optic. back shape is null for mirror
+   * The middle shape is the imaginary vertical line that splits a lens into two halves. Null for mirror.
+   *
+   * @param {number} radius - radius of curvature at the center of the mirror
+   * @param {number} diameter - vertical height of the mirror
+   * @param {Optic.Curve} curve
+   * @param {Object} [options]
+   * @returns {{
+      fillShape: <Shape>,
+      outlineShape: <Shape>,
+      frontShape: <Shape>,
+      backShape: <Shape|null>,
+      middleShape: <Shape|null>
+    }}
+   * @public
+   */
+  getShapes( radius, diameter, curve, options ) {
+    if ( this.isLens() ) {
+      return Optic.getLensShapes( radius, diameter, curve, options );
+    }
+    else {
+      return Optic.getMirrorShapes( radius, diameter, curve, options );
+    }
+  }
+
+  /**
+   * Returns the shape of the vertical line
+   * @public
+   * @returns {Shape}
+   */
+  getPrincipalLine() {
+
+    // a very large extent
+    const yMax = 800; // in centimeters
+
+    // a straight vertical line going through the middle of the optic
+    const verticalLine = Shape.lineSegment( 0, yMax, 0, -yMax );
+
+    return this.translatedShape( verticalLine );
   }
 
   /**
@@ -524,7 +557,7 @@ class Optic {
     const leftPoint = isTop ? opticBounds.leftTop : opticBounds.leftBottom;
     const rightPoint = isTop ? opticBounds.rightTop : opticBounds.rightBottom;
     const centerPoint = isTop ? opticBounds.centerTop : opticBounds.centerBottom;
-    const opticPoint = this.positionProperty.value;
+    const opticPoint = this.getPosition();
 
     // extrema point along the direction of the ray - may not be on the optic itself
     let spotPoint;
@@ -568,36 +601,6 @@ class Optic {
     }
 
     return spotPoint;
-  }
-
-  /**
-   * Returns the shapes of the optic
-   * The outline shape, represents the reflecting coating of a mirror, or the external surface of the lens
-   * The fill shape represents the entire shape of the lens, or in the case of mirror, the backing of the mirror
-   * The front shape is the left facing contour of the optic. This can be used for ray hit testing
-   * The back shape is the right facing contour of the optic. back shape is null for mirror
-   * The middle shape is the imaginary vertical line that splits a lens into two halves. Null for mirror.
-   *
-   * @param {number} radius - radius of curvature at the center of the mirror
-   * @param {number} diameter - vertical height of the mirror
-   * @param {Optic.Curve} curve
-   * @param {Object} [options]
-   * @returns {{
-      fillShape: <Shape>,
-      outlineShape: <Shape>,
-      frontShape: <Shape>,
-      backShape: <Shape|null>,
-      middleShape: <Shape|null>
-    }}
-   * @public
-   */
-  getShapes( radius, diameter, curve, options ) {
-    if ( this.isLens() ) {
-      return Optic.getLensShapes( radius, diameter, curve, options );
-    }
-    else {
-      return Optic.getMirrorShapes( radius, diameter, curve, options );
-    }
   }
 }
 
