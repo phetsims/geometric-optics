@@ -1,5 +1,5 @@
 {
-  "comment": "# geometric-optics 1.0.0-dev.7 Wed Jul 21 2021 16:39:47 GMT-0400 (Eastern Daylight Time)",
+  "comment": "# geometric-optics 1.0.0-dev.8 Thu Jul 22 2021 16:05:42 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "f360fa1bd09a47b3c9e49cd90c8dddd136a13e0c",
     "branch": "master"
@@ -21,11 +21,11 @@
     "branch": "master"
   },
   "geometric-optics": {
-    "sha": "a28ab66b3ae6f334f0f9cbed00bf088a05954d60",
+    "sha": "3db234c14a123bcbb4e957733edd12fabf51a2b6",
     "branch": "master"
   },
   "joist": {
-    "sha": "e9b62798b0d407fe1a087e2c9011be47e43941a5",
+    "sha": "af6372b7db1255f8806e00e1475aaf3a9587dec1",
     "branch": "master"
   },
   "kite": {
@@ -41,7 +41,7 @@
     "branch": "master"
   },
   "phet-io-client-guides": {
-    "sha": "fcb38dcb81e2658f61323d61ee5981465a04dcae",
+    "sha": "ded7d09805a0774c30aeeff6f6b91a24ce6675aa",
     "branch": "master"
   },
   "phet-io-wrappers": {
@@ -61,11 +61,11 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "7f823e3ee68efb2556d2052aeddf3710b38ca0a9",
+    "sha": "bdd1cd85b77d29c036b3b77f917ac5e8fe12fe59",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "acf02278a1f6a2030d5c0048f4f57348118454db",
+    "sha": "013e078577820e76fba206a951d936f15f023d7a",
     "branch": "master"
   },
   "sherpa": {
