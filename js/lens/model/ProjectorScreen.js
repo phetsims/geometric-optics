@@ -21,16 +21,18 @@ const MASK_CORNERS = GeometricOpticsConstants.MASK_CORNERS;
 class ProjectorScreen {
 
   /**
-   * @param {Property.<Vector2>} opticPositionProperty
-   * @param {Property.<number>} opticDiameterProperty
+   * @param {Property.<Vector2>} firstSourcePositionProperty
+   * @param {Property.<Vector2>} secondSourcePositionProperty
    * @param {Property.<Vector2>} firstTargetPositionProperty
    * @param {Property.<Vector2>} secondTargetPositionProperty
+   * @param {Optic} optic
    * @param {Tandem} tandem
    */
-  constructor( opticPositionProperty,
-               opticDiameterProperty,
+  constructor( firstSourcePositionProperty,
+               secondSourcePositionProperty,
                firstTargetPositionProperty,
                secondTargetPositionProperty,
+               optic,
                tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
@@ -38,24 +40,24 @@ class ProjectorScreen {
     this.positionProperty = new Vector2Property( new Vector2( 200, 0 ) );
 
     // @public (read-only) {Property.<Vector2>} position of the optic
-    this.opticPositionProperty = opticPositionProperty;
+    this.opticPositionProperty = optic.positionProperty;
 
     // @public (read-only) {Spotlight}
     this.firstSpotlight = new Spotlight(
+      firstSourcePositionProperty,
       this.positionProperty,
-      opticPositionProperty,
-      opticDiameterProperty,
       firstTargetPositionProperty,
+      optic,
       this.getScreenShape.bind( this ),
       tandem
     );
 
     // @public (read-only) {Spotlight}
     this.secondSpotlight = new Spotlight(
+      secondSourcePositionProperty,
       this.positionProperty,
-      opticPositionProperty,
-      opticDiameterProperty,
       secondTargetPositionProperty,
+      optic,
       this.getScreenShape.bind( this ),
       tandem
     );

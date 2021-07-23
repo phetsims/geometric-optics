@@ -12,37 +12,42 @@ import Graph from '../../../../kite/js/ops/Graph.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
+import Optic from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 
-const OPTICAL_ELEMENT_TIP_OFFSET = GeometricOpticsConstants.OPTICAL_ELEMENT_TIP_OFFSET;
 const FULL_BRIGHT_SPOT_HEIGHT = GeometricOpticsConstants.FULL_BRIGHT_SPOT_HEIGHT;
 
 class Spotlight {
 
   /**
+   * @param {Property.<Vector2>} sourcePositionProperty
    * @param {Property.<Vector2>} screenPositionProperty
-   * @param {Property.<Vector2>} opticPositionProperty
-   * @param {Property.<number>} opticDiameterProperty
    * @param {Property.<Vector2>} targetPositionProperty
+   * @param {Optic} optic
    * @param {function} getScreenShape - returns the shape of the screen {Shape}
    * @param {Tandem} tandem
    */
-  constructor( screenPositionProperty,
-               opticPositionProperty,
-               opticDiameterProperty,
+  constructor( sourcePositionProperty,
+               screenPositionProperty,
                targetPositionProperty,
+               optic,
                getScreenShape,
                tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
+    // @private
     this.getScreenShape = getScreenShape;
+
+    this.optic = optic;
+
+    this.sourcePositionProperty = sourcePositionProperty;
 
     // determine the intersection of the screen and spotlight
     // @public (read-only) {Property.<Shape>}
     this.shapeProperty = new DerivedProperty( [
         screenPositionProperty,
-        opticPositionProperty,
-        opticDiameterProperty,
+        optic.positionProperty,
+        optic.diameterProperty,
         targetPositionProperty ],
       ( screenPosition, opticPosition, opticDiameter, targetPosition ) => {
         return this.getIntersection( screenPosition, opticPosition, opticDiameter, targetPosition );
@@ -53,8 +58,8 @@ class Spotlight {
     // @public (read-only) {Property.<number>}
     this.intensityProperty = new DerivedProperty( [
         screenPositionProperty,
-        opticPositionProperty,
-        opticDiameterProperty,
+        optic.positionProperty,
+        optic.diameterProperty,
         targetPositionProperty ],
       ( screenPosition, opticPosition, opticDiameter, targetPosition ) => {
         return this.getLightIntensity( screenPosition, opticPosition, opticDiameter, targetPosition );
@@ -90,35 +95,47 @@ class Spotlight {
    * @param {Vector2} opticPosition
    * @param {number} opticDiameter
    * @param {Vector2} targetPosition
-   * @returns {number}
+   * @returns {Object}
    */
-  getDiskRadius( screenPosition, opticPosition, opticDiameter, targetPosition ) {
+  getDiskParameters( screenPosition, opticPosition, opticDiameter, targetPosition ) {
 
-    // ratio of the distance of the screen/ target measure from the optic.
-    const blend = this.getRatio( screenPosition, opticPosition, targetPosition );
 
-    const
-      topMarginalPosition = opticPosition.plusXY( 0, opticDiameter / 2 ).blend( targetPosition, blend );
-    const
-      bottomMarginalPosition = opticPosition.minusXY( 0, opticDiameter / 2 ).blend( targetPosition, blend );
+    const extremumTopOpticPoint = this.optic.getExtremumPoint( this.sourcePositionProperty.value, targetPosition, { location: Optic.Location.TOP } );
+    const extremumBottomOpticPoint = this.optic.getExtremumPoint( this.sourcePositionProperty.value, targetPosition, { location: Optic.Location.BOTTOM } );
 
-    return Math.abs( ( topMarginalPosition.minus( bottomMarginalPosition ) ).y ) / 2;
+    const diskTopPosition = this.getIntersectPosition( screenPosition, extremumTopOpticPoint, targetPosition );
+    const diskBottomPosition = this.getIntersectPosition( screenPosition, extremumBottomOpticPoint, targetPosition );
+
+    const diskCenterPosition = diskTopPosition.average( diskBottomPosition );
+    const radiusY = diskTopPosition.distance( diskBottomPosition ) / 2;
+    const radiusX = radiusY / 2;
+
+    return {
+      position: diskCenterPosition,
+      radiusY: radiusY,
+      radiusX: radiusX
+    };
   }
 
   /**
+   * get the projected position on the screen of a point.
+   * this is determined by extrapolating the point from the target point onto the projector screen.
+   *
    * @private
    * @param {Vector2} screenPosition
-   * @param {Vector2} opticPosition
+   * @param {Vector2} point
    * @param {Vector2} targetPosition
    * @returns {Vector2}
    */
-  getDiskPosition( screenPosition, opticPosition, targetPosition ) {
-    const blend = this.getRatio( screenPosition, opticPosition, targetPosition );
+  getIntersectPosition( screenPosition, point, targetPosition ) {
+    const blend = this.getRatio( screenPosition, point, targetPosition );
 
-    return opticPosition.blend( targetPosition, blend );
+    return point.blend( targetPosition, blend );
   }
 
   /**
+   * returns the shape of the unclipped spotlight
+   *
    * @private
    * @param {Vector2} screenPosition
    * @param {Vector2} opticPosition
@@ -127,17 +144,15 @@ class Spotlight {
    * @returns {Shape}
    */
   getDiskShape( screenPosition, opticPosition, opticDiameter, targetPosition ) {
-    const diskPosition = this.getDiskPosition( screenPosition, opticPosition, targetPosition );
 
-    assert && assert( diskPosition.isFinite(), 'disk Position is not finite' );
+    // get the parameters for the unclipped spotlight.
+    const {
+      position,
+      radiusX,
+      radiusY
+    } = this.getDiskParameters( screenPosition, opticPosition, opticDiameter, targetPosition );
 
-    const radiusY = this.getDiskRadius( screenPosition, opticPosition, opticDiameter - OPTICAL_ELEMENT_TIP_OFFSET, targetPosition );
-
-    assert && assert( isFinite( radiusY ), 'y radius is not finite' );
-
-    // ellipse width is half the height to give an approximation of 3D effect
-    const radiusX = 1 / 2 * radiusY;
-    return Shape.ellipse( diskPosition.x, diskPosition.y, radiusX, radiusY, 2 * Math.PI );
+    return Shape.ellipse( position.x, position.y, radiusX, radiusY, 2 * Math.PI );
   }
 
   /**
@@ -186,10 +201,15 @@ class Spotlight {
    */
   getLightIntensity( screenPosition, opticPosition, opticDiameter, targetPosition ) {
 
+    // {number} vertical radius of the unclipped spotlight
+    const { radiusY } = this.getDiskParameters( screenPosition, opticPosition, opticDiameter, targetPosition );
+
     // get the height of spotlight
-    const spotlightHeight = 2 * this.getDiskRadius( screenPosition, opticPosition, opticDiameter, targetPosition );
+    const spotlightHeight = 2 * radiusY;
 
     if ( spotlightHeight === 0 ) {
+      // maximum intensity
+
       return 1;
     }
     else {

@@ -107,10 +107,10 @@ class GeometricOpticsModel {
 
     // @public {ProjectorScreen}
     this.projectorScreen = new ProjectorScreen(
-      this.optic.positionProperty,
-      this.optic.diameterProperty,
+      this.sourceObject.firstPositionProperty,
+      this.sourceObject.secondPositionProperty,
       this.firstTarget.positionProperty,
-      this.secondTarget.positionProperty, tandem );
+      this.secondTarget.positionProperty, this.optic, tandem );
 
     // @public {LightRays} model of the light rays associated to the first source
     this.firstLightRays = new LightRays( this.timeProperty,
