@@ -78,7 +78,6 @@ const GeometricOpticsConstants = {
   //----------------------------------------------------------------------------------------
   //                              RAYS
 
-  OPTICAL_ELEMENT_TIP_OFFSET: 0.0, // centimeters
   OPTICAL_ELEMENT_LINE_WIDTH: 2,
 
 
