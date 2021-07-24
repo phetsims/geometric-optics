@@ -9,8 +9,8 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import eyeRegularShape from '../../../../sherpa/js/fontawesome-5/eyeRegularShape.js';
-import eyeSlashRegularShape from '../../../../sherpa/js/fontawesome-5/eyeSlashRegularShape.js';
+import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
+import eyeSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSolidShape.js';
 import BooleanRoundToggleButton from '../../../../sun/js/buttons/BooleanRoundToggleButton.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
@@ -35,8 +35,8 @@ class ShowHideToggleButton extends BooleanRoundToggleButton {
     }, options );
 
     // create nodes for open and closed eye icons
-    const showNode = new Path( eyeRegularShape, options.icon );
-    const hideNode = new Path( eyeSlashRegularShape, options.icon );
+    const showNode = new Path( eyeSolidShape, options.icon );
+    const hideNode = new Path( eyeSlashSolidShape, options.icon );
 
     super( showNode, hideNode, visibleProperty, options );
   }
