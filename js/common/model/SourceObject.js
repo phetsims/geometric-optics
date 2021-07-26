@@ -9,6 +9,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Dimension2 from '../../../../dot/js/Dimension2.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
@@ -18,7 +19,9 @@ import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
 const DEFAULT_SOURCE_POINT_1 = GeometricOpticsConstants.DEFAULT_SOURCE_POINT_1;
 const DEFAULT_SOURCE_POINT_2 = GeometricOpticsConstants.DEFAULT_SOURCE_POINT_2;
-const verticalOffsetRange = new RangeWithValue( -50, 0, -30 );
+const verticalOffsetRange = new RangeWithValue( -50, 0, -30 ); // in centimeters
+const OBJECT_SCALE_FACTOR = 2;
+const SOURCE_SCALE_FACTOR = 1;
 
 class SourceObject {
 
@@ -30,8 +33,32 @@ class SourceObject {
   constructor( opticPositionProperty, representationProperty, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
+
+    const scale = representationProperty.value.isObject ? OBJECT_SCALE_FACTOR : SOURCE_SCALE_FACTOR;
+
+    // @public {Vector2} displacement vector from the firstPosition to the left top - value depends on representation
+    // values are in centimeters
+    this.offsetPosition = representationProperty.value.offsetPosition.dividedScalar( scale );
+
+    // @public {Property.<Vector2>} position of the left top position of image
+    this.leftTopProperty = new Vector2Property( DEFAULT_SOURCE_POINT_1.plus( this.offsetPosition ) );
+
     // @public {Property.<Vector2>} position of the source/object
-    this.firstPositionProperty = new Vector2Property( DEFAULT_SOURCE_POINT_1 );
+    this.firstPositionProperty = new DerivedProperty( [ this.leftTopProperty ], leftTop => {
+      return leftTop.minus( this.offsetPosition );
+    } );
+
+    this.imageDimensionsProperty = new DerivedProperty( [ representationProperty ], representation => {
+      const scale = representation.isObject ? OBJECT_SCALE_FACTOR : SOURCE_SCALE_FACTOR;
+      return new Dimension2( representation.dimensions.width / scale,
+        representation.dimensions.height / scale );
+    } );
+
+
+    this.boundsProperty = new DerivedProperty( [ this.leftTopProperty, this.imageDimensionsProperty ],
+      ( leftTop, dimensions ) => {
+        return dimensions.toBounds( leftTop.x, leftTop.y - dimensions.height );
+      } );
 
     // @private {Property.<Vector2>} position of the second source of light
     this.unconstrainedSecondSourcePositionProperty = new Vector2Property( DEFAULT_SOURCE_POINT_2 );
@@ -39,10 +66,7 @@ class SourceObject {
     // @private {Property.<number>} vertical offset (in centimeters) of second object with respect to the first
     this.verticalOffsetProperty = new NumberProperty( verticalOffsetRange.defaultValue );
 
-    // @public {Vector2|null} initial Position of the optic
-    this.initialOpticPosition = null;
-
-    // @public {read-only} initial position of the optic
+    // @public (read-only) {Vector2} initial position of the optic
     this.opticPositionProperty = opticPositionProperty;
 
     // @public {Property.<Vector2>} position of the second source (source/object)
@@ -59,6 +83,19 @@ class SourceObject {
             return unconstrainedPosition;
           }
         } );
+
+
+    representationProperty.link( representation => {
+
+      const scale = representation.isObject ? OBJECT_SCALE_FACTOR : SOURCE_SCALE_FACTOR;
+
+      // update the value of the offset
+      this.offsetPosition = representation.offsetPosition.dividedScalar( scale );
+
+      // update the left top position - the firstPosition is the ground truth when changing representation
+      this.leftTopProperty.value = this.firstPositionProperty.value.plus( this.offsetPosition );
+    } );
+
   }
 
   /**
@@ -66,9 +103,9 @@ class SourceObject {
    * @public
    */
   reset() {
-    this.firstPositionProperty.reset();
     this.verticalOffsetProperty.reset();
     this.unconstrainedSecondSourcePositionProperty.reset();
+    this.leftTopProperty.reset();
   }
 
   /**
@@ -78,15 +115,6 @@ class SourceObject {
    */
   getPosition() {
     return this.firstPositionProperty.value;
-  }
-
-  /**
-   * Sets the position of the source
-   * @param {Vector2} position
-   * @public
-   */
-  setPosition( position ) {
-    this.firstPositionProperty.value = position;
   }
 
   /**

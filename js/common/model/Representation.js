@@ -6,6 +6,8 @@
  * @author Martin Veillette
  */
 
+import Dimension2 from '../../../../dot/js/Dimension2.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
 import lampBlueLogoImage from '../../../images/lamp-blue-logo_png.js';
@@ -43,6 +45,8 @@ class RepresentationGenerator {
    * @param {HTMLImageElement} rightFacingInverted
    * @param {HTMLImageElement} leftFacingUpright
    * @param {HTMLImageElement} leftFacingInverted
+   * @param {Dimensions2} dimensions
+   * @param {Vector2} leftFacingUprightOffsetPosition
    * @param {string} label
    * @param {boolean} isObject
    * @param {Object} [options]
@@ -52,6 +56,8 @@ class RepresentationGenerator {
                rightFacingInverted,
                leftFacingUpright,
                leftFacingInverted,
+               dimensions,
+               leftFacingUprightOffsetPosition,
                label,
                isObject, options ) {
 
@@ -66,6 +72,8 @@ class RepresentationGenerator {
     this.rightFacingInverted = rightFacingInverted;
     this.leftFacingUpright = leftFacingUpright;
     this.leftFacingInverted = leftFacingInverted;
+    this.dimensions = dimensions;
+    this.offsetPosition = leftFacingUprightOffsetPosition;
     this.label = label;
     this.isObject = isObject;
     this.source = options.source;
@@ -78,24 +86,32 @@ const Representation = Enumeration.byMap( {
     pencil3dRightFacingInvertedImage,
     pencil3dLeftFacingUprightImage,
     pencil3dLeftFacingInvertedImage,
+    new Dimension2( 111, 365 ),
+    new Vector2( -32, 35 ),
     pencilString, true ),
   TREE: new RepresentationGenerator( treeLogoImage,
     tree3dRightFacingUprightImage,
     tree3dRightFacingInvertedImage,
     tree3dLeftFacingUprightImage,
     tree3dLeftFacingInvertedImage,
+    new Dimension2( 135, 391 ),
+    new Vector2( -40, 44 ),
     treeString, true ),
   ROCKET: new RepresentationGenerator( rocketLogoImage,
     rocket3dRightFacingUprightImage,
     rocket3dRightFacingInvertedImage,
     rocket3dLeftFacingUprightImage,
     rocket3dLeftFacingInvertedImage,
+    new Dimension2( 116, 414 ),
+    new Vector2( -34, 56 ),
     rocketString, true ),
   LIGHT: new RepresentationGenerator( lampBlueLogoImage,
     lampBlueImage,
     lampBlueImage,
     projectorScreen3dImage,
     projectorScreen3dImage,
+    new Dimension2( 100, 100 ),
+    new Vector2( -33, 14 ),
     lightString, false, { source: lampRedImage } )
 } );
 

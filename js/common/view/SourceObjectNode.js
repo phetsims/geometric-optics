@@ -30,7 +30,6 @@ const SECOND_SOURCE_POINT_FILL = geometricOpticsColorProfile.secondSourcePointFi
 const SECOND_SOURCE_POINT_STROKE = geometricOpticsColorProfile.secondSourcePointStrokeProperty;
 
 const OVERALL_SCALE_FACTOR = 0.5;
-const OBJECT_OFFSET_VECTOR = new Vector2( 16, -19 ); /// in model coordinates
 const LIGHT_OFFSET_VECTOR = new Vector2( 50, -23 ); // in model coordinates
 const CUEING_ARROW_LENGTH = 20;
 const CUEING_ARROW_OPTIONS = {
@@ -63,62 +62,57 @@ class SourceObjectNode extends Node {
     super();
 
     // representation (image)  of the source/object. the source/object is upright and right facing
-    const sourceObjectImage = new Image( representationProperty.value.rightFacingUpright, { scale: OVERALL_SCALE_FACTOR } );
-
-    // {Property.<Vector2>} position to track the left top position of this node in model coordinates.
-    this.leftTopModelPositionProperty = new Vector2Property( sourceObject.getPosition().minus( OBJECT_OFFSET_VECTOR ) );
+    const sourceObjectImage = new Image( representationProperty.value.rightFacingUpright );
 
     // add the representation to this node
     this.addChild( sourceObjectImage );
 
-    // TODO: the model should give its size to the view rather than the other way around.
-    // determine the size  in model coordinates
+    /**
+     * scale image to bounds
+     * @param {Node} image
+     * @param {Bounds2} bounds
+     */
+    const scaleFunction = ( image, bounds ) => {
+      const initialWidth = sourceObjectImage.width;
+      const initialHeight = sourceObjectImage.height;
+      image.scale( bounds.width / initialWidth, bounds.height / initialHeight );
+    };
 
-    const modelChildHeight = Math.abs( modelViewTransform.viewToModelDeltaY( this.height ) );
-    const modelChildWidth = modelViewTransform.viewToModelDeltaX( this.width );
+    /**
+     * @param {Node} image
+     * @param {Vector2} modelPosition
+     */
+    const setImagePosition = ( image, modelPosition ) => {
+      image.leftTop = modelViewTransform.modelToViewPosition( modelPosition );
+    };
 
     // keep at least half of the projector screen within visible bounds and right of the optic
     const dragBoundsProperty = new DerivedProperty( [ visibleModelBoundsProperty ],
       visibleBounds => {
         return new Bounds2( visibleBounds.minX,
-          visibleBounds.minY + modelChildHeight / 2,
-          sourceObject.getOpticPosition().x - modelChildWidth,
-          visibleBounds.maxY + modelChildHeight / 2 );
+          visibleBounds.minY - sourceObject.boundsProperty.value.height / 2,
+          sourceObject.getOpticPosition().x - sourceObject.boundsProperty.value.width / 2,
+          visibleBounds.maxY );
       } );
 
     // create drag listener for source
     const sourceObjectDragListener = new DragListener( {
-      positionProperty: this.leftTopModelPositionProperty,
+      positionProperty: sourceObject.leftTopProperty,
       transform: modelViewTransform,
       dragBoundsProperty: dragBoundsProperty
-    } );
-
-    // always keep image screen in visible/drag bounds when visible bounds are changed
-    dragBoundsProperty.link( dragBounds => {
-      this.leftTopModelPositionProperty.value = dragBounds.closestPointTo( this.leftTopModelPositionProperty.value );
     } );
 
     // add the drag listener to the image representation
     sourceObjectImage.addInputListener( sourceObjectDragListener );
 
-
-    this.leftTopModelPositionProperty.link( position => {
-
-      if ( representationProperty.value.isObject ) {
-        const offsetPosition = position.plus( OBJECT_OFFSET_VECTOR );
-        sourceObject.setPosition( offsetPosition );
-        sourceObjectImage.leftTop = modelViewTransform.modelToViewPosition( position );
-      }
-      else {
-        // address position of source of light #79
-        const offsetPosition = position.plus( LIGHT_OFFSET_VECTOR );
-        sourceObject.setPosition( offsetPosition );
-        sourceObjectImage.leftTop = modelViewTransform.modelToViewPosition( position );
-      }
+    sourceObject.leftTopProperty.link( position => {
+      scaleFunction( sourceObjectImage, sourceObject.boundsProperty.value );
+      setImagePosition( sourceObjectImage, position );
     } );
 
     // create a node to hold the second source
     const secondNode = new Node();
+    this.addChild( secondNode );
 
     // Property for the position of the second source node
     const secondSourcePositionProperty = new Vector2Property( sourceObject.secondPositionProperty.value );
@@ -172,9 +166,12 @@ class SourceObjectNode extends Node {
       }
     }
 
-
     representationProperty.link( representation => {
       sourceObjectImage.image = representation.rightFacingUpright;
+
+      scaleFunction( sourceObjectImage, sourceObject.boundsProperty.value );
+      setImagePosition( sourceObjectImage, sourceObject.leftTopProperty.value );
+
 
       // remove all children to the second node
       secondNode.removeAllChildren();
@@ -189,28 +186,15 @@ class SourceObjectNode extends Node {
         sourceObjectImage.setScaleMagnitude( OVERALL_SCALE_FACTOR );
 
         // address position of source of light #79
-        const offsetPosition = this.leftTopModelPositionProperty.value.plus( OBJECT_OFFSET_VECTOR );
-        sourceObject.setPosition( offsetPosition );
-        sourceObjectImage.leftTop = modelViewTransform.modelToViewPosition( this.leftTopModelPositionProperty.value );
       }
       else {
 
         // add second light source
         secondNode.addChild( secondImage );
-
-        // set size of source of lights
-        sourceObjectImage.setScaleMagnitude( 1.5 );
-        secondImage.setScaleMagnitude( 1.5 );
-
-        // address position of source of light #79
-        const offsetPosition = this.leftTopModelPositionProperty.value.plus( LIGHT_OFFSET_VECTOR );
-        sourceObject.setPosition( offsetPosition );
-        sourceObjectImage.leftTop = modelViewTransform.modelToViewPosition( this.leftTopModelPositionProperty.value );
-
-
       }
       setSecondSourcePosition( sourceObject.secondPositionProperty.value );
     } );
+
 
     secondSourcePositionProperty.link( position => {
       sourceObject.setSecondPoint( representationProperty, position );
@@ -222,7 +206,6 @@ class SourceObjectNode extends Node {
 
     visibleSecondSourceProperty.linkAttribute( secondNode, 'visible' );
 
-    this.addChild( secondNode );
   }
 
   /**
@@ -244,7 +227,6 @@ class SourceObjectNode extends Node {
    * @public
    */
   reset() {
-    this.leftTopModelPositionProperty.reset();
     this.cueingArrowsLayer.visible = true;
   }
 }
