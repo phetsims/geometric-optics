@@ -18,7 +18,6 @@ import pencil3dLeftFacingUprightImage from '../../../images/pencil-3d-left-facin
 import pencil3dRightFacingInvertedImage from '../../../images/pencil-3d-right-facing-inverted_png.js';
 import pencil3dRightFacingUprightImage from '../../../images/pencil-3d-right-facing-upright_png.js';
 import pencilLogoImage from '../../../images/pencil-logo_png.js';
-import projectorScreen3dImage from '../../../images/projector-screen-3d_png.js';
 import rocket3dLeftFacingInvertedImage from '../../../images/rocket-3d-left-facing-inverted_png.js';
 import rocket3dLeftFacingUprightImage from '../../../images/rocket-3d-left-facing-upright_png.js';
 import rocket3dRightFacingInvertedImage from '../../../images/rocket-3d-right-facing-inverted_png.js';
@@ -42,13 +41,13 @@ class RepresentationGenerator {
    * Generator of representation
    * @param {HTMLImageElement} logo
    * @param {HTMLImageElement} rightFacingUpright
-   * @param {HTMLImageElement} rightFacingInverted
-   * @param {HTMLImageElement} leftFacingUpright
-   * @param {HTMLImageElement} leftFacingInverted
-   * @param {Dimension2} dimensions
-   * @param {Vector2} leftFacingUprightOffsetPosition
-   * @param {string} label
-   * @param {boolean} isObject
+   * @param {HTMLImageElement|null} rightFacingInverted
+   * @param {HTMLImageElement|null} leftFacingUpright
+   * @param {HTMLImageElement|null} leftFacingInverted
+   * @param {Dimension2} dimensions - dimensions of the rightFacingUpright Image in pixels
+   * @param {Vector2} rightFacingUprightOffsetPosition -  offset in pixel between point of interest and left top corer
+   * @param {string} label - label for the representation
+   * @param {boolean} isObject - is this representation an object?, otherwise it is a source of light
    * @param {Object} [options]
    */
   constructor( logo,
@@ -57,13 +56,14 @@ class RepresentationGenerator {
                leftFacingUpright,
                leftFacingInverted,
                dimensions,
-               leftFacingUprightOffsetPosition,
+               rightFacingUprightOffsetPosition,
                label,
-               isObject, options ) {
+               isObject,
+               options ) {
 
     options = merge( {
 
-      // {HTMLImageElement||null} image for source of light
+      // {HTMLImageElement|null} image for source of light
       source: null
     }, options );
 
@@ -73,7 +73,7 @@ class RepresentationGenerator {
     this.leftFacingUpright = leftFacingUpright;
     this.leftFacingInverted = leftFacingInverted;
     this.dimensions = dimensions;
-    this.offsetPosition = leftFacingUprightOffsetPosition;
+    this.offsetPosition = rightFacingUprightOffsetPosition;
     this.label = label;
     this.isObject = isObject;
     this.source = options.source;
@@ -107,9 +107,9 @@ const Representation = Enumeration.byMap( {
     rocketString, true ),
   LIGHT: new RepresentationGenerator( lampBlueLogoImage,
     lampBlueImage,
-    lampBlueImage,
-    projectorScreen3dImage,
-    projectorScreen3dImage,
+    null,
+    null,
+    null,
     new Dimension2( 100, 100 ),
     new Vector2( -66, 28 ),
     lightString, false, { source: lampRedImage } )
