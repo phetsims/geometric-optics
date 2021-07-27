@@ -20,7 +20,7 @@ const DIAMETER = 30; // in view coordinates
 const FILL = 'rgb(133,153,197)'; // for body of optic
 const STROKE = 'white'; // for outline of optic
 const THICKNESS = 4; // thickness of mirror
-const STRUT_LENGTH = 42;
+const STRUT_LENGTH = 42; // minimum size of the button
 
 class CurveControl extends RectangularRadioButtonGroup {
 
@@ -59,13 +59,13 @@ class CurveControl extends RectangularRadioButtonGroup {
     // find the curve of the first item
     const firstCurve = buttonItems[ 0 ].value;
 
+    // if the first curve is diverging, reverse the order of the array
     if ( optic.isDiverging( firstCurve ) ) {
       buttonItems.reverse();
     }
 
     // create the rectangular radio button group with the icons
     super( curveProperty, buttonItems, options );
-
   }
 
   /**
@@ -73,9 +73,9 @@ class CurveControl extends RectangularRadioButtonGroup {
    *
    * @param {number} radius - radius of curvature
    * @param {number} diameter - height of the optic
-   * @param {Optic.Curve} curve
-   * @param {Optic.Type} type
-   * @param {Object} [options]
+   * @param {Optic.Curve} curve - the curve can be convex or concave
+   * @param {Optic.Type} type - the type can be lens or  mirror
+   * @param {Object} [options] - see options below
    * @returns {Node}
    * @public
    */
@@ -84,11 +84,12 @@ class CurveControl extends RectangularRadioButtonGroup {
     options = merge(
       {
         thickness: THICKNESS, // thickness of the backing of the mirror
-        isHollywood: false, // is the curvature radius accurate description of shape
+        isHollywood: false, // is the curvature radius an accurate description of shape
         form: { fill: FILL }, /// options for the form of the icon
         outline: { stroke: STROKE }, // options for the contour or reflective surface
         buttonContentXMargin: 0,
-        buttonContentYMargin: 0
+        buttonContentYMargin: 0,
+        strutLength: STRUT_LENGTH // minimum size of the Node (when including spacer)
       },
       options );
 
@@ -99,13 +100,15 @@ class CurveControl extends RectangularRadioButtonGroup {
 
     // create node to layout the paths for the icon
     const iconNode = new Node();
+
     const iconFillNode = new Path( iconShapes.fillShape, options.form );
     const iconOutlineNode = new Path( iconShapes.outlineShape, options.outline );
+
     iconNode.setChildren( [ iconFillNode, iconOutlineNode ] );
 
     // create spacer to ensure both lens and mirror icons are the same size
-    const iconSpacer = new Spacer( STRUT_LENGTH - 2 * options.buttonContentXMargin,
-      STRUT_LENGTH - 2 * options.buttonContentYMargin );
+    const iconSpacer = new Spacer( options.strutLength - 2 * options.buttonContentXMargin,
+      options.strutLength - 2 * options.buttonContentYMargin );
 
     // make sure the spacer is larger than icon
     assert && assert( iconSpacer.width > iconNode.width, 'spacer width is smaller than icon content' );
