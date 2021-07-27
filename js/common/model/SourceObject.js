@@ -20,8 +20,8 @@ import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 const DEFAULT_SOURCE_POINT_1 = GeometricOpticsConstants.DEFAULT_SOURCE_POINT_1;
 const DEFAULT_SOURCE_POINT_2 = GeometricOpticsConstants.DEFAULT_SOURCE_POINT_2;
 const verticalOffsetRange = new RangeWithValue( -50, 0, -30 ); // in centimeters
-const OBJECT_SCALE_FACTOR = 2;
-const SOURCE_SCALE_FACTOR = 1;
+const OBJECT_SCALE_FACTOR = 4;
+const SOURCE_SCALE_FACTOR = 2;
 
 class SourceObject {
 
@@ -32,7 +32,6 @@ class SourceObject {
    */
   constructor( opticPositionProperty, representationProperty, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
-
 
     const scale = representationProperty.value.isObject ? OBJECT_SCALE_FACTOR : SOURCE_SCALE_FACTOR;
 
@@ -48,15 +47,11 @@ class SourceObject {
       return leftTop.minus( this.offsetPosition );
     } );
 
-    this.imageDimensionsProperty = new DerivedProperty( [ representationProperty ], representation => {
-      const scale = representation.isObject ? OBJECT_SCALE_FACTOR : SOURCE_SCALE_FACTOR;
-      return new Dimension2( representation.dimensions.width / scale,
-        representation.dimensions.height / scale );
-    } );
-
-
-    this.boundsProperty = new DerivedProperty( [ this.leftTopProperty, this.imageDimensionsProperty ],
-      ( leftTop, dimensions ) => {
+    this.boundsProperty = new DerivedProperty( [ this.leftTopProperty, representationProperty ],
+      ( leftTop, representation ) => {
+        const scale = representation.isObject ? OBJECT_SCALE_FACTOR : SOURCE_SCALE_FACTOR;
+        const dimensions = new Dimension2( representation.dimensions.width / scale,
+          representation.dimensions.height / scale );
         return dimensions.toBounds( leftTop.x, leftTop.y - dimensions.height );
       } );
 

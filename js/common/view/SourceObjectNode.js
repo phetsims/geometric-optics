@@ -29,7 +29,7 @@ const SECOND_SOURCE_POINT_OPTIONS = GeometricOpticsConstants.SECOND_SOURCE_POINT
 const SECOND_SOURCE_POINT_FILL = geometricOpticsColorProfile.secondSourcePointFillProperty;
 const SECOND_SOURCE_POINT_STROKE = geometricOpticsColorProfile.secondSourcePointStrokeProperty;
 
-const OVERALL_SCALE_FACTOR = 0.5;
+const OVERALL_SCALE_FACTOR = 1;
 const LIGHT_OFFSET_VECTOR = new Vector2( 50, -23 ); // in model coordinates
 const CUEING_ARROW_LENGTH = 20;
 const CUEING_ARROW_OPTIONS = {
@@ -68,14 +68,18 @@ class SourceObjectNode extends Node {
     this.addChild( sourceObjectImage );
 
     /**
-     * scale image to bounds
+     * scale image to size of model bounds
      * @param {Node} image
      * @param {Bounds2} bounds
      */
     const scaleFunction = ( image, bounds ) => {
       const initialWidth = sourceObjectImage.width;
       const initialHeight = sourceObjectImage.height;
-      image.scale( bounds.width / initialWidth, bounds.height / initialHeight );
+
+      // bounds that we want for the image
+      const viewBounds = modelViewTransform.modelToViewBounds( bounds );
+      image.scale( viewBounds.width / initialWidth,
+        viewBounds.height / initialHeight );
     };
 
     /**
@@ -87,13 +91,14 @@ class SourceObjectNode extends Node {
     };
 
     // keep at least half of the projector screen within visible bounds and right of the optic
-    const dragBoundsProperty = new DerivedProperty( [ visibleModelBoundsProperty ],
+    const dragBoundsProperty = new DerivedProperty( [ visibleModelBoundsProperty, representationProperty ],
       visibleBounds => {
         return new Bounds2( visibleBounds.minX,
-          visibleBounds.minY - sourceObject.boundsProperty.value.height / 2,
-          sourceObject.getOpticPosition().x - sourceObject.boundsProperty.value.width / 2,
+          visibleBounds.minY + sourceObject.boundsProperty.value.height,
+          sourceObject.getOpticPosition().x - sourceObject.boundsProperty.value.width,
           visibleBounds.maxY );
       } );
+
 
     // create drag listener for source
     const sourceObjectDragListener = new DragListener( {
@@ -109,6 +114,12 @@ class SourceObjectNode extends Node {
       scaleFunction( sourceObjectImage, sourceObject.boundsProperty.value );
       setImagePosition( sourceObjectImage, position );
     } );
+
+
+    dragBoundsProperty.link( dragBounds => {
+      sourceObject.leftTopProperty.value = dragBounds.closestPointTo( sourceObject.leftTopProperty.value );
+    } );
+
 
     // create a node to hold the second source
     const secondNode = new Node();
@@ -182,8 +193,6 @@ class SourceObjectNode extends Node {
         secondNode.addChild( circleIcon );
         secondNode.touchArea = circleIcon.bounds.dilated( 10 );
         secondNode.addChild( this.cueingArrowsLayer );
-
-        sourceObjectImage.setScaleMagnitude( OVERALL_SCALE_FACTOR );
 
         // address position of source of light #79
       }

@@ -8,17 +8,21 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
+
+const OBJECT_SCALE_FACTOR = 4;
 
 class Target {
 
   /**
    * @param {Property.<Vector2>} objectPositionProperty
    * @param {Optic} optic
+   * @param {Property.<representation>} representationProperty
    * @param {Tandem} tandem
    */
-  constructor( objectPositionProperty, optic, tandem ) {
+  constructor( objectPositionProperty, optic, representationProperty, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     // @private {Property.<Vector2>}
@@ -56,7 +60,6 @@ class Target {
         return this.getPosition( objectPosition, opticPosition, focalLength );
       } );
 
-
     // @public (read-only) {Property.<number>}
     this.scaleProperty = new DerivedProperty( [ objectPositionProperty,
         optic.positionProperty,
@@ -81,6 +84,33 @@ class Target {
         return this.isVirtual();
       } );
 
+    this.boundsProperty = new DerivedProperty( [
+        this.positionProperty,
+        representationProperty,
+        this.scaleProperty,
+        this.isInvertedProperty ],
+      ( position, representation, scale ) => {
+
+        // @public {Vector2} displacement vector from the firstPosition to the left top - value depends on representation
+        // values are in centimeters
+        const initialOffsetPosition = representation.offsetPosition.timesScalar( 1 / OBJECT_SCALE_FACTOR );
+        const initialWidth = representation.dimensions.width / OBJECT_SCALE_FACTOR;
+        const initialHeight = representation.dimensions.height / OBJECT_SCALE_FACTOR;
+
+        const offsetPosition = initialOffsetPosition.timesScalar( scale );
+        const width = initialWidth * scale;
+        const height = initialHeight * scale;
+
+        const x1 = ( offsetPosition.x ) * this.opticGetTypeSign();
+        const x2 = ( offsetPosition.x + width ) * this.opticGetTypeSign();
+        const y1 = offsetPosition.y;
+        const y2 = offsetPosition.y - height;
+
+        const bounds = new Bounds2( Math.min( x1, x2 ), Math.min( y1, y2 ), Math.max( x1, x2 ), Math.max( y1, y2 ) );
+
+        return bounds.shifted( position );
+      } );
+
 
     // light intensity of the image (Hollywood) - a value between 0 and 1
     // @public (read-only) {Property.<number>}
@@ -89,6 +119,18 @@ class Target {
       const diameterFactor = optic.getNormalizedDiameter( diameter );
       return distanceFactor * diameterFactor;
     } );
+
+
+    // {Property.<HTMLImageElement>}
+    this.imageProperty = new DerivedProperty( [ representationProperty, this.isVirtualProperty ],
+      ( representation, isVirtual ) => {
+        const realImage = optic.isLens() ? representation.leftFacingInverted :
+                          representation.rightFacingInverted;
+        const virtualImage = optic.isLens() ? representation.rightFacingUpright :
+                             representation.leftFacingUpright;
+        return isVirtual ? virtualImage : realImage;
+      } );
+
   }
 
   /**

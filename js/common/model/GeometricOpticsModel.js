@@ -100,10 +100,10 @@ class GeometricOpticsModel {
     this.secondFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty, tandem, { multiplicativeFactor: -1 } );
 
     // @public {Target} target/ image
-    this.firstTarget = new Target( this.sourceObject.firstPositionProperty, this.optic, tandem );
+    this.firstTarget = new Target( this.sourceObject.firstPositionProperty, this.optic, this.representationProperty, tandem );
 
     // @public {Target} target/ image associated with the second source
-    this.secondTarget = new Target( this.sourceObject.secondPositionProperty, this.optic, tandem );
+    this.secondTarget = new Target( this.sourceObject.secondPositionProperty, this.optic, this.representationProperty, tandem );
 
     // @public {ProjectorScreen}
     this.projectorScreen = new ProjectorScreen(

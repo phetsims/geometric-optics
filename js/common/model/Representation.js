@@ -21,13 +21,13 @@ import pencilLogoImage from '../../../images/pencil-logo_png.js';
 import projectorScreen3dImage from '../../../images/projector-screen-3d_png.js';
 import rocket3dLeftFacingInvertedImage from '../../../images/rocket-3d-left-facing-inverted_png.js';
 import rocket3dLeftFacingUprightImage from '../../../images/rocket-3d-left-facing-upright_png.js';
-import rocket3dRightFacingUprightImage from '../../../images/rocket-3d-right-facing-upright_png.js';
 import rocket3dRightFacingInvertedImage from '../../../images/rocket-3d-right-facing-inverted_png.js';
+import rocket3dRightFacingUprightImage from '../../../images/rocket-3d-right-facing-upright_png.js';
 import rocketLogoImage from '../../../images/rocket-logo_png.js';
 import tree3dLeftFacingInvertedImage from '../../../images/tree-3d-left-facing-inverted_png.js';
 import tree3dLeftFacingUprightImage from '../../../images/tree-3d-left-facing-upright_png.js';
-import tree3dRightFacingUprightImage from '../../../images/tree-3d-right-facing-upright_png.js';
 import tree3dRightFacingInvertedImage from '../../../images/tree-3d-right-facing-inverted_png.js';
+import tree3dRightFacingUprightImage from '../../../images/tree-3d-right-facing-upright_png.js';
 import treeLogoImage from '../../../images/tree-logo_png.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
@@ -45,7 +45,7 @@ class RepresentationGenerator {
    * @param {HTMLImageElement} rightFacingInverted
    * @param {HTMLImageElement} leftFacingUpright
    * @param {HTMLImageElement} leftFacingInverted
-   * @param {Dimensions2} dimensions
+   * @param {Dimension2} dimensions
    * @param {Vector2} leftFacingUprightOffsetPosition
    * @param {string} label
    * @param {boolean} isObject
@@ -87,7 +87,7 @@ const Representation = Enumeration.byMap( {
     pencil3dLeftFacingUprightImage,
     pencil3dLeftFacingInvertedImage,
     new Dimension2( 111, 365 ),
-    new Vector2( -32, 35 ),
+    new Vector2( -64, 70 ),
     pencilString, true ),
   TREE: new RepresentationGenerator( treeLogoImage,
     tree3dRightFacingUprightImage,
@@ -95,7 +95,7 @@ const Representation = Enumeration.byMap( {
     tree3dLeftFacingUprightImage,
     tree3dLeftFacingInvertedImage,
     new Dimension2( 135, 391 ),
-    new Vector2( -40, 44 ),
+    new Vector2( -80, 88 ),
     treeString, true ),
   ROCKET: new RepresentationGenerator( rocketLogoImage,
     rocket3dRightFacingUprightImage,
@@ -103,7 +103,7 @@ const Representation = Enumeration.byMap( {
     rocket3dLeftFacingUprightImage,
     rocket3dLeftFacingInvertedImage,
     new Dimension2( 116, 414 ),
-    new Vector2( -34, 56 ),
+    new Vector2( -68, 112 ),
     rocketString, true ),
   LIGHT: new RepresentationGenerator( lampBlueLogoImage,
     lampBlueImage,
@@ -111,7 +111,7 @@ const Representation = Enumeration.byMap( {
     projectorScreen3dImage,
     projectorScreen3dImage,
     new Dimension2( 100, 100 ),
-    new Vector2( -33, 14 ),
+    new Vector2( -66, 28 ),
     lightString, false, { source: lampRedImage } )
 } );
 

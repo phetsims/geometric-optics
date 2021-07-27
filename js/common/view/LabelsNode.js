@@ -82,21 +82,26 @@ class LabelsNode extends Node {
     } );
 
     // define image label position
-    const imageLabelPositionProperty = new DerivedProperty( [ model.firstTarget.positionProperty ],
-      position => position.minusXY( 0, 14 ) );
+    const imageLabelPositionProperty = new DerivedProperty( [ model.firstTarget.boundsProperty ],
+      bounds => bounds.centerTop );
 
     // create image label
     const imageLabel = new LabelNode( imageString, imageLabelPositionProperty, new BooleanProperty( true ), modelViewTransformProperty );
 
     // define object label position
-    const objectLabelPositionProperty = new DerivedProperty( [ model.sourceObject.firstPositionProperty ],
-      position => position.minusXY( 0, 66 ) );
+    const objectLabelPositionProperty = new DerivedProperty( [ model.sourceObject.boundsProperty ],
+      // because the we use a Y inverted reference frame, the bottom of the image is the top of the model bounds.
+      bounds => bounds.centerTop );
 
     // create object label
     const objectLabel = new LabelNode( objectString, objectLabelPositionProperty, new BooleanProperty( true ), modelViewTransformProperty );
 
     // update the visibility of the object and image labels
-    Property.multilink( [ model.representationProperty, model.enableFirstTargetProperty, model.firstTarget.isVirtualProperty, visibleProperties.visibleVirtualImageProperty ],
+    Property.multilink( [
+        model.representationProperty,
+        model.enableFirstTargetProperty,
+        model.firstTarget.isVirtualProperty,
+        visibleProperties.visibleVirtualImageProperty ],
       ( representation, isEnabled, isVirtual, showVirtual ) => {
         objectLabel.visible = representation.isObject;
         imageLabel.visible = isEnabled && ( isVirtual ? showVirtual : true ) && representation.isObject;
