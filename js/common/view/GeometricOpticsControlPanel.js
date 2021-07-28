@@ -208,8 +208,8 @@ class GeometricOpticsControlPanel extends Panel {
     // create checkbox group for visibility settings
     const checkboxGroupItems = [
       createCheckboxGroupItem( focalPointString, visibleProperties.visibleFocalPointProperty, { icon: focalPointIcon } ),
-      createCheckboxGroupItem( labelsString, visibleProperties.visibleLabelsProperty ),
       createCheckboxGroupItem( virtualImageString, visibleProperties.visibleVirtualImageProperty ),
+      createCheckboxGroupItem( labelsString, visibleProperties.visibleLabelsProperty ),
       createCheckboxGroupItem( secondSourceString, visibleProperties.visibleSecondSourceProperty, { icon: secondSourcePointIcon } ),
       createCheckboxGroupItem( guidesString, visibleProperties.visibleGuidesProperty )
     ];
