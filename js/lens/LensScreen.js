@@ -6,7 +6,7 @@
 
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
-import geometricOpticsColorProfile from '../common/geometricOpticsColorProfile.js';
+import GeometricOpticsColors from '../common/GeometricOpticsColors.js';
 import Optic from '../common/model/Optic.js';
 import CurveControl from '../common/view/CurveControl.js';
 import geometricOptics from '../geometricOptics.js';
@@ -33,7 +33,7 @@ class LensScreen extends Screen {
 
       name: geometricOpticsStrings.screen.lens,
       homeScreenIcon: new ScreenIcon( iconNode ),
-      backgroundColorProperty: geometricOpticsColorProfile.screenBackgroundColorProperty,
+      backgroundColorProperty: GeometricOpticsColors.screenBackgroundColorProperty,
       tandem: tandem
     };
 

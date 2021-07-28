@@ -14,14 +14,14 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import geometricOpticsColorProfile from '../geometricOpticsColorProfile.js';
+import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import LightRayMode from '../model/LightRayMode.js';
 
-const OPTICAL_CENTER_LINE_STROKE = geometricOpticsColorProfile.opticalAxisStrokeProperty;
+const OPTICAL_CENTER_LINE_STROKE = GeometricOpticsColors.opticalAxisStrokeProperty;
 
-const FILL = geometricOpticsColorProfile.opticFillProperty;
-const STROKE = geometricOpticsColorProfile.opticStrokeProperty;
+const FILL = GeometricOpticsColors.opticFillProperty;
+const STROKE = GeometricOpticsColors.opticStrokeProperty;
 const LINE_WIDTH = GeometricOpticsConstants.OPTICAL_ELEMENT_LINE_WIDTH;
 
 class OpticNode extends Node {

@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * geometricOpticsColorProfile defines the color profile for this sim.
+ * GeometricOpticsColors defines the color profile for this sim.
  *
  * @author Martin Veillette
  */
@@ -9,7 +9,7 @@
 import ProfileColorProperty from '../../../scenery/js/util/ProfileColorProperty.js';
 import geometricOptics from '../geometricOptics.js';
 
-const geometricOpticsColorProfile = {
+const GeometricOpticsColors = {
 
 
   //--------------------------------------------------------------------------
@@ -115,5 +115,5 @@ const geometricOpticsColorProfile = {
 
 };
 
-geometricOptics.register( 'geometricOpticsColorProfile', geometricOpticsColorProfile );
-export default geometricOpticsColorProfile;
+geometricOptics.register( 'GeometricOpticsColors', GeometricOpticsColors );
+export default GeometricOpticsColors;

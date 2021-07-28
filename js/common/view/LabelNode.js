@@ -12,9 +12,9 @@ import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-import geometricOpticsColorProfile from '../geometricOpticsColorProfile.js';
+import GeometricOpticsColors from '../GeometricOpticsColors.js';
 
-const BACKGROUND_COLOR = geometricOpticsColorProfile.labelBackgroundFillProperty;
+const BACKGROUND_COLOR = GeometricOpticsColors.labelBackgroundFillProperty;
 const LABEL_FONT = GeometricOpticsConstants.LABEL_FONT;
 
 class LabelNode extends Node {

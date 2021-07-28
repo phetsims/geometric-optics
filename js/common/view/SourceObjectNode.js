@@ -21,13 +21,13 @@ import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import geometricOpticsColorProfile from '../geometricOpticsColorProfile.js';
+import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Representation from '../model/Representation.js';
 
 const SECOND_SOURCE_POINT_OPTIONS = GeometricOpticsConstants.SECOND_SOURCE_POINT_OPTIONS;
-const SECOND_SOURCE_POINT_FILL = geometricOpticsColorProfile.secondSourcePointFillProperty;
-const SECOND_SOURCE_POINT_STROKE = geometricOpticsColorProfile.secondSourcePointStrokeProperty;
+const SECOND_SOURCE_POINT_FILL = GeometricOpticsColors.secondSourcePointFillProperty;
+const SECOND_SOURCE_POINT_STROKE = GeometricOpticsColors.secondSourcePointStrokeProperty;
 
 const OVERALL_SCALE_FACTOR = 1;
 const LIGHT_OFFSET_VECTOR = new Vector2( 50, -23 ); // in model coordinates
