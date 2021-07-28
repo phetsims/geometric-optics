@@ -100,7 +100,7 @@ class Optic {
         return this.getShapes( radius, diameter, curve );
       } );
 
-    // @private {number}
+    // @private {number} diameter of the optic
     this.diameterRange = diameterRange;
   }
 
@@ -283,33 +283,85 @@ class Optic {
   }
 
   /**
-   * Returns the shapes of the optic
-   * The outline shape, represents the reflecting coating of a mirror, or the external surface of the lens
-   * The fill shape represents the entire shape of the lens, or in the case of mirror, the backing of the mirror
-   * The front shape is the left facing contour of the optic. This can be used for ray hit testing
-   * The back shape is the right facing contour of the optic. back shape is null for mirror
-   * The middle shape is the imaginary vertical line that splits a lens into two halves. Null for mirror.
+   * Returns the shape of a parabolic mirror.
+   * The shape is designed as a "first surface mirror".
+   * The returned object contains an outline shape, representing the reflecting coating,
+   * and a fill shape representing the base backing of the mirror.
+   * The shapes are drawn using quadratic Bezier curves.
    *
    * @param {number} radius - radius of curvature at the center of the mirror
    * @param {number} diameter - vertical height of the mirror
    * @param {Optic.Curve} curve
    * @param {Object} [options]
-   * @returns {{
-      fillShape: <Shape>,
-      outlineShape: <Shape>,
-      frontShape: <Shape>,
-      backShape: <Shape|null>,
-      middleShape: <Shape|null>
-    }}
+   * @returns {
+      fillShape: Shape,
+      outlineShape: Shape,
+      frontShape: Shape,
+      backShape: null,
+      middleShape: null
+    }
    * @public
    */
-  getShapes( radius, diameter, curve, options ) {
-    if ( this.isLens() ) {
-      return Optic.getLensShapes( radius, diameter, curve, options );
-    }
-    else {
-      return Optic.getMirrorShapes( radius, diameter, curve, options );
-    }
+  static getMirrorShapes( radius, diameter, curve, options ) {
+
+    assert && assert( radius > diameter / 2, 'the radius of curvature is too small when compared to the diameter' );
+
+    options = merge( {
+      thickness: 5 // horizontal separation between the two edges of the surfaces at the middle part
+    }, options );
+
+    // convenience variable
+    const halfHeight = diameter / 2;
+
+    // half of the width of the outline shape of the mirror along the x -axis
+    const halfWidth = radius - Math.sqrt( radius ** 2 - halfHeight ** 2 );
+
+    // top and bottom surfaces of fill shape must be tilted to generate right angle corners
+    const angle = Math.atan( halfHeight / radius );
+
+    // curveSign is +1 for convex and -1 for concave
+    const curveSign = ( curve === Optic.Curve.CONVEX ) ? 1 : -1;
+
+    // vector offset between the two top corners and bottom corners of the shape
+    // with a magnitude of option.thickness
+    const offsetTopVector = Vector2.createPolar( options.thickness, -curveSign * angle );
+    const offsetBottomVector = Vector2.createPolar( options.thickness, curveSign * angle );
+
+    // four corners of the mirror shape
+    const topLeft = new Vector2( curveSign * halfWidth, halfHeight );
+    const topRight = topLeft.plus( offsetTopVector );
+    const bottomLeft = new Vector2( curveSign * halfWidth, -halfHeight );
+    const bottomRight = bottomLeft.plus( offsetBottomVector );
+
+    // control points: Note that the curve will not go through the control points.
+    // rather, it will go through the two following points: (0,0) and ( options.thickness, 0 )
+    const midLeft = new Vector2( -curveSign * halfWidth, 0 );
+    const midRight = midLeft.plusXY( options.thickness, 0 );
+
+    // shapes drawn from top to bottom in counterclockwise fashion.
+
+    // front shape of mirror front - with zero area.
+    const frontShape = new Shape()
+      .moveToPoint( topLeft )
+      .quadraticCurveToPoint( midLeft, bottomLeft )
+      .quadraticCurveToPoint( midLeft, topLeft )
+      .close();
+
+    // shape of entire mirror, including mirror backing
+    const fillShape = new Shape()
+      .moveToPoint( topLeft )
+      .quadraticCurveToPoint( midLeft, bottomLeft )
+      .lineToPoint( bottomRight )
+      .quadraticCurveToPoint( midRight, topRight )
+      .close();
+
+    return {
+      fillShape: fillShape,
+      outlineShape: frontShape,
+      frontShape: frontShape,
+      backShape: null,
+      middleShape: null
+    };
   }
 
   /**
@@ -400,88 +452,6 @@ class Optic {
   }
 
   /**
-   * Returns the shape of a parabolic mirror.
-   * The shape is designed as a "first surface mirror".
-   * The returned object contains an outline shape, representing the reflecting coating,
-   * and a fill shape representing the base backing of the mirror.
-   * The shapes are drawn using quadratic Bezier curves.
-   *
-   * @param {number} radius - radius of curvature at the center of the mirror
-   * @param {number} diameter - vertical height of the mirror
-   * @param {Optic.Curve} curve
-   * @param {Object} [options]
-   * @returns {{
-      fillShape: <Shape>,
-      outlineShape: <Shape>,
-      frontShape: <Shape>,
-      backShape: <null>,
-      middleShape: <null>
-    }}
-   * @public
-   */
-  static getMirrorShapes( radius, diameter, curve, options ) {
-
-    assert && assert( radius > diameter / 2, 'the radius of curvature is too small when compared to the diameter' );
-
-    options = merge( {
-      thickness: 5 // horizontal separation between the two edges of the surfaces at the middle part
-    }, options );
-
-    // convenience variable
-    const halfHeight = diameter / 2;
-
-    // half of the width of the outline shape of the mirror along the x -axis
-    const halfWidth = radius - Math.sqrt( radius ** 2 - halfHeight ** 2 );
-
-    // top and bottom surfaces of fill shape must be tilted to generate right angle corners
-    const angle = Math.atan( halfHeight / radius );
-
-    // curveSign is +1 for convex and -1 for concave
-    const curveSign = ( curve === Optic.Curve.CONVEX ) ? 1 : -1;
-
-    // vector offset between the two top corners and bottom corners of the shape
-    // with a magnitude of option.thickness
-    const offsetTopVector = Vector2.createPolar( options.thickness, -curveSign * angle );
-    const offsetBottomVector = Vector2.createPolar( options.thickness, curveSign * angle );
-
-    // four corners of the mirror shape
-    const topLeft = new Vector2( curveSign * halfWidth, halfHeight );
-    const topRight = topLeft.plus( offsetTopVector );
-    const bottomLeft = new Vector2( curveSign * halfWidth, -halfHeight );
-    const bottomRight = bottomLeft.plus( offsetBottomVector );
-
-    // control points: Note that the curve will not go through the control points.
-    // rather, it will go through the two following points: position and position.plusXY( options.thickness, 0 )
-    const midLeft = new Vector2( -curveSign * halfWidth, 0 );
-    const midRight = midLeft.plusXY( options.thickness, 0 );
-
-    // shapes drawn from top to bottom in counterclockwise fashion.
-
-    // front shape of mirror front - with zero area.
-    const frontShape = new Shape()
-      .moveToPoint( topLeft )
-      .quadraticCurveToPoint( midLeft, bottomLeft )
-      .quadraticCurveToPoint( midLeft, topLeft )
-      .close();
-
-    // shape of entire mirror, including mirror backing
-    const fillShape = new Shape()
-      .moveToPoint( topLeft )
-      .quadraticCurveToPoint( midLeft, bottomLeft )
-      .lineToPoint( bottomRight )
-      .quadraticCurveToPoint( midRight, topRight )
-      .close();
-
-    return {
-      fillShape: fillShape,
-      outlineShape: frontShape,
-      frontShape: frontShape,
-      backShape: null,
-      middleShape: null
-    };
-  }
-
-  /**
    * Returns the shapes of a lens. In the case of a lens, the outline and fills shape are identical.
    *
    * The lens shape is approximated as a parabolic lens.
@@ -493,13 +463,13 @@ class Optic {
    * @param {number} diameter - height of the lens
    * @param {Optic.Curve} curve
    * @param {Object} [options]
-   * @returns {{
-      fillShape: <Shape>,
-      outlineShape: <Shape>,
-      frontShape: <Shape>,
-      backShape: <Shape>,
-      middleShape: <Shape>
-    }}
+   * @returns {
+      fillShape: Shape,
+      outlineShape: Shape,
+      frontShape: Shape,
+      backShape: Shape,
+      middleShape: Shape
+    }
    * @public
    */
   static getLensShapes( radius, diameter, curve, options ) {
@@ -529,7 +499,7 @@ class Optic {
       const bottom = new Vector2( 0, -halfHeight );
 
       // two control points on the optical axis, note that the shape does not go through these points
-      // The shape will go through the two points: position.plusXY(  -halfWidth, 0 )  and position.plusXY(  halfWidth, 0 )
+      // The shape will go through the two points: (  -halfWidth, 0 )  and (  halfWidth, 0 )
       const left = new Vector2( -2 * halfWidth, 0 );
       const right = new Vector2( 2 * halfWidth, 0 );
 
@@ -554,6 +524,8 @@ class Optic {
 
     }
     else {
+      // implies that curve === Optic.Curve.CONCAVE
+
       const midWidth = halfWidth;
 
       // four corners of the concave shape
@@ -601,6 +573,36 @@ class Optic {
       backShape: backShape,
       middleShape: middleShape
     };
+  }
+
+  /**
+   * Returns the shapes of the optic
+   * The outline shape, represents the reflecting coating of a mirror, or the external surface of the lens
+   * The fill shape represents the entire shape of the lens, or in the case of mirror, the backing of the mirror
+   * The front shape is the left facing contour of the optic. This can be used for ray hit testing
+   * The back shape is the right facing contour of the optic. back shape is null for mirror
+   * The middle shape is the imaginary vertical line that splits a lens into two halves. Null for mirror.
+   *
+   * @param {number} radius - radius of curvature at the center of the mirror
+   * @param {number} diameter - vertical height of the mirror
+   * @param {Optic.Curve} curve
+   * @param {Object} [options]
+   * @returns {
+      fillShape: Shape,
+      outlineShape: Shape,
+      frontShape: Shape,
+      backShape: Shape|null,
+      middleShape: Shape|null
+    }
+   * @public
+   */
+  getShapes( radius, diameter, curve, options ) {
+    if ( this.isLens() ) {
+      return Optic.getLensShapes( radius, diameter, curve, options );
+    }
+    else {
+      return Optic.getMirrorShapes( radius, diameter, curve, options );
+    }
   }
 }
 

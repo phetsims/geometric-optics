@@ -2,6 +2,8 @@
 
 /**
  * Model element of the Light Rays, a bundle of 'Light Ray's emerging from a source point.
+ * The main purpose of this class is to get the kite-shape of the real ray as well as the virtual
+ * ray for a given time and light ray mode
  *
  * @author Martin Veillette
  */
@@ -22,12 +24,12 @@ class LightRays {
   /**
    * @param {Property.<number>} timeProperty
    * @param {Property.<LightRayMode>} lightRayModeProperty
-   * @param {Property.<boolean>} enableImageProperty
+   * @param {Property.<boolean>} enableImageProperty - has the ray reached its target
    * @param {Property.<Representation>} representationProperty
    * @param {Property.<Vector2>} sourceObjectPositionProperty
    * @param {ProjectorScreen} projectorScreen
    * @param {Optic} optic
-   * @param {Target} target
+   * @param {Target} target - target model associated with this ray
    * @param {Tandem} tandem
    */
   constructor( timeProperty,
@@ -37,32 +39,23 @@ class LightRays {
                sourceObjectPositionProperty,
                projectorScreen,
                optic,
-               target, tandem ) {
+               target,
+               tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    // @public {Property.<LightRayMode>}
-    this.modeProperty = lightRayModeProperty;
+    // @private {Property.<Vector>} target position associated with this ray
+    this.targetPositionProperty = target.positionProperty;
 
-    // @public {Optic}
-    this.optic = optic;
-
-    this.timeProperty = timeProperty;
-
-    // @private {Property.<Vector2>}
-    this.sourceObjectPositionProperty = sourceObjectPositionProperty;
-
-    // @private {Target}
-    this.target = target;
-
-    // @public (read-only)
+    // @public (read-only) {Shape} shape of a bundle of real rays at a point in time
     this.realRay = new Shape();
 
-    // @public (read-only)
+    // @public (read-only) {Shape} shape of a bundle of virtual rays at a point in time
     this.virtualRay = new Shape();
 
-    // @public When are the rays are all processed
+    // @public {Emitter} When are the rays are all processed
     this.raysProcessedEmitter = new Emitter();
 
+    // update the shape of rays and the emitter state
     Property.multilink( [
         sourceObjectPositionProperty,
         lightRayModeProperty,
@@ -75,13 +68,14 @@ class LightRays {
         optic.curveProperty ],
       ( sourcePosition, lightRayMode, time, representation ) => {
 
+        // @public (read-only)
         this.realRay = new Shape();
 
         // @public (read-only)
         this.virtualRay = new Shape();
 
         // {Vector2} the position the target
-        const targetPoint = target.positionProperty.value;
+        const targetPoint = this.targetPositionProperty.value;
 
         // {boolean} is the image virtual
         const isVirtual = target.isVirtual();
@@ -93,10 +87,10 @@ class LightRays {
         const isProjectorScreenPresent = !representation.isObject;
 
         // is the light ray mode set to Principal Rays
-        const isPrincipalRayMode = lightRayMode === LightRayMode.PRINCIPAL_RAYS;
+        const isPrincipalRayMode = lightRayMode === LightRayMode.PRINCIPAL;
 
         // set the enable image property to false initially  (unless there are no rays)
-        enableImageProperty.value = lightRayMode === LightRayMode.NO_RAYS;
+        enableImageProperty.value = lightRayMode === LightRayMode.NONE;
 
         // loop over the direction of each ray
         directions.forEach( direction => {
@@ -114,7 +108,6 @@ class LightRays {
             isProjectorScreenPresent,
             projectorScreen.getBisectorLine.bind( projectorScreen ),
             tandem );
-
 
           // set the enable image to true after the first ray reaches its target
           if ( lightRay.isTargetReached ) {
@@ -152,18 +145,18 @@ class LightRays {
     // vector from source to optic
     const sourceOpticVector = opticPosition.minus( sourcePosition );
 
-    if ( lightRayMode === LightRayMode.MARGINAL_RAYS ) {
+    if ( lightRayMode === LightRayMode.MARGINAL ) {
 
       // direction for ray going through the center of optic
       directions.push( sourceOpticVector.normalized() );
 
       // the top of the optic
       const topPoint = optic.getExtremumPoint( sourcePosition,
-        this.target.positionProperty.value, { location: Optic.Location.TOP } );
+        this.targetPositionProperty.value, { location: Optic.Location.TOP } );
 
       // the bottom of the optic
       const bottomPoint = optic.getExtremumPoint( sourcePosition,
-        this.target.positionProperty.value, { location: Optic.Location.BOTTOM } );
+        this.targetPositionProperty.value, { location: Optic.Location.BOTTOM } );
 
       // direction of a ray to the top of the optic
       const topDirection = topPoint.minus( sourcePosition ).normalized();
@@ -173,9 +166,9 @@ class LightRays {
 
       directions.push( topDirection, bottomDirection );
     }
-    else if ( lightRayMode === LightRayMode.PRINCIPAL_RAYS ) {
+    else if ( lightRayMode === LightRayMode.PRINCIPAL ) {
 
-      // horizontal direction
+      // horizontal direction, unit vector along positive x
       directions.push( new Vector2( 1, 0 ) );
 
       // direction for ray going through the center of optic
@@ -193,7 +186,7 @@ class LightRays {
       directions.push( sourceFirstFocalVector.normalized() );
 
     }
-    else if ( lightRayMode === LightRayMode.MANY_RAYS ) {
+    else if ( lightRayMode === LightRayMode.MANY ) {
 
       // starting angle for showers of rays
       const startingAngle = Math.PI / 4;
@@ -217,6 +210,7 @@ class LightRays {
   }
 
   /**
+   * add a light ray shape (typeRayShape) to the shape associated with the bundle of ray (rayShape)
    * @private
    * @param {Shape} rayShape
    * @param {Shape} typeRayShape

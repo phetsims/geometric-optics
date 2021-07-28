@@ -13,8 +13,8 @@ import geometricOptics from '../../geometricOptics.js';
 class Ray extends Ray2 {
 
   /**
-   * @param {Vector2} position
-   * @param {Vector2} direction
+   * @param {Vector2} position - origin of the ray
+   * @param {Vector2} direction - direction of the ray, must be a normalized vector.
    * @param {Object} [options]
    */
   constructor( position,
@@ -41,15 +41,18 @@ class Ray extends Ray2 {
   }
 
   /**
+   * convenience function that set the length of a ray by through the use of a final point
    * @public
    * @param {Vector2} point
    */
   setFinalPoint( point ) {
-    assert && assert( this.isFinalPointAlongRay( point, 1e-4 ), 'final point is not along ray' );
+    assert && assert( this.isPointAlongRay( point, 1e-4 ), 'final point is not along ray' );
     this.setLength( point.minus( this.position ).magnitude );
   }
 
   /**
+   * gets the length of the ray,
+   * Note that the length may be Infinity
    * @public
    * @returns {number} length
    */
@@ -58,12 +61,14 @@ class Ray extends Ray2 {
   }
 
   /**
+   * determines if the point is along the ray direction
+   *
    * @public
    * @param {Vector2} point
    * @param {number} epsilon - tolerance value
    * @returns {boolean}
    */
-  isFinalPointAlongRay( point, epsilon ) {
+  isPointAlongRay( point, epsilon ) {
     const displacementVector = point.minus( this.position );
     return displacementVector.normalized().equalsEpsilon( this.direction, epsilon );
   }

@@ -88,7 +88,8 @@ const Representation = Enumeration.byMap( {
     pencil3dLeftFacingInvertedImage,
     new Dimension2( 111, 365 ),
     new Vector2( -64, 70 ),
-    pencilString, true ),
+    pencilString,
+    true ),
   TREE: new RepresentationGenerator( treeLogoImage,
     tree3dRightFacingUprightImage,
     tree3dRightFacingInvertedImage,
@@ -96,7 +97,8 @@ const Representation = Enumeration.byMap( {
     tree3dLeftFacingInvertedImage,
     new Dimension2( 135, 391 ),
     new Vector2( -80, 88 ),
-    treeString, true ),
+    treeString,
+    true ),
   ROCKET: new RepresentationGenerator( rocketLogoImage,
     rocket3dRightFacingUprightImage,
     rocket3dRightFacingInvertedImage,
@@ -104,7 +106,8 @@ const Representation = Enumeration.byMap( {
     rocket3dLeftFacingInvertedImage,
     new Dimension2( 116, 414 ),
     new Vector2( -68, 112 ),
-    rocketString, true ),
+    rocketString,
+    true ),
   LIGHT: new RepresentationGenerator( lampBlueLogoImage,
     lampBlueImage,
     null,
@@ -112,7 +115,9 @@ const Representation = Enumeration.byMap( {
     null,
     new Dimension2( 100, 100 ),
     new Vector2( -66, 28 ),
-    lightString, false, { source: lampRedImage } )
+    lightString,
+    false,
+    { source: lampRedImage } )
 } );
 
 

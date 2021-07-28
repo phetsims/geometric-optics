@@ -47,6 +47,7 @@ class SourceObject {
       return leftTop.minus( this.offsetPosition );
     } );
 
+    // @public {Property.<Bounds2>} model bounds of the source/object Image ( in the scenery sense)
     this.boundsProperty = new DerivedProperty( [ this.leftTopProperty, representationProperty ],
       ( leftTop, representation ) => {
         const scale = representation.isObject ? OBJECT_SCALE_FACTOR : SOURCE_SCALE_FACTOR;

@@ -17,41 +17,52 @@ const OBJECT_SCALE_FACTOR = 4;
 class Target {
 
   /**
-   * @param {Property.<Vector2>} objectPositionProperty
-   * @param {Optic} optic
+   * @param {Property.<Vector2>} objectPositionProperty - position of the object/source
+   * @param {Optic} optic - position of the optic
    * @param {Property.<representation>} representationProperty
    * @param {Tandem} tandem
    */
   constructor( objectPositionProperty, optic, representationProperty, tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    // @private {Property.<Vector2>}
+    // @private {Property.<Vector2>} position of the object/source
     this.objectPositionProperty = objectPositionProperty;
 
-    // @private {Property.<Vector2>}
+    // @private {Property.<Vector2>} position of the optic
     this.opticPositionProperty = optic.positionProperty;
 
-    // @private (read-only) {function}
+    // @private (read-only) {function} returns the sign (+1 or -1) assigned to the type of optic (lens or mirror)
     this.opticGetTypeSign = optic.getTypeSign.bind( optic );
 
-    // @public (read-only) {Property.<number>}
+    // @public (read-only) {Property.<number>} horizontal "distance" between image and optic
+    // The distance can be negative. We follow the standard sign convention
+    // used in geometric optics courses.
     this.imageOpticDistanceProperty = new DerivedProperty(
       [ objectPositionProperty,
         optic.positionProperty,
         optic.focalLengthProperty ],
       ( objectPosition, opticPosition, focalLength ) => {
+
+        // {number} horizontal distance between optic and source/object
         const opticObjectDistance = this.getObjectOpticDistance( objectPosition, opticPosition );
+
+        // address the case when the source/object share the same x position as the focal point
         if ( opticObjectDistance === focalLength ) {
 
-          // the object is located on the focal point. Set the image distance to be very large
+          // Set the image distance to be very large (and arbitrarily positive).
           return 10e6;
         }
         else {
+
+          // Calculated based on the thin lens law/ mirror equation
+          // For a lens, a positive distance, indicates that the image is on the opposite of object (wrt to the lens)
+          // For a mirror, a positive distance indicates that the image is on the same side as the object..
+
           return ( focalLength * opticObjectDistance ) / ( opticObjectDistance - focalLength );
         }
       } );
 
-    // updates the position of the image
+    // the position of the focus as predicted by lens and mirror equation
     // @public (read-only) {Property.<Vector2>}
     this.positionProperty = new DerivedProperty( [ objectPositionProperty,
         optic.positionProperty,
@@ -61,6 +72,7 @@ class Target {
       } );
 
     // @public (read-only) {Property.<number>}
+    // the scale can be negative, indicating the target/image is inverted.
     this.scaleProperty = new DerivedProperty( [ objectPositionProperty,
         optic.positionProperty,
         optic.focalLengthProperty ],
@@ -84,6 +96,8 @@ class Target {
         return this.isVirtual();
       } );
 
+    // @public (read-only) {Property.<bounds2>}
+    // Bounds of the actual IMAGE  based on the representation
     this.boundsProperty = new DerivedProperty( [
         this.positionProperty,
         representationProperty,
@@ -115,13 +129,19 @@ class Target {
     // light intensity of the image (Hollywood) - a value between 0 and 1
     // @public (read-only) {Property.<number>}
     this.lightIntensityProperty = new DerivedProperty( [ this.scaleProperty, optic.diameterProperty ], ( scale, diameter ) => {
+
+      // effect of the distance on the opacity, hollywooded as 1/scale for upscaled image
       const distanceFactor = Math.min( 1, Math.abs( 1 / scale ) );
+
+      // effect of the diameter of the optic on the light intensity of the image (also hollywooded)
       const diameterFactor = optic.getNormalizedDiameter( diameter );
+
+      // product of the two factors
       return distanceFactor * diameterFactor;
     } );
 
-
-    // {Property.<HTMLImageElement>}
+    // @public (read-only) {Property.<HTMLImageElement|null>}
+    // determine the image with appropriate orientation to select for the display
     this.imageProperty = new DerivedProperty( [ representationProperty, this.isVirtualProperty ],
       ( representation, isVirtual ) => {
         const realImage = optic.isLens() ? representation.leftFacingInverted :
@@ -130,7 +150,6 @@ class Target {
                              representation.leftFacingUpright;
         return isVirtual ? virtualImage : realImage;
       } );
-
   }
 
   /**
@@ -158,18 +177,18 @@ class Target {
   /**
    * Return the scale of the image, i.e. the ratio of the height of the image over the object
    * The scale will be negative if the image is inverted.
-   * @returns {number}
+   * @public
    * @param {Vector2} objectPosition
    * @param {Vector2} opticPosition
-   * @param {number} focalLength
-   * @public
+   * @param {number} focalLength - distance in centimeters
+   * @returns {number}
    */
   getScale( objectPosition, opticPosition, focalLength ) {
     return this.getMagnification( objectPosition, opticPosition, focalLength );
   }
 
   /**
-   * Returns the magnification of the image.
+   * Returns the magnification of the image as defined in geometric optics courses.
    * A negative magnification implies that the image is inverted.
    * @public
    * @param {Vector2} objectPosition
@@ -178,19 +197,24 @@ class Target {
    * @returns {number}
    */
   getMagnification( objectPosition, opticPosition, focalLength ) {
+
+    // horizontal distance between object/source and optic
     const objectOpticDistance = this.getObjectOpticDistance( objectPosition, opticPosition );
+
+    // prevent a division by zero
     if ( objectOpticDistance === 0 ) {
 
-      // if the object is right on the lens or mirror, there is no magnification
+      // The magnification is 1 when the object is right on the lens or mirror.
       return 1;
     }
     else {
-      return -1 * this.getImageOpticDistance() / this.getObjectOpticDistance( objectPosition, opticPosition );
+      return -1 * this.getImageOpticDistance() / objectOpticDistance;
     }
   }
 
   /**
-   * Returns the height of the image in model coordinates.
+   * Returns the "height" of the image in model coordinates.
+   * The height is determined as the vertical offset from the optical axis of the focus point
    * The height can be negative if the image is inverted
    * @public
    * @param {Vector2} objectPosition
@@ -236,7 +260,7 @@ class Target {
   }
 
   /**
-   * returns the position of the image
+   * returns the position of the target point
    * @param {Vector2} objectPosition
    * @param {Vector2} opticPosition
    * @param {number} focalLength
@@ -270,6 +294,7 @@ class Target {
   }
 
   /**
+   * is the image real
    * @public
    * @returns {boolean}
    */

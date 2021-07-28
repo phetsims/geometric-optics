@@ -243,7 +243,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
     Property.multilink( [ model.lightRayModeProperty, this.visibleProperties.visibleRayTracingProperty ],
       ( lightRayMode, showHide ) => {
-        if ( lightRayMode === LightRayMode.NO_RAYS ) {
+        if ( lightRayMode === LightRayMode.NONE ) {
           model.enableFirstTargetProperty.value = showHide;
           model.enableSecondTargetProperty.value = showHide;
         }

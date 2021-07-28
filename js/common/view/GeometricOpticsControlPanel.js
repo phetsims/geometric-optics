@@ -78,10 +78,10 @@ class GeometricOpticsControlPanel extends Panel {
 
     // items for ray Mode radio buttons
     const rayModeRadioButtonGroupItems = [
-      createRayModeRadioButtonGroupItem( LightRayMode.MARGINAL_RAYS, marginalString ),
-      createRayModeRadioButtonGroupItem( LightRayMode.PRINCIPAL_RAYS, principalString ),
-      createRayModeRadioButtonGroupItem( LightRayMode.MANY_RAYS, manyString ),
-      createRayModeRadioButtonGroupItem( LightRayMode.NO_RAYS, noneString )
+      createRayModeRadioButtonGroupItem( LightRayMode.MARGINAL, marginalString ),
+      createRayModeRadioButtonGroupItem( LightRayMode.PRINCIPAL, principalString ),
+      createRayModeRadioButtonGroupItem( LightRayMode.MANY, manyString ),
+      createRayModeRadioButtonGroupItem( LightRayMode.NONE, noneString )
     ];
 
     // options common to all number controls

@@ -71,7 +71,7 @@ class GeometricOpticsModel {
     this.representationProperty = new Property( Representation.PENCIL );
 
     // @public {Property.<LightRayMode>}  modes for the different kind of light rays
-    this.lightRayModeProperty = new EnumerationProperty( LightRayMode, LightRayMode.MARGINAL_RAYS );
+    this.lightRayModeProperty = new EnumerationProperty( LightRayMode, LightRayMode.MARGINAL );
 
     // reset the timer when changing light ray mode
     this.lightRayModeProperty.link( () => {
@@ -157,6 +157,7 @@ class GeometricOpticsModel {
   }
 
   /**
+   * Stepper with time interval dt
    * @public
    * @param {number} dt
    */

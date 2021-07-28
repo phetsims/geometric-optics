@@ -14,8 +14,8 @@ import geometricOptics from '../../geometricOptics.js';
 class Ruler {
   /**
    *
-   * @param {Vector2} position
-   * @param {number} length
+   * @param {Vector2} position - position of the ruler in VIEW Coordinates
+   * @param {number} length - length of the ruler in centimeters
    * @param {Object} [options]
    */
   constructor( position, length, options ) {
@@ -30,15 +30,16 @@ class Ruler {
     // @public {number} length of the ruler in centimeters.
     this.length = length;
 
-    // @private
+    // @private {number} keep track of the original length of the ruler
     this.nominalLength = length;
 
-    // @public (read-only) {string} orientation of the ruler (valid choices are vertical and horizontal).
+    // @public (read-only) {Ruler.Orientation} orientation of the ruler (valid choices are vertical and horizontal).
     this.orientation = options.orientation;
   }
 
 
   /**
+   * resets the property of the model
    * @public
    */
   reset() {
@@ -46,6 +47,7 @@ class Ruler {
   }
 
   /**
+   * sets the length of the ruler based on multiplicative factor of absoluteScale
    * @public
    * @param {number} absoluteScale
    */

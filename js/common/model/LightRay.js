@@ -355,7 +355,7 @@ class LightRay {
       const virtualRay = new Ray( lastRay.position, lastRay.direction.negated() );
 
       // ensure that the virtual ray is along the target point
-      if ( virtualRay.isFinalPointAlongRay( targetPoint, 1e-4 ) ) {
+      if ( virtualRay.isPointAlongRay( targetPoint, 1e-4 ) ) {
 
         // set the target point to assign the length of ray
         virtualRay.setFinalPoint( targetPoint );
@@ -420,7 +420,7 @@ class LightRay {
    */
   raysToShape( distanceTraveled ) {
 
-    // distance to travel
+    // {number} remaining distance to travel for the ray
     let remainingDistance = distanceTraveled;
 
     // counter for real rays
@@ -456,6 +456,7 @@ class LightRay {
   }
 
   /**
+   * update the shape of the lightray (be it virtual or real)  based on a model ray
    * @private
    *
    * @param {Shape} shape
