@@ -6,6 +6,8 @@
  * A light Ray can fork to have real and virtual ray components.
  * The lightRay has a flag that determines if it has reached a target
  *
+ * The main purpose of this class is to determine the kite-Shape of the real and virtual light-ray
+ *
  * @author Martin Veillette
  */
 
@@ -21,14 +23,14 @@ const LIGHT_SPEED = GeometricOpticsConstants.LIGHT_SPEED;
 class LightRay {
 
   /**
-   * @param {Ray} initialRay
-   * @param {number} time
-   * @param {Optic} optic
-   * @param {Vector2} targetPoint
+   * @param {Ray} initialRay - ray (position and direction) emerging from source
+   * @param {number} time - value of model time in seconds needed for the purpose of the animation
+   * @param {Optic} optic - model of the optic
+   * @param {Vector2} targetPoint - point of focus of all rays based on thin lens law
    * @param {boolean} isVirtual - is the image virtual
    * @param {boolean} isPrincipalRayMode - is the light ray mode set to Principal rays
    * @param {boolean} isProjectorScreenPresent - is there a projector screen in the play area
-   * @param {function} getProjectorScreenBisectorLine - returns a Shape
+   * @param {function} getProjectorScreenBisectorLine - returns a Shape that bisects the middle of projector screen
    * @param {Tandem} tandem
    */
   constructor( initialRay,
@@ -42,16 +44,16 @@ class LightRay {
                tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    // @public (read-only) - shape of the real rays
+    // @public (read-only) - shape of the real rays - will be updated later
     this.realShape = new Shape();
 
-    // @public (read-only) - shape of the virtual rays
+    // @public (read-only) - shape of the virtual rays - will be updated later
     this.virtualShape = new Shape();
 
-    // {number} maximum travel distance if unimpeded
+    // {number} maximum travel distance if ray is unimpeded
     const distanceTraveled = LIGHT_SPEED * time;
 
-    // {Vector2|null} - a null value implies that the initialRay does not intersect the optic
+    // {Vector2|null} first intersection point - a null value implies that the initialRay does not intersect the optic
     const firstPoint = this.getFirstPoint( initialRay, optic, isPrincipalRayMode );
 
     // @private {Ray[]} - a collection of sequential rays
@@ -63,7 +65,7 @@ class LightRay {
       this.setFinalPointProjectorScreen( this.realRays, getProjectorScreenBisectorLine() );
     }
 
-    // @private {boolean}
+    // @private {boolean} has this light ray a virtual ray attached to it.
     this.hasVirtualRay = this.hasVirtualComponent( isVirtual, this.realRays );
 
     // is there a virtual image AND has the lightRay a virtual component
@@ -73,7 +75,7 @@ class LightRay {
       this.virtualRay = this.getVirtualRay( this.realRays, targetPoint );
     }
 
-    // @public (read-only)
+    // @public (read-only) {boolean}
     this.isTargetReached = this.getHasReachedTarget(
       distanceTraveled,
       isProjectorScreenPresent,

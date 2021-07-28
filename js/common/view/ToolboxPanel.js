@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * A maximum of 1 horizontal ruler and 1 vertical ruler can be dragged out from this toolbox panel.
+ * A maximum of one horizontal ruler and one vertical ruler can be dragged out from this toolbox panel.
  * The toolbox panel shows a miniature version of these rulers.
  * Appears in the top right corner of the simulation.
  *
@@ -22,7 +22,6 @@ class ToolboxPanel extends Panel {
    * @param {Object} [options]
    */
   constructor( rulersLayer, tandem, options ) {
-
 
     options = merge( {
       align: 'center',
@@ -47,6 +46,7 @@ class ToolboxPanel extends Panel {
     verticalRulerIconNode.touchArea = verticalRulerIconNode.localBounds.dilatedXY( options.touchAreaDilationX, options.touchAreaDilationY );
     verticalRulerIconNode.mouseArea = verticalRulerIconNode.localBounds.dilatedXY( options.mouseAreaDilationX, options.mouseAreaDilationY );
 
+    // create the content for the panel
     const toolbox = new HBox( {
       spacing: 30,
       children: [ verticalRulerIconNode, horizontalRulerIconNode ],
@@ -60,7 +60,7 @@ class ToolboxPanel extends Panel {
      * Add input listener on iconNode to forward events to rulerNode
      * @param {Node} iconNode
      * @param {GeometricOpticsRulerNode} rulerNode
-     * @param {Property.<boolean>} visibleRulerProperty
+     * @param {Property.<boolean>} visibleRulerProperty - visibility associated with the rulerNode (not icon)
      */
     const createForwardListener = ( iconNode, rulerNode, visibleRulerProperty ) => {
 
@@ -70,22 +70,32 @@ class ToolboxPanel extends Panel {
       } );
 
       iconNode.addInputListener( DragListener.createForwardingListener( event => {
+
+        // we can add a ruler only if the ruler Node is not visible
         if ( !visibleRulerProperty.value ) {
+
+          // set the visibility of ruler Node to true
           visibleRulerProperty.value = true;
+
+          // position the center of the rulerNode to the cursor
           rulerNode.center = this.globalToParentPoint( event.pointer.point );
+
+          // forward events
           rulerNode.startDrag( event );
         }
       } ) );
     };
 
+    // attach a create a Forward listener on each icon
     createForwardListener( horizontalRulerIconNode, rulersLayer.horizontalRulerNode, rulersLayer.visibleHorizontalProperty );
     createForwardListener( verticalRulerIconNode, rulersLayer.verticalRulerNode, rulersLayer.visibleVerticalProperty );
   }
 
   /**
    * Returns a small ruler icon
+   *
    * @private
-   * @param {boolean} isVertical
+   * @param {boolean} isVertical - is the ruler icon along the vertical axis
    * @returns {RulerNode} rulerIconNode
    */
   static getRulerIcon( isVertical ) {

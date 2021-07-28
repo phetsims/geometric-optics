@@ -26,7 +26,10 @@ import SourceObject from './SourceObject.js';
 import Target from './Target.js';
 
 const HORIZONTAL_RULER_LENGTH = GeometricOpticsConstants.HORIZONTAL_RULER_LENGTH;
+const HORIZONTAL_RULER_INITIAL_POSITION = GeometricOpticsConstants.HORIZONTAL_RULER_INITIAL_POSITION;
 const VERTICAL_RULER_LENGTH = GeometricOpticsConstants.VERTICAL_RULER_LENGTH;
+const VERTICAL_RULER_INITIAL_POSITION = GeometricOpticsConstants.VERTICAL_RULER_INITIAL_POSITION;
+const ANIMATION_TIME = GeometricOpticsConstants.ANIMATION_TIME;
 
 class GeometricOpticsModel {
 
@@ -52,10 +55,10 @@ class GeometricOpticsModel {
     assert && assert( radiusOfCurvatureRange instanceof RangeWithValue, 'invalid radiusOfCurvature' );
     assert && assert( diameterRange instanceof RangeWithValue, 'invalid diameterRange' );
 
-    // @private - time range (in seconds) for the animation
-    this.timeRange = new RangeWithValue( 0, 5, 0.01 );
+    // @private {RangeWithValue} - time range (in seconds) for the animation
+    this.timeRange = new RangeWithValue( 0, ANIMATION_TIME, 0 );
 
-    // @public (read-only) {Property.<number>}
+    // @public (read-only) {Property.<number>} - time for ray animation
     this.timeProperty = new NumberProperty( this.timeRange.defaultValue );
 
     // @public {Property.<boolean>} the image/target can be seen if enabled
@@ -75,13 +78,13 @@ class GeometricOpticsModel {
       this.timeProperty.reset();
     } );
 
-    // @public rulers for the simulations
+    // @public {Object} rulers for the simulations
     this.rulers = {
-      horizontal: new Ruler( new Vector2( 200, 100 ), HORIZONTAL_RULER_LENGTH ),
-      vertical: new Ruler( new Vector2( 100, 300 ), VERTICAL_RULER_LENGTH, { orientation: Ruler.Orientation.VERTICAL } )
+      horizontal: new Ruler( HORIZONTAL_RULER_INITIAL_POSITION, HORIZONTAL_RULER_LENGTH ),
+      vertical: new Ruler( VERTICAL_RULER_INITIAL_POSITION, VERTICAL_RULER_LENGTH, { orientation: Ruler.Orientation.VERTICAL } )
     };
 
-    // @public
+    // @public {Optic} - model of the optic
     this.optic = new Optic( opticPosition,
       radiusOfCurvatureRange,
       diameterRange,
@@ -99,13 +102,13 @@ class GeometricOpticsModel {
     // @public {FocalPoint} second principal focal point
     this.secondFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty, tandem, { multiplicativeFactor: -1 } );
 
-    // @public {Target} target/ image
+    // @public {Target} model of the target/image associated with the first source
     this.firstTarget = new Target( this.sourceObject.firstPositionProperty, this.optic, this.representationProperty, tandem );
 
     // @public {Target} target/ image associated with the second source
     this.secondTarget = new Target( this.sourceObject.secondPositionProperty, this.optic, this.representationProperty, tandem );
 
-    // @public {ProjectorScreen}
+    // @public {ProjectorScreen} model of the projector screen and spotlights
     this.projectorScreen = new ProjectorScreen(
       this.sourceObject.firstPositionProperty,
       this.sourceObject.secondPositionProperty,

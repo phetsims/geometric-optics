@@ -27,11 +27,11 @@ const GeometricOpticsConstants = {
   ZOOM_RANGE: new RangeWithValue( 1, 3, 3 ),
   ZOOM_SCALE_FACTOR: 2, // should not be changed to keep major tick labels as multiples of 10
 
-
   ORIGIN_POINT: new Vector2( 1024 / 2, 618 / 2 - 50 ), // view position of the model origin (0,0)
   NOMINAL_VIEW_MODEL_CONVERSION: 2, // view coordinates per cm in initial zoom level
 
-  LIGHT_SPEED: 500, // (speed in centimeter per second for light for the purpose of the animation
+  LIGHT_SPEED: 500, // speed in centimeter per second for light for the purpose of the animation
+  ANIMATION_TIME: 5, // maximum animation time
 
   //----------------------------------------------------------------------------------------
   //                                 LENS
@@ -83,11 +83,13 @@ const GeometricOpticsConstants = {
 
   //--------------------------------------------------------------------------------------
   //                               RULER
+
   RULER_HEIGHT: 40, // in view coordinates
   MINIMUM_VISIBLE_LENGTH: 40, // portion of the ruler always within visible bounds, in view coordinates
   HORIZONTAL_RULER_LENGTH: 260, // centimeters
   VERTICAL_RULER_LENGTH: 160, // centimeters
-
+  HORIZONTAL_RULER_INITIAL_POSITION: new Vector2( 200, 100 ),
+  VERTICAL_RULER_INITIAL_POSITION: new Vector2( 100, 300 ),
   //----------------------------------------------------------------------------------------
   //                              GUIDES
 

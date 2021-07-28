@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Model for a focal point
+ * Model for a focal point, which has a position
  *
  * @author Martin Veillette
  */

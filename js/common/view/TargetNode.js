@@ -18,10 +18,10 @@ class TargetNode extends Node {
 
   /**
    * @param {Property.<Representation>} representationProperty
-   * @param {Target} target
+   * @param {Target} target - model of the target
    * @param {Optic} optic
    * @param {Property.<boolean>} enableImageProperty
-   * @param {Property.<boolean>} visibleVirtualImageProperty
+   * @param {Property.<boolean>} visibleVirtualImageProperty - property of the virtual image  check box
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
    */
@@ -36,26 +36,26 @@ class TargetNode extends Node {
 
     super( { tandem: tandem } );
 
-    // creates the target image
+    // creates the target image - the actual image will be updated later
     const targetImage = new Image( target.imageProperty.value );
 
 
     /**
-     * update the size as well as the position of the image.
+     * update the size as well as the position of the target image.
      */
     const updateScaleAndPosition = () => {
 
       // desired bounds for the image
       const viewBounds = modelViewTransform.modelToViewBounds( target.boundsProperty.value );
 
-      // current values for width and height
+      // current values for width and height of the image
       const initialWidth = targetImage.width;
       const initialHeight = targetImage.height;
 
       // scale image appropriately
       targetImage.scale( viewBounds.width / initialWidth, viewBounds.height / initialHeight );
 
-      // move the image
+      // position the image
       targetImage.translation = new Vector2( viewBounds.minX, viewBounds.minY );
     };
 
@@ -78,16 +78,19 @@ class TargetNode extends Node {
                             && enableImageProperty.value;
     };
 
+    // update position and visibility when model bounds change
     target.boundsProperty.link( () => {
       updateScaleAndPosition();
       updateVisibility();
     } );
 
+    // update position and visibility when the curve type is changed
     optic.curveProperty.link( () => {
       updateScaleAndPosition();
       updateVisibility();
     } );
 
+    // update position and visibility when the curve type is changed
     target.isVirtualProperty.link( () => {
       updateVisibility();
     } );
@@ -97,10 +100,12 @@ class TargetNode extends Node {
       updateVisibility();
     } );
 
+    // update the opacity of the image
     target.lightIntensityProperty.link( intensity => {
       targetImage.opacity = intensity;
     } );
 
+    // update visibility after rays reached target
     enableImageProperty.link( () => {
       updateVisibility();
     } );
@@ -123,6 +128,7 @@ class TargetNode extends Node {
 
     } );
 
+    // add the target image to this node
     this.addChild( targetImage );
   }
 }

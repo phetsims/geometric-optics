@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * View-specific Properties for checkboxes.
+ * View-specific Properties for checkboxes and showHide button
  *
  * @author Martin Veillette
  */
