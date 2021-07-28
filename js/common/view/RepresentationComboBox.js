@@ -23,32 +23,44 @@ class RepresentationComboBox extends Node {
   /**
    * @param {Property.<Representation>} selectedItemProperty
    * @param {Tandem} tandem
-   * @param {Object} config
+   * @param {Object} [options]
    */
-  constructor( selectedItemProperty, tandem, config ) {
+  constructor( selectedItemProperty, tandem, options ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    config = merge( {
+    options = merge( {
       hasLens: false
-    }, config );
+    }, options );
 
     super();
 
+    // {ComboBoxItem} array to hold the combo box items
     const items = [];
 
+    // iterate over the different representations
     Representation.VALUES.forEach( representation => {
 
       // the combo box should not include non-object for mirror screen
-      if ( config.hasLens || representation.isObject ) {
+      if ( options.hasLens || representation.isObject ) {
+
+        // create text
         const text = new Text( representation.label, { font: COMBO_BOX_FONT } );
+
+        // create logo
         const logoImage = new Image( representation.logo, { scale: 0.05 } );
+
+        // hold the logo followed by text in a hbox
         const hBox = new HBox( { spacing: 5, children: [ logoImage, text ] } );
+
+        // create and add combo box item to the array
         items.push( new ComboBoxItem( hBox, representation ) );
       }
     } );
 
+    // node to host the list of the combo box
     const listParent = new Node();
 
+    // create the combo box
     const comboBox = new ComboBox( items, selectedItemProperty, listParent, {
       highlightFill: 'rgb(168,192,245)',
       listPosition: 'below',
@@ -56,6 +68,7 @@ class RepresentationComboBox extends Node {
       yMargin: 2
     } );
 
+    // add the combox box before the list parent for z-layer
     this.addChild( comboBox );
     this.addChild( listParent );
   }

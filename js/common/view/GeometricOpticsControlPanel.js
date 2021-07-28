@@ -54,14 +54,14 @@ class GeometricOpticsControlPanel extends Panel {
    * @param {VisibleProperties} visibleProperties
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
-   * @param {Object} config
+   * @param {Object} [options]
    */
-  constructor( optic, lightRayModeProperty, visibleProperties, modelViewTransform, tandem, config ) {
+  constructor( optic, lightRayModeProperty, visibleProperties, modelViewTransform, tandem, options ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    config = merge( {
+    options = merge( {
       hasLens: false
-    }, config );
+    }, options );
 
     /**
      * create an item for the Radio Button Group
@@ -126,7 +126,7 @@ class GeometricOpticsControlPanel extends Panel {
     // array of number controls
     let controls;
 
-    if ( config.hasLens ) {
+    if ( options.hasLens ) {
 
       // options for index of refraction control
       const indexOfRefractionNumberControlOptions = merge( {}, commonNumberControlOptions,
@@ -215,7 +215,7 @@ class GeometricOpticsControlPanel extends Panel {
     ];
 
     // if using mirror, remove guides checkbox
-    if ( !config.hasLens ) {
+    if ( !options.hasLens ) {
       checkboxGroupItems.pop();
     }
 
