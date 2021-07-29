@@ -462,6 +462,8 @@ class Optic {
   }
 
   /**
+   * get the bounds of the optically "active" component
+   * In practice, it means that we exclude the backing (fill) of the mirror
    * @public
    * @returns {Bounds2}
    */

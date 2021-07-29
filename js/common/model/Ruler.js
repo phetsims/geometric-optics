@@ -55,6 +55,7 @@ class Ruler {
   }
 
   /**
+   * is the ruler horizontal
    * @public
    * @returns {boolean}
    */
@@ -63,6 +64,7 @@ class Ruler {
   }
 
   /**
+   * is the ruler vertical
    * @public
    * @returns {boolean}
    */

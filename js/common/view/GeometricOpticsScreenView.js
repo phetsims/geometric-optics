@@ -309,6 +309,7 @@ class GeometricOpticsScreenView extends ScreenView {
   }
 
   /**
+   * time stepper
    * @public
    */
   step( dt ) {

@@ -29,10 +29,12 @@ class Ray extends Ray2 {
 
     assert && assert( typeof options.length === 'number' );
 
+    // @public {number}
     this.length = options.length;
   }
 
   /**
+   * Set the length of the ray
    * @public
    * @param {number} length
    */

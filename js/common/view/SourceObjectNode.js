@@ -227,6 +227,7 @@ class SourceObjectNode extends Node {
   }
 
   /**
+   * reset this node
    * @public
    */
   reset() {

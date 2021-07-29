@@ -84,10 +84,10 @@ class SourceObject {
 
       const scale = representation.isObject ? OBJECT_SCALE_FACTOR : SOURCE_SCALE_FACTOR;
 
-      // update the value of the offset
+      // {Vector2} update the value of the offset
       this.offsetPosition = representation.offsetPosition.dividedScalar( scale );
 
-      // update the left top position - the firstPosition is the ground truth when changing representation
+      // {Vector2} update the left top position - the firstPosition is the ground truth when changing representation
       this.leftTopProperty.value = this.firstPositionProperty.value.plus( this.offsetPosition );
     } );
 

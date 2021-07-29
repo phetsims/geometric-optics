@@ -124,6 +124,7 @@ class GeometricOpticRulersLayer extends Node {
   }
 
   /**
+   * dispose function for the two ruler orientations
    * @public
    */
   disposeRulers() {
