@@ -34,7 +34,6 @@ const ANIMATION_TIME = GeometricOpticsConstants.ANIMATION_TIME;
 class GeometricOpticsModel {
 
   /**
-   *
    * @param {Vector2} opticPosition - center of the optical element
    * @param {RangeWithValue} radiusOfCurvatureRange - range of radius of curvature (in centimeters)
    * @param {RangeWithValue} diameterRange - range of height for optical element (in centimeters)

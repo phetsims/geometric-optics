@@ -16,7 +16,6 @@ const STROKE = GeometricOpticsColors.opticalAxisStrokeProperty;
 
 class OpticalAxisLine extends Line {
   /**
-   *
    * @param {Property.<Vector2>} opticPositionProperty
    * @param {Property.<Bounds2>} visibleModelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform

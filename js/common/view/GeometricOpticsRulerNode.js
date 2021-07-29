@@ -23,7 +23,6 @@ const MINIMUM_VISIBLE_LENGTH = GeometricOpticsConstants.MINIMUM_VISIBLE_LENGTH;
 
 class GeometricOpticsRulerNode extends RulerNode {
   /**
-   *
    * @param {Ruler} ruler - model for ruler
    * @param {Property.<boolean>} visibleProperty
    * @param {Property.<Bounds2>} visibleBoundsProperty

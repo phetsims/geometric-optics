@@ -25,7 +25,6 @@ const concaveMirrorString = geometricOpticsStrings.concaveMirror;
 
 class LabelsNode extends Node {
   /**
-   *
    * @param {GeometricOpticsModel} model
    * @param {GeometricOpticsScreenView} view
    * @param {VisibleProperties} visibleProperties

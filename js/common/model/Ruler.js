@@ -13,7 +13,6 @@ import geometricOptics from '../../geometricOptics.js';
 
 class Ruler {
   /**
-   *
    * @param {Vector2} position - position of the ruler in VIEW Coordinates
    * @param {number} length - length of the ruler in centimeters
    * @param {Object} [options]

@@ -24,7 +24,6 @@ import geometricOptics from '../../geometricOptics.js';
 class Optic {
 
   /**
-   *
    * @param {Vector2} position - center of the optical element
    * @param {RangeWithValue} radiusOfCurvatureRange - range of radius of curvature (in centimeters)
    * @param {RangeWithValue} diameterRange - range of height for optical element (in centimeters)

@@ -14,7 +14,6 @@ import geometricOptics from '../../geometricOptics.js';
 class FocalPoint {
 
   /**
-   *
    * @param {Property.<Vector2>} opticPositionProperty
    * @param {Property.<number>} focalLengthProperty
    * @param {Tandem} tandem

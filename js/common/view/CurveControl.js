@@ -24,7 +24,6 @@ const STRUT_LENGTH = 42; // minimum size of the button
 class CurveControl extends RectangularRadioButtonGroup {
 
   /**
-   *
    * @param {Property.<Optic.Curve>} curveProperty
    * @param {Optic} optic
    * @param {Object} [options]
