@@ -67,13 +67,12 @@ class CurveControl extends RectangularRadioButtonGroup {
   }
 
   /**
-   * Creates centered icon representation of convex/concave, lens/mirror.
-   *
+   * Creates a centered icon representation of convex/concave, lens/mirror.
+   * @public
    * @param {Optic.Curve} curve - the curve can be convex or concave
    * @param {Optic.Type} type - the type can be lens or mirror
    * @param {Object} [options] - see options below
    * @returns {Node}
-   * @public
    */
   static createIconNode( curve, type, options ) {
 

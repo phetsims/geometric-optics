@@ -105,8 +105,8 @@ class SourceObject {
 
   /**
    * Returns the position of the source
-   * @returns {Vector2}
    * @public
+   * @returns {Vector2}
    */
   getPosition() {
     return this.firstPositionProperty.value;
@@ -114,9 +114,9 @@ class SourceObject {
 
   /**
    * Sets the second source point
+   * @public
    * @param {Property.<Representation>} representationProperty
    * @param {Vector2} position
-   * @public
    */
   setSecondPoint( representationProperty, position ) {
     if ( representationProperty.value.isObject ) {

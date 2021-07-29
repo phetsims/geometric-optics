@@ -64,7 +64,6 @@ class Ray extends Ray2 {
 
   /**
    * Determines if the point is along the ray direction
-   *
    * @public
    * @param {Vector2} point
    * @param {number} epsilon - tolerance value

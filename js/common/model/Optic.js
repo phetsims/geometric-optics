@@ -110,7 +110,7 @@ class Optic {
    * The returned object contains an outline shape, representing the reflecting coating,
    * and a fill shape representing the base backing of the mirror.
    * The shapes are drawn using quadratic Bezier curves.
-   *
+   * @public
    * @param {number} radius - radius of curvature at the center of the mirror
    * @param {number} diameter - vertical height of the mirror
    * @param {Optic.Curve} curve
@@ -122,7 +122,6 @@ class Optic {
       backShape: null,
       middleShape: null
     }
-   * @public
    */
   static getMirrorShapes( radius, diameter, curve, options ) {
 
@@ -444,8 +443,8 @@ class Optic {
 
   /**
    * Returns a normalized value (with a max of 1) for the diameter
-   * @param {number} diameter - diameter
    * @public
+   * @param {number} diameter
    * @returns {number}
    */
   getNormalizedDiameter( diameter ) {
@@ -476,8 +475,8 @@ class Optic {
 
   /**
    * Returns a normalized value (between 0 and 1) for the index of refraction
-   * @param {number} index - index of refraction
    * @public
+   * @param {number} index - index of refraction
    * @returns {number}
    */
   getNormalizedIndex( index ) {
@@ -585,7 +584,7 @@ class Optic {
    * The front shape is the left facing contour of the optic. This can be used for ray hit testing
    * The back shape is the right facing contour of the optic. back shape is null for mirror
    * The middle shape is the imaginary vertical line that splits a lens into two halves. Null for mirror.
-   *
+   * @public
    * @param {number} radius - radius of curvature at the center of the mirror
    * @param {number} diameter - vertical height of the mirror
    * @param {Optic.Curve} curve
@@ -597,7 +596,6 @@ class Optic {
       backShape: Shape|null,
       middleShape: Shape|null
     }
-   * @public
    */
   getShapes( radius, diameter, curve, options ) {
     if ( this.isLens() ) {

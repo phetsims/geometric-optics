@@ -55,6 +55,7 @@ class FocalPointNode extends PlusNode {
   }
 
   /**
+   * Returns an icon for the focal point
    * @public
    * @param {Object} [options]
    * @returns {PlusNode}

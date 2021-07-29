@@ -264,11 +264,11 @@ class Target {
 
   /**
    * Returns the position of the target point
+   * @public
    * @param {Vector2} objectPosition
    * @param {Vector2} opticPosition
    * @param {number} focalLength
    * @returns {Vector2}
-   * @public
    */
   getPosition( objectPosition, opticPosition, focalLength ) {
 

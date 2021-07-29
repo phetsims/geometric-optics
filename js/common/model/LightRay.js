@@ -414,7 +414,6 @@ class LightRay {
    * Processes all the rays (virtual and real) into shape lines.
    * @private
    * @param {number} distanceTraveled
-   *
    */
   raysToShape( distanceTraveled ) {
 

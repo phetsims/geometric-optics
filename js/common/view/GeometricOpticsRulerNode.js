@@ -207,8 +207,8 @@ class GeometricOpticsRulerNode extends RulerNode {
 
   /**
    * Forward an event from the toolbox to start dragging this node
-   * @param {SceneryEvent} event
    * @public
+   * @param {SceneryEvent} event
    */
   startDrag( event ) {
 
