@@ -57,12 +57,17 @@ class LabelsNode extends Node {
       modelViewTransformProperty );
 
     // define optic label position
-    const opticLabelPositionProperty = new DerivedProperty( [ model.optic.positionProperty, model.optic.diameterProperty ], ( position, diameter ) =>
-      position.minusXY( 0, diameter / 2 )
+    const opticLabelPositionProperty = new DerivedProperty(
+      [ model.optic.positionProperty, model.optic.diameterProperty ],
+      ( position, diameter ) =>
+        position.minusXY( 0, diameter / 2 )
     );
 
     // create optic label with empty string
-    const opticLabel = new LabelNode( '', opticLabelPositionProperty, new BooleanProperty( true ), modelViewTransformProperty );
+    const opticLabel = new LabelNode( '',
+      opticLabelPositionProperty,
+      new BooleanProperty( true ),
+      modelViewTransformProperty );
 
     // update the label string of the optic
     model.optic.curveProperty.link( curve => {
@@ -86,7 +91,10 @@ class LabelsNode extends Node {
       bounds => bounds.centerTop );
 
     // create image label
-    const imageLabel = new LabelNode( imageString, imageLabelPositionProperty, new BooleanProperty( true ), modelViewTransformProperty );
+    const imageLabel = new LabelNode( imageString,
+      imageLabelPositionProperty,
+      new BooleanProperty( true ),
+      modelViewTransformProperty );
 
     // define object label position
     const objectLabelPositionProperty = new DerivedProperty( [ model.sourceObject.boundsProperty ],
@@ -94,7 +102,10 @@ class LabelsNode extends Node {
       bounds => bounds.centerTop );
 
     // create object label
-    const objectLabel = new LabelNode( objectString, objectLabelPositionProperty, new BooleanProperty( true ), modelViewTransformProperty );
+    const objectLabel = new LabelNode( objectString,
+      objectLabelPositionProperty,
+      new BooleanProperty( true ),
+      modelViewTransformProperty );
 
     // update the visibility of the object and image labels
     Property.multilink( [

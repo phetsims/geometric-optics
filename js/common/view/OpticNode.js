@@ -34,7 +34,12 @@ class OpticNode extends Node {
    * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( optic, lightRayModeProperty, playAreaModelBoundsProperty, modelViewTransform, tandem, options ) {
+  constructor( optic,
+               lightRayModeProperty,
+               playAreaModelBoundsProperty,
+               modelViewTransform,
+               tandem,
+               options ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     options = merge( {

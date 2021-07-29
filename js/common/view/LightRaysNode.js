@@ -19,7 +19,11 @@ class LightRaysNode extends Node {
    * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( lightRays, visibleVirtualImageProperty, modelViewTransform, tandem, options ) {
+  constructor( lightRays,
+               visibleVirtualImageProperty,
+               modelViewTransform,
+               tandem,
+               options ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     options = merge( {

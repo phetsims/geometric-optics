@@ -183,7 +183,7 @@ class GeometricOpticsControlPanel extends Panel {
      */
     const createCheckboxGroupItem = ( string, property, options ) => {
       options = merge( {
-        icon: null // {null||Node}
+        icon: null // {null|Node}
       }, options );
 
       // text for the checkbox
@@ -207,10 +207,12 @@ class GeometricOpticsControlPanel extends Panel {
 
     // create checkbox group for visibility settings
     const checkboxGroupItems = [
-      createCheckboxGroupItem( focalPointString, visibleProperties.visibleFocalPointProperty, { icon: focalPointIcon } ),
+      createCheckboxGroupItem( focalPointString, visibleProperties.visibleFocalPointProperty,
+        { icon: focalPointIcon } ),
       createCheckboxGroupItem( virtualImageString, visibleProperties.visibleVirtualImageProperty ),
       createCheckboxGroupItem( labelsString, visibleProperties.visibleLabelsProperty ),
-      createCheckboxGroupItem( secondSourceString, visibleProperties.visibleSecondSourceProperty, { icon: secondSourcePointIcon } ),
+      createCheckboxGroupItem( secondSourceString, visibleProperties.visibleSecondSourceProperty,
+        { icon: secondSourcePointIcon } ),
       createCheckboxGroupItem( guidesString, visibleProperties.visibleGuidesProperty )
     ];
 

@@ -43,7 +43,9 @@ class Guide {
 
     // @public (read-only) {Property.<number>} find the angle of the transmitted guide with respect to the positive
     // x-axis
-    this.transmittedAngleProperty = new DerivedProperty( [ optic.focalLengthProperty, optic.diameterProperty, this.incidentAngleProperty ],
+    this.transmittedAngleProperty = new DerivedProperty( [ optic.focalLengthProperty,
+        optic.diameterProperty,
+        this.incidentAngleProperty ],
       ( focalLength, diameter, incidentAngle ) => {
 
         // transmitted angle if the optic was a blank.

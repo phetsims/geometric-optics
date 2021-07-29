@@ -27,7 +27,11 @@ class FocalPointNode extends PlusNode {
    * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( focalPoint, visibleProperty, modelViewTransform, tandem, options ) {
+  constructor( focalPoint,
+               visibleProperty,
+               modelViewTransform,
+               tandem,
+               options ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     // options for plus Node. Rotated by 45 degrees to create an X shape.

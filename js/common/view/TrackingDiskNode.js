@@ -20,7 +20,10 @@ class TrackingDiskNode extends Circle {
    * @param {Tandem} tandem
    * @param {Object} [options]
    * */
-  constructor( positionProperty, modelViewTransform, tandem, options ) {
+  constructor( positionProperty,
+               modelViewTransform,
+               tandem,
+               options ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     options = merge( {

@@ -21,7 +21,9 @@ class OpticalAxisLine extends Line {
    * @param {Property.<Bounds2>} visibleModelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    */
-  constructor( opticPositionProperty, visibleModelBoundsProperty, modelViewTransform ) {
+  constructor( opticPositionProperty,
+               visibleModelBoundsProperty,
+               modelViewTransform ) {
 
     // create optical axis line, with arbitrary length values.
     super( 0, 0, 1, 0, {

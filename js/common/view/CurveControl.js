@@ -109,8 +109,10 @@ class CurveControl extends RectangularRadioButtonGroup {
       options.strutLength - 2 * options.buttonContentYMargin );
 
     // make sure the spacer is larger than icon
-    assert && assert( iconSpacer.width > iconNode.width, 'spacer width is smaller than icon content' );
-    assert && assert( iconSpacer.height > iconNode.height, 'spacer height is smaller than icon content' );
+    assert && assert( iconSpacer.width > iconNode.width,
+      'spacer width is smaller than icon content' );
+    assert && assert( iconSpacer.height > iconNode.height,
+      'spacer height is smaller than icon content' );
 
     // center the icon in the spacer
     iconNode.center = iconSpacer.center;

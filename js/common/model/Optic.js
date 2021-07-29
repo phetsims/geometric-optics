@@ -126,7 +126,8 @@ class Optic {
    */
   static getMirrorShapes( radius, diameter, curve, options ) {
 
-    assert && assert( radius > diameter / 2, 'the radius of curvature is too small when compared to the diameter' );
+    assert && assert( radius > diameter / 2,
+      'the radius of curvature is too small when compared to the diameter' );
 
     options = merge( {
       thickness: 5 // horizontal separation between the two edges of the surfaces at the middle part

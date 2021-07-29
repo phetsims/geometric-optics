@@ -80,7 +80,8 @@ class GeometricOpticsModel {
     // @public {Object} rulers for the simulations
     this.rulers = {
       horizontal: new Ruler( HORIZONTAL_RULER_INITIAL_POSITION, HORIZONTAL_RULER_LENGTH ),
-      vertical: new Ruler( VERTICAL_RULER_INITIAL_POSITION, VERTICAL_RULER_LENGTH, { orientation: Ruler.Orientation.VERTICAL } )
+      vertical: new Ruler( VERTICAL_RULER_INITIAL_POSITION, VERTICAL_RULER_LENGTH,
+        { orientation: Ruler.Orientation.VERTICAL } )
     };
 
     // @public {Optic} - model of the optic
@@ -99,13 +100,16 @@ class GeometricOpticsModel {
     this.firstFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty, tandem );
 
     // @public {FocalPoint} second principal focal point
-    this.secondFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty, tandem, { multiplicativeFactor: -1 } );
+    this.secondFocalPoint = new FocalPoint( this.optic.positionProperty,
+      this.optic.focalLengthProperty, tandem, { multiplicativeFactor: -1 } );
 
     // @public {Target} model of the target/image associated with the first source
-    this.firstTarget = new Target( this.sourceObject.firstPositionProperty, this.optic, this.representationProperty, tandem );
+    this.firstTarget = new Target( this.sourceObject.firstPositionProperty,
+      this.optic, this.representationProperty, tandem );
 
     // @public {Target} target/ image associated with the second source
-    this.secondTarget = new Target( this.sourceObject.secondPositionProperty, this.optic, this.representationProperty, tandem );
+    this.secondTarget = new Target( this.sourceObject.secondPositionProperty,
+      this.optic, this.representationProperty, tandem );
 
     // @public {ProjectorScreen} model of the projector screen and spotlights
     this.projectorScreen = new ProjectorScreen(

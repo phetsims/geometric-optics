@@ -42,10 +42,14 @@ class ToolboxPanel extends Panel {
     const verticalRulerIconNode = ToolboxPanel.getRulerIcon( true );
 
     // increase touchArea and mouseArea for both rulers
-    horizontalRulerIconNode.touchArea = horizontalRulerIconNode.localBounds.dilatedXY( options.touchAreaDilationX, options.touchAreaDilationY );
-    horizontalRulerIconNode.mouseArea = horizontalRulerIconNode.localBounds.dilatedXY( options.mouseAreaDilationX, options.mouseAreaDilationY );
-    verticalRulerIconNode.touchArea = verticalRulerIconNode.localBounds.dilatedXY( options.touchAreaDilationX, options.touchAreaDilationY );
-    verticalRulerIconNode.mouseArea = verticalRulerIconNode.localBounds.dilatedXY( options.mouseAreaDilationX, options.mouseAreaDilationY );
+    horizontalRulerIconNode.touchArea = horizontalRulerIconNode.localBounds.dilatedXY(
+      options.touchAreaDilationX, options.touchAreaDilationY );
+    horizontalRulerIconNode.mouseArea = horizontalRulerIconNode.localBounds.dilatedXY(
+      options.mouseAreaDilationX, options.mouseAreaDilationY );
+    verticalRulerIconNode.touchArea = verticalRulerIconNode.localBounds.dilatedXY(
+      options.touchAreaDilationX, options.touchAreaDilationY );
+    verticalRulerIconNode.mouseArea = verticalRulerIconNode.localBounds.dilatedXY(
+      options.mouseAreaDilationX, options.mouseAreaDilationY );
 
     // create the content for the panel
     const toolbox = new HBox( {
@@ -62,7 +66,9 @@ class ToolboxPanel extends Panel {
      * @param {GeometricOpticsRulerNode} rulerNode
      * @param {Property.<boolean>} visibleRulerProperty - visibility associated with the rulerNode (not icon)
      */
-    const createForwardListener = ( iconNode, rulerNode, visibleRulerProperty ) => {
+    const createForwardListener = ( iconNode,
+                                    rulerNode,
+                                    visibleRulerProperty ) => {
 
       // ruler node and icon node have opposite visibilities
       visibleRulerProperty.link( visible => {
@@ -87,8 +93,12 @@ class ToolboxPanel extends Panel {
     };
 
     // attach a create a Forward listener on each icon
-    createForwardListener( horizontalRulerIconNode, rulersLayer.horizontalRulerNode, rulersLayer.visibleHorizontalProperty );
-    createForwardListener( verticalRulerIconNode, rulersLayer.verticalRulerNode, rulersLayer.visibleVerticalProperty );
+    createForwardListener( horizontalRulerIconNode,
+      rulersLayer.horizontalRulerNode,
+      rulersLayer.visibleHorizontalProperty );
+    createForwardListener( verticalRulerIconNode,
+      rulersLayer.verticalRulerNode,
+      rulersLayer.visibleVerticalProperty );
   }
 
   /**

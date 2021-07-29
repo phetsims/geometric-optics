@@ -28,7 +28,11 @@ class LabelNode extends Node {
    * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
    * @param {Object} [options]
    */
-  constructor( string, positionProperty, visibleProperty, modelViewTransformProperty, options ) {
+  constructor( string,
+               positionProperty,
+               visibleProperty,
+               modelViewTransformProperty,
+               options ) {
 
     options = merge( {
       text: {
@@ -99,7 +103,8 @@ class LabelNode extends Node {
    * @private
    */
   setLabelPosition() {
-    this.centerTop = this.modelViewTransformProperty.value.modelToViewPosition( this.positionProperty.value ).plusXY( 0, this.options.labelOffset );
+    this.centerTop = this.modelViewTransformProperty.value.modelToViewPosition( this.positionProperty.value )
+      .plusXY( 0, this.options.labelOffset );
   }
 
   /**

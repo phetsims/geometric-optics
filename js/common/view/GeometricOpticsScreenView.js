@@ -178,7 +178,11 @@ class GeometricOpticsScreenView extends ScreenView {
     const opticalAxisLine = new OpticalAxisLine( model.optic.positionProperty,
       this.playAreaModelBoundsProperty, this.modelViewTransform );
 
-    const opticNode = new OpticNode( model.optic, model.lightRayModeProperty, this.playAreaModelBoundsProperty, this.modelViewTransform, tandem );
+    const opticNode = new OpticNode( model.optic,
+      model.lightRayModeProperty,
+      this.playAreaModelBoundsProperty,
+      this.modelViewTransform,
+      tandem );
 
     // create the light rays associated with the object
     const lightRaysNode = new LightRaysNode( model.firstLightRays,

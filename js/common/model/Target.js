@@ -22,7 +22,10 @@ class Target {
    * @param {Property.<representation>} representationProperty
    * @param {Tandem} tandem
    */
-  constructor( objectPositionProperty, optic, representationProperty, tandem ) {
+  constructor( objectPositionProperty,
+               optic,
+               representationProperty,
+               tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     // @private {Property.<Vector2>} position of the object/source
@@ -127,17 +130,18 @@ class Target {
 
     // light intensity of the image (Hollywood) - a value between 0 and 1
     // @public (read-only) {Property.<number>}
-    this.lightIntensityProperty = new DerivedProperty( [ this.scaleProperty, optic.diameterProperty ], ( scale, diameter ) => {
+    this.lightIntensityProperty = new DerivedProperty( [ this.scaleProperty, optic.diameterProperty ],
+      ( scale, diameter ) => {
 
-      // effect of the distance on the opacity, hollywooded as 1/scale for upscaled image
-      const distanceFactor = Math.min( 1, Math.abs( 1 / scale ) );
+        // effect of the distance on the opacity, hollywooded as 1/scale for upscaled image
+        const distanceFactor = Math.min( 1, Math.abs( 1 / scale ) );
 
-      // effect of the diameter of the optic on the light intensity of the image (also hollywooded)
-      const diameterFactor = optic.getNormalizedDiameter( diameter );
+        // effect of the diameter of the optic on the light intensity of the image (also hollywooded)
+        const diameterFactor = optic.getNormalizedDiameter( diameter );
 
-      // product of the two factors
-      return distanceFactor * diameterFactor;
-    } );
+        // product of the two factors
+        return distanceFactor * diameterFactor;
+      } );
 
     // @public (read-only) {Property.<HTMLImageElement|null>}
     // determine the image with appropriate orientation to select for the display

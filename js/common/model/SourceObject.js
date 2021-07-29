@@ -121,7 +121,9 @@ class SourceObject {
   setSecondPoint( representationProperty, position ) {
     if ( representationProperty.value.isObject ) {
       const unconstrainedVerticalOffset = position.y - this.firstPositionProperty.value.y;
-      this.verticalOffsetProperty.value = Utils.clamp( unconstrainedVerticalOffset, verticalOffsetRange.min, verticalOffsetRange.max );
+      this.verticalOffsetProperty.value = Utils.clamp( unconstrainedVerticalOffset,
+        verticalOffsetRange.min,
+        verticalOffsetRange.max );
     }
     else {
       this.unconstrainedSecondSourcePositionProperty.value = position;

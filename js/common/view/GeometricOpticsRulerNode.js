@@ -99,12 +99,18 @@ class GeometricOpticsRulerNode extends RulerNode {
 
           // if vertical the left and right bounds of the ruler stay within visible bounds
           // minimum visible length of the ruler is always showing inside top and bottom visible bounds.
-          return visibleBounds.withOffsets( 0, -MINIMUM_VISIBLE_LENGTH, -this.width, -MINIMUM_VISIBLE_LENGTH + this.height );
+          return visibleBounds.withOffsets( 0,
+            -MINIMUM_VISIBLE_LENGTH,
+            -this.width,
+            -MINIMUM_VISIBLE_LENGTH + this.height );
         }
         else {
           // if horizontal ruler,  the bottom and top bounds of the ruler stay within visible bounds
           // minimum visible length of the ruler is always showing inside left  and right visible bounds.
-          return visibleBounds.withOffsets( this.width - MINIMUM_VISIBLE_LENGTH, 0, -MINIMUM_VISIBLE_LENGTH, -this.height );
+          return visibleBounds.withOffsets( this.width - MINIMUM_VISIBLE_LENGTH,
+            0,
+            -MINIMUM_VISIBLE_LENGTH,
+            -this.height );
         }
       }
     );

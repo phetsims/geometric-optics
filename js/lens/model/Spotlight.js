@@ -103,8 +103,10 @@ class Spotlight {
   getDiskParameters( screenPosition, opticPosition, opticDiameter, targetPosition ) {
 
     // get the extremum points on the optic
-    const extremumTopOpticPoint = this.optic.getExtremumPoint( this.sourcePositionProperty.value, targetPosition, { location: Optic.Location.TOP } );
-    const extremumBottomOpticPoint = this.optic.getExtremumPoint( this.sourcePositionProperty.value, targetPosition, { location: Optic.Location.BOTTOM } );
+    const extremumTopOpticPoint = this.optic.getExtremumPoint( this.sourcePositionProperty.value, targetPosition,
+      { location: Optic.Location.TOP } );
+    const extremumBottomOpticPoint = this.optic.getExtremumPoint( this.sourcePositionProperty.value, targetPosition,
+      { location: Optic.Location.BOTTOM } );
 
     // determine the top and bottom position of the unclipped disk
     const diskTopPosition = this.getIntersectPosition( screenPosition, extremumTopOpticPoint, targetPosition );
