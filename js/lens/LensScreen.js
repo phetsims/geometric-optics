@@ -39,7 +39,6 @@ class LensScreen extends Screen {
       tandem: tandem
     };
 
-
     super(
       () => new LensModel( tandem.createTandem( 'model' ) ),
       model => new LensScreenView( model, tandem.createTandem( 'view' ) ),

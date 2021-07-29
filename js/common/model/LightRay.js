@@ -130,7 +130,6 @@ class LightRay {
     return this.realRays.length > 1 && distanceTraveled > distance;
   }
 
-
   /**
    * get the first intersection Point
    *
@@ -202,7 +201,6 @@ class LightRay {
 
         // {Vector2|null} back shape point intersecting the transmitted ray
         const backPoint = this.getPoint( backIntersection );
-
 
         // add additional rays only if the front lens is hit
         if ( frontPoint instanceof Vector2 ) {

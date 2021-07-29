@@ -43,9 +43,7 @@ class LensModel extends GeometricOpticsModel {
   reset() {
     super.reset();
   }
-
 }
-
 
 geometricOptics.register( 'LensModel', LensModel );
 export default LensModel;

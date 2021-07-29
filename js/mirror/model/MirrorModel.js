@@ -36,7 +36,6 @@ class MirrorModel extends GeometricOpticsModel {
   reset() {
     super.reset();
   }
-
 }
 
 geometricOptics.register( 'MirrorModel', MirrorModel );

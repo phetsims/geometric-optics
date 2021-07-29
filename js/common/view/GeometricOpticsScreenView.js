@@ -153,7 +153,6 @@ class GeometricOpticsScreenView extends ScreenView {
 
     //-------------------------------------------------------------------
 
-
     // @protected {Property.<Bounds2>} playAreaModelBoundsProperty
     this.playAreaModelBoundsProperty = new DerivedProperty( [ this.visibleBoundsProperty,
         this.zoomModelViewTransformProperty ],
@@ -239,7 +238,6 @@ class GeometricOpticsScreenView extends ScreenView {
       this.playAreaNode.translate( translateVector );
 
     } );
-
 
     Property.multilink( [ model.lightRayModeProperty, this.visibleProperties.visibleRayTracingProperty ],
       ( lightRayMode, showHide ) => {
@@ -342,7 +340,6 @@ class GeometricOpticsScreenView extends ScreenView {
     return scale / oldScale;
   }
 
-
   /**
    * Returns the absolute scaling factor measured from the initial zoom level
    * The absolute scale returns 1 if the zoom level is the initial zoom level value
@@ -372,7 +369,6 @@ class GeometricOpticsScreenView extends ScreenView {
     return ModelViewTransform2.createOffsetXYScaleMapping( ORIGIN_POINT, viewModelScale, -viewModelScale );
 
   }
-
 }
 
 geometricOptics.register( 'GeometricOpticsScreenView', GeometricOpticsScreenView );

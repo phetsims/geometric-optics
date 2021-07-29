@@ -80,7 +80,6 @@ class SourceObject {
           }
         } );
 
-
     representationProperty.link( representation => {
 
       const scale = representation.isObject ? OBJECT_SCALE_FACTOR : SOURCE_SCALE_FACTOR;

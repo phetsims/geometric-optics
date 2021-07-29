@@ -83,7 +83,6 @@ class Ray extends Ray2 {
     const displacementVector = point.minus( this.position );
     return this.direction.dot( displacementVector );
   }
-
 }
 
 geometricOptics.register( 'Ray', Ray );

@@ -17,7 +17,7 @@ import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
 
 class GeometricOpticRulersLayer extends Node {
   /**
-   * @param {horizontal: <Ruler>, vertical:<Ruler>} rulers - model of rulers
+   * @param {horizontal: Ruler, vertical:Ruler} rulers - model of rulers
    * @param {Property.<Bounds2>} visibleBoundsProperty
    * @param {Property.<number>} absoluteScaleProperty
    * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
@@ -74,7 +74,6 @@ class GeometricOpticRulersLayer extends Node {
 
       return rulerNode;
     };
-
 
     // update rulers when scale changes
     absoluteScaleProperty.link( absoluteScale => {

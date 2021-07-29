@@ -37,7 +37,6 @@ class Ruler {
     this.orientation = options.orientation;
   }
 
-
   /**
    * resets the property of the model
    * @public

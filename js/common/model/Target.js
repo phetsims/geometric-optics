@@ -125,7 +125,6 @@ class Target {
         return bounds.shifted( position );
       } );
 
-
     // light intensity of the image (Hollywood) - a value between 0 and 1
     // @public (read-only) {Property.<number>}
     this.lightIntensityProperty = new DerivedProperty( [ this.scaleProperty, optic.diameterProperty ], ( scale, diameter ) => {

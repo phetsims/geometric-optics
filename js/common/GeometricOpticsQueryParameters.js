@@ -23,7 +23,6 @@ const GeometricOpticsQueryParameters = QueryStringMachine.getAll( {
     type: 'flag',
     public: false
   }
-
 } );
 
 geometricOptics.register( 'GeometricOpticsQueryParameters', GeometricOpticsQueryParameters );

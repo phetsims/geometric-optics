@@ -11,7 +11,6 @@ import geometricOptics from '../geometricOptics.js';
 
 const GeometricOpticsColors = {
 
-
   //--------------------------------------------------------------------------
   //                                SCREEN
 
@@ -29,7 +28,6 @@ const GeometricOpticsColors = {
   opticStrokeProperty: new ProfileColorProperty( 'opticStroke', {
     default: 'rgb(255, 255, 255)'
   } ),
-
 
   //--------------------------------------------------------------------------
   //                                 FOCAL POINT
@@ -91,7 +89,6 @@ const GeometricOpticsColors = {
   labelBackgroundFillProperty: new ProfileColorProperty( 'labelBackgroundFill', {
     default: 'rgb(27,27,96)'
   } ),
-
 
   //--------------------------------------------------------------------------
   //                              GUIDES

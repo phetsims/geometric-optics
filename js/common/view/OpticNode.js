@@ -45,7 +45,6 @@ class OpticNode extends Node {
 
     super( options );
 
-
     // create a drag listener on the fill of the opticalElement (see #22)
     let clickOffset;
     const dragListener = new DragListener( {
@@ -96,7 +95,6 @@ class OpticNode extends Node {
         stroke: OPTICAL_CENTER_LINE_STROKE,
         lineDash: [ 8, 5 ]
       } );
-
 
     /**
      * clip the center line based on model bounds

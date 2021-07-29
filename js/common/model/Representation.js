@@ -120,6 +120,5 @@ const Representation = Enumeration.byMap( {
     { source: lampRedImage } )
 } );
 
-
 geometricOptics.register( 'Representation', Representation );
 export default Representation;

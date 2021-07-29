@@ -67,7 +67,6 @@ class Spotlight {
 
   }
 
-
   /**
    * get ratio of the distance of the screen/ target measure from the optic.
    * @private
@@ -98,7 +97,6 @@ class Spotlight {
    * @returns {Object}
    */
   getDiskParameters( screenPosition, opticPosition, opticDiameter, targetPosition ) {
-
 
     const extremumTopOpticPoint = this.optic.getExtremumPoint( this.sourcePositionProperty.value, targetPosition, { location: Optic.Location.TOP } );
     const extremumBottomOpticPoint = this.optic.getExtremumPoint( this.sourcePositionProperty.value, targetPosition, { location: Optic.Location.BOTTOM } );

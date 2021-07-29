@@ -55,7 +55,6 @@ class ToolboxPanel extends Panel {
 
     super( toolbox, options );
 
-
     /**
      * Add input listener on iconNode to forward events to rulerNode
      * @param {Node} iconNode

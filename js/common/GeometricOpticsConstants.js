@@ -50,7 +50,6 @@ const GeometricOpticsConstants = {
   MIRROR_RADIUS_OF_CURVATURE_RANGE: new RangeWithValue( 150, 250, 200 ), // centimeters
   MIRROR_DIAMETER_RANGE: new RangeWithValue( 30, 150, 80 ), // centimeters
 
-
   //----------------------------------------------------------------------------------------
   //                                 FOCAL POINT
   FOCAL_POINT_OPTIONS: {
@@ -62,7 +61,6 @@ const GeometricOpticsConstants = {
   //                           SECOND SOURCE POINT
 
   SECOND_SOURCE_POINT_OPTIONS: { radius: 5 },
-
 
   //----------------------------------------------------------------------------------------
   //                           OPTICAL AXIS
@@ -79,7 +77,6 @@ const GeometricOpticsConstants = {
   //                              RAYS
 
   OPTICAL_ELEMENT_LINE_WIDTH: 2,
-
 
   //--------------------------------------------------------------------------------------
   //                               RULER

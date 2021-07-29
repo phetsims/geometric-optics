@@ -99,7 +99,6 @@ class SourceObjectNode extends Node {
           visibleBounds.maxY );
       } );
 
-
     // create drag listener for source
     const sourceObjectDragListener = new DragListener( {
       positionProperty: sourceObject.leftTopProperty,
@@ -115,11 +114,9 @@ class SourceObjectNode extends Node {
       setImagePosition( sourceObjectImage, position );
     } );
 
-
     dragBoundsProperty.link( dragBounds => {
       sourceObject.leftTopProperty.value = dragBounds.closestPointTo( sourceObject.leftTopProperty.value );
     } );
-
 
     // create a node to hold the second source
     const secondNode = new Node();
@@ -160,7 +157,6 @@ class SourceObjectNode extends Node {
 
     secondNode.addInputListener( secondSourceDragListener );
 
-
     /**
      * set the position of the second node based on the position
      *
@@ -183,7 +179,6 @@ class SourceObjectNode extends Node {
       scaleFunction( sourceObjectImage, sourceObject.boundsProperty.value );
       setImagePosition( sourceObjectImage, sourceObject.leftTopProperty.value );
 
-
       // remove all children to the second node
       secondNode.removeAllChildren();
 
@@ -203,7 +198,6 @@ class SourceObjectNode extends Node {
       }
       setSecondSourcePosition( sourceObject.secondPositionProperty.value );
     } );
-
 
     secondSourcePositionProperty.link( position => {
       sourceObject.setSecondPoint( representationProperty, position );

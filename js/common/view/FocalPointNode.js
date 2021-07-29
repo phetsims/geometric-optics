@@ -66,8 +66,6 @@ class FocalPointNode extends PlusNode {
 
     return new PlusNode( options );
   }
-
-
 }
 
 geometricOptics.register( 'FocalPointNode', FocalPointNode );

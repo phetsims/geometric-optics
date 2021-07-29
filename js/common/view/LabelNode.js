@@ -11,8 +11,8 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
+import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
 const BACKGROUND_COLOR = GeometricOpticsColors.labelBackgroundFillProperty;
 const LABEL_FONT = GeometricOpticsConstants.LABEL_FONT;
@@ -81,7 +81,6 @@ class LabelNode extends Node {
     // add a listener to the visibility of this node
     visibleProperty.linkAttribute( this, 'visible' );
   }
-
 
   /**
    * Set a string for the label

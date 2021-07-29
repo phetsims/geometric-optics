@@ -59,7 +59,6 @@ class TargetNode extends Node {
       targetImage.translation = new Vector2( viewBounds.minX, viewBounds.minY );
     };
 
-
     /**
      * update the visibility of the image based on:
      * is the image virtual?

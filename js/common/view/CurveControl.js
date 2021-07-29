@@ -1,6 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-
 /**
  * Controls the value of the curve property to determine the shape of the optic displayed in play area
  *

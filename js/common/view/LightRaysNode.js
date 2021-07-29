@@ -4,11 +4,11 @@
  * @author Martin Veillette
  */
 
+import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import merge from '../../../../phet-core/js/merge.js';
 
 class LightRaysNode extends Node {
 
@@ -54,7 +54,6 @@ class LightRaysNode extends Node {
 
     visibleVirtualImageProperty.linkAttribute( virtualRayPath, 'visible' );
   }
-
 }
 
 geometricOptics.register( 'LightRaysNode', LightRaysNode );
