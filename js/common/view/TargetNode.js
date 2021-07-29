@@ -73,7 +73,7 @@ class TargetNode extends Node {
         targetImage.visible = ( ( isVirtual ) ? showVirtualImage : true ) && enableImage;
       } );
 
-    // update position and visibility when model bounds change
+    // update position and scale when model bounds change
     target.boundsProperty.link( () => {
       updateScaleAndPosition();
     } );
