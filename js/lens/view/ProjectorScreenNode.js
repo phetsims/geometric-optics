@@ -60,7 +60,7 @@ class ProjectorScreenNode extends Node {
     // @private {Property.<Vector2} create a property for the left top position of the projectorScreen target
     this.imagePositionProperty = new Vector2Property( projectorScreen.positionProperty.value.plus( offset ) );
 
-    // TODO: the model should give its size to the view rather than the other way around.
+    // TODO: the model should give its size to the view rather than the other way around (see #153)
     // determine the size of the projector in model coordinates
     const modelChildHeight = Math.abs( modelViewTransform.viewToModelDeltaY( this.height ) );
     const modelChildWidth = modelViewTransform.viewToModelDeltaX( this.width );
