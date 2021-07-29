@@ -38,8 +38,10 @@ class Spotlight {
     // @private
     this.getScreenShape = getScreenShape;
 
+    // @private
     this.optic = optic;
 
+    // @private
     this.sourcePositionProperty = sourcePositionProperty;
 
     // determine the intersection of the screen and spotlight
@@ -78,9 +80,10 @@ class Spotlight {
   getRatio( screenPosition, opticPosition, targetPosition ) {
     const targetOpticDistance = ( targetPosition.x - opticPosition.x );
 
+    // avoid division by zero
     if ( targetOpticDistance === 0 ) {
 
-      // a really large number to prevent infinity
+      // a really large number, technically should be infinity
       return 10e6;
     }
     else {
@@ -89,6 +92,7 @@ class Spotlight {
   }
 
   /**
+   * Get the physical parameters (center position and radii) for the spotlight
    * @private
    * @param {Vector2} screenPosition
    * @param {Vector2} opticPosition
@@ -98,14 +102,19 @@ class Spotlight {
    */
   getDiskParameters( screenPosition, opticPosition, opticDiameter, targetPosition ) {
 
+    // get the extremum points on the optic
     const extremumTopOpticPoint = this.optic.getExtremumPoint( this.sourcePositionProperty.value, targetPosition, { location: Optic.Location.TOP } );
     const extremumBottomOpticPoint = this.optic.getExtremumPoint( this.sourcePositionProperty.value, targetPosition, { location: Optic.Location.BOTTOM } );
 
+    // determine the top and bottom position of the unclipped disk
     const diskTopPosition = this.getIntersectPosition( screenPosition, extremumTopOpticPoint, targetPosition );
     const diskBottomPosition = this.getIntersectPosition( screenPosition, extremumBottomOpticPoint, targetPosition );
 
+    // determine the position and y radius of the disk
     const diskCenterPosition = diskTopPosition.average( diskBottomPosition );
     const radiusY = diskTopPosition.distance( diskBottomPosition ) / 2;
+
+    // arbitrarily set the aspect ratio ot 1/2 to give 3D perspective
     const radiusX = radiusY / 2;
 
     return {
@@ -154,6 +163,8 @@ class Spotlight {
   }
 
   /**
+   * get the shape that result from the intersection of the disk and screen projector
+   *
    * @private
    * @param {Vector2} screenPosition
    * @param {Vector2} opticPosition
@@ -205,12 +216,14 @@ class Spotlight {
     // get the height of spotlight
     const spotlightHeight = 2 * radiusY;
 
+    // avoid division by zero
     if ( spotlightHeight === 0 ) {
-      // maximum intensity
 
+      // maximum intensity
       return 1;
     }
     else {
+
       // intensity saturates to 1 for a spotlight height less than FULL_BRIGHT_SPOT_HEIGHT
       return Math.min( 1, FULL_BRIGHT_SPOT_HEIGHT / spotlightHeight );
     }
