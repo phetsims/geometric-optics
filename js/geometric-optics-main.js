@@ -15,7 +15,7 @@ import MirrorScreen from './mirror/MirrorScreen.js';
 
 const simOptions = {
 
-  //TODO fill in credits, all of these fields are optional, see joist.CreditsNode
+  //TODO fill in credits, all of these fields are optional, see joist.CreditsNode see #146
   credits: {
     leadDesign: 'Amy Rouinfar',
     softwareDevelopment: 'Sarah Chang, Martin Veillette',

@@ -37,15 +37,14 @@ class LensScreenView extends GeometricOpticsScreenView {
     const firstTopGuideNode = new GuideNode( model.firstTopGuide, visibleFirstGuidesProperty, this.modelViewTransform );
     const firstBottomGuideNode = new GuideNode( model.firstBottomGuide, visibleFirstGuidesProperty, this.modelViewTransform );
 
-    // TODO: find a more robust way to insert nodes in relation to other nodes in the play area
-    this.playAreaNode.insertChild( 7, firstBottomGuideNode );
-    this.playAreaNode.insertChild( 8, firstTopGuideNode );
+    this.playAreaNode.addChild( firstBottomGuideNode );
+    this.playAreaNode.addChild( firstTopGuideNode );
 
     // create and add top and bottom guides associated with the second source
     const secondTopGuideNode = new GuideNode( model.secondTopGuide, visibleSecondGuidesProperty, this.modelViewTransform );
     const secondBottomGuideNode = new GuideNode( model.secondBottomGuide, visibleSecondGuidesProperty, this.modelViewTransform );
-    this.playAreaNode.insertChild( 9, secondBottomGuideNode );
-    this.playAreaNode.insertChild( 10, secondTopGuideNode );
+    this.playAreaNode.addChild( secondBottomGuideNode );
+    this.playAreaNode.addChild( secondTopGuideNode );
 
     // create projector screen associated with light source
     // @private {ProjectorScreenNode}

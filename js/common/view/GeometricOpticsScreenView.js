@@ -234,9 +234,6 @@ class GeometricOpticsScreenView extends ScreenView {
       // offset of the play areaNode such that the origin point remains fixed through zoom
       const translateVector = ORIGIN_POINT.times( 1 / relativeScale - 1 );
 
-      // TODO: works, but this is a very clumsy way to scale.
-      // TODO: combine the two Node transformations
-
       // scale and translate the playArea
       this.playAreaNode.scale( relativeScale );
       this.playAreaNode.translate( translateVector );
