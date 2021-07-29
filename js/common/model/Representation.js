@@ -68,6 +68,7 @@ class RepresentationGenerator {
       source: null
     }, options );
 
+    //@public (read-only)
     this.logo = logo;
     this.rightFacingUpright = rightFacingUpright;
     this.rightFacingInverted = rightFacingInverted;
