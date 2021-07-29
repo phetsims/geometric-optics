@@ -20,7 +20,7 @@ const LABEL_FONT = GeometricOpticsConstants.LABEL_FONT;
 class LabelNode extends Node {
 
   /**
-   * Create and add a label node
+   * Creates and add a label node
    *
    * @param {string} string
    * @param {Property.<Vector2>} positionProperty
@@ -84,7 +84,7 @@ class LabelNode extends Node {
   }
 
   /**
-   * Sets  a string for the label
+   * Sets a string for the label
    * @public
    * @param {string} label
    */
@@ -95,7 +95,7 @@ class LabelNode extends Node {
   }
 
   /**
-   * Sets  position and size of label
+   * Sets position and size of label
    * @private
    */
   setLabelPosition() {
@@ -103,7 +103,7 @@ class LabelNode extends Node {
   }
 
   /**
-   * Sets  rectangle size and position based on text size
+   * Sets rectangle size and position based on text size
    * @private
    */
   setRectangleSize() {

@@ -34,7 +34,7 @@ class Ray extends Ray2 {
   }
 
   /**
-   * Sets  the length of the ray
+   * Sets the length of the ray
    * @public
    * @param {number} length
    */

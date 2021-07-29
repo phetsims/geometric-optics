@@ -240,7 +240,7 @@ class LightRay {
   }
 
   /**
-   * Shape of the curved front (left hand side) of the lens
+   * Gets the shape of the curved front (left hand side) of the lens
    * @private
    * @param {Optic} optic
    * @returns {Shape}
@@ -253,7 +253,7 @@ class LightRay {
   }
 
   /**
-   * Shape of the curved back (right hand side) of the lens
+   * Gets the shape of the curved back (right hand side) of the lens
    * @private
    * @param {Optic} optic
    * @returns {Shape}
@@ -295,7 +295,7 @@ class LightRay {
   }
 
   /**
-   * Process a point from the intersection
+   * Processes a point from the intersection
    * returns null if the point cannot be found
    *
    * @private
@@ -374,7 +374,7 @@ class LightRay {
   }
 
   /**
-   * Sets  the final point of the real ray if it intersects with the vertical median of the projector
+   * Sets the final point of the real ray if it intersects with the vertical median of the projector
    * @private
    * @param {Ray[]} realRays
    * @param {Shape} projectorScreenBisectorLine
@@ -411,7 +411,7 @@ class LightRay {
   }
 
   /**
-   * Process all the rays (virtual and real) into shape lines.
+   * Processes all the rays (virtual and real) into shape lines.
    * @private
    * @param {number} distanceTraveled
    *
@@ -454,7 +454,7 @@ class LightRay {
   }
 
   /**
-   * Update the shape of the lightray (be it virtual or real)  based on a model ray
+   * Updates the shape of the lightray (be it virtual or real)  based on a model ray
    * @private
    *
    * @param {Shape} shape

@@ -210,7 +210,7 @@ class LightRays {
   }
 
   /**
-   * Add a light ray shape (typeRayShape) to the shape associated with the bundle of ray (rayShape)
+   * Adds a light ray shape (typeRayShape) to the shape associated with the bundle of ray (rayShape)
    * @private
    * @param {Shape} rayShape
    * @param {Shape} typeRayShape

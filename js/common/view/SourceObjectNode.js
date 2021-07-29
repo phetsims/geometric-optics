@@ -212,7 +212,7 @@ class SourceObjectNode extends Node {
   }
 
   /**
-   * Create an icon for the second source
+   * Creates an icon for the second source
    * @public
    * @param {Object} [options]
    * @returns {Node}

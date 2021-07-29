@@ -171,7 +171,7 @@ class GeometricOpticsRulerNode extends RulerNode {
   }
 
   /**
-   * Sets  the orientation of the ruler
+   * Sets the orientation of the ruler
    * @public
    */
   setOrientation() {
@@ -183,7 +183,7 @@ class GeometricOpticsRulerNode extends RulerNode {
   }
 
   /**
-   * Sets  the position of the ruler
+   * Sets the position of the ruler
    * @public
    */
   setPosition() {
@@ -211,7 +211,7 @@ class GeometricOpticsRulerNode extends RulerNode {
   }
 
   /**
-   * Update toolbox panel bounds
+   * Updates toolbox panel bounds
    *
    * @public
    * @param {Bounds2} bounds

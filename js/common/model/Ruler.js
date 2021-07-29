@@ -46,7 +46,7 @@ class Ruler {
   }
 
   /**
-   * Sets  the length of the ruler based on multiplicative factor of absoluteScale
+   * Sets the length of the ruler based on multiplicative factor of absoluteScale
    * @public
    * @param {number} absoluteScale
    */

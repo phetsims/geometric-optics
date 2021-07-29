@@ -113,7 +113,7 @@ class SourceObject {
   }
 
   /**
-   * Sets  the second source point
+   * Sets the second source point
    * @param {Property.<Representation>} representationProperty
    * @param {Vector2} position
    * @public

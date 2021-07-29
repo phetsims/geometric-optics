@@ -104,7 +104,7 @@ class GeometricOpticRulersLayer extends Node {
   }
 
   /**
-   * Sets  the panel bounds of the toolbox
+   * Sets the panel bounds of the toolbox
    * @public
    * @param {Bounds2} bounds
    */

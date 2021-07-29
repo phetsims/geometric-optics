@@ -23,7 +23,7 @@ class MirrorScreenView extends GeometricOpticsScreenView {
   }
 
   /**
-   * Reset the view.
+   * Resets the view.
    * @public
    */
   reset() {
