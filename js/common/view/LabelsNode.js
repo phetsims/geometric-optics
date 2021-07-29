@@ -17,6 +17,7 @@ import LabelNode from './LabelNode.js';
 
 const objectString = geometricOpticsStrings.object;
 const imageString = geometricOpticsStrings.image;
+const virtualImageString = geometricOpticsStrings.virtualImage;
 const focalPointString = geometricOpticsStrings.focalPoint;
 const convexLensString = geometricOpticsStrings.convexLens;
 const concaveLensString = geometricOpticsStrings.concaveLens;
@@ -90,8 +91,11 @@ class LabelsNode extends Node {
     const imageLabelPositionProperty = new DerivedProperty( [ model.firstTarget.boundsProperty ],
       bounds => bounds.centerTop );
 
+    // find appropriate string for image label
+    const imageLabelString = model.firstTarget.isVirtual() ? virtualImageString : imageString;
+
     // create image label
-    const imageLabel = new LabelNode( imageString,
+    const imageLabel = new LabelNode( imageLabelString,
       imageLabelPositionProperty,
       new BooleanProperty( true ),
       modelViewTransformProperty );
@@ -115,16 +119,24 @@ class LabelsNode extends Node {
         model.firstTarget.isVirtualProperty,
         visibleProperties.visibleVirtualImageProperty ],
       ( representation, isEnabled, isVirtual, showVirtual ) => {
+
+        // label is visible if the representation is an object
         objectLabel.visible = representation.isObject;
+
+        // label is visible if (1) the image is enabled, (2) the representation is an object
+        // (3) if the image is virtual and the checkbox is virtual is on  (but on if real)
         imageLabel.visible = isEnabled && ( isVirtual ? showVirtual : true ) && representation.isObject;
+
+        // update the text of the image appropriately
+        imageLabel.setText( isVirtual ? virtualImageString : imageString );
       } );
 
     // add the labels to this node
-    this.addChild( objectLabel );
-    this.addChild( imageLabel );
-    this.addChild( opticLabel );
     this.addChild( firstFocalPointLabel );
     this.addChild( secondFocalPointLabel );
+    this.addChild( opticLabel );
+    this.addChild( objectLabel );
+    this.addChild( imageLabel );
 
     // update the visibility of the labels
     visibleProperties.visibleLabelsProperty.linkAttribute( this, 'visible' );
