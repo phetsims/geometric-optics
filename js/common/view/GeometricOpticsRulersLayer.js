@@ -16,6 +16,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
 
 class GeometricOpticRulersLayer extends Node {
+
   /**
    * @param {horizontal: Ruler, vertical:Ruler} rulers - model of rulers
    * @param {Property.<Bounds2>} visibleBoundsProperty

@@ -16,6 +16,7 @@ import Panel from '../../../../sun/js/Panel.js';
 import geometricOptics from '../../geometricOptics.js';
 
 class ToolboxPanel extends Panel {
+
   /**
    * @param {GeometricOpticRulersLayer} rulersLayer
    * @param {Tandem} tandem

@@ -24,6 +24,7 @@ const convexMirrorString = geometricOpticsStrings.convexMirror;
 const concaveMirrorString = geometricOpticsStrings.concaveMirror;
 
 class LabelsNode extends Node {
+
   /**
    * @param {GeometricOpticsModel} model
    * @param {GeometricOpticsScreenView} view

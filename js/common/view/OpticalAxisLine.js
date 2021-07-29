@@ -15,6 +15,7 @@ const LINE_WIDTH = GeometricOpticsConstants.OPTICAL_AXIS_LINE_WIDTH;
 const STROKE = GeometricOpticsColors.opticalAxisStrokeProperty;
 
 class OpticalAxisLine extends Line {
+
   /**
    * @param {Property.<Vector2>} opticPositionProperty
    * @param {Property.<Bounds2>} visibleModelBoundsProperty

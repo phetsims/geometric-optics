@@ -18,7 +18,8 @@ import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 const BUTTON_RADIUS = GeometricOpticsConstants.BUTTON_RADIUS;
 
 class ShowHideToggleButton extends BooleanRoundToggleButton {
-  /***
+
+  /**
    * @param {Property.<boolean>} visibleProperty
    * @param {Object} [options]
    */

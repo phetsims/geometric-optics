@@ -18,6 +18,7 @@ const BACKGROUND_COLOR = GeometricOpticsColors.labelBackgroundFillProperty;
 const LABEL_FONT = GeometricOpticsConstants.LABEL_FONT;
 
 class LabelNode extends Node {
+
   /**
    * Create and add a label node
    *

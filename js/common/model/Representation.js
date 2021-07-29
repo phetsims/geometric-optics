@@ -37,6 +37,7 @@ const lightString = geometricOpticsStrings.light;
 const treeString = geometricOpticsStrings.tree;
 
 class RepresentationGenerator {
+
   /**
    * Generator of representation
    * @param {HTMLImageElement} logo
