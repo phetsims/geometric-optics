@@ -17,10 +17,10 @@ const simOptions = {
 
   //TODO fill in credits, all of these fields are optional, see joist.CreditsNode
   credits: {
-    leadDesign: '',
-    softwareDevelopment: '',
-    team: '',
-    qualityAssurance: '',
+    leadDesign: 'Amy Rouinfar',
+    softwareDevelopment: 'Sarah Chang, Martin Veillette',
+    team: 'Kathy Perkins',
+    qualityAssurance: 'Kathryn Woessner',
     graphicArts: '',
     soundDesign: '',
     thanks: ''
