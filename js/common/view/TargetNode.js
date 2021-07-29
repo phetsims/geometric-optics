@@ -8,6 +8,7 @@
  * @author Martin Veillette
  */
 
+import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -39,7 +40,6 @@ class TargetNode extends Node {
     // creates the target image - the actual image will be updated later
     const targetImage = new Image( target.imageProperty.value );
 
-
     /**
      * update the size as well as the position of the target image.
      */
@@ -61,43 +61,21 @@ class TargetNode extends Node {
 
 
     /**
-     * update the visibility of this node based on:
+     * update the visibility of the image based on:
      * is the image virtual?
-     * is the checkbox show virtual is on?
+     * is the checkbox show virtual on?
      * has the image been targeted by the rays?
-     * is the object to optic distance positive ?
      */
-    const updateVisibility = () => {
+    Property.multilink(
+      [ target.isVirtualProperty, visibleVirtualImageProperty, enableImageProperty ],
+      ( isVirtual, showVirtualImage, enableImage ) => {
 
-      // {boolean} state of the virtual image checkbox
-      const showVirtualImage = visibleVirtualImageProperty.value;
-
-      const isObjectDistancePositive = target.isObjectOpticDistancePositive();
-      targetImage.visible = ( ( target.isVirtual() ) ? showVirtualImage : true )
-                            && isObjectDistancePositive
-                            && enableImageProperty.value;
-    };
+        targetImage.visible = ( ( isVirtual ) ? showVirtualImage : true ) && enableImage;
+      } );
 
     // update position and visibility when model bounds change
     target.boundsProperty.link( () => {
       updateScaleAndPosition();
-      updateVisibility();
-    } );
-
-    // update position and visibility when the curve type is changed
-    optic.curveProperty.link( () => {
-      updateScaleAndPosition();
-      updateVisibility();
-    } );
-
-    // update position and visibility when the curve type is changed
-    target.isVirtualProperty.link( () => {
-      updateVisibility();
-    } );
-
-    // updates the visibility of the image based on the checkbox toggle
-    visibleVirtualImageProperty.link( () => {
-      updateVisibility();
     } );
 
     // update the opacity of the image
@@ -105,19 +83,17 @@ class TargetNode extends Node {
       targetImage.opacity = intensity;
     } );
 
-    // update visibility after rays reached target
-    enableImageProperty.link( () => {
-      updateVisibility();
-    } );
-
     // update the image and its visibility
     target.imageProperty.link( image => {
 
-      // make this entire node invisible if the representation is not an object.
-      this.visible = representationProperty.value.isObject;
+      // is the representation an object
+      const isObject = representationProperty.value.isObject;
+
+      // make this entire node visible only if the representation is an object.
+      this.visible = isObject;
 
       // update the representation if it is an object
-      if ( representationProperty.value.isObject ) {
+      if ( isObject ) {
 
         // update the image
         targetImage.image = image;
