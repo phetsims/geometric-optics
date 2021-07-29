@@ -12,8 +12,8 @@ import merge from '../../../../phet-core/js/merge.js';
 import geometricOptics from '../../geometricOptics.js';
 
 class Guide {
+
   /**
-   *
    * @param {Property.<Vector2>} objectPositionProperty
    * @param {Optic} optic
    * @param {Object} [options]

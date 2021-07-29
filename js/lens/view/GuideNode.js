@@ -20,7 +20,6 @@ const GUIDE_RECTANGLE_HEIGHT = GeometricOpticsConstants.GUIDE_RECTANGLE_HEIGHT;
 class GuideNode extends Node {
 
   /**
-   *
    * @param {Guide} guide
    * @param {Property.<boolean>} visibleProperty
    * @param {ModelViewTransform2} modelViewTransform

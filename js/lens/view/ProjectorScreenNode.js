@@ -81,7 +81,7 @@ class ProjectorScreenNode extends Node {
       transform: modelViewTransform
     } );
 
-    // always keep projector screen in visible/drag bounds when visible bounds are changed
+    // always keep projector screen within playarea bounds when they are changed
     projectorScreenDragBoundsProperty.link( dragBounds => {
       this.imagePositionProperty.value = dragBounds.closestPointTo( this.imagePositionProperty.value );
     } );
@@ -113,16 +113,17 @@ class ProjectorScreenNode extends Node {
       const spotlightNode = new Path( new Shape( spotlight.shapeProperty.value ),
         { fill: SPOTLIGHT_FILL } );
 
-      // update the intensity of light to the opacity of the scenery node
+      // add listener to update the intensity of light to the opacity of the scenery node
       spotlight.intensityProperty.link( intensity => {
         spotlightNode.opacity = intensity;
       } );
 
-      // update the shape of the spotlight
+      // add listener to update the shape of the spotlight
       spotlight.shapeProperty.link( shape => {
         spotlightNode.shape = modelViewTransform.modelToViewShape( shape );
       } );
 
+      // add listener to update the visibility of the spotlight
       visibleProperty.linkAttribute( spotlightNode, 'visible' );
 
       // add the spotlight to this node
