@@ -10,7 +10,6 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
-import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -19,7 +18,7 @@ import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
 const DEFAULT_SOURCE_POINT_1 = GeometricOpticsConstants.DEFAULT_SOURCE_POINT_1;
 const DEFAULT_SOURCE_POINT_2 = GeometricOpticsConstants.DEFAULT_SOURCE_POINT_2;
-const verticalOffsetRange = new RangeWithValue( -50, 0, -30 ); // in centimeters
+const SECOND_OBJECT_VERTICAL_RANGE = GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE;
 const OBJECT_SCALE_FACTOR = 4;
 const SOURCE_SCALE_FACTOR = 2;
 
@@ -60,7 +59,8 @@ class SourceObject {
     this.unconstrainedSecondSourcePositionProperty = new Vector2Property( DEFAULT_SOURCE_POINT_2 );
 
     // @private {Property.<number>} vertical offset (in centimeters) of second object with respect to the first
-    this.verticalOffsetProperty = new NumberProperty( verticalOffsetRange.defaultValue );
+    this.verticalOffsetProperty = new NumberProperty( SECOND_OBJECT_VERTICAL_RANGE.defaultValue,
+      { range: SECOND_OBJECT_VERTICAL_RANGE } );
 
     // @public (read-only) {Vector2} initial position of the optic
     this.opticPositionProperty = opticPositionProperty;
@@ -122,8 +122,8 @@ class SourceObject {
     if ( representationProperty.value.isObject ) {
       const unconstrainedVerticalOffset = position.y - this.firstPositionProperty.value.y;
       this.verticalOffsetProperty.value = Utils.clamp( unconstrainedVerticalOffset,
-        verticalOffsetRange.min,
-        verticalOffsetRange.max );
+        SECOND_OBJECT_VERTICAL_RANGE.min,
+        SECOND_OBJECT_VERTICAL_RANGE.max );
     }
     else {
       this.unconstrainedSecondSourcePositionProperty.value = position;

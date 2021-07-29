@@ -21,8 +21,9 @@ const GeometricOpticsConstants = {
   SCREEN_VIEW_X_MARGIN: 15, // margin along horizontal axis of screen (in view coordinates)
   SCREEN_VIEW_Y_MARGIN: 15, // margin along vertical axis of screen
 
-  DEFAULT_SOURCE_POINT_1: new Vector2( -150, 0.0 ), // centimeters
+  DEFAULT_SOURCE_POINT_1: new Vector2( -190, 30 ), // centimeters
   DEFAULT_SOURCE_POINT_2: new Vector2( -150, -20 ), // centimeters
+  SECOND_OBJECT_VERTICAL_RANGE: new RangeWithValue( -55, 0, -52 ), // in centimeters
 
   ZOOM_RANGE: new RangeWithValue( 1, 3, 3 ),
   ZOOM_SCALE_FACTOR: 2, // should not be changed to keep major tick labels as multiples of 10
@@ -66,12 +67,6 @@ const GeometricOpticsConstants = {
   //                           OPTICAL AXIS
 
   OPTICAL_AXIS_LINE_WIDTH: 2,
-
-  //----------------------------------------------------------------------------------------
-  //                             OBJECT VIEW
-
-  OBJECT_SIZE: new Dimension2( 15, 3 ), // in centimeters
-  OBJECT_ANCHOR_VECTOR: new Vector2( 16, -19 ), // in centimeters, displacement vector between top left image and anchor
 
   //----------------------------------------------------------------------------------------
   //                              RAYS
