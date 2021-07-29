@@ -7,7 +7,6 @@
  */
 
 import Matrix3 from '../../../../dot/js/Matrix3.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Line from '../../../../kite/js/segments/Line.js';
 import Shape from '../../../../kite/js/Shape.js';
@@ -17,6 +16,7 @@ import geometricOptics from '../../geometricOptics.js';
 import Spotlight from './Spotlight.js';
 
 const MASK_CORNERS = GeometricOpticsConstants.MASK_CORNERS;
+const INITIAL_POSITION = GeometricOpticsConstants.PROJECTOR_INITIAL_POSITION;
 
 class ProjectorScreen {
 
@@ -37,7 +37,7 @@ class ProjectorScreen {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     // @public {Property.<Vector2>} position of the center of the screen
-    this.positionProperty = new Vector2Property( new Vector2( 200, 0 ) );
+    this.positionProperty = new Vector2Property( INITIAL_POSITION );
 
     // @public (read-only) {Property.<Vector2>} position of the optic
     this.opticPositionProperty = optic.positionProperty;

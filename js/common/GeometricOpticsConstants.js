@@ -99,12 +99,14 @@ const GeometricOpticsConstants = {
   //                             PROJECTION SCREEN
 
   MASK_CORNERS: {
-    LEFT_TOP: new Vector2( -25, 33 ), // centimeters
-    LEFT_BOTTOM: new Vector2( -25, -56 ),
-    RIGHT_BOTTOM: new Vector2( 25, -88 ),
-    RIGHT_TOP: new Vector2( 25, 67 )
+    LEFT_TOP: new Vector2( -28, 39 ), // centimeters
+    LEFT_BOTTOM: new Vector2( -28, -51 ),
+    RIGHT_BOTTOM: new Vector2( 25, -83 ),
+    RIGHT_TOP: new Vector2( 25, 72 )
   },
 
+  PROJECTOR_INITIAL_POSITION: new Vector2( 200, 0 ),
+  PROJECTOR_SCALE: 0.5, // scaling factor applied to the projector screen image
   FULL_BRIGHT_SPOT_HEIGHT: 7, // centimeters
 
   //----------------------------------------------------------------------------------------

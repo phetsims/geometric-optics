@@ -18,9 +18,11 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import projectorScreen3dImage from '../../../images/projector-screen-3d_png.js';
 import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
+import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import geometricOptics from '../../geometricOptics.js';
 
 const SPOTLIGHT_FILL = GeometricOpticsColors.projectorScreenSpotlightFillProperty;
+const PROJECTOR_SCALE = GeometricOpticsConstants.PROJECTOR_SCALE;
 
 class ProjectorScreenNode extends Node {
 
@@ -49,24 +51,25 @@ class ProjectorScreenNode extends Node {
     super( options );
 
     // create projectorScreen target
-    const projectorScreenImage = new Image( projectorScreen3dImage, { scale: 0.5 } );
+    const projectorScreenImage = new Image( projectorScreen3dImage, { scale: PROJECTOR_SCALE } );
 
     // add projectorScreen image to scene graph
     this.addChild( projectorScreenImage );
 
-    // difference between the left top position of the image and the "center" of the blackboard
-    const offset = new Vector2( -30, 75 );
+    // TODO: the model should give its size to the view rather than the other way around (see #153)
+    // determine the size of the projector in model coordinates
+    const modelChildHeight = Math.abs( modelViewTransform.viewToModelDeltaY( projectorScreenImage.height ) );
+    const modelChildWidth = modelViewTransform.viewToModelDeltaX( projectorScreenImage.width );
+
+    // difference between the left top position of the image and the "center" of the blackboard in model coordinates
+    const offset = new Vector2( -modelChildWidth, modelChildHeight ).divideScalar( 2 );
 
     // @private {Property.<Vector2} create a property for the left top position of the projectorScreen target
     this.imagePositionProperty = new Vector2Property( projectorScreen.positionProperty.value.plus( offset ) );
 
-    // TODO: the model should give its size to the view rather than the other way around (see #153)
-    // determine the size of the projector in model coordinates
-    const modelChildHeight = Math.abs( modelViewTransform.viewToModelDeltaY( this.height ) );
-    const modelChildWidth = modelViewTransform.viewToModelDeltaX( this.width );
-
     // keep at least half of the projector screen within visible bounds and right of the optic
-    const projectorScreenDragBoundsProperty = new DerivedProperty( [ visibleModelBoundsProperty, projectorScreen.opticPositionProperty ],
+    const projectorScreenDragBoundsProperty = new DerivedProperty(
+      [ visibleModelBoundsProperty, projectorScreen.opticPositionProperty ],
       ( visibleBounds, opticPosition ) => {
         return new Bounds2( opticPosition.x,
           visibleBounds.minY + modelChildHeight / 2,
