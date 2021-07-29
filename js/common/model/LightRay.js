@@ -381,7 +381,7 @@ class LightRay {
    */
   setFinalPointProjectorScreen( realRays, projectorScreenBisectorLine ) {
 
-    //ensure that real rays has at least one ray
+    // ensure that real rays has at least one ray
     if ( realRays.length > 0 ) {
 
       // the projector screen can only intersect with the last ray

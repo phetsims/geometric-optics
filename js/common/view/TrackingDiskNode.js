@@ -35,7 +35,7 @@ class TrackingDiskNode extends Circle {
 
     super( options.radius, options );
 
-    //update position of disk
+    // update position of disk
     positionProperty.link( position => {
       this.center = modelViewTransform.modelToViewPosition( position );
     } );

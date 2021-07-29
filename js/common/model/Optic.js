@@ -608,7 +608,7 @@ class Optic {
 
 Optic.Type = Enumeration.byKeys( [
   'LENS', // lens
-  'MIRROR' //mirror
+  'MIRROR' // mirror
 ] );
 
 Optic.Curve = Enumeration.byKeys( [
