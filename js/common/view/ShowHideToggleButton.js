@@ -1,8 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Round eye toggle button that shows/hides the light rays and image. When on 'show', button is an open eye. On 'hide', button is
- * a closed eye.
+ * Round eye toggle button that shows/hides the light rays and image. When on 'show', button is an open eye. On 'hide',
+ * button is a closed eye.
  *
  * @author Sarah Chang (Swarthmore College)
  */

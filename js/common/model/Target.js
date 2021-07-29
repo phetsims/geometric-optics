@@ -105,8 +105,8 @@ class Target {
         this.isInvertedProperty ],
       ( position, representation, scale ) => {
 
-        // @public {Vector2} displacement vector from the firstPosition to the left top - value depends on representation
-        // values are in centimeters
+        // @public {Vector2} displacement vector from the firstPosition to the left top - value depends on
+        // representation values are in centimeters
         const initialOffsetPosition = representation.offsetPosition.timesScalar( 1 / OBJECT_SCALE_FACTOR );
         const initialWidth = representation.dimensions.width / OBJECT_SCALE_FACTOR;
         const initialHeight = representation.dimensions.height / OBJECT_SCALE_FACTOR;

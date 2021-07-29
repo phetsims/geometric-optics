@@ -47,7 +47,8 @@ class Optic {
     // @public {Property.<Vector2>} Position of the optical element
     this.positionProperty = new Vector2Property( position );
 
-    // @public {Property.<number>} Radius of curvature of the optical element - The convention is positive as converging.
+    // @public {Property.<number>} Radius of curvature of the optical element - The convention is positive as
+    // converging.
     this.radiusOfCurvatureProperty = new NumberProperty( radiusOfCurvatureRange.defaultValue,
       { range: radiusOfCurvatureRange } );
 
@@ -190,8 +191,8 @@ class Optic {
    *
    * The lens shape is approximated as a parabolic lens.
    * The radius of curvature of the lens does necessarily match the value of radius and can be instead "hollywooded".
-   * This gives the flexibility to draw lenses with radius of curvature that is larger than diameter/2, a physical impossibility.
-   * The center point of the lens is '0,0'
+   * This gives the flexibility to draw lenses with radius of curvature that is larger than diameter/2, a physical
+   * impossibility. The center point of the lens is '0,0'
    *
    * @param {number} radius - radius of curvature
    * @param {number} diameter - height of the lens

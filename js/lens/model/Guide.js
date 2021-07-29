@@ -33,22 +33,24 @@ class Guide {
         return opticPosition.plusXY( 0, locationSign * opticDiameter / 2 );
       } );
 
-    // @public (read-only) {Property.<number>} angle of rotation of the incident guide with respect to the positive x-axis
+    // @public (read-only) {Property.<number>} angle of rotation of the incident guide with respect to the positive
+    // x-axis
     this.incidentAngleProperty = new DerivedProperty( [ objectPositionProperty, this.fulcrumPositionProperty ],
       ( objectPosition, fulcrumPosition ) => {
         const displacementVector = objectPosition.minus( fulcrumPosition );
         return displacementVector.getAngle();
       } );
 
-    // @public (read-only) {Property.<number>} find the angle of the transmitted guide with respect to the positive x-axis
+    // @public (read-only) {Property.<number>} find the angle of the transmitted guide with respect to the positive
+    // x-axis
     this.transmittedAngleProperty = new DerivedProperty( [ optic.focalLengthProperty, optic.diameterProperty, this.incidentAngleProperty ],
       ( focalLength, diameter, incidentAngle ) => {
 
         // transmitted angle if the optic was a blank.
         const throughAngle = incidentAngle + Math.PI;
 
-        // ground truth for the deflection angle is determined such that the transmitted guide is perfectly aligned with rays
-        // when the object is at a distance 2f on the optical axis.
+        // ground truth for the deflection angle is determined such that the transmitted guide is perfectly aligned
+        // with rays when the object is at a distance 2f on the optical axis.
 
         // ratio of opposite side (diameter/2) over adjacent side (2*focalLength)
         const toa = diameter / ( 4 * focalLength );

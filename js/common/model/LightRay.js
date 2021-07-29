@@ -436,7 +436,8 @@ class LightRay {
       // update the real shape based on the traveling distance of the ray being processed
       this.updateShape( this.realShape, currentRay, realRayDistance );
 
-      // wait to process virtual ray until the virtual starting point matches the starting point of the ray being processed
+      // wait to process virtual ray until the virtual starting point matches the starting point of the ray being
+      // processed
       if ( this.virtualRay instanceof Ray && this.virtualRay.position === currentRay.position ) {
 
         // determine the distance of the virtual ray
