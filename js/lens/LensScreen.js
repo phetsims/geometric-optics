@@ -23,11 +23,13 @@ class LensScreen extends Screen {
 
     // create icon for lens
     const iconNode = CurveControl.createIconNode(
-      20,
-      30,
       Optic.Curve.CONVEX,
       Optic.Type.LENS,
-      { outline: { stroke: 'black' } } );
+      {
+        radius: 20,
+        diameter: 30,
+        outline: { stroke: 'black' }
+      } );
 
     const options = {
 

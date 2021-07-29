@@ -23,11 +23,13 @@ class MirrorScreen extends Screen {
 
     // create icon for mirror
     const iconNode = CurveControl.createIconNode(
-      20,
-      30,
       Optic.Curve.CONCAVE,
       Optic.Type.MIRROR,
-      { outline: { stroke: 'black' } } );
+      {
+        radius: 20,
+        diameter: 30,
+        outline: { stroke: 'black' }
+      } );
 
     const options = {
       name: geometricOpticsStrings.screen.mirror,

@@ -48,7 +48,7 @@ class CurveControl extends RectangularRadioButtonGroup {
     const buttonItems = Optic.Curve.VALUES.map( curve => {
       return {
         value: curve,
-        node: CurveControl.createIconNode( RADIUS_OF_CURVATURE, DIAMETER, curve, optic.type, {
+        node: CurveControl.createIconNode( curve, optic.type, {
           buttonContentXMargin: options.buttonContentXMargin,
           buttonContentYMargin: options.buttonContentYMargin
         } )
@@ -71,18 +71,18 @@ class CurveControl extends RectangularRadioButtonGroup {
   /**
    * Creates centered icon representation of convex/concave, lens/mirror.
    *
-   * @param {number} radius - radius of curvature
-   * @param {number} diameter - height of the optic
    * @param {Optic.Curve} curve - the curve can be convex or concave
-   * @param {Optic.Type} type - the type can be lens or  mirror
+   * @param {Optic.Type} type - the type can be lens or mirror
    * @param {Object} [options] - see options below
    * @returns {Node}
    * @public
    */
-  static createIconNode( radius, diameter, curve, type, options ) {
+  static createIconNode( curve, type, options ) {
 
     options = merge(
       {
+        radius: RADIUS_OF_CURVATURE, // radius of curvature
+        diameter: DIAMETER, // height of the optic
         thickness: THICKNESS, // thickness of the backing of the mirror
         isHollywood: false, // is the curvature radius an accurate description of shape
         form: { fill: FILL }, /// options for the form of the icon
@@ -95,8 +95,8 @@ class CurveControl extends RectangularRadioButtonGroup {
 
     // get appropriate icon shapes
     const iconShapes = ( type === Optic.Type.LENS ) ?
-                       Optic.getLensShapes( radius, diameter, curve, options ) :
-                       Optic.getMirrorShapes( radius, diameter, curve, options );
+                       Optic.getLensShapes( options.radius, options.diameter, curve, options ) :
+                       Optic.getMirrorShapes( options.radius, options.diameter, curve, options );
 
     // create node to layout the paths for the icon
     const iconNode = new Node();
