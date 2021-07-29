@@ -98,6 +98,7 @@ class LabelsNode extends Node {
 
     // define object label position
     const objectLabelPositionProperty = new DerivedProperty( [ model.sourceObject.boundsProperty ],
+
       // because the we use a Y inverted reference frame, the bottom of the image is the top of the model bounds.
       bounds => bounds.centerTop );
 
