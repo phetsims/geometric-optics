@@ -22,7 +22,7 @@ class VisibleProperties {
     this.visibleFocalPointProperty = new BooleanProperty( true );
 
     // @public {Property.<boolean>} control the visibility of the virtual image, when present
-    this.visibleVirtualImageProperty = new BooleanProperty( false );
+    this.visibleVirtualImageProperty = new BooleanProperty( true );
 
     // @public {Property.<boolean>} control the visibility of the second source
     this.visibleSecondSourceProperty = new BooleanProperty( false );
