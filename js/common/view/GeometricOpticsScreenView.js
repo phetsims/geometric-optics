@@ -10,7 +10,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
@@ -114,7 +113,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // create the control buttons to toggle between convex and concave optic at the left bottom
     const curveControl = new CurveControl( model.optic.curveProperty, model.optic );
-    curveControl.rightCenter = geometricOpticsControlPanel.leftCenter.minus( new Vector2( 20, 0 ) );
+    curveControl.rightCenter = geometricOpticsControlPanel.leftCenter.minusXY( 20, 0 );
 
     // create the combo box at the center top of the screen
     const comboBox = new RepresentationComboBox( model.representationProperty, tandem,
