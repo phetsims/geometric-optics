@@ -212,7 +212,7 @@ class SourceObjectNode extends Node {
   }
 
   /**
-   * create an icon for the second source
+   * Create an icon for the second source
    * @public
    * @param {Object} [options]
    * @returns {Node}
@@ -227,7 +227,7 @@ class SourceObjectNode extends Node {
   }
 
   /**
-   * reset this node
+   * Reset this node
    * @public
    */
   reset() {

@@ -125,7 +125,7 @@ class LightRays {
   }
 
   /**
-   * get the initial directions of the rays for the different light ray modes.
+   * Gets the initial directions of the rays for the different light ray modes.
    *
    * @private
    * @param {LightRayMode} lightRayMode
@@ -210,7 +210,7 @@ class LightRays {
   }
 
   /**
-   * add a light ray shape (typeRayShape) to the shape associated with the bundle of ray (rayShape)
+   * Add a light ray shape (typeRayShape) to the shape associated with the bundle of ray (rayShape)
    * @private
    * @param {Shape} rayShape
    * @param {Shape} typeRayShape

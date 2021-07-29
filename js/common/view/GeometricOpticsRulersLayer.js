@@ -104,7 +104,7 @@ class GeometricOpticRulersLayer extends Node {
   }
 
   /**
-   * set the panel bounds of the toolbox
+   * Sets  the panel bounds of the toolbox
    * @public
    * @param {Bounds2} bounds
    */
@@ -116,7 +116,7 @@ class GeometricOpticRulersLayer extends Node {
   }
 
   /**
-   * updates the panel bounds to each ruler
+   * Updates the panel bounds to each ruler
    * @public
    */
   assignToolboxPanelBounds() {
@@ -125,7 +125,7 @@ class GeometricOpticRulersLayer extends Node {
   }
 
   /**
-   * dispose function for the two ruler orientations
+   * Dispose function for the two ruler orientations
    * @public
    */
   disposeRulers() {

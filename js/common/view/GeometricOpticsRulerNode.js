@@ -162,7 +162,7 @@ class GeometricOpticsRulerNode extends RulerNode {
   }
 
   /**
-   * dispose of the listeners on this ruler
+   * Dispose of the listeners on this ruler
    * @public
    */
   dispose() {
@@ -171,7 +171,7 @@ class GeometricOpticsRulerNode extends RulerNode {
   }
 
   /**
-   * set the orientation of the ruler
+   * Sets  the orientation of the ruler
    * @public
    */
   setOrientation() {
@@ -183,7 +183,7 @@ class GeometricOpticsRulerNode extends RulerNode {
   }
 
   /**
-   * sets the position of the ruler
+   * Sets  the position of the ruler
    * @public
    */
   setPosition() {
@@ -211,7 +211,7 @@ class GeometricOpticsRulerNode extends RulerNode {
   }
 
   /**
-   * update toolbox panel bounds
+   * Update toolbox panel bounds
    *
    * @public
    * @param {Bounds2} bounds

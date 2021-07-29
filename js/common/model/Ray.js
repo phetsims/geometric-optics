@@ -34,7 +34,7 @@ class Ray extends Ray2 {
   }
 
   /**
-   * Set the length of the ray
+   * Sets  the length of the ray
    * @public
    * @param {number} length
    */
@@ -43,7 +43,7 @@ class Ray extends Ray2 {
   }
 
   /**
-   * convenience function that set the length of a ray by through the use of a final point
+   * Convenience function that set the length of a ray by through the use of a final point
    * @public
    * @param {Vector2} point
    */
@@ -53,7 +53,7 @@ class Ray extends Ray2 {
   }
 
   /**
-   * gets the length of the ray,
+   * Gets the length of the ray,
    * Note that the length may be Infinity
    * @public
    * @returns {number} length
@@ -63,7 +63,7 @@ class Ray extends Ray2 {
   }
 
   /**
-   * determines if the point is along the ray direction
+   * Determines if the point is along the ray direction
    *
    * @public
    * @param {Vector2} point
@@ -76,7 +76,7 @@ class Ray extends Ray2 {
   }
 
   /**
-   * get distance from origin to point (point may not lay along the direction of the ray)
+   * Gets distance from origin to point (point may not lay along the direction of the ray)
    * @public
    * @param {Vector2} point
    * @returns {number} distance

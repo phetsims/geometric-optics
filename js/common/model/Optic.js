@@ -322,7 +322,7 @@ class Optic {
   }
 
   /**
-   * sets the y position of the optical element while keeping the x-coordinate constant
+   * Sets the y position of the optical element while keeping the x-coordinate constant
    * @public
    * @param {number} yCoordinate
    */
@@ -451,7 +451,7 @@ class Optic {
   }
 
   /**
-   * returns a shape translated by the model position of the optic
+   * Returns a shape translated by the model position of the optic
    * @public
    * @param {Shape} shape
    * @returns {Shape}
@@ -461,7 +461,7 @@ class Optic {
   }
 
   /**
-   * get the bounds of the optically "active" component
+   * Gets the bounds of the optically "active" component
    * In practice, it means that we exclude the backing (fill) of the mirror
    * @public
    * @returns {Bounds2}
@@ -506,7 +506,7 @@ class Optic {
   }
 
   /**
-   * returns the most extreme position within the optic that would ensure that a ray would
+   * Returns the most extreme position within the optic that would ensure that a ray would
    * be transmitted  (or reflected).
    * (see #111)
    *

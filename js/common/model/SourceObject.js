@@ -113,7 +113,7 @@ class SourceObject {
   }
 
   /**
-   * Sets the second source point
+   * Sets  the second source point
    * @param {Property.<Representation>} representationProperty
    * @param {Vector2} position
    * @public
@@ -129,7 +129,7 @@ class SourceObject {
   }
 
   /**
-   * get the position of the optic
+   * Gets the position of the optic
    * @public
    * @returns {Vector2} position
    */

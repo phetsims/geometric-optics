@@ -174,7 +174,7 @@ class Target {
   }
 
   /**
-   * Return the scale of the image, i.e. the ratio of the height of the image over the object
+   * Returns the scale of the image, i.e. the ratio of the height of the image over the object
    * The scale will be negative if the image is inverted.
    * @public
    * @param {Vector2} objectPosition
@@ -259,7 +259,7 @@ class Target {
   }
 
   /**
-   * returns the position of the target point
+   * Returns the position of the target point
    * @param {Vector2} objectPosition
    * @param {Vector2} opticPosition
    * @param {number} focalLength
@@ -293,7 +293,7 @@ class Target {
   }
 
   /**
-   * is the image real
+   * Is the image real
    * @public
    * @returns {boolean}
    */

@@ -38,7 +38,7 @@ class Ruler {
   }
 
   /**
-   * resets the property of the model
+   * Resets the property of the model
    * @public
    */
   reset() {
@@ -46,7 +46,7 @@ class Ruler {
   }
 
   /**
-   * sets the length of the ruler based on multiplicative factor of absoluteScale
+   * Sets  the length of the ruler based on multiplicative factor of absoluteScale
    * @public
    * @param {number} absoluteScale
    */
@@ -55,7 +55,7 @@ class Ruler {
   }
 
   /**
-   * is the ruler horizontal
+   * Is the ruler horizontal
    * @public
    * @returns {boolean}
    */
@@ -64,7 +64,7 @@ class Ruler {
   }
 
   /**
-   * is the ruler vertical
+   * Is the ruler vertical
    * @public
    * @returns {boolean}
    */

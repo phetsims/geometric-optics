@@ -87,7 +87,7 @@ class LightRay {
   }
 
   /**
-   * has the rays reached the target (projector screen or target point)
+   * Has the rays reached the target (projector screen or target point)
    * @private
    * @param {number} distanceTraveled
    * @param {boolean} isProjectorScreenPresent
@@ -131,7 +131,7 @@ class LightRay {
   }
 
   /**
-   * get the first intersection Point
+   * Gets the first intersection Point
    *
    * @private
    * @param {Ray} initialRay
@@ -149,7 +149,7 @@ class LightRay {
   }
 
   /**
-   * get all the real rays that form a light ray
+   * Gets all the real rays that form a light ray
    *
    * The transmitted ray (last ray) is set to be of infinite length by default
    * This can be corrected later if the ray is intercepted by a projector screen
@@ -240,7 +240,7 @@ class LightRay {
   }
 
   /**
-   * shape of the curved front (left hand side) of the lens
+   * Shape of the curved front (left hand side) of the lens
    * @private
    * @param {Optic} optic
    * @returns {Shape}
@@ -253,7 +253,7 @@ class LightRay {
   }
 
   /**
-   * shape of the curved back (right hand side) of the lens
+   * Shape of the curved back (right hand side) of the lens
    * @private
    * @param {Optic} optic
    * @returns {Shape}
@@ -265,7 +265,7 @@ class LightRay {
   }
 
   /**
-   * get the shape that the initial ray will intersect
+   * Gets the shape that the initial ray will intersect
    * @private
    * @param {Optic} optic
    * @param {boolean} isPrincipalRayMode
@@ -295,7 +295,7 @@ class LightRay {
   }
 
   /**
-   * process a point from the intersection
+   * Process a point from the intersection
    * returns null if the point cannot be found
    *
    * @private
@@ -314,7 +314,7 @@ class LightRay {
   }
 
   /**
-   * returns a semi infinite ray starting at originPoint
+   * Returns a semi infinite ray starting at originPoint
    * The ray is along (or opposite to) the direction of targetPoint
    * @private
    * @param {Vector2} originPoint
@@ -334,7 +334,7 @@ class LightRay {
   }
 
   /**
-   * returns a virtual ray that is opposite to the last real ray
+   * Returns a virtual ray that is opposite to the last real ray
    * If the virtual ray does not exist or does not line up with the target point, it returns null
    * @private
    * @param {Ray[]} realRays
@@ -374,7 +374,7 @@ class LightRay {
   }
 
   /**
-   * set the final point of the real ray if it intersects with the vertical median of the projector
+   * Sets  the final point of the real ray if it intersects with the vertical median of the projector
    * @private
    * @param {Ray[]} realRays
    * @param {Shape} projectorScreenBisectorLine
@@ -400,7 +400,7 @@ class LightRay {
   }
 
   /**
-   * has the light ray a virtual component (virtual ray)
+   * Has the light ray a virtual component (virtual ray)
    * @private
    * @returns {boolean}
    */
@@ -411,7 +411,7 @@ class LightRay {
   }
 
   /**
-   * process all the rays (virtual and real) into shape lines.
+   * Process all the rays (virtual and real) into shape lines.
    * @private
    * @param {number} distanceTraveled
    *
@@ -454,7 +454,7 @@ class LightRay {
   }
 
   /**
-   * update the shape of the lightray (be it virtual or real)  based on a model ray
+   * Update the shape of the lightray (be it virtual or real)  based on a model ray
    * @private
    *
    * @param {Shape} shape

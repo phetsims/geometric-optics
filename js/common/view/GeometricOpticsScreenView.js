@@ -309,7 +309,7 @@ class GeometricOpticsScreenView extends ScreenView {
   }
 
   /**
-   * time stepper
+   * Time stepper
    * @public
    */
   step( dt ) {
@@ -329,7 +329,7 @@ class GeometricOpticsScreenView extends ScreenView {
   }
 
   /**
-   * returns the relative scale between a zoom level and a previous old zoom level
+   * Returns the relative scale between a zoom level and a previous old zoom level
    * @public
    * @param {number} zoomLevel
    * @param {number} oldZoomLevel
@@ -353,7 +353,7 @@ class GeometricOpticsScreenView extends ScreenView {
   }
 
   /**
-   * returns a model view transform appropriate for the zoom level
+   * Returns a model view transform appropriate for the zoom level
    * @public
    * @param {number} zoomLevel
    * @returns {ModelViewTransform2}

@@ -73,7 +73,7 @@ class ProjectorScreen {
   }
 
   /**
-   * gets the vertical line that bisects the middle portion of the screen
+   * Gets the vertical line that bisects the middle portion of the screen
    * @public
    * @returns {Shape}
    */
@@ -89,7 +89,7 @@ class ProjectorScreen {
   }
 
   /**
-   * gets the shape of the screen
+   * Gets the shape of the screen
    * @private
    * @returns {Shape}
    */
@@ -104,7 +104,7 @@ class ProjectorScreen {
   }
 
   /**
-   * returns a shape translated by the model position of the screenProjector
+   * Returns a shape translated by the model position of the screenProjector
    * @public
    * @param {Shape} shape
    * @returns {Shape}

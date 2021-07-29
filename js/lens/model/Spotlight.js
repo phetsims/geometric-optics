@@ -70,7 +70,7 @@ class Spotlight {
   }
 
   /**
-   * get ratio of the distance of the screen/ target measure from the optic.
+   * Gets ratio of the distance of the screen/ target measure from the optic.
    * @private
    * @param {Vector2} screenPosition
    * @param {Vector2} opticPosition
@@ -92,7 +92,7 @@ class Spotlight {
   }
 
   /**
-   * Get the physical parameters (center position and radii) for the spotlight
+   * Gets the physical parameters (center position and radii) for the spotlight
    * @private
    * @param {Vector2} screenPosition
    * @param {Vector2} opticPosition
@@ -125,7 +125,7 @@ class Spotlight {
   }
 
   /**
-   * get the projected position on the screen of a point.
+   * Gets the projected position on the screen of a point.
    * this is determined by extrapolating the point from the target point onto the projector screen.
    *
    * @private
@@ -141,7 +141,7 @@ class Spotlight {
   }
 
   /**
-   * returns the shape of the unclipped spotlight
+   * Returns the shape of the unclipped spotlight
    *
    * @private
    * @param {Vector2} screenPosition
@@ -163,7 +163,7 @@ class Spotlight {
   }
 
   /**
-   * get the shape that result from the intersection of the disk and screen projector
+   * Gets the shape that result from the intersection of the disk and screen projector
    *
    * @private
    * @param {Vector2} screenPosition
@@ -196,7 +196,7 @@ class Spotlight {
   }
 
   /**
-   * get the normalized (between 0 and 1) light intensity of the spotlight
+   * Gets the normalized (between 0 and 1) light intensity of the spotlight
    * Physically, a spotlight is dimmer when the light is spread on a larger surface.
    * To preserve dynamic range, the spotlight is instead inversely proportional to the diameter of the spotlight.
    *

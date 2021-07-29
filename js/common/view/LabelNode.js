@@ -84,7 +84,7 @@ class LabelNode extends Node {
   }
 
   /**
-   * Set a string for the label
+   * Sets  a string for the label
    * @public
    * @param {string} label
    */
@@ -95,7 +95,7 @@ class LabelNode extends Node {
   }
 
   /**
-   * set position and size of label
+   * Sets  position and size of label
    * @private
    */
   setLabelPosition() {
@@ -103,7 +103,7 @@ class LabelNode extends Node {
   }
 
   /**
-   * set rectangle size and position based on text size
+   * Sets  rectangle size and position based on text size
    * @private
    */
   setRectangleSize() {
