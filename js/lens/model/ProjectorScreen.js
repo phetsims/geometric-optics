@@ -85,11 +85,12 @@ class ProjectorScreen {
 
     const verticalLine = new Line( top, bottom );
 
+    // get the vertical line translated by the model position of the screen projector
     return this.translatedShape( verticalLine );
   }
 
   /**
-   * Gets the shape of the screen
+   * Gets the shape of the screen translated by the model position of the screenProjector
    * @private
    * @returns {Shape}
    */

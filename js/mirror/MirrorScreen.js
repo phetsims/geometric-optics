@@ -21,7 +21,7 @@ class MirrorScreen extends Screen {
    */
   constructor( tandem ) {
 
-    // create icon for mirror
+    // create concave mirror for home screen icon
     const iconNode = CurveControl.createIconNode(
       Optic.Curve.CONCAVE,
       Optic.Type.MIRROR,

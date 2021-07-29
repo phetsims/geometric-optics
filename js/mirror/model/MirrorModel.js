@@ -24,8 +24,13 @@ class MirrorModel extends GeometricOpticsModel {
   constructor( tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
+    // index of refraction of mirror
+    // P.S. although a mirror does not have an index of refraction
+    // its focal length is equivalent to a lens with an index of refraction of 2
+    const indexOfRefractionRange = new RangeWithValue( 2, 2, 2 );
+
     super( INITIAL_POSITION, RADIUS_OF_CURVATURE_RANGE, DIAMETER_RANGE,
-      new RangeWithValue( 2, 2, 2 ), INITIAL_CURVATURE_TYPE, Optic.Type.MIRROR, tandem );
+      indexOfRefractionRange, INITIAL_CURVATURE_TYPE, Optic.Type.MIRROR, tandem );
 
   }
 

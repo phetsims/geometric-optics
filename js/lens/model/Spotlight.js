@@ -1,8 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Model element of the spotlight. Responsible for the shape of the spotlight (cropped to the screen shape)
- * and its light intensity
+ * Model element of the spotlight. Responsible for the shape of the spotlight
+ * (cropped to the screen shape) and its light intensity
  *
  * @author Martin Veillette
  */
@@ -35,16 +35,16 @@ class Spotlight {
                tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    // @private
+    // @private {function}
     this.getScreenShape = getScreenShape;
 
-    // @private
+    // @private {Optic} model for the optic
     this.optic = optic;
 
-    // @private
+    // @private {Property.<Vector2>} position of the source of light
     this.sourcePositionProperty = sourcePositionProperty;
 
-    // determine the intersection of the screen and spotlight
+    // determine the shape intersection of the screen and spotlight
     // @public (read-only) {Property.<Shape>}
     this.shapeProperty = new DerivedProperty( [
         screenPositionProperty,
@@ -98,7 +98,7 @@ class Spotlight {
    * @param {Vector2} opticPosition
    * @param {number} opticDiameter
    * @param {Vector2} targetPosition
-   * @returns {Object}
+   * @returns {Object} - see below
    */
   getDiskParameters( screenPosition, opticPosition, opticDiameter, targetPosition ) {
 
@@ -129,7 +129,6 @@ class Spotlight {
   /**
    * Gets the projected position on the screen of a point.
    * this is determined by extrapolating the point from the target point onto the projector screen.
-   *
    * @private
    * @param {Vector2} screenPosition
    * @param {Vector2} point
@@ -144,7 +143,6 @@ class Spotlight {
 
   /**
    * Returns the shape of the unclipped spotlight
-   *
    * @private
    * @param {Vector2} screenPosition
    * @param {Vector2} opticPosition
@@ -156,17 +154,15 @@ class Spotlight {
 
     // get the parameters for the unclipped spotlight.
     const {
-      position,
-      radiusX,
-      radiusY
+      position, radiusX, radiusY
     } = this.getDiskParameters( screenPosition, opticPosition, opticDiameter, targetPosition );
 
+    // return an ellipse with the shape parameters
     return Shape.ellipse( position.x, position.y, radiusX, radiusY, 2 * Math.PI );
   }
 
   /**
    * Gets the shape that result from the intersection of the disk and screen projector
-   *
    * @private
    * @param {Vector2} screenPosition
    * @param {Vector2} opticPosition
@@ -185,6 +181,7 @@ class Spotlight {
     assert && assert( screenShape instanceof Shape, 'screenShape is not a Shape' );
     assert && assert( diskShape instanceof Shape, 'diskShape is not a Shape' );
 
+    // it should NOT be necessary to weed out the zero shape, see #
     if ( diskShape.getArea() === 0 ) {
 
       // empty shape

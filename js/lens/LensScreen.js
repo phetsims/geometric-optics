@@ -21,7 +21,7 @@ class LensScreen extends Screen {
    */
   constructor( tandem ) {
 
-    // create icon for lens
+    // create convex lens for home screen icon
     const iconNode = CurveControl.createIconNode(
       Optic.Curve.CONVEX,
       Optic.Type.LENS,

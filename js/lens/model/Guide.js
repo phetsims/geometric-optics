@@ -57,7 +57,7 @@ class Guide {
         // ratio of opposite side (diameter/2) over adjacent side (2*focalLength)
         const toa = diameter / ( 4 * focalLength );
 
-        // deflected angle is measured from the "through angle", i.e angle of an imaginary undeflected transmitted ray
+        // deflected angle is measured from the "through angle", i.e. angle of an imaginary undeflected transmitted ray
         const deflectedAngle = ( optic.isConvex( optic.getCurve() ) ) ?
                                -1 * locationSign * ( 2 * Math.atan( toa ) ) :
                                -1 * locationSign * ( Math.atan( 3 * toa ) - Math.atan( toa ) );
@@ -67,6 +67,7 @@ class Guide {
   }
 
   /**
+   * Gets the transmitted angle of the guide (right side) with respect to the x-axis
    * @public
    * @returns {number}
    */
@@ -75,6 +76,7 @@ class Guide {
   }
 
   /**
+   * Gets the incident angle of the guide (left side)
    * @public
    * @returns {number}
    */
@@ -83,6 +85,7 @@ class Guide {
   }
 
   /**
+   * Gets the fulcrum point of the guide
    * @public
    * @returns {Vector2}
    */
