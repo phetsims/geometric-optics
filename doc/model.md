@@ -28,8 +28,7 @@ distance is reversed. The image distance d_i is positive for images on the same
 side of the object (real images). If the image is on the far side of the object,
 the image distance is negative (and the image virtual).
 
-The principal rays mode denote rays that help identify the position of the
-image. The principal rays are not physical rays and at times fail to go through
+The principal ray mode denote rays that help identify the position of the image. The principal rays are not physical rays and at times fail to go through
 a lens/mirror. Nevertheless, the method remains useful to find the location of
 the image. For instance, for the lens , the principal rays are defined by three
 rays:
