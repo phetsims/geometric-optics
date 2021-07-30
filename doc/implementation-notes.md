@@ -1,75 +1,191 @@
 ## Implementation Notes
 
-Ths document is meant and to supplement the source code and comments of the simulation Geometric Optics.
+Ths document is meant and to supplement the source code and comments of the
+simulation Geometric Optics.
 
-Since the language of optics is confusing and share a lot of overlap with language in software development,
-it is worthwhile to define some terms uses throughout the simulation.
+Since the language of optics is confusing and share a lot of overlap with
+language in software development, it is worthwhile to define some terms uses
+throughout the simulation.
 
 Object:  
- Anything that can be views.
+Anything that can be view.
 
 Image:
- The likeness of an object produced at a point in space by a lens or a mirror
+The likeness of an object produced at a point in space by a lens or a mirror
 
 Real image:
- An image for which light rays physically intersect at the image location. 
+An image for which light rays physically intersect at the image location.
 
 Virtual Image:
- A image for which light rays do not physically intersect at the image point but appears to diverge from that point.
+A image for which light rays do not physically intersect at the image point but
+appears to diverge from that point.
 
 Real Rays:
- Light rays emanating from an object and reflected/transmitted by an optical element
+Light rays emanating from an object and reflected/transmitted by an optical
+element
 
 Virtual Rays:
- Backward rays that indicate an apparent origin for ray the divergence of rays.
-Virtual rays are drawn from an optical element to the position of a virtual image. 
+Backward rays that indicate an apparent origin for ray the divergence of rays.
+Virtual rays are drawn from an optical element to the position of a virtual
+image.
 
 Optical Axis:
 The straight line passing through the center of curvature and pole of  
 optical element. It is also called its principal axis.
 
 First Principal Focus:
-A beam of light incident parallel to the optical axis, after reaching the optical element will either actually
-converge to or appear to diverge from a fixed point on the optical axis. The fixed point is called the ‘First
-Principal focus’.
+A beam of light incident parallel to the optical axis, after reaching the
+optical element will either actually converge to or appear to diverge from a
+fixed point on the optical axis. The fixed point is called the ‘First Principal
+focus’.
 
 Second Principal Focus:
 The point opposite to the first principal focus from the optical element.
 
 Guide:
+This is a phet construction, but are used in the simulation to denote the
+bending of the light due to a lens. A guide is attached to the ends of the lens
+and can freely rotate from its fulcrum point.
 
+In addition, the word distance and height have a different meaning in optics. A
+distance can be positive or negative and can only be measured horizontally. The
+meaning of positive and negative is a convention that may vary. We define the
+convention followed in the simulation in model.md. The height in optics is
+always measured from the optical axis. A positive
+(negative) height indicates the object is above (below) the optical axis.
 
-**Model-view transform**: This simulation has a model-view transform that maps from the model coordinate frame to the
-view coordinate frame. The origin (0,0) in the model coordinate frame at the center of the view screen. The scaling is
-isometric along the vertical and horizontal directions.
+In the internal code, we have attempted to refrain the use of the word image to
+mean optical image. Instead, we refer to optical image as target and use the
+word image for refer to a SCENERY/image.
 
-**Memory management**: Unless otherwise documented in the source code, assume that `unlink`, `removeListener`, `dispose`
-, etc. are generally not needed. All listeners exist for the lifetime of the sim.
+The word ProjectorScreen refers to the screen of a projector and is not related
+to a SCENERY/Screen.
 
-The main model class is [GeometricOpticsModel](https://github. com/phetsims/geometric-optics/blob/master/js/common/model
-/GeometricOpticsModel.js).
+**PlayArea**
 
-The simulation uses a model view transform for the play area. The visibility of all elements is controlled by the view.
+This simulation uses a scenery layer called play area that is used all the
+elements within the "Play Area". In essence, it includes all the scenery
+elements except for the control panels, combox box, buttons, etc. The play area
+can be zoomed in or out. It is important to note that the Rulers and the Labels
+do not belong to the play area since they contain text that may be hard to read
+upon zooming. Therefore, like the control panels and buttons, they are attached
+directly to the screen view.
 
-All the properties in the simulation are created at startup. The listeners to the properties exist for the lifetime of
-the simulation and do not need to be disposed.
+**Model-view transform and Zoom**: This simulation makes use of model view
+transform to map model coordinates to the view coordinates. The base units of
+the model is centimeters. It is used throughout the model with a few exceptions
+that have been noted. A model view transform is applied to all elements within
+the play area. All elements within the play area can be scaled up and down by
+scaling the playArea node. The origin (0,0) in the model coordinate frame near
+the center of the view screen. The model to view scaling is isometric along the
+vertical and horizontal directions.
 
-There are a few top-level model elements in Common Model:
+For scenery nodes outside of the playArea, we lay them out using the view
+coordinates. There are two exceptions to this: (1) The LabelsNode, responsible
+for labels beneath the optical components and (2) the GeometricOpticsRulerNode.
+The labels and ruler use "zoomModelViewTransformProperty" which allows it to
+relate its coordinate to within the play area at this particular zoom level.
 
-* [Lens] is responsible for the lens position, diameter, curvature radius and refractive index. The previous properties
-  are used to determine the focal length.
-* [TargetImage]
-* [SourceObject]
-* [LightRays]
-* [Guides]
+The nodes within the play area may node to node about the position of object
+outside of the play area, such as the bounds of the simulation. For instance,
+the zoomModelViewTransform can be used to convert the visibleBounds of the
+simulation to playAreaModelBounds.
 
-There are a few top-level model elements in Common Screen:
+**Memory management**: Unless otherwise documented in the source code, assume
+that `unlink`, `removeListener`, `dispose`
+, etc. are generally not needed and that all listeners exist for the lifetime of
+the sim. The only exception to this is the GeometricOpticsRulerNode which is not
+created for the lifetime of the simulation. The GeometricOpticsRulerNode has a
+dispose function to dispose of its listeners.
 
-* [LensNode] is responsible for the lens
-* [FocalPointNode] lays out the focal point.
-* [TargetImageNode] is
-* [SourceObjectNode] is the
-* [LightRaysNode]
-* [GuidesNode]
-* [ProjectorScreenNode]
-* [ControlPanel]
+**Model**
+
+The main model class is [GeometricOpticsModel].
+
+There are a three top-level model elements in GeometricOpticsModel, that play an
+essential role, namely SourceObject, Optic and Target. This trifecta of element
+rule the entire simulation. Each of them is a component of the thin-lens and
+mirror equation. It is important to note that all the light rays do not drive
+the model but take their marching orders from the trifecta.
+
+* [SourceObject] is responsible for the first object/source position as well as
+  the bounds of the object/source. It is also includes a second object/source
+  position.
+* [Optic] is responsible for the optical element position, diameter, curvature
+  radius and refractive index. The previous properties are used to determine the
+  focal length. Optic is also responsible for the shape of the optical element,
+  which can be used for ray hit-testing, as well as drawing its shape.
+* [Target] is responsible for the position of the target, its bounds and scale.
+  It includes multiple methods that determine if the target is real/virtual,
+  inverted/upright, etc.
+
+The client can select from the combox box what we refer to as a representation
+of the object/source.
+
+* [Representation] is the class responsible for the representation of the object
+  and target. The representation provide a maps to images with different
+  orientations that can be used to display source/object images and target
+  images as well as the image logo. The position of "interesting" points within
+  images is defined in the representation.
+
+Light rays form an important aspect of this simulation. There are three model
+classes responsible for the rays:
+
+* [Ray] is a representation of a finite, or semi-infinite straight rays. A ray
+  can only be straight, not refracted. Note that Ray extends DOT/Ray2.
+* [LightRay] is a representation of a ray emanating from a source or object.
+  LightRay have a time dependencies. A LightRay can be refracted or reflected
+  from an optical element. It can even fork into a virtual and real ray. A
+  lightray is usually made of several Ray(s). A LightRay converts its rays at
+  that point in time into kite/Shape. It can indicate if it has reached a target
+  or projector screen.
+* [LightRays] is a representation of a bundle of LightRay(s). LightRays depends
+  on the RayMode. The bundle of light rays emerge from a single object/source
+  position. An additional responsibility of LightRays is to indicate if one of
+  its ray has reached a target, or projector screen.
+
+We note that each light ray depends on the trifecta (SourceObject, Optic and
+Target) and their path is determined based on this information. This insures
+that all rays can converge to the same target.
+
+There are a few top-level model elements in GeometricOpticsScreenView:
+
+* [OpticNode] is responsible for the optical element (Lens or Mirror).
+
+* [TargetNode] is the scenery node for the optical image.
+
+* [SourceObjectNode] is the node responsible for the first source/object and the
+  second source/object.
+
+* [LightRaysNode] is responsible for laying out the light rays.
+
+**Visibilities**
+
+Except for the GeometricOpticsRulerNode, all the scenery elements are created at
+startup. A set of visibility listeners, created within the view side of the
+simulation, toggled the visibility of the scenery nodes.
+
+**Gotchas**
+
+There a few odd things.
+
+* Since LightRays as a dependencies on the projectorScreen, the projectorScreen
+  model is instantiated within the common model. However, we note that there is
+  no counterpart ProjectorScreenNode within the MirrorScreen since the mirror
+  screen does not have a light source representation.
+* The Optic model takes an index of refraction has a parameter. Physical mirror
+  do not have an index of refraction, but for the purposes of the simulation, we
+  can make our model mirror to be functionally equivalent to a lens with an
+  index of refraction of 2.
+* The shape of the lens as well as the refraction of the rays within the lens is
+  hollywooded. This leads to a few artefacts that we attempted to minimize, but
+  unfortunately complicates the codebase.
+* There is a not a one to one correspondence between the model instances and
+  view instances.
+    - There is one instance of opticNode that depends on one optic model (so far
+      so good).
+    - There is one instance of targetNode that depends on the firstTarget model.
+      The secondTarget model does not have a targetNode component but is used by
+      the secondLightRay and projectorScreen.
+    - There is one objectSourceNode and one objectSource model. The position of
+      the first and second source are embedded within the objectSourceModel.
