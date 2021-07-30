@@ -19,8 +19,8 @@ import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 const DEFAULT_SOURCE_POINT_1 = GeometricOpticsConstants.DEFAULT_SOURCE_POINT_1;
 const DEFAULT_SOURCE_POINT_2 = GeometricOpticsConstants.DEFAULT_SOURCE_POINT_2;
 const SECOND_OBJECT_VERTICAL_RANGE = GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE;
-const OBJECT_SCALE_FACTOR = 4;
-const SOURCE_SCALE_FACTOR = 2;
+const OBJECT_SCALE_FACTOR = GeometricOpticsConstants.OBJECT_SCALE_FACTOR;
+const SOURCE_SCALE_FACTOR = GeometricOpticsConstants.SOURCE_SCALE_FACTOR;
 
 class SourceObject {
 
@@ -80,6 +80,7 @@ class SourceObject {
           }
         } );
 
+    // update the left top position when the representation changes
     representationProperty.link( representation => {
 
       const scale = representation.isObject ? OBJECT_SCALE_FACTOR : SOURCE_SCALE_FACTOR;

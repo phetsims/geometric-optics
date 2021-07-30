@@ -24,6 +24,8 @@ const GeometricOpticsConstants = {
   DEFAULT_SOURCE_POINT_1: new Vector2( -190, 30 ), // centimeters
   DEFAULT_SOURCE_POINT_2: new Vector2( -150, -20 ), // centimeters
   SECOND_OBJECT_VERTICAL_RANGE: new RangeWithValue( -55, 0, -52 ), // in centimeters
+  OBJECT_SCALE_FACTOR: 4,
+  SOURCE_SCALE_FACTOR: 2,
 
   ZOOM_RANGE: new RangeWithValue( 1, 3, 3 ),
   ZOOM_SCALE_FACTOR: 2, // should not be changed to keep major tick labels as multiples of 10
