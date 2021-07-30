@@ -31,54 +31,30 @@ the image distance is negative (and the image virtual).
 The principal rays mode denote rays that help identify the position of the
 image. The principal rays are not physical rays and at times fail to go through
 a lens/mirror. Nevertheless, the method remains useful to find the location of
-the image. The principal rays are defined by three rays:
+the image. For instance, for the lens , the principal rays are defined by three
+rays:
 
 - A ray from the top of the object proceeding parallel to the optical axis of
-  the lens. Beyond the lens, it will pass through the principal focal point. For
-  a negative lens, it will proceed from the lens as if it emanated from the
-  focal point on the near side of the lens.
+  the optical element. For a converging lens, the ray will pass through the
+  principal focal point. For a diverging lens, the ray will proceed from the
+  lens as if it emanated from the focal point on the near side of the lens.
 - A ray through the center of the lens, which will be undeflected.
-- A ray through the principal focal point on the near side of the lens. It will
-  proceed parallel to the centerline upon exit from the lens.
+- A ray through the principal focal point on the near for a converging lens or
+  on the far side for a diverging lens. The ray will proceed parallel to the
+  optical axis upon exit from the lens.
 
 The marginal rays, also called rim rays, are the rays that start at the object
 and touch the edge of the lens. The marginal rays emphasizes the limiting
 aperture associated with an optical element.
 
-The guides of the lens are meant to highlight the ability of lenses to bend
-light. The internal angle of the guides is a property of the focal length of a
-lens and its diameter. The guides are a useful approximation that allows to
-approximately determine the position of the image without performing raytracing. 
+On the lens screen, the guides are meant to highlight the ability of lenses to
+bend light. The internal angle of the guides is a property of the focal length
+of a lens and its diameter. The guides are a useful approximation that allows to
+approximately determine the position of the image without performing raytracing.
 
+On the lens screen, sources of light can be displayed onto a projector screen.
+The spotlight on the projector is based on the aperture of the lens (i.e. its
+diameter) and the size of the spotlight.
 
-
-
-
-
-The focal length of the lens is given by
-f= R/(2(1-n))) where n and R are respectively the index of refraction and the radius of curvature of the lens. 
-
-The focal length of the mirror is given by f = R/2. 
-
-The focal length f is positive for converging optical element ( convex lenses 
-and concave mirrors) and negative for diverging optical element ( concave lenses
-and convex mirrors)
-
-The image distance di is positive for real images and negative for virtual images.
-
-
-The position of the image is determined in the thin lens approximation, i.e.
-1/d_o+1/d_i = 1/f 
-where d_o is the distance to the object, d_i is the distance to the image 
-and f is the focal length of the optical element. 
-
-The principal rays mode denote rays that help identify the position of the image. There are defined by three rays 
-
-- A ray from the top of the object proceeding parallel to the optical axis of the lens. Beyond the lens, it will pass through the principal focal point. For a negative lens, it will proceed from the lens as if it emanated from the focal point on the near side of the lens.
-- A ray through the center of the lens, which will be undeflected. 
-- A ray through the principal focal point on the near side of the lens. It will proceed parallel to the centerline upon exit from the lens.
-
-The marginal rays are the rays that start at the object and touch the edge of the lens.
-
-The lenses are considered to be ideal and free of spherical and comatic aberrations.
-
+The lenses in the simulation are considered to be ideal and free of spherical
+and comatic aberrations.
