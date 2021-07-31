@@ -24,6 +24,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
 import LightRayMode from '../model/LightRayMode.js';
 import FocalPointNode from './FocalPointNode.js';
 import SourceObjectNode from './SourceObjectNode.js';
@@ -216,9 +217,12 @@ class GeometricOpticsControlPanel extends Panel {
       createCheckboxGroupItem( guidesString, visibleProperties.visibleGuidesProperty )
     ];
 
-    // if using mirror, remove guides checkbox
-    if ( !options.hasLens ) {
+    // remove guides checkbox for mirror  or because of query parameters
+    if ( !options.hasLens || GeometricOpticsQueryParameters.showGuides === false ) {
       checkboxGroupItems.pop();
+
+      // ensure that the guides are invisible as well
+      visibleProperties.visibleGuidesProperty.value = false;
     }
 
     // create check box group

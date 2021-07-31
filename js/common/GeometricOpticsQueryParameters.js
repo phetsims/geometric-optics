@@ -22,6 +22,13 @@ const GeometricOpticsQueryParameters = QueryStringMachine.getAll( {
   show2fPoints: {
     type: 'flag',
     public: false
+  },
+
+  // show the guides on the
+  showGuides: {
+    type: 'boolean',
+    defaultValue: true,
+    public: true
   }
 } );
 
