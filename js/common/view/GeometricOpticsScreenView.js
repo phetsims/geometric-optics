@@ -276,11 +276,11 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // add disks at position of optic, source and target
     if ( GeometricOpticsQueryParameters.showDebugPoints ) {
-      this.addChild( new TrackingDiskNode( model.firstTarget.positionProperty, this.modelViewTransform, tandem,
+      this.playAreaNode.addChild( new TrackingDiskNode( model.firstTarget.positionProperty, this.modelViewTransform, tandem,
         { fill: 'magenta' } ) );
-      this.addChild( new TrackingDiskNode( model.sourceObject.firstPositionProperty, this.modelViewTransform, tandem,
+      this.playAreaNode.addChild( new TrackingDiskNode( model.sourceObject.firstPositionProperty, this.modelViewTransform, tandem,
         { fill: 'magenta' } ) );
-      this.addChild( new TrackingDiskNode( model.optic.positionProperty, this.modelViewTransform, tandem,
+      this.playAreaNode.addChild( new TrackingDiskNode( model.optic.positionProperty, this.modelViewTransform, tandem,
         { fill: 'magenta' } ) );
     }
 
@@ -290,9 +290,9 @@ class GeometricOpticsScreenView extends ScreenView {
         { multiplicativeFactor: -2 } );
       const plus2fPoint = new FocalPoint( model.optic.positionProperty, model.optic.focalLengthProperty, tandem,
         { multiplicativeFactor: 2 } );
-      this.addChild( new TrackingDiskNode( minus2fPoint.positionProperty, this.modelViewTransform, tandem,
+      this.playAreaNode.addChild( new TrackingDiskNode( minus2fPoint.positionProperty, this.modelViewTransform, tandem,
         { fill: 'black' } ) );
-      this.addChild( new TrackingDiskNode( plus2fPoint.positionProperty, this.modelViewTransform, tandem,
+      this.playAreaNode.addChild( new TrackingDiskNode( plus2fPoint.positionProperty, this.modelViewTransform, tandem,
         { fill: 'black' } ) );
     }
   }
