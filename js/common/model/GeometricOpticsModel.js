@@ -99,11 +99,16 @@ class GeometricOpticsModel {
     this.sourceObject = new SourceObject( this.optic.positionProperty, this.representationProperty, tandem );
 
     // @public {FocalPoint} first principal focal point
-    this.firstFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty, tandem );
+    this.firstFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty, {
+      tandem: tandem.createTandem( 'firstFocalPoint' )
+    } );
 
     // @public {FocalPoint} second principal focal point
     this.secondFocalPoint = new FocalPoint( this.optic.positionProperty,
-      this.optic.focalLengthProperty, tandem, { multiplicativeFactor: -1 } );
+      this.optic.focalLengthProperty, {
+        multiplicativeFactor: -1,
+        tandem: tandem.createTandem( 'secondFocalPoint' )
+      } );
 
     // @public {Target} model of the target/image associated with the first source
     this.firstTarget = new Target( this.sourceObject.firstPositionProperty,

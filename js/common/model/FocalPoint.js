@@ -16,14 +16,14 @@ class FocalPoint {
   /**
    * @param {Property.<Vector2>} opticPositionProperty
    * @param {Property.<number>} focalLengthProperty
-   * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( opticPositionProperty, focalLengthProperty, tandem, options ) {
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+  constructor( opticPositionProperty, focalLengthProperty, options ) {
 
     options = merge( {
-      multiplicativeFactor: 1
+      multiplicativeFactor: 1,
+
+      tandem: Tandem.REQUIRED
     }, options );
 
     // @public (read-only) {Property.<Vector2>} Position of the focal point
