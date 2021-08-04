@@ -59,7 +59,7 @@ class GeometricOpticsModel {
     // @private {RangeWithValue} - time range (in seconds) for the animation
     this.timeRange = new RangeWithValue( 0, ANIMATION_TIME, 0 );
 
-    // @public (read-only) {Property.<number>} - time for ray animation
+    // @public (read-only) {Property.<number>} - time for ray animation // REVIEW: in seconds or ms? Or better yet, I would recommend using the `range` and `units` options to NumberProperty just for clarity.
     this.timeProperty = new NumberProperty( this.timeRange.defaultValue );
 
     // @public {Property.<boolean>} the image/target can be seen if enabled
@@ -82,8 +82,9 @@ class GeometricOpticsModel {
     // @public {Object} rulers for the simulations
     this.rulers = {
       horizontal: new Ruler( HORIZONTAL_RULER_INITIAL_POSITION, HORIZONTAL_RULER_LENGTH ),
-      vertical: new Ruler( VERTICAL_RULER_INITIAL_POSITION, VERTICAL_RULER_LENGTH,
-        { orientation: Ruler.Orientation.VERTICAL } )
+      vertical: new Ruler( VERTICAL_RULER_INITIAL_POSITION, VERTICAL_RULER_LENGTH, {
+        orientation: Ruler.Orientation.VERTICAL
+      } )
     };
 
     // @public {Optic} - model of the optic
@@ -98,6 +99,8 @@ class GeometricOpticsModel {
     // @public {SourceObject} the object/ source
     this.sourceObject = new SourceObject( this.optic.positionProperty, this.representationProperty, tandem );
 
+    // REVIEW: perhaps instead of first/second, we could name these in optics terms, or relate them to the
+    // REVIEW: multiplicativeFactor? Like positiveFocalPoint, negativeFocalPoint? ordinal numbers here doesn't increase understanding to me.
     // @public {FocalPoint} first principal focal point
     this.firstFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty, {
       tandem: tandem.createTandem( 'firstFocalPoint' )

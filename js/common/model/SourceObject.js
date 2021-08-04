@@ -4,6 +4,12 @@
  * Model element for object (in the sense commonly used in geometric optic) or source of light
  * The sourceObject has a position and a "second source" position within it.
  *
+ * REVIEW: In general this type seems like it serves its purpose, but it feels really hard coded to the current, specific
+ * REVIEW: implementation of this sim. There is only room for two sources, and only room for the second one moving (and that
+ * REVIEW: is very tied to its representation). The source/object is a pretty general part of an optics model, so it would be neat
+ * REVIEW: if this could have a bit more flexibility, but I understand why we may not want to go back to implement that
+ * REVIEW: at this time. Basically this comment is an extension of https://github.com/phetsims/geometric-optics/issues/164
+ *
  * @author Martin Veillette
  */
 
@@ -59,9 +65,11 @@ class SourceObject {
     this.unconstrainedSecondSourcePositionProperty = new Vector2Property( DEFAULT_SOURCE_POINT_2 );
 
     // @private {Property.<number>} vertical offset (in centimeters) of second object with respect to the first
-    this.verticalOffsetProperty = new NumberProperty( SECOND_OBJECT_VERTICAL_RANGE.defaultValue,
-      { range: SECOND_OBJECT_VERTICAL_RANGE } );
+    this.verticalOffsetProperty = new NumberProperty( SECOND_OBJECT_VERTICAL_RANGE.defaultValue, {
+      range: SECOND_OBJECT_VERTICAL_RANGE
+    } );
 
+    // REVIEW: This is not just the initial position, as it is a Property that changes with the optic, right? If not this needs more explanation.
     // @public (read-only) {Vector2} initial position of the optic
     this.opticPositionProperty = opticPositionProperty;
 
@@ -91,7 +99,6 @@ class SourceObject {
       // {Vector2} update the left top position - the firstPosition is the ground truth when changing representation
       this.leftTopProperty.value = this.firstPositionProperty.value.plus( this.offsetPosition );
     } );
-
   }
 
   /**

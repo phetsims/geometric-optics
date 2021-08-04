@@ -24,7 +24,7 @@ import geometricOptics from '../../geometricOptics.js';
 class Optic {
 
   /**
-   * @param {Vector2} position - center of the optical element
+   * @param {Vector2} initialPosition - center of the optical element
    * @param {RangeWithValue} radiusOfCurvatureRange - range of radius of curvature (in centimeters)
    * @param {RangeWithValue} diameterRange - range of height for optical element (in centimeters)
    * @param {RangeWithValue} indexOfRefractionRange
@@ -32,7 +32,7 @@ class Optic {
    * @param {Optic.Type} type - type of optical element - acceptable values (MIRROR and LENS)
    * @param {Tandem} tandem
    */
-  constructor( position,
+  constructor( initialPosition,
                radiusOfCurvatureRange,
                diameterRange,
                indexOfRefractionRange,
@@ -40,25 +40,28 @@ class Optic {
                type,
                tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
-    assert && assert( position instanceof Vector2, 'invalid position' );
+    assert && assert( initialPosition instanceof Vector2, 'invalid initialPosition' );
     assert && assert( radiusOfCurvatureRange instanceof RangeWithValue, 'invalid radiusOfCurvature' );
     assert && assert( diameterRange instanceof RangeWithValue, 'invalid diameterRange' );
 
     // @public {Property.<Vector2>} Position of the optical element
-    this.positionProperty = new Vector2Property( position );
+    this.positionProperty = new Vector2Property( initialPosition );
 
     // @public {Property.<number>} Radius of curvature of the optical element - The convention is positive as
     // converging.
-    this.radiusOfCurvatureProperty = new NumberProperty( radiusOfCurvatureRange.defaultValue,
-      { range: radiusOfCurvatureRange } );
+    this.radiusOfCurvatureProperty = new NumberProperty( radiusOfCurvatureRange.defaultValue, {
+      range: radiusOfCurvatureRange
+    } );
 
     // @public {Property.<number>} Height of the optical element - controls the optical aperture of the optical element
-    this.diameterProperty = new NumberProperty( diameterRange.defaultValue,
-      { range: diameterRange } );
+    this.diameterProperty = new NumberProperty( diameterRange.defaultValue, {
+      range: diameterRange
+    } );
 
     // @public {Property.<number>}  index of refraction of the lens
-    this.indexOfRefractionProperty = new NumberProperty( indexOfRefractionRange.defaultValue,
-      { range: indexOfRefractionRange } );
+    this.indexOfRefractionProperty = new NumberProperty( indexOfRefractionRange.defaultValue, {
+      range: indexOfRefractionRange
+    } );
 
     // @public {Property.<Optic.Curve>} Type of Curvature of the optical element.
     this.curveProperty = new EnumerationProperty( Optic.Curve, curve );
@@ -72,7 +75,7 @@ class Optic {
       [ this.radiusOfCurvatureProperty, this.indexOfRefractionProperty, this.curveProperty ],
       ( radiusOfCurvature, indexOfRefraction, curve ) => {
 
-        // a positive sign indicate the optic is converging
+        // a positive sign indicates the optic is converging
         // sign is determined based on the curve and the type of optic.
         const sign = this.getConvergingSign( curve );
 
@@ -100,6 +103,7 @@ class Optic {
         return this.getShapes( radius, diameter, curve );
       } );
 
+    // REVIEW: correct typedoc would be helpful here. Is it supported to just be a {Range}, or does it actually need to be one with a value now that the value was given to the NumberProperty above?
     // @private {number} diameter of the optic
     this.diameterRange = diameterRange;
   }

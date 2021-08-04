@@ -69,7 +69,8 @@ class Target {
 
     // the position of the focus as predicted by lens and mirror equation
     // @public (read-only) {Property.<Vector2>}
-    this.positionProperty = new DerivedProperty( [ objectPositionProperty,
+    this.positionProperty = new DerivedProperty( [
+        objectPositionProperty,
         optic.positionProperty,
         optic.focalLengthProperty ],
       ( objectPosition, opticPosition, focalLength ) => {
@@ -78,7 +79,8 @@ class Target {
 
     // @public (read-only) {Property.<number>}
     // the scale can be negative, indicating the target/image is inverted.
-    this.scaleProperty = new DerivedProperty( [ objectPositionProperty,
+    this.scaleProperty = new DerivedProperty( [
+        objectPositionProperty,
         optic.positionProperty,
         optic.focalLengthProperty ],
       ( objectPosition, opticPosition, focalLength ) => {
@@ -86,7 +88,8 @@ class Target {
       } );
 
     // @public (read-only) {Property.<boolean>}
-    this.isInvertedProperty = new DerivedProperty( [ objectPositionProperty,
+    this.isInvertedProperty = new DerivedProperty( [
+        objectPositionProperty,
         optic.positionProperty,
         optic.focalLengthProperty ],
       () => {
@@ -94,7 +97,8 @@ class Target {
       } );
 
     // @public (read-only) {Property.<boolean>}
-    this.isVirtualProperty = new DerivedProperty( [ objectPositionProperty,
+    this.isVirtualProperty = new DerivedProperty( [
+        objectPositionProperty,
         optic.positionProperty,
         optic.focalLengthProperty ],
       () => {
@@ -102,7 +106,7 @@ class Target {
       } );
 
     // @public (read-only) {Property.<bounds2>}
-    // Bounds of the actual IMAGE  based on the representation
+    // Bounds of the actual Image  based on the Representation
     this.boundsProperty = new DerivedProperty( [
         this.positionProperty,
         representationProperty,
