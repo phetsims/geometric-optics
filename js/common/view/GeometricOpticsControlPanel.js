@@ -105,7 +105,7 @@ class GeometricOpticsControlPanel extends Panel {
         numberDisplayOptions: {
           decimalPlaces: GeometricOpticsConstants.CENTIMETER_DECIMAL_PLACES,
           valuePattern: StringUtils.fillIn( centimetersPattern, {
-            meters: SunConstants.VALUE_NAMED_PLACEHOLDER
+            centimeters: SunConstants.VALUE_NAMED_PLACEHOLDER
           } )
         }
       } );
