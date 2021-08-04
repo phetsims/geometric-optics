@@ -45,6 +45,7 @@ class LensModel extends GeometricOpticsModel {
   }
 
   /**
+   * REVIEW: you don't need to override just to call to super.
    * Resets the model.
    * @public
    */
