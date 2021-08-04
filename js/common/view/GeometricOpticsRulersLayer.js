@@ -2,14 +2,11 @@
 
 /**
  * A layer that contains 1 horizontal ruler and 1 vertical ruler
- *
- * Since the GeometricOpticRulerNode is non mutable, a new ruler node is
- *
+ * Responsible for updating the rulers when zooming
  *
  * @author Martin Veillette
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -34,23 +31,42 @@ class GeometricOpticRulersLayer extends Node {
 
     super( options );
 
-    // @public {Property.<boolean>}
-    this.visibleHorizontalProperty = new BooleanProperty( false );
 
-    // @public {Property.<boolean>}
-    this.visibleVerticalProperty = new BooleanProperty( false );
-
-    // @public {Bounds2} - will be updated later.
-    this.toolboxPanelBounds = Bounds2.EVERYTHING;
+    // @public {Bounds2} set to infinity, will be updated (mutated) later.
+    this.toolboxPanelBounds = new Bounds2( Number.NEGATIVE_INFINITY,
+      Number.NEGATIVE_INFINITY,
+      Number.POSITIVE_INFINITY,
+      Number.POSITIVE_INFINITY );
 
     /**
-     * Create and Add GeometricOpticsRulerNode
+     * Returns a GeometricOpticsRulerNode
      * @param {Ruler} ruler
      * @param {number} absoluteScale
-     * @param {Property.<boolean>} visibleProperty
      * @returns {GeometricOpticsRulerNode}
      */
-    const addRulerNode = ( ruler, absoluteScale, visibleProperty ) => {
+    const getGeometricOpticsRulerNode = ( ruler, absoluteScale ) => {
+
+      const rulerOptions = getOptions( ruler, absoluteScale );
+
+      return new GeometricOpticsRulerNode(
+        ruler,
+        visibleBoundsProperty,
+        this.toolboxPanelBounds,
+        modelViewTransformProperty.value,
+        rulerOptions );
+    };
+
+
+    /**
+     * Returns the appropriate options for the scale
+     *
+     * It also updates the length of the ruler as a side effect
+     *
+     * @param {Ruler} ruler
+     * @param {number} absoluteScale
+     * @returns {Object} [options]
+     */
+    const getOptions = ( ruler, absoluteScale ) => {
 
       // we want to scale model length inversely as the scale such that the view length remains the same
       ruler.scaleLength( 1 / absoluteScale );
@@ -58,36 +74,45 @@ class GeometricOpticRulersLayer extends Node {
       // only vertical ruler has tick marks on bottom
       const tickMarksOnBottom = ruler.isVertical();
 
-      const rulerOptions = {
+      return {
         majorTickDistance: 10 / absoluteScale, // in model coordinate (cm)
         tickMarksOnBottom: tickMarksOnBottom
       };
-
-      const rulerNode = new GeometricOpticsRulerNode(
-        ruler,
-        visibleProperty,
-        visibleBoundsProperty,
-        this.toolboxPanelBounds,
-        modelViewTransformProperty.value,
-        rulerOptions );
-
-      this.addChild( rulerNode );
-
-      return rulerNode;
     };
+
+    /**
+     * Update the GeometricOpticsRulerNode based on the new scale
+     * @param {RulerNode} rulerNode
+     * @param {number} absoluteScale
+     */
+    const updateRulerNode = ( rulerNode, absoluteScale ) => {
+
+      // generate new options for the ruler node
+      const rulerOptions = getOptions( rulerNode.ruler, absoluteScale );
+
+      // set a new RulerNode within GeometricOpticsRulerNode
+      rulerNode.setRulerNode( modelViewTransformProperty.value, rulerOptions );
+    };
+
+    // @private {GeometricOpticsRulerNode} create the horizontal GeometricRulerNode
+    this.horizontalRulerNode = getGeometricOpticsRulerNode( rulers.horizontal, absoluteScaleProperty.value );
+
+    // @private {GeometricOpticsRulerNode} create the vertical GeometricRulerNode
+    this.verticalRulerNode = getGeometricOpticsRulerNode( rulers.vertical, absoluteScaleProperty.value );
+
+    // add both ruler to this layer
+    this.addChild( this.horizontalRulerNode );
+    this.addChild( this.verticalRulerNode );
+
 
     // update rulers when scale changes
     absoluteScaleProperty.link( absoluteScale => {
 
-      // since RulerNode is not mutable, remove all children
-      this.removeAllChildren();
+      // update the horizontal ruler based on the new scale
+      updateRulerNode( this.horizontalRulerNode, absoluteScale );
 
-      // dispose of the rulers
-      this.disposeRulers();
-
-      // create and add rulers, keeping a reference to the added ruler
-      this.horizontalRulerNode = addRulerNode( rulers.horizontal, absoluteScale, this.visibleHorizontalProperty );
-      this.verticalRulerNode = addRulerNode( rulers.vertical, absoluteScale, this.visibleVerticalProperty );
+      // update the vertical ruler based on the new scale
+      updateRulerNode( this.verticalRulerNode, absoluteScale );
 
     } );
   }
@@ -99,8 +124,6 @@ class GeometricOpticRulersLayer extends Node {
   reset() {
     this.horizontalRulerNode.reset();
     this.verticalRulerNode.reset();
-    this.visibleHorizontalProperty.reset();
-    this.visibleVerticalProperty.reset();
   }
 
   /**
@@ -109,33 +132,7 @@ class GeometricOpticRulersLayer extends Node {
    * @param {Bounds2} bounds
    */
   setToolboxPanelBounds( bounds ) {
-    this.toolboxPanelBounds = bounds;
-
-    // passed the toolbox bounds to the ruler Nodes
-    this.assignToolboxPanelBounds();
-  }
-
-  /**
-   * Updates the panel bounds to each ruler
-   * @public
-   */
-  assignToolboxPanelBounds() {
-    this.horizontalRulerNode.setToolboxPanelBounds( this.toolboxPanelBounds );
-    this.verticalRulerNode.setToolboxPanelBounds( this.toolboxPanelBounds );
-  }
-
-  /**
-   * Dispose function for the two ruler orientations
-   * @public
-   */
-  disposeRulers() {
-    if ( this.horizontalRulerNode instanceof GeometricOpticsRulerNode ) {
-      this.horizontalRulerNode.dispose();
-    }
-
-    if ( this.verticalRulerNode instanceof GeometricOpticsRulerNode ) {
-      this.verticalRulerNode.dispose();
-    }
+    this.toolboxPanelBounds.set( bounds );
   }
 }
 

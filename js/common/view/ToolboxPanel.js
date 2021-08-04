@@ -64,24 +64,22 @@ class ToolboxPanel extends Panel {
      * Add input listener on iconNode to forward events to rulerNode
      * @param {Node} iconNode
      * @param {GeometricOpticsRulerNode} rulerNode
-     * @param {Property.<boolean>} visibleRulerProperty - visibility associated with the rulerNode (not icon)
      */
     const createForwardListener = ( iconNode,
-                                    rulerNode,
-                                    visibleRulerProperty ) => {
+                                    rulerNode ) => {
 
       // ruler node and icon node have opposite visibilities
-      visibleRulerProperty.link( visible => {
+      rulerNode.visibleProperty.link( visible => {
         iconNode.visible = !visible;
       } );
 
       iconNode.addInputListener( DragListener.createForwardingListener( event => {
 
         // we can add a ruler only if the ruler Node is not visible
-        if ( !visibleRulerProperty.value ) {
+        if ( !rulerNode.visibleProperty.value ) {
 
           // set the visibility of ruler Node to true
-          visibleRulerProperty.value = true;
+          rulerNode.visibleProperty.value = true;
 
           // position the center of the rulerNode to the cursor
           rulerNode.center = this.globalToParentPoint( event.pointer.point );
@@ -94,11 +92,9 @@ class ToolboxPanel extends Panel {
 
     // attach a create a Forward listener on each icon
     createForwardListener( horizontalRulerIconNode,
-      rulersLayer.horizontalRulerNode,
-      rulersLayer.visibleHorizontalProperty );
+      rulersLayer.horizontalRulerNode );
     createForwardListener( verticalRulerIconNode,
-      rulersLayer.verticalRulerNode,
-      rulersLayer.visibleVerticalProperty );
+      rulersLayer.verticalRulerNode );
   }
 
   /**
