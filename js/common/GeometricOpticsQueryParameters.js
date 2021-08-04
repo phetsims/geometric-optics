@@ -14,14 +14,12 @@ const GeometricOpticsQueryParameters = QueryStringMachine.getAll( {
 
   // show the positions of the object, target and optic.
   showDebugPoints: {
-    type: 'flag',
-    public: false
+    type: 'flag'
   },
 
   // show the position of points at a distance 2f from the optic.
   show2fPoints: {
-    type: 'flag',
-    public: false
+    type: 'flag'
   },
 
   // show the guides on the
