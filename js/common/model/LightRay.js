@@ -174,27 +174,29 @@ class LightRay {
     // add the initial ray
     rays.push( initialRay );
 
+    // we can only proceed if the first point (intersection point) exists,
+    // otherwise we bail out
     if ( firstPoint instanceof Vector2 ) {
 
+      // update the final point of the initial ray, since we hit something
+      initialRay.setFinalPoint( firstPoint );
+
+      // determine the ray(s) that come have the initial ray
+
+      // mirror and principal ray mode have only "one surface" to hit
       if ( optic.isMirror() || isPrincipalRayMode ) {
 
-        // update the final point of the initial ray
-        initialRay.setFinalPoint( firstPoint );
-
-        // add the initial and transmitted ray
+        // add the semi infinite transmitted transmitted ray
         rays.push( this.getTransmittedRay( firstPoint, targetPoint, optic ) );
       }
       else {
         // must be lens with light ray mode that is not principal rays
 
-        // determine intersection of initial right with the front shape of the lens
-        const frontIntersection = this.getLensFrontShape( optic ).intersection( initialRay );
+        // {Vector2} find bisecting point of the lens, used to determine outgoin ray
+        const intermediatePoint = this.getIntermediatePoint( initialRay, firstPoint, optic );
 
-        // {Vector2|null} front shape point intersecting the initial ray
-        const frontPoint = this.getPoint( frontIntersection );
-
-        // create a semi infinite ray starting at firstPoint parallel to the target point
-        const transmittedRay = this.getTransmittedRay( firstPoint, targetPoint, optic );
+        // create a semi infinite ray starting at intermediate point to the target point
+        const transmittedRay = this.getTransmittedRay( intermediatePoint, targetPoint, optic );
 
         // determine the intersection of the transmitted ray with the back shape of the optic
         const backIntersection = this.getLensBackShape( optic ).intersection( transmittedRay );
@@ -202,41 +204,56 @@ class LightRay {
         // {Vector2|null} back shape point intersecting the transmitted ray
         const backPoint = this.getPoint( backIntersection );
 
-        // add additional rays only if the front lens is hit
-        if ( frontPoint instanceof Vector2 ) {
+        // if back point exists, add transmitted and internal ray
+        if ( backPoint instanceof Vector2 ) {
 
-          // set initial ray final point to be the front point of the lens
-          initialRay.setFinalPoint( frontPoint );
+          // ray that spans the front to the back of the lens
+          const internalRay = new Ray( firstPoint, backPoint.minus( firstPoint ).normalized() );
 
-          // if back point is hit add transmitted and internal ray
-          if ( backPoint instanceof Vector2 ) {
+          // set the internal ray back point
+          internalRay.setFinalPoint( backPoint );
 
-            // ray that spans the front  the back of the lens
-            const internalRay = new Ray( frontPoint, backPoint.minus( frontPoint ).normalized() );
+          // create a semi-infinite ray, starting at the back point, parallel to target point
+          const transmittedRay = this.getTransmittedRay( backPoint, targetPoint, optic );
 
-            // set the internal ray back point
-            internalRay.setFinalPoint( backPoint );
+          // add the rays
+          rays.push( internalRay, transmittedRay );
 
-            // create a semi-infinite ray, starting at the back point, parallel to target point
-            const transmittedRay = this.getTransmittedRay( backPoint, targetPoint, optic );
+        }
+        else {
+          // back shape is not hit
+          // see issue #124
 
-            // add the rays
-            rays.push( internalRay, transmittedRay );
-          }
-          else {
-            // back shape is not hit
-            // see issue #124
+          // create a semi-infinite ray, starting at the front point, parallel to target point
+          const transmittedRay = this.getTransmittedRay( firstPoint, targetPoint, optic );
 
-            // create a semi-infinite ray, starting at the front point, parallel to target point
-            const transmittedRay = this.getTransmittedRay( frontPoint, targetPoint, optic );
-
-            // add the rays
-            rays.push( transmittedRay );
-          }
+          // add the rays
+          rays.push( transmittedRay );
         }
       }
     }
     return rays;
+  }
+
+  /**
+   * Gets an "intermediate" point
+   *
+   * Find the point of intersection of the initial ray with an imaginary vertical line
+   * at position share by the optic position
+   *
+   * @private
+   */
+  getIntermediatePoint( initialRay, firstPoint, optic ) {
+
+    // displacement vector from the source to the optic position
+    const opticSourceVector = optic.positionProperty.value.minus( initialRay.position );
+
+    // displacement vector from the source to the first point hit by the ray.
+    const firstSourceVector = firstPoint.minus( initialRay.position );
+
+    // return a point that will be directed along the initial ray but has an
+    // x position that is equal to opticPosition.x
+    return initialRay.position.blend( firstPoint, opticSourceVector.x / firstSourceVector.x );
   }
 
   /**
@@ -271,8 +288,8 @@ class LightRay {
    * @param {boolean} isPrincipalRayMode
    * @returns {Shape}
    */
-  getFirstShape( optic,
-                 isPrincipalRayMode ) {
+  getMiddleShape( optic,
+                  isPrincipalRayMode ) {
 
     // for principal rays, the rays are refracted at a vertical line
     if ( isPrincipalRayMode ) {
@@ -289,6 +306,30 @@ class LightRay {
     else { // isMirror &&  not principal rays
 
       // get the first surface of the mirror
+      const staticShape = optic.shapesProperty.value.frontShape;
+      return optic.translatedShape( staticShape );
+    }
+  }
+
+
+  /**
+   * Gets the shape that the initial ray will intersect
+   * @private
+   * @param {Optic} optic
+   * @param {boolean} isPrincipalRayMode
+   * @returns {Shape}
+   */
+  getFirstShape( optic,
+                 isPrincipalRayMode ) {
+
+    // for principal rays, the rays are refracted at a vertical line
+    if ( isPrincipalRayMode ) {
+
+      return optic.getPrincipalLine();
+    }
+    else {
+
+      // get the first surface of the optic
       const staticShape = optic.shapesProperty.value.frontShape;
       return optic.translatedShape( staticShape );
     }
@@ -323,6 +364,9 @@ class LightRay {
    * @returns {Ray}
    */
   getTransmittedRay( originPoint, targetPoint, optic ) {
+
+    assert && assert( originPoint instanceof Vector2 );
+    assert && assert( targetPoint instanceof Vector2 );
 
     const direction = originPoint.minus( targetPoint ).normalized();
 
@@ -454,7 +498,7 @@ class LightRay {
   }
 
   /**
-   * Updates the shape of the lightray (be it virtual or real)  based on a model ray
+   * Updates the shape of the light ray (be it virtual or real)  based on a model ray
    * @private
    *
    * @param {Shape} shape
