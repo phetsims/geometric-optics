@@ -6,7 +6,6 @@
  * @author Martin Veillette
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
@@ -39,7 +38,8 @@ class GeometricOpticsModel {
    * @param {RangeWithValue} diameterRange - range of height for optical element (in centimeters)
    * @param {RangeWithValue} indexOfRefractionRange
    *
-   * // REVIEW: I recommend to not duplicate the enumeration values here. It is better to have these only where the Enumeration is defined
+   * // REVIEW: I recommend to not duplicate the enumeration values here. It is better to have these only where the
+   *   Enumeration is defined
    * @param {Optic.Curve} curve - initial curve of optical element - acceptable values (CONVEX and CONCAVE)
    * @param {Optic.Type} type - initial type of optical element - acceptable values (MIRROR and LENS)
    * @param {Tandem} tandem
@@ -59,14 +59,9 @@ class GeometricOpticsModel {
     // @private {RangeWithValue} - time range (in seconds) for the animation
     this.timeRange = new RangeWithValue( 0, ANIMATION_TIME, 0 );
 
-    // @public (read-only) {Property.<number>} - time for ray animation // REVIEW: in seconds or ms? Or better yet, I would recommend using the `range` and `units` options to NumberProperty just for clarity.
+    // @public (read-only) {Property.<number>} - time for ray animation // REVIEW: in seconds or ms? Or better yet, I
+    // would recommend using the `range` and `units` options to NumberProperty just for clarity.
     this.timeProperty = new NumberProperty( this.timeRange.defaultValue );
-
-    // @public {Property.<boolean>} the image/target can be seen if enabled
-    this.enableFirstTargetProperty = new BooleanProperty( false );
-
-    // @public {Property.<boolean>} the image associated with second source can be seen if enabled
-    this.enableSecondTargetProperty = new BooleanProperty( false );
 
     // @public {Property.<Representation>}  representation of the source/object
     this.representationProperty = new Property( Representation.PENCIL );
@@ -100,8 +95,8 @@ class GeometricOpticsModel {
     this.sourceObject = new SourceObject( this.optic.positionProperty, this.representationProperty, tandem );
 
     // REVIEW: perhaps instead of first/second, we could name these in optics terms, or relate them to the
-    // REVIEW: multiplicativeFactor? Like positiveFocalPoint, negativeFocalPoint? ordinal numbers here doesn't increase understanding to me.
-    // @public {FocalPoint} first principal focal point
+    // REVIEW: multiplicativeFactor? Like positiveFocalPoint, negativeFocalPoint? ordinal numbers here doesn't increase
+    // understanding to me. @public {FocalPoint} first principal focal point
     this.firstFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty, {
       tandem: tandem.createTandem( 'firstFocalPoint' )
     } );
@@ -131,7 +126,6 @@ class GeometricOpticsModel {
     // @public {LightRays} model of the light rays associated to the first source
     this.firstLightRays = new LightRays( this.timeProperty,
       this.lightRayModeProperty,
-      this.enableFirstTargetProperty,
       this.representationProperty,
       this.sourceObject.firstPositionProperty,
       this.projectorScreen,
@@ -142,7 +136,6 @@ class GeometricOpticsModel {
     // @public {LightRays} model of the light rays associated with the second source
     this.secondLightRays = new LightRays( this.timeProperty,
       this.lightRayModeProperty,
-      this.enableSecondTargetProperty,
       this.representationProperty,
       this.sourceObject.secondPositionProperty,
       this.projectorScreen,
@@ -163,8 +156,6 @@ class GeometricOpticsModel {
     this.rulers.vertical.reset();
     this.rulers.horizontal.reset();
     this.timeProperty.reset();
-    this.enableFirstTargetProperty.reset();
-    this.enableSecondTargetProperty.reset();
     this.projectorScreen.reset();
     this.optic.reset();
   }

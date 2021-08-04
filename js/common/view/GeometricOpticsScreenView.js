@@ -204,7 +204,6 @@ class GeometricOpticsScreenView extends ScreenView {
     const targetNode = new TargetNode( model.representationProperty,
       model.firstTarget,
       model.optic,
-      model.enableFirstTargetProperty,
       this.visibleProperties.visibleVirtualImageProperty,
       this.modelViewTransform, tandem );
 
@@ -242,13 +241,13 @@ class GeometricOpticsScreenView extends ScreenView {
     Property.multilink( [ model.lightRayModeProperty, this.visibleProperties.visibleRayTracingProperty ],
       ( lightRayMode, showHide ) => {
         if ( lightRayMode === LightRayMode.NONE ) {
-          model.enableFirstTargetProperty.value = showHide;
-          model.enableSecondTargetProperty.value = showHide;
+          model.firstTarget.enabledProperty.value = showHide;
+          model.secondTarget.enabledProperty.value = showHide;
         }
         else {
           if ( !showHide ) {
-            model.enableFirstTargetProperty.value = false;
-            model.enableSecondTargetProperty.value = false;
+            model.firstTarget.enabledProperty.value = false;
+            model.secondTarget.enabledProperty.value = false;
             model.timeProperty.value = 0;
           }
         }

@@ -21,7 +21,6 @@ class TargetNode extends Node {
    * @param {Property.<Representation>} representationProperty
    * @param {Target} target - model of the target
    * @param {Optic} optic
-   * @param {Property.<boolean>} enableImageProperty
    * @param {Property.<boolean>} visibleVirtualImageProperty - property of the virtual image  check box
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
@@ -29,7 +28,6 @@ class TargetNode extends Node {
   constructor( representationProperty,
                target,
                optic,
-               enableImageProperty,
                visibleVirtualImageProperty,
                modelViewTransform,
                tandem ) {
@@ -66,7 +64,7 @@ class TargetNode extends Node {
      * has the image been targeted by the rays?
      */
     Property.multilink(
-      [ target.isVirtualProperty, visibleVirtualImageProperty, enableImageProperty ],
+      [ target.isVirtualProperty, visibleVirtualImageProperty, target.enabledProperty ],
       ( isVirtual, showVirtualImage, enableImage ) => {
 
         targetImage.visible = ( ( isVirtual ) ? showVirtualImage : true ) && enableImage;

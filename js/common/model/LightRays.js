@@ -24,7 +24,6 @@ class LightRays {
   /**
    * @param {Property.<number>} timeProperty
    * @param {Property.<LightRayMode>} lightRayModeProperty
-   * @param {Property.<boolean>} enableImageProperty - has the ray reached its target
    * @param {Property.<Representation>} representationProperty
    * @param {Property.<Vector2>} sourceObjectPositionProperty
    * @param {ProjectorScreen} projectorScreen
@@ -34,7 +33,6 @@ class LightRays {
    */
   constructor( timeProperty,
                lightRayModeProperty,
-               enableImageProperty,
                representationProperty,
                sourceObjectPositionProperty,
                projectorScreen,
@@ -89,8 +87,8 @@ class LightRays {
         // is the light ray mode set to Principal Rays
         const isPrincipalRayMode = lightRayMode === LightRayMode.PRINCIPAL;
 
-        // set the enable image property to false initially  (unless there are no rays)
-        enableImageProperty.value = lightRayMode === LightRayMode.NONE;
+        // set the enable target property to false initially  (unless there are no rays)
+        target.enabledProperty.value = lightRayMode === LightRayMode.NONE;
 
         // loop over the direction of each ray
         directions.forEach( direction => {
@@ -111,7 +109,7 @@ class LightRays {
 
           // set the enable image to true after the first ray reaches its target
           if ( lightRay.isTargetReached ) {
-            enableImageProperty.value = true;
+            target.enabledProperty.value = true;
           }
           // add this new real lightRay to the realRay
           this.addRayShape( lightRay.realShape, this.realRay );

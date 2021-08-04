@@ -9,6 +9,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import EnabledComponent from '../../../../axon/js/EnabledComponent.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -16,7 +17,7 @@ import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
 const OBJECT_SCALE_FACTOR = GeometricOpticsConstants.OBJECT_SCALE_FACTOR;
 
-class Target {
+class Target extends EnabledComponent {
 
   /**
    * @param {Property.<Vector2>} objectPositionProperty - position of the object/source
@@ -29,6 +30,8 @@ class Target {
                representationProperty,
                tandem ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+
+    super();
 
     // @private {Property.<Vector2>} position of the object/source
     this.objectPositionProperty = objectPositionProperty;

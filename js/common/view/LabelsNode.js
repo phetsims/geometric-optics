@@ -115,7 +115,7 @@ class LabelsNode extends Node {
     // update the visibility of the object and image labels
     Property.multilink( [
         model.representationProperty,
-        model.enableFirstTargetProperty,
+        model.firstTarget.enabledProperty,
         model.firstTarget.isVirtualProperty,
         visibleProperties.visibleVirtualImageProperty ],
       ( representation, isEnabled, isVirtual, showVirtual ) => {

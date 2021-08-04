@@ -50,8 +50,8 @@ class LensScreenView extends GeometricOpticsScreenView {
     // @private {ProjectorScreenNode}
     this.projectorScreenNode = new ProjectorScreenNode( model.projectorScreen,
       model.representationProperty,
-      model.enableFirstTargetProperty,
-      model.enableSecondTargetProperty,
+      model.firstTarget.enabledProperty,
+      model.secondTarget.enabledProperty,
       this.visibleProperties.visibleSecondSourceProperty,
       this.playAreaModelBoundsProperty,
       this.modelViewTransform, tandem );
