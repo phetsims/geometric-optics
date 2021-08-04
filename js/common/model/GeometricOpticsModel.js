@@ -37,11 +37,8 @@ class GeometricOpticsModel {
    * @param {RangeWithValue} radiusOfCurvatureRange - range of radius of curvature (in centimeters)
    * @param {RangeWithValue} diameterRange - range of height for optical element (in centimeters)
    * @param {RangeWithValue} indexOfRefractionRange
-   *
-   * // REVIEW: I recommend to not duplicate the enumeration values here. It is better to have these only where the
-   *   Enumeration is defined
-   * @param {Optic.Curve} curve - initial curve of optical element - acceptable values (CONVEX and CONCAVE)
-   * @param {Optic.Type} type - initial type of optical element - acceptable values (MIRROR and LENS)
+   * @param {Optic.Curve} curve - initial curve of optical element
+   * @param {Optic.Type} type - initial type of optical element
    * @param {Tandem} tandem
    */
   constructor( opticPosition,
