@@ -77,6 +77,7 @@ class OpticNode extends Node {
     } );
 
     // {Path} create the fill (or backing) path of the optic
+    // REVIEW: This is a very generic name, I'd recommend improving.
     const fillPath = new Path( modelViewTransform.modelToViewShape( optic.shapesProperty.value.fillShape ), {
       fill: options.fill
     } );
