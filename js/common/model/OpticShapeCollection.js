@@ -6,7 +6,7 @@
  * The outline shape, represents the reflecting coating of a mirror, or the external surface of the lens
  * The fill shape represents the entire shape of the lens, or in the case of mirror, the backing of the mirror
  * The front shape is the left facing contour of the optic. This can be used for ray hit testing
- * The back shape is the right facing contour of the optic. back shape is null for mirror
+ * The back shape is the right facing contour of the optic. Used for ray hit testing.  Back shape is null for mirror
  *
  * @author Martin Veillette
  */
