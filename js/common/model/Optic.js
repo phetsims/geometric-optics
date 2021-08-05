@@ -95,7 +95,7 @@ class Optic {
       return this.getConvergingSign( curve );
     } );
 
-    // @public {Property.<Object>} shapes (fill and outline) of the optical element
+    // @public {Property.<OpticShapeCollection>} shapes (fill and outline) of the optical element
     this.shapesProperty = new DerivedProperty( [
         this.radiusOfCurvatureProperty,
         this.diameterProperty,
