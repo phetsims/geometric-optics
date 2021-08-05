@@ -56,9 +56,8 @@ class GeometricOpticsModel {
     // @private {RangeWithValue} - time range (in seconds) for the animation
     this.timeRange = new RangeWithValue( 0, ANIMATION_TIME, 0 );
 
-    // @public (read-only) {Property.<number>} - time for ray animation // REVIEW: in seconds or ms? Or better yet, I
-    // would recommend using the `range` and `units` options to NumberProperty just for clarity.
-    this.timeProperty = new NumberProperty( this.timeRange.defaultValue );
+    // @public (read-only) {Property.<number>} - time for ray animation in seconds.
+    this.timeProperty = new NumberProperty( this.timeRange.defaultValue, { units: 's' } );
 
     // @public {Property.<Representation>}  representation of the source/object
     this.representationProperty = new Property( Representation.PENCIL );

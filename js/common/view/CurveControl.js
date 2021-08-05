@@ -13,6 +13,7 @@ import Spacer from '../../../../scenery/js/nodes/Spacer.js';
 import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from '../model/Optic.js';
+import OpticShapeCollection from '../model/OpticShapeCollection.js';
 
 const RADIUS_OF_CURVATURE = 22; // in view coordinates
 const DIAMETER = 30; // in view coordinates
@@ -91,9 +92,7 @@ class CurveControl extends RectangularRadioButtonGroup {
       options );
 
     // get appropriate icon shapes
-    const iconShapes = ( type === Optic.Type.LENS ) ?
-                       Optic.getLensShapes( options.radius, options.diameter, curve, options ) :
-                       Optic.getMirrorShapes( options.radius, options.diameter, curve, options );
+    const iconShapes = new OpticShapeCollection( options.radius, options.diameter, curve, type, options );
 
     // create node to layout the paths for the icon
     const iconNode = new Node();
