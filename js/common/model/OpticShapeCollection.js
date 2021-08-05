@@ -7,7 +7,6 @@
  * The fill shape represents the entire shape of the lens, or in the case of mirror, the backing of the mirror
  * The front shape is the left facing contour of the optic. This can be used for ray hit testing
  * The back shape is the right facing contour of the optic. back shape is null for mirror
- * The middle shape is the imaginary vertical line that splits a lens into two halves. Null for mirror.
  *
  * @author Martin Veillette
  */
@@ -108,7 +107,6 @@ class OpticShapeCollection {
     this.outlineShape = frontShape;
     this.frontShape = frontShape;
     this.backShape = null;
-    this.middleShape = null;
 
   }
 
@@ -212,11 +210,6 @@ class OpticShapeCollection {
         .close();
     }
 
-    // two extrema points of the lens
-    const top = new Vector2( 0, halfHeight );
-    const bottom = new Vector2( 0, -halfHeight );
-    const middleShape = new Shape().moveToPoint( top ).lineToPoint( bottom );
-
     // the outline shape is the same as the fill shape for a lens
 
     // @public (read-only)
@@ -224,7 +217,6 @@ class OpticShapeCollection {
     this.outlineShape = outlineShape;
     this.frontShape = frontShape;
     this.backShape = backShape;
-    this.middleShape = middleShape;
   }
 }
 

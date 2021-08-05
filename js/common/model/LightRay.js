@@ -288,37 +288,6 @@ class LightRay {
    * @param {boolean} isPrincipalRayMode
    * @returns {Shape}
    */
-  getMiddleShape( optic,
-                  isPrincipalRayMode ) {
-
-    // for principal rays, the rays are refracted at a vertical line
-    if ( isPrincipalRayMode ) {
-
-      return optic.getPrincipalLine();
-    }
-    else if ( optic.isLens() ) {
-
-      // get the vertical (middle) line spanning the lens
-      const staticShape = optic.shapesProperty.value.middleShape;
-
-      return optic.translatedShape( staticShape );
-    }
-    else { // isMirror &&  not principal rays
-
-      // get the first surface of the mirror
-      const staticShape = optic.shapesProperty.value.frontShape;
-      return optic.translatedShape( staticShape );
-    }
-  }
-
-
-  /**
-   * Gets the shape that the initial ray will intersect
-   * @private
-   * @param {Optic} optic
-   * @param {boolean} isPrincipalRayMode
-   * @returns {Shape}
-   */
   getFirstShape( optic,
                  isPrincipalRayMode ) {
 
