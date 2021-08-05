@@ -22,7 +22,7 @@ class Target extends EnabledComponent {
   /**
    * @param {Property.<Vector2>} objectPositionProperty - position of the object/source
    * @param {Optic} optic - model of the optic
-   * @param {Property.<representation>} representationProperty
+   * @param {Property.<Representation>} representationProperty
    * @param {Tandem} tandem
    */
   constructor( objectPositionProperty,
