@@ -75,9 +75,7 @@ of the simulation. For instance, the `zoomModelViewTransform` can be used to con
 to `playAreaModelBounds`.
 
 **Memory management**: Unless otherwise documented in the source code, assume that `unlink`, `removeListener`, `dispose`
-, etc. are generally not needed and that all listeners exist for the lifetime of the sim. The only exception to this is
-the `GeometricOpticsRulerNode` which is not created for the lifetime of the simulation. The `GeometricOpticsRulerNode`
-has a dispose function to dispose of its listeners.
+, etc. are generally not needed and that all listeners exist for the lifetime of the sim.
 
 ### Model
 
