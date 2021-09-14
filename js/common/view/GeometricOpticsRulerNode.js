@@ -38,6 +38,7 @@ class GeometricOpticsRulerNode extends Node {
                options ) {
 
     options = merge( {
+      cursor: 'pointer',
       rulerOptions: {
         opacity: 0.8,
         minorTicksPerMajorTick: 4,

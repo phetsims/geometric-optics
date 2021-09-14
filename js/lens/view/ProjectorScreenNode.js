@@ -11,6 +11,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
+import merge from '../../../../phet-core/js/merge.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -47,6 +48,10 @@ class ProjectorScreenNode extends Node {
                tandem,
                options ) {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+
+    options = merge( {
+      cursor: 'pointer'
+    }, options );
 
     super( options );
 

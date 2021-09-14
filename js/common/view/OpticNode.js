@@ -43,6 +43,7 @@ class OpticNode extends Node {
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     options = merge( {
+      cursor: 'ns-resize',
       fill: FILL,
       stroke: STROKE,
       lineWidth: LINE_WIDTH
@@ -53,6 +54,7 @@ class OpticNode extends Node {
     // create a drag listener on the fill of the opticalElement (see #22)
     let clickOffset;
     const dragListener = new DragListener( {
+      pressCursor: options.cursor,
       start: event => {
 
         // click offset in model coordinate between the press drag and the center of the optic

@@ -119,7 +119,8 @@ class ToolboxPanel extends Panel {
         minorTicksPerMajorTick: 1,
         majorTickHeight: ( 0.6 * rulerHeight ) / 2,
         minorTickHeight: ( 0.4 * rulerHeight ) / 2,
-        majorTickLineWidth: 2
+        majorTickLineWidth: 2,
+        cursor: 'pointer'
       }
     );
     rulerIconNode.scale( 0.12 );

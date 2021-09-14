@@ -59,7 +59,9 @@ class SourceObjectNode extends Node {
 
     assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    super();
+    super( {
+      cursor: 'pointer'
+    } );
 
     // representation (image)  of the source/object. the source/object is upright and right facing
     const sourceObjectImage = new Image( representationProperty.value.rightFacingUpright );
