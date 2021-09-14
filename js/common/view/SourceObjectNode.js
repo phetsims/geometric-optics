@@ -222,7 +222,7 @@ class SourceObjectNode extends Node {
       stroke: SECOND_SOURCE_POINT_STROKE
     }, options );
 
-    return new Circle( 5, options ); // REVIEW: this takes a radius as the first arg
+    return new Circle( 5, options );
   }
 
   /**
