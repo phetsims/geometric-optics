@@ -22,10 +22,8 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Representation from '../model/Representation.js';
 
-const SECOND_SOURCE_POINT_OPTIONS = GeometricOpticsConstants.SECOND_SOURCE_POINT_OPTIONS;
 const SECOND_SOURCE_POINT_FILL = GeometricOpticsColors.secondSourcePointFillProperty;
 const SECOND_SOURCE_POINT_STROKE = GeometricOpticsColors.secondSourcePointStrokeProperty;
 
@@ -222,12 +220,12 @@ class SourceObjectNode extends Node {
    * @returns {Node}
    */
   static createSecondSourcePointIcon( options ) {
-    options = merge( {}, SECOND_SOURCE_POINT_OPTIONS, {
+    options = merge( {
       fill: SECOND_SOURCE_POINT_FILL,
       stroke: SECOND_SOURCE_POINT_STROKE
     }, options );
 
-    return new Circle( options ); // REVIEW: this takes a radius as the first arg
+    return new Circle( 5, options ); // REVIEW: this takes a radius as the first arg
   }
 
   /**

@@ -61,11 +61,6 @@ const GeometricOpticsConstants = {
   },
 
   //----------------------------------------------------------------------------------------
-  //                           SECOND SOURCE POINT
-
-  SECOND_SOURCE_POINT_OPTIONS: { radius: 5 },
-
-  //----------------------------------------------------------------------------------------
   //                           OPTICAL AXIS
 
   OPTICAL_AXIS_LINE_WIDTH: 2,
