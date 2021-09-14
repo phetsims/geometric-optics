@@ -32,7 +32,7 @@ class ProjectorScreenNode extends Node {
    * @param {Property.<Representation>} representationProperty
    * @param {Property.<boolean>} enableFirstSpotlightProperty - have the rays from the first source reached the screen
    * @param {Property.<boolean>} enableSecondSpotlightProperty - have the rays from the second source reached the screen
-   * @param {Property.<boolean>} visibleSecondSourceProperty - is the second source checkbox on.
+   * @param {Property.<boolean>} secondSourceVisibleProperty - is the second source checkbox on.
    * @param {Property.<Bounds2>} visibleModelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
@@ -42,7 +42,7 @@ class ProjectorScreenNode extends Node {
                representationProperty,
                enableFirstSpotlightProperty,
                enableSecondSpotlightProperty,
-               visibleSecondSourceProperty,
+               secondSourceVisibleProperty,
                visibleModelBoundsProperty,
                modelViewTransform,
                tandem,
@@ -143,7 +143,7 @@ class ProjectorScreenNode extends Node {
 
     // {Property.<boolean>} create a property for the visibility of the second source spotlight
     const visibleSecondSourceSpotlightProperty = DerivedProperty.and(
-      [ enableSecondSpotlightProperty, visibleSecondSourceProperty ] );
+      [ enableSecondSpotlightProperty, secondSourceVisibleProperty ] );
 
     // add second spotlight for the "second source"
     addSpotLightNode( projectorScreen.secondSpotlight, visibleSecondSourceSpotlightProperty );

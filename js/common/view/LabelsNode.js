@@ -48,13 +48,13 @@ class LabelsNode extends Node {
     // create first focal point label
     const firstFocalPointLabel = new LabelNode( focalPointString,
       model.firstFocalPoint.positionProperty,
-      visibleProperties.visibleFocalPointProperty,
+      visibleProperties.focalPointVisibleProperty,
       modelViewTransformProperty );
 
     // create second focal point label
     const secondFocalPointLabel = new LabelNode( focalPointString,
       model.secondFocalPoint.positionProperty,
-      visibleProperties.visibleFocalPointProperty,
+      visibleProperties.focalPointVisibleProperty,
       modelViewTransformProperty );
 
     // define optic label position
@@ -117,7 +117,7 @@ class LabelsNode extends Node {
         model.representationProperty,
         model.firstTarget.enabledProperty,
         model.firstTarget.isVirtualProperty,
-        visibleProperties.visibleVirtualImageProperty ],
+        visibleProperties.virtualImageVisibleProperty ],
       ( representation, isEnabled, isVirtual, showVirtual ) => {
 
         // label is visible if the representation is an object
@@ -139,7 +139,7 @@ class LabelsNode extends Node {
     this.addChild( imageLabel );
 
     // update the visibility of the labels
-    visibleProperties.visibleLabelsProperty.linkAttribute( this, 'visible' );
+    visibleProperties.labelsVisibleProperty.linkAttribute( this, 'visible' );
   }
 }
 

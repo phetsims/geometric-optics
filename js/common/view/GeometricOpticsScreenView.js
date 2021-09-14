@@ -147,7 +147,7 @@ class GeometricOpticsScreenView extends ScreenView {
     } );
 
     // create the show/hide eye toggle button above the reset all button
-    const showHideToggleButton = new ShowHideToggleButton( this.visibleProperties.visibleRayTracingProperty );
+    const showHideToggleButton = new ShowHideToggleButton( this.visibleProperties.rayTracingVisibleProperty );
     showHideToggleButton.centerBottom = resetAllButton.centerTop.plusXY( 0, -22 );
 
     //-------------------------------------------------------------------
@@ -169,7 +169,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // @private create the source/object on the left hand side of screen
     this.sourceObjectNode = new SourceObjectNode( model.representationProperty,
-      model.sourceObject, this.visibleProperties.visibleSecondSourceProperty,
+      model.sourceObject, this.visibleProperties.secondSourceVisibleProperty,
       this.playAreaModelBoundsProperty,
       this.modelViewTransform, tandem );
 
@@ -185,33 +185,33 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // create the light rays associated with the object
     const lightRaysNode = new LightRaysNode( model.firstLightRays,
-      this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem, {
+      this.visibleProperties.virtualImageVisibleProperty, this.modelViewTransform, tandem, {
         realRayStroke: realRayOneStroke,
         virtualRayStroke: virtualRayOneStroke
       } );
 
     // create the light rays associated with the second source
     const secondSourceLightRaysNode = new LightRaysNode( model.secondLightRays,
-      this.visibleProperties.visibleVirtualImageProperty, this.modelViewTransform, tandem, {
+      this.visibleProperties.virtualImageVisibleProperty, this.modelViewTransform, tandem, {
         realRayStroke: realRayTwoStroke,
         virtualRayStroke: virtualRayTwoStroke
       } );
 
     // the second source light rays visibility is tied to the status of the checkbox
-    this.visibleProperties.visibleSecondSourceProperty.linkAttribute( secondSourceLightRaysNode, 'visible' );
+    this.visibleProperties.secondSourceVisibleProperty.linkAttribute( secondSourceLightRaysNode, 'visible' );
 
     // create the target image
     const targetNode = new TargetNode( model.representationProperty,
       model.firstTarget,
       model.optic,
-      this.visibleProperties.visibleVirtualImageProperty,
+      this.visibleProperties.virtualImageVisibleProperty,
       this.modelViewTransform, tandem );
 
     // create two focal points
     const firstFocalPointNode = new FocalPointNode( model.firstFocalPoint,
-      this.visibleProperties.visibleFocalPointProperty, this.modelViewTransform, tandem );
+      this.visibleProperties.focalPointVisibleProperty, this.modelViewTransform, tandem );
     const secondFocalPointNode = new FocalPointNode( model.secondFocalPoint,
-      this.visibleProperties.visibleFocalPointProperty, this.modelViewTransform, tandem );
+      this.visibleProperties.focalPointVisibleProperty, this.modelViewTransform, tandem );
     const focalPointsLayer = new Node( { children: [ firstFocalPointNode, secondFocalPointNode ] } );
 
     // add children that need to be zoomed in/out. order is important
@@ -238,7 +238,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
     } );
 
-    Property.multilink( [ model.lightRayModeProperty, this.visibleProperties.visibleRayTracingProperty ],
+    Property.multilink( [ model.lightRayModeProperty, this.visibleProperties.rayTracingVisibleProperty ],
       ( lightRayMode, showHide ) => {
         if ( lightRayMode === LightRayMode.NONE ) {
           model.firstTarget.enabledProperty.value = showHide;
@@ -314,7 +314,7 @@ class GeometricOpticsScreenView extends ScreenView {
    * @public
    */
   step( dt ) {
-    if ( this.visibleProperties.visibleRayTracingProperty.value ) {
+    if ( this.visibleProperties.rayTracingVisibleProperty.value ) {
       this.model.incrementTimer( dt );
     }
   }

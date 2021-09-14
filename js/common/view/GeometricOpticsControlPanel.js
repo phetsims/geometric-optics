@@ -208,13 +208,13 @@ class GeometricOpticsControlPanel extends Panel {
 
     // create checkbox group for visibility settings
     const checkboxGroupItems = [
-      createCheckboxGroupItem( focalPointString, visibleProperties.visibleFocalPointProperty,
+      createCheckboxGroupItem( focalPointString, visibleProperties.focalPointVisibleProperty,
         { icon: focalPointIcon } ),
-      createCheckboxGroupItem( virtualImageString, visibleProperties.visibleVirtualImageProperty ),
-      createCheckboxGroupItem( labelsString, visibleProperties.visibleLabelsProperty ),
-      createCheckboxGroupItem( secondSourceString, visibleProperties.visibleSecondSourceProperty,
+      createCheckboxGroupItem( virtualImageString, visibleProperties.virtualImageVisibleProperty ),
+      createCheckboxGroupItem( labelsString, visibleProperties.labelsVisibleProperty ),
+      createCheckboxGroupItem( secondSourceString, visibleProperties.secondSourceVisibleProperty,
         { icon: secondSourcePointIcon } ),
-      createCheckboxGroupItem( guidesString, visibleProperties.visibleGuidesProperty )
+      createCheckboxGroupItem( guidesString, visibleProperties.guidesVisibleProperty )
     ];
 
     // remove guides checkbox for mirror  or because of query parameters
@@ -222,7 +222,7 @@ class GeometricOpticsControlPanel extends Panel {
       checkboxGroupItems.pop();
 
       // ensure that the guides are invisible as well
-      visibleProperties.visibleGuidesProperty.value = false;
+      visibleProperties.guidesVisibleProperty.value = false;
     }
 
     // create check box group

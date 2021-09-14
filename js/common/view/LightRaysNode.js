@@ -14,13 +14,13 @@ class LightRaysNode extends Node {
 
   /**
    * @param {LightRays} lightRays
-   * @param {Property.<boolean>} visibleVirtualImageProperty
+   * @param {Property.<boolean>} virtualImageVisibleProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Tandem} tandem
    * @param {Object} [options]
    */
   constructor( lightRays,
-               visibleVirtualImageProperty,
+               virtualImageVisibleProperty,
                modelViewTransform,
                tandem,
                options ) {
@@ -56,7 +56,7 @@ class LightRaysNode extends Node {
       }
     );
 
-    visibleVirtualImageProperty.linkAttribute( virtualRayPath, 'visible' );
+    virtualImageVisibleProperty.linkAttribute( virtualRayPath, 'visible' );
   }
 }
 
