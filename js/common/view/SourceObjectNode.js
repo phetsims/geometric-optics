@@ -127,7 +127,7 @@ class SourceObjectNode extends Node {
     const secondSourcePositionProperty = new Vector2Property( sourceObject.secondPositionProperty.value );
 
     // create the icon for second source (for object source)
-    const circleIcon = SourceObjectNode.createSecondSourcePointIcon();
+    const secondSourcePointIcon = SourceObjectNode.createSecondSourcePointIcon();
 
     // create a layer to host the cueing arrows
     this.secondSourceCueingArrowsLayer = new Node();
@@ -135,8 +135,8 @@ class SourceObjectNode extends Node {
     // create and add cueing arrow
     const upArrowNode = new ArrowNode( 0, 0, 0, -CUEING_ARROW_LENGTH, CUEING_ARROW_OPTIONS );
     const downArrowNode = new ArrowNode( 0, 0, 0, +CUEING_ARROW_LENGTH, CUEING_ARROW_OPTIONS );
-    upArrowNode.bottom = circleIcon.top - 5;
-    downArrowNode.top = circleIcon.bottom + 5;
+    upArrowNode.bottom = secondSourcePointIcon.top - 5;
+    downArrowNode.top = secondSourcePointIcon.bottom + 5;
     this.secondSourceCueingArrowsLayer.addChild( upArrowNode );
     this.secondSourceCueingArrowsLayer.addChild( downArrowNode );
 
@@ -185,8 +185,8 @@ class SourceObjectNode extends Node {
       if ( representation.isObject ) {
 
         // add circle and cueing arrows
-        secondSourceNode.addChild( circleIcon );
-        secondSourceNode.touchArea = circleIcon.bounds.dilated( 10 );
+        secondSourceNode.addChild( secondSourcePointIcon );
+        secondSourceNode.touchArea = secondSourcePointIcon.bounds.dilated( 10 );
         secondSourceNode.addChild( this.secondSourceCueingArrowsLayer );
 
         //TODO https://github.com/phetsims/geometric-optics/issues/82 address position of source of light
