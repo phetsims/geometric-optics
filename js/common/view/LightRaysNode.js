@@ -7,7 +7,6 @@
 import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 
 class LightRaysNode extends Node {
@@ -16,15 +15,12 @@ class LightRaysNode extends Node {
    * @param {LightRays} lightRays
    * @param {Property.<boolean>} virtualImageVisibleProperty
    * @param {ModelViewTransform2} modelViewTransform
-   * @param {Tandem} tandem
    * @param {Object} [options]
    */
   constructor( lightRays,
                virtualImageVisibleProperty,
                modelViewTransform,
-               tandem,
                options ) {
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     options = merge( {
       realRayStroke: 'white',

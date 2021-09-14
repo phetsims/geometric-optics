@@ -15,7 +15,6 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import MagnifyingGlassZoomButtonGroup from '../../../../scenery-phet/js/MagnifyingGlassZoomButtonGroup.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
@@ -32,10 +31,10 @@ import LightRaysNode from './LightRaysNode.js';
 import OpticalAxisLine from './OpticalAxisLine.js';
 import OpticNode from './OpticNode.js';
 import RepresentationComboBox from './RepresentationComboBox.js';
+import RulersToolboxPanel from './RulersToolboxPanel.js';
 import ShowHideToggleButton from './ShowHideToggleButton.js';
 import SourceObjectNode from './SourceObjectNode.js';
 import TargetNode from './TargetNode.js';
-import RulersToolboxPanel from './RulersToolboxPanel.js';
 import TrackingDiskNode from './TrackingDiskNode.js';
 import VisibleProperties from './VisibleProperties.js';
 
@@ -55,15 +54,11 @@ class GeometricOpticsScreenView extends ScreenView {
 
   /**
    * @param {GeometricOpticsModel} model
-   * @param {Tandem} tandem
    */
-  constructor( model, tandem ) {
+  constructor( model ) {
     assert && assert( model instanceof GeometricOpticsModel, 'invalid model' );
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    super( {
-      tandem: tandem
-    } );
+    super();
 
     // @protected
     this.model = model;
@@ -72,7 +67,7 @@ class GeometricOpticsScreenView extends ScreenView {
     const erodedLayoutBounds = this.layoutBounds.erodedXY( SCREEN_VIEW_X_MARGIN, SCREEN_VIEW_Y_MARGIN );
 
     // @protected create visible properties associated with checkboxes
-    this.visibleProperties = new VisibleProperties( tandem );
+    this.visibleProperties = new VisibleProperties();
 
     // @private {Property.<number>} property that controls zoom in play area
     this.zoomLevelProperty = new NumberProperty( ZOOM_RANGE.defaultValue, { range: ZOOM_RANGE } );
@@ -94,18 +89,22 @@ class GeometricOpticsScreenView extends ScreenView {
     //               Buttons, Controls and Panels
 
     // create Rulers
-    this.rulersLayer = new GeometricOpticRulersLayer( model.rulers, this.visibleBoundsProperty,
+    this.rulersLayer = new GeometricOpticRulersLayer(
+      model.rulers,
+      this.visibleBoundsProperty,
       this.absoluteScaleProperty,
-      this.zoomModelViewTransformProperty, tandem );
+      this.zoomModelViewTransformProperty
+    );
 
     // create control panel at the bottom of the screen
     const geometricOpticsControlPanel = new GeometricOpticsControlPanel( model.optic,
-      model.lightRayModeProperty, this.visibleProperties, this.modelViewTransform, tandem,
-      { hasLens: model.optic.isLens() } );
+      model.lightRayModeProperty, this.visibleProperties, this.modelViewTransform, {
+        hasLens: model.optic.isLens()
+      } );
     geometricOpticsControlPanel.centerBottom = erodedLayoutBounds.centerBottom;
 
     // create toolbox panel at the top right corner of the screen
-    const toolboxPanel = new RulersToolboxPanel( this.rulersLayer, tandem );
+    const toolboxPanel = new RulersToolboxPanel( this.rulersLayer );
     toolboxPanel.rightTop = erodedLayoutBounds.rightTop;
 
     // pass the bounds of the toolbox to the rulers for their return to toolbox
@@ -116,8 +115,9 @@ class GeometricOpticsScreenView extends ScreenView {
     curveControl.rightCenter = geometricOpticsControlPanel.leftCenter.minusXY( 20, 0 );
 
     // create the combo box at the center top of the screen
-    const comboBox = new RepresentationComboBox( model.representationProperty, tandem,
-      { hasLens: model.optic.isLens() } );
+    const comboBox = new RepresentationComboBox( model.representationProperty, {
+      hasLens: model.optic.isLens()
+    } );
     comboBox.centerTop = erodedLayoutBounds.centerTop;
 
     // create magnifying buttons for zooming in and out at the left top
@@ -142,8 +142,7 @@ class GeometricOpticsScreenView extends ScreenView {
         this.reset();
       },
       rightBottom: erodedLayoutBounds.rightBottom,
-      radius: BUTTON_RADIUS,
-      tandem: tandem.createTandem( 'resetAllButton' )
+      radius: BUTTON_RADIUS
     } );
 
     // create the show/hide eye toggle button above the reset all button
@@ -168,31 +167,35 @@ class GeometricOpticsScreenView extends ScreenView {
     this.playAreaNode = new Node();
 
     // @private create the source/object on the left hand side of screen
-    this.sourceObjectNode = new SourceObjectNode( model.representationProperty,
-      model.sourceObject, this.visibleProperties.secondSourceVisibleProperty,
+    this.sourceObjectNode = new SourceObjectNode(
+      model.representationProperty,
+      model.sourceObject,
+      this.visibleProperties.secondSourceVisibleProperty,
       this.playAreaModelBoundsProperty,
-      this.modelViewTransform, tandem );
+      this.modelViewTransform
+    );
 
     // create the optical axis attached to the optical element
     const opticalAxisLine = new OpticalAxisLine( model.optic.positionProperty,
       this.playAreaModelBoundsProperty, this.modelViewTransform );
 
-    const opticNode = new OpticNode( model.optic,
+    const opticNode = new OpticNode(
+      model.optic,
       model.lightRayModeProperty,
       this.playAreaModelBoundsProperty,
-      this.modelViewTransform,
-      tandem );
+      this.modelViewTransform
+    );
 
     // create the light rays associated with the object
     const lightRaysNode = new LightRaysNode( model.firstLightRays,
-      this.visibleProperties.virtualImageVisibleProperty, this.modelViewTransform, tandem, {
+      this.visibleProperties.virtualImageVisibleProperty, this.modelViewTransform, {
         realRayStroke: realRayOneStroke,
         virtualRayStroke: virtualRayOneStroke
       } );
 
     // create the light rays associated with the second source
     const secondSourceLightRaysNode = new LightRaysNode( model.secondLightRays,
-      this.visibleProperties.virtualImageVisibleProperty, this.modelViewTransform, tandem, {
+      this.visibleProperties.virtualImageVisibleProperty, this.modelViewTransform, {
         realRayStroke: realRayTwoStroke,
         virtualRayStroke: virtualRayTwoStroke
       } );
@@ -201,17 +204,19 @@ class GeometricOpticsScreenView extends ScreenView {
     this.visibleProperties.secondSourceVisibleProperty.linkAttribute( secondSourceLightRaysNode, 'visible' );
 
     // create the target image
-    const targetNode = new TargetNode( model.representationProperty,
+    const targetNode = new TargetNode(
+      model.representationProperty,
       model.firstTarget,
       model.optic,
       this.visibleProperties.virtualImageVisibleProperty,
-      this.modelViewTransform, tandem );
+      this.modelViewTransform
+    );
 
     // create two focal points
     const firstFocalPointNode = new FocalPointNode( model.firstFocalPoint,
-      this.visibleProperties.focalPointVisibleProperty, this.modelViewTransform, tandem );
+      this.visibleProperties.focalPointVisibleProperty, this.modelViewTransform );
     const secondFocalPointNode = new FocalPointNode( model.secondFocalPoint,
-      this.visibleProperties.focalPointVisibleProperty, this.modelViewTransform, tandem );
+      this.visibleProperties.focalPointVisibleProperty, this.modelViewTransform );
     const focalPointsLayer = new Node( { children: [ firstFocalPointNode, secondFocalPointNode ] } );
 
     // add children that need to be zoomed in/out. order is important
@@ -275,27 +280,25 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // add disks at position of optic, source and target
     if ( GeometricOpticsQueryParameters.showDebugPoints ) {
-      this.playAreaNode.addChild( new TrackingDiskNode( model.firstTarget.positionProperty, this.modelViewTransform, tandem,
+      this.playAreaNode.addChild( new TrackingDiskNode( model.firstTarget.positionProperty, this.modelViewTransform,
         { fill: 'magenta' } ) );
-      this.playAreaNode.addChild( new TrackingDiskNode( model.sourceObject.firstPositionProperty, this.modelViewTransform, tandem,
+      this.playAreaNode.addChild( new TrackingDiskNode( model.sourceObject.firstPositionProperty, this.modelViewTransform,
         { fill: 'magenta' } ) );
-      this.playAreaNode.addChild( new TrackingDiskNode( model.optic.positionProperty, this.modelViewTransform, tandem,
+      this.playAreaNode.addChild( new TrackingDiskNode( model.optic.positionProperty, this.modelViewTransform,
         { fill: 'magenta' } ) );
     }
 
     // add disks at a distance 2f for optic on each side of optic
     if ( GeometricOpticsQueryParameters.show2fPoints ) {
-      const minus2fPoint = new FocalPoint( model.optic.positionProperty, model.optic.focalLengthProperty,
-        tandem.createTandem( 'minus2fPoint' ), {
-          multiplicativeFactor: -2
-        } );
-      const plus2fPoint = new FocalPoint( model.optic.positionProperty, model.optic.focalLengthProperty,
-        tandem.createTandem( 'plus2fPoint' ), {
-          multiplicativeFactor: 2
-        } );
-      this.playAreaNode.addChild( new TrackingDiskNode( minus2fPoint.positionProperty, this.modelViewTransform, tandem,
+      const minus2fPoint = new FocalPoint( model.optic.positionProperty, model.optic.focalLengthProperty, {
+        multiplicativeFactor: -2
+      } );
+      const plus2fPoint = new FocalPoint( model.optic.positionProperty, model.optic.focalLengthProperty, {
+        multiplicativeFactor: 2
+      } );
+      this.playAreaNode.addChild( new TrackingDiskNode( minus2fPoint.positionProperty, this.modelViewTransform,
         { fill: 'black' } ) );
-      this.playAreaNode.addChild( new TrackingDiskNode( plus2fPoint.positionProperty, this.modelViewTransform, tandem,
+      this.playAreaNode.addChild( new TrackingDiskNode( plus2fPoint.positionProperty, this.modelViewTransform,
         { fill: 'black' } ) );
     }
   }

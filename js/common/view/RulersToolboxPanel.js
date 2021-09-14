@@ -20,10 +20,9 @@ class RulersToolboxPanel extends Panel {
 
   /**
    * @param {GeometricOpticRulersLayer} rulersLayer
-   * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( rulersLayer, tandem, options ) {
+  constructor( rulersLayer, options ) {
 
     options = merge( {
       align: 'center',

@@ -18,7 +18,6 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
@@ -33,10 +32,8 @@ class SourceObject {
   /**
    * @param {Property.<Vector2>} opticPositionProperty
    * @param {Property.<Representation>} representationProperty
-   * @param {Tandem} tandem
    */
-  constructor( opticPositionProperty, representationProperty, tandem ) {
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+  constructor( opticPositionProperty, representationProperty ) {
 
     const scale = representationProperty.value.isObject ? OBJECT_SCALE_FACTOR : SOURCE_SCALE_FACTOR;
 

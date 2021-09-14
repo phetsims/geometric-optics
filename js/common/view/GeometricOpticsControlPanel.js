@@ -20,7 +20,6 @@ import Panel from '../../../../sun/js/Panel.js';
 import SunConstants from '../../../../sun/js/SunConstants.js';
 import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
@@ -54,11 +53,9 @@ class GeometricOpticsControlPanel extends Panel {
    * @param {Property.<LightRayMode>} lightRayModeProperty
    * @param {VisibleProperties} visibleProperties
    * @param {ModelViewTransform2} modelViewTransform
-   * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( optic, lightRayModeProperty, visibleProperties, modelViewTransform, tandem, options ) {
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+  constructor( optic, lightRayModeProperty, visibleProperties, modelViewTransform, options ) {
 
     options = merge( {
       hasLens: false
@@ -180,7 +177,7 @@ class GeometricOpticsControlPanel extends Panel {
      * @param {string} string
      * @param {Property} property
      * @param {Object} [options]
-     * @returns {{node: Node, property: Property, tandem: Tandem}} item
+     * @returns {{node: Node, property: Property }} item
      */
     const createCheckboxGroupItem = ( string, property, options ) => {
       options = merge( {
@@ -195,8 +192,7 @@ class GeometricOpticsControlPanel extends Panel {
 
       return {
         node: node,
-        property: property,
-        tandem: tandem
+        property: property
       };
     };
 

@@ -5,7 +5,6 @@
  */
 
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import GeometricOpticsModel from '../../common/model/GeometricOpticsModel.js';
 import Optic from '../../common/model/Optic.js';
@@ -18,11 +17,7 @@ const INITIAL_CURVATURE_TYPE = GeometricOpticsConstants.MIRROR_INITIAL_CURVATURE
 
 class MirrorModel extends GeometricOpticsModel {
 
-  /**
-   * @param {Tandem} tandem
-   */
-  constructor( tandem ) {
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+  constructor() {
 
     // index of refraction of mirror
     // P.S. although a mirror does not have an index of refraction
@@ -30,8 +25,7 @@ class MirrorModel extends GeometricOpticsModel {
     const indexOfRefractionRange = new RangeWithValue( 2, 2, 2 );
 
     super( INITIAL_POSITION, RADIUS_OF_CURVATURE_RANGE, DIAMETER_RANGE,
-      indexOfRefractionRange, INITIAL_CURVATURE_TYPE, Optic.Type.MIRROR, tandem );
-
+      indexOfRefractionRange, INITIAL_CURVATURE_TYPE, Optic.Type.MIRROR );
   }
 
   /**

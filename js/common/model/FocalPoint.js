@@ -15,10 +15,9 @@ class FocalPoint {
   /**
    * @param {Property.<Vector2>} opticPositionProperty
    * @param {Property.<number>} focalLengthProperty
-   * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( opticPositionProperty, focalLengthProperty, tandem, options ) {
+  constructor( opticPositionProperty, focalLengthProperty, options ) {
 
     options = merge( {
       multiplicativeFactor: 1

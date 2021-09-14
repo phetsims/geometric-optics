@@ -11,7 +11,6 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnabledComponent from '../../../../axon/js/EnabledComponent.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
@@ -23,13 +22,8 @@ class Target extends EnabledComponent {
    * @param {Property.<Vector2>} objectPositionProperty - position of the object/source
    * @param {Optic} optic - model of the optic
    * @param {Property.<Representation>} representationProperty
-   * @param {Tandem} tandem
    */
-  constructor( objectPositionProperty,
-               optic,
-               representationProperty,
-               tandem ) {
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+  constructor( objectPositionProperty, optic, representationProperty ) {
 
     super();
 

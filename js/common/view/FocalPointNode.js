@@ -9,7 +9,6 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
@@ -24,15 +23,9 @@ class FocalPointNode extends PlusNode {
    * @param {FocalPoint} focalPoint
    * @param {Property.<boolean>} visibleProperty
    * @param {ModelViewTransform2} modelViewTransform
-   * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( focalPoint,
-               visibleProperty,
-               modelViewTransform,
-               tandem,
-               options ) {
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+  constructor( focalPoint, visibleProperty, modelViewTransform, options ) {
 
     // options for plus Node. Rotated by 45 degrees to create an X shape.
     options = merge( {}, FOCAL_POINT_OPTIONS,

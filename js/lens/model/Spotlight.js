@@ -10,7 +10,6 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Graph from '../../../../kite/js/ops/Graph.js';
 import Shape from '../../../../kite/js/Shape.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import Optic from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -25,15 +24,12 @@ class Spotlight {
    * @param {Property.<Vector2>} targetPositionProperty
    * @param {Optic} optic
    * @param {function} getScreenShape - returns the shape of the screen {Shape}
-   * @param {Tandem} tandem
    */
   constructor( sourcePositionProperty,
                screenPositionProperty,
                targetPositionProperty,
                optic,
-               getScreenShape,
-               tandem ) {
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+               getScreenShape ) {
 
     // @private {function}
     this.getScreenShape = getScreenShape;

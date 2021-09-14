@@ -12,7 +12,6 @@ import Emitter from '../../../../axon/js/Emitter.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import LightRay from './LightRay.js';
 import LightRayMode from './LightRayMode.js';
@@ -29,7 +28,6 @@ class LightRays {
    * @param {ProjectorScreen} projectorScreen
    * @param {Optic} optic
    * @param {Target} target - target model associated with this ray
-   * @param {Tandem} tandem
    */
   constructor( timeProperty,
                lightRayModeProperty,
@@ -37,9 +35,7 @@ class LightRays {
                sourceObjectPositionProperty,
                projectorScreen,
                optic,
-               target,
-               tandem ) {
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+               target ) {
 
     // @private {Property.<Vector>} target position associated with this ray
     this.targetPositionProperty = target.positionProperty;
@@ -104,8 +100,8 @@ class LightRays {
             isVirtual,
             isPrincipalRayMode,
             isProjectorScreenPresent,
-            projectorScreen.getBisectorLine.bind( projectorScreen ),
-            tandem );
+            projectorScreen.getBisectorLine.bind( projectorScreen )
+          );
 
           // set the enable image to true after the first ray reaches its target
           if ( lightRay.isTargetReached ) {

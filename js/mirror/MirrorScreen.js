@@ -16,10 +16,7 @@ import MirrorScreenView from './view/MirrorScreenView.js';
 
 class MirrorScreen extends Screen {
 
-  /**
-   * @param {Tandem} tandem
-   */
-  constructor( tandem ) {
+  constructor() {
 
     // create concave mirror for home screen icon
     const iconNode = CurveControl.createIconNode(
@@ -34,13 +31,12 @@ class MirrorScreen extends Screen {
     const options = {
       name: geometricOpticsStrings.screen.mirror,
       homeScreenIcon: new ScreenIcon( iconNode ),
-      backgroundColorProperty: GeometricOpticsColors.screenBackgroundColorProperty,
-      tandem: tandem
+      backgroundColorProperty: GeometricOpticsColors.screenBackgroundColorProperty
     };
 
     super(
-      () => new MirrorModel( tandem.createTandem( 'model' ) ),
-      model => new MirrorScreenView( model, tandem.createTandem( 'view' ) ),
+      () => new MirrorModel(),
+      model => new MirrorScreenView( model ),
       options
     );
   }

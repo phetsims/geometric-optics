@@ -12,7 +12,6 @@ import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 
 class TargetNode extends Node {
@@ -23,17 +22,10 @@ class TargetNode extends Node {
    * @param {Optic} optic
    * @param {Property.<boolean>} virtualImageVisibleProperty - property of the virtual image  check box
    * @param {ModelViewTransform2} modelViewTransform
-   * @param {Tandem} tandem
    */
-  constructor( representationProperty,
-               target,
-               optic,
-               virtualImageVisibleProperty,
-               modelViewTransform,
-               tandem ) {
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+  constructor( representationProperty, target, optic, virtualImageVisibleProperty, modelViewTransform ) {
 
-    super( { tandem: tandem } );
+    super();
 
     // creates the target image - the actual image will be updated later
     const targetImage = new Image( target.imageProperty.value );

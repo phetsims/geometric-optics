@@ -19,7 +19,6 @@ import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import Representation from '../model/Representation.js';
@@ -45,16 +44,12 @@ class SourceObjectNode extends Node {
    * @param {Property.<boolean>} secondSourceVisibleProperty
    * @param {Property.<Bounds2>} visibleModelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
-   * @param {Tandem} tandem
    * */
   constructor( representationProperty,
                sourceObject,
                secondSourceVisibleProperty,
                visibleModelBoundsProperty,
-               modelViewTransform,
-               tandem ) {
-
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+               modelViewTransform ) {
 
     super( {
       cursor: 'pointer'

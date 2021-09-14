@@ -16,7 +16,6 @@ import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import projectorScreen3dImage from '../../../images/projector-screen-3d_png.js';
 import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
@@ -35,7 +34,6 @@ class ProjectorScreenNode extends Node {
    * @param {Property.<boolean>} secondSourceVisibleProperty - is the second source checkbox on.
    * @param {Property.<Bounds2>} visibleModelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
-   * @param {Tandem} tandem
    * @param {Object} [options]
    */
   constructor( projectorScreen,
@@ -45,9 +43,7 @@ class ProjectorScreenNode extends Node {
                secondSourceVisibleProperty,
                visibleModelBoundsProperty,
                modelViewTransform,
-               tandem,
                options ) {
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
     options = merge( {
       cursor: 'pointer'

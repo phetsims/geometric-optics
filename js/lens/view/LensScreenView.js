@@ -5,7 +5,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsScreenView from '../../common/view/GeometricOpticsScreenView.js';
 import geometricOptics from '../../geometricOptics.js';
 import LensModel from '../model/LensModel.js';
@@ -16,13 +15,11 @@ class LensScreenView extends GeometricOpticsScreenView {
 
   /**
    * @param {LensModel} model
-   * @param {Tandem} tandem
    */
-  constructor( model, tandem ) {
+  constructor( model ) {
     assert && assert( model instanceof LensModel, 'invalid model' );
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
 
-    super( model, tandem );
+    super( model );
 
     // {Property.<boolean>} create visible property for the first guides (associated with the object)
     const visibleFirstGuidesProperty = new DerivedProperty( [ this.visibleProperties.guidesVisibleProperty,
@@ -48,13 +45,15 @@ class LensScreenView extends GeometricOpticsScreenView {
 
     // create projector screen associated with light source
     // @private {ProjectorScreenNode}
-    this.projectorScreenNode = new ProjectorScreenNode( model.projectorScreen,
+    this.projectorScreenNode = new ProjectorScreenNode(
+      model.projectorScreen,
       model.representationProperty,
       model.firstTarget.enabledProperty,
       model.secondTarget.enabledProperty,
       this.visibleProperties.secondSourceVisibleProperty,
       this.playAreaModelBoundsProperty,
-      this.modelViewTransform, tandem );
+      this.modelViewTransform
+    );
 
     //  add the screen at the bottom of the z-layer
     this.playAreaNode.insertChild( 0, this.projectorScreenNode );

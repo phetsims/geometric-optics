@@ -12,7 +12,6 @@ import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
@@ -31,16 +30,9 @@ class OpticNode extends Node {
    * @param {Property.<LightRayMode>} lightRayModeProperty
    * @param {Property.<Bounds2>} playAreaModelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
-   * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( optic,
-               lightRayModeProperty,
-               playAreaModelBoundsProperty,
-               modelViewTransform,
-               tandem,
-               options ) {
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+  constructor( optic, lightRayModeProperty, playAreaModelBoundsProperty, modelViewTransform, options ) {
 
     options = merge( {
       cursor: 'ns-resize',

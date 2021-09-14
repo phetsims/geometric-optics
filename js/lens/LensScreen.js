@@ -16,10 +16,7 @@ import LensScreenView from './view/LensScreenView.js';
 
 class LensScreen extends Screen {
 
-  /**
-   * @param {Tandem} tandem
-   */
-  constructor( tandem ) {
+  constructor() {
 
     // create convex lens for home screen icon
     const iconNode = CurveControl.createIconNode(
@@ -35,13 +32,12 @@ class LensScreen extends Screen {
 
       name: geometricOpticsStrings.screen.lens,
       homeScreenIcon: new ScreenIcon( iconNode ),
-      backgroundColorProperty: GeometricOpticsColors.screenBackgroundColorProperty,
-      tandem: tandem
+      backgroundColorProperty: GeometricOpticsColors.screenBackgroundColorProperty
     };
 
     super(
-      () => new LensModel( tandem.createTandem( 'model' ) ),
-      model => new LensScreenView( model, tandem.createTandem( 'view' ) ),
+      () => new LensModel(),
+      model => new LensScreenView( model ),
       options
     );
   }

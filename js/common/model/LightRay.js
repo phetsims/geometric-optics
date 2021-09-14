@@ -13,7 +13,6 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Ray from './Ray.js';
@@ -31,7 +30,6 @@ class LightRay {
    * @param {boolean} isPrincipalRayMode - is the light ray mode set to Principal rays
    * @param {boolean} isProjectorScreenPresent - is there a projector screen in the play area
    * @param {function} getProjectorScreenBisectorLine - returns a Shape that bisects the middle of projector screen
-   * @param {Tandem} tandem
    */
   constructor( initialRay,
                time,
@@ -40,9 +38,7 @@ class LightRay {
                isVirtual,
                isPrincipalRayMode,
                isProjectorScreenPresent,
-               getProjectorScreenBisectorLine,
-               tandem ) {
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+               getProjectorScreenBisectorLine ) {
 
     // @public (read-only) - shape of the real rays - will be updated later
     this.realShape = new Shape();

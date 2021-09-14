@@ -4,7 +4,6 @@
  * @author Martin Veillette
  */
 
-import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import GeometricOpticsModel from '../../common/model/GeometricOpticsModel.js';
 import Optic from '../../common/model/Optic.js';
@@ -19,14 +18,10 @@ const INITIAL_POSITION = GeometricOpticsConstants.LENS_INITIAL_POSITION;
 
 class LensModel extends GeometricOpticsModel {
 
-  /**
-   * @param {Tandem} tandem
-   */
-  constructor( tandem ) {
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+  constructor() {
 
     super( INITIAL_POSITION, RADIUS_OF_CURVATURE_RANGE, DIAMETER_RANGE,
-      INDEX_OF_REFRACTION_RANGE, INITIAL_CURVATURE_TYPE, Optic.Type.LENS, tandem );
+      INDEX_OF_REFRACTION_RANGE, INITIAL_CURVATURE_TYPE, Optic.Type.LENS );
 
     // @public {Guide} model for top guide associated with the first source/object
     this.firstTopGuide = new Guide( this.sourceObject.firstPositionProperty, this.optic );

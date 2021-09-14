@@ -18,7 +18,6 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import OpticShapeCollection from './OpticShapeCollection.js';
 
@@ -31,16 +30,13 @@ class Optic {
    * @param {RangeWithValue} indexOfRefractionRange
    * @param {Optic.Curve} curve - initial curve of optical element - acceptable values (CONVEX and CONCAVE)
    * @param {Optic.Type} type - type of optical element - acceptable values (MIRROR and LENS)
-   * @param {Tandem} tandem
    */
   constructor( initialPosition,
                radiusOfCurvatureRange,
                diameterRange,
                indexOfRefractionRange,
                curve,
-               type,
-               tandem ) {
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+               type ) {
     assert && assert( initialPosition instanceof Vector2, 'invalid initialPosition' );
     assert && assert( radiusOfCurvatureRange instanceof RangeWithValue, 'invalid radiusOfCurvature' );
     assert && assert( diameterRange instanceof RangeWithValue, 'invalid diameterRange' );

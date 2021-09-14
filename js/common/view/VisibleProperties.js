@@ -8,16 +8,11 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 
 class VisibleProperties {
 
-  /**
-   * @param {Tandem} tandem
-   */
-  constructor( tandem ) {
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+  constructor() {
 
     // @public visibility of the two focal points
     this.focalPointVisibleProperty = new BooleanProperty( true );

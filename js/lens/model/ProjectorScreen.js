@@ -10,7 +10,6 @@ import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Line from '../../../../kite/js/segments/Line.js';
 import Shape from '../../../../kite/js/Shape.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import geometricOptics from '../../geometricOptics.js';
 import Spotlight from './Spotlight.js';
@@ -26,15 +25,12 @@ class ProjectorScreen {
    * @param {Property.<Vector2>} firstTargetPositionProperty
    * @param {Property.<Vector2>} secondTargetPositionProperty
    * @param {Optic} optic
-   * @param {Tandem} tandem
    */
   constructor( firstSourcePositionProperty,
                secondSourcePositionProperty,
                firstTargetPositionProperty,
                secondTargetPositionProperty,
-               optic,
-               tandem ) {
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+               optic ) {
 
     // @public {Property.<Vector2>} position of the center of the screen
     this.positionProperty = new Vector2Property( INITIAL_POSITION );
@@ -48,8 +44,7 @@ class ProjectorScreen {
       this.positionProperty,
       firstTargetPositionProperty,
       optic,
-      this.getScreenShape.bind( this ),
-      tandem
+      this.getScreenShape.bind( this )
     );
 
     // @public (read-only) {Spotlight}
@@ -58,10 +53,8 @@ class ProjectorScreen {
       this.positionProperty,
       secondTargetPositionProperty,
       optic,
-      this.getScreenShape.bind( this ),
-      tandem
+      this.getScreenShape.bind( this )
     );
-
   }
 
   /**

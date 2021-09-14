@@ -19,18 +19,11 @@ class GeometricOpticRulersLayer extends Node {
    * @param {Property.<Bounds2>} visibleBoundsProperty
    * @param {Property.<number>} absoluteScaleProperty
    * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
-   * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( rulers,
-               visibleBoundsProperty,
-               absoluteScaleProperty,
-               modelViewTransformProperty,
-               tandem,
-               options ) {
+  constructor( rulers, visibleBoundsProperty, absoluteScaleProperty, modelViewTransformProperty, options ) {
 
     super( options );
-
 
     // @public {Bounds2} set to infinity, will be updated (mutated) later.
     this.toolboxPanelBounds = new Bounds2( Number.NEGATIVE_INFINITY,

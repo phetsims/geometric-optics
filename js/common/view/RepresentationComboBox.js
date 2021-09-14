@@ -11,7 +11,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Representation from '../model/Representation.js';
@@ -22,11 +21,9 @@ class RepresentationComboBox extends Node {
 
   /**
    * @param {Property.<Representation>} selectedItemProperty
-   * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( selectedItemProperty, tandem, options ) {
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+  constructor( selectedItemProperty, options ) {
 
     options = merge( {
       hasLens: false

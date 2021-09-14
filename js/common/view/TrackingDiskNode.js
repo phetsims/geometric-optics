@@ -9,7 +9,6 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 
 class TrackingDiskNode extends Circle {
@@ -17,14 +16,9 @@ class TrackingDiskNode extends Circle {
   /**
    * @param {Property.<Vector2>} positionProperty
    * @param {ModelViewTransform2} modelViewTransform
-   * @param {Tandem} tandem
    * @param {Object} [options]
    * */
-  constructor( positionProperty,
-               modelViewTransform,
-               tandem,
-               options ) {
-    assert && assert( tandem instanceof Tandem, 'invalid tandem' );
+  constructor( positionProperty, modelViewTransform, options ) {
 
     options = merge( {
 
