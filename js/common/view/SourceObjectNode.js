@@ -34,7 +34,7 @@ const CUEING_ARROW_OPTIONS = {
   fill: 'rgb(255,0,0)',
   tailWidth: 6,
   headWidth: 12,
-  headHeight: 7
+  headHeight: 6
 };
 
 class SourceObjectNode extends Node {
@@ -62,32 +62,44 @@ class SourceObjectNode extends Node {
 
     // representation (image)  of the source/object. the source/object is upright and right facing
     const sourceObjectImage = new Image( representationProperty.value.rightFacingUpright );
-
-    // add the representation to this node
     this.addChild( sourceObjectImage );
 
-    /**
-     * scale image to size of model bounds
-     * @param {Node} image
-     * @param {Bounds2} bounds
-     */
-    const scaleFunction = ( image, bounds ) => {
+    // @private
+    this.sourceCueingArrowsNode = new ArrowNode( 0, 0, 0, 65, {
+      doubleHead: true,
+      tailWidth: 15,
+      headWidth: 30,
+      headHeight: 15,
+      fill: 'rgb( 0, 200, 0 )',
+      stroke: 'black',
+      lineWidth: 1
+    } );
+    this.addChild( this.sourceCueingArrowsNode );
+
+    // Scale the source object.
+    const scaleSourceObject = () => {
+
       const initialWidth = sourceObjectImage.width;
       const initialHeight = sourceObjectImage.height;
 
-      // bounds that we want for the image
+      const bounds = sourceObject.boundsProperty.value;
       const viewBounds = modelViewTransform.modelToViewBounds( bounds );
-      image.scale( viewBounds.width / initialWidth,
-        viewBounds.height / initialHeight );
+
+      const scaleX = viewBounds.width / initialWidth;
+      const scaleY = viewBounds.height / initialHeight;
+      sourceObjectImage.scale( scaleX, scaleY );
     };
 
-    /**
-     * @param {Node} image
-     * @param {Vector2} modelPosition
-     */
-    const setImagePosition = ( image, modelPosition ) => {
-      image.leftTop = modelViewTransform.modelToViewPosition( modelPosition );
+    // Translate the source object to the specified position.
+    const translateSourceObject = modelPosition => {
+      sourceObjectImage.leftTop = modelViewTransform.modelToViewPosition( modelPosition );
     };
+
+    // Keep cueing arrows next to the source object.
+    sourceObjectImage.boundsProperty.link( bounds => {
+      this.sourceCueingArrowsNode.right = sourceObjectImage.left - 10;
+      this.sourceCueingArrowsNode.centerY = sourceObjectImage.centerY;
+    } );
 
     // keep at least half of the projector screen within visible bounds and right of the optic
     const dragBoundsProperty = new DerivedProperty( [ visibleModelBoundsProperty, representationProperty ],
@@ -104,15 +116,16 @@ class SourceObjectNode extends Node {
     const sourceObjectDragListener = new DragListener( {
       positionProperty: sourceObject.leftTopProperty,
       transform: modelViewTransform,
-      dragBoundsProperty: dragBoundsProperty
+      dragBoundsProperty: dragBoundsProperty,
+      drag: () => {
+        this.sourceCueingArrowsNode.visible = false;
+      }
     } );
-
-    // add the drag listener to the image representation
     sourceObjectImage.addInputListener( sourceObjectDragListener );
 
     sourceObject.leftTopProperty.link( position => {
-      scaleFunction( sourceObjectImage, sourceObject.boundsProperty.value );
-      setImagePosition( sourceObjectImage, position );
+      scaleSourceObject();
+      translateSourceObject( position );
     } );
 
     dragBoundsProperty.link( dragBounds => {
@@ -176,8 +189,8 @@ class SourceObjectNode extends Node {
     representationProperty.link( representation => {
       sourceObjectImage.image = representation.rightFacingUpright;
 
-      scaleFunction( sourceObjectImage, sourceObject.boundsProperty.value );
-      setImagePosition( sourceObjectImage, sourceObject.leftTopProperty.value );
+      scaleSourceObject();
+      translateSourceObject( sourceObject.leftTopProperty.value );
 
       // Remove all children from the second source.
       secondSourceNode.removeAllChildren();
@@ -230,6 +243,7 @@ class SourceObjectNode extends Node {
    * @public
    */
   reset() {
+    this.sourceCueingArrowsNode.visible = true;
     this.secondSourceCueingArrowsLayer.visible = true;
   }
 }
