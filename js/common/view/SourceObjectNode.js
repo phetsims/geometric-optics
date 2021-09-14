@@ -173,7 +173,6 @@ class SourceObjectNode extends Node {
       }
       else {
         secondNode.leftTop = viewPosition.minus( modelViewTransform.modelToViewDelta( LIGHT_OFFSET_VECTOR ) );
-
       }
     }
 
