@@ -8,7 +8,6 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 
 class FocalPoint {
@@ -16,14 +15,13 @@ class FocalPoint {
   /**
    * @param {Property.<Vector2>} opticPositionProperty
    * @param {Property.<number>} focalLengthProperty
+   * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( opticPositionProperty, focalLengthProperty, options ) {
+  constructor( opticPositionProperty, focalLengthProperty, tandem, options ) {
 
     options = merge( {
-      multiplicativeFactor: 1,
-
-      tandem: Tandem.REQUIRED
+      multiplicativeFactor: 1
     }, options );
 
     // @public (read-only) {Property.<Vector2>} Position of the focal point

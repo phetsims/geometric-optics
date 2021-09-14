@@ -93,15 +93,13 @@ class GeometricOpticsModel {
     // REVIEW: perhaps instead of first/second, we could name these in optics terms, or relate them to the
     // REVIEW: multiplicativeFactor? Like positiveFocalPoint, negativeFocalPoint? ordinal numbers here doesn't increase
     // understanding to me. @public {FocalPoint} first principal focal point
-    this.firstFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty, {
-      tandem: tandem.createTandem( 'firstFocalPoint' )
-    } );
+    this.firstFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty,
+      tandem.createTandem( 'firstFocalPoint' ) );
 
     // @public {FocalPoint} second principal focal point
     this.secondFocalPoint = new FocalPoint( this.optic.positionProperty,
-      this.optic.focalLengthProperty, {
-        multiplicativeFactor: -1,
-        tandem: tandem.createTandem( 'secondFocalPoint' )
+      this.optic.focalLengthProperty, tandem.createTandem( 'secondFocalPoint' ), {
+        multiplicativeFactor: -1
       } );
 
     // @public {Target} model of the target/image associated with the first source

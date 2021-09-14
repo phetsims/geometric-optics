@@ -285,12 +285,14 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // add disks at a distance 2f for optic on each side of optic
     if ( GeometricOpticsQueryParameters.show2fPoints ) {
-      const minus2fPoint = new FocalPoint( model.optic.positionProperty, model.optic.focalLengthProperty, {
-        multiplicativeFactor: -2, tandem: tandem.createTandem( 'minus2fPoint' )
-      } );
-      const plus2fPoint = new FocalPoint( model.optic.positionProperty, model.optic.focalLengthProperty, {
-        multiplicativeFactor: 2, tandem: tandem.createTandem( 'plus2fPoint' )
-      } );
+      const minus2fPoint = new FocalPoint( model.optic.positionProperty, model.optic.focalLengthProperty,
+        tandem.createTandem( 'minus2fPoint' ), {
+          multiplicativeFactor: -2
+        } );
+      const plus2fPoint = new FocalPoint( model.optic.positionProperty, model.optic.focalLengthProperty,
+        tandem.createTandem( 'plus2fPoint' ), {
+          multiplicativeFactor: 2
+        } );
       this.playAreaNode.addChild( new TrackingDiskNode( minus2fPoint.positionProperty, this.modelViewTransform, tandem,
         { fill: 'black' } ) );
       this.playAreaNode.addChild( new TrackingDiskNode( plus2fPoint.positionProperty, this.modelViewTransform, tandem,
