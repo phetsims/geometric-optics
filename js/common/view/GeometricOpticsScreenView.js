@@ -35,7 +35,7 @@ import RepresentationComboBox from './RepresentationComboBox.js';
 import ShowHideToggleButton from './ShowHideToggleButton.js';
 import SourceObjectNode from './SourceObjectNode.js';
 import TargetNode from './TargetNode.js';
-import ToolboxPanel from './ToolboxPanel.js';
+import RulersToolboxPanel from './RulersToolboxPanel.js';
 import TrackingDiskNode from './TrackingDiskNode.js';
 import VisibleProperties from './VisibleProperties.js';
 
@@ -105,7 +105,7 @@ class GeometricOpticsScreenView extends ScreenView {
     geometricOpticsControlPanel.centerBottom = erodedLayoutBounds.centerBottom;
 
     // create toolbox panel at the top right corner of the screen
-    const toolboxPanel = new ToolboxPanel( this.rulersLayer, tandem );
+    const toolboxPanel = new RulersToolboxPanel( this.rulersLayer, tandem );
     toolboxPanel.rightTop = erodedLayoutBounds.rightTop;
 
     // pass the bounds of the toolbox to the rulers for their return to toolbox
