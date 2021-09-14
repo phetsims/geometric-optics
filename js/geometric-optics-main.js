@@ -3,7 +3,7 @@
 /**
  * Main entry point for the sim.
  *
- * @author veillette
+ * @author Martin Veillette
  */
 
 import Sim from '../../joist/js/Sim.js';
