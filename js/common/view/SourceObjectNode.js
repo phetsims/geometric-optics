@@ -135,7 +135,7 @@ class SourceObjectNode extends Node {
     // create a layer to host the cueing arrows
     this.cueingArrowsLayer = new Node();
 
-    // create and add curing arrow
+    // create and add cueing arrow
     const upArrowNode = new ArrowNode( 0, 0, 0, -CUEING_ARROW_LENGTH, CUEING_ARROW_OPTIONS );
     const downArrowNode = new ArrowNode( 0, 0, 0, +CUEING_ARROW_LENGTH, CUEING_ARROW_OPTIONS );
     upArrowNode.bottom = circleIcon.top - 5;
