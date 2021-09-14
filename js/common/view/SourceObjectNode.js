@@ -36,8 +36,7 @@ const CUEING_ARROW_OPTIONS = {
   fill: 'rgb(255,0,0)',
   tailWidth: 6,
   headWidth: 12,
-  headHeight: 7,
-  cursor: 'pointer'
+  headHeight: 7
 };
 
 class SourceObjectNode extends Node {
@@ -148,6 +147,8 @@ class SourceObjectNode extends Node {
 
     // create drag listener for second source
     const secondSourceDragListener = new DragListener( {
+      pressCursor: 'ns-resize',
+      useInputListenerCursor: true,
       positionProperty: secondSourcePositionProperty,
       transform: modelViewTransform,
       end: () => {
