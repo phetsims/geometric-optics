@@ -193,7 +193,7 @@ class SourceObjectNode extends Node {
         secondNode.touchArea = circleIcon.bounds.dilated( 10 );
         secondNode.addChild( this.cueingArrowsLayer );
 
-        // address position of source of light #79
+        //TODO https://github.com/phetsims/geometric-optics/issues/82 address position of source of light
       }
       else {
 
