@@ -149,10 +149,8 @@ class SourceObjectNode extends Node {
       useInputListenerCursor: true,
       positionProperty: secondSourcePositionProperty,
       transform: modelViewTransform,
-      end: () => {
+      drag: () => {
         if ( representationProperty.value.isObject ) {
-
-          // turn off visibility of cueing arrow (see #81) after end event
           this.cueingArrowsLayer.visible = false;
         }
       }
