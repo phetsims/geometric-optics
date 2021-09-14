@@ -120,8 +120,8 @@ class SourceObjectNode extends Node {
     } );
 
     // create a node to hold the second source
-    const secondNode = new Node();
-    this.addChild( secondNode );
+    const secondSourceNode = new Node();
+    this.addChild( secondSourceNode );
 
     // Property for the position of the second source node
     const secondSourcePositionProperty = new Vector2Property( sourceObject.secondPositionProperty.value );
@@ -130,15 +130,15 @@ class SourceObjectNode extends Node {
     const circleIcon = SourceObjectNode.createSecondSourcePointIcon();
 
     // create a layer to host the cueing arrows
-    this.cueingArrowsLayer = new Node();
+    this.secondSourceCueingArrowsLayer = new Node();
 
     // create and add cueing arrow
     const upArrowNode = new ArrowNode( 0, 0, 0, -CUEING_ARROW_LENGTH, CUEING_ARROW_OPTIONS );
     const downArrowNode = new ArrowNode( 0, 0, 0, +CUEING_ARROW_LENGTH, CUEING_ARROW_OPTIONS );
     upArrowNode.bottom = circleIcon.top - 5;
     downArrowNode.top = circleIcon.bottom + 5;
-    this.cueingArrowsLayer.addChild( upArrowNode );
-    this.cueingArrowsLayer.addChild( downArrowNode );
+    this.secondSourceCueingArrowsLayer.addChild( upArrowNode );
+    this.secondSourceCueingArrowsLayer.addChild( downArrowNode );
 
     // create the light image for the second source
     const secondImage = new Image( Representation.LIGHT.source, { scale: OVERALL_SCALE_FACTOR } );
@@ -151,25 +151,25 @@ class SourceObjectNode extends Node {
       transform: modelViewTransform,
       drag: () => {
         if ( representationProperty.value.isObject ) {
-          this.cueingArrowsLayer.visible = false;
+          this.secondSourceCueingArrowsLayer.visible = false;
         }
       }
     } );
 
-    secondNode.addInputListener( secondSourceDragListener );
+    secondSourceNode.addInputListener( secondSourceDragListener );
 
     /**
-     * set the position of the second node based on the position
+     * set the position of the second source based on the position
      *
      * @param {Vector2} position - model position of the second source
      */
     function setSecondSourcePosition( position ) {
       const viewPosition = modelViewTransform.modelToViewPosition( position );
       if ( representationProperty.value.isObject ) {
-        secondNode.center = viewPosition;
+        secondSourceNode.center = viewPosition;
       }
       else {
-        secondNode.leftTop = viewPosition.minus( modelViewTransform.modelToViewDelta( LIGHT_OFFSET_VECTOR ) );
+        secondSourceNode.leftTop = viewPosition.minus( modelViewTransform.modelToViewDelta( LIGHT_OFFSET_VECTOR ) );
       }
     }
 
@@ -179,22 +179,22 @@ class SourceObjectNode extends Node {
       scaleFunction( sourceObjectImage, sourceObject.boundsProperty.value );
       setImagePosition( sourceObjectImage, sourceObject.leftTopProperty.value );
 
-      // remove all children to the second node
-      secondNode.removeAllChildren();
+      // Remove all children from the second source.
+      secondSourceNode.removeAllChildren();
 
       if ( representation.isObject ) {
 
         // add circle and cueing arrows
-        secondNode.addChild( circleIcon );
-        secondNode.touchArea = circleIcon.bounds.dilated( 10 );
-        secondNode.addChild( this.cueingArrowsLayer );
+        secondSourceNode.addChild( circleIcon );
+        secondSourceNode.touchArea = circleIcon.bounds.dilated( 10 );
+        secondSourceNode.addChild( this.secondSourceCueingArrowsLayer );
 
         //TODO https://github.com/phetsims/geometric-optics/issues/82 address position of source of light
       }
       else {
 
         // add second light source
-        secondNode.addChild( secondImage );
+        secondSourceNode.addChild( secondImage );
       }
       setSecondSourcePosition( sourceObject.secondPositionProperty.value );
     } );
@@ -207,8 +207,7 @@ class SourceObjectNode extends Node {
       setSecondSourcePosition( position );
     } );
 
-    visibleSecondSourceProperty.linkAttribute( secondNode, 'visible' );
-
+    visibleSecondSourceProperty.linkAttribute( secondSourceNode, 'visible' );
   }
 
   /**
@@ -231,7 +230,7 @@ class SourceObjectNode extends Node {
    * @public
    */
   reset() {
-    this.cueingArrowsLayer.visible = true;
+    this.secondSourceCueingArrowsLayer.visible = true;
   }
 }
 
