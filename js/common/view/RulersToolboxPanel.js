@@ -105,20 +105,24 @@ class RulersToolboxPanel extends Panel {
 function createRulerIcon( isVertical, tickMarksOnBottom ) {
 
   const rulerWidth = 400;
-  const rulerHeight = 0.18 * rulerWidth;
+  const rulerHeight = 0.35 * rulerWidth;
+
+  const numberOfMajorTicks = 5;
   const majorTickLabels = [ '' ];
-  for ( let i = 1; i < 5; i++ ) { // create 5 empty strings for labels
+  for ( let i = 1; i < numberOfMajorTicks; i++ ) {
     majorTickLabels.push( '' );
   }
   const majorTickWidth = rulerWidth / ( majorTickLabels.length - 1 );
   const units = ''; // empty string for units
 
   const rulerIconNode = new RulerNode( rulerWidth, rulerHeight, majorTickWidth, majorTickLabels, units, {
+    backgroundLineWidth: 3,
     tickMarksOnBottom: tickMarksOnBottom,
-    minorTicksPerMajorTick: 1,
+    minorTicksPerMajorTick: 5,
     majorTickHeight: ( 0.6 * rulerHeight ) / 2,
     minorTickHeight: ( 0.4 * rulerHeight ) / 2,
-    majorTickLineWidth: 2,
+    majorTickLineWidth: 5,
+    minorTickLineWidth: 2,
     cursor: 'pointer'
   } );
   rulerIconNode.scale( 0.12 );
