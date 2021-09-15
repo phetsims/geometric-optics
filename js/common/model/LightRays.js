@@ -78,7 +78,7 @@ class LightRays {
         // is the light ray mode set to Principal Rays
         const isPrincipalRayMode = lightRayMode === LightRayMode.PRINCIPAL;
 
-        // set the enable target property to false initially  (unless there are no rays)
+        // set the enable target Property to false initially  (unless there are no rays)
         target.enabledProperty.value = lightRayMode === LightRayMode.NONE;
 
         // loop over the direction of each ray

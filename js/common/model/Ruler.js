@@ -38,7 +38,7 @@ class Ruler {
   }
 
   /**
-   * Resets the property of the model
+   * Resets the model.
    * @public
    */
   reset() {

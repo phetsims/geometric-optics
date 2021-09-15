@@ -62,7 +62,7 @@ class GeometricOpticsScreenView extends ScreenView {
     // @protected create visible properties associated with checkboxes
     this.visibleProperties = new VisibleProperties();
 
-    // @private {Property.<number>} property that controls zoom in play area
+    // @private {Property.<number>} controls zoom in play area
     this.zoomLevelProperty = new NumberProperty( ZOOM_RANGE.defaultValue, { range: ZOOM_RANGE } );
 
     // @protected create a Y inverted modelViewTransform with isometric scaling along X and Y

@@ -18,9 +18,9 @@ class TargetNode extends Node {
 
   /**
    * @param {Property.<Representation>} representationProperty
-   * @param {Target} target - model of the target
+   * @param {Target} target
    * @param {Optic} optic
-   * @param {Property.<boolean>} virtualImageVisibleProperty - property of the virtual image  check box
+   * @param {Property.<boolean>} virtualImageVisibleProperty
    * @param {ModelViewTransform2} modelViewTransform
    */
   constructor( representationProperty, target, optic, virtualImageVisibleProperty, modelViewTransform ) {

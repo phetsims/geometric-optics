@@ -58,7 +58,7 @@ class ProjectorScreenNode extends Node {
     // difference between the left top position of the image and the "center" of the blackboard in model coordinates
     const offset = new Vector2( -modelChildWidth, modelChildHeight ).divideScalar( 2 );
 
-    // @private {Property.<Vector2} create a property for the left top position of the projectorScreen target
+    // @private {Property.<Vector2} left top position of the projectorScreen target
     this.imagePositionProperty = new Vector2Property( projectorScreen.positionProperty.value.plus( offset ) );
 
     // {DerivedProperty.<Bounds2>} keep at least half of the projector screen within visible bounds and right of the optic
@@ -131,7 +131,7 @@ class ProjectorScreenNode extends Node {
     // add spotlight due to always present source
     addSpotLightNode( projectorScreen.firstSpotlight, enableFirstSpotlightProperty );
 
-    // {Property.<boolean>} create a property for the visibility of the second source spotlight
+    // {Property.<boolean>} visibility of the second source spotlight
     const visibleSecondSourceSpotlightProperty = DerivedProperty.and(
       [ enableSecondSpotlightProperty, secondSourceVisibleProperty ]
     );

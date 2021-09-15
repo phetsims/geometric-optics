@@ -61,7 +61,7 @@ class GeometricOpticsRulerNode extends Node {
     this.setPosition();
     this.setInitialVisibility();
 
-    // {DerivedProperty.<Bounds2>} dragBounds property for ruler: the view width and the height of the ruler
+    // {DerivedProperty.<Bounds2>} dragBounds Property for ruler: the view width and the height of the ruler
     // will NOT change throughout the simulation
     const rulerDragBoundsProperty = new DerivedProperty(
       [ visibleBoundsProperty ],
