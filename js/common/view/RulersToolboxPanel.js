@@ -38,8 +38,8 @@ class RulersToolboxPanel extends Panel {
     }, options );
 
     // create two icons for rulers: A vertical and a Horizontal ruler
-    const horizontalRulerIconNode = RulersToolboxPanel.getRulerIcon( false );
-    const verticalRulerIconNode = RulersToolboxPanel.getRulerIcon( true );
+    const horizontalRulerIconNode = createRulerIcon( false, false );
+    const verticalRulerIconNode = createRulerIcon( true, true );
 
     // increase touchArea and mouseArea for both rulers
     horizontalRulerIconNode.touchArea = horizontalRulerIconNode.localBounds.dilatedXY(
@@ -93,41 +93,42 @@ class RulersToolboxPanel extends Panel {
     createForwardListener( horizontalRulerIconNode, rulersLayer.horizontalRulerNode );
     createForwardListener( verticalRulerIconNode, rulersLayer.verticalRulerNode );
   }
+}
 
-  /**
-   * Returns a small ruler icon
-   * @private
-   * @param {boolean} isVertical - is the ruler icon along the vertical axis
-   * @returns {RulerNode} rulerIconNode
-   */
-  static getRulerIcon( isVertical ) {
+/**
+ * Returns a small ruler icon
+ * @private
+ * @param {boolean} isVertical - is the ruler icon along the vertical axis
+ * @param {boolean} tickMarksOnBottom
+ * @returns {RulerNode} rulerIconNode
+ */
+function createRulerIcon( isVertical, tickMarksOnBottom ) {
 
-    const rulerWidth = 400;
-    const rulerHeight = 0.18 * rulerWidth;
-    const majorTickLabels = [ '' ];
-    for ( let i = 1; i < 5; i++ ) { // create 5 empty strings for labels
-      majorTickLabels.push( '' );
-    }
-    const majorTickWidth = rulerWidth / ( majorTickLabels.length - 1 );
-    const units = ''; // empty string for units
-
-    const rulerIconNode = new RulerNode( rulerWidth, rulerHeight, majorTickWidth, majorTickLabels, units, {
-      tickMarksOnBottom: false,
-      minorTicksPerMajorTick: 1,
-      majorTickHeight: ( 0.6 * rulerHeight ) / 2,
-      minorTickHeight: ( 0.4 * rulerHeight ) / 2,
-      majorTickLineWidth: 2,
-      cursor: 'pointer'
-    } );
-    rulerIconNode.scale( 0.12 );
-
-    // rotate to create vertical ruler
-    if ( isVertical ) {
-      rulerIconNode.rotate( -Math.PI / 2 );
-    }
-
-    return rulerIconNode;
+  const rulerWidth = 400;
+  const rulerHeight = 0.18 * rulerWidth;
+  const majorTickLabels = [ '' ];
+  for ( let i = 1; i < 5; i++ ) { // create 5 empty strings for labels
+    majorTickLabels.push( '' );
   }
+  const majorTickWidth = rulerWidth / ( majorTickLabels.length - 1 );
+  const units = ''; // empty string for units
+
+  const rulerIconNode = new RulerNode( rulerWidth, rulerHeight, majorTickWidth, majorTickLabels, units, {
+    tickMarksOnBottom: tickMarksOnBottom,
+    minorTicksPerMajorTick: 1,
+    majorTickHeight: ( 0.6 * rulerHeight ) / 2,
+    minorTickHeight: ( 0.4 * rulerHeight ) / 2,
+    majorTickLineWidth: 2,
+    cursor: 'pointer'
+  } );
+  rulerIconNode.scale( 0.12 );
+
+  // rotate to create vertical ruler
+  if ( isVertical ) {
+    rulerIconNode.rotate( -Math.PI / 2 );
+  }
+
+  return rulerIconNode;
 }
 
 geometricOptics.register( 'RulersToolboxPanel', RulersToolboxPanel );
