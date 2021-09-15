@@ -1,14 +1,9 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/geometric-optics/issues/164 support for N sources?
 /**
  * Model element for object (in the sense commonly used in geometric optic) or source of light
  * The sourceObject has a position and a "second source" position within it.
- *
- * REVIEW: In general this type seems like it serves its purpose, but it feels really hard coded to the current, specific
- * REVIEW: implementation of this sim. There is only room for two sources, and only room for the second one moving (and that
- * REVIEW: is very tied to its representation). The source/object is a pretty general part of an optics model, so it would be neat
- * REVIEW: if this could have a bit more flexibility, but I understand why we may not want to go back to implement that
- * REVIEW: at this time. Basically this comment is an extension of https://github.com/phetsims/geometric-optics/issues/164
  *
  * @author Martin Veillette
  */
