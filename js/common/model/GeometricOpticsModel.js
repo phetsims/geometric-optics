@@ -40,7 +40,7 @@ class GeometricOpticsModel {
     assert && assert( diameterRange instanceof RangeWithValue, 'invalid diameterRange' );
 
     // @private {RangeWithValue} - time range (in seconds) for the animation
-    this.timeRange = new RangeWithValue( 0, GeometricOpticsConstants.ANIMATION_TIME, 0 );
+    this.timeRange = new RangeWithValue( 0, GeometricOpticsConstants.RAYS_ANIMATION_TIME, 0 );
 
     // @public (read-only) {Property.<number>} - time for ray animation in seconds.
     this.timeProperty = new NumberProperty( this.timeRange.defaultValue, { units: 's' } );

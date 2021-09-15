@@ -34,7 +34,7 @@ const GeometricOpticsConstants = {
   NOMINAL_VIEW_MODEL_CONVERSION: 2, // view coordinates per cm in initial zoom level
 
   LIGHT_SPEED: 500, // speed in centimeter per second for light for the purpose of the animation
-  ANIMATION_TIME: 5, // maximum animation time
+  RAYS_ANIMATION_TIME: 5, // length of the rays animation, in seconds
 
   //----------------------------------------------------------------------------------------
   //                                 LENS
