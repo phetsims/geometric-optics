@@ -55,12 +55,10 @@ class LightRay {
     // @private {boolean} has this light ray a virtual ray attached to it.
     this.hasVirtualRay = this.hasVirtualComponent( isVirtual, this.realRays );
 
-    // is there a virtual image AND has the lightRay a virtual component
-    if ( this.hasVirtualRay ) {
-
-      // @private {Ray} - there is a maximum of one virtual ray per lightRay
-      this.virtualRay = this.getVirtualRay( this.realRays, targetPoint );
-    }
+    // @private {Ray|null} - there is a maximum of one virtual ray per lightRay
+    this.virtualRay = this.hasVirtualRay ?
+                      this.getVirtualRay( this.realRays, targetPoint ) :
+                      null;
 
     // @public (read-only) {boolean}
     this.isTargetReached = this.getHasReachedTarget(
@@ -80,9 +78,7 @@ class LightRay {
    * @param {Vector2} targetPoint
    * @returns {boolean}
    */
-  getHasReachedTarget( distanceTraveled,
-                       isProjectorScreenPresent,
-                       targetPoint ) {
+  getHasReachedTarget( distanceTraveled, isProjectorScreenPresent, targetPoint ) {
 
     let distance = 0;
 
@@ -102,7 +98,8 @@ class LightRay {
 
       // if the image is virtual, the target point is along the virtual ray,
       // otherwise, the target point probably lies along the last real ray
-      const targetRay = this.hasVirtualRay ? this.virtualRay :
+      const targetRay = this.hasVirtualRay ?
+                        this.virtualRay :
                         this.realRays[ this.realRays.length - 1 ];
 
       if ( targetRay instanceof Ray ) {
@@ -446,6 +443,7 @@ class LightRay {
         // update the virtual ray shape based on the virtual ray
         this.updateShape( this.virtualShape, this.virtualRay, virtualRayDistance );
       }
+
       // update the value of the distance remaining
       remainingDistance = remainingDistance - realRayDistance;
 
