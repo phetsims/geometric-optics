@@ -10,9 +10,9 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
-import lampBlueLogoImage from '../../../images/lamp-blue-logo_png.js';
-import lampBlueImage from '../../../images/lamp-blue_png.js';
-import lampRedImage from '../../../images/lamp-red_png.js';
+import lampBlueIcon_png from '../../../images/lampBlueIcon_png.js';
+import lampBlue_png from '../../../images/lampBlue_png.js';
+import lampRed_png from '../../../images/lampRed_png.js';
 import pencil3dLeftFacingInvertedImage from '../../../images/pencil-3d-left-facing-inverted_png.js';
 import pencil3dLeftFacingUprightImage from '../../../images/pencil-3d-left-facing-upright_png.js';
 import pencil3dRightFacingInvertedImage from '../../../images/pencil-3d-right-facing-inverted_png.js';
@@ -101,8 +101,9 @@ const Representation = Enumeration.byMap( {
     geometricOpticsStrings.rocket,
     true ),
 
-  LIGHT: new RepresentationGenerator( lampBlueLogoImage,
-    lampBlueImage,
+  LIGHT: new RepresentationGenerator(
+    lampBlueIcon_png,
+    lampBlue_png,
     null,
     null,
     null,
@@ -110,7 +111,8 @@ const Representation = Enumeration.byMap( {
     new Vector2( -66, 28 ),
     geometricOpticsStrings.light,
     false,
-    { source: lampRedImage } )
+    { source: lampRed_png }
+  )
 } );
 
 geometricOptics.register( 'Representation', Representation );
