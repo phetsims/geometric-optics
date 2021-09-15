@@ -40,11 +40,10 @@ class LabelsNode extends Node {
       visibleProperties.focalPointVisibleProperty,
       modelViewTransformProperty );
 
-    // define optic label position
+    // {DerivedProperty.<Vector2>} define optic label position
     const opticLabelPositionProperty = new DerivedProperty(
       [ model.optic.positionProperty, model.optic.diameterProperty ],
-      ( position, diameter ) =>
-        position.minusXY( 0, diameter / 2 )
+      ( position, diameter ) => position.minusXY( 0, diameter / 2 )
     );
 
     // create optic label with empty string
@@ -70,7 +69,7 @@ class LabelsNode extends Node {
       opticLabel.setText( curveOpticString );
     } );
 
-    // define image label position
+    // {DerivedProperty.<Vector2} define image label position
     const imageLabelPositionProperty = new DerivedProperty(
       [ model.firstTarget.boundsProperty ],
       bounds => bounds.centerTop
@@ -85,11 +84,12 @@ class LabelsNode extends Node {
       new BooleanProperty( true ),
       modelViewTransformProperty );
 
-    // define object label position
-    const objectLabelPositionProperty = new DerivedProperty( [ model.sourceObject.boundsProperty ],
-
-      // because the we use a Y inverted reference frame, the bottom of the image is the top of the model bounds.
-      bounds => bounds.centerTop );
+    // {DerivedProperty.<Vector2} define object label position
+    // Because the we use a Y inverted reference frame, the bottom of the image is the top of the model bounds.
+    const objectLabelPositionProperty = new DerivedProperty(
+      [ model.sourceObject.boundsProperty ],
+      bounds => bounds.centerTop
+    );
 
     // create object label
     const objectLabel = new LabelNode( geometricOpticsStrings.object,

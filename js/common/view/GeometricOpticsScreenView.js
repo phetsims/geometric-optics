@@ -68,15 +68,17 @@ class GeometricOpticsScreenView extends ScreenView {
     // @protected create a Y inverted modelViewTransform with isometric scaling along X and Y
     this.modelViewTransform = this.getModelViewTransform( ZOOM_RANGE.defaultValue );
 
-    // @protected {Property.<ModelViewTransform2>} modelViewTransform
-    this.zoomModelViewTransformProperty = new DerivedProperty( [ this.zoomLevelProperty ], zoomLevel => {
-      return this.getModelViewTransform( zoomLevel );
-    } );
+    // @protected {DerivedProperty.<ModelViewTransform2>} modelViewTransform
+    this.zoomModelViewTransformProperty = new DerivedProperty(
+      [ this.zoomLevelProperty ],
+      zoomLevel => this.getModelViewTransform( zoomLevel )
+    );
 
-    // @protected {Property.<number>} zoom scale associate with the zoom level
-    this.absoluteScaleProperty = new DerivedProperty( [ this.zoomLevelProperty ], zoomLevel => {
-      return this.getAbsoluteScale( zoomLevel );
-    } );
+    // @protected {DerivedProperty.<number>} zoom scale associate with the zoom level
+    this.absoluteScaleProperty = new DerivedProperty(
+      [ this.zoomLevelProperty ],
+      zoomLevel => this.getAbsoluteScale( zoomLevel )
+    );
 
     //----------------------------------------------------------------------------
     //               Buttons, Controls and Panels
@@ -144,9 +146,9 @@ class GeometricOpticsScreenView extends ScreenView {
 
     //-------------------------------------------------------------------
 
-    // @protected {Property.<Bounds2>} playAreaModelBoundsProperty
-    this.playAreaModelBoundsProperty = new DerivedProperty( [ this.visibleBoundsProperty,
-        this.zoomModelViewTransformProperty ],
+    // @protected {DerivedProperty.<Bounds2>} playAreaModelBoundsProperty
+    this.playAreaModelBoundsProperty = new DerivedProperty(
+      [ this.visibleBoundsProperty, this.zoomModelViewTransformProperty ],
       ( visibleBounds, zoomModelViewTransform ) => {
         const playAreaBounds = new Bounds2( visibleBounds.minX, 0,
           visibleBounds.maxX, geometricOpticsControlPanel.top );

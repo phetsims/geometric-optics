@@ -40,13 +40,15 @@ class SourceObject {
     // @public {Property.<Vector2>} position of the left top position of image
     this.leftTopProperty = new Vector2Property( GeometricOpticsConstants.DEFAULT_SOURCE_POINT_1.plus( this.offsetPosition ) );
 
-    // @public {Property.<Vector2>} position of the source/object
-    this.firstPositionProperty = new DerivedProperty( [ this.leftTopProperty ], leftTop => {
-      return leftTop.minus( this.offsetPosition );
-    } );
+    // @public {DerivedProperty.<Vector2>} position of the source/object
+    this.firstPositionProperty = new DerivedProperty(
+      [ this.leftTopProperty ],
+      leftTop => leftTop.minus( this.offsetPosition )
+    );
 
-    // @public {Property.<Bounds2>} model bounds of the source/object Image ( in the scenery sense)
-    this.boundsProperty = new DerivedProperty( [ this.leftTopProperty, representationProperty ],
+    // @public {DerivedProperty.<Bounds2>} model bounds of the source/object Image ( in the scenery sense)
+    this.boundsProperty = new DerivedProperty(
+      [ this.leftTopProperty, representationProperty ],
       ( leftTop, representation ) => {
         const scale = representation.isObject ?
                       GeometricOpticsConstants.OBJECT_SCALE_FACTOR :
@@ -68,20 +70,18 @@ class SourceObject {
     // @public (read-only) {Vector2} initial position of the optic
     this.opticPositionProperty = opticPositionProperty;
 
-    // @public {Property.<Vector2>} position of the second source (source/object)
-    this.secondPositionProperty =
-      new DerivedProperty( [ this.firstPositionProperty,
-          this.verticalOffsetProperty,
-          this.unconstrainedSecondSourcePositionProperty,
-          representationProperty ],
-        ( position, verticalOffset, unconstrainedPosition, representation ) => {
-          if ( representation.isObject ) {
-            return position.plusXY( 0, verticalOffset );
-          }
-          else {
-            return unconstrainedPosition;
-          }
-        } );
+    // @public {DerivedProperty.<Vector2>} position of the second source (source/object)
+    this.secondPositionProperty = new DerivedProperty(
+      [ this.firstPositionProperty, this.verticalOffsetProperty,
+        this.unconstrainedSecondSourcePositionProperty, representationProperty ],
+      ( firstPosition, verticalOffset, unconstrainedSecondSourcePosition, representation ) => {
+        if ( representation.isObject ) {
+          return firstPosition.plusXY( 0, verticalOffset );
+        }
+        else {
+          return unconstrainedSecondSourcePosition;
+        }
+      } );
 
     // update the left top position when the representation changes
     representationProperty.link( representation => {

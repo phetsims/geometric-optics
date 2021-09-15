@@ -34,29 +34,22 @@ class Spotlight {
     // @private {Property.<Vector2>} position of the source of light
     this.sourcePositionProperty = sourcePositionProperty;
 
+    // @public (read-only) {DerivedProperty.<Shape>}
     // determine the shape intersection of the screen and spotlight
-    // @public (read-only) {Property.<Shape>}
     // REVIEW: This is a bit vague, perhaps intersectionShapeProperty? At first I thought it was the shape of the spotlight source itself, and wondered why it was in the model.
-    this.shapeProperty = new DerivedProperty( [
-        screenPositionProperty,
-        optic.positionProperty,
-        optic.diameterProperty,
-        targetPositionProperty ],
-      ( screenPosition, opticPosition, opticDiameter, targetPosition ) => {
-        return this.getIntersection( screenPosition, opticPosition, opticDiameter, targetPosition );
-      } );
+    this.shapeProperty = new DerivedProperty(
+      [ screenPositionProperty, optic.positionProperty, optic.diameterProperty, targetPositionProperty ],
+      ( screenPosition, opticPosition, opticDiameter, targetPosition ) =>
+        this.getIntersection( screenPosition, opticPosition, opticDiameter, targetPosition )
+    );
 
-    // determine the light intensity of the spot
-    // a number ranging from 0 to 1
-    // @public (read-only) {Property.<number>}
-    this.intensityProperty = new DerivedProperty( [
-        screenPositionProperty,
-        optic.positionProperty,
-        optic.diameterProperty,
-        targetPositionProperty ],
-      ( screenPosition, opticPosition, opticDiameter, targetPosition ) => {
-        return this.getLightIntensity( screenPosition, opticPosition, opticDiameter, targetPosition );
-      } );
+    // @public (read-only) {DerivedProperty.<number>}
+    // determine the light intensity of the spot, a number ranging from 0 to 1
+    this.intensityProperty = new DerivedProperty(
+      [ screenPositionProperty, optic.positionProperty, optic.diameterProperty, targetPositionProperty ],
+      ( screenPosition, opticPosition, opticDiameter, targetPosition ) =>
+        this.getLightIntensity( screenPosition, opticPosition, opticDiameter, targetPosition )
+    );
   }
 
   /**

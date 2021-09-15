@@ -24,9 +24,10 @@ class FocalPoint {
     }, options );
 
     // @public (read-only) {Property.<Vector2>} Position of the focal point
-    this.positionProperty = new DerivedProperty( [ opticPositionProperty, focalLengthProperty ], ( opticPosition, focalLength ) => {
-      return opticPosition.plusXY( options.multiplicativeFactor * focalLength, 0 );
-    } );
+    this.positionProperty = new DerivedProperty(
+      [ opticPositionProperty, focalLengthProperty ],
+      ( opticPosition, focalLength ) => opticPosition.plusXY( options.multiplicativeFactor * focalLength, 0 )
+    );
   }
 }
 

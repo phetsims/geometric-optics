@@ -91,16 +91,16 @@ class SourceObjectNode extends Node {
       this.sourceCueingArrowsNode.centerY = sourceObjectImage.centerY;
     } );
 
-    // keep at least half of the projector screen within visible bounds and right of the optic
-    const dragBoundsProperty = new DerivedProperty( [ visibleModelBoundsProperty, representationProperty ],
-      visibleBounds => {
-        return new Bounds2( visibleBounds.minX,
-          visibleBounds.minY + sourceObject.boundsProperty.value.height,
+    // {DerivedProperty.<Bounds2} keep at least half of the projector screen within visible bounds and right of the optic
+    const dragBoundsProperty = new DerivedProperty(
+      [ visibleModelBoundsProperty, representationProperty ],
+      visibleBounds => new Bounds2( visibleBounds.minX,
+        visibleBounds.minY + sourceObject.boundsProperty.value.height,
 
-          // REVIEW: This feels like a code small to get the optic position from the source here. The optic position is important to the model, but it seems weird that we get the position from the source object. Does it feel like too close of coupling to you?
-          sourceObject.getOpticPosition().x - sourceObject.boundsProperty.value.width,
-          visibleBounds.maxY );
-      } );
+        // REVIEW: This feels like a code small to get the optic position from the source here. The optic position is important to the model, but it seems weird that we get the position from the source object. Does it feel like too close of coupling to you?
+        sourceObject.getOpticPosition().x - sourceObject.boundsProperty.value.width,
+        visibleBounds.maxY )
+    );
 
     // create drag listener for source
     const sourceObjectDragListener = new DragListener( {

@@ -61,15 +61,15 @@ class ProjectorScreenNode extends Node {
     // @private {Property.<Vector2} create a property for the left top position of the projectorScreen target
     this.imagePositionProperty = new Vector2Property( projectorScreen.positionProperty.value.plus( offset ) );
 
-    // keep at least half of the projector screen within visible bounds and right of the optic
+    // {DerivedProperty.<Bounds2>} keep at least half of the projector screen within visible bounds and right of the optic
     const projectorScreenDragBoundsProperty = new DerivedProperty(
       [ visibleModelBoundsProperty, projectorScreen.opticPositionProperty ],
-      ( visibleBounds, opticPosition ) => {
-        return new Bounds2( opticPosition.x,
+      ( visibleBounds, opticPosition ) =>
+        new Bounds2( opticPosition.x,
           visibleBounds.minY + modelChildHeight / 2,
           visibleBounds.maxX - modelChildWidth / 2,
-          visibleBounds.maxY + modelChildHeight / 2 );
-      } );
+          visibleBounds.maxY + modelChildHeight / 2 )
+    );
 
     // create a drag listener for the image
     const dragListener = new DragListener( {
@@ -133,7 +133,8 @@ class ProjectorScreenNode extends Node {
 
     // {Property.<boolean>} create a property for the visibility of the second source spotlight
     const visibleSecondSourceSpotlightProperty = DerivedProperty.and(
-      [ enableSecondSpotlightProperty, secondSourceVisibleProperty ] );
+      [ enableSecondSpotlightProperty, secondSourceVisibleProperty ]
+    );
 
     // add second spotlight for the "second source"
     addSpotLightNode( projectorScreen.secondSpotlight, visibleSecondSourceSpotlightProperty );

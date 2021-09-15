@@ -82,18 +82,16 @@ class Optic {
 
     // @public {DerivedProperty.<number>} is the optical element converging.
     // +1 is the optical element is converging and -1 if it is diverging
-    this.convergingSignProperty = new DerivedProperty( [ this.curveProperty ], curve => {
-      return this.getConvergingSign( curve );
-    } );
+    this.convergingSignProperty = new DerivedProperty(
+      [ this.curveProperty ],
+      curve => this.getConvergingSign( curve )
+    );
 
     // @public {DerivedProperty.<OpticShapeCollection>} shapes (fill and outline) of the optical element
-    this.shapesProperty = new DerivedProperty( [
-        this.radiusOfCurvatureProperty,
-        this.diameterProperty,
-        this.curveProperty ],
-      ( radius, diameter, curve ) => {
-        return new OpticShapeCollection( radius, diameter, curve, type );
-      } );
+    this.shapesProperty = new DerivedProperty(
+      [ this.radiusOfCurvatureProperty, this.diameterProperty, this.curveProperty ],
+      ( radius, diameter, curve ) => new OpticShapeCollection( radius, diameter, curve, type )
+    );
 
     // REVIEW: correct typedoc would be helpful here. Is it supported to just be a {Range}, or does it actually need to
     // be one with a value now that the value was given to the NumberProperty above? @private {number} diameter of the

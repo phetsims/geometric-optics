@@ -27,15 +27,16 @@ class Guide {
     // sign is positive for top guide and negative below
     const locationSign = ( options.location === Guide.Location.TOP ) ? +1 : -1;
 
-    // @public {Property.<Vector2>} position of the fulcrum point
-    this.fulcrumPositionProperty = new DerivedProperty( [ optic.positionProperty, optic.diameterProperty ],
-      ( opticPosition, opticDiameter ) => {
-        return opticPosition.plusXY( 0, locationSign * opticDiameter / 2 );
-      } );
+    // @public {DerivedProperty.<Vector2>} position of the fulcrum point
+    this.fulcrumPositionProperty = new DerivedProperty(
+      [ optic.positionProperty, optic.diameterProperty ],
+      ( opticPosition, opticDiameter ) => opticPosition.plusXY( 0, locationSign * opticDiameter / 2 )
+    );
 
     // @public (read-only) {DerivedProperty.<number>}
     // angle of rotation of the incident guide with respect to the positive x-axis
-    this.incidentAngleProperty = new DerivedProperty( [ objectPositionProperty, this.fulcrumPositionProperty ],
+    this.incidentAngleProperty = new DerivedProperty(
+      [ objectPositionProperty, this.fulcrumPositionProperty ],
       ( objectPosition, fulcrumPosition ) => {
         const displacementVector = objectPosition.minus( fulcrumPosition );
         return displacementVector.getAngle();
@@ -43,9 +44,8 @@ class Guide {
 
     // @public (read-only) {DerivedProperty.<number>}
     // find the angle of the transmitted guide with respect to the positive x-axis
-    this.transmittedAngleProperty = new DerivedProperty( [ optic.focalLengthProperty,
-        optic.diameterProperty,
-        this.incidentAngleProperty ],
+    this.transmittedAngleProperty = new DerivedProperty(
+      [ optic.focalLengthProperty, optic.diameterProperty, this.incidentAngleProperty ],
       ( focalLength, diameter, incidentAngle ) => {
 
         // transmitted angle if the optic was a blank.
