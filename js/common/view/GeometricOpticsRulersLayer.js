@@ -49,12 +49,9 @@ class GeometricOpticRulersLayer extends Node {
         rulerOptions );
     };
 
-
     /**
      * Returns the appropriate options for the scale
-     *
      * It also updates the length of the ruler as a side effect
-     *
      * @param {Ruler} ruler
      * @param {number} absoluteScale
      * @returns {Object} [options]
@@ -99,7 +96,6 @@ class GeometricOpticRulersLayer extends Node {
     this.addChild( this.horizontalRulerNode );
     this.addChild( this.verticalRulerNode );
 
-
     // update rulers when scale changes
     absoluteScaleProperty.link( absoluteScale => {
 
@@ -108,7 +104,6 @@ class GeometricOpticRulersLayer extends Node {
 
       // update the vertical ruler based on the new scale
       updateRulerNode( this.verticalRulerNode, absoluteScale );
-
     } );
   }
 

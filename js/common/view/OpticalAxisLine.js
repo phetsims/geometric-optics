@@ -11,6 +11,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
+// constants
 const LINE_WIDTH = GeometricOpticsConstants.OPTICAL_AXIS_LINE_WIDTH;
 const STROKE = GeometricOpticsColors.opticalAxisStrokeProperty;
 
@@ -21,9 +22,7 @@ class OpticalAxisLine extends Line {
    * @param {Property.<Bounds2>} visibleModelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    */
-  constructor( opticPositionProperty,
-               visibleModelBoundsProperty,
-               modelViewTransform ) {
+  constructor( opticPositionProperty, visibleModelBoundsProperty, modelViewTransform ) {
 
     // create optical axis line, with arbitrary length values.
     super( 0, 0, 1, 0, {

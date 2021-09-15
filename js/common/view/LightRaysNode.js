@@ -17,10 +17,7 @@ class LightRaysNode extends Node {
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( lightRays,
-               virtualImageVisibleProperty,
-               modelViewTransform,
-               options ) {
+  constructor( lightRays, virtualImageVisibleProperty, modelViewTransform, options ) {
 
     options = merge( {
       realRayStroke: 'white',
@@ -43,14 +40,11 @@ class LightRaysNode extends Node {
     this.addChild( realRayPath );
     this.addChild( virtualRayPath );
 
-    lightRays.raysProcessedEmitter.addListener(
-      () => {
-
-        // update this node as the model representation changes
-        realRayPath.shape = modelViewTransform.modelToViewShape( lightRays.realRay );
-        virtualRayPath.shape = modelViewTransform.modelToViewShape( lightRays.virtualRay );
-      }
-    );
+    // update this node as the model representation changes
+    lightRays.raysProcessedEmitter.addListener( () => {
+      realRayPath.shape = modelViewTransform.modelToViewShape( lightRays.realRay );
+      virtualRayPath.shape = modelViewTransform.modelToViewShape( lightRays.virtualRay );
+    } );
 
     virtualImageVisibleProperty.linkAttribute( virtualRayPath, 'visible' );
   }

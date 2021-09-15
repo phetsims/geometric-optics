@@ -45,10 +45,7 @@ class SourceObjectNode extends Node {
    * @param {Property.<Bounds2>} visibleModelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * */
-  constructor( representationProperty,
-               sourceObject,
-               secondSourceVisibleProperty,
-               visibleModelBoundsProperty,
+  constructor( representationProperty, sourceObject, secondSourceVisibleProperty, visibleModelBoundsProperty,
                modelViewTransform ) {
 
     super( {
@@ -167,8 +164,7 @@ class SourceObjectNode extends Node {
     secondSourceNode.addInputListener( secondSourceDragListener );
 
     /**
-     * set the position of the second source based on the position
-     *
+     * Set the position of the second source based on the position.
      * @param {Vector2} position - model position of the second source
      */
     function setSecondSourcePosition( position ) {

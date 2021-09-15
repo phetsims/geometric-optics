@@ -17,8 +17,8 @@ import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import LightRayMode from '../model/LightRayMode.js';
 
+// constants
 const OPTICAL_CENTER_LINE_STROKE = GeometricOpticsColors.opticalAxisStrokeProperty;
-
 const FILL = GeometricOpticsColors.opticFillProperty;
 const STROKE = GeometricOpticsColors.opticStrokeProperty;
 const LINE_WIDTH = GeometricOpticsConstants.OPTICAL_ELEMENT_LINE_WIDTH;
@@ -142,9 +142,7 @@ class OpticNode extends Node {
 
     // set the optic center line to visible when mode is on Principal Ray
     lightRayModeProperty.link( lightRayMode => {
-
       opticCenterLine.visible = lightRayMode === LightRayMode.PRINCIPAL;
-
     } );
   }
 }

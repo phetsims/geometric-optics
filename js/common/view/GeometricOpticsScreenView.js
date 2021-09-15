@@ -38,6 +38,7 @@ import TargetNode from './TargetNode.js';
 import TrackingDiskNode from './TrackingDiskNode.js';
 import VisibleProperties from './VisibleProperties.js';
 
+// constants
 const SCREEN_VIEW_X_MARGIN = GeometricOpticsConstants.SCREEN_VIEW_X_MARGIN;
 const SCREEN_VIEW_Y_MARGIN = GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN;
 const ZOOM_RANGE = GeometricOpticsConstants.ZOOM_RANGE;
@@ -243,14 +244,15 @@ class GeometricOpticsScreenView extends ScreenView {
 
     } );
 
-    Property.multilink( [ model.lightRayModeProperty, this.visibleProperties.rayTracingVisibleProperty ],
-      ( lightRayMode, showHide ) => {
+    Property.multilink(
+      [ model.lightRayModeProperty, this.visibleProperties.rayTracingVisibleProperty ],
+      ( lightRayMode, rayTracingVisible ) => {
         if ( lightRayMode === LightRayMode.NONE ) {
-          model.firstTarget.enabledProperty.value = showHide;
-          model.secondTarget.enabledProperty.value = showHide;
+          model.firstTarget.enabledProperty.value = rayTracingVisible;
+          model.secondTarget.enabledProperty.value = rayTracingVisible;
         }
         else {
-          if ( !showHide ) {
+          if ( !rayTracingVisible ) {
             model.firstTarget.enabledProperty.value = false;
             model.secondTarget.enabledProperty.value = false;
             model.timeProperty.value = 0;
@@ -259,8 +261,7 @@ class GeometricOpticsScreenView extends ScreenView {
       } );
 
     // labels
-    const labelsNode = new LabelsNode( model, this, this.visibleProperties,
-      this.zoomModelViewTransformProperty,
+    const labelsNode = new LabelsNode( model, this, this.visibleProperties, this.zoomModelViewTransformProperty,
       this.zoomLevelProperty );
 
     // add playAreaNode and controls to the scene graph
@@ -327,7 +328,6 @@ class GeometricOpticsScreenView extends ScreenView {
   /**
    * Scale function
    * @public
-   *
    * @returns {number}
    */
   scaleFunction( zoomLevel ) {
@@ -374,7 +374,6 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // create a Y inverted modelViewTransform with isometric scaling along X and Y
     return ModelViewTransform2.createOffsetXYScaleMapping( ORIGIN_POINT, viewModelScale, -viewModelScale );
-
   }
 }
 

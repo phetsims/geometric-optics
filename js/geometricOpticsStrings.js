@@ -10,5 +10,4 @@ import geometricOptics from './geometricOptics.js';
 const geometricOpticsStrings = getStringModule( 'GEOMETRIC_OPTICS' );
 
 geometricOptics.register( 'geometricOpticsStrings', geometricOpticsStrings );
-
 export default geometricOpticsStrings;

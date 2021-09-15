@@ -13,6 +13,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
+// constants
 const FOCAL_POINT_OPTIONS = GeometricOpticsConstants.FOCAL_POINT_OPTIONS;
 const FILL = GeometricOpticsColors.focalPointFillProperty;
 const STROKE = GeometricOpticsColors.focalPointStrokeProperty;
@@ -54,13 +55,12 @@ class FocalPointNode extends PlusNode {
    * @returns {PlusNode}
    */
   static createIcon( options ) {
-    options = merge( {}, FOCAL_POINT_OPTIONS,
-      {
-        fill: FILL,
-        stroke: STROKE,
 
-        rotation: Math.PI / 4
-      }, options );
+    options = merge( {}, FOCAL_POINT_OPTIONS, {
+      fill: FILL,
+      stroke: STROKE,
+      rotation: Math.PI / 4
+    }, options );
 
     return new PlusNode( options );
   }

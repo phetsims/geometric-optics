@@ -17,8 +17,7 @@ import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
-const centimetersString = geometricOpticsStrings.centimeters;
-
+// constants
 const RULER_HEIGHT = GeometricOpticsConstants.RULER_HEIGHT;
 const MINIMUM_VISIBLE_LENGTH = GeometricOpticsConstants.MINIMUM_VISIBLE_LENGTH;
 
@@ -82,12 +81,12 @@ class GeometricOpticsRulerNode extends Node {
       }
       else {
         // if horizontal ruler,  the bottom and top bounds of the ruler stay within visible bounds
-          // minimum visible length of the ruler is always showing inside left  and right visible bounds.
-          return visibleBounds.withOffsets( this.width - MINIMUM_VISIBLE_LENGTH,
-            0,
-            -MINIMUM_VISIBLE_LENGTH,
-            -this.height );
-        }
+        // minimum visible length of the ruler is always showing inside left  and right visible bounds.
+        return visibleBounds.withOffsets( this.width - MINIMUM_VISIBLE_LENGTH,
+          0,
+          -MINIMUM_VISIBLE_LENGTH,
+          -this.height );
+      }
       }
     );
 
@@ -125,7 +124,6 @@ class GeometricOpticsRulerNode extends Node {
 
     // prevent the ruler from escaping the visible bounds is the bounds are changing.
     rulerDragBoundsProperty.link( dragBoundsListener );
-
   }
 
   /**
@@ -180,14 +178,11 @@ class GeometricOpticsRulerNode extends Node {
    * @param {SceneryEvent} event
    */
   startDrag( event ) {
-
-    // Forward the event to the drag listener
     this.dragListener.press( event, this );
   }
 
   /**
    * Updates toolbox panel bounds
-   *
    * @public
    * @param {Bounds2} bounds
    */
@@ -204,9 +199,7 @@ class GeometricOpticsRulerNode extends Node {
    */
   getRulerNode( modelViewTransform, options ) {
 
-    options = merge( {},
-      this.rulerOptions,
-      options );
+    options = merge( {}, this.rulerOptions, options );
 
     // define the length ruler
     const rulerWidth = modelViewTransform.modelToViewDeltaX( this.ruler.length );
@@ -219,7 +212,6 @@ class GeometricOpticsRulerNode extends Node {
 
     // create major ticks label
     const majorTickLabels = [];
-
     for ( let i = 0; i < numberOfMajorTicks; i++ ) {
 
       const majorTickInterval = options.majorTickDistance;
@@ -238,16 +230,18 @@ class GeometricOpticsRulerNode extends Node {
       unitsMajorTickIndex: numberOfMajorTicks - 3
     }, options );
 
-    return new RulerNode( rulerWidth,
+    return new RulerNode(
+      rulerWidth,
       RULER_HEIGHT,
       majorTickWidth,
       majorTickLabels,
-      centimetersString,
-      rulerOptions );
+      geometricOpticsStrings.centimeters,
+      rulerOptions
+    );
   }
 
   /**
-   * Adds a new SCENERY/RulerNode to the this parent, detaching the previous ruler Node.
+   * Adds a new SCENERY/RulerNode to the parent, detaching the previous ruler Node.
    * @public
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]

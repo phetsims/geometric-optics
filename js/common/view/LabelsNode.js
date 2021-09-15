@@ -9,7 +9,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
@@ -34,14 +33,7 @@ class LabelsNode extends Node {
    * @param {Property.<boolean>} zoomLevelProperty
    * @param {Object} [options]
    */
-  constructor( model,
-               view,
-               visibleProperties,
-               modelViewTransformProperty,
-               zoomLevelProperty,
-               options ) {
-
-    options = merge( {}, options );
+  constructor( model, view, visibleProperties, modelViewTransformProperty, zoomLevelProperty, options ) {
 
     super( options );
 
@@ -88,8 +80,10 @@ class LabelsNode extends Node {
     } );
 
     // define image label position
-    const imageLabelPositionProperty = new DerivedProperty( [ model.firstTarget.boundsProperty ],
-      bounds => bounds.centerTop );
+    const imageLabelPositionProperty = new DerivedProperty(
+      [ model.firstTarget.boundsProperty ],
+      bounds => bounds.centerTop
+    );
 
     // find appropriate string for image label
     const imageLabelString = model.firstTarget.isVirtual() ? virtualImageString : imageString;
@@ -117,15 +111,16 @@ class LabelsNode extends Node {
         model.representationProperty,
         model.firstTarget.enabledProperty,
         model.firstTarget.isVirtualProperty,
-        visibleProperties.virtualImageVisibleProperty ],
-      ( representation, isEnabled, isVirtual, showVirtual ) => {
+        visibleProperties.virtualImageVisibleProperty
+      ],
+      ( representation, isEnabled, isVirtual, virtualImageVisible ) => {
 
         // label is visible if the representation is an object
         objectLabel.visible = representation.isObject;
 
         // label is visible if (1) the image is enabled, (2) the representation is an object
         // (3) if the image is virtual and the checkbox is virtual is on  (but on if real)
-        imageLabel.visible = isEnabled && ( isVirtual ? showVirtual : true ) && representation.isObject;
+        imageLabel.visible = isEnabled && ( isVirtual ? virtualImageVisible : true ) && representation.isObject;
 
         // update the text of the image appropriately
         imageLabel.setText( isVirtual ? virtualImageString : imageString );

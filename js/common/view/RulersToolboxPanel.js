@@ -65,8 +65,7 @@ class RulersToolboxPanel extends Panel {
      * @param {Node} iconNode
      * @param {GeometricOpticsRulerNode} rulerNode
      */
-    const createForwardListener = ( iconNode,
-                                    rulerNode ) => {
+    const createForwardListener = ( iconNode, rulerNode ) => {
 
       // ruler node and icon node have opposite visibilities
       rulerNode.visibleProperty.link( visible => {
@@ -91,10 +90,8 @@ class RulersToolboxPanel extends Panel {
     };
 
     // attach a create a Forward listener on each icon
-    createForwardListener( horizontalRulerIconNode,
-      rulersLayer.horizontalRulerNode );
-    createForwardListener( verticalRulerIconNode,
-      rulersLayer.verticalRulerNode );
+    createForwardListener( horizontalRulerIconNode, rulersLayer.horizontalRulerNode );
+    createForwardListener( verticalRulerIconNode, rulersLayer.verticalRulerNode );
   }
 
   /**

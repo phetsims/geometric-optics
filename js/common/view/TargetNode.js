@@ -58,7 +58,6 @@ class TargetNode extends Node {
     Property.multilink(
       [ target.isVirtualProperty, virtualImageVisibleProperty, target.enabledProperty ],
       ( isVirtual, showVirtualImage, enableImage ) => {
-
         targetImage.visible = ( ( isVirtual ) ? showVirtualImage : true ) && enableImage;
       } );
 
@@ -90,7 +89,6 @@ class TargetNode extends Node {
         // update the scale of the image
         updateScaleAndPosition();
       }
-
     } );
 
     // add the target image to this node

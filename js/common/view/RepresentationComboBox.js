@@ -15,8 +15,6 @@ import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Representation from '../model/Representation.js';
 
-const COMBO_BOX_FONT = GeometricOpticsConstants.COMBO_BOX_FONT;
-
 class RepresentationComboBox extends Node {
 
   /**
@@ -41,7 +39,9 @@ class RepresentationComboBox extends Node {
       if ( options.hasLens || representation.isObject ) {
 
         // create text
-        const text = new Text( representation.label, { font: COMBO_BOX_FONT } );
+        const text = new Text( representation.label, {
+          font: GeometricOpticsConstants.COMBO_BOX_FONT
+        } );
 
         // create logo
         const logoImage = new Image( representation.logo, { scale: 0.05 } );

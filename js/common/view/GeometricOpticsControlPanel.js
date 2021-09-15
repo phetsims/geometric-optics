@@ -43,6 +43,7 @@ const guidesString = geometricOpticsStrings.guides;
 const labelsString = geometricOpticsStrings.labels;
 const rayModeTitleString = geometricOpticsStrings.rayModeTitle;
 
+// constants
 const CONTROL_PANEL_FONT = GeometricOpticsConstants.CONTROL_PANEL_FONT;
 const TITLE_FONT = GeometricOpticsConstants.TITLE_FONT;
 

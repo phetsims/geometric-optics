@@ -20,19 +20,13 @@ const LABEL_FONT = GeometricOpticsConstants.LABEL_FONT;
 class LabelNode extends Node {
 
   /**
-   * Creates and add a label node
-   *
    * @param {string} string
    * @param {Property.<Vector2>} positionProperty
    * @param {Property.<boolean>} visibleProperty
    * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
    * @param {Object} [options]
    */
-  constructor( string,
-               positionProperty,
-               visibleProperty,
-               modelViewTransformProperty,
-               options ) {
+  constructor( string, positionProperty, visibleProperty, modelViewTransformProperty, options ) {
 
     options = merge( {
       text: {
@@ -74,14 +68,10 @@ class LabelNode extends Node {
     this.addChild( this.text );
 
     // update the position of the labels when the zoom level changes
-    modelViewTransformProperty.link( () => {
-      this.setLabelPosition();
-    } );
+    modelViewTransformProperty.link( () => this.setLabelPosition() );
 
     // update the position of the text and background
-    positionProperty.link( () => {
-      this.setLabelPosition();
-    } );
+    positionProperty.link( () => this.setLabelPosition() );
 
     // add a listener to the visibility of this node
     visibleProperty.linkAttribute( this, 'visible' );

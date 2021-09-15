@@ -109,7 +109,6 @@ const GeometricOpticsColors = {
   panelFillProperty: new ProfileColorProperty( geometricOptics, 'panelFill', {
     default: 'rgb(240,234,227)'
   } )
-
 };
 
 geometricOptics.register( 'GeometricOpticsColors', GeometricOpticsColors );

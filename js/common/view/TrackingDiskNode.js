@@ -21,13 +21,8 @@ class TrackingDiskNode extends Circle {
   constructor( positionProperty, modelViewTransform, options ) {
 
     options = merge( {
-
-      // {color} fill of disk
-      fill: 'white',
-
-      // {number} radius of disk in view coordinates.
-      radius: 2
-
+      fill: 'white', // {color} fill of disk
+      radius: 2 // {number} radius of disk in view coordinates.
     }, options );
 
     super( options.radius, options );

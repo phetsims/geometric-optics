@@ -15,6 +15,7 @@ import geometricOptics from '../../geometricOptics.js';
 import Optic from '../model/Optic.js';
 import OpticShapeCollection from '../model/OpticShapeCollection.js';
 
+// constants
 const RADIUS_OF_CURVATURE = 22; // in view coordinates
 const DIAMETER = 30; // in view coordinates
 const FILL = 'rgb(133,153,197)'; // for body of optic
