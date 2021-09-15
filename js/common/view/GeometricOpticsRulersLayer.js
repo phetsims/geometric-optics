@@ -84,8 +84,6 @@ class GeometricOpticRulersLayer extends Node {
       rulerNode.setRulerNode( modelViewTransformProperty.value, rulerOptions );
     };
 
-    //TODO: consider using OrientationPair (see #42)
-
     // @private {GeometricOpticsRulerNode} create the horizontal GeometricRulerNode
     this.horizontalRulerNode = getGeometricOpticsRulerNode( rulers.horizontal, absoluteScaleProperty.value );
 
