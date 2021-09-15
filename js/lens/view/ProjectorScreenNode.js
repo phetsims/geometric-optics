@@ -16,7 +16,7 @@ import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import projectorScreen3dImage from '../../../images/projector-screen-3d_png.js';
+import projectorScreen_png from '../../../images/projectorScreen_png.js';
 import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -43,7 +43,7 @@ class ProjectorScreenNode extends Node {
     super( options );
 
     // create projectorScreen target
-    const projectorScreenImage = new Image( projectorScreen3dImage, {
+    const projectorScreenImage = new Image( projectorScreen_png, {
       scale: GeometricOpticsConstants.PROJECTOR_SCALE
     } );
 
