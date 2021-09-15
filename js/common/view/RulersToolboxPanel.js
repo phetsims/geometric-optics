@@ -31,10 +31,10 @@ class RulersToolboxPanel extends Panel {
       yMargin: 7,
       fill: 'white',
       stroke: 'grey',
-      touchAreaDilationX: 80,
-      touchAreaDilationY: 80,
-      mouseAreaDilationX: 80,
-      mouseAreaDilationY: 80
+      touchAreaDilationX: 50,
+      touchAreaDilationY: 50,
+      mouseAreaDilationX: 50,
+      mouseAreaDilationY: 50
     }, options );
 
     // create two icons for rulers: A vertical and a Horizontal ruler
