@@ -10,26 +10,24 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
-
-// images
-import lampBlueIcon_png from '../../../images/lampBlueIcon_png.js';
 import lampBlue_png from '../../../images/lampBlue_png.js';
+import lampBlueIcon_png from '../../../images/lampBlueIcon_png.js';
 import lampRed_png from '../../../images/lampRed_png.js';
+import pencilIcon_png from '../../../images/pencilIcon_png.js';
 import pencilLeftFacingInverted_png from '../../../images/pencilLeftFacingInverted_png.js';
 import pencilLeftFacingUpright_png from '../../../images/pencilLeftFacingUpright_png.js';
 import pencilRightFacingInverted_png from '../../../images/pencilRightFacingInverted_png.js';
 import pencilRightFacingUpright_png from '../../../images/pencilRightFacingUpright_png.js';
-import pencilIcon_png from '../../../images/pencilIcon_png.js';
+import rocketIcon_png from '../../../images/rocketIcon_png.js';
 import rocketLeftFacingInverted_png from '../../../images/rocketLeftFacingInverted_png.js';
 import rocketLeftFacingUpright_png from '../../../images/rocketLeftFacingUpright_png.js';
 import rocketRightFacingInverted_png from '../../../images/rocketRightFacingInverted_png.js';
 import rocketRightFacingUpright_png from '../../../images/rocketRightFacingUpright_png.js';
-import rocketIcon_png from '../../../images/rocketIcon_png.js';
+import treeIcon_png from '../../../images/treeIcon_png.js';
 import treeLeftFacingInverted_png from '../../../images/treeLeftFacingInverted_png.js';
 import treeLeftFacingUpright_png from '../../../images/treeLeftFacingUpright_png.js';
 import treeRightFacingInverted_png from '../../../images/treeRightFacingInverted_png.js';
 import treeRightFacingUpright_png from '../../../images/treeRightFacingUpright_png.js';
-import treeIcon_png from '../../../images/treeIcon_png.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 
