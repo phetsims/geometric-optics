@@ -55,6 +55,7 @@ const GeometricOpticsConstants = {
 
   //----------------------------------------------------------------------------------------
   //                                 FOCAL POINT
+
   FOCAL_POINT_OPTIONS: {
     size: new Dimension2( 15, 3 ),  // width of the X sign and "thickness" in X sign
     lineWidth: 1
@@ -79,6 +80,7 @@ const GeometricOpticsConstants = {
   VERTICAL_RULER_LENGTH: 160, // centimeters
   HORIZONTAL_RULER_INITIAL_POSITION: new Vector2( 200, 100 ),
   VERTICAL_RULER_INITIAL_POSITION: new Vector2( 100, 300 ),
+
   //----------------------------------------------------------------------------------------
   //                              GUIDES
 
@@ -109,6 +111,7 @@ const GeometricOpticsConstants = {
 
   //--------------------------------------------------------------------------------------
   //                           SHOW/HIDE & RESET BUTTONS
+
   BUTTON_RADIUS: 24,
 
   //----------------------------------------------------------------------------------------
