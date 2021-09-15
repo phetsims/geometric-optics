@@ -112,14 +112,13 @@ class RulersToolboxPanel extends Panel {
     const units = ''; // empty string for units
 
     const rulerIconNode = new RulerNode( rulerWidth, rulerHeight, majorTickWidth, majorTickLabels, units, {
-        tickMarksOnBottom: false,
-        minorTicksPerMajorTick: 1,
-        majorTickHeight: ( 0.6 * rulerHeight ) / 2,
-        minorTickHeight: ( 0.4 * rulerHeight ) / 2,
-        majorTickLineWidth: 2,
-        cursor: 'pointer'
-      }
-    );
+      tickMarksOnBottom: false,
+      minorTicksPerMajorTick: 1,
+      majorTickHeight: ( 0.6 * rulerHeight ) / 2,
+      minorTickHeight: ( 0.4 * rulerHeight ) / 2,
+      majorTickLineWidth: 2,
+      cursor: 'pointer'
+    } );
     rulerIconNode.scale( 0.12 );
 
     // rotate to create vertical ruler
