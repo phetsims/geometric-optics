@@ -35,7 +35,7 @@ class RepresentationGenerator {
 
   /**
    * Generator of representation
-   * @param {HTMLImageElement} logo
+   * @param {HTMLImageElement} icon - the icon that appears in UI controls
    * @param {HTMLImageElement} rightFacingUpright
    * @param {HTMLImageElement|null} rightFacingInverted
    * @param {HTMLImageElement|null} leftFacingUpright
@@ -46,7 +46,7 @@ class RepresentationGenerator {
    * @param {boolean} isObject - is this representation an object?, otherwise it is a source of light
    * @param {Object} [options]
    */
-  constructor( logo, rightFacingUpright, rightFacingInverted, leftFacingUpright, leftFacingInverted, dimensions,
+  constructor( icon, rightFacingUpright, rightFacingInverted, leftFacingUpright, leftFacingInverted, dimensions,
                rightFacingUprightOffsetPosition, label, isObject, options ) {
 
     options = merge( {
@@ -56,7 +56,7 @@ class RepresentationGenerator {
     }, options );
 
     //@public (read-only)
-    this.logo = logo;
+    this.icon = icon;
     this.rightFacingUpright = rightFacingUpright;
     this.rightFacingInverted = rightFacingInverted;
     this.leftFacingUpright = leftFacingUpright;

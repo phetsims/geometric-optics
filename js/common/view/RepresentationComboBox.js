@@ -43,11 +43,11 @@ class RepresentationComboBox extends Node {
           font: GeometricOpticsConstants.COMBO_BOX_FONT
         } );
 
-        // create logo
-        const logoImage = new Image( representation.logo, { scale: 0.05 } );
+        // create icon
+        const icon = new Image( representation.icon, { scale: 0.05 } );
 
         // hold the logo followed by text in a hbox
-        const hBox = new HBox( { spacing: 5, children: [ logoImage, text ] } );
+        const hBox = new HBox( { spacing: 5, children: [ icon, text ] } );
 
         // create and add combo box item to the array
         items.push( new ComboBoxItem( hBox, representation ) );
