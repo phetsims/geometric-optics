@@ -28,21 +28,6 @@ import LightRayMode from '../model/LightRayMode.js';
 import FocalPointNode from './FocalPointNode.js';
 import SourceObjectNode from './SourceObjectNode.js';
 
-const centimetersPattern = geometricOpticsStrings.centimetersPattern;
-const noneString = geometricOpticsStrings.none;
-const manyString = geometricOpticsStrings.many;
-const marginalString = geometricOpticsStrings.marginal;
-const principalString = geometricOpticsStrings.principal;
-const curvatureRadiusString = geometricOpticsStrings.curvatureRadius;
-const diameterString = geometricOpticsStrings.diameter;
-const refractiveIndexString = geometricOpticsStrings.refractiveIndex;
-const focalPointString = geometricOpticsStrings.focalPoint;
-const virtualImageString = geometricOpticsStrings.virtualImage;
-const secondSourceString = geometricOpticsStrings.secondSource;
-const guidesString = geometricOpticsStrings.guides;
-const labelsString = geometricOpticsStrings.labels;
-const rayModeTitleString = geometricOpticsStrings.rayModeTitle;
-
 // constants
 const CONTROL_PANEL_FONT = GeometricOpticsConstants.CONTROL_PANEL_FONT;
 const TITLE_FONT = GeometricOpticsConstants.TITLE_FONT;
@@ -77,10 +62,10 @@ class GeometricOpticsControlPanel extends Panel {
 
     // items for ray Mode radio buttons
     const rayModeRadioButtonGroupItems = [
-      createRayModeRadioButtonGroupItem( LightRayMode.MARGINAL, marginalString ),
-      createRayModeRadioButtonGroupItem( LightRayMode.PRINCIPAL, principalString ),
-      createRayModeRadioButtonGroupItem( LightRayMode.MANY, manyString ),
-      createRayModeRadioButtonGroupItem( LightRayMode.NONE, noneString )
+      createRayModeRadioButtonGroupItem( LightRayMode.MARGINAL, geometricOpticsStrings.marginal ),
+      createRayModeRadioButtonGroupItem( LightRayMode.PRINCIPAL, geometricOpticsStrings.principal ),
+      createRayModeRadioButtonGroupItem( LightRayMode.MANY, geometricOpticsStrings.many ),
+      createRayModeRadioButtonGroupItem( LightRayMode.NONE, geometricOpticsStrings.none )
     ];
 
     // options common to all number controls
@@ -102,7 +87,7 @@ class GeometricOpticsControlPanel extends Panel {
       {
         numberDisplayOptions: {
           decimalPlaces: GeometricOpticsConstants.CENTIMETER_DECIMAL_PLACES,
-          valuePattern: StringUtils.fillIn( centimetersPattern, {
+          valuePattern: StringUtils.fillIn( geometricOpticsStrings.centimetersPattern, {
             centimeters: SunConstants.VALUE_NAMED_PLACEHOLDER
           } )
         }
@@ -110,14 +95,14 @@ class GeometricOpticsControlPanel extends Panel {
 
     // create number control for the radius of curvature of optical element
     const curvatureRadiusControl = new NumberControl(
-      curvatureRadiusString,
+      geometricOpticsStrings.curvatureRadius,
       optic.radiusOfCurvatureProperty,
       optic.radiusOfCurvatureProperty.range,
       lengthNumberControlOptions );
 
     // create number control for the diameter of optical element
     const diameterControl = new NumberControl(
-      diameterString,
+      geometricOpticsStrings.diameter,
       optic.diameterProperty,
       optic.diameterProperty.range,
       lengthNumberControlOptions );
@@ -138,7 +123,7 @@ class GeometricOpticsControlPanel extends Panel {
 
       // create number control for the index of refraction of lens
       const indexOfRefractionControl = new NumberControl(
-        refractiveIndexString,
+        geometricOpticsStrings.refractiveIndex,
         optic.indexOfRefractionProperty,
         optic.indexOfRefractionProperty.range,
         indexOfRefractionNumberControlOptions );
@@ -153,7 +138,7 @@ class GeometricOpticsControlPanel extends Panel {
     }
 
     // create title for radio button group for light ray mode
-    const rayModeTitle = new Text( rayModeTitleString, { font: TITLE_FONT, maxWidth: 100 } );
+    const rayModeTitle = new Text( geometricOpticsStrings.rayModeTitle, { font: TITLE_FONT, maxWidth: 100 } );
 
     // create button radio group for the light ray mode
     const rayModeRadioButtonGroup = new VerticalAquaRadioButtonGroup(
@@ -205,13 +190,13 @@ class GeometricOpticsControlPanel extends Panel {
 
     // create checkbox group for visibility settings
     const checkboxGroupItems = [
-      createCheckboxGroupItem( focalPointString, visibleProperties.focalPointVisibleProperty,
+      createCheckboxGroupItem( geometricOpticsStrings.focalPoint, visibleProperties.focalPointVisibleProperty,
         { icon: focalPointIcon } ),
-      createCheckboxGroupItem( virtualImageString, visibleProperties.virtualImageVisibleProperty ),
-      createCheckboxGroupItem( labelsString, visibleProperties.labelsVisibleProperty ),
-      createCheckboxGroupItem( secondSourceString, visibleProperties.secondSourceVisibleProperty,
+      createCheckboxGroupItem( geometricOpticsStrings.virtualImage, visibleProperties.virtualImageVisibleProperty ),
+      createCheckboxGroupItem( geometricOpticsStrings.labels, visibleProperties.labelsVisibleProperty ),
+      createCheckboxGroupItem( geometricOpticsStrings.secondSource, visibleProperties.secondSourceVisibleProperty,
         { icon: secondSourcePointIcon } ),
-      createCheckboxGroupItem( guidesString, visibleProperties.guidesVisibleProperty )
+      createCheckboxGroupItem( geometricOpticsStrings.guides, visibleProperties.guidesVisibleProperty )
     ];
 
     // remove guides checkbox for mirror  or because of query parameters

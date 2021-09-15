@@ -31,11 +31,6 @@ import treeLogoImage from '../../../images/tree-logo_png.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 
-const pencilString = geometricOpticsStrings.pencil;
-const rocketString = geometricOpticsStrings.rocket;
-const lightString = geometricOpticsStrings.light;
-const treeString = geometricOpticsStrings.tree;
-
 class RepresentationGenerator {
 
   /**
@@ -83,7 +78,7 @@ const Representation = Enumeration.byMap( {
     pencil3dLeftFacingInvertedImage,
     new Dimension2( 111, 365 ),
     new Vector2( -64, 70 ),
-    pencilString,
+    geometricOpticsStrings.pencil,
     true ),
 
   TREE: new RepresentationGenerator( treeLogoImage,
@@ -93,7 +88,7 @@ const Representation = Enumeration.byMap( {
     tree3dLeftFacingInvertedImage,
     new Dimension2( 135, 391 ),
     new Vector2( -80, 88 ),
-    treeString,
+    geometricOpticsStrings.tree,
     true ),
 
   ROCKET: new RepresentationGenerator( rocketLogoImage,
@@ -103,7 +98,7 @@ const Representation = Enumeration.byMap( {
     rocket3dLeftFacingInvertedImage,
     new Dimension2( 116, 414 ),
     new Vector2( -68, 112 ),
-    rocketString,
+    geometricOpticsStrings.rocket,
     true ),
 
   LIGHT: new RepresentationGenerator( lampBlueLogoImage,
@@ -113,7 +108,7 @@ const Representation = Enumeration.byMap( {
     null,
     new Dimension2( 100, 100 ),
     new Vector2( -66, 28 ),
-    lightString,
+    geometricOpticsStrings.light,
     false,
     { source: lampRedImage } )
 } );

@@ -14,15 +14,6 @@ import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import LabelNode from './LabelNode.js';
 
-const objectString = geometricOpticsStrings.object;
-const imageString = geometricOpticsStrings.image;
-const virtualImageString = geometricOpticsStrings.virtualImage;
-const focalPointString = geometricOpticsStrings.focalPoint;
-const convexLensString = geometricOpticsStrings.convexLens;
-const concaveLensString = geometricOpticsStrings.concaveLens;
-const convexMirrorString = geometricOpticsStrings.convexMirror;
-const concaveMirrorString = geometricOpticsStrings.concaveMirror;
-
 class LabelsNode extends Node {
 
   /**
@@ -38,13 +29,13 @@ class LabelsNode extends Node {
     super( options );
 
     // create first focal point label
-    const firstFocalPointLabel = new LabelNode( focalPointString,
+    const firstFocalPointLabel = new LabelNode( geometricOpticsStrings.focalPoint,
       model.firstFocalPoint.positionProperty,
       visibleProperties.focalPointVisibleProperty,
       modelViewTransformProperty );
 
     // create second focal point label
-    const secondFocalPointLabel = new LabelNode( focalPointString,
+    const secondFocalPointLabel = new LabelNode( geometricOpticsStrings.focalPoint,
       model.secondFocalPoint.positionProperty,
       visibleProperties.focalPointVisibleProperty,
       modelViewTransformProperty );
@@ -69,10 +60,10 @@ class LabelsNode extends Node {
 
       // string associated with optic and curve
       if ( model.optic.isConvex( curve ) ) {
-        curveOpticString = model.optic.isLens() ? convexLensString : convexMirrorString;
+        curveOpticString = model.optic.isLens() ? geometricOpticsStrings.convexLens : geometricOpticsStrings.convexMirror;
       }
       else if ( model.optic.isConcave( curve ) ) {
-        curveOpticString = model.optic.isLens() ? concaveLensString : concaveMirrorString;
+        curveOpticString = model.optic.isLens() ? geometricOpticsStrings.concaveLens : geometricOpticsStrings.concaveMirror;
       }
 
       // update the text of label for optic
@@ -86,7 +77,7 @@ class LabelsNode extends Node {
     );
 
     // find appropriate string for image label
-    const imageLabelString = model.firstTarget.isVirtual() ? virtualImageString : imageString;
+    const imageLabelString = model.firstTarget.isVirtual() ? geometricOpticsStrings.virtualImage : geometricOpticsStrings.image;
 
     // create image label
     const imageLabel = new LabelNode( imageLabelString,
@@ -101,7 +92,7 @@ class LabelsNode extends Node {
       bounds => bounds.centerTop );
 
     // create object label
-    const objectLabel = new LabelNode( objectString,
+    const objectLabel = new LabelNode( geometricOpticsStrings.object,
       objectLabelPositionProperty,
       new BooleanProperty( true ),
       modelViewTransformProperty );
@@ -123,7 +114,7 @@ class LabelsNode extends Node {
         imageLabel.visible = isEnabled && ( isVirtual ? virtualImageVisible : true ) && representation.isObject;
 
         // update the text of the image appropriately
-        imageLabel.setText( isVirtual ? virtualImageString : imageString );
+        imageLabel.setText( isVirtual ? geometricOpticsStrings.virtualImage : geometricOpticsStrings.image );
       } );
 
     // add the labels to this node
