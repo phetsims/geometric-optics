@@ -103,11 +103,12 @@ const GeometricOpticsColors = {
   //--------------------------------------------------------------------------
   //                           CONTROL PANEL
 
-  panelStrokeProperty: new ProfileColorProperty( geometricOptics, 'panelStroke', {
-    default: 'rgb(217,205,205)'
-  } ),
   panelFillProperty: new ProfileColorProperty( geometricOptics, 'panelFill', {
     default: 'rgb(240,234,227)'
+  } ),
+
+  panelStrokeProperty: new ProfileColorProperty( geometricOptics, 'panelStroke', {
+    default: 'rgb(217,205,205)'
   } )
 };
 
