@@ -1,6 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/geometric-optics/issues/164 support for N sources?
 /**
  * Model element for object (in the sense commonly used in geometric optic) or source of light
  * The sourceObject has a position and a "second source" position within it.
