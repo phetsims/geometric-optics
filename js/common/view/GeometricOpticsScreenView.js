@@ -136,8 +136,7 @@ class GeometricOpticsScreenView extends ScreenView {
         model.reset();
         this.reset();
       },
-      rightBottom: erodedLayoutBounds.rightBottom,
-      radius: GeometricOpticsConstants.BUTTON_RADIUS //TODO should not be setting this
+      rightBottom: erodedLayoutBounds.rightBottom
     } );
 
     // create the show/hide eye toggle button above the reset all button

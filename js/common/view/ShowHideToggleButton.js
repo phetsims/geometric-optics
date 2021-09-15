@@ -9,12 +9,12 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
+import SceneryPhetConstants from '../../../../scenery-phet/js/SceneryPhetConstants.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
 import eyeSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSolidShape.js';
 import BooleanRoundToggleButton from '../../../../sun/js/buttons/BooleanRoundToggleButton.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
 class ShowHideToggleButton extends BooleanRoundToggleButton {
 
@@ -31,7 +31,7 @@ class ShowHideToggleButton extends BooleanRoundToggleButton {
       // BooleanRoundToggleButton options
       xMargin: 9,
       yMargin: 9,
-      radius: GeometricOpticsConstants.BUTTON_RADIUS,
+      radius: SceneryPhetConstants.DEFAULT_BUTTON_RADIUS, // so that this button will be the same size as ResetAllButton
 
       // Path options for the button icons
       icon: {
