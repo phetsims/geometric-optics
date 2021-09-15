@@ -18,7 +18,6 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
 // constants
-const RULER_HEIGHT = GeometricOpticsConstants.RULER_HEIGHT;
 const MINIMUM_VISIBLE_LENGTH = GeometricOpticsConstants.MINIMUM_VISIBLE_LENGTH;
 
 class GeometricOpticsRulerNode extends Node {
@@ -30,11 +29,7 @@ class GeometricOpticsRulerNode extends Node {
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( ruler,
-               visibleBoundsProperty,
-               panelBounds,
-               modelViewTransform,
-               options ) {
+  constructor( ruler, visibleBoundsProperty, panelBounds, modelViewTransform, options ) {
 
     options = merge( {
       cursor: 'pointer',
@@ -68,27 +63,27 @@ class GeometricOpticsRulerNode extends Node {
 
     // dragBounds property for ruler: the view width and the height of the ruler will NOT change throughout the
     // simulation
-    const rulerDragBoundsProperty = new DerivedProperty( [ visibleBoundsProperty ], visibleBounds => {
+    const rulerDragBoundsProperty = new DerivedProperty(
+      [ visibleBoundsProperty ],
+      visibleBounds => {
+        if ( ruler.isVertical() ) {
 
-      if ( ruler.isVertical() ) {
-
-        // if vertical the left and right bounds of the ruler stay within visible bounds
-        // minimum visible length of the ruler is always showing inside top and bottom visible bounds.
-        return visibleBounds.withOffsets( 0,
-          -MINIMUM_VISIBLE_LENGTH,
-          -this.width,
-          -MINIMUM_VISIBLE_LENGTH + this.height );
-      }
-      else {
-        // if horizontal ruler,  the bottom and top bounds of the ruler stay within visible bounds
-        // minimum visible length of the ruler is always showing inside left  and right visible bounds.
-        return visibleBounds.withOffsets( this.width - MINIMUM_VISIBLE_LENGTH,
-          0,
-          -MINIMUM_VISIBLE_LENGTH,
-          -this.height );
-      }
-      }
-    );
+          // if vertical the left and right bounds of the ruler stay within visible bounds
+          // minimum visible length of the ruler is always showing inside top and bottom visible bounds.
+          return visibleBounds.withOffsets( 0,
+            -MINIMUM_VISIBLE_LENGTH,
+            -this.width,
+            -MINIMUM_VISIBLE_LENGTH + this.height );
+        }
+        else {
+          // if horizontal ruler, the bottom and top bounds of the ruler stay within visible bounds
+          // minimum visible length of the ruler is always showing inside left  and right visible bounds.
+          return visibleBounds.withOffsets( this.width - MINIMUM_VISIBLE_LENGTH,
+            0,
+            -MINIMUM_VISIBLE_LENGTH,
+            -this.height );
+        }
+      } );
 
     // @public create and add drag listener
     this.dragListener = new DragListener( {
@@ -232,7 +227,7 @@ class GeometricOpticsRulerNode extends Node {
 
     return new RulerNode(
       rulerWidth,
-      RULER_HEIGHT,
+      GeometricOpticsConstants.RULER_HEIGHT,
       majorTickWidth,
       majorTickLabels,
       geometricOpticsStrings.centimeters,

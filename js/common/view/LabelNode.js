@@ -14,9 +14,6 @@ import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
-const BACKGROUND_COLOR = GeometricOpticsColors.labelBackgroundFillProperty;
-const LABEL_FONT = GeometricOpticsConstants.LABEL_FONT;
-
 class LabelNode extends Node {
 
   /**
@@ -31,10 +28,10 @@ class LabelNode extends Node {
     options = merge( {
       text: {
         fill: 'white',
-        font: LABEL_FONT
+        font: GeometricOpticsConstants.LABEL_FONT
       },
       background: {
-        fill: BACKGROUND_COLOR,
+        fill: GeometricOpticsColors.labelBackgroundFillProperty,
         opacity: 0.5,
         cornerRadius: 4
       },

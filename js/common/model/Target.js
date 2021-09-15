@@ -14,8 +14,6 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
-const OBJECT_SCALE_FACTOR = GeometricOpticsConstants.OBJECT_SCALE_FACTOR;
-
 class Target extends EnabledComponent {
 
   /**
@@ -112,9 +110,10 @@ class Target extends EnabledComponent {
 
         // @public {Vector2} displacement vector from the firstPosition to the left top - value depends on
         // representation values are in centimeters
-        const initialOffsetPosition = representation.offsetPosition.timesScalar( 1 / OBJECT_SCALE_FACTOR );
-        const initialWidth = representation.dimensions.width / OBJECT_SCALE_FACTOR;
-        const initialHeight = representation.dimensions.height / OBJECT_SCALE_FACTOR;
+        const scaleFactor = GeometricOpticsConstants.OBJECT_SCALE_FACTOR;
+        const initialOffsetPosition = representation.offsetPosition.timesScalar( 1 / scaleFactor );
+        const initialWidth = representation.dimensions.width / scaleFactor;
+        const initialHeight = representation.dimensions.height / scaleFactor;
 
         const offsetPosition = initialOffsetPosition.timesScalar( scale );
         const width = initialWidth * scale;

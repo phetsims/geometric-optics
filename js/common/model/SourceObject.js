@@ -21,12 +21,6 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
-const DEFAULT_SOURCE_POINT_1 = GeometricOpticsConstants.DEFAULT_SOURCE_POINT_1;
-const DEFAULT_SOURCE_POINT_2 = GeometricOpticsConstants.DEFAULT_SOURCE_POINT_2;
-const SECOND_OBJECT_VERTICAL_RANGE = GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE;
-const OBJECT_SCALE_FACTOR = GeometricOpticsConstants.OBJECT_SCALE_FACTOR;
-const SOURCE_SCALE_FACTOR = GeometricOpticsConstants.SOURCE_SCALE_FACTOR;
-
 class SourceObject {
 
   /**
@@ -35,14 +29,16 @@ class SourceObject {
    */
   constructor( opticPositionProperty, representationProperty ) {
 
-    const scale = representationProperty.value.isObject ? OBJECT_SCALE_FACTOR : SOURCE_SCALE_FACTOR;
+    const scale = representationProperty.value.isObject ?
+                  GeometricOpticsConstants.OBJECT_SCALE_FACTOR :
+                  GeometricOpticsConstants.SOURCE_SCALE_FACTOR;
 
     // @public {Vector2} displacement vector from the firstPosition to the left top - value depends on representation
     // values are in centimeters
     this.offsetPosition = representationProperty.value.offsetPosition.dividedScalar( scale );
 
     // @public {Property.<Vector2>} position of the left top position of image
-    this.leftTopProperty = new Vector2Property( DEFAULT_SOURCE_POINT_1.plus( this.offsetPosition ) );
+    this.leftTopProperty = new Vector2Property( GeometricOpticsConstants.DEFAULT_SOURCE_POINT_1.plus( this.offsetPosition ) );
 
     // @public {Property.<Vector2>} position of the source/object
     this.firstPositionProperty = new DerivedProperty( [ this.leftTopProperty ], leftTop => {
@@ -52,18 +48,20 @@ class SourceObject {
     // @public {Property.<Bounds2>} model bounds of the source/object Image ( in the scenery sense)
     this.boundsProperty = new DerivedProperty( [ this.leftTopProperty, representationProperty ],
       ( leftTop, representation ) => {
-        const scale = representation.isObject ? OBJECT_SCALE_FACTOR : SOURCE_SCALE_FACTOR;
+        const scale = representation.isObject ?
+                      GeometricOpticsConstants.OBJECT_SCALE_FACTOR :
+                      GeometricOpticsConstants.SOURCE_SCALE_FACTOR;
         const dimensions = new Dimension2( representation.dimensions.width / scale,
           representation.dimensions.height / scale );
         return dimensions.toBounds( leftTop.x, leftTop.y - dimensions.height );
       } );
 
     // @private {Property.<Vector2>} position of the second source of light
-    this.unconstrainedSecondSourcePositionProperty = new Vector2Property( DEFAULT_SOURCE_POINT_2 );
+    this.unconstrainedSecondSourcePositionProperty = new Vector2Property( GeometricOpticsConstants.DEFAULT_SOURCE_POINT_2 );
 
     // @private {Property.<number>} vertical offset (in centimeters) of second object with respect to the first
-    this.verticalOffsetProperty = new NumberProperty( SECOND_OBJECT_VERTICAL_RANGE.defaultValue, {
-      range: SECOND_OBJECT_VERTICAL_RANGE
+    this.verticalOffsetProperty = new NumberProperty( GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE.defaultValue, {
+      range: GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE
     } );
 
     // REVIEW: This is not just the initial position, as it is a Property that changes with the optic, right? If not this needs more explanation.
@@ -88,7 +86,9 @@ class SourceObject {
     // update the left top position when the representation changes
     representationProperty.link( representation => {
 
-      const scale = representation.isObject ? OBJECT_SCALE_FACTOR : SOURCE_SCALE_FACTOR;
+      const scale = representation.isObject ?
+                    GeometricOpticsConstants.OBJECT_SCALE_FACTOR :
+                    GeometricOpticsConstants.SOURCE_SCALE_FACTOR;
 
       // {Vector2} update the value of the offset
       this.offsetPosition = representation.offsetPosition.dividedScalar( scale );
@@ -127,8 +127,8 @@ class SourceObject {
     if ( representationProperty.value.isObject ) {
       const unconstrainedVerticalOffset = position.y - this.firstPositionProperty.value.y;
       this.verticalOffsetProperty.value = Utils.clamp( unconstrainedVerticalOffset,
-        SECOND_OBJECT_VERTICAL_RANGE.min,
-        SECOND_OBJECT_VERTICAL_RANGE.max );
+        GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE.min,
+        GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE.max );
     }
     else {
       this.unconstrainedSecondSourcePositionProperty.value = position;

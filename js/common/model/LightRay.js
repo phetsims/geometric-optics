@@ -17,8 +17,6 @@ import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Ray from './Ray.js';
 
-const LIGHT_SPEED = GeometricOpticsConstants.LIGHT_SPEED;
-
 class LightRay {
 
   /**
@@ -41,7 +39,7 @@ class LightRay {
     this.virtualShape = new Shape();
 
     // {number} maximum travel distance if ray is unimpeded
-    const distanceTraveled = LIGHT_SPEED * time;
+    const distanceTraveled = GeometricOpticsConstants.LIGHT_SPEED * time;
 
     // {Vector2|null} first intersection point - a null value implies that the initialRay does not intersect the optic
     const firstPoint = this.getFirstPoint( initialRay, optic, isPrincipalRayMode );

@@ -23,12 +23,6 @@ import Ruler from './Ruler.js';
 import SourceObject from './SourceObject.js';
 import Target from './Target.js';
 
-const HORIZONTAL_RULER_LENGTH = GeometricOpticsConstants.HORIZONTAL_RULER_LENGTH;
-const HORIZONTAL_RULER_INITIAL_POSITION = GeometricOpticsConstants.HORIZONTAL_RULER_INITIAL_POSITION;
-const VERTICAL_RULER_LENGTH = GeometricOpticsConstants.VERTICAL_RULER_LENGTH;
-const VERTICAL_RULER_INITIAL_POSITION = GeometricOpticsConstants.VERTICAL_RULER_INITIAL_POSITION;
-const ANIMATION_TIME = GeometricOpticsConstants.ANIMATION_TIME;
-
 class GeometricOpticsModel {
 
   /**
@@ -46,7 +40,7 @@ class GeometricOpticsModel {
     assert && assert( diameterRange instanceof RangeWithValue, 'invalid diameterRange' );
 
     // @private {RangeWithValue} - time range (in seconds) for the animation
-    this.timeRange = new RangeWithValue( 0, ANIMATION_TIME, 0 );
+    this.timeRange = new RangeWithValue( 0, GeometricOpticsConstants.ANIMATION_TIME, 0 );
 
     // @public (read-only) {Property.<number>} - time for ray animation in seconds.
     this.timeProperty = new NumberProperty( this.timeRange.defaultValue, { units: 's' } );
@@ -64,10 +58,12 @@ class GeometricOpticsModel {
 
     // @public {Object} rulers for the simulations
     this.rulers = {
-      horizontal: new Ruler( HORIZONTAL_RULER_INITIAL_POSITION, HORIZONTAL_RULER_LENGTH ),
-      vertical: new Ruler( VERTICAL_RULER_INITIAL_POSITION, VERTICAL_RULER_LENGTH, {
-        orientation: Ruler.Orientation.VERTICAL
-      } )
+      horizontal: new Ruler( GeometricOpticsConstants.HORIZONTAL_RULER_INITIAL_POSITION,
+        GeometricOpticsConstants.HORIZONTAL_RULER_LENGTH ),
+      vertical: new Ruler( GeometricOpticsConstants.VERTICAL_RULER_INITIAL_POSITION,
+        GeometricOpticsConstants.VERTICAL_RULER_LENGTH, {
+          orientation: Ruler.Orientation.VERTICAL
+        } )
     };
 
     // @public {Optic} - model of the optic

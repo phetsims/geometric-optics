@@ -16,7 +16,6 @@ import Spotlight from './Spotlight.js';
 
 // constants
 const MASK_CORNERS = GeometricOpticsConstants.MASK_CORNERS;
-const INITIAL_POSITION = GeometricOpticsConstants.PROJECTOR_INITIAL_POSITION;
 
 class ProjectorScreen {
 
@@ -32,7 +31,7 @@ class ProjectorScreen {
                optic ) {
 
     // @public {Property.<Vector2>} position of the center of the screen
-    this.positionProperty = new Vector2Property( INITIAL_POSITION );
+    this.positionProperty = new Vector2Property( GeometricOpticsConstants.PROJECTOR_INITIAL_POSITION );
 
     // @public (read-only) {Property.<Vector2>} position of the optic
     this.opticPositionProperty = optic.positionProperty;

@@ -17,12 +17,6 @@ import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import LightRayMode from '../model/LightRayMode.js';
 
-// constants
-const OPTICAL_CENTER_LINE_STROKE = GeometricOpticsColors.opticalAxisStrokeProperty;
-const FILL = GeometricOpticsColors.opticFillProperty;
-const STROKE = GeometricOpticsColors.opticStrokeProperty;
-const LINE_WIDTH = GeometricOpticsConstants.OPTICAL_ELEMENT_LINE_WIDTH;
-
 class OpticNode extends Node {
 
   /**
@@ -36,9 +30,9 @@ class OpticNode extends Node {
 
     options = merge( {
       cursor: 'ns-resize',
-      fill: FILL,
-      stroke: STROKE,
-      lineWidth: LINE_WIDTH
+      fill: GeometricOpticsColors.opticFillProperty,
+      stroke: GeometricOpticsColors.opticStrokeProperty,
+      lineWidth: GeometricOpticsConstants.OPTICAL_ELEMENT_LINE_WIDTH
     }, options );
 
     super( options );
@@ -92,7 +86,7 @@ class OpticNode extends Node {
     // create a vertical dashed line, through the optic - indicating the crossing plane of principal rays.
     const opticCenterLine = new Path(
       modelViewTransform.modelToViewShape( optic.getPrincipalLine() ), {
-        stroke: OPTICAL_CENTER_LINE_STROKE,
+        stroke: GeometricOpticsColors.opticalAxisStrokeProperty,
         lineDash: [ 8, 5 ]
       } );
 

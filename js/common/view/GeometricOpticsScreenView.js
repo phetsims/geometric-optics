@@ -39,17 +39,8 @@ import TrackingDiskNode from './TrackingDiskNode.js';
 import VisibleProperties from './VisibleProperties.js';
 
 // constants
-const SCREEN_VIEW_X_MARGIN = GeometricOpticsConstants.SCREEN_VIEW_X_MARGIN;
-const SCREEN_VIEW_Y_MARGIN = GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN;
 const ZOOM_RANGE = GeometricOpticsConstants.ZOOM_RANGE;
-const ZOOM_SCALE_FACTOR = GeometricOpticsConstants.ZOOM_SCALE_FACTOR;
-const NOMINAL_VIEW_MODEL_CONVERSION = GeometricOpticsConstants.NOMINAL_VIEW_MODEL_CONVERSION;
 const ORIGIN_POINT = GeometricOpticsConstants.ORIGIN_POINT;
-const BUTTON_RADIUS = GeometricOpticsConstants.BUTTON_RADIUS;
-const virtualRayOneStroke = GeometricOpticsColors.virtualRayOneStrokeProperty;
-const virtualRayTwoStroke = GeometricOpticsColors.virtualRayTwoStrokeProperty;
-const realRayOneStroke = GeometricOpticsColors.realRayOneStrokeProperty;
-const realRayTwoStroke = GeometricOpticsColors.realRayTwoStrokeProperty;
 
 class GeometricOpticsScreenView extends ScreenView {
 
@@ -65,7 +56,8 @@ class GeometricOpticsScreenView extends ScreenView {
     this.model = model;
 
     // convenience variable for laying out scenery nodes
-    const erodedLayoutBounds = this.layoutBounds.erodedXY( SCREEN_VIEW_X_MARGIN, SCREEN_VIEW_Y_MARGIN );
+    const erodedLayoutBounds = this.layoutBounds.erodedXY( GeometricOpticsConstants.SCREEN_VIEW_X_MARGIN,
+      GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN );
 
     // @protected create visible properties associated with checkboxes
     this.visibleProperties = new VisibleProperties();
@@ -143,7 +135,7 @@ class GeometricOpticsScreenView extends ScreenView {
         this.reset();
       },
       rightBottom: erodedLayoutBounds.rightBottom,
-      radius: BUTTON_RADIUS
+      radius: GeometricOpticsConstants.BUTTON_RADIUS //TODO should not be setting this
     } );
 
     // create the show/hide eye toggle button above the reset all button
@@ -190,15 +182,15 @@ class GeometricOpticsScreenView extends ScreenView {
     // create the light rays associated with the object
     const lightRaysNode = new LightRaysNode( model.firstLightRays,
       this.visibleProperties.virtualImageVisibleProperty, this.modelViewTransform, {
-        realRayStroke: realRayOneStroke,
-        virtualRayStroke: virtualRayOneStroke
+        realRayStroke: GeometricOpticsColors.realRayOneStrokeProperty,
+        virtualRayStroke: GeometricOpticsColors.virtualRayOneStrokeProperty
       } );
 
     // create the light rays associated with the second source
     const secondSourceLightRaysNode = new LightRaysNode( model.secondLightRays,
       this.visibleProperties.virtualImageVisibleProperty, this.modelViewTransform, {
-        realRayStroke: realRayTwoStroke,
-        virtualRayStroke: virtualRayTwoStroke
+        realRayStroke: GeometricOpticsColors.realRayTwoStrokeProperty,
+        virtualRayStroke: GeometricOpticsColors.virtualRayTwoStrokeProperty
       } );
 
     // the second source light rays visibility is tied to the status of the checkbox
@@ -331,7 +323,7 @@ class GeometricOpticsScreenView extends ScreenView {
    * @returns {number}
    */
   scaleFunction( zoomLevel ) {
-    return Math.pow( ZOOM_SCALE_FACTOR, zoomLevel );
+    return Math.pow( GeometricOpticsConstants.ZOOM_SCALE_FACTOR, zoomLevel );
   }
 
   /**
@@ -370,7 +362,7 @@ class GeometricOpticsScreenView extends ScreenView {
     const absoluteScale = this.getAbsoluteScale( zoomLevel );
 
     // number of view coordinates for 1 model coordinate
-    const viewModelScale = NOMINAL_VIEW_MODEL_CONVERSION * absoluteScale;
+    const viewModelScale = GeometricOpticsConstants.NOMINAL_VIEW_MODEL_CONVERSION * absoluteScale;
 
     // create a Y inverted modelViewTransform with isometric scaling along X and Y
     return ModelViewTransform2.createOffsetXYScaleMapping( ORIGIN_POINT, viewModelScale, -viewModelScale );

@@ -15,8 +15,6 @@ import BooleanRoundToggleButton from '../../../../sun/js/buttons/BooleanRoundTog
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
-const BUTTON_RADIUS = GeometricOpticsConstants.BUTTON_RADIUS;
-
 class ShowHideToggleButton extends BooleanRoundToggleButton {
 
   /**
@@ -28,7 +26,7 @@ class ShowHideToggleButton extends BooleanRoundToggleButton {
       baseColor: 'yellow',
       xMargin: 9,
       yMargin: 9,
-      radius: BUTTON_RADIUS,
+      radius: GeometricOpticsConstants.BUTTON_RADIUS,
       icon: {
         fill: 'black'
       }

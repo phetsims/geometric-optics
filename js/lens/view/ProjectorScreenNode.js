@@ -21,9 +21,6 @@ import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import geometricOptics from '../../geometricOptics.js';
 
-const SPOTLIGHT_FILL = GeometricOpticsColors.projectorScreenSpotlightFillProperty;
-const PROJECTOR_SCALE = GeometricOpticsConstants.PROJECTOR_SCALE;
-
 class ProjectorScreenNode extends Node {
 
   /**
@@ -46,7 +43,9 @@ class ProjectorScreenNode extends Node {
     super( options );
 
     // create projectorScreen target
-    const projectorScreenImage = new Image( projectorScreen3dImage, { scale: PROJECTOR_SCALE } );
+    const projectorScreenImage = new Image( projectorScreen3dImage, {
+      scale: GeometricOpticsConstants.PROJECTOR_SCALE
+    } );
 
     // add projectorScreen image to scene graph
     this.addChild( projectorScreenImage );
@@ -108,8 +107,9 @@ class ProjectorScreenNode extends Node {
     const addSpotLightNode = ( spotlight, visibleProperty ) => {
 
       // create spotlight
-      const spotlightNode = new Path( new Shape( spotlight.shapeProperty.value ),
-        { fill: SPOTLIGHT_FILL } );
+      const spotlightNode = new Path( new Shape( spotlight.shapeProperty.value ), {
+        fill: GeometricOpticsColors.projectorScreenSpotlightFillProperty
+      } );
 
       // add listener to update the intensity of light to the opacity of the scenery node
       spotlight.intensityProperty.link( intensity => {

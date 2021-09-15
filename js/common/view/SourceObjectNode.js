@@ -23,9 +23,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import Representation from '../model/Representation.js';
 
-const SECOND_SOURCE_POINT_FILL = GeometricOpticsColors.secondSourcePointFillProperty;
-const SECOND_SOURCE_POINT_STROKE = GeometricOpticsColors.secondSourcePointStrokeProperty;
-
+// constants
 const OVERALL_SCALE_FACTOR = 1;
 const LIGHT_OFFSET_VECTOR = new Vector2( 50, -23 ); // in model coordinates
 const CUEING_ARROW_LENGTH = 20;
@@ -222,8 +220,8 @@ class SourceObjectNode extends Node {
    */
   static createSecondSourcePointIcon( options ) {
     options = merge( {
-      fill: SECOND_SOURCE_POINT_FILL,
-      stroke: SECOND_SOURCE_POINT_STROKE
+      fill: GeometricOpticsColors.secondSourcePointFillProperty,
+      stroke: GeometricOpticsColors.secondSourcePointStrokeProperty
     }, options );
 
     return new Circle( 5, options );

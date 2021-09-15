@@ -28,10 +28,6 @@ import LightRayMode from '../model/LightRayMode.js';
 import FocalPointNode from './FocalPointNode.js';
 import SourceObjectNode from './SourceObjectNode.js';
 
-// constants
-const CONTROL_PANEL_FONT = GeometricOpticsConstants.CONTROL_PANEL_FONT;
-const TITLE_FONT = GeometricOpticsConstants.TITLE_FONT;
-
 class GeometricOpticsControlPanel extends Panel {
 
   /**
@@ -56,7 +52,10 @@ class GeometricOpticsControlPanel extends Panel {
     const createRayModeRadioButtonGroupItem = ( mode, string ) => {
       return {
         value: mode,
-        node: new Text( string, { font: CONTROL_PANEL_FONT, maxWidth: 100 } )
+        node: new Text( string, {
+          font: GeometricOpticsConstants.CONTROL_PANEL_FONT,
+          maxWidth: 100
+        } )
       };
     };
 
@@ -72,7 +71,7 @@ class GeometricOpticsControlPanel extends Panel {
     const commonNumberControlOptions = {
       layoutFunction: NumberControl.createLayoutFunction3( { ySpacing: 12 } ),
       titleNodeOptions: {
-        font: CONTROL_PANEL_FONT,
+        font: GeometricOpticsConstants.CONTROL_PANEL_FONT,
         maxWidth: 160
       },
       sliderOptions: {
@@ -83,15 +82,14 @@ class GeometricOpticsControlPanel extends Panel {
     };
 
     // options for number controls that have length units
-    const lengthNumberControlOptions = merge( {}, commonNumberControlOptions,
-      {
-        numberDisplayOptions: {
-          decimalPlaces: GeometricOpticsConstants.CENTIMETER_DECIMAL_PLACES,
-          valuePattern: StringUtils.fillIn( geometricOpticsStrings.centimetersPattern, {
-            centimeters: SunConstants.VALUE_NAMED_PLACEHOLDER
-          } )
-        }
-      } );
+    const lengthNumberControlOptions = merge( {}, commonNumberControlOptions, {
+      numberDisplayOptions: {
+        decimalPlaces: GeometricOpticsConstants.CENTIMETER_DECIMAL_PLACES,
+        valuePattern: StringUtils.fillIn( geometricOpticsStrings.centimetersPattern, {
+          centimeters: SunConstants.VALUE_NAMED_PLACEHOLDER
+        } )
+      }
+    } );
 
     // create number control for the radius of curvature of optical element
     const curvatureRadiusControl = new NumberControl(
@@ -113,13 +111,12 @@ class GeometricOpticsControlPanel extends Panel {
     if ( options.hasLens ) {
 
       // options for index of refraction control
-      const indexOfRefractionNumberControlOptions = merge( {}, commonNumberControlOptions,
-        {
-          delta: 0.01,
-          numberDisplayOptions: {
-            decimalPlaces: GeometricOpticsConstants.INDEX_DECIMAL_PLACES
-          }
-        } );
+      const indexOfRefractionNumberControlOptions = merge( {}, commonNumberControlOptions, {
+        delta: 0.01,
+        numberDisplayOptions: {
+          decimalPlaces: GeometricOpticsConstants.INDEX_DECIMAL_PLACES
+        }
+      } );
 
       // create number control for the index of refraction of lens
       const indexOfRefractionControl = new NumberControl(
@@ -138,7 +135,10 @@ class GeometricOpticsControlPanel extends Panel {
     }
 
     // create title for radio button group for light ray mode
-    const rayModeTitle = new Text( geometricOpticsStrings.rayModeTitle, { font: TITLE_FONT, maxWidth: 100 } );
+    const rayModeTitle = new Text( geometricOpticsStrings.rayModeTitle, {
+      font: GeometricOpticsConstants.TITLE_FONT,
+      maxWidth: 100
+    } );
 
     // create button radio group for the light ray mode
     const rayModeRadioButtonGroup = new VerticalAquaRadioButtonGroup(
@@ -171,7 +171,10 @@ class GeometricOpticsControlPanel extends Panel {
       }, options );
 
       // text for the checkbox
-      const text = new Text( string, { font: CONTROL_PANEL_FONT, maxWidth: 100 } );
+      const text = new Text( string, {
+        font: GeometricOpticsConstants.CONTROL_PANEL_FONT,
+        maxWidth: 100
+      } );
 
       // create hBox if icon is present, otherwise merely attach text
       const node = ( options.icon ) ? new HBox( { children: [ text, options.icon ], spacing: 8 } ) : text;
