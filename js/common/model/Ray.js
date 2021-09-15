@@ -17,17 +17,15 @@ class Ray extends Ray2 {
    * @param {Vector2} direction - direction of the ray, must be a normalized vector.
    * @param {Object} [options]
    */
-  constructor( position,
-               direction,
-               options ) {
+  constructor( position, direction, options ) {
 
     options = merge( {
-      length: Infinity // semi infinite rays by default
+      length: Infinity // semi-infinite rays by default
     }, options );
 
-    super( position, direction );
-
     assert && assert( typeof options.length === 'number' );
+
+    super( position, direction );
 
     // @public {number}
     this.length = options.length;
@@ -53,8 +51,7 @@ class Ray extends Ray2 {
   }
 
   /**
-   * Gets the length of the ray,
-   * Note that the length may be Infinity
+   * Gets the length of the ray. Note that the length may be Infinity.
    * @public
    * @returns {number} length
    */
@@ -63,7 +60,7 @@ class Ray extends Ray2 {
   }
 
   /**
-   * Determines if the point is along the ray direction
+   * Determines if the point is along the ray direction.
    * @public
    * @param {Vector2} point
    * @param {number} epsilon - tolerance value
@@ -75,7 +72,7 @@ class Ray extends Ray2 {
   }
 
   /**
-   * Gets distance from origin to point (point may not lay along the direction of the ray)
+   * Gets distance from origin to point. The point may not lay along the direction of the ray.
    * @public
    * @param {Vector2} point
    * @returns {number} distance

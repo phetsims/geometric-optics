@@ -73,10 +73,7 @@ class Ruler {
   }
 }
 
-Ruler.Orientation = Enumeration.byKeys(
-  [ 'VERTICAL',
-    'HORIZONTAL' ]
-);
+Ruler.Orientation = Enumeration.byKeys( [ 'VERTICAL', 'HORIZONTAL' ] );
 
 geometricOptics.register( 'Ruler', Ruler );
 export default Ruler;

@@ -31,12 +31,8 @@ class Optic {
    * @param {Optic.Curve} curve - initial curve of optical element - acceptable values (CONVEX and CONCAVE)
    * @param {Optic.Type} type - type of optical element - acceptable values (MIRROR and LENS)
    */
-  constructor( initialPosition,
-               radiusOfCurvatureRange,
-               diameterRange,
-               indexOfRefractionRange,
-               curve,
-               type ) {
+  constructor( initialPosition, radiusOfCurvatureRange, diameterRange, indexOfRefractionRange, curve, type ) {
+
     assert && assert( initialPosition instanceof Vector2, 'invalid initialPosition' );
     assert && assert( radiusOfCurvatureRange instanceof RangeWithValue, 'invalid radiusOfCurvature' );
     assert && assert( diameterRange instanceof RangeWithValue, 'invalid diameterRange' );
@@ -44,8 +40,7 @@ class Optic {
     // @public {Property.<Vector2>} Position of the optical element
     this.positionProperty = new Vector2Property( initialPosition );
 
-    // @public {Property.<number>} Radius of curvature of the optical element - The convention is positive as
-    // converging.
+    // @public {Property.<number>} Radius of curvature of the optical element. Positive is converging.
     this.radiusOfCurvatureProperty = new NumberProperty( radiusOfCurvatureRange.defaultValue, {
       range: radiusOfCurvatureRange
     } );
@@ -80,18 +75,18 @@ class Optic {
       }
     );
 
-    // @public {Property.<boolean>} is the optical element converging.
+    // @public {DerivedProperty.<boolean>} is the optical element converging.
     this.isConvergingProperty = new DerivedProperty( [ this.curveProperty ], curve => {
       return this.isConverging( curve );
     } );
 
-    // @public {Property.<number>} is the optical element converging.
+    // @public {DerivedProperty.<number>} is the optical element converging.
     // +1 is the optical element is converging and -1 if it is diverging
     this.convergingSignProperty = new DerivedProperty( [ this.curveProperty ], curve => {
       return this.getConvergingSign( curve );
     } );
 
-    // @public {Property.<OpticShapeCollection>} shapes (fill and outline) of the optical element
+    // @public {DerivedProperty.<OpticShapeCollection>} shapes (fill and outline) of the optical element
     this.shapesProperty = new DerivedProperty( [
         this.radiusOfCurvatureProperty,
         this.diameterProperty,
@@ -107,7 +102,6 @@ class Optic {
   }
 
   /**
-   * Resets the model.
    * @public
    */
   reset() {
@@ -280,9 +274,8 @@ class Optic {
       return this.indexOfRefractionProperty.range.getNormalizedValue( index );
     }
     else {
-
-      // return the maximum value for mirror
-      return 1;
+      //TODO hardcoded value!
+      return 1; // return the maximum value for mirror
     }
   }
 
@@ -338,8 +331,8 @@ class Optic {
       spotPoint = isConcave ? leftPoint : rightPoint;
     }
     else {
-      // must be lens
 
+      // must be a lens
       if ( isConcave ) {
 
         // displacement vector from targetPoint to the right corner of the lens
@@ -361,7 +354,6 @@ class Optic {
         // get the direction of the ray as measured from the source
         spotPoint = opticPoint.plusXY( 0, offsetY );
       }
-
       else {
         // must be a convex lens
 

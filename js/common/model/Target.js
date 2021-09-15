@@ -37,8 +37,7 @@ class Target extends EnabledComponent {
     this.opticGetTypeSign = optic.getTypeSign.bind( optic );
 
     // @public (read-only) {Property.<number>} horizontal "distance" between target (image) and optic
-    // The distance can be negative. We follow the standard sign convention
-    // used in geometric optics courses.
+    // The distance can be negative. We follow the standard sign convention used in geometric optics courses.
     this.targetOpticDistanceProperty = new DerivedProperty(
       [ objectPositionProperty,
         optic.positionProperty,
@@ -171,7 +170,7 @@ class Target extends EnabledComponent {
   }
 
   /**
-   * Is the horizontal distance between the object and the optical element positive
+   * Is the horizontal distance between the object and the optical element positive?
    * A positive distance indicates that the object is to the left of the optical element.
    * @public
    * @returns {boolean}
@@ -181,7 +180,7 @@ class Target extends EnabledComponent {
   }
 
   /**
-   * Returns the scale of the target, i.e. the ratio of the height of the target over the object
+   * Returns the scale of the target, i.e. the ratio of the height of the target over the object.
    * The scale will be negative if the target is inverted.
    * @public
    * @param {Vector2} objectPosition
@@ -220,8 +219,8 @@ class Target extends EnabledComponent {
 
   /**
    * Returns the "height" of the target in model coordinates.
-   * The height is determined as the vertical offset from the optical axis of the focus point
-   * The height can be negative if the target is inverted
+   * The height is determined as the vertical offset from the optical axis of the focus point.
+   * The height can be negative if the target is inverted.
    * @public
    * @param {Vector2} objectPosition
    * @param {Vector2} opticPosition
@@ -291,7 +290,6 @@ class Target extends EnabledComponent {
    * Returns a boolean indicating if the target/image is virtual
    * For a lens, the image is virtual if the image is on the same side as the object
    * For a mirror, the image is virtual if the image is on the opposite of the object
-   *
    * @public
    * @returns {boolean}
    */

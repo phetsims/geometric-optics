@@ -29,13 +29,8 @@ class LightRays {
    * @param {Optic} optic
    * @param {Target} target - target model associated with this ray
    */
-  constructor( timeProperty,
-               lightRayModeProperty,
-               representationProperty,
-               sourceObjectPositionProperty,
-               projectorScreen,
-               optic,
-               target ) {
+  constructor( timeProperty, lightRayModeProperty, representationProperty, sourceObjectPositionProperty,
+               projectorScreen, optic, target ) {
 
     // @private {Property.<Vector>} target position associated with this ray
     this.targetPositionProperty = target.positionProperty;
@@ -120,11 +115,10 @@ class LightRays {
 
   /**
    * Gets the initial directions of the rays for the different light ray modes.
-   *
    * @private
-   * @param {LightRayMode} lightRayMode
    * @param {Vector2} sourcePosition
    * @param {Optic} optic
+   * @param {LightRayMode} lightRayMode
    * @returns {Vector2[]}
    */
   getRayDirections( sourcePosition, optic, lightRayMode ) {
@@ -178,7 +172,6 @@ class LightRays {
 
       // direction for ray going through the focal point
       directions.push( sourceFirstFocalVector.normalized() );
-
     }
     else if ( lightRayMode === LightRayMode.MANY ) {
 
@@ -213,7 +206,6 @@ class LightRays {
     rayShape.subpaths.forEach( subPath => {
       typeRayShape.addSubpath( subPath );
     } );
-
   }
 }
 

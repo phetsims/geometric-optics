@@ -27,7 +27,6 @@ class OpticShapeCollection {
    * @param {Object} [options]
    */
   constructor( radius, diameter, curve, type, options ) {
-
     if ( type === Optic.Type.LENS ) {
       this.setLensShapes( radius, diameter, curve, options );
     }
@@ -103,16 +102,14 @@ class OpticShapeCollection {
       .close();
 
     // @public (read-only)
+    this.frontShape = frontShape;
     this.fillShape = fillShape;
     this.outlineShape = frontShape;
-    this.frontShape = frontShape;
     this.backShape = null;
-
   }
 
   /**
    * Sets the shapes of a lens. In the case of a lens, the outline and fills shape are identical.
-   *
    * The lens shape is approximated as a parabolic lens.
    * The radius of curvature of the lens does necessarily match the value of radius and can be instead "hollywooded".
    * This gives the flexibility to draw lenses with radius of curvature that is larger than diameter/2, a physical
@@ -171,10 +168,9 @@ class OpticShapeCollection {
         .quadraticCurveToPoint( right, bottom )
         .quadraticCurveToPoint( right, top )
         .close();
-
     }
     else {
-      // implies that curve === Optic.Curve.CONCAVE
+      assert && assert( curve === Optic.Curve.CONCAVE );
 
       const midWidth = halfWidth;
 
@@ -213,9 +209,9 @@ class OpticShapeCollection {
     // the outline shape is the same as the fill shape for a lens
 
     // @public (read-only)
+    this.frontShape = frontShape;
     this.fillShape = outlineShape;
     this.outlineShape = outlineShape;
-    this.frontShape = frontShape;
     this.backShape = backShape;
   }
 }

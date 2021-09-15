@@ -39,12 +39,8 @@ class GeometricOpticsModel {
    * @param {Optic.Curve} curve - initial curve of optical element
    * @param {Optic.Type} type - initial type of optical element
    */
-  constructor( opticPosition,
-               radiusOfCurvatureRange,
-               diameterRange,
-               indexOfRefractionRange,
-               curve,
-               type ) {
+  constructor( opticPosition, radiusOfCurvatureRange, diameterRange, indexOfRefractionRange, curve, type ) {
+
     assert && assert( opticPosition instanceof Vector2, 'invalid position' );
     assert && assert( radiusOfCurvatureRange instanceof RangeWithValue, 'invalid radiusOfCurvature' );
     assert && assert( diameterRange instanceof RangeWithValue, 'invalid diameterRange' );
@@ -75,12 +71,7 @@ class GeometricOpticsModel {
     };
 
     // @public {Optic} - model of the optic
-    this.optic = new Optic( opticPosition,
-      radiusOfCurvatureRange,
-      diameterRange,
-      indexOfRefractionRange,
-      curve,
-      type );
+    this.optic = new Optic( opticPosition, radiusOfCurvatureRange, diameterRange, indexOfRefractionRange, curve, type );
 
     // @public {SourceObject} the object/ source
     this.sourceObject = new SourceObject( this.optic.positionProperty, this.representationProperty );
@@ -111,7 +102,8 @@ class GeometricOpticsModel {
     );
 
     // @public {LightRays} model of the light rays associated to the first source
-    this.firstLightRays = new LightRays( this.timeProperty,
+    this.firstLightRays = new LightRays(
+      this.timeProperty,
       this.lightRayModeProperty,
       this.representationProperty,
       this.sourceObject.firstPositionProperty,
@@ -121,7 +113,8 @@ class GeometricOpticsModel {
     );
 
     // @public {LightRays} model of the light rays associated with the second source
-    this.secondLightRays = new LightRays( this.timeProperty,
+    this.secondLightRays = new LightRays(
+      this.timeProperty,
       this.lightRayModeProperty,
       this.representationProperty,
       this.sourceObject.secondPositionProperty,

@@ -31,13 +31,7 @@ class LightRay {
    * @param {boolean} isProjectorScreenPresent - is there a projector screen in the play area
    * @param {function} getProjectorScreenBisectorLine - returns a Shape that bisects the middle of projector screen
    */
-  constructor( initialRay,
-               time,
-               optic,
-               targetPoint,
-               isVirtual,
-               isPrincipalRayMode,
-               isProjectorScreenPresent,
+  constructor( initialRay, time, optic, targetPoint, isVirtual, isPrincipalRayMode, isProjectorScreenPresent,
                getProjectorScreenBisectorLine ) {
 
     // @public (read-only) - shape of the real rays - will be updated later
@@ -55,9 +49,8 @@ class LightRay {
     // @private {Ray[]} - a collection of sequential rays
     this.realRays = this.getRealRays( initialRay, firstPoint, optic, isPrincipalRayMode, targetPoint );
 
+    // if the last ray intercepts the projector screen, its final point will be set on the last ray
     if ( isProjectorScreenPresent ) {
-
-      // if the last ray intercepts the projector screen, its final point will be set on the last ray
       this.setFinalPointProjectorScreen( this.realRays, getProjectorScreenBisectorLine() );
     }
 
@@ -79,7 +72,6 @@ class LightRay {
 
     // process rays to convert them to virtualShape and realShape
     this.raysToShape( distanceTraveled );
-
   }
 
   /**
@@ -411,6 +403,8 @@ class LightRay {
   /**
    * Has the light ray a virtual component (virtual ray)
    * @private
+   * @param {boolean} isImageVirtual
+   * @param {Ray[]} realRays
    * @returns {boolean}
    */
   hasVirtualComponent( isImageVirtual, realRays ) {
@@ -477,7 +471,6 @@ class LightRay {
 
     // add line to shape
     shape.moveToPoint( ray.position ).lineToPoint( endPoint );
-
   }
 }
 

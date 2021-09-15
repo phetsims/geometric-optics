@@ -51,16 +51,8 @@ class RepresentationGenerator {
    * @param {boolean} isObject - is this representation an object?, otherwise it is a source of light
    * @param {Object} [options]
    */
-  constructor( logo,
-               rightFacingUpright,
-               rightFacingInverted,
-               leftFacingUpright,
-               leftFacingInverted,
-               dimensions,
-               rightFacingUprightOffsetPosition,
-               label,
-               isObject,
-               options ) {
+  constructor( logo, rightFacingUpright, rightFacingInverted, leftFacingUpright, leftFacingInverted, dimensions,
+               rightFacingUprightOffsetPosition, label, isObject, options ) {
 
     options = merge( {
 
@@ -83,6 +75,7 @@ class RepresentationGenerator {
 }
 
 const Representation = Enumeration.byMap( {
+
   PENCIL: new RepresentationGenerator( pencilLogoImage,
     pencil3dRightFacingUprightImage,
     pencil3dRightFacingInvertedImage,
@@ -92,6 +85,7 @@ const Representation = Enumeration.byMap( {
     new Vector2( -64, 70 ),
     pencilString,
     true ),
+
   TREE: new RepresentationGenerator( treeLogoImage,
     tree3dRightFacingUprightImage,
     tree3dRightFacingInvertedImage,
@@ -101,6 +95,7 @@ const Representation = Enumeration.byMap( {
     new Vector2( -80, 88 ),
     treeString,
     true ),
+
   ROCKET: new RepresentationGenerator( rocketLogoImage,
     rocket3dRightFacingUprightImage,
     rocket3dRightFacingInvertedImage,
@@ -110,6 +105,7 @@ const Representation = Enumeration.byMap( {
     new Vector2( -68, 112 ),
     rocketString,
     true ),
+
   LIGHT: new RepresentationGenerator( lampBlueLogoImage,
     lampBlueImage,
     null,
