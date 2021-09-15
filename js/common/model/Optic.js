@@ -37,6 +37,9 @@ class Optic {
     assert && assert( radiusOfCurvatureRange instanceof RangeWithValue, 'invalid radiusOfCurvature' );
     assert && assert( diameterRange instanceof RangeWithValue, 'invalid diameterRange' );
 
+    // @private {RangeWithValue}
+    this.maxDiameter = diameterRange.max;
+
     // @public {Property.<Vector2>} Position of the optical element
     this.positionProperty = new Vector2Property( initialPosition );
 
@@ -92,11 +95,6 @@ class Optic {
       [ this.radiusOfCurvatureProperty, this.diameterProperty, this.curveProperty ],
       ( radius, diameter, curve ) => new OpticShapeCollection( radius, diameter, curve, type )
     );
-
-    // REVIEW: correct typedoc would be helpful here. Is it supported to just be a {Range}, or does it actually need to
-    // be one with a value now that the value was given to the NumberProperty above? @private {number} diameter of the
-    // optic
-    this.diameterRange = diameterRange;
   }
 
   /**
@@ -236,7 +234,7 @@ class Optic {
    * @returns {number}
    */
   getNormalizedDiameter( diameter ) {
-    return diameter / this.diameterRange.max;
+    return diameter / this.maxDiameter;
   }
 
   /**
