@@ -97,7 +97,7 @@ class SourceObjectNode extends Node {
       visibleBounds => new Bounds2( visibleBounds.minX,
         visibleBounds.minY + sourceObject.boundsProperty.value.height,
 
-        // REVIEW: This feels like a code small to get the optic position from the source here. The optic position is important to the model, but it seems weird that we get the position from the source object. Does it feel like too close of coupling to you?
+        // REVIEW: This feels like a code smell to get the optic position from the source here. The optic position is important to the model, but it seems weird that we get the position from the source object. Does it feel like too close of coupling to you?
         sourceObject.getOpticPosition().x - sourceObject.boundsProperty.value.width,
         visibleBounds.maxY )
     );
