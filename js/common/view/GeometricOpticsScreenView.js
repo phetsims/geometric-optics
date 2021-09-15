@@ -141,7 +141,8 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // create the show/hide eye toggle button above the reset all button
     const showHideToggleButton = new ShowHideToggleButton( this.visibleProperties.rayTracingVisibleProperty );
-    showHideToggleButton.centerBottom = resetAllButton.centerTop.plusXY( 0, -22 );
+    showHideToggleButton.centerX = resetAllButton.centerX;
+    showHideToggleButton.top = geometricOpticsControlPanel.top;
 
     //-------------------------------------------------------------------
 
