@@ -18,7 +18,7 @@ const GeometricOpticsConstants = {
   //----------------------------------------------------------------------------------------
   //                         UNIVERSAL CONSTANTS
 
-  SCREEN_VIEW_X_MARGIN: 15, // margin along horizontal axis of screen (in view coordinates)
+  SCREEN_VIEW_X_MARGIN: 20, // margin along horizontal axis of screen (in view coordinates)
   SCREEN_VIEW_Y_MARGIN: 15, // margin along vertical axis of screen
 
   DEFAULT_SOURCE_POINT_1: new Vector2( -190, 30 ), // centimeters
