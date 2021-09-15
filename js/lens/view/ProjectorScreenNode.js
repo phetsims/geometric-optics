@@ -36,14 +36,8 @@ class ProjectorScreenNode extends Node {
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( projectorScreen,
-               representationProperty,
-               enableFirstSpotlightProperty,
-               enableSecondSpotlightProperty,
-               secondSourceVisibleProperty,
-               visibleModelBoundsProperty,
-               modelViewTransform,
-               options ) {
+  constructor( projectorScreen, representationProperty, enableFirstSpotlightProperty, enableSecondSpotlightProperty,
+               secondSourceVisibleProperty, visibleModelBoundsProperty, modelViewTransform, options ) {
 
     options = merge( {
       cursor: 'pointer'

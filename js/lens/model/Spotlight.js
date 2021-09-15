@@ -14,8 +14,6 @@ import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import Optic from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 
-const FULL_BRIGHT_SPOT_HEIGHT = GeometricOpticsConstants.FULL_BRIGHT_SPOT_HEIGHT;
-
 class Spotlight {
 
   /**
@@ -25,11 +23,7 @@ class Spotlight {
    * @param {Optic} optic
    * @param {function} getScreenShape - returns the shape of the screen {Shape}
    */
-  constructor( sourcePositionProperty,
-               screenPositionProperty,
-               targetPositionProperty,
-               optic,
-               getScreenShape ) {
+  constructor( sourcePositionProperty, screenPositionProperty, targetPositionProperty, optic, getScreenShape ) {
 
     // @private {function}
     this.getScreenShape = getScreenShape;
@@ -63,7 +57,6 @@ class Spotlight {
       ( screenPosition, opticPosition, opticDiameter, targetPosition ) => {
         return this.getLightIntensity( screenPosition, opticPosition, opticDiameter, targetPosition );
       } );
-
   }
 
   /**
@@ -134,7 +127,6 @@ class Spotlight {
    */
   getIntersectPosition( screenPosition, point, targetPosition ) {
     const blend = this.getRatio( screenPosition, point, targetPosition );
-
     return point.blend( targetPosition, blend );
   }
 
@@ -221,7 +213,7 @@ class Spotlight {
     else {
 
       // intensity saturates to 1 for a spotlight height less than FULL_BRIGHT_SPOT_HEIGHT
-      return Math.min( 1, FULL_BRIGHT_SPOT_HEIGHT / spotlightHeight );
+      return Math.min( 1, GeometricOpticsConstants.FULL_BRIGHT_SPOT_HEIGHT / spotlightHeight );
     }
   }
 }

@@ -14,6 +14,7 @@ import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import geometricOptics from '../../geometricOptics.js';
 import Spotlight from './Spotlight.js';
 
+// constants
 const MASK_CORNERS = GeometricOpticsConstants.MASK_CORNERS;
 const INITIAL_POSITION = GeometricOpticsConstants.PROJECTOR_INITIAL_POSITION;
 
@@ -26,10 +27,8 @@ class ProjectorScreen {
    * @param {Property.<Vector2>} secondTargetPositionProperty
    * @param {Optic} optic
    */
-  constructor( firstSourcePositionProperty,
-               secondSourcePositionProperty,
-               firstTargetPositionProperty,
-               secondTargetPositionProperty,
+  constructor( firstSourcePositionProperty, secondSourcePositionProperty,
+               firstTargetPositionProperty, secondTargetPositionProperty,
                optic ) {
 
     // @public {Property.<Vector2>} position of the center of the screen

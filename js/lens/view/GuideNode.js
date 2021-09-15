@@ -13,10 +13,6 @@ import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import geometricOptics from '../../geometricOptics.js';
 
-const GUIDE_FULCRUM_RADIUS = GeometricOpticsConstants.GUIDE_FULCRUM_RADIUS;
-const GUIDE_RECTANGLE_WIDTH = GeometricOpticsConstants.GUIDE_RECTANGLE_WIDTH;
-const GUIDE_RECTANGLE_HEIGHT = GeometricOpticsConstants.GUIDE_RECTANGLE_HEIGHT;
-
 class GuideNode extends Node {
 
   /**
@@ -41,11 +37,11 @@ class GuideNode extends Node {
     super();
 
     // width and height of the guide rectangles
-    const viewRectangleWidth = modelViewTransform.modelToViewDeltaX( GUIDE_RECTANGLE_WIDTH );
-    const viewRectangleHeight = Math.abs( modelViewTransform.modelToViewDeltaY( GUIDE_RECTANGLE_HEIGHT ) );
+    const viewRectangleWidth = modelViewTransform.modelToViewDeltaX( GeometricOpticsConstants.GUIDE_RECTANGLE_WIDTH );
+    const viewRectangleHeight = Math.abs( modelViewTransform.modelToViewDeltaY( GeometricOpticsConstants.GUIDE_RECTANGLE_HEIGHT ) );
 
     // create fulcrum circle
-    const fulcrumCircle = new Circle( GUIDE_FULCRUM_RADIUS, options.circle );
+    const fulcrumCircle = new Circle( GeometricOpticsConstants.GUIDE_FULCRUM_RADIUS, options.circle );
 
     // create two rectangles, with left center side laying on fulcrum circle (initially)
     const incidentRectangle = new Rectangle( fulcrumCircle.x, fulcrumCircle.y - viewRectangleHeight / 2, viewRectangleWidth, viewRectangleHeight, options.rectangle );
@@ -117,7 +113,6 @@ class GuideNode extends Node {
 
     // update guides visibility based on checkbox
     visibleProperty.linkAttribute( this, 'visible' );
-
   }
 }
 
