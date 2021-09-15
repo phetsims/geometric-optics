@@ -107,7 +107,7 @@ class ProjectorScreenNode extends Node {
     const addSpotLightNode = ( spotlight, visibleProperty ) => {
 
       // create spotlight
-      const spotlightNode = new Path( new Shape( spotlight.shapeProperty.value ), {
+      const spotlightNode = new Path( new Shape( spotlight.screenIntersectionProperty.value ), {
         fill: GeometricOpticsColors.projectorScreenSpotlightFillProperty
       } );
 
@@ -117,7 +117,7 @@ class ProjectorScreenNode extends Node {
       } );
 
       // add listener to update the shape of the spotlight
-      spotlight.shapeProperty.link( shape => {
+      spotlight.screenIntersectionProperty.link( shape => {
         spotlightNode.shape = modelViewTransform.modelToViewShape( shape );
       } );
 

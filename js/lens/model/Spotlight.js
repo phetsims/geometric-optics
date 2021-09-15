@@ -34,10 +34,8 @@ class Spotlight {
     // @private {Property.<Vector2>} position of the source of light
     this.sourcePositionProperty = sourcePositionProperty;
 
-    // @public (read-only) {DerivedProperty.<Shape>}
-    // determine the shape intersection of the screen and spotlight
-    // REVIEW: This is a bit vague, perhaps intersectionShapeProperty? At first I thought it was the shape of the spotlight source itself, and wondered why it was in the model.
-    this.shapeProperty = new DerivedProperty(
+    // @public (read-only) {DerivedProperty.<Shape>} intersection of this spotlight with the screen
+    this.screenIntersectionProperty = new DerivedProperty(
       [ screenPositionProperty, optic.positionProperty, optic.diameterProperty, targetPositionProperty ],
       ( screenPosition, opticPosition, opticDiameter, targetPosition ) =>
         this.getIntersection( screenPosition, opticPosition, opticDiameter, targetPosition )
