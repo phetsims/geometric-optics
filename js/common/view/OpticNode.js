@@ -64,9 +64,8 @@ class OpticNode extends Node {
       }
     } );
 
-    // {Path} create the fill (or backing) path of the optic
-    // REVIEW: This is a very generic name, I'd recommend improving.
-    const fillPath = new Path( modelViewTransform.modelToViewShape( optic.shapesProperty.value.fillShape ), {
+    // Renders the shape of the optic
+    const opticPath = new Path( modelViewTransform.modelToViewShape( optic.shapesProperty.value.fillShape ), {
       fill: options.fill
     } );
 
@@ -74,11 +73,11 @@ class OpticNode extends Node {
     optic.indexOfRefractionProperty.link( index => {
       const normalizedIndex = optic.getNormalizedIndex( index );
       const fill = options.fill.value;
-      fillPath.fill = new Color( fill.red, fill.green, fill.blue, normalizedIndex );
+      opticPath.fill = new Color( fill.red, fill.green, fill.blue, normalizedIndex );
     } );
 
-    // create the outline path of the optic {Path}
-    const outlinePath = new Path( modelViewTransform.modelToViewShape( optic.shapesProperty.value.outlineShape ), {
+    // A separate Node for the optic's outline
+    const opticOutlinePath = new Path( modelViewTransform.modelToViewShape( optic.shapesProperty.value.outlineShape ), {
       stroke: options.stroke,
       lineWidth: options.lineWidth
     } );
@@ -113,8 +112,8 @@ class OpticNode extends Node {
 
     // modify the shape of the optic
     optic.shapesProperty.link( shapes => {
-      fillPath.shape = modelViewTransform.modelToViewShape( shapes.fillShape );
-      outlinePath.shape = modelViewTransform.modelToViewShape( shapes.outlineShape );
+      opticPath.shape = modelViewTransform.modelToViewShape( shapes.fillShape );
+      opticOutlinePath.shape = modelViewTransform.modelToViewShape( shapes.outlineShape );
     } );
 
     // layer for the optic
@@ -127,8 +126,8 @@ class OpticNode extends Node {
 
     // add child and listener to the optic layer
     opticLayer.addInputListener( dragListener );
-    opticLayer.addChild( fillPath );
-    opticLayer.addChild( outlinePath );
+    opticLayer.addChild( opticPath );
+    opticLayer.addChild( opticOutlinePath );
 
     // add the optic and center line to this node
     this.addChild( opticLayer );
