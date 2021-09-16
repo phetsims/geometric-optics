@@ -26,7 +26,7 @@ import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
 import LightRayMode from '../model/LightRayMode.js';
 import FocalPointNode from './FocalPointNode.js';
-import SourceObjectNode from './SourceObjectNode.js';
+import SecondSourceNode from './SecondSourceNode.js';
 
 class GeometricOpticsControlPanel extends Panel {
 
@@ -189,7 +189,7 @@ class GeometricOpticsControlPanel extends Panel {
     const focalPointIcon = FocalPointNode.createIcon( { stroke: 'black' } );
 
     // create second source point icon
-    const secondSourcePointIcon = SourceObjectNode.createSecondSourcePointIcon();
+    const secondSourcePointIcon = SecondSourceNode.createIcon();
 
     // create checkbox group for visibility settings
     const checkboxGroupItems = [
