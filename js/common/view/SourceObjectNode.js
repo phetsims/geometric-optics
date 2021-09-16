@@ -108,7 +108,7 @@ class SourceObjectNode extends Node {
       positionProperty: sourceObject.leftTopProperty,
       transform: modelViewTransform,
       dragBoundsProperty: dragBoundsProperty,
-      drag: () => {
+      end: () => {
         this.sourceCueingArrowsNode.visible = false;
       }
     } );
@@ -153,7 +153,7 @@ class SourceObjectNode extends Node {
       useInputListenerCursor: true,
       positionProperty: secondSourcePositionProperty,
       transform: modelViewTransform,
-      drag: () => {
+      end: () => {
         if ( representationProperty.value.isObject ) {
           this.secondSourceCueingArrowsLayer.visible = false;
         }
