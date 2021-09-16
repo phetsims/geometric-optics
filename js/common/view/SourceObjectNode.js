@@ -26,8 +26,8 @@ import Representation from '../model/Representation.js';
 // constants
 const OVERALL_SCALE_FACTOR = 1;
 const LIGHT_OFFSET_VECTOR = new Vector2( 50, -23 ); // in model coordinates
-const CUEING_ARROW_LENGTH = 20;
-const CUEING_ARROW_OPTIONS = {
+const SECOND_SOURCE_CUEING_ARROW_LENGTH = 20;
+const SECOND_SOURCE_CUEING_ARROW_OPTIONS = {
   fill: 'rgb(255,0,0)',
   tailWidth: 6,
   headWidth: 12,
@@ -137,8 +137,8 @@ class SourceObjectNode extends Node {
     this.secondSourceCueingArrowsLayer = new Node();
 
     // create and add cueing arrow
-    const upArrowNode = new ArrowNode( 0, 0, 0, -CUEING_ARROW_LENGTH, CUEING_ARROW_OPTIONS );
-    const downArrowNode = new ArrowNode( 0, 0, 0, +CUEING_ARROW_LENGTH, CUEING_ARROW_OPTIONS );
+    const upArrowNode = new ArrowNode( 0, 0, 0, -SECOND_SOURCE_CUEING_ARROW_LENGTH, SECOND_SOURCE_CUEING_ARROW_OPTIONS );
+    const downArrowNode = new ArrowNode( 0, 0, 0, +SECOND_SOURCE_CUEING_ARROW_LENGTH, SECOND_SOURCE_CUEING_ARROW_OPTIONS );
     upArrowNode.bottom = secondSourcePointIcon.top - 5;
     downArrowNode.top = secondSourcePointIcon.bottom + 5;
     this.secondSourceCueingArrowsLayer.addChild( upArrowNode );
