@@ -72,16 +72,13 @@ class GeometricOpticsModel {
     // @public {SourceObject} the object/ source
     this.sourceObject = new SourceObject( this.optic.positionProperty, this.representationProperty );
 
-    // REVIEW: perhaps instead of first/second, we could name these in optics terms, or relate them to the
-    // REVIEW: multiplicativeFactor? Like positiveFocalPoint, negativeFocalPoint? ordinal numbers here doesn't increase
-    // REVIEW: understanding to me.
-    // @public {FocalPoint} first principal focal point
-    this.firstFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty );
-
-    // @public {FocalPoint} second principal focal point
-    this.secondFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty, {
+    // @public {FocalPoint} focal point to the left of the optic
+    this.leftFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty, {
       multiplicativeFactor: -1
     } );
+
+    // @public {FocalPoint} focal point to the right of the optic
+    this.rightFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty );
 
     // @public {Target} model of the target/image associated with the first source
     this.firstTarget = new Target( this.sourceObject.firstPositionProperty, this.optic, this.representationProperty );

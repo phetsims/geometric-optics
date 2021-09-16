@@ -208,11 +208,13 @@ class GeometricOpticsScreenView extends ScreenView {
     );
 
     // create two focal points
-    const firstFocalPointNode = new FocalPointNode( model.firstFocalPoint,
+    const leftFocalPointNode = new FocalPointNode( model.leftFocalPoint,
       this.visibleProperties.focalPointVisibleProperty, this.modelViewTransform );
-    const secondFocalPointNode = new FocalPointNode( model.secondFocalPoint,
+    const rightFocalPointNode = new FocalPointNode( model.rightFocalPoint,
       this.visibleProperties.focalPointVisibleProperty, this.modelViewTransform );
-    const focalPointsLayer = new Node( { children: [ firstFocalPointNode, secondFocalPointNode ] } );
+    const focalPointsLayer = new Node( {
+      children: [ leftFocalPointNode, rightFocalPointNode ]
+    } );
 
     // add children that need to be zoomed in/out. order is important
     this.playAreaNode.addChild( opticalAxisLine );
@@ -235,7 +237,6 @@ class GeometricOpticsScreenView extends ScreenView {
       // scale and translate the playArea
       this.playAreaNode.scale( relativeScale );
       this.playAreaNode.translate( translateVector );
-
     } );
 
     Property.multilink(

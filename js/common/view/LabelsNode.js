@@ -28,15 +28,15 @@ class LabelsNode extends Node {
 
     super( options );
 
-    // create first focal point label
-    const firstFocalPointLabel = new LabelNode( geometricOpticsStrings.focalPoint,
-      model.firstFocalPoint.positionProperty,
+    // create left focal point label
+    const leftFocalPointLabel = new LabelNode( geometricOpticsStrings.focalPoint,
+      model.leftFocalPoint.positionProperty,
       visibleProperties.focalPointVisibleProperty,
       modelViewTransformProperty );
 
-    // create second focal point label
-    const secondFocalPointLabel = new LabelNode( geometricOpticsStrings.focalPoint,
-      model.secondFocalPoint.positionProperty,
+    // create right focal point label
+    const rightFocalPointLabel = new LabelNode( geometricOpticsStrings.focalPoint,
+      model.rightFocalPoint.positionProperty,
       visibleProperties.focalPointVisibleProperty,
       modelViewTransformProperty );
 
@@ -118,8 +118,8 @@ class LabelsNode extends Node {
       } );
 
     // add the labels to this node
-    this.addChild( firstFocalPointLabel );
-    this.addChild( secondFocalPointLabel );
+    this.addChild( leftFocalPointLabel );
+    this.addChild( rightFocalPointLabel );
     this.addChild( opticLabel );
     this.addChild( objectLabel );
     this.addChild( imageLabel );
