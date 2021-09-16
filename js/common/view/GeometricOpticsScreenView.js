@@ -228,11 +228,11 @@ class GeometricOpticsScreenView extends ScreenView {
     // add children that need to be zoomed in/out. order is important
     this.playAreaNode.addChild( opticalAxisLine );
     this.playAreaNode.addChild( this.sourceObjectNode );
-    this.playAreaNode.addChild( this.secondSourceNode );
     this.playAreaNode.addChild( opticNode );
     this.playAreaNode.addChild( targetNode );
     this.playAreaNode.addChild( lightRaysNode );
     this.playAreaNode.addChild( secondSourceLightRaysNode );
+    this.playAreaNode.addChild( this.secondSourceNode );
     this.playAreaNode.addChild( focalPointsLayer );
 
     // scale the playAreaNode
