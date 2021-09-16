@@ -41,10 +41,11 @@ class SourceObjectNode extends Node {
    * @param {SourceObject} sourceObject
    * @param {Property.<boolean>} secondSourceVisibleProperty
    * @param {Property.<Bounds2>} visibleModelBoundsProperty
+   * @param {Property.<Vector2>} opticPositionProperty
    * @param {ModelViewTransform2} modelViewTransform
    * */
   constructor( representationProperty, sourceObject, secondSourceVisibleProperty, visibleModelBoundsProperty,
-               modelViewTransform ) {
+               opticPositionProperty, modelViewTransform ) {
 
     super( {
       cursor: 'pointer'
@@ -91,15 +92,15 @@ class SourceObjectNode extends Node {
       this.sourceCueingArrowsNode.centerY = sourceObjectImage.centerY;
     } );
 
-    // {DerivedProperty.<Bounds2} keep at least half of the projector screen within visible bounds and right of the optic
+    // {DerivedProperty.<Bounds2} keep at least half of the projector screen within visible bounds and right of the optic.
+    // opticPositionProperty is not a dependency because it only moves in the y dimension, so x is constant.
     const dragBoundsProperty = new DerivedProperty(
       [ visibleModelBoundsProperty, representationProperty ],
-      visibleBounds => new Bounds2( visibleBounds.minX,
-        visibleBounds.minY + sourceObject.boundsProperty.value.height,
-
-        // REVIEW: This feels like a code smell to get the optic position from the source here. The optic position is important to the model, but it seems weird that we get the position from the source object. Does it feel like too close of coupling to you?
-        sourceObject.getOpticPosition().x - sourceObject.boundsProperty.value.width,
-        visibleBounds.maxY )
+      ( visibleBounds, representation ) =>
+        new Bounds2( visibleBounds.minX,
+          visibleBounds.minY + sourceObject.boundsProperty.value.height,
+          opticPositionProperty.value.x - sourceObject.boundsProperty.value.width,
+          visibleBounds.maxY )
     );
 
     // create drag listener for source

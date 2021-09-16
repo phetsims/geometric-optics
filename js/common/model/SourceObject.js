@@ -18,10 +18,9 @@ import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 class SourceObject {
 
   /**
-   * @param {Property.<Vector2>} opticPositionProperty
    * @param {Property.<Representation>} representationProperty
    */
-  constructor( opticPositionProperty, representationProperty ) {
+  constructor( representationProperty ) {
 
     // {Vector2} displacement vector from the firstPosition to the left top - value depends on representation
     // values are in centimeters
@@ -55,10 +54,6 @@ class SourceObject {
     this.verticalOffsetProperty = new NumberProperty( GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE.defaultValue, {
       range: GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE
     } );
-
-    // REVIEW: This is not just the initial position, as it is a Property that changes with the optic, right? If not this needs more explanation.
-    // @public (read-only) {Vector2} initial position of the optic
-    this.opticPositionProperty = opticPositionProperty;
 
     // @public {DerivedProperty.<Vector2>} position of the second source (source/object)
     this.secondPositionProperty = new DerivedProperty(
@@ -119,15 +114,6 @@ class SourceObject {
     else {
       this.unconstrainedSecondSourcePositionProperty.value = position;
     }
-  }
-
-  /**
-   * Gets the position of the optic
-   * @public
-   * @returns {Vector2} position
-   */
-  getOpticPosition() {
-    return this.opticPositionProperty.value;
   }
 }
 

@@ -70,7 +70,7 @@ class GeometricOpticsModel {
     this.optic = new Optic( opticPosition, radiusOfCurvatureRange, diameterRange, indexOfRefractionRange, curve, type );
 
     // @public {SourceObject} the object/ source
-    this.sourceObject = new SourceObject( this.optic.positionProperty, this.representationProperty );
+    this.sourceObject = new SourceObject( this.representationProperty );
 
     // @public {FocalPoint} focal point to the left of the optic
     this.leftFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty, {

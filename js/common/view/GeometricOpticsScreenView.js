@@ -167,6 +167,7 @@ class GeometricOpticsScreenView extends ScreenView {
       model.sourceObject,
       this.visibleProperties.secondSourceVisibleProperty,
       this.playAreaModelBoundsProperty,
+      model.optic.positionProperty,
       this.modelViewTransform
     );
 
