@@ -144,7 +144,7 @@ class SourceObjectNode extends Node {
     this.secondSourceCueingArrowsLayer.addChild( downArrowNode );
 
     // create the light image for the second source
-    const secondImage = new Image( Representation.LIGHT.source, { scale: OVERALL_SCALE_FACTOR } );
+    const secondSourceImage = new Image( Representation.LIGHT.secondSourceImage, { scale: OVERALL_SCALE_FACTOR } );
 
     // create drag listener for second source
     const secondSourceDragListener = new DragListener( {
@@ -196,7 +196,7 @@ class SourceObjectNode extends Node {
       else {
 
         // add second light source
-        secondSourceNode.addChild( secondImage );
+        secondSourceNode.addChild( secondSourceImage );
       }
       setSecondSourcePosition( sourceObject.secondPositionProperty.value );
     } );

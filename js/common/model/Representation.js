@@ -10,6 +10,7 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
+import required from '../../../../phet-core/js/required.js';
 import lampBlue_png from '../../../images/lampBlue_png.js';
 import lampBlueIcon_png from '../../../images/lampBlueIcon_png.js';
 import lampRed_png from '../../../images/lampRed_png.js';
@@ -31,94 +32,105 @@ import treeRightFacingUpright_png from '../../../images/treeRightFacingUpright_p
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 
-class RepresentationGenerator {
+class RepresentationInstance {
 
   /**
-   * Generator of representation
-   * @param {HTMLImageElement} icon - the icon that appears in UI controls
-   * @param {HTMLImageElement} rightFacingUpright
-   * @param {HTMLImageElement|null} rightFacingInverted
-   * @param {HTMLImageElement|null} leftFacingUpright
-   * @param {HTMLImageElement|null} leftFacingInverted
-   * @param {Dimension2} dimensions - dimensions of the rightFacingUpright Image in pixels
-   * @param {Vector2} rightFacingUprightOffsetPosition -  offset in pixel between point of interest and left top corer
-   * @param {string} label - label for the representation
-   * @param {boolean} isObject - is this representation an object?, otherwise it is a source of light
-   * @param {Object} [options]
+   * @param {Object} config
    */
-  constructor( icon, rightFacingUpright, rightFacingInverted, leftFacingUpright, leftFacingInverted, dimensions,
-               rightFacingUprightOffsetPosition, label, isObject, options ) {
+  constructor( config ) {
 
-    options = merge( {
+    config = merge( {
 
-      // {HTMLImageElement|null} image for source of light
-      source: null
-    }, options );
+      // required fields
+      // {HTMLImageElement} icon - the icon that appears in UI controls
+      icon: required( config.icon ),
 
-    //@public (read-only)
-    this.icon = icon;
-    this.rightFacingUpright = rightFacingUpright;
-    this.rightFacingInverted = rightFacingInverted;
-    this.leftFacingUpright = leftFacingUpright;
-    this.leftFacingInverted = leftFacingInverted;
-    this.dimensions = dimensions;
-    this.offsetPosition = rightFacingUprightOffsetPosition;
-    this.label = label;
-    this.isObject = isObject;
-    this.source = options.source;
+      // images
+      rightFacingUpright: required( config.rightFacingUpright ), // {HTMLImageElement}
+      rightFacingInverted: required( config.rightFacingInverted ), // {HTMLImageElement|null}
+      leftFacingUpright: required( config.leftFacingUpright ), // {HTMLImageElement|null}
+      leftFacingInverted: required( config.leftFacingInverted ), // {HTMLImageElement|null}
+
+      // {Dimension2} dimensions of the rightFacingUpright Image in pixels
+      dimensions: required( config.dimensions ),
+
+      // {Vector2} offset in pixel between point of interest and left top corer
+      rightFacingUprightOffsetPosition: required( config.rightFacingUprightOffsetPosition ),
+
+      // {string} label for the representation
+      label: required( config.label ),
+
+      // {boolean} is this representation an object?, otherwise it is a source of light
+      isObject: required( config.isObject ),
+
+      // optional fields
+      secondSourceImage: null // {HTMLImageElement|null} image for second source of light
+    }, config );
+
+    // @public (read-only)
+    this.icon = config.icon;
+    this.rightFacingUpright = config.rightFacingUpright;
+    this.rightFacingInverted = config.rightFacingInverted;
+    this.leftFacingUpright = config.leftFacingUpright;
+    this.leftFacingInverted = config.leftFacingInverted;
+    this.dimensions = config.dimensions;
+    this.offsetPosition = config.rightFacingUprightOffsetPosition;
+    this.label = config.label;
+    this.isObject = config.isObject;
+    this.secondSourceImage = config.secondSourceImage;
   }
 }
 
 const Representation = Enumeration.byMap( {
 
-  PENCIL: new RepresentationGenerator(
-    pencilIcon_png,
-    pencilRightFacingUpright_png,
-    pencilRightFacingInverted_png,
-    pencilLeftFacingUpright_png,
-    pencilLeftFacingInverted_png,
-    new Dimension2( 111, 365 ),
-    new Vector2( -64, 70 ),
-    geometricOpticsStrings.pencil,
-    true
-  ),
+  PENCIL: new RepresentationInstance( {
+    icon: pencilIcon_png,
+    rightFacingUpright: pencilRightFacingUpright_png,
+    rightFacingInverted: pencilRightFacingInverted_png,
+    leftFacingUpright: pencilLeftFacingUpright_png,
+    leftFacingInverted: pencilLeftFacingInverted_png,
+    dimensions: new Dimension2( 111, 365 ),
+    rightFacingUprightOffsetPosition: new Vector2( -64, 70 ),
+    label: geometricOpticsStrings.pencil,
+    isObject: true
+  } ),
 
-  TREE: new RepresentationGenerator(
-    treeIcon_png,
-    treeRightFacingUpright_png,
-    treeRightFacingInverted_png,
-    treeLeftFacingUpright_png,
-    treeLeftFacingInverted_png,
-    new Dimension2( 135, 391 ),
-    new Vector2( -80, 88 ),
-    geometricOpticsStrings.tree,
-    true
-  ),
+  TREE: new RepresentationInstance( {
+    icon: treeIcon_png,
+    rightFacingUpright: treeRightFacingUpright_png,
+    rightFacingInverted: treeRightFacingInverted_png,
+    leftFacingUpright: treeLeftFacingUpright_png,
+    leftFacingInverted: treeLeftFacingInverted_png,
+    dimensions: new Dimension2( 135, 391 ),
+    rightFacingUprightOffsetPosition: new Vector2( -80, 88 ),
+    label: geometricOpticsStrings.tree,
+    isObject: true
+  } ),
 
-  ROCKET: new RepresentationGenerator(
-    rocketIcon_png,
-    rocketRightFacingUpright_png,
-    rocketRightFacingInverted_png,
-    rocketLeftFacingUpright_png,
-    rocketLeftFacingInverted_png,
-    new Dimension2( 116, 414 ),
-    new Vector2( -68, 112 ),
-    geometricOpticsStrings.rocket,
-    true
-  ),
+  ROCKET: new RepresentationInstance( {
+    icon: rocketIcon_png,
+    rightFacingUpright: rocketRightFacingUpright_png,
+    rightFacingInverted: rocketRightFacingInverted_png,
+    leftFacingUpright: rocketLeftFacingUpright_png,
+    leftFacingInverted: rocketLeftFacingInverted_png,
+    dimensions: new Dimension2( 116, 414 ),
+    rightFacingUprightOffsetPosition: new Vector2( -68, 112 ),
+    label: geometricOpticsStrings.rocket,
+    isObject: true
+  } ),
 
-  LIGHT: new RepresentationGenerator(
-    lampBlueIcon_png,
-    lampBlue_png,
-    null,
-    null,
-    null,
-    new Dimension2( 100, 100 ),
-    new Vector2( -66, 28 ),
-    geometricOpticsStrings.light,
-    false,
-    { source: lampRed_png }
-  )
+  LIGHT: new RepresentationInstance( {
+    icon: lampBlueIcon_png,
+    rightFacingUpright: lampBlue_png,
+    rightFacingInverted: null,
+    leftFacingUpright: null,
+    leftFacingInverted: null,
+    dimensions: new Dimension2( 100, 100 ),
+    rightFacingUprightOffsetPosition: new Vector2( -66, 28 ),
+    label: geometricOpticsStrings.light,
+    isObject: false,
+    secondSourceImage: lampRed_png
+  } )
 } );
 
 geometricOptics.register( 'Representation', Representation );
