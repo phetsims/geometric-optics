@@ -27,17 +27,17 @@ class SourceObject {
                   GeometricOpticsConstants.OBJECT_SCALE_FACTOR :
                   GeometricOpticsConstants.SOURCE_SCALE_FACTOR;
 
-    // @public {Vector2} displacement vector from the firstPosition to the left top - value depends on representation
+    // {Vector2} displacement vector from the firstPosition to the left top - value depends on representation
     // values are in centimeters
-    this.offsetPosition = representationProperty.value.offsetPosition.dividedScalar( scale );
+    let offset = representationProperty.value.rightFacingUprightOffset.dividedScalar( scale );
 
     // @public {Property.<Vector2>} position of the left top position of image
-    this.leftTopProperty = new Vector2Property( GeometricOpticsConstants.DEFAULT_SOURCE_POINT_1.plus( this.offsetPosition ) );
+    this.leftTopProperty = new Vector2Property( GeometricOpticsConstants.DEFAULT_SOURCE_POINT_1.plus( offset ) );
 
     // @public {DerivedProperty.<Vector2>} position of the source/object
     this.firstPositionProperty = new DerivedProperty(
       [ this.leftTopProperty ],
-      leftTop => leftTop.minus( this.offsetPosition )
+      leftTop => leftTop.minus( offset )
     );
 
     // @public {DerivedProperty.<Bounds2>} model bounds of the source/object Image ( in the scenery sense)
@@ -85,10 +85,10 @@ class SourceObject {
                     GeometricOpticsConstants.SOURCE_SCALE_FACTOR;
 
       // {Vector2} update the value of the offset
-      this.offsetPosition = representation.offsetPosition.dividedScalar( scale );
+      offset = representation.rightFacingUprightOffset.dividedScalar( scale );
 
       // {Vector2} update the left top position - the firstPosition is the ground truth when changing representation
-      this.leftTopProperty.value = this.firstPositionProperty.value.plus( this.offsetPosition );
+      this.leftTopProperty.value = this.firstPositionProperty.value.plus( offset );
     } );
   }
 

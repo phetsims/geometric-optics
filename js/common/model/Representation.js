@@ -57,7 +57,7 @@ class RepresentationValue {
       leftFacingInverted: required( config.leftFacingInverted ), // {HTMLImageElement|null}
 
       // {Vector2} offset between point of interest and left-top corner of rightFacingUpright
-      rightFacingUprightOffsetPosition: required( config.rightFacingUprightOffsetPosition ),
+      rightFacingUprightOffset: required( config.rightFacingUprightOffset ),
 
       // {boolean} true = source object, false = source of light
       isObject: required( config.isObject ),
@@ -75,7 +75,7 @@ class RepresentationValue {
     this.rightFacingInverted = config.rightFacingInverted;
     this.leftFacingUpright = config.leftFacingUpright;
     this.leftFacingInverted = config.leftFacingInverted;
-    this.offsetPosition = config.rightFacingUprightOffsetPosition;
+    this.rightFacingUprightOffset = config.rightFacingUprightOffset;
     this.isObject = config.isObject;
     this.secondSourceImage = config.secondSourceImage;
   }
@@ -90,7 +90,7 @@ const Representation = Enumeration.byMap( {
     rightFacingInverted: pencilRightFacingInverted_png,
     leftFacingUpright: pencilLeftFacingUpright_png,
     leftFacingInverted: pencilLeftFacingInverted_png,
-    rightFacingUprightOffsetPosition: new Vector2( -64, 70 ),
+    rightFacingUprightOffset: new Vector2( -64, 70 ),
     isObject: true
   } ),
 
@@ -101,7 +101,7 @@ const Representation = Enumeration.byMap( {
     rightFacingInverted: treeRightFacingInverted_png,
     leftFacingUpright: treeLeftFacingUpright_png,
     leftFacingInverted: treeLeftFacingInverted_png,
-    rightFacingUprightOffsetPosition: new Vector2( -80, 88 ),
+    rightFacingUprightOffset: new Vector2( -80, 88 ),
     isObject: true
   } ),
 
@@ -112,7 +112,7 @@ const Representation = Enumeration.byMap( {
     rightFacingInverted: rocketRightFacingInverted_png,
     leftFacingUpright: rocketLeftFacingUpright_png,
     leftFacingInverted: rocketLeftFacingInverted_png,
-    rightFacingUprightOffsetPosition: new Vector2( -68, 112 ),
+    rightFacingUprightOffset: new Vector2( -68, 112 ),
     isObject: true
   } ),
 
@@ -123,7 +123,7 @@ const Representation = Enumeration.byMap( {
     rightFacingInverted: null,
     leftFacingUpright: null,
     leftFacingInverted: null,
-    rightFacingUprightOffsetPosition: new Vector2( -66, 28 ),
+    rightFacingUprightOffset: new Vector2( -66, 28 ),
     isObject: false,
     secondSourceImage: lampRed_png
   } )

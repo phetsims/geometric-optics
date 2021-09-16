@@ -94,7 +94,7 @@ class Target extends EnabledComponent {
         // @public {Vector2} displacement vector from the firstPosition to the left top - value depends on
         // representation values are in centimeters
         const scaleFactor = GeometricOpticsConstants.OBJECT_SCALE_FACTOR;
-        const initialOffsetPosition = representation.offsetPosition.timesScalar( 1 / scaleFactor );
+        const initialOffsetPosition = representation.rightFacingUprightOffset.timesScalar( 1 / scaleFactor );
         const initialWidth = representation.rightFacingUpright.width / scaleFactor;
         const initialHeight = representation.rightFacingUpright.height / scaleFactor;
 
