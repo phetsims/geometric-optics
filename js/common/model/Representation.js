@@ -51,8 +51,8 @@ class RepresentationValue {
       leftFacingUpright: required( config.leftFacingUpright ), // {HTMLImageElement|null}
       leftFacingInverted: required( config.leftFacingInverted ), // {HTMLImageElement|null}
 
-      // {Dimension2} dimensions of the rightFacingUpright Image in pixels
-      dimensions: required( config.dimensions ),
+      // {Dimension2} size of config.rightFacingUpright, in pixels
+      dimensions: required( config.size ),
 
       // {Vector2} offset in pixel between point of interest and left top corer
       rightFacingUprightOffsetPosition: required( config.rightFacingUprightOffsetPosition ),
@@ -73,7 +73,7 @@ class RepresentationValue {
     this.rightFacingInverted = config.rightFacingInverted;
     this.leftFacingUpright = config.leftFacingUpright;
     this.leftFacingInverted = config.leftFacingInverted;
-    this.dimensions = config.dimensions;
+    this.size = config.size;
     this.offsetPosition = config.rightFacingUprightOffsetPosition;
     this.label = config.label;
     this.isObject = config.isObject;

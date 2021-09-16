@@ -47,9 +47,8 @@ class SourceObject {
         const scale = representation.isObject ?
                       GeometricOpticsConstants.OBJECT_SCALE_FACTOR :
                       GeometricOpticsConstants.SOURCE_SCALE_FACTOR;
-        const dimensions = new Dimension2( representation.dimensions.width / scale,
-          representation.dimensions.height / scale );
-        return dimensions.toBounds( leftTop.x, leftTop.y - dimensions.height );
+        const size = new Dimension2( representation.size.width / scale, representation.size.height / scale );
+        return size.toBounds( leftTop.x, leftTop.y - size.height );
       } );
 
     // @private {Property.<Vector2>} position of the second source of light
