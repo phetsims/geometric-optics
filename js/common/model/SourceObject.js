@@ -23,13 +23,11 @@ class SourceObject {
    */
   constructor( opticPositionProperty, representationProperty ) {
 
-    const scale = representationProperty.value.isObject ?
-                  GeometricOpticsConstants.OBJECT_SCALE_FACTOR :
-                  GeometricOpticsConstants.SOURCE_SCALE_FACTOR;
-
     // {Vector2} displacement vector from the firstPosition to the left top - value depends on representation
     // values are in centimeters
-    let offset = representationProperty.value.rightFacingUprightOffset.dividedScalar( scale );
+    let offset = representationProperty.value.rightFacingUprightOffset.dividedScalar(
+      representationProperty.value.getScaleFactor()
+    );
 
     // @public {Property.<Vector2>} position of the left top position of image
     this.leftTopProperty = new Vector2Property( GeometricOpticsConstants.DEFAULT_SOURCE_POINT_1.plus( offset ) );
@@ -44,11 +42,9 @@ class SourceObject {
     this.boundsProperty = new DerivedProperty(
       [ this.leftTopProperty, representationProperty ],
       ( leftTop, representation ) => {
-        const scale = representation.isObject ?
-                      GeometricOpticsConstants.OBJECT_SCALE_FACTOR :
-                      GeometricOpticsConstants.SOURCE_SCALE_FACTOR;
-        const size = new Dimension2( representation.rightFacingUpright.width / scale,
-          representation.rightFacingUpright.height / scale );
+        const scaleFactor = representation.getScaleFactor();
+        const size = new Dimension2( representation.rightFacingUpright.width / scaleFactor,
+          representation.rightFacingUpright.height / scaleFactor );
         return size.toBounds( leftTop.x, leftTop.y - size.height );
       } );
 
@@ -80,12 +76,8 @@ class SourceObject {
     // update the left top position when the representation changes
     representationProperty.link( representation => {
 
-      const scale = representation.isObject ?
-                    GeometricOpticsConstants.OBJECT_SCALE_FACTOR :
-                    GeometricOpticsConstants.SOURCE_SCALE_FACTOR;
-
       // {Vector2} update the value of the offset
-      offset = representation.rightFacingUprightOffset.dividedScalar( scale );
+      offset = representation.rightFacingUprightOffset.dividedScalar( representation.getScaleFactor() );
 
       // {Vector2} update the left top position - the firstPosition is the ground truth when changing representation
       this.leftTopProperty.value = this.firstPositionProperty.value.plus( offset );

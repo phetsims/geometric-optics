@@ -12,7 +12,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnabledComponent from '../../../../axon/js/EnabledComponent.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
 class Target extends EnabledComponent {
 
@@ -93,19 +92,19 @@ class Target extends EnabledComponent {
 
         // @public {Vector2} displacement vector from the firstPosition to the left top - value depends on
         // representation values are in centimeters
-        const scaleFactor = GeometricOpticsConstants.OBJECT_SCALE_FACTOR;
-        const initialOffsetPosition = representation.rightFacingUprightOffset.timesScalar( 1 / scaleFactor );
+        const scaleFactor = representation.getScaleFactor();
+        const initialOffset = representation.rightFacingUprightOffset.timesScalar( 1 / scaleFactor );
         const initialWidth = representation.rightFacingUpright.width / scaleFactor;
         const initialHeight = representation.rightFacingUpright.height / scaleFactor;
 
-        const offsetPosition = initialOffsetPosition.timesScalar( scale );
+        const offset = initialOffset.timesScalar( scale );
         const width = initialWidth * scale;
         const height = initialHeight * scale;
 
-        const x1 = ( offsetPosition.x ) * this.opticGetTypeSign();
-        const x2 = ( offsetPosition.x + width ) * this.opticGetTypeSign();
-        const y1 = offsetPosition.y;
-        const y2 = offsetPosition.y - height;
+        const x1 = ( offset.x ) * this.opticGetTypeSign();
+        const x2 = ( offset.x + width ) * this.opticGetTypeSign();
+        const y1 = offset.y;
+        const y2 = offset.y - height;
 
         const bounds = new Bounds2( Math.min( x1, x2 ), Math.min( y1, y2 ), Math.max( x1, x2 ), Math.max( y1, y2 ) );
 
