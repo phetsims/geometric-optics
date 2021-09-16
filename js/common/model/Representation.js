@@ -32,6 +32,9 @@ import treeRightFacingUpright_png from '../../../images/treeRightFacingUpright_p
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 
+/**
+ * RepresentationValue is a value for this rich enumeration.
+ */
 class RepresentationValue {
 
   /**
