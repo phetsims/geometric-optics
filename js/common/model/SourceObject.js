@@ -24,20 +24,23 @@ class SourceObject {
 
     // {Vector2} displacement vector from the firstPosition to the left top - value depends on representation
     // values are in centimeters
+    //TODO this feels unnecessary, and causes ordering dependencies herein
     let offset = representationProperty.value.rightFacingUprightOffset.dividedScalar(
       representationProperty.value.getScaleFactor()
     );
 
     // @public {Property.<Vector2>} position of the left top position of image
+    //TODO should this be derived from representationProperty? or from firstPositionProperty?
     this.leftTopProperty = new Vector2Property( GeometricOpticsConstants.DEFAULT_SOURCE_POINT_1.plus( offset ) );
 
     // @public {DerivedProperty.<Vector2>} position of the source/object
+    //TODO should this be derived from representationProperty instead?
     this.firstPositionProperty = new DerivedProperty(
       [ this.leftTopProperty ],
       leftTop => leftTop.minus( offset )
     );
 
-    // @public {DerivedProperty.<Bounds2>} model bounds of the source/object Image ( in the scenery sense)
+    // @public {DerivedProperty.<Bounds2>} model bounds of the source/object Image
     this.boundsProperty = new DerivedProperty(
       [ this.leftTopProperty, representationProperty ],
       ( leftTop, representation ) => {
@@ -48,9 +51,11 @@ class SourceObject {
       } );
 
     // @private {Property.<Vector2>} position of the second source of light
+    //TODO rename this
     this.unconstrainedSecondSourcePositionProperty = new Vector2Property( GeometricOpticsConstants.DEFAULT_SOURCE_POINT_2 );
 
     // @private {Property.<number>} vertical offset (in centimeters) of second object with respect to the first
+    //TODO rename this
     this.verticalOffsetProperty = new NumberProperty( GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE.defaultValue, {
       range: GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE
     } );
