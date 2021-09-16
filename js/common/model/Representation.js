@@ -6,7 +6,6 @@
  * @author Martin Veillette
  */
 
-import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -57,9 +56,6 @@ class RepresentationValue {
       leftFacingUpright: required( config.leftFacingUpright ), // {HTMLImageElement|null}
       leftFacingInverted: required( config.leftFacingInverted ), // {HTMLImageElement|null}
 
-      // {Dimension2} size of config.rightFacingUpright, in pixels
-      rightFacingUprightSize: required( config.rightFacingUprightSize ),
-
       // {Vector2} offset between point of interest and left-top corner of rightFacingUpright
       rightFacingUprightOffsetPosition: required( config.rightFacingUprightOffsetPosition ),
 
@@ -79,7 +75,6 @@ class RepresentationValue {
     this.rightFacingInverted = config.rightFacingInverted;
     this.leftFacingUpright = config.leftFacingUpright;
     this.leftFacingInverted = config.leftFacingInverted;
-    this.rightFacingUprightSize = config.rightFacingUprightSize;
     this.offsetPosition = config.rightFacingUprightOffsetPosition;
     this.isObject = config.isObject;
     this.secondSourceImage = config.secondSourceImage;
@@ -95,7 +90,6 @@ const Representation = Enumeration.byMap( {
     rightFacingInverted: pencilRightFacingInverted_png,
     leftFacingUpright: pencilLeftFacingUpright_png,
     leftFacingInverted: pencilLeftFacingInverted_png,
-    rightFacingUprightSize: new Dimension2( 111, 365 ),
     rightFacingUprightOffsetPosition: new Vector2( -64, 70 ),
     isObject: true
   } ),
@@ -107,7 +101,6 @@ const Representation = Enumeration.byMap( {
     rightFacingInverted: treeRightFacingInverted_png,
     leftFacingUpright: treeLeftFacingUpright_png,
     leftFacingInverted: treeLeftFacingInverted_png,
-    rightFacingUprightSize: new Dimension2( 135, 391 ),
     rightFacingUprightOffsetPosition: new Vector2( -80, 88 ),
     isObject: true
   } ),
@@ -119,7 +112,6 @@ const Representation = Enumeration.byMap( {
     rightFacingInverted: rocketRightFacingInverted_png,
     leftFacingUpright: rocketLeftFacingUpright_png,
     leftFacingInverted: rocketLeftFacingInverted_png,
-    rightFacingUprightSize: new Dimension2( 116, 414 ),
     rightFacingUprightOffsetPosition: new Vector2( -68, 112 ),
     isObject: true
   } ),
@@ -131,7 +123,6 @@ const Representation = Enumeration.byMap( {
     rightFacingInverted: null,
     leftFacingUpright: null,
     leftFacingInverted: null,
-    rightFacingUprightSize: new Dimension2( 100, 100 ),
     rightFacingUprightOffsetPosition: new Vector2( -66, 28 ),
     isObject: false,
     secondSourceImage: lampRed_png
