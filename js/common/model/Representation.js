@@ -52,7 +52,7 @@ class RepresentationValue {
       leftFacingInverted: required( config.leftFacingInverted ), // {HTMLImageElement|null}
 
       // {Dimension2} size of config.rightFacingUpright, in pixels
-      dimensions: required( config.size ),
+      size: required( config.size ),
 
       // {Vector2} offset in pixel between point of interest and left top corer
       rightFacingUprightOffsetPosition: required( config.rightFacingUprightOffsetPosition ),
@@ -89,7 +89,7 @@ const Representation = Enumeration.byMap( {
     rightFacingInverted: pencilRightFacingInverted_png,
     leftFacingUpright: pencilLeftFacingUpright_png,
     leftFacingInverted: pencilLeftFacingInverted_png,
-    dimensions: new Dimension2( 111, 365 ),
+    size: new Dimension2( 111, 365 ),
     rightFacingUprightOffsetPosition: new Vector2( -64, 70 ),
     label: geometricOpticsStrings.pencil,
     isObject: true
@@ -101,7 +101,7 @@ const Representation = Enumeration.byMap( {
     rightFacingInverted: treeRightFacingInverted_png,
     leftFacingUpright: treeLeftFacingUpright_png,
     leftFacingInverted: treeLeftFacingInverted_png,
-    dimensions: new Dimension2( 135, 391 ),
+    size: new Dimension2( 135, 391 ),
     rightFacingUprightOffsetPosition: new Vector2( -80, 88 ),
     label: geometricOpticsStrings.tree,
     isObject: true
@@ -113,7 +113,7 @@ const Representation = Enumeration.byMap( {
     rightFacingInverted: rocketRightFacingInverted_png,
     leftFacingUpright: rocketLeftFacingUpright_png,
     leftFacingInverted: rocketLeftFacingInverted_png,
-    dimensions: new Dimension2( 116, 414 ),
+    size: new Dimension2( 116, 414 ),
     rightFacingUprightOffsetPosition: new Vector2( -68, 112 ),
     label: geometricOpticsStrings.rocket,
     isObject: true
@@ -125,7 +125,7 @@ const Representation = Enumeration.byMap( {
     rightFacingInverted: null,
     leftFacingUpright: null,
     leftFacingInverted: null,
-    dimensions: new Dimension2( 100, 100 ),
+    size: new Dimension2( 100, 100 ),
     rightFacingUprightOffsetPosition: new Vector2( -66, 28 ),
     label: geometricOpticsStrings.light,
     isObject: false,
