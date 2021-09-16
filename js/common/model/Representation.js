@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Enumeration of the representation of the objects and source of light
+ * Representation is a rich enumeration of the source objects and source of light.
  *
  * @author Martin Veillette
  */
@@ -32,7 +32,7 @@ import treeRightFacingUpright_png from '../../../images/treeRightFacingUpright_p
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 
-class RepresentationInstance {
+class RepresentationValue {
 
   /**
    * @param {Object} config
@@ -60,7 +60,7 @@ class RepresentationInstance {
       // {string} label for the representation
       label: required( config.label ),
 
-      // {boolean} is this representation an object?, otherwise it is a source of light
+      // {boolean} true = source object, false = source of light
       isObject: required( config.isObject ),
 
       // optional fields
@@ -83,7 +83,7 @@ class RepresentationInstance {
 
 const Representation = Enumeration.byMap( {
 
-  PENCIL: new RepresentationInstance( {
+  PENCIL: new RepresentationValue( {
     icon: pencilIcon_png,
     rightFacingUpright: pencilRightFacingUpright_png,
     rightFacingInverted: pencilRightFacingInverted_png,
@@ -95,7 +95,7 @@ const Representation = Enumeration.byMap( {
     isObject: true
   } ),
 
-  TREE: new RepresentationInstance( {
+  TREE: new RepresentationValue( {
     icon: treeIcon_png,
     rightFacingUpright: treeRightFacingUpright_png,
     rightFacingInverted: treeRightFacingInverted_png,
@@ -107,7 +107,7 @@ const Representation = Enumeration.byMap( {
     isObject: true
   } ),
 
-  ROCKET: new RepresentationInstance( {
+  ROCKET: new RepresentationValue( {
     icon: rocketIcon_png,
     rightFacingUpright: rocketRightFacingUpright_png,
     rightFacingInverted: rocketRightFacingInverted_png,
@@ -119,7 +119,7 @@ const Representation = Enumeration.byMap( {
     isObject: true
   } ),
 
-  LIGHT: new RepresentationInstance( {
+  LIGHT: new RepresentationValue( {
     icon: lampBlueIcon_png,
     rightFacingUpright: lampBlue_png,
     rightFacingInverted: null,
