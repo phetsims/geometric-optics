@@ -44,6 +44,9 @@ class RepresentationValue {
 
     config = merge( {
 
+      // {string} label for the representation
+      label: required( config.label ),
+
       // required fields
       // {HTMLImageElement} icon - the icon that appears in UI controls
       icon: required( config.icon ),
@@ -55,13 +58,10 @@ class RepresentationValue {
       leftFacingInverted: required( config.leftFacingInverted ), // {HTMLImageElement|null}
 
       // {Dimension2} size of config.rightFacingUpright, in pixels
-      size: required( config.size ),
+      rightFacingUprightSize: required( config.rightFacingUprightSize ),
 
       // {Vector2} offset between point of interest and left-top corner of rightFacingUpright
       rightFacingUprightOffsetPosition: required( config.rightFacingUprightOffsetPosition ),
-
-      // {string} label for the representation
-      label: required( config.label ),
 
       // {boolean} true = source object, false = source of light
       isObject: required( config.isObject ),
@@ -73,14 +73,14 @@ class RepresentationValue {
     assert && assert( !( config.isObject && config.secondSourceImage ) );
 
     // @public (read-only)
+    this.label = config.label;
     this.icon = config.icon;
     this.rightFacingUpright = config.rightFacingUpright;
     this.rightFacingInverted = config.rightFacingInverted;
     this.leftFacingUpright = config.leftFacingUpright;
     this.leftFacingInverted = config.leftFacingInverted;
-    this.size = config.size;
+    this.rightFacingUprightSize = config.rightFacingUprightSize;
     this.offsetPosition = config.rightFacingUprightOffsetPosition;
-    this.label = config.label;
     this.isObject = config.isObject;
     this.secondSourceImage = config.secondSourceImage;
   }
@@ -89,50 +89,50 @@ class RepresentationValue {
 const Representation = Enumeration.byMap( {
 
   PENCIL: new RepresentationValue( {
+    label: geometricOpticsStrings.pencil,
     icon: pencilIcon_png,
     rightFacingUpright: pencilRightFacingUpright_png,
     rightFacingInverted: pencilRightFacingInverted_png,
     leftFacingUpright: pencilLeftFacingUpright_png,
     leftFacingInverted: pencilLeftFacingInverted_png,
-    size: new Dimension2( 111, 365 ),
+    rightFacingUprightSize: new Dimension2( 111, 365 ),
     rightFacingUprightOffsetPosition: new Vector2( -64, 70 ),
-    label: geometricOpticsStrings.pencil,
     isObject: true
   } ),
 
   TREE: new RepresentationValue( {
+    label: geometricOpticsStrings.tree,
     icon: treeIcon_png,
     rightFacingUpright: treeRightFacingUpright_png,
     rightFacingInverted: treeRightFacingInverted_png,
     leftFacingUpright: treeLeftFacingUpright_png,
     leftFacingInverted: treeLeftFacingInverted_png,
-    size: new Dimension2( 135, 391 ),
+    rightFacingUprightSize: new Dimension2( 135, 391 ),
     rightFacingUprightOffsetPosition: new Vector2( -80, 88 ),
-    label: geometricOpticsStrings.tree,
     isObject: true
   } ),
 
   ROCKET: new RepresentationValue( {
+    label: geometricOpticsStrings.rocket,
     icon: rocketIcon_png,
     rightFacingUpright: rocketRightFacingUpright_png,
     rightFacingInverted: rocketRightFacingInverted_png,
     leftFacingUpright: rocketLeftFacingUpright_png,
     leftFacingInverted: rocketLeftFacingInverted_png,
-    size: new Dimension2( 116, 414 ),
+    rightFacingUprightSize: new Dimension2( 116, 414 ),
     rightFacingUprightOffsetPosition: new Vector2( -68, 112 ),
-    label: geometricOpticsStrings.rocket,
     isObject: true
   } ),
 
   LIGHT: new RepresentationValue( {
+    label: geometricOpticsStrings.light,
     icon: lampBlueIcon_png,
     rightFacingUpright: lampBlue_png,
     rightFacingInverted: null,
     leftFacingUpright: null,
     leftFacingInverted: null,
-    size: new Dimension2( 100, 100 ),
+    rightFacingUprightSize: new Dimension2( 100, 100 ),
     rightFacingUprightOffsetPosition: new Vector2( -66, 28 ),
-    label: geometricOpticsStrings.light,
     isObject: false,
     secondSourceImage: lampRed_png
   } )

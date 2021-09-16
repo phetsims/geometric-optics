@@ -47,7 +47,8 @@ class SourceObject {
         const scale = representation.isObject ?
                       GeometricOpticsConstants.OBJECT_SCALE_FACTOR :
                       GeometricOpticsConstants.SOURCE_SCALE_FACTOR;
-        const size = new Dimension2( representation.size.width / scale, representation.size.height / scale );
+        const size = new Dimension2( representation.rightFacingUprightSize.width / scale,
+          representation.rightFacingUprightSize.height / scale );
         return size.toBounds( leftTop.x, leftTop.y - size.height );
       } );
 

@@ -95,8 +95,8 @@ class Target extends EnabledComponent {
         // representation values are in centimeters
         const scaleFactor = GeometricOpticsConstants.OBJECT_SCALE_FACTOR;
         const initialOffsetPosition = representation.offsetPosition.timesScalar( 1 / scaleFactor );
-        const initialWidth = representation.size.width / scaleFactor;
-        const initialHeight = representation.size.height / scaleFactor;
+        const initialWidth = representation.rightFacingUprightSize.width / scaleFactor;
+        const initialHeight = representation.rightFacingUprightSize.height / scaleFactor;
 
         const offsetPosition = initialOffsetPosition.timesScalar( scale );
         const width = initialWidth * scale;
