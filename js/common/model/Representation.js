@@ -70,6 +70,8 @@ class RepresentationValue {
       secondSourceImage: null // {HTMLImageElement|null} image for second source of light
     }, config );
 
+    assert && assert( !( config.isObject && config.secondSourceImage ) );
+
     // @public (read-only)
     this.icon = config.icon;
     this.rightFacingUpright = config.rightFacingUpright;
