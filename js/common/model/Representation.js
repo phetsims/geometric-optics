@@ -54,7 +54,7 @@ class RepresentationValue {
       // {Dimension2} size of config.rightFacingUpright, in pixels
       size: required( config.size ),
 
-      // {Vector2} offset in pixel between point of interest and left top corer
+      // {Vector2} offset between point of interest and left-top corner of rightFacingUpright
       rightFacingUprightOffsetPosition: required( config.rightFacingUprightOffsetPosition ),
 
       // {string} label for the representation
