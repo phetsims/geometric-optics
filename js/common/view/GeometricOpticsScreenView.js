@@ -32,6 +32,7 @@ import OpticalAxisLine from './OpticalAxisLine.js';
 import OpticNode from './OpticNode.js';
 import RepresentationComboBox from './RepresentationComboBox.js';
 import RulersToolboxPanel from './RulersToolboxPanel.js';
+import SecondSourceNode from './SecondSourceNode.js';
 import ShowHideToggleButton from './ShowHideToggleButton.js';
 import SourceObjectNode from './SourceObjectNode.js';
 import TargetNode from './TargetNode.js';
@@ -165,11 +166,18 @@ class GeometricOpticsScreenView extends ScreenView {
     this.sourceObjectNode = new SourceObjectNode(
       model.representationProperty,
       model.sourceObject,
-      this.visibleProperties.secondSourceVisibleProperty,
       this.playAreaModelBoundsProperty,
       model.optic.positionProperty,
       this.modelViewTransform
     );
+
+    // @private the second source
+    this.secondSourceNode = new SecondSourceNode(
+      model.representationProperty,
+      model.sourceObject,
+      this.modelViewTransform, {
+        visibleProperty: this.visibleProperties.secondSourceVisibleProperty
+      } );
 
     // create the optical axis attached to the optical element
     const opticalAxisLine = new OpticalAxisLine( model.optic.positionProperty,
@@ -220,6 +228,7 @@ class GeometricOpticsScreenView extends ScreenView {
     // add children that need to be zoomed in/out. order is important
     this.playAreaNode.addChild( opticalAxisLine );
     this.playAreaNode.addChild( this.sourceObjectNode );
+    this.playAreaNode.addChild( this.secondSourceNode );
     this.playAreaNode.addChild( opticNode );
     this.playAreaNode.addChild( targetNode );
     this.playAreaNode.addChild( lightRaysNode );
@@ -308,6 +317,7 @@ class GeometricOpticsScreenView extends ScreenView {
     this.zoomLevelProperty.reset();
     this.visibleProperties.reset();
     this.sourceObjectNode.reset();
+    this.secondSourceNode.reset();
     this.rulersLayer.reset();
   }
 

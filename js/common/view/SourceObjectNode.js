@@ -4,9 +4,9 @@
  * View of the source/object
  * The sourceObject is represented by an object or a source of light
  * The sourceObject can be dragged
- * A secondary object can be dragged as a point or source of light
  *
  * @author Martin Veillette
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
@@ -16,19 +16,17 @@ import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
-import SecondSourceNode from './SecondSourceNode.js';
 
 class SourceObjectNode extends Node {
 
   /**
    * @param {Property.<Representation>} representationProperty
    * @param {SourceObject} sourceObject
-   * @param {Property.<boolean>} secondSourceVisibleProperty
    * @param {Property.<Bounds2>} visibleModelBoundsProperty
    * @param {Property.<Vector2>} opticPositionProperty
    * @param {ModelViewTransform2} modelViewTransform
    * */
-  constructor( representationProperty, sourceObject, secondSourceVisibleProperty, visibleModelBoundsProperty,
+  constructor( representationProperty, sourceObject, visibleModelBoundsProperty,
                opticPositionProperty, modelViewTransform ) {
 
     super( {
@@ -106,12 +104,6 @@ class SourceObjectNode extends Node {
       sourceObject.leftTopProperty.value = dragBounds.closestPointTo( sourceObject.leftTopProperty.value );
     } );
 
-    // create a node to hold the second source
-    const secondSourceNode = new SecondSourceNode( representationProperty, sourceObject, modelViewTransform, {
-      visibleProperty: secondSourceVisibleProperty
-    } );
-    this.addChild( secondSourceNode );
-
     representationProperty.link( representation => {
       sourceObjectImage.image = representation.rightFacingUpright;
       scaleSourceObject();
@@ -120,7 +112,6 @@ class SourceObjectNode extends Node {
 
     // @private
     this.cueingArrows = cueingArrows;
-    this.secondSourceNode = secondSourceNode;
   }
 
   /**
@@ -129,7 +120,6 @@ class SourceObjectNode extends Node {
    */
   reset() {
     this.cueingArrows.visible = true;
-    this.secondSourceNode.reset();
   }
 }
 
