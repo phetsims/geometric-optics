@@ -23,7 +23,7 @@ class LightRays {
   /**
    * @param {Property.<number>} timeProperty
    * @param {Property.<LightRayMode>} lightRayModeProperty
-   * @param {Property.<Representation>} representationProperty
+   * @param {EnumerationProperty.<Representation>} representationProperty
    * @param {Property.<Vector2>} sourceObjectPositionProperty
    * @param {ProjectorScreen} projectorScreen
    * @param {Optic} optic

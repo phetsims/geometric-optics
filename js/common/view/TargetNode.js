@@ -17,7 +17,7 @@ import geometricOptics from '../../geometricOptics.js';
 class TargetNode extends Node {
 
   /**
-   * @param {Property.<Representation>} representationProperty
+   * @param {EnumerationProperty.<Representation>} representationProperty
    * @param {Target} target
    * @param {Optic} optic
    * @param {Property.<boolean>} virtualImageVisibleProperty

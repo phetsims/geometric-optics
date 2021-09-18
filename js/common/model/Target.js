@@ -18,7 +18,7 @@ class Target extends EnabledComponent {
   /**
    * @param {Property.<Vector2>} objectPositionProperty - position of the object/source
    * @param {Optic} optic - model of the optic
-   * @param {Property.<Representation>} representationProperty
+   * @param {EnumerationProperty.<Representation>} representationProperty
    */
   constructor( objectPositionProperty, optic, representationProperty ) {
 

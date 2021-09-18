@@ -37,7 +37,7 @@ const CUEING_ARROW_OPTIONS = {
 class SecondSourceNode extends Node {
 
   /**
-   * @param {Property.<Representation>} representationProperty
+   * @param {EnumerationProperty.<Representation>} representationProperty
    * @param {SourceObject} sourceObject
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]

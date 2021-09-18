@@ -20,7 +20,7 @@ import geometricOptics from '../../geometricOptics.js';
 class SourceObjectNode extends Node {
 
   /**
-   * @param {Property.<Representation>} representationProperty
+   * @param {EnumerationProperty.<Representation>} representationProperty
    * @param {SourceObject} sourceObject
    * @param {Property.<Bounds2>} visibleModelBoundsProperty
    * @param {Property.<Vector2>} opticPositionProperty

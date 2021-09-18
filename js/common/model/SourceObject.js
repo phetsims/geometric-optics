@@ -18,7 +18,7 @@ import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 class SourceObject {
 
   /**
-   * @param {Property.<Representation>} representationProperty
+   * @param {EnumerationProperty.<Representation>} representationProperty
    */
   constructor( representationProperty ) {
 
@@ -106,7 +106,7 @@ class SourceObject {
   /**
    * Sets the second source point
    * @public
-   * @param {Property.<Representation>} representationProperty
+   * @param {EnumerationProperty.<Representation>} representationProperty
    * @param {Vector2} position
    */
   setSecondPoint( representationProperty, position ) {
