@@ -1,5 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TODO name is too vague, maybe SourceRepresentation?
 /**
  * Representation is a rich enumeration of the source objects and source of light.
  *
