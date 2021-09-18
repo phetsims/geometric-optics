@@ -78,19 +78,17 @@ class CurveControl extends RectangularRadioButtonGroup {
    */
   static createIconNode( curve, type, options ) {
 
-    options = merge(
-      {
-        radius: RADIUS_OF_CURVATURE, // radius of curvature
-        diameter: DIAMETER, // height of the optic
-        thickness: THICKNESS, // thickness of the backing of the mirror
-        isHollywood: false, // is the curvature radius an accurate description of shape
-        form: { fill: FILL }, /// options for the form of the icon
-        outline: { stroke: STROKE }, // options for the contour or reflective surface
-        buttonContentXMargin: 0,
-        buttonContentYMargin: 0,
-        strutLength: STRUT_LENGTH // minimum size of the Node (when including spacer)
-      },
-      options );
+    options = merge( {
+      radius: RADIUS_OF_CURVATURE, // radius of curvature
+      diameter: DIAMETER, // height of the optic
+      thickness: THICKNESS, // thickness of the backing of the mirror
+      isHollywood: false, // is the curvature radius an accurate description of shape
+      form: { fill: FILL }, /// options for the form of the icon
+      outline: { stroke: STROKE }, // options for the contour or reflective surface
+      buttonContentXMargin: 0,
+      buttonContentYMargin: 0,
+      strutLength: STRUT_LENGTH // minimum size of the Node (when including spacer)
+    }, options );
 
     // get appropriate icon shapes
     const iconShapes = new OpticShapes( type, curve, options.radius, options.diameter, options );
