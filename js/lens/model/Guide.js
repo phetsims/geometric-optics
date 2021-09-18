@@ -33,7 +33,7 @@ class Guide {
       ( opticPosition, opticDiameter ) => opticPosition.plusXY( 0, locationSign * opticDiameter / 2 )
     );
 
-    // @public (read-only) {DerivedProperty.<number>}
+    // @public {DerivedProperty.<number>}
     // angle of rotation of the incident guide with respect to the positive x-axis
     this.incidentAngleProperty = new DerivedProperty(
       [ objectPositionProperty, this.fulcrumPositionProperty ],
@@ -42,7 +42,7 @@ class Guide {
         return displacementVector.getAngle();
       } );
 
-    // @public (read-only) {DerivedProperty.<number>}
+    // @public {DerivedProperty.<number>}
     // find the angle of the transmitted guide with respect to the positive x-axis
     this.transmittedAngleProperty = new DerivedProperty(
       [ optic.focalLengthProperty, optic.diameterProperty, this.incidentAngleProperty ],

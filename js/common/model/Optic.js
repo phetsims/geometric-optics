@@ -64,7 +64,7 @@ class Optic {
     // @private {Optic.Type} Type of the optical element ( valid choices: LENS and MIRROR)
     this.type = type;
 
-    // @public {Property.<number>} focal length of the optic
+    // @public {DerivedProperty.<number>} focal length of the optic
     // positive indicate the optic is converging whereas negative indicates the optic is diverging.
     this.focalLengthProperty = new DerivedProperty(
       [ this.radiusOfCurvatureProperty, this.indexOfRefractionProperty, this.curveProperty ],

@@ -33,7 +33,7 @@ class Target extends EnabledComponent {
     // @private (read-only) {function} returns the sign (+1 or -1) assigned to the type of optic (lens or mirror)
     this.opticGetTypeSign = optic.getTypeSign.bind( optic );
 
-    // @public (read-only) {DerivedProperty.<number>} horizontal "distance" between target (image) and optic
+    // @public {DerivedProperty.<number>} horizontal "distance" between target (image) and optic
     // The distance can be negative. We follow the standard sign convention used in geometric optics courses.
     this.targetOpticDistanceProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
@@ -58,33 +58,33 @@ class Target extends EnabledComponent {
         }
       } );
 
-    // @public (read-only) {DerivedProperty.<Vector2>}
+    // @public {DerivedProperty.<Vector2>}
     // the position of the focus as predicted by lens and mirror equation
     this.positionProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       ( objectPosition, opticPosition, focalLength ) => this.getPosition( objectPosition, opticPosition, focalLength )
     );
 
-    // @public (read-only) {DerivedProperty.<number>}
+    // @public {DerivedProperty.<number>}
     // the scale can be negative, indicating the target/image is inverted.
     this.scaleProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       ( objectPosition, opticPosition, focalLength ) => this.getScale( objectPosition, opticPosition, focalLength )
     );
 
-    // @public (read-only) {DerivedProperty.<boolean>}
+    // @public {DerivedProperty.<boolean>}
     this.isInvertedProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       () => this.isInverted()
     );
 
-    // @public (read-only) {DerivedProperty.<boolean>}
+    // @public {DerivedProperty.<boolean>}
     this.isVirtualProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       () => this.isVirtual()
     );
 
-    // @public (read-only) {DerivedProperty.<bounds2>}
+    // @public {DerivedProperty.<bounds2>}
     // Bounds of the actual Image  based on the Representation
     this.boundsProperty = new DerivedProperty(
       [ this.positionProperty, representationProperty, this.scaleProperty, this.isInvertedProperty ],
@@ -111,7 +111,7 @@ class Target extends EnabledComponent {
         return bounds.shifted( position );
       } );
 
-    // @public (read-only) {DerivedProperty.<number>}
+    // @public {DerivedProperty.<number>}
     // light intensity of the image (Hollywood) - a value between 0 and 1
     this.lightIntensityProperty = new DerivedProperty(
       [ this.scaleProperty, optic.diameterProperty ],
@@ -127,7 +127,7 @@ class Target extends EnabledComponent {
         return distanceFactor * diameterFactor;
       } );
 
-    // @public (read-only) {DerivedProperty.<HTMLImageElement|null>}
+    // @public {DerivedProperty.<HTMLImageElement|null>}
     // determine the image with appropriate orientation to select for the display
     this.imageProperty = new DerivedProperty(
       [ representationProperty, this.isVirtualProperty ],

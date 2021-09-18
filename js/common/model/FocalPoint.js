@@ -28,7 +28,7 @@ class FocalPoint {
       multiplicativeFactor: 1
     }, options );
 
-    // @public (read-only) {Property.<Vector2>} Position of the focal point
+    // @public {DerivedProperty.<Vector2>} Position of the focal point
     this.positionProperty = new DerivedProperty(
       [ opticPositionProperty, focalLengthProperty ],
       ( opticPosition, focalLength ) => opticPosition.plusXY( options.multiplicativeFactor * focalLength, 0 )
