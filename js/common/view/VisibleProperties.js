@@ -30,6 +30,7 @@ class VisibleProperties {
     this.guidesVisibleProperty = new BooleanProperty( false );
 
     // @public visibility of the ray tracing
+    //TODO this is poorly named, it controls visibility of more than rays
     this.rayTracingVisibleProperty = new BooleanProperty( true );
   }
 
