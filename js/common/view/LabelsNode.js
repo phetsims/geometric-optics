@@ -104,14 +104,14 @@ class LabelsNode extends Node {
         model.firstTarget.isVirtualProperty,
         visibleProperties.virtualImageVisibleProperty
       ],
-      ( representation, isEnabled, isVirtual, virtualImageVisible ) => {
+      ( representation, enabled, isVirtual, virtualImageVisible ) => {
 
         // label is visible if the representation is an object
         objectLabel.visible = representation.isObject;
 
         // label is visible if (1) the image is enabled, (2) the representation is an object
         // (3) if the image is virtual and the checkbox is virtual is on  (but on if real)
-        imageLabel.visible = isEnabled && ( isVirtual ? virtualImageVisible : true ) && representation.isObject;
+        imageLabel.visible = enabled && ( isVirtual ? virtualImageVisible : true ) && representation.isObject;
 
         // update the text of the image appropriately
         imageLabel.setText( isVirtual ? geometricOpticsStrings.virtualImage : geometricOpticsStrings.image );
