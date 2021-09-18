@@ -47,7 +47,7 @@ class Target extends EnabledComponent {
         if ( opticObjectDistance === focalLength ) {
 
           // Set the target distance to be very large (and arbitrarily positive).
-          return 10e6;
+          return 10e6; //TODO why not use Infinity?
         }
         else {
 
