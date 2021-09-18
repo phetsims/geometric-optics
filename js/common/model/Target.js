@@ -13,7 +13,6 @@ import EnabledComponent from '../../../../axon/js/EnabledComponent.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import geometricOptics from '../../geometricOptics.js';
 
-//TODO reevaluate whether using EnabledComponent is a good idea
 class Target extends EnabledComponent {
 
   /**
