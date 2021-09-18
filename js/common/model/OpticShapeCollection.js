@@ -27,6 +27,13 @@ class OpticShapeCollection {
    * @param {Object} [options]
    */
   constructor( radius, diameter, curve, type, options ) {
+
+    // @public (read-only) {Shape|null} these are initialized by setLensShapes or setMirrorShapes
+    this.frontShape = null;
+    this.backShape = null;
+    this.outlineShape = null;
+    this.fillShape = null;
+
     if ( type === Optic.Type.LENS ) {
       this.setLensShapes( radius, diameter, curve, options );
     }
@@ -101,11 +108,10 @@ class OpticShapeCollection {
       .quadraticCurveToPoint( midRight, topRight )
       .close();
 
-    // @public (read-only)
     this.frontShape = frontShape;
+    this.backShape = null; //TODO document why this is null for a mirror
+    this.outlineShape = frontShape; // same as frontShape for a mirror
     this.fillShape = fillShape;
-    this.outlineShape = frontShape;
-    this.backShape = null;
   }
 
   /**
@@ -206,12 +212,9 @@ class OpticShapeCollection {
         .close();
     }
 
-    // the outline shape is the same as the fill shape for a lens
-
-    // @public (read-only)
     this.frontShape = frontShape;
-    this.fillShape = outlineShape;
     this.outlineShape = outlineShape;
+    this.fillShape = outlineShape; // same as outlineShape for a lens
     this.backShape = backShape;
   }
 }
