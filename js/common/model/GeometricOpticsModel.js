@@ -45,6 +45,7 @@ class GeometricOpticsModel {
     this.timeProperty = new NumberProperty( this.timeRange.defaultValue, { units: 's' } );
 
     // @public {Property.<Representation>}  representation of the source/object
+    //TODO for Mirror screen, Representation.LIGHT is not a valid value
     this.representationProperty = new EnumerationProperty( Representation, Representation.PENCIL );
 
     // @public {Property.<LightRayMode>}  modes for the different kind of light rays
