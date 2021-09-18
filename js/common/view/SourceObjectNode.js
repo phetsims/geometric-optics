@@ -33,7 +33,7 @@ class SourceObjectNode extends Node {
       cursor: 'pointer'
     } );
 
-    // representation (image)  of the source/object. the source/object is upright and right facing
+    // Origin of this Node is at the upper-left corner of sourceObjectImage.
     const sourceObjectImage = new Image( representationProperty.value.rightFacingUpright );
     this.addChild( sourceObjectImage );
 
@@ -47,6 +47,12 @@ class SourceObjectNode extends Node {
       lineWidth: 1
     } );
     this.addChild( cueingArrows );
+
+    // Keep cueing arrows next to the source object.
+    sourceObjectImage.boundsProperty.link( bounds => {
+      cueingArrows.right = sourceObjectImage.left - 10;
+      cueingArrows.centerY = sourceObjectImage.centerY;
+    } );
 
     // Scale the source object.
     const scaleSourceObject = () => {
@@ -63,15 +69,10 @@ class SourceObjectNode extends Node {
     };
 
     // Translate the source object to the specified position.
-    const translateSourceObject = leftTopModel => {
-      sourceObjectImage.leftTop = modelViewTransform.modelToViewPosition( leftTopModel );
+    // This Node's origin is at the left-top of sourceObjectImage, so set translation.
+    const translateSourceObject = leftTop => {
+      this.translation = modelViewTransform.modelToViewPosition( leftTop );
     };
-
-    // Keep cueing arrows next to the source object.
-    sourceObjectImage.boundsProperty.link( bounds => {
-      cueingArrows.right = sourceObjectImage.left - 10;
-      cueingArrows.centerY = sourceObjectImage.centerY;
-    } );
 
     // {DerivedProperty.<Bounds2} keep at least half of the projector screen within visible bounds and right of the optic.
     // opticPositionProperty is not a dependency because it only moves in the y dimension, so x is constant.
@@ -83,6 +84,9 @@ class SourceObjectNode extends Node {
           opticPositionProperty.value.x - sourceObject.boundsProperty.value.width,
           visibleBounds.maxY )
     );
+    dragBoundsProperty.link( dragBounds => {
+      sourceObject.leftTopProperty.value = dragBounds.closestPointTo( sourceObject.leftTopProperty.value );
+    } );
 
     // create drag listener for source
     const sourceObjectDragListener = new DragListener( {
@@ -93,15 +97,11 @@ class SourceObjectNode extends Node {
         cueingArrows.visible = false;
       }
     } );
-    sourceObjectImage.addInputListener( sourceObjectDragListener );
+    this.addInputListener( sourceObjectDragListener );
 
-    sourceObject.leftTopProperty.link( position => {
+    sourceObject.leftTopProperty.link( leftTop => {
       scaleSourceObject();
-      translateSourceObject( position );
-    } );
-
-    dragBoundsProperty.link( dragBounds => {
-      sourceObject.leftTopProperty.value = dragBounds.closestPointTo( sourceObject.leftTopProperty.value );
+      translateSourceObject( leftTop );
     } );
 
     representationProperty.link( representation => {
