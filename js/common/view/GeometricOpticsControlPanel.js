@@ -9,7 +9,6 @@
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import merge from '../../../../phet-core/js/merge.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
@@ -17,7 +16,6 @@ import Line from '../../../../scenery/js/nodes/Line.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Panel from '../../../../sun/js/Panel.js';
-import SunConstants from '../../../../sun/js/SunConstants.js';
 import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -81,52 +79,49 @@ class GeometricOpticsControlPanel extends Panel {
       numberDisplayOptions: { maxWidth: 100 }
     };
 
-    // options for number controls that have length units
-    const lengthNumberControlOptions = merge( {}, commonNumberControlOptions, {
-      numberDisplayOptions: {
-        decimalPlaces: GeometricOpticsConstants.CENTIMETER_DECIMAL_PLACES,
-        valuePattern: StringUtils.fillIn( geometricOpticsStrings.centimetersPattern, {
-          centimeters: SunConstants.VALUE_NAMED_PLACEHOLDER
-        } )
-      }
-    } );
-
     // create number control for the radius of curvature of optical element
     const curvatureRadiusControl = new NumberControl(
       geometricOpticsStrings.curvatureRadius,
       optic.radiusOfCurvatureProperty,
       optic.radiusOfCurvatureProperty.range,
-      lengthNumberControlOptions );
+      merge( {}, commonNumberControlOptions, {
+        numberDisplayOptions: {
+          decimalPlaces: GeometricOpticsConstants.CURVATURE_RADIUS_DECIMAL_PLACES,
+          valuePattern: geometricOpticsStrings.valueCentimetersPattern
+        }
+      } ) );
 
     // create number control for the diameter of optical element
     const diameterControl = new NumberControl(
       geometricOpticsStrings.diameter,
       optic.diameterProperty,
       optic.diameterProperty.range,
-      lengthNumberControlOptions );
+      merge( {}, commonNumberControlOptions, {
+        numberDisplayOptions: {
+          decimalPlaces: GeometricOpticsConstants.DIAMETER_DECIMAL_PLACES,
+          valuePattern: geometricOpticsStrings.valueCentimetersPattern
+        }
+      } ) );
 
     // array of number controls
     let controls;
 
     if ( options.hasLens ) {
 
-      // options for index of refraction control
-      const indexOfRefractionNumberControlOptions = merge( {}, commonNumberControlOptions, {
-        delta: 0.01,
-        numberDisplayOptions: {
-          decimalPlaces: GeometricOpticsConstants.INDEX_DECIMAL_PLACES
-        }
-      } );
-
       // create number control for the index of refraction of lens
-      const indexOfRefractionControl = new NumberControl(
+      const refractiveIndexControl = new NumberControl(
         geometricOpticsStrings.refractiveIndex,
         optic.indexOfRefractionProperty,
         optic.indexOfRefractionProperty.range,
-        indexOfRefractionNumberControlOptions );
+        merge( {}, commonNumberControlOptions, {
+          delta: 0.01,
+          numberDisplayOptions: {
+            decimalPlaces: GeometricOpticsConstants.REFRACTIVE_INDEX_DECIMAL_PLACES
+          }
+        } ) );
 
       // add three number controls
-      controls = [ curvatureRadiusControl, indexOfRefractionControl, diameterControl ];
+      controls = [ curvatureRadiusControl, refractiveIndexControl, diameterControl ];
     }
     else {
 

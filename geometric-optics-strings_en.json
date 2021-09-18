@@ -62,8 +62,8 @@
   "secondSource": {
     "value": "Second Source"
   },
-  "centimetersPattern": {
-    "value": "{{centimeters}} cm"
+  "valueCentimetersPattern": {
+    "value": "{{value}} cm"
   },
   "light": {
     "value": "Light"

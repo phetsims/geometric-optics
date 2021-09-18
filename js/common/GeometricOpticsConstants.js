@@ -106,8 +106,9 @@ const GeometricOpticsConstants = {
   //----------------------------------------------------------------------------------------
   //                        DECIMAL PLACES
 
-  CENTIMETER_DECIMAL_PLACES: 0, // for all distance related values
-  INDEX_DECIMAL_PLACES: 2, // for the index of refraction values
+  CURVATURE_RADIUS_DECIMAL_PLACES: 0,
+  REFRACTIVE_INDEX_DECIMAL_PLACES: 2,
+  DIAMETER_DECIMAL_PLACES: 0,
 
   //----------------------------------------------------------------------------------------
   //                                 FONTS
