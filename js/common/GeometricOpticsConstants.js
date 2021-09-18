@@ -113,8 +113,7 @@ const GeometricOpticsConstants = {
   //                                 FONTS
 
   LABEL_FONT: new PhetFont( 12 ),
-  CONTROL_PANEL_FONT: new PhetFont( 14 ),
-  COMBO_BOX_FONT: new PhetFont( 14 ),
+  CONTROL_FONT: new PhetFont( 14 ),
   TITLE_FONT: new PhetFont( { weight: 'bold', size: 14 } )
 };
 

@@ -40,7 +40,7 @@ class RepresentationComboBox extends Node {
 
         // create text
         const text = new Text( representation.label, {
-          font: GeometricOpticsConstants.COMBO_BOX_FONT
+          font: GeometricOpticsConstants.CONTROL_FONT
         } );
 
         // create icon

@@ -53,7 +53,7 @@ class GeometricOpticsControlPanel extends Panel {
       return {
         value: mode,
         node: new Text( string, {
-          font: GeometricOpticsConstants.CONTROL_PANEL_FONT,
+          font: GeometricOpticsConstants.CONTROL_FONT,
           maxWidth: 100
         } )
       };
@@ -71,7 +71,7 @@ class GeometricOpticsControlPanel extends Panel {
     const commonNumberControlOptions = {
       layoutFunction: NumberControl.createLayoutFunction3( { ySpacing: 12 } ),
       titleNodeOptions: {
-        font: GeometricOpticsConstants.CONTROL_PANEL_FONT,
+        font: GeometricOpticsConstants.CONTROL_FONT,
         maxWidth: 160
       },
       sliderOptions: {
@@ -172,7 +172,7 @@ class GeometricOpticsControlPanel extends Panel {
 
       // text for the checkbox
       const text = new Text( string, {
-        font: GeometricOpticsConstants.CONTROL_PANEL_FONT,
+        font: GeometricOpticsConstants.CONTROL_FONT,
         maxWidth: 100
       } );
 
