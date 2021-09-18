@@ -1,5 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TODO there appears to be a lot of unnecessary complication here for Creator pattern
 /**
  * Scenery node for a movable ruler in the Geometric Optics simulation
  *
@@ -105,20 +106,14 @@ class GeometricOpticsRulerNode extends Node {
     } );
     this.addInputListener( this.dragListener );
 
-    // listener that updates the position of the ruler
-    const positionListener = () => this.setPosition();
-
     // update ruler node position based on ruler model position
     // the GeometricOpticRulerNode exists from the lifetime of the simulation, so need to unlink.
-    ruler.positionProperty.link( positionListener );
+    ruler.positionProperty.link( () => this.setPosition() );
 
-    // always keep ruler in visible/drag bounds when visible bounds are changed
-    const dragBoundsListener = dragBounds => {
+    // prevent the ruler from escaping the visible bounds
+    rulerDragBoundsProperty.link( dragBounds => {
       ruler.positionProperty.value = dragBounds.closestPointTo( ruler.positionProperty.value );
-    };
-
-    // prevent the ruler from escaping the visible bounds is the bounds are changing.
-    rulerDragBoundsProperty.link( dragBoundsListener );
+    } );
   }
 
   /**
@@ -126,8 +121,8 @@ class GeometricOpticsRulerNode extends Node {
    * @public
    */
   reset() {
-    this.setPosition();
-    this.setInitialVisibility();
+    this.setPosition(); //TODO why isn't it sufficient to reset Ruler.positionProperty?
+    this.setInitialVisibility(); //TODO add visibleProperty to Ruler model element
   }
 
   /**
@@ -138,9 +133,10 @@ class GeometricOpticsRulerNode extends Node {
     this.visible = false;
   }
 
+  //TODO this seems unnecessary, only called once from constructor
   /**
    * Sets the orientation of the ruler
-   * @public
+   * @private
    */
   setOrientation() {
     if ( this.ruler.isVertical() ) {
