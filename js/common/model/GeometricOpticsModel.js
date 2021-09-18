@@ -133,11 +133,11 @@ class GeometricOpticsModel {
   }
 
   /**
-   * Stepper with time interval dt
+   * Steps the animation of light rays.
    * @public
-   * @param {number} dt
+   * @param {number} dt - time step, in seconds
    */
-  incrementTimer( dt ) {
+  stepLightRays( dt ) {
     const t = this.lightRaysTimeProperty.value + dt;
     if ( this.lightRaysTimeProperty.range.contains( t ) ) {
       this.lightRaysTimeProperty.value = t;

@@ -327,7 +327,7 @@ class GeometricOpticsScreenView extends ScreenView {
    */
   step( dt ) {
     if ( this.visibleProperties.rayTracingVisibleProperty.value ) {
-      this.model.incrementTimer( dt );
+      this.model.stepLightRays( dt );
     }
   }
 
