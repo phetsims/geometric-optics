@@ -32,6 +32,7 @@ class SourceObject {
 
     // @public {Property.<Vector2>} position of the left top position of image
     //TODO should this be derived from representationProperty? or from firstPositionProperty?
+    //TODO left-top is unfortunate to have in the model, can this be avoided?
     this.leftTopProperty = new Vector2Property( GeometricOpticsConstants.DEFAULT_SOURCE_POINT_1.plus( offset ) );
 
     // @public {DerivedProperty.<Vector2>} position of the source/object
