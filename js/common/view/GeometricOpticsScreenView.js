@@ -260,7 +260,7 @@ class GeometricOpticsScreenView extends ScreenView {
           if ( !rayTracingVisible ) {
             model.firstTarget.enabledProperty.value = false;
             model.secondTarget.enabledProperty.value = false;
-            model.lightRaysTimeProperty.value = 0;
+            model.lightRaysTimeProperty.reset();
           }
         }
       } );
