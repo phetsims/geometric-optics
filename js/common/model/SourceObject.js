@@ -1,5 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TODO pull the second source out into its own model element, which depends on SourceObject
 /**
  * Model element for object (in the sense commonly used in geometric optic) or source of light
  * The sourceObject has a position and a "second source" position within it.
@@ -51,16 +52,17 @@ class SourceObject {
       } );
 
     // @private {Property.<Vector2>} position of the second source of light
-    //TODO rename this
+    //TODO rename this, document it better
     this.unconstrainedSecondSourcePositionProperty = new Vector2Property( GeometricOpticsConstants.DEFAULT_SOURCE_POINT_2 );
 
     // @private {Property.<number>} vertical offset (in centimeters) of second object with respect to the first
-    //TODO rename this
+    //TODO rename this something like secondSourceVerticalOffsetProperty
     this.verticalOffsetProperty = new NumberProperty( GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE.defaultValue, {
       range: GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE
     } );
 
     // @public {DerivedProperty.<Vector2>} position of the second source (source/object)
+    //TODO rename secondSourcePositionProperty
     this.secondPositionProperty = new DerivedProperty(
       [ this.firstPositionProperty, this.verticalOffsetProperty,
         this.unconstrainedSecondSourcePositionProperty, representationProperty ],
