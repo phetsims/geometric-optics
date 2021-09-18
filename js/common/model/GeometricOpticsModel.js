@@ -42,7 +42,10 @@ class GeometricOpticsModel {
     this.timeRange = new RangeWithValue( 0, GeometricOpticsConstants.RAYS_ANIMATION_TIME, 0 );
 
     // @public (read-only) {Property.<number>} - time for ray animation in seconds.
-    this.timeProperty = new NumberProperty( this.timeRange.defaultValue, { units: 's' } );
+    this.timeProperty = new NumberProperty( this.timeRange.defaultValue, {
+      units: 's',
+      isValidValue: value => this.timeRange.contains( value )
+    } );
 
     // @public {Property.<Representation>}  representation of the source/object
     //TODO for Mirror screen, Representation.LIGHT is not a valid value
@@ -52,9 +55,7 @@ class GeometricOpticsModel {
     this.lightRayModeProperty = new EnumerationProperty( LightRayMode, LightRayMode.MARGINAL );
 
     // reset the timer when changing light ray mode
-    this.lightRayModeProperty.link( () => {
-      this.timeProperty.reset();
-    } );
+    this.lightRayModeProperty.link( () => this.timeProperty.reset() );
 
     // @public {Object} rulers for the simulations
     this.rulers = {
