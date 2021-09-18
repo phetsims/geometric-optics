@@ -8,6 +8,7 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Range from '../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -38,13 +39,10 @@ class GeometricOpticsModel {
     assert && assert( radiusOfCurvatureRange instanceof RangeWithValue, 'invalid radiusOfCurvature' );
     assert && assert( diameterRange instanceof RangeWithValue, 'invalid diameterRange' );
 
-    // @private {RangeWithValue} - time range (in seconds) for the animation
-    this.timeRange = new RangeWithValue( 0, GeometricOpticsConstants.RAYS_ANIMATION_TIME, 0 );
-
     // @public (read-only) {Property.<number>} - time for ray animation in seconds.
-    this.timeProperty = new NumberProperty( this.timeRange.defaultValue, {
+    this.lightRaysTimeProperty = new NumberProperty( 0, {
       units: 's',
-      isValidValue: value => this.timeRange.contains( value )
+      range: new Range( 0, GeometricOpticsConstants.RAYS_ANIMATION_TIME )
     } );
 
     // @public {Property.<Representation>}  representation of the source/object
@@ -55,7 +53,7 @@ class GeometricOpticsModel {
     this.lightRayModeProperty = new EnumerationProperty( LightRayMode, LightRayMode.MARGINAL );
 
     // reset the timer when changing light ray mode
-    this.lightRayModeProperty.link( () => this.timeProperty.reset() );
+    this.lightRayModeProperty.link( () => this.lightRaysTimeProperty.reset() );
 
     // @public {Object} rulers for the simulations
     this.rulers = {
@@ -98,7 +96,7 @@ class GeometricOpticsModel {
 
     // @public {LightRays} model of the light rays associated to the first source
     this.firstLightRays = new LightRays(
-      this.timeProperty,
+      this.lightRaysTimeProperty,
       this.lightRayModeProperty,
       this.representationProperty,
       this.sourceObject.firstPositionProperty,
@@ -109,7 +107,7 @@ class GeometricOpticsModel {
 
     // @public {LightRays} model of the light rays associated with the second source
     this.secondLightRays = new LightRays(
-      this.timeProperty,
+      this.lightRaysTimeProperty,
       this.lightRayModeProperty,
       this.representationProperty,
       this.sourceObject.secondPositionProperty,
@@ -129,7 +127,7 @@ class GeometricOpticsModel {
     this.sourceObject.reset();
     this.rulers.vertical.reset();
     this.rulers.horizontal.reset();
-    this.timeProperty.reset();
+    this.lightRaysTimeProperty.reset();
     this.projectorScreen.reset();
     this.optic.reset();
   }
@@ -140,8 +138,9 @@ class GeometricOpticsModel {
    * @param {number} dt
    */
   incrementTimer( dt ) {
-    if ( this.timeRange.contains( this.timeProperty.value ) ) {
-      this.timeProperty.value = this.timeProperty.value + dt;
+    const t = this.lightRaysTimeProperty.value + dt;
+    if ( this.lightRaysTimeProperty.range.contains( t ) ) {
+      this.lightRaysTimeProperty.value = t;
     }
   }
 }
