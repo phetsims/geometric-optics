@@ -44,7 +44,7 @@ class RepresentationComboBox extends Node {
         } );
 
         // create icon
-        const icon = new Image( representation.icon, { scale: 0.05 } );
+        const icon = new Image( representation.icon, { scale: 0.075 } );
 
         // hold the logo followed by text in a hbox
         const hBox = new HBox( { spacing: 5, children: [ icon, text ] } );
@@ -62,7 +62,7 @@ class RepresentationComboBox extends Node {
       highlightFill: 'rgb(168,192,245)',
       listPosition: 'below',
       xMargin: 10,
-      yMargin: 2
+      yMargin: 5
     } );
 
     // add the combox box before the list parent for z-layer
