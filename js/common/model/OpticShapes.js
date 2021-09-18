@@ -1,12 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * A class of the shapes of optical element. It determines the various shapes of the optic:
- *
- * The outline shape, represents the reflecting coating of a mirror, or the external surface of the lens
- * The fill shape represents the entire shape of the lens, or in the case of mirror, the backing of the mirror
- * The front shape is the left facing contour of the optic. This can be used for ray hit testing
- * The back shape is the right facing contour of the optic. Used for ray hit testing.  Back shape is null for mirror
+ * OpticShapes is the set of Shapes use to render a specific optic.
  *
  * @author Martin Veillette
  */
@@ -17,28 +12,28 @@ import merge from '../../../../phet-core/js/merge.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
 
-class OpticShapeCollection {
+class OpticShapes {
 
   /**
-   * @param {number} radius - radius of curvature at the center of the optic
-   * @param {number} diameter - vertical height of the optic
-   * @param {Optic.Curve} curve
    * @param {Optic.Type} type
+   * @param {Optic.Curve} curve
+   * @param {number} radiusOfCurvature - radius of curvature at the center of the optic
+   * @param {number} diameter - vertical height of the optic
    * @param {Object} [options]
    */
-  constructor( radius, diameter, curve, type, options ) {
+  constructor( type, curve, radiusOfCurvature, diameter, options ) {
 
     // @public (read-only) {Shape|null} these are initialized by setLensShapes or setMirrorShapes
-    this.frontShape = null;
-    this.backShape = null;
-    this.outlineShape = null;
-    this.fillShape = null;
+    this.frontShape = null; // the left facing contour of the optic. This can be used for ray hit testing
+    this.backShape = null; // the right facing contour of the optic. Used for ray hit testing. null for mirror.
+    this.outlineShape = null; // the reflecting coating of a mirror, or the external surface of the lens
+    this.fillShape = null; // the entire shape of the lens, or the backing of the mirror
 
     if ( type === Optic.Type.LENS ) {
-      this.setLensShapes( radius, diameter, curve, options );
+      this.setLensShapes( curve, radiusOfCurvature, diameter, options );
     }
     else {
-      this.setMirrorShapes( radius, diameter, curve, options );
+      this.setMirrorShapes( curve, radiusOfCurvature, diameter, options );
     }
   }
 
@@ -49,12 +44,12 @@ class OpticShapeCollection {
    * This gives the flexibility to draw lenses with radius of curvature that is larger than diameter/2, a physical
    * impossibility. The center point of the lens is '0,0'
    * @private
-   * @param {number} radius - radius of curvature
-   * @param {number} diameter - height of the lens
    * @param {Optic.Curve} curve
+   * @param {number} radiusOfCurvature - radius of curvature
+   * @param {number} diameter - height of the lens
    * @param {Object} [options]
    */
-  setLensShapes( radius, diameter, curve, options ) {
+  setLensShapes( curve, radiusOfCurvature, diameter, options ) {
 
     options = merge( {
       isHollywood: true, // is the radius of curvature parameter matching the shape of the lens
@@ -65,8 +60,8 @@ class OpticShapeCollection {
 
     // the width of the lens changes with the radius
     const halfWidth = options.isHollywood ?
-                      1 / 2 * halfHeight * halfHeight / ( radius + options.offsetRadius ) :
-                      radius - Math.sqrt( radius ** 2 - halfHeight ** 2 );
+                      1 / 2 * halfHeight * halfHeight / ( radiusOfCurvature + options.offsetRadius ) :
+                      radiusOfCurvature - Math.sqrt( radiusOfCurvature ** 2 - halfHeight ** 2 );
 
     // {Shape} shape of lens
     let outlineShape; // the outline of the lens (including top and bottom)
@@ -153,14 +148,14 @@ class OpticShapeCollection {
    * and a fill shape representing the base backing of the mirror.
    * The shapes are drawn using quadratic Bezier curves.
    * @private
-   * @param {number} radius - radius of curvature at the center of the mirror
-   * @param {number} diameter - vertical height of the mirror
    * @param {Optic.Curve} curve
+   * @param {number} radiusOfCurvature - radius of curvature at the center of the mirror
+   * @param {number} diameter - vertical height of the mirror
    * @param {Object} [options]
    */
-  setMirrorShapes( radius, diameter, curve, options ) {
+  setMirrorShapes( curve, radiusOfCurvature, diameter, options ) {
 
-    assert && assert( radius > diameter / 2,
+    assert && assert( radiusOfCurvature > diameter / 2,
       'the radius of curvature is too small when compared to the diameter' );
 
     options = merge( {
@@ -171,10 +166,10 @@ class OpticShapeCollection {
     const halfHeight = diameter / 2;
 
     // half of the width of the outline shape of the mirror along the x -axis
-    const halfWidth = radius - Math.sqrt( radius ** 2 - halfHeight ** 2 );
+    const halfWidth = radiusOfCurvature - Math.sqrt( radiusOfCurvature ** 2 - halfHeight ** 2 );
 
     // top and bottom surfaces of fill shape must be tilted to generate right angle corners
-    const angle = Math.atan( halfHeight / radius );
+    const angle = Math.atan( halfHeight / radiusOfCurvature );
 
     // curveSign is +1 for convex and -1 for concave
     const curveSign = ( curve === Optic.Curve.CONVEX ) ? 1 : -1;
@@ -219,5 +214,5 @@ class OpticShapeCollection {
   }
 }
 
-geometricOptics.register( 'OpticShapeCollection', OpticShapeCollection );
-export default OpticShapeCollection;
+geometricOptics.register( 'OpticShapes', OpticShapes );
+export default OpticShapes;

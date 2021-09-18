@@ -19,7 +19,7 @@ import Shape from '../../../../kite/js/Shape.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
 import geometricOptics from '../../geometricOptics.js';
-import OpticShapeCollection from './OpticShapeCollection.js';
+import OpticShapes from './OpticShapes.js';
 
 class Optic {
 
@@ -90,10 +90,10 @@ class Optic {
       curve => this.getConvergingSign( curve )
     );
 
-    // @public {DerivedProperty.<OpticShapeCollection>} shapes (fill and outline) of the optical element
+    // @public {DerivedProperty.<OpticShapes>} shapes (fill and outline) of the optical element
     this.shapesProperty = new DerivedProperty(
-      [ this.radiusOfCurvatureProperty, this.diameterProperty, this.curveProperty ],
-      ( radius, diameter, curve ) => new OpticShapeCollection( radius, diameter, curve, type )
+      [ this.curveProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
+      ( curve, radiusOfCurvature, diameter ) => new OpticShapes( type, curve, radiusOfCurvature, diameter )
     );
   }
 
