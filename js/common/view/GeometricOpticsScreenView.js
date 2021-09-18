@@ -86,7 +86,8 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // create Rulers
     this.rulersLayer = new GeometricOpticRulersLayer(
-      model.rulers,
+      model.horizontalRuler,
+      model.verticalRuler,
       this.visibleBoundsProperty,
       this.absoluteScaleProperty,
       this.zoomModelViewTransformProperty

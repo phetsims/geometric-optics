@@ -8,21 +8,19 @@
 
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
-import merge from '../../../../phet-core/js/merge.js';
 import geometricOptics from '../../geometricOptics.js';
 
 class Ruler {
 
   /**
+   * @param {Ruler.Orientation} orientation
    * @param {Vector2} position - position of the ruler in VIEW Coordinates
    * @param {number} length - length of the ruler in centimeters
-   * @param {Object} [options]
    */
-  constructor( position, length, options ) {
+  constructor( orientation, position, length ) {
 
-    options = merge( {
-      orientation: Ruler.Orientation.HORIZONTAL
-    }, options );
+    // @public (read-only) {Ruler.Orientation} orientation of the ruler (valid choices are vertical and horizontal).
+    this.orientation = orientation;
 
     // @public {Property.<Vector2>} position of the ruler in view coordinates
     this.positionProperty = new Vector2Property( position );
@@ -30,11 +28,8 @@ class Ruler {
     // @public {number} length of the ruler in centimeters.
     this.length = length;
 
-    // @private {number} keep track of the original length of the ruler
+    // @private (read-only) {number} keep track of the original (unscaled) length of the ruler
     this.nominalLength = length;
-
-    // @public (read-only) {Ruler.Orientation} orientation of the ruler (valid choices are vertical and horizontal).
-    this.orientation = options.orientation;
   }
 
   /**

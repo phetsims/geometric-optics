@@ -106,15 +106,17 @@ class GeometricOpticsModel {
       this.secondTarget
     );
 
-    // @public {Object} rulers for the simulations
-    this.rulers = {
-      horizontal: new Ruler( GeometricOpticsConstants.HORIZONTAL_RULER_INITIAL_POSITION,
-        GeometricOpticsConstants.HORIZONTAL_RULER_LENGTH ),
-      vertical: new Ruler( GeometricOpticsConstants.VERTICAL_RULER_INITIAL_POSITION,
-        GeometricOpticsConstants.VERTICAL_RULER_LENGTH, {
-          orientation: Ruler.Orientation.VERTICAL
-        } )
-    };
+    // @public
+    this.horizontalRuler = new Ruler(
+      Ruler.Orientation.HORIZONTAL,
+      GeometricOpticsConstants.HORIZONTAL_RULER_INITIAL_POSITION,
+      GeometricOpticsConstants.HORIZONTAL_RULER_LENGTH
+    );
+    this.verticalRuler = new Ruler(
+      Ruler.Orientation.VERTICAL,
+      GeometricOpticsConstants.VERTICAL_RULER_INITIAL_POSITION,
+      GeometricOpticsConstants.VERTICAL_RULER_LENGTH
+    );
   }
 
   /**
@@ -128,8 +130,8 @@ class GeometricOpticsModel {
     this.lightRaysTimeProperty.reset();
     this.lightRayModeProperty.reset();
     this.projectorScreen.reset();
-    this.rulers.vertical.reset();
-    this.rulers.horizontal.reset();
+    this.horizontalRuler.reset();
+    this.verticalRuler.reset();
   }
 
   /**

@@ -1,5 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TODO get rid of GeometricOpticRulersLayer, move responsibilities into GeometricOpticsRulerNode
 /**
  * A layer that contains 1 horizontal ruler and 1 vertical ruler
  * Responsible for updating the rulers when zooming
@@ -10,18 +11,23 @@
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
+import Ruler from '../model/Ruler.js';
 import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
 
 class GeometricOpticRulersLayer extends Node {
 
   /**
-   * @param {horizontal: Ruler, vertical:Ruler} rulers - model of rulers
+   * @param {Ruler} horizontalRuler
+   * @param {Ruler} verticalRuler
    * @param {Property.<Bounds2>} visibleBoundsProperty
    * @param {Property.<number>} absoluteScaleProperty
    * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
    * @param {Object} [options]
    */
-  constructor( rulers, visibleBoundsProperty, absoluteScaleProperty, modelViewTransformProperty, options ) {
+  constructor( horizontalRuler, verticalRuler, visibleBoundsProperty, absoluteScaleProperty, modelViewTransformProperty, options ) {
+
+    assert && assert( horizontalRuler instanceof Ruler );
+    assert && assert( verticalRuler instanceof Ruler );
 
     super( options );
 
@@ -31,13 +37,14 @@ class GeometricOpticRulersLayer extends Node {
       Number.POSITIVE_INFINITY,
       Number.POSITIVE_INFINITY );
 
+    //TODO creating a new GeometricOpticsRulerNode each time the scale changes will be a problem for PhET-iO, why not just scale the ruler Node?
     /**
      * Returns a GeometricOpticsRulerNode
      * @param {Ruler} ruler
      * @param {number} absoluteScale
      * @returns {GeometricOpticsRulerNode}
      */
-    const getGeometricOpticsRulerNode = ( ruler, absoluteScale ) => {
+    const createRulerNode = ( ruler, absoluteScale ) => {
 
       const rulerOptions = getOptions( ruler, absoluteScale );
 
@@ -85,10 +92,10 @@ class GeometricOpticRulersLayer extends Node {
     };
 
     // @private {GeometricOpticsRulerNode} create the horizontal GeometricRulerNode
-    this.horizontalRulerNode = getGeometricOpticsRulerNode( rulers.horizontal, absoluteScaleProperty.value );
+    this.horizontalRulerNode = createRulerNode( horizontalRuler, absoluteScaleProperty.value );
 
     // @private {GeometricOpticsRulerNode} create the vertical GeometricRulerNode
-    this.verticalRulerNode = getGeometricOpticsRulerNode( rulers.vertical, absoluteScaleProperty.value );
+    this.verticalRulerNode = createRulerNode( verticalRuler, absoluteScaleProperty.value );
 
     // add both ruler to this layer
     this.addChild( this.horizontalRulerNode );
