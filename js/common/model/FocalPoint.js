@@ -7,7 +7,9 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import geometricOptics from '../../geometricOptics.js';
 
 class FocalPoint {
@@ -18,6 +20,9 @@ class FocalPoint {
    * @param {Object} [options]
    */
   constructor( opticPositionProperty, focalLengthProperty, options ) {
+
+    assert && AssertUtils.assertPropertyOf( opticPositionProperty, Vector2 );
+    assert && AssertUtils.assertPropertyOf( focalLengthProperty, 'number' );
 
     options = merge( {
       multiplicativeFactor: 1

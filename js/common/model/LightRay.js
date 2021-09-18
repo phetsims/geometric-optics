@@ -13,8 +13,10 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
+import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import Optic from './Optic.js';
 import Ray from './Ray.js';
 
 class LightRay {
@@ -31,6 +33,15 @@ class LightRay {
    */
   constructor( initialRay, time, optic, targetPoint, isVirtual, isPrincipalRayMode, isProjectorScreenPresent,
                getProjectorScreenBisectorLine ) {
+
+    assert && assert( initialRay instanceof Ray );
+    assert && AssertUtils.assertNonNegativeNumber( time );
+    assert && assert( optic instanceof Optic );
+    assert && assert( targetPoint instanceof Vector2 );
+    assert && assert( typeof isVirtual === 'boolean' );
+    assert && assert( typeof isPrincipalRayMode === 'boolean' );
+    assert && assert( typeof isProjectorScreenPresent === 'boolean' );
+    assert && assert( typeof getProjectorScreenBisectorLine === 'function' );
 
     // @public (read-only) - shape of the real rays - will be updated later
     this.realShape = new Shape();
