@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Model for a focal point, which has a position
+ * FocalPoint is the model for a focal point, which has a position relative to an optic (lens or mirror).
  *
  * @author Martin Veillette
  */
