@@ -1,9 +1,11 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Scenery node for a label that appears below each element in the simulation when toggled.
+ * LabelNode renders a label below something of interest in the user interface. It is responsible for adjusting its
+ * position when that something's position changes.
  *
  * @author Sarah Chang (Swarthmore College)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Property from '../../../../axon/js/Property.js';
