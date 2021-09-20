@@ -18,15 +18,14 @@ import Line from '../../../../scenery/js/nodes/Line.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Panel from '../../../../sun/js/Panel.js';
-import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
-import LightRayMode from '../model/LightRayMode.js';
 import Optic from '../model/Optic.js';
 import FocalPointNode from './FocalPointNode.js';
+import RayModeRadioButtonGroup from './RayModeRadioButtonGroup.js';
 import SecondSourceNode from './SecondSourceNode.js';
 import VisibleProperties from './VisibleProperties.js';
 
@@ -49,30 +48,6 @@ class GeometricOpticsControlPanel extends Panel {
     options = merge( {
       hasLens: false
     }, options );
-
-    /**
-     * create an item for the Radio Button Group
-     * @param {LightRayMode} mode
-     * @param {string} string
-     * @returns {{node: Text, value: LightRayMode}} item
-     */
-    const createRayModeRadioButtonGroupItem = ( mode, string ) => {
-      return {
-        value: mode,
-        node: new Text( string, {
-          font: GeometricOpticsConstants.CONTROL_FONT,
-          maxWidth: 100
-        } )
-      };
-    };
-
-    // items for ray Mode radio buttons
-    const rayModeRadioButtonGroupItems = [
-      createRayModeRadioButtonGroupItem( LightRayMode.MARGINAL, geometricOpticsStrings.marginal ),
-      createRayModeRadioButtonGroupItem( LightRayMode.PRINCIPAL, geometricOpticsStrings.principal ),
-      createRayModeRadioButtonGroupItem( LightRayMode.MANY, geometricOpticsStrings.many ),
-      createRayModeRadioButtonGroupItem( LightRayMode.NONE, geometricOpticsStrings.none )
-    ];
 
     // options common to all number controls
     const commonNumberControlOptions = {
@@ -145,15 +120,7 @@ class GeometricOpticsControlPanel extends Panel {
     } );
 
     // create button radio group for the light ray mode
-    const rayModeRadioButtonGroup = new VerticalAquaRadioButtonGroup(
-      lightRayModeProperty,
-      rayModeRadioButtonGroupItems, {
-        spacing: 4,
-        align: 'left',
-        radioButtonOptions: { radius: 7 },
-        touchAreaXDilation: 10,
-        mouseAreaXDilation: 10
-      } );
+    const rayModeRadioButtonGroup = new RayModeRadioButtonGroup( lightRayModeProperty );
 
     // create vertical box for ray modes
     const rayModesBox = new VBox( {
