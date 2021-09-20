@@ -360,7 +360,7 @@ class LightRay {
       const virtualRay = new Ray( lastRay.position, lastRay.direction.negated() );
 
       // ensure that the virtual ray is along the target point
-      if ( virtualRay.isPointAlongRay( targetPoint, 1e-4 ) ) {
+      if ( virtualRay.isPointAlongRay( targetPoint ) ) {
 
         // set the target point to assign the length of ray
         virtualRay.setFinalPoint( targetPoint );

@@ -23,6 +23,11 @@ class OpticShapes {
    */
   constructor( type, curve, radiusOfCurvature, diameter, options ) {
 
+    assert && assert( Optic.Type.includes( type ) );
+    assert && assert( Optic.Curve.includes( curve ) );
+    assert && assert( typeof radiusOfCurvature === 'number' && isFinite( radiusOfCurvature ) && radiusOfCurvature > 0 );
+    assert && assert( typeof diameter === 'number' && isFinite( diameter ) && diameter > 0 );
+
     // @public (read-only) {Shape|null} these are initialized by setLensShapes or setMirrorShapes
     this.frontShape = null; // the left facing contour of the optic. This can be used for ray hit testing
     this.backShape = null; // the right facing contour of the optic. Used for ray hit testing. null for mirror.
@@ -154,9 +159,7 @@ class OpticShapes {
    * @param {Object} [options]
    */
   setMirrorShapes( curve, radiusOfCurvature, diameter, options ) {
-
-    assert && assert( radiusOfCurvature > diameter / 2,
-      'the radius of curvature is too small when compared to the diameter' );
+    assert && assert( radiusOfCurvature > diameter / 2 );
 
     options = merge( {
       thickness: 5 // horizontal separation between the two edges of the surfaces at the middle part
