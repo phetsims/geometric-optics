@@ -16,10 +16,14 @@ import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
+import Range from '../../../../dot/js/Range.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
 import geometricOptics from '../../geometricOptics.js';
 import OpticShapes from './OpticShapes.js';
+
+// constants
+const NORMALIZED_VALUE_RANGE = new Range( 0, 1 );
 
 class Optic {
 
@@ -33,9 +37,12 @@ class Optic {
    */
   constructor( initialPosition, radiusOfCurvatureRange, diameterRange, indexOfRefractionRange, curve, type ) {
 
-    assert && assert( initialPosition instanceof Vector2, 'invalid initialPosition' );
-    assert && assert( radiusOfCurvatureRange instanceof RangeWithValue, 'invalid radiusOfCurvature' );
-    assert && assert( diameterRange instanceof RangeWithValue, 'invalid diameterRange' );
+    assert && assert( initialPosition instanceof Vector2 );
+    assert && assert( radiusOfCurvatureRange instanceof RangeWithValue );
+    assert && assert( diameterRange instanceof RangeWithValue );
+    assert && assert( indexOfRefractionRange instanceof RangeWithValue );
+    assert && assert( Optic.Curve.includes( curve ) );
+    assert && assert( Optic.Type.includes( type ) );
 
     // @private {RangeWithValue}
     this.maxDiameter = diameterRange.max;
@@ -58,6 +65,7 @@ class Optic {
       range: indexOfRefractionRange
     } );
 
+    //TODO rename curveProperty
     // @public {Property.<Optic.Curve>} Type of Curvature of the optical element.
     this.curveProperty = new EnumerationProperty( Optic.Curve, curve );
 
@@ -115,6 +123,7 @@ class Optic {
    * @param {number} yCoordinate
    */
   setVerticalCoordinate( yCoordinate ) {
+    assert && assert( typeof yCoordinate === 'number' && isFinite( yCoordinate ) );
     this.positionProperty.value = new Vector2( this.positionProperty.value.x, yCoordinate );
   }
 
@@ -124,7 +133,7 @@ class Optic {
    * @returns {boolean}
    */
   isLens() {
-    return this.type === Optic.Type.LENS;
+    return ( this.type === Optic.Type.LENS );
   }
 
   /**
@@ -133,7 +142,7 @@ class Optic {
    * @returns {boolean}
    */
   isMirror() {
-    return this.type === Optic.Type.MIRROR;
+    return ( this.type === Optic.Type.MIRROR );
   }
 
   /**
@@ -143,7 +152,8 @@ class Optic {
    * @returns {boolean}
    */
   isConcave( curve ) {
-    return curve === Optic.Curve.CONCAVE;
+    assert && assert( Optic.Curve.includes( curve ) );
+    return ( curve === Optic.Curve.CONCAVE );
   }
 
   /**
@@ -153,7 +163,8 @@ class Optic {
    * @returns {boolean}
    */
   isConvex( curve ) {
-    return curve === Optic.Curve.CONVEX;
+    assert && assert( Optic.Curve.includes( curve ) );
+    return ( curve === Optic.Curve.CONVEX );
   }
 
   /**
@@ -165,6 +176,7 @@ class Optic {
    * @returns {boolean}
    */
   isConverging( curve ) {
+    assert && assert( Optic.Curve.includes( curve ) );
     return ( this.isConvex( curve ) && this.isLens() ) || ( this.isConcave( curve ) && this.isMirror() );
   }
 
@@ -175,6 +187,7 @@ class Optic {
    * @returns {boolean}
    */
   isDiverging( curve ) {
+    assert && assert( Optic.Curve.includes( curve ) );
     return !this.isConverging( curve );
   }
 
@@ -186,6 +199,7 @@ class Optic {
    * @returns {number}
    */
   getConvergingSign( curve ) {
+    assert && assert( Optic.Curve.includes( curve ) );
     return this.isConverging( curve ) ? 1 : -1;
   }
 
@@ -197,6 +211,7 @@ class Optic {
    * @returns {number}
    */
   getCurveSign( curve ) {
+    assert && assert( Optic.Curve.includes( curve ) );
     return this.isConvex( curve ) ? 1 : -1;
   }
 
@@ -235,7 +250,10 @@ class Optic {
    * @returns {number}
    */
   getNormalizedDiameter( diameter ) {
-    return diameter / this.maxDiameter;
+    assert && assert( typeof diameter === 'number' && diameter > 0 );
+    const normalizedDiameter = diameter / this.maxDiameter;
+    assert && assert( NORMALIZED_VALUE_RANGE.contains( normalizedDiameter ) );
+    return normalizedDiameter;
   }
 
   /**
@@ -245,6 +263,7 @@ class Optic {
    * @returns {Shape}
    */
   translatedShape( shape ) {
+    assert && assert( shape instanceof Shape );
     return shape.transformed( Matrix3.translationFromVector( this.getPosition() ) );
   }
 
@@ -263,17 +282,16 @@ class Optic {
   /**
    * Returns a normalized value (between 0 and 1) for the index of refraction
    * @public
-   * @param {number} index - index of refraction
+   * @param {number} indexOfRefraction - index of refraction
    * @returns {number}
    */
-  getNormalizedIndex( index ) {
-    if ( this.isLens() ) {
-      return this.indexOfRefractionProperty.range.getNormalizedValue( index );
-    }
-    else {
-      //TODO hardcoded value!
-      return 1; // return the maximum value for mirror
-    }
+  getNormalizedIndex( indexOfRefraction ) {
+    assert && assert( indexOfRefraction );
+    const normalizedIndex = this.isLens() ?
+                            this.indexOfRefractionProperty.range.getNormalizedValue( indexOfRefraction ) :
+                            NORMALIZED_VALUE_RANGE.max;
+    assert && assert( NORMALIZED_VALUE_RANGE.contains( normalizedIndex ) );
+    return normalizedIndex;
   }
 
   /**
@@ -304,6 +322,9 @@ class Optic {
    * @returns {Vector2}
    */
   getExtremumPoint( sourcePoint, targetPoint, options ) {
+    assert && assert( sourcePoint instanceof Vector2 );
+    assert && assert( targetPoint instanceof Vector2 );
+
     options = merge( {
       location: Optic.Location.TOP
     }, options );
@@ -363,11 +384,13 @@ class Optic {
   }
 }
 
+//TODO rename to OpticType
 Optic.Type = Enumeration.byKeys( [
   'LENS', // lens
   'MIRROR' // mirror
 ] );
 
+//TODO rename to CurveType
 Optic.Curve = Enumeration.byKeys( [
   'CONVEX',
   'CONCAVE'

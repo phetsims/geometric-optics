@@ -35,9 +35,12 @@ class GeometricOpticsModel {
    */
   constructor( opticPosition, radiusOfCurvatureRange, diameterRange, indexOfRefractionRange, curve, type ) {
 
-    assert && assert( opticPosition instanceof Vector2, 'invalid position' );
-    assert && assert( radiusOfCurvatureRange instanceof RangeWithValue, 'invalid radiusOfCurvature' );
-    assert && assert( diameterRange instanceof RangeWithValue, 'invalid diameterRange' );
+    assert && assert( opticPosition instanceof Vector2 );
+    assert && assert( radiusOfCurvatureRange instanceof RangeWithValue );
+    assert && assert( diameterRange instanceof RangeWithValue );
+    assert && assert( indexOfRefractionRange instanceof RangeWithValue );
+    assert && assert( Optic.Curve.includes( curve ) );
+    assert && assert( Optic.Type.includes( type ) );
 
     // @public {Property.<Representation>}  representation of the source/object
     //TODO for Mirror screen, Representation.LIGHT is not a valid value
