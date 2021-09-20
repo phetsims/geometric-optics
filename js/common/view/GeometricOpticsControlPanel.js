@@ -197,6 +197,7 @@ class GeometricOpticsControlPanel extends Panel {
       createCheckboxGroupItem( geometricOpticsStrings.guides, visibleProperties.guidesVisibleProperty )
     ];
 
+    //TODO this will be problematic for PhET-iO, better to not create it if it's not needed.
     // remove guides checkbox for mirror  or because of query parameters
     if ( !options.hasLens || GeometricOpticsQueryParameters.showGuides === false ) {
       checkboxGroupItems.pop();
