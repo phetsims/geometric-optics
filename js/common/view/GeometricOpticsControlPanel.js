@@ -1,8 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Main control panel for the optical element properties, visibility checkboxes  and the light rays mode
- * Appears at the bottom of the simulation
+ * GeometricOpticsControlPanel is the main control panel for both screens.
  *
  * @author Martin Veillette
  */
@@ -14,19 +13,16 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
-import Line from '../../../../scenery/js/nodes/Line.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Panel from '../../../../sun/js/Panel.js';
-import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
+import VSeparator from '../../../../sun/js/VSeparator.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
 import Optic from '../model/Optic.js';
-import FocalPointNode from './FocalPointNode.js';
 import RayModeRadioButtonGroup from './RayModeRadioButtonGroup.js';
-import SecondSourceNode from './SecondSourceNode.js';
+import VisibilityCheckboxGroup from './VisibilityCheckboxGroup.js';
 import VisibleProperties from './VisibleProperties.js';
 
 // constants
@@ -133,72 +129,17 @@ class GeometricOpticsControlPanel extends Panel {
 
     // Visibility checkboxes ---------------------------------------------------------------------------------------
 
-    /**
-     * create a checkbox Group item
-     * @param {string} string
-     * @param {Property} property
-     * @param {Object} [options]
-     * @returns {{node: Node, property: Property }} item
-     */
-    const createCheckboxGroupItem = ( string, property, options ) => {
-      options = merge( {
-        icon: null // {null|Node}
-      }, options );
+    const checkboxGroup = new VisibilityCheckboxGroup( visibleProperties, optic.type );
 
-      // text for the checkbox
-      const text = new Text( string, {
-        font: GeometricOpticsConstants.CONTROL_FONT,
-        maxWidth: 100
-      } );
-
-      // create HBox if icon is present, otherwise merely attach text
-      const node = ( options.icon ) ? new HBox( { children: [ text, options.icon ], spacing: 8 } ) : text;
-
-      return {
-        node: node,
-        property: property
-      };
-    };
-
-    // create focal point icon
-    const focalPointIcon = FocalPointNode.createIcon( { stroke: 'black' } );
-
-    // create second source point icon
-    const secondSourcePointIcon = SecondSourceNode.createIcon();
-
-    // create checkbox group for visibility settings
-    const checkboxGroupItems = [
-      createCheckboxGroupItem( geometricOpticsStrings.focalPoint, visibleProperties.focalPointVisibleProperty,
-        { icon: focalPointIcon } ),
-      createCheckboxGroupItem( geometricOpticsStrings.virtualImage, visibleProperties.virtualImageVisibleProperty ),
-      createCheckboxGroupItem( geometricOpticsStrings.labels, visibleProperties.labelsVisibleProperty ),
-      createCheckboxGroupItem( geometricOpticsStrings.secondSource, visibleProperties.secondSourceVisibleProperty,
-        { icon: secondSourcePointIcon } ),
-      createCheckboxGroupItem( geometricOpticsStrings.guides, visibleProperties.guidesVisibleProperty )
-    ];
-
-    //TODO this will be problematic for PhET-iO, better to not create it if it's not needed.
-    // remove guides checkbox for mirror or because of query parameters
-    if ( optic.type === Optic.Type.MIRROR || GeometricOpticsQueryParameters.showGuides === false ) {
-      checkboxGroupItems.pop();
-
-      // ensure that the guides are invisible as well
-      visibleProperties.guidesVisibleProperty.value = false;
-    }
-
-    // create check box group
-    const checkboxGroup = new VerticalCheckboxGroup( checkboxGroupItems, {
-      spacing: 4,
-      checkboxOptions: { boxWidth: 14 }
-    } );
+    // Put it all together ---------------------------------------------------------------------------------------
 
     // length of vertical line should be the height of the tallest control panel element
     const verticalSeparatorLength = Math.max( checkboxGroup.height, rayModesBox.height );
 
     // create vertical lines to separate control panel elements
-    const lineOptions = { stroke: 'gray', lineWidth: 1 };
-    const leftSeparator = new Line( 0, 0, 0, verticalSeparatorLength, lineOptions );
-    const rightSeparator = new Line( 0, 0, 0, verticalSeparatorLength, lineOptions );
+    const separatorOptions = { stroke: 'gray', lineWidth: 1 };
+    const leftSeparator = new VSeparator( verticalSeparatorLength, separatorOptions );
+    const rightSeparator = new VSeparator( verticalSeparatorLength, separatorOptions );
 
     // add all elements of the panel in a horizontal HBox
     const content = new AlignBox( new HBox( {
