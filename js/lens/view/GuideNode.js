@@ -1,6 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-import Property from '../../../../axon/js/Property.js';
 /**
  * View element for the guides at both ends of the lens
  *
@@ -20,14 +19,12 @@ class GuideNode extends Node {
 
   /**
    * @param {Guide} guide
-   * @param {Property.<boolean>} visibleProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( guide, visibleProperty, modelViewTransform, options ) {
+  constructor( guide, modelViewTransform, options ) {
 
     assert && assert( guide instanceof Guide );
-    assert && assert( visibleProperty instanceof Property );
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     options = merge( {
@@ -41,7 +38,7 @@ class GuideNode extends Node {
       }
     }, options );
 
-    super();
+    super( options );
 
     // width and height of the guide rectangles
     const viewRectangleWidth = modelViewTransform.modelToViewDeltaX( GeometricOpticsConstants.GUIDE_RECTANGLE_WIDTH );
@@ -123,9 +120,6 @@ class GuideNode extends Node {
     this.addChild( incidentRectangle );
     this.addChild( transmittedRectangle );
     this.addChild( fulcrumCircle );
-
-    // update guides visibility based on checkbox
-    visibleProperty.linkAttribute( this, 'visible' );
   }
 }
 

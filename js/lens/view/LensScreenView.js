@@ -22,26 +22,33 @@ class LensScreenView extends GeometricOpticsScreenView {
     super( model );
 
     // {DerivedProperty.<boolean>} visibility of the first guides (associated with the object)
-    const visibleFirstGuidesProperty = new DerivedProperty(
+    const firstGuidesVisibleProperty = new DerivedProperty(
       [ this.visibleProperties.guidesVisibleProperty, this.visibleProperties.secondSourceVisibleProperty ],
-      ( visibleGuides, visibleSecondSource ) => ( visibleGuides && !visibleSecondSource )
+      ( visibleGuides, secondSourceVisible ) => ( visibleGuides && !secondSourceVisible )
     );
 
-    // {DerivedProperty.<boolean>} visiblity of the second guides (associated with the second source)
-    const visibleSecondGuidesProperty = DerivedProperty.and(
+    // {DerivedProperty.<boolean>} visibility of the second guides (associated with the second source)
+    const secondGuidesVisibleProperty = DerivedProperty.and(
       [ this.visibleProperties.guidesVisibleProperty, this.visibleProperties.secondSourceVisibleProperty ]
     );
 
     // create and add top and bottom guides associated with the object
-    const firstTopGuideNode = new GuideNode( model.firstTopGuide, visibleFirstGuidesProperty, this.modelViewTransform );
-    const firstBottomGuideNode = new GuideNode( model.firstBottomGuide, visibleFirstGuidesProperty, this.modelViewTransform );
-
+    const firstTopGuideNode = new GuideNode( model.firstTopGuide, this.modelViewTransform, {
+      visibleProperty: firstGuidesVisibleProperty
+    } );
+    const firstBottomGuideNode = new GuideNode( model.firstBottomGuide, this.modelViewTransform, {
+      visibleProperty: firstGuidesVisibleProperty
+    } );
     this.playAreaNode.addChild( firstBottomGuideNode );
     this.playAreaNode.addChild( firstTopGuideNode );
 
     // create and add top and bottom guides associated with the second source
-    const secondTopGuideNode = new GuideNode( model.secondTopGuide, visibleSecondGuidesProperty, this.modelViewTransform );
-    const secondBottomGuideNode = new GuideNode( model.secondBottomGuide, visibleSecondGuidesProperty, this.modelViewTransform );
+    const secondTopGuideNode = new GuideNode( model.secondTopGuide, this.modelViewTransform, {
+      visibleProperty: secondGuidesVisibleProperty
+    } );
+    const secondBottomGuideNode = new GuideNode( model.secondBottomGuide, this.modelViewTransform, {
+      visibleProperty: secondGuidesVisibleProperty
+    } );
     this.playAreaNode.addChild( secondBottomGuideNode );
     this.playAreaNode.addChild( secondTopGuideNode );
 
