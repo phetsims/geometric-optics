@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Common screen view for the simulation
+ * GeometricOpticsScreenView is the common ScreenView for this simulation.
  *
  * @author Martin Veillette
  */
@@ -49,7 +49,7 @@ class GeometricOpticsScreenView extends ScreenView {
    * @param {GeometricOpticsModel} model
    */
   constructor( model ) {
-    assert && assert( model instanceof GeometricOpticsModel, 'invalid model' );
+    assert && assert( model instanceof GeometricOpticsModel );
 
     super();
 
@@ -69,14 +69,14 @@ class GeometricOpticsScreenView extends ScreenView {
     // @protected create a Y inverted modelViewTransform with isometric scaling along X and Y
     this.modelViewTransform = this.getModelViewTransformForZoomLevel( ZOOM_RANGE.defaultValue );
 
-    // @protected {DerivedProperty.<ModelViewTransform2>} modelViewTransform
-    this.zoomModelViewTransformProperty = new DerivedProperty(
+    // {DerivedProperty.<ModelViewTransform2>} modelViewTransform
+    const zoomModelViewTransformProperty = new DerivedProperty(
       [ this.zoomLevelProperty ],
       zoomLevel => this.getModelViewTransformForZoomLevel( zoomLevel )
     );
 
-    // @protected {DerivedProperty.<number>} zoom scale associate with the zoom level
-    this.absoluteScaleProperty = new DerivedProperty(
+    // {DerivedProperty.<number>} zoom scale associate with the zoom level
+    const absoluteScaleProperty = new DerivedProperty(
       [ this.zoomLevelProperty ],
       zoomLevel => this.getAbsoluteScale( zoomLevel )
     );
@@ -89,8 +89,8 @@ class GeometricOpticsScreenView extends ScreenView {
       model.horizontalRuler,
       model.verticalRuler,
       this.visibleBoundsProperty,
-      this.absoluteScaleProperty,
-      this.zoomModelViewTransformProperty
+      absoluteScaleProperty,
+      zoomModelViewTransformProperty
     );
 
     // create control panel at the bottom of the screen
@@ -152,7 +152,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // @protected {DerivedProperty.<Bounds2>} playAreaModelBoundsProperty
     this.playAreaModelBoundsProperty = new DerivedProperty(
-      [ this.visibleBoundsProperty, this.zoomModelViewTransformProperty ],
+      [ this.visibleBoundsProperty, zoomModelViewTransformProperty ],
       ( visibleBounds, zoomModelViewTransform ) => {
         const playAreaBounds = new Bounds2( visibleBounds.minX, 0,
           visibleBounds.maxX, controlPanel.top );
@@ -271,7 +271,7 @@ class GeometricOpticsScreenView extends ScreenView {
       } );
 
     // labels
-    const labelsNode = new LabelsNode( model, this.visibleProperties, this.zoomModelViewTransformProperty,
+    const labelsNode = new LabelsNode( model, this.visibleProperties, zoomModelViewTransformProperty,
       this.zoomLevelProperty );
 
     // add playAreaNode and controls to the scene graph
@@ -313,6 +313,9 @@ class GeometricOpticsScreenView extends ScreenView {
       this.playAreaNode.addChild( new TrackingDiskNode( plus2fPoint.positionProperty, this.modelViewTransform,
         { fill: 'black' } ) );
     }
+
+    // @private
+    this.absoluteScaleProperty = absoluteScaleProperty;
   }
 
   /**
