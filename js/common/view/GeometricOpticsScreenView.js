@@ -94,11 +94,11 @@ class GeometricOpticsScreenView extends ScreenView {
     );
 
     // create control panel at the bottom of the screen
-    const geometricOpticsControlPanel = new GeometricOpticsControlPanel( model.optic,
+    const controlPanel = new GeometricOpticsControlPanel( model.optic,
       model.lightRayModeProperty, this.visibleProperties, this.modelViewTransform, {
         hasLens: model.optic.isLens()
       } );
-    geometricOpticsControlPanel.centerBottom = erodedLayoutBounds.centerBottom;
+    controlPanel.centerBottom = erodedLayoutBounds.centerBottom;
 
     // create toolbox panel at the top right corner of the screen
     const toolboxPanel = new RulersToolboxPanel( this.rulersLayer );
@@ -109,7 +109,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // create the control buttons to toggle between convex and concave optic at the left bottom
     const curveControl = new CurveControl( model.optic );
-    curveControl.rightCenter = geometricOpticsControlPanel.leftCenter.minusXY( 20, 0 );
+    curveControl.rightCenter = controlPanel.leftCenter.minusXY( 20, 0 );
 
     // Parent for any popups
     const popupsParent = new Node();
@@ -120,7 +120,7 @@ class GeometricOpticsScreenView extends ScreenView {
     } );
 
     // create magnifying buttons for zooming in and out at the left top
-    const magnifyingGlassZoomButtonGroup = new MagnifyingGlassZoomButtonGroup( this.zoomLevelProperty, {
+    const zoomButtonGroup = new MagnifyingGlassZoomButtonGroup( this.zoomLevelProperty, {
       orientation: 'horizontal',
       spacing: 8,
       magnifyingGlassNodeOptions: {
@@ -131,7 +131,7 @@ class GeometricOpticsScreenView extends ScreenView {
         yMargin: 4
       }
     } );
-    magnifyingGlassZoomButtonGroup.leftTop = erodedLayoutBounds.leftTop;
+    zoomButtonGroup.leftTop = erodedLayoutBounds.leftTop;
 
     // create reset all button at the right bottom
     const resetAllButton = new ResetAllButton( {
@@ -146,7 +146,7 @@ class GeometricOpticsScreenView extends ScreenView {
     // create the show/hide eye toggle button above the reset all button
     const showHideToggleButton = new ShowHideToggleButton( this.visibleProperties.rayTracingVisibleProperty );
     showHideToggleButton.centerX = resetAllButton.centerX;
-    showHideToggleButton.top = geometricOpticsControlPanel.top;
+    showHideToggleButton.top = controlPanel.top;
 
     //-------------------------------------------------------------------
 
@@ -155,7 +155,7 @@ class GeometricOpticsScreenView extends ScreenView {
       [ this.visibleBoundsProperty, this.zoomModelViewTransformProperty ],
       ( visibleBounds, zoomModelViewTransform ) => {
         const playAreaBounds = new Bounds2( visibleBounds.minX, 0,
-          visibleBounds.maxX, geometricOpticsControlPanel.top );
+          visibleBounds.maxX, controlPanel.top );
         return zoomModelViewTransform.viewToModelBounds( playAreaBounds );
       } );
 
@@ -276,12 +276,12 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // add playAreaNode and controls to the scene graph
     this.addChild( curveControl );
-    this.addChild( geometricOpticsControlPanel );
+    this.addChild( controlPanel );
     this.addChild( showHideToggleButton );
     this.addChild( resetAllButton );
     this.addChild( this.playAreaNode );
     this.addChild( toolboxPanel );
-    this.addChild( magnifyingGlassZoomButtonGroup );
+    this.addChild( zoomButtonGroup );
     this.addChild( representationComboBox );
     this.addChild( labelsNode );
     this.addChild( this.rulersLayer );
