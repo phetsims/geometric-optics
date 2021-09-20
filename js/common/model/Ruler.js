@@ -23,7 +23,7 @@ class Ruler {
     assert && assert( position instanceof Vector2 );
     assert && assert( typeof length === 'number' && isFinite( length ) && length > 0 );
 
-    // @public (read-only) {Ruler.Orientation} orientation of the ruler (valid choices are vertical and horizontal).
+    // @public (read-only) {Ruler.Orientation} orientation of the ruler
     this.orientation = orientation;
 
     // @public {Property.<Vector2>} position of the ruler in view coordinates
@@ -45,7 +45,7 @@ class Ruler {
   }
 
   /**
-   * Sets the length of the ruler based on multiplicative factor of absoluteScale
+   * Sets the length of the ruler based on multiplicative factor of absoluteScale.
    * @public
    * @param {number} absoluteScale
    */
@@ -55,21 +55,12 @@ class Ruler {
   }
 
   /**
-   * Is the ruler horizontal
-   * @public
-   * @returns {boolean}
-   */
-  isHorizontal() {
-    return this.orientation === Ruler.Orientation.HORIZONTAL;
-  }
-
-  /**
-   * Is the ruler vertical
+   * Is the ruler vertical?
    * @public
    * @returns {boolean}
    */
   isVertical() {
-    return this.orientation === Ruler.Orientation.VERTICAL;
+    return ( this.orientation === Ruler.Orientation.VERTICAL );
   }
 }
 
