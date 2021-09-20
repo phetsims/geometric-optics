@@ -32,8 +32,10 @@ class GeometricOpticsModel {
    * @param {RangeWithValue} radiusOfCurvatureRange - range of radius of curvature (in centimeters)
    * @param {RangeWithValue} diameterRange - range of height for optical element (in centimeters)
    * @param {RangeWithValue} indexOfRefractionRange
+   * @param {Representation[]} [representations] - representations that are supported
    */
-  constructor( type, curve, opticPosition, radiusOfCurvatureRange, diameterRange, indexOfRefractionRange ) {
+  constructor( type, curve, opticPosition, radiusOfCurvatureRange, diameterRange, indexOfRefractionRange,
+               representations = Representation.VALUES ) {
 
     assert && assert( Optic.Type.includes( type ) );
     assert && assert( Optic.Curve.includes( curve ) );
@@ -41,10 +43,12 @@ class GeometricOpticsModel {
     assert && assert( radiusOfCurvatureRange instanceof RangeWithValue );
     assert && assert( diameterRange instanceof RangeWithValue );
     assert && assert( indexOfRefractionRange instanceof RangeWithValue );
+    assert && assert( Array.isArray( representations ) );
 
     // @public {Property.<Representation>}  representation of the source/object
-    //TODO for Mirror screen, Representation.LIGHT is not a valid value
-    this.representationProperty = new EnumerationProperty( Representation, Representation.PENCIL );
+    this.representationProperty = new EnumerationProperty( Representation, Representation.PENCIL, {
+      validValues: representations
+    } );
 
     // @public {Optic} - model of the optic
     this.optic = new Optic( type, curve, opticPosition, radiusOfCurvatureRange, diameterRange, indexOfRefractionRange );

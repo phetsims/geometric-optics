@@ -112,9 +112,7 @@ class GeometricOpticsScreenView extends ScreenView {
     curveControl.rightCenter = geometricOpticsControlPanel.leftCenter.minusXY( 20, 0 );
 
     // create the combo box at the center top of the screen
-    const comboBox = new RepresentationComboBox( model.representationProperty, {
-      hasLens: model.optic.isLens()
-    } );
+    const comboBox = new RepresentationComboBox( model.representationProperty );
     comboBox.centerTop = erodedLayoutBounds.centerTop;
 
     // create magnifying buttons for zooming in and out at the left top
