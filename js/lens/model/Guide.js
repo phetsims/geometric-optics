@@ -7,8 +7,10 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
+import Optic from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 
 class Guide {
@@ -19,6 +21,9 @@ class Guide {
    * @param {Object} [options]
    */
   constructor( objectPositionProperty, optic, options ) {
+
+    assert && assert( objectPositionProperty instanceof Property );
+    assert && assert( optic instanceof Optic );
 
     options = merge( {
       location: Guide.Location.TOP

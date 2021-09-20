@@ -6,6 +6,7 @@
  * @author Martin Veillette
  */
 
+import Property from '../../../../axon/js/Property.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Line from '../../../../kite/js/segments/Line.js';
@@ -29,6 +30,11 @@ class ProjectorScreen {
   constructor( firstSourcePositionProperty, secondSourcePositionProperty,
                firstTargetPositionProperty, secondTargetPositionProperty,
                optic ) {
+
+    assert && assert( firstSourcePositionProperty instanceof Property );
+    assert && assert( secondSourcePositionProperty instanceof Property );
+    assert && assert( firstTargetPositionProperty instanceof Property );
+    assert && assert( secondTargetPositionProperty instanceof Property );
 
     // @public {Property.<Vector2>} position of the center of the screen
     this.positionProperty = new Vector2Property( GeometricOpticsConstants.PROJECTOR_INITIAL_POSITION );

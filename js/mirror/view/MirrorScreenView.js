@@ -14,7 +14,7 @@ class MirrorScreenView extends GeometricOpticsScreenView {
    * @param {MirrorModel} model
    */
   constructor( model ) {
-    assert && assert( model instanceof MirrorModel, 'invalid model' );
+    assert && assert( model instanceof MirrorModel );
     super( model );
   }
 }

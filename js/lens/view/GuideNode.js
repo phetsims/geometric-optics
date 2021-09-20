@@ -1,5 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
+import Property from '../../../../axon/js/Property.js';
 /**
  * View element for the guides at both ends of the lens
  *
@@ -7,11 +8,13 @@
  */
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import geometricOptics from '../../geometricOptics.js';
+import Guide from '../model/Guide.js';
 
 class GuideNode extends Node {
 
@@ -22,6 +25,10 @@ class GuideNode extends Node {
    * @param {Object} [options]
    */
   constructor( guide, visibleProperty, modelViewTransform, options ) {
+
+    assert && assert( guide instanceof Guide );
+    assert && assert( visibleProperty instanceof Property );
+    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     options = merge( {
       rectangle: {
@@ -54,6 +61,9 @@ class GuideNode extends Node {
      * @param {number} angle - "model" angle of the rectangle, measured from the positive x -axis
      */
     const setRectanglePosition = ( rectangleNode, viewFulcrumPosition, angle ) => {
+      assert && assert( rectangleNode instanceof Node );
+      assert && assert( viewFulcrumPosition instanceof Vector2 );
+      assert && assert( typeof angle === 'number' && isFinite( angle ) );
 
       // y-inverted modelViewTransform
       const viewAngle = -angle;
@@ -79,6 +89,9 @@ class GuideNode extends Node {
      * @param {Rectangle} rectangle - incident or transmitted rectangle to be rotated and positioned
      */
     const setAnglePosition = ( angle, oldAngle, rectangle ) => {
+      assert && assert( typeof angle === 'number' && isFinite( angle ) );
+      assert && assert( oldAngle === null || ( typeof oldAngle === 'number' && isFinite( oldAngle ) ) );
+      assert && assert( rectangle instanceof Rectangle );
 
       // for first angle
       if ( oldAngle === null ) {

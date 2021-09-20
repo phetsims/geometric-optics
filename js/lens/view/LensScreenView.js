@@ -17,7 +17,7 @@ class LensScreenView extends GeometricOpticsScreenView {
    * @param {LensModel} model
    */
   constructor( model ) {
-    assert && assert( model instanceof LensModel, 'invalid model' );
+    assert && assert( model instanceof LensModel );
 
     super( model );
 

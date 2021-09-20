@@ -7,11 +7,14 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -20,6 +23,8 @@ import projectorScreen_png from '../../../images/projectorScreen_png.js';
 import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import geometricOptics from '../../geometricOptics.js';
+import ProjectorScreen from '../model/ProjectorScreen.js';
+import Spotlight from '../model/Spotlight.js';
 
 class ProjectorScreenNode extends Node {
 
@@ -35,6 +40,14 @@ class ProjectorScreenNode extends Node {
    */
   constructor( projectorScreen, representationProperty, enableFirstSpotlightProperty, enableSecondSpotlightProperty,
                secondSourceVisibleProperty, visibleModelBoundsProperty, modelViewTransform, options ) {
+
+    assert && assert( projectorScreen instanceof ProjectorScreen );
+    assert && assert( representationProperty instanceof EnumerationProperty );
+    assert && assert( enableFirstSpotlightProperty instanceof Property );
+    assert && assert( enableSecondSpotlightProperty instanceof Property );
+    assert && assert( secondSourceVisibleProperty instanceof Property );
+    assert && assert( visibleModelBoundsProperty instanceof Property );
+    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     options = merge( {
       cursor: 'pointer'
@@ -105,6 +118,8 @@ class ProjectorScreenNode extends Node {
      * @param {Property.<boolean>} visibleProperty
      */
     const addSpotLightNode = ( spotlight, visibleProperty ) => {
+      assert && assert( spotlight instanceof Spotlight );
+      assert && assert( visibleProperty instanceof Property );
 
       // create spotlight
       const spotlightNode = new Path( new Shape( spotlight.screenIntersectionProperty.value ), {

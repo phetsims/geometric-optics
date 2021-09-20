@@ -8,6 +8,8 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Graph from '../../../../kite/js/ops/Graph.js';
 import Shape from '../../../../kite/js/Shape.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
@@ -25,14 +27,20 @@ class Spotlight {
    */
   constructor( sourcePositionProperty, screenPositionProperty, targetPositionProperty, optic, getScreenShape ) {
 
-    // @private {function}
-    this.getScreenShape = getScreenShape;
+    assert && assert( sourcePositionProperty instanceof Property );
+    assert && assert( screenPositionProperty instanceof Property );
+    assert && assert( targetPositionProperty instanceof Property );
+    assert && assert( optic instanceof Optic );
+    assert && assert( typeof getScreenShape === 'function' );
+
+    // @private {Property.<Vector2>} position of the source of light
+    this.sourcePositionProperty = sourcePositionProperty;
 
     // @private {Optic} model for the optic
     this.optic = optic;
 
-    // @private {Property.<Vector2>} position of the source of light
-    this.sourcePositionProperty = sourcePositionProperty;
+    // @private {function}
+    this.getScreenShape = getScreenShape;
 
     // @public {DerivedProperty.<Shape>} intersection of this spotlight with the screen
     this.screenIntersectionProperty = new DerivedProperty(
@@ -65,6 +73,7 @@ class Spotlight {
     if ( targetOpticDistance === 0 ) {
 
       // a really large number, technically should be infinity
+      //TODO ... then why not use Infinity?
       return 10e6;
     }
     else {
@@ -82,6 +91,10 @@ class Spotlight {
    * @returns {Object} - see below
    */
   getDiskParameters( screenPosition, opticPosition, opticDiameter, targetPosition ) {
+    assert && assert( screenPosition instanceof Vector2 );
+    assert && assert( opticPosition instanceof Vector2 );
+    assert && assert( typeof opticDiameter === 'number' && isFinite( opticDiameter ) && opticDiameter > 0 );
+    assert && assert( targetPosition instanceof Vector2 );
 
     // get the extremum points on the optic
     const extremumTopOpticPoint = this.optic.getExtremumPoint( this.sourcePositionProperty.value, targetPosition,
