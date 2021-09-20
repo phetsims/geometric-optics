@@ -10,8 +10,11 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnabledComponent from '../../../../axon/js/EnabledComponent.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import geometricOptics from '../../geometricOptics.js';
+import Optic from './Optic.js';
 
 class Target extends EnabledComponent {
 
@@ -21,6 +24,9 @@ class Target extends EnabledComponent {
    * @param {EnumerationProperty.<Representation>} representationProperty
    */
   constructor( objectPositionProperty, optic, representationProperty ) {
+    assert && assert( objectPositionProperty instanceof Property );
+    assert && assert( optic instanceof Optic );
+    assert && assert( representationProperty instanceof EnumerationProperty );
 
     super();
 

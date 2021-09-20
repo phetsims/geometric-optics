@@ -9,9 +9,11 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Utils from '../../../../dot/js/Utils.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
@@ -22,6 +24,7 @@ class SourceObject {
    * @param {EnumerationProperty.<Representation>} representationProperty
    */
   constructor( representationProperty ) {
+    assert && assert( representationProperty instanceof EnumerationProperty );
 
     // {Vector2} displacement vector from the firstPosition to the left top - value depends on representation
     // values are in centimeters
@@ -113,6 +116,9 @@ class SourceObject {
    * @param {Vector2} position
    */
   setSecondPoint( representationProperty, position ) {
+    assert && assert( representationProperty instanceof EnumerationProperty );
+    assert && assert( position instanceof Vector2 );
+
     if ( representationProperty.value.isObject ) {
       const unconstrainedVerticalOffset = position.y - this.firstPositionProperty.value.y;
       this.verticalOffsetProperty.value = Utils.clamp( unconstrainedVerticalOffset,

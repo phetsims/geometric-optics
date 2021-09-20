@@ -6,6 +6,7 @@
  * @author Sarah Chang (Swarthmore College)
  */
 
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -18,6 +19,9 @@ class Ruler {
    * @param {number} length - length of the ruler in centimeters
    */
   constructor( orientation, position, length ) {
+    assert && assert( Ruler.Orientation.includes( orientation ) );
+    assert && assert( position instanceof Vector2 );
+    assert && assert( typeof length === 'number' && isFinite( length ) && length > 0 );
 
     // @public (read-only) {Ruler.Orientation} orientation of the ruler (valid choices are vertical and horizontal).
     this.orientation = orientation;
@@ -46,6 +50,7 @@ class Ruler {
    * @param {number} absoluteScale
    */
   scaleLength( absoluteScale ) {
+    assert && assert( typeof absoluteScale === 'number' && isFinite( absoluteScale ) && absoluteScale > 0 );
     this.length = this.nominalLength * absoluteScale;
   }
 
