@@ -194,21 +194,18 @@ class GeometricOpticsScreenView extends ScreenView {
     );
 
     // create the light rays associated with the object
-    const lightRaysNode = new LightRaysNode( model.firstLightRays,
-      this.visibleProperties.virtualImageVisibleProperty, this.modelViewTransform, {
-        realRayStroke: GeometricOpticsColors.realRayOneStrokeProperty,
-        virtualRayStroke: GeometricOpticsColors.virtualRayOneStrokeProperty
-      } );
+    const lightRaysNode = new LightRaysNode( model.firstLightRays, this.modelViewTransform, {
+      visibleProperty: this.visibleProperties.virtualImageVisibleProperty,
+      realRayStroke: GeometricOpticsColors.realRayOneStrokeProperty,
+      virtualRayStroke: GeometricOpticsColors.virtualRayOneStrokeProperty
+    } );
 
     // create the light rays associated with the second source
-    const secondSourceLightRaysNode = new LightRaysNode( model.secondLightRays,
-      this.visibleProperties.virtualImageVisibleProperty, this.modelViewTransform, {
-        realRayStroke: GeometricOpticsColors.realRayTwoStrokeProperty,
-        virtualRayStroke: GeometricOpticsColors.virtualRayTwoStrokeProperty
-      } );
-
-    // the second source light rays visibility is tied to the status of the checkbox
-    this.visibleProperties.secondSourceVisibleProperty.linkAttribute( secondSourceLightRaysNode, 'visible' );
+    const secondSourceLightRaysNode = new LightRaysNode( model.secondLightRays, this.modelViewTransform, {
+      realRayStroke: GeometricOpticsColors.realRayTwoStrokeProperty,
+      virtualRayStroke: GeometricOpticsColors.virtualRayTwoStrokeProperty,
+      visibleProperty: this.visibleProperties.secondSourceVisibleProperty
+    } );
 
     // create the target image
     const targetNode = new TargetNode(

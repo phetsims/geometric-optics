@@ -13,11 +13,10 @@ class LightRaysNode extends Node {
 
   /**
    * @param {LightRays} lightRays
-   * @param {Property.<boolean>} virtualImageVisibleProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( lightRays, virtualImageVisibleProperty, modelViewTransform, options ) {
+  constructor( lightRays, modelViewTransform, options ) {
 
     options = merge( {
       realRayStroke: 'white',
@@ -26,7 +25,7 @@ class LightRaysNode extends Node {
       virtualRayLineWidth: 2
     }, options );
 
-    super();
+    super( options );
 
     const realRayPath = new Path( modelViewTransform.modelToViewShape( lightRays.realRay ), {
       stroke: options.realRayStroke,
@@ -45,8 +44,6 @@ class LightRaysNode extends Node {
       realRayPath.shape = modelViewTransform.modelToViewShape( lightRays.realRay );
       virtualRayPath.shape = modelViewTransform.modelToViewShape( lightRays.virtualRay );
     } );
-
-    virtualImageVisibleProperty.linkAttribute( virtualRayPath, 'visible' );
   }
 }
 
