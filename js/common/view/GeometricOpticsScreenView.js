@@ -218,10 +218,12 @@ class GeometricOpticsScreenView extends ScreenView {
     );
 
     // create two focal points
-    const leftFocalPointNode = new FocalPointNode( model.leftFocalPoint,
-      this.visibleProperties.focalPointVisibleProperty, this.modelViewTransform );
-    const rightFocalPointNode = new FocalPointNode( model.rightFocalPoint,
-      this.visibleProperties.focalPointVisibleProperty, this.modelViewTransform );
+    const leftFocalPointNode = new FocalPointNode( model.leftFocalPoint, this.modelViewTransform, {
+      visibleProperty: this.visibleProperties.focalPointVisibleProperty
+    } );
+    const rightFocalPointNode = new FocalPointNode( model.rightFocalPoint, this.modelViewTransform, {
+      visibleProperty: this.visibleProperties.focalPointVisibleProperty
+    } );
     const focalPointsLayer = new Node( {
       children: [ leftFocalPointNode, rightFocalPointNode ]
     } );

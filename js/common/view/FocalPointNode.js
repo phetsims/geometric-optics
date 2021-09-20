@@ -7,30 +7,36 @@
  * @author Martin Veillette
  */
 
+import Dimension2 from '../../../../dot/js/Dimension2.js';
 import merge from '../../../../phet-core/js/merge.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import FocalPoint from '../model/FocalPoint.js';
+
+// constants
+const DEFAULT_OPTIONS = {
+  size: new Dimension2( 15, 3 ),  // width of the X sign and "thickness" in X sign
+  lineWidth: 1,
+  fill: GeometricOpticsColors.focalPointFillProperty,
+  stroke: GeometricOpticsColors.focalPointStrokeProperty,
+  rotation: Math.PI / 4  // rotated by 45 degrees to create an X shape.
+};
 
 class FocalPointNode extends PlusNode {
 
   /**
    * @param {FocalPoint} focalPoint
-   * @param {Property.<boolean>} visibleProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( focalPoint, visibleProperty, modelViewTransform, options ) {
+  constructor( focalPoint, modelViewTransform, options ) {
 
-    // options for plus Node. Rotated by 45 degrees to create an X shape.
-    options = merge( {}, GeometricOpticsConstants.FOCAL_POINT_OPTIONS,
-      {
-        fill: GeometricOpticsColors.focalPointFillProperty,
-        stroke: GeometricOpticsColors.focalPointStrokeProperty,
+    assert && assert( focalPoint instanceof FocalPoint );
+    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
-        rotation: Math.PI / 4
-      }, options );
+    options = merge( {}, DEFAULT_OPTIONS, options );
 
     super( options );
 
@@ -38,26 +44,16 @@ class FocalPointNode extends PlusNode {
     focalPoint.positionProperty.link( position => {
       this.center = modelViewTransform.modelToViewPosition( position );
     } );
-
-    // update the visibility of this node
-    visibleProperty.linkAttribute( this, 'visible' );
   }
 
   /**
    * Returns an icon for the focal point
    * @public
-   * @param {Object} [options]
-   * @returns {PlusNode}
+   * @param {Object} [options] - options for PlusNode
+   * @returns {Node}
    */
   static createIcon( options ) {
-
-    options = merge( {}, GeometricOpticsConstants.FOCAL_POINT_OPTIONS, {
-      fill: GeometricOpticsColors.focalPointFillProperty,
-      stroke: GeometricOpticsColors.focalPointStrokeProperty,
-      rotation: Math.PI / 4
-    }, options );
-
-    return new PlusNode( options );
+    return new PlusNode( merge( {}, DEFAULT_OPTIONS, options ) );
   }
 }
 

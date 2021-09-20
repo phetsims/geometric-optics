@@ -6,7 +6,6 @@
  * @author Martin Veillette
  */
 
-import Dimension2 from '../../../dot/js/Dimension2.js';
 import RangeWithValue from '../../../dot/js/RangeWithValue.js';
 import Vector2 from '../../../dot/js/Vector2.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
@@ -52,14 +51,6 @@ const GeometricOpticsConstants = {
   MIRROR_INITIAL_CURVATURE_TYPE: Optic.Curve.CONCAVE,
   MIRROR_RADIUS_OF_CURVATURE_RANGE: new RangeWithValue( 150, 250, 200 ), // centimeters
   MIRROR_DIAMETER_RANGE: new RangeWithValue( 30, 150, 80 ), // centimeters
-
-  //----------------------------------------------------------------------------------------
-  //                                 FOCAL POINT
-
-  FOCAL_POINT_OPTIONS: {
-    size: new Dimension2( 15, 3 ),  // width of the X sign and "thickness" in X sign
-    lineWidth: 1
-  },
 
   //----------------------------------------------------------------------------------------
   //                           OPTICAL AXIS
