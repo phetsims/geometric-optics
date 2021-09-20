@@ -29,6 +29,22 @@ import RayModeRadioButtonGroup from './RayModeRadioButtonGroup.js';
 import SecondSourceNode from './SecondSourceNode.js';
 import VisibleProperties from './VisibleProperties.js';
 
+// constants
+const NUMBER_CONTROL_OPTIONS = {
+  layoutFunction: NumberControl.createLayoutFunction3( { ySpacing: 12 } ),
+  titleNodeOptions: {
+    font: GeometricOpticsConstants.CONTROL_FONT,
+    maxWidth: 160
+  },
+  sliderOptions: {
+    trackSize: new Dimension2( 120, 4 ),
+    thumbSize: new Dimension2( 10, 20 )
+  },
+  numberDisplayOptions: {
+    maxWidth: 100
+  }
+};
+
 class GeometricOpticsControlPanel extends Panel {
 
   /**
@@ -46,72 +62,14 @@ class GeometricOpticsControlPanel extends Panel {
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     options = merge( {
-      hasLens: false
+
+      // Panel options
+      xMargin: 15,
+      yMargin: 10,
+      fill: 'rgb( 240, 240, 240 )'
     }, options );
 
-    // options common to all number controls
-    const commonNumberControlOptions = {
-      layoutFunction: NumberControl.createLayoutFunction3( { ySpacing: 12 } ),
-      titleNodeOptions: {
-        font: GeometricOpticsConstants.CONTROL_FONT,
-        maxWidth: 160
-      },
-      sliderOptions: {
-        trackSize: new Dimension2( 120, 4 ),
-        thumbSize: new Dimension2( 10, 20 )
-      },
-      numberDisplayOptions: { maxWidth: 100 }
-    };
-
-    // create number control for the radius of curvature of optical element
-    const curvatureRadiusControl = new NumberControl(
-      geometricOpticsStrings.curvatureRadius,
-      optic.radiusOfCurvatureProperty,
-      optic.radiusOfCurvatureProperty.range,
-      merge( {}, commonNumberControlOptions, {
-        numberDisplayOptions: {
-          decimalPlaces: GeometricOpticsConstants.CURVATURE_RADIUS_DECIMAL_PLACES,
-          valuePattern: geometricOpticsStrings.valueCentimetersPattern
-        }
-      } ) );
-
-    // create number control for the diameter of optical element
-    const diameterControl = new NumberControl(
-      geometricOpticsStrings.diameter,
-      optic.diameterProperty,
-      optic.diameterProperty.range,
-      merge( {}, commonNumberControlOptions, {
-        numberDisplayOptions: {
-          decimalPlaces: GeometricOpticsConstants.DIAMETER_DECIMAL_PLACES,
-          valuePattern: geometricOpticsStrings.valueCentimetersPattern
-        }
-      } ) );
-
-    // array of number controls
-    let controls;
-
-    if ( options.hasLens ) {
-
-      // create number control for the index of refraction of lens
-      const refractiveIndexControl = new NumberControl(
-        geometricOpticsStrings.refractiveIndex,
-        optic.indexOfRefractionProperty,
-        optic.indexOfRefractionProperty.range,
-        merge( {}, commonNumberControlOptions, {
-          delta: 0.01,
-          numberDisplayOptions: {
-            decimalPlaces: GeometricOpticsConstants.REFRACTIVE_INDEX_DECIMAL_PLACES
-          }
-        } ) );
-
-      // add three number controls
-      controls = [ curvatureRadiusControl, refractiveIndexControl, diameterControl ];
-    }
-    else {
-
-      // only lens has an index of refraction, add curvature and diameter controls
-      controls = [ curvatureRadiusControl, diameterControl ];
-    }
+    // Rays radio buttons ---------------------------------------------------------------------------------------
 
     // create title for radio button group for light ray mode
     const rayModeTitle = new Text( geometricOpticsStrings.rayModeTitle, {
@@ -128,6 +86,52 @@ class GeometricOpticsControlPanel extends Panel {
       align: 'left',
       spacing: 4
     } );
+
+    // Lens/Mirror controls ---------------------------------------------------------------------------------------
+
+    const numberControls = [];
+
+    // create number control for the radius of curvature of optical element
+    const curvatureRadiusControl = new NumberControl(
+      geometricOpticsStrings.curvatureRadius,
+      optic.radiusOfCurvatureProperty,
+      optic.radiusOfCurvatureProperty.range,
+      merge( {}, NUMBER_CONTROL_OPTIONS, {
+        numberDisplayOptions: {
+          decimalPlaces: GeometricOpticsConstants.CURVATURE_RADIUS_DECIMAL_PLACES,
+          valuePattern: geometricOpticsStrings.valueCentimetersPattern
+        }
+      } ) );
+    numberControls.push( curvatureRadiusControl );
+
+    if ( optic.type === Optic.Type.LENS ) {
+      const refractiveIndexControl = new NumberControl(
+        geometricOpticsStrings.refractiveIndex,
+        optic.indexOfRefractionProperty,
+        optic.indexOfRefractionProperty.range,
+        merge( {}, NUMBER_CONTROL_OPTIONS, {
+          delta: 0.01,
+          numberDisplayOptions: {
+            decimalPlaces: GeometricOpticsConstants.REFRACTIVE_INDEX_DECIMAL_PLACES
+          }
+        } ) );
+      numberControls.push( refractiveIndexControl );
+    }
+
+    // create number control for the diameter of optical element
+    const diameterControl = new NumberControl(
+      geometricOpticsStrings.diameter,
+      optic.diameterProperty,
+      optic.diameterProperty.range,
+      merge( {}, NUMBER_CONTROL_OPTIONS, {
+        numberDisplayOptions: {
+          decimalPlaces: GeometricOpticsConstants.DIAMETER_DECIMAL_PLACES,
+          valuePattern: geometricOpticsStrings.valueCentimetersPattern
+        }
+      } ) );
+    numberControls.push( diameterControl );
+
+    // Visibility checkboxes ---------------------------------------------------------------------------------------
 
     /**
      * create a checkbox Group item
@@ -147,7 +151,7 @@ class GeometricOpticsControlPanel extends Panel {
         maxWidth: 100
       } );
 
-      // create hBox if icon is present, otherwise merely attach text
+      // create HBox if icon is present, otherwise merely attach text
       const node = ( options.icon ) ? new HBox( { children: [ text, options.icon ], spacing: 8 } ) : text;
 
       return {
@@ -200,16 +204,16 @@ class GeometricOpticsControlPanel extends Panel {
     const content = new AlignBox( new HBox( {
         children: [ rayModesBox,
           leftSeparator,
-          ...controls,
+          ...numberControls,
           rightSeparator,
           checkboxGroup ],
         spacing: 20,
         align: 'center'
       } ),
-      { xAlign: 'left' } );
+      { xAlign: 'left' }
+    );
 
-    // create and add panel
-    super( content, { xMargin: 15, yMargin: 10, fill: 'rgb(240,240,240)' } );
+    super( content, options );
   }
 }
 
