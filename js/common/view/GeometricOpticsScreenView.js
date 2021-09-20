@@ -269,7 +269,7 @@ class GeometricOpticsScreenView extends ScreenView {
       } );
 
     // labels
-    const labelsNode = new LabelsNode( model, this, this.visibleProperties, this.zoomModelViewTransformProperty,
+    const labelsNode = new LabelsNode( model, this.visibleProperties, this.zoomModelViewTransformProperty,
       this.zoomLevelProperty );
 
     // add playAreaNode and controls to the scene graph

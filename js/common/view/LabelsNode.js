@@ -9,6 +9,7 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
@@ -18,13 +19,16 @@ class LabelsNode extends Node {
 
   /**
    * @param {GeometricOpticsModel} model
-   * @param {GeometricOpticsScreenView} view
    * @param {VisibleProperties} visibleProperties
    * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
    * @param {Property.<boolean>} zoomLevelProperty
    * @param {Object} [options]
    */
-  constructor( model, view, visibleProperties, modelViewTransformProperty, zoomLevelProperty, options ) {
+  constructor( model, visibleProperties, modelViewTransformProperty, zoomLevelProperty, options ) {
+
+    options = merge( {
+      visibleProperty: visibleProperties.labelsVisibleProperty
+    }, options );
 
     super( options );
 
@@ -123,9 +127,6 @@ class LabelsNode extends Node {
     this.addChild( opticLabel );
     this.addChild( objectLabel );
     this.addChild( imageLabel );
-
-    // update the visibility of the labels
-    visibleProperties.labelsVisibleProperty.linkAttribute( this, 'visible' );
   }
 }
 
