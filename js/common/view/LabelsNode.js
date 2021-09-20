@@ -1,13 +1,13 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Scenery node for labels that appear below each element in the simulation when toggled.
+ * LabelsNode is the parent Node for labels that appear below things of interest in the user interface.
  *
  * @author Sarah Chang (Swarthmore College)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -29,94 +29,82 @@ class LabelsNode extends Node {
       visibleProperty: visibleProperties.labelsVisibleProperty
     }, options );
 
-    super( options );
+    // Focal point labels ------------------------------------------------------------------------------------
 
-    // create left focal point label
     const leftFocalPointLabel = new LabelNode( geometricOpticsStrings.focalPoint, model.leftFocalPoint.positionProperty,
       modelViewTransformProperty, {
         visibleProperty: visibleProperties.focalPointVisibleProperty
       } );
 
-    // create right focal point label
     const rightFocalPointLabel = new LabelNode( geometricOpticsStrings.focalPoint, model.rightFocalPoint.positionProperty,
       modelViewTransformProperty, {
         visibleProperty: visibleProperties.focalPointVisibleProperty
       } );
 
-    // {DerivedProperty.<Vector2>} define optic label position
+    // Optic label ------------------------------------------------------------------------------------
+
     const opticLabelPositionProperty = new DerivedProperty(
       [ model.optic.positionProperty, model.optic.diameterProperty ],
       ( position, diameter ) => position.minusXY( 0, diameter / 2 )
     );
 
-    // create optic label with empty string
     const opticLabel = new LabelNode( '', opticLabelPositionProperty, modelViewTransformProperty );
 
-    // update the label string of the optic
     model.optic.curveProperty.link( curve => {
-
-      let curveOpticString;
-
-      // string associated with optic and curve
+      let text;
       if ( model.optic.isConvex( curve ) ) {
-        curveOpticString = model.optic.isLens() ? geometricOpticsStrings.convexLens : geometricOpticsStrings.convexMirror;
+        text = model.optic.isLens() ? geometricOpticsStrings.convexLens : geometricOpticsStrings.convexMirror;
       }
       else if ( model.optic.isConcave( curve ) ) {
-        curveOpticString = model.optic.isLens() ? geometricOpticsStrings.concaveLens : geometricOpticsStrings.concaveMirror;
+        text = model.optic.isLens() ? geometricOpticsStrings.concaveLens : geometricOpticsStrings.concaveMirror;
       }
-
-      // update the text of label for optic
-      opticLabel.setText( curveOpticString );
+      opticLabel.setText( text );
     } );
 
-    // {DerivedProperty.<Vector2} define image label position
+    // Image label ------------------------------------------------------------------------------------
+
     const imageLabelPositionProperty = new DerivedProperty(
       [ model.firstTarget.boundsProperty ],
       bounds => bounds.centerTop
     );
 
-    // find appropriate string for image label
-    const imageLabelString = model.firstTarget.isVirtual() ? geometricOpticsStrings.virtualImage : geometricOpticsStrings.image;
-
-    // create image label
-    const imageLabel = new LabelNode( imageLabelString, imageLabelPositionProperty, modelViewTransformProperty );
-
-    // {DerivedProperty.<Vector2} define object label position
-    // Because the we use a Y inverted reference frame, the bottom of the image is the top of the model bounds.
-    const objectLabelPositionProperty = new DerivedProperty(
-      [ model.sourceObject.boundsProperty ],
-      bounds => bounds.centerTop
-    );
-
-    // create object label
-    const objectLabel = new LabelNode( geometricOpticsStrings.object, objectLabelPositionProperty, modelViewTransformProperty );
-
-    // update the visibility of the object and image labels
-    Property.multilink( [
+    const imageLabelVisibleProperty = new DerivedProperty( [
         model.representationProperty,
         model.firstTarget.enabledProperty,
         model.firstTarget.isVirtualProperty,
         visibleProperties.virtualImageVisibleProperty
       ],
-      ( representation, enabled, isVirtual, virtualImageVisible ) => {
+      ( representation, enabled, isVirtual, virtualImageVisible ) =>
+        ( enabled && ( isVirtual ? virtualImageVisible : true ) && representation.isObject )
+    );
 
-        // label is visible if the representation is an object
-        objectLabel.visible = representation.isObject;
+    const imageLabel = new LabelNode( '', imageLabelPositionProperty, modelViewTransformProperty, {
+      visibleProperty: imageLabelVisibleProperty
+    } );
 
-        // label is visible if (1) the image is enabled, (2) the representation is an object
-        // (3) if the image is virtual and the checkbox is virtual is on  (but on if real)
-        imageLabel.visible = enabled && ( isVirtual ? virtualImageVisible : true ) && representation.isObject;
+    model.firstTarget.isVirtualProperty.link( isVirtual => {
+      imageLabel.setText( isVirtual ? geometricOpticsStrings.virtualImage : geometricOpticsStrings.image );
+    } );
 
-        // update the text of the image appropriately
-        imageLabel.setText( isVirtual ? geometricOpticsStrings.virtualImage : geometricOpticsStrings.image );
+    // Object label ------------------------------------------------------------------------------------
+
+    const objectLabelPositionProperty = new DerivedProperty(
+      [ model.sourceObject.boundsProperty ],
+      // Because the we use a Y-inverted reference frame, the bottom of the image is the top of the model bounds.
+      bounds => bounds.centerTop
+    );
+
+    const objectLabel = new LabelNode( geometricOpticsStrings.object, objectLabelPositionProperty,
+      modelViewTransformProperty, {
+        visibleProperty: new DerivedProperty( [ model.representationProperty ], representation => representation.isObject )
       } );
 
-    // add the labels to this node
-    this.addChild( leftFocalPointLabel );
-    this.addChild( rightFocalPointLabel );
-    this.addChild( opticLabel );
-    this.addChild( objectLabel );
-    this.addChild( imageLabel );
+    // ------------------------------------------------------------------------------------
+
+    assert && assert( !options.children );
+    options.children = [ leftFocalPointLabel, rightFocalPointLabel, opticLabel, objectLabel, imageLabel ];
+
+    super( options );
   }
 }
 
