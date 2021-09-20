@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Common Model for geometric optics
+ * GeometricOpticsModel is the common top-level model for this simulation.
  *
  * @author Martin Veillette
  */
