@@ -15,12 +15,12 @@ class LensModel extends GeometricOpticsModel {
   constructor() {
 
     super(
+      Optic.Type.LENS,
+      GeometricOpticsConstants.LENS_INITIAL_CURVATURE_TYPE,
       GeometricOpticsConstants.LENS_INITIAL_POSITION,
       GeometricOpticsConstants.LENS_RADIUS_OF_CURVATURE_RANGE,
       GeometricOpticsConstants.LENS_DIAMETER_RANGE,
-      GeometricOpticsConstants.LENS_INDEX_OF_REFRACTION_RANGE,
-      GeometricOpticsConstants.LENS_INITIAL_CURVATURE_TYPE,
-      Optic.Type.LENS
+      GeometricOpticsConstants.LENS_INDEX_OF_REFRACTION_RANGE
     );
 
     // @public {Guide} model for top guide associated with the first source/object

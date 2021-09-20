@@ -20,12 +20,12 @@ class MirrorModel extends GeometricOpticsModel {
     const indexOfRefractionRange = new RangeWithValue( 2, 2, 2 );
 
     super(
+      Optic.Type.MIRROR,
+      GeometricOpticsConstants.MIRROR_INITIAL_CURVATURE_TYPE,
       GeometricOpticsConstants.MIRROR_INITIAL_POSITION,
       GeometricOpticsConstants.MIRROR_RADIUS_OF_CURVATURE_RANGE,
       GeometricOpticsConstants.MIRROR_DIAMETER_RANGE,
-      indexOfRefractionRange,
-      GeometricOpticsConstants.MIRROR_INITIAL_CURVATURE_TYPE,
-      Optic.Type.MIRROR
+      indexOfRefractionRange
     );
   }
 }

@@ -26,28 +26,28 @@ import Target from './Target.js';
 class GeometricOpticsModel {
 
   /**
+   * @param {Optic.Type} type - initial type of optical element
+   * @param {Optic.Curve} curve - initial curve of optical element
    * @param {Vector2} opticPosition - center of the optical element
    * @param {RangeWithValue} radiusOfCurvatureRange - range of radius of curvature (in centimeters)
    * @param {RangeWithValue} diameterRange - range of height for optical element (in centimeters)
    * @param {RangeWithValue} indexOfRefractionRange
-   * @param {Optic.Curve} curve - initial curve of optical element
-   * @param {Optic.Type} type - initial type of optical element
    */
-  constructor( opticPosition, radiusOfCurvatureRange, diameterRange, indexOfRefractionRange, curve, type ) {
+  constructor( type, curve, opticPosition, radiusOfCurvatureRange, diameterRange, indexOfRefractionRange ) {
 
+    assert && assert( Optic.Type.includes( type ) );
+    assert && assert( Optic.Curve.includes( curve ) );
     assert && assert( opticPosition instanceof Vector2 );
     assert && assert( radiusOfCurvatureRange instanceof RangeWithValue );
     assert && assert( diameterRange instanceof RangeWithValue );
     assert && assert( indexOfRefractionRange instanceof RangeWithValue );
-    assert && assert( Optic.Curve.includes( curve ) );
-    assert && assert( Optic.Type.includes( type ) );
 
     // @public {Property.<Representation>}  representation of the source/object
     //TODO for Mirror screen, Representation.LIGHT is not a valid value
     this.representationProperty = new EnumerationProperty( Representation, Representation.PENCIL );
 
     // @public {Optic} - model of the optic
-    this.optic = new Optic( opticPosition, radiusOfCurvatureRange, diameterRange, indexOfRefractionRange, curve, type );
+    this.optic = new Optic( type, curve, opticPosition, radiusOfCurvatureRange, diameterRange, indexOfRefractionRange );
 
     // @public {FocalPoint} focal point to the left of the optic
     this.leftFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty, {

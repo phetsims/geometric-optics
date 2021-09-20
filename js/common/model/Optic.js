@@ -28,21 +28,28 @@ const NORMALIZED_VALUE_RANGE = new Range( 0, 1 );
 class Optic {
 
   /**
+   * @param {Optic.Type} type - type of optical element - acceptable values (MIRROR and LENS)
+   * @param {Optic.Curve} curve - initial curve of optical element - acceptable values (CONVEX and CONCAVE)
    * @param {Vector2} initialPosition - center of the optical element
    * @param {RangeWithValue} radiusOfCurvatureRange - range of radius of curvature (in centimeters)
    * @param {RangeWithValue} diameterRange - range of height for optical element (in centimeters)
    * @param {RangeWithValue} indexOfRefractionRange
-   * @param {Optic.Curve} curve - initial curve of optical element - acceptable values (CONVEX and CONCAVE)
-   * @param {Optic.Type} type - type of optical element - acceptable values (MIRROR and LENS)
    */
-  constructor( initialPosition, radiusOfCurvatureRange, diameterRange, indexOfRefractionRange, curve, type ) {
+  constructor( type, curve, initialPosition, radiusOfCurvatureRange, diameterRange, indexOfRefractionRange ) {
 
+    assert && assert( Optic.Type.includes( type ) );
+    assert && assert( Optic.Curve.includes( curve ) );
     assert && assert( initialPosition instanceof Vector2 );
     assert && assert( radiusOfCurvatureRange instanceof RangeWithValue );
     assert && assert( diameterRange instanceof RangeWithValue );
     assert && assert( indexOfRefractionRange instanceof RangeWithValue );
-    assert && assert( Optic.Curve.includes( curve ) );
-    assert && assert( Optic.Type.includes( type ) );
+
+    // @private {Optic.Type} Type of the optical element ( valid choices: LENS and MIRROR)
+    this.type = type;
+
+    //TODO rename curveProperty
+    // @public {Property.<Optic.Curve>} Type of Curvature of the optical element.
+    this.curveProperty = new EnumerationProperty( Optic.Curve, curve );
 
     // @private {RangeWithValue}
     this.maxDiameter = diameterRange.max;
@@ -64,13 +71,6 @@ class Optic {
     this.indexOfRefractionProperty = new NumberProperty( indexOfRefractionRange.defaultValue, {
       range: indexOfRefractionRange
     } );
-
-    //TODO rename curveProperty
-    // @public {Property.<Optic.Curve>} Type of Curvature of the optical element.
-    this.curveProperty = new EnumerationProperty( Optic.Curve, curve );
-
-    // @private {Optic.Type} Type of the optical element ( valid choices: LENS and MIRROR)
-    this.type = type;
 
     // @public {DerivedProperty.<number>} focal length of the optic
     // positive indicate the optic is converging whereas negative indicates the optic is diverging.
