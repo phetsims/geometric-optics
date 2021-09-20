@@ -87,7 +87,7 @@ const GeometricOpticsColors = {
   //                              LABELS
 
   labelBackgroundFillProperty: new ProfileColorProperty( geometricOptics, 'labelBackgroundFill', {
-    default: 'rgb(27,27,96)'
+    default: 'rgba( 27, 27, 96, 0.5 )'
   } ),
 
   //--------------------------------------------------------------------------

@@ -18,93 +18,72 @@ import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 class LabelNode extends Node {
 
   /**
-   * @param {string} string
-   * @param {Property.<Vector2>} positionProperty
+   * @param {string} text
+   * @param {Property.<Vector2>} positionProperty - position of the thing that we're labeling
    * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
    * @param {Object} [options]
    */
-  constructor( string, positionProperty, modelViewTransformProperty, options ) {
+  constructor( text, positionProperty, modelViewTransformProperty, options ) {
 
-    assert && assert( typeof string === 'string' );
+    assert && assert( typeof text === 'string' );
     assert && assert( positionProperty instanceof Property );
     assert && assert( modelViewTransformProperty instanceof Property );
 
     options = merge( {
-      text: {
+
+      labelOffset: 12, // vertical offset (in view coordinates) wrt firstPositionProperty
+      xMargin: 5,
+      yMargin: 5,
+
+      // Text options
+      textOptions: {
         fill: 'white',
         font: GeometricOpticsConstants.LABEL_FONT
       },
-      background: {
+
+      // Rectangle options, for the Rectangle behind the text
+      rectangleOptions: {
         fill: GeometricOpticsColors.labelBackgroundFillProperty,
-        opacity: 0.5,
         cornerRadius: 4
-      },
-      labelOffset: 12, // vertical offset (in view coordinates) wrt firstPositionProperty
-      xMargin: 5,
-      yMargin: 5
+      }
     }, options );
+
+    const textNode = new Text( text, options.textOptions );
+
+    // Background for the text, update the size and position later.
+    const backgroundRectangle = new Rectangle( 0, 0, 1, 1, options.rectangleOptions );
+
+    assert && assert( !options.children );
+    options.children = [ backgroundRectangle, textNode ];
 
     super( options );
 
+    Property.multilink(
+      [ textNode.boundsProperty, modelViewTransformProperty, positionProperty ],
+      ( textNodeBounds, modelViewTransform, position ) => {
+
+        // Size the background to fit the text.
+        backgroundRectangle.setRectWidth( textNodeBounds.width + options.xMargin * 2 );
+        backgroundRectangle.setRectHeight( textNodeBounds.height + options.yMargin * 2 );
+
+        // Center the text in the background.
+        backgroundRectangle.center = textNode.center;
+
+        // Center under the things that we're labeling.
+        this.centerTop = modelViewTransform.modelToViewPosition( position ).plusXY( 0, options.labelOffset );
+      } );
+
     // @private
-    this.options = options;
-
-    // @private create text
-    this.text = new Text( string, options.text );
-
-    // @private create background for label, update the size and position later.
-    this.backgroundRectangle = new Rectangle( 0, 0, 1, 1, options.background );
-
-    // set the size of background rectangle and relative position wrt to text
-    this.setRectangleSize();
-
-    // @private
-    this.positionProperty = positionProperty;
-
-    // @private
-    this.modelViewTransformProperty = modelViewTransformProperty;
-
-    // add the children to this node
-    this.addChild( this.backgroundRectangle );
-    this.addChild( this.text );
-
-    // update the position of the labels when the zoom level changes
-    modelViewTransformProperty.link( () => this.setLabelPosition() );
-
-    // update the position of the text and background
-    positionProperty.link( () => this.setLabelPosition() );
+    this.textNode = textNode;
   }
 
   /**
-   * Sets a string for the label
+   * Sets a string for the label.
    * @public
-   * @param {string} label
+   * @param {string} text
    */
-  setText( label ) {
-    this.text.setText( label );
-    this.setRectangleSize();
-    this.setLabelPosition();
-  }
-
-  //TODO this should be handled by observing this.textNode.boundsProperty
-  /**
-   * Sets position and size of label
-   * @private
-   */
-  setLabelPosition() {
-    this.centerTop = this.modelViewTransformProperty.value.modelToViewPosition( this.positionProperty.value )
-      .plusXY( 0, this.options.labelOffset );
-  }
-
-  //TODO this should be handled by observing this.textNode.boundsProperty
-  /**
-   * Sets rectangle size and position based on text size
-   * @private
-   */
-  setRectangleSize() {
-    this.backgroundRectangle.setRectWidth( this.text.width + this.options.xMargin * 2 );
-    this.backgroundRectangle.setRectHeight( this.text.height + this.options.yMargin * 2 );
-    this.backgroundRectangle.center = this.text.center;
+  setText( text ) {
+    this.textNode.text = text;
   }
 }
 
