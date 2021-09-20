@@ -1,8 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Scenery Node of a X shape representing a focal point.
- * Visibility and position of the focal point can be updated.
+ * FocalPointNode displays a focal point. Its position updates to match the model.
  *
  * @author Martin Veillette
  */
