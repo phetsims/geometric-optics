@@ -53,26 +53,26 @@ class GeometricOpticsScreenView extends ScreenView {
 
     super();
 
-    // @protected
+    // @private
     this.model = model;
 
-    // convenience variable for laying out scenery nodes
+    // convenience variable for laying out scenery Nodes
     const erodedLayoutBounds = this.layoutBounds.erodedXY( GeometricOpticsConstants.SCREEN_VIEW_X_MARGIN,
       GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN );
 
-    // @protected create visible properties associated with checkboxes
+    // @protected Create visibleProperty instances for Nodes in the view.
     this.visibleProperties = new VisibleProperties();
 
     // @private {Property.<number>} controls zoom in play area
     this.zoomLevelProperty = new NumberProperty( ZOOM_RANGE.defaultValue, { range: ZOOM_RANGE } );
 
     // @protected create a Y inverted modelViewTransform with isometric scaling along X and Y
-    this.modelViewTransform = this.getModelViewTransform( ZOOM_RANGE.defaultValue );
+    this.modelViewTransform = this.getModelViewTransformForZoomLevel( ZOOM_RANGE.defaultValue );
 
     // @protected {DerivedProperty.<ModelViewTransform2>} modelViewTransform
     this.zoomModelViewTransformProperty = new DerivedProperty(
       [ this.zoomLevelProperty ],
-      zoomLevel => this.getModelViewTransform( zoomLevel )
+      zoomLevel => this.getModelViewTransformForZoomLevel( zoomLevel )
     );
 
     // @protected {DerivedProperty.<number>} zoom scale associate with the zoom level
@@ -348,7 +348,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
   /**
    * Returns the relative scale between a zoom level and a previous old zoom level
-   * @public
+   * @private
    * @param {number} zoomLevel
    * @param {number} oldZoomLevel
    * @returns {number}
@@ -362,7 +362,7 @@ class GeometricOpticsScreenView extends ScreenView {
   /**
    * Returns the absolute scaling factor measured from the initial zoom level
    * The absolute scale returns 1 if the zoom level is the initial zoom level value
-   * @public
+   * @private
    * @param {number} zoomLevel
    * @returns {number}
    */
@@ -372,11 +372,11 @@ class GeometricOpticsScreenView extends ScreenView {
 
   /**
    * Returns a model view transform appropriate for the zoom level
-   * @public
+   * @private
    * @param {number} zoomLevel
    * @returns {ModelViewTransform2}
    */
-  getModelViewTransform( zoomLevel ) {
+  getModelViewTransformForZoomLevel( zoomLevel ) {
 
     // scaling factor between zoom level measured from the initial zoom level
     const absoluteScale = this.getAbsoluteScale( zoomLevel );
