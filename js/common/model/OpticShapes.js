@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * OpticShapes is the set of Shapes use to render a specific optic.
+ * OpticShapes is the set of Shapes used to render a specific optic.
  *
  * @author Martin Veillette
  */
