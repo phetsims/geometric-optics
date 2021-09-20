@@ -133,15 +133,12 @@ class GeometricOpticsControlPanel extends Panel {
 
     // Put it all together ---------------------------------------------------------------------------------------
 
-    // length of vertical line should be the height of the tallest control panel element
-    const verticalSeparatorLength = Math.max( checkboxGroup.height, rayModesBox.height );
-
-    // create vertical lines to separate control panel elements
+    // Vertical separators between sections of the control panel
+    const separatorLength = Math.max( checkboxGroup.height, rayModesBox.height );
     const separatorOptions = { stroke: 'gray', lineWidth: 1 };
-    const leftSeparator = new VSeparator( verticalSeparatorLength, separatorOptions );
-    const rightSeparator = new VSeparator( verticalSeparatorLength, separatorOptions );
+    const leftSeparator = new VSeparator( separatorLength, separatorOptions );
+    const rightSeparator = new VSeparator( separatorLength, separatorOptions );
 
-    // add all elements of the panel in a horizontal HBox
     const content = new AlignBox( new HBox( {
         children: [ rayModesBox,
           leftSeparator,
