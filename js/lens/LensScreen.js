@@ -19,7 +19,7 @@ class LensScreen extends Screen {
   constructor() {
 
     // create convex lens for home screen icon
-    const iconNode = CurveControl.createIconNode( Optic.Curve.CONVEX, Optic.Type.LENS, {
+    const iconNode = CurveControl.createIconNode( Optic.Type.LENS, Optic.Curve.CONVEX, {
       radius: 20,
       diameter: 30,
       outline: { stroke: 'black' }

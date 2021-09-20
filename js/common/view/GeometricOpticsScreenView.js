@@ -108,7 +108,7 @@ class GeometricOpticsScreenView extends ScreenView {
     this.rulersLayer.setToolboxPanelBounds( toolboxPanel.bounds );
 
     // create the control buttons to toggle between convex and concave optic at the left bottom
-    const curveControl = new CurveControl( model.optic.curveProperty, model.optic );
+    const curveControl = new CurveControl( model.optic );
     curveControl.rightCenter = geometricOpticsControlPanel.leftCenter.minusXY( 20, 0 );
 
     // create the combo box at the center top of the screen

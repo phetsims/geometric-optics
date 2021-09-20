@@ -19,7 +19,7 @@ class MirrorScreen extends Screen {
   constructor() {
 
     // create concave mirror for home screen icon
-    const iconNode = CurveControl.createIconNode( Optic.Curve.CONCAVE, Optic.Type.MIRROR, {
+    const iconNode = CurveControl.createIconNode( Optic.Type.MIRROR, Optic.Curve.CONCAVE, {
       radius: 20,
       diameter: 30,
       outline: { stroke: 'black' }

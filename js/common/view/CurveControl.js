@@ -26,11 +26,10 @@ const STRUT_LENGTH = 42; // minimum size of the button
 class CurveControl extends RectangularRadioButtonGroup {
 
   /**
-   * @param {Property.<Optic.Curve>} curveProperty
    * @param {Optic} optic
    * @param {Object} [options]
    */
-  constructor( curveProperty, optic, options ) {
+  constructor( optic, options ) {
 
     options = merge( {
       spacing: 10, // vertical separation of the buttons
@@ -48,7 +47,7 @@ class CurveControl extends RectangularRadioButtonGroup {
     const buttonItems = Optic.Curve.VALUES.map( curve => {
       return {
         value: curve,
-        node: CurveControl.createIconNode( curve, optic.type, {
+        node: CurveControl.createIconNode( optic.type, curve, {
           buttonContentXMargin: options.buttonContentXMargin,
           buttonContentYMargin: options.buttonContentYMargin
         } )
@@ -65,18 +64,20 @@ class CurveControl extends RectangularRadioButtonGroup {
     }
 
     // create the rectangular radio button group with the icons
-    super( curveProperty, buttonItems, options );
+    super( optic.curveProperty, buttonItems, options );
   }
 
   /**
    * Creates a centered icon representation of convex/concave, lens/mirror.
    * @public
-   * @param {Optic.Curve} curve - the curve can be convex or concave
    * @param {Optic.Type} type - the type can be lens or mirror
+   * @param {Optic.Curve} curve - the curve can be convex or concave
    * @param {Object} [options] - see options below
    * @returns {Node}
    */
-  static createIconNode( curve, type, options ) {
+  static createIconNode( type, curve, options ) {
+    assert && assert( Optic.Type.includes( type ) );
+    assert && assert( Optic.Curve.includes( curve ) );
 
     options = merge( {
       radius: RADIUS_OF_CURVATURE, // radius of curvature
