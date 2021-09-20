@@ -25,21 +25,22 @@ class LightRaysNode extends Node {
       virtualRayLineWidth: 2
     }, options );
 
-    super( options );
-
     const realRayPath = new Path( modelViewTransform.modelToViewShape( lightRays.realRay ), {
       stroke: options.realRayStroke,
       lineWidth: options.realRayLineWidth
     } );
+
     const virtualRayPath = new Path( modelViewTransform.modelToViewShape( lightRays.virtualRay ), {
       stroke: options.virtualRayStroke,
       lineWidth: options.virtualRayLineWidth
     } );
 
-    this.addChild( realRayPath );
-    this.addChild( virtualRayPath );
+    assert && assert( !options.children );
+    options.children = [ realRayPath, virtualRayPath ];
 
-    // update this node as the model representation changes
+    super( options );
+
+    // Update this Node when the model tells us that it's time to update.
     lightRays.raysProcessedEmitter.addListener( () => {
       realRayPath.shape = modelViewTransform.modelToViewShape( lightRays.realRay );
       virtualRayPath.shape = modelViewTransform.modelToViewShape( lightRays.virtualRay );

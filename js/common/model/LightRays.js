@@ -41,7 +41,7 @@ class LightRays {
     // @public (read-only) {Shape} shape of a bundle of virtual rays at a point in time
     this.virtualRay = new Shape();
 
-    // @public {Emitter} When are the rays are all processed
+    // @public {Emitter} Tells view that it needs to update, fires after all rays are processed.
     this.raysProcessedEmitter = new Emitter();
 
     // update the shape of rays and the emitter state
