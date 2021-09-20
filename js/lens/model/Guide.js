@@ -9,28 +9,23 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Optic from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 
 class Guide {
 
   /**
-   * @param {Property.<Vector2>} objectPositionProperty
    * @param {Optic} optic
-   * @param {Object} [options]
+   * @param {Property.<Vector2>} objectPositionProperty
+   * @param {Guide.Location} location
    */
-  constructor( objectPositionProperty, optic, options ) {
+  constructor( optic, objectPositionProperty, location ) {
 
     assert && assert( objectPositionProperty instanceof Property );
     assert && assert( optic instanceof Optic );
 
-    options = merge( {
-      location: Guide.Location.TOP
-    }, options );
-
     // sign is positive for top guide and negative below
-    const locationSign = ( options.location === Guide.Location.TOP ) ? +1 : -1;
+    const locationSign = ( location === Guide.Location.TOP ) ? +1 : -1;
 
     // @public {DerivedProperty.<Vector2>} position of the fulcrum point
     this.fulcrumPositionProperty = new DerivedProperty(
