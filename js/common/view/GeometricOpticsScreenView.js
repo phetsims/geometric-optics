@@ -111,9 +111,13 @@ class GeometricOpticsScreenView extends ScreenView {
     const curveControl = new CurveControl( model.optic );
     curveControl.rightCenter = geometricOpticsControlPanel.leftCenter.minusXY( 20, 0 );
 
-    // create the combo box at the center top of the screen
-    const comboBox = new RepresentationComboBox( model.representationProperty );
-    comboBox.centerTop = erodedLayoutBounds.centerTop;
+    // Parent for any popups
+    const popupsParent = new Node();
+
+    // Combo box for choosing object representation
+    const representationComboBox = new RepresentationComboBox( model.representationProperty, popupsParent, {
+      centerTop: erodedLayoutBounds.centerTop
+    } );
 
     // create magnifying buttons for zooming in and out at the left top
     const magnifyingGlassZoomButtonGroup = new MagnifyingGlassZoomButtonGroup( this.zoomLevelProperty, {
@@ -278,9 +282,10 @@ class GeometricOpticsScreenView extends ScreenView {
     this.addChild( this.playAreaNode );
     this.addChild( toolboxPanel );
     this.addChild( magnifyingGlassZoomButtonGroup );
-    this.addChild( comboBox );
+    this.addChild( representationComboBox );
     this.addChild( labelsNode );
     this.addChild( this.rulersLayer );
+    this.addChild( popupsParent );
 
     //------------------------------------------------------------
     //                  Query Parameters

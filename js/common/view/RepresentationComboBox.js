@@ -1,32 +1,42 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
+ * RepresentationComboBox is the combo box for selecting the object representation.
+ *
  * @author Martin Veillette
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import merge from '../../../../phet-core/js/merge.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
-//TODO why doesn't this extend ComboBox?
-class RepresentationComboBox extends Node {
+class RepresentationComboBox extends ComboBox {
 
   /**
    * @param {EnumerationProperty.<Representation>} representationProperty
+   * @param {Node} listboxParent
    * @param {Object} [options]
    */
-  constructor( representationProperty, options ) {
+  constructor( representationProperty, listboxParent, options ) {
 
     assert && assert( representationProperty instanceof EnumerationProperty );
     assert && assert( representationProperty.validValues );
 
-    super( options );
+    options = merge( {
+
+      // ComboBox options
+      highlightFill: 'rgb(168,192,245)',
+      listPosition: 'below',
+      xMargin: 10,
+      yMargin: 5
+    }, options );
 
     // Create a ComboBoxItem for each representation.
     const items = [];
@@ -47,20 +57,7 @@ class RepresentationComboBox extends Node {
       items.push( new ComboBoxItem( hBox, representation ) );
     } );
 
-    // node to host the list of the combo box
-    const listParent = new Node();
-
-    // create the combo box
-    const comboBox = new ComboBox( items, representationProperty, listParent, {
-      highlightFill: 'rgb(168,192,245)',
-      listPosition: 'below',
-      xMargin: 10,
-      yMargin: 5
-    } );
-
-    // add the combox box before the list parent for z-layer
-    this.addChild( comboBox );
-    this.addChild( listParent );
+    super( items, representationProperty, listboxParent, options );
   }
 }
 
