@@ -11,6 +11,7 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
@@ -28,6 +29,7 @@ class RepresentationComboBox extends ComboBox {
 
     assert && assert( representationProperty instanceof EnumerationProperty );
     assert && assert( representationProperty.validValues );
+    assert && assert( listParent instanceof Node );
 
     options = merge( {
 

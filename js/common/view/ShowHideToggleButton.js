@@ -7,6 +7,7 @@
  * @author Sarah Chang (Swarthmore College)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import SceneryPhetConstants from '../../../../scenery-phet/js/SceneryPhetConstants.js';
@@ -23,6 +24,8 @@ class ShowHideToggleButton extends BooleanRoundToggleButton {
    * @param {Object} [options]
    */
   constructor( visibleProperty, options ) {
+
+    assert && assert( visibleProperty instanceof Property );
 
     options = merge( {
       trueColor: 'rgb( 240, 234, 227 )', // {Color|string} button color when visibleProperty.value === true

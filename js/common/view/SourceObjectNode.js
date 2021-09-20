@@ -10,12 +10,16 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
+import SourceObject from '../model/SourceObject.js';
 
 class SourceObjectNode extends Node {
 
@@ -28,6 +32,12 @@ class SourceObjectNode extends Node {
    * */
   constructor( representationProperty, sourceObject, visibleModelBoundsProperty,
                opticPositionProperty, modelViewTransform ) {
+
+    assert && assert( representationProperty instanceof EnumerationProperty );
+    assert && assert( sourceObject instanceof SourceObject );
+    assert && assert( visibleModelBoundsProperty instanceof Property );
+    assert && assert( opticPositionProperty instanceof Property );
+    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     super( {
       cursor: 'pointer'

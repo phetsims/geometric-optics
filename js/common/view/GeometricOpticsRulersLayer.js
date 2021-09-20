@@ -8,6 +8,7 @@
  * @author Martin Veillette
  */
 
+import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -28,6 +29,9 @@ class GeometricOpticRulersLayer extends Node {
 
     assert && assert( horizontalRuler instanceof Ruler );
     assert && assert( verticalRuler instanceof Ruler );
+    assert && assert( visibleBoundsProperty instanceof Property );
+    assert && assert( absoluteScaleProperty instanceof Property );
+    assert && assert( modelViewTransformProperty instanceof Property );
 
     super( options );
 
@@ -126,7 +130,7 @@ class GeometricOpticRulersLayer extends Node {
    * @public
    * @param {Bounds2} bounds
    */
-  setToolboxPanelBounds( bounds ) {
+  setToolboxBounds( bounds ) {
     this.toolboxPanelBounds.set( bounds );
   }
 }

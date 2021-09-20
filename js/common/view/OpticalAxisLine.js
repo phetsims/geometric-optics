@@ -6,6 +6,8 @@
  * @author Sarah Chang (Swarthmore College)
  */
 
+import Property from '../../../../axon/js/Property.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
@@ -19,6 +21,10 @@ class OpticalAxisLine extends Line {
    * @param {ModelViewTransform2} modelViewTransform
    */
   constructor( opticPositionProperty, visibleModelBoundsProperty, modelViewTransform ) {
+
+    assert && assert( opticPositionProperty instanceof Property );
+    assert && assert( visibleModelBoundsProperty instanceof Property );
+    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     // create optical axis line, with arbitrary length values.
     super( 0, 0, 1, 0, {

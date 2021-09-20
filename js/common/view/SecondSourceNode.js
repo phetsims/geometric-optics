@@ -8,10 +8,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
@@ -21,6 +23,7 @@ import VBox from '../../../../scenery/js/nodes/VBox.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import Representation from '../model/Representation.js';
+import SourceObject from '../model/SourceObject.js';
 
 // constants
 const POINT_RADIUS = 5;
@@ -43,6 +46,10 @@ class SecondSourceNode extends Node {
    * @param {Object} [options]
    */
   constructor( representationProperty, sourceObject, modelViewTransform, options ) {
+
+    assert && assert( representationProperty instanceof EnumerationProperty );
+    assert && assert( sourceObject instanceof SourceObject );
+    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     super( options );
 

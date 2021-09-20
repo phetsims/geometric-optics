@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * RulersToolboxPanel is the toolbox panel that holds rulers.
+ * RulersToolbox is the toolbox that holds the rulers.
  * A maximum of one horizontal ruler and one vertical ruler can be dragged out from this toolbox panel.
  * The toolbox panel shows a miniature version of these rulers.
  * Appears in the top right corner of the simulation.
@@ -15,14 +15,17 @@ import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Panel from '../../../../sun/js/Panel.js';
 import geometricOptics from '../../geometricOptics.js';
+import GeometricOpticRulersLayer from './GeometricOpticsRulersLayer.js';
 
-class RulersToolboxPanel extends Panel {
+class RulersToolbox extends Panel {
 
   /**
    * @param {GeometricOpticRulersLayer} rulersLayer
    * @param {Object} [options]
    */
   constructor( rulersLayer, options ) {
+
+    assert && assert( rulersLayer instanceof GeometricOpticRulersLayer );
 
     options = merge( {
       align: 'center',
@@ -135,5 +138,5 @@ function createRulerIcon( isVertical, tickMarksOnBottom ) {
   return rulerIconNode;
 }
 
-geometricOptics.register( 'RulersToolboxPanel', RulersToolboxPanel );
-export default RulersToolboxPanel;
+geometricOptics.register( 'RulersToolbox', RulersToolbox );
+export default RulersToolbox;

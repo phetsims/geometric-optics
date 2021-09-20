@@ -31,6 +31,8 @@ class CurveControl extends RectangularRadioButtonGroup {
    */
   constructor( optic, options ) {
 
+    assert && assert( optic instanceof Optic );
+
     options = merge( {
       spacing: 10, // vertical separation of the buttons
       cornerRadius: 3,

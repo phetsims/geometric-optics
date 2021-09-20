@@ -7,7 +7,9 @@
  * @author Martin Veillette
  */
 
+import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import geometricOptics from '../../geometricOptics.js';
 
@@ -19,6 +21,9 @@ class TrackingDiskNode extends Circle {
    * @param {Object} [options]
    * */
   constructor( positionProperty, modelViewTransform, options ) {
+
+    assert && assert( positionProperty instanceof Property );
+    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     options = merge( {
       fill: 'white', // {color} fill of disk

@@ -8,11 +8,15 @@
  * @author Martin Veillette
  */
 
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
+import Optic from '../model/Optic.js';
+import Target from '../model/Target.js';
 
 class TargetNode extends Node {
 
@@ -24,6 +28,12 @@ class TargetNode extends Node {
    * @param {ModelViewTransform2} modelViewTransform
    */
   constructor( representationProperty, target, optic, virtualImageVisibleProperty, modelViewTransform ) {
+
+    assert && assert( representationProperty instanceof EnumerationProperty );
+    assert && assert( target instanceof Target );
+    assert && assert( optic instanceof Optic );
+    assert && assert( virtualImageVisibleProperty instanceof Property );
+    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     super();
 

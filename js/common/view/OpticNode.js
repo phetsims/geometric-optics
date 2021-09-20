@@ -6,8 +6,10 @@
  * @author Martin Veillette
  */
 
+import Property from '../../../../axon/js/Property.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -16,6 +18,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import LightRayMode from '../model/LightRayMode.js';
+import Optic from '../model/Optic.js';
 
 class OpticNode extends Node {
 
@@ -27,6 +30,11 @@ class OpticNode extends Node {
    * @param {Object} [options]
    */
   constructor( optic, lightRayModeProperty, playAreaModelBoundsProperty, modelViewTransform, options ) {
+
+    assert && assert( optic instanceof Optic );
+    assert && assert( lightRayModeProperty instanceof Property );
+    assert && assert( playAreaModelBoundsProperty instanceof Property );
+    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     options = merge( {
       cursor: 'ns-resize',

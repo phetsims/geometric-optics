@@ -31,7 +31,7 @@ import LightRaysNode from './LightRaysNode.js';
 import OpticalAxisLine from './OpticalAxisLine.js';
 import OpticNode from './OpticNode.js';
 import RepresentationComboBox from './RepresentationComboBox.js';
-import RulersToolboxPanel from './RulersToolboxPanel.js';
+import RulersToolbox from './RulersToolbox.js';
 import SecondSourceNode from './SecondSourceNode.js';
 import ShowHideToggleButton from './ShowHideToggleButton.js';
 import SourceObjectNode from './SourceObjectNode.js';
@@ -101,11 +101,11 @@ class GeometricOpticsScreenView extends ScreenView {
     controlPanel.centerBottom = erodedLayoutBounds.centerBottom;
 
     // create toolbox panel at the top right corner of the screen
-    const toolboxPanel = new RulersToolboxPanel( this.rulersLayer );
-    toolboxPanel.rightTop = erodedLayoutBounds.rightTop;
+    const toolbox = new RulersToolbox( this.rulersLayer );
+    toolbox.rightTop = erodedLayoutBounds.rightTop;
 
     // pass the bounds of the toolbox to the rulers for their return to toolbox
-    this.rulersLayer.setToolboxPanelBounds( toolboxPanel.bounds );
+    this.rulersLayer.setToolboxBounds( toolbox.bounds );
 
     // create the control buttons to toggle between convex and concave optic at the left bottom
     const curveControl = new CurveControl( model.optic );
@@ -277,7 +277,7 @@ class GeometricOpticsScreenView extends ScreenView {
     this.addChild( showHideToggleButton );
     this.addChild( resetAllButton );
     this.addChild( this.playAreaNode );
-    this.addChild( toolboxPanel );
+    this.addChild( toolbox );
     this.addChild( zoomButtonGroup );
     this.addChild( representationComboBox );
     this.addChild( labelsNode );

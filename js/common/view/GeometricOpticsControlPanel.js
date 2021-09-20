@@ -7,8 +7,10 @@
  * @author Martin Veillette
  */
 
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import merge from '../../../../phet-core/js/merge.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
@@ -23,19 +25,26 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
 import LightRayMode from '../model/LightRayMode.js';
+import Optic from '../model/Optic.js';
 import FocalPointNode from './FocalPointNode.js';
 import SecondSourceNode from './SecondSourceNode.js';
+import VisibleProperties from './VisibleProperties.js';
 
 class GeometricOpticsControlPanel extends Panel {
 
   /**
    * @param {Optic} optic
-   * @param {Property.<LightRayMode>} lightRayModeProperty
+   * @param {EnumerationProperty.<LightRayMode>} lightRayModeProperty
    * @param {VisibleProperties} visibleProperties
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
   constructor( optic, lightRayModeProperty, visibleProperties, modelViewTransform, options ) {
+
+    assert && assert( optic instanceof Optic );
+    assert && assert( lightRayModeProperty instanceof EnumerationProperty );
+    assert && assert( visibleProperties instanceof VisibleProperties );
+    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     options = merge( {
       hasLens: false
@@ -234,7 +243,6 @@ class GeometricOpticsControlPanel extends Panel {
 
     // create and add panel
     super( content, { xMargin: 15, yMargin: 10, fill: 'rgb(240,240,240)' } );
-
   }
 }
 

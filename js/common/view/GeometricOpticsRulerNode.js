@@ -8,8 +8,11 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
@@ -17,6 +20,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import Ruler from '../model/Ruler.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GeometricOpticsConstants.MINIMUM_VISIBLE_LENGTH;
@@ -26,11 +30,16 @@ class GeometricOpticsRulerNode extends Node {
   /**
    * @param {Ruler} ruler - model for ruler
    * @param {Property.<Bounds2>} visibleBoundsProperty
-   * @param {Bounds2} panelBounds
+   * @param {Bounds2} toolboxBounds
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( ruler, visibleBoundsProperty, panelBounds, modelViewTransform, options ) {
+  constructor( ruler, visibleBoundsProperty, toolboxBounds, modelViewTransform, options ) {
+
+    assert && assert( ruler instanceof Ruler );
+    assert && assert( visibleBoundsProperty instanceof Property );
+    assert && assert( toolboxBounds instanceof Bounds2 );
+    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     options = merge( {
       cursor: 'pointer',
@@ -52,7 +61,7 @@ class GeometricOpticsRulerNode extends Node {
     this.ruler = ruler;
 
     // @public {Bounds2} bounds of the toolbox panel
-    this.panelBounds = panelBounds;
+    this.toolboxBounds = toolboxBounds;
 
     // create and add a SCENERY/RulerNode
     this.setRulerNode( modelViewTransform, this.rulerOptions );
@@ -99,7 +108,7 @@ class GeometricOpticsRulerNode extends Node {
       end: event => {
 
         // return ruler to toolbox if the pointer is within the toolbox
-        if ( this.panelBounds.containsPoint( this.globalToParentPoint( event.pointer.point ) ) ) {
+        if ( this.toolboxBounds.containsPoint( this.globalToParentPoint( event.pointer.point ) ) ) {
           this.visibleProperty.value = false;
         }
       }
@@ -173,12 +182,13 @@ class GeometricOpticsRulerNode extends Node {
   }
 
   /**
-   * Updates toolbox panel bounds
+   * Updates toolbox bounds
    * @public
    * @param {Bounds2} bounds
    */
-  setToolboxPanelBounds( bounds ) {
-    this.panelBounds = bounds;
+  setToolboxBounds( bounds ) {
+    assert && assert( bounds instanceof Bounds2 );
+    this.toolboxBounds = bounds;
   }
 
   /**
@@ -189,6 +199,7 @@ class GeometricOpticsRulerNode extends Node {
    * @returns {Node} rulerNode
    */
   getRulerNode( modelViewTransform, options ) {
+    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     options = merge( {}, this.rulerOptions, options );
 
@@ -238,6 +249,7 @@ class GeometricOpticsRulerNode extends Node {
    * @param {Object} [options]
    */
   setRulerNode( modelViewTransform, options ) {
+    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     // remove previous instances of rulerNode
     this.removeAllChildren();
