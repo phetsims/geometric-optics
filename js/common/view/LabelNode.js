@@ -6,6 +6,7 @@
  * @author Sarah Chang (Swarthmore College)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
@@ -19,11 +20,14 @@ class LabelNode extends Node {
   /**
    * @param {string} string
    * @param {Property.<Vector2>} positionProperty
-   * @param {Property.<boolean>} visibleProperty
    * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
    * @param {Object} [options]
    */
-  constructor( string, positionProperty, visibleProperty, modelViewTransformProperty, options ) {
+  constructor( string, positionProperty, modelViewTransformProperty, options ) {
+
+    assert && assert( typeof string === 'string' );
+    assert && assert( positionProperty instanceof Property );
+    assert && assert( modelViewTransformProperty instanceof Property );
 
     options = merge( {
       text: {
@@ -69,9 +73,6 @@ class LabelNode extends Node {
 
     // update the position of the text and background
     positionProperty.link( () => this.setLabelPosition() );
-
-    // add a listener to the visibility of this node
-    visibleProperty.linkAttribute( this, 'visible' );
   }
 
   /**
@@ -85,6 +86,7 @@ class LabelNode extends Node {
     this.setLabelPosition();
   }
 
+  //TODO this should be handled by observing this.textNode.boundsProperty
   /**
    * Sets position and size of label
    * @private
@@ -94,6 +96,7 @@ class LabelNode extends Node {
       .plusXY( 0, this.options.labelOffset );
   }
 
+  //TODO this should be handled by observing this.textNode.boundsProperty
   /**
    * Sets rectangle size and position based on text size
    * @private

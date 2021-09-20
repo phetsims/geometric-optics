@@ -6,7 +6,6 @@
  * @author Sarah Chang (Swarthmore College)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -33,16 +32,16 @@ class LabelsNode extends Node {
     super( options );
 
     // create left focal point label
-    const leftFocalPointLabel = new LabelNode( geometricOpticsStrings.focalPoint,
-      model.leftFocalPoint.positionProperty,
-      visibleProperties.focalPointVisibleProperty,
-      modelViewTransformProperty );
+    const leftFocalPointLabel = new LabelNode( geometricOpticsStrings.focalPoint, model.leftFocalPoint.positionProperty,
+      modelViewTransformProperty, {
+        visibleProperty: visibleProperties.focalPointVisibleProperty
+      } );
 
     // create right focal point label
-    const rightFocalPointLabel = new LabelNode( geometricOpticsStrings.focalPoint,
-      model.rightFocalPoint.positionProperty,
-      visibleProperties.focalPointVisibleProperty,
-      modelViewTransformProperty );
+    const rightFocalPointLabel = new LabelNode( geometricOpticsStrings.focalPoint, model.rightFocalPoint.positionProperty,
+      modelViewTransformProperty, {
+        visibleProperty: visibleProperties.focalPointVisibleProperty
+      } );
 
     // {DerivedProperty.<Vector2>} define optic label position
     const opticLabelPositionProperty = new DerivedProperty(
@@ -51,10 +50,7 @@ class LabelsNode extends Node {
     );
 
     // create optic label with empty string
-    const opticLabel = new LabelNode( '',
-      opticLabelPositionProperty,
-      new BooleanProperty( true ),
-      modelViewTransformProperty );
+    const opticLabel = new LabelNode( '', opticLabelPositionProperty, modelViewTransformProperty );
 
     // update the label string of the optic
     model.optic.curveProperty.link( curve => {
@@ -83,10 +79,7 @@ class LabelsNode extends Node {
     const imageLabelString = model.firstTarget.isVirtual() ? geometricOpticsStrings.virtualImage : geometricOpticsStrings.image;
 
     // create image label
-    const imageLabel = new LabelNode( imageLabelString,
-      imageLabelPositionProperty,
-      new BooleanProperty( true ),
-      modelViewTransformProperty );
+    const imageLabel = new LabelNode( imageLabelString, imageLabelPositionProperty, modelViewTransformProperty );
 
     // {DerivedProperty.<Vector2} define object label position
     // Because the we use a Y inverted reference frame, the bottom of the image is the top of the model bounds.
@@ -96,10 +89,7 @@ class LabelsNode extends Node {
     );
 
     // create object label
-    const objectLabel = new LabelNode( geometricOpticsStrings.object,
-      objectLabelPositionProperty,
-      new BooleanProperty( true ),
-      modelViewTransformProperty );
+    const objectLabel = new LabelNode( geometricOpticsStrings.object, objectLabelPositionProperty, modelViewTransformProperty );
 
     // update the visibility of the object and image labels
     Property.multilink( [
