@@ -9,10 +9,11 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import geometricOptics from '../../geometricOptics.js';
+import Optic from '../model/Optic.js';
 
 class VisibleProperties {
 
-  constructor() {
+  constructor( opticType ) {
 
     // @public visibility of the two focal points
     this.focalPointVisibleProperty = new BooleanProperty( true );
@@ -26,8 +27,10 @@ class VisibleProperties {
     // @public visibility of the second source
     this.secondSourceVisibleProperty = new BooleanProperty( false );
 
-    // @public visibility of the guides
-    this.guidesVisibleProperty = new BooleanProperty( false );
+    // @public visibility of the guides, which are irrelevant for mirror
+    this.guidesVisibleProperty = new BooleanProperty( false, {
+      validValues: opticType === ( Optic.Type.LENS ) ? [ true, false ] : [ false ]
+    } );
 
     // @public visibility of the ray tracing
     //TODO this is poorly named, it controls visibility of more than rays

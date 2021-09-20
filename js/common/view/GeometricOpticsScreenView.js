@@ -61,7 +61,7 @@ class GeometricOpticsScreenView extends ScreenView {
       GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN );
 
     // @protected Create visibleProperty instances for Nodes in the view.
-    this.visibleProperties = new VisibleProperties();
+    this.visibleProperties = new VisibleProperties( model.optic.type );
 
     // @private {Property.<number>} controls zoom in play area
     this.zoomLevelProperty = new NumberProperty( ZOOM_RANGE.defaultValue, { range: ZOOM_RANGE } );

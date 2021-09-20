@@ -43,18 +43,12 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       createItem( geometricOpticsStrings.virtualImage, visibleProperties.virtualImageVisibleProperty ),
       createItem( geometricOpticsStrings.labels, visibleProperties.labelsVisibleProperty ),
       createItem( geometricOpticsStrings.secondSource, visibleProperties.secondSourceVisibleProperty,
-        { icon: SecondSourceNode.createIcon() } ),
-      createItem( geometricOpticsStrings.guides, visibleProperties.guidesVisibleProperty )
+        { icon: SecondSourceNode.createIcon() } )
     ];
 
-    //TODO this will be problematic for PhET-iO, better to not create it if it's not needed.
-    // remove guides checkbox for mirror or because of query parameters
-    if ( opticType === Optic.Type.MIRROR || GeometricOpticsQueryParameters.showGuides === false ) {
-      items.pop();
-
-      // ensure that the guides are invisible as well
-      //TODO this should not be done here
-      visibleProperties.guidesVisibleProperty.value = false;
+    // Add Guides checkbox for lens, unless excluded via query parameter.
+    if ( ( opticType === Optic.Type.LENS ) && GeometricOpticsQueryParameters.showGuides ) {
+      items.push( createItem( geometricOpticsStrings.guides, visibleProperties.guidesVisibleProperty ) );
     }
 
     super( items, options );
