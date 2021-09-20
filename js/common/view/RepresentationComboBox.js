@@ -21,10 +21,10 @@ class RepresentationComboBox extends ComboBox {
 
   /**
    * @param {EnumerationProperty.<Representation>} representationProperty
-   * @param {Node} listboxParent
+   * @param {Node} listParent - parent for the listbox popup
    * @param {Object} [options]
    */
-  constructor( representationProperty, listboxParent, options ) {
+  constructor( representationProperty, listParent, options ) {
 
     assert && assert( representationProperty instanceof EnumerationProperty );
     assert && assert( representationProperty.validValues );
@@ -57,7 +57,7 @@ class RepresentationComboBox extends ComboBox {
       items.push( new ComboBoxItem( hBox, representation ) );
     } );
 
-    super( items, representationProperty, listboxParent, options );
+    super( items, representationProperty, listParent, options );
   }
 }
 
