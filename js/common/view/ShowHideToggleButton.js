@@ -20,16 +20,16 @@ import geometricOptics from '../../geometricOptics.js';
 class ShowHideToggleButton extends BooleanRoundToggleButton {
 
   /**
-   * @param {Property.<boolean>} visibleProperty
+   * @param {Property.<boolean>} booleanProperty
    * @param {Object} [options]
    */
-  constructor( visibleProperty, options ) {
+  constructor( booleanProperty, options ) {
 
-    assert && assert( visibleProperty instanceof Property );
+    assert && assert( booleanProperty instanceof Property );
 
     options = merge( {
-      trueColor: 'rgb( 240, 234, 227 )', // {Color|string} button color when visibleProperty.value === true
-      falseColor: PhetColorScheme.BUTTON_YELLOW,  // {Color|string} button color when visibleProperty.value === false
+      trueColor: 'rgb( 240, 234, 227 )', // {Color|string} button color when booleanProperty.value === true
+      falseColor: PhetColorScheme.BUTTON_YELLOW,  // {Color|string} button color when booleanProperty.value === false
 
       // BooleanRoundToggleButton options
       xMargin: 9,
@@ -47,10 +47,10 @@ class ShowHideToggleButton extends BooleanRoundToggleButton {
     const showNode = new Path( eyeSolidShape, options.icon );
     const hideNode = new Path( eyeSlashSolidShape, options.icon );
 
-    super( showNode, hideNode, visibleProperty, options );
+    super( showNode, hideNode, booleanProperty, options );
 
-    visibleProperty.link( visible => {
-      this.setBaseColor( visible ? options.trueColor : options.falseColor );
+    booleanProperty.link( value => {
+      this.setBaseColor( value ? options.trueColor : options.falseColor );
     } );
   }
 }
