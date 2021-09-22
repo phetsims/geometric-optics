@@ -151,7 +151,7 @@ on this information. This insures that all rays can converge to the same target.
 
 # View
 
-There are a few top-level model elements in GeometricOpticsScreenView:
+There are a few top-level view elements that are instantiated in `GeometricOpticsScreenView`:
 
 * [OpticNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/OpticNode.js) is responsible for
   the optical element (Lens or Mirror).
