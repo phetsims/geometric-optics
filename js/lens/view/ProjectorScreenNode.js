@@ -47,7 +47,10 @@ class ProjectorScreenNode extends Node {
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     options = merge( {
-      cursor: 'pointer'
+      cursor: 'pointer',
+
+      // Visible if we have a light source
+      visibleProperty: new DerivedProperty( [ representationProperty ], representation => !representation.isObject )
     }, options );
 
     // The screen
@@ -112,13 +115,6 @@ class ProjectorScreenNode extends Node {
     this.imagePositionProperty.link( position => {
       projectorScreen.positionProperty.value = position.minus( offset );
       projectorScreenImage.leftTop = modelViewTransform.modelToViewPosition( position );
-    } );
-
-    // add a listener to trigger the visibility of this node
-    representationProperty.link( representation => {
-
-      // display this node if this is a source, that is not an object
-      this.visible = !representation.isObject;
     } );
   }
 
