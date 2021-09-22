@@ -143,7 +143,7 @@ class OpticNode extends Node {
 
     // set the optic center line to visible when mode is on Principal Ray
     lightRayModeProperty.link( lightRayMode => {
-      opticCenterLine.visible = lightRayMode === LightRayMode.PRINCIPAL;
+      opticCenterLine.visible = ( lightRayMode === LightRayMode.PRINCIPAL );
     } );
   }
 }
