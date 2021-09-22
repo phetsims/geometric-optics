@@ -6,59 +6,22 @@
  * @author Martin Veillette
  */
 
-import Property from '../../../../axon/js/Property.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Line from '../../../../kite/js/segments/Line.js';
 import Shape from '../../../../kite/js/Shape.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import geometricOptics from '../../geometricOptics.js';
-import Spotlight from './Spotlight.js';
 
 // constants
-const MASK_CORNERS = GeometricOpticsConstants.MASK_CORNERS;
+const MASK_CORNERS = GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS;
 
 class ProjectorScreen {
 
-  /**
-   * @param {Property.<Vector2>} firstSourcePositionProperty
-   * @param {Property.<Vector2>} secondSourcePositionProperty
-   * @param {Property.<Vector2>} firstTargetPositionProperty
-   * @param {Property.<Vector2>} secondTargetPositionProperty
-   * @param {Optic} optic
-   */
-  constructor( firstSourcePositionProperty, secondSourcePositionProperty,
-               firstTargetPositionProperty, secondTargetPositionProperty,
-               optic ) {
-
-    assert && assert( firstSourcePositionProperty instanceof Property );
-    assert && assert( secondSourcePositionProperty instanceof Property );
-    assert && assert( firstTargetPositionProperty instanceof Property );
-    assert && assert( secondTargetPositionProperty instanceof Property );
+  constructor() {
 
     // @public position of the center of the screen
     this.positionProperty = new Vector2Property( GeometricOpticsConstants.PROJECTOR_INITIAL_POSITION );
-
-    // @public (read-only) {Property.<Vector2>} position of the optic
-    this.opticPositionProperty = optic.positionProperty;
-
-    // @public (read-only) spotlight associated with the first source/object
-    this.firstSpotlight = new Spotlight(
-      firstSourcePositionProperty,
-      this.positionProperty,
-      firstTargetPositionProperty,
-      optic,
-      this.getScreenShape.bind( this )
-    );
-
-    // @public (read-only) spotlight associated with the second source/object
-    this.secondSpotlight = new Spotlight(
-      secondSourcePositionProperty,
-      this.positionProperty,
-      secondTargetPositionProperty,
-      optic,
-      this.getScreenShape.bind( this )
-    );
   }
 
   /**

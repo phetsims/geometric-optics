@@ -13,6 +13,7 @@ import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import geometricOptics from '../../geometricOptics.js';
 import ProjectorScreen from '../../lens/model/ProjectorScreen.js';
+import Spotlight from '../../lens/model/Spotlight.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import FocalPoint from './FocalPoint.js';
 import LightRayMode from './LightRayMode.js';
@@ -70,12 +71,28 @@ class GeometricOpticsModel {
     // @public target/ image associated with the second source
     this.secondTarget = new Target( this.sourceObject.secondPositionProperty, this.optic, this.representationProperty );
 
-    // @public model of the projector screen and spotlights
+    // @public model of the projector screen
     this.projectorScreen = new ProjectorScreen(
       this.sourceObject.firstPositionProperty,
       this.sourceObject.secondPositionProperty,
       this.firstTarget.positionProperty,
       this.secondTarget.positionProperty,
+      this.optic
+    );
+
+    // @public (read-only) spotlight associated with the first source/object
+    this.firstSpotlight = new Spotlight(
+      this.sourceObject.firstPositionProperty,
+      this.firstTarget.positionProperty,
+      this.projectorScreen,
+      this.optic
+    );
+
+    // @public (read-only) spotlight associated with the second source/object
+    this.secondSpotlight = new Spotlight(
+      this.sourceObject.secondPositionProperty,
+      this.secondTarget.positionProperty,
+      this.projectorScreen,
       this.optic
     );
 

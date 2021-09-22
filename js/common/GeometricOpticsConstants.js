@@ -83,7 +83,7 @@ const GeometricOpticsConstants = {
   //----------------------------------------------------------------------------------------
   //                             PROJECTION SCREEN
 
-  MASK_CORNERS: {
+  PROJECTOR_SCREEN_MASK_CORNERS: {
     LEFT_TOP: new Vector2( -28, 39 ), // centimeters
     LEFT_BOTTOM: new Vector2( -28, -51 ),
     RIGHT_BOTTOM: new Vector2( 25, -83 ),

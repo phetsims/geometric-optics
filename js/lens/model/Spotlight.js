@@ -15,23 +15,22 @@ import Shape from '../../../../kite/js/Shape.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import Optic from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
+import ProjectorScreen from './ProjectorScreen.js';
 
 class Spotlight {
 
   /**
    * @param {Property.<Vector2>} sourcePositionProperty
-   * @param {Property.<Vector2>} screenPositionProperty
    * @param {Property.<Vector2>} targetPositionProperty
+   * @param {ProjectorScreen} projectorScreen
    * @param {Optic} optic
-   * @param {function} getScreenShape - returns the shape of the screen {Shape}
    */
-  constructor( sourcePositionProperty, screenPositionProperty, targetPositionProperty, optic, getScreenShape ) {
+  constructor( sourcePositionProperty, targetPositionProperty, projectorScreen, optic ) {
 
     assert && assert( sourcePositionProperty instanceof Property );
-    assert && assert( screenPositionProperty instanceof Property );
     assert && assert( targetPositionProperty instanceof Property );
+    assert && assert( projectorScreen instanceof ProjectorScreen );
     assert && assert( optic instanceof Optic );
-    assert && assert( typeof getScreenShape === 'function' );
 
     // @private {Property.<Vector2>} position of the source of light
     this.sourcePositionProperty = sourcePositionProperty;
@@ -40,11 +39,11 @@ class Spotlight {
     this.optic = optic;
 
     // @private {function}
-    this.getScreenShape = getScreenShape;
+    this.projectorScreen = projectorScreen;
 
     // @public {DerivedProperty.<Shape>} intersection of this spotlight with the screen
     this.screenIntersectionProperty = new DerivedProperty(
-      [ screenPositionProperty, optic.positionProperty, optic.diameterProperty, targetPositionProperty ],
+      [ projectorScreen.positionProperty, optic.positionProperty, optic.diameterProperty, targetPositionProperty ],
       ( screenPosition, opticPosition, opticDiameter, targetPosition ) =>
         this.getIntersection( screenPosition, opticPosition, opticDiameter, targetPosition )
     );
@@ -52,7 +51,7 @@ class Spotlight {
     // @public {DerivedProperty.<number>}
     // determine the light intensity of the spot, a number ranging from 0 to 1
     this.intensityProperty = new DerivedProperty(
-      [ screenPositionProperty, optic.positionProperty, optic.diameterProperty, targetPositionProperty ],
+      [ projectorScreen.positionProperty, optic.positionProperty, optic.diameterProperty, targetPositionProperty ],
       ( screenPosition, opticPosition, opticDiameter, targetPosition ) =>
         this.getLightIntensity( screenPosition, opticPosition, opticDiameter, targetPosition )
     );
@@ -166,7 +165,7 @@ class Spotlight {
   getIntersection( screenPosition, opticPosition, opticDiameter, targetPosition ) {
 
     // translated screen shape
-    const screenShape = this.getScreenShape();
+    const screenShape = this.projectorScreen.getScreenShape();
 
     // unclipped elliptical disk shape
     const diskShape = this.getDiskShape( screenPosition, opticPosition, opticDiameter, targetPosition );

@@ -5,11 +5,13 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import GeometricOpticsScreenView from '../../common/view/GeometricOpticsScreenView.js';
 import geometricOptics from '../../geometricOptics.js';
 import LensModel from '../model/LensModel.js';
 import GuideNode from './GuideNode.js';
 import ProjectorScreenNode from './ProjectorScreenNode.js';
+import SpotlightNode from './SpotlightNode.js';
 
 class LensScreenView extends GeometricOpticsScreenView {
 
@@ -21,51 +23,67 @@ class LensScreenView extends GeometricOpticsScreenView {
 
     super( model );
 
-    // {DerivedProperty.<boolean>} visibility of the first guides (associated with the object)
-    const firstGuidesVisibleProperty = new DerivedProperty(
-      [ this.visibleProperties.guidesVisibleProperty, this.visibleProperties.secondSourceVisibleProperty ],
-      ( visibleGuides, secondSourceVisible ) => ( visibleGuides && !secondSourceVisible )
-    );
-
-    // {DerivedProperty.<boolean>} visibility of the second guides (associated with the second source)
-    const secondGuidesVisibleProperty = DerivedProperty.and(
-      [ this.visibleProperties.guidesVisibleProperty, this.visibleProperties.secondSourceVisibleProperty ]
-    );
-
-    // create and add top and bottom guides associated with the object
-    const firstTopGuideNode = new GuideNode( model.firstTopGuide, this.modelViewTransform, {
-      visibleProperty: firstGuidesVisibleProperty
+    // Guides associated with the object
+    const firstGuidesNode = new Node( {
+      children: [
+        new GuideNode( model.firstTopGuide, this.modelViewTransform ),
+        new GuideNode( model.firstBottomGuide, this.modelViewTransform )
+      ],
+      visibleProperty: new DerivedProperty(
+        [ this.visibleProperties.guidesVisibleProperty, this.visibleProperties.secondSourceVisibleProperty ],
+        ( visibleGuides, secondSourceVisible ) => ( visibleGuides && !secondSourceVisible )
+      )
     } );
-    const firstBottomGuideNode = new GuideNode( model.firstBottomGuide, this.modelViewTransform, {
-      visibleProperty: firstGuidesVisibleProperty
-    } );
-    this.playAreaNode.addChild( firstBottomGuideNode );
-    this.playAreaNode.addChild( firstTopGuideNode );
+    this.playAreaNode.addChild( firstGuidesNode );
 
-    // create and add top and bottom guides associated with the second source
-    const secondTopGuideNode = new GuideNode( model.secondTopGuide, this.modelViewTransform, {
-      visibleProperty: secondGuidesVisibleProperty
+    // Guides associated with the second source
+    const secondGuidesNode = new Node( {
+      children: [
+        new GuideNode( model.secondTopGuide, this.modelViewTransform ),
+        new GuideNode( model.secondBottomGuide, this.modelViewTransform )
+      ],
+      visibleProperty: DerivedProperty.and(
+        [ this.visibleProperties.guidesVisibleProperty, this.visibleProperties.secondSourceVisibleProperty ]
+      )
     } );
-    const secondBottomGuideNode = new GuideNode( model.secondBottomGuide, this.modelViewTransform, {
-      visibleProperty: secondGuidesVisibleProperty
-    } );
-    this.playAreaNode.addChild( secondBottomGuideNode );
-    this.playAreaNode.addChild( secondTopGuideNode );
+    this.playAreaNode.addChild( secondGuidesNode );
 
-    // create projector screen associated with light source
-    // @private {ProjectorScreenNode}
-    this.projectorScreenNode = new ProjectorScreenNode(
+    // Projector
+    const projectorScreenNode = new ProjectorScreenNode(
       model.projectorScreen,
-      model.representationProperty,
-      model.firstTarget.enabledProperty,
-      model.secondTarget.enabledProperty,
-      this.visibleProperties.secondSourceVisibleProperty,
+      model.optic.positionProperty,
       this.playAreaModelBoundsProperty,
       this.modelViewTransform
     );
 
-    //  add the screen at the bottom of the z-layer
-    this.playAreaNode.insertChild( 0, this.projectorScreenNode );
+    // Spotlight associated with the first source
+    const firstSpotlightNode = new SpotlightNode(
+      model.firstSpotlight.intensityProperty,
+      model.firstSpotlight.screenIntersectionProperty,
+      this.modelViewTransform, {
+        visibleProperty: model.firstTarget.enabledProperty
+      } );
+
+    // Spotlight associated with the second source
+    const secondSpotlightNode = new SpotlightNode(
+      model.secondSpotlight.intensityProperty,
+      model.secondSpotlight.screenIntersectionProperty,
+      this.modelViewTransform, {
+        visibleProperty: DerivedProperty.and(
+          [ model.secondTarget.enabledProperty, this.visibleProperties.secondSourceVisibleProperty ] )
+      } );
+
+    // Add projector screen and spotlights at the bottom of the z-layer.
+    const lightSourceNodes = new Node( {
+      children: [ projectorScreenNode, firstSpotlightNode, secondSpotlightNode ],
+      visibleProperty: new DerivedProperty( [ model.representationProperty ], representation => !representation.isObject )
+    } );
+    this.playAreaNode.insertChild( 0, lightSourceNodes );
+
+    // @private
+    this.resetLensScreenView = () => {
+      this.projectorScreenNode.reset();
+    };
   }
 
   /**
@@ -74,7 +92,7 @@ class LensScreenView extends GeometricOpticsScreenView {
    */
   reset() {
     super.reset();
-    this.projectorScreenNode.reset();
+    this.resetLensScreenView();
   }
 }
 

@@ -7,7 +7,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -21,36 +20,25 @@ import projectorScreen_png from '../../../images/projectorScreen_png.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import geometricOptics from '../../geometricOptics.js';
 import ProjectorScreen from '../model/ProjectorScreen.js';
-import SpotlightNode from './SpotlightNode.js';
 
 class ProjectorScreenNode extends Node {
 
   /**
    * @param {ProjectorScreen} projectorScreen
-   * @param {EnumerationProperty.<Representation>} representationProperty
-   * @param {Property.<boolean>} firstSpotlightEnabledProperty - have the rays from the first source reached the screen
-   * @param {Property.<boolean>} secondSpotlightEnabledProperty - have the rays from the second source reached the screen
-   * @param {Property.<boolean>} secondSourceVisibleProperty - is the second source checkbox on.
+   * @param {Property.<Vector2>} opticPositionProperty
    * @param {Property.<Bounds2>} visibleModelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( projectorScreen, representationProperty, firstSpotlightEnabledProperty, secondSpotlightEnabledProperty,
-               secondSourceVisibleProperty, visibleModelBoundsProperty, modelViewTransform, options ) {
+  constructor( projectorScreen, opticPositionProperty, visibleModelBoundsProperty, modelViewTransform, options ) {
 
     assert && assert( projectorScreen instanceof ProjectorScreen );
-    assert && assert( representationProperty instanceof EnumerationProperty );
-    assert && assert( firstSpotlightEnabledProperty instanceof Property );
-    assert && assert( secondSpotlightEnabledProperty instanceof Property );
-    assert && assert( secondSourceVisibleProperty instanceof Property );
+    assert && assert( opticPositionProperty instanceof Property );
     assert && assert( visibleModelBoundsProperty instanceof Property );
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     options = merge( {
-      cursor: 'pointer',
-
-      // Visible if we have a light source
-      visibleProperty: new DerivedProperty( [ representationProperty ], representation => !representation.isObject )
+      cursor: 'pointer'
     }, options );
 
     // The screen
@@ -58,22 +46,8 @@ class ProjectorScreenNode extends Node {
       scale: GeometricOpticsConstants.PROJECTOR_SCALE
     } );
 
-    const firstSpotlightNode = new SpotlightNode(
-      projectorScreen.firstSpotlight.intensityProperty,
-      projectorScreen.firstSpotlight.screenIntersectionProperty,
-      modelViewTransform, {
-        visibleProperty: firstSpotlightEnabledProperty
-      } );
-
-    const secondSpotlightNode = new SpotlightNode(
-      projectorScreen.secondSpotlight.intensityProperty,
-      projectorScreen.secondSpotlight.screenIntersectionProperty,
-      modelViewTransform, {
-        visibleProperty: DerivedProperty.and( [ secondSpotlightEnabledProperty, secondSourceVisibleProperty ] )
-      } );
-
     assert && assert( !options.children );
-    options.children = [ projectorScreenImage, firstSpotlightNode, secondSpotlightNode ];
+    options.children = [ projectorScreenImage ];
 
     super( options );
 
@@ -87,7 +61,7 @@ class ProjectorScreenNode extends Node {
 
     // {DerivedProperty.<Bounds2>} keep at least half of the projector screen within visible bounds and right of the optic
     const projectorScreenDragBoundsProperty = new DerivedProperty(
-      [ visibleModelBoundsProperty, projectorScreen.opticPositionProperty ],
+      [ visibleModelBoundsProperty, opticPositionProperty ],
       ( visibleBounds, opticPosition ) =>
         new Bounds2( opticPosition.x,
           visibleBounds.minY + modelChildHeight / 2,
