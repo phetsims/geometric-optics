@@ -35,6 +35,13 @@ const GeometricOpticsQueryParameters = QueryStringMachine.getAll( {
   // show the position of points at a distance 2f from the optic.
   show2fPoints: {
     type: 'flag'
+  },
+
+  // speed of light in centimeters per second, for the purpose of the light rays animation
+  lightSpeed: {
+    type: 'number',
+    defaultValue: 500,
+    isValidValue: value => ( value >= 100 )
   }
 } );
 

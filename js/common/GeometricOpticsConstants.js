@@ -32,8 +32,7 @@ const GeometricOpticsConstants = {
   ORIGIN_POINT: new Vector2( 1024 / 2, 618 / 2 - 50 ), // view position of the model origin (0,0)
   NOMINAL_VIEW_MODEL_CONVERSION: 2, // view coordinates per cm in initial zoom level
 
-  LIGHT_SPEED: 500, // speed in centimeter per second for light for the purpose of the animation
-  RAYS_ANIMATION_TIME: 5, // length of the rays animation, in seconds
+  RAYS_ANIMATION_TIME: 10, // length of the rays animation, in seconds
 
   //----------------------------------------------------------------------------------------
   //                                 LENS

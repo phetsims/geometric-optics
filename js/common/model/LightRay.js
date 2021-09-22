@@ -15,7 +15,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
 import Optic from './Optic.js';
 import Ray from './Ray.js';
 
@@ -50,7 +50,7 @@ class LightRay {
     this.virtualShape = new Shape();
 
     // {number} maximum travel distance if ray is unimpeded
-    const distanceTraveled = GeometricOpticsConstants.LIGHT_SPEED * time;
+    const distanceTraveled = GeometricOpticsQueryParameters.lightSpeed * time;
 
     // {Vector2|null} first intersection point - a null value implies that the initialRay does not intersect the optic
     const firstPoint = this.getFirstPoint( initialRay, optic, isPrincipalRayMode );
