@@ -1,7 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Model element of projector screen. A target screen has a position, a screen shape and two spotlights.
+ * ProjectorScreen is the model of the projector screen. It has a position, and methods for computing Shapes needed
+ * by the view.
  *
  * @author Martin Veillette
  */
