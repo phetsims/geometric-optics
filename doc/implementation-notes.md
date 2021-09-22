@@ -81,8 +81,23 @@ to `playAreaModelBounds`.
 
 ### Memory management
 
-Unless otherwise documented in the source code, assume that `unlink`, `removeListener`, `dispose`
-, etc. are generally not needed and that all listeners exist for the lifetime of the sim.
+* **Listeners**: Unless otherwise noted in the code, all uses of `link`, `addListener`, etc. do NOT need a corresponding
+  `unlink`, `removeListener`, etc.
+
+* **dispose**: Most sim-specific classes are not intended to be disposed, and therefore do not properly implement
+`dispose`.  Those classes will either have no `dispose` method, or will override their interited `dispose`
+method like this:
+
+```js
+/**
+ * @public
+ * @override
+ */
+dispose() {
+  assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+  super.dispose();
+}
+```
 
 # Model
 
