@@ -12,6 +12,21 @@ import geometricOptics from '../geometricOptics.js';
 
 const GeometricOpticsQueryParameters = QueryStringMachine.getAll( {
 
+  //----------------------------------------------------------------------------------------------------------------
+  // Public-facing query parameters
+  //----------------------------------------------------------------------------------------------------------------
+
+  // display a checkbox item that allows to toggle the visibility of the guides on the lens screen
+  showGuides: {
+    type: 'boolean',
+    defaultValue: true,
+    public: true
+  },
+
+  //----------------------------------------------------------------------------------------------------------------
+  // Internal query parameters
+  //----------------------------------------------------------------------------------------------------------------
+
   // show the positions of the object, target and optic.
   showDebugPoints: {
     type: 'flag'
@@ -20,13 +35,6 @@ const GeometricOpticsQueryParameters = QueryStringMachine.getAll( {
   // show the position of points at a distance 2f from the optic.
   show2fPoints: {
     type: 'flag'
-  },
-
-  // display a checkbox item that allows to toggle the visibility of the guides on the lens screen
-  showGuides: {
-    type: 'boolean',
-    defaultValue: true,
-    public: true
   }
 } );
 
