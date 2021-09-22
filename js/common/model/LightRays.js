@@ -78,7 +78,7 @@ class LightRays {
         // is the light ray mode set to Principal Rays
         const isPrincipalRayMode = lightRayMode === LightRayMode.PRINCIPAL;
 
-        // set the enable target Property to false initially  (unless there are no rays)
+        // set the target's enabledProperty to false initially (unless there are no rays)
         target.enabledProperty.value = lightRayMode === LightRayMode.NONE;
 
         // loop over the direction of each ray
@@ -98,10 +98,11 @@ class LightRays {
             projectorScreen.getBisectorLine.bind( projectorScreen )
           );
 
-          // set the enable image to true after the first ray reaches its target
+          // set target's enabledProperty to true after the first ray reaches its target
           if ( lightRay.isTargetReached ) {
             target.enabledProperty.value = true;
           }
+
           // add this new real lightRay to the realRay
           this.addRayShape( lightRay.realShape, this.realRay );
 
