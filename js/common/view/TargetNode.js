@@ -68,7 +68,7 @@ class TargetNode extends Node {
     Property.multilink(
       [ target.isVirtualProperty, virtualImageVisibleProperty, target.enabledProperty ],
       ( isVirtual, virtualImageVisible, enabled ) => {
-        targetImage.visible = ( ( isVirtual ) ? virtualImageVisible : true ) && enabled;
+        targetImage.visible = ( isVirtual ? virtualImageVisible : true ) && enabled;
       } );
 
     // update position and scale when model bounds change
