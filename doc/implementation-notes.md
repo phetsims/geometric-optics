@@ -1,15 +1,19 @@
-## Geometric Options - Implementation Notes
+# Geometric Options - Implementation Notes
 
 Ths document is meant and to supplement the source code and comments of the simulation Geometric Optics.
 
-Since the language of optics is confusing and share a lot of overlap with language in software development, it is
+## Terminology 
+
+Since the language of optics is confusing, and terms overlap with those used in software development, it is
 worthwhile to define some terms uses throughout the simulation.
 
 **Object:**  
-Anything that can be view.
+Anything that can be viewed. Unfortunately this term conflicts with JavaScript's `Object` type, so we 
+use **SourceObject** in the code.
 
 **Image:**
-The likeness of an object produced at a point in space by a lens or a mirror
+The likeness of an object produced at a point in space by a lens or a mirror.
+Unfortunately this term conflicts with `SCENERY/Image` so we use the term **Target** in the code.
 
 **Real image:**
 An image for which light rays physically intersect at the image location.
@@ -18,45 +22,42 @@ An image for which light rays physically intersect at the image location.
 A image for which light rays do not physically intersect at the image point but appears to diverge from that point.
 
 **Real Rays:**
-Light rays emanating from an object and reflected/transmitted by an optical element
+Light rays emanating from an object that are reflected/transmitted by an optical element
 
 **Virtual Rays:**
-Backward rays that indicate an apparent origin for ray the divergence of rays. Virtual rays are drawn from an optical
+Backward rays that indicate an apparent origin for the divergence of rays. Virtual rays are drawn from an optical
 element to the position of a virtual image.
 
 **Optical Axis:**
 The straight line passing through the center of curvature and pole of  
-optical element. It is also called its "principal axis".
+an optical element. It is also called the "principal axis".
 
 **First Principal Focus:**
-A beam of light incident parallel to the optical axis, after reaching the optical element will either actually converge
+A beam of light incident parallel to the optical axis, after reaching the optical element, will either actually converge
 to or appear to diverge from a fixed point on the optical axis. The fixed point is called the "First Principal focus".
 
 **Second Principal Focus:**
 The point opposite to the first principal focus from the optical element.
 
 **Guide:**
-This is a PhET construction, but are used in the simulation to denote the bending of the light due to a lens. A "guide"
+This is a PhET construction, but is used in the simulation to denote the bending of the light due to a lens. A guide
 is attached to the ends of the lens and can freely rotate from its fulcrum point.
 
-In addition, the word **distance** and **height** have a different meaning in optics. A distance can be positive or
+**Screen:**
+Light is projected onto a screen. Unfortunately this term conflicts with `SCENERY/Screen`. So we use _ProjectorScreen_ throughout the code.
+
+Finally, the words **distance** and **height** have a different meaning in optics. A distance can be positive or
 negative and can only be measured horizontally. The meaning of **positive** and **negative** is a convention that may
-vary. We define the convention followed in the simulation in [model.md](./model.md). The height in optics is always
-measured from the optical axis. A positive
-(negative) height indicates the object is above (below) the optical axis.
+vary. We define the convention followed in the simulation in [model.md](https://github.com/phetsims/geometric-optics/blob/master/doc/model.md). 
+The height in optics is always measured from the optical axis. A positive (negative) height indicates the object is above (below) the optical axis.
 
-In the internal code, we have attempted to refrain the use of the word image to mean optical image. Instead, we refer to
-optical image as target and use the word image for refer to a SCENERY/image.
-
-The word ProjectorScreen refers to the screen of a projector and is not related to a SCENERY/Screen.
-
-### PlayArea
-
-This simulation uses a scenery layer called play area that is used all the elements within the "Play Area". In essence,
+**Play Area:** This simulation creates a scenery layer called **play area** that is used all the elements within the "Play Area". In essence,
 it includes all the scenery elements except for the control panels, combox box, buttons, etc. The play area can be
-zoomed in or out. It is important to note that the Rulers and the Labels do not belong to the play area since they
+zoomed in or out. It is important to note that the rulers and the labels do not belong to the play area since they
 contain text that may be hard to read upon zooming. Therefore, like the control panels and buttons, they are attached
-directly to the screen view.
+directly to the ScreenView.
+
+## General Considerations
 
 **Model-view transform and Zoom**: This simulation makes use of model view transform to map model coordinates to the
 view coordinates. The base units of the model is centimeters (cm). It is used throughout the model with a few exceptions
@@ -77,7 +78,7 @@ to `playAreaModelBounds`.
 **Memory management**: Unless otherwise documented in the source code, assume that `unlink`, `removeListener`, `dispose`
 , etc. are generally not needed and that all listeners exist for the lifetime of the sim.
 
-### Model
+# Model
 
 The main model class
 is [GeometricOpticsModel](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/GeometricOpticsModel.js)
@@ -142,7 +143,7 @@ There are a few top-level model elements in GeometricOpticsScreenView:
 Except for the `GeometricOpticsRulerNode`, all the scenery elements are created at startup. A set of visibility
 listeners, created within the view side of the simulation, toggled the visibility of the scenery nodes.
 
-**Gotchas**
+## Gotchas
 
 There a few odd things.
 
@@ -154,7 +155,7 @@ There a few odd things.
   index of refraction of 2.
 * The shape of the lens as well as the refraction of the rays within the lens is hollywooded. This leads to a few
   artefacts that we attempted to minimize, but unfortunately complicates the codebase.
-* There is a not a one to one correspondence between the model instances and view instances.
+* There is a not a one-to-one correspondence between the model instances and view instances.
     - There is one instance of opticNode that depends on one optic model (so far so good).
     - There is one instance of targetNode that depends on the firstTarget model. The secondTarget model does not have a
       targetNode component but is used by the secondLightRay and projectorScreen.
