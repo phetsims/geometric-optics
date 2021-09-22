@@ -9,6 +9,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Graph from '../../../../kite/js/ops/Graph.js';
 import Shape from '../../../../kite/js/Shape.js';
@@ -16,6 +17,9 @@ import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import Optic from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 import ProjectorScreen from './ProjectorScreen.js';
+
+// constants
+const INTENSITY_RANGE = new Range( 0, 1 );
 
 class Spotlight {
 
@@ -53,8 +57,9 @@ class Spotlight {
     this.intensityProperty = new DerivedProperty(
       [ projectorScreen.positionProperty, optic.positionProperty, optic.diameterProperty, targetPositionProperty ],
       ( screenPosition, opticPosition, opticDiameter, targetPosition ) =>
-        this.getLightIntensity( screenPosition, opticPosition, opticDiameter, targetPosition )
-    );
+        this.getLightIntensity( screenPosition, opticPosition, opticDiameter, targetPosition ), {
+        isValidValue: value => INTENSITY_RANGE.contains( value )
+      } );
   }
 
   /**
@@ -190,34 +195,33 @@ class Spotlight {
    * Gets the normalized (between 0 and 1) light intensity of the spotlight
    * Physically, a spotlight is dimmer when the light is spread on a larger surface.
    * To preserve dynamic range, the spotlight is instead inversely proportional to the diameter of the spotlight.
-   *
-   * The value for the intensity saturates to 1 for a spotlight height smaller than FULL_BRIGHT_SPOT_HEIGHT
+   * The value saturates to max intensity for a spotlight height smaller than FULL_BRIGHT_SPOT_HEIGHT
    * @private
    * @param {Vector2} screenPosition
    * @param {Vector2} opticPosition
    * @param {number} opticDiameter
    * @param {Vector2} targetPosition
-   * @returns {number} a value between 0 and 1
+   * @returns {number} a value in INTENSITY_RANGE
    */
   getLightIntensity( screenPosition, opticPosition, opticDiameter, targetPosition ) {
 
     // {number} vertical radius of the unclipped spotlight
     const { radiusY } = this.getDiskParameters( screenPosition, opticPosition, opticDiameter, targetPosition );
 
-    // get the height of spotlight
-    const spotlightHeight = 2 * radiusY;
+    let intensity;
+    if ( radiusY === 0 ) {
 
-    // avoid division by zero
-    if ( spotlightHeight === 0 ) {
-
-      // maximum intensity
-      return 1;
+      // avoid division by zero
+      intensity = INTENSITY_RANGE.max;
     }
     else {
 
-      // intensity saturates to 1 for a spotlight height less than FULL_BRIGHT_SPOT_HEIGHT
-      return Math.min( 1, GeometricOpticsConstants.FULL_BRIGHT_SPOT_HEIGHT / spotlightHeight );
+      // saturates to max intensity for a spotlight height less than FULL_BRIGHT_SPOT_HEIGHT
+      const spotlightHeight = 2 * radiusY;
+      intensity = Math.min( INTENSITY_RANGE.max, GeometricOpticsConstants.FULL_BRIGHT_SPOT_HEIGHT / spotlightHeight );
     }
+    assert && assert( INTENSITY_RANGE.contains( intensity ) );
+    return intensity;
   }
 }
 
