@@ -3,7 +3,7 @@
 The simulation describes light propagation through a lens in terms of rays. The rays in geometric optics are a useful
 abstraction for approximating the paths along which light propagates.
 
-The magnitude of the focal length of the lens is given by `f= R/(2(1-n)))`
+The magnitude of the focal length of the lens is given by `f = R/(2(1-n)))`
 where `n` and `R` are respectively the index of refraction and the radius of curvature of the lens.
 
 In the case of the mirror, the magnitude of the focal length is determined in the paraxial approximation, i.e. given by
