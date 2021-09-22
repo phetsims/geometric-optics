@@ -79,12 +79,10 @@ The nodes within the play area may need to know about the position of objects ou
 of the simulation. For instance, the `zoomModelViewTransform` can be used to convert the visibleBounds of the simulation
 to `playAreaModelBounds`.
 
-### Dynamic allocation
-
-Most objects in this sim are allocated at startup, and exist for the lifetime of the simulation. 
-The exception is `GeometricOpticsRulerNode`, which is instantiated each time the zoom level changes. 
-
 ### Memory management
+
+* **Dynamic allocation:** Most objects in this sim are allocated at startup, and exist for the lifetime of the simulation. 
+The exception is `GeometricOpticsRulerNode`, which is instantiated each time the zoom level changes. 
 
 * **Listeners**: Unless otherwise noted in the code, all uses of `link`, `addListener`, etc. do NOT need a corresponding
   `unlink`, `removeListener`, etc.
