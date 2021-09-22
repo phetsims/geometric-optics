@@ -1,8 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Model element of the spotlight. Responsible for the shape of the spotlight
- * (cropped to the screen shape) and its light intensity
+ * Spotlight is the model of the light that hits the projector screen.
+ * Responsible for the shape of the spotlight (cropped to the screen shape) and the light intensity.
  *
  * @author Martin Veillette
  */
