@@ -1,6 +1,6 @@
 # Geometric Optics - Model Description
 
-The simulation describes light propagation through a lens in terms of rays. The rays in geometric optics are useful
+The simulation describes light propagation through a lens in terms of rays. The rays in geometric optics are a useful
 abstraction for approximating the paths along which light propagates.
 
 The magnitude of the focal length of the lens is given by `f= R/(2(1-n)))`
