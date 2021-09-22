@@ -79,6 +79,9 @@ The nodes within the play area may need to know about the position of objects ou
 of the simulation. For instance, the `zoomModelViewTransform` can be used to convert the visibleBounds of the simulation
 to `playAreaModelBounds`.
 
+* **Dynamic allocation**: Most objects in this sim are allocated at startup, and exist for the lifetime of the
+  simulation. The exception is `GeometricOpticsRulerNode`, which is created each time the zoom level changes. 
+
 ### Memory management
 
 * **Listeners**: Unless otherwise noted in the code, all uses of `link`, `addListener`, etc. do NOT need a corresponding
@@ -160,8 +163,6 @@ There are a few top-level model elements in GeometricOpticsScreenView:
 
 * [LightRaysNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/LightRaysNode.js) is
   responsible for laying out the light rays.
-
-Except for the `GeometricOpticsRulerNode`, all scenery Nodes are created at startup. 
 
 Properties in [VisibileProperties](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/VisibleProperties.js) are used to toggle the visibility of Nodes.
 
