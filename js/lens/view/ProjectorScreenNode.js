@@ -29,21 +29,21 @@ class ProjectorScreenNode extends Node {
    * @param {ProjectorScreen} projectorScreen
    * @param {EnumerationProperty.<Representation>} representationProperty
    * TODO rename
-   * @param {Property.<boolean>} enableFirstSpotlightProperty - have the rays from the first source reached the screen
+   * @param {Property.<boolean>} firstSpotlightEnabledProperty - have the rays from the first source reached the screen
    * TODO rename
-   * @param {Property.<boolean>} enableSecondSpotlightProperty - have the rays from the second source reached the screen
+   * @param {Property.<boolean>} secondSpotlightEnabledProperty - have the rays from the second source reached the screen
    * @param {Property.<boolean>} secondSourceVisibleProperty - is the second source checkbox on.
    * @param {Property.<Bounds2>} visibleModelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( projectorScreen, representationProperty, enableFirstSpotlightProperty, enableSecondSpotlightProperty,
+  constructor( projectorScreen, representationProperty, firstSpotlightEnabledProperty, secondSpotlightEnabledProperty,
                secondSourceVisibleProperty, visibleModelBoundsProperty, modelViewTransform, options ) {
 
     assert && assert( projectorScreen instanceof ProjectorScreen );
     assert && assert( representationProperty instanceof EnumerationProperty );
-    assert && assert( enableFirstSpotlightProperty instanceof Property );
-    assert && assert( enableSecondSpotlightProperty instanceof Property );
+    assert && assert( firstSpotlightEnabledProperty instanceof Property );
+    assert && assert( secondSpotlightEnabledProperty instanceof Property );
     assert && assert( secondSourceVisibleProperty instanceof Property );
     assert && assert( visibleModelBoundsProperty instanceof Property );
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
@@ -113,7 +113,7 @@ class ProjectorScreenNode extends Node {
       projectorScreen.firstSpotlight.intensityProperty,
       projectorScreen.firstSpotlight.screenIntersectionProperty,
       modelViewTransform, {
-        visibleProperty: enableFirstSpotlightProperty
+        visibleProperty: firstSpotlightEnabledProperty
       } );
     this.addChild( firstSpotlightNode );
 
@@ -121,7 +121,7 @@ class ProjectorScreenNode extends Node {
       projectorScreen.secondSpotlight.intensityProperty,
       projectorScreen.secondSpotlight.screenIntersectionProperty,
       modelViewTransform, {
-        visibleProperty: DerivedProperty.and( [ enableSecondSpotlightProperty, secondSourceVisibleProperty ] )
+        visibleProperty: DerivedProperty.and( [ secondSpotlightEnabledProperty, secondSourceVisibleProperty ] )
       } );
     this.addChild( secondSpotlightNode );
   }
