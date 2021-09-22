@@ -12,26 +12,25 @@ import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import Path from '../../../../scenery/js/nodes/Path.js';
 import projectorScreen_png from '../../../images/projectorScreen_png.js';
-import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import geometricOptics from '../../geometricOptics.js';
 import ProjectorScreen from '../model/ProjectorScreen.js';
-import Spotlight from '../model/Spotlight.js';
+import SpotlightNode from './SpotlightNode.js';
 
 class ProjectorScreenNode extends Node {
 
   /**
    * @param {ProjectorScreen} projectorScreen
    * @param {EnumerationProperty.<Representation>} representationProperty
+   * TODO rename
    * @param {Property.<boolean>} enableFirstSpotlightProperty - have the rays from the first source reached the screen
+   * TODO rename
    * @param {Property.<boolean>} enableSecondSpotlightProperty - have the rays from the second source reached the screen
    * @param {Property.<boolean>} secondSourceVisibleProperty - is the second source checkbox on.
    * @param {Property.<Bounds2>} visibleModelBoundsProperty
@@ -55,12 +54,10 @@ class ProjectorScreenNode extends Node {
 
     super( options );
 
-    // create projectorScreen target
+    // The screen
     const projectorScreenImage = new Image( projectorScreen_png, {
       scale: GeometricOpticsConstants.PROJECTOR_SCALE
     } );
-
-    // add projectorScreen image to scene graph
     this.addChild( projectorScreenImage );
 
     // TODO: the model should give its size to the view rather than the other way around (see #153)
@@ -71,7 +68,7 @@ class ProjectorScreenNode extends Node {
     // difference between the left top position of the image and the "center" of the blackboard in model coordinates
     const offset = new Vector2( -modelChildWidth, modelChildHeight ).divideScalar( 2 );
 
-    // @private {Property.<Vector2} left top position of the projectorScreen target
+    // @private left top position of the projectorScreen target
     this.imagePositionProperty = new Vector2Property( projectorScreen.positionProperty.value.plus( offset ) );
 
     // {DerivedProperty.<Bounds2>} keep at least half of the projector screen within visible bounds and right of the optic
@@ -112,45 +109,21 @@ class ProjectorScreenNode extends Node {
       this.visible = !representation.isObject;
     } );
 
-    /**
-     * Create and add a spotlight on projectorScreen
-     * @param {Spotlight} spotlight
-     * @param {Property.<boolean>} visibleProperty
-     */
-    const addSpotLightNode = ( spotlight, visibleProperty ) => {
-      assert && assert( spotlight instanceof Spotlight );
-      assert && assert( visibleProperty instanceof Property );
-
-      // create spotlight
-      const spotlightNode = new Path( new Shape( spotlight.screenIntersectionProperty.value ), {
-        visibleProperty: visibleProperty,
-        fill: GeometricOpticsColors.projectorScreenSpotlightFillProperty
+    const firstSpotlightNode = new SpotlightNode(
+      projectorScreen.firstSpotlight.intensityProperty,
+      projectorScreen.firstSpotlight.screenIntersectionProperty,
+      modelViewTransform, {
+        visibleProperty: enableFirstSpotlightProperty
       } );
+    this.addChild( firstSpotlightNode );
 
-      // add listener to update the intensity of light to the opacity of the scenery node
-      spotlight.intensityProperty.link( intensity => {
-        spotlightNode.opacity = intensity;
+    const secondSpotlightNode = new SpotlightNode(
+      projectorScreen.secondSpotlight.intensityProperty,
+      projectorScreen.secondSpotlight.screenIntersectionProperty,
+      modelViewTransform, {
+        visibleProperty: DerivedProperty.and( [ enableSecondSpotlightProperty, secondSourceVisibleProperty ] )
       } );
-
-      // add listener to update the shape of the spotlight
-      spotlight.screenIntersectionProperty.link( shape => {
-        spotlightNode.shape = modelViewTransform.modelToViewShape( shape );
-      } );
-
-      // add the spotlight to this node
-      this.addChild( spotlightNode );
-    };
-
-    // add spotlight due to always present source
-    addSpotLightNode( projectorScreen.firstSpotlight, enableFirstSpotlightProperty );
-
-    // {Property.<boolean>} visibility of the second source spotlight
-    const visibleSecondSourceSpotlightProperty = DerivedProperty.and(
-      [ enableSecondSpotlightProperty, secondSourceVisibleProperty ]
-    );
-
-    // add second spotlight for the "second source"
-    addSpotLightNode( projectorScreen.secondSpotlight, visibleSecondSourceSpotlightProperty );
+    this.addChild( secondSpotlightNode );
   }
 
   /**
