@@ -148,6 +148,15 @@ class Target extends EnabledComponent {
   }
 
   /**
+   * @public
+   * @override
+   */
+  dispose() {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
+  }
+
+  /**
    * Returns the horizontal distance between the object and the optical element.
    * A negative distance indicates that the object is to the right of the optical element.
    * @public

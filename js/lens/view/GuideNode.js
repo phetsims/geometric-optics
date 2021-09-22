@@ -121,6 +121,15 @@ class GuideNode extends Node {
     this.addChild( transmittedRectangle );
     this.addChild( fulcrumCircle );
   }
+
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
+  }
 }
 
 geometricOptics.register( 'GuideNode', GuideNode );

@@ -146,6 +146,15 @@ class OpticNode extends Node {
       opticCenterLine.visible = ( lightRayMode === LightRayMode.PRINCIPAL );
     } );
   }
+
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
+  }
 }
 
 geometricOptics.register( 'OpticNode', OpticNode );

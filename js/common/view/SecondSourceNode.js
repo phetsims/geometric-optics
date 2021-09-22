@@ -125,12 +125,12 @@ class SecondSourceNode extends Node {
   }
 
   /**
-   * Creates an icon to represent the second source.
    * @public
-   * @returns {PointNode}
+   * @override
    */
-  static createIcon() {
-    return new PointNode( 5 );
+  dispose() {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
   }
 
   /**
@@ -139,6 +139,15 @@ class SecondSourceNode extends Node {
    */
   reset() {
     this.cueingArrows.visible = true;
+  }
+
+  /**
+   * Creates an icon to represent the second source.
+   * @public
+   * @returns {PointNode}
+   */
+  static createIcon() {
+    return new PointNode( 5 );
   }
 }
 

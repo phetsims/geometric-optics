@@ -53,6 +53,15 @@ class ShowHideToggleButton extends BooleanRoundToggleButton {
       this.setBaseColor( value ? options.trueColor : options.falseColor );
     } );
   }
+
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
+  }
 }
 
 geometricOptics.register( 'ShowHideToggleButton', ShowHideToggleButton );

@@ -46,6 +46,15 @@ class FocalPointNode extends PlusNode {
   }
 
   /**
+   * @public
+   * @override
+   */
+  dispose() {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
+  }
+
+  /**
    * Returns an icon for the focal point
    * @public
    * @param {Object} [options] - options for PlusNode

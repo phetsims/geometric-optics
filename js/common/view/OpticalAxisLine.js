@@ -45,6 +45,15 @@ class OpticalAxisLine extends Line {
       this.setY2( yView );
     } );
   }
+
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
+  }
 }
 
 geometricOptics.register( 'OpticalAxisLine', OpticalAxisLine );
