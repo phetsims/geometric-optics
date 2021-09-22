@@ -28,9 +28,7 @@ class ProjectorScreenNode extends Node {
   /**
    * @param {ProjectorScreen} projectorScreen
    * @param {EnumerationProperty.<Representation>} representationProperty
-   * TODO rename
    * @param {Property.<boolean>} firstSpotlightEnabledProperty - have the rays from the first source reached the screen
-   * TODO rename
    * @param {Property.<boolean>} secondSpotlightEnabledProperty - have the rays from the second source reached the screen
    * @param {Property.<boolean>} secondSourceVisibleProperty - is the second source checkbox on.
    * @param {Property.<Bounds2>} visibleModelBoundsProperty
