@@ -82,7 +82,7 @@ class LensScreenView extends GeometricOpticsScreenView {
 
     // @private
     this.resetLensScreenView = () => {
-      this.projectorScreenNode.reset();
+      projectorScreenNode.reset();
     };
   }
 
