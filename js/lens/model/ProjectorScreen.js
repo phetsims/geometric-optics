@@ -36,13 +36,13 @@ class ProjectorScreen {
     assert && assert( firstTargetPositionProperty instanceof Property );
     assert && assert( secondTargetPositionProperty instanceof Property );
 
-    // @public {Property.<Vector2>} position of the center of the screen
+    // @public position of the center of the screen
     this.positionProperty = new Vector2Property( GeometricOpticsConstants.PROJECTOR_INITIAL_POSITION );
 
     // @public (read-only) {Property.<Vector2>} position of the optic
     this.opticPositionProperty = optic.positionProperty;
 
-    // @public (read-only) {Spotlight}
+    // @public (read-only) spotlight associated with the first source/object
     this.firstSpotlight = new Spotlight(
       firstSourcePositionProperty,
       this.positionProperty,
@@ -51,7 +51,7 @@ class ProjectorScreen {
       this.getScreenShape.bind( this )
     );
 
-    // @public (read-only) {Spotlight}
+    // @public (read-only) spotlight associated with the second source/object
     this.secondSpotlight = new Spotlight(
       secondSourcePositionProperty,
       this.positionProperty,

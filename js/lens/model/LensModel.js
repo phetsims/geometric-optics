@@ -23,16 +23,16 @@ class LensModel extends GeometricOpticsModel {
       GeometricOpticsConstants.LENS_INDEX_OF_REFRACTION_RANGE
     );
 
-    // @public {Guide} model for top guide associated with the first source/object
+    // @public top guide associated with the first source/object
     this.firstTopGuide = new Guide( this.optic, this.sourceObject.firstPositionProperty, Guide.Location.TOP );
 
-    // @public {Guide} model for bottom guide associated with the first source/object
+    // @public bottom guide associated with the first source/object
     this.firstBottomGuide = new Guide( this.optic, this.sourceObject.firstPositionProperty, Guide.Location.BOTTOM );
 
-    // @public {Guide} model for top guide associated with the second source/object
+    // @public top guide associated with the second source/object
     this.secondTopGuide = new Guide( this.optic, this.sourceObject.secondPositionProperty, Guide.Location.TOP );
 
-    // @public {Guide} model for bottom guide associated with the second source/object
+    // @public bottom guide associated with the second source/object
     this.secondBottomGuide = new Guide( this.optic, this.sourceObject.secondPositionProperty, Guide.Location.BOTTOM );
   }
 }

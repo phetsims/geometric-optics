@@ -45,32 +45,32 @@ class GeometricOpticsModel {
     assert && assert( indexOfRefractionRange instanceof RangeWithValue );
     assert && assert( Array.isArray( representations ) );
 
-    // @public {Property.<Representation>}  representation of the source/object
+    // @public representation of the source/object
     this.representationProperty = new EnumerationProperty( Representation, Representation.PENCIL, {
       validValues: representations
     } );
 
-    // @public {Optic} - model of the optic
+    // @public model of the optic
     this.optic = new Optic( type, curve, opticPosition, radiusOfCurvatureRange, diameterRange, indexOfRefractionRange );
 
-    // @public {FocalPoint} focal point to the left of the optic
+    // @public focal point to the left of the optic
     this.leftFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty, {
       multiplicativeFactor: -1
     } );
 
-    // @public {FocalPoint} focal point to the right of the optic
+    // @public focal point to the right of the optic
     this.rightFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty );
 
-    // @public {SourceObject} the object/ source
+    // @public the object/ source
     this.sourceObject = new SourceObject( this.representationProperty );
 
-    // @public {Target} model of the target/image associated with the first source
+    // @public model of the target/image associated with the first source
     this.firstTarget = new Target( this.sourceObject.firstPositionProperty, this.optic, this.representationProperty );
 
-    // @public {Target} target/ image associated with the second source
+    // @public target/ image associated with the second source
     this.secondTarget = new Target( this.sourceObject.secondPositionProperty, this.optic, this.representationProperty );
 
-    // @public {ProjectorScreen} model of the projector screen and spotlights
+    // @public model of the projector screen and spotlights
     this.projectorScreen = new ProjectorScreen(
       this.sourceObject.firstPositionProperty,
       this.sourceObject.secondPositionProperty,
@@ -79,19 +79,19 @@ class GeometricOpticsModel {
       this.optic
     );
 
-    // @public (read-only) {Property.<number>} elapsed time of light rays animation
+    // @public (read-only) elapsed time of light rays animation
     this.lightRaysTimeProperty = new NumberProperty( 0, {
       units: 's',
       range: new Range( 0, GeometricOpticsConstants.RAYS_ANIMATION_TIME )
     } );
 
-    // @public {Property.<LightRayMode>}  modes for the different kind of light rays
+    // @public modes for the different kind of light rays
     this.lightRayModeProperty = new EnumerationProperty( LightRayMode, LightRayMode.MARGINAL );
 
     // reset the timer when changing light ray mode
     this.lightRayModeProperty.link( () => this.lightRaysTimeProperty.reset() );
 
-    // @public {LightRays} model of the light rays associated to the first source
+    // @public light rays associated with the first source
     this.firstLightRays = new LightRays(
       this.lightRaysTimeProperty,
       this.lightRayModeProperty,
@@ -102,7 +102,7 @@ class GeometricOpticsModel {
       this.firstTarget
     );
 
-    // @public {LightRays} model of the light rays associated with the second source
+    // @public light rays associated with the second source
     this.secondLightRays = new LightRays(
       this.lightRaysTimeProperty,
       this.lightRayModeProperty,
@@ -113,7 +113,7 @@ class GeometricOpticsModel {
       this.secondTarget
     );
 
-    // @public
+    // @public horizontal and vertical rulers
     this.horizontalRuler = new Ruler(
       Ruler.Orientation.HORIZONTAL,
       GeometricOpticsConstants.HORIZONTAL_RULER_INITIAL_POSITION,

@@ -26,7 +26,7 @@ class Ruler {
     // @public (read-only) {Ruler.Orientation} orientation of the ruler
     this.orientation = orientation;
 
-    // @public {Property.<Vector2>} position of the ruler in view coordinates
+    // @public position of the ruler in view coordinates
     this.positionProperty = new Vector2Property( position );
 
     // @public {number} length of the ruler in centimeters.

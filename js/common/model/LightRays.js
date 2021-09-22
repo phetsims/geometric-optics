@@ -35,13 +35,13 @@ class LightRays {
     // @private {Property.<Vector>} target position associated with this ray
     this.targetPositionProperty = target.positionProperty;
 
-    // @public (read-only) {Shape} shape of a bundle of real rays at a point in time
+    // @public (read-only) shape of a bundle of real rays at a point in time
     this.realRay = new Shape();
 
-    // @public (read-only) {Shape} shape of a bundle of virtual rays at a point in time
+    // @public (read-only) shape of a bundle of virtual rays at a point in time
     this.virtualRay = new Shape();
 
-    // @public {Emitter} Tells view that it needs to update, fires after all rays are processed.
+    // @public tells view that it needs to update, fires after all rays are processed.
     this.raysProcessedEmitter = new Emitter();
 
     // update the shape of rays and the emitter state

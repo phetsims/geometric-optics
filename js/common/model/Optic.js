@@ -48,26 +48,26 @@ class Optic {
     this.type = type;
 
     //TODO rename curveProperty
-    // @public {Property.<Optic.Curve>} Type of Curvature of the optical element.
+    // @public type of Curvature of the optical element.
     this.curveProperty = new EnumerationProperty( Optic.Curve, curve );
 
     // @private {RangeWithValue}
     this.maxDiameter = diameterRange.max;
 
-    // @public {Property.<Vector2>} Position of the optical element
+    // @public position of the optical element
     this.positionProperty = new Vector2Property( initialPosition );
 
-    // @public {Property.<number>} Radius of curvature of the optical element. Positive is converging.
+    // @public radius of curvature of the optical element. Positive is converging.
     this.radiusOfCurvatureProperty = new NumberProperty( radiusOfCurvatureRange.defaultValue, {
       range: radiusOfCurvatureRange
     } );
 
-    // @public {Property.<number>} Height of the optical element - controls the optical aperture of the optical element
+    // @public height of the optical element - controls the optical aperture of the optical element
     this.diameterProperty = new NumberProperty( diameterRange.defaultValue, {
       range: diameterRange
     } );
 
-    // @public {Property.<number>}  index of refraction of the lens
+    // @public index of refraction of the lens
     this.indexOfRefractionProperty = new NumberProperty( indexOfRefractionRange.defaultValue, {
       range: indexOfRefractionRange
     } );

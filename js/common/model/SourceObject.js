@@ -33,7 +33,7 @@ class SourceObject {
       representationProperty.value.getScaleFactor()
     );
 
-    // @public {Property.<Vector2>} position of the left top position of image
+    // @public position of the left top position of image
     //TODO should this be derived from representationProperty? or from firstPositionProperty?
     //TODO left-top is unfortunate to have in the model, can this be avoided?
     this.leftTopProperty = new Vector2Property( GeometricOpticsConstants.DEFAULT_SOURCE_POINT_1.plus( offset ) );
@@ -55,11 +55,11 @@ class SourceObject {
         return size.toBounds( leftTop.x, leftTop.y - size.height );
       } );
 
-    // @private {Property.<Vector2>} position of the second source of light
+    // @private position of the second source of light
     //TODO rename this, document it better
     this.unconstrainedSecondSourcePositionProperty = new Vector2Property( GeometricOpticsConstants.DEFAULT_SOURCE_POINT_2 );
 
-    // @private {Property.<number>} vertical offset (in centimeters) of second object with respect to the first
+    // @private vertical offset (in centimeters) of second object with respect to the first
     //TODO rename this something like secondSourceVerticalOffsetProperty
     this.verticalOffsetProperty = new NumberProperty( GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE.defaultValue, {
       range: GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE

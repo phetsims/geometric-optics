@@ -43,10 +43,10 @@ class LightRay {
     assert && assert( typeof isProjectorScreenPresent === 'boolean' );
     assert && assert( typeof getProjectorScreenBisectorLine === 'function' );
 
-    // @public (read-only) - shape of the real rays - will be updated later
+    // @public (read-only) shape of the real rays - will be updated later
     this.realShape = new Shape();
 
-    // @public (read-only) - shape of the virtual rays - will be updated later
+    // @public (read-only) shape of the virtual rays - will be updated later
     this.virtualShape = new Shape();
 
     // {number} maximum travel distance if ray is unimpeded
