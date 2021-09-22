@@ -50,13 +50,29 @@ class ProjectorScreenNode extends Node {
       cursor: 'pointer'
     }, options );
 
-    super( options );
-
     // The screen
     const projectorScreenImage = new Image( projectorScreen_png, {
       scale: GeometricOpticsConstants.PROJECTOR_SCALE
     } );
-    this.addChild( projectorScreenImage );
+
+    const firstSpotlightNode = new SpotlightNode(
+      projectorScreen.firstSpotlight.intensityProperty,
+      projectorScreen.firstSpotlight.screenIntersectionProperty,
+      modelViewTransform, {
+        visibleProperty: firstSpotlightEnabledProperty
+      } );
+
+    const secondSpotlightNode = new SpotlightNode(
+      projectorScreen.secondSpotlight.intensityProperty,
+      projectorScreen.secondSpotlight.screenIntersectionProperty,
+      modelViewTransform, {
+        visibleProperty: DerivedProperty.and( [ secondSpotlightEnabledProperty, secondSourceVisibleProperty ] )
+      } );
+
+    assert && assert( !options.children );
+    options.children = [ projectorScreenImage, firstSpotlightNode, secondSpotlightNode ];
+
+    super( options );
 
     // TODO: the model should give its size to the view rather than the other way around (see #153)
     // determine the size of the projector in model coordinates
@@ -65,9 +81,6 @@ class ProjectorScreenNode extends Node {
 
     // difference between the left top position of the image and the "center" of the blackboard in model coordinates
     const offset = new Vector2( -modelChildWidth, modelChildHeight ).divideScalar( 2 );
-
-    // @private left top position of the projectorScreen target
-    this.imagePositionProperty = new Vector2Property( projectorScreen.positionProperty.value.plus( offset ) );
 
     // {DerivedProperty.<Bounds2>} keep at least half of the projector screen within visible bounds and right of the optic
     const projectorScreenDragBoundsProperty = new DerivedProperty(
@@ -79,12 +92,16 @@ class ProjectorScreenNode extends Node {
           visibleBounds.maxY + modelChildHeight / 2 )
     );
 
+    // @private left top position of the projector screen image
+    this.imagePositionProperty = new Vector2Property( projectorScreen.positionProperty.value.plus( offset ) );
+
     // create a drag listener for the image
     const dragListener = new DragListener( {
       positionProperty: this.imagePositionProperty,
       dragBoundsProperty: projectorScreenDragBoundsProperty,
       transform: modelViewTransform
     } );
+    projectorScreenImage.addInputListener( dragListener );
 
     // always keep projector screen within playarea bounds when they are changed
     projectorScreenDragBoundsProperty.link( dragBounds => {
@@ -97,31 +114,12 @@ class ProjectorScreenNode extends Node {
       projectorScreenImage.leftTop = modelViewTransform.modelToViewPosition( position );
     } );
 
-    // add input listener to projectorScreen target
-    projectorScreenImage.addInputListener( dragListener );
-
     // add a listener to trigger the visibility of this node
     representationProperty.link( representation => {
 
       // display this node if this is a source, that is not an object
       this.visible = !representation.isObject;
     } );
-
-    const firstSpotlightNode = new SpotlightNode(
-      projectorScreen.firstSpotlight.intensityProperty,
-      projectorScreen.firstSpotlight.screenIntersectionProperty,
-      modelViewTransform, {
-        visibleProperty: firstSpotlightEnabledProperty
-      } );
-    this.addChild( firstSpotlightNode );
-
-    const secondSpotlightNode = new SpotlightNode(
-      projectorScreen.secondSpotlight.intensityProperty,
-      projectorScreen.secondSpotlight.screenIntersectionProperty,
-      modelViewTransform, {
-        visibleProperty: DerivedProperty.and( [ secondSpotlightEnabledProperty, secondSourceVisibleProperty ] )
-      } );
-    this.addChild( secondSpotlightNode );
   }
 
   /**
