@@ -16,6 +16,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
 
+//TODO enabledProperty inherited from EnabledComponent seems semantically odd. Would visibleProperty be better?
 class Target extends EnabledComponent {
 
   /**
