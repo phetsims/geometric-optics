@@ -78,10 +78,10 @@ class RulersToolbox extends Panel {
       iconNode.addInputListener( DragListener.createForwardingListener( event => {
 
         // we can add a ruler only if the ruler Node is not visible
-        if ( !rulerNode.visibleProperty.value ) {
+        if ( !rulerNode.visible ) {
 
           // set the visibility of ruler Node to true
-          rulerNode.visibleProperty.value = true;
+          rulerNode.visible = true;
 
           // position the center of the rulerNode to the cursor
           rulerNode.center = this.globalToParentPoint( event.pointer.point );
