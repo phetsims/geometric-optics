@@ -46,16 +46,16 @@ is attached to the ends of the lens and can freely rotate from its fulcrum point
 **Screen:**
 Light is projected onto a screen. Unfortunately this term conflicts with `SCENERY/Screen`. So we use _ProjectorScreen_ throughout the code.
 
-Finally, the words **distance** and **height** have a different meaning in optics. A distance can be positive or
-negative and can only be measured horizontally. The meaning of **positive** and **negative** is a convention that may
-vary. We define the convention followed in the simulation in [model.md](https://github.com/phetsims/geometric-optics/blob/master/doc/model.md). 
-The height in optics is always measured from the optical axis. A positive (negative) height indicates the object is above (below) the optical axis.
-
 **Play Area:** This simulation creates a scenery layer called **play area** that is used all the elements within the "Play Area". In essence,
 it includes all the scenery elements except for the control panels, combox box, buttons, etc. The play area can be
 zoomed in or out. It is important to note that the rulers and the labels do not belong to the play area since they
 contain text that may be hard to read upon zooming. Therefore, like the control panels and buttons, they are attached
 directly to the ScreenView.
+
+Finally, the words **distance** and **height** have a different meaning in optics. A distance can be positive or
+negative and can only be measured horizontally. The meaning of **positive** and **negative** is a convention that may
+vary. We define the convention followed in the simulation in [model.md](https://github.com/phetsims/geometric-optics/blob/master/doc/model.md). 
+The height in optics is always measured from the optical axis. A positive (negative) height indicates the object is above (below) the optical axis.
 
 ## General Considerations
 
