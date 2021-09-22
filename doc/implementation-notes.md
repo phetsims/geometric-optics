@@ -116,19 +116,21 @@ The client can select from the combox box what we refer to as a representation o
 Light rays form an important aspect of this simulation. There are three model classes responsible for the rays:
 
 * [Ray](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/Ray.js) is a representation of a
-  finite, or semi-infinite straight rays. A ray can only be straight, not refracted. Note that `Ray` extends `DOT/Ray2`.
+  finite, or semi-infinite straight rays. A ray can only be straight, not refracted. Note that `Ray` extends `dot/Ray2`.
 * [LightRay](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/LightRay.js) is a representation
   of a ray emanating from a source or object. `LightRay` has a time dependencies. A `LightRay` can be refracted or
-  reflected from an optical element. It can even fork into a virtual and real ray. A lightray is usually made of several
-  Ray(s). A LightRay converts its rays at that point in time into kite/Shape. It can indicate if it has reached a target
-  or projector screen.
+  reflected from an optical element. It can even fork into a virtual and real ray. A `LightRay` is usually composed of one or more
+  `Rays`. A `LightRay` converts its rays at that point in time into `kite/Shape`. It can indicate if it has reached a target
+  or the projector screen.
 * [LightRays](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/LightRays.js) is a representation
-  of a bundle of LightRay(s). LightRays depends on the RayMode. The bundle of light rays emerge from a single
+  of a bundle of light rays. LightRays depends on the `RayMode`. The bundle of light rays emerge from a single
   object/source position. An additional responsibility of LightRays is to indicate if one of its ray has reached a
   target, or projector screen.
 
 We note that each light ray depends on the trifecta (SourceObject, Optic and Target) and their path is determined based
 on this information. This insures that all rays can converge to the same target.
+
+# View
 
 There are a few top-level model elements in GeometricOpticsScreenView:
 
@@ -144,10 +146,9 @@ There are a few top-level model elements in GeometricOpticsScreenView:
 * [LightRaysNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/LightRaysNode.js) is
   responsible for laying out the light rays.
 
-**Visibilities**
+Except for the `GeometricOpticsRulerNode`, all scenery Nodes are created at startup. 
 
-Except for the `GeometricOpticsRulerNode`, all the scenery elements are created at startup. A set of visibility
-listeners, created within the view side of the simulation, toggled the visibility of the scenery nodes.
+Properties in [VisibileProperties](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/VisibleProperties.js) are used to toggle the visibility of Nodes.
 
 ## Gotchas
 
