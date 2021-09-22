@@ -17,7 +17,7 @@ class SpotlightNode extends Path {
 
   /**
    * @param {Property.<number>} intensityProperty
-   * @param {Property.<Shape>} screenIntersectionProperty
+   * @param {Property.<Shape>} screenIntersectionProperty - shape of the spotlight's intersection with the projection screen
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
