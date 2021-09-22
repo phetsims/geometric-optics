@@ -30,14 +30,14 @@ const NUMBER_CONTROL_OPTIONS = {
   layoutFunction: NumberControl.createLayoutFunction3( { ySpacing: 12 } ),
   titleNodeOptions: {
     font: GeometricOpticsConstants.CONTROL_FONT,
-    maxWidth: 160
+    maxWidth: 140
   },
   sliderOptions: {
     trackSize: new Dimension2( 120, 4 ),
     thumbSize: new Dimension2( 10, 20 )
   },
   numberDisplayOptions: {
-    maxWidth: 100
+    maxWidth: 70
   }
 };
 
