@@ -1,4 +1,4 @@
-## Implementation Notes
+## Geometric Options - Implementation Notes
 
 Ths document is meant and to supplement the source code and comments of the simulation Geometric Optics.
 
