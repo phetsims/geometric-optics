@@ -109,7 +109,7 @@ class GeometricOpticsRulerNode extends Node {
 
         // return ruler to toolbox if the pointer is within the toolbox
         if ( this.toolboxBounds.containsPoint( this.globalToParentPoint( event.pointer.point ) ) ) {
-          this.visibleProperty.value = false;
+          this.visible = false;
         }
       }
     } );
