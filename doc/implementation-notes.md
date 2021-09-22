@@ -65,19 +65,18 @@ vary. We define the convention followed in the simulation in [model.md](https://
 
 ### Model-view transform and Zoom
 
-This simulation makes use of model view transform to map model coordinates to the
+This simulation makes use of model-view transform to map model coordinates to the
 view coordinates. The base units of the model is centimeters (cm). It is used throughout the model with a few exceptions
-that have been noted. A model view transform is applied to all elements within the play area. All elements within the
-play area can be scaled up and down by scaling the playArea node. The origin (0,0) in the model coordinate frame is near
-the center of the view screen. The model to view scaling is isometric along the vertical and horizontal directions.
+that have been noted. A model-view transform is applied to all elements within the play area. All elements within the
+play area can be scaled up and down by scaling `playAreaNode`. The origin (0,0) in the model coordinate frame is near
+the center of the ScreenView. The model-to-view scaling is isometric along the horizontal and vertical directions.
 
-For scenery nodes outside the playArea, we lay them out using the view coordinates. There are two exceptions to this: (
+For scenery Nodes outside the playArea, we lay them out using view coordinates. There are two exceptions to this:
+(1) The `LabelsNode`, responsible for labels beneath the optical components and (2) the `GeometricOpticsRulerNode`. 
+The labels and ruler use `zoomModelViewTransformProperty` which allows it to relate its coordinates to within the play
+area at a particular zoom level.
 
-1) The `LabelsNode`, responsible for labels beneath the optical components and (2) the `GeometricOpticsRulerNode`. The
-   labels and ruler use `zoomModelViewTransformProperty` which allows it to relate its coordinate to within the play
-   area at this particular zoom level.
-
-The nodes within the play area may need to know about the position of objects outside the play area, such as the bounds
+The Nodes within the play area may need to know about the position of objects outside the play area, such as the bounds
 of the simulation. For instance, the `zoomModelViewTransform` can be used to convert the visibleBounds of the simulation
 to `playAreaModelBounds`.
 
