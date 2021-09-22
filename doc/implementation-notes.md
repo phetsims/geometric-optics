@@ -52,10 +52,12 @@ zoomed in or out. It is important to note that the rulers and the labels do not 
 contain text that may be hard to read upon zooming. Therefore, like the control panels and buttons, they are attached
 directly to the ScreenView.
 
-Finally, the words **distance** and **height** have a different meaning in optics. A distance can be positive or
-negative and can only be measured horizontally. The meaning of **positive** and **negative** is a convention that may
+**positive/negative**: The meaning of positive and negative is a convention that may
 vary. We define the convention followed in the simulation in [model.md](https://github.com/phetsims/geometric-optics/blob/master/doc/model.md). 
-The height in optics is always measured from the optical axis. A positive (negative) height indicates the object is above (below) the optical axis.
+
+**distance**: In optics, a distance is always measured horizontally, and can be positive or negative. 
+
+**height**: The height in optics is always measured from the optical axis. A positive (negative) height indicates the object is above (below) the optical axis.
 
 ## General Considerations
 
