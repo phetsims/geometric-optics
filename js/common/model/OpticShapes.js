@@ -211,7 +211,7 @@ class OpticShapes {
       .close();
 
     this.frontShape = frontShape;
-    this.backShape = null; //TODO document why this is null for a mirror
+    this.backShape = null;
     this.outlineShape = frontShape; // same as frontShape for a mirror
     this.fillShape = fillShape;
   }
