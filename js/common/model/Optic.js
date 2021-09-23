@@ -375,20 +375,12 @@ class Optic {
   }
 }
 
-Optic.Type = Enumeration.byKeys( [
-  'LENS', // lens
-  'MIRROR' // mirror
-] );
+Optic.Type = Enumeration.byKeys( [ 'LENS', 'MIRROR' ] );
 
 //TODO rename to CurveType
-Optic.Curve = Enumeration.byKeys( [
-  'CONVEX',
-  'CONCAVE'
-] );
+Optic.Curve = Enumeration.byKeys( [ 'CONVEX', 'CONCAVE' ] );
 
-Optic.Location = Enumeration.byKeys( [
-  'TOP',
-  'BOTTOM' ] );
+Optic.Location = Enumeration.byKeys( [ 'TOP', 'BOTTOM' ] );
 
 geometricOptics.register( 'Optic', Optic );
 export default Optic;
