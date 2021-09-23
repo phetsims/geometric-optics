@@ -175,7 +175,7 @@ class GeometricOpticsScreenView extends ScreenView {
     // @private the second source
     this.secondSourceNode = new SecondSourceNode(
       model.representationProperty,
-      model.sourceObject,
+      model.secondSource,
       this.modelViewTransform, {
         visibleProperty: this.visibleProperties.secondSourceVisibleProperty
       } );

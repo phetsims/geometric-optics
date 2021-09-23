@@ -21,6 +21,7 @@ import LightRays from './LightRays.js';
 import Optic from './Optic.js';
 import Representation from './Representation.js';
 import Ruler from './Ruler.js';
+import SecondSource from './SecondSource.js';
 import SourceObject from './SourceObject.js';
 import Target from './Target.js';
 
@@ -65,16 +66,19 @@ class GeometricOpticsModel {
     // @public the object/ source
     this.sourceObject = new SourceObject( this.representationProperty );
 
+    // @public the object/ source
+    this.secondSource = new SecondSource( this.representationProperty, this.sourceObject.firstPositionProperty );
+
     // @public model of the target/image associated with the first source
     this.firstTarget = new Target( this.sourceObject.firstPositionProperty, this.optic, this.representationProperty );
 
     // @public target/ image associated with the second source
-    this.secondTarget = new Target( this.sourceObject.secondPositionProperty, this.optic, this.representationProperty );
+    this.secondTarget = new Target( this.secondSource.secondPositionProperty, this.optic, this.representationProperty );
 
     // @public model of the projector screen
     this.projectorScreen = new ProjectorScreen(
       this.sourceObject.firstPositionProperty,
-      this.sourceObject.secondPositionProperty,
+      this.secondSource.secondPositionProperty,
       this.firstTarget.positionProperty,
       this.secondTarget.positionProperty,
       this.optic
@@ -90,7 +94,7 @@ class GeometricOpticsModel {
 
     // @public (read-only) spotlight associated with the second source/object
     this.secondSpotlight = new Spotlight(
-      this.sourceObject.secondPositionProperty,
+      this.secondSource.secondPositionProperty,
       this.secondTarget.positionProperty,
       this.projectorScreen,
       this.optic
@@ -124,7 +128,7 @@ class GeometricOpticsModel {
       this.lightRaysTimeProperty,
       this.lightRayModeProperty,
       this.representationProperty,
-      this.sourceObject.secondPositionProperty,
+      this.secondSource.secondPositionProperty,
       this.projectorScreen,
       this.optic,
       this.secondTarget

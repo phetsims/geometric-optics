@@ -1,6 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO pull the second source out into its own model element, which depends on SourceObject
 /**
  * Model element for object (in the sense commonly used in geometric optic) or source of light
  * The sourceObject has a position and a "second source" position within it.
@@ -10,10 +9,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
-import Utils from '../../../../dot/js/Utils.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
@@ -40,6 +36,7 @@ class SourceObject {
 
     // @public {DerivedProperty.<Vector2>} position of the source/object
     //TODO should this be derived from representationProperty instead?
+    //TODO rename to positionProperty
     this.firstPositionProperty = new DerivedProperty(
       [ this.leftTopProperty ],
       leftTop => leftTop.minus( offset )
@@ -53,30 +50,6 @@ class SourceObject {
         const size = new Dimension2( representation.rightFacingUpright.width / scaleFactor,
           representation.rightFacingUpright.height / scaleFactor );
         return size.toBounds( leftTop.x, leftTop.y - size.height );
-      } );
-
-    // @private position of the second source of light
-    //TODO rename this, document it better
-    this.unconstrainedSecondSourcePositionProperty = new Vector2Property( GeometricOpticsConstants.DEFAULT_SOURCE_POINT_2 );
-
-    // @private vertical offset (in centimeters) of second object with respect to the first
-    //TODO rename this something like secondSourceVerticalOffsetProperty
-    this.verticalOffsetProperty = new NumberProperty( GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE.defaultValue, {
-      range: GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE
-    } );
-
-    // @public {DerivedProperty.<Vector2>} position of the second source (source/object)
-    //TODO rename secondSourcePositionProperty
-    this.secondPositionProperty = new DerivedProperty(
-      [ this.firstPositionProperty, this.verticalOffsetProperty,
-        this.unconstrainedSecondSourcePositionProperty, representationProperty ],
-      ( firstPosition, verticalOffset, unconstrainedSecondSourcePosition, representation ) => {
-        if ( representation.isObject ) {
-          return firstPosition.plusXY( 0, verticalOffset );
-        }
-        else {
-          return unconstrainedSecondSourcePosition;
-        }
       } );
 
     // update the left top position when the representation changes
@@ -95,11 +68,10 @@ class SourceObject {
    * @public
    */
   reset() {
-    this.verticalOffsetProperty.reset();
-    this.unconstrainedSecondSourcePositionProperty.reset();
     this.leftTopProperty.reset();
   }
 
+  //TODO this is redundant, use this.firstPositionProperty.value
   /**
    * Returns the position of the source
    * @public
@@ -107,27 +79,6 @@ class SourceObject {
    */
   getPosition() {
     return this.firstPositionProperty.value;
-  }
-
-  /**
-   * Sets the second source point
-   * @public
-   * @param {EnumerationProperty.<Representation>} representationProperty
-   * @param {Vector2} position
-   */
-  setSecondPoint( representationProperty, position ) {
-    assert && assert( representationProperty instanceof EnumerationProperty );
-    assert && assert( position instanceof Vector2 );
-
-    if ( representationProperty.value.isObject ) {
-      const unconstrainedVerticalOffset = position.y - this.firstPositionProperty.value.y;
-      this.verticalOffsetProperty.value = Utils.clamp( unconstrainedVerticalOffset,
-        GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE.min,
-        GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE.max );
-    }
-    else {
-      this.unconstrainedSecondSourcePositionProperty.value = position;
-    }
   }
 }
 

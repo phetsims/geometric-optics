@@ -23,7 +23,7 @@ import VBox from '../../../../scenery/js/nodes/VBox.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import Representation from '../model/Representation.js';
-import SourceObject from '../model/SourceObject.js';
+import SecondSource from '../model/SecondSource.js';
 
 // constants
 const POINT_RADIUS = 5;
@@ -41,14 +41,14 @@ class SecondSourceNode extends Node {
 
   /**
    * @param {EnumerationProperty.<Representation>} representationProperty
-   * @param {SourceObject} sourceObject
+   * @param {SecondSource} secondSource
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( representationProperty, sourceObject, modelViewTransform, options ) {
+  constructor( representationProperty, secondSource, modelViewTransform, options ) {
 
     assert && assert( representationProperty instanceof EnumerationProperty );
-    assert && assert( sourceObject instanceof SourceObject );
+    assert && assert( secondSource instanceof SecondSource );
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     super( options );
@@ -65,9 +65,9 @@ class SecondSourceNode extends Node {
     const secondSourceImage = new Image( Representation.LIGHT.secondSourceImage, { scale: OVERALL_SCALE_FACTOR } );
 
     // Property for the position of the second source node
-    const positionProperty = new Vector2Property( sourceObject.secondPositionProperty.value );
+    const positionProperty = new Vector2Property( secondSource.secondPositionProperty.value );
     positionProperty.link( position => {
-      sourceObject.setSecondPoint( representationProperty, position );
+      secondSource.setSecondPoint( representationProperty, position );
     } );
 
     // create drag listener for second source
@@ -115,10 +115,10 @@ class SecondSourceNode extends Node {
         this.addChild( secondSourceImage );
         this.touchArea = secondSourceImage.localBounds.dilateXY( 5, 5 );
       }
-      updatePosition( sourceObject.secondPositionProperty.value );
+      updatePosition( secondSource.secondPositionProperty.value );
     } );
 
-    sourceObject.secondPositionProperty.link( position => updatePosition( position ) );
+    secondSource.secondPositionProperty.link( position => updatePosition( position ) );
 
     // @private
     this.cueingArrows = cueingArrows;
