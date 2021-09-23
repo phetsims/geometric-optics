@@ -66,12 +66,12 @@ class GeometricOpticsScreenView extends ScreenView {
     this.zoomLevelProperty = new NumberProperty( ZOOM_RANGE.defaultValue, { range: ZOOM_RANGE } );
 
     // @protected create a Y inverted modelViewTransform with isometric scaling along X and Y
-    this.modelViewTransform = this.getModelViewTransformForZoomLevel( ZOOM_RANGE.defaultValue );
+    this.modelViewTransform = this.getZoomTransform( ZOOM_RANGE.defaultValue );
 
     // {DerivedProperty.<ModelViewTransform2>} modelViewTransform
-    const zoomModelViewTransformProperty = new DerivedProperty(
+    const zoomTransformProperty = new DerivedProperty(
       [ this.zoomLevelProperty ],
-      zoomLevel => this.getModelViewTransformForZoomLevel( zoomLevel )
+      zoomLevel => this.getZoomTransform( zoomLevel )
     );
 
     // {DerivedProperty.<number>} zoom scale associate with the zoom level
@@ -89,7 +89,7 @@ class GeometricOpticsScreenView extends ScreenView {
       model.verticalRuler,
       this.visibleBoundsProperty,
       absoluteScaleProperty,
-      zoomModelViewTransformProperty
+      zoomTransformProperty
     );
 
     // create control panel at the bottom of the screen
@@ -149,11 +149,10 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // @protected {DerivedProperty.<Bounds2>} playAreaModelBoundsProperty
     this.playAreaModelBoundsProperty = new DerivedProperty(
-      [ this.visibleBoundsProperty, zoomModelViewTransformProperty ],
-      ( visibleBounds, zoomModelViewTransform ) => {
-        const playAreaBounds = new Bounds2( visibleBounds.minX, 0,
-          visibleBounds.maxX, controlPanel.top );
-        return zoomModelViewTransform.viewToModelBounds( playAreaBounds );
+      [ this.visibleBoundsProperty, zoomTransformProperty ],
+      ( visibleBounds, zoomTransform ) => {
+        const playAreaBounds = new Bounds2( visibleBounds.minX, 0, visibleBounds.maxX, controlPanel.top );
+        return zoomTransform.viewToModelBounds( playAreaBounds );
       } );
 
     //----------------------------------------------------------------------
@@ -265,8 +264,7 @@ class GeometricOpticsScreenView extends ScreenView {
       } );
 
     // labels
-    const labelsNode = new LabelsNode( model, this.visibleProperties, zoomModelViewTransformProperty,
-      this.zoomLevelProperty );
+    const labelsNode = new LabelsNode( model, this.visibleProperties, zoomTransformProperty, this.zoomLevelProperty );
 
     // add playAreaNode and controls to the scene graph
     this.addChild( curveControl );
@@ -367,12 +365,12 @@ class GeometricOpticsScreenView extends ScreenView {
   }
 
   /**
-   * Returns a model view transform appropriate for the zoom level
+   * Returns a model-view transform appropriate for the zoom level
    * @private
    * @param {number} zoomLevel
    * @returns {ModelViewTransform2}
    */
-  getModelViewTransformForZoomLevel( zoomLevel ) {
+  getZoomTransform( zoomLevel ) {
 
     // scaling factor between zoom level measured from the initial zoom level
     const absoluteScale = this.getAbsoluteScale( zoomLevel );
