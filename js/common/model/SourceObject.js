@@ -1,8 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Model element for object (in the sense commonly used in geometric optic) or source of light
- * The sourceObject has a position and a "second source" position within it.
+ * SourceObject is the model for what is typically called "Object" in optics, or the soure of light.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
