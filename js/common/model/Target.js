@@ -38,7 +38,7 @@ class Target {
     // @private (read-only) {function} returns the sign (+1 or -1) assigned to the type of optic (lens or mirror)
     this.opticGetTypeSign = optic.getTypeSign.bind( optic );
 
-    // @public {DerivedProperty.<number>} horizontal "distance" between target (image) and optic
+    // @private {DerivedProperty.<number>} horizontal "distance" between target (image) and optic
     // The distance can be negative. We follow the standard sign convention used in geometric optics courses.
     this.targetOpticDistanceProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
@@ -51,7 +51,8 @@ class Target {
         if ( opticObjectDistance === focalLength ) {
 
           // Set the target distance to be very large (and arbitrarily positive).
-          return 10e6; //TODO why not use Infinity?
+          // This should technically be Infinity, but need to be a finite value for this sim.
+          return 10e6;
         }
         else {
 
@@ -73,14 +74,14 @@ class Target {
       ( objectPosition, opticPosition, focalLength ) => this.getPosition( objectPosition, opticPosition, focalLength )
     );
 
-    // @public {DerivedProperty.<number>}
+    // @private {DerivedProperty.<number>}
     // the scale can be negative, indicating the target/image is inverted.
     this.scaleProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       ( objectPosition, opticPosition, focalLength ) => this.getMagnification( objectPosition, opticPosition, focalLength )
     );
 
-    // @public {DerivedProperty.<boolean>}
+    // @private {DerivedProperty.<boolean>}
     // For a lens, the image is virtual if the image is on the same side as the object
     // For a mirror, the image is virtual if the image is on the opposite of the object
     this.isInvertedProperty = new DerivedProperty(
