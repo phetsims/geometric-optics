@@ -115,8 +115,8 @@ thin-lens and mirror equation. It is important to note that all the light rays d
 marching orders from the trifecta.
 
 * [SourceObject](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/SourceObject.js) is
-  responsible for the first object/source position as well as the bounds of the object/source. It is also includes a
-  second object/source position.
+  responsible for the first object/source position as well as the bounds of the object/source. 
+* [SecondSource](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/SecondSource.js) is the second object/source.
 * [Optic](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/Optic.js) is responsible for the
   optical element position, diameter, curvature radius and refractive index. The previous properties are used to
   determine the focal length. Optic is also responsible for the shape of the optical element, which can be used for ray
@@ -160,7 +160,10 @@ There are a few top-level view elements that are instantiated in `GeometricOptic
   node for the optical image.
 
 * [SourceObjectNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/SourceObjectNode.js) is the
-  node responsible for the first source/object and the second source/object.
+  node responsible for the first source/object.
+  
+* [SecondSourceNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/SecondSourceNode.js) is the
+  node responsible for the second source/object.
 
 * [LightRaysNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/LightRaysNode.js) is
   responsible for laying out the light rays.
