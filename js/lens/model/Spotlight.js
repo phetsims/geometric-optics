@@ -76,8 +76,7 @@ class Spotlight {
     // avoid division by zero
     if ( targetOpticDistance === 0 ) {
 
-      // a really large number, technically should be infinity
-      //TODO ... then why not use Infinity?
+      // This should technically be Infinity, but practically must be a (very large) finite value.
       return 10e6;
     }
     else {

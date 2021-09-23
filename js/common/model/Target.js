@@ -51,7 +51,7 @@ class Target {
         if ( opticObjectDistance === focalLength ) {
 
           // Set the target distance to be very large (and arbitrarily positive).
-          // This should technically be Infinity, but need to be a finite value for this sim.
+          // This should technically be Infinity, but practically must be a (very large) finite value.
           return 10e6;
         }
         else {
