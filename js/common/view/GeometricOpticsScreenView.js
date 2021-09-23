@@ -300,9 +300,6 @@ class GeometricOpticsScreenView extends ScreenView {
       this.playAreaNode.addChild( new DebugPointNode( left2fProperty, this.modelViewTransform, options ) );
       this.playAreaNode.addChild( new DebugPointNode( right2fProperty, this.modelViewTransform, options ) );
     }
-
-    // @private
-    this.absoluteScaleProperty = absoluteScaleProperty;
   }
 
   /**
