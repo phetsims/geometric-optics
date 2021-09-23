@@ -2,7 +2,8 @@
 
 /**
  * Target is the model for what is called 'Image' in optics.  We're avoiding the term 'image' because it conflicts
- * with scenery.Image. It is responsible for the position, scale of target, opacity, and bounds.
+ * with scenery.Image. An image can be real or virtual. It is responsible for the position, scale of target, opacity,
+ * and bounds.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
