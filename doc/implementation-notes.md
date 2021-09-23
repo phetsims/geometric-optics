@@ -114,14 +114,13 @@ There are a three top-level model elements in GeometricOpticsModel that play an 
 thin-lens and mirror equation. It is important to note that all the light rays do not drive the model, but take their
 marching orders from the trifecta.
 
-* [SourceObject](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/SourceObject.js) is
-  responsible for the first object/source position as well as the bounds of the object/source. 
+* [SourceObject](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/SourceObject.js) is the first object/source. 
 * [SecondSource](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/SecondSource.js) is the second object/source.
-* [Optic](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/Optic.js) is responsible for the
-  optical element position, diameter, curvature radius and refractive index. The previous properties are used to
+* [Optic](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/Optic.js) is the optic, a lens or mirror. It is responsible for the
+  optical element position, diameter, curvature radius and refractive index. The previous Properties are used to
   determine the focal length. Optic is also responsible for the shape of the optical element, which can be used for ray
   hit-testing, as well as drawing its shape.
-* [Target](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/Target.js) is responsible for the
+* [Target](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/Target.js) is the optical image (real or vitual). It is responsible for the
   position of the target, its bounds and scale. It includes multiple methods that determine if the target is
   real/virtual, inverted/upright, etc.
 
