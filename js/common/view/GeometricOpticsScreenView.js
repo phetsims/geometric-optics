@@ -321,7 +321,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
   /**
    * Scale function
-   * @public
+   * @private
    * @returns {number}
    */
   scaleFunction( zoomLevel ) {
