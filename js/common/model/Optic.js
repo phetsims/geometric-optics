@@ -375,7 +375,6 @@ class Optic {
   }
 }
 
-//TODO rename to OpticType
 Optic.Type = Enumeration.byKeys( [
   'LENS', // lens
   'MIRROR' // mirror
