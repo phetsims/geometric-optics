@@ -47,8 +47,8 @@ class Optic {
     // @private {Optic.Type} Type of the optical element ( valid choices: LENS and MIRROR)
     this.type = type;
 
-    //TODO rename curveProperty
     // @public type of Curvature of the optical element.
+    //TODO rename Optic.Curve and curveProperty
     this.curveProperty = new EnumerationProperty( Optic.Curve, curve );
 
     // @private {RangeWithValue}
