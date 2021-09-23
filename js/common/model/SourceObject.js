@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * SourceObject is the model for what is typically called "Object" in optics, or the soure of light.
+ * SourceObject is the model for what is typically called "Object" in optics, or the source of light.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
