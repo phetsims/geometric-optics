@@ -63,7 +63,7 @@ class GeometricOpticsScreenView extends ScreenView {
     // Properties  ====================================================================================================
 
     // Create visibleProperty instances for Nodes in the view.
-    const visibleProperties = new VisibleProperties( model.optic.type );
+    const visibleProperties = new VisibleProperties( model.optic.opticType );
 
     // {Property.<number>} controls zoom in play area
     const zoomLevelProperty = new NumberProperty( ZOOM_RANGE.defaultValue, { range: ZOOM_RANGE } );

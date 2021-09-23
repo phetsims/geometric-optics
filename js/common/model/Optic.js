@@ -28,16 +28,16 @@ const NORMALIZED_VALUE_RANGE = new Range( 0, 1 );
 class Optic {
 
   /**
-   * @param {Optic.Type} type - type of optical element - acceptable values (MIRROR and LENS)
+   * @param {Optic.Type} opticType - type of optical element - acceptable values (MIRROR and LENS)
    * @param {Optic.Curve} curve - initial curve of optical element - acceptable values (CONVEX and CONCAVE)
    * @param {Vector2} initialPosition - center of the optical element
    * @param {RangeWithValue} radiusOfCurvatureRange - range of radius of curvature (in centimeters)
    * @param {RangeWithValue} diameterRange - range of height for optical element (in centimeters)
    * @param {RangeWithValue} indexOfRefractionRange
    */
-  constructor( type, curve, initialPosition, radiusOfCurvatureRange, diameterRange, indexOfRefractionRange ) {
+  constructor( opticType, curve, initialPosition, radiusOfCurvatureRange, diameterRange, indexOfRefractionRange ) {
 
-    assert && assert( Optic.Type.includes( type ) );
+    assert && assert( Optic.Type.includes( opticType ) );
     assert && assert( Optic.Curve.includes( curve ) );
     assert && assert( initialPosition instanceof Vector2 );
     assert && assert( radiusOfCurvatureRange instanceof RangeWithValue );
@@ -45,7 +45,7 @@ class Optic {
     assert && assert( indexOfRefractionRange instanceof RangeWithValue );
 
     // @private {Optic.Type} Type of the optical element ( valid choices: LENS and MIRROR)
-    this.type = type;
+    this.opticType = opticType;
 
     // @public type of Curvature of the optical element.
     //TODO rename Optic.Curve and curveProperty
@@ -102,7 +102,7 @@ class Optic {
     // @public {DerivedProperty.<OpticShapes>} shapes (fill and outline) of the optical element
     this.shapesProperty = new DerivedProperty(
       [ this.curveProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
-      ( curve, radiusOfCurvature, diameter ) => new OpticShapes( type, curve, radiusOfCurvature, diameter )
+      ( curve, radiusOfCurvature, diameter ) => new OpticShapes( opticType, curve, radiusOfCurvature, diameter )
     );
   }
 
@@ -133,7 +133,7 @@ class Optic {
    * @returns {boolean}
    */
   isLens() {
-    return ( this.type === Optic.Type.LENS );
+    return ( this.opticType === Optic.Type.LENS );
   }
 
   /**
@@ -142,7 +142,7 @@ class Optic {
    * @returns {boolean}
    */
   isMirror() {
-    return ( this.type === Optic.Type.MIRROR );
+    return ( this.opticType === Optic.Type.MIRROR );
   }
 
   /**

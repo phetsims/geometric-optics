@@ -49,7 +49,7 @@ class CurveControl extends RectangularRadioButtonGroup {
     const buttonItems = Optic.Curve.VALUES.map( curve => {
       return {
         value: curve,
-        node: CurveControl.createIconNode( optic.type, curve, {
+        node: CurveControl.createIconNode( optic.opticType, curve, {
           buttonContentXMargin: options.buttonContentXMargin,
           buttonContentYMargin: options.buttonContentYMargin
         } )
@@ -72,13 +72,13 @@ class CurveControl extends RectangularRadioButtonGroup {
   /**
    * Creates a centered icon representation of convex/concave, lens/mirror.
    * @public
-   * @param {Optic.Type} type - the type can be lens or mirror
+   * @param {Optic.Type} opticType - the type can be lens or mirror
    * @param {Optic.Curve} curve - the curve can be convex or concave
    * @param {Object} [options] - see options below
    * @returns {Node}
    */
-  static createIconNode( type, curve, options ) {
-    assert && assert( Optic.Type.includes( type ) );
+  static createIconNode( opticType, curve, options ) {
+    assert && assert( Optic.Type.includes( opticType ) );
     assert && assert( Optic.Curve.includes( curve ) );
 
     options = merge( {
@@ -94,7 +94,7 @@ class CurveControl extends RectangularRadioButtonGroup {
     }, options );
 
     // get appropriate icon shapes
-    const iconShapes = new OpticShapes( type, curve, options.radius, options.diameter, options );
+    const iconShapes = new OpticShapes( opticType, curve, options.radius, options.diameter, options );
 
     // create node to layout the paths for the icon
     const iconNode = new Node();

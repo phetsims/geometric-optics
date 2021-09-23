@@ -100,7 +100,7 @@ class GeometricOpticsControlPanel extends Panel {
       } ) );
     numberControls.push( curvatureRadiusControl );
 
-    if ( optic.type === Optic.Type.LENS ) {
+    if ( optic.opticType === Optic.Type.LENS ) {
       const refractiveIndexControl = new NumberControl(
         geometricOpticsStrings.refractiveIndex,
         optic.indexOfRefractionProperty,
@@ -129,7 +129,7 @@ class GeometricOpticsControlPanel extends Panel {
 
     // Visibility checkboxes ---------------------------------------------------------------------------------------
 
-    const checkboxGroup = new VisibilityCheckboxGroup( visibleProperties, optic.type );
+    const checkboxGroup = new VisibilityCheckboxGroup( visibleProperties, optic.opticType );
 
     // Put it all together ---------------------------------------------------------------------------------------
 

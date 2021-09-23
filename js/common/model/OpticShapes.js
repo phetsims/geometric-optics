@@ -15,15 +15,15 @@ import Optic from './Optic.js';
 class OpticShapes {
 
   /**
-   * @param {Optic.Type} type
+   * @param {Optic.Type} opticType
    * @param {Optic.Curve} curve
    * @param {number} radiusOfCurvature - radius of curvature at the center of the optic
    * @param {number} diameter - vertical height of the optic
    * @param {Object} [options]
    */
-  constructor( type, curve, radiusOfCurvature, diameter, options ) {
+  constructor( opticType, curve, radiusOfCurvature, diameter, options ) {
 
-    assert && assert( Optic.Type.includes( type ) );
+    assert && assert( Optic.Type.includes( opticType ) );
     assert && assert( Optic.Curve.includes( curve ) );
     assert && assert( typeof radiusOfCurvature === 'number' && isFinite( radiusOfCurvature ) && radiusOfCurvature > 0 );
     assert && assert( typeof diameter === 'number' && isFinite( diameter ) && diameter > 0 );
@@ -34,7 +34,7 @@ class OpticShapes {
     this.outlineShape = null; // the reflecting coating of a mirror, or the external surface of the lens
     this.fillShape = null; // the entire shape of the lens, or the backing of the mirror
 
-    if ( type === Optic.Type.LENS ) {
+    if ( opticType === Optic.Type.LENS ) {
       this.setLensShapes( curve, radiusOfCurvature, diameter, options );
     }
     else {

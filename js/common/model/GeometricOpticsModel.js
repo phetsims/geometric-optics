@@ -28,7 +28,7 @@ import Target from './Target.js';
 class GeometricOpticsModel {
 
   /**
-   * @param {Optic.Type} type - initial type of optical element
+   * @param {Optic.Type} opticType - initial type of optical element
    * @param {Optic.Curve} curve - initial curve of optical element
    * @param {Vector2} opticPosition - center of the optical element
    * @param {RangeWithValue} radiusOfCurvatureRange - range of radius of curvature (in centimeters)
@@ -36,10 +36,10 @@ class GeometricOpticsModel {
    * @param {RangeWithValue} indexOfRefractionRange
    * @param {Representation[]} [representations] - representations that are supported
    */
-  constructor( type, curve, opticPosition, radiusOfCurvatureRange, diameterRange, indexOfRefractionRange,
+  constructor( opticType, curve, opticPosition, radiusOfCurvatureRange, diameterRange, indexOfRefractionRange,
                representations = Representation.VALUES ) {
 
-    assert && assert( Optic.Type.includes( type ) );
+    assert && assert( Optic.Type.includes( opticType ) );
     assert && assert( Optic.Curve.includes( curve ) );
     assert && assert( opticPosition instanceof Vector2 );
     assert && assert( radiusOfCurvatureRange instanceof RangeWithValue );
@@ -53,7 +53,7 @@ class GeometricOpticsModel {
     } );
 
     // @public model of the optic
-    this.optic = new Optic( type, curve, opticPosition, radiusOfCurvatureRange, diameterRange, indexOfRefractionRange );
+    this.optic = new Optic( opticType, curve, opticPosition, radiusOfCurvatureRange, diameterRange, indexOfRefractionRange );
 
     // @public focal point to the left of the optic
     this.leftFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty, {
