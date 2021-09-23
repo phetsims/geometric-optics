@@ -287,9 +287,10 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // add disks at position of optic, source and target
     if ( GeometricOpticsQueryParameters.showDebugPoints ) {
+      //TODO factor out duplicated options
       this.playAreaNode.addChild( new TrackingDiskNode( model.firstTarget.positionProperty, this.modelViewTransform,
         { fill: 'magenta' } ) );
-      this.playAreaNode.addChild( new TrackingDiskNode( model.sourceObject.firstPositionProperty, this.modelViewTransform,
+      this.playAreaNode.addChild( new TrackingDiskNode( model.sourceObject.positionProperty, this.modelViewTransform,
         { fill: 'magenta' } ) );
       this.playAreaNode.addChild( new TrackingDiskNode( model.optic.positionProperty, this.modelViewTransform,
         { fill: 'magenta' } ) );

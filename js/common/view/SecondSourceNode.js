@@ -65,7 +65,7 @@ class SecondSourceNode extends Node {
     const secondSourceImage = new Image( Representation.LIGHT.secondSourceImage, { scale: OVERALL_SCALE_FACTOR } );
 
     // Property for the position of the second source node
-    const positionProperty = new Vector2Property( secondSource.secondPositionProperty.value );
+    const positionProperty = new Vector2Property( secondSource.positionProperty.value );
     positionProperty.link( position => {
       secondSource.setSecondPoint( representationProperty, position );
     } );
@@ -115,10 +115,10 @@ class SecondSourceNode extends Node {
         this.addChild( secondSourceImage );
         this.touchArea = secondSourceImage.localBounds.dilateXY( 5, 5 );
       }
-      updatePosition( secondSource.secondPositionProperty.value );
+      updatePosition( secondSource.positionProperty.value );
     } );
 
-    secondSource.secondPositionProperty.link( position => updatePosition( position ) );
+    secondSource.positionProperty.link( position => updatePosition( position ) );
 
     // @private
     this.cueingArrows = cueingArrows;

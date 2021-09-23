@@ -67,18 +67,18 @@ class GeometricOpticsModel {
     this.sourceObject = new SourceObject( this.representationProperty );
 
     // @public the object/ source
-    this.secondSource = new SecondSource( this.representationProperty, this.sourceObject.firstPositionProperty );
+    this.secondSource = new SecondSource( this.representationProperty, this.sourceObject.positionProperty );
 
     // @public model of the target/image associated with the first source
-    this.firstTarget = new Target( this.sourceObject.firstPositionProperty, this.optic, this.representationProperty );
+    this.firstTarget = new Target( this.sourceObject.positionProperty, this.optic, this.representationProperty );
 
     // @public target/ image associated with the second source
-    this.secondTarget = new Target( this.secondSource.secondPositionProperty, this.optic, this.representationProperty );
+    this.secondTarget = new Target( this.secondSource.positionProperty, this.optic, this.representationProperty );
 
     // @public model of the projector screen
     this.projectorScreen = new ProjectorScreen(
-      this.sourceObject.firstPositionProperty,
-      this.secondSource.secondPositionProperty,
+      this.sourceObject.positionProperty,
+      this.secondSource.positionProperty,
       this.firstTarget.positionProperty,
       this.secondTarget.positionProperty,
       this.optic
@@ -86,7 +86,7 @@ class GeometricOpticsModel {
 
     // @public (read-only) spotlight associated with the first source/object
     this.firstSpotlight = new Spotlight(
-      this.sourceObject.firstPositionProperty,
+      this.sourceObject.positionProperty,
       this.firstTarget.positionProperty,
       this.projectorScreen,
       this.optic
@@ -94,7 +94,7 @@ class GeometricOpticsModel {
 
     // @public (read-only) spotlight associated with the second source/object
     this.secondSpotlight = new Spotlight(
-      this.secondSource.secondPositionProperty,
+      this.secondSource.positionProperty,
       this.secondTarget.positionProperty,
       this.projectorScreen,
       this.optic
@@ -117,7 +117,7 @@ class GeometricOpticsModel {
       this.lightRaysTimeProperty,
       this.lightRayModeProperty,
       this.representationProperty,
-      this.sourceObject.firstPositionProperty,
+      this.sourceObject.positionProperty,
       this.projectorScreen,
       this.optic,
       this.firstTarget
@@ -128,7 +128,7 @@ class GeometricOpticsModel {
       this.lightRaysTimeProperty,
       this.lightRayModeProperty,
       this.representationProperty,
-      this.secondSource.secondPositionProperty,
+      this.secondSource.positionProperty,
       this.projectorScreen,
       this.optic,
       this.secondTarget

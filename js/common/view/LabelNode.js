@@ -33,7 +33,7 @@ class LabelNode extends Node {
 
     options = merge( {
 
-      labelOffset: 12, // vertical offset (in view coordinates) wrt firstPositionProperty
+      labelOffset: 12, // vertical offset (in view coordinates) wrt positionProperty
       xMargin: 5,
       yMargin: 5,
 

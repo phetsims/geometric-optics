@@ -234,6 +234,7 @@ class Optic {
     return this.curveProperty.value;
   }
 
+  //TODO redundant, use this.positionProperty.value
   /**
    * Returns the position of the optical element
    * @public

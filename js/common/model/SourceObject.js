@@ -31,14 +31,13 @@ class SourceObject {
     );
 
     // @public position of the left top position of image
-    //TODO should this be derived from representationProperty? or from firstPositionProperty?
+    //TODO should this be derived from representationProperty? or from positionProperty?
     //TODO left-top is unfortunate to have in the model, can this be avoided?
     this.leftTopProperty = new Vector2Property( GeometricOpticsConstants.DEFAULT_SOURCE_POINT_1.plus( offset ) );
 
     // @public {DerivedProperty.<Vector2>} position of the source/object
     //TODO should this be derived from representationProperty instead?
-    //TODO rename to positionProperty
-    this.firstPositionProperty = new DerivedProperty(
+    this.positionProperty = new DerivedProperty(
       [ this.leftTopProperty ],
       leftTop => leftTop.minus( offset )
     );
@@ -60,7 +59,7 @@ class SourceObject {
       offset = representation.rightFacingUprightOffset.dividedScalar( representation.getScaleFactor() );
 
       // {Vector2} update the left top position - the firstPosition is the ground truth when changing representation
-      this.leftTopProperty.value = this.firstPositionProperty.value.plus( offset );
+      this.leftTopProperty.value = this.positionProperty.value.plus( offset );
     } );
   }
 
@@ -72,14 +71,14 @@ class SourceObject {
     this.leftTopProperty.reset();
   }
 
-  //TODO this is redundant, use this.firstPositionProperty.value
+  //TODO this is redundant, use this.positionProperty.value
   /**
    * Returns the position of the source
    * @public
    * @returns {Vector2}
    */
   getPosition() {
-    return this.firstPositionProperty.value;
+    return this.positionProperty.value;
   }
 }
 

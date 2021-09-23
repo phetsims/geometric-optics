@@ -84,6 +84,7 @@ class Guide {
     return this.incidentAngleProperty.value;
   }
 
+  //TODO redundant, use this.fulcrumPositionProperty.value
   /**
    * Gets the fulcrum point of the guide
    * @public

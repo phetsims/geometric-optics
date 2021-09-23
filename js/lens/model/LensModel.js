@@ -24,16 +24,16 @@ class LensModel extends GeometricOpticsModel {
     );
 
     // @public top guide associated with the first source/object
-    this.firstTopGuide = new Guide( this.optic, this.sourceObject.firstPositionProperty, Guide.Location.TOP );
+    this.firstTopGuide = new Guide( this.optic, this.sourceObject.positionProperty, Guide.Location.TOP );
 
     // @public bottom guide associated with the first source/object
-    this.firstBottomGuide = new Guide( this.optic, this.sourceObject.firstPositionProperty, Guide.Location.BOTTOM );
+    this.firstBottomGuide = new Guide( this.optic, this.sourceObject.positionProperty, Guide.Location.BOTTOM );
 
     // @public top guide associated with the second source/object
-    this.secondTopGuide = new Guide( this.optic, this.secondSource.secondPositionProperty, Guide.Location.TOP );
+    this.secondTopGuide = new Guide( this.optic, this.secondSource.positionProperty, Guide.Location.TOP );
 
     // @public bottom guide associated with the second source/object
-    this.secondBottomGuide = new Guide( this.optic, this.secondSource.secondPositionProperty, Guide.Location.BOTTOM );
+    this.secondBottomGuide = new Guide( this.optic, this.secondSource.positionProperty, Guide.Location.BOTTOM );
   }
 }
 

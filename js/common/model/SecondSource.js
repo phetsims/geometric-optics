@@ -20,31 +20,30 @@ class SecondSource {
 
   /**
    * @param {EnumerationProperty.<Representation>} representationProperty
-   * @param {Property.<Vector2>} firstPositionProperty
+   * @param {Property.<Vector2>} sourceObjectPositionProperty
    * @param {Object} [options]
    */
-  constructor( representationProperty, firstPositionProperty, options ) {
+  constructor( representationProperty, sourceObjectPositionProperty, options ) {
 
     // @private position of the second source of light
     //TODO rename this, document it better
-    this.unconstrainedSecondSourcePositionProperty = new Vector2Property( GeometricOpticsConstants.DEFAULT_SOURCE_POINT_2 );
+    this.unconstrainedPositionProperty = new Vector2Property( GeometricOpticsConstants.DEFAULT_SOURCE_POINT_2 );
 
     // @private vertical offset (in centimeters) of second object with respect to the first
-    //TODO rename this something like secondSourceVerticalOffsetProperty
     this.verticalOffsetProperty = new NumberProperty( GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE.defaultValue, {
       range: GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE
     } );
 
     // @public {DerivedProperty.<Vector2>} position of the second source (source/object)
-    //TODO rename positionProperty
-    this.secondPositionProperty = new DerivedProperty(
-      [ firstPositionProperty, this.verticalOffsetProperty, this.unconstrainedSecondSourcePositionProperty, representationProperty ],
-      ( firstPosition, verticalOffset, unconstrainedSecondSourcePosition, representation ) =>
-        representation.isObject ? firstPosition.plusXY( 0, verticalOffset ) : unconstrainedSecondSourcePosition
+    this.positionProperty = new DerivedProperty(
+      [ sourceObjectPositionProperty, this.verticalOffsetProperty,
+        this.unconstrainedPositionProperty, representationProperty ],
+      ( sourceObjectPosition, verticalOffset, unconstrainedSecondSourcePosition, representation ) =>
+        representation.isObject ? sourceObjectPosition.plusXY( 0, verticalOffset ) : unconstrainedSecondSourcePosition
     );
 
     // @private
-    this.firstPositionProperty = firstPositionProperty;
+    this.sourceObjectPositionProperty = sourceObjectPositionProperty;
   }
 
   /**
@@ -53,7 +52,7 @@ class SecondSource {
    */
   reset() {
     this.verticalOffsetProperty.reset();
-    this.unconstrainedSecondSourcePositionProperty.reset();
+    this.unconstrainedPositionProperty.reset();
   }
 
   /**
@@ -67,13 +66,13 @@ class SecondSource {
     assert && assert( position instanceof Vector2 );
 
     if ( representationProperty.value.isObject ) {
-      const unconstrainedVerticalOffset = position.y - this.firstPositionProperty.value.y;
+      const unconstrainedVerticalOffset = position.y - this.sourceObjectPositionProperty.value.y;
       this.verticalOffsetProperty.value = Utils.clamp( unconstrainedVerticalOffset,
         GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE.min,
         GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE.max );
     }
     else {
-      this.unconstrainedSecondSourcePositionProperty.value = position;
+      this.unconstrainedPositionProperty.value = position;
     }
   }
 }
