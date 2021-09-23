@@ -19,10 +19,10 @@ import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
-import FocalPoint from '../model/FocalPoint.js';
 import GeometricOpticsModel from '../model/GeometricOpticsModel.js';
 import LightRayMode from '../model/LightRayMode.js';
 import CurveControl from './CurveControl.js';
+import DebugPointNode from './DebugPointNode.js';
 import FocalPointNode from './FocalPointNode.js';
 import GeometricOpticsControlPanel from './GeometricOpticsControlPanel.js';
 import GeometricOpticRulersLayer from './GeometricOpticsRulersLayer.js';
@@ -36,7 +36,6 @@ import SecondSourceNode from './SecondSourceNode.js';
 import ShowHideToggleButton from './ShowHideToggleButton.js';
 import SourceObjectNode from './SourceObjectNode.js';
 import TargetNode from './TargetNode.js';
-import DebugPointNode from './DebugPointNode.js';
 import VisibleProperties from './VisibleProperties.js';
 
 // constants
@@ -285,26 +284,21 @@ class GeometricOpticsScreenView extends ScreenView {
     //------------------------------------------------------------
     //                  Query Parameters
 
-    // add disks at position of optic, source and target
+    // Add points at position of optic, source, and target.
     if ( GeometricOpticsQueryParameters.showDebugPoints ) {
-      //TODO factor out duplicated options
       const options = { fill: 'red' };
       this.playAreaNode.addChild( new DebugPointNode( model.firstTarget.positionProperty, this.modelViewTransform, options ) );
       this.playAreaNode.addChild( new DebugPointNode( model.sourceObject.positionProperty, this.modelViewTransform, options ) );
       this.playAreaNode.addChild( new DebugPointNode( model.optic.positionProperty, this.modelViewTransform, options ) );
     }
 
-    // add disks at a distance 2f for optic on each side of optic
+    // Add points at a distance 2f on each side of optic
     if ( GeometricOpticsQueryParameters.show2fPoints ) {
-      const minus2fPoint = new FocalPoint( model.optic.positionProperty, model.optic.focalLengthProperty, {
-        multiplicativeFactor: -2
-      } );
-      const plus2fPoint = new FocalPoint( model.optic.positionProperty, model.optic.focalLengthProperty, {
-        multiplicativeFactor: 2
-      } );
+      const left2fProperty = new DerivedProperty( [ model.leftFocalPoint.positionProperty ], position => position.timesScalar( 2 ) );
+      const right2fProperty = new DerivedProperty( [ model.rightFocalPoint.positionProperty ], position => position.timesScalar( 2 ) );
       const options = { fill: GeometricOpticsColors.focalPointFillProperty };
-      this.playAreaNode.addChild( new DebugPointNode( minus2fPoint.positionProperty, this.modelViewTransform, options ) );
-      this.playAreaNode.addChild( new DebugPointNode( plus2fPoint.positionProperty, this.modelViewTransform, options ) );
+      this.playAreaNode.addChild( new DebugPointNode( left2fProperty, this.modelViewTransform, options ) );
+      this.playAreaNode.addChild( new DebugPointNode( right2fProperty, this.modelViewTransform, options ) );
     }
 
     // @private
