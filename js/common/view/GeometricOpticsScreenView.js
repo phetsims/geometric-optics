@@ -36,7 +36,7 @@ import SecondSourceNode from './SecondSourceNode.js';
 import ShowHideToggleButton from './ShowHideToggleButton.js';
 import SourceObjectNode from './SourceObjectNode.js';
 import TargetNode from './TargetNode.js';
-import TrackingDiskNode from './TrackingDiskNode.js';
+import DebugPointNode from './DebugPointNode.js';
 import VisibleProperties from './VisibleProperties.js';
 
 // constants
@@ -288,12 +288,10 @@ class GeometricOpticsScreenView extends ScreenView {
     // add disks at position of optic, source and target
     if ( GeometricOpticsQueryParameters.showDebugPoints ) {
       //TODO factor out duplicated options
-      this.playAreaNode.addChild( new TrackingDiskNode( model.firstTarget.positionProperty, this.modelViewTransform,
-        { fill: 'magenta' } ) );
-      this.playAreaNode.addChild( new TrackingDiskNode( model.sourceObject.positionProperty, this.modelViewTransform,
-        { fill: 'magenta' } ) );
-      this.playAreaNode.addChild( new TrackingDiskNode( model.optic.positionProperty, this.modelViewTransform,
-        { fill: 'magenta' } ) );
+      const options = { fill: 'red' };
+      this.playAreaNode.addChild( new DebugPointNode( model.firstTarget.positionProperty, this.modelViewTransform, options ) );
+      this.playAreaNode.addChild( new DebugPointNode( model.sourceObject.positionProperty, this.modelViewTransform, options ) );
+      this.playAreaNode.addChild( new DebugPointNode( model.optic.positionProperty, this.modelViewTransform, options ) );
     }
 
     // add disks at a distance 2f for optic on each side of optic
@@ -304,10 +302,9 @@ class GeometricOpticsScreenView extends ScreenView {
       const plus2fPoint = new FocalPoint( model.optic.positionProperty, model.optic.focalLengthProperty, {
         multiplicativeFactor: 2
       } );
-      this.playAreaNode.addChild( new TrackingDiskNode( minus2fPoint.positionProperty, this.modelViewTransform,
-        { fill: 'black' } ) );
-      this.playAreaNode.addChild( new TrackingDiskNode( plus2fPoint.positionProperty, this.modelViewTransform,
-        { fill: 'black' } ) );
+      const options = { fill: GeometricOpticsColors.focalPointFillProperty };
+      this.playAreaNode.addChild( new DebugPointNode( minus2fPoint.positionProperty, this.modelViewTransform, options ) );
+      this.playAreaNode.addChild( new DebugPointNode( plus2fPoint.positionProperty, this.modelViewTransform, options ) );
     }
 
     // @private

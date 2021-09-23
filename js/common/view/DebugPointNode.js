@@ -1,8 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * View for visual tracking of an object
- * Most often used by QueryParameters to illustrate the position of a point or an object.
+ * DebugPointNode is used for debugging the position of things in the UI. It displays a circle at a specified
+ * point, and stays synchronized with that point.  Instances of this are enabled via query parameters.
  *
  * @author Martin Veillette
  */
@@ -13,7 +13,7 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import geometricOptics from '../../geometricOptics.js';
 
-class TrackingDiskNode extends Circle {
+class DebugPointNode extends Circle {
 
   /**
    * @param {Property.<Vector2>} positionProperty
@@ -26,8 +26,8 @@ class TrackingDiskNode extends Circle {
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     options = merge( {
-      fill: 'white', // {color} fill of disk
-      radius: 2 // {number} radius of disk in view coordinates.
+      fill: 'white',
+      radius: 2
     }, options );
 
     super( options.radius, options );
@@ -48,5 +48,5 @@ class TrackingDiskNode extends Circle {
   }
 }
 
-geometricOptics.register( 'TrackingDiskNode', TrackingDiskNode );
-export default TrackingDiskNode;
+geometricOptics.register( 'DebugPointNode', DebugPointNode );
+export default DebugPointNode;
