@@ -9,16 +9,15 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import EnabledComponent from '../../../../axon/js/EnabledComponent.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
 
-//TODO enabledProperty inherited from EnabledComponent seems semantically odd. Would visibleProperty be better?
-class Target extends EnabledComponent {
+class Target {
 
   /**
    * @param {Property.<Vector2>} objectPositionProperty - position of the object/source
@@ -29,8 +28,6 @@ class Target extends EnabledComponent {
     assert && assert( objectPositionProperty instanceof Property );
     assert && assert( optic instanceof Optic );
     assert && assert( representationProperty instanceof EnumerationProperty );
-
-    super();
 
     // @private {Property.<Vector2>} position of the object/source
     this.objectPositionProperty = objectPositionProperty;
@@ -65,6 +62,9 @@ class Target extends EnabledComponent {
           return ( focalLength * opticObjectDistance ) / ( opticObjectDistance - focalLength );
         }
       } );
+
+    // @public
+    this.visibleProperty = new BooleanProperty( false );
 
     // @public {DerivedProperty.<Vector2>}
     // the position of the focus as predicted by lens and mirror equation

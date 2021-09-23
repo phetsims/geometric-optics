@@ -66,9 +66,9 @@ class TargetNode extends Node {
      * has the image been targeted by the rays?
      */
     Property.multilink(
-      [ target.isVirtualProperty, virtualImageVisibleProperty, target.enabledProperty ],
-      ( isVirtual, virtualImageVisible, enabled ) => {
-        targetImage.visible = ( isVirtual ? virtualImageVisible : true ) && enabled;
+      [ target.isVirtualProperty, virtualImageVisibleProperty, target.visibleProperty ],
+      ( isVirtual, virtualImageVisible, targetVisible ) => {
+        targetImage.visible = ( isVirtual ? virtualImageVisible : true ) && targetVisible;
       } );
 
     // update position and scale when model bounds change

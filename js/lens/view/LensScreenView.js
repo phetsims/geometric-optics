@@ -61,7 +61,7 @@ class LensScreenView extends GeometricOpticsScreenView {
       model.firstSpotlight.intensityProperty,
       model.firstSpotlight.screenIntersectionProperty,
       this.modelViewTransform, {
-        visibleProperty: model.firstTarget.enabledProperty
+        visibleProperty: model.firstTarget.visibleProperty
       } );
 
     // Spotlight associated with the second source
@@ -70,7 +70,7 @@ class LensScreenView extends GeometricOpticsScreenView {
       model.secondSpotlight.screenIntersectionProperty,
       this.modelViewTransform, {
         visibleProperty: DerivedProperty.and(
-          [ model.secondTarget.enabledProperty, this.visibleProperties.secondSourceVisibleProperty ] )
+          [ model.secondTarget.visibleProperty, this.visibleProperties.secondSourceVisibleProperty ] )
       } );
 
     // Add projector screen and spotlights at the bottom of the z-layer.

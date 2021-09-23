@@ -69,13 +69,13 @@ class LabelsNode extends Node {
     );
 
     const imageLabelVisibleProperty = new DerivedProperty( [
+        model.firstTarget.visibleProperty,
         model.representationProperty,
-        model.firstTarget.enabledProperty,
         model.firstTarget.isVirtualProperty,
         visibleProperties.virtualImageVisibleProperty
       ],
-      ( representation, enabled, isVirtual, virtualImageVisible ) =>
-        ( enabled && ( isVirtual ? virtualImageVisible : true ) && representation.isObject )
+      ( visible, representation, isVirtual, virtualImageVisible ) =>
+        ( visible && representation.isObject && ( isVirtual ? virtualImageVisible : true ) )
     );
 
     const imageLabel = new LabelNode( '', imageLabelPositionProperty, modelViewTransformProperty, {

@@ -253,13 +253,13 @@ class GeometricOpticsScreenView extends ScreenView {
       [ model.lightRayModeProperty, this.visibleProperties.rayTracingVisibleProperty ],
       ( lightRayMode, rayTracingVisible ) => {
         if ( lightRayMode === LightRayMode.NONE ) {
-          model.firstTarget.enabledProperty.value = rayTracingVisible;
-          model.secondTarget.enabledProperty.value = rayTracingVisible;
+          model.firstTarget.visibleProperty.value = rayTracingVisible;
+          model.secondTarget.visibleProperty.value = rayTracingVisible;
         }
         else {
           if ( !rayTracingVisible ) {
-            model.firstTarget.enabledProperty.value = false;
-            model.secondTarget.enabledProperty.value = false;
+            model.firstTarget.visibleProperty.value = false;
+            model.secondTarget.visibleProperty.value = false;
             model.lightRaysTimeProperty.reset();
           }
         }

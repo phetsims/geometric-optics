@@ -76,10 +76,10 @@ class LightRays {
         const isProjectorScreenPresent = !representation.isObject;
 
         // is the light ray mode set to Principal Rays
-        const isPrincipalRayMode = lightRayMode === LightRayMode.PRINCIPAL;
+        const isPrincipalRayMode = ( lightRayMode === LightRayMode.PRINCIPAL );
 
         // set the target's enabledProperty to false initially (unless there are no rays)
-        target.enabledProperty.value = lightRayMode === LightRayMode.NONE;
+        target.visibleProperty.value = ( lightRayMode === LightRayMode.NONE );
 
         // loop over the direction of each ray
         directions.forEach( direction => {
@@ -100,7 +100,7 @@ class LightRays {
 
           // set target's enabledProperty to true after the first ray reaches its target
           if ( lightRay.isTargetReached ) {
-            target.enabledProperty.value = true;
+            target.visibleProperty.value = true;
           }
 
           // add this new real lightRay to the realRay
