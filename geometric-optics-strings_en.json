@@ -23,9 +23,6 @@
   "object": {
     "value": "Object"
   },
-  "image": {
-    "value": "Image"
-  },
   "focalPoint": {
     "value": "Focal Point"
   },
@@ -43,6 +40,9 @@
   },
   "guides": {
     "value": "Guides"
+  },
+  "realImage": {
+    "value": "Real Image"
   },
   "virtualImage": {
     "value": "Virtual Image"

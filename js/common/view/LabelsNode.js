@@ -83,7 +83,7 @@ class LabelsNode extends Node {
     } );
 
     model.firstTarget.isVirtualProperty.link( isVirtual => {
-      imageLabel.setText( isVirtual ? geometricOpticsStrings.virtualImage : geometricOpticsStrings.image );
+      imageLabel.setText( isVirtual ? geometricOpticsStrings.virtualImage : geometricOpticsStrings.realImage );
     } );
 
     // Object label ------------------------------------------------------------------------------------
