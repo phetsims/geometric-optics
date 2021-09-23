@@ -26,16 +26,16 @@ class SourceObjectNode extends Node {
   /**
    * @param {EnumerationProperty.<Representation>} representationProperty
    * @param {SourceObject} sourceObject
-   * @param {Property.<Bounds2>} visibleModelBoundsProperty
+   * @param {Property.<Bounds2>} modelBoundsProperty
    * @param {Property.<Vector2>} opticPositionProperty
    * @param {ModelViewTransform2} modelViewTransform
    * */
-  constructor( representationProperty, sourceObject, visibleModelBoundsProperty,
+  constructor( representationProperty, sourceObject, modelBoundsProperty,
                opticPositionProperty, modelViewTransform ) {
 
     assert && assert( representationProperty instanceof EnumerationProperty );
     assert && assert( sourceObject instanceof SourceObject );
-    assert && assert( visibleModelBoundsProperty instanceof Property );
+    assert && assert( modelBoundsProperty instanceof Property );
     assert && assert( opticPositionProperty instanceof Property );
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
@@ -87,12 +87,10 @@ class SourceObjectNode extends Node {
     // {DerivedProperty.<Bounds2} keep at least half of the projector screen within visible bounds and right of the optic.
     // opticPositionProperty is not a dependency because it only moves in the y dimension, so x is constant.
     const dragBoundsProperty = new DerivedProperty(
-      [ visibleModelBoundsProperty, representationProperty ],
-      ( visibleBounds, representation ) =>
-        new Bounds2( visibleBounds.minX,
-          visibleBounds.minY + sourceObject.boundsProperty.value.height,
-          opticPositionProperty.value.x - sourceObject.boundsProperty.value.width,
-          visibleBounds.maxY )
+      [ modelBoundsProperty, representationProperty ],
+      ( bounds, representation ) =>
+        new Bounds2( bounds.minX, bounds.minY + sourceObject.boundsProperty.value.height,
+          opticPositionProperty.value.x - sourceObject.boundsProperty.value.width, bounds.maxY )
     );
     dragBoundsProperty.link( dragBounds => {
       sourceObject.leftTopProperty.value = dragBounds.closestPointTo( sourceObject.leftTopProperty.value );

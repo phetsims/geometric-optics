@@ -4,6 +4,7 @@
  * GeometricOpticsScreenView is the common ScreenView for this simulation.
  *
  * @author Martin Veillette
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
@@ -52,39 +53,37 @@ class GeometricOpticsScreenView extends ScreenView {
 
     super();
 
-    // @private
-    this.model = model;
-
     // convenience variable for laying out scenery Nodes
     const erodedLayoutBounds = this.layoutBounds.erodedXY( GeometricOpticsConstants.SCREEN_VIEW_X_MARGIN,
       GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN );
 
-    // @protected Create visibleProperty instances for Nodes in the view.
-    this.visibleProperties = new VisibleProperties( model.optic.type );
+    // create a Y inverted modelViewTransform with isometric scaling along X and Y
+    const modelViewTransform = this.getZoomTransform( ZOOM_RANGE.defaultValue );
 
-    // @private {Property.<number>} controls zoom in play area
-    this.zoomLevelProperty = new NumberProperty( ZOOM_RANGE.defaultValue, { range: ZOOM_RANGE } );
+    // Properties  ====================================================================================================
 
-    // @protected create a Y inverted modelViewTransform with isometric scaling along X and Y
-    this.modelViewTransform = this.getZoomTransform( ZOOM_RANGE.defaultValue );
+    // Create visibleProperty instances for Nodes in the view.
+    const visibleProperties = new VisibleProperties( model.optic.type );
 
-    // {DerivedProperty.<ModelViewTransform2>} modelViewTransform
+    // {Property.<number>} controls zoom in play area
+    const zoomLevelProperty = new NumberProperty( ZOOM_RANGE.defaultValue, { range: ZOOM_RANGE } );
+
+    // {DerivedProperty.<ModelViewTransform2>}
     const zoomTransformProperty = new DerivedProperty(
-      [ this.zoomLevelProperty ],
+      [ zoomLevelProperty ],
       zoomLevel => this.getZoomTransform( zoomLevel )
     );
 
     // {DerivedProperty.<number>} zoom scale associate with the zoom level
     const absoluteScaleProperty = new DerivedProperty(
-      [ this.zoomLevelProperty ],
+      [ zoomLevelProperty ],
       zoomLevel => this.getAbsoluteScale( zoomLevel )
     );
 
-    //----------------------------------------------------------------------------
-    //               Buttons, Controls and Panels
+    // Things that are outside the Play Area ===========================================================================
 
     // create Rulers
-    this.rulersLayer = new GeometricOpticRulersLayer(
+    const rulersLayer = new GeometricOpticRulersLayer(
       model.horizontalRuler,
       model.verticalRuler,
       this.visibleBoundsProperty,
@@ -94,15 +93,15 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // create control panel at the bottom of the screen
     const controlPanel = new GeometricOpticsControlPanel( model.optic, model.lightRayModeProperty,
-      this.visibleProperties, this.modelViewTransform );
+      visibleProperties, modelViewTransform );
     controlPanel.centerBottom = erodedLayoutBounds.centerBottom;
 
     // create toolbox panel at the top right corner of the screen
-    const toolbox = new RulersToolbox( this.rulersLayer );
+    const toolbox = new RulersToolbox( rulersLayer );
     toolbox.rightTop = erodedLayoutBounds.rightTop;
 
     // pass the bounds of the toolbox to the rulers for their return to toolbox
-    this.rulersLayer.setToolboxBounds( toolbox.bounds );
+    rulersLayer.setToolboxBounds( toolbox.bounds );
 
     // create the control buttons to toggle between convex and concave optic at the left bottom
     const curveControl = new CurveControl( model.optic );
@@ -117,7 +116,7 @@ class GeometricOpticsScreenView extends ScreenView {
     } );
 
     // create magnifying buttons for zooming in and out at the left top
-    const zoomButtonGroup = new MagnifyingGlassZoomButtonGroup( this.zoomLevelProperty, {
+    const zoomButtonGroup = new MagnifyingGlassZoomButtonGroup( zoomLevelProperty, {
       orientation: 'horizontal',
       spacing: 8,
       magnifyingGlassNodeOptions: {
@@ -141,100 +140,78 @@ class GeometricOpticsScreenView extends ScreenView {
     } );
 
     // create the show/hide eye toggle button above the reset all button
-    const showHideToggleButton = new ShowHideToggleButton( this.visibleProperties.rayTracingVisibleProperty );
+    const showHideToggleButton = new ShowHideToggleButton( visibleProperties.rayTracingVisibleProperty );
     showHideToggleButton.centerX = resetAllButton.centerX;
     showHideToggleButton.top = controlPanel.top;
 
-    //-------------------------------------------------------------------
+    // Play Area ================================================================================================
 
-    // @protected {DerivedProperty.<Bounds2>} playAreaModelBoundsProperty
-    this.playAreaModelBoundsProperty = new DerivedProperty(
+    // {DerivedProperty.<Bounds2>}
+    const modelBoundsProperty = new DerivedProperty(
       [ this.visibleBoundsProperty, zoomTransformProperty ],
       ( visibleBounds, zoomTransform ) => {
         const playAreaBounds = new Bounds2( visibleBounds.minX, 0, visibleBounds.maxX, controlPanel.top );
         return zoomTransform.viewToModelBounds( playAreaBounds );
       } );
 
-    //----------------------------------------------------------------------
-    //                          scenery nodes for play area
+    // create the source/object on the left hand side of screen
+    const sourceObjectNode = new SourceObjectNode( model.representationProperty, model.sourceObject,
+      modelBoundsProperty, model.optic.positionProperty, modelViewTransform );
 
-    // @protected layer for all the nodes within the play area: Play area layer is subject to zoom in/out
-    this.playAreaNode = new Node();
-
-    // @private create the source/object on the left hand side of screen
-    this.sourceObjectNode = new SourceObjectNode(
-      model.representationProperty,
-      model.sourceObject,
-      this.playAreaModelBoundsProperty,
-      model.optic.positionProperty,
-      this.modelViewTransform
-    );
-
-    // @private the second source
-    this.secondSourceNode = new SecondSourceNode(
-      model.representationProperty,
-      model.secondSource,
-      this.modelViewTransform, {
-        visibleProperty: this.visibleProperties.secondSourceVisibleProperty
-      } );
+    // the second source
+    const secondSourceNode = new SecondSourceNode( model.representationProperty, model.secondSource, modelViewTransform, {
+      visibleProperty: visibleProperties.secondSourceVisibleProperty
+    } );
 
     // create the optical axis attached to the optical element
-    const opticalAxisLine = new OpticalAxisLine( model.optic.positionProperty,
-      this.playAreaModelBoundsProperty, this.modelViewTransform );
+    const opticalAxisLine = new OpticalAxisLine( model.optic.positionProperty, modelBoundsProperty, modelViewTransform );
 
-    const opticNode = new OpticNode(
-      model.optic,
-      model.lightRayModeProperty,
-      this.playAreaModelBoundsProperty,
-      this.modelViewTransform
-    );
+    const opticNode = new OpticNode( model.optic, model.lightRayModeProperty, modelBoundsProperty, modelViewTransform );
 
     // create the light rays associated with the object
-    const lightRaysNode = new LightRaysNode( model.firstLightRays, this.modelViewTransform, {
-      visibleProperty: this.visibleProperties.virtualImageVisibleProperty,
+    const lightRaysNode = new LightRaysNode( model.firstLightRays, modelViewTransform, {
+      visibleProperty: visibleProperties.virtualImageVisibleProperty,
       realRayStroke: GeometricOpticsColors.realRayOneStrokeProperty,
       virtualRayStroke: GeometricOpticsColors.virtualRayOneStrokeProperty
     } );
 
     // create the light rays associated with the second source
-    const secondSourceLightRaysNode = new LightRaysNode( model.secondLightRays, this.modelViewTransform, {
+    const secondSourceLightRaysNode = new LightRaysNode( model.secondLightRays, modelViewTransform, {
       realRayStroke: GeometricOpticsColors.realRayTwoStrokeProperty,
       virtualRayStroke: GeometricOpticsColors.virtualRayTwoStrokeProperty,
-      visibleProperty: this.visibleProperties.secondSourceVisibleProperty
+      visibleProperty: visibleProperties.secondSourceVisibleProperty
     } );
 
     // create the target image
-    const targetNode = new TargetNode(
-      model.representationProperty,
-      model.firstTarget,
-      model.optic,
-      this.visibleProperties.virtualImageVisibleProperty,
-      this.modelViewTransform
-    );
+    const targetNode = new TargetNode( model.representationProperty, model.firstTarget, model.optic,
+      visibleProperties.virtualImageVisibleProperty, modelViewTransform );
 
     // create two focal points
-    const leftFocalPointNode = new FocalPointNode( model.leftFocalPoint, this.modelViewTransform, {
-      visibleProperty: this.visibleProperties.focalPointVisibleProperty
-    } );
-    const rightFocalPointNode = new FocalPointNode( model.rightFocalPoint, this.modelViewTransform, {
-      visibleProperty: this.visibleProperties.focalPointVisibleProperty
-    } );
     const focalPointsLayer = new Node( {
-      children: [ leftFocalPointNode, rightFocalPointNode ]
+      children: [
+        new FocalPointNode( model.leftFocalPoint, modelViewTransform ),
+        new FocalPointNode( model.rightFocalPoint, modelViewTransform )
+      ],
+      visibleProperty: visibleProperties.focalPointVisibleProperty
     } );
 
-    // add children that need to be zoomed in/out. order is important
-    this.playAreaNode.addChild( opticalAxisLine );
-    this.playAreaNode.addChild( this.sourceObjectNode );
-    this.playAreaNode.addChild( opticNode );
-    this.playAreaNode.addChild( targetNode );
-    this.playAreaNode.addChild( lightRaysNode );
-    this.playAreaNode.addChild( secondSourceLightRaysNode );
-    this.playAreaNode.addChild( this.secondSourceNode );
-    this.playAreaNode.addChild( focalPointsLayer );
+    // Layer for all the Nodes within the "play area".
+    // The play area is subject to zoom in/out, so add all Nodes that need to be zoomed.
+    const playAreaNode = new Node( {
+      children: [
+        opticalAxisLine,
+        sourceObjectNode,
+        opticNode,
+        targetNode,
+        lightRaysNode,
+        secondSourceLightRaysNode,
+        secondSourceNode,
+        focalPointsLayer
+      ]
+    } );
 
     // scale the playAreaNode
-    this.zoomLevelProperty.lazyLink( ( zoomLevel, oldZoomLevel ) => {
+    zoomLevelProperty.lazyLink( ( zoomLevel, oldZoomLevel ) => {
 
       // scaling factor between zoom levels
       const relativeScale = this.getRelativeScale( zoomLevel, oldZoomLevel );
@@ -243,12 +220,12 @@ class GeometricOpticsScreenView extends ScreenView {
       const translateVector = ORIGIN_POINT.times( 1 / relativeScale - 1 );
 
       // scale and translate the playArea
-      this.playAreaNode.scale( relativeScale );
-      this.playAreaNode.translate( translateVector );
+      playAreaNode.scale( relativeScale );
+      playAreaNode.translate( translateVector );
     } );
 
     Property.multilink(
-      [ model.lightRayModeProperty, this.visibleProperties.rayTracingVisibleProperty ],
+      [ model.lightRayModeProperty, visibleProperties.rayTracingVisibleProperty ],
       ( lightRayMode, rayTracingVisible ) => {
         if ( lightRayMode === LightRayMode.NONE ) {
           model.firstTarget.visibleProperty.value = rayTracingVisible;
@@ -264,30 +241,14 @@ class GeometricOpticsScreenView extends ScreenView {
       } );
 
     // labels
-    const labelsNode = new LabelsNode( model, this.visibleProperties, zoomTransformProperty, this.zoomLevelProperty );
-
-    // add playAreaNode and controls to the scene graph
-    this.addChild( curveControl );
-    this.addChild( controlPanel );
-    this.addChild( showHideToggleButton );
-    this.addChild( resetAllButton );
-    this.addChild( this.playAreaNode );
-    this.addChild( toolbox );
-    this.addChild( zoomButtonGroup );
-    this.addChild( representationComboBox );
-    this.addChild( labelsNode );
-    this.addChild( this.rulersLayer );
-    this.addChild( popupsParent );
-
-    //------------------------------------------------------------
-    //                  Query Parameters
+    const labelsNode = new LabelsNode( model, visibleProperties, zoomTransformProperty, zoomLevelProperty );
 
     // Add points at position of optic, source, and target.
     if ( GeometricOpticsQueryParameters.showDebugPoints ) {
       const options = { fill: 'red' };
-      this.playAreaNode.addChild( new DebugPointNode( model.firstTarget.positionProperty, this.modelViewTransform, options ) );
-      this.playAreaNode.addChild( new DebugPointNode( model.sourceObject.positionProperty, this.modelViewTransform, options ) );
-      this.playAreaNode.addChild( new DebugPointNode( model.optic.positionProperty, this.modelViewTransform, options ) );
+      playAreaNode.addChild( new DebugPointNode( model.firstTarget.positionProperty, modelViewTransform, options ) );
+      playAreaNode.addChild( new DebugPointNode( model.sourceObject.positionProperty, modelViewTransform, options ) );
+      playAreaNode.addChild( new DebugPointNode( model.optic.positionProperty, modelViewTransform, options ) );
     }
 
     // Add points at a distance 2f on each side of optic
@@ -295,9 +256,40 @@ class GeometricOpticsScreenView extends ScreenView {
       const left2fProperty = new DerivedProperty( [ model.leftFocalPoint.positionProperty ], position => position.timesScalar( 2 ) );
       const right2fProperty = new DerivedProperty( [ model.rightFocalPoint.positionProperty ], position => position.timesScalar( 2 ) );
       const options = { fill: GeometricOpticsColors.focalPointFillProperty };
-      this.playAreaNode.addChild( new DebugPointNode( left2fProperty, this.modelViewTransform, options ) );
-      this.playAreaNode.addChild( new DebugPointNode( right2fProperty, this.modelViewTransform, options ) );
+      playAreaNode.addChild( new DebugPointNode( left2fProperty, modelViewTransform, options ) );
+      playAreaNode.addChild( new DebugPointNode( right2fProperty, modelViewTransform, options ) );
     }
+
+    // Layout
+    this.addChild( curveControl );
+    this.addChild( controlPanel );
+    this.addChild( showHideToggleButton );
+    this.addChild( resetAllButton );
+    this.addChild( playAreaNode );
+    this.addChild( toolbox );
+    this.addChild( zoomButtonGroup );
+    this.addChild( representationComboBox );
+    this.addChild( labelsNode );
+    this.addChild( rulersLayer );
+    this.addChild( popupsParent );
+
+    // @private
+    this.resetGeometricScreenView = () => {
+      zoomLevelProperty.reset();
+      visibleProperties.reset();
+      sourceObjectNode.reset();
+      secondSourceNode.reset();
+      rulersLayer.reset();
+    };
+
+    // @private
+    this.model = model; // {GeometricOpticsModel}
+
+    // @protected
+    this.modelViewTransform = modelViewTransform; // {ModelViewTransform2}
+    this.visibleProperties = visibleProperties; // {VisibleProperties}
+    this.modelBoundsProperty = modelBoundsProperty; // {DerivedProperty.<Bounds2>}
+    this.playAreaNode = playAreaNode; // {Node}
   }
 
   /**
@@ -314,11 +306,7 @@ class GeometricOpticsScreenView extends ScreenView {
    * @public
    */
   reset() {
-    this.zoomLevelProperty.reset();
-    this.visibleProperties.reset();
-    this.sourceObjectNode.reset();
-    this.secondSourceNode.reset();
-    this.rulersLayer.reset();
+    this.resetGeometricScreenView();
   }
 
   /**

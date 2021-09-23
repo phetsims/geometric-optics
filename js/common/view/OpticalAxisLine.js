@@ -17,13 +17,13 @@ class OpticalAxisLine extends Line {
 
   /**
    * @param {Property.<Vector2>} opticPositionProperty
-   * @param {Property.<Bounds2>} visibleModelBoundsProperty
+   * @param {Property.<Bounds2>} modelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    */
-  constructor( opticPositionProperty, visibleModelBoundsProperty, modelViewTransform ) {
+  constructor( opticPositionProperty, modelBoundsProperty, modelViewTransform ) {
 
     assert && assert( opticPositionProperty instanceof Property );
-    assert && assert( visibleModelBoundsProperty instanceof Property );
+    assert && assert( modelBoundsProperty instanceof Property );
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     // create optical axis line, with arbitrary length values.
@@ -33,7 +33,7 @@ class OpticalAxisLine extends Line {
     } );
 
     // set the horizontal extent of the optical axis line
-    visibleModelBoundsProperty.link( bounds => {
+    modelBoundsProperty.link( bounds => {
       this.setX1( modelViewTransform.modelToViewX( bounds.minX ) );
       this.setX2( modelViewTransform.modelToViewX( bounds.maxX ) );
     } );

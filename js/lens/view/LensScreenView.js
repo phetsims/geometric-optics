@@ -52,7 +52,7 @@ class LensScreenView extends GeometricOpticsScreenView {
     const projectorScreenNode = new ProjectorScreenNode(
       model.projectorScreen,
       model.optic.positionProperty,
-      this.playAreaModelBoundsProperty,
+      this.modelBoundsProperty,
       this.modelViewTransform
     );
 
