@@ -12,11 +12,11 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
+import Range from '../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
-import Range from '../../../../dot/js/Range.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -234,16 +234,6 @@ class Optic {
     return this.curveProperty.value;
   }
 
-  //TODO redundant, use this.positionProperty.value
-  /**
-   * Returns the position of the optical element
-   * @public
-   * @returns {Vector2}
-   */
-  getPosition() {
-    return this.positionProperty.value;
-  }
-
   /**
    * Returns a normalized value (with a max of 1) for the diameter
    * @public
@@ -265,7 +255,7 @@ class Optic {
    */
   translatedShape( shape ) {
     assert && assert( shape instanceof Shape );
-    return shape.transformed( Matrix3.translationFromVector( this.getPosition() ) );
+    return shape.transformed( Matrix3.translationFromVector( this.positionProperty.value ) );
   }
 
   /**
@@ -339,7 +329,7 @@ class Optic {
     const leftPoint = isTop ? opticBounds.leftTop : opticBounds.leftBottom;
     const rightPoint = isTop ? opticBounds.rightTop : opticBounds.rightBottom;
     const centerPoint = isTop ? opticBounds.centerTop : opticBounds.centerBottom;
-    const opticPoint = this.getPosition();
+    const opticPoint = this.positionProperty.value;
 
     // extrema point along the direction of the ray - may not be on the optic itself
     let spotPoint;
