@@ -29,16 +29,17 @@ class LabelsNode extends Node {
       visibleProperty: visibleProperties.labelsVisibleProperty
     }, options );
 
-    // Focal point labels ------------------------------------------------------------------------------------
+    // Object label ------------------------------------------------------------------------------------
 
-    const leftFocalPointLabel = new LabelNode( geometricOpticsStrings.focalPoint, model.leftFocalPoint.positionProperty,
-      modelViewTransformProperty, {
-        visibleProperty: visibleProperties.focalPointVisibleProperty
-      } );
+    const objectLabelPositionProperty = new DerivedProperty(
+      [ model.sourceObject.boundsProperty ],
+      // Because the we use a Y-inverted reference frame, the bottom of the image is the top of the model bounds.
+      bounds => bounds.centerTop
+    );
 
-    const rightFocalPointLabel = new LabelNode( geometricOpticsStrings.focalPoint, model.rightFocalPoint.positionProperty,
+    const objectLabel = new LabelNode( geometricOpticsStrings.object, objectLabelPositionProperty,
       modelViewTransformProperty, {
-        visibleProperty: visibleProperties.focalPointVisibleProperty
+        visibleProperty: new DerivedProperty( [ model.representationProperty ], representation => representation.isObject )
       } );
 
     // Optic label ------------------------------------------------------------------------------------
@@ -61,6 +62,18 @@ class LabelsNode extends Node {
       opticLabel.setText( text );
     } );
 
+    // Focal point labels ------------------------------------------------------------------------------------
+
+    const leftFocalPointLabel = new LabelNode( geometricOpticsStrings.focalPoint, model.leftFocalPoint.positionProperty,
+      modelViewTransformProperty, {
+        visibleProperty: visibleProperties.focalPointVisibleProperty
+      } );
+
+    const rightFocalPointLabel = new LabelNode( geometricOpticsStrings.focalPoint, model.rightFocalPoint.positionProperty,
+      modelViewTransformProperty, {
+        visibleProperty: visibleProperties.focalPointVisibleProperty
+      } );
+
     // Image label ------------------------------------------------------------------------------------
 
     const imageLabelPositionProperty = new DerivedProperty(
@@ -82,22 +95,10 @@ class LabelsNode extends Node {
       visibleProperty: imageLabelVisibleProperty
     } );
 
+    // Switch between 'Real Image' and 'Virtual Image'
     model.firstTarget.isVirtualProperty.link( isVirtual => {
       imageLabel.setText( isVirtual ? geometricOpticsStrings.virtualImage : geometricOpticsStrings.realImage );
     } );
-
-    // Object label ------------------------------------------------------------------------------------
-
-    const objectLabelPositionProperty = new DerivedProperty(
-      [ model.sourceObject.boundsProperty ],
-      // Because the we use a Y-inverted reference frame, the bottom of the image is the top of the model bounds.
-      bounds => bounds.centerTop
-    );
-
-    const objectLabel = new LabelNode( geometricOpticsStrings.object, objectLabelPositionProperty,
-      modelViewTransformProperty, {
-        visibleProperty: new DerivedProperty( [ model.representationProperty ], representation => representation.isObject )
-      } );
 
     // ------------------------------------------------------------------------------------
 
