@@ -70,16 +70,6 @@ class SourceObject {
   reset() {
     this.leftTopProperty.reset();
   }
-
-  //TODO this is redundant, use this.positionProperty.value
-  /**
-   * Returns the position of the source
-   * @public
-   * @returns {Vector2}
-   */
-  getPosition() {
-    return this.positionProperty.value;
-  }
 }
 
 geometricOptics.register( 'SourceObject', SourceObject );
