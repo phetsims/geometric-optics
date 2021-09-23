@@ -261,11 +261,11 @@ class GeometricOpticsScreenView extends ScreenView {
     }
 
     // Layout
+    this.addChild( playAreaNode );
     this.addChild( curveControl );
     this.addChild( controlPanel );
     this.addChild( showHideToggleButton );
     this.addChild( resetAllButton );
-    this.addChild( playAreaNode );
     this.addChild( toolbox );
     this.addChild( zoomButtonGroup );
     this.addChild( representationComboBox );
