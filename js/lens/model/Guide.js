@@ -83,16 +83,6 @@ class Guide {
   getIncidentAngle() {
     return this.incidentAngleProperty.value;
   }
-
-  //TODO redundant, use this.fulcrumPositionProperty.value
-  /**
-   * Gets the fulcrum point of the guide
-   * @public
-   * @returns {Vector2}
-   */
-  getPosition() {
-    return this.fulcrumPositionProperty.value;
-  }
 }
 
 Guide.Location = Enumeration.byKeys( [ 'TOP', 'BOTTOM' ] );

@@ -96,7 +96,7 @@ class GuideNode extends Node {
       }
 
       // rotate the rectangle
-      const viewFulcrumPosition = modelViewTransform.modelToViewPosition( guide.getPosition() );
+      const viewFulcrumPosition = modelViewTransform.modelToViewPosition( guide.fulcrumPositionProperty.value );
 
       // the model view transform is Y-inverted
       // therefore a counterclockwise rotation in the model is clockwise is the view
