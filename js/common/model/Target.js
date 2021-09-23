@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Target is the model for what is called 'Image' in options.  We're avoiding the term 'image' because it conflicts
+ * Target is the model for what is called 'Image' in optics.  We're avoiding the term 'image' because it conflicts
  * with scenery.Image. It is responsible for the position, scale of target, opacity, and bounds.
  *
  * @author Martin Veillette
