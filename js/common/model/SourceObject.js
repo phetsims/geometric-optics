@@ -5,6 +5,7 @@
  * The sourceObject has a position and a "second source" position within it.
  *
  * @author Martin Veillette
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';

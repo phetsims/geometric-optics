@@ -3,6 +3,7 @@
 /**
  * SecondSource is the model of the second source.
  *
+ * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
