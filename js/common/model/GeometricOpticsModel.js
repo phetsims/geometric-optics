@@ -155,6 +155,7 @@ class GeometricOpticsModel {
     this.representationProperty.reset();
     this.optic.reset();
     this.sourceObject.reset();
+    this.secondSource.reset();
     this.lightRaysTimeProperty.reset();
     this.lightRayModeProperty.reset();
     this.projectorScreen.reset();
