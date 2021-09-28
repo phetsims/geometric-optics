@@ -103,8 +103,7 @@ class LabelsNode extends Node {
       imageLabel.setText( isVirtual ? geometricOpticsStrings.virtualImage : geometricOpticsStrings.realImage );
     } );
 
-    // ------------------------------------------------------------------------------------
-    // Screen label
+    // Screen label ------------------------------------------------------------------------------------
 
     const projectorScreenLabelPositionProperty = new DerivedProperty(
       [ model.projectorScreen.positionProperty ],
