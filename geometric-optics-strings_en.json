@@ -85,5 +85,8 @@
   },
   "projectorScreen": {
     "value": "Screen"
+  },
+  "opticalAxis": {
+    "value": "Optical Axis"
   }
 }

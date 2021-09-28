@@ -116,10 +116,20 @@ class LabelsNode extends Node {
       )
     } );
 
+    // Optical Axis label ------------------------------------------------------------------------------------
+
+    const opticalAxisLabelPositionProperty = new DerivedProperty(
+      [ model.optic.positionProperty ],
+      position => new Vector2( position.x - 230, position.y ) // empirically, model coordinates
+    );
+
+    const opticalAxisLabel = new LabelNode( geometricOpticsStrings.opticalAxis, opticalAxisLabelPositionProperty, modelViewTransformProperty );
+
     // ------------------------------------------------------------------------------------
 
     assert && assert( !options.children );
     options.children = [
+      opticalAxisLabel,
       leftFocalPointLabel, rightFocalPointLabel,
       opticLabel, objectLabel, imageLabel, projectorScreenLabel
     ];
