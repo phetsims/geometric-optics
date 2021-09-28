@@ -114,7 +114,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // Combo box for choosing object representation
     const representationComboBox = new RepresentationComboBox( model.representationProperty, popupsParent, {
-      left: this.layoutBounds.left + 60,
+      left: this.layoutBounds.left + 100,
       top: erodedLayoutBounds.top
     } );
 
