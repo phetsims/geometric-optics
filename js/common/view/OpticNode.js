@@ -94,7 +94,7 @@ class OpticNode extends Node {
     const opticCenterLine = new Path(
       modelViewTransform.modelToViewShape( optic.getPrincipalLine() ), {
         stroke: GeometricOpticsColors.opticalAxisStrokeProperty,
-        lineDash: [ 8, 5 ]
+        lineDash: GeometricOpticsConstants.AXIS_LINE_DASH
       } );
 
     /**

@@ -52,9 +52,10 @@ const GeometricOpticsConstants = {
   MIRROR_DIAMETER_RANGE: new RangeWithValue( 30, 150, 80 ), // centimeters
 
   //----------------------------------------------------------------------------------------
-  //                           OPTICAL AXIS
+  //                           AXES
 
   OPTICAL_AXIS_LINE_WIDTH: 2,
+  AXIS_LINE_DASH: [ 8, 5 ],
 
   //----------------------------------------------------------------------------------------
   //                              RAYS
