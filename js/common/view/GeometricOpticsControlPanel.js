@@ -68,7 +68,7 @@ class GeometricOpticsControlPanel extends Panel {
     // Rays radio buttons ---------------------------------------------------------------------------------------
 
     // create title for radio button group for light ray mode
-    const rayModeTitle = new Text( geometricOpticsStrings.rayModeTitle, {
+    const raysNode = new Text( geometricOpticsStrings.rays, {
       font: GeometricOpticsConstants.TITLE_FONT,
       maxWidth: 100
     } );
@@ -78,7 +78,7 @@ class GeometricOpticsControlPanel extends Panel {
 
     // create vertical box for ray modes
     const rayModesBox = new VBox( {
-      children: [ rayModeTitle, rayModeRadioButtonGroup ],
+      children: [ raysNode, rayModeRadioButtonGroup ],
       align: 'left',
       spacing: 4
     } );
