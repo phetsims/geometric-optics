@@ -60,7 +60,7 @@ class GeometricOpticsRulerNode extends Node {
     // @private {Ruler}
     this.ruler = ruler;
 
-    // @public {Bounds2} bounds of the toolbox panel
+    // @public {Bounds2} bounds of the toolbox
     this.toolboxBounds = toolboxBounds;
 
     // create and add a SCENERY/RulerNode

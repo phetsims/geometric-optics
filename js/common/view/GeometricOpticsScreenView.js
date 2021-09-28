@@ -96,7 +96,7 @@ class GeometricOpticsScreenView extends ScreenView {
       visibleProperties, modelViewTransform );
     controlPanel.centerBottom = erodedLayoutBounds.centerBottom;
 
-    // create toolbox panel at the top right corner of the screen
+    // create toolbox at the top right corner of the screen
     const toolbox = new RulersToolbox( rulersLayer, {
       rightTop: erodedLayoutBounds.rightTop
     } );

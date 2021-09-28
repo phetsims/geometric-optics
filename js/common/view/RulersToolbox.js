@@ -2,9 +2,8 @@
 
 /**
  * RulersToolbox is the toolbox that holds the rulers.
- * A maximum of one horizontal ruler and one vertical ruler can be dragged out from this toolbox panel.
- * The toolbox panel shows a miniature version of these rulers.
- * Appears in the top right corner of the simulation.
+ * A maximum of one horizontal ruler and one vertical ruler can be dragged out from this toolbox.
+ * The toolbox shows miniature versions of these rulers.
  *
  * @author Sarah Chang (Swarthmore College)
  */
