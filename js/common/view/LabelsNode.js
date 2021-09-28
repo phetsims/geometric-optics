@@ -1,6 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO labels should be parts of the Nodes that they are labeling
+//TODO https://github.com/phetsims/geometric-optics/issues/199 eliminate this, make Nodes responsible for their labels
 /**
  * LabelsNode is the parent Node for labels that appear below things of interest in the user interface.
  *
