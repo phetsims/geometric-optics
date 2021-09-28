@@ -102,7 +102,6 @@ class GeometricOpticsScreenView extends ScreenView {
     } );
 
     // pass the bounds of the toolbox to the rulers for their return to toolbox
-    //TODO set this via RulersToolbox constructor
     rulersLayer.setToolboxBounds( toolbox.bounds );
 
     // create the control buttons to toggle between convex and concave optic at the left bottom
