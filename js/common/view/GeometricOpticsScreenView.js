@@ -51,7 +51,11 @@ class GeometricOpticsScreenView extends ScreenView {
   constructor( model ) {
     assert && assert( model instanceof GeometricOpticsModel );
 
-    super();
+    super( {
+      // Workaround for things shifting around while dragging
+      // See https://github.com/phetsims/scenery/issues/1289 and https://github.com/phetsims/geometric-optics/issues/213
+      preventFit: true
+    } );
 
     // convenience variable for laying out scenery Nodes
     const erodedLayoutBounds = this.layoutBounds.erodedXY( GeometricOpticsConstants.SCREEN_VIEW_X_MARGIN,
