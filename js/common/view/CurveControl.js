@@ -1,5 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TODO rename to *RadioButtonGroup
 /**
  * Controls the value of the curve Property to determine the shape of the optic displayed in play area
  *
