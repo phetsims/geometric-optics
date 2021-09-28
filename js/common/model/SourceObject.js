@@ -58,7 +58,7 @@ class SourceObject {
       // {Vector2} update the value of the offset
       offset = representation.rightFacingUprightOffset.dividedScalar( representation.getScaleFactor() );
 
-      // {Vector2} update the left top position - the firstPosition is the ground truth when changing representation
+      // {Vector2} update the left top position - positionProperty is the ground truth when changing representation
       this.leftTopProperty.value = this.positionProperty.value.plus( offset );
     } );
   }
