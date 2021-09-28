@@ -1,5 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TODO labels should be parts of the Nodes that they are labeling
 /**
  * LabelsNode is the parent Node for labels that appear below things of interest in the user interface.
  *
@@ -8,10 +9,12 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
+import Representation from '../model/Representation.js';
 import LabelNode from './LabelNode.js';
 
 class LabelsNode extends Node {
@@ -101,9 +104,26 @@ class LabelsNode extends Node {
     } );
 
     // ------------------------------------------------------------------------------------
+    // Screen label
+
+    const projectorScreenLabelPositionProperty = new DerivedProperty(
+      [ model.projectorScreen.positionProperty ],
+      position => new Vector2( position.x - 15, position.y - 60 ) // empirically, model coordinates
+    );
+
+    const projectorScreenLabel = new LabelNode( geometricOpticsStrings.projectorScreen, projectorScreenLabelPositionProperty, modelViewTransformProperty, {
+      visibleProperty: new DerivedProperty(
+        [ model.representationProperty ], representation => ( representation === Representation.LIGHT )
+      )
+    } );
+
+    // ------------------------------------------------------------------------------------
 
     assert && assert( !options.children );
-    options.children = [ leftFocalPointLabel, rightFocalPointLabel, opticLabel, objectLabel, imageLabel ];
+    options.children = [
+      leftFocalPointLabel, rightFocalPointLabel,
+      opticLabel, objectLabel, imageLabel, projectorScreenLabel
+    ];
 
     super( options );
   }
