@@ -1,6 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO naming inconsistency with SourceObject and SecondSource - FirstSourceObject and SecondSourceObject? FirstSource and SecondSource?
 /**
  * SourceObject is the model for what is typically called "Object" in optics, or the source of light.
  *
