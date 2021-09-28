@@ -97,27 +97,31 @@ class GeometricOpticsScreenView extends ScreenView {
     controlPanel.centerBottom = erodedLayoutBounds.centerBottom;
 
     // create toolbox panel at the top right corner of the screen
-    const toolbox = new RulersToolbox( rulersLayer );
-    toolbox.rightTop = erodedLayoutBounds.rightTop;
+    const toolbox = new RulersToolbox( rulersLayer, {
+      rightTop: erodedLayoutBounds.rightTop
+    } );
 
     // pass the bounds of the toolbox to the rulers for their return to toolbox
+    //TODO set this via RulersToolbox constructor
     rulersLayer.setToolboxBounds( toolbox.bounds );
 
     // create the control buttons to toggle between convex and concave optic at the left bottom
-    const curveControl = new CurveControl( model.optic );
-    curveControl.rightCenter = controlPanel.leftCenter.minusXY( 20, 0 );
+    const curveControl = new CurveControl( model.optic, {
+      centerTop: erodedLayoutBounds.centerTop
+    } );
 
     // Parent for any popups
     const popupsParent = new Node();
 
     // Combo box for choosing object representation
     const representationComboBox = new RepresentationComboBox( model.representationProperty, popupsParent, {
-      centerTop: erodedLayoutBounds.centerTop
+      left: this.layoutBounds.left + 60,
+      top: erodedLayoutBounds.top
     } );
 
     // create magnifying buttons for zooming in and out at the left top
     const zoomButtonGroup = new MagnifyingGlassZoomButtonGroup( zoomLevelProperty, {
-      orientation: 'horizontal',
+      orientation: 'vertical',
       spacing: 8,
       magnifyingGlassNodeOptions: {
         scale: 0.5
@@ -125,9 +129,10 @@ class GeometricOpticsScreenView extends ScreenView {
       buttonOptions: {
         xMargin: 5,
         yMargin: 4
-      }
+      },
+      right: erodedLayoutBounds.left + ( controlPanel.left - erodedLayoutBounds.left ) / 2,
+      centerY: controlPanel.centerY
     } );
-    zoomButtonGroup.leftTop = erodedLayoutBounds.leftTop;
 
     // create reset all button at the right bottom
     const resetAllButton = new ResetAllButton( {

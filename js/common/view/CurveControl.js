@@ -35,9 +35,10 @@ class CurveControl extends RectangularRadioButtonGroup {
     assert && assert( optic instanceof Optic );
 
     options = merge( {
-      spacing: 10, // vertical separation of the buttons
+      orientation: 'horizontal',
+      spacing: 10,
       cornerRadius: 3,
-      baseColor: 'rgba(0,0,0,0)',
+      baseColor: 'rgba( 0, 0, 0, 0 )',
       selectedStroke: 'yellow',
       deselectedStroke: 'grey',
       deselectedLineWidth: 2,
