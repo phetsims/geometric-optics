@@ -31,7 +31,10 @@ import treeRightFacingInverted_png from '../../../images/treeRightFacingInverted
 import treeRightFacingUpright_png from '../../../images/treeRightFacingUpright_png.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+
+// constants
+const OBJECT_SCALE_FACTOR = 4;
+const SOURCE_SCALE_FACTOR = 2;
 
 /**
  * RepresentationValue is a value for this rich enumeration.
@@ -88,7 +91,7 @@ class RepresentationValue {
    * @returns {number}
    */
   getScaleFactor() {
-    return this.isObject ? GeometricOpticsConstants.OBJECT_SCALE_FACTOR : GeometricOpticsConstants.SOURCE_SCALE_FACTOR;
+    return this.isObject ? OBJECT_SCALE_FACTOR : SOURCE_SCALE_FACTOR;
   }
 }
 

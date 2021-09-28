@@ -20,15 +20,10 @@ const GeometricOpticsConstants = {
   SCREEN_VIEW_X_MARGIN: 20, // margin along horizontal axis of screen (in view coordinates)
   SCREEN_VIEW_Y_MARGIN: 15, // margin along vertical axis of screen
 
-  DEFAULT_SOURCE_POINT_1: new Vector2( -190, 30 ), // centimeters
-  DEFAULT_SOURCE_POINT_2: new Vector2( -150, -20 ), // centimeters
-  SECOND_OBJECT_VERTICAL_RANGE: new RangeWithValue( -55, 0, -52 ), // in centimeters
-  OBJECT_SCALE_FACTOR: 4,
-  SOURCE_SCALE_FACTOR: 2,
-
   ZOOM_RANGE: new RangeWithValue( 1, 3, 3 ),
   ZOOM_SCALE_FACTOR: 2, // should not be changed to keep major tick labels as multiples of 10
 
+  //TODO this is awful, relies on ScreenView.DEFAULT_LAYOUT_BOUNDS
   ORIGIN_POINT: new Vector2( 1024 / 2, 618 / 2 - 50 ), // view position of the model origin (0,0)
   NOMINAL_VIEW_MODEL_CONVERSION: 2, // view coordinates per cm in initial zoom level
 

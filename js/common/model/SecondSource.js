@@ -10,11 +10,15 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+
+// constants
+const SECOND_OBJECT_VERTICAL_RANGE = new RangeWithValue( -55, 0, -52 ); // in centimeters TODO explain
+const DEFAULT_SOURCE_POINT_2 = new Vector2( -150, -20 ); // centimeters TODO explain
 
 class SecondSource {
 
@@ -27,11 +31,11 @@ class SecondSource {
 
     // @private position of the second source of light
     //TODO rename this, document it better
-    this.unconstrainedPositionProperty = new Vector2Property( GeometricOpticsConstants.DEFAULT_SOURCE_POINT_2 );
+    this.unconstrainedPositionProperty = new Vector2Property( DEFAULT_SOURCE_POINT_2 );
 
     // @private vertical offset (in centimeters) of second object with respect to the first
-    this.verticalOffsetProperty = new NumberProperty( GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE.defaultValue, {
-      range: GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE
+    this.verticalOffsetProperty = new NumberProperty( SECOND_OBJECT_VERTICAL_RANGE.defaultValue, {
+      range: SECOND_OBJECT_VERTICAL_RANGE
     } );
 
     // @public {DerivedProperty.<Vector2>} position of the second source (source/object)
@@ -68,8 +72,7 @@ class SecondSource {
     if ( representationProperty.value.isObject ) {
       const unconstrainedVerticalOffset = position.y - this.sourceObjectPositionProperty.value.y;
       this.verticalOffsetProperty.value = Utils.clamp( unconstrainedVerticalOffset,
-        GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE.min,
-        GeometricOpticsConstants.SECOND_OBJECT_VERTICAL_RANGE.max );
+        SECOND_OBJECT_VERTICAL_RANGE.min, SECOND_OBJECT_VERTICAL_RANGE.max );
     }
     else {
       this.unconstrainedPositionProperty.value = position;

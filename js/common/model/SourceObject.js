@@ -11,9 +11,12 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+
+// constants
+const DEFAULT_SOURCE_POINT_1 = new Vector2( -190, 30 ); // centimeters TODO explain
 
 class SourceObject {
 
@@ -33,7 +36,7 @@ class SourceObject {
     // @public position of the left top position of image
     //TODO should this be derived from representationProperty? or from positionProperty?
     //TODO left-top is unfortunate to have in the model, can this be avoided?
-    this.leftTopProperty = new Vector2Property( GeometricOpticsConstants.DEFAULT_SOURCE_POINT_1.plus( offset ) );
+    this.leftTopProperty = new Vector2Property( DEFAULT_SOURCE_POINT_1.plus( offset ) );
 
     // @public {DerivedProperty.<Vector2>} position of the source/object
     //TODO should this be derived from representationProperty instead?
