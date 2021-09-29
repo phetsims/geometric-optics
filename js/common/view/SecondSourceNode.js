@@ -110,8 +110,6 @@ class SecondSourceNode extends Node {
         this.addChild( cueingArrows );
         cueingArrows.center = pointNode.center;
         this.touchArea = Shape.circle( 0, 0, 2 * POINT_RADIUS + 10 );
-
-        //TODO https://github.com/phetsims/geometric-optics/issues/191 address position of source of light
       }
       else {
 
