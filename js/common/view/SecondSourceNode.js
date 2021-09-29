@@ -30,7 +30,7 @@ const POINT_RADIUS = 5;
 const OVERALL_SCALE_FACTOR = 1;
 
 // Point where the light comes out of the light PNG image, in model coordinates
-//TODO why isn't this also used for the first light source?
+//TODO why isn't this also used for the first light source? and can't use Representation.LIGHT.rightFacingUprightOffset ?
 const LIGHT_SOURCE_OFFSET = new Vector2( 34, -15 );
 
 const CUEING_ARROW_LENGTH = 20;
