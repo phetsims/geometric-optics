@@ -18,7 +18,7 @@ import geometricOptics from '../../geometricOptics.js';
 
 // constants
 const SECOND_OBJECT_VERTICAL_RANGE = new RangeWithValue( -55, 0, -52 ); // in centimeters TODO explain
-const DEFAULT_SOURCE_POINT_2 = new Vector2( -150, -20 ); // centimeters TODO explain
+const INITIAL_LIGHT_SOURCE_POSITION = new Vector2( -150, -20 ); // centimeters TODO explain
 
 class SecondSource {
 
@@ -31,7 +31,7 @@ class SecondSource {
 
     // @private position of the second source of light
     //TODO rename this, document it better
-    this.unconstrainedPositionProperty = new Vector2Property( DEFAULT_SOURCE_POINT_2 );
+    this.unconstrainedPositionProperty = new Vector2Property( INITIAL_LIGHT_SOURCE_POSITION );
 
     // @private vertical offset (in centimeters) of second object with respect to the first
     this.verticalOffsetProperty = new NumberProperty( SECOND_OBJECT_VERTICAL_RANGE.defaultValue, {
