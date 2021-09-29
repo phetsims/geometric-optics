@@ -1,9 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Model element of the Light Rays, a bundle of 'Light Ray's emerging from a source point.
- * The main purpose of this class is to get the kite-shape of the real ray as well as the virtual
- * ray for a given time and light ray mode
+ * LightRays is the model of bundles of rays.  It's primary responsibilities include the Shape of the rays associated
+ * with the real image and the virtual image, and how those Shapes are animated over time.
  *
  * @author Martin Veillette
  */
