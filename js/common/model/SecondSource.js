@@ -17,8 +17,8 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import geometricOptics from '../../geometricOptics.js';
 
 // constants
-const SECOND_OBJECT_VERTICAL_RANGE = new RangeWithValue( -55, 0, -52 ); // in centimeters TODO explain
 const INITIAL_LIGHT_SOURCE_POSITION = new Vector2( -150, -20 ); // centimeters TODO explain
+const SECOND_OBJECT_VERTICAL_RANGE = new RangeWithValue( -55, 0, -52 ); // in centimeters TODO explain
 
 class SecondSource {
 
