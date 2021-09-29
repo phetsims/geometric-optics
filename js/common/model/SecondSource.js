@@ -11,14 +11,15 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
-import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import geometricOptics from '../../geometricOptics.js';
 
-// constants
-const INITIAL_LIGHT_SOURCE_POSITION = new Vector2( -150, -20 ); // centimeters TODO explain
-const SECOND_OBJECT_VERTICAL_RANGE = new RangeWithValue( -55, 0, -52 ); // in centimeters TODO explain
+// initial position of the second light source, in centimeters
+const INITIAL_LIGHT_SOURCE_POSITION = new Vector2( -150, -20 );
+
+// vertical range of the second point, relative to the Object
+const VERTICAL_OFFSET_RANGE = new RangeWithValue( -55, 0, -52 );
 
 class SecondSource {
 
@@ -33,9 +34,9 @@ class SecondSource {
     //TODO rename this, document it better
     this.unconstrainedPositionProperty = new Vector2Property( INITIAL_LIGHT_SOURCE_POSITION );
 
-    // @private vertical offset (in centimeters) of second object with respect to the first
-    this.verticalOffsetProperty = new NumberProperty( SECOND_OBJECT_VERTICAL_RANGE.defaultValue, {
-      range: SECOND_OBJECT_VERTICAL_RANGE
+    // @private vertical offset (in centimeters) of second point with respect to the first object
+    this.verticalOffsetProperty = new NumberProperty( VERTICAL_OFFSET_RANGE.defaultValue, {
+      range: VERTICAL_OFFSET_RANGE
     } );
 
     // @public {DerivedProperty.<Vector2>} position of the second source (source/object)
@@ -70,9 +71,8 @@ class SecondSource {
     assert && assert( position instanceof Vector2 );
 
     if ( representationProperty.value.isObject ) {
-      const unconstrainedVerticalOffset = position.y - this.sourceObjectPositionProperty.value.y;
-      this.verticalOffsetProperty.value = Utils.clamp( unconstrainedVerticalOffset,
-        SECOND_OBJECT_VERTICAL_RANGE.min, SECOND_OBJECT_VERTICAL_RANGE.max );
+      this.verticalOffsetProperty.value = VERTICAL_OFFSET_RANGE.constrainValue(
+        position.y - this.sourceObjectPositionProperty.value.y );
     }
     else {
       this.unconstrainedPositionProperty.value = position;
