@@ -137,7 +137,7 @@ const Representation = Enumeration.byMap( {
     rightFacingInverted: null,
     leftFacingUpright: null,
     leftFacingInverted: null,
-    rightFacingUprightOffset: new Vector2( -68, 29 ),
+    rightFacingUprightOffset: new Vector2( -68, 30 ),
     isObject: false,
     secondSourceImage: lampRed_png
   } )
