@@ -31,8 +31,7 @@ class SecondSource {
   constructor( representationProperty, sourceObjectPositionProperty, options ) {
 
     // @private position of the second source of light
-    //TODO rename this, document it better
-    this.unconstrainedPositionProperty = new Vector2Property( INITIAL_LIGHT_SOURCE_POSITION );
+    this.lightSourcePositionProperty = new Vector2Property( INITIAL_LIGHT_SOURCE_POSITION );
 
     // @private vertical offset (in centimeters) of second point with respect to the first object
     this.verticalOffsetProperty = new NumberProperty( VERTICAL_OFFSET_RANGE.defaultValue, {
@@ -42,9 +41,9 @@ class SecondSource {
     // @public {DerivedProperty.<Vector2>} position of the second source (source/object)
     this.positionProperty = new DerivedProperty(
       [ sourceObjectPositionProperty, this.verticalOffsetProperty,
-        this.unconstrainedPositionProperty, representationProperty ],
-      ( sourceObjectPosition, verticalOffset, unconstrainedSecondSourcePosition, representation ) =>
-        representation.isObject ? sourceObjectPosition.plusXY( 0, verticalOffset ) : unconstrainedSecondSourcePosition
+        this.lightSourcePositionProperty, representationProperty ],
+      ( sourceObjectPosition, verticalOffset, lightSourcePosition, representation ) =>
+        representation.isObject ? sourceObjectPosition.plusXY( 0, verticalOffset ) : lightSourcePosition
     );
 
     // @private
@@ -57,7 +56,7 @@ class SecondSource {
    */
   reset() {
     this.verticalOffsetProperty.reset();
-    this.unconstrainedPositionProperty.reset();
+    this.lightSourcePositionProperty.reset();
   }
 
   /**
@@ -75,7 +74,7 @@ class SecondSource {
         position.y - this.sourceObjectPositionProperty.value.y );
     }
     else {
-      this.unconstrainedPositionProperty.value = position;
+      this.lightSourcePositionProperty.value = position;
     }
   }
 }
