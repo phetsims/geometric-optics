@@ -1,5 +1,5 @@
 {
-  "comment": "# geometric-optics 1.0.0-dev.13 Wed Sep 29 2021 10:43:39 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# geometric-optics 1.0.0-dev.14 Wed Sep 29 2021 15:52:45 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "767b2f345518ceca5144a152ecf40cd4f9206136",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "9bdc25541ad1738a265a97c5942a34b02bc9112c",
+    "sha": "8ea93a57aa0ac7546c271fba7ff83b9505a6234a",
     "branch": "master"
   },
   "dot": {
@@ -21,11 +21,11 @@
     "branch": "master"
   },
   "geometric-optics": {
-    "sha": "02b89401fb77edd077afd1c7a43522732746cf85",
+    "sha": "89d8d745ff8b9c9e20b3dfb51308ef40f4a76b49",
     "branch": "master"
   },
   "joist": {
-    "sha": "f27b68a346c96d3ab2f8c190011cc506d871d423",
+    "sha": "a28146cf022d1e63a77a041badc2b163a8c9b287",
     "branch": "master"
   },
   "kite": {
@@ -81,7 +81,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "a5aa6c1e50506877135b75ccb97d8f66c70ee03a",
+    "sha": "3440aab18041d6f1b3e3d0b84122649f4da2ff6a",
     "branch": "master"
   },
   "tambo": {
@@ -97,7 +97,7 @@
     "branch": "master"
   },
   "utterance-queue": {
-    "sha": "3f0c7327fb102a8da80df1f34e37420a0d2adace",
+    "sha": "b4f6cc3fe2c7690d36e4da1d33e5540ac4b5c055",
     "branch": "master"
   }
 }
