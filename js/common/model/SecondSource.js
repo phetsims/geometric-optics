@@ -18,7 +18,7 @@ import geometricOptics from '../../geometricOptics.js';
 // initial position of the second light source, in centimeters
 const INITIAL_LIGHT_SOURCE_POSITION = new Vector2( -150, -20 );
 
-// vertical range of the second point, relative to the Object, in centimeters
+// vertical offset of the second point, relative to the Object, in centimeters
 const VERTICAL_OFFSET_RANGE = new RangeWithValue( -55, 0, -52 );
 
 class SecondSource {
