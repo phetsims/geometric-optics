@@ -1,6 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
+ * LightRaysNode is responsible for rendering the rays associated with the real image and virtual image.
+ *
  * @author Martin Veillette
  */
 
