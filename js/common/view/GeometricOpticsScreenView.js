@@ -177,18 +177,19 @@ class GeometricOpticsScreenView extends ScreenView {
     const opticNode = new OpticNode( model.optic, model.lightRayModeProperty, modelBoundsProperty, modelViewTransform );
 
     // create the light rays associated with the object
-    const lightRaysNode = new LightRaysNode( model.firstLightRays, modelViewTransform, {
-      visibleProperty: visibleProperties.virtualImageVisibleProperty,
-      realRayStroke: GeometricOpticsColors.realRayOneStrokeProperty,
-      virtualRayStroke: GeometricOpticsColors.virtualRayOneStrokeProperty
-    } );
+    const lightRaysNode = new LightRaysNode( model.firstLightRays,
+      visibleProperties.virtualImageVisibleProperty, modelViewTransform, {
+        realRayStroke: GeometricOpticsColors.realRayOneStrokeProperty,
+        virtualRayStroke: GeometricOpticsColors.virtualRayOneStrokeProperty
+      } );
 
     // create the light rays associated with the second source
-    const secondSourceLightRaysNode = new LightRaysNode( model.secondLightRays, modelViewTransform, {
-      realRayStroke: GeometricOpticsColors.realRayTwoStrokeProperty,
-      virtualRayStroke: GeometricOpticsColors.virtualRayTwoStrokeProperty,
-      visibleProperty: visibleProperties.secondSourceVisibleProperty
-    } );
+    const secondSourceLightRaysNode = new LightRaysNode( model.secondLightRays,
+      visibleProperties.virtualImageVisibleProperty, modelViewTransform, {
+        realRayStroke: GeometricOpticsColors.realRayTwoStrokeProperty,
+        virtualRayStroke: GeometricOpticsColors.virtualRayTwoStrokeProperty,
+        visibleProperty: visibleProperties.secondSourceVisibleProperty
+      } );
 
     // create the target image
     const targetNode = new TargetNode( model.representationProperty, model.firstTarget, model.optic,

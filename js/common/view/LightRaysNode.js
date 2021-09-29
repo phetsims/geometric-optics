@@ -1,5 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TODO break this into separate nodes for real image and virtual image
 /**
  * @author Martin Veillette
  */
@@ -13,10 +14,11 @@ class LightRaysNode extends Node {
 
   /**
    * @param {LightRays} lightRays
+   * @param {Property.<boolean>} virtualImageVisibleProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( lightRays, modelViewTransform, options ) {
+  constructor( lightRays, virtualImageVisibleProperty, modelViewTransform, options ) {
 
     options = merge( {
       realRayStroke: 'white',
@@ -32,7 +34,8 @@ class LightRaysNode extends Node {
 
     const virtualRayPath = new Path( modelViewTransform.modelToViewShape( lightRays.virtualRay ), {
       stroke: options.virtualRayStroke,
-      lineWidth: options.virtualRayLineWidth
+      lineWidth: options.virtualRayLineWidth,
+      visibleProperty: virtualImageVisibleProperty
     } );
 
     assert && assert( !options.children );
