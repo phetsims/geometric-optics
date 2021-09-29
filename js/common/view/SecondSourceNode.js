@@ -28,7 +28,11 @@ import SecondSource from '../model/SecondSource.js';
 // constants
 const POINT_RADIUS = 5;
 const OVERALL_SCALE_FACTOR = 1;
-const LIGHT_SOURCE_OFFSET = new Vector2( 50, -23 ); // in model coordinates
+
+// Point where the light comes out of the light PNG image, in model coordinates
+//TODO why isn't this also used for the first light source?
+const LIGHT_SOURCE_OFFSET = new Vector2( 34, -15 );
+
 const CUEING_ARROW_LENGTH = 20;
 const CUEING_ARROW_OPTIONS = {
   fill: 'rgb(255,0,0)',
