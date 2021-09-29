@@ -1,6 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO break this into separate nodes for real image and virtual image
 /**
  * @author Martin Veillette
  */
