@@ -33,6 +33,9 @@ const OVERALL_SCALE_FACTOR = 1;
 //TODO why isn't this also used for the first light source? and can't use Representation.LIGHT.rightFacingUprightOffset ?
 const LIGHT_SOURCE_OFFSET = new Vector2( 34, -15 );
 
+//TODO no idea why this worked for https://github.com/phetsims/geometric-optics/issues/191, circle back
+const LIGHT_SOURCE_DRAG_OFFSET = new Vector2( 2 * LIGHT_SOURCE_OFFSET.x, -2 * LIGHT_SOURCE_OFFSET.y );
+
 const CUEING_ARROW_LENGTH = 20;
 const CUEING_ARROW_OPTIONS = {
   fill: 'rgb(255,0,0)',
@@ -74,12 +77,15 @@ class SecondSourceNode extends Node {
       secondSource.setSecondPoint( representationProperty, position );
     } );
 
+    console.log( `foo=${secondSourceImage.width - LIGHT_SOURCE_OFFSET.x}` );
+
     // create drag listener for second source
     const secondSourceDragListener = new DragListener( {
       pressCursor: 'ns-resize',
       useInputListenerCursor: true,
       positionProperty: positionProperty,
       transform: modelViewTransform,
+      offsetPosition: () => LIGHT_SOURCE_DRAG_OFFSET,
       end: () => {
         if ( representationProperty.value.isObject ) {
           cueingArrows.visible = false;
