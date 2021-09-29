@@ -14,8 +14,8 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import geometricOptics from '../../geometricOptics.js';
 
-// constants
-const DEFAULT_SOURCE_POINT_1 = new Vector2( -190, 30 ); // centimeters TODO explain
+// initial position of the source object, in centimeters
+const INITIAL_POSITION = new Vector2( -192, 30 );
 
 class SourceObject {
 
@@ -35,7 +35,7 @@ class SourceObject {
     // @public position of the left top position of image
     //TODO should this be derived from representationProperty? or from positionProperty?
     //TODO left-top is unfortunate to have in the model, can this be avoided?
-    this.leftTopProperty = new Vector2Property( DEFAULT_SOURCE_POINT_1.plus( offset ) );
+    this.leftTopProperty = new Vector2Property( INITIAL_POSITION.plus( offset ) );
 
     // @public {DerivedProperty.<Vector2>} position of the source/object
     //TODO should this be derived from representationProperty instead?
