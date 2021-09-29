@@ -5,10 +5,13 @@
  * @author Martin Veillette
  */
 
+import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import geometricOptics from '../../geometricOptics.js';
+import LightRays from '../model/LightRays.js';
 
 class LightRaysNode extends Node {
 
@@ -19,6 +22,10 @@ class LightRaysNode extends Node {
    * @param {Object} [options]
    */
   constructor( lightRays, virtualImageVisibleProperty, modelViewTransform, options ) {
+
+    assert && assert( lightRays instanceof LightRays );
+    assert && assert( virtualImageVisibleProperty instanceof Property );
+    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     options = merge( {
       realRayStroke: 'white',
