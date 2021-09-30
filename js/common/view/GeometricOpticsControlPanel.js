@@ -105,8 +105,8 @@ class GeometricOpticsControlPanel extends Panel {
     numberControls.push( radiusOfCurvatureControl );
 
     if ( optic.opticType === Optic.Type.LENS ) {
-      const refractiveIndexControl = new NumberControl(
-        geometricOpticsStrings.refractiveIndex,
+      const indexOfRefractionControl = new NumberControl(
+        geometricOpticsStrings.indexOfRefraction,
         optic.indexOfRefractionProperty,
         optic.indexOfRefractionProperty.range,
         merge( {}, NUMBER_CONTROL_OPTIONS, {
@@ -115,7 +115,7 @@ class GeometricOpticsControlPanel extends Panel {
             decimalPlaces: GeometricOpticsConstants.REFRACTIVE_INDEX_DECIMAL_PLACES
           }
         } ) );
-      numberControls.push( refractiveIndexControl );
+      numberControls.push( indexOfRefractionControl );
     }
 
     // create number control for the diameter of optical element
