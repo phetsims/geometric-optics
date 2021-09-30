@@ -29,8 +29,8 @@
   "labels": {
     "value": "Labels"
   },
-  "curvatureRadius": {
-    "value": "Curvature Radius"
+  "radiusOfCurvature": {
+    "value": "Radius of Curvature"
   },
   "refractiveIndex": {
     "value": "Refractive Index"

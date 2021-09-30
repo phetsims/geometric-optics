@@ -92,8 +92,8 @@ class GeometricOpticsControlPanel extends Panel {
     const numberControls = [];
 
     // create number control for the radius of curvature of optical element
-    const curvatureRadiusControl = new NumberControl(
-      geometricOpticsStrings.curvatureRadius,
+    const radiusOfCurvatureControl = new NumberControl(
+      geometricOpticsStrings.radiusOfCurvature,
       optic.radiusOfCurvatureProperty,
       optic.radiusOfCurvatureProperty.range,
       merge( {}, NUMBER_CONTROL_OPTIONS, {
@@ -102,7 +102,7 @@ class GeometricOpticsControlPanel extends Panel {
           valuePattern: geometricOpticsStrings.valueCentimetersPattern
         }
       } ) );
-    numberControls.push( curvatureRadiusControl );
+    numberControls.push( radiusOfCurvatureControl );
 
     if ( optic.opticType === Optic.Type.LENS ) {
       const refractiveIndexControl = new NumberControl(
