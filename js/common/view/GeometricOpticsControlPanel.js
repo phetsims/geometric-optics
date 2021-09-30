@@ -45,14 +45,16 @@ const NUMBER_CONTROL_OPTIONS = {
 class GeometricOpticsControlPanel extends Panel {
 
   /**
+   * @param {EnumerationProperty.<Representation>} representationProperty
    * @param {Optic} optic
    * @param {EnumerationProperty.<LightRayMode>} lightRayModeProperty
    * @param {VisibleProperties} visibleProperties
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( optic, lightRayModeProperty, visibleProperties, modelViewTransform, options ) {
+  constructor( representationProperty, optic, lightRayModeProperty, visibleProperties, modelViewTransform, options ) {
 
+    assert && assert( representationProperty instanceof EnumerationProperty );
     assert && assert( optic instanceof Optic );
     assert && assert( lightRayModeProperty instanceof EnumerationProperty );
     assert && assert( visibleProperties instanceof VisibleProperties );
@@ -131,7 +133,7 @@ class GeometricOpticsControlPanel extends Panel {
 
     // Visibility checkboxes ---------------------------------------------------------------------------------------
 
-    const checkboxGroup = new VisibilityCheckboxGroup( visibleProperties, optic.opticType );
+    const checkboxGroup = new VisibilityCheckboxGroup( visibleProperties, optic.opticType, representationProperty );
 
     // Put it all together ---------------------------------------------------------------------------------------
 
