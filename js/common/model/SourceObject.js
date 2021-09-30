@@ -15,7 +15,7 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import geometricOptics from '../../geometricOptics.js';
 
 // initial position of the source object, in centimeters
-const INITIAL_POSITION = new Vector2( -192, 30 );
+const INITIAL_POSITION = new Vector2( -170, 30 );
 
 class SourceObject {
 
