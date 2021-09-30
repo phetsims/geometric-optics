@@ -23,7 +23,7 @@ import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
 import GeometricOpticsModel from '../model/GeometricOpticsModel.js';
 import LightRayMode from '../model/LightRayMode.js';
-import CurveControl from './CurveControl.js';
+import CurveRadioButtonGroup from './CurveRadioButtonGroup.js';
 import DebugPointNode from './DebugPointNode.js';
 import FocalPointNode from './FocalPointNode.js';
 import GeometricOpticsControlPanel from './GeometricOpticsControlPanel.js';
@@ -110,7 +110,7 @@ class GeometricOpticsScreenView extends ScreenView {
     rulersLayer.setToolboxBounds( toolbox.bounds );
 
     // create the control buttons to toggle between convex and concave optic at the left bottom
-    const curveControl = new CurveControl( model.optic, {
+    const curveRadioButtonGroup = new CurveRadioButtonGroup( model.optic, {
       centerTop: erodedLayoutBounds.centerTop
     } );
 
@@ -160,7 +160,7 @@ class GeometricOpticsScreenView extends ScreenView {
     const modelBoundsProperty = new DerivedProperty(
       [ this.visibleBoundsProperty, zoomTransformProperty ],
       ( visibleBounds, zoomTransform ) => {
-        const playAreaBounds = new Bounds2( visibleBounds.left, curveControl.bottom, visibleBounds.right, controlPanel.top );
+        const playAreaBounds = new Bounds2( visibleBounds.left, curveRadioButtonGroup.bottom, visibleBounds.right, controlPanel.top );
         return zoomTransform.viewToModelBounds( playAreaBounds );
       } );
 
@@ -289,7 +289,7 @@ class GeometricOpticsScreenView extends ScreenView {
     // Layout ================================================================================================
 
     this.addChild( playAreaNode );
-    this.addChild( curveControl );
+    this.addChild( curveRadioButtonGroup );
     this.addChild( controlPanel );
     this.addChild( showHideToggleButton );
     this.addChild( resetAllButton );

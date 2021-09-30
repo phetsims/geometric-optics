@@ -1,8 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO rename to *RadioButtonGroup
 /**
- * Controls the value of the curve Property to determine the shape of the optic displayed in play area
+ * CurveRadioButtonGroup is the radio button group for controlling the curve shape of the lens or mirror.
  *
  * @author Sarah Chang (Swarthmore College)
  */
@@ -24,7 +23,7 @@ const STROKE = 'white'; // for outline of optic
 const THICKNESS = 4; // thickness of mirror
 const STRUT_LENGTH = 42; // minimum size of the button
 
-class CurveControl extends RectangularRadioButtonGroup {
+class CurveRadioButtonGroup extends RectangularRadioButtonGroup {
 
   /**
    * @param {Optic} optic
@@ -51,7 +50,7 @@ class CurveControl extends RectangularRadioButtonGroup {
     const buttonItems = Optic.Curve.VALUES.map( curve => {
       return {
         value: curve,
-        node: CurveControl.createIconNode( optic.opticType, curve, {
+        node: CurveRadioButtonGroup.createIconNode( optic.opticType, curve, {
           buttonContentXMargin: options.buttonContentXMargin,
           buttonContentYMargin: options.buttonContentYMargin
         } )
@@ -124,5 +123,5 @@ class CurveControl extends RectangularRadioButtonGroup {
   }
 }
 
-geometricOptics.register( 'CurveControl', CurveControl );
-export default CurveControl;
+geometricOptics.register( 'CurveRadioButtonGroup', CurveRadioButtonGroup );
+export default CurveRadioButtonGroup;

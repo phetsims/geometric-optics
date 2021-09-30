@@ -8,7 +8,7 @@ import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import GeometricOpticsColors from '../common/GeometricOpticsColors.js';
 import Optic from '../common/model/Optic.js';
-import CurveControl from '../common/view/CurveControl.js';
+import CurveRadioButtonGroup from '../common/view/CurveRadioButtonGroup.js';
 import geometricOptics from '../geometricOptics.js';
 import geometricOpticsStrings from '../geometricOpticsStrings.js';
 import LensModel from './model/LensModel.js';
@@ -19,7 +19,7 @@ class LensScreen extends Screen {
   constructor() {
 
     // create convex lens for home screen icon
-    const iconNode = CurveControl.createIconNode( Optic.Type.LENS, Optic.Curve.CONVEX, {
+    const iconNode = CurveRadioButtonGroup.createIconNode( Optic.Type.LENS, Optic.Curve.CONVEX, {
       radius: 20,
       diameter: 30,
       outline: { stroke: 'black' }
