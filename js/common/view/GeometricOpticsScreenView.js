@@ -179,14 +179,14 @@ class GeometricOpticsScreenView extends ScreenView {
     const opticNode = new OpticNode( model.optic, model.lightRayModeProperty, modelBoundsProperty, modelViewTransform );
 
     // create the light rays associated with the object
-    const lightRaysNode = new LightRaysNode( model.firstLightRays,
+    const lightRaysNode = new LightRaysNode( model.firstLightRays, model.representationProperty,
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, {
         realRayStroke: GeometricOpticsColors.realRays1StrokeProperty,
         virtualRayStroke: GeometricOpticsColors.virtualRays1StrokeProperty
       } );
 
     // create the light rays associated with the second source
-    const secondSourceLightRaysNode = new LightRaysNode( model.secondLightRays,
+    const secondSourceLightRaysNode = new LightRaysNode( model.secondLightRays, model.representationProperty,
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, {
         realRayStroke: GeometricOpticsColors.realRays2StrokeProperty,
         virtualRayStroke: GeometricOpticsColors.virtualRays2StrokeProperty,

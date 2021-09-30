@@ -6,6 +6,8 @@
  * @author Martin Veillette
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -18,13 +20,15 @@ class LightRaysNode extends Node {
 
   /**
    * @param {LightRays} lightRays
+   * @param {EnumerationProperty.<Representation>} representationProperty
    * @param {Property.<boolean>} virtualImageVisibleProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( lightRays, virtualImageVisibleProperty, modelViewTransform, options ) {
+  constructor( lightRays, representationProperty, virtualImageVisibleProperty, modelViewTransform, options ) {
 
     assert && assert( lightRays instanceof LightRays );
+    assert && assert( representationProperty instanceof EnumerationProperty );
     assert && assert( virtualImageVisibleProperty instanceof Property );
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
@@ -43,7 +47,12 @@ class LightRaysNode extends Node {
     const virtualRayPath = new Path( modelViewTransform.modelToViewShape( lightRays.virtualRay ), {
       stroke: options.virtualRayStroke,
       lineWidth: options.virtualRayLineWidth,
-      visibleProperty: virtualImageVisibleProperty
+
+      // Show virtual rays only for objects, not for light source. See https://github.com/phetsims/geometric-optics/issues/216
+      visibleProperty: new DerivedProperty(
+        [ virtualImageVisibleProperty, representationProperty ],
+        ( virtualImageVisible, representation ) => virtualImageVisible && representation.isObject
+      )
     } );
 
     assert && assert( !options.children );
