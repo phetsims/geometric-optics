@@ -51,7 +51,7 @@ class Optic {
     //TODO rename Optic.Curve and curveProperty
     this.curveProperty = new EnumerationProperty( Optic.Curve, curve );
 
-    // @private {RangeWithValue}
+    // @public {RangeWithValue}
     this.maxDiameter = diameterRange.max;
 
     // @public position of the optical element

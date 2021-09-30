@@ -64,11 +64,13 @@ class OpticNode extends Node {
         // model position for the optic
         const unconstrainedModelPosition = cursorModelPosition.minus( clickOffset );
 
-        // set drag bounds on the model position
-        const dragBoundPosition = modelBoundsProperty.value.closestPointTo( unconstrainedModelPosition );
+        // Constrain dragging such that an optic with maximum diameter is fully inside the model bounds.
+        // See https://github.com/phetsims/geometric-optics/issues/204
+        const dragBounds = modelBoundsProperty.value.erodedY( optic.maxDiameter / 2 );
+        const constrainedModelPosition = dragBounds.closestPointTo( unconstrainedModelPosition );
 
         // constrained optic to merely move vertically
-        optic.setVerticalCoordinate( dragBoundPosition.y );
+        optic.setVerticalCoordinate( constrainedModelPosition.y );
       }
     } );
 

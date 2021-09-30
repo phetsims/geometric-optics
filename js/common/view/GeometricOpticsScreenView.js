@@ -154,11 +154,12 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // Play Area ================================================================================================
 
-    // {DerivedProperty.<Bounds2>}
+    // {DerivedProperty.<Bounds2>} bounds of the model, and area that does not overlap any controls.
+    // See https://github.com/phetsims/geometric-optics/issues/204
     const modelBoundsProperty = new DerivedProperty(
       [ this.visibleBoundsProperty, zoomTransformProperty ],
       ( visibleBounds, zoomTransform ) => {
-        const playAreaBounds = new Bounds2( visibleBounds.minX, 0, visibleBounds.maxX, controlPanel.top );
+        const playAreaBounds = new Bounds2( visibleBounds.left, curveControl.bottom, visibleBounds.right, controlPanel.top );
         return zoomTransform.viewToModelBounds( playAreaBounds );
       } );
 
