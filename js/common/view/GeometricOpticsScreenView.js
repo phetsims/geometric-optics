@@ -16,6 +16,7 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import MagnifyingGlassZoomButtonGroup from '../../../../scenery-phet/js/MagnifyingGlassZoomButtonGroup.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
@@ -253,6 +254,8 @@ class GeometricOpticsScreenView extends ScreenView {
     // labels
     const labelsNode = new LabelsNode( model, visibleProperties, zoomTransformProperty, zoomLevelProperty );
 
+    // Debugging ================================================================================================
+
     // Add points at position of optic, source, and target.
     if ( GeometricOpticsQueryParameters.showDebugPoints ) {
       const options = { fill: 'red' };
@@ -270,7 +273,21 @@ class GeometricOpticsScreenView extends ScreenView {
       playAreaNode.addChild( new DebugPointNode( right2fProperty, modelViewTransform, options ) );
     }
 
-    // Layout
+    // Show the value of modelBoundsProperty
+    if ( GeometricOpticsQueryParameters.showDragBounds ) {
+      const dragBoundsNode = new Rectangle( modelViewTransform.modelToViewBounds( modelBoundsProperty.value ), {
+        stroke: 'green',
+        lineWidth: 2
+      } );
+      playAreaNode.addChild( dragBoundsNode );
+      modelBoundsProperty.link( modelBounds => {
+        const viewBounds = modelViewTransform.modelToViewBounds( modelBounds );
+        dragBoundsNode.setRect( viewBounds.x, viewBounds.y, viewBounds.width, viewBounds.height );
+      } );
+    }
+
+    // Layout ================================================================================================
+
     this.addChild( playAreaNode );
     this.addChild( curveControl );
     this.addChild( controlPanel );

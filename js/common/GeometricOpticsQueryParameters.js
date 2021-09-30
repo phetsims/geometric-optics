@@ -37,6 +37,11 @@ const GeometricOpticsQueryParameters = QueryStringMachine.getAll( {
     type: 'flag'
   },
 
+  // shows the drag bounds
+  showDragBounds: {
+    type: 'flag'
+  },
+
   // speed of light in centimeters per second, for the purpose of the light rays animation
   lightSpeed: {
     type: 'number',
