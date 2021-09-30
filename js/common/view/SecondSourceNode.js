@@ -77,8 +77,6 @@ class SecondSourceNode extends Node {
       secondSource.setSecondPoint( representationProperty, position );
     } );
 
-    console.log( `foo=${secondSourceImage.width - LIGHT_SOURCE_OFFSET.x}` );
-
     // create drag listener for second source
     const secondSourceDragListener = new DragListener( {
       pressCursor: 'ns-resize',
