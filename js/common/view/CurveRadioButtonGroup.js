@@ -12,6 +12,7 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import Spacer from '../../../../scenery/js/nodes/Spacer.js';
 import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import geometricOptics from '../../geometricOptics.js';
+import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import Optic from '../model/Optic.js';
 import OpticShapes from '../model/OpticShapes.js';
 
@@ -37,9 +38,9 @@ class CurveRadioButtonGroup extends RectangularRadioButtonGroup {
       orientation: 'horizontal',
       spacing: 10,
       cornerRadius: 3,
-      baseColor: 'rgba( 0, 0, 0, 0 )',
-      selectedStroke: 'yellow',
-      deselectedStroke: 'grey',
+      baseColor: GeometricOpticsColors.curveRadioButtonFillProperty,
+      selectedStroke: GeometricOpticsColors.curveRadioButtonSelectedStrokeProperty,
+      deselectedStroke: GeometricOpticsColors.curveRadioButtonDeselectedStrokeProperty,
       deselectedLineWidth: 2,
       selectedLineWidth: 2,
       buttonContentXMargin: 0,

@@ -20,7 +20,7 @@ const GeometricOpticsColors = {
   opticFillProperty: new ProfileColorProperty( geometricOptics, 'opticFill', {
     default: 'rgb( 100, 100, 245 )'
   } ),
-           
+
   // Stroke for the lens and mirror
   opticStrokeProperty: new ProfileColorProperty( geometricOptics, 'opticStroke', {
     default: 'rgb( 255, 255, 255 )'
@@ -45,7 +45,7 @@ const GeometricOpticsColors = {
   secondPointFillProperty: new ProfileColorProperty( geometricOptics, 'secondSourcePointFill', {
     default: 'red'
   } ),
-  
+
   // Stroke for the second point of interest on the source object
   secondPointStrokeProperty: new ProfileColorProperty( geometricOptics, 'secondSourcePointStroke', {
     default: 'black'
@@ -109,6 +109,21 @@ const GeometricOpticsColors = {
   // Stroke for the control panel
   panelStrokeProperty: new ProfileColorProperty( geometricOptics, 'panelStroke', {
     default: 'black'
+  } ),
+
+  // Stroke for a selected radio button that determines the shape of the lens/mirror
+  curveRadioButtonSelectedStrokeProperty: new ProfileColorProperty( geometricOptics, 'curveRadioButtonSelectedStroke', {
+    default: 'yellow'
+  } ),
+
+  // Stroke for a deselected radio button that determines the shape of the lens/mirror
+  curveRadioButtonDeselectedStrokeProperty: new ProfileColorProperty( geometricOptics, 'curveRadioButtonDeelectedStroke', {
+    default: 'grey'
+  } ),
+
+  // Fill for radio buttons that determines the shape of the lens/mirror
+  curveRadioButtonFillProperty: new ProfileColorProperty( geometricOptics, 'curveRadioButtonFill', {
+    default: 'rgba( 0, 0, 0, 0 )'
   } )
 };
 
