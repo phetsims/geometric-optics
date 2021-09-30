@@ -42,26 +42,44 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
     }, options );
 
     const items = [
-      createItem( geometricOpticsStrings.focalPoint, visibleProperties.focalPointVisibleProperty, {
-        icon: FocalPointNode.createIcon( { stroke: 'black' } )
-      } ),
-      createItem( geometricOpticsStrings.virtualImage, visibleProperties.virtualImageVisibleProperty, {
 
-        // Disable the 'Virtual Image' checkbox for light source, see https://github.com/phetsims/geometric-optics/issues/216
-        checkboxOptions: {
+      // Focal Point
+      {
+        node: createLabel( geometricOpticsStrings.focalPoint, FocalPointNode.createIcon( { stroke: 'black' } ) ),
+        property: visibleProperties.focalPointVisibleProperty
+      },
+
+      // Virtual Image
+      {
+        node: createLabel( geometricOpticsStrings.virtualImage ),
+        property: visibleProperties.virtualImageVisibleProperty,
+        options: {
+
+          // Disable the 'Virtual Image' checkbox for light source, see https://github.com/phetsims/geometric-optics/issues/216
           enabledProperty: new DerivedProperty( [ representationProperty ],
             representation => !!representation.isObject )
         }
-      } ),
-      createItem( geometricOpticsStrings.labels, visibleProperties.labelsVisibleProperty ),
-      createItem( geometricOpticsStrings.secondSource, visibleProperties.secondSourceVisibleProperty, {
-        icon: SecondSourceNode.createIcon()
-      } )
+      },
+
+      // Labels
+      {
+        node: createLabel( geometricOpticsStrings.labels ),
+        property: visibleProperties.labelsVisibleProperty
+      },
+
+      // Second Point
+      {
+        node: createLabel( geometricOpticsStrings.secondSource, SecondSourceNode.createIcon() ),
+        property: visibleProperties.secondSourceVisibleProperty
+      }
     ];
 
-    // Add Guides checkbox for lens, unless excluded via query parameter.
+    // Guides - add Guides checkbox for lens, unless excluded via query parameter
     if ( ( opticType === Optic.Type.LENS ) && GeometricOpticsQueryParameters.showGuides ) {
-      items.push( createItem( geometricOpticsStrings.guides, visibleProperties.guidesVisibleProperty ) );
+      items.push( {
+        node: createLabel( geometricOpticsStrings.guides ),
+        property: visibleProperties.guidesVisibleProperty
+      } );
     }
 
     super( items, options );
@@ -69,33 +87,20 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 }
 
 /**
- * Create an item for the checkbox group.
+ * Create a label for a checkbox, with optional icon.
  * @param {string} string
- * @param {Property} property
- * @param {Object} [options]
- * @returns {{node: Node, property: Property }}
+ * @param {Node} [iconNode]
+ * @returns {Node}
  */
-function createItem( string, property, options ) {
+function createLabel( string, iconNode ) {
 
-  options = merge( {
-    checkboxOptions: null, // passed to Checkbox by VerticalCheckboxGroup
-    icon: null // {null|Node}
-  }, options );
-
-  // text for the checkbox
-  const text = new Text( string, {
+  const textNode = new Text( string, {
     font: GeometricOpticsConstants.CONTROL_FONT,
     maxWidth: 100
   } );
 
   // create HBox if icon is present, otherwise merely attach text
-  const node = ( options.icon ) ? new HBox( { children: [ text, options.icon ], spacing: 8 } ) : text;
-
-  return {
-    node: node,
-    property: property,
-    options: options.checkboxOptions
-  };
+  return iconNode ? new HBox( { children: [ textNode, iconNode ], spacing: 8 } ) : textNode;
 }
 
 geometricOptics.register( 'VisibilityCheckboxGroup', VisibilityCheckboxGroup );
