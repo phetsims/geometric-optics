@@ -24,7 +24,7 @@ class SpotlightNode extends Path {
   constructor( intensityProperty, screenIntersectionProperty, modelViewTransform, options ) {
 
     options = merge( {
-      fill: GeometricOpticsColors.projectorScreenSpotlightFillProperty
+      fill: GeometricOpticsColors.lightSpotFillProperty
     }, options );
 
     super( new Shape( screenIntersectionProperty.value ), options );

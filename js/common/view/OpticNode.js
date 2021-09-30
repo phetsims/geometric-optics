@@ -13,7 +13,6 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import Color from '../../../../scenery/js/util/Color.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
@@ -79,11 +78,10 @@ class OpticNode extends Node {
       fill: options.fill
     } );
 
-    // link the index of refraction to the opacity of the fill of the lens
+    // link the index of refraction to the opacity of the lens
     optic.indexOfRefractionProperty.link( index => {
       const normalizedIndex = optic.getNormalizedIndex( index );
-      const fill = options.fill.value;
-      opticPath.fill = new Color( fill.red, fill.green, fill.blue, normalizedIndex );
+      opticPath.opacity = normalizedIndex;
     } );
 
     // A separate Node for the optic's outline

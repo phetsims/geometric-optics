@@ -39,7 +39,7 @@ class LabelNode extends Node {
 
       // Text options
       textOptions: {
-        fill: 'white',
+        fill: GeometricOpticsColors.labelFillProperty,
         font: GeometricOpticsConstants.LABEL_FONT
       },
 

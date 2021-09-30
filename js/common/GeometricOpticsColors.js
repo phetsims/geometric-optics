@@ -11,104 +11,104 @@ import geometricOptics from '../geometricOptics.js';
 
 const GeometricOpticsColors = {
 
-  //--------------------------------------------------------------------------
-  //                                SCREEN
-
+  // Background color used for all screens
   screenBackgroundColorProperty: new ProfileColorProperty( geometricOptics, 'screenBackgroundColor', {
-    default: 'rgb(27,27,96)' // dark blue
+    default: 'rgb( 27, 27, 96 )'
   } ),
 
-  //--------------------------------------------------------------------------
-  //                                 Optic
-
+  // Fill for the lens and mirror
   opticFillProperty: new ProfileColorProperty( geometricOptics, 'opticFill', {
-    default: 'rgb(100, 100, 245)'
+    default: 'rgb( 100, 100, 245 )'
   } ),
-
+           
+  // Stroke for the lens and mirror
   opticStrokeProperty: new ProfileColorProperty( geometricOptics, 'opticStroke', {
-    default: 'rgb(255, 255, 255)'
+    default: 'rgb( 255, 255, 255 )'
   } ),
 
-  //--------------------------------------------------------------------------
-  //                                 FOCAL POINT
-
+  // Fill for focal points
   focalPointFillProperty: new ProfileColorProperty( geometricOptics, 'focalPointFill', {
-    default: 'rgb(255, 255, 0)'
+    default: 'rgb( 255, 255, 0 )'
   } ),
 
+  // Stroke for focal points
   focalPointStrokeProperty: new ProfileColorProperty( geometricOptics, 'focalPointStroke', {
-    default: 'rgb(255, 255, 0)'
+    default: 'rgb( 255, 255, 0 )'
   } ),
 
-  //--------------------------------------------------------------------------
-  //                           OPTICAL AXIS
-
+  // Stroke for the optical axis
   opticalAxisStrokeProperty: new ProfileColorProperty( geometricOptics, 'opticalAxisStroke', {
-    default: 'rgb(133,133,182)'
+    default: 'rgb( 133, 133, 182 )'
   } ),
 
-  //--------------------------------------------------------------------------
-  //                             OBJECT
-
-  secondSourcePointFillProperty: new ProfileColorProperty( geometricOptics, 'secondSourcePointFill', {
+  // Fill for the second point of interest on the source object
+  secondPointFillProperty: new ProfileColorProperty( geometricOptics, 'secondSourcePointFill', {
     default: 'red'
   } ),
-  secondSourcePointStrokeProperty: new ProfileColorProperty( geometricOptics, 'secondSourcePointStroke', {
+  
+  // Stroke for the second point of interest on the source object
+  secondPointStrokeProperty: new ProfileColorProperty( geometricOptics, 'secondSourcePointStroke', {
     default: 'black'
   } ),
 
-  //--------------------------------------------------------------------------
-  //                              RAYS
-
-  virtualRayOneStrokeProperty: new ProfileColorProperty( geometricOptics, 'virtualRayOneStroke', {
-    default: 'rgb(59,177,122)'
+  // Rays associated with the real image produced by the first point of interest on the object or light source
+  realRays1StrokeProperty: new ProfileColorProperty( geometricOptics, 'realRayOneStroke', {
+    default: 'rgb( 160, 226, 195 )'
   } ),
 
-  virtualRayTwoStrokeProperty: new ProfileColorProperty( geometricOptics, 'virtualRayTwoStroke', {
-    default: 'rgb(238,106,205)'
+  // Rays associated with the real image produced by the second point of interest on the object or light source
+  realRays2StrokeProperty: new ProfileColorProperty( geometricOptics, 'realRayTwoStroke', {
+    default: 'rgb( 255, 207, 232 )'
   } ),
 
-  realRayOneStrokeProperty: new ProfileColorProperty( geometricOptics, 'realRayOneStroke', {
-    default: 'rgb(160,226,195)'
+  // Rays associated with the virtual image produced by the first point of interest on the object or light source
+  virtualRays1StrokeProperty: new ProfileColorProperty( geometricOptics, 'virtualRayOneStroke', {
+    default: 'rgb( 59, 177, 122 )'
   } ),
 
-  realRayTwoStrokeProperty: new ProfileColorProperty( geometricOptics, 'realRayTwoStroke', {
-    default: 'rgb(255,207,232)'
+  // Rays associated with the virtual image produced by the second point of interest on the object or light source
+  virtualRays2StrokeProperty: new ProfileColorProperty( geometricOptics, 'virtualRayTwoStroke', {
+    default: 'rgb( 238, 106, 205 )'
   } ),
 
-  //--------------------------------------------------------------------------
-  //                     PROJECTOR SCREEN (BLACKBOARD)
-
-  projectorScreenSpotlightFillProperty: new ProfileColorProperty( geometricOptics, 'projectorScreenSpotlightFill', {
+  // Light spot that appears on the projector screen
+  lightSpotFillProperty: new ProfileColorProperty( geometricOptics, 'projectorScreenSpotlightFill', {
     default: 'yellow'
   } ),
 
-  //--------------------------------------------------------------------------
-  //                              LABELS
+  // Color of the text on the labels
+  labelFillProperty: new ProfileColorProperty( geometricOptics, 'labelFillProperty', {
+    default: 'white'
+  } ),
 
+  // Background color for labels
   labelBackgroundFillProperty: new ProfileColorProperty( geometricOptics, 'labelBackgroundFill', {
     default: 'rgba( 27, 27, 96, 0.5 )'
   } ),
 
-  //--------------------------------------------------------------------------
-  //                              GUIDES
-
-  guidesFillProperty: new ProfileColorProperty( geometricOptics, 'guidesFill', {
-    default: 'rgb(255, 255, 0)'
-  } ),
-  guidesStrokeProperty: new ProfileColorProperty( geometricOptics, 'guidesStroke', {
-    default: 'rgb(255, 0, 0)'
+  // Fill of the arm (rectangle) portion of guides
+  guideArmFillProperty: new ProfileColorProperty( geometricOptics, 'guideArmFill', {
+    default: 'white'
   } ),
 
-  //--------------------------------------------------------------------------
-  //                           CONTROL PANEL
+  // Fill of the pivot (circle) portion of guides
+  guidePivotFillProperty: new ProfileColorProperty( geometricOptics, 'guidePivotFill', {
+    default: 'grey'
+  } ),
 
+  // Stroke for all parts of guides
+  guideStrokeProperty: new ProfileColorProperty( geometricOptics, 'guideStroke', {
+    default: 'black'
+  } ),
+
+  // Fill for the control panel
   panelFillProperty: new ProfileColorProperty( geometricOptics, 'panelFill', {
-    default: 'rgb(240,234,227)'
+    default: 'rgb( 240, 240, 240 )'
   } ),
 
+  // Stroke for the control panel
   panelStrokeProperty: new ProfileColorProperty( geometricOptics, 'panelStroke', {
-    default: 'rgb(217,205,205)'
+    default: 'black'
   } )
 };
 

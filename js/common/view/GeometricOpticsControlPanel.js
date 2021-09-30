@@ -19,6 +19,7 @@ import Panel from '../../../../sun/js/Panel.js';
 import VSeparator from '../../../../sun/js/VSeparator.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
+import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Optic from '../model/Optic.js';
 import RayModeRadioButtonGroup from './RayModeRadioButtonGroup.js';
@@ -62,7 +63,8 @@ class GeometricOpticsControlPanel extends Panel {
       // Panel options
       xMargin: 15,
       yMargin: 10,
-      fill: 'rgb( 240, 240, 240 )'
+      fill: GeometricOpticsColors.panelFillProperty,
+      stroke: GeometricOpticsColors.panelStrokeProperty
     }, options );
 
     // Rays radio buttons ---------------------------------------------------------------------------------------

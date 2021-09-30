@@ -11,6 +11,7 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
+import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from '../model/Guide.js';
@@ -29,12 +30,12 @@ class GuideNode extends Node {
 
     options = merge( {
       rectangle: {
-        fill: 'white',
-        stroke: 'black'
+        fill: GeometricOpticsColors.guideArmFillProperty,
+        stroke: GeometricOpticsColors.guideStrokeProperty
       },
       circle: {
-        fill: 'grey',
-        stroke: 'black'
+        fill: GeometricOpticsColors.guidePivotFillProperty,
+        stroke: GeometricOpticsColors.guideStrokeProperty
       }
     }, options );
 

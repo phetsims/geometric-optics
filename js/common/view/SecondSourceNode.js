@@ -161,8 +161,8 @@ class SecondSourceNode extends Node {
 class PointNode extends Circle {
   constructor( radius, options ) {
     options = merge( {
-      fill: GeometricOpticsColors.secondSourcePointFillProperty,
-      stroke: GeometricOpticsColors.secondSourcePointStrokeProperty
+      fill: GeometricOpticsColors.secondPointFillProperty,
+      stroke: GeometricOpticsColors.secondPointStrokeProperty
     }, options );
     super( radius, options );
   }
