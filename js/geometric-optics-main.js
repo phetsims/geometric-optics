@@ -17,11 +17,11 @@ const simOptions = {
 
   //TODO fill in credits, all of these fields are optional, see joist.CreditsNode see #146
   credits: {
-    leadDesign: 'Amy Rouinfar',
-    softwareDevelopment: 'Sarah Chang, Martin Veillette',
-    team: 'Kathy Perkins',
-    qualityAssurance: 'Kathryn Woessner',
-    graphicArts: '',
+    leadDesign: 'Amy Rouinfar, Michael Dubson',
+    softwareDevelopment: 'Sarah Chang, Chris Malley (PixelZoom, Inc.), Martin Veillette',
+    team: 'Diana L\u00f3pez Tavares, Ariel Paul, Kathy Perkins',
+    qualityAssurance: 'Steele Dalton, Nancy Salpepi, Kathryn Woessner',
+    graphicArts: 'Megan Lai',
     soundDesign: '',
     thanks: ''
   }
