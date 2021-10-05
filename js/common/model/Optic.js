@@ -18,7 +18,6 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
-import merge from '../../../../phet-core/js/merge.js';
 import geometricOptics from '../../geometricOptics.js';
 import OpticShapes from './OpticShapes.js';
 
@@ -302,27 +301,45 @@ class Optic {
   }
 
   /**
-   * Returns the most extreme position within the optic that would ensure that a ray would be transmitted (or reflected).
-   * See https://github.com/phetsims/geometric-optics/issues/111
+   * Returns the top position within the optic that would ensure that a ray would be transmitted (or reflected).
    * @public
    * @param {Vector2} sourcePoint
    * @param {Vector2} targetPoint
-   * @param {Object} [options]
    * @returns {Vector2}
    */
-  getExtremumPoint( sourcePoint, targetPoint, options ) {
+  getTopOpticPoint( sourcePoint, targetPoint ) {
+    return this.getExtremumPoint( sourcePoint, targetPoint, true /* isTop */ );
+  }
+
+  /**
+   * Returns the bottom position within the optic that would ensure that a ray would be transmitted (or reflected).
+   * @public
+   * @param {Vector2} sourcePoint
+   * @param {Vector2} targetPoint
+   * @returns {Vector2}
+   */
+  getBottomOpticPoint( sourcePoint, targetPoint ) {
+    return this.getExtremumPoint( sourcePoint, targetPoint, false /* isTop */ );
+  }
+
+  /**
+   * Returns the most extreme position within the optic that would ensure that a ray would be transmitted (or reflected).
+   * See https://github.com/phetsims/geometric-optics/issues/111
+   * @private
+   * @param {Vector2} sourcePoint
+   * @param {Vector2} targetPoint
+   * @param {boolean} isTop
+   * @returns {Vector2}
+   */
+  getExtremumPoint( sourcePoint, targetPoint, isTop ) {
     assert && assert( sourcePoint instanceof Vector2 );
     assert && assert( targetPoint instanceof Vector2 );
-
-    options = merge( {
-      location: Optic.Location.TOP
-    }, options );
+    assert && assert( typeof isTop === 'boolean' );
 
     // erode the bounds a tiny bit such that such that the point is always within the bounds
     const opticBounds = this.getOpticBounds().erodedY( 1e-6 );
 
     // convenience variables
-    const isTop = ( options.location === Optic.Location.TOP );
     const isConcave = this.isConcave( this.getCurve() );
     const leftPoint = isTop ? opticBounds.leftTop : opticBounds.leftBottom;
     const rightPoint = isTop ? opticBounds.rightTop : opticBounds.rightBottom;
@@ -377,8 +394,6 @@ Optic.Type = Enumeration.byKeys( [ 'LENS', 'MIRROR' ] );
 
 //TODO rename to CurveType
 Optic.Curve = Enumeration.byKeys( [ 'CONVEX', 'CONCAVE' ] );
-
-Optic.Location = Enumeration.byKeys( [ 'TOP', 'BOTTOM' ] );
 
 geometricOptics.register( 'Optic', Optic );
 export default Optic;

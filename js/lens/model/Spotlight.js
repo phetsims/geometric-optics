@@ -100,14 +100,12 @@ class Spotlight {
     assert && assert( targetPosition instanceof Vector2 );
 
     // get the extremum points on the optic
-    const extremumTopOpticPoint = this.optic.getExtremumPoint( this.sourcePositionProperty.value, targetPosition,
-      { location: Optic.Location.TOP } );
-    const extremumBottomOpticPoint = this.optic.getExtremumPoint( this.sourcePositionProperty.value, targetPosition,
-      { location: Optic.Location.BOTTOM } );
+    const topOpticPoint = this.optic.getTopOpticPoint( this.sourcePositionProperty.value, targetPosition );
+    const bottomOpticPoint = this.optic.getBottomOpticPoint( this.sourcePositionProperty.value, targetPosition );
 
     // determine the top and bottom position of the unclipped disk
-    const diskTopPosition = this.getIntersectPosition( screenPosition, extremumTopOpticPoint, targetPosition );
-    const diskBottomPosition = this.getIntersectPosition( screenPosition, extremumBottomOpticPoint, targetPosition );
+    const diskTopPosition = this.getIntersectPosition( screenPosition, topOpticPoint, targetPosition );
+    const diskBottomPosition = this.getIntersectPosition( screenPosition, bottomOpticPoint, targetPosition );
 
     // determine the position and y radius of the disk
     const diskCenterPosition = diskTopPosition.average( diskBottomPosition );
