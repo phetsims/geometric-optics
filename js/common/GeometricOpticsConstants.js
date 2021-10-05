@@ -10,7 +10,6 @@ import RangeWithValue from '../../../dot/js/RangeWithValue.js';
 import Vector2 from '../../../dot/js/Vector2.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import geometricOptics from '../geometricOptics.js';
-import Optic from './model/Optic.js';
 
 const GeometricOpticsConstants = {
 
@@ -28,23 +27,6 @@ const GeometricOpticsConstants = {
   NOMINAL_VIEW_MODEL_CONVERSION: 2, // view coordinates per cm in initial zoom level
 
   RAYS_ANIMATION_TIME: 10, // length of the rays animation, in seconds
-
-  //----------------------------------------------------------------------------------------
-  //                                 LENS
-
-  LENS_INITIAL_POSITION: Vector2.ZERO,
-  LENS_INITIAL_CURVATURE_TYPE: Optic.Curve.CONVEX,
-  LENS_INDEX_OF_REFRACTION_RANGE: new RangeWithValue( 1.20, 1.87, 1.53 ),
-  LENS_RADIUS_OF_CURVATURE_RANGE: new RangeWithValue( 30, 130, 80 ), // centimeters
-  LENS_DIAMETER_RANGE: new RangeWithValue( 30, 130, 80 ), // centimeters
-
-  //----------------------------------------------------------------------------------------
-  //                                 MIRROR
-
-  MIRROR_INITIAL_POSITION: new Vector2( 100, 0 ), // centimeters
-  MIRROR_INITIAL_CURVATURE_TYPE: Optic.Curve.CONCAVE,
-  MIRROR_RADIUS_OF_CURVATURE_RANGE: new RangeWithValue( 150, 250, 200 ), // centimeters
-  MIRROR_DIAMETER_RANGE: new RangeWithValue( 30, 150, 80 ), // centimeters
 
   //----------------------------------------------------------------------------------------
   //                           AXES

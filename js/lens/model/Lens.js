@@ -7,19 +7,20 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
+import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Optic from '../../common/model/Optic.js';
+import geometricOptics from '../../geometricOptics.js';
 
 class Lens extends Optic {
   constructor() {
     super( {
       opticType: Optic.Type.LENS,
-      curve: GeometricOpticsConstants.LENS_INITIAL_CURVATURE_TYPE,
-      initialPosition: GeometricOpticsConstants.LENS_INITIAL_POSITION,
-      radiusOfCurvatureRange: GeometricOpticsConstants.LENS_RADIUS_OF_CURVATURE_RANGE,
-      indexOfRefractionRange: GeometricOpticsConstants.LENS_INDEX_OF_REFRACTION_RANGE,
-      diameterRange: GeometricOpticsConstants.LENS_DIAMETER_RANGE
+      curve: Optic.Curve.CONVEX,
+      initialPosition: Vector2.ZERO,
+      radiusOfCurvatureRange: new RangeWithValue( 30, 130, 80 ),
+      indexOfRefractionRange: new RangeWithValue( 1.20, 1.87, 1.53 ),
+      diameterRange: new RangeWithValue( 30, 130, 80 )
     } );
   }
 }

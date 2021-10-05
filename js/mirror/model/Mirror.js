@@ -8,7 +8,7 @@
  */
 
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
-import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Optic from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 
@@ -16,14 +16,14 @@ class Mirror extends Optic {
   constructor() {
     super( {
       opticType: Optic.Type.MIRROR,
-      curve: GeometricOpticsConstants.MIRROR_INITIAL_CURVATURE_TYPE,
-      initialPosition: GeometricOpticsConstants.MIRROR_INITIAL_POSITION,
-      radiusOfCurvatureRange: GeometricOpticsConstants.MIRROR_RADIUS_OF_CURVATURE_RANGE,
+      curve: Optic.Curve.CONCAVE,
+      initialPosition: new Vector2( 100, 0 ),
+      radiusOfCurvatureRange: new RangeWithValue( 150, 250, 200 ),
 
-      // Index of refraction of mirror. Although a mirror does not have an index of refraction, its focal length is
-      // equivalent to a lens with an index of refraction of 2.
+      // Although a mirror does not have an index of refraction, its focal length is equivalent to a lens
+      // with an index of refraction of 2.
       indexOfRefractionRange: new RangeWithValue( 2, 2, 2 ),
-      diameterRange: GeometricOpticsConstants.MIRROR_DIAMETER_RANGE
+      diameterRange: new RangeWithValue( 30, 150, 80 )
     } );
   }
 }
