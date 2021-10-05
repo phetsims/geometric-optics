@@ -15,6 +15,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
+import GuideNode from '../../lens/view/GuideNode.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
 import Optic from '../model/Optic.js';
@@ -76,7 +77,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
     // Guides - add Guides checkbox for lens, unless excluded via query parameter
     if ( ( opticType === Optic.Type.LENS ) && GeometricOpticsQueryParameters.showGuides ) {
       items.push( {
-        node: createLabel( geometricOpticsStrings.guides ),
+        node: createLabel( geometricOpticsStrings.guides, GuideNode.createIcon() ),
         property: visibleProperties.guidesVisibleProperty
       } );
     }

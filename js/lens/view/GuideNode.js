@@ -16,6 +16,15 @@ import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from '../model/Guide.js';
 
+const RECTANGLE_OPTIONS = {
+  fill: GeometricOpticsColors.guideArmFillProperty,
+  stroke: GeometricOpticsColors.guideStrokeProperty
+};
+const CIRCLE_OPTIONS = {
+  fill: GeometricOpticsColors.guidePivotFillProperty,
+  stroke: GeometricOpticsColors.guideStrokeProperty
+};
+
 class GuideNode extends Node {
 
   /**
@@ -29,14 +38,8 @@ class GuideNode extends Node {
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     options = merge( {
-      rectangle: {
-        fill: GeometricOpticsColors.guideArmFillProperty,
-        stroke: GeometricOpticsColors.guideStrokeProperty
-      },
-      circle: {
-        fill: GeometricOpticsColors.guidePivotFillProperty,
-        stroke: GeometricOpticsColors.guideStrokeProperty
-      }
+      rectangle: RECTANGLE_OPTIONS,
+      circle: CIRCLE_OPTIONS
     }, options );
 
     super( options );
@@ -45,12 +48,11 @@ class GuideNode extends Node {
     const viewRectangleWidth = modelViewTransform.modelToViewDeltaX( GeometricOpticsConstants.GUIDE_RECTANGLE_WIDTH );
     const viewRectangleHeight = Math.abs( modelViewTransform.modelToViewDeltaY( GeometricOpticsConstants.GUIDE_RECTANGLE_HEIGHT ) );
 
-    // create fulcrum circle
-    const fulcrumCircle = new Circle( GeometricOpticsConstants.GUIDE_FULCRUM_RADIUS, options.circle );
+    const fulcrumNode = new Circle( GeometricOpticsConstants.GUIDE_FULCRUM_RADIUS, options.circle );
 
-    // create two rectangles, with left center side laying on fulcrum circle (initially)
-    const incidentRectangle = new Rectangle( fulcrumCircle.x, fulcrumCircle.y - viewRectangleHeight / 2, viewRectangleWidth, viewRectangleHeight, options.rectangle );
-    const transmittedRectangle = new Rectangle( fulcrumCircle.x, fulcrumCircle.y - viewRectangleHeight / 2, viewRectangleWidth, viewRectangleHeight, options.rectangle );
+    // create two rectangles, with left center side laying on fulcrum (initially)
+    const incidentRectangle = new Rectangle( fulcrumNode.x, fulcrumNode.y - viewRectangleHeight / 2, viewRectangleWidth, viewRectangleHeight, options.rectangle );
+    const transmittedRectangle = new Rectangle( fulcrumNode.x, fulcrumNode.y - viewRectangleHeight / 2, viewRectangleWidth, viewRectangleHeight, options.rectangle );
 
     /**
      * set the position of the rectangle such that its left center is on the fulcrum point.
@@ -73,7 +75,7 @@ class GuideNode extends Node {
     // update the position of the fulcrum
     guide.fulcrumPositionProperty.link( position => {
       const viewFulcrumPosition = modelViewTransform.modelToViewPosition( position );
-      fulcrumCircle.center = viewFulcrumPosition;
+      fulcrumNode.center = viewFulcrumPosition;
 
       // position the rectangles
       setRectanglePosition( incidentRectangle, viewFulcrumPosition, guide.getIncidentAngle() );
@@ -120,7 +122,7 @@ class GuideNode extends Node {
     // add to scene graph
     this.addChild( incidentRectangle );
     this.addChild( transmittedRectangle );
-    this.addChild( fulcrumCircle );
+    this.addChild( fulcrumNode );
   }
 
   /**
@@ -130,6 +132,33 @@ class GuideNode extends Node {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
+  }
+
+  /**
+   * Creates an icon for guides, to be used with checkbox.
+   * @returns {Node}
+   * @public
+   */
+  static createIcon() {
+
+    const fulcrumRadius = 5;
+    const fulcrumNode = new Circle( fulcrumRadius, CIRCLE_OPTIONS );
+    const armWidth = 50;
+    const armHeight = 0.5 * fulcrumNode.height;
+    const leftArmNode = new Rectangle( 0, 0, armWidth, armHeight, RECTANGLE_OPTIONS );
+    const rightArmNode = new Rectangle( 0, 0, armWidth, armHeight, RECTANGLE_OPTIONS );
+
+    leftArmNode.rotation = -Math.PI / 15;
+    rightArmNode.rotation = Math.PI / 15;
+    rightArmNode.left = leftArmNode.right;
+    rightArmNode.top = leftArmNode.top;
+    fulcrumNode.centerX = leftArmNode.right;
+    fulcrumNode.centerY = leftArmNode.top + 3;
+
+    return new Node( {
+      scale: 0.4,
+      children: [ leftArmNode, rightArmNode, fulcrumNode ]
+    } );
   }
 }
 
