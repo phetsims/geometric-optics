@@ -12,11 +12,7 @@ import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import Optic from '../../common/model/Optic.js';
 
 class Lens extends Optic {
-
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  constructor() {
     super(
       Optic.Type.LENS,
       GeometricOpticsConstants.LENS_INITIAL_CURVATURE_TYPE,

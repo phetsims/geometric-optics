@@ -13,11 +13,7 @@ import Optic from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 
 class Mirror extends Optic {
-
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  constructor() {
 
     // Index of refraction of mirror. Although a mirror does not have an index of refraction, its focal length is
     // equivalent to a lens with an index of refraction of 2.
