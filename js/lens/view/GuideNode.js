@@ -21,7 +21,7 @@ const RECTANGLE_OPTIONS = {
   stroke: GeometricOpticsColors.guideStrokeProperty
 };
 const CIRCLE_OPTIONS = {
-  fill: GeometricOpticsColors.guidePivotFillProperty,
+  fill: GeometricOpticsColors.guideFulcrumFillProperty,
   stroke: GeometricOpticsColors.guideStrokeProperty
 };
 

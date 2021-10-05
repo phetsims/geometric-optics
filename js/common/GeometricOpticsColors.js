@@ -91,8 +91,8 @@ const GeometricOpticsColors = {
     default: 'white'
   } ),
 
-  // Fill of the pivot (circle) portion of guides
-  guidePivotFillProperty: new ProfileColorProperty( geometricOptics, 'guidePivotFill', {
+  // Fill of the fulcrum (circle) portion of guides
+  guideFulcrumFillProperty: new ProfileColorProperty( geometricOptics, 'guideFulcrumFill', {
     default: 'grey'
   } ),
 
