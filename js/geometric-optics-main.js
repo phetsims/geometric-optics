@@ -25,10 +25,7 @@ const simOptions = {
   }
 };
 
-// launch the sim - beware that scenery Image nodes created outside of simLauncher.launch() will have zero bounds
-// until the images are fully loaded, see https://github.com/phetsims/coulombs-law/issues/70
 simLauncher.launch( () => {
-
   const sim = new Sim( geometricOpticsStrings[ 'geometric-optics' ].title, [
     new LensScreen( Tandem.ROOT.createTandem( 'lensScreen' ) ),
     new MirrorScreen( Tandem.ROOT.createTandem( 'mirrorScreen' ) )
