@@ -86,11 +86,18 @@ class SourceObjectNode extends Node {
 
     // {DerivedProperty.<Bounds2} keep at least half of the projector screen within visible bounds and right of the optic.
     // opticPositionProperty is not a dependency because it only moves in the y dimension, so x is constant.
+    //TODO This is problematic. There's no dependency on representationProperty here. The actual dependency is on
+    // sourceObject.boundsProperty, and we're relying on that changing before this value is derived. But changing
+    // the dependency to sourceObject.boundsProperty results in a reentry assertion failure.
     const dragBoundsProperty = new DerivedProperty(
       [ modelBoundsProperty, representationProperty ],
-      ( bounds, representation ) =>
-        new Bounds2( bounds.minX, bounds.minY + sourceObject.boundsProperty.value.height,
-          opticPositionProperty.value.x - sourceObject.boundsProperty.value.width, bounds.maxY )
+      ( modelBounds, representation ) =>
+        new Bounds2(
+          modelBounds.minX,
+          modelBounds.minY + sourceObject.boundsProperty.value.height,
+          opticPositionProperty.value.x - sourceObject.boundsProperty.value.width,
+          modelBounds.maxY
+        )
     );
     dragBoundsProperty.link( dragBounds => {
       sourceObject.leftTopProperty.value = dragBounds.closestPointTo( sourceObject.leftTopProperty.value );
