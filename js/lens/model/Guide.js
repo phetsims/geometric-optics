@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Model element for the guides at both ends of the lens
+ * Guide is the model element for the guides at both ends of the lens.
  *
  * @author Sarah Chang (Swarthmore College)
  */

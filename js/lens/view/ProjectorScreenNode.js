@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * View of of the projectorScreen
+ * ProjectorScreenNode is the view of of the projector screen.
  *
  * @author Martin Veillette
  */
