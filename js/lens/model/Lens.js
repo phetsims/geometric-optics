@@ -13,14 +13,14 @@ import Optic from '../../common/model/Optic.js';
 
 class Lens extends Optic {
   constructor() {
-    super(
-      Optic.Type.LENS,
-      GeometricOpticsConstants.LENS_INITIAL_CURVATURE_TYPE,
-      GeometricOpticsConstants.LENS_INITIAL_POSITION,
-      GeometricOpticsConstants.LENS_RADIUS_OF_CURVATURE_RANGE,
-      GeometricOpticsConstants.LENS_DIAMETER_RANGE,
-      GeometricOpticsConstants.LENS_INDEX_OF_REFRACTION_RANGE
-    );
+    super( {
+      opticType: Optic.Type.LENS,
+      curve: GeometricOpticsConstants.LENS_INITIAL_CURVATURE_TYPE,
+      initialPosition: GeometricOpticsConstants.LENS_INITIAL_POSITION,
+      radiusOfCurvatureRange: GeometricOpticsConstants.LENS_RADIUS_OF_CURVATURE_RANGE,
+      indexOfRefractionRange: GeometricOpticsConstants.LENS_INDEX_OF_REFRACTION_RANGE,
+      diameterRange: GeometricOpticsConstants.LENS_DIAMETER_RANGE
+    } );
   }
 }
 

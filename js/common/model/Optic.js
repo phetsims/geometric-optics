@@ -18,6 +18,8 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
+import merge from '../../../../phet-core/js/merge.js';
+import required from '../../../../phet-core/js/required.js';
 import geometricOptics from '../../geometricOptics.js';
 import OpticShapes from './OpticShapes.js';
 
@@ -27,48 +29,64 @@ const NORMALIZED_VALUE_RANGE = new Range( 0, 1 );
 class Optic {
 
   /**
-   * @param {Optic.Type} opticType - type of optical element - acceptable values (MIRROR and LENS)
-   * @param {Optic.Curve} curve - initial curve of optical element - acceptable values (CONVEX and CONCAVE)
-   * @param {Vector2} initialPosition - center of the optical element
-   * @param {RangeWithValue} radiusOfCurvatureRange - range of radius of curvature (in centimeters)
-   * @param {RangeWithValue} diameterRange - range of height for optical element (in centimeters)
-   * @param {RangeWithValue} indexOfRefractionRange
+   * @param {Object} config
    */
-  constructor( opticType, curve, initialPosition, radiusOfCurvatureRange, diameterRange, indexOfRefractionRange ) {
+  constructor( config ) {
 
-    assert && assert( Optic.Type.includes( opticType ) );
-    assert && assert( Optic.Curve.includes( curve ) );
-    assert && assert( initialPosition instanceof Vector2 );
-    assert && assert( radiusOfCurvatureRange instanceof RangeWithValue );
-    assert && assert( diameterRange instanceof RangeWithValue );
-    assert && assert( indexOfRefractionRange instanceof RangeWithValue );
+    config = merge( {
+
+      // {Optic.Type} type of optical element, MIRROR or LENS
+      opticType: required( config.opticType ),
+
+      // {Optic.Curve} initial curve of optical element, CONVEX or CONCAVE
+      curve: required( config.curve ),
+
+      // {Vector2} center of the optic
+      initialPosition: required( config.initialPosition ),
+
+      // {RangeWithValue} range of radius of curvature, in centimeters
+      radiusOfCurvatureRange: required( config.radiusOfCurvatureRange ),
+
+      // {RangeWithValue} range of index of refraction, unitless
+      indexOfRefractionRange: required( config.indexOfRefractionRange ),
+
+      // {RangeWithValue} range of height for the optic, in centimeters
+      diameterRange: required( config.diameterRange )
+    }, config );
+
+    assert && assert( Optic.Type.includes( config.opticType ) );
+    assert && assert( Optic.Curve.includes( config.curve ) );
+    assert && assert( config.initialPosition instanceof Vector2 );
+    assert && assert( config.radiusOfCurvatureRange instanceof RangeWithValue );
+    assert && assert( config.indexOfRefractionRange instanceof RangeWithValue );
+    assert && assert( config.diameterRange instanceof RangeWithValue );
 
     // @private {Optic.Type} Type of the optical element ( valid choices: LENS and MIRROR)
-    this.opticType = opticType;
+    this.opticType = config.opticType;
 
     // @public type of Curvature of the optical element.
     //TODO rename Optic.Curve and curveProperty
-    this.curveProperty = new EnumerationProperty( Optic.Curve, curve );
+    this.curveProperty = new EnumerationProperty( Optic.Curve, config.curve );
 
     // @public {RangeWithValue}
-    this.maxDiameter = diameterRange.max;
+    this.maxDiameter = config.diameterRange.max;
 
     // @public position of the optical element
-    this.positionProperty = new Vector2Property( initialPosition );
+    this.positionProperty = new Vector2Property( config.initialPosition );
 
     // @public radius of curvature of the optical element. Positive is converging.
-    this.radiusOfCurvatureProperty = new NumberProperty( radiusOfCurvatureRange.defaultValue, {
-      range: radiusOfCurvatureRange
+    this.radiusOfCurvatureProperty = new NumberProperty( config.radiusOfCurvatureRange.defaultValue, {
+      range: config.radiusOfCurvatureRange
     } );
 
     // @public height of the optical element - controls the optical aperture of the optical element
-    this.diameterProperty = new NumberProperty( diameterRange.defaultValue, {
-      range: diameterRange
+    this.diameterProperty = new NumberProperty( config.diameterRange.defaultValue, {
+      range: config.diameterRange
     } );
 
     // @public index of refraction of the lens
-    this.indexOfRefractionProperty = new NumberProperty( indexOfRefractionRange.defaultValue, {
-      range: indexOfRefractionRange
+    this.indexOfRefractionProperty = new NumberProperty( config.indexOfRefractionRange.defaultValue, {
+      range: config.indexOfRefractionRange
     } );
 
     // @public {DerivedProperty.<number>} focal length of the optic
@@ -101,7 +119,7 @@ class Optic {
     // @public {DerivedProperty.<OpticShapes>} shapes (fill and outline) of the optical element
     this.shapesProperty = new DerivedProperty(
       [ this.curveProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
-      ( curve, radiusOfCurvature, diameter ) => new OpticShapes( opticType, curve, radiusOfCurvature, diameter )
+      ( curve, radiusOfCurvature, diameter ) => new OpticShapes( config.opticType, curve, radiusOfCurvature, diameter )
     );
   }
 
