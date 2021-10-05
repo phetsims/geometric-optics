@@ -142,21 +142,24 @@ class GuideNode extends Node {
    */
   static createIcon() {
 
+    // constants
     const fulcrumRadius = 5;
-    const fulcrumNode = new Circle( fulcrumRadius, CIRCLE_OPTIONS );
-
     const armWidth = 50;
-    const armHeight = 0.5 * fulcrumNode.height;
+    const armHeight = 1.25 * fulcrumRadius;
+    const angle = Math.PI / 15;
+
+    // Nodes
+    const fulcrumNode = new Circle( fulcrumRadius, CIRCLE_OPTIONS );
     const leftArmNode = new Rectangle( 0, 0, armWidth, armHeight, RECTANGLE_OPTIONS );
     const rightArmNode = new Rectangle( 0, 0, armWidth, armHeight, RECTANGLE_OPTIONS );
 
-    const angle = Math.PI / 15;
+    // Layout
     leftArmNode.rotation = -angle;
     rightArmNode.rotation = angle;
     rightArmNode.left = leftArmNode.right;
     rightArmNode.top = leftArmNode.top;
     fulcrumNode.centerX = leftArmNode.right;
-    fulcrumNode.centerY = leftArmNode.top + 3;
+    fulcrumNode.centerY = leftArmNode.top + ( fulcrumRadius / 2 );
 
     return new Node( {
       scale: 0.4,
