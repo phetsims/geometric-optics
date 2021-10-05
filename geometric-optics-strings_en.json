@@ -59,8 +59,8 @@
   "many": {
     "value": "Many"
   },
-  "secondSource": {
-    "value": "Second Source"
+  "secondPoint": {
+    "value": "Second Point"
   },
   "valueCentimetersPattern": {
     "value": "{{value}} cm"
