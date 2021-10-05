@@ -94,7 +94,7 @@ class LightRays {
             projectorScreen.getBisectorLine.bind( projectorScreen )
           );
 
-          // set target's enabledProperty to true after the first ray reaches its target
+          // set target's visibility to true after the first ray reaches its target
           if ( lightRay.isTargetReached ) {
             target.visibleProperty.value = true;
           }
