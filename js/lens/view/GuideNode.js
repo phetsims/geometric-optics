@@ -149,8 +149,9 @@ class GuideNode extends Node {
     const leftArmNode = new Rectangle( 0, 0, armWidth, armHeight, RECTANGLE_OPTIONS );
     const rightArmNode = new Rectangle( 0, 0, armWidth, armHeight, RECTANGLE_OPTIONS );
 
-    leftArmNode.rotation = -Math.PI / 15;
-    rightArmNode.rotation = Math.PI / 15;
+    const angle = Math.PI / 15;
+    leftArmNode.rotation = -angle;
+    rightArmNode.rotation = angle;
     rightArmNode.left = leftArmNode.right;
     rightArmNode.top = leftArmNode.top;
     fulcrumNode.centerX = leftArmNode.right;
