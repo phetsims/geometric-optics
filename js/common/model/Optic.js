@@ -39,7 +39,7 @@ class Optic {
       opticType: required( config.opticType ),
 
       // {Optic.Curve} initial curve of optical element, CONVEX or CONCAVE
-      curve: required( config.curve ),
+      initialCurve: required( config.initialCurve ),
 
       // {Vector2} center of the optic
       initialPosition: required( config.initialPosition ),
@@ -55,7 +55,7 @@ class Optic {
     }, config );
 
     assert && assert( Optic.Type.includes( config.opticType ) );
-    assert && assert( Optic.Curve.includes( config.curve ) );
+    assert && assert( Optic.Curve.includes( config.initialCurve ) );
     assert && assert( config.initialPosition instanceof Vector2 );
     assert && assert( config.radiusOfCurvatureRange instanceof RangeWithValue );
     assert && assert( config.indexOfRefractionRange instanceof RangeWithValue );
@@ -66,7 +66,7 @@ class Optic {
 
     // @public type of Curvature of the optical element.
     //TODO rename Optic.Curve and curveProperty
-    this.curveProperty = new EnumerationProperty( Optic.Curve, config.curve );
+    this.curveProperty = new EnumerationProperty( Optic.Curve, config.initialCurve );
 
     // @public {RangeWithValue}
     this.maxDiameter = config.diameterRange.max;

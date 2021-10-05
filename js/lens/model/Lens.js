@@ -16,7 +16,7 @@ class Lens extends Optic {
   constructor() {
     super( {
       opticType: Optic.Type.LENS,
-      curve: Optic.Curve.CONVEX,
+      initialCurve: Optic.Curve.CONVEX,
       initialPosition: Vector2.ZERO, // in cm
       radiusOfCurvatureRange: new RangeWithValue( 30, 130, 80 ), // in cm
       indexOfRefractionRange: new RangeWithValue( 1.20, 1.87, 1.53 ), // unitless

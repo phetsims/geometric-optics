@@ -16,7 +16,7 @@ class Mirror extends Optic {
   constructor() {
     super( {
       opticType: Optic.Type.MIRROR,
-      curve: Optic.Curve.CONCAVE,
+      initialCurve: Optic.Curve.CONCAVE,
       initialPosition: new Vector2( 100, 0 ), // in cm
       radiusOfCurvatureRange: new RangeWithValue( 150, 250, 200 ), // in cm
 
