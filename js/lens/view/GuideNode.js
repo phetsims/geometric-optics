@@ -1,9 +1,12 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * View element for the guides at both ends of the lens
+ * GuideNode is the view element for the guides at both ends of the lens. A guide consists of a fulcrum, to which
+ * are attached 2 arms.  One arm corresponds to the incident angle, while the other corresponds to the transmitted
+ * angle.
  *
  * @author Sarah Chang (Swarthmore College)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -42,8 +45,6 @@ class GuideNode extends Node {
       circle: CIRCLE_OPTIONS
     }, options );
 
-    super( options );
-
     // width and height of the guide rectangles
     const viewRectangleWidth = modelViewTransform.modelToViewDeltaX( GeometricOpticsConstants.GUIDE_RECTANGLE_WIDTH );
     const viewRectangleHeight = Math.abs( modelViewTransform.modelToViewDeltaY( GeometricOpticsConstants.GUIDE_RECTANGLE_HEIGHT ) );
@@ -51,8 +52,8 @@ class GuideNode extends Node {
     const fulcrumNode = new Circle( GeometricOpticsConstants.GUIDE_FULCRUM_RADIUS, options.circle );
 
     // create two rectangles, with left center side laying on fulcrum (initially)
-    const incidentRectangle = new Rectangle( fulcrumNode.x, fulcrumNode.y - viewRectangleHeight / 2, viewRectangleWidth, viewRectangleHeight, options.rectangle );
-    const transmittedRectangle = new Rectangle( fulcrumNode.x, fulcrumNode.y - viewRectangleHeight / 2, viewRectangleWidth, viewRectangleHeight, options.rectangle );
+    const incidentArmNode = new Rectangle( fulcrumNode.x, fulcrumNode.y - viewRectangleHeight / 2, viewRectangleWidth, viewRectangleHeight, options.rectangle );
+    const transmittedArmNode = new Rectangle( fulcrumNode.x, fulcrumNode.y - viewRectangleHeight / 2, viewRectangleWidth, viewRectangleHeight, options.rectangle );
 
     /**
      * set the position of the rectangle such that its left center is on the fulcrum point.
@@ -78,8 +79,8 @@ class GuideNode extends Node {
       fulcrumNode.center = viewFulcrumPosition;
 
       // position the rectangles
-      setRectanglePosition( incidentRectangle, viewFulcrumPosition, guide.getIncidentAngle() );
-      setRectanglePosition( transmittedRectangle, viewFulcrumPosition, guide.getTransmittedAngle() );
+      setRectanglePosition( incidentArmNode, viewFulcrumPosition, guide.getIncidentAngle() );
+      setRectanglePosition( transmittedArmNode, viewFulcrumPosition, guide.getTransmittedAngle() );
     } );
 
     /**
@@ -111,18 +112,18 @@ class GuideNode extends Node {
 
     // update position and angle of incident rectangle
     guide.incidentAngleProperty.link( ( angle, oldAngle ) => {
-      setAnglePosition( angle, oldAngle, incidentRectangle );
+      setAnglePosition( angle, oldAngle, incidentArmNode );
     } );
 
     // update position and angle of transmitted rectangle
     guide.transmittedAngleProperty.link( ( transmittedAngle, oldTransmittedAngle ) => {
-      setAnglePosition( transmittedAngle, oldTransmittedAngle, transmittedRectangle );
+      setAnglePosition( transmittedAngle, oldTransmittedAngle, transmittedArmNode );
     } );
 
-    // add to scene graph
-    this.addChild( incidentRectangle );
-    this.addChild( transmittedRectangle );
-    this.addChild( fulcrumNode );
+    assert && assert( !options.children );
+    options.children = [ incidentArmNode, transmittedArmNode, fulcrumNode ];
+
+    super( options );
   }
 
   /**
