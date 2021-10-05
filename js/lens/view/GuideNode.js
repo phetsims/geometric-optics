@@ -144,6 +144,7 @@ class GuideNode extends Node {
 
     const fulcrumRadius = 5;
     const fulcrumNode = new Circle( fulcrumRadius, CIRCLE_OPTIONS );
+
     const armWidth = 50;
     const armHeight = 0.5 * fulcrumNode.height;
     const leftArmNode = new Rectangle( 0, 0, armWidth, armHeight, RECTANGLE_OPTIONS );
