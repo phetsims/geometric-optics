@@ -22,7 +22,7 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Optic from '../model/Optic.js';
-import RayModeRadioButtonGroup from './RayModeRadioButtonGroup.js';
+import RaysRadioButtonGroup from './RaysRadioButtonGroup.js';
 import VisibilityCheckboxGroup from './VisibilityCheckboxGroup.js';
 import VisibleProperties from './VisibleProperties.js';
 
@@ -78,11 +78,11 @@ class GeometricOpticsControlPanel extends Panel {
     } );
 
     // create button radio group for the light ray mode
-    const rayModeRadioButtonGroup = new RayModeRadioButtonGroup( raysModeProperty );
+    const raysRadioButtonGroup = new RaysRadioButtonGroup( raysModeProperty );
 
     // create vertical box for ray modes
     const rayModesBox = new VBox( {
-      children: [ raysNode, rayModeRadioButtonGroup ],
+      children: [ raysNode, raysRadioButtonGroup ],
       align: 'left',
       spacing: 4
     } );

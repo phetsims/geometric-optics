@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * RayModeRadioButtonGroup is the radio button group for choosing a RaysMode.
+ * RaysRadioButtonGroup is the radio button group labeled 'Rays', for choosing a representation of rays.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -16,7 +16,7 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import RaysMode from '../model/RaysMode.js';
 
-class RayModeRadioButtonGroup extends VerticalAquaRadioButtonGroup {
+class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup {
 
   /**
    * @param {EnumerationProperty.<RaysMode>} raysModeProperty
@@ -62,5 +62,5 @@ function createItem( mode, string ) {
   };
 }
 
-geometricOptics.register( 'RayModeRadioButtonGroup', RayModeRadioButtonGroup );
-export default RayModeRadioButtonGroup;
+geometricOptics.register( 'RaysRadioButtonGroup', RaysRadioButtonGroup );
+export default RaysRadioButtonGroup;
