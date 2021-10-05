@@ -10,6 +10,7 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
@@ -29,6 +30,9 @@ class SecondSource {
    * @param {Object} [options]
    */
   constructor( representationProperty, sourceObjectPositionProperty, options ) {
+
+    assert && assert( representationProperty instanceof EnumerationProperty );
+    assert && assert( sourceObjectPositionProperty instanceof Property );
 
     // @private position of the second source of light
     this.lightSourcePositionProperty = new Vector2Property( INITIAL_LIGHT_SOURCE_POSITION );
@@ -62,14 +66,14 @@ class SecondSource {
   /**
    * Sets the second source point
    * @public
-   * @param {EnumerationProperty.<Representation>} representationProperty
+   * @param {boolean} isObject
    * @param {Vector2} position
    */
-  setSecondPoint( representationProperty, position ) {
-    assert && assert( representationProperty instanceof EnumerationProperty );
+  setSecondPoint( isObject, position ) {
+    assert && assert( typeof isObject === 'boolean' );
     assert && assert( position instanceof Vector2 );
 
-    if ( representationProperty.value.isObject ) {
+    if ( isObject ) {
       this.verticalOffsetProperty.value = VERTICAL_OFFSET_RANGE.constrainValue(
         position.y - this.sourceObjectPositionProperty.value.y );
     }

@@ -169,9 +169,10 @@ class GeometricOpticsScreenView extends ScreenView {
       modelBoundsProperty, model.optic.positionProperty, modelViewTransform );
 
     // the second source
-    const secondSourceNode = new SecondSourceNode( model.representationProperty, model.secondSource, modelViewTransform, {
-      visibleProperty: visibleProperties.secondSourceVisibleProperty
-    } );
+    const secondSourceNode = new SecondSourceNode( model.representationProperty, model.secondSource,
+      sourceObjectNode.dragBoundsProperty, modelViewTransform, {
+        visibleProperty: visibleProperties.secondSourceVisibleProperty
+      } );
 
     // create the optical axis attached to the optical element
     const opticalAxisLine = new OpticalAxisLine( model.optic.positionProperty, modelBoundsProperty, modelViewTransform );

@@ -8,7 +8,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
@@ -49,13 +51,15 @@ class SecondSourceNode extends Node {
   /**
    * @param {EnumerationProperty.<Representation>} representationProperty
    * @param {SecondSource} secondSource
+   * @param {Property.<Bounds2>} sourceObjectDragBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( representationProperty, secondSource, modelViewTransform, options ) {
+  constructor( representationProperty, secondSource, sourceObjectDragBoundsProperty, modelViewTransform, options ) {
 
     assert && assert( representationProperty instanceof EnumerationProperty );
     assert && assert( secondSource instanceof SecondSource );
+    assert && assert( sourceObjectDragBoundsProperty instanceof Property );
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     super( options );
@@ -74,7 +78,29 @@ class SecondSourceNode extends Node {
     // Property for the position of the second source node
     const positionProperty = new Vector2Property( secondSource.positionProperty.value );
     positionProperty.link( position => {
-      secondSource.setSecondPoint( representationProperty, position );
+      secondSource.setSecondPoint( representationProperty.value.isObject, position );
+    } );
+
+    // {DerivedProperty.<Bounds2|null> null when we are dealing with an Object, non-null for a Light Source
+    const dragBoundsProperty = new DerivedProperty(
+      [ sourceObjectDragBoundsProperty, representationProperty ],
+      ( sourceObjectDragBounds, representation ) =>
+        //TODO this is awful that we're having to undo the offset that is needed elsewhere
+        representation.isObject ? null : sourceObjectDragBounds.withOffsets(
+          -LIGHT_SOURCE_OFFSET.x, // left
+          -LIGHT_SOURCE_OFFSET.y, // top
+          LIGHT_SOURCE_OFFSET.x, // right
+          LIGHT_SOURCE_OFFSET.y  // bottom
+        )
+    );
+
+    // Keep the light source inside the drag bounds.
+    dragBoundsProperty.link( dragBounds => {
+      const isObject = representationProperty.value.isObject;
+      if ( !isObject ) {
+        assert && assert( dragBounds );
+        secondSource.setSecondPoint( isObject, dragBounds.closestPointTo( secondSource.positionProperty.value ) );
+      }
     } );
 
     // create drag listener for second source
@@ -82,6 +108,7 @@ class SecondSourceNode extends Node {
       pressCursor: 'ns-resize',
       useInputListenerCursor: true,
       positionProperty: positionProperty,
+      dragBoundsProperty: dragBoundsProperty,
       transform: modelViewTransform,
       offsetPosition: () => LIGHT_SOURCE_DRAG_OFFSET,
       end: () => {

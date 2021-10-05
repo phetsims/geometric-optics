@@ -127,6 +127,9 @@ class SourceObjectNode extends Node {
 
     // @private
     this.cueingArrows = cueingArrows;
+
+    // @public
+    this.dragBoundsProperty = dragBoundsProperty; // so that 1st and 2nd light source can share drag bounds
   }
 
   /**
