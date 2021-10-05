@@ -22,7 +22,7 @@ import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
 import GeometricOpticsModel from '../model/GeometricOpticsModel.js';
-import LightRayMode from '../model/LightRayMode.js';
+import RaysMode from '../model/RaysMode.js';
 import CurveRadioButtonGroup from './CurveRadioButtonGroup.js';
 import DebugPointNode from './DebugPointNode.js';
 import FocalPointNode from './FocalPointNode.js';
@@ -98,7 +98,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // create control panel at the bottom of the screen
     const controlPanel = new GeometricOpticsControlPanel( model.representationProperty, model.optic,
-      model.lightRayModeProperty, visibleProperties, modelViewTransform );
+      model.raysModeProperty, visibleProperties, modelViewTransform );
     controlPanel.centerBottom = erodedLayoutBounds.centerBottom;
 
     // create toolbox at the top right corner of the screen
@@ -177,7 +177,7 @@ class GeometricOpticsScreenView extends ScreenView {
     // create the optical axis attached to the optical element
     const opticalAxisLine = new OpticalAxisLine( model.optic.positionProperty, modelBoundsProperty, modelViewTransform );
 
-    const opticNode = new OpticNode( model.optic, model.lightRayModeProperty, modelBoundsProperty, modelViewTransform );
+    const opticNode = new OpticNode( model.optic, model.raysModeProperty, modelBoundsProperty, modelViewTransform );
 
     // create the light rays associated with the object
     const lightRaysNode = new LightRaysNode( model.firstLightRays, model.representationProperty,
@@ -237,9 +237,9 @@ class GeometricOpticsScreenView extends ScreenView {
     } );
 
     Property.multilink(
-      [ model.lightRayModeProperty, visibleProperties.rayTracingVisibleProperty ],
+      [ model.raysModeProperty, visibleProperties.rayTracingVisibleProperty ],
       ( lightRayMode, rayTracingVisible ) => {
-        if ( lightRayMode === LightRayMode.NONE ) {
+        if ( lightRayMode === RaysMode.NONE ) {
           model.firstTarget.visibleProperty.value = rayTracingVisible;
           model.secondTarget.visibleProperty.value = rayTracingVisible;
         }

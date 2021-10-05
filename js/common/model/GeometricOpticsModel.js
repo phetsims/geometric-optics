@@ -16,7 +16,7 @@ import ProjectorScreen from '../../lens/model/ProjectorScreen.js';
 import Spotlight from '../../lens/model/Spotlight.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import FocalPoint from './FocalPoint.js';
-import LightRayMode from './LightRayMode.js';
+import RaysMode from './RaysMode.js';
 import LightRays from './LightRays.js';
 import Optic from './Optic.js';
 import Representation from './Representation.js';
@@ -106,16 +106,16 @@ class GeometricOpticsModel {
       range: new Range( 0, GeometricOpticsConstants.RAYS_ANIMATION_TIME )
     } );
 
-    // @public modes for the different kind of light rays
-    this.lightRayModeProperty = new EnumerationProperty( LightRayMode, LightRayMode.MARGINAL );
+    // @public determines the representation used for rays
+    this.raysModeProperty = new EnumerationProperty( RaysMode, RaysMode.MARGINAL );
 
-    // reset the timer when changing light ray mode
-    this.lightRayModeProperty.link( () => this.lightRaysTimeProperty.reset() );
+    // Changing raysModeProperty resets the animation time for rays.
+    this.raysModeProperty.link( () => this.lightRaysTimeProperty.reset() );
 
     // @public light rays associated with the first source
     this.firstLightRays = new LightRays(
       this.lightRaysTimeProperty,
-      this.lightRayModeProperty,
+      this.raysModeProperty,
       this.representationProperty,
       this.sourceObject.positionProperty,
       this.projectorScreen,
@@ -126,7 +126,7 @@ class GeometricOpticsModel {
     // @public light rays associated with the second source
     this.secondLightRays = new LightRays(
       this.lightRaysTimeProperty,
-      this.lightRayModeProperty,
+      this.raysModeProperty,
       this.representationProperty,
       this.secondSource.positionProperty,
       this.projectorScreen,
@@ -157,7 +157,7 @@ class GeometricOpticsModel {
     this.sourceObject.reset();
     this.secondSource.reset();
     this.lightRaysTimeProperty.reset();
-    this.lightRayModeProperty.reset();
+    this.raysModeProperty.reset();
     this.projectorScreen.reset();
     this.horizontalRuler.reset();
     this.verticalRuler.reset();

@@ -47,16 +47,16 @@ class GeometricOpticsControlPanel extends Panel {
   /**
    * @param {EnumerationProperty.<Representation>} representationProperty
    * @param {Optic} optic
-   * @param {EnumerationProperty.<LightRayMode>} lightRayModeProperty
+   * @param {EnumerationProperty.<RaysMode>} raysModeProperty
    * @param {VisibleProperties} visibleProperties
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( representationProperty, optic, lightRayModeProperty, visibleProperties, modelViewTransform, options ) {
+  constructor( representationProperty, optic, raysModeProperty, visibleProperties, modelViewTransform, options ) {
 
     assert && assert( representationProperty instanceof EnumerationProperty );
     assert && assert( optic instanceof Optic );
-    assert && assert( lightRayModeProperty instanceof EnumerationProperty );
+    assert && assert( raysModeProperty instanceof EnumerationProperty );
     assert && assert( visibleProperties instanceof VisibleProperties );
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
@@ -78,7 +78,7 @@ class GeometricOpticsControlPanel extends Panel {
     } );
 
     // create button radio group for the light ray mode
-    const rayModeRadioButtonGroup = new RayModeRadioButtonGroup( lightRayModeProperty );
+    const rayModeRadioButtonGroup = new RayModeRadioButtonGroup( raysModeProperty );
 
     // create vertical box for ray modes
     const rayModesBox = new VBox( {

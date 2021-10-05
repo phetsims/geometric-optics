@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * RayModeRadioButtonGroup is the radio button group for choosing a LightRayMode.
+ * RayModeRadioButtonGroup is the radio button group for choosing a RaysMode.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -14,17 +14,17 @@ import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioBu
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-import LightRayMode from '../model/LightRayMode.js';
+import RaysMode from '../model/RaysMode.js';
 
 class RayModeRadioButtonGroup extends VerticalAquaRadioButtonGroup {
 
   /**
-   * @param {EnumerationProperty.<LightRayMode>} lightRayModeProperty
+   * @param {EnumerationProperty.<RaysMode>} raysModeProperty
    * @param {Object} [options]
    */
-  constructor( lightRayModeProperty, options ) {
+  constructor( raysModeProperty, options ) {
 
-    assert && assert( lightRayModeProperty instanceof EnumerationProperty );
+    assert && assert( raysModeProperty instanceof EnumerationProperty );
 
     options = merge( {
       spacing: 4,
@@ -36,21 +36,21 @@ class RayModeRadioButtonGroup extends VerticalAquaRadioButtonGroup {
 
     // items for ray Mode radio buttons
     const items = [
-      createItem( LightRayMode.MARGINAL, geometricOpticsStrings.marginal ),
-      createItem( LightRayMode.PRINCIPAL, geometricOpticsStrings.principal ),
-      createItem( LightRayMode.MANY, geometricOpticsStrings.many ),
-      createItem( LightRayMode.NONE, geometricOpticsStrings.none )
+      createItem( RaysMode.MARGINAL, geometricOpticsStrings.marginal ),
+      createItem( RaysMode.PRINCIPAL, geometricOpticsStrings.principal ),
+      createItem( RaysMode.MANY, geometricOpticsStrings.many ),
+      createItem( RaysMode.NONE, geometricOpticsStrings.none )
     ];
 
-    super( lightRayModeProperty, items, options );
+    super( raysModeProperty, items, options );
   }
 }
 
 /**
  * Creates an item for the radio button group.
- * @param {LightRayMode} mode
+ * @param {RaysMode} mode
  * @param {string} string
- * @returns {{node: Text, value: LightRayMode}} item
+ * @returns {{node: Text, value: RaysMode}} item
  */
 function createItem( mode, string ) {
   return {

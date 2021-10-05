@@ -13,7 +13,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import geometricOptics from '../../geometricOptics.js';
 import LightRay from './LightRay.js';
-import LightRayMode from './LightRayMode.js';
+import RaysMode from './RaysMode.js';
 import Optic from './Optic.js';
 import Ray from './Ray.js';
 
@@ -21,14 +21,14 @@ class LightRays {
 
   /**
    * @param {Property.<number>} timeProperty
-   * @param {Property.<LightRayMode>} lightRayModeProperty
+   * @param {Property.<RaysMode>} raysModeProperty
    * @param {EnumerationProperty.<Representation>} representationProperty
    * @param {Property.<Vector2>} sourceObjectPositionProperty
    * @param {ProjectorScreen} projectorScreen
    * @param {Optic} optic
    * @param {Target} target - target model associated with this ray
    */
-  constructor( timeProperty, lightRayModeProperty, representationProperty, sourceObjectPositionProperty,
+  constructor( timeProperty, raysModeProperty, representationProperty, sourceObjectPositionProperty,
                projectorScreen, optic, target ) {
 
     // @private {Property.<Vector>} target position associated with this ray
@@ -46,7 +46,7 @@ class LightRays {
     // update the shape of rays and the emitter state
     Property.multilink( [
         sourceObjectPositionProperty,
-        lightRayModeProperty,
+        raysModeProperty,
         timeProperty,
         representationProperty,
         projectorScreen.positionProperty,
@@ -75,10 +75,10 @@ class LightRays {
         const isProjectorScreenPresent = !representation.isObject;
 
         // is the light ray mode set to Principal Rays
-        const isPrincipalRayMode = ( lightRayMode === LightRayMode.PRINCIPAL );
+        const isPrincipalRayMode = ( lightRayMode === RaysMode.PRINCIPAL );
 
         // set the target's enabledProperty to false initially (unless there are no rays)
-        target.visibleProperty.value = ( lightRayMode === LightRayMode.NONE );
+        target.visibleProperty.value = ( lightRayMode === RaysMode.NONE );
 
         // loop over the direction of each ray
         directions.forEach( direction => {
@@ -118,7 +118,7 @@ class LightRays {
    * @private
    * @param {Vector2} sourcePosition
    * @param {Optic} optic
-   * @param {LightRayMode} lightRayMode
+   * @param {RaysMode} lightRayMode
    * @returns {Vector2[]}
    */
   getRayDirections( sourcePosition, optic, lightRayMode ) {
@@ -133,7 +133,7 @@ class LightRays {
     // vector from source to optic
     const sourceOpticVector = opticPosition.minus( sourcePosition );
 
-    if ( lightRayMode === LightRayMode.MARGINAL ) {
+    if ( lightRayMode === RaysMode.MARGINAL ) {
 
       // direction for ray going through the center of optic
       directions.push( sourceOpticVector.normalized() );
@@ -154,7 +154,7 @@ class LightRays {
 
       directions.push( topDirection, bottomDirection );
     }
-    else if ( lightRayMode === LightRayMode.PRINCIPAL ) {
+    else if ( lightRayMode === RaysMode.PRINCIPAL ) {
 
       // horizontal direction, unit vector along positive x
       directions.push( new Vector2( 1, 0 ) );
@@ -173,7 +173,7 @@ class LightRays {
       // direction for ray going through the focal point
       directions.push( sourceFirstFocalVector.normalized() );
     }
-    else if ( lightRayMode === LightRayMode.MANY ) {
+    else if ( lightRayMode === RaysMode.MANY ) {
 
       // starting angle for showers of rays
       const startingAngle = Math.PI / 4;

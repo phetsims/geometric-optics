@@ -16,22 +16,22 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-import LightRayMode from '../model/LightRayMode.js';
+import RaysMode from '../model/RaysMode.js';
 import Optic from '../model/Optic.js';
 
 class OpticNode extends Node {
 
   /**
    * @param {Optic} optic
-   * @param {Property.<LightRayMode>} lightRayModeProperty
+   * @param {Property.<RaysMode>} raysModeProperty
    * @param {Property.<Bounds2>} modelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( optic, lightRayModeProperty, modelBoundsProperty, modelViewTransform, options ) {
+  constructor( optic, raysModeProperty, modelBoundsProperty, modelViewTransform, options ) {
 
     assert && assert( optic instanceof Optic );
-    assert && assert( lightRayModeProperty instanceof Property );
+    assert && assert( raysModeProperty instanceof Property );
     assert && assert( modelBoundsProperty instanceof Property );
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
@@ -142,8 +142,8 @@ class OpticNode extends Node {
     this.addChild( opticCenterLine );
 
     // set the optic center line to visible when mode is on Principal Ray
-    lightRayModeProperty.link( lightRayMode => {
-      opticCenterLine.visible = ( lightRayMode === LightRayMode.PRINCIPAL );
+    raysModeProperty.link( lightRayMode => {
+      opticCenterLine.visible = ( lightRayMode === RaysMode.PRINCIPAL );
     } );
   }
 
