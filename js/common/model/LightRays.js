@@ -31,9 +31,6 @@ class LightRays {
   constructor( timeProperty, raysModeProperty, representationProperty, sourceObjectPositionProperty,
                projectorScreen, optic, target ) {
 
-    // @private {Property.<Vector>} target position associated with this ray
-    this.targetPositionProperty = target.positionProperty;
-
     // @public (read-only) shape of a bundle of real rays at a point in time
     this.realRaysShape = new Shape();
 
@@ -63,13 +60,13 @@ class LightRays {
         this.virtualRaysShape = new Shape();
 
         // {Vector2} the position the target
-        const targetPoint = this.targetPositionProperty.value;
+        const targetPoint = target.positionProperty.value;
 
         // {boolean} is the image virtual
         const isVirtual = target.isVirtualProperty.value;
 
         // {Vector2[]} get the initial directions of the rays
-        const directions = this.getRayDirections( sourcePosition, optic, raysMode );
+        const directions = getRayDirections( sourcePosition, optic, raysMode, targetPoint );
 
         // {boolean} is there a projector on the play area
         const isProjectorScreenPresent = !representation.isObject;
@@ -77,7 +74,7 @@ class LightRays {
         // is the Rays mode set to Principal
         const isPrincipal = ( raysMode === RaysMode.PRINCIPAL );
 
-        // set the target's enabledProperty to false initially (unless there are no rays)
+        // set the target's visibility to false initially (unless there are no rays)
         target.visibleProperty.value = ( raysMode === RaysMode.NONE );
 
         // loop over the direction of each ray
@@ -103,110 +100,112 @@ class LightRays {
           }
 
           // add this new real lightRay to the realRaysShape
-          this.addRayShape( lightRay.realShape, this.realRaysShape );
+          addRayShape( lightRay.realShape, this.realRaysShape );
 
           // add this new virtual lightRay to the virtualRaysShape
-          this.addRayShape( lightRay.virtualShape, this.virtualRaysShape );
+          addRayShape( lightRay.virtualShape, this.virtualRaysShape );
         } );
 
         this.raysProcessedEmitter.emit();
       } );
   }
+}
 
-  /**
-   * Gets the initial directions of the rays for the different light ray modes.
-   * @private
-   * @param {Vector2} sourcePosition
-   * @param {Optic} optic
-   * @param {RaysMode} raysMode
-   * @returns {Vector2[]}
-   */
-  getRayDirections( sourcePosition, optic, raysMode ) {
+/**
+ * Gets the initial directions of the rays for the different ray modes.
+ * @param {Vector2} sourcePosition
+ * @param {Optic} optic
+ * @param {RaysMode} raysMode
+ * @param {Vector2} targetPoint
+ * @returns {Vector2[]}
+ */
+function getRayDirections( sourcePosition, optic, raysMode, targetPoint ) {
 
-    // {Vector2[]} directions of the light rays emanating from the object
-    const directions = [];
+  assert && assert( sourcePosition instanceof Vector2 );
+  assert && assert( optic instanceof Optic );
+  assert && assert( RaysMode.includes( raysMode ) );
+  assert && assert( targetPoint instanceof Vector2 );
 
-    // convenience variables
-    const f = optic.focalLengthProperty.value;
-    const opticPosition = optic.positionProperty.value;
+  // {Vector2[]} directions of the light rays emanating from the object
+  const directions = [];
 
-    // vector from source to optic
-    const sourceOpticVector = opticPosition.minus( sourcePosition );
+  // convenience variables
+  const f = optic.focalLengthProperty.value;
+  const opticPosition = optic.positionProperty.value;
 
-    if ( raysMode === RaysMode.MARGINAL ) {
+  // vector from source to optic
+  const sourceOpticVector = opticPosition.minus( sourcePosition );
 
-      // direction for ray going through the center of optic
-      directions.push( sourceOpticVector.normalized() );
+  if ( raysMode === RaysMode.MARGINAL ) {
 
-      // the top of the optic
-      const topPoint = optic.getExtremumPoint( sourcePosition,
-        this.targetPositionProperty.value, { location: Optic.Location.TOP } );
+    // direction for ray going through the center of optic
+    directions.push( sourceOpticVector.normalized() );
 
-      // the bottom of the optic
-      const bottomPoint = optic.getExtremumPoint( sourcePosition,
-        this.targetPositionProperty.value, { location: Optic.Location.BOTTOM } );
+    // the top of the optic
+    const topPoint = optic.getExtremumPoint( sourcePosition, targetPoint, { location: Optic.Location.TOP } );
 
-      // direction of a ray to the top of the optic
-      const topDirection = topPoint.minus( sourcePosition ).normalized();
+    // the bottom of the optic
+    const bottomPoint = optic.getExtremumPoint( sourcePosition, targetPoint, { location: Optic.Location.BOTTOM } );
 
-      // direction of a ray to the bottom of the optic
-      const bottomDirection = bottomPoint.minus( sourcePosition ).normalized();
+    // direction of a ray to the top of the optic
+    const topDirection = topPoint.minus( sourcePosition ).normalized();
 
-      directions.push( topDirection, bottomDirection );
-    }
-    else if ( raysMode === RaysMode.PRINCIPAL ) {
+    // direction of a ray to the bottom of the optic
+    const bottomDirection = bottomPoint.minus( sourcePosition ).normalized();
 
-      // horizontal direction, unit vector along positive x
-      directions.push( new Vector2( 1, 0 ) );
-
-      // direction for ray going through the center of optic
-      directions.push( sourceOpticVector.normalized() );
-
-      // vector from source to first focal point
-      const sourceFirstFocalVector = sourceOpticVector.minusXY( f, 0 );
-
-      // the vector should point to the right (to indicate the direction of the light rays)
-      if ( sourceFirstFocalVector.x < 0 ) {
-        sourceFirstFocalVector.negate();
-      }
-
-      // direction for ray going through the focal point
-      directions.push( sourceFirstFocalVector.normalized() );
-    }
-    else if ( raysMode === RaysMode.MANY ) {
-
-      // starting angle for showers of rays
-      const startingAngle = Math.PI / 4;
-
-      // symmetric condition for end angle
-      const endAngle = -startingAngle;
-
-      // number of rays
-      const N = 15;
-
-      // Degrees between adjacent arrays
-      const deltaTheta = ( endAngle - startingAngle ) / ( N - 1 );
-
-      // create a show of equidistant rays between startingAngle and endAngle
-      for ( let i = 0; i < N; i++ ) {
-        const angle = startingAngle + i * deltaTheta;
-        directions.push( Vector2.createPolar( 1, angle ) );
-      }
-    }
-    return directions;
+    directions.push( topDirection, bottomDirection );
   }
+  else if ( raysMode === RaysMode.PRINCIPAL ) {
 
-  /**
-   * Adds the Shape for a single ray to the Shape associated with a bundle of rays.
-   * @private
-   * @param {Shape} singleRayShape
-   * @param {Shape} bundleOfRaysShape
-   */
-  addRayShape( singleRayShape, bundleOfRaysShape ) {
-    singleRayShape.subpaths.forEach( subPath => {
-      bundleOfRaysShape.addSubpath( subPath );
-    } );
+    // horizontal direction, unit vector along positive x
+    directions.push( new Vector2( 1, 0 ) );
+
+    // direction for ray going through the center of optic
+    directions.push( sourceOpticVector.normalized() );
+
+    // vector from source to first focal point
+    const sourceFirstFocalVector = sourceOpticVector.minusXY( f, 0 );
+
+    // the vector should point to the right (to indicate the direction of the light rays)
+    if ( sourceFirstFocalVector.x < 0 ) {
+      sourceFirstFocalVector.negate();
+    }
+
+    // direction for ray going through the focal point
+    directions.push( sourceFirstFocalVector.normalized() );
   }
+  else if ( raysMode === RaysMode.MANY ) {
+
+    // starting angle for showers of rays
+    const startingAngle = Math.PI / 4;
+
+    // symmetric condition for end angle
+    const endAngle = -startingAngle;
+
+    // number of rays
+    const N = 15;
+
+    // Degrees between adjacent arrays
+    const deltaTheta = ( endAngle - startingAngle ) / ( N - 1 );
+
+    // create a show of equidistant rays between startingAngle and endAngle
+    for ( let i = 0; i < N; i++ ) {
+      const angle = startingAngle + i * deltaTheta;
+      directions.push( Vector2.createPolar( 1, angle ) );
+    }
+  }
+  return directions;
+}
+
+/**
+ * Adds the Shape for a single ray to the Shape associated with a bundle of rays.
+ * @param {Shape} singleRayShape
+ * @param {Shape} bundleOfRaysShape
+ */
+function addRayShape( singleRayShape, bundleOfRaysShape ) {
+  singleRayShape.subpaths.forEach( subPath => {
+    bundleOfRaysShape.addSubpath( subPath );
+  } );
 }
 
 geometricOptics.register( 'LightRays', LightRays );
