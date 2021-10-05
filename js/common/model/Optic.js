@@ -302,10 +302,8 @@ class Optic {
   }
 
   /**
-   * Returns the most extreme position within the optic that would ensure that a ray would
-   * be transmitted  (or reflected).
-   * (see #111)
-   *
+   * Returns the most extreme position within the optic that would ensure that a ray would be transmitted (or reflected).
+   * See https://github.com/phetsims/geometric-optics/issues/111
    * @public
    * @param {Vector2} sourcePoint
    * @param {Vector2} targetPoint
