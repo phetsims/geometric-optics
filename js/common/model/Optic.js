@@ -47,7 +47,7 @@ class Optic {
       // {RangeWithValue} range of radius of curvature, in centimeters
       radiusOfCurvatureRange: required( config.radiusOfCurvatureRange ),
 
-      // {RangeWithValue} range of index of refraction, unitless
+      // {RangeWithValue} range of index of refraction, a unitless ratio
       indexOfRefractionRange: required( config.indexOfRefractionRange ),
 
       // {RangeWithValue} range of height for the optic, in centimeters

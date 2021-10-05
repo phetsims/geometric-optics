@@ -17,10 +17,10 @@ class Lens extends Optic {
     super( {
       opticType: Optic.Type.LENS,
       curve: Optic.Curve.CONVEX,
-      initialPosition: Vector2.ZERO,
-      radiusOfCurvatureRange: new RangeWithValue( 30, 130, 80 ),
-      indexOfRefractionRange: new RangeWithValue( 1.20, 1.87, 1.53 ),
-      diameterRange: new RangeWithValue( 30, 130, 80 )
+      initialPosition: Vector2.ZERO, // in cm
+      radiusOfCurvatureRange: new RangeWithValue( 30, 130, 80 ), // in cm
+      indexOfRefractionRange: new RangeWithValue( 1.20, 1.87, 1.53 ), // unitless
+      diameterRange: new RangeWithValue( 30, 130, 80 ) // in cm
     } );
   }
 }

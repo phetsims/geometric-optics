@@ -17,13 +17,13 @@ class Mirror extends Optic {
     super( {
       opticType: Optic.Type.MIRROR,
       curve: Optic.Curve.CONCAVE,
-      initialPosition: new Vector2( 100, 0 ),
-      radiusOfCurvatureRange: new RangeWithValue( 150, 250, 200 ),
+      initialPosition: new Vector2( 100, 0 ), // in cm
+      radiusOfCurvatureRange: new RangeWithValue( 150, 250, 200 ), // in cm
 
       // Although a mirror does not have an index of refraction, its focal length is equivalent to a lens
       // with an index of refraction of 2.
-      indexOfRefractionRange: new RangeWithValue( 2, 2, 2 ),
-      diameterRange: new RangeWithValue( 30, 150, 80 )
+      indexOfRefractionRange: new RangeWithValue( 2, 2, 2 ), // unitless
+      diameterRange: new RangeWithValue( 30, 150, 80 ) // in cm
     } );
   }
 }
