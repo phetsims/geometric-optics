@@ -197,14 +197,14 @@ class LightRays {
   }
 
   /**
-   * Adds a light ray shape (typeRayShape) to the shape associated with the bundle of ray (rayShape)
+   * Adds the Shape for a single ray to the Shape associated with a bundle of rays.
    * @private
-   * @param {Shape} rayShape
-   * @param {Shape} typeRayShape
+   * @param {Shape} singleRayShape
+   * @param {Shape} bundleOfRaysShape
    */
-  addRayShape( rayShape, typeRayShape ) {
-    rayShape.subpaths.forEach( subPath => {
-      typeRayShape.addSubpath( subPath );
+  addRayShape( singleRayShape, bundleOfRaysShape ) {
+    singleRayShape.subpaths.forEach( subPath => {
+      bundleOfRaysShape.addSubpath( subPath );
     } );
   }
 }
