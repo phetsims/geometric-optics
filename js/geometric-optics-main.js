@@ -15,15 +15,13 @@ import MirrorScreen from './mirror/MirrorScreen.js';
 
 const simOptions = {
 
-  //TODO fill in credits, all of these fields are optional, see joist.CreditsNode see #146
+  //TODO https://github.com/phetsims/geometric-optics/issues/146 complete the credits
   credits: {
     leadDesign: 'Amy Rouinfar, Michael Dubson',
     softwareDevelopment: 'Sarah Chang, Chris Malley (PixelZoom, Inc.), Martin Veillette',
     team: 'Diana L\u00f3pez Tavares, Ariel Paul, Kathy Perkins',
     qualityAssurance: 'Steele Dalton, Nancy Salpepi, Kathryn Woessner',
-    graphicArts: 'Megan Lai',
-    soundDesign: '',
-    thanks: ''
+    graphicArts: 'Megan Lai'
   }
 };
 
