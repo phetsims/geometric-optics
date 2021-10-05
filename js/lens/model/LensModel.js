@@ -1,6 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
+ * LensModel is the model for the 'Lens' screen.
+ *
  * @author Martin Veillette
  */
 

@@ -1,6 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
+ * MirrorModel is the model for the 'Mirror' screen.
+ *
  * @author Martin Veillette
  */
 

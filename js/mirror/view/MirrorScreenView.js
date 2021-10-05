@@ -1,6 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
+ * MirrorScreenView is the view for the 'Mirror' screen.
+ *
  * @author Martin Veillette
  */
 

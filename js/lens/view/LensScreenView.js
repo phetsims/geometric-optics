@@ -1,6 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
+ * LensScreenView is the view for the 'Lens' screen.
+ *
  * @author Martin Veillette
  */
 
