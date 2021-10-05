@@ -135,7 +135,7 @@ class GuideNode extends Node {
   }
 
   /**
-   * Creates an icon for guides, to be used with checkbox.
+   * Creates an icon for guides, to be used with checkbox. This is intended to be a caricature of the actual guides.
    * @returns {Node}
    * @public
    */
