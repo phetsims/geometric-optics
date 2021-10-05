@@ -33,20 +33,20 @@ class LightRaysNode extends Node {
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     options = merge( {
-      realRayStroke: 'white',
-      realRayLineWidth: 2,
-      virtualRayStroke: 'white',
-      virtualRayLineWidth: 2
+      realRaysStroke: 'white',
+      realRaysLineWidth: 2,
+      virtualRaysStroke: 'white',
+      virtualRaysLineWidth: 2
     }, options );
 
-    const realRayPath = new Path( modelViewTransform.modelToViewShape( lightRays.realRay ), {
-      stroke: options.realRayStroke,
-      lineWidth: options.realRayLineWidth
+    const realRaysPath = new Path( modelViewTransform.modelToViewShape( lightRays.realRaysShape ), {
+      stroke: options.realRaysStroke,
+      lineWidth: options.realRaysLineWidth
     } );
 
-    const virtualRayPath = new Path( modelViewTransform.modelToViewShape( lightRays.virtualRay ), {
-      stroke: options.virtualRayStroke,
-      lineWidth: options.virtualRayLineWidth,
+    const virtualRaysPath = new Path( modelViewTransform.modelToViewShape( lightRays.virtualRaysShape ), {
+      stroke: options.virtualRaysStroke,
+      lineWidth: options.virtualRaysLineWidth,
 
       // Show virtual rays only for objects, not for light source. See https://github.com/phetsims/geometric-optics/issues/216
       visibleProperty: new DerivedProperty(
@@ -56,14 +56,14 @@ class LightRaysNode extends Node {
     } );
 
     assert && assert( !options.children );
-    options.children = [ realRayPath, virtualRayPath ];
+    options.children = [ realRaysPath, virtualRaysPath ];
 
     super( options );
 
     // Update this Node when the model tells us that it's time to update.
     lightRays.raysProcessedEmitter.addListener( () => {
-      realRayPath.shape = modelViewTransform.modelToViewShape( lightRays.realRay );
-      virtualRayPath.shape = modelViewTransform.modelToViewShape( lightRays.virtualRay );
+      realRaysPath.shape = modelViewTransform.modelToViewShape( lightRays.realRaysShape );
+      virtualRaysPath.shape = modelViewTransform.modelToViewShape( lightRays.virtualRaysShape );
     } );
   }
 

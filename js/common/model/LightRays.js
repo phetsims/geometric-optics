@@ -35,10 +35,10 @@ class LightRays {
     this.targetPositionProperty = target.positionProperty;
 
     // @public (read-only) shape of a bundle of real rays at a point in time
-    this.realRay = new Shape();
+    this.realRaysShape = new Shape();
 
     // @public (read-only) shape of a bundle of virtual rays at a point in time
-    this.virtualRay = new Shape();
+    this.virtualRaysShape = new Shape();
 
     // @public tells view that it needs to update, fires after all rays are processed.
     this.raysProcessedEmitter = new Emitter();
@@ -54,13 +54,13 @@ class LightRays {
         optic.diameterProperty,
         optic.focalLengthProperty,
         optic.curveProperty ],
-      ( sourcePosition, lightRayMode, time, representation ) => {
+      ( sourcePosition, raysMode, time, representation ) => {
 
         // @public (read-only)
-        this.realRay = new Shape();
+        this.realRaysShape = new Shape();
 
         // @public (read-only)
-        this.virtualRay = new Shape();
+        this.virtualRaysShape = new Shape();
 
         // {Vector2} the position the target
         const targetPoint = this.targetPositionProperty.value;
@@ -69,16 +69,16 @@ class LightRays {
         const isVirtual = target.isVirtualProperty.value;
 
         // {Vector2[]} get the initial directions of the rays
-        const directions = this.getRayDirections( sourcePosition, optic, lightRayMode );
+        const directions = this.getRayDirections( sourcePosition, optic, raysMode );
 
         // {boolean} is there a projector on the play area
         const isProjectorScreenPresent = !representation.isObject;
 
-        // is the light ray mode set to Principal Rays
-        const isPrincipalRayMode = ( lightRayMode === RaysMode.PRINCIPAL );
+        // is the Rays mode set to Principal
+        const isPrincipal = ( raysMode === RaysMode.PRINCIPAL );
 
         // set the target's enabledProperty to false initially (unless there are no rays)
-        target.visibleProperty.value = ( lightRayMode === RaysMode.NONE );
+        target.visibleProperty.value = ( raysMode === RaysMode.NONE );
 
         // loop over the direction of each ray
         directions.forEach( direction => {
@@ -92,7 +92,7 @@ class LightRays {
             optic,
             targetPoint,
             isVirtual,
-            isPrincipalRayMode,
+            isPrincipal,
             isProjectorScreenPresent,
             projectorScreen.getBisectorLine.bind( projectorScreen )
           );
@@ -102,11 +102,11 @@ class LightRays {
             target.visibleProperty.value = true;
           }
 
-          // add this new real lightRay to the realRay
-          this.addRayShape( lightRay.realShape, this.realRay );
+          // add this new real lightRay to the realRaysShape
+          this.addRayShape( lightRay.realShape, this.realRaysShape );
 
-          // add this new virtual lightRay to the virtualRay
-          this.addRayShape( lightRay.virtualShape, this.virtualRay );
+          // add this new virtual lightRay to the virtualRaysShape
+          this.addRayShape( lightRay.virtualShape, this.virtualRaysShape );
         } );
 
         this.raysProcessedEmitter.emit();
@@ -118,10 +118,10 @@ class LightRays {
    * @private
    * @param {Vector2} sourcePosition
    * @param {Optic} optic
-   * @param {RaysMode} lightRayMode
+   * @param {RaysMode} raysMode
    * @returns {Vector2[]}
    */
-  getRayDirections( sourcePosition, optic, lightRayMode ) {
+  getRayDirections( sourcePosition, optic, raysMode ) {
 
     // {Vector2[]} directions of the light rays emanating from the object
     const directions = [];
@@ -133,7 +133,7 @@ class LightRays {
     // vector from source to optic
     const sourceOpticVector = opticPosition.minus( sourcePosition );
 
-    if ( lightRayMode === RaysMode.MARGINAL ) {
+    if ( raysMode === RaysMode.MARGINAL ) {
 
       // direction for ray going through the center of optic
       directions.push( sourceOpticVector.normalized() );
@@ -154,7 +154,7 @@ class LightRays {
 
       directions.push( topDirection, bottomDirection );
     }
-    else if ( lightRayMode === RaysMode.PRINCIPAL ) {
+    else if ( raysMode === RaysMode.PRINCIPAL ) {
 
       // horizontal direction, unit vector along positive x
       directions.push( new Vector2( 1, 0 ) );
@@ -173,7 +173,7 @@ class LightRays {
       // direction for ray going through the focal point
       directions.push( sourceFirstFocalVector.normalized() );
     }
-    else if ( lightRayMode === RaysMode.MANY ) {
+    else if ( raysMode === RaysMode.MANY ) {
 
       // starting angle for showers of rays
       const startingAngle = Math.PI / 4;

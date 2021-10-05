@@ -182,15 +182,15 @@ class GeometricOpticsScreenView extends ScreenView {
     // create the light rays associated with the object
     const lightRaysNode = new LightRaysNode( model.firstLightRays, model.representationProperty,
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, {
-        realRayStroke: GeometricOpticsColors.realRays1StrokeProperty,
-        virtualRayStroke: GeometricOpticsColors.virtualRays1StrokeProperty
+        realRayStrokes: GeometricOpticsColors.realRays1StrokeProperty,
+        virtualRaysStroke: GeometricOpticsColors.virtualRays1StrokeProperty
       } );
 
     // create the light rays associated with the second source
     const secondSourceLightRaysNode = new LightRaysNode( model.secondLightRays, model.representationProperty,
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, {
-        realRayStroke: GeometricOpticsColors.realRays2StrokeProperty,
-        virtualRayStroke: GeometricOpticsColors.virtualRays2StrokeProperty,
+        realRayStrokes: GeometricOpticsColors.realRays2StrokeProperty,
+        virtualRaysStroke: GeometricOpticsColors.virtualRays2StrokeProperty,
         visibleProperty: visibleProperties.secondSourceVisibleProperty
       } );
 
@@ -238,8 +238,8 @@ class GeometricOpticsScreenView extends ScreenView {
 
     Property.multilink(
       [ model.raysModeProperty, visibleProperties.rayTracingVisibleProperty ],
-      ( lightRayMode, rayTracingVisible ) => {
-        if ( lightRayMode === RaysMode.NONE ) {
+      ( raysMode, rayTracingVisible ) => {
+        if ( raysMode === RaysMode.NONE ) {
           model.firstTarget.visibleProperty.value = rayTracingVisible;
           model.secondTarget.visibleProperty.value = rayTracingVisible;
         }
