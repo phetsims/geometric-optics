@@ -290,6 +290,7 @@ class GeometricOpticsScreenView extends ScreenView {
     // Layout ================================================================================================
 
     this.addChild( playAreaNode );
+    this.addChild( labelsNode );
     this.addChild( curveRadioButtonGroup );
     this.addChild( controlPanel );
     this.addChild( showHideToggleButton );
@@ -297,7 +298,6 @@ class GeometricOpticsScreenView extends ScreenView {
     this.addChild( toolbox );
     this.addChild( zoomButtonGroup );
     this.addChild( representationComboBox );
-    this.addChild( labelsNode );
     this.addChild( rulersLayer );
     this.addChild( popupsParent );
 
