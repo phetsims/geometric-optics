@@ -13,6 +13,10 @@
     "requirejsNamespace": "GEOMETRIC_OPTICS",
     "simulation": true,
     "runnable": true,
+    "colorProfiles": [
+      "default",
+      "projector"
+    ],
     "supportedBrands": [
       "phet",
       "adapted-from-phet"

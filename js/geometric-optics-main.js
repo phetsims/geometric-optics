@@ -9,6 +9,7 @@
 import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
+import GeometricOpticsOptionsDialogContent from './common/view/GeometricOpticsOptionsDialogContent.js';
 import geometricOpticsStrings from './geometricOpticsStrings.js';
 import LensScreen from './lens/LensScreen.js';
 import MirrorScreen from './mirror/MirrorScreen.js';
@@ -22,7 +23,12 @@ const simOptions = {
     team: 'Chris Klusendorf, Diana L\u00f3pez Tavares, Ariel Paul, Kathy Perkins',
     qualityAssurance: 'Steele Dalton, Emily Miller, Nancy Salpepi, Kathryn Woessner',
     graphicArts: 'Megan Lai'
-  }
+  },
+
+  // Creates content for the Options dialog, accessible via the PhET menu
+  createOptionsDialogContent: tandem => new GeometricOpticsOptionsDialogContent( {
+    tandem: tandem
+  } )
 };
 
 simLauncher.launch( () => {
