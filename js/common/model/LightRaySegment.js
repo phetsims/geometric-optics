@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * LightRaySegment describes one line segment of a light ray.
+ * LightRaySegment describes one line segment of a light ray, in model coordinates.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

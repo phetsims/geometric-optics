@@ -10,14 +10,13 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import Path from '../../../../scenery/js/nodes/Path.js';
+import ColorDef from '../../../../scenery/js/util/ColorDef.js';
 import geometricOptics from '../../geometricOptics.js';
 import LightRays from '../model/LightRays.js';
-import LightRaySegment from '../model/LightRaySegment.js';
 
 class LightRaysNode extends Node {
 
@@ -42,14 +41,9 @@ class LightRaysNode extends Node {
       virtualRaysLineWidth: 2
     }, options );
 
-    const realRaysPath = new Path( segmentsToShape( lightRays.realSegments, modelViewTransform ), {
-      stroke: options.realRaysStroke,
-      lineWidth: options.realRaysLineWidth
-    } );
+    const realRaysNode = new Node();
 
-    const virtualRaysPath = new Path( segmentsToShape( lightRays.virtualSegments, modelViewTransform ), {
-      stroke: options.virtualRaysStroke,
-      lineWidth: options.virtualRaysLineWidth,
+    const virtualRaysPath = new Node( {
 
       // Show virtual rays only for objects, not for light source. See https://github.com/phetsims/geometric-optics/issues/216
       visibleProperty: new DerivedProperty(
@@ -58,16 +52,19 @@ class LightRaysNode extends Node {
       )
     } );
 
+    const update = () => {
+      realRaysNode.children = segmentsToLines( lightRays.realSegments, modelViewTransform, options.realRaysStroke, options.realRaysLineWidth );
+      virtualRaysPath.children = segmentsToLines( lightRays.virtualSegments, modelViewTransform, options.virtualRaysStroke, options.virtualRaysLineWidth );
+    };
+    update();
+
     assert && assert( !options.children );
-    options.children = [ realRaysPath, virtualRaysPath ];
+    options.children = [ realRaysNode, virtualRaysPath ];
 
     super( options );
 
     // Update this Node when the model tells us that it's time to update.
-    lightRays.raysProcessedEmitter.addListener( () => {
-      realRaysPath.shape = segmentsToShape( lightRays.realSegments, modelViewTransform );
-      virtualRaysPath.shape = segmentsToShape( lightRays.virtualSegments, modelViewTransform );
-    } );
+    lightRays.raysProcessedEmitter.addListener( () => update() );
   }
 
   /**
@@ -81,22 +78,28 @@ class LightRaysNode extends Node {
 }
 
 /**
- * Converts a set of line segments (specified in model coordinates) to a Shape (in view coordinates).
+ * Converts a set of kite.Line segments (specified in model coordinates) to a set of scenery.Line Nodes (in view coordinates).
  * @param {LightRaySegment[]} segments
  * @param {ModelViewTransform2} modelViewTransform
- * @returns {Shape}
+ * @param {ColorDef} stroke
+ * @param {number} lineWidth
+ * @returns {Line[]}
  */
-function segmentsToShape( segments, modelViewTransform ) {
+function segmentsToLines( segments, modelViewTransform, stroke, lineWidth ) {
 
   assert && assert( Array.isArray( segments ) );
   assert && assert( modelViewTransform instanceof ModelViewTransform2 );
+  assert && assert( ColorDef.isColorDef( stroke ) );
+  assert && assert( typeof lineWidth === 'number' && lineWidth > 0 );
 
-  const shape = new Shape();
-  segments.forEach( segment => {
-    assert && assert( segment instanceof LightRaySegment );
-    shape.moveToPoint( segment.startPoint ).lineToPoint( segment.endPoint );
+  return segments.map( segment => {
+    const viewStartPoint = modelViewTransform.modelToViewPosition( segment.startPoint );
+    const viewEndPoint = modelViewTransform.modelToViewPosition( segment.endPoint );
+    return new Line( viewStartPoint, viewEndPoint, {
+      stroke: stroke,
+      lineWidth: lineWidth
+    } );
   } );
-  return modelViewTransform.modelToViewShape( shape );
 }
 
 geometricOptics.register( 'LightRaysNode', LightRaysNode );
