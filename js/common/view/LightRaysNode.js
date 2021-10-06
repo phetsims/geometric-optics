@@ -92,6 +92,9 @@ function segmentsToLines( segments, modelViewTransform, stroke, lineWidth ) {
   assert && assert( ColorDef.isColorDef( stroke ) );
   assert && assert( typeof lineWidth === 'number' && lineWidth > 0 );
 
+  // When attempting to render the rays as a single scenery.Path, we were seeing all kinds of closed-path triangles
+  // being rendered. We had to resort to a scenery.Line per segment to make the problem go away.
+  // See https://github.com/phetsims/geometric-optics/issues/209
   return segments.map( segment => {
     const viewStartPoint = modelViewTransform.modelToViewPosition( segment.startPoint );
     const viewEndPoint = modelViewTransform.modelToViewPosition( segment.endPoint );
