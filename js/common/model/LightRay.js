@@ -5,17 +5,17 @@
  * A LightRay is made of several contiguous Rays
  * A light Ray can fork to have real and virtual ray components.
  * The lightRay has a flag that determines if it has reached a target
- * This class is responsible for the line segments that describe one ray.
+ *
+ * The main purpose of this class is to determine the kite-Shape of the real and virtual light-ray
  *
  * @author Martin Veillette
- * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
+import Shape from '../../../../kite/js/Shape.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
-import LightRaySegment from './LightRaySegment.js';
 import Optic from './Optic.js';
 import Ray from './Ray.js';
 
@@ -43,11 +43,11 @@ class LightRay {
     assert && assert( typeof isProjectorScreenPresent === 'boolean' );
     assert && assert( typeof getProjectorScreenBisectorLine === 'function' );
 
-    // @public (read-only) {LightRaySegment[]} segments for the real rays
-    this.realSegments = [];
+    // @public (read-only) shape of the real rays - will be updated later
+    this.realShape = new Shape();
 
-    // @public (read-only) {LightRaySegment[]} segments for the virtual rays
-    this.virtualSegments = [];
+    // @public (read-only) shape of the virtual rays - will be updated later
+    this.virtualShape = new Shape();
 
     // {number} maximum travel distance if ray is unimpeded
     const distanceTraveled = GeometricOpticsQueryParameters.lightSpeed * time;
@@ -72,14 +72,17 @@ class LightRay {
                       null;
 
     // @public (read-only) {boolean}
-    this.isTargetReached = this.getHasReachedTarget( distanceTraveled, isProjectorScreenPresent, targetPoint );
+    this.isTargetReached = this.getHasReachedTarget(
+      distanceTraveled,
+      isProjectorScreenPresent,
+      targetPoint );
 
-    // process rays to convert them to line segments
-    this.raysToSegments( distanceTraveled );
+    // process rays to convert them to virtualShape and realShape
+    this.raysToShape( distanceTraveled );
   }
 
   /**
-   * Has the rays reached the target (projector screen or target point)?
+   * Has the rays reached the target (projector screen or target point)
    * @private
    * @param {number} distanceTraveled
    * @param {boolean} isProjectorScreenPresent
@@ -122,21 +125,29 @@ class LightRay {
   }
 
   /**
-   * Gets the first intersection Ppoint.
+   * Gets the first intersection Point
+   *
    * @private
    * @param {Ray} initialRay
    * @param {Optic} optic
    * @param {boolean} isPrincipalRayMode
    * @returns {Vector2|null}
    */
-  getFirstPoint( initialRay, optic, isPrincipalRayMode ) {
+  getFirstPoint( initialRay,
+                 optic,
+                 isPrincipalRayMode ) {
+
     const firstIntersection = this.getFirstShape( optic, isPrincipalRayMode ).intersection( initialRay );
+
     return this.getPoint( firstIntersection );
   }
 
   /**
-   * Gets all the real rays that form a light ray. The transmitted ray (last ray) is set to be of infinite length by
-   * default This can be corrected later if the ray is intercepted by a projector screen
+   * Gets all the real rays that form a light ray
+   *
+   * The transmitted ray (last ray) is set to be of infinite length by default
+   * This can be corrected later if the ray is intercepted by a projector screen
+   *
    * @private
    * @param {Ray} initialRay
    * @param {Vector2|null} firstPoint
@@ -145,7 +156,11 @@ class LightRay {
    * @param {Vector2} targetPoint
    * @returns {Ray[]} Rays
    */
-  getRealRays( initialRay, firstPoint, optic, isPrincipalRayMode, targetPoint ) {
+  getRealRays( initialRay,
+               firstPoint,
+               optic,
+               isPrincipalRayMode,
+               targetPoint ) {
 
     // array to store all the rays
     const rays = [];
@@ -197,9 +212,11 @@ class LightRay {
 
           // add the rays
           rays.push( internalRay, transmittedRay );
+
         }
         else {
-          // back shape is not hit, see https://github.com/phetsims/geometric-optics/issues/124
+          // back shape is not hit
+          // see issue #124
 
           // create a semi-infinite ray, starting at the front point, parallel to target point
           const transmittedRay = this.getTransmittedRay( firstPoint, targetPoint, optic );
@@ -213,8 +230,11 @@ class LightRay {
   }
 
   /**
-   * Gets an "intermediate" point. Find the point of intersection of the initial ray with an imaginary vertical line
+   * Gets an "intermediate" point
+   *
+   * Find the point of intersection of the initial ray with an imaginary vertical line
    * at position share by the optic position
+   *
    * @private
    */
   getIntermediatePoint( initialRay, firstPoint, optic ) {
@@ -231,7 +251,7 @@ class LightRay {
   }
 
   /**
-   * Gets the shape of the curved front (left hand side) of the lens.
+   * Gets the shape of the curved front (left hand side) of the lens
    * @private
    * @param {Optic} optic
    * @returns {Shape}
@@ -244,7 +264,7 @@ class LightRay {
   }
 
   /**
-   * Gets the shape of the curved back (right hand side) of the lens.
+   * Gets the shape of the curved back (right hand side) of the lens
    * @private
    * @param {Optic} optic
    * @returns {Shape}
@@ -256,7 +276,7 @@ class LightRay {
   }
 
   /**
-   * Gets the shape that the initial ray will intersect.
+   * Gets the shape that the initial ray will intersect
    * @private
    * @param {Optic} optic
    * @param {boolean} isPrincipalRayMode
@@ -279,7 +299,9 @@ class LightRay {
   }
 
   /**
-   * Processes a point from the intersection. Returns null if the point cannot be found.
+   * Processes a point from the intersection
+   * returns null if the point cannot be found
+   *
    * @private
    * @param {Intersection[]} intersection
    * @returns {Vector2|null}
@@ -296,7 +318,8 @@ class LightRay {
   }
 
   /**
-   * Returns a semi infinite ray starting at originPoint. The ray is along (or opposite to) the direction of targetPoint.
+   * Returns a semi infinite ray starting at originPoint
+   * The ray is along (or opposite to) the direction of targetPoint
    * @private
    * @param {Vector2} originPoint
    * @param {Vector2} targetPoint
@@ -318,8 +341,8 @@ class LightRay {
   }
 
   /**
-   * Returns a virtual ray that is opposite to the last real ray.
-   * If the virtual ray does not exist or does not line up with the target point, it returns null.
+   * Returns a virtual ray that is opposite to the last real ray
+   * If the virtual ray does not exist or does not line up with the target point, it returns null
    * @private
    * @param {Ray[]} realRays
    * @param {Vector2} targetPoint
@@ -358,7 +381,7 @@ class LightRay {
   }
 
   /**
-   * Sets the final point of the real ray if it intersects with the vertical median of the projector.
+   * Sets the final point of the real ray if it intersects with the vertical median of the projector
    * @private
    * @param {Ray[]} realRays
    * @param {Shape} projectorScreenBisectorLine
@@ -384,7 +407,7 @@ class LightRay {
   }
 
   /**
-   * Has the light ray a virtual component (virtual ray)?
+   * Has the light ray a virtual component (virtual ray)
    * @private
    * @param {boolean} isImageVirtual
    * @param {Ray[]} realRays
@@ -397,11 +420,11 @@ class LightRay {
   }
 
   /**
-   * Processes all the rays (virtual and real) into line segments.
+   * Processes all the rays (virtual and real) into shape lines.
    * @private
    * @param {number} distanceTraveled
    */
-  raysToSegments( distanceTraveled ) {
+  raysToShape( distanceTraveled ) {
 
     // {number} remaining distance to travel for the ray
     let remainingDistance = distanceTraveled;
@@ -409,36 +432,52 @@ class LightRay {
     // counter for real rays
     let i = 0;
 
-    // Process until we cover the entire distance, or until we ran out of rays.
+    // process until we cover the entire distance  or until we ran out of rays
     while ( remainingDistance > 0 && i < this.realRays.length ) {
 
-      // Real ray being processed
-      const realRay = this.realRays[ i ];
+      // ray being processed
+      const currentRay = this.realRays[ i ];
 
-      // Determine the distance covered by the line ray.
-      const realRayDistance = Math.min( remainingDistance, realRay.getLength() );
-      const realEndPoint = realRay.pointAtDistance( realRayDistance );
+      // determine the distance covered by the line ray
+      const realRayDistance = Math.min( remainingDistance, currentRay.getLength() );
 
-      // Add a line segment based on the traveling distance of the ray being processed
-      this.realSegments.push( new LightRaySegment( realRay.position, realEndPoint ) );
+      // update the real shape based on the traveling distance of the ray being processed
+      this.updateShape( this.realShape, currentRay, realRayDistance );
 
-      // Wait to process virtual ray until the virtual starting point matches the starting point of the ray being processed.
-      if ( this.virtualRay instanceof Ray && this.virtualRay.position === realRay.position ) {
+      // wait to process virtual ray until the virtual starting point matches the starting point of the ray being
+      // processed
+      if ( this.virtualRay instanceof Ray && this.virtualRay.position === currentRay.position ) {
 
-        // Determine the distance of the virtual ray.
+        // determine the distance of the virtual ray
         const virtualRayDistance = Math.min( remainingDistance, this.virtualRay.getLength() );
-        const virtualEndPoint = this.virtualRay.pointAtDistance( virtualRayDistance );
 
-        // Add a line segment based on the virtual ray.
-        this.virtualSegments.push( new LightRaySegment( this.virtualRay.position, virtualEndPoint ) );
+        // update the virtual ray shape based on the virtual ray
+        this.updateShape( this.virtualShape, this.virtualRay, virtualRayDistance );
       }
 
-      // Update the value of the distance remaining.
+      // update the value of the distance remaining
       remainingDistance = remainingDistance - realRayDistance;
 
-      // Update the realRay counter.
+      // update the realRay counter
       i++;
     }
+  }
+
+  /**
+   * Updates the shape of the light ray (be it virtual or real)  based on a model ray
+   * @private
+   *
+   * @param {Shape} shape
+   * @param {Ray} ray
+   * @param {number} travelDistance
+   */
+  updateShape( shape, ray, travelDistance ) {
+
+    // determine the end point based on the travel distance
+    const endPoint = ray.pointAtDistance( travelDistance );
+
+    // add line to shape
+    shape.moveToPoint( ray.position ).lineToPoint( endPoint );
   }
 }
 
