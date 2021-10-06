@@ -2,8 +2,10 @@
 
 /**
  * GeometricOpticsColors defines the color profile for this sim.
+ * See https://github.com/phetsims/geometric-optics/issues/182 for colors specification.
  *
  * @author Martin Veillette
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import ProfileColorProperty from '../../../scenery/js/util/ProfileColorProperty.js';
@@ -13,17 +15,19 @@ const GeometricOpticsColors = {
 
   // Background color used for all screens
   screenBackgroundColorProperty: new ProfileColorProperty( geometricOptics, 'screenBackgroundColor', {
-    default: 'rgb( 27, 27, 96 )'
+    default: 'black',
+    projector: 'white'
   } ),
 
   // Fill for the lens and mirror
   opticFillProperty: new ProfileColorProperty( geometricOptics, 'opticFill', {
-    default: 'rgb( 100, 100, 245 )'
+    default: 'rgb( 100, 100, 216 )'
   } ),
 
   // Stroke for the lens and mirror
   opticStrokeProperty: new ProfileColorProperty( geometricOptics, 'opticStroke', {
-    default: 'rgb( 255, 255, 255 )'
+    default: 'rgb( 255, 255, 255 )',
+    projector: 'black'
   } ),
 
   // Fill for focal points
@@ -33,7 +37,7 @@ const GeometricOpticsColors = {
 
   // Stroke for focal points
   focalPointStrokeProperty: new ProfileColorProperty( geometricOptics, 'focalPointStroke', {
-    default: 'rgb( 255, 255, 0 )'
+    default: 'black'
   } ),
 
   // Stroke for the optical axis
@@ -43,7 +47,7 @@ const GeometricOpticsColors = {
 
   // Fill for the second point of interest on the source object
   secondPointFillProperty: new ProfileColorProperty( geometricOptics, 'secondSourcePointFill', {
-    default: 'red'
+    default: 'rgb( 255, 51, 51 )'
   } ),
 
   // Stroke for the second point of interest on the source object
@@ -53,37 +57,41 @@ const GeometricOpticsColors = {
 
   // Rays associated with the real image produced by the first point of interest on the object or light source
   realRays1StrokeProperty: new ProfileColorProperty( geometricOptics, 'realRayOneStroke', {
-    default: 'rgb( 160, 226, 195 )'
+    default: 'rgb( 230, 230, 230 )',
+    projector: 'rgb( 140, 140, 140 )'
   } ),
 
   // Rays associated with the real image produced by the second point of interest on the object or light source
   realRays2StrokeProperty: new ProfileColorProperty( geometricOptics, 'realRayTwoStroke', {
-    default: 'rgb( 255, 207, 232 )'
+    default: 'rgb( 41, 214, 126 )'
   } ),
 
   // Rays associated with the virtual image produced by the first point of interest on the object or light source
   virtualRays1StrokeProperty: new ProfileColorProperty( geometricOptics, 'virtualRayOneStroke', {
-    default: 'rgb( 59, 177, 122 )'
+    default: 'rgb( 90, 90, 90 )',
+    projector: 'rgb( 30, 30, 30 )'
   } ),
 
   // Rays associated with the virtual image produced by the second point of interest on the object or light source
   virtualRays2StrokeProperty: new ProfileColorProperty( geometricOptics, 'virtualRayTwoStroke', {
-    default: 'rgb( 238, 106, 205 )'
+    default: 'rgb( 18, 109, 70 )'
   } ),
 
   // Light spot that appears on the projector screen
   lightSpotFillProperty: new ProfileColorProperty( geometricOptics, 'projectorScreenSpotlightFill', {
-    default: 'yellow'
+    default: 'rgb( 255, 220, 0 )'
   } ),
 
   // Color of the text on the labels
   labelFillProperty: new ProfileColorProperty( geometricOptics, 'labelFillProperty', {
-    default: 'white'
+    default: 'white',
+    projector: 'black'
   } ),
 
   // Background color for labels
   labelBackgroundFillProperty: new ProfileColorProperty( geometricOptics, 'labelBackgroundFill', {
-    default: 'rgba( 27, 27, 96, 0.5 )'
+    default: 'rgba( 27, 27, 96, 0.5 )',
+    projector: 'rgba( 255, 255, 255, 0.5 )'
   } ),
 
   // Fill of the arm (rectangle) portion of guides
@@ -113,7 +121,7 @@ const GeometricOpticsColors = {
 
   // Stroke for a selected radio button that determines the shape of the lens/mirror
   curveRadioButtonSelectedStrokeProperty: new ProfileColorProperty( geometricOptics, 'curveRadioButtonSelectedStroke', {
-    default: 'yellow'
+    default: 'rgb( 65, 154, 201 )'
   } ),
 
   // Stroke for a deselected radio button that determines the shape of the lens/mirror

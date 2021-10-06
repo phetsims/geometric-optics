@@ -23,13 +23,15 @@ class MirrorScreen extends Screen {
     // create concave mirror for home screen icon
     const iconNode = CurveRadioButtonGroup.createIconNode( Optic.Type.MIRROR, Optic.Curve.CONCAVE, {
       radius: 20,
-      diameter: 30,
-      outline: { stroke: 'black' }
+      diameter: 30
     } );
 
     const options = {
       name: geometricOpticsStrings.screen.mirror,
-      homeScreenIcon: new ScreenIcon( iconNode ),
+      homeScreenIcon: new ScreenIcon( iconNode, {
+        fill: GeometricOpticsColors.screenBackgroundColorProperty
+      } ),
+      showUnselectedHomeScreenIconFrame: true,
       backgroundColorProperty: GeometricOpticsColors.screenBackgroundColorProperty
     };
 

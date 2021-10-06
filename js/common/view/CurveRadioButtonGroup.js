@@ -19,8 +19,6 @@ import OpticShapes from '../model/OpticShapes.js';
 // constants
 const RADIUS_OF_CURVATURE = 22; // in view coordinates
 const DIAMETER = 30; // in view coordinates
-const FILL = 'rgb(133,153,197)'; // for body of optic
-const STROKE = 'white'; // for outline of optic
 const THICKNESS = 4; // thickness of mirror
 const STRUT_LENGTH = 42; // minimum size of the button
 
@@ -88,8 +86,16 @@ class CurveRadioButtonGroup extends RectangularRadioButtonGroup {
       diameter: DIAMETER, // height of the optic
       thickness: THICKNESS, // thickness of the backing of the mirror
       isHollywood: false, // is the curvature radius an accurate description of shape
-      form: { fill: FILL }, /// options for the form of the icon
-      outline: { stroke: STROKE }, // options for the contour or reflective surface
+
+      /// options for the form of the icon
+      form: {
+        fill: GeometricOpticsColors.opticFillProperty
+      },
+
+      // options for the contour or reflective surface
+      outline: {
+        stroke: GeometricOpticsColors.opticStrokeProperty
+      },
       buttonContentXMargin: 0,
       buttonContentYMargin: 0,
       strutLength: STRUT_LENGTH // minimum size of the Node (when including spacer)

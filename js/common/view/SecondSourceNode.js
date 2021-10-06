@@ -40,7 +40,7 @@ const LIGHT_SOURCE_DRAG_OFFSET = new Vector2( 2 * LIGHT_SOURCE_OFFSET.x, -2 * LI
 
 const CUEING_ARROW_LENGTH = 20;
 const CUEING_ARROW_OPTIONS = {
-  fill: 'rgb(255,0,0)',
+  fill: GeometricOpticsColors.secondPointFillProperty,
   tailWidth: 6,
   headWidth: 12,
   headHeight: 6

@@ -23,13 +23,15 @@ class LensScreen extends Screen {
     // create convex lens for home screen icon
     const iconNode = CurveRadioButtonGroup.createIconNode( Optic.Type.LENS, Optic.Curve.CONVEX, {
       radius: 20,
-      diameter: 30,
-      outline: { stroke: 'black' }
+      diameter: 30
     } );
 
     const options = {
       name: geometricOpticsStrings.screen.lens,
-      homeScreenIcon: new ScreenIcon( iconNode ),
+      homeScreenIcon: new ScreenIcon( iconNode, {
+        fill: GeometricOpticsColors.screenBackgroundColorProperty
+      } ),
+      showUnselectedHomeScreenIconFrame: true,
       backgroundColorProperty: GeometricOpticsColors.screenBackgroundColorProperty
     };
 
