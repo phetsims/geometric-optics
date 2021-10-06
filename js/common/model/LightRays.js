@@ -1,10 +1,11 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * LightRays is the model of bundles of rays.  It's primary responsibilities include the Shape of the rays associated
- * with the real image and the virtual image, and how those Shapes are animated over time.
+ * LightRays is the model of bundles of rays. It's primary responsibilities is to collect the line segments of
+ * multiple LightRay instances. Line segments are animated over time.
  *
  * @author Martin Veillette
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Emitter from '../../../../axon/js/Emitter.js';
@@ -13,9 +14,9 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import geometricOptics from '../../geometricOptics.js';
 import LightRay from './LightRay.js';
-import RaysMode from './RaysMode.js';
 import Optic from './Optic.js';
 import Ray from './Ray.js';
+import RaysMode from './RaysMode.js';
 
 class LightRays {
 
@@ -31,11 +32,11 @@ class LightRays {
   constructor( timeProperty, raysModeProperty, representationProperty, sourceObjectPositionProperty,
                projectorScreen, optic, target ) {
 
-    // @public (read-only) shape of a bundle of real rays at a point in time
-    this.realRaysShape = new Shape();
+    // @public (read-only) {LightRaySegment[]} segments for the real rays at a point in time
+    this.realSegments = [];
 
-    // @public (read-only) shape of a bundle of virtual rays at a point in time
-    this.virtualRaysShape = new Shape();
+    // @public (read-only) {LightRaySegment[]} segments for the virtual rays at a point in time
+    this.virtualSegments = new Shape();
 
     // @public tells view that it needs to update, fires after all rays are processed.
     this.raysProcessedEmitter = new Emitter();
@@ -53,11 +54,9 @@ class LightRays {
         optic.curveProperty ],
       ( sourcePosition, raysMode, time, representation ) => {
 
-        // @public (read-only)
-        this.realRaysShape = new Shape();
-
-        // @public (read-only)
-        this.virtualRaysShape = new Shape();
+        // Clear the arrays.
+        this.realSegments = [];
+        this.virtualSegments = [];
 
         // {Vector2} the position the target
         const targetPoint = target.positionProperty.value;
@@ -99,11 +98,9 @@ class LightRays {
             target.visibleProperty.value = true;
           }
 
-          // add this new real lightRay to the realRaysShape
-          addRayShape( lightRay.realShape, this.realRaysShape );
-
-          // add this new virtual lightRay to the virtualRaysShape
-          addRayShape( lightRay.virtualShape, this.virtualRaysShape );
+          // Add lightRay's line segments
+          this.realSegments.push( ...lightRay.realSegments );
+          this.virtualSegments.push( ...lightRay.virtualSegments );
         } );
 
         this.raysProcessedEmitter.emit();
@@ -195,17 +192,6 @@ function getRayDirections( sourcePosition, optic, raysMode, targetPoint ) {
     }
   }
   return directions;
-}
-
-/**
- * Adds the Shape for a single ray to the Shape associated with a bundle of rays.
- * @param {Shape} singleRayShape
- * @param {Shape} bundleOfRaysShape
- */
-function addRayShape( singleRayShape, bundleOfRaysShape ) {
-  singleRayShape.subpaths.forEach( subPath => {
-    bundleOfRaysShape.addSubpath( subPath );
-  } );
 }
 
 geometricOptics.register( 'LightRays', LightRays );
