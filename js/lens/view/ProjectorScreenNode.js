@@ -11,13 +11,16 @@ import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
+import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
 import projectorScreen_png from '../../../images/projectorScreen_png.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
+import GeometricOpticsQueryParameters from '../../common/GeometricOpticsQueryParameters.js';
 import geometricOptics from '../../geometricOptics.js';
 import ProjectorScreen from '../model/ProjectorScreen.js';
 
@@ -85,10 +88,27 @@ class ProjectorScreenNode extends Node {
       this.imagePositionProperty.value = dragBounds.closestPointTo( this.imagePositionProperty.value );
     } );
 
+    let screenMaskNode = null;
+    if ( GeometricOpticsQueryParameters.showProjectorScreenMask ) {
+      const leftTop = modelViewTransform.modelToViewPosition( GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS.LEFT_TOP );
+      const leftBottom = modelViewTransform.modelToViewPosition( GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS.LEFT_BOTTOM );
+      const rightTop = modelViewTransform.modelToViewPosition( GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS.RIGHT_TOP );
+      const rightBottom = modelViewTransform.modelToViewPosition( GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS.RIGHT_BOTTOM );
+      const shape = new Shape().moveToPoint( leftTop ).lineToPoint( rightTop ).lineToPoint( rightBottom ).lineToPoint( leftBottom ).close();
+      screenMaskNode = new Path( shape, {
+        stroke: 'red'
+      } );
+      this.addChild( screenMaskNode );
+    }
+
     // update the position of projectorScreen target
     this.imagePositionProperty.link( position => {
       projectorScreen.positionProperty.value = position.minus( offset );
-      projectorScreenImage.leftTop = modelViewTransform.modelToViewPosition( position );
+      const viewPosition = modelViewTransform.modelToViewPosition( position );
+      projectorScreenImage.leftTop = viewPosition;
+      if ( screenMaskNode ) {
+        screenMaskNode.leftTop = viewPosition;
+      }
     } );
   }
 

@@ -47,6 +47,12 @@ const GeometricOpticsQueryParameters = QueryStringMachine.getAll( {
     type: 'number',
     defaultValue: 400,
     isValidValue: value => ( value >= 100 )
+  },
+
+  // Shows the mask (Shape) that defines the projector screen area.
+  // This is used to adjust GeometricOptics.PROJECTOR_SCREEN_MASK_CORNERS to match the PNG file.
+  showProjectorScreenMask: {
+    type: 'flag'
   }
 } );
 
