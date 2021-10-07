@@ -33,7 +33,7 @@ const OVERALL_SCALE_FACTOR = 1;
 
 // Point where the light comes out of the light PNG image, in model coordinates
 //TODO why isn't this also used for the first light source? and can't use Representation.LIGHT.rightFacingUprightOffset ?
-const LIGHT_SOURCE_OFFSET = new Vector2( 34, -15 );
+const LIGHT_SOURCE_OFFSET = new Vector2( 30, -20 );
 
 //TODO no idea why this worked for https://github.com/phetsims/geometric-optics/issues/191, circle back
 const LIGHT_SOURCE_DRAG_OFFSET = new Vector2( 2 * LIGHT_SOURCE_OFFSET.x, -2 * LIGHT_SOURCE_OFFSET.y );
