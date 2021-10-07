@@ -88,28 +88,32 @@ class ProjectorScreenNode extends Node {
       this.imagePositionProperty.value = dragBounds.closestPointTo( this.imagePositionProperty.value );
     } );
 
-    let screenMaskNode = null;
-    if ( GeometricOpticsQueryParameters.showProjectorScreenMask ) {
-      const leftTop = modelViewTransform.modelToViewPosition( GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS.LEFT_TOP );
-      const leftBottom = modelViewTransform.modelToViewPosition( GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS.LEFT_BOTTOM );
-      const rightTop = modelViewTransform.modelToViewPosition( GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS.RIGHT_TOP );
-      const rightBottom = modelViewTransform.modelToViewPosition( GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS.RIGHT_BOTTOM );
-      const shape = new Shape().moveToPoint( leftTop ).lineToPoint( rightTop ).lineToPoint( rightBottom ).lineToPoint( leftBottom ).close();
-      screenMaskNode = new Path( shape, {
-        stroke: 'red'
-      } );
-      this.addChild( screenMaskNode );
-    }
-
     // update the position of projectorScreen target
     this.imagePositionProperty.link( position => {
       projectorScreen.positionProperty.value = position.minus( offset );
-      const viewPosition = modelViewTransform.modelToViewPosition( position );
-      projectorScreenImage.leftTop = viewPosition;
-      if ( screenMaskNode ) {
-        screenMaskNode.leftTop = viewPosition;
-      }
+      projectorScreenImage.leftTop = modelViewTransform.modelToViewPosition( position );
     } );
+
+    // Show the mask that corresponds to the area where light can be seen on the projector screen.
+    // The Shape is described clockwise, from leftTop.
+    if ( GeometricOpticsQueryParameters.showProjectorScreenMask ) {
+      const modelShape = new Shape()
+        .moveToPoint( GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS.LEFT_TOP )
+        .lineToPoint( GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS.RIGHT_TOP )
+        .lineToPoint( GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS.RIGHT_BOTTOM )
+        .lineToPoint( GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS.LEFT_BOTTOM )
+        .close();
+      const screenMaskNode = new Path( modelViewTransform.modelToViewShape( modelShape ), {
+        stroke: 'red'
+      } );
+      this.addChild( screenMaskNode );
+
+      projectorScreen.positionProperty.link( position => {
+        screenMaskNode.center = modelViewTransform.modelToViewPosition( position );
+      } );
+    }
+
+
   }
 
   /**

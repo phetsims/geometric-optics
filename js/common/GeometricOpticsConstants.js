@@ -60,11 +60,12 @@ const GeometricOpticsConstants = {
   //----------------------------------------------------------------------------------------
   //                             PROJECTION SCREEN
 
+  // in centimeters, relative to projectorScreen.png. +x is left, +y is up.
   PROJECTOR_SCREEN_MASK_CORNERS: {
-    LEFT_TOP: new Vector2( -28, 39 ), // centimeters
-    LEFT_BOTTOM: new Vector2( -28, -51 ),
-    RIGHT_BOTTOM: new Vector2( 25, -83 ),
-    RIGHT_TOP: new Vector2( 25, 72 )
+    LEFT_TOP: new Vector2( -21, 55 ), // centimeters
+    LEFT_BOTTOM: new Vector2( -21, -55 ),
+    RIGHT_BOTTOM: new Vector2( 21, -68 ),
+    RIGHT_TOP: new Vector2( 21, 68 )
   },
 
   PROJECTOR_INITIAL_POSITION: new Vector2( 200, 0 ),

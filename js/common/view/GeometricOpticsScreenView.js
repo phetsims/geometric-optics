@@ -62,7 +62,8 @@ class GeometricOpticsScreenView extends ScreenView {
     const erodedLayoutBounds = this.layoutBounds.erodedXY( GeometricOpticsConstants.SCREEN_VIEW_X_MARGIN,
       GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN );
 
-    // create a Y inverted modelViewTransform with isometric scaling along X and Y
+    // Create a Y inverted modelViewTransform with isometric scaling along x and y axes.
+    // In the model coordinate frame, +x is right, +y is up.
     const modelViewTransform = this.getZoomTransform( ZOOM_RANGE.defaultValue );
 
     // Properties  ====================================================================================================

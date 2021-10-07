@@ -49,7 +49,7 @@ const GeometricOpticsQueryParameters = QueryStringMachine.getAll( {
     isValidValue: value => ( value >= 100 )
   },
 
-  // Shows the mask (Shape) that defines the projector screen area.
+  // Shows the mask that corresponds to the area where light can be seen on the projector screen.
   // This is used to adjust GeometricOptics.PROJECTOR_SCREEN_MASK_CORNERS to match the PNG file.
   showProjectorScreenMask: {
     type: 'flag'
