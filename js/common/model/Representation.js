@@ -41,6 +41,10 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 const OBJECT_SCALE_FACTOR = 4;
 const SOURCE_SCALE_FACTOR = 2;
 
+// How much to shift the upper-left corner of the Object image, in cm.
+// This is specific to the object PNG files, and must be uniform for all object PNG files.
+const POINT_OF_INTEREST_OFFSET = new Vector2( -67, 100 );
+
 /**
  * RepresentationValue is a value for this rich enumeration.
  */
@@ -109,7 +113,7 @@ const Representation = Enumeration.byMap( {
     rightFacingInverted: pencilRightFacingInverted_png,
     leftFacingUpright: pencilLeftFacingUpright_png,
     leftFacingInverted: pencilLeftFacingInverted_png,
-    rightFacingUprightOffset: new Vector2( -64, 70 ),
+    rightFacingUprightOffset: POINT_OF_INTEREST_OFFSET,
     isObject: true
   } ),
 
@@ -120,7 +124,7 @@ const Representation = Enumeration.byMap( {
     rightFacingInverted: penguinRightFacingInverted_png,
     leftFacingUpright: penguinLeftFacingUpright_png,
     leftFacingInverted: penguinLeftFacingInverted_png,
-    rightFacingUprightOffset: new Vector2( -80, 88 ),
+    rightFacingUprightOffset: POINT_OF_INTEREST_OFFSET,
     isObject: true
   } ),
 
@@ -131,7 +135,7 @@ const Representation = Enumeration.byMap( {
     rightFacingInverted: planetRightFacingInverted_png,
     leftFacingUpright: planetLeftFacingUpright_png,
     leftFacingInverted: planetLeftFacingInverted_png,
-    rightFacingUprightOffset: new Vector2( -68, 112 ),
+    rightFacingUprightOffset: POINT_OF_INTEREST_OFFSET,
     isObject: true
   } ),
 
@@ -142,7 +146,7 @@ const Representation = Enumeration.byMap( {
     rightFacingInverted: starRightFacingInverted_png,
     leftFacingUpright: starLeftFacingUpright_png,
     leftFacingInverted: starLeftFacingInverted_png,
-    rightFacingUprightOffset: new Vector2( -68, 112 ),
+    rightFacingUprightOffset: POINT_OF_INTEREST_OFFSET,
     isObject: true
   } ),
 
@@ -153,7 +157,7 @@ const Representation = Enumeration.byMap( {
     rightFacingInverted: null,
     leftFacingUpright: null,
     leftFacingInverted: null,
-    rightFacingUprightOffset: new Vector2( -68, 30 ),
+    rightFacingUprightOffset: POINT_OF_INTEREST_OFFSET,
     isObject: false,
     secondSourceImage: lamp2_png
   } )
