@@ -43,7 +43,11 @@ const SOURCE_SCALE_FACTOR = 2;
 
 // How much to shift the upper-left corner of the Object image, in cm.
 // This is specific to the object PNG files, and must be uniform for all object PNG files.
-const POINT_OF_INTEREST_OFFSET = new Vector2( -67, 100 );
+const OBJECT_OFFSET = new Vector2( -67, 100 );
+
+// How much to shift the upper-left corner of the light source, in cm.
+// This is specific to the light-source PNG files, and must be uniform for all light-source PNG files.
+const LIGHT_SOURCE_OFFSET = new Vector2( -60, 40 );
 
 /**
  * RepresentationValue is a value for this rich enumeration.
@@ -113,7 +117,7 @@ const Representation = Enumeration.byMap( {
     rightFacingInverted: pencilRightFacingInverted_png,
     leftFacingUpright: pencilLeftFacingUpright_png,
     leftFacingInverted: pencilLeftFacingInverted_png,
-    rightFacingUprightOffset: POINT_OF_INTEREST_OFFSET,
+    rightFacingUprightOffset: OBJECT_OFFSET,
     isObject: true
   } ),
 
@@ -124,7 +128,7 @@ const Representation = Enumeration.byMap( {
     rightFacingInverted: penguinRightFacingInverted_png,
     leftFacingUpright: penguinLeftFacingUpright_png,
     leftFacingInverted: penguinLeftFacingInverted_png,
-    rightFacingUprightOffset: POINT_OF_INTEREST_OFFSET,
+    rightFacingUprightOffset: OBJECT_OFFSET,
     isObject: true
   } ),
 
@@ -135,7 +139,7 @@ const Representation = Enumeration.byMap( {
     rightFacingInverted: planetRightFacingInverted_png,
     leftFacingUpright: planetLeftFacingUpright_png,
     leftFacingInverted: planetLeftFacingInverted_png,
-    rightFacingUprightOffset: POINT_OF_INTEREST_OFFSET,
+    rightFacingUprightOffset: OBJECT_OFFSET,
     isObject: true
   } ),
 
@@ -146,7 +150,7 @@ const Representation = Enumeration.byMap( {
     rightFacingInverted: starRightFacingInverted_png,
     leftFacingUpright: starLeftFacingUpright_png,
     leftFacingInverted: starLeftFacingInverted_png,
-    rightFacingUprightOffset: POINT_OF_INTEREST_OFFSET,
+    rightFacingUprightOffset: OBJECT_OFFSET,
     isObject: true
   } ),
 
@@ -157,7 +161,7 @@ const Representation = Enumeration.byMap( {
     rightFacingInverted: null,
     leftFacingUpright: null,
     leftFacingInverted: null,
-    rightFacingUprightOffset: POINT_OF_INTEREST_OFFSET,
+    rightFacingUprightOffset: LIGHT_SOURCE_OFFSET,
     isObject: false,
     secondSourceImage: lamp2_png
   } )
