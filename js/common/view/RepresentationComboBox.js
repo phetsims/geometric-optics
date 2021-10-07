@@ -50,7 +50,7 @@ class RepresentationComboBox extends ComboBox {
       } );
 
       // create icon
-      const icon = new Image( representation.icon, { scale: 0.075 } );
+      const icon = new Image( representation.icon, { scale: 0.22 } );
 
       // hold the logo followed by text in a hbox
       const hBox = new HBox( { spacing: 5, children: [ icon, text ] } );

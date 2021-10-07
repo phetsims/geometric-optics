@@ -11,24 +11,29 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
-import lampBlue_png from '../../../images/lampBlue_png.js';
-import lampBlueIcon_png from '../../../images/lampBlueIcon_png.js';
-import lampRed_png from '../../../images/lampRed_png.js';
+import lamp1_png from '../../../images/lamp1_png.js';
+import lamp2_png from '../../../images/lamp2_png.js';
+import lampIcon_png from '../../../images/lampIcon_png.js';
 import pencilIcon_png from '../../../images/pencilIcon_png.js';
 import pencilLeftFacingInverted_png from '../../../images/pencilLeftFacingInverted_png.js';
 import pencilLeftFacingUpright_png from '../../../images/pencilLeftFacingUpright_png.js';
 import pencilRightFacingInverted_png from '../../../images/pencilRightFacingInverted_png.js';
 import pencilRightFacingUpright_png from '../../../images/pencilRightFacingUpright_png.js';
-import rocketIcon_png from '../../../images/rocketIcon_png.js';
-import rocketLeftFacingInverted_png from '../../../images/rocketLeftFacingInverted_png.js';
-import rocketLeftFacingUpright_png from '../../../images/rocketLeftFacingUpright_png.js';
-import rocketRightFacingInverted_png from '../../../images/rocketRightFacingInverted_png.js';
-import rocketRightFacingUpright_png from '../../../images/rocketRightFacingUpright_png.js';
-import treeIcon_png from '../../../images/treeIcon_png.js';
-import treeLeftFacingInverted_png from '../../../images/treeLeftFacingInverted_png.js';
-import treeLeftFacingUpright_png from '../../../images/treeLeftFacingUpright_png.js';
-import treeRightFacingInverted_png from '../../../images/treeRightFacingInverted_png.js';
-import treeRightFacingUpright_png from '../../../images/treeRightFacingUpright_png.js';
+import penguinIcon_png from '../../../images/penguinIcon_png.js';
+import penguinLeftFacingInverted_png from '../../../images/penguinLeftFacingInverted_png.js';
+import penguinLeftFacingUpright_png from '../../../images/penguinLeftFacingUpright_png.js';
+import penguinRightFacingInverted_png from '../../../images/penguinRightFacingInverted_png.js';
+import penguinRightFacingUpright_png from '../../../images/penguinRightFacingUpright_png.js';
+import planetIcon_png from '../../../images/planetIcon_png.js';
+import planetLeftFacingInverted_png from '../../../images/planetLeftFacingInverted_png.js';
+import planetLeftFacingUpright_png from '../../../images/planetLeftFacingUpright_png.js';
+import planetRightFacingInverted_png from '../../../images/planetRightFacingInverted_png.js';
+import planetRightFacingUpright_png from '../../../images/planetRightFacingUpright_png.js';
+import starIcon_png from '../../../images/starIcon_png.js';
+import starLeftFacingInverted_png from '../../../images/starLeftFacingInverted_png.js';
+import starLeftFacingUpright_png from '../../../images/starLeftFacingUpright_png.js';
+import starRightFacingInverted_png from '../../../images/starRightFacingInverted_png.js';
+import starRightFacingUpright_png from '../../../images/starRightFacingUpright_png.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 
@@ -108,38 +113,49 @@ const Representation = Enumeration.byMap( {
     isObject: true
   } ),
 
-  TREE: new RepresentationValue( {
-    label: geometricOpticsStrings.tree,
-    icon: treeIcon_png,
-    rightFacingUpright: treeRightFacingUpright_png,
-    rightFacingInverted: treeRightFacingInverted_png,
-    leftFacingUpright: treeLeftFacingUpright_png,
-    leftFacingInverted: treeLeftFacingInverted_png,
+  PENGUIN: new RepresentationValue( {
+    label: geometricOpticsStrings.penguin,
+    icon: penguinIcon_png,
+    rightFacingUpright: penguinRightFacingUpright_png,
+    rightFacingInverted: penguinRightFacingInverted_png,
+    leftFacingUpright: penguinLeftFacingUpright_png,
+    leftFacingInverted: penguinLeftFacingInverted_png,
     rightFacingUprightOffset: new Vector2( -80, 88 ),
     isObject: true
   } ),
 
-  ROCKET: new RepresentationValue( {
-    label: geometricOpticsStrings.rocket,
-    icon: rocketIcon_png,
-    rightFacingUpright: rocketRightFacingUpright_png,
-    rightFacingInverted: rocketRightFacingInverted_png,
-    leftFacingUpright: rocketLeftFacingUpright_png,
-    leftFacingInverted: rocketLeftFacingInverted_png,
+  PLANET: new RepresentationValue( {
+    label: geometricOpticsStrings.planet,
+    icon: planetIcon_png,
+    rightFacingUpright: planetRightFacingUpright_png,
+    rightFacingInverted: planetRightFacingInverted_png,
+    leftFacingUpright: planetLeftFacingUpright_png,
+    leftFacingInverted: planetLeftFacingInverted_png,
+    rightFacingUprightOffset: new Vector2( -68, 112 ),
+    isObject: true
+  } ),
+
+  STAR: new RepresentationValue( {
+    label: geometricOpticsStrings.star,
+    icon: starIcon_png,
+    rightFacingUpright: starRightFacingUpright_png,
+    rightFacingInverted: starRightFacingInverted_png,
+    leftFacingUpright: starLeftFacingUpright_png,
+    leftFacingInverted: starLeftFacingInverted_png,
     rightFacingUprightOffset: new Vector2( -68, 112 ),
     isObject: true
   } ),
 
   LIGHT: new RepresentationValue( {
     label: geometricOpticsStrings.light,
-    icon: lampBlueIcon_png,
-    rightFacingUpright: lampBlue_png,
+    icon: lampIcon_png,
+    rightFacingUpright: lamp1_png,
     rightFacingInverted: null,
     leftFacingUpright: null,
     leftFacingInverted: null,
     rightFacingUprightOffset: new Vector2( -68, 30 ),
     isObject: false,
-    secondSourceImage: lampRed_png
+    secondSourceImage: lamp2_png
   } )
 } );
 

@@ -5,7 +5,7 @@
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/190958/pencil-icon, edited by Patrick Wolfert, edited by Sarah Chang"
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
   },
   "pencilRightFacingUpright.png": {
     "text": [
@@ -13,7 +13,7 @@
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/190958/pencil-icon, edited by Patrick Wolfert"
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
   },
   "pencilRightFacingInverted.png": {
     "text": [
@@ -21,7 +21,7 @@
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/190958/pencil-icon, edited by Patrick Wolfert"
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
   },
   "pencilLeftFacingInverted.png": {
     "text": [
@@ -29,7 +29,7 @@
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/190958/pencil-icon, edited by Patrick Wolfert"
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
   },
   "pencilLeftFacingUpright.png": {
     "text": [
@@ -37,111 +37,151 @@
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/190958/pencil-icon, edited by Patrick Wolfert"
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
   },
-  "rocketIcon.png": {
+  "penguinIcon.png": {
     "text": [
       "Copyright 2021 University of Colorado Boulder"
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/178310/rocket, edited by Patrick Wolfert, edited by Sarah Chang"
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
   },
-  "rocketRightFacingUpright.png": {
+  "penguinRightFacingUpright.png": {
     "text": [
       "Copyright 2021 University of Colorado Boulder"
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/178310/rocket, edited by Patrick Wolfert"
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
   },
-  "rocketRightFacingInverted.png": {
+  "penguinRightFacingInverted.png": {
     "text": [
       "Copyright 2021 University of Colorado Boulder"
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/178310/rocket, edited by Patrick Wolfert"
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
   },
-  "rocketLeftFacingUpright.png": {
+  "penguinLeftFacingUpright.png": {
     "text": [
       "Copyright 2021 University of Colorado Boulder"
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by williamtheaker, downloaded from https://openclipart.org/detail/178310/rocket, edited by Patrick Wolfert"
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
   },
-  "rocketLeftFacingInverted.png": {
+  "penguinLeftFacingInverted.png": {
     "text": [
       "Copyright 2021 University of Colorado Boulder"
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "by williamtheaker, downloaded from https://openclipart.org/detail/178310/rocket, edited by Patrick Wolfert"
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
   },
-  "treeIcon.png": {
+  "planetIcon.png": {
     "text": [
       "Copyright 2021 University of Colorado Boulder"
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "by Patrick Wolfert; original image by PrinterKiller, downloaded from https://openclipart.org/detail/161173/tree"
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
   },
-  "treeRightFacingUpright.png": {
+  "planetRightFacingUpright.png": {
     "text": [
       "Copyright 2021 University of Colorado Boulder"
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "by Patrick Wolfert; original image by PrinterKiller, downloaded from https://openclipart.org/detail/161173/tree"
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
   },
-  "treeRightFacingInverted.png": {
+  "planetRightFacingInverted.png": {
     "text": [
       "Copyright 2021 University of Colorado Boulder"
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "by Patrick Wolfert; original image by PrinterKiller, downloaded from https://openclipart.org/detail/161173/tree"
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
   },
-  "treeLeftFacingUpright.png": {
+  "planetLeftFacingUpright.png": {
     "text": [
       "Copyright 2021 University of Colorado Boulder"
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "by Patrick Wolfert; original image by PrinterKiller, downloaded from https://openclipart.org/detail/161173/tree"
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
   },
-  "treeLeftFacingInverted.png": {
+  "planetLeftFacingInverted.png": {
     "text": [
       "Copyright 2021 University of Colorado Boulder"
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "by Patrick Wolfert; original image by PrinterKiller, downloaded from https://openclipart.org/detail/161173/tree"
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
   },
-  "lampBlue.png": {
+  "starIcon.png": {
     "text": [
       "Copyright 2021 University of Colorado Boulder"
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Patrick Wolfert"
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
   },
-  "lampBlueIcon.png": {
+  "starRightFacingUpright.png": {
     "text": [
       "Copyright 2021 University of Colorado Boulder"
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Patrick Wolfert, edited by Sarah Chang"
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
   },
-  "lampRed.png": {
+  "starRightFacingInverted.png": {
     "text": [
       "Copyright 2021 University of Colorado Boulder"
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Patrick Wolfert"
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
+  },
+  "starLeftFacingUpright.png": {
+    "text": [
+      "Copyright 2021 University of Colorado Boulder"
+    ],
+    "projectURL": "https://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
+  },
+  "starLeftFacingInverted.png": {
+    "text": [
+      "Copyright 2021 University of Colorado Boulder"
+    ],
+    "projectURL": "https://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
+  },
+  "lampIcon.png": {
+    "text": [
+      "Copyright 2021 University of Colorado Boulder"
+    ],
+    "projectURL": "https://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
+  },
+  "lamp1.png": {
+    "text": [
+      "Copyright 2021 University of Colorado Boulder"
+    ],
+    "projectURL": "https://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
+  },
+  "lamp2.png": {
+    "text": [
+      "Copyright 2021 University of Colorado Boulder"
+    ],
+    "projectURL": "https://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
   },
   "projectorScreen.png": {
     "text": [
@@ -149,6 +189,22 @@
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Patrick Wolfert"
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
+  },
+  "projectorScreenFrameOnly.png": {
+    "text": [
+      "Copyright 2021 University of Colorado Boulder"
+    ],
+    "projectURL": "https://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
+  },
+  "projectorScreenScreenOnly.png": {
+    "text": [
+      "Copyright 2021 University of Colorado Boulder"
+    ],
+    "projectURL": "https://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Megan Lai, edited by Amy Rouinfar"
   }
 }

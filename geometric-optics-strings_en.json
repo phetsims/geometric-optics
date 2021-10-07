@@ -65,17 +65,20 @@
   "valueCentimetersPattern": {
     "value": "{{value}} cm"
   },
-  "light": {
-    "value": "Light"
-  },
-  "rocket": {
-    "value": "Rocket"
-  },
   "pencil": {
     "value": "Pencil"
   },
-  "tree": {
-    "value": "Tree"
+  "penguin": {
+    "value": "Penguin"
+  },
+  "planet": {
+    "value": "Planet"
+  },
+  "star": {
+    "value": "Star"
+  },
+  "light": {
+    "value": "Light"
   },
   "centimeters": {
     "value": "cm"
