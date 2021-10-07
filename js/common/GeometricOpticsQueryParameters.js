@@ -53,6 +53,11 @@ const GeometricOpticsQueryParameters = QueryStringMachine.getAll( {
   // This is used to adjust GeometricOptics.PROJECTOR_SCREEN_MASK_CORNERS to match the PNG file.
   showProjectorScreenMask: {
     type: 'flag'
+  },
+
+  // Shows the origins of various things as a red dot.
+  showOrigins: {
+    type: 'flag'
   }
 } );
 

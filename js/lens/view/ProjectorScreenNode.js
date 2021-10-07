@@ -15,6 +15,7 @@ import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
+import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -97,19 +98,30 @@ class ProjectorScreenNode extends Node {
     // Show the mask that corresponds to the area where light can be seen on the projector screen.
     // The Shape is described clockwise, from leftTop.
     if ( GeometricOpticsQueryParameters.showProjectorScreenMask ) {
-      const modelShape = new Shape()
-        .moveToPoint( GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS.LEFT_TOP )
-        .lineToPoint( GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS.RIGHT_TOP )
-        .lineToPoint( GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS.RIGHT_BOTTOM )
-        .lineToPoint( GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS.LEFT_BOTTOM )
+      const shape = new Shape()
+        .moveToPoint( modelViewTransform.modelToViewPosition( GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS.LEFT_TOP ) )
+        .lineToPoint( modelViewTransform.modelToViewPosition( GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS.RIGHT_TOP ) )
+        .lineToPoint( modelViewTransform.modelToViewPosition( GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS.RIGHT_BOTTOM ) )
+        .lineToPoint( modelViewTransform.modelToViewPosition( GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS.LEFT_BOTTOM ) )
         .close();
-      const screenMaskNode = new Path( modelViewTransform.modelToViewShape( modelShape ), {
+      const screenMaskNode = new Path( shape, {
         stroke: 'red'
       } );
       this.addChild( screenMaskNode );
 
       projectorScreen.positionProperty.link( position => {
+
+        //TODO https://github.com/phetsims/fourier-making-waves/issues/207, this should not be center
         screenMaskNode.center = modelViewTransform.modelToViewPosition( position );
+      } );
+    }
+
+    // Show the origin as a red dot.
+    if ( GeometricOpticsQueryParameters.showOrigins ) {
+      const originNode = new Circle( 3, { fill: 'red' } );
+      this.addChild( originNode );
+      projectorScreen.positionProperty.link( position => {
+        originNode.center = modelViewTransform.modelToViewPosition( position );
       } );
     }
   }
