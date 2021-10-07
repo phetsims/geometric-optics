@@ -112,8 +112,6 @@ class ProjectorScreenNode extends Node {
         screenMaskNode.center = modelViewTransform.modelToViewPosition( position );
       } );
     }
-
-
   }
 
   /**
