@@ -13,7 +13,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
 import lamp1_png from '../../../images/lamp1_png.js';
 import lamp2_png from '../../../images/lamp2_png.js';
-import lampIcon_png from '../../../images/lampIcon_png.js';
+import lightIcon_png from '../../../images/lightIcon_png.js';
 import pencilIcon_png from '../../../images/pencilIcon_png.js';
 import pencilLeftFacingInverted_png from '../../../images/pencilLeftFacingInverted_png.js';
 import pencilLeftFacingUpright_png from '../../../images/pencilLeftFacingUpright_png.js';
@@ -156,7 +156,7 @@ const Representation = Enumeration.byMap( {
 
   LIGHT: new RepresentationValue( {
     label: geometricOpticsStrings.light,
-    icon: lampIcon_png,
+    icon: lightIcon_png,
     rightFacingUpright: lamp1_png,
     rightFacingInverted: null,
     leftFacingUpright: null,
