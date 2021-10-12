@@ -81,10 +81,10 @@ class RepresentationValue {
       isObject: required( config.isObject ),
 
       // optional fields
-      secondSourceImage: null // {HTMLImageElement|null} image for second source of light
+      secondLightSourceImage: null // {HTMLImageElement|null} image for second source of light
     }, config );
 
-    assert && assert( !( config.isObject && config.secondSourceImage ) );
+    assert && assert( !( config.isObject && config.secondLightSourceImage ) );
 
     // @public (read-only)
     this.label = config.label;
@@ -95,7 +95,7 @@ class RepresentationValue {
     this.leftFacingInverted = config.leftFacingInverted;
     this.rightFacingUprightOffset = config.rightFacingUprightOffset;
     this.isObject = config.isObject;
-    this.secondSourceImage = config.secondSourceImage;
+    this.secondLightSourceImage = config.secondLightSourceImage;
   }
 
   /**
@@ -163,7 +163,7 @@ const Representation = Enumeration.byMap( {
     leftFacingInverted: null,
     rightFacingUprightOffset: LIGHT_SOURCE_OFFSET,
     isObject: false,
-    secondSourceImage: lamp2_png
+    secondLightSourceImage: lamp2_png
   } )
 } );
 

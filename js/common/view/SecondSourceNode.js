@@ -29,7 +29,7 @@ import SecondSource from '../model/SecondSource.js';
 
 // constants
 const POINT_RADIUS = 5;
-const OVERALL_SCALE_FACTOR = 1;
+const LIGHT_SOURCE_IMAGE_SCALE = 1;
 
 // Point where the light comes out of the light PNG image, in model coordinates
 //TODO why isn't this also used for the first light source? and can't use Representation.LIGHT.rightFacingUprightOffset ?
@@ -73,7 +73,9 @@ class SecondSourceNode extends Node {
     } );
 
     // Light image for the second source
-    const secondSourceImage = new Image( Representation.LIGHT.secondSourceImage, { scale: OVERALL_SCALE_FACTOR } );
+    const secondLightSourceImage = new Image( Representation.LIGHT.secondLightSourceImage, {
+      scale: LIGHT_SOURCE_IMAGE_SCALE
+    } );
 
     // Property for the position of the second source node
     const positionProperty = new Vector2Property( secondSource.positionProperty.value );
@@ -145,8 +147,8 @@ class SecondSourceNode extends Node {
       else {
 
         // add second light source
-        this.addChild( secondSourceImage );
-        this.touchArea = secondSourceImage.localBounds.dilateXY( 5, 5 );
+        this.addChild( secondLightSourceImage );
+        this.touchArea = secondLightSourceImage.localBounds.dilateXY( 5, 5 );
       }
       updatePosition( secondSource.positionProperty.value );
     } );
