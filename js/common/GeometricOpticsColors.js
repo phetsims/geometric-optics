@@ -57,7 +57,7 @@ const GeometricOpticsColors = {
 
   // Rays associated with the real image produced by the first point of interest on the object or light source
   realRays1StrokeProperty: new ProfileColorProperty( geometricOptics, 'realRayOneStroke', {
-    default: 'rgb( 230, 230, 230 )',
+    default: 'rgb( 200, 200, 200 )',
     projector: 'rgb( 140, 140, 140 )'
   } ),
 
