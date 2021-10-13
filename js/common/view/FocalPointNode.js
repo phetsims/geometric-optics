@@ -16,7 +16,7 @@ import FocalPoint from '../model/FocalPoint.js';
 
 // constants
 const DEFAULT_OPTIONS = {
-  size: new Dimension2( 15, 3 ),  // width of the X sign and "thickness" in X sign
+  size: new Dimension2( 15, 3 ), // width of the X sign and "thickness" in X sign
   lineWidth: 1,
   fill: GeometricOpticsColors.focalPointFillProperty,
   stroke: GeometricOpticsColors.focalPointStrokeProperty,
