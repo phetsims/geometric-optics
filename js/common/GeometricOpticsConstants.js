@@ -20,7 +20,6 @@ const GeometricOpticsConstants = {
   SCREEN_VIEW_Y_MARGIN: 15, // margin along vertical axis of screen
 
   ZOOM_RANGE: new RangeWithValue( 1, 3, 3 ),
-  ZOOM_SCALE_FACTOR: 2, // should not be changed to keep major tick labels as multiples of 10
 
   //TODO this is awful, relies on ScreenView.DEFAULT_LAYOUT_BOUNDS
   ORIGIN_POINT: new Vector2( 1024 / 2, 618 / 2 - 50 ), // view position of the model origin (0,0)
