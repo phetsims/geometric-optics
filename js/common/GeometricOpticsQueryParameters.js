@@ -27,12 +27,12 @@ const GeometricOpticsQueryParameters = QueryStringMachine.getAll( {
   // Internal query parameters
   //----------------------------------------------------------------------------------------------------------------
 
-  // show the positions of the object, target and optic.
+  // Show the positions of the optic, object, target, projector screen as red dots.
   showDebugPoints: {
     type: 'flag'
   },
 
-  // show the position of points at a distance 2f from the optic.
+  // Show 2f, twice the focal length, as dots that are the same color as the focal points.
   show2fPoints: {
     type: 'flag'
   },
@@ -52,11 +52,6 @@ const GeometricOpticsQueryParameters = QueryStringMachine.getAll( {
   // Shows the mask that corresponds to the area where light can be seen on the projector screen.
   // This is used to adjust GeometricOptics.PROJECTOR_SCREEN_MASK_CORNERS to match the PNG file.
   showProjectorScreenMask: {
-    type: 'flag'
-  },
-
-  // Shows the origins of various things as a red dot.
-  showOrigins: {
     type: 'flag'
   }
 } );

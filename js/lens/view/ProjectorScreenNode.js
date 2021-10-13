@@ -14,7 +14,6 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
-import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -101,15 +100,6 @@ class ProjectorScreenNode extends Node {
       this.addChild( screenMaskNode );
       projectorScreen.positionProperty.link( position => {
         screenMaskNode.shape = modelViewTransform.modelToViewShape( projectorScreen.getScreenShape() );
-      } );
-    }
-
-    // Show the origin as a red dot.
-    if ( GeometricOpticsQueryParameters.showOrigins ) {
-      const originNode = new Circle( 3, { fill: 'red' } );
-      this.addChild( originNode );
-      projectorScreen.positionProperty.link( position => {
-        originNode.center = modelViewTransform.modelToViewPosition( position );
       } );
     }
   }
