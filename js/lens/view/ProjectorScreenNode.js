@@ -28,15 +28,15 @@ class ProjectorScreenNode extends Node {
   /**
    * @param {ProjectorScreen} projectorScreen
    * @param {Property.<Vector2>} opticPositionProperty
-   * @param {Property.<Bounds2>} visibleModelBoundsProperty
+   * @param {Property.<Bounds2>} modelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( projectorScreen, opticPositionProperty, visibleModelBoundsProperty, modelViewTransform, options ) {
+  constructor( projectorScreen, opticPositionProperty, modelBoundsProperty, modelViewTransform, options ) {
 
     assert && assert( projectorScreen instanceof ProjectorScreen );
     assert && assert( opticPositionProperty instanceof Property );
-    assert && assert( visibleModelBoundsProperty instanceof Property );
+    assert && assert( modelBoundsProperty instanceof Property );
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     options = merge( {
@@ -61,29 +61,30 @@ class ProjectorScreenNode extends Node {
     // difference between the left top position of the image and the "center" of the screen in model coordinates
     const offset = new Vector2( -modelChildWidth, modelChildHeight ).divideScalar( 2 );
 
-    // {DerivedProperty.<Bounds2>} keep at least half of the projector screen within visible bounds and right of the optic
-    const projectorScreenDragBoundsProperty = new DerivedProperty(
-      [ visibleModelBoundsProperty, opticPositionProperty ],
-      ( visibleBounds, opticPosition ) =>
-        new Bounds2( opticPosition.x,
-          visibleBounds.minY + modelChildHeight / 2,
-          visibleBounds.maxX - modelChildWidth / 2,
-          visibleBounds.maxY + modelChildHeight / 2 )
+    // {DerivedProperty.<Bounds2>} Keep the projector screen fully within model bounds, and right of the optic.
+    const dragBoundsProperty = new DerivedProperty(
+      [ modelBoundsProperty, opticPositionProperty ],
+      ( modelBounds, opticPosition ) =>
+        new Bounds2(
+          opticPosition.x,
+          modelBounds.minY + modelChildHeight,
+          modelBounds.maxX - modelChildWidth,
+          modelBounds.maxY
+        )
     );
 
     // @private left top position of the projector screen image
     this.imagePositionProperty = new Vector2Property( projectorScreen.positionProperty.value.plus( offset ) );
 
     // create a drag listener for the image
-    const dragListener = new DragListener( {
+    projectorScreenImage.addInputListener( new DragListener( {
       positionProperty: this.imagePositionProperty,
-      dragBoundsProperty: projectorScreenDragBoundsProperty,
+      dragBoundsProperty: dragBoundsProperty,
       transform: modelViewTransform
-    } );
-    projectorScreenImage.addInputListener( dragListener );
+    } ) );
 
     // always keep projector screen within playarea bounds when they are changed
-    projectorScreenDragBoundsProperty.link( dragBounds => {
+    dragBoundsProperty.link( dragBounds => {
       this.imagePositionProperty.value = dragBounds.closestPointTo( this.imagePositionProperty.value );
     } );
 
