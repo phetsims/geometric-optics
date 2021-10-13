@@ -1,9 +1,10 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * View of the optical element (does not include guides, optical axis and focal points)
+ * OpticNode displays the optical element, a lens or mirror.
  *
  * @author Martin Veillette
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Property from '../../../../axon/js/Property.js';
@@ -38,52 +39,46 @@ class OpticNode extends Node {
       lineWidth: GeometricOpticsConstants.OPTICAL_ELEMENT_LINE_WIDTH
     }, options );
 
-    // Renders the shape of the optic
-    const opticPath = new Path( modelViewTransform.modelToViewShape( optic.shapesProperty.value.fillShape ), {
+    // Separate Nodes for fill and stroke, because we'll be changing opticFillNode opacity to match index of refraction.
+    const opticFillNode = new Path( modelViewTransform.modelToViewShape( optic.shapesProperty.value.fillShape ), {
       fill: options.fill
     } );
-
-    // A separate Node for the optic's outline
-    const opticOutlinePath = new Path( modelViewTransform.modelToViewShape( optic.shapesProperty.value.outlineShape ), {
+    const opticStrokeNode = new Path( modelViewTransform.modelToViewShape( optic.shapesProperty.value.outlineShape ), {
       stroke: options.stroke,
       lineWidth: options.lineWidth
     } );
 
-    // layer for the optic
-    const opticLayer = new Node( {
-      children: [ opticPath, opticOutlinePath ]
-    } );
-
     assert && assert( !options.children );
-    options.children = [ opticLayer ];
+    options.children = [ opticFillNode, opticStrokeNode ];
 
     super( options );
 
-    // move the optic layer
+    // Move to the optic's position.
+    //TODO DragListener should handle this via options positionProperty and modelViewTransform
     optic.positionProperty.link( position => {
-      opticLayer.translation = modelViewTransform.modelToViewDelta( position );
+      this.translation = modelViewTransform.modelToViewDelta( position ); //TODO why not modelToViewPosition?
     } );
 
     // Index of refraction determines opacity.
     optic.indexOfRefractionProperty.link( index => {
-      opticPath.opacity = optic.getNormalizedIndex( index );
+      opticFillNode.opacity = optic.getNormalizedIndex( index );
     } );
 
     // Shape of the optic will change when diameter or radius of curvature is changed.
     optic.shapesProperty.link( shapes => {
-      opticPath.shape = modelViewTransform.modelToViewShape( shapes.fillShape );
-      opticOutlinePath.shape = modelViewTransform.modelToViewShape( shapes.outlineShape );
+      opticFillNode.shape = modelViewTransform.modelToViewShape( shapes.fillShape );
+      opticStrokeNode.shape = modelViewTransform.modelToViewShape( shapes.outlineShape );
     } );
 
     // Keep the optic inside the model bounds.
+    //TODO DragListener should handle this via option dragBoundsProperty
     modelBoundsProperty.link( bounds => {
       const closestPoint = bounds.closestPointTo( optic.positionProperty.value );
       optic.setVerticalCoordinate( closestPoint.y );
     } );
 
-    // create a drag listener on the fill of the opticalElement (see #22)
-    let clickOffset; //TODO this should not be necessary with a DragListener
-    opticLayer.addInputListener( new DragListener( {
+    let clickOffset; //TODO DragListener should handle this
+    this.addInputListener( new DragListener( {
       pressCursor: options.cursor,
       start: event => {
 
@@ -102,6 +97,7 @@ class OpticNode extends Node {
 
         // Constrain dragging such that an optic with maximum diameter is fully inside the model bounds.
         // See https://github.com/phetsims/geometric-optics/issues/204
+        //TODO DragListener should handle this via option dragBoundsProperty
         const dragBounds = modelBoundsProperty.value.erodedY( optic.maxDiameter / 2 );
         const constrainedModelPosition = dragBounds.closestPointTo( unconstrainedModelPosition );
 
