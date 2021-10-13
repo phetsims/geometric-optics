@@ -38,11 +38,11 @@ const GeometricOpticsConstants = {
   //                               RULER
 
   RULER_HEIGHT: 40, // in view coordinates
-  MINIMUM_VISIBLE_LENGTH: 40, // portion of the ruler always within visible bounds, in view coordinates
-  HORIZONTAL_RULER_LENGTH: 260, // centimeters
-  VERTICAL_RULER_LENGTH: 160, // centimeters
-  HORIZONTAL_RULER_INITIAL_POSITION: new Vector2( 200, 100 ),
-  VERTICAL_RULER_INITIAL_POSITION: new Vector2( 100, 300 ),
+  RULER_MINIMUM_VISIBLE_LENGTH: 40, // portion of the ruler always within visible bounds, in view coordinates
+  HORIZONTAL_RULER_LENGTH: 260, // cm
+  VERTICAL_RULER_LENGTH: 160, // cm
+  HORIZONTAL_RULER_INITIAL_POSITION: new Vector2( 200, 100 ), // cm
+  VERTICAL_RULER_INITIAL_POSITION: new Vector2( 100, 300 ), // cm
 
   //----------------------------------------------------------------------------------------
   //                              GUIDES
