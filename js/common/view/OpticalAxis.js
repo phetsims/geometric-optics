@@ -30,9 +30,9 @@ class OpticalAxis extends Line {
 
     // create optical axis line, with arbitrary length values.
     super( 0, 0, 1, 0, {
-      lineWidth: GeometricOpticsConstants.OPTICAL_AXIS_LINE_WIDTH,
-      lineDash: GeometricOpticsConstants.AXIS_LINE_DASH,
-      stroke: GeometricOpticsColors.opticalAxisStrokeProperty
+      stroke: GeometricOpticsColors.opticalAxisStrokeProperty,
+      lineWidth: GeometricOpticsConstants.AXIS_LINE_WIDTH,
+      lineDash: GeometricOpticsConstants.AXIS_LINE_DASH
     } );
 
     // set the horizontal extent of the optical axis line

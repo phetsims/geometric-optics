@@ -40,7 +40,8 @@ class OpticVerticalAxis extends Node {
     // create a vertical dashed line, through the optic - indicating the crossing plane of principal rays.
     const lineNode = new Path(
       modelViewTransform.modelToViewShape( optic.getPrincipalLine() ), {
-        stroke: GeometricOpticsColors.opticalAxisStrokeProperty,
+        stroke: GeometricOpticsColors.verticalAxisStrokeProperty,
+        lineWidth: GeometricOpticsConstants.AXIS_LINE_WIDTH,
         lineDash: GeometricOpticsConstants.AXIS_LINE_DASH
       } );
 

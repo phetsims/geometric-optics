@@ -45,6 +45,11 @@ const GeometricOpticsColors = {
     default: 'rgb( 133, 133, 182 )'
   } ),
 
+  // Stroke for the verticl axis
+  verticalAxisStrokeProperty: new ProfileColorProperty( geometricOptics, 'verticalAxisStroke', {
+    default: 'rgb( 133, 133, 182 )'
+  } ),
+
   // Fill for the second point of interest on the source object
   secondPointFillProperty: new ProfileColorProperty( geometricOptics, 'secondSourcePointFill', {
     default: 'rgb( 255, 51, 51 )'

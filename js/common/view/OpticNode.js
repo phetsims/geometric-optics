@@ -15,7 +15,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Optic from '../model/Optic.js';
 
 class OpticNode extends Node {
@@ -36,7 +35,7 @@ class OpticNode extends Node {
       cursor: 'ns-resize',
       fill: GeometricOpticsColors.opticFillProperty,
       stroke: GeometricOpticsColors.opticStrokeProperty,
-      lineWidth: GeometricOpticsConstants.OPTICAL_ELEMENT_LINE_WIDTH
+      lineWidth: 2
     }, options );
 
     // Separate Nodes for fill and stroke, because we'll be changing opticFillNode opacity to match index of refraction.
