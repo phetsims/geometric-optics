@@ -37,8 +37,8 @@ const GeometricOpticsQueryParameters = QueryStringMachine.getAll( {
     type: 'flag'
   },
 
-  // shows the drag bounds
-  showDragBounds: {
+  // Show the model bounds as a green rectangle.
+  showModelBounds: {
     type: 'flag'
   },
 

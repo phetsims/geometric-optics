@@ -282,7 +282,7 @@ class GeometricOpticsScreenView extends ScreenView {
     }
 
     // Show the value of modelBoundsProperty
-    if ( GeometricOpticsQueryParameters.showDragBounds ) {
+    if ( GeometricOpticsQueryParameters.showModelBounds ) {
       const dragBoundsNode = new Rectangle( modelViewTransform.modelToViewBounds( modelBoundsProperty.value ), {
         stroke: 'green',
         lineWidth: 2
