@@ -38,11 +38,52 @@ class OpticNode extends Node {
       lineWidth: GeometricOpticsConstants.OPTICAL_ELEMENT_LINE_WIDTH
     }, options );
 
+    // Renders the shape of the optic
+    const opticPath = new Path( modelViewTransform.modelToViewShape( optic.shapesProperty.value.fillShape ), {
+      fill: options.fill
+    } );
+
+    // A separate Node for the optic's outline
+    const opticOutlinePath = new Path( modelViewTransform.modelToViewShape( optic.shapesProperty.value.outlineShape ), {
+      stroke: options.stroke,
+      lineWidth: options.lineWidth
+    } );
+
+    // layer for the optic
+    const opticLayer = new Node( {
+      children: [ opticPath, opticOutlinePath ]
+    } );
+
+    assert && assert( !options.children );
+    options.children = [ opticLayer ];
+
     super( options );
 
+    // move the optic layer
+    optic.positionProperty.link( position => {
+      opticLayer.translation = modelViewTransform.modelToViewDelta( position );
+    } );
+
+    // Index of refraction determines opacity.
+    optic.indexOfRefractionProperty.link( index => {
+      opticPath.opacity = optic.getNormalizedIndex( index );
+    } );
+
+    // Shape of the optic will change when diameter or radius of curvature is changed.
+    optic.shapesProperty.link( shapes => {
+      opticPath.shape = modelViewTransform.modelToViewShape( shapes.fillShape );
+      opticOutlinePath.shape = modelViewTransform.modelToViewShape( shapes.outlineShape );
+    } );
+
+    // Keep the optic inside the model bounds.
+    modelBoundsProperty.link( bounds => {
+      const closestPoint = bounds.closestPointTo( optic.positionProperty.value );
+      optic.setVerticalCoordinate( closestPoint.y );
+    } );
+
     // create a drag listener on the fill of the opticalElement (see #22)
-    let clickOffset;
-    const dragListener = new DragListener( {
+    let clickOffset; //TODO this should not be necessary with a DragListener
+    opticLayer.addInputListener( new DragListener( {
       pressCursor: options.cursor,
       start: event => {
 
@@ -67,52 +108,7 @@ class OpticNode extends Node {
         // constrained optic to merely move vertically
         optic.setVerticalCoordinate( constrainedModelPosition.y );
       }
-    } );
-
-    // Renders the shape of the optic
-    const opticPath = new Path( modelViewTransform.modelToViewShape( optic.shapesProperty.value.fillShape ), {
-      fill: options.fill
-    } );
-
-    // link the index of refraction to the opacity of the lens
-    optic.indexOfRefractionProperty.link( index => {
-      opticPath.opacity = optic.getNormalizedIndex( index );
-    } );
-
-    // A separate Node for the optic's outline
-    const opticOutlinePath = new Path( modelViewTransform.modelToViewShape( optic.shapesProperty.value.outlineShape ), {
-      stroke: options.stroke,
-      lineWidth: options.lineWidth
-    } );
-
-    // update position of optic if the bounds change
-    modelBoundsProperty.link( bounds => {
-
-      // set drag bounds on the model position
-      const dragBoundsOpticPosition = bounds.closestPointTo( optic.positionProperty.value );
-
-      // constrained optic to merely move vertically
-      optic.setVerticalCoordinate( dragBoundsOpticPosition.y );
-    } );
-
-    // modify the shape of the optic
-    optic.shapesProperty.link( shapes => {
-      opticPath.shape = modelViewTransform.modelToViewShape( shapes.fillShape );
-      opticOutlinePath.shape = modelViewTransform.modelToViewShape( shapes.outlineShape );
-    } );
-
-    // layer for the optic
-    const opticLayer = new Node();     //TODO get rid of this
-
-    // move the optic layer
-    optic.positionProperty.link( position => {
-      opticLayer.translation = modelViewTransform.modelToViewDelta( position );
-    } );
-
-    opticLayer.addInputListener( dragListener );
-    opticLayer.addChild( opticPath );
-    opticLayer.addChild( opticOutlinePath );
-    this.addChild( opticLayer );
+    } ) );
   }
 
   /**
