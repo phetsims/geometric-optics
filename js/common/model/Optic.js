@@ -71,7 +71,7 @@ class Optic {
     // @public {RangeWithValue}
     this.maxDiameter = config.diameterRange.max;
 
-    // @public position of the optical element
+    // @public (read-only) position of the optical element. Use setY to set the y position.
     this.positionProperty = new Vector2Property( config.initialPosition );
 
     // @public radius of curvature of the optical element. Positive is converging.
@@ -116,7 +116,7 @@ class Optic {
       curve => this.getConvergingSign( curve )
     );
 
-    // @public {DerivedProperty.<OpticShapes>} shapes (fill and outline) of the optical element
+    // @public {DerivedProperty.<OpticShapes>} shapes of the optical element
     this.shapesProperty = new DerivedProperty(
       [ this.curveProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
       ( curve, radiusOfCurvature, diameter ) => new OpticShapes( config.opticType, curve, radiusOfCurvature, diameter )
@@ -137,11 +137,11 @@ class Optic {
   /**
    * Sets the y position of the optical element while keeping the x-coordinate constant
    * @public
-   * @param {number} yCoordinate
+   * @param {number} y
    */
-  setVerticalCoordinate( yCoordinate ) {
-    assert && assert( typeof yCoordinate === 'number' && isFinite( yCoordinate ) );
-    this.positionProperty.value = new Vector2( this.positionProperty.value.x, yCoordinate );
+  setY( y ) {
+    assert && assert( typeof y === 'number' && isFinite( y ) );
+    this.positionProperty.value = new Vector2( this.positionProperty.value.x, y );
   }
 
   /**

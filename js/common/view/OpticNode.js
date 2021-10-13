@@ -74,7 +74,7 @@ class OpticNode extends Node {
     //TODO DragListener should handle this via option dragBoundsProperty
     modelBoundsProperty.link( bounds => {
       const closestPoint = bounds.closestPointTo( optic.positionProperty.value );
-      optic.setVerticalCoordinate( closestPoint.y );
+      optic.setY( closestPoint.y );
     } );
 
     let clickOffset; //TODO DragListener should handle this
@@ -102,7 +102,7 @@ class OpticNode extends Node {
         const constrainedModelPosition = dragBounds.closestPointTo( unconstrainedModelPosition );
 
         // constrained optic to merely move vertically
-        optic.setVerticalCoordinate( constrainedModelPosition.y );
+        optic.setY( constrainedModelPosition.y );
       }
     } ) );
   }
