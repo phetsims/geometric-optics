@@ -30,7 +30,7 @@ import GeometricOpticsControlPanel from './GeometricOpticsControlPanel.js';
 import GeometricOpticRulersLayer from './GeometricOpticsRulersLayer.js';
 import LabelsNode from './LabelsNode.js';
 import LightRaysNode from './LightRaysNode.js';
-import OpticalAxisLine from './OpticalAxisLine.js';
+import OpticalAxis from './OpticalAxis.js';
 import OpticNode from './OpticNode.js';
 import OpticVerticalAxis from './OpticVerticalAxis.js';
 import RepresentationComboBox from './RepresentationComboBox.js';
@@ -177,7 +177,7 @@ class GeometricOpticsScreenView extends ScreenView {
       } );
 
     // create the optical axis attached to the optical element
-    const opticalAxisLine = new OpticalAxisLine( model.optic.positionProperty, modelBoundsProperty, modelViewTransform );
+    const opticalAxis = new OpticalAxis( model.optic.positionProperty, modelBoundsProperty, modelViewTransform );
 
     const opticNode = new OpticNode( model.optic, modelBoundsProperty, modelViewTransform );
 
@@ -215,7 +215,7 @@ class GeometricOpticsScreenView extends ScreenView {
     // The play area is subject to zoom in/out, so add all Nodes that need to be zoomed.
     const playAreaNode = new Node( {
       children: [
-        opticalAxisLine,
+        opticalAxis,
         sourceObjectNode,
         opticNode,
         opticVerticalAxis,

@@ -1,9 +1,11 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * View for optical axis
+ * OpticalAxis is the horizontal line that passes through the geometric center of a lens or mirror.
+ * It is referred to as 'optical axis', or sometimes as 'principal axis'.
  *
  * @author Sarah Chang (Swarthmore College)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Property from '../../../../axon/js/Property.js';
@@ -13,7 +15,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
-class OpticalAxisLine extends Line {
+class OpticalAxis extends Line {
 
   /**
    * @param {Property.<Vector2>} opticPositionProperty
@@ -57,6 +59,6 @@ class OpticalAxisLine extends Line {
   }
 }
 
-geometricOptics.register( 'OpticalAxisLine', OpticalAxisLine );
+geometricOptics.register( 'OpticalAxis', OpticalAxis );
 
-export default OpticalAxisLine;
+export default OpticalAxis;
