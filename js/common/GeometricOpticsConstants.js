@@ -61,12 +61,12 @@ const GeometricOpticsConstants = {
   //                             PROJECTION SCREEN
 
   // in centimeters, relative to projectorScreen.png. +x is left, +y is up.
-  //TODO https://github.com/phetsims/fourier-making-waves/issues/207 this needs to be adjusted for new artwork
+  // Run with ?showProjectorScreenMask to display the bounds of this mask.
   PROJECTOR_SCREEN_MASK_CORNERS: {
-    LEFT_TOP: new Vector2( -20, 55 ), // centimeters
-    LEFT_BOTTOM: new Vector2( -20, -55 ),
-    RIGHT_BOTTOM: new Vector2( 22, -68 ),
-    RIGHT_TOP: new Vector2( 22, 68 )
+    LEFT_TOP: new Vector2( -20, 56 ), // centimeters
+    LEFT_BOTTOM: new Vector2( -20, -59 ),
+    RIGHT_BOTTOM: new Vector2( 22, -72 ),
+    RIGHT_TOP: new Vector2( 22, 67 )
   },
 
   PROJECTOR_INITIAL_POSITION: new Vector2( 200, 0 ),

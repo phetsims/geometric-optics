@@ -52,7 +52,7 @@ class ProjectorScreen {
 
   /**
    * Gets the shape of the screen translated by the model position of the screenProjector
-   * @private
+   * @public
    * @returns {Shape}
    */
   getScreenShape() {
@@ -67,7 +67,7 @@ class ProjectorScreen {
 
   /**
    * Returns a shape translated by the model position of the screenProjector
-   * @public
+   * @private
    * @param {Shape} shape
    * @returns {Shape}
    */

@@ -11,7 +11,6 @@ import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
@@ -98,21 +97,10 @@ class ProjectorScreenNode extends Node {
     // Show the mask that corresponds to the area where light can be seen on the projector screen.
     // The Shape is described clockwise, from leftTop.
     if ( GeometricOpticsQueryParameters.showProjectorScreenMask ) {
-      const shape = new Shape()
-        .moveToPoint( modelViewTransform.modelToViewPosition( GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS.LEFT_TOP ) )
-        .lineToPoint( modelViewTransform.modelToViewPosition( GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS.RIGHT_TOP ) )
-        .lineToPoint( modelViewTransform.modelToViewPosition( GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS.RIGHT_BOTTOM ) )
-        .lineToPoint( modelViewTransform.modelToViewPosition( GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS.LEFT_BOTTOM ) )
-        .close();
-      const screenMaskNode = new Path( shape, {
-        stroke: 'red'
-      } );
+      const screenMaskNode = new Path( null, { stroke: 'red' } );
       this.addChild( screenMaskNode );
-
       projectorScreen.positionProperty.link( position => {
-
-        //TODO https://github.com/phetsims/fourier-making-waves/issues/207, this should not be center
-        screenMaskNode.center = modelViewTransform.modelToViewPosition( position );
+        screenMaskNode.shape = modelViewTransform.modelToViewShape( projectorScreen.getScreenShape() );
       } );
     }
 
