@@ -107,7 +107,7 @@ class LabelsNode extends Node {
 
     const projectorScreenLabelPositionProperty = new DerivedProperty(
       [ model.projectorScreen.positionProperty ],
-      position => new Vector2( position.x - 15, position.y - 60 ) // empirically, model coordinates
+      position => new Vector2( position.x - 25, position.y - 65 ) // empirically, model coordinates
     );
 
     const projectorScreenLabel = new LabelNode( geometricOpticsStrings.projectorScreen, projectorScreenLabelPositionProperty, modelViewTransformProperty, {

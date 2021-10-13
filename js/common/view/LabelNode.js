@@ -40,7 +40,8 @@ class LabelNode extends Node {
       // Text options
       textOptions: {
         fill: GeometricOpticsColors.labelFillProperty,
-        font: GeometricOpticsConstants.LABEL_FONT
+        font: GeometricOpticsConstants.LABEL_FONT,
+        maxWidth: 85
       },
 
       // Rectangle options, for the Rectangle behind the text
