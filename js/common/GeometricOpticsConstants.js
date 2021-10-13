@@ -64,9 +64,9 @@ const GeometricOpticsConstants = {
     RIGHT_TOP: new Vector2( 22, 67 )
   },
 
-  PROJECTOR_INITIAL_POSITION: new Vector2( 200, 0 ),
-  PROJECTOR_SCALE: 0.5, // scaling factor applied to the projector screen image
-  FULL_BRIGHT_SPOT_HEIGHT: 7, // cm
+  PROJECTOR_SCREEN_INITIAL_POSITION: new Vector2( 200, 0 ), // cm
+  PROJECTOR_SCREEN_SCALE: 0.5, // scaling factor applied to the projector screen image
+  FULL_INTENSITY_LIGHT_SPOT_HEIGHT: 7, // cm, any light spot less than this height will be full intensity
 
   //----------------------------------------------------------------------------------------
   //                        DECIMAL PLACES

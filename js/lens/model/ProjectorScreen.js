@@ -22,7 +22,7 @@ class ProjectorScreen {
   constructor() {
 
     // @public position of the center of the screen
-    this.positionProperty = new Vector2Property( GeometricOpticsConstants.PROJECTOR_INITIAL_POSITION );
+    this.positionProperty = new Vector2Property( GeometricOpticsConstants.PROJECTOR_SCREEN_INITIAL_POSITION );
   }
 
   /**

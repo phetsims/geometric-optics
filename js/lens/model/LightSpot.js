@@ -213,9 +213,9 @@ class LightSpot {
     }
     else {
 
-      // saturates to max intensity for a spot height less than FULL_BRIGHT_SPOT_HEIGHT
+      // Saturates to max intensity for a spot height less than FULL_INTENSITY_LIGHT_SPOT_HEIGHT.
       const spotHeight = 2 * radiusY;
-      intensity = Math.min( INTENSITY_RANGE.max, GeometricOpticsConstants.FULL_BRIGHT_SPOT_HEIGHT / spotHeight );
+      intensity = INTENSITY_RANGE.constrainValue( GeometricOpticsConstants.FULL_INTENSITY_LIGHT_SPOT_HEIGHT / spotHeight );
     }
     assert && assert( INTENSITY_RANGE.contains( intensity ) );
     return intensity;

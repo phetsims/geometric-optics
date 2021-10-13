@@ -45,7 +45,7 @@ class ProjectorScreenNode extends Node {
 
     // The screen
     const projectorScreenImage = new Image( projectorScreen_png, {
-      scale: GeometricOpticsConstants.PROJECTOR_SCALE
+      scale: GeometricOpticsConstants.PROJECTOR_SCREEN_SCALE
     } );
 
     assert && assert( !options.children );
