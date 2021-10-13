@@ -40,10 +40,11 @@ class OpticNode extends Node {
     }, options );
 
     // Separate Nodes for fill and stroke, because we'll be changing opticFillNode opacity to match index of refraction.
-    const opticFillNode = new Path( modelViewTransform.modelToViewShape( optic.shapesProperty.value.fillShape ), {
+    // Shapes will be properly initialized by optic.shapesProperty listener below.
+    const opticFillNode = new Path( null, {
       fill: options.fill
     } );
-    const opticStrokeNode = new Path( modelViewTransform.modelToViewShape( optic.shapesProperty.value.outlineShape ), {
+    const opticStrokeNode = new Path( null, {
       stroke: options.stroke,
       lineWidth: options.lineWidth
     } );
