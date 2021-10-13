@@ -35,7 +35,9 @@ const NUMBER_CONTROL_OPTIONS = {
   },
   sliderOptions: {
     trackSize: new Dimension2( 120, 4 ),
-    thumbSize: new Dimension2( 10, 20 )
+    thumbSize: new Dimension2( 15, 30 ),
+    thumbTouchAreaXDilation: 5,
+    thumbTouchAreaYDilation: 5
   },
   numberDisplayOptions: {
     maxWidth: 70
