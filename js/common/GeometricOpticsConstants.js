@@ -13,26 +13,18 @@ import geometricOptics from '../geometricOptics.js';
 
 const GeometricOpticsConstants = {
 
-  //----------------------------------------------------------------------------------------
-  //                         UNIVERSAL CONSTANTS
-
   SCREEN_VIEW_X_MARGIN: 20, // margin along horizontal axis of screen (in view coordinates)
   SCREEN_VIEW_Y_MARGIN: 15, // margin along vertical axis of screen
-
   ZOOM_RANGE: new RangeWithValue( 1, 3, 3 ),
-
   NOMINAL_VIEW_MODEL_CONVERSION: 2, // view coordinates per cm in initial zoom level
-
   RAYS_ANIMATION_TIME: 10, // length of the rays animation, in seconds
 
-  //----------------------------------------------------------------------------------------
-  //                           AXES
+  // Axes --------------------------------------------------------------------------------------------------------------
 
   AXIS_LINE_WIDTH: 2,
   AXIS_LINE_DASH: [ 8, 5 ],
 
-  //--------------------------------------------------------------------------------------
-  //                               RULER
+  // Rulers ------------------------------------------------------------------------------------------------------------
 
   RULER_HEIGHT: 40, // in view coordinates
   RULER_MINIMUM_VISIBLE_LENGTH: 40, // portion of the ruler always within visible bounds, in view coordinates
@@ -41,16 +33,15 @@ const GeometricOpticsConstants = {
   HORIZONTAL_RULER_INITIAL_POSITION: new Vector2( 200, 100 ), // cm
   VERTICAL_RULER_INITIAL_POSITION: new Vector2( 100, 300 ), // cm
 
-  //----------------------------------------------------------------------------------------
-  //                              GUIDES
+  // Guides ------------------------------------------------------------------------------------------------------------
 
+  //TODO there's an odd mix of model and view values here
   GUIDE_LINE_WIDTH: 1,
   GUIDE_RECTANGLE_WIDTH: 48, // length of the guide, in cm
   GUIDE_RECTANGLE_HEIGHT: 3, // in view coordinates
   GUIDE_FULCRUM_RADIUS: 5, // in view coordinates
 
-  //----------------------------------------------------------------------------------------
-  //                             PROJECTION SCREEN
+  // Projector Screen --------------------------------------------------------------------------------------------------
 
   // in cm, relative to projectorScreen.png. +x is left, +y is up.
   // Run with ?showProjectorScreenMask to display the bounds of this mask.
@@ -60,20 +51,17 @@ const GeometricOpticsConstants = {
     RIGHT_BOTTOM: new Vector2( 22, -72 ),
     RIGHT_TOP: new Vector2( 22, 67 )
   },
-
   PROJECTOR_SCREEN_INITIAL_POSITION: new Vector2( 200, 0 ), // cm
   PROJECTOR_SCREEN_SCALE: 0.5, // scaling factor applied to the projector screen image
   FULL_INTENSITY_LIGHT_SPOT_HEIGHT: 7, // cm, any light spot less than this height will be full intensity
 
-  //----------------------------------------------------------------------------------------
-  //                        DECIMAL PLACES
+  // Decimal places ----------------------------------------------------------------------------------------------------
 
   CURVATURE_RADIUS_DECIMAL_PLACES: 0,
   REFRACTIVE_INDEX_DECIMAL_PLACES: 2,
   DIAMETER_DECIMAL_PLACES: 0,
 
-  //----------------------------------------------------------------------------------------
-  //                                 FONTS
+  // Fonts -------------------------------------------------------------------------------------------------------------
 
   LABEL_FONT: new PhetFont( 12 ),
   CONTROL_FONT: new PhetFont( 14 ),
