@@ -58,7 +58,7 @@ class ProjectorScreenNode extends Node {
     const modelChildHeight = Math.abs( modelViewTransform.viewToModelDeltaY( projectorScreenImage.height ) );
     const modelChildWidth = modelViewTransform.viewToModelDeltaX( projectorScreenImage.width );
 
-    // difference between the left top position of the image and the "center" of the blackboard in model coordinates
+    // difference between the left top position of the image and the "center" of the screen in model coordinates
     const offset = new Vector2( -modelChildWidth, modelChildHeight ).divideScalar( 2 );
 
     // {DerivedProperty.<Bounds2>} keep at least half of the projector screen within visible bounds and right of the optic
