@@ -21,8 +21,6 @@ const GeometricOpticsConstants = {
 
   ZOOM_RANGE: new RangeWithValue( 1, 3, 3 ),
 
-  //TODO this is awful, relies on ScreenView.DEFAULT_LAYOUT_BOUNDS
-  ORIGIN_POINT: new Vector2( 1024 / 2, 618 / 2 - 50 ), // view position of the model origin (0,0)
   NOMINAL_VIEW_MODEL_CONVERSION: 2, // view coordinates per cm in initial zoom level
 
   RAYS_ANIMATION_TIME: 10, // length of the rays animation, in seconds

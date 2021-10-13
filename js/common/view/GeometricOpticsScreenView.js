@@ -11,6 +11,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
@@ -43,7 +44,6 @@ import VisibleProperties from './VisibleProperties.js';
 
 // constants
 const ZOOM_RANGE = GeometricOpticsConstants.ZOOM_RANGE;
-const ORIGIN_POINT = GeometricOpticsConstants.ORIGIN_POINT;
 
 class GeometricOpticsScreenView extends ScreenView {
 
@@ -59,13 +59,16 @@ class GeometricOpticsScreenView extends ScreenView {
       preventFit: true
     } );
 
+    // View position of the model's origin, slightly above center of the layoutBounds.
+    const viewOrigin = new Vector2( this.layoutBounds.centerX, this.layoutBounds.centerY - 0.08 * this.layoutBounds.height );
+
     // convenience variable for laying out scenery Nodes
     const erodedLayoutBounds = this.layoutBounds.erodedXY( GeometricOpticsConstants.SCREEN_VIEW_X_MARGIN,
       GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN );
 
     // Create a Y inverted modelViewTransform with isometric scaling along x and y axes.
     // In the model coordinate frame, +x is right, +y is up.
-    const modelViewTransform = this.getZoomTransform( ZOOM_RANGE.defaultValue );
+    const modelViewTransform = this.getTransformForZoomLevel( ZOOM_RANGE.defaultValue, viewOrigin );
 
     // Properties  ====================================================================================================
 
@@ -78,7 +81,7 @@ class GeometricOpticsScreenView extends ScreenView {
     // {DerivedProperty.<ModelViewTransform2>}
     const zoomTransformProperty = new DerivedProperty(
       [ zoomLevelProperty ],
-      zoomLevel => this.getZoomTransform( zoomLevel )
+      zoomLevel => this.getTransformForZoomLevel( zoomLevel, viewOrigin )
     );
 
     // {DerivedProperty.<number>} zoom scale associate with the zoom level
@@ -235,7 +238,7 @@ class GeometricOpticsScreenView extends ScreenView {
       playAreaNode.scale( relativeScale );
 
       // Translate the play areaNode such that the origin point remains fixed through zoom levels.
-      const translateVector = ORIGIN_POINT.times( 1 / relativeScale - 1 );
+      const translateVector = viewOrigin.times( 1 / relativeScale - 1 );
       playAreaNode.translate( translateVector );
     } );
 
@@ -381,9 +384,10 @@ class GeometricOpticsScreenView extends ScreenView {
    * Returns a model-view transform appropriate for the zoom level
    * @private
    * @param {number} zoomLevel
+   * @param {Vector2} viewOrigin
    * @returns {ModelViewTransform2}
    */
-  getZoomTransform( zoomLevel ) {
+  getTransformForZoomLevel( zoomLevel, viewOrigin ) {
 
     // scaling factor between zoom level measured from the initial zoom level
     const absoluteScale = this.getAbsoluteScale( zoomLevel );
@@ -392,7 +396,7 @@ class GeometricOpticsScreenView extends ScreenView {
     const viewModelScale = GeometricOpticsConstants.NOMINAL_VIEW_MODEL_CONVERSION * absoluteScale;
 
     // create a Y inverted modelViewTransform with isometric scaling along X and Y
-    return ModelViewTransform2.createOffsetXYScaleMapping( ORIGIN_POINT, viewModelScale, -viewModelScale );
+    return ModelViewTransform2.createOffsetXYScaleMapping( viewOrigin, viewModelScale, -viewModelScale );
   }
 }
 
