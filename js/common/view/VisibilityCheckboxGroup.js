@@ -99,7 +99,7 @@ function createLabel( string, iconNode ) {
     maxWidth: 100
   } );
 
-  // create HBox if icon is present, otherwise merely attach text
+  // Create HBox if icon is present, otherwise the label is just text.
   return iconNode ? new HBox( { children: [ textNode, iconNode ], spacing: 8 } ) : textNode;
 }
 
