@@ -7,7 +7,6 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
@@ -16,22 +15,19 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-import RaysMode from '../model/RaysMode.js';
 import Optic from '../model/Optic.js';
 
 class OpticNode extends Node {
 
   /**
    * @param {Optic} optic
-   * @param {Property.<RaysMode>} raysModeProperty
    * @param {Property.<Bounds2>} modelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( optic, raysModeProperty, modelBoundsProperty, modelViewTransform, options ) {
+  constructor( optic, modelBoundsProperty, modelViewTransform, options ) {
 
     assert && assert( optic instanceof Optic );
-    assert && assert( raysModeProperty instanceof Property );
     assert && assert( modelBoundsProperty instanceof Property );
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
@@ -80,7 +76,7 @@ class OpticNode extends Node {
 
     // link the index of refraction to the opacity of the lens
     optic.indexOfRefractionProperty.link( index => {
-      const normalizedIndex = optic.getNormalizedIndex( index );
+      const normalizedIndex = optic.getNormalizedIndex( index ); //TODO unnecessary local var
       opticPath.opacity = normalizedIndex;
     } );
 
@@ -90,21 +86,6 @@ class OpticNode extends Node {
       lineWidth: options.lineWidth
     } );
 
-    // create a vertical dashed line, through the optic - indicating the crossing plane of principal rays.
-    const opticCenterLine = new Path(
-      modelViewTransform.modelToViewShape( optic.getPrincipalLine() ), {
-        stroke: GeometricOpticsColors.opticalAxisStrokeProperty,
-        lineDash: GeometricOpticsConstants.AXIS_LINE_DASH
-      } );
-
-    /**
-     * clip the center line based on model bounds
-     * @param {Bounds2} modelBounds
-     */
-    const clipCenterLine = modelBounds => {
-      opticCenterLine.clipArea = Shape.bounds( modelViewTransform.modelToViewBounds( modelBounds ) );
-    };
-
     // update position of optic if the bounds change
     modelBoundsProperty.link( bounds => {
 
@@ -113,9 +94,6 @@ class OpticNode extends Node {
 
       // constrained optic to merely move vertically
       optic.setVerticalCoordinate( dragBoundsOpticPosition.y );
-
-      // clip the ends of the center line based on play area bounds
-      clipCenterLine( bounds );
     } );
 
     // modify the shape of the optic
@@ -125,26 +103,17 @@ class OpticNode extends Node {
     } );
 
     // layer for the optic
-    const opticLayer = new Node();
+    const opticLayer = new Node();     //TODO get rid of this
 
     // move the optic layer
     optic.positionProperty.link( position => {
       opticLayer.translation = modelViewTransform.modelToViewDelta( position );
     } );
 
-    // add child and listener to the optic layer
     opticLayer.addInputListener( dragListener );
     opticLayer.addChild( opticPath );
     opticLayer.addChild( opticOutlinePath );
-
-    // add the optic and center line to this node
     this.addChild( opticLayer );
-    this.addChild( opticCenterLine );
-
-    // Make opticCenterLine visible when Rays mode is Principal
-    raysModeProperty.link( raysMode => {
-      opticCenterLine.visible = ( raysMode === RaysMode.PRINCIPAL );
-    } );
   }
 
   /**

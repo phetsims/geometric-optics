@@ -32,6 +32,7 @@ import LabelsNode from './LabelsNode.js';
 import LightRaysNode from './LightRaysNode.js';
 import OpticalAxisLine from './OpticalAxisLine.js';
 import OpticNode from './OpticNode.js';
+import OpticVerticalAxis from './OpticVerticalAxis.js';
 import RepresentationComboBox from './RepresentationComboBox.js';
 import RulersToolbox from './RulersToolbox.js';
 import SecondSourceNode from './SecondSourceNode.js';
@@ -178,7 +179,9 @@ class GeometricOpticsScreenView extends ScreenView {
     // create the optical axis attached to the optical element
     const opticalAxisLine = new OpticalAxisLine( model.optic.positionProperty, modelBoundsProperty, modelViewTransform );
 
-    const opticNode = new OpticNode( model.optic, model.raysModeProperty, modelBoundsProperty, modelViewTransform );
+    const opticNode = new OpticNode( model.optic, modelBoundsProperty, modelViewTransform );
+
+    const opticVerticalAxis = new OpticVerticalAxis( model.optic, model.raysModeProperty, modelBoundsProperty, modelViewTransform );
 
     // create the light rays associated with the object
     const lightRaysNode = new LightRaysNode( model.firstLightRays, model.representationProperty,
@@ -215,6 +218,7 @@ class GeometricOpticsScreenView extends ScreenView {
         opticalAxisLine,
         sourceObjectNode,
         opticNode,
+        opticVerticalAxis,
         targetNode,
         lightRaysNode,
         secondSourceLightRaysNode,
