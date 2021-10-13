@@ -46,7 +46,8 @@ class RepresentationComboBox extends ComboBox {
 
       // create text
       const text = new Text( representation.label, {
-        font: GeometricOpticsConstants.CONTROL_FONT
+        font: GeometricOpticsConstants.CONTROL_FONT,
+        maxWidth: 100
       } );
 
       // create icon
