@@ -13,7 +13,7 @@ import geometricOptics from '../../geometricOptics.js';
 import LensModel from '../model/LensModel.js';
 import GuideNode from './GuideNode.js';
 import ProjectorScreenNode from './ProjectorScreenNode.js';
-import SpotlightNode from './SpotlightNode.js';
+import LightSpotNode from './LightSpotNode.js';
 
 class LensScreenView extends GeometricOpticsScreenView {
 
@@ -58,26 +58,26 @@ class LensScreenView extends GeometricOpticsScreenView {
       this.modelViewTransform
     );
 
-    // Spotlight associated with the first source
-    const firstSpotlightNode = new SpotlightNode(
-      model.firstSpotlight.intensityProperty,
-      model.firstSpotlight.screenIntersectionProperty,
+    // LightSpot associated with the first source
+    const firstLightSpotNode = new LightSpotNode(
+      model.firstLightSpot.intensityProperty,
+      model.firstLightSpot.screenIntersectionProperty,
       this.modelViewTransform, {
         visibleProperty: model.firstTarget.visibleProperty
       } );
 
-    // Spotlight associated with the second source
-    const secondSpotlightNode = new SpotlightNode(
-      model.secondSpotlight.intensityProperty,
-      model.secondSpotlight.screenIntersectionProperty,
+    // LightSpot associated with the second source
+    const secondLightSpotNode = new LightSpotNode(
+      model.secondLightSpot.intensityProperty,
+      model.secondLightSpot.screenIntersectionProperty,
       this.modelViewTransform, {
         visibleProperty: DerivedProperty.and(
           [ model.secondTarget.visibleProperty, this.visibleProperties.secondSourceVisibleProperty ] )
       } );
 
-    // Add projector screen and spotlights at the bottom of the z-layer.
+    // Add projector screen and light spots at the bottom of the z-layer.
     const lightSourceNodes = new Node( {
-      children: [ projectorScreenNode, firstSpotlightNode, secondSpotlightNode ],
+      children: [ projectorScreenNode, firstLightSpotNode, secondLightSpotNode ],
       visibleProperty: new DerivedProperty( [ model.representationProperty ], representation => !representation.isObject )
     } );
     this.playAreaNode.insertChild( 0, lightSourceNodes );

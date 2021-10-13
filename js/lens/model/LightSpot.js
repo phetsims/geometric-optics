@@ -1,8 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Spotlight is the model of the light that hits the projector screen.
- * Responsible for the shape of the spotlight (cropped to the screen shape) and the light intensity.
+ * LightSpot is the model of the light spot that hits the projector screen.
+ * Responsible for the shape of the spot (cropped to the screen shape) and the light intensity.
  *
  * @author Martin Veillette
  */
@@ -21,7 +21,7 @@ import ProjectorScreen from './ProjectorScreen.js';
 // constants
 const INTENSITY_RANGE = new Range( 0, 1 );
 
-class Spotlight {
+class LightSpot {
 
   /**
    * @param {Property.<Vector2>} sourcePositionProperty
@@ -45,7 +45,7 @@ class Spotlight {
     // @private {function}
     this.projectorScreen = projectorScreen;
 
-    // @public {DerivedProperty.<Shape>} intersection of this spotlight with the screen
+    // @public {DerivedProperty.<Shape>} intersection of this LightSpot with the screen
     this.screenIntersectionProperty = new DerivedProperty(
       [ projectorScreen.positionProperty, optic.positionProperty, optic.diameterProperty, targetPositionProperty ],
       ( screenPosition, opticPosition, opticDiameter, targetPosition ) =>
@@ -85,7 +85,7 @@ class Spotlight {
   }
 
   /**
-   * Gets the physical parameters (center position and radii) for the spotlight
+   * Gets the physical parameters (center position and radii) for the LightSpot
    * @private
    * @param {Vector2} screenPosition
    * @param {Vector2} opticPosition
@@ -136,7 +136,7 @@ class Spotlight {
   }
 
   /**
-   * Returns the shape of the unclipped spotlight
+   * Returns the shape of the unclipped shape of the light spot.
    * @private
    * @param {Vector2} screenPosition
    * @param {Vector2} opticPosition
@@ -146,7 +146,7 @@ class Spotlight {
    */
   getDiskShape( screenPosition, opticPosition, opticDiameter, targetPosition ) {
 
-    // get the parameters for the unclipped spotlight.
+    // get the parameters for the unclipped light spot.
     const {
       position, radiusX, radiusY
     } = this.getDiskParameters( screenPosition, opticPosition, opticDiameter, targetPosition );
@@ -189,10 +189,10 @@ class Spotlight {
   }
 
   /**
-   * Gets the normalized (between 0 and 1) light intensity of the spotlight
-   * Physically, a spotlight is dimmer when the light is spread on a larger surface.
-   * To preserve dynamic range, the spotlight is instead inversely proportional to the diameter of the spotlight.
-   * The value saturates to max intensity for a spotlight height smaller than FULL_BRIGHT_SPOT_HEIGHT
+   * Gets the normalized (between 0 and 1) light intensity of the light spot.
+   * Physically, the spot is dimmer when the light is spread on a larger surface.
+   * To preserve dynamic range, the spot is instead inversely proportional to the diameter.
+   * The value saturates to max intensity for a spot height smaller than FULL_BRIGHT_SPOT_HEIGHT
    * @private
    * @param {Vector2} screenPosition
    * @param {Vector2} opticPosition
@@ -202,7 +202,7 @@ class Spotlight {
    */
   getLightIntensity( screenPosition, opticPosition, opticDiameter, targetPosition ) {
 
-    // {number} vertical radius of the unclipped spotlight
+    // {number} vertical radius of the unclipped light spot
     const { radiusY } = this.getDiskParameters( screenPosition, opticPosition, opticDiameter, targetPosition );
 
     let intensity;
@@ -213,14 +213,14 @@ class Spotlight {
     }
     else {
 
-      // saturates to max intensity for a spotlight height less than FULL_BRIGHT_SPOT_HEIGHT
-      const spotlightHeight = 2 * radiusY;
-      intensity = Math.min( INTENSITY_RANGE.max, GeometricOpticsConstants.FULL_BRIGHT_SPOT_HEIGHT / spotlightHeight );
+      // saturates to max intensity for a spot height less than FULL_BRIGHT_SPOT_HEIGHT
+      const spotHeight = 2 * radiusY;
+      intensity = Math.min( INTENSITY_RANGE.max, GeometricOpticsConstants.FULL_BRIGHT_SPOT_HEIGHT / spotHeight );
     }
     assert && assert( INTENSITY_RANGE.contains( intensity ) );
     return intensity;
   }
 }
 
-geometricOptics.register( 'Spotlight', Spotlight );
-export default Spotlight;
+geometricOptics.register( 'LightSpot', LightSpot );
+export default LightSpot;

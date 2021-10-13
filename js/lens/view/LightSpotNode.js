@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * SpotlightNode is the circular light that is projected onto the screen.
+ * LightSpotNode is the circular light that is projected onto the screen.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -13,11 +13,11 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
 import geometricOptics from '../../geometricOptics.js';
 
-class SpotlightNode extends Path {
+class LightSpotNode extends Path {
 
   /**
    * @param {Property.<number>} intensityProperty
-   * @param {Property.<Shape>} screenIntersectionProperty - shape of the spotlight's intersection with the projection screen
+   * @param {Property.<Shape>} screenIntersectionProperty - shape of the spot's intersection with the projection screen
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
@@ -34,7 +34,7 @@ class SpotlightNode extends Path {
       this.opacity = intensity;
     } );
 
-    // Adjust the shape of the spotlight based on how it intersects the screen.
+    // Adjust the shape of the spot based on how it intersects the screen.
     screenIntersectionProperty.link( shape => {
       this.shape = modelViewTransform.modelToViewShape( shape );
     } );
@@ -50,5 +50,5 @@ class SpotlightNode extends Path {
   }
 }
 
-geometricOptics.register( 'SpotlightNode', SpotlightNode );
-export default SpotlightNode;
+geometricOptics.register( 'LightSpotNode', LightSpotNode );
+export default LightSpotNode;

@@ -11,7 +11,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import geometricOptics from '../../geometricOptics.js';
 import ProjectorScreen from '../../lens/model/ProjectorScreen.js';
-import Spotlight from '../../lens/model/Spotlight.js';
+import LightSpot from '../../lens/model/LightSpot.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import FocalPoint from './FocalPoint.js';
 import LightRays from './LightRays.js';
@@ -71,16 +71,16 @@ class GeometricOpticsModel {
       this.optic
     );
 
-    // @public (read-only) spotlight associated with the first source/object
-    this.firstSpotlight = new Spotlight(
+    // @public (read-only) light spot associated with the first source/object
+    this.firstLightSpot = new LightSpot(
       this.sourceObject.positionProperty,
       this.firstTarget.positionProperty,
       this.projectorScreen,
       this.optic
     );
 
-    // @public (read-only) spotlight associated with the second source/object
-    this.secondSpotlight = new Spotlight(
+    // @public (read-only) light spot associated with the second source/object
+    this.secondLightSpot = new LightSpot(
       this.secondSource.positionProperty,
       this.secondTarget.positionProperty,
       this.projectorScreen,
