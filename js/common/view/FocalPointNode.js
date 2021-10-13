@@ -7,9 +7,12 @@
  */
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
+import Matrix3 from '../../../../dot/js/Matrix3.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import PlusNode from '../../../../scenery-phet/js/PlusNode.js';
+import PlusShape from '../../../../scenery-phet/js/PlusShape.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import FocalPoint from '../model/FocalPoint.js';
@@ -17,13 +20,14 @@ import FocalPoint from '../model/FocalPoint.js';
 // constants
 const DEFAULT_OPTIONS = {
   size: new Dimension2( 15, 3 ), // width of the X sign and "thickness" in X sign
+
+  // Path options
   lineWidth: 1,
   fill: GeometricOpticsColors.focalPointFillProperty,
-  stroke: GeometricOpticsColors.focalPointStrokeProperty,
-  rotation: Math.PI / 4  // rotated by 45 degrees to create an X shape.
+  stroke: GeometricOpticsColors.focalPointStrokeProperty
 };
 
-class FocalPointNode extends PlusNode {
+class FocalPointNode extends Node {
 
   /**
    * @param {FocalPoint} focalPoint
@@ -36,6 +40,9 @@ class FocalPointNode extends PlusNode {
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     options = merge( {}, DEFAULT_OPTIONS, options );
+
+    assert && assert( !options.children );
+    options.children = [ FocalPointNode.createIcon( options ) ];
 
     super( options );
 
@@ -57,11 +64,14 @@ class FocalPointNode extends PlusNode {
   /**
    * Returns an icon for the focal point
    * @public
-   * @param {Object} [options] - options for PlusNode
+   * @param {Object} [options] - options for Path
    * @returns {Node}
    */
   static createIcon( options ) {
-    return new PlusNode( merge( {}, DEFAULT_OPTIONS, options ) );
+    options = merge( {}, DEFAULT_OPTIONS, options );
+    let shape = new PlusShape( options.size );
+    shape = shape.transformed( Matrix3.rotation2( Math.PI / 4 ) );
+    return new Path( shape, options );
   }
 }
 
