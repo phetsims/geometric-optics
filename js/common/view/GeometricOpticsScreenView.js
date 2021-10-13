@@ -262,12 +262,13 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // Debugging ================================================================================================
 
-    // Add points at position of optic, source, target, and projector screen.
+    // Add points at the position of things that move around.
     if ( GeometricOpticsQueryParameters.showDebugPoints ) {
       const options = { fill: 'red' };
-      playAreaNode.addChild( new DebugPointNode( model.firstTarget.positionProperty, modelViewTransform, options ) );
-      playAreaNode.addChild( new DebugPointNode( model.sourceObject.positionProperty, modelViewTransform, options ) );
       playAreaNode.addChild( new DebugPointNode( model.optic.positionProperty, modelViewTransform, options ) );
+      playAreaNode.addChild( new DebugPointNode( model.sourceObject.positionProperty, modelViewTransform, options ) );
+      playAreaNode.addChild( new DebugPointNode( model.secondSource.lightSourcePositionProperty, modelViewTransform, options ) );
+      playAreaNode.addChild( new DebugPointNode( model.firstTarget.positionProperty, modelViewTransform, options ) );
       playAreaNode.addChild( new DebugPointNode( model.projectorScreen.positionProperty, modelViewTransform, options ) );
     }
 
