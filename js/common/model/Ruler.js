@@ -16,7 +16,7 @@ class Ruler {
   /**
    * @param {Ruler.Orientation} orientation
    * @param {Vector2} position - position of the ruler in VIEW Coordinates
-   * @param {number} length - length of the ruler in centimeters
+   * @param {number} length - length of the ruler in cm
    */
   constructor( orientation, position, length ) {
     assert && assert( Ruler.Orientation.includes( orientation ) );
@@ -29,10 +29,10 @@ class Ruler {
     // @public position of the ruler in view coordinates
     this.positionProperty = new Vector2Property( position );
 
-    // @public {number} length of the ruler in centimeters.
+    // @public {number} length of the ruler, in cm
     this.length = length;
 
-    // @private (read-only) {number} keep track of the original (unscaled) length of the ruler
+    // @private (read-only) {number} keep track of the original (unscaled) length of the ruler, in cm
     this.nominalLength = length;
   }
 

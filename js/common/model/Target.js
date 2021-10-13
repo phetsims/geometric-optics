@@ -100,8 +100,6 @@ class Target {
       [ this.positionProperty, representationProperty, this.scaleProperty, this.isInvertedProperty ],
       ( position, representation, scale, isInverted ) => {
 
-        // @public {Vector2} displacement vector from the firstPosition to the left top - value depends on
-        // representation values are in centimeters
         const scaleFactor = representation.getScaleFactor();
         const initialOffset = representation.rightFacingUprightOffset.timesScalar( 1 / scaleFactor );
         const initialWidth = representation.rightFacingUpright.width / scaleFactor;

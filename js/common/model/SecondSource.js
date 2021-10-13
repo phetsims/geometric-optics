@@ -16,10 +16,10 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import geometricOptics from '../../geometricOptics.js';
 
-// initial position of the second light source, in centimeters
+// initial position of the second light source, in cm
 const INITIAL_LIGHT_SOURCE_POSITION = new Vector2( -150, -20 );
 
-// range of the vertical offset for the second point, relative to the Object, in centimeters
+// range of the vertical offset for the second point, relative to the Object, in cm
 const VERTICAL_OFFSET_RANGE = new RangeWithValue( -55, 0, -52 );
 
 class SecondSource {
@@ -37,7 +37,7 @@ class SecondSource {
     // @private position of the second source of light
     this.lightSourcePositionProperty = new Vector2Property( INITIAL_LIGHT_SOURCE_POSITION );
 
-    // @private vertical offset (in centimeters) of second point with respect to the first object
+    // @private vertical offset of second point with respect to the first object, in cm
     this.verticalOffsetProperty = new NumberProperty( VERTICAL_OFFSET_RANGE.defaultValue, {
       range: VERTICAL_OFFSET_RANGE
     } );

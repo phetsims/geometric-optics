@@ -14,7 +14,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import geometricOptics from '../../geometricOptics.js';
 
-// initial position of the source object, in centimeters
+// initial position of the source object, in cm
 const INITIAL_POSITION = new Vector2( -170, 30 );
 
 class SourceObject {
@@ -25,8 +25,7 @@ class SourceObject {
   constructor( representationProperty ) {
     assert && assert( representationProperty instanceof EnumerationProperty );
 
-    // {Vector2} displacement vector from the firstPosition to the left top - value depends on representation
-    // values are in centimeters
+    // {Vector2} displacement vector from the firstPosition to the left top, in cm - value depends on representation
     //TODO this feels unnecessary, and causes ordering dependencies herein
     let offset = representationProperty.value.rightFacingUprightOffset.dividedScalar(
       representationProperty.value.getScaleFactor()

@@ -44,13 +44,13 @@ class Optic {
       // {Vector2} center of the optic
       initialPosition: required( config.initialPosition ),
 
-      // {RangeWithValue} range of radius of curvature, in centimeters
+      // {RangeWithValue} range of radius of curvature, in cm
       radiusOfCurvatureRange: required( config.radiusOfCurvatureRange ),
 
       // {RangeWithValue} range of index of refraction, a unitless ratio
       indexOfRefractionRange: required( config.indexOfRefractionRange ),
 
-      // {RangeWithValue} range of height for the optic, in centimeters
+      // {RangeWithValue} range of height for the optic, in cm
       diameterRange: required( config.diameterRange )
     }, config );
 
@@ -310,7 +310,7 @@ class Optic {
   getPrincipalLine() {
 
     // a very large extent
-    const yMax = 800; // in centimeters
+    const yMax = 800; // in cm
 
     // a straight vertical line going through the middle of the optic
     const verticalLine = Shape.lineSegment( 0, yMax, 0, -yMax );

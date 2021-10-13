@@ -42,7 +42,7 @@ const GeometricOpticsQueryParameters = QueryStringMachine.getAll( {
     type: 'flag'
   },
 
-  // speed of light in centimeters per second, for the purpose of the light rays animation
+  // speed of light in cm/sec, for the purpose of the light rays animation
   lightSpeed: {
     type: 'number',
     defaultValue: 400,

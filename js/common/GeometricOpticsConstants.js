@@ -48,17 +48,17 @@ const GeometricOpticsConstants = {
   //                              GUIDES
 
   GUIDE_LINE_WIDTH: 1,
-  GUIDE_RECTANGLE_WIDTH: 48, // centimeters  - length of the guide
+  GUIDE_RECTANGLE_WIDTH: 48, // length of the guide, in cm
   GUIDE_RECTANGLE_HEIGHT: 3, // in view coordinates
   GUIDE_FULCRUM_RADIUS: 5, // in view coordinates
 
   //----------------------------------------------------------------------------------------
   //                             PROJECTION SCREEN
 
-  // in centimeters, relative to projectorScreen.png. +x is left, +y is up.
+  // in cm, relative to projectorScreen.png. +x is left, +y is up.
   // Run with ?showProjectorScreenMask to display the bounds of this mask.
   PROJECTOR_SCREEN_MASK_CORNERS: {
-    LEFT_TOP: new Vector2( -20, 56 ), // centimeters
+    LEFT_TOP: new Vector2( -20, 56 ),
     LEFT_BOTTOM: new Vector2( -20, -59 ),
     RIGHT_BOTTOM: new Vector2( 22, -72 ),
     RIGHT_TOP: new Vector2( 22, 67 )
@@ -66,7 +66,7 @@ const GeometricOpticsConstants = {
 
   PROJECTOR_INITIAL_POSITION: new Vector2( 200, 0 ),
   PROJECTOR_SCALE: 0.5, // scaling factor applied to the projector screen image
-  FULL_BRIGHT_SPOT_HEIGHT: 7, // centimeters
+  FULL_BRIGHT_SPOT_HEIGHT: 7, // cm
 
   //----------------------------------------------------------------------------------------
   //                        DECIMAL PLACES
