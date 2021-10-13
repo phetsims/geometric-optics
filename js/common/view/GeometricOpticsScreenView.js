@@ -211,7 +211,7 @@ class GeometricOpticsScreenView extends ScreenView {
         new FocalPointNode( model.leftFocalPoint, modelViewTransform ),
         new FocalPointNode( model.rightFocalPoint, modelViewTransform )
       ],
-      visibleProperty: visibleProperties.focalPointVisibleProperty
+      visibleProperty: visibleProperties.focalPointsVisibleProperty
     } );
 
     // Layer for all the Nodes within the "play area".

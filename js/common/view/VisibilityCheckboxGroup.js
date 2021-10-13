@@ -46,8 +46,8 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 
       // Focal Point
       {
-        node: createLabel( geometricOpticsStrings.focalPoint, FocalPointNode.createIcon( { stroke: 'black' } ) ),
-        property: visibleProperties.focalPointVisibleProperty
+        node: createLabel( geometricOpticsStrings.focalPoints, FocalPointNode.createIcon( { stroke: 'black' } ) ),
+        property: visibleProperties.focalPointsVisibleProperty
       },
 
       // Virtual Image

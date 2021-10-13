@@ -26,6 +26,9 @@
   "focalPoint": {
     "value": "Focal Point"
   },
+  "focalPoints": {
+    "value": "Focal Points"
+  },
   "labels": {
     "value": "Labels"
   },

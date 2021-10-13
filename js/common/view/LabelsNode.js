@@ -69,12 +69,12 @@ class LabelsNode extends Node {
 
     const leftFocalPointLabel = new LabelNode( geometricOpticsStrings.focalPoint, model.leftFocalPoint.positionProperty,
       modelViewTransformProperty, {
-        visibleProperty: visibleProperties.focalPointVisibleProperty
+        visibleProperty: visibleProperties.focalPointsVisibleProperty
       } );
 
     const rightFocalPointLabel = new LabelNode( geometricOpticsStrings.focalPoint, model.rightFocalPoint.positionProperty,
       modelViewTransformProperty, {
-        visibleProperty: visibleProperties.focalPointVisibleProperty
+        visibleProperty: visibleProperties.focalPointsVisibleProperty
       } );
 
     // Image label ------------------------------------------------------------------------------------

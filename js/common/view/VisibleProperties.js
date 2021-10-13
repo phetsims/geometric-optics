@@ -16,7 +16,7 @@ class VisibleProperties {
   constructor( opticType ) {
 
     // @public visibility of the two focal points
-    this.focalPointVisibleProperty = new BooleanProperty( true );
+    this.focalPointsVisibleProperty = new BooleanProperty( true );
 
     // @public visibility of the virtual image, when present
     this.virtualImageVisibleProperty = new BooleanProperty( true );
@@ -41,7 +41,7 @@ class VisibleProperties {
    * @public
    */
   reset() {
-    this.focalPointVisibleProperty.reset();
+    this.focalPointsVisibleProperty.reset();
     this.virtualImageVisibleProperty.reset();
     this.labelsVisibleProperty.reset();
     this.secondPointVisibleProperty.reset();
