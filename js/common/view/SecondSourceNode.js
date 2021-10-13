@@ -112,7 +112,9 @@ class SecondSourceNode extends Node {
       positionProperty: positionProperty,
       dragBoundsProperty: dragBoundsProperty,
       transform: modelViewTransform,
-      offsetPosition: () => LIGHT_SOURCE_DRAG_OFFSET,
+
+      //TODO this is awful, needed to fix https://github.com/phetsims/geometric-optics/issues/220
+      offsetPosition: () => representationProperty.value.isObject ? Vector2.ZERO : LIGHT_SOURCE_DRAG_OFFSET,
       end: () => {
         if ( representationProperty.value.isObject ) {
           cueingArrows.visible = false;
