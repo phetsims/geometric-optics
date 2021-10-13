@@ -9,18 +9,11 @@
 import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import Spacer from '../../../../scenery/js/nodes/Spacer.js';
 import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import Optic from '../model/Optic.js';
 import OpticShapes from '../model/OpticShapes.js';
-
-// constants
-const RADIUS_OF_CURVATURE = 22; // in view coordinates
-const DIAMETER = 30; // in view coordinates
-const THICKNESS = 4; // thickness of mirror
-const STRUT_LENGTH = 42; // minimum size of the button
 
 class CurveRadioButtonGroup extends RectangularRadioButtonGroup {
 
@@ -41,8 +34,8 @@ class CurveRadioButtonGroup extends RectangularRadioButtonGroup {
       deselectedStroke: GeometricOpticsColors.curveRadioButtonDeselectedStrokeProperty,
       deselectedLineWidth: 2,
       selectedLineWidth: 2,
-      buttonContentXMargin: 0,
-      buttonContentYMargin: 0
+      buttonContentXMargin: 14,
+      buttonContentYMargin: 5
     }, options );
 
     // create an array of items for buttons for each curve.
@@ -56,12 +49,10 @@ class CurveRadioButtonGroup extends RectangularRadioButtonGroup {
       };
     } );
 
-    // the icon that is converging should be the first in the button items
-    // find the curve of the first item
-    const firstCurve = buttonItems[ 0 ].value;
-
-    // if the first curve is diverging, reverse the order of the array
-    if ( optic.isDiverging( firstCurve ) ) {
+    // The icon that is converging should be the first in the button items.
+    // If the first curve is diverging, reverse the order of the array.
+    assert && assert( buttonItems.length === 2 );
+    if ( optic.isDiverging( buttonItems[ 0 ].value ) ) {
       buttonItems.reverse();
     }
 
@@ -82,51 +73,31 @@ class CurveRadioButtonGroup extends RectangularRadioButtonGroup {
     assert && assert( Optic.Curve.includes( curve ) );
 
     options = merge( {
-      radius: RADIUS_OF_CURVATURE, // radius of curvature
-      diameter: DIAMETER, // height of the optic
-      thickness: THICKNESS, // thickness of the backing of the mirror
-      isHollywood: false, // is the curvature radius an accurate description of shape
+      radius: 22, // radius of curvature, in cm
+      diameter: 30, // height of the optic, in cm
+      thickness: 4, // thickness of the backing of the mirror, in cm
+      isHollywood: false, // does the radius of curvature matching the shape of the lens?
 
       /// options for the form of the icon
-      form: {
+      fillNodeOptions: {
         fill: GeometricOpticsColors.opticFillProperty
       },
 
       // options for the contour or reflective surface
-      outline: {
+      outlineNodeOptions: {
         stroke: GeometricOpticsColors.opticStrokeProperty
-      },
-      buttonContentXMargin: 0,
-      buttonContentYMargin: 0,
-      strutLength: STRUT_LENGTH // minimum size of the Node (when including spacer)
+      }
     }, options );
 
-    // get appropriate icon shapes
+    // Get the appropriate shapes for the optic.
     const iconShapes = new OpticShapes( opticType, curve, options.radius, options.diameter, options );
 
-    // create node to layout the paths for the icon
-    const iconNode = new Node();
-
-    const iconFillNode = new Path( iconShapes.fillShape, options.form );
-    const iconOutlineNode = new Path( iconShapes.outlineShape, options.outline );
-
-    iconNode.setChildren( [ iconFillNode, iconOutlineNode ] );
-
-    // create spacer to ensure both lens and mirror icons are the same size
-    const iconSpacer = new Spacer( options.strutLength - 2 * options.buttonContentXMargin,
-      options.strutLength - 2 * options.buttonContentYMargin );
-
-    // make sure the spacer is larger than icon
-    assert && assert( iconSpacer.width > iconNode.width,
-      'spacer width is smaller than icon content' );
-    assert && assert( iconSpacer.height > iconNode.height,
-      'spacer height is smaller than icon content' );
-
-    // center the icon in the spacer
-    iconNode.center = iconSpacer.center;
-
-    // return a node layer containing the icon and spacer
-    return new Node( { children: [ iconNode, iconSpacer ] } );
+    // Create the icon.
+    const fillNode = new Path( iconShapes.fillShape, options.fillNodeOptions );
+    const outlineNode = new Path( iconShapes.outlineShape, options.outlineNodeOptions );
+    return new Node( {
+      children: [ fillNode, outlineNode ]
+    } );
   }
 }
 
