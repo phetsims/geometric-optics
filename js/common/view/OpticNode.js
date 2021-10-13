@@ -76,8 +76,7 @@ class OpticNode extends Node {
 
     // link the index of refraction to the opacity of the lens
     optic.indexOfRefractionProperty.link( index => {
-      const normalizedIndex = optic.getNormalizedIndex( index ); //TODO unnecessary local var
-      opticPath.opacity = normalizedIndex;
+      opticPath.opacity = optic.getNormalizedIndex( index );
     } );
 
     // A separate Node for the optic's outline
