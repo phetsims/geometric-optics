@@ -227,17 +227,15 @@ class GeometricOpticsScreenView extends ScreenView {
       ]
     } );
 
-    // scale the playAreaNode
+    // Handle zoom level.
     zoomLevelProperty.lazyLink( ( zoomLevel, oldZoomLevel ) => {
 
-      // scaling factor between zoom levels
+      // Scale the play area.
       const relativeScale = this.getRelativeScale( zoomLevel, oldZoomLevel );
-
-      // offset of the play areaNode such that the origin point remains fixed through zoom
-      const translateVector = ORIGIN_POINT.times( 1 / relativeScale - 1 );
-
-      // scale and translate the playArea
       playAreaNode.scale( relativeScale );
+
+      // Translate the play areaNode such that the origin point remains fixed through zoom levels.
+      const translateVector = ORIGIN_POINT.times( 1 / relativeScale - 1 );
       playAreaNode.translate( translateVector );
     } );
 
@@ -355,15 +353,6 @@ class GeometricOpticsScreenView extends ScreenView {
   }
 
   /**
-   * Scale function
-   * @private
-   * @returns {number}
-   */
-  scaleFunction( zoomLevel ) {
-    return Math.pow( GeometricOpticsConstants.ZOOM_SCALE_FACTOR, zoomLevel );
-  }
-
-  /**
    * Returns the relative scale between a zoom level and a previous old zoom level
    * @private
    * @param {number} zoomLevel
@@ -371,8 +360,9 @@ class GeometricOpticsScreenView extends ScreenView {
    * @returns {number}
    */
   getRelativeScale( zoomLevel, oldZoomLevel ) {
-    const scale = this.scaleFunction( zoomLevel );
-    const oldScale = this.scaleFunction( oldZoomLevel );
+    const base = 2;
+    const scale = Math.pow( base, zoomLevel );
+    const oldScale = Math.pow( base, oldZoomLevel );
     return scale / oldScale;
   }
 
