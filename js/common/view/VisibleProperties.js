@@ -33,7 +33,7 @@ class VisibleProperties {
     } );
 
     // @public visibility of the ray tracing
-    //TODO this is poorly named, it controls visibility of more than rays
+    //TODO this is poorly named, it controls visibility of rays + real image + virtual image
     this.rayTracingVisibleProperty = new BooleanProperty( true );
   }
 
