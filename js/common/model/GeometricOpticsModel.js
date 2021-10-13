@@ -44,7 +44,7 @@ class GeometricOpticsModel {
 
     // @public focal point to the left of the optic
     this.leftFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty, {
-      multiplicativeFactor: -1
+      sign: -1
     } );
 
     // @public focal point to the right of the optic
