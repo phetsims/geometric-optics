@@ -176,7 +176,7 @@ class GeometricOpticsScreenView extends ScreenView {
     // the second source
     const secondSourceNode = new SecondSourceNode( model.representationProperty, model.secondSource,
       sourceObjectNode.dragBoundsProperty, modelViewTransform, {
-        visibleProperty: visibleProperties.secondSourceVisibleProperty
+        visibleProperty: visibleProperties.secondPointVisibleProperty
       } );
 
     // create the optical axis attached to the optical element
@@ -198,7 +198,7 @@ class GeometricOpticsScreenView extends ScreenView {
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, {
         realRaysStroke: GeometricOpticsColors.realRays2StrokeProperty,
         virtualRaysStroke: GeometricOpticsColors.virtualRays2StrokeProperty,
-        visibleProperty: visibleProperties.secondSourceVisibleProperty
+        visibleProperty: visibleProperties.secondPointVisibleProperty
       } );
 
     // create the target image

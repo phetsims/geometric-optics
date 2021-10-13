@@ -70,7 +70,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       // Second Point
       {
         node: createLabel( geometricOpticsStrings.secondPoint, SecondSourceNode.createIcon() ),
-        property: visibleProperties.secondSourceVisibleProperty
+        property: visibleProperties.secondPointVisibleProperty
       }
     ];
 

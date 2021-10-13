@@ -24,8 +24,8 @@ class VisibleProperties {
     // @public visibility of the labels
     this.labelsVisibleProperty = new BooleanProperty( false );
 
-    // @public visibility of the second source
-    this.secondSourceVisibleProperty = new BooleanProperty( false );
+    // @public visibility of the second 'point' (point of interest on object, or light source)
+    this.secondPointVisibleProperty = new BooleanProperty( false );
 
     // @public visibility of the guides, which are irrelevant for mirror
     this.guidesVisibleProperty = new BooleanProperty( false, {
@@ -44,7 +44,7 @@ class VisibleProperties {
     this.focalPointVisibleProperty.reset();
     this.virtualImageVisibleProperty.reset();
     this.labelsVisibleProperty.reset();
-    this.secondSourceVisibleProperty.reset();
+    this.secondPointVisibleProperty.reset();
     this.guidesVisibleProperty.reset();
     this.rayTracingVisibleProperty.reset();
   }

@@ -32,7 +32,7 @@ class LensScreenView extends GeometricOpticsScreenView {
         new GuideNode( model.firstBottomGuide, this.modelViewTransform )
       ],
       visibleProperty: new DerivedProperty(
-        [ this.visibleProperties.guidesVisibleProperty, this.visibleProperties.secondSourceVisibleProperty ],
+        [ this.visibleProperties.guidesVisibleProperty, this.visibleProperties.secondPointVisibleProperty ],
         ( visibleGuides, secondSourceVisible ) => ( visibleGuides && !secondSourceVisible )
       )
     } );
@@ -45,7 +45,7 @@ class LensScreenView extends GeometricOpticsScreenView {
         new GuideNode( model.secondBottomGuide, this.modelViewTransform )
       ],
       visibleProperty: DerivedProperty.and(
-        [ this.visibleProperties.guidesVisibleProperty, this.visibleProperties.secondSourceVisibleProperty ]
+        [ this.visibleProperties.guidesVisibleProperty, this.visibleProperties.secondPointVisibleProperty ]
       )
     } );
     this.playAreaNode.addChild( secondGuidesNode );
@@ -72,7 +72,7 @@ class LensScreenView extends GeometricOpticsScreenView {
       model.secondLightSpot.screenIntersectionProperty,
       this.modelViewTransform, {
         visibleProperty: DerivedProperty.and(
-          [ model.secondTarget.visibleProperty, this.visibleProperties.secondSourceVisibleProperty ] )
+          [ model.secondTarget.visibleProperty, this.visibleProperties.secondPointVisibleProperty ] )
       } );
 
     // Add projector screen and light spots at the bottom of the z-layer.
