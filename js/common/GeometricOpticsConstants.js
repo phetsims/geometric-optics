@@ -15,17 +15,21 @@ const GeometricOpticsConstants = {
 
   // Axes --------------------------------------------------------------------------------------------------------------
 
+  // view
   AXIS_LINE_WIDTH: 2,
   AXIS_LINE_DASH: [ 8, 5 ],
 
   // Rulers ------------------------------------------------------------------------------------------------------------
 
-  RULER_HEIGHT: 40, // in view coordinates
-  RULER_MINIMUM_VISIBLE_LENGTH: 40, // portion of the ruler always within visible bounds, in view coordinates
+  // model
   HORIZONTAL_RULER_LENGTH: 260, // cm
   VERTICAL_RULER_LENGTH: 160, // cm
   HORIZONTAL_RULER_INITIAL_POSITION: new Vector2( 200, 100 ), // cm
   VERTICAL_RULER_INITIAL_POSITION: new Vector2( 100, 300 ), // cm
+
+  // view
+  RULER_HEIGHT: 40, // in view coordinates
+  RULER_MINIMUM_VISIBLE_LENGTH: 40, // portion of the ruler always within visible bounds, in view coordinates
 
   // Projector Screen --------------------------------------------------------------------------------------------------
 
