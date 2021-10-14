@@ -27,14 +27,6 @@ const GeometricOpticsConstants = {
   HORIZONTAL_RULER_INITIAL_POSITION: new Vector2( 200, 100 ), // cm
   VERTICAL_RULER_INITIAL_POSITION: new Vector2( 100, 300 ), // cm
 
-  // Guides ------------------------------------------------------------------------------------------------------------
-
-  //TODO there's an odd mix of model and view values here
-  GUIDE_LINE_WIDTH: 1,
-  GUIDE_RECTANGLE_WIDTH: 48, // length of the guide, in cm
-  GUIDE_RECTANGLE_HEIGHT: 3, // in view coordinates
-  GUIDE_FULCRUM_RADIUS: 5, // in view coordinates
-
   // Projector Screen --------------------------------------------------------------------------------------------------
 
   // in cm, relative to projectorScreen.png. +x is left, +y is up.

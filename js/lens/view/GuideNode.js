@@ -15,10 +15,13 @@ import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
-import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from '../model/Guide.js';
 
+// constants, in view coordinates
+const GUIDE_FULCRUM_RADIUS = 5;
+const GUIDE_RECTANGLE_WIDTH = 96;
+const GUIDE_RECTANGLE_HEIGHT = 6;
 const RECTANGLE_OPTIONS = {
   fill: GeometricOpticsColors.guideArmFillProperty,
   stroke: GeometricOpticsColors.guideStrokeProperty
@@ -45,15 +48,13 @@ class GuideNode extends Node {
       circle: CIRCLE_OPTIONS
     }, options );
 
-    // width and height of the guide rectangles
-    const viewRectangleWidth = modelViewTransform.modelToViewDeltaX( GeometricOpticsConstants.GUIDE_RECTANGLE_WIDTH );
-    const viewRectangleHeight = Math.abs( modelViewTransform.modelToViewDeltaY( GeometricOpticsConstants.GUIDE_RECTANGLE_HEIGHT ) );
-
-    const fulcrumNode = new Circle( GeometricOpticsConstants.GUIDE_FULCRUM_RADIUS, options.circle );
+    const fulcrumNode = new Circle( GUIDE_FULCRUM_RADIUS, options.circle );
 
     // create two rectangles, with left center side laying on fulcrum (initially)
-    const incidentArmNode = new Rectangle( fulcrumNode.x, fulcrumNode.y - viewRectangleHeight / 2, viewRectangleWidth, viewRectangleHeight, options.rectangle );
-    const transmittedArmNode = new Rectangle( fulcrumNode.x, fulcrumNode.y - viewRectangleHeight / 2, viewRectangleWidth, viewRectangleHeight, options.rectangle );
+    const incidentArmNode = new Rectangle( fulcrumNode.x, fulcrumNode.y - GUIDE_RECTANGLE_HEIGHT / 2,
+      GUIDE_RECTANGLE_WIDTH, GUIDE_RECTANGLE_HEIGHT, options.rectangle );
+    const transmittedArmNode = new Rectangle( fulcrumNode.x, fulcrumNode.y - GUIDE_RECTANGLE_HEIGHT / 2,
+      GUIDE_RECTANGLE_WIDTH, GUIDE_RECTANGLE_HEIGHT, options.rectangle );
 
     /**
      * set the position of the rectangle such that its left center is on the fulcrum point.
@@ -70,7 +71,7 @@ class GuideNode extends Node {
       const viewAngle = -angle;
 
       // center of the rectangle is offset from the fulcrum point
-      rectangleNode.center = Vector2.createPolar( viewRectangleWidth / 2, viewAngle ).plus( viewFulcrumPosition );
+      rectangleNode.center = Vector2.createPolar( GUIDE_RECTANGLE_WIDTH / 2, viewAngle ).plus( viewFulcrumPosition );
     };
 
     // update the position of the fulcrum
