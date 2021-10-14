@@ -8,6 +8,7 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
+import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
@@ -99,8 +100,13 @@ class GeometricOpticsControlPanel extends Panel {
       optic.radiusOfCurvatureProperty,
       optic.radiusOfCurvatureProperty.range,
       merge( {}, NUMBER_CONTROL_OPTIONS, {
+        delta: GeometricOpticsConstants.RADIUS_OF_CURVATURE_SPINNER_INTERVAL,
+        sliderOptions: {
+          constrainValue: value =>
+            Utils.roundToInterval( value, GeometricOpticsConstants.RADIUS_OF_CURVATURE_THUMB_INTERVAL )
+        },
         numberDisplayOptions: {
-          decimalPlaces: GeometricOpticsConstants.CURVATURE_RADIUS_DECIMAL_PLACES,
+          decimalPlaces: GeometricOpticsConstants.RADIUS_OF_CURVATURE_DECIMAL_PLACES,
           valuePattern: geometricOpticsStrings.valueCentimetersPattern
         }
       } ) );
@@ -112,9 +118,13 @@ class GeometricOpticsControlPanel extends Panel {
         optic.indexOfRefractionProperty,
         optic.indexOfRefractionProperty.range,
         merge( {}, NUMBER_CONTROL_OPTIONS, {
-          delta: 0.01,
+          delta: GeometricOpticsConstants.INDEX_OF_REFRACTION_SPINNER_INTERVAL,
+          sliderOptions: {
+            constrainValue: value =>
+              Utils.roundToInterval( value, GeometricOpticsConstants.INDEX_OF_REFRACTION_THUMB_INTERVAL )
+          },
           numberDisplayOptions: {
-            decimalPlaces: GeometricOpticsConstants.REFRACTIVE_INDEX_DECIMAL_PLACES
+            decimalPlaces: GeometricOpticsConstants.INDEX_OF_REFRACTION_DECIMAL_PLACES
           }
         } ) );
       numberControls.push( indexOfRefractionControl );
@@ -126,6 +136,11 @@ class GeometricOpticsControlPanel extends Panel {
       optic.diameterProperty,
       optic.diameterProperty.range,
       merge( {}, NUMBER_CONTROL_OPTIONS, {
+        delta: GeometricOpticsConstants.DIAMETER_SPINNER_INTERVAL,
+        sliderOptions: {
+          constrainValue: value =>
+            Utils.roundToInterval( value, GeometricOpticsConstants.DIAMETER_THUMB_INTERVAL )
+        },
         numberDisplayOptions: {
           decimalPlaces: GeometricOpticsConstants.DIAMETER_DECIMAL_PLACES,
           valuePattern: geometricOpticsStrings.valueCentimetersPattern
