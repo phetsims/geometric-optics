@@ -103,7 +103,7 @@ class GeometricOpticsControlPanel extends Panel {
         delta: GeometricOpticsConstants.RADIUS_OF_CURVATURE_SPINNER_INTERVAL,
         sliderOptions: {
           constrainValue: value =>
-            Utils.roundToInterval( value, GeometricOpticsConstants.RADIUS_OF_CURVATURE_THUMB_INTERVAL )
+            Utils.roundToInterval( value, GeometricOpticsConstants.RADIUS_OF_CURVATURE_SLIDER_INTERVAL )
         },
         numberDisplayOptions: {
           decimalPlaces: GeometricOpticsConstants.RADIUS_OF_CURVATURE_DECIMAL_PLACES,
@@ -121,7 +121,7 @@ class GeometricOpticsControlPanel extends Panel {
           delta: GeometricOpticsConstants.INDEX_OF_REFRACTION_SPINNER_INTERVAL,
           sliderOptions: {
             constrainValue: value =>
-              Utils.roundToInterval( value, GeometricOpticsConstants.INDEX_OF_REFRACTION_THUMB_INTERVAL )
+              Utils.roundToInterval( value, GeometricOpticsConstants.INDEX_OF_REFRACTION_SLIDER_INTERVAL )
           },
           numberDisplayOptions: {
             decimalPlaces: GeometricOpticsConstants.INDEX_OF_REFRACTION_DECIMAL_PLACES
@@ -139,7 +139,7 @@ class GeometricOpticsControlPanel extends Panel {
         delta: GeometricOpticsConstants.DIAMETER_SPINNER_INTERVAL,
         sliderOptions: {
           constrainValue: value =>
-            Utils.roundToInterval( value, GeometricOpticsConstants.DIAMETER_THUMB_INTERVAL )
+            Utils.roundToInterval( value, GeometricOpticsConstants.DIAMETER_SLIDER_INTERVAL )
         },
         numberDisplayOptions: {
           decimalPlaces: GeometricOpticsConstants.DIAMETER_DECIMAL_PLACES,
