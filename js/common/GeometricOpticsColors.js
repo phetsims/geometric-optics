@@ -82,8 +82,18 @@ const GeometricOpticsColors = {
     default: 'rgb( 18, 109, 70 )'
   } ),
 
+  // Fill for the screen part of the projector screen
+  projectorScreenFillProperty: new ProfileColorProperty( geometricOptics, 'projectorScreenFill', {
+    default: 'white'
+  } ),
+
+  // Stroke for the screen part of the projector screen
+  projectorScreenStrokeProperty: new ProfileColorProperty( geometricOptics, 'projectorScreenStroke', {
+    default: 'rgb( 86, 86, 86 )'
+  } ),
+
   // Light spot that appears on the projector screen
-  lightSpotFillProperty: new ProfileColorProperty( geometricOptics, 'projectorScreenSpotlightFill', {
+  lightSpotFillProperty: new ProfileColorProperty( geometricOptics, 'lightSpotFill', {
     default: 'rgb( 255, 220, 0 )'
   } ),
 
@@ -130,7 +140,7 @@ const GeometricOpticsColors = {
   } ),
 
   // Stroke for a deselected radio button that determines the shape of the lens/mirror
-  curveRadioButtonDeselectedStrokeProperty: new ProfileColorProperty( geometricOptics, 'curveRadioButtonDeelectedStroke', {
+  curveRadioButtonDeselectedStrokeProperty: new ProfileColorProperty( geometricOptics, 'curveRadioButtonDeselectedStroke', {
     default: 'grey'
   } ),
 

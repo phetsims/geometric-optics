@@ -17,7 +17,8 @@ import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import projectorScreen_png from '../../../images/projectorScreen_png.js';
+import projectorScreenFrame_png from '../../../images/projectorScreenFrame_png.js';
+import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import GeometricOpticsQueryParameters from '../../common/GeometricOpticsQueryParameters.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -43,20 +44,28 @@ class ProjectorScreenNode extends Node {
       cursor: 'pointer'
     }, options );
 
-    // The screen
-    const projectorScreenImage = new Image( projectorScreen_png, {
+    // The frame part (top and bottom) of the projector screen is an image.
+    const projectorScreenFrameImage = new Image( projectorScreenFrame_png, {
       scale: GeometricOpticsConstants.PROJECTOR_SCREEN_SCALE
     } );
 
+    // The screen part of the projector screen is a Path, so that we can tweak its color in the Color Editor.
+    // See https://github.com/phetsims/geometric-optics/issues/226
+    const screenNode = new Path( null, {
+      fill: GeometricOpticsColors.projectorScreenFillProperty,
+      stroke: GeometricOpticsColors.projectorScreenStrokeProperty,
+      lineWidth: 2
+    } );
+
     assert && assert( !options.children );
-    options.children = [ projectorScreenImage ];
+    options.children = [ screenNode, projectorScreenFrameImage ];
 
     super( options );
 
     // TODO: the model should give its size to the view rather than the other way around (see #153)
     // determine the size of the projector in model coordinates
-    const modelChildHeight = Math.abs( modelViewTransform.viewToModelDeltaY( projectorScreenImage.height ) );
-    const modelChildWidth = modelViewTransform.viewToModelDeltaX( projectorScreenImage.width );
+    const modelChildHeight = Math.abs( modelViewTransform.viewToModelDeltaY( projectorScreenFrameImage.height ) );
+    const modelChildWidth = modelViewTransform.viewToModelDeltaX( projectorScreenFrameImage.width );
 
     // difference between the left top position of the image and the "center" of the screen in model coordinates
     const offset = new Vector2( -modelChildWidth, modelChildHeight ).divideScalar( 2 );
@@ -77,7 +86,7 @@ class ProjectorScreenNode extends Node {
     this.imagePositionProperty = new Vector2Property( projectorScreen.positionProperty.value.plus( offset ) );
 
     // create a drag listener for the image
-    projectorScreenImage.addInputListener( new DragListener( {
+    projectorScreenFrameImage.addInputListener( new DragListener( {
       positionProperty: this.imagePositionProperty,
       dragBoundsProperty: dragBoundsProperty,
       transform: modelViewTransform
@@ -88,10 +97,14 @@ class ProjectorScreenNode extends Node {
       this.imagePositionProperty.value = dragBounds.closestPointTo( this.imagePositionProperty.value );
     } );
 
+    projectorScreen.positionProperty.link( position => {
+      screenNode.shape = modelViewTransform.modelToViewShape( projectorScreen.getScreenShape() );
+    } );
+
     // update the position of projectorScreen target
     this.imagePositionProperty.link( position => {
       projectorScreen.positionProperty.value = position.minus( offset );
-      projectorScreenImage.leftTop = modelViewTransform.modelToViewPosition( position );
+      projectorScreenFrameImage.leftTop = modelViewTransform.modelToViewPosition( position );
     } );
 
     // Show the mask that corresponds to the area where light can be seen on the projector screen.

@@ -48,7 +48,7 @@ const GeometricOpticsConstants = {
   PROJECTOR_SCREEN_MASK_CORNERS: {
     LEFT_TOP: new Vector2( -20, 56 ),
     LEFT_BOTTOM: new Vector2( -20, -59 ),
-    RIGHT_BOTTOM: new Vector2( 22, -72 ),
+    RIGHT_BOTTOM: new Vector2( 22, -73 ),
     RIGHT_TOP: new Vector2( 22, 67 )
   },
   PROJECTOR_SCREEN_INITIAL_POSITION: new Vector2( 200, 0 ), // cm
