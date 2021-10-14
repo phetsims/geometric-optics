@@ -31,20 +31,6 @@ const GeometricOpticsConstants = {
   RULER_HEIGHT: 40, // in view coordinates
   RULER_MINIMUM_VISIBLE_LENGTH: 40, // portion of the ruler always within visible bounds, in view coordinates
 
-  // Projector Screen --------------------------------------------------------------------------------------------------
-
-  // in cm, relative to projectorScreen.png. +x is left, +y is up.
-  // Run with ?showProjectorScreenMask to display the bounds of this mask.
-  PROJECTOR_SCREEN_MASK_CORNERS: {
-    LEFT_TOP: new Vector2( -20, 56 ),
-    LEFT_BOTTOM: new Vector2( -20, -59 ),
-    RIGHT_BOTTOM: new Vector2( 22, -73 ),
-    RIGHT_TOP: new Vector2( 22, 67 )
-  },
-  PROJECTOR_SCREEN_INITIAL_POSITION: new Vector2( 200, 0 ), // cm
-  PROJECTOR_SCREEN_SCALE: 0.5, // scaling factor applied to the projector screen image
-  FULL_INTENSITY_LIGHT_SPOT_HEIGHT: 7, // cm, any light spot less than this height will be full intensity
-
   // Decimal places and intervals for controls -------------------------------------------------------------------------
 
   RADIUS_OF_CURVATURE_DECIMAL_PLACES: 0,

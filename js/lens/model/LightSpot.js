@@ -13,13 +13,13 @@ import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Graph from '../../../../kite/js/ops/Graph.js';
 import Shape from '../../../../kite/js/Shape.js';
-import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import Optic from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 import ProjectorScreen from './ProjectorScreen.js';
 
 // constants
 const INTENSITY_RANGE = new Range( 0, 1 );
+const FULL_INTENSITY_LIGHT_SPOT_HEIGHT = 7; // cm, any light spot less than this height will be full intensity
 
 class LightSpot {
 
@@ -215,7 +215,7 @@ class LightSpot {
 
       // Saturates to max intensity for a spot height less than FULL_INTENSITY_LIGHT_SPOT_HEIGHT.
       const spotHeight = 2 * radiusY;
-      intensity = INTENSITY_RANGE.constrainValue( GeometricOpticsConstants.FULL_INTENSITY_LIGHT_SPOT_HEIGHT / spotHeight );
+      intensity = INTENSITY_RANGE.constrainValue( FULL_INTENSITY_LIGHT_SPOT_HEIGHT / spotHeight );
     }
     assert && assert( INTENSITY_RANGE.contains( intensity ) );
     return intensity;

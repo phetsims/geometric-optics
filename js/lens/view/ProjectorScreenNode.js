@@ -20,10 +20,12 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import projectorScreenFrame_png from '../../../images/projectorScreenFrame_png.js';
 import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
-import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import GeometricOpticsQueryParameters from '../../common/GeometricOpticsQueryParameters.js';
 import geometricOptics from '../../geometricOptics.js';
 import ProjectorScreen from '../model/ProjectorScreen.js';
+
+// constants
+const IMAGE_SCALE = 0.5; // scaling factor applied to the projector screen image
 
 class ProjectorScreenNode extends Node {
 
@@ -47,7 +49,7 @@ class ProjectorScreenNode extends Node {
 
     // The frame part (top and bottom) of the projector screen is an image.
     const projectorScreenFrameImage = new Image( projectorScreenFrame_png, {
-      scale: GeometricOpticsConstants.PROJECTOR_SCREEN_SCALE
+      scale: IMAGE_SCALE
     } );
 
     // The screen part of the projector screen is a Path, so that we can tweak its color in the Color Editor.

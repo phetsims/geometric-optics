@@ -8,21 +8,29 @@
  */
 
 import Matrix3 from '../../../../dot/js/Matrix3.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Line from '../../../../kite/js/segments/Line.js';
 import Shape from '../../../../kite/js/Shape.js';
-import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import geometricOptics from '../../geometricOptics.js';
 
-// constants
-const MASK_CORNERS = GeometricOpticsConstants.PROJECTOR_SCREEN_MASK_CORNERS;
+// defines the shape of the screen, in cm. Coordinates are relative to the center (0,0) of the screen.
+const SCREEN_CORNERS = {
+  LEFT_TOP: new Vector2( -20, 56 ),
+  LEFT_BOTTOM: new Vector2( -20, -59 ),
+  RIGHT_BOTTOM: new Vector2( 22, -73 ),
+  RIGHT_TOP: new Vector2( 22, 67 )
+};
+
+// initial position of the screen's center
+const INITIAL_POSITION = new Vector2( 200, 0 );
 
 class ProjectorScreen {
 
   constructor() {
 
     // @public position of the center of the screen
-    this.positionProperty = new Vector2Property( GeometricOpticsConstants.PROJECTOR_SCREEN_INITIAL_POSITION );
+    this.positionProperty = new Vector2Property( INITIAL_POSITION );
   }
 
   /**
@@ -41,8 +49,8 @@ class ProjectorScreen {
   getBisectorLine() {
 
     // convenience variable to create a line that splits the middle of the screen vertically
-    const top = MASK_CORNERS.LEFT_TOP.average( MASK_CORNERS.RIGHT_TOP );
-    const bottom = MASK_CORNERS.LEFT_BOTTOM.average( MASK_CORNERS.RIGHT_BOTTOM );
+    const top = SCREEN_CORNERS.LEFT_TOP.average( SCREEN_CORNERS.RIGHT_TOP );
+    const bottom = SCREEN_CORNERS.LEFT_BOTTOM.average( SCREEN_CORNERS.RIGHT_BOTTOM );
 
     const verticalLine = new Line( top, bottom );
 
@@ -57,10 +65,10 @@ class ProjectorScreen {
    */
   getScreenShape() {
     const screenShape = new Shape()
-      .moveToPoint( MASK_CORNERS.LEFT_TOP )
-      .lineToPoint( MASK_CORNERS.LEFT_BOTTOM )
-      .lineToPoint( MASK_CORNERS.RIGHT_BOTTOM )
-      .lineToPoint( MASK_CORNERS.RIGHT_TOP )
+      .moveToPoint( SCREEN_CORNERS.LEFT_TOP )
+      .lineToPoint( SCREEN_CORNERS.LEFT_BOTTOM )
+      .lineToPoint( SCREEN_CORNERS.RIGHT_BOTTOM )
+      .lineToPoint( SCREEN_CORNERS.RIGHT_TOP )
       .close();
     return this.translatedShape( screenShape );
   }
