@@ -59,16 +59,16 @@ const GeometricOpticsConstants = {
   // Decimal places ----------------------------------------------------------------------------------------------------
 
   RADIUS_OF_CURVATURE_DECIMAL_PLACES: 0,
-  RADIUS_OF_CURVATURE_THUMB_INTERVAL: 5,
-  RADIUS_OF_CURVATURE_SPINNER_INTERVAL: 1,
+  RADIUS_OF_CURVATURE_THUMB_INTERVAL: 5, // cm
+  RADIUS_OF_CURVATURE_SPINNER_INTERVAL: 1, // cm
 
   INDEX_OF_REFRACTION_DECIMAL_PLACES: 2,
   INDEX_OF_REFRACTION_THUMB_INTERVAL: 0.05,
   INDEX_OF_REFRACTION_SPINNER_INTERVAL: 0.01,
 
   DIAMETER_DECIMAL_PLACES: 0,
-  DIAMETER_THUMB_INTERVAL: 5,
-  DIAMETER_SPINNER_INTERVAL: 1,
+  DIAMETER_THUMB_INTERVAL: 5, // cm
+  DIAMETER_SPINNER_INTERVAL: 1, // cm
 
   // Fonts -------------------------------------------------------------------------------------------------------------
 
