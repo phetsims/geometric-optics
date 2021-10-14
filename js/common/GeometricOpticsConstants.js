@@ -56,7 +56,7 @@ const GeometricOpticsConstants = {
   PROJECTOR_SCREEN_SCALE: 0.5, // scaling factor applied to the projector screen image
   FULL_INTENSITY_LIGHT_SPOT_HEIGHT: 7, // cm, any light spot less than this height will be full intensity
 
-  // Decimal places ----------------------------------------------------------------------------------------------------
+  // Decimal places and intervals for controls -------------------------------------------------------------------------
 
   RADIUS_OF_CURVATURE_DECIMAL_PLACES: 0,
   RADIUS_OF_CURVATURE_THUMB_INTERVAL: 5, // cm
