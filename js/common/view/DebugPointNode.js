@@ -2,7 +2,7 @@
 
 /**
  * DebugPointNode is used for debugging the position of things in the UI. It displays a circle at a specified
- * point, and stays synchronized with that point. Use the ?showDebugPoints query parameter to enable.
+ * point, and stays synchronized with that point.
  *
  * @author Martin Veillette
  */

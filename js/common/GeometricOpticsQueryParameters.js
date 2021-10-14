@@ -16,7 +16,7 @@ const GeometricOpticsQueryParameters = QueryStringMachine.getAll( {
   // Public-facing query parameters
   //----------------------------------------------------------------------------------------------------------------
 
-  // display a checkbox item that allows to toggle the visibility of the guides on the lens screen
+  // display a checkbox that allows to toggle the visibility of the guides on the lens screen
   showGuides: {
     type: 'boolean',
     defaultValue: true,
@@ -27,13 +27,13 @@ const GeometricOpticsQueryParameters = QueryStringMachine.getAll( {
   // Internal query parameters
   //----------------------------------------------------------------------------------------------------------------
 
-  // Show the positions of the optic, object, target, projector screen as red dots.
-  showDebugPoints: {
+  // Show the positions of various things as red dots.
+  showPositions: {
     type: 'flag'
   },
 
-  // Show 2f, twice the focal length, as dots that are the same color as the focal points.
-  show2fPoints: {
+  // Show 2f (twice the focal length, f) as dots that are the same color as the focal points.
+  show2f: {
     type: 'flag'
   },
 

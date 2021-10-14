@@ -266,7 +266,7 @@ class GeometricOpticsScreenView extends ScreenView {
     // Debugging ================================================================================================
 
     // Add points at the position of things that move around.
-    if ( GeometricOpticsQueryParameters.showDebugPoints ) {
+    if ( GeometricOpticsQueryParameters.showPositions ) {
       const options = { fill: 'red' };
       playAreaNode.addChild( new DebugPointNode( model.optic.positionProperty, modelViewTransform, options ) );
       playAreaNode.addChild( new DebugPointNode( model.sourceObject.positionProperty, modelViewTransform, options ) );
@@ -276,7 +276,7 @@ class GeometricOpticsScreenView extends ScreenView {
     }
 
     // Add points at a distance 2f on each side of optic
-    if ( GeometricOpticsQueryParameters.show2fPoints ) {
+    if ( GeometricOpticsQueryParameters.show2f ) {
       const left2fProperty = new DerivedProperty( [ model.leftFocalPoint.positionProperty ], position => position.timesScalar( 2 ) );
       const right2fProperty = new DerivedProperty( [ model.rightFocalPoint.positionProperty ], position => position.timesScalar( 2 ) );
       const options = { fill: GeometricOpticsColors.focalPointFillProperty };
