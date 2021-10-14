@@ -7,18 +7,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import RangeWithValue from '../../../dot/js/RangeWithValue.js';
 import Vector2 from '../../../dot/js/Vector2.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import geometricOptics from '../geometricOptics.js';
 
 const GeometricOpticsConstants = {
-
-  SCREEN_VIEW_X_MARGIN: 20, // margin along horizontal axis of screen (in view coordinates)
-  SCREEN_VIEW_Y_MARGIN: 15, // margin along vertical axis of screen
-  ZOOM_RANGE: new RangeWithValue( 1, 3, 3 ),
-  NOMINAL_VIEW_MODEL_CONVERSION: 2, // view coordinates per cm in initial zoom level
-  RAYS_ANIMATION_TIME: 10, // length of the rays animation, in seconds
 
   // Axes --------------------------------------------------------------------------------------------------------------
 

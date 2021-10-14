@@ -10,8 +10,8 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import geometricOptics from '../../geometricOptics.js';
-import ProjectorScreen from '../../lens/model/ProjectorScreen.js';
 import LightSpot from '../../lens/model/LightSpot.js';
+import ProjectorScreen from '../../lens/model/ProjectorScreen.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import FocalPoint from './FocalPoint.js';
 import LightRays from './LightRays.js';
@@ -22,6 +22,9 @@ import Ruler from './Ruler.js';
 import SecondSource from './SecondSource.js';
 import SourceObject from './SourceObject.js';
 import Target from './Target.js';
+
+// constants
+const RAYS_ANIMATION_TIME = 10; // length of the rays animation, in seconds
 
 class GeometricOpticsModel {
 
@@ -90,7 +93,7 @@ class GeometricOpticsModel {
     // @public (read-only) elapsed time of light rays animation
     this.lightRaysTimeProperty = new NumberProperty( 0, {
       units: 's',
-      range: new Range( 0, GeometricOpticsConstants.RAYS_ANIMATION_TIME )
+      range: new Range( 0, RAYS_ANIMATION_TIME )
     } );
 
     // @public determines the representation used for rays
