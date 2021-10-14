@@ -47,12 +47,6 @@ const GeometricOpticsQueryParameters = QueryStringMachine.getAll( {
     type: 'number',
     defaultValue: 400,
     isValidValue: value => ( value >= 100 )
-  },
-
-  // Shows the mask that corresponds to the area where light can be seen on the projector screen.
-  // This is used to adjust ProjectorScreen.SCREEN_CORNERS to match the PNG file.
-  showProjectorScreenMask: {
-    type: 'flag'
   }
 } );
 

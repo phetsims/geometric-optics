@@ -20,7 +20,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import projectorScreenFrame_png from '../../../images/projectorScreenFrame_png.js';
 import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
-import GeometricOpticsQueryParameters from '../../common/GeometricOpticsQueryParameters.js';
 import geometricOptics from '../../geometricOptics.js';
 import ProjectorScreen from '../model/ProjectorScreen.js';
 
@@ -109,16 +108,6 @@ class ProjectorScreenNode extends Node {
       projectorScreen.positionProperty.value = position.minus( offset );
       projectorScreenFrameImage.leftTop = modelViewTransform.modelToViewPosition( position );
     } );
-
-    // Show the mask that corresponds to the area where light can be seen on the projector screen.
-    // The Shape is described clockwise, from leftTop.
-    if ( GeometricOpticsQueryParameters.showProjectorScreenMask ) {
-      const screenMaskNode = new Path( null, { stroke: 'red' } );
-      this.addChild( screenMaskNode );
-      projectorScreen.positionProperty.link( position => {
-        screenMaskNode.shape = modelViewTransform.modelToViewShape( projectorScreen.getScreenShape() );
-      } );
-    }
   }
 
   /**
