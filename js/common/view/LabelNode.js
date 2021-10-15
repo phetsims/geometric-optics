@@ -46,8 +46,12 @@ class LabelNode extends Node {
 
       // Rectangle options, for the Rectangle behind the text
       rectangleOptions: {
-        fill: GeometricOpticsColors.labelBackgroundFillProperty,
-        cornerRadius: 4
+
+        // We generally want the label's background to match the screen's background.
+        // See https://github.com/phetsims/geometric-optics/issues/239
+        fill: GeometricOpticsColors.screenBackgroundColorProperty,
+        cornerRadius: 4,
+        opacity: 0.5
       }
     }, options );
 

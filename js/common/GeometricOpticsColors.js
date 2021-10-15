@@ -103,12 +103,6 @@ const GeometricOpticsColors = {
     projector: 'black'
   } ),
 
-  // Background color for labels
-  labelBackgroundFillProperty: new ProfileColorProperty( geometricOptics, 'labelBackgroundFill', {
-    default: 'rgba( 27, 27, 96, 0.5 )',
-    projector: 'rgba( 255, 255, 255, 0.5 )'
-  } ),
-
   // Fill of the arm (rectangle) portion of guides
   guideArmFillProperty: new ProfileColorProperty( geometricOptics, 'guideArmFill', {
     default: 'white'
