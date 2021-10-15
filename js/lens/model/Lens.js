@@ -19,7 +19,7 @@ class Lens extends Optic {
       initialCurve: Optic.Curve.CONVEX,
       initialPosition: Vector2.ZERO, // in cm
       radiusOfCurvatureRange: new RangeWithValue( 30, 130, 80 ), // in cm
-      indexOfRefractionRange: new RangeWithValue( 1.20, 1.87, 1.53 ), // unitless
+      indexOfRefractionRange: new RangeWithValue( 1.2, 1.9, 1.5 ), // unitless
       diameterRange: new RangeWithValue( 30, 130, 80 ) // in cm
     } );
   }
