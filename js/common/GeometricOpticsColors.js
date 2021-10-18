@@ -97,11 +97,6 @@ const GeometricOpticsColors = {
     default: 'rgb( 255, 220, 0 )'
   } ),
 
-  // Stroke (dashed outline) for the light spot that appears on the projector screen
-  lightSpotStrokeProperty: new ProfileColorProperty( geometricOptics, 'lightSpotStroke', {
-    default: 'rgb( 200, 200, 200 )'
-  } ),
-
   // Color of the text on the labels
   labelFillProperty: new ProfileColorProperty( geometricOptics, 'labelFillProperty', {
     default: 'white',
