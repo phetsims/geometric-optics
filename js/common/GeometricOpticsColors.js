@@ -94,7 +94,7 @@ const GeometricOpticsColors = {
 
   // Fill for the light spot that appears on the projector screen
   lightSpotFillProperty: new ProfileColorProperty( geometricOptics, 'lightSpotFill', {
-    default: 'rgb( 255, 220, 0 )'
+    default: 'rgb( 255, 0, 0 )'
   } ),
 
   // Color of the text on the labels
