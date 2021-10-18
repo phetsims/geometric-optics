@@ -1,11 +1,11 @@
 {
-  "comment": "# geometric-optics 1.0.0-dev.18 Wed Oct 13 2021 15:51:35 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# geometric-optics 1.0.0-rc.0 Mon Oct 18 2021 17:32:11 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "767b2f345518ceca5144a152ecf40cd4f9206136",
     "branch": "master"
   },
   "axon": {
-    "sha": "8ae8f1a816b4e7a81a6c8834030ccbfe3e1b4660",
+    "sha": "defd7e75a9bc5ec4cad0b1a8e89a701b39023291",
     "branch": "master"
   },
   "brand": {
@@ -13,27 +13,27 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "ed26f87b859fea497a316ef0c159c29b022a2555",
+    "sha": "7b73744b7ded0e4f0dfe3d435430b963b51c1ffd",
     "branch": "master"
   },
   "dot": {
-    "sha": "15d5fd87adad8a2431fa919ffca36d5d17290ea5",
+    "sha": "9191309064f758a08900b71d1c9dfa5d582cd35a",
     "branch": "master"
   },
   "geometric-optics": {
-    "sha": "79ac08533872e5d593d931b38f5a7328c8346b96",
-    "branch": "master"
+    "sha": "37664a2df9859b2b84ce618aecec8d8bb411284a",
+    "branch": "1.0"
   },
   "joist": {
-    "sha": "cd9dc495092421afbbf827ff0c9dbf5888fa09ec",
+    "sha": "afdb421e47b1d80a107a4b92f5b7c9e72a678282",
     "branch": "master"
   },
   "kite": {
-    "sha": "8a7b8d7bf5cb729080cf3d687ac4be7e93810d62",
+    "sha": "1638f2edd5272cba0190f94cac8fcec56a4ddcce",
     "branch": "master"
   },
   "perennial-alias": {
-    "sha": "8e7889a3d732260e0e54cf22413fdb04b7b68ac0",
+    "sha": "431586ed334a85a6b2efa16e0f778a0443405d13",
     "branch": "master"
   },
   "phet-core": {
@@ -65,15 +65,15 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "f8c11571990321261befa0b8fcb2b89f15e94be5",
+    "sha": "a004e77de5e0edc1c6e1775b980839221514b6c2",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "4dce66fa6ac54945508d74fce36e0d329571fb6e",
+    "sha": "e2749dbc9522efe7b8dc40823fb462f40a967591",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "08c82c21de1a1b4f2cea6f444bf39414d95a0b5b",
+    "sha": "a17cf3512f02e85fc024a3d80b421a3139c6f3ee",
     "branch": "master"
   },
   "studio": {
@@ -81,7 +81,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "bc438955e5df229fdf0927760853f4d0e261a222",
+    "sha": "b4fff35dc4ce369d8c6ca067a47f08ee60da60a0",
     "branch": "master"
   },
   "tambo": {
@@ -89,7 +89,7 @@
     "branch": "master"
   },
   "tandem": {
-    "sha": "80550841ad5dd034f22286348be81a5bc0b7e21c",
+    "sha": "d99e9fb1ff0771a703daf723fbc1decd2caeea94",
     "branch": "master"
   },
   "twixt": {
