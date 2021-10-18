@@ -47,7 +47,7 @@ const OBJECT_OFFSET = new Vector2( -67, 100 );
 
 // How much to shift the upper-left corner of the light source, in cm.
 // This is specific to the light-source PNG files, and must be uniform for all light-source PNG files.
-const LIGHT_SOURCE_OFFSET = new Vector2( -64, 28 );
+const LIGHT_SOURCE_OFFSET = new Vector2( -62, 40 );
 
 /**
  * RepresentationValue is a value for this rich enumeration.
