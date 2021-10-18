@@ -16,7 +16,7 @@ const GeometricOpticsQueryParameters = QueryStringMachine.getAll( {
   // Public-facing query parameters
   //----------------------------------------------------------------------------------------------------------------
 
-  // display a checkbox that allows to toggle the visibility of the guides on the lens screen
+  // Add a checkbox to the Lens screen, for controlling the visibility of guides.
   showGuides: {
     type: 'flag'
   },
