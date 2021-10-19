@@ -267,7 +267,7 @@ class LightRay {
     // for principal rays, the rays are refracted at a vertical line
     if ( isPrincipalRayMode ) {
 
-      return optic.getPrincipalLine();
+      return optic.getVerticalAxis();
     }
     else {
 

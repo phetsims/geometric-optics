@@ -264,14 +264,13 @@ class Optic {
   }
 
   /**
-   * Returns the shape of the vertical line
+   * Returns the shape of the vertical axis.
    * @public
    * @returns {Shape}
    */
-  getPrincipalLine() {
+  getVerticalAxis() {
 
-    // a very large extent
-    const yMax = 800; // in cm
+    const yMax = 800; // long enough for all zoom levels, in cm
 
     // a straight vertical line going through the middle of the optic
     const verticalLine = Shape.lineSegment( 0, yMax, 0, -yMax );
