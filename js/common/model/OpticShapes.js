@@ -31,7 +31,7 @@ class OpticShapes {
     // @public (read-only) initialized by setLensShapes or setMirrorShapes
     this.frontShape = null; // {Shape} the left facing contour of the optic. This can be used for ray hit testing
     this.backShape = null; // {Shape|null} the right facing contour of the lens, used for ray hit testing. null for mirror.
-    this.outlineShape = null; // {Shape} the reflecting coating of a mirror, or the external surface of the lens
+    this.outlineShape = null; // {Shape} the external surface of the lens, or the reflecting coating of the mirror
     this.fillShape = null; // {Shape} the entire shape of the lens, or the backing of the mirror
 
     if ( opticType === Optic.Type.LENS ) {
