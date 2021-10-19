@@ -67,9 +67,6 @@ class Optic {
     //TODO rename Optic.Curve and curveProperty
     this.curveProperty = new EnumerationProperty( Optic.Curve, config.initialCurve );
 
-    // @public {RangeWithValue}
-    this.maxDiameter = config.diameterRange.max;
-
     // @public y coordinate is variable, while x coordinate is fixed
     // NOTE: The Flash version allowed free dragging of the lens. But things can get more chaotic if you allow free
     // dragging, and it didn't serve a specific learning goal. So for the HTML5 version, dragging is constrained to
@@ -140,6 +137,15 @@ class Optic {
     this.radiusOfCurvatureProperty.reset();
     this.curveProperty.reset();
     this.indexOfRefractionProperty.reset();
+  }
+
+  /**
+   * Convenience method for getting the maximum diameter, in cm.
+   * @returns {number}
+   * @public
+   */
+  get maxDiameter() {
+    return this.diameterProperty.rangeProperty.value.max;
   }
 
   /**
