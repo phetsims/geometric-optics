@@ -58,8 +58,10 @@ class OpticNode extends Node {
     // Shape of the optic will change when curve type, radius of curvature, or diameter is changed.
     optic.shapesProperty.link( shapes => {
 
-      // The position of this Node should be based on optic.positionProperty, so we do not want to translate these
-      // Shapes. Create our own matrix based on modelViewTransform, but with no effective translation.
+      // Shapes are described in model coordinates. If we use modelViewTransform.modelToViewShape to transform
+      // to view coordinates, the Shapes will be translated. That creates problems, because translation of this
+      // Node should be based on optic.positionProperty. So create our own matrix based on modelViewTransform,
+      // but with no effective translation, and use that matrix to transform the Shapes from model to view coordinates.
       const matrix = modelViewTransform.getMatrix().copy();
       const translation = matrix.getTranslation();
       matrix.prependTranslation( -translation.x, -translation.y );
