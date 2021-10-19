@@ -203,6 +203,7 @@ class Optic {
   }
 
   //TODO handle with subclassing
+  //TODO better documentation, why +1 and -1 ?
   /**
    * Convenience function for mathematical operations.
    * Returns +1 for a lens, -1 for a mirror.
