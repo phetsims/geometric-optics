@@ -101,7 +101,7 @@ class OpticNode extends Node {
         const dragBounds = modelBoundsProperty.value.erodedY( optic.maxDiameter / 2 );
         const constrainedModelPosition = dragBounds.closestPointTo( unconstrainedModelPosition );
 
-        // constrainedto move vertically
+        // constrained to move vertically
         optic.positionProperty.value = new Vector2( optic.positionProperty.value.x, constrainedModelPosition.y );
       }
     } ) );
