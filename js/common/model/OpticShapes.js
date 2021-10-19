@@ -19,7 +19,7 @@ class OpticShapes {
    * @param {Optic.Curve} curve
    * @param {number} radiusOfCurvature - radius of curvature at the center of the optic
    * @param {number} diameter - vertical height of the optic
-   * @param {Object} [options]
+   * @param {Object} [options] - see setLensShapes and setMirrorShapes
    */
   constructor( opticType, curve, radiusOfCurvature, diameter, options ) {
 
@@ -63,7 +63,7 @@ class OpticShapes {
   setLensShapes( curve, radiusOfCurvature, diameter, options ) {
 
     options = merge( {
-      isHollywood: true, // is the radius of curvature parameter matching the shape of the lens
+      isHollywood: true, // does the radius of curvature parameter match the shape of the lens?
       offsetRadius: 100
     }, options );
 
