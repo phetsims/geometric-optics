@@ -79,8 +79,8 @@ class OpticShapes {
       const top = new Vector2( 0, halfHeight );
       const bottom = new Vector2( 0, -halfHeight );
 
-      // two control points on the optical axis, note that the shape does not go through these points
-      // The shape will go through the two points: (  -halfWidth, 0 )  and (  halfWidth, 0 )
+      // two control points on the optical axis. Note that the shape does not go through these points.
+      // The shape will go through the two points: ( -halfWidth, 0 )  and ( halfWidth, 0 )
       const left = new Vector2( -2 * halfWidth, 0 );
       const right = new Vector2( 2 * halfWidth, 0 );
 
