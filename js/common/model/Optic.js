@@ -207,33 +207,12 @@ class Optic {
 
   /**
    * Convenience function for mathematical operations.
-   * Returns a value of +1 is the optical element is convex and -1 is the element is concave.
-   * @public
-   * @param {Optic.Curve} curve
-   * @returns {number}
-   */
-  getCurveSign( curve ) {
-    assert && assert( Optic.Curve.includes( curve ) );
-    return this.isConvex( curve ) ? 1 : -1;
-  }
-
-  /**
-   * Convenience function for mathematical operations.
    * Returns a value of +1 is the optical element is a lens and -1 is the element is a mirror.
    * @public
    * @returns {number}
    */
   getTypeSign() {
     return this.isLens() ? 1 : -1;
-  }
-
-  /**
-   * Returns the type of optical element (Possible values are CONCAVE and CONVEX).
-   * @public
-   * @returns {Optic.Curve}
-   */
-  getCurve() {
-    return this.curveProperty.value;
   }
 
   /**
@@ -343,7 +322,7 @@ class Optic {
     const opticBounds = this.getOpticBounds().erodedY( 1e-6 );
 
     // convenience variables
-    const isConcave = this.isConcave( this.getCurve() );
+    const isConcave = this.isConcave( this.curveProperty.value );
     const leftPoint = isTop ? opticBounds.leftTop : opticBounds.leftBottom;
     const rightPoint = isTop ? opticBounds.rightTop : opticBounds.rightBottom;
     const centerPoint = isTop ? opticBounds.centerTop : opticBounds.centerBottom;
