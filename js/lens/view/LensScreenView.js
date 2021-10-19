@@ -33,7 +33,7 @@ class LensScreenView extends GeometricOpticsScreenView {
       ],
       visibleProperty: new DerivedProperty(
         [ this.visibleProperties.guidesVisibleProperty, this.visibleProperties.secondPointVisibleProperty ],
-        ( visibleGuides, secondSourceVisible ) => ( visibleGuides && !secondSourceVisible )
+        ( visibleGuides, secondPointVisible ) => ( visibleGuides && !secondPointVisible )
       )
     } );
     this.playAreaNode.addChild( firstGuidesNode );

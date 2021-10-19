@@ -20,7 +20,7 @@ import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
 import Optic from '../model/Optic.js';
 import FocalPointNode from './FocalPointNode.js';
-import SecondSourceNode from './SecondSourceNode.js';
+import SecondPointNode from './SecondPointNode.js';
 import VisibleProperties from './VisibleProperties.js';
 
 class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
@@ -69,7 +69,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 
       // Second Point
       {
-        node: createLabel( geometricOpticsStrings.secondPoint, SecondSourceNode.createIcon() ),
+        node: createLabel( geometricOpticsStrings.secondPoint, SecondPointNode.createIcon() ),
         property: visibleProperties.secondPointVisibleProperty
       }
     ];

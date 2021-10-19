@@ -36,7 +36,7 @@ import OpticNode from './OpticNode.js';
 import OpticVerticalAxis from './OpticVerticalAxis.js';
 import RepresentationComboBox from './RepresentationComboBox.js';
 import RulersToolbox from './RulersToolbox.js';
-import SecondSourceNode from './SecondSourceNode.js';
+import SecondPointNode from './SecondPointNode.js';
 import ShowHideToggleButton from './ShowHideToggleButton.js';
 import SourceObjectNode from './SourceObjectNode.js';
 import TargetNode from './TargetNode.js';
@@ -176,7 +176,7 @@ class GeometricOpticsScreenView extends ScreenView {
       modelBoundsProperty, model.optic.positionProperty, modelViewTransform );
 
     // the second point or second light source
-    const secondSourceNode = new SecondSourceNode( model.representationProperty, model.secondSource,
+    const secondPointNode = new SecondPointNode( model.representationProperty, model.secondPoint,
       sourceObjectNode.dragBoundsProperty, modelViewTransform, {
         visibleProperty: visibleProperties.secondPointVisibleProperty
       } );
@@ -187,15 +187,15 @@ class GeometricOpticsScreenView extends ScreenView {
 
     const opticVerticalAxis = new OpticVerticalAxis( model.optic, model.raysModeProperty, modelBoundsProperty, modelViewTransform );
 
-    // create the light rays associated with the object
+    // create the light rays associated with the source object and first light source
     const lightRaysNode = new LightRaysNode( model.firstLightRays, model.representationProperty,
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, {
         realRaysStroke: GeometricOpticsColors.realRays1StrokeProperty,
         virtualRaysStroke: GeometricOpticsColors.virtualRays1StrokeProperty
       } );
 
-    // create the light rays associated with the second source
-    const secondSourceLightRaysNode = new LightRaysNode( model.secondLightRays, model.representationProperty,
+    // create the light rays associated with the second point and second light source
+    const secondPointLightRaysNode = new LightRaysNode( model.secondLightRays, model.representationProperty,
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, {
         realRaysStroke: GeometricOpticsColors.realRays2StrokeProperty,
         virtualRaysStroke: GeometricOpticsColors.virtualRays2StrokeProperty,
@@ -225,8 +225,8 @@ class GeometricOpticsScreenView extends ScreenView {
         opticVerticalAxis,
         targetNode,
         lightRaysNode,
-        secondSourceLightRaysNode,
-        secondSourceNode,
+        secondPointLightRaysNode,
+        secondPointNode,
         focalPointsLayer
       ]
     } );
@@ -269,7 +269,7 @@ class GeometricOpticsScreenView extends ScreenView {
       const options = { fill: 'red' };
       playAreaNode.addChild( new DebugPointNode( model.optic.positionProperty, modelViewTransform, options ) );
       playAreaNode.addChild( new DebugPointNode( model.sourceObject.positionProperty, modelViewTransform, options ) );
-      playAreaNode.addChild( new DebugPointNode( model.secondSource.lightSourcePositionProperty, modelViewTransform, options ) );
+      playAreaNode.addChild( new DebugPointNode( model.secondPoint.lightSourcePositionProperty, modelViewTransform, options ) );
       playAreaNode.addChild( new DebugPointNode( model.firstTarget.positionProperty, modelViewTransform, options ) );
       playAreaNode.addChild( new DebugPointNode( model.projectionScreen.positionProperty, modelViewTransform, options ) );
     }
@@ -315,7 +315,7 @@ class GeometricOpticsScreenView extends ScreenView {
       zoomLevelProperty.reset();
       visibleProperties.reset();
       sourceObjectNode.reset();
-      secondSourceNode.reset();
+      secondPointNode.reset();
       rulersLayer.reset();
     };
 

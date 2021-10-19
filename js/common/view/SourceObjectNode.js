@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * View of the source object or first light source.
+ * SourceObjectNode is the view of the source object and first light source.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)

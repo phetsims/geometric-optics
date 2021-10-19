@@ -19,7 +19,7 @@ import Optic from './Optic.js';
 import RaysMode from './RaysMode.js';
 import Representation from './Representation.js';
 import Ruler from './Ruler.js';
-import SecondSource from './SecondSource.js';
+import SecondPoint from './SecondPoint.js';
 import SourceObject from './SourceObject.js';
 import Target from './Target.js';
 
@@ -53,22 +53,22 @@ class GeometricOpticsModel {
     // @public focal point to the right of the optic
     this.rightFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty );
 
-    // @public the object/ source
+    // @public source object and first light source
     this.sourceObject = new SourceObject( this.representationProperty );
 
-    // @public the object/ source
-    this.secondSource = new SecondSource( this.representationProperty, this.sourceObject.positionProperty );
+    // @public the second point on the source object, and the second light source
+    this.secondPoint = new SecondPoint( this.representationProperty, this.sourceObject.positionProperty );
 
-    // @public model of the target/image associated with the first source
+    // @public model of the target/image associated with sourceObject
     this.firstTarget = new Target( this.sourceObject.positionProperty, this.optic, this.representationProperty );
 
-    // @public target/ image associated with the second source
-    this.secondTarget = new Target( this.secondSource.positionProperty, this.optic, this.representationProperty );
+    // @public target/ image associated with secondPoint
+    this.secondTarget = new Target( this.secondPoint.positionProperty, this.optic, this.representationProperty );
 
     // @public model of the projection screen
     this.projectionScreen = new ProjectionScreen(
       this.sourceObject.positionProperty,
-      this.secondSource.positionProperty,
+      this.secondPoint.positionProperty,
       this.firstTarget.positionProperty,
       this.secondTarget.positionProperty,
       this.optic
@@ -84,7 +84,7 @@ class GeometricOpticsModel {
 
     // @public (read-only) light spot associated with the second light source
     this.secondLightSpot = new LightSpot(
-      this.secondSource.positionProperty,
+      this.secondPoint.positionProperty,
       this.secondTarget.positionProperty,
       this.projectionScreen,
       this.optic
@@ -118,7 +118,7 @@ class GeometricOpticsModel {
       this.lightRaysTimeProperty,
       this.raysModeProperty,
       this.representationProperty,
-      this.secondSource.positionProperty,
+      this.secondPoint.positionProperty,
       this.projectionScreen,
       this.optic,
       this.secondTarget
@@ -145,7 +145,7 @@ class GeometricOpticsModel {
     this.representationProperty.reset();
     this.optic.reset();
     this.sourceObject.reset();
-    this.secondSource.reset();
+    this.secondPoint.reset();
     this.lightRaysTimeProperty.reset();
     this.raysModeProperty.reset();
     this.projectionScreen.reset();

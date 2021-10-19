@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * SecondSource is the model of the second source.
+ * SecondPoint is the model of the second point on the source object, and the second light source.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -22,7 +22,7 @@ const INITIAL_LIGHT_SOURCE_POSITION = new Vector2( -150, -20 );
 // range of the vertical offset for the second point, relative to the Object, in cm
 const VERTICAL_OFFSET_RANGE = new RangeWithValue( -55, 0, -52 );
 
-class SecondSource {
+class SecondPoint {
 
   /**
    * @param {EnumerationProperty.<Representation>} representationProperty
@@ -83,5 +83,5 @@ class SecondSource {
   }
 }
 
-geometricOptics.register( 'SecondSource', SecondSource );
-export default SecondSource;
+geometricOptics.register( 'SecondPoint', SecondPoint );
+export default SecondPoint;

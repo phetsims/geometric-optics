@@ -1,8 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * SecondSourceNode displays the second source, which is either a second point on the source object, or
- * a second light source.
+ * SecondPointNode is the view of the second point on the source object, and the second light source.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -25,7 +24,7 @@ import VBox from '../../../../scenery/js/nodes/VBox.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import Representation from '../model/Representation.js';
-import SecondSource from '../model/SecondSource.js';
+import SecondPoint from '../model/SecondPoint.js';
 
 // constants
 const POINT_RADIUS = 5;
@@ -46,19 +45,19 @@ const CUEING_ARROW_OPTIONS = {
   headHeight: 6
 };
 
-class SecondSourceNode extends Node {
+class SecondPointNode extends Node {
 
   /**
    * @param {EnumerationProperty.<Representation>} representationProperty
-   * @param {SecondSource} secondSource
+   * @param {SecondPoint} secondPoint
    * @param {Property.<Bounds2>} sourceObjectDragBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( representationProperty, secondSource, sourceObjectDragBoundsProperty, modelViewTransform, options ) {
+  constructor( representationProperty, secondPoint, sourceObjectDragBoundsProperty, modelViewTransform, options ) {
 
     assert && assert( representationProperty instanceof EnumerationProperty );
-    assert && assert( secondSource instanceof SecondSource );
+    assert && assert( secondPoint instanceof SecondPoint );
     assert && assert( sourceObjectDragBoundsProperty instanceof Property );
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
@@ -78,9 +77,9 @@ class SecondSourceNode extends Node {
     } );
 
     // Property for the position of the second source node
-    const positionProperty = new Vector2Property( secondSource.positionProperty.value );
+    const positionProperty = new Vector2Property( secondPoint.positionProperty.value );
     positionProperty.link( position => {
-      secondSource.setSecondPoint( representationProperty.value.isObject, position );
+      secondPoint.setSecondPoint( representationProperty.value.isObject, position );
     } );
 
     // {DerivedProperty.<Bounds2|null> null when we are dealing with an Object, non-null for a Light Source
@@ -101,12 +100,12 @@ class SecondSourceNode extends Node {
       const isObject = representationProperty.value.isObject;
       if ( !isObject ) {
         assert && assert( dragBounds );
-        secondSource.setSecondPoint( isObject, dragBounds.closestPointTo( secondSource.positionProperty.value ) );
+        secondPoint.setSecondPoint( isObject, dragBounds.closestPointTo( secondPoint.positionProperty.value ) );
       }
     } );
 
     // create drag listener for second source
-    const secondSourceDragListener = new DragListener( {
+    const secondPointDragListener = new DragListener( {
       pressCursor: 'ns-resize',
       useInputListenerCursor: true,
       positionProperty: positionProperty,
@@ -121,7 +120,7 @@ class SecondSourceNode extends Node {
         }
       }
     } );
-    this.addInputListener( secondSourceDragListener );
+    this.addInputListener( secondPointDragListener );
 
     const updatePosition = modelPosition => {
       const viewPosition = modelViewTransform.modelToViewPosition( modelPosition );
@@ -152,10 +151,10 @@ class SecondSourceNode extends Node {
         this.addChild( secondLightSourceImage );
         this.touchArea = secondLightSourceImage.localBounds.dilateXY( 5, 5 );
       }
-      updatePosition( secondSource.positionProperty.value );
+      updatePosition( secondPoint.positionProperty.value );
     } );
 
-    secondSource.positionProperty.link( position => updatePosition( position ) );
+    secondPoint.positionProperty.link( position => updatePosition( position ) );
 
     // @private
     this.cueingArrows = cueingArrows;
@@ -213,5 +212,5 @@ class CueingArrows extends VBox {
   }
 }
 
-geometricOptics.register( 'SecondSourceNode', SecondSourceNode );
-export default SecondSourceNode;
+geometricOptics.register( 'SecondPointNode', SecondPointNode );
+export default SecondPointNode;

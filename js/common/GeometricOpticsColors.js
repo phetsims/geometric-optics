@@ -50,13 +50,13 @@ const GeometricOpticsColors = {
     default: 'rgb( 133, 133, 182 )'
   } ),
 
-  // Fill for the second point of interest on the source object
-  secondPointFillProperty: new ProfileColorProperty( geometricOptics, 'secondSourcePointFill', {
+  // Fill for the second point on the source object
+  secondPointFillProperty: new ProfileColorProperty( geometricOptics, 'secondPointFill', {
     default: 'rgb( 255, 51, 51 )'
   } ),
 
-  // Stroke for the second point of interest on the source object
-  secondPointStrokeProperty: new ProfileColorProperty( geometricOptics, 'secondSourcePointStroke', {
+  // Stroke for the second point on the source object
+  secondPointStrokeProperty: new ProfileColorProperty( geometricOptics, 'secondPointStroke', {
     default: 'black'
   } ),
 
