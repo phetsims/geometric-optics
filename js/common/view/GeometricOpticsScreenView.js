@@ -181,7 +181,6 @@ class GeometricOpticsScreenView extends ScreenView {
         visibleProperty: visibleProperties.secondPointVisibleProperty
       } );
 
-    // create the optical axis attached to the optical element
     const opticalAxis = new OpticalAxis( model.optic.positionProperty, modelBoundsProperty, modelViewTransform );
 
     const opticNode = new OpticNode( model.optic, modelBoundsProperty, modelViewTransform );

@@ -158,8 +158,8 @@ class Target {
   }
 
   /**
-   * Returns the horizontal distance between the object and the optical element.
-   * A negative distance indicates that the object is to the right of the optical element.
+   * Returns the horizontal distance from the object to the optic.
+   * A negative distance indicates that the object is to the right of the optic.
    * @private
    * @param {Vector2} objectPosition
    * @param {Vector2} opticPosition

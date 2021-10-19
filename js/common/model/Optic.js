@@ -1,9 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * A class of an optical element in the simulation.
- * An optical element is the base class for a lens or a mirror.
- * Responsibility include the radius of curvature, the diameter and the curve
+ * Optic is the base class for an optic in this simulation, and supports lens and mirror.
  *
  * @author Martin Veillette
  */
@@ -34,10 +32,10 @@ class Optic {
 
     config = merge( {
 
-      // {Optic.Type} type of optical element, MIRROR or LENS
+      // {Optic.Type} type of optic, MIRROR or LENS
       opticType: required( config.opticType ),
 
-      // {Optic.Curve} initial curve of optical element, CONVEX or CONCAVE
+      // {Optic.Curve} initial curve of the optic, CONVEX or CONCAVE
       initialCurve: required( config.initialCurve ),
 
       // {Vector2} center of the optic
@@ -60,10 +58,10 @@ class Optic {
     assert && assert( config.indexOfRefractionRange instanceof RangeWithValue );
     assert && assert( config.diameterRange instanceof RangeWithValue );
 
-    // @private {Optic.Type} Type of the optical element ( valid choices: LENS and MIRROR)
+    // @private {Optic.Type} type of the optic
     this.opticType = config.opticType;
 
-    // @public type of Curvature of the optical element.
+    // @public type of curve of the optic
     //TODO rename Optic.Curve and curveProperty
     this.curveProperty = new EnumerationProperty( Optic.Curve, config.initialCurve );
 
@@ -74,12 +72,12 @@ class Optic {
     // implicit) that will break the sim.
     this.yProperty = new NumberProperty( config.initialPosition.y );
 
-    // @public {DerivedProperty.<number>} position of the optical element
+    // @public {DerivedProperty.<number>} position of the optic
     this.positionProperty = new DerivedProperty( [ this.yProperty ],
       y => new Vector2( config.initialPosition.x, y )
     );
 
-    // @public radius of curvature of the optical element. Positive is converging.
+    // @public radius of curvature of the optic, positive is converging
     this.radiusOfCurvatureProperty = new NumberProperty( config.radiusOfCurvatureRange.defaultValue, {
       range: config.radiusOfCurvatureRange
     } );
@@ -89,7 +87,7 @@ class Optic {
       range: config.indexOfRefractionRange
     } );
 
-    // @public diameter of the optical element - controls the optical aperture of the optical element
+    // @public diameter of the optic, controls the optic's aperture
     this.diameterProperty = new NumberProperty( config.diameterRange.defaultValue, {
       range: config.diameterRange
     } );
@@ -142,7 +140,7 @@ class Optic {
   }
 
   /**
-   * Returns a boolean indicating if the optical element is a lens
+   * Determines whether the optic is a lens.
    * @public
    * @returns {boolean}
    */
@@ -151,7 +149,7 @@ class Optic {
   }
 
   /**
-   * Returns a boolean indicating if the optical element is a mirror
+   * Determines whether the optic is a mirror.
    * @public
    * @returns {boolean}
    */
@@ -160,7 +158,7 @@ class Optic {
   }
 
   /**
-   * Returns a boolean indicating if the optical element is concave
+   * Determines whether the optic is concave.
    * @public
    * @param {Optic.Curve} curve
    * @returns {boolean}
@@ -171,7 +169,7 @@ class Optic {
   }
 
   /**
-   * Returns a boolean indicating if the optical element is convex
+   * Determines whether the optic is convex.
    * @public
    * @param {Optic.Curve} curve
    * @returns {boolean}
@@ -182,9 +180,8 @@ class Optic {
   }
 
   /**
-   * Returns a boolean indicating if the optical element has the potential to converge rays.
-   * This is solely a property of the optical element.
-   * A convex lens and a concave mirror are converging optical elements.
+   * Determines whether the optic has the potential to converge rays.
+   * A convex lens and a concave mirror are converging optics.
    * @public
    * @param {Optic.Curve} curve
    * @returns {boolean}
@@ -195,7 +192,7 @@ class Optic {
   }
 
   /**
-   * Returns a boolean indicating if the optical element is convex
+   * Determines whether the optic has the potential to diverge rays.
    * @public
    * @param {Optic.Curve} curve
    * @returns {boolean}
@@ -207,7 +204,7 @@ class Optic {
 
   /**
    * Convenience function for mathematical operations.
-   * Returns a value of +1 is the optical element is a lens and -1 is the element is a mirror.
+   * Returns a value of +1 for a lens, and -1 for a mirror.
    * @public
    * @returns {number}
    */
