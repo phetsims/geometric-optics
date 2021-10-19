@@ -1,8 +1,8 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * SecondSourceNode displays the second source, which is either an object or a source of light.
- * It is draggable, and has cueing arrows to show that it can be dragged up and down.
+ * SecondSourceNode displays the second source, which is either a second point on the source object, or
+ * a second light source.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)

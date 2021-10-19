@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * SourceObject is the model for what is typically called "Object" in optics, or the source of light.
+ * SourceObject is the model for what is typically called "Object" in optics, or the first light source.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -36,14 +36,14 @@ class SourceObject {
     //TODO left-top is unfortunate to have in the model, can this be avoided?
     this.leftTopProperty = new Vector2Property( INITIAL_POSITION.plus( offset ) );
 
-    // @public {DerivedProperty.<Vector2>} position of the source/object
+    // @public {DerivedProperty.<Vector2>} position of the source object or light source
     //TODO should this be derived from representationProperty instead?
     this.positionProperty = new DerivedProperty(
       [ this.leftTopProperty ],
       leftTop => leftTop.minus( offset )
     );
 
-    // @public {DerivedProperty.<Bounds2>} model bounds of the source/object Image
+    // @public {DerivedProperty.<Bounds2>} model bounds of the source object or first light source
     this.boundsProperty = new DerivedProperty(
       [ this.leftTopProperty, representationProperty ],
       ( leftTop, representation ) => {

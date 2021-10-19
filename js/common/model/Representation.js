@@ -2,7 +2,7 @@
 
 //TODO name is too vague, maybe SourceRepresentation?
 /**
- * Representation is a rich enumeration of the source objects and source of light.
+ * Representation is a rich enumeration of the source objects and light sources.
  *
  * @author Martin Veillette
  */
@@ -77,11 +77,11 @@ class RepresentationValue {
       // {Vector2} offset between point of interest and left-top corner of rightFacingUpright
       rightFacingUprightOffset: required( config.rightFacingUprightOffset ),
 
-      // {boolean} true = source object, false = source of light
+      // {boolean} true = source object, false = light source
       isObject: required( config.isObject ),
 
       // optional fields
-      secondLightSourceImage: null // {HTMLImageElement|null} image for second source of light
+      secondLightSourceImage: null // {HTMLImageElement|null} image for second light source
     }, config );
 
     assert && assert( !( config.isObject && config.secondLightSourceImage ) );

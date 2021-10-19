@@ -38,10 +38,10 @@ class Target {
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       ( objectPosition, opticPosition, focalLength ) => {
 
-        // {number} horizontal distance between optic and source/object
+        // {number} horizontal distance between optic and source object
         const opticObjectDistance = this.getObjectOpticDistance( objectPosition, opticPosition );
 
-        // address the case when the source/object share the same x position as the focal point
+        // address the case where the source object shares the same x position as the focal point
         if ( opticObjectDistance === focalLength ) {
 
           // Set the target distance to be very large (and arbitrarily positive).

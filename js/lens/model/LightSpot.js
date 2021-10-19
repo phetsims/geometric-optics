@@ -24,7 +24,7 @@ const FULL_INTENSITY_LIGHT_SPOT_HEIGHT = 7; // cm, any light spot less than this
 class LightSpot {
 
   /**
-   * @param {Property.<Vector2>} sourcePositionProperty
+   * @param {Property.<Vector2>} sourcePositionProperty - position of the light source
    * @param {Property.<Vector2>} targetPositionProperty
    * @param {ProjectionScreen} projectionScreen
    * @param {Optic} optic
@@ -36,7 +36,7 @@ class LightSpot {
     assert && assert( projectionScreen instanceof ProjectionScreen );
     assert && assert( optic instanceof Optic );
 
-    // @private {Property.<Vector2>} position of the source of light
+    // @private {Property.<Vector2>} position of the light source
     this.sourcePositionProperty = sourcePositionProperty;
 
     // @private {Optic} model for the optic

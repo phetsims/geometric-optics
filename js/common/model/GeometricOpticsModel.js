@@ -40,7 +40,7 @@ class GeometricOpticsModel {
     // @public model of the optic
     this.optic = optic;
 
-    // @public representation of the source/object
+    // @public representation of the source object
     this.representationProperty = new EnumerationProperty( Representation, Representation.PENCIL, {
       validValues: representations
     } );
@@ -74,7 +74,7 @@ class GeometricOpticsModel {
       this.optic
     );
 
-    // @public (read-only) light spot associated with the first source/object
+    // @public (read-only) light spot associated with the first light source
     this.firstLightSpot = new LightSpot(
       this.sourceObject.positionProperty,
       this.firstTarget.positionProperty,
@@ -82,7 +82,7 @@ class GeometricOpticsModel {
       this.optic
     );
 
-    // @public (read-only) light spot associated with the second source/object
+    // @public (read-only) light spot associated with the second light source
     this.secondLightSpot = new LightSpot(
       this.secondSource.positionProperty,
       this.secondTarget.positionProperty,

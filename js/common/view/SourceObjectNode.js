@@ -1,9 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * View of the source/object
- * The sourceObject is represented by an object or a source of light
- * The sourceObject can be dragged
+ * View of the source object or first light source.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)

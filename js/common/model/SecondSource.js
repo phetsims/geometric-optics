@@ -34,7 +34,7 @@ class SecondSource {
     assert && assert( representationProperty instanceof EnumerationProperty );
     assert && assert( sourceObjectPositionProperty instanceof Property );
 
-    // @private position of the second source of light
+    // @private position of the second light source
     this.lightSourcePositionProperty = new Vector2Property( INITIAL_LIGHT_SOURCE_POSITION );
 
     // @private vertical offset of second point with respect to the first object, in cm
@@ -42,7 +42,7 @@ class SecondSource {
       range: VERTICAL_OFFSET_RANGE
     } );
 
-    // @public {DerivedProperty.<Vector2>} position of the second source (source/object)
+    // @public {DerivedProperty.<Vector2>} position of the second point or second light source
     this.positionProperty = new DerivedProperty(
       [ sourceObjectPositionProperty, this.verticalOffsetProperty,
         this.lightSourcePositionProperty, representationProperty ],

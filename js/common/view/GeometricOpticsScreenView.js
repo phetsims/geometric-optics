@@ -171,11 +171,11 @@ class GeometricOpticsScreenView extends ScreenView {
         return zoomTransform.viewToModelBounds( playAreaBounds );
       } );
 
-    // create the source/object on the left hand side of screen
+    // the source object or first light source
     const sourceObjectNode = new SourceObjectNode( model.representationProperty, model.sourceObject,
       modelBoundsProperty, model.optic.positionProperty, modelViewTransform );
 
-    // the second source
+    // the second point or second light source
     const secondSourceNode = new SecondSourceNode( model.representationProperty, model.secondSource,
       sourceObjectNode.dragBoundsProperty, modelViewTransform, {
         visibleProperty: visibleProperties.secondPointVisibleProperty
