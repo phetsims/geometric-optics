@@ -252,7 +252,7 @@ class Optic {
   }
 
   /**
-   * Gets the bounds of the optically "active" component
+   * Gets the bounds of the optically "active" component, in model coordinates.
    * In practice, it means that we exclude the backing (fill) of the mirror
    * @public
    * @returns {Bounds2}
@@ -264,7 +264,7 @@ class Optic {
   }
 
   /**
-   * Returns the shape of the vertical axis.
+   * Returns the Shape of the vertical axis, in model coordinates.
    * @public
    * @returns {Shape}
    */
