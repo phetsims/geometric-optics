@@ -83,8 +83,8 @@ class OpticNode extends Node {
       this.translation = modelViewTransform.modelToViewPosition( position );
     } );
 
-    // Constrain dragging such that an optic with maximum diameter is fully inside the model bounds.
-    // See https://github.com/phetsims/geometric-optics/issues/204
+    // Constrain dragging such that the optic is fully inside the model bounds.
+    // See https://github.com/phetsims/geometric-optics/issues/245
     const dragBoundsProperty = new DerivedProperty( [ modelBoundsProperty, optic.diameterProperty ],
       ( modelBounds, diameter ) => modelBounds.erodedY( diameter / 2 )
     );
