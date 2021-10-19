@@ -105,12 +105,12 @@ class LabelsNode extends Node {
 
     // Screen label ------------------------------------------------------------------------------------
 
-    const projectorScreenLabelPositionProperty = new DerivedProperty(
-      [ model.projectorScreen.positionProperty ],
+    const screenLabelPositionProperty = new DerivedProperty(
+      [ model.projectionScreen.positionProperty ],
       position => new Vector2( position.x - 25, position.y - 65 ) // empirically, model coordinates
     );
 
-    const projectorScreenLabel = new LabelNode( geometricOpticsStrings.projectorScreen, projectorScreenLabelPositionProperty, modelViewTransformProperty, {
+    const screenLabel = new LabelNode( geometricOpticsStrings.projectionScreen, screenLabelPositionProperty, modelViewTransformProperty, {
       visibleProperty: new DerivedProperty(
         [ model.representationProperty ], representation => ( representation === Representation.LIGHT )
       )
@@ -131,7 +131,7 @@ class LabelsNode extends Node {
     options.children = [
       opticalAxisLabel,
       leftFocalPointLabel, rightFocalPointLabel,
-      opticLabel, objectLabel, imageLabel, projectorScreenLabel
+      opticLabel, objectLabel, imageLabel, screenLabel
     ];
 
     super( options );

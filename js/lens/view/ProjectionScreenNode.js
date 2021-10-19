@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * ProjectorScreenNode is the view of of the projector screen.
+ * ProjectionScreenNode is the view of of the projection screen.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -18,26 +18,26 @@ import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import projectorScreenFrame_png from '../../../images/projectorScreenFrame_png.js';
+import projectionScreenFrame_png from '../../../images/projectionScreenFrame_png.js';
 import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
 import geometricOptics from '../../geometricOptics.js';
-import ProjectorScreen from '../model/ProjectorScreen.js';
+import ProjectionScreen from '../model/ProjectionScreen.js';
 
 // constants
-const IMAGE_SCALE = 0.5; // scaling factor applied to the projector screen image
+const IMAGE_SCALE = 0.5; // scaling factor applied to the projection screen image
 
-class ProjectorScreenNode extends Node {
+class ProjectionScreenNode extends Node {
 
   /**
-   * @param {ProjectorScreen} projectorScreen
+   * @param {ProjectionScreen} projectionScreen
    * @param {Property.<Vector2>} opticPositionProperty
    * @param {Property.<Bounds2>} modelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( projectorScreen, opticPositionProperty, modelBoundsProperty, modelViewTransform, options ) {
+  constructor( projectionScreen, opticPositionProperty, modelBoundsProperty, modelViewTransform, options ) {
 
-    assert && assert( projectorScreen instanceof ProjectorScreen );
+    assert && assert( projectionScreen instanceof ProjectionScreen );
     assert && assert( opticPositionProperty instanceof Property );
     assert && assert( modelBoundsProperty instanceof Property );
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
@@ -46,33 +46,33 @@ class ProjectorScreenNode extends Node {
       cursor: 'pointer'
     }, options );
 
-    // The frame part (top and bottom) of the projector screen is an image.
-    const projectorScreenFrameImage = new Image( projectorScreenFrame_png, {
+    // The frame part (top and bottom) of the projection screen is an image.
+    const projectionScreenFrameImage = new Image( projectionScreenFrame_png, {
       scale: IMAGE_SCALE
     } );
 
-    // The screen part of the projector screen is a Path, so that we can tweak its color in the Color Editor.
+    // The screen part of the projection screen is a Path, so that we can tweak its color in the Color Editor.
     // See https://github.com/phetsims/geometric-optics/issues/226
     const screenNode = new Path( null, {
-      fill: GeometricOpticsColors.projectorScreenFillProperty,
-      stroke: GeometricOpticsColors.projectorScreenStrokeProperty,
+      fill: GeometricOpticsColors.projectionScreenFillProperty,
+      stroke: GeometricOpticsColors.projectionScreenStrokeProperty,
       lineWidth: 2
     } );
 
     assert && assert( !options.children );
-    options.children = [ screenNode, projectorScreenFrameImage ];
+    options.children = [ screenNode, projectionScreenFrameImage ];
 
     super( options );
 
     // TODO: the model should give its size to the view rather than the other way around (see #153)
-    // determine the size of the projector in model coordinates
-    const modelChildHeight = Math.abs( modelViewTransform.viewToModelDeltaY( projectorScreenFrameImage.height ) );
-    const modelChildWidth = modelViewTransform.viewToModelDeltaX( projectorScreenFrameImage.width );
+    // determine the size of the projection screen in model coordinates
+    const modelChildHeight = Math.abs( modelViewTransform.viewToModelDeltaY( projectionScreenFrameImage.height ) );
+    const modelChildWidth = modelViewTransform.viewToModelDeltaX( projectionScreenFrameImage.width );
 
     // difference between the left top position of the image and the "center" of the screen in model coordinates
     const offset = new Vector2( -modelChildWidth, modelChildHeight ).divideScalar( 2 );
 
-    // {DerivedProperty.<Bounds2>} Keep the projector screen fully within model bounds, and right of the optic.
+    // {DerivedProperty.<Bounds2>} Keep the projection screen fully within model bounds, and right of the optic.
     const dragBoundsProperty = new DerivedProperty(
       [ modelBoundsProperty, opticPositionProperty ],
       ( modelBounds, opticPosition ) =>
@@ -84,29 +84,29 @@ class ProjectorScreenNode extends Node {
         )
     );
 
-    // @private left top position of the projector screen image
-    this.imagePositionProperty = new Vector2Property( projectorScreen.positionProperty.value.plus( offset ) );
+    // @private left top position of the projection screen image
+    this.imagePositionProperty = new Vector2Property( projectionScreen.positionProperty.value.plus( offset ) );
 
     // create a drag listener for the image
-    projectorScreenFrameImage.addInputListener( new DragListener( {
+    projectionScreenFrameImage.addInputListener( new DragListener( {
       positionProperty: this.imagePositionProperty,
       dragBoundsProperty: dragBoundsProperty,
       transform: modelViewTransform
     } ) );
 
-    // always keep projector screen within playarea bounds when they are changed
+    // always keep projection screen within play area bounds when they are changed
     dragBoundsProperty.link( dragBounds => {
       this.imagePositionProperty.value = dragBounds.closestPointTo( this.imagePositionProperty.value );
     } );
 
-    projectorScreen.positionProperty.link( position => {
-      screenNode.shape = modelViewTransform.modelToViewShape( projectorScreen.getScreenShape() );
+    projectionScreen.positionProperty.link( position => {
+      screenNode.shape = modelViewTransform.modelToViewShape( projectionScreen.getScreenShape() );
     } );
 
-    // update the position of projectorScreen target
+    // update the position of projectionScreen target
     this.imagePositionProperty.link( position => {
-      projectorScreen.positionProperty.value = position.minus( offset );
-      projectorScreenFrameImage.leftTop = modelViewTransform.modelToViewPosition( position );
+      projectionScreen.positionProperty.value = position.minus( offset );
+      projectionScreenFrameImage.leftTop = modelViewTransform.modelToViewPosition( position );
     } );
   }
 
@@ -128,5 +128,5 @@ class ProjectorScreenNode extends Node {
   }
 }
 
-geometricOptics.register( 'ProjectorScreenNode', ProjectorScreenNode );
-export default ProjectorScreenNode;
+geometricOptics.register( 'ProjectionScreenNode', ProjectionScreenNode );
+export default ProjectionScreenNode;

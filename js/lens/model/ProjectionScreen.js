@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * ProjectorScreen is the model of the projector screen. It has a position, and methods for computing Shapes needed
+ * ProjectionScreen is the model of the projection screen. It has a position, and methods for computing Shapes needed
  * by the view.
  *
  * @author Martin Veillette
@@ -25,7 +25,7 @@ const SCREEN_CORNERS = {
 // initial position of the screen's center
 const INITIAL_POSITION = new Vector2( 200, 0 );
 
-class ProjectorScreen {
+class ProjectionScreen {
 
   constructor() {
 
@@ -54,12 +54,12 @@ class ProjectorScreen {
 
     const verticalLine = new Line( top, bottom );
 
-    // get the vertical line translated by the model position of the screen projector
+    // get the vertical line translated by the model position of the projection screen
     return this.translatedShape( verticalLine );
   }
 
   /**
-   * Gets the shape of the screen translated by the model position of the screenProjector
+   * Gets the shape of the screen translated by the model position of the projection screen
    * @public
    * @returns {Shape}
    */
@@ -74,7 +74,7 @@ class ProjectorScreen {
   }
 
   /**
-   * Returns a shape translated by the model position of the screenProjector
+   * Returns a shape translated by the model position of the projection screen.
    * @private
    * @param {Shape} shape
    * @returns {Shape}
@@ -84,5 +84,5 @@ class ProjectorScreen {
   }
 }
 
-geometricOptics.register( 'ProjectorScreen', ProjectorScreen );
-export default ProjectorScreen;
+geometricOptics.register( 'ProjectionScreen', ProjectionScreen );
+export default ProjectionScreen;

@@ -12,7 +12,7 @@ import GeometricOpticsScreenView from '../../common/view/GeometricOpticsScreenVi
 import geometricOptics from '../../geometricOptics.js';
 import LensModel from '../model/LensModel.js';
 import GuideNode from './GuideNode.js';
-import ProjectorScreenNode from './ProjectorScreenNode.js';
+import ProjectionScreenNode from './ProjectionScreenNode.js';
 import LightSpotNode from './LightSpotNode.js';
 
 class LensScreenView extends GeometricOpticsScreenView {
@@ -50,9 +50,9 @@ class LensScreenView extends GeometricOpticsScreenView {
     } );
     this.playAreaNode.addChild( secondGuidesNode );
 
-    // Projector
-    const projectorScreenNode = new ProjectorScreenNode(
-      model.projectorScreen,
+    // Projection screen
+    const projectionScreenNode = new ProjectionScreenNode(
+      model.projectionScreen,
       model.optic.positionProperty,
       this.modelBoundsProperty,
       this.modelViewTransform
@@ -75,16 +75,16 @@ class LensScreenView extends GeometricOpticsScreenView {
           [ model.secondTarget.visibleProperty, this.visibleProperties.secondPointVisibleProperty ] )
       } );
 
-    // Add projector screen and light spots at the bottom of the z-layer.
+    // Add projection screen and light spots at the bottom of the z-layer.
     const lightSourceNodes = new Node( {
-      children: [ projectorScreenNode, firstLightSpotNode, secondLightSpotNode ],
+      children: [ projectionScreenNode, firstLightSpotNode, secondLightSpotNode ],
       visibleProperty: new DerivedProperty( [ model.representationProperty ], representation => !representation.isObject )
     } );
     this.playAreaNode.insertChild( 0, lightSourceNodes );
 
     // @private
     this.resetLensScreenView = () => {
-      projectorScreenNode.reset();
+      projectionScreenNode.reset();
     };
   }
 

@@ -28,11 +28,11 @@ class LightRay {
    * @param {Vector2} targetPoint - point of focus of all rays based on thin lens law
    * @param {boolean} isVirtual - is the image virtual
    * @param {boolean} isPrincipalRayMode - is the light ray mode set to Principal rays
-   * @param {boolean} isProjectorScreenPresent - is there a projector screen in the play area
-   * @param {function} getProjectorScreenBisectorLine - returns a Shape that bisects the middle of projector screen
+   * @param {boolean} isProjectionScreenPresent - is there a projection screen in the play area
+   * @param {function} getProjectionScreenBisectorLine - returns a Shape that bisects the middle of projection screen
    */
-  constructor( initialRay, time, optic, targetPoint, isVirtual, isPrincipalRayMode, isProjectorScreenPresent,
-               getProjectorScreenBisectorLine ) {
+  constructor( initialRay, time, optic, targetPoint, isVirtual, isPrincipalRayMode, isProjectionScreenPresent,
+               getProjectionScreenBisectorLine ) {
 
     assert && assert( initialRay instanceof Ray );
     assert && AssertUtils.assertNonNegativeNumber( time );
@@ -40,8 +40,8 @@ class LightRay {
     assert && assert( targetPoint instanceof Vector2 );
     assert && assert( typeof isVirtual === 'boolean' );
     assert && assert( typeof isPrincipalRayMode === 'boolean' );
-    assert && assert( typeof isProjectorScreenPresent === 'boolean' );
-    assert && assert( typeof getProjectorScreenBisectorLine === 'function' );
+    assert && assert( typeof isProjectionScreenPresent === 'boolean' );
+    assert && assert( typeof getProjectionScreenBisectorLine === 'function' );
 
     // @public (read-only) {LightRaySegment[]} segments for the real rays
     this.realSegments = [];
@@ -58,9 +58,9 @@ class LightRay {
     // @private {Ray[]} - a collection of sequential rays
     this.realRays = this.getRealRays( initialRay, firstPoint, optic, isPrincipalRayMode, targetPoint );
 
-    // if the last ray intercepts the projector screen, its final point will be set on the last ray
-    if ( isProjectorScreenPresent ) {
-      this.setFinalPointProjectorScreen( this.realRays, getProjectorScreenBisectorLine() );
+    // if the last ray intercepts the projection screen, its final point will be set on the last ray
+    if ( isProjectionScreenPresent ) {
+      this.setFinalPointProjectionScreen( this.realRays, getProjectionScreenBisectorLine() );
     }
 
     // @private {boolean} has this light ray a virtual ray attached to it.
@@ -72,25 +72,25 @@ class LightRay {
                       null;
 
     // @public (read-only) {boolean}
-    this.isTargetReached = this.getHasReachedTarget( distanceTraveled, isProjectorScreenPresent, targetPoint );
+    this.isTargetReached = this.getHasReachedTarget( distanceTraveled, isProjectionScreenPresent, targetPoint );
 
     // process rays to convert them to line segments
     this.raysToSegments( distanceTraveled );
   }
 
   /**
-   * Has the rays reached the target (projector screen or target point)?
+   * Has the rays reached the target (projection screen or target point)?
    * @private
    * @param {number} distanceTraveled
-   * @param {boolean} isProjectorScreenPresent
+   * @param {boolean} isProjectionScreenPresent
    * @param {Vector2} targetPoint
    * @returns {boolean}
    */
-  getHasReachedTarget( distanceTraveled, isProjectorScreenPresent, targetPoint ) {
+  getHasReachedTarget( distanceTraveled, isProjectionScreenPresent, targetPoint ) {
 
     let distance = 0;
 
-    if ( isProjectorScreenPresent ) {
+    if ( isProjectionScreenPresent ) {
 
       // distance to screen
       for ( let i = 0; i < this.realRays.length; i++ ) {
@@ -136,7 +136,7 @@ class LightRay {
 
   /**
    * Gets all the real rays that form a light ray. The transmitted ray (last ray) is set to be of infinite length by
-   * default This can be corrected later if the ray is intercepted by a projector screen
+   * default This can be corrected later if the ray is intercepted by a projection screen
    * @private
    * @param {Ray} initialRay
    * @param {Vector2|null} firstPoint
@@ -357,20 +357,20 @@ class LightRay {
   }
 
   /**
-   * Sets the final point of the real ray if it intersects with the vertical median of the projector.
+   * Sets the final point of the real ray if it intersects with the vertical median of the projection screen.
    * @private
    * @param {Ray[]} realRays
-   * @param {Shape} projectorScreenBisectorLine
+   * @param {Shape} projectionScreenBisectorLine
    */
-  setFinalPointProjectorScreen( realRays, projectorScreenBisectorLine ) {
+  setFinalPointProjectionScreen( realRays, projectionScreenBisectorLine ) {
 
     // ensure that real rays has at least one ray
     if ( realRays.length > 0 ) {
 
-      // the projector screen can only intersect with the last ray
+      // the projection screen can only intersect with the last ray
       const lastRay = realRays[ realRays.length - 1 ];
 
-      const intersection = projectorScreenBisectorLine.intersection( lastRay );
+      const intersection = projectionScreenBisectorLine.intersection( lastRay );
 
       // {Vector2|null}
       const pointOnScreen = this.getPoint( intersection );

@@ -25,12 +25,12 @@ class LightRays {
    * @param {Property.<RaysMode>} raysModeProperty
    * @param {EnumerationProperty.<Representation>} representationProperty
    * @param {Property.<Vector2>} sourceObjectPositionProperty
-   * @param {ProjectorScreen} projectorScreen
+   * @param {ProjectionScreen} projectionScreen
    * @param {Optic} optic
    * @param {Target} target - target model associated with this ray
    */
   constructor( timeProperty, raysModeProperty, representationProperty, sourceObjectPositionProperty,
-               projectorScreen, optic, target ) {
+               projectionScreen, optic, target ) {
 
     // @public (read-only) {LightRaySegment[]} segments for the real rays at a point in time
     this.realSegments = [];
@@ -47,7 +47,7 @@ class LightRays {
         raysModeProperty,
         timeProperty,
         representationProperty,
-        projectorScreen.positionProperty,
+        projectionScreen.positionProperty,
         optic.positionProperty,
         optic.diameterProperty,
         optic.focalLengthProperty,
@@ -67,8 +67,8 @@ class LightRays {
         // {Vector2[]} get the initial directions of the rays
         const directions = getRayDirections( sourcePosition, optic, raysMode, targetPoint );
 
-        // {boolean} is there a projector on the play area
-        const isProjectorScreenPresent = !representation.isObject;
+        // {boolean} is there a projection screen visible in the play area
+        const isProjectionScreenPresent = !representation.isObject;
 
         // is the Rays mode set to Principal
         const isPrincipal = ( raysMode === RaysMode.PRINCIPAL );
@@ -89,8 +89,8 @@ class LightRays {
             targetPoint,
             isVirtual,
             isPrincipal,
-            isProjectorScreenPresent,
-            projectorScreen.getBisectorLine.bind( projectorScreen )
+            isProjectionScreenPresent,
+            projectionScreen.getBisectorLine.bind( projectionScreen )
           );
 
           // set target's visibility to true after the first ray reaches its target

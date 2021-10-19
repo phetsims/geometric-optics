@@ -82,22 +82,22 @@ const GeometricOpticsColors = {
     default: 'rgb( 18, 109, 70 )'
   } ),
 
-  // Fill for the screen part of the projector screen
-  projectorScreenFillProperty: new ProfileColorProperty( geometricOptics, 'projectorScreenFill', {
+  // Fill for the screen part of the projection screen
+  projectionScreenFillProperty: new ProfileColorProperty( geometricOptics, 'projectionScreenFill', {
     default: 'white'
   } ),
 
-  // Stroke for the screen part of the projector screen
-  projectorScreenStrokeProperty: new ProfileColorProperty( geometricOptics, 'projectorScreenStroke', {
+  // Stroke for the screen part of the projection screen
+  projectionScreenStrokeProperty: new ProfileColorProperty( geometricOptics, 'projectionScreenStroke', {
     default: 'rgb( 86, 86, 86 )'
   } ),
 
-  // Fill for the light spot that appears on the projector screen
+  // Fill for the light spot that appears on the projection screen
   lightSpotFillProperty: new ProfileColorProperty( geometricOptics, 'lightSpotFill', {
     default: 'rgb( 255, 220, 0 )'
   } ),
 
-  // Stroke (dashed outline) for the light spot that appears on the projector screen
+  // Stroke (dashed outline) for the light spot that appears on the projection screen
   lightSpotStrokeProperty: new ProfileColorProperty( geometricOptics, 'lightSpotStroke', {
     default: 'rgb( 200, 200, 200 )'
   } ),

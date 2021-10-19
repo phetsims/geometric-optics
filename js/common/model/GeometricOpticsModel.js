@@ -11,7 +11,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import geometricOptics from '../../geometricOptics.js';
 import LightSpot from '../../lens/model/LightSpot.js';
-import ProjectorScreen from '../../lens/model/ProjectorScreen.js';
+import ProjectionScreen from '../../lens/model/ProjectionScreen.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import FocalPoint from './FocalPoint.js';
 import LightRays from './LightRays.js';
@@ -65,8 +65,8 @@ class GeometricOpticsModel {
     // @public target/ image associated with the second source
     this.secondTarget = new Target( this.secondSource.positionProperty, this.optic, this.representationProperty );
 
-    // @public model of the projector screen
-    this.projectorScreen = new ProjectorScreen(
+    // @public model of the projection screen
+    this.projectionScreen = new ProjectionScreen(
       this.sourceObject.positionProperty,
       this.secondSource.positionProperty,
       this.firstTarget.positionProperty,
@@ -78,7 +78,7 @@ class GeometricOpticsModel {
     this.firstLightSpot = new LightSpot(
       this.sourceObject.positionProperty,
       this.firstTarget.positionProperty,
-      this.projectorScreen,
+      this.projectionScreen,
       this.optic
     );
 
@@ -86,7 +86,7 @@ class GeometricOpticsModel {
     this.secondLightSpot = new LightSpot(
       this.secondSource.positionProperty,
       this.secondTarget.positionProperty,
-      this.projectorScreen,
+      this.projectionScreen,
       this.optic
     );
 
@@ -108,7 +108,7 @@ class GeometricOpticsModel {
       this.raysModeProperty,
       this.representationProperty,
       this.sourceObject.positionProperty,
-      this.projectorScreen,
+      this.projectionScreen,
       this.optic,
       this.firstTarget
     );
@@ -119,7 +119,7 @@ class GeometricOpticsModel {
       this.raysModeProperty,
       this.representationProperty,
       this.secondSource.positionProperty,
-      this.projectorScreen,
+      this.projectionScreen,
       this.optic,
       this.secondTarget
     );
@@ -148,7 +148,7 @@ class GeometricOpticsModel {
     this.secondSource.reset();
     this.lightRaysTimeProperty.reset();
     this.raysModeProperty.reset();
-    this.projectorScreen.reset();
+    this.projectionScreen.reset();
     this.horizontalRuler.reset();
     this.verticalRuler.reset();
   }

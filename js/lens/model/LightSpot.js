@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * LightSpot is the model of the light spot that hits the projector screen.
+ * LightSpot is the model of the light spot that hits the projection screen.
  * Responsible for the shape of the spot (cropped to the screen shape) and the light intensity.
  *
  * @author Martin Veillette
@@ -15,7 +15,7 @@ import Graph from '../../../../kite/js/ops/Graph.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Optic from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
-import ProjectorScreen from './ProjectorScreen.js';
+import ProjectionScreen from './ProjectionScreen.js';
 
 // constants
 const INTENSITY_RANGE = new Range( 0, 1 );
@@ -26,14 +26,14 @@ class LightSpot {
   /**
    * @param {Property.<Vector2>} sourcePositionProperty
    * @param {Property.<Vector2>} targetPositionProperty
-   * @param {ProjectorScreen} projectorScreen
+   * @param {ProjectionScreen} projectionScreen
    * @param {Optic} optic
    */
-  constructor( sourcePositionProperty, targetPositionProperty, projectorScreen, optic ) {
+  constructor( sourcePositionProperty, targetPositionProperty, projectionScreen, optic ) {
 
     assert && assert( sourcePositionProperty instanceof Property );
     assert && assert( targetPositionProperty instanceof Property );
-    assert && assert( projectorScreen instanceof ProjectorScreen );
+    assert && assert( projectionScreen instanceof ProjectionScreen );
     assert && assert( optic instanceof Optic );
 
     // @private {Property.<Vector2>} position of the source of light
@@ -42,12 +42,12 @@ class LightSpot {
     // @private {Optic} model for the optic
     this.optic = optic;
 
-    // @private {function}
-    this.projectorScreen = projectorScreen;
+    // @private
+    this.projectionScreen = projectionScreen;
 
     // @public {DerivedProperty.<Shape>} intersection of this LightSpot with the screen
     this.screenIntersectionProperty = new DerivedProperty(
-      [ projectorScreen.positionProperty, optic.positionProperty, optic.diameterProperty, targetPositionProperty ],
+      [ projectionScreen.positionProperty, optic.positionProperty, optic.diameterProperty, targetPositionProperty ],
       ( screenPosition, opticPosition, opticDiameter, targetPosition ) =>
         this.getIntersection( screenPosition, opticPosition, opticDiameter, targetPosition )
     );
@@ -55,7 +55,7 @@ class LightSpot {
     // @public {DerivedProperty.<number>}
     // determine the light intensity of the spot, a number ranging from 0 to 1
     this.intensityProperty = new DerivedProperty(
-      [ projectorScreen.positionProperty, optic.positionProperty, optic.diameterProperty, targetPositionProperty ],
+      [ projectionScreen.positionProperty, optic.positionProperty, optic.diameterProperty, targetPositionProperty ],
       ( screenPosition, opticPosition, opticDiameter, targetPosition ) =>
         this.getLightIntensity( screenPosition, opticPosition, opticDiameter, targetPosition ), {
         isValidValue: value => INTENSITY_RANGE.contains( value )
@@ -123,7 +123,7 @@ class LightSpot {
 
   /**
    * Gets the projected position on the screen of a point.
-   * this is determined by extrapolating the point from the target point onto the projector screen.
+   * this is determined by extrapolating the point from the target point onto the projection screen.
    * @private
    * @param {Vector2} screenPosition
    * @param {Vector2} point
@@ -156,7 +156,7 @@ class LightSpot {
   }
 
   /**
-   * Gets the shape that result from the intersection of the disk and screen projector
+   * Gets the shape that result from the intersection of the disk and projection screen.
    * @private
    * @param {Vector2} screenPosition
    * @param {Vector2} opticPosition
@@ -167,7 +167,7 @@ class LightSpot {
   getIntersection( screenPosition, opticPosition, opticDiameter, targetPosition ) {
 
     // translated screen shape
-    const screenShape = this.projectorScreen.getScreenShape();
+    const screenShape = this.projectionScreen.getScreenShape();
 
     // unclipped elliptical disk shape
     const diskShape = this.getDiskShape( screenPosition, opticPosition, opticDiameter, targetPosition );

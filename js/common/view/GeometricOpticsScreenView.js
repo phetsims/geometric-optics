@@ -271,7 +271,7 @@ class GeometricOpticsScreenView extends ScreenView {
       playAreaNode.addChild( new DebugPointNode( model.sourceObject.positionProperty, modelViewTransform, options ) );
       playAreaNode.addChild( new DebugPointNode( model.secondSource.lightSourcePositionProperty, modelViewTransform, options ) );
       playAreaNode.addChild( new DebugPointNode( model.firstTarget.positionProperty, modelViewTransform, options ) );
-      playAreaNode.addChild( new DebugPointNode( model.projectorScreen.positionProperty, modelViewTransform, options ) );
+      playAreaNode.addChild( new DebugPointNode( model.projectionScreen.positionProperty, modelViewTransform, options ) );
     }
 
     // Add points at a distance 2f on each side of optic

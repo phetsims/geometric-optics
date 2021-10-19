@@ -174,7 +174,7 @@ Properties in [VisibileProperties](https://github.com/phetsims/geometric-optics/
 There a few odd things.
 
 * Since LightRays have a dependency on the `projectorScreen`, the `projectorScreen` model is instantiated within the
-  common model. However, we note that there is no counterpart `ProjectorScreenNode` within the `MirrorScreen` since the
+  common model. However, we note that there is no counterpart `ProjectionScreenNode` within the `MirrorScreen` since the
   mirror screen does not have a light source representation.
 * The `Optic` model takes an index of refraction has a parameter. Physical mirror do not have an index of refraction,
   but for the purposes of the simulation, we can make our model mirror to be functionally equivalent to a lens with an
