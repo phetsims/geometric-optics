@@ -233,7 +233,8 @@ class Optic {
   }
 
   /**
-   * Returns a normalized value for the diameter, in the range [0,1].
+   * Returns a normalized value for the diameter, in the range [min/max,1].
+   * Note that this normalization is very different than getNormalizedIndexOfRefraction.
    * @public
    * @param {number} diameter
    * @returns {number}
