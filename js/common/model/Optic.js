@@ -114,13 +114,6 @@ class Optic {
       curve => this.isConverging( curve )
     );
 
-    // @public {DerivedProperty.<number>} is the optical element converging.
-    // +1 if the optical element is converging, -1 if it is diverging
-    this.convergingSignProperty = new DerivedProperty(
-      [ this.curveProperty ],
-      curve => this.getConvergingSign( curve )
-    );
-
     // @public {DerivedProperty.<OpticShapes>} shapes of the optical element
     this.shapesProperty = new DerivedProperty(
       [ this.curveProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
