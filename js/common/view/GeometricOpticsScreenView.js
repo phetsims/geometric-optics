@@ -105,7 +105,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // create control panel at the bottom of the screen
     const controlPanel = new GeometricOpticsControlPanel( model.representationProperty, model.optic,
-      model.raysModeProperty, visibleProperties, modelViewTransform );
+      model.raysModeProperty, visibleProperties );
     controlPanel.centerBottom = erodedLayoutBounds.centerBottom;
 
     // create toolbox at the top right corner of the screen

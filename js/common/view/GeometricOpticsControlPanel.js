@@ -10,7 +10,6 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
@@ -52,16 +51,14 @@ class GeometricOpticsControlPanel extends Panel {
    * @param {Optic} optic
    * @param {EnumerationProperty.<RaysMode>} raysModeProperty
    * @param {VisibleProperties} visibleProperties
-   * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( representationProperty, optic, raysModeProperty, visibleProperties, modelViewTransform, options ) {
+  constructor( representationProperty, optic, raysModeProperty, visibleProperties, options ) {
 
     assert && assert( representationProperty instanceof EnumerationProperty );
     assert && assert( optic instanceof Optic );
     assert && assert( raysModeProperty instanceof EnumerationProperty );
     assert && assert( visibleProperties instanceof VisibleProperties );
-    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     options = merge( {
 
