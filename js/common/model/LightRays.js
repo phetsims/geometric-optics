@@ -139,10 +139,10 @@ function getRayDirections( sourcePosition, optic, raysMode, targetPoint ) {
     directions.push( sourceOpticVector.normalized() );
 
     // the top of the optic
-    const topPoint = optic.getTopOpticPoint( sourcePosition, targetPoint );
+    const topPoint = optic.getTopPoint( sourcePosition, targetPoint );
 
     // the bottom of the optic
-    const bottomPoint = optic.getBottomOpticPoint( sourcePosition, targetPoint );
+    const bottomPoint = optic.getBottomPoint( sourcePosition, targetPoint );
 
     // direction of a ray to the top of the optic
     const topDirection = topPoint.minus( sourcePosition ).normalized();

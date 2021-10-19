@@ -292,7 +292,7 @@ class Optic {
    * @param {Vector2} targetPoint
    * @returns {Vector2}
    */
-  getTopOpticPoint( sourcePoint, targetPoint ) {
+  getTopPoint( sourcePoint, targetPoint ) {
     return this.getExtremumPoint( sourcePoint, targetPoint, true /* isTop */ );
   }
 
@@ -303,7 +303,7 @@ class Optic {
    * @param {Vector2} targetPoint
    * @returns {Vector2}
    */
-  getBottomOpticPoint( sourcePoint, targetPoint ) {
+  getBottomPoint( sourcePoint, targetPoint ) {
     return this.getExtremumPoint( sourcePoint, targetPoint, false /* isTop */ );
   }
 

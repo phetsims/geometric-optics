@@ -99,13 +99,13 @@ class LightSpot {
     assert && assert( typeof opticDiameter === 'number' && isFinite( opticDiameter ) && opticDiameter > 0 );
     assert && assert( targetPosition instanceof Vector2 );
 
-    // get the extremum points on the optic
-    const topOpticPoint = this.optic.getTopOpticPoint( this.sourcePositionProperty.value, targetPosition );
-    const bottomOpticPoint = this.optic.getBottomOpticPoint( this.sourcePositionProperty.value, targetPosition );
+    // get the extrema points on the optic
+    const opticTopPoint = this.optic.getTopPoint( this.sourcePositionProperty.value, targetPosition );
+    const opticBottomPoint = this.optic.getBottomPoint( this.sourcePositionProperty.value, targetPosition );
 
     // determine the top and bottom position of the unclipped disk
-    const diskTopPosition = this.getIntersectPosition( screenPosition, topOpticPoint, targetPosition );
-    const diskBottomPosition = this.getIntersectPosition( screenPosition, bottomOpticPoint, targetPosition );
+    const diskTopPosition = this.getIntersectPosition( screenPosition, opticTopPoint, targetPosition );
+    const diskBottomPosition = this.getIntersectPosition( screenPosition, opticBottomPoint, targetPosition );
 
     // determine the position and y radius of the disk
     const diskCenterPosition = diskTopPosition.average( diskBottomPosition );
