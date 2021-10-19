@@ -256,7 +256,7 @@ class Optic {
    * @param {number} indexOfRefraction - index of refraction
    * @returns {number}
    */
-  getNormalizedIndex( indexOfRefraction ) {
+  getNormalizedIndexOfRefraction( indexOfRefraction ) {
     assert && assert( indexOfRefraction );
 
     // This logic is necessary because indexOfRefractionProperty is a constant for a mirror. Its range therefore

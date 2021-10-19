@@ -60,8 +60,8 @@ class OpticNode extends Node {
     } );
 
     // Index of refraction determines opacity.
-    optic.indexOfRefractionProperty.link( index => {
-      opticFillNode.opacity = optic.getNormalizedIndex( index );
+    optic.indexOfRefractionProperty.link( indexOfRefraction => {
+      opticFillNode.opacity = optic.getNormalizedIndexOfRefraction( indexOfRefraction );
     } );
 
     // Shape of the optic will change when diameter or radius of curvature is changed.
