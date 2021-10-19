@@ -89,6 +89,11 @@ class OpticNode extends Node {
       modelBounds => modelBounds.erodedY( optic.maxDiameter / 2 )
     );
 
+    // When the dragBounds changes, move the optic inside the drag bounds.
+    dragBoundsProperty.link( dragBounds => {
+      optic.yProperty.value = dragBounds.closestPointTo( optic.positionProperty.value ).y;
+    } );
+
     this.addInputListener( new DragListener( {
       pressCursor: options.cursor,
       positionProperty: positionProperty,
