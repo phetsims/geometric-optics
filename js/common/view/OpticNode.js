@@ -64,7 +64,7 @@ class OpticNode extends Node {
       opticFillNode.opacity = optic.getNormalizedIndexOfRefraction( indexOfRefraction );
     } );
 
-    // Shape of the optic will change when diameter or radius of curvature is changed.
+    // Shape of the optic will change when curve type, radius of curvature, or diameter is changed.
     optic.shapesProperty.link( shapes => {
       opticFillNode.shape = modelViewTransform.modelToViewShape( shapes.fillShape );
       opticStrokeNode.shape = modelViewTransform.modelToViewShape( shapes.outlineShape );
