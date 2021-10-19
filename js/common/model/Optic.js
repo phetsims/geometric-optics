@@ -84,14 +84,14 @@ class Optic {
       range: config.radiusOfCurvatureRange
     } );
 
-    // @public height of the optical element - controls the optical aperture of the optical element
-    this.diameterProperty = new NumberProperty( config.diameterRange.defaultValue, {
-      range: config.diameterRange
-    } );
-
     // @public index of refraction of the lens
     this.indexOfRefractionProperty = new NumberProperty( config.indexOfRefractionRange.defaultValue, {
       range: config.indexOfRefractionRange
+    } );
+
+    // @public diameter of the optical element - controls the optical aperture of the optical element
+    this.diameterProperty = new NumberProperty( config.diameterRange.defaultValue, {
+      range: config.diameterRange
     } );
 
     // @public {DerivedProperty.<number>} focal length of the optic
@@ -100,21 +100,21 @@ class Optic {
       [ this.radiusOfCurvatureProperty, this.indexOfRefractionProperty, this.curveProperty ],
       ( radiusOfCurvature, indexOfRefraction, curve ) => {
 
-        // a positive sign indicates the optic is converging
-        // sign is determined based on the curve and the type of optic.
+        // A positive sign indicates the optic is converging.
+        // Sign is determined based on the curve and the type of optic.
         const sign = this.getConvergingSign( curve );
 
         return sign * radiusOfCurvature / ( 2 * ( indexOfRefraction - 1 ) );
       }
     );
 
-    // @public {DerivedProperty.<boolean>} is the optical element converging.
+    // @public {DerivedProperty.<boolean>} whether the optic is converging
     this.isConvergingProperty = new DerivedProperty(
       [ this.curveProperty ],
       curve => this.isConverging( curve )
     );
 
-    // @public {DerivedProperty.<OpticShapes>} shapes of the optical element
+    // @public {DerivedProperty.<OpticShapes>} shapes related to the optic
     this.shapesProperty = new DerivedProperty(
       [ this.curveProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
       ( curve, radiusOfCurvature, diameter ) => new OpticShapes( config.opticType, curve, radiusOfCurvature, diameter )
@@ -125,11 +125,11 @@ class Optic {
    * @public
    */
   reset() {
-    this.yProperty.reset();
-    this.diameterProperty.reset();
-    this.radiusOfCurvatureProperty.reset();
     this.curveProperty.reset();
+    this.yProperty.reset();
+    this.radiusOfCurvatureProperty.reset();
     this.indexOfRefractionProperty.reset();
+    this.diameterProperty.reset();
   }
 
   /**
