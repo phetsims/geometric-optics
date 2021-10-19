@@ -73,10 +73,8 @@ class CurveRadioButtonGroup extends RectangularRadioButtonGroup {
     assert && assert( Optic.Curve.includes( curve ) );
 
     options = merge( {
-      radius: 22, // radius of curvature, in cm
-      diameter: 30, // height of the optic, in cm
-      thickness: 4, // thickness of the backing of the mirror, in cm
-      isHollywood: false, // does the radius of curvature matching the shape of the lens?
+      radius: 22, // radius of curvature of the optic, in cm
+      diameter: 30, // diameter of the optic, in cm
 
       /// options for the form of the icon
       fillNodeOptions: {
@@ -90,7 +88,10 @@ class CurveRadioButtonGroup extends RectangularRadioButtonGroup {
     }, options );
 
     // Get the appropriate shapes for the optic.
-    const iconShapes = new OpticShapes( opticType, curve, options.radius, options.diameter, options );
+    const iconShapes = new OpticShapes( opticType, curve, options.radius, options.diameter, {
+      isHollywood: false, // does the radius of curvature match the shape of the lens?
+      thickness: 4 // thickness of the backing of the mirror, in cm
+    } );
 
     // Create the icon.
     const fillNode = new Path( iconShapes.fillShape, options.fillNodeOptions );
