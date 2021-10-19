@@ -7,7 +7,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
@@ -53,10 +55,18 @@ class OpticNode extends Node {
 
     super( options );
 
-    // Move to the optic's position.
-    //TODO DragListener should handle this via options positionProperty and modelViewTransform
-    optic.positionProperty.link( position => {
-      this.translation = modelViewTransform.modelToViewDelta( position ); //TODO why not modelToViewPosition?
+    // Shape of the optic will change when curve type, radius of curvature, or diameter is changed.
+    optic.shapesProperty.link( shapes => {
+
+      // The position of this Node should be based on optic.positionProperty, so we do not want to translate these
+      // Shapes. Create our own matrix based on modelViewTransform, but with no effective translation.
+      const matrix = modelViewTransform.getMatrix().copy();
+      const translation = matrix.getTranslation();
+      matrix.prependTranslation( -translation.x, -translation.y );
+
+      // Create the shapes in view coordinates.
+      opticFillNode.shape = shapes.fillShape.transformed( matrix );
+      opticStrokeNode.shape = shapes.outlineShape.transformed( matrix );
     } );
 
     // Index of refraction determines opacity.
@@ -64,45 +74,26 @@ class OpticNode extends Node {
       opticFillNode.opacity = optic.getNormalizedIndexOfRefraction( indexOfRefraction );
     } );
 
-    // Shape of the optic will change when curve type, radius of curvature, or diameter is changed.
-    optic.shapesProperty.link( shapes => {
-      opticFillNode.shape = modelViewTransform.modelToViewShape( shapes.fillShape );
-      opticStrokeNode.shape = modelViewTransform.modelToViewShape( shapes.outlineShape );
+    // Dragging is constrained to vertical, so create an adapter Property that can be used by DragListener.
+    const positionProperty = new Vector2Property( optic.positionProperty.value );
+    positionProperty.link( position => {
+      optic.yProperty.value = position.y;
+    } );
+    optic.positionProperty.link( position => {
+      this.translation = modelViewTransform.modelToViewPosition( position );
     } );
 
-    // Keep the optic inside the model bounds.
-    //TODO DragListener should handle this via option dragBoundsProperty
-    modelBoundsProperty.link( bounds => {
-      optic.yProperty.value = bounds.closestPointTo( optic.positionProperty.value ).y;
-    } );
+    // Constrain dragging such that an optic with maximum diameter is fully inside the model bounds.
+    // See https://github.com/phetsims/geometric-optics/issues/204
+    const dragBoundsProperty = new DerivedProperty( [ modelBoundsProperty ],
+      modelBounds => modelBounds.erodedY( optic.maxDiameter / 2 )
+    );
 
-    let clickOffset; //TODO DragListener should handle this
     this.addInputListener( new DragListener( {
       pressCursor: options.cursor,
-      start: event => {
-
-        // click offset in model coordinate between the press drag and the center of the optic
-        clickOffset = modelViewTransform.viewToModelPosition(
-          this.globalToParentPoint( event.pointer.point ) ).minus( optic.positionProperty.value );
-      },
-      drag: event => {
-
-        // position of the cursor in model coordinates
-        const cursorModelPosition = modelViewTransform.viewToModelPosition(
-          this.globalToParentPoint( event.pointer.point ) );
-
-        // model position for the optic
-        const unconstrainedModelPosition = cursorModelPosition.minus( clickOffset );
-
-        // Constrain dragging such that an optic with maximum diameter is fully inside the model bounds.
-        // See https://github.com/phetsims/geometric-optics/issues/204
-        //TODO DragListener should handle this via option dragBoundsProperty
-        const dragBounds = modelBoundsProperty.value.erodedY( optic.maxDiameter / 2 );
-        const constrainedModelPosition = dragBounds.closestPointTo( unconstrainedModelPosition );
-
-        // constrained to move vertically
-        optic.yProperty.value = constrainedModelPosition.y;
-      }
+      positionProperty: positionProperty,
+      transform: modelViewTransform,
+      dragBoundsProperty: dragBoundsProperty
     } ) );
   }
 
