@@ -59,10 +59,10 @@ class Optic {
     assert && assert( config.diameterRange instanceof RangeWithValue );
 
     // @private {Optic.Type} type of the optic
+    //TODO handle with subclassing
     this.opticType = config.opticType;
 
     // @public type of curve of the optic
-    //TODO rename Optic.Curve and curveProperty
     this.curveProperty = new EnumerationProperty( Optic.Curve, config.initialCurve );
 
     // @public y coordinate is variable, while x coordinate is fixed
@@ -95,8 +95,8 @@ class Optic {
     // @public {DerivedProperty.<number>} focal length of the optic
     // positive indicate the optic is converging whereas negative indicates the optic is diverging.
     this.focalLengthProperty = new DerivedProperty(
-      [ this.radiusOfCurvatureProperty, this.indexOfRefractionProperty, this.curveProperty ],
-      ( radiusOfCurvature, indexOfRefraction, curve ) => {
+      [ this.curveProperty, this.radiusOfCurvatureProperty, this.indexOfRefractionProperty ],
+      ( curve, radiusOfCurvature, indexOfRefraction ) => {
 
         // A positive sign indicates the optic is converging.
         // Sign is determined based on the curve and the type of optic.
@@ -367,9 +367,9 @@ class Optic {
   }
 }
 
+//TODO handle with subclassing
 Optic.Type = Enumeration.byKeys( [ 'LENS', 'MIRROR' ] );
 
-//TODO rename to CurveType
 Optic.Curve = Enumeration.byKeys( [ 'CONVEX', 'CONCAVE' ] );
 
 geometricOptics.register( 'Optic', Optic );
