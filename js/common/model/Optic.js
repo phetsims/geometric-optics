@@ -202,18 +202,19 @@ class Optic {
     return !this.isConverging( curve );
   }
 
+  //TODO handle with subclassing
   /**
    * Convenience function for mathematical operations.
-   * Returns a value of +1 for a lens, and -1 for a mirror.
+   * Returns +1 for a lens, -1 for a mirror.
    * @public
    * @returns {number}
    */
-  getTypeSign() {
+  getSign() {
     return this.isLens() ? 1 : -1;
   }
 
   /**
-   * Returns a normalized value (with a max of 1) for the diameter
+   * Returns a normalized value for the diameter, in the range [0,1].
    * @public
    * @param {number} diameter
    * @returns {number}
@@ -249,13 +250,16 @@ class Optic {
   }
 
   /**
-   * Returns a normalized value (between 0 and 1) for the index of refraction
+   * Returns a normalized value for the index of refraction, in the range [0,1].
    * @public
    * @param {number} indexOfRefraction - index of refraction
    * @returns {number}
    */
   getNormalizedIndex( indexOfRefraction ) {
     assert && assert( indexOfRefraction );
+
+    // This logic is necessary because indexOfRefractionProperty is a constant for a mirror. Its range therefore
+    // has zero length, and we cannot call range.getNormalizedValue.
     const normalizedIndex = this.isLens() ?
                             this.indexOfRefractionProperty.range.getNormalizedValue( indexOfRefraction ) :
                             NORMALIZED_VALUE_RANGE.max;

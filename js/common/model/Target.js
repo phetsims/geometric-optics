@@ -35,8 +35,8 @@ class Target {
     // @private {Property.<Vector2>} position of the optic
     this.opticPositionProperty = optic.positionProperty;
 
-    // @private (read-only) {function} returns the sign (+1 or -1) assigned to the type of optic (lens or mirror)
-    this.opticGetTypeSign = optic.getTypeSign.bind( optic );
+    // @private (read-only) {number} sign (+1 or -1) for the type of optic (lens or mirror)
+    this.opticSign = optic.getSign();
 
     // @private {DerivedProperty.<number>} horizontal "distance" between target (image) and optic
     // The distance can be negative. We follow the standard sign convention used in geometric optics courses.
@@ -109,8 +109,8 @@ class Target {
         const width = initialWidth * scale;
         const height = initialHeight * scale;
 
-        const x1 = ( offset.x ) * this.opticGetTypeSign();
-        const x2 = ( offset.x + width ) * this.opticGetTypeSign();
+        const x1 = this.opticSign * offset.x;
+        const x2 = this.opticSign * ( offset.x + width );
         const y1 = offset.y;
         const y2 = offset.y - height;
 
@@ -225,7 +225,7 @@ class Target {
     const targetOpticDistance = this.targetOpticDistanceProperty.value;
 
     // recall that the meaning of targetOpticDistance is different for a lens and mirror.
-    const horizontalDisplacement = this.opticGetTypeSign() * targetOpticDistance;
+    const horizontalDisplacement = this.opticSign * targetOpticDistance;
 
     return opticPosition.plusXY( horizontalDisplacement, height );
   }
