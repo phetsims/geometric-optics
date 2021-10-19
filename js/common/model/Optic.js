@@ -15,7 +15,6 @@ import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Range from '../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -71,10 +70,17 @@ class Optic {
     // @public {RangeWithValue}
     this.maxDiameter = config.diameterRange.max;
 
-    // @public (read-only) position of the optical element. Its x coordinate should remain fixed.
-    this.positionProperty = new Vector2Property( config.initialPosition, {
-      isValidValue: value => value.x === config.initialPosition.x
-    } );
+    // @public y coordinate is variable, while x coordinate is fixed
+    // NOTE: The Flash version allowed free dragging of the lens. But things can get more chaotic if you allow free
+    // dragging, and it didn't serve a specific learning goal. So for the HTML5 version, dragging is constrained to
+    // vertical (the y axis). If you attempt to change this, beware that you may encounter assumptions (possibly
+    // implicit) that will break the sim.
+    this.yProperty = new NumberProperty( config.initialPosition.y );
+
+    // @public {DerivedProperty.<number>} position of the optical element
+    this.positionProperty = new DerivedProperty( [ this.yProperty ],
+      y => new Vector2( config.initialPosition.x, y )
+    );
 
     // @public radius of curvature of the optical element. Positive is converging.
     this.radiusOfCurvatureProperty = new NumberProperty( config.radiusOfCurvatureRange.defaultValue, {
@@ -129,7 +135,7 @@ class Optic {
    * @public
    */
   reset() {
-    this.positionProperty.reset();
+    this.yProperty.reset();
     this.diameterProperty.reset();
     this.radiusOfCurvatureProperty.reset();
     this.curveProperty.reset();

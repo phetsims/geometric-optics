@@ -8,7 +8,6 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
@@ -74,7 +73,7 @@ class OpticNode extends Node {
     // Keep the optic inside the model bounds.
     //TODO DragListener should handle this via option dragBoundsProperty
     modelBoundsProperty.link( bounds => {
-      optic.positionProperty.value = bounds.closestPointTo( optic.positionProperty.value );
+      optic.yProperty.value = bounds.closestPointTo( optic.positionProperty.value ).y;
     } );
 
     let clickOffset; //TODO DragListener should handle this
@@ -102,7 +101,7 @@ class OpticNode extends Node {
         const constrainedModelPosition = dragBounds.closestPointTo( unconstrainedModelPosition );
 
         // constrained to move vertically
-        optic.positionProperty.value = new Vector2( optic.positionProperty.value.x, constrainedModelPosition.y );
+        optic.yProperty.value = constrainedModelPosition.y;
       }
     } ) );
   }
