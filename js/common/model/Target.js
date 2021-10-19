@@ -29,12 +29,6 @@ class Target {
     assert && assert( optic instanceof Optic );
     assert && assert( representationProperty instanceof EnumerationProperty );
 
-    // @private {Property.<Vector2>} position of the object/source
-    this.objectPositionProperty = objectPositionProperty;
-
-    // @private {Property.<Vector2>} position of the optic
-    this.opticPositionProperty = optic.positionProperty;
-
     // @private (read-only) {number} sign (+1 or -1) for the type of optic (lens or mirror)
     this.opticSign = optic.getSign();
 
