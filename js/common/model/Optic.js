@@ -106,12 +106,6 @@ class Optic {
       }
     );
 
-    // @public {DerivedProperty.<boolean>} whether the optic is converging
-    this.isConvergingProperty = new DerivedProperty(
-      [ this.curveProperty ],
-      curve => this.isConverging( curve )
-    );
-
     // @public {DerivedProperty.<OpticShapes>} shapes related to the optic
     this.shapesProperty = new DerivedProperty(
       [ this.curveProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
