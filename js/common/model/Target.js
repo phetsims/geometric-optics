@@ -20,7 +20,7 @@ import Optic from './Optic.js';
 class Target {
 
   /**
-   * @param {Property.<Vector2>} objectPositionProperty - position of the object/source
+   * @param {Property.<Vector2>} objectPositionProperty - position of the source object or light source
    * @param {Optic} optic - model of the optic
    * @param {EnumerationProperty.<Representation>} representationProperty
    */
@@ -174,7 +174,7 @@ class Target {
    */
   getMagnification( objectPosition, opticPosition, focalLength ) {
 
-    // horizontal distance between object/source and optic
+    // horizontal distance between source object (or light source) and optic
     const objectOpticDistance = this.getObjectOpticDistance( objectPosition, opticPosition );
 
     // prevent a division by zero
