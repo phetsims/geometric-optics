@@ -28,11 +28,11 @@ class OpticShapes {
     assert && assert( typeof radiusOfCurvature === 'number' && isFinite( radiusOfCurvature ) && radiusOfCurvature > 0 );
     assert && assert( typeof diameter === 'number' && isFinite( diameter ) && diameter > 0 );
 
-    // @public (read-only) {Shape|null} these are initialized by setLensShapes or setMirrorShapes
-    this.frontShape = null; // the left facing contour of the optic. This can be used for ray hit testing
-    this.backShape = null; // the right facing contour of the optic. Used for ray hit testing. null for mirror.
-    this.outlineShape = null; // the reflecting coating of a mirror, or the external surface of the lens
-    this.fillShape = null; // the entire shape of the lens, or the backing of the mirror
+    // @public (read-only) initialized by setLensShapes or setMirrorShapes
+    this.frontShape = null; // {Shape} the left facing contour of the optic. This can be used for ray hit testing
+    this.backShape = null; // {Shape|null} the right facing contour of the optic. Used for ray hit testing. null for mirror.
+    this.outlineShape = null; // {Shape} the reflecting coating of a mirror, or the external surface of the lens
+    this.fillShape = null; // {Shape} the entire shape of the lens, or the backing of the mirror
 
     if ( opticType === Optic.Type.LENS ) {
       this.setLensShapes( curve, radiusOfCurvature, diameter, options );
@@ -40,6 +40,12 @@ class OpticShapes {
     else {
       this.setMirrorShapes( curve, radiusOfCurvature, diameter, options );
     }
+
+    assert && assert( this.frontShape instanceof Shape );
+    assert && assert( ( this.backShape instanceof Shape && opticType === Optic.Type.LENS ) ||
+                      ( this.backShape === null && opticType === Optic.Type.MIRROR ) );
+    assert && assert( this.outlineShape instanceof Shape );
+    assert && assert( this.fillShape instanceof Shape );
   }
 
   /**
