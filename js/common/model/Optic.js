@@ -321,28 +321,27 @@ class Optic {
     assert && assert( targetPoint instanceof Vector2 );
     assert && assert( typeof isTop === 'boolean' );
 
-    // erode the bounds a tiny bit such that such that the point is always within the bounds
+    // Erode the bounds a tiny bit so that the point is always within the bounds.
     const opticBounds = this.getOpticBounds().erodedY( 1e-6 );
 
     // convenience variables
     const isConcave = this.isConcave( this.curveProperty.value );
     const leftPoint = isTop ? opticBounds.leftTop : opticBounds.leftBottom;
     const rightPoint = isTop ? opticBounds.rightTop : opticBounds.rightBottom;
-    const centerPoint = isTop ? opticBounds.centerTop : opticBounds.centerBottom;
-    const opticPoint = this.positionProperty.value;
 
-    // extrema point along the direction of the ray - may not be on the optic itself
-    let spotPoint;
+    // extremum point along the direction of the ray, may not be on the optic itself
+    let extremumPoint;
 
     if ( this.isMirror() ) {
 
-      // since mirror reflect light, the spot point on the mirror itself
-      spotPoint = isConcave ? leftPoint : rightPoint;
+      // since mirror reflects light, the extremum point is on the mirror itself
+      extremumPoint = isConcave ? leftPoint : rightPoint;
     }
     else {
-
-      // must be a lens
       if ( isConcave ) {
+        // a concave lens
+
+        const opticPosition = this.positionProperty.value;
 
         // displacement vector from targetPoint to the right corner of the lens
         const rightTarget = rightPoint.minus( targetPoint );
@@ -351,27 +350,26 @@ class Optic {
         const leftSource = leftPoint.minus( sourcePoint );
 
         // yOffset (from center of lens) of a ray directed from targetPoint to the right corner of lens
-        const yOffset1 = ( rightPoint.y - opticPoint.y ) + ( opticPoint.x - rightPoint.x ) *
+        const yOffset1 = ( rightPoint.y - opticPosition.y ) + ( opticPosition.x - rightPoint.x ) *
                          rightTarget.y / rightTarget.x;
 
         // yOffset (from center of lens) of a ray directed from targetPoint to the right corner of lens
-        const yOffset2 = ( leftPoint.y - opticPoint.y ) + ( opticPoint.x - leftPoint.x ) * leftSource.y / leftSource.x;
+        const yOffset2 = ( leftPoint.y - opticPosition.y ) + ( opticPosition.x - leftPoint.x ) * leftSource.y / leftSource.x;
 
         // find the smallest offset to ensure that a ray will always hit both front and back surfaces
         const offsetY = Math.abs( yOffset1 ) < Math.abs( yOffset2 ) ? yOffset1 : yOffset2;
 
         // get the direction of the ray as measured from the source
-        spotPoint = opticPoint.plusXY( 0, offsetY );
+        extremumPoint = opticPosition.plusXY( 0, offsetY );
       }
       else {
-        // must be a convex lens
-
-        // spot is based on the edge point (which is centered horizontally on the optic)
-        spotPoint = centerPoint;
+        // a convex lens
+        // extremum point is based on the edge point (which is centered horizontally on the optic)
+        extremumPoint = isTop ? opticBounds.centerTop : opticBounds.centerBottom;
       }
     }
 
-    return spotPoint;
+    return extremumPoint;
   }
 }
 
