@@ -49,11 +49,11 @@ class OpticShapes {
   }
 
   /**
-   * Sets the shapes of a lens. In the case of a lens, the outline and fills shape are identical.
-   * The lens shape is approximated as a parabolic lens.
-   * The radius of curvature of the lens does necessarily match the value of radius and can be instead "hollywooded".
-   * This gives the flexibility to draw lenses with radius of curvature that is larger than diameter/2, a physical
-   * impossibility. The center point of the lens is '0,0'
+   * Sets the Shapes for a lens. In the case of a lens, the outline and fills shape are identical.
+   * The lens shape is approximated as a parabolic lens. The radius of curvature does not necessarily match the
+   * actual radius of curvature, and can instead be "Hollywooded". This gives the flexibility to draw lenses with radius
+   * of curvature that is larger than diameter/2, a physical impossibility. The origin (0,0) is at the geometric
+   * center of the lens.
    * @private
    * @param {Optic.Curve} curve
    * @param {number} radiusOfCurvature - radius of curvature
@@ -153,11 +153,10 @@ class OpticShapes {
   }
 
   /**
-   * Sets the shape of a parabolic mirror.
-   * The shape is designed as a "first surface mirror".
-   * The returned object contains an outline shape, representing the reflecting coating,
-   * and a fill shape representing the base backing of the mirror.
-   * The shapes are drawn using quadratic Bezier curves.
+   * Sets the Shapes for a parabolic mirror, designed as a "first surface mirror".
+   * A first surface mirror (or front surface mirror) is a mirror with the reflective surface being above a backing,
+   * as opposed to the conventional, second surface mirror with the reflective surface behind a transparent substrate
+   * such as glass or acrylic. The Shapes are drawn using quadratic Bezier curves.
    * @private
    * @param {Optic.Curve} curve
    * @param {number} radiusOfCurvature - radius of curvature at the center of the mirror
