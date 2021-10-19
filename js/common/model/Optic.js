@@ -102,7 +102,7 @@ class Optic {
 
         // A positive sign indicates the optic is converging.
         // Sign is determined based on the curve and the type of optic.
-        const sign = this.getConvergingSign( curve );
+        const sign = this.isConverging( curve ) ? 1 : -1;
 
         return sign * radiusOfCurvature / ( 2 * ( indexOfRefraction - 1 ) );
       }
@@ -203,18 +203,6 @@ class Optic {
   isDiverging( curve ) {
     assert && assert( Optic.Curve.includes( curve ) );
     return !this.isConverging( curve );
-  }
-
-  /**
-   * Convenience function for mathematical operations.
-   * Returns a value of +1 is the optical element is converging and -1 is the element is diverging.
-   * @public
-   * @param {Optic.Curve} curve
-   * @returns {number}
-   */
-  getConvergingSign( curve ) {
-    assert && assert( Optic.Curve.includes( curve ) );
-    return this.isConverging( curve ) ? 1 : -1;
   }
 
   /**
