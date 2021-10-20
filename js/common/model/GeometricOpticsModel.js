@@ -9,6 +9,8 @@
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
+import merge from '../../../../phet-core/js/merge.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import LightSpot from '../../lens/model/LightSpot.js';
 import ProjectionScreen from '../../lens/model/ProjectionScreen.js';
@@ -30,19 +32,25 @@ class GeometricOpticsModel {
 
   /**
    * @param {Optic} optic
-   * @param {Representation[]} [representations] - representations that are supported
+   * @param {Object} [options]
    */
-  constructor( optic, representations = Representation.VALUES ) {
+  constructor( optic, options ) {
 
     assert && assert( optic instanceof Optic );
-    assert && assert( Array.isArray( representations ) );
+
+    options = merge( {
+      representations: Representation.VALUES,
+
+      // phet-io options
+      tandem: Tandem.REQUIRED
+    }, options );
 
     // @public model of the optic
     this.optic = optic;
 
     // @public representation of the source object
     this.representationProperty = new EnumerationProperty( Representation, Representation.PENCIL, {
-      validValues: representations
+      validValues: options.representations
     } );
 
     // @public focal point to the left of the optic

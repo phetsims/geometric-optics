@@ -19,8 +19,12 @@
     ],
     "supportedBrands": [
       "phet",
+      "phet-io",
       "adapted-from-phet"
     ],
+    "phet-io": {
+      "validation": false
+    },
     "phetLibs": [],
     "supportsOutputJS": true
   },

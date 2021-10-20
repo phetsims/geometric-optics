@@ -6,6 +6,8 @@
  * @author Martin Veillette
  */
 
+import merge from '../../../../phet-core/js/merge.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsModel from '../../common/model/GeometricOpticsModel.js';
 import Lens from './Lens.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -13,9 +15,22 @@ import Guide from './Guide.js';
 
 class LensModel extends GeometricOpticsModel {
 
-  constructor() {
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
 
-    super( new Lens() );
+    options = merge( {
+
+      // phet-io options
+      tandem: Tandem.REQUIRED
+    }, options );
+
+    const lens = new Lens( {
+      tandem: options.tandem.createTandem( 'lens' )
+    } );
+
+    super( lens, options );
 
     // @public top guide associated with the source object or first light source
     this.firstTopGuide = new Guide( this.optic, this.sourceObject.positionProperty, Guide.Location.TOP );

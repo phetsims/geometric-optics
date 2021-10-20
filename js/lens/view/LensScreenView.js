@@ -7,7 +7,9 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsScreenView from '../../common/view/GeometricOpticsScreenView.js';
 import geometricOptics from '../../geometricOptics.js';
 import LensModel from '../model/LensModel.js';
@@ -19,11 +21,18 @@ class LensScreenView extends GeometricOpticsScreenView {
 
   /**
    * @param {LensModel} model
+   * @param {Object} [options]
    */
-  constructor( model ) {
+  constructor( model, options ) {
     assert && assert( model instanceof LensModel );
 
-    super( model );
+    options = merge( {
+
+      // phet-io options
+      tandem: Tandem.REQUIRED
+    }, options );
+
+    super( model, options );
 
     // Guides associated with the object
     const firstGuidesNode = new Node( {

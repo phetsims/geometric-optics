@@ -14,11 +14,13 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
+import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import MagnifyingGlassZoomButtonGroup from '../../../../scenery-phet/js/MagnifyingGlassZoomButtonGroup.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
@@ -52,15 +54,22 @@ class GeometricOpticsScreenView extends ScreenView {
 
   /**
    * @param {GeometricOpticsModel} model
+   * @param {Object} [options]
    */
-  constructor( model ) {
+  constructor( model, options ) {
     assert && assert( model instanceof GeometricOpticsModel );
 
-    super( {
+    options = merge( {
+
       // Workaround for things shifting around while dragging
       // See https://github.com/phetsims/scenery/issues/1289 and https://github.com/phetsims/geometric-optics/issues/213
-      preventFit: true
-    } );
+      preventFit: true,
+
+      // phet-io options
+      tandem: Tandem.REQUIRED
+    }, options );
+
+    super( options );
 
     // View position of the model's origin, slightly above center of the layoutBounds.
     const viewOrigin = new Vector2( this.layoutBounds.centerX, this.layoutBounds.centerY - 0.08 * this.layoutBounds.height );
@@ -183,7 +192,9 @@ class GeometricOpticsScreenView extends ScreenView {
 
     const opticalAxis = new OpticalAxis( model.optic.positionProperty, modelBoundsProperty, modelViewTransform );
 
-    const opticNode = new OpticNode( model.optic, modelBoundsProperty, modelViewTransform );
+    const opticNode = new OpticNode( model.optic, modelBoundsProperty, modelViewTransform, {
+      tandem: options.tandem.createTandem( 'opticNode' )
+    } );
 
     const opticVerticalAxis = new OpticVerticalAxis( model.optic, model.raysModeProperty, modelBoundsProperty, modelViewTransform );
 

@@ -8,6 +8,8 @@
 
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
+import merge from '../../../phet-core/js/merge.js';
+import Tandem from '../../../tandem/js/Tandem.js';
 import GeometricOpticsColors from '../common/GeometricOpticsColors.js';
 import Optic from '../common/model/Optic.js';
 import CurveRadioButtonGroup from '../common/view/CurveRadioButtonGroup.js';
@@ -18,7 +20,10 @@ import LensScreenView from './view/LensScreenView.js';
 
 class LensScreen extends Screen {
 
-  constructor() {
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
 
     // create convex lens for home screen icon
     const iconNode = CurveRadioButtonGroup.createIconNode( Optic.Type.LENS, Optic.Curve.CONVEX, {
@@ -26,18 +31,21 @@ class LensScreen extends Screen {
       diameter: 30
     } );
 
-    const options = {
+    options = merge( {
       name: geometricOpticsStrings.screen.lens,
       homeScreenIcon: new ScreenIcon( iconNode, {
         fill: GeometricOpticsColors.screenBackgroundColorProperty
       } ),
       showUnselectedHomeScreenIconFrame: true,
-      backgroundColorProperty: GeometricOpticsColors.screenBackgroundColorProperty
-    };
+      backgroundColorProperty: GeometricOpticsColors.screenBackgroundColorProperty,
+
+      // phet-io options
+      tandem: Tandem.REQUIRED
+    }, options );
 
     super(
-      () => new LensModel(),
-      model => new LensScreenView( model ),
+      () => new LensModel( { tandem: options.tandem.createTandem( 'model' ) } ),
+      model => new LensScreenView( model, { tandem: options.tandem.createTandem( 'view' ) } ),
       options
     );
   }

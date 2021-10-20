@@ -33,8 +33,8 @@ const simOptions = {
 
 simLauncher.launch( () => {
   const sim = new Sim( geometricOpticsStrings[ 'geometric-optics' ].title, [
-    new LensScreen( Tandem.ROOT.createTandem( 'lensScreen' ) ),
-    new MirrorScreen( Tandem.ROOT.createTandem( 'mirrorScreen' ) )
+    new LensScreen( { tandem: Tandem.ROOT.createTandem( 'lensScreen' ) } ),
+    new MirrorScreen( { tandem: Tandem.ROOT.createTandem( 'mirrorScreen' ) } )
   ], simOptions );
   sim.start();
 } );

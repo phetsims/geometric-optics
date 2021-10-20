@@ -15,6 +15,7 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import Optic from '../model/Optic.js';
@@ -36,7 +37,10 @@ class OpticNode extends Node {
     options = merge( {
       fill: GeometricOpticsColors.opticFillProperty,
       stroke: GeometricOpticsColors.opticStrokeProperty,
-      lineWidth: 2
+      lineWidth: 2,
+
+      // phet-io options
+      tandem: Tandem.REQUIRED
     }, options );
 
     // Separate Nodes for fill and stroke, because we'll be changing opticFillNode opacity to match index of refraction.
@@ -100,7 +104,8 @@ class OpticNode extends Node {
       useInputListenerCursor: true,
       positionProperty: positionProperty,
       transform: modelViewTransform,
-      dragBoundsProperty: dragBoundsProperty
+      dragBoundsProperty: dragBoundsProperty,
+      tandem: options.tandem.createTandem( 'dragListener' )
     } ) );
   }
 

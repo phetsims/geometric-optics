@@ -17,6 +17,8 @@ import Shape from '../../../../kite/js/Shape.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import geometricOptics from '../../geometricOptics.js';
 import OpticShapes from './OpticShapes.js';
 
@@ -48,7 +50,10 @@ class Optic {
       indexOfRefractionRange: required( config.indexOfRefractionRange ),
 
       // {RangeWithValue} range of height for the optic, in cm
-      diameterRange: required( config.diameterRange )
+      diameterRange: required( config.diameterRange ),
+
+      // phet-io options
+      tandem: Tandem.REQUIRED
     }, config );
 
     assert && assert( Optic.Type.includes( config.opticType ) );
@@ -63,33 +68,42 @@ class Optic {
     this.opticType = config.opticType;
 
     // @public type of curve of the optic
-    this.curveProperty = new EnumerationProperty( Optic.Curve, config.initialCurve );
+    this.curveProperty = new EnumerationProperty( Optic.Curve, config.initialCurve, {
+      tandem: config.tandem.createTandem( 'curveProperty' )
+    } );
 
     // @public y coordinate is variable, while x coordinate is fixed
     // NOTE: The Flash version allowed free dragging of the lens. But things can get more chaotic if you allow free
     // dragging, and it didn't serve a specific learning goal. So for the HTML5 version, dragging is constrained to
     // vertical (the y axis). If you attempt to change this, beware that you may encounter assumptions (possibly
     // implicit) that will break the sim.
-    this.yProperty = new NumberProperty( config.initialPosition.y );
+    this.yProperty = new NumberProperty( config.initialPosition.y, {
+      tandem: config.tandem.createTandem( 'yProperty' )
+    } );
 
     // @public {DerivedProperty.<number>} position of the optic
     this.positionProperty = new DerivedProperty( [ this.yProperty ],
-      y => new Vector2( config.initialPosition.x, y )
-    );
+      y => new Vector2( config.initialPosition.x, y ), {
+        tandem: config.tandem.createTandem( 'positionProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
+      } );
 
     // @public radius of curvature of the optic, positive is converging
     this.radiusOfCurvatureProperty = new NumberProperty( config.radiusOfCurvatureRange.defaultValue, {
-      range: config.radiusOfCurvatureRange
+      range: config.radiusOfCurvatureRange,
+      tandem: config.tandem.createTandem( 'radiusOfCurvatureProperty' )
     } );
 
     // @public index of refraction of the lens
     this.indexOfRefractionProperty = new NumberProperty( config.indexOfRefractionRange.defaultValue, {
-      range: config.indexOfRefractionRange
+      range: config.indexOfRefractionRange,
+      tandem: config.tandem.createTandem( 'indexOfRefractionProperty' )
     } );
 
     // @public diameter of the optic, controls the optic's aperture
     this.diameterProperty = new NumberProperty( config.diameterRange.defaultValue, {
-      range: config.diameterRange
+      range: config.diameterRange,
+      tandem: config.tandem.createTandem( 'diameterProperty' )
     } );
 
     // @public {DerivedProperty.<number>} focal length of the optic
@@ -103,8 +117,10 @@ class Optic {
         const sign = this.isConverging( curve ) ? 1 : -1;
 
         return sign * radiusOfCurvature / ( 2 * ( indexOfRefraction - 1 ) );
-      }
-    );
+      }, {
+        tandem: config.tandem.createTandem( 'focalLengthProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
+      } );
 
     // @public {DerivedProperty.<OpticShapes>} shapes related to the optic
     this.shapesProperty = new DerivedProperty(
