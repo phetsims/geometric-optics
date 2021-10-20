@@ -235,12 +235,13 @@ class GeometricOpticsScreenView extends ScreenView {
       visibleProperties.virtualImageVisibleProperty, modelViewTransform );
 
     // create two focal points
-    const focalPointsLayer = new Node( {
+    const focalPointsNode = new Node( {
       children: [
         new FocalPointNode( model.leftFocalPoint, modelViewTransform ),
         new FocalPointNode( model.rightFocalPoint, modelViewTransform )
       ],
-      visibleProperty: visibleProperties.focalPointsVisibleProperty
+      visibleProperty: visibleProperties.focalPointsVisibleProperty,
+      tandem: options.tandem.createTandem( 'focalPointsNode' )
     } );
 
     // Layer for all the Nodes within the "play area".
@@ -255,7 +256,7 @@ class GeometricOpticsScreenView extends ScreenView {
         lightRaysNode,
         secondPointLightRaysNode,
         secondPointNode,
-        focalPointsLayer
+        focalPointsNode
       ]
     } );
 
