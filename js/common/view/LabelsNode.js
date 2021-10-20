@@ -105,6 +105,7 @@ class LabelsNode extends Node {
 
     // Screen label ------------------------------------------------------------------------------------
 
+    //TODO irrelevant for Mirror screen
     const screenLabelPositionProperty = new DerivedProperty(
       [ model.projectionScreen.positionProperty ],
       position => new Vector2( position.x - 25, position.y - 65 ) // empirically, model coordinates
