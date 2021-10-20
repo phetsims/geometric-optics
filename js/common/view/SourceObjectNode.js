@@ -37,11 +37,8 @@ class SourceObjectNode extends Node {
     assert && assert( opticPositionProperty instanceof Property );
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
-    super();
-
     // Origin of this Node is at the upper-left corner of sourceObjectImage.
     const sourceObjectImage = new Image( representationProperty.value.rightFacingUpright );
-    this.addChild( sourceObjectImage );
 
     const cueingArrows = new ArrowNode( 0, 0, 0, 65, {
       doubleHead: true,
@@ -52,7 +49,10 @@ class SourceObjectNode extends Node {
       stroke: 'black',
       lineWidth: 1
     } );
-    this.addChild( cueingArrows );
+
+    super( {
+      children: [ sourceObjectImage, cueingArrows ]
+    } );
 
     // Keep cueing arrows next to the source object.
     sourceObjectImage.boundsProperty.link( bounds => {
