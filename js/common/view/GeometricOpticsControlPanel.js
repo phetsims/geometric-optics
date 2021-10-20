@@ -17,6 +17,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Panel from '../../../../sun/js/Panel.js';
 import VSeparator from '../../../../sun/js/VSeparator.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
@@ -66,28 +67,39 @@ class GeometricOpticsControlPanel extends Panel {
       xMargin: 15,
       yMargin: 10,
       fill: GeometricOpticsColors.panelFillProperty,
-      stroke: GeometricOpticsColors.panelStrokeProperty
+      stroke: GeometricOpticsColors.panelStrokeProperty,
+
+      // phet-io options
+      tandem: Tandem.REQUIRED
     }, options );
 
     // Rays radio buttons ---------------------------------------------------------------------------------------
 
+    const raysSubpanelTandem = options.tandem.createTandem( 'raysSubpanel' );
+
     // title
-    const raysNode = new Text( geometricOpticsStrings.rays, {
+    const raysText = new Text( geometricOpticsStrings.rays, {
       font: GeometricOpticsConstants.TITLE_FONT,
-      maxWidth: 100
+      maxWidth: 100,
+      tandem: raysSubpanelTandem.createTandem( 'raysText' )
     } );
 
     // radio buttons
-    const raysRadioButtonGroup = new RaysRadioButtonGroup( raysModeProperty );
+    const raysRadioButtonGroup = new RaysRadioButtonGroup( raysModeProperty, {
+      tandem: raysSubpanelTandem.createTandem( 'raysRadioButtonGroup' )
+    } );
 
     // title + radio buttons
-    const rayModesBox = new VBox( {
-      children: [ raysNode, raysRadioButtonGroup ],
+    const raysSubpanel = new VBox( {
+      children: [ raysText, raysRadioButtonGroup ],
       align: 'left',
-      spacing: 4
+      spacing: 4,
+      tandem: raysSubpanelTandem
     } );
 
     // Lens/Mirror controls ---------------------------------------------------------------------------------------
+
+    const opticSubpanelTandem = options.tandem.createTandem( 'opticSubpanel' );
 
     const numberControls = [];
 
@@ -104,7 +116,8 @@ class GeometricOpticsControlPanel extends Panel {
         numberDisplayOptions: {
           decimalPlaces: GeometricOpticsConstants.RADIUS_OF_CURVATURE_DECIMAL_PLACES,
           valuePattern: geometricOpticsStrings.valueCentimetersPattern
-        }
+        },
+        tandem: opticSubpanelTandem.createTandem( 'radiusOfCurvatureControl' )
       } ) );
     numberControls.push( radiusOfCurvatureControl );
 
@@ -121,7 +134,8 @@ class GeometricOpticsControlPanel extends Panel {
           },
           numberDisplayOptions: {
             decimalPlaces: GeometricOpticsConstants.INDEX_OF_REFRACTION_DECIMAL_PLACES
-          }
+          },
+          tandem: opticSubpanelTandem.createTandem( 'indexOfRefractionControl' )
         } ) );
       numberControls.push( indexOfRefractionControl );
     }
@@ -139,28 +153,37 @@ class GeometricOpticsControlPanel extends Panel {
         numberDisplayOptions: {
           decimalPlaces: GeometricOpticsConstants.DIAMETER_DECIMAL_PLACES,
           valuePattern: geometricOpticsStrings.valueCentimetersPattern
-        }
+        },
+        tandem: opticSubpanelTandem.createTandem( 'diameterControl' )
       } ) );
     numberControls.push( diameterControl );
 
+    const opticSubpanel = new HBox( {
+      children: numberControls,
+      spacing: 20,
+      tandem: opticSubpanelTandem
+    } );
+
     // Visibility checkboxes ---------------------------------------------------------------------------------------
 
-    const checkboxGroup = new VisibilityCheckboxGroup( visibleProperties, optic.opticType, representationProperty );
+    const checkboxGroup = new VisibilityCheckboxGroup( visibleProperties, optic.opticType, representationProperty, {
+      tandem: options.tandem.createTandem( 'checkboxGroup' )
+    } );
 
     // Put it all together ---------------------------------------------------------------------------------------
 
     // Vertical separators between sections of the control panel
-    const separatorLength = Math.max( checkboxGroup.height, rayModesBox.height );
+    const separatorLength = Math.max( checkboxGroup.height, raysSubpanel.height );
     const separatorOptions = { stroke: 'gray', lineWidth: 1 };
-    const leftSeparator = new VSeparator( separatorLength, separatorOptions );
-    const rightSeparator = new VSeparator( separatorLength, separatorOptions );
+    const leftSeparator = new VSeparator( separatorLength, merge( {
+      tandem: options.tandem.createTandem( 'leftSeparator' )
+    }, separatorOptions ) );
+    const rightSeparator = new VSeparator( separatorLength, merge( {
+      tandem: options.tandem.createTandem( 'rightSeparator' )
+    }, separatorOptions ) );
 
     const content = new AlignBox( new HBox( {
-        children: [ rayModesBox,
-          leftSeparator,
-          ...numberControls,
-          rightSeparator,
-          checkboxGroup ],
+        children: [ raysSubpanel, leftSeparator, opticSubpanel, rightSeparator, checkboxGroup ],
         spacing: 20,
         align: 'center'
       } ),

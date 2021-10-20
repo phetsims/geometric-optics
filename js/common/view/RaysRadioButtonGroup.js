@@ -36,10 +36,10 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup {
 
     // items for ray Mode radio buttons
     const items = [
-      createItem( RaysMode.MARGINAL, geometricOpticsStrings.marginal ),
-      createItem( RaysMode.PRINCIPAL, geometricOpticsStrings.principal ),
-      createItem( RaysMode.MANY, geometricOpticsStrings.many ),
-      createItem( RaysMode.NONE, geometricOpticsStrings.none )
+      createItem( RaysMode.MARGINAL, geometricOpticsStrings.marginal, 'marginalRadioButton' ),
+      createItem( RaysMode.PRINCIPAL, geometricOpticsStrings.principal, 'principalRadioButton' ),
+      createItem( RaysMode.MANY, geometricOpticsStrings.many, 'manyRadioButton' ),
+      createItem( RaysMode.NONE, geometricOpticsStrings.none, 'noneRadioButton' )
     ];
 
     super( raysModeProperty, items, options );
@@ -50,15 +50,17 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup {
  * Creates an item for the radio button group.
  * @param {RaysMode} mode
  * @param {string} string
+ * @param {string} tandemName
  * @returns {{node: Text, value: RaysMode}} item
  */
-function createItem( mode, string ) {
+function createItem( mode, string, tandemName ) {
   return {
     value: mode,
     node: new Text( string, {
       font: GeometricOpticsConstants.CONTROL_FONT,
       maxWidth: 100
-    } )
+    } ),
+    tandemName: tandemName
   };
 }
 

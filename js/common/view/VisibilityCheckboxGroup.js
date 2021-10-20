@@ -13,6 +13,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GuideNode from '../../lens/view/GuideNode.js';
@@ -39,7 +40,10 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 
     options = merge( {
       spacing: 4,
-      checkboxOptions: { boxWidth: 14 }
+      checkboxOptions: { boxWidth: 14 },
+
+      // phet-io options
+      tandem: Tandem.REQUIRED
     }, options );
 
     const items = [
@@ -47,7 +51,8 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       // Focal Points
       {
         node: createLabel( geometricOpticsStrings.focalPoints, FocalPointNode.createIcon( { stroke: 'black' } ) ),
-        property: visibleProperties.focalPointsVisibleProperty
+        property: visibleProperties.focalPointsVisibleProperty,
+        tandem: options.tandem.createTandem( 'focalPointsCheckbox' )
       },
 
       // Virtual Image
@@ -58,27 +63,34 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 
           // Disable the 'Virtual Image' checkbox for light source, see https://github.com/phetsims/geometric-optics/issues/216
           enabledProperty: new DerivedProperty( [ representationProperty ], representation => representation.isObject )
-        }
+        },
+        tandem: options.tandem.createTandem( 'virtualImageCheckbox' )
       },
 
       // Labels
       {
         node: createLabel( geometricOpticsStrings.labels ),
-        property: visibleProperties.labelsVisibleProperty
+        property: visibleProperties.labelsVisibleProperty,
+        tandem: options.tandem.createTandem( 'labelsCheckbox' )
       },
 
       // Second Point
       {
         node: createLabel( geometricOpticsStrings.secondPoint, SecondPointNode.createIcon() ),
-        property: visibleProperties.secondPointVisibleProperty
+        property: visibleProperties.secondPointVisibleProperty,
+        tandem: options.tandem.createTandem( 'secondPointCheckbox' )
       }
     ];
 
-    // Guides - add Guides checkbox for lens, unless excluded via query parameter
-    if ( ( opticType === Optic.Type.LENS ) && GeometricOpticsQueryParameters.showGuides ) {
+    // Guides
+    if ( opticType === Optic.Type.LENS ) {
       items.push( {
         node: createLabel( geometricOpticsStrings.guides, GuideNode.createIcon() ),
-        property: visibleProperties.guidesVisibleProperty
+        property: visibleProperties.guidesVisibleProperty,
+        options: {
+          visible: GeometricOpticsQueryParameters.showGuides
+        },
+        tandem: options.tandem.createTandem( 'guidesCheckbox' )
       } );
     }
 

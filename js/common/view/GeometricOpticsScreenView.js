@@ -84,7 +84,9 @@ class GeometricOpticsScreenView extends ScreenView {
     // Properties  ====================================================================================================
 
     // Create visibleProperty instances for Nodes in the view.
-    const visibleProperties = new VisibleProperties( model.optic.opticType );
+    const visibleProperties = new VisibleProperties( model.optic.opticType, {
+      tandem: options.tandem.createTandem( 'visibleProperties' )
+    } );
 
     // {Property.<number>} controls zoom in play area
     const zoomLevelProperty = new NumberProperty( ZOOM_RANGE.defaultValue, { range: ZOOM_RANGE } );
@@ -114,8 +116,12 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // create control panel at the bottom of the screen
     const controlPanel = new GeometricOpticsControlPanel( model.representationProperty, model.optic,
-      model.raysModeProperty, visibleProperties );
-    controlPanel.centerBottom = erodedLayoutBounds.centerBottom;
+      model.raysModeProperty, visibleProperties, {
+        tandem: options.tandem.createTandem( 'controlPanel' )
+      } );
+    controlPanel.boundsProperty.link( () => {
+      controlPanel.centerBottom = erodedLayoutBounds.centerBottom;
+    } );
 
     // create toolbox at the top right corner of the screen
     const toolbox = new RulersToolbox( rulersLayer, {
@@ -161,7 +167,8 @@ class GeometricOpticsScreenView extends ScreenView {
         model.reset();
         this.reset();
       },
-      rightBottom: erodedLayoutBounds.rightBottom
+      rightBottom: erodedLayoutBounds.rightBottom,
+      tandem: options.tandem.createTandem( 'resetAllButton' )
     } );
 
     // create the show/hide eye toggle button above the reset all button
