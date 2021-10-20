@@ -157,7 +157,8 @@ class GeometricOpticsScreenView extends ScreenView {
         yMargin: 4
       },
       right: erodedLayoutBounds.left + ( controlPanel.left - erodedLayoutBounds.left ) / 2,
-      centerY: controlPanel.centerY
+      centerY: controlPanel.centerY,
+      tandem: options.tandem.createTandem( 'zoomButtonGroup' )
     } );
 
     // create reset all button at the right bottom
