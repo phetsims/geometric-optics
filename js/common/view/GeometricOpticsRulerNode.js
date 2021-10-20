@@ -42,7 +42,6 @@ class GeometricOpticsRulerNode extends Node {
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     options = merge( {
-      cursor: 'pointer',
       rulerOptions: {
         opacity: 0.8,
         minorTicksPerMajorTick: 4,
@@ -97,6 +96,8 @@ class GeometricOpticsRulerNode extends Node {
 
     // @public create and add drag listener
     this.dragListener = new DragListener( {
+      cursor: 'pointer',
+      useInputListenerCursor: true,
       positionProperty: ruler.positionProperty,
       dragBoundsProperty: rulerDragBoundsProperty,
       start: () => {

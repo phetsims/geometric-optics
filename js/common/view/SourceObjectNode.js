@@ -37,9 +37,7 @@ class SourceObjectNode extends Node {
     assert && assert( opticPositionProperty instanceof Property );
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
-    super( {
-      cursor: 'pointer'
-    } );
+    super();
 
     // Origin of this Node is at the upper-left corner of sourceObjectImage.
     const sourceObjectImage = new Image( representationProperty.value.rightFacingUpright );
@@ -103,6 +101,8 @@ class SourceObjectNode extends Node {
 
     // create drag listener for source
     const sourceObjectDragListener = new DragListener( {
+      pressCursor: 'pointer',
+      useInputListenerCursor: true,
       positionProperty: sourceObject.leftTopProperty,
       transform: modelViewTransform,
       dragBoundsProperty: dragBoundsProperty,

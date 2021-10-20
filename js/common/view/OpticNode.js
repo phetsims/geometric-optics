@@ -34,7 +34,6 @@ class OpticNode extends Node {
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     options = merge( {
-      cursor: 'ns-resize',
       fill: GeometricOpticsColors.opticFillProperty,
       stroke: GeometricOpticsColors.opticStrokeProperty,
       lineWidth: 2
@@ -97,7 +96,8 @@ class OpticNode extends Node {
     } );
 
     this.addInputListener( new DragListener( {
-      pressCursor: options.cursor,
+      pressCursor: 'ns-resize',
+      useInputListenerCursor: true,
       positionProperty: positionProperty,
       transform: modelViewTransform,
       dragBoundsProperty: dragBoundsProperty
