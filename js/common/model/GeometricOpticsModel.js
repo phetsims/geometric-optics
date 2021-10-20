@@ -77,15 +77,13 @@ class GeometricOpticsModel {
     this.secondTarget = new Target( this.secondPoint.positionProperty, this.optic, this.representationProperty );
 
     // @public model of the projection screen
-    this.projectionScreen = new ProjectionScreen(
-      this.sourceObject.positionProperty,
-      this.secondPoint.positionProperty,
-      this.firstTarget.positionProperty,
-      this.secondTarget.positionProperty,
-      this.optic
-    );
+    //TODO irrelevant for MirrorModel
+    this.projectionScreen = new ProjectionScreen( {
+      tandem: options.tandem.createTandem( 'projectionScreen' )
+    } );
 
     // @public (read-only) light spot associated with the first light source
+    //TODO irrelevant for MirrorModel
     this.firstLightSpot = new LightSpot(
       this.sourceObject.positionProperty,
       this.firstTarget.positionProperty,
@@ -94,6 +92,7 @@ class GeometricOpticsModel {
     );
 
     // @public (read-only) light spot associated with the second light source
+    //TODO irrelevant for MirrorModel
     this.secondLightSpot = new LightSpot(
       this.secondPoint.positionProperty,
       this.secondTarget.positionProperty,
@@ -108,7 +107,9 @@ class GeometricOpticsModel {
     } );
 
     // @public determines the representation used for rays
-    this.raysModeProperty = new EnumerationProperty( RaysMode, RaysMode.MARGINAL );
+    this.raysModeProperty = new EnumerationProperty( RaysMode, RaysMode.MARGINAL, {
+      tandem: options.tandem.createTandem( 'raysModeProperty' )
+    } );
 
     // Changing raysModeProperty resets the animation time for rays.
     this.raysModeProperty.link( () => this.lightRaysTimeProperty.reset() );

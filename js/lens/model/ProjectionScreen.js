@@ -12,6 +12,8 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Line from '../../../../kite/js/segments/Line.js';
 import Shape from '../../../../kite/js/Shape.js';
+import merge from '../../../../phet-core/js/merge.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 
 // defines the shape of the screen, in cm. Coordinates are relative to the center (0,0) of the screen.
@@ -27,10 +29,21 @@ const INITIAL_POSITION = new Vector2( 200, 0 );
 
 class ProjectionScreen {
 
-  constructor() {
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
+
+    options = merge( {
+
+      // phet-io options
+      tandem: Tandem.REQUIRED
+    }, options );
 
     // @public position of the center of the screen
-    this.positionProperty = new Vector2Property( INITIAL_POSITION );
+    this.positionProperty = new Vector2Property( INITIAL_POSITION, {
+      tandem: options.tandem.createTandem( 'positionProperty' )
+    } );
   }
 
   /**
