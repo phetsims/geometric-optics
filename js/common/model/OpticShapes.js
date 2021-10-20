@@ -51,7 +51,7 @@ class OpticShapes {
   /**
    * Sets the Shapes for a lens. In the case of a lens, the outline and fills shape are identical.
    * The lens shape is approximated as a parabolic lens. The radius of curvature does not necessarily match the
-   * actual radius of curvature, and can instead be "Hollywooded". This gives the flexibility to draw lenses with radius
+   * actual radius of curvature, and can instead be Hollywooded. This gives the flexibility to draw lenses with radius
    * of curvature that is larger than diameter/2, a physical impossibility. The origin (0,0) is at the geometric
    * center of the lens.
    * @private
@@ -63,14 +63,14 @@ class OpticShapes {
   setLensShapes( curve, radiusOfCurvature, diameter, options ) {
 
     options = merge( {
-      isHollywood: true, // does the radius of curvature parameter match the shape of the lens?
+      isHollywooded: true, // does the radius of curvature parameter match the shape of the lens?
       offsetRadius: 100
     }, options );
 
     const halfHeight = diameter / 2;
 
     // the width of the lens changes with the radius
-    const halfWidth = options.isHollywood ?
+    const halfWidth = options.isHollywooded ?
                       1 / 2 * halfHeight * halfHeight / ( radiusOfCurvature + options.offsetRadius ) :
                       radiusOfCurvature - Math.sqrt( radiusOfCurvature ** 2 - halfHeight ** 2 );
 

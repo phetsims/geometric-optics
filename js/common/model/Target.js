@@ -119,10 +119,10 @@ class Target {
       [ this.scaleProperty, optic.diameterProperty ],
       ( scale, diameter ) => {
 
-        // effect of the distance on the opacity, hollywooded as 1/scale for upscaled image
+        // effect of the distance on the opacity, Hollywooded as 1/scale for upscaled image
         const distanceFactor = Math.min( 1, Math.abs( 1 / scale ) );
 
-        // effect of the diameter of the optic on the light intensity of the image (also hollywooded)
+        // effect of the diameter of the optic on the light intensity of the image (also Hollywooded)
         const diameterFactor = optic.getNormalizedDiameter( diameter );
 
         // product of the two factors

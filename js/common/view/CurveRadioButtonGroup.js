@@ -94,7 +94,7 @@ class CurveRadioButtonGroup extends RectangularRadioButtonGroup {
 
     // Get the appropriate shapes for the optic.
     const iconShapes = new OpticShapes( opticType, curve, options.radius, options.diameter, {
-      isHollywood: false, // does the radius of curvature match the shape of the lens?
+      isHollywooded: false, // does the radius of curvature match the shape of the lens?
       thickness: 4 // thickness of the backing of the mirror, in cm
     } );
 
