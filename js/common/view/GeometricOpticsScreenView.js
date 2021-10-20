@@ -90,6 +90,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // {Property.<number>} controls zoom in play area
     const zoomLevelProperty = new NumberProperty( ZOOM_RANGE.defaultValue, {
+      numberType: 'Integer',
       range: ZOOM_RANGE,
       tandem: options.tandem.createTandem( 'zoomLevelProperty' )
     } );
