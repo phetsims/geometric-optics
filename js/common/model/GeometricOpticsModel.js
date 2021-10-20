@@ -77,7 +77,7 @@ class GeometricOpticsModel {
     this.secondTarget = new Target( this.secondPoint.positionProperty, this.optic, this.representationProperty );
 
     // @public model of the projection screen
-    //TODO irrelevant for MirrorModel
+    //TODO irrelevant for MirrorModel, but required by LightRays constructor
     this.projectionScreen = new ProjectionScreen( {
       tandem: options.tandem.createTandem( 'projectionScreen' )
     } );
