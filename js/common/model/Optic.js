@@ -78,14 +78,17 @@ class Optic {
     // vertical (the y axis). If you attempt to change this, beware that you may encounter assumptions (possibly
     // implicit) that will break the sim.
     this.yProperty = new NumberProperty( config.initialPosition.y, {
-      tandem: config.tandem.createTandem( 'yProperty' )
+      tandem: config.tandem.createTandem( 'yProperty' ),
+      phetioDocumentation: 'The y (vertical) position of the optic'
     } );
 
     // @public {DerivedProperty.<number>} position of the optic
     this.positionProperty = new DerivedProperty( [ this.yProperty ],
       y => new Vector2( config.initialPosition.x, y ), {
         tandem: config.tandem.createTandem( 'positionProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
+        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
+        phetioDocumentation: 'The optic has a fixed x (horizontal) position, and a variable y (vertical) position. ' +
+                             'See yPositionProperty to change the y position.'
       } );
 
     // @public radius of curvature of the optic, positive is converging
