@@ -55,11 +55,14 @@ class GeometricOpticsModel {
 
     // @public focal point to the left of the optic
     this.leftFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty, {
-      sign: -1
+      sign: -1,
+      tandem: options.tandem.createTandem( 'leftFocalPoint' )
     } );
 
     // @public focal point to the right of the optic
-    this.rightFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty );
+    this.rightFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty, {
+      tandem: options.tandem.createTandem( 'rightFocalPoint' )
+    } );
 
     // @public source object and first light source
     this.sourceObject = new SourceObject( this.representationProperty );

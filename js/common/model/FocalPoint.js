@@ -10,6 +10,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 
 class FocalPoint {
@@ -25,15 +26,20 @@ class FocalPoint {
     assert && AssertUtils.assertPropertyOf( focalLengthProperty, 'number' );
 
     options = merge( {
-      sign: 1 // 1 or -1
+      sign: 1, // 1 or -1
+
+      // phet-io options
+      tandem: Tandem.REQUIRED
     }, options );
     assert && assert( options.sign === 1 || options.sign === -1 );
 
     // @public {DerivedProperty.<Vector2>} absolute position of the focal point
     this.positionProperty = new DerivedProperty(
       [ opticPositionProperty, focalLengthProperty ],
-      ( opticPosition, focalLength ) => opticPosition.plusXY( options.sign * focalLength, 0 )
-    );
+      ( opticPosition, focalLength ) => opticPosition.plusXY( options.sign * focalLength, 0 ), {
+        tandem: options.tandem.createTandem( 'positionProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
+      } );
   }
 }
 
