@@ -45,7 +45,7 @@ class LensScreenView extends GeometricOpticsScreenView {
         ( visibleGuides, secondPointVisible ) => ( visibleGuides && !secondPointVisible )
       )
     } );
-    this.playAreaNode.addChild( firstGuidesNode );
+    this.experimentAreaNode.addChild( firstGuidesNode );
 
     // Guides associated with the second source
     const secondGuidesNode = new Node( {
@@ -57,7 +57,7 @@ class LensScreenView extends GeometricOpticsScreenView {
         [ this.visibleProperties.guidesVisibleProperty, this.visibleProperties.secondPointVisibleProperty ]
       )
     } );
-    this.playAreaNode.addChild( secondGuidesNode );
+    this.experimentAreaNode.addChild( secondGuidesNode );
 
     // Projection screen
     const projectionScreenNode = new ProjectionScreenNode(
@@ -89,7 +89,7 @@ class LensScreenView extends GeometricOpticsScreenView {
       children: [ projectionScreenNode, firstLightSpotNode, secondLightSpotNode ],
       visibleProperty: new DerivedProperty( [ model.representationProperty ], representation => !representation.isObject )
     } );
-    this.playAreaNode.insertChild( 0, lightSourceNodes );
+    this.experimentAreaNode.insertChild( 0, lightSourceNodes );
 
     // @private
     this.resetLensScreenView = () => {

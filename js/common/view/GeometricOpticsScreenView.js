@@ -88,7 +88,7 @@ class GeometricOpticsScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'visibleProperties' )
     } );
 
-    // {Property.<number>} controls zoom in play area
+    // {Property.<number>} controls zoom in experiment area
     const zoomLevelProperty = new NumberProperty( ZOOM_RANGE.defaultValue, {
       numberType: 'Integer',
       range: ZOOM_RANGE,
@@ -107,7 +107,7 @@ class GeometricOpticsScreenView extends ScreenView {
       zoomLevel => this.getAbsoluteScale( zoomLevel )
     );
 
-    // Things that are outside the Play Area ===========================================================================
+    // Things that are outside the Experiment Area =====================================================================
 
     // create Rulers
     const rulersLayer = new GeometricOpticRulersLayer(
@@ -186,15 +186,16 @@ class GeometricOpticsScreenView extends ScreenView {
     showHideToggleButton.centerX = resetAllButton.centerX;
     showHideToggleButton.top = controlPanel.top;
 
-    // Play Area ================================================================================================
+    // Experiment Area ================================================================================================
 
-    // {DerivedProperty.<Bounds2>} bounds of the model, and area that does not overlap any controls.
+    // {DerivedProperty.<Bounds2>} bounds of the model, an area that does not overlap any controls, in model coordinates
     // See https://github.com/phetsims/geometric-optics/issues/204
     const modelBoundsProperty = new DerivedProperty(
       [ this.visibleBoundsProperty, zoomTransformProperty ],
       ( visibleBounds, zoomTransform ) => {
-        const playAreaBounds = new Bounds2( visibleBounds.left, curveRadioButtonGroup.bottom, visibleBounds.right, controlPanel.top );
-        return zoomTransform.viewToModelBounds( playAreaBounds );
+        const viewBounds = new Bounds2( visibleBounds.left, curveRadioButtonGroup.bottom,
+          visibleBounds.right, controlPanel.top );
+        return zoomTransform.viewToModelBounds( viewBounds );
       } );
 
     // the source object or first light source
@@ -244,9 +245,9 @@ class GeometricOpticsScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'focalPointsNode' )
     } );
 
-    // Layer for all the Nodes within the "play area".
-    // The play area is subject to zoom in/out, so add all Nodes that need to be zoomed.
-    const playAreaNode = new Node( {
+    // Layer for all the Nodes within the "experiment area".
+    // The experiment area is subject to zoom in/out, so include add all Nodes that need to be zoomed.
+    const experimentAreaNode = new Node( {
       children: [
         opticalAxis,
         sourceObjectNode,
@@ -263,13 +264,13 @@ class GeometricOpticsScreenView extends ScreenView {
     // Handle zoom level.
     zoomLevelProperty.lazyLink( ( zoomLevel, oldZoomLevel ) => {
 
-      // Scale the play area.
+      // Scale the experiment area.
       const relativeScale = this.getRelativeScale( zoomLevel, oldZoomLevel );
-      playAreaNode.scale( relativeScale );
+      experimentAreaNode.scale( relativeScale );
 
-      // Translate the play areaNode such that the origin point remains fixed through zoom levels.
+      // Translate experimentAreaNode such that the origin point remains fixed through zoom levels.
       const translateVector = viewOrigin.times( 1 / relativeScale - 1 );
-      playAreaNode.translate( translateVector );
+      experimentAreaNode.translate( translateVector );
     } );
 
     Property.multilink(
@@ -296,11 +297,11 @@ class GeometricOpticsScreenView extends ScreenView {
     // Add points at the position of things that move around.
     if ( GeometricOpticsQueryParameters.showPositions ) {
       const options = { fill: 'red' };
-      playAreaNode.addChild( new DebugPointNode( model.optic.positionProperty, modelViewTransform, options ) );
-      playAreaNode.addChild( new DebugPointNode( model.sourceObject.positionProperty, modelViewTransform, options ) );
-      playAreaNode.addChild( new DebugPointNode( model.secondPoint.lightSourcePositionProperty, modelViewTransform, options ) );
-      playAreaNode.addChild( new DebugPointNode( model.firstTarget.positionProperty, modelViewTransform, options ) );
-      playAreaNode.addChild( new DebugPointNode( model.projectionScreen.positionProperty, modelViewTransform, options ) );
+      experimentAreaNode.addChild( new DebugPointNode( model.optic.positionProperty, modelViewTransform, options ) );
+      experimentAreaNode.addChild( new DebugPointNode( model.sourceObject.positionProperty, modelViewTransform, options ) );
+      experimentAreaNode.addChild( new DebugPointNode( model.secondPoint.lightSourcePositionProperty, modelViewTransform, options ) );
+      experimentAreaNode.addChild( new DebugPointNode( model.firstTarget.positionProperty, modelViewTransform, options ) );
+      experimentAreaNode.addChild( new DebugPointNode( model.projectionScreen.positionProperty, modelViewTransform, options ) );
     }
 
     // Add points at a distance 2f on each side of optic
@@ -308,8 +309,8 @@ class GeometricOpticsScreenView extends ScreenView {
       const left2fProperty = new DerivedProperty( [ model.optic.leftFocalPoint.positionProperty ], position => position.timesScalar( 2 ) );
       const right2fProperty = new DerivedProperty( [ model.optic.rightFocalPoint.positionProperty ], position => position.timesScalar( 2 ) );
       const options = { fill: GeometricOpticsColors.focalPointFillProperty };
-      playAreaNode.addChild( new DebugPointNode( left2fProperty, modelViewTransform, options ) );
-      playAreaNode.addChild( new DebugPointNode( right2fProperty, modelViewTransform, options ) );
+      experimentAreaNode.addChild( new DebugPointNode( left2fProperty, modelViewTransform, options ) );
+      experimentAreaNode.addChild( new DebugPointNode( right2fProperty, modelViewTransform, options ) );
     }
 
     // Show the value of modelBoundsProperty
@@ -318,7 +319,7 @@ class GeometricOpticsScreenView extends ScreenView {
         stroke: 'green',
         lineWidth: 2
       } );
-      playAreaNode.addChild( dragBoundsNode );
+      experimentAreaNode.addChild( dragBoundsNode );
       modelBoundsProperty.link( modelBounds => {
         const viewBounds = modelViewTransform.modelToViewBounds( modelBounds );
         dragBoundsNode.setRect( viewBounds.x, viewBounds.y, viewBounds.width, viewBounds.height );
@@ -327,7 +328,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // Layout ================================================================================================
 
-    this.addChild( playAreaNode );
+    this.addChild( experimentAreaNode );
     this.addChild( labelsNode );
     this.addChild( curveRadioButtonGroup );
     this.addChild( controlPanel );
@@ -355,7 +356,7 @@ class GeometricOpticsScreenView extends ScreenView {
     this.modelViewTransform = modelViewTransform; // {ModelViewTransform2}
     this.visibleProperties = visibleProperties; // {VisibleProperties}
     this.modelBoundsProperty = modelBoundsProperty; // {DerivedProperty.<Bounds2>}
-    this.playAreaNode = playAreaNode; // {Node}
+    this.experimentAreaNode = experimentAreaNode; // {Node}
   }
 
   /**

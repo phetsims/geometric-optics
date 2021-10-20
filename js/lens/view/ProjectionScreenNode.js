@@ -94,7 +94,7 @@ class ProjectionScreenNode extends Node {
       transform: modelViewTransform
     } ) );
 
-    // always keep projection screen within play area bounds when they are changed
+    // always keep projection screen within experiment area bounds when they are changed
     dragBoundsProperty.link( dragBounds => {
       this.imagePositionProperty.value = dragBounds.closestPointTo( this.imagePositionProperty.value );
     } );

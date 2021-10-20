@@ -67,7 +67,7 @@ class LightRays {
         // {Vector2[]} get the initial directions of the rays
         const directions = getRayDirections( sourcePosition, optic, raysMode, targetPoint );
 
-        // {boolean} is there a projection screen visible in the play area
+        // {boolean} is there a projection screen visible in the experiment area
         const isProjectionScreenPresent = !representation.isObject;
 
         // is the Rays mode set to Principal

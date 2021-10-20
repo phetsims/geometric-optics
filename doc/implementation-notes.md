@@ -46,16 +46,15 @@ This is a PhET construction, but is used in the simulation to denote the bending
 is attached to the ends of the lens and can freely rotate from its fulcrum point.
 
 **Screen:**
-Light is projected onto a screen. Unfortunately this term conflicts with `SCENERY/Screen`. So we use _ProjectorScreen_ throughout the code.
+Light is projected onto a screen. Unfortunately this term conflicts with `SCENERY/Screen`. So we use _ProjectorScreen_
+throughout the code.
 
-**Play Area:** This simulation creates a scenery layer called **play area** that is used all the elements within the "Play Area". In essence,
-it includes all the scenery elements except for the control panels, combox box, buttons, etc. The play area can be
-zoomed in or out. It is important to note that the rulers and the labels do not belong to the play area since they
-contain text that may be hard to read upon zooming. Therefore, like the control panels and buttons, they are attached
-directly to the ScreenView.
+**Experiment Area:** This simulation creates a scenery layer called **experiment area** that includes all UI elements
+that are affected by the sim's zoom buttons. It is important to note that the rulers and the labels do not belong to the
+experiment area, since they contain text that may be hard to read upon zooming.
 
-**positive/negative**: The meaning of positive and negative is a convention that may
-vary. We define the convention followed in the simulation in [model.md](https://github.com/phetsims/geometric-optics/blob/master/doc/model.md). 
+**positive/negative**: The meaning of positive and negative is a convention that may vary. We define the convention
+followed in the simulation in [model.md](https://github.com/phetsims/geometric-optics/blob/master/doc/model.md).
 
 **distance**: In optics, a distance is always measured horizontally, and can be positive or negative. 
 
@@ -65,20 +64,21 @@ vary. We define the convention followed in the simulation in [model.md](https://
 
 ### Model-view transform and Zoom
 
-This simulation makes use of model-view transform to map model coordinates to the
-view coordinates. The base units of the model is centimeters (cm). It is used throughout the model with a few exceptions
-that have been noted. A model-view transform is applied to all elements within the play area. All elements within the
-play area can be scaled up and down by scaling `playAreaNode`. The origin (0,0) in the model coordinate frame is near
-the center of the ScreenView. The model-to-view scaling is isometric along the horizontal and vertical directions.
+This simulation makes use of model-view transform to map model coordinates to the view coordinates. The base units of
+the model is centimeters (cm). It is used throughout the model with a few exceptions that have been noted. A model-view
+transform is applied to all elements within the experiment area. All elements within the experiment area can be scaled
+up and down by scaling `experimentAreaNode`. The origin (0,0) in the model coordinate frame is near the center of the
+ScreenView. The model-to-view scaling is isometric along the horizontal and vertical directions.
 
-For scenery Nodes outside the playArea, we lay them out using view coordinates. There are two exceptions to this:
-(1) The `LabelsNode`, responsible for labels beneath the optical components and (2) the `GeometricOpticsRulerNode`. 
-The labels and ruler use `zoomModelViewTransformProperty` which allows it to relate its coordinates to within the play
-area at a particular zoom level.
+For scenery Nodes outside the experimentAreaNode, we lay them out using view coordinates. There are two exceptions to
+this:
+(1) The `LabelsNode`, responsible for labels beneath the optical components and (2) the `GeometricOpticsRulerNode`. The
+labels and ruler use `zoomTransformProperty` which allows it to relate its coordinates to within the experiment area at
+a particular zoom level.
 
-The Nodes within the play area may need to know about the position of objects outside the play area, such as the bounds
-of the simulation. For instance, the `zoomModelViewTransform` can be used to convert the visibleBounds of the simulation
-to `playAreaModelBounds`.
+The Nodes within the experiment area may need to know about the position of objects outside the experiment area, such as
+the bounds of the simulation. For instance, the `zoomTransform` can be used to convert the visibleBounds of the
+simulation to `modelBounds`.
 
 ### Memory management
 

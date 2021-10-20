@@ -28,7 +28,7 @@ class LightRay {
    * @param {Vector2} targetPoint - point of focus of all rays based on thin lens law
    * @param {boolean} isVirtual - is the image virtual
    * @param {boolean} isPrincipalRayMode - is the light ray mode set to Principal rays
-   * @param {boolean} isProjectionScreenPresent - is there a projection screen in the play area
+   * @param {boolean} isProjectionScreenPresent - is there a projection screen in the experiment area
    * @param {function} getProjectionScreenBisectorLine - returns a Shape that bisects the middle of projection screen
    */
   constructor( initialRay, time, optic, targetPoint, isVirtual, isPrincipalRayMode, isProjectionScreenPresent,
