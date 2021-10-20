@@ -237,8 +237,8 @@ class GeometricOpticsScreenView extends ScreenView {
     // create two focal points
     const focalPointsNode = new Node( {
       children: [
-        new FocalPointNode( model.leftFocalPoint, modelViewTransform ),
-        new FocalPointNode( model.rightFocalPoint, modelViewTransform )
+        new FocalPointNode( model.optic.leftFocalPointProperty, modelViewTransform ),
+        new FocalPointNode( model.optic.rightFocalPointProperty, modelViewTransform )
       ],
       visibleProperty: visibleProperties.focalPointsVisibleProperty,
       tandem: options.tandem.createTandem( 'focalPointsNode' )
@@ -305,8 +305,8 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // Add points at a distance 2f on each side of optic
     if ( GeometricOpticsQueryParameters.show2f ) {
-      const left2fProperty = new DerivedProperty( [ model.leftFocalPoint.positionProperty ], position => position.timesScalar( 2 ) );
-      const right2fProperty = new DerivedProperty( [ model.rightFocalPoint.positionProperty ], position => position.timesScalar( 2 ) );
+      const left2fProperty = new DerivedProperty( [ model.optic.leftFocalPoint.positionProperty ], position => position.timesScalar( 2 ) );
+      const right2fProperty = new DerivedProperty( [ model.optic.rightFocalPoint.positionProperty ], position => position.timesScalar( 2 ) );
       const options = { fill: GeometricOpticsColors.focalPointFillProperty };
       playAreaNode.addChild( new DebugPointNode( left2fProperty, modelViewTransform, options ) );
       playAreaNode.addChild( new DebugPointNode( right2fProperty, modelViewTransform, options ) );

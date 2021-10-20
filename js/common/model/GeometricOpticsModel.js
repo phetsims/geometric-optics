@@ -15,7 +15,6 @@ import geometricOptics from '../../geometricOptics.js';
 import LightSpot from '../../lens/model/LightSpot.js';
 import ProjectionScreen from '../../lens/model/ProjectionScreen.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-import FocalPoint from './FocalPoint.js';
 import LightRays from './LightRays.js';
 import Optic from './Optic.js';
 import RaysMode from './RaysMode.js';
@@ -51,17 +50,6 @@ class GeometricOpticsModel {
     // @public representation of the source object
     this.representationProperty = new EnumerationProperty( Representation, Representation.PENCIL, {
       validValues: options.representations
-    } );
-
-    // @public focal point to the left of the optic
-    this.leftFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty, {
-      sign: -1,
-      tandem: options.tandem.createTandem( 'leftFocalPoint' )
-    } );
-
-    // @public focal point to the right of the optic
-    this.rightFocalPoint = new FocalPoint( this.optic.positionProperty, this.optic.focalLengthProperty, {
-      tandem: options.tandem.createTandem( 'rightFocalPoint' )
     } );
 
     // @public source object and first light source

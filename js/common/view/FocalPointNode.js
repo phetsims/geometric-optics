@@ -6,6 +6,7 @@
  * @author Martin Veillette
  */
 
+import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -15,7 +16,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
-import FocalPoint from '../model/FocalPoint.js';
 
 // constants
 const DEFAULT_OPTIONS = {
@@ -30,13 +30,13 @@ const DEFAULT_OPTIONS = {
 class FocalPointNode extends Node {
 
   /**
-   * @param {FocalPoint} focalPoint
+   * @param {Property.<Vector2>} focalPointProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( focalPoint, modelViewTransform, options ) {
+  constructor( focalPointProperty, modelViewTransform, options ) {
 
-    assert && assert( focalPoint instanceof FocalPoint );
+    assert && assert( focalPointProperty instanceof Property );
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     options = merge( {}, DEFAULT_OPTIONS, options );
@@ -46,9 +46,8 @@ class FocalPointNode extends Node {
 
     super( options );
 
-    // update the position of this node
-    focalPoint.positionProperty.link( position => {
-      this.center = modelViewTransform.modelToViewPosition( position );
+    focalPointProperty.link( focalPoint => {
+      this.center = modelViewTransform.modelToViewPosition( focalPoint );
     } );
   }
 
