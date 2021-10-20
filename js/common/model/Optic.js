@@ -69,7 +69,8 @@ class Optic {
 
     // @public type of curve of the optic
     this.curveProperty = new EnumerationProperty( Optic.Curve, config.initialCurve, {
-      tandem: config.tandem.createTandem( 'curveProperty' )
+      tandem: config.tandem.createTandem( 'curveProperty' ),
+      phetioDocumentation: 'describes the shape of the optic\'s curve'
     } );
 
     // @public y coordinate is variable, while x coordinate is fixed
@@ -78,6 +79,7 @@ class Optic {
     // vertical (the y axis). If you attempt to change this, beware that you may encounter assumptions (possibly
     // implicit) that will break the sim.
     this.yProperty = new NumberProperty( config.initialPosition.y, {
+      units: 'cm',
       tandem: config.tandem.createTandem( 'yProperty' ),
       phetioDocumentation: 'The y (vertical) position of the optic'
     } );
@@ -85,6 +87,7 @@ class Optic {
     // @public {DerivedProperty.<number>} position of the optic
     this.positionProperty = new DerivedProperty( [ this.yProperty ],
       y => new Vector2( config.initialPosition.x, y ), {
+        units: 'cm',
         tandem: config.tandem.createTandem( 'positionProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
         phetioDocumentation: 'The optic has a fixed x (horizontal) position, and a variable y (vertical) position. ' +
@@ -93,6 +96,7 @@ class Optic {
 
     // @public radius of curvature of the optic, positive is converging
     this.radiusOfCurvatureProperty = new NumberProperty( config.radiusOfCurvatureRange.defaultValue, {
+      units: 'cm',
       range: config.radiusOfCurvatureRange,
       tandem: config.tandem.createTandem( 'radiusOfCurvatureProperty' )
     } );
@@ -105,6 +109,7 @@ class Optic {
 
     // @public diameter of the optic, controls the optic's aperture
     this.diameterProperty = new NumberProperty( config.diameterRange.defaultValue, {
+      units: 'cm',
       range: config.diameterRange,
       tandem: config.tandem.createTandem( 'diameterProperty' )
     } );
@@ -121,6 +126,7 @@ class Optic {
 
         return sign * radiusOfCurvature / ( 2 * ( indexOfRefraction - 1 ) );
       }, {
+        units: 'cm',
         tandem: config.tandem.createTandem( 'focalLengthProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
       } );

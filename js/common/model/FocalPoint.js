@@ -37,6 +37,7 @@ class FocalPoint {
     this.positionProperty = new DerivedProperty(
       [ opticPositionProperty, focalLengthProperty ],
       ( opticPosition, focalLength ) => opticPosition.plusXY( options.sign * focalLength, 0 ), {
+        units: 'cm',
         tandem: options.tandem.createTandem( 'positionProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
       } );
