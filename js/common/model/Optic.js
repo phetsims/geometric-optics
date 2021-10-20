@@ -252,24 +252,6 @@ class Optic {
   }
 
   /**
-   * Returns a normalized value for the index of refraction, in the range [0,1].
-   * @public
-   * @param {number} indexOfRefraction - index of refraction
-   * @returns {number}
-   */
-  getNormalizedIndexOfRefraction( indexOfRefraction ) {
-    assert && assert( indexOfRefraction );
-
-    // This logic is necessary because indexOfRefractionProperty is a constant for a mirror. Its range therefore
-    // has zero length, and we cannot call range.getNormalizedValue.
-    const normalizedIndex = this.isLens() ?
-                            this.indexOfRefractionProperty.range.getNormalizedValue( indexOfRefraction ) :
-                            NORMALIZED_VALUE_RANGE.max;
-    assert && assert( NORMALIZED_VALUE_RANGE.contains( normalizedIndex ) );
-    return normalizedIndex;
-  }
-
-  /**
    * Returns a normalized value for the diameter, in the range [min/max,1].
    * Note that this normalization is very different than getNormalizedIndexOfRefraction.
    * @public

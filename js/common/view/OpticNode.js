@@ -9,6 +9,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import Utils from '../../../../dot/js/Utils.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -74,10 +75,17 @@ class OpticNode extends Node {
       opticStrokeNode.shape = shapes.outlineShape.transformed( matrix );
     } );
 
-    // Index of refraction determines opacity.
-    optic.indexOfRefractionProperty.link( indexOfRefraction => {
-      opticFillNode.opacity = optic.getNormalizedIndexOfRefraction( indexOfRefraction );
-    } );
+    // Index of refraction determines the opacity used for the lens fill.
+    // The lens is never fully transparent, because it's index of refraction is not equivalent to air.
+    // See https://github.com/phetsims/geometric-optics/issues/242
+    if ( optic.isLens() ) {
+      const opacityProperty = new DerivedProperty( [ optic.indexOfRefractionProperty ],
+        indexOfRefraction => Utils.linear(
+          optic.indexOfRefractionProperty.range.min, optic.indexOfRefractionProperty.range.max,
+          0.2, 1, indexOfRefraction )
+      );
+      opacityProperty.linkAttribute( opticFillNode, 'opacity' );
+    }
 
     // Dragging is constrained to vertical, so create an adapter Property that can be used by DragListener.
     const positionProperty = new Vector2Property( optic.positionProperty.value );
