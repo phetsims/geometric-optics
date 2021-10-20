@@ -81,7 +81,10 @@ class RepresentationValue {
       isObject: required( config.isObject ),
 
       // optional fields
-      secondLightSourceImage: null // {HTMLImageElement|null} image for second light source
+      secondLightSourceImage: null, // {HTMLImageElement|null} image for second light source
+
+      // phet-io
+      tandemPrefix: required( config.tandemPrefix ) // {string}
     }, config );
 
     assert && assert( !( config.isObject && config.secondLightSourceImage ) );
@@ -96,6 +99,7 @@ class RepresentationValue {
     this.rightFacingUprightOffset = config.rightFacingUprightOffset;
     this.isObject = config.isObject;
     this.secondLightSourceImage = config.secondLightSourceImage;
+    this.tandemPrefix = config.tandemPrefix;
   }
 
   /**
@@ -118,7 +122,8 @@ const Representation = Enumeration.byMap( {
     leftFacingUpright: pencilLeftFacingUpright_png,
     leftFacingInverted: pencilLeftFacingInverted_png,
     rightFacingUprightOffset: OBJECT_OFFSET,
-    isObject: true
+    isObject: true,
+    tandemPrefix: 'pencil'
   } ),
 
   PENGUIN: new RepresentationValue( {
@@ -129,7 +134,8 @@ const Representation = Enumeration.byMap( {
     leftFacingUpright: penguinLeftFacingUpright_png,
     leftFacingInverted: penguinLeftFacingInverted_png,
     rightFacingUprightOffset: OBJECT_OFFSET,
-    isObject: true
+    isObject: true,
+    tandemPrefix: 'penguin'
   } ),
 
   PLANET: new RepresentationValue( {
@@ -140,7 +146,8 @@ const Representation = Enumeration.byMap( {
     leftFacingUpright: planetLeftFacingUpright_png,
     leftFacingInverted: planetLeftFacingInverted_png,
     rightFacingUprightOffset: OBJECT_OFFSET,
-    isObject: true
+    isObject: true,
+    tandemPrefix: 'planet'
   } ),
 
   STAR: new RepresentationValue( {
@@ -151,7 +158,8 @@ const Representation = Enumeration.byMap( {
     leftFacingUpright: starLeftFacingUpright_png,
     leftFacingInverted: starLeftFacingInverted_png,
     rightFacingUprightOffset: OBJECT_OFFSET,
-    isObject: true
+    isObject: true,
+    tandemPrefix: 'star'
   } ),
 
   LIGHT: new RepresentationValue( {
@@ -163,7 +171,8 @@ const Representation = Enumeration.byMap( {
     leftFacingInverted: null,
     rightFacingUprightOffset: LIGHT_SOURCE_OFFSET,
     isObject: false,
-    secondLightSourceImage: lamp2_png
+    secondLightSourceImage: lamp2_png,
+    tandemPrefix: 'light'
   } )
 } );
 

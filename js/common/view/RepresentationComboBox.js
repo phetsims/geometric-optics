@@ -15,6 +15,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
@@ -37,7 +38,10 @@ class RepresentationComboBox extends ComboBox {
       highlightFill: 'rgb(168,192,245)',
       listPosition: 'below',
       xMargin: 10,
-      yMargin: 5
+      yMargin: 5,
+
+      // phet-io options
+      tandem: Tandem.REQUIRED
     }, options );
 
     // Create a ComboBoxItem for each representation.
@@ -57,7 +61,9 @@ class RepresentationComboBox extends ComboBox {
       const hBox = new HBox( { spacing: 5, children: [ icon, text ] } );
 
       // create and add combo box item to the array
-      items.push( new ComboBoxItem( hBox, representation ) );
+      items.push( new ComboBoxItem( hBox, representation, {
+        tandemName: `${representation.tandemPrefix}Item`
+      } ) );
     } );
 
     super( items, representationProperty, listParent, options );

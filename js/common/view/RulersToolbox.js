@@ -13,6 +13,7 @@ import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Panel from '../../../../sun/js/Panel.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticRulersLayer from './GeometricOpticsRulersLayer.js';
 
@@ -36,7 +37,10 @@ class RulersToolbox extends Panel {
       touchAreaDilationX: 50,
       touchAreaDilationY: 50,
       mouseAreaDilationX: 50,
-      mouseAreaDilationY: 50
+      mouseAreaDilationY: 50,
+
+      // phet-io
+      tandem: Tandem.REQUIRED
     }, options );
 
     // create two icons for rulers: A vertical and a Horizontal ruler

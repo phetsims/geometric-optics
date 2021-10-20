@@ -89,7 +89,10 @@ class GeometricOpticsScreenView extends ScreenView {
     } );
 
     // {Property.<number>} controls zoom in play area
-    const zoomLevelProperty = new NumberProperty( ZOOM_RANGE.defaultValue, { range: ZOOM_RANGE } );
+    const zoomLevelProperty = new NumberProperty( ZOOM_RANGE.defaultValue, {
+      range: ZOOM_RANGE,
+      tandem: options.tandem.createTandem( 'zoomLevelProperty' )
+    } );
 
     // {DerivedProperty.<ModelViewTransform2>}
     const zoomTransformProperty = new DerivedProperty(
@@ -125,7 +128,8 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // create toolbox at the top right corner of the screen
     const toolbox = new RulersToolbox( rulersLayer, {
-      rightTop: erodedLayoutBounds.rightTop
+      rightTop: erodedLayoutBounds.rightTop,
+      tandem: options.tandem.createTandem( 'toolbox' )
     } );
 
     // pass the bounds of the toolbox to the rulers for their return to toolbox
@@ -133,7 +137,8 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // create the control buttons to toggle between convex and concave optic at the left bottom
     const curveRadioButtonGroup = new CurveRadioButtonGroup( model.optic, {
-      centerTop: erodedLayoutBounds.centerTop
+      centerTop: erodedLayoutBounds.centerTop,
+      tandem: options.tandem.createTandem( 'curveRadioButtonGroup' )
     } );
 
     // Parent for any popups
@@ -142,7 +147,8 @@ class GeometricOpticsScreenView extends ScreenView {
     // Combo box for choosing object representation
     const representationComboBox = new RepresentationComboBox( model.representationProperty, popupsParent, {
       left: this.layoutBounds.left + 100,
-      top: erodedLayoutBounds.top
+      top: erodedLayoutBounds.top,
+      tandem: options.tandem.createTandem( 'representationComboBox' ) //TODO needs a better name
     } );
 
     // create magnifying buttons for zooming in and out at the left top
@@ -173,7 +179,9 @@ class GeometricOpticsScreenView extends ScreenView {
     } );
 
     // create the show/hide eye toggle button above the reset all button
-    const showHideToggleButton = new ShowHideToggleButton( visibleProperties.rayTracingVisibleProperty );
+    const showHideToggleButton = new ShowHideToggleButton( visibleProperties.rayTracingVisibleProperty, {
+      tandem: options.tandem.createTandem( 'showHideToggleButton' )
+    } );
     showHideToggleButton.centerX = resetAllButton.centerX;
     showHideToggleButton.top = controlPanel.top;
 

@@ -10,6 +10,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import Optic from '../model/Optic.js';
@@ -35,7 +36,10 @@ class CurveRadioButtonGroup extends RectangularRadioButtonGroup {
       deselectedLineWidth: 2,
       selectedLineWidth: 2,
       buttonContentXMargin: 14,
-      buttonContentYMargin: 5
+      buttonContentYMargin: 5,
+
+      // phet-io options
+      tandem: Tandem.REQUIRED
     }, options );
 
     // create an array of items for buttons for each curve.
@@ -45,7 +49,8 @@ class CurveRadioButtonGroup extends RectangularRadioButtonGroup {
         node: CurveRadioButtonGroup.createIconNode( optic.opticType, curve, {
           buttonContentXMargin: options.buttonContentXMargin,
           buttonContentYMargin: options.buttonContentYMargin
-        } )
+        } ),
+        tandemName: `${curve.name.toLowerCase()}RadioButton` //TODO is this OK?
       };
     } );
 
