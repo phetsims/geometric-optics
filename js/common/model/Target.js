@@ -123,7 +123,8 @@ class Target {
         const distanceFactor = Math.min( 1, Math.abs( 1 / scale ) );
 
         // effect of the diameter of the optic on the light intensity of the image (also Hollywooded)
-        const diameterFactor = optic.getNormalizedDiameter( diameter );
+        const diameterFactor = diameter / optic.diameterProperty.range.max;
+        assert && assert( diameterFactor >= 0 && diameterFactor <= 1 );
 
         // product of the two factors
         return distanceFactor * diameterFactor;

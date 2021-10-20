@@ -10,7 +10,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
-import Range from '../../../../dot/js/Range.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
@@ -21,9 +20,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import geometricOptics from '../../geometricOptics.js';
 import OpticShapes from './OpticShapes.js';
-
-// constants
-const NORMALIZED_VALUE_RANGE = new Range( 0, 1 );
 
 class Optic {
 
@@ -249,20 +245,6 @@ class Optic {
    */
   getSign() {
     return this.isLens() ? 1 : -1;
-  }
-
-  /**
-   * Returns a normalized value for the diameter, in the range [min/max,1].
-   * Note that this normalization is very different than getNormalizedIndexOfRefraction.
-   * @public
-   * @param {number} diameter
-   * @returns {number}
-   */
-  getNormalizedDiameter( diameter ) {
-    assert && assert( typeof diameter === 'number' && diameter > 0 );
-    const normalizedDiameter = diameter / this.maxDiameter;
-    assert && assert( NORMALIZED_VALUE_RANGE.contains( normalizedDiameter ) );
-    return normalizedDiameter;
   }
 
   /**
