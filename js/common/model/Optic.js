@@ -86,7 +86,8 @@ class Optic {
         units: 'cm',
         tandem: config.tandem.createTandem( 'positionProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
-        phetioDocumentation: 'The optic has a fixed x (horizontal) position, and a variable y (vertical) position. ' +
+        phetioDocumentation: 'The position of the geometric center of the optic. ' +
+                             'The optic has a fixed x (horizontal) position, and a variable y (vertical) position. ' +
                              'See yPositionProperty to change the y position.'
       } );
 
