@@ -37,6 +37,20 @@ class GeometricOpticsOptionsDialogContent extends VBox {
     options.children = [ projectorModeCheckbox ];
 
     super( options );
+
+    // @private
+    this.disposeGeometricOpticsOptionsDialogContent = () => {
+      projectorModeCheckbox.dispose();
+    };
+  }
+
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    this.disposeGeometricOpticsOptionsDialogContent();
+    super.dispose();
   }
 }
 
