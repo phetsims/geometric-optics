@@ -11,6 +11,7 @@ import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import GeometricOpticsOptionsDialogContent from './common/view/GeometricOpticsOptionsDialogContent.js';
 import geometricOpticsStrings from './geometricOpticsStrings.js';
+import IntroScreen from './intro/IntroScreen.js';
 import LensScreen from './lens/LensScreen.js';
 import MirrorScreen from './mirror/MirrorScreen.js';
 
@@ -33,6 +34,7 @@ const simOptions = {
 
 simLauncher.launch( () => {
   const sim = new Sim( geometricOpticsStrings[ 'geometric-optics' ].title, [
+    new IntroScreen( { tandem: Tandem.ROOT.createTandem( 'introScreen' ) } ),
     new LensScreen( { tandem: Tandem.ROOT.createTandem( 'lensScreen' ) } ),
     new MirrorScreen( { tandem: Tandem.ROOT.createTandem( 'mirrorScreen' ) } )
   ], simOptions );

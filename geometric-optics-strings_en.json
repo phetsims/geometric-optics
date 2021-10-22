@@ -2,11 +2,14 @@
   "geometric-optics.title": {
     "value": "Geometric Optics"
   },
-  "screen.mirror": {
-    "value": "Mirror"
+  "screen.intro": {
+    "value": "Intro"
   },
   "screen.lens": {
     "value": "Lens"
+  },
+  "screen.mirror": {
+    "value": "Mirror"
   },
   "concaveMirror": {
     "value": "Concave Mirror"

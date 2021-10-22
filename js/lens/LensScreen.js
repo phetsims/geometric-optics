@@ -25,17 +25,9 @@ class LensScreen extends Screen {
    */
   constructor( options ) {
 
-    // create convex lens for home screen icon
-    const iconNode = CurveRadioButtonGroup.createIconNode( Optic.Type.LENS, Optic.Curve.CONVEX, {
-      radius: 20,
-      diameter: 30
-    } );
-
     options = merge( {
       name: geometricOpticsStrings.screen.lens,
-      homeScreenIcon: new ScreenIcon( iconNode, {
-        fill: GeometricOpticsColors.screenBackgroundColorProperty
-      } ),
+      homeScreenIcon: createScreenIcon(),
       showUnselectedHomeScreenIconFrame: true,
       backgroundColorProperty: GeometricOpticsColors.screenBackgroundColorProperty,
 
@@ -58,6 +50,22 @@ class LensScreen extends Screen {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
+}
+
+/**
+ * Creates the icon for this screen.
+ * @returns {ScreenIcon}
+ */
+function createScreenIcon() {
+
+  const convexLensNode = CurveRadioButtonGroup.createIconNode( Optic.Type.LENS, Optic.Curve.CONVEX, {
+    radius: 20,
+    diameter: 30
+  } );
+
+  return new ScreenIcon( convexLensNode, {
+    fill: GeometricOpticsColors.screenBackgroundColorProperty
+  } );
 }
 
 geometricOptics.register( 'LensScreen', LensScreen );

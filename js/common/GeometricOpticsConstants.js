@@ -13,6 +13,9 @@ import geometricOptics from '../geometricOptics.js';
 
 const GeometricOpticsConstants = {
 
+  SCREEN_VIEW_X_MARGIN: 20,
+  SCREEN_VIEW_Y_MARGIN: 15,
+
   // Axes --------------------------------------------------------------------------------------------------------------
 
   // view

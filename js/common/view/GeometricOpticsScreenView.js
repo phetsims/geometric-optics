@@ -23,6 +23,7 @@ import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
+import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
 import GeometricOpticsModel from '../model/GeometricOpticsModel.js';
 import RaysMode from '../model/RaysMode.js';
@@ -45,8 +46,6 @@ import TargetNode from './TargetNode.js';
 import VisibleProperties from './VisibleProperties.js';
 
 // constants
-const X_MARGIN = 20;
-const Y_MARGIN = 15;
 const ZOOM_RANGE = new RangeWithValue( 1, 3, 3 );
 const NOMINAL_VIEW_MODEL_CONVERSION = 2; // view coordinates per cm in initial zoom level
 
@@ -75,7 +74,8 @@ class GeometricOpticsScreenView extends ScreenView {
     const viewOrigin = new Vector2( this.layoutBounds.centerX, this.layoutBounds.centerY - 0.08 * this.layoutBounds.height );
 
     // convenience variable for laying out scenery Nodes
-    const erodedLayoutBounds = this.layoutBounds.erodedXY( X_MARGIN, Y_MARGIN );
+    const erodedLayoutBounds = this.layoutBounds.erodedXY(
+      GeometricOpticsConstants.SCREEN_VIEW_X_MARGIN, GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN );
 
     // Create a Y inverted modelViewTransform with isometric scaling along x and y axes.
     // In the model coordinate frame, +x is right, +y is up.
