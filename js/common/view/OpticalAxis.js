@@ -9,6 +9,7 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -21,19 +22,22 @@ class OpticalAxis extends Line {
    * @param {Property.<Vector2>} opticPositionProperty
    * @param {Property.<Bounds2>} modelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
+   * @param {Object} [options]
    */
-  constructor( opticPositionProperty, modelBoundsProperty, modelViewTransform ) {
+  constructor( opticPositionProperty, modelBoundsProperty, modelViewTransform, options ) {
 
     assert && assert( opticPositionProperty instanceof Property );
     assert && assert( modelBoundsProperty instanceof Property );
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
-    // create optical axis line, with arbitrary length values.
-    super( 0, 0, 1, 0, {
+    options = merge( {
       stroke: GeometricOpticsColors.opticalAxisStrokeProperty,
       lineWidth: GeometricOpticsConstants.AXIS_LINE_WIDTH,
       lineDash: GeometricOpticsConstants.AXIS_LINE_DASH
-    } );
+    }, options );
+
+    // create optical axis line, with arbitrary length values.
+    super( 0, 0, 1, 0, options );
 
     // set the horizontal extent of the optical axis line
     modelBoundsProperty.link( bounds => {

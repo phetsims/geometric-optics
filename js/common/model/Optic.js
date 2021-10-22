@@ -6,6 +6,7 @@
  * @author Martin Veillette
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
@@ -151,6 +152,12 @@ class Optic {
       [ this.curveProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
       ( curve, radiusOfCurvature, diameter ) => new OpticShapes( config.opticType, curve, radiusOfCurvature, diameter )
     );
+
+    // @public PhET-iO only, cannot be controlled from the sim UI, and is not subject to reset.
+    // See https://github.com/phetsims/geometric-optics/issues/252
+    this.opticalAxisVisibleProperty = new BooleanProperty( true, {
+      tandem: config.tandem.createTandem( 'opticalAxisVisibleProperty' )
+    } );
   }
 
   /**

@@ -208,7 +208,9 @@ class GeometricOpticsScreenView extends ScreenView {
         visibleProperty: visibleProperties.secondPointVisibleProperty
       } );
 
-    const opticalAxis = new OpticalAxis( model.optic.positionProperty, modelBoundsProperty, modelViewTransform );
+    const opticalAxis = new OpticalAxis( model.optic.positionProperty, modelBoundsProperty, modelViewTransform, {
+      visibleProperty: model.optic.opticalAxisVisibleProperty
+    } );
 
     const opticNode = new OpticNode( model.optic, modelBoundsProperty, modelViewTransform, {
       tandem: options.tandem.createTandem( 'opticNode' )
