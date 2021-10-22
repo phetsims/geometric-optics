@@ -27,6 +27,7 @@ class IntroScreen extends Screen {
     options = merge( {
       name: geometricOpticsStrings.screen.intro,
       homeScreenIcon: createScreenIcon(),
+      showUnselectedHomeScreenIconFrame: true,
       backgroundColorProperty: GeometricOpticsColors.screenBackgroundColorProperty,
 
       // phet-io options
