@@ -1,4 +1,4 @@
-// Copyright 2014-2021, University of Colorado Boulder
+// Copyright 2021, University of Colorado Boulder
 
 /**
  * IntroScreen is the 'Intro' screen.
