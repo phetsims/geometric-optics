@@ -14,11 +14,13 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
+import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
+import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Optic from '../model/Optic.js';
 
 class OpticNode extends Node {
@@ -44,18 +46,34 @@ class OpticNode extends Node {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // Separate Nodes for fill and stroke, because we'll be changing opticFillNode opacity to match index of refraction.
-    // Shapes will be properly initialized by optic.shapesProperty listener below.
+    assert && assert( !options.children );
+    options.children = [];
+
     const opticFillNode = new Path( null, {
       fill: options.fill
     } );
+    options.children.push( opticFillNode );
+
+    // Vertical axis for the lens, see https://github.com/phetsims/geometric-optics/issues/190
+    if ( optic.isLens() ) {
+      const verticalCenterLine = new Line( 0, 0, 0, 1, {
+        stroke: GeometricOpticsColors.verticalAxisStrokeProperty,
+        lineWidth: GeometricOpticsConstants.AXIS_LINE_WIDTH
+      } );
+      options.children.push( verticalCenterLine );
+
+      optic.diameterProperty.link( diameter => {
+        const radiusView = modelViewTransform.modelToViewDeltaY( diameter / 2 );
+        verticalCenterLine.setLine( 0, -radiusView, 0, radiusView );
+      } );
+    }
+
+    // Separate Node for stroke, because we'll be changing opticFillNode opacity to match index of refraction.
     const opticStrokeNode = new Path( null, {
       stroke: options.stroke,
       lineWidth: options.lineWidth
     } );
-
-    assert && assert( !options.children );
-    options.children = [ opticFillNode, opticStrokeNode ];
+    options.children.push( opticStrokeNode );
 
     super( options );
 
