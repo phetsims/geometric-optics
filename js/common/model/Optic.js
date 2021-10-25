@@ -132,7 +132,7 @@ class Optic {
     // @public {DerivedProperty.<Vector2>} focal point to the left of the optic
     this.leftFocalPointProperty = new DerivedProperty(
       [ this.positionProperty, this.focalLengthProperty ],
-      ( opticPosition, focalLength ) => opticPosition.plusXY( -focalLength, 0 ), {
+      ( opticPosition, focalLength ) => opticPosition.plusXY( -Math.abs( focalLength ), 0 ), {
         units: 'cm',
         tandem: config.tandem.createTandem( 'leftFocalPointProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
@@ -141,7 +141,7 @@ class Optic {
     // @public {DerivedProperty.<Vector2>} focal point to the right of the optic
     this.rightFocalPointProperty = new DerivedProperty(
       [ this.positionProperty, this.focalLengthProperty ],
-      ( opticPosition, focalLength ) => opticPosition.plusXY( focalLength, 0 ), {
+      ( opticPosition, focalLength ) => opticPosition.plusXY( Math.abs( focalLength ), 0 ), {
         units: 'cm',
         tandem: config.tandem.createTandem( 'rightFocalPointProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
