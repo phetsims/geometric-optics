@@ -25,8 +25,8 @@ const SCHEMA = {
   },
 
   // Determines how focal length is controlled in the Lens and Mirror screens.
-  // direct: provides a NumberControl labeled 'Focal Length'
-  // indirect: provides NumberControls for optic parameters, from which focal length is derived
+  // direct: provides a control labeled 'Focal Length'
+  // indirect: provides controls for optic parameters, from which focal length is derived
   focalLengthControl: {
     type: 'string',
     validValues: [ 'direct', 'indirect' ],

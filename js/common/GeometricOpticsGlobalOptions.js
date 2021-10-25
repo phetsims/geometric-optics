@@ -21,7 +21,9 @@ const GeometricOpticsGlobalOptions = {
     new StringProperty( GeometricOpticsQueryParameters.focalLengthControl, {
       validValues: GeometricOpticsQueryParameters.SCHEMA.focalLengthControl.validValues,
       tandem: optionsTandem.createTandem( 'focalLengthControlProperty' ),
-      phetioDocumentation: 'Determines how focal length is controlled in the Lens and Mirror screens.'
+      phetioDocumentation: 'Determines how focal length is controlled in the Lens and Mirror screens.<br>' +
+                           'direct: provides a control labeled \'Focal Length\'<br>' +
+                           'indirect: provides controls for optic parameters, from which focal length is derived'
     } )
 };
 
