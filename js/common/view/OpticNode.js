@@ -14,6 +14,7 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
+import KeyboardDragListener from '../../../../scenery/js/listeners/KeyboardDragListener.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -41,6 +42,10 @@ class OpticNode extends Node {
       fill: GeometricOpticsColors.opticFillProperty,
       stroke: GeometricOpticsColors.opticStrokeProperty,
       lineWidth: 2,
+
+      // pdom options
+      tagName: 'div',
+      focusable: true,
 
       // phet-io options
       tandem: Tandem.REQUIRED
@@ -133,6 +138,16 @@ class OpticNode extends Node {
       dragBoundsProperty: dragBoundsProperty,
       tandem: options.tandem.createTandem( 'dragListener' )
     } ) );
+
+    // pdom - dragging using the keyboard
+    const keyboardDragListener = new KeyboardDragListener( {
+      positionProperty: positionProperty,
+      dragBounds: dragBoundsProperty.value,
+      transform: modelViewTransform,
+      dragVelocity: 75, // velocity - change in position per second
+      shiftDragVelocity: 20 // finer-grained
+    } );
+    this.addInputListener( keyboardDragListener );
   }
 
   /**
