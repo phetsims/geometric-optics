@@ -332,17 +332,22 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // Layout ================================================================================================
 
-    this.addChild( experimentAreaNode );
-    this.addChild( labelsNode );
-    this.addChild( curveRadioButtonGroup );
-    this.addChild( controlPanel );
-    this.addChild( showHideToggleButton );
-    this.addChild( resetAllButton );
-    this.addChild( toolbox );
-    this.addChild( zoomButtonGroup );
-    this.addChild( representationComboBox );
-    this.addChild( rulersLayer );
-    this.addChild( popupsParent );
+    const screenViewRootNode = new Node( {
+      children: [
+        experimentAreaNode,
+        labelsNode,
+        curveRadioButtonGroup,
+        controlPanel,
+        showHideToggleButton,
+        resetAllButton,
+        toolbox,
+        zoomButtonGroup,
+        representationComboBox,
+        rulersLayer,
+        popupsParent
+      ]
+    } );
+    this.addChild( screenViewRootNode );
 
     // @private
     this.resetGeometricScreenView = () => {
@@ -352,6 +357,17 @@ class GeometricOpticsScreenView extends ScreenView {
       secondPointNode.reset();
       rulersLayer.reset();
     };
+
+    // pdom -traversal order
+    //TODO add Object, light sources, second point, optic, projection screen, toolbox, rulers
+    screenViewRootNode.pdomOrder = [
+      representationComboBox,
+      curveRadioButtonGroup,
+      zoomButtonGroup,
+      controlPanel,
+      showHideToggleButton,
+      resetAllButton
+    ];
 
     // @private
     this.model = model; // {GeometricOpticsModel}
