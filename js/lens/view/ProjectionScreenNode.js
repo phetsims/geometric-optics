@@ -15,6 +15,7 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
+import KeyboardDragListener from '../../../../scenery/js/listeners/KeyboardDragListener.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -43,7 +44,10 @@ class ProjectionScreenNode extends Node {
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     options = merge( {
-      cursor: 'pointer'
+
+      // pdom options
+      tagName: 'div',
+      focusable: true
     }, options );
 
     // The frame part (top and bottom) of the projection screen is an image.
@@ -89,10 +93,27 @@ class ProjectionScreenNode extends Node {
 
     // create a drag listener for the image
     projectionScreenFrameImage.addInputListener( new DragListener( {
+      cursor: 'pointer',
+      useInputListenerCursor: true,
       positionProperty: this.imagePositionProperty,
       dragBoundsProperty: dragBoundsProperty,
       transform: modelViewTransform
     } ) );
+
+    // pdom - dragging using the keyboard
+    const keyboardDragListener = new KeyboardDragListener( {
+      positionProperty: this.imagePositionProperty,
+      dragBounds: dragBoundsProperty.value,
+      transform: modelViewTransform,
+      dragVelocity: 75, // velocity - change in position per second
+      shiftDragVelocity: 20 // finer-grained
+    } );
+    this.addInputListener( keyboardDragListener );
+
+    //TODO https://github.com/phetsims/scenery/issues/1307 should be handled by KeyboardDragListener
+    dragBoundsProperty.link( dragBounds => {
+      keyboardDragListener.dragBounds = dragBounds;
+    } );
 
     // always keep projection screen within experiment area bounds when they are changed
     dragBoundsProperty.link( dragBounds => {

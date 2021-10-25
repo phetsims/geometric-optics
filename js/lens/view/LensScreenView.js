@@ -99,6 +99,12 @@ class LensScreenView extends GeometricOpticsScreenView {
     this.resetLensScreenView = () => {
       projectionScreenNode.reset();
     };
+
+    // pdom -traversal order
+    //TODO https://github.com/phetsims/scenery/issues/1308 an obfuscated way of inserting 1 Node into pdomOrder
+    const pdomOrder = this.screenViewRootNode.getPDOMOrder();
+    pdomOrder.splice( pdomOrder.indexOf( this.zoomButtonGroup ), 0, projectionScreenNode );
+    this.screenViewRootNode.pdomOrder = [ ...pdomOrder ];
   }
 
   /**

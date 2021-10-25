@@ -359,7 +359,7 @@ class GeometricOpticsScreenView extends ScreenView {
     };
 
     // pdom -traversal order
-    //TODO add Object, light sources, second point, optic, projection screen, toolbox, rulers
+    //TODO add Object, second point, light sources, toolbox, rulers
     screenViewRootNode.pdomOrder = [
       representationComboBox,
       curveRadioButtonGroup,
@@ -374,10 +374,12 @@ class GeometricOpticsScreenView extends ScreenView {
     this.model = model; // {GeometricOpticsModel}
 
     // @protected
+    this.screenViewRootNode = screenViewRootNode; // {Node}
     this.modelViewTransform = modelViewTransform; // {ModelViewTransform2}
     this.visibleProperties = visibleProperties; // {VisibleProperties}
     this.modelBoundsProperty = modelBoundsProperty; // {DerivedProperty.<Bounds2>}
     this.experimentAreaNode = experimentAreaNode; // {Node}
+    this.zoomButtonGroup = zoomButtonGroup; // {Node}
   }
 
   /**
