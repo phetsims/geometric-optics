@@ -11,7 +11,7 @@
 import logGlobal from '../../../phet-core/js/logGlobal.js';
 import geometricOptics from '../geometricOptics.js';
 
-const GeometricOpticsQueryParameters = QueryStringMachine.getAll( {
+const SCHEMA = {
 
   //----------------------------------------------------------------------------------------------------------------
   // Public-facing query parameters
@@ -21,6 +21,16 @@ const GeometricOpticsQueryParameters = QueryStringMachine.getAll( {
   // A checkbox will be added to the control panel, for controlling the visibility of the Guides.
   showGuides: {
     type: 'flag',
+    public: true
+  },
+
+  // Determines how focal length is controlled in the Lens and Mirror screens.
+  // direct: provides a NumberControl labeled 'Focal Length'
+  // indirect: provides NumberControls for optic parameters, from which focal length is derived
+  focalLengthControl: {
+    type: 'string',
+    validValues: [ 'direct', 'indirect' ],
+    defaultValue: 'indirect',
     public: true
   },
 
@@ -49,7 +59,10 @@ const GeometricOpticsQueryParameters = QueryStringMachine.getAll( {
     defaultValue: 400,
     isValidValue: value => ( value >= 100 )
   }
-} );
+};
+
+const GeometricOpticsQueryParameters = QueryStringMachine.getAll( SCHEMA );
+GeometricOpticsQueryParameters.SCHEMA = SCHEMA;
 
 geometricOptics.register( 'GeometricOpticsQueryParameters', GeometricOpticsQueryParameters );
 

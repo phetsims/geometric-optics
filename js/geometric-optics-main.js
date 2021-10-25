@@ -9,7 +9,7 @@
 import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
-import GeometricOpticsOptionsDialogContent from './common/view/GeometricOpticsOptionsDialogContent.js';
+import GeometricOpticsGlobalOptionsNode from './common/view/GeometricOpticsGlobalOptionsNode.js';
 import geometricOpticsStrings from './geometricOpticsStrings.js';
 import IntroScreen from './intro/IntroScreen.js';
 import LensScreen from './lens/LensScreen.js';
@@ -27,7 +27,7 @@ const simOptions = {
   },
 
   // Creates content for the Options dialog, accessible via the PhET menu
-  createOptionsDialogContent: tandem => new GeometricOpticsOptionsDialogContent( {
+  createOptionsDialogContent: tandem => new GeometricOpticsGlobalOptionsNode( {
     tandem: tandem
   } )
 };
