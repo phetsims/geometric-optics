@@ -102,7 +102,7 @@
     "value": "Focal Length control in Lens and Mirror screens:"
   },
   "focalLengthControl.direct": {
-    "value": "direct (using focal length slider)"
+    "value": "direct (using Focal Length slider)"
   },
   "focalLengthControl.indirect": {
     "value": "indirect (calculated from optic parameters)"
