@@ -6,6 +6,7 @@
  * @author Martin Veillette
  */
 
+import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsScreenView from '../../common/view/GeometricOpticsScreenView.js';
@@ -22,6 +23,12 @@ class MirrorScreenView extends GeometricOpticsScreenView {
     assert && assert( model instanceof MirrorModel );
 
     options = merge( {
+
+      // View origin is to right, and a little above center.
+      getViewOrigin: layoutBounds => new Vector2(
+        layoutBounds.centerX + 200,
+        layoutBounds.centerY - 0.08 * layoutBounds.height
+      ),
 
       // phet-io options
       tandem: Tandem.REQUIRED

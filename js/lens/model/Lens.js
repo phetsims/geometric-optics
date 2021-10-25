@@ -8,7 +8,6 @@
  */
 
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Optic from '../../common/model/Optic.js';
@@ -23,7 +22,6 @@ class Lens extends Optic {
     super( merge( {
       opticType: Optic.Type.LENS,
       initialCurve: Optic.Curve.CONVEX,
-      initialPosition: Vector2.ZERO, // in cm
       radiusOfCurvatureRange: new RangeWithValue( 30, 130, 80 ), // in cm
       indexOfRefractionRange: new RangeWithValue( 1.2, 1.9, 1.5 ), // unitless
       diameterRange: new RangeWithValue( 30, 130, 80 ), // in cm

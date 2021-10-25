@@ -8,7 +8,6 @@
  */
 
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Optic from '../../common/model/Optic.js';
@@ -23,7 +22,6 @@ class Mirror extends Optic {
     super( merge( {
       opticType: Optic.Type.MIRROR,
       initialCurve: Optic.Curve.CONCAVE,
-      initialPosition: new Vector2( 100, 0 ), // in cm
       radiusOfCurvatureRange: new RangeWithValue( 150, 250, 200 ), // in cm
 
       // Although a mirror does not have an index of refraction, its focal length is equivalent to a lens

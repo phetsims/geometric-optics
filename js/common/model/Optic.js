@@ -38,7 +38,7 @@ class Optic {
       initialCurve: required( config.initialCurve ),
 
       // {Vector2} center of the optic
-      initialPosition: required( config.initialPosition ),
+      initialPosition: Vector2.ZERO,
 
       // {RangeWithValue} range of radius of curvature, in cm
       radiusOfCurvatureRange: required( config.radiusOfCurvatureRange ),

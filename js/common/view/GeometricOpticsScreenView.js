@@ -64,14 +64,16 @@ class GeometricOpticsScreenView extends ScreenView {
       // See https://github.com/phetsims/scenery/issues/1289 and https://github.com/phetsims/geometric-optics/issues/213
       preventFit: true,
 
+      // By default, the origin is at the center of the layoutBounds.
+      getViewOrigin: layoutBounds => new Vector2( this.layoutBounds.centerX, this.layoutBounds.centerY ),
+
       // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 
     super( options );
 
-    // View position of the model's origin, slightly above center of the layoutBounds.
-    const viewOrigin = new Vector2( this.layoutBounds.centerX, this.layoutBounds.centerY - 0.08 * this.layoutBounds.height );
+    const viewOrigin = options.getViewOrigin( this.layoutBounds );
 
     // convenience variable for laying out scenery Nodes
     const erodedLayoutBounds = this.layoutBounds.erodedXY(

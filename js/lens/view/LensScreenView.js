@@ -7,6 +7,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -27,6 +28,9 @@ class LensScreenView extends GeometricOpticsScreenView {
     assert && assert( model instanceof LensModel );
 
     options = merge( {
+
+      // View origin is slightly above center of the layoutBounds.
+      getViewOrigin: layoutBounds => new Vector2( layoutBounds.centerX, layoutBounds.centerY - 0.08 * layoutBounds.height ),
 
       // phet-io options
       tandem: Tandem.REQUIRED
