@@ -12,7 +12,7 @@ import geometricOptics from '../geometricOptics.js';
 import GeometricOpticsQueryParameters from './GeometricOpticsQueryParameters.js';
 
 // constants
-const optionsTandem = Tandem.GLOBAL_MODEL.createTandem( 'options' );
+const optionsTandem = Tandem.GLOBAL_VIEW.createTandem( 'options' );
 
 const GeometricOpticsGlobalOptions = {
 
