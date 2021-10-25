@@ -25,14 +25,16 @@ class TargetNode extends Node {
    * @param {Target} target
    * @param {Optic} optic
    * @param {Property.<boolean>} virtualImageVisibleProperty
+   * @param {Property.<boolean>} rayTracingVisibleProperty
    * @param {ModelViewTransform2} modelViewTransform
    */
-  constructor( representationProperty, target, optic, virtualImageVisibleProperty, modelViewTransform ) {
+  constructor( representationProperty, target, optic, virtualImageVisibleProperty, rayTracingVisibleProperty, modelViewTransform ) {
 
     assert && assert( representationProperty instanceof EnumerationProperty );
     assert && assert( target instanceof Target );
     assert && assert( optic instanceof Optic );
     assert && assert( virtualImageVisibleProperty instanceof Property );
+    assert && assert( rayTracingVisibleProperty instanceof Property );
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
     super();
@@ -82,24 +84,26 @@ class TargetNode extends Node {
     } );
 
     // update the image and its visibility
-    target.imageProperty.link( image => {
+    Property.multilink(
+      [ target.imageProperty, rayTracingVisibleProperty ],
+      ( image, rayTracingVisible ) => {
 
-      // is the representation an object
-      const isObject = representationProperty.value.isObject;
+        // is the representation an object
+        const isObject = representationProperty.value.isObject;
 
-      // make this entire node visible only if the representation is an object.
-      this.visible = isObject;
+        // make this entire node visible only if the representation is an object.
+        this.visible = isObject && rayTracingVisible;
 
-      // update the representation if it is an object
-      if ( isObject ) {
+        // update the representation if it is an object
+        if ( isObject ) {
 
-        // update the image
-        targetImage.image = image;
+          // update the image
+          targetImage.image = image;
 
-        // update the scale of the image
-        updateScaleAndPosition();
-      }
-    } );
+          // update the scale of the image
+          updateScaleAndPosition();
+        }
+      } );
 
     // add the target image to this node
     this.addChild( targetImage );

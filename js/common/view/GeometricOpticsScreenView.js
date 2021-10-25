@@ -235,7 +235,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // create the target image
     const targetNode = new TargetNode( model.representationProperty, model.firstTarget, model.optic,
-      visibleProperties.virtualImageVisibleProperty, modelViewTransform );
+      visibleProperties.virtualImageVisibleProperty, visibleProperties.rayTracingVisibleProperty, modelViewTransform );
 
     // create two focal points
     const focalPointsNode = new Node( {
