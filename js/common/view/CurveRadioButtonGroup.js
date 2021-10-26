@@ -4,6 +4,7 @@
  * CurveRadioButtonGroup is the radio button group for controlling the curve shape of the lens or mirror.
  *
  * @author Sarah Chang (Swarthmore College)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import merge from '../../../../phet-core/js/merge.js';
