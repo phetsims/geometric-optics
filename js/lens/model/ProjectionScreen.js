@@ -67,7 +67,7 @@ class ProjectionScreen {
   }
 
   /**
-   * Gets the shape of the screen in the model's global coordinate frame.
+   * Gets the shape of the screen, in the model's global coordinate frame.
    * @public
    * @returns {Shape}
    */
