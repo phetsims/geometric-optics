@@ -1,10 +1,11 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * ProjectionScreen is the model of the projection screen. It has a position, and methods for computing Shapes needed
- * by the view.
+ * ProjectionScreen is the model of the projection screen.
+ * It has a position and a Shape, and methods for computing Shapes needed by the view.
  *
  * @author Martin Veillette
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Matrix3 from '../../../../dot/js/Matrix3.js';
@@ -17,15 +18,9 @@ import geometricOptics from '../../geometricOptics.js';
 
 // defines the shape of the screen, in cm. Coordinates are relative to the center (0,0) of the screen.
 const SCREEN_WIDTH = 42;
-const SCREEN_FAR_HEIGHT = 56;
-const SCREEN_NEAR_HEIGHT = 67;
+const SCREEN_FAR_HEIGHT = 112;
+const SCREEN_NEAR_HEIGHT = 134;
 assert && assert( SCREEN_NEAR_HEIGHT > SCREEN_FAR_HEIGHT );
-const SCREEN_CORNERS = {
-  LEFT_TOP: new Vector2( -SCREEN_WIDTH / 2, SCREEN_FAR_HEIGHT ),
-  LEFT_BOTTOM: new Vector2( -SCREEN_WIDTH / 2, -SCREEN_FAR_HEIGHT ),
-  RIGHT_BOTTOM: new Vector2( SCREEN_WIDTH / 2, -SCREEN_NEAR_HEIGHT ),
-  RIGHT_TOP: new Vector2( SCREEN_WIDTH / 2, SCREEN_NEAR_HEIGHT )
-};
 
 class ProjectionScreen {
 
@@ -49,19 +44,20 @@ class ProjectionScreen {
     } );
 
     // @public (read-only) Shape of the screen, relative to positionProperty
-    // Describes clockwise, starting at left top.
+    // Described clockwise, starting at left top, in model coordinates.
     this.screenShape = new Shape()
-      .moveToPoint( SCREEN_CORNERS.LEFT_TOP )
-      .lineToPoint( SCREEN_CORNERS.RIGHT_TOP )
-      .lineToPoint( SCREEN_CORNERS.RIGHT_BOTTOM )
-      .lineToPoint( SCREEN_CORNERS.LEFT_BOTTOM )
+      .moveTo( -SCREEN_WIDTH / 2, SCREEN_FAR_HEIGHT / 2 )
+      .lineTo( SCREEN_WIDTH / 2, SCREEN_NEAR_HEIGHT / 2 )
+      .lineTo( SCREEN_WIDTH / 2, -SCREEN_NEAR_HEIGHT / 2 )
+      .lineTo( -SCREEN_WIDTH / 2, -SCREEN_FAR_HEIGHT / 2 )
       .close();
 
-    // @private (read-only) line that vertically bisects the screen
-    // Described from top to bottom.
+    // @private (read-only) line that vertically bisects the screen, relative to positionProperty
+    // Described from top to bottom, in model coordinates.
+    const averageScreenHeight = ( SCREEN_NEAR_HEIGHT + SCREEN_FAR_HEIGHT ) / 2;
     this.bisectorLine = new Shape()
-      .moveToPoint( SCREEN_CORNERS.LEFT_TOP.average( SCREEN_CORNERS.RIGHT_TOP ) )
-      .lineToPoint( SCREEN_CORNERS.LEFT_BOTTOM.average( SCREEN_CORNERS.RIGHT_BOTTOM ) );
+      .moveTo( 0, averageScreenHeight / 2 )
+      .lineTo( 0, -averageScreenHeight / 2 );
   }
 
   /**
@@ -91,7 +87,7 @@ class ProjectionScreen {
   }
 
   /**
-   * Returns a shape translated by the model position of the projection screen.
+   * Returns a shape that is translated by the model position of the projection screen.
    * The provided Shape should be in the projection screen's local coordinate frame.
    * The resulting Shape will be in the model's global coordinate frame.
    * @private
