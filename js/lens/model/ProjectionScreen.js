@@ -24,9 +24,6 @@ const SCREEN_CORNERS = {
   RIGHT_TOP: new Vector2( 22, 67 )
 };
 
-// initial position of the screen's center
-const INITIAL_POSITION = new Vector2( 200, 0 );
-
 class ProjectionScreen {
 
   /**
@@ -36,12 +33,15 @@ class ProjectionScreen {
 
     options = merge( {
 
+      // {Vector2} initial position of the center of the screen
+      initialPosition: new Vector2( 200, 0 ),
+
       // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 
     // @public position of the center of the screen
-    this.positionProperty = new Vector2Property( INITIAL_POSITION, {
+    this.positionProperty = new Vector2Property( options.initialPosition, {
       tandem: options.tandem.createTandem( 'positionProperty' )
     } );
   }
@@ -55,24 +55,19 @@ class ProjectionScreen {
   }
 
   /**
-   * Gets the vertical line that bisects the middle portion of the screen
+   * Gets the vertical line that bisects the screen, in the model's global coordinate frame.
    * @public
    * @returns {Shape}
    */
   getBisectorLine() {
-
-    // convenience variable to create a line that splits the middle of the screen vertically
     const top = SCREEN_CORNERS.LEFT_TOP.average( SCREEN_CORNERS.RIGHT_TOP );
     const bottom = SCREEN_CORNERS.LEFT_BOTTOM.average( SCREEN_CORNERS.RIGHT_BOTTOM );
-
     const verticalLine = new Line( top, bottom );
-
-    // get the vertical line translated by the model position of the projection screen
     return this.translatedShape( verticalLine );
   }
 
   /**
-   * Gets the shape of the screen translated by the model position of the projection screen
+   * Gets the shape of the screen in the model's global coordinate frame.
    * @public
    * @returns {Shape}
    */
@@ -88,8 +83,10 @@ class ProjectionScreen {
 
   /**
    * Returns a shape translated by the model position of the projection screen.
+   * The provided Shape should be in the projection screen's local coordinate frame.
+   * The resulting Shape will be in the model's global coordinate frame.
    * @private
-   * @param {Shape} shape
+   * @param {Shape} shape - in the projection screen's local coordinate frame
    * @returns {Shape}
    */
   translatedShape( shape ) {
