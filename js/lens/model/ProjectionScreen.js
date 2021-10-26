@@ -16,10 +16,10 @@ import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 
-// defines the shape of the screen, in cm. Coordinates are relative to the center (0,0) of the screen.
+// Dimensions of the screen, in cm. "Near" and "far" refer to pseudo-3D perspective.
 const SCREEN_WIDTH = 42;
-const SCREEN_FAR_HEIGHT = 112;
 const SCREEN_NEAR_HEIGHT = 134;
+const SCREEN_FAR_HEIGHT = 112;
 assert && assert( SCREEN_NEAR_HEIGHT > SCREEN_FAR_HEIGHT );
 
 class ProjectionScreen {
