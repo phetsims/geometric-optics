@@ -10,18 +10,21 @@
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import Line from '../../../../kite/js/segments/Line.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 
 // defines the shape of the screen, in cm. Coordinates are relative to the center (0,0) of the screen.
+const SCREEN_WIDTH = 42;
+const SCREEN_FAR_HEIGHT = 56;
+const SCREEN_NEAR_HEIGHT = 67;
+assert && assert( SCREEN_NEAR_HEIGHT > SCREEN_FAR_HEIGHT );
 const SCREEN_CORNERS = {
-  LEFT_TOP: new Vector2( -20, 56 ),
-  LEFT_BOTTOM: new Vector2( -20, -59 ),
-  RIGHT_BOTTOM: new Vector2( 22, -73 ),
-  RIGHT_TOP: new Vector2( 22, 67 )
+  LEFT_TOP: new Vector2( -SCREEN_WIDTH / 2, SCREEN_FAR_HEIGHT ),
+  LEFT_BOTTOM: new Vector2( -SCREEN_WIDTH / 2, -SCREEN_FAR_HEIGHT ),
+  RIGHT_BOTTOM: new Vector2( SCREEN_WIDTH / 2, -SCREEN_NEAR_HEIGHT ),
+  RIGHT_TOP: new Vector2( SCREEN_WIDTH / 2, SCREEN_NEAR_HEIGHT )
 };
 
 class ProjectionScreen {
@@ -44,6 +47,21 @@ class ProjectionScreen {
     this.positionProperty = new Vector2Property( options.initialPosition, {
       tandem: options.tandem.createTandem( 'positionProperty' )
     } );
+
+    // @public (read-only) Shape of the screen, relative to positionProperty
+    // Describes clockwise, starting at left top.
+    this.screenShape = new Shape()
+      .moveToPoint( SCREEN_CORNERS.LEFT_TOP )
+      .lineToPoint( SCREEN_CORNERS.RIGHT_TOP )
+      .lineToPoint( SCREEN_CORNERS.RIGHT_BOTTOM )
+      .lineToPoint( SCREEN_CORNERS.LEFT_BOTTOM )
+      .close();
+
+    // @private (read-only) line that vertically bisects the screen
+    // Described from top to bottom.
+    this.bisectorLine = new Shape()
+      .moveToPoint( SCREEN_CORNERS.LEFT_TOP.average( SCREEN_CORNERS.RIGHT_TOP ) )
+      .lineToPoint( SCREEN_CORNERS.LEFT_BOTTOM.average( SCREEN_CORNERS.RIGHT_BOTTOM ) );
   }
 
   /**
@@ -59,11 +77,8 @@ class ProjectionScreen {
    * @public
    * @returns {Shape}
    */
-  getBisectorLine() {
-    const top = SCREEN_CORNERS.LEFT_TOP.average( SCREEN_CORNERS.RIGHT_TOP );
-    const bottom = SCREEN_CORNERS.LEFT_BOTTOM.average( SCREEN_CORNERS.RIGHT_BOTTOM );
-    const verticalLine = new Line( top, bottom );
-    return this.translatedShape( verticalLine );
+  getBisectorLineTranslated() {
+    return this.translatedShape( this.bisectorLine );
   }
 
   /**
@@ -71,14 +86,8 @@ class ProjectionScreen {
    * @public
    * @returns {Shape}
    */
-  getScreenShape() {
-    const screenShape = new Shape()
-      .moveToPoint( SCREEN_CORNERS.LEFT_TOP )
-      .lineToPoint( SCREEN_CORNERS.LEFT_BOTTOM )
-      .lineToPoint( SCREEN_CORNERS.RIGHT_BOTTOM )
-      .lineToPoint( SCREEN_CORNERS.RIGHT_TOP )
-      .close();
-    return this.translatedShape( screenShape );
+  getScreenShapeTranslated() {
+    return this.translatedShape( this.screenShape );
   }
 
   /**

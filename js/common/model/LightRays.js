@@ -90,7 +90,7 @@ class LightRays {
             isVirtual,
             isPrincipal,
             isProjectionScreenPresent,
-            projectionScreen.getBisectorLine.bind( projectionScreen )
+            projectionScreen.getBisectorLineTranslated.bind( projectionScreen )
           );
 
           // set target's visibility to true after the first ray reaches its target

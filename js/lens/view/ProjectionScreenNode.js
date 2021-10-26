@@ -121,7 +121,7 @@ class ProjectionScreenNode extends Node {
     } );
 
     projectionScreen.positionProperty.link( position => {
-      screenNode.shape = modelViewTransform.modelToViewShape( projectionScreen.getScreenShape() );
+      screenNode.shape = modelViewTransform.modelToViewShape( projectionScreen.getScreenShapeTranslated() );
     } );
 
     // update the position of projectionScreen target

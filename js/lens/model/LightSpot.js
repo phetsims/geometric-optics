@@ -167,7 +167,7 @@ class LightSpot {
   getIntersection( screenPosition, opticPosition, opticDiameter, targetPosition ) {
 
     // translated screen shape
-    const screenShape = this.projectionScreen.getScreenShape();
+    const screenShape = this.projectionScreen.getScreenShapeTranslated();
 
     // unclipped elliptical disk shape
     const diskShape = this.getDiskShape( screenPosition, opticPosition, opticDiameter, targetPosition );
