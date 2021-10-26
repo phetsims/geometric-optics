@@ -49,7 +49,7 @@ class LightSpot {
     this.screenIntersectionProperty = new DerivedProperty(
       [ projectionScreen.positionProperty, optic.positionProperty, optic.diameterProperty, targetPositionProperty ],
       ( screenPosition, opticPosition, opticDiameter, targetPosition ) =>
-        this.getIntersection( screenPosition, opticPosition, opticDiameter, targetPosition )
+        this.getScreenIntersection( screenPosition, opticPosition, opticDiameter, targetPosition )
     );
 
     // @public {DerivedProperty.<number>}
@@ -164,7 +164,7 @@ class LightSpot {
    * @param {Vector2} targetPosition
    * @returns {Shape}
    */
-  getIntersection( screenPosition, opticPosition, opticDiameter, targetPosition ) {
+  getScreenIntersection( screenPosition, opticPosition, opticDiameter, targetPosition ) {
 
     // translated screen shape
     const screenShape = this.projectionScreen.getScreenShapeTranslated();
