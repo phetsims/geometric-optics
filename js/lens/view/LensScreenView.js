@@ -15,8 +15,8 @@ import GeometricOpticsScreenView from '../../common/view/GeometricOpticsScreenVi
 import geometricOptics from '../../geometricOptics.js';
 import LensModel from '../model/LensModel.js';
 import GuideNode from './GuideNode.js';
-import ProjectionScreenNode from './ProjectionScreenNode.js';
 import LightSpotNode from './LightSpotNode.js';
+import ProjectionScreenNode from './ProjectionScreenNode.js';
 
 class LensScreenView extends GeometricOpticsScreenView {
 
@@ -95,26 +95,12 @@ class LensScreenView extends GeometricOpticsScreenView {
     } );
     this.experimentAreaNode.insertChild( 0, lightSourceNodes );
 
-    // @private
-    this.resetLensScreenView = () => {
-      projectionScreenNode.reset();
-    };
-
     // pdom -traversal order
     //TODO https://github.com/phetsims/scenery/issues/1308 an obfuscated way of inserting 1 Node into pdomOrder
     // pdomOrder is an ES5 setter, and its values must be a new array, or it will be ignored.
     const pdomOrder = this.screenViewRootNode.getPDOMOrder();
     pdomOrder.splice( pdomOrder.indexOf( this.zoomButtonGroup ), 0, projectionScreenNode );
     this.screenViewRootNode.pdomOrder = [ ...pdomOrder ];
-  }
-
-  /**
-   * Resets the view.
-   * @public
-   */
-  reset() {
-    super.reset();
-    this.resetLensScreenView();
   }
 }
 

@@ -3,29 +3,28 @@
 /**
  * ProjectionScreenNode is the view of of the projection screen.
  *
- * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
+ * @author Martin Veillette
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import KeyboardDragListener from '../../../../scenery/js/listeners/KeyboardDragListener.js';
+import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
+import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import projectionScreenFrame_png from '../../../images/projectionScreenFrame_png.js';
+import Color from '../../../../scenery/js/util/Color.js';
+import projectionScreenBottom_png from '../../../images/projectionScreenBottom_png.js';
+import projectionScreenTop_png from '../../../images/projectionScreenTop_png.js';
 import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
 import geometricOptics from '../../geometricOptics.js';
 import ProjectionScreen from '../model/ProjectionScreen.js';
-
-// constants
-const IMAGE_SCALE = 0.5; // scaling factor applied to the projection screen image
 
 class ProjectionScreenNode extends Node {
 
@@ -50,59 +49,84 @@ class ProjectionScreenNode extends Node {
       focusable: true
     }, options );
 
-    // The frame part (top and bottom) of the projection screen is an image.
-    const projectionScreenFrameImage = new Image( projectionScreenFrame_png, {
-      scale: IMAGE_SCALE
-    } );
-
-    // The screen part of the projection screen is a Path, so that we can tweak its color in the Color Editor.
-    // See https://github.com/phetsims/geometric-optics/issues/226
-    const screenNode = new Path( null, {
+    // The screen part of the projection screen, drawn in perspective.
+    const screenNode = new Path( modelViewTransform.modelToViewShape( projectionScreen.screenShape ), {
       fill: GeometricOpticsColors.projectionScreenFillProperty,
       stroke: GeometricOpticsColors.projectionScreenStrokeProperty,
-      lineWidth: 2
+      lineWidth: 2,
+      centerX: 0,
+      centerY: 0
+    } );
+
+    // Bar across the top edge of the screen. Aka the 'screen case', because the screen retracts into this part.
+    const topBarNode = new Image( projectionScreenTop_png, {
+      scale: 0.5,
+      left: screenNode.left - 14,
+      bottom: screenNode.top + 25
+    } );
+
+    // Bar across the bottom edge of the screen
+    const bottomBarNode = new Image( projectionScreenBottom_png, {
+      scale: 0.5,
+      left: screenNode.left - 7,
+      top: screenNode.bottom - 32
+    } );
+
+    // The pull string, attached to the bottom bar
+    const pullStringNode = new Line( 0, 0, 0, 50, {
+      stroke: GeometricOpticsColors.projectionScreenStrokeProperty,
+      lineWidth: 3,
+      centerX: screenNode.centerX,
+      top: bottomBarNode.top
+    } );
+
+    // The knob attached to the pull string
+    const knobNode = new Circle( 5, {
+      stroke: GeometricOpticsColors.projectionScreenStrokeProperty,
+      fill: Color.grayColor( 180 ),
+      center: pullStringNode.centerBottom
     } );
 
     assert && assert( !options.children );
-    options.children = [ screenNode, projectionScreenFrameImage ];
+    options.children = [ pullStringNode, knobNode, screenNode, topBarNode, bottomBarNode ];
 
     super( options );
 
-    // TODO: the model should give its size to the view rather than the other way around (see #153)
-    // determine the size of the projection screen in model coordinates
-    const modelChildHeight = Math.abs( modelViewTransform.viewToModelDeltaY( projectionScreenFrameImage.height ) );
-    const modelChildWidth = modelViewTransform.viewToModelDeltaX( projectionScreenFrameImage.width );
+    projectionScreen.positionProperty.link( position => {
+      this.translation = modelViewTransform.modelToViewPosition( position );
+    } );
 
-    // difference between the left top position of the image and the "center" of the screen in model coordinates
-    const offset = new Vector2( -modelChildWidth, modelChildHeight ).divideScalar( 2 );
+    const modelScreenWidth = modelViewTransform.viewToModelDeltaX( screenNode.width );
+    const modelScreenHeight = Math.abs( modelViewTransform.viewToModelDeltaY( screenNode.height ) );
 
     // {DerivedProperty.<Bounds2>} Keep the projection screen fully within model bounds, and right of the optic.
     const dragBoundsProperty = new DerivedProperty(
       [ modelBoundsProperty, opticPositionProperty ],
       ( modelBounds, opticPosition ) =>
         new Bounds2(
-          opticPosition.x,
-          modelBounds.minY + modelChildHeight,
-          modelBounds.maxX - modelChildWidth,
-          modelBounds.maxY
+          opticPosition.x + ( modelScreenWidth / 2 ) + 20,
+          modelBounds.minY + modelScreenHeight / 2,
+          modelBounds.maxX - modelScreenWidth / 2,
+          modelBounds.maxY - modelScreenHeight / 2
         )
     );
 
-    // @private left top position of the projection screen image
-    this.imagePositionProperty = new Vector2Property( projectionScreen.positionProperty.value.plus( offset ) );
+    // Keep the projection screen within drag bounds.
+    dragBoundsProperty.link( dragBounds => {
+      projectionScreen.positionProperty.value = dragBounds.closestPointTo( projectionScreen.positionProperty.value );
+    } );
 
-    // create a drag listener for the image
-    projectionScreenFrameImage.addInputListener( new DragListener( {
+    this.addInputListener( new DragListener( {
       cursor: 'pointer',
       useInputListenerCursor: true,
-      positionProperty: this.imagePositionProperty,
+      positionProperty: projectionScreen.positionProperty,
       dragBoundsProperty: dragBoundsProperty,
       transform: modelViewTransform
     } ) );
 
     // pdom - dragging using the keyboard
     const keyboardDragListener = new KeyboardDragListener( {
-      positionProperty: this.imagePositionProperty,
+      positionProperty: projectionScreen.positionProperty,
       dragBounds: dragBoundsProperty.value,
       transform: modelViewTransform,
       dragVelocity: 75, // velocity - change in position per second
@@ -114,21 +138,6 @@ class ProjectionScreenNode extends Node {
     dragBoundsProperty.link( dragBounds => {
       keyboardDragListener.dragBounds = dragBounds;
     } );
-
-    // always keep projection screen within experiment area bounds when they are changed
-    dragBoundsProperty.link( dragBounds => {
-      this.imagePositionProperty.value = dragBounds.closestPointTo( this.imagePositionProperty.value );
-    } );
-
-    projectionScreen.positionProperty.link( position => {
-      screenNode.shape = modelViewTransform.modelToViewShape( projectionScreen.getScreenShapeTranslated() );
-    } );
-
-    // update the position of projectionScreen target
-    this.imagePositionProperty.link( position => {
-      projectionScreen.positionProperty.value = position.minus( offset );
-      projectionScreenFrameImage.leftTop = modelViewTransform.modelToViewPosition( position );
-    } );
   }
 
   /**
@@ -138,14 +147,6 @@ class ProjectionScreenNode extends Node {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
-  }
-
-  /**
-   * Resets the view.
-   * @public
-   */
-  reset() {
-    this.imagePositionProperty.reset();
   }
 }
 
