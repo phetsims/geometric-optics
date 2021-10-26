@@ -1,4 +1,4 @@
-// Copyright 2018-2021, University of Colorado Boulder
+// Copyright 2021, University of Colorado Boulder
 
 /**
  * GeometricOpticsGlobalOptions defines the global options for this simulation, accessed via PhET > Options.
