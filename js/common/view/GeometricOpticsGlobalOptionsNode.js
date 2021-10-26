@@ -52,6 +52,21 @@ class GeometricOpticsGlobalOptionsNode extends VBox {
     options.children = [ projectorModeCheckbox, focalLengthControlNode ];
 
     super( options );
+
+    // @private
+    this.disposeGeometricOpticsGlobalOptionsNode = () => {
+      projectorModeCheckbox.dispose();
+      focalLengthControlNode.dispose();
+    };
+  }
+
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    this.disposeGeometricOpticsGlobalOptionsNode();
+    super.dispose();
   }
 }
 
@@ -109,6 +124,21 @@ class FocalLengthControlNode extends VBox {
     options.children = [ focalLengthControlText, radioButtonGroup ];
 
     super( options );
+
+    // @private
+    this.disposeFocalLengthControlNode = () => {
+      focalLengthControlText.dispose();
+      radioButtonGroup.dispose();
+    };
+  }
+
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    this.disposeFocalLengthControlNode();
+    super.dispose();
   }
 }
 
