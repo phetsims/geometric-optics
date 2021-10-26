@@ -4,6 +4,7 @@
  * GeometricOpticsModel is the common top-level model for this simulation.
  *
  * @author Martin Veillette
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';

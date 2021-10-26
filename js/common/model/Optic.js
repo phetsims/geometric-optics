@@ -4,6 +4,7 @@
  * Optic is the base class for an optic in this simulation, and supports lens and mirror.
  *
  * @author Martin Veillette
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
