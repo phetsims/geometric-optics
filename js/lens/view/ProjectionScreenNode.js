@@ -61,6 +61,7 @@ class ProjectionScreenNode extends Node {
     // Bar across the top edge of the screen. Aka the 'screen case', because the screen retracts into this part.
     const topBarNode = new Image( projectionScreenTop_png, {
       scale: 0.5,
+      // offsets were adjusted empirically to align image with screenNode
       left: screenNode.left - 14,
       bottom: screenNode.top + 25
     } );
@@ -68,6 +69,7 @@ class ProjectionScreenNode extends Node {
     // Bar across the bottom edge of the screen
     const bottomBarNode = new Image( projectionScreenBottom_png, {
       scale: 0.5,
+      // offsets were adjusted empirically to align image with screenNode
       left: screenNode.left - 7,
       top: screenNode.bottom - 32
     } );
