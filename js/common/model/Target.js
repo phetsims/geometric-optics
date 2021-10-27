@@ -2,7 +2,7 @@
 
 /**
  * Target is the model for what is called 'Image' in optics.  We're avoiding the term 'image' because it conflicts
- * with scenery.Image. An image can be real or virtual. It is responsible for the position, scale of target, opacity,
+ * with scenery.Image. An image can be real or virtual. It is responsible for the position, magnification, opacity,
  * and bounds.
  *
  * @author Martin Veillette
@@ -68,8 +68,8 @@ class Target {
     );
 
     // @private {DerivedProperty.<number>}
-    // the scale can be negative, indicating the target/image is inverted.
-    this.scaleProperty = new DerivedProperty(
+    // the magnification can be negative, indicating the target/image is inverted.
+    this.magnificationProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       ( objectPosition, opticPosition, focalLength ) => this.getMagnification( objectPosition, opticPosition, focalLength )
     );
@@ -91,17 +91,17 @@ class Target {
     // @public {DerivedProperty.<bounds2>}
     // Bounds of the actual Image  based on the Representation
     this.boundsProperty = new DerivedProperty(
-      [ this.positionProperty, representationProperty, this.scaleProperty, this.isInvertedProperty ],
-      ( position, representation, scale, isInverted ) => {
+      [ this.positionProperty, representationProperty, this.magnificationProperty, this.isInvertedProperty ],
+      ( position, representation, magnification, isInverted ) => {
 
         const scaleFactor = representation.getScaleFactor();
         const initialOffset = representation.rightFacingUprightOffset.timesScalar( 1 / scaleFactor );
         const initialWidth = representation.rightFacingUpright.width / scaleFactor;
         const initialHeight = representation.rightFacingUpright.height / scaleFactor;
 
-        const offset = initialOffset.timesScalar( scale );
-        const width = initialWidth * scale;
-        const height = initialHeight * scale;
+        const offset = initialOffset.timesScalar( magnification );
+        const width = initialWidth * magnification;
+        const height = initialHeight * magnification;
 
         const x1 = this.opticSign * offset.x;
         const x2 = this.opticSign * ( offset.x + width );
@@ -116,11 +116,11 @@ class Target {
     // @public {DerivedProperty.<number>}
     // light intensity of the image (Hollywood) - a value between 0 and 1
     this.lightIntensityProperty = new DerivedProperty(
-      [ this.scaleProperty, optic.diameterProperty ],
-      ( scale, diameter ) => {
+      [ this.magnificationProperty, optic.diameterProperty ],
+      ( magnification, diameter ) => {
 
-        // effect of the distance on the opacity, Hollywooded as 1/scale for upscaled image
-        const distanceFactor = Math.min( 1, Math.abs( 1 / scale ) );
+        // effect of the distance on the opacity, Hollywooded as 1/magnification for upscaled image
+        const distanceFactor = Math.min( 1, Math.abs( 1 / magnification ) );
 
         // effect of the diameter of the optic on the light intensity of the image (also Hollywooded)
         const diameterFactor = diameter / optic.diameterProperty.range.max;
@@ -170,7 +170,7 @@ class Target {
    * @private
    * @param {Vector2} objectPosition
    * @param {Vector2} opticPosition
-   * @param {number} focalLength
+   * @param {number} focalLength TODO not used
    * @returns {number}
    */
   getMagnification( objectPosition, opticPosition, focalLength ) {
