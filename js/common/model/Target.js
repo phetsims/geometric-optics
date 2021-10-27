@@ -65,7 +65,21 @@ class Target {
     this.positionProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       //TODO focalLength is not used, is focalLengthProperty dependency needed?
-      ( objectPosition, opticPosition, focalLength ) => this.getPosition( objectPosition, opticPosition )
+      //TODO Calls this.getMagnification, should there be a dependency here on magnificationProperty instead?
+      ( objectPosition, opticPosition, focalLength ) => {
+
+        // The height is determined as the vertical offset from the optical axis of the focus point.
+        // The height can be negative if the target is inverted.
+        const height = this.getMagnification( objectPosition, opticPosition ) * ( objectPosition.y - opticPosition.y );
+
+        // horizontal distance between target/image and optic.
+        const targetOpticDistance = this.targetOpticDistanceProperty.value;
+
+        // recall that the meaning of targetOpticDistance is different for a lens and mirror.
+        const horizontalDisplacement = this.opticSign * targetOpticDistance;
+
+        return opticPosition.plusXY( horizontalDisplacement, height );
+      }
     );
 
     // @private {DerivedProperty.<number>}
@@ -186,28 +200,6 @@ class Target {
     else {
       return -1 * this.targetOpticDistanceProperty.value / objectOpticDistance;
     }
-  }
-
-  /**
-   * Returns the position of the target point
-   * @private
-   * @param {Vector2} objectPosition
-   * @param {Vector2} opticPosition
-   * @returns {Vector2}
-   */
-  getPosition( objectPosition, opticPosition ) {
-
-    // The height is determined as the vertical offset from the optical axis of the focus point.
-    // The height can be negative if the target is inverted.
-    const height = this.getMagnification( objectPosition, opticPosition ) * ( objectPosition.y - opticPosition.y );
-
-    // horizontal distance between target/image and optic.
-    const targetOpticDistance = this.targetOpticDistanceProperty.value;
-
-    // recall that the meaning of targetOpticDistance is different for a lens and mirror.
-    const horizontalDisplacement = this.opticSign * targetOpticDistance;
-
-    return opticPosition.plusXY( horizontalDisplacement, height );
   }
 }
 
