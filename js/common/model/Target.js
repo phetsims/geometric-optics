@@ -64,25 +64,27 @@ class Target {
     // the position of the focus as predicted by lens and mirror equation
     this.positionProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
-      ( objectPosition, opticPosition, focalLength ) => this.getPosition( objectPosition, opticPosition, focalLength )
+      //TODO focalLength is not used, is focalLengthProperty dependency needed?
+      ( objectPosition, opticPosition, focalLength ) => this.getPosition( objectPosition, opticPosition )
     );
 
     // @private {DerivedProperty.<number>}
     // the magnification can be negative, indicating the target/image is inverted.
     this.magnificationProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
-      ( objectPosition, opticPosition, focalLength ) => this.getMagnification( objectPosition, opticPosition, focalLength )
+      //TODO focalLength is not used, is focalLengthProperty dependency needed?
+      ( objectPosition, opticPosition, focalLength ) => this.getMagnification( objectPosition, opticPosition )
     );
 
     // @private {DerivedProperty.<boolean>}
-    // For a lens, the image is virtual if the image is on the same side as the object
-    // For a mirror, the image is virtual if the image is on the opposite of the object
     this.isInvertedProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       () => ( this.targetOpticDistanceProperty.value > 0 )
     );
 
     // @public {DerivedProperty.<boolean>}
+    // For a lens, the image is virtual if the image is on the same side as the object
+    // For a mirror, the image is virtual if the image is on the opposite of the object
     this.isVirtualProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       () => ( this.targetOpticDistanceProperty.value < 0 )
@@ -92,7 +94,7 @@ class Target {
     // Bounds of the actual Image  based on the Representation
     this.boundsProperty = new DerivedProperty(
       [ this.positionProperty, representationProperty, this.magnificationProperty, this.isInvertedProperty ],
-      ( position, representation, magnification, isInverted ) => {
+      ( position, representation, magnification, isInverted ) => { //TODO isInverted is not used, is dependency needed?
 
         const scaleFactor = representation.getScaleFactor();
         const initialOffset = representation.rightFacingUprightOffset.timesScalar( 1 / scaleFactor );
@@ -135,10 +137,8 @@ class Target {
     this.imageProperty = new DerivedProperty(
       [ representationProperty, this.isVirtualProperty ],
       ( representation, isVirtual ) => {
-        const realImage = optic.isLens() ? representation.leftFacingInverted :
-                          representation.rightFacingInverted;
-        const virtualImage = optic.isLens() ? representation.rightFacingUpright :
-                             representation.leftFacingUpright;
+        const realImage = optic.isLens() ? representation.leftFacingInverted : representation.rightFacingInverted;
+        const virtualImage = optic.isLens() ? representation.rightFacingUpright : representation.leftFacingUpright;
         return isVirtual ? virtualImage : realImage;
       } );
   }
@@ -170,10 +170,9 @@ class Target {
    * @private
    * @param {Vector2} objectPosition
    * @param {Vector2} opticPosition
-   * @param {number} focalLength TODO not used
    * @returns {number}
    */
-  getMagnification( objectPosition, opticPosition, focalLength ) {
+  getMagnification( objectPosition, opticPosition ) {
 
     // horizontal distance between source object (or light source) and optic
     const objectOpticDistance = this.getObjectOpticDistance( objectPosition, opticPosition );
@@ -190,31 +189,17 @@ class Target {
   }
 
   /**
-   * Returns the "height" of the target in model coordinates.
-   * The height is determined as the vertical offset from the optical axis of the focus point.
-   * The height can be negative if the target is inverted.
-   * @private
-   * @param {Vector2} objectPosition
-   * @param {Vector2} opticPosition
-   * @param {number} focalLength
-   * @returns {number}
-   */
-  getHeight( objectPosition, opticPosition, focalLength ) {
-    return this.getMagnification( objectPosition, opticPosition, focalLength ) * ( objectPosition.y - opticPosition.y );
-  }
-
-  /**
    * Returns the position of the target point
    * @private
    * @param {Vector2} objectPosition
    * @param {Vector2} opticPosition
-   * @param {number} focalLength
    * @returns {Vector2}
    */
-  getPosition( objectPosition, opticPosition, focalLength ) {
+  getPosition( objectPosition, opticPosition ) {
 
-    // height of the object, measured from the optical axis
-    const height = this.getHeight( objectPosition, opticPosition, focalLength );
+    // The height is determined as the vertical offset from the optical axis of the focus point.
+    // The height can be negative if the target is inverted.
+    const height = this.getMagnification( objectPosition, opticPosition ) * ( objectPosition.y - opticPosition.y );
 
     // horizontal distance between target/image and optic.
     const targetOpticDistance = this.targetOpticDistanceProperty.value;
