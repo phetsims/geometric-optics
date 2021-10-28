@@ -58,6 +58,7 @@ class Target {
       } );
 
     // @public
+    //TODO visibleProperty should not be in the model
     this.visibleProperty = new BooleanProperty( false );
 
     // @public {DerivedProperty.<Vector2>}
