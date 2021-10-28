@@ -79,8 +79,7 @@ class Target {
         const horizontalDisplacement = this.opticSign * targetOpticDistance;
 
         return opticPosition.plusXY( horizontalDisplacement, height );
-      }
-    );
+      } );
 
     // @private {DerivedProperty.<number>}
     // the magnification can be negative, indicating the target/image is inverted.
