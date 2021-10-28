@@ -20,6 +20,7 @@ import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../scenery/js/util/Color.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import projectionScreenBottom_png from '../../../images/projectionScreenBottom_png.js';
 import projectionScreenTop_png from '../../../images/projectionScreenTop_png.js';
 import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
@@ -46,7 +47,10 @@ class ProjectionScreenNode extends Node {
 
       // pdom options
       tagName: 'div',
-      focusable: true
+      focusable: true,
+
+      // phet-io options
+      tandem: Tandem.REQUIRED
     }, options );
 
     // The screen part of the projection screen, drawn in perspective.
@@ -123,7 +127,8 @@ class ProjectionScreenNode extends Node {
       useInputListenerCursor: true,
       positionProperty: projectionScreen.positionProperty,
       dragBoundsProperty: dragBoundsProperty,
-      transform: modelViewTransform
+      transform: modelViewTransform,
+      tandem: options.tandem.createTandem( 'dragListener' )
     } ) );
 
     // pdom - dragging using the keyboard

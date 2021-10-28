@@ -68,7 +68,9 @@ class LensScreenView extends GeometricOpticsScreenView {
       model.projectionScreen,
       model.optic.positionProperty,
       this.modelBoundsProperty,
-      this.modelViewTransform
+      this.modelViewTransform, {
+        tandem: options.tandem.createTandem( 'projectionScreenNode' )
+      }
     );
 
     // LightSpot associated with the first source
