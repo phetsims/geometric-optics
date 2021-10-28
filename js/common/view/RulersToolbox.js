@@ -28,16 +28,20 @@ class RulersToolbox extends Panel {
     assert && assert( rulersLayer instanceof GeometricOpticRulersLayer );
 
     options = merge( {
+
+      // Pointer areas for ruler icons in the toolbox
+      touchAreaDilationX: 50,
+      touchAreaDilationY: 50,
+      mouseAreaDilationX: 50,
+      mouseAreaDilationY: 50,
+
+      // Panel options
       align: 'center',
       cornerRadius: 5,
       xMargin: 10,
       yMargin: 7,
       fill: 'white',
       stroke: 'grey',
-      touchAreaDilationX: 50,
-      touchAreaDilationY: 50,
-      mouseAreaDilationX: 50,
-      mouseAreaDilationY: 50,
 
       // phet-io
       tandem: Tandem.REQUIRED
