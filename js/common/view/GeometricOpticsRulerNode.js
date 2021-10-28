@@ -51,6 +51,9 @@ class GeometricOpticsRulerNode extends Node {
       }
     }, options );
 
+    assert && assert( options.rotation === undefined );
+    options.rotation = ruler.isVertical() ? -Math.PI / 2 : 0;
+
     super( options );
 
     // @private
@@ -62,11 +65,10 @@ class GeometricOpticsRulerNode extends Node {
     // @public {Bounds2} bounds of the toolbox
     this.toolboxBounds = toolboxBounds;
 
-    // create and add a SCENERY/RulerNode
+    // create and add a scenery-phet.RulerNode
     this.setRulerNode( modelViewTransform, this.rulerOptions );
 
-    // set the initial orientation, position and visibility of the ruler node
-    this.setOrientation();
+    // set the initial position and visibility
     this.setPosition();
     this.setInitialVisibility();
 
@@ -94,7 +96,7 @@ class GeometricOpticsRulerNode extends Node {
         }
       } );
 
-    // @public create and add drag listener
+    // @private
     this.dragListener = new DragListener( {
       cursor: 'pointer',
       useInputListenerCursor: true,
@@ -143,19 +145,6 @@ class GeometricOpticsRulerNode extends Node {
     this.visible = false;
   }
 
-  //TODO this seems unnecessary, only called once from constructor
-  /**
-   * Sets the orientation of the ruler
-   * @private
-   */
-  setOrientation() {
-    if ( this.ruler.isVertical() ) {
-
-      // update the rotation of the ruler
-      this.rotation = -Math.PI / 2;
-    }
-  }
-
   /**
    * Sets the position of the ruler
    * @public
@@ -193,7 +182,7 @@ class GeometricOpticsRulerNode extends Node {
   }
 
   /**
-   * Returns a Scenery Ruler Node appropriate for the model view transform
+   * Returns a scenery-phet.RulerNode appropriate for the model view transform
    * @private
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
@@ -244,7 +233,7 @@ class GeometricOpticsRulerNode extends Node {
   }
 
   /**
-   * Adds a new SCENERY/RulerNode to the parent, detaching the previous ruler Node.
+   * Adds a new scenery-phet.RulerNode to the parent, detaching the previous RulerNode.
    * @public
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
