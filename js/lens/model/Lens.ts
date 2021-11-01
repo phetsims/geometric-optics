@@ -10,15 +10,15 @@
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import Optic from '../../common/model/Optic.js';
+import Optic, { OpticConfig } from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 
 class Lens extends Optic {
 
   /**
-   * @param {Object} [options]
+   * @param {OpticConfig} [config]
    */
-  constructor( options ) {
+  constructor( config: OpticConfig ) {
     super( merge( {
       opticType: 'lens',
       opticShape: 'convex',
@@ -28,7 +28,7 @@ class Lens extends Optic {
 
       // phet-io options
       tandem: Tandem.REQUIRED
-    }, options ) );
+    } as OpticConfig, config ) as OpticConfig );
   }
 }
 

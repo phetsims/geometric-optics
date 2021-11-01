@@ -12,79 +12,103 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
-import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
-import required from '../../../../phet-core/js/required.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import geometricOptics from '../../geometricOptics.js';
 import OpticShapes from './OpticShapes.js';
+import OpticTypeEnum from './OpticTypeEnum.js';
+import OpticShapeEnum from './OpticShapeEnum.js';
+import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
+
+type OpticOptions = {
+  position?: Vector2, // position of the optic, in cm
+};
+
+type OpticConfig = OpticOptions & {
+  opticType: OpticTypeEnum, // type of optic, 'mirror' or 'lens'
+  opticShape: OpticShapeEnum, // initial shape of the optic, 'convex' or 'concave'
+  radiusOfCurvatureRange: RangeWithValue, // range of radius of curvature, in cm
+  indexOfRefractionRange: RangeWithValue, // range of index of refraction, a unitless ratio
+  diameterRange: RangeWithValue, // range of diameter, in cm
+  tandem: Tandem
+};
 
 class Optic {
 
+  // type of the optic
+  //TODO replace with subclassing
+  readonly opticType: OpticTypeEnum;
+
+  // shape of the optic
+  readonly opticShapeProperty: StringProperty;
+
+  // y coordinate is variable, while x coordinate is fixed
+  // NOTE: The Flash version allowed free dragging of the lens. But things can get more chaotic if you allow free
+  // dragging, and it didn't serve a specific learning goal. So for the HTML5 version, dragging is constrained to
+  // vertical (the y axis). If you attempt to change this, beware that you may encounter assumptions (possibly
+  // implicit) that will break the sim.
+  readonly yProperty: NumberProperty;
+
+  // position of the optic
+  readonly positionProperty: DerivedProperty<Vector2>;
+
+  // radius of curvature of the optic, positive is converging
+  readonly radiusOfCurvatureProperty: NumberProperty;
+
+  // index of refraction
+  readonly indexOfRefractionProperty: NumberProperty;
+
+  // diameter of the optic, controls the optic's aperture
+  readonly diameterProperty: NumberProperty;
+
+  // focal length of the optic, positive=converging, negative=diverging
+  readonly focalLengthProperty: DerivedProperty<number>;
+
+  // focal point to the left of the optic
+  readonly leftFocalPointProperty: DerivedProperty<Vector2>;
+
+  // focal point to the right of the optic
+  readonly rightFocalPointProperty: DerivedProperty<Vector2>;
+
+  // shapes related to the optic
+  readonly shapesProperty: DerivedProperty<OpticShapes>;
+
+  // Determines whether the optical axis is visible.
+  // PhET-iO only, cannot be controlled from the sim UI, and is not subject to reset.
+  // See https://github.com/phetsims/geometric-optics/issues/252
+  readonly opticalAxisVisibleProperty: BooleanProperty;
+
   /**
-   * @param {Object} config
+   * @param {OpticConfig} providedConfig
    */
-  constructor( config ) {
+  constructor( providedConfig: OpticConfig ) {
 
-    config = merge( {
-
-      // {OpticTypeEnum} type of optic, 'mirror' or 'lens'
-      opticType: required( config.opticType ),
-
-      // {OpticShapeEnum} initial shape of the optic, 'convex' or 'concave'
-      opticShape: required( config.opticShape ),
-
-      // {Vector2} initial position, at the center of the optic
+    const config = merge( {
       position: Vector2.ZERO,
-
-      // {RangeWithValue} range of radius of curvature, in cm
-      radiusOfCurvatureRange: required( config.radiusOfCurvatureRange ),
-
-      // {RangeWithValue} range of index of refraction, a unitless ratio
-      indexOfRefractionRange: required( config.indexOfRefractionRange ),
-
-      // {RangeWithValue} range of height for the optic, in cm
-      diameterRange: required( config.diameterRange ),
 
       // phet-io options
       tandem: Tandem.REQUIRED
-    }, config );
+    } as Required<OpticOptions>, providedConfig ) as Required<OpticConfig>;
 
-    assert && assert( typeof config.opticType === 'string' );
-    assert && assert( typeof config.opticShape === 'string' );
-    assert && assert( config.position instanceof Vector2 );
-    assert && assert( config.radiusOfCurvatureRange instanceof RangeWithValue );
-    assert && assert( config.indexOfRefractionRange instanceof RangeWithValue );
-    assert && assert( config.diameterRange instanceof RangeWithValue );
-
-    // @private {OpticTypeEnum} type of the optic
-    //TODO handle with subclassing
     this.opticType = config.opticType;
 
-    // @public shape of the optic
-    //TODO rename to opticShapeProperty
-    this.curveProperty = new StringProperty( config.opticShape, {
-      tandem: config.tandem.createTandem( 'curveProperty' ),
+    //TODO this allows any string, should be Property<OpticShapeEnum>
+    this.opticShapeProperty = new StringProperty( config.opticShape, {
+      tandem: config.tandem.createTandem( 'opticShapeProperty' ),
       phetioDocumentation: 'describes the shape of the optic'
     } );
 
-    // @public y coordinate is variable, while x coordinate is fixed
-    // NOTE: The Flash version allowed free dragging of the lens. But things can get more chaotic if you allow free
-    // dragging, and it didn't serve a specific learning goal. So for the HTML5 version, dragging is constrained to
-    // vertical (the y axis). If you attempt to change this, beware that you may encounter assumptions (possibly
-    // implicit) that will break the sim.
     this.yProperty = new NumberProperty( config.position.y, {
       units: 'cm',
       tandem: config.tandem.createTandem( 'yProperty' ),
       phetioDocumentation: 'The y (vertical) position of the optic'
     } );
 
-    // @public {DerivedProperty.<number>} position of the optic
     this.positionProperty = new DerivedProperty( [ this.yProperty ],
-      y => new Vector2( config.position.x, y ), {
+      ( y: number ) => new Vector2( config.position.x, y ), {
         units: 'cm',
         tandem: config.tandem.createTandem( 'positionProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
@@ -93,35 +117,30 @@ class Optic {
                              'See yPositionProperty to change the y position.'
       } );
 
-    // @public radius of curvature of the optic, positive is converging
     this.radiusOfCurvatureProperty = new NumberProperty( config.radiusOfCurvatureRange.defaultValue, {
       units: 'cm',
       range: config.radiusOfCurvatureRange,
       tandem: config.tandem.createTandem( 'radiusOfCurvatureProperty' )
     } );
 
-    // @public index of refraction of the lens
     this.indexOfRefractionProperty = new NumberProperty( config.indexOfRefractionRange.defaultValue, {
       range: config.indexOfRefractionRange,
       tandem: config.tandem.createTandem( 'indexOfRefractionProperty' )
     } );
 
-    // @public diameter of the optic, controls the optic's aperture
     this.diameterProperty = new NumberProperty( config.diameterRange.defaultValue, {
       units: 'cm',
       range: config.diameterRange,
       tandem: config.tandem.createTandem( 'diameterProperty' )
     } );
 
-    // @public {DerivedProperty.<number>} focal length of the optic
-    // positive indicate the optic is converging whereas negative indicates the optic is diverging.
     this.focalLengthProperty = new DerivedProperty(
-      [ this.curveProperty, this.radiusOfCurvatureProperty, this.indexOfRefractionProperty ],
-      ( curve, radiusOfCurvature, indexOfRefraction ) => {
+      [ this.opticShapeProperty, this.radiusOfCurvatureProperty, this.indexOfRefractionProperty ],
+      ( opticShape: OpticShapeEnum, radiusOfCurvature: number, indexOfRefraction: number ) => {
 
         // A positive sign indicates the optic is converging.
-        // Sign is determined based on the curve and the type of optic.
-        const sign = this.isConverging( curve ) ? 1 : -1;
+        // Sign is determined based on the shape and the type of optic.
+        const sign = this.isConverging( opticShape ) ? 1 : -1;
 
         return sign * radiusOfCurvature / ( 2 * ( indexOfRefraction - 1 ) );
       }, {
@@ -130,32 +149,28 @@ class Optic {
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
       } );
 
-    // @public {DerivedProperty.<Vector2>} focal point to the left of the optic
     this.leftFocalPointProperty = new DerivedProperty(
       [ this.positionProperty, this.focalLengthProperty ],
-      ( opticPosition, focalLength ) => opticPosition.plusXY( -Math.abs( focalLength ), 0 ), {
+      ( position: Vector2, focalLength: number ) => position.plusXY( -Math.abs( focalLength ), 0 ), {
         units: 'cm',
         tandem: config.tandem.createTandem( 'leftFocalPointProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
       } );
 
-    // @public {DerivedProperty.<Vector2>} focal point to the right of the optic
     this.rightFocalPointProperty = new DerivedProperty(
       [ this.positionProperty, this.focalLengthProperty ],
-      ( opticPosition, focalLength ) => opticPosition.plusXY( Math.abs( focalLength ), 0 ), {
+      ( position: Vector2, focalLength: number ) => position.plusXY( Math.abs( focalLength ), 0 ), {
         units: 'cm',
         tandem: config.tandem.createTandem( 'rightFocalPointProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
       } );
 
-    // @public {DerivedProperty.<OpticShapes>} shapes related to the optic
     this.shapesProperty = new DerivedProperty(
-      [ this.curveProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
-      ( curve, radiusOfCurvature, diameter ) => new OpticShapes( config.opticType, curve, radiusOfCurvature, diameter )
+      [ this.opticShapeProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
+      ( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number ) =>
+        new OpticShapes( config.opticType, opticShape, radiusOfCurvature, diameter )
     );
 
-    // @public PhET-iO only, cannot be controlled from the sim UI, and is not subject to reset.
-    // See https://github.com/phetsims/geometric-optics/issues/252
     this.opticalAxisVisibleProperty = new BooleanProperty( true, {
       tandem: config.tandem.createTandem( 'opticalAxisVisibleProperty' )
     } );
@@ -165,7 +180,7 @@ class Optic {
    * @public
    */
   reset() {
-    this.curveProperty.reset();
+    this.opticShapeProperty.reset();
     this.yProperty.reset();
     this.radiusOfCurvatureProperty.reset();
     this.indexOfRefractionProperty.reset();
@@ -205,7 +220,7 @@ class Optic {
    * @param {OpticShapeEnum} opticShape
    * @returns {boolean}
    */
-  isConcave( opticShape ) {
+  isConcave( opticShape: OpticShapeEnum ) {
     return ( opticShape === 'concave' );
   }
 
@@ -215,7 +230,7 @@ class Optic {
    * @param {OpticShapeEnum} opticShape
    * @returns {boolean}
    */
-  isConvex( opticShape ) {
+  isConvex( opticShape: OpticShapeEnum ) {
     return ( opticShape === 'convex' );
   }
 
@@ -226,7 +241,7 @@ class Optic {
    * @param {OpticShapeEnum} opticShape
    * @returns {boolean}
    */
-  isConverging( opticShape ) {
+  isConverging( opticShape: OpticShapeEnum ) {
     return ( this.isConvex( opticShape ) && this.isLens() ) || ( this.isConcave( opticShape ) && this.isMirror() );
   }
 
@@ -236,7 +251,7 @@ class Optic {
    * @param {OpticShapeEnum} opticShape
    * @returns {boolean}
    */
-  isDiverging( opticShape ) {
+  isDiverging( opticShape: OpticShapeEnum ) {
     return !this.isConverging( opticShape );
   }
 
@@ -258,8 +273,7 @@ class Optic {
    * @param {Shape} shape
    * @returns {Shape}
    */
-  translatedShape( shape ) {
-    assert && assert( shape instanceof Shape );
+  translatedShape( shape: Shape ) {
     return shape.transformed( Matrix3.translationFromVector( this.positionProperty.value ) );
   }
 
@@ -297,7 +311,7 @@ class Optic {
    * @param {Vector2} targetPoint
    * @returns {Vector2}
    */
-  getTopPoint( sourcePoint, targetPoint ) {
+  getTopPoint( sourcePoint: Vector2, targetPoint: Vector2 ) {
     return this.getExtremumPoint( sourcePoint, targetPoint, true /* isTop */ );
   }
 
@@ -308,7 +322,7 @@ class Optic {
    * @param {Vector2} targetPoint
    * @returns {Vector2}
    */
-  getBottomPoint( sourcePoint, targetPoint ) {
+  getBottomPoint( sourcePoint: Vector2, targetPoint: Vector2 ) {
     return this.getExtremumPoint( sourcePoint, targetPoint, false /* isTop */ );
   }
 
@@ -321,7 +335,7 @@ class Optic {
    * @param {boolean} isTop
    * @returns {Vector2}
    */
-  getExtremumPoint( sourcePoint, targetPoint, isTop ) {
+  getExtremumPoint( sourcePoint: Vector2, targetPoint: Vector2, isTop: boolean ) {
     assert && assert( sourcePoint instanceof Vector2 );
     assert && assert( targetPoint instanceof Vector2 );
     assert && assert( typeof isTop === 'boolean' );
@@ -330,7 +344,7 @@ class Optic {
     const opticBounds = this.getOpticBounds().erodedY( 1e-6 );
 
     // convenience variables
-    const isConcave = this.isConcave( this.curveProperty.value );
+    const isConcave = this.isConcave( this.opticShapeProperty.value );
     const leftPoint = isTop ? opticBounds.leftTop : opticBounds.leftBottom;
     const rightPoint = isTop ? opticBounds.rightTop : opticBounds.rightBottom;
 
@@ -379,4 +393,6 @@ class Optic {
 }
 
 geometricOptics.register( 'Optic', Optic );
+
 export default Optic;
+export { OpticConfig };

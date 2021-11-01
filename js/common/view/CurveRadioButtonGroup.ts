@@ -62,8 +62,7 @@ class CurveRadioButtonGroup extends RectangularRadioButtonGroup {
       }
     ];
 
-    // create the rectangular radio button group with the icons
-    super( optic.curveProperty, buttonItems, options );
+    super( optic.opticShapeProperty, buttonItems, options );
   }
 
   /**

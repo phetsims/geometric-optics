@@ -8,5 +8,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-type OpticShapeEnum = 'convex' | 'concave';
+const OpticShapeValues = [ 'convex', 'concave' ] as const;
+type OpticShapeEnum = ( typeof OpticShapeValues )[number];
+
+export { OpticShapeValues };
 export default OpticShapeEnum;

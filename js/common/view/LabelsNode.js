@@ -54,12 +54,12 @@ class LabelsNode extends Node {
 
     const opticLabel = new LabelNode( '', opticLabelPositionProperty, modelViewTransformProperty );
 
-    model.optic.curveProperty.link( curve => {
+    model.optic.opticShapeProperty.link( opticShape => {
       let text;
-      if ( model.optic.isConvex( curve ) ) {
+      if ( model.optic.isConvex( opticShape ) ) {
         text = model.optic.isLens() ? geometricOpticsStrings.convexLens : geometricOpticsStrings.convexMirror;
       }
-      else if ( model.optic.isConcave( curve ) ) {
+      else if ( model.optic.isConcave( opticShape ) ) {
         text = model.optic.isLens() ? geometricOpticsStrings.concaveLens : geometricOpticsStrings.concaveMirror;
       }
       opticLabel.setText( text );

@@ -51,7 +51,7 @@ class LightRays {
         optic.positionProperty,
         optic.diameterProperty,
         optic.focalLengthProperty,
-        optic.curveProperty ],
+        optic.opticShapeProperty ],
       ( sourcePosition, raysMode, time, representation ) => {
 
         // Clear the arrays.
