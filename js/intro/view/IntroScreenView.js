@@ -12,7 +12,7 @@ import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.j
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import geometricOptics from '../../geometricOptics.js';
-import IntroModel from '.././model/IntroModel.js';
+import IntroModel from '../model/IntroModel.js';
 
 class IntroScreenView extends ScreenView {
 

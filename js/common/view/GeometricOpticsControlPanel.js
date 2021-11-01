@@ -121,7 +121,7 @@ class GeometricOpticsControlPanel extends Panel {
       } ) );
     numberControls.push( radiusOfCurvatureControl );
 
-    if ( optic.opticType === Optic.Type.LENS ) {
+    if ( optic.opticType === 'lens' ) {
       const indexOfRefractionControl = new NumberControl(
         geometricOpticsStrings.indexOfRefraction,
         optic.indexOfRefractionProperty,

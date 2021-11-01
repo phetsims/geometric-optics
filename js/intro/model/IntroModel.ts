@@ -15,7 +15,7 @@ class IntroModel {
   /**
    * @param {Object} [options]
    */
-  constructor( options ) {
+  constructor( options?: any ) { //TODO any
 
     options = merge( {
 
@@ -39,7 +39,7 @@ class IntroModel {
    * @param {number} dt - time step, in seconds
    * @public
    */
-  step( dt ) {
+  step( dt: number ) {
     //TODO
   }
 }

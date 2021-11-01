@@ -4,48 +4,59 @@
  * OpticShapes is the set of Shapes used to render a specific optic. All Shapes are in model coordinates.
  *
  * @author Martin Veillette
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import geometricOptics from '../../geometricOptics.js';
-import Optic from './Optic.js';
+import OpticTypeEnum from './OpticTypeEnum.js';
+import OpticShapeEnum from './OpticShapeEnum.js';
+
+type OpticShapesOptions = {
+
+  // Lens
+  isHollywooded: boolean, // does the radius of curvature parameter match the shape of the lens?
+  offsetRadius: number, //TODO document
+
+  // Mirror
+  mirrorThickness: number // thickness of the backing of the mirror, in cm
+};
 
 class OpticShapes {
 
+  // @public (read-only)
+  public frontShape: Shape; // the left facing contour of the optic. This can be used for ray hit testing
+  public backShape: Shape | null; // the right facing contour of the lens, used for ray hit testing. null for mirror.
+  public outlineShape: Shape; // the external surface of the lens, or the reflecting coating of the mirror
+  public fillShape: Shape; // the entire shape of the lens, or the backing of the mirror
+
   /**
-   * @param {Optic.Type} opticType
-   * @param {Optic.Curve} curve
+   * @param {OpticTypeEnum} opticType
+   * @param {OpticShapeEnum} opticShape
    * @param {number} radiusOfCurvature - radius of curvature at the center of the optic
    * @param {number} diameter - vertical height of the optic
-   * @param {Object} [options] - see setLensShapes and setMirrorShapes
+   * @param {OpticShapesOptions} [providedOptions]
    */
-  constructor( opticType, curve, radiusOfCurvature, diameter, options ) {
+  constructor( opticType: OpticTypeEnum, opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number,
+               providedOptions?: Partial<OpticShapesOptions> ) {
 
-    assert && assert( Optic.Type.includes( opticType ) );
-    assert && assert( Optic.Curve.includes( curve ) );
-    assert && assert( typeof radiusOfCurvature === 'number' && isFinite( radiusOfCurvature ) && radiusOfCurvature > 0 );
-    assert && assert( typeof diameter === 'number' && isFinite( diameter ) && diameter > 0 );
+    assert && assert( isFinite( radiusOfCurvature ) && radiusOfCurvature > 0 );
+    assert && assert( isFinite( diameter ) && diameter > 0 );
 
-    // @public (read-only) initialized by setLensShapes or setMirrorShapes
-    this.frontShape = null; // {Shape} the left facing contour of the optic. This can be used for ray hit testing
-    this.backShape = null; // {Shape|null} the right facing contour of the lens, used for ray hit testing. null for mirror.
-    this.outlineShape = null; // {Shape} the external surface of the lens, or the reflecting coating of the mirror
-    this.fillShape = null; // {Shape} the entire shape of the lens, or the backing of the mirror
+    //TODO initializers were added to appease TypeScript
+    this.frontShape = new Shape();
+    this.backShape = null;
+    this.outlineShape = new Shape();
+    this.fillShape = new Shape();
 
-    if ( opticType === Optic.Type.LENS ) {
-      this.setLensShapes( curve, radiusOfCurvature, diameter, options );
+    if ( opticType === 'lens' ) {
+      this.setLensShapes( opticShape, radiusOfCurvature, diameter, providedOptions );
     }
     else {
-      this.setMirrorShapes( curve, radiusOfCurvature, diameter, options );
+      this.setMirrorShapes( opticShape, radiusOfCurvature, diameter, providedOptions );
     }
-
-    assert && assert( this.frontShape instanceof Shape );
-    assert && assert( ( this.backShape instanceof Shape && opticType === Optic.Type.LENS ) ||
-                      ( this.backShape === null && opticType === Optic.Type.MIRROR ) );
-    assert && assert( this.outlineShape instanceof Shape );
-    assert && assert( this.fillShape instanceof Shape );
   }
 
   /**
@@ -55,17 +66,17 @@ class OpticShapes {
    * of curvature that is larger than diameter/2, a physical impossibility. The origin (0,0) is at the geometric
    * center of the lens.
    * @private
-   * @param {Optic.Curve} curve
+   * @param {OpticShapeEnum} opticShape
    * @param {number} radiusOfCurvature - radius of curvature
    * @param {number} diameter - height of the lens
-   * @param {Object} [options]
+   * @param {OpticShapesOptions} [providedOptions]
    */
-  setLensShapes( curve, radiusOfCurvature, diameter, options ) {
+  setLensShapes( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number, providedOptions?: Partial<OpticShapesOptions> ) {
 
-    options = merge( {
-      isHollywooded: true, // does the radius of curvature parameter match the shape of the lens?
+    const options = merge( {
+      isHollywooded: true,
       offsetRadius: 100
-    }, options );
+    }, providedOptions ) as OpticShapesOptions;
 
     const halfHeight = diameter / 2;
 
@@ -79,7 +90,7 @@ class OpticShapes {
     let frontShape; // the left facing portion of the lens
     let backShape; // the right facing  portion of the lens
 
-    if ( curve === Optic.Curve.CONVEX ) {
+    if ( opticShape === 'convex' ) {
 
       // two extrema points of the lens
       const top = new Vector2( 0, halfHeight );
@@ -110,7 +121,7 @@ class OpticShapes {
         .close();
     }
     else {
-      assert && assert( curve === Optic.Curve.CONCAVE );
+      assert && assert( opticShape === 'concave' );
 
       const midWidth = halfWidth;
 
@@ -158,17 +169,20 @@ class OpticShapes {
    * as opposed to the conventional, second surface mirror with the reflective surface behind a transparent substrate
    * such as glass or acrylic. The Shapes are drawn using quadratic Bezier curves.
    * @private
-   * @param {Optic.Curve} curve
+   * @param {OpticShapeEnum} opticShape
    * @param {number} radiusOfCurvature - radius of curvature at the center of the mirror
    * @param {number} diameter - vertical height of the mirror
-   * @param {Object} [options]
+   * @param {OpticShapesOptions} [providedOptions]
    */
-  setMirrorShapes( curve, radiusOfCurvature, diameter, options ) {
+  setMirrorShapes( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number, providedOptions?: Partial<OpticShapesOptions> ) {
     assert && assert( radiusOfCurvature > diameter / 2 );
 
-    options = merge( {
-      thickness: 5 // horizontal separation between the two edges of the surfaces at the middle part
-    }, options );
+    const options = merge( {
+      mirrorThickness: 5
+    }, providedOptions ) as OpticShapesOptions;
+
+    // convenience variable
+    const mirrorThickness = options.mirrorThickness;
 
     // convenience variable
     const halfHeight = diameter / 2;
@@ -180,12 +194,11 @@ class OpticShapes {
     const angle = Math.atan( halfHeight / radiusOfCurvature );
 
     // curveSign is +1 for convex and -1 for concave
-    const curveSign = ( curve === Optic.Curve.CONVEX ) ? 1 : -1;
+    const curveSign = ( opticShape === 'convex' ) ? 1 : -1;
 
-    // vector offset between the two top corners and bottom corners of the shape
-    // with a magnitude of option.thickness
-    const offsetTopVector = Vector2.createPolar( options.thickness, -curveSign * angle );
-    const offsetBottomVector = Vector2.createPolar( options.thickness, curveSign * angle );
+    // vector offset between the two top corners and bottom corners of the shape with a magnitude of mirrorThickness
+    const offsetTopVector = Vector2.createPolar( mirrorThickness, -curveSign * angle );
+    const offsetBottomVector = Vector2.createPolar( mirrorThickness, curveSign * angle );
 
     // four corners of the mirror shape
     const topLeft = new Vector2( curveSign * halfWidth, halfHeight );
@@ -194,9 +207,9 @@ class OpticShapes {
     const bottomRight = bottomLeft.plus( offsetBottomVector );
 
     // control points: Note that the curve will not go through the control points.
-    // rather, it will go through the two following points: (0,0) and ( options.thickness, 0 )
+    // rather, it will go through the two following points: (0,0) and ( mirrorThickness, 0 )
     const midLeft = new Vector2( -curveSign * halfWidth, 0 );
-    const midRight = midLeft.plusXY( options.thickness, 0 );
+    const midRight = midLeft.plusXY( mirrorThickness, 0 );
 
     // shapes drawn from top to bottom in counterclockwise fashion.
 
@@ -223,4 +236,6 @@ class OpticShapes {
 }
 
 geometricOptics.register( 'OpticShapes', OpticShapes );
+
 export default OpticShapes;
+export { OpticShapesOptions };

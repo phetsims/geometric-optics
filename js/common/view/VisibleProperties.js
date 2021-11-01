@@ -11,12 +11,11 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import Optic from '../model/Optic.js';
 
 class VisibleProperties {
 
   /**
-   * @param {Optic.Type} opticType
+   * @param {OpticTypeEnum} opticType
    * @param {Object} [options]
    */
   constructor( opticType, options ) {
@@ -49,7 +48,7 @@ class VisibleProperties {
 
     // @public visibility of the guides, which are irrelevant for mirror
     this.guidesVisibleProperty = new BooleanProperty( false, {
-      validValues: opticType === ( Optic.Type.LENS ) ? [ true, false ] : [ false ],
+      validValues: ( opticType === 'lens' ) ? [ true, false ] : [ false ],
       tandem: options.tandem.createTandem( 'guidesVisibleProperty' )
     } );
 

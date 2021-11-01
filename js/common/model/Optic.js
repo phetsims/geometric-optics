@@ -9,13 +9,12 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import StringProperty from '../../../../axon/js/StringProperty.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
-import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -32,14 +31,14 @@ class Optic {
 
     config = merge( {
 
-      // {Optic.Type} type of optic, MIRROR or LENS
+      // {OpticTypeEnum} type of optic, 'mirror' or 'lens'
       opticType: required( config.opticType ),
 
-      // {Optic.Curve} initial curve of the optic, CONVEX or CONCAVE
-      initialCurve: required( config.initialCurve ),
+      // {OpticShapeEnum} initial shape of the optic, 'convex' or 'concave'
+      opticShape: required( config.opticShape ),
 
-      // {Vector2} center of the optic
-      initialPosition: Vector2.ZERO,
+      // {Vector2} initial position, at the center of the optic
+      position: Vector2.ZERO,
 
       // {RangeWithValue} range of radius of curvature, in cm
       radiusOfCurvatureRange: required( config.radiusOfCurvatureRange ),
@@ -54,21 +53,22 @@ class Optic {
       tandem: Tandem.REQUIRED
     }, config );
 
-    assert && assert( Optic.Type.includes( config.opticType ) );
-    assert && assert( Optic.Curve.includes( config.initialCurve ) );
-    assert && assert( config.initialPosition instanceof Vector2 );
+    assert && assert( typeof config.opticType === 'string' );
+    assert && assert( typeof config.opticShape === 'string' );
+    assert && assert( config.position instanceof Vector2 );
     assert && assert( config.radiusOfCurvatureRange instanceof RangeWithValue );
     assert && assert( config.indexOfRefractionRange instanceof RangeWithValue );
     assert && assert( config.diameterRange instanceof RangeWithValue );
 
-    // @private {Optic.Type} type of the optic
+    // @private {OpticTypeEnum} type of the optic
     //TODO handle with subclassing
     this.opticType = config.opticType;
 
-    // @public type of curve of the optic
-    this.curveProperty = new EnumerationProperty( Optic.Curve, config.initialCurve, {
+    // @public shape of the optic
+    //TODO rename to opticShapeProperty
+    this.curveProperty = new StringProperty( config.opticShape, {
       tandem: config.tandem.createTandem( 'curveProperty' ),
-      phetioDocumentation: 'describes the shape of the optic\'s curve'
+      phetioDocumentation: 'describes the shape of the optic'
     } );
 
     // @public y coordinate is variable, while x coordinate is fixed
@@ -76,7 +76,7 @@ class Optic {
     // dragging, and it didn't serve a specific learning goal. So for the HTML5 version, dragging is constrained to
     // vertical (the y axis). If you attempt to change this, beware that you may encounter assumptions (possibly
     // implicit) that will break the sim.
-    this.yProperty = new NumberProperty( config.initialPosition.y, {
+    this.yProperty = new NumberProperty( config.position.y, {
       units: 'cm',
       tandem: config.tandem.createTandem( 'yProperty' ),
       phetioDocumentation: 'The y (vertical) position of the optic'
@@ -84,7 +84,7 @@ class Optic {
 
     // @public {DerivedProperty.<number>} position of the optic
     this.positionProperty = new DerivedProperty( [ this.yProperty ],
-      y => new Vector2( config.initialPosition.x, y ), {
+      y => new Vector2( config.position.x, y ), {
         units: 'cm',
         tandem: config.tandem.createTandem( 'positionProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
@@ -187,7 +187,7 @@ class Optic {
    * @returns {boolean}
    */
   isLens() {
-    return ( this.opticType === Optic.Type.LENS );
+    return ( this.opticType === 'lens' );
   }
 
   /**
@@ -196,52 +196,48 @@ class Optic {
    * @returns {boolean}
    */
   isMirror() {
-    return ( this.opticType === Optic.Type.MIRROR );
+    return ( this.opticType === 'mirror' );
   }
 
   /**
    * Determines whether the optic is concave.
    * @public
-   * @param {Optic.Curve} curve
+   * @param {OpticShapeEnum} opticShape
    * @returns {boolean}
    */
-  isConcave( curve ) {
-    assert && assert( Optic.Curve.includes( curve ) );
-    return ( curve === Optic.Curve.CONCAVE );
+  isConcave( opticShape ) {
+    return ( opticShape === 'concave' );
   }
 
   /**
    * Determines whether the optic is convex.
    * @public
-   * @param {Optic.Curve} curve
+   * @param {OpticShapeEnum} opticShape
    * @returns {boolean}
    */
-  isConvex( curve ) {
-    assert && assert( Optic.Curve.includes( curve ) );
-    return ( curve === Optic.Curve.CONVEX );
+  isConvex( opticShape ) {
+    return ( opticShape === 'convex' );
   }
 
   /**
    * Determines whether the optic has the potential to converge rays.
    * A convex lens and a concave mirror are converging optics.
    * @public
-   * @param {Optic.Curve} curve
+   * @param {OpticShapeEnum} opticShape
    * @returns {boolean}
    */
-  isConverging( curve ) {
-    assert && assert( Optic.Curve.includes( curve ) );
-    return ( this.isConvex( curve ) && this.isLens() ) || ( this.isConcave( curve ) && this.isMirror() );
+  isConverging( opticShape ) {
+    return ( this.isConvex( opticShape ) && this.isLens() ) || ( this.isConcave( opticShape ) && this.isMirror() );
   }
 
   /**
    * Determines whether the optic has the potential to diverge rays.
    * @public
-   * @param {Optic.Curve} curve
+   * @param {OpticShapeEnum} opticShape
    * @returns {boolean}
    */
-  isDiverging( curve ) {
-    assert && assert( Optic.Curve.includes( curve ) );
-    return !this.isConverging( curve );
+  isDiverging( opticShape ) {
+    return !this.isConverging( opticShape );
   }
 
   //TODO handle with subclassing
@@ -381,11 +377,6 @@ class Optic {
     return extremumPoint;
   }
 }
-
-//TODO handle with subclassing
-Optic.Type = Enumeration.byKeys( [ 'LENS', 'MIRROR' ] );
-
-Optic.Curve = Enumeration.byKeys( [ 'CONVEX', 'CONCAVE' ] );
 
 geometricOptics.register( 'Optic', Optic );
 export default Optic;

@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * LensScreen is the 'Lens' screen.
+ * MirrorScreen is the 'Mirror' screen.
  *
  * @author Martin Veillette
  */
@@ -11,33 +11,37 @@ import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import merge from '../../../phet-core/js/merge.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import GeometricOpticsColors from '../common/GeometricOpticsColors.js';
-import Optic from '../common/model/Optic.js';
 import CurveRadioButtonGroup from '../common/view/CurveRadioButtonGroup.js';
 import geometricOptics from '../geometricOptics.js';
 import geometricOpticsStrings from '../geometricOpticsStrings.js';
-import LensModel from './model/LensModel.js';
-import LensScreenView from './view/LensScreenView.js';
+import MirrorModel from './model/MirrorModel.js';
+import MirrorScreenView from './view/MirrorScreenView.js';
 
-class LensScreen extends Screen {
+//TODO replace with ScreenOptions
+type MirrorScreenOptions = {
+  tandem: Tandem,
+};
+
+class MirrorScreen extends Screen {
 
   /**
-   * @param {Object} [options]
+   * @param {MirrorScreenOptions} [providedOptions]
    */
-  constructor( options ) {
+  constructor( providedOptions?: Partial<MirrorScreenOptions> ) {
 
-    options = merge( {
-      name: geometricOpticsStrings.screen.lens,
+    const options = merge( {
+      name: geometricOpticsStrings.screen.mirror,
       homeScreenIcon: createScreenIcon(),
       showUnselectedHomeScreenIconFrame: true,
       backgroundColorProperty: GeometricOpticsColors.screenBackgroundColorProperty,
 
       // phet-io options
       tandem: Tandem.REQUIRED
-    }, options );
+    }, providedOptions ) as MirrorScreenOptions;
 
     super(
-      () => new LensModel( { tandem: options.tandem.createTandem( 'model' ) } ),
-      model => new LensScreenView( model, { tandem: options.tandem.createTandem( 'view' ) } ),
+      () => new MirrorModel( { tandem: options.tandem.createTandem( 'model' ) } ),
+      ( model: MirrorModel ) => new MirrorScreenView( model, { tandem: options.tandem.createTandem( 'view' ) } ),
       options
     );
   }
@@ -58,15 +62,15 @@ class LensScreen extends Screen {
  */
 function createScreenIcon() {
 
-  const convexLensNode = CurveRadioButtonGroup.createIconNode( Optic.Type.LENS, Optic.Curve.CONVEX, {
+  const concaveMirrorNode = CurveRadioButtonGroup.createIconNode( 'mirror', 'concave', {
     radius: 20,
     diameter: 30
   } );
 
-  return new ScreenIcon( convexLensNode, {
+  return new ScreenIcon( concaveMirrorNode, {
     fill: GeometricOpticsColors.screenBackgroundColorProperty
   } );
 }
 
-geometricOptics.register( 'LensScreen', LensScreen );
-export default LensScreen;
+geometricOptics.register( 'MirrorScreen', MirrorScreen );
+export default MirrorScreen;

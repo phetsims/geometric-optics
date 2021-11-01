@@ -20,8 +20,8 @@ class Mirror extends Optic {
    */
   constructor( options ) {
     super( merge( {
-      opticType: Optic.Type.MIRROR,
-      initialCurve: Optic.Curve.CONCAVE,
+      opticType: 'mirror',
+      opticShape: 'concave',
       radiusOfCurvatureRange: new RangeWithValue( 150, 250, 200 ), // in cm
 
       // Although a mirror does not have an index of refraction, its focal length is equivalent to a lens

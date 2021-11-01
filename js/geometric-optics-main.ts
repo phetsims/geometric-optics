@@ -27,7 +27,7 @@ const simOptions = {
   },
 
   // Creates content for the Options dialog, accessible via the PhET menu
-  createOptionsDialogContent: tandem => new GeometricOpticsGlobalOptionsNode( {
+  createOptionsDialogContent: ( tandem: Tandem ) => new GeometricOpticsGlobalOptionsNode( {
     tandem: tandem
   } )
 };
