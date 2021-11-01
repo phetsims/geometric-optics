@@ -11,7 +11,7 @@ import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import merge from '../../../phet-core/js/merge.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import GeometricOpticsColors from '../common/GeometricOpticsColors.js';
-import CurveRadioButtonGroup from '../common/view/CurveRadioButtonGroup.js';
+import OpticShapeRadioButtonGroup from '../common/view/OpticShapeRadioButtonGroup.js';
 import geometricOptics from '../geometricOptics.js';
 import geometricOpticsStrings from '../geometricOpticsStrings.js';
 import MirrorModel from './model/MirrorModel.js';
@@ -62,7 +62,7 @@ class MirrorScreen extends Screen {
  */
 function createScreenIcon() {
 
-  const concaveMirrorNode = CurveRadioButtonGroup.createIconNode( 'mirror', 'concave', {
+  const concaveMirrorNode = OpticShapeRadioButtonGroup.createIconNode( 'mirror', 'concave', {
     radius: 20,
     diameter: 30
   } );

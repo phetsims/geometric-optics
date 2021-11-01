@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * CurveRadioButtonGroup is the radio button group for controlling the curve shape of the lens or mirror.
+ * OpticShapeRadioButtonGroup is the radio button group for controlling the curve shape of the lens or mirror.
  *
  * @author Sarah Chang (Swarthmore College)
  * @author Chris Malley (PixelZoom, Inc.)
@@ -16,21 +16,18 @@ import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import Optic from '../model/Optic.js';
 import OpticShapeEnum from '../model/OpticShapeEnum.js';
-import OpticShapes from '../model/OpticShapes.js';
-import { OpticShapesOptions } from '../model/OpticShapes.js';
+import OpticShapes, { OpticShapesOptions } from '../model/OpticShapes.js';
 import OpticTypeEnum from '../model/OpticTypeEnum.js';
 
-type CurveRadioButtonGroupOptions = any; //TODO any
-
-class CurveRadioButtonGroup extends RectangularRadioButtonGroup {
+class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup {
 
   /**
    * @param {Optic} optic
-   * @param {CurveRadioButtonGroupOptions} [providedOptions]
+   * @param {Object} [options]
    */
-  constructor( optic: Optic, providedOptions?: Partial<CurveRadioButtonGroupOptions> ) {
+  constructor( optic: Optic, options: any ) { //TODO any
 
-    const options = merge( {
+    options = merge( {
 
       // RectangularRadioButtonGroup options
       orientation: 'horizontal',
@@ -46,18 +43,18 @@ class CurveRadioButtonGroup extends RectangularRadioButtonGroup {
 
       // phet-io options
       tandem: Tandem.REQUIRED
-    }, providedOptions ) as CurveRadioButtonGroupOptions;
+    }, options );
 
     //TODO provide list of supported OpticShapeType values to constructor, in desired order
     const buttonItems = [
       {
         value: 'concave',
-        node: CurveRadioButtonGroup.createIconNode( optic.opticType, 'concave' ),
+        node: OpticShapeRadioButtonGroup.createIconNode( optic.opticType, 'concave' ),
         tandemName: 'concaveRadioButton'
       },
       {
         value: 'convex',
-        node: CurveRadioButtonGroup.createIconNode( optic.opticType, 'convex' ),
+        node: OpticShapeRadioButtonGroup.createIconNode( optic.opticType, 'convex' ),
         tandemName: 'convexRadioButton'
       }
     ];
@@ -99,5 +96,5 @@ class CurveRadioButtonGroup extends RectangularRadioButtonGroup {
   }
 }
 
-geometricOptics.register( 'CurveRadioButtonGroup', CurveRadioButtonGroup );
-export default CurveRadioButtonGroup;
+geometricOptics.register( 'OpticShapeRadioButtonGroup', OpticShapeRadioButtonGroup );
+export default OpticShapeRadioButtonGroup;

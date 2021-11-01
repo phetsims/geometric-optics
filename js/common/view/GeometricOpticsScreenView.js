@@ -27,7 +27,7 @@ import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
 import GeometricOpticsModel from '../model/GeometricOpticsModel.js';
 import RaysMode from '../model/RaysMode.js';
-import CurveRadioButtonGroup from './CurveRadioButtonGroup.js';
+import OpticShapeRadioButtonGroup from './OpticShapeRadioButtonGroup.js';
 import DebugPointNode from './DebugPointNode.js';
 import FocalPointNode from './FocalPointNode.js';
 import GeometricOpticsControlPanel from './GeometricOpticsControlPanel.js';
@@ -138,10 +138,10 @@ class GeometricOpticsScreenView extends ScreenView {
     // pass the bounds of the toolbox to the rulers for their return to toolbox
     rulersLayer.setToolboxBounds( toolbox.bounds );
 
-    // create the control buttons to toggle between convex and concave optic at the left bottom
-    const curveRadioButtonGroup = new CurveRadioButtonGroup( model.optic, {
+    // radio buttons for the shape of the optic
+    const opticShapeRadioButtonGroup = new OpticShapeRadioButtonGroup( model.optic, {
       centerTop: erodedLayoutBounds.centerTop,
-      tandem: options.tandem.createTandem( 'curveRadioButtonGroup' )
+      tandem: options.tandem.createTandem( 'opticShapeRadioButtonGroup' )
     } );
 
     // Parent for any popups
@@ -195,7 +195,7 @@ class GeometricOpticsScreenView extends ScreenView {
     const modelBoundsProperty = new DerivedProperty(
       [ this.visibleBoundsProperty, zoomTransformProperty ],
       ( visibleBounds, zoomTransform ) => {
-        const viewBounds = new Bounds2( visibleBounds.left, curveRadioButtonGroup.bottom,
+        const viewBounds = new Bounds2( visibleBounds.left, opticShapeRadioButtonGroup.bottom,
           visibleBounds.right, controlPanel.top );
         return zoomTransform.viewToModelBounds( viewBounds );
       } );
@@ -336,7 +336,7 @@ class GeometricOpticsScreenView extends ScreenView {
       children: [
         experimentAreaNode,
         labelsNode,
-        curveRadioButtonGroup,
+        opticShapeRadioButtonGroup,
         controlPanel,
         showHideToggleButton,
         resetAllButton,
@@ -362,7 +362,7 @@ class GeometricOpticsScreenView extends ScreenView {
     //TODO add Object, second point, light sources, toolbox, rulers
     screenViewRootNode.pdomOrder = [
       representationComboBox,
-      curveRadioButtonGroup,
+      opticShapeRadioButtonGroup,
       opticNode,
       zoomButtonGroup,
       controlPanel,
