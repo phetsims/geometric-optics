@@ -15,6 +15,7 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import geometricOptics from '../../geometricOptics.js';
 
+// The API is limited to these options.
 type DebugPointNodeOptions = {
   fill?: ColorDef
   radius?: number
