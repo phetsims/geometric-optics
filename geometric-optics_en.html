@@ -35,6 +35,7 @@
         "requirejsNamespace": "GEOMETRIC_OPTICS",
         "simulation": true,
         "runnable": true,
+        "typescript": true,
         "colorProfiles": [
           "default",
           "projector"
@@ -137,7 +138,7 @@
 
   // Module loading in compilation-free (development) mode will be kicked off once strings are loaded.
   // This is done in load-unbuilt-strings.js
-  window.phet.chipper.loadModules = () => loadURL( 'js/geometric-optics-main.js', 'module' );
+  window.phet.chipper.loadModules = () => loadURL( '../chipper/dist/geometric-optics/js/geometric-optics-main.js', 'module' );
 </script>
 </body>
 </html>
