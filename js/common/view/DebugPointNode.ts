@@ -5,35 +5,39 @@
  * point, and stays synchronized with that point.
  *
  * @author Martin Veillette
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Property from '../../../../axon/js/Property.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import geometricOptics from '../../geometricOptics.js';
+
+type DebugPointNodeOptions = {
+  fill?: ColorDef
+  radius?: number
+};
 
 class DebugPointNode extends Circle {
 
   /**
    * @param {Property.<Vector2>} positionProperty
    * @param {ModelViewTransform2} modelViewTransform
-   * @param {Object} [options]
+   * @param {Object} [providedOptions]
    * */
-  constructor( positionProperty, modelViewTransform, options ) {
+  constructor( positionProperty: Property<Vector2>, modelViewTransform: ModelViewTransform2, providedOptions: DebugPointNodeOptions ) {
 
-    assert && assert( positionProperty instanceof Property );
-    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
-
-    options = merge( {
+    const options = merge( {
       fill: 'white',
       radius: 2
-    }, options );
+    } as DebugPointNodeOptions, providedOptions ) as Required< DebugPointNodeOptions >;
 
     super( options.radius, options );
 
     // update position of disk
-    positionProperty.link( position => {
+    positionProperty.link( ( position: Vector2 ) => {
       this.center = modelViewTransform.modelToViewPosition( position );
     } );
   }
@@ -50,3 +54,4 @@ class DebugPointNode extends Circle {
 
 geometricOptics.register( 'DebugPointNode', DebugPointNode );
 export default DebugPointNode;
+export { DebugPointNodeOptions };
