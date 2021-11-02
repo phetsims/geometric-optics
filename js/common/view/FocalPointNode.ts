@@ -9,6 +9,7 @@
 import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import PlusShape from '../../../../scenery-phet/js/PlusShape.js';
@@ -34,10 +35,7 @@ class FocalPointNode extends Node {
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( focalPointProperty, modelViewTransform, options ) {
-
-    assert && assert( focalPointProperty instanceof Property );
-    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
+  constructor( focalPointProperty: Property<Vector2>, modelViewTransform: ModelViewTransform2, options?: any ) { //TODO any
 
     options = merge( {}, DEFAULT_OPTIONS, options );
 
@@ -46,7 +44,7 @@ class FocalPointNode extends Node {
 
     super( options );
 
-    focalPointProperty.link( focalPoint => {
+    focalPointProperty.link( ( focalPoint: Vector2 ) => {
       this.center = modelViewTransform.modelToViewPosition( focalPoint );
     } );
   }
@@ -66,7 +64,7 @@ class FocalPointNode extends Node {
    * @param {Object} [options] - options for Path
    * @returns {Node}
    */
-  static createIcon( options ) {
+  static createIcon( options?: any ) { //TODO any
     options = merge( {}, DEFAULT_OPTIONS, options );
     let shape = new PlusShape( options.size );
     shape = shape.transformed( Matrix3.rotation2( Math.PI / 4 ) );
