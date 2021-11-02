@@ -9,6 +9,7 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import StringProperty from '../../../../axon/js/StringProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -18,7 +19,7 @@ import ProjectionScreen from '../../lens/model/ProjectionScreen.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import LightRays from './LightRays.js';
 import Optic from './Optic.js';
-import RaysMode from './RaysMode.js';
+import { RaysModeValues } from './RaysModeEnum.js';
 import Representation from './Representation.js';
 import Ruler from './Ruler.js';
 import SecondPoint from './SecondPoint.js';
@@ -96,7 +97,9 @@ class GeometricOpticsModel {
     } );
 
     // @public determines the representation used for rays
-    this.raysModeProperty = new EnumerationProperty( RaysMode, RaysMode.MARGINAL, {
+    //TODO Property.<RaysModeEnum>
+    this.raysModeProperty = new StringProperty( 'marginal', {
+      values: RaysModeValues,
       tandem: options.tandem.createTandem( 'raysModeProperty' )
     } );
 

@@ -16,13 +16,12 @@ import geometricOptics from '../../geometricOptics.js';
 import LightRay from './LightRay.js';
 import Optic from './Optic.js';
 import Ray from './Ray.js';
-import RaysMode from './RaysMode.js';
 
 class LightRays {
 
   /**
    * @param {Property.<number>} timeProperty
-   * @param {Property.<RaysMode>} raysModeProperty
+   * @param {Property.<RaysModeEnum>} raysModeProperty
    * @param {EnumerationProperty.<Representation>} representationProperty
    * @param {Property.<Vector2>} sourceObjectPositionProperty
    * @param {ProjectionScreen} projectionScreen
@@ -71,10 +70,10 @@ class LightRays {
         const isProjectionScreenPresent = !representation.isObject;
 
         // is the Rays mode set to Principal
-        const isPrincipal = ( raysMode === RaysMode.PRINCIPAL );
+        const isPrincipal = ( raysMode === 'principal' );
 
         // set the target's visibility to false initially (unless there are no rays)
-        target.visibleProperty.value = ( raysMode === RaysMode.NONE );
+        target.visibleProperty.value = ( raysMode === 'none' );
 
         // loop over the direction of each ray
         directions.forEach( direction => {
@@ -112,7 +111,7 @@ class LightRays {
  * Gets the initial directions of the rays for the different ray modes.
  * @param {Vector2} sourcePosition
  * @param {Optic} optic
- * @param {RaysMode} raysMode
+ * @param {RaysModeEnum} raysMode
  * @param {Vector2} targetPoint
  * @returns {Vector2[]}
  */
@@ -120,7 +119,6 @@ function getRayDirections( sourcePosition, optic, raysMode, targetPoint ) {
 
   assert && assert( sourcePosition instanceof Vector2 );
   assert && assert( optic instanceof Optic );
-  assert && assert( RaysMode.includes( raysMode ) );
   assert && assert( targetPoint instanceof Vector2 );
 
   // {Vector2[]} directions of the light rays emanating from the object
@@ -133,7 +131,7 @@ function getRayDirections( sourcePosition, optic, raysMode, targetPoint ) {
   // vector from source to optic
   const sourceOpticVector = opticPosition.minus( sourcePosition );
 
-  if ( raysMode === RaysMode.MARGINAL ) {
+  if ( raysMode === 'marginal' ) {
 
     // direction for ray going through the center of optic
     directions.push( sourceOpticVector.normalized() );
@@ -152,7 +150,7 @@ function getRayDirections( sourcePosition, optic, raysMode, targetPoint ) {
 
     directions.push( topDirection, bottomDirection );
   }
-  else if ( raysMode === RaysMode.PRINCIPAL ) {
+  else if ( raysMode === 'principal' ) {
 
     // horizontal direction, unit vector along positive x
     directions.push( new Vector2( 1, 0 ) );
@@ -171,7 +169,7 @@ function getRayDirections( sourcePosition, optic, raysMode, targetPoint ) {
     // direction for ray going through the focal point
     directions.push( sourceFirstFocalVector.normalized() );
   }
-  else if ( raysMode === RaysMode.MANY ) {
+  else if ( raysMode === 'many' ) {
 
     // starting angle for showers of rays
     const startingAngle = Math.PI / 4;

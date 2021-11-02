@@ -26,8 +26,6 @@ import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
 import GeometricOpticsModel from '../model/GeometricOpticsModel.js';
-import RaysMode from '../model/RaysMode.js';
-import OpticShapeRadioButtonGroup from './OpticShapeRadioButtonGroup.js';
 import DebugPointNode from './DebugPointNode.js';
 import FocalPointNode from './FocalPointNode.js';
 import GeometricOpticsControlPanel from './GeometricOpticsControlPanel.js';
@@ -36,6 +34,7 @@ import LabelsNode from './LabelsNode.js';
 import LightRaysNode from './LightRaysNode.js';
 import OpticalAxis from './OpticalAxis.js';
 import OpticNode from './OpticNode.js';
+import OpticShapeRadioButtonGroup from './OpticShapeRadioButtonGroup.js';
 import OpticVerticalAxis from './OpticVerticalAxis.js';
 import RepresentationComboBox from './RepresentationComboBox.js';
 import RulersToolbox from './RulersToolbox.js';
@@ -280,7 +279,7 @@ class GeometricOpticsScreenView extends ScreenView {
     Property.multilink(
       [ model.raysModeProperty, visibleProperties.rayTracingVisibleProperty ],
       ( raysMode, rayTracingVisible ) => {
-        if ( raysMode === RaysMode.NONE ) {
+        if ( raysMode === 'none' ) {
           model.firstTarget.visibleProperty.value = rayTracingVisible;
           model.secondTarget.visibleProperty.value = rayTracingVisible;
         }

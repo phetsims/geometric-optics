@@ -7,6 +7,7 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import StringProperty from '../../../../axon/js/StringProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -50,7 +51,7 @@ class GeometricOpticsControlPanel extends Panel {
   /**
    * @param {EnumerationProperty.<Representation>} representationProperty
    * @param {Optic} optic
-   * @param {EnumerationProperty.<RaysMode>} raysModeProperty
+   * @param {EnumerationProperty.<RaysModeEnum>} raysModeProperty
    * @param {VisibleProperties} visibleProperties
    * @param {Object} [options]
    */
@@ -58,7 +59,7 @@ class GeometricOpticsControlPanel extends Panel {
 
     assert && assert( representationProperty instanceof EnumerationProperty );
     assert && assert( optic instanceof Optic );
-    assert && assert( raysModeProperty instanceof EnumerationProperty );
+    assert && assert( raysModeProperty instanceof StringProperty );
     assert && assert( visibleProperties instanceof VisibleProperties );
 
     options = merge( {

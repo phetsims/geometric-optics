@@ -20,7 +20,7 @@ import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import geometricOptics from '../../geometricOptics.js';
 import OpticShapes from './OpticShapes.js';
 import OpticTypeEnum from './OpticTypeEnum.js';
-import OpticShapeEnum from './OpticShapeEnum.js';
+import OpticShapeEnum, { OpticShapeValues } from './OpticShapeEnum.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 
 type OpticOptions = {
@@ -97,6 +97,7 @@ class Optic {
 
     //TODO this allows any string, should be Property<OpticShapeEnum>
     this.opticShapeProperty = new StringProperty( config.opticShape, {
+      validValues: OpticShapeValues,
       tandem: config.tandem.createTandem( 'opticShapeProperty' ),
       phetioDocumentation: 'describes the shape of the optic'
     } );

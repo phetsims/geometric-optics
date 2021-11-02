@@ -8,6 +8,7 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import StringProperty from '../../../../axon/js/StringProperty.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -17,13 +18,12 @@ import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Optic from '../model/Optic.js';
-import RaysMode from '../model/RaysMode.js';
 
 class OpticVerticalAxis extends Node {
 
   /**
    * @param {Optic} optic
-   * @param {Property.<RaysMode>} raysModeProperty
+   * @param {Property.<RaysModeEnum>} raysModeProperty
    * @param {Property.<Bounds2>} modelBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
@@ -31,7 +31,7 @@ class OpticVerticalAxis extends Node {
   constructor( optic, raysModeProperty, modelBoundsProperty, modelViewTransform, options ) {
 
     assert && assert( optic instanceof Optic );
-    assert && assert( raysModeProperty instanceof Property );
+    assert && assert( raysModeProperty instanceof StringProperty );
     assert && assert( modelBoundsProperty instanceof Property );
     assert && assert( modelViewTransform instanceof ModelViewTransform2 );
 
@@ -51,7 +51,7 @@ class OpticVerticalAxis extends Node {
 
     // Make lineNode visible when Rays mode is Principal
     raysModeProperty.link( raysMode => {
-      lineNode.visible = ( raysMode === RaysMode.PRINCIPAL );
+      lineNode.visible = ( raysMode === 'principal' );
     } );
 
     // clip to the bounds

@@ -7,24 +7,23 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import StringProperty from '../../../../axon/js/StringProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-import RaysMode from '../model/RaysMode.js';
 
 class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup {
 
   /**
-   * @param {EnumerationProperty.<RaysMode>} raysModeProperty
+   * @param {Property.<RaysModeEnum>} raysModeProperty
    * @param {Object} [options]
    */
   constructor( raysModeProperty, options ) {
 
-    assert && assert( raysModeProperty instanceof EnumerationProperty );
+    assert && assert( raysModeProperty instanceof StringProperty );
 
     options = merge( {
       spacing: 4,
@@ -36,10 +35,10 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup {
 
     // items for ray Mode radio buttons
     const items = [
-      createItem( RaysMode.MARGINAL, geometricOpticsStrings.marginal, 'marginalRadioButton' ),
-      createItem( RaysMode.PRINCIPAL, geometricOpticsStrings.principal, 'principalRadioButton' ),
-      createItem( RaysMode.MANY, geometricOpticsStrings.many, 'manyRadioButton' ),
-      createItem( RaysMode.NONE, geometricOpticsStrings.none, 'noneRadioButton' )
+      createItem( 'marginal', geometricOpticsStrings.marginal, 'marginalRadioButton' ),
+      createItem( 'principal', geometricOpticsStrings.principal, 'principalRadioButton' ),
+      createItem( 'many', geometricOpticsStrings.many, 'manyRadioButton' ),
+      createItem( 'none', geometricOpticsStrings.none, 'noneRadioButton' )
     ];
 
     super( raysModeProperty, items, options );
@@ -48,10 +47,10 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup {
 
 /**
  * Creates an item for the radio button group.
- * @param {RaysMode} mode
+ * @param {RaysModeEnum} mode
  * @param {string} string
  * @param {string} tandemName
- * @returns {{node: Text, value: RaysMode}} item
+ * @returns {{node: Text, value: RaysModeEnum}} item
  */
 function createItem( mode, string, tandemName ) {
   return {
