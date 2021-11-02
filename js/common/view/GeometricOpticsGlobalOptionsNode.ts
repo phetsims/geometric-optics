@@ -20,10 +20,13 @@ import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js
 
 class GeometricOpticsGlobalOptionsNode extends VBox {
 
+  // Disposes of things that are specific to this class.
+  private readonly disposeGeometricOpticsGlobalOptionsNode: () => void;
+
   /**
    * @param {Object} [options]
    */
-  constructor( options ) {
+  constructor( options?: any ) { //TODO any
 
     options = merge( {
 
@@ -72,10 +75,13 @@ class GeometricOpticsGlobalOptionsNode extends VBox {
 
 class FocalLengthControlNode extends VBox {
 
+  // Disposes of things that are specific to this class.
+  private readonly disposeFocalLengthControlNode: () => void;
+
   /**
    * @param {Object} [options]
    */
-  constructor( options ) {
+  constructor( options?: any ) { //TODO any
 
     options = merge( {
 
@@ -87,7 +93,7 @@ class FocalLengthControlNode extends VBox {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const focalLengthControlText = new Text( geometricOpticsStrings.focalLengthControl.label, {
+    const focalLengthControlText = new Text( geometricOpticsStrings.focalLengthControl, {
       font: GeometricOpticsConstants.CONTROL_FONT,
       tandem: options.tandem.createTandem( 'focalLengthControlText' )
     } );
@@ -96,14 +102,14 @@ class FocalLengthControlNode extends VBox {
     const radioButtonItems = [
       {
         value: 'direct',
-        node: new Text( geometricOpticsStrings.focalLengthControl.direct, {
+        node: new Text( geometricOpticsStrings.direct, {
           font: GeometricOpticsConstants.CONTROL_FONT
         } ),
         tandemName: 'directItem'
       },
       {
         value: 'indirect',
-        node: new Text( geometricOpticsStrings.focalLengthControl.indirect, {
+        node: new Text( geometricOpticsStrings.indirect, {
           font: GeometricOpticsConstants.CONTROL_FONT
         } ),
         tandemName: 'indirectItem'
@@ -112,8 +118,8 @@ class FocalLengthControlNode extends VBox {
 
     // Verify that all of the values for ?focalLengthControl are represented here.
     assert && assert( GeometricOpticsQueryParameters.SCHEMA.focalLengthControl.validValues.length === radioButtonItems.length );
-    assert && assert( _.every( radioButtonItems.length, radioButtonItem =>
-      GeometricOpticsQueryParameters.SCHEMA.focalLengthControl.validValues.includes( radioButtonItem ) ) );
+    assert && assert( _.every( radioButtonItems, radioButtonItem =>
+      GeometricOpticsQueryParameters.SCHEMA.focalLengthControl.validValues.includes( radioButtonItem.value ) ) );
 
     const radioButtonGroup = new VerticalAquaRadioButtonGroup(
       GeometricOpticsGlobalOptions.focalLengthControlProperty, radioButtonItems, {

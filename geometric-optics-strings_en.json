@@ -98,13 +98,13 @@
   "opticalAxis": {
     "value": "Optical Axis"
   },
-  "focalLengthControl.label": {
+  "focalLengthControl": {
     "value": "Focal Length control in Lens and Mirror screens:"
   },
-  "focalLengthControl.direct": {
+  "direct": {
     "value": "direct (using Focal Length slider)"
   },
-  "focalLengthControl.indirect": {
+  "indirect": {
     "value": "indirect (calculated from optic parameters)"
   }
 }
