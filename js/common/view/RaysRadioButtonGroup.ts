@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -14,6 +15,7 @@ import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioBu
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import RaysModeEnum from '../model/RaysModeEnum.js';
 
 class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup {
 
@@ -21,7 +23,7 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup {
    * @param {Property.<RaysModeEnum>} raysModeProperty
    * @param {Object} [options]
    */
-  constructor( raysModeProperty, options ) {
+  constructor( raysModeProperty: Property<RaysModeEnum>, options?: any ) { //TODO-TS any
 
     assert && assert( raysModeProperty instanceof StringProperty );
 
@@ -47,15 +49,15 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup {
 
 /**
  * Creates an item for the radio button group.
- * @param {RaysModeEnum} mode
- * @param {string} string
+ * @param {RaysModeEnum} raysMode
+ * @param {string} text
  * @param {string} tandemName
- * @returns {{node: Text, value: RaysModeEnum}} item
+ * @returns {{value: RaysModeEnum, node: Text, tandemName: string}} item
  */
-function createItem( mode, string, tandemName ) {
+function createItem( raysMode: RaysModeEnum, text: string, tandemName: string ) {
   return {
-    value: mode,
-    node: new Text( string, {
+    value: raysMode,
+    node: new Text( text, {
       font: GeometricOpticsConstants.CONTROL_FONT,
       maxWidth: 100
     } ),

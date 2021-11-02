@@ -10,12 +10,15 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
+import SceneryEvent from '../../../../scenery/js/input/SceneryEvent.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticRulersLayer from './GeometricOpticsRulersLayer.js';
+import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
 
 class RulersToolbox extends Panel {
 
@@ -23,9 +26,7 @@ class RulersToolbox extends Panel {
    * @param {GeometricOpticRulersLayer} rulersLayer
    * @param {Object} [options]
    */
-  constructor( rulersLayer, options ) {
-
-    assert && assert( rulersLayer instanceof GeometricOpticRulersLayer );
+  constructor( rulersLayer: GeometricOpticRulersLayer, options?: any ) { //TODO-TS any
 
     options = merge( {
 
@@ -75,14 +76,14 @@ class RulersToolbox extends Panel {
      * @param {Node} iconNode
      * @param {GeometricOpticsRulerNode} rulerNode
      */
-    const createForwardListener = ( iconNode, rulerNode ) => {
+    const createForwardListener = ( iconNode: Node, rulerNode: GeometricOpticsRulerNode ) => {
 
       // ruler node and icon node have opposite visibilities
-      rulerNode.visibleProperty.link( visible => {
+      rulerNode.visibleProperty.link( ( visible: boolean ) => {
         iconNode.visible = !visible;
       } );
 
-      iconNode.addInputListener( DragListener.createForwardingListener( event => {
+      iconNode.addInputListener( DragListener.createForwardingListener( ( event: SceneryEvent ) => {
 
         // we can add a ruler only if the ruler Node is not visible
         if ( !rulerNode.visible ) {
@@ -91,6 +92,7 @@ class RulersToolbox extends Panel {
           rulerNode.visible = true;
 
           // position the center of the rulerNode to the cursor
+          // @ts-ignore TODO-TS Argument of type 'Vector2 | null' is not assignable to parameter of type 'Vector2'.
           rulerNode.center = this.globalToParentPoint( event.pointer.point );
 
           // forward events
@@ -121,7 +123,7 @@ class RulersToolbox extends Panel {
  * @param {boolean} tickMarksOnBottom
  * @returns {RulerNode} rulerIconNode
  */
-function createRulerIcon( isVertical, tickMarksOnBottom ) {
+function createRulerIcon( isVertical: boolean, tickMarksOnBottom: boolean ) {
 
   const rulerWidth = 400;
   const rulerHeight = 0.35 * rulerWidth;
