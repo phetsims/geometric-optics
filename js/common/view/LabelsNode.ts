@@ -14,7 +14,6 @@ import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
-import Representation from '../model/Representation.js';
 import LabelNode from './LabelNode.js';
 import GeometricOpticsModel from '../model/GeometricOpticsModel.js';
 import VisibleProperties from './VisibleProperties.js';
@@ -126,8 +125,7 @@ class LabelsNode extends Node {
     const screenLabel = new LabelNode( geometricOpticsStrings.projectionScreen, screenLabelPositionProperty, modelViewTransformProperty, {
       visibleProperty: new DerivedProperty(
         [ model.representationProperty ],
-        // @ts-ignore TODO-TS Property 'LIGHT' does not exist on type 'Enumeration'
-        ( representation: any ) => ( representation === Representation.LIGHT ) //TODO-TS any
+        ( representation: any ) => !representation.isObject //TODO-TS any
       )
     } );
 

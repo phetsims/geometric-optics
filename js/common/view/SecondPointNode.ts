@@ -23,8 +23,8 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
-import Representation from '../model/Representation.js';
 import SecondPoint from '../model/SecondPoint.js';
+import lamp2_png from '../../../images/lamp2_png.js';
 
 // constants
 const POINT_RADIUS = 5;
@@ -68,8 +68,7 @@ class SecondPointNode extends Node {
     this.cueingArrows = new CueingArrows( POINT_RADIUS + 10 );
 
     // Light image for the second source
-    // @ts-ignore TODO-TS Property 'LIGHT' does not exist on type 'Enumeration'.
-    const secondLightSourceImage = new Image( Representation.LIGHT.secondLightSourceImage, {
+    const secondLightSourceImage = new Image( lamp2_png, {
       scale: LIGHT_SOURCE_IMAGE_SCALE
     } );
 
