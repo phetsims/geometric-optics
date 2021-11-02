@@ -10,6 +10,7 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
@@ -36,12 +37,8 @@ class ProjectionScreenNode extends Node {
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( projectionScreen, opticPositionProperty, modelBoundsProperty, modelViewTransform, options ) {
-
-    assert && assert( projectionScreen instanceof ProjectionScreen );
-    assert && assert( opticPositionProperty instanceof Property );
-    assert && assert( modelBoundsProperty instanceof Property );
-    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
+  constructor( projectionScreen: ProjectionScreen, opticPositionProperty: Property<Vector2>,
+               modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, options: any ) { //TODO any
 
     options = merge( {
 
@@ -83,6 +80,7 @@ class ProjectionScreenNode extends Node {
       stroke: GeometricOpticsColors.projectionScreenStrokeProperty,
       lineWidth: 3,
       centerX: screenNode.centerX,
+      // @ts-ignore TODO
       top: bottomBarNode.top
     } );
 
@@ -98,7 +96,7 @@ class ProjectionScreenNode extends Node {
 
     super( options );
 
-    projectionScreen.positionProperty.link( position => {
+    projectionScreen.positionProperty.link( ( position: Vector2 ) => {
       this.translation = modelViewTransform.modelToViewPosition( position );
     } );
 
@@ -108,7 +106,7 @@ class ProjectionScreenNode extends Node {
     // {DerivedProperty.<Bounds2>} Keep the projection screen fully within model bounds, and right of the optic.
     const dragBoundsProperty = new DerivedProperty(
       [ modelBoundsProperty, opticPositionProperty ],
-      ( modelBounds, opticPosition ) =>
+      ( modelBounds: Bounds2, opticPosition: Vector2 ) =>
         new Bounds2(
           opticPosition.x + ( modelScreenWidth / 2 ) + 20,
           modelBounds.minY + modelScreenHeight / 2,
@@ -118,7 +116,7 @@ class ProjectionScreenNode extends Node {
     );
 
     // Keep the projection screen within drag bounds.
-    dragBoundsProperty.link( dragBounds => {
+    dragBoundsProperty.link( ( dragBounds: Bounds2 ) => {
       projectionScreen.positionProperty.value = dragBounds.closestPointTo( projectionScreen.positionProperty.value );
     } );
 
@@ -143,7 +141,7 @@ class ProjectionScreenNode extends Node {
     this.addInputListener( keyboardDragListener );
 
     //TODO https://github.com/phetsims/scenery/issues/1307 should be handled by KeyboardDragListener
-    dragBoundsProperty.link( dragBounds => {
+    dragBoundsProperty.link( ( dragBounds: Bounds2 ) => {
       keyboardDragListener.dragBounds = dragBounds;
     } );
   }
