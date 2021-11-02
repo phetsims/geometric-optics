@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
@@ -26,11 +25,7 @@ class RepresentationComboBox extends ComboBox {
    * @param {Node} listParent - parent for the listbox popup
    * @param {Object} [options]
    */
-  constructor( representationProperty, listParent, options ) {
-
-    assert && assert( representationProperty instanceof EnumerationProperty );
-    assert && assert( representationProperty.validValues );
-    assert && assert( listParent instanceof Node );
+  constructor( representationProperty: any, listParent: Node, options?: any ) { //TODO-TS any any
 
     options = merge( {
 
@@ -45,8 +40,8 @@ class RepresentationComboBox extends ComboBox {
     }, options );
 
     // Create a ComboBoxItem for each representation.
-    const items = [];
-    representationProperty.validValues.forEach( representation => {
+    const items: ComboBoxItem[] = [];
+    representationProperty.validValues.forEach( ( representation: any ) => { //TODO-TS any any
 
       // create text
       const text = new Text( representation.label, {
