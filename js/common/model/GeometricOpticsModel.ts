@@ -31,13 +31,58 @@ const RAYS_ANIMATION_TIME = 10; // length of the rays animation, in seconds
 
 class GeometricOpticsModel {
 
+  // model of the optic
+  readonly optic: Optic;
+
+  // representation of the source object
+  readonly representationProperty: any; //TODO-TS any
+
+  // source object and first light source
+  readonly sourceObject: SourceObject;
+
+  // the second point on the source object, and the second light source
+  readonly secondPoint: SecondPoint;
+
+  // model of the target/image associated with sourceObject
+  readonly firstTarget: Target;
+
+  // target/ image associated with secondPoint
+  readonly secondTarget: Target;
+
+  // model of the projection screen
+  //TODO irrelevant for MirrorModel, but required by LightRays constructor
+  readonly projectionScreen: ProjectionScreen;
+
+  // light spot associated with the first light source
+  //TODO irrelevant for MirrorModel
+  readonly firstLightSpot: LightSpot;
+
+  // light spot associated with the second light source
+  //TODO irrelevant for MirrorModel
+  readonly secondLightSpot: LightSpot;
+
+  // elapsed time of light rays animation
+  readonly lightRaysTimeProperty: NumberProperty;
+
+  // determines the representation used for rays
+  //TODO-TS Property<RaysModeEnum>
+  readonly raysModeProperty: StringProperty;
+
+  // light rays associated with the first light source
+  readonly firstLightRays: LightRays;
+
+  // light rays associated with the second light source
+  readonly secondLightRays: LightRays;
+
+  // rulers
+  readonly horizontalRuler: Ruler;
+  readonly verticalRuler: Ruler;
+
   /**
    * @param {Optic} optic
    * @param {Object} [options]
    */
-  constructor( optic, options ) {
-
-    assert && assert( optic instanceof Optic );
+  constructor( optic: Optic, options?: any ) { //TODO-TS any
 
     options = merge( {
       representations: Representation.VALUES,
@@ -46,34 +91,25 @@ class GeometricOpticsModel {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // @public model of the optic
     this.optic = optic;
 
-    // @public representation of the source object
+    // @ts-ignore TODO-TS Property 'PENCIL' does not exist on type 'Enumeration'.
     this.representationProperty = new EnumerationProperty( Representation, Representation.PENCIL, {
       validValues: options.representations
     } );
 
-    // @public source object and first light source
     this.sourceObject = new SourceObject( this.representationProperty );
 
-    // @public the second point on the source object, and the second light source
     this.secondPoint = new SecondPoint( this.representationProperty, this.sourceObject.positionProperty );
 
-    // @public model of the target/image associated with sourceObject
     this.firstTarget = new Target( this.sourceObject.positionProperty, this.optic, this.representationProperty );
 
-    // @public target/ image associated with secondPoint
     this.secondTarget = new Target( this.secondPoint.positionProperty, this.optic, this.representationProperty );
 
-    // @public model of the projection screen
-    //TODO irrelevant for MirrorModel, but required by LightRays constructor
     this.projectionScreen = new ProjectionScreen( {
       tandem: options.tandem.createTandem( 'projectionScreen' )
     } );
 
-    // @public (read-only) light spot associated with the first light source
-    //TODO irrelevant for MirrorModel
     this.firstLightSpot = new LightSpot(
       this.sourceObject.positionProperty,
       this.firstTarget.positionProperty,
@@ -81,8 +117,6 @@ class GeometricOpticsModel {
       this.optic
     );
 
-    // @public (read-only) light spot associated with the second light source
-    //TODO irrelevant for MirrorModel
     this.secondLightSpot = new LightSpot(
       this.secondPoint.positionProperty,
       this.secondTarget.positionProperty,
@@ -90,13 +124,11 @@ class GeometricOpticsModel {
       this.optic
     );
 
-    // @public (read-only) elapsed time of light rays animation
     this.lightRaysTimeProperty = new NumberProperty( 0, {
       units: 's',
       range: new Range( 0, RAYS_ANIMATION_TIME )
     } );
 
-    // @public determines the representation used for rays
     //TODO-TS Property.<RaysModeEnum>
     //TODO-TS phetioType: Property.PropertyIO( StringIO ),
     this.raysModeProperty = new StringProperty( 'marginal', {
@@ -107,7 +139,6 @@ class GeometricOpticsModel {
     // Changing raysModeProperty resets the animation time for rays.
     this.raysModeProperty.link( () => this.lightRaysTimeProperty.reset() );
 
-    // @public light rays associated with the first source
     this.firstLightRays = new LightRays(
       this.lightRaysTimeProperty,
       this.raysModeProperty,
@@ -118,7 +149,6 @@ class GeometricOpticsModel {
       this.firstTarget
     );
 
-    // @public light rays associated with the second source
     this.secondLightRays = new LightRays(
       this.lightRaysTimeProperty,
       this.raysModeProperty,
@@ -129,11 +159,11 @@ class GeometricOpticsModel {
       this.secondTarget
     );
 
-    // @public horizontal and vertical rulers
     this.horizontalRuler = new Ruler( 'horizontal',
       GeometricOpticsConstants.HORIZONTAL_RULER_INITIAL_POSITION,
       GeometricOpticsConstants.HORIZONTAL_RULER_LENGTH
     );
+
     this.verticalRuler = new Ruler( 'vertical',
       GeometricOpticsConstants.VERTICAL_RULER_INITIAL_POSITION,
       GeometricOpticsConstants.VERTICAL_RULER_LENGTH
@@ -161,8 +191,9 @@ class GeometricOpticsModel {
    * @public
    * @param {number} dt - time step, in seconds
    */
-  stepLightRays( dt ) {
+  stepLightRays( dt: number ) {
     const t = this.lightRaysTimeProperty.value + dt;
+    // @ts-ignore TODO-TS this.lightRaysTimeProperty.range may be null
     if ( this.lightRaysTimeProperty.range.contains( t ) ) {
       this.lightRaysTimeProperty.value = t;
     }
