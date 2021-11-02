@@ -7,8 +7,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import Utils from '../../../../dot/js/Utils.js';
+import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
@@ -22,7 +25,8 @@ class LightSpotNode extends Node {
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( intensityProperty, screenIntersectionProperty, modelViewTransform, options ) {
+  constructor( intensityProperty: Property<number>, screenIntersectionProperty: Property<Shape>,
+               modelViewTransform: ModelViewTransform2, options: any ) { //TODO any
 
     options = merge( {}, options );
 
@@ -45,13 +49,13 @@ class LightSpotNode extends Node {
     super( options );
 
     // Adjust the shape of the spot based on how it intersects the screen.
-    screenIntersectionProperty.link( shape => {
+    screenIntersectionProperty.link( ( shape: Shape ) => {
       const viewShape = modelViewTransform.modelToViewShape( shape );
       fillPath.shape = viewShape;
       strokePath.shape = viewShape;
     } );
 
-    intensityProperty.link( intensity => {
+    intensityProperty.link( ( intensity: number ) => {
 
       // Intensity of light is the opacity of the spot color.
       fillPath.opacity = intensity;
