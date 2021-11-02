@@ -6,8 +6,7 @@
  * @author Martin Veillette
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import StringProperty from '../../../../axon/js/StringProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -24,6 +23,7 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Optic from '../model/Optic.js';
+import RaysModeEnum from '../model/RaysModeEnum.js';
 import RaysRadioButtonGroup from './RaysRadioButtonGroup.js';
 import VisibilityCheckboxGroup from './VisibilityCheckboxGroup.js';
 import VisibleProperties from './VisibleProperties.js';
@@ -55,12 +55,8 @@ class GeometricOpticsControlPanel extends Panel {
    * @param {VisibleProperties} visibleProperties
    * @param {Object} [options]
    */
-  constructor( representationProperty, optic, raysModeProperty, visibleProperties, options ) {
-
-    assert && assert( representationProperty instanceof EnumerationProperty );
-    assert && assert( optic instanceof Optic );
-    assert && assert( raysModeProperty instanceof StringProperty );
-    assert && assert( visibleProperties instanceof VisibleProperties );
+  constructor( representationProperty: any, optic: Optic, raysModeProperty: Property<RaysModeEnum>, //TODO-TS any
+               visibleProperties: VisibleProperties, options?: any ) { //TODO-TS any
 
     options = merge( {
 
@@ -107,11 +103,12 @@ class GeometricOpticsControlPanel extends Panel {
     const radiusOfCurvatureControl = new NumberControl(
       geometricOpticsStrings.radiusOfCurvature,
       optic.radiusOfCurvatureProperty,
+      // @ts-ignore TODO-TS optic.radiusOfCurvatureProperty.range may be null
       optic.radiusOfCurvatureProperty.range,
       merge( {}, NUMBER_CONTROL_OPTIONS, {
         delta: GeometricOpticsConstants.RADIUS_OF_CURVATURE_SPINNER_INTERVAL,
         sliderOptions: {
-          constrainValue: value =>
+          constrainValue: ( value: number ) =>
             Utils.roundToInterval( value, GeometricOpticsConstants.RADIUS_OF_CURVATURE_SLIDER_INTERVAL )
         },
         numberDisplayOptions: {
@@ -126,11 +123,12 @@ class GeometricOpticsControlPanel extends Panel {
       const indexOfRefractionControl = new NumberControl(
         geometricOpticsStrings.indexOfRefraction,
         optic.indexOfRefractionProperty,
+        // @ts-ignore TODO-TS optic.indexOfRefractionProperty.range may be null
         optic.indexOfRefractionProperty.range,
         merge( {}, NUMBER_CONTROL_OPTIONS, {
           delta: GeometricOpticsConstants.INDEX_OF_REFRACTION_SPINNER_INTERVAL,
           sliderOptions: {
-            constrainValue: value =>
+            constrainValue: ( value: number ) =>
               Utils.roundToInterval( value, GeometricOpticsConstants.INDEX_OF_REFRACTION_SLIDER_INTERVAL )
           },
           numberDisplayOptions: {
@@ -144,11 +142,12 @@ class GeometricOpticsControlPanel extends Panel {
     const diameterControl = new NumberControl(
       geometricOpticsStrings.diameter,
       optic.diameterProperty,
+      // @ts-ignore TODO-TS optic.diameterProperty.range may be null
       optic.diameterProperty.range,
       merge( {}, NUMBER_CONTROL_OPTIONS, {
         delta: GeometricOpticsConstants.DIAMETER_SPINNER_INTERVAL,
         sliderOptions: {
-          constrainValue: value =>
+          constrainValue: ( value: number ) =>
             Utils.roundToInterval( value, GeometricOpticsConstants.DIAMETER_SLIDER_INTERVAL )
         },
         numberDisplayOptions: {
