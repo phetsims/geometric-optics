@@ -8,7 +8,7 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import StringProperty from '../../../../axon/js/StringProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -18,6 +18,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Optic from '../model/Optic.js';
+import RaysModeEnum from '../model/RaysModeEnum.js';
 
 class OpticVerticalAxis extends Node {
 
@@ -28,12 +29,8 @@ class OpticVerticalAxis extends Node {
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( optic, raysModeProperty, modelBoundsProperty, modelViewTransform, options ) {
-
-    assert && assert( optic instanceof Optic );
-    assert && assert( raysModeProperty instanceof StringProperty );
-    assert && assert( modelBoundsProperty instanceof Property );
-    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
+  constructor( optic: Optic, raysModeProperty: Property<RaysModeEnum>, modelBoundsProperty: Property<Bounds2>,
+               modelViewTransform: ModelViewTransform2, options?: any ) { //TODO any
 
     options = merge( {}, options );
 
@@ -50,12 +47,12 @@ class OpticVerticalAxis extends Node {
     super( options );
 
     // Make lineNode visible when Rays mode is Principal
-    raysModeProperty.link( raysMode => {
+    raysModeProperty.link( ( raysMode: RaysModeEnum ) => {
       lineNode.visible = ( raysMode === 'principal' );
     } );
 
     // clip to the bounds
-    modelBoundsProperty.link( modelBounds => {
+    modelBoundsProperty.link( ( modelBounds: Bounds2 ) => {
       this.clipArea = Shape.bounds( modelViewTransform.modelToViewBounds( modelBounds ) );
     } );
   }
