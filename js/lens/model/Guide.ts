@@ -34,9 +34,6 @@ class Guide {
   // eslint-disable-next-line no-undef
   constructor( optic: Optic, objectPositionProperty: Property<Vector2>, location: GuideLocation ) {
 
-    assert && assert( objectPositionProperty instanceof Property );
-    assert && assert( optic instanceof Optic );
-
     // sign is positive for top guide and negative below
     const locationSign = ( location === 'top' ) ? +1 : -1;
 
