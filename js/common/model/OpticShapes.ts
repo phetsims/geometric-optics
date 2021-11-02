@@ -14,6 +14,7 @@ import geometricOptics from '../../geometricOptics.js';
 import OpticTypeEnum from './OpticTypeEnum.js';
 import OpticShapeEnum from './OpticShapeEnum.js';
 
+//TODO-TS revisit this options pattern
 type OpticShapesOptions = {
 
   // Lens

@@ -15,7 +15,7 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import geometricOptics from '../../geometricOptics.js';
 
-// The API is limited to these options. Other superclass options are not allowed.
+//TODO-TS revisit this options pattern
 type DebugPointNodeOptions = {
   fill?: ColorDef
   radius?: number

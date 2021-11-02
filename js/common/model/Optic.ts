@@ -25,6 +25,7 @@ import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Property from '../../../../axon/js/Property.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 
+//TODO-TS revisit this options pattern
 type OpticOptions = {
   position?: Vector2, // position of the optic, in cm
 };
