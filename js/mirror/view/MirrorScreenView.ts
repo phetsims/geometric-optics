@@ -6,6 +6,7 @@
  * @author Martin Veillette
  */
 
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -19,13 +20,12 @@ class MirrorScreenView extends GeometricOpticsScreenView {
    * @param {MirrorModel} model
    * @param {Object} [options]
    */
-  constructor( model, options ) {
-    assert && assert( model instanceof MirrorModel );
+  constructor( model: MirrorModel, options: any ) { //TODO any
 
     options = merge( {
 
       // View origin is to right, and a little above center.
-      getViewOrigin: layoutBounds => new Vector2(
+      getViewOrigin: ( layoutBounds: Bounds2 ) => new Vector2(
         layoutBounds.centerX + 200,
         layoutBounds.centerY - 0.08 * layoutBounds.height
       ),

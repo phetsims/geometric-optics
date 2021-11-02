@@ -4,6 +4,7 @@
  * LensModel is the model for the 'Lens' screen.
  *
  * @author Martin Veillette
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import merge from '../../../../phet-core/js/merge.js';

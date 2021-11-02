@@ -20,8 +20,7 @@ class IntroScreenView extends ScreenView {
    * @param {IntroModel} model
    * @param {Object} [options]
    */
-  constructor( model, options ) {
-    assert && assert( model instanceof IntroModel );
+  constructor( model: IntroModel, options: any ) { //TODO any
 
     options = merge( {
 
@@ -60,7 +59,7 @@ class IntroScreenView extends ScreenView {
    * @param {number} dt - time step, in seconds
    * @public
    */
-  step( dt ) {
+  step( dt: number ) {
     //TODO
   }
 }
