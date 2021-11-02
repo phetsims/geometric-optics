@@ -17,7 +17,7 @@ type RulerOrientation = 'horizontal' | 'vertical';
 class Ruler {
 
   // orientation of the ruler
-  readonly orientation: RulerOrientation;
+  private readonly orientation: RulerOrientation;
 
   // position of the ruler, in view coordinates
   //TODO change this to model coordinates
