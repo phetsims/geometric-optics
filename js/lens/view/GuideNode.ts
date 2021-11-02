@@ -38,7 +38,7 @@ class GuideNode extends Node {
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( guide: Guide, modelViewTransform: ModelViewTransform2, options: any ) { //TODO any
+  constructor( guide: Guide, modelViewTransform: ModelViewTransform2, options?: any ) { //TODO any
 
     options = merge( {
       rectangle: RECTANGLE_OPTIONS,

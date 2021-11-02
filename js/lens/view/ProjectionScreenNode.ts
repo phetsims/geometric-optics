@@ -38,7 +38,7 @@ class ProjectionScreenNode extends Node {
    * @param {Object} [options]
    */
   constructor( projectionScreen: ProjectionScreen, opticPositionProperty: Property<Vector2>,
-               modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, options: any ) { //TODO any
+               modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, options?: any ) { //TODO any
 
     options = merge( {
 

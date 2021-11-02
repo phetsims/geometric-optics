@@ -32,7 +32,7 @@ class LensModel extends GeometricOpticsModel {
   /**
    * @param {Object} [options]
    */
-  constructor( options: any ) { //TODO any
+  constructor( options?: any ) { //TODO any
 
     options = merge( {
 

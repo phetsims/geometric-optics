@@ -25,7 +25,7 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup {
    * @param {Optic} optic
    * @param {Object} [options]
    */
-  constructor( optic: Optic, options: any ) { //TODO any
+  constructor( optic: Optic, options?: any ) { //TODO any
 
     options = merge( {
 

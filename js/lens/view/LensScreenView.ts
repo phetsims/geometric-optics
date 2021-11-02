@@ -7,6 +7,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -24,13 +25,13 @@ class LensScreenView extends GeometricOpticsScreenView {
    * @param {LensModel} model
    * @param {Object} [options]
    */
-  constructor( model, options ) {
-    assert && assert( model instanceof LensModel );
+  constructor( model: LensModel, options?: any ) { //TODO any
 
     options = merge( {
 
       // View origin is slightly above center of the layoutBounds.
-      getViewOrigin: layoutBounds => new Vector2( layoutBounds.centerX, layoutBounds.centerY - 0.08 * layoutBounds.height ),
+      getViewOrigin: ( layoutBounds: Bounds2 ) =>
+        new Vector2( layoutBounds.centerX, layoutBounds.centerY - 0.08 * layoutBounds.height ),
 
       // phet-io options
       tandem: Tandem.REQUIRED
@@ -46,7 +47,7 @@ class LensScreenView extends GeometricOpticsScreenView {
       ],
       visibleProperty: new DerivedProperty(
         [ this.visibleProperties.guidesVisibleProperty, this.visibleProperties.secondPointVisibleProperty ],
-        ( visibleGuides, secondPointVisible ) => ( visibleGuides && !secondPointVisible )
+        ( guidesVisible: boolean, secondPointVisible: boolean ) => ( guidesVisible && !secondPointVisible )
       )
     } );
     this.experimentAreaNode.addChild( firstGuidesNode );
@@ -93,15 +94,19 @@ class LensScreenView extends GeometricOpticsScreenView {
     // Add projection screen and light spots at the bottom of the z-layer.
     const lightSourceNodes = new Node( {
       children: [ projectionScreenNode, firstLightSpotNode, secondLightSpotNode ],
-      visibleProperty: new DerivedProperty( [ model.representationProperty ], representation => !representation.isObject )
+      visibleProperty: new DerivedProperty( [ model.representationProperty ],
+        // @ts-ignore TODO representation implicitly has any type
+        representation => !representation.isObject )
     } );
     this.experimentAreaNode.insertChild( 0, lightSourceNodes );
 
     // pdom -traversal order
     //TODO https://github.com/phetsims/scenery/issues/1308 an obfuscated way of inserting 1 Node into pdomOrder
     // pdomOrder is an ES5 setter, and its values must be a new array, or it will be ignored.
+    // @ts-ignore TODO getPDOMOrder does not exist on type Node
     const pdomOrder = this.screenViewRootNode.getPDOMOrder();
     pdomOrder.splice( pdomOrder.indexOf( this.zoomButtonGroup ), 0, projectionScreenNode );
+    // @ts-ignore getPDOMOrder does not exist on type Node
     this.screenViewRootNode.pdomOrder = [ ...pdomOrder ];
   }
 }
