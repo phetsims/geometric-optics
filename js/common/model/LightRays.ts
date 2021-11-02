@@ -11,13 +11,25 @@
 import Emitter from '../../../../axon/js/Emitter.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import Shape from '../../../../kite/js/Shape.js';
 import geometricOptics from '../../geometricOptics.js';
+import ProjectionScreen from '../../lens/model/ProjectionScreen.js';
 import LightRay from './LightRay.js';
+import LightRaySegment from './LightRaySegment.js';
 import Optic from './Optic.js';
 import Ray from './Ray.js';
+import RaysModeEnum from './RaysModeEnum.js';
+import Target from './Target.js';
 
 class LightRays {
+
+  // segments for the real rays at a point in time
+  realSegments: LightRaySegment[];
+
+  // segments for the virtual rays at a point in time
+  virtualSegments: LightRaySegment[];
+
+  // tells view that it needs to update, fires after all rays are processed.
+  readonly raysProcessedEmitter: Emitter<[]>;
 
   /**
    * @param {Property.<number>} timeProperty
@@ -28,16 +40,12 @@ class LightRays {
    * @param {Optic} optic
    * @param {Target} target - target model associated with this ray
    */
-  constructor( timeProperty, raysModeProperty, representationProperty, sourceObjectPositionProperty,
-               projectionScreen, optic, target ) {
+  constructor( timeProperty: Property<number>, raysModeProperty: Property<RaysModeEnum>,
+               representationProperty: any, sourceObjectPositionProperty: Property<Vector2>, //TODO-TS any
+               projectionScreen: ProjectionScreen, optic: Optic, target: Target ) {
 
-    // @public (read-only) {LightRaySegment[]} segments for the real rays at a point in time
     this.realSegments = [];
-
-    // @public (read-only) {LightRaySegment[]} segments for the virtual rays at a point in time
-    this.virtualSegments = new Shape();
-
-    // @public tells view that it needs to update, fires after all rays are processed.
+    this.virtualSegments = [];
     this.raysProcessedEmitter = new Emitter();
 
     // update the shape of rays and the emitter state
@@ -51,7 +59,7 @@ class LightRays {
         optic.diameterProperty,
         optic.focalLengthProperty,
         optic.opticShapeProperty ],
-      ( sourcePosition, raysMode, time, representation ) => {
+      ( sourcePosition: Vector2, raysMode: RaysModeEnum, time: number, representation: any ) => { //TODO-TS any
 
         // Clear the arrays.
         this.realSegments = [];
@@ -115,11 +123,7 @@ class LightRays {
  * @param {Vector2} targetPoint
  * @returns {Vector2[]}
  */
-function getRayDirections( sourcePosition, optic, raysMode, targetPoint ) {
-
-  assert && assert( sourcePosition instanceof Vector2 );
-  assert && assert( optic instanceof Optic );
-  assert && assert( targetPoint instanceof Vector2 );
+function getRayDirections( sourcePosition: Vector2, optic: Optic, raysMode: RaysModeEnum, targetPoint: Vector2 ) {
 
   // {Vector2[]} directions of the light rays emanating from the object
   const directions = [];

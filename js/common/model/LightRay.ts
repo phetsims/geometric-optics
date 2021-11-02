@@ -28,6 +28,9 @@ class LightRay {
   // segments for the virtual rays
   readonly virtualSegments: Array<LightRaySegment>;
 
+  //TODO document
+  readonly isTargetReached: boolean;
+
   // a collection of sequential rays
   private readonly realRays: Array<Ray>;
 
@@ -36,9 +39,6 @@ class LightRay {
 
   // there is a maximum of one virtual ray per lightRay
   private readonly virtualRay: Ray | null;
-
-  //
-  private readonly isTargetReached: boolean;
 
   /**
    * @param {Ray} initialRay - ray (position and direction) emerging from source
