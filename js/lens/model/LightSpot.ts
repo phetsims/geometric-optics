@@ -23,42 +23,41 @@ const FULL_INTENSITY_LIGHT_SPOT_HEIGHT = 7; // cm, any light spot less than this
 
 class LightSpot {
 
+  // intersection of this LightSpot with the projection screen
+  readonly screenIntersectionProperty: DerivedProperty<Shape>;
+  // intensity of this LightSpot
+  readonly intensityProperty: DerivedProperty<number>;
+  // position of the light source
+  private readonly sourcePositionProperty: Property<Vector2>;
+  // the optic
+  private readonly optic: Optic;
+  // the projection screen
+  private readonly projectionScreen: ProjectionScreen;
+
   /**
    * @param {Property.<Vector2>} sourcePositionProperty - position of the light source
    * @param {Property.<Vector2>} targetPositionProperty
    * @param {ProjectionScreen} projectionScreen
    * @param {Optic} optic
    */
-  constructor( sourcePositionProperty, targetPositionProperty, projectionScreen, optic ) {
+  constructor( sourcePositionProperty: Property<Vector2>, targetPositionProperty: Property<Vector2>,
+               projectionScreen: ProjectionScreen, optic: Optic ) {
 
-    assert && assert( sourcePositionProperty instanceof Property );
-    assert && assert( targetPositionProperty instanceof Property );
-    assert && assert( projectionScreen instanceof ProjectionScreen );
-    assert && assert( optic instanceof Optic );
-
-    // @private {Property.<Vector2>} position of the light source
     this.sourcePositionProperty = sourcePositionProperty;
-
-    // @private {Optic} model for the optic
     this.optic = optic;
-
-    // @private
     this.projectionScreen = projectionScreen;
 
-    // @public {DerivedProperty.<Shape>} intersection of this LightSpot with the screen
-    this.screenIntersectionProperty = new DerivedProperty(
+    this.screenIntersectionProperty = new DerivedProperty<Shape>(
       [ projectionScreen.positionProperty, optic.positionProperty, optic.diameterProperty, targetPositionProperty ],
-      ( screenPosition, opticPosition, opticDiameter, targetPosition ) =>
+      ( screenPosition: Vector2, opticPosition: Vector2, opticDiameter: number, targetPosition: Vector2 ) =>
         this.getScreenIntersection( screenPosition, opticPosition, opticDiameter, targetPosition )
     );
 
-    // @public {DerivedProperty.<number>}
-    // determine the light intensity of the spot, a number ranging from 0 to 1
     this.intensityProperty = new DerivedProperty(
       [ projectionScreen.positionProperty, optic.positionProperty, optic.diameterProperty, targetPositionProperty ],
-      ( screenPosition, opticPosition, opticDiameter, targetPosition ) =>
+      ( screenPosition: Vector2, opticPosition: Vector2, opticDiameter: number, targetPosition: Vector2 ) =>
         this.getLightIntensity( screenPosition, opticPosition, opticDiameter, targetPosition ), {
-        isValidValue: value => INTENSITY_RANGE.contains( value )
+        isValidValue: ( value: number ) => INTENSITY_RANGE.contains( value )
       } );
   }
 
@@ -70,7 +69,7 @@ class LightSpot {
    * @param {Vector2} targetPosition
    * @returns {number}
    */
-  getRatio( screenPosition, opticPosition, targetPosition ) {
+  getRatio( screenPosition: Vector2, opticPosition: Vector2, targetPosition: Vector2 ) {
     const targetOpticDistance = ( targetPosition.x - opticPosition.x );
 
     // avoid division by zero
@@ -93,11 +92,8 @@ class LightSpot {
    * @param {Vector2} targetPosition
    * @returns {Object} - see below
    */
-  getDiskParameters( screenPosition, opticPosition, opticDiameter, targetPosition ) {
-    assert && assert( screenPosition instanceof Vector2 );
-    assert && assert( opticPosition instanceof Vector2 );
-    assert && assert( typeof opticDiameter === 'number' && isFinite( opticDiameter ) && opticDiameter > 0 );
-    assert && assert( targetPosition instanceof Vector2 );
+  getDiskParameters( screenPosition: Vector2, opticPosition: Vector2, opticDiameter: number, targetPosition: Vector2 ) {
+    assert && assert( isFinite( opticDiameter ) && opticDiameter > 0 );
 
     // get the extrema points on the optic
     const opticTopPoint = this.optic.getTopPoint( this.sourcePositionProperty.value, targetPosition );
@@ -130,7 +126,7 @@ class LightSpot {
    * @param {Vector2} targetPosition
    * @returns {Vector2}
    */
-  getIntersectPosition( screenPosition, point, targetPosition ) {
+  getIntersectPosition( screenPosition: Vector2, point: Vector2, targetPosition: Vector2 ) {
     const blend = this.getRatio( screenPosition, point, targetPosition );
     return point.blend( targetPosition, blend );
   }
@@ -144,7 +140,7 @@ class LightSpot {
    * @param {Vector2} targetPosition
    * @returns {Shape}
    */
-  getDiskShape( screenPosition, opticPosition, opticDiameter, targetPosition ) {
+  getDiskShape( screenPosition: Vector2, opticPosition: Vector2, opticDiameter: number, targetPosition: Vector2 ) {
 
     // get the parameters for the unclipped light spot.
     const {
@@ -164,7 +160,7 @@ class LightSpot {
    * @param {Vector2} targetPosition
    * @returns {Shape}
    */
-  getScreenIntersection( screenPosition, opticPosition, opticDiameter, targetPosition ) {
+  getScreenIntersection( screenPosition: Vector2, opticPosition: Vector2, opticDiameter: number, targetPosition: Vector2 ) {
 
     // translated screen shape
     const screenShape = this.projectionScreen.getScreenShapeTranslated();
@@ -200,7 +196,7 @@ class LightSpot {
    * @param {Vector2} targetPosition
    * @returns {number} a value in INTENSITY_RANGE
    */
-  getLightIntensity( screenPosition, opticPosition, opticDiameter, targetPosition ) {
+  getLightIntensity( screenPosition: Vector2, opticPosition: Vector2, opticDiameter: number, targetPosition: Vector2 ) {
 
     // {number} vertical radius of the unclipped light spot
     const { radiusY } = this.getDiskParameters( screenPosition, opticPosition, opticDiameter, targetPosition );
