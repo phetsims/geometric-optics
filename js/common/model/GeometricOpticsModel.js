@@ -98,6 +98,7 @@ class GeometricOpticsModel {
 
     // @public determines the representation used for rays
     //TODO Property.<RaysModeEnum>
+    //TODO phetioType: Property.PropertyIO( StringIO ),
     this.raysModeProperty = new StringProperty( 'marginal', {
       values: RaysModeValues,
       tandem: options.tandem.createTandem( 'raysModeProperty' )

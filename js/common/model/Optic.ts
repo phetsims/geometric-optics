@@ -22,6 +22,8 @@ import OpticShapes from './OpticShapes.js';
 import OpticTypeEnum from './OpticTypeEnum.js';
 import OpticShapeEnum, { OpticShapeValues } from './OpticShapeEnum.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
+import Property from '../../../../axon/js/Property.js';
+import StringIO from '../../../../tandem/js/types/StringIO.js';
 
 type OpticOptions = {
   position?: Vector2, // position of the optic, in cm
@@ -95,10 +97,10 @@ class Optic {
 
     this.opticType = config.opticType;
 
-    //TODO this allows any string, should be Property<OpticShapeEnum>
-    this.opticShapeProperty = new StringProperty( config.opticShape, {
+    this.opticShapeProperty = new Property<OpticShapeEnum>( config.opticShape, {
       validValues: OpticShapeValues,
       tandem: config.tandem.createTandem( 'opticShapeProperty' ),
+      phetioType: Property.PropertyIO( StringIO ),
       phetioDocumentation: 'describes the shape of the optic'
     } );
 
