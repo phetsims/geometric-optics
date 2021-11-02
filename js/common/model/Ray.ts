@@ -13,14 +13,14 @@ import geometricOptics from '../../geometricOptics.js';
 
 class Ray extends Ray2 {
 
+  private length: number;
+
   /**
    * @param {Vector2} position - origin of the ray
    * @param {Vector2} direction - direction of the ray, must be a normalized vector.
    * @param {Object} [options]
    */
-  constructor( position, direction, options ) {
-    assert && assert( position instanceof Vector2 );
-    assert && assert( direction instanceof Vector2 );
+  constructor( position: Vector2, direction: Vector2, options?: any ) { //TODO-TS any
 
     options = merge( {
       length: Infinity // semi-infinite rays by default
@@ -30,7 +30,6 @@ class Ray extends Ray2 {
 
     super( position, direction );
 
-    // @public {number}
     this.length = options.length;
   }
 
@@ -39,8 +38,8 @@ class Ray extends Ray2 {
    * @public
    * @param {number} length
    */
-  setLength( length ) {
-    assert && assert( typeof length === 'number' && isFinite( length ) );
+  setLength( length: number ) {
+    assert && assert( isFinite( length ) );
     this.length = length;
   }
 
@@ -49,8 +48,7 @@ class Ray extends Ray2 {
    * @public
    * @param {Vector2} point
    */
-  setFinalPoint( point ) {
-    assert && assert( point instanceof Vector2 );
+  setFinalPoint( point: Vector2 ) {
     assert && assert( this.isPointAlongRay( point ), 'final point is not along ray' );
     this.setLength( point.minus( this.position ).magnitude );
   }
@@ -71,8 +69,7 @@ class Ray extends Ray2 {
    * @param {number} [epsilon] - tolerance value
    * @returns {boolean}
    */
-  isPointAlongRay( point, epsilon = 1e-4 ) {
-    assert && assert( point instanceof Vector2 );
+  isPointAlongRay( point: Vector2, epsilon = 1e-4 ) {
     const displacementVector = point.minus( this.position );
     return displacementVector.normalized().equalsEpsilon( this.direction, epsilon );
   }
@@ -83,8 +80,7 @@ class Ray extends Ray2 {
    * @param {Vector2} point
    * @returns {number} distance
    */
-  getDistanceTo( point ) {
-    assert && assert( point instanceof Vector2 );
+  getDistanceTo( point: Vector2 ) {
     const displacementVector = point.minus( this.position );
     return this.direction.dot( displacementVector );
   }
