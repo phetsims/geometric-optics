@@ -17,7 +17,7 @@ import geometricOpticsStrings from '../geometricOpticsStrings.js';
 import LensModel from './model/LensModel.js';
 import LensScreenView from './view/LensScreenView.js';
 
-//TODO replace with ScreenOptions
+//TODO-TS replace with ScreenOptions
 type LensScreenOptions = {
   tandem: Tandem,
 };

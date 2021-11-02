@@ -17,7 +17,7 @@ import geometricOpticsStrings from '../geometricOpticsStrings.js';
 import MirrorModel from './model/MirrorModel.js';
 import MirrorScreenView from './view/MirrorScreenView.js';
 
-//TODO replace with ScreenOptions
+//TODO-TS replace with ScreenOptions
 type MirrorScreenOptions = {
   tandem: Tandem,
 };

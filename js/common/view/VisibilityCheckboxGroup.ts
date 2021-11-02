@@ -34,7 +34,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
    * @param {Object} [options]
    */
   constructor( visibleProperties: VisibleProperties, opticType: OpticTypeEnum,
-               representationProperty: any, options?: any ) {  //TODO any any
+               representationProperty: any, options?: any ) {  //TODO-TS any any
 
     assert && assert( representationProperty instanceof EnumerationProperty );
 
@@ -62,7 +62,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
         options: {
 
           // Disable the 'Virtual Image' checkbox for light source, see https://github.com/phetsims/geometric-optics/issues/216
-          // @ts-ignore TODO parameter 'representation' implicitly has type 'any'
+          // @ts-ignore TODO-TS parameter 'representation' implicitly has type 'any'
           enabledProperty: new DerivedProperty( [ representationProperty ], representation => representation.isObject )
         },
         tandem: options.tandem.createTandem( 'virtualImageCheckbox' )
@@ -89,7 +89,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
         node: createLabel( geometricOpticsStrings.guides, GuideNode.createIcon() ),
         property: visibleProperties.guidesVisibleProperty,
         options: {
-          // @ts-ignore TODO
+          // @ts-ignore TODO-TS
           visible: GeometricOpticsQueryParameters.showGuides
         },
         tandem: options.tandem.createTandem( 'guidesCheckbox' )

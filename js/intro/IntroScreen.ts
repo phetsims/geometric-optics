@@ -17,7 +17,7 @@ import geometricOpticsStrings from '../geometricOpticsStrings.js';
 import IntroModel from './model/IntroModel.js';
 import IntroScreenView from './view/IntroScreenView.js';
 
-//TODO replace with ScreenOptions
+//TODO-TS replace with ScreenOptions
 type IntroScreenOptions = {
   tandem: Tandem,
 };

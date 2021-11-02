@@ -36,7 +36,7 @@ class ProjectionScreen {
   /**
    * @param {Object} [options]
    */
-  constructor( options?: any ) { //TODO any
+  constructor( options?: any ) { //TODO-TS any
 
     options = merge( {
 

@@ -25,7 +25,7 @@ class LensScreenView extends GeometricOpticsScreenView {
    * @param {LensModel} model
    * @param {Object} [options]
    */
-  constructor( model: LensModel, options?: any ) { //TODO any
+  constructor( model: LensModel, options?: any ) { //TODO-TS any
 
     options = merge( {
 
@@ -95,7 +95,7 @@ class LensScreenView extends GeometricOpticsScreenView {
     const lightSourceNodes = new Node( {
       children: [ projectionScreenNode, firstLightSpotNode, secondLightSpotNode ],
       visibleProperty: new DerivedProperty( [ model.representationProperty ],
-        // @ts-ignore TODO 'representation' implicitly has 'any' type
+        // @ts-ignore TODO-TS 'representation' implicitly has 'any' type
         representation => !representation.isObject )
     } );
     this.experimentAreaNode.insertChild( 0, lightSourceNodes );
@@ -103,10 +103,10 @@ class LensScreenView extends GeometricOpticsScreenView {
     // pdom -traversal order
     //TODO https://github.com/phetsims/scenery/issues/1308 an obfuscated way of inserting 1 Node into pdomOrder
     // pdomOrder is an ES5 setter, and its values must be a new array, or it will be ignored.
-    // @ts-ignore TODO 'getPDOMOrder' does not exist on type 'Node'
+    // @ts-ignore TODO-TS 'getPDOMOrder' does not exist on type 'Node'
     const pdomOrder = this.screenViewRootNode.getPDOMOrder();
     pdomOrder.splice( pdomOrder.indexOf( this.zoomButtonGroup ), 0, projectionScreenNode );
-    // @ts-ignore TODO 'pdomOrder' does not exist on type 'Node'
+    // @ts-ignore TODO-TS 'pdomOrder' does not exist on type 'Node'
     this.screenViewRootNode.pdomOrder = [ ...pdomOrder ];
   }
 }

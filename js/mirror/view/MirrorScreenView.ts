@@ -20,7 +20,7 @@ class MirrorScreenView extends GeometricOpticsScreenView {
    * @param {MirrorModel} model
    * @param {Object} [options]
    */
-  constructor( model: MirrorModel, options?: any ) { //TODO any
+  constructor( model: MirrorModel, options?: any ) { //TODO-TS any
 
     options = merge( {
 

@@ -25,7 +25,7 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup {
    * @param {Optic} optic
    * @param {Object} [options]
    */
-  constructor( optic: Optic, options?: any ) { //TODO any
+  constructor( optic: Optic, options?: any ) { //TODO-TS any
 
     options = merge( {
 
@@ -70,7 +70,7 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup {
    * @param {Object} [options]
    * @returns {Node}
    */
-  static createIconNode( opticType: OpticTypeEnum, opticShape: OpticShapeEnum, options?: any ) { //TODO any
+  static createIconNode( opticType: OpticTypeEnum, opticShape: OpticShapeEnum, options?: any ) { //TODO-TS any
 
     options = merge( {
       radius: 22, // radius of curvature of the optic, in cm
