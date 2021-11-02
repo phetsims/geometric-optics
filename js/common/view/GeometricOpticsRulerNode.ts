@@ -21,11 +21,18 @@ import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Ruler from '../model/Ruler.js';
+import SceneryEvent from '../../../../scenery/js/input/SceneryEvent.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GeometricOpticsConstants.RULER_MINIMUM_VISIBLE_LENGTH;
 
 class GeometricOpticsRulerNode extends Node {
+
+  // bounds of the toolbox
+  toolboxBounds: Bounds2;
+  private readonly ruler: Ruler;
+  private readonly rulerOptions: any; //TODO-TS any
+  private readonly dragListener: DragListener;
 
   /**
    * @param {Ruler} ruler - model for ruler
@@ -34,12 +41,8 @@ class GeometricOpticsRulerNode extends Node {
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( ruler, visibleBoundsProperty, toolboxBounds, modelViewTransform, options ) {
-
-    assert && assert( ruler instanceof Ruler );
-    assert && assert( visibleBoundsProperty instanceof Property );
-    assert && assert( toolboxBounds instanceof Bounds2 );
-    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
+  constructor( ruler: Ruler, visibleBoundsProperty: Property<Bounds2>, toolboxBounds: Bounds2,
+               modelViewTransform: ModelViewTransform2, options?: any ) { //TODO-TS any
 
     options = merge( {
       rulerOptions: {
@@ -56,13 +59,8 @@ class GeometricOpticsRulerNode extends Node {
 
     super( options );
 
-    // @private
-    this.rulerOptions = options.rulerOptions;
-
-    // @private {Ruler}
     this.ruler = ruler;
-
-    // @public {Bounds2} bounds of the toolbox
+    this.rulerOptions = options.rulerOptions;
     this.toolboxBounds = toolboxBounds;
 
     // create and add a scenery-phet.RulerNode
@@ -76,7 +74,7 @@ class GeometricOpticsRulerNode extends Node {
     // will NOT change throughout the simulation
     const rulerDragBoundsProperty = new DerivedProperty(
       [ visibleBoundsProperty ],
-      visibleBounds => {
+      ( visibleBounds: Bounds2 ) => {
         if ( ruler.isVertical() ) {
 
           // if vertical the left and right bounds of the ruler stay within visible bounds
@@ -96,7 +94,6 @@ class GeometricOpticsRulerNode extends Node {
         }
       } );
 
-    // @private
     this.dragListener = new DragListener( {
       cursor: 'pointer',
       useInputListenerCursor: true,
@@ -108,9 +105,10 @@ class GeometricOpticsRulerNode extends Node {
         this.moveToFront();
       },
 
-      end: event => {
+      end: ( event: SceneryEvent ) => {
 
         // return ruler to toolbox if the pointer is within the toolbox
+        // @ts-ignore TODO-TS event.pointer.point may be null
         if ( this.toolboxBounds.containsPoint( this.globalToParentPoint( event.pointer.point ) ) ) {
           this.visible = false;
         }
@@ -123,7 +121,7 @@ class GeometricOpticsRulerNode extends Node {
     ruler.positionProperty.link( () => this.setPosition() );
 
     // prevent the ruler from escaping the visible bounds
-    rulerDragBoundsProperty.link( dragBounds => {
+    rulerDragBoundsProperty.link( ( dragBounds: Bounds2 ) => {
       ruler.positionProperty.value = dragBounds.closestPointTo( ruler.positionProperty.value );
     } );
   }
@@ -167,17 +165,17 @@ class GeometricOpticsRulerNode extends Node {
    * @public
    * @param {SceneryEvent} event
    */
-  startDrag( event ) {
+  startDrag( event: SceneryEvent ) {
     this.dragListener.press( event, this );
   }
 
+  //TODO this is redundant because toolboxBounds is public
   /**
    * Updates toolbox bounds
    * @public
    * @param {Bounds2} bounds
    */
-  setToolboxBounds( bounds ) {
-    assert && assert( bounds instanceof Bounds2 );
+  setToolboxBounds( bounds: Bounds2 ) {
     this.toolboxBounds = bounds;
   }
 
@@ -188,8 +186,7 @@ class GeometricOpticsRulerNode extends Node {
    * @param {Object} [options]
    * @returns {Node} rulerNode
    */
-  getRulerNode( modelViewTransform, options ) {
-    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
+  getRulerNode( modelViewTransform: ModelViewTransform2, options?: any ) { //TODO-TS any
 
     options = merge( {}, this.rulerOptions, options );
 
@@ -238,8 +235,7 @@ class GeometricOpticsRulerNode extends Node {
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  setRulerNode( modelViewTransform, options ) {
-    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
+  setRulerNode( modelViewTransform: ModelViewTransform2, options?: any ) { //TODO-TS any
 
     // remove previous instances of rulerNode
     this.removeAllChildren();
