@@ -37,20 +37,20 @@ class Guide {
     // sign is positive for top guide and negative below
     const locationSign = ( location === 'top' ) ? +1 : -1;
 
-    this.fulcrumPositionProperty = new DerivedProperty(
+    this.fulcrumPositionProperty = new DerivedProperty<Vector2>(
       [ optic.positionProperty, optic.diameterProperty ],
       ( opticPosition: Vector2, opticDiameter: number ) =>
         opticPosition.plusXY( 0, locationSign * opticDiameter / 2 )
     );
 
-    this.incidentAngleProperty = new DerivedProperty(
+    this.incidentAngleProperty = new DerivedProperty<number>(
       [ objectPositionProperty, this.fulcrumPositionProperty ],
       ( objectPosition: Vector2, fulcrumPosition: Vector2 ) => {
         const displacementVector = objectPosition.minus( fulcrumPosition );
         return displacementVector.getAngle();
       } );
 
-    this.transmittedAngleProperty = new DerivedProperty(
+    this.transmittedAngleProperty = new DerivedProperty<number>(
       [ optic.focalLengthProperty, optic.diameterProperty, this.incidentAngleProperty ],
       ( focalLength: number, diameter: number, incidentAngle: number ) => {
 

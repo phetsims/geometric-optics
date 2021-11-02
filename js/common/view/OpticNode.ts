@@ -101,7 +101,7 @@ class OpticNode extends Node {
     // The lens is never fully transparent, because it's index of refraction is not equivalent to air.
     // See https://github.com/phetsims/geometric-optics/issues/242
     if ( optic.isLens() ) {
-      const opacityProperty = new DerivedProperty( [ optic.indexOfRefractionProperty ],
+      const opacityProperty = new DerivedProperty<number>( [ optic.indexOfRefractionProperty ],
         ( indexOfRefraction: number ) => Utils.linear(
           // @ts-ignore TODO-TS optic.indexOfRefractionProperty.range is possibly null
           optic.indexOfRefractionProperty.range.min, optic.indexOfRefractionProperty.range.max,
@@ -121,7 +121,7 @@ class OpticNode extends Node {
 
     // Constrain dragging such that the optic is fully inside the model bounds.
     // See https://github.com/phetsims/geometric-optics/issues/245
-    const dragBoundsProperty = new DerivedProperty( [ modelBoundsProperty, optic.diameterProperty ],
+    const dragBoundsProperty = new DerivedProperty<number>( [ modelBoundsProperty, optic.diameterProperty ],
       ( modelBounds: Bounds2, diameter: number ) => modelBounds.erodedY( diameter / 2 )
     );
 

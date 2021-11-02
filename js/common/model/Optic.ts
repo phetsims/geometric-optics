@@ -111,7 +111,7 @@ class Optic {
       phetioDocumentation: 'The y (vertical) position of the optic'
     } );
 
-    this.positionProperty = new DerivedProperty( [ this.yProperty ],
+    this.positionProperty = new DerivedProperty<Vector2>( [ this.yProperty ],
       ( y: number ) => new Vector2( config.position.x, y ), {
         units: 'cm',
         tandem: config.tandem.createTandem( 'positionProperty' ),
@@ -138,7 +138,7 @@ class Optic {
       tandem: config.tandem.createTandem( 'diameterProperty' )
     } );
 
-    this.focalLengthProperty = new DerivedProperty(
+    this.focalLengthProperty = new DerivedProperty<number>(
       [ this.opticShapeProperty, this.radiusOfCurvatureProperty, this.indexOfRefractionProperty ],
       ( opticShape: OpticShapeEnum, radiusOfCurvature: number, indexOfRefraction: number ) => {
 
@@ -153,7 +153,7 @@ class Optic {
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
       } );
 
-    this.leftFocalPointProperty = new DerivedProperty(
+    this.leftFocalPointProperty = new DerivedProperty<Vector2>(
       [ this.positionProperty, this.focalLengthProperty ],
       ( position: Vector2, focalLength: number ) => position.plusXY( -Math.abs( focalLength ), 0 ), {
         units: 'cm',
@@ -161,7 +161,7 @@ class Optic {
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
       } );
 
-    this.rightFocalPointProperty = new DerivedProperty(
+    this.rightFocalPointProperty = new DerivedProperty<Vector2>(
       [ this.positionProperty, this.focalLengthProperty ],
       ( position: Vector2, focalLength: number ) => position.plusXY( Math.abs( focalLength ), 0 ), {
         units: 'cm',
@@ -169,7 +169,7 @@ class Optic {
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
       } );
 
-    this.shapesProperty = new DerivedProperty(
+    this.shapesProperty = new DerivedProperty<OpticShapes>(
       [ this.opticShapeProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
       ( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number ) =>
         new OpticShapes( config.opticType, opticShape, radiusOfCurvature, diameter )

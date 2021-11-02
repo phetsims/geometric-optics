@@ -55,7 +55,7 @@ class Target {
 
     this.opticSign = optic.getSign();
 
-    this.targetOpticDistanceProperty = new DerivedProperty(
+    this.targetOpticDistanceProperty = new DerivedProperty<number>(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       ( objectPosition: Vector2, opticPosition: Vector2, focalLength: number ) => {
 
@@ -80,7 +80,7 @@ class Target {
 
     this.visibleProperty = new BooleanProperty( false );
 
-    this.positionProperty = new DerivedProperty(
+    this.positionProperty = new DerivedProperty<Vector2>(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       //TODO focalLength is not used, is focalLengthProperty dependency needed?
       //TODO Calls this.getMagnification, should there be a dependency here on magnificationProperty instead?
@@ -99,24 +99,24 @@ class Target {
         return opticPosition.plusXY( horizontalDisplacement, height );
       } );
 
-    this.magnificationProperty = new DerivedProperty(
+    this.magnificationProperty = new DerivedProperty<number>(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       //TODO focalLength is not used, is focalLengthProperty dependency needed?
       ( objectPosition: Vector2, opticPosition: Vector2, focalLength: number ) =>
         this.getMagnification( objectPosition, opticPosition )
     );
 
-    this.isInvertedProperty = new DerivedProperty(
+    this.isInvertedProperty = new DerivedProperty<boolean>(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       () => ( this.targetOpticDistanceProperty.value > 0 )
     );
 
-    this.isVirtualProperty = new DerivedProperty(
+    this.isVirtualProperty = new DerivedProperty<boolean>(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       () => ( this.targetOpticDistanceProperty.value < 0 )
     );
 
-    this.boundsProperty = new DerivedProperty(
+    this.boundsProperty = new DerivedProperty<Bounds2>(
       [ this.positionProperty, representationProperty, this.magnificationProperty, this.isInvertedProperty ],
       //TODO isInverted is not used, is dependency needed?
       ( position: Vector2, representation: any, magnification: number, isInverted: boolean ) => { //TODO-TS any
@@ -141,7 +141,7 @@ class Target {
       } );
 
     //TODO isValidValue: value => INTENSITY_RANGE.contains( value )
-    this.lightIntensityProperty = new DerivedProperty(
+    this.lightIntensityProperty = new DerivedProperty<number>(
       [ this.magnificationProperty, optic.diameterProperty ],
       ( magnification: number, diameter: number ) => {
 
@@ -157,7 +157,7 @@ class Target {
         return distanceFactor * diameterFactor;
       } );
 
-    this.imageProperty = new DerivedProperty(
+    this.imageProperty = new DerivedProperty<HTMLImageElement|null>(
       [ representationProperty, this.isVirtualProperty ],
       ( representation: any, isVirtual: boolean ) => { //TODO-TS any
         const realImage = optic.isLens() ? representation.leftFacingInverted : representation.rightFacingInverted;

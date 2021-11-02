@@ -44,7 +44,7 @@ class SecondPoint {
       range: VERTICAL_OFFSET_RANGE
     } );
 
-    this.positionProperty = new DerivedProperty(
+    this.positionProperty = new DerivedProperty<Vector2>(
       [ sourceObjectPositionProperty, this.verticalOffsetProperty, this.lightSourcePositionProperty, representationProperty ],
       ( sourceObjectPosition: Vector2, verticalOffset: number, lightSourcePosition: Vector2, representation: any ) => //TODO-TS any
         representation.isObject ? sourceObjectPosition.plusXY( 0, verticalOffset ) : lightSourcePosition

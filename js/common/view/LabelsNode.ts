@@ -16,6 +16,12 @@ import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import Representation from '../model/Representation.js';
 import LabelNode from './LabelNode.js';
+import GeometricOpticsModel from '../model/GeometricOpticsModel.js';
+import VisibleProperties from './VisibleProperties.js';
+import Property from '../../../../axon/js/Property.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import OpticShapeEnum from '../model/OpticShapeEnum.js';
 
 class LabelsNode extends Node {
 
@@ -23,10 +29,12 @@ class LabelsNode extends Node {
    * @param {GeometricOpticsModel} model
    * @param {VisibleProperties} visibleProperties
    * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
-   * @param {Property.<boolean>} zoomLevelProperty
+   * @param {Property.<number>} zoomLevelProperty
    * @param {Object} [options]
    */
-  constructor( model, visibleProperties, modelViewTransformProperty, zoomLevelProperty, options ) {
+  constructor( model: GeometricOpticsModel, visibleProperties: VisibleProperties,
+               modelViewTransformProperty: Property<ModelViewTransform2>,
+               zoomLevelProperty: Property<number>, options?: any ) { //TODO-TS any
 
     options = merge( {
       visibleProperty: visibleProperties.labelsVisibleProperty
@@ -34,33 +42,37 @@ class LabelsNode extends Node {
 
     // Object label ------------------------------------------------------------------------------------
 
-    const objectLabelPositionProperty = new DerivedProperty(
+    const objectLabelPositionProperty = new DerivedProperty<Vector2>(
       [ model.sourceObject.boundsProperty ],
       // Because the we use a Y-inverted reference frame, the bottom of the image is the top of the model bounds.
-      bounds => bounds.centerTop
+      ( bounds: Bounds2 ) => bounds.centerTop
     );
 
     const objectLabel = new LabelNode( geometricOpticsStrings.object, objectLabelPositionProperty,
       modelViewTransformProperty, {
-        visibleProperty: new DerivedProperty( [ model.representationProperty ], representation => representation.isObject )
+        visibleProperty: new DerivedProperty( [ model.representationProperty ],
+          ( representation: any ) => representation.isObject ) //TODO-TS any
       } );
 
     // Optic label ------------------------------------------------------------------------------------
 
-    const opticLabelPositionProperty = new DerivedProperty(
+    const opticLabelPositionProperty = new DerivedProperty<Vector2>(
       [ model.optic.positionProperty, model.optic.diameterProperty ],
-      ( position, diameter ) => position.minusXY( 0, diameter / 2 )
+      ( position: Vector2, diameter: number ) => position.minusXY( 0, diameter / 2 )
     );
 
     const opticLabel = new LabelNode( '', opticLabelPositionProperty, modelViewTransformProperty );
 
-    model.optic.opticShapeProperty.link( opticShape => {
-      let text;
+    model.optic.opticShapeProperty.link( ( opticShape: OpticShapeEnum ) => {
+      let text: string;
       if ( model.optic.isConvex( opticShape ) ) {
         text = model.optic.isLens() ? geometricOpticsStrings.convexLens : geometricOpticsStrings.convexMirror;
       }
       else if ( model.optic.isConcave( opticShape ) ) {
         text = model.optic.isLens() ? geometricOpticsStrings.concaveLens : geometricOpticsStrings.concaveMirror;
+      }
+      else {
+        throw new Error( `unsupported opticShape: ${opticShape}` );
       }
       opticLabel.setText( text );
     } );
@@ -79,9 +91,9 @@ class LabelsNode extends Node {
 
     // Image label ------------------------------------------------------------------------------------
 
-    const imageLabelPositionProperty = new DerivedProperty(
+    const imageLabelPositionProperty = new DerivedProperty<Vector2>(
       [ model.firstTarget.boundsProperty ],
-      bounds => bounds.centerTop
+      ( bounds: Bounds2 ) => bounds.centerTop
     );
 
     const imageLabelVisibleProperty = new DerivedProperty( [
@@ -90,7 +102,7 @@ class LabelsNode extends Node {
         model.firstTarget.isVirtualProperty,
         visibleProperties.virtualImageVisibleProperty
       ],
-      ( visible, representation, isVirtual, virtualImageVisible ) =>
+      ( visible: boolean, representation: any, isVirtual: boolean, virtualImageVisible: boolean ) => //TODO-TS any
         ( visible && representation.isObject && ( isVirtual ? virtualImageVisible : true ) )
     );
 
@@ -99,29 +111,31 @@ class LabelsNode extends Node {
     } );
 
     // Switch between 'Real Image' and 'Virtual Image'
-    model.firstTarget.isVirtualProperty.link( isVirtual => {
+    model.firstTarget.isVirtualProperty.link( ( isVirtual: boolean ) => {
       imageLabel.setText( isVirtual ? geometricOpticsStrings.virtualImage : geometricOpticsStrings.realImage );
     } );
 
     // Screen label ------------------------------------------------------------------------------------
 
     //TODO irrelevant for Mirror screen
-    const screenLabelPositionProperty = new DerivedProperty(
+    const screenLabelPositionProperty = new DerivedProperty<Vector2>(
       [ model.projectionScreen.positionProperty ],
-      position => new Vector2( position.x - 25, position.y - 65 ) // empirically, model coordinates
+      ( position: Vector2 ) => new Vector2( position.x - 25, position.y - 65 ) // empirically, model coordinates
     );
 
     const screenLabel = new LabelNode( geometricOpticsStrings.projectionScreen, screenLabelPositionProperty, modelViewTransformProperty, {
       visibleProperty: new DerivedProperty(
-        [ model.representationProperty ], representation => ( representation === Representation.LIGHT )
+        [ model.representationProperty ],
+        // @ts-ignore TODO-TS Property 'LIGHT' does not exist on type 'Enumeration'
+        ( representation: any ) => ( representation === Representation.LIGHT ) //TODO-TS any
       )
     } );
 
     // Optical Axis label ------------------------------------------------------------------------------------
 
-    const opticalAxisLabelPositionProperty = new DerivedProperty(
+    const opticalAxisLabelPositionProperty = new DerivedProperty<Vector2>(
       [ model.optic.positionProperty ],
-      position => new Vector2( position.x - 230, position.y ) // empirically, model coordinates
+      ( position: Vector2 ) => new Vector2( position.x - 230, position.y ) // empirically, model coordinates
     );
 
     const opticalAxisLabel = new LabelNode( geometricOpticsStrings.opticalAxis, opticalAxisLabelPositionProperty, modelViewTransformProperty );

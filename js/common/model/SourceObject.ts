@@ -44,12 +44,12 @@ class SourceObject {
     this.leftTopProperty = new Vector2Property( INITIAL_POSITION.plus( offset ) );
 
     //TODO should this be derived from representationProperty instead?
-    this.positionProperty = new DerivedProperty(
+    this.positionProperty = new DerivedProperty<Vector2>(
       [ this.leftTopProperty ],
       ( leftTop: Vector2 ) => leftTop.minus( offset )
     );
 
-    this.boundsProperty = new DerivedProperty(
+    this.boundsProperty = new DerivedProperty<Bounds2>(
       [ this.leftTopProperty, representationProperty ],
       ( leftTop: Vector2, representation: any ) => { //TODO-TS any
         const scaleFactor = representation.getScaleFactor();

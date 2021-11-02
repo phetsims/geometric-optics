@@ -45,7 +45,7 @@ class LensScreenView extends GeometricOpticsScreenView {
         new GuideNode( model.firstTopGuide, this.modelViewTransform ),
         new GuideNode( model.firstBottomGuide, this.modelViewTransform )
       ],
-      visibleProperty: new DerivedProperty(
+      visibleProperty: new DerivedProperty<boolean>(
         [ this.visibleProperties.guidesVisibleProperty, this.visibleProperties.secondPointVisibleProperty ],
         ( guidesVisible: boolean, secondPointVisible: boolean ) => ( guidesVisible && !secondPointVisible )
       )
@@ -94,7 +94,7 @@ class LensScreenView extends GeometricOpticsScreenView {
     // Add projection screen and light spots at the bottom of the z-layer.
     const lightSourceNodes = new Node( {
       children: [ projectionScreenNode, firstLightSpotNode, secondLightSpotNode ],
-      visibleProperty: new DerivedProperty( [ model.representationProperty ],
+      visibleProperty: new DerivedProperty<boolean>( [ model.representationProperty ],
         // @ts-ignore TODO-TS 'representation' implicitly has 'any' type
         representation => !representation.isObject )
     } );

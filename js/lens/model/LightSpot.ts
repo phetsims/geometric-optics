@@ -57,7 +57,7 @@ class LightSpot {
         this.getScreenIntersection( screenPosition, opticPosition, opticDiameter, targetPosition )
     );
 
-    this.intensityProperty = new DerivedProperty(
+    this.intensityProperty = new DerivedProperty<number>(
       [ projectionScreen.positionProperty, optic.positionProperty, optic.diameterProperty, targetPositionProperty ],
       ( screenPosition: Vector2, opticPosition: Vector2, opticDiameter: number, targetPosition: Vector2 ) =>
         this.getLightIntensity( screenPosition, opticPosition, opticDiameter, targetPosition ), {
