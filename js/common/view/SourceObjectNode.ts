@@ -8,7 +8,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -18,8 +17,13 @@ import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
 import SourceObject from '../model/SourceObject.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 
 class SourceObjectNode extends Node {
+
+  // so that 1st and 2nd light source can share drag bounds
+  public readonly dragBoundsProperty: Property<Bounds2>;
+  private readonly cueingArrows: ArrowNode;
 
   /**
    * @param {EnumerationProperty.<Representation>} representationProperty
@@ -28,14 +32,9 @@ class SourceObjectNode extends Node {
    * @param {Property.<Vector2>} opticPositionProperty
    * @param {ModelViewTransform2} modelViewTransform
    * */
-  constructor( representationProperty, sourceObject, modelBoundsProperty,
-               opticPositionProperty, modelViewTransform ) {
-
-    assert && assert( representationProperty instanceof EnumerationProperty );
-    assert && assert( sourceObject instanceof SourceObject );
-    assert && assert( modelBoundsProperty instanceof Property );
-    assert && assert( opticPositionProperty instanceof Property );
-    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
+  constructor( representationProperty: any, sourceObject: SourceObject, //TODO-TS any
+               modelBoundsProperty: Property<Bounds2>, opticPositionProperty: Property<Vector2>,
+               modelViewTransform: ModelViewTransform2 ) {
 
     // Origin of this Node is at the upper-left corner of sourceObjectImage.
     const sourceObjectImage = new Image( representationProperty.value.rightFacingUpright );
@@ -55,15 +54,20 @@ class SourceObjectNode extends Node {
     } );
 
     // Keep cueing arrows next to the source object.
-    sourceObjectImage.boundsProperty.link( bounds => {
+    // @ts-ignore TODO-TS Property 'boundsProperty' does not exist on type 'Image'.
+    sourceObjectImage.boundsProperty.link( ( bounds: Bounds2 ) => {
+      // @ts-ignore TODO-TS Property 'left' does not exist on type 'Image'.
       cueingArrows.right = sourceObjectImage.left - 10;
+      // @ts-ignore TODO-TS Property 'centerY' does not exist on type 'Image'.
       cueingArrows.centerY = sourceObjectImage.centerY;
     } );
 
     // Scale the source object.
     const scaleSourceObject = () => {
 
+      // @ts-ignore TODO-TS Property 'width' does not exist on type 'Image'.
       const initialWidth = sourceObjectImage.width;
+      // @ts-ignore TODO-TS Property 'height' does not exist on type 'Image'.
       const initialHeight = sourceObjectImage.height;
 
       const bounds = sourceObject.boundsProperty.value;
@@ -71,12 +75,13 @@ class SourceObjectNode extends Node {
 
       const scaleX = viewBounds.width / initialWidth;
       const scaleY = viewBounds.height / initialHeight;
+      // @ts-ignore TODO-TS Property 'scale' does not exist on type 'Image'.
       sourceObjectImage.scale( scaleX, scaleY );
     };
 
     // Translate the source object to the specified position.
     // This Node's origin is at the left-top of sourceObjectImage, so set translation.
-    const translateSourceObject = leftTop => {
+    const translateSourceObject = ( leftTop: Vector2 ) => {
       this.translation = modelViewTransform.modelToViewPosition( leftTop );
     };
 
@@ -85,9 +90,9 @@ class SourceObjectNode extends Node {
     //TODO This is problematic. There's no dependency on representationProperty here. The actual dependency is on
     // sourceObject.boundsProperty, and we're relying on that changing before this value is derived. But changing
     // the dependency to sourceObject.boundsProperty results in a reentry assertion failure.
-    const dragBoundsProperty = new DerivedProperty(
+    this.dragBoundsProperty = new DerivedProperty(
       [ modelBoundsProperty, representationProperty ],
-      ( modelBounds, representation ) =>
+      ( modelBounds: Bounds2, representation: any ) => //TODO-TS any
         new Bounds2(
           modelBounds.minX,
           modelBounds.minY + sourceObject.boundsProperty.value.height,
@@ -95,7 +100,7 @@ class SourceObjectNode extends Node {
           modelBounds.maxY
         )
     );
-    dragBoundsProperty.link( dragBounds => {
+    this.dragBoundsProperty.link( ( dragBounds: Bounds2 ) => {
       sourceObject.leftTopProperty.value = dragBounds.closestPointTo( sourceObject.leftTopProperty.value );
     } );
 
@@ -105,19 +110,19 @@ class SourceObjectNode extends Node {
       useInputListenerCursor: true,
       positionProperty: sourceObject.leftTopProperty,
       transform: modelViewTransform,
-      dragBoundsProperty: dragBoundsProperty,
+      dragBoundsProperty: this.dragBoundsProperty,
       end: () => {
         cueingArrows.visible = false;
       }
     } );
     this.addInputListener( sourceObjectDragListener );
 
-    sourceObject.leftTopProperty.link( leftTop => {
+    sourceObject.leftTopProperty.link( ( leftTop: Vector2 ) => {
       scaleSourceObject();
       translateSourceObject( leftTop );
     } );
 
-    representationProperty.link( representation => {
+    representationProperty.link( ( representation: any ) => { //TODO-TS any
       sourceObjectImage.image = representation.rightFacingUpright;
       scaleSourceObject();
       translateSourceObject( sourceObject.leftTopProperty.value );
@@ -125,9 +130,6 @@ class SourceObjectNode extends Node {
 
     // @private
     this.cueingArrows = cueingArrows;
-
-    // @public
-    this.dragBoundsProperty = dragBoundsProperty; // so that 1st and 2nd light source can share drag bounds
   }
 
   /**
