@@ -30,7 +30,7 @@ class GeometricOpticsRulerNode extends Node {
 
   // bounds of the toolbox
   toolboxBounds: Bounds2;
-  private readonly ruler: Ruler;
+  readonly ruler: Ruler;
   private readonly rulerOptions: any; //TODO-TS any
   private readonly dragListener: DragListener;
 

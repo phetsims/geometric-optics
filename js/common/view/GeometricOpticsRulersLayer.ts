@@ -10,12 +10,17 @@
 
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
 import Ruler from '../model/Ruler.js';
 import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
 
 class GeometricOpticRulersLayer extends Node {
+
+  toolboxPanelBounds: Bounds2;
+  horizontalRulerNode: GeometricOpticsRulerNode;
+  verticalRulerNode: GeometricOpticsRulerNode;
 
   /**
    * @param {Ruler} horizontalRuler
@@ -25,17 +30,13 @@ class GeometricOpticRulersLayer extends Node {
    * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
    * @param {Object} [options]
    */
-  constructor( horizontalRuler, verticalRuler, visibleBoundsProperty, absoluteScaleProperty, modelViewTransformProperty, options ) {
-
-    assert && assert( horizontalRuler instanceof Ruler );
-    assert && assert( verticalRuler instanceof Ruler );
-    assert && assert( visibleBoundsProperty instanceof Property );
-    assert && assert( absoluteScaleProperty instanceof Property );
-    assert && assert( modelViewTransformProperty instanceof Property );
+  constructor( horizontalRuler: Ruler, verticalRuler: Ruler, visibleBoundsProperty: Property<Bounds2>,
+               absoluteScaleProperty: Property<number>, modelViewTransformProperty: Property<ModelViewTransform2>,
+               options?: any ) { //TODO-TS any
 
     super( options );
 
-    // @public {Bounds2} set to infinity, will be updated (mutated) later.
+    // set to infinity, will be properly initialized after constructor is called
     this.toolboxPanelBounds = new Bounds2( Number.NEGATIVE_INFINITY,
       Number.NEGATIVE_INFINITY,
       Number.POSITIVE_INFINITY,
@@ -48,7 +49,7 @@ class GeometricOpticRulersLayer extends Node {
      * @param {number} absoluteScale
      * @returns {GeometricOpticsRulerNode}
      */
-    const createRulerNode = ( ruler, absoluteScale ) => {
+    const createRulerNode = ( ruler: Ruler, absoluteScale: number ) => {
 
       const rulerOptions = getOptions( ruler, absoluteScale );
 
@@ -67,7 +68,7 @@ class GeometricOpticRulersLayer extends Node {
      * @param {number} absoluteScale
      * @returns {Object} [options]
      */
-    const getOptions = ( ruler, absoluteScale ) => {
+    const getOptions = ( ruler: Ruler, absoluteScale: number ) => {
 
       // we want to scale model length inversely as the scale such that the view length remains the same
       ruler.scaleLength( 1 / absoluteScale );
@@ -83,10 +84,10 @@ class GeometricOpticRulersLayer extends Node {
 
     /**
      * Update the GeometricOpticsRulerNode based on the new scale
-     * @param {RulerNode} rulerNode
+     * @param {GeometricOpticsRulerNode} rulerNode
      * @param {number} absoluteScale
      */
-    const updateRulerNode = ( rulerNode, absoluteScale ) => {
+    const updateRulerNode = ( rulerNode: GeometricOpticsRulerNode, absoluteScale: number ) => {
 
       // generate new options for the ruler node
       const rulerOptions = getOptions( rulerNode.ruler, absoluteScale );
@@ -95,18 +96,13 @@ class GeometricOpticRulersLayer extends Node {
       rulerNode.setRulerNode( modelViewTransformProperty.value, rulerOptions );
     };
 
-    // @private {GeometricOpticsRulerNode} create the horizontal GeometricRulerNode
     this.horizontalRulerNode = createRulerNode( horizontalRuler, absoluteScaleProperty.value );
-
-    // @private {GeometricOpticsRulerNode} create the vertical GeometricRulerNode
     this.verticalRulerNode = createRulerNode( verticalRuler, absoluteScaleProperty.value );
-
-    // add both ruler to this layer
     this.addChild( this.horizontalRulerNode );
     this.addChild( this.verticalRulerNode );
 
     // update rulers when scale changes
-    absoluteScaleProperty.link( absoluteScale => {
+    absoluteScaleProperty.link( ( absoluteScale: number ) => {
 
       // update the horizontal ruler based on the new scale
       updateRulerNode( this.horizontalRulerNode, absoluteScale );
@@ -134,12 +130,13 @@ class GeometricOpticRulersLayer extends Node {
     this.verticalRulerNode.reset();
   }
 
+  //TODO this is redundant because toolboxPanelBounds is public
   /**
    * Sets the panel bounds of the toolbox
    * @public
    * @param {Bounds2} bounds
    */
-  setToolboxBounds( bounds ) {
+  setToolboxBounds( bounds: Bounds2 ) {
     this.toolboxPanelBounds.set( bounds );
   }
 }
