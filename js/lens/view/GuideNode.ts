@@ -38,10 +38,7 @@ class GuideNode extends Node {
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( guide, modelViewTransform, options ) {
-
-    assert && assert( guide instanceof Guide );
-    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
+  constructor( guide: Guide, modelViewTransform: ModelViewTransform2, options: any ) { //TODO any
 
     options = merge( {
       rectangle: RECTANGLE_OPTIONS,
@@ -62,10 +59,8 @@ class GuideNode extends Node {
      * @param {Vector2} viewFulcrumPosition
      * @param {number} angle - "model" angle of the rectangle, measured from the positive x -axis
      */
-    const setRectanglePosition = ( rectangleNode, viewFulcrumPosition, angle ) => {
-      assert && assert( rectangleNode instanceof Node );
-      assert && assert( viewFulcrumPosition instanceof Vector2 );
-      assert && assert( typeof angle === 'number' && isFinite( angle ) );
+    const setRectanglePosition = ( rectangleNode: Node, viewFulcrumPosition: Vector2, angle: number ) => {
+      assert && assert( isFinite( angle ) );
 
       // y-inverted modelViewTransform
       const viewAngle = -angle;
@@ -75,7 +70,7 @@ class GuideNode extends Node {
     };
 
     // update the position of the fulcrum
-    guide.fulcrumPositionProperty.link( position => {
+    guide.fulcrumPositionProperty.link( ( position: Vector2 ) => {
       const viewFulcrumPosition = modelViewTransform.modelToViewPosition( position );
       fulcrumNode.center = viewFulcrumPosition;
 
@@ -90,10 +85,9 @@ class GuideNode extends Node {
      * @param {number|null} oldAngle - previous "model" angle
      * @param {Rectangle} rectangle - incident or transmitted rectangle to be rotated and positioned
      */
-    const setAnglePosition = ( angle, oldAngle, rectangle ) => {
-      assert && assert( typeof angle === 'number' && isFinite( angle ) );
-      assert && assert( oldAngle === null || ( typeof oldAngle === 'number' && isFinite( oldAngle ) ) );
-      assert && assert( rectangle instanceof Rectangle );
+    const setAnglePosition = ( angle: number, oldAngle: number | null, rectangle: Rectangle ) => {
+      assert && assert( isFinite( angle ) );
+      assert && assert( oldAngle === null || isFinite( oldAngle ) );
 
       // for first angle
       if ( oldAngle === null ) {
@@ -112,12 +106,12 @@ class GuideNode extends Node {
     };
 
     // update position and angle of incident rectangle
-    guide.incidentAngleProperty.link( ( angle, oldAngle ) => {
+    guide.incidentAngleProperty.link( ( angle: number, oldAngle: number | null ) => {
       setAnglePosition( angle, oldAngle, incidentArmNode );
     } );
 
     // update position and angle of transmitted rectangle
-    guide.transmittedAngleProperty.link( ( transmittedAngle, oldTransmittedAngle ) => {
+    guide.transmittedAngleProperty.link( ( transmittedAngle: number, oldTransmittedAngle: number | null ) => {
       setAnglePosition( transmittedAngle, oldTransmittedAngle, transmittedArmNode );
     } );
 
