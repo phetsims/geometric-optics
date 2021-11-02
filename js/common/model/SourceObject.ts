@@ -8,22 +8,30 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import geometricOptics from '../../geometricOptics.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 
 // initial position of the source object, in cm
 const INITIAL_POSITION = new Vector2( -170, 30 );
 
 class SourceObject {
 
+  // position of the left top position of image
+  public readonly leftTopProperty: Vector2Property;
+
+  // position of the source object or light source
+  public readonly positionProperty: DerivedProperty<Vector2>;
+
+  // model bounds of the source object or first light source
+  public readonly boundsProperty: DerivedProperty<Bounds2>;
+
   /**
    * @param {EnumerationProperty.<Representation>} representationProperty
    */
-  constructor( representationProperty ) {
-    assert && assert( representationProperty instanceof EnumerationProperty );
+  constructor( representationProperty: any ) { //TODO any
 
     // {Vector2} displacement vector from the firstPosition to the left top, in cm - value depends on representation
     //TODO this feels unnecessary, and causes ordering dependencies herein
@@ -31,22 +39,19 @@ class SourceObject {
       representationProperty.value.getScaleFactor()
     );
 
-    // @public position of the left top position of image
     //TODO should this be derived from representationProperty? or from positionProperty?
     //TODO left-top is unfortunate to have in the model, can this be avoided?
     this.leftTopProperty = new Vector2Property( INITIAL_POSITION.plus( offset ) );
 
-    // @public {DerivedProperty.<Vector2>} position of the source object or light source
     //TODO should this be derived from representationProperty instead?
     this.positionProperty = new DerivedProperty(
       [ this.leftTopProperty ],
-      leftTop => leftTop.minus( offset )
+      ( leftTop: Vector2 ) => leftTop.minus( offset )
     );
 
-    // @public {DerivedProperty.<Bounds2>} model bounds of the source object or first light source
     this.boundsProperty = new DerivedProperty(
       [ this.leftTopProperty, representationProperty ],
-      ( leftTop, representation ) => {
+      ( leftTop: Vector2, representation: any ) => { //TODO-TS any
         const scaleFactor = representation.getScaleFactor();
         const size = new Dimension2( representation.rightFacingUpright.width / scaleFactor,
           representation.rightFacingUpright.height / scaleFactor );
@@ -54,7 +59,7 @@ class SourceObject {
       } );
 
     // update the left top position when the representation changes
-    representationProperty.link( representation => {
+    representationProperty.link( ( representation: any ) => { //TODO-TS any
 
       // {Vector2} update the value of the offset
       offset = representation.rightFacingUprightOffset.dividedScalar( representation.getScaleFactor() );

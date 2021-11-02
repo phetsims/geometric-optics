@@ -8,7 +8,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
@@ -24,29 +23,30 @@ const VERTICAL_OFFSET_RANGE = new RangeWithValue( -55, 0, -52 );
 
 class SecondPoint {
 
+  // position of the second point or second light source
+  readonly positionProperty: DerivedProperty<Vector2>;
+  // position of the second light source
+  private readonly lightSourcePositionProperty: Vector2Property;
+  // vertical offset of second point with respect to the first object, in cm
+  private readonly verticalOffsetProperty: NumberProperty
+  private readonly sourceObjectPositionProperty: Property<Vector2>;
+
   /**
    * @param {EnumerationProperty.<Representation>} representationProperty
    * @param {Property.<Vector2>} sourceObjectPositionProperty
    * @param {Object} [options]
    */
-  constructor( representationProperty, sourceObjectPositionProperty, options ) {
+  constructor( representationProperty: any, sourceObjectPositionProperty: Property<Vector2>, options?: any ) { //TODO-TS any any
 
-    assert && assert( representationProperty instanceof EnumerationProperty );
-    assert && assert( sourceObjectPositionProperty instanceof Property );
-
-    // @private position of the second light source
     this.lightSourcePositionProperty = new Vector2Property( INITIAL_LIGHT_SOURCE_POSITION );
 
-    // @private vertical offset of second point with respect to the first object, in cm
     this.verticalOffsetProperty = new NumberProperty( VERTICAL_OFFSET_RANGE.defaultValue, {
       range: VERTICAL_OFFSET_RANGE
     } );
 
-    // @public {DerivedProperty.<Vector2>} position of the second point or second light source
     this.positionProperty = new DerivedProperty(
-      [ sourceObjectPositionProperty, this.verticalOffsetProperty,
-        this.lightSourcePositionProperty, representationProperty ],
-      ( sourceObjectPosition, verticalOffset, lightSourcePosition, representation ) =>
+      [ sourceObjectPositionProperty, this.verticalOffsetProperty, this.lightSourcePositionProperty, representationProperty ],
+      ( sourceObjectPosition: Vector2, verticalOffset: number, lightSourcePosition: Vector2, representation: any ) => //TODO-TS any
         representation.isObject ? sourceObjectPosition.plusXY( 0, verticalOffset ) : lightSourcePosition
     );
 
@@ -69,10 +69,7 @@ class SecondPoint {
    * @param {boolean} isObject
    * @param {Vector2} position
    */
-  setSecondPoint( isObject, position ) {
-    assert && assert( typeof isObject === 'boolean' );
-    assert && assert( position instanceof Vector2 );
-
+  setSecondPoint( isObject: boolean, position: Vector2 ) {
     if ( isObject ) {
       this.verticalOffsetProperty.value = VERTICAL_OFFSET_RANGE.constrainValue(
         position.y - this.sourceObjectPositionProperty.value.y );
