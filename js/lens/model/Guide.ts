@@ -4,49 +4,58 @@
  * Guide is the model element for the guides at both ends of the lens.
  *
  * @author Sarah Chang (Swarthmore College)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import Enumeration from '../../../../phet-core/js/Enumeration.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Optic from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 
+type GuideLocation = 'top' | 'bottom';
+
 class Guide {
+
+  // position of the fulcrum point, in cm
+  readonly fulcrumPositionProperty: DerivedProperty<Vector2>;
+
+  // angle of rotation of the incident guide with respect to the positive x-axis, in radians
+  readonly incidentAngleProperty: DerivedProperty<number>;
+
+  // the angle of the transmitted guide with respect to the positive x-axis, in radians
+  readonly transmittedAngleProperty: DerivedProperty<number>;
 
   /**
    * @param {Optic} optic
    * @param {Property.<Vector2>} objectPositionProperty
-   * @param {Guide.Location} location
+   * @param {GuideLocation} location
    */
-  constructor( optic, objectPositionProperty, location ) {
+  // eslint-disable-next-line no-undef
+  constructor( optic: Optic, objectPositionProperty: Property<Vector2>, location: GuideLocation ) {
 
     assert && assert( objectPositionProperty instanceof Property );
     assert && assert( optic instanceof Optic );
 
     // sign is positive for top guide and negative below
-    const locationSign = ( location === Guide.Location.TOP ) ? +1 : -1;
+    const locationSign = ( location === 'top' ) ? +1 : -1;
 
-    // @public {DerivedProperty.<Vector2>} position of the fulcrum point
     this.fulcrumPositionProperty = new DerivedProperty(
       [ optic.positionProperty, optic.diameterProperty ],
-      ( opticPosition, opticDiameter ) => opticPosition.plusXY( 0, locationSign * opticDiameter / 2 )
+      ( opticPosition: Vector2, opticDiameter: number ) =>
+        opticPosition.plusXY( 0, locationSign * opticDiameter / 2 )
     );
 
-    // @public {DerivedProperty.<number>}
-    // angle of rotation of the incident guide with respect to the positive x-axis
     this.incidentAngleProperty = new DerivedProperty(
       [ objectPositionProperty, this.fulcrumPositionProperty ],
-      ( objectPosition, fulcrumPosition ) => {
+      ( objectPosition: Vector2, fulcrumPosition: Vector2 ) => {
         const displacementVector = objectPosition.minus( fulcrumPosition );
         return displacementVector.getAngle();
       } );
 
-    // @public {DerivedProperty.<number>}
-    // find the angle of the transmitted guide with respect to the positive x-axis
     this.transmittedAngleProperty = new DerivedProperty(
       [ optic.focalLengthProperty, optic.diameterProperty, this.incidentAngleProperty ],
-      ( focalLength, diameter, incidentAngle ) => {
+      ( focalLength: number, diameter: number, incidentAngle: number ) => {
 
         // transmitted angle if the optic was a blank.
         const throughAngle = incidentAngle + Math.PI;
@@ -65,27 +74,8 @@ class Guide {
         return throughAngle + deflectedAngle;
       } );
   }
-
-  /**
-   * Gets the transmitted angle of the guide (right side) with respect to the x-axis
-   * @public
-   * @returns {number}
-   */
-  getTransmittedAngle() {
-    return this.transmittedAngleProperty.value;
-  }
-
-  /**
-   * Gets the incident angle of the guide (left side)
-   * @public
-   * @returns {number}
-   */
-  getIncidentAngle() {
-    return this.incidentAngleProperty.value;
-  }
 }
-
-Guide.Location = Enumeration.byKeys( [ 'TOP', 'BOTTOM' ] );
 
 geometricOptics.register( 'Guide', Guide );
 export default Guide;
+export { GuideLocation };

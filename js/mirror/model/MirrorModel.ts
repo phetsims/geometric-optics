@@ -12,17 +12,19 @@ import GeometricOpticsModel from '../../common/model/GeometricOpticsModel.js';
 import Representation from '../../common/model/Representation.js';
 import geometricOptics from '../../geometricOptics.js';
 import Mirror from './Mirror.js';
+import { OpticConfig } from '../../common/model/Optic.js';
 
 class MirrorModel extends GeometricOpticsModel {
 
   /**
    * @param {Object} [options]
    */
-  constructor( options ) {
+  constructor( options: any ) { //TODO any
 
     options = merge( {
 
       // Mirror does not support a light source
+      // @ts-ignore TODO
       representations: Representation.VALUES.filter( value => ( value !== Representation.LIGHT ) ),
 
       // phet-io options
@@ -31,7 +33,7 @@ class MirrorModel extends GeometricOpticsModel {
 
     const mirror = new Mirror( {
       tandem: options.tandem.createTandem( 'mirror' )
-    } );
+    } as OpticConfig );
 
     super( mirror, options );
   }

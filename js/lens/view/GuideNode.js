@@ -80,8 +80,8 @@ class GuideNode extends Node {
       fulcrumNode.center = viewFulcrumPosition;
 
       // position the rectangles
-      setRectanglePosition( incidentArmNode, viewFulcrumPosition, guide.getIncidentAngle() );
-      setRectanglePosition( transmittedArmNode, viewFulcrumPosition, guide.getTransmittedAngle() );
+      setRectanglePosition( incidentArmNode, viewFulcrumPosition, guide.incidentAngleProperty.value );
+      setRectanglePosition( transmittedArmNode, viewFulcrumPosition, guide.transmittedAngleProperty.value );
     } );
 
     /**
