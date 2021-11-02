@@ -6,17 +6,19 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Vector2 from '../../../../dot/js/Vector2.js';
 import geometricOptics from '../../geometricOptics.js';
 
 class LightRaySegment {
+
+  readonly startPoint: Vector2;
+  readonly endPoint: Vector2;
 
   /**
    * @param {Vector2} startPoint
    * @param {Vector2} endPoint
    */
-  constructor( startPoint, endPoint ) {
-
-    // @public (read-only)
+  constructor( startPoint: Vector2, endPoint: Vector2 ) {
     this.startPoint = startPoint;
     this.endPoint = endPoint;
   }

@@ -12,6 +12,7 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
+import Shape from '../../../../kite/js/Shape.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
@@ -21,6 +22,24 @@ import Ray from './Ray.js';
 
 class LightRay {
 
+  // segments for the real rays
+  readonly realSegments: Array<LightRaySegment>;
+
+  // segments for the virtual rays
+  readonly virtualSegments: Array<LightRaySegment>;
+
+  // a collection of sequential rays
+  private readonly realRays: Array<Ray>;
+
+  // Does this light ray have a virtual ray attached to it?
+  private readonly hasVirtualRay: boolean;
+
+  // there is a maximum of one virtual ray per lightRay
+  private readonly virtualRay: Ray | null;
+
+  //
+  private readonly isTargetReached: boolean;
+
   /**
    * @param {Ray} initialRay - ray (position and direction) emerging from source
    * @param {number} time - value of model time in seconds needed for the purpose of the animation
@@ -29,24 +48,15 @@ class LightRay {
    * @param {boolean} isVirtual - is the image virtual
    * @param {boolean} isPrincipalRayMode - is the light ray mode set to Principal rays
    * @param {boolean} isProjectionScreenPresent - is there a projection screen in the experiment area
-   * @param {function} getProjectionScreenBisectorLine - returns a Shape that bisects the middle of projection screen
+   * @param {function():Shape} getProjectionScreenBisectorLine - returns a Shape that bisects the middle of projection screen
    */
-  constructor( initialRay, time, optic, targetPoint, isVirtual, isPrincipalRayMode, isProjectionScreenPresent,
-               getProjectionScreenBisectorLine ) {
+  constructor( initialRay: Ray, time: number, optic: Optic, targetPoint: Vector2, isVirtual: boolean,
+               isPrincipalRayMode: boolean, isProjectionScreenPresent: boolean,
+               getProjectionScreenBisectorLine: () => Shape ) {
 
-    assert && assert( initialRay instanceof Ray );
     assert && AssertUtils.assertNonNegativeNumber( time );
-    assert && assert( optic instanceof Optic );
-    assert && assert( targetPoint instanceof Vector2 );
-    assert && assert( typeof isVirtual === 'boolean' );
-    assert && assert( typeof isPrincipalRayMode === 'boolean' );
-    assert && assert( typeof isProjectionScreenPresent === 'boolean' );
-    assert && assert( typeof getProjectionScreenBisectorLine === 'function' );
 
-    // @public (read-only) {LightRaySegment[]} segments for the real rays
     this.realSegments = [];
-
-    // @public (read-only) {LightRaySegment[]} segments for the virtual rays
     this.virtualSegments = [];
 
     // {number} maximum travel distance if ray is unimpeded
@@ -55,7 +65,6 @@ class LightRay {
     // {Vector2|null} first intersection point - a null value implies that the initialRay does not intersect the optic
     const firstPoint = this.getFirstPoint( initialRay, optic, isPrincipalRayMode );
 
-    // @private {Ray[]} - a collection of sequential rays
     this.realRays = this.getRealRays( initialRay, firstPoint, optic, isPrincipalRayMode, targetPoint );
 
     // if the last ray intercepts the projection screen, its final point will be set on the last ray
@@ -63,15 +72,12 @@ class LightRay {
       this.setFinalPointProjectionScreen( this.realRays, getProjectionScreenBisectorLine() );
     }
 
-    // @private {boolean} has this light ray a virtual ray attached to it.
     this.hasVirtualRay = this.hasVirtualComponent( isVirtual, this.realRays );
 
-    // @private {Ray|null} - there is a maximum of one virtual ray per lightRay
     this.virtualRay = this.hasVirtualRay ?
                       this.getVirtualRay( this.realRays, targetPoint ) :
                       null;
 
-    // @public (read-only) {boolean}
     this.isTargetReached = this.getHasReachedTarget( distanceTraveled, isProjectionScreenPresent, targetPoint );
 
     // process rays to convert them to line segments
@@ -86,7 +92,7 @@ class LightRay {
    * @param {Vector2} targetPoint
    * @returns {boolean}
    */
-  getHasReachedTarget( distanceTraveled, isProjectionScreenPresent, targetPoint ) {
+  getHasReachedTarget( distanceTraveled: number, isProjectionScreenPresent: boolean, targetPoint: Vector2 ) {
 
     let distance = 0;
 
@@ -129,7 +135,7 @@ class LightRay {
    * @param {boolean} isPrincipalRayMode
    * @returns {Vector2|null}
    */
-  getFirstPoint( initialRay, optic, isPrincipalRayMode ) {
+  getFirstPoint( initialRay: Ray, optic: Optic, isPrincipalRayMode: boolean ) {
     const firstIntersection = this.getFirstShape( optic, isPrincipalRayMode ).intersection( initialRay );
     return this.getPoint( firstIntersection );
   }
@@ -145,7 +151,7 @@ class LightRay {
    * @param {Vector2} targetPoint
    * @returns {Ray[]} Rays
    */
-  getRealRays( initialRay, firstPoint, optic, isPrincipalRayMode, targetPoint ) {
+  getRealRays( initialRay: Ray, firstPoint: Vector2 | null, optic: Optic, isPrincipalRayMode: boolean, targetPoint: Vector2 ) {
 
     // array to store all the rays
     const rays = [];
@@ -155,7 +161,7 @@ class LightRay {
 
     // we can only proceed if the first point (intersection point) exists,
     // otherwise we bail out
-    if ( firstPoint instanceof Vector2 ) {
+    if ( firstPoint ) {
 
       // update the final point of the initial ray, since we hit something
       initialRay.setFinalPoint( firstPoint );
@@ -216,8 +222,12 @@ class LightRay {
    * Gets an "intermediate" point. Find the point of intersection of the initial ray with an imaginary vertical line
    * at position share by the optic position
    * @private
+   * @param {Ray} initialRay
+   * @param {Vector2} firstPoint
+   * @param {Optic} optic
+   * @returns {Vector2}
    */
-  getIntermediatePoint( initialRay, firstPoint, optic ) {
+  getIntermediatePoint( initialRay: Ray, firstPoint: Vector2, optic: Optic ) {
 
     // displacement vector from the source to the optic position
     const opticSourceVector = optic.positionProperty.value.minus( initialRay.position );
@@ -236,8 +246,7 @@ class LightRay {
    * @param {Optic} optic
    * @returns {Shape}
    */
-  getLensFrontShape( optic ) {
-
+  getLensFrontShape( optic: Optic ) {
     assert && assert( optic.isLens(), 'optic must be Lens' );
     const shapes = optic.shapesProperty.value;
     return optic.translatedShape( shapes.frontShape );
@@ -249,9 +258,10 @@ class LightRay {
    * @param {Optic} optic
    * @returns {Shape}
    */
-  getLensBackShape( optic ) {
+  getLensBackShape( optic: Optic ) {
     assert && assert( optic.isLens(), 'optic must be Lens' );
     const shapes = optic.shapesProperty.value;
+    // @ts-ignore TODO-TS Argument of type 'Shape | null' is not assignable to parameter of type 'Shape'.
     return optic.translatedShape( shapes.backShape );
   }
 
@@ -262,7 +272,7 @@ class LightRay {
    * @param {boolean} isPrincipalRayMode
    * @returns {Shape}
    */
-  getFirstShape( optic, isPrincipalRayMode ) {
+  getFirstShape( optic: Optic, isPrincipalRayMode: boolean ) {
 
     // for principal rays, the rays are refracted at a vertical line
     if ( isPrincipalRayMode ) {
@@ -280,10 +290,10 @@ class LightRay {
   /**
    * Processes a point from the intersection. Returns null if the point cannot be found.
    * @private
-   * @param {Intersection[]} intersection
+   * @param {Intersection[]} intersection TODO there is no Intersection type in Shape.js or Segment.js
    * @returns {Vector2|null}
    */
-  getPoint( intersection ) {
+  getPoint( intersection: any ) { //TODO any
 
     // all shapes have been defined as line (straight or curved) so there can only be one intersection point at most
     if ( intersection && intersection[ 0 ] && intersection[ 0 ].point ) {
@@ -302,10 +312,7 @@ class LightRay {
    * @param {Optic} optic
    * @returns {Ray}
    */
-  getTransmittedRay( originPoint, targetPoint, optic ) {
-
-    assert && assert( originPoint instanceof Vector2 );
-    assert && assert( targetPoint instanceof Vector2 );
+  getTransmittedRay( originPoint: Vector2, targetPoint: Vector2, optic: Optic ) {
 
     const direction = originPoint.minus( targetPoint ).normalized();
 
@@ -324,7 +331,7 @@ class LightRay {
    * @param {Vector2} targetPoint
    * @returns {Ray|null} virtualRay
    */
-  getVirtualRay( realRays, targetPoint ) {
+  getVirtualRay( realRays: Ray[], targetPoint: Vector2 ) {
 
     // to have a virtual ray, the initial ray must be deflected
     if ( realRays.length > 1 ) {
@@ -362,7 +369,7 @@ class LightRay {
    * @param {Ray[]} realRays
    * @param {Shape} projectionScreenBisectorLine
    */
-  setFinalPointProjectionScreen( realRays, projectionScreenBisectorLine ) {
+  setFinalPointProjectionScreen( realRays: Ray[], projectionScreenBisectorLine: Shape ) {
 
     // ensure that real rays has at least one ray
     if ( realRays.length > 0 ) {
@@ -389,7 +396,7 @@ class LightRay {
    * @param {Ray[]} realRays
    * @returns {boolean}
    */
-  hasVirtualComponent( isImageVirtual, realRays ) {
+  hasVirtualComponent( isImageVirtual: boolean, realRays: Ray[] ) {
 
     // is the image virtual and has the real rays refracted
     return isImageVirtual && realRays.length > 1;
@@ -400,7 +407,7 @@ class LightRay {
    * @private
    * @param {number} distanceTraveled
    */
-  raysToSegments( distanceTraveled ) {
+  raysToSegments( distanceTraveled: number ) {
 
     // {number} remaining distance to travel for the ray
     let remainingDistance = distanceTraveled;
