@@ -9,7 +9,10 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -19,17 +22,16 @@ import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
 class LabelNode extends Node {
 
+  private readonly textNode: Text;
+
   /**
    * @param {string} text
    * @param {Property.<Vector2>} positionProperty - position of the thing that we're labeling
    * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
    * @param {Object} [options]
    */
-  constructor( text, positionProperty, modelViewTransformProperty, options ) {
-
-    assert && assert( typeof text === 'string' );
-    assert && assert( positionProperty instanceof Property );
-    assert && assert( modelViewTransformProperty instanceof Property );
+  constructor( text: string, positionProperty: Property<Vector2>,
+               modelViewTransformProperty: Property<ModelViewTransform2>, options?: any ) { //TODO-TS any
 
     options = merge( {
 
@@ -66,8 +68,9 @@ class LabelNode extends Node {
     super( options );
 
     Property.multilink(
+      // @ts-ignore TODO-TS problem with textNode.boundsProperty
       [ textNode.boundsProperty, modelViewTransformProperty, positionProperty ],
-      ( textNodeBounds, modelViewTransform, position ) => {
+      ( textNodeBounds: Bounds2, modelViewTransform: ModelViewTransform2, position: Vector2 ) => {
 
         // Size the background to fit the text.
         backgroundRectangle.setRectWidth( textNodeBounds.width + options.xMargin * 2 );
@@ -98,7 +101,7 @@ class LabelNode extends Node {
    * @public
    * @param {string} text
    */
-  setText( text ) {
+  setText( text: string ) {
     this.textNode.text = text;
   }
 }
