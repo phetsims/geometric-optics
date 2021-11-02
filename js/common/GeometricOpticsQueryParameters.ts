@@ -57,7 +57,7 @@ const SCHEMA = {
   lightSpeed: {
     type: 'number',
     defaultValue: 400,
-    isValidValue: value => ( value >= 100 )
+    isValidValue: ( value: number ) => ( value >= 100 )
   }
 };
 
