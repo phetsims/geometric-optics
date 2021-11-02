@@ -26,7 +26,7 @@ class SecondPoint {
   // position of the second point or second light source
   readonly positionProperty: DerivedProperty<Vector2>;
   // position of the second light source
-  private readonly lightSourcePositionProperty: Vector2Property;
+  readonly lightSourcePositionProperty: Vector2Property;
   // vertical offset of second point with respect to the first object, in cm
   private readonly verticalOffsetProperty: NumberProperty
   private readonly sourceObjectPositionProperty: Property<Vector2>;
