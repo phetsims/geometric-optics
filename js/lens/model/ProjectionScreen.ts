@@ -24,10 +24,19 @@ assert && assert( SCREEN_NEAR_HEIGHT > SCREEN_FAR_HEIGHT );
 
 class ProjectionScreen {
 
+  // position of the center of the screen, in cm
+  readonly positionProperty: Vector2Property;
+
+  // Shape of the screen, relative to positionProperty
+  readonly screenShape: Shape;
+
+  // line that vertically bisects the screen, relative to positionProperty
+  private readonly bisectorLine: Shape;
+
   /**
    * @param {Object} [options]
    */
-  constructor( options ) {
+  constructor( options: any ) { //TODO any
 
     options = merge( {
 
@@ -38,12 +47,10 @@ class ProjectionScreen {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // @public position of the center of the screen
     this.positionProperty = new Vector2Property( options.initialPosition, {
       tandem: options.tandem.createTandem( 'positionProperty' )
     } );
 
-    // @public (read-only) Shape of the screen, relative to positionProperty
     // Described clockwise, starting at left top, in model coordinates.
     this.screenShape = new Shape()
       .moveTo( -SCREEN_WIDTH / 2, SCREEN_FAR_HEIGHT / 2 )
@@ -52,7 +59,6 @@ class ProjectionScreen {
       .lineTo( -SCREEN_WIDTH / 2, -SCREEN_FAR_HEIGHT / 2 )
       .close();
 
-    // @private (read-only) line that vertically bisects the screen, relative to positionProperty
     // Described from top to bottom, in model coordinates.
     const averageScreenHeight = ( SCREEN_NEAR_HEIGHT + SCREEN_FAR_HEIGHT ) / 2;
     this.bisectorLine = new Shape()
@@ -94,7 +100,7 @@ class ProjectionScreen {
    * @param {Shape} shape - in the projection screen's local coordinate frame
    * @returns {Shape}
    */
-  translatedShape( shape ) {
+  translatedShape( shape: Shape ) {
     return shape.transformed( Matrix3.translationFromVector( this.positionProperty.value ) );
   }
 }
