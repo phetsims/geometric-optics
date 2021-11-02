@@ -12,7 +12,6 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
 import lamp1_png from '../../../images/lamp1_png.js';
-import lamp2_png from '../../../images/lamp2_png.js';
 import lightIcon_png from '../../../images/lightIcon_png.js';
 import pencilIcon_png from '../../../images/pencilIcon_png.js';
 import pencilLeftFacingInverted_png from '../../../images/pencilLeftFacingInverted_png.js';
@@ -51,12 +50,26 @@ const LIGHT_SOURCE_OFFSET = new Vector2( -62, 40 );
 
 class Representation {
 
+  // See config documentation
+  readonly isObject: boolean;
+  readonly label: string;
+  readonly icon: HTMLImageElement;
+  readonly rightFacingUpright: HTMLImageElement;
+  readonly rightFacingInverted: HTMLImageElement | null;
+  readonly leftFacingUpright: HTMLImageElement | null;
+  readonly leftFacingInverted: HTMLImageElement | null;
+  readonly rightFacingUprightOffset: Vector2;
+  readonly tandemPrefix: string;
+
   /**
    * @param {Object} config
    */
-  constructor( config ) {
+  constructor( config: any ) { //TODO-TS any
 
     config = merge( {
+
+      // {boolean} true = source object, false = light source
+      isObject: required( config.isObject ),
 
       // {string} label for the representation
       label: required( config.label ),
@@ -74,19 +87,11 @@ class Representation {
       // {Vector2} offset between point of interest and left-top corner of rightFacingUpright
       rightFacingUprightOffset: required( config.rightFacingUprightOffset ),
 
-      // {boolean} true = source object, false = light source
-      isObject: required( config.isObject ),
-
-      // optional fields
-      secondLightSourceImage: null, // {HTMLImageElement|null} image for second light source
-
       // phet-io
       tandemPrefix: required( config.tandemPrefix ) // {string}
     }, config );
 
-    assert && assert( !( config.isObject && config.secondLightSourceImage ) );
-
-    // @public (read-only)
+    this.isObject = config.isObject;
     this.label = config.label;
     this.icon = config.icon;
     this.rightFacingUpright = config.rightFacingUpright;
@@ -94,8 +99,6 @@ class Representation {
     this.leftFacingUpright = config.leftFacingUpright;
     this.leftFacingInverted = config.leftFacingInverted;
     this.rightFacingUprightOffset = config.rightFacingUprightOffset;
-    this.isObject = config.isObject;
-    this.secondLightSourceImage = config.secondLightSourceImage;
     this.tandemPrefix = config.tandemPrefix;
   }
 
@@ -109,76 +112,75 @@ class Representation {
   }
 }
 
-// static instances
-Representation.PENCIL = new Representation( {
-  label: geometricOpticsStrings.pencil,
-  icon: pencilIcon_png,
-  rightFacingUpright: pencilRightFacingUpright_png,
-  rightFacingInverted: pencilRightFacingInverted_png,
-  leftFacingUpright: pencilLeftFacingUpright_png,
-  leftFacingInverted: pencilLeftFacingInverted_png,
-  rightFacingUprightOffset: OBJECT_OFFSET,
-  isObject: true,
-  tandemPrefix: 'pencil'
-} );
+// static instances of Representation
+const RepresentationStaticInstances = [
 
-Representation.PENGUIN = new Representation( {
-  label: geometricOpticsStrings.penguin,
-  icon: penguinIcon_png,
-  rightFacingUpright: penguinRightFacingUpright_png,
-  rightFacingInverted: penguinRightFacingInverted_png,
-  leftFacingUpright: penguinLeftFacingUpright_png,
-  leftFacingInverted: penguinLeftFacingInverted_png,
-  rightFacingUprightOffset: OBJECT_OFFSET,
-  isObject: true,
-  tandemPrefix: 'penguin'
-} );
+  // Pencil
+  new Representation( {
+    label: geometricOpticsStrings.pencil,
+    icon: pencilIcon_png,
+    rightFacingUpright: pencilRightFacingUpright_png,
+    rightFacingInverted: pencilRightFacingInverted_png,
+    leftFacingUpright: pencilLeftFacingUpright_png,
+    leftFacingInverted: pencilLeftFacingInverted_png,
+    rightFacingUprightOffset: OBJECT_OFFSET,
+    isObject: true,
+    tandemPrefix: 'pencil'
+  } ),
 
-Representation.PLANET = new Representation( {
-  label: geometricOpticsStrings.planet,
-  icon: planetIcon_png,
-  rightFacingUpright: planetRightFacingUpright_png,
-  rightFacingInverted: planetRightFacingInverted_png,
-  leftFacingUpright: planetLeftFacingUpright_png,
-  leftFacingInverted: planetLeftFacingInverted_png,
-  rightFacingUprightOffset: OBJECT_OFFSET,
-  isObject: true,
-  tandemPrefix: 'planet'
-} );
+  // Penguin
+  new Representation( {
+    label: geometricOpticsStrings.penguin,
+    icon: penguinIcon_png,
+    rightFacingUpright: penguinRightFacingUpright_png,
+    rightFacingInverted: penguinRightFacingInverted_png,
+    leftFacingUpright: penguinLeftFacingUpright_png,
+    leftFacingInverted: penguinLeftFacingInverted_png,
+    rightFacingUprightOffset: OBJECT_OFFSET,
+    isObject: true,
+    tandemPrefix: 'penguin'
+  } ),
 
-Representation.STAR = new Representation( {
-  label: geometricOpticsStrings.star,
-  icon: starIcon_png,
-  rightFacingUpright: starRightFacingUpright_png,
-  rightFacingInverted: starRightFacingInverted_png,
-  leftFacingUpright: starLeftFacingUpright_png,
-  leftFacingInverted: starLeftFacingInverted_png,
-  rightFacingUprightOffset: OBJECT_OFFSET,
-  isObject: true,
-  tandemPrefix: 'star'
-} );
+  // Planet
+  new Representation( {
+    label: geometricOpticsStrings.planet,
+    icon: planetIcon_png,
+    rightFacingUpright: planetRightFacingUpright_png,
+    rightFacingInverted: planetRightFacingInverted_png,
+    leftFacingUpright: planetLeftFacingUpright_png,
+    leftFacingInverted: planetLeftFacingInverted_png,
+    rightFacingUprightOffset: OBJECT_OFFSET,
+    isObject: true,
+    tandemPrefix: 'planet'
+  } ),
 
-Representation.LIGHT = new Representation( {
-  label: geometricOpticsStrings.light,
-  icon: lightIcon_png,
-  rightFacingUpright: lamp1_png,
-  rightFacingInverted: null,
-  leftFacingUpright: null,
-  leftFacingInverted: null,
-  rightFacingUprightOffset: LIGHT_SOURCE_OFFSET,
-  isObject: false, // this is what identifies it as a light source
-  secondLightSourceImage: lamp2_png,
-  tandemPrefix: 'light'
-} );
+ // Star
+  new Representation( {
+    label: geometricOpticsStrings.star,
+    icon: starIcon_png,
+    rightFacingUpright: starRightFacingUpright_png,
+    rightFacingInverted: starRightFacingInverted_png,
+    leftFacingUpright: starLeftFacingUpright_png,
+    leftFacingInverted: starLeftFacingInverted_png,
+    rightFacingUprightOffset: OBJECT_OFFSET,
+    isObject: true,
+    tandemPrefix: 'star'
+  } ),
 
-// All of the above static instances.
-Representation.ALL_STATIC_INSTANCES = [
-  Representation.PENCIL,
-  Representation.PENGUIN,
-  Representation.PLANET,
-  Representation.STAR,
-  Representation.LIGHT
+  // Light
+  new Representation( {
+    label: geometricOpticsStrings.light,
+    icon: lightIcon_png,
+    rightFacingUpright: lamp1_png,
+    rightFacingInverted: null,
+    leftFacingUpright: null,
+    leftFacingInverted: null,
+    rightFacingUprightOffset: LIGHT_SOURCE_OFFSET,
+    isObject: false, // this is what identifies it as a light source
+    tandemPrefix: 'light'
+  } )
 ];
 
 geometricOptics.register( 'Representation', Representation );
 export default Representation;
+export { RepresentationStaticInstances };

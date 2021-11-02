@@ -9,7 +9,7 @@
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsModel from '../../common/model/GeometricOpticsModel.js';
-import Representation from '../../common/model/Representation.js';
+import { RepresentationStaticInstances } from '../../common/model/Representation.js';
 import geometricOptics from '../../geometricOptics.js';
 import Mirror from './Mirror.js';
 import { OpticConfig } from '../../common/model/Optic.js';
@@ -24,7 +24,7 @@ class MirrorModel extends GeometricOpticsModel {
     options = merge( {
 
       // Mirror only supports objects, no light source
-      representations: Representation.ALL_STATIC_INSTANCES.filter( value => value.isObject ),
+      representations: RepresentationStaticInstances.filter( value => value.isObject ),
 
       // phet-io options
       tandem: Tandem.REQUIRED

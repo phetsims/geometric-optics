@@ -20,7 +20,7 @@ import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import LightRays from './LightRays.js';
 import Optic from './Optic.js';
 import { RaysModeValues } from './RaysModeEnum.js';
-import Representation from './Representation.js';
+import Representation, { RepresentationStaticInstances } from './Representation.js';
 import Ruler from './Ruler.js';
 import SecondPoint from './SecondPoint.js';
 import SourceObject from './SourceObject.js';
@@ -85,8 +85,8 @@ class GeometricOpticsModel {
   constructor( optic: Optic, options?: any ) { //TODO-TS any
 
     options = merge( {
-      representation: Representation.ALL_STATIC_INSTANCES[ 0 ],
-      representations: Representation.ALL_STATIC_INSTANCES,
+      representation: RepresentationStaticInstances[ 0 ],
+      representations: RepresentationStaticInstances,
 
       // phet-io options
       tandem: Tandem.REQUIRED
