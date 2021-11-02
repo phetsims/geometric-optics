@@ -8,8 +8,8 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
@@ -47,6 +47,8 @@ const CUEING_ARROW_OPTIONS = {
 
 class SecondPointNode extends Node {
 
+  private readonly cueingArrows: CueingArrows;
+
   /**
    * @param {EnumerationProperty.<Representation>} representationProperty
    * @param {SecondPoint} secondPoint
@@ -54,12 +56,8 @@ class SecondPointNode extends Node {
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( representationProperty, secondPoint, sourceObjectDragBoundsProperty, modelViewTransform, options ) {
-
-    assert && assert( representationProperty instanceof EnumerationProperty );
-    assert && assert( secondPoint instanceof SecondPoint );
-    assert && assert( sourceObjectDragBoundsProperty instanceof Property );
-    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
+  constructor( representationProperty: any, secondPoint: SecondPoint, sourceObjectDragBoundsProperty: Property<Bounds2>, //TODO-TS any
+               modelViewTransform: ModelViewTransform2, options?: any ) { //TODO-TS any
 
     super( options );
 
@@ -67,25 +65,24 @@ class SecondPointNode extends Node {
     const pointNode = new PointNode( POINT_RADIUS );
 
     // Cueing arrows
-    const cueingArrows = new CueingArrows( POINT_RADIUS + 10, {
-      center: pointNode.center
-    } );
+    this.cueingArrows = new CueingArrows( POINT_RADIUS + 10 );
 
     // Light image for the second source
+    // @ts-ignore TODO-TS Property 'LIGHT' does not exist on type 'Enumeration'.
     const secondLightSourceImage = new Image( Representation.LIGHT.secondLightSourceImage, {
       scale: LIGHT_SOURCE_IMAGE_SCALE
     } );
 
     // Property for the position of the second source node
     const positionProperty = new Vector2Property( secondPoint.positionProperty.value );
-    positionProperty.link( position => {
+    positionProperty.link( ( position: Vector2 ) => {
       secondPoint.setSecondPoint( representationProperty.value.isObject, position );
     } );
 
     // {DerivedProperty.<Bounds2|null> null when we are dealing with an Object, non-null for a Light Source
-    const dragBoundsProperty = new DerivedProperty(
+    const dragBoundsProperty = new DerivedProperty<Bounds2>(
       [ sourceObjectDragBoundsProperty, representationProperty ],
-      ( sourceObjectDragBounds, representation ) =>
+      ( sourceObjectDragBounds: Bounds2, representation: any ) => //TODO-TS any
         //TODO this is awful that we're having to undo the offset that is needed elsewhere
         representation.isObject ? null : sourceObjectDragBounds.withOffsets(
           -LIGHT_SOURCE_OFFSET.x, // left
@@ -96,7 +93,7 @@ class SecondPointNode extends Node {
     );
 
     // Keep the light source inside the drag bounds.
-    dragBoundsProperty.link( dragBounds => {
+    dragBoundsProperty.link( ( dragBounds: Bounds2 ) => {
       const isObject = representationProperty.value.isObject;
       if ( !isObject ) {
         assert && assert( dragBounds );
@@ -116,13 +113,13 @@ class SecondPointNode extends Node {
       offsetPosition: () => representationProperty.value.isObject ? Vector2.ZERO : LIGHT_SOURCE_DRAG_OFFSET,
       end: () => {
         if ( representationProperty.value.isObject ) {
-          cueingArrows.visible = false;
+          this.cueingArrows.visible = false;
         }
       }
     } );
     this.addInputListener( secondPointDragListener );
 
-    const updatePosition = modelPosition => {
+    const updatePosition = ( modelPosition: Vector2 ) => {
       const viewPosition = modelViewTransform.modelToViewPosition( modelPosition );
       if ( representationProperty.value.isObject ) {
         this.center = viewPosition;
@@ -132,7 +129,7 @@ class SecondPointNode extends Node {
       }
     };
 
-    representationProperty.link( representation => {
+    representationProperty.link( ( representation: any ) => { //TODO any
 
       // Remove all children from the second source.
       this.removeAllChildren();
@@ -141,23 +138,22 @@ class SecondPointNode extends Node {
 
         // add point and cueing arrows
         this.addChild( pointNode );
-        this.addChild( cueingArrows );
-        cueingArrows.center = pointNode.center;
+        this.addChild( this.cueingArrows );
+        this.cueingArrows.center = pointNode.center;
         this.touchArea = Shape.circle( 0, 0, 2 * POINT_RADIUS + 10 );
       }
       else {
 
         // add second light source
+        // @ts-ignore TODO-TS Argument of type 'Image' is not assignable to parameter of type 'Node'.
         this.addChild( secondLightSourceImage );
+        // @ts-ignore TODO-TS Property 'localBounds' does not exist on type 'Image'.
         this.touchArea = secondLightSourceImage.localBounds.dilateXY( 5, 5 );
       }
       updatePosition( secondPoint.positionProperty.value );
     } );
 
-    secondPoint.positionProperty.link( position => updatePosition( position ) );
-
-    // @private
-    this.cueingArrows = cueingArrows;
+    secondPoint.positionProperty.link( ( position: Vector2 ) => updatePosition( position ) );
   }
 
   /**
@@ -189,7 +185,7 @@ class SecondPointNode extends Node {
 
 // The point that represents the position of the second source
 class PointNode extends Circle {
-  constructor( radius, options ) {
+  constructor( radius: number, options?: any ) { //TODO-TS any
     options = merge( {
       fill: GeometricOpticsColors.secondPointFillProperty,
       stroke: GeometricOpticsColors.secondPointStrokeProperty
@@ -200,7 +196,7 @@ class PointNode extends Circle {
 
 // Arrows for cueing the user that this Node can be moved up and down
 class CueingArrows extends VBox {
-  constructor( spacing ) {
+  constructor( spacing: number ) {
     super( {
       spacing: spacing,
       align: 'center',
