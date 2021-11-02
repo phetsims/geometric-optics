@@ -25,12 +25,16 @@ class LightSpot {
 
   // intersection of this LightSpot with the projection screen
   readonly screenIntersectionProperty: DerivedProperty<Shape>;
+
   // intensity of this LightSpot
   readonly intensityProperty: DerivedProperty<number>;
+
   // position of the light source
   private readonly sourcePositionProperty: Property<Vector2>;
+
   // the optic
   private readonly optic: Optic;
+
   // the projection screen
   private readonly projectionScreen: ProjectionScreen;
 
