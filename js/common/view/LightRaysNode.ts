@@ -8,7 +8,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -17,6 +16,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import ColorDef from '../../../../scenery/js/util/ColorDef.js';
 import geometricOptics from '../../geometricOptics.js';
 import LightRays from '../model/LightRays.js';
+import LightRaySegment from '../model/LightRaySegment.js';
 
 class LightRaysNode extends Node {
 
@@ -27,12 +27,8 @@ class LightRaysNode extends Node {
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( lightRays, representationProperty, virtualImageVisibleProperty, modelViewTransform, options ) {
-
-    assert && assert( lightRays instanceof LightRays );
-    assert && assert( representationProperty instanceof EnumerationProperty );
-    assert && assert( virtualImageVisibleProperty instanceof Property );
-    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
+  constructor( lightRays: LightRays, representationProperty: any, //TODO-TS any
+               virtualImageVisibleProperty: Property<boolean>, modelViewTransform: ModelViewTransform2, options?: any ) { //TODO-TS any
 
     options = merge( {
       realRaysStroke: 'white',
@@ -48,7 +44,7 @@ class LightRaysNode extends Node {
       // Show virtual rays only for objects, not for light source. See https://github.com/phetsims/geometric-optics/issues/216
       visibleProperty: new DerivedProperty(
         [ virtualImageVisibleProperty, representationProperty ],
-        ( virtualImageVisible, representation ) => virtualImageVisible && representation.isObject
+        ( virtualImageVisible: boolean, representation: any ) => virtualImageVisible && representation.isObject //TODO-TS any
       )
     } );
 
@@ -85,12 +81,9 @@ class LightRaysNode extends Node {
  * @param {number} lineWidth
  * @returns {Line[]}
  */
-function segmentsToLines( segments, modelViewTransform, stroke, lineWidth ) {
+function segmentsToLines( segments: LightRaySegment[], modelViewTransform: ModelViewTransform2, stroke: ColorDef, lineWidth: number ) {
 
-  assert && assert( Array.isArray( segments ) );
-  assert && assert( modelViewTransform instanceof ModelViewTransform2 );
-  assert && assert( ColorDef.isColorDef( stroke ) );
-  assert && assert( typeof lineWidth === 'number' && lineWidth > 0 );
+  assert && assert( lineWidth > 0 );
 
   // When attempting to render the rays as a single scenery.Path, we were seeing all kinds of closed-path triangles
   // being rendered. We had to resort to a scenery.Line per segment to make the problem go away.
