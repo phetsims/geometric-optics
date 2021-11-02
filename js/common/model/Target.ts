@@ -16,6 +16,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
+import Representation from './Representation.js';
 
 class Target {
 
@@ -49,9 +50,9 @@ class Target {
   /**
    * @param {Property.<Vector2>} objectPositionProperty - position of the source object or light source
    * @param {Optic} optic - model of the optic
-   * @param {EnumerationProperty.<Representation>} representationProperty
+   * @param {Property.<Representation>} representationProperty
    */
-  constructor( objectPositionProperty: Property<Vector2>, optic: Optic, representationProperty: any ) { //TODO-TS any
+  constructor( objectPositionProperty: Property<Vector2>, optic: Optic, representationProperty: Property<Representation> ) {
 
     this.opticSign = optic.getSign();
 
@@ -119,7 +120,7 @@ class Target {
     this.boundsProperty = new DerivedProperty<Bounds2>(
       [ this.positionProperty, representationProperty, this.magnificationProperty, this.isInvertedProperty ],
       //TODO isInverted is not used, is dependency needed?
-      ( position: Vector2, representation: any, magnification: number, isInverted: boolean ) => { //TODO-TS any
+      ( position: Vector2, representation: Representation, magnification: number, isInverted: boolean ) => {
 
         const scaleFactor = representation.getScaleFactor();
         const initialOffset = representation.rightFacingUprightOffset.timesScalar( 1 / scaleFactor );
@@ -159,7 +160,7 @@ class Target {
 
     this.imageProperty = new DerivedProperty<HTMLImageElement|null>(
       [ representationProperty, this.isVirtualProperty ],
-      ( representation: any, isVirtual: boolean ) => { //TODO-TS any
+      ( representation: Representation, isVirtual: boolean ) => {
         const realImage = optic.isLens() ? representation.leftFacingInverted : representation.rightFacingInverted;
         const virtualImage = optic.isLens() ? representation.rightFacingUpright : representation.leftFacingUpright;
         return isVirtual ? virtualImage : realImage;

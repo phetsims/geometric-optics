@@ -24,7 +24,7 @@ class MirrorModel extends GeometricOpticsModel {
     options = merge( {
 
       // Mirror only supports objects, no light source
-      representations: Representation.VALUES.filter( value => value.isObject ),
+      representations: Representation.ALL_STATIC_INSTANCES.filter( value => value.isObject ),
 
       // phet-io options
       tandem: Tandem.REQUIRED

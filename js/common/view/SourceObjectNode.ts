@@ -18,6 +18,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
 import SourceObject from '../model/SourceObject.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import Representation from '../model/Representation.js';
 
 class SourceObjectNode extends Node {
 
@@ -26,13 +27,13 @@ class SourceObjectNode extends Node {
   private readonly cueingArrows: ArrowNode;
 
   /**
-   * @param {EnumerationProperty.<Representation>} representationProperty
+   * @param {Property.<Representation>} representationProperty
    * @param {SourceObject} sourceObject
    * @param {Property.<Bounds2>} modelBoundsProperty
    * @param {Property.<Vector2>} opticPositionProperty
    * @param {ModelViewTransform2} modelViewTransform
    * */
-  constructor( representationProperty: any, sourceObject: SourceObject, //TODO-TS any
+  constructor( representationProperty: Property<Representation>, sourceObject: SourceObject,
                modelBoundsProperty: Property<Bounds2>, opticPositionProperty: Property<Vector2>,
                modelViewTransform: ModelViewTransform2 ) {
 
@@ -92,7 +93,7 @@ class SourceObjectNode extends Node {
     // the dependency to sourceObject.boundsProperty results in a reentry assertion failure.
     this.dragBoundsProperty = new DerivedProperty(
       [ modelBoundsProperty, representationProperty ],
-      ( modelBounds: Bounds2, representation: any ) => //TODO-TS any
+      ( modelBounds: Bounds2, representation: Representation ) =>
         new Bounds2(
           modelBounds.minX,
           modelBounds.minY + sourceObject.boundsProperty.value.height,
@@ -122,7 +123,7 @@ class SourceObjectNode extends Node {
       translateSourceObject( leftTop );
     } );
 
-    representationProperty.link( ( representation: any ) => { //TODO-TS any
+    representationProperty.link( ( representation: Representation ) => {
       sourceObjectImage.image = representation.rightFacingUpright;
       scaleSourceObject();
       translateSourceObject( sourceObject.leftTopProperty.value );

@@ -24,6 +24,7 @@ import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Optic from '../model/Optic.js';
 import RaysModeEnum from '../model/RaysModeEnum.js';
+import Representation from '../model/Representation.js';
 import RaysRadioButtonGroup from './RaysRadioButtonGroup.js';
 import VisibilityCheckboxGroup from './VisibilityCheckboxGroup.js';
 import VisibleProperties from './VisibleProperties.js';
@@ -49,13 +50,13 @@ const NUMBER_CONTROL_OPTIONS = {
 class GeometricOpticsControlPanel extends Panel {
 
   /**
-   * @param {EnumerationProperty.<Representation>} representationProperty
+   * @param {Property.<Representation>} representationProperty
    * @param {Optic} optic
-   * @param {EnumerationProperty.<RaysModeEnum>} raysModeProperty
+   * @param {Property.<RaysModeEnum>} raysModeProperty
    * @param {VisibleProperties} visibleProperties
    * @param {Object} [options]
    */
-  constructor( representationProperty: any, optic: Optic, raysModeProperty: Property<RaysModeEnum>, //TODO-TS any
+  constructor( representationProperty: Property<Representation>, optic: Optic, raysModeProperty: Property<RaysModeEnum>,
                visibleProperties: VisibleProperties, options?: any ) { //TODO-TS any
 
     options = merge( {

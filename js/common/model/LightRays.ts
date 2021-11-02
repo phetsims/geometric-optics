@@ -19,6 +19,7 @@ import Optic from './Optic.js';
 import Ray from './Ray.js';
 import RaysModeEnum from './RaysModeEnum.js';
 import Target from './Target.js';
+import Representation from './Representation.js';
 
 class LightRays {
 
@@ -34,14 +35,14 @@ class LightRays {
   /**
    * @param {Property.<number>} timeProperty
    * @param {Property.<RaysModeEnum>} raysModeProperty
-   * @param {EnumerationProperty.<Representation>} representationProperty
+   * @param {Property.<Representation>} representationProperty
    * @param {Property.<Vector2>} sourceObjectPositionProperty
    * @param {ProjectionScreen} projectionScreen
    * @param {Optic} optic
    * @param {Target} target - target model associated with this ray
    */
   constructor( timeProperty: Property<number>, raysModeProperty: Property<RaysModeEnum>,
-               representationProperty: any, sourceObjectPositionProperty: Property<Vector2>, //TODO-TS any
+               representationProperty: Property<Representation>, sourceObjectPositionProperty: Property<Vector2>,
                projectionScreen: ProjectionScreen, optic: Optic, target: Target ) {
 
     this.realSegments = [];
@@ -59,7 +60,7 @@ class LightRays {
         optic.diameterProperty,
         optic.focalLengthProperty,
         optic.opticShapeProperty ],
-      ( sourcePosition: Vector2, raysMode: RaysModeEnum, time: number, representation: any ) => { //TODO-TS any
+      ( sourcePosition: Vector2, raysMode: RaysModeEnum, time: number, representation: Representation ) => {
 
         // Clear the arrays.
         this.realSegments = [];

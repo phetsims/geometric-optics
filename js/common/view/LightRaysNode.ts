@@ -17,17 +17,18 @@ import ColorDef from '../../../../scenery/js/util/ColorDef.js';
 import geometricOptics from '../../geometricOptics.js';
 import LightRays from '../model/LightRays.js';
 import LightRaySegment from '../model/LightRaySegment.js';
+import Representation from '../model/Representation.js';
 
 class LightRaysNode extends Node {
 
   /**
    * @param {LightRays} lightRays
-   * @param {EnumerationProperty.<Representation>} representationProperty
+   * @param {Property.<Representation>} representationProperty
    * @param {Property.<boolean>} virtualImageVisibleProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( lightRays: LightRays, representationProperty: any, //TODO-TS any
+  constructor( lightRays: LightRays, representationProperty: Property<Representation>,
                virtualImageVisibleProperty: Property<boolean>, modelViewTransform: ModelViewTransform2, options?: any ) { //TODO-TS any
 
     options = merge( {
@@ -44,7 +45,8 @@ class LightRaysNode extends Node {
       // Show virtual rays only for objects, not for light source. See https://github.com/phetsims/geometric-optics/issues/216
       visibleProperty: new DerivedProperty(
         [ virtualImageVisibleProperty, representationProperty ],
-        ( virtualImageVisible: boolean, representation: any ) => virtualImageVisible && representation.isObject //TODO-TS any
+        ( virtualImageVisible: boolean, representation: Representation ) =>
+          virtualImageVisible && representation.isObject
       )
     } );
 

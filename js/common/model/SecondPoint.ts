@@ -14,6 +14,7 @@ import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import geometricOptics from '../../geometricOptics.js';
+import Representation from './Representation.js';
 
 // initial position of the second light source, in cm
 const INITIAL_LIGHT_SOURCE_POSITION = new Vector2( -150, -20 );
@@ -32,11 +33,13 @@ class SecondPoint {
   private readonly sourceObjectPositionProperty: Property<Vector2>;
 
   /**
-   * @param {EnumerationProperty.<Representation>} representationProperty
+   * @param {Property.<Representation>} representationProperty
    * @param {Property.<Vector2>} sourceObjectPositionProperty
    * @param {Object} [options]
    */
-  constructor( representationProperty: any, sourceObjectPositionProperty: Property<Vector2>, options?: any ) { //TODO-TS any any
+  // eslint-disable-next-line no-undef
+  constructor( representationProperty: Property<Representation>, sourceObjectPositionProperty: Property<Vector2>,
+               options?: any ) { //TODO-TS any any
 
     this.lightSourcePositionProperty = new Vector2Property( INITIAL_LIGHT_SOURCE_POSITION );
 
@@ -46,7 +49,7 @@ class SecondPoint {
 
     this.positionProperty = new DerivedProperty<Vector2>(
       [ sourceObjectPositionProperty, this.verticalOffsetProperty, this.lightSourcePositionProperty, representationProperty ],
-      ( sourceObjectPosition: Vector2, verticalOffset: number, lightSourcePosition: Vector2, representation: any ) => //TODO-TS any
+      ( sourceObjectPosition: Vector2, verticalOffset: number, lightSourcePosition: Vector2, representation: Representation ) =>
         representation.isObject ? sourceObjectPosition.plusXY( 0, verticalOffset ) : lightSourcePosition
     );
 

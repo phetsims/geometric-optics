@@ -16,18 +16,19 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from '../model/Optic.js';
 import Target from '../model/Target.js';
+import Representation from '../model/Representation.js';
 
 class TargetNode extends Node {
 
   /**
-   * @param {EnumerationProperty.<Representation>} representationProperty
+   * @param {Property.<Representation>} representationProperty
    * @param {Target} target
    * @param {Optic} optic
    * @param {Property.<boolean>} virtualImageVisibleProperty
    * @param {Property.<boolean>} rayTracingVisibleProperty
    * @param {ModelViewTransform2} modelViewTransform
    */
-  constructor( representationProperty: any, target: Target, optic: Optic, //TODO-TS any
+  constructor( representationProperty: Property<Representation>, target: Target, optic: Optic,
                virtualImageVisibleProperty: Property<boolean>, rayTracingVisibleProperty: Property<boolean>,
                modelViewTransform: ModelViewTransform2 ) {
 

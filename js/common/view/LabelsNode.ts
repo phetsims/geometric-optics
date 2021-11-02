@@ -21,6 +21,7 @@ import Property from '../../../../axon/js/Property.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import OpticShapeEnum from '../model/OpticShapeEnum.js';
+import Representation from '../model/Representation.js';
 
 class LabelsNode extends Node {
 
@@ -50,7 +51,7 @@ class LabelsNode extends Node {
     const objectLabel = new LabelNode( geometricOpticsStrings.object, objectLabelPositionProperty,
       modelViewTransformProperty, {
         visibleProperty: new DerivedProperty( [ model.representationProperty ],
-          ( representation: any ) => representation.isObject ) //TODO-TS any
+          ( representation: Representation ) => representation.isObject )
       } );
 
     // Optic label ------------------------------------------------------------------------------------
@@ -101,7 +102,7 @@ class LabelsNode extends Node {
         model.firstTarget.isVirtualProperty,
         visibleProperties.virtualImageVisibleProperty
       ],
-      ( visible: boolean, representation: any, isVirtual: boolean, virtualImageVisible: boolean ) => //TODO-TS any
+      ( visible: boolean, representation: Representation, isVirtual: boolean, virtualImageVisible: boolean ) =>
         ( visible && representation.isObject && ( isVirtual ? virtualImageVisible : true ) )
     );
 
@@ -125,7 +126,7 @@ class LabelsNode extends Node {
     const screenLabel = new LabelNode( geometricOpticsStrings.projectionScreen, screenLabelPositionProperty, modelViewTransformProperty, {
       visibleProperty: new DerivedProperty(
         [ model.representationProperty ],
-        ( representation: any ) => !representation.isObject //TODO-TS any
+        ( representation: Representation ) => !representation.isObject
       )
     } );
 
