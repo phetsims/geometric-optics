@@ -11,32 +11,53 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
 
 class Target {
+
+  //TODO visibleProperty should not be in the model
+  public readonly visibleProperty: BooleanProperty;
+
+  // horizontal "distance" between target (image) and optic
+  // the position of the focus as predicted by lens and mirror equation
+  public readonly positionProperty: DerivedProperty<Vector2>;
+  // For a mirror, the image is virtual if the image is on the opposite of the object
+  readonly isVirtualProperty: DerivedProperty<boolean>;
+  // Bounds of the actual Image, based on the Representation
+  readonly boundsProperty: DerivedProperty<Bounds2>;
+  // light intensity of the image (Hollywood) - a value between 0 and 1
+  readonly lightIntensityProperty: DerivedProperty<number>;
+  //TODO what does that mean?
+  readonly imageProperty: DerivedProperty<HTMLImageElement|null>;
+
+  // For a lens, the image is virtual if the image is on the same side as the object
+  // sign (+1 or -1) for the type of optic (lens or mirror)
+  private readonly opticSign: -1 | 1;
+  // The distance can be negative. We follow the standard sign convention used in geometric optics courses.
+  private readonly targetOpticDistanceProperty: DerivedProperty<number>;
+  // the magnification can be negative, indicating the target/image is inverted.
+  private readonly magnificationProperty: DerivedProperty<number>;
+
+  // the image with appropriate orientation to select for the display
+  //TODO document
+  private readonly isInvertedProperty: DerivedProperty<boolean>;
 
   /**
    * @param {Property.<Vector2>} objectPositionProperty - position of the source object or light source
    * @param {Optic} optic - model of the optic
    * @param {EnumerationProperty.<Representation>} representationProperty
    */
-  constructor( objectPositionProperty, optic, representationProperty ) {
-    assert && assert( objectPositionProperty instanceof Property );
-    assert && assert( optic instanceof Optic );
-    assert && assert( representationProperty instanceof EnumerationProperty );
+  constructor( objectPositionProperty: Property<Vector2>, optic: Optic, representationProperty: any ) { //TODO-TS any
 
-    // @private (read-only) {number} sign (+1 or -1) for the type of optic (lens or mirror)
     this.opticSign = optic.getSign();
 
-    // @private {DerivedProperty.<number>} horizontal "distance" between target (image) and optic
-    // The distance can be negative. We follow the standard sign convention used in geometric optics courses.
     this.targetOpticDistanceProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
-      ( objectPosition, opticPosition, focalLength ) => {
+      ( objectPosition: Vector2, opticPosition: Vector2, focalLength: number ) => {
 
         // {number} horizontal distance between optic and source object
         const opticObjectDistance = this.getObjectOpticDistance( objectPosition, opticPosition );
@@ -57,17 +78,13 @@ class Target {
         }
       } );
 
-    // @public
-    //TODO visibleProperty should not be in the model
     this.visibleProperty = new BooleanProperty( false );
 
-    // @public {DerivedProperty.<Vector2>}
-    // the position of the focus as predicted by lens and mirror equation
     this.positionProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       //TODO focalLength is not used, is focalLengthProperty dependency needed?
       //TODO Calls this.getMagnification, should there be a dependency here on magnificationProperty instead?
-      ( objectPosition, opticPosition, focalLength ) => {
+      ( objectPosition: Vector2, opticPosition: Vector2, focalLength: number ) => {
 
         // The height is determined as the vertical offset from the optical axis of the focus point.
         // The height can be negative if the target is inverted.
@@ -82,33 +99,27 @@ class Target {
         return opticPosition.plusXY( horizontalDisplacement, height );
       } );
 
-    // @private {DerivedProperty.<number>}
-    // the magnification can be negative, indicating the target/image is inverted.
     this.magnificationProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       //TODO focalLength is not used, is focalLengthProperty dependency needed?
-      ( objectPosition, opticPosition, focalLength ) => this.getMagnification( objectPosition, opticPosition )
+      ( objectPosition: Vector2, opticPosition: Vector2, focalLength: number ) =>
+        this.getMagnification( objectPosition, opticPosition )
     );
 
-    // @private {DerivedProperty.<boolean>}
     this.isInvertedProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       () => ( this.targetOpticDistanceProperty.value > 0 )
     );
 
-    // @public {DerivedProperty.<boolean>}
-    // For a lens, the image is virtual if the image is on the same side as the object
-    // For a mirror, the image is virtual if the image is on the opposite of the object
     this.isVirtualProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       () => ( this.targetOpticDistanceProperty.value < 0 )
     );
 
-    // @public {DerivedProperty.<bounds2>}
-    // Bounds of the actual Image  based on the Representation
     this.boundsProperty = new DerivedProperty(
       [ this.positionProperty, representationProperty, this.magnificationProperty, this.isInvertedProperty ],
-      ( position, representation, magnification, isInverted ) => { //TODO isInverted is not used, is dependency needed?
+      //TODO isInverted is not used, is dependency needed?
+      ( position: Vector2, representation: any, magnification: number, isInverted: boolean ) => { //TODO-TS any
 
         const scaleFactor = representation.getScaleFactor();
         const initialOffset = representation.rightFacingUprightOffset.timesScalar( 1 / scaleFactor );
@@ -129,16 +140,16 @@ class Target {
         return bounds.shifted( position );
       } );
 
-    // @public {DerivedProperty.<number>}
-    // light intensity of the image (Hollywood) - a value between 0 and 1
+    //TODO isValidValue: value => INTENSITY_RANGE.contains( value )
     this.lightIntensityProperty = new DerivedProperty(
       [ this.magnificationProperty, optic.diameterProperty ],
-      ( magnification, diameter ) => {
+      ( magnification: number, diameter: number ) => {
 
         // effect of the distance on the opacity, Hollywooded as 1/magnification for upscaled image
         const distanceFactor = Math.min( 1, Math.abs( 1 / magnification ) );
 
         // effect of the diameter of the optic on the light intensity of the image (also Hollywooded)
+        // @ts-ignore TODO-TS optic.diameterProperty.range may be null
         const diameterFactor = diameter / optic.diameterProperty.range.max;
         assert && assert( diameterFactor >= 0 && diameterFactor <= 1 );
 
@@ -146,11 +157,9 @@ class Target {
         return distanceFactor * diameterFactor;
       } );
 
-    // @public {DerivedProperty.<HTMLImageElement|null>}
-    // determine the image with appropriate orientation to select for the display
     this.imageProperty = new DerivedProperty(
       [ representationProperty, this.isVirtualProperty ],
-      ( representation, isVirtual ) => {
+      ( representation: any, isVirtual: boolean ) => { //TODO-TS any
         const realImage = optic.isLens() ? representation.leftFacingInverted : representation.rightFacingInverted;
         const virtualImage = optic.isLens() ? representation.rightFacingUpright : representation.leftFacingUpright;
         return isVirtual ? virtualImage : realImage;
@@ -163,7 +172,6 @@ class Target {
    */
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
-    super.dispose();
   }
 
   /**
@@ -174,7 +182,7 @@ class Target {
    * @param {Vector2} opticPosition
    * @returns {number}
    */
-  getObjectOpticDistance( objectPosition, opticPosition ) {
+  getObjectOpticDistance( objectPosition: Vector2, opticPosition: Vector2 ) {
     return opticPosition.x - objectPosition.x;
   }
 
@@ -186,7 +194,7 @@ class Target {
    * @param {Vector2} opticPosition
    * @returns {number}
    */
-  getMagnification( objectPosition, opticPosition ) {
+  getMagnification( objectPosition: Vector2, opticPosition: Vector2 ) {
 
     // horizontal distance between source object (or light source) and optic
     const objectOpticDistance = this.getObjectOpticDistance( objectPosition, opticPosition );
