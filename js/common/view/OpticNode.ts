@@ -9,7 +9,9 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Utils from '../../../../dot/js/Utils.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -23,6 +25,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Optic from '../model/Optic.js';
+import OpticShapes from '../model/OpticShapes.js';
 
 class OpticNode extends Node {
 
@@ -32,11 +35,7 @@ class OpticNode extends Node {
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( optic, modelBoundsProperty, modelViewTransform, options ) {
-
-    assert && assert( optic instanceof Optic );
-    assert && assert( modelBoundsProperty instanceof Property );
-    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
+  constructor( optic: Optic, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, options: any ) { //TODO-TS any
 
     options = merge( {
       fill: GeometricOpticsColors.opticFillProperty,
@@ -67,7 +66,7 @@ class OpticNode extends Node {
       } );
       options.children.push( verticalCenterLine );
 
-      optic.diameterProperty.link( diameter => {
+      optic.diameterProperty.link( ( diameter: number ) => {
         const radiusView = modelViewTransform.modelToViewDeltaY( diameter / 2 );
         verticalCenterLine.setLine( 0, -radiusView, 0, radiusView );
       } );
@@ -83,7 +82,7 @@ class OpticNode extends Node {
     super( options );
 
     // Shape of the optic will change when curve type, radius of curvature, or diameter is changed.
-    optic.shapesProperty.link( shapes => {
+    optic.shapesProperty.link( ( shapes: OpticShapes ) => {
 
       // Shapes are described in model coordinates. If we use modelViewTransform.modelToViewShape to transform
       // to view coordinates, the Shapes will be translated. That creates problems, because translation of this
@@ -103,7 +102,8 @@ class OpticNode extends Node {
     // See https://github.com/phetsims/geometric-optics/issues/242
     if ( optic.isLens() ) {
       const opacityProperty = new DerivedProperty( [ optic.indexOfRefractionProperty ],
-        indexOfRefraction => Utils.linear(
+        ( indexOfRefraction: number ) => Utils.linear(
+          // @ts-ignore TODO-TS optic.indexOfRefractionProperty.range is possibly null
           optic.indexOfRefractionProperty.range.min, optic.indexOfRefractionProperty.range.max,
           0.2, 1, indexOfRefraction )
       );
@@ -112,21 +112,21 @@ class OpticNode extends Node {
 
     // Dragging is constrained to vertical, so create an adapter Property that can be used by DragListener.
     const positionProperty = new Vector2Property( optic.positionProperty.value );
-    positionProperty.link( position => {
+    positionProperty.link( ( position: Vector2 ) => {
       optic.yProperty.value = position.y;
     } );
-    optic.positionProperty.link( position => {
+    optic.positionProperty.link( ( position: Vector2 ) => {
       this.translation = modelViewTransform.modelToViewPosition( position );
     } );
 
     // Constrain dragging such that the optic is fully inside the model bounds.
     // See https://github.com/phetsims/geometric-optics/issues/245
     const dragBoundsProperty = new DerivedProperty( [ modelBoundsProperty, optic.diameterProperty ],
-      ( modelBounds, diameter ) => modelBounds.erodedY( diameter / 2 )
+      ( modelBounds: Bounds2, diameter: number ) => modelBounds.erodedY( diameter / 2 )
     );
 
     // When the dragBounds changes, move the optic inside the drag bounds.
-    dragBoundsProperty.link( dragBounds => {
+    dragBoundsProperty.link( ( dragBounds: Bounds2 ) => {
       optic.yProperty.value = dragBounds.closestPointTo( optic.positionProperty.value ).y;
     } );
 

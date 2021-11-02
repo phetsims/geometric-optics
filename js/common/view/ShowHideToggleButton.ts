@@ -23,9 +23,7 @@ class ShowHideToggleButton extends BooleanRoundToggleButton {
    * @param {Property.<boolean>} booleanProperty
    * @param {Object} [options]
    */
-  constructor( booleanProperty, options ) {
-
-    assert && assert( booleanProperty instanceof Property );
+  constructor( booleanProperty: Property<boolean>, options?: any ) { //TODO-TS any
 
     options = merge( {
       trueColor: 'rgb( 240, 234, 227 )', // {Color|string} button color when booleanProperty.value === true
@@ -47,9 +45,10 @@ class ShowHideToggleButton extends BooleanRoundToggleButton {
     const showNode = new Path( eyeSolidShape, options.icon );
     const hideNode = new Path( eyeSlashSolidShape, options.icon );
 
+    // @ts-ignore TODO-TS Argument of type 'Path' is not assignable to parameter of type 'Node'.
     super( showNode, hideNode, booleanProperty, options );
 
-    booleanProperty.link( value => {
+    booleanProperty.link( ( value: boolean ) => {
       this.setBaseColor( value ? options.trueColor : options.falseColor );
     } );
   }

@@ -9,6 +9,8 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
@@ -24,11 +26,9 @@ class OpticalAxis extends Line {
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( opticPositionProperty, modelBoundsProperty, modelViewTransform, options ) {
-
-    assert && assert( opticPositionProperty instanceof Property );
-    assert && assert( modelBoundsProperty instanceof Property );
-    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
+  // eslint-disable-next-line no-undef
+  constructor( opticPositionProperty: Property<Vector2>, modelBoundsProperty: Property<Bounds2>,
+               modelViewTransform: ModelViewTransform2, options?: any ) { //TODO-TS any
 
     options = merge( {
       stroke: GeometricOpticsColors.opticalAxisStrokeProperty,
@@ -40,13 +40,13 @@ class OpticalAxis extends Line {
     super( 0, 0, 1, 0, options );
 
     // set the horizontal extent of the optical axis line
-    modelBoundsProperty.link( bounds => {
+    modelBoundsProperty.link( ( bounds: Bounds2 ) => {
       this.setX1( modelViewTransform.modelToViewX( bounds.minX ) );
       this.setX2( modelViewTransform.modelToViewX( bounds.maxX ) );
     } );
 
     // update y-position of line based on position of optic
-    opticPositionProperty.link( position => {
+    opticPositionProperty.link( ( position: Vector2 ) => {
       const yView = modelViewTransform.modelToViewY( position.y );
       this.setY1( yView );
       this.setY2( yView );
