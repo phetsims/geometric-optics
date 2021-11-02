@@ -23,8 +23,9 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
-import Representation from '../model/Representation.js';
 import SecondPoint from '../model/SecondPoint.js';
+import lamp2_png from '../../../images/lamp2_png.js';
+import Representation from '../model/Representation.js';
 
 // constants
 const POINT_RADIUS = 5;
@@ -50,13 +51,14 @@ class SecondPointNode extends Node {
   private readonly cueingArrows: CueingArrows;
 
   /**
-   * @param {EnumerationProperty.<Representation>} representationProperty
+   * @param {Property.<Representation>} representationProperty
    * @param {SecondPoint} secondPoint
    * @param {Property.<Bounds2>} sourceObjectDragBoundsProperty
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( representationProperty: any, secondPoint: SecondPoint, sourceObjectDragBoundsProperty: Property<Bounds2>, //TODO-TS any
+  constructor( representationProperty: Property<Representation>, secondPoint: SecondPoint,
+               sourceObjectDragBoundsProperty: Property<Bounds2>,
                modelViewTransform: ModelViewTransform2, options?: any ) { //TODO-TS any
 
     super( options );
@@ -68,8 +70,7 @@ class SecondPointNode extends Node {
     this.cueingArrows = new CueingArrows( POINT_RADIUS + 10 );
 
     // Light image for the second source
-    // @ts-ignore TODO-TS Property 'LIGHT' does not exist on type 'Enumeration'.
-    const secondLightSourceImage = new Image( Representation.LIGHT.secondLightSourceImage, {
+    const secondLightSourceImage = new Image( lamp2_png, {
       scale: LIGHT_SOURCE_IMAGE_SCALE
     } );
 
@@ -82,7 +83,7 @@ class SecondPointNode extends Node {
     // {DerivedProperty.<Bounds2|null> null when we are dealing with an Object, non-null for a Light Source
     const dragBoundsProperty = new DerivedProperty<Bounds2>(
       [ sourceObjectDragBoundsProperty, representationProperty ],
-      ( sourceObjectDragBounds: Bounds2, representation: any ) => //TODO-TS any
+      ( sourceObjectDragBounds: Bounds2, representation: Representation ) =>
         //TODO this is awful that we're having to undo the offset that is needed elsewhere
         representation.isObject ? null : sourceObjectDragBounds.withOffsets(
           -LIGHT_SOURCE_OFFSET.x, // left
@@ -129,7 +130,7 @@ class SecondPointNode extends Node {
       }
     };
 
-    representationProperty.link( ( representation: any ) => { //TODO any
+    representationProperty.link( ( representation: Representation ) => {
 
       // Remove all children from the second source.
       this.removeAllChildren();

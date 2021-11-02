@@ -43,6 +43,7 @@ import ShowHideToggleButton from './ShowHideToggleButton.js';
 import SourceObjectNode from './SourceObjectNode.js';
 import TargetNode from './TargetNode.js';
 import VisibleProperties from './VisibleProperties.js';
+import RaysModeEnum from '../model/RaysModeEnum.js';
 
 // constants
 const ZOOM_RANGE = new RangeWithValue( 1, 3, 3 );
@@ -50,12 +51,21 @@ const NOMINAL_VIEW_MODEL_CONVERSION = 2; // view coordinates per cm in initial z
 
 class GeometricOpticsScreenView extends ScreenView {
 
+  protected readonly screenViewRootNode: Node;
+  protected readonly modelViewTransform: ModelViewTransform2;
+  protected readonly visibleProperties: VisibleProperties;
+  protected readonly modelBoundsProperty: DerivedProperty<Bounds2>;
+  protected readonly experimentAreaNode: Node;
+  protected readonly zoomButtonGroup: Node;
+
+  private readonly model: GeometricOpticsModel;
+  private readonly resetGeometricScreenView: () => void;
+
   /**
    * @param {GeometricOpticsModel} model
    * @param {Object} [options]
    */
-  constructor( model, options ) {
-    assert && assert( model instanceof GeometricOpticsModel );
+  constructor( model: GeometricOpticsModel, options?: any ) { //TODO-TS any
 
     options = merge( {
 
@@ -64,7 +74,7 @@ class GeometricOpticsScreenView extends ScreenView {
       preventFit: true,
 
       // By default, the origin is at the center of the layoutBounds.
-      getViewOrigin: layoutBounds => new Vector2( this.layoutBounds.centerX, this.layoutBounds.centerY ),
+      getViewOrigin: ( layoutBounds: Bounds2 ) => new Vector2( this.layoutBounds.centerX, this.layoutBounds.centerY ),
 
       // phet-io options
       tandem: Tandem.REQUIRED
@@ -97,15 +107,15 @@ class GeometricOpticsScreenView extends ScreenView {
     } );
 
     // {DerivedProperty.<ModelViewTransform2>}
-    const zoomTransformProperty = new DerivedProperty(
+    const zoomTransformProperty = new DerivedProperty<ModelViewTransform2>(
       [ zoomLevelProperty ],
-      zoomLevel => this.getTransformForZoomLevel( zoomLevel, viewOrigin )
+      ( zoomLevel: number ) => this.getTransformForZoomLevel( zoomLevel, viewOrigin )
     );
 
     // {DerivedProperty.<number>} zoom scale associate with the zoom level
-    const absoluteScaleProperty = new DerivedProperty(
+    const absoluteScaleProperty = new DerivedProperty<number>(
       [ zoomLevelProperty ],
-      zoomLevel => this.getAbsoluteScale( zoomLevel )
+      ( zoomLevel: number ) => this.getAbsoluteScale( zoomLevel )
     );
 
     // Things that are outside the Experiment Area =====================================================================
@@ -191,9 +201,9 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // {DerivedProperty.<Bounds2>} bounds of the model, an area that does not overlap any controls, in model coordinates
     // See https://github.com/phetsims/geometric-optics/issues/204
-    const modelBoundsProperty = new DerivedProperty(
+    const modelBoundsProperty = new DerivedProperty<Bounds2>(
       [ this.visibleBoundsProperty, zoomTransformProperty ],
-      ( visibleBounds, zoomTransform ) => {
+      ( visibleBounds: Bounds2, zoomTransform: ModelViewTransform2 ) => {
         const viewBounds = new Bounds2( visibleBounds.left, opticShapeRadioButtonGroup.bottom,
           visibleBounds.right, controlPanel.top );
         return zoomTransform.viewToModelBounds( viewBounds );
@@ -265,7 +275,7 @@ class GeometricOpticsScreenView extends ScreenView {
     } );
 
     // Handle zoom level.
-    zoomLevelProperty.lazyLink( ( zoomLevel, oldZoomLevel ) => {
+    zoomLevelProperty.lazyLink( ( zoomLevel: number, oldZoomLevel: number ) => {
 
       // Scale the experiment area.
       const relativeScale = this.getRelativeScale( zoomLevel, oldZoomLevel );
@@ -273,12 +283,12 @@ class GeometricOpticsScreenView extends ScreenView {
 
       // Translate experimentAreaNode such that the origin point remains fixed through zoom levels.
       const translateVector = viewOrigin.times( 1 / relativeScale - 1 );
-      experimentAreaNode.translate( translateVector );
+      experimentAreaNode.translate( translateVector.x, translateVector.y );
     } );
 
     Property.multilink(
       [ model.raysModeProperty, visibleProperties.rayTracingVisibleProperty ],
-      ( raysMode, rayTracingVisible ) => {
+      ( raysMode: RaysModeEnum, rayTracingVisible: boolean ) => {
         if ( raysMode === 'none' ) {
           model.firstTarget.visibleProperty.value = rayTracingVisible;
           model.secondTarget.visibleProperty.value = rayTracingVisible;
@@ -309,8 +319,10 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // Add points at a distance 2f on each side of optic
     if ( GeometricOpticsQueryParameters.show2f ) {
-      const left2fProperty = new DerivedProperty( [ model.optic.leftFocalPoint.positionProperty ], position => position.timesScalar( 2 ) );
-      const right2fProperty = new DerivedProperty( [ model.optic.rightFocalPoint.positionProperty ], position => position.timesScalar( 2 ) );
+      const left2fProperty = new DerivedProperty<Vector2>( [ model.optic.leftFocalPointProperty ],
+        ( position: Vector2 ) => position.timesScalar( 2 ) );
+      const right2fProperty = new DerivedProperty<Vector2>( [ model.optic.rightFocalPointProperty ],
+        ( position: Vector2 ) => position.timesScalar( 2 ) );
       const options = { fill: GeometricOpticsColors.focalPointFillProperty };
       experimentAreaNode.addChild( new DebugPointNode( left2fProperty, modelViewTransform, options ) );
       experimentAreaNode.addChild( new DebugPointNode( right2fProperty, modelViewTransform, options ) );
@@ -323,7 +335,7 @@ class GeometricOpticsScreenView extends ScreenView {
         lineWidth: 2
       } );
       experimentAreaNode.addChild( dragBoundsNode );
-      modelBoundsProperty.link( modelBounds => {
+      modelBoundsProperty.link( ( modelBounds: Bounds2 ) => {
         const viewBounds = modelViewTransform.modelToViewBounds( modelBounds );
         dragBoundsNode.setRect( viewBounds.x, viewBounds.y, viewBounds.width, viewBounds.height );
       } );
@@ -348,7 +360,6 @@ class GeometricOpticsScreenView extends ScreenView {
     } );
     this.addChild( screenViewRootNode );
 
-    // @private
     this.resetGeometricScreenView = () => {
       zoomLevelProperty.reset();
       visibleProperties.reset();
@@ -359,6 +370,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // pdom -traversal order
     //TODO add Object, second point, light sources, toolbox, rulers
+    // @ts-ignore TODO-TS Property 'pdomOrder' does not exist on type 'Node'.
     screenViewRootNode.pdomOrder = [
       representationComboBox,
       opticShapeRadioButtonGroup,
@@ -369,10 +381,7 @@ class GeometricOpticsScreenView extends ScreenView {
       resetAllButton
     ];
 
-    // @private
     this.model = model; // {GeometricOpticsModel}
-
-    // @protected
     this.screenViewRootNode = screenViewRootNode; // {Node}
     this.modelViewTransform = modelViewTransform; // {ModelViewTransform2}
     this.visibleProperties = visibleProperties; // {VisibleProperties}
@@ -402,7 +411,7 @@ class GeometricOpticsScreenView extends ScreenView {
    * Time stepper
    * @public
    */
-  step( dt ) {
+  step( dt: number ) {
     if ( this.visibleProperties.rayTracingVisibleProperty.value ) {
       this.model.stepLightRays( dt );
     }
@@ -415,7 +424,7 @@ class GeometricOpticsScreenView extends ScreenView {
    * @param {number} oldZoomLevel
    * @returns {number}
    */
-  getRelativeScale( zoomLevel, oldZoomLevel ) {
+  getRelativeScale( zoomLevel: number, oldZoomLevel: number ) {
     const base = 2;
     const scale = Math.pow( base, zoomLevel );
     const oldScale = Math.pow( base, oldZoomLevel );
@@ -429,7 +438,7 @@ class GeometricOpticsScreenView extends ScreenView {
    * @param {number} zoomLevel
    * @returns {number}
    */
-  getAbsoluteScale( zoomLevel ) {
+  getAbsoluteScale( zoomLevel: number ) {
     return this.getRelativeScale( zoomLevel, ZOOM_RANGE.defaultValue );
   }
 
@@ -440,7 +449,7 @@ class GeometricOpticsScreenView extends ScreenView {
    * @param {Vector2} viewOrigin
    * @returns {ModelViewTransform2}
    */
-  getTransformForZoomLevel( zoomLevel, viewOrigin ) {
+  getTransformForZoomLevel( zoomLevel: number, viewOrigin: Vector2 ) {
 
     // scaling factor between zoom level measured from the initial zoom level
     const absoluteScale = this.getAbsoluteScale( zoomLevel );

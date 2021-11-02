@@ -8,7 +8,6 @@
  * @author Martin Veillette
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -17,29 +16,26 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from '../model/Optic.js';
 import Target from '../model/Target.js';
+import Representation from '../model/Representation.js';
 
 class TargetNode extends Node {
 
   /**
-   * @param {EnumerationProperty.<Representation>} representationProperty
+   * @param {Property.<Representation>} representationProperty
    * @param {Target} target
    * @param {Optic} optic
    * @param {Property.<boolean>} virtualImageVisibleProperty
    * @param {Property.<boolean>} rayTracingVisibleProperty
    * @param {ModelViewTransform2} modelViewTransform
    */
-  constructor( representationProperty, target, optic, virtualImageVisibleProperty, rayTracingVisibleProperty, modelViewTransform ) {
-
-    assert && assert( representationProperty instanceof EnumerationProperty );
-    assert && assert( target instanceof Target );
-    assert && assert( optic instanceof Optic );
-    assert && assert( virtualImageVisibleProperty instanceof Property );
-    assert && assert( rayTracingVisibleProperty instanceof Property );
-    assert && assert( modelViewTransform instanceof ModelViewTransform2 );
+  constructor( representationProperty: Property<Representation>, target: Target, optic: Optic,
+               virtualImageVisibleProperty: Property<boolean>, rayTracingVisibleProperty: Property<boolean>,
+               modelViewTransform: ModelViewTransform2 ) {
 
     super();
 
     // creates the target image - the actual image will be updated later
+    // @ts-ignore TODO-TS  Argument of type 'HTMLImageElement | null' is not assignable to parameter of type 'string | any[] | HTMLImageElement | HTMLCanvasElement'.
     const targetImage = new Image( target.imageProperty.value );
 
     /**
@@ -51,13 +47,17 @@ class TargetNode extends Node {
       const viewBounds = modelViewTransform.modelToViewBounds( target.boundsProperty.value );
 
       // current values for width and height of the image
+      // @ts-ignore TODO-TS Property 'width' does not exist on type 'Image'.
       const initialWidth = targetImage.width;
+      // @ts-ignore TODO-TS Property 'height' does not exist on type 'Image'.
       const initialHeight = targetImage.height;
 
       // scale image appropriately
+      // @ts-ignore TODO-TS Property 'scale' does not exist on type 'Image'.
       targetImage.scale( viewBounds.width / initialWidth, viewBounds.height / initialHeight );
 
       // position the image
+      // @ts-ignore TODO-TS Property 'translation' does not exist on type 'Image'.
       targetImage.translation = new Vector2( viewBounds.minX, viewBounds.minY );
     };
 
@@ -69,7 +69,8 @@ class TargetNode extends Node {
      */
     Property.multilink(
       [ target.isVirtualProperty, virtualImageVisibleProperty, target.visibleProperty ],
-      ( isVirtual, virtualImageVisible, targetVisible ) => {
+      ( isVirtual: boolean, virtualImageVisible: boolean, targetVisible: boolean ) => {
+        // @ts-ignore TODO-TS Property 'visible' does not exist on type 'Image'.
         targetImage.visible = ( isVirtual ? virtualImageVisible : true ) && targetVisible;
       } );
 
@@ -79,14 +80,15 @@ class TargetNode extends Node {
     } );
 
     // update the opacity of the image
-    target.lightIntensityProperty.link( intensity => {
+    target.lightIntensityProperty.link( ( intensity: number ) => {
+      // @ts-ignore TODO-TS Property 'opacity' does not exist on type 'Image'.
       targetImage.opacity = intensity;
     } );
 
     // update the image and its visibility
     Property.multilink(
       [ target.imageProperty, rayTracingVisibleProperty ],
-      ( image, rayTracingVisible ) => {
+      ( image: HTMLImageElement|null, rayTracingVisible: boolean ) => {
 
         // is the representation an object
         const isObject = representationProperty.value.isObject;
@@ -98,6 +100,7 @@ class TargetNode extends Node {
         if ( isObject ) {
 
           // update the image
+          // @ts-ignore TODO-TS Type 'HTMLImageElement | null' is not assignable to type 'HTMLImageElement | HTMLCanvasElement'.
           targetImage.image = image;
 
           // update the scale of the image
@@ -106,6 +109,7 @@ class TargetNode extends Node {
       } );
 
     // add the target image to this node
+    // @ts-ignore TODO-TS Argument of type 'Image' is not assignable to parameter of type 'Node'.
     this.addChild( targetImage );
   }
 

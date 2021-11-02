@@ -18,6 +18,7 @@ import LensModel from '../model/LensModel.js';
 import GuideNode from './GuideNode.js';
 import LightSpotNode from './LightSpotNode.js';
 import ProjectionScreenNode from './ProjectionScreenNode.js';
+import Representation from '../../common/model/Representation.js';
 
 class LensScreenView extends GeometricOpticsScreenView {
 
@@ -95,8 +96,7 @@ class LensScreenView extends GeometricOpticsScreenView {
     const lightSourceNodes = new Node( {
       children: [ projectionScreenNode, firstLightSpotNode, secondLightSpotNode ],
       visibleProperty: new DerivedProperty<boolean>( [ model.representationProperty ],
-        // @ts-ignore TODO-TS 'representation' implicitly has 'any' type
-        representation => !representation.isObject )
+        ( representation: Representation ) => !representation.isObject )
     } );
     this.experimentAreaNode.insertChild( 0, lightSourceNodes );
 

@@ -7,8 +7,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -35,7 +35,7 @@ class GeometricOpticsModel {
   readonly optic: Optic;
 
   // representation of the source object
-  readonly representationProperty: any; //TODO-TS any
+  readonly representationProperty: Property<Representation>;
 
   // source object and first light source
   readonly sourceObject: SourceObject;
@@ -85,7 +85,8 @@ class GeometricOpticsModel {
   constructor( optic: Optic, options?: any ) { //TODO-TS any
 
     options = merge( {
-      representations: Representation.VALUES,
+      representation: Representation.ALL_STATIC_INSTANCES[ 0 ],
+      representations: Representation.ALL_STATIC_INSTANCES,
 
       // phet-io options
       tandem: Tandem.REQUIRED
@@ -94,7 +95,7 @@ class GeometricOpticsModel {
     this.optic = optic;
 
     // @ts-ignore TODO-TS Property 'PENCIL' does not exist on type 'Enumeration'.
-    this.representationProperty = new EnumerationProperty( Representation, Representation.PENCIL, {
+    this.representationProperty = new Property<Representation>( options.representation, {
       validValues: options.representations
     } );
 

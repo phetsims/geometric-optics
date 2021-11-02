@@ -13,6 +13,8 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import geometricOptics from '../../geometricOptics.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Property from '../../../../axon/js/Property.js';
+import Representation from './Representation.js';
 
 // initial position of the source object, in cm
 const INITIAL_POSITION = new Vector2( -170, 30 );
@@ -29,9 +31,9 @@ class SourceObject {
   public readonly boundsProperty: DerivedProperty<Bounds2>;
 
   /**
-   * @param {EnumerationProperty.<Representation>} representationProperty
+   * @param {Property.<Representation>} representationProperty
    */
-  constructor( representationProperty: any ) { //TODO any
+  constructor( representationProperty: Property<Representation> ) {
 
     // {Vector2} displacement vector from the firstPosition to the left top, in cm - value depends on representation
     //TODO this feels unnecessary, and causes ordering dependencies herein
@@ -51,7 +53,7 @@ class SourceObject {
 
     this.boundsProperty = new DerivedProperty<Bounds2>(
       [ this.leftTopProperty, representationProperty ],
-      ( leftTop: Vector2, representation: any ) => { //TODO-TS any
+      ( leftTop: Vector2, representation: Representation ) => {
         const scaleFactor = representation.getScaleFactor();
         const size = new Dimension2( representation.rightFacingUpright.width / scaleFactor,
           representation.rightFacingUpright.height / scaleFactor );
@@ -59,7 +61,7 @@ class SourceObject {
       } );
 
     // update the left top position when the representation changes
-    representationProperty.link( ( representation: any ) => { //TODO-TS any
+    representationProperty.link( ( representation: Representation ) => {
 
       // {Vector2} update the value of the offset
       offset = representation.rightFacingUprightOffset.dividedScalar( representation.getScaleFactor() );

@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
@@ -17,15 +18,16 @@ import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import Representation from '../model/Representation.js';
 
 class RepresentationComboBox extends ComboBox {
 
   /**
-   * @param {EnumerationProperty.<Representation>} representationProperty
+   * @param {Property.<Representation>} representationProperty
    * @param {Node} listParent - parent for the listbox popup
    * @param {Object} [options]
    */
-  constructor( representationProperty: any, listParent: Node, options?: any ) { //TODO-TS any any
+  constructor( representationProperty: Property<Representation>, listParent: Node, options?: any ) { //TODO-TS any
 
     options = merge( {
 
@@ -41,7 +43,7 @@ class RepresentationComboBox extends ComboBox {
 
     // Create a ComboBoxItem for each representation.
     const items: ComboBoxItem[] = [];
-    representationProperty.validValues.forEach( ( representation: any ) => { //TODO-TS any any
+    representationProperty.validValues.forEach( ( representation: Representation ) => {
 
       // create text
       const text = new Text( representation.label, {

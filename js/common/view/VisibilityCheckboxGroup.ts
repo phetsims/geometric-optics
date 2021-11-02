@@ -8,7 +8,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -24,19 +23,19 @@ import OpticTypeEnum from '../model/OpticTypeEnum.js';
 import FocalPointNode from './FocalPointNode.js';
 import SecondPointNode from './SecondPointNode.js';
 import VisibleProperties from './VisibleProperties.js';
+import Property from '../../../../axon/js/Property.js';
+import Representation from '../model/Representation.js';
 
 class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 
   /**
    * @param {VisibleProperties} visibleProperties
    * @param {OpticTypeEnum} opticType
-   * @param {EnumerationProperty.<Representation>} representationProperty
+   * @param {Property.<Representation>} representationProperty
    * @param {Object} [options]
    */
   constructor( visibleProperties: VisibleProperties, opticType: OpticTypeEnum,
-               representationProperty: any, options?: any ) {  //TODO-TS any any
-
-    assert && assert( representationProperty instanceof EnumerationProperty );
+               representationProperty: Property<Representation>, options?: any ) {  //TODO-TS any
 
     options = merge( {
       spacing: 4,
@@ -62,8 +61,8 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
         options: {
 
           // Disable the 'Virtual Image' checkbox for light source, see https://github.com/phetsims/geometric-optics/issues/216
-          // @ts-ignore TODO-TS parameter 'representation' implicitly has type 'any'
-          enabledProperty: new DerivedProperty<boolean>( [ representationProperty ], representation => representation.isObject )
+          enabledProperty: new DerivedProperty<boolean>( [ representationProperty ],
+            ( representation: Representation ) => representation.isObject )
         },
         tandem: options.tandem.createTandem( 'virtualImageCheckbox' )
       },
