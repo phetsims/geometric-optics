@@ -126,13 +126,11 @@ class GeometricOpticsModel {
     );
 
     // @public horizontal and vertical rulers
-    this.horizontalRuler = new Ruler(
-      Ruler.Orientation.HORIZONTAL,
+    this.horizontalRuler = new Ruler( 'horizontal',
       GeometricOpticsConstants.HORIZONTAL_RULER_INITIAL_POSITION,
       GeometricOpticsConstants.HORIZONTAL_RULER_LENGTH
     );
-    this.verticalRuler = new Ruler(
-      Ruler.Orientation.VERTICAL,
+    this.verticalRuler = new Ruler( 'vertical',
       GeometricOpticsConstants.VERTICAL_RULER_INITIAL_POSITION,
       GeometricOpticsConstants.VERTICAL_RULER_LENGTH
     );
