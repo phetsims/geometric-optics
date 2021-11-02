@@ -24,7 +24,7 @@ class MirrorModel extends GeometricOpticsModel {
     options = merge( {
 
       // Mirror does not support a light source
-      // @ts-ignore TODO
+      // @ts-ignore TODO property 'LIGHT' does not exist on type 'Enumeration'
       representations: Representation.VALUES.filter( value => ( value !== Representation.LIGHT ) ),
 
       // phet-io options
