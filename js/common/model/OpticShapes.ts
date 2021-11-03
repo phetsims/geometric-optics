@@ -14,17 +14,6 @@ import geometricOptics from '../../geometricOptics.js';
 import OpticTypeEnum from './OpticTypeEnum.js';
 import OpticShapeEnum from './OpticShapeEnum.js';
 
-//TODO-TS revisit this options pattern
-type OpticShapesOptions = {
-
-  // Lens
-  isHollywooded: boolean, // does the radius of curvature parameter match the shape of the lens?
-  offsetRadius: number, //TODO document
-
-  // Mirror
-  mirrorThickness: number // thickness of the backing of the mirror, in cm
-};
-
 class OpticShapes {
 
   // @public (read-only)
@@ -38,10 +27,10 @@ class OpticShapes {
    * @param {OpticShapeEnum} opticShape
    * @param {number} radiusOfCurvature - radius of curvature at the center of the optic
    * @param {number} diameter - vertical height of the optic
-   * @param {OpticShapesOptions} [providedOptions]
+   * @param {Object} [options]
    */
   constructor( opticType: OpticTypeEnum, opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number,
-               providedOptions?: Partial<OpticShapesOptions> ) {
+               options?: any ) { //TODO-TS any
 
     assert && assert( isFinite( radiusOfCurvature ) && radiusOfCurvature > 0 );
     assert && assert( isFinite( diameter ) && diameter > 0 );
@@ -53,10 +42,10 @@ class OpticShapes {
     this.fillShape = new Shape();
 
     if ( opticType === 'lens' ) {
-      this.setLensShapes( opticShape, radiusOfCurvature, diameter, providedOptions );
+      this.setLensShapes( opticShape, radiusOfCurvature, diameter, options );
     }
     else {
-      this.setMirrorShapes( opticShape, radiusOfCurvature, diameter, providedOptions );
+      this.setMirrorShapes( opticShape, radiusOfCurvature, diameter, options );
     }
   }
 
@@ -70,14 +59,14 @@ class OpticShapes {
    * @param {OpticShapeEnum} opticShape
    * @param {number} radiusOfCurvature - radius of curvature
    * @param {number} diameter - height of the lens
-   * @param {OpticShapesOptions} [providedOptions]
+   * @param {Object} [options]
    */
-  setLensShapes( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number, providedOptions?: Partial<OpticShapesOptions> ) {
+  setLensShapes( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number, options?: any ) { //TODO-TS any
 
-    const options = merge( {
-      isHollywooded: true,
-      offsetRadius: 100
-    }, providedOptions ) as OpticShapesOptions;
+    options = merge( {
+      isHollywooded: true, // does the radius of curvature parameter match the shape of the lens?
+      offsetRadius: 100 //TODO document
+    }, options );
 
     const halfHeight = diameter / 2;
 
@@ -173,14 +162,14 @@ class OpticShapes {
    * @param {OpticShapeEnum} opticShape
    * @param {number} radiusOfCurvature - radius of curvature at the center of the mirror
    * @param {number} diameter - vertical height of the mirror
-   * @param {OpticShapesOptions} [providedOptions]
+   * @param {Object} [options]
    */
-  setMirrorShapes( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number, providedOptions?: Partial<OpticShapesOptions> ) {
+  setMirrorShapes( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number, options?: any ) { //TODO-TS any
     assert && assert( radiusOfCurvature > diameter / 2 );
 
-    const options = merge( {
-      mirrorThickness: 5
-    }, providedOptions ) as OpticShapesOptions;
+    options = merge( {
+      mirrorThickness: 5 // thickness of the backing of the mirror, in cm
+    }, options );
 
     // convenience variable
     const mirrorThickness = options.mirrorThickness;
@@ -239,4 +228,3 @@ class OpticShapes {
 geometricOptics.register( 'OpticShapes', OpticShapes );
 
 export default OpticShapes;
-export { OpticShapesOptions };

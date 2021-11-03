@@ -340,9 +340,6 @@ class Optic {
    * @returns {Vector2}
    */
   getExtremumPoint( sourcePoint: Vector2, targetPoint: Vector2, isTop: boolean ) {
-    assert && assert( sourcePoint instanceof Vector2 );
-    assert && assert( targetPoint instanceof Vector2 );
-    assert && assert( typeof isTop === 'boolean' );
 
     // Erode the bounds a tiny bit so that the point is always within the bounds.
     const opticBounds = this.getOpticBounds().erodedY( 1e-6 );

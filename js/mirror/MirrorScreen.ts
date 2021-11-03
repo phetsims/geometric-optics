@@ -17,19 +17,14 @@ import geometricOpticsStrings from '../geometricOpticsStrings.js';
 import MirrorModel from './model/MirrorModel.js';
 import MirrorScreenView from './view/MirrorScreenView.js';
 
-//TODO-TS replace with ScreenOptions
-type MirrorScreenOptions = {
-  tandem: Tandem,
-};
-
 class MirrorScreen extends Screen {
 
   /**
-   * @param {MirrorScreenOptions} [providedOptions]
+   * @param {Object} [options]
    */
-  constructor( providedOptions?: Partial<MirrorScreenOptions> ) {
+  constructor( options?: any ) { //TODO-TS any
 
-    const options = merge( {
+    options = merge( {
       name: geometricOpticsStrings.screen.mirror,
       homeScreenIcon: createScreenIcon(),
       showUnselectedHomeScreenIconFrame: true,
@@ -37,7 +32,7 @@ class MirrorScreen extends Screen {
 
       // phet-io options
       tandem: Tandem.REQUIRED
-    }, providedOptions ) as MirrorScreenOptions;
+    }, options );
 
     super(
       () => new MirrorModel( { tandem: options.tandem.createTandem( 'model' ) } ),

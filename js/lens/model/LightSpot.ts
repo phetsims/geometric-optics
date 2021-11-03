@@ -172,9 +172,6 @@ class LightSpot {
     // unclipped elliptical disk shape
     const diskShape = this.getDiskShape( screenPosition, opticPosition, opticDiameter, targetPosition );
 
-    assert && assert( screenShape instanceof Shape, 'screenShape is not a Shape' );
-    assert && assert( diskShape instanceof Shape, 'diskShape is not a Shape' );
-
     // it should NOT be necessary to weed out the zero shape, see #
     if ( diskShape.getArea() === 0 ) {
 

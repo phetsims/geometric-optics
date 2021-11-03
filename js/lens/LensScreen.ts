@@ -17,19 +17,14 @@ import geometricOpticsStrings from '../geometricOpticsStrings.js';
 import LensModel from './model/LensModel.js';
 import LensScreenView from './view/LensScreenView.js';
 
-//TODO-TS replace with ScreenOptions
-type LensScreenOptions = {
-  tandem: Tandem,
-};
-
 class LensScreen extends Screen {
 
   /**
-   * @param {Object} [providedOptions]
+   * @param {Object} [options]
    */
-  constructor( providedOptions?: Partial<LensScreenOptions> ) {
+  constructor( options?: any ) { //TODO-TS any
 
-    const options = merge( {
+    options = merge( {
       name: geometricOpticsStrings.screen.lens,
       homeScreenIcon: createScreenIcon(),
       showUnselectedHomeScreenIconFrame: true,
@@ -37,7 +32,7 @@ class LensScreen extends Screen {
 
       // phet-io options
       tandem: Tandem.REQUIRED
-    }, providedOptions ) as LensScreenOptions;
+    }, options );
 
     super(
       () => new LensModel( { tandem: options.tandem.createTandem( 'model' ) } ),

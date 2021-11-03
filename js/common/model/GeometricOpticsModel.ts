@@ -9,7 +9,6 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import StringProperty from '../../../../axon/js/StringProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -19,7 +18,7 @@ import ProjectionScreen from '../../lens/model/ProjectionScreen.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import LightRays from './LightRays.js';
 import Optic from './Optic.js';
-import { RaysModeValues } from './RaysModeEnum.js';
+import RaysModeEnum, { RaysModeValues } from './RaysModeEnum.js';
 import Representation, { RepresentationStaticInstances } from './Representation.js';
 import Ruler from './Ruler.js';
 import SecondPoint from './SecondPoint.js';
@@ -65,8 +64,7 @@ class GeometricOpticsModel {
   readonly lightRaysTimeProperty: NumberProperty;
 
   // determines the representation used for rays
-  //TODO-TS Property<RaysModeEnum>
-  readonly raysModeProperty: StringProperty;
+  readonly raysModeProperty: Property<RaysModeEnum>;
 
   // light rays associated with the first light source
   readonly firstLightRays: LightRays;
@@ -94,7 +92,6 @@ class GeometricOpticsModel {
 
     this.optic = optic;
 
-    // @ts-ignore TODO-TS Property 'PENCIL' does not exist on type 'Enumeration'.
     this.representationProperty = new Property<Representation>( options.representation, {
       validValues: options.representations
     } );
@@ -130,9 +127,8 @@ class GeometricOpticsModel {
       range: new Range( 0, RAYS_ANIMATION_TIME )
     } );
 
-    //TODO-TS Property.<RaysModeEnum>
     //TODO-TS phetioType: Property.PropertyIO( StringIO ),
-    this.raysModeProperty = new StringProperty( 'marginal', {
+    this.raysModeProperty = new Property( 'marginal', {
       values: RaysModeValues,
       tandem: options.tandem.createTandem( 'raysModeProperty' )
     } );

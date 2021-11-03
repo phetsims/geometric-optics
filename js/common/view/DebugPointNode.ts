@@ -15,25 +15,19 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import geometricOptics from '../../geometricOptics.js';
 
-//TODO-TS revisit this options pattern
-type DebugPointNodeOptions = {
-  fill?: ColorDef
-  radius?: number
-};
-
 class DebugPointNode extends Circle {
 
   /**
    * @param {Property.<Vector2>} positionProperty
    * @param {ModelViewTransform2} modelViewTransform
-   * @param {Object} [providedOptions]
+   * @param {Object} [options]
    * */
-  constructor( positionProperty: Property<Vector2>, modelViewTransform: ModelViewTransform2, providedOptions: DebugPointNodeOptions ) {
+  constructor( positionProperty: Property<Vector2>, modelViewTransform: ModelViewTransform2, options?: any ) { //TODO-TS any
 
-    const options = merge( {
+    options = merge( {
       fill: 'white',
       radius: 2
-    } as DebugPointNodeOptions, providedOptions ) as Required< DebugPointNodeOptions >;
+    }, options );
 
     super( options.radius, options );
 
@@ -55,4 +49,3 @@ class DebugPointNode extends Circle {
 
 geometricOptics.register( 'DebugPointNode', DebugPointNode );
 export default DebugPointNode;
-export { DebugPointNodeOptions };

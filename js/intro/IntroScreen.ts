@@ -17,19 +17,14 @@ import geometricOpticsStrings from '../geometricOpticsStrings.js';
 import IntroModel from './model/IntroModel.js';
 import IntroScreenView from './view/IntroScreenView.js';
 
-//TODO-TS replace with ScreenOptions
-type IntroScreenOptions = {
-  tandem: Tandem,
-};
-
 class IntroScreen extends Screen {
 
   /**
-   * @param {IntroScreenOptions} [providedOptions]
+   * @param {Object} [options]
    */
-  constructor( providedOptions?: Partial<IntroScreenOptions> ) {
+  constructor( options?: any ) { //TODO-TS any
 
-    const options = merge( {
+    options = merge( {
 
       // Screen options
       name: geometricOpticsStrings.screen.intro,
@@ -39,7 +34,7 @@ class IntroScreen extends Screen {
 
       // phet-io options
       tandem: Tandem.REQUIRED
-    }, providedOptions ) as IntroScreenOptions;
+    }, options );
 
     super(
       () => new IntroModel( { tandem: options.tandem.createTandem( 'model' ) } ),

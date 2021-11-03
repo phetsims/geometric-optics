@@ -10,7 +10,7 @@ type t = {
   screen: {
     [ key: string ]: string,
   }
-  //TODO add any other nested strings here
+  // add additional nested keys here
 };
 let geometricOpticsStrings: t;
 export default geometricOpticsStrings;

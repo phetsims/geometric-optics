@@ -16,7 +16,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import Optic from '../model/Optic.js';
 import OpticShapeEnum from '../model/OpticShapeEnum.js';
-import OpticShapes, { OpticShapesOptions } from '../model/OpticShapes.js';
+import OpticShapes from '../model/OpticShapes.js';
 import OpticTypeEnum from '../model/OpticTypeEnum.js';
 
 class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup {
@@ -81,7 +81,7 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup {
     const iconShapes = new OpticShapes( opticType, opticShape, options.radius, options.diameter, {
       isHollywooded: false,
       mirrorThickness: 4
-    } as OpticShapesOptions );
+    } );
 
     // Create the icon.
     const fillNode = new Path( iconShapes.fillShape, {

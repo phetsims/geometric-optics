@@ -8,7 +8,6 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import StringProperty from '../../../../axon/js/StringProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
@@ -24,8 +23,6 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup {
    * @param {Object} [options]
    */
   constructor( raysModeProperty: Property<RaysModeEnum>, options?: any ) { //TODO-TS any
-
-    assert && assert( raysModeProperty instanceof StringProperty );
 
     options = merge( {
       spacing: 4,
