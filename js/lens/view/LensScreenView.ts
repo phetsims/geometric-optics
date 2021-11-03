@@ -4,6 +4,7 @@
  * LensScreenView is the view for the 'Lens' screen.
  *
  * @author Martin Veillette
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';

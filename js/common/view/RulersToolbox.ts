@@ -6,6 +6,7 @@
  * The toolbox shows miniature versions of these rulers.
  *
  * @author Sarah Chang (Swarthmore College)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import merge from '../../../../phet-core/js/merge.js';

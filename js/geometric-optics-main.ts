@@ -4,6 +4,7 @@
  * Main entry point for the sim.
  *
  * @author Martin Veillette
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Sim from '../../joist/js/Sim.js';

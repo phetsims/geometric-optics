@@ -5,6 +5,7 @@
  * Scenery node for a movable ruler in the Geometric Optics simulation
  *
  * @author Sarah Chang (Swarthmore College)
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';

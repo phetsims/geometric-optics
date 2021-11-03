@@ -5,6 +5,7 @@
  * Responsible for the shape of the spot (cropped to the screen shape) and the light intensity.
  *
  * @author Martin Veillette
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';

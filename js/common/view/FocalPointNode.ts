@@ -4,6 +4,7 @@
  * FocalPointNode displays a focal point. Its position updates to match the model.
  *
  * @author Martin Veillette
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Property from '../../../../axon/js/Property.js';

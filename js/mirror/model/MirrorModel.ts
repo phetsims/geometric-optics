@@ -4,6 +4,7 @@
  * MirrorModel is the model for the 'Mirror' screen.
  *
  * @author Martin Veillette
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import merge from '../../../../phet-core/js/merge.js';

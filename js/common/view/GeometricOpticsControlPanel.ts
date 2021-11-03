@@ -4,6 +4,7 @@
  * GeometricOpticsControlPanel is the main control panel for both screens.
  *
  * @author Martin Veillette
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Property from '../../../../axon/js/Property.js';

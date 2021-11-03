@@ -4,6 +4,7 @@
  * Model element of a Ray. A ray can be semi infinite, or of finite length
  *
  * @author Martin Veillette
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Ray2 from '../../../../dot/js/Ray2.js';
