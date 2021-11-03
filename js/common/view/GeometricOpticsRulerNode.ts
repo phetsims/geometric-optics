@@ -22,6 +22,7 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Ruler from '../model/Ruler.js';
 import SceneryEvent from '../../../../scenery/js/input/SceneryEvent.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GeometricOpticsConstants.RULER_MINIMUM_VISIBLE_LENGTH;
@@ -108,8 +109,8 @@ class GeometricOpticsRulerNode extends Node {
       end: ( event: SceneryEvent ) => {
 
         // return ruler to toolbox if the pointer is within the toolbox
-        // @ts-ignore TODO-TS event.pointer.point may be null
-        if ( this.toolboxBounds.containsPoint( this.globalToParentPoint( event.pointer.point ) ) ) {
+        assert && assert( event.pointer.point instanceof Vector2 );
+        if ( this.toolboxBounds.containsPoint( this.globalToParentPoint( event.pointer.point as Vector2 ) ) ) {
           this.visible = false;
         }
       }
