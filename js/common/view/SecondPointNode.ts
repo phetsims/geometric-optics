@@ -74,6 +74,9 @@ class SecondPointNode extends Node {
       scale: LIGHT_SOURCE_IMAGE_SCALE
     } );
 
+    //TODO-TS workaround, because class Image extends Imageable( Node )
+    const secondLightSourceImageAsNode = secondLightSourceImage as unknown as Node;
+
     // Property for the position of the second source node
     const positionProperty = new Vector2Property( secondPoint.positionProperty.value );
     positionProperty.link( ( position: Vector2 ) => {
@@ -146,10 +149,8 @@ class SecondPointNode extends Node {
       else {
 
         // add second light source
-        // @ts-ignore TODO-TS Argument of type 'Image' is not assignable to parameter of type 'Node'.
-        this.addChild( secondLightSourceImage );
-        // @ts-ignore TODO-TS Property 'localBounds' does not exist on type 'Image'.
-        this.touchArea = secondLightSourceImage.localBounds.dilateXY( 5, 5 );
+        this.addChild( secondLightSourceImageAsNode );
+        this.touchArea = secondLightSourceImageAsNode.localBounds.dilateXY( 5, 5 );
       }
       updatePosition( secondPoint.positionProperty.value );
     } );
