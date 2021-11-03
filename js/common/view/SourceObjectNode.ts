@@ -91,7 +91,7 @@ class SourceObjectNode extends Node {
     //TODO This is problematic. There's no dependency on representationProperty here. The actual dependency is on
     // sourceObject.boundsProperty, and we're relying on that changing before this value is derived. But changing
     // the dependency to sourceObject.boundsProperty results in a reentry assertion failure.
-    this.dragBoundsProperty = new DerivedProperty(
+    this.dragBoundsProperty = new DerivedProperty<Bounds2>(
       [ modelBoundsProperty, representationProperty ],
       ( modelBounds: Bounds2, representation: Representation ) =>
         new Bounds2(

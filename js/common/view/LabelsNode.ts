@@ -50,7 +50,7 @@ class LabelsNode extends Node {
 
     const objectLabel = new LabelNode( geometricOpticsStrings.object, objectLabelPositionProperty,
       modelViewTransformProperty, {
-        visibleProperty: new DerivedProperty( [ model.representationProperty ],
+        visibleProperty: new DerivedProperty<boolean>( [ model.representationProperty ],
           ( representation: Representation ) => representation.isObject )
       } );
 
@@ -96,7 +96,7 @@ class LabelsNode extends Node {
       ( bounds: Bounds2 ) => bounds.centerTop
     );
 
-    const imageLabelVisibleProperty = new DerivedProperty( [
+    const imageLabelVisibleProperty = new DerivedProperty<boolean>( [
         model.firstTarget.visibleProperty,
         model.representationProperty,
         model.firstTarget.isVirtualProperty,
@@ -124,7 +124,7 @@ class LabelsNode extends Node {
     );
 
     const screenLabel = new LabelNode( geometricOpticsStrings.projectionScreen, screenLabelPositionProperty, modelViewTransformProperty, {
-      visibleProperty: new DerivedProperty(
+      visibleProperty: new DerivedProperty<boolean>(
         [ model.representationProperty ],
         ( representation: Representation ) => !representation.isObject
       )
