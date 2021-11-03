@@ -12,6 +12,7 @@ import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import StringIO from '../../../../tandem/js/types/StringIO.js';
 import geometricOptics from '../../geometricOptics.js';
 import LightSpot from '../../lens/model/LightSpot.js';
 import ProjectionScreen from '../../lens/model/ProjectionScreen.js';
@@ -127,10 +128,10 @@ class GeometricOpticsModel {
       range: new Range( 0, RAYS_ANIMATION_TIME )
     } );
 
-    //TODO-TS phetioType: Property.PropertyIO( StringIO ),
     this.raysModeProperty = new Property( 'marginal', {
-      values: RaysModeValues,
-      tandem: options.tandem.createTandem( 'raysModeProperty' )
+      validValues: RaysModeValues,
+      tandem: options.tandem.createTandem( 'raysModeProperty' ),
+      phetioType: Property.PropertyIO( StringIO )
     } );
 
     // Changing raysModeProperty resets the animation time for rays.
