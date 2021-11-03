@@ -39,7 +39,7 @@ class TargetNode extends Node {
     assert && assert( target.imageProperty.value ); // {HTMLImageElement|null}
     const targetImage = new Image( target.imageProperty.value! );
 
-    //TODO-TS workaround, because of class Image extends Imageable( Node )
+    //TODO-TS workaround, because class Image extends Imageable( Node )
     const targetImageAsNode = targetImage as unknown as Node;
 
     /**

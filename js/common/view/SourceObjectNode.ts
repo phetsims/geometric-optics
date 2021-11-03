@@ -40,7 +40,7 @@ class SourceObjectNode extends Node {
     // Origin of this Node is at the upper-left corner of sourceObjectImage.
     const sourceObjectImage = new Image( representationProperty.value.rightFacingUpright );
 
-    //TODO-TS workaround, because of class Image extends Imageable( Node )
+    //TODO-TS workaround, because class Image extends Imageable( Node )
     const sourceObjectImageAsNode = sourceObjectImage as unknown as Node;
 
     const cueingArrows = new ArrowNode( 0, 0, 0, 65, {
