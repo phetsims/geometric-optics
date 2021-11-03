@@ -128,7 +128,7 @@ class GeometricOpticsModel {
       range: new Range( 0, RAYS_ANIMATION_TIME )
     } );
 
-    this.raysModeProperty = new Property( 'marginal', {
+    this.raysModeProperty = new Property<RaysModeEnum>( 'marginal', {
       validValues: RaysModeValues,
       tandem: options.tandem.createTandem( 'raysModeProperty' ),
       phetioType: Property.PropertyIO( StringIO )
