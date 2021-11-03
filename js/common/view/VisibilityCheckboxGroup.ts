@@ -88,7 +88,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
         node: createLabel( geometricOpticsStrings.guides, GuideNode.createIcon() ),
         property: visibleProperties.guidesVisibleProperty,
         options: {
-          // @ts-ignore TODO-TS
+          // @ts-ignore TODO-TS options are passed to Checkbox constructor, should be of type CheckboxOptions
           visible: GeometricOpticsQueryParameters.showGuides
         },
         tandem: options.tandem.createTandem( 'guidesCheckbox' )
