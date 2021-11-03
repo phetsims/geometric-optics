@@ -36,8 +36,8 @@ class TargetNode extends Node {
     super();
 
     // creates the target image - the actual image will be updated later
-    // @ts-ignore TODO-TS  Argument of type 'HTMLImageElement | null' is not assignable to parameter of type 'string | any[] | HTMLImageElement | HTMLCanvasElement'.
-    const targetImage = new Image( target.imageProperty.value );
+    assert && assert( target.imageProperty.value ); // {HTMLImageElement|null}
+    const targetImage = new Image( target.imageProperty.value! );
 
     /**
      * update the size as well as the position of the target image.
@@ -101,8 +101,8 @@ class TargetNode extends Node {
         if ( isObject ) {
 
           // update the image
-          // @ts-ignore TODO-TS Type 'HTMLImageElement | null' is not assignable to type 'HTMLImageElement | HTMLCanvasElement'.
-          targetImage.image = image;
+          assert && assert( image ); // {HTMLImageElement|null}
+          targetImage.image = image!;
 
           // update the scale of the image
           updateScaleAndPosition();
