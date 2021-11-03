@@ -40,6 +40,9 @@ class SourceObjectNode extends Node {
     // Origin of this Node is at the upper-left corner of sourceObjectImage.
     const sourceObjectImage = new Image( representationProperty.value.rightFacingUpright );
 
+    //TODO-TS workaround, because of class Image extends Imageable( Node )
+    const sourceObjectImageAsNode = sourceObjectImage as unknown as Node;
+
     const cueingArrows = new ArrowNode( 0, 0, 0, 65, {
       doubleHead: true,
       tailWidth: 15,
@@ -55,29 +58,23 @@ class SourceObjectNode extends Node {
     } );
 
     // Keep cueing arrows next to the source object.
-    // @ts-ignore TODO-TS Property 'boundsProperty' does not exist on type 'Image'.
-    sourceObjectImage.boundsProperty.link( ( bounds: Bounds2 ) => {
-      // @ts-ignore TODO-TS Property 'left' does not exist on type 'Image'.
-      cueingArrows.right = sourceObjectImage.left - 10;
-      // @ts-ignore TODO-TS Property 'centerY' does not exist on type 'Image'.
-      cueingArrows.centerY = sourceObjectImage.centerY;
+    sourceObjectImageAsNode.boundsProperty.link( ( bounds: Bounds2 ) => {
+      cueingArrows.right = sourceObjectImageAsNode.left - 10;
+      cueingArrows.centerY = sourceObjectImageAsNode.centerY;
     } );
 
     // Scale the source object.
     const scaleSourceObject = () => {
 
-      // @ts-ignore TODO-TS Property 'width' does not exist on type 'Image'.
-      const initialWidth = sourceObjectImage.width;
-      // @ts-ignore TODO-TS Property 'height' does not exist on type 'Image'.
-      const initialHeight = sourceObjectImage.height;
+      const initialWidth = sourceObjectImageAsNode.width;
+      const initialHeight = sourceObjectImageAsNode.height;
 
       const bounds = sourceObject.boundsProperty.value;
       const viewBounds = modelViewTransform.modelToViewBounds( bounds );
 
       const scaleX = viewBounds.width / initialWidth;
       const scaleY = viewBounds.height / initialHeight;
-      // @ts-ignore TODO-TS Property 'scale' does not exist on type 'Image'.
-      sourceObjectImage.scale( scaleX, scaleY );
+      sourceObjectImageAsNode.scale( scaleX, scaleY );
     };
 
     // Translate the source object to the specified position.

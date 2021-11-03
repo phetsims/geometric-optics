@@ -39,6 +39,9 @@ class TargetNode extends Node {
     assert && assert( target.imageProperty.value ); // {HTMLImageElement|null}
     const targetImage = new Image( target.imageProperty.value! );
 
+    //TODO-TS workaround, because of class Image extends Imageable( Node )
+    const targetImageAsNode = targetImage as unknown as Node;
+
     /**
      * update the size as well as the position of the target image.
      */
@@ -48,18 +51,14 @@ class TargetNode extends Node {
       const viewBounds = modelViewTransform.modelToViewBounds( target.boundsProperty.value );
 
       // current values for width and height of the image
-      // @ts-ignore TODO-TS Property 'width' does not exist on type 'Image'.
-      const initialWidth = targetImage.width;
-      // @ts-ignore TODO-TS Property 'height' does not exist on type 'Image'.
-      const initialHeight = targetImage.height;
+      const initialWidth = targetImageAsNode.width;
+      const initialHeight = targetImageAsNode.height;
 
       // scale image appropriately
-      // @ts-ignore TODO-TS Property 'scale' does not exist on type 'Image'.
-      targetImage.scale( viewBounds.width / initialWidth, viewBounds.height / initialHeight );
+      targetImageAsNode.scale( viewBounds.width / initialWidth, viewBounds.height / initialHeight );
 
       // position the image
-      // @ts-ignore TODO-TS Property 'translation' does not exist on type 'Image'.
-      targetImage.translation = new Vector2( viewBounds.minX, viewBounds.minY );
+      targetImageAsNode.translation = new Vector2( viewBounds.minX, viewBounds.minY );
     };
 
     /**
@@ -71,8 +70,7 @@ class TargetNode extends Node {
     Property.multilink(
       [ target.isVirtualProperty, virtualImageVisibleProperty, target.visibleProperty ],
       ( isVirtual: boolean, virtualImageVisible: boolean, targetVisible: boolean ) => {
-        // @ts-ignore TODO-TS Property 'visible' does not exist on type 'Image'.
-        targetImage.visible = ( isVirtual ? virtualImageVisible : true ) && targetVisible;
+        targetImageAsNode.visible = ( isVirtual ? virtualImageVisible : true ) && targetVisible;
       } );
 
     // update position and scale when model bounds change
@@ -82,14 +80,13 @@ class TargetNode extends Node {
 
     // update the opacity of the image
     target.lightIntensityProperty.link( ( intensity: number ) => {
-      // @ts-ignore TODO-TS Property 'opacity' does not exist on type 'Image'.
-      targetImage.opacity = intensity;
+      targetImageAsNode.opacity = intensity;
     } );
 
     // update the image and its visibility
     Property.multilink(
       [ target.imageProperty, rayTracingVisibleProperty ],
-      ( image: HTMLImageElement|null, rayTracingVisible: boolean ) => {
+      ( image: HTMLImageElement | null, rayTracingVisible: boolean ) => {
 
         // is the representation an object
         const isObject = representationProperty.value.isObject;
@@ -110,8 +107,7 @@ class TargetNode extends Node {
       } );
 
     // add the target image to this node
-    // @ts-ignore TODO-TS Argument of type 'Image' is not assignable to parameter of type 'Node'.
-    this.addChild( targetImage );
+    this.addChild( targetImageAsNode );
   }
 
   /**
