@@ -13,6 +13,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
@@ -151,7 +152,8 @@ class Target {
 
         // effect of the diameter of the optic on the light intensity of the image (also Hollywooded)
         assert && assert( optic.diameterProperty.range ); // {Range|null}
-        const diameterFactor = diameter / optic.diameterProperty.range!.max;
+        const diameterRange: Range = optic.diameterProperty.range!;
+        const diameterFactor = diameter / diameterRange.max;
         assert && assert( diameterFactor >= 0 && diameterFactor <= 1 );
 
         // product of the two factors
