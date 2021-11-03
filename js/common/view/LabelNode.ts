@@ -68,7 +68,7 @@ class LabelNode extends Node {
     super( options );
 
     Property.multilink(
-      // @ts-ignore TODO-TS problem with textNode.boundsProperty
+      // @ts-ignore TODO-TS Type 'TinyStaticProperty' is missing the following properties from type 'Property'...
       [ textNode.boundsProperty, modelViewTransformProperty, positionProperty ],
       ( textNodeBounds: Bounds2, modelViewTransform: ModelViewTransform2, position: Vector2 ) => {
 
