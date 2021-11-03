@@ -290,10 +290,10 @@ class LightRay {
   /**
    * Processes a point from the intersection. Returns null if the point cannot be found.
    * @private
-   * @param {Intersection[]} intersection TODO there is no Intersection type in Shape.js or Segment.js
+   * @param {Intersection[]} intersection TODO-TS there is no Intersection type in Shape.js or Segment.js
    * @returns {Vector2|null}
    */
-  getPoint( intersection: any ) { //TODO any
+  getPoint( intersection: any ) { //TODO any - there is no Intersection type in Shape.js or Segment.js
 
     // all shapes have been defined as line (straight or curved) so there can only be one intersection point at most
     if ( intersection && intersection[ 0 ] && intersection[ 0 ].point ) {
