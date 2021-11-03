@@ -10,6 +10,7 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
@@ -102,11 +103,11 @@ class OpticNode extends Node {
     // See https://github.com/phetsims/geometric-optics/issues/242
     if ( optic.isLens() ) {
       const opacityProperty = new DerivedProperty<number>( [ optic.indexOfRefractionProperty ],
-        ( indexOfRefraction: number ) => Utils.linear(
-          // @ts-ignore TODO-TS optic.indexOfRefractionProperty.range is possibly null
-          optic.indexOfRefractionProperty.range.min, optic.indexOfRefractionProperty.range.max,
-          0.2, 1, indexOfRefraction )
-      );
+        ( indexOfRefraction: number ) => {
+          assert && assert( optic.indexOfRefractionProperty.range ); // {Range|null}
+          const range: Range = optic.indexOfRefractionProperty.range!;
+          return Utils.linear( range.min, range.max, 0.2, 1, indexOfRefraction );
+        } );
       opacityProperty.linkAttribute( opticFillNode, 'opacity' );
     }
 

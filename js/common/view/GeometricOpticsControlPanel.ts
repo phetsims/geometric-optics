@@ -9,6 +9,7 @@
 
 import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
+import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
@@ -102,11 +103,12 @@ class GeometricOpticsControlPanel extends Panel {
 
     const numberControls = [];
 
+    assert && assert( optic.radiusOfCurvatureProperty.range ); // {Range|null}
+    const radiusOfCurvatureRange = optic.radiusOfCurvatureProperty.range!;
     const radiusOfCurvatureControl = new NumberControl(
       geometricOpticsStrings.radiusOfCurvature,
       optic.radiusOfCurvatureProperty,
-      // @ts-ignore TODO-TS optic.radiusOfCurvatureProperty.range may be null
-      optic.radiusOfCurvatureProperty.range,
+      radiusOfCurvatureRange,
       merge( {}, NUMBER_CONTROL_OPTIONS, {
         delta: GeometricOpticsConstants.RADIUS_OF_CURVATURE_SPINNER_INTERVAL,
         sliderOptions: {
@@ -122,11 +124,12 @@ class GeometricOpticsControlPanel extends Panel {
     numberControls.push( radiusOfCurvatureControl );
 
     if ( optic.opticType === 'lens' ) {
+      assert && assert( optic.indexOfRefractionProperty.range ); // {Range|null}
+      const indexOfRefractionRange = optic.indexOfRefractionProperty.range!;
       const indexOfRefractionControl = new NumberControl(
         geometricOpticsStrings.indexOfRefraction,
         optic.indexOfRefractionProperty,
-        // @ts-ignore TODO-TS optic.indexOfRefractionProperty.range may be null
-        optic.indexOfRefractionProperty.range,
+        indexOfRefractionRange,
         merge( {}, NUMBER_CONTROL_OPTIONS, {
           delta: GeometricOpticsConstants.INDEX_OF_REFRACTION_SPINNER_INTERVAL,
           sliderOptions: {
@@ -141,11 +144,12 @@ class GeometricOpticsControlPanel extends Panel {
       numberControls.push( indexOfRefractionControl );
     }
 
+    assert && assert( optic.diameterProperty.range ); // {Range|null}
+    const diameterRange: Range = optic.diameterProperty.range!;
     const diameterControl = new NumberControl(
       geometricOpticsStrings.diameter,
       optic.diameterProperty,
-      // @ts-ignore TODO-TS optic.diameterProperty.range may be null
-      optic.diameterProperty.range,
+      diameterRange,
       merge( {}, NUMBER_CONTROL_OPTIONS, {
         delta: GeometricOpticsConstants.DIAMETER_SPINNER_INTERVAL,
         sliderOptions: {

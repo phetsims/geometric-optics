@@ -260,9 +260,9 @@ class LightRay {
    */
   getLensBackShape( optic: Optic ) {
     assert && assert( optic.isLens(), 'optic must be Lens' );
-    const shapes = optic.shapesProperty.value;
-    // @ts-ignore TODO-TS Argument of type 'Shape | null' is not assignable to parameter of type 'Shape'.
-    return optic.translatedShape( shapes.backShape );
+    const backShape = optic.shapesProperty.value.backShape; // {Shape|null}
+    assert && assert( backShape );
+    return optic.translatedShape( backShape! );
   }
 
   /**

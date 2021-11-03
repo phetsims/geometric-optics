@@ -93,8 +93,8 @@ class RulersToolbox extends Panel {
           rulerNode.visible = true;
 
           // position the center of the rulerNode to the cursor
-          // @ts-ignore TODO-TS Argument of type 'Vector2 | null' is not assignable to parameter of type 'Vector2'.
-          rulerNode.center = this.globalToParentPoint( event.pointer.point );
+          assert && assert( event.pointer.point ); // {Vector2|null}
+          rulerNode.center = this.globalToParentPoint( event.pointer.point! );
 
           // forward events
           rulerNode.startDrag( event );

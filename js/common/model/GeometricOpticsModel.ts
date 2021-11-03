@@ -191,8 +191,8 @@ class GeometricOpticsModel {
    */
   stepLightRays( dt: number ) {
     const t = this.lightRaysTimeProperty.value + dt;
-    // @ts-ignore TODO-TS this.lightRaysTimeProperty.range may be null
-    if ( this.lightRaysTimeProperty.range.contains( t ) ) {
+    assert && assert( this.lightRaysTimeProperty.range ); // {Range|null}
+    if ( this.lightRaysTimeProperty.range!.contains( t ) ) {
       this.lightRaysTimeProperty.value = t;
     }
   }
