@@ -20,6 +20,10 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Representation from '../model/Representation.js';
 import UnconstrainedCueingArrowsNode from './UnconstrainedCueingArrowsNode.js';
 
+// Closest that source object can be moved to the optic, in cm. This avoid problems that occur when the object is
+// too close to a mirror. See https://github.com/phetsims/geometric-optics/issues/73
+const MIN_X_DISTANCE_TO_OPTIC = 40;
+
 class SourceObjectNode extends Node {
 
   // so that 1st and 2nd light source can share drag bounds
@@ -86,7 +90,7 @@ class SourceObjectNode extends Node {
         new Bounds2(
           modelBounds.minX,
           modelBounds.minY + sourceObject.boundsProperty.value.height,
-          opticPositionProperty.value.x - sourceObject.boundsProperty.value.width,
+          opticPositionProperty.value.x - sourceObject.boundsProperty.value.width / 2 - MIN_X_DISTANCE_TO_OPTIC,
           modelBounds.maxY
         )
     );
