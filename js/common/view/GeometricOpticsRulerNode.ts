@@ -137,11 +137,11 @@ class GeometricOpticsRulerNode extends Node {
     this.setInitialVisibility(); //TODO add visibleProperty to Ruler model element
   }
 
+  //TODO why is this needed?
   /**
    * Sets the visibility of this node to false
-   * @private
    */
-  setInitialVisibility() {
+  private setInitialVisibility() {
     this.visible = false;
   }
 
@@ -183,12 +183,11 @@ class GeometricOpticsRulerNode extends Node {
 
   /**
    * Returns a scenery-phet.RulerNode appropriate for the model view transform
-   * @private
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    * @returns {Node} rulerNode
    */
-  getRulerNode( modelViewTransform: ModelViewTransform2, options?: any ) { //TODO-TS any
+  private getRulerNode( modelViewTransform: ModelViewTransform2, options?: any ) { //TODO-TS any
 
     options = merge( {}, this.rulerOptions, options );
 

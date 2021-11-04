@@ -119,7 +119,6 @@ class RulersToolbox extends Panel {
 
 /**
  * Returns a small ruler icon
- * @private
  * @param {boolean} isVertical - is the ruler icon along the vertical axis
  * @param {boolean} tickMarksOnBottom
  * @returns {RulerNode} rulerIconNode

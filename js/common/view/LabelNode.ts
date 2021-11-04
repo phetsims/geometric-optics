@@ -82,7 +82,6 @@ class LabelNode extends Node {
         this.centerTop = modelViewTransform.modelToViewPosition( position ).plusXY( 0, options.labelOffset );
       } );
 
-    // @private
     this.textNode = textNode;
   }
 

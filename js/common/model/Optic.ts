@@ -333,13 +333,12 @@ class Optic {
   /**
    * Returns the most extreme position within the optic that would ensure that a ray would be transmitted (or reflected).
    * See https://github.com/phetsims/geometric-optics/issues/111
-   * @private
    * @param {Vector2} sourcePoint
    * @param {Vector2} targetPoint
    * @param {boolean} isTop
    * @returns {Vector2}
    */
-  getExtremumPoint( sourcePoint: Vector2, targetPoint: Vector2, isTop: boolean ) {
+  private getExtremumPoint( sourcePoint: Vector2, targetPoint: Vector2, isTop: boolean ) {
 
     // Erode the bounds a tiny bit so that the point is always within the bounds.
     const opticBounds = this.getOpticBounds().erodedY( 1e-6 );

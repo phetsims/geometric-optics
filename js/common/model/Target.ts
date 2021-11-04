@@ -177,27 +177,26 @@ class Target {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
   }
 
+  //TODO factor out private function
   /**
    * Returns the horizontal distance from the object to the optic.
    * A negative distance indicates that the object is to the right of the optic.
-   * @private
    * @param {Vector2} objectPosition
    * @param {Vector2} opticPosition
    * @returns {number}
    */
-  getObjectOpticDistance( objectPosition: Vector2, opticPosition: Vector2 ) {
+  private getObjectOpticDistance( objectPosition: Vector2, opticPosition: Vector2 ) {
     return opticPosition.x - objectPosition.x;
   }
 
   /**
    * Returns the magnification of the image as defined in geometric optics courses.
    * A negative magnification implies that the image is inverted.
-   * @private
    * @param {Vector2} objectPosition
    * @param {Vector2} opticPosition
    * @returns {number}
    */
-  getMagnification( objectPosition: Vector2, opticPosition: Vector2 ) {
+  private getMagnification( objectPosition: Vector2, opticPosition: Vector2 ) {
 
     // horizontal distance between source object (or light source) and optic
     const objectOpticDistance = this.getObjectOpticDistance( objectPosition, opticPosition );

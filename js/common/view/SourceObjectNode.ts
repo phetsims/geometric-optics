@@ -122,7 +122,6 @@ class SourceObjectNode extends Node {
       translateSourceObject( sourceObject.leftTopProperty.value );
     } );
 
-    // @private
     this.cueingArrowsNode = cueingArrowsNode;
   }
 

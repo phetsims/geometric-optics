@@ -56,7 +56,6 @@ class GeometricOpticsGlobalOptionsNode extends VBox {
 
     super( options );
 
-    // @private
     this.disposeGeometricOpticsGlobalOptionsNode = () => {
       projectorModeCheckbox.dispose();
       focalLengthControlNode.dispose();
@@ -131,7 +130,6 @@ class FocalLengthControlNode extends VBox {
 
     super( options );
 
-    // @private
     this.disposeFocalLengthControlNode = () => {
       focalLengthControlText.dispose();
       radioButtonGroup.dispose();

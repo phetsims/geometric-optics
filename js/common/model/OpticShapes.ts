@@ -55,13 +55,12 @@ class OpticShapes {
    * actual radius of curvature, and can instead be Hollywooded. This gives the flexibility to draw lenses with radius
    * of curvature that is larger than diameter/2, a physical impossibility. The origin (0,0) is at the geometric
    * center of the lens.
-   * @private
    * @param {OpticShapeEnum} opticShape
    * @param {number} radiusOfCurvature - radius of curvature
    * @param {number} diameter - height of the lens
    * @param {Object} [options]
    */
-  setLensShapes( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number, options?: any ) { //TODO-TS any
+  private setLensShapes( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number, options?: any ) { //TODO-TS any
 
     options = merge( {
       isHollywooded: true, // does the radius of curvature parameter match the shape of the lens?
@@ -158,13 +157,12 @@ class OpticShapes {
    * A first surface mirror (or front surface mirror) is a mirror with the reflective surface being above a backing,
    * as opposed to the conventional, second surface mirror with the reflective surface behind a transparent substrate
    * such as glass or acrylic. The Shapes are drawn using quadratic Bezier curves.
-   * @private
    * @param {OpticShapeEnum} opticShape
    * @param {number} radiusOfCurvature - radius of curvature at the center of the mirror
    * @param {number} diameter - vertical height of the mirror
    * @param {Object} [options]
    */
-  setMirrorShapes( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number, options?: any ) { //TODO-TS any
+  private setMirrorShapes( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number, options?: any ) { //TODO-TS any
     assert && assert( radiusOfCurvature > diameter / 2 );
 
     options = merge( {

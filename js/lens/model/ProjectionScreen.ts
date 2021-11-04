@@ -96,11 +96,10 @@ class ProjectionScreen {
    * Returns a shape that is translated by the model position of the projection screen.
    * The provided Shape should be in the projection screen's local coordinate frame.
    * The resulting Shape will be in the model's global coordinate frame.
-   * @private
    * @param {Shape} shape - in the projection screen's local coordinate frame
    * @returns {Shape}
    */
-  translatedShape( shape: Shape ) {
+  private translatedShape( shape: Shape ) {
     return shape.transformed( Matrix3.translationFromVector( this.positionProperty.value ) );
   }
 }

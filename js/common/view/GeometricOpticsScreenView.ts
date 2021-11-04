@@ -417,14 +417,14 @@ class GeometricOpticsScreenView extends ScreenView {
     }
   }
 
+  //TODO factor out private function
   /**
    * Returns the relative scale between a zoom level and a previous old zoom level
-   * @private
    * @param {number} zoomLevel
    * @param {number} oldZoomLevel
    * @returns {number}
    */
-  getRelativeScale( zoomLevel: number, oldZoomLevel: number ) {
+  private getRelativeScale( zoomLevel: number, oldZoomLevel: number ) {
     const base = 2;
     const scale = Math.pow( base, zoomLevel );
     const oldScale = Math.pow( base, oldZoomLevel );
@@ -434,22 +434,20 @@ class GeometricOpticsScreenView extends ScreenView {
   /**
    * Returns the absolute scaling factor measured from the initial zoom level
    * The absolute scale returns 1 if the zoom level is the initial zoom level value
-   * @private
    * @param {number} zoomLevel
    * @returns {number}
    */
-  getAbsoluteScale( zoomLevel: number ) {
+  private getAbsoluteScale( zoomLevel: number ) {
     return this.getRelativeScale( zoomLevel, ZOOM_RANGE.defaultValue );
   }
 
   /**
    * Returns a model-view transform appropriate for the zoom level
-   * @private
    * @param {number} zoomLevel
    * @param {Vector2} viewOrigin
    * @returns {ModelViewTransform2}
    */
-  getTransformForZoomLevel( zoomLevel: number, viewOrigin: Vector2 ) {
+  private getTransformForZoomLevel( zoomLevel: number, viewOrigin: Vector2 ) {
 
     // scaling factor between zoom level measured from the initial zoom level
     const absoluteScale = this.getAbsoluteScale( zoomLevel );
