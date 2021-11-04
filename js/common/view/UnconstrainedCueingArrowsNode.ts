@@ -17,7 +17,7 @@ class UnconstrainedCueingArrowsNode extends Path {
   /**
    * @param {Object} [options]
    */
-  constructor( options?: any ) { //TODO-TS any
+  constructor( options?: any ) { //TS any
 
     options = merge( {
       length: 45,

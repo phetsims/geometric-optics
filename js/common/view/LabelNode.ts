@@ -31,7 +31,7 @@ class LabelNode extends Node {
    * @param {Object} [options]
    */
   constructor( text: string, positionProperty: Property<Vector2>,
-               modelViewTransformProperty: Property<ModelViewTransform2>, options?: any ) { //TODO-TS any
+               modelViewTransformProperty: Property<ModelViewTransform2>, options?: any ) { //TS any
 
     options = merge( {
 

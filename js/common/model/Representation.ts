@@ -64,7 +64,7 @@ class Representation {
   /**
    * @param {Object} config
    */
-  constructor( config: any ) { //TODO-TS any
+  constructor( config: any ) { //TS any
 
     config = merge( {
 

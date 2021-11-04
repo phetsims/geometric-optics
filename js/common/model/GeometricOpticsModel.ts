@@ -81,7 +81,7 @@ class GeometricOpticsModel {
    * @param {Optic} optic
    * @param {Object} [options]
    */
-  constructor( optic: Optic, options?: any ) { //TODO-TS any
+  constructor( optic: Optic, options?: any ) { //TS any
 
     options = merge( {
       representation: RepresentationStaticInstances[ 0 ],

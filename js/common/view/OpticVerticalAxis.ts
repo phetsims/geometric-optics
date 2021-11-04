@@ -30,7 +30,7 @@ class OpticVerticalAxis extends Node {
    * @param {Object} [options]
    */
   constructor( optic: Optic, raysModeProperty: Property<RaysModeEnum>, modelBoundsProperty: Property<Bounds2>,
-               modelViewTransform: ModelViewTransform2, options?: any ) { //TODO-TS any
+               modelViewTransform: ModelViewTransform2, options?: any ) { //TS any
 
     options = merge( {}, options );
 

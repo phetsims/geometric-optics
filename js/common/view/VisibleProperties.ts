@@ -39,7 +39,7 @@ class VisibleProperties {
    * @param {OpticTypeEnum} opticType
    * @param {Object} [options]
    */
-  constructor( opticType: OpticTypeEnum, options?: any ) { //TODO-TS any
+  constructor( opticType: OpticTypeEnum, options?: any ) { //TS any
 
     options = merge( {
 

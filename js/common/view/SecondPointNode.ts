@@ -59,7 +59,7 @@ class SecondPointNode extends Node {
    */
   constructor( representationProperty: Property<Representation>, secondPoint: SecondPoint,
                sourceObjectDragBoundsProperty: Property<Bounds2>,
-               modelViewTransform: ModelViewTransform2, options?: any ) { //TODO-TS any
+               modelViewTransform: ModelViewTransform2, options?: any ) { //TS any
 
     super( options );
 
@@ -74,7 +74,7 @@ class SecondPointNode extends Node {
       scale: LIGHT_SOURCE_IMAGE_SCALE
     } );
 
-    //TODO-TS workaround, because class Image extends Imageable( Node )
+    //TS workaround, because class Image extends Imageable( Node )
     const secondLightSourceImageAsNode = secondLightSourceImage as unknown as Node;
 
     // Property for the position of the second source node
@@ -184,7 +184,7 @@ class SecondPointNode extends Node {
 
 // The point that represents the position of the second source
 class PointNode extends Circle {
-  constructor( radius: number, options?: any ) { //TODO-TS any
+  constructor( radius: number, options?: any ) { //TS any
     options = merge( {
       fill: GeometricOpticsColors.secondPointFillProperty,
       stroke: GeometricOpticsColors.secondPointStrokeProperty

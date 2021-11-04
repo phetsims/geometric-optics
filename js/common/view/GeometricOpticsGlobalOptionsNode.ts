@@ -26,7 +26,7 @@ class GeometricOpticsGlobalOptionsNode extends VBox {
   /**
    * @param {Object} [options]
    */
-  constructor( options?: any ) { //TODO-TS any
+  constructor( options?: any ) { //TS any
 
     options = merge( {
 
@@ -79,7 +79,7 @@ class FocalLengthControlNode extends VBox {
   /**
    * @param {Object} [options]
    */
-  constructor( options?: any ) { //TODO-TS any
+  constructor( options?: any ) { //TS any
 
     options = merge( {
 

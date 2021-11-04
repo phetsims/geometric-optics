@@ -34,7 +34,7 @@ class LabelsNode extends Node {
    */
   constructor( model: GeometricOpticsModel, visibleProperties: VisibleProperties,
                modelViewTransformProperty: Property<ModelViewTransform2>,
-               zoomLevelProperty: Property<number>, options?: any ) { //TODO-TS any
+               zoomLevelProperty: Property<number>, options?: any ) { //TS any
 
     options = merge( {
       visibleProperty: visibleProperties.labelsVisibleProperty

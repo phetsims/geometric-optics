@@ -59,7 +59,7 @@ class GeometricOpticsControlPanel extends Panel {
    * @param {Object} [options]
    */
   constructor( representationProperty: Property<Representation>, optic: Optic, raysModeProperty: Property<RaysModeEnum>,
-               visibleProperties: VisibleProperties, options?: any ) { //TODO-TS any
+               visibleProperties: VisibleProperties, options?: any ) { //TS any
 
     options = merge( {
 

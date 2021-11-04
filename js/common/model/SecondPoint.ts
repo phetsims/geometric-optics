@@ -39,7 +39,7 @@ class SecondPoint {
    */
   // eslint-disable-next-line no-undef
   constructor( representationProperty: Property<Representation>, sourceObjectPositionProperty: Property<Vector2>,
-               options?: any ) { //TODO-TS any
+               options?: any ) { //TS any
 
     this.lightSourcePositionProperty = new Vector2Property( INITIAL_LIGHT_SOURCE_POSITION );
 

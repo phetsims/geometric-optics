@@ -27,7 +27,7 @@ class RepresentationComboBox extends ComboBox {
    * @param {Node} listParent - parent for the listbox popup
    * @param {Object} [options]
    */
-  constructor( representationProperty: Property<Representation>, listParent: Node, options?: any ) { //TODO-TS any
+  constructor( representationProperty: Property<Representation>, listParent: Node, options?: any ) { //TS any
 
     options = merge( {
 

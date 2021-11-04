@@ -36,7 +36,7 @@ class FocalPointNode extends Node {
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( focalPointProperty: Property<Vector2>, modelViewTransform: ModelViewTransform2, options?: any ) { //TODO-TS any
+  constructor( focalPointProperty: Property<Vector2>, modelViewTransform: ModelViewTransform2, options?: any ) { //TS any
 
     options = merge( {}, DEFAULT_OPTIONS, options );
 
@@ -63,7 +63,7 @@ class FocalPointNode extends Node {
    * @param {Object} [options] - options for Path
    * @returns {Node}
    */
-  public static createIcon( options?: any ) { //TODO-TS any
+  public static createIcon( options?: any ) { //TS any
     options = merge( {}, DEFAULT_OPTIONS, options );
     let shape = new PlusShape( options.size );
     shape = shape.transformed( Matrix3.rotation2( Math.PI / 4 ) );

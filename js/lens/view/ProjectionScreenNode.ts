@@ -41,7 +41,7 @@ class ProjectionScreenNode extends Node {
    * @param {Object} [options]
    */
   constructor( projectionScreen: ProjectionScreen, opticPositionProperty: Property<Vector2>,
-               modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, options?: any ) { //TODO-TS any
+               modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, options?: any ) { //TS any
 
     options = merge( {
 
@@ -83,7 +83,7 @@ class ProjectionScreenNode extends Node {
       stroke: GeometricOpticsColors.projectionScreenStrokeProperty,
       lineWidth: 3,
       centerX: screenNode.centerX,
-      // @ts-ignore TODO-TS property 'top' does not exist on type 'Image'
+      // @ts-ignore TS property 'top' does not exist on type 'Image'
       top: bottomBarNode.top
     } );
 

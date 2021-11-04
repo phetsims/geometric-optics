@@ -20,7 +20,7 @@ class IntroScreenView extends ScreenView {
    * @param {IntroModel} model
    * @param {Object} [options]
    */
-  constructor( model: IntroModel, options?: any ) { //TODO-TS any
+  constructor( model: IntroModel, options?: any ) { //TS any
 
     options = merge( {
 

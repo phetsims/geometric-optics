@@ -24,7 +24,7 @@ class ShowHideToggleButton extends BooleanRoundToggleButton {
    * @param {Property.<boolean>} booleanProperty
    * @param {Object} [options]
    */
-  constructor( booleanProperty: Property<boolean>, options?: any ) { //TODO-TS any
+  constructor( booleanProperty: Property<boolean>, options?: any ) { //TS any
 
     options = merge( {
       trueColor: 'rgb( 240, 234, 227 )', // {Color|string} button color when booleanProperty.value === true
@@ -46,7 +46,7 @@ class ShowHideToggleButton extends BooleanRoundToggleButton {
     const showNode = new Path( eyeSolidShape, options.icon );
     const hideNode = new Path( eyeSlashSolidShape, options.icon );
 
-    // @ts-ignore TODO-TS see https://github.com/phetsims/chipper/issues/1142
+    // @ts-ignore TS see https://github.com/phetsims/chipper/issues/1142
     super( showNode, hideNode, booleanProperty, options );
 
     booleanProperty.link( ( value: boolean ) => {

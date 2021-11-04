@@ -36,7 +36,7 @@ class OpticNode extends Node {
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( optic: Optic, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, options?: any ) { //TODO-TS any
+  constructor( optic: Optic, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, options?: any ) { //TS any
 
     options = merge( {
       fill: GeometricOpticsColors.opticFillProperty,

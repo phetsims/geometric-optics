@@ -33,7 +33,7 @@ class GeometricOpticRulersLayer extends Node {
    */
   constructor( horizontalRuler: Ruler, verticalRuler: Ruler, visibleBoundsProperty: Property<Bounds2>,
                absoluteScaleProperty: Property<number>, modelViewTransformProperty: Property<ModelViewTransform2>,
-               options?: any ) { //TODO-TS any
+               options?: any ) { //TS any
 
     super( options );
 

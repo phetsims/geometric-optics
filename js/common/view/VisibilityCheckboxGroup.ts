@@ -35,7 +35,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
    * @param {Object} [options]
    */
   constructor( visibleProperties: VisibleProperties, opticType: OpticTypeEnum,
-               representationProperty: Property<Representation>, options?: any ) {  //TODO-TS any
+               representationProperty: Property<Representation>, options?: any ) {  //TS any
 
     options = merge( {
       spacing: 4,
@@ -89,7 +89,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
         property: visibleProperties.guidesVisibleProperty,
         options: {
           visible: GeometricOpticsQueryParameters.showGuides
-        } as any, // TODO-TS any - options are passed to Checkbox constructor, should be of type CheckboxOptions
+        } as any, // TS any - options are passed to Checkbox constructor, should be of type CheckboxOptions
         tandem: options.tandem.createTandem( 'guidesCheckbox' )
       } );
     }
