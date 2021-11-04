@@ -29,7 +29,7 @@ class LightRaysNode extends Node {
    * @param {Object} [options]
    */
   constructor( lightRays: LightRays, representationProperty: Property<Representation>,
-               virtualImageVisibleProperty: Property<boolean>, modelViewTransform: ModelViewTransform2, options?: any ) { //TS any
+               virtualImageVisibleProperty: Property<boolean>, modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
 
     options = merge( {
       realRaysStroke: 'white',

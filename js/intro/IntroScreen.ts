@@ -22,7 +22,7 @@ class IntroScreen extends Screen {
   /**
    * @param {Object} [options]
    */
-  constructor( options?: any ) { //TS any
+  constructor( options?: any ) { //TYPESCRIPT any
 
     options = merge( {
 

@@ -35,7 +35,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
    * @param {Object} [options]
    */
   constructor( visibleProperties: VisibleProperties, opticType: OpticTypeEnum,
-               representationProperty: Property<Representation>, options?: any ) {  //TS any
+               representationProperty: Property<Representation>, options?: any ) {  //TYPESCRIPT any
 
     options = merge( {
       spacing: 4,

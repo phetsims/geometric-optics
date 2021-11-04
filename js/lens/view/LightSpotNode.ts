@@ -26,7 +26,7 @@ class LightSpotNode extends Node {
    * @param {Object} [options]
    */
   constructor( intensityProperty: Property<number>, screenIntersectionProperty: Property<Shape>,
-               modelViewTransform: ModelViewTransform2, options?: any ) { //TS any
+               modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
 
     options = merge( {}, options );
 

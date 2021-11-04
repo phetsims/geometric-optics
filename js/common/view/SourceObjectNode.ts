@@ -44,7 +44,7 @@ class SourceObjectNode extends Node {
     // Origin of this Node is at the upper-left corner of sourceObjectImage.
     const sourceObjectImage = new Image( representationProperty.value.rightFacingUpright );
 
-    //TS workaround, because class Image extends Imageable( Node )
+    //TYPESCRIPT workaround, because class Image extends Imageable( Node )
     const sourceObjectImageAsNode = sourceObjectImage as unknown as Node;
 
     const cueingArrowsNode = new UnconstrainedCueingArrowsNode();

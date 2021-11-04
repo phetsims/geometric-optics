@@ -22,7 +22,7 @@ class DebugPointNode extends Circle {
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    * */
-  constructor( positionProperty: Property<Vector2>, modelViewTransform: ModelViewTransform2, options?: any ) { //TS any
+  constructor( positionProperty: Property<Vector2>, modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
 
     options = merge( {
       fill: 'white',

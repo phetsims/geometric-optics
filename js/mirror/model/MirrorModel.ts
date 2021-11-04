@@ -20,7 +20,7 @@ class MirrorModel extends GeometricOpticsModel {
   /**
    * @param {Object} [options]
    */
-  constructor( options?: any ) { //TS any
+  constructor( options?: any ) { //TYPESCRIPT any
 
     options = merge( {
 

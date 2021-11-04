@@ -1,6 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TS https://github.com/phetsims/chipper/issues/1139 what pattern should be used here?
+//TYPESCRIPT https://github.com/phetsims/chipper/issues/1139 what pattern should be used here?
 
 type t = {
   [ key: string ]: string,

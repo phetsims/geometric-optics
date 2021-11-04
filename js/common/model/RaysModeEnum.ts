@@ -11,7 +11,7 @@ import geometricOptics from '../../geometricOptics.js';
 const RaysModeValues = [ 'marginal', 'principal', 'many', 'none' ] as const;
 type RaysModeEnum = ( typeof RaysModeValues )[number];
 
-//TS is this OK? We're registering values, not type, and it doesn't match the filename.
+//TYPESCRIPT is this OK? We're registering values, not type, and it doesn't match the filename.
 geometricOptics.register( 'RaysModeValues', RaysModeValues );
 
 export { RaysModeValues };

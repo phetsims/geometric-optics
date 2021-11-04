@@ -23,7 +23,7 @@ class MirrorScreen extends Screen {
   /**
    * @param {Object} [options]
    */
-  constructor( options?: any ) { //TS any
+  constructor( options?: any ) { //TYPESCRIPT any
 
     options = merge( {
       name: geometricOpticsStrings.screen.mirror,

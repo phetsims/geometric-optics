@@ -27,7 +27,7 @@ class RulersToolbox extends Panel {
    * @param {GeometricOpticRulersLayer} rulersLayer
    * @param {Object} [options]
    */
-  constructor( rulersLayer: GeometricOpticRulersLayer, options?: any ) { //TS any
+  constructor( rulersLayer: GeometricOpticRulersLayer, options?: any ) { //TYPESCRIPT any
 
     options = merge( {
 

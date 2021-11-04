@@ -28,7 +28,7 @@ class OpticalAxis extends Line {
    */
   // eslint-disable-next-line no-undef
   constructor( opticPositionProperty: Property<Vector2>, modelBoundsProperty: Property<Bounds2>,
-               modelViewTransform: ModelViewTransform2, options?: any ) { //TS any
+               modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
 
     options = merge( {
       stroke: GeometricOpticsColors.opticalAxisStrokeProperty,

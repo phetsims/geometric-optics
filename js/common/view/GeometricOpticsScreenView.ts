@@ -65,7 +65,7 @@ class GeometricOpticsScreenView extends ScreenView {
    * @param {GeometricOpticsModel} model
    * @param {Object} [options]
    */
-  constructor( model: GeometricOpticsModel, options?: any ) { //TS any
+  constructor( model: GeometricOpticsModel, options?: any ) { //TYPESCRIPT any
 
     options = merge( {
 

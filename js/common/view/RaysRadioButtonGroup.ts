@@ -22,7 +22,7 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup {
    * @param {Property.<RaysModeEnum>} raysModeProperty
    * @param {Object} [options]
    */
-  constructor( raysModeProperty: Property<RaysModeEnum>, options?: any ) { //TS any
+  constructor( raysModeProperty: Property<RaysModeEnum>, options?: any ) { //TYPESCRIPT any
 
     options = merge( {
       spacing: 4,
