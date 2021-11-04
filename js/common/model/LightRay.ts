@@ -86,13 +86,12 @@ class LightRay {
 
   /**
    * Has the rays reached the target (projection screen or target point)?
-   * @private
    * @param {number} distanceTraveled
    * @param {boolean} isProjectionScreenPresent
    * @param {Vector2} targetPoint
    * @returns {boolean}
    */
-  getHasReachedTarget( distanceTraveled: number, isProjectionScreenPresent: boolean, targetPoint: Vector2 ) {
+  private getHasReachedTarget( distanceTraveled: number, isProjectionScreenPresent: boolean, targetPoint: Vector2 ) {
 
     let distance = 0;
 
@@ -129,13 +128,12 @@ class LightRay {
 
   /**
    * Gets the first intersection Ppoint.
-   * @private
    * @param {Ray} initialRay
    * @param {Optic} optic
    * @param {boolean} isPrincipalRayMode
    * @returns {Vector2|null}
    */
-  getFirstPoint( initialRay: Ray, optic: Optic, isPrincipalRayMode: boolean ) {
+  private getFirstPoint( initialRay: Ray, optic: Optic, isPrincipalRayMode: boolean ) {
     const firstIntersection = this.getFirstShape( optic, isPrincipalRayMode ).intersection( initialRay );
     return this.getPoint( firstIntersection );
   }
@@ -143,7 +141,6 @@ class LightRay {
   /**
    * Gets all the real rays that form a light ray. The transmitted ray (last ray) is set to be of infinite length by
    * default This can be corrected later if the ray is intercepted by a projection screen
-   * @private
    * @param {Ray} initialRay
    * @param {Vector2|null} firstPoint
    * @param {Optic} optic
@@ -151,7 +148,7 @@ class LightRay {
    * @param {Vector2} targetPoint
    * @returns {Ray[]} Rays
    */
-  getRealRays( initialRay: Ray, firstPoint: Vector2 | null, optic: Optic, isPrincipalRayMode: boolean, targetPoint: Vector2 ) {
+  private getRealRays( initialRay: Ray, firstPoint: Vector2 | null, optic: Optic, isPrincipalRayMode: boolean, targetPoint: Vector2 ) {
 
     // array to store all the rays
     const rays = [];
@@ -218,16 +215,16 @@ class LightRay {
     return rays;
   }
 
+  //TODO factor out a private function
   /**
    * Gets an "intermediate" point. Find the point of intersection of the initial ray with an imaginary vertical line
    * at position share by the optic position
-   * @private
    * @param {Ray} initialRay
    * @param {Vector2} firstPoint
    * @param {Optic} optic
    * @returns {Vector2}
    */
-  getIntermediatePoint( initialRay: Ray, firstPoint: Vector2, optic: Optic ) {
+  private getIntermediatePoint( initialRay: Ray, firstPoint: Vector2, optic: Optic ) {
 
     // displacement vector from the source to the optic position
     const opticSourceVector = optic.positionProperty.value.minus( initialRay.position );
@@ -240,39 +237,39 @@ class LightRay {
     return initialRay.position.blend( firstPoint, opticSourceVector.x / firstSourceVector.x );
   }
 
+  //TODO factor out a private function
   /**
    * Gets the shape of the curved front (left hand side) of the lens.
-   * @private
    * @param {Optic} optic
    * @returns {Shape}
    */
-  getLensFrontShape( optic: Optic ) {
+  private getLensFrontShape( optic: Optic ) {
     assert && assert( optic.isLens(), 'optic must be Lens' );
     const shapes = optic.shapesProperty.value;
     return optic.translatedShape( shapes.frontShape );
   }
 
+  //TODO factor out a private function
   /**
    * Gets the shape of the curved back (right hand side) of the lens.
-   * @private
    * @param {Optic} optic
    * @returns {Shape}
    */
-  getLensBackShape( optic: Optic ) {
+  private getLensBackShape( optic: Optic ) {
     assert && assert( optic.isLens(), 'optic must be Lens' );
     const backShape = optic.shapesProperty.value.backShape; // {Shape|null}
     assert && assert( backShape );
     return optic.translatedShape( backShape! );
   }
 
+  //TODO factor out a private function
   /**
    * Gets the shape that the initial ray will intersect.
-   * @private
    * @param {Optic} optic
    * @param {boolean} isPrincipalRayMode
    * @returns {Shape}
    */
-  getFirstShape( optic: Optic, isPrincipalRayMode: boolean ) {
+  private getFirstShape( optic: Optic, isPrincipalRayMode: boolean ) {
 
     // for principal rays, the rays are refracted at a vertical line
     if ( isPrincipalRayMode ) {
@@ -287,13 +284,13 @@ class LightRay {
     }
   }
 
+  //TODO factor out a private function
   /**
    * Processes a point from the intersection. Returns null if the point cannot be found.
-   * @private
    * @param {Array.<Intersection>} intersection
    * @returns {Vector2|null}
    */
-  getPoint( intersection: any ) { //TODO any - see https://github.com/phetsims/kite/issues/93
+  private getPoint( intersection: any ) { //TODO any - see https://github.com/phetsims/kite/issues/93
 
     // all shapes have been defined as line (straight or curved) so there can only be one intersection point at most
     if ( intersection && intersection[ 0 ] && intersection[ 0 ].point ) {
@@ -304,15 +301,15 @@ class LightRay {
     }
   }
 
+  //TODO factor out a private function
   /**
    * Returns a semi infinite ray starting at originPoint. The ray is along (or opposite to) the direction of targetPoint.
-   * @private
    * @param {Vector2} originPoint
    * @param {Vector2} targetPoint
    * @param {Optic} optic
    * @returns {Ray}
    */
-  getTransmittedRay( originPoint: Vector2, targetPoint: Vector2, optic: Optic ) {
+  private getTransmittedRay( originPoint: Vector2, targetPoint: Vector2, optic: Optic ) {
 
     const direction = originPoint.minus( targetPoint ).normalized();
 
@@ -323,15 +320,15 @@ class LightRay {
     return new Ray( originPoint, direction );
   }
 
+  //TODO factor out a private function
   /**
    * Returns a virtual ray that is opposite to the last real ray.
    * If the virtual ray does not exist or does not line up with the target point, it returns null.
-   * @private
    * @param {Ray[]} realRays
    * @param {Vector2} targetPoint
    * @returns {Ray|null} virtualRay
    */
-  getVirtualRay( realRays: Ray[], targetPoint: Vector2 ) {
+  private getVirtualRay( realRays: Ray[], targetPoint: Vector2 ) {
 
     // to have a virtual ray, the initial ray must be deflected
     if ( realRays.length > 1 ) {
@@ -363,13 +360,13 @@ class LightRay {
     }
   }
 
+  //TODO factor out a private function
   /**
    * Sets the final point of the real ray if it intersects with the vertical median of the projection screen.
-   * @private
    * @param {Ray[]} realRays
    * @param {Shape} projectionScreenBisectorLine
    */
-  setFinalPointProjectionScreen( realRays: Ray[], projectionScreenBisectorLine: Shape ) {
+  private setFinalPointProjectionScreen( realRays: Ray[], projectionScreenBisectorLine: Shape ) {
 
     // ensure that real rays has at least one ray
     if ( realRays.length > 0 ) {
@@ -389,14 +386,14 @@ class LightRay {
     }
   }
 
+  //TODO factor out a private function
   /**
    * Has the light ray a virtual component (virtual ray)?
-   * @private
    * @param {boolean} isImageVirtual
    * @param {Ray[]} realRays
    * @returns {boolean}
    */
-  hasVirtualComponent( isImageVirtual: boolean, realRays: Ray[] ) {
+  private hasVirtualComponent( isImageVirtual: boolean, realRays: Ray[] ) {
 
     // is the image virtual and has the real rays refracted
     return isImageVirtual && realRays.length > 1;
@@ -404,10 +401,9 @@ class LightRay {
 
   /**
    * Processes all the rays (virtual and real) into line segments.
-   * @private
    * @param {number} distanceTraveled
    */
-  raysToSegments( distanceTraveled: number ) {
+  private raysToSegments( distanceTraveled: number ) {
 
     // {number} remaining distance to travel for the ray
     let remainingDistance = distanceTraveled;
