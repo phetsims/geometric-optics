@@ -11,7 +11,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -19,12 +18,13 @@ import geometricOptics from '../../geometricOptics.js';
 import SourceObject from '../model/SourceObject.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Representation from '../model/Representation.js';
+import UnconstrainedCueingArrowsNode from './UnconstrainedCueingArrowsNode.js';
 
 class SourceObjectNode extends Node {
 
   // so that 1st and 2nd light source can share drag bounds
   public readonly dragBoundsProperty: Property<Bounds2>;
-  private readonly cueingArrows: ArrowNode;
+  private readonly cueingArrowsNode: UnconstrainedCueingArrowsNode;
 
   /**
    * @param {Property.<Representation>} representationProperty
@@ -43,24 +43,16 @@ class SourceObjectNode extends Node {
     //TODO-TS workaround, because class Image extends Imageable( Node )
     const sourceObjectImageAsNode = sourceObjectImage as unknown as Node;
 
-    const cueingArrows = new ArrowNode( 0, 0, 0, 65, {
-      doubleHead: true,
-      tailWidth: 15,
-      headWidth: 30,
-      headHeight: 15,
-      fill: 'rgb( 0, 200, 0 )',
-      stroke: 'black',
-      lineWidth: 1
-    } );
+    const cueingArrowsNode = new UnconstrainedCueingArrowsNode();
 
     super( {
-      children: [ sourceObjectImage, cueingArrows ]
+      children: [ sourceObjectImage, cueingArrowsNode ]
     } );
 
     // Keep cueing arrows next to the source object.
     sourceObjectImageAsNode.boundsProperty.link( ( bounds: Bounds2 ) => {
-      cueingArrows.right = sourceObjectImageAsNode.left - 10;
-      cueingArrows.centerY = sourceObjectImageAsNode.centerY;
+      cueingArrowsNode.right = sourceObjectImageAsNode.left - 10;
+      cueingArrowsNode.centerY = sourceObjectImageAsNode.centerY;
     } );
 
     // Scale the source object.
@@ -110,7 +102,7 @@ class SourceObjectNode extends Node {
       transform: modelViewTransform,
       dragBoundsProperty: this.dragBoundsProperty,
       end: () => {
-        cueingArrows.visible = false;
+        cueingArrowsNode.visible = false;
       }
     } );
     this.addInputListener( sourceObjectDragListener );
@@ -127,7 +119,7 @@ class SourceObjectNode extends Node {
     } );
 
     // @private
-    this.cueingArrows = cueingArrows;
+    this.cueingArrowsNode = cueingArrowsNode;
   }
 
   /**
@@ -144,7 +136,7 @@ class SourceObjectNode extends Node {
    * @public
    */
   reset() {
-    this.cueingArrows.visible = true;
+    this.cueingArrowsNode.visible = true;
   }
 }
 
