@@ -62,7 +62,7 @@ class Target {
       ( objectPosition: Vector2, opticPosition: Vector2, focalLength: number ) => {
 
         // {number} horizontal distance between optic and source object
-        const opticObjectDistance = this.getObjectOpticDistance( objectPosition, opticPosition );
+        const opticObjectDistance = getObjectOpticDistance( objectPosition, opticPosition );
 
         // address the case where the source object shares the same x position as the focal point
         if ( opticObjectDistance === focalLength ) {
@@ -176,18 +176,6 @@ class Target {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
   }
 
-  //TODO factor out private function
-  /**
-   * Returns the horizontal distance from the object to the optic.
-   * A negative distance indicates that the object is to the right of the optic.
-   * @param {Vector2} objectPosition
-   * @param {Vector2} opticPosition
-   * @returns {number}
-   */
-  private getObjectOpticDistance( objectPosition: Vector2, opticPosition: Vector2 ) {
-    return opticPosition.x - objectPosition.x;
-  }
-
   /**
    * Returns the magnification of the image as defined in geometric optics courses.
    * A negative magnification implies that the image is inverted.
@@ -198,7 +186,7 @@ class Target {
   private getMagnification( objectPosition: Vector2, opticPosition: Vector2 ) {
 
     // horizontal distance between source object (or light source) and optic
-    const objectOpticDistance = this.getObjectOpticDistance( objectPosition, opticPosition );
+    const objectOpticDistance = getObjectOpticDistance( objectPosition, opticPosition );
 
     // prevent a division by zero
     if ( objectOpticDistance === 0 ) {
@@ -210,6 +198,17 @@ class Target {
       return -1 * this.targetOpticDistanceProperty.value / objectOpticDistance;
     }
   }
+}
+
+/**
+ * Returns the horizontal distance from the object to the optic.
+ * A negative distance indicates that the object is to the right of the optic.
+ * @param {Vector2} objectPosition
+ * @param {Vector2} opticPosition
+ * @returns {number}
+ */
+function getObjectOpticDistance( objectPosition: Vector2, opticPosition: Vector2 ) {
+  return opticPosition.x - objectPosition.x;
 }
 
 geometricOptics.register( 'Target', Target );

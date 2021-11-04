@@ -50,7 +50,7 @@ class IntroScreenView extends ScreenView {
    * Resets the view.
    */
   public reset() {
-    //TODO
+    //TODO implement reset
   }
 
   /**
@@ -58,7 +58,7 @@ class IntroScreenView extends ScreenView {
    * @param {number} dt - time step, in seconds
    */
   public step( dt: number ) {
-    //TODO
+    //TODO implement step
   }
 }
 

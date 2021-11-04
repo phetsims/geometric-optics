@@ -23,14 +23,14 @@ class IntroModel {
       tandem: Tandem.REQUIRED
     }, options );
 
-    //TODO
+    //TODO implement constructor
   }
 
   /**
    * Resets the model.
    */
   public reset() {
-    //TODO
+    //TODO implement reset
   }
 
   /**
@@ -38,7 +38,7 @@ class IntroModel {
    * @param {number} dt - time step, in seconds
    */
   public step( dt: number ) {
-    //TODO
+    //TODO implement step
   }
 }
 

@@ -66,28 +66,6 @@ class LightSpot {
       } );
   }
 
-  //TODO factor out private function
-  /**
-   * Gets ratio of the distance of the screen/ target measure from the optic.
-   * @param {Vector2} screenPosition
-   * @param {Vector2} opticPosition
-   * @param {Vector2} targetPosition
-   * @returns {number}
-   */
-  private getRatio( screenPosition: Vector2, opticPosition: Vector2, targetPosition: Vector2 ) {
-    const targetOpticDistance = ( targetPosition.x - opticPosition.x );
-
-    // avoid division by zero
-    if ( targetOpticDistance === 0 ) {
-
-      // This should technically be Infinity, but practically must be a (very large) finite value.
-      return 10e6;
-    }
-    else {
-      return ( screenPosition.x - opticPosition.x ) / targetOpticDistance;
-    }
-  }
-
   /**
    * Gets the physical parameters (center position and radii) for the LightSpot
    * @param {Vector2} screenPosition
@@ -104,8 +82,8 @@ class LightSpot {
     const opticBottomPoint = this.optic.getBottomPoint( this.sourcePositionProperty.value, targetPosition );
 
     // determine the top and bottom position of the unclipped disk
-    const diskTopPosition = this.getIntersectPosition( screenPosition, opticTopPoint, targetPosition );
-    const diskBottomPosition = this.getIntersectPosition( screenPosition, opticBottomPoint, targetPosition );
+    const diskTopPosition = getIntersectPosition( screenPosition, opticTopPoint, targetPosition );
+    const diskBottomPosition = getIntersectPosition( screenPosition, opticBottomPoint, targetPosition );
 
     // determine the position and y radius of the disk
     const diskCenterPosition = diskTopPosition.average( diskBottomPosition );
@@ -119,19 +97,6 @@ class LightSpot {
       radiusY: radiusY,
       radiusX: radiusX
     };
-  }
-
-  /**
-   * Gets the projected position on the screen of a point.
-   * this is determined by extrapolating the point from the target point onto the projection screen.
-   * @param {Vector2} screenPosition
-   * @param {Vector2} point
-   * @param {Vector2} targetPosition
-   * @returns {Vector2}
-   */
-  private getIntersectPosition( screenPosition: Vector2, point: Vector2, targetPosition: Vector2 ) {
-    const blend = this.getRatio( screenPosition, point, targetPosition );
-    return point.blend( targetPosition, blend );
   }
 
   /**
@@ -212,6 +177,38 @@ class LightSpot {
     }
     assert && assert( INTENSITY_RANGE.contains( intensity ) );
     return intensity;
+  }
+}
+
+/**
+ * Gets the projected position on the screen of a point.
+ * this is determined by extrapolating the point from the target point onto the projection screen.
+ * @param {Vector2} screenPosition
+ * @param {Vector2} point
+ * @param {Vector2} targetPosition
+ * @returns {Vector2}
+ */
+function getIntersectPosition( screenPosition: Vector2, point: Vector2, targetPosition: Vector2 ) {
+  const blend = getRatio( screenPosition, point, targetPosition );
+  return point.blend( targetPosition, blend );
+}
+
+/**
+ * Gets ratio of the distance of the screen/ target measure from the optic.
+ * @param {Vector2} screenPosition
+ * @param {Vector2} opticPosition
+ * @param {Vector2} targetPosition
+ * @returns {number}
+ */
+function getRatio( screenPosition: Vector2, opticPosition: Vector2, targetPosition: Vector2 ) {
+  const targetOpticDistance = ( targetPosition.x - opticPosition.x );
+
+  // avoid division by zero
+  if ( targetOpticDistance === 0 ) {
+    return 10e6; // This should technically be Infinity, but practically must be a (very large) finite value.
+  }
+  else {
+    return ( screenPosition.x - opticPosition.x ) / targetOpticDistance;
   }
 }
 

@@ -278,7 +278,7 @@ class GeometricOpticsScreenView extends ScreenView {
     zoomLevelProperty.lazyLink( ( zoomLevel: number, oldZoomLevel: number ) => {
 
       // Scale the experiment area.
-      const relativeScale = this.getRelativeScale( zoomLevel, oldZoomLevel );
+      const relativeScale = getRelativeScale( zoomLevel, oldZoomLevel );
       experimentAreaNode.scale( relativeScale );
 
       // Translate experimentAreaNode such that the origin point remains fixed through zoom levels.
@@ -414,20 +414,6 @@ class GeometricOpticsScreenView extends ScreenView {
     }
   }
 
-  //TODO factor out private function
-  /**
-   * Returns the relative scale between a zoom level and a previous old zoom level
-   * @param {number} zoomLevel
-   * @param {number} oldZoomLevel
-   * @returns {number}
-   */
-  private getRelativeScale( zoomLevel: number, oldZoomLevel: number ) {
-    const base = 2;
-    const scale = Math.pow( base, zoomLevel );
-    const oldScale = Math.pow( base, oldZoomLevel );
-    return scale / oldScale;
-  }
-
   /**
    * Returns the absolute scaling factor measured from the initial zoom level
    * The absolute scale returns 1 if the zoom level is the initial zoom level value
@@ -435,7 +421,7 @@ class GeometricOpticsScreenView extends ScreenView {
    * @returns {number}
    */
   private getAbsoluteScale( zoomLevel: number ) {
-    return this.getRelativeScale( zoomLevel, ZOOM_RANGE.defaultValue );
+    return getRelativeScale( zoomLevel, ZOOM_RANGE.defaultValue );
   }
 
   /**
@@ -455,6 +441,19 @@ class GeometricOpticsScreenView extends ScreenView {
     // create a Y inverted modelViewTransform with isometric scaling along X and Y
     return ModelViewTransform2.createOffsetXYScaleMapping( viewOrigin, viewModelScale, -viewModelScale );
   }
+}
+
+/**
+ * Returns the relative scale between a zoom level and a previous old zoom level
+ * @param {number} zoomLevel
+ * @param {number} oldZoomLevel
+ * @returns {number}
+ */
+function getRelativeScale( zoomLevel: number, oldZoomLevel: number ) {
+  const base = 2;
+  const scale = Math.pow( base, zoomLevel );
+  const oldScale = Math.pow( base, oldZoomLevel );
+  return scale / oldScale;
 }
 
 geometricOptics.register( 'GeometricOpticsScreenView', GeometricOpticsScreenView );
