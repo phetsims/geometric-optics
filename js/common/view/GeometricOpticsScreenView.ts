@@ -370,7 +370,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // pdom -traversal order
     //TODO add Object, second point, light sources, toolbox, rulers
-    // @ts-ignore TS Property 'pdomOrder' does not exist on type 'Node'.
+    // @ts-ignore TYPESCRIPT Property 'pdomOrder' does not exist on type 'Node'.
     screenViewRootNode.pdomOrder = [
       representationComboBox,
       opticShapeRadioButtonGroup,

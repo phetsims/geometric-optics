@@ -46,7 +46,7 @@ class ShowHideToggleButton extends BooleanRoundToggleButton {
     const showNode = new Path( eyeSolidShape, options.icon );
     const hideNode = new Path( eyeSlashSolidShape, options.icon );
 
-    // @ts-ignore TS see https://github.com/phetsims/chipper/issues/1142
+    // @ts-ignore TYPESCRIPT see https://github.com/phetsims/chipper/issues/1142
     super( showNode, hideNode, booleanProperty, options );
 
     booleanProperty.link( ( value: boolean ) => {

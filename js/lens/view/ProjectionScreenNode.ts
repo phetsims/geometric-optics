@@ -83,7 +83,7 @@ class ProjectionScreenNode extends Node {
       stroke: GeometricOpticsColors.projectionScreenStrokeProperty,
       lineWidth: 3,
       centerX: screenNode.centerX,
-      // @ts-ignore TS property 'top' does not exist on type 'Image'
+      // @ts-ignore TYPESCRIPT property 'top' does not exist on type 'Image'
       top: bottomBarNode.top
     } );
 
