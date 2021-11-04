@@ -5,12 +5,14 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-import geometricOptics from '../../geometricOptics.js';
-import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
-import merge from '../../../../phet-core/js/merge.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
 
-class UnconstrainedCueingArrowsNode extends Node {
+import geometricOptics from '../../geometricOptics.js';
+import merge from '../../../../phet-core/js/merge.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
+import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
+import Shape from '../../../../kite/js/Shape.js';
+
+class UnconstrainedCueingArrowsNode extends Path {
 
   /**
    * @param {Object} [options]
@@ -19,26 +21,28 @@ class UnconstrainedCueingArrowsNode extends Node {
 
     options = merge( {
       length: 45,
-      arrowNodeOptions: {
+
+      // ArrowShape options
+      arrowShapeOptions: {
         doubleHead: true,
         tailWidth: 5,
         headWidth: 15,
-        headHeight: 10,
-        fill: 'rgb( 0, 200, 0 )',
-        stroke: 'black',
-        lineWidth: 1
-      }
+        headHeight: 10
+      },
+
+      // Path options
+      fill: 'rgb( 0, 200, 0 )',
+      stroke: 'black',
+      lineWidth: 1
+
     }, options );
 
-    const cueingArrowsUpDown = new ArrowNode( 0, 0, 0, options.length, options.arrowNodeOptions );
-    const cueingArrowsLeftRight = new ArrowNode( 0, 0, options.length, 0, merge( {
-      center: cueingArrowsUpDown.center
-    }, options.arrowNodeOptions ) );
+    // The Shape is a union of 2 arrows.
+    const leftRightArrowShape = new ArrowShape( -options.length / 2, 0, options.length / 2, 0, options.arrowShapeOptions );
+    const upDownArrowShape = new ArrowShape( 0, -options.length / 2, 0, options.length / 2, options.arrowShapeOptions );
+    const shape = Shape.union( [ leftRightArrowShape, upDownArrowShape ] );
 
-    assert && assert( !options.children );
-    options.children = [ cueingArrowsUpDown, cueingArrowsLeftRight ];
-
-    super( options );
+    super( shape, options );
 
     this.touchArea = this.localBounds;
     this.mouseArea = this.localBounds;
