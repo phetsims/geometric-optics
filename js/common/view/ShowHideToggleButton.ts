@@ -46,7 +46,7 @@ class ShowHideToggleButton extends BooleanRoundToggleButton {
     const showNode = new Path( eyeSolidShape, options.icon );
     const hideNode = new Path( eyeSlashSolidShape, options.icon );
 
-    // @ts-ignore TODO-TS Argument of type 'Path' is not assignable to parameter of type 'Node'.
+    // @ts-ignore TODO-TS see https://github.com/phetsims/chipper/issues/1142
     super( showNode, hideNode, booleanProperty, options );
 
     booleanProperty.link( ( value: boolean ) => {
