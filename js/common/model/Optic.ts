@@ -180,10 +180,7 @@ class Optic {
     } );
   }
 
-  /**
-   * @public
-   */
-  reset() {
+  public reset() {
     this.opticShapeProperty.reset();
     this.yProperty.reset();
     this.radiusOfCurvatureProperty.reset();
@@ -194,68 +191,61 @@ class Optic {
   /**
    * Convenience method for getting the maximum diameter, in cm.
    * @returns {number}
-   * @public
    */
-  get maxDiameter() {
+  public get maxDiameter() {
     return this.diameterProperty.rangeProperty.value.max;
   }
 
   /**
    * Determines whether the optic is a lens.
-   * @public
    * @returns {boolean}
    */
-  isLens() {
+  public isLens() {
     return ( this.opticType === 'lens' );
   }
 
   /**
    * Determines whether the optic is a mirror.
-   * @public
    * @returns {boolean}
    */
-  isMirror() {
+  public isMirror() {
     return ( this.opticType === 'mirror' );
   }
 
   /**
    * Determines whether the optic is concave.
-   * @public
    * @param {OpticShapeEnum} opticShape
    * @returns {boolean}
    */
-  isConcave( opticShape: OpticShapeEnum ) {
+  public isConcave( opticShape: OpticShapeEnum ) {
     return ( opticShape === 'concave' );
   }
 
   /**
    * Determines whether the optic is convex.
-   * @public
    * @param {OpticShapeEnum} opticShape
    * @returns {boolean}
    */
-  isConvex( opticShape: OpticShapeEnum ) {
+  public isConvex( opticShape: OpticShapeEnum ) {
     return ( opticShape === 'convex' );
   }
 
   /**
    * Determines whether the optic has the potential to converge rays.
    * A convex lens and a concave mirror are converging optics.
-   * @public
    * @param {OpticShapeEnum} opticShape
    * @returns {boolean}
    */
-  isConverging( opticShape: OpticShapeEnum ) {
+  public isConverging( opticShape: OpticShapeEnum ) {
     return ( this.isConvex( opticShape ) && this.isLens() ) || ( this.isConcave( opticShape ) && this.isMirror() );
   }
 
   /**
    * Determines whether the optic has the potential to diverge rays.
-   * @public
    * @param {OpticShapeEnum} opticShape
    * @returns {boolean}
    */
-  isDiverging( opticShape: OpticShapeEnum ) {
+  public isDiverging( opticShape: OpticShapeEnum ) {
     return !this.isConverging( opticShape );
   }
 
@@ -264,30 +254,27 @@ class Optic {
   /**
    * Convenience function for mathematical operations.
    * Returns +1 for a lens, -1 for a mirror.
-   * @public
    * @returns {number}
    */
-  getSign() {
+  public getSign() {
     return this.isLens() ? 1 : -1;
   }
 
   /**
    * Returns a shape translated by the model position of the optic
-   * @public
    * @param {Shape} shape
    * @returns {Shape}
    */
-  translatedShape( shape: Shape ) {
+  public translatedShape( shape: Shape ) {
     return shape.transformed( Matrix3.translationFromVector( this.positionProperty.value ) );
   }
 
   /**
    * Gets the bounds of the optically "active" component, in model coordinates.
    * In practice, it means that we exclude the backing (fill) of the mirror
-   * @public
    * @returns {Bounds2}
    */
-  getOpticBounds() {
+  public getOpticBounds() {
     const outlineShape = this.shapesProperty.value.outlineShape;
     const translatedShape = this.translatedShape( outlineShape );
     return translatedShape.getBounds();
@@ -295,10 +282,9 @@ class Optic {
 
   /**
    * Returns the Shape of the vertical axis, in model coordinates.
-   * @public
    * @returns {Shape}
    */
-  getVerticalAxis() {
+  public getVerticalAxis() {
 
     const yMax = 800; // long enough for all zoom levels, in cm
 
@@ -310,23 +296,21 @@ class Optic {
 
   /**
    * Returns the top position within the optic that would ensure that a ray would be transmitted (or reflected).
-   * @public
    * @param {Vector2} sourcePoint
    * @param {Vector2} targetPoint
    * @returns {Vector2}
    */
-  getTopPoint( sourcePoint: Vector2, targetPoint: Vector2 ) {
+  public getTopPoint( sourcePoint: Vector2, targetPoint: Vector2 ) {
     return this.getExtremumPoint( sourcePoint, targetPoint, true /* isTop */ );
   }
 
   /**
    * Returns the bottom position within the optic that would ensure that a ray would be transmitted (or reflected).
-   * @public
    * @param {Vector2} sourcePoint
    * @param {Vector2} targetPoint
    * @returns {Vector2}
    */
-  getBottomPoint( sourcePoint: Vector2, targetPoint: Vector2 ) {
+  public getBottomPoint( sourcePoint: Vector2, targetPoint: Vector2 ) {
     return this.getExtremumPoint( sourcePoint, targetPoint, false /* isTop */ );
   }
 

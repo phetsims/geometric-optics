@@ -68,27 +68,24 @@ class ProjectionScreen {
 
   /**
    * Resets the model.
-   * @public
    */
-  reset() {
+  public reset() {
     this.positionProperty.reset();
   }
 
   /**
    * Gets the vertical line that bisects the screen, in the model's global coordinate frame.
-   * @public
    * @returns {Shape}
    */
-  getBisectorLineTranslated() {
+  public getBisectorLineTranslated() {
     return this.translatedShape( this.bisectorLine );
   }
 
   /**
    * Gets the shape of the screen, in the model's global coordinate frame.
-   * @public
    * @returns {Shape}
    */
-  getScreenShapeTranslated() {
+  public getScreenShapeTranslated() {
     return this.translatedShape( this.screenShape );
   }
 

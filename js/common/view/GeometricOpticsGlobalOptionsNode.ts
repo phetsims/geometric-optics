@@ -63,10 +63,9 @@ class GeometricOpticsGlobalOptionsNode extends VBox {
   }
 
   /**
-   * @public
    * @override
    */
-  dispose() {
+  public dispose() {
     this.disposeGeometricOpticsGlobalOptionsNode();
     super.dispose();
   }
@@ -137,10 +136,9 @@ class FocalLengthControlNode extends VBox {
   }
 
   /**
-   * @public
    * @override
    */
-  dispose() {
+  public dispose() {
     this.disposeFocalLengthControlNode();
     super.dispose();
   }

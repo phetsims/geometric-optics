@@ -64,13 +64,12 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup {
 
   /**
    * Creates a centered icon representation of convex/concave, lens/mirror.
-   * @public
    * @param {OpticTypeEnum} opticType - the optic can be lens or mirror
    * @param {OpticShapeEnum} opticShape - the shape of the optic can be convex or concave
    * @param {Object} [options]
    * @returns {Node}
    */
-  static createIconNode( opticType: OpticTypeEnum, opticShape: OpticShapeEnum, options?: any ) { //TODO-TS any
+  public static createIconNode( opticType: OpticTypeEnum, opticShape: OpticShapeEnum, options?: any ) { //TODO-TS any
 
     options = merge( {
       radius: 22, // radius of curvature of the optic, in cm

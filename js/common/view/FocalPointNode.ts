@@ -51,21 +51,19 @@ class FocalPointNode extends Node {
   }
 
   /**
-   * @public
    * @override
    */
-  dispose() {
+  public dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 
   /**
    * Returns an icon for the focal point
-   * @public
    * @param {Object} [options] - options for Path
    * @returns {Node}
    */
-  static createIcon( options?: any ) { //TODO-TS any
+  public static createIcon( options?: any ) { //TODO-TS any
     options = merge( {}, DEFAULT_OPTIONS, options );
     let shape = new PlusShape( options.size );
     shape = shape.transformed( Matrix3.rotation2( Math.PI / 4 ) );

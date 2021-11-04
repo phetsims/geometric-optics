@@ -28,18 +28,16 @@ class IntroModel {
 
   /**
    * Resets the model.
-   * @public
    */
-  reset() {
+  public reset() {
     //TODO
   }
 
   /**
    * Steps the model.
    * @param {number} dt - time step, in seconds
-   * @public
    */
-  step( dt: number ) {
+  public step( dt: number ) {
     //TODO
   }
 }

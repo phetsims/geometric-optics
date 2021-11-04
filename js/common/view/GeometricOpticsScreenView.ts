@@ -391,27 +391,24 @@ class GeometricOpticsScreenView extends ScreenView {
   }
 
   /**
-   * @public
    * @override
    */
-  dispose() {
+  public dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 
   /**
    * Resets the view.
-   * @public
    */
-  reset() {
+  public reset() {
     this.resetGeometricScreenView();
   }
 
   /**
    * Time stepper
-   * @public
    */
-  step( dt: number ) {
+  public step( dt: number ) {
     if ( this.visibleProperties.rayTracingVisibleProperty.value ) {
       this.model.stepLightRays( dt );
     }

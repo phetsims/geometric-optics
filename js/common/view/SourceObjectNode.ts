@@ -126,19 +126,17 @@ class SourceObjectNode extends Node {
   }
 
   /**
-   * @public
    * @override
    */
-  dispose() {
+  public dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 
   /**
    * Reset this node
-   * @public
    */
-  reset() {
+  public reset() {
     this.cueingArrowsNode.visible = true;
   }
 }

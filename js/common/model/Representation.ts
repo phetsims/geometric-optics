@@ -104,10 +104,9 @@ class Representation {
 
   /**
    * Gets the scale factor to use for this RepresentationValue.
-   * @public
    * @returns {number}
    */
-  getScaleFactor() {
+  public getScaleFactor() {
     return this.isObject ? OBJECT_SCALE_FACTOR : SOURCE_SCALE_FACTOR;
   }
 }

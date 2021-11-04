@@ -16,7 +16,6 @@ const optionsTandem = Tandem.GLOBAL_VIEW.createTandem( 'options' );
 
 const GeometricOpticsGlobalOptions = {
 
-  // @public
   focalLengthControlProperty:
     new StringProperty( GeometricOpticsQueryParameters.focalLengthControl, {
       validValues: GeometricOpticsQueryParameters.SCHEMA.focalLengthControl.validValues,

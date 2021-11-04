@@ -130,9 +130,8 @@ class GeometricOpticsRulerNode extends Node {
 
   /**
    * Resets the visibility and position of this node
-   * @public
    */
-  reset() {
+  public reset() {
     this.setPosition(); //TODO why isn't it sufficient to reset Ruler.positionProperty?
     this.setInitialVisibility(); //TODO add visibleProperty to Ruler model element
   }
@@ -147,9 +146,8 @@ class GeometricOpticsRulerNode extends Node {
 
   /**
    * Sets the position of the ruler
-   * @public
    */
-  setPosition() {
+  public setPosition() {
     if ( this.ruler.isVertical() ) {
 
       // set initial position of the ruler - leftBottom since rotated 90 degrees
@@ -164,20 +162,18 @@ class GeometricOpticsRulerNode extends Node {
 
   /**
    * Forwards an event from the toolbox to start dragging this node
-   * @public
    * @param {SceneryEvent} event
    */
-  startDrag( event: SceneryEvent ) {
+  public startDrag( event: SceneryEvent ) {
     this.dragListener.press( event, this );
   }
 
   //TODO this is redundant because toolboxBounds is public
   /**
    * Updates toolbox bounds
-   * @public
    * @param {Bounds2} bounds
    */
-  setToolboxBounds( bounds: Bounds2 ) {
+  public setToolboxBounds( bounds: Bounds2 ) {
     this.toolboxBounds = bounds;
   }
 
@@ -232,11 +228,10 @@ class GeometricOpticsRulerNode extends Node {
 
   /**
    * Adds a new scenery-phet.RulerNode to the parent, detaching the previous RulerNode.
-   * @public
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  setRulerNode( modelViewTransform: ModelViewTransform2, options?: any ) { //TODO-TS any
+  public setRulerNode( modelViewTransform: ModelViewTransform2, options?: any ) { //TODO-TS any
 
     // remove previous instances of rulerNode
     this.removeAllChildren();

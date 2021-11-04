@@ -159,28 +159,25 @@ class SecondPointNode extends Node {
   }
 
   /**
-   * @public
    * @override
    */
-  dispose() {
+  public dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 
   /**
    * Reset this node
-   * @public
    */
-  reset() {
+  public reset() {
     this.cueingArrows.visible = true;
   }
 
   /**
    * Creates an icon to represent the second source.
-   * @public
    * @returns {PointNode}
    */
-  static createIcon() {
+  public static createIcon() {
     return new PointNode( 5 );
   }
 }

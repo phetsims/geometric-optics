@@ -1,5 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TODO split this into separate classes, LensShapes and MirrorShapes
 /**
  * OpticShapes is the set of Shapes used to render a specific optic. All Shapes are in model coordinates.
  *

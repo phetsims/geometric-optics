@@ -36,52 +36,47 @@ class Ray extends Ray2 {
 
   /**
    * Sets the length of the ray
-   * @public
    * @param {number} length
    */
-  setLength( length: number ) {
+  public setLength( length: number ) {
     assert && assert( isFinite( length ) );
     this.length = length;
   }
 
   /**
    * Convenience function that set the length of a ray by through the use of a final point
-   * @public
    * @param {Vector2} point
    */
-  setFinalPoint( point: Vector2 ) {
+  public setFinalPoint( point: Vector2 ) {
     assert && assert( this.isPointAlongRay( point ), 'final point is not along ray' );
     this.setLength( point.minus( this.position ).magnitude );
   }
 
   /**
    * Gets the length of the ray. Note that the length may be Infinity.
-   * @public
    * @returns {number} length
    */
-  getLength() {
+  public getLength() {
     return this.length;
   }
 
   /**
    * Determines if the point is along the ray direction.
-   * @public
    * @param {Vector2} point
    * @param {number} [epsilon] - tolerance value
    * @returns {boolean}
    */
-  isPointAlongRay( point: Vector2, epsilon = 1e-4 ) {
+  public isPointAlongRay( point: Vector2, epsilon = 1e-4 ) {
     const displacementVector = point.minus( this.position );
     return displacementVector.normalized().equalsEpsilon( this.direction, epsilon );
   }
 
   /**
    * Gets distance from origin to point. The point may not lay along the direction of the ray.
-   * @public
    * @param {Vector2} point
    * @returns {number} distance
    */
-  getDistanceTo( point: Vector2 ) {
+  public getDistanceTo( point: Vector2 ) {
     const displacementVector = point.minus( this.position );
     return this.direction.dot( displacementVector );
   }

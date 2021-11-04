@@ -73,9 +73,8 @@ class SourceObject {
 
   /**
    * Resets the model.
-   * @public
    */
-  reset() {
+  public reset() {
     this.leftTopProperty.reset();
   }
 }

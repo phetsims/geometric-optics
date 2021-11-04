@@ -59,20 +59,18 @@ class SecondPoint {
 
   /**
    * Resets the model.
-   * @public
    */
-  reset() {
+  public reset() {
     this.verticalOffsetProperty.reset();
     this.lightSourcePositionProperty.reset();
   }
 
   /**
    * Sets the second source point
-   * @public
    * @param {boolean} isObject
    * @param {Vector2} position
    */
-  setSecondPoint( isObject: boolean, position: Vector2 ) {
+  public setSecondPoint( isObject: boolean, position: Vector2 ) {
     if ( isObject ) {
       this.verticalOffsetProperty.value = VERTICAL_OFFSET_RANGE.constrainValue(
         position.y - this.sourceObjectPositionProperty.value.y );

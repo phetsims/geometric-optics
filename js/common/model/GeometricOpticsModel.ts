@@ -170,9 +170,8 @@ class GeometricOpticsModel {
 
   /**
    * Resets the model
-   * @public
    */
-  reset() {
+  public reset() {
     this.representationProperty.reset();
     this.optic.reset();
     this.sourceObject.reset();
@@ -186,10 +185,9 @@ class GeometricOpticsModel {
 
   /**
    * Steps the animation of light rays.
-   * @public
    * @param {number} dt - time step, in seconds
    */
-  stepLightRays( dt: number ) {
+  public stepLightRays( dt: number ) {
     const t = this.lightRaysTimeProperty.value + dt;
     assert && assert( this.lightRaysTimeProperty.range ); // {Range|null}
     if ( this.lightRaysTimeProperty.range!.contains( t ) ) {
