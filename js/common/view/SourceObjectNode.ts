@@ -101,7 +101,7 @@ class SourceObjectNode extends Node {
       positionProperty: sourceObject.leftTopProperty,
       transform: modelViewTransform,
       dragBoundsProperty: this.dragBoundsProperty,
-      end: () => {
+      drag: () => {
         cueingArrowsNode.visible = false;
       }
     } );

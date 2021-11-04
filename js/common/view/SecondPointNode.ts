@@ -115,7 +115,7 @@ class SecondPointNode extends Node {
 
       //TODO this is awful, needed to fix https://github.com/phetsims/geometric-optics/issues/220
       offsetPosition: () => representationProperty.value.isObject ? Vector2.ZERO : LIGHT_SOURCE_DRAG_OFFSET,
-      end: () => {
+      drag: () => {
         if ( representationProperty.value.isObject ) {
           this.cueingArrows.visible = false;
         }
