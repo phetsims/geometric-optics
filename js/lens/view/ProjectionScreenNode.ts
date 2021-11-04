@@ -27,8 +27,11 @@ import projectionScreenTop_png from '../../../images/projectionScreenTop_png.js'
 import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
 import geometricOptics from '../../geometricOptics.js';
 import ProjectionScreen from '../model/ProjectionScreen.js';
+import UnconstrainedCueingArrowsNode from '../../common/view/UnconstrainedCueingArrowsNode.js';
 
 class ProjectionScreenNode extends Node {
+
+  private readonly cueingArrowsNode: Node;
 
   /**
    * @param {ProjectionScreen} projectionScreen
@@ -90,9 +93,14 @@ class ProjectionScreenNode extends Node {
       fill: Color.grayColor( 180 ),
       center: pullStringNode.centerBottom
     } );
+    
+    const cueingArrowsNode = new UnconstrainedCueingArrowsNode( {
+     right: screenNode.left - 10,
+     centerY: screenNode.centerY
+    } );
 
     assert && assert( !options.children );
-    options.children = [ pullStringNode, knobNode, screenNode, topBarNode, bottomBarNode ];
+    options.children = [ pullStringNode, knobNode, screenNode, topBarNode, bottomBarNode, cueingArrowsNode ];
 
     super( options );
 
@@ -126,6 +134,9 @@ class ProjectionScreenNode extends Node {
       positionProperty: projectionScreen.positionProperty,
       dragBoundsProperty: dragBoundsProperty,
       transform: modelViewTransform,
+      drag: () => {
+        cueingArrowsNode.visible = false;
+      },
       tandem: options.tandem.createTandem( 'dragListener' )
     } ) );
 
@@ -144,6 +155,8 @@ class ProjectionScreenNode extends Node {
     dragBoundsProperty.link( ( dragBounds: Bounds2 ) => {
       keyboardDragListener.dragBounds = dragBounds;
     } );
+
+    this.cueingArrowsNode = cueingArrowsNode;
   }
 
   /**
@@ -153,6 +166,14 @@ class ProjectionScreenNode extends Node {
   dispose() {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
+  }
+
+  /**
+   * Reset this node
+   * @public
+   */
+  reset() {
+    this.cueingArrowsNode.visible = true;
   }
 }
 

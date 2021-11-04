@@ -24,7 +24,7 @@ class SourceObjectNode extends Node {
 
   // so that 1st and 2nd light source can share drag bounds
   public readonly dragBoundsProperty: Property<Bounds2>;
-  private readonly cueingArrowsNode: UnconstrainedCueingArrowsNode;
+  private readonly cueingArrowsNode: Node;
 
   /**
    * @param {Property.<Representation>} representationProperty

@@ -23,6 +23,8 @@ import Representation from '../../common/model/Representation.js';
 
 class LensScreenView extends GeometricOpticsScreenView {
 
+  private readonly projectionScreenNode: ProjectionScreenNode;
+
   /**
    * @param {LensModel} model
    * @param {Object} [options]
@@ -67,7 +69,7 @@ class LensScreenView extends GeometricOpticsScreenView {
     this.experimentAreaNode.addChild( secondGuidesNode );
 
     // Projection screen
-    const projectionScreenNode = new ProjectionScreenNode(
+    this.projectionScreenNode = new ProjectionScreenNode(
       model.projectionScreen,
       model.optic.positionProperty,
       this.modelBoundsProperty,
@@ -95,7 +97,7 @@ class LensScreenView extends GeometricOpticsScreenView {
 
     // Add projection screen and light spots at the bottom of the z-layer.
     const lightSourceNodes = new Node( {
-      children: [ projectionScreenNode, firstLightSpotNode, secondLightSpotNode ],
+      children: [ this.projectionScreenNode, firstLightSpotNode, secondLightSpotNode ],
       visibleProperty: new DerivedProperty<boolean>( [ model.representationProperty ],
         ( representation: Representation ) => !representation.isObject )
     } );
@@ -106,9 +108,18 @@ class LensScreenView extends GeometricOpticsScreenView {
     // pdomOrder is an ES5 setter, and its values must be a new array, or it will be ignored.
     // @ts-ignore TODO-TS 'getPDOMOrder' does not exist on type 'Node'
     const pdomOrder = this.screenViewRootNode.getPDOMOrder();
-    pdomOrder.splice( pdomOrder.indexOf( this.zoomButtonGroup ), 0, projectionScreenNode );
+    pdomOrder.splice( pdomOrder.indexOf( this.zoomButtonGroup ), 0, this.projectionScreenNode );
     // @ts-ignore TODO-TS 'pdomOrder' does not exist on type 'Node'
     this.screenViewRootNode.pdomOrder = [ ...pdomOrder ];
+  }
+
+  /**
+   * @public
+   * @override
+   */
+  reset() {
+    super.reset();
+    this.projectionScreenNode.reset();
   }
 }
 
