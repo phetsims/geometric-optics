@@ -13,6 +13,7 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
+import RayIntersection from '../../../../kite/js/util/RayIntersection.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
@@ -341,10 +342,11 @@ function getFirstShape( optic: Optic, isPrincipalRayMode: boolean ) {
 
 /**
  * Processes a point from the intersection. Returns null if the point cannot be found.
- * @param {Array.<Intersection>} intersection
+ * @param {Array.<RayIntersection>} intersection
  * @returns {Vector2|null}
  */
-function getPoint( intersection: any ) { //TODO any - see https://github.com/phetsims/kite/issues/93
+function getPoint( intersection: RayIntersection[] ) {
+  assert && assert( Array.isArray( intersection ) && _.every( intersection, element => element instanceof RayIntersection ) );
 
   // all shapes have been defined as line (straight or curved) so there can only be one intersection point at most
   if ( intersection && intersection[ 0 ] && intersection[ 0 ].point ) {
