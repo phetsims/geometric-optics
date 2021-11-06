@@ -29,7 +29,7 @@ const SCHEMA = {
   // indirect: provides controls for optic parameters, from which focal length is derived
   focalLengthControl: {
     type: 'string',
-    validValues: [ 'direct', 'indirect' ], //TODO use a string enum here
+    validValues: [ 'direct', 'indirect' ], //TODO use a string enum here, and for the related Property
     defaultValue: 'indirect',
     public: true
   },
