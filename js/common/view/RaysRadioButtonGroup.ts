@@ -16,7 +16,7 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import RaysModeEnum from '../model/RaysModeEnum.js';
 
-class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup {
+class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysModeEnum> {
 
   /**
    * @param {Property.<RaysModeEnum>} raysModeProperty
@@ -57,7 +57,7 @@ function createItem( raysMode: RaysModeEnum, text: string, tandemName: string ) 
     node: new Text( text, {
       font: GeometricOpticsConstants.CONTROL_FONT,
       maxWidth: 100
-    } ),
+    } ) as unknown as Node,
     tandemName: tandemName
   };
 }

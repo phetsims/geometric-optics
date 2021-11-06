@@ -99,17 +99,17 @@ class FocalLengthControlNode extends VBox {
     // We're using string values here because QueryStringMachine does not support enumerations.
     const radioButtonItems = [
       {
-        value: 'direct',
+        value: 'direct' as const,
         node: new Text( geometricOpticsStrings.direct, {
           font: GeometricOpticsConstants.CONTROL_FONT
-        } ),
+        } ) as unknown as Node,
         tandemName: 'directItem'
       },
       {
-        value: 'indirect',
+        value: 'indirect' as const,
         node: new Text( geometricOpticsStrings.indirect, {
           font: GeometricOpticsConstants.CONTROL_FONT
-        } ),
+        } ) as unknown as Node,
         tandemName: 'indirectItem'
       }
     ];
@@ -119,7 +119,7 @@ class FocalLengthControlNode extends VBox {
     assert && assert( _.every( radioButtonItems, radioButtonItem =>
       GeometricOpticsQueryParameters.SCHEMA.focalLengthControl.validValues.includes( radioButtonItem.value ) ) );
 
-    const radioButtonGroup = new VerticalAquaRadioButtonGroup(
+    const radioButtonGroup = new VerticalAquaRadioButtonGroup<'direct' | 'indirect'>(
       GeometricOpticsGlobalOptions.focalLengthControlProperty, radioButtonItems, {
         spacing: 8
       } );
