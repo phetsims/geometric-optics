@@ -3,12 +3,12 @@
 <html>
 <head>
   <meta charset="utf-8"/>
-  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-  <meta content="yes" name="apple-mobile-web-app-capable">
-  <meta content="production" name="phet-sim-level">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="phet-sim-level" content="production">
 
   <!--have to scroll right and left! allows to resize also-->
-  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>A11y View: Geometric Optics</title>
 
@@ -176,9 +176,9 @@
     </div>
 
     <!--The sim and alert containers will both be placed in here -->
-    <div class="left" id="left">
+    <div id="left" class="left">
       <div class="aspect-ratio">
-        <iframe allowfullscreen id="iframe" scrolling="no" title="Interact with Geometric Optics"></iframe>
+        <iframe id="iframe" allowfullscreen scrolling="no" title="Interact with Geometric Optics"></iframe>
       </div>
       <div id="alerts">
         <h3>Activity log of Interactive Alerts</h3>
@@ -188,7 +188,7 @@
           is happening in real-time. Alerts appear in reverse chronological order with the latest on top. In general
           all aria-live alerts are polite, but assertive alerts are highlighted with pink.
         </details>
-        <div class='alert_copy_container' id='alert-copy-container' role='presentation'>
+        <div id='alert-copy-container' class='alert_copy_container' role='presentation'>
           <div id='polite-element-container'>
             <ul class='alert_copy' id='alert-list'></ul>
           </div>
@@ -205,7 +205,7 @@
           Content in the blue box updates in real-time to provide an always-available description of the current
           state of the sim.
         </details>
-        <div class="dom_copy_container" id="dom-copy-container" role="presentation"></div>
+        <div id="dom-copy-container" class="dom_copy_container" role="presentation"></div>
       </div>
     </div>
 
@@ -218,7 +218,6 @@
 <script type="application/javascript">
   const IS_BUILT_STRING = '{{IS_BUILT}}';
   const IS_BUILT = IS_BUILT_STRING.indexOf( '\{\{' ) !== 0; // escape for better syntax highlighting support
-
 
   // Grab all query parameters to pass to the simulation, and a couple of params that are required for this test
   let simulationQueryString = window.location.search;
@@ -235,8 +234,10 @@
   noPostMessage && ( simulationQueryString += 'postMessageOnLoad&postMessageOnError&' );
   noAccessibility && ( simulationQueryString += 'supportsInteractiveDescription=true' );
 
+
+  // in unbuilt mode and on phet-server, the brand suffix is removed
+  const filenameEnding = ( window.location.hostname === 'phet.colorado.edu' || !IS_BUILT ) ? '.html' : '_phet.html';
   const repoLocale = 'geometric-optics_en';
-  const filenameEnding = IS_BUILT ? '_phet.html' : '.html';
   const simURL = repoLocale + filenameEnding + simulationQueryString;
 
   // set the source of the sim iframe
