@@ -34,10 +34,10 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysModeEnum> {
 
     // items for ray Mode radio buttons
     const items = [
-      createItem( 'marginal', geometricOpticsStrings.marginal, 'marginalRadioButton' ),
-      createItem( 'principal', geometricOpticsStrings.principal, 'principalRadioButton' ),
-      createItem( 'many', geometricOpticsStrings.many, 'manyRadioButton' ),
-      createItem( 'none', geometricOpticsStrings.none, 'noneRadioButton' )
+      createItem( 'marginal', geometricOpticsStrings.marginal ),
+      createItem( 'principal', geometricOpticsStrings.principal ),
+      createItem( 'many', geometricOpticsStrings.many ),
+      createItem( 'none', geometricOpticsStrings.none )
     ];
 
     // @ts-ignore TODO https://github.com/phetsims/sun/issues/728
@@ -47,19 +47,18 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysModeEnum> {
 
 /**
  * Creates an item for the radio button group.
- * @param {RaysModeEnum} raysMode
+ * @param {RaysModeEnum} value
  * @param {string} text
- * @param {string} tandemName
  * @returns {{value: RaysModeEnum, node: Text, tandemName: string}} item
  */
-function createItem( raysMode: RaysModeEnum, text: string, tandemName: string ) {
+function createItem( value: RaysModeEnum, text: string ) {
   return {
-    value: raysMode,
+    value: value,
     node: new Text( text, {
       font: GeometricOpticsConstants.CONTROL_FONT,
       maxWidth: 100
     } ),
-    tandemName: tandemName
+    tandemName: `${value}RadioButton`
   };
 }
 
