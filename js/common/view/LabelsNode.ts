@@ -137,7 +137,9 @@ class LabelsNode extends Node {
       ( position: Vector2 ) => new Vector2( position.x - 230, position.y ) // empirically, model coordinates
     );
 
-    const opticalAxisLabel = new LabelNode( geometricOpticsStrings.opticalAxis, opticalAxisLabelPositionProperty, modelViewTransformProperty );
+    const opticalAxisLabel = new LabelNode( geometricOpticsStrings.opticalAxis, opticalAxisLabelPositionProperty, modelViewTransformProperty, {
+      visibleProperty: model.optic.opticalAxisVisibleProperty
+    } );
 
     // ------------------------------------------------------------------------------------
 
