@@ -11,6 +11,7 @@ import Tandem from '../../../tandem/js/Tandem.js';
 import geometricOptics from '../geometricOptics.js';
 import GeometricOpticsQueryParameters from './GeometricOpticsQueryParameters.js';
 import FocalLengthControlEnum, { FocalLengthControlValues } from './model/FocalLengthControlEnum.js';
+import StringIO from '../../../tandem/js/types/StringIO.js';
 
 // constants
 const optionsTandem = Tandem.GLOBAL_VIEW.createTandem( 'options' );
@@ -21,6 +22,7 @@ const GeometricOpticsGlobalOptions = {
     new Property<FocalLengthControlEnum>( GeometricOpticsQueryParameters.focalLengthControl, {
       validValues: FocalLengthControlValues,
       tandem: optionsTandem.createTandem( 'focalLengthControlProperty' ),
+      phetioType: Property.PropertyIO( StringIO ),
       phetioDocumentation: 'Determines how focal length is controlled in the Lens and Mirror screens.<br>' +
                            'direct: provides a control labeled \'Focal Length\'<br>' +
                            'indirect: provides controls for optic parameters, from which focal length is derived'

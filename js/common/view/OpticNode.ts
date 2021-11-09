@@ -12,11 +12,8 @@ import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
-import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import DragListener from '../../../../scenery/js/listeners/DragListener.js';
-import KeyboardDragListener from '../../../../scenery/js/listeners/KeyboardDragListener.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -109,45 +106,9 @@ class OpticNode extends Node {
       opacityProperty.linkAttribute( opticFillNode, 'opacity' );
     }
 
-    // Dragging is constrained to vertical, so create an adapter Property that can be used by DragListener.
-    const positionProperty = new Vector2Property( optic.positionProperty.value );
-    positionProperty.link( position => {
-      optic.yProperty.value = position.y;
-    } );
     optic.positionProperty.link( position => {
       this.translation = modelViewTransform.modelToViewPosition( position );
     } );
-
-    // Constrain dragging such that the optic is fully inside the model bounds.
-    // See https://github.com/phetsims/geometric-optics/issues/245
-    const dragBoundsProperty = new DerivedProperty<Bounds2>( [ modelBoundsProperty, optic.diameterProperty ],
-      ( modelBounds: Bounds2, diameter: number ) => modelBounds.erodedY( diameter / 2 )
-    );
-
-    // When the dragBounds changes, move the optic inside the drag bounds.
-    dragBoundsProperty.link( dragBounds => {
-      optic.yProperty.value = dragBounds.closestPointTo( optic.positionProperty.value ).y;
-    } );
-
-    this.addInputListener( new DragListener( {
-      pressCursor: 'ns-resize',
-      useInputListenerCursor: true,
-      positionProperty: positionProperty,
-      transform: modelViewTransform,
-      dragBoundsProperty: dragBoundsProperty,
-      tandem: options.tandem.createTandem( 'dragListener' )
-    } ) );
-
-    // pdom - dragging using the keyboard
-    const keyboardDragListener = new KeyboardDragListener( {
-      positionProperty: positionProperty,
-      dragBounds: dragBoundsProperty.value,
-      transform: modelViewTransform,
-      dragVelocity: 75, // velocity - change in position per second
-      shiftDragVelocity: 20 // finer-grained
-      //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
-    } );
-    this.addInputListener( keyboardDragListener );
   }
 
   /**

@@ -23,6 +23,7 @@ import OpticShapeEnum, { OpticShapeValues } from './OpticShapeEnum.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Property from '../../../../axon/js/Property.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
+import Vector2Property from '../../../../dot/js/Vector2Property.js';
 
 //TYPESCRIPT revisit this options pattern
 type OpticOptions = {
@@ -47,15 +48,8 @@ class Optic {
   // shape of the optic
   readonly opticShapeProperty: Property<OpticShapeEnum>;
 
-  // y coordinate is variable, while x coordinate is fixed
-  // NOTE: The Flash version allowed free dragging of the lens. But things can get more chaotic if you allow free
-  // dragging, and it didn't serve a specific learning goal. So for the HTML5 version, dragging is constrained to
-  // vertical (the y axis). If you attempt to change this, beware that you may encounter assumptions (possibly
-  // implicit) that will break the sim.
-  readonly yProperty: NumberProperty;
-
   // position of the optic
-  readonly positionProperty: DerivedProperty<Vector2>;
+  readonly positionProperty: Vector2Property;
 
   // radius of curvature (ROC) of the optic, positive is converging
   readonly radiusOfCurvatureProperty: NumberProperty;
@@ -104,21 +98,21 @@ class Optic {
       phetioDocumentation: 'describes the shape of the optic'
     } );
 
-    this.yProperty = new NumberProperty( config.position.y, {
+    // In https://github.com/phetsims/geometric-optics/issues/262, it was decided that the optic should have a fixed
+    // position, at the origin of the model coordinate frame.  This differs from the Flash version, where the optic
+    // was draggable in x and y dimensions. It also differs from early versions of the HTML sim (including the 1.0
+    // prototype) where the optic was draggable in the y dimension. I decided to continue implementing position as
+    // a Property because (1) I think there's the possibility that a movable optic may rear its ugly head in the
+    // future, (2) implementing it as a Property encourages other parts of the sim implementation to treat it as
+    // mutable, and (3) it may be useful for PhET-iO as a means of documenting where the optic is located.
+    this.positionProperty = new Vector2Property( config.position, {
+      isValidValue: ( value: Vector2 ) => value.equals( config.position ),
       units: 'cm',
-      tandem: config.tandem.createTandem( 'yProperty' ),
-      phetioDocumentation: 'The y (vertical) position of the optic'
+      tandem: config.tandem.createTandem( 'positionProperty' ),
+      phetioReadOnly: true,
+      phetioDocumentation: 'The position of the geometric center of the optic, ' +
+                           'fixed at the origin of the coordinate system.'
     } );
-
-    this.positionProperty = new DerivedProperty<Vector2>( [ this.yProperty ],
-      ( y: number ) => new Vector2( config.position.x, y ), {
-        units: 'cm',
-        tandem: config.tandem.createTandem( 'positionProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
-        phetioDocumentation: 'The position of the geometric center of the optic. ' +
-                             'The optic has a fixed x (horizontal) position, and a variable y (vertical) position. ' +
-                             'See yPositionProperty to change the y position.'
-      } );
 
     this.radiusOfCurvatureProperty = new NumberProperty( config.radiusOfCurvatureRange.defaultValue, {
       units: 'cm',
@@ -181,7 +175,7 @@ class Optic {
 
   public reset() {
     this.opticShapeProperty.reset();
-    this.yProperty.reset();
+    this.positionProperty.reset();
     this.radiusOfCurvatureProperty.reset();
     this.indexOfRefractionProperty.reset();
     this.diameterProperty.reset();
