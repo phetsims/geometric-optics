@@ -99,14 +99,14 @@ class FocalLengthControlNode extends VBox {
     // We're using string values here because QueryStringMachine does not support enumerations.
     const radioButtonItems = [
       {
-        value: 'direct' as const,
+        value: 'direct' as FocalLengthControlEnum,
         node: new Text( geometricOpticsStrings.direct, {
           font: GeometricOpticsConstants.CONTROL_FONT
         } ),
         tandemName: 'directItem'
       },
       {
-        value: 'indirect' as const,
+        value: 'indirect' as FocalLengthControlEnum,
         node: new Text( geometricOpticsStrings.indirect, {
           font: GeometricOpticsConstants.CONTROL_FONT
         } ),
