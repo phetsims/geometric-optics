@@ -104,7 +104,9 @@ class Optic {
     // prototype) where the optic was draggable in the y dimension. I decided to continue implementing position as
     // a Property because (1) I think there's the possibility that a movable optic may rear its ugly head in the
     // future, (2) implementing it as a Property encourages other parts of the sim implementation to treat it as
-    // mutable, and (3) it may be useful for PhET-iO as a means of documenting where the optic is located.
+    // mutable, and (3) it is useful for PhET-iO as a means of documenting where the optic is located.
+    // If there is a future need to make position mutable, then it may be useful to consult this sha to see
+    // what was changed: https://github.com/phetsims/geometric-optics/commit/c021a961816fb1911a73cdd2551c45a405816097
     this.positionProperty = new Vector2Property( config.position, {
       isValidValue: ( value: Vector2 ) => value.equals( config.position ),
       units: 'cm',

@@ -109,6 +109,11 @@ class OpticNode extends Node {
     optic.positionProperty.link( position => {
       this.translation = modelViewTransform.modelToViewPosition( position );
     } );
+
+    // In https://github.com/phetsims/geometric-optics/issues/262, the optic's position was fixed at (0,0),
+    // and the DragListener and KeyboardDragListener associated with this Node were removed. If there is a
+    // future need to make position mutable, then it may be useful to consult this sha to see what was removed:
+    // https://github.com/phetsims/geometric-optics/commit/c021a961816fb1911a73cdd2551c45a405816097
   }
 
   /**
