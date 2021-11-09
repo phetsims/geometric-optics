@@ -102,9 +102,10 @@ class Optic {
     // position, at the origin of the model coordinate frame.  This differs from the Flash version, where the optic
     // was draggable in x and y dimensions. It also differs from early versions of the HTML sim (including the 1.0
     // prototype) where the optic was draggable in the y dimension. I decided to continue implementing position as
-    // a Property because (1) I think there's the possibility that a movable optic may rear its ugly head in the
-    // future, (2) implementing it as a Property encourages other parts of the sim implementation to treat it as
-    // mutable, and (3) it is useful for PhET-iO as a means of documenting where the optic is located.
+    // a Property because (1) the implementation supports a movable optic, and I don't see value in ripping that out,
+    // (2) my intuition tells me that a movable optic may be desired in the future, (3) implementing it as a Property
+    // encourages other parts of the sim implementation to treat it as mutable, instead of making bad assumptions
+    // about it being at (0,0), and (4) it is useful for PhET-iO, as a means of documenting where the optic is located.
     // If there is a future need to make position mutable, then it may be useful to consult this sha to see
     // what was changed: https://github.com/phetsims/geometric-optics/commit/c021a961816fb1911a73cdd2551c45a405816097
     this.positionProperty = new Vector2Property( config.position, {
