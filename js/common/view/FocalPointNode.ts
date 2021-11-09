@@ -8,26 +8,13 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import Dimension2 from '../../../../dot/js/Dimension2.js';
-import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import PlusShape from '../../../../scenery-phet/js/PlusShape.js';
+import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import Path from '../../../../scenery/js/nodes/Path.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
-
-// constants
-const DEFAULT_OPTIONS = {
-  size: new Dimension2( 15, 3 ), // width of the X sign and "thickness" in X sign
-
-  // Path options
-  lineWidth: 1,
-  fill: GeometricOpticsColors.focalPointFillProperty,
-  stroke: GeometricOpticsColors.focalPointStrokeProperty
-};
 
 class FocalPointNode extends Node {
 
@@ -38,10 +25,10 @@ class FocalPointNode extends Node {
    */
   constructor( focalPointProperty: Property<Vector2>, modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
 
-    options = merge( {}, DEFAULT_OPTIONS, options );
+    options = merge( {}, options );
 
     assert && assert( !options.children );
-    options.children = [ FocalPointNode.createIcon( options ) ];
+    options.children = [ FocalPointNode.createIcon() ];
 
     super( options );
 
@@ -60,14 +47,20 @@ class FocalPointNode extends Node {
 
   /**
    * Returns an icon for the focal point
-   * @param {Object} [options] - options for Path
+   * @param {number} [radius]
    * @returns {Node}
    */
-  public static createIcon( options?: any ) { //TYPESCRIPT any
-    options = merge( {}, DEFAULT_OPTIONS, options );
-    let shape = new PlusShape( options.size );
-    shape = shape.transformed( Matrix3.rotation2( Math.PI / 4 ) );
-    return new Path( shape, options );
+  public static createIcon( radius: number = 7 ) {
+    const circleNode = new Circle( radius, {
+      fill: GeometricOpticsColors.focalPointFillProperty,
+      stroke: GeometricOpticsColors.focalPointStrokeProperty
+    } );
+    const centerPointNode = new Circle( 1.5, {
+      fill: GeometricOpticsColors.focalPointStrokeProperty
+    } );
+    return new Node( {
+      children: [ circleNode, centerPointNode ]
+    } );
   }
 }
 
