@@ -45,7 +45,7 @@ class FocalPointNode extends Node {
 
     super( options );
 
-    focalPointProperty.link( ( focalPoint: Vector2 ) => {
+    focalPointProperty.link( focalPoint => {
       this.center = modelViewTransform.modelToViewPosition( focalPoint );
     } );
   }

@@ -32,7 +32,7 @@ class DebugPointNode extends Circle {
     super( options.radius, options );
 
     // update position of disk
-    positionProperty.link( ( position: Vector2 ) => {
+    positionProperty.link( position => {
       this.center = modelViewTransform.modelToViewPosition( position );
     } );
   }
