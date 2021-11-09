@@ -47,7 +47,7 @@ class OpticVerticalAxis extends Node {
     super( options );
 
     // Make lineNode visible when Rays mode is Principal
-    raysModeProperty.link( ( raysMode: RaysModeEnum ) => {
+    raysModeProperty.link( raysMode => {
       lineNode.visible = ( raysMode === 'principal' );
     } );
 

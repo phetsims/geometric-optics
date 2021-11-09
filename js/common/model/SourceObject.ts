@@ -61,7 +61,7 @@ class SourceObject {
       } );
 
     // update the left top position when the representation changes
-    representationProperty.link( ( representation: Representation ) => {
+    representationProperty.link( representation => {
 
       // {Vector2} update the value of the offset
       offset = representation.rightFacingUprightOffset.dividedScalar( representation.getScaleFactor() );

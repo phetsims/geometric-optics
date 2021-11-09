@@ -40,13 +40,13 @@ class OpticalAxis extends Line {
     super( 0, 0, 1, 0, options );
 
     // set the horizontal extent of the optical axis line
-    modelBoundsProperty.link( ( bounds: Bounds2 ) => {
+    modelBoundsProperty.link( bounds => {
       this.setX1( modelViewTransform.modelToViewX( bounds.minX ) );
       this.setX2( modelViewTransform.modelToViewX( bounds.maxX ) );
     } );
 
     // update y-position of line based on position of optic
-    opticPositionProperty.link( ( position: Vector2 ) => {
+    opticPositionProperty.link( position => {
       const yView = modelViewTransform.modelToViewY( position.y );
       this.setY1( yView );
       this.setY2( yView );

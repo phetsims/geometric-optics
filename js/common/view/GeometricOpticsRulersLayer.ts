@@ -103,7 +103,7 @@ class GeometricOpticRulersLayer extends Node {
     this.addChild( this.verticalRulerNode );
 
     // update rulers when scale changes
-    absoluteScaleProperty.link( ( absoluteScale: number ) => {
+    absoluteScaleProperty.link( absoluteScale => {
 
       // update the horizontal ruler based on the new scale
       updateRulerNode( this.horizontalRulerNode, absoluteScale );
