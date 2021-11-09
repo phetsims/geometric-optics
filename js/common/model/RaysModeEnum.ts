@@ -14,5 +14,5 @@ type RaysModeEnum = ( typeof RaysModeValues )[number];
 //TYPESCRIPT is this OK? We're registering values, not type, and it doesn't match the filename.
 geometricOptics.register( 'RaysModeValues', RaysModeValues );
 
-export { RaysModeValues };
 export default RaysModeEnum;
+export { RaysModeValues };

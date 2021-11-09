@@ -6,10 +6,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import StringProperty from '../../../axon/js/StringProperty.js';
+import Property from '../../../axon/js/Property.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import geometricOptics from '../geometricOptics.js';
 import GeometricOpticsQueryParameters from './GeometricOpticsQueryParameters.js';
+import FocalLengthControlEnum, { FocalLengthControlValues } from './model/FocalLengthControlEnum.js';
 
 // constants
 const optionsTandem = Tandem.GLOBAL_VIEW.createTandem( 'options' );
@@ -17,8 +18,8 @@ const optionsTandem = Tandem.GLOBAL_VIEW.createTandem( 'options' );
 const GeometricOpticsGlobalOptions = {
 
   focalLengthControlProperty:
-    new StringProperty( GeometricOpticsQueryParameters.focalLengthControl, {
-      validValues: GeometricOpticsQueryParameters.SCHEMA.focalLengthControl.validValues,
+    new Property<FocalLengthControlEnum>( GeometricOpticsQueryParameters.focalLengthControl, {
+      validValues: FocalLengthControlValues,
       tandem: optionsTandem.createTandem( 'focalLengthControlProperty' ),
       phetioDocumentation: 'Determines how focal length is controlled in the Lens and Mirror screens.<br>' +
                            'direct: provides a control labeled \'Focal Length\'<br>' +

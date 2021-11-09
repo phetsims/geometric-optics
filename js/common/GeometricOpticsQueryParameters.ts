@@ -10,6 +10,7 @@
 
 import logGlobal from '../../../phet-core/js/logGlobal.js';
 import geometricOptics from '../geometricOptics.js';
+import { FocalLengthControlValues } from './model/FocalLengthControlEnum.js';
 
 const SCHEMA = {
 
@@ -29,7 +30,7 @@ const SCHEMA = {
   // indirect: provides controls for optic parameters, from which focal length is derived
   focalLengthControl: {
     type: 'string',
-    validValues: [ 'direct', 'indirect' ], //TODO use a string enum here, and for the related Property
+    validValues: FocalLengthControlValues,
     defaultValue: 'indirect',
     public: true
   },

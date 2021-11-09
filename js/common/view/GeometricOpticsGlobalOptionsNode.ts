@@ -16,7 +16,7 @@ import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import GeometricOpticsGlobalOptions from '../GeometricOpticsGlobalOptions.js';
-import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
+import FocalLengthControlEnum, { FocalLengthControlValues } from '../model/FocalLengthControlEnum.js';
 
 class GeometricOpticsGlobalOptionsNode extends VBox {
 
@@ -115,11 +115,10 @@ class FocalLengthControlNode extends VBox {
     ];
 
     // Verify that all of the values for ?focalLengthControl are represented here.
-    assert && assert( GeometricOpticsQueryParameters.SCHEMA.focalLengthControl.validValues.length === radioButtonItems.length );
-    assert && assert( _.every( radioButtonItems, radioButtonItem =>
-      GeometricOpticsQueryParameters.SCHEMA.focalLengthControl.validValues.includes( radioButtonItem.value ) ) );
+    assert && assert( FocalLengthControlValues.length === radioButtonItems.length );
+    assert && assert( _.every( radioButtonItems, radioButtonItem => FocalLengthControlValues.includes( radioButtonItem.value ) ) );
 
-    const radioButtonGroup = new VerticalAquaRadioButtonGroup<'direct' | 'indirect'>(
+    const radioButtonGroup = new VerticalAquaRadioButtonGroup<FocalLengthControlEnum>(
       GeometricOpticsGlobalOptions.focalLengthControlProperty, radioButtonItems, {
         spacing: 8
       } );
