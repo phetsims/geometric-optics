@@ -55,7 +55,7 @@ class FocalPointNode extends Node {
       fill: GeometricOpticsColors.focalPointFillProperty,
       stroke: GeometricOpticsColors.focalPointStrokeProperty
     } );
-    const centerPointNode = new Circle( 1.5, {
+    const centerPointNode = new Circle( 2, {
       fill: GeometricOpticsColors.focalPointStrokeProperty
     } );
     return new Node( {

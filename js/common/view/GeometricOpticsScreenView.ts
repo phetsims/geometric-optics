@@ -267,10 +267,10 @@ class GeometricOpticsScreenView extends ScreenView {
         opticNode,
         opticVerticalAxis,
         targetNode,
+        focalPointsNode,
         lightRaysNode,
         secondPointLightRaysNode,
-        secondPointNode,
-        focalPointsNode
+        secondPointNode
       ]
     } );
 
