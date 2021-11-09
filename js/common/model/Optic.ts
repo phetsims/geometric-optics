@@ -58,10 +58,10 @@ class Optic {
   // position of the optic
   readonly positionProperty: DerivedProperty<Vector2>;
 
-  // radius of curvature of the optic, positive is converging
+  // radius of curvature (ROC) of the optic, positive is converging
   readonly radiusOfCurvatureProperty: NumberProperty;
 
-  // index of refraction
+  // index of refraction (IRC)
   readonly indexOfRefractionProperty: NumberProperty;
 
   // diameter of the optic, controls the optic's aperture
