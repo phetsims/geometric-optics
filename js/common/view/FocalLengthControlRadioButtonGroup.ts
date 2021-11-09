@@ -18,6 +18,10 @@ import GeometricOpticsGlobalOptions from '../GeometricOpticsGlobalOptions.js';
 import FocalLengthControlEnum from '../model/FocalLengthControlEnum.js';
 
 class FocalLengthControlRadioButtonGroup extends VerticalAquaRadioButtonGroup<FocalLengthControlEnum> {
+
+  /**
+   * @param {Object} [options]
+   */
   constructor( options?: any ) { //TYPESCRIPT any
 
     options = merge( {
