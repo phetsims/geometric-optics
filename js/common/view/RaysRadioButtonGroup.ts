@@ -40,7 +40,6 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysModeEnum> {
       createItem( 'none', geometricOpticsStrings.none )
     ];
 
-    // @ts-ignore TODO https://github.com/phetsims/sun/issues/728
     super( raysModeProperty, items, options );
   }
 }

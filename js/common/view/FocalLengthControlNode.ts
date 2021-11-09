@@ -54,7 +54,6 @@ class FocalLengthControlNode extends VBox {
     assert && assert( _.every( radioButtonItems, radioButtonItem => FocalLengthControlValues.includes( radioButtonItem.value ) ) );
 
     const radioButtonGroup = new VerticalAquaRadioButtonGroup<FocalLengthControlEnum>(
-      // @ts-ignore TODO https://github.com/phetsims/sun/issues/728
       GeometricOpticsGlobalOptions.focalLengthControlProperty, radioButtonItems, {
         spacing: 8
       } );
