@@ -10,7 +10,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import StringProperty from '../../../../axon/js/StringProperty.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
@@ -46,7 +45,7 @@ class Optic {
   readonly opticType: OpticTypeEnum;
 
   // shape of the optic
-  readonly opticShapeProperty: StringProperty;
+  readonly opticShapeProperty: Property<OpticShapeEnum>;
 
   // y coordinate is variable, while x coordinate is fixed
   // NOTE: The Flash version allowed free dragging of the lens. But things can get more chaotic if you allow free

@@ -335,7 +335,7 @@ class GeometricOpticsScreenView extends ScreenView {
         lineWidth: 2
       } );
       experimentAreaNode.addChild( dragBoundsNode );
-      modelBoundsProperty.link( ( modelBounds: Bounds2 ) => {
+      modelBoundsProperty.link( modelBounds => {
         const viewBounds = modelViewTransform.modelToViewBounds( modelBounds );
         dragBoundsNode.setRect( viewBounds.x, viewBounds.y, viewBounds.width, viewBounds.height );
       } );

@@ -94,7 +94,7 @@ class SourceObjectNode extends Node {
           modelBounds.maxY
         )
     );
-    this.dragBoundsProperty.link( ( dragBounds: Bounds2 ) => {
+    this.dragBoundsProperty.link( dragBounds => {
       sourceObject.leftTopProperty.value = dragBounds.closestPointTo( sourceObject.leftTopProperty.value );
     } );
 
@@ -111,12 +111,12 @@ class SourceObjectNode extends Node {
     } );
     this.addInputListener( sourceObjectDragListener );
 
-    sourceObject.leftTopProperty.link( ( leftTop: Vector2 ) => {
+    sourceObject.leftTopProperty.link( leftTop => {
       scaleSourceObject();
       translateSourceObject( leftTop );
     } );
 
-    representationProperty.link( ( representation: Representation ) => {
+    representationProperty.link( representation => {
       sourceObjectImage.image = representation.rightFacingUpright;
       scaleSourceObject();
       translateSourceObject( sourceObject.leftTopProperty.value );

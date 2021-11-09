@@ -20,7 +20,6 @@ import VisibleProperties from './VisibleProperties.js';
 import Property from '../../../../axon/js/Property.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import OpticShapeEnum from '../model/OpticShapeEnum.js';
 import Representation from '../model/Representation.js';
 
 class LabelsNode extends Node {
@@ -63,7 +62,7 @@ class LabelsNode extends Node {
 
     const opticLabel = new LabelNode( '', opticLabelPositionProperty, modelViewTransformProperty );
 
-    model.optic.opticShapeProperty.link( ( opticShape: OpticShapeEnum ) => {
+    model.optic.opticShapeProperty.link( opticShape => {
       let text: string;
       if ( model.optic.isConvex( opticShape ) ) {
         text = model.optic.isLens() ? geometricOpticsStrings.convexLens : geometricOpticsStrings.convexMirror;
@@ -111,7 +110,7 @@ class LabelsNode extends Node {
     } );
 
     // Switch between 'Real Image' and 'Virtual Image'
-    model.firstTarget.isVirtualProperty.link( ( isVirtual: boolean ) => {
+    model.firstTarget.isVirtualProperty.link( isVirtual => {
       imageLabel.setText( isVirtual ? geometricOpticsStrings.virtualImage : geometricOpticsStrings.realImage );
     } );
 

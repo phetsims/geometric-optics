@@ -49,7 +49,7 @@ class ShowHideToggleButton extends BooleanRoundToggleButton {
     // @ts-ignore TYPESCRIPT see https://github.com/phetsims/chipper/issues/1142
     super( showNode, hideNode, booleanProperty, options );
 
-    booleanProperty.link( ( value: boolean ) => {
+    booleanProperty.link( value => {
       this.setBaseColor( value ? options.trueColor : options.falseColor );
     } );
   }

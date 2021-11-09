@@ -79,7 +79,7 @@ class SecondPointNode extends Node {
 
     // Property for the position of the second source node
     const positionProperty = new Vector2Property( secondPoint.positionProperty.value );
-    positionProperty.link( ( position: Vector2 ) => {
+    positionProperty.link( position => {
       secondPoint.setSecondPoint( representationProperty.value.isObject, position );
     } );
 
@@ -97,7 +97,7 @@ class SecondPointNode extends Node {
     );
 
     // Keep the light source inside the drag bounds.
-    dragBoundsProperty.link( ( dragBounds: Bounds2 ) => {
+    dragBoundsProperty.link( dragBounds => {
       const isObject = representationProperty.value.isObject;
       if ( !isObject ) {
         assert && assert( dragBounds );
@@ -133,7 +133,7 @@ class SecondPointNode extends Node {
       }
     };
 
-    representationProperty.link( ( representation: Representation ) => {
+    representationProperty.link( representation => {
 
       // Remove all children from the second source.
       this.removeAllChildren();
@@ -155,7 +155,7 @@ class SecondPointNode extends Node {
       updatePosition( secondPoint.positionProperty.value );
     } );
 
-    secondPoint.positionProperty.link( ( position: Vector2 ) => updatePosition( position ) );
+    secondPoint.positionProperty.link( position => updatePosition( position ) );
   }
 
   /**

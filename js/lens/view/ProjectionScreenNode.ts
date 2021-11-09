@@ -93,10 +93,10 @@ class ProjectionScreenNode extends Node {
       fill: Color.grayColor( 180 ),
       center: pullStringNode.centerBottom
     } );
-    
+
     const cueingArrowsNode = new UnconstrainedCueingArrowsNode( {
-     right: screenNode.left - 10,
-     centerY: screenNode.centerY
+      right: screenNode.left - 10,
+      centerY: screenNode.centerY
     } );
 
     assert && assert( !options.children );
@@ -104,7 +104,7 @@ class ProjectionScreenNode extends Node {
 
     super( options );
 
-    projectionScreen.positionProperty.link( ( position: Vector2 ) => {
+    projectionScreen.positionProperty.link( position => {
       this.translation = modelViewTransform.modelToViewPosition( position );
     } );
 
@@ -124,7 +124,7 @@ class ProjectionScreenNode extends Node {
     );
 
     // Keep the projection screen within drag bounds.
-    dragBoundsProperty.link( ( dragBounds: Bounds2 ) => {
+    dragBoundsProperty.link( dragBounds => {
       projectionScreen.positionProperty.value = dragBounds.closestPointTo( projectionScreen.positionProperty.value );
     } );
 
@@ -152,7 +152,7 @@ class ProjectionScreenNode extends Node {
     this.addInputListener( keyboardDragListener );
 
     //TODO https://github.com/phetsims/scenery/issues/1307 should be handled by KeyboardDragListener
-    dragBoundsProperty.link( ( dragBounds: Bounds2 ) => {
+    dragBoundsProperty.link( dragBounds => {
       keyboardDragListener.dragBounds = dragBounds;
     } );
 
