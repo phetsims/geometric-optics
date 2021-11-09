@@ -79,7 +79,7 @@ class TargetNode extends Node {
     } );
 
     // update the opacity of the image
-    target.lightIntensityProperty.link( ( intensity: number ) => {
+    target.lightIntensityProperty.link( intensity => {
       targetImageAsNode.opacity = intensity;
     } );
 

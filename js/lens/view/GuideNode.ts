@@ -70,7 +70,7 @@ class GuideNode extends Node {
     };
 
     // update the position of the fulcrum
-    guide.fulcrumPositionProperty.link( ( position: Vector2 ) => {
+    guide.fulcrumPositionProperty.link( position => {
       const viewFulcrumPosition = modelViewTransform.modelToViewPosition( position );
       fulcrumNode.center = viewFulcrumPosition;
 
@@ -106,12 +106,12 @@ class GuideNode extends Node {
     };
 
     // update position and angle of incident rectangle
-    guide.incidentAngleProperty.link( ( angle: number, oldAngle: number | null ) => {
+    guide.incidentAngleProperty.link( ( angle, oldAngle ) => {
       setAnglePosition( angle, oldAngle, incidentArmNode );
     } );
 
     // update position and angle of transmitted rectangle
-    guide.transmittedAngleProperty.link( ( transmittedAngle: number, oldTransmittedAngle: number | null ) => {
+    guide.transmittedAngleProperty.link( ( transmittedAngle, oldTransmittedAngle ) => {
       setAnglePosition( transmittedAngle, oldTransmittedAngle, transmittedArmNode );
     } );
 

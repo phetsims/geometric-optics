@@ -123,7 +123,7 @@ class GeometricOpticsRulerNode extends Node {
     ruler.positionProperty.link( () => this.setPosition() );
 
     // prevent the ruler from escaping the visible bounds
-    rulerDragBoundsProperty.link( ( dragBounds: Bounds2 ) => {
+    rulerDragBoundsProperty.link( dragBounds => {
       ruler.positionProperty.value = dragBounds.closestPointTo( ruler.positionProperty.value );
     } );
   }

@@ -49,13 +49,13 @@ class LightSpotNode extends Node {
     super( options );
 
     // Adjust the shape of the spot based on how it intersects the screen.
-    screenIntersectionProperty.link( ( shape: Shape ) => {
+    screenIntersectionProperty.link( shape => {
       const viewShape = modelViewTransform.modelToViewShape( shape );
       fillPath.shape = viewShape;
       strokePath.shape = viewShape;
     } );
 
-    intensityProperty.link( ( intensity: number ) => {
+    intensityProperty.link( intensity => {
 
       // Intensity of light is the opacity of the spot color.
       fillPath.opacity = intensity;
