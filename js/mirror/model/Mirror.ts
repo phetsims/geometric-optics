@@ -22,12 +22,12 @@ class Mirror extends Optic {
     super( merge( {
       opticType: 'mirror',
       opticShape: 'concave',
-      radiusOfCurvatureRange: new RangeWithValue( 150, 250, 200 ), // in cm
+      radiusOfCurvatureRange: new RangeWithValue( 150, 300, 200 ), // in cm
 
       // Although a mirror does not have an index of refraction, its focal length is equivalent to a lens
       // with an index of refraction of 2.
       indexOfRefractionRange: new RangeWithValue( 2, 2, 2 ), // unitless
-      diameterRange: new RangeWithValue( 30, 150, 80 ), // in cm
+      diameterRange: new RangeWithValue( 30, 130, 80 ), // in cm
 
       // phet-io options
       tandem: Tandem.REQUIRED
