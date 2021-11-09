@@ -102,14 +102,14 @@ class FocalLengthControlNode extends VBox {
         value: 'direct' as const,
         node: new Text( geometricOpticsStrings.direct, {
           font: GeometricOpticsConstants.CONTROL_FONT
-        } ) as unknown as Node,
+        } ),
         tandemName: 'directItem'
       },
       {
         value: 'indirect' as const,
         node: new Text( geometricOpticsStrings.indirect, {
           font: GeometricOpticsConstants.CONTROL_FONT
-        } ) as unknown as Node,
+        } ),
         tandemName: 'indirectItem'
       }
     ];
@@ -119,6 +119,7 @@ class FocalLengthControlNode extends VBox {
     assert && assert( _.every( radioButtonItems, radioButtonItem => FocalLengthControlValues.includes( radioButtonItem.value ) ) );
 
     const radioButtonGroup = new VerticalAquaRadioButtonGroup<FocalLengthControlEnum>(
+      // @ts-ignore TODO https://github.com/phetsims/sun/issues/728
       GeometricOpticsGlobalOptions.focalLengthControlProperty, radioButtonItems, {
         spacing: 8
       } );
