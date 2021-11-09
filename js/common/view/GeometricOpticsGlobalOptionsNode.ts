@@ -12,7 +12,9 @@ import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-import FocalLengthControlNode from './FocalLengthControlNode.js';
+import FocalLengthControlRadioButtonGroup from './FocalLengthControlRadioButtonGroup.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
+import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 
 class GeometricOpticsGlobalOptionsNode extends VBox {
 
@@ -42,19 +44,30 @@ class GeometricOpticsGlobalOptionsNode extends VBox {
       tandem: options.tandem.createTandem( 'projectorModeCheckbox' )
     } );
 
-    // Focal Length control... radio buttons
-    const focalLengthControlNode = new FocalLengthControlNode( {
-      tandem: options.tandem.createTandem( 'focalLengthControlNode' )
+    const focalLengthControlText = new Text( geometricOpticsStrings.focalLengthControl, {
+      font: GeometricOpticsConstants.CONTROL_FONT,
+      tandem: options.tandem.createTandem( 'focalLengthControlText' )
+    } );
+
+    const focalLengthControlRadioButtonGroup = new FocalLengthControlRadioButtonGroup( {
+      tandem: options.tandem.createTandem( 'focalLengthControlRadioButtonGroup' )
+    } );
+
+    const focalLengthControlVBox = new VBox( {
+      children: [ focalLengthControlText, focalLengthControlRadioButtonGroup ],
+      spacing: 8,
+      align: 'left'
     } );
 
     assert && assert( !options.children, 'GasPropertiesGlobalOptionsNode sets children' );
-    options.children = [ projectorModeCheckbox, focalLengthControlNode ];
+    options.children = [ projectorModeCheckbox, focalLengthControlVBox ];
 
     super( options );
 
     this.disposeGeometricOpticsGlobalOptionsNode = () => {
       projectorModeCheckbox.dispose();
-      focalLengthControlNode.dispose();
+      focalLengthControlText.dispose();
+      focalLengthControlRadioButtonGroup.dispose();
     };
   }
 
