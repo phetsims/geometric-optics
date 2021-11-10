@@ -30,15 +30,6 @@ class LightSpot {
   // intensity of this LightSpot
   readonly intensityProperty: DerivedProperty<number>;
 
-  // position of the light source
-  private readonly sourcePositionProperty: Property<Vector2>;
-
-  // the optic
-  private readonly optic: Optic;
-
-  // the projection screen
-  private readonly projectionScreen: ProjectionScreen;
-
   /**
    * @param {Property.<Vector2>} sourcePositionProperty - position of the light source
    * @param {Property.<Vector2>} targetPositionProperty
@@ -48,136 +39,138 @@ class LightSpot {
   constructor( sourcePositionProperty: Property<Vector2>, targetPositionProperty: Property<Vector2>,
                projectionScreen: ProjectionScreen, optic: Optic ) {
 
-    this.sourcePositionProperty = sourcePositionProperty;
-    this.optic = optic;
-    this.projectionScreen = projectionScreen;
-
     this.screenIntersectionProperty = new DerivedProperty<Shape>(
-      [ projectionScreen.positionProperty, optic.positionProperty, optic.diameterProperty, targetPositionProperty ],
-      ( screenPosition: Vector2, opticPosition: Vector2, opticDiameter: number, targetPosition: Vector2 ) =>
-        this.getScreenIntersection( screenPosition, opticPosition, opticDiameter, targetPosition )
+      [ projectionScreen.positionProperty, optic.positionProperty, optic.diameterProperty, targetPositionProperty, sourcePositionProperty ],
+      ( screenPosition: Vector2, opticPosition: Vector2, opticDiameter: number, targetPosition: Vector2, sourcePosition: Vector2 ) =>
+        getScreenIntersection( screenPosition, opticPosition, opticDiameter, targetPosition, optic, sourcePosition, projectionScreen.getScreenShapeTranslated() )
     );
 
     this.intensityProperty = new DerivedProperty<number>(
-      [ projectionScreen.positionProperty, optic.positionProperty, optic.diameterProperty, targetPositionProperty ],
-      ( screenPosition: Vector2, opticPosition: Vector2, opticDiameter: number, targetPosition: Vector2 ) =>
-        this.getLightIntensity( screenPosition, opticPosition, opticDiameter, targetPosition ), {
+      [ projectionScreen.positionProperty, optic.positionProperty, optic.diameterProperty, targetPositionProperty, sourcePositionProperty ],
+      ( screenPosition: Vector2, opticPosition: Vector2, opticDiameter: number, targetPosition: Vector2, sourcePosition: Vector2 ) =>
+        getLightIntensity( screenPosition, opticPosition, opticDiameter, targetPosition, optic, sourcePosition ), {
         isValidValue: ( value: number ) => INTENSITY_RANGE.contains( value )
       } );
   }
+}
 
-  /**
-   * Gets the physical parameters (center position and radii) for the LightSpot
-   * @param {Vector2} screenPosition
-   * @param {Vector2} opticPosition
-   * @param {number} opticDiameter
-   * @param {Vector2} targetPosition
-   * @returns {Object} - see below
-   */
-  private getDiskParameters( screenPosition: Vector2, opticPosition: Vector2, opticDiameter: number, targetPosition: Vector2 ) {
-    assert && assert( isFinite( opticDiameter ) && opticDiameter > 0 );
+/**
+ * Gets the shape that results from the intersection of the light spot and the projection screen.
+ * @param {Vector2} screenPosition
+ * @param {Vector2} opticPosition
+ * @param {number} opticDiameter
+ * @param {Vector2} targetPosition
+ * @param {Optic} optic
+ * @param {Vector2} sourcePosition
+ * @param {Shape} screenShape
+ * @returns {Shape}
+ */
+function getScreenIntersection( screenPosition: Vector2, opticPosition: Vector2, opticDiameter: number,
+  targetPosition: Vector2, optic: Optic, sourcePosition: Vector2, screenShape: Shape ) {
 
-    // get the extrema points on the optic
-    const opticTopPoint = this.optic.getTopPoint( this.sourcePositionProperty.value, targetPosition );
-    const opticBottomPoint = this.optic.getBottomPoint( this.sourcePositionProperty.value, targetPosition );
+  // unclipped elliptical disk shape
+  const diskShape = getDiskShape( screenPosition, opticPosition, opticDiameter, targetPosition, optic, sourcePosition );
 
-    // determine the top and bottom position of the unclipped disk
-    const diskTopPosition = getIntersectPosition( screenPosition, opticTopPoint, targetPosition );
-    const diskBottomPosition = getIntersectPosition( screenPosition, opticBottomPoint, targetPosition );
-
-    // determine the position and y radius of the disk
-    const diskCenterPosition = diskTopPosition.average( diskBottomPosition );
-    const radiusY = diskTopPosition.distance( diskBottomPosition ) / 2;
-
-    // arbitrarily set the aspect ratio ot 1/2 to give 3D perspective
-    const radiusX = radiusY / 2;
-
-    return {
-      position: diskCenterPosition,
-      radiusY: radiusY,
-      radiusX: radiusX
-    };
+  //TODO it should NOT be necessary to weed out the zero shape, see #
+  if ( diskShape.getArea() === 0 ) {
+    return new Shape();
   }
-
-  /**
-   * Returns the shape of the unclipped shape of the light spot.
-   * @param {Vector2} screenPosition
-   * @param {Vector2} opticPosition
-   * @param {number} opticDiameter
-   * @param {Vector2} targetPosition
-   * @returns {Shape}
-   */
-  private getDiskShape( screenPosition: Vector2, opticPosition: Vector2, opticDiameter: number, targetPosition: Vector2 ) {
-
-    // get the parameters for the unclipped light spot.
-    const {
-      position, radiusX, radiusY
-    } = this.getDiskParameters( screenPosition, opticPosition, opticDiameter, targetPosition );
-
-    // return an ellipse with the shape parameters
-    return Shape.ellipse( position.x, position.y, radiusX, radiusY, 2 * Math.PI );
+  else {
+    return Graph.binaryResult( screenShape, diskShape, Graph.BINARY_NONZERO_INTERSECTION );
   }
+}
 
-  /**
-   * Gets the shape that result from the intersection of the disk and projection screen.
-   * @param {Vector2} screenPosition
-   * @param {Vector2} opticPosition
-   * @param {number} opticDiameter
-   * @param {Vector2} targetPosition
-   * @returns {Shape}
-   */
-  private getScreenIntersection( screenPosition: Vector2, opticPosition: Vector2, opticDiameter: number, targetPosition: Vector2 ) {
+/**
+ * Returns the shape of the unclipped shape of the light spot.
+ * @param {Vector2} screenPosition
+ * @param {Vector2} opticPosition
+ * @param {number} opticDiameter
+ * @param {Vector2} targetPosition
+ * @param {Optic} optic
+ * @param {Vector2} sourcePosition
+ * @returns {Shape}
+ */
+function getDiskShape( screenPosition: Vector2, opticPosition: Vector2, opticDiameter: number,
+                       targetPosition: Vector2, optic: Optic, sourcePosition: Vector2 ) {
 
-    // translated screen shape
-    const screenShape = this.projectionScreen.getScreenShapeTranslated();
+  // get the parameters for the unclipped light spot.
+  const {
+    position, radiusX, radiusY
+  } = getDiskParameters( screenPosition, opticPosition, opticDiameter, targetPosition, optic, sourcePosition );
 
-    // unclipped elliptical disk shape
-    const diskShape = this.getDiskShape( screenPosition, opticPosition, opticDiameter, targetPosition );
+  // return an ellipse with the shape parameters
+  return Shape.ellipse( position.x, position.y, radiusX, radiusY, 2 * Math.PI );
+}
 
-    // it should NOT be necessary to weed out the zero shape, see #
-    if ( diskShape.getArea() === 0 ) {
+/**
+ * Gets the physical parameters (center position and radii) for the LightSpot
+ * @param {Vector2} screenPosition
+ * @param {Vector2} opticPosition
+ * @param {number} opticDiameter
+ * @param {Vector2} targetPosition
+ * @param {Optic} optic
+ * @param {Vector2} sourcePosition
+ * @returns {position:Vector2, radiusX:number, radiusY: number}
+ */
+function getDiskParameters( screenPosition: Vector2, opticPosition: Vector2, opticDiameter: number,
+                            targetPosition: Vector2, optic: Optic, sourcePosition: Vector2 ) {
+  assert && assert( isFinite( opticDiameter ) && opticDiameter > 0 );
 
-      // empty shape
-      return new Shape();
-    }
-    else {
+  // get the extrema points on the optic
+  const opticTopPoint = optic.getTopPoint( sourcePosition, targetPosition );
+  const opticBottomPoint = optic.getBottomPoint( sourcePosition, targetPosition );
 
-      // find the intersection of the two shapes
-      return Graph.binaryResult( screenShape, diskShape, Graph.BINARY_NONZERO_INTERSECTION );
-    }
+  // determine the top and bottom position of the unclipped disk
+  const diskTopPosition = getIntersectPosition( screenPosition, opticTopPoint, targetPosition );
+  const diskBottomPosition = getIntersectPosition( screenPosition, opticBottomPoint, targetPosition );
+
+  // determine the position and y radius of the disk
+  const diskCenterPosition = diskTopPosition.average( diskBottomPosition );
+  const radiusY = diskTopPosition.distance( diskBottomPosition ) / 2;
+
+  // arbitrarily set the aspect ratio ot 1/2 to give 3D perspective
+  const radiusX = radiusY / 2;
+
+  return {
+    position: diskCenterPosition,
+    radiusX: radiusX,
+    radiusY: radiusY
+  };
+}
+
+/**
+ * Gets the normalized (between 0 and 1) light intensity of the light spot.
+ * Physically, the spot is dimmer when the light is spread on a larger surface.
+ * To preserve dynamic range, the spot is instead inversely proportional to the diameter.
+ * The value saturates to max intensity for a spot height smaller than FULL_BRIGHT_SPOT_HEIGHT
+ * @param {Vector2} screenPosition
+ * @param {Vector2} opticPosition
+ * @param {number} opticDiameter
+ * @param {Vector2} targetPosition
+ * @param {Optic} optic
+ * @param {Vector2} sourcePosition
+ * @returns {number} a value in INTENSITY_RANGE
+ */
+function getLightIntensity( screenPosition: Vector2, opticPosition: Vector2, opticDiameter: number,
+                            targetPosition: Vector2, optic: Optic, sourcePosition: Vector2 ) {
+
+  // {number} vertical radius of the unclipped light spot
+  const { radiusY } = getDiskParameters( screenPosition, opticPosition, opticDiameter, targetPosition, optic, sourcePosition );
+
+  let intensity;
+  if ( radiusY === 0 ) {
+
+    // avoid division by zero
+    intensity = INTENSITY_RANGE.max;
   }
+  else {
 
-  /**
-   * Gets the normalized (between 0 and 1) light intensity of the light spot.
-   * Physically, the spot is dimmer when the light is spread on a larger surface.
-   * To preserve dynamic range, the spot is instead inversely proportional to the diameter.
-   * The value saturates to max intensity for a spot height smaller than FULL_BRIGHT_SPOT_HEIGHT
-   * @param {Vector2} screenPosition
-   * @param {Vector2} opticPosition
-   * @param {number} opticDiameter
-   * @param {Vector2} targetPosition
-   * @returns {number} a value in INTENSITY_RANGE
-   */
-  private getLightIntensity( screenPosition: Vector2, opticPosition: Vector2, opticDiameter: number, targetPosition: Vector2 ) {
-
-    // {number} vertical radius of the unclipped light spot
-    const { radiusY } = this.getDiskParameters( screenPosition, opticPosition, opticDiameter, targetPosition );
-
-    let intensity;
-    if ( radiusY === 0 ) {
-
-      // avoid division by zero
-      intensity = INTENSITY_RANGE.max;
-    }
-    else {
-
-      // Saturates to max intensity for a spot height less than FULL_INTENSITY_LIGHT_SPOT_HEIGHT.
-      const spotHeight = 2 * radiusY;
-      intensity = INTENSITY_RANGE.constrainValue( FULL_INTENSITY_LIGHT_SPOT_HEIGHT / spotHeight );
-    }
-    assert && assert( INTENSITY_RANGE.contains( intensity ) );
-    return intensity;
+    // Saturates to max intensity for a spot height less than FULL_INTENSITY_LIGHT_SPOT_HEIGHT.
+    const spotHeight = 2 * radiusY;
+    intensity = INTENSITY_RANGE.constrainValue( FULL_INTENSITY_LIGHT_SPOT_HEIGHT / spotHeight );
   }
+  assert && assert( INTENSITY_RANGE.contains( intensity ) );
+  return intensity;
 }
 
 /**
