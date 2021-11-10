@@ -13,7 +13,6 @@ import GeometricOpticsModel from '../../common/model/GeometricOpticsModel.js';
 import Lens from './Lens.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from './Guide.js';
-import { OpticConfig } from '../../common/model/Optic.js';
 
 class LensModel extends GeometricOpticsModel {
 
@@ -42,7 +41,7 @@ class LensModel extends GeometricOpticsModel {
 
     const lens = new Lens( {
       tandem: options.tandem.createTandem( 'lens' )
-    } as OpticConfig );
+    } );
 
     super( lens, options );
 

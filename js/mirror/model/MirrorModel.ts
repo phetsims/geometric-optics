@@ -13,7 +13,6 @@ import GeometricOpticsModel from '../../common/model/GeometricOpticsModel.js';
 import { RepresentationStaticInstances } from '../../common/model/Representation.js';
 import geometricOptics from '../../geometricOptics.js';
 import Mirror from './Mirror.js';
-import { OpticConfig } from '../../common/model/Optic.js';
 
 class MirrorModel extends GeometricOpticsModel {
 
@@ -33,7 +32,7 @@ class MirrorModel extends GeometricOpticsModel {
 
     const mirror = new Mirror( {
       tandem: options.tandem.createTandem( 'mirror' )
-    } as OpticConfig );
+    } );
 
     super( mirror, options );
   }

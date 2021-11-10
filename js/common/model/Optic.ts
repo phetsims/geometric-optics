@@ -20,25 +20,10 @@ import geometricOptics from '../../geometricOptics.js';
 import OpticShapes from './OpticShapes.js';
 import OpticTypeEnum from './OpticTypeEnum.js';
 import OpticShapeEnum, { OpticShapeValues } from './OpticShapeEnum.js';
-import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Property from '../../../../axon/js/Property.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-
-//TYPESCRIPT revisit this options pattern
-type OpticOptions = {
-  position?: Vector2, // position of the optic, in cm
-};
-
-type OpticConfig = OpticOptions & {
-  opticType: OpticTypeEnum, // type of optic, 'mirror' or 'lens'
-  opticShape: OpticShapeEnum, // initial shape of the optic, 'convex' or 'concave'
-  opticShapes: OpticShapeEnum[], // support values of OpticShapeEnum, in the order that appear as radio buttons
-  radiusOfCurvatureRange: RangeWithValue, // range of radius of curvature, in cm
-  indexOfRefractionRange: RangeWithValue, // range of index of refraction, a unitless ratio
-  diameterRange: RangeWithValue, // range of diameter, in cm
-  tandem: Tandem
-};
+import required from '../../../../phet-core/js/required.js';
 
 class Optic {
 
@@ -79,17 +64,36 @@ class Optic {
   readonly opticalAxisVisibleProperty: BooleanProperty;
 
   /**
-   * @param {OpticConfig} providedConfig
+   * @param {Object} config
    */
-  constructor( providedConfig: OpticConfig ) {
+  constructor( config: any ) { //TYPESCRIPT any
 
-    const config = merge( {
+    config = merge( {
+
+      // type of optic, 'mirror' or 'lens'
+      opticType: required( config.opticType ),
+
+      // initial shape of the optic, 'convex' or 'concave'
+      opticShape: required( config.opticShape ),
+
+      // range of index of refraction, a unitless ratio
+      radiusOfCurvatureRange: required( config.radiusOfCurvatureRange ),
+
+      // range of radius of curvature, in cm
+      indexOfRefractionRange: required( config.indexOfRefractionRange ),
+
+      // range of diameter, in cm
+      diameterRange: required( config.diameterRange ),
+
+      // position of the optic, in cm
       position: Vector2.ZERO,
+
+      // supported values of OpticShapeEnum, in the left-to-right order that they appear as radio buttons
       opticShapes: OpticShapeValues,
 
       // phet-io options
       tandem: Tandem.REQUIRED
-    } as Required<OpticOptions>, providedConfig ) as Required<OpticConfig>;
+    }, config );
 
     this.opticType = config.opticType;
 
@@ -377,4 +381,3 @@ class Optic {
 geometricOptics.register( 'Optic', Optic );
 
 export default Optic;
-export { OpticConfig };
