@@ -74,9 +74,6 @@ class SecondPointNode extends Node {
       scale: LIGHT_SOURCE_IMAGE_SCALE
     } );
 
-    //TYPESCRIPT workaround, because class Image extends Imageable( Node )
-    const secondLightSourceImageAsNode = secondLightSourceImage as unknown as Node;
-
     // Property for the position of the second source node
     const positionProperty = new Vector2Property( secondPoint.positionProperty.value );
     positionProperty.link( position => {
@@ -84,7 +81,7 @@ class SecondPointNode extends Node {
     } );
 
     // {DerivedProperty.<Bounds2|null> null when we are dealing with an Object, non-null for a Light Source
-    const dragBoundsProperty = new DerivedProperty<Bounds2|null>(
+    const dragBoundsProperty = new DerivedProperty<Bounds2 | null>(
       [ sourceObjectDragBoundsProperty, representationProperty ],
       ( sourceObjectDragBounds: Bounds2, representation: Representation ) =>
         //TODO this is awful that we're having to undo the offset that is needed elsewhere
@@ -149,8 +146,8 @@ class SecondPointNode extends Node {
       else {
 
         // add second light source
-        this.addChild( secondLightSourceImageAsNode );
-        this.touchArea = secondLightSourceImageAsNode.localBounds.dilateXY( 5, 5 );
+        this.addChild( secondLightSourceImage );
+        this.touchArea = secondLightSourceImage.localBounds.dilateXY( 5, 5 );
       }
       updatePosition( secondPoint.positionProperty.value );
     } );

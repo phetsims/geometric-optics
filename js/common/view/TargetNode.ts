@@ -39,9 +39,6 @@ class TargetNode extends Node {
     assert && assert( target.imageProperty.value ); // {HTMLImageElement|null}
     const targetImage = new Image( target.imageProperty.value! );
 
-    //TYPESCRIPT workaround, because class Image extends Imageable( Node )
-    const targetImageAsNode = targetImage as unknown as Node;
-
     /**
      * update the size as well as the position of the target image.
      */
@@ -51,14 +48,14 @@ class TargetNode extends Node {
       const viewBounds = modelViewTransform.modelToViewBounds( target.boundsProperty.value );
 
       // current values for width and height of the image
-      const initialWidth = targetImageAsNode.width;
-      const initialHeight = targetImageAsNode.height;
+      const initialWidth = targetImage.width;
+      const initialHeight = targetImage.height;
 
       // scale image appropriately
-      targetImageAsNode.scale( viewBounds.width / initialWidth, viewBounds.height / initialHeight );
+      targetImage.scale( viewBounds.width / initialWidth, viewBounds.height / initialHeight );
 
       // position the image
-      targetImageAsNode.translation = new Vector2( viewBounds.minX, viewBounds.minY );
+      targetImage.translation = new Vector2( viewBounds.minX, viewBounds.minY );
     };
 
     /**
@@ -70,7 +67,7 @@ class TargetNode extends Node {
     Property.multilink(
       [ target.isVirtualProperty, virtualImageVisibleProperty, target.visibleProperty ],
       ( isVirtual: boolean, virtualImageVisible: boolean, targetVisible: boolean ) => {
-        targetImageAsNode.visible = ( isVirtual ? virtualImageVisible : true ) && targetVisible;
+        targetImage.visible = ( isVirtual ? virtualImageVisible : true ) && targetVisible;
       } );
 
     // update position and scale when model bounds change
@@ -80,7 +77,7 @@ class TargetNode extends Node {
 
     // update the opacity of the image
     target.lightIntensityProperty.link( intensity => {
-      targetImageAsNode.opacity = intensity;
+      targetImage.opacity = intensity;
     } );
 
     // update the image and its visibility
@@ -107,7 +104,7 @@ class TargetNode extends Node {
       } );
 
     // add the target image to this node
-    this.addChild( targetImageAsNode );
+    this.addChild( targetImage );
   }
 
   /**

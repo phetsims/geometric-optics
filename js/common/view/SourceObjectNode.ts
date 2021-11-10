@@ -44,9 +44,6 @@ class SourceObjectNode extends Node {
     // Origin of this Node is at the upper-left corner of sourceObjectImage.
     const sourceObjectImage = new Image( representationProperty.value.rightFacingUpright );
 
-    //TYPESCRIPT workaround, because class Image extends Imageable( Node )
-    const sourceObjectImageAsNode = sourceObjectImage as unknown as Node;
-
     const cueingArrowsNode = new UnconstrainedCueingArrowsNode();
 
     super( {
@@ -54,23 +51,23 @@ class SourceObjectNode extends Node {
     } );
 
     // Keep cueing arrows next to the source object.
-    sourceObjectImageAsNode.boundsProperty.link( ( bounds: Bounds2 ) => {
-      cueingArrowsNode.right = sourceObjectImageAsNode.left - 10;
-      cueingArrowsNode.centerY = sourceObjectImageAsNode.centerY;
+    sourceObjectImage.boundsProperty.link( ( bounds: Bounds2 ) => {
+      cueingArrowsNode.right = sourceObjectImage.left - 10;
+      cueingArrowsNode.centerY = sourceObjectImage.centerY;
     } );
 
     // Scale the source object.
     const scaleSourceObject = () => {
 
-      const initialWidth = sourceObjectImageAsNode.width;
-      const initialHeight = sourceObjectImageAsNode.height;
+      const initialWidth = sourceObjectImage.width;
+      const initialHeight = sourceObjectImage.height;
 
       const bounds = sourceObject.boundsProperty.value;
       const viewBounds = modelViewTransform.modelToViewBounds( bounds );
 
       const scaleX = viewBounds.width / initialWidth;
       const scaleY = viewBounds.height / initialHeight;
-      sourceObjectImageAsNode.scale( scaleX, scaleY );
+      sourceObjectImage.scale( scaleX, scaleY );
     };
 
     // Translate the source object to the specified position.
