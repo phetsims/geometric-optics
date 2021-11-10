@@ -19,7 +19,7 @@ import OpticShapeEnum from '../model/OpticShapeEnum.js';
 import OpticShapes from '../model/OpticShapes.js';
 import OpticTypeEnum from '../model/OpticTypeEnum.js';
 
-class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup {
+class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeEnum> {
 
   /**
    * @param {Optic} optic
@@ -57,7 +57,7 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup {
         node: OpticShapeRadioButtonGroup.createIconNode( optic.opticType, 'convex' ),
         tandemName: 'convexRadioButton'
       }
-    ];
+    ] as const;
 
     super( optic.opticShapeProperty, buttonItems, options );
   }
