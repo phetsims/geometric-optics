@@ -12,6 +12,7 @@ import geometricOptics from '../geometricOptics.js';
 import GeometricOpticsQueryParameters from './GeometricOpticsQueryParameters.js';
 import FocalLengthControlEnum, { FocalLengthControlValues } from './model/FocalLengthControlEnum.js';
 import StringIO from '../../../tandem/js/types/StringIO.js';
+import BooleanProperty from '../../../axon/js/BooleanProperty.js';
 
 // constants
 const optionsTandem = Tandem.GLOBAL_VIEW.createTandem( 'options' );
@@ -26,7 +27,14 @@ const GeometricOpticsGlobalOptions = {
       phetioDocumentation: 'Determines how focal length is controlled in the Lens and Mirror screens.<br>' +
                            'direct: provides a control labeled \'Focal Length\'<br>' +
                            'indirect: provides controls for optic parameters, from which focal length is derived'
-    } )
+    } ),
+
+  cueingArrowsEnabledProperty: new BooleanProperty( true, {
+    tandem: optionsTandem.createTandem( 'cueingArrowsEnabledProperty' ),
+    phetioDocumentation: 'Use this Property to enable or disable the cueing arrows feature.<br>' +
+                         'true: draggable Nodes will have cueing arrows<br>' +
+                         'false: no cueing arrows will appear in the sim'
+  } )
 };
 
 geometricOptics.register( 'GeometricOpticsGlobalOptions', GeometricOpticsGlobalOptions );

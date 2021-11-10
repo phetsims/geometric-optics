@@ -28,10 +28,11 @@ import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
 import geometricOptics from '../../geometricOptics.js';
 import ProjectionScreen from '../model/ProjectionScreen.js';
 import UnconstrainedCueingArrowsNode from '../../common/view/UnconstrainedCueingArrowsNode.js';
+import GeometricOpticsGlobalOptions from '../../common/GeometricOpticsGlobalOptions.js';
 
 class ProjectionScreenNode extends Node {
 
-  private readonly cueingArrowsNode: Node;
+  private readonly resetProjectionScreenNode: () => void;
 
   /**
    * @param {ProjectionScreen} projectionScreen
@@ -50,7 +51,8 @@ class ProjectionScreenNode extends Node {
       focusable: true,
 
       // phet-io options
-      tandem: Tandem.REQUIRED
+      tandem: Tandem.REQUIRED,
+      phetioInputEnabledPropertyInstrumented: true
     }, options );
 
     // The screen part of the projection screen, drawn in perspective.
@@ -156,7 +158,17 @@ class ProjectionScreenNode extends Node {
       keyboardDragListener.dragBounds = dragBounds;
     } );
 
-    this.cueingArrowsNode = cueingArrowsNode;
+    Property.multilink(
+      [ GeometricOpticsGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty ],
+      ( cueingArrowsEnabled: boolean, inputEnabled: boolean ) => {
+        cueingArrowsNode.visible = ( cueingArrowsEnabled && inputEnabled );
+      }
+    );
+
+    this.resetProjectionScreenNode = () => {
+      cueingArrowsNode.visible = ( GeometricOpticsGlobalOptions.cueingArrowsEnabledProperty.value &&
+                                   this.inputEnabledProperty.value );
+    };
   }
 
   /**
@@ -171,7 +183,7 @@ class ProjectionScreenNode extends Node {
    * Reset this node
    */
   public reset() {
-    this.cueingArrowsNode.visible = true;
+    this.resetProjectionScreenNode();
   }
 }
 
