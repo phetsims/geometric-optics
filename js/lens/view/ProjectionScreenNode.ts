@@ -58,7 +58,7 @@ class ProjectionScreenNode extends Node {
     // The screen part of the projection screen, drawn in perspective.
     const screenNode = new Path( modelViewTransform.modelToViewShape( projectionScreen.screenShape ), {
       fill: GeometricOpticsColors.projectionScreenFillProperty,
-      stroke: GeometricOpticsColors.projectionScreenStrokeProperty,
+      stroke: phet.chipper.queryParameters.dev ? 'red' : GeometricOpticsColors.projectionScreenStrokeProperty,
       lineWidth: 2,
       centerX: 0,
       centerY: 0
@@ -76,8 +76,8 @@ class ProjectionScreenNode extends Node {
     const bottomBarNode = new Image( projectionScreenBottom_png, {
       scale: 0.5,
       // offsets were adjusted empirically to align image with screenNode
-      left: screenNode.left - 7,
-      top: screenNode.bottom - 32
+      right: screenNode.right + 9,
+      bottom: screenNode.bottom + 18
     } );
 
     // The pull string, attached to the bottom bar
@@ -102,7 +102,7 @@ class ProjectionScreenNode extends Node {
     } );
 
     assert && assert( !options.children );
-    options.children = [ pullStringNode, knobNode, screenNode, topBarNode, bottomBarNode, cueingArrowsNode ];
+    options.children = [ pullStringNode, knobNode, topBarNode, bottomBarNode, cueingArrowsNode, screenNode ];
 
     super( options );
 
