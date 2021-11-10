@@ -27,8 +27,8 @@ const FULL_INTENSITY_LIGHT_SPOT_HEIGHT = 7; // cm, any light spot less than this
 
 class LightSpot {
 
-  // Shape of the light spot, based on its intersection with the projection screen
-  readonly shapeProperty: DerivedProperty<Shape>;
+  // Shape of the light spot, based on its intersection with the projection screen. null if there is no intersection.
+  readonly shapeProperty: DerivedProperty<Shape|null>;
 
   // intensity of this LightSpot
   readonly intensityProperty: DerivedProperty<number>;
@@ -49,7 +49,7 @@ class LightSpot {
       tandem: Tandem.REQUIRED
     }, options );
 
-    this.shapeProperty = new DerivedProperty<Shape>(
+    this.shapeProperty = new DerivedProperty<Shape|null>(
       [ optic.positionProperty, optic.diameterProperty, projectionScreen.positionProperty, sourcePositionProperty, targetPositionProperty ],
       ( opticPosition: Vector2, opticDiameter: number, projectionScreenPosition: Vector2, sourcePosition: Vector2, targetPosition: Vector2 ) =>
         getScreenIntersection( optic, projectionScreenPosition, sourcePosition, targetPosition, projectionScreen.getScreenShapeTranslated() )
@@ -73,7 +73,7 @@ class LightSpot {
  * @param {Vector2} sourcePosition
  * @param {Vector2} targetPosition
  * @param {Shape} screenShape
- * @returns {Shape}
+ * @returns {Shape|null}
  */
 function getScreenIntersection( optic: Optic, projectionScreenPosition: Vector2, sourcePosition: Vector2,
                                 targetPosition: Vector2, screenShape: Shape ) {
@@ -81,9 +81,8 @@ function getScreenIntersection( optic: Optic, projectionScreenPosition: Vector2,
   // unclipped elliptical disk shape
   const diskShape = getDiskShape( optic, projectionScreenPosition, sourcePosition, targetPosition );
 
-  //TODO it should NOT be necessary to weed out the zero shape, see #
   if ( diskShape.getArea() === 0 ) {
-    return new Shape(); //TODO could this be null, to indicate no intersection?
+    return null;
   }
   else {
     return Graph.binaryResult( screenShape, diskShape, Graph.BINARY_NONZERO_INTERSECTION );
