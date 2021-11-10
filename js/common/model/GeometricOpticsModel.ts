@@ -110,15 +110,15 @@ class GeometricOpticsModel {
     } );
 
     this.firstLightSpot = new LightSpot(
-      this.projectionScreen,
       this.optic,
+      this.projectionScreen,
       this.sourceObject.positionProperty,
       this.firstTarget.positionProperty
     );
 
     this.secondLightSpot = new LightSpot(
-      this.projectionScreen,
       this.optic,
+      this.projectionScreen,
       this.secondPoint.positionProperty,
       this.secondTarget.positionProperty
     );
