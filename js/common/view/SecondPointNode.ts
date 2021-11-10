@@ -84,7 +84,7 @@ class SecondPointNode extends Node {
     } );
 
     // {DerivedProperty.<Bounds2|null> null when we are dealing with an Object, non-null for a Light Source
-    const dragBoundsProperty = new DerivedProperty<Bounds2>(
+    const dragBoundsProperty = new DerivedProperty<Bounds2|null>(
       [ sourceObjectDragBoundsProperty, representationProperty ],
       ( sourceObjectDragBounds: Bounds2, representation: Representation ) =>
         //TODO this is awful that we're having to undo the offset that is needed elsewhere
@@ -101,7 +101,7 @@ class SecondPointNode extends Node {
       const isObject = representationProperty.value.isObject;
       if ( !isObject ) {
         assert && assert( dragBounds );
-        secondPoint.setSecondPoint( isObject, dragBounds.closestPointTo( secondPoint.positionProperty.value ) );
+        secondPoint.setSecondPoint( isObject, dragBounds!.closestPointTo( secondPoint.positionProperty.value ) );
       }
     } );
 
