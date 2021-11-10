@@ -31,13 +31,13 @@ class LightSpot {
   readonly intensityProperty: DerivedProperty<number>;
 
   /**
-   * @param {Property.<Vector2>} sourcePositionProperty - position of the light source
-   * @param {Property.<Vector2>} targetPositionProperty
    * @param {ProjectionScreen} projectionScreen
    * @param {Optic} optic
+   * @param {Property.<Vector2>} sourcePositionProperty - position of the light source
+   * @param {Property.<Vector2>} targetPositionProperty
    */
-  constructor( sourcePositionProperty: Property<Vector2>, targetPositionProperty: Property<Vector2>,
-               projectionScreen: ProjectionScreen, optic: Optic ) {
+  constructor( projectionScreen: ProjectionScreen, optic: Optic, sourcePositionProperty: Property<Vector2>,
+               targetPositionProperty: Property<Vector2> ) {
 
     this.screenIntersectionProperty = new DerivedProperty<Shape>(
       [ projectionScreen.positionProperty, optic.positionProperty, optic.diameterProperty, targetPositionProperty, sourcePositionProperty ],
@@ -66,7 +66,7 @@ class LightSpot {
  * @returns {Shape}
  */
 function getScreenIntersection( screenPosition: Vector2, opticPosition: Vector2, opticDiameter: number,
-  targetPosition: Vector2, optic: Optic, sourcePosition: Vector2, screenShape: Shape ) {
+                                targetPosition: Vector2, optic: Optic, sourcePosition: Vector2, screenShape: Shape ) {
 
   // unclipped elliptical disk shape
   const diskShape = getDiskShape( screenPosition, opticPosition, opticDiameter, targetPosition, optic, sourcePosition );
