@@ -14,6 +14,9 @@ import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Graph from '../../../../kite/js/ops/Graph.js';
 import Shape from '../../../../kite/js/Shape.js';
+import merge from '../../../../phet-core/js/merge.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import Optic from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 import ProjectionScreen from './ProjectionScreen.js';
@@ -24,8 +27,8 @@ const FULL_INTENSITY_LIGHT_SPOT_HEIGHT = 7; // cm, any light spot less than this
 
 class LightSpot {
 
-  // intersection of this LightSpot with the projection screen
-  readonly screenIntersectionProperty: DerivedProperty<Shape>;
+  // Shape of the light spot, based on its intersection with the projection screen
+  readonly shapeProperty: DerivedProperty<Shape>;
 
   // intensity of this LightSpot
   readonly intensityProperty: DerivedProperty<number>;
@@ -35,11 +38,18 @@ class LightSpot {
    * @param {ProjectionScreen} projectionScreen
    * @param {Property.<Vector2>} sourcePositionProperty - position of the light source
    * @param {Property.<Vector2>} targetPositionProperty
+   * @param {Object} [options]
    */
   constructor( optic: Optic, projectionScreen: ProjectionScreen, sourcePositionProperty: Property<Vector2>,
-               targetPositionProperty: Property<Vector2> ) {
+               targetPositionProperty: Property<Vector2>, options?: any ) { //TYPESCRIPT any
 
-    this.screenIntersectionProperty = new DerivedProperty<Shape>(
+    options = merge( {
+
+      // phet-io options
+      tandem: Tandem.REQUIRED
+    }, options );
+
+    this.shapeProperty = new DerivedProperty<Shape>(
       [ optic.positionProperty, optic.diameterProperty, projectionScreen.positionProperty, sourcePositionProperty, targetPositionProperty ],
       ( opticPosition: Vector2, opticDiameter: number, projectionScreenPosition: Vector2, sourcePosition: Vector2, targetPosition: Vector2 ) =>
         getScreenIntersection( optic, projectionScreenPosition, sourcePosition, targetPosition, projectionScreen.getScreenShapeTranslated() )
@@ -49,7 +59,9 @@ class LightSpot {
       [ optic.positionProperty, optic.diameterProperty, projectionScreen.positionProperty, sourcePositionProperty, targetPositionProperty ],
       ( opticPosition: Vector2, opticDiameter: number, projectionScreenPosition: Vector2, sourcePosition: Vector2, targetPosition: Vector2 ) =>
         getLightIntensity( optic, projectionScreenPosition, sourcePosition, targetPosition ), {
-        isValidValue: ( value: number ) => INTENSITY_RANGE.contains( value )
+        isValidValue: ( value: number ) => INTENSITY_RANGE.contains( value ),
+        tandem: options.tandem.createTandem( 'intensityProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
       } );
   }
 }

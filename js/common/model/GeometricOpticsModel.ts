@@ -109,19 +109,17 @@ class GeometricOpticsModel {
       tandem: options.tandem.createTandem( 'projectionScreen' )
     } );
 
-    this.firstLightSpot = new LightSpot(
-      this.optic,
-      this.projectionScreen,
-      this.sourceObject.positionProperty,
-      this.firstTarget.positionProperty
-    );
+    this.firstLightSpot = new LightSpot( this.optic, this.projectionScreen, this.sourceObject.positionProperty,
+      this.firstTarget.positionProperty, {
+        tandem: options.tandem.createTandem( 'firstLightSpot' ),
+        phetioDocumentation: 'the light spot on the projection screen that is created by the first light source'
+      } );
 
-    this.secondLightSpot = new LightSpot(
-      this.optic,
-      this.projectionScreen,
-      this.secondPoint.positionProperty,
-      this.secondTarget.positionProperty
-    );
+    this.secondLightSpot = new LightSpot( this.optic, this.projectionScreen, this.secondPoint.positionProperty,
+      this.secondTarget.positionProperty, {
+        tandem: options.tandem.createTandem( 'secondLightSpot' ),
+        phetioDocumentation: 'the light spot on the projection screen that is created by the second light source'
+      } );
 
     this.lightRaysTimeProperty = new NumberProperty( 0, {
       units: 's',

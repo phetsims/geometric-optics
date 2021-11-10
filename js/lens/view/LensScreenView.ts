@@ -79,21 +79,19 @@ class LensScreenView extends GeometricOpticsScreenView {
     );
 
     // LightSpot associated with the first source
-    const firstLightSpotNode = new LightSpotNode(
-      model.firstLightSpot.intensityProperty,
-      model.firstLightSpot.screenIntersectionProperty,
-      this.modelViewTransform, {
-        visibleProperty: model.firstTarget.visibleProperty
-      } );
+    const firstLightSpotNode = new LightSpotNode( model.firstLightSpot, this.modelViewTransform, {
+      visibleProperty: model.firstTarget.visibleProperty,
+      tandem: options.tandem.createTandem( 'firstLightSpotNode' ),
+      phetioDocumentation: 'the light spot on the projection screen that is created by the first light source'
+    } );
 
     // LightSpot associated with the second source
-    const secondLightSpotNode = new LightSpotNode(
-      model.secondLightSpot.intensityProperty,
-      model.secondLightSpot.screenIntersectionProperty,
-      this.modelViewTransform, {
-        visibleProperty: DerivedProperty.and(
-          [ model.secondTarget.visibleProperty, this.visibleProperties.secondPointVisibleProperty ] )
-      } );
+    const secondLightSpotNode = new LightSpotNode( model.secondLightSpot, this.modelViewTransform, {
+      visibleProperty: DerivedProperty.and(
+        [ model.secondTarget.visibleProperty, this.visibleProperties.secondPointVisibleProperty ] ),
+      tandem: options.tandem.createTandem( 'secondLightSpotNode' ),
+      phetioDocumentation: 'the light spot on the projection screen that is created by the second light source'
+    } );
 
     // Add projection screen and light spots at the bottom of the z-layer.
     const lightSourceNodes = new Node( {

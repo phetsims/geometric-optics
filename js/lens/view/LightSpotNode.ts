@@ -7,28 +7,30 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
 import Utils from '../../../../dot/js/Utils.js';
-import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
 import geometricOptics from '../../geometricOptics.js';
+import LightSpot from '../model/LightSpot.js';
 
 class LightSpotNode extends Node {
 
   /**
-   * @param {Property.<number>} intensityProperty
-   * @param {Property.<Shape>} screenIntersectionProperty - shape of the spot's intersection with the projection screen
+   * @param {LightSpot} lightSpot
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( intensityProperty: Property<number>, screenIntersectionProperty: Property<Shape>,
-               modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
+  constructor( lightSpot: LightSpot, modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
 
-    options = merge( {}, options );
+    options = merge( {
+
+      // phet-io options
+      tandem: Tandem.REQUIRED
+    }, options );
 
     // Fill color of the spot
     const fillPath = new Path( null, {
@@ -48,14 +50,13 @@ class LightSpotNode extends Node {
 
     super( options );
 
-    // Adjust the shape of the spot based on how it intersects the screen.
-    screenIntersectionProperty.link( shape => {
+    lightSpot.shapeProperty.link( shape => {
       const viewShape = modelViewTransform.modelToViewShape( shape );
       fillPath.shape = viewShape;
       strokePath.shape = viewShape;
     } );
 
-    intensityProperty.link( intensity => {
+    lightSpot.intensityProperty.link( intensity => {
 
       // Intensity of light is the opacity of the spot color.
       fillPath.opacity = intensity;
