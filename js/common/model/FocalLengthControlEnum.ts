@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * FocalPointControlEnum identifies the method that the user will be using to control focal length. 
+ * FocalPointControlEnum identifies the method used to control focal length.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
