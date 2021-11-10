@@ -1,6 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO add 'flat' for mirror
+//TODO https://github.com/phetsims/geometric-optics/issues/227 add 'flat' for Mirror
 /**
  * OpticShapeEnum identifies the shape of the optic.
  *

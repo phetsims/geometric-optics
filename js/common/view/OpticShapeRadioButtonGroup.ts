@@ -45,11 +45,9 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeE
       tandem: Tandem.REQUIRED
     }, options );
 
-    //TODO provide list of supported OpticShapeType values to constructor, in desired order
-    const items = [
-      createItem( optic.opticType, 'concave' ),
-      createItem( optic.opticType, 'convex' )
-    ];
+    // A radio button for each shape supported by the optic
+    const items = optic.opticShapeProperty.validValues.map(
+      ( opticShape: OpticShapeEnum ) => createItem( optic.opticType, opticShape ) );
 
     super( optic.opticShapeProperty, items, options );
   }

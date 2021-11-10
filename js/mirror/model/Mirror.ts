@@ -22,6 +22,7 @@ class Mirror extends Optic {
     super( merge( {
       opticType: 'mirror',
       opticShape: 'concave',
+      opticShapes: [ 'concave', 'convex' ], //TODO https://github.com/phetsims/geometric-optics/issues/227 add 'flat'
       radiusOfCurvatureRange: new RangeWithValue( 150, 300, 200 ), // in cm
 
       // Although a mirror does not have an index of refraction, its focal length is equivalent to a lens

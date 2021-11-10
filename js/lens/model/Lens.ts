@@ -22,6 +22,7 @@ class Lens extends Optic {
     super( merge( {
       opticType: 'lens',
       opticShape: 'convex',
+      opticShapes: [ 'convex', 'concave' ],
       radiusOfCurvatureRange: new RangeWithValue( 30, 130, 80 ), // in cm
       indexOfRefractionRange: new RangeWithValue( 1.2, 1.9, 1.5 ), // unitless
       diameterRange: new RangeWithValue( 30, 130, 80 ), // in cm

@@ -33,6 +33,7 @@ type OpticOptions = {
 type OpticConfig = OpticOptions & {
   opticType: OpticTypeEnum, // type of optic, 'mirror' or 'lens'
   opticShape: OpticShapeEnum, // initial shape of the optic, 'convex' or 'concave'
+  opticShapes: OpticShapeEnum[], // support values of OpticShapeEnum, in the order that appear as radio buttons
   radiusOfCurvatureRange: RangeWithValue, // range of radius of curvature, in cm
   indexOfRefractionRange: RangeWithValue, // range of index of refraction, a unitless ratio
   diameterRange: RangeWithValue, // range of diameter, in cm
@@ -84,6 +85,7 @@ class Optic {
 
     const config = merge( {
       position: Vector2.ZERO,
+      opticShapes: OpticShapeValues,
 
       // phet-io options
       tandem: Tandem.REQUIRED
@@ -92,7 +94,7 @@ class Optic {
     this.opticType = config.opticType;
 
     this.opticShapeProperty = new Property<OpticShapeEnum>( config.opticShape, {
-      validValues: OpticShapeValues,
+      validValues: config.opticShapes,
       tandem: config.tandem.createTandem( 'opticShapeProperty' ),
       phetioType: Property.PropertyIO( StringIO ),
       phetioDocumentation: 'describes the shape of the optic'
