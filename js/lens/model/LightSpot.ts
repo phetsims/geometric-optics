@@ -28,7 +28,7 @@ const FULL_INTENSITY_LIGHT_SPOT_HEIGHT = 7; // cm, any light spot less than this
 class LightSpot {
 
   // Shape of the light spot, based on its intersection with the projection screen. null if there is no intersection.
-  readonly shapeProperty: DerivedProperty<Shape|null>;
+  readonly shapeProperty: DerivedProperty<Shape | null>;
 
   // intensity of this LightSpot
   readonly intensityProperty: DerivedProperty<number>;
@@ -49,19 +49,27 @@ class LightSpot {
       tandem: Tandem.REQUIRED
     }, options );
 
-    this.shapeProperty = new DerivedProperty<Shape|null>(
+    this.shapeProperty = new DerivedProperty<Shape | null>(
       [ optic.positionProperty, optic.diameterProperty, projectionScreen.positionProperty, sourcePositionProperty, targetPositionProperty ],
       ( opticPosition: Vector2, opticDiameter: number, projectionScreenPosition: Vector2, sourcePosition: Vector2, targetPosition: Vector2 ) =>
         getScreenIntersection( optic, projectionScreenPosition, sourcePosition, targetPosition, projectionScreen.getScreenShapeTranslated() )
     );
 
     this.intensityProperty = new DerivedProperty<number>(
-      [ optic.positionProperty, optic.diameterProperty, projectionScreen.positionProperty, sourcePositionProperty, targetPositionProperty ],
-      ( opticPosition: Vector2, opticDiameter: number, projectionScreenPosition: Vector2, sourcePosition: Vector2, targetPosition: Vector2 ) =>
-        getLightIntensity( optic, projectionScreenPosition, sourcePosition, targetPosition ), {
+      [ this.shapeProperty, optic.positionProperty, optic.diameterProperty, projectionScreen.positionProperty, sourcePositionProperty, targetPositionProperty ],
+      ( shape: Shape, opticPosition: Vector2, opticDiameter: number, projectionScreenPosition: Vector2, sourcePosition: Vector2, targetPosition: Vector2 ) => {
+        if ( shape.getArea() === 0 ) {
+          return 0;
+        }
+        else {
+          return getLightIntensity( optic, projectionScreenPosition, sourcePosition, targetPosition );
+        }
+      }, {
         isValidValue: ( value: number ) => INTENSITY_RANGE.contains( value ),
         tandem: options.tandem.createTandem( 'intensityProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
+        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+        phetioDocumentation: 'intensity of the light hitting the screen, in the range [0,1], ' +
+                             'and 0 if the light is not hitting the screen'
       } );
   }
 }
@@ -73,7 +81,7 @@ class LightSpot {
  * @param {Vector2} sourcePosition
  * @param {Vector2} targetPosition
  * @param {Shape} screenShape
- * @returns {Shape|null}
+ * @returns {Shape}
  */
 function getScreenIntersection( optic: Optic, projectionScreenPosition: Vector2, sourcePosition: Vector2,
                                 targetPosition: Vector2, screenShape: Shape ) {
@@ -81,8 +89,9 @@ function getScreenIntersection( optic: Optic, projectionScreenPosition: Vector2,
   // unclipped elliptical disk shape
   const diskShape = getDiskShape( optic, projectionScreenPosition, sourcePosition, targetPosition );
 
+  //TODO should not have to do this check
   if ( diskShape.getArea() === 0 ) {
-    return null;
+    return new Shape();
   }
   else {
     return Graph.binaryResult( screenShape, diskShape, Graph.BINARY_NONZERO_INTERSECTION );
