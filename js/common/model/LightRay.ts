@@ -66,7 +66,7 @@ class LightRay {
     // {Vector2|null} first intersection point - a null value implies that the initialRay does not intersect the optic
     const firstPoint = getFirstPoint( initialRay, optic, isPrincipalRayMode );
 
-    this.realRays = this.getRealRays( initialRay, firstPoint, optic, isPrincipalRayMode, targetPoint );
+    this.realRays = getRealRays( initialRay, firstPoint, optic, isPrincipalRayMode, targetPoint );
 
     // if the last ray intercepts the projection screen, its final point will be set on the last ray
     if ( isProjectionScreenPresent ) {
@@ -128,83 +128,6 @@ class LightRay {
   }
 
   /**
-   * Gets all the real rays that form a light ray. The transmitted ray (last ray) is set to be of infinite length by
-   * default This can be corrected later if the ray is intercepted by a projection screen
-   * @param {Ray} initialRay
-   * @param {Vector2|null} firstPoint
-   * @param {Optic} optic
-   * @param {boolean} isPrincipalRayMode
-   * @param {Vector2} targetPoint
-   * @returns {Ray[]} Rays
-   */
-  private getRealRays( initialRay: Ray, firstPoint: Vector2 | null, optic: Optic, isPrincipalRayMode: boolean, targetPoint: Vector2 ) {
-
-    // array to store all the rays
-    const rays = [];
-
-    // add the initial ray
-    rays.push( initialRay );
-
-    // we can only proceed if the first point (intersection point) exists,
-    // otherwise we bail out
-    if ( firstPoint ) {
-
-      // update the final point of the initial ray, since we hit something
-      initialRay.setFinalPoint( firstPoint );
-
-      // determine the ray(s) that come have the initial ray
-
-      // mirror and principal ray mode have only "one surface" to hit
-      if ( optic.isMirror() || isPrincipalRayMode ) {
-
-        // add the semi infinite transmitted transmitted ray
-        rays.push( getTransmittedRay( firstPoint, targetPoint, optic ) );
-      }
-      else {
-        // must be lens with light ray mode that is not principal rays
-
-        // {Vector2} find bisecting point of the lens, used to determine outgoin ray
-        const intermediatePoint = getIntermediatePoint( initialRay, firstPoint, optic );
-
-        // create a semi infinite ray starting at intermediate point to the target point
-        const transmittedRay = getTransmittedRay( intermediatePoint, targetPoint, optic );
-
-        // determine the intersection of the transmitted ray with the back shape of the optic
-        const backIntersection = getLensBackShape( optic ).intersection( transmittedRay );
-
-        // {Vector2|null} back shape point intersecting the transmitted ray
-        const backPoint = getPoint( backIntersection );
-
-        // if back point exists, add transmitted and internal ray
-        if ( backPoint instanceof Vector2 ) {
-
-          // ray that spans the front to the back of the lens
-          const internalRay = new Ray( firstPoint, backPoint.minus( firstPoint ).normalized() );
-
-          // set the internal ray back point
-          internalRay.setFinalPoint( backPoint );
-
-          // create a semi-infinite ray, starting at the back point, parallel to target point
-          const transmittedRay = getTransmittedRay( backPoint, targetPoint, optic );
-
-          // add the rays
-          rays.push( internalRay, transmittedRay );
-        }
-        else {
-          // back shape is not hit, see https://github.com/phetsims/geometric-optics/issues/124
-
-          // create a semi-infinite ray, starting at the front point, parallel to target point
-          const transmittedRay = getTransmittedRay( firstPoint, targetPoint, optic );
-
-          // add the rays
-          rays.push( transmittedRay );
-        }
-      }
-    }
-    return rays;
-  }
-
-  /**
    * Processes all the rays (virtual and real) into line segments.
    * @param {number} distanceTraveled
    */
@@ -259,6 +182,83 @@ class LightRay {
 function getFirstPoint( initialRay: Ray, optic: Optic, isPrincipalRayMode: boolean ) {
   const firstIntersection = getFirstShape( optic, isPrincipalRayMode ).intersection( initialRay );
   return getPoint( firstIntersection );
+}
+
+/**
+ * Gets all the real rays that form a light ray. The transmitted ray (last ray) is set to be of infinite length by
+ * default This can be corrected later if the ray is intercepted by a projection screen
+ * @param {Ray} initialRay
+ * @param {Vector2|null} firstPoint
+ * @param {Optic} optic
+ * @param {boolean} isPrincipalRayMode
+ * @param {Vector2} targetPoint
+ * @returns {Ray[]} Rays
+ */
+function getRealRays( initialRay: Ray, firstPoint: Vector2 | null, optic: Optic, isPrincipalRayMode: boolean, targetPoint: Vector2 ) {
+
+  // array to store all the rays
+  const rays = [];
+
+  // add the initial ray
+  rays.push( initialRay );
+
+  // we can only proceed if the first point (intersection point) exists,
+  // otherwise we bail out
+  if ( firstPoint ) {
+
+    // update the final point of the initial ray, since we hit something
+    initialRay.setFinalPoint( firstPoint );
+
+    // determine the ray(s) that come have the initial ray
+
+    // mirror and principal ray mode have only "one surface" to hit
+    if ( optic.isMirror() || isPrincipalRayMode ) {
+
+      // add the semi infinite transmitted transmitted ray
+      rays.push( getTransmittedRay( firstPoint, targetPoint, optic ) );
+    }
+    else {
+      // must be lens with light ray mode that is not principal rays
+
+      // {Vector2} find bisecting point of the lens, used to determine outgoin ray
+      const intermediatePoint = getIntermediatePoint( initialRay, firstPoint, optic );
+
+      // create a semi infinite ray starting at intermediate point to the target point
+      const transmittedRay = getTransmittedRay( intermediatePoint, targetPoint, optic );
+
+      // determine the intersection of the transmitted ray with the back shape of the optic
+      const backIntersection = getLensBackShape( optic ).intersection( transmittedRay );
+
+      // {Vector2|null} back shape point intersecting the transmitted ray
+      const backPoint = getPoint( backIntersection );
+
+      // if back point exists, add transmitted and internal ray
+      if ( backPoint instanceof Vector2 ) {
+
+        // ray that spans the front to the back of the lens
+        const internalRay = new Ray( firstPoint, backPoint.minus( firstPoint ).normalized() );
+
+        // set the internal ray back point
+        internalRay.setFinalPoint( backPoint );
+
+        // create a semi-infinite ray, starting at the back point, parallel to target point
+        const transmittedRay = getTransmittedRay( backPoint, targetPoint, optic );
+
+        // add the rays
+        rays.push( internalRay, transmittedRay );
+      }
+      else {
+        // back shape is not hit, see https://github.com/phetsims/geometric-optics/issues/124
+
+        // create a semi-infinite ray, starting at the front point, parallel to target point
+        const transmittedRay = getTransmittedRay( firstPoint, targetPoint, optic );
+
+        // add the rays
+        rays.push( transmittedRay );
+      }
+    }
+  }
+  return rays;
 }
 
 /**
