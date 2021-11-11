@@ -49,7 +49,7 @@ class LightRay {
    * @param {Vector2} targetPoint - point of focus of all rays based on thin lens law
    * @param {boolean} isVirtual - is the image virtual
    * @param {boolean} isPrincipalRayMode - is the light ray mode set to Principal rays
-   * @param {Barrier|null} barrier
+   * @param {Barrier|null} barrier - optional barrier that can block the ray
    */
   constructor( initialRay: Ray, time: number, optic: Optic, targetPoint: Vector2, isVirtual: boolean,
                isPrincipalRayMode: boolean, barrier: Barrier | null ) {

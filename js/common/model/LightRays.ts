@@ -39,7 +39,7 @@ class LightRays {
    * @param {Property.<Vector2>} sourceObjectPositionProperty
    * @param {Optic} optic
    * @param {Target} target - target model associated with this ray
-   * @param {Barrier|null} barrier
+   * @param {Barrier|null} barrier - optional barrier that blocks rays
    */
   constructor( timeProperty: Property<number>, raysModeProperty: Property<RaysModeEnum>,
                representationProperty: Property<Representation>, sourceObjectPositionProperty: Property<Vector2>,
