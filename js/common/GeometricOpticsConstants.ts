@@ -52,6 +52,12 @@ const GeometricOpticsConstants = {
   DIAMETER_SLIDER_INTERVAL: 5, // cm
   DIAMETER_SPINNER_INTERVAL: 1, // cm
 
+  // Fonts -------------------------------------------------------------------------------------------------------------
+
+  LABEL_FONT: new PhetFont( 12 ),
+  CONTROL_FONT: CONTROL_FONT,
+  TITLE_FONT: new PhetFont( { weight: 'bold', size: 14 } ),
+
   // Options -----------------------------------------------------------------------------------------------------------
 
   NUMBER_CONTROL_OPTIONS: {
@@ -72,13 +78,7 @@ const GeometricOpticsConstants = {
         font: CONTROL_FONT
       }
     }
-  },
-
-  // Fonts -------------------------------------------------------------------------------------------------------------
-
-  LABEL_FONT: new PhetFont( 12 ),
-  CONTROL_FONT: new PhetFont( 14 ),
-  TITLE_FONT: new PhetFont( { weight: 'bold', size: 14 } )
+  }
 };
 
 geometricOptics.register( 'GeometricOpticsConstants', GeometricOpticsConstants );
