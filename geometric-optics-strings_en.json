@@ -99,7 +99,7 @@
     "value": "Optical Axis"
   },
   "focalLengthControl": {
-    "value": "Focal Length control in Lens and Mirror screens:"
+    "value": "Focal Length control:"
   },
   "direct": {
     "value": "direct (using Focal Length slider)"
