@@ -30,6 +30,7 @@ import DiameterControl from './DiameterControl.js';
 import RaysRadioButtonGroup from './RaysRadioButtonGroup.js';
 import VisibilityCheckboxGroup from './VisibilityCheckboxGroup.js';
 import VisibleProperties from './VisibleProperties.js';
+import RadiusOfCurvatureControl from './RadiusOfCurvatureControl.js';
 
 // constants
 const NUMBER_CONTROL_OPTIONS = {
@@ -103,28 +104,10 @@ class GeometricOpticsControlPanel extends Panel {
 
     const numberControls = [];
 
-    assert && assert( optic.radiusOfCurvatureProperty.range ); // {Range|null}
-    const radiusOfCurvatureRange = optic.radiusOfCurvatureProperty.range!;
-    const radiusOfCurvatureControl = new NumberControl(
-      geometricOpticsStrings.radiusOfCurvature,
-      optic.radiusOfCurvatureProperty,
-      radiusOfCurvatureRange,
-      merge( {}, NUMBER_CONTROL_OPTIONS, {
-        delta: GeometricOpticsConstants.RADIUS_OF_CURVATURE_SPINNER_INTERVAL,
-        sliderOptions: {
-          constrainValue: ( value: number ) =>
-            Utils.roundToInterval( value, GeometricOpticsConstants.RADIUS_OF_CURVATURE_SLIDER_INTERVAL )
-        },
-        numberDisplayOptions: {
-          decimalPlaces: GeometricOpticsConstants.RADIUS_OF_CURVATURE_DECIMAL_PLACES,
-          valuePattern: geometricOpticsStrings.valueCentimetersPattern,
-          textOptions: {
-            font: GeometricOpticsConstants.CONTROL_FONT
-          }
-        },
-        tandem: opticSubpanelTandem.createTandem( 'radiusOfCurvatureControl' )
-      } ) );
-    numberControls.push( radiusOfCurvatureControl );
+    // Radius of Curvature
+    numberControls.push( new RadiusOfCurvatureControl( optic.radiusOfCurvatureProperty, {
+      tandem: opticSubpanelTandem.createTandem( 'radiusOfCurvatureControl' )
+    } ) );
 
     if ( optic.opticType === 'lens' ) {
       assert && assert( optic.indexOfRefractionProperty.range ); // {Range|null}
