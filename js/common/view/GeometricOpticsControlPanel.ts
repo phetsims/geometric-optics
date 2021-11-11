@@ -117,7 +117,10 @@ class GeometricOpticsControlPanel extends Panel {
         },
         numberDisplayOptions: {
           decimalPlaces: GeometricOpticsConstants.RADIUS_OF_CURVATURE_DECIMAL_PLACES,
-          valuePattern: geometricOpticsStrings.valueCentimetersPattern
+          valuePattern: geometricOpticsStrings.valueCentimetersPattern,
+          textOptions: {
+            font: GeometricOpticsConstants.CONTROL_FONT
+          }
         },
         tandem: opticSubpanelTandem.createTandem( 'radiusOfCurvatureControl' )
       } ) );
@@ -137,7 +140,10 @@ class GeometricOpticsControlPanel extends Panel {
               Utils.roundToInterval( value, GeometricOpticsConstants.INDEX_OF_REFRACTION_SLIDER_INTERVAL )
           },
           numberDisplayOptions: {
-            decimalPlaces: GeometricOpticsConstants.INDEX_OF_REFRACTION_DECIMAL_PLACES
+            decimalPlaces: GeometricOpticsConstants.INDEX_OF_REFRACTION_DECIMAL_PLACES,
+            textOptions: {
+              font: GeometricOpticsConstants.CONTROL_FONT
+            }
           },
           tandem: opticSubpanelTandem.createTandem( 'indexOfRefractionControl' )
         } ) );
@@ -158,7 +164,10 @@ class GeometricOpticsControlPanel extends Panel {
         },
         numberDisplayOptions: {
           decimalPlaces: GeometricOpticsConstants.DIAMETER_DECIMAL_PLACES,
-          valuePattern: geometricOpticsStrings.valueCentimetersPattern
+          valuePattern: geometricOpticsStrings.valueCentimetersPattern,
+          textOptions: {
+            font: GeometricOpticsConstants.CONTROL_FONT
+          }
         },
         tandem: opticSubpanelTandem.createTandem( 'diameterControl' )
       } ) );
