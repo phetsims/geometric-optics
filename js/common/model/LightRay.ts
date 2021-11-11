@@ -17,6 +17,7 @@ import RayIntersection from '../../../../kite/js/util/RayIntersection.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
+import Barrier from './Barrier.js';
 import LightRaySegment from './LightRaySegment.js';
 import Optic from './Optic.js';
 import Ray from './Ray.js';
@@ -48,12 +49,10 @@ class LightRay {
    * @param {Vector2} targetPoint - point of focus of all rays based on thin lens law
    * @param {boolean} isVirtual - is the image virtual
    * @param {boolean} isPrincipalRayMode - is the light ray mode set to Principal rays
-   * @param {boolean} isProjectionScreenPresent - is there a projection screen in the experiment area
-   * @param {function():Shape} getProjectionScreenBisectorLine - returns a Shape that bisects the middle of projection screen
+   * @param {Barrier|null} barrier
    */
   constructor( initialRay: Ray, time: number, optic: Optic, targetPoint: Vector2, isVirtual: boolean,
-               isPrincipalRayMode: boolean, isProjectionScreenPresent: boolean,
-               getProjectionScreenBisectorLine: () => Shape ) {
+               isPrincipalRayMode: boolean, barrier: Barrier | null ) {
 
     assert && AssertUtils.assertNonNegativeNumber( time );
 
@@ -68,9 +67,9 @@ class LightRay {
 
     this.realRays = getRealRays( initialRay, firstPoint, optic, isPrincipalRayMode, targetPoint );
 
-    // if the last ray intercepts the projection screen, its final point will be set on the last ray
-    if ( isProjectionScreenPresent ) {
-      setFinalPointProjectionScreen( this.realRays, getProjectionScreenBisectorLine() );
+    // if the last ray intercepts the barrier, its final point will be set on the last ray
+    if ( barrier ) {
+      setFinalPointProjectionScreen( this.realRays, barrier.getBisectorLineTranslated() );
     }
 
     this.hasVirtualRay = hasVirtualComponent( isVirtual, this.realRays );
@@ -79,26 +78,26 @@ class LightRay {
                       getVirtualRay( this.realRays, targetPoint ) :
                       null;
 
-    this.isTargetReached = this.getHasReachedTarget( distanceTraveled, isProjectionScreenPresent, targetPoint );
+    this.isTargetReached = this.getHasReachedTarget( distanceTraveled, !!barrier, targetPoint );
 
     // process rays to convert them to line segments
     this.raysToSegments( distanceTraveled );
   }
 
   /**
-   * Has the rays reached the target (projection screen or target point)?
+   * Has the rays reached the target (barrier or target point)?
    * @param {number} distanceTraveled
-   * @param {boolean} isProjectionScreenPresent
+   * @param {boolean} isBarrierPresent
    * @param {Vector2} targetPoint
    * @returns {boolean}
    */
-  private getHasReachedTarget( distanceTraveled: number, isProjectionScreenPresent: boolean, targetPoint: Vector2 ) {
+  private getHasReachedTarget( distanceTraveled: number, isBarrierPresent: boolean, targetPoint: Vector2 ) {
 
     let distance = 0;
 
-    if ( isProjectionScreenPresent ) {
+    if ( isBarrierPresent ) {
 
-      // distance to screen
+      // distance to barrier
       for ( let i = 0; i < this.realRays.length; i++ ) {
         distance = distance + this.realRays[ i ].getLength();
       }
@@ -186,7 +185,7 @@ function getFirstPoint( initialRay: Ray, optic: Optic, isPrincipalRayMode: boole
 
 /**
  * Gets all the real rays that form a light ray. The transmitted ray (last ray) is set to be of infinite length by
- * default This can be corrected later if the ray is intercepted by a projection screen
+ * default This can be corrected later if the ray is intercepted by a barrier
  * @param {Ray} initialRay
  * @param {Vector2|null} firstPoint
  * @param {Optic} optic
@@ -283,7 +282,7 @@ function getIntermediatePoint( initialRay: Ray, firstPoint: Vector2, optic: Opti
 }
 
 /**
- * Sets the final point of the real ray if it intersects with the vertical median of the projection screen.
+ * Sets the final point of the real ray if it intersects with the vertical median of the barrier.
  * @param {Ray[]} realRays
  * @param {Shape} projectionScreenBisectorLine
  */
@@ -292,7 +291,7 @@ function setFinalPointProjectionScreen( realRays: Ray[], projectionScreenBisecto
   // ensure that real rays has at least one ray
   if ( realRays.length > 0 ) {
 
-    // the projection screen can only intersect with the last ray
+    // the barrier can only intersect with the last ray
     const lastRay = realRays[ realRays.length - 1 ];
 
     const intersection = projectionScreenBisectorLine.intersection( lastRay );

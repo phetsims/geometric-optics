@@ -317,7 +317,6 @@ class GeometricOpticsScreenView extends ScreenView {
       experimentAreaNode.addChild( new DebugPointNode( model.sourceObject.positionProperty, modelViewTransform, options ) );
       experimentAreaNode.addChild( new DebugPointNode( model.secondPoint.lightSourcePositionProperty, modelViewTransform, options ) );
       experimentAreaNode.addChild( new DebugPointNode( model.firstTarget.positionProperty, modelViewTransform, options ) );
-      experimentAreaNode.addChild( new DebugPointNode( model.projectionScreen.positionProperty, modelViewTransform, options ) );
     }
 
     // Add points at a distance 2f on each side of optic

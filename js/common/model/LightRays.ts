@@ -12,7 +12,6 @@ import Emitter from '../../../../axon/js/Emitter.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import geometricOptics from '../../geometricOptics.js';
-import ProjectionScreen from '../../lens/model/ProjectionScreen.js';
 import LightRay from './LightRay.js';
 import LightRaySegment from './LightRaySegment.js';
 import Optic from './Optic.js';
@@ -20,6 +19,7 @@ import Ray from './Ray.js';
 import RaysModeEnum from './RaysModeEnum.js';
 import Target from './Target.js';
 import Representation from './Representation.js';
+import Barrier from './Barrier.js';
 
 class LightRays {
 
@@ -37,29 +37,29 @@ class LightRays {
    * @param {Property.<RaysModeEnum>} raysModeProperty
    * @param {Property.<Representation>} representationProperty
    * @param {Property.<Vector2>} sourceObjectPositionProperty
-   * @param {ProjectionScreen} projectionScreen
    * @param {Optic} optic
    * @param {Target} target - target model associated with this ray
+   * @param {Barrier|null} barrier
    */
   constructor( timeProperty: Property<number>, raysModeProperty: Property<RaysModeEnum>,
                representationProperty: Property<Representation>, sourceObjectPositionProperty: Property<Vector2>,
-               projectionScreen: ProjectionScreen, optic: Optic, target: Target ) {
+               optic: Optic, target: Target, barrier: Barrier ) {
 
     this.realSegments = [];
     this.virtualSegments = [];
     this.raysProcessedEmitter = new Emitter();
 
     // update the shape of rays and the emitter state
-    Property.multilink( [
-        sourceObjectPositionProperty,
-        raysModeProperty,
-        timeProperty,
-        representationProperty,
-        projectionScreen.positionProperty,
-        optic.positionProperty,
-        optic.diameterProperty,
-        optic.focalLengthProperty,
-        optic.opticShapeProperty ],
+    const dependencies = [
+      // order of these is important
+      sourceObjectPositionProperty, raysModeProperty, timeProperty, representationProperty,
+      // order of these is not important
+      optic.positionProperty, optic.diameterProperty, optic.focalLengthProperty, optic.opticShapeProperty
+    ];
+    if ( barrier ) {
+      dependencies.push( barrier.positionProperty );
+    }
+    Property.multilink( dependencies,
       ( sourcePosition: Vector2, raysMode: RaysModeEnum, time: number, representation: Representation ) => {
 
         // Clear the arrays.
@@ -75,9 +75,6 @@ class LightRays {
         // {Vector2[]} get the initial directions of the rays
         const directions = getRayDirections( sourcePosition, optic, raysMode, targetPoint );
 
-        // {boolean} is there a projection screen visible in the experiment area
-        const isProjectionScreenPresent = !representation.isObject;
-
         // is the Rays mode set to Principal
         const isPrincipal = ( raysMode === 'principal' );
 
@@ -91,14 +88,8 @@ class LightRays {
           const initialRay = new Ray( sourcePosition, direction );
 
           // determine the lightRay
-          const lightRay = new LightRay( initialRay,
-            time,
-            optic,
-            targetPoint,
-            isVirtual,
-            isPrincipal,
-            isProjectionScreenPresent,
-            projectionScreen.getBisectorLineTranslated.bind( projectionScreen )
+          const lightRay = new LightRay( initialRay, time, optic, targetPoint, isVirtual, isPrincipal,
+            representation.isObject ? null : barrier
           );
 
           // set target's visibility to true after the first ray reaches its target

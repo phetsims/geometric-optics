@@ -14,8 +14,12 @@ import Lens from './Lens.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from './Guide.js';
 import LightSpot from './LightSpot.js';
+import ProjectionScreen from './ProjectionScreen.js';
 
 class LensModel extends GeometricOpticsModel {
+
+  // model of the projection screen
+  readonly projectionScreen: ProjectionScreen;
 
   // light spot associated with the first light source
   readonly firstLightSpot: LightSpot;
@@ -50,7 +54,15 @@ class LensModel extends GeometricOpticsModel {
       tandem: options.tandem.createTandem( 'lens' )
     } );
 
+    const projectionScreen = new ProjectionScreen( {
+      tandem: options.tandem.createTandem( 'projectionScreen' )
+    } );
+    assert && assert( !options.projectionScreen );
+    options.barrier = projectionScreen;
+
     super( lens, options );
+
+    this.projectionScreen = projectionScreen;
 
     // Light Spots
     this.firstLightSpot = new LightSpot( this.optic, this.projectionScreen, this.sourceObject.positionProperty,
@@ -69,6 +81,11 @@ class LensModel extends GeometricOpticsModel {
     this.firstBottomGuide = new Guide( this.optic, this.sourceObject.positionProperty, 'bottom' );
     this.secondTopGuide = new Guide( this.optic, this.secondPoint.positionProperty, 'top' );
     this.secondBottomGuide = new Guide( this.optic, this.secondPoint.positionProperty, 'bottom' );
+  }
+
+  public reset() {
+    super.reset();
+    this.projectionScreen.reset();
   }
 }
 

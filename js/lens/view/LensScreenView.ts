@@ -20,6 +20,8 @@ import GuideNode from './GuideNode.js';
 import LightSpotNode from './LightSpotNode.js';
 import ProjectionScreenNode from './ProjectionScreenNode.js';
 import Representation from '../../common/model/Representation.js';
+import DebugPointNode from '../../common/view/DebugPointNode.js';
+import GeometricOpticsQueryParameters from '../../common/GeometricOpticsQueryParameters.js';
 
 class LensScreenView extends GeometricOpticsScreenView {
 
@@ -100,6 +102,10 @@ class LensScreenView extends GeometricOpticsScreenView {
         ( representation: Representation ) => !representation.isObject )
     } );
     this.experimentAreaNode.insertChild( 0, lightSourceNodes );
+
+    if ( GeometricOpticsQueryParameters.showPositions ) {
+      this.experimentAreaNode.addChild( new DebugPointNode( model.projectionScreen.positionProperty, this.modelViewTransform, options ) );
+    }
 
     // pdom -traversal order
     //TODO https://github.com/phetsims/scenery/issues/1308 an obfuscated way of inserting 1 Node into pdomOrder
