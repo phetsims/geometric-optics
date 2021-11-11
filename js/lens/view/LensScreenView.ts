@@ -82,17 +82,15 @@ class LensScreenView extends GeometricOpticsScreenView {
 
     // LightSpot associated with the first source
     const firstLightSpotNode = new LightSpotNode( model.firstLightSpot, this.modelViewTransform, {
-      visibleProperty: model.firstTarget.visibleProperty,
-      tandem: options.tandem.createTandem( 'firstLightSpotNode' ),
-      phetioDocumentation: 'the light spot on the projection screen that is created by the first light source'
+      visibleProperty: model.firstTarget.visibleProperty
+      // DO NOT instrument for PhET-iO, see https://github.com/phetsims/geometric-optics/issues/269
     } );
 
     // LightSpot associated with the second source
     const secondLightSpotNode = new LightSpotNode( model.secondLightSpot, this.modelViewTransform, {
       visibleProperty: DerivedProperty.and(
-        [ model.secondTarget.visibleProperty, this.visibleProperties.secondPointVisibleProperty ] ),
-      tandem: options.tandem.createTandem( 'secondLightSpotNode' ),
-      phetioDocumentation: 'the light spot on the projection screen that is created by the second light source'
+        [ model.secondTarget.visibleProperty, this.visibleProperties.secondPointVisibleProperty ] )
+      // DO NOT instrument for PhET-iO, see https://github.com/phetsims/geometric-optics/issues/269
     } );
 
     // Add projection screen and light spots at the bottom of the z-layer.
