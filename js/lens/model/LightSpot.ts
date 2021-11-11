@@ -20,6 +20,7 @@ import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import Optic from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 import ProjectionScreen from './ProjectionScreen.js';
+import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 
 // constants
 const INTENSITY_RANGE = new Range( 0, 1 );
@@ -30,8 +31,8 @@ class LightSpot {
   // Shape of the light spot, based on its intersection with the projection screen. null if there is no intersection.
   readonly shapeProperty: DerivedProperty<Shape | null>;
 
-  // intensity of this LightSpot
-  readonly intensityProperty: DerivedProperty<number>;
+  // intensity of this LightSpot, in the range [0,1], null if there is no light spot hitting the projection screen
+  readonly intensityProperty: DerivedProperty<number|null>;
 
   /**
    * @param {Optic} optic
@@ -55,11 +56,11 @@ class LightSpot {
         getScreenIntersection( optic, projectionScreenPosition, sourcePosition, targetPosition, projectionScreen.getScreenShapeTranslated() )
     );
 
-    this.intensityProperty = new DerivedProperty<number>(
+    this.intensityProperty = new DerivedProperty<number|null>(
       [ this.shapeProperty, optic.positionProperty, optic.diameterProperty, projectionScreen.positionProperty, sourcePositionProperty, targetPositionProperty ],
       ( shape: Shape, opticPosition: Vector2, opticDiameter: number, projectionScreenPosition: Vector2, sourcePosition: Vector2, targetPosition: Vector2 ) => {
         if ( shape.getArea() === 0 ) {
-          return 0;
+          return null;
         }
         else {
           return getLightIntensity( optic, projectionScreenPosition, sourcePosition, targetPosition );
@@ -67,9 +68,9 @@ class LightSpot {
       }, {
         isValidValue: ( value: number ) => INTENSITY_RANGE.contains( value ),
         tandem: options.tandem.createTandem( 'intensityProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+        phetioType: DerivedProperty.DerivedPropertyIO( NullableIO( NumberIO ) ),
         phetioDocumentation: 'intensity of the light hitting the screen, in the range [0,1], ' +
-                             'and 0 if the light is not hitting the screen'
+                             'null if the light is not hitting the screen'
       } );
   }
 }

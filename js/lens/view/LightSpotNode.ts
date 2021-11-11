@@ -53,12 +53,15 @@ class LightSpotNode extends Node {
 
     lightSpot.intensityProperty.link( intensity => {
 
+      // Convert intensity to opacity.
+      const opacity = ( intensity === null ) ? 0 : intensity!;
+
       // Intensity of light is the opacity of the spot color.
-      fillPath.opacity = intensity;
+      fillPath.opacity = opacity;
 
       // Dashed outline is visible only for lower intensities [0,0.25], and becomes more visible as intensity decreases.
       // See https://github.com/phetsims/geometric-optics/issues/240
-      strokePath.opacity = Utils.clamp( Utils.linear( 0, 0.25, 1, 0, intensity ), 0, 1 );
+      strokePath.opacity = Utils.clamp( Utils.linear( 0, 0.25, 1, 0, opacity ), 0, 1 );
     } );
   }
 
