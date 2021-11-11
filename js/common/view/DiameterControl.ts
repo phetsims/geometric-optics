@@ -37,7 +37,7 @@ class DiameterControl extends NumberControl {
 
       // phet-io options
       tandem: Tandem.REQUIRED
-    } );
+    }, options );
 
     assert && assert( diameterProperty.range ); // {Range|null}
     const diameterRange: Range = diameterProperty.range!;

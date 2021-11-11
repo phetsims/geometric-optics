@@ -36,7 +36,7 @@ class IndexOfRefractionControl extends NumberControl {
 
       // phet-io options
       tandem: Tandem.REQUIRED
-    } );
+    }, options );
 
     assert && assert( indexOfRefractionProperty.range ); // {Range|null}
     const indexOfRefractionRange: Range = indexOfRefractionProperty.range!;

@@ -37,7 +37,7 @@ class RadiusOfCurvatureControl extends NumberControl {
 
       // phet-io options
       tandem: Tandem.REQUIRED
-    } );
+    }, options );
 
     assert && assert( radiusOfCurvatureProperty.range ); // {Range|null}
     const radiusOfCurvatureRange: Range = radiusOfCurvatureProperty.range!;
