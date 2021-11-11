@@ -9,7 +9,6 @@
 
 import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
-import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
@@ -27,6 +26,7 @@ import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Optic from '../model/Optic.js';
 import RaysModeEnum from '../model/RaysModeEnum.js';
 import Representation from '../model/Representation.js';
+import DiameterControl from './DiameterControl.js';
 import RaysRadioButtonGroup from './RaysRadioButtonGroup.js';
 import VisibilityCheckboxGroup from './VisibilityCheckboxGroup.js';
 import VisibleProperties from './VisibleProperties.js';
@@ -150,28 +150,10 @@ class GeometricOpticsControlPanel extends Panel {
       numberControls.push( indexOfRefractionControl );
     }
 
-    assert && assert( optic.diameterProperty.range ); // {Range|null}
-    const diameterRange: Range = optic.diameterProperty.range!;
-    const diameterControl = new NumberControl(
-      geometricOpticsStrings.diameter,
-      optic.diameterProperty,
-      diameterRange,
-      merge( {}, NUMBER_CONTROL_OPTIONS, {
-        delta: GeometricOpticsConstants.DIAMETER_SPINNER_INTERVAL,
-        sliderOptions: {
-          constrainValue: ( value: number ) =>
-            Utils.roundToInterval( value, GeometricOpticsConstants.DIAMETER_SLIDER_INTERVAL )
-        },
-        numberDisplayOptions: {
-          decimalPlaces: GeometricOpticsConstants.DIAMETER_DECIMAL_PLACES,
-          valuePattern: geometricOpticsStrings.valueCentimetersPattern,
-          textOptions: {
-            font: GeometricOpticsConstants.CONTROL_FONT
-          }
-        },
-        tandem: opticSubpanelTandem.createTandem( 'diameterControl' )
-      } ) );
-    numberControls.push( diameterControl );
+    // Diameter
+    numberControls.push( new DiameterControl( optic.diameterProperty, {
+      tandem: opticSubpanelTandem.createTandem( 'diameterControl' )
+    } ) );
 
     const opticSubpanel = new HBox( {
       children: numberControls,

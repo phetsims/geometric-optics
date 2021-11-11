@@ -10,6 +10,10 @@
 import Vector2 from '../../../dot/js/Vector2.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import geometricOptics from '../geometricOptics.js';
+import NumberControl from '../../../scenery-phet/js/NumberControl.js';
+import Dimension2 from '../../../dot/js/Dimension2.js';
+
+const CONTROL_FONT = new PhetFont( 14 );
 
 const GeometricOpticsConstants = {
 
@@ -47,6 +51,28 @@ const GeometricOpticsConstants = {
   DIAMETER_DECIMAL_PLACES: 0,
   DIAMETER_SLIDER_INTERVAL: 5, // cm
   DIAMETER_SPINNER_INTERVAL: 1, // cm
+
+  // Options -----------------------------------------------------------------------------------------------------------
+
+  NUMBER_CONTROL_OPTIONS: {
+    layoutFunction: NumberControl.createLayoutFunction3( { ySpacing: 12 } ),
+    titleNodeOptions: {
+      font: CONTROL_FONT,
+      maxWidth: 140
+    },
+    sliderOptions: {
+      trackSize: new Dimension2( 120, 4 ),
+      thumbSize: new Dimension2( 15, 30 ),
+      thumbTouchAreaXDilation: 5,
+      thumbTouchAreaYDilation: 5
+    },
+    numberDisplayOptions: {
+      maxWidth: 70,
+      textOptions: {
+        font: CONTROL_FONT
+      }
+    }
+  },
 
   // Fonts -------------------------------------------------------------------------------------------------------------
 
