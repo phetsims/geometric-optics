@@ -13,8 +13,15 @@ import GeometricOpticsModel from '../../common/model/GeometricOpticsModel.js';
 import Lens from './Lens.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from './Guide.js';
+import LightSpot from './LightSpot.js';
 
 class LensModel extends GeometricOpticsModel {
+
+  // light spot associated with the first light source
+  readonly firstLightSpot: LightSpot;
+
+  // light spot associated with the second light source
+  readonly secondLightSpot: LightSpot;
 
   // top guide associated with the source object or first light source
   readonly firstTopGuide: Guide;
@@ -45,6 +52,19 @@ class LensModel extends GeometricOpticsModel {
 
     super( lens, options );
 
+    // Light Spots
+    this.firstLightSpot = new LightSpot( this.optic, this.projectionScreen, this.sourceObject.positionProperty,
+      this.firstTarget.positionProperty, {
+        tandem: options.tandem.createTandem( 'firstLightSpot' ),
+        phetioDocumentation: 'the light spot on the projection screen that is created by the first light source'
+      } );
+    this.secondLightSpot = new LightSpot( this.optic, this.projectionScreen, this.secondPoint.positionProperty,
+      this.secondTarget.positionProperty, {
+        tandem: options.tandem.createTandem( 'secondLightSpot' ),
+        phetioDocumentation: 'the light spot on the projection screen that is created by the second light source'
+      } );
+
+    // Guides
     this.firstTopGuide = new Guide( this.optic, this.sourceObject.positionProperty, 'top' );
     this.firstBottomGuide = new Guide( this.optic, this.sourceObject.positionProperty, 'bottom' );
     this.secondTopGuide = new Guide( this.optic, this.secondPoint.positionProperty, 'top' );

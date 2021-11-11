@@ -14,7 +14,6 @@ import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import geometricOptics from '../../geometricOptics.js';
-import LightSpot from '../../lens/model/LightSpot.js';
 import ProjectionScreen from '../../lens/model/ProjectionScreen.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import LightRays from './LightRays.js';
@@ -52,14 +51,6 @@ class GeometricOpticsModel {
   // model of the projection screen
   //TODO irrelevant for MirrorModel, but required by LightRays constructor
   readonly projectionScreen: ProjectionScreen;
-
-  // light spot associated with the first light source
-  //TODO irrelevant for MirrorModel
-  readonly firstLightSpot: LightSpot;
-
-  // light spot associated with the second light source
-  //TODO irrelevant for MirrorModel
-  readonly secondLightSpot: LightSpot;
 
   // elapsed time of light rays animation
   readonly lightRaysTimeProperty: NumberProperty;
@@ -108,18 +99,6 @@ class GeometricOpticsModel {
     this.projectionScreen = new ProjectionScreen( {
       tandem: options.tandem.createTandem( 'projectionScreen' )
     } );
-
-    this.firstLightSpot = new LightSpot( this.optic, this.projectionScreen, this.sourceObject.positionProperty,
-      this.firstTarget.positionProperty, {
-        tandem: options.tandem.createTandem( 'firstLightSpot' ),
-        phetioDocumentation: 'the light spot on the projection screen that is created by the first light source'
-      } );
-
-    this.secondLightSpot = new LightSpot( this.optic, this.projectionScreen, this.secondPoint.positionProperty,
-      this.secondTarget.positionProperty, {
-        tandem: options.tandem.createTandem( 'secondLightSpot' ),
-        phetioDocumentation: 'the light spot on the projection screen that is created by the second light source'
-      } );
 
     this.lightRaysTimeProperty = new NumberProperty( 0, {
       units: 's',
