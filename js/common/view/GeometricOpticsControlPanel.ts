@@ -8,10 +8,7 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import Dimension2 from '../../../../dot/js/Dimension2.js';
-import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
-import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -31,24 +28,7 @@ import RaysRadioButtonGroup from './RaysRadioButtonGroup.js';
 import VisibilityCheckboxGroup from './VisibilityCheckboxGroup.js';
 import VisibleProperties from './VisibleProperties.js';
 import RadiusOfCurvatureControl from './RadiusOfCurvatureControl.js';
-
-// constants
-const NUMBER_CONTROL_OPTIONS = {
-  layoutFunction: NumberControl.createLayoutFunction3( { ySpacing: 12 } ),
-  titleNodeOptions: {
-    font: GeometricOpticsConstants.CONTROL_FONT,
-    maxWidth: 140
-  },
-  sliderOptions: {
-    trackSize: new Dimension2( 120, 4 ),
-    thumbSize: new Dimension2( 15, 30 ),
-    thumbTouchAreaXDilation: 5,
-    thumbTouchAreaYDilation: 5
-  },
-  numberDisplayOptions: {
-    maxWidth: 70
-  }
-};
+import IndexOfRefractionControl from './IndexOfRefractionControl.js';
 
 class GeometricOpticsControlPanel extends Panel {
 
@@ -102,44 +82,27 @@ class GeometricOpticsControlPanel extends Panel {
 
     const opticSubpanelTandem = options.tandem.createTandem( 'opticSubpanel' );
 
-    const numberControls = [];
+    const opticSubpanelChildren = [];
 
     // Radius of Curvature
-    numberControls.push( new RadiusOfCurvatureControl( optic.radiusOfCurvatureProperty, {
+    opticSubpanelChildren.push( new RadiusOfCurvatureControl( optic.radiusOfCurvatureProperty, {
       tandem: opticSubpanelTandem.createTandem( 'radiusOfCurvatureControl' )
     } ) );
 
+    // Index of Refraction (for lens only)
     if ( optic.opticType === 'lens' ) {
-      assert && assert( optic.indexOfRefractionProperty.range ); // {Range|null}
-      const indexOfRefractionRange = optic.indexOfRefractionProperty.range!;
-      const indexOfRefractionControl = new NumberControl(
-        geometricOpticsStrings.indexOfRefraction,
-        optic.indexOfRefractionProperty,
-        indexOfRefractionRange,
-        merge( {}, NUMBER_CONTROL_OPTIONS, {
-          delta: GeometricOpticsConstants.INDEX_OF_REFRACTION_SPINNER_INTERVAL,
-          sliderOptions: {
-            constrainValue: ( value: number ) =>
-              Utils.roundToInterval( value, GeometricOpticsConstants.INDEX_OF_REFRACTION_SLIDER_INTERVAL )
-          },
-          numberDisplayOptions: {
-            decimalPlaces: GeometricOpticsConstants.INDEX_OF_REFRACTION_DECIMAL_PLACES,
-            textOptions: {
-              font: GeometricOpticsConstants.CONTROL_FONT
-            }
-          },
-          tandem: opticSubpanelTandem.createTandem( 'indexOfRefractionControl' )
-        } ) );
-      numberControls.push( indexOfRefractionControl );
+      opticSubpanelChildren.push( new IndexOfRefractionControl( optic.indexOfRefractionProperty, {
+        tandem: opticSubpanelTandem.createTandem( 'indexOfRefractionControl' )
+      } ) );
     }
 
     // Diameter
-    numberControls.push( new DiameterControl( optic.diameterProperty, {
+    opticSubpanelChildren.push( new DiameterControl( optic.diameterProperty, {
       tandem: opticSubpanelTandem.createTandem( 'diameterControl' )
     } ) );
 
     const opticSubpanel = new HBox( {
-      children: numberControls,
+      children: opticSubpanelChildren,
       spacing: 20,
       tandem: opticSubpanelTandem
     } );
