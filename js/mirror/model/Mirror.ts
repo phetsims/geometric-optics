@@ -10,18 +10,19 @@
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import Optic, { OpticConfig } from '../../common/model/Optic.js';
+import Optic from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 
 class Mirror extends Optic {
 
   /**
-   * @param {OpticConfig} [config]
+   * @param {Object} [options]
    */
-  constructor( config: OpticConfig ) {
+  constructor( options?: any ) { //TYPESCRIPT any
     super( merge( {
       opticType: 'mirror',
       opticShape: 'concave',
+      opticShapes: [ 'concave', 'convex' ], //TODO https://github.com/phetsims/geometric-optics/issues/227 add 'flat'
       radiusOfCurvatureRange: new RangeWithValue( 150, 300, 200 ), // in cm
 
       // Although a mirror does not have an index of refraction, its focal length is equivalent to a lens
@@ -31,7 +32,7 @@ class Mirror extends Optic {
 
       // phet-io options
       tandem: Tandem.REQUIRED
-    } as OpticConfig, config ) as OpticConfig );
+    }, options ) );
   }
 }
 

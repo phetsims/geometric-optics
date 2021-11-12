@@ -45,21 +45,11 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeE
       tandem: Tandem.REQUIRED
     }, options );
 
-    //TODO provide list of supported OpticShapeType values to constructor, in desired order
-    const buttonItems = [
-      {
-        value: 'concave',
-        node: OpticShapeRadioButtonGroup.createIconNode( optic.opticType, 'concave' ),
-        tandemName: 'concaveRadioButton'
-      },
-      {
-        value: 'convex',
-        node: OpticShapeRadioButtonGroup.createIconNode( optic.opticType, 'convex' ),
-        tandemName: 'convexRadioButton'
-      }
-    ] as const;
+    // A radio button for each shape supported by the optic
+    const items = optic.opticShapeProperty.validValues.map(
+      ( opticShape: OpticShapeEnum ) => createItem( optic.opticType, opticShape ) );
 
-    super( optic.opticShapeProperty, buttonItems, options );
+    super( optic.opticShapeProperty, items, options );
   }
 
   /**
@@ -93,6 +83,20 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeE
       children: [ fillNode, outlineNode ]
     } );
   }
+}
+
+/**
+ * Creates an item for the radio button group.
+ * @param {OpticTypeEnum} opticType
+ * @param {OpticShapeEnum} opticShape
+ * @returns {value:OpticTypeEnum, node:Node, tandemName:string}
+ */
+function createItem( opticType: OpticTypeEnum, opticShape: OpticShapeEnum ) {
+  return {
+    value: opticShape,
+    node: OpticShapeRadioButtonGroup.createIconNode( opticType, opticShape ),
+    tandemName: `${opticShape}RadioButton`
+  };
 }
 
 geometricOptics.register( 'OpticShapeRadioButtonGroup', OpticShapeRadioButtonGroup );

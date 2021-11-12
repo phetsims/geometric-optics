@@ -7,26 +7,23 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
 import Utils from '../../../../dot/js/Utils.js';
-import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
 import geometricOptics from '../../geometricOptics.js';
+import LightSpot from '../model/LightSpot.js';
 
 class LightSpotNode extends Node {
 
   /**
-   * @param {Property.<number>} intensityProperty
-   * @param {Property.<Shape>} screenIntersectionProperty - shape of the spot's intersection with the projection screen
+   * @param {LightSpot} lightSpot
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Object} [options]
    */
-  constructor( intensityProperty: Property<number>, screenIntersectionProperty: Property<Shape>,
-               modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
+  constructor( lightSpot: LightSpot, modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
 
     options = merge( {}, options );
 
@@ -48,21 +45,23 @@ class LightSpotNode extends Node {
 
     super( options );
 
-    // Adjust the shape of the spot based on how it intersects the screen.
-    screenIntersectionProperty.link( shape => {
+    lightSpot.shapeProperty.link( shape => {
       const viewShape = modelViewTransform.modelToViewShape( shape );
       fillPath.shape = viewShape;
       strokePath.shape = viewShape;
     } );
 
-    intensityProperty.link( intensity => {
+    lightSpot.intensityProperty.link( intensity => {
+
+      // Convert intensity to opacity.
+      const opacity = ( intensity === null ) ? 0 : intensity!;
 
       // Intensity of light is the opacity of the spot color.
-      fillPath.opacity = intensity;
+      fillPath.opacity = opacity;
 
       // Dashed outline is visible only for lower intensities [0,0.25], and becomes more visible as intensity decreases.
       // See https://github.com/phetsims/geometric-optics/issues/240
-      strokePath.opacity = Utils.clamp( Utils.linear( 0, 0.25, 1, 0, intensity ), 0, 1 );
+      strokePath.opacity = Utils.clamp( Utils.linear( 0, 0.25, 1, 0, opacity ), 0, 1 );
     } );
   }
 

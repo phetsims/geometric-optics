@@ -28,10 +28,11 @@ import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
 import geometricOptics from '../../geometricOptics.js';
 import ProjectionScreen from '../model/ProjectionScreen.js';
 import UnconstrainedCueingArrowsNode from '../../common/view/UnconstrainedCueingArrowsNode.js';
+import GeometricOpticsGlobalOptions from '../../common/GeometricOpticsGlobalOptions.js';
 
 class ProjectionScreenNode extends Node {
 
-  private readonly cueingArrowsNode: Node;
+  private readonly resetProjectionScreenNode: () => void;
 
   /**
    * @param {ProjectionScreen} projectionScreen
@@ -50,13 +51,14 @@ class ProjectionScreenNode extends Node {
       focusable: true,
 
       // phet-io options
-      tandem: Tandem.REQUIRED
+      tandem: Tandem.REQUIRED,
+      phetioInputEnabledPropertyInstrumented: true
     }, options );
 
     // The screen part of the projection screen, drawn in perspective.
     const screenNode = new Path( modelViewTransform.modelToViewShape( projectionScreen.screenShape ), {
       fill: GeometricOpticsColors.projectionScreenFillProperty,
-      stroke: GeometricOpticsColors.projectionScreenStrokeProperty,
+      stroke: phet.chipper.queryParameters.dev ? 'red' : GeometricOpticsColors.projectionScreenStrokeProperty,
       lineWidth: 2,
       centerX: 0,
       centerY: 0
@@ -74,8 +76,8 @@ class ProjectionScreenNode extends Node {
     const bottomBarNode = new Image( projectionScreenBottom_png, {
       scale: 0.5,
       // offsets were adjusted empirically to align image with screenNode
-      left: screenNode.left - 7,
-      top: screenNode.bottom - 32
+      right: screenNode.right + 9,
+      bottom: screenNode.bottom + 18
     } );
 
     // The pull string, attached to the bottom bar
@@ -83,7 +85,6 @@ class ProjectionScreenNode extends Node {
       stroke: GeometricOpticsColors.projectionScreenStrokeProperty,
       lineWidth: 3,
       centerX: screenNode.centerX,
-      // @ts-ignore TYPESCRIPT property 'top' does not exist on type 'Image'
       top: bottomBarNode.top
     } );
 
@@ -100,7 +101,7 @@ class ProjectionScreenNode extends Node {
     } );
 
     assert && assert( !options.children );
-    options.children = [ pullStringNode, knobNode, screenNode, topBarNode, bottomBarNode, cueingArrowsNode ];
+    options.children = [ pullStringNode, knobNode, topBarNode, bottomBarNode, cueingArrowsNode, screenNode ];
 
     super( options );
 
@@ -156,7 +157,17 @@ class ProjectionScreenNode extends Node {
       keyboardDragListener.dragBounds = dragBounds;
     } );
 
-    this.cueingArrowsNode = cueingArrowsNode;
+    Property.multilink(
+      [ GeometricOpticsGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty ],
+      ( cueingArrowsEnabled: boolean, inputEnabled: boolean ) => {
+        cueingArrowsNode.visible = ( cueingArrowsEnabled && inputEnabled );
+      }
+    );
+
+    this.resetProjectionScreenNode = () => {
+      cueingArrowsNode.visible = ( GeometricOpticsGlobalOptions.cueingArrowsEnabledProperty.value &&
+                                   this.inputEnabledProperty.value );
+    };
   }
 
   /**
@@ -171,7 +182,7 @@ class ProjectionScreenNode extends Node {
    * Reset this node
    */
   public reset() {
-    this.cueingArrowsNode.visible = true;
+    this.resetProjectionScreenNode();
   }
 }
 

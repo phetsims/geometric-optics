@@ -14,8 +14,6 @@ import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import geometricOptics from '../../geometricOptics.js';
-import LightSpot from '../../lens/model/LightSpot.js';
-import ProjectionScreen from '../../lens/model/ProjectionScreen.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import LightRays from './LightRays.js';
 import Optic from './Optic.js';
@@ -49,18 +47,6 @@ class GeometricOpticsModel {
   // target/ image associated with secondPoint
   readonly secondTarget: Target;
 
-  // model of the projection screen
-  //TODO irrelevant for MirrorModel, but required by LightRays constructor
-  readonly projectionScreen: ProjectionScreen;
-
-  // light spot associated with the first light source
-  //TODO irrelevant for MirrorModel
-  readonly firstLightSpot: LightSpot;
-
-  // light spot associated with the second light source
-  //TODO irrelevant for MirrorModel
-  readonly secondLightSpot: LightSpot;
-
   // elapsed time of light rays animation
   readonly lightRaysTimeProperty: NumberProperty;
 
@@ -84,6 +70,7 @@ class GeometricOpticsModel {
   constructor( optic: Optic, options?: any ) { //TYPESCRIPT any
 
     options = merge( {
+      barrier: null, // {Barrier|null}
       representation: RepresentationStaticInstances[ 0 ],
       representations: RepresentationStaticInstances,
 
@@ -105,24 +92,6 @@ class GeometricOpticsModel {
 
     this.secondTarget = new Target( this.secondPoint.positionProperty, this.optic, this.representationProperty );
 
-    this.projectionScreen = new ProjectionScreen( {
-      tandem: options.tandem.createTandem( 'projectionScreen' )
-    } );
-
-    this.firstLightSpot = new LightSpot(
-      this.sourceObject.positionProperty,
-      this.firstTarget.positionProperty,
-      this.projectionScreen,
-      this.optic
-    );
-
-    this.secondLightSpot = new LightSpot(
-      this.secondPoint.positionProperty,
-      this.secondTarget.positionProperty,
-      this.projectionScreen,
-      this.optic
-    );
-
     this.lightRaysTimeProperty = new NumberProperty( 0, {
       units: 's',
       range: new Range( 0, RAYS_ANIMATION_TIME )
@@ -142,9 +111,9 @@ class GeometricOpticsModel {
       this.raysModeProperty,
       this.representationProperty,
       this.sourceObject.positionProperty,
-      this.projectionScreen,
       this.optic,
-      this.firstTarget
+      this.firstTarget,
+      options.barrier
     );
 
     this.secondLightRays = new LightRays(
@@ -152,9 +121,9 @@ class GeometricOpticsModel {
       this.raysModeProperty,
       this.representationProperty,
       this.secondPoint.positionProperty,
-      this.projectionScreen,
       this.optic,
-      this.secondTarget
+      this.secondTarget,
+      options.barrier
     );
 
     this.horizontalRuler = new Ruler( 'horizontal',
@@ -178,7 +147,6 @@ class GeometricOpticsModel {
     this.secondPoint.reset();
     this.lightRaysTimeProperty.reset();
     this.raysModeProperty.reset();
-    this.projectionScreen.reset();
     this.horizontalRuler.reset();
     this.verticalRuler.reset();
   }

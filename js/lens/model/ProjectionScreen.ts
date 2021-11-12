@@ -14,6 +14,7 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import Barrier from '../../common/model/Barrier.js';
 import geometricOptics from '../../geometricOptics.js';
 
 // Dimensions of the screen, in cm. "Near" and "far" refer to pseudo-3D perspective.
@@ -22,7 +23,7 @@ const SCREEN_NEAR_HEIGHT = 134;
 const SCREEN_FAR_HEIGHT = 112;
 assert && assert( SCREEN_NEAR_HEIGHT > SCREEN_FAR_HEIGHT );
 
-class ProjectionScreen {
+class ProjectionScreen implements Barrier {
 
   // position of the center of the screen, in cm
   readonly positionProperty: Vector2Property;

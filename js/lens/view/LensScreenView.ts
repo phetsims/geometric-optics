@@ -20,6 +20,8 @@ import GuideNode from './GuideNode.js';
 import LightSpotNode from './LightSpotNode.js';
 import ProjectionScreenNode from './ProjectionScreenNode.js';
 import Representation from '../../common/model/Representation.js';
+import DebugPointNode from '../../common/view/DebugPointNode.js';
+import GeometricOpticsQueryParameters from '../../common/GeometricOpticsQueryParameters.js';
 
 class LensScreenView extends GeometricOpticsScreenView {
 
@@ -79,21 +81,17 @@ class LensScreenView extends GeometricOpticsScreenView {
     );
 
     // LightSpot associated with the first source
-    const firstLightSpotNode = new LightSpotNode(
-      model.firstLightSpot.intensityProperty,
-      model.firstLightSpot.screenIntersectionProperty,
-      this.modelViewTransform, {
-        visibleProperty: model.firstTarget.visibleProperty
-      } );
+    const firstLightSpotNode = new LightSpotNode( model.firstLightSpot, this.modelViewTransform, {
+      visibleProperty: model.firstTarget.visibleProperty
+      // DO NOT instrument for PhET-iO, see https://github.com/phetsims/geometric-optics/issues/269
+    } );
 
     // LightSpot associated with the second source
-    const secondLightSpotNode = new LightSpotNode(
-      model.secondLightSpot.intensityProperty,
-      model.secondLightSpot.screenIntersectionProperty,
-      this.modelViewTransform, {
-        visibleProperty: DerivedProperty.and(
-          [ model.secondTarget.visibleProperty, this.visibleProperties.secondPointVisibleProperty ] )
-      } );
+    const secondLightSpotNode = new LightSpotNode( model.secondLightSpot, this.modelViewTransform, {
+      visibleProperty: DerivedProperty.and(
+        [ model.secondTarget.visibleProperty, this.visibleProperties.secondPointVisibleProperty ] )
+      // DO NOT instrument for PhET-iO, see https://github.com/phetsims/geometric-optics/issues/269
+    } );
 
     // Add projection screen and light spots at the bottom of the z-layer.
     const lightSourceNodes = new Node( {
@@ -102,6 +100,10 @@ class LensScreenView extends GeometricOpticsScreenView {
         ( representation: Representation ) => !representation.isObject )
     } );
     this.experimentAreaNode.insertChild( 0, lightSourceNodes );
+
+    if ( GeometricOpticsQueryParameters.showPositions ) {
+      this.experimentAreaNode.addChild( new DebugPointNode( model.projectionScreen.positionProperty, this.modelViewTransform, options ) );
+    }
 
     // pdom -traversal order
     //TODO https://github.com/phetsims/scenery/issues/1308 an obfuscated way of inserting 1 Node into pdomOrder

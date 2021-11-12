@@ -26,6 +26,8 @@ import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import SecondPoint from '../model/SecondPoint.js';
 import lamp2_png from '../../../images/lamp2_png.js';
 import Representation from '../model/Representation.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import GeometricOpticsGlobalOptions from '../GeometricOpticsGlobalOptions.js';
 
 // constants
 const POINT_RADIUS = 5;
@@ -48,7 +50,7 @@ const CUEING_ARROW_OPTIONS = {
 
 class SecondPointNode extends Node {
 
-  private readonly cueingArrows: CueingArrows;
+  private readonly resetSecondPointNode: () => void;
 
   /**
    * @param {Property.<Representation>} representationProperty
@@ -61,13 +63,20 @@ class SecondPointNode extends Node {
                sourceObjectDragBoundsProperty: Property<Bounds2>,
                modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
 
+    options = merge( {
+
+      // phet-io options
+      tandem: Tandem.REQUIRED,
+      phetioInputEnabledPropertyInstrumented: true
+    }, options );
+
     super( options );
 
     // The point that represents the position of the second source.
     const pointNode = new PointNode( POINT_RADIUS );
 
     // Cueing arrows
-    this.cueingArrows = new CueingArrows( POINT_RADIUS + 10 );
+    const cueingArrowsNode = new CueingArrowsNode( POINT_RADIUS + 10 );
 
     // Light image for the second source
     const secondLightSourceImage = new Image( lamp2_png, {
@@ -114,7 +123,7 @@ class SecondPointNode extends Node {
       offsetPosition: () => representationProperty.value.isObject ? Vector2.ZERO : LIGHT_SOURCE_DRAG_OFFSET,
       drag: () => {
         if ( representationProperty.value.isObject ) {
-          this.cueingArrows.visible = false;
+          cueingArrowsNode.visible = false;
         }
       }
     } );
@@ -139,8 +148,8 @@ class SecondPointNode extends Node {
 
         // add point and cueing arrows
         this.addChild( pointNode );
-        this.addChild( this.cueingArrows );
-        this.cueingArrows.center = pointNode.center;
+        this.addChild( cueingArrowsNode );
+        cueingArrowsNode.center = pointNode.center;
         this.touchArea = Shape.circle( 0, 0, 2 * POINT_RADIUS + 10 );
       }
       else {
@@ -153,6 +162,18 @@ class SecondPointNode extends Node {
     } );
 
     secondPoint.positionProperty.link( position => updatePosition( position ) );
+
+    Property.multilink(
+      [ GeometricOpticsGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty ],
+      ( cueingArrowsEnabled: boolean, inputEnabled: boolean ) => {
+        cueingArrowsNode.visible = ( cueingArrowsEnabled && inputEnabled );
+      }
+    );
+
+    this.resetSecondPointNode = () => {
+      cueingArrowsNode.visible = ( GeometricOpticsGlobalOptions.cueingArrowsEnabledProperty.value &&
+                               this.inputEnabledProperty.value );
+    };
   }
 
   /**
@@ -167,7 +188,7 @@ class SecondPointNode extends Node {
    * Reset this node
    */
   public reset() {
-    this.cueingArrows.visible = true;
+    this.resetSecondPointNode();
   }
 
   /**
@@ -191,7 +212,7 @@ class PointNode extends Circle {
 }
 
 // Arrows for cueing the user that this Node can be moved up and down
-class CueingArrows extends VBox {
+class CueingArrowsNode extends VBox {
   constructor( spacing: number ) {
     super( {
       spacing: spacing,

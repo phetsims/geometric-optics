@@ -17,6 +17,7 @@ import RayIntersection from '../../../../kite/js/util/RayIntersection.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
+import Barrier from './Barrier.js';
 import LightRaySegment from './LightRaySegment.js';
 import Optic from './Optic.js';
 import Ray from './Ray.js';
@@ -48,12 +49,10 @@ class LightRay {
    * @param {Vector2} targetPoint - point of focus of all rays based on thin lens law
    * @param {boolean} isVirtual - is the image virtual
    * @param {boolean} isPrincipalRayMode - is the light ray mode set to Principal rays
-   * @param {boolean} isProjectionScreenPresent - is there a projection screen in the experiment area
-   * @param {function():Shape} getProjectionScreenBisectorLine - returns a Shape that bisects the middle of projection screen
+   * @param {Barrier|null} barrier - optional barrier that can block the ray
    */
   constructor( initialRay: Ray, time: number, optic: Optic, targetPoint: Vector2, isVirtual: boolean,
-               isPrincipalRayMode: boolean, isProjectionScreenPresent: boolean,
-               getProjectionScreenBisectorLine: () => Shape ) {
+               isPrincipalRayMode: boolean, barrier: Barrier | null ) {
 
     assert && AssertUtils.assertNonNegativeNumber( time );
 
@@ -66,11 +65,11 @@ class LightRay {
     // {Vector2|null} first intersection point - a null value implies that the initialRay does not intersect the optic
     const firstPoint = getFirstPoint( initialRay, optic, isPrincipalRayMode );
 
-    this.realRays = this.getRealRays( initialRay, firstPoint, optic, isPrincipalRayMode, targetPoint );
+    this.realRays = getRealRays( initialRay, firstPoint, optic, isPrincipalRayMode, targetPoint );
 
-    // if the last ray intercepts the projection screen, its final point will be set on the last ray
-    if ( isProjectionScreenPresent ) {
-      setFinalPointProjectionScreen( this.realRays, getProjectionScreenBisectorLine() );
+    // if the last ray intercepts the barrier, its final point will be set on the last ray
+    if ( barrier ) {
+      setFinalPointProjectionScreen( this.realRays, barrier.getBisectorLineTranslated() );
     }
 
     this.hasVirtualRay = hasVirtualComponent( isVirtual, this.realRays );
@@ -79,26 +78,26 @@ class LightRay {
                       getVirtualRay( this.realRays, targetPoint ) :
                       null;
 
-    this.isTargetReached = this.getHasReachedTarget( distanceTraveled, isProjectionScreenPresent, targetPoint );
+    this.isTargetReached = this.getHasReachedTarget( distanceTraveled, !!barrier, targetPoint );
 
     // process rays to convert them to line segments
     this.raysToSegments( distanceTraveled );
   }
 
   /**
-   * Has the rays reached the target (projection screen or target point)?
+   * Has the rays reached the target (barrier or target point)?
    * @param {number} distanceTraveled
-   * @param {boolean} isProjectionScreenPresent
+   * @param {boolean} isBarrierPresent
    * @param {Vector2} targetPoint
    * @returns {boolean}
    */
-  private getHasReachedTarget( distanceTraveled: number, isProjectionScreenPresent: boolean, targetPoint: Vector2 ) {
+  private getHasReachedTarget( distanceTraveled: number, isBarrierPresent: boolean, targetPoint: Vector2 ) {
 
     let distance = 0;
 
-    if ( isProjectionScreenPresent ) {
+    if ( isBarrierPresent ) {
 
-      // distance to screen
+      // distance to barrier
       for ( let i = 0; i < this.realRays.length; i++ ) {
         distance = distance + this.realRays[ i ].getLength();
       }
@@ -125,83 +124,6 @@ class LightRay {
 
     // only rays that have been refracted (or reflected) that have traveled long enough can reach the target.
     return this.realRays.length > 1 && distanceTraveled > distance;
-  }
-
-  /**
-   * Gets all the real rays that form a light ray. The transmitted ray (last ray) is set to be of infinite length by
-   * default This can be corrected later if the ray is intercepted by a projection screen
-   * @param {Ray} initialRay
-   * @param {Vector2|null} firstPoint
-   * @param {Optic} optic
-   * @param {boolean} isPrincipalRayMode
-   * @param {Vector2} targetPoint
-   * @returns {Ray[]} Rays
-   */
-  private getRealRays( initialRay: Ray, firstPoint: Vector2 | null, optic: Optic, isPrincipalRayMode: boolean, targetPoint: Vector2 ) {
-
-    // array to store all the rays
-    const rays = [];
-
-    // add the initial ray
-    rays.push( initialRay );
-
-    // we can only proceed if the first point (intersection point) exists,
-    // otherwise we bail out
-    if ( firstPoint ) {
-
-      // update the final point of the initial ray, since we hit something
-      initialRay.setFinalPoint( firstPoint );
-
-      // determine the ray(s) that come have the initial ray
-
-      // mirror and principal ray mode have only "one surface" to hit
-      if ( optic.isMirror() || isPrincipalRayMode ) {
-
-        // add the semi infinite transmitted transmitted ray
-        rays.push( getTransmittedRay( firstPoint, targetPoint, optic ) );
-      }
-      else {
-        // must be lens with light ray mode that is not principal rays
-
-        // {Vector2} find bisecting point of the lens, used to determine outgoin ray
-        const intermediatePoint = getIntermediatePoint( initialRay, firstPoint, optic );
-
-        // create a semi infinite ray starting at intermediate point to the target point
-        const transmittedRay = getTransmittedRay( intermediatePoint, targetPoint, optic );
-
-        // determine the intersection of the transmitted ray with the back shape of the optic
-        const backIntersection = getLensBackShape( optic ).intersection( transmittedRay );
-
-        // {Vector2|null} back shape point intersecting the transmitted ray
-        const backPoint = getPoint( backIntersection );
-
-        // if back point exists, add transmitted and internal ray
-        if ( backPoint instanceof Vector2 ) {
-
-          // ray that spans the front to the back of the lens
-          const internalRay = new Ray( firstPoint, backPoint.minus( firstPoint ).normalized() );
-
-          // set the internal ray back point
-          internalRay.setFinalPoint( backPoint );
-
-          // create a semi-infinite ray, starting at the back point, parallel to target point
-          const transmittedRay = getTransmittedRay( backPoint, targetPoint, optic );
-
-          // add the rays
-          rays.push( internalRay, transmittedRay );
-        }
-        else {
-          // back shape is not hit, see https://github.com/phetsims/geometric-optics/issues/124
-
-          // create a semi-infinite ray, starting at the front point, parallel to target point
-          const transmittedRay = getTransmittedRay( firstPoint, targetPoint, optic );
-
-          // add the rays
-          rays.push( transmittedRay );
-        }
-      }
-    }
-    return rays;
   }
 
   /**
@@ -262,6 +184,83 @@ function getFirstPoint( initialRay: Ray, optic: Optic, isPrincipalRayMode: boole
 }
 
 /**
+ * Gets all the real rays that form a light ray. The transmitted ray (last ray) is set to be of infinite length by
+ * default This can be corrected later if the ray is intercepted by a barrier
+ * @param {Ray} initialRay
+ * @param {Vector2|null} firstPoint
+ * @param {Optic} optic
+ * @param {boolean} isPrincipalRayMode
+ * @param {Vector2} targetPoint
+ * @returns {Ray[]} Rays
+ */
+function getRealRays( initialRay: Ray, firstPoint: Vector2 | null, optic: Optic, isPrincipalRayMode: boolean, targetPoint: Vector2 ) {
+
+  // array to store all the rays
+  const rays = [];
+
+  // add the initial ray
+  rays.push( initialRay );
+
+  // we can only proceed if the first point (intersection point) exists,
+  // otherwise we bail out
+  if ( firstPoint ) {
+
+    // update the final point of the initial ray, since we hit something
+    initialRay.setFinalPoint( firstPoint );
+
+    // determine the ray(s) that come have the initial ray
+
+    // mirror and principal ray mode have only "one surface" to hit
+    if ( optic.isMirror() || isPrincipalRayMode ) {
+
+      // add the semi infinite transmitted transmitted ray
+      rays.push( getTransmittedRay( firstPoint, targetPoint, optic ) );
+    }
+    else {
+      // must be lens with light ray mode that is not principal rays
+
+      // {Vector2} find bisecting point of the lens, used to determine outgoin ray
+      const intermediatePoint = getIntermediatePoint( initialRay, firstPoint, optic );
+
+      // create a semi infinite ray starting at intermediate point to the target point
+      const transmittedRay = getTransmittedRay( intermediatePoint, targetPoint, optic );
+
+      // determine the intersection of the transmitted ray with the back shape of the optic
+      const backIntersection = getLensBackShape( optic ).intersection( transmittedRay );
+
+      // {Vector2|null} back shape point intersecting the transmitted ray
+      const backPoint = getPoint( backIntersection );
+
+      // if back point exists, add transmitted and internal ray
+      if ( backPoint instanceof Vector2 ) {
+
+        // ray that spans the front to the back of the lens
+        const internalRay = new Ray( firstPoint, backPoint.minus( firstPoint ).normalized() );
+
+        // set the internal ray back point
+        internalRay.setFinalPoint( backPoint );
+
+        // create a semi-infinite ray, starting at the back point, parallel to target point
+        const transmittedRay = getTransmittedRay( backPoint, targetPoint, optic );
+
+        // add the rays
+        rays.push( internalRay, transmittedRay );
+      }
+      else {
+        // back shape is not hit, see https://github.com/phetsims/geometric-optics/issues/124
+
+        // create a semi-infinite ray, starting at the front point, parallel to target point
+        const transmittedRay = getTransmittedRay( firstPoint, targetPoint, optic );
+
+        // add the rays
+        rays.push( transmittedRay );
+      }
+    }
+  }
+  return rays;
+}
+
+/**
  * Gets an "intermediate" point. Find the point of intersection of the initial ray with an imaginary vertical line
  * at position share by the optic position
  * @param {Ray} initialRay
@@ -283,7 +282,7 @@ function getIntermediatePoint( initialRay: Ray, firstPoint: Vector2, optic: Opti
 }
 
 /**
- * Sets the final point of the real ray if it intersects with the vertical median of the projection screen.
+ * Sets the final point of the real ray if it intersects with the vertical median of the barrier.
  * @param {Ray[]} realRays
  * @param {Shape} projectionScreenBisectorLine
  */
@@ -292,7 +291,7 @@ function setFinalPointProjectionScreen( realRays: Ray[], projectionScreenBisecto
   // ensure that real rays has at least one ray
   if ( realRays.length > 0 ) {
 
-    // the projection screen can only intersect with the last ray
+    // the barrier can only intersect with the last ray
     const lastRay = realRays[ realRays.length - 1 ];
 
     const intersection = projectionScreenBisectorLine.intersection( lastRay );

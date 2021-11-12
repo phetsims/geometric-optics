@@ -1,5 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TYPESCRIPT what is the pattern for string enums?
 /**
  * RaysMode is the enumeration for the different representations of rays, as set by the 'Rays' radio button group.
  *
@@ -11,7 +12,6 @@ import geometricOptics from '../../geometricOptics.js';
 const RaysModeValues = [ 'marginal', 'principal', 'many', 'none' ] as const;
 type RaysModeEnum = ( typeof RaysModeValues )[number];
 
-//TYPESCRIPT is this OK? We're registering values, not type, and it doesn't match the filename.
 geometricOptics.register( 'RaysModeValues', RaysModeValues );
 
 export default RaysModeEnum;

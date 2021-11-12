@@ -211,12 +211,15 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // the source object or first light source
     const sourceObjectNode = new SourceObjectNode( model.representationProperty, model.sourceObject,
-      modelBoundsProperty, model.optic.positionProperty, modelViewTransform );
+      modelBoundsProperty, model.optic.positionProperty, modelViewTransform, {
+      tandem: options.tandem.createTandem( 'sourceObjectNode' )
+      } );
 
     // the second point or second light source
     const secondPointNode = new SecondPointNode( model.representationProperty, model.secondPoint,
       sourceObjectNode.dragBoundsProperty, modelViewTransform, {
-        visibleProperty: visibleProperties.secondPointVisibleProperty
+        visibleProperty: visibleProperties.secondPointVisibleProperty,
+        tandem: options.tandem.createTandem( 'secondPointNode' )
       } );
 
     const opticalAxis = new OpticalAxis( model.optic.positionProperty, modelBoundsProperty, modelViewTransform, {
@@ -314,7 +317,6 @@ class GeometricOpticsScreenView extends ScreenView {
       experimentAreaNode.addChild( new DebugPointNode( model.sourceObject.positionProperty, modelViewTransform, options ) );
       experimentAreaNode.addChild( new DebugPointNode( model.secondPoint.lightSourcePositionProperty, modelViewTransform, options ) );
       experimentAreaNode.addChild( new DebugPointNode( model.firstTarget.positionProperty, modelViewTransform, options ) );
-      experimentAreaNode.addChild( new DebugPointNode( model.projectionScreen.positionProperty, modelViewTransform, options ) );
     }
 
     // Add points at a distance 2f on each side of optic

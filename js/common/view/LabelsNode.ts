@@ -15,23 +15,24 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import LabelNode from './LabelNode.js';
-import GeometricOpticsModel from '../model/GeometricOpticsModel.js';
 import VisibleProperties from './VisibleProperties.js';
 import Property from '../../../../axon/js/Property.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Representation from '../model/Representation.js';
+import LensModel from '../../lens/model/LensModel.js';
+import MirrorModel from '../../mirror/model/MirrorModel.js';
 
 class LabelsNode extends Node {
 
   /**
-   * @param {GeometricOpticsModel} model
+   * @param {LensModel|MirrorModel} model
    * @param {VisibleProperties} visibleProperties
    * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
    * @param {Property.<number>} zoomLevelProperty
    * @param {Object} [options]
    */
-  constructor( model: GeometricOpticsModel, visibleProperties: VisibleProperties,
+  constructor( model: LensModel | MirrorModel, visibleProperties: VisibleProperties,
                modelViewTransformProperty: Property<ModelViewTransform2>,
                zoomLevelProperty: Property<number>, options?: any ) { //TYPESCRIPT any
 
@@ -116,18 +117,22 @@ class LabelsNode extends Node {
 
     // Screen label ------------------------------------------------------------------------------------
 
-    //TODO irrelevant for Mirror screen
-    const screenLabelPositionProperty = new DerivedProperty<Vector2>(
-      [ model.projectionScreen.positionProperty ],
-      ( position: Vector2 ) => new Vector2( position.x - 25, position.y - 65 ) // empirically, model coordinates
-    );
+    //TODO this is a temporary hack, because projectionScreen is irrelevant for Mirror screen
+    let screenLabel;
+    if ( model instanceof LensModel ) {
 
-    const screenLabel = new LabelNode( geometricOpticsStrings.projectionScreen, screenLabelPositionProperty, modelViewTransformProperty, {
-      visibleProperty: new DerivedProperty<boolean>(
-        [ model.representationProperty ],
-        ( representation: Representation ) => !representation.isObject
-      )
-    } );
+      const screenLabelPositionProperty = new DerivedProperty<Vector2>(
+        [ model.projectionScreen.positionProperty ],
+        ( position: Vector2 ) => new Vector2( position.x - 25, position.y - 65 ) // empirically, model coordinates
+      );
+
+      screenLabel = new LabelNode( geometricOpticsStrings.projectionScreen, screenLabelPositionProperty, modelViewTransformProperty, {
+        visibleProperty: new DerivedProperty<boolean>(
+          [ model.representationProperty ],
+          ( representation: Representation ) => !representation.isObject
+        )
+      } );
+    }
 
     // Optical Axis label ------------------------------------------------------------------------------------
 
@@ -146,8 +151,11 @@ class LabelsNode extends Node {
     options.children = [
       opticalAxisLabel,
       leftFocalPointLabel, rightFocalPointLabel,
-      opticLabel, objectLabel, imageLabel, screenLabel
+      opticLabel, objectLabel, imageLabel
     ];
+    if ( screenLabel ) {
+      options.children.push( screenLabel );
+    }
 
     super( options );
   }

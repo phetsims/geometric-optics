@@ -19,6 +19,9 @@ import SourceObject from '../model/SourceObject.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Representation from '../model/Representation.js';
 import UnconstrainedCueingArrowsNode from './UnconstrainedCueingArrowsNode.js';
+import GeometricOpticsGlobalOptions from '../GeometricOpticsGlobalOptions.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import merge from '../../../../phet-core/js/merge.js';
 
 // Closest that source object can be moved to the optic, in cm. This avoid problems that occur when the object is
 // too close to a mirror. See https://github.com/phetsims/geometric-optics/issues/73
@@ -28,7 +31,7 @@ class SourceObjectNode extends Node {
 
   // so that 1st and 2nd light source can share drag bounds
   public readonly dragBoundsProperty: Property<Bounds2>;
-  private readonly cueingArrowsNode: Node;
+  private readonly resetSourceObjectNode: () => void;
 
   /**
    * @param {Property.<Representation>} representationProperty
@@ -36,19 +39,28 @@ class SourceObjectNode extends Node {
    * @param {Property.<Bounds2>} modelBoundsProperty
    * @param {Property.<Vector2>} opticPositionProperty
    * @param {ModelViewTransform2} modelViewTransform
+   * @param {Object} [options]
    * */
   constructor( representationProperty: Property<Representation>, sourceObject: SourceObject,
                modelBoundsProperty: Property<Bounds2>, opticPositionProperty: Property<Vector2>,
-               modelViewTransform: ModelViewTransform2 ) {
+               modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
+
+    options = merge( {
+
+      // phet-io
+      tandem: Tandem.REQUIRED,
+      phetioInputEnabledPropertyInstrumented: true
+    }, options );
 
     // Origin of this Node is at the upper-left corner of sourceObjectImage.
     const sourceObjectImage = new Image( representationProperty.value.rightFacingUpright );
 
     const cueingArrowsNode = new UnconstrainedCueingArrowsNode();
 
-    super( {
-      children: [ sourceObjectImage, cueingArrowsNode ]
-    } );
+    assert && assert( !options.children );
+    options.children = [ sourceObjectImage, cueingArrowsNode ];
+
+    super( options );
 
     // Keep cueing arrows next to the source object.
     sourceObjectImage.boundsProperty.link( ( bounds: Bounds2 ) => {
@@ -119,7 +131,17 @@ class SourceObjectNode extends Node {
       translateSourceObject( sourceObject.leftTopProperty.value );
     } );
 
-    this.cueingArrowsNode = cueingArrowsNode;
+    Property.multilink(
+      [ GeometricOpticsGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty ],
+      ( cueingArrowsEnabled: boolean, inputEnabled: boolean ) => {
+        cueingArrowsNode.visible = ( cueingArrowsEnabled && inputEnabled );
+      }
+    );
+
+    this.resetSourceObjectNode = () => {
+      cueingArrowsNode.visible = ( GeometricOpticsGlobalOptions.cueingArrowsEnabledProperty.value &&
+                                   this.inputEnabledProperty.value );
+    };
   }
 
   /**
@@ -134,7 +156,7 @@ class SourceObjectNode extends Node {
    * Reset this node
    */
   public reset() {
-    this.cueingArrowsNode.visible = true;
+    this.resetSourceObjectNode();
   }
 }
 
