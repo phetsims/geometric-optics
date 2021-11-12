@@ -88,7 +88,7 @@ class LightSpot {
           return null;
         }
         else {
-          return getDiskParameters( optic, projectionScreen.positionProperty.value,
+          return getPositionAndDiameter( optic, projectionScreen.positionProperty.value,
             sourcePositionProperty.value, targetPositionProperty.value ).position;
         }
       }, {
@@ -105,9 +105,8 @@ class LightSpot {
           return null;
         }
         else {
-          const radius = getDiskParameters( optic, projectionScreen.positionProperty.value,
-            sourcePositionProperty.value, targetPositionProperty.value ).radiusY;
-          return 2 * radius;
+          return getPositionAndDiameter( optic, projectionScreen.positionProperty.value,
+            sourcePositionProperty.value, targetPositionProperty.value ).diameter;
         }
       }, {
         units: 'cm',
@@ -128,7 +127,7 @@ class LightSpot {
  * @returns {Shape}
  */
 function getLightSpotShape( optic: Optic, projectionScreenPosition: Vector2, sourcePosition: Vector2,
-                                targetPosition: Vector2, screenShape: Shape ) {
+                            targetPosition: Vector2, screenShape: Shape ) {
 
   // unclipped elliptical disk shape
   const ellipseShape = getEllipseShape( optic, projectionScreenPosition, sourcePosition, targetPosition );
@@ -152,13 +151,16 @@ function getLightSpotShape( optic: Optic, projectionScreenPosition: Vector2, sou
  */
 function getEllipseShape( optic: Optic, projectionScreenPosition: Vector2, sourcePosition: Vector2, targetPosition: Vector2 ) {
 
-  // get the parameters for the unclipped light spot.
+  // get the position and diameter for the unclipped light spot.
   const {
-    position, radiusX, radiusY
-  } = getDiskParameters( optic, projectionScreenPosition, sourcePosition, targetPosition );
+    position,
+    diameter
+  } = getPositionAndDiameter( optic, projectionScreenPosition, sourcePosition, targetPosition );
 
-  // return an ellipse with the shape parameters
-  return Shape.ellipse( position.x, position.y, radiusX, radiusY, 2 * Math.PI );
+  // arbitrarily set the aspect ratio ot 1:2 to give 3D perspective
+  const diameterX = diameter / 2;
+
+  return Shape.ellipse( position.x, position.y, diameterX / 2, diameter / 2, 2 * Math.PI );
 }
 
 /**
@@ -167,29 +169,21 @@ function getEllipseShape( optic: Optic, projectionScreenPosition: Vector2, sourc
  * @param {Vector2} projectionScreenPosition
  * @param {Vector2} sourcePosition
  * @param {Vector2} targetPosition
- * @returns {position:Vector2, radiusX:number, radiusY: number}
+ * @returns {position:Vector2, diameter: number}
  */
-function getDiskParameters( optic: Optic, projectionScreenPosition: Vector2, sourcePosition: Vector2, targetPosition: Vector2 ) {
+function getPositionAndDiameter( optic: Optic, projectionScreenPosition: Vector2, sourcePosition: Vector2, targetPosition: Vector2 ) {
 
   // get the extrema points on the optic
   const opticTopPoint = optic.getTopPoint( sourcePosition, targetPosition );
   const opticBottomPoint = optic.getBottomPoint( sourcePosition, targetPosition );
 
-  // determine the top and bottom position of the unclipped disk
+  // determine the top and bottom position of the unclipped light spot
   const diskTopPosition = getIntersectionPosition( projectionScreenPosition, opticTopPoint, targetPosition );
   const diskBottomPosition = getIntersectionPosition( projectionScreenPosition, opticBottomPoint, targetPosition );
 
-  // determine the position and y radius of the disk
-  const diskCenterPosition = diskTopPosition.average( diskBottomPosition );
-  const radiusY = diskTopPosition.distance( diskBottomPosition ) / 2;
-
-  // arbitrarily set the aspect ratio ot 1/2 to give 3D perspective
-  const radiusX = radiusY / 2;  //TODO factor out ASPECT_RATIO? Is it used elsewhere?
-
   return {
-    position: diskCenterPosition,
-    radiusX: radiusX,
-    radiusY: radiusY
+    position: diskTopPosition.average( diskBottomPosition ),
+    diameter: diskTopPosition.distance( diskBottomPosition )
   };
 }
 
@@ -207,10 +201,10 @@ function getDiskParameters( optic: Optic, projectionScreenPosition: Vector2, sou
 function getIntensity( optic: Optic, projectionScreenPosition: Vector2, sourcePosition: Vector2, targetPosition: Vector2 ) {
 
   // {number} vertical radius of the unclipped light spot
-  const { radiusY } = getDiskParameters( optic, projectionScreenPosition, sourcePosition, targetPosition );
+  const { diameter } = getPositionAndDiameter( optic, projectionScreenPosition, sourcePosition, targetPosition );
 
   let intensity;
-  if ( radiusY === 0 ) {
+  if ( diameter === 0 ) {
 
     // avoid division by zero
     intensity = INTENSITY_RANGE.max;
@@ -218,8 +212,7 @@ function getIntensity( optic: Optic, projectionScreenPosition: Vector2, sourcePo
   else {
 
     // Saturates to max intensity for a spot height less than FULL_INTENSITY_LIGHT_SPOT_HEIGHT.
-    const spotHeight = 2 * radiusY;
-    intensity = INTENSITY_RANGE.constrainValue( FULL_INTENSITY_LIGHT_SPOT_HEIGHT / spotHeight );
+    intensity = INTENSITY_RANGE.constrainValue( FULL_INTENSITY_LIGHT_SPOT_HEIGHT / diameter );
   }
   assert && assert( INTENSITY_RANGE.contains( intensity ) );
   return intensity;
