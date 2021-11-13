@@ -122,7 +122,7 @@ class RulersToolbox extends Panel {
  * @param {boolean} tickMarksOnBottom
  * @returns {RulerNode} rulerIconNode
  */
-function createRulerIcon( isVertical: boolean, tickMarksOnBottom: boolean ) {
+function createRulerIcon( isVertical: boolean, tickMarksOnBottom: boolean ): RulerNode {
 
   const rulerWidth = 400;
   const rulerHeight = 0.35 * rulerWidth;

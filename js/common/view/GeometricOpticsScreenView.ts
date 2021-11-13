@@ -451,7 +451,7 @@ class GeometricOpticsScreenView extends ScreenView {
  * @param {number} oldZoomLevel
  * @returns {number}
  */
-function getRelativeScale( zoomLevel: number, oldZoomLevel: number ) {
+function getRelativeScale( zoomLevel: number, oldZoomLevel: number ): number {
   const base = 2;
   const scale = Math.pow( base, zoomLevel );
   const oldScale = Math.pow( base, oldZoomLevel );

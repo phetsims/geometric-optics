@@ -55,7 +55,7 @@ class MirrorScreen extends Screen {
  * Creates the icon for this screen.
  * @returns {ScreenIcon}
  */
-function createScreenIcon() {
+function createScreenIcon(): ScreenIcon {
 
   const concaveMirrorNode = OpticShapeRadioButtonGroup.createIconNode( 'mirror', 'concave', {
     radius: 20,

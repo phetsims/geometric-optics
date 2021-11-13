@@ -104,7 +104,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
  * @param {Node} [iconNode]
  * @returns {Node}
  */
-function createLabel( string: string, iconNode?: Node ) {
+function createLabel( string: string, iconNode?: Node ): Node {
 
   const textNode = new Text( string, {
     font: GeometricOpticsConstants.CONTROL_FONT,

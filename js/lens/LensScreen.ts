@@ -55,7 +55,7 @@ class LensScreen extends Screen {
  * Creates the icon for this screen.
  * @returns {ScreenIcon}
  */
-function createScreenIcon() {
+function createScreenIcon(): ScreenIcon {
 
   const convexLensNode = OpticShapeRadioButtonGroup.createIconNode( 'lens', 'convex', {
     radius: 20,

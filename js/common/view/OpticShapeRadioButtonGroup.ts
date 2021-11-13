@@ -91,6 +91,7 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeE
  * @param {OpticShapeEnum} opticShape
  * @returns {value:OpticTypeEnum, node:Node, tandemName:string}
  */
+//TYPESCRIPT needs a return type
 function createItem( opticType: OpticTypeEnum, opticShape: OpticShapeEnum ) {
   return {
     value: opticShape,

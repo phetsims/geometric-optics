@@ -50,6 +50,7 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysModeEnum> {
  * @param {string} text
  * @returns {{value: RaysModeEnum, node: Text, tandemName: string}} item
  */
+//TYPESCRIPT needs a return type
 function createItem( value: RaysModeEnum, text: string ) {
   return {
     value: value,

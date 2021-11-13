@@ -178,7 +178,7 @@ class LightRay {
  * @param {boolean} isPrincipalRayMode
  * @returns {Vector2|null}
  */
-function getFirstPoint( initialRay: Ray, optic: Optic, isPrincipalRayMode: boolean ) {
+function getFirstPoint( initialRay: Ray, optic: Optic, isPrincipalRayMode: boolean ): Vector2 | null {
   const firstIntersection = getFirstShape( optic, isPrincipalRayMode ).intersection( initialRay );
   return getPoint( firstIntersection );
 }
@@ -193,7 +193,8 @@ function getFirstPoint( initialRay: Ray, optic: Optic, isPrincipalRayMode: boole
  * @param {Vector2} targetPoint
  * @returns {Ray[]} Rays
  */
-function getRealRays( initialRay: Ray, firstPoint: Vector2 | null, optic: Optic, isPrincipalRayMode: boolean, targetPoint: Vector2 ) {
+function getRealRays( initialRay: Ray, firstPoint: Vector2 | null, optic: Optic, isPrincipalRayMode: boolean,
+                      targetPoint: Vector2 ): Ray[] {
 
   // array to store all the rays
   const rays = [];
@@ -268,7 +269,7 @@ function getRealRays( initialRay: Ray, firstPoint: Vector2 | null, optic: Optic,
  * @param {Optic} optic
  * @returns {Vector2}
  */
-function getIntermediatePoint( initialRay: Ray, firstPoint: Vector2, optic: Optic ) {
+function getIntermediatePoint( initialRay: Ray, firstPoint: Vector2, optic: Optic ): Vector2 {
 
   // displacement vector from the source to the optic position
   const opticSourceVector = optic.positionProperty.value.minus( initialRay.position );
@@ -286,7 +287,7 @@ function getIntermediatePoint( initialRay: Ray, firstPoint: Vector2, optic: Opti
  * @param {Ray[]} realRays
  * @param {Shape} projectionScreenBisectorLine
  */
-function setFinalPointProjectionScreen( realRays: Ray[], projectionScreenBisectorLine: Shape ) {
+function setFinalPointProjectionScreen( realRays: Ray[], projectionScreenBisectorLine: Shape ): void {
 
   // ensure that real rays has at least one ray
   if ( realRays.length > 0 ) {
@@ -311,7 +312,7 @@ function setFinalPointProjectionScreen( realRays: Ray[], projectionScreenBisecto
  * @param {Optic} optic
  * @returns {Shape}
  */
-function getLensBackShape( optic: Optic ) {
+function getLensBackShape( optic: Optic ): Shape {
   assert && assert( optic.isLens(), 'optic must be Lens' );
   const backShape = optic.shapesProperty.value.backShape; // {Shape|null}
   assert && assert( backShape );
@@ -324,7 +325,7 @@ function getLensBackShape( optic: Optic ) {
  * @param {boolean} isPrincipalRayMode
  * @returns {Shape}
  */
-function getFirstShape( optic: Optic, isPrincipalRayMode: boolean ) {
+function getFirstShape( optic: Optic, isPrincipalRayMode: boolean ): Shape {
 
   // for principal rays, the rays are refracted at a vertical line
   if ( isPrincipalRayMode ) {
@@ -344,7 +345,7 @@ function getFirstShape( optic: Optic, isPrincipalRayMode: boolean ) {
  * @param {Array.<RayIntersection>} intersection
  * @returns {Vector2|null}
  */
-function getPoint( intersection: RayIntersection[] ) {
+function getPoint( intersection: RayIntersection[] ): Vector2 | null {
   assert && assert( Array.isArray( intersection ) && _.every( intersection, element => element instanceof RayIntersection ) );
 
   // all shapes have been defined as line (straight or curved) so there can only be one intersection point at most
@@ -363,7 +364,7 @@ function getPoint( intersection: RayIntersection[] ) {
  * @param {Optic} optic
  * @returns {Ray}
  */
-function getTransmittedRay( originPoint: Vector2, targetPoint: Vector2, optic: Optic ) {
+function getTransmittedRay( originPoint: Vector2, targetPoint: Vector2, optic: Optic ): Ray {
 
   const direction = originPoint.minus( targetPoint ).normalized();
 
@@ -381,7 +382,7 @@ function getTransmittedRay( originPoint: Vector2, targetPoint: Vector2, optic: O
  * @param {Vector2} targetPoint
  * @returns {Ray|null} virtualRay
  */
-function getVirtualRay( realRays: Ray[], targetPoint: Vector2 ) {
+function getVirtualRay( realRays: Ray[], targetPoint: Vector2 ): Ray | null {
 
   // to have a virtual ray, the initial ray must be deflected
   if ( realRays.length > 1 ) {
@@ -419,7 +420,7 @@ function getVirtualRay( realRays: Ray[], targetPoint: Vector2 ) {
  * @param {Ray[]} realRays
  * @returns {boolean}
  */
-function hasVirtualComponent( isImageVirtual: boolean, realRays: Ray[] ) {
+function hasVirtualComponent( isImageVirtual: boolean, realRays: Ray[] ): boolean {
 
   // is the image virtual and has the real rays refracted
   return isImageVirtual && realRays.length > 1;

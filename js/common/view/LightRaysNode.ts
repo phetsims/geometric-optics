@@ -82,7 +82,8 @@ class LightRaysNode extends Node {
  * @param {number} lineWidth
  * @returns {Line[]}
  */
-function segmentsToLines( segments: LightRaySegment[], modelViewTransform: ModelViewTransform2, stroke: ColorDef, lineWidth: number ) {
+function segmentsToLines( segments: LightRaySegment[], modelViewTransform: ModelViewTransform2, stroke: ColorDef,
+                          lineWidth: number ): Line[] {
 
   assert && assert( lineWidth > 0 );
 

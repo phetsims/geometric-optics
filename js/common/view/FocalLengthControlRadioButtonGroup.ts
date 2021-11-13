@@ -46,6 +46,7 @@ class FocalLengthControlRadioButtonGroup extends VerticalAquaRadioButtonGroup<Fo
  * @param {string} text
  * @returns {{value: FocalLengthControlEnum, node: Text, tandemName: string}} item
  */
+//TYPESCRIPT needs a return type
 function createItem( value: FocalLengthControlEnum, text: string ) {
   return {
     value: value,

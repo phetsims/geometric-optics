@@ -207,7 +207,7 @@ class Target {
  * @param {Vector2} opticPosition
  * @returns {number}
  */
-function getObjectOpticDistance( objectPosition: Vector2, opticPosition: Vector2 ) {
+function getObjectOpticDistance( objectPosition: Vector2, opticPosition: Vector2 ): number {
   return opticPosition.x - objectPosition.x;
 }
 
