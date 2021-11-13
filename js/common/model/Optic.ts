@@ -24,6 +24,7 @@ import Property from '../../../../axon/js/Property.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import required from '../../../../phet-core/js/required.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 
 class Optic {
 
@@ -182,7 +183,15 @@ class Optic {
     } );
   }
 
-  public reset() {
+  /**
+   * Convenience method for getting the maximum diameter, in cm.
+   * @returns {number}
+   */
+  public get maxDiameter(): number {
+    return this.diameterProperty.rangeProperty.value.max;
+  }
+
+  public reset(): void {
     this.opticShapeProperty.reset();
     this.positionProperty.reset();
     this.radiusOfCurvatureProperty.reset();
@@ -191,18 +200,10 @@ class Optic {
   }
 
   /**
-   * Convenience method for getting the maximum diameter, in cm.
-   * @returns {number}
-   */
-  public get maxDiameter() {
-    return this.diameterProperty.rangeProperty.value.max;
-  }
-
-  /**
    * Determines whether the optic is a lens.
    * @returns {boolean}
    */
-  public isLens() {
+  public isLens(): boolean {
     return ( this.opticType === 'lens' );
   }
 
@@ -210,7 +211,7 @@ class Optic {
    * Determines whether the optic is a mirror.
    * @returns {boolean}
    */
-  public isMirror() {
+  public isMirror(): boolean {
     return ( this.opticType === 'mirror' );
   }
 
@@ -219,7 +220,7 @@ class Optic {
    * @param {OpticShapeEnum} opticShape
    * @returns {boolean}
    */
-  public isConcave( opticShape: OpticShapeEnum ) {
+  public isConcave( opticShape: OpticShapeEnum ): boolean {
     return ( opticShape === 'concave' );
   }
 
@@ -228,7 +229,7 @@ class Optic {
    * @param {OpticShapeEnum} opticShape
    * @returns {boolean}
    */
-  public isConvex( opticShape: OpticShapeEnum ) {
+  public isConvex( opticShape: OpticShapeEnum ): boolean {
     return ( opticShape === 'convex' );
   }
 
@@ -238,7 +239,7 @@ class Optic {
    * @param {OpticShapeEnum} opticShape
    * @returns {boolean}
    */
-  public isConverging( opticShape: OpticShapeEnum ) {
+  public isConverging( opticShape: OpticShapeEnum ): boolean {
     return ( this.isConvex( opticShape ) && this.isLens() ) || ( this.isConcave( opticShape ) && this.isMirror() );
   }
 
@@ -247,18 +248,19 @@ class Optic {
    * @param {OpticShapeEnum} opticShape
    * @returns {boolean}
    */
-  public isDiverging( opticShape: OpticShapeEnum ) {
+  public isDiverging( opticShape: OpticShapeEnum ): boolean {
     return !this.isConverging( opticShape );
   }
 
   //TODO handle with subclassing
   //TODO better documentation, why +1 and -1 ?
+  //TYPESCRIPT create a type for 1 | -1 ?
   /**
    * Convenience function for mathematical operations.
    * Returns +1 for a lens, -1 for a mirror.
-   * @returns {number}
+   * @returns {1 | -1}
    */
-  public getSign() {
+  public getSign(): 1 | -1 {
     return this.isLens() ? 1 : -1;
   }
 
@@ -267,7 +269,7 @@ class Optic {
    * @param {Shape} shape
    * @returns {Shape}
    */
-  public translatedShape( shape: Shape ) {
+  public translatedShape( shape: Shape ): Shape {
     return shape.transformed( Matrix3.translationFromVector( this.positionProperty.value ) );
   }
 
@@ -276,7 +278,7 @@ class Optic {
    * In practice, it means that we exclude the backing (fill) of the mirror
    * @returns {Bounds2}
    */
-  public getOpticBounds() {
+  public getOpticBounds(): Bounds2 {
     const outlineShape = this.shapesProperty.value.outlineShape;
     const translatedShape = this.translatedShape( outlineShape );
     return translatedShape.getBounds();
@@ -286,7 +288,7 @@ class Optic {
    * Returns the Shape of the vertical axis, in model coordinates.
    * @returns {Shape}
    */
-  public getVerticalAxis() {
+  public getVerticalAxis(): Shape {
 
     const yMax = 800; // long enough for all zoom levels, in cm
 
@@ -302,7 +304,7 @@ class Optic {
    * @param {Vector2} targetPoint
    * @returns {Vector2}
    */
-  public getTopPoint( sourcePoint: Vector2, targetPoint: Vector2 ) {
+  public getTopPoint( sourcePoint: Vector2, targetPoint: Vector2 ): Vector2 {
     return this.getExtremumPoint( sourcePoint, targetPoint, true /* isTop */ );
   }
 
@@ -312,7 +314,7 @@ class Optic {
    * @param {Vector2} targetPoint
    * @returns {Vector2}
    */
-  public getBottomPoint( sourcePoint: Vector2, targetPoint: Vector2 ) {
+  public getBottomPoint( sourcePoint: Vector2, targetPoint: Vector2 ): Vector2 {
     return this.getExtremumPoint( sourcePoint, targetPoint, false /* isTop */ );
   }
 
@@ -324,7 +326,7 @@ class Optic {
    * @param {boolean} isTop
    * @returns {Vector2}
    */
-  private getExtremumPoint( sourcePoint: Vector2, targetPoint: Vector2, isTop: boolean ) {
+  private getExtremumPoint( sourcePoint: Vector2, targetPoint: Vector2, isTop: boolean ): Vector2 {
 
     // Erode the bounds a tiny bit so that the point is always within the bounds.
     const opticBounds = this.getOpticBounds().erodedY( 1e-6 );

@@ -106,13 +106,14 @@ class Representation {
    * Gets the scale factor to use for this RepresentationValue.
    * @returns {number}
    */
-  public getScaleFactor() {
+  //TODO convert to field, computed in constructor
+  public getScaleFactor(): number {
     return this.isObject ? OBJECT_SCALE_FACTOR : SOURCE_SCALE_FACTOR;
   }
 }
 
 // static instances of Representation
-const RepresentationStaticInstances = [
+const RepresentationStaticInstances: Representation[] = [
 
   // Pencil
   new Representation( {

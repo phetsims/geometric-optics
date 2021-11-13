@@ -47,7 +47,7 @@ class Ruler {
   /**
    * Resets the model.
    */
-  public reset() {
+  public reset(): void {
     this.positionProperty.reset();
   }
 
@@ -55,7 +55,7 @@ class Ruler {
    * Sets the length of the ruler based on multiplicative factor of absoluteScale.
    * @param {number} absoluteScale
    */
-  public scaleLength( absoluteScale: number ) {
+  public scaleLength( absoluteScale: number ): void {
     assert && assert( isFinite( absoluteScale ) && absoluteScale > 0 );
     this.length = this.nominalLength * absoluteScale;
   }
@@ -64,7 +64,7 @@ class Ruler {
    * Is the ruler vertical?
    * @returns {boolean}
    */
-  public isVertical() {
+  public isVertical(): boolean {
     return ( this.orientation === 'vertical' );
   }
 }

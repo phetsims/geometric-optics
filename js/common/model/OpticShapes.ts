@@ -61,7 +61,9 @@ class OpticShapes {
    * @param {number} diameter - height of the lens
    * @param {Object} [options]
    */
-  private setLensShapes( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number, options?: any ) { //TYPESCRIPT any
+  //TYPESCRIPT any
+  //TYPESCRIPT return type
+  private setLensShapes( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number, options?: any ) {
 
     options = merge( {
       isHollywooded: true, // does the radius of curvature parameter match the shape of the lens?
@@ -163,7 +165,9 @@ class OpticShapes {
    * @param {number} diameter - vertical height of the mirror
    * @param {Object} [options]
    */
-  private setMirrorShapes( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number, options?: any ) { //TYPESCRIPT any
+  //TYPESCRIPT any
+  //TYPESCRIPT return type
+  private setMirrorShapes( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number, options?: any ) {
     assert && assert( radiusOfCurvature > diameter / 2 );
 
     options = merge( {

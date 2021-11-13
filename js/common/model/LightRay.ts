@@ -91,7 +91,7 @@ class LightRay {
    * @param {Vector2} targetPoint
    * @returns {boolean}
    */
-  private getHasReachedTarget( distanceTraveled: number, isBarrierPresent: boolean, targetPoint: Vector2 ) {
+  private getHasReachedTarget( distanceTraveled: number, isBarrierPresent: boolean, targetPoint: Vector2 ): boolean {
 
     let distance = 0;
 
@@ -130,7 +130,7 @@ class LightRay {
    * Processes all the rays (virtual and real) into line segments.
    * @param {number} distanceTraveled
    */
-  private raysToSegments( distanceTraveled: number ) {
+  private raysToSegments( distanceTraveled: number ): void {
 
     // {number} remaining distance to travel for the ray
     let remainingDistance = distanceTraveled;

@@ -172,7 +172,7 @@ class Target {
   /**
    * @override
    */
-  public dispose() {
+  public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
   }
 
@@ -183,7 +183,7 @@ class Target {
    * @param {Vector2} opticPosition
    * @returns {number}
    */
-  private getMagnification( objectPosition: Vector2, opticPosition: Vector2 ) {
+  private getMagnification( objectPosition: Vector2, opticPosition: Vector2 ): number {
 
     // horizontal distance between source object (or light source) and optic
     const objectOpticDistance = getObjectOpticDistance( objectPosition, opticPosition );
