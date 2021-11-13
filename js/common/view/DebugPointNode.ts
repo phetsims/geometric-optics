@@ -40,7 +40,7 @@ class DebugPointNode extends Circle {
   /**
    * @override
    */
-  public dispose() {
+  public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }

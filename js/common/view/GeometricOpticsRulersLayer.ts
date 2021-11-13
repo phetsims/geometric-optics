@@ -116,7 +116,7 @@ class GeometricOpticRulersLayer extends Node {
   /**
    * @override
    */
-  public dispose() {
+  public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
@@ -124,7 +124,7 @@ class GeometricOpticRulersLayer extends Node {
   /**
    * Resets the view.
    */
-  public reset() {
+  public reset(): void {
     this.horizontalRulerNode.reset();
     this.verticalRulerNode.reset();
   }
@@ -134,7 +134,7 @@ class GeometricOpticRulersLayer extends Node {
    * Sets the panel bounds of the toolbox
    * @param {Bounds2} bounds
    */
-  public setToolboxBounds( bounds: Bounds2 ) {
+  public setToolboxBounds( bounds: Bounds2 ): void {
     this.toolboxPanelBounds.set( bounds );
   }
 }

@@ -38,19 +38,11 @@ class FocalPointNode extends Node {
   }
 
   /**
-   * @override
-   */
-  public dispose() {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
-    super.dispose();
-  }
-
-  /**
    * Returns an icon for the focal point
    * @param {number} [radius]
    * @returns {Node}
    */
-  public static createIcon( radius: number = 7 ) {
+  public static createIcon( radius: number = 7 ): Node {
     const circleNode = new Circle( radius, {
       fill: GeometricOpticsColors.focalPointFillProperty,
       stroke: GeometricOpticsColors.focalPointStrokeProperty
@@ -61,6 +53,14 @@ class FocalPointNode extends Node {
     return new Node( {
       children: [ circleNode, centerPointNode ]
     } );
+  }
+
+  /**
+   * @override
+   */
+  public dispose(): void {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
   }
 }
 

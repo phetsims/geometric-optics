@@ -83,7 +83,7 @@ class LensModel extends GeometricOpticsModel {
     this.secondBottomGuide = new Guide( this.optic, this.secondPoint.positionProperty, 'bottom' );
   }
 
-  public reset() {
+  public reset(): void {
     super.reset();
     this.projectionScreen.reset();
   }

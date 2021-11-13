@@ -73,7 +73,7 @@ class VisibleProperties {
     } );
   }
 
-  public reset() {
+  public reset(): void {
     this.focalPointsVisibleProperty.reset();
     this.virtualImageVisibleProperty.reset();
     this.labelsVisibleProperty.reset();

@@ -70,7 +70,7 @@ class ProjectionScreen implements Barrier {
   /**
    * Resets the model.
    */
-  public reset() {
+  public reset(): void {
     this.positionProperty.reset();
   }
 
@@ -78,7 +78,7 @@ class ProjectionScreen implements Barrier {
    * Gets the vertical line that bisects the screen, in the model's global coordinate frame.
    * @returns {Shape}
    */
-  public getBisectorLineTranslated() {
+  public getBisectorLineTranslated(): Shape {
     return this.translatedShape( this.bisectorLine );
   }
 
@@ -86,7 +86,7 @@ class ProjectionScreen implements Barrier {
    * Gets the shape of the screen, in the model's global coordinate frame.
    * @returns {Shape}
    */
-  public getScreenShapeTranslated() {
+  public getScreenShapeTranslated(): Shape {
     return this.translatedShape( this.screenShape );
   }
 
@@ -97,7 +97,7 @@ class ProjectionScreen implements Barrier {
    * @param {Shape} shape - in the projection screen's local coordinate frame
    * @returns {Shape}
    */
-  private translatedShape( shape: Shape ) {
+  private translatedShape( shape: Shape ): Shape {
     return shape.transformed( Matrix3.translationFromVector( this.positionProperty.value ) );
   }
 }

@@ -131,23 +131,15 @@ class GeometricOpticsRulerNode extends Node {
   /**
    * Resets the visibility and position of this node
    */
-  public reset() {
+  public reset(): void {
     this.setPosition(); //TODO why isn't it sufficient to reset Ruler.positionProperty?
     this.setInitialVisibility(); //TODO add visibleProperty to Ruler model element
-  }
-
-  //TODO why is this needed?
-  /**
-   * Sets the visibility of this node to false
-   */
-  private setInitialVisibility() {
-    this.visible = false;
   }
 
   /**
    * Sets the position of the ruler
    */
-  public setPosition() {
+  public setPosition(): void {
     if ( this.ruler.isVertical() ) {
 
       // set initial position of the ruler - leftBottom since rotated 90 degrees
@@ -164,7 +156,7 @@ class GeometricOpticsRulerNode extends Node {
    * Forwards an event from the toolbox to start dragging this node
    * @param {SceneryEvent} event
    */
-  public startDrag( event: SceneryEvent ) {
+  public startDrag( event: SceneryEvent ): void {
     this.dragListener.press( event, this );
   }
 
@@ -173,8 +165,30 @@ class GeometricOpticsRulerNode extends Node {
    * Updates toolbox bounds
    * @param {Bounds2} bounds
    */
-  public setToolboxBounds( bounds: Bounds2 ) {
+  public setToolboxBounds( bounds: Bounds2 ): void {
     this.toolboxBounds = bounds;
+  }
+
+  /**
+   * Adds a new scenery-phet.RulerNode to the parent, detaching the previous RulerNode.
+   * @param {ModelViewTransform2} modelViewTransform
+   * @param {Object} [options]
+   */
+  public setRulerNode( modelViewTransform: ModelViewTransform2, options?: any ): void { //TYPESCRIPT any
+
+    // remove previous instances of rulerNode
+    this.removeAllChildren();
+
+    // add and create new
+    this.addChild( this.getRulerNode( modelViewTransform, options ) );
+  }
+
+  //TODO why is this needed?
+  /**
+   * Sets the visibility of this node to false
+   */
+  private setInitialVisibility(): void {
+    this.visible = false;
   }
 
   /**
@@ -183,7 +197,7 @@ class GeometricOpticsRulerNode extends Node {
    * @param {Object} [options]
    * @returns {Node} rulerNode
    */
-  private getRulerNode( modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
+  private getRulerNode( modelViewTransform: ModelViewTransform2, options?: any ): Node { //TYPESCRIPT any
 
     options = merge( {}, this.rulerOptions, options );
 
@@ -224,20 +238,6 @@ class GeometricOpticsRulerNode extends Node {
       geometricOpticsStrings.centimeters,
       rulerOptions
     );
-  }
-
-  /**
-   * Adds a new scenery-phet.RulerNode to the parent, detaching the previous RulerNode.
-   * @param {ModelViewTransform2} modelViewTransform
-   * @param {Object} [options]
-   */
-  public setRulerNode( modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
-
-    // remove previous instances of rulerNode
-    this.removeAllChildren();
-
-    // add and create new
-    this.addChild( this.getRulerNode( modelViewTransform, options ) );
   }
 }
 

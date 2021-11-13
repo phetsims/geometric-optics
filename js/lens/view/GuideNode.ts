@@ -122,18 +122,10 @@ class GuideNode extends Node {
   }
 
   /**
-   * @override
-   */
-  public dispose() {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
-    super.dispose();
-  }
-
-  /**
    * Creates an icon for guides, to be used with checkbox. This is intended to be a caricature of the actual guides.
    * @returns {Node}
    */
-  public static createIcon() {
+  public static createIcon(): Node {
 
     // constants
     const fulcrumRadius = 5;
@@ -158,6 +150,14 @@ class GuideNode extends Node {
       scale: 0.4,
       children: [ leftArmNode, rightArmNode, fulcrumNode ]
     } );
+  }
+
+  /**
+   * @override
+   */
+  public dispose(): void {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
   }
 }
 

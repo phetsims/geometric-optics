@@ -147,7 +147,7 @@ class SourceObjectNode extends Node {
   /**
    * @override
    */
-  public dispose() {
+  public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
@@ -155,7 +155,7 @@ class SourceObjectNode extends Node {
   /**
    * Reset this node
    */
-  public reset() {
+  public reset(): void {
     this.resetSourceObjectNode();
   }
 }

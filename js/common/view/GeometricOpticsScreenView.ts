@@ -395,7 +395,7 @@ class GeometricOpticsScreenView extends ScreenView {
   /**
    * @override
    */
-  public dispose() {
+  public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
@@ -403,14 +403,14 @@ class GeometricOpticsScreenView extends ScreenView {
   /**
    * Resets the view.
    */
-  public reset() {
+  public reset(): void {
     this.resetGeometricScreenView();
   }
 
   /**
    * Time stepper
    */
-  public step( dt: number ) {
+  public step( dt: number ): void {
     if ( this.visibleProperties.rayTracingVisibleProperty.value ) {
       this.model.stepLightRays( dt );
     }
@@ -422,7 +422,8 @@ class GeometricOpticsScreenView extends ScreenView {
    * @param {number} zoomLevel
    * @returns {number}
    */
-  private getAbsoluteScale( zoomLevel: number ) {
+  //TODO convert to private function
+  private getAbsoluteScale( zoomLevel: number ): number {
     return getRelativeScale( zoomLevel, ZOOM_RANGE.defaultValue );
   }
 
@@ -432,7 +433,7 @@ class GeometricOpticsScreenView extends ScreenView {
    * @param {Vector2} viewOrigin
    * @returns {ModelViewTransform2}
    */
-  private getTransformForZoomLevel( zoomLevel: number, viewOrigin: Vector2 ) {
+  private getTransformForZoomLevel( zoomLevel: number, viewOrigin: Vector2 ): ModelViewTransform2 {
 
     // scaling factor between zoom level measured from the initial zoom level
     const absoluteScale = this.getAbsoluteScale( zoomLevel );

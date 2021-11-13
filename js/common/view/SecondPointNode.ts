@@ -177,9 +177,17 @@ class SecondPointNode extends Node {
   }
 
   /**
+   * Creates an icon to represent the second source.
+   * @returns {PointNode}
+   */
+  public static createIcon(): PointNode {
+    return new PointNode( 5 );
+  }
+
+  /**
    * @override
    */
-  public dispose() {
+  public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
@@ -187,16 +195,8 @@ class SecondPointNode extends Node {
   /**
    * Reset this node
    */
-  public reset() {
+  public reset(): void {
     this.resetSecondPointNode();
-  }
-
-  /**
-   * Creates an icon to represent the second source.
-   * @returns {PointNode}
-   */
-  public static createIcon() {
-    return new PointNode( 5 );
   }
 }
 
