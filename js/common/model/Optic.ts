@@ -67,8 +67,6 @@ abstract class Optic {
   // See https://github.com/phetsims/geometric-optics/issues/252
   readonly opticalAxisVisibleProperty: BooleanProperty;
 
-  // Returns the most extreme position within the optic that would ensure that a ray would be transmitted (or reflected).
-
   /**
    * @param {Object} config
    */
@@ -195,7 +193,10 @@ abstract class Optic {
     } );
   }
 
-  // See https://github.com/phetsims/geometric-optics/issues/111
+  /**
+   * Returns the most extreme position within the optic that would ensure that a ray would be transmitted (or reflected).
+   * See https://github.com/phetsims/geometric-optics/issues/111
+   */
   protected abstract getExtremumPoint( sourcePoint: Vector2, targetPoint: Vector2, isTop: boolean ): Vector2;
 
   /**
