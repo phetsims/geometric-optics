@@ -150,9 +150,9 @@ class OpticShapes {
     }
 
     this.frontShape = frontShape;
+    this.backShape = backShape;
     this.outlineShape = outlineShape;
     this.fillShape = outlineShape; // same as outlineShape for a lens
-    this.backShape = backShape;
   }
 
   /**
