@@ -12,7 +12,6 @@ type StringsType = {
     'title': string
   },
   'screen': {
-    'intro': string,
     'lens': string,
     'mirror': string
   },
