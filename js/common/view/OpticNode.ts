@@ -44,10 +44,6 @@ class OpticNode extends Node {
       stroke: GeometricOpticsColors.opticStrokeProperty,
       lineWidth: 2,
 
-      // pdom options
-      tagName: 'div',
-      focusable: true,
-
       // phet-io options
       tandem: Tandem.REQUIRED
     }, options );

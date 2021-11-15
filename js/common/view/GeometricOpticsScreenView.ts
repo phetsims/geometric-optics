@@ -376,7 +376,6 @@ class GeometricOpticsScreenView extends ScreenView {
     screenViewRootNode.pdomOrder = [
       representationComboBox,
       opticShapeRadioButtonGroup,
-      opticNode,
       zoomButtonGroup,
       controlPanel,
       showHideToggleButton,
