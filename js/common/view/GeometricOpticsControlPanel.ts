@@ -29,6 +29,7 @@ import VisibilityCheckboxGroup from './VisibilityCheckboxGroup.js';
 import VisibleProperties from './VisibleProperties.js';
 import RadiusOfCurvatureControl from './RadiusOfCurvatureControl.js';
 import IndexOfRefractionControl from './IndexOfRefractionControl.js';
+import Lens from '../../lens/model/Lens.js';
 
 class GeometricOpticsControlPanel extends Panel {
 
@@ -90,7 +91,7 @@ class GeometricOpticsControlPanel extends Panel {
     } ) );
 
     // Index of Refraction (for lens only)
-    if ( optic.opticType === 'lens' ) {
+    if ( optic instanceof Lens ) {
       opticSubpanelChildren.push( new IndexOfRefractionControl( optic.indexOfRefractionProperty, {
         tandem: opticSubpanelTandem.createTandem( 'indexOfRefractionControl' )
       } ) );

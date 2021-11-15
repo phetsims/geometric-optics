@@ -22,6 +22,8 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Representation from '../model/Representation.js';
 import LensModel from '../../lens/model/LensModel.js';
 import MirrorModel from '../../mirror/model/MirrorModel.js';
+import Lens from '../../lens/model/Lens.js';
+import Mirror from '../../mirror/model/Mirror.js';
 
 class LabelsNode extends Node {
 
@@ -65,8 +67,7 @@ class LabelsNode extends Node {
 
     model.optic.opticShapeProperty.link( opticShape => {
       let text: string;
-      const opticType = model.optic.opticType;
-      if ( opticType === 'lens' ) {
+      if ( model.optic instanceof Lens ) {
         if ( opticShape === 'convex' ) {
           text = geometricOpticsStrings.convexLens;
         }
@@ -77,7 +78,7 @@ class LabelsNode extends Node {
           throw Error( `unsupported opticShape for lens: ${opticShape}` );
         }
       }
-      else if ( model.optic.opticType === 'mirror' ) {
+      else if ( model.optic instanceof Mirror ) {
         if ( opticShape === 'convex' ) {
           text = geometricOpticsStrings.convexMirror;
         }
@@ -92,7 +93,7 @@ class LabelsNode extends Node {
         }
       }
       else {
-        throw new Error( `unsupported opticType: ${opticType}` );
+        throw new Error( 'unsupported opticType' );
       }
       opticLabel.setText( text );
     } );
