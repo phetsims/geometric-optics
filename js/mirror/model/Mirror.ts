@@ -12,6 +12,8 @@ import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Optic from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
+import OpticShapeEnum from '../../common/model/OpticShapeEnum.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 
 class Mirror extends Optic {
 
@@ -29,10 +31,30 @@ class Mirror extends Optic {
       // with an index of refraction of 2.
       indexOfRefractionRange: new RangeWithValue( 2, 2, 2 ), // unitless
       diameterRange: new RangeWithValue( 30, 130, 80 ), // in cm
+      sign: -1,
+      isConverging: ( opticShape: OpticShapeEnum ) => ( opticShape === 'concave' ),
 
       // phet-io options
       tandem: Tandem.REQUIRED
     }, options ) );
+  }
+
+  /**
+   * Returns the most extreme position within the mirror that would ensure that a ray would be transmitted (or reflected).
+   * See https://github.com/phetsims/geometric-optics/issues/111
+   */
+  protected getExtremumPoint( sourcePoint: Vector2, targetPoint: Vector2, isTop: boolean ): Vector2 {
+
+    // Erode the bounds a tiny bit so that the point is always within the bounds.
+    const opticBounds = this.getOpticBounds().erodedY( 1e-6 );
+
+    // convenience variables
+    const isConcave = ( this.opticShapeProperty.value === 'concave' );
+    const leftPoint = isTop ? opticBounds.leftTop : opticBounds.leftBottom;
+    const rightPoint = isTop ? opticBounds.rightTop : opticBounds.rightBottom;
+
+    // since mirror reflects light, the extremum point is on the mirror itself
+    return isConcave ? leftPoint : rightPoint;
   }
 }
 

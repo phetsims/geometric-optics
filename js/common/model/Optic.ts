@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Optic is the base class for an optic in this simulation, and supports lens and mirror.
+ * Optic is the abstract base class for an optic in this simulation, and supports lens and mirror.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -26,7 +26,7 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import required from '../../../../phet-core/js/required.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 
-class Optic {
+abstract class Optic {
 
   // type of the optic
   //TODO replace with subclassing
@@ -47,6 +47,9 @@ class Optic {
   // diameter of the optic, controls the optic's aperture
   readonly diameterProperty: NumberProperty;
 
+  // sign used for math operations
+  readonly sign: 1 | -1;
+
   // focal length of the optic, positive=converging, negative=diverging
   readonly focalLengthProperty: DerivedProperty<number>;
 
@@ -63,6 +66,8 @@ class Optic {
   // PhET-iO only, cannot be controlled from the sim UI, and is not subject to reset.
   // See https://github.com/phetsims/geometric-optics/issues/252
   readonly opticalAxisVisibleProperty: BooleanProperty;
+
+  // Returns the most extreme position within the optic that would ensure that a ray would be transmitted (or reflected).
 
   /**
    * @param {Object} config
@@ -86,6 +91,12 @@ class Optic {
       // range of diameter, in cm
       diameterRange: required( config.diameterRange ),
 
+      // sign used for math operations
+      sign: required( config.sign ),
+
+      // ( opticShape: OpticShapeEnum ) => boolean, determines whether the optic is converging for the specified shape
+      isConverging: required( config.isConverging ),
+
       // position of the optic, in cm
       position: Vector2.ZERO,
 
@@ -97,6 +108,7 @@ class Optic {
     }, config );
 
     this.opticType = config.opticType;
+    this.sign = config.sign;
 
     this.opticShapeProperty = new Property<OpticShapeEnum>( config.opticShape, {
       validValues: config.opticShapes,
@@ -147,7 +159,7 @@ class Optic {
 
         // A positive sign indicates the optic is converging.
         // Sign is determined based on the shape and the type of optic.
-        const sign = this.isConverging( opticShape ) ? 1 : -1;
+        const sign = config.isConverging( opticShape ) ? 1 : -1;
 
         return sign * radiusOfCurvature / ( 2 * ( indexOfRefraction - 1 ) );
       }, {
@@ -183,6 +195,9 @@ class Optic {
     } );
   }
 
+  // See https://github.com/phetsims/geometric-optics/issues/111
+  protected abstract getExtremumPoint( sourcePoint: Vector2, targetPoint: Vector2, isTop: boolean ): Vector2;
+
   /**
    * Convenience method for getting the maximum diameter, in cm.
    * @returns {number}
@@ -197,53 +212,6 @@ class Optic {
     this.radiusOfCurvatureProperty.reset();
     this.indexOfRefractionProperty.reset();
     this.diameterProperty.reset();
-  }
-
-  /**
-   * Determines whether the optic is a lens.
-   * @returns {boolean}
-   */
-  public isLens(): boolean {
-    return ( this.opticType === 'lens' );
-  }
-
-  /**
-   * Determines whether the optic is a mirror.
-   * @returns {boolean}
-   */
-  public isMirror(): boolean {
-    return ( this.opticType === 'mirror' );
-  }
-
-  /**
-   * Determines whether the optic has the potential to converge rays.
-   * A convex lens and a concave mirror are converging optics.
-   * @param {OpticShapeEnum} opticShape
-   * @returns {boolean}
-   */
-  public isConverging( opticShape: OpticShapeEnum ): boolean {
-    return ( opticShape === 'convex' && this.isLens() ) || ( opticShape === 'concave' && this.isMirror() );
-  }
-
-  /**
-   * Determines whether the optic has the potential to diverge rays.
-   * @param {OpticShapeEnum} opticShape
-   * @returns {boolean}
-   */
-  public isDiverging( opticShape: OpticShapeEnum ): boolean {
-    return !this.isConverging( opticShape );
-  }
-
-  //TODO handle with subclassing
-  //TODO better documentation, why +1 and -1 ?
-  //TYPESCRIPT create a type for 1 | -1 ?
-  /**
-   * Convenience function for mathematical operations.
-   * Returns +1 for a lens, -1 for a mirror.
-   * @returns {1 | -1}
-   */
-  public getSign(): 1 | -1 {
-    return this.isLens() ? 1 : -1;
   }
 
   /**
@@ -298,67 +266,6 @@ class Optic {
    */
   public getBottomPoint( sourcePoint: Vector2, targetPoint: Vector2 ): Vector2 {
     return this.getExtremumPoint( sourcePoint, targetPoint, false /* isTop */ );
-  }
-
-  /**
-   * Returns the most extreme position within the optic that would ensure that a ray would be transmitted (or reflected).
-   * See https://github.com/phetsims/geometric-optics/issues/111
-   * @param {Vector2} sourcePoint
-   * @param {Vector2} targetPoint
-   * @param {boolean} isTop
-   * @returns {Vector2}
-   */
-  private getExtremumPoint( sourcePoint: Vector2, targetPoint: Vector2, isTop: boolean ): Vector2 {
-
-    // Erode the bounds a tiny bit so that the point is always within the bounds.
-    const opticBounds = this.getOpticBounds().erodedY( 1e-6 );
-
-    // convenience variables
-    const isConcave = ( this.opticShapeProperty.value === 'concave' );
-    const leftPoint = isTop ? opticBounds.leftTop : opticBounds.leftBottom;
-    const rightPoint = isTop ? opticBounds.rightTop : opticBounds.rightBottom;
-
-    // extremum point along the direction of the ray, may not be on the optic itself
-    let extremumPoint;
-
-    if ( this.isMirror() ) {
-
-      // since mirror reflects light, the extremum point is on the mirror itself
-      extremumPoint = isConcave ? leftPoint : rightPoint;
-    }
-    else {
-      if ( isConcave ) {
-        // a concave lens
-
-        const opticPosition = this.positionProperty.value;
-
-        // displacement vector from targetPoint to the right corner of the lens
-        const rightTarget = rightPoint.minus( targetPoint );
-
-        // displacement vector from sourcePoint to the left corner of the lens
-        const leftSource = leftPoint.minus( sourcePoint );
-
-        // yOffset (from center of lens) of a ray directed from targetPoint to the right corner of lens
-        const yOffset1 = ( rightPoint.y - opticPosition.y ) + ( opticPosition.x - rightPoint.x ) *
-                         rightTarget.y / rightTarget.x;
-
-        // yOffset (from center of lens) of a ray directed from targetPoint to the right corner of lens
-        const yOffset2 = ( leftPoint.y - opticPosition.y ) + ( opticPosition.x - leftPoint.x ) * leftSource.y / leftSource.x;
-
-        // find the smallest offset to ensure that a ray will always hit both front and back surfaces
-        const offsetY = Math.abs( yOffset1 ) < Math.abs( yOffset2 ) ? yOffset1 : yOffset2;
-
-        // get the direction of the ray as measured from the source
-        extremumPoint = opticPosition.plusXY( 0, offsetY );
-      }
-      else {
-        // a convex lens
-        // extremum point is based on the edge point (which is centered horizontally on the optic)
-        extremumPoint = isTop ? opticBounds.centerTop : opticBounds.centerBottom;
-      }
-    }
-
-    return extremumPoint;
   }
 }
 

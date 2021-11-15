@@ -16,6 +16,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import geometricOptics from '../../geometricOptics.js';
+import Lens from '../../lens/model/Lens.js';
 import Optic from './Optic.js';
 import Representation from './Representation.js';
 
@@ -27,20 +28,22 @@ class Target {
   // horizontal "distance" between target (image) and optic
   // the position of the focus as predicted by lens and mirror equation
   public readonly positionProperty: DerivedProperty<Vector2>;
+
   // For a mirror, the image is virtual if the image is on the opposite of the object
   readonly isVirtualProperty: DerivedProperty<boolean>;
+
   // Bounds of the actual Image, based on the Representation
   readonly boundsProperty: DerivedProperty<Bounds2>;
+
   // light intensity of the image (Hollywood) - a value between 0 and 1
   readonly lightIntensityProperty: DerivedProperty<number>;
+
   //TODO what does that mean?
   readonly imageProperty: DerivedProperty<HTMLImageElement|null>;
 
-  // For a lens, the image is virtual if the image is on the same side as the object
-  // sign (+1 or -1) for the type of optic (lens or mirror)
-  private readonly opticSign: -1 | 1;
   // The distance can be negative. We follow the standard sign convention used in geometric optics courses.
   private readonly targetOpticDistanceProperty: DerivedProperty<number>;
+
   // the magnification can be negative, indicating the target/image is inverted.
   private readonly magnificationProperty: DerivedProperty<number>;
 
@@ -54,8 +57,6 @@ class Target {
    * @param {Property.<Representation>} representationProperty
    */
   constructor( objectPositionProperty: Property<Vector2>, optic: Optic, representationProperty: Property<Representation> ) {
-
-    this.opticSign = optic.getSign();
 
     this.targetOpticDistanceProperty = new DerivedProperty<number>(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
@@ -96,7 +97,7 @@ class Target {
         const targetOpticDistance = this.targetOpticDistanceProperty.value;
 
         // recall that the meaning of targetOpticDistance is different for a lens and mirror.
-        const horizontalDisplacement = this.opticSign * targetOpticDistance;
+        const horizontalDisplacement = optic.sign * targetOpticDistance;
 
         return opticPosition.plusXY( horizontalDisplacement, height );
       } );
@@ -132,8 +133,8 @@ class Target {
         const width = initialWidth * magnification;
         const height = initialHeight * magnification;
 
-        const x1 = this.opticSign * offset.x;
-        const x2 = this.opticSign * ( offset.x + width );
+        const x1 = optic.sign * offset.x;
+        const x2 = optic.sign * ( offset.x + width );
         const y1 = offset.y;
         const y2 = offset.y - height;
 
@@ -163,8 +164,9 @@ class Target {
     this.imageProperty = new DerivedProperty<HTMLImageElement|null>(
       [ representationProperty, this.isVirtualProperty ],
       ( representation: Representation, isVirtual: boolean ) => {
-        const realImage = optic.isLens() ? representation.leftFacingInverted : representation.rightFacingInverted;
-        const virtualImage = optic.isLens() ? representation.rightFacingUpright : representation.leftFacingUpright;
+        const isLens = ( optic instanceof Lens );
+        const realImage = isLens ? representation.leftFacingInverted : representation.rightFacingInverted;
+        const virtualImage = isLens ? representation.rightFacingUpright : representation.leftFacingUpright;
         return isVirtual ? virtualImage : realImage;
       } );
   }

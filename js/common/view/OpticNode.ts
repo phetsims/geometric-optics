@@ -24,6 +24,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
+import Lens from '../../lens/model/Lens.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Optic from '../model/Optic.js';
@@ -60,7 +61,7 @@ class OpticNode extends Node {
     options.children.push( opticFillNode );
 
     // Vertical axis for the lens, see https://github.com/phetsims/geometric-optics/issues/190
-    if ( optic.isLens() ) {
+    if ( optic instanceof Lens ) {
       const verticalCenterLine = new Line( 0, 0, 0, 1, {
         stroke: GeometricOpticsColors.verticalAxisStrokeProperty,
         lineWidth: GeometricOpticsConstants.AXIS_LINE_WIDTH
@@ -101,7 +102,7 @@ class OpticNode extends Node {
     // Index of refraction determines the opacity used for the lens fill.
     // The lens is never fully transparent, because it's index of refraction is not equivalent to air.
     // See https://github.com/phetsims/geometric-optics/issues/242
-    if ( optic.isLens() ) {
+    if ( optic instanceof Lens ) {
       const opacityProperty = new DerivedProperty<number>( [ optic.indexOfRefractionProperty ],
         ( indexOfRefraction: number ) => {
           assert && assert( optic.indexOfRefractionProperty.range ); // {Range|null}

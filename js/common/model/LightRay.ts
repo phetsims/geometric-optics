@@ -16,6 +16,8 @@ import Shape from '../../../../kite/js/Shape.js';
 import RayIntersection from '../../../../kite/js/util/RayIntersection.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import geometricOptics from '../../geometricOptics.js';
+import Lens from '../../lens/model/Lens.js';
+import Mirror from '../../mirror/model/Mirror.js';
 import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
 import Barrier from './Barrier.js';
 import LightRaySegment from './LightRaySegment.js';
@@ -212,7 +214,7 @@ function getRealRays( initialRay: Ray, firstPoint: Vector2 | null, optic: Optic,
     // determine the ray(s) that come have the initial ray
 
     // mirror and principal ray mode have only "one surface" to hit
-    if ( optic.isMirror() || isPrincipalRayMode ) {
+    if ( optic instanceof Mirror || isPrincipalRayMode ) {
 
       // add the semi infinite transmitted transmitted ray
       rays.push( getTransmittedRay( firstPoint, targetPoint, optic ) );
@@ -313,7 +315,7 @@ function setFinalPointProjectionScreen( realRays: Ray[], projectionScreenBisecto
  * @returns {Shape}
  */
 function getLensBackShape( optic: Optic ): Shape {
-  assert && assert( optic.isLens(), 'optic must be Lens' );
+  assert && assert( optic instanceof Lens, 'optic must be Lens' );
   const backShape = optic.shapesProperty.value.backShape; // {Shape|null}
   assert && assert( backShape );
   return optic.translatedShape( backShape! );
@@ -369,7 +371,8 @@ function getTransmittedRay( originPoint: Vector2, targetPoint: Vector2, optic: O
   const direction = originPoint.minus( targetPoint ).normalized();
 
   // real rays should only propagate to the right for lens and to left for a mirror
-  if ( optic.isLens() && direction.x < 0 || optic.isMirror() && direction.x > 0 ) {
+  //TODO add a method to Optic to make instanceof test unnecessary
+  if ( ( optic instanceof Lens && direction.x < 0 ) || ( optic instanceof Mirror && direction.x > 0 ) ) {
     direction.negate();
   }
   return new Ray( originPoint, direction );
