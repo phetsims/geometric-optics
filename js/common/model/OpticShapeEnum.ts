@@ -9,8 +9,7 @@
 
 import geometricOptics from '../../geometricOptics.js';
 
-//TODO https://github.com/phetsims/geometric-optics/issues/227 add 'flat' for Mirror
-const OpticShapeValues = [ 'convex', 'concave' ] as const;
+const OpticShapeValues = [ 'convex', 'concave', 'flat' ] as const;
 type OpticShapeEnum = ( typeof OpticShapeValues )[number];
 
 geometricOptics.register( 'OpticShapeValues', OpticShapeValues );

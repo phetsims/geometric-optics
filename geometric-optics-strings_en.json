@@ -8,8 +8,8 @@
   "screen.mirror": {
     "value": "Mirror"
   },
-  "concaveMirror": {
-    "value": "Concave Mirror"
+  "convexLens": {
+    "value": "Convex Lens"
   },
   "concaveLens": {
     "value": "Concave Lens"
@@ -17,8 +17,11 @@
   "convexMirror": {
     "value": "Convex Mirror"
   },
-  "convexLens": {
-    "value": "Convex Lens"
+  "concaveMirror": {
+    "value": "Concave Mirror"
+  },
+  "flatMirror": {
+    "value": "Flat Mirror"
   },
   "object": {
     "value": "Object"

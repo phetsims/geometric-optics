@@ -65,14 +65,34 @@ class LabelsNode extends Node {
 
     model.optic.opticShapeProperty.link( opticShape => {
       let text: string;
-      if ( model.optic.isConvex( opticShape ) ) {
-        text = model.optic.isLens() ? geometricOpticsStrings.convexLens : geometricOpticsStrings.convexMirror;
+      const opticType = model.optic.opticType;
+      if ( opticType === 'lens' ) {
+        if ( opticShape === 'convex' ) {
+          text = geometricOpticsStrings.convexLens;
+        }
+        else if ( opticShape === 'concave' ) {
+          text = geometricOpticsStrings.concaveLens;
+        }
+        else {
+          throw Error( `unsupported opticShape for lens: ${opticShape}` );
+        }
       }
-      else if ( model.optic.isConcave( opticShape ) ) {
-        text = model.optic.isLens() ? geometricOpticsStrings.concaveLens : geometricOpticsStrings.concaveMirror;
+      else if ( model.optic.opticType === 'mirror' ) {
+        if ( opticShape === 'convex' ) {
+          text = geometricOpticsStrings.convexMirror;
+        }
+        else if ( opticShape === 'concave' ) {
+          text = geometricOpticsStrings.concaveMirror;
+        }
+        else if ( opticShape === 'flat' ) {
+          text = geometricOpticsStrings.flatMirror;
+        }
+        else {
+          throw Error( `unsupported opticShape for mirror: ${opticShape}` );
+        }
       }
       else {
-        throw new Error( `unsupported opticShape: ${opticShape}` );
+        throw new Error( `unsupported opticType: ${opticType}` );
       }
       opticLabel.setText( text );
     } );

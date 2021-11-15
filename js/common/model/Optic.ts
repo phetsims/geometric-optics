@@ -216,31 +216,13 @@ class Optic {
   }
 
   /**
-   * Determines whether the optic is concave.
-   * @param {OpticShapeEnum} opticShape
-   * @returns {boolean}
-   */
-  public isConcave( opticShape: OpticShapeEnum ): boolean {
-    return ( opticShape === 'concave' );
-  }
-
-  /**
-   * Determines whether the optic is convex.
-   * @param {OpticShapeEnum} opticShape
-   * @returns {boolean}
-   */
-  public isConvex( opticShape: OpticShapeEnum ): boolean {
-    return ( opticShape === 'convex' );
-  }
-
-  /**
    * Determines whether the optic has the potential to converge rays.
    * A convex lens and a concave mirror are converging optics.
    * @param {OpticShapeEnum} opticShape
    * @returns {boolean}
    */
   public isConverging( opticShape: OpticShapeEnum ): boolean {
-    return ( this.isConvex( opticShape ) && this.isLens() ) || ( this.isConcave( opticShape ) && this.isMirror() );
+    return ( opticShape === 'convex' && this.isLens() ) || ( opticShape === 'concave' && this.isMirror() );
   }
 
   /**
@@ -332,7 +314,7 @@ class Optic {
     const opticBounds = this.getOpticBounds().erodedY( 1e-6 );
 
     // convenience variables
-    const isConcave = this.isConcave( this.opticShapeProperty.value );
+    const isConcave = ( this.opticShapeProperty.value === 'concave' );
     const leftPoint = isTop ? opticBounds.leftTop : opticBounds.leftBottom;
     const rightPoint = isTop ? opticBounds.rightTop : opticBounds.rightBottom;
 

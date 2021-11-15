@@ -15,10 +15,11 @@ type StringsType = {
     'lens': string,
     'mirror': string
   },
-  'concaveMirror': string,
+  'convexLens': string,
   'concaveLens': string,
   'convexMirror': string,
-  'convexLens': string,
+  'concaveMirror': string,
+  'flatMirror': string,
   'object': string,
   'focalPoint': string,
   'focalPoints': string,
