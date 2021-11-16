@@ -36,11 +36,11 @@ class MirrorShapes implements OpticShapes {
     assert && assert( radiusOfCurvature > diameter / 2 );
 
     options = merge( {
-      thickness: 5 // thickness of the backing of the mirror, in cm
+      backingThickness: 5 // thickness of the backing of the mirror, in cm
     }, options );
 
     // convenience variable
-    const thickness = options.thickness;
+    const backingThickness = options.backingThickness;
 
     // convenience variable
     const halfHeight = diameter / 2;
@@ -54,9 +54,9 @@ class MirrorShapes implements OpticShapes {
     // curveSign is +1 for convex and -1 for concave
     const curveSign = ( opticShape === 'convex' ) ? 1 : -1;
 
-    // vector offset between the two top corners and bottom corners of the shape with a magnitude of thickness
-    const offsetTopVector = Vector2.createPolar( thickness, -curveSign * angle );
-    const offsetBottomVector = Vector2.createPolar( thickness, curveSign * angle );
+    // vector offset between the two top corners and bottom corners of the shape with a magnitude of backingThickness
+    const offsetTopVector = Vector2.createPolar( backingThickness, -curveSign * angle );
+    const offsetBottomVector = Vector2.createPolar( backingThickness, curveSign * angle );
 
     // four corners of the mirror shape
     const topLeft = new Vector2( curveSign * halfWidth, halfHeight );
@@ -65,9 +65,9 @@ class MirrorShapes implements OpticShapes {
     const bottomRight = bottomLeft.plus( offsetBottomVector );
 
     // control points: Note that the curve will not go through the control points.
-    // rather, it will go through the two following points: (0,0) and ( thickness, 0 )
+    // rather, it will go through the two following points: (0,0) and ( backingThickness, 0 )
     const midLeft = new Vector2( -curveSign * halfWidth, 0 );
-    const midRight = midLeft.plusXY( thickness, 0 );
+    const midRight = midLeft.plusXY( backingThickness, 0 );
 
     // shapes drawn from top to bottom in counterclockwise fashion.
 

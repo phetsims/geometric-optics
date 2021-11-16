@@ -84,7 +84,7 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeE
                          isHollywooded: false
                        } ) :
                        new MirrorShapes( opticShape, options.radius, options.diameter, {
-                         thickness: 4
+                         backingThickness: 4
                        } );
 
     // Create the icon.
