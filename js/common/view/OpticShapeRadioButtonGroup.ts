@@ -19,6 +19,17 @@ import OpticShapeEnum from '../model/OpticShapeEnum.js';
 import OpticShapes from '../model/OpticShapes.js';
 import OpticTypeEnum from '../model/OpticTypeEnum.js';
 
+//TYPESCRIPT RectangularRadioButtonGroup needs to define this parameterized type for items
+type RectangularRadioButtonGroupItem<T> = {
+  value: T,
+  node: Node,
+  label?: Node,
+  tandemName?: string,
+  phetioDocumentation?: string,
+  labelContent?: string,
+  descriptionContent?: string
+};
+
 class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeEnum> {
 
   /**
@@ -59,7 +70,7 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeE
    * @param {Object} [options]
    * @returns {Node}
    */
-  public static createIconNode( opticType: OpticTypeEnum, opticShape: OpticShapeEnum, options?: any ) { //TYPESCRIPT any
+  public static createIconNode( opticType: OpticTypeEnum, opticShape: OpticShapeEnum, options?: any ): Node { //TYPESCRIPT any
 
     options = merge( {
       radius: 22, // radius of curvature of the optic, in cm
@@ -89,10 +100,9 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeE
  * Creates an item for the radio button group.
  * @param {OpticTypeEnum} opticType
  * @param {OpticShapeEnum} opticShape
- * @returns {value:OpticTypeEnum, node:Node, tandemName:string}
+ * @returns {RectangularRadioButtonGroupItem<OpticShapeEnum>}
  */
-//TYPESCRIPT needs a return type
-function createItem( opticType: OpticTypeEnum, opticShape: OpticShapeEnum ) {
+function createItem( opticType: OpticTypeEnum, opticShape: OpticShapeEnum ): RectangularRadioButtonGroupItem<OpticShapeEnum> {
   return {
     value: opticShape,
     node: OpticShapeRadioButtonGroup.createIconNode( opticType, opticShape ),

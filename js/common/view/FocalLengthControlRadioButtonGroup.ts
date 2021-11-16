@@ -8,6 +8,7 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -16,6 +17,14 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import GeometricOpticsGlobalOptions from '../GeometricOpticsGlobalOptions.js';
 import FocalLengthControlEnum from '../model/FocalLengthControlEnum.js';
+
+//TYPESCRIPT AquaRadioButtonGroup needs to define this parameterized type for items
+type AquaRadioButtonGroupItem<T> = {
+  value: T,
+  node: Node,
+  tandemName?: string,
+  labelContent?: string
+};
 
 class FocalLengthControlRadioButtonGroup extends VerticalAquaRadioButtonGroup<FocalLengthControlEnum> {
 
@@ -44,10 +53,9 @@ class FocalLengthControlRadioButtonGroup extends VerticalAquaRadioButtonGroup<Fo
  * Creates an item for the radio button group.
  * @param {FocalLengthControlEnum} value
  * @param {string} text
- * @returns {{value: FocalLengthControlEnum, node: Text, tandemName: string}} item
+ * @returns {AquaRadioButtonGroupItem<FocalLengthControlEnum>}
  */
-//TYPESCRIPT needs a return type
-function createItem( value: FocalLengthControlEnum, text: string ) {
+function createItem( value: FocalLengthControlEnum, text: string ): AquaRadioButtonGroupItem<FocalLengthControlEnum> {
   return {
     value: value,
     node: new Text( text, {

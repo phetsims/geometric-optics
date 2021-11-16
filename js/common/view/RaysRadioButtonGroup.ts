@@ -15,6 +15,15 @@ import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import RaysModeEnum from '../model/RaysModeEnum.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+
+//TYPESCRIPT AquaRadioButtonGroup needs to define this parameterized type for items
+type AquaRadioButtonGroupItem<T> = {
+  value: T,
+  node: Node,
+  tandemName?: string,
+  labelContent?: string
+};
 
 class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysModeEnum> {
 
@@ -48,10 +57,9 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysModeEnum> {
  * Creates an item for the radio button group.
  * @param {RaysModeEnum} value
  * @param {string} text
- * @returns {{value: RaysModeEnum, node: Text, tandemName: string}} item
+ * @returns {AquaRadioButtonGroupItem<RaysModeEnum>}
  */
-//TYPESCRIPT needs a return type
-function createItem( value: RaysModeEnum, text: string ) {
+function createItem( value: RaysModeEnum, text: string ): AquaRadioButtonGroupItem<RaysModeEnum> {
   return {
     value: value,
     node: new Text( text, {
