@@ -3,6 +3,11 @@
 /**
  * LensShapes is the set of Shapes that describe a lens. All Shapes are in model coordinates.
  *
+ * The lens shape is approximated as a parabolic lens. The radius of curvature does not necessarily match the
+ * actual radius of curvature, and can instead be Hollywooded. This gives the flexibility to draw lenses with radius
+ * of curvature that is larger than diameter/2, a physical impossibility. The origin (0,0) is at the geometric
+ * center of the lens.
+ *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -23,11 +28,6 @@ class LensShapes implements OpticShapes {
   readonly fillShape: Shape;
 
   /**
-   * Sets the Shapes for a lens. In the case of a lens, the outline and fills shape are identical.
-   * The lens shape is approximated as a parabolic lens. The radius of curvature does not necessarily match the
-   * actual radius of curvature, and can instead be Hollywooded. This gives the flexibility to draw lenses with radius
-   * of curvature that is larger than diameter/2, a physical impossibility. The origin (0,0) is at the geometric
-   * center of the lens.
    * @param {OpticShapeEnum} opticShape
    * @param {number} radiusOfCurvature - radius of curvature
    * @param {number} diameter - height of the lens
@@ -36,7 +36,7 @@ class LensShapes implements OpticShapes {
   constructor( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number, options?: any ) { //TYPESCRIPT any
 
     options = merge( {
-      isHollywooded: true, // does the radius of curvature parameter match the shape of the lens?
+      isHollywooded: true, // true: approximation, false: accurate, matches ROC
       offsetRadius: 100 //TODO document
     }, options );
 

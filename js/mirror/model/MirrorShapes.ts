@@ -3,6 +3,10 @@
 /**
  * MirrorShapes is the set of Shapes that describe a mirror. All Shapes are in model coordinates.
  *
+ * Designed as a first surface mirror (or front surface mirror), which is a mirror with the reflective surface being
+ * above a backing. This is as opposed to a conventional, second surface mirror, with the reflective surface behind
+ * a transparent substrate such as glass or acrylic.
+ *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -23,10 +27,7 @@ class MirrorShapes implements OpticShapes {
   readonly fillShape: Shape;
 
   /**
-   * Sets the Shapes for a parabolic mirror, designed as a "first surface mirror".
-   * A first surface mirror (or front surface mirror) is a mirror with the reflective surface being above a backing,
-   * as opposed to the conventional, second surface mirror with the reflective surface behind a transparent substrate
-   * such as glass or acrylic. The Shapes are drawn using quadratic Bezier curves.
+   *
    * @param {OpticShapeEnum} opticShape
    * @param {number} radiusOfCurvature - radius of curvature at the center of the mirror
    * @param {number} diameter - vertical height of the mirror
