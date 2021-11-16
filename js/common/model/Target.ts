@@ -19,6 +19,7 @@ import geometricOptics from '../../geometricOptics.js';
 import Lens from '../../lens/model/Lens.js';
 import Optic from './Optic.js';
 import Representation from './Representation.js';
+import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 
 class Target {
 
@@ -39,7 +40,7 @@ class Target {
   readonly lightIntensityProperty: DerivedProperty<number>;
 
   //TODO what does that mean?
-  readonly imageProperty: DerivedProperty<HTMLImageElement|null>;
+  readonly imageProperty: DerivedProperty<HTMLImageElement | null>;
 
   // The distance can be negative. We follow the standard sign convention used in geometric optics courses.
   private readonly targetOpticDistanceProperty: DerivedProperty<number>;
@@ -143,7 +144,6 @@ class Target {
         return bounds.shifted( position );
       } );
 
-    //TODO isValidValue: value => INTENSITY_RANGE.contains( value )
     this.lightIntensityProperty = new DerivedProperty<number>(
       [ this.magnificationProperty, optic.diameterProperty ],
       ( magnification: number, diameter: number ) => {
@@ -159,9 +159,11 @@ class Target {
 
         // product of the two factors
         return distanceFactor * diameterFactor;
+      }, {
+        isValidValue: ( value: number ) => GeometricOpticsConstants.INTENSITY_RANGE.contains( value )
       } );
 
-    this.imageProperty = new DerivedProperty<HTMLImageElement|null>(
+    this.imageProperty = new DerivedProperty<HTMLImageElement | null>(
       [ representationProperty, this.isVirtualProperty ],
       ( representation: Representation, isVirtual: boolean ) => {
         const isLens = ( optic instanceof Lens );

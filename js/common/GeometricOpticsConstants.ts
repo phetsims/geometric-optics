@@ -12,6 +12,7 @@ import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import geometricOptics from '../geometricOptics.js';
 import NumberControl from '../../../scenery-phet/js/NumberControl.js';
 import Dimension2 from '../../../dot/js/Dimension2.js';
+import Range from '../../../dot/js/Range.js';
 
 const CONTROL_FONT = new PhetFont( 14 );
 
@@ -57,6 +58,10 @@ const GeometricOpticsConstants = {
   LABEL_FONT: new PhetFont( 12 ),
   CONTROL_FONT: CONTROL_FONT,
   TITLE_FONT: new PhetFont( { weight: 'bold', size: 14 } ),
+
+  // Misc --------------------------------------------------------------------------------------------------------------
+
+  INTENSITY_RANGE: new Range( 0, 1 ),
 
   // Options -----------------------------------------------------------------------------------------------------------
 

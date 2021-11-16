@@ -10,7 +10,6 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Graph from '../../../../kite/js/ops/Graph.js';
 import Shape from '../../../../kite/js/Shape.js';
@@ -21,9 +20,9 @@ import Optic from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 import ProjectionScreen from './ProjectionScreen.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
+import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 
 // constants
-const INTENSITY_RANGE = new Range( 0, 1 );
 const FULL_INTENSITY_DIAMETER = 7; // cm, any light spot less than this diameter will be full intensity
 
 type PositionAndDiameter = { position: Vector2, diameter: number };
@@ -99,8 +98,8 @@ class LightSpot {
     // The value saturates to max intensity for a spot height smaller than FULL_BRIGHT_SPOT_HEIGHT
     this.intensityProperty = new DerivedProperty<number | null>( [ this.diameterProperty ],
       ( diameter: number | null ) => ( diameter === null || diameter === 0 ) ? null :
-                                     INTENSITY_RANGE.constrainValue( FULL_INTENSITY_DIAMETER / diameter ), {
-        isValidValue: ( value: number | null ) => ( value === null ) || INTENSITY_RANGE.contains( value ),
+                                     GeometricOpticsConstants.INTENSITY_RANGE.constrainValue( FULL_INTENSITY_DIAMETER / diameter ), {
+        isValidValue: ( value: number | null ) => ( value === null ) || GeometricOpticsConstants.INTENSITY_RANGE.contains( value ),
         tandem: options.tandem.createTandem( 'intensityProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NullableIO( NumberIO ) ),
         phetioDocumentation: 'intensity of the light hitting the screen, in the range [0,1], ' +
