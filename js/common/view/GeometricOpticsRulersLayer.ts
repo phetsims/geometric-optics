@@ -50,7 +50,7 @@ class GeometricOpticRulersLayer extends Node {
      * @param {number} absoluteScale
      * @returns {GeometricOpticsRulerNode}
      */
-    const createRulerNode = ( ruler: Ruler, absoluteScale: number ) => {
+    const createRulerNode = ( ruler: Ruler, absoluteScale: number ): GeometricOpticsRulerNode => {
 
       const rulerOptions = getOptions( ruler, absoluteScale );
 
@@ -69,6 +69,7 @@ class GeometricOpticRulersLayer extends Node {
      * @param {number} absoluteScale
      * @returns {Object} [options]
      */
+    //TYPESCRIPT return type
     const getOptions = ( ruler: Ruler, absoluteScale: number ) => {
 
       // we want to scale model length inversely as the scale such that the view length remains the same
@@ -88,7 +89,7 @@ class GeometricOpticRulersLayer extends Node {
      * @param {GeometricOpticsRulerNode} rulerNode
      * @param {number} absoluteScale
      */
-    const updateRulerNode = ( rulerNode: GeometricOpticsRulerNode, absoluteScale: number ) => {
+    const updateRulerNode = ( rulerNode: GeometricOpticsRulerNode, absoluteScale: number ): void => {
 
       // generate new options for the ruler node
       const rulerOptions = getOptions( rulerNode.ruler, absoluteScale );

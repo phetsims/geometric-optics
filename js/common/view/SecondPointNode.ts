@@ -129,7 +129,7 @@ class SecondPointNode extends Node {
     } );
     this.addInputListener( secondPointDragListener );
 
-    const updatePosition = ( modelPosition: Vector2 ) => {
+    const updatePosition = ( modelPosition: Vector2 ): void => {
       const viewPosition = modelViewTransform.modelToViewPosition( modelPosition );
       if ( representationProperty.value.isObject ) {
         this.center = viewPosition;
@@ -170,7 +170,7 @@ class SecondPointNode extends Node {
       }
     );
 
-    this.resetSecondPointNode = () => {
+    this.resetSecondPointNode = (): void => {
       cueingArrowsNode.visible = ( GeometricOpticsGlobalOptions.cueingArrowsEnabledProperty.value &&
                                this.inputEnabledProperty.value );
     };

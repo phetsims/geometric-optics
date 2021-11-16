@@ -164,7 +164,7 @@ class ProjectionScreenNode extends Node {
       }
     );
 
-    this.resetProjectionScreenNode = () => {
+    this.resetProjectionScreenNode = (): void => {
       cueingArrowsNode.visible = ( GeometricOpticsGlobalOptions.cueingArrowsEnabledProperty.value &&
                                    this.inputEnabledProperty.value );
     };

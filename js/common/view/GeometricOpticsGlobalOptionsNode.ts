@@ -64,7 +64,7 @@ class GeometricOpticsGlobalOptionsNode extends VBox {
 
     super( options );
 
-    this.disposeGeometricOpticsGlobalOptionsNode = () => {
+    this.disposeGeometricOpticsGlobalOptionsNode = (): void => {
       projectorModeCheckbox.dispose();
       focalLengthControlText.dispose();
       focalLengthControlRadioButtonGroup.dispose();

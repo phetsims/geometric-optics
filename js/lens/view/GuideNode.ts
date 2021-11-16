@@ -59,7 +59,7 @@ class GuideNode extends Node {
      * @param {Vector2} viewFulcrumPosition
      * @param {number} angle - "model" angle of the rectangle, measured from the positive x -axis
      */
-    const setRectanglePosition = ( rectangleNode: Node, viewFulcrumPosition: Vector2, angle: number ) => {
+    const setRectanglePosition = ( rectangleNode: Node, viewFulcrumPosition: Vector2, angle: number ): void => {
       assert && assert( isFinite( angle ) );
 
       // y-inverted modelViewTransform
@@ -85,7 +85,7 @@ class GuideNode extends Node {
      * @param {number|null} oldAngle - previous "model" angle
      * @param {Rectangle} rectangle - incident or transmitted rectangle to be rotated and positioned
      */
-    const setAnglePosition = ( angle: number, oldAngle: number | null, rectangle: Rectangle ) => {
+    const setAnglePosition = ( angle: number, oldAngle: number | null, rectangle: Rectangle ): void => {
       assert && assert( isFinite( angle ) );
       assert && assert( oldAngle === null || isFinite( oldAngle ) );
 

@@ -362,7 +362,7 @@ class GeometricOpticsScreenView extends ScreenView {
     } );
     this.addChild( screenViewRootNode );
 
-    this.resetGeometricScreenView = () => {
+    this.resetGeometricScreenView = (): void => {
       zoomLevelProperty.reset();
       visibleProperties.reset();
       sourceObjectNode.reset();

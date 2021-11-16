@@ -50,7 +50,7 @@ class LightRaysNode extends Node {
       )
     } );
 
-    const update = () => {
+    const update = (): void => {
       realRaysNode.children = segmentsToLines( lightRays.realSegments, modelViewTransform, options.realRaysStroke, options.realRaysLineWidth );
       virtualRaysPath.children = segmentsToLines( lightRays.virtualSegments, modelViewTransform, options.virtualRaysStroke, options.virtualRaysLineWidth );
     };

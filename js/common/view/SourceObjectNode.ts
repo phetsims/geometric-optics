@@ -69,7 +69,7 @@ class SourceObjectNode extends Node {
     } );
 
     // Scale the source object.
-    const scaleSourceObject = () => {
+    const scaleSourceObject = (): void => {
 
       const initialWidth = sourceObjectImage.width;
       const initialHeight = sourceObjectImage.height;
@@ -84,7 +84,7 @@ class SourceObjectNode extends Node {
 
     // Translate the source object to the specified position.
     // This Node's origin is at the left-top of sourceObjectImage, so set translation.
-    const translateSourceObject = ( leftTop: Vector2 ) => {
+    const translateSourceObject = ( leftTop: Vector2 ): void => {
       this.translation = modelViewTransform.modelToViewPosition( leftTop );
     };
 
@@ -138,7 +138,7 @@ class SourceObjectNode extends Node {
       }
     );
 
-    this.resetSourceObjectNode = () => {
+    this.resetSourceObjectNode = (): void => {
       cueingArrowsNode.visible = ( GeometricOpticsGlobalOptions.cueingArrowsEnabledProperty.value &&
                                    this.inputEnabledProperty.value );
     };

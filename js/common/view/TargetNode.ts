@@ -42,7 +42,7 @@ class TargetNode extends Node {
     /**
      * update the size as well as the position of the target image.
      */
-    const updateScaleAndPosition = () => {
+    const updateScaleAndPosition = (): void => {
 
       // desired bounds for the image
       const viewBounds = modelViewTransform.modelToViewBounds( target.boundsProperty.value );
