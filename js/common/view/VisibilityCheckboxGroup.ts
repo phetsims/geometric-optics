@@ -19,7 +19,6 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GuideNode from '../../lens/view/GuideNode.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
-import OpticTypeEnum from '../model/OpticTypeEnum.js';
 import FocalPointNode from './FocalPointNode.js';
 import SecondPointNode from './SecondPointNode.js';
 import VisibleProperties from './VisibleProperties.js';
@@ -30,11 +29,11 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 
   /**
    * @param {VisibleProperties} visibleProperties
-   * @param {OpticTypeEnum} opticType
+   * @param {boolean} isLens
    * @param {Property.<Representation>} representationProperty
    * @param {Object} [options]
    */
-  constructor( visibleProperties: VisibleProperties, opticType: OpticTypeEnum,
+  constructor( visibleProperties: VisibleProperties, isLens: boolean,
                representationProperty: Property<Representation>, options?: any ) {  //TYPESCRIPT any
 
     options = merge( {
@@ -83,7 +82,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
     ];
 
     // Guides
-    if ( opticType === 'lens' ) {
+    if ( isLens ) {
       items.push( {
         node: createLabel( geometricOpticsStrings.guides, GuideNode.createIcon() ),
         property: visibleProperties.guidesVisibleProperty,

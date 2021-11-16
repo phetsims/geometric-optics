@@ -1,4 +1,4 @@
-// Copyright 2021, University of Colorado Boulder
+  // Copyright 2021, University of Colorado Boulder
 
 /**
  * MirrorScreen is the 'Mirror' screen.
@@ -57,7 +57,7 @@ class MirrorScreen extends Screen {
  */
 function createScreenIcon(): ScreenIcon {
 
-  const concaveMirrorNode = OpticShapeRadioButtonGroup.createIconNode( 'mirror', 'concave', {
+  const concaveMirrorNode = OpticShapeRadioButtonGroup.createIconNode( false /* isLens */, 'concave', {
     radius: 20,
     diameter: 30
   } );

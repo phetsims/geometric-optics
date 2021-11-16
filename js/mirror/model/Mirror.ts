@@ -23,7 +23,6 @@ class Mirror extends Optic {
    */
   constructor( options?: any ) { //TYPESCRIPT any
     super( merge( {
-      opticType: 'mirror',
       opticShape: 'concave',
       opticShapes: [ 'concave', 'convex' ], //TODO https://github.com/phetsims/geometric-optics/issues/227 add 'flat'
       radiusOfCurvatureRange: new RangeWithValue( 150, 300, 200 ), // in cm

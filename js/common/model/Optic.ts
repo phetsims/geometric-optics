@@ -18,7 +18,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import geometricOptics from '../../geometricOptics.js';
 import OpticShapes from './OpticShapes.js';
-import OpticTypeEnum from './OpticTypeEnum.js';
 import OpticShapeEnum, { OpticShapeValues } from './OpticShapeEnum.js';
 import Property from '../../../../axon/js/Property.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
@@ -27,10 +26,6 @@ import required from '../../../../phet-core/js/required.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 
 abstract class Optic {
-
-  // type of the optic
-  //TODO replace with subclassing
-  readonly opticType: OpticTypeEnum;
 
   // shape of the optic
   readonly opticShapeProperty: Property<OpticShapeEnum>;
@@ -74,9 +69,6 @@ abstract class Optic {
 
     config = merge( {
 
-      // type of optic, 'mirror' or 'lens'
-      opticType: required( config.opticType ),
-
       // initial shape of the optic, 'convex' or 'concave'
       opticShape: required( config.opticShape ),
 
@@ -108,7 +100,6 @@ abstract class Optic {
       tandem: Tandem.REQUIRED
     }, config );
 
-    this.opticType = config.opticType;
     this.sign = config.sign;
 
     this.opticShapeProperty = new Property<OpticShapeEnum>( config.opticShape, {

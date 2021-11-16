@@ -12,7 +12,6 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import OpticTypeEnum from '../model/OpticTypeEnum.js';
 
 class VisibleProperties {
 
@@ -36,10 +35,10 @@ class VisibleProperties {
   readonly rayTracingVisibleProperty: BooleanProperty;
 
   /**
-   * @param {OpticTypeEnum} opticType
+   * @param {boolean} isLens
    * @param {Object} [options]
    */
-  constructor( opticType: OpticTypeEnum, options?: any ) { //TYPESCRIPT any
+  constructor( isLens: boolean, options?: any ) { //TYPESCRIPT any
 
     options = merge( {
 
@@ -64,7 +63,7 @@ class VisibleProperties {
     } );
 
     this.guidesVisibleProperty = new BooleanProperty( false, {
-      validValues: ( opticType === 'lens' ) ? [ true, false ] : [ false ],
+      validValues: isLens ? [ true, false ] : [ false ],
       tandem: options.tandem.createTandem( 'guidesVisibleProperty' )
     } );
 

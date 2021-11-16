@@ -16,9 +16,9 @@ import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import Optic from '../model/Optic.js';
 import OpticShapeEnum from '../model/OpticShapeEnum.js';
-import OpticTypeEnum from '../model/OpticTypeEnum.js';
 import LensShapes from '../../lens/model/LensShapes.js';
 import MirrorShapes from '../../mirror/model/MirrorShapes.js';
+import Lens from '../../lens/model/Lens.js';
 
 //TYPESCRIPT RectangularRadioButtonGroup needs to define this parameterized type for items
 type RectangularRadioButtonGroupItem<T> = {
@@ -57,21 +57,23 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeE
       tandem: Tandem.REQUIRED
     }, options );
 
+    const isLens = ( optic instanceof Lens );
+
     // A radio button for each shape supported by the optic
     const items = optic.opticShapeProperty.validValues.map(
-      ( opticShape: OpticShapeEnum ) => createItem( optic.opticType, opticShape ) );
+      ( opticShape: OpticShapeEnum ) => createItem( isLens, opticShape ) );
 
     super( optic.opticShapeProperty, items, options );
   }
 
   /**
    * Creates a centered icon representation of convex/concave, lens/mirror.
-   * @param {OpticTypeEnum} opticType - the optic can be lens or mirror
+   * @param {boolean} isLens - is the optic a lens?
    * @param {OpticShapeEnum} opticShape - the shape of the optic can be convex or concave
    * @param {Object} [options]
    * @returns {Node}
    */
-  public static createIconNode( opticType: OpticTypeEnum, opticShape: OpticShapeEnum, options?: any ): Node { //TYPESCRIPT any
+  public static createIconNode( isLens: boolean, opticShape: OpticShapeEnum, options?: any ): Node { //TYPESCRIPT any
 
     options = merge( {
       radius: 22, // radius of curvature of the optic, in cm
@@ -79,7 +81,7 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeE
     }, options );
 
     // Get the appropriate shapes for the optic.
-    const iconShapes = ( opticType === 'lens' ) ?
+    const iconShapes = isLens ?
                        new LensShapes( opticShape, options.radius, options.diameter, {
                          isHollywooded: false
                        } ) :
@@ -102,14 +104,14 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeE
 
 /**
  * Creates an item for the radio button group.
- * @param {OpticTypeEnum} opticType
+ * @param {boolean} isLens - is the optic a lens?
  * @param {OpticShapeEnum} opticShape
  * @returns {RectangularRadioButtonGroupItem<OpticShapeEnum>}
  */
-function createItem( opticType: OpticTypeEnum, opticShape: OpticShapeEnum ): RectangularRadioButtonGroupItem<OpticShapeEnum> {
+function createItem( isLens: boolean, opticShape: OpticShapeEnum ): RectangularRadioButtonGroupItem<OpticShapeEnum> {
   return {
     value: opticShape,
-    node: OpticShapeRadioButtonGroup.createIconNode( opticType, opticShape ),
+    node: OpticShapeRadioButtonGroup.createIconNode( isLens, opticShape ),
     tandemName: `${opticShape}RadioButton`
   };
 }

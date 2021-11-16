@@ -110,7 +110,7 @@ class GeometricOpticsControlPanel extends Panel {
 
     // Visibility checkboxes ---------------------------------------------------------------------------------------
 
-    const checkboxGroup = new VisibilityCheckboxGroup( visibleProperties, optic.opticType, representationProperty, {
+    const checkboxGroup = new VisibilityCheckboxGroup( visibleProperties, ( optic instanceof Lens ), representationProperty, {
       tandem: options.tandem.createTandem( 'checkboxGroup' )
     } );
 

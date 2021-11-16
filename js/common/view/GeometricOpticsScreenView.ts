@@ -44,6 +44,7 @@ import SourceObjectNode from './SourceObjectNode.js';
 import TargetNode from './TargetNode.js';
 import VisibleProperties from './VisibleProperties.js';
 import RaysModeEnum from '../model/RaysModeEnum.js';
+import Lens from '../../lens/model/Lens.js';
 
 // constants
 const ZOOM_RANGE = new RangeWithValue( 1, 3, 3 );
@@ -95,7 +96,7 @@ class GeometricOpticsScreenView extends ScreenView {
     // Properties  ====================================================================================================
 
     // Create visibleProperty instances for Nodes in the view.
-    const visibleProperties = new VisibleProperties( model.optic.opticType, {
+    const visibleProperties = new VisibleProperties( ( model.optic instanceof Lens ), {
       tandem: options.tandem.createTandem( 'visibleProperties' )
     } );
 

@@ -93,7 +93,7 @@ class LabelsNode extends Node {
         }
       }
       else {
-        throw new Error( 'unsupported opticType' );
+        throw new Error( 'unsupported Optic subclass' );
       }
       opticLabel.setText( text );
     } );
