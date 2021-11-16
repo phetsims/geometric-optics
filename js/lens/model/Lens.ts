@@ -14,6 +14,7 @@ import Optic from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 import OpticShapeEnum from '../../common/model/OpticShapeEnum.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import LensShapes from './LensShapes.js';
 
 class Lens extends Optic {
 
@@ -30,6 +31,8 @@ class Lens extends Optic {
       diameterRange: new RangeWithValue( 30, 130, 80 ), // in cm
       sign: 1,
       isConverging: ( opticShape: OpticShapeEnum ) => ( opticShape === 'convex' ),
+      createOpticShapes: ( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number ) =>
+        new LensShapes( opticShape, radiusOfCurvature, diameter ),
 
       // phet-io options
       tandem: Tandem.REQUIRED

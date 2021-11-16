@@ -59,7 +59,7 @@ abstract class Optic {
   // focal point to the right of the optic
   readonly rightFocalPointProperty: DerivedProperty<Vector2>;
 
-  // shapes related to the optic
+  // Shapes that describe the optic
   readonly shapesProperty: DerivedProperty<OpticShapes>;
 
   // Determines whether the optical axis is visible.
@@ -94,6 +94,9 @@ abstract class Optic {
 
       // ( opticShape: OpticShapeEnum ) => boolean, determines whether the optic is converging for the specified shape
       isConverging: required( config.isConverging ),
+
+      // ( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number ) => OpticShapes
+      createOpticShapes: required( config.createOpticShapes ),
 
       // position of the optic, in cm
       position: Vector2.ZERO,
@@ -185,7 +188,7 @@ abstract class Optic {
     this.shapesProperty = new DerivedProperty<OpticShapes>(
       [ this.opticShapeProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
       ( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number ) =>
-        new OpticShapes( config.opticType, opticShape, radiusOfCurvature, diameter )
+        config.createOpticShapes( opticShape, radiusOfCurvature, diameter )
     );
 
     this.opticalAxisVisibleProperty = new BooleanProperty( true, {
