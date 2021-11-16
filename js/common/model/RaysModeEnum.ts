@@ -1,18 +1,12 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TYPESCRIPT what is the pattern for string enums?
 /**
  * RaysMode is the enumeration for the different representations of rays, as set by the 'Rays' radio button group.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import geometricOptics from '../../geometricOptics.js';
-
 const RaysModeValues = [ 'marginal', 'principal', 'many', 'none' ] as const;
 type RaysModeEnum = ( typeof RaysModeValues )[number];
 
-geometricOptics.register( 'RaysModeValues', RaysModeValues );
-
-export default RaysModeEnum;
-export { RaysModeValues };
+export { RaysModeValues, RaysModeEnum as default };
