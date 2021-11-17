@@ -371,7 +371,6 @@ function getTransmittedRay( originPoint: Vector2, targetPoint: Vector2, optic: O
   const direction = originPoint.minus( targetPoint ).normalized();
 
   // real rays should only propagate to the right for lens and to left for a mirror
-  //TODO add a method to Optic to make instanceof test unnecessary
   if ( ( optic instanceof Lens && direction.x < 0 ) || ( optic instanceof Mirror && direction.x > 0 ) ) {
     direction.negate();
   }
