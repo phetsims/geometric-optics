@@ -220,7 +220,7 @@ function getRealRays( initialRay: Ray, firstPoint: Vector2 | null, optic: Optic,
       rays.push( getTransmittedRay( firstPoint, targetPoint, optic ) );
     }
     else {
-      // must be lens with light ray mode that is not principal rays
+      assert && assert( ( optic instanceof Lens ) && !isPrincipalRayMode );
 
       // {Vector2} find bisecting point of the lens, used to determine outgoin ray
       const intermediatePoint = getIntermediatePoint( initialRay, firstPoint, optic );
