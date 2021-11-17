@@ -78,7 +78,9 @@ class LabelsNode extends Node {
           throw Error( `unsupported opticShape for lens: ${opticShape}` );
         }
       }
-      else if ( model.optic instanceof Mirror ) {
+      else {
+        // mirror
+        assert && assert( model.optic instanceof Mirror );
         if ( opticShape === 'convex' ) {
           text = geometricOpticsStrings.convexMirror;
         }
@@ -91,9 +93,6 @@ class LabelsNode extends Node {
         else {
           throw Error( `unsupported opticShape for mirror: ${opticShape}` );
         }
-      }
-      else {
-        throw new Error( 'unsupported Optic subclass' );
       }
       opticLabel.setText( text );
     } );
