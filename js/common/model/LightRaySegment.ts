@@ -15,8 +15,8 @@ class LightRaySegment {
   readonly endPoint: Vector2;
 
   /**
-   * @param {Vector2} startPoint
-   * @param {Vector2} endPoint
+   * @param startPoint
+   * @param endPoint
    */
   constructor( startPoint: Vector2, endPoint: Vector2 ) {
     this.startPoint = startPoint;

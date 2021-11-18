@@ -57,9 +57,6 @@ class SecondPoint {
     this.sourceObjectPositionProperty = sourceObjectPositionProperty;
   }
 
-  /**
-   * Resets the model.
-   */
   public reset(): void {
     this.verticalOffsetProperty.reset();
     this.lightSourcePositionProperty.reset();
@@ -67,8 +64,8 @@ class SecondPoint {
 
   /**
    * Sets the second source point
-   * @param {boolean} isObject
-   * @param {Vector2} position
+   * @param isObject
+   * @param position
    */
   public setSecondPoint( isObject: boolean, position: Vector2 ): void {
     if ( isObject ) {

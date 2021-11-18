@@ -33,17 +33,17 @@ class LightRays {
   readonly raysProcessedEmitter: Emitter<[]>;
 
   /**
-   * @param {Property.<number>} timeProperty
-   * @param {Property.<RaysModeEnum>} raysModeProperty
-   * @param {Property.<Representation>} representationProperty
-   * @param {Property.<Vector2>} sourceObjectPositionProperty
-   * @param {Optic} optic
-   * @param {Target} target - target model associated with this ray
-   * @param {Barrier|null} barrier - optional barrier that blocks rays
+   * @param timeProperty
+   * @param raysModeProperty
+   * @param representationProperty
+   * @param sourceObjectPositionProperty
+   * @param optic
+   * @param target - target model associated with this ray
+   * @param barrier - optional barrier that blocks rays
    */
   constructor( timeProperty: Property<number>, raysModeProperty: Property<RaysModeEnum>,
                representationProperty: Property<Representation>, sourceObjectPositionProperty: Property<Vector2>,
-               optic: Optic, target: Target, barrier: Barrier ) {
+               optic: Optic, target: Target, barrier: Barrier | null ) {
 
     this.realSegments = [];
     this.virtualSegments = [];
@@ -109,11 +109,10 @@ class LightRays {
 
 /**
  * Gets the initial directions of the rays for the different ray modes.
- * @param {Vector2} sourcePosition
- * @param {Optic} optic
- * @param {RaysModeEnum} raysMode
- * @param {Vector2} targetPoint
- * @returns {Vector2[]}
+ * @param sourcePosition
+ * @param optic
+ * @param raysMode
+ * @param targetPoint
  */
 function getRayDirections( sourcePosition: Vector2, optic: Optic, raysMode: RaysModeEnum, targetPoint: Vector2 ): Vector2[] {
 

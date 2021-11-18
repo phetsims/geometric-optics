@@ -45,13 +45,13 @@ class LightRay {
   private readonly virtualRay: Ray | null;
 
   /**
-   * @param {Ray} initialRay - ray (position and direction) emerging from source
-   * @param {number} time - value of model time in seconds needed for the purpose of the animation
-   * @param {Optic} optic - model of the optic
-   * @param {Vector2} targetPoint - point of focus of all rays based on thin lens law
-   * @param {boolean} isVirtual - is the image virtual
-   * @param {boolean} isPrincipalRayMode - is the light ray mode set to Principal rays
-   * @param {Barrier|null} barrier - optional barrier that can block the ray
+   * @param initialRay - ray (position and direction) emerging from source
+   * @param time - value of model time in seconds needed for the purpose of the animation
+   * @param optic - model of the optic
+   * @param targetPoint - point of focus of all rays based on thin lens law
+   * @param isVirtual - is the image virtual?
+   * @param isPrincipalRayMode - is the light ray mode set to Principal rays
+   * @param barrier - optional barrier that can block the ray
    */
   constructor( initialRay: Ray, time: number, optic: Optic, targetPoint: Vector2, isVirtual: boolean,
                isPrincipalRayMode: boolean, barrier: Barrier | null ) {
@@ -88,10 +88,9 @@ class LightRay {
 
   /**
    * Has the rays reached the target (barrier or target point)?
-   * @param {number} distanceTraveled
-   * @param {boolean} isBarrierPresent
-   * @param {Vector2} targetPoint
-   * @returns {boolean}
+   * @param distanceTraveled
+   * @param isBarrierPresent
+   * @param targetPoint
    */
   private getHasReachedTarget( distanceTraveled: number, isBarrierPresent: boolean, targetPoint: Vector2 ): boolean {
 
@@ -130,7 +129,7 @@ class LightRay {
 
   /**
    * Processes all the rays (virtual and real) into line segments.
-   * @param {number} distanceTraveled
+   * @param distanceTraveled
    */
   private raysToSegments( distanceTraveled: number ): void {
 
@@ -175,10 +174,9 @@ class LightRay {
 
 /**
  * Gets the first intersection Ppoint.
- * @param {Ray} initialRay
- * @param {Optic} optic
- * @param {boolean} isPrincipalRayMode
- * @returns {Vector2|null}
+ * @param initialRay
+ * @param optic
+ * @param isPrincipalRayMode
  */
 function getFirstPoint( initialRay: Ray, optic: Optic, isPrincipalRayMode: boolean ): Vector2 | null {
   const firstIntersection = getFirstShape( optic, isPrincipalRayMode ).intersection( initialRay );
@@ -188,12 +186,11 @@ function getFirstPoint( initialRay: Ray, optic: Optic, isPrincipalRayMode: boole
 /**
  * Gets all the real rays that form a light ray. The transmitted ray (last ray) is set to be of infinite length by
  * default This can be corrected later if the ray is intercepted by a barrier
- * @param {Ray} initialRay
- * @param {Vector2|null} firstPoint
- * @param {Optic} optic
- * @param {boolean} isPrincipalRayMode
- * @param {Vector2} targetPoint
- * @returns {Ray[]} Rays
+ * @param initialRay
+ * @param firstPoint
+ * @param optic
+ * @param isPrincipalRayMode
+ * @param targetPoint
  */
 function getRealRays( initialRay: Ray, firstPoint: Vector2 | null, optic: Optic, isPrincipalRayMode: boolean,
                       targetPoint: Vector2 ): Ray[] {
@@ -266,10 +263,9 @@ function getRealRays( initialRay: Ray, firstPoint: Vector2 | null, optic: Optic,
 /**
  * Gets an "intermediate" point. Find the point of intersection of the initial ray with an imaginary vertical line
  * at position share by the optic position
- * @param {Ray} initialRay
- * @param {Vector2} firstPoint
- * @param {Optic} optic
- * @returns {Vector2}
+ * @param initialRay
+ * @param firstPoint
+ * @param optic
  */
 function getIntermediatePoint( initialRay: Ray, firstPoint: Vector2, optic: Optic ): Vector2 {
 
@@ -311,8 +307,6 @@ function setFinalPointProjectionScreen( realRays: Ray[], projectionScreenBisecto
 
 /**
  * Gets the shape of the curved back (right hand side) of the lens.
- * @param {Optic} optic
- * @returns {Shape}
  */
 function getLensBackShape( optic: Optic ): Shape {
   assert && assert( optic instanceof Lens, 'optic must be Lens' );
@@ -323,9 +317,6 @@ function getLensBackShape( optic: Optic ): Shape {
 
 /**
  * Gets the shape that the initial ray will intersect.
- * @param {Optic} optic
- * @param {boolean} isPrincipalRayMode
- * @returns {Shape}
  */
 function getFirstShape( optic: Optic, isPrincipalRayMode: boolean ): Shape {
 
@@ -344,8 +335,6 @@ function getFirstShape( optic: Optic, isPrincipalRayMode: boolean ): Shape {
 
 /**
  * Processes a point from the intersection. Returns null if the point cannot be found.
- * @param {Array.<RayIntersection>} intersection
- * @returns {Vector2|null}
  */
 function getPoint( intersection: RayIntersection[] ): Vector2 | null {
   assert && assert( Array.isArray( intersection ) && _.every( intersection, element => element instanceof RayIntersection ) );
@@ -361,10 +350,6 @@ function getPoint( intersection: RayIntersection[] ): Vector2 | null {
 
 /**
  * Returns a semi infinite ray starting at originPoint. The ray is along (or opposite to) the direction of targetPoint.
- * @param {Vector2} originPoint
- * @param {Vector2} targetPoint
- * @param {Optic} optic
- * @returns {Ray}
  */
 function getTransmittedRay( originPoint: Vector2, targetPoint: Vector2, optic: Optic ): Ray {
 
@@ -380,9 +365,8 @@ function getTransmittedRay( originPoint: Vector2, targetPoint: Vector2, optic: O
 /**
  * Returns a virtual ray that is opposite to the last real ray.
  * If the virtual ray does not exist or does not line up with the target point, it returns null.
- * @param {Ray[]} realRays
- * @param {Vector2} targetPoint
- * @returns {Ray|null} virtualRay
+ * @param realRays
+ * @param targetPoint
  */
 function getVirtualRay( realRays: Ray[], targetPoint: Vector2 ): Ray | null {
 
@@ -418,9 +402,8 @@ function getVirtualRay( realRays: Ray[], targetPoint: Vector2 ): Ray | null {
 
 /**
  * Has the light ray a virtual component (virtual ray)?
- * @param {boolean} isImageVirtual
- * @param {Ray[]} realRays
- * @returns {boolean}
+ * @param isImageVirtual
+ * @param realRays
  */
 function hasVirtualComponent( isImageVirtual: boolean, realRays: Ray[] ): boolean {
 

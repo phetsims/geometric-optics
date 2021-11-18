@@ -63,7 +63,7 @@ abstract class Optic {
   readonly opticalAxisVisibleProperty: BooleanProperty;
 
   /**
-   * @param {Object} config
+   * @param config
    */
   protected constructor( config: any ) { //TYPESCRIPT any
 
@@ -193,10 +193,6 @@ abstract class Optic {
    */
   protected abstract getExtremumPoint( sourcePoint: Vector2, targetPoint: Vector2, isTop: boolean ): Vector2;
 
-  /**
-   * Convenience method for getting the maximum diameter, in cm.
-   * @returns {number}
-   */
   public get maxDiameter(): number {
     return this.diameterProperty.rangeProperty.value.max;
   }
@@ -211,8 +207,6 @@ abstract class Optic {
 
   /**
    * Returns a shape translated by the model position of the optic
-   * @param {Shape} shape
-   * @returns {Shape}
    */
   public translatedShape( shape: Shape ): Shape {
     return shape.transformed( Matrix3.translationFromVector( this.positionProperty.value ) );
@@ -221,7 +215,6 @@ abstract class Optic {
   /**
    * Gets the bounds of the optically "active" component, in model coordinates.
    * In practice, it means that we exclude the backing (fill) of the mirror
-   * @returns {Bounds2}
    */
   public getOpticBounds(): Bounds2 {
     const outlineShape = this.shapesProperty.value.outlineShape;
@@ -231,7 +224,6 @@ abstract class Optic {
 
   /**
    * Returns the Shape of the vertical axis, in model coordinates.
-   * @returns {Shape}
    */
   public getVerticalAxis(): Shape {
 
@@ -245,9 +237,8 @@ abstract class Optic {
 
   /**
    * Returns the top position within the optic that would ensure that a ray would be transmitted (or reflected).
-   * @param {Vector2} sourcePoint
-   * @param {Vector2} targetPoint
-   * @returns {Vector2}
+   * @param sourcePoint
+   * @param targetPoint
    */
   public getTopPoint( sourcePoint: Vector2, targetPoint: Vector2 ): Vector2 {
     return this.getExtremumPoint( sourcePoint, targetPoint, true /* isTop */ );
@@ -255,9 +246,8 @@ abstract class Optic {
 
   /**
    * Returns the bottom position within the optic that would ensure that a ray would be transmitted (or reflected).
-   * @param {Vector2} sourcePoint
-   * @param {Vector2} targetPoint
-   * @returns {Vector2}
+   * @param sourcePoint
+   * @param targetPoint
    */
   public getBottomPoint( sourcePoint: Vector2, targetPoint: Vector2 ): Vector2 {
     return this.getExtremumPoint( sourcePoint, targetPoint, false /* isTop */ );

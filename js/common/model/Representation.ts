@@ -104,7 +104,6 @@ class Representation {
 
   /**
    * Gets the scale factor to use for this RepresentationValue.
-   * @returns {number}
    */
   //TODO convert to field, computed in constructor
   public getScaleFactor(): number {

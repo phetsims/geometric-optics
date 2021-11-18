@@ -53,9 +53,9 @@ class Target {
   private readonly isInvertedProperty: DerivedProperty<boolean>;
 
   /**
-   * @param {Property.<Vector2>} objectPositionProperty - position of the source object or light source
-   * @param {Optic} optic - model of the optic
-   * @param {Property.<Representation>} representationProperty
+   * @param objectPositionProperty - position of the source object or light source
+   * @param optic - model of the optic
+   * @param representationProperty
    */
   constructor( objectPositionProperty: Property<Vector2>, optic: Optic, representationProperty: Property<Representation> ) {
 
@@ -173,9 +173,6 @@ class Target {
       } );
   }
 
-  /**
-   * @override
-   */
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
   }
@@ -183,9 +180,8 @@ class Target {
   /**
    * Returns the magnification of the image as defined in geometric optics courses.
    * A negative magnification implies that the image is inverted.
-   * @param {Vector2} objectPosition
-   * @param {Vector2} opticPosition
-   * @returns {number}
+   * @param objectPosition
+   * @param opticPosition
    */
   private getMagnification( objectPosition: Vector2, opticPosition: Vector2 ): number {
 
@@ -207,9 +203,8 @@ class Target {
 /**
  * Returns the horizontal distance from the object to the optic.
  * A negative distance indicates that the object is to the right of the optic.
- * @param {Vector2} objectPosition
- * @param {Vector2} opticPosition
- * @returns {number}
+ * @param objectPosition
+ * @param opticPosition
  */
 function getObjectOpticDistance( objectPosition: Vector2, opticPosition: Vector2 ): number {
   return opticPosition.x - objectPosition.x;
