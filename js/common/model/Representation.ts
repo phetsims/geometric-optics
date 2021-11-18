@@ -61,6 +61,9 @@ class Representation {
   readonly rightFacingUprightOffset: Vector2;
   readonly tandemPrefix: string;
 
+  // Scale used when displaying the representation.
+  readonly scaleFactor: number;
+
   /**
    * @param {Object} config
    */
@@ -100,14 +103,7 @@ class Representation {
     this.leftFacingInverted = config.leftFacingInverted;
     this.rightFacingUprightOffset = config.rightFacingUprightOffset;
     this.tandemPrefix = config.tandemPrefix;
-  }
-
-  /**
-   * Gets the scale factor to use for this RepresentationValue.
-   */
-  //TODO convert to field, computed in constructor
-  public getScaleFactor(): number {
-    return this.isObject ? OBJECT_SCALE_FACTOR : SOURCE_SCALE_FACTOR;
+    this.scaleFactor = this.isObject ? OBJECT_SCALE_FACTOR : SOURCE_SCALE_FACTOR;
   }
 }
 

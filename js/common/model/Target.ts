@@ -125,7 +125,7 @@ class Target {
       //TODO isInverted is not used, is dependency needed?
       ( position: Vector2, representation: Representation, magnification: number, isInverted: boolean ) => {
 
-        const scaleFactor = representation.getScaleFactor();
+        const scaleFactor = representation.scaleFactor;
         const initialOffset = representation.rightFacingUprightOffset.timesScalar( 1 / scaleFactor );
         const initialWidth = representation.rightFacingUpright.width / scaleFactor;
         const initialHeight = representation.rightFacingUpright.height / scaleFactor;
