@@ -33,10 +33,10 @@ import Optic from '../model/Optic.js';
 class OpticNode extends Node {
 
   /**
-   * @param {Optic} optic
-   * @param {Property.<Bounds2>} modelBoundsProperty
-   * @param {ModelViewTransform2} modelViewTransform
-   * @param {Object} [options]
+   * @param optic
+   * @param modelBoundsProperty
+   * @param modelViewTransform
+   * @param options
    */
   constructor( optic: Optic, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
 
@@ -114,9 +114,6 @@ class OpticNode extends Node {
     } );
   }
 
-  /**
-   * @override
-   */
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();

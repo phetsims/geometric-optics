@@ -23,11 +23,11 @@ import RaysModeEnum from '../model/RaysModeEnum.js';
 class OpticVerticalAxis extends Node {
 
   /**
-   * @param {Optic} optic
-   * @param {Property.<RaysModeEnum>} raysModeProperty
-   * @param {Property.<Bounds2>} modelBoundsProperty
-   * @param {ModelViewTransform2} modelViewTransform
-   * @param {Object} [options]
+   * @param optic
+   * @param raysModeProperty
+   * @param modelBoundsProperty
+   * @param modelViewTransform
+   * @param options
    */
   constructor( optic: Optic, raysModeProperty: Property<RaysModeEnum>, modelBoundsProperty: Property<Bounds2>,
                modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any

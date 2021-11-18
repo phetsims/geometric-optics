@@ -35,8 +35,8 @@ class VisibleProperties {
   readonly rayTracingVisibleProperty: BooleanProperty;
 
   /**
-   * @param {boolean} isLens
-   * @param {Object} [options]
+   * @param isLens
+   * @param options
    */
   constructor( isLens: boolean, options?: any ) { //TYPESCRIPT any
 

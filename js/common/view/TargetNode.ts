@@ -22,12 +22,12 @@ import Representation from '../model/Representation.js';
 class TargetNode extends Node {
 
   /**
-   * @param {Property.<Representation>} representationProperty
-   * @param {Target} target
-   * @param {Optic} optic
-   * @param {Property.<boolean>} virtualImageVisibleProperty
-   * @param {Property.<boolean>} rayTracingVisibleProperty
-   * @param {ModelViewTransform2} modelViewTransform
+   * @param representationProperty
+   * @param target
+   * @param optic
+   * @param virtualImageVisibleProperty
+   * @param rayTracingVisibleProperty
+   * @param modelViewTransform
    */
   constructor( representationProperty: Property<Representation>, target: Target, optic: Optic,
                virtualImageVisibleProperty: Property<boolean>, rayTracingVisibleProperty: Property<boolean>,
@@ -107,9 +107,6 @@ class TargetNode extends Node {
     this.addChild( targetImage );
   }
 
-  /**
-   * @override
-   */
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();

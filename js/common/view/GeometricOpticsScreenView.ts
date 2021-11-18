@@ -63,8 +63,8 @@ class GeometricOpticsScreenView extends ScreenView {
   private readonly resetGeometricScreenView: () => void;
 
   /**
-   * @param {GeometricOpticsModel} model
-   * @param {Object} [options]
+   * @param model
+   * @param options
    */
   constructor( model: GeometricOpticsModel, options?: any ) { //TYPESCRIPT any
 
@@ -392,23 +392,18 @@ class GeometricOpticsScreenView extends ScreenView {
     this.zoomButtonGroup = zoomButtonGroup; // {Node}
   }
 
-  /**
-   * @override
-   */
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 
-  /**
-   * Resets the view.
-   */
   public reset(): void {
     this.resetGeometricScreenView();
   }
 
   /**
-   * Time stepper
+   * Steps the view.
+   * @param dt - time step, in seconds
    */
   public step( dt: number ): void {
     if ( this.visibleProperties.rayTracingVisibleProperty.value ) {
@@ -419,8 +414,6 @@ class GeometricOpticsScreenView extends ScreenView {
   /**
    * Returns the absolute scaling factor measured from the initial zoom level
    * The absolute scale returns 1 if the zoom level is the initial zoom level value
-   * @param {number} zoomLevel
-   * @returns {number}
    */
   //TODO convert to private function
   private getAbsoluteScale( zoomLevel: number ): number {
@@ -429,9 +422,8 @@ class GeometricOpticsScreenView extends ScreenView {
 
   /**
    * Returns a model-view transform appropriate for the zoom level
-   * @param {number} zoomLevel
-   * @param {Vector2} viewOrigin
-   * @returns {ModelViewTransform2}
+   * @param zoomLevel
+   * @param viewOrigin
    */
   private getTransformForZoomLevel( zoomLevel: number, viewOrigin: Vector2 ): ModelViewTransform2 {
 
@@ -448,9 +440,6 @@ class GeometricOpticsScreenView extends ScreenView {
 
 /**
  * Returns the relative scale between a zoom level and a previous old zoom level
- * @param {number} zoomLevel
- * @param {number} oldZoomLevel
- * @returns {number}
  */
 function getRelativeScale( zoomLevel: number, oldZoomLevel: number ): number {
   const base = 2;

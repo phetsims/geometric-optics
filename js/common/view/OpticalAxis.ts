@@ -21,12 +21,11 @@ import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 class OpticalAxis extends Line {
 
   /**
-   * @param {Property.<Vector2>} opticPositionProperty
-   * @param {Property.<Bounds2>} modelBoundsProperty
-   * @param {ModelViewTransform2} modelViewTransform
-   * @param {Object} [options]
+   * @param opticPositionProperty
+   * @param modelBoundsProperty
+   * @param modelViewTransform
+   * @param options
    */
-  // eslint-disable-next-line no-undef
   constructor( opticPositionProperty: Property<Vector2>, modelBoundsProperty: Property<Bounds2>,
                modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
 
@@ -53,9 +52,6 @@ class OpticalAxis extends Line {
     } );
   }
 
-  /**
-   * @override
-   */
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();

@@ -34,12 +34,12 @@ class SourceObjectNode extends Node {
   private readonly resetSourceObjectNode: () => void;
 
   /**
-   * @param {Property.<Representation>} representationProperty
-   * @param {SourceObject} sourceObject
-   * @param {Property.<Bounds2>} modelBoundsProperty
-   * @param {Property.<Vector2>} opticPositionProperty
-   * @param {ModelViewTransform2} modelViewTransform
-   * @param {Object} [options]
+   * @param representationProperty
+   * @param sourceObject
+   * @param modelBoundsProperty
+   * @param opticPositionProperty
+   * @param modelViewTransform
+   * @param options
    * */
   constructor( representationProperty: Property<Representation>, sourceObject: SourceObject,
                modelBoundsProperty: Property<Bounds2>, opticPositionProperty: Property<Vector2>,
@@ -144,17 +144,11 @@ class SourceObjectNode extends Node {
     };
   }
 
-  /**
-   * @override
-   */
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 
-  /**
-   * Reset this node
-   */
   public reset(): void {
     this.resetSourceObjectNode();
   }

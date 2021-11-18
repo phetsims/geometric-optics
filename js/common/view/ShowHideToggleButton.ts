@@ -21,8 +21,8 @@ import geometricOptics from '../../geometricOptics.js';
 class ShowHideToggleButton extends BooleanRoundToggleButton {
 
   /**
-   * @param {Property.<boolean>} booleanProperty
-   * @param {Object} [options]
+   * @param booleanProperty
+   * @param options
    */
   constructor( booleanProperty: Property<boolean>, options?: any ) { //TYPESCRIPT any
 
@@ -53,9 +53,6 @@ class ShowHideToggleButton extends BooleanRoundToggleButton {
     } );
   }
 
-  /**
-   * @override
-   */
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();

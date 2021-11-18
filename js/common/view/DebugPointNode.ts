@@ -18,9 +18,9 @@ import geometricOptics from '../../geometricOptics.js';
 class DebugPointNode extends Circle {
 
   /**
-   * @param {Property.<Vector2>} positionProperty
-   * @param {ModelViewTransform2} modelViewTransform
-   * @param {Object} [options]
+   * @param positionProperty
+   * @param modelViewTransform
+   * @param options
    * */
   constructor( positionProperty: Property<Vector2>, modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
 
@@ -37,9 +37,6 @@ class DebugPointNode extends Circle {
     } );
   }
 
-  /**
-   * @override
-   */
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();

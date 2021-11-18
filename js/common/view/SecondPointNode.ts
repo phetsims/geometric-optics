@@ -53,11 +53,11 @@ class SecondPointNode extends Node {
   private readonly resetSecondPointNode: () => void;
 
   /**
-   * @param {Property.<Representation>} representationProperty
-   * @param {SecondPoint} secondPoint
-   * @param {Property.<Bounds2>} sourceObjectDragBoundsProperty
-   * @param {ModelViewTransform2} modelViewTransform
-   * @param {Object} [options]
+   * @param representationProperty
+   * @param secondPoint
+   * @param sourceObjectDragBoundsProperty
+   * @param modelViewTransform
+   * @param options
    */
   constructor( representationProperty: Property<Representation>, secondPoint: SecondPoint,
                sourceObjectDragBoundsProperty: Property<Bounds2>,
@@ -178,23 +178,16 @@ class SecondPointNode extends Node {
 
   /**
    * Creates an icon to represent the second source.
-   * @returns {PointNode}
    */
-  public static createIcon(): PointNode {
+  public static createIcon(): PointNode { //TODO should this return Node?
     return new PointNode( 5 );
   }
 
-  /**
-   * @override
-   */
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 
-  /**
-   * Reset this node
-   */
   public reset(): void {
     this.resetSecondPointNode();
   }

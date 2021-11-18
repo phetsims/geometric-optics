@@ -24,12 +24,12 @@ class GeometricOpticRulersLayer extends Node {
   verticalRulerNode: GeometricOpticsRulerNode;
 
   /**
-   * @param {Ruler} horizontalRuler
-   * @param {Ruler} verticalRuler
-   * @param {Property.<Bounds2>} visibleBoundsProperty
-   * @param {Property.<number>} absoluteScaleProperty
-   * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
-   * @param {Object} [options]
+   * @param horizontalRuler
+   * @param verticalRuler
+   * @param visibleBoundsProperty
+   * @param absoluteScaleProperty
+   * @param modelViewTransformProperty
+   * @param options
    */
   constructor( horizontalRuler: Ruler, verticalRuler: Ruler, visibleBoundsProperty: Property<Bounds2>,
                absoluteScaleProperty: Property<number>, modelViewTransformProperty: Property<ModelViewTransform2>,
@@ -65,9 +65,8 @@ class GeometricOpticRulersLayer extends Node {
     /**
      * Returns the appropriate options for the scale
      * It also updates the length of the ruler as a side effect
-     * @param {Ruler} ruler
-     * @param {number} absoluteScale
-     * @returns {Object} [options]
+     * @param ruler
+     * @param absoluteScale
      */
     //TYPESCRIPT return type
     const getOptions = ( ruler: Ruler, absoluteScale: number ) => {
@@ -114,27 +113,17 @@ class GeometricOpticRulersLayer extends Node {
     } );
   }
 
-  /**
-   * @override
-   */
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 
-  /**
-   * Resets the view.
-   */
   public reset(): void {
     this.horizontalRulerNode.reset();
     this.verticalRulerNode.reset();
   }
 
   //TODO this is redundant because toolboxPanelBounds is public
-  /**
-   * Sets the panel bounds of the toolbox
-   * @param {Bounds2} bounds
-   */
   public setToolboxBounds( bounds: Bounds2 ): void {
     this.toolboxPanelBounds.set( bounds );
   }

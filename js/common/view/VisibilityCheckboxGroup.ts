@@ -28,10 +28,10 @@ import Representation from '../model/Representation.js';
 class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 
   /**
-   * @param {VisibleProperties} visibleProperties
-   * @param {boolean} isLens
-   * @param {Property.<Representation>} representationProperty
-   * @param {Object} [options]
+   * @param visibleProperties
+   * @param isLens
+   * @param representationProperty
+   * @param options
    */
   constructor( visibleProperties: VisibleProperties, isLens: boolean,
                representationProperty: Property<Representation>, options?: any ) {  //TYPESCRIPT any
@@ -99,9 +99,8 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 
 /**
  * Create a label for a checkbox, with optional icon.
- * @param {string} string
- * @param {Node} [iconNode]
- * @returns {Node}
+ * @param string
+ * @param iconNode
  */
 function createLabel( string: string, iconNode?: Node ): Node {
 

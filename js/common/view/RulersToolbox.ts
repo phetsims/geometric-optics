@@ -24,8 +24,8 @@ import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
 class RulersToolbox extends Panel {
 
   /**
-   * @param {GeometricOpticRulersLayer} rulersLayer
-   * @param {Object} [options]
+   * @param rulersLayer
+   * @param options
    */
   constructor( rulersLayer: GeometricOpticRulersLayer, options?: any ) { //TYPESCRIPT any
 
@@ -74,10 +74,10 @@ class RulersToolbox extends Panel {
 
     /**
      * Add input listener on iconNode to forward events to rulerNode
-     * @param {Node} iconNode
-     * @param {GeometricOpticsRulerNode} rulerNode
+     * @param iconNode
+     * @param rulerNode
      */
-    const createForwardListener = ( iconNode: Node, rulerNode: GeometricOpticsRulerNode ): void => {
+    const addForwardingListener = ( iconNode: Node, rulerNode: GeometricOpticsRulerNode ): void => {
 
       // ruler node and icon node have opposite visibilities
       rulerNode.visibleProperty.link( ( visible: boolean ) => {
@@ -102,14 +102,11 @@ class RulersToolbox extends Panel {
       } ) );
     };
 
-    // attach a create a Forward listener on each icon
-    createForwardListener( horizontalRulerIconNode, rulersLayer.horizontalRulerNode );
-    createForwardListener( verticalRulerIconNode, rulersLayer.verticalRulerNode );
+    // Add a forwarding listener for each ruler icon, to forward drag events from the icon to its associated ruler.
+    addForwardingListener( horizontalRulerIconNode, rulersLayer.horizontalRulerNode );
+    addForwardingListener( verticalRulerIconNode, rulersLayer.verticalRulerNode );
   }
 
-  /**
-   * @override
-   */
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
@@ -118,9 +115,8 @@ class RulersToolbox extends Panel {
 
 /**
  * Returns a small ruler icon
- * @param {boolean} isVertical - is the ruler icon along the vertical axis
- * @param {boolean} tickMarksOnBottom
- * @returns {RulerNode} rulerIconNode
+ * @param isVertical - is the ruler icon along the vertical axis
+ * @param tickMarksOnBottom
  */
 function createRulerIcon( isVertical: boolean, tickMarksOnBottom: boolean ): RulerNode {
 

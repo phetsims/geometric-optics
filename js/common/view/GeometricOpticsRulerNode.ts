@@ -154,7 +154,6 @@ class GeometricOpticsRulerNode extends Node {
 
   /**
    * Forwards an event from the toolbox to start dragging this node
-   * @param {SceneryEvent} event
    */
   public startDrag( event: SceneryEvent ): void {
     this.dragListener.press( event, this );
@@ -163,7 +162,6 @@ class GeometricOpticsRulerNode extends Node {
   //TODO this is redundant because toolboxBounds is public
   /**
    * Updates toolbox bounds
-   * @param {Bounds2} bounds
    */
   public setToolboxBounds( bounds: Bounds2 ): void {
     this.toolboxBounds = bounds;
@@ -171,8 +169,8 @@ class GeometricOpticsRulerNode extends Node {
 
   /**
    * Adds a new scenery-phet.RulerNode to the parent, detaching the previous RulerNode.
-   * @param {ModelViewTransform2} modelViewTransform
-   * @param {Object} [options]
+   * @param modelViewTransform
+   * @param options
    */
   public setRulerNode( modelViewTransform: ModelViewTransform2, options?: any ): void { //TYPESCRIPT any
 
@@ -193,9 +191,8 @@ class GeometricOpticsRulerNode extends Node {
 
   /**
    * Returns a scenery-phet.RulerNode appropriate for the model view transform
-   * @param {ModelViewTransform2} modelViewTransform
-   * @param {Object} [options]
-   * @returns {Node} rulerNode
+   * @param modelViewTransform
+   * @param options
    */
   private getRulerNode( modelViewTransform: ModelViewTransform2, options?: any ): Node { //TYPESCRIPT any
 

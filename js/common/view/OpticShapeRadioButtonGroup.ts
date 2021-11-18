@@ -34,8 +34,8 @@ type RectangularRadioButtonGroupItem<T> = {
 class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeEnum> {
 
   /**
-   * @param {Optic} optic
-   * @param {Object} [options]
+   * @param optic
+   * @param options
    */
   constructor( optic: Optic, options?: any ) { //TYPESCRIPT any
 
@@ -68,10 +68,9 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeE
 
   /**
    * Creates a centered icon representation of convex/concave, lens/mirror.
-   * @param {boolean} isLens - is the optic a lens?
-   * @param {OpticShapeEnum} opticShape - the shape of the optic can be convex or concave
-   * @param {Object} [options]
-   * @returns {Node}
+   * @param isLens - is the optic a lens?
+   * @param opticShape - the shape of the optic can be convex or concave
+   * @param options
    */
   public static createIconNode( isLens: boolean, opticShape: OpticShapeEnum, options?: any ): Node { //TYPESCRIPT any
 
@@ -104,9 +103,8 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeE
 
 /**
  * Creates an item for the radio button group.
- * @param {boolean} isLens - is the optic a lens?
- * @param {OpticShapeEnum} opticShape
- * @returns {RectangularRadioButtonGroupItem<OpticShapeEnum>}
+ * @param isLens - is the optic a lens?
+ * @param opticShape
  */
 function createItem( isLens: boolean, opticShape: OpticShapeEnum ): RectangularRadioButtonGroupItem<OpticShapeEnum> {
   return {

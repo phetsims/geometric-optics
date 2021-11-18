@@ -19,7 +19,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 class RadiusOfCurvatureControl extends NumberControl {
 
   /**
-   * @param {NumberProperty} radiusOfCurvatureProperty
+   * @param radiusOfCurvatureProperty
    * @param options
    */
   constructor( radiusOfCurvatureProperty: NumberProperty, options?: any ) { //TYPESCRIPT any
