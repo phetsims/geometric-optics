@@ -372,7 +372,7 @@ class GeometricOpticsScreenView extends ScreenView {
     };
 
     // pdom -traversal order
-    //TODO add Object, second point, light sources, toolbox, rulers
+    //TODO https://github.com/phetsims/geometric-optics/issues/235 add Object, second point, light sources, toolbox, rulers
     // @ts-ignore TYPESCRIPT Property 'pdomOrder' does not exist on type 'Node'.
     screenViewRootNode.pdomOrder = [
       representationComboBox,
