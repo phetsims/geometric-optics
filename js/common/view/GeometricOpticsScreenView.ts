@@ -146,7 +146,7 @@ class GeometricOpticsScreenView extends ScreenView {
     } );
 
     // Tell the rulersLayer where the toolbox is.
-    rulersLayer.toolboxPanelBounds.set( toolbox.bounds );
+    rulersLayer.toolboxBounds.set( toolbox.bounds );
 
     // radio buttons for the shape of the optic
     const opticShapeRadioButtonGroup = new OpticShapeRadioButtonGroup( model.optic, {
