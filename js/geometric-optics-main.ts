@@ -17,7 +17,6 @@ import MirrorScreen from './mirror/MirrorScreen.js';
 
 const simOptions = {
 
-  //TODO https://github.com/phetsims/geometric-optics/issues/146 complete the credits
   credits: {
     leadDesign: 'Amy Rouinfar, Michael Dubson',
     softwareDevelopment: 'Sarah Chang, Chris Malley (PixelZoom, Inc.), Martin Veillette',
