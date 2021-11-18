@@ -18,9 +18,6 @@ import MirrorShapes from './MirrorShapes.js';
 
 class Mirror extends Optic {
 
-  /**
-   * @param {Object} [options]
-   */
   constructor( options?: any ) { //TYPESCRIPT any
     super( merge( {
       opticShape: 'concave',
@@ -45,6 +42,9 @@ class Mirror extends Optic {
   /**
    * Returns the most extreme position within the mirror that would ensure that a ray would be transmitted (or reflected).
    * See https://github.com/phetsims/geometric-optics/issues/111
+   * @param sourcePoint
+   * @param targetPoint
+   * @param isTop
    */
   protected getExtremumPoint( sourcePoint: Vector2, targetPoint: Vector2, isTop: boolean ): Vector2 {
 

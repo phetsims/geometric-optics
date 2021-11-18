@@ -28,10 +28,10 @@ class MirrorShapes implements OpticShapes {
 
   /**
    *
-   * @param {OpticShapeEnum} opticShape
-   * @param {number} radiusOfCurvature - radius of curvature at the center of the mirror
-   * @param {number} diameter - vertical height of the mirror
-   * @param {Object} [options]
+   * @param opticShape
+   * @param radiusOfCurvature - radius of curvature at the center of the mirror
+   * @param diameter - vertical height of the mirror
+   * @param options
    */
   constructor( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number, options?: any ) { //TYPESCRIPT any
     assert && assert( radiusOfCurvature > diameter / 2 );

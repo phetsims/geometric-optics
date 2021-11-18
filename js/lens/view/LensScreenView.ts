@@ -28,8 +28,8 @@ class LensScreenView extends GeometricOpticsScreenView {
   private readonly projectionScreenNode: ProjectionScreenNode;
 
   /**
-   * @param {LensModel} model
-   * @param {Object} [options]
+   * @param model
+   * @param options
    */
   constructor( model: LensModel, options?: any ) { //TYPESCRIPT any
 
@@ -115,9 +115,6 @@ class LensScreenView extends GeometricOpticsScreenView {
     this.screenViewRootNode.pdomOrder = [ ...pdomOrder ];
   }
 
-  /**
-   * @override
-   */
   public reset(): void {
     super.reset();
     this.projectionScreenNode.reset();

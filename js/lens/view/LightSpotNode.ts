@@ -19,9 +19,9 @@ import LightSpot from '../model/LightSpot.js';
 class LightSpotNode extends Node {
 
   /**
-   * @param {LightSpot} lightSpot
-   * @param {ModelViewTransform2} modelViewTransform
-   * @param {Object} [options]
+   * @param lightSpot
+   * @param modelViewTransform
+   * @param options
    */
   constructor( lightSpot: LightSpot, modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
 
@@ -65,9 +65,6 @@ class LightSpotNode extends Node {
     } );
   }
 
-  /**
-   * @override
-   */
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();

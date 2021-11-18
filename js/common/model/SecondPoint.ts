@@ -37,7 +37,6 @@ class SecondPoint {
    * @param {Property.<Vector2>} sourceObjectPositionProperty
    * @param {Object} [options]
    */
-  // eslint-disable-next-line no-undef
   constructor( representationProperty: Property<Representation>, sourceObjectPositionProperty: Property<Vector2>,
                options?: any ) { //TYPESCRIPT any
 

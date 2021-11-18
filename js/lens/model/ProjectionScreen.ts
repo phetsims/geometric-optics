@@ -34,9 +34,6 @@ class ProjectionScreen implements Barrier {
   // line that vertically bisects the screen, relative to positionProperty
   private readonly bisectorLine: Shape;
 
-  /**
-   * @param {Object} [options]
-   */
   constructor( options?: any ) { //TYPESCRIPT any
 
     options = merge( {
@@ -67,16 +64,12 @@ class ProjectionScreen implements Barrier {
       .lineTo( 0, -averageScreenHeight / 2 );
   }
 
-  /**
-   * Resets the model.
-   */
   public reset(): void {
     this.positionProperty.reset();
   }
 
   /**
    * Gets the vertical line that bisects the screen, in the model's global coordinate frame.
-   * @returns {Shape}
    */
   public getBisectorLineTranslated(): Shape {
     return this.translatedShape( this.bisectorLine );
@@ -84,7 +77,6 @@ class ProjectionScreen implements Barrier {
 
   /**
    * Gets the shape of the screen, in the model's global coordinate frame.
-   * @returns {Shape}
    */
   public getScreenShapeTranslated(): Shape {
     return this.translatedShape( this.screenShape );
@@ -94,8 +86,7 @@ class ProjectionScreen implements Barrier {
    * Returns a shape that is translated by the model position of the projection screen.
    * The provided Shape should be in the projection screen's local coordinate frame.
    * The resulting Shape will be in the model's global coordinate frame.
-   * @param {Shape} shape - in the projection screen's local coordinate frame
-   * @returns {Shape}
+   * @param shape - in the projection screen's local coordinate frame
    */
   private translatedShape( shape: Shape ): Shape {
     return shape.transformed( Matrix3.translationFromVector( this.positionProperty.value ) );

@@ -19,7 +19,7 @@ import LensShapes from './LensShapes.js';
 class Lens extends Optic {
 
   /**
-   * @param {Object} [options]
+   * @param options
    */
   constructor( options?: any ) { //TYPESCRIPT any
     super( merge( {
@@ -41,6 +41,9 @@ class Lens extends Optic {
   /**
    * Returns the most extreme position within the lens that would ensure that a ray would be transmitted (or reflected).
    * See https://github.com/phetsims/geometric-optics/issues/111
+   * @param sourcePoint
+   * @param targetPoint
+   * @param isTop
    */
   protected getExtremumPoint( sourcePoint: Vector2, targetPoint: Vector2, isTop: boolean ): Vector2 {
 

@@ -28,10 +28,10 @@ class LensShapes implements OpticShapes {
   readonly fillShape: Shape;
 
   /**
-   * @param {OpticShapeEnum} opticShape
-   * @param {number} radiusOfCurvature - radius of curvature
-   * @param {number} diameter - height of the lens
-   * @param {Object} [options]
+   * @param opticShape
+   * @param radiusOfCurvature - radius of curvature
+   * @param diameter - height of the lens
+   * @param options
    */
   constructor( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number, options?: any ) { //TYPESCRIPT any
 

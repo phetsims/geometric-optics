@@ -20,9 +20,6 @@ import LensScreenView from './view/LensScreenView.js';
 
 class LensScreen extends Screen {
 
-  /**
-   * @param {Object} [options]
-   */
   constructor( options?: any ) { //TYPESCRIPT any
 
     options = merge( {
@@ -42,19 +39,12 @@ class LensScreen extends Screen {
     );
   }
 
-  /**
-   * @override
-   */
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 }
 
-/**
- * Creates the icon for this screen.
- * @returns {ScreenIcon}
- */
 function createScreenIcon(): ScreenIcon {
 
   const convexLensNode = OpticShapeRadioButtonGroup.createIconNode( true /* isLens */, 'convex', {
