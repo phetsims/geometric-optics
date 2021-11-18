@@ -116,7 +116,7 @@ class GeometricOpticsScreenView extends ScreenView {
     // {DerivedProperty.<number>} zoom scale associate with the zoom level
     const absoluteScaleProperty = new DerivedProperty<number>(
       [ zoomLevelProperty ],
-      ( zoomLevel: number ) => this.getAbsoluteScale( zoomLevel )
+      ( zoomLevel: number ) => getAbsoluteScale( zoomLevel )
     );
 
     // Things that are outside the Experiment Area =====================================================================
@@ -412,15 +412,6 @@ class GeometricOpticsScreenView extends ScreenView {
   }
 
   /**
-   * Returns the absolute scaling factor measured from the initial zoom level
-   * The absolute scale returns 1 if the zoom level is the initial zoom level value
-   */
-  //TODO convert to private function
-  private getAbsoluteScale( zoomLevel: number ): number {
-    return getRelativeScale( zoomLevel, ZOOM_RANGE.defaultValue );
-  }
-
-  /**
    * Returns a model-view transform appropriate for the zoom level
    * @param zoomLevel
    * @param viewOrigin
@@ -428,7 +419,7 @@ class GeometricOpticsScreenView extends ScreenView {
   private getTransformForZoomLevel( zoomLevel: number, viewOrigin: Vector2 ): ModelViewTransform2 {
 
     // scaling factor between zoom level measured from the initial zoom level
-    const absoluteScale = this.getAbsoluteScale( zoomLevel );
+    const absoluteScale = getAbsoluteScale( zoomLevel );
 
     // number of view coordinates for 1 model coordinate
     const viewModelScale = NOMINAL_VIEW_MODEL_CONVERSION * absoluteScale;
@@ -447,6 +438,15 @@ function getRelativeScale( zoomLevel: number, oldZoomLevel: number ): number {
   const oldScale = Math.pow( base, oldZoomLevel );
   return scale / oldScale;
 }
+
+/**
+ * Returns the absolute scaling factor measured from the initial zoom level.
+ * The absolute scale returns 1 if the zoom level is the initial zoom level value.
+ */
+function getAbsoluteScale( zoomLevel: number ): number {
+  return getRelativeScale( zoomLevel, ZOOM_RANGE.defaultValue );
+}
+
 
 geometricOptics.register( 'GeometricOpticsScreenView', GeometricOpticsScreenView );
 export default GeometricOpticsScreenView;
