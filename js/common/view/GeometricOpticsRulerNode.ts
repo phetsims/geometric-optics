@@ -159,14 +159,6 @@ class GeometricOpticsRulerNode extends Node {
     this.dragListener.press( event, this );
   }
 
-  //TODO this is redundant because toolboxBounds is public
-  /**
-   * Updates toolbox bounds
-   */
-  public setToolboxBounds( bounds: Bounds2 ): void {
-    this.toolboxBounds = bounds;
-  }
-
   /**
    * Adds a new scenery-phet.RulerNode to the parent, detaching the previous RulerNode.
    * @param modelViewTransform
