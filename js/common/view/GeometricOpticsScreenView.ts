@@ -145,8 +145,8 @@ class GeometricOpticsScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'toolbox' )
     } );
 
-    // pass the bounds of the toolbox to the rulers for their return to toolbox
-    rulersLayer.setToolboxBounds( toolbox.bounds );
+    // Tell the rulersLayer where the toolbox is.
+    rulersLayer.toolboxPanelBounds.set( toolbox.bounds );
 
     // radio buttons for the shape of the optic
     const opticShapeRadioButtonGroup = new OpticShapeRadioButtonGroup( model.optic, {

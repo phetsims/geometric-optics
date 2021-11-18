@@ -122,11 +122,6 @@ class GeometricOpticRulersLayer extends Node {
     this.horizontalRulerNode.reset();
     this.verticalRulerNode.reset();
   }
-
-  //TODO this is redundant because toolboxPanelBounds is public
-  public setToolboxBounds( bounds: Bounds2 ): void {
-    this.toolboxPanelBounds.set( bounds );
-  }
 }
 
 geometricOptics.register( 'GeometricOpticRulersLayer', GeometricOpticRulersLayer );
