@@ -161,7 +161,7 @@ class GeometricOpticsScreenView extends ScreenView {
     const representationComboBox = new RepresentationComboBox( model.representationProperty, popupsParent, {
       left: this.layoutBounds.left + 100,
       top: erodedLayoutBounds.top,
-      tandem: options.tandem.createTandem( 'representationComboBox' ) //TODO needs a better name
+      tandem: options.tandem.createTandem( 'representationComboBox' )
     } );
 
     // create magnifying buttons for zooming in and out at the left top
