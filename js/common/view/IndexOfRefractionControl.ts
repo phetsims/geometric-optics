@@ -19,7 +19,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 class IndexOfRefractionControl extends NumberControl {
 
   /**
-   * @param {NumberProperty} indexOfRefractionProperty
+   * @param indexOfRefractionProperty
    * @param options
    */
   constructor( indexOfRefractionProperty: NumberProperty, options?: any ) { //TYPESCRIPT any

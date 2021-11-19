@@ -30,9 +30,9 @@ class Ruler {
   private readonly nominalLength: number;
 
   /**
-   * @param {RulerOrientation} orientation
-   * @param {Vector2} position - position of the ruler in VIEW Coordinates
-   * @param {number} length - length of the ruler in cm
+   * @param orientation
+   * @param position - position of the ruler in VIEW Coordinates
+   * @param length - length of the ruler in cm
    */
   constructor( orientation: RulerOrientation, position: Vector2, length: number ) {
 
@@ -44,16 +44,13 @@ class Ruler {
     this.nominalLength = length;
   }
 
-  /**
-   * Resets the model.
-   */
   public reset(): void {
     this.positionProperty.reset();
   }
 
   /**
    * Sets the length of the ruler based on multiplicative factor of absoluteScale.
-   * @param {number} absoluteScale
+   * @param absoluteScale
    */
   public scaleLength( absoluteScale: number ): void {
     assert && assert( isFinite( absoluteScale ) && absoluteScale > 0 );
@@ -62,7 +59,6 @@ class Ruler {
 
   /**
    * Is the ruler vertical?
-   * @returns {boolean}
    */
   public isVertical(): boolean {
     return ( this.orientation === 'vertical' );

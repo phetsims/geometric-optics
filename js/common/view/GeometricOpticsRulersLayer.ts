@@ -19,17 +19,17 @@ import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
 
 class GeometricOpticRulersLayer extends Node {
 
-  toolboxPanelBounds: Bounds2;
+  readonly toolboxBounds: Bounds2;
   horizontalRulerNode: GeometricOpticsRulerNode;
   verticalRulerNode: GeometricOpticsRulerNode;
 
   /**
-   * @param {Ruler} horizontalRuler
-   * @param {Ruler} verticalRuler
-   * @param {Property.<Bounds2>} visibleBoundsProperty
-   * @param {Property.<number>} absoluteScaleProperty
-   * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
-   * @param {Object} [options]
+   * @param horizontalRuler
+   * @param verticalRuler
+   * @param visibleBoundsProperty
+   * @param absoluteScaleProperty
+   * @param modelViewTransformProperty
+   * @param options
    */
   constructor( horizontalRuler: Ruler, verticalRuler: Ruler, visibleBoundsProperty: Property<Bounds2>,
                absoluteScaleProperty: Property<number>, modelViewTransformProperty: Property<ModelViewTransform2>,
@@ -38,17 +38,17 @@ class GeometricOpticRulersLayer extends Node {
     super( options );
 
     // set to infinity, will be properly initialized after constructor is called
-    this.toolboxPanelBounds = new Bounds2( Number.NEGATIVE_INFINITY,
+    //TODO since this is set after construction by GeometricOpticsScreen and it passed to GeometricOpticsRulerNode, it might preferable to have toolboxBoundsProperty
+    this.toolboxBounds = new Bounds2( Number.NEGATIVE_INFINITY,
       Number.NEGATIVE_INFINITY,
       Number.POSITIVE_INFINITY,
       Number.POSITIVE_INFINITY );
 
-    //TODO creating a new GeometricOpticsRulerNode each time the scale changes will be a problem for PhET-iO, why not just scale the ruler Node?
+    //TODO creating a new GeometricOpticsRulerNode each time the scale changes will be a problem for PhET-iO
     /**
      * Returns a GeometricOpticsRulerNode
      * @param {Ruler} ruler
      * @param {number} absoluteScale
-     * @returns {GeometricOpticsRulerNode}
      */
     const createRulerNode = ( ruler: Ruler, absoluteScale: number ): GeometricOpticsRulerNode => {
 
@@ -57,7 +57,7 @@ class GeometricOpticRulersLayer extends Node {
       return new GeometricOpticsRulerNode(
         ruler,
         visibleBoundsProperty,
-        this.toolboxPanelBounds,
+        this.toolboxBounds,
         modelViewTransformProperty.value,
         rulerOptions );
     };
@@ -65,9 +65,8 @@ class GeometricOpticRulersLayer extends Node {
     /**
      * Returns the appropriate options for the scale
      * It also updates the length of the ruler as a side effect
-     * @param {Ruler} ruler
-     * @param {number} absoluteScale
-     * @returns {Object} [options]
+     * @param ruler
+     * @param absoluteScale
      */
     //TYPESCRIPT return type
     const getOptions = ( ruler: Ruler, absoluteScale: number ) => {
@@ -114,29 +113,14 @@ class GeometricOpticRulersLayer extends Node {
     } );
   }
 
-  /**
-   * @override
-   */
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 
-  /**
-   * Resets the view.
-   */
   public reset(): void {
     this.horizontalRulerNode.reset();
     this.verticalRulerNode.reset();
-  }
-
-  //TODO this is redundant because toolboxPanelBounds is public
-  /**
-   * Sets the panel bounds of the toolbox
-   * @param {Bounds2} bounds
-   */
-  public setToolboxBounds( bounds: Bounds2 ): void {
-    this.toolboxPanelBounds.set( bounds );
   }
 }
 

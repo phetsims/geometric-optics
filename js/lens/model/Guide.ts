@@ -27,11 +27,10 @@ class Guide {
   readonly transmittedAngleProperty: DerivedProperty<number>;
 
   /**
-   * @param {Optic} optic
-   * @param {Property.<Vector2>} objectPositionProperty
-   * @param {GuideLocation} location
+   * @param optic
+   * @param objectPositionProperty
+   * @param location
    */
-  // eslint-disable-next-line no-undef
   constructor( optic: Optic, objectPositionProperty: Property<Vector2>, location: GuideLocation ) {
 
     // sign is positive for top guide and negative below

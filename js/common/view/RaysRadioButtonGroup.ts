@@ -28,8 +28,8 @@ type AquaRadioButtonGroupItem<T> = {
 class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysModeEnum> {
 
   /**
-   * @param {Property.<RaysModeEnum>} raysModeProperty
-   * @param {Object} [options]
+   * @param raysModeProperty
+   * @param options
    */
   constructor( raysModeProperty: Property<RaysModeEnum>, options?: any ) { //TYPESCRIPT any
 
@@ -55,9 +55,8 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysModeEnum> {
 
 /**
  * Creates an item for the radio button group.
- * @param {RaysModeEnum} value
- * @param {string} text
- * @returns {AquaRadioButtonGroupItem<RaysModeEnum>}
+ * @param value
+ * @param text
  */
 function createItem( value: RaysModeEnum, text: string ): AquaRadioButtonGroupItem<RaysModeEnum> {
   return {

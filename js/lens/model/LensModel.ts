@@ -39,9 +39,6 @@ class LensModel extends GeometricOpticsModel {
   // bottom guide associated with the second point or second light source
   readonly secondBottomGuide: Guide;
 
-  /**
-   * @param {Object} [options]
-   */
   constructor( options?: any ) { //TYPESCRIPT any
 
     options = merge( {

@@ -19,7 +19,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 class DiameterControl extends NumberControl {
 
   /**
-   * @param {NumberProperty} diameterProperty
+   * @param diameterProperty
    * @param options
    */
   constructor( diameterProperty: NumberProperty, options?: any ) { //TYPESCRIPT any

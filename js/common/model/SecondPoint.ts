@@ -37,7 +37,6 @@ class SecondPoint {
    * @param {Property.<Vector2>} sourceObjectPositionProperty
    * @param {Object} [options]
    */
-  // eslint-disable-next-line no-undef
   constructor( representationProperty: Property<Representation>, sourceObjectPositionProperty: Property<Vector2>,
                options?: any ) { //TYPESCRIPT any
 
@@ -57,9 +56,6 @@ class SecondPoint {
     this.sourceObjectPositionProperty = sourceObjectPositionProperty;
   }
 
-  /**
-   * Resets the model.
-   */
   public reset(): void {
     this.verticalOffsetProperty.reset();
     this.lightSourcePositionProperty.reset();
@@ -67,8 +63,8 @@ class SecondPoint {
 
   /**
    * Sets the second source point
-   * @param {boolean} isObject
-   * @param {Vector2} position
+   * @param isObject
+   * @param position
    */
   public setSecondPoint( isObject: boolean, position: Vector2 ): void {
     if ( isObject ) {

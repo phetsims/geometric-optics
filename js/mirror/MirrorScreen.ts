@@ -20,9 +20,6 @@ import MirrorScreenView from './view/MirrorScreenView.js';
 
 class MirrorScreen extends Screen {
 
-  /**
-   * @param {Object} [options]
-   */
   constructor( options?: any ) { //TYPESCRIPT any
 
     options = merge( {
@@ -42,19 +39,12 @@ class MirrorScreen extends Screen {
     );
   }
 
-  /**
-   * @override
-   */
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 }
 
-/**
- * Creates the icon for this screen.
- * @returns {ScreenIcon}
- */
 function createScreenIcon(): ScreenIcon {
 
   const concaveMirrorNode = OpticShapeRadioButtonGroup.createIconNode( false /* isLens */, 'concave', {

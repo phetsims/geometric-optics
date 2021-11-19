@@ -46,11 +46,11 @@ class LightSpot {
   readonly diameterProperty: DerivedProperty<number | null>;
 
   /**
-   * @param {Optic} optic
-   * @param {ProjectionScreen} projectionScreen
-   * @param {Property.<Vector2>} sourcePositionProperty - position of the light source
-   * @param {Property.<Vector2>} targetPositionProperty
-   * @param {Object} [options]
+   * @param optic
+   * @param projectionScreen
+   * @param sourcePositionProperty - position of the light source
+   * @param targetPositionProperty
+   * @param options
    */
   constructor( optic: Optic, projectionScreen: ProjectionScreen, sourcePositionProperty: Property<Vector2>,
                targetPositionProperty: Property<Vector2>, options?: any ) { //TYPESCRIPT any
@@ -110,12 +110,11 @@ class LightSpot {
 
 /**
  * Gets the shape that results from the intersection of the light spot and the projection screen.
- * @param {Optic} optic
- * @param {Vector2} projectionScreenPosition
- * @param {Vector2} sourcePosition
- * @param {Vector2} targetPosition
- * @param {Shape} screenShape
- * @returns {Shape}
+ * @param optic
+ * @param projectionScreenPosition
+ * @param sourcePosition
+ * @param targetPosition
+ * @param screenShape
  */
 function getLightSpotShape( optic: Optic, projectionScreenPosition: Vector2, sourcePosition: Vector2,
                             targetPosition: Vector2, screenShape: Shape ): Shape {
@@ -135,11 +134,10 @@ function getLightSpotShape( optic: Optic, projectionScreenPosition: Vector2, sou
 
 /**
  * Gets the physical parameters (center position and radii) for the LightSpot
- * @param {Optic} optic
- * @param {Vector2} projectionScreenPosition
- * @param {Vector2} sourcePosition
- * @param {Vector2} targetPosition
- * @returns {PositionAndDiameter}
+ * @param optic
+ * @param projectionScreenPosition
+ * @param sourcePosition
+ * @param targetPosition
  */
 function getPositionAndDiameter( optic: Optic, projectionScreenPosition: Vector2,
                                  sourcePosition: Vector2, targetPosition: Vector2 ): PositionAndDiameter {
@@ -161,10 +159,9 @@ function getPositionAndDiameter( optic: Optic, projectionScreenPosition: Vector2
 /**
  * Gets the projected position on the screen of a point.
  * This is determined by extrapolating the point from the target point onto the projection screen.
- * @param {Vector2} projectionScreenPosition
- * @param {Vector2} opticPoint
- * @param {Vector2} targetPosition
- * @returns {Vector2}
+ * @param projectionScreenPosition
+ * @param opticPoint
+ * @param targetPosition
  */
 function getIntersectionPosition( projectionScreenPosition: Vector2, opticPoint: Vector2, targetPosition: Vector2 ): Vector2 {
   const targetOpticDistance = ( targetPosition.x - opticPoint.x );

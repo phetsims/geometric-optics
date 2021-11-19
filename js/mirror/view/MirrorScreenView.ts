@@ -18,8 +18,8 @@ import MirrorModel from '../model/MirrorModel.js';
 class MirrorScreenView extends GeometricOpticsScreenView {
 
   /**
-   * @param {MirrorModel} model
-   * @param {Object} [options]
+   * @param model
+   * @param options
    */
   constructor( model: MirrorModel, options?: any ) { //TYPESCRIPT any
 

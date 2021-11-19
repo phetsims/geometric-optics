@@ -35,11 +35,11 @@ class ProjectionScreenNode extends Node {
   private readonly resetProjectionScreenNode: () => void;
 
   /**
-   * @param {ProjectionScreen} projectionScreen
-   * @param {Property.<Vector2>} opticPositionProperty
-   * @param {Property.<Bounds2>} modelBoundsProperty
-   * @param {ModelViewTransform2} modelViewTransform
-   * @param {Object} [options]
+   * @param projectionScreen
+   * @param opticPositionProperty
+   * @param modelBoundsProperty
+   * @param modelViewTransform
+   * @param options
    */
   constructor( projectionScreen: ProjectionScreen, opticPositionProperty: Property<Vector2>,
                modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
@@ -170,17 +170,11 @@ class ProjectionScreenNode extends Node {
     };
   }
 
-  /**
-   * @override
-   */
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 
-  /**
-   * Reset this node
-   */
   public reset(): void {
     this.resetProjectionScreenNode();
   }

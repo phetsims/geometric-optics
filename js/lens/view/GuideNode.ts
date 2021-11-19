@@ -34,9 +34,9 @@ const CIRCLE_OPTIONS = {
 class GuideNode extends Node {
 
   /**
-   * @param {Guide} guide
-   * @param {ModelViewTransform2} modelViewTransform
-   * @param {Object} [options]
+   * @param guide
+   * @param modelViewTransform
+   * @param options
    */
   constructor( guide: Guide, modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
 
@@ -55,9 +55,9 @@ class GuideNode extends Node {
 
     /**
      * set the position of the rectangle such that its left center is on the fulcrum point.
-     * @param {Node} rectangleNode
-     * @param {Vector2} viewFulcrumPosition
-     * @param {number} angle - "model" angle of the rectangle, measured from the positive x -axis
+     * @param rectangleNode
+     * @param viewFulcrumPosition
+     * @param angle - "model" angle of the rectangle, measured from the positive x -axis
      */
     const setRectanglePosition = ( rectangleNode: Node, viewFulcrumPosition: Vector2, angle: number ): void => {
       assert && assert( isFinite( angle ) );
@@ -81,9 +81,9 @@ class GuideNode extends Node {
 
     /**
      * Set the angle and position of a rectangle around the fulcrum
-     * @param {number} angle - current "model" angle
-     * @param {number|null} oldAngle - previous "model" angle
-     * @param {Rectangle} rectangle - incident or transmitted rectangle to be rotated and positioned
+     * @param angle - current "model" angle
+     * @param oldAngle - previous "model" angle
+     * @param rectangle - incident or transmitted rectangle to be rotated and positioned
      */
     const setAnglePosition = ( angle: number, oldAngle: number | null, rectangle: Rectangle ): void => {
       assert && assert( isFinite( angle ) );
@@ -123,7 +123,6 @@ class GuideNode extends Node {
 
   /**
    * Creates an icon for guides, to be used with checkbox. This is intended to be a caricature of the actual guides.
-   * @returns {Node}
    */
   public static createIcon(): Node {
 
@@ -152,9 +151,6 @@ class GuideNode extends Node {
     } );
   }
 
-  /**
-   * @override
-   */
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();

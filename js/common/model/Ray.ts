@@ -17,9 +17,9 @@ class Ray extends Ray2 {
   private length: number;
 
   /**
-   * @param {Vector2} position - origin of the ray
-   * @param {Vector2} direction - direction of the ray, must be a normalized vector.
-   * @param {Object} [options]
+   * @param position - origin of the ray
+   * @param direction - direction of the ray, must be a normalized vector.
+   * @param options
    */
   constructor( position: Vector2, direction: Vector2, options?: any ) { //TYPESCRIPT any
 
@@ -36,7 +36,6 @@ class Ray extends Ray2 {
 
   /**
    * Sets the length of the ray
-   * @param {number} length
    */
   public setLength( length: number ): void {
     assert && assert( isFinite( length ) );
@@ -44,27 +43,25 @@ class Ray extends Ray2 {
   }
 
   /**
-   * Convenience function that set the length of a ray by through the use of a final point
-   * @param {Vector2} point
-   */
-  public setFinalPoint( point: Vector2 ): void {
-    assert && assert( this.isPointAlongRay( point ), 'final point is not along ray' );
-    this.setLength( point.minus( this.position ).magnitude );
-  }
-
-  /**
    * Gets the length of the ray. Note that the length may be Infinity.
-   * @returns {number} length
    */
   public getLength(): number {
     return this.length;
   }
 
   /**
+   * Sets the length of a ray by using a final point.
+   * @param finalPoint
+   */
+  public setFinalPoint( finalPoint: Vector2 ): void {
+    assert && assert( this.isPointAlongRay( finalPoint ), 'final point is not along ray' );
+    this.setLength( finalPoint.minus( this.position ).magnitude );
+  }
+
+  /**
    * Determines if the point is along the ray direction.
-   * @param {Vector2} point
-   * @param {number} [epsilon] - tolerance value
-   * @returns {boolean}
+   * @param point
+   * @param epsilon - tolerance value
    */
   public isPointAlongRay( point: Vector2, epsilon = 1e-4 ): boolean {
     const displacementVector = point.minus( this.position );
@@ -73,8 +70,6 @@ class Ray extends Ray2 {
 
   /**
    * Gets distance from origin to point. The point may not lay along the direction of the ray.
-   * @param {Vector2} point
-   * @returns {number} distance
    */
   public getDistanceTo( point: Vector2 ): number {
     const displacementVector = point.minus( this.position );

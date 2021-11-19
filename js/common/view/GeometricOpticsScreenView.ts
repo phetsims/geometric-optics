@@ -63,8 +63,8 @@ class GeometricOpticsScreenView extends ScreenView {
   private readonly resetGeometricScreenView: () => void;
 
   /**
-   * @param {GeometricOpticsModel} model
-   * @param {Object} [options]
+   * @param model
+   * @param options
    */
   constructor( model: GeometricOpticsModel, options?: any ) { //TYPESCRIPT any
 
@@ -116,7 +116,7 @@ class GeometricOpticsScreenView extends ScreenView {
     // {DerivedProperty.<number>} zoom scale associate with the zoom level
     const absoluteScaleProperty = new DerivedProperty<number>(
       [ zoomLevelProperty ],
-      ( zoomLevel: number ) => this.getAbsoluteScale( zoomLevel )
+      ( zoomLevel: number ) => getAbsoluteScale( zoomLevel )
     );
 
     // Things that are outside the Experiment Area =====================================================================
@@ -145,8 +145,8 @@ class GeometricOpticsScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'toolbox' )
     } );
 
-    // pass the bounds of the toolbox to the rulers for their return to toolbox
-    rulersLayer.setToolboxBounds( toolbox.bounds );
+    // Tell the rulersLayer where the toolbox is.
+    rulersLayer.toolboxBounds.set( toolbox.bounds );
 
     // radio buttons for the shape of the optic
     const opticShapeRadioButtonGroup = new OpticShapeRadioButtonGroup( model.optic, {
@@ -161,7 +161,7 @@ class GeometricOpticsScreenView extends ScreenView {
     const representationComboBox = new RepresentationComboBox( model.representationProperty, popupsParent, {
       left: this.layoutBounds.left + 100,
       top: erodedLayoutBounds.top,
-      tandem: options.tandem.createTandem( 'representationComboBox' ) //TODO needs a better name
+      tandem: options.tandem.createTandem( 'representationComboBox' )
     } );
 
     // create magnifying buttons for zooming in and out at the left top
@@ -372,7 +372,7 @@ class GeometricOpticsScreenView extends ScreenView {
     };
 
     // pdom -traversal order
-    //TODO add Object, second point, light sources, toolbox, rulers
+    //TODO https://github.com/phetsims/geometric-optics/issues/235 add Object, second point, light sources, toolbox, rulers
     // @ts-ignore TYPESCRIPT Property 'pdomOrder' does not exist on type 'Node'.
     screenViewRootNode.pdomOrder = [
       representationComboBox,
@@ -392,23 +392,18 @@ class GeometricOpticsScreenView extends ScreenView {
     this.zoomButtonGroup = zoomButtonGroup; // {Node}
   }
 
-  /**
-   * @override
-   */
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 
-  /**
-   * Resets the view.
-   */
   public reset(): void {
     this.resetGeometricScreenView();
   }
 
   /**
-   * Time stepper
+   * Steps the view.
+   * @param dt - time step, in seconds
    */
   public step( dt: number ): void {
     if ( this.visibleProperties.rayTracingVisibleProperty.value ) {
@@ -417,26 +412,14 @@ class GeometricOpticsScreenView extends ScreenView {
   }
 
   /**
-   * Returns the absolute scaling factor measured from the initial zoom level
-   * The absolute scale returns 1 if the zoom level is the initial zoom level value
-   * @param {number} zoomLevel
-   * @returns {number}
-   */
-  //TODO convert to private function
-  private getAbsoluteScale( zoomLevel: number ): number {
-    return getRelativeScale( zoomLevel, ZOOM_RANGE.defaultValue );
-  }
-
-  /**
    * Returns a model-view transform appropriate for the zoom level
-   * @param {number} zoomLevel
-   * @param {Vector2} viewOrigin
-   * @returns {ModelViewTransform2}
+   * @param zoomLevel
+   * @param viewOrigin
    */
   private getTransformForZoomLevel( zoomLevel: number, viewOrigin: Vector2 ): ModelViewTransform2 {
 
     // scaling factor between zoom level measured from the initial zoom level
-    const absoluteScale = this.getAbsoluteScale( zoomLevel );
+    const absoluteScale = getAbsoluteScale( zoomLevel );
 
     // number of view coordinates for 1 model coordinate
     const viewModelScale = NOMINAL_VIEW_MODEL_CONVERSION * absoluteScale;
@@ -448,9 +431,6 @@ class GeometricOpticsScreenView extends ScreenView {
 
 /**
  * Returns the relative scale between a zoom level and a previous old zoom level
- * @param {number} zoomLevel
- * @param {number} oldZoomLevel
- * @returns {number}
  */
 function getRelativeScale( zoomLevel: number, oldZoomLevel: number ): number {
   const base = 2;
@@ -458,6 +438,15 @@ function getRelativeScale( zoomLevel: number, oldZoomLevel: number ): number {
   const oldScale = Math.pow( base, oldZoomLevel );
   return scale / oldScale;
 }
+
+/**
+ * Returns the absolute scaling factor measured from the initial zoom level.
+ * The absolute scale returns 1 if the zoom level is the initial zoom level value.
+ */
+function getAbsoluteScale( zoomLevel: number ): number {
+  return getRelativeScale( zoomLevel, ZOOM_RANGE.defaultValue );
+}
+
 
 geometricOptics.register( 'GeometricOpticsScreenView', GeometricOpticsScreenView );
 export default GeometricOpticsScreenView;

@@ -22,11 +22,11 @@ import Representation from '../model/Representation.js';
 class LightRaysNode extends Node {
 
   /**
-   * @param {LightRays} lightRays
-   * @param {Property.<Representation>} representationProperty
-   * @param {Property.<boolean>} virtualImageVisibleProperty
-   * @param {ModelViewTransform2} modelViewTransform
-   * @param {Object} [options]
+   * @param lightRays
+   * @param representationProperty
+   * @param virtualImageVisibleProperty
+   * @param modelViewTransform
+   * @param options
    */
   constructor( lightRays: LightRays, representationProperty: Property<Representation>,
                virtualImageVisibleProperty: Property<boolean>, modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
@@ -65,9 +65,6 @@ class LightRaysNode extends Node {
     lightRays.raysProcessedEmitter.addListener( () => update() );
   }
 
-  /**
-   * @override
-   */
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
@@ -76,11 +73,10 @@ class LightRaysNode extends Node {
 
 /**
  * Converts a set of kite.Line segments (specified in model coordinates) to a set of scenery.Line Nodes (in view coordinates).
- * @param {LightRaySegment[]} segments
- * @param {ModelViewTransform2} modelViewTransform
- * @param {ColorDef} stroke
- * @param {number} lineWidth
- * @returns {Line[]}
+ * @param segments
+ * @param modelViewTransform
+ * @param stroke
+ * @param lineWidth
  */
 function segmentsToLines( segments: LightRaySegment[], modelViewTransform: ModelViewTransform2, stroke: ColorDef,
                           lineWidth: number ): Line[] {

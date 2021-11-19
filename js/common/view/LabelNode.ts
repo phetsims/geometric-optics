@@ -25,10 +25,10 @@ class LabelNode extends Node {
   private readonly textNode: Text;
 
   /**
-   * @param {string} text
-   * @param {Property.<Vector2>} positionProperty - position of the thing that we're labeling
-   * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
-   * @param {Object} [options]
+   * @param text
+   * @param positionProperty - position of the thing that we're labeling
+   * @param modelViewTransformProperty
+   * @param options
    */
   constructor( text: string, positionProperty: Property<Vector2>,
                modelViewTransformProperty: Property<ModelViewTransform2>, options?: any ) { //TYPESCRIPT any
@@ -85,18 +85,11 @@ class LabelNode extends Node {
     this.textNode = textNode;
   }
 
-  /**
-   * @override
-   */
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 
-  /**
-   * Sets a string for the label.
-   * @param {string} text
-   */
   public setText( text: string ): void {
     this.textNode.text = text;
   }

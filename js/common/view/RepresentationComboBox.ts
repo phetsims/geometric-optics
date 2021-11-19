@@ -23,9 +23,9 @@ import Representation from '../model/Representation.js';
 class RepresentationComboBox extends ComboBox {
 
   /**
-   * @param {Property.<Representation>} representationProperty
-   * @param {Node} listParent - parent for the listbox popup
-   * @param {Object} [options]
+   * @param representationProperty
+   * @param listParent - parent for the listbox popup
+   * @param options
    */
   constructor( representationProperty: Property<Representation>, listParent: Node, options?: any ) { //TYPESCRIPT any
 
