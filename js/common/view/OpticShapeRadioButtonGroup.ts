@@ -60,7 +60,8 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeE
     const isLens = ( optic instanceof Lens );
 
     // A radio button for each shape supported by the optic
-    const items = optic.opticShapeProperty.validValues.map(
+    assert && assert( optic.opticShapeProperty.validValues, 'valid values should be defined' );
+    const items = optic.opticShapeProperty.validValues!.map(
       ( opticShape: OpticShapeEnum ) => createItem( isLens, opticShape ) );
 
     super( optic.opticShapeProperty, items, options );

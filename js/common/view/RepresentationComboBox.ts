@@ -43,7 +43,8 @@ class RepresentationComboBox extends ComboBox {
 
     // Create a ComboBoxItem for each representation.
     const items: ComboBoxItem[] = [];
-    representationProperty.validValues.forEach( ( representation: Representation ) => {
+    assert && assert( representationProperty.validValues, 'valid values should be defined' );
+    representationProperty.validValues!.forEach( ( representation: Representation ) => {
 
       // create text
       const text = new Text( representation.label, {

@@ -194,7 +194,9 @@ abstract class Optic {
   protected abstract getExtremumPoint( sourcePoint: Vector2, targetPoint: Vector2, isTop: boolean ): Vector2;
 
   public get maxDiameter(): number {
-    return this.diameterProperty.rangeProperty.value.max;
+    assert && assert( this.diameterProperty.rangeProperty, 'rangeProperty should be defined' );
+    assert && assert( typeof this.diameterProperty.rangeProperty.value === 'number', 'rangeProperty.value should be defined' );
+    return this.diameterProperty.rangeProperty!.value!.max;
   }
 
   public reset(): void {
