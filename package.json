@@ -13,7 +13,6 @@
     "requirejsNamespace": "GEOMETRIC_OPTICS",
     "simulation": true,
     "runnable": true,
-    "typescript": true,
     "colorProfiles": [
       "default",
       "projector"
