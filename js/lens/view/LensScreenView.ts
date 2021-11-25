@@ -110,7 +110,9 @@ class LensScreenView extends GeometricOpticsScreenView {
     // pdomOrder is an ES5 setter, and its values must be a new array, or it will be ignored.
     // @ts-ignore TYPESCRIPT 'getPDOMOrder' does not exist on type 'Node'
     const pdomOrder = this.screenViewRootNode.getPDOMOrder();
-    pdomOrder.splice( pdomOrder.indexOf( this.zoomButtonGroup ), 0, this.projectionScreenNode );
+    if ( pdomOrder ) {
+      pdomOrder.splice( pdomOrder.indexOf( this.zoomButtonGroup ), 0, this.projectionScreenNode );
+    }
     // @ts-ignore TYPESCRIPT 'pdomOrder' does not exist on type 'Node'
     this.screenViewRootNode.pdomOrder = [ ...pdomOrder ];
   }
