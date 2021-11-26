@@ -11,10 +11,10 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
-import SceneryEvent from '../../../../scenery/js/input/SceneryEvent.js';
-import DragListener from '../../../../scenery/js/listeners/DragListener.js';
-import HBox from '../../../../scenery/js/nodes/HBox.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import { SceneryEvent } from '../../../../scenery/js/imports.js';
+import { DragListener } from '../../../../scenery/js/imports.js';
+import { HBox } from '../../../../scenery/js/imports.js';
+import { Node } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';

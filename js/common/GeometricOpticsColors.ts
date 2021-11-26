@@ -8,7 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import ProfileColorProperty from '../../../scenery/js/util/ProfileColorProperty.js';
+import { ProfileColorProperty } from '../../../scenery/js/imports.js';
 import geometricOptics from '../geometricOptics.js';
 
 const GeometricOpticsColors = {
