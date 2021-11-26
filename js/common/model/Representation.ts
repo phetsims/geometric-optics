@@ -177,5 +177,4 @@ const RepresentationStaticInstances: Representation[] = [
 ];
 
 geometricOptics.register( 'Representation', Representation );
-export default Representation;
-export { RepresentationStaticInstances };
+export { Representation as default, RepresentationStaticInstances };

@@ -66,5 +66,4 @@ class Ruler {
 }
 
 geometricOptics.register( 'Ruler', Ruler );
-export default Ruler;
-export { RulerOrientation };
+export { Ruler as default, RulerOrientation };
