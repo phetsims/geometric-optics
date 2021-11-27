@@ -9,4 +9,6 @@
 const RaysModeValues = [ 'marginal', 'principal', 'many', 'none' ] as const;
 type RaysModeEnum = ( typeof RaysModeValues )[number];
 
-export { RaysModeValues, RaysModeEnum as default };
+export { RaysModeValues };
+export type { RaysModeEnum as default };
+

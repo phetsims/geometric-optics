@@ -9,4 +9,5 @@
 const FocalLengthControlValues = [ 'direct', 'indirect' ] as const;
 type FocalLengthControlEnum = ( typeof FocalLengthControlValues )[number];
 
-export { FocalLengthControlValues, FocalLengthControlEnum as default };
+export { FocalLengthControlValues };
+export type { FocalLengthControlEnum as default };

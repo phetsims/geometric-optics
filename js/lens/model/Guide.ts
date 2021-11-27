@@ -73,4 +73,5 @@ class Guide {
 }
 
 geometricOptics.register( 'Guide', Guide );
-export { Guide as default, GuideLocation };
+export { Guide as default };
+export type { GuideLocation };

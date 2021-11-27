@@ -9,4 +9,6 @@
 const OpticShapeValues = [ 'convex', 'concave', 'flat' ] as const;
 type OpticShapeEnum = ( typeof OpticShapeValues )[number];
 
-export { OpticShapeValues, OpticShapeEnum as default };
+export { OpticShapeValues };
+export type { OpticShapeEnum as default };
+
