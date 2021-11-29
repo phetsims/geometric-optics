@@ -16,6 +16,8 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
 import Mirror from '../model/Mirror.js';
+import MirrorShapes from '../model/MirrorShapes.js';
+import OpticShapeEnum from '../../common/model/OpticShapeEnum.js';
 
 class MirrorNode extends Node {
 
@@ -73,6 +75,35 @@ class MirrorNode extends Node {
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
+  }
+
+  /**
+   * Creates an icon for a mirror.
+   * @param opticShape
+   * @param options
+   */
+  public static createIconNode( opticShape: OpticShapeEnum, options?: any ): Node { //TYPESCRIPT any
+
+    options = merge( {
+      radius: 20, // radius of curvature of the mirror, in cm
+      diameter: 30 // diameter of the mirror, in cm
+    }, options );
+
+    const iconShapes = new MirrorShapes( opticShape, options.radius, options.diameter, {
+      backingThickness: 4
+    } );
+
+    const glassNode = new Path( iconShapes.fillShape, {
+      fill: GeometricOpticsColors.mirrorFillProperty
+    } );
+
+    const backingNode = new Path( iconShapes.outlineShape, {
+      stroke: GeometricOpticsColors.mirrorStrokeProperty
+    } );
+
+    return new Node( {
+      children: [ glassNode, backingNode ]
+    } );
   }
 }
 

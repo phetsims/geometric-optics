@@ -8,28 +8,15 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Path } from '../../../../scenery/js/imports.js';
 import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import Optic from '../model/Optic.js';
 import OpticShapeEnum from '../model/OpticShapeEnum.js';
-import LensShapes from '../../lens/model/LensShapes.js';
-import MirrorShapes from '../../mirror/model/MirrorShapes.js';
 import Lens from '../../lens/model/Lens.js';
-
-//TYPESCRIPT RectangularRadioButtonGroup needs to define this parameterized type for items
-type RectangularRadioButtonGroupItem<T> = {
-  value: T,
-  node: Node,
-  label?: Node,
-  tandemName?: string,
-  phetioDocumentation?: string,
-  labelContent?: string,
-  descriptionContent?: string
-};
+import MirrorNode from '../../mirror/view/MirrorNode.js';
+import LensNode from '../../lens/view/LensNode.js';
 
 class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeEnum> {
 
@@ -57,62 +44,19 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeE
       tandem: Tandem.REQUIRED
     }, options );
 
-    const isLens = ( optic instanceof Lens );
-
     // A radio button for each shape supported by the optic
     assert && assert( optic.opticShapeProperty.validValues, 'valid values should be defined' );
     const items = optic.opticShapeProperty.validValues!.map(
-      ( opticShape: OpticShapeEnum ) => createItem( isLens, opticShape ) );
+      ( opticShape: OpticShapeEnum ) => {
+        return {
+          value: opticShape,
+          node: ( optic instanceof Lens ) ? LensNode.createIconNode( opticShape ) : MirrorNode.createIconNode( opticShape ),
+          tandemName: `${opticShape}RadioButton`
+        };
+      } );
 
     super( optic.opticShapeProperty, items, options );
   }
-
-  /**
-   * Creates a centered icon representation of convex/concave, lens/mirror.
-   * @param isLens - is the optic a lens?
-   * @param opticShape - the shape of the optic can be convex or concave
-   * @param options
-   */
-  public static createIconNode( isLens: boolean, opticShape: OpticShapeEnum, options?: any ): Node { //TYPESCRIPT any
-
-    options = merge( {
-      radius: 22, // radius of curvature of the optic, in cm
-      diameter: 30 // diameter of the optic, in cm
-    }, options );
-
-    // Get the appropriate shapes for the optic.
-    const iconShapes = isLens ?
-                       new LensShapes( opticShape, options.radius, options.diameter, {
-                         isHollywooded: false
-                       } ) :
-                       new MirrorShapes( opticShape, options.radius, options.diameter, {
-                         backingThickness: 4
-                       } );
-
-    // Create the icon.
-    const fillNode = new Path( iconShapes.fillShape, {
-      fill: isLens ? GeometricOpticsColors.lensFillProperty : GeometricOpticsColors.mirrorFillProperty
-    } );
-    const outlineNode = new Path( iconShapes.outlineShape, {
-      stroke: isLens ? GeometricOpticsColors.mirrorFillProperty : GeometricOpticsColors.mirrorStrokeProperty
-    } );
-    return new Node( {
-      children: [ fillNode, outlineNode ]
-    } );
-  }
-}
-
-/**
- * Creates an item for the radio button group.
- * @param isLens - is the optic a lens?
- * @param opticShape
- */
-function createItem( isLens: boolean, opticShape: OpticShapeEnum ): RectangularRadioButtonGroupItem<OpticShapeEnum> {
-  return {
-    value: opticShape,
-    node: OpticShapeRadioButtonGroup.createIconNode( isLens, opticShape ),
-    tandemName: `${opticShape}RadioButton`
-  };
 }
 
 geometricOptics.register( 'OpticShapeRadioButtonGroup', OpticShapeRadioButtonGroup );
