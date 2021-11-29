@@ -22,6 +22,10 @@ import ProjectionScreenNode from './ProjectionScreenNode.js';
 import Representation from '../../common/model/Representation.js';
 import DebugPointNode from '../../common/view/DebugPointNode.js';
 import GeometricOpticsQueryParameters from '../../common/GeometricOpticsQueryParameters.js';
+import Property from '../../../../axon/js/Property.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import Lens from '../model/Lens.js';
+import LensNode from './LensNode.js';
 
 class LensScreenView extends GeometricOpticsScreenView {
 
@@ -38,6 +42,12 @@ class LensScreenView extends GeometricOpticsScreenView {
       // View origin is slightly above center of the layoutBounds.
       getViewOrigin: ( layoutBounds: Bounds2 ) =>
         new Vector2( layoutBounds.centerX, layoutBounds.centerY - 0.08 * layoutBounds.height ),
+
+      // Creates the Node for the lens
+      createOpticNode: ( optic: Lens, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) =>
+        new LensNode( optic, modelBoundsProperty, modelViewTransform, {
+          tandem: parentTandem.createTandem( 'lensNode' )
+        } ),
 
       // phet-io options
       tandem: Tandem.REQUIRED

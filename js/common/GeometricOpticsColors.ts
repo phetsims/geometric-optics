@@ -19,13 +19,24 @@ const GeometricOpticsColors = {
     projector: 'white'
   } ),
 
-  // Fill for the lens and mirror
-  opticFillProperty: new ProfileColorProperty( geometricOptics, 'opticFill', {
+  // Fill for the lens
+  lensFillProperty: new ProfileColorProperty( geometricOptics, 'lensFill', {
     default: 'rgb( 100, 100, 216 )'
   } ),
 
   // Stroke for the lens and mirror
-  opticStrokeProperty: new ProfileColorProperty( geometricOptics, 'opticStroke', {
+  lensStrokeProperty: new ProfileColorProperty( geometricOptics, 'lensStroke', {
+    default: 'rgb( 255, 255, 255 )',
+    projector: 'black'
+  } ),
+
+  // Fill for the mirror
+  mirrorFillProperty: new ProfileColorProperty( geometricOptics, 'mirrorFill', {
+    default: 'rgb( 100, 100, 216 )'
+  } ),
+
+  // Stroke for the mirror
+  mirrorStrokeProperty: new ProfileColorProperty( geometricOptics, 'mirrorStroke', {
     default: 'rgb( 255, 255, 255 )',
     projector: 'black'
   } ),

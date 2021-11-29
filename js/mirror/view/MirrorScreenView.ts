@@ -14,6 +14,10 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsScreenView from '../../common/view/GeometricOpticsScreenView.js';
 import geometricOptics from '../../geometricOptics.js';
 import MirrorModel from '../model/MirrorModel.js';
+import Property from '../../../../axon/js/Property.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import Mirror from '../model/Mirror.js';
+import MirrorNode from './MirrorNode.js';
 
 class MirrorScreenView extends GeometricOpticsScreenView {
 
@@ -30,6 +34,12 @@ class MirrorScreenView extends GeometricOpticsScreenView {
         layoutBounds.centerX + 200,
         layoutBounds.centerY - 0.08 * layoutBounds.height
       ),
+
+      // Creates the Node for the mirror
+      createOpticNode: ( optic: Mirror, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) =>
+        new MirrorNode( optic, modelBoundsProperty, modelViewTransform, {
+          tandem: parentTandem.createTandem( 'mirrorNode' )
+        } ),
 
       // phet-io options
       tandem: Tandem.REQUIRED

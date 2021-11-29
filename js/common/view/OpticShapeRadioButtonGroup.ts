@@ -91,10 +91,10 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeE
 
     // Create the icon.
     const fillNode = new Path( iconShapes.fillShape, {
-      fill: GeometricOpticsColors.opticFillProperty
+      fill: isLens ? GeometricOpticsColors.lensFillProperty : GeometricOpticsColors.mirrorFillProperty
     } );
     const outlineNode = new Path( iconShapes.outlineShape, {
-      stroke: GeometricOpticsColors.opticStrokeProperty
+      stroke: isLens ? GeometricOpticsColors.mirrorFillProperty : GeometricOpticsColors.mirrorStrokeProperty
     } );
     return new Node( {
       children: [ fillNode, outlineNode ]
