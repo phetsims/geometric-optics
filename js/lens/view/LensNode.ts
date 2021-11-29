@@ -63,7 +63,6 @@ class LensNode extends Node {
 
     super( options );
 
-    // Shape of the optic will change when curve type, radius of curvature, or diameter is changed.
     lens.shapesProperty.link( shapes => {
 
       // Shapes are described in model coordinates. If we use modelViewTransform.modelToViewShape to transform
