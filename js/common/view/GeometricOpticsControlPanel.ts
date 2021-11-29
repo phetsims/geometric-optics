@@ -34,11 +34,11 @@ import Lens from '../../lens/model/Lens.js';
 class GeometricOpticsControlPanel extends Panel {
 
   /**
-   * @param {Property.<Representation>} representationProperty
-   * @param {Optic} optic
-   * @param {Property.<RaysModeEnum>} raysModeProperty
-   * @param {VisibleProperties} visibleProperties
-   * @param {Object} [options]
+   * @param representationProperty
+   * @param optic
+   * @param raysModeProperty
+   * @param visibleProperties
+   * @param options
    */
   constructor( representationProperty: Property<Representation>, optic: Optic, raysModeProperty: Property<RaysModeEnum>,
                visibleProperties: VisibleProperties, options?: any ) { //TYPESCRIPT any

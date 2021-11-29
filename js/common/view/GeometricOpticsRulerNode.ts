@@ -37,11 +37,11 @@ class GeometricOpticsRulerNode extends Node {
   private readonly dragListener: DragListener;
 
   /**
-   * @param {Ruler} ruler - model for ruler
-   * @param {Property.<Bounds2>} visibleBoundsProperty
-   * @param {Bounds2} toolboxBounds
-   * @param {ModelViewTransform2} modelViewTransform
-   * @param {Object} [options]
+   * @param ruler
+   * @param visibleBoundsProperty
+   * @param toolboxBounds
+   * @param modelViewTransform
+   * @param options
    */
   constructor( ruler: Ruler, visibleBoundsProperty: Property<Bounds2>, toolboxBounds: Bounds2,
                modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any

@@ -19,9 +19,9 @@ import GeometricOpticsColors from '../GeometricOpticsColors.js';
 class FocalPointNode extends Node {
 
   /**
-   * @param {Property.<Vector2>} focalPointProperty
-   * @param {ModelViewTransform2} modelViewTransform
-   * @param {Object} [options]
+   * @param focalPointProperty
+   * @param modelViewTransform
+   * @param options
    */
   constructor( focalPointProperty: Property<Vector2>, modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
 
@@ -39,8 +39,7 @@ class FocalPointNode extends Node {
 
   /**
    * Returns an icon for the focal point
-   * @param {number} [radius]
-   * @returns {Node}
+   * @param radius
    */
   public static createIcon( radius: number = 7 ): Node {
     const circleNode = new Circle( radius, {

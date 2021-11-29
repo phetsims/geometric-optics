@@ -29,7 +29,7 @@ type AquaRadioButtonGroupItem<T> = {
 class FocalLengthControlRadioButtonGroup extends VerticalAquaRadioButtonGroup<FocalLengthControlEnum> {
 
   /**
-   * @param {Object} [options]
+   * @param options
    */
   constructor( options?: any ) { //TYPESCRIPT any
 
@@ -51,9 +51,8 @@ class FocalLengthControlRadioButtonGroup extends VerticalAquaRadioButtonGroup<Fo
 
 /**
  * Creates an item for the radio button group.
- * @param {FocalLengthControlEnum} value
- * @param {string} text
- * @returns {AquaRadioButtonGroupItem<FocalLengthControlEnum>}
+ * @param value
+ * @param text
  */
 function createItem( value: FocalLengthControlEnum, text: string ): AquaRadioButtonGroupItem<FocalLengthControlEnum> {
   return {

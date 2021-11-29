@@ -22,7 +22,7 @@ class GeometricOpticsGlobalOptionsNode extends VBox {
   private readonly disposeGeometricOpticsGlobalOptionsNode: () => void;
 
   /**
-   * @param {Object} [options]
+   * @param options
    */
   constructor( options?: any ) { //TYPESCRIPT any
 

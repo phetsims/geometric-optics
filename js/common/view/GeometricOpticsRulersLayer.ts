@@ -47,8 +47,8 @@ class GeometricOpticRulersLayer extends Node {
     //TODO creating a new GeometricOpticsRulerNode each time the scale changes will be a problem for PhET-iO
     /**
      * Returns a GeometricOpticsRulerNode
-     * @param {Ruler} ruler
-     * @param {number} absoluteScale
+     * @param ruler
+     * @param absoluteScale
      */
     const createRulerNode = ( ruler: Ruler, absoluteScale: number ): GeometricOpticsRulerNode => {
 
@@ -85,8 +85,8 @@ class GeometricOpticRulersLayer extends Node {
 
     /**
      * Update the GeometricOpticsRulerNode based on the new scale
-     * @param {GeometricOpticsRulerNode} rulerNode
-     * @param {number} absoluteScale
+     * @param rulerNode
+     * @param absoluteScale
      */
     const updateRulerNode = ( rulerNode: GeometricOpticsRulerNode, absoluteScale: number ): void => {
 

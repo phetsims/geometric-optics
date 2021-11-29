@@ -64,8 +64,8 @@ class GeometricOpticsModel {
   readonly verticalRuler: Ruler;
 
   /**
-   * @param {Optic} optic
-   * @param {Object} [options]
+   * @param optic
+   * @param options
    */
   constructor( optic: Optic, options?: any ) { //TYPESCRIPT any
 

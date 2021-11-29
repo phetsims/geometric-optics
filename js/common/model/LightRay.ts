@@ -282,8 +282,8 @@ function getIntermediatePoint( initialRay: Ray, firstPoint: Vector2, optic: Opti
 
 /**
  * Sets the final point of the real ray if it intersects with the vertical median of the barrier.
- * @param {Ray[]} realRays
- * @param {Shape} projectionScreenBisectorLine
+ * @param realRays
+ * @param projectionScreenBisectorLine
  */
 function setFinalPointProjectionScreen( realRays: Ray[], projectionScreenBisectorLine: Shape ): void {
 

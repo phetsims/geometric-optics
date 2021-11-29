@@ -65,7 +65,7 @@ class Representation {
   readonly scaleFactor: number;
 
   /**
-   * @param {Object} config
+   * @param config
    */
   constructor( config: any ) { //TYPESCRIPT any
 

@@ -31,7 +31,7 @@ class SourceObject {
   public readonly boundsProperty: DerivedProperty<Bounds2>;
 
   /**
-   * @param {Property.<Representation>} representationProperty
+   * @param representationProperty
    */
   constructor( representationProperty: Property<Representation> ) {
 

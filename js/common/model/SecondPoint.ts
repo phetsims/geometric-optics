@@ -33,9 +33,9 @@ class SecondPoint {
   private readonly sourceObjectPositionProperty: Property<Vector2>;
 
   /**
-   * @param {Property.<Representation>} representationProperty
-   * @param {Property.<Vector2>} sourceObjectPositionProperty
-   * @param {Object} [options]
+   * @param representationProperty
+   * @param sourceObjectPositionProperty
+   * @param options
    */
   constructor( representationProperty: Property<Representation>, sourceObjectPositionProperty: Property<Vector2>,
                options?: any ) { //TYPESCRIPT any
