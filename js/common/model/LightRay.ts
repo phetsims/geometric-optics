@@ -305,6 +305,7 @@ function setFinalPointProjectionScreen( realRays: Ray[], projectionScreenBisecto
   }
 }
 
+//TODO move this to Lens or Optic
 /**
  * Gets the shape of the curved back (right hand side) of the lens.
  */
