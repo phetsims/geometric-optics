@@ -179,7 +179,7 @@ class LightRay {
  * @param isPrincipalRayMode
  */
 function getFirstPoint( initialRay: Ray, optic: Optic, isPrincipalRayMode: boolean ): Vector2 | null {
-  const firstIntersection = optic.getFrontShape( isPrincipalRayMode ).intersection( initialRay );
+  const firstIntersection = optic.getFrontShapeTranslated( isPrincipalRayMode ).intersection( initialRay );
   return getPoint( firstIntersection );
 }
 
@@ -226,7 +226,7 @@ function getRealRays( initialRay: Ray, firstPoint: Vector2 | null, optic: Optic,
       const transmittedRay = getTransmittedRay( intermediatePoint, targetPoint, optic );
 
       // determine the intersection of the transmitted ray with the back shape of the optic
-      const backIntersection = getLensBackShape( optic ).intersection( transmittedRay );
+      const backIntersection = optic.getBackShapeTranslated().intersection( transmittedRay );
 
       // {Vector2|null} back shape point intersecting the transmitted ray
       const backPoint = getPoint( backIntersection );
@@ -303,17 +303,6 @@ function setFinalPointProjectionScreen( realRays: Ray[], projectionScreenBisecto
       lastRay.setFinalPoint( pointOnScreen );
     }
   }
-}
-
-//TODO move this to Lens or Optic
-/**
- * Gets the shape of the curved back (right hand side) of the lens.
- */
-function getLensBackShape( optic: Optic ): Shape {
-  assert && assert( optic instanceof Lens, 'optic must be Lens' );
-  const backShape = optic.shapesProperty.value.backShape; // {Shape|null}
-  assert && assert( backShape );
-  return optic.translatedShape( backShape! );
 }
 
 /**

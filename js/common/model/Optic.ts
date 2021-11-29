@@ -258,7 +258,7 @@ abstract class Optic {
    * Gets the shape that a ray will initially intersect.
    * @param isPrincipalRayMode
    */
-  getFrontShape( isPrincipalRayMode: boolean ): Shape {
+  getFrontShapeTranslated( isPrincipalRayMode: boolean ): Shape {
     if ( isPrincipalRayMode ) {
 
       // for principal rays, the rays are refracted at a vertical line
@@ -270,6 +270,16 @@ abstract class Optic {
       const staticShape = this.shapesProperty.value.frontShape;
       return this.translatedShape( staticShape );
     }
+  }
+
+  //TODO this fails for a mirror, because backShape is null, so doesn't belong in Optic
+  /**
+   * Gets the shape of the curved back (right-hand side) of the optic.
+   */
+  getBackShapeTranslated(): Shape {
+    const backShape = this.shapesProperty.value.backShape; // {Shape|null}
+    assert && assert( backShape );
+    return this.translatedShape( backShape! );
   }
 }
 
