@@ -18,13 +18,7 @@ import OpticShapeEnum from '../../common/model/OpticShapeEnum.js';
 import OpticShapes from '../../common/model/OpticShapes.js';
 import geometricOptics from '../../geometricOptics.js';
 
-class MirrorShapes implements OpticShapes {
-
-  // OpticShapes interface
-  readonly frontShape: Shape;
-  readonly backShape: null;
-  readonly strokeShape: Shape;
-  readonly fillShape: Shape;
+class MirrorShapes extends OpticShapes {
 
   /**
    *
@@ -72,26 +66,28 @@ class MirrorShapes implements OpticShapes {
 
     // shapes drawn from top to bottom in counterclockwise fashion.
 
-    // front (left-facing) shape of reflective coating, with zero area.
-    this.frontShape = new Shape()
+    // reflective coating on the front (left-facing) surface of the mirror, with zero area.
+    const reflectiveCoatingShape = new Shape()
       .moveToPoint( topLeft )
       .quadraticCurveToPoint( midLeft, bottomLeft )
       .quadraticCurveToPoint( midLeft, topLeft )
       .close();
 
-    // No backShape, because there is no ray hit testing on the back of a mirror.
-    this.backShape = null;
-
-    // shape of entire mirror, including reflective coating and backing
-    this.fillShape = new Shape()
+    // the mirror's backing
+    const backingShape = new Shape()
       .moveToPoint( topLeft )
       .quadraticCurveToPoint( midLeft, bottomLeft )
       .lineToPoint( bottomRight )
       .quadraticCurveToPoint( midRight, topRight )
       .close();
 
-    // Stroke the reflective coating
-    this.strokeShape = this.frontShape;
+    super( {
+      fillShape: backingShape,
+      strokeShape: reflectiveCoatingShape,
+      frontShape: reflectiveCoatingShape,
+      backShape: null, // because there is no ray hit testing on the back of a mirror
+      activeBoundsShape: reflectiveCoatingShape
+    } );
   }
 }
 

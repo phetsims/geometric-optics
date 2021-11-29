@@ -48,11 +48,11 @@ class Lens extends Optic {
   protected getExtremumPoint( sourcePoint: Vector2, targetPoint: Vector2, isTop: boolean ): Vector2 {
 
     // Erode the bounds a tiny bit so that the point is always within the bounds.
-    const opticBounds = this.getOpticBounds().erodedY( 1e-6 );
+    const activeBounds = this.getActiveBoundsTranslated().erodedY( 1e-6 );
 
     // convenience variables
-    const leftPoint = isTop ? opticBounds.leftTop : opticBounds.leftBottom;
-    const rightPoint = isTop ? opticBounds.rightTop : opticBounds.rightBottom;
+    const leftPoint = isTop ? activeBounds.leftTop : activeBounds.leftBottom;
+    const rightPoint = isTop ? activeBounds.rightTop : activeBounds.rightBottom;
     const opticShape = this.opticShapeProperty.value;
 
     // extremum point along the direction of the ray, may not be on the optic itself
@@ -83,7 +83,7 @@ class Lens extends Optic {
     else if ( opticShape === 'convex' ) {
 
       // extremum point is based on the edge point (which is centered horizontally on the optic)
-      extremumPoint = isTop ? opticBounds.centerTop : opticBounds.centerBottom;
+      extremumPoint = isTop ? activeBounds.centerTop : activeBounds.centerBottom;
     }
     else {
       throw new Error( `unsupported lens shape: ${opticShape}` );

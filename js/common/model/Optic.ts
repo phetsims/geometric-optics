@@ -217,10 +217,8 @@ abstract class Optic {
    * Gets the bounds of the "active" part of the optic, in model coordinates.
    * For a lens, this is the complete lens. For a mirror, it's the reflective coating.
    */
-  protected getOpticBounds(): Bounds2 {
-    const strokeShape = this.shapesProperty.value.strokeShape;
-    const translatedShape = this.translatedShape( strokeShape );
-    return translatedShape.getBounds();
+  protected getActiveBoundsTranslated(): Bounds2 {
+    return this.translatedShape( this.shapesProperty.value.activeBoundsShape ).getBounds();
   }
 
   /**
