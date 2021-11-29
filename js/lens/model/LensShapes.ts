@@ -21,11 +21,11 @@ import geometricOptics from '../../geometricOptics.js';
 
 class LensShapes implements OpticShapes {
 
-  // OpticShapes interface
-  readonly frontShape: Shape;
-  readonly backShape: Shape | null;
-  readonly outlineShape: Shape;
-  readonly fillShape: Shape;
+  // fields required by the OpticShapes interface
+  readonly frontShape: Shape; // the front (left facing) contour of the lens, used for ray hit testing
+  readonly backShape: Shape; // the back (right facing) contour of the lens, used for ray hit testing
+  readonly fillShape: Shape; // the external surface of the lens
+  readonly strokeShape: Shape; // the entire shape of the lens
 
   /**
    * @param opticShape
@@ -48,9 +48,9 @@ class LensShapes implements OpticShapes {
                       radiusOfCurvature - Math.sqrt( radiusOfCurvature ** 2 - halfHeight ** 2 );
 
     // {Shape} shape of lens
-    let outlineShape; // the outline of the lens (including top and bottom)
-    let frontShape; // the left facing portion of the lens
-    let backShape; // the right facing  portion of the lens
+    let strokeShape; // the outline of the complete lens
+    let frontShape; // the front (left facing) part of the lens
+    let backShape; // the back (right facing)  part of the lens
 
     if ( opticShape === 'convex' ) {
 
@@ -64,7 +64,7 @@ class LensShapes implements OpticShapes {
       const right = new Vector2( 2 * halfWidth, 0 );
 
       // shape of convex lens
-      outlineShape = new Shape()
+      strokeShape = new Shape()
         .moveToPoint( top )
         .quadraticCurveToPoint( left, bottom )
         .quadraticCurveToPoint( right, top )
@@ -98,7 +98,7 @@ class LensShapes implements OpticShapes {
       const midRight = new Vector2( -midWidth / 2, 0 );
 
       // shape of concave lens
-      outlineShape = new Shape()
+      strokeShape = new Shape()
         .moveToPoint( topLeft )
         .lineToPoint( topRight )
         .quadraticCurveToPoint( midRight, bottomRight )
@@ -119,10 +119,10 @@ class LensShapes implements OpticShapes {
         .close();
     }
 
+    this.fillShape = strokeShape;
+    this.strokeShape = strokeShape;
     this.frontShape = frontShape;
     this.backShape = backShape;
-    this.outlineShape = outlineShape;
-    this.fillShape = outlineShape; // same as outlineShape for a lens
   }
 }
 

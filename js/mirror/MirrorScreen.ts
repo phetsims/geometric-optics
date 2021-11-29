@@ -1,4 +1,4 @@
-  // Copyright 2021, University of Colorado Boulder
+// Copyright 2021, University of Colorado Boulder
 
 /**
  * MirrorScreen is the 'Mirror' screen.
@@ -12,10 +12,10 @@ import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import merge from '../../../phet-core/js/merge.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import GeometricOpticsColors from '../common/GeometricOpticsColors.js';
-import OpticShapeRadioButtonGroup from '../common/view/OpticShapeRadioButtonGroup.js';
 import geometricOptics from '../geometricOptics.js';
 import geometricOpticsStrings from '../geometricOpticsStrings.js';
 import MirrorModel from './model/MirrorModel.js';
+import MirrorNode from './view/MirrorNode.js';
 import MirrorScreenView from './view/MirrorScreenView.js';
 
 class MirrorScreen extends Screen {
@@ -46,13 +46,7 @@ class MirrorScreen extends Screen {
 }
 
 function createScreenIcon(): ScreenIcon {
-
-  const concaveMirrorNode = OpticShapeRadioButtonGroup.createIconNode( false /* isLens */, 'concave', {
-    radius: 20,
-    diameter: 30
-  } );
-
-  return new ScreenIcon( concaveMirrorNode, {
+  return new ScreenIcon( MirrorNode.createIconNode( 'concave' ), {
     fill: GeometricOpticsColors.screenBackgroundColorProperty
   } );
 }

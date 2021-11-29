@@ -12,10 +12,10 @@ import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import merge from '../../../phet-core/js/merge.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import GeometricOpticsColors from '../common/GeometricOpticsColors.js';
-import OpticShapeRadioButtonGroup from '../common/view/OpticShapeRadioButtonGroup.js';
 import geometricOptics from '../geometricOptics.js';
 import geometricOpticsStrings from '../geometricOpticsStrings.js';
 import LensModel from './model/LensModel.js';
+import LensNode from './view/LensNode.js';
 import LensScreenView from './view/LensScreenView.js';
 
 class LensScreen extends Screen {
@@ -46,13 +46,7 @@ class LensScreen extends Screen {
 }
 
 function createScreenIcon(): ScreenIcon {
-
-  const convexLensNode = OpticShapeRadioButtonGroup.createIconNode( true /* isLens */, 'convex', {
-    radius: 20,
-    diameter: 30
-  } );
-
-  return new ScreenIcon( convexLensNode, {
+  return new ScreenIcon( LensNode.createIconNode( 'convex' ), {
     fill: GeometricOpticsColors.screenBackgroundColorProperty
   } );
 }

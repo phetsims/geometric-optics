@@ -11,17 +11,13 @@ import Shape from '../../../../kite/js/Shape.js';
 
 interface OpticShapes {
 
-  // the left facing contour of the optic. This can be used for ray hit testing
-  readonly frontShape: Shape;
-
-  // the right facing contour of the lens, used for ray hit testing. null for mirror.
-  readonly backShape: Shape | null;
-
-  // the external surface of the lens, or the reflecting coating of the mirror
-  readonly outlineShape: Shape;
-
-  // the entire shape of the lens, or the backing of the mirror
+  // Shapes used to draw the optic, and determine its bounds
   readonly fillShape: Shape;
+  readonly strokeShape: Shape;
+
+  // Shapes used for ray hit testing
+  readonly frontShape: Shape;
+  readonly backShape: Shape | null;
 }
 
 export default OpticShapes;

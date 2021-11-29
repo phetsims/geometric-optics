@@ -22,8 +22,8 @@ class MirrorShapes implements OpticShapes {
 
   // OpticShapes interface
   readonly frontShape: Shape;
-  readonly backShape: Shape | null;
-  readonly outlineShape: Shape;
+  readonly backShape: null;
+  readonly strokeShape: Shape;
   readonly fillShape: Shape;
 
   /**
@@ -72,25 +72,26 @@ class MirrorShapes implements OpticShapes {
 
     // shapes drawn from top to bottom in counterclockwise fashion.
 
-    // front shape of mirror front - with zero area.
-    const frontShape = new Shape()
+    // front (left-facing) shape of reflective coating, with zero area.
+    this.frontShape = new Shape()
       .moveToPoint( topLeft )
       .quadraticCurveToPoint( midLeft, bottomLeft )
       .quadraticCurveToPoint( midLeft, topLeft )
       .close();
 
-    // shape of entire mirror, including mirror backing
-    const fillShape = new Shape()
+    // No backShape, because there is no ray hit testing on the back of a mirror.
+    this.backShape = null;
+
+    // shape of entire mirror, including reflective coating and backing
+    this.fillShape = new Shape()
       .moveToPoint( topLeft )
       .quadraticCurveToPoint( midLeft, bottomLeft )
       .lineToPoint( bottomRight )
       .quadraticCurveToPoint( midRight, topRight )
       .close();
 
-    this.frontShape = frontShape;
-    this.backShape = null;
-    this.outlineShape = frontShape; // same as frontShape for a mirror
-    this.fillShape = fillShape;
+    // Stroke the reflective coating
+    this.strokeShape = this.frontShape;
   }
 }
 

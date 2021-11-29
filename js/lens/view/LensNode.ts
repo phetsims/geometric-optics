@@ -20,6 +20,8 @@ import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import Lens from '../model/Lens.js';
+import OpticShapeEnum from '../../common/model/OpticShapeEnum.js';
+import LensShapes from '../model/LensShapes.js';
 
 class LensNode extends Node {
 
@@ -75,7 +77,7 @@ class LensNode extends Node {
       // Create the shapes in view coordinates.
       //TODO why do we need 2 different shapes?
       fillNode.shape = shapes.fillShape.transformed( matrix );
-      strokeNode.shape = shapes.outlineShape.transformed( matrix );
+      strokeNode.shape = shapes.strokeShape.transformed( matrix );
     } );
 
     lens.diameterProperty.link( diameter => {
@@ -102,6 +104,35 @@ class LensNode extends Node {
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
+  }
+
+  /**
+   * Creates an icon for a lens.
+   * @param opticShape
+   * @param options
+   */
+  public static createIconNode( opticShape: OpticShapeEnum, options?: any ): Node { //TYPESCRIPT any
+
+    options = merge( {
+      radius: 20, // radius of curvature of the lens, in cm
+      diameter: 30 // diameter of the lens, in cm
+    }, options );
+
+    const iconShapes = new LensShapes( opticShape, options.radius, options.diameter, {
+      isHollywooded: false
+    } );
+
+    const fillNode = new Path( iconShapes.fillShape, {
+      fill: GeometricOpticsColors.lensFillProperty
+    } );
+
+    const strokeNode = new Path( iconShapes.strokeShape, {
+      stroke: GeometricOpticsColors.lensStrokeProperty
+    } );
+
+    return new Node( {
+      children: [ fillNode, strokeNode ]
+    } );
   }
 }
 

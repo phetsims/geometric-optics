@@ -209,17 +209,17 @@ abstract class Optic {
   /**
    * Returns a shape translated by the model position of the optic
    */
-  public translatedShape( shape: Shape ): Shape {
+  private translatedShape( shape: Shape ): Shape {
     return shape.transformed( Matrix3.translationFromVector( this.positionProperty.value ) );
   }
 
   /**
-   * Gets the bounds of the optically "active" component, in model coordinates.
-   * In practice, it means that we exclude the backing (fill) of the mirror
+   * Gets the bounds of the "active" part of the optic, in model coordinates.
+   * For a lens, this is the complete lens. For a mirror, it's the reflective coating.
    */
-  public getOpticBounds(): Bounds2 {
-    const outlineShape = this.shapesProperty.value.outlineShape;
-    const translatedShape = this.translatedShape( outlineShape );
+  protected getOpticBounds(): Bounds2 {
+    const strokeShape = this.shapesProperty.value.strokeShape;
+    const translatedShape = this.translatedShape( strokeShape );
     return translatedShape.getBounds();
   }
 
@@ -252,6 +252,34 @@ abstract class Optic {
    */
   public getBottomPoint( sourcePoint: Vector2, targetPoint: Vector2 ): Vector2 {
     return this.getExtremumPoint( sourcePoint, targetPoint, false /* isTop */ );
+  }
+
+  /**
+   * Gets the shape that a ray will initially intersect.
+   * @param isPrincipalRayMode
+   */
+  getFrontShapeTranslated( isPrincipalRayMode: boolean ): Shape {
+    if ( isPrincipalRayMode ) {
+
+      // for principal rays, the rays are refracted at a vertical line
+      return this.getVerticalAxis();
+    }
+    else {
+
+      // get the front (left-facing) surface of the optic
+      const staticShape = this.shapesProperty.value.frontShape;
+      return this.translatedShape( staticShape );
+    }
+  }
+
+  //TODO this fails for a mirror, because backShape is null, so doesn't belong in Optic
+  /**
+   * Gets the shape of the curved back (right-hand side) of the optic.
+   */
+  getBackShapeTranslated(): Shape {
+    const backShape = this.shapesProperty.value.backShape; // {Shape|null}
+    assert && assert( backShape );
+    return this.translatedShape( backShape! );
   }
 }
 
