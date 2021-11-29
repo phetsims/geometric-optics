@@ -11,7 +11,7 @@ import Shape from '../../../../kite/js/Shape.js';
 
 interface OpticShapes {
 
-  // Shapes used to draw the optic
+  // Shapes used to draw the optic, and determine its bounds
   readonly fillShape: Shape;
   readonly strokeShape: Shape;
 
