@@ -72,7 +72,7 @@ class MirrorShapes implements OpticShapes {
 
     // shapes drawn from top to bottom in counterclockwise fashion.
 
-    // front (left-facing) shape of mirror front (glass) - with zero area.
+    // front (left-facing) shape of reflective coating, with zero area.
     this.frontShape = new Shape()
       .moveToPoint( topLeft )
       .quadraticCurveToPoint( midLeft, bottomLeft )
@@ -82,7 +82,7 @@ class MirrorShapes implements OpticShapes {
     // No backShape, because there is no ray hit testing on the back of a mirror.
     this.backShape = null;
 
-    // shape of entire mirror, including mirror backing
+    // shape of entire mirror, including reflective coating and backing
     this.fillShape = new Shape()
       .moveToPoint( topLeft )
       .quadraticCurveToPoint( midLeft, bottomLeft )
@@ -90,6 +90,7 @@ class MirrorShapes implements OpticShapes {
       .quadraticCurveToPoint( midRight, topRight )
       .close();
 
+    // Stroke the reflective coating
     this.strokeShape = this.frontShape;
   }
 }
