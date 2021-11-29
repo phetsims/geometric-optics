@@ -209,7 +209,7 @@ abstract class Optic {
   /**
    * Returns a shape translated by the model position of the optic
    */
-  public translatedShape( shape: Shape ): Shape {
+  private translatedShape( shape: Shape ): Shape {
     return shape.transformed( Matrix3.translationFromVector( this.positionProperty.value ) );
   }
 
