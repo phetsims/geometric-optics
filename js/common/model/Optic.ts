@@ -253,6 +253,24 @@ abstract class Optic {
   public getBottomPoint( sourcePoint: Vector2, targetPoint: Vector2 ): Vector2 {
     return this.getExtremumPoint( sourcePoint, targetPoint, false /* isTop */ );
   }
+
+  /**
+   * Gets the shape that a ray will initially intersect.
+   * @param isPrincipalRayMode
+   */
+  getFrontShape( isPrincipalRayMode: boolean ): Shape {
+    if ( isPrincipalRayMode ) {
+
+      // for principal rays, the rays are refracted at a vertical line
+      return this.getVerticalAxis();
+    }
+    else {
+
+      // get the front (left-facing) surface of the optic
+      const staticShape = this.shapesProperty.value.frontShape;
+      return this.translatedShape( staticShape );
+    }
+  }
 }
 
 geometricOptics.register( 'Optic', Optic );

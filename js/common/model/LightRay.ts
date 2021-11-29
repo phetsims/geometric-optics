@@ -173,13 +173,13 @@ class LightRay {
 }
 
 /**
- * Gets the first intersection Ppoint.
+ * Gets the first intersection Point, where it hits the front (left-facing) surface of the optic.
  * @param initialRay
  * @param optic
  * @param isPrincipalRayMode
  */
 function getFirstPoint( initialRay: Ray, optic: Optic, isPrincipalRayMode: boolean ): Vector2 | null {
-  const firstIntersection = getFirstShape( optic, isPrincipalRayMode ).intersection( initialRay );
+  const firstIntersection = optic.getFrontShape( isPrincipalRayMode ).intersection( initialRay );
   return getPoint( firstIntersection );
 }
 
@@ -313,24 +313,6 @@ function getLensBackShape( optic: Optic ): Shape {
   const backShape = optic.shapesProperty.value.backShape; // {Shape|null}
   assert && assert( backShape );
   return optic.translatedShape( backShape! );
-}
-
-/**
- * Gets the shape that the initial ray will intersect.
- */
-function getFirstShape( optic: Optic, isPrincipalRayMode: boolean ): Shape {
-
-  // for principal rays, the rays are refracted at a vertical line
-  if ( isPrincipalRayMode ) {
-
-    return optic.getVerticalAxis();
-  }
-  else {
-
-    // get the first surface of the optic
-    const staticShape = optic.shapesProperty.value.frontShape;
-    return optic.translatedShape( staticShape );
-  }
 }
 
 /**
