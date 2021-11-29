@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * OpticShapes is interface for describing an optic as a set of Shapes. All Shapes are in model coordinates.
+ * OpticShapes is a data structure for various Shapes related to an optic. All Shapes are in model coordinates.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
