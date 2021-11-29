@@ -214,8 +214,8 @@ abstract class Optic {
   }
 
   /**
-   * Gets the bounds of the optically "active" component, in model coordinates.
-   * In practice, it means that we exclude the backing (fill) of the mirror
+   * Gets the bounds of the "active" part of the optic, in model coordinates.
+   * For a lens, this is the complete lens. For a mirror, it's the reflective coating.
    */
   protected getOpticBounds(): Bounds2 {
     const strokeShape = this.shapesProperty.value.strokeShape;
