@@ -42,6 +42,9 @@ abstract class Optic {
   // diameter of the optic, controls the optic's aperture
   readonly diameterProperty: NumberProperty;
 
+  // Mmaximum diameter of the optic
+  readonly maxDiameter: number;
+
   // sign used for math operations
   readonly sign: 1 | -1;
 
@@ -145,6 +148,8 @@ abstract class Optic {
       tandem: config.tandem.createTandem( 'diameterProperty' )
     } );
 
+    this.maxDiameter = config.diameterRange.max;
+
     this.focalLengthProperty = new DerivedProperty<number>(
       [ this.opticShapeProperty, this.radiusOfCurvatureProperty, this.indexOfRefractionProperty ],
       ( opticShape: OpticShapeEnum, radiusOfCurvature: number, indexOfRefraction: number ) => {
@@ -192,12 +197,6 @@ abstract class Optic {
    * See https://github.com/phetsims/geometric-optics/issues/111
    */
   protected abstract getExtremumPoint( sourcePoint: Vector2, targetPoint: Vector2, isTop: boolean ): Vector2;
-
-  public get maxDiameter(): number {
-    assert && assert( this.diameterProperty.rangeProperty, 'rangeProperty should be defined' );
-    assert && assert( typeof this.diameterProperty.rangeProperty.value === 'number', 'rangeProperty.value should be defined' );
-    return this.diameterProperty.rangeProperty!.value!.max;
-  }
 
   public reset(): void {
     this.opticShapeProperty.reset();
