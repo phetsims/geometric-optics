@@ -77,7 +77,7 @@ class LensNode extends Node {
       // Create the shapes in view coordinates.
       //TODO why do we need 2 different shapes?
       fillNode.shape = shapes.fillShape.transformed( matrix );
-      strokeNode.shape = shapes.outlineShape.transformed( matrix );
+      strokeNode.shape = shapes.strokeShape.transformed( matrix );
     } );
 
     lens.diameterProperty.link( diameter => {
@@ -126,12 +126,12 @@ class LensNode extends Node {
       fill: GeometricOpticsColors.lensFillProperty
     } );
 
-    const outlineNode = new Path( iconShapes.outlineShape, {
+    const strokeNode = new Path( iconShapes.strokeShape, {
       stroke: GeometricOpticsColors.lensStrokeProperty
     } );
 
     return new Node( {
-      children: [ fillNode, outlineNode ]
+      children: [ fillNode, strokeNode ]
     } );
   }
 }

@@ -218,8 +218,8 @@ abstract class Optic {
    * In practice, it means that we exclude the backing (fill) of the mirror
    */
   public getOpticBounds(): Bounds2 {
-    const outlineShape = this.shapesProperty.value.outlineShape;
-    const translatedShape = this.translatedShape( outlineShape );
+    const strokeShape = this.shapesProperty.value.strokeShape;
+    const translatedShape = this.translatedShape( strokeShape );
     return translatedShape.getBounds();
   }
 

@@ -30,25 +30,25 @@ class MirrorNode extends Node {
   constructor( mirror: Mirror, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
 
     options = merge( {
-      fill: GeometricOpticsColors.mirrorFillProperty,
-      stroke: GeometricOpticsColors.mirrorStrokeProperty,
+      fill: GeometricOpticsColors.mirrorGlassColorProperty,
+      stroke: GeometricOpticsColors.mirrorBackingColorProperty,
       lineWidth: 2,
 
       // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 
-    const glassNode = new Path( null, {
+    const fillNode = new Path( null, {
       fill: options.fill
     } );
 
-    const backingNode = new Path( null, {
+    const strokeNode = new Path( null, {
       stroke: options.stroke,
       lineWidth: options.lineWidth
     } );
 
     assert && assert( !options.children );
-    options.children = [ glassNode, backingNode ];
+    options.children = [ fillNode, strokeNode ];
 
     super( options );
 
@@ -63,8 +63,8 @@ class MirrorNode extends Node {
       matrix.prependTranslation( -translation.x, -translation.y );
 
       // Create the shapes in view coordinates.
-      glassNode.shape = shapes.fillShape.transformed( matrix ); //TODO shapes.glassShape
-      backingNode.shape = shapes.outlineShape.transformed( matrix ); //TODO shapes.backingShape
+      fillNode.shape = shapes.fillShape.transformed( matrix );
+      strokeNode.shape = shapes.strokeShape.transformed( matrix );
     } );
 
     mirror.positionProperty.link( position => {
@@ -93,16 +93,16 @@ class MirrorNode extends Node {
       backingThickness: 4
     } );
 
-    const glassNode = new Path( iconShapes.fillShape, {
-      fill: GeometricOpticsColors.mirrorFillProperty
+    const fillNode = new Path( iconShapes.fillShape, {
+      fill: GeometricOpticsColors.mirrorGlassColorProperty
     } );
 
-    const backingNode = new Path( iconShapes.outlineShape, {
-      stroke: GeometricOpticsColors.mirrorStrokeProperty
+    const strokeNode = new Path( iconShapes.strokeShape, {
+      stroke: GeometricOpticsColors.mirrorBackingColorProperty
     } );
 
     return new Node( {
-      children: [ glassNode, backingNode ]
+      children: [ fillNode, strokeNode ]
     } );
   }
 }

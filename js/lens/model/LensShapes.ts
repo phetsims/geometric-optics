@@ -23,8 +23,8 @@ class LensShapes implements OpticShapes {
 
   // OpticShapes interface
   readonly frontShape: Shape;
-  readonly backShape: Shape | null;
-  readonly outlineShape: Shape;
+  readonly backShape: Shape;
+  readonly strokeShape: Shape;
   readonly fillShape: Shape;
 
   /**
@@ -48,9 +48,9 @@ class LensShapes implements OpticShapes {
                       radiusOfCurvature - Math.sqrt( radiusOfCurvature ** 2 - halfHeight ** 2 );
 
     // {Shape} shape of lens
-    let outlineShape; // the outline of the lens (including top and bottom)
-    let frontShape; // the left facing portion of the lens
-    let backShape; // the right facing  portion of the lens
+    let outlineShape; // the outline of the complete lens
+    let frontShape; // the front (left facing) part of the lens
+    let backShape; // the back (right facing)  part of the lens
 
     if ( opticShape === 'convex' ) {
 
@@ -121,7 +121,7 @@ class LensShapes implements OpticShapes {
 
     this.frontShape = frontShape;
     this.backShape = backShape;
-    this.outlineShape = outlineShape;
+    this.strokeShape = outlineShape;
     this.fillShape = outlineShape; // same as outlineShape for a lens
   }
 }
