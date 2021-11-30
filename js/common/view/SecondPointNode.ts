@@ -106,7 +106,7 @@ class SecondPointNode extends Node {
     dragBoundsProperty.link( dragBounds => {
       const isObject = representationProperty.value.isObject;
       if ( !isObject ) {
-        assert && assert( dragBounds );
+        assert && assert( dragBounds ); // {Bounds2|null}
         secondPoint.setSecondPoint( isObject, dragBounds!.closestPointTo( secondPoint.positionProperty.value ) );
       }
     } );

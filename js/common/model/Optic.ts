@@ -275,8 +275,8 @@ abstract class Optic {
    * Gets the shape of the curved back (right-hand side) of the optic.
    */
   getBackShapeTranslated(): Shape {
-    const backShape = this.shapesProperty.value.backShape; // {Shape|null}
-    assert && assert( backShape );
+    const backShape = this.shapesProperty.value.backShape;
+    assert && assert( backShape ); // {Shape|null}
     return this.translatedShape( backShape! );
   }
 }
