@@ -66,9 +66,9 @@ class LensNode extends Node {
 
     // Shapes are described in model coordinates. Scale them to view coordinates.
     // Translation is handled by lens.positionProperty listener.
+    const scaleVector = modelViewTransform.getMatrix().getScaleVector();
+    const scalingMatrix = Matrix3.scaling( scaleVector.x, scaleVector.y );
     lens.shapesProperty.link( shapes => {
-      const scaleVector = modelViewTransform.getMatrix().getScaleVector();
-      const scalingMatrix = Matrix3.scaling( scaleVector.x, scaleVector.y );
       fillNode.shape = shapes.fillShape.transformed( scalingMatrix );
       strokeNode.shape = shapes.strokeShape.transformed( scalingMatrix );
     } );

@@ -57,9 +57,9 @@ class MirrorNode extends Node {
 
     // Shapes are described in model coordinates. Scale them to view coordinates.
     // Translation is handled by mirror.positionProperty listener.
+    const scaleVector = modelViewTransform.getMatrix().getScaleVector();
+    const scalingMatrix = Matrix3.scaling( scaleVector.x, scaleVector.y );
     mirror.shapesProperty.link( shapes => {
-      const scaleVector = modelViewTransform.getMatrix().getScaleVector();
-      const scalingMatrix = Matrix3.scaling( scaleVector.x, scaleVector.y );
       backingNode.shape = shapes.fillShape.transformed( scalingMatrix );
       reflectiveCoatingNode.shape = shapes.strokeShape.transformed( scalingMatrix );
     } );
