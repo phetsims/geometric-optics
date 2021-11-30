@@ -22,6 +22,7 @@ import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
 import Lens from '../model/Lens.js';
 import OpticShapeEnum from '../../common/model/OpticShapeEnum.js';
 import LensShapes from '../model/LensShapes.js';
+import Matrix3 from '../../../../dot/js/Matrix3.js';
 
 class LensNode extends Node {
 
@@ -63,20 +64,17 @@ class LensNode extends Node {
 
     super( options );
 
+    // Shapes are described in model coordinates. Scale them to view coordinates.
+    // Translation is handled by lens.positionProperty listener.
     lens.shapesProperty.link( shapes => {
+      const scaleVector = modelViewTransform.getMatrix().getScaleVector();
+      const scalingMatrix = Matrix3.scaling( scaleVector.x, scaleVector.y );
+      fillNode.shape = shapes.fillShape.transformed( scalingMatrix );
+      strokeNode.shape = shapes.strokeShape.transformed( scalingMatrix );
+    } );
 
-      // Shapes are described in model coordinates. If we use modelViewTransform.modelToViewShape to transform
-      // to view coordinates, the Shapes will be translated. That creates problems, because translation of this
-      // Node should be based on optic.positionProperty. So create our own matrix based on modelViewTransform,
-      // but with no effective translation, and use that matrix to transform the Shapes from model to view coordinates.
-      const matrix = modelViewTransform.getMatrix().copy();
-      const translation = matrix.getTranslation();
-      matrix.prependTranslation( -translation.x, -translation.y );
-
-      // Create the shapes in view coordinates.
-      //TODO why do we need 2 different shapes?
-      fillNode.shape = shapes.fillShape.transformed( matrix );
-      strokeNode.shape = shapes.strokeShape.transformed( matrix );
+    lens.positionProperty.link( position => {
+      this.translation = modelViewTransform.modelToViewPosition( position );
     } );
 
     lens.diameterProperty.link( diameter => {
@@ -94,10 +92,6 @@ class LensNode extends Node {
         return Utils.linear( range.min, range.max, 0.2, 1, indexOfRefraction );
       } );
     opacityProperty.linkAttribute( fillNode, 'opacity' );
-
-    lens.positionProperty.link( position => {
-      this.translation = modelViewTransform.modelToViewPosition( position );
-    } );
   }
 
   public dispose(): void {

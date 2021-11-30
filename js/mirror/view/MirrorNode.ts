@@ -18,6 +18,7 @@ import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
 import Mirror from '../model/Mirror.js';
 import MirrorShapes from '../model/MirrorShapes.js';
 import OpticShapeEnum from '../../common/model/OpticShapeEnum.js';
+import Matrix3 from '../../../../dot/js/Matrix3.js';
 
 class MirrorNode extends Node {
 
@@ -52,19 +53,13 @@ class MirrorNode extends Node {
 
     super( options );
 
+    // Shapes are described in model coordinates. Scale them to view coordinates.
+    // Translation is handled by mirror.positionProperty listener.
     mirror.shapesProperty.link( shapes => {
-
-      // Shapes are described in model coordinates. If we use modelViewTransform.modelToViewShape to transform
-      // to view coordinates, the Shapes will be translated. That creates problems, because translation of this
-      // Node should be based on optic.positionProperty. So create our own matrix based on modelViewTransform,
-      // but with no effective translation, and use that matrix to transform the Shapes from model to view coordinates.
-      const matrix = modelViewTransform.getMatrix().copy();
-      const translation = matrix.getTranslation();
-      matrix.prependTranslation( -translation.x, -translation.y );
-
-      // Create the shapes in view coordinates.
-      fillNode.shape = shapes.fillShape.transformed( matrix );
-      strokeNode.shape = shapes.strokeShape.transformed( matrix );
+      const scaleVector = modelViewTransform.getMatrix().getScaleVector();
+      const scalingMatrix = Matrix3.scaling( scaleVector.x, scaleVector.y );
+      fillNode.shape = shapes.fillShape.transformed( scalingMatrix );
+      strokeNode.shape = shapes.strokeShape.transformed( scalingMatrix );
     } );
 
     mirror.positionProperty.link( position => {
