@@ -83,7 +83,7 @@ class LensNode extends Node {
     } );
 
     // Index of refraction determines the opacity used for the lens fill.
-    // The lens is never fully transparent, because it's index of refraction is not equivalent to air.
+    // The lens is never fully transparent, because its index of refraction is not equivalent to air.
     // See https://github.com/phetsims/geometric-optics/issues/242
     const opacityProperty = new DerivedProperty<number>( [ lens.indexOfRefractionProperty ],
       ( indexOfRefraction: number ) => {
