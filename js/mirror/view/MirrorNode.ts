@@ -31,25 +31,27 @@ class MirrorNode extends Node {
   constructor( mirror: Mirror, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
 
     options = merge( {
-      fill: GeometricOpticsColors.mirrorGlassColorProperty,
-      stroke: GeometricOpticsColors.mirrorBackingColorProperty,
+      fill: GeometricOpticsColors.mirrorBackingColorProperty,
+      stroke: GeometricOpticsColors.mirrorReflectiveCoatingColorProperty,
       lineWidth: 2,
 
       // phet-io options
       tandem: Tandem.REQUIRED
     }, options );
 
-    const fillNode = new Path( null, {
+    // the mirror's backing
+    const backingNode = new Path( null, {
       fill: options.fill
     } );
 
-    const strokeNode = new Path( null, {
+    // the mirror's reflective coating
+    const reflectiveCoatingNode = new Path( null, {
       stroke: options.stroke,
       lineWidth: options.lineWidth
     } );
 
     assert && assert( !options.children );
-    options.children = [ fillNode, strokeNode ];
+    options.children = [ backingNode, reflectiveCoatingNode ];
 
     super( options );
 
@@ -58,8 +60,8 @@ class MirrorNode extends Node {
     mirror.shapesProperty.link( shapes => {
       const scaleVector = modelViewTransform.getMatrix().getScaleVector();
       const scalingMatrix = Matrix3.scaling( scaleVector.x, scaleVector.y );
-      fillNode.shape = shapes.fillShape.transformed( scalingMatrix );
-      strokeNode.shape = shapes.strokeShape.transformed( scalingMatrix );
+      backingNode.shape = shapes.fillShape.transformed( scalingMatrix );
+      reflectiveCoatingNode.shape = shapes.strokeShape.transformed( scalingMatrix );
     } );
 
     mirror.positionProperty.link( position => {
@@ -84,20 +86,20 @@ class MirrorNode extends Node {
       diameter: 30 // diameter of the mirror, in cm
     }, options );
 
-    const iconShapes = new MirrorShapes( opticShape, options.radius, options.diameter, {
-      backingThickness: 4
+    const mirrorShapes = new MirrorShapes( opticShape, options.radius, options.diameter, {
+      backingThickness: 4 // cm
     } );
 
-    const fillNode = new Path( iconShapes.fillShape, {
-      fill: GeometricOpticsColors.mirrorGlassColorProperty
+    const backingNode = new Path( mirrorShapes.fillShape, {
+      fill: GeometricOpticsColors.mirrorBackingColorProperty
     } );
 
-    const strokeNode = new Path( iconShapes.strokeShape, {
-      stroke: GeometricOpticsColors.mirrorBackingColorProperty
+    const reflectiveCoatingNode = new Path( mirrorShapes.strokeShape, {
+      stroke: GeometricOpticsColors.mirrorReflectiveCoatingColorProperty
     } );
 
     return new Node( {
-      children: [ fillNode, strokeNode ]
+      children: [ backingNode, reflectiveCoatingNode ]
     } );
   }
 }

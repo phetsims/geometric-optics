@@ -30,13 +30,13 @@ const GeometricOpticsColors = {
     projector: 'black'
   } ),
 
-  // Color of the mirror's glass
-  mirrorGlassColorProperty: new ProfileColorProperty( geometricOptics, 'mirrorGlassColor', {
+  // Color of the mirror's backing
+  mirrorBackingColorProperty: new ProfileColorProperty( geometricOptics, 'mirrorReflectiveCoatingColor', {
     default: 'rgb( 100, 100, 216 )'
   } ),
 
-  // Color of the mirror's backing
-  mirrorBackingColorProperty: new ProfileColorProperty( geometricOptics, 'mirrorBackingColor', {
+  // Color of the mirror's reflective coating
+  mirrorReflectiveCoatingColorProperty: new ProfileColorProperty( geometricOptics, 'mirrorBackingColor', {
     default: 'rgb( 255, 255, 255 )',
     projector: 'black'
   } ),
