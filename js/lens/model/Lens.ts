@@ -22,7 +22,8 @@ class Lens extends Optic {
    * @param options
    */
   constructor( options?: any ) {
-    super( merge( {
+
+    options = merge( {
       opticShape: 'convex',
       opticShapes: [ 'convex', 'concave' ],
       radiusOfCurvatureRange: new RangeWithValue( 30, 130, 80 ), // in cm
@@ -35,7 +36,9 @@ class Lens extends Optic {
 
       // phet-io options
       tandem: Tandem.REQUIRED
-    }, options ) );
+    }, options );
+
+    super( options );
   }
 
   /**

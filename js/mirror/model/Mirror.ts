@@ -19,7 +19,8 @@ import MirrorShapes from './MirrorShapes.js';
 class Mirror extends Optic {
 
   constructor( options?: any ) {
-    super( merge( {
+
+    options = merge( {
       opticShape: 'concave',
       opticShapes: [ 'concave', 'convex' ], //TODO https://github.com/phetsims/geometric-optics/issues/227 add 'flat'
       radiusOfCurvatureRange: new RangeWithValue( 150, 300, 200 ), // in cm
@@ -35,7 +36,9 @@ class Mirror extends Optic {
 
       // phet-io options
       tandem: Tandem.REQUIRED
-    }, options ) );
+    }, options );
+
+    super( options );
   }
 
   //TODO a few lines here are copied from Lens getExtremumPoint
