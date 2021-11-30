@@ -19,7 +19,14 @@ import OpticShapeEnum from '../../common/model/OpticShapeEnum.js';
 import OpticShapes from '../../common/model/OpticShapes.js';
 import geometricOptics from '../../geometricOptics.js';
 
-class LensShapes extends OpticShapes {
+class LensShapes implements OpticShapes {
+
+  // See OpticShapes
+  readonly fillShape: Shape; // the entire lens
+  readonly strokeShape: Shape; // the entire lens
+  readonly frontShape: Shape; // the left half of the lens
+  readonly backShape: Shape; // the right half of the lens
+  readonly activeBoundsShape: Shape; // the entire lens
 
   /**
    * @param opticShape
@@ -113,13 +120,11 @@ class LensShapes extends OpticShapes {
         .close();
     }
 
-    super( {
-      fillShape: lensShape,
-      strokeShape: lensShape,
-      frontShape: frontShape,
-      backShape: backShape,
-      activeBoundsShape: lensShape // Active bounds are defined by the entire lens
-    } );
+    this.fillShape = lensShape;
+    this.strokeShape = lensShape;
+    this.frontShape = frontShape;
+    this.backShape = backShape;
+    this.activeBoundsShape = lensShape; // Active bounds are defined by the entire lens
   }
 }
 

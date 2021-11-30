@@ -18,7 +18,14 @@ import OpticShapeEnum from '../../common/model/OpticShapeEnum.js';
 import OpticShapes from '../../common/model/OpticShapes.js';
 import geometricOptics from '../../geometricOptics.js';
 
-class MirrorShapes extends OpticShapes {
+class MirrorShapes implements OpticShapes {
+
+  // See OpticShapes
+  readonly fillShape: Shape; // the mirror's backing
+  readonly strokeShape: Shape; // the mirror's reflective coating
+  readonly frontShape: Shape; // the mirror's reflective coating
+  readonly backShape: null; // because there is no ray hit testing on the back of a mirror
+  readonly activeBoundsShape: Shape; // the mirror's reflective coating
 
   /**
    *
@@ -81,13 +88,11 @@ class MirrorShapes extends OpticShapes {
       .quadraticCurveToPoint( midRight, topRight )
       .close();
 
-    super( {
-      fillShape: backingShape,
-      strokeShape: reflectiveCoatingShape,
-      frontShape: reflectiveCoatingShape,
-      backShape: null, // because there is no ray hit testing on the back of a mirror
-      activeBoundsShape: reflectiveCoatingShape
-    } );
+    this.fillShape = backingShape;
+    this.strokeShape = reflectiveCoatingShape;
+    this.frontShape = reflectiveCoatingShape;
+    this.backShape = null; // because there is no ray hit testing on the back of a mirror
+    this.activeBoundsShape = reflectiveCoatingShape;
   }
 }
 
