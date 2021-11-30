@@ -111,15 +111,15 @@ class LensNode extends Node {
       diameter: 30 // diameter of the lens, in cm
     }, options );
 
-    const iconShapes = new LensShapes( opticShape, options.radius, options.diameter, {
+    const lensShapes = new LensShapes( opticShape, options.radius, options.diameter, {
       isHollywooded: false
     } );
 
-    const fillNode = new Path( iconShapes.fillShape, {
+    const fillNode = new Path( lensShapes.fillShape, {
       fill: GeometricOpticsColors.lensFillProperty
     } );
 
-    const strokeNode = new Path( iconShapes.strokeShape, {
+    const strokeNode = new Path( lensShapes.strokeShape, {
       stroke: GeometricOpticsColors.lensStrokeProperty
     } );
 
