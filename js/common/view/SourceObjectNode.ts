@@ -43,7 +43,7 @@ class SourceObjectNode extends Node {
    * */
   constructor( representationProperty: Property<Representation>, sourceObject: SourceObject,
                modelBoundsProperty: Property<Bounds2>, opticPositionProperty: Property<Vector2>,
-               modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
+               modelViewTransform: ModelViewTransform2, options?: any ) {
 
     options = merge( {
 

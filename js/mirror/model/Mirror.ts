@@ -18,7 +18,7 @@ import MirrorShapes from './MirrorShapes.js';
 
 class Mirror extends Optic {
 
-  constructor( options?: any ) { //TYPESCRIPT any
+  constructor( options?: any ) {
     super( merge( {
       opticShape: 'concave',
       opticShapes: [ 'concave', 'convex' ], //TODO https://github.com/phetsims/geometric-optics/issues/227 add 'flat'

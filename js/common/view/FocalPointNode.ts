@@ -23,7 +23,7 @@ class FocalPointNode extends Node {
    * @param modelViewTransform
    * @param options
    */
-  constructor( focalPointProperty: Property<Vector2>, modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
+  constructor( focalPointProperty: Property<Vector2>, modelViewTransform: ModelViewTransform2, options?: any ) {
 
     options = merge( {}, options );
 

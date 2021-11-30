@@ -23,7 +23,7 @@ class LightSpotNode extends Node {
    * @param modelViewTransform
    * @param options
    */
-  constructor( lightSpot: LightSpot, modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
+  constructor( lightSpot: LightSpot, modelViewTransform: ModelViewTransform2, options?: any ) {
 
     options = merge( {}, options );
 

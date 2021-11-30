@@ -53,7 +53,7 @@ class LightSpot {
    * @param options
    */
   constructor( optic: Optic, projectionScreen: ProjectionScreen, sourcePositionProperty: Property<Vector2>,
-               targetPositionProperty: Property<Vector2>, options?: any ) { //TYPESCRIPT any
+               targetPositionProperty: Property<Vector2>, options?: any ) {
 
     options = merge( {
 

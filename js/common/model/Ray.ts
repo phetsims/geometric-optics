@@ -21,7 +21,7 @@ class Ray extends Ray2 {
    * @param direction - direction of the ray, must be a normalized vector.
    * @param options
    */
-  constructor( position: Vector2, direction: Vector2, options?: any ) { //TYPESCRIPT any
+  constructor( position: Vector2, direction: Vector2, options?: any ) {
 
     options = merge( {
       length: Infinity // semi-infinite rays by default

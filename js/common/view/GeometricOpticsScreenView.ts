@@ -65,7 +65,7 @@ class GeometricOpticsScreenView extends ScreenView {
    * @param model
    * @param config
    */
-  constructor( model: GeometricOpticsModel, config: any ) { //TYPESCRIPT config
+  constructor( model: GeometricOpticsModel, config: any ) {
 
     config = merge( {
 

@@ -67,7 +67,7 @@ class GeometricOpticsModel {
    * @param optic
    * @param options
    */
-  constructor( optic: Optic, options?: any ) { //TYPESCRIPT any
+  constructor( optic: Optic, options?: any ) {
 
     options = merge( {
       barrier: null, // {Barrier|null}

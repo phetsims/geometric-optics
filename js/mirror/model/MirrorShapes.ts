@@ -27,7 +27,7 @@ class MirrorShapes extends OpticShapes {
    * @param diameter - vertical height of the mirror
    * @param options
    */
-  constructor( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number, options?: any ) { //TYPESCRIPT any
+  constructor( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number, options?: any ) {
     assert && assert( radiusOfCurvature > diameter / 2 );
 
     options = merge( {

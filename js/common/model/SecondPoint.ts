@@ -37,8 +37,7 @@ class SecondPoint {
    * @param sourceObjectPositionProperty
    * @param options
    */
-  constructor( representationProperty: Property<Representation>, sourceObjectPositionProperty: Property<Vector2>,
-               options?: any ) { //TYPESCRIPT any
+  constructor( representationProperty: Property<Representation>, sourceObjectPositionProperty: Property<Vector2>, options?: any ) {
 
     this.lightSourcePositionProperty = new Vector2Property( INITIAL_LIGHT_SOURCE_POSITION );
 

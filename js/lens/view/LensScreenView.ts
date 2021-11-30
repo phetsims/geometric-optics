@@ -35,7 +35,7 @@ class LensScreenView extends GeometricOpticsScreenView {
    * @param model
    * @param options
    */
-  constructor( model: LensModel, options?: any ) { //TYPESCRIPT any
+  constructor( model: LensModel, options?: any ) {
 
     options = merge( {
 

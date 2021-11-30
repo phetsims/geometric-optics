@@ -20,7 +20,7 @@ import LensScreenView from './view/LensScreenView.js';
 
 class LensScreen extends Screen {
 
-  constructor( options?: any ) { //TYPESCRIPT any
+  constructor( options?: any ) {
 
     options = merge( {
       name: geometricOpticsStrings.screen.lens,

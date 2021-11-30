@@ -14,7 +14,7 @@ import Shape from '../../../../kite/js/Shape.js';
 
 class UnconstrainedCueingArrowsNode extends Path {
 
-  constructor( options?: any ) { //TYPESCRIPT any
+  constructor( options?: any ) {
 
     options = merge( {
       length: 45,

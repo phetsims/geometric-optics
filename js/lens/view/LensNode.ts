@@ -32,7 +32,7 @@ class LensNode extends Node {
    * @param modelViewTransform
    * @param options
    */
-  constructor( lens: Lens, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
+  constructor( lens: Lens, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, options?: any ) {
 
     options = merge( {
       fill: GeometricOpticsColors.lensFillProperty,
@@ -104,7 +104,7 @@ class LensNode extends Node {
    * @param opticShape
    * @param options
    */
-  public static createIconNode( opticShape: OpticShapeEnum, options?: any ): Node { //TYPESCRIPT any
+  public static createIconNode( opticShape: OpticShapeEnum, options?: any ): Node {
 
     options = merge( {
       radius: 20, // radius of curvature of the lens, in cm

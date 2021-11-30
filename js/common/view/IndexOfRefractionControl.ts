@@ -22,7 +22,7 @@ class IndexOfRefractionControl extends NumberControl {
    * @param indexOfRefractionProperty
    * @param options
    */
-  constructor( indexOfRefractionProperty: NumberProperty, options?: any ) { //TYPESCRIPT any
+  constructor( indexOfRefractionProperty: NumberProperty, options?: any ) {
 
     options = merge( {}, GeometricOpticsConstants.NUMBER_CONTROL_OPTIONS, {
       delta: GeometricOpticsConstants.INDEX_OF_REFRACTION_SPINNER_INTERVAL,

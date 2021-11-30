@@ -67,7 +67,7 @@ class Representation {
   /**
    * @param config
    */
-  constructor( config: any ) { //TYPESCRIPT any
+  constructor( config: any ) {
 
     config = merge( {
 

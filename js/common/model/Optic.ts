@@ -68,7 +68,7 @@ abstract class Optic {
   /**
    * @param config
    */
-  protected constructor( config: any ) { //TYPESCRIPT any
+  protected constructor( config: any ) {
 
     config = merge( {
 

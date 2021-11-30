@@ -36,7 +36,7 @@ class LabelsNode extends Node {
    */
   constructor( model: LensModel | MirrorModel, visibleProperties: VisibleProperties,
                modelViewTransformProperty: Property<ModelViewTransform2>,
-               zoomLevelProperty: Property<number>, options?: any ) { //TYPESCRIPT any
+               zoomLevelProperty: Property<number>, options?: any ) {
 
     options = merge( {
       visibleProperty: visibleProperties.labelsVisibleProperty

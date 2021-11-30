@@ -34,7 +34,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
    * @param options
    */
   constructor( visibleProperties: VisibleProperties, isLens: boolean,
-               representationProperty: Property<Representation>, options?: any ) {  //TYPESCRIPT any
+               representationProperty: Property<Representation>, options?: any ) {
 
     options = merge( {
       spacing: 4,

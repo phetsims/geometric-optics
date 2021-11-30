@@ -16,7 +16,7 @@ import Mirror from './Mirror.js';
 
 class MirrorModel extends GeometricOpticsModel {
 
-  constructor( options?: any ) { //TYPESCRIPT any
+  constructor( options?: any ) {
 
     options = merge( {
 

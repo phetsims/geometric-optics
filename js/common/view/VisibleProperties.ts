@@ -38,7 +38,7 @@ class VisibleProperties {
    * @param isLens
    * @param options
    */
-  constructor( isLens: boolean, options?: any ) { //TYPESCRIPT any
+  constructor( isLens: boolean, options?: any ) {
 
     options = merge( {
 

@@ -27,7 +27,7 @@ class LensShapes extends OpticShapes {
    * @param diameter - height of the lens
    * @param options
    */
-  constructor( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number, options?: any ) { //TYPESCRIPT any
+  constructor( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number, options?: any ) {
 
     options = merge( {
       isHollywooded: true, // true: approximation, false: accurate, matches ROC

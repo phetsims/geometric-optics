@@ -34,7 +34,7 @@ class ProjectionScreen implements Barrier {
   // line that vertically bisects the screen, relative to positionProperty
   private readonly bisectorLine: Shape;
 
-  constructor( options?: any ) { //TYPESCRIPT any
+  constructor( options?: any ) {
 
     options = merge( {
 

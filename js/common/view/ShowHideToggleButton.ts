@@ -24,7 +24,7 @@ class ShowHideToggleButton extends BooleanRoundToggleButton {
    * @param booleanProperty
    * @param options
    */
-  constructor( booleanProperty: Property<boolean>, options?: any ) { //TYPESCRIPT any
+  constructor( booleanProperty: Property<boolean>, options?: any ) {
 
     options = merge( {
       trueColor: 'rgb( 240, 234, 227 )', // {Color|string} button color when booleanProperty.value === true

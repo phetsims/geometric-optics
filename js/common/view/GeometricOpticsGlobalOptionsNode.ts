@@ -24,7 +24,7 @@ class GeometricOpticsGlobalOptionsNode extends VBox {
   /**
    * @param options
    */
-  constructor( options?: any ) { //TYPESCRIPT any
+  constructor( options?: any ) {
 
     options = merge( {
 

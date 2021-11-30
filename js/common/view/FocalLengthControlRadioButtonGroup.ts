@@ -31,7 +31,7 @@ class FocalLengthControlRadioButtonGroup extends VerticalAquaRadioButtonGroup<Fo
   /**
    * @param options
    */
-  constructor( options?: any ) { //TYPESCRIPT any
+  constructor( options?: any ) {
 
     options = merge( {
       spacing: 8,

@@ -22,7 +22,7 @@ class DiameterControl extends NumberControl {
    * @param diameterProperty
    * @param options
    */
-  constructor( diameterProperty: NumberProperty, options?: any ) { //TYPESCRIPT any
+  constructor( diameterProperty: NumberProperty, options?: any ) {
 
     options = merge( {}, GeometricOpticsConstants.NUMBER_CONTROL_OPTIONS, {
       delta: GeometricOpticsConstants.DIAMETER_SPINNER_INTERVAL,

@@ -61,7 +61,7 @@ class SecondPointNode extends Node {
    */
   constructor( representationProperty: Property<Representation>, secondPoint: SecondPoint,
                sourceObjectDragBoundsProperty: Property<Bounds2>,
-               modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
+               modelViewTransform: ModelViewTransform2, options?: any ) {
 
     options = merge( {
 
@@ -195,7 +195,7 @@ class SecondPointNode extends Node {
 
 // The point that represents the position of the second source
 class PointNode extends Circle {
-  constructor( radius: number, options?: any ) { //TYPESCRIPT any
+  constructor( radius: number, options?: any ) {
     options = merge( {
       fill: GeometricOpticsColors.secondPointFillProperty,
       stroke: GeometricOpticsColors.secondPointStrokeProperty

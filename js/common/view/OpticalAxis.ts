@@ -27,7 +27,7 @@ class OpticalAxis extends Line {
    * @param options
    */
   constructor( opticPositionProperty: Property<Vector2>, modelBoundsProperty: Property<Bounds2>,
-               modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
+               modelViewTransform: ModelViewTransform2, options?: any ) {
 
     options = merge( {
       stroke: GeometricOpticsColors.opticalAxisStrokeProperty,

@@ -22,7 +22,7 @@ class RadiusOfCurvatureControl extends NumberControl {
    * @param radiusOfCurvatureProperty
    * @param options
    */
-  constructor( radiusOfCurvatureProperty: NumberProperty, options?: any ) { //TYPESCRIPT any
+  constructor( radiusOfCurvatureProperty: NumberProperty, options?: any ) {
 
     options = merge( {}, GeometricOpticsConstants.NUMBER_CONTROL_OPTIONS, {
       delta: GeometricOpticsConstants.RADIUS_OF_CURVATURE_SPINNER_INTERVAL,

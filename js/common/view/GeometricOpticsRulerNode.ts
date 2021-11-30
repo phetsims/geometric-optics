@@ -44,7 +44,7 @@ class GeometricOpticsRulerNode extends Node {
    * @param options
    */
   constructor( ruler: Ruler, visibleBoundsProperty: Property<Bounds2>, toolboxBounds: Bounds2,
-               modelViewTransform: ModelViewTransform2, options?: any ) { //TYPESCRIPT any
+               modelViewTransform: ModelViewTransform2, options?: any ) {
 
     options = merge( {
       rulerOptions: {
@@ -164,7 +164,7 @@ class GeometricOpticsRulerNode extends Node {
    * @param modelViewTransform
    * @param options
    */
-  public setRulerNode( modelViewTransform: ModelViewTransform2, options?: any ): void { //TYPESCRIPT any
+  public setRulerNode( modelViewTransform: ModelViewTransform2, options?: any ): void {
 
     // remove previous instances of rulerNode
     this.removeAllChildren();
@@ -186,7 +186,7 @@ class GeometricOpticsRulerNode extends Node {
    * @param modelViewTransform
    * @param options
    */
-  private getRulerNode( modelViewTransform: ModelViewTransform2, options?: any ): Node { //TYPESCRIPT any
+  private getRulerNode( modelViewTransform: ModelViewTransform2, options?: any ): Node {
 
     options = merge( {}, this.rulerOptions, options );
 

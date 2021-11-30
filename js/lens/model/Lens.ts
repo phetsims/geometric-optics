@@ -21,7 +21,7 @@ class Lens extends Optic {
   /**
    * @param options
    */
-  constructor( options?: any ) { //TYPESCRIPT any
+  constructor( options?: any ) {
     super( merge( {
       opticShape: 'convex',
       opticShapes: [ 'convex', 'concave' ],

@@ -20,7 +20,7 @@ import MirrorScreenView from './view/MirrorScreenView.js';
 
 class MirrorScreen extends Screen {
 
-  constructor( options?: any ) { //TYPESCRIPT any
+  constructor( options?: any ) {
 
     options = merge( {
       name: geometricOpticsStrings.screen.mirror,
