@@ -213,7 +213,7 @@ function getRealRays( initialRay: Ray, firstPoint: Vector2 | null, optic: Optic,
     // mirror and principal ray mode have only "one surface" to hit
     if ( optic instanceof Mirror || isPrincipalRayMode ) {
 
-      // add the semi infinite transmitted transmitted ray
+      // add the semi-infinite transmitted ray
       rays.push( getTransmittedRay( firstPoint, targetPoint, optic ) );
     }
     else {
