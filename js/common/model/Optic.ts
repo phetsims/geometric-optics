@@ -253,26 +253,21 @@ abstract class Optic {
   }
 
   /**
-   * Gets the shape that a ray will initially intersect.
+   * Gets the shape of the front (left) surface of the optic. This is the surface that a ray will initially hit.
    * @param isPrincipalRayMode
    */
   getFrontShapeTranslated( isPrincipalRayMode: boolean ): Shape {
     if ( isPrincipalRayMode ) {
-
-      // for principal rays, the rays are refracted at a vertical line
-      return this.getVerticalAxis();
+      return this.getVerticalAxis(); // principal rays are refracted at the optic's vertical axis
     }
     else {
-
-      // get the front (left-facing) surface of the optic
-      const staticShape = this.shapesProperty.value.frontShape;
-      return this.translatedShape( staticShape );
+      return this.translatedShape( this.shapesProperty.value.frontShape );
     }
   }
 
   //TODO this fails for a mirror, because backShape is null, so doesn't belong in Optic
   /**
-   * Gets the shape of the curved back (right-hand side) of the optic.
+   * Gets the shape of the back (right) surface of the optic.
    */
   getBackShapeTranslated(): Shape {
     const backShape = this.shapesProperty.value.backShape;
