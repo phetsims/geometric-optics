@@ -232,7 +232,7 @@ function getRealRays( initialRay: Ray, firstPoint: Vector2 | null, optic: Optic,
       const backPoint = getPoint( backIntersection );
 
       // if back point exists, add transmitted and internal ray
-      if ( backPoint instanceof Vector2 ) {
+      if ( backPoint ) {
 
         // ray that spans the front to the back of the lens
         const internalRay = new Ray( firstPoint, backPoint.minus( firstPoint ).normalized() );
