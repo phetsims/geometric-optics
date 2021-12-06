@@ -322,8 +322,8 @@ class GeometricOpticsScreenView extends ScreenView {
       experimentAreaNode.addChild( new DebugPointNode( model.firstTarget.positionProperty, modelViewTransform, config ) );
     }
 
-    // Add points at a distance 2f on each side of optic
-    if ( GeometricOpticsQueryParameters.show2f ) {
+    // Add the 2F points on each side of optic
+    if ( GeometricOpticsQueryParameters.show2F ) {
       const left2fProperty = new DerivedProperty<Vector2>( [ model.optic.leftFocalPointProperty ],
         ( position: Vector2 ) => position.timesScalar( 2 ) );
       const right2fProperty = new DerivedProperty<Vector2>( [ model.optic.rightFocalPointProperty ],

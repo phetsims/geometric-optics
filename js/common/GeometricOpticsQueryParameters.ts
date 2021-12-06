@@ -44,8 +44,8 @@ const SCHEMA = {
     type: 'flag'
   },
 
-  // Show 2f (twice the focal length, f) as dots that are the same color as the focal points.
-  show2f: {
+  // Show the points at 2F (twice the focal length, f) as dots that are the same color as the focal points.
+  show2F: {
     type: 'flag'
   },
 
