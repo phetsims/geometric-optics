@@ -71,17 +71,15 @@ class LensShapes implements OpticShapes {
         .quadraticCurveToPoint( right, top )
         .close();
 
+      // front (left) surface of the lens
       frontShape = new Shape()
         .moveToPoint( top )
-        .quadraticCurveToPoint( left, bottom )
-        .quadraticCurveToPoint( left, top )
-        .close();
+        .quadraticCurveToPoint( left, bottom );
 
+      // back (right) surface of the lens
       backShape = new Shape()
         .moveToPoint( top )
-        .quadraticCurveToPoint( right, bottom )
-        .quadraticCurveToPoint( right, top )
-        .close();
+        .quadraticCurveToPoint( right, bottom );
     }
     else {
       assert && assert( opticShape === 'concave' );
@@ -107,17 +105,15 @@ class LensShapes implements OpticShapes {
         .quadraticCurveToPoint( midLeft, topLeft )
         .close();
 
+      // front (left) surface of the lens
       frontShape = new Shape()
         .moveToPoint( topLeft )
-        .quadraticCurveToPoint( midLeft, bottomLeft )
-        .quadraticCurveToPoint( midLeft, topLeft )
-        .close();
+        .quadraticCurveToPoint( midLeft, bottomLeft );
 
+      // back (right) surface of the lens
       backShape = new Shape()
         .moveToPoint( topRight )
-        .quadraticCurveToPoint( midRight, bottomRight )
-        .quadraticCurveToPoint( midRight, topRight )
-        .close();
+        .quadraticCurveToPoint( midRight, bottomRight );
     }
 
     this.fillShape = lensShape;
