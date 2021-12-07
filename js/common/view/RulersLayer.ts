@@ -46,11 +46,6 @@ class RulersLayer extends Node {
     super.dispose();
   }
 
-  public reset(): void {
-    this.horizontalRulerNode.reset();
-    this.verticalRulerNode.reset();
-  }
-
   public setToolboxBounds( toolboxBounds: Bounds2 ): void {
     this.horizontalRulerNode.setToolboxBounds( toolboxBounds );
     this.verticalRulerNode.setToolboxBounds( toolboxBounds );

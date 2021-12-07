@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
@@ -29,6 +30,8 @@ class Ruler {
   // original (unscaled) length of the ruler, in cm
   private readonly nominalLength: number;
 
+  readonly visibleProperty: BooleanProperty;
+
   /**
    * @param orientation
    * @param position - position of the ruler in VIEW Coordinates
@@ -42,10 +45,12 @@ class Ruler {
     this.positionProperty = new Vector2Property( position );
     this.length = length;
     this.nominalLength = length;
+    this.visibleProperty = new BooleanProperty( false );
   }
 
   public reset(): void {
     this.positionProperty.reset();
+    this.visibleProperty.reset();
   }
 
   /**

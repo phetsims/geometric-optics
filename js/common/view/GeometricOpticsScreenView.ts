@@ -365,7 +365,6 @@ class GeometricOpticsScreenView extends ScreenView {
       visibleProperties.reset();
       sourceObjectNode.reset();
       secondPointNode.reset();
-      rulersLayer.reset();
     };
 
     // pdom -traversal order

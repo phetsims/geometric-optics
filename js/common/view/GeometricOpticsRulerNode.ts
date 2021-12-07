@@ -57,11 +57,16 @@ class GeometricOpticsRulerNode extends Node {
       }
     }, options );
 
+    assert && assert( !options.children, 'this Node calls removeAllChildren' );
+
     assert && assert( options.rulerOptions.tickMarksOnBottom === undefined );
     options.tickMarksOnBottom = ruler.isVertical();
 
     assert && assert( options.rotation === undefined );
     options.rotation = ruler.isVertical() ? -Math.PI / 2 : 0;
+
+    assert && assert( !options.visibleProperty );
+    options.visibleProperty = ruler.visibleProperty;
 
     super( options );
 
@@ -71,7 +76,7 @@ class GeometricOpticsRulerNode extends Node {
     // Create a RulerNode subcomponent to match zoomScale.
     zoomScaleProperty.link( zoomScale => {
 
-      // update model
+      // update model length, so that view length remains the same
       ruler.scaleLength( zoomScale );
 
       // update view
@@ -79,12 +84,14 @@ class GeometricOpticsRulerNode extends Node {
       this.addChild( createRulerNode( this.ruler.length, zoomTransformProperty.value, zoomScale, options.rulerOptions ) );
     } );
 
-    this.updatePosition();
-    this.setInitialVisibility();
-
-    // update ruler node position based on ruler model position
-    // the GeometricOpticRulerNode exists from the lifetime of the simulation, so need to unlink.
-    ruler.positionProperty.link( () => this.updatePosition() );
+    ruler.positionProperty.link( position => {
+      if ( this.ruler.isVertical() ) {
+        this.leftBottom = position;
+      }
+      else {
+        this.leftTop = position;
+      }
+    } );
 
     // Drag bounds for the ruler, to keep some part of the ruler inside the visible bounds of the ScreenView.
     const rulerDragBoundsProperty = new DerivedProperty<Bounds2>(
@@ -130,44 +137,13 @@ class GeometricOpticsRulerNode extends Node {
     this.addInputListener( this.dragListener );
   }
 
-  /**
-   * Resets the visibility and position of this node
-   */
-  public reset(): void {
-    this.updatePosition(); //TODO why isn't it sufficient to reset Ruler.positionProperty?
-    this.setInitialVisibility(); //TODO add visibleProperty to Ruler model element
-  }
-
   public setToolboxBounds( toolboxBounds: Bounds2 ): void {
     this.toolboxBounds = toolboxBounds;
   }
 
-  public updatePosition(): void {
-    if ( this.ruler.isVertical() ) {
-
-      // set initial position of the ruler - leftBottom since rotated 90 degrees
-      this.leftBottom = this.ruler.positionProperty.value;
-    }
-    else {
-
-      // set initial position of the ruler
-      this.leftTop = this.ruler.positionProperty.value;
-    }
-  }
-
-  /**
-   * Forwards an event from the toolbox to start dragging this node
-   */
+  // Forwards an event from the toolbox to start dragging this node
   public startDrag( event: SceneryEvent ): void {
     this.dragListener.press( event, this );
-  }
-
-  //TODO why is this needed?
-  /**
-   * Sets the visibility of this node to false
-   */
-  private setInitialVisibility(): void {
-    this.visible = false;
   }
 }
 
