@@ -42,7 +42,7 @@ abstract class Optic {
   // diameter of the optic, controls the optic's aperture
   readonly diameterProperty: NumberProperty;
 
-  // Mmaximum diameter of the optic
+  // maximum diameter of the optic
   readonly maxDiameter: number;
 
   // sign used for math operations
