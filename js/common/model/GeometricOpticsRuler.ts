@@ -12,6 +12,7 @@ import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 
 type RulerOrientation = 'horizontal' | 'vertical';
@@ -40,7 +41,10 @@ class GeometricOpticsRuler {
 
     options = merge( {
       orientation: 'horizontal',
-      length: 100
+      length: 100,
+      
+      // phet-io options
+      tandem: Tandem.REQUIRED
     }, options );
 
     assert && assert( isFinite( options.length ) && options.length > 0 );
@@ -50,12 +54,16 @@ class GeometricOpticsRuler {
 
     // The initial value of position really does not matter, because position will be set when the ruler is
     // removed from the toolbox.
-    this.positionProperty = new Vector2Property( Vector2.ZERO );
+    this.positionProperty = new Vector2Property( Vector2.ZERO, {
+      tandem: options.tandem.createTandem( 'positionProperty' )
+    } );
 
     this.length = options.length;
     this.nominalLength = options.length;
 
-    this.visibleProperty = new BooleanProperty( false );
+    this.visibleProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'visibleProperty' )
+    } );
   }
 
   public reset(): void {

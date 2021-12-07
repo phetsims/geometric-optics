@@ -127,9 +127,13 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // create Rulers
     const horizontalRulerNode = new GeometricOpticsRulerNode( model.horizontalRuler,
-      zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty );
+      zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, {
+      tandem: config.tandem.createTandem( 'horizontalRulerNode' )
+      } );
     const verticalRulerNode = new GeometricOpticsRulerNode( model.verticalRuler,
-      zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty );
+      zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, {
+        tandem: config.tandem.createTandem( 'verticalRulerNode' )
+      } );
 
     // create control panel at the bottom of the screen
     const controlPanel = new GeometricOpticsControlPanel( model.representationProperty, model.optic,
@@ -141,14 +145,14 @@ class GeometricOpticsScreenView extends ScreenView {
     } );
 
     // create toolbox at the top right corner of the screen
-    const toolbox = new RulersToolbox( [ verticalRulerNode, horizontalRulerNode ], {
+    const rulersToolbox = new RulersToolbox( [ verticalRulerNode, horizontalRulerNode ], {
       rightTop: erodedLayoutBounds.rightTop,
-      tandem: config.tandem.createTandem( 'toolbox' )
+      tandem: config.tandem.createTandem( 'rulersToolbox' )
     } );
 
     // Tell the rulers where the toolbox is.
-    horizontalRulerNode.setToolboxBounds( toolbox.bounds );
-    verticalRulerNode.setToolboxBounds( toolbox.bounds );
+    horizontalRulerNode.setToolboxBounds( rulersToolbox.bounds );
+    verticalRulerNode.setToolboxBounds( rulersToolbox.bounds );
 
     // radio buttons for the shape of the optic
     const opticShapeRadioButtonGroup = new OpticShapeRadioButtonGroup( model.optic, {
@@ -358,7 +362,7 @@ class GeometricOpticsScreenView extends ScreenView {
         controlPanel,
         showHideToggleButton,
         resetAllButton,
-        toolbox,
+        rulersToolbox,
         zoomButtonGroup,
         representationComboBox,
         rulersLayer,
@@ -375,7 +379,7 @@ class GeometricOpticsScreenView extends ScreenView {
     };
 
     // pdom -traversal order
-    //TODO https://github.com/phetsims/geometric-optics/issues/235 add Object, second point, light sources, toolbox, rulers
+    //TODO https://github.com/phetsims/geometric-optics/issues/235 add Object, second point, light sources, rulersToolbox, rulers
     // @ts-ignore TYPESCRIPT Property 'pdomOrder' does not exist on type 'Node'.
     screenViewRootNode.pdomOrder = [
       representationComboBox,

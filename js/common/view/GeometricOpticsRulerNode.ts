@@ -25,6 +25,7 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import GeometricOpticsRuler from '../model/GeometricOpticsRuler.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GeometricOpticsConstants.RULER_MINIMUM_VISIBLE_LENGTH;
@@ -58,7 +59,10 @@ class GeometricOpticsRulerNode extends Node {
 
       // Node options
       rotation: ruler.isVertical ? -Math.PI / 2 : 0,
-      visibleProperty: ruler.visibleProperty
+      visibleProperty: ruler.visibleProperty,
+      
+      // phet-io options
+      tandem: Tandem.REQUIRED
 
     }, options );
     assert && assert( !options.children, 'this Node calls removeAllChildren' );
@@ -129,7 +133,8 @@ class GeometricOpticsRulerNode extends Node {
         if ( this.toolboxBounds.containsPoint( this.globalToParentPoint( event.pointer.point as Vector2 ) ) ) {
           ruler.visibleProperty.value = false;
         }
-      }
+      },
+      tandem: options.tandem.createTandem( 'dragListener' )
     } );
     this.addInputListener( this.dragListener );
   }
