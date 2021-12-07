@@ -60,10 +60,10 @@ class GeometricOpticsRulerNode extends Node {
     assert && assert( !options.children, 'this Node calls removeAllChildren' );
 
     assert && assert( options.rulerOptions.tickMarksOnBottom === undefined );
-    options.tickMarksOnBottom = ruler.isVertical();
+    options.tickMarksOnBottom = ruler.isVertical;
 
     assert && assert( options.rotation === undefined );
-    options.rotation = ruler.isVertical() ? -Math.PI / 2 : 0;
+    options.rotation = ruler.isVertical ? -Math.PI / 2 : 0;
 
     assert && assert( !options.visibleProperty );
     options.visibleProperty = ruler.visibleProperty;
@@ -85,7 +85,7 @@ class GeometricOpticsRulerNode extends Node {
     } );
 
     ruler.positionProperty.link( position => {
-      if ( this.ruler.isVertical() ) {
+      if ( this.ruler.isVertical ) {
         this.leftBottom = position;
       }
       else {
@@ -97,7 +97,7 @@ class GeometricOpticsRulerNode extends Node {
     const rulerDragBoundsProperty = new DerivedProperty<Bounds2>(
       [ visibleBoundsProperty ],
       ( visibleBounds: Bounds2 ) => {
-        if ( ruler.isVertical() ) {
+        if ( ruler.isVertical ) {
 
           // if vertical the left and right bounds of the ruler stay within visible bounds
           // minimum visible length of the ruler is always showing inside top and bottom visible bounds.

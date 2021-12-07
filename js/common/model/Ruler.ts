@@ -19,6 +19,7 @@ class Ruler {
 
   // orientation of the ruler
   private readonly orientation: RulerOrientation;
+  readonly isVertical: boolean;
 
   // position of the ruler, in view coordinates
   //TODO change this to model coordinates
@@ -42,9 +43,13 @@ class Ruler {
     assert && assert( isFinite( length ) && length > 0 );
 
     this.orientation = orientation;
+    this.isVertical = ( this.orientation === 'vertical' );
+
     this.positionProperty = new Vector2Property( position );
+
     this.length = length;
     this.nominalLength = length;
+
     this.visibleProperty = new BooleanProperty( false );
   }
 
@@ -60,13 +65,6 @@ class Ruler {
   public scaleLength( zoomScale: number ): void {
     assert && assert( isFinite( zoomScale ) && zoomScale > 0 );
     this.length = this.nominalLength / zoomScale;
-  }
-
-  /**
-   * Is the ruler vertical?
-   */
-  public isVertical(): boolean {
-    return ( this.orientation === 'vertical' );
   }
 }
 
