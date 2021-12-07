@@ -74,7 +74,7 @@ class GeometricOpticsScreenView extends ScreenView {
       preventFit: true,
 
       // By default, the origin is at the center of the layoutBounds.
-      getViewOrigin: ( layoutBounds: Bounds2 ) => new Vector2( this.layoutBounds.centerX, this.layoutBounds.centerY ),
+      getViewOrigin: ( layoutBounds: Bounds2 ) => new Vector2( layoutBounds.centerX, layoutBounds.centerY ),
 
       // Creates the Node for the optic
       createOpticNode: ( optic: Optic, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2,
