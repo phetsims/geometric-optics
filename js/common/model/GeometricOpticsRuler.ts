@@ -15,7 +15,7 @@ import geometricOptics from '../../geometricOptics.js';
 
 type RulerOrientation = 'horizontal' | 'vertical';
 
-class Ruler {
+class GeometricOpticsRuler {
 
   // orientation of the ruler
   private readonly orientation: RulerOrientation;
@@ -68,6 +68,6 @@ class Ruler {
   }
 }
 
-geometricOptics.register( 'Ruler', Ruler );
-export { Ruler as default };
+geometricOptics.register( 'GeometricOpticsRuler', GeometricOpticsRuler );
+export { GeometricOpticsRuler as default };
 export type { RulerOrientation };

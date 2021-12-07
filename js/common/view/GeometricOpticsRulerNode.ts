@@ -24,7 +24,7 @@ import { Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-import Ruler from '../model/Ruler.js';
+import Ruler from '../model/GeometricOpticsRuler.js';
 import { SceneryEvent } from '../../../../scenery/js/imports.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 

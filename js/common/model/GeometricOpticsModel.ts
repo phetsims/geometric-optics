@@ -19,7 +19,7 @@ import LightRays from './LightRays.js';
 import Optic from './Optic.js';
 import RaysModeEnum, { RaysModeValues } from './RaysModeEnum.js';
 import Representation, { RepresentationStaticInstances } from './Representation.js';
-import Ruler from './Ruler.js';
+import Ruler from './GeometricOpticsRuler.js';
 import SecondPoint from './SecondPoint.js';
 import SourceObject from './SourceObject.js';
 import Target from './Target.js';
