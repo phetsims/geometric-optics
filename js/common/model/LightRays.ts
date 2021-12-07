@@ -76,7 +76,7 @@ class LightRays {
         const directions = getRayDirections( sourcePosition, optic, raysMode, targetPoint );
 
         // is the Rays mode set to Principal
-        const isPrincipal = ( raysMode === 'principal' );
+        const isPrincipalRaysMode = ( raysMode === 'principal' );
 
         // set the target's visibility to false initially (unless there are no rays)
         target.visibleProperty.value = ( raysMode === 'none' );
@@ -88,7 +88,7 @@ class LightRays {
           const initialRay = new Ray( sourcePosition, direction );
 
           // determine the lightRay
-          const lightRay = new LightRay( initialRay, time, optic, targetPoint, isVirtual, isPrincipal,
+          const lightRay = new LightRay( initialRay, time, optic, targetPoint, isVirtual, isPrincipalRaysMode,
             representation.isObject ? null : barrier
           );
 

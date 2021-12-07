@@ -254,10 +254,10 @@ abstract class Optic {
 
   /**
    * Gets the shape of the front (left) surface of the optic. This is the surface that a ray will initially hit.
-   * @param isPrincipalRayMode
+   * @param isPrincipalRaysMode
    */
-  getFrontShapeTranslated( isPrincipalRayMode: boolean ): Shape {
-    if ( isPrincipalRayMode ) {
+  getFrontShapeTranslated( isPrincipalRaysMode: boolean ): Shape {
+    if ( isPrincipalRaysMode ) {
       return this.getVerticalAxis(); // principal rays are refracted at the optic's vertical axis
     }
     else {
