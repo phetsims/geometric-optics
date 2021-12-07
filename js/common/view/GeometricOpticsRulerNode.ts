@@ -74,7 +74,7 @@ class GeometricOpticsRulerNode extends Node {
     this.toolboxBounds = Bounds2.NOTHING; // to be set later via setToolboxBounds
 
     // Create a RulerNode subcomponent to match zoomScale.
-    //TODO https://github.com/phetsims/geometric-optics/issues/133 this is listener also depends on zoomTransformProperty, so there's a problematic ordering dependency there
+    //TODO https://github.com/phetsims/geometric-optics/issues/133 this listener also depends on zoomTransformProperty, so there's a problematic ordering dependency there
     zoomScaleProperty.link( zoomScale => {
 
       // update model length, so that view length remains the same
