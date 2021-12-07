@@ -22,8 +22,7 @@ class GeometricOpticsRuler {
   private readonly orientation: RulerOrientation;
   readonly isVertical: boolean;
 
-  // position of the ruler, in view coordinates
-  //TODO change this to model coordinates
+  // position of the ruler, in view coordinates!
   readonly positionProperty: Property<Vector2>;
 
   // length of the ruler, in cm
@@ -41,7 +40,6 @@ class GeometricOpticsRuler {
 
     options = merge( {
       orientation: 'horizontal',
-      position: Vector2.ZERO,
       length: 100
     }, options );
 
@@ -50,7 +48,9 @@ class GeometricOpticsRuler {
     this.orientation = options.orientation;
     this.isVertical = ( this.orientation === 'vertical' );
 
-    this.positionProperty = new Vector2Property( options.position );
+    // The initial value of position really does not matter, because position will be set when the ruler is
+    // removed from the toolbox.
+    this.positionProperty = new Vector2Property( Vector2.ZERO );
 
     this.length = options.length;
     this.nominalLength = options.length;

@@ -90,6 +90,7 @@ class GeometricOpticsRulerNode extends Node {
     } );
 
     // Drag bounds for the ruler, to keep some part of the ruler inside the visible bounds of the ScreenView.
+    // rulerDragBoundsProperty can be in view coordinates because ruler.positionProperty is in view coordinates.
     const rulerDragBoundsProperty = new DerivedProperty<Bounds2>(
       [ visibleBoundsProperty ],
       ( visibleBounds: Bounds2 ) => {

@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Vector2 from '../../../dot/js/Vector2.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import geometricOptics from '../geometricOptics.js';
 import NumberControl from '../../../scenery-phet/js/NumberControl.js';
@@ -32,8 +31,6 @@ const GeometricOpticsConstants = {
   // model
   HORIZONTAL_RULER_LENGTH: 260, // cm
   VERTICAL_RULER_LENGTH: 160, // cm
-  HORIZONTAL_RULER_INITIAL_POSITION: new Vector2( 200, 100 ), // cm
-  VERTICAL_RULER_INITIAL_POSITION: new Vector2( 100, 300 ), // cm
 
   // view
   RULER_HEIGHT: 40, // in view coordinates

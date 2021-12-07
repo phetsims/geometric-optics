@@ -128,13 +128,11 @@ class GeometricOpticsModel {
 
     this.horizontalRuler = new GeometricOpticsRuler( {
       orientation: 'horizontal',
-      position: GeometricOpticsConstants.HORIZONTAL_RULER_INITIAL_POSITION,
       length: GeometricOpticsConstants.HORIZONTAL_RULER_LENGTH
     } );
 
     this.verticalRuler = new GeometricOpticsRuler( {
       orientation: 'vertical',
-      position: GeometricOpticsConstants.VERTICAL_RULER_INITIAL_POSITION,
       length: GeometricOpticsConstants.VERTICAL_RULER_LENGTH
     } );
   }
