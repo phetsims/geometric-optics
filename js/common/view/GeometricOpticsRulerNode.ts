@@ -33,7 +33,7 @@ const MINIMUM_VISIBLE_LENGTH = GeometricOpticsConstants.RULER_MINIMUM_VISIBLE_LE
 
 class GeometricOpticsRulerNode extends Node {
 
-  private readonly ruler: GeometricOpticsRuler;
+  readonly ruler: GeometricOpticsRuler;
   private toolboxBounds: Bounds2;
   private readonly dragListener: DragListener;
 
@@ -131,7 +131,7 @@ class GeometricOpticsRulerNode extends Node {
         // Return ruler to toolbox if the pointer is within the toolbox.
         assert && assert( event.pointer.point instanceof Vector2 );
         if ( this.toolboxBounds.containsPoint( this.globalToParentPoint( event.pointer.point as Vector2 ) ) ) {
-          this.visible = false;
+          ruler.visibleProperty.value = false;
         }
       }
     } );

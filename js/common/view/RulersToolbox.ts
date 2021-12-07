@@ -16,6 +16,9 @@ import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
+import { RulerOrientation } from '../model/GeometricOpticsRuler.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import IProperty from '../../../../axon/js/IProperty.js';
 
 class RulersToolbox extends Panel {
 
@@ -46,9 +49,11 @@ class RulersToolbox extends Panel {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // create two icons for rulers: A vertical and a Horizontal ruler
-    const horizontalRulerIconNode = createRulerIcon( false, false );
-    const verticalRulerIconNode = createRulerIcon( true, true );
+    // create icons for the 2 rulers
+    // @ts-ignore DerivedProperty.not has incorrect param type
+    const horizontalRulerIconNode = createRulerIcon( 'horizontal', DerivedProperty.not( horizontalRulerNode.visibleProperty ) );
+    // @ts-ignore DerivedProperty.not has incorrect param type
+    const verticalRulerIconNode = createRulerIcon( 'vertical', DerivedProperty.not( verticalRulerNode.visibleProperty ) );
 
     // increase touchArea and mouseArea for both rulers
     horizontalRulerIconNode.touchArea = horizontalRulerIconNode.localBounds.dilatedXY(
@@ -76,26 +81,18 @@ class RulersToolbox extends Panel {
      */
     const addForwardingListener = ( iconNode: Node, rulerNode: GeometricOpticsRulerNode ): void => {
 
-      // ruler node and icon node have opposite visibilities
-      rulerNode.visibleProperty.link( ( visible: boolean ) => {
-        iconNode.visible = !visible;
-      } );
-
       iconNode.addInputListener( DragListener.createForwardingListener( ( event: SceneryEvent ) => {
+        assert && assert( !rulerNode.ruler.visibleProperty.value );
 
-        // we can add a ruler only if the ruler Node is not visible
-        if ( !rulerNode.visible ) {
+        // Make the ruler visible.
+        rulerNode.ruler.visibleProperty.value = true;
 
-          // set the visibility of ruler Node to true
-          rulerNode.visible = true;
+        // Position the center of the rulerNode at the pointer.
+        assert && assert( event.pointer.point ); // {Vector2|null}
+        rulerNode.center = this.globalToParentPoint( event.pointer.point! );
 
-          // position the center of the rulerNode to the cursor
-          assert && assert( event.pointer.point ); // {Vector2|null}
-          rulerNode.center = this.globalToParentPoint( event.pointer.point! );
-
-          // forward events
-          rulerNode.startDrag( event );
-        }
+        // Forward events to the RulerNode.
+        rulerNode.startDrag( event );
       } ) );
     };
 
@@ -112,13 +109,26 @@ class RulersToolbox extends Panel {
 
 /**
  * Returns a small ruler icon
- * @param isVertical - is the ruler icon along the vertical axis
- * @param tickMarksOnBottom
+ * @param orientation
+ * @param visibleProperty
  */
-function createRulerIcon( isVertical: boolean, tickMarksOnBottom: boolean ): RulerNode {
+function createRulerIcon( orientation: RulerOrientation, visibleProperty: IProperty<boolean> ): RulerNode {
 
   const rulerWidth = 400;
   const rulerHeight = 0.35 * rulerWidth;
+
+  const options = {
+
+    // RulerNode options
+    backgroundLineWidth: 3,
+    minorTicksPerMajorTick: 5,
+    majorTickHeight: ( 0.6 * rulerHeight ) / 2,
+    minorTickHeight: ( 0.4 * rulerHeight ) / 2,
+    majorTickLineWidth: 5,
+    minorTickLineWidth: 2,
+    cursor: 'pointer',
+    visibleProperty: visibleProperty
+  };
 
   const numberOfMajorTicks = 5;
   const majorTickLabels = [ '' ];
@@ -128,20 +138,11 @@ function createRulerIcon( isVertical: boolean, tickMarksOnBottom: boolean ): Rul
   const majorTickWidth = rulerWidth / ( majorTickLabels.length - 1 );
   const units = ''; // empty string for units
 
-  const rulerIconNode = new RulerNode( rulerWidth, rulerHeight, majorTickWidth, majorTickLabels, units, {
-    backgroundLineWidth: 3,
-    tickMarksOnBottom: tickMarksOnBottom,
-    minorTicksPerMajorTick: 5,
-    majorTickHeight: ( 0.6 * rulerHeight ) / 2,
-    minorTickHeight: ( 0.4 * rulerHeight ) / 2,
-    majorTickLineWidth: 5,
-    minorTickLineWidth: 2,
-    cursor: 'pointer'
-  } );
+  const rulerIconNode = new RulerNode( rulerWidth, rulerHeight, majorTickWidth, majorTickLabels, units, options );
   rulerIconNode.scale( 0.12 );
 
   // rotate to create vertical ruler
-  if ( isVertical ) {
+  if ( orientation === 'vertical' ) {
     rulerIconNode.rotate( -Math.PI / 2 );
   }
 
