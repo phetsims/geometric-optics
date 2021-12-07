@@ -62,8 +62,8 @@ class GeometricOpticsRulerNode extends Node {
       visibleProperty: ruler.visibleProperty,
       
       // phet-io options
-      tandem: Tandem.REQUIRED
-
+      tandem: Tandem.REQUIRED,
+      phetioInputEnabledPropertyInstrumented: true
     }, options );
     assert && assert( !options.children, 'this Node calls removeAllChildren' );
 
