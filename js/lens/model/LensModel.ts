@@ -22,10 +22,10 @@ class LensModel extends GeometricOpticsModel {
   readonly projectionScreen: ProjectionScreen;
 
   // light spot associated with the first light source
-  readonly firstLightSpot: LightSpot;
+  readonly lightSpot1: LightSpot;
 
   // light spot associated with the second light source
-  readonly secondLightSpot: LightSpot;
+  readonly lightSpot2: LightSpot;
 
   // top guide associated with the source object or first light source
   readonly firstTopGuide: Guide;
@@ -62,14 +62,14 @@ class LensModel extends GeometricOpticsModel {
     this.projectionScreen = projectionScreen;
 
     // Light Spots
-    this.firstLightSpot = new LightSpot( this.optic, this.projectionScreen, this.sourceObject.positionProperty,
+    this.lightSpot1 = new LightSpot( this.optic, this.projectionScreen, this.sourceObject.positionProperty,
       this.firstTarget.positionProperty, {
-        tandem: options.tandem.createTandem( 'firstLightSpot' ),
+        tandem: options.tandem.createTandem( 'lightSpot1' ),
         phetioDocumentation: 'the light spot on the projection screen that is created by the first light source'
       } );
-    this.secondLightSpot = new LightSpot( this.optic, this.projectionScreen, this.secondPoint.positionProperty,
+    this.lightSpot2 = new LightSpot( this.optic, this.projectionScreen, this.secondPoint.positionProperty,
       this.secondTarget.positionProperty, {
-        tandem: options.tandem.createTandem( 'secondLightSpot' ),
+        tandem: options.tandem.createTandem( 'lightSpot2' ),
         phetioDocumentation: 'the light spot on the projection screen that is created by the second light source'
       } );
 
