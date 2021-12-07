@@ -49,11 +49,14 @@ class RulerIconNode extends RulerNode {
       visibleProperty: DerivedProperty.not( rulerNode.visibleProperty )
     }, options );
 
+    // major ticks have no labels, it would be too much detail in an icon
     const majorTickLabels = [ '' ];
     for ( let i = 1; i < NUMBER_OF_MAJOR_TICKS; i++ ) {
       majorTickLabels.push( '' );
     }
     const majorTickWidth = ICON_WIDTH / ( majorTickLabels.length - 1 );
+
+    // no units, it would be too much detail in an icon
     const units = '';
 
     super( ICON_WIDTH, ICON_HEIGHT, majorTickWidth, majorTickLabels, units, options );
