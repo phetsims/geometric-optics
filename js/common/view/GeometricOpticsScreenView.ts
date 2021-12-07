@@ -95,7 +95,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // Create a Y inverted modelViewTransform with isometric scaling along x and y axes.
     // In the model coordinate frame, +x is right, +y is up.
-    const modelViewTransform = this.getTransformForZoomLevel( ZOOM_RANGE.defaultValue, viewOrigin );
+    const modelViewTransform = createTransformForZoomLevel( ZOOM_RANGE.defaultValue, viewOrigin );
 
     // Properties  ====================================================================================================
 
@@ -104,30 +104,30 @@ class GeometricOpticsScreenView extends ScreenView {
       tandem: config.tandem.createTandem( 'visibleProperties' )
     } );
 
-    // {Property.<number>} controls zoom in experiment area
+    // Controls zoom in experiment area
     const zoomLevelProperty = new NumberProperty( ZOOM_RANGE.defaultValue, {
       numberType: 'Integer',
       range: ZOOM_RANGE,
       tandem: config.tandem.createTandem( 'zoomLevelProperty' )
     } );
 
-    // {DerivedProperty.<ModelViewTransform2>}
+    // ModelViewTransform2 for the current zoom level
     const zoomTransformProperty = new DerivedProperty<ModelViewTransform2>(
       [ zoomLevelProperty ],
-      ( zoomLevel: number ) => this.getTransformForZoomLevel( zoomLevel, viewOrigin )
+      ( zoomLevel: number ) => createTransformForZoomLevel( zoomLevel, viewOrigin )
     );
 
-    // {DerivedProperty.<number>} zoom scale associate with the zoom level
-    const absoluteScaleProperty = new DerivedProperty<number>(
+    // scale for with the current zoom level
+    const absoluteZoomScaleProperty = new DerivedProperty<number>(
       [ zoomLevelProperty ],
-      ( zoomLevel: number ) => getAbsoluteScale( zoomLevel )
+      ( zoomLevel: number ) => getAbsoluteZoomScale( zoomLevel )
     );
 
     // Things that are outside the Experiment Area =====================================================================
 
     // create Rulers
     const rulersLayer = new RulersLayer( model.horizontalRuler, model.verticalRuler,
-      zoomTransformProperty, absoluteScaleProperty, this.visibleBoundsProperty );
+      zoomTransformProperty, absoluteZoomScaleProperty, this.visibleBoundsProperty );
 
     // create control panel at the bottom of the screen
     const controlPanel = new GeometricOpticsControlPanel( model.representationProperty, model.optic,
@@ -407,44 +407,42 @@ class GeometricOpticsScreenView extends ScreenView {
       this.model.stepLightRays( dt );
     }
   }
-
-  //TODO make this a private function
-  /**
-   * Returns a model-view transform appropriate for the zoom level
-   * @param zoomLevel
-   * @param viewOrigin
-   */
-  private getTransformForZoomLevel( zoomLevel: number, viewOrigin: Vector2 ): ModelViewTransform2 {
-
-    // scaling factor between zoom level measured from the initial zoom level
-    const absoluteScale = getAbsoluteScale( zoomLevel );
-
-    // number of view coordinates for 1 model coordinate
-    const viewModelScale = NOMINAL_VIEW_MODEL_CONVERSION * absoluteScale;
-
-    // create a Y inverted modelViewTransform with isometric scaling along X and Y
-    return ModelViewTransform2.createOffsetXYScaleMapping( viewOrigin, viewModelScale, -viewModelScale );
-  }
 }
 
 /**
- * Returns the relative scale between a zoom level and a previous old zoom level
+ * Gets the relative scale between a zoom level and a previous zoom level.
  */
-function getRelativeScale( zoomLevel: number, oldZoomLevel: number ): number {
+function getRelativeScale( zoomLevel: number, previousZoomLevel: number ): number {
   const base = 2;
   const scale = Math.pow( base, zoomLevel );
-  const oldScale = Math.pow( base, oldZoomLevel );
-  return scale / oldScale;
+  const previousScale = Math.pow( base, previousZoomLevel );
+  return scale / previousScale;
 }
 
 /**
- * Returns the absolute scaling factor measured from the initial zoom level.
+ * Gets the absolute scaling factor measured from the initial zoom level.
  * The absolute scale returns 1 if the zoom level is the initial zoom level value.
  */
-function getAbsoluteScale( zoomLevel: number ): number {
+function getAbsoluteZoomScale( zoomLevel: number ): number {
   return getRelativeScale( zoomLevel, ZOOM_RANGE.defaultValue );
 }
 
+/**
+ * Creates a model-view transform appropriate for the zoom level
+ * @param zoomLevel
+ * @param viewOrigin
+ */
+function createTransformForZoomLevel( zoomLevel: number, viewOrigin: Vector2 ): ModelViewTransform2 {
+
+  // scaling factor between zoom level measured from the initial zoom level
+  const absoluteZoomScale = getAbsoluteZoomScale( zoomLevel );
+
+  // number of view coordinates for 1 model coordinate
+  const modelToViewScale = NOMINAL_VIEW_MODEL_CONVERSION * absoluteZoomScale;
+
+  // create a Y inverted modelViewTransform with isometric scaling along X and Y
+  return ModelViewTransform2.createOffsetXYScaleMapping( viewOrigin, modelToViewScale, -modelToViewScale );
+}
 
 geometricOptics.register( 'GeometricOpticsScreenView', GeometricOpticsScreenView );
 export default GeometricOpticsScreenView;

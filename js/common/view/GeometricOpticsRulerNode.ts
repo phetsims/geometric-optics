@@ -1,6 +1,5 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO there appears to be a lot of unnecessary complication here for Creator pattern
 /**
  * GeometricOpticsRulerNode is the view of a ruler. Responsibilities include:
  *
@@ -41,12 +40,12 @@ class GeometricOpticsRulerNode extends Node {
   /**
    * @param ruler
    * @param zoomTransformProperty
-   * @param absoluteScaleProperty
+   * @param absoluteZoomScaleProperty
    * @param visibleBoundsProperty
    * @param options
    */
   constructor( ruler: Ruler, zoomTransformProperty: Property<ModelViewTransform2>,
-               absoluteScaleProperty: Property<number>, visibleBoundsProperty: Property<Bounds2>,
+               absoluteZoomScaleProperty: Property<number>, visibleBoundsProperty: Property<Bounds2>,
                options?: any ) {
 
     options = merge( {
@@ -69,16 +68,16 @@ class GeometricOpticsRulerNode extends Node {
     this.ruler = ruler;
     this.toolboxBounds = Bounds2.NOTHING; // to be set later via setToolboxBounds
 
-    // Create a RulerNode subcomponent to match absoluteScale.
-    // absoluteScaleProperty is derived from zoomTransformProperty, so we only need to observe absoluteScaleProperty.
-    absoluteScaleProperty.link( absoluteScale => {
+    // Create a RulerNode subcomponent to match absoluteZoomScale.
+    // absoluteZoomScaleProperty is derived from zoomTransformProperty, so we only need to observe absoluteZoomScaleProperty.
+    absoluteZoomScaleProperty.link( absoluteZoomScale => {
 
       // update model
-      ruler.scaleLength( 1 / absoluteScale );
+      ruler.scaleLength( 1 / absoluteZoomScale );
 
       // update view
       this.removeAllChildren();
-      this.addChild( createRulerNode( this.ruler.length, zoomTransformProperty.value, absoluteScale, options.rulerOptions ) );
+      this.addChild( createRulerNode( this.ruler.length, zoomTransformProperty.value, absoluteZoomScale, options.rulerOptions ) );
     } );
 
     this.updatePosition();
@@ -177,15 +176,16 @@ class GeometricOpticsRulerNode extends Node {
  * Creates a scenery-phet.RulerNode appropriate for the modelViewTransform and zoom scale.
  * @param rulerLength
  * @param modelViewTransform
- * @param absoluteScale
+ * @param absoluteZoomScale
  * @param options
  */
-function createRulerNode( rulerLength: number, modelViewTransform: ModelViewTransform2, absoluteScale: number, options?: any ): Node {
+function createRulerNode( rulerLength: number, modelViewTransform: ModelViewTransform2, absoluteZoomScale: number,
+                          options?: any ): Node {
 
   options = merge( {}, options );
 
   assert && assert( options.majorTickDistance === undefined );
-  options.majorTickDistance = 10 / absoluteScale; // in model coordinate (cm)
+  options.majorTickDistance = 10 / absoluteZoomScale; // in model coordinate (cm)
 
   // define the length ruler
   const rulerWidth = modelViewTransform.modelToViewDeltaX( rulerLength );
