@@ -128,7 +128,7 @@ class GeometricOpticsScreenView extends ScreenView {
     // create Rulers
     const horizontalRulerNode = new GeometricOpticsRulerNode( model.horizontalRuler,
       zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, {
-      tandem: config.tandem.createTandem( 'horizontalRulerNode' )
+        tandem: config.tandem.createTandem( 'horizontalRulerNode' )
       } );
     const verticalRulerNode = new GeometricOpticsRulerNode( model.verticalRuler,
       zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, {
@@ -151,8 +151,11 @@ class GeometricOpticsScreenView extends ScreenView {
     } );
 
     // Tell the rulers where the toolbox is.
-    horizontalRulerNode.setToolboxBounds( rulersToolbox.bounds );
-    verticalRulerNode.setToolboxBounds( rulersToolbox.bounds );
+    rulersToolbox.visibleProperty.link( visible => {
+      const bounds = visible ? rulersToolbox.bounds : Bounds2.NOTHING;
+      horizontalRulerNode.setToolboxBounds( bounds );
+      verticalRulerNode.setToolboxBounds( bounds );
+    } );
 
     // radio buttons for the shape of the optic
     const opticShapeRadioButtonGroup = new OpticShapeRadioButtonGroup( model.optic, {
