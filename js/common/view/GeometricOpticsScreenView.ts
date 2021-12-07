@@ -28,7 +28,7 @@ import GeometricOpticsModel from '../model/GeometricOpticsModel.js';
 import DebugPointNode from './DebugPointNode.js';
 import FocalPointNode from './FocalPointNode.js';
 import GeometricOpticsControlPanel from './GeometricOpticsControlPanel.js';
-import GeometricOpticsRulersLayer from './GeometricOpticsRulersLayer.js';
+import RulersLayer from './RulersLayer.js';
 import LabelsNode from './LabelsNode.js';
 import LightRaysNode from './LightRaysNode.js';
 import OpticalAxis from './OpticalAxis.js';
@@ -126,13 +126,8 @@ class GeometricOpticsScreenView extends ScreenView {
     // Things that are outside the Experiment Area =====================================================================
 
     // create Rulers
-    const rulersLayer = new GeometricOpticsRulersLayer(
-      model.horizontalRuler,
-      model.verticalRuler,
-      this.visibleBoundsProperty,
-      absoluteScaleProperty,
-      zoomTransformProperty
-    );
+    const rulersLayer = new RulersLayer( model.horizontalRuler, model.verticalRuler,
+      zoomTransformProperty, absoluteScaleProperty, this.visibleBoundsProperty );
 
     // create control panel at the bottom of the screen
     const controlPanel = new GeometricOpticsControlPanel( model.representationProperty, model.optic,
@@ -149,8 +144,8 @@ class GeometricOpticsScreenView extends ScreenView {
       tandem: config.tandem.createTandem( 'toolbox' )
     } );
 
-    // Tell the rulersLayer where the toolbox is.
-    rulersLayer.toolboxBounds.set( toolbox.bounds );
+    // Tell the rulers where the toolbox is.
+    rulersLayer.setToolboxBounds( toolbox.bounds );
 
     // radio buttons for the shape of the optic
     const opticShapeRadioButtonGroup = new OpticShapeRadioButtonGroup( model.optic, {
@@ -413,6 +408,7 @@ class GeometricOpticsScreenView extends ScreenView {
     }
   }
 
+  //TODO make this a private function
   /**
    * Returns a model-view transform appropriate for the zoom level
    * @param zoomLevel

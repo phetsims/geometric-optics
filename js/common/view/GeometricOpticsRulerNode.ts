@@ -2,7 +2,11 @@
 
 //TODO there appears to be a lot of unnecessary complication here for Creator pattern
 /**
- * Scenery node for a movable ruler in the Geometric Optics simulation
+ * GeometricOpticsRulerNode is the view of a ruler. Responsibilities include:
+ *
+ * - It wraps a scenery-phet.RulerNode, which is re-created when the zoom level changes.  As the zoom level is changed,
+ *   the RulerNode's view dimensions remain constant, but it's tick marks change.
+ * - It handles dragging, including dragging back to the toolbox from whence it came.
  *
  * @author Sarah Chang (Swarthmore College)
  * @author Chris Malley (PixelZoom, Inc.)
@@ -30,31 +34,32 @@ const MINIMUM_VISIBLE_LENGTH = GeometricOpticsConstants.RULER_MINIMUM_VISIBLE_LE
 
 class GeometricOpticsRulerNode extends Node {
 
-  // bounds of the toolbox
-  toolboxBounds: Bounds2;
-  readonly ruler: Ruler;
-  private readonly rulerOptions: any; //TYPESCRIPT any
+  private readonly ruler: Ruler;
+  private toolboxBounds: Bounds2;
   private readonly dragListener: DragListener;
 
   /**
    * @param ruler
+   * @param zoomTransformProperty
+   * @param absoluteScaleProperty
    * @param visibleBoundsProperty
-   * @param toolboxBounds
-   * @param modelViewTransform
    * @param options
    */
-  constructor( ruler: Ruler, visibleBoundsProperty: Property<Bounds2>, toolboxBounds: Bounds2,
-               modelViewTransform: ModelViewTransform2, options?: any ) {
+  constructor( ruler: Ruler, zoomTransformProperty: Property<ModelViewTransform2>,
+               absoluteScaleProperty: Property<number>, visibleBoundsProperty: Property<Bounds2>,
+               options?: any ) {
 
     options = merge( {
       rulerOptions: {
         opacity: 0.8,
         minorTicksPerMajorTick: 4,
-        majorTickDistance: 10, // in model coordinate (cm)
         majorTickFont: new PhetFont( 13 ),
         insetsWidth: 0
       }
     }, options );
+
+    assert && assert( options.rulerOptions.tickMarksOnBottom === undefined );
+    options.tickMarksOnBottom = ruler.isVertical();
 
     assert && assert( options.rotation === undefined );
     options.rotation = ruler.isVertical() ? -Math.PI / 2 : 0;
@@ -62,18 +67,28 @@ class GeometricOpticsRulerNode extends Node {
     super( options );
 
     this.ruler = ruler;
-    this.rulerOptions = options.rulerOptions;
-    this.toolboxBounds = toolboxBounds;
+    this.toolboxBounds = Bounds2.NOTHING; // to be set later via setToolboxBounds
 
-    // create and add a scenery-phet.RulerNode
-    this.setRulerNode( modelViewTransform, this.rulerOptions );
+    // Create a RulerNode subcomponent to match absoluteScale.
+    // absoluteScaleProperty is derived from zoomTransformProperty, so we only need to observe absoluteScaleProperty.
+    absoluteScaleProperty.link( absoluteScale => {
 
-    // set the initial position and visibility
-    this.setPosition();
+      // update model
+      ruler.scaleLength( 1 / absoluteScale );
+
+      // update view
+      this.removeAllChildren();
+      this.addChild( createRulerNode( this.ruler.length, zoomTransformProperty.value, absoluteScale, options.rulerOptions ) );
+    } );
+
+    this.updatePosition();
     this.setInitialVisibility();
 
-    // {DerivedProperty.<Bounds2>} dragBounds Property for ruler: the view width and the height of the ruler
-    // will NOT change throughout the simulation
+    // update ruler node position based on ruler model position
+    // the GeometricOpticRulerNode exists from the lifetime of the simulation, so need to unlink.
+    ruler.positionProperty.link( () => this.updatePosition() );
+
+    // Drag bounds for the ruler, to keep some part of the ruler inside the visible bounds of the ScreenView.
     const rulerDragBoundsProperty = new DerivedProperty<Bounds2>(
       [ visibleBoundsProperty ],
       ( visibleBounds: Bounds2 ) => {
@@ -95,21 +110,19 @@ class GeometricOpticsRulerNode extends Node {
             -this.height );
         }
       } );
+    rulerDragBoundsProperty.link( dragBounds => {
+      ruler.positionProperty.value = dragBounds.closestPointTo( ruler.positionProperty.value );
+    } );
 
     this.dragListener = new DragListener( {
       cursor: 'pointer',
       useInputListenerCursor: true,
       positionProperty: ruler.positionProperty,
       dragBoundsProperty: rulerDragBoundsProperty,
-      start: () => {
-
-        // move this node on top of all the nodes
-        this.moveToFront();
-      },
-
+      start: () => this.moveToFront(),
       end: ( event: SceneryEvent ) => {
 
-        // return ruler to toolbox if the pointer is within the toolbox
+        // Return ruler to toolbox if the pointer is within the toolbox.
         assert && assert( event.pointer.point instanceof Vector2 );
         if ( this.toolboxBounds.containsPoint( this.globalToParentPoint( event.pointer.point as Vector2 ) ) ) {
           this.visible = false;
@@ -117,29 +130,21 @@ class GeometricOpticsRulerNode extends Node {
       }
     } );
     this.addInputListener( this.dragListener );
-
-    // update ruler node position based on ruler model position
-    // the GeometricOpticRulerNode exists from the lifetime of the simulation, so need to unlink.
-    ruler.positionProperty.link( () => this.setPosition() );
-
-    // prevent the ruler from escaping the visible bounds
-    rulerDragBoundsProperty.link( dragBounds => {
-      ruler.positionProperty.value = dragBounds.closestPointTo( ruler.positionProperty.value );
-    } );
   }
 
   /**
    * Resets the visibility and position of this node
    */
   public reset(): void {
-    this.setPosition(); //TODO why isn't it sufficient to reset Ruler.positionProperty?
+    this.updatePosition(); //TODO why isn't it sufficient to reset Ruler.positionProperty?
     this.setInitialVisibility(); //TODO add visibleProperty to Ruler model element
   }
 
-  /**
-   * Sets the position of the ruler
-   */
-  public setPosition(): void {
+  public setToolboxBounds( toolboxBounds: Bounds2 ): void {
+    this.toolboxBounds = toolboxBounds;
+  }
+
+  public updatePosition(): void {
     if ( this.ruler.isVertical() ) {
 
       // set initial position of the ruler - leftBottom since rotated 90 degrees
@@ -159,20 +164,6 @@ class GeometricOpticsRulerNode extends Node {
     this.dragListener.press( event, this );
   }
 
-  /**
-   * Adds a new scenery-phet.RulerNode to the parent, detaching the previous RulerNode.
-   * @param modelViewTransform
-   * @param options
-   */
-  public setRulerNode( modelViewTransform: ModelViewTransform2, options?: any ): void {
-
-    // remove previous instances of rulerNode
-    this.removeAllChildren();
-
-    // add and create new
-    this.addChild( this.getRulerNode( modelViewTransform, options ) );
-  }
-
   //TODO why is this needed?
   /**
    * Sets the visibility of this node to false
@@ -180,54 +171,50 @@ class GeometricOpticsRulerNode extends Node {
   private setInitialVisibility(): void {
     this.visible = false;
   }
+}
 
-  /**
-   * Returns a scenery-phet.RulerNode appropriate for the model view transform
-   * @param modelViewTransform
-   * @param options
-   */
-  private getRulerNode( modelViewTransform: ModelViewTransform2, options?: any ): Node {
+/**
+ * Creates a scenery-phet.RulerNode appropriate for the modelViewTransform and zoom scale.
+ * @param rulerLength
+ * @param modelViewTransform
+ * @param absoluteScale
+ * @param options
+ */
+function createRulerNode( rulerLength: number, modelViewTransform: ModelViewTransform2, absoluteScale: number, options?: any ): Node {
 
-    options = merge( {}, this.rulerOptions, options );
+  options = merge( {}, options );
 
-    // define the length ruler
-    const rulerWidth = modelViewTransform.modelToViewDeltaX( this.ruler.length );
+  assert && assert( options.majorTickDistance === undefined );
+  options.majorTickDistance = 10 / absoluteScale; // in model coordinate (cm)
 
-    // separation between the major ticks mark
-    const majorTickWidth = modelViewTransform.modelToViewDeltaX(
-      options.majorTickDistance );
+  // define the length ruler
+  const rulerWidth = modelViewTransform.modelToViewDeltaX( rulerLength );
 
-    const numberOfMajorTicks = Math.floor( rulerWidth / majorTickWidth ) + 1;
+  // separation between the major ticks mark
+  const majorTickWidth = modelViewTransform.modelToViewDeltaX( options.majorTickDistance );
 
-    // create major ticks label
-    const majorTickLabels = [];
-    for ( let i = 0; i < numberOfMajorTicks; i++ ) {
+  // create major ticks label
+  const numberOfMajorTicks = Math.floor( rulerWidth / majorTickWidth ) + 1;
+  const majorTickLabels = [];
+  for ( let i = 0; i < numberOfMajorTicks; i++ ) {
 
-      const majorTickInterval = options.majorTickDistance;
+    const majorTickInterval = options.majorTickDistance;
 
-      // skip labels on every other major ticks
-      if ( i % 2 === 0 ) {
-        majorTickLabels[ i ] = Utils.toFixed( i * majorTickInterval, 0 );
-      }
-      else {
-        majorTickLabels[ i ] = '';
-      }
+    // skip labels on every other major ticks
+    if ( i % 2 === 0 ) {
+      majorTickLabels[ i ] = Utils.toFixed( i * majorTickInterval, 0 );
     }
-
-    // set the units at the end of ruler
-    const rulerOptions = merge( {
-      unitsMajorTickIndex: numberOfMajorTicks - 3
-    }, options );
-
-    return new RulerNode(
-      rulerWidth,
-      GeometricOpticsConstants.RULER_HEIGHT,
-      majorTickWidth,
-      majorTickLabels,
-      geometricOpticsStrings.centimeters,
-      rulerOptions
-    );
+    else {
+      majorTickLabels[ i ] = '';
+    }
   }
+
+  // set the units at the end of ruler
+  assert && assert( options.unitsMajorTickIndex === undefined );
+  options.unitsMajorTickIndex = numberOfMajorTicks - 3;
+
+  return new RulerNode( rulerWidth, GeometricOpticsConstants.RULER_HEIGHT,
+    majorTickWidth, majorTickLabels, geometricOpticsStrings.centimeters, options );
 }
 
 geometricOptics.register( 'GeometricOpticsRulerNode', GeometricOpticsRulerNode );

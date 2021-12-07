@@ -18,7 +18,7 @@ import { Node } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsRulersLayer from './GeometricOpticsRulersLayer.js';
+import RulersLayer from './RulersLayer.js';
 import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
 
 class RulersToolbox extends Panel {
@@ -27,7 +27,7 @@ class RulersToolbox extends Panel {
    * @param rulersLayer
    * @param options
    */
-  constructor( rulersLayer: GeometricOpticsRulersLayer, options?: any ) {
+  constructor( rulersLayer: RulersLayer, options?: any ) {
 
     options = merge( {
 
