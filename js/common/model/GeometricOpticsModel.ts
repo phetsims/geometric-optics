@@ -19,7 +19,7 @@ import LightRays from './LightRays.js';
 import Optic from './Optic.js';
 import RaysModeEnum, { RaysModeValues } from './RaysModeEnum.js';
 import Representation, { RepresentationStaticInstances } from './Representation.js';
-import Ruler from './GeometricOpticsRuler.js';
+import GeometricOpticsRuler from './GeometricOpticsRuler.js';
 import SecondPoint from './SecondPoint.js';
 import SourceObject from './SourceObject.js';
 import Target from './Target.js';
@@ -60,8 +60,8 @@ class GeometricOpticsModel {
   readonly secondLightRays: LightRays;
 
   // rulers
-  readonly horizontalRuler: Ruler;
-  readonly verticalRuler: Ruler;
+  readonly horizontalRuler: GeometricOpticsRuler;
+  readonly verticalRuler: GeometricOpticsRuler;
 
   /**
    * @param optic
@@ -126,12 +126,12 @@ class GeometricOpticsModel {
       options.barrier
     );
 
-    this.horizontalRuler = new Ruler( 'horizontal',
+    this.horizontalRuler = new GeometricOpticsRuler( 'horizontal',
       GeometricOpticsConstants.HORIZONTAL_RULER_INITIAL_POSITION,
       GeometricOpticsConstants.HORIZONTAL_RULER_LENGTH
     );
 
-    this.verticalRuler = new Ruler( 'vertical',
+    this.verticalRuler = new GeometricOpticsRuler( 'vertical',
       GeometricOpticsConstants.VERTICAL_RULER_INITIAL_POSITION,
       GeometricOpticsConstants.VERTICAL_RULER_LENGTH
     );

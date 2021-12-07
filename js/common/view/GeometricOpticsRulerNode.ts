@@ -24,7 +24,7 @@ import { Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-import Ruler from '../model/GeometricOpticsRuler.js';
+import GeometricOpticsRuler from '../model/GeometricOpticsRuler.js';
 import { SceneryEvent } from '../../../../scenery/js/imports.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 
@@ -33,7 +33,7 @@ const MINIMUM_VISIBLE_LENGTH = GeometricOpticsConstants.RULER_MINIMUM_VISIBLE_LE
 
 class GeometricOpticsRulerNode extends Node {
 
-  private readonly ruler: Ruler;
+  private readonly ruler: GeometricOpticsRuler;
   private toolboxBounds: Bounds2;
   private readonly dragListener: DragListener;
 
@@ -44,7 +44,7 @@ class GeometricOpticsRulerNode extends Node {
    * @param visibleBoundsProperty
    * @param options
    */
-  constructor( ruler: Ruler, zoomTransformProperty: Property<ModelViewTransform2>,
+  constructor( ruler: GeometricOpticsRuler, zoomTransformProperty: Property<ModelViewTransform2>,
                zoomScaleProperty: Property<number>, visibleBoundsProperty: Property<Bounds2>,
                options?: any ) {
 
