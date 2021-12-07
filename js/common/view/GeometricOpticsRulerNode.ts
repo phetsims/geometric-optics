@@ -40,12 +40,12 @@ class GeometricOpticsRulerNode extends Node {
   /**
    * @param ruler
    * @param zoomTransformProperty
-   * @param absoluteZoomScaleProperty
+   * @param zoomScaleProperty
    * @param visibleBoundsProperty
    * @param options
    */
   constructor( ruler: Ruler, zoomTransformProperty: Property<ModelViewTransform2>,
-               absoluteZoomScaleProperty: Property<number>, visibleBoundsProperty: Property<Bounds2>,
+               zoomScaleProperty: Property<number>, visibleBoundsProperty: Property<Bounds2>,
                options?: any ) {
 
     options = merge( {
@@ -68,16 +68,15 @@ class GeometricOpticsRulerNode extends Node {
     this.ruler = ruler;
     this.toolboxBounds = Bounds2.NOTHING; // to be set later via setToolboxBounds
 
-    // Create a RulerNode subcomponent to match absoluteZoomScale.
-    // absoluteZoomScaleProperty is derived from zoomTransformProperty, so we only need to observe absoluteZoomScaleProperty.
-    absoluteZoomScaleProperty.link( absoluteZoomScale => {
+    // Create a RulerNode subcomponent to match zoomScale.
+    zoomScaleProperty.link( zoomScale => {
 
       // update model
-      ruler.scaleLength( 1 / absoluteZoomScale );
+      ruler.scaleLength( zoomScale );
 
       // update view
       this.removeAllChildren();
-      this.addChild( createRulerNode( this.ruler.length, zoomTransformProperty.value, absoluteZoomScale, options.rulerOptions ) );
+      this.addChild( createRulerNode( this.ruler.length, zoomTransformProperty.value, zoomScale, options.rulerOptions ) );
     } );
 
     this.updatePosition();
@@ -176,16 +175,16 @@ class GeometricOpticsRulerNode extends Node {
  * Creates a scenery-phet.RulerNode appropriate for the modelViewTransform and zoom scale.
  * @param rulerLength
  * @param modelViewTransform
- * @param absoluteZoomScale
+ * @param zoomScale
  * @param options
  */
-function createRulerNode( rulerLength: number, modelViewTransform: ModelViewTransform2, absoluteZoomScale: number,
+function createRulerNode( rulerLength: number, modelViewTransform: ModelViewTransform2, zoomScale: number,
                           options?: any ): Node {
 
   options = merge( {}, options );
 
   assert && assert( options.majorTickDistance === undefined );
-  options.majorTickDistance = 10 / absoluteZoomScale; // in model coordinate (cm)
+  options.majorTickDistance = 10 / zoomScale; // in model coordinate (cm)
 
   // define the length ruler
   const rulerWidth = modelViewTransform.modelToViewDeltaX( rulerLength );

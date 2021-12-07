@@ -49,12 +49,12 @@ class Ruler {
   }
 
   /**
-   * Sets the length of the ruler based on multiplicative factor of absoluteZoomScale.
-   * @param absoluteZoomScale
+   * Sets the length of the ruler based on zoomScale.
+   * @param zoomScale
    */
-  public scaleLength( absoluteZoomScale: number ): void {
-    assert && assert( isFinite( absoluteZoomScale ) && absoluteZoomScale > 0 );
-    this.length = this.nominalLength * absoluteZoomScale;
+  public scaleLength( zoomScale: number ): void {
+    assert && assert( isFinite( zoomScale ) && zoomScale > 0 );
+    this.length = this.nominalLength / zoomScale;
   }
 
   /**
