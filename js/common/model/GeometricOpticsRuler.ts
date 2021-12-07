@@ -11,6 +11,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
+import merge from '../../../../phet-core/js/merge.js';
 import geometricOptics from '../../geometricOptics.js';
 
 type RulerOrientation = 'horizontal' | 'vertical';
@@ -34,21 +35,25 @@ class GeometricOpticsRuler {
   readonly visibleProperty: BooleanProperty;
 
   /**
-   * @param orientation
-   * @param position - position of the ruler in VIEW Coordinates
-   * @param length - length of the ruler in cm
+   * @param options
    */
-  constructor( orientation: RulerOrientation, position: Vector2, length: number ) {
+  constructor( options?: any ) {
 
-    assert && assert( isFinite( length ) && length > 0 );
+    options = merge( {
+      orientation: 'horizontal',
+      position: Vector2.ZERO,
+      length: 100
+    }, options );
 
-    this.orientation = orientation;
+    assert && assert( isFinite( options.length ) && options.length > 0 );
+
+    this.orientation = options.orientation;
     this.isVertical = ( this.orientation === 'vertical' );
 
-    this.positionProperty = new Vector2Property( position );
+    this.positionProperty = new Vector2Property( options.position );
 
-    this.length = length;
-    this.nominalLength = length;
+    this.length = options.length;
+    this.nominalLength = options.length;
 
     this.visibleProperty = new BooleanProperty( false );
   }

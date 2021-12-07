@@ -126,15 +126,17 @@ class GeometricOpticsModel {
       options.barrier
     );
 
-    this.horizontalRuler = new GeometricOpticsRuler( 'horizontal',
-      GeometricOpticsConstants.HORIZONTAL_RULER_INITIAL_POSITION,
-      GeometricOpticsConstants.HORIZONTAL_RULER_LENGTH
-    );
+    this.horizontalRuler = new GeometricOpticsRuler( {
+      orientation: 'horizontal',
+      position: GeometricOpticsConstants.HORIZONTAL_RULER_INITIAL_POSITION,
+      length: GeometricOpticsConstants.HORIZONTAL_RULER_LENGTH
+    } );
 
-    this.verticalRuler = new GeometricOpticsRuler( 'vertical',
-      GeometricOpticsConstants.VERTICAL_RULER_INITIAL_POSITION,
-      GeometricOpticsConstants.VERTICAL_RULER_LENGTH
-    );
+    this.verticalRuler = new GeometricOpticsRuler( {
+      orientation: 'vertical',
+      position: GeometricOpticsConstants.VERTICAL_RULER_INITIAL_POSITION,
+      length: GeometricOpticsConstants.VERTICAL_RULER_LENGTH
+    } );
   }
 
   public reset(): void {
