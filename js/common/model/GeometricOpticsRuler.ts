@@ -59,7 +59,7 @@ class GeometricOpticsRuler {
   }
 
   /**
-   * Sets the length of the ruler based on zoomScale.
+   * Scales the length of the ruler based on zoomScale.
    * @param zoomScale
    */
   public scaleLength( zoomScale: number ): void {
