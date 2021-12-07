@@ -123,7 +123,7 @@ class GeometricOpticsRulerNode extends Node {
       start: () => this.moveToFront(),
       end: ( event: SceneryEvent ) => {
 
-        // Return ruler to toolbox if the pointer is within the toolbox.
+        // Return ruler to toolbox if the pointer is inside the toolbox.
         assert && assert( event.pointer.point instanceof Vector2 );
         if ( this.toolboxBounds.containsPoint( this.globalToParentPoint( event.pointer.point as Vector2 ) ) ) {
           ruler.visibleProperty.value = false;
