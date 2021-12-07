@@ -28,7 +28,7 @@ import GeometricOpticsModel from '../model/GeometricOpticsModel.js';
 import DebugPointNode from './DebugPointNode.js';
 import FocalPointNode from './FocalPointNode.js';
 import GeometricOpticsControlPanel from './GeometricOpticsControlPanel.js';
-import GeometricOpticRulersLayer from './GeometricOpticsRulersLayer.js';
+import GeometricOpticsRulersLayer from './GeometricOpticsRulersLayer.js';
 import LabelsNode from './LabelsNode.js';
 import LightRaysNode from './LightRaysNode.js';
 import OpticalAxis from './OpticalAxis.js';
@@ -126,7 +126,7 @@ class GeometricOpticsScreenView extends ScreenView {
     // Things that are outside the Experiment Area =====================================================================
 
     // create Rulers
-    const rulersLayer = new GeometricOpticRulersLayer(
+    const rulersLayer = new GeometricOpticsRulersLayer(
       model.horizontalRuler,
       model.verticalRuler,
       this.visibleBoundsProperty,

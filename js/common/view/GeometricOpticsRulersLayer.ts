@@ -1,6 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
-//TODO get rid of GeometricOpticRulersLayer, move responsibilities into GeometricOpticsRulerNode
+//TODO get rid of GeometricOpticsRulersLayer, move responsibilities into GeometricOpticsRulerNode
 /**
  * A layer that contains 1 horizontal ruler and 1 vertical ruler
  * Responsible for updating the rulers when zooming
@@ -17,7 +17,7 @@ import geometricOptics from '../../geometricOptics.js';
 import Ruler from '../model/Ruler.js';
 import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
 
-class GeometricOpticRulersLayer extends Node {
+class GeometricOpticsRulersLayer extends Node {
 
   readonly toolboxBounds: Bounds2;
   horizontalRulerNode: GeometricOpticsRulerNode;
@@ -124,5 +124,5 @@ class GeometricOpticRulersLayer extends Node {
   }
 }
 
-geometricOptics.register( 'GeometricOpticRulersLayer', GeometricOpticRulersLayer );
-export default GeometricOpticRulersLayer;
+geometricOptics.register( 'GeometricOpticsRulersLayer', GeometricOpticsRulersLayer );
+export default GeometricOpticsRulersLayer;
