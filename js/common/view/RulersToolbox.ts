@@ -11,7 +11,7 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
-import { DragListener, HBox, Node, SceneryEvent } from '../../../../scenery/js/imports.js';
+import { DragListener, HBox, SceneryEvent } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -31,12 +31,6 @@ class RulersToolbox extends Panel {
 
     options = merge( {
 
-      // Pointer areas for ruler icons in the toolbox
-      touchAreaDilationX: 50,
-      touchAreaDilationY: 50,
-      mouseAreaDilationX: 50,
-      mouseAreaDilationY: 50,
-
       // Panel options
       align: 'center',
       cornerRadius: 5,
@@ -55,33 +49,18 @@ class RulersToolbox extends Panel {
     // @ts-ignore DerivedProperty.not has incorrect param type
     const verticalRulerIconNode = createRulerIcon( 'vertical', DerivedProperty.not( verticalRulerNode.visibleProperty ) );
 
-    // increase touchArea and mouseArea for both rulers
-    horizontalRulerIconNode.touchArea = horizontalRulerIconNode.localBounds.dilatedXY(
-      options.touchAreaDilationX, options.touchAreaDilationY );
-    horizontalRulerIconNode.mouseArea = horizontalRulerIconNode.localBounds.dilatedXY(
-      options.mouseAreaDilationX, options.mouseAreaDilationY );
-    verticalRulerIconNode.touchArea = verticalRulerIconNode.localBounds.dilatedXY(
-      options.touchAreaDilationX, options.touchAreaDilationY );
-    verticalRulerIconNode.mouseArea = verticalRulerIconNode.localBounds.dilatedXY(
-      options.mouseAreaDilationX, options.mouseAreaDilationY );
-
     // create the content for the panel
-    const toolbox = new HBox( {
+    const toolboxContent = new HBox( {
       spacing: 30,
       children: [ verticalRulerIconNode, horizontalRulerIconNode ],
       excludeInvisibleChildrenFromBounds: false
     } );
 
-    super( toolbox, options );
+    super( toolboxContent, options );
 
-    /**
-     * Add input listener on iconNode to forward events to rulerNode
-     * @param iconNode
-     * @param rulerNode
-     */
-    const addForwardingListener = ( iconNode: Node, rulerNode: GeometricOpticsRulerNode ): void => {
-
-      iconNode.addInputListener( DragListener.createForwardingListener( ( event: SceneryEvent ) => {
+    // Add a forwarding listener to each icon, to forward drag events from the icon to its associated ruler.
+    const createForwardingListener = ( rulerNode: GeometricOpticsRulerNode ) => {
+      return DragListener.createForwardingListener( ( event: SceneryEvent ) => {
         assert && assert( !rulerNode.ruler.visibleProperty.value );
 
         // Make the ruler visible.
@@ -93,12 +72,10 @@ class RulersToolbox extends Panel {
 
         // Forward events to the RulerNode.
         rulerNode.startDrag( event );
-      } ) );
+      } );
     };
-
-    // Add a forwarding listener for each ruler icon, to forward drag events from the icon to its associated ruler.
-    addForwardingListener( horizontalRulerIconNode, horizontalRulerNode );
-    addForwardingListener( verticalRulerIconNode, verticalRulerNode );
+    horizontalRulerIconNode.addInputListener( createForwardingListener( horizontalRulerNode ) );
+    verticalRulerIconNode.addInputListener( createForwardingListener( verticalRulerNode ) );
   }
 
   public dispose(): void {
@@ -118,6 +95,12 @@ function createRulerIcon( orientation: RulerOrientation, visibleProperty: IPrope
   const rulerHeight = 0.35 * rulerWidth;
 
   const options = {
+
+    // pointer areas
+    touchAreaDilationX: 50,
+    touchAreaDilationY: 50,
+    mouseAreaDilationX: 50,
+    mouseAreaDilationY: 50,
 
     // RulerNode options
     backgroundLineWidth: 3,
@@ -140,6 +123,9 @@ function createRulerIcon( orientation: RulerOrientation, visibleProperty: IPrope
 
   const rulerIconNode = new RulerNode( rulerWidth, rulerHeight, majorTickWidth, majorTickLabels, units, options );
   rulerIconNode.scale( 0.12 );
+
+  rulerIconNode.touchArea = rulerIconNode.localBounds.dilatedXY( options.touchAreaDilationX, options.touchAreaDilationY );
+  rulerIconNode.mouseArea = rulerIconNode.localBounds.dilatedXY( options.mouseAreaDilationX, options.mouseAreaDilationY );
 
   // rotate to create vertical ruler
   if ( orientation === 'vertical' ) {
