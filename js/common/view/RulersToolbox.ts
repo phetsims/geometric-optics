@@ -11,23 +11,20 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
-import { SceneryEvent } from '../../../../scenery/js/imports.js';
-import { DragListener } from '../../../../scenery/js/imports.js';
-import { HBox } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import { DragListener, HBox, Node, SceneryEvent } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import RulersLayer from './RulersLayer.js';
 import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
 
 class RulersToolbox extends Panel {
 
   /**
-   * @param rulersLayer
+   * @param horizontalRulerNode
+   * @param verticalRulerNode
    * @param options
    */
-  constructor( rulersLayer: RulersLayer, options?: any ) {
+  constructor( horizontalRulerNode: GeometricOpticsRulerNode, verticalRulerNode: GeometricOpticsRulerNode, options?: any ) {
 
     options = merge( {
 
@@ -103,8 +100,8 @@ class RulersToolbox extends Panel {
     };
 
     // Add a forwarding listener for each ruler icon, to forward drag events from the icon to its associated ruler.
-    addForwardingListener( horizontalRulerIconNode, rulersLayer.horizontalRulerNode );
-    addForwardingListener( verticalRulerIconNode, rulersLayer.verticalRulerNode );
+    addForwardingListener( horizontalRulerIconNode, horizontalRulerNode );
+    addForwardingListener( verticalRulerIconNode, verticalRulerNode );
   }
 
   public dispose(): void {

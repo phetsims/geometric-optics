@@ -28,7 +28,6 @@ import GeometricOpticsModel from '../model/GeometricOpticsModel.js';
 import DebugPointNode from './DebugPointNode.js';
 import FocalPointNode from './FocalPointNode.js';
 import GeometricOpticsControlPanel from './GeometricOpticsControlPanel.js';
-import RulersLayer from './RulersLayer.js';
 import LabelsNode from './LabelsNode.js';
 import LightRaysNode from './LightRaysNode.js';
 import OpticalAxis from './OpticalAxis.js';
@@ -44,6 +43,7 @@ import VisibleProperties from './VisibleProperties.js';
 import RaysModeEnum from '../model/RaysModeEnum.js';
 import Lens from '../../lens/model/Lens.js';
 import Optic from '../model/Optic.js';
+import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
 
 // constants
 const ZOOM_RANGE = new RangeWithValue( 1, 3, 3 );
@@ -118,7 +118,7 @@ class GeometricOpticsScreenView extends ScreenView {
     );
 
     // scale for with the current zoom level
-    const absoluteZoomScaleProperty = new DerivedProperty<number>(
+    const zoomScaleProperty = new DerivedProperty<number>(
       [ zoomLevelProperty ],
       ( zoomLevel: number ) => getAbsoluteZoomScale( zoomLevel )
     );
@@ -126,8 +126,10 @@ class GeometricOpticsScreenView extends ScreenView {
     // Things that are outside the Experiment Area =====================================================================
 
     // create Rulers
-    const rulersLayer = new RulersLayer( model.horizontalRuler, model.verticalRuler,
-      zoomTransformProperty, absoluteZoomScaleProperty, this.visibleBoundsProperty );
+    const horizontalRulerNode = new GeometricOpticsRulerNode( model.horizontalRuler,
+      zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty );
+    const verticalRulerNode = new GeometricOpticsRulerNode( model.verticalRuler,
+      zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty );
 
     // create control panel at the bottom of the screen
     const controlPanel = new GeometricOpticsControlPanel( model.representationProperty, model.optic,
@@ -139,13 +141,14 @@ class GeometricOpticsScreenView extends ScreenView {
     } );
 
     // create toolbox at the top right corner of the screen
-    const toolbox = new RulersToolbox( rulersLayer, {
+    const toolbox = new RulersToolbox( horizontalRulerNode, verticalRulerNode, {
       rightTop: erodedLayoutBounds.rightTop,
       tandem: config.tandem.createTandem( 'toolbox' )
     } );
 
     // Tell the rulers where the toolbox is.
-    rulersLayer.setToolboxBounds( toolbox.bounds );
+    horizontalRulerNode.setToolboxBounds( toolbox.bounds );
+    verticalRulerNode.setToolboxBounds( toolbox.bounds );
 
     // radio buttons for the shape of the optic
     const opticShapeRadioButtonGroup = new OpticShapeRadioButtonGroup( model.optic, {
@@ -342,6 +345,10 @@ class GeometricOpticsScreenView extends ScreenView {
     }
 
     // Layout ================================================================================================
+
+    const rulersLayer = new Node( {
+      children: [ horizontalRulerNode, verticalRulerNode ]
+    } );
 
     const screenViewRootNode = new Node( {
       children: [
