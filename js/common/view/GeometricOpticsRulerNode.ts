@@ -3,9 +3,9 @@
 /**
  * GeometricOpticsRulerNode is the view of a ruler. Responsibilities include:
  *
- * - It wraps a scenery-phet.RulerNode, which is re-created when the zoom level changes.  As the zoom level is changed,
- *   the RulerNode's view dimensions remain constant, but it's tick marks change.
- * - It handles dragging, including dragging back to the toolbox from whence it came.
+ * - It wraps a scenery-phet.RulerNode, which is re-created when the zoom level changes.
+ * - As the zoom level is changed, the view dimensions remain constant, but the tick marks change.
+ * - It handles dragging, including dragging back to the RulersToolbox.
  *
  * @author Sarah Chang (Swarthmore College)
  * @author Chris Malley (PixelZoom, Inc.)
@@ -19,13 +19,11 @@ import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
-import { DragListener } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import { DragListener, Node, SceneryEvent } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import GeometricOpticsRuler from '../model/GeometricOpticsRuler.js';
-import { SceneryEvent } from '../../../../scenery/js/imports.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 
 // constants
@@ -49,24 +47,21 @@ class GeometricOpticsRulerNode extends Node {
                options?: any ) {
 
     options = merge( {
+
+      // RulerNode options
       rulerOptions: {
         opacity: 0.8,
         minorTicksPerMajorTick: 4,
         majorTickFont: new PhetFont( 13 ),
         insetsWidth: 0
-      }
+      },
+
+      // Node options
+      rotation: ruler.isVertical ? -Math.PI / 2 : 0,
+      visibleProperty: ruler.visibleProperty
+
     }, options );
-
     assert && assert( !options.children, 'this Node calls removeAllChildren' );
-
-    assert && assert( options.rulerOptions.tickMarksOnBottom === undefined );
-    options.tickMarksOnBottom = ruler.isVertical;
-
-    assert && assert( options.rotation === undefined );
-    options.rotation = ruler.isVertical ? -Math.PI / 2 : 0;
-
-    assert && assert( !options.visibleProperty );
-    options.visibleProperty = ruler.visibleProperty;
 
     super( options );
 
@@ -142,7 +137,7 @@ class GeometricOpticsRulerNode extends Node {
     this.toolboxBounds = toolboxBounds;
   }
 
-  // Forwards an event from the toolbox to start dragging this node
+  // Forwards an event from the toolbox to start dragging this Node
   public startDrag( event: SceneryEvent ): void {
     this.dragListener.press( event, this );
   }
@@ -153,7 +148,7 @@ class GeometricOpticsRulerNode extends Node {
  * @param rulerLength
  * @param modelViewTransform
  * @param zoomScale
- * @param options
+ * @param options - to RulerNode
  */
 function createRulerNode( rulerLength: number, modelViewTransform: ModelViewTransform2, zoomScale: number,
                           options?: any ): Node {
@@ -169,8 +164,12 @@ function createRulerNode( rulerLength: number, modelViewTransform: ModelViewTran
   // separation between the major ticks mark
   const majorTickWidth = modelViewTransform.modelToViewDeltaX( options.majorTickDistance );
 
-  // create major ticks label
+  // set the units at the end of ruler
   const numberOfMajorTicks = Math.floor( rulerWidth / majorTickWidth ) + 1;
+  assert && assert( options.unitsMajorTickIndex === undefined );
+  options.unitsMajorTickIndex = numberOfMajorTicks - 3;
+
+  // create major ticks label
   const majorTickLabels = [];
   for ( let i = 0; i < numberOfMajorTicks; i++ ) {
 
@@ -184,10 +183,6 @@ function createRulerNode( rulerLength: number, modelViewTransform: ModelViewTran
       majorTickLabels[ i ] = '';
     }
   }
-
-  // set the units at the end of ruler
-  assert && assert( options.unitsMajorTickIndex === undefined );
-  options.unitsMajorTickIndex = numberOfMajorTicks - 3;
 
   return new RulerNode( rulerWidth, GeometricOpticsConstants.RULER_HEIGHT,
     majorTickWidth, majorTickLabels, geometricOpticsStrings.centimeters, options );

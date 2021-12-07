@@ -141,7 +141,7 @@ class GeometricOpticsScreenView extends ScreenView {
     } );
 
     // create toolbox at the top right corner of the screen
-    const toolbox = new RulersToolbox( horizontalRulerNode, verticalRulerNode, {
+    const toolbox = new RulersToolbox( [ verticalRulerNode, horizontalRulerNode ], {
       rightTop: erodedLayoutBounds.rightTop,
       tandem: config.tandem.createTandem( 'toolbox' )
     } );
