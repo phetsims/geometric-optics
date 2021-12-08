@@ -94,8 +94,8 @@ class GeometricOpticsRulerNode extends Node {
     } );
 
     // Drag bounds for the ruler, to keep some part of the ruler inside the visible bounds of the ScreenView.
-    // rulerDragBoundsProperty can be in view coordinates because ruler.positionProperty is in view coordinates.
-    const rulerDragBoundsProperty = new DerivedProperty<Bounds2>(
+    // dragBoundsProperty can be in view coordinates because ruler.positionProperty is in view coordinates.
+    const dragBoundsProperty = new DerivedProperty<Bounds2>(
       [ visibleBoundsProperty ],
       ( visibleBounds: Bounds2 ) => {
         if ( ruler.isVertical ) {
@@ -116,7 +116,7 @@ class GeometricOpticsRulerNode extends Node {
             -this.height );
         }
       } );
-    rulerDragBoundsProperty.link( dragBounds => {
+    dragBoundsProperty.link( dragBounds => {
       ruler.positionProperty.value = dragBounds.closestPointTo( ruler.positionProperty.value );
     } );
 
@@ -124,7 +124,7 @@ class GeometricOpticsRulerNode extends Node {
       cursor: 'pointer',
       useInputListenerCursor: true,
       positionProperty: ruler.positionProperty,
-      dragBoundsProperty: rulerDragBoundsProperty,
+      dragBoundsProperty: dragBoundsProperty,
       start: () => this.moveToFront(),
       end: ( event: SceneryEvent ) => {
 
