@@ -29,6 +29,7 @@ import geometricOptics from '../../geometricOptics.js';
 import ProjectionScreen from '../model/ProjectionScreen.js';
 import UnconstrainedCueingArrowsNode from '../../common/view/UnconstrainedCueingArrowsNode.js';
 import GeometricOpticsGlobalOptions from '../../common/GeometricOpticsGlobalOptions.js';
+import GeometricOpticsQueryParameters from '../../common/GeometricOpticsQueryParameters.js';
 
 class ProjectionScreenNode extends Node {
 
@@ -102,6 +103,11 @@ class ProjectionScreenNode extends Node {
 
     assert && assert( !options.children );
     options.children = [ pullStringNode, knobNode, topBarNode, bottomBarNode, cueingArrowsNode, screenNode ];
+
+    // Red dot at the origin
+    if ( GeometricOpticsQueryParameters.showPositions ) {
+      options.children.push( new Circle( 3, { fill: 'red' } ) );
+    }
 
     super( options );
 
