@@ -47,7 +47,7 @@ import required from '../../../../phet-core/js/required.js';
 
 // constants
 const ZOOM_RANGE = new RangeWithValue( 1, 3, 3 );
-const NOMINAL_VIEW_MODEL_CONVERSION = 2; // view coordinates per cm in initial zoom level
+const NOMINAL_MODEL_TO_VIEW_SCALE = 2; // view coordinates per cm in initial zoom level
 
 class GeometricOpticsScreenView extends ScreenView {
 
@@ -288,11 +288,11 @@ class GeometricOpticsScreenView extends ScreenView {
     zoomLevelProperty.lazyLink( ( zoomLevel: number, oldZoomLevel: number ) => {
 
       // Scale the experiment area.
-      const relativeScale = getRelativeScale( zoomLevel, oldZoomLevel );
-      experimentAreaNode.scale( relativeScale );
+      const relativeZoomScale = getRelativeZoomScale( zoomLevel, oldZoomLevel );
+      experimentAreaNode.scale( relativeZoomScale );
 
       // Translate experimentAreaNode such that the origin point remains fixed through zoom levels.
-      const translateVector = viewOrigin.times( 1 / relativeScale - 1 );
+      const translateVector = viewOrigin.times( 1 / relativeZoomScale - 1 );
       experimentAreaNode.translate( translateVector.x, translateVector.y );
     } );
 
@@ -424,7 +424,7 @@ class GeometricOpticsScreenView extends ScreenView {
 /**
  * Gets the relative scale between a zoom level and a previous zoom level.
  */
-function getRelativeScale( zoomLevel: number, previousZoomLevel: number ): number {
+function getRelativeZoomScale( zoomLevel: number, previousZoomLevel: number ): number {
   const base = 2;
   const scale = Math.pow( base, zoomLevel );
   const previousScale = Math.pow( base, previousZoomLevel );
@@ -436,7 +436,7 @@ function getRelativeScale( zoomLevel: number, previousZoomLevel: number ): numbe
  * The absolute scale returns 1 if the zoom level is the initial zoom level value.
  */
 function getAbsoluteZoomScale( zoomLevel: number ): number {
-  return getRelativeScale( zoomLevel, ZOOM_RANGE.defaultValue );
+  return getRelativeZoomScale( zoomLevel, ZOOM_RANGE.defaultValue );
 }
 
 /**
@@ -450,7 +450,7 @@ function createTransformForZoomLevel( zoomLevel: number, viewOrigin: Vector2 ): 
   const absoluteZoomScale = getAbsoluteZoomScale( zoomLevel );
 
   // number of view coordinates for 1 model coordinate
-  const modelToViewScale = NOMINAL_VIEW_MODEL_CONVERSION * absoluteZoomScale;
+  const modelToViewScale = NOMINAL_MODEL_TO_VIEW_SCALE * absoluteZoomScale;
 
   // create a Y inverted modelViewTransform with isometric scaling along X and Y
   return ModelViewTransform2.createOffsetXYScaleMapping( viewOrigin, modelToViewScale, -modelToViewScale );
