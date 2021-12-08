@@ -11,7 +11,7 @@ import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Circle, Node, Path } from '../../../../scenery/js/imports.js';
+import { Node, Path } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
@@ -20,6 +20,7 @@ import MirrorShapes from '../model/MirrorShapes.js';
 import OpticShapeEnum from '../../common/model/OpticShapeEnum.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import GeometricOpticsQueryParameters from '../../common/GeometricOpticsQueryParameters.js';
+import OriginNode from '../../common/view/OriginNode.js';
 
 class MirrorNode extends Node {
 
@@ -56,7 +57,7 @@ class MirrorNode extends Node {
 
     // Red dot at the origin
     if ( GeometricOpticsQueryParameters.showPositions ) {
-      options.children.push( new Circle( 3, { fill: 'red' } ) );
+      options.children.push( new OriginNode() );
     }
 
     super( options );

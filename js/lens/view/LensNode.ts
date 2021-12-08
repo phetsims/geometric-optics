@@ -14,7 +14,7 @@ import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Circle, Line, Node, Path } from '../../../../scenery/js/imports.js';
+import { Line, Node, Path } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
@@ -24,6 +24,7 @@ import OpticShapeEnum from '../../common/model/OpticShapeEnum.js';
 import LensShapes from '../model/LensShapes.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import GeometricOpticsQueryParameters from '../../common/GeometricOpticsQueryParameters.js';
+import OriginNode from '../../common/view/OriginNode.js';
 
 class LensNode extends Node {
 
@@ -65,7 +66,7 @@ class LensNode extends Node {
 
     // Red dot at the origin
     if ( GeometricOpticsQueryParameters.showPositions ) {
-      options.children.push( new Circle( 3, { fill: 'red' } ) );
+      options.children.push( new OriginNode() );
     }
 
     super( options );

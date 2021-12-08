@@ -31,6 +31,7 @@ import UnconstrainedCueingArrowsNode from '../../common/view/UnconstrainedCueing
 import GeometricOpticsGlobalOptions from '../../common/GeometricOpticsGlobalOptions.js';
 import GeometricOpticsQueryParameters from '../../common/GeometricOpticsQueryParameters.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import OriginNode from '../../common/view/OriginNode.js';
 
 class ProjectionScreenNode extends Node {
 
@@ -107,7 +108,7 @@ class ProjectionScreenNode extends Node {
 
     // Red dot at the origin
     if ( GeometricOpticsQueryParameters.showPositions ) {
-      options.children.push( new Circle( 3, { fill: 'red' } ) );
+      options.children.push( new OriginNode() );
     }
 
     super( options );
