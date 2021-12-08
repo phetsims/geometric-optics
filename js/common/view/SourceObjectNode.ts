@@ -22,6 +22,7 @@ import UnconstrainedCueingArrowsNode from './UnconstrainedCueingArrowsNode.js';
 import GeometricOpticsGlobalOptions from '../GeometricOpticsGlobalOptions.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 // Closest that source object can be moved to the optic, in cm. This avoid problems that occur when the object is
 // too close to a mirror. See https://github.com/phetsims/geometric-optics/issues/73
@@ -30,7 +31,7 @@ const MIN_X_DISTANCE_TO_OPTIC = 40;
 class SourceObjectNode extends Node {
 
   // so that 1st and 2nd light source can share drag bounds
-  public readonly dragBoundsProperty: Property<Bounds2>;
+  public readonly dragBoundsProperty: IReadOnlyProperty<Bounds2>;
   private readonly resetSourceObjectNode: () => void;
 
   /**
@@ -93,7 +94,7 @@ class SourceObjectNode extends Node {
     //TODO This is problematic. There's no dependency on representationProperty here. The actual dependency is on
     // sourceObject.boundsProperty, and we're relying on that changing before this value is derived. But changing
     // the dependency to sourceObject.boundsProperty results in a reentry assertion failure.
-    this.dragBoundsProperty = new DerivedProperty<Bounds2>(
+    this.dragBoundsProperty = new DerivedProperty(
       [ modelBoundsProperty, representationProperty ],
       ( modelBounds: Bounds2, representation: Representation ) =>
         new Bounds2(

@@ -20,6 +20,7 @@ import Lens from '../../lens/model/Lens.js';
 import Optic from './Optic.js';
 import Representation from './Representation.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 class Target {
 
@@ -28,38 +29,38 @@ class Target {
 
   // horizontal "distance" between target (image) and optic
   // the position of the focus as predicted by lens and mirror equation
-  public readonly positionProperty: DerivedProperty<Vector2>;
+  public readonly positionProperty: IReadOnlyProperty<Vector2>;
 
   // For a mirror, the image is virtual if the image is on the opposite of the object
-  readonly isVirtualProperty: DerivedProperty<boolean>;
+  readonly isVirtualProperty: IReadOnlyProperty<boolean>;
 
   // Bounds of the actual Image, based on the Representation
-  readonly boundsProperty: DerivedProperty<Bounds2>;
+  readonly boundsProperty: IReadOnlyProperty<Bounds2>;
 
   // light intensity of the image (Hollywood) - a value between 0 and 1
-  readonly lightIntensityProperty: DerivedProperty<number>;
+  readonly lightIntensityProperty: IReadOnlyProperty<number>;
 
   //TODO what does that mean?
-  readonly imageProperty: DerivedProperty<HTMLImageElement | null>;
+  readonly imageProperty: IReadOnlyProperty<HTMLImageElement | null>;
 
   // The distance can be negative. We follow the standard sign convention used in geometric optics courses.
-  private readonly targetOpticDistanceProperty: DerivedProperty<number>;
+  private readonly targetOpticDistanceProperty: IReadOnlyProperty<number>;
 
   // the magnification can be negative, indicating the target/image is inverted.
-  private readonly magnificationProperty: DerivedProperty<number>;
+  private readonly magnificationProperty: IReadOnlyProperty<number>;
 
   // the image with appropriate orientation to select for the display
   //TODO document
-  private readonly isInvertedProperty: DerivedProperty<boolean>;
+  private readonly isInvertedProperty: IReadOnlyProperty<boolean>;
 
   /**
    * @param objectPositionProperty - position of the source object or light source
    * @param optic - model of the optic
    * @param representationProperty
    */
-  constructor( objectPositionProperty: Property<Vector2>, optic: Optic, representationProperty: Property<Representation> ) {
+  constructor( objectPositionProperty: IReadOnlyProperty<Vector2>, optic: Optic, representationProperty: Property<Representation> ) {
 
-    this.targetOpticDistanceProperty = new DerivedProperty<number>(
+    this.targetOpticDistanceProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       ( objectPosition: Vector2, opticPosition: Vector2, focalLength: number ) => {
 
@@ -84,7 +85,7 @@ class Target {
 
     this.visibleProperty = new BooleanProperty( false );
 
-    this.positionProperty = new DerivedProperty<Vector2>(
+    this.positionProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       //TODO focalLength is not used, is focalLengthProperty dependency needed?
       //TODO Calls this.getMagnification, should there be a dependency here on magnificationProperty instead?
@@ -103,24 +104,26 @@ class Target {
         return opticPosition.plusXY( horizontalDisplacement, height );
       } );
 
-    this.magnificationProperty = new DerivedProperty<number>(
+    this.magnificationProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       //TODO focalLength is not used, is focalLengthProperty dependency needed?
       ( objectPosition: Vector2, opticPosition: Vector2, focalLength: number ) =>
         this.getMagnification( objectPosition, opticPosition )
     );
 
-    this.isInvertedProperty = new DerivedProperty<boolean>(
+    // REVIEW: DerivedProperty that depends on an unlisted Property?
+    this.isInvertedProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
-      () => ( this.targetOpticDistanceProperty.value > 0 )
+      ( ...args: any[] ) => ( this.targetOpticDistanceProperty.value > 0 )
     );
 
-    this.isVirtualProperty = new DerivedProperty<boolean>(
+    // REVIEW: DerivedProperty that depends on an unlisted Property?
+    this.isVirtualProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
-      () => ( this.targetOpticDistanceProperty.value < 0 )
+      ( ...args: any[] ) => ( this.targetOpticDistanceProperty.value < 0 )
     );
 
-    this.boundsProperty = new DerivedProperty<Bounds2>(
+    this.boundsProperty = new DerivedProperty(
       [ this.positionProperty, representationProperty, this.magnificationProperty, this.isInvertedProperty ],
       //TODO isInverted is not used, is dependency needed?
       ( position: Vector2, representation: Representation, magnification: number, isInverted: boolean ) => {
@@ -144,7 +147,7 @@ class Target {
         return bounds.shifted( position );
       } );
 
-    this.lightIntensityProperty = new DerivedProperty<number>(
+    this.lightIntensityProperty = new DerivedProperty(
       [ this.magnificationProperty, optic.diameterProperty ],
       ( magnification: number, diameter: number ) => {
 
@@ -163,7 +166,7 @@ class Target {
         isValidValue: ( value: number ) => GeometricOpticsConstants.INTENSITY_RANGE.contains( value )
       } );
 
-    this.imageProperty = new DerivedProperty<HTMLImageElement | null>(
+    this.imageProperty = new DerivedProperty(
       [ representationProperty, this.isVirtualProperty ],
       ( representation: Representation, isVirtual: boolean ) => {
         const isLens = ( optic instanceof Lens );

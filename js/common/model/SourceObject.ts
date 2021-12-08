@@ -15,6 +15,7 @@ import geometricOptics from '../../geometricOptics.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Property from '../../../../axon/js/Property.js';
 import Representation from './Representation.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 // initial position of the source object, in cm
 const INITIAL_POSITION = new Vector2( -170, 30 );
@@ -25,10 +26,10 @@ class SourceObject {
   public readonly leftTopProperty: Vector2Property;
 
   // position of the source object or light source
-  public readonly positionProperty: DerivedProperty<Vector2>;
+  public readonly positionProperty: IReadOnlyProperty<Vector2>;
 
   // model bounds of the source object or first light source
-  public readonly boundsProperty: DerivedProperty<Bounds2>;
+  public readonly boundsProperty: IReadOnlyProperty<Bounds2>;
 
   /**
    * @param representationProperty
@@ -46,12 +47,12 @@ class SourceObject {
     this.leftTopProperty = new Vector2Property( INITIAL_POSITION.plus( offset ) );
 
     //TODO should this be derived from representationProperty instead?
-    this.positionProperty = new DerivedProperty<Vector2>(
+    this.positionProperty = new DerivedProperty(
       [ this.leftTopProperty ],
       ( leftTop: Vector2 ) => leftTop.minus( offset )
     );
 
-    this.boundsProperty = new DerivedProperty<Bounds2>(
+    this.boundsProperty = new DerivedProperty(
       [ this.leftTopProperty, representationProperty ],
       ( leftTop: Vector2, representation: Representation ) => {
         const size = new Dimension2( representation.rightFacingUpright.width / representation.scaleFactor,

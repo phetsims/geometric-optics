@@ -24,6 +24,7 @@ import LensModel from '../../lens/model/LensModel.js';
 import MirrorModel from '../../mirror/model/MirrorModel.js';
 import Lens from '../../lens/model/Lens.js';
 import Mirror from '../../mirror/model/Mirror.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 class LabelsNode extends Node {
 
@@ -44,7 +45,7 @@ class LabelsNode extends Node {
 
     // Object label ------------------------------------------------------------------------------------
 
-    const objectLabelPositionProperty = new DerivedProperty<Vector2>(
+    const objectLabelPositionProperty: IReadOnlyProperty<Vector2> = new DerivedProperty(
       [ model.sourceObject.boundsProperty ],
       // Because the we use a Y-inverted reference frame, the bottom of the image is the top of the model bounds.
       ( bounds: Bounds2 ) => bounds.centerTop
@@ -52,13 +53,13 @@ class LabelsNode extends Node {
 
     const objectLabel = new LabelNode( geometricOpticsStrings.object, objectLabelPositionProperty,
       modelViewTransformProperty, {
-        visibleProperty: new DerivedProperty<boolean>( [ model.representationProperty ],
+        visibleProperty: new DerivedProperty( [ model.representationProperty ],
           ( representation: Representation ) => representation.isObject )
       } );
 
     // Optic label ------------------------------------------------------------------------------------
 
-    const opticLabelPositionProperty = new DerivedProperty<Vector2>(
+    const opticLabelPositionProperty = new DerivedProperty(
       [ model.optic.positionProperty, model.optic.diameterProperty ],
       ( position: Vector2, diameter: number ) => position.minusXY( 0, diameter / 2 )
     );
@@ -111,12 +112,12 @@ class LabelsNode extends Node {
 
     // Image label ------------------------------------------------------------------------------------
 
-    const imageLabelPositionProperty = new DerivedProperty<Vector2>(
+    const imageLabelPositionProperty = new DerivedProperty(
       [ model.firstTarget.boundsProperty ],
       ( bounds: Bounds2 ) => bounds.centerTop
     );
 
-    const imageLabelVisibleProperty = new DerivedProperty<boolean>( [
+    const imageLabelVisibleProperty = new DerivedProperty( [
         model.firstTarget.visibleProperty,
         model.representationProperty,
         model.firstTarget.isVirtualProperty,
@@ -141,13 +142,13 @@ class LabelsNode extends Node {
     let screenLabel;
     if ( model instanceof LensModel ) {
 
-      const screenLabelPositionProperty = new DerivedProperty<Vector2>(
+      const screenLabelPositionProperty = new DerivedProperty(
         [ model.projectionScreen.positionProperty ],
         ( position: Vector2 ) => new Vector2( position.x - 25, position.y - 65 ) // empirically, model coordinates
       );
 
       screenLabel = new LabelNode( geometricOpticsStrings.projectionScreen, screenLabelPositionProperty, modelViewTransformProperty, {
-        visibleProperty: new DerivedProperty<boolean>(
+        visibleProperty: new DerivedProperty(
           [ model.representationProperty ],
           ( representation: Representation ) => !representation.isObject
         )
@@ -156,7 +157,7 @@ class LabelsNode extends Node {
 
     // Optical Axis label ------------------------------------------------------------------------------------
 
-    const opticalAxisLabelPositionProperty = new DerivedProperty<Vector2>(
+    const opticalAxisLabelPositionProperty = new DerivedProperty(
       [ model.optic.positionProperty ],
       ( position: Vector2 ) => new Vector2( position.x - 230, position.y ) // empirically, model coordinates
     );

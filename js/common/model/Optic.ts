@@ -24,6 +24,7 @@ import StringIO from '../../../../tandem/js/types/StringIO.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import required from '../../../../phet-core/js/required.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 abstract class Optic {
 
@@ -49,16 +50,16 @@ abstract class Optic {
   readonly sign: 1 | -1;
 
   // focal length of the optic, positive=converging, negative=diverging
-  readonly focalLengthProperty: DerivedProperty<number>;
+  readonly focalLengthProperty: IReadOnlyProperty<number>;
 
   // focal point to the left of the optic
-  readonly leftFocalPointProperty: DerivedProperty<Vector2>;
+  readonly leftFocalPointProperty: IReadOnlyProperty<Vector2>;
 
   // focal point to the right of the optic
-  readonly rightFocalPointProperty: DerivedProperty<Vector2>;
+  readonly rightFocalPointProperty: IReadOnlyProperty<Vector2>;
 
   // Shapes that describe the optic
-  readonly shapesProperty: DerivedProperty<OpticShapes>;
+  readonly shapesProperty: IReadOnlyProperty<OpticShapes>;
 
   // Determines whether the optical axis is visible.
   // PhET-iO only, cannot be controlled from the sim UI, and is not subject to reset.
@@ -150,7 +151,7 @@ abstract class Optic {
 
     this.maxDiameter = config.diameterRange.max;
 
-    this.focalLengthProperty = new DerivedProperty<number>(
+    this.focalLengthProperty = new DerivedProperty(
       [ this.opticShapeProperty, this.radiusOfCurvatureProperty, this.indexOfRefractionProperty ],
       ( opticShape: OpticShapeEnum, radiusOfCurvature: number, indexOfRefraction: number ) => {
 
@@ -165,7 +166,7 @@ abstract class Optic {
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
       } );
 
-    this.leftFocalPointProperty = new DerivedProperty<Vector2>(
+    this.leftFocalPointProperty = new DerivedProperty(
       [ this.positionProperty, this.focalLengthProperty ],
       ( position: Vector2, focalLength: number ) => position.plusXY( -Math.abs( focalLength ), 0 ), {
         units: 'cm',
@@ -173,7 +174,7 @@ abstract class Optic {
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
       } );
 
-    this.rightFocalPointProperty = new DerivedProperty<Vector2>(
+    this.rightFocalPointProperty = new DerivedProperty(
       [ this.positionProperty, this.focalLengthProperty ],
       ( position: Vector2, focalLength: number ) => position.plusXY( Math.abs( focalLength ), 0 ), {
         units: 'cm',
@@ -181,7 +182,7 @@ abstract class Optic {
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
       } );
 
-    this.shapesProperty = new DerivedProperty<OpticShapes>(
+    this.shapesProperty = new DerivedProperty(
       [ this.opticShapeProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
       ( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number ) =>
         config.createOpticShapes( opticShape, radiusOfCurvature, diameter )

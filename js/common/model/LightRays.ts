@@ -20,6 +20,8 @@ import RaysModeEnum from './RaysModeEnum.js';
 import Target from './Target.js';
 import Representation from './Representation.js';
 import Barrier from './Barrier.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import { MappedProperties } from '../../../../axon/js/DerivedProperty.js';
 
 class LightRays {
 
@@ -42,15 +44,16 @@ class LightRays {
    * @param barrier - optional barrier that blocks rays
    */
   constructor( timeProperty: Property<number>, raysModeProperty: Property<RaysModeEnum>,
-               representationProperty: Property<Representation>, sourceObjectPositionProperty: Property<Vector2>,
+               representationProperty: Property<Representation>, sourceObjectPositionProperty: IReadOnlyProperty<Vector2>,
                optic: Optic, target: Target, barrier: Barrier | null ) {
 
     this.realSegments = [];
     this.virtualSegments = [];
     this.raysProcessedEmitter = new Emitter();
 
+    type Types = [ Vector2, RaysModeEnum, number, Representation, ...any[] ];
     // update the shape of rays and the emitter state
-    const dependencies = [
+    const dependencies: MappedProperties<Types> = [
       // order of these is important
       sourceObjectPositionProperty, raysModeProperty, timeProperty, representationProperty,
       // order of these is not important
@@ -59,7 +62,7 @@ class LightRays {
     if ( barrier ) {
       dependencies.push( barrier.positionProperty );
     }
-    Property.multilink( dependencies,
+    Property.multilink<Types>( dependencies,
       ( sourcePosition: Vector2, raysMode: RaysModeEnum, time: number, representation: Representation ) => {
 
         // Clear the arrays.

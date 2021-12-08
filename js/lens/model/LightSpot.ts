@@ -9,7 +9,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Graph from '../../../../kite/js/ops/Graph.js';
 import Shape from '../../../../kite/js/Shape.js';
@@ -21,6 +20,7 @@ import geometricOptics from '../../geometricOptics.js';
 import ProjectionScreen from './ProjectionScreen.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 // constants
 const FULL_INTENSITY_DIAMETER = 7; // cm, any light spot less than this diameter will be full intensity
@@ -31,19 +31,19 @@ class LightSpot {
 
   // Shape of the light spot, based on its intersection with the projection screen.
   // If the spot does not intersect the screen, the value will be a Shape with zero area.
-  readonly shapeProperty: DerivedProperty<Shape>;
+  readonly shapeProperty: IReadOnlyProperty<Shape>;
 
   // Intensity of the light spot, in the range [0,1],
   // null if there is no light spot hitting the projection screen
-  readonly intensityProperty: DerivedProperty<number | null>;
+  readonly intensityProperty: IReadOnlyProperty<number | null>;
 
   // Position of the center of the light spot, which may not be on the screen,
   // null if there is no light spot hitting the projection screen
-  readonly positionProperty: DerivedProperty<Vector2 | null>;
+  readonly positionProperty: IReadOnlyProperty<Vector2 | null>;
 
   // Diameter of the light spot in the y dimension,
   // null if there is no light spot hitting the projection screen
-  readonly diameterProperty: DerivedProperty<number | null>;
+  readonly diameterProperty: IReadOnlyProperty<number | null>;
 
   /**
    * @param optic
@@ -52,8 +52,8 @@ class LightSpot {
    * @param targetPositionProperty
    * @param options
    */
-  constructor( optic: Optic, projectionScreen: ProjectionScreen, sourcePositionProperty: Property<Vector2>,
-               targetPositionProperty: Property<Vector2>, options?: any ) {
+  constructor( optic: Optic, projectionScreen: ProjectionScreen, sourcePositionProperty: IReadOnlyProperty<Vector2>,
+               targetPositionProperty: IReadOnlyProperty<Vector2>, options?: any ) {
 
     options = merge( {
 
@@ -61,19 +61,19 @@ class LightSpot {
       tandem: Tandem.REQUIRED
     }, options );
 
-    this.shapeProperty = new DerivedProperty<Shape>(
+    this.shapeProperty = new DerivedProperty(
       [ optic.positionProperty, optic.diameterProperty, projectionScreen.positionProperty, sourcePositionProperty, targetPositionProperty ],
       ( opticPosition: Vector2, opticDiameter: number, projectionScreenPosition: Vector2, sourcePosition: Vector2, targetPosition: Vector2 ) =>
         getLightSpotShape( optic, projectionScreenPosition, sourcePosition, targetPosition, projectionScreen.getScreenShapeTranslated() )
     );
 
-    const positionAndDiameterProperty = new DerivedProperty<PositionAndDiameter | null>( [ this.shapeProperty ],
+    const positionAndDiameterProperty = new DerivedProperty( [ this.shapeProperty ],
       ( shape: Shape ) =>
         ( shape.getArea() === 0 ) ? null :
         getPositionAndDiameter( optic, projectionScreen.positionProperty.value, sourcePositionProperty.value, targetPositionProperty.value )
     );
 
-    this.positionProperty = new DerivedProperty<Vector2 | null>( [ positionAndDiameterProperty ],
+    this.positionProperty = new DerivedProperty( [ positionAndDiameterProperty ],
       ( positionAndDiameter: PositionAndDiameter | null ) =>
         ( positionAndDiameter === null ) ? null : positionAndDiameter.position, {
         units: 'cm',
@@ -83,7 +83,7 @@ class LightSpot {
                              'null if the light is not hitting the screen'
       } );
 
-    this.diameterProperty = new DerivedProperty<number | null>( [ positionAndDiameterProperty ],
+    this.diameterProperty = new DerivedProperty( [ positionAndDiameterProperty ],
       ( positionAndDiameter: PositionAndDiameter | null ) =>
         ( positionAndDiameter === null ) ? null : positionAndDiameter.diameter, {
         units: 'cm',
@@ -96,7 +96,7 @@ class LightSpot {
     // Physically, the spot is dimmer when the light is spread on a larger surface.
     // To preserve dynamic range, the intensity is instead inversely proportional to the diameter.
     // The value saturates to max intensity for a spot height smaller than FULL_BRIGHT_SPOT_HEIGHT
-    this.intensityProperty = new DerivedProperty<number | null>( [ this.diameterProperty ],
+    this.intensityProperty = new DerivedProperty( [ this.diameterProperty ],
       ( diameter: number | null ) => ( diameter === null || diameter === 0 ) ? null :
                                      GeometricOpticsConstants.INTENSITY_RANGE.constrainValue( FULL_INTENSITY_DIAMETER / diameter ), {
         isValidValue: ( value: number | null ) => ( value === null ) || GeometricOpticsConstants.INTENSITY_RANGE.contains( value ),

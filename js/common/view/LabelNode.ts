@@ -8,6 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -30,7 +31,7 @@ class LabelNode extends Node {
    * @param modelViewTransformProperty
    * @param options
    */
-  constructor( text: string, positionProperty: Property<Vector2>,
+  constructor( text: string, positionProperty: IReadOnlyProperty<Vector2>,
                modelViewTransformProperty: Property<ModelViewTransform2>, options?: any ) {
 
     options = merge( {

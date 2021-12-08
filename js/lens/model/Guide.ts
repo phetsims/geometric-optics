@@ -8,7 +8,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Property from '../../../../axon/js/Property.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Optic from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -18,38 +18,38 @@ type GuideLocation = 'top' | 'bottom';
 class Guide {
 
   // position of the fulcrum point, in cm
-  readonly fulcrumPositionProperty: DerivedProperty<Vector2>;
+  readonly fulcrumPositionProperty: IReadOnlyProperty<Vector2>;
 
   // angle of rotation of the incident guide with respect to the positive x-axis, in radians
-  readonly incidentAngleProperty: DerivedProperty<number>;
+  readonly incidentAngleProperty: IReadOnlyProperty<number>;
 
   // the angle of the transmitted guide with respect to the positive x-axis, in radians
-  readonly transmittedAngleProperty: DerivedProperty<number>;
+  readonly transmittedAngleProperty: IReadOnlyProperty<number>;
 
   /**
    * @param optic
    * @param objectPositionProperty
    * @param location
    */
-  constructor( optic: Optic, objectPositionProperty: Property<Vector2>, location: GuideLocation ) {
+  constructor( optic: Optic, objectPositionProperty: IReadOnlyProperty<Vector2>, location: GuideLocation ) {
 
     // sign is positive for top guide and negative below
     const locationSign = ( location === 'top' ) ? +1 : -1;
 
-    this.fulcrumPositionProperty = new DerivedProperty<Vector2>(
+    this.fulcrumPositionProperty = new DerivedProperty(
       [ optic.positionProperty, optic.diameterProperty ],
       ( opticPosition: Vector2, opticDiameter: number ) =>
         opticPosition.plusXY( 0, locationSign * opticDiameter / 2 )
     );
 
-    this.incidentAngleProperty = new DerivedProperty<number>(
+    this.incidentAngleProperty = new DerivedProperty(
       [ objectPositionProperty, this.fulcrumPositionProperty ],
       ( objectPosition: Vector2, fulcrumPosition: Vector2 ) => {
         const displacementVector = objectPosition.minus( fulcrumPosition );
         return displacementVector.getAngle();
       } );
 
-    this.transmittedAngleProperty = new DerivedProperty<number>(
+    this.transmittedAngleProperty = new DerivedProperty(
       [ optic.focalLengthProperty, optic.diameterProperty, this.incidentAngleProperty ],
       ( focalLength: number, diameter: number, incidentAngle: number ) => {
 

@@ -8,6 +8,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
@@ -25,19 +26,19 @@ const VERTICAL_OFFSET_RANGE = new RangeWithValue( -55, 0, -52 );
 class SecondPoint {
 
   // position of the second point or second light source
-  readonly positionProperty: DerivedProperty<Vector2>;
+  readonly positionProperty: IReadOnlyProperty<Vector2>;
   // position of the second light source
   readonly lightSourcePositionProperty: Vector2Property;
   // vertical offset of second point with respect to the first object, in cm
   private readonly verticalOffsetProperty: NumberProperty
-  private readonly sourceObjectPositionProperty: Property<Vector2>;
+  private readonly sourceObjectPositionProperty: IReadOnlyProperty<Vector2>;
 
   /**
    * @param representationProperty
    * @param sourceObjectPositionProperty
    * @param options
    */
-  constructor( representationProperty: Property<Representation>, sourceObjectPositionProperty: Property<Vector2>, options?: any ) {
+  constructor( representationProperty: Property<Representation>, sourceObjectPositionProperty: IReadOnlyProperty<Vector2>, options?: any ) {
 
     this.lightSourcePositionProperty = new Vector2Property( INITIAL_LIGHT_SOURCE_POSITION );
 
@@ -45,7 +46,7 @@ class SecondPoint {
       range: VERTICAL_OFFSET_RANGE
     } );
 
-    this.positionProperty = new DerivedProperty<Vector2>(
+    this.positionProperty = new DerivedProperty(
       [ sourceObjectPositionProperty, this.verticalOffsetProperty, this.lightSourcePositionProperty, representationProperty ],
       ( sourceObjectPosition: Vector2, verticalOffset: number, lightSourcePosition: Vector2, representation: Representation ) =>
         representation.isObject ? sourceObjectPosition.plusXY( 0, verticalOffset ) : lightSourcePosition

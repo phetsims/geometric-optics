@@ -9,7 +9,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -23,7 +23,7 @@ class DebugPointNode extends Circle {
    * @param modelViewTransform
    * @param options
    * */
-  constructor( positionProperty: Property<Vector2>, modelViewTransform: ModelViewTransform2, options?: any ) {
+  constructor( positionProperty: IReadOnlyProperty<Vector2>, modelViewTransform: ModelViewTransform2, options?: any ) {
 
     options = merge( {
       fill: 'white',

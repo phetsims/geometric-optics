@@ -43,7 +43,7 @@ class LightRaysNode extends Node {
     const virtualRaysPath = new Node( {
 
       // Show virtual rays only for objects, not for light source. See https://github.com/phetsims/geometric-optics/issues/216
-      visibleProperty: new DerivedProperty<boolean>(
+      visibleProperty: new DerivedProperty(
         [ virtualImageVisibleProperty, representationProperty ],
         ( virtualImageVisible: boolean, representation: Representation ) =>
           virtualImageVisible && representation.isObject

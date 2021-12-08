@@ -28,6 +28,7 @@ import lamp2_png from '../../../images/lamp2_png.js';
 import Representation from '../model/Representation.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsGlobalOptions from '../GeometricOpticsGlobalOptions.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 // constants
 const POINT_RADIUS = 5;
@@ -60,7 +61,7 @@ class SecondPointNode extends Node {
    * @param options
    */
   constructor( representationProperty: Property<Representation>, secondPoint: SecondPoint,
-               sourceObjectDragBoundsProperty: Property<Bounds2>,
+               sourceObjectDragBoundsProperty: IReadOnlyProperty<Bounds2>,
                modelViewTransform: ModelViewTransform2, options?: any ) {
 
     options = merge( {
@@ -90,7 +91,7 @@ class SecondPointNode extends Node {
     } );
 
     // {DerivedProperty.<Bounds2|null> null when we are dealing with an Object, non-null for a Light Source
-    const dragBoundsProperty = new DerivedProperty<Bounds2 | null>(
+    const dragBoundsProperty = new DerivedProperty(
       [ sourceObjectDragBoundsProperty, representationProperty ],
       ( sourceObjectDragBounds: Bounds2, representation: Representation ) =>
         //TODO this is awful that we're having to undo the offset that is needed elsewhere
