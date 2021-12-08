@@ -1,5 +1,6 @@
 // Copyright 2021, University of Colorado Boulder
 
+//TODO make this go away
 /**
  * DebugPointNode is used for debugging the position of things in the UI. It displays a circle at a specified
  * point, and stays synchronized with that point.
