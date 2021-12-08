@@ -80,7 +80,7 @@ class GeometricOpticsModel {
 
     this.optic = optic;
 
-    this.representationProperty = new Property<Representation>( options.representation, {
+    this.representationProperty = new Property( options.representation, {
       validValues: options.representations
     } );
 
@@ -97,7 +97,7 @@ class GeometricOpticsModel {
       range: new Range( 0, RAYS_ANIMATION_TIME )
     } );
 
-    this.raysModeProperty = new Property<RaysModeEnum>( 'marginal', {
+    this.raysModeProperty = new Property( 'marginal', {
       validValues: RaysModeValues,
       tandem: options.tandem.createTandem( 'raysModeProperty' ),
       phetioType: Property.PropertyIO( StringIO )

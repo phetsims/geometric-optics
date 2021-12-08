@@ -106,7 +106,7 @@ abstract class Optic {
 
     this.sign = config.sign;
 
-    this.opticShapeProperty = new Property<OpticShapeEnum>( config.opticShape, {
+    this.opticShapeProperty = new Property( config.opticShape, {
       validValues: config.opticShapes,
       tandem: config.tandem.createTandem( 'opticShapeProperty' ),
       phetioType: Property.PropertyIO( StringIO ),

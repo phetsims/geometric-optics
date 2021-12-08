@@ -24,7 +24,6 @@ import LensModel from '../../lens/model/LensModel.js';
 import MirrorModel from '../../mirror/model/MirrorModel.js';
 import Lens from '../../lens/model/Lens.js';
 import Mirror from '../../mirror/model/Mirror.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 class LabelsNode extends Node {
 
@@ -45,7 +44,7 @@ class LabelsNode extends Node {
 
     // Object label ------------------------------------------------------------------------------------
 
-    const objectLabelPositionProperty: IReadOnlyProperty<Vector2> = new DerivedProperty(
+    const objectLabelPositionProperty = new DerivedProperty(
       [ model.sourceObject.boundsProperty ],
       // Because the we use a Y-inverted reference frame, the bottom of the image is the top of the model bounds.
       ( bounds: Bounds2 ) => bounds.centerTop
