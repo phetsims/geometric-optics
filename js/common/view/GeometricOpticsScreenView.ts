@@ -321,7 +321,6 @@ class GeometricOpticsScreenView extends ScreenView {
     // Add points at the position of things that move around.
     if ( GeometricOpticsQueryParameters.showPositions ) {
       const config = { fill: 'red' };
-      experimentAreaNode.addChild( new DebugPointNode( model.optic.positionProperty, modelViewTransform, config ) );
       experimentAreaNode.addChild( new DebugPointNode( model.sourceObject.positionProperty, modelViewTransform, config ) );
       experimentAreaNode.addChild( new DebugPointNode( model.secondPoint.lightSourcePositionProperty, modelViewTransform, config ) );
       experimentAreaNode.addChild( new DebugPointNode( model.firstTarget.positionProperty, modelViewTransform, config ) );

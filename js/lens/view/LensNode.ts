@@ -14,7 +14,7 @@ import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Line, Node, Path } from '../../../../scenery/js/imports.js';
+import { Circle, Line, Node, Path } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
@@ -23,6 +23,7 @@ import Lens from '../model/Lens.js';
 import OpticShapeEnum from '../../common/model/OpticShapeEnum.js';
 import LensShapes from '../model/LensShapes.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
+import GeometricOpticsQueryParameters from '../../common/GeometricOpticsQueryParameters.js';
 
 class LensNode extends Node {
 
@@ -61,6 +62,11 @@ class LensNode extends Node {
 
     assert && assert( !options.children );
     options.children = [ fillNode, verticalCenterLine, strokeNode ];
+
+    // Red dot at the origin
+    if ( GeometricOpticsQueryParameters.showPositions ) {
+      options.children.push( new Circle( 3, { fill: 'red' } ) );
+    }
 
     super( options );
 
