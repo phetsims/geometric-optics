@@ -30,6 +30,7 @@ import ProjectionScreen from '../model/ProjectionScreen.js';
 import UnconstrainedCueingArrowsNode from '../../common/view/UnconstrainedCueingArrowsNode.js';
 import GeometricOpticsGlobalOptions from '../../common/GeometricOpticsGlobalOptions.js';
 import GeometricOpticsQueryParameters from '../../common/GeometricOpticsQueryParameters.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 class ProjectionScreenNode extends Node {
 
@@ -43,7 +44,7 @@ class ProjectionScreenNode extends Node {
    * @param options
    */
   constructor( projectionScreen: ProjectionScreen, opticPositionProperty: Property<Vector2>,
-               modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, options?: any ) {
+               modelBoundsProperty: IReadOnlyProperty<Bounds2>, modelViewTransform: ModelViewTransform2, options?: any ) {
 
     options = merge( {
 
@@ -119,7 +120,7 @@ class ProjectionScreenNode extends Node {
     const modelScreenHeight = Math.abs( modelViewTransform.viewToModelDeltaY( screenNode.height ) );
 
     // {DerivedProperty.<Bounds2>} Keep the projection screen fully within model bounds, and right of the optic.
-    const dragBoundsProperty = new DerivedProperty<Bounds2>(
+    const dragBoundsProperty = new DerivedProperty(
       [ modelBoundsProperty, opticPositionProperty ],
       ( modelBounds: Bounds2, opticPosition: Vector2 ) =>
         new Bounds2(

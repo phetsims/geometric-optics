@@ -44,6 +44,7 @@ import RaysModeEnum from '../model/RaysModeEnum.js';
 import Lens from '../../lens/model/Lens.js';
 import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
 import required from '../../../../phet-core/js/required.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 // constants
 const ZOOM_RANGE = new RangeWithValue( 1, 3, 3 );
@@ -54,7 +55,7 @@ class GeometricOpticsScreenView extends ScreenView {
   protected readonly screenViewRootNode: Node;
   protected readonly modelViewTransform: ModelViewTransform2;
   protected readonly visibleProperties: VisibleProperties;
-  protected readonly modelBoundsProperty: DerivedProperty<Bounds2>;
+  protected readonly modelBoundsProperty: IReadOnlyProperty<Bounds2>;
   protected readonly experimentAreaNode: Node;
   protected readonly zoomButtonGroup: Node;
 
@@ -111,13 +112,13 @@ class GeometricOpticsScreenView extends ScreenView {
     } );
 
     // ModelViewTransform2 for the current zoom level
-    const zoomTransformProperty = new DerivedProperty<ModelViewTransform2>(
+    const zoomTransformProperty = new DerivedProperty(
       [ zoomLevelProperty ],
       ( zoomLevel: number ) => createTransformForZoomLevel( zoomLevel, viewOrigin )
     );
 
     // scale for with the current zoom level
-    const zoomScaleProperty = new DerivedProperty<number>(
+    const zoomScaleProperty = new DerivedProperty(
       [ zoomLevelProperty ],
       ( zoomLevel: number ) => getAbsoluteZoomScale( zoomLevel )
     );
@@ -210,7 +211,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // {DerivedProperty.<Bounds2>} bounds of the model, an area that does not overlap any controls, in model coordinates
     // See https://github.com/phetsims/geometric-optics/issues/204
-    const modelBoundsProperty = new DerivedProperty<Bounds2>(
+    const modelBoundsProperty = new DerivedProperty(
       [ this.visibleBoundsProperty, zoomTransformProperty ],
       ( visibleBounds: Bounds2, zoomTransform: ModelViewTransform2 ) => {
         const viewBounds = new Bounds2( visibleBounds.left, opticShapeRadioButtonGroup.bottom,
@@ -328,9 +329,9 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // Add the 2F points on each side of optic
     if ( GeometricOpticsQueryParameters.show2F ) {
-      const left2fProperty = new DerivedProperty<Vector2>( [ model.optic.leftFocalPointProperty ],
+      const left2fProperty = new DerivedProperty( [ model.optic.leftFocalPointProperty ],
         ( position: Vector2 ) => position.timesScalar( 2 ) );
-      const right2fProperty = new DerivedProperty<Vector2>( [ model.optic.rightFocalPointProperty ],
+      const right2fProperty = new DerivedProperty( [ model.optic.rightFocalPointProperty ],
         ( position: Vector2 ) => position.timesScalar( 2 ) );
       const options = { fill: GeometricOpticsColors.focalPointFillProperty };
       experimentAreaNode.addChild( new DebugPointNode( left2fProperty, modelViewTransform, options ) );
