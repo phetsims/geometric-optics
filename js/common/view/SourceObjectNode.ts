@@ -89,7 +89,8 @@ class SourceObjectNode extends Node {
       this.translation = modelViewTransform.modelToViewPosition( leftTop );
     };
 
-    // {DerivedProperty.<Bounds2} keep at least half of the projection screen within visible bounds and right of the optic.
+    // Drag bounds, in model coordinates.
+    // Keep at least half of the projection screen within visible bounds and right of the optic.
     // opticPositionProperty is not a dependency because it only moves in the y dimension, so x is constant.
     //TODO This is problematic. There's no dependency on representationProperty here. The actual dependency is on
     // sourceObject.boundsProperty, and we're relying on that changing before this value is derived. But changing

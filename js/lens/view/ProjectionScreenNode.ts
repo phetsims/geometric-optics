@@ -119,7 +119,7 @@ class ProjectionScreenNode extends Node {
     const modelScreenWidth = modelViewTransform.viewToModelDeltaX( screenNode.width );
     const modelScreenHeight = Math.abs( modelViewTransform.viewToModelDeltaY( screenNode.height ) );
 
-    // {DerivedProperty.<Bounds2>} Keep the projection screen fully within model bounds, and right of the optic.
+    // Drag bounds, in model coordinates - within model bounds, and right of the optic.
     const dragBoundsProperty = new DerivedProperty(
       [ modelBoundsProperty, opticPositionProperty ],
       ( modelBounds: Bounds2, opticPosition: Vector2 ) =>

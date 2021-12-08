@@ -90,7 +90,8 @@ class SecondPointNode extends Node {
       secondPoint.setSecondPoint( representationProperty.value.isObject, position );
     } );
 
-    // {DerivedProperty.<Bounds2|null> null when we are dealing with an Object, non-null for a Light Source
+    // Drag bounds, in model coordinates.
+    // null when we are dealing with an Object, non-null for a Light Source
     const dragBoundsProperty = new DerivedProperty(
       [ sourceObjectDragBoundsProperty, representationProperty ],
       ( sourceObjectDragBounds: Bounds2, representation: Representation ) =>
