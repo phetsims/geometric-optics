@@ -42,8 +42,8 @@ import TargetNode from './TargetNode.js';
 import VisibleProperties from './VisibleProperties.js';
 import RaysModeEnum from '../model/RaysModeEnum.js';
 import Lens from '../../lens/model/Lens.js';
-import Optic from '../model/Optic.js';
 import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
+import required from '../../../../phet-core/js/required.js';
 
 // constants
 const ZOOM_RANGE = new RangeWithValue( 1, 3, 3 );
@@ -77,13 +77,12 @@ class GeometricOpticsScreenView extends ScreenView {
       getViewOrigin: ( layoutBounds: Bounds2 ) => new Vector2( layoutBounds.centerX, layoutBounds.centerY ),
 
       // Creates the Node for the optic
-      createOpticNode: ( optic: Optic, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2,
-                         parentTandem: Tandem ) => Node,
+      // ( optic: Optic, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node
+      createOpticNode: required( config.createOpticNode ),
 
       // phet-io options
       tandem: Tandem.REQUIRED
     }, config );
-    assert && assert( config.createOpticNode, 'createOpticNode is required' );
 
     super( config );
 
