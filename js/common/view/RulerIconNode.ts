@@ -45,7 +45,6 @@ class RulerIconNode extends RulerNode {
       minorTickLineWidth: 2,
       cursor: 'pointer',
 
-      // @ts-ignore DerivedProperty.not has incorrect param type
       visibleProperty: DerivedProperty.not( rulerNode.visibleProperty )
     }, options );
 
