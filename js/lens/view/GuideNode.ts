@@ -48,7 +48,7 @@ class GuideNode extends Node {
      * set the position of the rectangle such that its left center is on the fulcrum point.
      * @param rectangleNode
      * @param viewFulcrumPosition
-     * @param angle - "model" angle of the rectangle, measured from the positive x -axis
+     * @param angle - "model" angle of the rectangle, measured from the positive x-axis
      */
     const setRectanglePosition = ( rectangleNode: Node, viewFulcrumPosition: Vector2, angle: number ): void => {
       assert && assert( isFinite( angle ) );
