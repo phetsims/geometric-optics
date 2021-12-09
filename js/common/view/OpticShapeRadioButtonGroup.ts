@@ -17,6 +17,11 @@ import OpticShapeEnum from '../model/OpticShapeEnum.js';
 import Lens from '../../lens/model/Lens.js';
 import MirrorNode from '../../mirror/view/MirrorNode.js';
 import LensNode from '../../lens/view/LensNode.js';
+import { NodeOptions } from '../../../../scenery/js/imports.js';
+
+type Options = {
+  tandem: Tandem
+} & NodeOptions; //TODO limit to Node translation options
 
 class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeEnum> {
 
@@ -24,25 +29,7 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeE
    * @param optic
    * @param options
    */
-  constructor( optic: Optic, options?: any ) {
-
-    options = merge( {
-
-      // RectangularRadioButtonGroup options
-      orientation: 'horizontal',
-      spacing: 10,
-      cornerRadius: 3,
-      baseColor: GeometricOpticsColors.curveRadioButtonFillProperty,
-      selectedStroke: GeometricOpticsColors.curveRadioButtonSelectedStrokeProperty,
-      deselectedStroke: GeometricOpticsColors.curveRadioButtonDeselectedStrokeProperty,
-      deselectedLineWidth: 2,
-      selectedLineWidth: 2,
-      buttonContentXMargin: 14,
-      buttonContentYMargin: 5,
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+  constructor( optic: Optic, options: Options ) {
 
     // A radio button for each shape supported by the optic
     assert && assert( optic.opticShapeProperty.validValues ); // {OpticShapeEnum[]|undefined}
@@ -55,7 +42,20 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeE
         };
       } );
 
-    super( optic.opticShapeProperty, items, options );
+    super( optic.opticShapeProperty, items, merge( {
+
+      // RectangularRadioButtonGroup options
+      orientation: 'horizontal',
+      spacing: 10,
+      cornerRadius: 3,
+      baseColor: GeometricOpticsColors.curveRadioButtonFillProperty,
+      selectedStroke: GeometricOpticsColors.curveRadioButtonSelectedStrokeProperty,
+      deselectedStroke: GeometricOpticsColors.curveRadioButtonDeselectedStrokeProperty,
+      deselectedLineWidth: 2,
+      selectedLineWidth: 2,
+      buttonContentXMargin: 14,
+      buttonContentYMargin: 5
+    }, options ) );
   }
 }
 

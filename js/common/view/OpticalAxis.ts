@@ -8,15 +8,22 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import IProperty from '../../../../axon/js/IProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Line } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+
+type Options = {
+  visibleProperty: IProperty<boolean>,
+  tandem: Tandem
+};
 
 class OpticalAxis extends Line {
 
@@ -27,16 +34,14 @@ class OpticalAxis extends Line {
    * @param options
    */
   constructor( opticPositionProperty: Property<Vector2>, modelBoundsProperty: Property<Bounds2>,
-               modelViewTransform: ModelViewTransform2, options?: any ) {
+               modelViewTransform: ModelViewTransform2, options: Options ) {
 
-    options = merge( {
+    // create optical axis line, with arbitrary length values.
+    super( 0, 0, 1, 0, merge( {
       stroke: GeometricOpticsColors.opticalAxisStrokeProperty,
       lineWidth: GeometricOpticsConstants.AXIS_LINE_WIDTH,
       lineDash: GeometricOpticsConstants.AXIS_LINE_DASH
-    }, options );
-
-    // create optical axis line, with arbitrary length values.
-    super( 0, 0, 1, 0, options );
+    }, options ) );
 
     // set the horizontal extent of the optical axis line
     modelBoundsProperty.link( bounds => {

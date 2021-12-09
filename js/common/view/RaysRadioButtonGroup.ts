@@ -9,13 +9,13 @@
 
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { Text } from '../../../../scenery/js/imports.js';
+import { Node, Text } from '../../../../scenery/js/imports.js';
 import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import RaysModeEnum from '../model/RaysModeEnum.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 //TYPESCRIPT AquaRadioButtonGroup needs to define this parameterized type for items
 type AquaRadioButtonGroupItem<T> = {
@@ -25,21 +25,17 @@ type AquaRadioButtonGroupItem<T> = {
   labelContent?: string
 };
 
+type Options = {
+  tandem: Tandem
+};
+
 class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysModeEnum> {
 
   /**
    * @param raysModeProperty
    * @param options
    */
-  constructor( raysModeProperty: Property<RaysModeEnum>, options?: any ) {
-
-    options = merge( {
-      spacing: 4,
-      align: 'left',
-      radioButtonOptions: { radius: 7 },
-      touchAreaXDilation: 10,
-      mouseAreaXDilation: 10
-    }, options );
+  constructor( raysModeProperty: Property<RaysModeEnum>, options: Options ) {
 
     // items for ray Mode radio buttons
     const items = [
@@ -49,7 +45,13 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysModeEnum> {
       createItem( 'none', geometricOpticsStrings.none )
     ];
 
-    super( raysModeProperty, items, options );
+    super( raysModeProperty, items, merge( {
+      spacing: 4,
+      align: 'left',
+      radioButtonOptions: { radius: 7 },
+      touchAreaXDilation: 10,
+      mouseAreaXDilation: 10
+    }, options ) );
   }
 }
 

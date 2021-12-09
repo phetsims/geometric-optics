@@ -233,12 +233,15 @@ class GeometricOpticsScreenView extends ScreenView {
       } );
 
     const opticalAxis = new OpticalAxis( model.optic.positionProperty, modelBoundsProperty, modelViewTransform, {
-      visibleProperty: model.optic.opticalAxisVisibleProperty
+      visibleProperty: model.optic.opticalAxisVisibleProperty,
+      tandem: options.tandem.createTandem( 'opticalAxis' )
     } );
 
     const opticNode = options.createOpticNode( model.optic, modelBoundsProperty, modelViewTransform, options.tandem );
 
-    const opticVerticalAxis = new OpticVerticalAxis( model.optic, model.raysModeProperty, modelBoundsProperty, modelViewTransform );
+    const opticVerticalAxis = new OpticVerticalAxis( model.optic, model.raysModeProperty, modelBoundsProperty, modelViewTransform, {
+      tandem: options.tandem.createTandem( 'opticVerticalAxis' )
+    } );
 
     // create the light rays associated with the source object and first light source
     const lightRaysNode = new LightRaysNode( model.firstLightRays, model.representationProperty,

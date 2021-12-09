@@ -8,7 +8,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import { DragListener, SceneryEvent } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -24,11 +23,10 @@ class RulerIconNode extends RulerNode {
 
   /**
    * @param rulerNode
-   * @param options
    */
-  constructor( rulerNode: GeometricOpticsRulerNode, options?: any ) {
+  constructor( rulerNode: GeometricOpticsRulerNode ) {
 
-    options = merge( {
+    const options = {
 
       // pointer areas
       touchAreaDilationX: 50,
@@ -46,7 +44,7 @@ class RulerIconNode extends RulerNode {
       cursor: 'pointer',
 
       visibleProperty: DerivedProperty.not( rulerNode.visibleProperty )
-    }, options );
+    };
 
     // major ticks have no labels, it would be too much detail in an icon
     const majorTickLabels = [ '' ];

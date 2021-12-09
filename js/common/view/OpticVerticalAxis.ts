@@ -12,13 +12,17 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Path } from '../../../../scenery/js/imports.js';
+import { Node, Path } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Optic from '../model/Optic.js';
 import RaysModeEnum from '../model/RaysModeEnum.js';
+
+type Options = {
+  tandem: Tandem
+};
 
 class OpticVerticalAxis extends Node {
 
@@ -30,9 +34,7 @@ class OpticVerticalAxis extends Node {
    * @param options
    */
   constructor( optic: Optic, raysModeProperty: Property<RaysModeEnum>, modelBoundsProperty: Property<Bounds2>,
-               modelViewTransform: ModelViewTransform2, options?: any ) {
-
-    options = merge( {}, options );
+               modelViewTransform: ModelViewTransform2, options: Options ) {
 
     // create a vertical dashed line, through the optic - indicating the crossing plane of principal rays.
     const lineNode = new Path( modelViewTransform.modelToViewShape( optic.getVerticalAxis() ), {
@@ -41,10 +43,9 @@ class OpticVerticalAxis extends Node {
       lineDash: GeometricOpticsConstants.AXIS_LINE_DASH
     } );
 
-    assert && assert( !options.children );
-    options.children = [ lineNode ];
-
-    super( options );
+    super( merge( {
+      children: [ lineNode ]
+    }, options ) );
 
     // Make lineNode visible when Rays mode is Principal
     raysModeProperty.link( raysMode => {

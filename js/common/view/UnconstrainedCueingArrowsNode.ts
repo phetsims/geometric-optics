@@ -23,10 +23,13 @@ type Options = {
   length?: number,
   fill?: ColorDef,
   stroke?: ColorDef
-} & NodeOptions; //TODO would prefer to limit to Node translation options
+} & NodeOptions; //TODO limit to Node translation options
 
 class UnconstrainedCueingArrowsNode extends Path {
 
+  /**
+   * @param providedOptions
+   */
   constructor( providedOptions?: Options ) {
 
     const options = merge( {

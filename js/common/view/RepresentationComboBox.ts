@@ -9,7 +9,7 @@
 
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { HBox } from '../../../../scenery/js/imports.js';
+import { HBox, NodeOptions } from '../../../../scenery/js/imports.js';
 import { Image } from '../../../../scenery/js/imports.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import { Text } from '../../../../scenery/js/imports.js';
@@ -20,6 +20,10 @@ import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
 import Representation from '../model/Representation.js';
 
+type Options = {
+  tandem: Tandem
+} & NodeOptions; //TODO limit to Node translation options
+
 class RepresentationComboBox extends ComboBox {
 
   /**
@@ -27,19 +31,7 @@ class RepresentationComboBox extends ComboBox {
    * @param listParent - parent for the listbox popup
    * @param options
    */
-  constructor( representationProperty: Property<Representation>, listParent: Node, options?: any ) {
-
-    options = merge( {
-
-      // ComboBox options
-      highlightFill: 'rgb(168,192,245)',
-      listPosition: 'below',
-      xMargin: 10,
-      yMargin: 5,
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+  constructor( representationProperty: Property<Representation>, listParent: Node, options: Options ) {
 
     // Create a ComboBoxItem for each representation.
     const items: ComboBoxItem[] = [];
@@ -64,7 +56,14 @@ class RepresentationComboBox extends ComboBox {
       } ) );
     } );
 
-    super( items, representationProperty, listParent, options );
+    super( items, representationProperty, listParent, merge( {
+
+      // ComboBox options
+      highlightFill: 'rgb( 168, 192, 245 )',
+      listPosition: 'below',
+      xMargin: 10,
+      yMargin: 5
+    }, options ) );
   }
 }
 

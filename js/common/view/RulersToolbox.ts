@@ -16,27 +16,17 @@ import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
 import RulerIconNode from './RulerIconNode.js';
 
+type Options = {
+  tandem: Tandem
+} & PanelOptions;
+
 class RulersToolbox extends Panel {
 
   /**
    * @param rulerNodes - in the order that they appear in the toolbox, left to right
    * @param options
    */
-  constructor( rulerNodes: GeometricOpticsRulerNode[], options?: any ) {
-
-    options = merge( {
-
-      // Panel options
-      align: 'center',
-      cornerRadius: 5,
-      xMargin: 10,
-      yMargin: 7,
-      fill: 'white',
-      stroke: 'grey',
-
-      // phet-io
-      tandem: Tandem.REQUIRED
-    }, options );
+  constructor( rulerNodes: GeometricOpticsRulerNode[], options: Options ) {
 
     const toolboxContent = new HBox( {
       spacing: 30,
@@ -44,7 +34,16 @@ class RulersToolbox extends Panel {
       excludeInvisibleChildrenFromBounds: false
     } );
 
-    super( toolboxContent, options );
+    super( toolboxContent, merge( {
+
+      // Panel options
+      align: 'center',
+      cornerRadius: 5,
+      xMargin: 10,
+      yMargin: 7,
+      fill: 'white',
+      stroke: 'grey'
+    }, options ) );
   }
 
   public dispose(): void {

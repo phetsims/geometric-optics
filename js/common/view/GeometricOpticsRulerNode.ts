@@ -19,7 +19,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
-import { DragListener, Node, SceneryEvent } from '../../../../scenery/js/imports.js';
+import { DragListener, Font, Node, SceneryEvent } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
@@ -29,6 +29,21 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GeometricOpticsConstants.RULER_MINIMUM_VISIBLE_LENGTH;
+
+//TODO should be defined by RulerNode
+type RulerNodeOptions = {
+  opacity?: number,
+  minorTicksPerMajorTick?: number,
+  majorTickFont?: Font,
+  majorTickDistance?: number,
+  unitsMajorTickIndex?: number,
+  insetsWidth?: number,
+};
+
+type Options = {
+  rulerOptions?: RulerNodeOptions,
+  tandem: Tandem
+};
 
 class GeometricOpticsRulerNode extends Node {
 
@@ -41,13 +56,13 @@ class GeometricOpticsRulerNode extends Node {
    * @param zoomTransformProperty
    * @param zoomScaleProperty
    * @param visibleBoundsProperty
-   * @param options
+   * @param providedOptions
    */
   constructor( ruler: GeometricOpticsRuler, zoomTransformProperty: Property<ModelViewTransform2>,
                zoomScaleProperty: Property<number>, visibleBoundsProperty: Property<Bounds2>,
-               options?: any ) {
+               providedOptions: Options ) {
 
-    options = merge( {
+    const options = merge( {
 
       // RulerNode options
       rulerOptions: {
@@ -60,12 +75,10 @@ class GeometricOpticsRulerNode extends Node {
       // Node options
       rotation: ruler.isVertical ? -Math.PI / 2 : 0,
       visibleProperty: ruler.visibleProperty,
-      
+
       // phet-io options
-      tandem: Tandem.REQUIRED,
       phetioInputEnabledPropertyInstrumented: true
-    }, options );
-    assert && assert( !options.children, 'this Node calls removeAllChildren' );
+    }, providedOptions ) as Options;
 
     super( options );
 
@@ -154,12 +167,12 @@ class GeometricOpticsRulerNode extends Node {
  * @param rulerLength
  * @param modelViewTransform
  * @param zoomScale
- * @param options - to RulerNode
+ * @param providedOptions - to RulerNode
  */
 function createRulerNode( rulerLength: number, modelViewTransform: ModelViewTransform2, zoomScale: number,
-                          options?: any ): Node {
+                          providedOptions?: RulerNodeOptions ): Node {
 
-  options = merge( {}, options );
+  const options = merge( {}, providedOptions ) as RulerNodeOptions;
 
   assert && assert( options.majorTickDistance === undefined );
   options.majorTickDistance = 10 / zoomScale; // in model coordinate (cm)
