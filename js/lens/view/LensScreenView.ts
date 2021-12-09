@@ -16,7 +16,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsScreenView, { GeometricOpticsScreenViewOptions } from '../../common/view/GeometricOpticsScreenView.js';
 import geometricOptics from '../../geometricOptics.js';
 import LensModel from '../model/LensModel.js';
-import GuideNode from './GuideNode.js';
 import LightSpotNode from './LightSpotNode.js';
 import ProjectionScreenNode from './ProjectionScreenNode.js';
 import Representation from '../../common/model/Representation.js';
@@ -24,6 +23,7 @@ import Property from '../../../../axon/js/Property.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Lens from '../model/Lens.js';
 import LensNode from './LensNode.js';
+import GuidesNode from './GuidesNode.js';
 
 type LensScreenViewOptions = {
   tandem: Tandem
@@ -54,31 +54,24 @@ class LensScreenView extends GeometricOpticsScreenView {
 
     super( model, options );
 
-    // Guides associated with the object
-    //TODO create a new class for firstGuidesNode and secondGuidesNode
-    const firstGuidesNode = new Node( {
-      children: [
-        new GuideNode( model.firstTopGuide, this.modelViewTransform ),
-        new GuideNode( model.firstBottomGuide, this.modelViewTransform )
-      ],
+    const guides1Node = new GuidesNode( model.topGuide1, model.bottomGuide1, this.modelViewTransform, {
       visibleProperty: new DerivedProperty(
         [ this.visibleProperties.guidesVisibleProperty, this.visibleProperties.secondPointVisibleProperty ],
         ( guidesVisible: boolean, secondPointVisible: boolean ) => ( guidesVisible && !secondPointVisible )
-      )
+      ),
+      tandem: options.tandem.createTandem( 'guides1Node' ),
+      phetioDocumentation: 'guides associated with the source object or first light source'
     } );
-    this.experimentAreaNode.addChild( firstGuidesNode );
+    this.experimentAreaNode.addChild( guides1Node );
 
-    // Guides associated with the second source
-    const secondGuidesNode = new Node( {
-      children: [
-        new GuideNode( model.secondTopGuide, this.modelViewTransform ),
-        new GuideNode( model.secondBottomGuide, this.modelViewTransform )
-      ],
+    const guides2Node = new GuidesNode( model.topGuide2, model.bottomGuide2, this.modelViewTransform, {
       visibleProperty: DerivedProperty.and(
         [ this.visibleProperties.guidesVisibleProperty, this.visibleProperties.secondPointVisibleProperty ]
-      )
+      ),
+      tandem: options.tandem.createTandem( 'guides2Node' ),
+      phetioDocumentation: 'guides associated with the second point or second light source'
     } );
-    this.experimentAreaNode.addChild( secondGuidesNode );
+    this.experimentAreaNode.addChild( guides2Node );
 
     // Projection screen
     this.projectionScreenNode = new ProjectionScreenNode(

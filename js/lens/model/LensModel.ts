@@ -32,16 +32,16 @@ class LensModel extends GeometricOpticsModel {
   readonly lightSpot2: LightSpot;
 
   // top guide associated with the source object or first light source
-  readonly firstTopGuide: Guide;
+  readonly topGuide1: Guide;
 
   // bottom guide associated with the source object or first light source
-  readonly firstBottomGuide: Guide;
+  readonly bottomGuide1: Guide;
 
   // top guide associated with the second point or second light source
-  readonly secondTopGuide: Guide;
+  readonly topGuide2: Guide;
 
   // bottom guide associated with the second point or second light source
-  readonly secondBottomGuide: Guide;
+  readonly bottomGuide2: Guide;
 
   /**
    * @param providedOptions
@@ -77,10 +77,10 @@ class LensModel extends GeometricOpticsModel {
       } );
 
     // Guides
-    this.firstTopGuide = new Guide( this.optic, this.sourceObject.positionProperty, 'top' );
-    this.firstBottomGuide = new Guide( this.optic, this.sourceObject.positionProperty, 'bottom' );
-    this.secondTopGuide = new Guide( this.optic, this.secondPoint.positionProperty, 'top' );
-    this.secondBottomGuide = new Guide( this.optic, this.secondPoint.positionProperty, 'bottom' );
+    this.topGuide1 = new Guide( this.optic, this.sourceObject.positionProperty, 'top' );
+    this.bottomGuide1 = new Guide( this.optic, this.sourceObject.positionProperty, 'bottom' );
+    this.topGuide2 = new Guide( this.optic, this.secondPoint.positionProperty, 'top' );
+    this.bottomGuide2 = new Guide( this.optic, this.secondPoint.positionProperty, 'bottom' );
   }
 
   public reset(): void {
