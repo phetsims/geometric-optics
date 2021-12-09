@@ -22,9 +22,43 @@ import OpticShapeEnum, { OpticShapeValues } from './OpticShapeEnum.js';
 import Property from '../../../../axon/js/Property.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import required from '../../../../phet-core/js/required.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Range from '../../../../dot/js/Range.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+
+// Configuration provided to the constructor
+type OpticConfig = {
+
+  // initial shape of the optic, 'convex' or 'concave'
+  opticShape: OpticShapeEnum,
+
+  // range of index of refraction, a unitless ratio
+  radiusOfCurvatureRange: Range,
+
+  // range of radius of curvature, in cm
+  indexOfRefractionRange: Range,
+
+  // range of diameter, in cm
+  diameterRange: Range,
+
+  // sign used for math operations
+  sign: 1 | -1,
+
+  // determines whether the optic is converging for the specified shape
+  isConverging: ( opticShape: OpticShapeEnum ) => boolean,
+
+  // creates the Shapes for that describe the optic
+  createOpticShapes: ( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number ) => OpticShapes,
+
+  // position of the optic, in cm
+  position?: Vector2
+
+  // supported values of OpticShapeEnum, in the left-to-right order that they appear as radio buttons
+  opticShapes: OpticShapeEnum[]
+
+  // phet-io options
+  tandem: Tandem
+};
 
 abstract class Optic {
 
@@ -67,42 +101,15 @@ abstract class Optic {
   readonly opticalAxisVisibleProperty: Property<boolean>;
 
   /**
-   * @param config
+   * @param providedConfig
    */
-  protected constructor( config: any ) {
+  protected constructor( providedConfig: OpticConfig ) {
 
-    config = merge( {
-
-      // initial shape of the optic, 'convex' or 'concave'
-      opticShape: required( config.opticShape ),
-
-      // range of index of refraction, a unitless ratio
-      radiusOfCurvatureRange: required( config.radiusOfCurvatureRange ),
-
-      // range of radius of curvature, in cm
-      indexOfRefractionRange: required( config.indexOfRefractionRange ),
-
-      // range of diameter, in cm
-      diameterRange: required( config.diameterRange ),
-
-      // sign used for math operations
-      sign: required( config.sign ),
-
-      // ( opticShape: OpticShapeEnum ) => boolean, determines whether the optic is converging for the specified shape
-      isConverging: required( config.isConverging ),
-
-      // ( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number ) => OpticShapes
-      createOpticShapes: required( config.createOpticShapes ),
-
-      // position of the optic, in cm
+    const config = merge( {
       position: Vector2.ZERO,
-
-      // supported values of OpticShapeEnum, in the left-to-right order that they appear as radio buttons
       opticShapes: OpticShapeValues,
-
-      // phet-io options
       tandem: Tandem.REQUIRED
-    }, config );
+    }, providedConfig ) as Required<OpticConfig>;
 
     this.sign = config.sign;
 

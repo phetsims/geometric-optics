@@ -9,8 +9,6 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
-import required from '../../../../phet-core/js/required.js';
 import lamp1_png from '../../../images/lamp1_png.js';
 import lightIcon_png from '../../../images/lightIcon_png.js';
 import pencilIcon_png from '../../../images/pencilIcon_png.js';
@@ -48,9 +46,34 @@ const OBJECT_OFFSET = new Vector2( -67, 100 );
 // This is specific to the light-source PNG files, and must be uniform for all light-source PNG files.
 const LIGHT_SOURCE_OFFSET = new Vector2( -62, 40 );
 
+// Configuration provided to the constructor
+type RepresentationConfig = {
+
+  // true = source object, false = light source
+  isObject: boolean,
+
+  // label for the representation, appears in combo box
+  label: string,
+
+  // the icon that appears in UI controls
+  icon: HTMLImageElement,
+
+  // images
+  rightFacingUpright: HTMLImageElement,
+  rightFacingInverted: HTMLImageElement | null,
+  leftFacingUpright: HTMLImageElement | null,
+  leftFacingInverted: HTMLImageElement | null,
+
+  // offset between point of interest and left-top corner of rightFacingUpright
+  rightFacingUprightOffset: Vector2,
+
+  // phet-io
+  tandemPrefix: string
+};
+
 class Representation {
 
-  // See config documentation
+  // See RepresentationConfig documentation
   readonly isObject: boolean;
   readonly label: string;
   readonly icon: HTMLImageElement;
@@ -67,33 +90,9 @@ class Representation {
   /**
    * @param config
    */
-  constructor( config: any ) {
+  constructor( config: RepresentationConfig ) {
 
-    config = merge( {
-
-      // {boolean} true = source object, false = light source
-      isObject: required( config.isObject ),
-
-      // {string} label for the representation
-      label: required( config.label ),
-
-      // required fields
-      // {HTMLImageElement} icon - the icon that appears in UI controls
-      icon: required( config.icon ),
-
-      // images
-      rightFacingUpright: required( config.rightFacingUpright ), // {HTMLImageElement}
-      rightFacingInverted: required( config.rightFacingInverted ), // {HTMLImageElement|null}
-      leftFacingUpright: required( config.leftFacingUpright ), // {HTMLImageElement|null}
-      leftFacingInverted: required( config.leftFacingInverted ), // {HTMLImageElement|null}
-
-      // {Vector2} offset between point of interest and left-top corner of rightFacingUpright
-      rightFacingUprightOffset: required( config.rightFacingUprightOffset ),
-
-      // phet-io
-      tandemPrefix: required( config.tandemPrefix ) // {string}
-    }, config );
-
+    // unpack config
     this.isObject = config.isObject;
     this.label = config.label;
     this.icon = config.icon;
@@ -103,6 +102,8 @@ class Representation {
     this.leftFacingInverted = config.leftFacingInverted;
     this.rightFacingUprightOffset = config.rightFacingUprightOffset;
     this.tandemPrefix = config.tandemPrefix;
+
+    // additional fields
     this.scaleFactor = this.isObject ? OBJECT_SCALE_FACTOR : SOURCE_SCALE_FACTOR;
   }
 }
@@ -149,7 +150,7 @@ const RepresentationStaticInstances: Representation[] = [
     tandemPrefix: 'planet'
   } ),
 
- // Star
+  // Star
   new Representation( {
     label: geometricOpticsStrings.star,
     icon: starIcon_png,

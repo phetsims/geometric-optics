@@ -43,12 +43,29 @@ import VisibleProperties from './VisibleProperties.js';
 import RaysModeEnum from '../model/RaysModeEnum.js';
 import Lens from '../../lens/model/Lens.js';
 import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
-import required from '../../../../phet-core/js/required.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import Optic from '../model/Optic.js';
 
 // constants
 const ZOOM_RANGE = new RangeWithValue( 1, 3, 3 );
 const NOMINAL_MODEL_TO_VIEW_SCALE = 2; // view coordinates per cm in initial zoom level
+
+// Configuration provided to the constructor
+type GeometricOpticsScreenViewConfig = {
+
+  // Workaround for things shifting around while dragging
+  // See https://github.com/phetsims/scenery/issues/1289 and https://github.com/phetsims/geometric-optics/issues/213
+  preventFit: boolean,
+
+  // Gets the position of the model origin in view coordinates
+  getViewOrigin: ( layoutBounds: Bounds2 ) => Vector2,
+
+  // Creates the Node for the optic
+  createOpticNode: ( optic: Optic, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node,
+
+  // phet-io
+  tandem: Tandem
+};
 
 class GeometricOpticsScreenView extends ScreenView {
 
@@ -64,26 +81,14 @@ class GeometricOpticsScreenView extends ScreenView {
 
   /**
    * @param model
-   * @param config
+   * @param providedConfig
    */
-  constructor( model: GeometricOpticsModel, config: any ) {
+  constructor( model: GeometricOpticsModel, providedConfig: GeometricOpticsScreenViewConfig ) {
 
-    config = merge( {
-
-      // Workaround for things shifting around while dragging
-      // See https://github.com/phetsims/scenery/issues/1289 and https://github.com/phetsims/geometric-optics/issues/213
+    const config = merge( {
       preventFit: true,
-
-      // By default, the origin is at the center of the layoutBounds.
-      getViewOrigin: ( layoutBounds: Bounds2 ) => new Vector2( layoutBounds.centerX, layoutBounds.centerY ),
-
-      // Creates the Node for the optic
-      // ( optic: Optic, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node
-      createOpticNode: required( config.createOpticNode ),
-
-      // phet-io options
       tandem: Tandem.REQUIRED
-    }, config );
+    }, providedConfig ) as GeometricOpticsScreenViewConfig;
 
     super( config );
 
