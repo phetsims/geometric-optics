@@ -8,35 +8,39 @@
 
 import geometricOptics from '../../geometricOptics.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { Path } from '../../../../scenery/js/imports.js';
+import { NodeOptions, Path } from '../../../../scenery/js/imports.js';
 import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
 import Shape from '../../../../kite/js/Shape.js';
 
+const ARROW_SHAPE_OPTIONS = {
+  doubleHead: true,
+  tailWidth: 5,
+  headWidth: 15,
+  headHeight: 10
+};
+
+type Options = {
+  length?: number,
+  fill?: ColorDef,
+  stroke?: ColorDef
+} & NodeOptions; //TODO would prefer to limit to Node translation options
+
 class UnconstrainedCueingArrowsNode extends Path {
 
-  constructor( options?: any ) {
+  constructor( providedOptions?: Options ) {
 
-    options = merge( {
+    const options = merge( {
       length: 45,
-
-      // ArrowShape options
-      arrowShapeOptions: {
-        doubleHead: true,
-        tailWidth: 5,
-        headWidth: 15,
-        headHeight: 10
-      },
 
       // Path options
       fill: 'rgb( 0, 200, 0 )',
-      stroke: 'black',
-      lineWidth: 1
+      stroke: 'black'
 
-    }, options );
+    }, providedOptions ) as Required<Options>;
 
     // The Shape is a union of 2 arrows.
-    const leftRightArrowShape = new ArrowShape( -options.length / 2, 0, options.length / 2, 0, options.arrowShapeOptions );
-    const upDownArrowShape = new ArrowShape( 0, -options.length / 2, 0, options.length / 2, options.arrowShapeOptions );
+    const leftRightArrowShape = new ArrowShape( -options.length / 2, 0, options.length / 2, 0, ARROW_SHAPE_OPTIONS );
+    const upDownArrowShape = new ArrowShape( 0, -options.length / 2, 0, options.length / 2, ARROW_SHAPE_OPTIONS );
     const shape = Shape.union( [ leftRightArrowShape, upDownArrowShape ] );
 
     super( shape, options );

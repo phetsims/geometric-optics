@@ -25,6 +25,10 @@ import VisibleProperties from './VisibleProperties.js';
 import Property from '../../../../axon/js/Property.js';
 import Representation from '../model/Representation.js';
 
+type Options = {
+  tandem: Tandem
+};
+
 class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 
   /**
@@ -34,15 +38,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
    * @param options
    */
   constructor( visibleProperties: VisibleProperties, isLens: boolean,
-               representationProperty: Property<Representation>, options?: any ) {
-
-    options = merge( {
-      spacing: 4,
-      checkboxOptions: { boxWidth: 14 },
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+               representationProperty: Property<Representation>, options: Options ) {
 
     const items = [
 
@@ -93,7 +89,10 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       } );
     }
 
-    super( items, options );
+    super( items, merge( {
+      spacing: 4,
+      checkboxOptions: { boxWidth: 14 }
+    }, options ) );
   }
 }
 

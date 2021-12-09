@@ -10,9 +10,12 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
+
+type Options = {
+  tandem: Tandem
+};
 
 class VisibleProperties {
 
@@ -39,13 +42,7 @@ class VisibleProperties {
    * @param isLens
    * @param options
    */
-  constructor( isLens: boolean, options?: any ) {
-
-    options = merge( {
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+  constructor( isLens: boolean, options: Options ) {
 
     this.focalPointsVisibleProperty = new BooleanProperty( true, {
       tandem: options.tandem.createTandem( 'focalPointsVisibleProperty' )

@@ -25,7 +25,7 @@ class DiameterControl extends NumberControl {
    * @param diameterProperty
    * @param options
    */
-  constructor( diameterProperty: NumberProperty, options?: DiameterControlOptions ) {
+  constructor( diameterProperty: NumberProperty, options: DiameterControlOptions ) {
 
     assert && assert( diameterProperty.range ); // {Range|null}
 
