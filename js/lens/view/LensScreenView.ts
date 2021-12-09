@@ -55,6 +55,8 @@ class LensScreenView extends GeometricOpticsScreenView {
     super( model, options );
 
     const guides1Node = new GuidesNode( model.topGuide1, model.bottomGuide1, this.modelViewTransform, {
+
+      //TODO it seems odd that guides1Node is hidden when the second point is visible
       visibleProperty: new DerivedProperty(
         [ this.visibleProperties.guidesVisibleProperty, this.visibleProperties.secondPointVisibleProperty ],
         ( guidesVisible: boolean, secondPointVisible: boolean ) => ( guidesVisible && !secondPointVisible )
