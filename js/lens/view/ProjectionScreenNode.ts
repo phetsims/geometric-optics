@@ -33,6 +33,10 @@ import GeometricOpticsQueryParameters from '../../common/GeometricOpticsQueryPar
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OriginNode from '../../common/view/OriginNode.js';
 
+type Options = {
+  tandem: Tandem
+};
+
 class ProjectionScreenNode extends Node {
 
   private readonly resetProjectionScreenNode: () => void;
@@ -45,18 +49,7 @@ class ProjectionScreenNode extends Node {
    * @param options
    */
   constructor( projectionScreen: ProjectionScreen, opticPositionProperty: Property<Vector2>,
-               modelBoundsProperty: IReadOnlyProperty<Bounds2>, modelViewTransform: ModelViewTransform2, options?: any ) {
-
-    options = merge( {
-
-      // pdom options
-      tagName: 'div',
-      focusable: true,
-
-      // phet-io options
-      tandem: Tandem.REQUIRED,
-      phetioInputEnabledPropertyInstrumented: true
-    }, options );
+               modelBoundsProperty: IReadOnlyProperty<Bounds2>, modelViewTransform: ModelViewTransform2, options: Options ) {
 
     // The screen part of the projection screen, drawn in perspective.
     const screenNode = new Path( modelViewTransform.modelToViewShape( projectionScreen.screenShape ), {
@@ -103,15 +96,23 @@ class ProjectionScreenNode extends Node {
       centerY: screenNode.centerY
     } );
 
-    assert && assert( !options.children );
-    options.children = [ pullStringNode, knobNode, topBarNode, bottomBarNode, cueingArrowsNode, screenNode ];
+    const children: Node[] = [ pullStringNode, knobNode, topBarNode, bottomBarNode, cueingArrowsNode, screenNode ];
 
     // Red dot at the origin
     if ( GeometricOpticsQueryParameters.showPositions ) {
-      options.children.push( new OriginNode() );
+      children.push( new OriginNode() );
     }
 
-    super( options );
+    super( merge( {
+      children: children,
+
+      // pdom options
+      tagName: 'div',
+      focusable: true,
+
+      // phet-io options
+      phetioInputEnabledPropertyInstrumented: true
+    }, options ) );
 
     projectionScreen.positionProperty.link( position => {
       this.translation = modelViewTransform.modelToViewPosition( position );

@@ -18,24 +18,23 @@ import MirrorModel from './model/MirrorModel.js';
 import MirrorNode from './view/MirrorNode.js';
 import MirrorScreenView from './view/MirrorScreenView.js';
 
+type Options = {
+  tandem: Tandem
+};
+
 class MirrorScreen extends Screen {
 
-  constructor( options?: any ) {
-
-    options = merge( {
-      name: geometricOpticsStrings.screen.mirror,
-      homeScreenIcon: createScreenIcon(),
-      showUnselectedHomeScreenIconFrame: true,
-      backgroundColorProperty: GeometricOpticsColors.screenBackgroundColorProperty,
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+  constructor( options: Options ) {
 
     super(
       () => new MirrorModel( { tandem: options.tandem.createTandem( 'model' ) } ),
       ( model: MirrorModel ) => new MirrorScreenView( model, { tandem: options.tandem.createTandem( 'view' ) } ),
-      options
+      merge( {
+        name: geometricOpticsStrings.screen.mirror,
+        homeScreenIcon: createScreenIcon(),
+        showUnselectedHomeScreenIconFrame: true,
+        backgroundColorProperty: GeometricOpticsColors.screenBackgroundColorProperty
+      }, options )
     );
   }
 

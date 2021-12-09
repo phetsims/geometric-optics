@@ -26,26 +26,25 @@ type AquaRadioButtonGroupItem<T> = {
   labelContent?: string
 };
 
+type Options = {
+  tandem: Tandem
+};
+
 class FocalLengthControlRadioButtonGroup extends VerticalAquaRadioButtonGroup<FocalLengthControlEnum> {
 
   /**
    * @param options
    */
-  constructor( options?: any ) {
-
-    options = merge( {
-      spacing: 8,
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+  constructor( options: Options ) {
 
     const items = [
       createItem( 'indirect', geometricOpticsStrings.indirect ),
       createItem( 'direct', geometricOpticsStrings.direct )
     ];
 
-    super( GeometricOpticsGlobalOptions.focalLengthControlProperty, items, options );
+    super( GeometricOpticsGlobalOptions.focalLengthControlProperty, items, merge( {
+      spacing: 8
+    }, options ) );
   }
 }
 

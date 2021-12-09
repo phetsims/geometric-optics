@@ -16,6 +16,10 @@ import FocalLengthControlRadioButtonGroup from './FocalLengthControlRadioButtonG
 import { Text } from '../../../../scenery/js/imports.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 
+type Options = {
+  tandem: Tandem
+};
+
 class GeometricOpticsGlobalOptionsNode extends VBox {
 
   // Disposes of things that are specific to this class.
@@ -24,17 +28,7 @@ class GeometricOpticsGlobalOptionsNode extends VBox {
   /**
    * @param options
    */
-  constructor( options?: any ) {
-
-    options = merge( {
-
-      // VBox options
-      align: 'left',
-      spacing: 20,
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+  constructor( options: Options ) {
 
     // Projector Mode checkbox
     const projectorModeCheckbox = new ProjectorModeCheckbox( {
@@ -59,10 +53,13 @@ class GeometricOpticsGlobalOptionsNode extends VBox {
       align: 'left'
     } );
 
-    assert && assert( !options.children, 'GasPropertiesGlobalOptionsNode sets children' );
-    options.children = [ projectorModeCheckbox, focalLengthControlVBox ];
+    super( merge( {
 
-    super( options );
+      // VBox options
+      align: 'left',
+      spacing: 20,
+      children: [ projectorModeCheckbox, focalLengthControlVBox ]
+    }, options ) );
 
     this.disposeGeometricOpticsGlobalOptionsNode = (): void => {
       projectorModeCheckbox.dispose();

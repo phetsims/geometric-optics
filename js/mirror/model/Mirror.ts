@@ -10,17 +10,21 @@
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import Optic from '../../common/model/Optic.js';
+import Optic, { OpticOptions } from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 import OpticShapeEnum from '../../common/model/OpticShapeEnum.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import MirrorShapes from './MirrorShapes.js';
 
+type Options = {
+  tandem: Tandem
+};
+
 class Mirror extends Optic {
 
-  constructor( options?: any ) {
+  constructor( providedOptions: Options ) {
 
-    options = merge( {
+    const options = merge( {
       opticShape: 'concave',
       opticShapes: [ 'concave', 'convex' ], //TODO https://github.com/phetsims/geometric-optics/issues/227 add 'flat'
       radiusOfCurvatureRange: new RangeWithValue( 150, 300, 200 ), // in cm
@@ -32,11 +36,9 @@ class Mirror extends Optic {
       sign: -1,
       isConverging: ( opticShape: OpticShapeEnum ) => ( opticShape === 'concave' ),
       createOpticShapes: ( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number ) =>
-        new MirrorShapes( opticShape, radiusOfCurvature, diameter ),
+        new MirrorShapes( opticShape, radiusOfCurvature, diameter )
 
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+    }, providedOptions ) as OpticOptions;
 
     super( options );
   }

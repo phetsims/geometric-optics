@@ -18,24 +18,23 @@ import LensModel from './model/LensModel.js';
 import LensNode from './view/LensNode.js';
 import LensScreenView from './view/LensScreenView.js';
 
+type Options = {
+  tandem: Tandem
+};
+
 class LensScreen extends Screen {
 
-  constructor( options?: any ) {
-
-    options = merge( {
-      name: geometricOpticsStrings.screen.lens,
-      homeScreenIcon: createScreenIcon(),
-      showUnselectedHomeScreenIconFrame: true,
-      backgroundColorProperty: GeometricOpticsColors.screenBackgroundColorProperty,
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+  constructor( options: Options ) {
 
     super(
       () => new LensModel( { tandem: options.tandem.createTandem( 'model' ) } ),
       ( model: LensModel ) => new LensScreenView( model, { tandem: options.tandem.createTandem( 'view' ) } ),
-      options
+      merge( {
+        name: geometricOpticsStrings.screen.lens,
+        homeScreenIcon: createScreenIcon(),
+        showUnselectedHomeScreenIconFrame: true,
+        backgroundColorProperty: GeometricOpticsColors.screenBackgroundColorProperty
+      }, options )
     );
   }
 

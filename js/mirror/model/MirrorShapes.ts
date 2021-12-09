@@ -18,6 +18,10 @@ import OpticShapeEnum from '../../common/model/OpticShapeEnum.js';
 import OpticShapes from '../../common/model/OpticShapes.js';
 import geometricOptics from '../../geometricOptics.js';
 
+type Options = {
+  backingThickness?: number // thickness of the backing of the mirror, in cm
+};
+
 class MirrorShapes implements OpticShapes {
 
   // See OpticShapes
@@ -32,14 +36,14 @@ class MirrorShapes implements OpticShapes {
    * @param opticShape
    * @param radiusOfCurvature - radius of curvature at the center of the mirror
    * @param diameter - vertical height of the mirror
-   * @param options
+   * @param providedOptions
    */
-  constructor( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number, options?: any ) {
+  constructor( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number, providedOptions?: Options ) {
     assert && assert( radiusOfCurvature > diameter / 2 );
 
-    options = merge( {
+    const options = merge( {
       backingThickness: 5 // thickness of the backing of the mirror, in cm
-    }, options );
+    }, providedOptions ) as Required<Options>;
 
     // convenience variable
     const backingThickness = options.backingThickness;

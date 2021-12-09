@@ -26,8 +26,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
-// Configuration provided to the constructor
-type OpticConfig = {
+type OpticOptions = {
 
   // initial shape of the optic, 'convex' or 'concave'
   opticShape: OpticShapeEnum,
@@ -101,21 +100,20 @@ abstract class Optic {
   readonly opticalAxisVisibleProperty: Property<boolean>;
 
   /**
-   * @param providedConfig
+   * @param providedOptions
    */
-  protected constructor( providedConfig: OpticConfig ) {
+  protected constructor( providedOptions: OpticOptions ) {
 
-    const config = merge( {
+    const options = merge( {
       position: Vector2.ZERO,
-      opticShapes: OpticShapeValues,
-      tandem: Tandem.REQUIRED
-    }, providedConfig ) as Required<OpticConfig>;
+      opticShapes: OpticShapeValues
+    }, providedOptions ) as Required<OpticOptions>;
 
-    this.sign = config.sign;
+    this.sign = options.sign;
 
-    this.opticShapeProperty = new Property( config.opticShape, {
-      validValues: config.opticShapes,
-      tandem: config.tandem.createTandem( 'opticShapeProperty' ),
+    this.opticShapeProperty = new Property( options.opticShape, {
+      validValues: options.opticShapes,
+      tandem: options.tandem.createTandem( 'opticShapeProperty' ),
       phetioType: Property.PropertyIO( StringIO ),
       phetioDocumentation: 'describes the shape of the optic'
     } );
@@ -130,33 +128,33 @@ abstract class Optic {
     // about it being at (0,0), and (4) it is useful for PhET-iO, as a means of documenting where the optic is located.
     // If there is a future need to make position mutable, then it may be useful to consult this sha to see
     // what was changed: https://github.com/phetsims/geometric-optics/commit/c021a961816fb1911a73cdd2551c45a405816097
-    this.positionProperty = new Vector2Property( config.position, {
-      isValidValue: ( value: Vector2 ) => value.equals( config.position ),
+    this.positionProperty = new Vector2Property( options.position, {
+      isValidValue: ( value: Vector2 ) => value.equals( options.position ),
       units: 'cm',
-      tandem: config.tandem.createTandem( 'positionProperty' ),
+      tandem: options.tandem.createTandem( 'positionProperty' ),
       phetioReadOnly: true,
       phetioDocumentation: 'The position of the geometric center of the optic, ' +
                            'fixed at the origin of the coordinate system.'
     } );
 
-    this.radiusOfCurvatureProperty = new NumberProperty( config.radiusOfCurvatureRange.defaultValue, {
+    this.radiusOfCurvatureProperty = new NumberProperty( options.radiusOfCurvatureRange.defaultValue, {
       units: 'cm',
-      range: config.radiusOfCurvatureRange,
-      tandem: config.tandem.createTandem( 'radiusOfCurvatureProperty' )
+      range: options.radiusOfCurvatureRange,
+      tandem: options.tandem.createTandem( 'radiusOfCurvatureProperty' )
     } );
 
-    this.indexOfRefractionProperty = new NumberProperty( config.indexOfRefractionRange.defaultValue, {
-      range: config.indexOfRefractionRange,
-      tandem: config.tandem.createTandem( 'indexOfRefractionProperty' )
+    this.indexOfRefractionProperty = new NumberProperty( options.indexOfRefractionRange.defaultValue, {
+      range: options.indexOfRefractionRange,
+      tandem: options.tandem.createTandem( 'indexOfRefractionProperty' )
     } );
 
-    this.diameterProperty = new NumberProperty( config.diameterRange.defaultValue, {
+    this.diameterProperty = new NumberProperty( options.diameterRange.defaultValue, {
       units: 'cm',
-      range: config.diameterRange,
-      tandem: config.tandem.createTandem( 'diameterProperty' )
+      range: options.diameterRange,
+      tandem: options.tandem.createTandem( 'diameterProperty' )
     } );
 
-    this.maxDiameter = config.diameterRange.max;
+    this.maxDiameter = options.diameterRange.max;
 
     this.focalLengthProperty = new DerivedProperty(
       [ this.opticShapeProperty, this.radiusOfCurvatureProperty, this.indexOfRefractionProperty ],
@@ -164,12 +162,12 @@ abstract class Optic {
 
         // A positive sign indicates the optic is converging.
         // Sign is determined based on the shape and the type of optic.
-        const sign = config.isConverging( opticShape ) ? 1 : -1;
+        const sign = options.isConverging( opticShape ) ? 1 : -1;
 
         return sign * radiusOfCurvature / ( 2 * ( indexOfRefraction - 1 ) );
       }, {
         units: 'cm',
-        tandem: config.tandem.createTandem( 'focalLengthProperty' ),
+        tandem: options.tandem.createTandem( 'focalLengthProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
       } );
 
@@ -177,7 +175,7 @@ abstract class Optic {
       [ this.positionProperty, this.focalLengthProperty ],
       ( position: Vector2, focalLength: number ) => position.plusXY( -Math.abs( focalLength ), 0 ), {
         units: 'cm',
-        tandem: config.tandem.createTandem( 'leftFocalPointProperty' ),
+        tandem: options.tandem.createTandem( 'leftFocalPointProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
       } );
 
@@ -185,18 +183,18 @@ abstract class Optic {
       [ this.positionProperty, this.focalLengthProperty ],
       ( position: Vector2, focalLength: number ) => position.plusXY( Math.abs( focalLength ), 0 ), {
         units: 'cm',
-        tandem: config.tandem.createTandem( 'rightFocalPointProperty' ),
+        tandem: options.tandem.createTandem( 'rightFocalPointProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
       } );
 
     this.shapesProperty = new DerivedProperty(
       [ this.opticShapeProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
       ( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number ) =>
-        config.createOpticShapes( opticShape, radiusOfCurvature, diameter )
+        options.createOpticShapes( opticShape, radiusOfCurvature, diameter )
     );
 
     this.opticalAxisVisibleProperty = new BooleanProperty( true, {
-      tandem: config.tandem.createTandem( 'opticalAxisVisibleProperty' )
+      tandem: options.tandem.createTandem( 'opticalAxisVisibleProperty' )
     } );
   }
 
@@ -287,3 +285,4 @@ abstract class Optic {
 geometricOptics.register( 'Optic', Optic );
 
 export default Optic;
+export type { OpticOptions };

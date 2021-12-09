@@ -9,10 +9,8 @@
 
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Circle } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import { Circle, Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 
@@ -21,16 +19,12 @@ class FocalPointNode extends Node {
   /**
    * @param focalPointProperty
    * @param modelViewTransform
-   * @param options
    */
-  constructor( focalPointProperty: IReadOnlyProperty<Vector2>, modelViewTransform: ModelViewTransform2, options?: any ) {
+  constructor( focalPointProperty: IReadOnlyProperty<Vector2>, modelViewTransform: ModelViewTransform2 ) {
 
-    options = merge( {}, options );
-
-    assert && assert( !options.children );
-    options.children = [ FocalPointNode.createIcon() ];
-
-    super( options );
+    super( {
+      children: [ FocalPointNode.createIcon() ]
+    } );
 
     focalPointProperty.link( focalPoint => {
       this.center = modelViewTransform.modelToViewPosition( focalPoint );

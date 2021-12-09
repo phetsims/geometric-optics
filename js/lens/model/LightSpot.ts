@@ -12,7 +12,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Graph from '../../../../kite/js/ops/Graph.js';
 import Shape from '../../../../kite/js/Shape.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import Optic from '../../common/model/Optic.js';
@@ -26,6 +25,11 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 const FULL_INTENSITY_DIAMETER = 7; // cm, any light spot less than this diameter will be full intensity
 
 type PositionAndDiameter = { position: Vector2, diameter: number };
+
+type Options = {
+  tandem: Tandem,
+  phetioDocumentation: string
+};
 
 class LightSpot {
 
@@ -53,13 +57,7 @@ class LightSpot {
    * @param options
    */
   constructor( optic: Optic, projectionScreen: ProjectionScreen, sourcePositionProperty: IReadOnlyProperty<Vector2>,
-               targetPositionProperty: IReadOnlyProperty<Vector2>, options?: any ) {
-
-    options = merge( {
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+               targetPositionProperty: IReadOnlyProperty<Vector2>, options: Options ) {
 
     this.shapeProperty = new DerivedProperty(
       [ optic.positionProperty, optic.diameterProperty, projectionScreen.positionProperty, sourcePositionProperty, targetPositionProperty ],

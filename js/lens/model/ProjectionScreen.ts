@@ -13,7 +13,6 @@ import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Barrier from '../../common/model/Barrier.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -23,6 +22,10 @@ const SCREEN_WIDTH = 42;
 const SCREEN_NEAR_HEIGHT = 134;
 const SCREEN_FAR_HEIGHT = 112;
 assert && assert( SCREEN_NEAR_HEIGHT > SCREEN_FAR_HEIGHT );
+
+type Options = {
+  tandem: Tandem
+};
 
 class ProjectionScreen implements Barrier {
 
@@ -35,18 +38,9 @@ class ProjectionScreen implements Barrier {
   // line that vertically bisects the screen, relative to positionProperty
   private readonly bisectorLine: Shape;
 
-  constructor( options?: any ) {
+  constructor( options: Options ) {
 
-    options = merge( {
-
-      // {Vector2} initial position of the center of the screen
-      initialPosition: new Vector2( 200, 0 ),
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
-
-    this.positionProperty = new Vector2Property( options.initialPosition, {
+    this.positionProperty = new Vector2Property( new Vector2( 200, 0 ), {
       tandem: options.tandem.createTandem( 'positionProperty' )
     } );
 

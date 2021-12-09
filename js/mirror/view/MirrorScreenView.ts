@@ -11,7 +11,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import GeometricOpticsScreenView from '../../common/view/GeometricOpticsScreenView.js';
+import GeometricOpticsScreenView, { GeometricOpticsScreenViewOptions } from '../../common/view/GeometricOpticsScreenView.js';
 import geometricOptics from '../../geometricOptics.js';
 import MirrorModel from '../model/MirrorModel.js';
 import Property from '../../../../axon/js/Property.js';
@@ -19,15 +19,19 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Mirror from '../model/Mirror.js';
 import MirrorNode from './MirrorNode.js';
 
+type MirrorScreenViewOptions = {
+  tandem: Tandem
+};
+
 class MirrorScreenView extends GeometricOpticsScreenView {
 
   /**
    * @param model
-   * @param options
+   * @param providedOptions
    */
-  constructor( model: MirrorModel, options?: any ) {
+  constructor( model: MirrorModel, providedOptions: MirrorScreenViewOptions ) {
 
-    options = merge( {
+    const options = merge( {
 
       // View origin is to right, and a little above center.
       getViewOrigin: ( layoutBounds: Bounds2 ) => new Vector2(
@@ -39,11 +43,8 @@ class MirrorScreenView extends GeometricOpticsScreenView {
       createOpticNode: ( optic: Mirror, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) =>
         new MirrorNode( optic, modelBoundsProperty, modelViewTransform, {
           tandem: parentTandem.createTandem( 'mirrorNode' )
-        } ),
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+        } )
+    }, providedOptions ) as GeometricOpticsScreenViewOptions;
 
     super( model, options );
   }

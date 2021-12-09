@@ -19,6 +19,15 @@ import OpticShapeEnum from '../../common/model/OpticShapeEnum.js';
 import OpticShapes from '../../common/model/OpticShapes.js';
 import geometricOptics from '../../geometricOptics.js';
 
+type Options = {
+
+  // true: approximation, false: accurate, matches ROC
+  isHollywooded?: boolean,
+
+  //TODO document
+  offsetRadius?: number
+};
+
 class LensShapes implements OpticShapes {
 
   // See OpticShapes
@@ -32,14 +41,14 @@ class LensShapes implements OpticShapes {
    * @param opticShape
    * @param radiusOfCurvature - radius of curvature
    * @param diameter - height of the lens
-   * @param options
+   * @param providedOptions
    */
-  constructor( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number, options?: any ) {
+  constructor( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number, providedOptions?: Options ) {
 
-    options = merge( {
+    const options = merge( {
       isHollywooded: true, // true: approximation, false: accurate, matches ROC
       offsetRadius: 100 //TODO document
-    }, options );
+    }, providedOptions ) as Required< Options >;
 
     const halfHeight = diameter / 2;
 

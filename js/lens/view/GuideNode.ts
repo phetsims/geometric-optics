@@ -9,11 +9,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Circle } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Rectangle } from '../../../../scenery/js/imports.js';
+import { Circle, Node, Rectangle } from '../../../../scenery/js/imports.js';
 import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from '../model/Guide.js';
@@ -36,22 +33,16 @@ class GuideNode extends Node {
   /**
    * @param guide
    * @param modelViewTransform
-   * @param options
    */
-  constructor( guide: Guide, modelViewTransform: ModelViewTransform2, options?: any ) {
+  constructor( guide: Guide, modelViewTransform: ModelViewTransform2 ) {
 
-    options = merge( {
-      rectangle: RECTANGLE_OPTIONS,
-      circle: CIRCLE_OPTIONS
-    }, options );
-
-    const fulcrumNode = new Circle( GUIDE_FULCRUM_RADIUS, options.circle );
+    const fulcrumNode = new Circle( GUIDE_FULCRUM_RADIUS, CIRCLE_OPTIONS );
 
     // create two rectangles, with left center side laying on fulcrum (initially)
     const incidentArmNode = new Rectangle( fulcrumNode.x, fulcrumNode.y - GUIDE_RECTANGLE_HEIGHT / 2,
-      GUIDE_RECTANGLE_WIDTH, GUIDE_RECTANGLE_HEIGHT, options.rectangle );
+      GUIDE_RECTANGLE_WIDTH, GUIDE_RECTANGLE_HEIGHT, RECTANGLE_OPTIONS );
     const transmittedArmNode = new Rectangle( fulcrumNode.x, fulcrumNode.y - GUIDE_RECTANGLE_HEIGHT / 2,
-      GUIDE_RECTANGLE_WIDTH, GUIDE_RECTANGLE_HEIGHT, options.rectangle );
+      GUIDE_RECTANGLE_WIDTH, GUIDE_RECTANGLE_HEIGHT, RECTANGLE_OPTIONS );
 
     /**
      * set the position of the rectangle such that its left center is on the fulcrum point.
@@ -115,10 +106,9 @@ class GuideNode extends Node {
       setAnglePosition( transmittedAngle, oldTransmittedAngle, transmittedArmNode );
     } );
 
-    assert && assert( !options.children );
-    options.children = [ incidentArmNode, transmittedArmNode, fulcrumNode ];
-
-    super( options );
+    super( {
+      children: [ incidentArmNode, transmittedArmNode, fulcrumNode ]
+    } );
   }
 
   /**

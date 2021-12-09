@@ -31,6 +31,10 @@ import RadiusOfCurvatureControl from './RadiusOfCurvatureControl.js';
 import IndexOfRefractionControl from './IndexOfRefractionControl.js';
 import Lens from '../../lens/model/Lens.js';
 
+type Options = {
+  tandem: Tandem
+};
+
 class GeometricOpticsControlPanel extends Panel {
 
   /**
@@ -41,19 +45,7 @@ class GeometricOpticsControlPanel extends Panel {
    * @param options
    */
   constructor( representationProperty: Property<Representation>, optic: Optic, raysModeProperty: Property<RaysModeEnum>,
-               visibleProperties: VisibleProperties, options?: any ) {
-
-    options = merge( {
-
-      // Panel options
-      xMargin: 15,
-      yMargin: 10,
-      fill: GeometricOpticsColors.panelFillProperty,
-      stroke: GeometricOpticsColors.panelStrokeProperty,
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+               visibleProperties: VisibleProperties, options: Options ) {
 
     // Rays radio buttons ---------------------------------------------------------------------------------------
 
@@ -134,7 +126,14 @@ class GeometricOpticsControlPanel extends Panel {
       { xAlign: 'left' }
     );
 
-    super( content, options );
+    super( content, merge( {
+
+      // Panel options
+      xMargin: 15,
+      yMargin: 10,
+      fill: GeometricOpticsColors.panelFillProperty,
+      stroke: GeometricOpticsColors.panelStrokeProperty
+    }, options ) );
   }
 
   /**

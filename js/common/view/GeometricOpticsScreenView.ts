@@ -50,12 +50,7 @@ import Optic from '../model/Optic.js';
 const ZOOM_RANGE = new RangeWithValue( 1, 3, 3 );
 const NOMINAL_MODEL_TO_VIEW_SCALE = 2; // view coordinates per cm in initial zoom level
 
-// Configuration provided to the constructor
-type GeometricOpticsScreenViewConfig = {
-
-  // Workaround for things shifting around while dragging
-  // See https://github.com/phetsims/scenery/issues/1289 and https://github.com/phetsims/geometric-optics/issues/213
-  preventFit: boolean,
+type GeometricOpticsScreenViewOptions = {
 
   // Gets the position of the model origin in view coordinates
   getViewOrigin: ( layoutBounds: Bounds2 ) => Vector2,
@@ -81,18 +76,18 @@ class GeometricOpticsScreenView extends ScreenView {
 
   /**
    * @param model
-   * @param providedConfig
+   * @param options
    */
-  constructor( model: GeometricOpticsModel, providedConfig: GeometricOpticsScreenViewConfig ) {
+  constructor( model: GeometricOpticsModel, options: GeometricOpticsScreenViewOptions ) {
 
-    const config = merge( {
-      preventFit: true,
-      tandem: Tandem.REQUIRED
-    }, providedConfig ) as GeometricOpticsScreenViewConfig;
+    super( merge( {
 
-    super( config );
+      // Workaround for things shifting around while dragging
+      // See https://github.com/phetsims/scenery/issues/1289 and https://github.com/phetsims/geometric-optics/issues/213
+      preventFit: true
+    }, options ) );
 
-    const viewOrigin = config.getViewOrigin( this.layoutBounds );
+    const viewOrigin = options.getViewOrigin( this.layoutBounds );
 
     // convenience variable for laying out scenery Nodes
     const erodedLayoutBounds = this.layoutBounds.erodedXY(
@@ -106,14 +101,14 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // Create visibleProperty instances for Nodes in the view.
     const visibleProperties = new VisibleProperties( ( model.optic instanceof Lens ), {
-      tandem: config.tandem.createTandem( 'visibleProperties' )
+      tandem: options.tandem.createTandem( 'visibleProperties' )
     } );
 
     // Controls zoom in experiment area
     const zoomLevelProperty = new NumberProperty( ZOOM_RANGE.defaultValue, {
       numberType: 'Integer',
       range: ZOOM_RANGE,
-      tandem: config.tandem.createTandem( 'zoomLevelProperty' )
+      tandem: options.tandem.createTandem( 'zoomLevelProperty' )
     } );
 
     // ModelViewTransform2 for the current zoom level
@@ -133,17 +128,17 @@ class GeometricOpticsScreenView extends ScreenView {
     // create Rulers
     const horizontalRulerNode = new GeometricOpticsRulerNode( model.horizontalRuler,
       zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, {
-        tandem: config.tandem.createTandem( 'horizontalRulerNode' )
+        tandem: options.tandem.createTandem( 'horizontalRulerNode' )
       } );
     const verticalRulerNode = new GeometricOpticsRulerNode( model.verticalRuler,
       zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, {
-        tandem: config.tandem.createTandem( 'verticalRulerNode' )
+        tandem: options.tandem.createTandem( 'verticalRulerNode' )
       } );
 
     // create control panel at the bottom of the screen
     const controlPanel = new GeometricOpticsControlPanel( model.representationProperty, model.optic,
       model.raysModeProperty, visibleProperties, {
-        tandem: config.tandem.createTandem( 'controlPanel' )
+        tandem: options.tandem.createTandem( 'controlPanel' )
       } );
     controlPanel.boundsProperty.link( () => {
       controlPanel.centerBottom = erodedLayoutBounds.centerBottom;
@@ -152,7 +147,7 @@ class GeometricOpticsScreenView extends ScreenView {
     // create toolbox at the top right corner of the screen
     const rulersToolbox = new RulersToolbox( [ verticalRulerNode, horizontalRulerNode ], {
       rightTop: erodedLayoutBounds.rightTop,
-      tandem: config.tandem.createTandem( 'rulersToolbox' )
+      tandem: options.tandem.createTandem( 'rulersToolbox' )
     } );
 
     // Tell the rulers where the toolbox is.
@@ -165,7 +160,7 @@ class GeometricOpticsScreenView extends ScreenView {
     // radio buttons for the shape of the optic
     const opticShapeRadioButtonGroup = new OpticShapeRadioButtonGroup( model.optic, {
       centerTop: erodedLayoutBounds.centerTop,
-      tandem: config.tandem.createTandem( 'opticShapeRadioButtonGroup' )
+      tandem: options.tandem.createTandem( 'opticShapeRadioButtonGroup' )
     } );
 
     // Parent for any popups
@@ -175,7 +170,7 @@ class GeometricOpticsScreenView extends ScreenView {
     const representationComboBox = new RepresentationComboBox( model.representationProperty, popupsParent, {
       left: this.layoutBounds.left + 100,
       top: erodedLayoutBounds.top,
-      tandem: config.tandem.createTandem( 'representationComboBox' )
+      tandem: options.tandem.createTandem( 'representationComboBox' )
     } );
 
     // create magnifying buttons for zooming in and out at the left top
@@ -191,7 +186,7 @@ class GeometricOpticsScreenView extends ScreenView {
       },
       right: erodedLayoutBounds.left + ( controlPanel.left - erodedLayoutBounds.left ) / 2,
       centerY: controlPanel.centerY,
-      tandem: config.tandem.createTandem( 'zoomButtonGroup' )
+      tandem: options.tandem.createTandem( 'zoomButtonGroup' )
     } );
 
     // create reset all button at the right bottom
@@ -202,12 +197,12 @@ class GeometricOpticsScreenView extends ScreenView {
         this.reset();
       },
       rightBottom: erodedLayoutBounds.rightBottom,
-      tandem: config.tandem.createTandem( 'resetAllButton' )
+      tandem: options.tandem.createTandem( 'resetAllButton' )
     } );
 
     // create the show/hide eye toggle button above the reset all button
     const showHideToggleButton = new ShowHideToggleButton( visibleProperties.rayTracingVisibleProperty, {
-      tandem: config.tandem.createTandem( 'showHideToggleButton' )
+      tandem: options.tandem.createTandem( 'showHideToggleButton' )
     } );
     showHideToggleButton.centerX = resetAllButton.centerX;
     showHideToggleButton.top = controlPanel.top;
@@ -227,21 +222,21 @@ class GeometricOpticsScreenView extends ScreenView {
     // the source object or first light source
     const sourceObjectNode = new SourceObjectNode( model.representationProperty, model.sourceObject,
       modelBoundsProperty, model.optic.positionProperty, modelViewTransform, {
-        tandem: config.tandem.createTandem( 'sourceObjectNode' )
+        tandem: options.tandem.createTandem( 'sourceObjectNode' )
       } );
 
     // the second point or second light source
     const secondPointNode = new SecondPointNode( model.representationProperty, model.secondPoint,
       sourceObjectNode.dragBoundsProperty, modelViewTransform, {
         visibleProperty: visibleProperties.secondPointVisibleProperty,
-        tandem: config.tandem.createTandem( 'secondPointNode' )
+        tandem: options.tandem.createTandem( 'secondPointNode' )
       } );
 
     const opticalAxis = new OpticalAxis( model.optic.positionProperty, modelBoundsProperty, modelViewTransform, {
       visibleProperty: model.optic.opticalAxisVisibleProperty
     } );
 
-    const opticNode = config.createOpticNode( model.optic, modelBoundsProperty, modelViewTransform, config.tandem );
+    const opticNode = options.createOpticNode( model.optic, modelBoundsProperty, modelViewTransform, options.tandem );
 
     const opticVerticalAxis = new OpticVerticalAxis( model.optic, model.raysModeProperty, modelBoundsProperty, modelViewTransform );
 
@@ -271,7 +266,7 @@ class GeometricOpticsScreenView extends ScreenView {
         new FocalPointNode( model.optic.rightFocalPointProperty, modelViewTransform )
       ],
       visibleProperty: visibleProperties.focalPointsVisibleProperty,
-      tandem: config.tandem.createTandem( 'focalPointsNode' )
+      tandem: options.tandem.createTandem( 'focalPointsNode' )
     } );
 
     // Layer for all the Nodes within the "experiment area".
@@ -326,10 +321,9 @@ class GeometricOpticsScreenView extends ScreenView {
     // Add points at the position of things that move around.
     //TODO move these into the Nodes, ala LensNode
     if ( GeometricOpticsQueryParameters.showPositions ) {
-      const config = { fill: 'red' };
-      experimentAreaNode.addChild( new DebugPointNode( model.sourceObject.positionProperty, modelViewTransform, config ) );
-      experimentAreaNode.addChild( new DebugPointNode( model.secondPoint.lightSourcePositionProperty, modelViewTransform, config ) );
-      experimentAreaNode.addChild( new DebugPointNode( model.firstTarget.positionProperty, modelViewTransform, config ) );
+      experimentAreaNode.addChild( new DebugPointNode( model.sourceObject.positionProperty, modelViewTransform ) );
+      experimentAreaNode.addChild( new DebugPointNode( model.secondPoint.lightSourcePositionProperty, modelViewTransform ) );
+      experimentAreaNode.addChild( new DebugPointNode( model.firstTarget.positionProperty, modelViewTransform ) );
     }
 
     // Add the 2F points on each side of optic
@@ -464,3 +458,4 @@ function createTransformForZoomLevel( zoomLevel: number, viewOrigin: Vector2 ): 
 
 geometricOptics.register( 'GeometricOpticsScreenView', GeometricOpticsScreenView );
 export default GeometricOpticsScreenView;
+export type { GeometricOpticsScreenViewOptions };

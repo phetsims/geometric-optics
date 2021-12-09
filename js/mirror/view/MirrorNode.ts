@@ -22,6 +22,17 @@ import Matrix3 from '../../../../dot/js/Matrix3.js';
 import GeometricOpticsQueryParameters from '../../common/GeometricOpticsQueryParameters.js';
 import OriginNode from '../../common/view/OriginNode.js';
 
+// constants
+const FILL = GeometricOpticsColors.mirrorBackingColorProperty;
+const STROKE = GeometricOpticsColors.mirrorReflectiveCoatingColorProperty;
+const LINE_WIDTH = 2;
+const ICON_RADIUS_OF_CURVATURE = 20;
+const ICON_DIAMETER = 30;
+
+type Options = {
+  tandem: Tandem
+};
+
 class MirrorNode extends Node {
 
   /**
@@ -30,37 +41,29 @@ class MirrorNode extends Node {
    * @param modelViewTransform
    * @param options
    */
-  constructor( mirror: Mirror, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, options?: any ) {
-
-    options = merge( {
-      fill: GeometricOpticsColors.mirrorBackingColorProperty,
-      stroke: GeometricOpticsColors.mirrorReflectiveCoatingColorProperty,
-      lineWidth: 2,
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+  constructor( mirror: Mirror, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, options: Options ) {
 
     // the mirror's backing
     const backingNode = new Path( null, {
-      fill: options.fill
+      fill: FILL
     } );
 
     // the mirror's reflective coating
     const reflectiveCoatingNode = new Path( null, {
-      stroke: options.stroke,
-      lineWidth: options.lineWidth
+      stroke: STROKE,
+      lineWidth: LINE_WIDTH
     } );
 
-    assert && assert( !options.children );
-    options.children = [ backingNode, reflectiveCoatingNode ];
+    const children: Node[] = [ backingNode, reflectiveCoatingNode ];
 
     // Red dot at the origin
     if ( GeometricOpticsQueryParameters.showPositions ) {
-      options.children.push( new OriginNode() );
+      children.push( new OriginNode() );
     }
 
-    super( options );
+    super( merge( {
+      children: children
+    }, options ) );
 
     // Shapes are described in model coordinates. Scale them to view coordinates.
     // Translation is handled by mirror.positionProperty listener.
@@ -84,16 +87,10 @@ class MirrorNode extends Node {
   /**
    * Creates an icon for a mirror.
    * @param opticShape
-   * @param options
    */
-  public static createIconNode( opticShape: OpticShapeEnum, options?: any ): Node {
+  public static createIconNode( opticShape: OpticShapeEnum ): Node {
 
-    options = merge( {
-      radius: 20, // radius of curvature of the mirror, in cm
-      diameter: 30 // diameter of the mirror, in cm
-    }, options );
-
-    const mirrorShapes = new MirrorShapes( opticShape, options.radius, options.diameter, {
+    const mirrorShapes = new MirrorShapes( opticShape, ICON_RADIUS_OF_CURVATURE, ICON_DIAMETER, {
       backingThickness: 4 // cm
     } );
 

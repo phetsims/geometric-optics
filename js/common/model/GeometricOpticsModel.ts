@@ -23,9 +23,25 @@ import GeometricOpticsRuler from './GeometricOpticsRuler.js';
 import SecondPoint from './SecondPoint.js';
 import SourceObject from './SourceObject.js';
 import Target from './Target.js';
+import Barrier from './Barrier.js';
 
 // constants
 const RAYS_ANIMATION_TIME = 10; // length of the rays animation, in seconds
+
+type GeometricOpticsModelOptions = {
+
+  // optional Barrier that may block rays
+  barrier?: Barrier | null,
+
+  // representations of the source object supported by the model
+  representations?: Representation[],
+
+  // initial representation of the source object
+  representation?: Representation,
+
+  // phet-io options
+  tandem: Tandem
+};
 
 class GeometricOpticsModel {
 
@@ -65,18 +81,15 @@ class GeometricOpticsModel {
 
   /**
    * @param optic
-   * @param options
+   * @param providedOptions
    */
-  constructor( optic: Optic, options?: any ) {
+  constructor( optic: Optic, providedOptions: GeometricOpticsModelOptions ) {
 
-    options = merge( {
-      barrier: null, // {Barrier|null}
-      representation: RepresentationStaticInstances[ 0 ],
+    const options = merge( {
+      barrier: null,
       representations: RepresentationStaticInstances,
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+      representation: RepresentationStaticInstances[ 0 ]
+    }, providedOptions ) as Required<GeometricOpticsModelOptions>;
 
     this.optic = optic;
 
@@ -165,3 +178,4 @@ class GeometricOpticsModel {
 
 geometricOptics.register( 'GeometricOpticsModel', GeometricOpticsModel );
 export default GeometricOpticsModel;
+export type { GeometricOpticsModelOptions };

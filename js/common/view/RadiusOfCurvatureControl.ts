@@ -16,33 +16,33 @@ import Utils from '../../../../dot/js/Utils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 
+type Options = {
+  tandem: Tandem
+};
+
 class RadiusOfCurvatureControl extends NumberControl {
 
   /**
    * @param radiusOfCurvatureProperty
    * @param options
    */
-  constructor( radiusOfCurvatureProperty: NumberProperty, options?: any ) {
-
-    options = merge( {}, GeometricOpticsConstants.NUMBER_CONTROL_OPTIONS, {
-      delta: GeometricOpticsConstants.RADIUS_OF_CURVATURE_SPINNER_INTERVAL,
-      sliderOptions: {
-        constrainValue: ( value: number ) =>
-          Utils.roundToInterval( value, GeometricOpticsConstants.RADIUS_OF_CURVATURE_SLIDER_INTERVAL )
-      },
-      numberDisplayOptions: {
-        decimalPlaces: GeometricOpticsConstants.RADIUS_OF_CURVATURE_DECIMAL_PLACES,
-        valuePattern: geometricOpticsStrings.valueCentimetersPattern
-      },
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+  constructor( radiusOfCurvatureProperty: NumberProperty, options: Options ) {
 
     assert && assert( radiusOfCurvatureProperty.range ); // {Range|null}
     const radiusOfCurvatureRange: Range = radiusOfCurvatureProperty.range!;
 
-    super( geometricOpticsStrings.radiusOfCurvature, radiusOfCurvatureProperty, radiusOfCurvatureRange, options );
+    super( geometricOpticsStrings.radiusOfCurvature, radiusOfCurvatureProperty, radiusOfCurvatureRange,
+      merge( {}, GeometricOpticsConstants.NUMBER_CONTROL_OPTIONS, {
+        delta: GeometricOpticsConstants.RADIUS_OF_CURVATURE_SPINNER_INTERVAL,
+        sliderOptions: {
+          constrainValue: ( value: number ) =>
+            Utils.roundToInterval( value, GeometricOpticsConstants.RADIUS_OF_CURVATURE_SLIDER_INTERVAL )
+        },
+        numberDisplayOptions: {
+          decimalPlaces: GeometricOpticsConstants.RADIUS_OF_CURVATURE_DECIMAL_PLACES,
+          valuePattern: geometricOpticsStrings.valueCentimetersPattern
+        }
+      }, options ) );
   }
 }
 

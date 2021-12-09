@@ -13,7 +13,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import GeometricOpticsScreenView from '../../common/view/GeometricOpticsScreenView.js';
+import GeometricOpticsScreenView, { GeometricOpticsScreenViewOptions } from '../../common/view/GeometricOpticsScreenView.js';
 import geometricOptics from '../../geometricOptics.js';
 import LensModel from '../model/LensModel.js';
 import GuideNode from './GuideNode.js';
@@ -25,17 +25,21 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Lens from '../model/Lens.js';
 import LensNode from './LensNode.js';
 
+type LensScreenViewOptions = {
+  tandem: Tandem
+};
+
 class LensScreenView extends GeometricOpticsScreenView {
 
   private readonly projectionScreenNode: ProjectionScreenNode;
 
   /**
    * @param model
-   * @param options
+   * @param providedOptions
    */
-  constructor( model: LensModel, options?: any ) {
+  constructor( model: LensModel, providedOptions: LensScreenViewOptions ) {
 
-    options = merge( {
+    const options = merge( {
 
       // View origin is slightly above center of the layoutBounds.
       getViewOrigin: ( layoutBounds: Bounds2 ) =>
@@ -45,15 +49,13 @@ class LensScreenView extends GeometricOpticsScreenView {
       createOpticNode: ( optic: Lens, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) =>
         new LensNode( optic, modelBoundsProperty, modelViewTransform, {
           tandem: parentTandem.createTandem( 'lensNode' )
-        } ),
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+        } )
+    }, providedOptions ) as GeometricOpticsScreenViewOptions;
 
     super( model, options );
 
     // Guides associated with the object
+    //TODO create a new class for firstGuidesNode and secondGuidesNode
     const firstGuidesNode = new Node( {
       children: [
         new GuideNode( model.firstTopGuide, this.modelViewTransform ),

@@ -17,6 +17,14 @@ import geometricOptics from '../../geometricOptics.js';
 
 type RulerOrientation = 'horizontal' | 'vertical';
 
+type GeometricOpticsRulerOptions = {
+  orientation?: RulerOrientation,
+  length?: number,
+
+  // phet-io options
+  tandem: Tandem
+};
+
 class GeometricOpticsRuler {
 
   // orientation of the ruler
@@ -36,17 +44,14 @@ class GeometricOpticsRuler {
   readonly visibleProperty: Property<boolean>;
 
   /**
-   * @param options
+   * @param providedOptions
    */
-  constructor( options?: any ) {
+  constructor( providedOptions: GeometricOpticsRulerOptions ) {
 
-    options = merge( {
+    const options = merge( {
       orientation: 'horizontal',
-      length: 100,
-      
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+      length: 100
+    }, providedOptions ) as Required<GeometricOpticsRulerOptions>;
 
     assert && assert( isFinite( options.length ) && options.length > 0 );
 

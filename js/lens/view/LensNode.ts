@@ -26,6 +26,17 @@ import Matrix3 from '../../../../dot/js/Matrix3.js';
 import GeometricOpticsQueryParameters from '../../common/GeometricOpticsQueryParameters.js';
 import OriginNode from '../../common/view/OriginNode.js';
 
+// constants
+const FILL = GeometricOpticsColors.lensFillProperty;
+const STROKE = GeometricOpticsColors.lensStrokeProperty;
+const LINE_WIDTH = 2;
+const ICON_RADIUS_OF_CURVATURE = 20;
+const ICON_DIAMETER = 30;
+
+type Options = {
+  tandem: Tandem
+};
+
 class LensNode extends Node {
 
   /**
@@ -34,25 +45,16 @@ class LensNode extends Node {
    * @param modelViewTransform
    * @param options
    */
-  constructor( lens: Lens, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, options?: any ) {
-
-    options = merge( {
-      fill: GeometricOpticsColors.lensFillProperty,
-      stroke: GeometricOpticsColors.lensStrokeProperty,
-      lineWidth: 2,
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+  constructor( lens: Lens, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, options: Options ) {
 
     const fillNode = new Path( null, {
-      fill: options.fill
+      fill: FILL
     } );
 
     // Separate Node for stroke, because we'll be changing fillNode opacity to match index of refraction.
     const strokeNode = new Path( null, {
-      stroke: options.stroke,
-      lineWidth: options.lineWidth
+      stroke: STROKE,
+      lineWidth: LINE_WIDTH
     } );
 
     // Vertical axis for the lens, see https://github.com/phetsims/geometric-optics/issues/190
@@ -61,15 +63,16 @@ class LensNode extends Node {
       lineWidth: GeometricOpticsConstants.AXIS_LINE_WIDTH
     } );
 
-    assert && assert( !options.children );
-    options.children = [ fillNode, verticalCenterLine, strokeNode ];
+    const children: Node[] = [ fillNode, verticalCenterLine, strokeNode ];
 
     // Red dot at the origin
     if ( GeometricOpticsQueryParameters.showPositions ) {
-      options.children.push( new OriginNode() );
+      children.push( new OriginNode() );
     }
 
-    super( options );
+    super( merge( {
+      children: children
+    }, options ) );
 
     // Shapes are described in model coordinates. Scale them to view coordinates.
     // Translation is handled by lens.positionProperty listener.
@@ -109,16 +112,10 @@ class LensNode extends Node {
   /**
    * Creates an icon for a lens.
    * @param opticShape
-   * @param options
    */
-  public static createIconNode( opticShape: OpticShapeEnum, options?: any ): Node {
+  public static createIconNode( opticShape: OpticShapeEnum ): Node {
 
-    options = merge( {
-      radius: 20, // radius of curvature of the lens, in cm
-      diameter: 30 // diameter of the lens, in cm
-    }, options );
-
-    const lensShapes = new LensShapes( opticShape, options.radius, options.diameter, {
+    const lensShapes = new LensShapes( opticShape, ICON_RADIUS_OF_CURVATURE, ICON_DIAMETER, {
       isHollywooded: false
     } );
 

@@ -16,6 +16,12 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import { Circle } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 
+const RADIUS = 2;
+
+type DebugPointNodeOptions = {
+  fill?: ColorDef
+};
+
 class DebugPointNode extends Circle {
 
   /**
@@ -23,14 +29,13 @@ class DebugPointNode extends Circle {
    * @param modelViewTransform
    * @param options
    * */
-  constructor( positionProperty: IReadOnlyProperty<Vector2>, modelViewTransform: ModelViewTransform2, options?: any ) {
+  constructor( positionProperty: IReadOnlyProperty<Vector2>, modelViewTransform: ModelViewTransform2, options?: DebugPointNodeOptions ) {
 
     options = merge( {
-      fill: 'white',
-      radius: 2
-    }, options );
+      fill: 'red'
+    }, options ) as Required< DebugPointNodeOptions >;
 
-    super( options.radius, options );
+    super( RADIUS, options );
 
     // update position of disk
     positionProperty.link( position => {

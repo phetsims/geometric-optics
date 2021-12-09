@@ -10,20 +10,24 @@
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import Optic from '../../common/model/Optic.js';
+import Optic, { OpticOptions } from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 import OpticShapeEnum from '../../common/model/OpticShapeEnum.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import LensShapes from './LensShapes.js';
 
+type Options = {
+  tandem: Tandem
+};
+
 class Lens extends Optic {
 
   /**
-   * @param options
+   * @param providedOptions
    */
-  constructor( options?: any ) {
+  constructor( providedOptions: Options ) {
 
-    options = merge( {
+    const options = merge( {
       opticShape: 'convex',
       opticShapes: [ 'convex', 'concave' ],
       radiusOfCurvatureRange: new RangeWithValue( 30, 130, 80 ), // in cm
@@ -36,7 +40,7 @@ class Lens extends Optic {
 
       // phet-io options
       tandem: Tandem.REQUIRED
-    }, options );
+    }, providedOptions ) as OpticOptions;
 
     super( options );
   }

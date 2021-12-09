@@ -7,14 +7,18 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import GeometricOpticsModel from '../../common/model/GeometricOpticsModel.js';
+import GeometricOpticsModel, { GeometricOpticsModelOptions } from '../../common/model/GeometricOpticsModel.js';
 import Lens from './Lens.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from './Guide.js';
 import LightSpot from './LightSpot.js';
 import ProjectionScreen from './ProjectionScreen.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import merge from '../../../../phet-core/js/merge.js';
+
+type LensModelOptions = {
+  tandem: Tandem
+};
 
 class LensModel extends GeometricOpticsModel {
 
@@ -39,23 +43,22 @@ class LensModel extends GeometricOpticsModel {
   // bottom guide associated with the second point or second light source
   readonly secondBottomGuide: Guide;
 
-  constructor( options?: any ) {
-
-    options = merge( {
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
-    }, options );
+  /**
+   * @param providedOptions
+   */
+  constructor( providedOptions: LensModelOptions ) {
 
     const lens = new Lens( {
-      tandem: options.tandem.createTandem( 'lens' )
+      tandem: providedOptions.tandem.createTandem( 'lens' )
     } );
 
     const projectionScreen = new ProjectionScreen( {
-      tandem: options.tandem.createTandem( 'projectionScreen' )
+      tandem: providedOptions.tandem.createTandem( 'projectionScreen' )
     } );
-    assert && assert( !options.projectionScreen );
-    options.barrier = projectionScreen;
+
+    const options = merge( {
+      barrier: projectionScreen
+    }, providedOptions ) as GeometricOpticsModelOptions;
 
     super( lens, options );
 
