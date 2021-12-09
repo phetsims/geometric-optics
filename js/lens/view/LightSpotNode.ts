@@ -17,7 +17,7 @@ import geometricOptics from '../../geometricOptics.js';
 import LightSpot from '../model/LightSpot.js';
 
 type Options = {
-  visibleProperty?: IProperty<boolean>
+  visibleProperty: IProperty<boolean>
 };
 
 class LightSpotNode extends Node {
@@ -27,7 +27,7 @@ class LightSpotNode extends Node {
    * @param modelViewTransform
    * @param options
    */
-  constructor( lightSpot: LightSpot, modelViewTransform: ModelViewTransform2, options?: Options ) {
+  constructor( lightSpot: LightSpot, modelViewTransform: ModelViewTransform2, options: Options ) {
 
     // Fill color of the spot
     const fillPath = new Path( null, {
