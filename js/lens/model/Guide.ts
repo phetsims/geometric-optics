@@ -10,12 +10,21 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import merge from '../../../../phet-core/js/merge.js';
+import PhetioObject from '../../../../tandem/js/PhetioObject.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import Optic from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 
 type GuideLocation = 'top' | 'bottom';
 
-class Guide {
+type Options = {
+  tandem: Tandem,
+  phetioDocumentation: string
+};
+
+class Guide extends PhetioObject {
 
   // position of the fulcrum point, in cm
   readonly fulcrumPositionProperty: IReadOnlyProperty<Vector2>;
@@ -30,8 +39,13 @@ class Guide {
    * @param optic
    * @param objectPositionProperty
    * @param location
+   * @param options
    */
-  constructor( optic: Optic, objectPositionProperty: IReadOnlyProperty<Vector2>, location: GuideLocation ) {
+  constructor( optic: Optic, objectPositionProperty: IReadOnlyProperty<Vector2>, location: GuideLocation, options: Options ) {
+
+    super( merge( {
+      phetioState: false
+    }, options ) );
 
     // sign is positive for top guide and negative below
     const locationSign = ( location === 'top' ) ? +1 : -1;
@@ -39,14 +53,21 @@ class Guide {
     this.fulcrumPositionProperty = new DerivedProperty(
       [ optic.positionProperty, optic.diameterProperty ],
       ( opticPosition: Vector2, opticDiameter: number ) =>
-        opticPosition.plusXY( 0, locationSign * opticDiameter / 2 )
-    );
+        opticPosition.plusXY( 0, locationSign * opticDiameter / 2 ), {
+        tandem: options.tandem.createTandem( 'fulcrumPositionProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
+        units: 'cm'
+      } );
 
     this.incidentAngleProperty = new DerivedProperty(
       [ objectPositionProperty, this.fulcrumPositionProperty ],
       ( objectPosition: Vector2, fulcrumPosition: Vector2 ) => {
         const displacementVector = objectPosition.minus( fulcrumPosition );
         return displacementVector.getAngle();
+      }, {
+        tandem: options.tandem.createTandem( 'incidentAngleProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+        units: 'radians'
       } );
 
     this.transmittedAngleProperty = new DerivedProperty(
@@ -68,6 +89,10 @@ class Guide {
                                -1 * locationSign * ( Math.atan( 3 * toa ) - Math.atan( toa ) );
 
         return throughAngle + deflectedAngle;
+      }, {
+        tandem: options.tandem.createTandem( 'transmittedAngleProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+        units: 'radians'
       } );
   }
 }

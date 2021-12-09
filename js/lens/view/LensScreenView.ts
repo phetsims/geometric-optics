@@ -62,7 +62,7 @@ class LensScreenView extends GeometricOpticsScreenView {
         ( guidesVisible: boolean, secondPointVisible: boolean ) => ( guidesVisible && !secondPointVisible )
       ),
       tandem: options.tandem.createTandem( 'guides1Node' ),
-      phetioDocumentation: 'guides associated with the source object or first light source'
+      phetioDocumentation: 'TODO'
     } );
     this.experimentAreaNode.addChild( guides1Node );
 
@@ -71,7 +71,7 @@ class LensScreenView extends GeometricOpticsScreenView {
         [ this.visibleProperties.guidesVisibleProperty, this.visibleProperties.secondPointVisibleProperty ]
       ),
       tandem: options.tandem.createTandem( 'guides2Node' ),
-      phetioDocumentation: 'guides associated with the second point or second light source'
+      phetioDocumentation: 'TODO'
     } );
     this.experimentAreaNode.addChild( guides2Node );
 

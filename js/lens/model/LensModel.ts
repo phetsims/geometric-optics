@@ -77,10 +77,23 @@ class LensModel extends GeometricOpticsModel {
       } );
 
     // Guides
-    this.topGuide1 = new Guide( this.optic, this.sourceObject.positionProperty, 'top' );
-    this.bottomGuide1 = new Guide( this.optic, this.sourceObject.positionProperty, 'bottom' );
-    this.topGuide2 = new Guide( this.optic, this.secondPoint.positionProperty, 'top' );
-    this.bottomGuide2 = new Guide( this.optic, this.secondPoint.positionProperty, 'bottom' );
+    const guidesTandem = options.tandem.createTandem( 'guides' );
+    this.topGuide1 = new Guide( this.optic, this.sourceObject.positionProperty, 'top', {
+      tandem: guidesTandem.createTandem( 'topGuide1' ),
+      phetioDocumentation: 'TODO'
+    } );
+    this.bottomGuide1 = new Guide( this.optic, this.sourceObject.positionProperty, 'bottom', {
+      tandem: guidesTandem.createTandem( 'bottomGuide1' ),
+      phetioDocumentation: 'TODO'
+    } );
+    this.topGuide2 = new Guide( this.optic, this.secondPoint.positionProperty, 'top', {
+      tandem: guidesTandem.createTandem( 'topGuide2' ),
+      phetioDocumentation: 'TODO'
+    } );
+    this.bottomGuide2 = new Guide( this.optic, this.secondPoint.positionProperty, 'bottom', {
+      tandem: guidesTandem.createTandem( 'bottomGuide2' ),
+      phetioDocumentation: 'TODO'
+    } );
   }
 
   public reset(): void {
