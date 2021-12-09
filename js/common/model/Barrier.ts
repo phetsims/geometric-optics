@@ -6,13 +6,14 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Vector2Property from '../../../../dot/js/Vector2Property.js';
+import Property from '../../../../axon/js/Property.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 
 interface Barrier {
 
   // Position of the barrier, in cm
-  readonly positionProperty: Vector2Property;
+  readonly positionProperty: Property<Vector2>;
 
   // Gets the vertical line that bisects the barrier, in the model's global coordinate frame.
   getBisectorLineTranslated(): Shape

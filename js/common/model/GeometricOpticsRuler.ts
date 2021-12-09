@@ -33,7 +33,7 @@ class GeometricOpticsRuler {
   // original (unscaled) length of the ruler, in cm
   private readonly nominalLength: number;
 
-  readonly visibleProperty: BooleanProperty;
+  readonly visibleProperty: Property<boolean>;
 
   /**
    * @param options

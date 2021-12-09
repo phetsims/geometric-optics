@@ -23,7 +23,7 @@ const INITIAL_POSITION = new Vector2( -170, 30 );
 class SourceObject {
 
   // position of the left top position of image
-  public readonly leftTopProperty: Vector2Property;
+  public readonly leftTopProperty: Property<Vector2>;
 
   // position of the source object or light source
   public readonly positionProperty: IReadOnlyProperty<Vector2>;

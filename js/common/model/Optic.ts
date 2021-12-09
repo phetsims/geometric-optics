@@ -32,7 +32,7 @@ abstract class Optic {
   readonly opticShapeProperty: Property<OpticShapeEnum>;
 
   // position of the optic
-  readonly positionProperty: Vector2Property;
+  readonly positionProperty: Property<Vector2>;
 
   // radius of curvature (ROC) of the optic, positive is converging
   readonly radiusOfCurvatureProperty: NumberProperty;
@@ -64,7 +64,7 @@ abstract class Optic {
   // Determines whether the optical axis is visible.
   // PhET-iO only, cannot be controlled from the sim UI, and is not subject to reset.
   // See https://github.com/phetsims/geometric-optics/issues/252
-  readonly opticalAxisVisibleProperty: BooleanProperty;
+  readonly opticalAxisVisibleProperty: Property<boolean>;
 
   /**
    * @param config

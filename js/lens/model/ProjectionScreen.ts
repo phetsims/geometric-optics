@@ -8,6 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
@@ -26,7 +27,7 @@ assert && assert( SCREEN_NEAR_HEIGHT > SCREEN_FAR_HEIGHT );
 class ProjectionScreen implements Barrier {
 
   // position of the center of the screen, in cm
-  readonly positionProperty: Vector2Property;
+  readonly positionProperty: Property<Vector2>;
 
   // Shape of the screen, relative to positionProperty
   readonly screenShape: Shape;

@@ -25,7 +25,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 class Target {
 
   //TODO visibleProperty should not be in the model
-  public readonly visibleProperty: BooleanProperty;
+  public readonly visibleProperty: Property<boolean>;
 
   // horizontal "distance" between target (image) and optic
   // the position of the focus as predicted by lens and mirror equation
