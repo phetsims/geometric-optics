@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * OpticalAxis is the horizontal line that passes through the geometric center of a lens or mirror.
+ * OpticalHorizontalAxisNode is the horizontal line that passes through the geometric center of a lens or mirror.
  * It is referred to as 'optical axis', or sometimes as 'principal axis'.
  *
  * @author Sarah Chang (Swarthmore College)
@@ -25,7 +25,7 @@ type Options = {
   tandem: Tandem
 };
 
-class OpticalAxis extends Line {
+class OpticalHorizontalAxisNode extends Line {
 
   /**
    * @param opticPositionProperty
@@ -63,6 +63,6 @@ class OpticalAxis extends Line {
   }
 }
 
-geometricOptics.register( 'OpticalAxis', OpticalAxis );
+geometricOptics.register( 'OpticalHorizontalAxisNode', OpticalHorizontalAxisNode );
 
-export default OpticalAxis;
+export default OpticalHorizontalAxisNode;

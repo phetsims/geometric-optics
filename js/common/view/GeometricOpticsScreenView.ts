@@ -30,9 +30,9 @@ import FocalPointNode from './FocalPointNode.js';
 import GeometricOpticsControlPanel from './GeometricOpticsControlPanel.js';
 import LabelsNode from './LabelsNode.js';
 import LightRaysNode from './LightRaysNode.js';
-import OpticalAxis from './OpticalAxis.js';
+import OpticalHorizontalAxisNode from './OpticalHorizontalAxisNode.js';
 import OpticShapeRadioButtonGroup from './OpticShapeRadioButtonGroup.js';
-import OpticVerticalAxis from './OpticVerticalAxis.js';
+import OpticVerticalAxisNode from './OpticVerticalAxisNode.js';
 import RepresentationComboBox from './RepresentationComboBox.js';
 import RulersToolbox from './RulersToolbox.js';
 import SecondPointNode from './SecondPointNode.js';
@@ -232,15 +232,15 @@ class GeometricOpticsScreenView extends ScreenView {
         tandem: options.tandem.createTandem( 'secondPointNode' )
       } );
 
-    const opticalAxis = new OpticalAxis( model.optic.positionProperty, modelBoundsProperty, modelViewTransform, {
+    const opticalHorizontalAxisNode = new OpticalHorizontalAxisNode( model.optic.positionProperty, modelBoundsProperty, modelViewTransform, {
       visibleProperty: model.optic.opticalAxisVisibleProperty,
-      tandem: options.tandem.createTandem( 'opticalAxis' )
+      tandem: options.tandem.createTandem( 'opticalHorizontalAxisNodeNode' )
     } );
 
     const opticNode = options.createOpticNode( model.optic, modelBoundsProperty, modelViewTransform, options.tandem );
 
-    const opticVerticalAxis = new OpticVerticalAxis( model.optic, model.raysModeProperty, modelBoundsProperty, modelViewTransform, {
-      tandem: options.tandem.createTandem( 'opticVerticalAxis' )
+    const opticVerticalAxisNode = new OpticVerticalAxisNode( model.optic, model.raysModeProperty, modelBoundsProperty, modelViewTransform, {
+      tandem: options.tandem.createTandem( 'opticVerticalAxisNode' )
     } );
 
     // create the light rays associated with the source object and first light source
@@ -276,10 +276,10 @@ class GeometricOpticsScreenView extends ScreenView {
     // The experiment area is subject to zoom in/out, so include add all Nodes that need to be zoomed.
     const experimentAreaNode = new Node( {
       children: [
-        opticalAxis,
+        opticalHorizontalAxisNode,
         sourceObjectNode,
         opticNode,
-        opticVerticalAxis,
+        opticVerticalAxisNode,
         targetNode,
         focalPointsNode,
         lightRaysNode,

@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * OpticVerticalAxis is the vertical axis through the center of the optic. For a lens, it bisects the symmetrical
+ * OpticVerticalAxisNode is the vertical axis through the center of the optic. For a lens, it bisects the symmetrical
  * lens into halves. It is shown only in Principal rays mode.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -24,7 +24,7 @@ type Options = {
   tandem: Tandem
 };
 
-class OpticVerticalAxis extends Node {
+class OpticVerticalAxisNode extends Node {
 
   /**
    * @param optic
@@ -59,5 +59,5 @@ class OpticVerticalAxis extends Node {
   }
 }
 
-geometricOptics.register( 'OpticVerticalAxis', OpticVerticalAxis );
-export default OpticVerticalAxis;
+geometricOptics.register( 'OpticVerticalAxisNode', OpticVerticalAxisNode );
+export default OpticVerticalAxisNode;
