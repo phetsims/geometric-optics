@@ -51,12 +51,10 @@ class LightRays {
     this.virtualSegments = [];
     this.raysProcessedEmitter = new Emitter();
 
-    type Types = [ Vector2, RaysModeEnum, number, Representation, ...any[] ];
     // update the shape of rays and the emitter state
+    type Types = [ Vector2, RaysModeEnum, number, Representation, ...any[] ];
     const dependencies: MappedProperties<Types> = [
-      // order of these is important
       sourceObjectPositionProperty, raysModeProperty, timeProperty, representationProperty,
-      // order of these is not important
       optic.positionProperty, optic.diameterProperty, optic.focalLengthProperty, optic.opticShapeProperty
     ];
     if ( barrier ) {
