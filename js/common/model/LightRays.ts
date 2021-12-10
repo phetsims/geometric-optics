@@ -51,16 +51,19 @@ class LightRays {
     this.virtualSegments = [];
     this.raysProcessedEmitter = new Emitter();
 
-    // update the shape of rays and the emitter state
-    type Types = [ Vector2, RaysModeEnum, number, Representation, ...any[] ];
-    const dependencies: MappedProperties<Types> = [
+    // Things that result in a change to the rays.
+    // We only care about the types of the first 4 dependencies, because the listener only has 4 parameters.
+    type DependencyTypes = [ Vector2, RaysModeEnum, number, Representation, ...any[] ];
+    const dependencies: MappedProperties<DependencyTypes> = [
       sourceObjectPositionProperty, raysModeProperty, timeProperty, representationProperty,
       optic.positionProperty, optic.diameterProperty, optic.focalLengthProperty, optic.opticShapeProperty
     ];
     if ( barrier ) {
       dependencies.push( barrier.positionProperty );
     }
-    Property.multilink<Types>( dependencies,
+
+    // update the shape of rays and the emitter state
+    Property.multilink<DependencyTypes>( dependencies,
       ( sourcePosition: Vector2, raysMode: RaysModeEnum, time: number, representation: Representation ) => {
 
         // Clear the arrays.
