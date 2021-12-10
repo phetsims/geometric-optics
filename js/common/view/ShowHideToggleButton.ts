@@ -16,7 +16,15 @@ import { Path } from '../../../../scenery/js/imports.js';
 import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
 import eyeSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSolidShape.js';
 import BooleanRoundToggleButton from '../../../../sun/js/buttons/BooleanRoundToggleButton.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
+
+const TRUE_COLOR = 'rgb( 240, 234, 227 )';
+const FALSE_COLOR = PhetColorScheme.BUTTON_YELLOW;
+
+type Options = {
+  tandem: Tandem
+};
 
 class ShowHideToggleButton extends BooleanRoundToggleButton {
 
@@ -24,32 +32,21 @@ class ShowHideToggleButton extends BooleanRoundToggleButton {
    * @param booleanProperty
    * @param options
    */
-  constructor( booleanProperty: Property<boolean>, options?: any ) {
-
-    options = merge( {
-      trueColor: 'rgb( 240, 234, 227 )', // {Color|string} button color when booleanProperty.value === true
-      falseColor: PhetColorScheme.BUTTON_YELLOW,  // {Color|string} button color when booleanProperty.value === false
-
-      // BooleanRoundToggleButton options
-      xMargin: 9,
-      yMargin: 9,
-      radius: SceneryPhetConstants.DEFAULT_BUTTON_RADIUS, // so that this button will be the same size as ResetAllButton
-
-      // Path options for the button icons
-      icon: {
-        fill: 'black'
-      }
-    }, options );
-    assert && assert( !options.baseColor, 'ShowHideToggleButton controls baseColor' );
+  constructor( booleanProperty: Property<boolean>, options: Options ) {
 
     // create nodes for open and closed eye icons
-    const showNode = new Path( eyeSolidShape, options.icon );
-    const hideNode = new Path( eyeSlashSolidShape, options.icon );
+    const pathOptions = { fill: 'black' };
+    const showNode = new Path( eyeSolidShape, pathOptions );
+    const hideNode = new Path( eyeSlashSolidShape, pathOptions );
 
-    super( showNode, hideNode, booleanProperty, options );
+    super( showNode, hideNode, booleanProperty, merge( {
+      xMargin: 9,
+      yMargin: 9,
+      radius: SceneryPhetConstants.DEFAULT_BUTTON_RADIUS // so that this button will be the same size as ResetAllButton
+    }, options ) );
 
     booleanProperty.link( value => {
-      this.setBaseColor( value ? options.trueColor : options.falseColor );
+      this.setBaseColor( value ? TRUE_COLOR : FALSE_COLOR );
     } );
   }
 

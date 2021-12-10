@@ -11,22 +11,24 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { DragListener } from '../../../../scenery/js/imports.js';
-import { Image } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import { DragListener, Image, Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import SourceObject from '../model/SourceObject.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Representation from '../model/Representation.js';
 import UnconstrainedCueingArrowsNode from './UnconstrainedCueingArrowsNode.js';
 import GeometricOpticsGlobalOptions from '../GeometricOpticsGlobalOptions.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 // Closest that source object can be moved to the optic, in cm. This avoid problems that occur when the object is
 // too close to a mirror. See https://github.com/phetsims/geometric-optics/issues/73
 const MIN_X_DISTANCE_TO_OPTIC = 40;
+
+type Options = {
+  tandem: Tandem
+};
 
 class SourceObjectNode extends Node {
 
@@ -40,28 +42,19 @@ class SourceObjectNode extends Node {
    * @param modelBoundsProperty
    * @param opticPositionProperty
    * @param modelViewTransform
-   * @param options
    * */
   constructor( representationProperty: Property<Representation>, sourceObject: SourceObject,
                modelBoundsProperty: Property<Bounds2>, opticPositionProperty: Property<Vector2>,
-               modelViewTransform: ModelViewTransform2, options?: any ) {
-
-    options = merge( {
-
-      // phet-io
-      tandem: Tandem.REQUIRED,
-      phetioInputEnabledPropertyInstrumented: true
-    }, options );
+               modelViewTransform: ModelViewTransform2, options: Options ) {
 
     // Origin of this Node is at the upper-left corner of sourceObjectImage.
     const sourceObjectImage = new Image( representationProperty.value.rightFacingUpright );
 
     const cueingArrowsNode = new UnconstrainedCueingArrowsNode();
 
-    assert && assert( !options.children );
-    options.children = [ sourceObjectImage, cueingArrowsNode ];
-
-    super( options );
+    super( merge( {
+      children: [ sourceObjectImage, cueingArrowsNode ]
+    }, options ) );
 
     // Keep cueing arrows next to the source object.
     sourceObjectImage.boundsProperty.link( ( bounds: Bounds2 ) => {
@@ -118,7 +111,8 @@ class SourceObjectNode extends Node {
       dragBoundsProperty: this.dragBoundsProperty,
       drag: () => {
         cueingArrowsNode.visible = false;
-      }
+      },
+      tandem: options.tandem.createTandem( 'dragListener' )
     } );
     this.addInputListener( sourceObjectDragListener );
 

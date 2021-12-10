@@ -222,14 +222,14 @@ class GeometricOpticsScreenView extends ScreenView {
     // the source object or first light source
     const sourceObjectNode = new SourceObjectNode( model.representationProperty, model.sourceObject,
       modelBoundsProperty, model.optic.positionProperty, modelViewTransform, {
-        tandem: options.tandem.createTandem( 'sourceObjectNode' )
+      tandem: options.tandem.createTandem( 'sourceObjectNode' )
       } );
 
     // the second point or second light source
     const secondPointNode = new SecondPointNode( model.representationProperty, model.secondPoint,
       sourceObjectNode.dragBoundsProperty, modelViewTransform, {
-        visibleProperty: visibleProperties.secondPointVisibleProperty,
-        tandem: options.tandem.createTandem( 'secondPointNode' )
+        tandem: options.tandem.createTandem( 'secondPointNode' ),
+        visibleProperty: visibleProperties.secondPointVisibleProperty
       } );
 
     const opticalHorizontalAxisNode = new OpticalHorizontalAxisNode( model.optic.positionProperty, modelBoundsProperty, modelViewTransform, {
@@ -244,23 +244,29 @@ class GeometricOpticsScreenView extends ScreenView {
     } );
 
     // create the light rays associated with the source object and first light source
-    const lightRaysNode = new LightRaysNode( model.firstLightRays, model.representationProperty,
+    const lightRays1Node = new LightRaysNode( model.lightRays1, model.representationProperty,
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, {
         realRaysStroke: GeometricOpticsColors.realRays1StrokeProperty,
-        virtualRaysStroke: GeometricOpticsColors.virtualRays1StrokeProperty
+        virtualRaysStroke: GeometricOpticsColors.virtualRays1StrokeProperty,
+        tandem: options.tandem.createTandem( 'lightRays1Node' ),
+        phetioDocumentation: 'TODO'
       } );
 
     // create the light rays associated with the second point and second light source
-    const secondPointLightRaysNode = new LightRaysNode( model.secondLightRays, model.representationProperty,
+    const lightRays2Node = new LightRaysNode( model.lightRays2, model.representationProperty,
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, {
         realRaysStroke: GeometricOpticsColors.realRays2StrokeProperty,
         virtualRaysStroke: GeometricOpticsColors.virtualRays2StrokeProperty,
-        visibleProperty: visibleProperties.secondPointVisibleProperty
+        visibleProperty: visibleProperties.secondPointVisibleProperty,
+        tandem: options.tandem.createTandem( 'lightRays2Node' ),
+        phetioDocumentation: 'TODO'
       } );
 
     // create the target image
     const targetNode = new TargetNode( model.representationProperty, model.firstTarget, model.optic,
-      visibleProperties.virtualImageVisibleProperty, visibleProperties.rayTracingVisibleProperty, modelViewTransform );
+      visibleProperties.virtualImageVisibleProperty, visibleProperties.rayTracingVisibleProperty, modelViewTransform, {
+        tandem: options.tandem.createTandem( 'targetNode' )
+      } );
 
     // create two focal points
     const focalPointsNode = new Node( {
@@ -282,8 +288,8 @@ class GeometricOpticsScreenView extends ScreenView {
         opticVerticalAxisNode,
         targetNode,
         focalPointsNode,
-        lightRaysNode,
-        secondPointLightRaysNode,
+        lightRays1Node,
+        lightRays2Node,
         secondPointNode
       ]
     } );

@@ -8,16 +8,28 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import IProperty from '../../../../axon/js/IProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Line } from '../../../../scenery/js/imports.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import { ColorDef } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import LightRays from '../model/LightRays.js';
 import LightRaySegment from '../model/LightRaySegment.js';
 import Representation from '../model/Representation.js';
+
+type Options = {
+  realRaysStroke?: ColorDef,
+  realRaysLineWidth?: number,
+  virtualRaysStroke?: ColorDef,
+  virtualRaysLineWidth?: number,
+  visibleProperty?: IProperty<boolean>,
+  tandem: Tandem,
+  phetioDocumentation: string
+};
 
 class LightRaysNode extends Node {
 
@@ -26,17 +38,17 @@ class LightRaysNode extends Node {
    * @param representationProperty
    * @param virtualImageVisibleProperty
    * @param modelViewTransform
-   * @param options
+   * @param providedOptions
    */
   constructor( lightRays: LightRays, representationProperty: Property<Representation>,
-               virtualImageVisibleProperty: Property<boolean>, modelViewTransform: ModelViewTransform2, options?: any ) {
+               virtualImageVisibleProperty: Property<boolean>, modelViewTransform: ModelViewTransform2, providedOptions: Options ) {
 
-    options = merge( {
+    const options = merge( {
       realRaysStroke: 'white',
       realRaysLineWidth: 2,
       virtualRaysStroke: 'white',
       virtualRaysLineWidth: 2
-    }, options );
+    }, providedOptions ) as Required<Options>;
 
     const realRaysNode = new Node();
 
@@ -56,10 +68,9 @@ class LightRaysNode extends Node {
     };
     update();
 
-    assert && assert( !options.children );
-    options.children = [ realRaysNode, virtualRaysPath ];
-
-    super( options );
+    super( merge( {
+      children: [ realRaysNode, virtualRaysPath ]
+    }, options ) );
 
     // Update this Node when the model tells us that it's time to update.
     lightRays.raysProcessedEmitter.addListener( () => update() );

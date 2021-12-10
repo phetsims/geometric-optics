@@ -70,10 +70,10 @@ class GeometricOpticsModel {
   readonly raysModeProperty: Property<RaysModeEnum>;
 
   // light rays associated with the first light source
-  readonly firstLightRays: LightRays;
+  readonly lightRays1: LightRays;
 
   // light rays associated with the second light source
-  readonly secondLightRays: LightRays;
+  readonly lightRays2: LightRays;
 
   // rulers
   readonly horizontalRuler: GeometricOpticsRuler;
@@ -107,7 +107,8 @@ class GeometricOpticsModel {
 
     this.lightRaysTimeProperty = new NumberProperty( 0, {
       units: 's',
-      range: new Range( 0, RAYS_ANIMATION_TIME )
+      range: new Range( 0, RAYS_ANIMATION_TIME ),
+      tandem: options.tandem.createTandem( 'lightRaysTimeProperty' )
     } );
 
     this.raysModeProperty = new Property( 'marginal', {
@@ -119,7 +120,7 @@ class GeometricOpticsModel {
     // Changing raysModeProperty resets the animation time for rays.
     this.raysModeProperty.link( () => this.lightRaysTimeProperty.reset() );
 
-    this.firstLightRays = new LightRays(
+    this.lightRays1 = new LightRays(
       this.lightRaysTimeProperty,
       this.raysModeProperty,
       this.representationProperty,
@@ -129,7 +130,7 @@ class GeometricOpticsModel {
       options.barrier
     );
 
-    this.secondLightRays = new LightRays(
+    this.lightRays2 = new LightRays(
       this.lightRaysTimeProperty,
       this.raysModeProperty,
       this.representationProperty,

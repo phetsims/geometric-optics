@@ -18,6 +18,11 @@ import geometricOptics from '../../geometricOptics.js';
 import Optic from '../model/Optic.js';
 import Target from '../model/Target.js';
 import Representation from '../model/Representation.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+
+type Options = {
+  tandem: Tandem
+};
 
 class TargetNode extends Node {
 
@@ -28,12 +33,13 @@ class TargetNode extends Node {
    * @param virtualImageVisibleProperty
    * @param rayTracingVisibleProperty
    * @param modelViewTransform
+   * @param options
    */
   constructor( representationProperty: Property<Representation>, target: Target, optic: Optic,
                virtualImageVisibleProperty: Property<boolean>, rayTracingVisibleProperty: Property<boolean>,
-               modelViewTransform: ModelViewTransform2 ) {
+               modelViewTransform: ModelViewTransform2, options: Options ) {
 
-    super();
+    super( options );
 
     // creates the target image - the actual image will be updated later
     assert && assert( target.imageProperty.value ); // {HTMLImageElement|null}

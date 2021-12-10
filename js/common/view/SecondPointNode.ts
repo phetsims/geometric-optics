@@ -29,6 +29,7 @@ import Representation from '../model/Representation.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GeometricOpticsGlobalOptions from '../GeometricOpticsGlobalOptions.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import IProperty from '../../../../axon/js/IProperty.js';
 
 // constants
 const POINT_RADIUS = 5;
@@ -49,6 +50,11 @@ const CUEING_ARROW_OPTIONS = {
   headHeight: 6
 };
 
+type Options = {
+  visibleProperty: IProperty<boolean>,
+  tandem: Tandem
+};
+
 class SecondPointNode extends Node {
 
   private readonly resetSecondPointNode: () => void;
@@ -62,16 +68,11 @@ class SecondPointNode extends Node {
    */
   constructor( representationProperty: Property<Representation>, secondPoint: SecondPoint,
                sourceObjectDragBoundsProperty: IReadOnlyProperty<Bounds2>,
-               modelViewTransform: ModelViewTransform2, options?: any ) {
+               modelViewTransform: ModelViewTransform2, options: Options ) {
 
-    options = merge( {
-
-      // phet-io options
-      tandem: Tandem.REQUIRED,
+    super( merge( {
       phetioInputEnabledPropertyInstrumented: true
-    }, options );
-
-    super( options );
+    }, options ) );
 
     // The point that represents the position of the second source.
     const pointNode = new PointNode( POINT_RADIUS );
@@ -174,7 +175,7 @@ class SecondPointNode extends Node {
 
     this.resetSecondPointNode = (): void => {
       cueingArrowsNode.visible = ( GeometricOpticsGlobalOptions.cueingArrowsEnabledProperty.value &&
-                               this.inputEnabledProperty.value );
+                                   this.inputEnabledProperty.value );
     };
   }
 
@@ -197,12 +198,11 @@ class SecondPointNode extends Node {
 
 // The point that represents the position of the second source
 class PointNode extends Circle {
-  constructor( radius: number, options?: any ) {
-    options = merge( {
+  constructor( radius: number ) {
+    super( radius, {
       fill: GeometricOpticsColors.secondPointFillProperty,
       stroke: GeometricOpticsColors.secondPointStrokeProperty
-    }, options );
-    super( radius, options );
+    } );
   }
 }
 

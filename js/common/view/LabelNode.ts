@@ -8,18 +8,35 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import IProperty from '../../../../axon/js/IProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Rectangle } from '../../../../scenery/js/imports.js';
-import { Text } from '../../../../scenery/js/imports.js';
+import { Node, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsColors from '../GeometricOpticsColors.js';
 import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+
+const X_MARGIN = 5;
+const Y_MARGIN = 5;
+const LABEL_Y_OFFSET = 12;
+const TEXT_OPTIONS = {
+  fill: GeometricOpticsColors.labelFillProperty,
+  font: GeometricOpticsConstants.LABEL_FONT,
+  maxWidth: 85
+};
+const RECTANGLE_OPTIONS = {
+  fill: GeometricOpticsColors.screenBackgroundColorProperty,
+  cornerRadius: 4,
+  opacity: 0.5
+};
+
+type Options = {
+  visibleProperty?: IProperty<boolean>
+};
 
 class LabelNode extends Node {
 
@@ -32,55 +49,30 @@ class LabelNode extends Node {
    * @param options
    */
   constructor( text: string, positionProperty: IReadOnlyProperty<Vector2>,
-               modelViewTransformProperty: Property<ModelViewTransform2>, options?: any ) {
+               modelViewTransformProperty: Property<ModelViewTransform2>, options?: Options ) {
 
-    options = merge( {
-
-      labelOffset: 12, // vertical offset (in view coordinates) wrt positionProperty
-      xMargin: 5,
-      yMargin: 5,
-
-      // Text options
-      textOptions: {
-        fill: GeometricOpticsColors.labelFillProperty,
-        font: GeometricOpticsConstants.LABEL_FONT,
-        maxWidth: 85
-      },
-
-      // Rectangle options, for the Rectangle behind the text
-      rectangleOptions: {
-
-        // We generally want the label's background to match the screen's background.
-        // See https://github.com/phetsims/geometric-optics/issues/239
-        fill: GeometricOpticsColors.screenBackgroundColorProperty,
-        cornerRadius: 4,
-        opacity: 0.5
-      }
-    }, options );
-
-    const textNode = new Text( text, options.textOptions );
+    const textNode = new Text( text, TEXT_OPTIONS );
 
     // Background for the text, update the size and position later.
-    const backgroundRectangle = new Rectangle( 0, 0, 1, 1, options.rectangleOptions );
+    const backgroundRectangle = new Rectangle( 0, 0, 1, 1, RECTANGLE_OPTIONS );
 
-    assert && assert( !options.children );
-    options.children = [ backgroundRectangle, textNode ];
-
-    super( options );
+    super( merge( {
+      children: [ backgroundRectangle, textNode ]
+    }, options ) );
 
     Property.multilink(
       [ textNode.boundsProperty, modelViewTransformProperty, positionProperty ],
       ( textNodeBounds: Bounds2, modelViewTransform: ModelViewTransform2, position: Vector2 ) => {
 
         // Size the background to fit the text.
-        backgroundRectangle.setRectWidth( textNodeBounds.width + options.xMargin * 2 );
-        backgroundRectangle.setRectHeight( textNodeBounds.height + options.yMargin * 2 );
+        backgroundRectangle.setRectWidth( textNodeBounds.width + X_MARGIN * 2 );
+        backgroundRectangle.setRectHeight( textNodeBounds.height + Y_MARGIN * 2 );
 
         // Center the text in the background.
         backgroundRectangle.center = textNode.center;
 
         // Center under the things that we're labeling.
-        this.centerTop = modelViewTransform.modelToViewPosition( position ).plusXY( 0, options.labelOffset );
+        this.centerTop = modelViewTransform.modelToViewPosition( position ).plusXY( 0, LABEL_Y_OFFSET );
       } );
 
     this.textNode = textNode;

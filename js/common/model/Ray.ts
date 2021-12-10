@@ -9,7 +9,6 @@
 
 import Ray2 from '../../../../dot/js/Ray2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import geometricOptics from '../../geometricOptics.js';
 
 class Ray extends Ray2 {
@@ -19,19 +18,10 @@ class Ray extends Ray2 {
   /**
    * @param position - origin of the ray
    * @param direction - direction of the ray, must be a normalized vector.
-   * @param options
    */
-  constructor( position: Vector2, direction: Vector2, options?: any ) {
-
-    options = merge( {
-      length: Infinity // semi-infinite rays by default
-    }, options );
-
-    assert && assert( typeof options.length === 'number' );
-
+  constructor( position: Vector2, direction: Vector2 ) {
     super( position, direction );
-
-    this.length = options.length;
+    this.length = Infinity; // semi-infinite rays by default
   }
 
   /**

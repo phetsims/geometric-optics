@@ -10,7 +10,6 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
@@ -32,15 +31,9 @@ class LabelsNode extends Node {
    * @param visibleProperties
    * @param modelViewTransformProperty
    * @param zoomLevelProperty
-   * @param options
    */
   constructor( model: LensModel | MirrorModel, visibleProperties: VisibleProperties,
-               modelViewTransformProperty: Property<ModelViewTransform2>,
-               zoomLevelProperty: Property<number>, options?: any ) {
-
-    options = merge( {
-      visibleProperty: visibleProperties.labelsVisibleProperty
-    }, options );
+               modelViewTransformProperty: Property<ModelViewTransform2>, zoomLevelProperty: Property<number> ) {
 
     // Object label ------------------------------------------------------------------------------------
 
@@ -167,17 +160,19 @@ class LabelsNode extends Node {
 
     // ------------------------------------------------------------------------------------
 
-    assert && assert( !options.children );
-    options.children = [
+    const children: Node[] = [
       opticalAxisLabel,
       leftFocalPointLabel, rightFocalPointLabel,
       opticLabel, objectLabel, imageLabel
     ];
     if ( screenLabel ) {
-      options.children.push( screenLabel );
+      children.push( screenLabel );
     }
 
-    super( options );
+    super( {
+      children: children,
+      visibleProperty: visibleProperties.labelsVisibleProperty
+    } );
   }
 
   public dispose(): void {
