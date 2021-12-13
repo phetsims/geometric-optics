@@ -45,11 +45,11 @@ class LabelNode extends Node {
   /**
    * @param text
    * @param positionProperty - position of the thing that we're labeling
-   * @param modelViewTransformProperty
+   * @param zoomTransformProperty
    * @param options
    */
   constructor( text: string, positionProperty: IReadOnlyProperty<Vector2>,
-               modelViewTransformProperty: Property<ModelViewTransform2>, options?: Options ) {
+               zoomTransformProperty: Property<ModelViewTransform2>, options?: Options ) {
 
     const textNode = new Text( text, TEXT_OPTIONS );
 
@@ -61,8 +61,8 @@ class LabelNode extends Node {
     }, options ) );
 
     Property.multilink(
-      [ textNode.boundsProperty, modelViewTransformProperty, positionProperty ],
-      ( textNodeBounds: Bounds2, modelViewTransform: ModelViewTransform2, position: Vector2 ) => {
+      [ textNode.boundsProperty, zoomTransformProperty, positionProperty ],
+      ( textNodeBounds: Bounds2, zoomTransform: ModelViewTransform2, position: Vector2 ) => {
 
         // Size the background to fit the text.
         backgroundRectangle.setRectWidth( textNodeBounds.width + X_MARGIN * 2 );
@@ -72,7 +72,7 @@ class LabelNode extends Node {
         backgroundRectangle.center = textNode.center;
 
         // Center under the things that we're labeling.
-        this.centerTop = modelViewTransform.modelToViewPosition( position ).plusXY( 0, LABEL_Y_OFFSET );
+        this.centerTop = zoomTransform.modelToViewPosition( position ).plusXY( 0, LABEL_Y_OFFSET );
       } );
 
     this.textNode = textNode;

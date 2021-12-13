@@ -123,6 +123,9 @@ class GOScreenView extends ScreenView {
       ( zoomLevel: number ) => getAbsoluteZoomScale( zoomLevel )
     );
 
+    zoomTransformProperty.link( zoomTransform => console.log( `zoomTransform.scale=${zoomTransform.matrix.getScaleVector()}` ) );
+    zoomScaleProperty.link( zoomScale => console.log( `zoomScale=${zoomScale}` ) );
+
     // Things that are outside the Experiment Area =====================================================================
 
     // create Rulers

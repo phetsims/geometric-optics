@@ -168,13 +168,13 @@ class GORulerNode extends Node {
 }
 
 /**
- * Creates a scenery-phet.RulerNode appropriate for the modelViewTransform and zoom scale.
+ * Creates a scenery-phet.RulerNode appropriate for the zoomTransform and zoom scale.
  * @param rulerLength
- * @param modelViewTransform
+ * @param zoomTransform
  * @param zoomScale
  * @param providedOptions - to RulerNode
  */
-function createRulerNode( rulerLength: number, modelViewTransform: ModelViewTransform2, zoomScale: number,
+function createRulerNode( rulerLength: number, zoomTransform: ModelViewTransform2, zoomScale: number,
                           providedOptions?: RulerNodeOptions ): Node {
 
   const options = merge( {}, providedOptions ) as RulerNodeOptions;
@@ -183,10 +183,10 @@ function createRulerNode( rulerLength: number, modelViewTransform: ModelViewTran
   options.majorTickDistance = 10 / zoomScale; // in model coordinate (cm)
 
   // define the length ruler
-  const rulerWidth = modelViewTransform.modelToViewDeltaX( rulerLength );
+  const rulerWidth = zoomTransform.modelToViewDeltaX( rulerLength );
 
   // separation between the major ticks mark
-  const majorTickWidth = modelViewTransform.modelToViewDeltaX( options.majorTickDistance );
+  const majorTickWidth = zoomTransform.modelToViewDeltaX( options.majorTickDistance );
 
   // set the units at the end of ruler
   const numberOfMajorTicks = Math.floor( rulerWidth / majorTickWidth ) + 1;

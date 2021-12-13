@@ -29,11 +29,11 @@ class LabelsNode extends Node {
   /**
    * @param model
    * @param visibleProperties
-   * @param modelViewTransformProperty
+   * @param zoomTransformProperty
    * @param zoomLevelProperty
    */
   constructor( model: LensModel | MirrorModel, visibleProperties: VisibleProperties,
-               modelViewTransformProperty: Property<ModelViewTransform2>, zoomLevelProperty: Property<number> ) {
+               zoomTransformProperty: Property<ModelViewTransform2>, zoomLevelProperty: Property<number> ) {
 
     // Object label ------------------------------------------------------------------------------------
 
@@ -44,7 +44,7 @@ class LabelsNode extends Node {
     );
 
     const objectLabel = new LabelNode( geometricOpticsStrings.object, objectLabelPositionProperty,
-      modelViewTransformProperty, {
+      zoomTransformProperty, {
         visibleProperty: new DerivedProperty( [ model.representationProperty ],
           ( representation: Representation ) => representation.isObject )
       } );
@@ -56,7 +56,7 @@ class LabelsNode extends Node {
       ( position: Vector2, diameter: number ) => position.minusXY( 0, diameter / 2 )
     );
 
-    const opticLabel = new LabelNode( '', opticLabelPositionProperty, modelViewTransformProperty );
+    const opticLabel = new LabelNode( '', opticLabelPositionProperty, zoomTransformProperty );
 
     model.optic.opticShapeProperty.link( opticShape => {
       let text: string;
@@ -93,12 +93,12 @@ class LabelsNode extends Node {
     // Focal point labels ------------------------------------------------------------------------------------
 
     const leftFocalPointLabel = new LabelNode( geometricOpticsStrings.focalPoint,
-      model.optic.leftFocalPointProperty, modelViewTransformProperty, {
+      model.optic.leftFocalPointProperty, zoomTransformProperty, {
         visibleProperty: visibleProperties.focalPointsVisibleProperty
       } );
 
     const rightFocalPointLabel = new LabelNode( geometricOpticsStrings.focalPoint,
-      model.optic.rightFocalPointProperty, modelViewTransformProperty, {
+      model.optic.rightFocalPointProperty, zoomTransformProperty, {
         visibleProperty: visibleProperties.focalPointsVisibleProperty
       } );
 
@@ -119,7 +119,7 @@ class LabelsNode extends Node {
         ( visible && representation.isObject && ( isVirtual ? virtualImageVisible : true ) )
     );
 
-    const imageLabel = new LabelNode( '', imageLabelPositionProperty, modelViewTransformProperty, {
+    const imageLabel = new LabelNode( '', imageLabelPositionProperty, zoomTransformProperty, {
       visibleProperty: imageLabelVisibleProperty
     } );
 
@@ -139,7 +139,7 @@ class LabelsNode extends Node {
         ( position: Vector2 ) => new Vector2( position.x - 25, position.y - 65 ) // empirically, model coordinates
       );
 
-      screenLabel = new LabelNode( geometricOpticsStrings.projectionScreen, screenLabelPositionProperty, modelViewTransformProperty, {
+      screenLabel = new LabelNode( geometricOpticsStrings.projectionScreen, screenLabelPositionProperty, zoomTransformProperty, {
         visibleProperty: new DerivedProperty(
           [ model.representationProperty ],
           ( representation: Representation ) => !representation.isObject
@@ -154,7 +154,7 @@ class LabelsNode extends Node {
       ( position: Vector2 ) => new Vector2( position.x - 230, position.y ) // empirically, model coordinates
     );
 
-    const opticalAxisLabel = new LabelNode( geometricOpticsStrings.opticalAxis, opticalAxisLabelPositionProperty, modelViewTransformProperty, {
+    const opticalAxisLabel = new LabelNode( geometricOpticsStrings.opticalAxis, opticalAxisLabelPositionProperty, zoomTransformProperty, {
       visibleProperty: model.optic.opticalAxisVisibleProperty
     } );
 
