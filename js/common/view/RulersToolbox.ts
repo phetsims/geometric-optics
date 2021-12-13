@@ -8,7 +8,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { HBox } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -24,13 +26,14 @@ class RulersToolbox extends Panel {
 
   /**
    * @param rulerNodes - in the order that they appear in the toolbox, left to right
+   * @param zoomTransformProperty
    * @param options
    */
-  constructor( rulerNodes: GORulerNode[], options: Options ) {
+  constructor( rulerNodes: GORulerNode[], zoomTransformProperty: Property<ModelViewTransform2>, options: Options ) {
 
     const toolboxContent = new HBox( {
       spacing: 30,
-      children: rulerNodes.map( rulerNode => new RulerIconNode( rulerNode ) ),
+      children: rulerNodes.map( rulerNode => new RulerIconNode( rulerNode, zoomTransformProperty ) ),
       excludeInvisibleChildrenFromBounds: false
     } );
 

@@ -8,10 +8,13 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import { DragListener, SceneryEvent } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GORulerNode from './GORulerNode.js';
+import GOConstants from '../GOConstants.js';
 
 // constants
 const ICON_WIDTH = 400;
@@ -24,7 +27,7 @@ class RulerIconNode extends RulerNode {
   /**
    * @param rulerNode
    */
-  constructor( rulerNode: GORulerNode ) {
+  constructor( rulerNode: GORulerNode, zoomTransformProperty: Property<ModelViewTransform2> ) {
 
     const options = {
 
@@ -57,7 +60,7 @@ class RulerIconNode extends RulerNode {
     const units = '';
 
     super( ICON_WIDTH, ICON_HEIGHT, majorTickWidth, majorTickLabels, units, options );
-    
+
     this.scale( ICON_SCALE );
 
     // pointer areas
@@ -75,9 +78,21 @@ class RulerIconNode extends RulerNode {
       // Make the ruler visible.
       rulerNode.ruler.visibleProperty.value = true;
 
-      // Position the center of the rulerNode at the pointer.
+      // Set position of the ruler so that the pointer is initially at the center of rulerNode.
       assert && assert( event.pointer.point ); // {Vector2|null}
-      rulerNode.center = rulerNode.globalToParentPoint( event.pointer.point! );
+      const zoomTransform = zoomTransformProperty.value;
+      const viewPosition = rulerNode.globalToParentPoint( event.pointer.point! );
+      let x;
+      let y;
+      if ( rulerNode.ruler.isVertical ) {
+        x = viewPosition.x - GOConstants.RULER_HEIGHT / 2;
+        y = viewPosition.y - zoomTransform.modelToViewDeltaY( rulerNode.ruler.length ) / 2;
+      }
+      else {
+        x = viewPosition.x - zoomTransform.modelToViewDeltaX( rulerNode.ruler.length ) / 2;
+        y = viewPosition.y - GOConstants.RULER_HEIGHT / 2;
+      }
+      rulerNode.ruler.positionProperty.value = zoomTransform.viewToModelXY( x, y );
 
       // Forward events to the RulerNode.
       rulerNode.startDrag( event );

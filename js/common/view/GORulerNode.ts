@@ -89,7 +89,7 @@ class GORulerNode extends Node {
     //TODO https://github.com/phetsims/geometric-optics/issues/133 this listener also depends on zoomTransformProperty, so there's a problematic ordering dependency there
     zoomScaleProperty.link( zoomScale => {
 
-      // update model length, so that view length remains the same
+      // update ruler size, so that view size remains the same
       ruler.scaleLength( zoomScale );
 
       // update view
@@ -98,36 +98,35 @@ class GORulerNode extends Node {
     } );
 
     ruler.positionProperty.link( position => {
+      const viewPosition = zoomTransformProperty.value.modelToViewPosition( position );
       if ( this.ruler.isVertical ) {
-        this.leftBottom = position;
+        this.leftBottom = viewPosition;
       }
       else {
-        this.leftTop = position;
+        this.leftTop = viewPosition;
       }
     } );
 
-    // Drag bounds for the ruler, to keep some part of the ruler inside the visible bounds of the ScreenView.
-    //TODO dragBoundsProperty is in view coordinates because ruler.positionProperty is in view coordinates.
+    // Drag bounds for the ruler, in model coordinates.
+    // This keeps a part of the ruler inside the visible bounds of the ScreenView.
     const dragBoundsProperty = new DerivedProperty(
-      [ visibleBoundsProperty ],
-      ( visibleBounds: Bounds2 ) => {
+      [ visibleBoundsProperty, zoomTransformProperty ],
+      ( visibleBounds: Bounds2, zoomTransform: ModelViewTransform2 ) => {
+        let viewDragBounds;
         if ( ruler.isVertical ) {
 
           // if vertical the left and right bounds of the ruler stay within visible bounds
           // minimum visible length of the ruler is always showing inside top and bottom visible bounds.
-          return visibleBounds.withOffsets( 0,
-            -MINIMUM_VISIBLE_LENGTH,
-            -this.width,
-            -MINIMUM_VISIBLE_LENGTH + this.height );
+          viewDragBounds = visibleBounds.withOffsets( 0, -MINIMUM_VISIBLE_LENGTH,
+            -this.width, -MINIMUM_VISIBLE_LENGTH + this.height );
         }
         else {
           // if horizontal ruler, the bottom and top bounds of the ruler stay within visible bounds
           // minimum visible length of the ruler is always showing inside left  and right visible bounds.
-          return visibleBounds.withOffsets( this.width - MINIMUM_VISIBLE_LENGTH,
-            0,
-            -MINIMUM_VISIBLE_LENGTH,
-            -this.height );
+          viewDragBounds = visibleBounds.withOffsets( this.width - MINIMUM_VISIBLE_LENGTH, 0,
+            -MINIMUM_VISIBLE_LENGTH, -this.height );
         }
+        return zoomTransform.viewToModelBounds( viewDragBounds );
       } );
     dragBoundsProperty.link( dragBounds => {
       ruler.positionProperty.value = dragBounds.closestPointTo( ruler.positionProperty.value );
@@ -138,6 +137,7 @@ class GORulerNode extends Node {
       useInputListenerCursor: true,
       positionProperty: ruler.positionProperty,
       dragBoundsProperty: dragBoundsProperty,
+      transform: zoomTransformProperty.value,
       start: () => this.moveToFront(),
       end: ( event: SceneryEvent ) => {
 
@@ -150,6 +150,11 @@ class GORulerNode extends Node {
       tandem: options.tandem.createTandem( 'dragListener' )
     } );
     this.addInputListener( this.dragListener );
+
+    // When the transform changes, up the DragListener
+    zoomTransformProperty.link( zoomTransform => {
+      this.dragListener.setTransform( zoomTransform );
+    } );
   }
 
   public setToolboxBounds( toolboxBounds: Bounds2 ): void {

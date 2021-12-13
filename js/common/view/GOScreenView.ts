@@ -145,7 +145,7 @@ class GOScreenView extends ScreenView {
     } );
 
     // create toolbox at the top right corner of the screen
-    const rulersToolbox = new RulersToolbox( [ verticalRulerNode, horizontalRulerNode ], {
+    const rulersToolbox = new RulersToolbox( [ verticalRulerNode, horizontalRulerNode ], zoomTransformProperty, {
       rightTop: erodedLayoutBounds.rightTop,
       tandem: options.tandem.createTandem( 'rulersToolbox' )
     } );

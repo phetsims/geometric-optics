@@ -31,8 +31,7 @@ class GORuler {
   private readonly orientation: RulerOrientation;
   readonly isVertical: boolean;
 
-  // position of the ruler, in view coordinates!
-  //TODO change this to model coordinates, for phet-io. will also have to change dragBounds to model coordinates in view
+  // position of the ruler, in cm
   readonly positionProperty: Property<Vector2>;
 
   // length of the ruler, in cm
