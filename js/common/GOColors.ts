@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * GeometricOpticsColors defines the color profile for this sim.
+ * GOColors defines the color profile for this sim.
  * See https://github.com/phetsims/geometric-optics/issues/182 for colors specification.
  *
  * @author Martin Veillette
@@ -11,7 +11,7 @@
 import { ProfileColorProperty } from '../../../scenery/js/imports.js';
 import geometricOptics from '../geometricOptics.js';
 
-const GeometricOpticsColors = {
+const GOColors = {
 
   // Background color used for all screens
   screenBackgroundColorProperty: new ProfileColorProperty( geometricOptics, 'screenBackgroundColor', {
@@ -160,5 +160,5 @@ const GeometricOpticsColors = {
   } )
 };
 
-geometricOptics.register( 'GeometricOpticsColors', GeometricOpticsColors );
-export default GeometricOpticsColors;
+geometricOptics.register( 'GOColors', GOColors );
+export default GOColors;

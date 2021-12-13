@@ -14,8 +14,8 @@ import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioBu
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-import GeometricOpticsGlobalOptions from '../GeometricOpticsGlobalOptions.js';
+import GOConstants from '../GOConstants.js';
+import GOGlobalOptions from '../GOGlobalOptions.js';
 import FocalLengthControlEnum from '../model/FocalLengthControlEnum.js';
 
 //TYPESCRIPT AquaRadioButtonGroup needs to define this parameterized type for items
@@ -42,7 +42,7 @@ class FocalLengthControlRadioButtonGroup extends VerticalAquaRadioButtonGroup<Fo
       createItem( 'direct', geometricOpticsStrings.direct )
     ];
 
-    super( GeometricOpticsGlobalOptions.focalLengthControlProperty, items, merge( {
+    super( GOGlobalOptions.focalLengthControlProperty, items, merge( {
       spacing: 8
     }, options ) );
   }
@@ -57,7 +57,7 @@ function createItem( value: FocalLengthControlEnum, text: string ): AquaRadioBut
   return {
     value: value,
     node: new Text( text, {
-      font: GeometricOpticsConstants.CONTROL_FONT,
+      font: GOConstants.CONTROL_FONT,
       maxWidth: 300
     } ),
     tandemName: `${value}RadioButton`

@@ -17,7 +17,7 @@ import SourceObject from '../model/SourceObject.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Representation from '../model/Representation.js';
 import UnconstrainedCueingArrowsNode from './UnconstrainedCueingArrowsNode.js';
-import GeometricOpticsGlobalOptions from '../GeometricOpticsGlobalOptions.js';
+import GOGlobalOptions from '../GOGlobalOptions.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -128,14 +128,14 @@ class SourceObjectNode extends Node {
     } );
 
     Property.multilink(
-      [ GeometricOpticsGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty ],
+      [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty ],
       ( cueingArrowsEnabled: boolean, inputEnabled: boolean ) => {
         cueingArrowsNode.visible = ( cueingArrowsEnabled && inputEnabled );
       }
     );
 
     this.resetSourceObjectNode = (): void => {
-      cueingArrowsNode.visible = ( GeometricOpticsGlobalOptions.cueingArrowsEnabledProperty.value &&
+      cueingArrowsNode.visible = ( GOGlobalOptions.cueingArrowsEnabledProperty.value &&
                                    this.inputEnabledProperty.value );
     };
   }

@@ -25,7 +25,7 @@ type GeometricOpticsRulerOptions = {
   tandem: Tandem
 };
 
-class GeometricOpticsRuler {
+class GORuler {
 
   // orientation of the ruler
   private readonly orientation: RulerOrientation;
@@ -87,6 +87,6 @@ class GeometricOpticsRuler {
   }
 }
 
-geometricOptics.register( 'GeometricOpticsRuler', GeometricOpticsRuler );
-export { GeometricOpticsRuler as default };
+geometricOptics.register( 'GORuler', GORuler );
+export { GORuler as default };
 export type { RulerOrientation };

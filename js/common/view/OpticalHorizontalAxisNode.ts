@@ -17,8 +17,8 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import { Line } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsColors from '../GeometricOpticsColors.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import GOColors from '../GOColors.js';
+import GOConstants from '../GOConstants.js';
 
 type Options = {
   visibleProperty: IProperty<boolean>,
@@ -38,9 +38,9 @@ class OpticalHorizontalAxisNode extends Line {
 
     // create optical axis line, with arbitrary length values.
     super( 0, 0, 1, 0, merge( {
-      stroke: GeometricOpticsColors.opticalAxisStrokeProperty,
-      lineWidth: GeometricOpticsConstants.AXIS_LINE_WIDTH,
-      lineDash: GeometricOpticsConstants.AXIS_LINE_DASH
+      stroke: GOColors.opticalAxisStrokeProperty,
+      lineWidth: GOConstants.AXIS_LINE_WIDTH,
+      lineDash: GOConstants.AXIS_LINE_DASH
     }, options ) );
 
     // set the horizontal extent of the optical axis line

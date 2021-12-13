@@ -9,7 +9,7 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import GeometricOpticsModel, { GeometricOpticsModelOptions } from '../../common/model/GeometricOpticsModel.js';
+import GOModel, { GeometricOpticsModelOptions } from '../../common/model/GOModel.js';
 import { RepresentationStaticInstances } from '../../common/model/Representation.js';
 import geometricOptics from '../../geometricOptics.js';
 import Mirror from './Mirror.js';
@@ -18,7 +18,7 @@ type MirrorOptions = {
   tandem: Tandem
 }
 
-class MirrorModel extends GeometricOpticsModel {
+class MirrorModel extends GOModel {
 
   /**
    * @param providedOptions

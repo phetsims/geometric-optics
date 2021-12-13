@@ -19,7 +19,7 @@ import geometricOptics from '../../geometricOptics.js';
 import Lens from '../../lens/model/Lens.js';
 import Optic from './Optic.js';
 import Representation from './Representation.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import GOConstants from '../GOConstants.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 class Target {
@@ -163,7 +163,7 @@ class Target {
         // product of the two factors
         return distanceFactor * diameterFactor;
       }, {
-        isValidValue: ( value: number ) => GeometricOpticsConstants.INTENSITY_RANGE.contains( value )
+        isValidValue: ( value: number ) => GOConstants.INTENSITY_RANGE.contains( value )
       } );
 
     this.imageProperty = new DerivedProperty(

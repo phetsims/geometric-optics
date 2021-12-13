@@ -17,19 +17,19 @@ import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Node, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsColors from '../GeometricOpticsColors.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import GOColors from '../GOColors.js';
+import GOConstants from '../GOConstants.js';
 
 const X_MARGIN = 5;
 const Y_MARGIN = 5;
 const LABEL_Y_OFFSET = 12;
 const TEXT_OPTIONS = {
-  fill: GeometricOpticsColors.labelFillProperty,
-  font: GeometricOpticsConstants.LABEL_FONT,
+  fill: GOColors.labelFillProperty,
+  font: GOConstants.LABEL_FONT,
   maxWidth: 85
 };
 const RECTANGLE_OPTIONS = {
-  fill: GeometricOpticsColors.screenBackgroundColorProperty,
+  fill: GOColors.screenBackgroundColorProperty,
   cornerRadius: 4,
   opacity: 0.5
 };

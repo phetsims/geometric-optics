@@ -11,7 +11,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import GeometricOpticsScreenView, { GeometricOpticsScreenViewOptions } from '../../common/view/GeometricOpticsScreenView.js';
+import GOScreenView, { GeometricOpticsScreenViewOptions } from '../../common/view/GOScreenView.js';
 import geometricOptics from '../../geometricOptics.js';
 import MirrorModel from '../model/MirrorModel.js';
 import Property from '../../../../axon/js/Property.js';
@@ -23,7 +23,7 @@ type MirrorScreenViewOptions = {
   tandem: Tandem
 };
 
-class MirrorScreenView extends GeometricOpticsScreenView {
+class MirrorScreenView extends GOScreenView {
 
   /**
    * @param model

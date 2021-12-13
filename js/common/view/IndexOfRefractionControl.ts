@@ -11,7 +11,7 @@ import geometricOptics from '../../geometricOptics.js';
 import Range from '../../../../dot/js/Range.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import merge from '../../../../phet-core/js/merge.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import GOConstants from '../GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
@@ -32,14 +32,14 @@ class IndexOfRefractionControl extends NumberControl {
     const indexOfRefractionRange: Range = indexOfRefractionProperty.range!;
 
     super( geometricOpticsStrings.indexOfRefraction, indexOfRefractionProperty, indexOfRefractionRange,
-      merge( {}, GeometricOpticsConstants.NUMBER_CONTROL_OPTIONS, {
-        delta: GeometricOpticsConstants.INDEX_OF_REFRACTION_SPINNER_INTERVAL,
+      merge( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
+        delta: GOConstants.INDEX_OF_REFRACTION_SPINNER_INTERVAL,
         sliderOptions: {
           constrainValue: ( value: number ) =>
-            Utils.roundToInterval( value, GeometricOpticsConstants.INDEX_OF_REFRACTION_SLIDER_INTERVAL )
+            Utils.roundToInterval( value, GOConstants.INDEX_OF_REFRACTION_SLIDER_INTERVAL )
         },
         numberDisplayOptions: {
-          decimalPlaces: GeometricOpticsConstants.INDEX_OF_REFRACTION_DECIMAL_PLACES
+          decimalPlaces: GOConstants.INDEX_OF_REFRACTION_DECIMAL_PLACES
         }
       }, options ) );
   }

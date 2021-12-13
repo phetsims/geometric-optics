@@ -7,7 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import GeometricOpticsModel, { GeometricOpticsModelOptions } from '../../common/model/GeometricOpticsModel.js';
+import GOModel, { GeometricOpticsModelOptions } from '../../common/model/GOModel.js';
 import Lens from './Lens.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from './Guide.js';
@@ -20,7 +20,7 @@ type LensModelOptions = {
   tandem: Tandem
 };
 
-class LensModel extends GeometricOpticsModel {
+class LensModel extends GOModel {
 
   // model of the projection screen
   readonly projectionScreen: ProjectionScreen;

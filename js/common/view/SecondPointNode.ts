@@ -22,12 +22,12 @@ import { Image } from '../../../../scenery/js/imports.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import { VBox } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsColors from '../GeometricOpticsColors.js';
+import GOColors from '../GOColors.js';
 import SecondPoint from '../model/SecondPoint.js';
 import lamp2_png from '../../../images/lamp2_png.js';
 import Representation from '../model/Representation.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import GeometricOpticsGlobalOptions from '../GeometricOpticsGlobalOptions.js';
+import GOGlobalOptions from '../GOGlobalOptions.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 
@@ -44,7 +44,7 @@ const LIGHT_SOURCE_DRAG_OFFSET = new Vector2( 2 * LIGHT_SOURCE_OFFSET.x, -2 * LI
 
 const CUEING_ARROW_LENGTH = 20;
 const CUEING_ARROW_OPTIONS = {
-  fill: GeometricOpticsColors.secondPointFillProperty,
+  fill: GOColors.secondPointFillProperty,
   tailWidth: 6,
   headWidth: 12,
   headHeight: 6
@@ -167,14 +167,14 @@ class SecondPointNode extends Node {
     secondPoint.positionProperty.link( position => updatePosition( position ) );
 
     Property.multilink(
-      [ GeometricOpticsGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty ],
+      [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty ],
       ( cueingArrowsEnabled: boolean, inputEnabled: boolean ) => {
         cueingArrowsNode.visible = ( cueingArrowsEnabled && inputEnabled );
       }
     );
 
     this.resetSecondPointNode = (): void => {
-      cueingArrowsNode.visible = ( GeometricOpticsGlobalOptions.cueingArrowsEnabledProperty.value &&
+      cueingArrowsNode.visible = ( GOGlobalOptions.cueingArrowsEnabledProperty.value &&
                                    this.inputEnabledProperty.value );
     };
   }
@@ -200,8 +200,8 @@ class SecondPointNode extends Node {
 class PointNode extends Circle {
   constructor( radius: number ) {
     super( radius, {
-      fill: GeometricOpticsColors.secondPointFillProperty,
-      stroke: GeometricOpticsColors.secondPointStrokeProperty
+      fill: GOColors.secondPointFillProperty,
+      stroke: GOColors.secondPointStrokeProperty
     } );
   }
 }

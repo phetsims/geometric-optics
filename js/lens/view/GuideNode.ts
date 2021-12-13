@@ -11,7 +11,7 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Circle, Node, Rectangle } from '../../../../scenery/js/imports.js';
-import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
+import GOColors from '../../common/GOColors.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from '../model/Guide.js';
 
@@ -20,12 +20,12 @@ const GUIDE_FULCRUM_RADIUS = 5;
 const GUIDE_RECTANGLE_WIDTH = 96;
 const GUIDE_RECTANGLE_HEIGHT = 6;
 const RECTANGLE_OPTIONS = {
-  fill: GeometricOpticsColors.guideArmFillProperty,
-  stroke: GeometricOpticsColors.guideStrokeProperty
+  fill: GOColors.guideArmFillProperty,
+  stroke: GOColors.guideStrokeProperty
 };
 const CIRCLE_OPTIONS = {
-  fill: GeometricOpticsColors.guideFulcrumFillProperty,
-  stroke: GeometricOpticsColors.guideStrokeProperty
+  fill: GOColors.guideFulcrumFillProperty,
+  stroke: GOColors.guideStrokeProperty
 };
 
 class GuideNode extends Node {

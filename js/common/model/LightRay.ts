@@ -18,7 +18,7 @@ import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import geometricOptics from '../../geometricOptics.js';
 import Lens from '../../lens/model/Lens.js';
 import Mirror from '../../mirror/model/Mirror.js';
-import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
+import GOQueryParameters from '../GOQueryParameters.js';
 import Barrier from './Barrier.js';
 import LightRaySegment from './LightRaySegment.js';
 import Optic from './Optic.js';
@@ -62,7 +62,7 @@ class LightRay {
     this.virtualSegments = [];
 
     // {number} maximum travel distance if ray is unimpeded
-    const distanceTraveled = GeometricOpticsQueryParameters.lightSpeed * time;
+    const distanceTraveled = GOQueryParameters.lightSpeed * time;
 
     // {Vector2|null} first intersection point - a null value implies that the initialRay does not intersect the optic
     const firstPoint = getFirstPoint( initialRay, optic, isPrincipalRaysMode );

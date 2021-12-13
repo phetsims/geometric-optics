@@ -13,7 +13,7 @@ import { Node, Text } from '../../../../scenery/js/imports.js';
 import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import GOConstants from '../GOConstants.js';
 import RaysModeEnum from '../model/RaysModeEnum.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
@@ -64,7 +64,7 @@ function createItem( value: RaysModeEnum, text: string ): AquaRadioButtonGroupIt
   return {
     value: value,
     node: new Text( text, {
-      font: GeometricOpticsConstants.CONTROL_FONT,
+      font: GOConstants.CONTROL_FONT,
       maxWidth: 100
     } ),
     tandemName: `${value}RadioButton`

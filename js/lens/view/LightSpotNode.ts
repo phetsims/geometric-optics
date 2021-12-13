@@ -12,7 +12,7 @@ import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Node, Path } from '../../../../scenery/js/imports.js';
-import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
+import GOColors from '../../common/GOColors.js';
 import geometricOptics from '../../geometricOptics.js';
 import LightSpot from '../model/LightSpot.js';
 
@@ -31,13 +31,13 @@ class LightSpotNode extends Node {
 
     // Fill color of the spot
     const fillPath = new Path( null, {
-      fill: GeometricOpticsColors.lightSpotFillProperty
+      fill: GOColors.lightSpotFillProperty
     } );
 
     // Dashed outline of the spot, so it's easier to see when intensity is low.
     // See https://github.com/phetsims/geometric-optics/issues/240
     const strokePath = new Path( null, {
-      stroke: GeometricOpticsColors.lightSpotStrokeProperty,
+      stroke: GOColors.lightSpotStrokeProperty,
       lineWidth: 0.75,
       lineDash: [ 4, 4 ]
     } );

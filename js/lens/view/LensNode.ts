@@ -17,18 +17,18 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import { Line, Node, Path } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
-import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
+import GOColors from '../../common/GOColors.js';
+import GOConstants from '../../common/GOConstants.js';
 import Lens from '../model/Lens.js';
 import OpticShapeEnum from '../../common/model/OpticShapeEnum.js';
 import LensShapes from '../model/LensShapes.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
-import GeometricOpticsQueryParameters from '../../common/GeometricOpticsQueryParameters.js';
+import GOQueryParameters from '../../common/GOQueryParameters.js';
 import OriginNode from '../../common/view/OriginNode.js';
 
 // constants
-const FILL = GeometricOpticsColors.lensFillProperty;
-const STROKE = GeometricOpticsColors.lensStrokeProperty;
+const FILL = GOColors.lensFillProperty;
+const STROKE = GOColors.lensStrokeProperty;
 const LINE_WIDTH = 2;
 const ICON_RADIUS_OF_CURVATURE = 20;
 const ICON_DIAMETER = 30;
@@ -59,14 +59,14 @@ class LensNode extends Node {
 
     // Vertical axis for the lens, see https://github.com/phetsims/geometric-optics/issues/190
     const verticalCenterLine = new Line( 0, 0, 0, 1, {
-      stroke: GeometricOpticsColors.verticalAxisStrokeProperty,
-      lineWidth: GeometricOpticsConstants.AXIS_LINE_WIDTH
+      stroke: GOColors.verticalAxisStrokeProperty,
+      lineWidth: GOConstants.AXIS_LINE_WIDTH
     } );
 
     const children: Node[] = [ fillNode, verticalCenterLine, strokeNode ];
 
     // Red dot at the origin
-    if ( GeometricOpticsQueryParameters.showPositions ) {
+    if ( GOQueryParameters.showPositions ) {
       children.push( new OriginNode() );
     }
 
@@ -120,11 +120,11 @@ class LensNode extends Node {
     } );
 
     const fillNode = new Path( lensShapes.fillShape, {
-      fill: GeometricOpticsColors.lensFillProperty
+      fill: GOColors.lensFillProperty
     } );
 
     const strokeNode = new Path( lensShapes.strokeShape, {
-      stroke: GeometricOpticsColors.lensStrokeProperty
+      stroke: GOColors.lensStrokeProperty
     } );
 
     return new Node( {

@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * GeometricOpticsGlobalOptionsNode is the user interface for global options, accessed via PhET > Options.
+ * GOGlobalOptionsNode is the user interface for global options, accessed via PhET > Options.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -11,7 +11,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import { VBox } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import GOConstants from '../GOConstants.js';
 import FocalLengthControlRadioButtonGroup from './FocalLengthControlRadioButtonGroup.js';
 import { Text } from '../../../../scenery/js/imports.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
@@ -20,7 +20,7 @@ type Options = {
   tandem: Tandem
 };
 
-class GeometricOpticsGlobalOptionsNode extends VBox {
+class GOGlobalOptionsNode extends VBox {
 
   // Disposes of things that are specific to this class.
   private readonly disposeGeometricOpticsGlobalOptionsNode: () => void;
@@ -33,13 +33,13 @@ class GeometricOpticsGlobalOptionsNode extends VBox {
     // Projector Mode checkbox
     const projectorModeCheckbox = new ProjectorModeCheckbox( {
       boxWidth: 14,
-      font: GeometricOpticsConstants.CONTROL_FONT,
+      font: GOConstants.CONTROL_FONT,
       maxTextWidth: 350,
       tandem: options.tandem.createTandem( 'projectorModeCheckbox' )
     } );
 
     const focalLengthControlText = new Text( geometricOpticsStrings.focalLengthControl, {
-      font: GeometricOpticsConstants.CONTROL_FONT,
+      font: GOConstants.CONTROL_FONT,
       tandem: options.tandem.createTandem( 'focalLengthControlText' )
     } );
 
@@ -77,5 +77,5 @@ class GeometricOpticsGlobalOptionsNode extends VBox {
   }
 }
 
-geometricOptics.register( 'GeometricOpticsGlobalOptionsNode', GeometricOpticsGlobalOptionsNode );
-export default GeometricOpticsGlobalOptionsNode;
+geometricOptics.register( 'GOGlobalOptionsNode', GOGlobalOptionsNode );
+export default GOGlobalOptionsNode;

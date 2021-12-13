@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * GeometricOpticsScreenView is the common ScreenView for this simulation.
+ * GOScreenView is the common ScreenView for this simulation.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -21,13 +21,13 @@ import MagnifyingGlassZoomButtonGroup from '../../../../scenery-phet/js/Magnifyi
 import { Node, Rectangle } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsColors from '../GeometricOpticsColors.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
-import GeometricOpticsModel from '../model/GeometricOpticsModel.js';
+import GOColors from '../GOColors.js';
+import GOConstants from '../GOConstants.js';
+import GOQueryParameters from '../GOQueryParameters.js';
+import GOModel from '../model/GOModel.js';
 import DebugPointNode from './DebugPointNode.js';
 import FocalPointNode from './FocalPointNode.js';
-import GeometricOpticsControlPanel from './GeometricOpticsControlPanel.js';
+import GOControlPanel from './GOControlPanel.js';
 import LabelsNode from './LabelsNode.js';
 import LightRaysNode from './LightRaysNode.js';
 import OpticalHorizontalAxisNode from './OpticalHorizontalAxisNode.js';
@@ -42,7 +42,7 @@ import TargetNode from './TargetNode.js';
 import VisibleProperties from './VisibleProperties.js';
 import RaysModeEnum from '../model/RaysModeEnum.js';
 import Lens from '../../lens/model/Lens.js';
-import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
+import GORulerNode from './GORulerNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Optic from '../model/Optic.js';
 
@@ -62,7 +62,7 @@ type GeometricOpticsScreenViewOptions = {
   tandem: Tandem
 };
 
-class GeometricOpticsScreenView extends ScreenView {
+class GOScreenView extends ScreenView {
 
   protected readonly screenViewRootNode: Node;
   protected readonly modelViewTransform: ModelViewTransform2;
@@ -71,14 +71,14 @@ class GeometricOpticsScreenView extends ScreenView {
   protected readonly experimentAreaNode: Node;
   protected readonly zoomButtonGroup: Node;
 
-  private readonly model: GeometricOpticsModel;
+  private readonly model: GOModel;
   private readonly resetGeometricScreenView: () => void;
 
   /**
    * @param model
    * @param options
    */
-  constructor( model: GeometricOpticsModel, options: GeometricOpticsScreenViewOptions ) {
+  constructor( model: GOModel, options: GeometricOpticsScreenViewOptions ) {
 
     super( merge( {
 
@@ -91,7 +91,7 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // convenience variable for laying out scenery Nodes
     const erodedLayoutBounds = this.layoutBounds.erodedXY(
-      GeometricOpticsConstants.SCREEN_VIEW_X_MARGIN, GeometricOpticsConstants.SCREEN_VIEW_Y_MARGIN );
+      GOConstants.SCREEN_VIEW_X_MARGIN, GOConstants.SCREEN_VIEW_Y_MARGIN );
 
     // Create a Y inverted modelViewTransform with isometric scaling along x and y axes.
     // In the model coordinate frame, +x is right, +y is up.
@@ -126,17 +126,17 @@ class GeometricOpticsScreenView extends ScreenView {
     // Things that are outside the Experiment Area =====================================================================
 
     // create Rulers
-    const horizontalRulerNode = new GeometricOpticsRulerNode( model.horizontalRuler,
+    const horizontalRulerNode = new GORulerNode( model.horizontalRuler,
       zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, {
         tandem: options.tandem.createTandem( 'horizontalRulerNode' )
       } );
-    const verticalRulerNode = new GeometricOpticsRulerNode( model.verticalRuler,
+    const verticalRulerNode = new GORulerNode( model.verticalRuler,
       zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, {
         tandem: options.tandem.createTandem( 'verticalRulerNode' )
       } );
 
     // create control panel at the bottom of the screen
-    const controlPanel = new GeometricOpticsControlPanel( model.representationProperty, model.optic,
+    const controlPanel = new GOControlPanel( model.representationProperty, model.optic,
       model.raysModeProperty, visibleProperties, {
         tandem: options.tandem.createTandem( 'controlPanel' )
       } );
@@ -246,8 +246,8 @@ class GeometricOpticsScreenView extends ScreenView {
     // create the light rays associated with the source object and first light source
     const lightRays1Node = new LightRaysNode( model.lightRays1, model.representationProperty,
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, {
-        realRaysStroke: GeometricOpticsColors.realRays1StrokeProperty,
-        virtualRaysStroke: GeometricOpticsColors.virtualRays1StrokeProperty,
+        realRaysStroke: GOColors.realRays1StrokeProperty,
+        virtualRaysStroke: GOColors.virtualRays1StrokeProperty,
         tandem: options.tandem.createTandem( 'lightRays1Node' ),
         phetioDocumentation: 'TODO'
       } );
@@ -255,8 +255,8 @@ class GeometricOpticsScreenView extends ScreenView {
     // create the light rays associated with the second point and second light source
     const lightRays2Node = new LightRaysNode( model.lightRays2, model.representationProperty,
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, {
-        realRaysStroke: GeometricOpticsColors.realRays2StrokeProperty,
-        virtualRaysStroke: GeometricOpticsColors.virtualRays2StrokeProperty,
+        realRaysStroke: GOColors.realRays2StrokeProperty,
+        virtualRaysStroke: GOColors.virtualRays2StrokeProperty,
         visibleProperty: visibleProperties.secondPointVisibleProperty,
         tandem: options.tandem.createTandem( 'lightRays2Node' ),
         phetioDocumentation: 'TODO'
@@ -329,25 +329,25 @@ class GeometricOpticsScreenView extends ScreenView {
 
     // Add points at the position of things that move around.
     //TODO move these into the Nodes, ala LensNode
-    if ( GeometricOpticsQueryParameters.showPositions ) {
+    if ( GOQueryParameters.showPositions ) {
       experimentAreaNode.addChild( new DebugPointNode( model.sourceObject.positionProperty, modelViewTransform ) );
       experimentAreaNode.addChild( new DebugPointNode( model.secondPoint.lightSourcePositionProperty, modelViewTransform ) );
       experimentAreaNode.addChild( new DebugPointNode( model.firstTarget.positionProperty, modelViewTransform ) );
     }
 
     // Add the 2F points on each side of optic
-    if ( GeometricOpticsQueryParameters.show2F ) {
+    if ( GOQueryParameters.show2F ) {
       const left2fProperty = new DerivedProperty( [ model.optic.leftFocalPointProperty ],
         ( position: Vector2 ) => position.timesScalar( 2 ) );
       const right2fProperty = new DerivedProperty( [ model.optic.rightFocalPointProperty ],
         ( position: Vector2 ) => position.timesScalar( 2 ) );
-      const options = { fill: GeometricOpticsColors.focalPointFillProperty };
+      const options = { fill: GOColors.focalPointFillProperty };
       experimentAreaNode.addChild( new DebugPointNode( left2fProperty, modelViewTransform, options ) );
       experimentAreaNode.addChild( new DebugPointNode( right2fProperty, modelViewTransform, options ) );
     }
 
     // Show the value of modelBoundsProperty
-    if ( GeometricOpticsQueryParameters.showModelBounds ) {
+    if ( GOQueryParameters.showModelBounds ) {
       const dragBoundsNode = new Rectangle( modelViewTransform.modelToViewBounds( modelBoundsProperty.value ), {
         stroke: 'green',
         lineWidth: 2
@@ -401,7 +401,7 @@ class GeometricOpticsScreenView extends ScreenView {
       resetAllButton
     ];
 
-    this.model = model; // {GeometricOpticsModel}
+    this.model = model; // {GOModel}
     this.screenViewRootNode = screenViewRootNode; // {Node}
     this.modelViewTransform = modelViewTransform; // {ModelViewTransform2}
     this.visibleProperties = visibleProperties; // {VisibleProperties}
@@ -465,6 +465,6 @@ function createTransformForZoomLevel( zoomLevel: number, viewOrigin: Vector2 ): 
   return ModelViewTransform2.createOffsetXYScaleMapping( viewOrigin, modelToViewScale, -modelToViewScale );
 }
 
-geometricOptics.register( 'GeometricOpticsScreenView', GeometricOpticsScreenView );
-export default GeometricOpticsScreenView;
+geometricOptics.register( 'GOScreenView', GOScreenView );
+export default GOScreenView;
 export type { GeometricOpticsScreenViewOptions };

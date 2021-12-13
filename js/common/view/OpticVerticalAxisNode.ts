@@ -15,8 +15,8 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import { Node, Path } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsColors from '../GeometricOpticsColors.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import GOColors from '../GOColors.js';
+import GOConstants from '../GOConstants.js';
 import Optic from '../model/Optic.js';
 import RaysModeEnum from '../model/RaysModeEnum.js';
 
@@ -38,9 +38,9 @@ class OpticVerticalAxisNode extends Node {
 
     // create a vertical dashed line, through the optic - indicating the crossing plane of principal rays.
     const lineNode = new Path( modelViewTransform.modelToViewShape( optic.getVerticalAxis() ), {
-      stroke: GeometricOpticsColors.verticalAxisStrokeProperty,
-      lineWidth: GeometricOpticsConstants.AXIS_LINE_WIDTH,
-      lineDash: GeometricOpticsConstants.AXIS_LINE_DASH
+      stroke: GOColors.verticalAxisStrokeProperty,
+      lineWidth: GOConstants.AXIS_LINE_WIDTH,
+      lineDash: GOConstants.AXIS_LINE_DASH
     } );
 
     super( merge( {

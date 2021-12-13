@@ -72,7 +72,7 @@ ScreenView. The model-to-view scaling is isometric along the horizontal and vert
 
 For scenery Nodes outside the experimentAreaNode, we lay them out using view coordinates. There are two exceptions to
 this:
-(1) The `LabelsNode`, responsible for labels beneath the optical components and (2) the `GeometricOpticsRulerNode`. The
+(1) The `LabelsNode`, responsible for labels beneath the optical components and (2) the `GORulerNode`. The
 labels and ruler use `zoomTransformProperty` which allows it to relate its coordinates to within the experiment area at
 a particular zoom level.
 
@@ -83,7 +83,7 @@ simulation to `modelBounds`.
 ### Memory management
 
 * **Dynamic allocation:** Most objects in this sim are allocated at startup, and exist for the lifetime of the simulation. 
-The exception is `GeometricOpticsRulerNode`, which is instantiated each time the zoom level changes. 
+The exception is `GORulerNode`, which is instantiated each time the zoom level changes. 
 
 * **Listeners**: Unless otherwise noted in the code, all uses of `link`, `addListener`, etc. do NOT need a corresponding
   `unlink`, `removeListener`, etc.
@@ -106,10 +106,10 @@ dispose() {
 # Model
 
 The main model class
-is [GeometricOpticsModel](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/GeometricOpticsModel.js)
+is [GOModel](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/GeometricOpticsModel.js)
 .
 
-There are a three top-level model elements in GeometricOpticsModel that play an essential role, namely `SourceObject`
+There are a three top-level model elements in GOModel that play an essential role, namely `SourceObject`
 , `Optic` and `Target`. This trifecta of elements rules the entire simulation. Each of them is a component of the
 thin-lens and mirror equation. It is important to note that all the light rays do not drive the model, but take their
 marching orders from the trifecta.
@@ -152,7 +152,7 @@ on this information. This insures that all rays can converge to the same target.
 
 # View
 
-There are a few top-level view elements that are instantiated in `GeometricOpticsScreenView`:
+There are a few top-level view elements that are instantiated in `GOScreenView`:
 
 * [OpticNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/OpticNode.js) is responsible for
   the optical element (Lens or Mirror).

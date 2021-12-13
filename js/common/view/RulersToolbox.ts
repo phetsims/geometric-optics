@@ -13,7 +13,7 @@ import { HBox } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
+import GORulerNode from './GORulerNode.js';
 import RulerIconNode from './RulerIconNode.js';
 
 type Options = {
@@ -26,7 +26,7 @@ class RulersToolbox extends Panel {
    * @param rulerNodes - in the order that they appear in the toolbox, left to right
    * @param options
    */
-  constructor( rulerNodes: GeometricOpticsRulerNode[], options: Options ) {
+  constructor( rulerNodes: GORulerNode[], options: Options ) {
 
     const toolboxContent = new HBox( {
       spacing: 30,

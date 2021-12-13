@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * GeometricOpticsControlPanel is the main control panel for both screens.
+ * GOControlPanel is the main control panel for both screens.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -18,8 +18,8 @@ import VSeparator from '../../../../sun/js/VSeparator.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
-import GeometricOpticsColors from '../GeometricOpticsColors.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import GOColors from '../GOColors.js';
+import GOConstants from '../GOConstants.js';
 import Optic from '../model/Optic.js';
 import RaysModeEnum from '../model/RaysModeEnum.js';
 import Representation from '../model/Representation.js';
@@ -35,7 +35,7 @@ type Options = {
   tandem: Tandem
 };
 
-class GeometricOpticsControlPanel extends Panel {
+class GOControlPanel extends Panel {
 
   /**
    * @param representationProperty
@@ -53,7 +53,7 @@ class GeometricOpticsControlPanel extends Panel {
 
     // title
     const raysText = new Text( geometricOpticsStrings.rays, {
-      font: GeometricOpticsConstants.TITLE_FONT,
+      font: GOConstants.TITLE_FONT,
       maxWidth: 100,
       tandem: raysSubpanelTandem.createTandem( 'raysText' )
     } );
@@ -131,8 +131,8 @@ class GeometricOpticsControlPanel extends Panel {
       // Panel options
       xMargin: 15,
       yMargin: 10,
-      fill: GeometricOpticsColors.panelFillProperty,
-      stroke: GeometricOpticsColors.panelStrokeProperty
+      fill: GOColors.panelFillProperty,
+      stroke: GOColors.panelStrokeProperty
     }, options ) );
   }
 
@@ -145,5 +145,5 @@ class GeometricOpticsControlPanel extends Panel {
   }
 }
 
-geometricOptics.register( 'GeometricOpticsControlPanel', GeometricOpticsControlPanel );
-export default GeometricOpticsControlPanel;
+geometricOptics.register( 'GOControlPanel', GOControlPanel );
+export default GOControlPanel;

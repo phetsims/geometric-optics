@@ -18,7 +18,7 @@ import Optic from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 import ProjectionScreen from './ProjectionScreen.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
-import GeometricOpticsConstants from '../../common/GeometricOpticsConstants.js';
+import GOConstants from '../../common/GOConstants.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 // constants
@@ -96,8 +96,8 @@ class LightSpot {
     // The value saturates to max intensity for a spot height smaller than FULL_BRIGHT_SPOT_HEIGHT
     this.intensityProperty = new DerivedProperty( [ this.diameterProperty ],
       ( diameter: number | null ) => ( diameter === null || diameter === 0 ) ? null :
-                                     GeometricOpticsConstants.INTENSITY_RANGE.constrainValue( FULL_INTENSITY_DIAMETER / diameter ), {
-        isValidValue: ( value: number | null ) => ( value === null ) || GeometricOpticsConstants.INTENSITY_RANGE.contains( value ),
+                                     GOConstants.INTENSITY_RANGE.constrainValue( FULL_INTENSITY_DIAMETER / diameter ), {
+        isValidValue: ( value: number | null ) => ( value === null ) || GOConstants.INTENSITY_RANGE.contains( value ),
         tandem: options.tandem.createTandem( 'intensityProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NullableIO( NumberIO ) ),
         phetioDocumentation: 'intensity of the light hitting the screen, in the range [0,1], ' +

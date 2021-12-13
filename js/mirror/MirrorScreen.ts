@@ -11,7 +11,7 @@ import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import merge from '../../../phet-core/js/merge.js';
 import Tandem from '../../../tandem/js/Tandem.js';
-import GeometricOpticsColors from '../common/GeometricOpticsColors.js';
+import GOColors from '../common/GOColors.js';
 import geometricOptics from '../geometricOptics.js';
 import geometricOpticsStrings from '../geometricOpticsStrings.js';
 import MirrorModel from './model/MirrorModel.js';
@@ -33,7 +33,7 @@ class MirrorScreen extends Screen {
         name: geometricOpticsStrings.screen.mirror,
         homeScreenIcon: createScreenIcon(),
         showUnselectedHomeScreenIconFrame: true,
-        backgroundColorProperty: GeometricOpticsColors.screenBackgroundColorProperty
+        backgroundColorProperty: GOColors.screenBackgroundColorProperty
       }, options )
     );
   }
@@ -46,7 +46,7 @@ class MirrorScreen extends Screen {
 
 function createScreenIcon(): ScreenIcon {
   return new ScreenIcon( MirrorNode.createIconNode( 'concave' ), {
-    fill: GeometricOpticsColors.screenBackgroundColorProperty
+    fill: GOColors.screenBackgroundColorProperty
   } );
 }
 

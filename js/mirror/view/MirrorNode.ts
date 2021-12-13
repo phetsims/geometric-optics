@@ -14,17 +14,17 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import { Node, Path } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
+import GOColors from '../../common/GOColors.js';
 import Mirror from '../model/Mirror.js';
 import MirrorShapes from '../model/MirrorShapes.js';
 import OpticShapeEnum from '../../common/model/OpticShapeEnum.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
-import GeometricOpticsQueryParameters from '../../common/GeometricOpticsQueryParameters.js';
+import GOQueryParameters from '../../common/GOQueryParameters.js';
 import OriginNode from '../../common/view/OriginNode.js';
 
 // constants
-const FILL = GeometricOpticsColors.mirrorBackingColorProperty;
-const STROKE = GeometricOpticsColors.mirrorReflectiveCoatingColorProperty;
+const FILL = GOColors.mirrorBackingColorProperty;
+const STROKE = GOColors.mirrorReflectiveCoatingColorProperty;
 const LINE_WIDTH = 2;
 const ICON_RADIUS_OF_CURVATURE = 20;
 const ICON_DIAMETER = 30;
@@ -57,7 +57,7 @@ class MirrorNode extends Node {
     const children: Node[] = [ backingNode, reflectiveCoatingNode ];
 
     // Red dot at the origin
-    if ( GeometricOpticsQueryParameters.showPositions ) {
+    if ( GOQueryParameters.showPositions ) {
       children.push( new OriginNode() );
     }
 
@@ -95,11 +95,11 @@ class MirrorNode extends Node {
     } );
 
     const backingNode = new Path( mirrorShapes.fillShape, {
-      fill: GeometricOpticsColors.mirrorBackingColorProperty
+      fill: GOColors.mirrorBackingColorProperty
     } );
 
     const reflectiveCoatingNode = new Path( mirrorShapes.strokeShape, {
-      stroke: GeometricOpticsColors.mirrorReflectiveCoatingColorProperty
+      stroke: GOColors.mirrorReflectiveCoatingColorProperty
     } );
 
     return new Node( {

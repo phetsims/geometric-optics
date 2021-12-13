@@ -11,7 +11,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import { DragListener, SceneryEvent } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsRulerNode from './GeometricOpticsRulerNode.js';
+import GORulerNode from './GORulerNode.js';
 
 // constants
 const ICON_WIDTH = 400;
@@ -24,7 +24,7 @@ class RulerIconNode extends RulerNode {
   /**
    * @param rulerNode
    */
-  constructor( rulerNode: GeometricOpticsRulerNode ) {
+  constructor( rulerNode: GORulerNode ) {
 
     const options = {
 

@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * GeometricOpticsGlobalOptions defines the global options for this simulation, accessed via PhET > Options.
+ * GOGlobalOptions defines the global options for this simulation, accessed via PhET > Options.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -9,7 +9,7 @@
 import Property from '../../../axon/js/Property.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import geometricOptics from '../geometricOptics.js';
-import GeometricOpticsQueryParameters from './GeometricOpticsQueryParameters.js';
+import GOQueryParameters from './GOQueryParameters.js';
 import FocalLengthControlEnum, { FocalLengthControlValues } from './model/FocalLengthControlEnum.js';
 import StringIO from '../../../tandem/js/types/StringIO.js';
 import BooleanProperty from '../../../axon/js/BooleanProperty.js';
@@ -17,10 +17,10 @@ import BooleanProperty from '../../../axon/js/BooleanProperty.js';
 // constants
 const optionsTandem = Tandem.GLOBAL_VIEW.createTandem( 'options' );
 
-const GeometricOpticsGlobalOptions = {
+const GOGlobalOptions = {
 
   focalLengthControlProperty:
-    new Property<FocalLengthControlEnum>( GeometricOpticsQueryParameters.focalLengthControl, {
+    new Property<FocalLengthControlEnum>( GOQueryParameters.focalLengthControl, {
       validValues: FocalLengthControlValues,
       tandem: optionsTandem.createTandem( 'focalLengthControlProperty' ),
       phetioType: Property.PropertyIO( StringIO ),
@@ -37,5 +37,5 @@ const GeometricOpticsGlobalOptions = {
   } )
 };
 
-geometricOptics.register( 'GeometricOpticsGlobalOptions', GeometricOpticsGlobalOptions );
-export default GeometricOpticsGlobalOptions;
+geometricOptics.register( 'GOGlobalOptions', GOGlobalOptions );
+export default GOGlobalOptions;

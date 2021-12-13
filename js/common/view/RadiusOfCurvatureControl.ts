@@ -11,7 +11,7 @@ import geometricOptics from '../../geometricOptics.js';
 import Range from '../../../../dot/js/Range.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import merge from '../../../../phet-core/js/merge.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import GOConstants from '../GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
@@ -32,14 +32,14 @@ class RadiusOfCurvatureControl extends NumberControl {
     const radiusOfCurvatureRange: Range = radiusOfCurvatureProperty.range!;
 
     super( geometricOpticsStrings.radiusOfCurvature, radiusOfCurvatureProperty, radiusOfCurvatureRange,
-      merge( {}, GeometricOpticsConstants.NUMBER_CONTROL_OPTIONS, {
-        delta: GeometricOpticsConstants.RADIUS_OF_CURVATURE_SPINNER_INTERVAL,
+      merge( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
+        delta: GOConstants.RADIUS_OF_CURVATURE_SPINNER_INTERVAL,
         sliderOptions: {
           constrainValue: ( value: number ) =>
-            Utils.roundToInterval( value, GeometricOpticsConstants.RADIUS_OF_CURVATURE_SLIDER_INTERVAL )
+            Utils.roundToInterval( value, GOConstants.RADIUS_OF_CURVATURE_SLIDER_INTERVAL )
         },
         numberDisplayOptions: {
-          decimalPlaces: GeometricOpticsConstants.RADIUS_OF_CURVATURE_DECIMAL_PLACES,
+          decimalPlaces: GOConstants.RADIUS_OF_CURVATURE_DECIMAL_PLACES,
           valuePattern: geometricOpticsStrings.valueCentimetersPattern
         }
       }, options ) );

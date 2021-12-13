@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * GeometricOpticsRulerNode is the view of a ruler. Responsibilities include:
+ * GORulerNode is the view of a ruler. Responsibilities include:
  *
  * - It wraps a scenery-phet.RulerNode, which is re-created when the zoom level changes.
  * - As the zoom level is changed, the view dimensions remain constant, but the tick marks change.
@@ -22,13 +22,13 @@ import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import { DragListener, Font, Node, SceneryEvent } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-import GeometricOpticsRuler from '../model/GeometricOpticsRuler.js';
+import GOConstants from '../GOConstants.js';
+import GeometricOpticsRuler from '../model/GORuler.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
-const MINIMUM_VISIBLE_LENGTH = GeometricOpticsConstants.RULER_MINIMUM_VISIBLE_LENGTH;
+const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;
 
 //TODO should be defined by RulerNode
 type RulerNodeOptions = {
@@ -45,7 +45,7 @@ type Options = {
   tandem: Tandem
 };
 
-class GeometricOpticsRulerNode extends Node {
+class GORulerNode extends Node {
 
   readonly ruler: GeometricOpticsRuler;
   private toolboxBounds: Bounds2;
@@ -203,9 +203,9 @@ function createRulerNode( rulerLength: number, modelViewTransform: ModelViewTran
     }
   }
 
-  return new RulerNode( rulerWidth, GeometricOpticsConstants.RULER_HEIGHT,
+  return new RulerNode( rulerWidth, GOConstants.RULER_HEIGHT,
     majorTickWidth, majorTickLabels, geometricOpticsStrings.centimeters, options );
 }
 
-geometricOptics.register( 'GeometricOpticsRulerNode', GeometricOpticsRulerNode );
-export default GeometricOpticsRulerNode;
+geometricOptics.register( 'GORulerNode', GORulerNode );
+export default GORulerNode;

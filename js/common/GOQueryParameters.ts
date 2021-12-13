@@ -62,14 +62,14 @@ const SCHEMA = {
   }
 };
 
-const GeometricOpticsQueryParameters = QueryStringMachine.getAll( SCHEMA );
-GeometricOpticsQueryParameters.SCHEMA = SCHEMA;
+const GOQueryParameters = QueryStringMachine.getAll( SCHEMA );
+GOQueryParameters.SCHEMA = SCHEMA;
 
-geometricOptics.register( 'GeometricOpticsQueryParameters', GeometricOpticsQueryParameters );
+geometricOptics.register( 'GOQueryParameters', GOQueryParameters );
 
 // Log query parameters
 logGlobal( 'phet.chipper.queryParameters' );
 logGlobal( 'phet.preloads.phetio.queryParameters' );
-logGlobal( 'phet.geometricOptics.GeometricOpticsQueryParameters' );
+logGlobal( 'phet.geometricOptics.GOQueryParameters' );
 
-export default GeometricOpticsQueryParameters;
+export default GOQueryParameters;

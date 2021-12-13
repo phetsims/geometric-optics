@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * GeometricOpticsModel is the common top-level model for this simulation.
+ * GOModel is the common top-level model for this simulation.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -14,12 +14,12 @@ import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import GOConstants from '../GOConstants.js';
 import LightRays from './LightRays.js';
 import Optic from './Optic.js';
 import RaysModeEnum, { RaysModeValues } from './RaysModeEnum.js';
 import Representation, { RepresentationStaticInstances } from './Representation.js';
-import GeometricOpticsRuler from './GeometricOpticsRuler.js';
+import GeometricOpticsRuler from './GORuler.js';
 import SecondPoint from './SecondPoint.js';
 import SourceObject from './SourceObject.js';
 import Target from './Target.js';
@@ -43,7 +43,7 @@ type GeometricOpticsModelOptions = {
   tandem: Tandem
 };
 
-class GeometricOpticsModel {
+class GOModel {
 
   // model of the optic
   readonly optic: Optic;
@@ -142,13 +142,13 @@ class GeometricOpticsModel {
 
     this.horizontalRuler = new GeometricOpticsRuler( {
       orientation: 'horizontal',
-      length: GeometricOpticsConstants.HORIZONTAL_RULER_LENGTH,
+      length: GOConstants.HORIZONTAL_RULER_LENGTH,
       tandem: options.tandem.createTandem( 'horizontalRuler' )
     } );
 
     this.verticalRuler = new GeometricOpticsRuler( {
       orientation: 'vertical',
-      length: GeometricOpticsConstants.VERTICAL_RULER_LENGTH,
+      length: GOConstants.VERTICAL_RULER_LENGTH,
       tandem: options.tandem.createTandem( 'verticalRuler' )
     } );
   }
@@ -177,6 +177,6 @@ class GeometricOpticsModel {
   }
 }
 
-geometricOptics.register( 'GeometricOpticsModel', GeometricOpticsModel );
-export default GeometricOpticsModel;
+geometricOptics.register( 'GOModel', GOModel );
+export default GOModel;
 export type { GeometricOpticsModelOptions };

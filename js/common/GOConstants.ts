@@ -15,7 +15,7 @@ import Range from '../../../dot/js/Range.js';
 
 const CONTROL_FONT = new PhetFont( 14 );
 
-const GeometricOpticsConstants = {
+const GOConstants = {
 
   SCREEN_VIEW_X_MARGIN: 20,
   SCREEN_VIEW_Y_MARGIN: 15,
@@ -83,5 +83,5 @@ const GeometricOpticsConstants = {
   }
 };
 
-geometricOptics.register( 'GeometricOpticsConstants', GeometricOpticsConstants );
-export default GeometricOpticsConstants;
+geometricOptics.register( 'GOConstants', GOConstants );
+export default GOConstants;

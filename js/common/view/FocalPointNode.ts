@@ -12,7 +12,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Circle, Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsColors from '../GeometricOpticsColors.js';
+import GOColors from '../GOColors.js';
 
 class FocalPointNode extends Node {
 
@@ -37,11 +37,11 @@ class FocalPointNode extends Node {
    */
   public static createIcon( radius: number = 7 ): Node {
     const circleNode = new Circle( radius, {
-      fill: GeometricOpticsColors.focalPointFillProperty,
-      stroke: GeometricOpticsColors.focalPointStrokeProperty
+      fill: GOColors.focalPointFillProperty,
+      stroke: GOColors.focalPointStrokeProperty
     } );
     const centerPointNode = new Circle( 2, {
-      fill: GeometricOpticsColors.focalPointStrokeProperty
+      fill: GOColors.focalPointStrokeProperty
     } );
     return new Node( {
       children: [ circleNode, centerPointNode ]

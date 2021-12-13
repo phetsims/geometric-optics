@@ -11,7 +11,7 @@ import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import merge from '../../../phet-core/js/merge.js';
 import Tandem from '../../../tandem/js/Tandem.js';
-import GeometricOpticsColors from '../common/GeometricOpticsColors.js';
+import GOColors from '../common/GOColors.js';
 import geometricOptics from '../geometricOptics.js';
 import geometricOpticsStrings from '../geometricOpticsStrings.js';
 import LensModel from './model/LensModel.js';
@@ -33,7 +33,7 @@ class LensScreen extends Screen {
         name: geometricOpticsStrings.screen.lens,
         homeScreenIcon: createScreenIcon(),
         showUnselectedHomeScreenIconFrame: true,
-        backgroundColorProperty: GeometricOpticsColors.screenBackgroundColorProperty
+        backgroundColorProperty: GOColors.screenBackgroundColorProperty
       }, options )
     );
   }
@@ -46,7 +46,7 @@ class LensScreen extends Screen {
 
 function createScreenIcon(): ScreenIcon {
   return new ScreenIcon( LensNode.createIconNode( 'convex' ), {
-    fill: GeometricOpticsColors.screenBackgroundColorProperty
+    fill: GOColors.screenBackgroundColorProperty
   } );
 }
 

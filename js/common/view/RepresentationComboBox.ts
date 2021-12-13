@@ -17,7 +17,7 @@ import ComboBox from '../../../../sun/js/ComboBox.js';
 import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
+import GOConstants from '../GOConstants.js';
 import Representation from '../model/Representation.js';
 
 type Options = {
@@ -40,7 +40,7 @@ class RepresentationComboBox extends ComboBox {
 
       // create text
       const text = new Text( representation.label, {
-        font: GeometricOpticsConstants.CONTROL_FONT,
+        font: GOConstants.CONTROL_FONT,
         maxWidth: 100
       } );
 

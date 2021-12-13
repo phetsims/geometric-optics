@@ -11,7 +11,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsColors from '../GeometricOpticsColors.js';
+import GOColors from '../GOColors.js';
 import Optic from '../model/Optic.js';
 import OpticShapeEnum from '../model/OpticShapeEnum.js';
 import Lens from '../../lens/model/Lens.js';
@@ -48,9 +48,9 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeE
       orientation: 'horizontal',
       spacing: 10,
       cornerRadius: 3,
-      baseColor: GeometricOpticsColors.curveRadioButtonFillProperty,
-      selectedStroke: GeometricOpticsColors.curveRadioButtonSelectedStrokeProperty,
-      deselectedStroke: GeometricOpticsColors.curveRadioButtonDeselectedStrokeProperty,
+      baseColor: GOColors.curveRadioButtonFillProperty,
+      selectedStroke: GOColors.curveRadioButtonSelectedStrokeProperty,
+      deselectedStroke: GOColors.curveRadioButtonDeselectedStrokeProperty,
       deselectedLineWidth: 2,
       selectedLineWidth: 2,
       buttonContentXMargin: 14,

@@ -13,7 +13,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import GeometricOpticsScreenView, { GeometricOpticsScreenViewOptions } from '../../common/view/GeometricOpticsScreenView.js';
+import GOScreenView, { GeometricOpticsScreenViewOptions } from '../../common/view/GOScreenView.js';
 import geometricOptics from '../../geometricOptics.js';
 import LensModel from '../model/LensModel.js';
 import LightSpotNode from './LightSpotNode.js';
@@ -29,7 +29,7 @@ type LensScreenViewOptions = {
   tandem: Tandem
 };
 
-class LensScreenView extends GeometricOpticsScreenView {
+class LensScreenView extends GOScreenView {
 
   private readonly projectionScreenNode: ProjectionScreenNode;
 

@@ -24,12 +24,12 @@ import { Color } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import projectionScreenBottom_png from '../../../images/projectionScreenBottom_png.js';
 import projectionScreenTop_png from '../../../images/projectionScreenTop_png.js';
-import GeometricOpticsColors from '../../common/GeometricOpticsColors.js';
+import GOColors from '../../common/GOColors.js';
 import geometricOptics from '../../geometricOptics.js';
 import ProjectionScreen from '../model/ProjectionScreen.js';
 import UnconstrainedCueingArrowsNode from '../../common/view/UnconstrainedCueingArrowsNode.js';
-import GeometricOpticsGlobalOptions from '../../common/GeometricOpticsGlobalOptions.js';
-import GeometricOpticsQueryParameters from '../../common/GeometricOpticsQueryParameters.js';
+import GOGlobalOptions from '../../common/GOGlobalOptions.js';
+import GOQueryParameters from '../../common/GOQueryParameters.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OriginNode from '../../common/view/OriginNode.js';
 
@@ -53,8 +53,8 @@ class ProjectionScreenNode extends Node {
 
     // The screen part of the projection screen, drawn in perspective.
     const screenNode = new Path( modelViewTransform.modelToViewShape( projectionScreen.screenShape ), {
-      fill: GeometricOpticsColors.projectionScreenFillProperty,
-      stroke: phet.chipper.queryParameters.dev ? 'red' : GeometricOpticsColors.projectionScreenStrokeProperty,
+      fill: GOColors.projectionScreenFillProperty,
+      stroke: phet.chipper.queryParameters.dev ? 'red' : GOColors.projectionScreenStrokeProperty,
       lineWidth: 2,
       centerX: 0,
       centerY: 0
@@ -78,7 +78,7 @@ class ProjectionScreenNode extends Node {
 
     // The pull string, attached to the bottom bar
     const pullStringNode = new Line( 0, 0, 0, 50, {
-      stroke: GeometricOpticsColors.projectionScreenStrokeProperty,
+      stroke: GOColors.projectionScreenStrokeProperty,
       lineWidth: 3,
       centerX: screenNode.centerX,
       top: bottomBarNode.top
@@ -86,7 +86,7 @@ class ProjectionScreenNode extends Node {
 
     // The knob attached to the pull string
     const knobNode = new Circle( 5, {
-      stroke: GeometricOpticsColors.projectionScreenStrokeProperty,
+      stroke: GOColors.projectionScreenStrokeProperty,
       fill: Color.grayColor( 180 ),
       center: pullStringNode.centerBottom
     } );
@@ -99,7 +99,7 @@ class ProjectionScreenNode extends Node {
     const children: Node[] = [ pullStringNode, knobNode, topBarNode, bottomBarNode, cueingArrowsNode, screenNode ];
 
     // Red dot at the origin
-    if ( GeometricOpticsQueryParameters.showPositions ) {
+    if ( GOQueryParameters.showPositions ) {
       children.push( new OriginNode() );
     }
 
@@ -167,14 +167,14 @@ class ProjectionScreenNode extends Node {
     } );
 
     Property.multilink(
-      [ GeometricOpticsGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty ],
+      [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty ],
       ( cueingArrowsEnabled: boolean, inputEnabled: boolean ) => {
         cueingArrowsNode.visible = ( cueingArrowsEnabled && inputEnabled );
       }
     );
 
     this.resetProjectionScreenNode = (): void => {
-      cueingArrowsNode.visible = ( GeometricOpticsGlobalOptions.cueingArrowsEnabledProperty.value &&
+      cueingArrowsNode.visible = ( GOGlobalOptions.cueingArrowsEnabledProperty.value &&
                                    this.inputEnabledProperty.value );
     };
   }

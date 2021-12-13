@@ -17,8 +17,8 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GuideNode from '../../lens/view/GuideNode.js';
-import GeometricOpticsConstants from '../GeometricOpticsConstants.js';
-import GeometricOpticsQueryParameters from '../GeometricOpticsQueryParameters.js';
+import GOConstants from '../GOConstants.js';
+import GOQueryParameters from '../GOQueryParameters.js';
 import FocalPointNode from './FocalPointNode.js';
 import SecondPointNode from './SecondPointNode.js';
 import VisibleProperties from './VisibleProperties.js';
@@ -83,7 +83,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
         node: createLabel( geometricOpticsStrings.guides, GuideNode.createIcon() ),
         property: visibleProperties.guidesVisibleProperty,
         options: {
-          visible: GeometricOpticsQueryParameters.showGuides
+          visible: GOQueryParameters.showGuides
         } as any, // TS any - options are passed to Checkbox constructor, should be of type CheckboxOptions
         tandem: options.tandem.createTandem( 'guidesCheckbox' )
       } );
@@ -104,7 +104,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 function createLabel( string: string, iconNode?: Node ): Node {
 
   const textNode = new Text( string, {
-    font: GeometricOpticsConstants.CONTROL_FONT,
+    font: GOConstants.CONTROL_FONT,
     maxWidth: 100
   } );
 
