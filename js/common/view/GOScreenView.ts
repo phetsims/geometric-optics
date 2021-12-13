@@ -328,6 +328,12 @@ class GOScreenView extends ScreenView {
     // labels
     const labelsNode = new LabelsNode( model, visibleProperties, zoomTransformProperty, zoomLevelProperty );
 
+    // Changing these things interrupts interactions ============================================================
+
+    const interrupt = () => this.interruptSubtreeInput();
+    zoomLevelProperty.lazyLink( interrupt );
+    model.representationProperty.lazyLink( interrupt );
+
     // Debugging ================================================================================================
 
     // Add points at the position of things that move around.
