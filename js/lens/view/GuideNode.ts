@@ -30,6 +30,9 @@ const CIRCLE_OPTIONS = {
 
 class GuideNode extends Node {
 
+  private readonly guide: Guide;
+  private readonly modelViewTransform: ModelViewTransform2;
+
   /**
    * @param guide
    * @param modelViewTransform
@@ -38,77 +41,61 @@ class GuideNode extends Node {
 
     const fulcrumNode = new Circle( GUIDE_FULCRUM_RADIUS, CIRCLE_OPTIONS );
 
-    // create two rectangles, with left center side laying on fulcrum (initially)
+    // The arms are two rectangles, with left center side laying on fulcrum initially.
     const incidentArmNode = new Rectangle( fulcrumNode.x, fulcrumNode.y - GUIDE_RECTANGLE_HEIGHT / 2,
       GUIDE_RECTANGLE_WIDTH, GUIDE_RECTANGLE_HEIGHT, RECTANGLE_OPTIONS );
     const transmittedArmNode = new Rectangle( fulcrumNode.x, fulcrumNode.y - GUIDE_RECTANGLE_HEIGHT / 2,
       GUIDE_RECTANGLE_WIDTH, GUIDE_RECTANGLE_HEIGHT, RECTANGLE_OPTIONS );
 
-    /**
-     * set the position of the rectangle such that its left center is on the fulcrum point.
-     * @param rectangleNode
-     * @param viewFulcrumPosition
-     * @param angle - "model" angle of the rectangle, measured from the positive x-axis
-     */
-    const setRectanglePosition = ( rectangleNode: Node, viewFulcrumPosition: Vector2, angle: number ): void => {
-      assert && assert( isFinite( angle ) );
-
-      // y-inverted modelViewTransform
-      const viewAngle = -angle;
-
-      // center of the rectangle is offset from the fulcrum point
-      rectangleNode.center = Vector2.createPolar( GUIDE_RECTANGLE_WIDTH / 2, viewAngle ).plus( viewFulcrumPosition );
-    };
-
-    // update the position of the fulcrum
-    guide.fulcrumPositionProperty.link( position => {
-      const viewFulcrumPosition = modelViewTransform.modelToViewPosition( position );
-      fulcrumNode.center = viewFulcrumPosition;
-
-      // position the rectangles
-      setRectanglePosition( incidentArmNode, viewFulcrumPosition, guide.incidentAngleProperty.value );
-      setRectanglePosition( transmittedArmNode, viewFulcrumPosition, guide.transmittedAngleProperty.value );
-    } );
-
-    /**
-     * Set the angle and position of a rectangle around the fulcrum
-     * @param angle - current "model" angle
-     * @param oldAngle - previous "model" angle
-     * @param rectangle - incident or transmitted rectangle to be rotated and positioned
-     */
-    const setAnglePosition = ( angle: number, oldAngle: number | null, rectangle: Rectangle ): void => {
-      assert && assert( isFinite( angle ) );
-      assert && assert( oldAngle === null || isFinite( oldAngle ) );
-
-      // for first angle
-      if ( oldAngle === null ) {
-        oldAngle = 0;
-      }
-
-      // rotate the rectangle
-      const viewFulcrumPosition = modelViewTransform.modelToViewPosition( guide.fulcrumPositionProperty.value );
-
-      // the model view transform is Y-inverted
-      // therefore a counterclockwise rotation in the model is clockwise is the view
-      rectangle.rotateAround( viewFulcrumPosition, -angle + oldAngle );
-
-      // position of the rectangle
-      setRectanglePosition( rectangle, viewFulcrumPosition, angle );
-    };
-
-    // update position and angle of incident rectangle
-    guide.incidentAngleProperty.link( ( angle, oldAngle ) => {
-      setAnglePosition( angle, oldAngle, incidentArmNode );
-    } );
-
-    // update position and angle of transmitted rectangle
-    guide.transmittedAngleProperty.link( ( transmittedAngle, oldTransmittedAngle ) => {
-      setAnglePosition( transmittedAngle, oldTransmittedAngle, transmittedArmNode );
-    } );
-
     super( {
       children: [ incidentArmNode, transmittedArmNode, fulcrumNode ]
     } );
+
+    this.guide = guide;
+    this.modelViewTransform = modelViewTransform;
+
+    guide.fulcrumPositionProperty.link( fulcrumPosition => {
+
+      // fulcrum position
+      const viewFulcrumPosition = modelViewTransform.modelToViewPosition( fulcrumPosition );
+      fulcrumNode.center = viewFulcrumPosition;
+
+      // position the arms
+      setArmPosition( incidentArmNode, viewFulcrumPosition, guide.incidentAngleProperty.value );
+      setArmPosition( transmittedArmNode, viewFulcrumPosition, guide.transmittedAngleProperty.value );
+    } );
+
+    // update position and angle of incident arm
+    guide.incidentAngleProperty.link( ( angle, previousAngle ) =>
+      this.updateArm( incidentArmNode, angle, previousAngle ) );
+
+    // update position and angle of transmitted arm
+    guide.transmittedAngleProperty.link( ( transmittedAngle, oldTransmittedAngle ) =>
+      this.updateArm( transmittedArmNode, transmittedAngle, oldTransmittedAngle ) );
+  }
+
+  /**
+   * Set the angle and position of a rectangle around the fulcrum
+   * @param armNode - incident or transmitted arm (rectangle) to be rotated and positioned
+   * @param angle - current "model" angle
+   * @param previousAngle - previous "model" angle
+   */
+  updateArm( armNode: Node, angle: number, previousAngle: number | null ): void {
+    assert && assert( isFinite( angle ) );
+    assert && assert( previousAngle === null || isFinite( previousAngle ) );
+
+    if ( previousAngle === null ) {
+      previousAngle = 0;
+    }
+
+    const viewFulcrumPosition = this.modelViewTransform.modelToViewPosition( this.guide.fulcrumPositionProperty.value );
+
+    // the model view transform is Y-inverted
+    // therefore a counterclockwise rotation in the model is clockwise is the view
+    armNode.rotateAround( viewFulcrumPosition, -angle + previousAngle );
+
+    // position of the arm
+    setArmPosition( armNode, viewFulcrumPosition, angle );
   }
 
   /**
@@ -145,6 +132,22 @@ class GuideNode extends Node {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
+}
+
+/**
+ * Sets the position of an arm such that its left center is on the fulcrum point.
+ * @param armNode
+ * @param viewFulcrumPosition
+ * @param angle - "model" angle of the arm, measured from the positive x-axis
+ */
+function setArmPosition( armNode: Node, viewFulcrumPosition: Vector2, angle: number ): void {
+  assert && assert( isFinite( angle ) );
+
+  // y-inverted modelViewTransform
+  const viewAngle = -angle;
+
+  // center of the rectangle is offset from the fulcrum point
+  armNode.center = Vector2.createPolar( GUIDE_RECTANGLE_WIDTH / 2, viewAngle ).plus( viewFulcrumPosition );
 }
 
 geometricOptics.register( 'GuideNode', GuideNode );
