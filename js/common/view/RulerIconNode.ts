@@ -26,6 +26,7 @@ class RulerIconNode extends RulerNode {
 
   /**
    * @param rulerNode
+   * @param zoomTransformProperty
    */
   constructor( rulerNode: GORulerNode, zoomTransformProperty: Property<ModelViewTransform2> ) {
 
