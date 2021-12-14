@@ -30,10 +30,9 @@ class LabelsNode extends Node {
    * @param model
    * @param visibleProperties
    * @param zoomTransformProperty
-   * @param zoomLevelProperty
    */
   constructor( model: LensModel | MirrorModel, visibleProperties: VisibleProperties,
-               zoomTransformProperty: Property<ModelViewTransform2>, zoomLevelProperty: Property<number> ) {
+               zoomTransformProperty: Property<ModelViewTransform2> ) {
 
     // Object label ------------------------------------------------------------------------------------
 

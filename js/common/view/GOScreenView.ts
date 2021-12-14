@@ -326,7 +326,7 @@ class GOScreenView extends ScreenView {
       } );
 
     // labels
-    const labelsNode = new LabelsNode( model, visibleProperties, zoomTransformProperty, zoomLevelProperty );
+    const labelsNode = new LabelsNode( model, visibleProperties, zoomTransformProperty );
 
     // Changing these things interrupts interactions ============================================================
 
