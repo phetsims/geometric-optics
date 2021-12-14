@@ -14,7 +14,6 @@ import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import { DragListener, SceneryEvent } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GORulerNode from './GORulerNode.js';
-import GOConstants from '../GOConstants.js';
 
 // constants
 const ICON_WIDTH = 400;
@@ -88,12 +87,12 @@ class RulerIconNode extends RulerNode {
       let x;
       let y;
       if ( ruler.isVertical ) {
-        x = viewPosition.x - GOConstants.RULER_HEIGHT / 2;
+        x = viewPosition.x - rulerNode.width / 2;
         y = viewPosition.y - zoomTransform.modelToViewDeltaY( ruler.length ) / 2;
       }
       else {
         x = viewPosition.x - zoomTransform.modelToViewDeltaX( ruler.length ) / 2;
-        y = viewPosition.y - GOConstants.RULER_HEIGHT / 2;
+        y = viewPosition.y - rulerNode.height / 2;
       }
       ruler.positionProperty.value = zoomTransform.viewToModelXY( x, y );
 
