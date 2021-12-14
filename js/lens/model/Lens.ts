@@ -24,6 +24,7 @@ type Options = {
 
 class Lens extends Optic {
 
+  // See Optic
   readonly shapesProperty: IReadOnlyProperty<LensShapes>;
 
   /**

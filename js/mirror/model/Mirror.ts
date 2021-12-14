@@ -24,6 +24,7 @@ type Options = {
 
 class Mirror extends Optic {
 
+  // See Optic
   readonly shapesProperty: IReadOnlyProperty<MirrorShapes>;
 
   constructor( providedOptions: Options ) {
