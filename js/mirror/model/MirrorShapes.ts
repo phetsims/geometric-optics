@@ -24,9 +24,11 @@ type Options = {
 
 class MirrorShapes implements OpticShapes {
 
+  // specific to MirrorShapes
+  readonly reflectiveCoatingShape: Shape;
+  readonly backingShape: Shape;
+
   // See OpticShapes
-  readonly fillShape: Shape; // the mirror's backing
-  readonly strokeShape: Shape; // the mirror's reflective coating
   readonly frontShape: Shape; // the mirror's reflective coating
   readonly backShape: null; // rays do not pass through a mirror, so there is no hit testing on its back
   readonly activeBoundsShape: Shape; // the mirror's reflective coating
@@ -75,8 +77,6 @@ class MirrorShapes implements OpticShapes {
     const midLeft = new Vector2( -curveSign * halfWidth, 0 );
     const midRight = midLeft.plusXY( backingThickness, 0 );
 
-    // shapes drawn from top to bottom in counterclockwise fashion.
-
     // reflective coating on the front (left-facing) surface of the mirror, with zero area.
     const reflectiveCoatingShape = new Shape()
       .moveToPoint( topLeft )
@@ -84,7 +84,7 @@ class MirrorShapes implements OpticShapes {
       .quadraticCurveToPoint( midLeft, topLeft )
       .close();
 
-    // the mirror's backing
+    // the mirror's backing, counterclockwise from top-left
     const backingShape = new Shape()
       .moveToPoint( topLeft )
       .quadraticCurveToPoint( midLeft, bottomLeft )
@@ -92,8 +92,8 @@ class MirrorShapes implements OpticShapes {
       .quadraticCurveToPoint( midRight, topRight )
       .close();
 
-    this.fillShape = backingShape;
-    this.strokeShape = reflectiveCoatingShape;
+    this.reflectiveCoatingShape = reflectiveCoatingShape;
+    this.backingShape = backingShape;
     this.frontShape = reflectiveCoatingShape;
     this.backShape = null; // because there is no ray hit testing on the back of a mirror
     this.activeBoundsShape = reflectiveCoatingShape;

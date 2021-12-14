@@ -15,12 +15,16 @@ import geometricOptics from '../../geometricOptics.js';
 import OpticShapeEnum from '../../common/model/OpticShapeEnum.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import MirrorShapes from './MirrorShapes.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 type Options = {
   tandem: Tandem
 };
 
 class Mirror extends Optic {
+
+  readonly shapesProperty: IReadOnlyProperty<MirrorShapes>;
 
   constructor( providedOptions: Options ) {
 
@@ -34,13 +38,17 @@ class Mirror extends Optic {
       indexOfRefractionRange: new RangeWithValue( 2, 2, 2 ), // unitless
       diameterRange: new RangeWithValue( 30, 130, 80 ), // in cm
       sign: -1,
-      isConverging: ( opticShape: OpticShapeEnum ) => ( opticShape === 'concave' ),
-      createOpticShapes: ( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number ) =>
-        new MirrorShapes( opticShape, radiusOfCurvature, diameter )
+      isConverging: ( opticShape: OpticShapeEnum ) => ( opticShape === 'concave' )
 
     }, providedOptions ) as OpticOptions;
 
     super( options );
+
+    this.shapesProperty = new DerivedProperty(
+      [ this.opticShapeProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
+      ( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number ) =>
+        new MirrorShapes( opticShape, radiusOfCurvature, diameter )
+    );
   }
 
   //TODO a few lines here are copied from Lens getExtremumPoint

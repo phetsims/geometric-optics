@@ -30,9 +30,10 @@ type Options = {
 
 class LensShapes implements OpticShapes {
 
+  // specific to LensShapes
+  readonly lensShape: Shape;
+
   // See OpticShapes
-  readonly fillShape: Shape; // the entire lens
-  readonly strokeShape: Shape; // the entire lens
   readonly frontShape: Shape; // the left half of the lens
   readonly backShape: Shape; // the right half of the lens
   readonly activeBoundsShape: Shape; // the entire lens
@@ -125,8 +126,7 @@ class LensShapes implements OpticShapes {
         .quadraticCurveToPoint( midRight, bottomRight );
     }
 
-    this.fillShape = lensShape;
-    this.strokeShape = lensShape;
+    this.lensShape = lensShape;
     this.frontShape = frontShape;
     this.backShape = backShape;
     this.activeBoundsShape = lensShape; // Active bounds are defined by the entire lens

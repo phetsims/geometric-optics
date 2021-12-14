@@ -79,8 +79,9 @@ class LensNode extends Node {
     const scaleVector = modelViewTransform.getMatrix().getScaleVector();
     const scalingMatrix = Matrix3.scaling( scaleVector.x, scaleVector.y );
     lens.shapesProperty.link( shapes => {
-      fillNode.shape = shapes.fillShape.transformed( scalingMatrix );
-      strokeNode.shape = shapes.strokeShape.transformed( scalingMatrix );
+      const shape = shapes.lensShape.transformed( scalingMatrix );
+      fillNode.shape = shape;
+      strokeNode.shape = shape;
     } );
 
     lens.positionProperty.link( position => {
@@ -119,11 +120,11 @@ class LensNode extends Node {
       isHollywooded: false
     } );
 
-    const fillNode = new Path( lensShapes.fillShape, {
+    const fillNode = new Path( lensShapes.lensShape, {
       fill: GOColors.lensFillProperty
     } );
 
-    const strokeNode = new Path( lensShapes.strokeShape, {
+    const strokeNode = new Path( lensShapes.lensShape, {
       stroke: GOColors.lensStrokeProperty
     } );
 

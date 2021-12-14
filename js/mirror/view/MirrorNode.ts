@@ -70,8 +70,8 @@ class MirrorNode extends Node {
     const scaleVector = modelViewTransform.getMatrix().getScaleVector();
     const scalingMatrix = Matrix3.scaling( scaleVector.x, scaleVector.y );
     mirror.shapesProperty.link( shapes => {
-      backingNode.shape = shapes.fillShape.transformed( scalingMatrix );
-      reflectiveCoatingNode.shape = shapes.strokeShape.transformed( scalingMatrix );
+      backingNode.shape = shapes.backingShape.transformed( scalingMatrix );
+      reflectiveCoatingNode.shape = shapes.reflectiveCoatingShape.transformed( scalingMatrix );
     } );
 
     mirror.positionProperty.link( position => {
@@ -94,11 +94,11 @@ class MirrorNode extends Node {
       backingThickness: 4 // cm
     } );
 
-    const backingNode = new Path( mirrorShapes.fillShape, {
+    const backingNode = new Path( mirrorShapes.backingShape, {
       fill: GOColors.mirrorBackingColorProperty
     } );
 
-    const reflectiveCoatingNode = new Path( mirrorShapes.strokeShape, {
+    const reflectiveCoatingNode = new Path( mirrorShapes.reflectiveCoatingShape, {
       stroke: GOColors.mirrorReflectiveCoatingColorProperty
     } );
 

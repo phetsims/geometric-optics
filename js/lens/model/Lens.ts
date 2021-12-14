@@ -15,12 +15,16 @@ import geometricOptics from '../../geometricOptics.js';
 import OpticShapeEnum from '../../common/model/OpticShapeEnum.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import LensShapes from './LensShapes.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 type Options = {
   tandem: Tandem
 };
 
 class Lens extends Optic {
+
+  readonly shapesProperty: IReadOnlyProperty<LensShapes>;
 
   /**
    * @param providedOptions
@@ -35,14 +39,18 @@ class Lens extends Optic {
       diameterRange: new RangeWithValue( 30, 130, 80 ), // in cm
       sign: 1,
       isConverging: ( opticShape: OpticShapeEnum ) => ( opticShape === 'convex' ),
-      createOpticShapes: ( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number ) =>
-        new LensShapes( opticShape, radiusOfCurvature, diameter ),
 
       // phet-io options
       tandem: Tandem.REQUIRED
     }, providedOptions ) as OpticOptions;
 
     super( options );
+
+    this.shapesProperty = new DerivedProperty(
+      [ this.opticShapeProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
+      ( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number ) =>
+        new LensShapes( opticShape, radiusOfCurvature, diameter )
+    );
   }
 
   /**

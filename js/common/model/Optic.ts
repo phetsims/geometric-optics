@@ -46,9 +46,6 @@ type OpticOptions = {
   // determines whether the optic is converging for the specified shape
   isConverging: ( opticShape: OpticShapeEnum ) => boolean,
 
-  // creates the Shapes for that describe the optic
-  createOpticShapes: ( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number ) => OpticShapes,
-
   // position of the optic, in cm
   position?: Vector2
 
@@ -60,6 +57,9 @@ type OpticOptions = {
 };
 
 abstract class Optic {
+
+  // Shapes that describe the optic
+  readonly abstract shapesProperty: IReadOnlyProperty<OpticShapes>;
 
   // shape of the optic
   readonly opticShapeProperty: Property<OpticShapeEnum>;
@@ -90,9 +90,6 @@ abstract class Optic {
 
   // focal point to the right of the optic
   readonly rightFocalPointProperty: IReadOnlyProperty<Vector2>;
-
-  // Shapes that describe the optic
-  readonly shapesProperty: IReadOnlyProperty<OpticShapes>;
 
   // Determines whether the optical axis is visible.
   // PhET-iO only, cannot be controlled from the sim UI, and is not subject to reset.
@@ -186,12 +183,6 @@ abstract class Optic {
         tandem: options.tandem.createTandem( 'rightFocalPointProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
       } );
-
-    this.shapesProperty = new DerivedProperty(
-      [ this.opticShapeProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
-      ( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number ) =>
-        options.createOpticShapes( opticShape, radiusOfCurvature, diameter )
-    );
 
     this.opticalAxisVisibleProperty = new BooleanProperty( true, {
       tandem: options.tandem.createTandem( 'opticalAxisVisibleProperty' )
