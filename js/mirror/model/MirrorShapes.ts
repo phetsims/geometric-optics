@@ -25,8 +25,8 @@ type Options = {
 class MirrorShapes implements OpticShapes {
 
   // specific to MirrorShapes
-  readonly reflectiveCoatingShape: Shape;
-  readonly backingShape: Shape;
+  readonly reflectiveCoatingShape: Shape; // reflective coating on the front (left-facing) surface of the mirror, with zero area
+  readonly backingShape: Shape; // the mirror's backing
 
   // See OpticShapes
   readonly frontShape: Shape; // the mirror's reflective coating

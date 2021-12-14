@@ -31,7 +31,7 @@ type Options = {
 class LensShapes implements OpticShapes {
 
   // specific to LensShapes
-  readonly lensShape: Shape;
+  readonly lensShape: Shape; // the complete lens
 
   // See OpticShapes
   readonly frontShape: Shape; // the left half of the lens
