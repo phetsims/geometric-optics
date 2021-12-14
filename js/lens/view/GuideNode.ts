@@ -66,33 +66,27 @@ class GuideNode extends Node {
     } );
 
     // update position and angle of incident arm
-    guide.incidentAngleProperty.link( ( angle, previousAngle ) =>
-      this.updateArm( incidentArmNode, angle, previousAngle ) );
+    guide.incidentAngleProperty.link( incidentAngle => this.updateArm( incidentArmNode, incidentAngle ) );
 
     // update position and angle of transmitted arm
-    guide.transmittedAngleProperty.link( ( transmittedAngle, oldTransmittedAngle ) =>
-      this.updateArm( transmittedArmNode, transmittedAngle, oldTransmittedAngle ) );
+    guide.transmittedAngleProperty.link( transmittedAngle => this.updateArm( transmittedArmNode, transmittedAngle ) );
   }
 
   /**
-   * Set the angle and position of a rectangle around the fulcrum
+   * Updates the angle and position of an arm.
    * @param armNode - incident or transmitted arm (rectangle) to be rotated and positioned
-   * @param angle - current "model" angle
-   * @param previousAngle - previous "model" angle
+   * @param angle - incident or transmitted angle
    */
-  updateArm( armNode: Node, angle: number, previousAngle: number | null ): void {
+  updateArm( armNode: Node, angle: number ): void {
     assert && assert( isFinite( angle ) );
-    assert && assert( previousAngle === null || isFinite( previousAngle ) );
-
-    if ( previousAngle === null ) {
-      previousAngle = 0;
-    }
 
     const viewFulcrumPosition = this.modelViewTransform.modelToViewPosition( this.guide.fulcrumPositionProperty.value );
 
-    // the model view transform is Y-inverted
-    // therefore a counterclockwise rotation in the model is clockwise is the view
-    armNode.rotateAround( viewFulcrumPosition, -angle + previousAngle );
+    // because rotateAround prepends the transform
+    armNode.rotation = 0;
+
+    // The model-view transform is Y-inverted, so a positive rotation in the model is counterclockwise (negative) in the view.
+    armNode.rotateAround( viewFulcrumPosition, -angle );
 
     // position of the arm
     setArmPosition( armNode, viewFulcrumPosition, angle );
@@ -138,16 +132,14 @@ class GuideNode extends Node {
  * Sets the position of an arm such that its left center is on the fulcrum point.
  * @param armNode
  * @param viewFulcrumPosition
- * @param angle - "model" angle of the arm, measured from the positive x-axis
+ * @param angle
  */
 function setArmPosition( armNode: Node, viewFulcrumPosition: Vector2, angle: number ): void {
   assert && assert( isFinite( angle ) );
 
-  // y-inverted modelViewTransform
-  const viewAngle = -angle;
-
-  // center of the rectangle is offset from the fulcrum point
-  armNode.center = Vector2.createPolar( GUIDE_RECTANGLE_WIDTH / 2, viewAngle ).plus( viewFulcrumPosition );
+  // Center of the arm is offset from the fulcrum point.
+  // The model-view transform is Y-inverted, so a positive rotation in the model is counterclockwise (negative) in the view.
+  armNode.center = Vector2.createPolar( GUIDE_RECTANGLE_WIDTH / 2, -angle ).plus( viewFulcrumPosition );
 }
 
 geometricOptics.register( 'GuideNode', GuideNode );
