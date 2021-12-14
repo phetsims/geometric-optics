@@ -1,9 +1,9 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * GuideNode is the view element for the guides at both ends of the lens. A guide consists of a fulcrum, to which
- * are attached 2 arms.  One arm corresponds to the incident angle, while the other corresponds to the transmitted
- * angle.
+ * GuideNode displays a guide, which consists of a fulcrum, to which are attached 2 arms.  One arm corresponds to the
+ * incident angle, while the other corresponds to the transmitted angle. An optic has a pair of guides, positioned at
+ * the top and bottom of the optic - see GuidesNode.
  *
  * @author Sarah Chang (Swarthmore College)
  * @author Chris Malley (PixelZoom, Inc.)
