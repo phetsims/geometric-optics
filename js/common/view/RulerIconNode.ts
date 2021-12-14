@@ -68,8 +68,10 @@ class RulerIconNode extends RulerNode {
     this.touchArea = this.localBounds.dilatedXY( options.touchAreaDilationX, options.touchAreaDilationY );
     this.mouseArea = this.localBounds.dilatedXY( options.mouseAreaDilationX, options.mouseAreaDilationY );
 
+    const ruler = rulerNode.ruler;
+
     // rotate to create a vertical ruler icon
-    if ( rulerNode.ruler.isVertical ) {
+    if ( ruler.isVertical ) {
       this.rotate( -Math.PI / 2 );
     }
 
@@ -77,7 +79,7 @@ class RulerIconNode extends RulerNode {
     this.addInputListener( DragListener.createForwardingListener( ( event: SceneryEvent ) => {
 
       // Make the ruler visible.
-      rulerNode.ruler.visibleProperty.value = true;
+      ruler.visibleProperty.value = true;
 
       // Set position of the ruler so that the pointer is initially at the center of rulerNode.
       assert && assert( event.pointer.point ); // {Vector2|null}
@@ -85,15 +87,15 @@ class RulerIconNode extends RulerNode {
       const viewPosition = rulerNode.globalToParentPoint( event.pointer.point! );
       let x;
       let y;
-      if ( rulerNode.ruler.isVertical ) {
+      if ( ruler.isVertical ) {
         x = viewPosition.x - GOConstants.RULER_HEIGHT / 2;
-        y = viewPosition.y - zoomTransform.modelToViewDeltaY( rulerNode.ruler.length ) / 2;
+        y = viewPosition.y - zoomTransform.modelToViewDeltaY( ruler.length ) / 2;
       }
       else {
-        x = viewPosition.x - zoomTransform.modelToViewDeltaX( rulerNode.ruler.length ) / 2;
+        x = viewPosition.x - zoomTransform.modelToViewDeltaX( ruler.length ) / 2;
         y = viewPosition.y - GOConstants.RULER_HEIGHT / 2;
       }
-      rulerNode.ruler.positionProperty.value = zoomTransform.viewToModelXY( x, y );
+      ruler.positionProperty.value = zoomTransform.viewToModelXY( x, y );
 
       // Forward events to the RulerNode.
       rulerNode.startDrag( event );
