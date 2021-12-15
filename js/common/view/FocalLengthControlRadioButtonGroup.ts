@@ -8,8 +8,8 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import { Node } from '../../../../scenery/js/imports.js';
 import { Text } from '../../../../scenery/js/imports.js';
+import { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
 import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -17,14 +17,6 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
 import FocalLengthControlEnum from '../model/FocalLengthControlEnum.js';
-
-//TYPESCRIPT AquaRadioButtonGroup needs to define this parameterized type for items
-type AquaRadioButtonGroupItem<T> = {
-  value: T,
-  node: Node,
-  tandemName?: string,
-  labelContent?: string
-};
 
 type Options = {
   tandem: Tandem
