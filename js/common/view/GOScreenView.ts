@@ -400,7 +400,6 @@ class GOScreenView extends ScreenView {
 
     // pdom -traversal order
     //TODO https://github.com/phetsims/geometric-optics/issues/235 add Object, second point, light sources, rulersToolbox, rulers
-    // @ts-ignore TYPESCRIPT Property 'pdomOrder' does not exist on type 'Node'.
     screenViewRootNode.pdomOrder = [
       representationComboBox,
       opticShapeRadioButtonGroup,

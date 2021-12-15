@@ -107,15 +107,14 @@ class LensScreenView extends GOScreenView {
     this.experimentAreaNode.insertChild( 0, lightSourceNodes );
 
     // pdom -traversal order
-    //TODO https://github.com/phetsims/scenery/issues/1308 an obfuscated way of inserting 1 Node into pdomOrder
+    //TODO https://github.com/phetsims/scenery/issues/1308 This is an obfuscated way of inserting 1 Node into pdomOrder.
     // pdomOrder is an ES5 setter, and its values must be a new array, or it will be ignored.
-    // @ts-ignore TYPESCRIPT 'getPDOMOrder' does not exist on type 'Node'
     const pdomOrder = this.screenViewRootNode.getPDOMOrder();
+    assert && assert( pdomOrder ); // [] | null
     if ( pdomOrder ) {
       pdomOrder.splice( pdomOrder.indexOf( this.zoomButtonGroup ), 0, this.projectionScreenNode );
+      this.screenViewRootNode.pdomOrder = [ ...pdomOrder ];
     }
-    // @ts-ignore TYPESCRIPT 'pdomOrder' does not exist on type 'Node'
-    this.screenViewRootNode.pdomOrder = [ ...pdomOrder ];
   }
 
   public reset(): void {
