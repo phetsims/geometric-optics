@@ -83,7 +83,7 @@ const GOConstants = {
   },
 
   KEYBOARD_DRAG_LISTENER_OPTIONS: {
-    dragVelocity: 100, // velocity of the Node being dragged, in view coordinates per second
+    dragVelocity: 300, // velocity of the Node being dragged, in view coordinates per second
     shiftDragVelocity: 20 // velocity with the Shift key pressed, typically slower than dragVelocity
   }
 };
