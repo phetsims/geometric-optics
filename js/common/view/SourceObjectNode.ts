@@ -42,7 +42,8 @@ class SourceObjectNode extends Node {
    * @param modelBoundsProperty
    * @param opticPositionProperty
    * @param modelViewTransform
-   * */
+   * @param options
+   */
   constructor( representationProperty: Property<Representation>, sourceObject: SourceObject,
                modelBoundsProperty: Property<Bounds2>, opticPositionProperty: Property<Vector2>,
                modelViewTransform: ModelViewTransform2, options: Options ) {
