@@ -11,7 +11,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { DragListener, Image, KeyboardDragListener, Node } from '../../../../scenery/js/imports.js';
+import { DragListener, FocusHighlightFromNode, Image, KeyboardDragListener, Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import SourceObject from '../model/SourceObject.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -36,7 +36,6 @@ class SourceObjectNode extends Node {
   // so that 1st and 2nd light source can share drag bounds
   public readonly dragBoundsProperty: IReadOnlyProperty<Bounds2>;
   private readonly resetSourceObjectNode: () => void;
-  private sourceObjectImage: Node;
 
   /**
    * @param representationProperty
@@ -51,17 +50,17 @@ class SourceObjectNode extends Node {
                modelViewTransform: ModelViewTransform2, options: Options ) {
 
     // Origin of this Node is at the upper-left corner of sourceObjectImage.
-    const sourceObjectImage = new Image( representationProperty.value.rightFacingUpright, {
-      
-      // pdom options
-      tagName: 'div',
-      focusable: true
-    } );
+    const sourceObjectImage = new Image( representationProperty.value.rightFacingUpright );
 
     const cueingArrowsNode = new UnconstrainedCueingArrowsNode();
 
     super( merge( {
-      children: [ sourceObjectImage, cueingArrowsNode ]
+      children: [ sourceObjectImage, cueingArrowsNode ],
+
+      // pdom options
+      tagName: 'div',
+      focusable: true,
+      focusHighlight: new FocusHighlightFromNode( sourceObjectImage )
     }, options ) );
 
     // Keep cueing arrows next to the source object.
@@ -153,8 +152,6 @@ class SourceObjectNode extends Node {
       cueingArrowsNode.visible = ( GOGlobalOptions.cueingArrowsEnabledProperty.value &&
                                    this.inputEnabledProperty.value );
     };
-
-    this.sourceObjectImage = sourceObjectImage;
   }
 
   public dispose(): void {
@@ -164,11 +161,6 @@ class SourceObjectNode extends Node {
 
   public reset(): void {
     this.resetSourceObjectNode();
-  }
-
-  // This ensures that focus excludes the cueing arrows.
-  public focus(): void {
-    this.sourceObjectImage.focus();
   }
 }
 

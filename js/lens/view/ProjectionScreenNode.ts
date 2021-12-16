@@ -13,14 +13,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { DragListener } from '../../../../scenery/js/imports.js';
-import { KeyboardDragListener } from '../../../../scenery/js/imports.js';
-import { Circle } from '../../../../scenery/js/imports.js';
-import { Image } from '../../../../scenery/js/imports.js';
-import { Line } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Path } from '../../../../scenery/js/imports.js';
-import { Color } from '../../../../scenery/js/imports.js';
+import { Circle, Color, DragListener, FocusHighlightFromNode, Image, KeyboardDragListener, Line, Node, Path } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import projectionScreenBottom_png from '../../../images/projectionScreenBottom_png.js';
 import projectionScreenTop_png from '../../../images/projectionScreenTop_png.js';
@@ -41,7 +34,6 @@ type Options = {
 class ProjectionScreenNode extends Node {
 
   private readonly resetProjectionScreenNode: () => void;
-  private projectorScreenNode: Node;
 
   /**
    * @param projectionScreen
@@ -99,11 +91,7 @@ class ProjectionScreenNode extends Node {
     } );
 
     const projectorScreenNode = new Node( {
-      children: [ pullStringNode, knobNode, topBarNode, bottomBarNode, screenNode ],
-
-      // pdom options
-      tagName: 'div',
-      focusable: true
+      children: [ pullStringNode, knobNode, topBarNode, bottomBarNode, screenNode ]
     } );
 
     const children: Node[] = [ projectorScreenNode, cueingArrowsNode ];
@@ -115,6 +103,11 @@ class ProjectionScreenNode extends Node {
 
     super( merge( {
       children: children,
+
+      // pdom options
+      tagName: 'div',
+      focusable: true,
+      focusHighlight: new FocusHighlightFromNode( projectorScreenNode ),
 
       // phet-io options
       phetioInputEnabledPropertyInstrumented: true
@@ -176,8 +169,6 @@ class ProjectionScreenNode extends Node {
       cueingArrowsNode.visible = ( GOGlobalOptions.cueingArrowsEnabledProperty.value &&
                                    this.inputEnabledProperty.value );
     };
-
-    this.projectorScreenNode = projectorScreenNode;
   }
 
   public dispose(): void {
@@ -187,11 +178,6 @@ class ProjectionScreenNode extends Node {
 
   public reset(): void {
     this.resetProjectionScreenNode();
-  }
-
-  // This ensures that focus excludes the cueing arrows.
-  public focus(): void {
-    this.projectorScreenNode.focus();
   }
 }
 
