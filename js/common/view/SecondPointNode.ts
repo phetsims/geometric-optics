@@ -16,11 +16,7 @@ import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
-import { DragListener } from '../../../../scenery/js/imports.js';
-import { Circle } from '../../../../scenery/js/imports.js';
-import { Image } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { VBox } from '../../../../scenery/js/imports.js';
+import { Circle, DragListener, Image, Node, VBox } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import SecondPoint from '../model/SecondPoint.js';
@@ -30,6 +26,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import IProperty from '../../../../axon/js/IProperty.js';
+import GOConstants from '../GOConstants.js';
 
 // constants
 const POINT_RADIUS = 5;
@@ -41,14 +38,6 @@ const LIGHT_SOURCE_OFFSET = new Vector2( 30, -20 );
 
 //TODO no idea why this worked for https://github.com/phetsims/geometric-optics/issues/191, circle back
 const LIGHT_SOURCE_DRAG_OFFSET = new Vector2( 2 * LIGHT_SOURCE_OFFSET.x, -2 * LIGHT_SOURCE_OFFSET.y );
-
-const CUEING_ARROW_LENGTH = 20;
-const CUEING_ARROW_OPTIONS = {
-  fill: GOColors.secondPointFillProperty,
-  tailWidth: 6,
-  headWidth: 12,
-  headHeight: 6
-};
 
 type Options = {
   visibleProperty: IProperty<boolean>,
@@ -209,12 +198,18 @@ class PointNode extends Circle {
 // Arrows for cueing the user that this Node can be moved up and down
 class CueingArrowsNode extends VBox {
   constructor( spacing: number ) {
+
+    const arrowLength = 20;
+    const arrowNodeOptions = merge( {
+      fill: GOColors.secondPointFillProperty
+    }, GOConstants.CUEING_ARROW_SHAPE_OPTIONS );
+
     super( {
       spacing: spacing,
       align: 'center',
       children: [
-        new ArrowNode( 0, 0, 0, -CUEING_ARROW_LENGTH, CUEING_ARROW_OPTIONS ), // up arrow
-        new ArrowNode( 0, 0, 0, +CUEING_ARROW_LENGTH, CUEING_ARROW_OPTIONS ) // down arrow
+        new ArrowNode( 0, 0, 0, -arrowLength, arrowNodeOptions ), // up arrow
+        new ArrowNode( 0, 0, 0, +arrowLength, arrowNodeOptions ) // down arrow
       ]
     } );
   }

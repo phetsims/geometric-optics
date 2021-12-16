@@ -85,6 +85,12 @@ const GOConstants = {
   KEYBOARD_DRAG_LISTENER_OPTIONS: {
     dragVelocity: 300, // velocity of the Node being dragged, in view coordinates per second
     shiftDragVelocity: 20 // velocity with the Shift key pressed, typically slower than dragVelocity
+  },
+
+  CUEING_ARROW_SHAPE_OPTIONS: {
+    headWidth: 10,
+    headHeight: 8,
+    tailWidth: 4
   }
 };
 

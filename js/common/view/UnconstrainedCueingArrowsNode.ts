@@ -11,13 +11,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import { NodeOptions, Path } from '../../../../scenery/js/imports.js';
 import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
 import Shape from '../../../../kite/js/Shape.js';
-
-const ARROW_SHAPE_OPTIONS = {
-  doubleHead: true,
-  tailWidth: 4,
-  headWidth: 10,
-  headHeight: 8
-};
+import GOConstants from '../GOConstants.js';
 
 type Options = {
   length?: number,
@@ -42,8 +36,11 @@ class UnconstrainedCueingArrowsNode extends Path {
     }, providedOptions ) as Required<Options>;
 
     // The Shape is a union of 2 arrows.
-    const leftRightArrowShape = new ArrowShape( -options.length / 2, 0, options.length / 2, 0, ARROW_SHAPE_OPTIONS );
-    const upDownArrowShape = new ArrowShape( 0, -options.length / 2, 0, options.length / 2, ARROW_SHAPE_OPTIONS );
+    const arrowShapeOptions = merge( {
+      doubleHead: true
+    }, GOConstants.CUEING_ARROW_SHAPE_OPTIONS );
+    const leftRightArrowShape = new ArrowShape( -options.length / 2, 0, options.length / 2, 0, arrowShapeOptions );
+    const upDownArrowShape = new ArrowShape( 0, -options.length / 2, 0, options.length / 2, arrowShapeOptions );
     const shape = Shape.union( [ leftRightArrowShape, upDownArrowShape ] );
 
     super( shape, options );
