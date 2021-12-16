@@ -32,6 +32,7 @@ import GOGlobalOptions from '../../common/GOGlobalOptions.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OriginNode from '../../common/view/OriginNode.js';
+import GOConstants from '../../common/GOConstants.js';
 
 type Options = {
   tandem: Tandem
@@ -156,14 +157,12 @@ class ProjectionScreenNode extends Node {
     } ) );
 
     // pdom - dragging using the keyboard
-    const keyboardDragListener = new KeyboardDragListener( {
+    const keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
       positionProperty: projectionScreen.positionProperty,
       dragBounds: dragBoundsProperty.value,
-      transform: modelViewTransform,
-      dragVelocity: 75, // velocity - change in position per second
-      shiftDragVelocity: 20 // finer-grained
+      transform: modelViewTransform
       //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
-    } );
+    } ) );
     this.addInputListener( keyboardDragListener );
 
     //TODO https://github.com/phetsims/scenery/issues/1307 should be handled by KeyboardDragListener

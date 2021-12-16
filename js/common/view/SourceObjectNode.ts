@@ -21,6 +21,7 @@ import GOGlobalOptions from '../GOGlobalOptions.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
+import GOConstants from '../GOConstants.js';
 
 // Closest that source object can be moved to the optic, in cm. This avoid problems that occur when the object is
 // too close to a mirror. See https://github.com/phetsims/geometric-optics/issues/73
@@ -123,13 +124,11 @@ class SourceObjectNode extends Node {
     } );
     this.addInputListener( dragListener );
 
-    const keyboardDragListener = new KeyboardDragListener( {
+    const keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
       positionProperty: sourceObject.leftTopProperty,
       dragBounds: this.dragBoundsProperty.value,
-      transform: modelViewTransform,
-      dragVelocity: 100, // velocity - change in position per second
-      shiftDragVelocity: 20 // finer-grained
-    } );
+      transform: modelViewTransform
+    } ) );
     this.addInputListener( keyboardDragListener );
 
     sourceObject.leftTopProperty.link( leftTop => {

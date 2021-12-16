@@ -80,6 +80,11 @@ const GOConstants = {
         font: CONTROL_FONT
       }
     }
+  },
+
+  KEYBOARD_DRAG_LISTENER_OPTIONS: {
+    dragVelocity: 75, // velocity of the Node being dragged, in view coordinates per second
+    shiftDragVelocity: 20 // velocity with the Shift key pressed, typically slower than dragVelocity
   }
 };
 
