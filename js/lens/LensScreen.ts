@@ -15,6 +15,7 @@ import GOColors from '../common/GOColors.js';
 import geometricOptics from '../geometricOptics.js';
 import geometricOpticsStrings from '../geometricOpticsStrings.js';
 import LensModel from './model/LensModel.js';
+import LensKeyboardHelpContent from './view/LensKeyboardHelpContent.js';
 import LensNode from './view/LensNode.js';
 import LensScreenView from './view/LensScreenView.js';
 
@@ -33,7 +34,8 @@ class LensScreen extends Screen {
         name: geometricOpticsStrings.screen.lens,
         homeScreenIcon: createScreenIcon(),
         showUnselectedHomeScreenIconFrame: true,
-        backgroundColorProperty: GOColors.screenBackgroundColorProperty
+        backgroundColorProperty: GOColors.screenBackgroundColorProperty,
+        keyboardHelpNode: new LensKeyboardHelpContent()
       }, options )
     );
   }

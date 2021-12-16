@@ -28,7 +28,10 @@ const simOptions = {
   // Creates content for the Options dialog, accessible via the PhET menu
   createOptionsDialogContent: ( tandem: Tandem ) => new GOGlobalOptionsNode( {
     tandem: tandem
-  } )
+  } ),
+
+  // pdom options
+  hasKeyboardHelpContent: true
 };
 
 simLauncher.launch( () => {

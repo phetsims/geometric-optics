@@ -17,6 +17,7 @@ import geometricOpticsStrings from '../geometricOpticsStrings.js';
 import MirrorModel from './model/MirrorModel.js';
 import MirrorNode from './view/MirrorNode.js';
 import MirrorScreenView from './view/MirrorScreenView.js';
+import MirrorKeyboardHelpContent from './view/MirrorKeyboardHelpContent.js';
 
 type Options = {
   tandem: Tandem
@@ -33,7 +34,8 @@ class MirrorScreen extends Screen {
         name: geometricOpticsStrings.screen.mirror,
         homeScreenIcon: createScreenIcon(),
         showUnselectedHomeScreenIconFrame: true,
-        backgroundColorProperty: GOColors.screenBackgroundColorProperty
+        backgroundColorProperty: GOColors.screenBackgroundColorProperty,
+        keyboardHelpNode: new MirrorKeyboardHelpContent()
       }, options )
     );
   }
