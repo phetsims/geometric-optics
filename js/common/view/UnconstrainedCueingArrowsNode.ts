@@ -14,9 +14,9 @@ import Shape from '../../../../kite/js/Shape.js';
 
 const ARROW_SHAPE_OPTIONS = {
   doubleHead: true,
-  tailWidth: 5,
-  headWidth: 15,
-  headHeight: 10
+  tailWidth: 4,
+  headWidth: 10,
+  headHeight: 8
 };
 
 type Options = {
@@ -33,7 +33,7 @@ class UnconstrainedCueingArrowsNode extends Path {
   constructor( providedOptions?: Options ) {
 
     const options = merge( {
-      length: 45,
+      length: 38,
 
       // Path options
       fill: 'rgb( 0, 200, 0 )',
