@@ -23,7 +23,7 @@ import { DragListener, Font, KeyboardDragListener, Node, SceneryEvent } from '..
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
-import GeometricOpticsRuler from '../model/GORuler.js';
+import GORuler from '../model/GORuler.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import RulerIconNode from './RulerIconNode.js';
@@ -49,7 +49,7 @@ type Options = {
 class GORulerNode extends Node {
 
   // the ruler model that is associated with this Node
-  readonly ruler: GeometricOpticsRuler;
+  readonly ruler: GORuler;
 
   // the icon associated with this ruler, it appears in the toolbox
   readonly iconNode: RulerIconNode;
@@ -66,7 +66,7 @@ class GORulerNode extends Node {
    * @param visibleBoundsProperty
    * @param providedOptions
    */
-  constructor( ruler: GeometricOpticsRuler, zoomTransformProperty: Property<ModelViewTransform2>,
+  constructor( ruler: GORuler, zoomTransformProperty: Property<ModelViewTransform2>,
                zoomScaleProperty: Property<number>, visibleBoundsProperty: Property<Bounds2>,
                providedOptions: Options ) {
 

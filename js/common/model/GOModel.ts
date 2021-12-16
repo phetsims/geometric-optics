@@ -19,7 +19,7 @@ import LightRays from './LightRays.js';
 import Optic from './Optic.js';
 import RaysModeEnum, { RaysModeValues } from './RaysModeEnum.js';
 import Representation, { RepresentationStaticInstances } from './Representation.js';
-import GeometricOpticsRuler from './GORuler.js';
+import GORuler from './GORuler.js';
 import SecondPoint from './SecondPoint.js';
 import SourceObject from './SourceObject.js';
 import Target from './Target.js';
@@ -76,8 +76,8 @@ class GOModel {
   readonly lightRays2: LightRays;
 
   // rulers
-  readonly horizontalRuler: GeometricOpticsRuler;
-  readonly verticalRuler: GeometricOpticsRuler;
+  readonly horizontalRuler: GORuler;
+  readonly verticalRuler: GORuler;
 
   /**
    * @param optic
@@ -140,13 +140,13 @@ class GOModel {
       options.barrier
     );
 
-    this.horizontalRuler = new GeometricOpticsRuler( {
+    this.horizontalRuler = new GORuler( {
       orientation: 'horizontal',
       length: GOConstants.HORIZONTAL_RULER_LENGTH,
       tandem: options.tandem.createTandem( 'horizontalRuler' )
     } );
 
-    this.verticalRuler = new GeometricOpticsRuler( {
+    this.verticalRuler = new GORuler( {
       orientation: 'vertical',
       length: GOConstants.VERTICAL_RULER_LENGTH,
       tandem: options.tandem.createTandem( 'verticalRuler' )
