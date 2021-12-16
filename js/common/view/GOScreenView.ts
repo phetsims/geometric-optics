@@ -396,10 +396,13 @@ class GOScreenView extends ScreenView {
     };
 
     // pdom -traversal order
-    //TODO https://github.com/phetsims/geometric-optics/issues/235 add Object, second point, light sources, rulersToolbox, rulers
+    //TODO https://github.com/phetsims/geometric-optics/issues/235 add Object, second point, light sources
     screenViewRootNode.pdomOrder = [
       representationComboBox,
       opticShapeRadioButtonGroup,
+      rulersToolbox,
+      horizontalRulerNode,
+      verticalRulerNode,
       zoomButtonGroup,
       controlPanel,
       showHideToggleButton,
