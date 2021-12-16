@@ -19,13 +19,14 @@ import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
-import { DragListener, Font, Node, SceneryEvent } from '../../../../scenery/js/imports.js';
+import { DragListener, Font, KeyboardDragListener, Node, SceneryEvent } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
 import GeometricOpticsRuler from '../model/GORuler.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import RulerIconNode from './RulerIconNode.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;
@@ -47,8 +48,15 @@ type Options = {
 
 class GORulerNode extends Node {
 
+  // the ruler model that is associated with this Node
   readonly ruler: GeometricOpticsRuler;
+
+  // the icon associated with this ruler, it appears in the toolbox
+  readonly iconNode: RulerIconNode;
+
+  // bounds of the toolbox, in view coordinates
   private toolboxBounds: Bounds2;
+
   private readonly dragListener: DragListener;
 
   /**
@@ -76,6 +84,10 @@ class GORulerNode extends Node {
       rotation: ruler.isVertical ? -Math.PI / 2 : 0,
       visibleProperty: ruler.visibleProperty,
 
+      // pdom options
+      tagName: 'div',
+      focusable: true,
+
       // phet-io options
       phetioInputEnabledPropertyInstrumented: true
     }, providedOptions ) as Options;
@@ -84,6 +96,7 @@ class GORulerNode extends Node {
 
     this.ruler = ruler;
     this.toolboxBounds = Bounds2.NOTHING; // to be set later via setToolboxBounds
+    this.iconNode = new RulerIconNode( this, zoomTransformProperty );
 
     // Create a RulerNode subcomponent to match zoomScale.
     //TODO https://github.com/phetsims/geometric-optics/issues/133 this listener also depends on zoomTransformProperty, so there's a problematic ordering dependency there
@@ -132,6 +145,7 @@ class GORulerNode extends Node {
       ruler.positionProperty.value = dragBounds.closestPointTo( ruler.positionProperty.value );
     } );
 
+    // Dragging with the pointer
     this.dragListener = new DragListener( {
       cursor: 'pointer',
       useInputListenerCursor: true,
@@ -151,9 +165,34 @@ class GORulerNode extends Node {
     } );
     this.addInputListener( this.dragListener );
 
-    // When the transform changes, up the DragListener
+    // Dragging with the keyboard
+    const keyboardDragListener = new KeyboardDragListener( {
+      positionProperty: ruler.positionProperty,
+      dragBounds: dragBoundsProperty.value,
+      transform: zoomTransformProperty.value,
+      dragVelocity: 100, // velocity - change in position per second
+      shiftDragVelocity: 20, // finer-grained
+      start: () => this.moveToFront(),
+
+      // Return the ruler to the toolbox
+      end: () => {
+        if ( this.toolboxBounds.intersectsBounds( this.bounds ) ) {
+          ruler.visibleProperty.value = false;
+          this.iconNode.focus();
+        }
+      }
+    } );
+    this.addInputListener( keyboardDragListener );
+
+    //TODO https://github.com/phetsims/scenery/issues/1307 KeyboardDragListener does not support dragBoundsProperty
+    dragBoundsProperty.link( dragBounds => {
+      keyboardDragListener.dragBounds = dragBounds;
+    } );
+
+    // When the transform changes, up the input listeners
     zoomTransformProperty.link( zoomTransform => {
-      this.dragListener.setTransform( zoomTransform );
+      this.dragListener.transform = zoomTransform;
+      keyboardDragListener.transform = zoomTransform;
     } );
   }
 

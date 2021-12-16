@@ -9,6 +9,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import { DragListener, SceneryEvent } from '../../../../scenery/js/imports.js';
@@ -16,9 +17,8 @@ import geometricOptics from '../../geometricOptics.js';
 import GORulerNode from './GORulerNode.js';
 
 // constants
-const ICON_WIDTH = 400;
-const ICON_HEIGHT = 140;
-const ICON_SCALE = 0.12;
+const ICON_WIDTH = 48;
+const ICON_HEIGHT = 17;
 const NUMBER_OF_MAJOR_TICKS = 5;
 
 class RulerIconNode extends RulerNode {
@@ -31,6 +31,7 @@ class RulerIconNode extends RulerNode {
 
     const options = {
 
+      // RulerIconNode options
       // pointer areas
       touchAreaDilationX: 50,
       touchAreaDilationY: 50,
@@ -38,15 +39,20 @@ class RulerIconNode extends RulerNode {
       mouseAreaDilationY: 50,
 
       // RulerNode options
-      backgroundLineWidth: 3,
+      backgroundLineWidth: 0.5,
+      majorTickLineWidth: 0.5,
+      minorTickLineWidth: 0.25,
       minorTicksPerMajorTick: 5,
       majorTickHeight: ( 0.6 * ICON_HEIGHT ) / 2,
       minorTickHeight: ( 0.4 * ICON_HEIGHT ) / 2,
-      majorTickLineWidth: 5,
-      minorTickLineWidth: 2,
-      cursor: 'pointer',
+      insetsWidth: 0,
 
-      visibleProperty: DerivedProperty.not( rulerNode.visibleProperty )
+      // Node options
+      cursor: 'pointer',
+      visibleProperty: DerivedProperty.not( rulerNode.visibleProperty ),
+
+      // pdom options
+      tagName: 'button'
     };
 
     // major ticks have no labels, it would be too much detail in an icon
@@ -61,8 +67,6 @@ class RulerIconNode extends RulerNode {
 
     super( ICON_WIDTH, ICON_HEIGHT, majorTickWidth, majorTickLabels, units, options );
 
-    this.scale( ICON_SCALE );
-
     // pointer areas
     this.touchArea = this.localBounds.dilatedXY( options.touchAreaDilationX, options.touchAreaDilationY );
     this.mouseArea = this.localBounds.dilatedXY( options.mouseAreaDilationX, options.mouseAreaDilationY );
@@ -74,7 +78,7 @@ class RulerIconNode extends RulerNode {
       this.rotate( -Math.PI / 2 );
     }
 
-    // Add a listener to forward drag events from the icon to its associated ruler.
+    // Dragging with the keyboard. Drag events are forwarded from the icon to its associated ruler.
     this.addInputListener( DragListener.createForwardingListener( ( event: SceneryEvent ) => {
 
       // Make the ruler visible.
@@ -99,6 +103,15 @@ class RulerIconNode extends RulerNode {
       // Forward events to the RulerNode.
       rulerNode.startDrag( event );
     } ) );
+
+    // When the icon is clicked via the keyboard, make the associated ruler visible at the model origin.
+    this.addInputListener( {
+      click: () => {
+        ruler.visibleProperty.value = true;
+        ruler.positionProperty.value = Vector2.ZERO;
+        rulerNode.focus();
+      }
+    } );
   }
 }
 

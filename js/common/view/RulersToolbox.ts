@@ -16,7 +16,6 @@ import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GORulerNode from './GORulerNode.js';
-import RulerIconNode from './RulerIconNode.js';
 
 type Options = {
   tandem: Tandem
@@ -32,8 +31,8 @@ class RulersToolbox extends Panel {
   constructor( rulerNodes: GORulerNode[], zoomTransformProperty: Property<ModelViewTransform2>, options: Options ) {
 
     const toolboxContent = new HBox( {
-      spacing: 30,
-      children: rulerNodes.map( rulerNode => new RulerIconNode( rulerNode, zoomTransformProperty ) ),
+      spacing: 20,
+      children: rulerNodes.map( rulerNode => rulerNode.iconNode ),
       excludeInvisibleChildrenFromBounds: false
     } );
 
@@ -42,7 +41,7 @@ class RulersToolbox extends Panel {
       // Panel options
       align: 'center',
       cornerRadius: 5,
-      xMargin: 10,
+      xMargin: 20,
       yMargin: 7,
       fill: 'white',
       stroke: 'grey'
