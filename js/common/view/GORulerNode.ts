@@ -191,7 +191,7 @@ class GORulerNode extends Node {
       }
     } ] );
 
-    // When the transform changes, up the input listeners
+    // When the transform changes, update the input listeners
     zoomTransformProperty.link( zoomTransform => {
       this.dragListener.transform = zoomTransform;
       keyboardDragListener.transform = zoomTransform;
