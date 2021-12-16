@@ -33,10 +33,10 @@ class RulerIconNode extends RulerNode {
 
       // RulerIconNode options
       // pointer areas
-      touchAreaDilationX: 50,
-      touchAreaDilationY: 50,
-      mouseAreaDilationX: 50,
-      mouseAreaDilationY: 50,
+      touchAreaDilationX: 5,
+      touchAreaDilationY: 5,
+      mouseAreaDilationX: 5,
+      mouseAreaDilationY: 5,
 
       // RulerNode options
       backgroundLineWidth: 0.5,
