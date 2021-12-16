@@ -167,6 +167,7 @@ class SourceObjectNode extends Node {
     this.resetSourceObjectNode();
   }
 
+  // This ensures that focus excludes the cueing arrows.
   public focus(): void {
     this.sourceObjectImage.focus();
   }

@@ -40,6 +40,7 @@ type Options = {
 class ProjectionScreenNode extends Node {
 
   private readonly resetProjectionScreenNode: () => void;
+  private projectorScreenNode: Node;
 
   /**
    * @param projectionScreen
@@ -96,7 +97,15 @@ class ProjectionScreenNode extends Node {
       centerY: screenNode.centerY
     } );
 
-    const children: Node[] = [ pullStringNode, knobNode, topBarNode, bottomBarNode, cueingArrowsNode, screenNode ];
+    const projectorScreenNode = new Node( {
+      children: [ pullStringNode, knobNode, topBarNode, bottomBarNode, screenNode ],
+
+      // pdom options
+      tagName: 'div',
+      focusable: true
+    } );
+
+    const children: Node[] = [ projectorScreenNode, cueingArrowsNode ];
 
     // Red dot at the origin
     if ( GOQueryParameters.showPositions ) {
@@ -105,10 +114,6 @@ class ProjectionScreenNode extends Node {
 
     super( merge( {
       children: children,
-
-      // pdom options
-      tagName: 'div',
-      focusable: true,
 
       // phet-io options
       phetioInputEnabledPropertyInstrumented: true
@@ -177,6 +182,8 @@ class ProjectionScreenNode extends Node {
       cueingArrowsNode.visible = ( GOGlobalOptions.cueingArrowsEnabledProperty.value &&
                                    this.inputEnabledProperty.value );
     };
+
+    this.projectorScreenNode = projectorScreenNode;
   }
 
   public dispose(): void {
@@ -186,6 +193,11 @@ class ProjectionScreenNode extends Node {
 
   public reset(): void {
     this.resetProjectionScreenNode();
+  }
+
+  // This ensures that focus excludes the cueing arrows.
+  public focus(): void {
+    this.projectorScreenNode.focus();
   }
 }
 
