@@ -153,18 +153,13 @@ class ProjectionScreenNode extends Node {
     // pdom - dragging using the keyboard
     const keyboardDragListener = new KeyboardDragListener( {
       positionProperty: projectionScreen.positionProperty,
-      dragBounds: dragBoundsProperty.value,
+      dragBoundsProperty: dragBoundsProperty,
       transform: modelViewTransform,
       dragVelocity: 75, // velocity - change in position per second
       shiftDragVelocity: 20 // finer-grained
       //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
     } );
     this.addInputListener( keyboardDragListener );
-
-    //TODO https://github.com/phetsims/scenery/issues/1307 should be handled by KeyboardDragListener
-    dragBoundsProperty.link( dragBounds => {
-      keyboardDragListener.dragBounds = dragBounds;
-    } );
 
     Property.multilink(
       [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty ],

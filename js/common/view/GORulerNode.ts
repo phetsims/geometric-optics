@@ -168,7 +168,7 @@ class GORulerNode extends Node {
     // Dragging with the keyboard
     const keyboardDragListener = new KeyboardDragListener( {
       positionProperty: ruler.positionProperty,
-      dragBounds: dragBoundsProperty.value,
+      dragBoundsProperty: dragBoundsProperty,
       transform: zoomTransformProperty.value,
       dragVelocity: 100, // velocity - change in position per second
       shiftDragVelocity: 20, // finer-grained
@@ -184,11 +184,6 @@ class GORulerNode extends Node {
       //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
     } );
     this.addInputListener( keyboardDragListener );
-
-    //TODO https://github.com/phetsims/scenery/issues/1307 KeyboardDragListener does not support dragBoundsProperty
-    dragBoundsProperty.link( dragBounds => {
-      keyboardDragListener.dragBounds = dragBounds;
-    } );
 
     // When the transform changes, up the input listeners
     zoomTransformProperty.link( zoomTransform => {
