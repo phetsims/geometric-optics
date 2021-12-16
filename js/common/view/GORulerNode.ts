@@ -19,7 +19,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
-import { DragListener, Font, KeyboardDragListener, Node, SceneryEvent } from '../../../../scenery/js/imports.js';
+import { DragListener, Font, KeyboardDragListener, KeyboardUtils, Node, SceneryEvent } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
@@ -182,6 +182,14 @@ class GORulerNode extends Node {
       //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
     } ) );
     this.addInputListener( keyboardDragListener );
+
+    keyboardDragListener.addHotkeys( [ {
+      keys: [ KeyboardUtils.KEY_H, KeyboardUtils.KEY_R ], //TODO https://github.com/phetsims/scenery/issues/1331 replace with KEY_ESCAPE
+      callback: () => {
+        ruler.visibleProperty.value = false;
+        this.iconNode.focus();
+      }
+    } ] );
 
     // When the transform changes, up the input listeners
     zoomTransformProperty.link( zoomTransform => {
