@@ -7,8 +7,8 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import GeneralKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/GeneralKeyboardHelpSection.js';
-import SliderKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SliderKeyboardHelpSection.js';
+import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/BasicActionsKeyboardHelpSection.js';
+import SliderControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SliderControlsKeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
 import geometricOptics from '../../geometricOptics.js';
 
@@ -26,8 +26,8 @@ class MirrorKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
       }
     }, options );
 
-    const sliderHelpSection = new SliderKeyboardHelpSection( options.sliderSectionOptions );
-    const generalNavigationHelpSection = new GeneralKeyboardHelpSection( options.generalSectionOptions );
+    const sliderHelpSection = new SliderControlsKeyboardHelpSection( options.sliderSectionOptions );
+    const generalNavigationHelpSection = new BasicActionsKeyboardHelpSection( options.generalSectionOptions );
 
     super( [ sliderHelpSection ], [ generalNavigationHelpSection ], options );
   }
