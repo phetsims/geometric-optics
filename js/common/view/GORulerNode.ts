@@ -184,7 +184,7 @@ class GORulerNode extends Node {
     this.addInputListener( keyboardDragListener );
 
     keyboardDragListener.addHotkeys( [ {
-      keys: [ KeyboardUtils.KEY_H, KeyboardUtils.KEY_R ], //TODO https://github.com/phetsims/scenery/issues/1331 replace with KEY_ESCAPE
+      keys: [ KeyboardUtils.KEY_ESCAPE ],
       callback: () => {
         ruler.visibleProperty.value = false;
         this.iconNode.focus();
