@@ -43,11 +43,13 @@ class SourceObjectNode extends Node {
    * @param modelBoundsProperty
    * @param opticPositionProperty
    * @param modelViewTransform
+   * @param horizontalDragLockedProperty
    * @param options
    */
   constructor( representationProperty: Property<Representation>, sourceObject: SourceObject,
                modelBoundsProperty: Property<Bounds2>, opticPositionProperty: Property<Vector2>,
-               modelViewTransform: ModelViewTransform2, options: Options ) {
+               modelViewTransform: ModelViewTransform2, horizontalDragLockedProperty: Property<boolean>,
+               options: Options ) {
 
     // Origin of this Node is at the upper-left corner of sourceObjectImage.
     const sourceObjectImage = new Image( representationProperty.value.rightFacingUpright );
@@ -96,15 +98,29 @@ class SourceObjectNode extends Node {
     // sourceObject.boundsProperty, and we're relying on that changing before this value is derived. But changing
     // the dependency to sourceObject.boundsProperty results in a reentry assertion failure.
     this.dragBoundsProperty = new DerivedProperty(
-      [ modelBoundsProperty, representationProperty ],
-      ( modelBounds: Bounds2, representation: Representation ) =>
-        new Bounds2(
-          modelBounds.minX,
-          modelBounds.minY + sourceObject.boundsProperty.value.height,
-          opticPositionProperty.value.x - sourceObject.boundsProperty.value.width / 2 - MIN_X_DISTANCE_TO_OPTIC,
-          modelBounds.maxY
-        )
-    );
+      [ modelBoundsProperty, representationProperty, horizontalDragLockedProperty ],
+      ( modelBounds: Bounds2, representation: Representation, horizontalDragLocked: boolean ) => {
+        if ( horizontalDragLocked ) {
+
+          // Dragging is constrained horizontally, and source object's horizontal position is locked
+          return new Bounds2(
+            modelBounds.minX,
+            sourceObject.leftTopProperty.value.y,
+            opticPositionProperty.value.x - sourceObject.boundsProperty.value.width / 2 - MIN_X_DISTANCE_TO_OPTIC,
+            sourceObject.leftTopProperty.value.y
+          );
+        }
+        else {
+
+          // Dragging is 2D
+          return new Bounds2(
+            modelBounds.minX,
+            modelBounds.minY + sourceObject.boundsProperty.value.height,
+            opticPositionProperty.value.x - sourceObject.boundsProperty.value.width / 2 - MIN_X_DISTANCE_TO_OPTIC,
+            modelBounds.maxY
+          );
+        }
+      } );
     this.dragBoundsProperty.link( dragBounds => {
       sourceObject.leftTopProperty.value = dragBounds.closestPointTo( sourceObject.leftTopProperty.value );
     } );
