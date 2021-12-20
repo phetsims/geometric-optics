@@ -15,8 +15,19 @@ const GOColors = {
 
   // Background color used for all screens
   screenBackgroundColorProperty: new ProfileColorProperty( geometricOptics, 'screenBackgroundColor', {
-    default: 'black',
+    default: 'rgb( 250, 250, 250 )',
     projector: 'white'
+  } ),
+
+  // Fill for the control panel
+  panelFillProperty: new ProfileColorProperty( geometricOptics, 'panelFill', {
+    default: 'rgb( 230, 246, 249 )',
+    projector: 'rgb( 240, 240, 240 )'
+  } ),
+
+  // Stroke for the control panel
+  panelStrokeProperty: new ProfileColorProperty( geometricOptics, 'panelStroke', {
+    default: 'black'
   } ),
 
   // Fill for the lens
@@ -26,8 +37,7 @@ const GOColors = {
 
   // Stroke for the lens
   lensStrokeProperty: new ProfileColorProperty( geometricOptics, 'lensStroke', {
-    default: 'rgb( 255, 255, 255 )',
-    projector: 'black'
+    default: 'black'
   } ),
 
   // Color of the mirror's backing
@@ -37,8 +47,7 @@ const GOColors = {
 
   // Color of the mirror's reflective coating
   mirrorReflectiveCoatingColorProperty: new ProfileColorProperty( geometricOptics, 'mirrorBackingColor', {
-    default: 'rgb( 255, 255, 255 )',
-    projector: 'black'
+    default: 'black'
   } ),
 
   // Fill for focal points (F)
@@ -66,7 +75,7 @@ const GOColors = {
     default: 'rgb( 133, 133, 182 )'
   } ),
 
-  // Stroke for the verticl axis
+  // Stroke for the vertical axis
   verticalAxisStrokeProperty: new ProfileColorProperty( geometricOptics, 'verticalAxisStroke', {
     default: 'rgb( 133, 133, 182 )'
   } ),
@@ -83,8 +92,7 @@ const GOColors = {
 
   // Rays associated with the real image produced by the first point of interest on the object or light source
   realRays1StrokeProperty: new ProfileColorProperty( geometricOptics, 'realRayOneStroke', {
-    default: 'rgb( 200, 200, 200 )',
-    projector: 'rgb( 140, 140, 140 )'
+    default: 'rgb( 140, 140, 140 )'
   } ),
 
   // Rays associated with the real image produced by the second point of interest on the object or light source
@@ -94,8 +102,7 @@ const GOColors = {
 
   // Rays associated with the virtual image produced by the first point of interest on the object or light source
   virtualRays1StrokeProperty: new ProfileColorProperty( geometricOptics, 'virtualRayOneStroke', {
-    default: 'rgb( 90, 90, 90 )',
-    projector: 'rgb( 30, 30, 30 )'
+    default: 'rgb( 30, 30, 30 )'
   } ),
 
   // Rays associated with the virtual image produced by the second point of interest on the object or light source
@@ -125,8 +132,7 @@ const GOColors = {
 
   // Color of the text on the labels
   labelFillProperty: new ProfileColorProperty( geometricOptics, 'labelFillProperty', {
-    default: 'white',
-    projector: 'black'
+    default: 'black'
   } ),
 
   // Fill of the arm (rectangle) portion of guides
@@ -141,16 +147,6 @@ const GOColors = {
 
   // Stroke for all parts of guides
   guideStrokeProperty: new ProfileColorProperty( geometricOptics, 'guideStroke', {
-    default: 'black'
-  } ),
-
-  // Fill for the control panel
-  panelFillProperty: new ProfileColorProperty( geometricOptics, 'panelFill', {
-    default: 'rgb( 240, 240, 240 )'
-  } ),
-
-  // Stroke for the control panel
-  panelStrokeProperty: new ProfileColorProperty( geometricOptics, 'panelStroke', {
     default: 'black'
   } ),
 
