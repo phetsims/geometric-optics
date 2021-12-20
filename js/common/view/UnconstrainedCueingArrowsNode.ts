@@ -17,7 +17,7 @@ type Options = {
   length?: number,
   fill?: ColorDef,
   stroke?: ColorDef
-} & NodeOptions; //TODO limit to Node translation options
+} & NodeOptions; //TODO https://github.com/phetsims/scenery/issues/1332 limit to Node translation options
 
 class UnconstrainedCueingArrowsNode extends Path {
 

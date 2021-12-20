@@ -21,7 +21,7 @@ import { NodeOptions } from '../../../../scenery/js/imports.js';
 
 type Options = {
   tandem: Tandem
-} & NodeOptions; //TODO limit to Node translation options
+} & NodeOptions; //TODO https://github.com/phetsims/scenery/issues/1332 limit to Node translation options
 
 class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeEnum> {
 
