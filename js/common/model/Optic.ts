@@ -170,7 +170,8 @@ abstract class Optic {
       }, {
         units: 'cm',
         tandem: options.tandem.createTandem( 'focalLengthProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
+        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+        phetioDocumentation: 'the focal length, f'
       } );
 
     this.leftFocalPointProperty = new DerivedProperty(
@@ -178,7 +179,8 @@ abstract class Optic {
       ( position: Vector2, focalLength: number ) => position.plusXY( -Math.abs( focalLength ), 0 ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'leftFocalPointProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
+        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
+        phetioDocumentation: 'focal point F, at a distance f to the left of the optic'
       } );
 
     this.rightFocalPointProperty = new DerivedProperty(
@@ -186,17 +188,24 @@ abstract class Optic {
       ( position: Vector2, focalLength: number ) => position.plusXY( Math.abs( focalLength ), 0 ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'rightFocalPointProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
+        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
+        phetioDocumentation: 'focal point F, at a distance f to the right of the optic'
       } );
 
-    this.twiceFocalLengthProperty = new DerivedProperty( [ this.focalLengthProperty ], focalLength => 2 * focalLength );
+    this.twiceFocalLengthProperty = new DerivedProperty( [ this.focalLengthProperty ], focalLength => 2 * focalLength, {
+      units: 'cm',
+      tandem: options.tandem.createTandem( 'twiceFocalLengthProperty' ),
+      phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+      phetioDocumentation: '2f, twice the focal length'
+    } );
 
     this.left2FProperty = new DerivedProperty(
       [ this.positionProperty, this.twiceFocalLengthProperty ],
       ( position: Vector2, twiceFocalLength: number ) => position.plusXY( -Math.abs( twiceFocalLength ), 0 ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'left2FProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
+        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
+        phetioDocumentation: 'point 2F, at a distance 2f to the left of the optic'
       } );
 
     this.right2FProperty = new DerivedProperty(
@@ -204,7 +213,8 @@ abstract class Optic {
       ( position: Vector2, twiceFocalLength: number ) => position.plusXY( Math.abs( twiceFocalLength ), 0 ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'right2FProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
+        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
+        phetioDocumentation: 'point 2F, at a distance 2f to the right of the optic'
       } );
 
     this.opticalAxisVisibleProperty = new BooleanProperty( true, {
