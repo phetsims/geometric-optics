@@ -27,10 +27,16 @@
     "value": "Object"
   },
   "focalPoint": {
-    "value": "Focal Point"
+    "value": "Focal Point (F)"
   },
   "focalPoints": {
-    "value": "Focal Points"
+    "value": "Focal Points (F)"
+  },
+  "twoF": {
+    "value": "2F"
+  },
+  "twoFPoints": {
+    "value": "2F Points"
   },
   "labels": {
     "value": "Labels"

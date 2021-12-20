@@ -24,6 +24,7 @@ import SecondPointNode from './SecondPointNode.js';
 import VisibleProperties from './VisibleProperties.js';
 import Property from '../../../../axon/js/Property.js';
 import Representation from '../model/Representation.js';
+import TwoFPointNode from './TwoFPointNode.js';
 
 type Options = {
   tandem: Tandem
@@ -42,11 +43,21 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 
     const items = [
 
-      // Focal Points
+      // Focal Points (F)
       {
         node: createLabel( geometricOpticsStrings.focalPoints, FocalPointNode.createIcon() ),
         property: visibleProperties.focalPointsVisibleProperty,
         tandem: options.tandem.createTandem( 'focalPointsCheckbox' )
+      },
+
+      // 2F Points
+      {
+        node: createLabel( geometricOpticsStrings.twoFPoints, TwoFPointNode.createIcon() ),
+        property: visibleProperties.twoFPointsVisibleProperty,
+        options: {
+          visible: GOQueryParameters.enable2F
+        },
+        tandem: options.tandem.createTandem( 'twoFPointsCheckbox' )
       },
 
       // Virtual Image

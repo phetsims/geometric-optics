@@ -19,8 +19,11 @@ type Options = {
 
 class VisibleProperties {
 
-  // visibility of the two focal points
+  // visibility of the focal points (F)
   readonly focalPointsVisibleProperty: Property<boolean>;
+
+  // visibility of the 2F points
+  readonly twoFPointsVisibleProperty: Property<boolean>;
 
   // visibility of the virtual image, when present
   readonly virtualImageVisibleProperty: Property<boolean>;
@@ -48,6 +51,10 @@ class VisibleProperties {
       tandem: options.tandem.createTandem( 'focalPointsVisibleProperty' )
     } );
 
+    this.twoFPointsVisibleProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'twoFPointsVisibleProperty' )
+    } );
+
     this.virtualImageVisibleProperty = new BooleanProperty( true, {
       tandem: options.tandem.createTandem( 'virtualImageVisibleProperty' )
     } );
@@ -72,6 +79,7 @@ class VisibleProperties {
 
   public reset(): void {
     this.focalPointsVisibleProperty.reset();
+    this.twoFPointsVisibleProperty.reset();
     this.virtualImageVisibleProperty.reset();
     this.labelsVisibleProperty.reset();
     this.secondPointVisibleProperty.reset();

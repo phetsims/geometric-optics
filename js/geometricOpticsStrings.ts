@@ -23,6 +23,8 @@ type StringsType = {
   'object': string,
   'focalPoint': string,
   'focalPoints': string,
+  'twoF': string,
+  'twoFPoints': string,
   'labels': string,
   'radiusOfCurvature': string,
   'indexOfRefraction': string,

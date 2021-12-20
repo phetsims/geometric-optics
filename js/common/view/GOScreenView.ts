@@ -45,6 +45,7 @@ import Lens from '../../lens/model/Lens.js';
 import GORulerNode from './GORulerNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Optic from '../model/Optic.js';
+import TwoFPointNode from './TwoFPointNode.js';
 
 // constants
 const ZOOM_RANGE = new RangeWithValue( 1, 3, 3 );
@@ -268,7 +269,7 @@ class GOScreenView extends ScreenView {
         tandem: options.tandem.createTandem( 'targetNode' )
       } );
 
-    // create two focal points
+    // focal points (F)
     const focalPointsNode = new Node( {
       children: [
         new FocalPointNode( model.optic.leftFocalPointProperty, modelViewTransform ),
@@ -276,6 +277,16 @@ class GOScreenView extends ScreenView {
       ],
       visibleProperty: visibleProperties.focalPointsVisibleProperty,
       tandem: options.tandem.createTandem( 'focalPointsNode' )
+    } );
+
+    // 2F points
+    const twoFPointsNode = new Node( {
+      children: [
+        new TwoFPointNode( model.optic.left2FProperty, modelViewTransform ),
+        new TwoFPointNode( model.optic.right2FProperty, modelViewTransform )
+      ],
+      visibleProperty: visibleProperties.twoFPointsVisibleProperty,
+      tandem: options.tandem.createTandem( 'twoFPointsNode' )
     } );
 
     // Layer for all the Nodes within the "experiment area".
@@ -288,6 +299,7 @@ class GOScreenView extends ScreenView {
         opticVerticalAxisNode,
         targetNode,
         focalPointsNode,
+        twoFPointsNode,
         lightRays1Node,
         lightRays2Node,
         secondPointNode
@@ -339,17 +351,6 @@ class GOScreenView extends ScreenView {
       experimentAreaNode.addChild( new DebugPointNode( model.sourceObject.positionProperty, modelViewTransform ) );
       experimentAreaNode.addChild( new DebugPointNode( model.secondPoint.lightSourcePositionProperty, modelViewTransform ) );
       experimentAreaNode.addChild( new DebugPointNode( model.firstTarget.positionProperty, modelViewTransform ) );
-    }
-
-    // Add the 2F points on each side of optic
-    if ( GOQueryParameters.show2F ) {
-      const left2fProperty = new DerivedProperty( [ model.optic.leftFocalPointProperty ],
-        ( position: Vector2 ) => position.timesScalar( 2 ) );
-      const right2fProperty = new DerivedProperty( [ model.optic.rightFocalPointProperty ],
-        ( position: Vector2 ) => position.timesScalar( 2 ) );
-      const options = { fill: GOColors.focalPointFillProperty };
-      experimentAreaNode.addChild( new DebugPointNode( left2fProperty, modelViewTransform, options ) );
-      experimentAreaNode.addChild( new DebugPointNode( right2fProperty, modelViewTransform, options ) );
     }
 
     // Show the value of modelBoundsProperty

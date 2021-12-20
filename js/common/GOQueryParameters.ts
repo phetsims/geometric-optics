@@ -44,9 +44,10 @@ const SCHEMA = {
     type: 'flag'
   },
 
-  // Show the points at 2F (twice the focal length, f) as dots that are the same color as the focal points F.
-  show2F: {
-    type: 'flag'
+  // Enable the feature that lets you show points at 2F.
+  enable2F: {
+    type: 'boolean',
+    defaultValue: false
   },
 
   // Show the model bounds as a green rectangle.

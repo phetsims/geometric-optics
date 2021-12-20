@@ -41,13 +41,23 @@ const GOColors = {
     projector: 'black'
   } ),
 
-  // Fill for focal points
+  // Fill for focal points (F)
   focalPointFillProperty: new ProfileColorProperty( geometricOptics, 'focalPointFill', {
     default: 'rgb( 255, 255, 0 )'
   } ),
 
-  // Stroke for focal points
+  // Stroke for focal points (F)
   focalPointStrokeProperty: new ProfileColorProperty( geometricOptics, 'focalPointStroke', {
+    default: 'black'
+  } ),
+
+  // Fill for 2F points
+  twoFPointFillProperty: new ProfileColorProperty( geometricOptics, 'twoFPointFill', {
+    default: 'rgb( 255, 255, 0 )'
+  } ),
+
+  // Stroke for 2F points
+  twoFPointStrokeProperty: new ProfileColorProperty( geometricOptics, 'twoFPointStroke', {
     default: 'black'
   } ),
 

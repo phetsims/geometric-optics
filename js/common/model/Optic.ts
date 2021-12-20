@@ -82,14 +82,19 @@ abstract class Optic {
   // sign used for math operations
   readonly sign: 1 | -1;
 
-  // focal length of the optic, positive=converging, negative=diverging
+  // focal length (f) of the optic, positive=converging, negative=diverging
   readonly focalLengthProperty: IReadOnlyProperty<number>;
 
-  // focal point to the left of the optic
+  // focal points (F) to the left and right of the optic
   readonly leftFocalPointProperty: IReadOnlyProperty<Vector2>;
-
-  // focal point to the right of the optic
   readonly rightFocalPointProperty: IReadOnlyProperty<Vector2>;
+
+  // twice the focal length (2f) of the optic
+  readonly twiceFocalLengthProperty: IReadOnlyProperty<number>;
+
+  // 2F points to the left and right of the optic
+  readonly left2FProperty: IReadOnlyProperty<Vector2>;
+  readonly right2FProperty: IReadOnlyProperty<Vector2>;
 
   // Determines whether the optical axis is visible.
   // PhET-iO only, cannot be controlled from the sim UI, and is not subject to reset.
@@ -181,6 +186,24 @@ abstract class Optic {
       ( position: Vector2, focalLength: number ) => position.plusXY( Math.abs( focalLength ), 0 ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'rightFocalPointProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
+      } );
+
+    this.twiceFocalLengthProperty = new DerivedProperty( [ this.focalLengthProperty ], focalLength => 2 * focalLength );
+
+    this.left2FProperty = new DerivedProperty(
+      [ this.positionProperty, this.twiceFocalLengthProperty ],
+      ( position: Vector2, twiceFocalLength: number ) => position.plusXY( -Math.abs( twiceFocalLength ), 0 ), {
+        units: 'cm',
+        tandem: options.tandem.createTandem( 'left2FProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
+      } );
+
+    this.right2FProperty = new DerivedProperty(
+      [ this.positionProperty, this.twiceFocalLengthProperty ],
+      ( position: Vector2, twiceFocalLength: number ) => position.plusXY( Math.abs( twiceFocalLength ), 0 ), {
+        units: 'cm',
+        tandem: options.tandem.createTandem( 'right2FProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
       } );
 
