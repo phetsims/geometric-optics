@@ -10,8 +10,8 @@
 import Property from '../../../../axon/js/Property.js';
 import ToggleNode from '../../../../sun/js/ToggleNode.js';
 import geometricOptics from '../../geometricOptics.js';
-import arrowLeftSolidShape from '../../../../sherpa/js/fontawesome-5/arrowLeftSolidShape.js';
-import arrowRightSolidShape from '../../../../sherpa/js/fontawesome-5/arrowRightSolidShape.js';
+import arrowsAltSolidShape from '../../../../sherpa/js/fontawesome-5/arrowsAltSolidShape.js';
+import arrowsAltHSolidShape from '../../../../sherpa/js/fontawesome-5/arrowsAltHSolidShape.js';
 import lockSolidShape from '../../../../sherpa/js/fontawesome-5/lockSolidShape.js';
 import unlockSolidShape from '../../../../sherpa/js/fontawesome-5/unlockSolidShape.js';
 import { HBox, NodeOptions, Path, PressListener } from '../../../../scenery/js/imports.js';
@@ -47,22 +47,20 @@ class HorizontalDragLockButton extends ToggleNode {
 
     const pathOptions = {
       fill: fillProperty,
-      scale: 0.035
+      scale: 0.045
     };
 
     const unlockedNode = new HBox( merge( {
       children: [
-        new Path( arrowLeftSolidShape, pathOptions ),
-        new Path( unlockSolidShape, pathOptions ),
-        new Path( arrowRightSolidShape, pathOptions )
+        new Path( arrowsAltSolidShape, pathOptions ),
+        new Path( unlockSolidShape, pathOptions )
       ]
     }, hBoxOptions ) );
 
     const lockedNode = new HBox( merge( {
       children: [
-        new Path( arrowLeftSolidShape, pathOptions ),
-        new Path( lockSolidShape, pathOptions ),
-        new Path( arrowRightSolidShape, pathOptions )
+        new Path( arrowsAltHSolidShape, pathOptions ),
+        new Path( lockSolidShape, pathOptions )
       ]
     }, hBoxOptions ) );
 
