@@ -8,12 +8,11 @@
 
 import ProjectorModeCheckbox from '../../../../joist/js/ProjectorModeCheckbox.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { VBox } from '../../../../scenery/js/imports.js';
+import { Text, VBox } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import FocalLengthControlRadioButtonGroup from './FocalLengthControlRadioButtonGroup.js';
-import { Text } from '../../../../scenery/js/imports.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 
 type Options = {
