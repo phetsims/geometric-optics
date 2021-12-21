@@ -10,10 +10,10 @@
 import Property from '../../../../axon/js/Property.js';
 import ToggleNode from '../../../../sun/js/ToggleNode.js';
 import geometricOptics from '../../geometricOptics.js';
-import arrowsAltSolidShape from '../../../../sherpa/js/fontawesome-5/arrowsAltSolidShape.js';
-import arrowsAltHSolidShape from '../../../../sherpa/js/fontawesome-5/arrowsAltHSolidShape.js';
-import lockSolidShape from '../../../../sherpa/js/fontawesome-5/lockSolidShape.js';
-import unlockSolidShape from '../../../../sherpa/js/fontawesome-5/unlockSolidShape.js';
+import arrowsAltSolidString from '../../../../sherpa/js/fontawesome-5/arrowsAltSolidString.js';
+import arrowsAltHSolidString from '../../../../sherpa/js/fontawesome-5/arrowsAltHSolidString.js';
+import lockSolidString from '../../../../sherpa/js/fontawesome-5/lockSolidString.js';
+import unlockSolidString from '../../../../sherpa/js/fontawesome-5/unlockSolidString.js';
 import { HBox, NodeOptions, Path, PressListener } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -52,15 +52,15 @@ class HorizontalDragLockButton extends ToggleNode {
 
     const unlockedNode = new HBox( merge( {
       children: [
-        new Path( arrowsAltSolidShape, pathOptions ),
-        new Path( unlockSolidShape, pathOptions )
+        new Path( arrowsAltSolidString, pathOptions ),
+        new Path( unlockSolidString, pathOptions )
       ]
     }, hBoxOptions ) );
 
     const lockedNode = new HBox( merge( {
       children: [
-        new Path( arrowsAltHSolidShape, pathOptions ),
-        new Path( lockSolidShape, pathOptions )
+        new Path( arrowsAltHSolidString, pathOptions ),
+        new Path( lockSolidString, pathOptions )
       ]
     }, hBoxOptions ) );
 
