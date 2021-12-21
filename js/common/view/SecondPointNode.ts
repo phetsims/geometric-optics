@@ -53,11 +53,13 @@ class SecondPointNode extends Node {
    * @param secondPoint
    * @param sourceObjectDragBoundsProperty
    * @param modelViewTransform
+   * @param dragLockedProperty
    * @param options
    */
   constructor( representationProperty: Property<Representation>, secondPoint: SecondPoint,
                sourceObjectDragBoundsProperty: IReadOnlyProperty<Bounds2>,
-               modelViewTransform: ModelViewTransform2, options: Options ) {
+               modelViewTransform: ModelViewTransform2, dragLockedProperty: IReadOnlyProperty<boolean>,
+               options: Options ) {
 
     super( merge( {
       phetioInputEnabledPropertyInstrumented: true
@@ -83,16 +85,32 @@ class SecondPointNode extends Node {
     // Drag bounds, in model coordinates.
     // null when we are dealing with an Object, non-null for a Light Source
     const dragBoundsProperty = new DerivedProperty(
-      [ sourceObjectDragBoundsProperty, representationProperty ],
-      ( sourceObjectDragBounds: Bounds2, representation: Representation ) =>
-        //TODO this is awful that we're having to undo the offset that is needed elsewhere
-        representation.isObject ? null : sourceObjectDragBounds.withOffsets(
-          -LIGHT_SOURCE_OFFSET.x, // left
-          -LIGHT_SOURCE_OFFSET.y, // top
-          LIGHT_SOURCE_OFFSET.x, // right
-          LIGHT_SOURCE_OFFSET.y  // bottom
-        )
-    );
+      [ sourceObjectDragBoundsProperty, representationProperty, dragLockedProperty ],
+      ( sourceObjectDragBounds: Bounds2, representation: Representation, dragLocked: boolean ) => {
+        let dragBounds;
+        if ( representation.isObject ) {
+          dragBounds = null;
+        }
+        else {
+          //TODO this is awful that we're having to undo the offset that is needed elsewhere
+          const offsetBounds = sourceObjectDragBounds.withOffsets(
+            -LIGHT_SOURCE_OFFSET.x, // left
+            -LIGHT_SOURCE_OFFSET.y, // top
+            LIGHT_SOURCE_OFFSET.x, // right
+            LIGHT_SOURCE_OFFSET.y  // bottom
+          );
+          if ( dragLocked ) {
+            //TODO this is off slightly for 2nd light source, makes it snap up a couple a bit.
+            const yFudgeFactor = -0.1;
+            const y = positionProperty.value.y + yFudgeFactor;
+            dragBounds = new Bounds2( offsetBounds.minX, y, offsetBounds.maxX, y );
+          }
+          else {
+            dragBounds = offsetBounds;
+          }
+        }
+        return dragBounds;
+      } );
 
     // Keep the light source inside the drag bounds.
     dragBoundsProperty.link( dragBounds => {
@@ -105,8 +123,6 @@ class SecondPointNode extends Node {
 
     // create drag listener for second source
     const secondPointDragListener = new DragListener( {
-      pressCursor: 'ns-resize',
-      useInputListenerCursor: true,
       positionProperty: positionProperty,
       dragBoundsProperty: dragBoundsProperty,
       transform: modelViewTransform,
@@ -161,6 +177,25 @@ class SecondPointNode extends Node {
         cueingArrowsNode.visible = ( cueingArrowsEnabled && inputEnabled );
       }
     );
+
+    Property.multilink( [ representationProperty, dragLockedProperty ],
+      ( representation: Representation, dragLocked: boolean ) => {
+        if ( representation.isObject ) {
+
+          // second point of interest on source object can only be drag vertically
+          this.cursor = 'ns-resize';
+        }
+        else {
+
+          // 2nd light source
+          if ( dragLocked ) {
+            this.cursor = 'ew-resize';
+          }
+          else {
+            this.cursor = 'pointer';
+          }
+        }
+      } );
 
     this.resetSecondPointNode = (): void => {
       cueingArrowsNode.visible = ( GOGlobalOptions.cueingArrowsEnabledProperty.value &&

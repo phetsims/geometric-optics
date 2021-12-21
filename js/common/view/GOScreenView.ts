@@ -243,7 +243,7 @@ class GOScreenView extends ScreenView {
 
     // the second point or second light source
     const secondPointNode = new SecondPointNode( model.representationProperty, model.secondPoint,
-      sourceObjectNode.dragBoundsProperty, modelViewTransform, {
+      sourceObjectNode.dragBoundsProperty, modelViewTransform, dragLockedProperty, {
         tandem: options.tandem.createTandem( 'secondPointNode' ),
         visibleProperty: visibleProperties.secondPointVisibleProperty
       } );
