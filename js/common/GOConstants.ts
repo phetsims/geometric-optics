@@ -88,9 +88,9 @@ const GOConstants = {
   },
 
   CUEING_ARROW_SHAPE_OPTIONS: {
-    headWidth: 10,
+    headWidth: 12,
     headHeight: 8,
-    tailWidth: 4
+    tailWidth: 3
   }
 };
 

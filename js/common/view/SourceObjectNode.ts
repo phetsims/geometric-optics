@@ -16,7 +16,7 @@ import geometricOptics from '../../geometricOptics.js';
 import SourceObject from '../model/SourceObject.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Representation from '../model/Representation.js';
-import UnconstrainedCueingArrowsNode from './UnconstrainedCueingArrowsNode.js';
+import CueingArrowsNode from './CueingArrowsNode.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -54,7 +54,7 @@ class SourceObjectNode extends Node {
     // Origin of this Node is at the upper-left corner of sourceObjectImage.
     const sourceObjectImage = new Image( representationProperty.value.rightFacingUpright );
 
-    const cueingArrowsNode = new UnconstrainedCueingArrowsNode();
+    const cueingArrowsNode = new CueingArrowsNode();
 
     super( merge( {
       children: [ sourceObjectImage, cueingArrowsNode ],
@@ -64,6 +64,10 @@ class SourceObjectNode extends Node {
       focusable: true,
       focusHighlight: new FocusHighlightFromNode( sourceObjectImage )
     }, options ) );
+
+    horizontalDragLockedProperty.link( locked => {
+      cueingArrowsNode.setDirection( locked ? 'horizontal' : 'both' );
+    } );
 
     // Keep cueing arrows next to the source object.
     sourceObjectImage.boundsProperty.link( ( bounds: Bounds2 ) => {

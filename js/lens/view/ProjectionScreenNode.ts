@@ -20,7 +20,7 @@ import projectionScreenTop_png from '../../../images/projectionScreenTop_png.js'
 import GOColors from '../../common/GOColors.js';
 import geometricOptics from '../../geometricOptics.js';
 import ProjectionScreen from '../model/ProjectionScreen.js';
-import UnconstrainedCueingArrowsNode from '../../common/view/UnconstrainedCueingArrowsNode.js';
+import CueingArrowsNode from '../../common/view/CueingArrowsNode.js';
 import GOGlobalOptions from '../../common/GOGlobalOptions.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
@@ -85,7 +85,7 @@ class ProjectionScreenNode extends Node {
       center: pullStringNode.centerBottom
     } );
 
-    const cueingArrowsNode = new UnconstrainedCueingArrowsNode( {
+    const cueingArrowsNode = new CueingArrowsNode( {
       right: screenNode.left - 10,
       centerY: screenNode.centerY
     } );
