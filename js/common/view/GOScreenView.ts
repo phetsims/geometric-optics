@@ -47,7 +47,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Optic from '../model/Optic.js';
 import TwoFPointNode from './TwoFPointNode.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import HorizontalDragLockButton from './HorizontalDragLockButton.js';
+import DragLockButton from './DragLockButton.js';
 
 // constants
 const ZOOM_RANGE = new RangeWithValue( 1, 3, 3 );
@@ -176,14 +176,16 @@ class GOScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'representationComboBox' )
     } );
 
-    const horizontalDragLockedProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'horizontalDragLockedProperty' )
+    const sourceObjectDragLockedProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'sourceObjectDragLockedProperty' ),
+      phetioDocumentation: 'true = source object may be dragged horizontally only' +
+                           'false = source object may be dragged horizontally and vertically'
     } );
 
-    const horizontalDragLockButton = new HorizontalDragLockButton( horizontalDragLockedProperty, {
+    const dragLockButton = new DragLockButton( sourceObjectDragLockedProperty, {
       left: representationComboBox.right + 25,
       centerY: representationComboBox.centerY,
-      tandem: options.tandem.createTandem( 'horizontalDragLockButton' )
+      tandem: options.tandem.createTandem( 'dragLockButton' )
     } );
 
     // create magnifying buttons for zooming in and out at the left top
@@ -234,7 +236,7 @@ class GOScreenView extends ScreenView {
 
     // the source object or first light source
     const sourceObjectNode = new SourceObjectNode( model.representationProperty, model.sourceObject,
-      modelBoundsProperty, model.optic.positionProperty, modelViewTransform, horizontalDragLockedProperty, {
+      modelBoundsProperty, model.optic.positionProperty, modelViewTransform, sourceObjectDragLockedProperty, {
         tandem: options.tandem.createTandem( 'sourceObjectNode' )
       } );
 
@@ -395,7 +397,7 @@ class GOScreenView extends ScreenView {
         rulersToolbox,
         zoomButtonGroup,
         representationComboBox,
-        horizontalDragLockButton,
+        dragLockButton,
         rulersLayer,
         popupsParent
       ]
@@ -405,7 +407,7 @@ class GOScreenView extends ScreenView {
     this.resetGeometricScreenView = (): void => {
       visibleProperties.reset();
       zoomLevelProperty.reset();
-      horizontalDragLockedProperty.reset();
+      sourceObjectDragLockedProperty.reset();
       sourceObjectNode.reset();
       secondPointNode.reset();
     };
@@ -414,7 +416,7 @@ class GOScreenView extends ScreenView {
     //TODO https://github.com/phetsims/geometric-optics/issues/235 add second point, light sources
     screenViewRootNode.pdomOrder = [
       representationComboBox,
-      horizontalDragLockButton,
+      dragLockButton,
       opticShapeRadioButtonGroup,
       rulersToolbox,
       horizontalRulerNode,

@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * HorizontalDragLockButton is the control used to lock dragging of the source object and light source, so
+ * DragLockButton is the control used to lock dragging of the source object and light source, so
  * that it's only draggable in the horizontal dimension.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -22,13 +22,13 @@ type Options = {
   tandem: Tandem
 } & NodeOptions; //TODO https://github.com/phetsims/scenery/issues/1332 limit to Node translation options
 
-class HorizontalDragLockButton extends ToggleNode {
+class DragLockButton extends ToggleNode {
 
   /**
-   * @param horizontalDragLockedProperty
+   * @param dragLockedProperty
    * @param providedOptions
    */
-  constructor( horizontalDragLockedProperty: Property<boolean>, providedOptions?: Options ) {
+  constructor( dragLockedProperty: Property<boolean>, providedOptions?: Options ) {
 
     const options = merge( {
 
@@ -64,18 +64,18 @@ class HorizontalDragLockButton extends ToggleNode {
       ]
     }, hBoxOptions ) );
 
-    super( horizontalDragLockedProperty, [
+    super( dragLockedProperty, [
       { value: true, node: lockedNode },
       { value: false, node: unlockedNode }
     ], options );
 
-    horizontalDragLockedProperty.link( locked => {
+    dragLockedProperty.link( locked => {
       fillProperty.value = locked ? 'red' : 'black';
     } );
 
     this.addInputListener( new PressListener( {
       release: () => {
-        horizontalDragLockedProperty.value = !horizontalDragLockedProperty.value;
+        dragLockedProperty.value = !dragLockedProperty.value;
       }
     } ) );
 
@@ -84,5 +84,5 @@ class HorizontalDragLockButton extends ToggleNode {
   }
 }
 
-geometricOptics.register( 'HorizontalDragLockButton', HorizontalDragLockButton );
-export default HorizontalDragLockButton;
+geometricOptics.register( 'DragLockButton', DragLockButton );
+export default DragLockButton;

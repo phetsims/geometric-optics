@@ -43,12 +43,12 @@ class SourceObjectNode extends Node {
    * @param modelBoundsProperty
    * @param opticPositionProperty
    * @param modelViewTransform
-   * @param horizontalDragLockedProperty
+   * @param dragLockedProperty
    * @param options
    */
   constructor( representationProperty: Property<Representation>, sourceObject: SourceObject,
                modelBoundsProperty: Property<Bounds2>, opticPositionProperty: Property<Vector2>,
-               modelViewTransform: ModelViewTransform2, horizontalDragLockedProperty: Property<boolean>,
+               modelViewTransform: ModelViewTransform2, dragLockedProperty: Property<boolean>,
                options: Options ) {
 
     // Origin of this Node is at the upper-left corner of sourceObjectImage.
@@ -65,7 +65,7 @@ class SourceObjectNode extends Node {
       focusHighlight: new FocusHighlightFromNode( sourceObjectImage )
     }, options ) );
 
-    horizontalDragLockedProperty.link( locked => {
+    dragLockedProperty.link( locked => {
       cueingArrowsNode.setDirection( locked ? 'horizontal' : 'both' );
     } );
 
@@ -102,7 +102,7 @@ class SourceObjectNode extends Node {
     // sourceObject.boundsProperty, and we're relying on that changing before this value is derived. But changing
     // the dependency to sourceObject.boundsProperty results in a reentry assertion failure.
     this.dragBoundsProperty = new DerivedProperty(
-      [ modelBoundsProperty, representationProperty, horizontalDragLockedProperty ],
+      [ modelBoundsProperty, representationProperty, dragLockedProperty ],
       ( modelBounds: Bounds2, representation: Representation, horizontalDragLocked: boolean ) => {
         if ( horizontalDragLocked ) {
 
