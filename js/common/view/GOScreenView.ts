@@ -176,13 +176,14 @@ class GOScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'representationComboBox' )
     } );
 
-    const sourceObjectDragLockedProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'sourceObjectDragLockedProperty' ),
-      phetioDocumentation: 'true = source object may be dragged horizontally only' +
-                           'false = source object may be dragged horizontally and vertically'
+    const dragLockedProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'dragLockedProperty' ),
+      phetioDocumentation: 'Controls dragging of the source object and light sources.' +
+                           'true = may be dragged horizontally only' +
+                           'false = may be dragged horizontally and vertically'
     } );
 
-    const dragLockButton = new DragLockButton( sourceObjectDragLockedProperty, {
+    const dragLockButton = new DragLockButton( dragLockedProperty, {
       left: representationComboBox.right + 25,
       centerY: representationComboBox.centerY,
       tandem: options.tandem.createTandem( 'dragLockButton' )
@@ -236,7 +237,7 @@ class GOScreenView extends ScreenView {
 
     // the source object or first light source
     const sourceObjectNode = new SourceObjectNode( model.representationProperty, model.sourceObject,
-      modelBoundsProperty, model.optic.positionProperty, modelViewTransform, sourceObjectDragLockedProperty, {
+      modelBoundsProperty, model.optic.positionProperty, modelViewTransform, dragLockedProperty, {
         tandem: options.tandem.createTandem( 'sourceObjectNode' )
       } );
 
@@ -407,7 +408,7 @@ class GOScreenView extends ScreenView {
     this.resetGeometricScreenView = (): void => {
       visibleProperties.reset();
       zoomLevelProperty.reset();
-      sourceObjectDragLockedProperty.reset();
+      dragLockedProperty.reset();
       sourceObjectNode.reset();
       secondPointNode.reset();
     };
