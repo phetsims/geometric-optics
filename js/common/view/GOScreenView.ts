@@ -47,7 +47,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Optic from '../model/Optic.js';
 import TwoFPointNode from './TwoFPointNode.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import DragLockButton from './DragLockButton.js';
+import DragLockedButton from './DragLockedButton.js';
 
 // constants
 const ZOOM_RANGE = new RangeWithValue( 1, 3, 3 );
@@ -178,15 +178,15 @@ class GOScreenView extends ScreenView {
 
     const dragLockedProperty = new BooleanProperty( false, {
       tandem: options.tandem.createTandem( 'dragLockedProperty' ),
-      phetioDocumentation: 'Controls dragging of the source object and light sources.' +
-                           'true = may be dragged horizontally only' +
+      phetioDocumentation: 'Controls dragging of the source object and light sources.<br>' +
+                           'true = may be dragged horizontally only<br>' +
                            'false = may be dragged horizontally and vertically'
     } );
 
-    const dragLockButton = new DragLockButton( dragLockedProperty, {
+    const dragLockedButton = new DragLockedButton( dragLockedProperty, {
       left: representationComboBox.right + 25,
       centerY: representationComboBox.centerY,
-      tandem: options.tandem.createTandem( 'dragLockButton' )
+      tandem: options.tandem.createTandem( 'dragLockedButton' )
     } );
 
     // create magnifying buttons for zooming in and out at the left top
@@ -398,7 +398,7 @@ class GOScreenView extends ScreenView {
         rulersToolbox,
         zoomButtonGroup,
         representationComboBox,
-        dragLockButton,
+        dragLockedButton,
         rulersLayer,
         popupsParent
       ]
@@ -417,7 +417,7 @@ class GOScreenView extends ScreenView {
     //TODO https://github.com/phetsims/geometric-optics/issues/235 add second point, light sources
     screenViewRootNode.pdomOrder = [
       representationComboBox,
-      dragLockButton,
+      dragLockedButton,
       opticShapeRadioButtonGroup,
       rulersToolbox,
       horizontalRulerNode,
