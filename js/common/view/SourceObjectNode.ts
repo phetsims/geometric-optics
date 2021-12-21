@@ -67,6 +67,7 @@ class SourceObjectNode extends Node {
 
     dragLockedProperty.link( locked => {
       cueingArrowsNode.setDirection( locked ? 'horizontal' : 'both' );
+      this.cursor = locked ? 'ew-resize' : 'pointer';
     } );
 
     // Keep cueing arrows next to the source object.
@@ -131,8 +132,6 @@ class SourceObjectNode extends Node {
 
     // create drag listener for source
     const dragListener = new DragListener( {
-      pressCursor: 'pointer',
-      useInputListenerCursor: true,
       positionProperty: sourceObject.leftTopProperty,
       dragBoundsProperty: this.dragBoundsProperty,
       transform: modelViewTransform,
