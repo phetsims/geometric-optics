@@ -74,7 +74,7 @@ class SourceObjectNode extends Node {
     // Keep cueing arrows next to the source object.
     Property.multilink( [ sourceObjectImage.boundsProperty, cueingArrowsNode.boundsProperty ],
       ( sourceObjectImageBounds: Bounds2, cueingArrowsNodeBounds: Bounds2 ) => {
-        cueingArrowsNode.right = sourceObjectImage.left - 5;
+        cueingArrowsNode.right = sourceObjectImage.left - 10;
         cueingArrowsNode.centerY = sourceObjectImage.centerY;
       } );
 
