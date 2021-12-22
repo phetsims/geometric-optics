@@ -98,13 +98,13 @@ class LensScreenView extends GOScreenView {
       // DO NOT instrument for PhET-iO, see https://github.com/phetsims/geometric-optics/issues/269
     } );
 
-    // Add projection screen and light spots at the bottom of the z-layer.
+    // Add projection screen and light spots in front of the optical axis.
     const lightSourceNodes = new Node( {
       children: [ this.projectionScreenNode, lightSpot1Node, lightSpot2Node ],
       visibleProperty: new DerivedProperty( [ model.representationProperty ],
         ( representation: Representation ) => !representation.isObject )
     } );
-    this.experimentAreaNode.insertChild( 0, lightSourceNodes );
+    this.additionalNodesParent.addChild( lightSourceNodes );
 
     // pdom -traversal order
     // Insert projectionScreenNode after zoomButtonGroup.

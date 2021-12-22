@@ -30,7 +30,7 @@ import FocalPointNode from './FocalPointNode.js';
 import GOControlPanel from './GOControlPanel.js';
 import LabelsNode from './LabelsNode.js';
 import LightRaysNode from './LightRaysNode.js';
-import OpticalHorizontalAxisNode from './OpticalHorizontalAxisNode.js';
+import OpticalAxisNode from './OpticalAxisNode.js';
 import OpticShapeRadioButtonGroup from './OpticShapeRadioButtonGroup.js';
 import OpticVerticalAxisNode from './OpticVerticalAxisNode.js';
 import RepresentationComboBox from './RepresentationComboBox.js';
@@ -48,6 +48,7 @@ import Optic from '../model/Optic.js';
 import TwoFPointNode from './TwoFPointNode.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DragLockedButton from './DragLockedButton.js';
+import OpticalAxisForegroundNode from './OpticalAxisForegroundNode.js';
 
 // constants
 const ZOOM_RANGE = new RangeWithValue( 1, 3, 3 );
@@ -72,6 +73,7 @@ class GOScreenView extends ScreenView {
   protected readonly visibleProperties: VisibleProperties;
   protected readonly modelBoundsProperty: IReadOnlyProperty<Bounds2>;
   protected readonly experimentAreaNode: Node;
+  protected readonly additionalNodesParent: Node;
   protected readonly zoomButtonGroup: Node;
 
   private readonly model: GOModel;
@@ -248,10 +250,18 @@ class GOScreenView extends ScreenView {
         visibleProperty: visibleProperties.secondPointVisibleProperty
       } );
 
-    const opticalHorizontalAxisNode = new OpticalHorizontalAxisNode( model.optic.positionProperty, modelBoundsProperty, modelViewTransform, {
-      visibleProperty: model.optic.opticalAxisVisibleProperty,
-      tandem: options.tandem.createTandem( 'opticalHorizontalAxisNodeNode' )
+    // The complete optical axis, to be put in the background
+    const opticalAxisNode = new OpticalAxisNode( model.optic.positionProperty, modelBoundsProperty, modelViewTransform, {
+      visibleProperty: model.optic.opticalAxisVisibleProperty
     } );
+
+    // The part of the optical axis that appears to be in front of the things. This makes it looks like
+    // the axis is going through the source object, real/virtual image, etc.
+    const opticalAxisForegroundNode = new OpticalAxisForegroundNode( model.optic.positionProperty,
+      model.representationProperty, model.sourceObject.positionProperty, model.firstTarget.positionProperty,
+      model.barrier, modelBoundsProperty, modelViewTransform, {
+        visibleProperty: model.optic.opticalAxisVisibleProperty
+      } );
 
     const opticNode = options.createOpticNode( model.optic, modelBoundsProperty, modelViewTransform, options.tandem );
 
@@ -304,15 +314,20 @@ class GOScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'twoFPointsNode' )
     } );
 
+    //TODO this is a hack to allow LensScreenView to add the projection screen etc. in the correct layering order
+    const additionalNodesParent = new Node();
+
     // Layer for all the Nodes within the "experiment area".
     // The experiment area is subject to zoom in/out, so include add all Nodes that need to be zoomed.
     const experimentAreaNode = new Node( {
       children: [
-        opticalHorizontalAxisNode,
+        opticalAxisNode,
         sourceObjectNode,
+        targetNode,
+        additionalNodesParent,
+        opticalAxisForegroundNode,
         opticNode,
         opticVerticalAxisNode,
-        targetNode,
         focalPointsNode,
         twoFPointsNode,
         lightRays1Node,
@@ -435,6 +450,7 @@ class GOScreenView extends ScreenView {
     this.visibleProperties = visibleProperties; // {VisibleProperties}
     this.modelBoundsProperty = modelBoundsProperty; // {DerivedProperty.<Bounds2>}
     this.experimentAreaNode = experimentAreaNode; // {Node}
+    this.additionalNodesParent = additionalNodesParent; // {Node}
     this.zoomButtonGroup = zoomButtonGroup; // {Node}
   }
 

@@ -63,6 +63,9 @@ class GOModel {
   // target/ image associated with secondPoint
   readonly secondTarget: Target;
 
+  // optional barrier that may block rays
+  readonly barrier: Barrier | null;
+
   // elapsed time of light rays animation
   readonly lightRaysTimeProperty: NumberProperty;
 
@@ -104,6 +107,8 @@ class GOModel {
     this.firstTarget = new Target( this.sourceObject.positionProperty, this.optic, this.representationProperty );
 
     this.secondTarget = new Target( this.secondPoint.positionProperty, this.optic, this.representationProperty );
+
+    this.barrier = options.barrier;
 
     this.lightRaysTimeProperty = new NumberProperty( 0, {
       units: 's',

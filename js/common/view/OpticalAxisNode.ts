@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * OpticalHorizontalAxisNode is the horizontal line that passes through the geometric center of a lens or mirror.
+ * OpticalAxisNode is the horizontal line that passes through the geometric center of a lens or mirror.
  * It is referred to as 'optical axis', or sometimes as 'principal axis'.
  *
  * @author Sarah Chang (Swarthmore College)
@@ -15,17 +15,15 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Line } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import GOConstants from '../GOConstants.js';
 
 type Options = {
-  visibleProperty: IProperty<boolean>,
-  tandem: Tandem
+  visibleProperty: IProperty<boolean>
 };
 
-class OpticalHorizontalAxisNode extends Line {
+class OpticalAxisNode extends Line {
 
   /**
    * @param opticPositionProperty
@@ -63,6 +61,6 @@ class OpticalHorizontalAxisNode extends Line {
   }
 }
 
-geometricOptics.register( 'OpticalHorizontalAxisNode', OpticalHorizontalAxisNode );
+geometricOptics.register( 'OpticalAxisNode', OpticalAxisNode );
 
-export default OpticalHorizontalAxisNode;
+export default OpticalAxisNode;
