@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * OpticalAxisForegroundNode is the part of the optical axis that is not occluded by things in the view.
+ * OpticalAxisForegroundNode is the segment(s) of the optical axis that are not occluded by things in the view.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
