@@ -10,8 +10,8 @@
 import Property from '../../../../axon/js/Property.js';
 import ToggleNode from '../../../../sun/js/ToggleNode.js';
 import geometricOptics from '../../geometricOptics.js';
-import lockSolidString from '../../../../sherpa/js/fontawesome-5/lockSolidString.js';
-import unlockSolidString from '../../../../sherpa/js/fontawesome-5/unlockSolidString.js';
+import lockSolidShape from '../../../../sherpa/js/fontawesome-5/lockSolidShape.js';
+import unlockSolidShape from '../../../../sherpa/js/fontawesome-5/unlockSolidShape.js';
 import { HBox, NodeOptions, Path, PressListener } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -59,7 +59,7 @@ class DragLockedButton extends ToggleNode {
           fill: 'black',
           stroke: null
         } ),
-        new Path( unlockSolidString, pathOptions )
+        new Path( unlockSolidShape, pathOptions )
       ]
     }, hBoxOptions ) );
 
@@ -71,7 +71,7 @@ class DragLockedButton extends ToggleNode {
           fill: 'red',
           stroke: null
         } ),
-        new Path( lockSolidString, pathOptions )
+        new Path( lockSolidShape, pathOptions )
       ]
     }, hBoxOptions ) );
 
