@@ -12,7 +12,7 @@ import ToggleNode from '../../../../sun/js/ToggleNode.js';
 import geometricOptics from '../../geometricOptics.js';
 import lockSolidShape from '../../../../sherpa/js/fontawesome-5/lockSolidShape.js';
 import unlockSolidShape from '../../../../sherpa/js/fontawesome-5/unlockSolidShape.js';
-import { HBox, NodeOptions, Path, PressListener } from '../../../../scenery/js/imports.js';
+import { AlignBox, AlignGroup, HBox, NodeOptions, Path, PressListener } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
@@ -43,12 +43,17 @@ class DragLockedButton extends ToggleNode {
       tagName: 'button'
     }, providedOptions );
 
+    // To make both icons have the same effective size
+    const alignBoxOptions = {
+      group: new AlignGroup()
+    };
+
     const hBoxOptions = {
       spacing: 6
     };
 
     // 4-way arrow to the left of unlocked lock
-    const unlockedNode = new HBox( merge( {
+    const unlockedNode = new AlignBox( new HBox( merge( {
       children: [
         new CueingArrowsNode( {
           direction: 'both',
@@ -61,10 +66,10 @@ class DragLockedButton extends ToggleNode {
           scale: LOCK_SCALE
         } )
       ]
-    }, hBoxOptions ) );
+    }, hBoxOptions ) ), alignBoxOptions );
 
     // horizontal 2-way arrow to the left of locked lock
-    const lockedNode = new HBox( merge( {
+    const lockedNode = new AlignBox( new HBox( merge( {
       children: [
         new CueingArrowsNode( {
           direction: 'horizontal',
@@ -77,13 +82,14 @@ class DragLockedButton extends ToggleNode {
           scale: LOCK_SCALE
         } )
       ]
-    }, hBoxOptions ) );
+    }, hBoxOptions ) ), alignBoxOptions );
 
     super( dragLockedProperty, [
       { value: true, node: lockedNode },
       { value: false, node: unlockedNode }
     ], options );
 
+    // Toggle the value on release
     this.addInputListener( new PressListener( {
       release: () => {
         dragLockedProperty.value = !dragLockedProperty.value;
