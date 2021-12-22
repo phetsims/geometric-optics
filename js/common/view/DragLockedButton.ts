@@ -10,13 +10,14 @@
 import Property from '../../../../axon/js/Property.js';
 import ToggleNode from '../../../../sun/js/ToggleNode.js';
 import geometricOptics from '../../geometricOptics.js';
-import arrowsAltSolidString from '../../../../sherpa/js/fontawesome-5/arrowsAltSolidString.js';
-import arrowsAltHSolidString from '../../../../sherpa/js/fontawesome-5/arrowsAltHSolidString.js';
 import lockSolidString from '../../../../sherpa/js/fontawesome-5/lockSolidString.js';
 import unlockSolidString from '../../../../sherpa/js/fontawesome-5/unlockSolidString.js';
 import { HBox, NodeOptions, Path, PressListener } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
+import CueingArrowsNode from './CueingArrowsNode.js';
+
+const ARROWS_SCALE = 0.65;
 
 type Options = {
   tandem: Tandem
@@ -40,7 +41,7 @@ class DragLockedButton extends ToggleNode {
     }, providedOptions );
 
     const hBoxOptions = {
-      spacing: 8
+      spacing: 6
     };
 
     const fillProperty: Property<ColorDef> = new Property( 'black' );
@@ -52,14 +53,24 @@ class DragLockedButton extends ToggleNode {
 
     const unlockedNode = new HBox( merge( {
       children: [
-        new Path( arrowsAltSolidString, pathOptions ),
+        new CueingArrowsNode( {
+          direction: 'both',
+          scale: ARROWS_SCALE,
+          fill: 'black',
+          stroke: null
+        } ),
         new Path( unlockSolidString, pathOptions )
       ]
     }, hBoxOptions ) );
 
     const lockedNode = new HBox( merge( {
       children: [
-        new Path( arrowsAltHSolidString, pathOptions ),
+        new CueingArrowsNode( {
+          direction: 'horizontal',
+          scale: ARROWS_SCALE,
+          fill: 'red',
+          stroke: null
+        } ),
         new Path( lockSolidString, pathOptions )
       ]
     }, hBoxOptions ) );
