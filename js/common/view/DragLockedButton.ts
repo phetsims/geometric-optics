@@ -18,6 +18,9 @@ import merge from '../../../../phet-core/js/merge.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
 
 const ARROWS_SCALE = 0.65;
+const LOCK_SCALE = 0.045;
+const UNLOCKED_FILL = 'black';
+const LOCKED_FILL = 'red';
 
 type Options = {
   tandem: Tandem
@@ -44,34 +47,35 @@ class DragLockedButton extends ToggleNode {
       spacing: 6
     };
 
-    const fillProperty: Property<ColorDef> = new Property( 'black' );
-
-    const pathOptions = {
-      fill: fillProperty,
-      scale: 0.045
-    };
-
+    // 4-way arrow to the left of unlocked lock
     const unlockedNode = new HBox( merge( {
       children: [
         new CueingArrowsNode( {
           direction: 'both',
-          scale: ARROWS_SCALE,
-          fill: 'black',
-          stroke: null
+          fill: UNLOCKED_FILL,
+          stroke: null,
+          scale: ARROWS_SCALE
         } ),
-        new Path( unlockSolidShape, pathOptions )
+        new Path( unlockSolidShape, {
+          fill: UNLOCKED_FILL,
+          scale: LOCK_SCALE
+        } )
       ]
     }, hBoxOptions ) );
 
+    // horizontal 2-way arrow to the left of locked lock
     const lockedNode = new HBox( merge( {
       children: [
         new CueingArrowsNode( {
           direction: 'horizontal',
-          scale: ARROWS_SCALE,
-          fill: 'red',
-          stroke: null
+          fill: LOCKED_FILL,
+          stroke: null,
+          scale: ARROWS_SCALE
         } ),
-        new Path( lockSolidShape, pathOptions )
+        new Path( lockSolidShape, {
+          fill: LOCKED_FILL,
+          scale: LOCK_SCALE
+        } )
       ]
     }, hBoxOptions ) );
 
@@ -79,10 +83,6 @@ class DragLockedButton extends ToggleNode {
       { value: true, node: lockedNode },
       { value: false, node: unlockedNode }
     ], options );
-
-    dragLockedProperty.link( locked => {
-      fillProperty.value = locked ? 'red' : 'black';
-    } );
 
     this.addInputListener( new PressListener( {
       release: () => {
