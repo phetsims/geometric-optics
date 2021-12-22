@@ -24,6 +24,7 @@ type Options = {
 
 class CueingArrowsNode extends Path {
 
+  // length of the arrows, from tip to tip
   private readonly length: number;
 
   /**
@@ -41,34 +42,40 @@ class CueingArrowsNode extends Path {
 
     }, providedOptions ) as Required<Options>;
 
-    super( null, options );
+    super( createArrowsShape( options.direction, options.length ), options );
 
     this.length = options.length;
 
-    this.setDirection( options.direction );
+    this.boundsProperty.link( () => {
+      this.touchArea = this.localBounds;
+      this.mouseArea = this.localBounds;
+    } );
   }
 
   public setDirection( direction: CueingArrowsDirection ): void {
-
-    const arrowShapeOptions = merge( {
-      doubleHead: true
-    }, GOConstants.CUEING_ARROW_SHAPE_OPTIONS );
-
-    if ( direction === 'horizontal' ) {
-      this.shape = new ArrowShape( -this.length / 2, 0, this.length / 2, 0, arrowShapeOptions );
-    }
-    else if ( direction === 'vertical' ) {
-      this.shape = new ArrowShape( 0, -this.length / 2, 0, this.length / 2, arrowShapeOptions );
-    }
-    else {
-      const leftRightArrowShape = new ArrowShape( -this.length / 2, 0, this.length / 2, 0, arrowShapeOptions );
-      const upDownArrowShape = new ArrowShape( 0, -this.length / 2, 0, this.length / 2, arrowShapeOptions );
-      this.shape = Shape.union( [ leftRightArrowShape, upDownArrowShape ] );
-    }
-
-    this.touchArea = this.localBounds;
-    this.mouseArea = this.localBounds;
+    this.shape = createArrowsShape( direction, this.length );
   }
+}
+
+function createArrowsShape( direction: CueingArrowsDirection, length: number ): Shape {
+
+  const arrowShapeOptions = merge( {
+    doubleHead: true
+  }, GOConstants.CUEING_ARROW_SHAPE_OPTIONS );
+
+  let shape;
+  if ( direction === 'horizontal' ) {
+    shape = new ArrowShape( -length / 2, 0, length / 2, 0, arrowShapeOptions );
+  }
+  else if ( direction === 'vertical' ) {
+    shape = new ArrowShape( 0, -length / 2, 0, length / 2, arrowShapeOptions );
+  }
+  else {
+    const leftRightArrowShape = new ArrowShape( -length / 2, 0, length / 2, 0, arrowShapeOptions );
+    const upDownArrowShape = new ArrowShape( 0, -length / 2, 0, length / 2, arrowShapeOptions );
+    shape = Shape.union( [ leftRightArrowShape, upDownArrowShape ] );
+  }
+  return shape;
 }
 
 geometricOptics.register( 'CueingArrowsNode', CueingArrowsNode );

@@ -85,16 +85,16 @@ class ProjectionScreenNode extends Node {
       center: pullStringNode.centerBottom
     } );
 
-    const cueingArrowsNode = new CueingArrowsNode( {
-      right: screenNode.left - 10,
-      centerY: screenNode.centerY
-    } );
-
-    const projectorScreenNode = new Node( {
+    const parentNode = new Node( {
       children: [ pullStringNode, knobNode, topBarNode, bottomBarNode, screenNode ]
     } );
 
-    const children: Node[] = [ projectorScreenNode, cueingArrowsNode ];
+    const cueingArrowsNode = new CueingArrowsNode( {
+      left: parentNode.right,
+      centerY: parentNode.centerY
+    } );
+
+    const children: Node[] = [ parentNode, cueingArrowsNode ];
 
     // Red dot at the origin
     if ( GOQueryParameters.showPositions ) {
@@ -107,7 +107,7 @@ class ProjectionScreenNode extends Node {
       // pdom options
       tagName: 'div',
       focusable: true,
-      focusHighlight: new FocusHighlightFromNode( projectorScreenNode ),
+      focusHighlight: new FocusHighlightFromNode( parentNode ),
 
       // phet-io options
       phetioInputEnabledPropertyInstrumented: true
