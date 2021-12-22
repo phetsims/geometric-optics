@@ -43,8 +43,9 @@ class LightRays {
    * @param target - target model associated with this ray
    * @param barrier - optional barrier that blocks rays
    */
-  constructor( timeProperty: Property<number>, raysModeProperty: Property<RaysModeEnum>,
-               representationProperty: Property<Representation>, sourceObjectPositionProperty: IReadOnlyProperty<Vector2>,
+  constructor( timeProperty: Property<number>, raysModeProperty: IReadOnlyProperty<RaysModeEnum>,
+               representationProperty: IReadOnlyProperty<Representation>,
+               sourceObjectPositionProperty: IReadOnlyProperty<Vector2>,
                optic: Optic, target: Target, barrier: Barrier | null ) {
 
     this.realSegments = [];

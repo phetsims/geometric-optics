@@ -9,7 +9,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import IProperty from '../../../../axon/js/IProperty.js';
-import Property from '../../../../axon/js/Property.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { ColorDef, Line, Node } from '../../../../scenery/js/imports.js';
@@ -38,8 +38,9 @@ class LightRaysNode extends Node {
    * @param modelViewTransform
    * @param providedOptions
    */
-  constructor( lightRays: LightRays, representationProperty: Property<Representation>,
-               virtualImageVisibleProperty: Property<boolean>, modelViewTransform: ModelViewTransform2, providedOptions: Options ) {
+  constructor( lightRays: LightRays, representationProperty: IReadOnlyProperty<Representation>,
+               virtualImageVisibleProperty: IReadOnlyProperty<boolean>, modelViewTransform: ModelViewTransform2,
+               providedOptions: Options ) {
 
     const options = merge( {
       realRaysStroke: 'white',

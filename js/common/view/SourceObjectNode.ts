@@ -46,9 +46,9 @@ class SourceObjectNode extends Node {
    * @param dragLockedProperty
    * @param options
    */
-  constructor( representationProperty: Property<Representation>, sourceObject: SourceObject,
-               modelBoundsProperty: Property<Bounds2>, opticPositionProperty: Property<Vector2>,
-               modelViewTransform: ModelViewTransform2, dragLockedProperty: Property<boolean>,
+  constructor( representationProperty: IReadOnlyProperty<Representation>, sourceObject: SourceObject,
+               modelBoundsProperty: IReadOnlyProperty<Bounds2>, opticPositionProperty: IReadOnlyProperty<Vector2>,
+               modelViewTransform: ModelViewTransform2, dragLockedProperty: IReadOnlyProperty<boolean>,
                options: Options ) {
 
     // Origin of this Node is at the upper-left corner of sourceObjectImage.

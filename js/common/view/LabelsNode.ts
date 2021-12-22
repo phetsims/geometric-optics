@@ -15,7 +15,6 @@ import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import LabelNode from './LabelNode.js';
 import VisibleProperties from './VisibleProperties.js';
-import Property from '../../../../axon/js/Property.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Representation from '../model/Representation.js';
@@ -23,6 +22,7 @@ import LensModel from '../../lens/model/LensModel.js';
 import MirrorModel from '../../mirror/model/MirrorModel.js';
 import Lens from '../../lens/model/Lens.js';
 import Mirror from '../../mirror/model/Mirror.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 class LabelsNode extends Node {
 
@@ -31,8 +31,9 @@ class LabelsNode extends Node {
    * @param visibleProperties
    * @param zoomTransformProperty
    */
+  //TODO eliminate union type
   constructor( model: LensModel | MirrorModel, visibleProperties: VisibleProperties,
-               zoomTransformProperty: Property<ModelViewTransform2> ) {
+               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2> ) {
 
     // Object label ------------------------------------------------------------------------------------
 

@@ -49,7 +49,7 @@ class LabelNode extends Node {
    * @param options
    */
   constructor( text: string, positionProperty: IReadOnlyProperty<Vector2>,
-               zoomTransformProperty: Property<ModelViewTransform2>, options?: Options ) {
+               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>, options?: Options ) {
 
     const textNode = new Text( text, TEXT_OPTIONS );
 

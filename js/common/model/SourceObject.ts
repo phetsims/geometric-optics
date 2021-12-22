@@ -34,7 +34,7 @@ class SourceObject {
   /**
    * @param representationProperty
    */
-  constructor( representationProperty: Property<Representation> ) {
+  constructor( representationProperty: IReadOnlyProperty<Representation> ) {
 
     // {Vector2} displacement vector from the firstPosition to the left top, in cm - value depends on representation
     //TODO this feels unnecessary, and causes ordering dependencies herein

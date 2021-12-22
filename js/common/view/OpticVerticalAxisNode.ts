@@ -7,7 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -33,7 +33,8 @@ class OpticVerticalAxisNode extends Node {
    * @param modelViewTransform
    * @param options
    */
-  constructor( optic: Optic, raysModeProperty: Property<RaysModeEnum>, modelBoundsProperty: Property<Bounds2>,
+  constructor( optic: Optic, raysModeProperty: IReadOnlyProperty<RaysModeEnum>,
+               modelBoundsProperty: IReadOnlyProperty<Bounds2>,
                modelViewTransform: ModelViewTransform2, options: Options ) {
 
     // create a vertical dashed line, through the optic - indicating the crossing plane of principal rays.

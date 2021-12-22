@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -21,6 +20,7 @@ import OpticShapeEnum from '../../common/model/OpticShapeEnum.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
 import OriginNode from '../../common/view/OriginNode.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 // constants
 const FILL = GOColors.mirrorBackingColorProperty;
@@ -41,7 +41,8 @@ class MirrorNode extends Node {
    * @param modelViewTransform
    * @param options
    */
-  constructor( mirror: Mirror, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, options: Options ) {
+  constructor( mirror: Mirror, modelBoundsProperty: IReadOnlyProperty<Bounds2>,
+               modelViewTransform: ModelViewTransform2, options: Options ) {
 
     // the mirror's backing
     const backingNode = new Path( null, {

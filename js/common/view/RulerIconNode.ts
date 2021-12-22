@@ -8,7 +8,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Property from '../../../../axon/js/Property.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
@@ -27,7 +27,7 @@ class RulerIconNode extends RulerNode {
    * @param rulerNode
    * @param zoomTransformProperty
    */
-  constructor( rulerNode: GORulerNode, zoomTransformProperty: Property<ModelViewTransform2> ) {
+  constructor( rulerNode: GORulerNode, zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2> ) {
 
     const options = {
 

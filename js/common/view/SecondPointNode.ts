@@ -56,7 +56,7 @@ class SecondPointNode extends Node {
    * @param dragLockedProperty
    * @param options
    */
-  constructor( representationProperty: Property<Representation>, secondPoint: SecondPoint,
+  constructor( representationProperty: IReadOnlyProperty<Representation>, secondPoint: SecondPoint,
                sourceObjectDragBoundsProperty: IReadOnlyProperty<Bounds2>,
                modelViewTransform: ModelViewTransform2, dragLockedProperty: IReadOnlyProperty<boolean>,
                options: Options ) {

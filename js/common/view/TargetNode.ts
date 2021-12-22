@@ -18,6 +18,7 @@ import Optic from '../model/Optic.js';
 import Target from '../model/Target.js';
 import Representation from '../model/Representation.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 type Options = {
   tandem: Tandem
@@ -34,8 +35,8 @@ class TargetNode extends Node {
    * @param modelViewTransform
    * @param options
    */
-  constructor( representationProperty: Property<Representation>, target: Target, optic: Optic,
-               virtualImageVisibleProperty: Property<boolean>, rayTracingVisibleProperty: Property<boolean>,
+  constructor( representationProperty: IReadOnlyProperty<Representation>, target: Target, optic: Optic,
+               virtualImageVisibleProperty: IReadOnlyProperty<boolean>, rayTracingVisibleProperty: IReadOnlyProperty<boolean>,
                modelViewTransform: ModelViewTransform2, options: Options ) {
 
     super( options );

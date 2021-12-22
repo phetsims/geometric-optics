@@ -8,7 +8,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -25,6 +24,7 @@ import LensShapes from '../model/LensShapes.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
 import OriginNode from '../../common/view/OriginNode.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 // constants
 const FILL = GOColors.lensFillProperty;
@@ -45,7 +45,8 @@ class LensNode extends Node {
    * @param modelViewTransform
    * @param options
    */
-  constructor( lens: Lens, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, options: Options ) {
+  constructor( lens: Lens, modelBoundsProperty: IReadOnlyProperty<Bounds2>,
+               modelViewTransform: ModelViewTransform2, options: Options ) {
 
     const fillNode = new Path( null, {
       fill: FILL

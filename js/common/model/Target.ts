@@ -58,7 +58,8 @@ class Target {
    * @param optic - model of the optic
    * @param representationProperty
    */
-  constructor( objectPositionProperty: IReadOnlyProperty<Vector2>, optic: Optic, representationProperty: Property<Representation> ) {
+  constructor( objectPositionProperty: IReadOnlyProperty<Vector2>, optic: Optic,
+               representationProperty: IReadOnlyProperty<Representation> ) {
 
     this.targetOpticDistanceProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],

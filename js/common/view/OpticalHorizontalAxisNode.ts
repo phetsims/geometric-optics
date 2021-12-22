@@ -9,7 +9,7 @@
  */
 
 import IProperty from '../../../../axon/js/IProperty.js';
-import Property from '../../../../axon/js/Property.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -33,7 +33,7 @@ class OpticalHorizontalAxisNode extends Line {
    * @param modelViewTransform
    * @param options
    */
-  constructor( opticPositionProperty: Property<Vector2>, modelBoundsProperty: Property<Bounds2>,
+  constructor( opticPositionProperty: IReadOnlyProperty<Vector2>, modelBoundsProperty: IReadOnlyProperty<Bounds2>,
                modelViewTransform: ModelViewTransform2, options: Options ) {
 
     // create optical axis line, with arbitrary length values.

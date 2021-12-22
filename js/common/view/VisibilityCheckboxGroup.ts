@@ -20,9 +20,9 @@ import GOQueryParameters from '../GOQueryParameters.js';
 import FocalPointNode from './FocalPointNode.js';
 import SecondPointNode from './SecondPointNode.js';
 import VisibleProperties from './VisibleProperties.js';
-import Property from '../../../../axon/js/Property.js';
 import Representation from '../model/Representation.js';
 import TwoFPointNode from './TwoFPointNode.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 type Options = {
   tandem: Tandem
@@ -37,7 +37,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
    * @param options
    */
   constructor( visibleProperties: VisibleProperties, isLens: boolean,
-               representationProperty: Property<Representation>, options: Options ) {
+               representationProperty: IReadOnlyProperty<Representation>, options: Options ) {
 
     const items = [
 

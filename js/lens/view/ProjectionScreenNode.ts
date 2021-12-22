@@ -42,7 +42,7 @@ class ProjectionScreenNode extends Node {
    * @param modelViewTransform
    * @param options
    */
-  constructor( projectionScreen: ProjectionScreen, opticPositionProperty: Property<Vector2>,
+  constructor( projectionScreen: ProjectionScreen, opticPositionProperty: IReadOnlyProperty<Vector2>,
                modelBoundsProperty: IReadOnlyProperty<Bounds2>, modelViewTransform: ModelViewTransform2, options: Options ) {
 
     // The screen part of the projection screen, drawn in perspective.

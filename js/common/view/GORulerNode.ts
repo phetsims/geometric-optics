@@ -12,7 +12,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -27,6 +26,7 @@ import GORuler from '../model/GORuler.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import RulerIconNode from './RulerIconNode.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;
@@ -66,8 +66,8 @@ class GORulerNode extends Node {
    * @param visibleBoundsProperty
    * @param providedOptions
    */
-  constructor( ruler: GORuler, zoomTransformProperty: Property<ModelViewTransform2>,
-               zoomScaleProperty: Property<number>, visibleBoundsProperty: Property<Bounds2>,
+  constructor( ruler: GORuler, zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+               zoomScaleProperty: IReadOnlyProperty<number>, visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                providedOptions: Options ) {
 
     const options = merge( {
