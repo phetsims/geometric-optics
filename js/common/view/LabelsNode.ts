@@ -101,6 +101,16 @@ class LabelsNode extends Node {
         visibleProperty: visibleProperties.focalPointsVisibleProperty
       } );
 
+    const left2FLabel = new LabelNode( geometricOpticsStrings.twoF,
+      model.optic.left2FProperty, zoomTransformProperty, {
+        visibleProperty: visibleProperties.twoFPointsVisibleProperty
+      } );
+
+    const right2FLabel = new LabelNode( geometricOpticsStrings.twoF,
+      model.optic.right2FProperty, zoomTransformProperty, {
+        visibleProperty: visibleProperties.twoFPointsVisibleProperty
+      } );
+
     // Image label ------------------------------------------------------------------------------------
 
     const imageLabelPositionProperty = new DerivedProperty(
@@ -162,6 +172,7 @@ class LabelsNode extends Node {
     const children: Node[] = [
       opticalAxisLabel,
       leftFocalPointLabel, rightFocalPointLabel,
+      left2FLabel, right2FLabel,
       opticLabel, objectLabel, imageLabel
     ];
     if ( screenLabel ) {
