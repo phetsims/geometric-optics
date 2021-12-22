@@ -65,16 +65,18 @@ class SourceObjectNode extends Node {
       focusHighlight: new FocusHighlightFromNode( sourceObjectImage )
     }, options ) );
 
+    // Update cursor and cueing arrows to reflect how this Node is draggable.
     dragLockedProperty.link( locked => {
-      cueingArrowsNode.setDirection( locked ? 'horizontal' : 'both' );
       this.cursor = locked ? 'ew-resize' : 'pointer';
+      cueingArrowsNode.setDirection( locked ? 'horizontal' : 'both' );
     } );
 
     // Keep cueing arrows next to the source object.
-    sourceObjectImage.boundsProperty.link( ( bounds: Bounds2 ) => {
-      cueingArrowsNode.right = sourceObjectImage.left - 10;
-      cueingArrowsNode.centerY = sourceObjectImage.centerY;
-    } );
+    Property.multilink( [ sourceObjectImage.boundsProperty, cueingArrowsNode.boundsProperty ],
+      ( sourceObjectImageBounds: Bounds2, cueingArrowsNodeBounds: Bounds2 ) => {
+        cueingArrowsNode.right = sourceObjectImage.left - 5;
+        cueingArrowsNode.centerY = sourceObjectImage.centerY;
+      } );
 
     // Scale the source object.
     const scaleSourceObject = (): void => {
