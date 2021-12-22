@@ -74,7 +74,7 @@ class OpticalAxisForegroundNode extends Line {
     }
     else {
       barrierPositionProperty = new DerivedProperty( [ modelBoundsProperty ],
-        ( modelBounds: Bounds2 ) => new Vector2( modelBounds.right - 100, modelBounds.centerX ) );
+        ( modelBounds: Bounds2 ) => new Vector2( modelBounds.right, modelBounds.centerX ) );
     }
 
     // Clip area
