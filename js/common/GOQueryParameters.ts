@@ -20,7 +20,7 @@ const SCHEMA = {
 
   // Add the 'Guides' feature to the Lens screen. This is a representation that was invented by PhET.
   // A checkbox will be added to the control panel, for controlling the visibility of the Guides.
-  showGuides: {
+  enableGuides: {
     type: 'flag',
     public: true
   },
