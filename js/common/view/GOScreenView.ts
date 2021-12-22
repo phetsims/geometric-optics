@@ -259,7 +259,7 @@ class GOScreenView extends ScreenView {
     // the axis is going through the source object, real/virtual image, etc.
     const opticalAxisForegroundNode = new OpticalAxisForegroundNode( model.optic.positionProperty,
       model.representationProperty, model.sourceObject.positionProperty, model.firstTarget.positionProperty,
-      model.barrier, modelBoundsProperty, modelViewTransform, {
+      model.firstTarget.isVirtualProperty, model.barrier, modelBoundsProperty, modelViewTransform, {
         visibleProperty: model.optic.opticalAxisVisibleProperty
       } );
 

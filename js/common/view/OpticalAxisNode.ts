@@ -3,6 +3,7 @@
 /**
  * OpticalAxisNode is the horizontal line that passes through the geometric center of a lens or mirror.
  * It is referred to as 'optical axis', or sometimes as 'principal axis'.
+ * It extends from left to right edges of the browser window.
  *
  * @author Sarah Chang (Swarthmore College)
  * @author Chris Malley (PixelZoom, Inc.)

@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * TODO
+ * OpticalAxisForegroundNode is the part of the optical axis that is not occluded by things in the view.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -33,6 +33,7 @@ class OpticalAxisForegroundNode extends Line {
    * @param representationProperty
    * @param sourceObjectPositionProperty
    * @param targetPositionProperty
+   * @param isVirtualProperty
    * @param barrier
    * @param modelBoundsProperty
    * @param modelViewTransform
@@ -42,6 +43,7 @@ class OpticalAxisForegroundNode extends Line {
                representationProperty: IReadOnlyProperty<Representation>,
                sourceObjectPositionProperty: IReadOnlyProperty<Vector2>,
                targetPositionProperty: IReadOnlyProperty<Vector2>,
+               isVirtualProperty: IReadOnlyProperty<boolean>,
                barrier: Barrier | null,
                modelBoundsProperty: IReadOnlyProperty<Bounds2>,
                modelViewTransform: ModelViewTransform2,
@@ -49,7 +51,7 @@ class OpticalAxisForegroundNode extends Line {
 
     // create optical axis line, with arbitrary length values.
     super( 0, 0, 1, 0, merge( {
-      stroke: GOColors.opticalAxisStrokeProperty,
+      stroke: phet.chipper.queryParameters.dev ? 'red' : GOColors.opticalAxisStrokeProperty,
       lineWidth: GOConstants.AXIS_LINE_WIDTH,
       lineDash: GOConstants.AXIS_LINE_DASH
     }, options ) );
@@ -79,21 +81,48 @@ class OpticalAxisForegroundNode extends Line {
 
     // Clip area
     Property.multilink(
-      [ representationProperty, sourceObjectPositionProperty, targetPositionProperty, barrierPositionProperty, modelBoundsProperty ],
-      ( representation: Representation, sourceObjectPosition: Vector2, targetPosition: Vector2, barrierPosition: Vector2, modelBounds: Bounds2 ) => {
-        let minX;
-        let maxX;
+      [ opticPositionProperty, representationProperty, sourceObjectPositionProperty, targetPositionProperty,
+        barrierPositionProperty, isVirtualProperty, modelBoundsProperty ],
+      ( opticPosition: Vector2, representation: Representation, sourceObjectPosition: Vector2, targetPosition: Vector2,
+        barrierPosition: Vector2, isVirtual: boolean, modelBounds: Bounds2 ) => {
         const minY = modelViewTransform.modelToViewY( modelBounds.minY );
         const maxY = modelViewTransform.modelToViewY( modelBounds.maxY );
+        const clipHeight = maxY - minY;
         if ( representation.isObject ) {
-          minX = modelViewTransform.modelToViewX( sourceObjectPosition.x );
-          maxX = modelViewTransform.modelToViewX( targetPosition.x );
+
+          // For a source object...
+          if ( targetPosition.x < opticPosition.x ) {
+
+            // For a source object and virtual image, clipArea is 2 rectangles.
+            // The first rectangle is between the object and optic.
+            const x1 = modelViewTransform.modelToViewX( sourceObjectPosition.x );
+            const clipWidth1 = modelViewTransform.modelToViewX( opticPosition.x ) - x1;
+
+            // The second rectangle is between the image and left edge of the picture frame.
+            const x2 = modelViewTransform.modelToViewX( targetPosition.x );
+            const halfFrameWidth = 34; //TODO either add sourceObject.width to model, or get this from sourceObjectNode
+            const clipWidth2 = modelViewTransform.modelToViewX( sourceObjectPosition.x ) - halfFrameWidth - x2;
+
+            this.clipArea = new Shape()
+              .rect( x1, minY, clipWidth1, clipHeight )
+              .rect( x2, minY, clipWidth2, clipHeight );
+          }
+          else {
+
+            // For a source object and real image, clipAra is 1 rectangle, between the object and image.
+            const minX = modelViewTransform.modelToViewX( sourceObjectPosition.x );
+            const maxX = modelViewTransform.modelToViewX( targetPosition.x );
+            const clipWidth = maxX - minX;
+            this.clipArea = Shape.rectangle( minX, minY, clipWidth, clipHeight );
+          }
         }
         else {
-          minX = modelViewTransform.modelToViewX( modelBoundsProperty.value.left );
-          maxX = modelViewTransform.modelToViewX( barrierPosition.x );
+
+          // For a light source, clipArea is 1 rectangle, between the optic and the projection screen.
+          const minX = modelViewTransform.modelToViewX( opticPosition.x );
+          const maxX = modelViewTransform.modelToViewX( barrierPosition.x );
+          this.clipArea = Shape.rectangle( minX, minY, maxX - minX, maxY - minY );
         }
-        this.clipArea = Shape.rectangle( minX, minY, maxX - minX, maxY - minY );
       } );
   }
 
