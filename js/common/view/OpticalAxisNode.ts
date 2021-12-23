@@ -21,6 +21,7 @@ import GOColors from '../GOColors.js';
 import GOConstants from '../GOConstants.js';
 
 type OpticalAxisNodeOptions = {
+  stroke?: ColorDef,
   visibleProperty: IProperty<boolean>
 };
 

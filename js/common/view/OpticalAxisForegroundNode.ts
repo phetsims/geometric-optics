@@ -14,11 +14,13 @@ import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
+import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import geometricOptics from '../../geometricOptics.js';
 import Barrier from '../model/Barrier.js';
 import Representation from '../model/Representation.js';
 import OpticalAxisNode, { OpticalAxisNodeOptions } from './OpticalAxisNode.js';
+import GOQueryParameters from '../GOQueryParameters.js';
 
 class OpticalAxisForegroundNode extends OpticalAxisNode {
 
@@ -31,7 +33,7 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
    * @param barrier
    * @param modelBoundsProperty
    * @param modelViewTransform
-   * @param options
+   * @param providedOptions
    */
   constructor( opticPositionProperty: IReadOnlyProperty<Vector2>,
                representationProperty: IReadOnlyProperty<Representation>,
@@ -41,7 +43,12 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
                barrier: Barrier | null,
                modelBoundsProperty: IReadOnlyProperty<Bounds2>,
                modelViewTransform: ModelViewTransform2,
-               options: OpticalAxisNodeOptions ) {
+               providedOptions: OpticalAxisNodeOptions ) {
+
+    const options = merge( {}, providedOptions ) as OpticalAxisNodeOptions;
+    if ( GOQueryParameters.debugOpticalAxis ) {
+      options.stroke = 'red';
+    }
 
     // create optical axis line, with arbitrary length values.
     super( opticPositionProperty, modelBoundsProperty, modelViewTransform, options );

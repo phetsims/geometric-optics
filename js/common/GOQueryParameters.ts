@@ -60,6 +60,12 @@ const SCHEMA = {
     type: 'number',
     defaultValue: 400,
     isValidValue: ( value: number ) => ( value >= 100 )
+  },
+
+  // The optical axis is drawn using 2 Nodes, OpticalAxisNode and OpticalAxisForegroundNode.
+  // This flag uses 'red' stroke for the segments drawn by OpticalAxisForegroundNode.
+  debugOpticalAxis: {
+    type: 'flag'
   }
 };
 
