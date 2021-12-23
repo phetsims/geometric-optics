@@ -20,7 +20,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import GOConstants from '../GOConstants.js';
 
-type Options = {
+type OpticalAxisNodeOptions = {
   visibleProperty: IProperty<boolean>
 };
 
@@ -33,7 +33,7 @@ class OpticalAxisNode extends Line {
    * @param options
    */
   constructor( opticPositionProperty: IReadOnlyProperty<Vector2>, modelBoundsProperty: IReadOnlyProperty<Bounds2>,
-               modelViewTransform: ModelViewTransform2, options: Options ) {
+               modelViewTransform: ModelViewTransform2, options: OpticalAxisNodeOptions ) {
 
     // create optical axis line, with arbitrary length values.
     super( 0, 0, 1, 0, merge( {
@@ -65,3 +65,4 @@ class OpticalAxisNode extends Line {
 geometricOptics.register( 'OpticalAxisNode', OpticalAxisNode );
 
 export default OpticalAxisNode;
+export type { OpticalAxisNodeOptions };
