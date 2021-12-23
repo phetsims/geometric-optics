@@ -172,9 +172,9 @@ class GORulerNode extends Node {
       transform: zoomTransformProperty.value,
       start: () => this.moveToFront(),
 
-      // Return the ruler to the toolbox
+      // Return the ruler to the toolbox if the ruler's center point is inside the toolbox.
       end: () => {
-        if ( this.toolboxBounds.intersectsBounds( this.bounds ) ) {
+        if ( this.toolboxBounds.containsPoint( this.center ) ) {
           ruler.visibleProperty.value = false;
           this.iconNode.focus();
         }
