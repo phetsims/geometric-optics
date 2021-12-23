@@ -39,20 +39,10 @@ const SCHEMA = {
   // Internal query parameters
   //----------------------------------------------------------------------------------------------------------------
 
-  // Show the positions of various things as red dots.
-  showPositions: {
-    type: 'flag'
-  },
-
   // Enable the feature that lets you show points at 2F.
   enable2F: {
     type: 'boolean',
     defaultValue: false
-  },
-
-  // Show the model bounds as a green rectangle.
-  showModelBounds: {
-    type: 'flag'
   },
 
   // speed of light in cm/sec, for the purpose of the light rays animation
@@ -62,9 +52,19 @@ const SCHEMA = {
     isValidValue: ( value: number ) => ( value >= 100 )
   },
 
+  // Shows the positions of various things as red dots.
+  debugOrigins: {
+    type: 'flag'
+  },
+
   // The optical axis is drawn using 2 Nodes, OpticalAxisNode and OpticalAxisForegroundNode.
   // This flag uses 'red' stroke for the segments drawn by OpticalAxisForegroundNode.
   debugOpticalAxis: {
+    type: 'flag'
+  },
+
+  // Shows the model bounds as a green rectangle.
+  debugModelBounds: {
     type: 'flag'
   }
 };

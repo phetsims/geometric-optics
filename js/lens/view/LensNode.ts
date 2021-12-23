@@ -67,7 +67,7 @@ class LensNode extends Node {
     const children: Node[] = [ fillNode, verticalCenterLine, strokeNode ];
 
     // Red dot at the origin
-    if ( GOQueryParameters.showPositions ) {
+    if ( GOQueryParameters.debugOrigins ) {
       children.push( new OriginNode() );
     }
 

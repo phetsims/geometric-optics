@@ -58,7 +58,7 @@ class MirrorNode extends Node {
     const children: Node[] = [ backingNode, reflectiveCoatingNode ];
 
     // Red dot at the origin
-    if ( GOQueryParameters.showPositions ) {
+    if ( GOQueryParameters.debugOrigins ) {
       children.push( new OriginNode() );
     }
 
