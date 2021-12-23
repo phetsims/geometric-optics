@@ -40,7 +40,7 @@ class Target {
   // light intensity of the image (Hollywood) - a value between 0 and 1
   readonly lightIntensityProperty: IReadOnlyProperty<number>;
 
-  //TODO what does that mean?
+  //TODO what does null mean?
   readonly imageProperty: IReadOnlyProperty<HTMLImageElement | null>;
 
   // The distance can be negative. We follow the standard sign convention used in geometric optics courses.
