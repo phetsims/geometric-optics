@@ -84,7 +84,7 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
 
             // The second rectangle is between the image and left edge of the picture frame.
             const x2 = modelViewTransform.modelToViewX( targetPosition.x );
-            const halfFrameWidth = 34; //TODO either add sourceObject.width to model, or get this from sourceObjectNode
+            const halfFrameWidth = 34; //TODO get this from sourceObject.boundsProperty, or from sourceObjectNode
             const clipWidth2 = modelViewTransform.modelToViewX( sourceObjectPosition.x ) - halfFrameWidth - x2;
 
             this.clipArea = new Shape()
