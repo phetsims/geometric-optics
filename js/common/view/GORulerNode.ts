@@ -27,6 +27,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import RulerIconNode from './RulerIconNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import Representation from '../model/Representation.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;
@@ -41,7 +42,7 @@ type RulerNodeOptions = {
   insetsWidth?: number,
 };
 
-type Options = {
+type GORulerNodeOptions = {
   rulerOptions?: RulerNodeOptions,
   tandem: Tandem
 };
@@ -58,17 +59,28 @@ class GORulerNode extends Node {
   private toolboxBounds: Bounds2;
 
   private readonly dragListener: DragListener;
+  protected readonly keyboardDragListener: KeyboardDragListener;
 
   /**
    * @param ruler
    * @param zoomTransformProperty
    * @param zoomScaleProperty
    * @param visibleBoundsProperty
+   * @param opticPositionProperty
+   * @param objectPositionProperty
+   * @param targetPositionProperty
+   * @param representationProperty
    * @param providedOptions
    */
-  constructor( ruler: GORuler, zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               zoomScaleProperty: IReadOnlyProperty<number>, visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-               providedOptions: Options ) {
+  constructor( ruler: GORuler,
+               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+               zoomScaleProperty: IReadOnlyProperty<number>,
+               visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+               opticPositionProperty: IReadOnlyProperty<Vector2>,
+               objectPositionProperty: IReadOnlyProperty<Vector2>,
+               targetPositionProperty: IReadOnlyProperty<Vector2>,
+               representationProperty: IReadOnlyProperty<Representation>,
+               providedOptions: GORulerNodeOptions ) {
 
     const options = merge( {
 
@@ -90,7 +102,7 @@ class GORulerNode extends Node {
 
       // phet-io options
       phetioInputEnabledPropertyInstrumented: true
-    }, providedOptions ) as Options;
+    }, providedOptions ) as GORulerNodeOptions;
 
     super( options );
 
@@ -166,7 +178,7 @@ class GORulerNode extends Node {
     this.addInputListener( this.dragListener );
 
     // Dragging with the keyboard
-    const keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
+    this.keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
       positionProperty: ruler.positionProperty,
       dragBoundsProperty: dragBoundsProperty,
       transform: zoomTransformProperty.value,
@@ -181,20 +193,54 @@ class GORulerNode extends Node {
       }
       //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
     } ) );
-    this.addInputListener( keyboardDragListener );
+    this.addInputListener( this.keyboardDragListener );
 
-    keyboardDragListener.addHotkeys( [ {
-      keys: [ KeyboardUtils.KEY_ESCAPE ],
-      callback: () => {
-        ruler.visibleProperty.value = false;
-        this.iconNode.focus();
+    // Hotkeys for rulers, see https://github.com/phetsims/geometric-optics/issues/279
+    this.keyboardDragListener.addHotkeys( [
+
+      // Escape returns the ruler to the toolbox.
+      {
+        keys: [ KeyboardUtils.KEY_ESCAPE ],
+        callback: () => {
+          ruler.visibleProperty.value = false;
+          this.iconNode.focus();
+        }
+      },
+
+      // J+L moves the ruler to the optic (Lens or Mirror) position.
+      {
+        keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_L ], //TODO KEY_M for mirror
+        callback: () => {
+          ruler.positionProperty.value = opticPositionProperty.value;
+        }
+      },
+
+      // J+O moves the ruler to the Object position.
+      {
+        keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_O ],
+        callback: () => {
+          ruler.positionProperty.value = objectPositionProperty.value;
+        }
+      },
+
+      // J+I moves the ruler to the Image position.
+      {
+        keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_I ],
+        callback: () => {
+          if ( representationProperty.value.isObject ) {
+            ruler.positionProperty.value = targetPositionProperty.value;
+          }
+        }
       }
-    } ] );
+
+      //TODO J+F for first light source?
+      //TODO J+S for second light source?
+    ] );
 
     // When the transform changes, update the input listeners
     zoomTransformProperty.link( zoomTransform => {
       this.dragListener.transform = zoomTransform;
-      keyboardDragListener.transform = zoomTransform;
+      this.keyboardDragListener.transform = zoomTransform;
     } );
   }
 
@@ -255,3 +301,4 @@ function createRulerNode( rulerLength: number, zoomTransform: ModelViewTransform
 
 geometricOptics.register( 'GORulerNode', GORulerNode );
 export default GORulerNode;
+export type { GORulerNodeOptions };
