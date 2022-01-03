@@ -239,7 +239,7 @@ class GORulerNode extends Node {
       // J+S moves the ruler to the second light source.
       // This is ignored if there is no second light source.
       {
-        keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_I ],
+        keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_S ],
         callback: () => {
           if ( !representationProperty.value.isObject ) {
             moveRuler( ruler, sourceObjectPositionProperty.value, opticPositionProperty.value.y );
