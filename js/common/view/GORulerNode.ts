@@ -43,8 +43,14 @@ type RulerNodeOptions = {
 };
 
 type GORulerNodeOptions = {
-  moveRulerToOpticKeys: string[],
+
+  // Hotkeys that move the ruler to the optic, KeyboardUtils.KEY_* values
+  hotkeysMoveRulerToOptic: string[],
+
+  // Options passed to RulerNode
   rulerOptions?: RulerNodeOptions,
+
+  // phet-io options
   tandem: Tandem
 };
 
@@ -60,7 +66,6 @@ class GORulerNode extends Node {
   private toolboxBounds: Bounds2;
 
   private readonly dragListener: DragListener;
-  protected readonly keyboardDragListener: KeyboardDragListener;
 
   /**
    * @param ruler
@@ -181,7 +186,7 @@ class GORulerNode extends Node {
     this.addInputListener( this.dragListener );
 
     // Dragging with the keyboard
-    this.keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
+    const keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
       positionProperty: ruler.positionProperty,
       dragBoundsProperty: dragBoundsProperty,
       transform: zoomTransformProperty.value,
@@ -196,10 +201,10 @@ class GORulerNode extends Node {
       }
       //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
     } ) );
-    this.addInputListener( this.keyboardDragListener );
+    this.addInputListener( keyboardDragListener );
 
     // Hotkeys for rulers, see https://github.com/phetsims/geometric-optics/issues/279
-    this.keyboardDragListener.addHotkeys( [
+    keyboardDragListener.addHotkeys( [
 
       // Escape returns the ruler to the toolbox.
       {
@@ -212,7 +217,7 @@ class GORulerNode extends Node {
 
       // J+L moves the ruler to the optic (Lens or Mirror) position.
       {
-        keys: options.moveRulerToOpticKeys,
+        keys: options.hotkeysMoveRulerToOptic,
         callback: () => {
           ruler.positionProperty.value = opticPositionProperty.value;
         }
@@ -252,7 +257,7 @@ class GORulerNode extends Node {
     // When the transform changes, update the input listeners
     zoomTransformProperty.link( zoomTransform => {
       this.dragListener.transform = zoomTransform;
-      this.keyboardDragListener.transform = zoomTransform;
+      keyboardDragListener.transform = zoomTransform;
     } );
   }
 

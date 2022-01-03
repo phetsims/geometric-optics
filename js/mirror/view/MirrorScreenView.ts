@@ -47,7 +47,7 @@ class MirrorScreenView extends GOScreenView {
         } ),
 
       // Hotkey J+M moves a ruler to the lens
-      moveRulerToOpticKeys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_M ]
+      hotkeysMoveRulerToOptic: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_M ]
 
     }, providedOptions ) as GeometricOpticsScreenViewOptions;
 

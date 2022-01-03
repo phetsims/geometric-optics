@@ -52,7 +52,7 @@ class LensScreenView extends GOScreenView {
         } ),
 
       // Hotkey J+L moves a ruler to the lens
-      moveRulerToOpticKeys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_L ]
+      hotkeysMoveRulerToOptic: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_L ]
 
     }, providedOptions ) as GeometricOpticsScreenViewOptions;
 
