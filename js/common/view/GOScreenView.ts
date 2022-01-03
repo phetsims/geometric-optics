@@ -136,13 +136,13 @@ class GOScreenView extends ScreenView {
     // create Rulers
     const horizontalRulerNode = new GORulerNode( model.horizontalRuler, zoomTransformProperty, zoomScaleProperty,
       this.visibleBoundsProperty, model.optic.positionProperty, model.sourceObject.positionProperty,
-      model.secondPoint.positionProperty, model.firstTarget.positionProperty, model.representationProperty, {
+      model.secondPoint.lightSourcePositionProperty, model.firstTarget.positionProperty, model.representationProperty, {
         hotkeysMoveRulerToOptic: options.hotkeysMoveRulerToOptic,
         tandem: options.tandem.createTandem( 'horizontalRulerNode' )
       } );
     const verticalRulerNode = new GORulerNode( model.verticalRuler, zoomTransformProperty, zoomScaleProperty,
       this.visibleBoundsProperty, model.optic.positionProperty, model.sourceObject.positionProperty,
-      model.secondPoint.positionProperty, model.firstTarget.positionProperty, model.representationProperty, {
+      model.secondPoint.lightSourcePositionProperty, model.firstTarget.positionProperty, model.representationProperty, {
         hotkeysMoveRulerToOptic: options.hotkeysMoveRulerToOptic,
         tandem: options.tandem.createTandem( 'verticalRulerNode' )
       } );

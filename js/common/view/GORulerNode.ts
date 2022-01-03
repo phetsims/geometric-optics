@@ -74,7 +74,7 @@ class GORulerNode extends Node {
    * @param visibleBoundsProperty
    * @param opticPositionProperty
    * @param sourceObjectPositionProperty
-   * @param secondPointPositionProperty
+   * @param secondLightSourcePositionProperty
    * @param targetPositionProperty
    * @param representationProperty
    * @param providedOptions
@@ -85,7 +85,7 @@ class GORulerNode extends Node {
                visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                opticPositionProperty: IReadOnlyProperty<Vector2>,
                sourceObjectPositionProperty: IReadOnlyProperty<Vector2>,
-               secondPointPositionProperty: IReadOnlyProperty<Vector2>,
+               secondLightSourcePositionProperty: IReadOnlyProperty<Vector2>,
                targetPositionProperty: IReadOnlyProperty<Vector2>,
                representationProperty: IReadOnlyProperty<Representation>,
                providedOptions: GORulerNodeOptions ) {
@@ -248,7 +248,7 @@ class GORulerNode extends Node {
         keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_S ],
         callback: () => {
           if ( !representationProperty.value.isObject ) {
-            moveRuler( ruler, sourceObjectPositionProperty.value, opticPositionProperty.value.y );
+            moveRuler( ruler, secondLightSourcePositionProperty.value, opticPositionProperty.value.y );
           }
         }
       }
