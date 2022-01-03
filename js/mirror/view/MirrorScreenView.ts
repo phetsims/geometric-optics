@@ -46,7 +46,7 @@ class MirrorScreenView extends GOScreenView {
           tandem: parentTandem.createTandem( 'mirrorNode' )
         } ),
 
-      // J+M moves a ruler to the lens
+      // Hotkey J+M moves a ruler to the lens
       moveRulerToOpticKeys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_M ]
 
     }, providedOptions ) as GeometricOpticsScreenViewOptions;

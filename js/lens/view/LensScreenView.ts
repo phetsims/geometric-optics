@@ -51,7 +51,7 @@ class LensScreenView extends GOScreenView {
           tandem: parentTandem.createTandem( 'lensNode' )
         } ),
 
-      // J+L moves a ruler to the lens
+      // Hotkey J+L moves a ruler to the lens
       moveRulerToOpticKeys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_L ]
 
     }, providedOptions ) as GeometricOpticsScreenViewOptions;
