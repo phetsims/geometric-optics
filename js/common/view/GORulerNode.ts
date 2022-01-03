@@ -67,7 +67,8 @@ class GORulerNode extends Node {
    * @param zoomScaleProperty
    * @param visibleBoundsProperty
    * @param opticPositionProperty
-   * @param objectPositionProperty
+   * @param sourceObjectPositionProperty
+   * @param secondPointPositionProperty
    * @param targetPositionProperty
    * @param representationProperty
    * @param providedOptions
@@ -77,7 +78,8 @@ class GORulerNode extends Node {
                zoomScaleProperty: IReadOnlyProperty<number>,
                visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                opticPositionProperty: IReadOnlyProperty<Vector2>,
-               objectPositionProperty: IReadOnlyProperty<Vector2>,
+               sourceObjectPositionProperty: IReadOnlyProperty<Vector2>,
+               secondPointPositionProperty: IReadOnlyProperty<Vector2>,
                targetPositionProperty: IReadOnlyProperty<Vector2>,
                representationProperty: IReadOnlyProperty<Representation>,
                providedOptions: GORulerNodeOptions ) {
@@ -215,26 +217,35 @@ class GORulerNode extends Node {
         }
       },
 
-      // J+O moves the ruler to the Object position.
+      // J+O moves the ruler to the source object or second light source.
       {
         keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_O ],
         callback: () => {
-          ruler.positionProperty.value = objectPositionProperty.value;
+          moveRuler( ruler, sourceObjectPositionProperty.value, opticPositionProperty.value.y );
         }
       },
 
       // J+I moves the ruler to the Image position.
+      // This is ignored if there is no Image, or if moving the ruler would put it outside the drag bounds.
       {
         keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_I ],
         callback: () => {
-          if ( representationProperty.value.isObject ) {
-            ruler.positionProperty.value = targetPositionProperty.value;
+          if ( representationProperty.value.isObject && dragBoundsProperty.value.containsPoint( targetPositionProperty.value ) ) {
+            moveRuler( ruler, targetPositionProperty.value, opticPositionProperty.value.y );
+          }
+        }
+      },
+
+      // J+S moves the ruler to the second light source.
+      // This is ignored if there is no second light source.
+      {
+        keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_I ],
+        callback: () => {
+          if ( !representationProperty.value.isObject ) {
+            moveRuler( ruler, sourceObjectPositionProperty.value, opticPositionProperty.value.y );
           }
         }
       }
-
-      //TODO J+F for first light source?
-      //TODO J+S for second light source?
     ] );
 
     // When the transform changes, update the input listeners
@@ -252,6 +263,19 @@ class GORulerNode extends Node {
   public startDrag( event: SceneryEvent ): void {
     this.dragListener.press( event, this );
   }
+}
+
+/**
+ * Moves the ruler so that a vertical ruler is measuring a distance from the optical axis,
+ * while a horizontal ruler is placed at the specified position.
+ * @param ruler
+ * @param position
+ * @param opticalAxisY
+ */
+function moveRuler( ruler: GORuler, position: Vector2, opticalAxisY: number ) {
+  const x = position.x;
+  const y = ruler.isVertical ? Math.min( position.y, opticalAxisY ) : opticalAxisY;
+  ruler.positionProperty.value = new Vector2( x, y );
 }
 
 /**

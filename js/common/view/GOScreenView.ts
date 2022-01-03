@@ -131,14 +131,14 @@ class GOScreenView extends ScreenView {
     // Things that are outside the Experiment Area =====================================================================
 
     // create Rulers
-    const horizontalRulerNode = new GORulerNode( model.horizontalRuler,
-      zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, model.optic.positionProperty,
-      model.sourceObject.positionProperty, model.firstTarget.positionProperty, model.representationProperty, {
+    const horizontalRulerNode = new GORulerNode( model.horizontalRuler, zoomTransformProperty, zoomScaleProperty,
+      this.visibleBoundsProperty, model.optic.positionProperty, model.sourceObject.positionProperty,
+      model.secondPoint.positionProperty, model.firstTarget.positionProperty, model.representationProperty, {
         tandem: options.tandem.createTandem( 'horizontalRulerNode' )
       } );
-    const verticalRulerNode = new GORulerNode( model.verticalRuler,
-      zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, model.optic.positionProperty,
-      model.sourceObject.positionProperty, model.firstTarget.positionProperty, model.representationProperty, {
+    const verticalRulerNode = new GORulerNode( model.verticalRuler, zoomTransformProperty, zoomScaleProperty,
+      this.visibleBoundsProperty, model.optic.positionProperty, model.sourceObject.positionProperty,
+      model.secondPoint.positionProperty, model.firstTarget.positionProperty, model.representationProperty, {
         tandem: options.tandem.createTandem( 'verticalRulerNode' )
       } );
 
