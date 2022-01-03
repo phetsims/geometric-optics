@@ -43,6 +43,7 @@ type RulerNodeOptions = {
 };
 
 type GORulerNodeOptions = {
+  moveRulerToOpticKeys: string[],
   rulerOptions?: RulerNodeOptions,
   tandem: Tandem
 };
@@ -211,7 +212,7 @@ class GORulerNode extends Node {
 
       // J+L moves the ruler to the optic (Lens or Mirror) position.
       {
-        keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_L ], //TODO KEY_M for mirror
+        keys: options.moveRulerToOpticKeys,
         callback: () => {
           ruler.positionProperty.value = opticPositionProperty.value;
         }

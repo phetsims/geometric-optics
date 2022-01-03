@@ -18,6 +18,7 @@ import Property from '../../../../axon/js/Property.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Mirror from '../model/Mirror.js';
 import MirrorNode from './MirrorNode.js';
+import { KeyboardUtils } from '../../../../scenery/js/imports.js';
 
 type MirrorScreenViewOptions = {
   tandem: Tandem
@@ -43,7 +44,11 @@ class MirrorScreenView extends GOScreenView {
       createOpticNode: ( optic: Mirror, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) =>
         new MirrorNode( optic, modelBoundsProperty, modelViewTransform, {
           tandem: parentTandem.createTandem( 'mirrorNode' )
-        } )
+        } ),
+
+      // J+M moves a ruler to the lens
+      moveRulerToOpticKeys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_M ]
+
     }, providedOptions ) as GeometricOpticsScreenViewOptions;
 
     super( model, options );

@@ -11,7 +11,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import { KeyboardUtils, Node } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GOScreenView, { GeometricOpticsScreenViewOptions } from '../../common/view/GOScreenView.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -49,7 +49,11 @@ class LensScreenView extends GOScreenView {
       createOpticNode: ( optic: Lens, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) =>
         new LensNode( optic, modelBoundsProperty, modelViewTransform, {
           tandem: parentTandem.createTandem( 'lensNode' )
-        } )
+        } ),
+
+      // J+L moves a ruler to the lens
+      moveRulerToOpticKeys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_L ]
+
     }, providedOptions ) as GeometricOpticsScreenViewOptions;
 
     super( model, options );
