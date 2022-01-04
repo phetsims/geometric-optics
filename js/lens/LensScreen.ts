@@ -35,7 +35,7 @@ class LensScreen extends Screen {
         homeScreenIcon: createScreenIcon(),
         showUnselectedHomeScreenIconFrame: true,
         backgroundColorProperty: GOColors.screenBackgroundColorProperty,
-        keyboardHelpNode: new GOKeyboardHelpContent()
+        keyboardHelpNode: new GOKeyboardHelpContent( true /* isLens */ )
       }, options )
     );
   }

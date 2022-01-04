@@ -35,7 +35,7 @@ class MirrorScreen extends Screen {
         homeScreenIcon: createScreenIcon(),
         showUnselectedHomeScreenIconFrame: true,
         backgroundColorProperty: GOColors.screenBackgroundColorProperty,
-        keyboardHelpNode: new GOKeyboardHelpContent()
+        keyboardHelpNode: new GOKeyboardHelpContent( false /* isLens */ )
       }, options )
     );
   }
