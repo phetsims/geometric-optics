@@ -69,8 +69,9 @@ class RulersKeyboardHelpSection extends KeyboardHelpSection {
   constructor( isLens: boolean ) {
     super( geometricOpticsStrings.keyboardHelpDialog.rulerControls, [
 
-      // Space
-      KeyboardHelpSection.labelWithIcon( geometricOpticsStrings.keyboardHelpDialog.removeFromToolbox, TextKeyNode.space() ),
+      // Space or Enter
+      KeyboardHelpSection.labelWithIcon( geometricOpticsStrings.keyboardHelpDialog.removeFromToolbox,
+        KeyboardHelpIconFactory.iconOrIcon( TextKeyNode.space(), TextKeyNode.enter() ) ),
 
       // Escape
       KeyboardHelpSection.labelWithIcon( geometricOpticsStrings.keyboardHelpDialog.returnToToolbox, TextKeyNode.esc() ),
