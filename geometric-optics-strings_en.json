@@ -112,5 +112,24 @@
   },
   "indirect": {
     "value": "indirect (calculated from optic parameters)"
+  },
+  "keyboardHelpDialog.moveDraggableItems": {
+    "value": "Move Draggable Items"
+  },
+  "keyboardHelpDialog.move": {
+    "value": "Move"
+  },
+  "keyboardHelpDialog.moveSlower": {
+    "value": "Move slower"
+  },
+  "a11y": {
+    "keyboardHelpDialog": {
+      "moveDescription": {
+        "value": "Move a draggable item."
+      },
+      "moveSlowerDescription": {
+        "value": "Move a draggable item slower."
+      }
+    }
   }
 }

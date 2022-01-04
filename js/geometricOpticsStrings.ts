@@ -49,7 +49,18 @@ type StringsType = {
   'opticalAxis': string,
   'focalLengthControl': string,
   'direct': string,
-  'indirect': string
+  'indirect': string,
+  'keyboardHelpDialog': {
+    'moveDraggableItems': string,
+    'move': string,
+    'moveSlower': string
+  },
+  'a11y': {
+    'keyboardHelpDialog': {
+      'moveDescription': string,
+      'moveSlowerDescription': string
+    }
+  }
 };
 
 const geometricOpticsStrings = getStringModule( 'GEOMETRIC_OPTICS' ) as StringsType;

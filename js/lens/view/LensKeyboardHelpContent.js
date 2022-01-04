@@ -10,6 +10,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/BasicActionsKeyboardHelpSection.js';
 import SliderControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SliderControlsKeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
+import MoveKeyboardHelpSection from '../../common/view/MoveKeyboardHelpSection.js';
 import geometricOptics from '../../geometricOptics.js';
 
 class LensKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
@@ -26,10 +27,11 @@ class LensKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
       }
     }, options );
 
+    const moveHelpSection = new MoveKeyboardHelpSection();
     const sliderHelpSection = new SliderControlsKeyboardHelpSection( options.sliderSectionOptions );
     const generalNavigationHelpSection = new BasicActionsKeyboardHelpSection( options.generalSectionOptions );
 
-    super( [ sliderHelpSection ], [ generalNavigationHelpSection ], options );
+    super( [ moveHelpSection ], [ sliderHelpSection, generalNavigationHelpSection ], options );
   }
 }
 
