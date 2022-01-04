@@ -44,20 +44,15 @@ class MoveKeyboardHelpSection extends KeyboardHelpSection {
 
   constructor() {
 
-    // {HelpSectionRow} First row, for normal motion
+    // arrows or WASD
     const normalRow = KeyboardHelpSection.labelWithIcon( geometricOpticsStrings.keyboardHelpDialog.move,
-      KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon(), {
-        labelInnerContent: geometricOpticsStrings.a11y.keyboardHelpDialog.moveDescription
-      } );
+      KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon() );
 
-    // {HelpSectionRow} Second row, for slower motion
-    const slowerRow = KeyboardHelpSection.labelWithIconList( geometricOpticsStrings.keyboardHelpDialog.moveSlower,
-      [
-        KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.arrowKeysRowIcon() ),
-        KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.wasdRowIcon() )
-      ], {
-        labelInnerContent: geometricOpticsStrings.a11y.keyboardHelpDialog.moveSlowerDescription
-      } );
+    // Shift+arrows or Shift+WASD
+    const slowerRow = KeyboardHelpSection.labelWithIconList( geometricOpticsStrings.keyboardHelpDialog.moveSlower, [
+      KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.arrowKeysRowIcon() ),
+      KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.wasdRowIcon() )
+    ] );
 
     super( geometricOpticsStrings.keyboardHelpDialog.moveDraggableItems, [ normalRow, slowerRow ] );
   }
@@ -72,46 +67,27 @@ class RulersKeyboardHelpSection extends KeyboardHelpSection {
    * @param isLens
    */
   constructor( isLens: boolean ) {
-
-    // J+L or J+M
-    const jumpToOpticRow = isLens ?
-                           KeyboardHelpSection.createJumpKeyRow( 'L', geometricOpticsStrings.keyboardHelpDialog.jumpToLens ) :
-                           KeyboardHelpSection.createJumpKeyRow( 'M', geometricOpticsStrings.keyboardHelpDialog.jumpToMirror );
-
     super( geometricOpticsStrings.keyboardHelpDialog.rulerControls, [
 
       // Space
-      KeyboardHelpSection.labelWithIcon( geometricOpticsStrings.keyboardHelpDialog.removeFromToolbox,
-        TextKeyNode.space(), {
-          labelInnerContent: geometricOpticsStrings.a11y.keyboardHelpDialog.removeFromToolboxDescription
-        } ),
+      KeyboardHelpSection.labelWithIcon( geometricOpticsStrings.keyboardHelpDialog.removeFromToolbox, TextKeyNode.space() ),
 
       // Escape
-      KeyboardHelpSection.labelWithIcon( geometricOpticsStrings.keyboardHelpDialog.returnToToolbox,
-        TextKeyNode.esc(), {
-          labelInnerContent: geometricOpticsStrings.a11y.keyboardHelpDialog.returnToToolboxDescription
-        } ),
+      KeyboardHelpSection.labelWithIcon( geometricOpticsStrings.keyboardHelpDialog.returnToToolbox, TextKeyNode.esc() ),
 
       // J+L or J+M
-      jumpToOpticRow,
+      isLens ?
+      KeyboardHelpSection.createJumpKeyRow( 'L', geometricOpticsStrings.keyboardHelpDialog.jumpToLens ) :
+      KeyboardHelpSection.createJumpKeyRow( 'M', geometricOpticsStrings.keyboardHelpDialog.jumpToMirror ),
 
       // J+O
-      KeyboardHelpSection.createJumpKeyRow( 'O',
-        geometricOpticsStrings.keyboardHelpDialog.jumpToObject, {
-          labelInnerContent: geometricOpticsStrings.a11y.keyboardHelpDialog.jumpToObjectDescription
-        } ),
+      KeyboardHelpSection.createJumpKeyRow( 'O', geometricOpticsStrings.keyboardHelpDialog.jumpToObject ),
 
       // J+S
-      KeyboardHelpSection.createJumpKeyRow( 'S',
-        geometricOpticsStrings.keyboardHelpDialog.jumpToSecondLightSource, {
-          labelInnerContent: geometricOpticsStrings.a11y.keyboardHelpDialog.jumpToSecondLightSourceDescription
-        } ),
+      KeyboardHelpSection.createJumpKeyRow( 'S', geometricOpticsStrings.keyboardHelpDialog.jumpToSecondLightSource ),
 
       // J+I
-      KeyboardHelpSection.createJumpKeyRow( 'I',
-        geometricOpticsStrings.keyboardHelpDialog.jumpToImage, {
-          labelInnerContent: geometricOpticsStrings.a11y.keyboardHelpDialog.jumpToImageDescription
-        } )
+      KeyboardHelpSection.createJumpKeyRow( 'I', geometricOpticsStrings.keyboardHelpDialog.jumpToImage )
     ] );
   }
 }

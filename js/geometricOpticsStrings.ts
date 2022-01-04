@@ -63,19 +63,6 @@ type StringsType = {
     'jumpToSecondLightSource': string,
     'jumpToImage': string,
     'comboBoxOption': string
-  },
-  'a11y': {
-    'keyboardHelpDialog': {
-      'moveDescription': string,
-      'moveSlowerDescription': string,
-      'removeFromToolboxDescription': string,
-      'returnToToolboxDescription': string,
-      'jumpToLensDescription': string,
-      'jumpToMirrorDescription': string,
-      'jumpToObjectDescription': string,
-      'jumpToSecondLightSourceDescription': string,
-      'jumpToImageDescription': string
-    }
   }
 };
 
