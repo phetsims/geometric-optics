@@ -12,10 +12,10 @@ import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import merge from '../../../phet-core/js/merge.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import GOColors from '../common/GOColors.js';
+import GOKeyboardHelpContent from '../common/view/GOKeyboardHelpContent.js';
 import geometricOptics from '../geometricOptics.js';
 import geometricOpticsStrings from '../geometricOpticsStrings.js';
 import LensModel from './model/LensModel.js';
-import LensKeyboardHelpContent from './view/LensKeyboardHelpContent.js';
 import LensNode from './view/LensNode.js';
 import LensScreenView from './view/LensScreenView.js';
 
@@ -35,7 +35,7 @@ class LensScreen extends Screen {
         homeScreenIcon: createScreenIcon(),
         showUnselectedHomeScreenIconFrame: true,
         backgroundColorProperty: GOColors.screenBackgroundColorProperty,
-        keyboardHelpNode: new LensKeyboardHelpContent()
+        keyboardHelpNode: new GOKeyboardHelpContent()
       }, options )
     );
   }
