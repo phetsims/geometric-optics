@@ -55,9 +55,9 @@ class MoveKeyboardHelpSection extends KeyboardHelpSection {
       [
         KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.arrowKeysRowIcon() ),
         KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.wasdRowIcon() )
-      ],
-      geometricOpticsStrings.a11y.keyboardHelpDialog.moveSlowerDescription
-    );
+      ], {
+        labelInnerContent: geometricOpticsStrings.a11y.keyboardHelpDialog.moveSlowerDescription
+      } );
 
     super( geometricOpticsStrings.keyboardHelpDialog.moveDraggableItems, [ normalRow, slowerRow ] );
   }
