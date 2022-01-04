@@ -125,10 +125,10 @@
   "keyboardHelpDialog.rulerControls": {
     "value": "Ruler Controls"
   },
-  "keyboardHelpDialog.removeRulerFromToolbox": {
+  "keyboardHelpDialog.removeFromToolbox": {
     "value": "Remove from toolbox"
   },
-  "keyboardHelpDialog.returnRulerToToolbox": {
+  "keyboardHelpDialog.returnToToolbox": {
     "value": "Return to toolbox"
   },
   "keyboardHelpDialog.jumpToLens": {
@@ -153,6 +153,27 @@
       },
       "moveSlowerDescription": {
         "value": "Move a draggable item slower."
+      },
+      "removeFromToolboxDescription": {
+        "value": "Remove from toolbox"
+      },
+      "returnToToolboxDescription": {
+        "value": "Return to toolbox"
+      },
+      "jumpToLensDescription": {
+        "value": "Jump to lens"
+      },
+      "jumpToMirrorDescription": {
+        "value": "Jump to mirror"
+      },
+      "jumpToObjectDescription": {
+        "value": "Jump to object or first light source."
+      },
+      "jumpToSecondLightSourceDescription": {
+        "value": "Jump to second light source"
+      },
+      "jumpToImageDescription": {
+        "value": "Jump to image"
       }
     }
   }

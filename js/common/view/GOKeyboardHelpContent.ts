@@ -11,6 +11,7 @@ import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/K
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import SliderControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SliderControlsKeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
+import TextKeyNode from '../../../../scenery-phet/js/keyboard/TextKeyNode.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 
@@ -71,17 +72,38 @@ class RulersKeyboardHelpSection extends KeyboardHelpSection {
    */
   constructor( isLens: boolean ) {
 
+    // J+L or J+M
     const jumpToOpticRow = isLens ?
                            KeyboardHelpSection.createJumpKeyRow( 'L', geometricOpticsStrings.keyboardHelpDialog.jumpToLens, '' ) :
                            KeyboardHelpSection.createJumpKeyRow( 'M', geometricOpticsStrings.keyboardHelpDialog.jumpToMirror, '' );
 
     super( geometricOpticsStrings.keyboardHelpDialog.rulerControls, [
-      //TODO Remove from toolbox [Space]
-      //TODO Return to toolbox [Esc]
+
+      // Space
+      KeyboardHelpSection.labelWithIcon( geometricOpticsStrings.keyboardHelpDialog.removeFromToolbox,
+        TextKeyNode.space(), geometricOpticsStrings.a11y.keyboardHelpDialog.removeFromToolboxDescription ),
+
+      // Escape
+      KeyboardHelpSection.labelWithIcon( geometricOpticsStrings.keyboardHelpDialog.returnToToolbox,
+        TextKeyNode.esc(), geometricOpticsStrings.a11y.keyboardHelpDialog.returnToToolboxDescription ),
+
+      // J+L or J+M
       jumpToOpticRow,
-      KeyboardHelpSection.createJumpKeyRow( 'O', geometricOpticsStrings.keyboardHelpDialog.jumpToObject, '' ),
-      KeyboardHelpSection.createJumpKeyRow( 'S', geometricOpticsStrings.keyboardHelpDialog.jumpToSecondLightSource, '' ),
-      KeyboardHelpSection.createJumpKeyRow( 'I', geometricOpticsStrings.keyboardHelpDialog.jumpToImage, '' )
+
+      // J+O
+      KeyboardHelpSection.createJumpKeyRow( 'O',
+        geometricOpticsStrings.keyboardHelpDialog.jumpToObject,
+        geometricOpticsStrings.a11y.keyboardHelpDialog.jumpToObjectDescription ),
+
+      // J+S
+      KeyboardHelpSection.createJumpKeyRow( 'S',
+        geometricOpticsStrings.keyboardHelpDialog.jumpToSecondLightSource,
+        geometricOpticsStrings.a11y.keyboardHelpDialog.jumpToSecondLightSourceDescription ),
+
+      // J+I
+      KeyboardHelpSection.createJumpKeyRow( 'I',
+        geometricOpticsStrings.keyboardHelpDialog.jumpToImage,
+        geometricOpticsStrings.a11y.keyboardHelpDialog.jumpToImageDescription )
     ] );
   }
 }

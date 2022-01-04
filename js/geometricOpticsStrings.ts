@@ -55,8 +55,8 @@ type StringsType = {
     'move': string,
     'moveSlower': string,
     'rulerControls': string,
-    'removeRulerFromToolbox': string,
-    'returnRulerToToolbox': string,
+    'removeFromToolbox': string,
+    'returnToToolbox': string,
     'jumpToLens': string,
     'jumpToMirror': string,
     'jumpToObject': string,
@@ -66,7 +66,14 @@ type StringsType = {
   'a11y': {
     'keyboardHelpDialog': {
       'moveDescription': string,
-      'moveSlowerDescription': string
+      'moveSlowerDescription': string,
+      'removeFromToolboxDescription': string,
+      'returnToToolboxDescription': string,
+      'jumpToLensDescription': string,
+      'jumpToMirrorDescription': string,
+      'jumpToObjectDescription': string,
+      'jumpToSecondLightSourceDescription': string,
+      'jumpToImageDescription': string
     }
   }
 };
