@@ -46,9 +46,9 @@ class MoveKeyboardHelpSection extends KeyboardHelpSection {
 
     // {HelpSectionRow} First row, for normal motion
     const normalRow = KeyboardHelpSection.labelWithIcon( geometricOpticsStrings.keyboardHelpDialog.move,
-      KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon(),
-      geometricOpticsStrings.a11y.keyboardHelpDialog.moveDescription
-    );
+      KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon(), {
+        labelInnerContent: geometricOpticsStrings.a11y.keyboardHelpDialog.moveDescription
+      } );
 
     // {HelpSectionRow} Second row, for slower motion
     const slowerRow = KeyboardHelpSection.labelWithIconList( geometricOpticsStrings.keyboardHelpDialog.moveSlower,
@@ -75,36 +75,43 @@ class RulersKeyboardHelpSection extends KeyboardHelpSection {
 
     // J+L or J+M
     const jumpToOpticRow = isLens ?
-                           KeyboardHelpSection.createJumpKeyRow( 'L', geometricOpticsStrings.keyboardHelpDialog.jumpToLens, '' ) :
-                           KeyboardHelpSection.createJumpKeyRow( 'M', geometricOpticsStrings.keyboardHelpDialog.jumpToMirror, '' );
+                           KeyboardHelpSection.createJumpKeyRow( 'L', geometricOpticsStrings.keyboardHelpDialog.jumpToLens ) :
+                           KeyboardHelpSection.createJumpKeyRow( 'M', geometricOpticsStrings.keyboardHelpDialog.jumpToMirror );
 
     super( geometricOpticsStrings.keyboardHelpDialog.rulerControls, [
 
       // Space
       KeyboardHelpSection.labelWithIcon( geometricOpticsStrings.keyboardHelpDialog.removeFromToolbox,
-        TextKeyNode.space(), geometricOpticsStrings.a11y.keyboardHelpDialog.removeFromToolboxDescription ),
+        TextKeyNode.space(), {
+          labelInnerContent: geometricOpticsStrings.a11y.keyboardHelpDialog.removeFromToolboxDescription
+        } ),
 
       // Escape
       KeyboardHelpSection.labelWithIcon( geometricOpticsStrings.keyboardHelpDialog.returnToToolbox,
-        TextKeyNode.esc(), geometricOpticsStrings.a11y.keyboardHelpDialog.returnToToolboxDescription ),
+        TextKeyNode.esc(), {
+          labelInnerContent: geometricOpticsStrings.a11y.keyboardHelpDialog.returnToToolboxDescription
+        } ),
 
       // J+L or J+M
       jumpToOpticRow,
 
       // J+O
       KeyboardHelpSection.createJumpKeyRow( 'O',
-        geometricOpticsStrings.keyboardHelpDialog.jumpToObject,
-        geometricOpticsStrings.a11y.keyboardHelpDialog.jumpToObjectDescription ),
+        geometricOpticsStrings.keyboardHelpDialog.jumpToObject, {
+          labelInnerContent: geometricOpticsStrings.a11y.keyboardHelpDialog.jumpToObjectDescription
+        } ),
 
       // J+S
       KeyboardHelpSection.createJumpKeyRow( 'S',
-        geometricOpticsStrings.keyboardHelpDialog.jumpToSecondLightSource,
-        geometricOpticsStrings.a11y.keyboardHelpDialog.jumpToSecondLightSourceDescription ),
+        geometricOpticsStrings.keyboardHelpDialog.jumpToSecondLightSource, {
+          labelInnerContent: geometricOpticsStrings.a11y.keyboardHelpDialog.jumpToSecondLightSourceDescription
+        } ),
 
       // J+I
       KeyboardHelpSection.createJumpKeyRow( 'I',
-        geometricOpticsStrings.keyboardHelpDialog.jumpToImage,
-        geometricOpticsStrings.a11y.keyboardHelpDialog.jumpToImageDescription )
+        geometricOpticsStrings.keyboardHelpDialog.jumpToImage, {
+          labelInnerContent: geometricOpticsStrings.a11y.keyboardHelpDialog.jumpToImageDescription
+        } )
     ] );
   }
 }
