@@ -1,4 +1,4 @@
-// Copyright 2021, University of Colorado Boulder
+// Copyright 2021-2022, University of Colorado Boulder
 
 /**
  * Auto-generated from modulify, DO NOT manually modify.
@@ -53,7 +53,15 @@ type StringsType = {
   'keyboardHelpDialog': {
     'moveDraggableItems': string,
     'move': string,
-    'moveSlower': string
+    'moveSlower': string,
+    'rulerControls': string,
+    'removeRulerFromToolbox': string,
+    'returnRulerToToolbox': string,
+    'jumpToLens': string,
+    'jumpToMirror': string,
+    'jumpToObject': string,
+    'jumpToSecondLightSource': string,
+    'jumpToImage': string
   },
   'a11y': {
     'keyboardHelpDialog': {

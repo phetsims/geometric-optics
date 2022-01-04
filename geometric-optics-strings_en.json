@@ -122,6 +122,30 @@
   "keyboardHelpDialog.moveSlower": {
     "value": "Move slower"
   },
+  "keyboardHelpDialog.rulerControls": {
+    "value": "Ruler Controls"
+  },
+  "keyboardHelpDialog.removeRulerFromToolbox": {
+    "value": "Remove from toolbox"
+  },
+  "keyboardHelpDialog.returnRulerToToolbox": {
+    "value": "Return to toolbox"
+  },
+  "keyboardHelpDialog.jumpToLens": {
+    "value": "Jump to Lens"
+  },
+  "keyboardHelpDialog.jumpToMirror": {
+    "value": "Jump to Mirror"
+  },
+  "keyboardHelpDialog.jumpToObject": {
+    "value": "Jump to Object or first light source"
+  },
+  "keyboardHelpDialog.jumpToSecondLightSource": {
+    "value": "Jump to Second light source"
+  },
+  "keyboardHelpDialog.jumpToImage": {
+    "value": "Jump to Image"
+  },
   "a11y": {
     "keyboardHelpDialog": {
       "moveDescription": {
