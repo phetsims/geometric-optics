@@ -7,6 +7,7 @@
  */
 
 import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/BasicActionsKeyboardHelpSection.js';
+import ComboBoxKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/ComboBoxKeyboardHelpSection.js';
 import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import SliderControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SliderControlsKeyboardHelpSection.js';
@@ -21,15 +22,15 @@ class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
     const leftColumn = [
       new MoveKeyboardHelpSection(),
-      new RulersKeyboardHelpSection( isLens )
+      new RulersKeyboardHelpSection( isLens ),
+      new ComboBoxKeyboardHelpSection( geometricOpticsStrings.keyboardHelpDialog.comboBoxOption )
     ];
 
     const rightColumn = [
       new SliderControlsKeyboardHelpSection(),
       new BasicActionsKeyboardHelpSection( {
-          withCheckboxContent: true
-        }
-      )
+        withCheckboxContent: true
+      } )
     ];
 
     super( leftColumn, rightColumn );

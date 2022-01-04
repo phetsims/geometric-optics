@@ -146,6 +146,9 @@
   "keyboardHelpDialog.jumpToImage": {
     "value": "Jump to Image"
   },
+  "keyboardHelpDialog.comboBoxOption": {
+    "value": "combo box option"
+  },
   "a11y": {
     "keyboardHelpDialog": {
       "moveDescription": {

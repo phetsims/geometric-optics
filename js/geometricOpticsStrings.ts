@@ -61,7 +61,8 @@ type StringsType = {
     'jumpToMirror': string,
     'jumpToObject': string,
     'jumpToSecondLightSource': string,
-    'jumpToImage': string
+    'jumpToImage': string,
+    'comboBoxOption': string
   },
   'a11y': {
     'keyboardHelpDialog': {
