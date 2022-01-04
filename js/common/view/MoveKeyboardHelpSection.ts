@@ -26,7 +26,7 @@ class MoveKeyboardHelpSection extends KeyboardHelpSection {
   /**
    * @param providedOptions
    */
-  constructor( providedOptions: MoveKeyboardHelpSectionOptions ) {
+  constructor( providedOptions?: MoveKeyboardHelpSectionOptions ) {
 
     const options = merge( {
       title: geometricOpticsStrings.keyboardHelpDialog.moveDraggableItems,

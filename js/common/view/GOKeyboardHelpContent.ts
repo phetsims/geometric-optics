@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/BasicActionsKeyboardHelpSection.js';
 import SliderControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SliderControlsKeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
@@ -15,23 +14,21 @@ import geometricOptics from '../../geometricOptics.js';
 
 class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  constructor() {
 
-    options = merge( {
-      labelMaxWidth: 250,
-      generalSectionOptions: {
-        withCheckboxContent: true
-      }
-    }, options );
+    const leftColumn = [
+      new MoveKeyboardHelpSection()
+    ];
 
-    const moveHelpSection = new MoveKeyboardHelpSection();
-    const sliderHelpSection = new SliderControlsKeyboardHelpSection( options.sliderSectionOptions );
-    const generalNavigationHelpSection = new BasicActionsKeyboardHelpSection( options.generalSectionOptions );
+    const rightColumn = [
+      new SliderControlsKeyboardHelpSection(),
+      new BasicActionsKeyboardHelpSection( {
+          withCheckboxContent: true
+        }
+      )
+    ];
 
-    super( [ moveHelpSection ], [ sliderHelpSection, generalNavigationHelpSection ], options );
+    super( leftColumn, rightColumn );
   }
 }
 
