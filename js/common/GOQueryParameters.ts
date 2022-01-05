@@ -66,6 +66,13 @@ const SCHEMA = {
   // Shows the model bounds as a green rectangle.
   debugModelBounds: {
     type: 'flag'
+  },
+
+  // Shows the Shape of the mask that sits behind the framed objects, rendered as a red outline.
+  // This mask is used to reduce the opacity of the portion of the axis that is occluded by the
+  // real or virtual image. See https://github.com/phetsims/geometric-optics/issues/283.
+  debugMask: {
+    type: 'flag'
   }
 };
 
