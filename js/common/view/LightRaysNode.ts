@@ -13,20 +13,17 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { ColorDef, Line, Node } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import LightRays from '../model/LightRays.js';
 import LightRaySegment from '../model/LightRaySegment.js';
 import Representation from '../model/Representation.js';
 
-type Options = {
+type LightRaysNodeOptions = {
   realRaysStroke?: ColorDef,
   realRaysLineWidth?: number,
   virtualRaysStroke?: ColorDef,
   virtualRaysLineWidth?: number,
-  visibleProperty?: IProperty<boolean>,
-  tandem: Tandem,
-  phetioDocumentation: string
+  visibleProperty?: IProperty<boolean>
 };
 
 class LightRaysNode extends Node {
@@ -38,16 +35,18 @@ class LightRaysNode extends Node {
    * @param modelViewTransform
    * @param providedOptions
    */
-  constructor( lightRays: LightRays, representationProperty: IReadOnlyProperty<Representation>,
-               virtualImageVisibleProperty: IReadOnlyProperty<boolean>, modelViewTransform: ModelViewTransform2,
-               providedOptions: Options ) {
+  constructor( lightRays: LightRays,
+               representationProperty: IReadOnlyProperty<Representation>,
+               virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
+               modelViewTransform: ModelViewTransform2,
+               providedOptions: LightRaysNodeOptions ) {
 
     const options = merge( {
       realRaysStroke: 'white',
       realRaysLineWidth: 2,
       virtualRaysStroke: 'white',
       virtualRaysLineWidth: 2
-    }, providedOptions ) as Required<Options>;
+    }, providedOptions ) as Required<LightRaysNodeOptions>;
 
     const realRaysNode = new Node();
 
@@ -108,3 +107,4 @@ function segmentsToLines( segments: LightRaySegment[], modelViewTransform: Model
 
 geometricOptics.register( 'LightRaysNode', LightRaysNode );
 export default LightRaysNode;
+export type { LightRaysNodeOptions };

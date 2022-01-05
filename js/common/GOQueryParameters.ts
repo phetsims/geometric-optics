@@ -63,6 +63,12 @@ const SCHEMA = {
     type: 'flag'
   },
 
+  // The light rays are drawn using 2 Nodes, LightRaysNode and LightRaysForegroundNode.
+  // This flag uses 'red' stroke for the segments drawn by LightRaysForegroundNode.
+  debugRays: {
+    type: 'flag'
+  },
+
   // Shows the model bounds as a green rectangle.
   debugModelBounds: {
     type: 'flag'

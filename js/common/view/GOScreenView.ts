@@ -49,6 +49,7 @@ import TwoFPointNode from './TwoFPointNode.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DragLockedButton from './DragLockedButton.js';
 import OpticalAxisForegroundNode from './OpticalAxisForegroundNode.js';
+import LightRaysForegroundNode from './LightRaysForegroundNode.js';
 
 // constants
 const ZOOM_RANGE = new RangeWithValue( 1, 3, 3 );
@@ -277,23 +278,27 @@ class GOScreenView extends ScreenView {
     } );
 
     // create the light rays associated with the source object and first light source
+    const lightRays1Options = {
+      realRaysStroke: GOColors.realRays1StrokeProperty,
+      virtualRaysStroke: GOColors.virtualRays1StrokeProperty
+    };
     const lightRays1Node = new LightRaysNode( model.lightRays1, model.representationProperty,
-      visibleProperties.virtualImageVisibleProperty, modelViewTransform, {
-        realRaysStroke: GOColors.realRays1StrokeProperty,
-        virtualRaysStroke: GOColors.virtualRays1StrokeProperty,
-        tandem: options.tandem.createTandem( 'lightRays1Node' ),
-        phetioDocumentation: 'TODO'
-      } );
+      visibleProperties.virtualImageVisibleProperty, modelViewTransform, lightRays1Options );
+    const lightRays1ForegroundNode = new LightRaysForegroundNode( model.lightRays1, model.representationProperty,
+      visibleProperties.virtualImageVisibleProperty, modelViewTransform, this.visibleBoundsProperty,
+      model.firstTarget.positionProperty, model.firstTarget.isVirtualProperty, lightRays1Options );
 
     // create the light rays associated with the second point and second light source
+    const lightRays2Options = {
+      realRaysStroke: GOColors.realRays2StrokeProperty,
+      virtualRaysStroke: GOColors.virtualRays2StrokeProperty,
+      visibleProperty: visibleProperties.secondPointVisibleProperty
+    };
     const lightRays2Node = new LightRaysNode( model.lightRays2, model.representationProperty,
-      visibleProperties.virtualImageVisibleProperty, modelViewTransform, {
-        realRaysStroke: GOColors.realRays2StrokeProperty,
-        virtualRaysStroke: GOColors.virtualRays2StrokeProperty,
-        visibleProperty: visibleProperties.secondPointVisibleProperty,
-        tandem: options.tandem.createTandem( 'lightRays2Node' ),
-        phetioDocumentation: 'TODO'
-      } );
+      visibleProperties.virtualImageVisibleProperty, modelViewTransform, lightRays2Options );
+    const lightRays2ForegroundNode = new LightRaysForegroundNode( model.lightRays2, model.representationProperty,
+      visibleProperties.virtualImageVisibleProperty, modelViewTransform, this.visibleBoundsProperty,
+      model.firstTarget.positionProperty, model.firstTarget.isVirtualProperty, lightRays2Options );
 
     // create the target image
     const targetNode = new TargetNode( model.representationProperty, model.firstTarget, model.optic,
@@ -330,6 +335,8 @@ class GOScreenView extends ScreenView {
       children: [
         opticalAxisNode,
         sourceObjectNode,
+        lightRays1Node,
+        lightRays2Node,
         targetNode,
         additionalNodesParent,
         opticalAxisForegroundNode,
@@ -337,8 +344,8 @@ class GOScreenView extends ScreenView {
         opticVerticalAxisNode,
         focalPointsNode,
         twoFPointsNode,
-        lightRays1Node,
-        lightRays2Node,
+        lightRays1ForegroundNode,
+        lightRays2ForegroundNode,
         secondPointNode
       ]
     } );
