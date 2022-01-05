@@ -93,7 +93,7 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
           }
           else {
 
-            // For a source object and real image, clipAra is 1 rectangle, between the object and image.
+            // For a source object and real image, clipArea is 1 rectangle, between the object and image.
             const minX = modelViewTransform.modelToViewX( sourceObjectPosition.x );
             const maxX = modelViewTransform.modelToViewX( targetPosition.x );
             const clipWidth = maxX - minX;
