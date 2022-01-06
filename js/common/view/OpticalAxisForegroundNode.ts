@@ -1,8 +1,8 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * OpticalAxisForegroundNode is a subclass of OpticalAxisNode that (using clipArea) shows only the segment(s) of
- * the optical axis that are not occluded. It is intended to be layered in front of things that occlude the
+ * OpticalAxisForegroundNode is a subclass of OpticalAxisNode that (using clipArea) shows only the parts of
+ * OpticalAxisNode that are not occluded. It is intended to be layered in front of things that occlude the
  * optical axis (objects, images, and projection screen).
  *
  * @author Chris Malley (PixelZoom, Inc.)
