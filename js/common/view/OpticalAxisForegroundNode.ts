@@ -63,41 +63,50 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
         ( modelBounds: Bounds2 ) => new Vector2( modelBounds.right, modelBounds.centerX ) );
     }
 
-    // Clip area
+    // Clip area, used to show only the part(s) of the optical axis that are in the foreground.
     Property.multilink(
       [ opticPositionProperty, representationProperty, sourceObjectPositionProperty, targetPositionProperty,
         barrierPositionProperty, isVirtualProperty, modelBoundsProperty ],
       ( opticPosition: Vector2, representation: Representation, sourceObjectPosition: Vector2, targetPosition: Vector2,
         barrierPosition: Vector2, isVirtual: boolean, modelBounds: Bounds2 ) => {
+
         const minY = modelViewTransform.modelToViewY( modelBounds.minY );
         const maxY = modelViewTransform.modelToViewY( modelBounds.maxY );
         const clipHeight = maxY - minY;
+        let clipArea: Shape;
+
+        // For a source object...
         if ( representation.isObject ) {
 
-          // For a source object...
-          if ( targetPosition.x < opticPosition.x ) {
+          if ( targetPosition.x > opticPosition.x ) {
 
-            // For a source object and virtual image, clipArea is 2 rectangles.
-            // The first rectangle is between the object and optic.
-            const x1 = modelViewTransform.modelToViewX( sourceObjectPosition.x );
-            const clipWidth1 = modelViewTransform.modelToViewX( opticPosition.x ) - x1;
-
-            // The second rectangle is between the image and left edge of the picture frame.
-            const x2 = modelViewTransform.modelToViewX( targetPosition.x );
-            const halfFrameWidth = 34; //TODO get this from sourceObject.boundsProperty, or from sourceObjectNode
-            const clipWidth2 = modelViewTransform.modelToViewX( sourceObjectPosition.x ) - halfFrameWidth - x2;
-
-            this.clipArea = new Shape()
-              .rect( x1, minY, clipWidth1, clipHeight )
-              .rect( x2, minY, clipWidth2, clipHeight );
-          }
-          else {
-
-            // For a source object and real image, clipArea is 1 rectangle, between the object and image.
+            // If the image is to the right of the optic, clipArea is 1 rectangle, between the object and image.
             const minX = modelViewTransform.modelToViewX( sourceObjectPosition.x );
             const maxX = modelViewTransform.modelToViewX( targetPosition.x );
             const clipWidth = maxX - minX;
-            this.clipArea = Shape.rectangle( minX, minY, clipWidth, clipHeight );
+            clipArea = Shape.rectangle( minX, minY, clipWidth, clipHeight );
+          }
+          else {
+
+            // If the image is to the left of the optic, clipArea requires 2 rectangles.
+
+            // Determine the relative position of the source object and image.
+            const targetToRight = ( targetPosition.x > sourceObjectPosition.x );
+            const leftPosition = targetToRight ? sourceObjectPosition : targetPosition;
+            const rightPosition = targetToRight ? targetPosition : sourceObjectPosition;
+
+            // The first rectangle is between the thing on the right and optic.
+            const x1 = modelViewTransform.modelToViewX( rightPosition.x );
+            const clipWidth1 = modelViewTransform.modelToViewX( opticPosition.x ) - x1;
+
+            // The second rectangle is between the thing on the left and the left edge of the picture frame on the right.
+            const x2 = modelViewTransform.modelToViewX( leftPosition.x );
+            const halfFrameWidth = 34; //TODO get this from sourceObject.boundsProperty, or from sourceObjectNode
+            const clipWidth2 = modelViewTransform.modelToViewX( rightPosition.x ) - halfFrameWidth - x2;
+
+            clipArea = new Shape()
+              .rect( x1, minY, clipWidth1, clipHeight )
+              .rect( x2, minY, clipWidth2, clipHeight );
           }
         }
         else {
@@ -105,8 +114,10 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
           // For a light source, clipArea is 1 rectangle, between the optic and the projection screen.
           const minX = modelViewTransform.modelToViewX( opticPosition.x );
           const maxX = modelViewTransform.modelToViewX( barrierPosition.x );
-          this.clipArea = Shape.rectangle( minX, minY, maxX - minX, maxY - minY );
+          clipArea = Shape.rectangle( minX, minY, maxX - minX, maxY - minY );
         }
+
+        this.clipArea = clipArea;
       } );
   }
 
