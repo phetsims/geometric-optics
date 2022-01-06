@@ -1,11 +1,11 @@
 {
-  "comment": "# geometric-optics 1.1.0-dev.12 Tue Jan 04 2022 17:43:00 GMT-0700 (Mountain Standard Time)",
+  "comment": "# geometric-optics 1.1.0-dev.13 Thu Jan 06 2022 16:11:49 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "767b2f345518ceca5144a152ecf40cd4f9206136",
     "branch": "master"
   },
   "axon": {
-    "sha": "aa2c970c5779fc1720a460f78487bd0a7e924404",
+    "sha": "e45f11a165fc76148f137d4a59efd7dc3e788a8d",
     "branch": "master"
   },
   "brand": {
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "f0970f0966151371875932dbd022608658edf0eb",
+    "sha": "3f52c81b253b46e90a4bcd2d047eef9f22cd864d",
     "branch": "master"
   },
   "dot": {
@@ -21,11 +21,11 @@
     "branch": "master"
   },
   "geometric-optics": {
-    "sha": "6cbe3476db09f11e9960611791ebdc6523422c4b",
+    "sha": "16acaa41fbffbb4a1fd5e48a5bc3e84fd16c8f0c",
     "branch": "master"
   },
   "joist": {
-    "sha": "aee19b61fc78672a2448993a59637ad1a71072a8",
+    "sha": "efa0b690ecb02a553d660d63942b30dc66bcd078",
     "branch": "master"
   },
   "kite": {
@@ -37,15 +37,15 @@
     "branch": "master"
   },
   "phet-core": {
-    "sha": "ff5e2d807780372c93817762b5d4871caf339f68",
+    "sha": "f0850546640edd5346b9ec520c1f77a71361bfd6",
     "branch": "master"
   },
   "phet-io": {
-    "sha": "a5de6f0b8c88c073302471f9446b2a6b802307cf",
+    "sha": "4cab3c8d2169a5c62d36a05bb95b101d7bf45b6d",
     "branch": "master"
   },
   "phet-io-client-guides": {
-    "sha": "42665cc92412e881f9a511c6fc12a965e836694a",
+    "sha": "7d0b9763f527b21d537dc7b183eefb94cd047d5d",
     "branch": "master"
   },
   "phet-io-wrappers": {
@@ -65,11 +65,11 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "e97976290694e39784346737438b32f65db904ee",
+    "sha": "8471baa2d072b14d7f6e2c0bea53e94ea26a5424",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "9d0eec722e2c26d6e0fbc35c78324af5e8574116",
+    "sha": "ee53c8bc36fdc2e465117ff260943ccd77937973",
     "branch": "master"
   },
   "sherpa": {
@@ -81,7 +81,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "a7e59583e25b55e42999fc4b0ec9ad28c3ec9196",
+    "sha": "30a87f17c4be81d5aa33ae2830943fec7066ebde",
     "branch": "master"
   },
   "tambo": {
@@ -97,7 +97,7 @@
     "branch": "master"
   },
   "utterance-queue": {
-    "sha": "228711ef351cf188ba1c8fa6b656eb75c874742f",
+    "sha": "29bc4132f012787b0a8e6fb43fbf9ec20782e77f",
     "branch": "master"
   }
 }
