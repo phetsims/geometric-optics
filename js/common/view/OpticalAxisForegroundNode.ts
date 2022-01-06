@@ -92,7 +92,7 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
             const leftPosition = targetToRight ? sourceObjectPosition : targetPosition;
             const rightPosition = targetToRight ? targetPosition : sourceObjectPosition;
 
-            // The first rectangle is between the thing on the right and optic.
+            // The first rectangle is between the thing on the right and the optic.
             const x1 = modelViewTransform.modelToViewX( rightPosition.x );
             const clipWidth1 = modelViewTransform.modelToViewX( opticPosition.x ) - x1;
 
