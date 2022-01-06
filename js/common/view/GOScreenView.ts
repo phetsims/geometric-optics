@@ -286,7 +286,7 @@ class GOScreenView extends ScreenView {
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, lightRays1Options );
     const lightRays1ForegroundNode = new LightRaysForegroundNode( model.lightRays1, model.representationProperty,
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, this.visibleBoundsProperty,
-      model.firstTarget.positionProperty, model.firstTarget.isVirtualProperty, lightRays1Options );
+      model.optic.positionProperty, model.firstTarget.positionProperty, model.firstTarget.isVirtualProperty, lightRays1Options );
 
     // create the light rays associated with the second point and second light source
     const lightRays2Options = {
@@ -298,7 +298,7 @@ class GOScreenView extends ScreenView {
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, lightRays2Options );
     const lightRays2ForegroundNode = new LightRaysForegroundNode( model.lightRays2, model.representationProperty,
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, this.visibleBoundsProperty,
-      model.firstTarget.positionProperty, model.firstTarget.isVirtualProperty, lightRays2Options );
+      model.optic.positionProperty, model.firstTarget.positionProperty, model.firstTarget.isVirtualProperty, lightRays2Options );
 
     // create the target image
     const targetNode = new TargetNode( model.representationProperty, model.firstTarget, model.optic,

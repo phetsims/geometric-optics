@@ -27,6 +27,7 @@ class LightRaysForegroundNode extends LightRaysNode {
    * @param virtualImageVisibleProperty
    * @param modelViewTransform
    * @param visibleBoundsProperty
+   * @param opticPositionProperty
    * @param targetPositionProperty
    * @param isVirtualProperty
    * @param providedOptions
@@ -36,6 +37,7 @@ class LightRaysForegroundNode extends LightRaysNode {
                virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
                modelViewTransform: ModelViewTransform2,
                visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+               opticPositionProperty: IReadOnlyProperty<Vector2>,
                targetPositionProperty: IReadOnlyProperty<Vector2>,
                isVirtualProperty: IReadOnlyProperty<boolean>,
                providedOptions: LightRaysNodeOptions ) {
@@ -47,19 +49,31 @@ class LightRaysForegroundNode extends LightRaysNode {
 
     super( lightRays, representationProperty, virtualImageVisibleProperty, modelViewTransform, options );
 
-    // Clip area
+    // Clip area, used to make rays look like they pass through a real image.
     Property.multilink(
-      [ representationProperty, targetPositionProperty, isVirtualProperty, visibleBoundsProperty ],
-      ( representation: Representation, targetPosition: Vector2, isVirtual: boolean, visibleBounds: Bounds2 ) => {
+      [ representationProperty, opticPositionProperty, targetPositionProperty, isVirtualProperty, visibleBoundsProperty ],
+      ( representation: Representation, opticPosition: Vector2, targetPosition: Vector2, isVirtual: boolean, visibleBounds: Bounds2 ) => {
+        let clipArea: Shape | null = null;
         if ( representation.isObject && !isVirtual ) {
 
-          // For a source object and real image, clipArea is 1 rectangle, including everything to the left of the image.
-          const maxX = modelViewTransform.modelToViewX( targetPosition.x );
-          this.clipArea = Shape.rectangle( visibleBounds.minX, visibleBounds.minY, maxX - visibleBounds.minX, visibleBounds.height );
+          // For a real image...
+          let minX: number;
+          let maxX: number;
+          if ( targetPosition.x > opticPosition.x ) {
+
+            // For a real image to the right of the optic, the clipArea is everything to the left of the image.
+            minX = visibleBounds.minX;
+            maxX = modelViewTransform.modelToViewX( targetPosition.x );
+          }
+          else {
+
+            // For a real image to the left of the optic, the clipArea is everything to the right of the image.
+            minX = modelViewTransform.modelToViewX( targetPosition.x );
+            maxX = visibleBounds.maxX;
+          }
+          clipArea = Shape.rectangle( minX, visibleBounds.minY, maxX - minX, visibleBounds.height );
         }
-        else {
-          this.clipArea = null;
-        }
+        this.clipArea = clipArea;
       } );
   }
 }
