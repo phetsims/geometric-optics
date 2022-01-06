@@ -53,15 +53,12 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
     // create optical axis line, with arbitrary length values.
     super( opticPositionProperty, modelBoundsProperty, modelViewTransform, options );
 
-    //TODO this is a hack for dealing with the fact that the Mirror screen doesn't have a ProjectionScreen
-    let barrierPositionProperty;
-    if ( barrier ) {
-      barrierPositionProperty = barrier.positionProperty;
-    }
-    else {
-      barrierPositionProperty = new DerivedProperty( [ modelBoundsProperty ],
-        ( modelBounds: Bounds2 ) => new Vector2( modelBounds.right, modelBounds.centerX ) );
-    }
+    // If there is no barrier (as in the Mirror screen), then create an artificial barrier position that is just
+    // to the right of the model bounds, and therefore out of view.
+    const barrierPositionProperty = barrier ?
+                                    barrier.positionProperty :
+                                    new DerivedProperty( [ modelBoundsProperty ], ( modelBounds: Bounds2 ) =>
+                                      new Vector2( modelBounds.right + 1, modelBounds.centerX ) );
 
     // Clip area, used to show only the part(s) of the optical axis that are in the foreground.
     Property.multilink(
