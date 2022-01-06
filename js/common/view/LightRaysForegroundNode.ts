@@ -62,13 +62,15 @@ class LightRaysForegroundNode extends LightRaysNode {
           let maxX: number;
           if ( targetPosition.x > opticPosition.x ) {
 
-            // For a real image to the right of the optic, the clipArea is everything to the left of the image.
+            // For a real image to the right of the optic, the clipArea is everything to the left of the image,
+            // because the image is facing left in perspective.
             minX = visibleBounds.minX;
             maxX = modelViewTransform.modelToViewX( targetPosition.x );
           }
           else {
 
-            // For a real image to the left of the optic, the clipArea is everything to the right of the image.
+            // For a real image to the left of the optic, the clipArea is everything to the right of the image,
+            // because the image is facing right in perspective.
             minX = modelViewTransform.modelToViewX( targetPosition.x );
             maxX = visibleBounds.maxX;
           }
