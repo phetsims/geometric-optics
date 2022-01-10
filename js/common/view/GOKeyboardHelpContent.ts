@@ -89,7 +89,9 @@ class RulersKeyboardHelpSection extends KeyboardHelpSection {
 
       // J+I
       KeyboardHelpSection.createJumpKeyRow( 'I', geometricOpticsStrings.keyboardHelpDialog.jumpToImage )
-    ] );
+    ], {
+      labelMaxWidth: 300
+    } );
   }
 }
 
