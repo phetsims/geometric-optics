@@ -51,7 +51,6 @@ class SecondPoint {
         representation.isObject ? sourceObjectPosition.plusXY( 0, verticalOffset ) : lightSourcePosition
     );
 
-    // @private
     this.sourceObjectPositionProperty = sourceObjectPositionProperty;
   }
 
