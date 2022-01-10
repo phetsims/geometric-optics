@@ -12,7 +12,7 @@ import ToggleNode from '../../../../sun/js/ToggleNode.js';
 import geometricOptics from '../../geometricOptics.js';
 import lockSolidShape from '../../../../sherpa/js/fontawesome-5/lockSolidShape.js';
 import unlockSolidShape from '../../../../sherpa/js/fontawesome-5/unlockSolidShape.js';
-import { AlignBox, AlignGroup, HBox, NodeOptions, Path, PressListener } from '../../../../scenery/js/imports.js';
+import { AlignBox, AlignGroup, HBox, NodeOptions, Path, PressListener, SceneryConstants } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
@@ -23,7 +23,8 @@ const UNLOCKED_FILL = 'black';
 const LOCKED_FILL = 'red';
 
 type Options = {
-  tandem: Tandem
+  tandem: Tandem,
+  phetioEnabledPropertyInstrumented?: boolean
 } & NodeOptions; //TODO https://github.com/phetsims/scenery/issues/1332 limit to Node translation options
 
 class DragLockedButton extends ToggleNode {
@@ -40,7 +41,10 @@ class DragLockedButton extends ToggleNode {
       cursor: 'pointer',
 
       // pdom options
-      tagName: 'button'
+      tagName: 'button',
+
+      // phet-io options
+      phetioEnabledPropertyInstrumented: true
     }, providedOptions );
 
     // To make both icons have the same effective size
@@ -98,6 +102,10 @@ class DragLockedButton extends ToggleNode {
 
     this.mouseArea = this.localBounds.dilatedXY( 5, 5 );
     this.touchArea = this.localBounds.dilatedXY( 5, 5 );
+
+    this.enabledProperty.link( enabled => {
+      this.opacity = enabled ? 1 : SceneryConstants.DISABLED_OPACITY;
+    } );
   }
 }
 
