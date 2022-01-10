@@ -140,8 +140,8 @@
   "keyboardHelpDialog.jumpToObject": {
     "value": "Jump to Object or first light source"
   },
-  "keyboardHelpDialog.jumpToSecondLightSource": {
-    "value": "Jump to Second light source"
+  "keyboardHelpDialog.jumpToSecondPointOrLightSource": {
+    "value": "Jump to Second point or light source"
   },
   "keyboardHelpDialog.jumpToImage": {
     "value": "Jump to Image"

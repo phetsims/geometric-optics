@@ -60,7 +60,7 @@ type StringsType = {
     'jumpToLens': string,
     'jumpToMirror': string,
     'jumpToObject': string,
-    'jumpToSecondLightSource': string,
+    'jumpToSecondPointOrLightSource': string,
     'jumpToImage': string,
     'comboBoxOption': string
   }
