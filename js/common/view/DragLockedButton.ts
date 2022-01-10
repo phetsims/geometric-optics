@@ -11,12 +11,12 @@ import Property from '../../../../axon/js/Property.js';
 import geometricOptics from '../../geometricOptics.js';
 import lockSolidShape from '../../../../sherpa/js/fontawesome-5/lockSolidShape.js';
 import unlockSolidShape from '../../../../sherpa/js/fontawesome-5/unlockSolidShape.js';
-import { AlignBox, AlignGroup, HBox, Node, NodeOptions, Path } from '../../../../scenery/js/imports.js';
+import { AlignBox, AlignGroup, HBox, NodeOptions, Path } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
-import RectangularToggleButton from '../../../../sun/js/buttons/RectangularToggleButton.js';
 import ButtonNode from '../../../../sun/js/buttons/ButtonNode.js';
+import BooleanRectangularToggleButton from '../../../../sun/js/buttons/BooleanRectangularToggleButton.js';
 
 const ARROWS_SCALE = 0.65;
 const LOCK_SCALE = 0.045;
@@ -27,7 +27,7 @@ type Options = {
   tandem: Tandem
 } & NodeOptions; //TODO https://github.com/phetsims/scenery/issues/1332 limit to Node translation options
 
-class DragLockedButton extends RectangularToggleButton {
+class DragLockedButton extends BooleanRectangularToggleButton {
 
   /**
    * @param dragLockedProperty
@@ -76,12 +76,9 @@ class DragLockedButton extends RectangularToggleButton {
       ]
     }, hBoxOptions ) ), alignBoxOptions );
 
-    super( false, true, dragLockedProperty, merge( {
+    super( lockedNode, unlockedNode, dragLockedProperty, merge( {
 
-      // RectangularToggleButton options
-      content: new Node( {
-        children: [ unlockedNode, lockedNode ]
-      } ),
+      // BooleanRectangularToggleButton options
       baseColor: 'transparent',
       disabledColor: 'transparent',
       buttonAppearanceStrategy: ButtonNode.FlatAppearanceStrategy,
