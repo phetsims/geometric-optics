@@ -74,7 +74,9 @@ class GORulerNode extends Node {
    * @param visibleBoundsProperty
    * @param opticPositionProperty
    * @param sourceObjectPositionProperty
+   * @param secondPointPositionProperty
    * @param secondLightSourcePositionProperty
+   * @param secondPointVisibleProperty
    * @param targetPositionProperty
    * @param representationProperty
    * @param providedOptions
@@ -85,7 +87,9 @@ class GORulerNode extends Node {
                visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                opticPositionProperty: IReadOnlyProperty<Vector2>,
                sourceObjectPositionProperty: IReadOnlyProperty<Vector2>,
+               secondPointPositionProperty: IReadOnlyProperty<Vector2>,
                secondLightSourcePositionProperty: IReadOnlyProperty<Vector2>,
+               secondPointVisibleProperty: IReadOnlyProperty<boolean>,
                targetPositionProperty: IReadOnlyProperty<Vector2>,
                representationProperty: IReadOnlyProperty<Representation>,
                providedOptions: GORulerNodeOptions ) {
@@ -223,7 +227,7 @@ class GORulerNode extends Node {
         }
       },
 
-      // J+O moves the ruler to the source object or second light source.
+      // J+O moves the ruler to the source object or first light source.
       {
         keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_O ],
         callback: () => {
@@ -231,24 +235,30 @@ class GORulerNode extends Node {
         }
       },
 
-      // J+I moves the ruler to the Image position.
-      // This is ignored if there is no Image, or if moving the ruler would put it outside the drag bounds.
+      // J+I moves the ruler to the Image position. This is ignored if we're dealing with a light source (and there is
+      // therefore no Image), or if moving the ruler would put it outside the drag bounds.
       {
         keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_I ],
         callback: () => {
+          //TODO ignore if Image is not visible
           if ( representationProperty.value.isObject && dragBoundsProperty.value.containsPoint( targetPositionProperty.value ) ) {
             moveRuler( ruler, targetPositionProperty.value, opticPositionProperty.value.y );
           }
         }
       },
 
-      // J+S moves the ruler to the second light source.
-      // This is ignored if there is no second light source.
+      // J+S moves the ruler to the second point or second light source.
+      // Ignored if 'Second Point' is not visible.
       {
         keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_S ],
         callback: () => {
-          if ( !representationProperty.value.isObject ) {
-            moveRuler( ruler, secondLightSourcePositionProperty.value, opticPositionProperty.value.y );
+          if ( secondPointVisibleProperty.value ) {
+            if ( representationProperty.value.isObject ) {
+              moveRuler( ruler, secondPointPositionProperty.value, opticPositionProperty.value.y );
+            }
+            else {
+              moveRuler( ruler, secondLightSourcePositionProperty.value, opticPositionProperty.value.y );
+            }
           }
         }
       }
