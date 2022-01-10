@@ -8,14 +8,15 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import ToggleNode from '../../../../sun/js/ToggleNode.js';
 import geometricOptics from '../../geometricOptics.js';
 import lockSolidShape from '../../../../sherpa/js/fontawesome-5/lockSolidShape.js';
 import unlockSolidShape from '../../../../sherpa/js/fontawesome-5/unlockSolidShape.js';
-import { AlignBox, AlignGroup, HBox, NodeOptions, Path, PressListener, SceneryConstants } from '../../../../scenery/js/imports.js';
+import { AlignBox, AlignGroup, HBox, Node, NodeOptions, Path } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
+import RectangularToggleButton from '../../../../sun/js/buttons/RectangularToggleButton.js';
+import ButtonNode from '../../../../sun/js/buttons/ButtonNode.js';
 
 const ARROWS_SCALE = 0.65;
 const LOCK_SCALE = 0.045;
@@ -23,29 +24,16 @@ const UNLOCKED_FILL = 'black';
 const LOCKED_FILL = 'red';
 
 type Options = {
-  tandem: Tandem,
-  phetioEnabledPropertyInstrumented?: boolean
+  tandem: Tandem
 } & NodeOptions; //TODO https://github.com/phetsims/scenery/issues/1332 limit to Node translation options
 
-class DragLockedButton extends ToggleNode {
+class DragLockedButton extends RectangularToggleButton {
 
   /**
    * @param dragLockedProperty
    * @param providedOptions
    */
   constructor( dragLockedProperty: Property<boolean>, providedOptions?: Options ) {
-
-    const options = merge( {
-
-      // Node options
-      cursor: 'pointer',
-
-      // pdom options
-      tagName: 'button',
-
-      // phet-io options
-      phetioEnabledPropertyInstrumented: true
-    }, providedOptions );
 
     // To make both icons have the same effective size
     const alignBoxOptions = {
@@ -88,24 +76,39 @@ class DragLockedButton extends ToggleNode {
       ]
     }, hBoxOptions ) ), alignBoxOptions );
 
-    super( dragLockedProperty, [
-      { value: true, node: lockedNode },
-      { value: false, node: unlockedNode }
-    ], options );
+    super( false, true, dragLockedProperty, merge( {
 
-    // Toggle the value on release
-    this.addInputListener( new PressListener( {
-      release: () => {
-        dragLockedProperty.value = !dragLockedProperty.value;
-      }
-    } ) );
+      // RectangularToggleButton options
+      content: new Node( {
+        children: [ unlockedNode, lockedNode ]
+      } ),
+      baseColor: 'transparent',
+      disabledColor: 'transparent',
+      buttonAppearanceStrategy: ButtonNode.FlatAppearanceStrategy,
 
-    this.mouseArea = this.localBounds.dilatedXY( 5, 5 );
-    this.touchArea = this.localBounds.dilatedXY( 5, 5 );
+      // Node options
+      cursor: 'pointer',
+      touchAreaXDilation: 5,
+      touchAreaYDilation: 5,
+      mouseAreaXDilation: 5,
+      mouseAreaYDilation: 5,
 
-    this.enabledProperty.link( enabled => {
-      this.opacity = enabled ? 1 : SceneryConstants.DISABLED_OPACITY;
+      // pdom options
+      tagName: 'button',
+
+      // phet-io options
+      phetioEnabledPropertyInstrumented: true
+    }, providedOptions ) );
+
+    dragLockedProperty.link( dragLocked => {
+      unlockedNode.visible = !dragLocked;
+      lockedNode.visible = dragLocked;
     } );
+  }
+
+  public dispose(): void {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
   }
 }
 
