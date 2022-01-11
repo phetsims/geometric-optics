@@ -66,7 +66,10 @@ class SourceObjectNode extends Node {
       // pdom options
       tagName: 'div',
       focusable: true,
-      focusHighlight: new FocusHighlightFromNode( sourceObjectNode )
+      focusHighlight: new FocusHighlightFromNode( sourceObjectNode ),
+
+      // phet-io options
+      phetioInputEnabledPropertyInstrumented: true
     }, providedOptions ) as Options;
 
     super( options );

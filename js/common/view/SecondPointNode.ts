@@ -62,6 +62,8 @@ class SecondPointNode extends Node {
                providedOptions: Options ) {
 
     super( merge( {
+
+      // phet-io options
       phetioInputEnabledPropertyInstrumented: true
     }, providedOptions ) );
 
