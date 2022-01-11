@@ -18,11 +18,16 @@ import LightRays from '../model/LightRays.js';
 import LightRaySegment from '../model/LightRaySegment.js';
 import Representation from '../model/Representation.js';
 
+type LineOptions = {
+  stroke?: ColorDef,
+  lineWidth?: number,
+  lineDash?: number[],
+  opacity?: number
+};
+
 type LightRaysNodeOptions = {
-  realRaysStroke?: ColorDef,
-  realRaysLineWidth?: number,
-  virtualRaysStroke?: ColorDef,
-  virtualRaysLineWidth?: number,
+  realRaysStroke: ColorDef,
+  virtualRaysStroke: ColorDef,
   visibleProperty?: IProperty<boolean>
 };
 
@@ -41,13 +46,6 @@ class LightRaysNode extends Node {
                modelViewTransform: ModelViewTransform2,
                providedOptions: LightRaysNodeOptions ) {
 
-    const options = merge( {
-      realRaysStroke: 'white',
-      realRaysLineWidth: 2,
-      virtualRaysStroke: 'white',
-      virtualRaysLineWidth: 2
-    }, providedOptions ) as Required<LightRaysNodeOptions>;
-
     const realRaysNode = new Node();
 
     const virtualRaysNode = new Node( {
@@ -60,15 +58,26 @@ class LightRaysNode extends Node {
       )
     } );
 
+    const realRayOptions = {
+      stroke: providedOptions.realRaysStroke,
+      lineWidth: 2
+    };
+    const virtualRayOptions = {
+      stroke: providedOptions.virtualRaysStroke,
+      lineWidth: 2,
+      lineDash: [ 3, 3 ],
+      opacity: 0.5
+    };
+
     const update = (): void => {
-      realRaysNode.children = segmentsToLines( lightRays.realSegments, modelViewTransform, options.realRaysStroke, options.realRaysLineWidth );
-      virtualRaysNode.children = segmentsToLines( lightRays.virtualSegments, modelViewTransform, options.virtualRaysStroke, options.virtualRaysLineWidth );
+      realRaysNode.children = segmentsToLines( lightRays.realSegments, modelViewTransform, realRayOptions );
+      virtualRaysNode.children = segmentsToLines( lightRays.virtualSegments, modelViewTransform, virtualRayOptions );
     };
     update();
 
     super( merge( {
       children: [ realRaysNode, virtualRaysNode ]
-    }, options ) );
+    }, providedOptions ) );
 
     // Update this Node when the model tells us that it's time to update.
     lightRays.raysProcessedEmitter.addListener( () => update() );
@@ -84,13 +93,9 @@ class LightRaysNode extends Node {
  * Converts model ray segments to scenery Line nodes.
  * @param segments
  * @param modelViewTransform
- * @param stroke
- * @param lineWidth
+ * @param lineOptions
  */
-function segmentsToLines( segments: LightRaySegment[], modelViewTransform: ModelViewTransform2, stroke: ColorDef,
-                          lineWidth: number ): Line[] {
-
-  assert && assert( lineWidth > 0 );
+function segmentsToLines( segments: LightRaySegment[], modelViewTransform: ModelViewTransform2, lineOptions: LineOptions ): Line[] {
 
   // When attempting to render the rays as a single scenery.Path, we were seeing all kinds of closed-path triangles
   // being rendered. We had to resort to a scenery.Line per segment to make the problem go away.
@@ -98,10 +103,7 @@ function segmentsToLines( segments: LightRaySegment[], modelViewTransform: Model
   return segments.map( segment => {
     const viewStartPoint = modelViewTransform.modelToViewPosition( segment.startPoint );
     const viewEndPoint = modelViewTransform.modelToViewPosition( segment.endPoint );
-    return new Line( viewStartPoint, viewEndPoint, {
-      stroke: stroke,
-      lineWidth: lineWidth
-    } );
+    return new Line( viewStartPoint, viewEndPoint, lineOptions );
   } );
 }
 

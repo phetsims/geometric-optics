@@ -90,24 +90,14 @@ const GOColors = {
     default: 'black'
   } ),
 
-  // Rays associated with the real image produced by the first point of interest on the object or light source
-  realRays1StrokeProperty: new ProfileColorProperty( geometricOptics, 'realRayOneStroke', {
+  // Rays associated with the image produced by the first point of interest on the object or light source
+  rays1StrokeProperty: new ProfileColorProperty( geometricOptics, 'realRayOneStroke', {
     default: 'rgb( 140, 140, 140 )'
   } ),
 
   // Rays associated with the real image produced by the second point of interest on the object or light source
-  realRays2StrokeProperty: new ProfileColorProperty( geometricOptics, 'realRayTwoStroke', {
+  rays2StrokeProperty: new ProfileColorProperty( geometricOptics, 'realRayTwoStroke', {
     default: 'rgb( 41, 214, 126 )'
-  } ),
-
-  // Rays associated with the virtual image produced by the first point of interest on the object or light source
-  virtualRays1StrokeProperty: new ProfileColorProperty( geometricOptics, 'virtualRayOneStroke', {
-    default: 'rgb( 30, 30, 30 )'
-  } ),
-
-  // Rays associated with the virtual image produced by the second point of interest on the object or light source
-  virtualRays2StrokeProperty: new ProfileColorProperty( geometricOptics, 'virtualRayTwoStroke', {
-    default: 'rgb( 18, 109, 70 )'
   } ),
 
   // Fill for the screen part of the projection screen

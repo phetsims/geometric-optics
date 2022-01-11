@@ -308,8 +308,8 @@ class GOScreenView extends ScreenView {
 
     // create the light rays associated with the source object and first light source
     const lightRays1Options = {
-      realRaysStroke: GOColors.realRays1StrokeProperty,
-      virtualRaysStroke: GOColors.virtualRays1StrokeProperty
+      realRaysStroke: GOColors.rays1StrokeProperty,
+      virtualRaysStroke: GOColors.rays1StrokeProperty
     };
     const lightRays1Node = new LightRaysNode( model.lightRays1, model.representationProperty,
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, lightRays1Options );
@@ -319,8 +319,8 @@ class GOScreenView extends ScreenView {
 
     // create the light rays associated with the second point and second light source
     const lightRays2Options = {
-      realRaysStroke: GOColors.realRays2StrokeProperty,
-      virtualRaysStroke: GOColors.virtualRays2StrokeProperty,
+      realRaysStroke: GOColors.rays2StrokeProperty,
+      virtualRaysStroke: GOColors.rays2StrokeProperty,
       visibleProperty: visibleProperties.secondPointVisibleProperty
     };
     const lightRays2Node = new LightRaysNode( model.lightRays2, model.representationProperty,
