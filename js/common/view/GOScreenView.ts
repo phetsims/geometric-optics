@@ -132,22 +132,33 @@ class GOScreenView extends ScreenView {
       ( zoomLevel: number ) => getAbsoluteZoomScale( zoomLevel )
     );
 
-    // Things that are outside the Experiment Area =====================================================================
+    const dragLockedProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'dragLockedProperty' ),
+      phetioDocumentation: 'Controls dragging of the source object and light sources.<br>' +
+                           'true = may be dragged horizontally only<br>' +
+                           'false = may be dragged horizontally and vertically'
+    } );
 
-    // create Rulers
+    // create the target image
+    const targetNode = new TargetNode( model.representationProperty, model.firstTarget, model.optic,
+      visibleProperties.virtualImageVisibleProperty, visibleProperties.rayTracingVisibleProperty, modelViewTransform, {
+        tandem: options.tandem.createTandem( 'targetNode' )
+      } );
+
     const horizontalRulerNode = new GORulerNode( model.horizontalRuler, zoomTransformProperty, zoomScaleProperty,
       this.visibleBoundsProperty, model.optic.positionProperty, model.sourceObject.positionProperty,
       model.secondPoint.positionProperty, model.secondPoint.lightSourcePositionProperty,
-      visibleProperties.secondPointVisibleProperty,
-      model.firstTarget.positionProperty, model.representationProperty, {
+      visibleProperties.secondPointVisibleProperty, model.firstTarget.positionProperty,
+      targetNode.visibleProperty, model.representationProperty, {
         hotkeysMoveRulerToOptic: options.hotkeysMoveRulerToOptic,
         tandem: options.tandem.createTandem( 'horizontalRulerNode' )
       } );
+
     const verticalRulerNode = new GORulerNode( model.verticalRuler, zoomTransformProperty, zoomScaleProperty,
       this.visibleBoundsProperty, model.optic.positionProperty, model.sourceObject.positionProperty,
       model.secondPoint.positionProperty, model.secondPoint.lightSourcePositionProperty,
-      visibleProperties.secondPointVisibleProperty,
-      model.firstTarget.positionProperty, model.representationProperty, {
+      visibleProperties.secondPointVisibleProperty, model.firstTarget.positionProperty,
+      targetNode.visibleProperty, model.representationProperty, {
         hotkeysMoveRulerToOptic: options.hotkeysMoveRulerToOptic,
         tandem: options.tandem.createTandem( 'verticalRulerNode' )
       } );
@@ -190,13 +201,6 @@ class GOScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'representationComboBox' )
     } );
 
-    const dragLockedProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'dragLockedProperty' ),
-      phetioDocumentation: 'Controls dragging of the source object and light sources.<br>' +
-                           'true = may be dragged horizontally only<br>' +
-                           'false = may be dragged horizontally and vertically'
-    } );
-
     const dragLockedButton = new DragLockedButton( dragLockedProperty, {
       left: representationComboBox.right + 25,
       centerY: representationComboBox.centerY,
@@ -237,8 +241,6 @@ class GOScreenView extends ScreenView {
     showHideToggleButton.centerX = resetAllButton.centerX;
     showHideToggleButton.top = controlPanel.top;
 
-    // Experiment Area ================================================================================================
-
     // {DerivedProperty.<Bounds2>} bounds of the model, an area that does not overlap any controls, in model coordinates
     // See https://github.com/phetsims/geometric-optics/issues/204
     const modelBoundsProperty = new DerivedProperty(
@@ -262,11 +264,7 @@ class GOScreenView extends ScreenView {
         visibleProperty: visibleProperties.secondPointVisibleProperty
       } );
 
-    // create the target image
-    const targetNode = new TargetNode( model.representationProperty, model.firstTarget, model.optic,
-      visibleProperties.virtualImageVisibleProperty, visibleProperties.rayTracingVisibleProperty, modelViewTransform, {
-        tandem: options.tandem.createTandem( 'targetNode' )
-      } );
+    const opticNode = options.createOpticNode( model.optic, modelBoundsProperty, modelViewTransform, options.tandem );
 
     // The complete optical axis, to be put in the background
     const opticalAxisNode = new OpticalAxisNode( model.optic.positionProperty, modelBoundsProperty, modelViewTransform, {
@@ -282,10 +280,28 @@ class GOScreenView extends ScreenView {
         visibleProperty: model.optic.opticalAxisVisibleProperty
       } );
 
-    const opticNode = options.createOpticNode( model.optic, modelBoundsProperty, modelViewTransform, options.tandem );
-
     const opticVerticalAxisNode = new OpticVerticalAxisNode( model.optic, model.raysModeProperty, modelBoundsProperty, modelViewTransform, {
       tandem: options.tandem.createTandem( 'opticVerticalAxisNode' )
+    } );
+
+    // focal points (F)
+    const focalPointsNode = new Node( {
+      children: [
+        new FocalPointNode( model.optic.leftFocalPointProperty, modelViewTransform ),
+        new FocalPointNode( model.optic.rightFocalPointProperty, modelViewTransform )
+      ],
+      visibleProperty: visibleProperties.focalPointsVisibleProperty,
+      tandem: options.tandem.createTandem( 'focalPointsNode' )
+    } );
+
+    // 2F points
+    const twoFPointsNode = new Node( {
+      children: [
+        new TwoFPointNode( model.optic.left2FProperty, modelViewTransform ),
+        new TwoFPointNode( model.optic.right2FProperty, modelViewTransform )
+      ],
+      visibleProperty: visibleProperties.twoFPointsVisibleProperty,
+      tandem: options.tandem.createTandem( 'twoFPointsNode' )
     } );
 
     // create the light rays associated with the source object and first light source
@@ -310,26 +326,6 @@ class GOScreenView extends ScreenView {
     const lightRays2ForegroundNode = new LightRaysForegroundNode( model.lightRays2, model.representationProperty,
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, this.visibleBoundsProperty,
       model.optic.positionProperty, model.firstTarget.positionProperty, model.firstTarget.isVirtualProperty, lightRays2Options );
-
-    // focal points (F)
-    const focalPointsNode = new Node( {
-      children: [
-        new FocalPointNode( model.optic.leftFocalPointProperty, modelViewTransform ),
-        new FocalPointNode( model.optic.rightFocalPointProperty, modelViewTransform )
-      ],
-      visibleProperty: visibleProperties.focalPointsVisibleProperty,
-      tandem: options.tandem.createTandem( 'focalPointsNode' )
-    } );
-
-    // 2F points
-    const twoFPointsNode = new Node( {
-      children: [
-        new TwoFPointNode( model.optic.left2FProperty, modelViewTransform ),
-        new TwoFPointNode( model.optic.right2FProperty, modelViewTransform )
-      ],
-      visibleProperty: visibleProperties.twoFPointsVisibleProperty,
-      tandem: options.tandem.createTandem( 'twoFPointsNode' )
-    } );
 
     //TODO this is a hack to allow LensScreenView to add the projection screen etc. in the correct layering order
     const additionalNodesParent = new Node();
@@ -386,8 +382,7 @@ class GOScreenView extends ScreenView {
     // labels
     const labelsNode = new LabelsNode( model, visibleProperties, zoomTransformProperty );
 
-    // Changing these things interrupts interactions ============================================================
-
+    // Changing these things interrupts interactions
     const interrupt = () => this.interruptSubtreeInput();
     zoomLevelProperty.lazyLink( interrupt );
     model.representationProperty.lazyLink( interrupt );
