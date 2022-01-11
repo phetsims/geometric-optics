@@ -81,7 +81,7 @@ class LightRaysNode extends Node {
 }
 
 /**
- * Converts a set of kite.Line segments (specified in model coordinates) to a set of scenery.Line Nodes (in view coordinates).
+ * Converts model ray segments to scenery Line nodes.
  * @param segments
  * @param modelViewTransform
  * @param stroke
