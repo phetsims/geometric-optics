@@ -50,7 +50,7 @@ class LightRaysNode extends Node {
 
     const realRaysNode = new Node();
 
-    const virtualRaysPath = new Node( {
+    const virtualRaysNode = new Node( {
 
       // Show virtual rays only for objects, not for light source. See https://github.com/phetsims/geometric-optics/issues/216
       visibleProperty: new DerivedProperty(
@@ -62,12 +62,12 @@ class LightRaysNode extends Node {
 
     const update = (): void => {
       realRaysNode.children = segmentsToLines( lightRays.realSegments, modelViewTransform, options.realRaysStroke, options.realRaysLineWidth );
-      virtualRaysPath.children = segmentsToLines( lightRays.virtualSegments, modelViewTransform, options.virtualRaysStroke, options.virtualRaysLineWidth );
+      virtualRaysNode.children = segmentsToLines( lightRays.virtualSegments, modelViewTransform, options.virtualRaysStroke, options.virtualRaysLineWidth );
     };
     update();
 
     super( merge( {
-      children: [ realRaysNode, virtualRaysPath ]
+      children: [ realRaysNode, virtualRaysNode ]
     }, options ) );
 
     // Update this Node when the model tells us that it's time to update.
