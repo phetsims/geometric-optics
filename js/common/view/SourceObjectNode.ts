@@ -51,18 +51,22 @@ class SourceObjectNode extends Node {
                modelViewTransform: ModelViewTransform2, dragLockedProperty: IReadOnlyProperty<boolean>,
                options: Options ) {
 
-    // Origin of this Node is at the upper-left corner of sourceObjectImage.
-    const sourceObjectImage = new Image( representationProperty.value.rightFacingUpright );
+    const imageNode = new Image( representationProperty.value.rightFacingUpright );
+
+    // Wrap imageNode in a Node. We need to scale imageNode, but do not want its focus highlight to scale.
+    const sourceObjectNode = new Node( {
+      children: [ imageNode ]
+    } );
 
     const cueingArrowsNode = new CueingArrowsNode();
 
     super( merge( {
-      children: [ sourceObjectImage, cueingArrowsNode ],
+      children: [ sourceObjectNode, cueingArrowsNode ],
 
       // pdom options
       tagName: 'div',
       focusable: true,
-      focusHighlight: new FocusHighlightFromNode( sourceObjectImage )
+      focusHighlight: new FocusHighlightFromNode( sourceObjectNode )
     }, options ) );
 
     // Update cursor and cueing arrows to reflect how this Node is draggable.
@@ -72,24 +76,23 @@ class SourceObjectNode extends Node {
     } );
 
     // Keep cueing arrows next to the source object.
-    Property.multilink( [ sourceObjectImage.boundsProperty, cueingArrowsNode.boundsProperty ],
-      ( sourceObjectImageBounds: Bounds2, cueingArrowsNodeBounds: Bounds2 ) => {
-        cueingArrowsNode.right = sourceObjectImage.left - 10;
-        cueingArrowsNode.centerY = sourceObjectImage.centerY;
+    Property.multilink( [ sourceObjectNode.boundsProperty, cueingArrowsNode.boundsProperty ],
+      ( sourceObjectBounds: Bounds2, cueingArrowsNodeBounds: Bounds2 ) => {
+        cueingArrowsNode.right = sourceObjectNode.left - 10;
+        cueingArrowsNode.centerY = sourceObjectNode.centerY;
       } );
 
-    // Scale the source object.
-    const scaleSourceObject = (): void => {
+    const scaleImageNode = (): void => {
 
-      const initialWidth = sourceObjectImage.width;
-      const initialHeight = sourceObjectImage.height;
+      const initialWidth = imageNode.width;
+      const initialHeight = imageNode.height;
 
       const bounds = sourceObject.boundsProperty.value;
       const viewBounds = modelViewTransform.modelToViewBounds( bounds );
 
       const scaleX = viewBounds.width / initialWidth;
       const scaleY = viewBounds.height / initialHeight;
-      sourceObjectImage.scale( scaleX, scaleY );
+      imageNode.scale( scaleX, scaleY );
     };
 
     // Translate the source object to the specified position.
@@ -152,13 +155,13 @@ class SourceObjectNode extends Node {
     this.addInputListener( keyboardDragListener );
 
     sourceObject.leftTopProperty.link( leftTop => {
-      scaleSourceObject();
+      scaleImageNode();
       translateSourceObject( leftTop );
     } );
 
     representationProperty.link( representation => {
-      sourceObjectImage.image = representation.rightFacingUpright;
-      scaleSourceObject();
+      imageNode.image = representation.rightFacingUpright;
+      scaleImageNode();
       translateSourceObject( sourceObject.leftTopProperty.value );
     } );
 
