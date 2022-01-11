@@ -23,9 +23,9 @@ class DiameterControl extends NumberControl {
 
   /**
    * @param diameterProperty
-   * @param options
+   * @param providedOptions
    */
-  constructor( diameterProperty: NumberProperty, options: DiameterControlOptions ) {
+  constructor( diameterProperty: NumberProperty, providedOptions: DiameterControlOptions ) {
 
     assert && assert( diameterProperty.range ); // {Range|null}
 
@@ -40,7 +40,7 @@ class DiameterControl extends NumberControl {
           decimalPlaces: GOConstants.DIAMETER_DECIMAL_PLACES,
           valuePattern: geometricOpticsStrings.valueCentimetersPattern
         }
-      }, options ) );
+      }, providedOptions ) );
   }
 }
 

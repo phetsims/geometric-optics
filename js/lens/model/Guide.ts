@@ -39,13 +39,15 @@ class Guide extends PhetioObject {
    * @param optic
    * @param objectPositionProperty
    * @param location
-   * @param options
+   * @param providedOptions
    */
-  constructor( optic: Optic, objectPositionProperty: IReadOnlyProperty<Vector2>, location: GuideLocation, options: Options ) {
+  constructor( optic: Optic, objectPositionProperty: IReadOnlyProperty<Vector2>, location: GuideLocation, providedOptions: Options ) {
 
-    super( merge( {
+    const options = merge( {
       phetioState: false
-    }, options ) );
+    }, providedOptions ) as Options;
+
+    super( options );
 
     // sign is positive for top guide and negative below
     const locationSign = ( location === 'top' ) ? +1 : -1;

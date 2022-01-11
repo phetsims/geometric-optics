@@ -16,7 +16,6 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import GOQueryParameters from '../GOQueryParameters.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 
@@ -50,12 +49,14 @@ class LightRaysForegroundNode extends LightRaysNode {
 
     super( lightRays, representationProperty, virtualImageVisibleProperty, modelViewTransform, options );
 
-    // Clip area, used to make rays look like they pass through a real image.
-    Property.multilink(
-      [ representationProperty, opticPositionProperty, targetPositionProperty, isVirtualProperty, visibleBoundsProperty ],
-      ( representation: Representation, opticPosition: Vector2, targetPosition: Vector2, isVirtual: boolean, visibleBounds: Bounds2 ) => {
+    // When light rays have been computed, update the clipArea, to make rays look like they pass through a real Image.
+    lightRays.raysProcessedEmitter.addListener( () => {
         let clipArea: Shape | null = null;
-        if ( representation.isObject && !isVirtual ) {
+        if ( representationProperty.value.isObject && !isVirtualProperty.value ) {
+
+          const opticPosition = opticPositionProperty.value;
+          const targetPosition = targetPositionProperty.value;
+          const visibleBounds = visibleBoundsProperty.value;
 
           // For a real image...
           let minX: number;

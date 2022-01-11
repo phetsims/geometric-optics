@@ -25,9 +25,9 @@ class LightSpotNode extends Node {
   /**
    * @param lightSpot
    * @param modelViewTransform
-   * @param options
+   * @param providedOptions
    */
-  constructor( lightSpot: LightSpot, modelViewTransform: ModelViewTransform2, options: Options ) {
+  constructor( lightSpot: LightSpot, modelViewTransform: ModelViewTransform2, providedOptions: Options ) {
 
     // Fill color of the spot
     const fillPath = new Path( null, {
@@ -44,7 +44,7 @@ class LightSpotNode extends Node {
 
     super( merge( {
       children: [ fillPath, strokePath ]
-    }, options ) );
+    }, providedOptions ) );
 
     lightSpot.shapeProperty.link( shape => {
       const viewShape = modelViewTransform.modelToViewShape( shape );

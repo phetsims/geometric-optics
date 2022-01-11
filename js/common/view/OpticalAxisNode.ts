@@ -31,17 +31,17 @@ class OpticalAxisNode extends Line {
    * @param opticPositionProperty
    * @param modelBoundsProperty
    * @param modelViewTransform
-   * @param options
+   * @param providedOptions
    */
   constructor( opticPositionProperty: IReadOnlyProperty<Vector2>, modelBoundsProperty: IReadOnlyProperty<Bounds2>,
-               modelViewTransform: ModelViewTransform2, options: OpticalAxisNodeOptions ) {
+               modelViewTransform: ModelViewTransform2, providedOptions: OpticalAxisNodeOptions ) {
 
     // create optical axis line, with arbitrary length values.
     super( 0, 0, 1, 0, merge( {
       stroke: GOColors.opticalAxisStrokeProperty,
       lineWidth: GOConstants.AXIS_LINE_WIDTH,
       lineDash: GOConstants.AXIS_LINE_DASH
-    }, options ) );
+    }, providedOptions ) );
 
     // set the horizontal extent of the optical axis line
     modelBoundsProperty.link( bounds => {

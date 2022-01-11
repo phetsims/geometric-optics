@@ -39,10 +39,10 @@ class MirrorNode extends Node {
    * @param mirror
    * @param modelBoundsProperty
    * @param modelViewTransform
-   * @param options
+   * @param providedOptions
    */
   constructor( mirror: Mirror, modelBoundsProperty: IReadOnlyProperty<Bounds2>,
-               modelViewTransform: ModelViewTransform2, options: Options ) {
+               modelViewTransform: ModelViewTransform2, providedOptions: Options ) {
 
     // the mirror's backing
     const backingNode = new Path( null, {
@@ -64,7 +64,7 @@ class MirrorNode extends Node {
 
     super( merge( {
       children: children
-    }, options ) );
+    }, providedOptions ) );
 
     // Shapes are described in model coordinates. Scale them to view coordinates.
     // Translation is handled by mirror.positionProperty listener.

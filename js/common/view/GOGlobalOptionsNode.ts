@@ -25,25 +25,25 @@ class GOGlobalOptionsNode extends VBox {
   private readonly disposeGeometricOpticsGlobalOptionsNode: () => void;
 
   /**
-   * @param options
+   * @param providedOptions
    */
-  constructor( options: Options ) {
+  constructor( providedOptions: Options ) {
 
     // Projector Mode checkbox
     const projectorModeCheckbox = new ProjectorModeCheckbox( {
       boxWidth: 14,
       font: GOConstants.CONTROL_FONT,
       maxTextWidth: 350,
-      tandem: options.tandem.createTandem( 'projectorModeCheckbox' )
+      tandem: providedOptions.tandem.createTandem( 'projectorModeCheckbox' )
     } );
 
     const focalLengthControlText = new Text( geometricOpticsStrings.focalLengthControl, {
       font: GOConstants.CONTROL_FONT,
-      tandem: options.tandem.createTandem( 'focalLengthControlText' )
+      tandem: providedOptions.tandem.createTandem( 'focalLengthControlText' )
     } );
 
     const focalLengthControlRadioButtonGroup = new FocalLengthControlRadioButtonGroup( {
-      tandem: options.tandem.createTandem( 'focalLengthControlRadioButtonGroup' )
+      tandem: providedOptions.tandem.createTandem( 'focalLengthControlRadioButtonGroup' )
     } );
 
     const focalLengthControlVBox = new VBox( {
@@ -58,7 +58,7 @@ class GOGlobalOptionsNode extends VBox {
       align: 'left',
       spacing: 20,
       children: [ projectorModeCheckbox, focalLengthControlVBox ]
-    }, options ) );
+    }, providedOptions ) );
 
     this.disposeGeometricOpticsGlobalOptionsNode = (): void => {
       projectorModeCheckbox.dispose();

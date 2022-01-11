@@ -30,9 +30,9 @@ class ShowHideToggleButton extends BooleanRoundToggleButton {
 
   /**
    * @param booleanProperty
-   * @param options
+   * @param providedOptions
    */
-  constructor( booleanProperty: Property<boolean>, options: Options ) {
+  constructor( booleanProperty: Property<boolean>, providedOptions: Options ) {
 
     // create nodes for open and closed eye icons
     const pathOptions = { fill: 'black' };
@@ -43,7 +43,7 @@ class ShowHideToggleButton extends BooleanRoundToggleButton {
       xMargin: 9,
       yMargin: 9,
       radius: SceneryPhetConstants.DEFAULT_BUTTON_RADIUS // so that this button will be the same size as ResetAllButton
-    }, options ) );
+    }, providedOptions ) );
 
     booleanProperty.link( value => {
       this.setBaseColor( value ? TRUE_COLOR : FALSE_COLOR );

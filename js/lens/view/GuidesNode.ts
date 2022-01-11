@@ -27,15 +27,15 @@ class GuidesNode extends Node {
    * @param topGuide
    * @param bottomGuide
    * @param modelViewTransform
-   * @param options
+   * @param providedOptions
    */
-  constructor( topGuide: Guide, bottomGuide: Guide, modelViewTransform: ModelViewTransform2, options: Options ) {
+  constructor( topGuide: Guide, bottomGuide: Guide, modelViewTransform: ModelViewTransform2, providedOptions: Options ) {
     super( merge( {
       children: [
         new GuideNode( topGuide, modelViewTransform ),
         new GuideNode( bottomGuide, modelViewTransform )
       ]
-    }, options ) );
+    }, providedOptions ) );
   }
 }
 

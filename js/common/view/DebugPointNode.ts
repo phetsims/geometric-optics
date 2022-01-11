@@ -27,13 +27,13 @@ class DebugPointNode extends Circle {
   /**
    * @param positionProperty
    * @param modelViewTransform
-   * @param options
+   * @param providedOptions
    * */
-  constructor( positionProperty: IReadOnlyProperty<Vector2>, modelViewTransform: ModelViewTransform2, options?: DebugPointNodeOptions ) {
+  constructor( positionProperty: IReadOnlyProperty<Vector2>, modelViewTransform: ModelViewTransform2, providedOptions?: DebugPointNodeOptions ) {
 
-    options = merge( {
+    const options = merge( {
       fill: 'red'
-    }, options ) as Required< DebugPointNodeOptions >;
+    }, providedOptions ) as Required< DebugPointNodeOptions >;
 
     super( RADIUS, options );
 

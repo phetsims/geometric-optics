@@ -39,14 +39,14 @@ class GOControlPanel extends Panel {
    * @param optic
    * @param raysModeProperty
    * @param visibleProperties
-   * @param options
+   * @param providedOptions
    */
   constructor( representationProperty: Property<Representation>, optic: Optic, raysModeProperty: Property<RaysModeEnum>,
-               visibleProperties: VisibleProperties, options: Options ) {
+               visibleProperties: VisibleProperties, providedOptions: Options ) {
 
     // Rays radio buttons ---------------------------------------------------------------------------------------
 
-    const raysSubpanelTandem = options.tandem.createTandem( 'raysSubpanel' );
+    const raysSubpanelTandem = providedOptions.tandem.createTandem( 'raysSubpanel' );
 
     // title
     const raysText = new Text( geometricOpticsStrings.rays, {
@@ -70,7 +70,7 @@ class GOControlPanel extends Panel {
 
     // Lens/Mirror controls ---------------------------------------------------------------------------------------
 
-    const opticSubpanelTandem = options.tandem.createTandem( 'opticSubpanel' );
+    const opticSubpanelTandem = providedOptions.tandem.createTandem( 'opticSubpanel' );
 
     const opticSubpanelChildren = [];
 
@@ -100,7 +100,7 @@ class GOControlPanel extends Panel {
     // Visibility checkboxes ---------------------------------------------------------------------------------------
 
     const checkboxGroup = new VisibilityCheckboxGroup( visibleProperties, ( optic instanceof Lens ), representationProperty, {
-      tandem: options.tandem.createTandem( 'checkboxGroup' )
+      tandem: providedOptions.tandem.createTandem( 'checkboxGroup' )
     } );
 
     // Put it all together ---------------------------------------------------------------------------------------
@@ -109,10 +109,10 @@ class GOControlPanel extends Panel {
     const separatorLength = Math.max( checkboxGroup.height, raysSubpanel.height );
     const separatorOptions = { stroke: 'gray', lineWidth: 1 };
     const leftSeparator = new VSeparator( separatorLength, merge( {
-      tandem: options.tandem.createTandem( 'leftSeparator' )
+      tandem: providedOptions.tandem.createTandem( 'leftSeparator' )
     }, separatorOptions ) );
     const rightSeparator = new VSeparator( separatorLength, merge( {
-      tandem: options.tandem.createTandem( 'rightSeparator' )
+      tandem: providedOptions.tandem.createTandem( 'rightSeparator' )
     }, separatorOptions ) );
 
     const content = new AlignBox( new HBox( {
@@ -130,7 +130,7 @@ class GOControlPanel extends Panel {
       yMargin: 10,
       fill: GOColors.panelFillProperty,
       stroke: GOColors.panelStrokeProperty
-    }, options ) );
+    }, providedOptions ) );
   }
 
   /**

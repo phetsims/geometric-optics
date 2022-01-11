@@ -24,9 +24,9 @@ class IndexOfRefractionControl extends NumberControl {
 
   /**
    * @param indexOfRefractionProperty
-   * @param options
+   * @param providedOptions
    */
-  constructor( indexOfRefractionProperty: NumberProperty, options: Options ) {
+  constructor( indexOfRefractionProperty: NumberProperty, providedOptions: Options ) {
 
     assert && assert( indexOfRefractionProperty.range ); // {Range|null}
     const indexOfRefractionRange: Range = indexOfRefractionProperty.range!;
@@ -41,7 +41,7 @@ class IndexOfRefractionControl extends NumberControl {
         numberDisplayOptions: {
           decimalPlaces: GOConstants.INDEX_OF_REFRACTION_DECIMAL_PLACES
         }
-      }, options ) );
+      }, providedOptions ) );
   }
 }
 

@@ -85,16 +85,18 @@ class GOScreenView extends ScreenView {
 
   /**
    * @param model
-   * @param options
+   * @param providedOptions
    */
-  constructor( model: GOModel, options: GeometricOpticsScreenViewOptions ) {
+  constructor( model: GOModel, providedOptions: GeometricOpticsScreenViewOptions ) {
 
-    super( merge( {
+    const options = merge( {
 
       // Workaround for things shifting around while dragging
       // See https://github.com/phetsims/scenery/issues/1289 and https://github.com/phetsims/geometric-optics/issues/213
       preventFit: true
-    }, options ) );
+    }, providedOptions ) as GeometricOpticsScreenViewOptions;
+
+    super( options );
 
     const viewOrigin = options.getViewOrigin( this.layoutBounds );
 
@@ -273,9 +275,9 @@ class GOScreenView extends ScreenView {
 
     // The part of the optical axis that appears to be in front of the things. This makes it looks like
     // the axis is going through the source object, real/virtual image, etc.
-    const opticalAxisForegroundNode = new OpticalAxisForegroundNode( model.optic.positionProperty,
-      model.representationProperty, model.sourceObject.positionProperty, model.firstTarget.positionProperty,
-      model.firstTarget.isVirtualProperty, model.barrier, modelBoundsProperty, modelViewTransform,
+    const opticalAxisForegroundNode = new OpticalAxisForegroundNode( model.lightRays1.raysProcessedEmitter,
+      model.optic.positionProperty, model.representationProperty, model.sourceObject.positionProperty,
+      model.firstTarget.positionProperty, model.barrier, modelBoundsProperty, modelViewTransform,
       targetNode.boundsProperty, {
         visibleProperty: model.optic.opticalAxisVisibleProperty
       } );

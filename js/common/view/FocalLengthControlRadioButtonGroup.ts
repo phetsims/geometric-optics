@@ -25,9 +25,9 @@ type Options = {
 class FocalLengthControlRadioButtonGroup extends VerticalAquaRadioButtonGroup<FocalLengthControlEnum> {
 
   /**
-   * @param options
+   * @param providedOptions
    */
-  constructor( options: Options ) {
+  constructor( providedOptions: Options ) {
 
     const items = [
       createItem( 'indirect', geometricOpticsStrings.indirect ),
@@ -36,7 +36,7 @@ class FocalLengthControlRadioButtonGroup extends VerticalAquaRadioButtonGroup<Fo
 
     super( GOGlobalOptions.focalLengthControlProperty, items, merge( {
       spacing: 8
-    }, options ) );
+    }, providedOptions ) );
   }
 }
 

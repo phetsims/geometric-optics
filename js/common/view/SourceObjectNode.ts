@@ -44,12 +44,12 @@ class SourceObjectNode extends Node {
    * @param opticPositionProperty
    * @param modelViewTransform
    * @param dragLockedProperty
-   * @param options
+   * @param providedOptions
    */
   constructor( representationProperty: IReadOnlyProperty<Representation>, sourceObject: SourceObject,
                modelBoundsProperty: IReadOnlyProperty<Bounds2>, opticPositionProperty: IReadOnlyProperty<Vector2>,
                modelViewTransform: ModelViewTransform2, dragLockedProperty: IReadOnlyProperty<boolean>,
-               options: Options ) {
+               providedOptions: Options ) {
 
     const imageNode = new Image( representationProperty.value.rightFacingUpright );
 
@@ -60,14 +60,16 @@ class SourceObjectNode extends Node {
 
     const cueingArrowsNode = new CueingArrowsNode();
 
-    super( merge( {
+    const options = merge( {
       children: [ sourceObjectNode, cueingArrowsNode ],
 
       // pdom options
       tagName: 'div',
       focusable: true,
       focusHighlight: new FocusHighlightFromNode( sourceObjectNode )
-    }, options ) );
+    }, providedOptions ) as Options;
+
+    super( options );
 
     // Update cursor and cueing arrows to reflect how this Node is draggable.
     dragLockedProperty.link( locked => {

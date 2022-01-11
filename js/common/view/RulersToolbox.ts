@@ -26,9 +26,9 @@ class RulersToolbox extends Panel {
   /**
    * @param rulerNodes - in the order that they appear in the toolbox, left to right
    * @param zoomTransformProperty
-   * @param options
+   * @param providedOptions
    */
-  constructor( rulerNodes: GORulerNode[], zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>, options: Options ) {
+  constructor( rulerNodes: GORulerNode[], zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>, providedOptions: Options ) {
 
     const toolboxContent = new HBox( {
       spacing: 20,
@@ -45,7 +45,7 @@ class RulersToolbox extends Panel {
       yMargin: 7,
       fill: 'white',
       stroke: 'grey'
-    }, options ) );
+    }, providedOptions ) );
   }
 
   public dispose(): void {

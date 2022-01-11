@@ -26,9 +26,9 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysModeEnum> {
 
   /**
    * @param raysModeProperty
-   * @param options
+   * @param providedOptions
    */
-  constructor( raysModeProperty: Property<RaysModeEnum>, options: Options ) {
+  constructor( raysModeProperty: Property<RaysModeEnum>, providedOptions: Options ) {
 
     // items for ray Mode radio buttons
     const items = [
@@ -44,7 +44,7 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysModeEnum> {
       radioButtonOptions: { radius: 7 },
       touchAreaXDilation: 10,
       mouseAreaXDilation: 10
-    }, options ) );
+    }, providedOptions ) );
   }
 }
 

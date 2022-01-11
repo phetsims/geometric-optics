@@ -69,9 +69,10 @@ class LightRay {
 
     this.realRays = getRealRays( initialRay, firstPoint, optic, isPrincipalRaysMode, targetPoint );
 
-    // if the last ray intercepts the barrier, its final point will be set on the last ray
+    // If we have a barrier (e.g. projection screen), check whether the last ray intersects the barrier,
+    // and therefore terminates at the barrier.
     if ( barrier ) {
-      setFinalPointProjectionScreen( this.realRays, barrier.getBisectorLineTranslated() );
+      setFinalPointOnBarrier( this.realRays, barrier.getBisectorLineTranslated() );
     }
 
     this.hasVirtualRay = hasVirtualComponent( isVirtual, this.realRays );
@@ -82,12 +83,12 @@ class LightRay {
 
     this.isTargetReached = this.getHasReachedTarget( distanceTraveled, !!barrier, targetPoint );
 
-    // process rays to convert them to line segments
+    // Process rays to convert them to line segments.
     this.raysToSegments( distanceTraveled );
   }
 
   /**
-   * Has the rays reached the target (barrier or target point)?
+   * Have the rays reached the target (barrier or target point)?
    * @param distanceTraveled
    * @param isBarrierPresent
    * @param targetPoint
@@ -116,9 +117,8 @@ class LightRay {
                         this.virtualRay :
                         this.realRays[ this.realRays.length - 1 ];
 
-      if ( targetRay instanceof Ray ) {
-
-        // add the last bit of distance to the target
+      // add the last bit of distance to the target
+      if ( targetRay ) {
         distance = distance + targetRay.getDistanceTo( targetPoint );
       }
     }
@@ -153,7 +153,7 @@ class LightRay {
       this.realSegments.push( new LightRaySegment( realRay.position, realEndPoint ) );
 
       // Wait to process virtual ray until the virtual starting point matches the starting point of the ray being processed.
-      if ( this.virtualRay instanceof Ray && this.virtualRay.position === realRay.position ) {
+      if ( this.virtualRay && this.virtualRay.position === realRay.position ) {
 
         // Determine the distance of the virtual ray.
         const virtualRayDistance = Math.min( remainingDistance, this.virtualRay.getLength() );
@@ -228,7 +228,7 @@ function getRealRays( initialRay: Ray, firstPoint: Vector2 | null, optic: Optic,
       // determine the intersection of the transmitted ray with the back shape of the optic
       const backIntersection = optic.getBackShapeTranslated().intersection( transmittedRay );
 
-      // {Vector2|null} back shape point intersecting the transmitted ray
+      // back shape point intersecting the transmitted ray
       const backPoint = getPoint( backIntersection );
 
       // if back point exists, add transmitted and internal ray
@@ -283,9 +283,9 @@ function getIntermediatePoint( initialRay: Ray, firstPoint: Vector2, optic: Opti
 /**
  * Sets the final point of the real ray if it intersects with the vertical median of the barrier.
  * @param realRays
- * @param projectionScreenBisectorLine
+ * @param barrierBisectorLine
  */
-function setFinalPointProjectionScreen( realRays: Ray[], projectionScreenBisectorLine: Shape ): void {
+function setFinalPointOnBarrier( realRays: Ray[], barrierBisectorLine: Shape ): void {
 
   // ensure that real rays has at least one ray
   if ( realRays.length > 0 ) {
@@ -293,13 +293,13 @@ function setFinalPointProjectionScreen( realRays: Ray[], projectionScreenBisecto
     // the barrier can only intersect with the last ray
     const lastRay = realRays[ realRays.length - 1 ];
 
-    const intersection = projectionScreenBisectorLine.intersection( lastRay );
+    const intersection = barrierBisectorLine.intersection( lastRay );
 
     // {Vector2|null}
     const pointOnScreen = getPoint( intersection );
 
-    // if intersection is found, set the transmittedRay final point
-    if ( pointOnScreen instanceof Vector2 ) {
+    // If intersection is found, set the transmittedRay final point
+    if ( pointOnScreen ) {
       lastRay.setFinalPoint( pointOnScreen );
     }
   }

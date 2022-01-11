@@ -40,10 +40,10 @@ class ProjectionScreenNode extends Node {
    * @param opticPositionProperty
    * @param modelBoundsProperty
    * @param modelViewTransform
-   * @param options
+   * @param providedOptions
    */
   constructor( projectionScreen: ProjectionScreen, opticPositionProperty: IReadOnlyProperty<Vector2>,
-               modelBoundsProperty: IReadOnlyProperty<Bounds2>, modelViewTransform: ModelViewTransform2, options: Options ) {
+               modelBoundsProperty: IReadOnlyProperty<Bounds2>, modelViewTransform: ModelViewTransform2, providedOptions: Options ) {
 
     // The screen part of the projection screen, drawn in perspective.
     const screenNode = new Path( modelViewTransform.modelToViewShape( projectionScreen.screenShape ), {
@@ -101,17 +101,21 @@ class ProjectionScreenNode extends Node {
       children.push( new OriginNode() );
     }
 
-    super( merge( {
+    const options = merge( {
+
+      // Node options
       children: children,
 
-      // pdom options
+      // pdom providedOptions
       tagName: 'div',
       focusable: true,
       focusHighlight: new FocusHighlightFromNode( parentNode ),
 
       // phet-io options
       phetioInputEnabledPropertyInstrumented: true
-    }, options ) );
+    }, providedOptions ) as Options;
+
+    super( options );
 
     projectionScreen.positionProperty.link( position => {
       this.translation = modelViewTransform.modelToViewPosition( position );
