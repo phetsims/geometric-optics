@@ -63,7 +63,7 @@ class LightRays {
       dependencies.push( barrier.positionProperty );
     }
 
-    // update the shape of rays and the emitter state
+    // Update all rays, then inform listeners via raysProcessedEmitter.
     Property.multilink<DependencyTypes>( dependencies,
       ( sourcePosition: Vector2, raysMode: RaysModeEnum, time: number, representation: Representation ) => {
 
