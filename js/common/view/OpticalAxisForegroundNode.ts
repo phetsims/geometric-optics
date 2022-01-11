@@ -33,6 +33,7 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
    * @param barrier
    * @param modelBoundsProperty
    * @param modelViewTransform
+   * @param targetNodeBoundsProperty
    * @param providedOptions
    */
   constructor( opticPositionProperty: IReadOnlyProperty<Vector2>,
@@ -43,6 +44,7 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
                barrier: Barrier | null,
                modelBoundsProperty: IReadOnlyProperty<Bounds2>,
                modelViewTransform: ModelViewTransform2,
+               targetNodeBoundsProperty: IReadOnlyProperty<Bounds2>,
                providedOptions: OpticalAxisNodeOptions ) {
 
     const options = merge( {}, providedOptions ) as OpticalAxisNodeOptions;
@@ -98,7 +100,7 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
 
             // The second rectangle is between the thing on the left and the left edge of the picture frame on the right.
             const x2 = modelViewTransform.modelToViewX( leftPosition.x );
-            const halfFrameWidth = 34; //TODO get this from sourceObject.boundsProperty, or from sourceObjectNode
+            const halfFrameWidth = targetNodeBoundsProperty.value.width / 2;
             const clipWidth2 = modelViewTransform.modelToViewX( rightPosition.x ) - halfFrameWidth - x2;
 
             clipArea = new Shape()

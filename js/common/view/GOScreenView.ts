@@ -262,6 +262,12 @@ class GOScreenView extends ScreenView {
         visibleProperty: visibleProperties.secondPointVisibleProperty
       } );
 
+    // create the target image
+    const targetNode = new TargetNode( model.representationProperty, model.firstTarget, model.optic,
+      visibleProperties.virtualImageVisibleProperty, visibleProperties.rayTracingVisibleProperty, modelViewTransform, {
+        tandem: options.tandem.createTandem( 'targetNode' )
+      } );
+
     // The complete optical axis, to be put in the background
     const opticalAxisNode = new OpticalAxisNode( model.optic.positionProperty, modelBoundsProperty, modelViewTransform, {
       visibleProperty: model.optic.opticalAxisVisibleProperty
@@ -271,7 +277,8 @@ class GOScreenView extends ScreenView {
     // the axis is going through the source object, real/virtual image, etc.
     const opticalAxisForegroundNode = new OpticalAxisForegroundNode( model.optic.positionProperty,
       model.representationProperty, model.sourceObject.positionProperty, model.firstTarget.positionProperty,
-      model.firstTarget.isVirtualProperty, model.barrier, modelBoundsProperty, modelViewTransform, {
+      model.firstTarget.isVirtualProperty, model.barrier, modelBoundsProperty, modelViewTransform,
+      targetNode.boundsProperty, {
         visibleProperty: model.optic.opticalAxisVisibleProperty
       } );
 
@@ -303,12 +310,6 @@ class GOScreenView extends ScreenView {
     const lightRays2ForegroundNode = new LightRaysForegroundNode( model.lightRays2, model.representationProperty,
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, this.visibleBoundsProperty,
       model.optic.positionProperty, model.firstTarget.positionProperty, model.firstTarget.isVirtualProperty, lightRays2Options );
-
-    // create the target image
-    const targetNode = new TargetNode( model.representationProperty, model.firstTarget, model.optic,
-      visibleProperties.virtualImageVisibleProperty, visibleProperties.rayTracingVisibleProperty, modelViewTransform, {
-        tandem: options.tandem.createTandem( 'targetNode' )
-      } );
 
     // focal points (F)
     const focalPointsNode = new Node( {
