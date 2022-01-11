@@ -249,7 +249,7 @@ class GOScreenView extends ScreenView {
       [ this.visibleBoundsProperty, zoomTransformProperty ],
       ( visibleBounds: Bounds2, zoomTransform: ModelViewTransform2 ) => {
         const viewBounds = new Bounds2( visibleBounds.left, opticShapeRadioButtonGroup.bottom,
-          visibleBounds.right, controlPanel.top );
+          visibleBounds.right, controlPanel.top - 10 );
         return zoomTransform.viewToModelBounds( viewBounds );
       } );
 
@@ -282,9 +282,10 @@ class GOScreenView extends ScreenView {
         visibleProperty: model.optic.opticalAxisVisibleProperty
       } );
 
-    const opticVerticalAxisNode = new OpticVerticalAxisNode( model.optic, model.raysModeProperty, modelBoundsProperty, modelViewTransform, {
-      tandem: options.tandem.createTandem( 'opticVerticalAxisNode' )
-    } );
+    const opticVerticalAxisNode = new OpticVerticalAxisNode( model.optic, model.raysModeProperty,
+      this.visibleBoundsProperty, modelViewTransform, {
+        tandem: options.tandem.createTandem( 'opticVerticalAxisNode' )
+      } );
 
     // focal points (F)
     const focalPointsNode = new Node( {

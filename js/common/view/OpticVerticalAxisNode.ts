@@ -16,7 +16,6 @@ import { Node, Path } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
-import GOConstants from '../GOConstants.js';
 import Optic from '../model/Optic.js';
 import RaysModeEnum from '../model/RaysModeEnum.js';
 
@@ -29,19 +28,19 @@ class OpticVerticalAxisNode extends Node {
   /**
    * @param optic
    * @param raysModeProperty
-   * @param modelBoundsProperty
+   * @param visibleBoundsProperty
    * @param modelViewTransform
    * @param providedOptions
    */
   constructor( optic: Optic, raysModeProperty: IReadOnlyProperty<RaysModeEnum>,
-               modelBoundsProperty: IReadOnlyProperty<Bounds2>,
+               visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                modelViewTransform: ModelViewTransform2, providedOptions: Options ) {
 
     // create a vertical dashed line, through the optic - indicating the crossing plane of principal rays.
     const lineNode = new Path( modelViewTransform.modelToViewShape( optic.getVerticalAxis() ), {
       stroke: GOColors.verticalAxisStrokeProperty,
-      lineWidth: GOConstants.AXIS_LINE_WIDTH,
-      lineDash: GOConstants.AXIS_LINE_DASH
+      lineWidth: 5,
+      opacity: 0.4
     } );
 
     super( merge( {
@@ -54,8 +53,8 @@ class OpticVerticalAxisNode extends Node {
     } );
 
     // clip to the bounds
-    modelBoundsProperty.link( ( modelBounds: Bounds2 ) => {
-      this.clipArea = Shape.bounds( modelViewTransform.modelToViewBounds( modelBounds ) );
+    visibleBoundsProperty.link( ( visibleBounds: Bounds2 ) => {
+      this.clipArea = Shape.bounds( visibleBounds );
     } );
   }
 }

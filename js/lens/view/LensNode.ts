@@ -17,7 +17,6 @@ import { Line, Node, Path } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../../common/GOColors.js';
-import GOConstants from '../../common/GOConstants.js';
 import Lens from '../model/Lens.js';
 import OpticShapeEnum from '../../common/model/OpticShapeEnum.js';
 import LensShapes from '../model/LensShapes.js';
@@ -61,7 +60,7 @@ class LensNode extends Node {
     // Vertical axis for the lens, see https://github.com/phetsims/geometric-optics/issues/190
     const verticalCenterLine = new Line( 0, 0, 0, 1, {
       stroke: GOColors.verticalAxisStrokeProperty,
-      lineWidth: GOConstants.AXIS_LINE_WIDTH
+      lineWidth: 2
     } );
 
     const children: Node[] = [ fillNode, verticalCenterLine, strokeNode ];
