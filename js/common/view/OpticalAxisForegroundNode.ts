@@ -5,6 +5,10 @@
  * OpticalAxisNode that are not occluded. It is intended to be layered in front of things that occlude the
  * optical axis (framed objects, images, and projection screen).
  *
+ * Note that because the optical axis is dashed, we need to use clipArea instead of just drawing the relevant
+ * line segments. If we were to draw line segments, the dash pattern would appear to move, and would not line
+ * up with the (background) axis drawn by OpticalAxisNode.
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
