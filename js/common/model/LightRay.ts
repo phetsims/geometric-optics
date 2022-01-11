@@ -69,7 +69,7 @@ class LightRay {
 
     this.realRays = getRealRays( initialRay, firstPoint, optic, isPrincipalRaysMode, targetPoint );
 
-    // if the last ray intercepts the barrier, its final point will be set on the last ray
+    // If the last ray intercepts the barrier, its final point will be on the barrier.
     if ( barrier ) {
       setFinalPointProjectionScreen( this.realRays, barrier.getBisectorLineTranslated() );
     }
@@ -82,12 +82,12 @@ class LightRay {
 
     this.isTargetReached = this.getHasReachedTarget( distanceTraveled, !!barrier, targetPoint );
 
-    // process rays to convert them to line segments
+    // Process rays to convert them to line segments.
     this.raysToSegments( distanceTraveled );
   }
 
   /**
-   * Has the rays reached the target (barrier or target point)?
+   * Have the rays reached the target (barrier or target point)?
    * @param distanceTraveled
    * @param isBarrierPresent
    * @param targetPoint
@@ -298,8 +298,8 @@ function setFinalPointProjectionScreen( realRays: Ray[], projectionScreenBisecto
     // {Vector2|null}
     const pointOnScreen = getPoint( intersection );
 
-    // if intersection is found, set the transmittedRay final point
-    if ( pointOnScreen instanceof Vector2 ) {
+    // If intersection is found, set the transmittedRay final point
+    if ( pointOnScreen ) {
       lastRay.setFinalPoint( pointOnScreen );
     }
   }
