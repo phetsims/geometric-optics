@@ -273,9 +273,9 @@ class GOScreenView extends ScreenView {
 
     // The part of the optical axis that appears to be in front of the things. This makes it looks like
     // the axis is going through the source object, real/virtual image, etc.
-    const opticalAxisForegroundNode = new OpticalAxisForegroundNode( model.optic.positionProperty,
-      model.representationProperty, model.sourceObject.positionProperty, model.firstTarget.positionProperty,
-      model.firstTarget.isVirtualProperty, model.barrier, modelBoundsProperty, modelViewTransform,
+    const opticalAxisForegroundNode = new OpticalAxisForegroundNode( model.lightRays1.raysProcessedEmitter,
+      model.optic.positionProperty, model.representationProperty, model.sourceObject.positionProperty,
+      model.firstTarget.positionProperty, model.barrier, modelBoundsProperty, modelViewTransform,
       targetNode.boundsProperty, {
         visibleProperty: model.optic.opticalAxisVisibleProperty
       } );
