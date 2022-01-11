@@ -34,10 +34,15 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
    * @param visibleProperties
    * @param isLens
    * @param representationProperty
-   * @param options
+   * @param providedOptions
    */
   constructor( visibleProperties: VisibleProperties, isLens: boolean,
-               representationProperty: IReadOnlyProperty<Representation>, options: Options ) {
+               representationProperty: IReadOnlyProperty<Representation>, providedOptions: Options ) {
+
+    const options = merge( {
+      spacing: 4,
+      checkboxOptions: { boxWidth: 14 }
+    }, providedOptions ) as Options;
 
     const items = [
 
@@ -98,10 +103,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       } );
     }
 
-    super( items, merge( {
-      spacing: 4,
-      checkboxOptions: { boxWidth: 14 }
-    }, options ) );
+    super( items, options );
   }
 }
 

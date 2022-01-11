@@ -43,37 +43,37 @@ class VisibleProperties {
 
   /**
    * @param isLens
-   * @param options
+   * @param providedOptions
    */
-  constructor( isLens: boolean, options: Options ) {
+  constructor( isLens: boolean, providedOptions: Options ) {
 
     this.focalPointsVisibleProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'focalPointsVisibleProperty' )
+      tandem: providedOptions.tandem.createTandem( 'focalPointsVisibleProperty' )
     } );
 
     this.twoFPointsVisibleProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'twoFPointsVisibleProperty' )
+      tandem: providedOptions.tandem.createTandem( 'twoFPointsVisibleProperty' )
     } );
 
     this.virtualImageVisibleProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'virtualImageVisibleProperty' )
+      tandem: providedOptions.tandem.createTandem( 'virtualImageVisibleProperty' )
     } );
 
     this.labelsVisibleProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'labelsVisibleProperty' )
+      tandem: providedOptions.tandem.createTandem( 'labelsVisibleProperty' )
     } );
 
     this.secondPointVisibleProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'secondPointVisibleProperty' )
+      tandem: providedOptions.tandem.createTandem( 'secondPointVisibleProperty' )
     } );
 
     this.guidesVisibleProperty = new BooleanProperty( false, {
       validValues: isLens ? [ true, false ] : [ false ],
-      tandem: options.tandem.createTandem( 'guidesVisibleProperty' )
+      tandem: providedOptions.tandem.createTandem( 'guidesVisibleProperty' )
     } );
 
     this.rayTracingVisibleProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'rayTracingVisibleProperty' )
+      tandem: providedOptions.tandem.createTandem( 'rayTracingVisibleProperty' )
     } );
   }
 

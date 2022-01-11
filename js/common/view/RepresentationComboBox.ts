@@ -26,9 +26,9 @@ class RepresentationComboBox extends ComboBox {
   /**
    * @param representationProperty
    * @param listParent - parent for the listbox popup
-   * @param options
+   * @param providedOptions
    */
-  constructor( representationProperty: Property<Representation>, listParent: Node, options: Options ) {
+  constructor( representationProperty: Property<Representation>, listParent: Node, providedOptions: Options ) {
 
     // Create a ComboBoxItem for each representation.
     const items: ComboBoxItem[] = [];
@@ -60,7 +60,7 @@ class RepresentationComboBox extends ComboBox {
       listPosition: 'below',
       xMargin: 10,
       yMargin: 5
-    }, options ) );
+    }, providedOptions ) );
   }
 }
 

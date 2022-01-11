@@ -31,11 +31,11 @@ class OpticVerticalAxisNode extends Node {
    * @param raysModeProperty
    * @param modelBoundsProperty
    * @param modelViewTransform
-   * @param options
+   * @param providedOptions
    */
   constructor( optic: Optic, raysModeProperty: IReadOnlyProperty<RaysModeEnum>,
                modelBoundsProperty: IReadOnlyProperty<Bounds2>,
-               modelViewTransform: ModelViewTransform2, options: Options ) {
+               modelViewTransform: ModelViewTransform2, providedOptions: Options ) {
 
     // create a vertical dashed line, through the optic - indicating the crossing plane of principal rays.
     const lineNode = new Path( modelViewTransform.modelToViewShape( optic.getVerticalAxis() ), {
@@ -46,7 +46,7 @@ class OpticVerticalAxisNode extends Node {
 
     super( merge( {
       children: [ lineNode ]
-    }, options ) );
+    }, providedOptions ) );
 
     // Make lineNode visible when Rays mode is Principal
     raysModeProperty.link( raysMode => {

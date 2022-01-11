@@ -46,10 +46,10 @@ class LabelNode extends Node {
    * @param text
    * @param positionProperty - position of the thing that we're labeling
    * @param zoomTransformProperty
-   * @param options
+   * @param providedOptions
    */
   constructor( text: string, positionProperty: IReadOnlyProperty<Vector2>,
-               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>, options?: Options ) {
+               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>, providedOptions?: Options ) {
 
     const textNode = new Text( text, TEXT_OPTIONS );
 
@@ -58,7 +58,7 @@ class LabelNode extends Node {
 
     super( merge( {
       children: [ backgroundRectangle, textNode ]
-    }, options ) );
+    }, providedOptions ) );
 
     Property.multilink(
       [ textNode.boundsProperty, zoomTransformProperty, positionProperty ],

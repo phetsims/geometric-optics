@@ -27,9 +27,9 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeE
 
   /**
    * @param optic
-   * @param options
+   * @param providedOptions
    */
-  constructor( optic: Optic, options: Options ) {
+  constructor( optic: Optic, providedOptions: Options ) {
 
     // A radio button for each shape supported by the optic
     assert && assert( optic.opticShapeProperty.validValues ); // {OpticShapeEnum[]|undefined}
@@ -55,7 +55,7 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeE
       selectedLineWidth: 2,
       buttonContentXMargin: 14,
       buttonContentYMargin: 5
-    }, options ) );
+    }, providedOptions ) );
   }
 }
 

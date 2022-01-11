@@ -35,13 +35,13 @@ class TargetNode extends Node {
    * @param virtualImageVisibleProperty
    * @param rayTracingVisibleProperty
    * @param modelViewTransform
-   * @param options
+   * @param providedOptions
    */
   constructor( representationProperty: IReadOnlyProperty<Representation>, target: Target, optic: Optic,
                virtualImageVisibleProperty: IReadOnlyProperty<boolean>, rayTracingVisibleProperty: IReadOnlyProperty<boolean>,
-               modelViewTransform: ModelViewTransform2, options: Options ) {
+               modelViewTransform: ModelViewTransform2, providedOptions: Options ) {
 
-    super( options );
+    super( providedOptions );
 
     assert && assert( target.imageProperty.value ); // {HTMLImageElement|null}
     const imageNode = new Image( target.imageProperty.value!, {

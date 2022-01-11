@@ -54,10 +54,10 @@ class LightSpot {
    * @param projectionScreen
    * @param sourcePositionProperty - position of the light source
    * @param targetPositionProperty
-   * @param options
+   * @param providedOptions
    */
   constructor( optic: Optic, projectionScreen: ProjectionScreen, sourcePositionProperty: IReadOnlyProperty<Vector2>,
-               targetPositionProperty: IReadOnlyProperty<Vector2>, options: Options ) {
+               targetPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: Options ) {
 
     this.shapeProperty = new DerivedProperty(
       [ optic.positionProperty, optic.diameterProperty, projectionScreen.positionProperty, sourcePositionProperty, targetPositionProperty ],
@@ -75,7 +75,7 @@ class LightSpot {
       ( positionAndDiameter: PositionAndDiameter | null ) =>
         ( positionAndDiameter === null ) ? null : positionAndDiameter.position, {
         units: 'cm',
-        tandem: options.tandem.createTandem( 'positionProperty' ),
+        tandem: providedOptions.tandem.createTandem( 'positionProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NullableIO( Vector2.Vector2IO ) ),
         phetioDocumentation: 'position of the center of the light spot (which may not be on the screen), ' +
                              'null if the light is not hitting the screen'
@@ -85,7 +85,7 @@ class LightSpot {
       ( positionAndDiameter: PositionAndDiameter | null ) =>
         ( positionAndDiameter === null ) ? null : positionAndDiameter.diameter, {
         units: 'cm',
-        tandem: options.tandem.createTandem( 'diameterProperty' ),
+        tandem: providedOptions.tandem.createTandem( 'diameterProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NullableIO( NumberIO ) ),
         phetioDocumentation: 'diameter (in the y dimension) of the light spot, null if the light is not hitting the screen'
       } );
@@ -98,7 +98,7 @@ class LightSpot {
       ( diameter: number | null ) => ( diameter === null || diameter === 0 ) ? null :
                                      GOConstants.INTENSITY_RANGE.constrainValue( FULL_INTENSITY_DIAMETER / diameter ), {
         isValidValue: ( value: number | null ) => ( value === null ) || GOConstants.INTENSITY_RANGE.contains( value ),
-        tandem: options.tandem.createTandem( 'intensityProperty' ),
+        tandem: providedOptions.tandem.createTandem( 'intensityProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NullableIO( NumberIO ) ),
         phetioDocumentation: 'intensity of the light hitting the screen, in the range [0,1], ' +
                              'null if the light is not hitting the screen'

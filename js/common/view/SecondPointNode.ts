@@ -54,16 +54,16 @@ class SecondPointNode extends Node {
    * @param sourceObjectDragBoundsProperty
    * @param modelViewTransform
    * @param dragLockedProperty
-   * @param options
+   * @param providedOptions
    */
   constructor( representationProperty: IReadOnlyProperty<Representation>, secondPoint: SecondPoint,
                sourceObjectDragBoundsProperty: IReadOnlyProperty<Bounds2>,
                modelViewTransform: ModelViewTransform2, dragLockedProperty: IReadOnlyProperty<boolean>,
-               options: Options ) {
+               providedOptions: Options ) {
 
     super( merge( {
       phetioInputEnabledPropertyInstrumented: true
-    }, options ) );
+    }, providedOptions ) );
 
     // The point that represents the position of the second source.
     const pointNode = new PointNode( POINT_RADIUS );

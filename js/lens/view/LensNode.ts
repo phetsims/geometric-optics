@@ -43,10 +43,10 @@ class LensNode extends Node {
    * @param lens
    * @param modelBoundsProperty
    * @param modelViewTransform
-   * @param options
+   * @param providedOptions
    */
   constructor( lens: Lens, modelBoundsProperty: IReadOnlyProperty<Bounds2>,
-               modelViewTransform: ModelViewTransform2, options: Options ) {
+               modelViewTransform: ModelViewTransform2, providedOptions: Options ) {
 
     const fillNode = new Path( null, {
       fill: FILL
@@ -73,7 +73,7 @@ class LensNode extends Node {
 
     super( merge( {
       children: children
-    }, options ) );
+    }, providedOptions ) );
 
     // Shapes are described in model coordinates. Scale them to view coordinates.
     // Translation is handled by lens.positionProperty listener.

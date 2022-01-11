@@ -85,16 +85,18 @@ class GOScreenView extends ScreenView {
 
   /**
    * @param model
-   * @param options
+   * @param providedOptions
    */
-  constructor( model: GOModel, options: GeometricOpticsScreenViewOptions ) {
+  constructor( model: GOModel, providedOptions: GeometricOpticsScreenViewOptions ) {
 
-    super( merge( {
+    const options = merge( {
 
       // Workaround for things shifting around while dragging
       // See https://github.com/phetsims/scenery/issues/1289 and https://github.com/phetsims/geometric-optics/issues/213
       preventFit: true
-    }, options ) );
+    }, providedOptions ) as GeometricOpticsScreenViewOptions;
+
+    super( options );
 
     const viewOrigin = options.getViewOrigin( this.layoutBounds );
 

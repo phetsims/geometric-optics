@@ -24,9 +24,9 @@ class RadiusOfCurvatureControl extends NumberControl {
 
   /**
    * @param radiusOfCurvatureProperty
-   * @param options
+   * @param providedOptions
    */
-  constructor( radiusOfCurvatureProperty: NumberProperty, options: Options ) {
+  constructor( radiusOfCurvatureProperty: NumberProperty, providedOptions: Options ) {
 
     assert && assert( radiusOfCurvatureProperty.range ); // {Range|null}
     const radiusOfCurvatureRange: Range = radiusOfCurvatureProperty.range!;
@@ -42,7 +42,7 @@ class RadiusOfCurvatureControl extends NumberControl {
           decimalPlaces: GOConstants.RADIUS_OF_CURVATURE_DECIMAL_PLACES,
           valuePattern: geometricOpticsStrings.valueCentimetersPattern
         }
-      }, options ) );
+      }, providedOptions ) );
   }
 }
 
