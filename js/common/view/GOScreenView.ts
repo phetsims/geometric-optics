@@ -52,7 +52,7 @@ import OpticalAxisForegroundNode from './OpticalAxisForegroundNode.js';
 import LightRaysForegroundNode from './LightRaysForegroundNode.js';
 
 // constants
-const ZOOM_RANGE = new RangeWithValue( 1, 3, 3 );
+const ZOOM_LEVEL_RANGE = new RangeWithValue( 1, 3, 3 );
 const NOMINAL_MODEL_TO_VIEW_SCALE = 2; // view coordinates per cm in initial zoom level
 
 type GeometricOpticsScreenViewOptions = {
@@ -106,7 +106,7 @@ class GOScreenView extends ScreenView {
 
     // Create a Y inverted modelViewTransform with isometric scaling along x and y axes.
     // In the model coordinate frame, +x is right, +y is up.
-    const modelViewTransform = createTransformForZoomLevel( ZOOM_RANGE.defaultValue, viewOrigin );
+    const modelViewTransform = createTransformForZoomLevel( ZOOM_LEVEL_RANGE.defaultValue, viewOrigin );
 
     // Properties  ====================================================================================================
 
@@ -116,9 +116,9 @@ class GOScreenView extends ScreenView {
     } );
 
     // Controls zoom in experiment area
-    const zoomLevelProperty = new NumberProperty( ZOOM_RANGE.defaultValue, {
+    const zoomLevelProperty = new NumberProperty( ZOOM_LEVEL_RANGE.defaultValue, {
       numberType: 'Integer',
-      range: ZOOM_RANGE,
+      range: ZOOM_LEVEL_RANGE,
       tandem: options.tandem.createTandem( 'zoomLevelProperty' )
     } );
 
@@ -515,7 +515,7 @@ function getRelativeZoomScale( zoomLevel: number, previousZoomLevel: number ): n
  * The absolute scale returns 1 if the zoom level is the initial zoom level value.
  */
 function getAbsoluteZoomScale( zoomLevel: number ): number {
-  return getRelativeZoomScale( zoomLevel, ZOOM_RANGE.defaultValue );
+  return getRelativeZoomScale( zoomLevel, ZOOM_LEVEL_RANGE.defaultValue );
 }
 
 /**
