@@ -17,7 +17,7 @@ import Guide from '../model/Guide.js';
 
 // constants, in view coordinates
 const FULCRUM_RADIUS = 5;
-const ARM_WIDTH = 96;
+const ARM_WIDTH = 70;
 const ARM_HEIGHT = 6;
 const FULCRUM_OPTIONS = {
   fill: GOColors.guideFulcrumFillProperty,
