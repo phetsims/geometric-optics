@@ -271,7 +271,7 @@ class GOScreenView extends ScreenView {
     // The complete optical axis, to be put in the background
     const opticalAxisNode = new OpticalAxisNode(
       model.optic.positionProperty,
-      this.visibleBoundsProperty,
+      modelBoundsProperty,
       modelViewTransform, {
       visibleProperty: model.optic.opticalAxisVisibleProperty
     } );
@@ -279,7 +279,7 @@ class GOScreenView extends ScreenView {
     // The parts of the optical axis that appear to be in front of Nodes that have 3D perspective.
     const opticalAxisForegroundNode = new OpticalAxisForegroundNode(
       model.optic.positionProperty,
-      this.visibleBoundsProperty,
+      modelBoundsProperty,
       modelViewTransform,
       model.lightRays1.raysProcessedEmitter,
       model.representationProperty,
