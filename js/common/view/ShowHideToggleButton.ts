@@ -1,4 +1,4 @@
-// Copyright 2021, University of Colorado Boulder
+// Copyright 2021-2022, University of Colorado Boulder
 
 /**
  * Round eye toggle button that shows/hides the light rays and image. When on 'show', button is an open eye. On 'hide',

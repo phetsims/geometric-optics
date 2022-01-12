@@ -1,4 +1,4 @@
-// Copyright 2021, University of Colorado Boulder
+// Copyright 2021-2022, University of Colorado Boulder
 
 /**
  * FocalLengthControlRadioButtonGroup is the radio button group that allows the user to select the method of

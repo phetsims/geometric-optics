@@ -1,4 +1,4 @@
-// Copyright 2021, University of Colorado Boulder
+// Copyright 2021-2022, University of Colorado Boulder
 
 /**
  * LightRays is the model of bundles of rays. It's primary responsibilities is to collect the line segments of
