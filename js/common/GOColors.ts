@@ -125,9 +125,14 @@ const GOColors = {
     default: 'black'
   } ),
 
-  // Fill of the arm (rectangle) portion of guides
-  guideArmFillProperty: new ProfileColorProperty( geometricOptics, 'guideArmFill', {
+  // Fill of the arm (rectangle) portion of the guide associated with the source object or first light source
+  guideArm1FillProperty: new ProfileColorProperty( geometricOptics, 'guideArm1Fill', {
     default: 'white'
+  } ),
+
+  // Fill of the arm (rectangle) portion of the guide associated with the second point or second light source
+  guideArm2FillProperty: new ProfileColorProperty( geometricOptics, 'guideArm2Fill', {
+    default: 'rgb( 41, 214, 126 )'
   } ),
 
   // Fill of the fulcrum (circle) portion of guides

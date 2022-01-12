@@ -19,14 +19,11 @@ import Guide from '../model/Guide.js';
 const GUIDE_FULCRUM_RADIUS = 5;
 const GUIDE_RECTANGLE_WIDTH = 96;
 const GUIDE_RECTANGLE_HEIGHT = 6;
-const RECTANGLE_OPTIONS = {
-  fill: GOColors.guideArmFillProperty,
-  stroke: GOColors.guideStrokeProperty
-};
-const CIRCLE_OPTIONS = {
+const FULCRUM_OPTIONS = {
   fill: GOColors.guideFulcrumFillProperty,
   stroke: GOColors.guideStrokeProperty
 };
+const ARM_STROKE = GOColors.guideStrokeProperty;
 
 class GuideNode extends Node {
 
@@ -35,17 +32,22 @@ class GuideNode extends Node {
 
   /**
    * @param guide
+   * @param armColor
    * @param modelViewTransform
    */
-  constructor( guide: Guide, modelViewTransform: ModelViewTransform2 ) {
+  constructor( guide: Guide, armColor: ColorDef, modelViewTransform: ModelViewTransform2 ) {
 
-    const fulcrumNode = new Circle( GUIDE_FULCRUM_RADIUS, CIRCLE_OPTIONS );
+    const fulcrumNode = new Circle( GUIDE_FULCRUM_RADIUS, FULCRUM_OPTIONS );
 
     // The arms are two rectangles, with left center side laying on fulcrum initially.
+    const armOptions = {
+      stroke: ARM_STROKE,
+      fill: armColor
+    };
     const incidentArmNode = new Rectangle( fulcrumNode.x, fulcrumNode.y - GUIDE_RECTANGLE_HEIGHT / 2,
-      GUIDE_RECTANGLE_WIDTH, GUIDE_RECTANGLE_HEIGHT, RECTANGLE_OPTIONS );
+      GUIDE_RECTANGLE_WIDTH, GUIDE_RECTANGLE_HEIGHT, armOptions );
     const transmittedArmNode = new Rectangle( fulcrumNode.x, fulcrumNode.y - GUIDE_RECTANGLE_HEIGHT / 2,
-      GUIDE_RECTANGLE_WIDTH, GUIDE_RECTANGLE_HEIGHT, RECTANGLE_OPTIONS );
+      GUIDE_RECTANGLE_WIDTH, GUIDE_RECTANGLE_HEIGHT, armOptions );
 
     super( {
       children: [ incidentArmNode, transmittedArmNode, fulcrumNode ]
@@ -94,8 +96,9 @@ class GuideNode extends Node {
 
   /**
    * Creates an icon for guides, to be used with checkbox. This is intended to be a caricature of the actual guides.
+   * @param armColor
    */
-  public static createIcon(): Node {
+  public static createIcon( armColor: ColorDef = GOColors.guideArm1FillProperty ): Node {
 
     // constants
     const fulcrumRadius = 5;
@@ -104,9 +107,13 @@ class GuideNode extends Node {
     const angle = Math.PI / 15;
 
     // Nodes
-    const fulcrumNode = new Circle( fulcrumRadius, CIRCLE_OPTIONS );
-    const leftArmNode = new Rectangle( 0, 0, armWidth, armHeight, RECTANGLE_OPTIONS );
-    const rightArmNode = new Rectangle( 0, 0, armWidth, armHeight, RECTANGLE_OPTIONS );
+    const fulcrumNode = new Circle( fulcrumRadius, FULCRUM_OPTIONS );
+    const armOptions = {
+      stroke: ARM_STROKE,
+      fill: armColor
+    };
+    const leftArmNode = new Rectangle( 0, 0, armWidth, armHeight, armOptions );
+    const rightArmNode = new Rectangle( 0, 0, armWidth, armHeight, armOptions );
 
     // Layout
     leftArmNode.rotation = -angle;

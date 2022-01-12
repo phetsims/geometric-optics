@@ -24,6 +24,7 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Lens from '../model/Lens.js';
 import LensNode from './LensNode.js';
 import GuidesNode from './GuidesNode.js';
+import GOColors from '../../common/GOColors.js';
 
 type LensScreenViewOptions = {
   tandem: Tandem
@@ -58,19 +59,16 @@ class LensScreenView extends GOScreenView {
 
     super( model, options );
 
-    const guides1Node = new GuidesNode( model.topGuide1, model.bottomGuide1, this.modelViewTransform, {
-
-      //TODO it seems odd that guides1Node is hidden when the second point is visible
-      visibleProperty: new DerivedProperty(
-        [ this.visibleProperties.guidesVisibleProperty, this.visibleProperties.secondPointVisibleProperty ],
-        ( guidesVisible: boolean, secondPointVisible: boolean ) => ( guidesVisible && !secondPointVisible )
-      ),
+    const guides1Node = new GuidesNode( model.topGuide1, model.bottomGuide1,
+      GOColors.guideArm1FillProperty, this.modelViewTransform, {
+      visibleProperty: this.visibleProperties.guidesVisibleProperty,
       tandem: options.tandem.createTandem( 'guides1Node' ),
       phetioDocumentation: 'TODO'
     } );
     this.experimentAreaNode.addChild( guides1Node );
 
-    const guides2Node = new GuidesNode( model.topGuide2, model.bottomGuide2, this.modelViewTransform, {
+    const guides2Node = new GuidesNode( model.topGuide2, model.bottomGuide2,
+      GOColors.guideArm2FillProperty, this.modelViewTransform, {
       visibleProperty: DerivedProperty.and(
         [ this.visibleProperties.guidesVisibleProperty, this.visibleProperties.secondPointVisibleProperty ]
       ),
