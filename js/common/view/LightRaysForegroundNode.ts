@@ -49,36 +49,49 @@ class LightRaysForegroundNode extends LightRaysNode {
 
     super( lightRays, representationProperty, virtualImageVisibleProperty, modelViewTransform, options );
 
-    // When light rays have been computed, update the clipArea, to make rays look like they pass through a real Image.
-    lightRays.raysProcessedEmitter.addListener( () => {
-        let clipArea: Shape | null = null;
-        if ( representationProperty.value.isObject && !isVirtualProperty.value ) {
+    // Update the clipArea, to make rays look like they pass through a real Image.
+    // This shows only the parts of this Node that are in the foreground, i.e. not occluded by other things.
+    const updateClipArea = () => {
+      let clipArea: Shape | null = null;
+      if ( representationProperty.value.isObject && !isVirtualProperty.value ) {
 
-          const opticPosition = opticPositionProperty.value;
-          const targetPosition = targetPositionProperty.value;
-          const visibleBounds = visibleBoundsProperty.value;
+        const opticPosition = opticPositionProperty.value;
+        const targetPosition = targetPositionProperty.value;
+        const visibleBounds = visibleBoundsProperty.value;
 
-          // For a real image...
-          let minX: number;
-          let maxX: number;
-          if ( targetPosition.x > opticPosition.x ) {
+        // For a real image...
+        let minX: number;
+        let maxX: number;
+        if ( targetPosition.x > opticPosition.x ) {
 
-            // For a real image to the right of the optic, the clipArea is everything to the left of the image,
-            // because the image is facing left in perspective.
-            minX = visibleBounds.minX;
-            maxX = modelViewTransform.modelToViewX( targetPosition.x );
-          }
-          else {
-
-            // For a real image to the left of the optic, the clipArea is everything to the right of the image,
-            // because the image is facing right in perspective.
-            minX = modelViewTransform.modelToViewX( targetPosition.x );
-            maxX = visibleBounds.maxX;
-          }
-          clipArea = Shape.rectangle( minX, visibleBounds.minY, maxX - minX, visibleBounds.height );
+          // For a real image to the right of the optic, the clipArea is everything to the left of the image,
+          // because the image is facing left in perspective.
+          minX = visibleBounds.minX;
+          maxX = modelViewTransform.modelToViewX( targetPosition.x );
         }
-        this.clipArea = clipArea;
-      } );
+        else {
+
+          // For a real image to the left of the optic, the clipArea is everything to the right of the image,
+          // because the image is facing right in perspective.
+          minX = modelViewTransform.modelToViewX( targetPosition.x );
+          maxX = visibleBounds.maxX;
+        }
+        clipArea = Shape.rectangle( minX, visibleBounds.minY, maxX - minX, visibleBounds.height );
+      }
+      this.clipArea = clipArea;
+    };
+
+    lightRays.raysProcessedEmitter.addListener( () => {
+      if ( this.visible ) {
+        updateClipArea();
+      }
+    } );
+
+    this.visibleProperty.link( visible => {
+      if ( visible ) {
+        updateClipArea();
+      }
+    } );
   }
 }
 

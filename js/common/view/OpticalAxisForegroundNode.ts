@@ -66,11 +66,12 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
                                     new DerivedProperty( [ modelBoundsProperty ], ( modelBounds: Bounds2 ) =>
                                       new Vector2( modelBounds.right + 1, modelBounds.centerX ) );
 
-    // Update the clipArea, used to show only the part(s) of the optical axis that are in the foreground.
+    // Update the clipArea, to make the axis look like it passes through things.
+    // This shows only the parts of this Node that are in the foreground, i.e. not occluded by other things.
     // While it may seem a bit odd to be listening to the light rays, this is an optimization. When computation
     // of the light rays has completed, we know that other things are in their final positions, and therefore
     // don't end up computing intermediate states as things move around.
-    lightRaysProcessedEmitter.addListener( () => {
+    const updateClipArea = () => {
 
       const opticPosition = opticPositionProperty.value;
       const sourceObjectPosition = sourceObjectPositionProperty.value;
@@ -123,6 +124,18 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
         clipArea = Shape.rectangle( minX, minY, maxX - minX, maxY - minY );
       }
       this.clipArea = clipArea;
+    };
+
+    lightRaysProcessedEmitter.addListener( () => {
+      if ( this.visible ) {
+        updateClipArea();
+      }
+    } );
+
+    this.visibleProperty.link( visible => {
+      if ( visible ) {
+        updateClipArea();
+      }
     } );
   }
 
