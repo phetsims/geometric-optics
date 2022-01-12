@@ -16,9 +16,9 @@ import geometricOptics from '../../geometricOptics.js';
 import Guide from '../model/Guide.js';
 
 // constants, in view coordinates
-const GUIDE_FULCRUM_RADIUS = 5;
-const GUIDE_RECTANGLE_WIDTH = 96;
-const GUIDE_RECTANGLE_HEIGHT = 6;
+const FULCRUM_RADIUS = 5;
+const ARM_WIDTH = 96;
+const ARM_HEIGHT = 6;
 const FULCRUM_OPTIONS = {
   fill: GOColors.guideFulcrumFillProperty,
   stroke: GOColors.guideStrokeProperty
@@ -37,17 +37,15 @@ class GuideNode extends Node {
    */
   constructor( guide: Guide, armColor: ColorDef, modelViewTransform: ModelViewTransform2 ) {
 
-    const fulcrumNode = new Circle( GUIDE_FULCRUM_RADIUS, FULCRUM_OPTIONS );
+    const fulcrumNode = new Circle( FULCRUM_RADIUS, FULCRUM_OPTIONS );
 
     // The arms are two rectangles, with left center side laying on fulcrum initially.
     const armOptions = {
       stroke: ARM_STROKE,
       fill: armColor
     };
-    const incidentArmNode = new Rectangle( fulcrumNode.x, fulcrumNode.y - GUIDE_RECTANGLE_HEIGHT / 2,
-      GUIDE_RECTANGLE_WIDTH, GUIDE_RECTANGLE_HEIGHT, armOptions );
-    const transmittedArmNode = new Rectangle( fulcrumNode.x, fulcrumNode.y - GUIDE_RECTANGLE_HEIGHT / 2,
-      GUIDE_RECTANGLE_WIDTH, GUIDE_RECTANGLE_HEIGHT, armOptions );
+    const incidentArmNode = new Rectangle( fulcrumNode.x, fulcrumNode.y - ARM_HEIGHT / 2, ARM_WIDTH, ARM_HEIGHT, armOptions );
+    const transmittedArmNode = new Rectangle( fulcrumNode.x, fulcrumNode.y - ARM_HEIGHT / 2, ARM_WIDTH, ARM_HEIGHT, armOptions );
 
     super( {
       children: [ incidentArmNode, transmittedArmNode, fulcrumNode ]
@@ -146,7 +144,7 @@ function setArmPosition( armNode: Node, viewFulcrumPosition: Vector2, angle: num
 
   // Center of the arm is offset from the fulcrum point.
   // The model-view transform is Y-inverted, so a positive rotation in the model is counterclockwise (negative) in the view.
-  armNode.center = Vector2.createPolar( GUIDE_RECTANGLE_WIDTH / 2, -angle ).plus( viewFulcrumPosition );
+  armNode.center = Vector2.createPolar( ARM_WIDTH / 2, -angle ).plus( viewFulcrumPosition );
 }
 
 geometricOptics.register( 'GuideNode', GuideNode );
