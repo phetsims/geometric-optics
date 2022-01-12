@@ -122,16 +122,16 @@ class GOScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'zoomLevelProperty' )
     } );
 
-    // ModelViewTransform2 for the current zoom level
-    const zoomTransformProperty = new DerivedProperty(
-      [ zoomLevelProperty ],
-      ( zoomLevel: number ) => createTransformForZoomLevel( zoomLevel, viewOrigin )
-    );
-
     // scale for with the current zoom level
     const zoomScaleProperty = new DerivedProperty(
       [ zoomLevelProperty ],
       ( zoomLevel: number ) => getAbsoluteZoomScale( zoomLevel )
+    );
+
+    // ModelViewTransform2 for the current zoom level
+    const zoomTransformProperty = new DerivedProperty(
+      [ zoomLevelProperty ],
+      ( zoomLevel: number ) => createTransformForZoomLevel( zoomLevel, viewOrigin )
     );
 
     const dragLockedProperty = new BooleanProperty( false, {
