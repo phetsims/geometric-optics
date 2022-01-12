@@ -12,7 +12,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -25,30 +24,33 @@ import Representation from '../model/Representation.js';
 import OpticalAxisNode, { OpticalAxisNodeOptions } from './OpticalAxisNode.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import Emitter from '../../../../axon/js/Emitter.js';
+import { Node } from '../../../../scenery/js/imports.js';
 
 class OpticalAxisForegroundNode extends OpticalAxisNode {
 
   /**
-   * @param lightRaysProcessedEmitter
    * @param opticPositionProperty
+   * @param visibleBoundsProperty
+   * @param modelViewTransform
+   * @param lightRaysProcessedEmitter
    * @param representationProperty
    * @param sourceObjectPositionProperty
+   * @param sourceObjectNode
    * @param targetPositionProperty
+   * @param targetNode
    * @param barrier
-   * @param modelBoundsProperty
-   * @param modelViewTransform
-   * @param targetNodeBoundsProperty
    * @param providedOptions
    */
-  constructor( lightRaysProcessedEmitter: Emitter<[]>,
-               opticPositionProperty: IReadOnlyProperty<Vector2>,
+  constructor( opticPositionProperty: IReadOnlyProperty<Vector2>,
+               visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+               modelViewTransform: ModelViewTransform2,
+               lightRaysProcessedEmitter: Emitter<[]>,
                representationProperty: IReadOnlyProperty<Representation>,
                sourceObjectPositionProperty: IReadOnlyProperty<Vector2>,
+               sourceObjectNode: Node,
                targetPositionProperty: IReadOnlyProperty<Vector2>,
+               targetNode: Node,
                barrier: Barrier | null,
-               modelBoundsProperty: IReadOnlyProperty<Bounds2>,
-               modelViewTransform: ModelViewTransform2,
-               targetNodeBoundsProperty: IReadOnlyProperty<Bounds2>,
                providedOptions: OpticalAxisNodeOptions ) {
 
     const options = merge( {}, providedOptions ) as OpticalAxisNodeOptions;
@@ -57,14 +59,7 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
     }
 
     // create optical axis line, with arbitrary length values.
-    super( opticPositionProperty, modelBoundsProperty, modelViewTransform, options );
-
-    // If there is no barrier (as in the Mirror screen), then create an artificial barrier position that is just
-    // to the right of the model bounds, and therefore out of view.
-    const barrierPositionProperty = barrier ?
-                                    barrier.positionProperty :
-                                    new DerivedProperty( [ modelBoundsProperty ], ( modelBounds: Bounds2 ) =>
-                                      new Vector2( modelBounds.right + 1, modelBounds.centerX ) );
+    super( opticPositionProperty, visibleBoundsProperty, modelViewTransform, options );
 
     // Update the clipArea, to make the axis look like it passes through things.
     // This shows only the parts of this Node that are in the foreground, i.e. not occluded by other things.
@@ -73,43 +68,39 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
     // don't end up computing intermediate states as things move around.
     const updateClipArea = () => {
 
-      const opticPosition = opticPositionProperty.value;
-      const sourceObjectPosition = sourceObjectPositionProperty.value;
-      const targetPosition = targetPositionProperty.value;
-      const viewBounds = modelViewTransform.modelToViewBounds( modelBoundsProperty.value );
-      const minY = viewBounds.minY;
-      const maxY = viewBounds.maxY;
+      let clipArea: Shape; // in view coordinates
+
+      const minY = visibleBoundsProperty.value.minY;
+      const maxY = visibleBoundsProperty.value.maxY;
       const clipHeight = maxY - minY;
 
-      let clipArea: Shape;
       if ( representationProperty.value.isObject ) {
 
+        const opticX = modelViewTransform.modelToViewX( opticPositionProperty.value.x );
+        const sourceObjectX = modelViewTransform.modelToViewX( sourceObjectPositionProperty.value.x );
+        const targetX = modelViewTransform.modelToViewX( targetPositionProperty.value.x );
+
         // For a source object...
-        if ( targetPosition.x > opticPosition.x ) {
+        if ( targetX > opticX ) {
 
           // If the image is to the right of the optic, clipArea is 1 rectangle, between the object and image.
-          const minX = modelViewTransform.modelToViewX( sourceObjectPosition.x );
-          const maxX = modelViewTransform.modelToViewX( targetPosition.x );
-          const clipWidth = maxX - minX;
-          clipArea = Shape.rectangle( minX, minY, clipWidth, clipHeight );
+          clipArea = Shape.rectangle( sourceObjectX, minY, targetX - sourceObjectX, clipHeight );
         }
         else {
 
           // If the image is to the left of the optic, clipArea requires 2 rectangles.
 
           // Determine the relative position of the source object and image.
-          const targetToRight = ( targetPosition.x > sourceObjectPosition.x );
-          const leftPosition = targetToRight ? sourceObjectPosition : targetPosition;
-          const rightPosition = targetToRight ? targetPosition : sourceObjectPosition;
+          const targetOnRight = ( targetX > sourceObjectX );
 
           // The first rectangle is between the thing on the right and the optic.
-          const x1 = modelViewTransform.modelToViewX( rightPosition.x );
-          const clipWidth1 = modelViewTransform.modelToViewX( opticPosition.x ) - x1;
+          const x1 = targetOnRight ? targetX : sourceObjectX;
+          const clipWidth1 = opticX - x1;
 
           // The second rectangle is between the thing on the left and the left edge of the picture frame on the right.
-          const x2 = modelViewTransform.modelToViewX( leftPosition.x );
-          const halfFrameWidth = targetNodeBoundsProperty.value.width / 2;
-          const clipWidth2 = modelViewTransform.modelToViewX( rightPosition.x ) - halfFrameWidth - x2;
+          const x2 = targetOnRight ? sourceObjectX : targetX;
+          const halfFrameWidth = ( targetOnRight ? targetNode.visibleBounds.width : sourceObjectNode.visibleBounds.width ) / 2;
+          const clipWidth2 = x1 - x2 - halfFrameWidth;
 
           clipArea = new Shape()
             .rect( x1, minY, clipWidth1, clipHeight )
@@ -119,9 +110,10 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
       else {
 
         // For a light source, clipArea is 1 rectangle, between the optic and the projection screen.
-        const minX = modelViewTransform.modelToViewX( opticPosition.x );
-        const maxX = modelViewTransform.modelToViewX( barrierPositionProperty.value.x );
-        clipArea = Shape.rectangle( minX, minY, maxX - minX, maxY - minY );
+        const minX = modelViewTransform.modelToViewX( opticPositionProperty.value.x );
+        assert && assert( barrier );
+        const maxX = modelViewTransform.modelToViewX( barrier!.positionProperty.value.x );
+        clipArea = Shape.rectangle( minX, minY, maxX - minX, clipHeight );
       }
       this.clipArea = clipArea;
     };

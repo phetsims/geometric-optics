@@ -269,16 +269,25 @@ class GOScreenView extends ScreenView {
     const opticNode = options.createOpticNode( model.optic, modelBoundsProperty, modelViewTransform, options.tandem );
 
     // The complete optical axis, to be put in the background
-    const opticalAxisNode = new OpticalAxisNode( model.optic.positionProperty, modelBoundsProperty, modelViewTransform, {
+    const opticalAxisNode = new OpticalAxisNode(
+      model.optic.positionProperty,
+      this.visibleBoundsProperty,
+      modelViewTransform, {
       visibleProperty: model.optic.opticalAxisVisibleProperty
     } );
 
-    // The part of the optical axis that appears to be in front of the things. This makes it looks like
-    // the axis is going through the source object, real/virtual image, etc.
-    const opticalAxisForegroundNode = new OpticalAxisForegroundNode( model.lightRays1.raysProcessedEmitter,
-      model.optic.positionProperty, model.representationProperty, model.sourceObject.positionProperty,
-      model.firstTarget.positionProperty, model.barrier, modelBoundsProperty, modelViewTransform,
-      targetNode.boundsProperty, {
+    // The parts of the optical axis that appear to be in front of Nodes that have 3D perspective.
+    const opticalAxisForegroundNode = new OpticalAxisForegroundNode(
+      model.optic.positionProperty,
+      this.visibleBoundsProperty,
+      modelViewTransform,
+      model.lightRays1.raysProcessedEmitter,
+      model.representationProperty,
+      model.sourceObject.positionProperty,
+      sourceObjectNode,
+      model.firstTarget.positionProperty,
+      targetNode,
+      model.barrier, {
         visibleProperty: model.optic.opticalAxisVisibleProperty
       } );
 
