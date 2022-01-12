@@ -44,7 +44,6 @@ class OpticalAxisNode extends Line {
 
     // set the horizontal extent of the optical axis line
     visibleBoundsProperty.link( visibleBounds => {
-      console.log( `visibleBounds=${visibleBounds}` );//XXX
       this.setX1( visibleBounds.minX );
       this.setX2( visibleBounds.maxX );
     } );
