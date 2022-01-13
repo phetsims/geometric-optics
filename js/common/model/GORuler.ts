@@ -88,4 +88,3 @@ class GORuler {
 
 geometricOptics.register( 'GORuler', GORuler );
 export { GORuler as default };
-export type { RulerOrientation };
