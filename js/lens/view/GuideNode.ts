@@ -1,4 +1,4 @@
-// Copyright 2021, University of Colorado Boulder
+// Copyright 2021-2022, University of Colorado Boulder
 
 /**
  * GuideNode displays a guide, which consists of a fulcrum, to which are attached 2 arms.  One arm corresponds to the
