@@ -148,7 +148,6 @@ class GOScreenView extends ScreenView {
                            'false = may be dragged horizontally and vertically'
     } );
 
-    // create the target image
     const targetNode = new TargetNode( model.representationProperty, model.firstTarget, model.optic,
       visibleProperties.virtualImageVisibleProperty, visibleProperties.rayTracingVisibleProperty, modelViewTransform, {
         tandem: options.tandem.createTandem( 'targetNode' )
@@ -172,10 +171,9 @@ class GOScreenView extends ScreenView {
         tandem: options.tandem.createTandem( 'verticalRulerNode' )
       } );
 
-    // labels
     const labelsNode = new LabelsNode( model, visibleProperties, zoomTransformProperty );
 
-    // create control panel at the bottom of the screen
+    // Control panel at the bottom-center of the screen
     const controlPanel = new GOControlPanel( model.representationProperty, model.optic,
       model.raysModeProperty, visibleProperties, {
         tandem: options.tandem.createTandem( 'controlPanel' )
@@ -197,7 +195,7 @@ class GOScreenView extends ScreenView {
       verticalRulerNode.setToolboxBounds( bounds );
     } );
 
-    // radio buttons for the shape of the optic
+    // Radio buttons for the shape of the optic
     const opticShapeRadioButtonGroup = new OpticShapeRadioButtonGroup( model.optic, {
       centerTop: erodedLayoutBounds.centerTop,
       tandem: options.tandem.createTandem( 'opticShapeRadioButtonGroup' )
@@ -213,13 +211,14 @@ class GOScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'representationComboBox' )
     } );
 
+    // Toggle button to lock dragging to horizontal
     const dragLockedButton = new DragLockedButton( dragLockedProperty, {
       left: representationComboBox.right + 25,
       centerY: representationComboBox.centerY,
       tandem: options.tandem.createTandem( 'dragLockedButton' )
     } );
 
-    // create magnifying buttons for zooming in and out at the left top
+    // Zoom buttons
     const zoomButtonGroup = new MagnifyingGlassZoomButtonGroup( zoomLevelProperty, {
       orientation: 'vertical',
       spacing: 8,
@@ -235,7 +234,7 @@ class GOScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'zoomButtonGroup' )
     } );
 
-    // create reset all button at the right bottom
+    // Reset All button at right-bottom
     const resetAllButton = new ResetAllButton( {
       listener: () => {
         this.interruptSubtreeInput(); // cancel interactions that may be in progress
@@ -246,7 +245,7 @@ class GOScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'resetAllButton' )
     } );
 
-    // create the show/hide eye toggle button above the reset all button
+    // Show/hide toggle button above the Reset All button
     const showHideToggleButton = new ShowHideToggleButton( visibleProperties.rayTracingVisibleProperty, {
       tandem: options.tandem.createTandem( 'showHideToggleButton' )
     } );
