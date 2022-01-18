@@ -1,14 +1,14 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * OpticShapeEnum identifies the shape of the optic.
+ * OpticShapeType is a union type for the optic shapes.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 const OpticShapeValues = [ 'convex', 'concave', 'flat' ] as const;
-type OpticShapeEnum = ( typeof OpticShapeValues )[number];
+type OpticShapeType = ( typeof OpticShapeValues )[number];
 
 export { OpticShapeValues };
-export type { OpticShapeEnum as default };
+export type { OpticShapeType as default };
 

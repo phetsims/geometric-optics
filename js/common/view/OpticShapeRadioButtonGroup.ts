@@ -13,7 +13,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import Optic from '../model/Optic.js';
-import OpticShapeEnum from '../model/OpticShapeEnum.js';
+import OpticShapeType from '../model/OpticShapeType.js';
 import Lens from '../../lens/model/Lens.js';
 import MirrorNode from '../../mirror/view/MirrorNode.js';
 import LensNode from '../../lens/view/LensNode.js';
@@ -23,7 +23,7 @@ type Options = {
   tandem: Tandem
 } & NodeOptions; //TODO https://github.com/phetsims/scenery/issues/1332 limit to Node translation options
 
-class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeEnum> {
+class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeType> {
 
   /**
    * @param optic
@@ -32,9 +32,9 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeE
   constructor( optic: Optic, providedOptions: Options ) {
 
     // A radio button for each shape supported by the optic
-    assert && assert( optic.opticShapeProperty.validValues ); // {OpticShapeEnum[]|undefined}
+    assert && assert( optic.opticShapeProperty.validValues ); // {OpticShapeType[]|undefined}
     const items = optic.opticShapeProperty.validValues!.map(
-      ( opticShape: OpticShapeEnum ) => {
+      ( opticShape: OpticShapeType ) => {
         return {
           value: opticShape,
           node: ( optic instanceof Lens ) ? LensNode.createIconNode( opticShape ) : MirrorNode.createIconNode( opticShape ),

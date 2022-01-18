@@ -1,13 +1,13 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * FocalPointControlEnum identifies the method used to control focal length.
+ * FocalPointControlEnum is a union type for the methods used control focal length.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 const FocalLengthControlValues = [ 'direct', 'indirect' ] as const;
-type FocalLengthControlEnum = ( typeof FocalLengthControlValues )[number];
+type FocalLengthControlType = ( typeof FocalLengthControlValues )[number];
 
 export { FocalLengthControlValues };
-export type { FocalLengthControlEnum as default };
+export type { FocalLengthControlType as default };

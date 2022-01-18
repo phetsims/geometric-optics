@@ -10,7 +10,7 @@
 
 import logGlobal from '../../../phet-core/js/logGlobal.js';
 import geometricOptics from '../geometricOptics.js';
-import { FocalLengthControlValues } from './model/FocalLengthControlEnum.js';
+import { FocalLengthControlValues } from './model/FocalLengthControlType.js';
 
 const SCHEMA = {
 

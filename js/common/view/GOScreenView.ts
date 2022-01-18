@@ -40,7 +40,7 @@ import ShowHideToggleButton from './ShowHideToggleButton.js';
 import SourceObjectNode from './SourceObjectNode.js';
 import TargetNode from './TargetNode.js';
 import VisibleProperties from './VisibleProperties.js';
-import RaysModeEnum from '../model/RaysModeEnum.js';
+import RaysModeType from '../model/RaysModeType.js';
 import Lens from '../../lens/model/Lens.js';
 import GORulerNode from './GORulerNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
@@ -378,7 +378,7 @@ class GOScreenView extends ScreenView {
 
     Property.multilink(
       [ model.raysModeProperty, visibleProperties.rayTracingVisibleProperty ],
-      ( raysMode: RaysModeEnum, rayTracingVisible: boolean ) => {
+      ( raysMode: RaysModeType, rayTracingVisible: boolean ) => {
         if ( raysMode === 'none' ) {
           model.firstTarget.visibleProperty.value = rayTracingVisible;
           model.secondTarget.visibleProperty.value = rayTracingVisible;

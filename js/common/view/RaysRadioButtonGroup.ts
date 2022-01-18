@@ -14,7 +14,7 @@ import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioBu
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
-import RaysModeEnum from '../model/RaysModeEnum.js';
+import RaysModeType from '../model/RaysModeType.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
 
@@ -22,13 +22,13 @@ type Options = {
   tandem: Tandem
 };
 
-class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysModeEnum> {
+class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysModeType> {
 
   /**
    * @param raysModeProperty
    * @param providedOptions
    */
-  constructor( raysModeProperty: Property<RaysModeEnum>, providedOptions: Options ) {
+  constructor( raysModeProperty: Property<RaysModeType>, providedOptions: Options ) {
 
     // items for ray Mode radio buttons
     const items = [
@@ -53,7 +53,7 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysModeEnum> {
  * @param value
  * @param text
  */
-function createItem( value: RaysModeEnum, text: string ): AquaRadioButtonGroupItem<RaysModeEnum> {
+function createItem( value: RaysModeType, text: string ): AquaRadioButtonGroupItem<RaysModeType> {
   return {
     value: value,
     node: new Text( text, {

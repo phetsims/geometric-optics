@@ -16,7 +16,7 @@ import LightRay from './LightRay.js';
 import LightRaySegment from './LightRaySegment.js';
 import Optic from './Optic.js';
 import Ray from './Ray.js';
-import RaysModeEnum from './RaysModeEnum.js';
+import RaysModeType from './RaysModeType.js';
 import Target from './Target.js';
 import Representation from './Representation.js';
 import Barrier from './Barrier.js';
@@ -43,7 +43,7 @@ class LightRays {
    * @param target - target model associated with this ray
    * @param barrier - optional barrier that blocks rays
    */
-  constructor( timeProperty: Property<number>, raysModeProperty: IReadOnlyProperty<RaysModeEnum>,
+  constructor( timeProperty: Property<number>, raysModeProperty: IReadOnlyProperty<RaysModeType>,
                representationProperty: IReadOnlyProperty<Representation>,
                sourceObjectPositionProperty: IReadOnlyProperty<Vector2>,
                optic: Optic, target: Target, barrier: Barrier | null ) {
@@ -54,7 +54,7 @@ class LightRays {
 
     // Things that result in a change to the rays.
     // We only care about the types of the first 4 dependencies, because the listener only has 4 parameters.
-    type DependencyTypes = [ Vector2, RaysModeEnum, number, Representation, ...any[] ];
+    type DependencyTypes = [ Vector2, RaysModeType, number, Representation, ...any[] ];
     const dependencies: MappedProperties<DependencyTypes> = [
       sourceObjectPositionProperty, raysModeProperty, timeProperty, representationProperty,
       optic.positionProperty, optic.diameterProperty, optic.focalLengthProperty, optic.opticShapeProperty
@@ -65,7 +65,7 @@ class LightRays {
 
     // Update all rays, then inform listeners via raysProcessedEmitter.
     Property.multilink<DependencyTypes>( dependencies,
-      ( sourcePosition: Vector2, raysMode: RaysModeEnum, time: number, representation: Representation ) => {
+      ( sourcePosition: Vector2, raysMode: RaysModeType, time: number, representation: Representation ) => {
 
         // Clear the arrays.
         this.realSegments = [];
@@ -119,7 +119,7 @@ class LightRays {
  * @param raysMode
  * @param targetPoint
  */
-function getRayDirections( sourcePosition: Vector2, optic: Optic, raysMode: RaysModeEnum, targetPoint: Vector2 ): Vector2[] {
+function getRayDirections( sourcePosition: Vector2, optic: Optic, raysMode: RaysModeType, targetPoint: Vector2 ): Vector2[] {
 
   // {Vector2[]} directions of the light rays emanating from the object
   const directions = [];

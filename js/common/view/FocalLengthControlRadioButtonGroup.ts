@@ -16,13 +16,13 @@ import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
-import FocalLengthControlEnum from '../model/FocalLengthControlEnum.js';
+import FocalLengthControlType from '../model/FocalLengthControlType.js';
 
 type Options = {
   tandem: Tandem
 };
 
-class FocalLengthControlRadioButtonGroup extends VerticalAquaRadioButtonGroup<FocalLengthControlEnum> {
+class FocalLengthControlRadioButtonGroup extends VerticalAquaRadioButtonGroup<FocalLengthControlType> {
 
   /**
    * @param providedOptions
@@ -45,7 +45,7 @@ class FocalLengthControlRadioButtonGroup extends VerticalAquaRadioButtonGroup<Fo
  * @param value
  * @param text
  */
-function createItem( value: FocalLengthControlEnum, text: string ): AquaRadioButtonGroupItem<FocalLengthControlEnum> {
+function createItem( value: FocalLengthControlType, text: string ): AquaRadioButtonGroupItem<FocalLengthControlType> {
   return {
     value: value,
     node: new Text( text, {

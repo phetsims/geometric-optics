@@ -17,7 +17,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import Optic from '../model/Optic.js';
-import RaysModeEnum from '../model/RaysModeEnum.js';
+import RaysModeType from '../model/RaysModeType.js';
 
 type Options = {
   tandem: Tandem
@@ -32,7 +32,7 @@ class OpticVerticalAxisNode extends Node {
    * @param modelViewTransform
    * @param providedOptions
    */
-  constructor( optic: Optic, raysModeProperty: IReadOnlyProperty<RaysModeEnum>,
+  constructor( optic: Optic, raysModeProperty: IReadOnlyProperty<RaysModeType>,
                visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                modelViewTransform: ModelViewTransform2, providedOptions: Options ) {
 

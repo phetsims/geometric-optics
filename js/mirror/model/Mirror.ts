@@ -12,7 +12,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Optic, { OpticOptions } from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
-import OpticShapeEnum from '../../common/model/OpticShapeEnum.js';
+import OpticShapeType from '../../common/model/OpticShapeType.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import MirrorShapes from './MirrorShapes.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
@@ -39,7 +39,7 @@ class Mirror extends Optic {
       indexOfRefractionRange: new RangeWithValue( 2, 2, 2 ), // unitless
       diameterRange: new RangeWithValue( 30, 130, 80 ), // in cm
       sign: -1,
-      isConverging: ( opticShape: OpticShapeEnum ) => ( opticShape === 'concave' )
+      isConverging: ( opticShape: OpticShapeType ) => ( opticShape === 'concave' )
 
     }, providedOptions ) as OpticOptions;
 
@@ -47,7 +47,7 @@ class Mirror extends Optic {
 
     this.shapesProperty = new DerivedProperty(
       [ this.opticShapeProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
-      ( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number ) =>
+      ( opticShape: OpticShapeType, radiusOfCurvature: number, diameter: number ) =>
         new MirrorShapes( opticShape, radiusOfCurvature, diameter )
     );
   }

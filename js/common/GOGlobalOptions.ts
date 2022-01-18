@@ -10,7 +10,7 @@ import Property from '../../../axon/js/Property.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import geometricOptics from '../geometricOptics.js';
 import GOQueryParameters from './GOQueryParameters.js';
-import FocalLengthControlEnum, { FocalLengthControlValues } from './model/FocalLengthControlEnum.js';
+import FocalLengthControlType, { FocalLengthControlValues } from './model/FocalLengthControlType.js';
 import StringIO from '../../../tandem/js/types/StringIO.js';
 import BooleanProperty from '../../../axon/js/BooleanProperty.js';
 
@@ -20,7 +20,7 @@ const optionsTandem = Tandem.GLOBAL_VIEW.createTandem( 'options' );
 const GOGlobalOptions = {
 
   focalLengthControlProperty:
-    new Property<FocalLengthControlEnum>( GOQueryParameters.focalLengthControl, {
+    new Property<FocalLengthControlType>( GOQueryParameters.focalLengthControl, {
       validValues: FocalLengthControlValues,
       tandem: optionsTandem.createTandem( 'focalLengthControlProperty' ),
       phetioType: Property.PropertyIO( StringIO ),

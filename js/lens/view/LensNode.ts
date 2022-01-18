@@ -18,7 +18,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../../common/GOColors.js';
 import Lens from '../model/Lens.js';
-import OpticShapeEnum from '../../common/model/OpticShapeEnum.js';
+import OpticShapeType from '../../common/model/OpticShapeType.js';
 import LensShapes from '../model/LensShapes.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
@@ -114,7 +114,7 @@ class LensNode extends Node {
    * Creates an icon for a lens.
    * @param opticShape
    */
-  public static createIconNode( opticShape: OpticShapeEnum ): Node {
+  public static createIconNode( opticShape: OpticShapeType ): Node {
 
     const lensShapes = new LensShapes( opticShape, ICON_RADIUS_OF_CURVATURE, ICON_DIAMETER, {
       isHollywooded: false

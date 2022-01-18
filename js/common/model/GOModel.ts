@@ -17,7 +17,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import LightRays from './LightRays.js';
 import Optic from './Optic.js';
-import RaysModeEnum, { RaysModeValues } from './RaysModeEnum.js';
+import RaysModeType, { RaysModeValues } from './RaysModeType.js';
 import Representation, { RepresentationStaticInstances } from './Representation.js';
 import GORuler from './GORuler.js';
 import SecondPoint from './SecondPoint.js';
@@ -70,7 +70,7 @@ class GOModel {
   readonly lightRaysTimeProperty: NumberProperty;
 
   // determines the representation used for rays
-  readonly raysModeProperty: Property<RaysModeEnum>;
+  readonly raysModeProperty: Property<RaysModeType>;
 
   // light rays associated with the first light source
   readonly lightRays1: LightRays;

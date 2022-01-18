@@ -12,7 +12,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Optic, { OpticOptions } from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
-import OpticShapeEnum from '../../common/model/OpticShapeEnum.js';
+import OpticShapeType from '../../common/model/OpticShapeType.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import LensShapes from './LensShapes.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
@@ -39,7 +39,7 @@ class Lens extends Optic {
       indexOfRefractionRange: new RangeWithValue( 1.2, 1.9, 1.5 ), // unitless
       diameterRange: new RangeWithValue( 30, 130, 80 ), // in cm
       sign: 1,
-      isConverging: ( opticShape: OpticShapeEnum ) => ( opticShape === 'convex' ),
+      isConverging: ( opticShape: OpticShapeType ) => ( opticShape === 'convex' ),
 
       // phet-io options
       tandem: Tandem.REQUIRED
@@ -49,7 +49,7 @@ class Lens extends Optic {
 
     this.shapesProperty = new DerivedProperty(
       [ this.opticShapeProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
-      ( opticShape: OpticShapeEnum, radiusOfCurvature: number, diameter: number ) =>
+      ( opticShape: OpticShapeType, radiusOfCurvature: number, diameter: number ) =>
         new LensShapes( opticShape, radiusOfCurvature, diameter )
     );
   }

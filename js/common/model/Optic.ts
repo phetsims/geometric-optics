@@ -18,7 +18,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import geometricOptics from '../../geometricOptics.js';
 import OpticShapes from './OpticShapes.js';
-import OpticShapeEnum, { OpticShapeValues } from './OpticShapeEnum.js';
+import OpticShapeType, { OpticShapeValues } from './OpticShapeType.js';
 import Property from '../../../../axon/js/Property.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
@@ -29,7 +29,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 type OpticOptions = {
 
   // initial shape of the optic, 'convex' or 'concave'
-  opticShape: OpticShapeEnum,
+  opticShape: OpticShapeType,
 
   // range of index of refraction, a unitless ratio
   radiusOfCurvatureRange: Range,
@@ -44,13 +44,13 @@ type OpticOptions = {
   sign: 1 | -1,
 
   // determines whether the optic is converging for the specified shape
-  isConverging: ( opticShape: OpticShapeEnum ) => boolean,
+  isConverging: ( opticShape: OpticShapeType ) => boolean,
 
   // position of the optic, in cm
   position?: Vector2
 
-  // supported values of OpticShapeEnum, in the left-to-right order that they appear as radio buttons
-  opticShapes: OpticShapeEnum[]
+  // supported values of OpticShapeType, in the left-to-right order that they appear as radio buttons
+  opticShapes: OpticShapeType[]
 
   // phet-io options
   tandem: Tandem
@@ -62,7 +62,7 @@ abstract class Optic {
   readonly abstract shapesProperty: IReadOnlyProperty<OpticShapes>;
 
   // shape of the optic
-  readonly opticShapeProperty: Property<OpticShapeEnum>;
+  readonly opticShapeProperty: Property<OpticShapeType>;
 
   // position of the optic
   readonly positionProperty: Property<Vector2>;
@@ -160,7 +160,7 @@ abstract class Optic {
 
     this.focalLengthProperty = new DerivedProperty(
       [ this.opticShapeProperty, this.radiusOfCurvatureProperty, this.indexOfRefractionProperty ],
-      ( opticShape: OpticShapeEnum, radiusOfCurvature: number, indexOfRefraction: number ) => {
+      ( opticShape: OpticShapeType, radiusOfCurvature: number, indexOfRefraction: number ) => {
 
         // A positive sign indicates the optic is converging.
         // Sign is determined based on the shape and the type of optic.
