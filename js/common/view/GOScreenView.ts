@@ -122,16 +122,21 @@ class GOScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'zoomLevelProperty' )
     } );
 
-    // scale for with the current zoom level
-    const zoomScaleProperty = new DerivedProperty(
-      [ zoomLevelProperty ],
-      ( zoomLevel: number ) => getAbsoluteZoomScale( zoomLevel )
-    );
+    //TODO There's a strange order dependency between zoomTransformProperty and zoomScaleProperty. If
+    // zoomScaleProperty is defined first, then zoomTransformProperty is incorrect, and rulers will be
+    // messed up as in https://github.com/phetsims/geometric-optics/issues/295. This has something to
+    // do with the fact both Properties call getAbsoluteZoomScale.
 
     // ModelViewTransform2 for the current zoom level
     const zoomTransformProperty = new DerivedProperty(
       [ zoomLevelProperty ],
       ( zoomLevel: number ) => createTransformForZoomLevel( zoomLevel, viewOrigin )
+    );
+
+    // scale for with the current zoom level
+    const zoomScaleProperty = new DerivedProperty(
+      [ zoomLevelProperty ],
+      ( zoomLevel: number ) => getAbsoluteZoomScale( zoomLevel )
     );
 
     const dragLockedProperty = new BooleanProperty( false, {
