@@ -100,7 +100,7 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
 
           // The second rectangle is between the thing on the left and the left edge of the picture frame on the right.
           const x2 = targetOnRight ? sourceObjectX : targetX;
-          const halfFrameWidth = ( targetOnRight ? targetNode.visibleBounds.width : sourceObjectNode.visibleBounds.width ) / 2;
+          const halfFrameWidth = ( targetOnRight ? targetNode.bounds.width : sourceObjectNode.visibleBounds.width ) / 2;
           const clipWidth2 = x1 - x2 - halfFrameWidth;
 
           clipArea = new Shape()
