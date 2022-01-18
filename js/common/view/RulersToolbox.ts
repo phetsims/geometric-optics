@@ -8,9 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { HBox } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -25,10 +23,9 @@ class RulersToolbox extends Panel {
 
   /**
    * @param rulerNodes - in the order that they appear in the toolbox, left to right
-   * @param zoomTransformProperty
    * @param providedOptions
    */
-  constructor( rulerNodes: GORulerNode[], zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>, providedOptions: Options ) {
+  constructor( rulerNodes: GORulerNode[], providedOptions: Options ) {
 
     const toolboxContent = new HBox( {
       spacing: 20,

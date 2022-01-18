@@ -52,8 +52,9 @@ import OpticalAxisForegroundNode from './OpticalAxisForegroundNode.js';
 import LightRaysForegroundNode from './LightRaysForegroundNode.js';
 
 // constants
-const ZOOM_LEVEL_RANGE = new RangeWithValue( 1, 3, 3 );
-const NOMINAL_MODEL_TO_VIEW_SCALE = 2; // view coordinates per cm in initial zoom level
+const ZOOM_SCALES = [ 0.25, 0.5, 1 ]; // zoom scale factors, in ascending order
+const ZOOM_LEVEL_RANGE = new RangeWithValue( 0, ZOOM_SCALES.length - 1, ZOOM_SCALES.indexOf( 1 ) );
+const NOMINAL_MODEL_TO_VIEW_SCALE = 2; // view coordinates per cm when zoom scale is 1
 
 type GeometricOpticsScreenViewOptions = {
 
@@ -98,15 +99,15 @@ class GOScreenView extends ScreenView {
 
     super( options );
 
-    const viewOrigin = options.getViewOrigin( this.layoutBounds );
-
     // convenience variable for laying out scenery Nodes
     const erodedLayoutBounds = this.layoutBounds.erodedXY(
       GOConstants.SCREEN_VIEW_X_MARGIN, GOConstants.SCREEN_VIEW_Y_MARGIN );
 
     // Create a Y inverted modelViewTransform with isometric scaling along x and y axes.
     // In the model coordinate frame, +x is right, +y is up.
-    const modelViewTransform = createTransformForZoomLevel( ZOOM_LEVEL_RANGE.defaultValue, viewOrigin );
+    // This transform is used for things that children of experimentAreaNode, and are subject to zooming.
+    const modelViewTransform = ModelViewTransform2.createOffsetXYScaleMapping( Vector2.ZERO,
+      NOMINAL_MODEL_TO_VIEW_SCALE, -NOMINAL_MODEL_TO_VIEW_SCALE );
 
     // Properties  ====================================================================================================
 
@@ -122,22 +123,21 @@ class GOScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'zoomLevelProperty' )
     } );
 
-    //TODO There's a strange order dependency between zoomTransformProperty and zoomScaleProperty. If
-    // zoomScaleProperty is defined first, then zoomTransformProperty is incorrect, and rulers will be
-    // messed up as in https://github.com/phetsims/geometric-optics/issues/295. This has something to
-    // do with the fact both Properties call getAbsoluteZoomScale.
-
-    // ModelViewTransform2 for the current zoom level
-    const zoomTransformProperty = new DerivedProperty(
-      [ zoomLevelProperty ],
-      ( zoomLevel: number ) => createTransformForZoomLevel( zoomLevel, viewOrigin )
-    );
-
-    // scale for with the current zoom level
+    // Scale factor for the current zoom level
     const zoomScaleProperty = new DerivedProperty(
       [ zoomLevelProperty ],
-      ( zoomLevel: number ) => getAbsoluteZoomScale( zoomLevel )
+      ( zoomLevel: number ) => ZOOM_SCALES[ zoomLevel ]
     );
+
+    const viewOrigin = options.getViewOrigin( this.layoutBounds );
+
+    // Transform applied to rulers and labels
+    const zoomTransformProperty = new DerivedProperty(
+      [ zoomScaleProperty ],
+      ( zoomScale: number ) => {
+        const scale = NOMINAL_MODEL_TO_VIEW_SCALE * zoomScale;
+        return ModelViewTransform2.createOffsetXYScaleMapping( viewOrigin, scale, -scale );
+      } );
 
     const dragLockedProperty = new BooleanProperty( false, {
       tandem: options.tandem.createTandem( 'dragLockedProperty' ),
@@ -170,6 +170,9 @@ class GOScreenView extends ScreenView {
         tandem: options.tandem.createTandem( 'verticalRulerNode' )
       } );
 
+    // labels
+    const labelsNode = new LabelsNode( model, visibleProperties, zoomTransformProperty );
+
     // create control panel at the bottom of the screen
     const controlPanel = new GOControlPanel( model.representationProperty, model.optic,
       model.raysModeProperty, visibleProperties, {
@@ -179,8 +182,8 @@ class GOScreenView extends ScreenView {
       controlPanel.centerBottom = erodedLayoutBounds.centerBottom;
     } );
 
-    // create toolbox at the top right corner of the screen
-    const rulersToolbox = new RulersToolbox( [ horizontalRulerNode, verticalRulerNode ], zoomTransformProperty, {
+    // Toolbox in the top-right corner of the screen
+    const rulersToolbox = new RulersToolbox( [ horizontalRulerNode, verticalRulerNode ], {
       rightTop: erodedLayoutBounds.rightTop,
       tandem: options.tandem.createTandem( 'rulersToolbox' )
     } );
@@ -278,8 +281,8 @@ class GOScreenView extends ScreenView {
       model.optic.positionProperty,
       modelBoundsProperty,
       modelViewTransform, {
-      visibleProperty: model.optic.opticalAxisVisibleProperty
-    } );
+        visibleProperty: model.optic.opticalAxisVisibleProperty
+      } );
 
     // The parts of the optical axis that appear to be in front of Nodes that have 3D perspective.
     const opticalAxisForegroundNode = new OpticalAxisForegroundNode(
@@ -368,16 +371,9 @@ class GOScreenView extends ScreenView {
       ]
     } );
 
-    // Handle zoom level.
-    zoomLevelProperty.lazyLink( ( zoomLevel: number, oldZoomLevel: number ) => {
-
-      // Scale the experiment area.
-      const relativeZoomScale = getRelativeZoomScale( zoomLevel, oldZoomLevel );
-      experimentAreaNode.scale( relativeZoomScale );
-
-      // Translate experimentAreaNode such that the origin point remains fixed through zoom levels.
-      const translateVector = viewOrigin.times( 1 / relativeZoomScale - 1 );
-      experimentAreaNode.translate( translateVector.x, translateVector.y );
+    zoomScaleProperty.link( zoomScale => {
+      experimentAreaNode.setScaleMagnitude( zoomScale );
+      experimentAreaNode.translation = viewOrigin;
     } );
 
     Property.multilink(
@@ -395,9 +391,6 @@ class GOScreenView extends ScreenView {
           }
         }
       } );
-
-    // labels
-    const labelsNode = new LabelsNode( model, visibleProperties, zoomTransformProperty );
 
     // Changing these things interrupts interactions
     const interrupt = () => this.interruptSubtreeInput();
@@ -503,41 +496,6 @@ class GOScreenView extends ScreenView {
       this.model.stepLightRays( dt );
     }
   }
-}
-
-/**
- * Gets the relative scale between a zoom level and a previous zoom level.
- */
-function getRelativeZoomScale( zoomLevel: number, previousZoomLevel: number ): number {
-  const base = 2;
-  const scale = Math.pow( base, zoomLevel );
-  const previousScale = Math.pow( base, previousZoomLevel );
-  return scale / previousScale;
-}
-
-/**
- * Gets the absolute scaling factor measured from the initial zoom level.
- * The absolute scale returns 1 if the zoom level is the initial zoom level value.
- */
-function getAbsoluteZoomScale( zoomLevel: number ): number {
-  return getRelativeZoomScale( zoomLevel, ZOOM_LEVEL_RANGE.defaultValue );
-}
-
-/**
- * Creates a model-view transform appropriate for the zoom level
- * @param zoomLevel
- * @param viewOrigin
- */
-function createTransformForZoomLevel( zoomLevel: number, viewOrigin: Vector2 ): ModelViewTransform2 {
-
-  // scaling factor between zoom level measured from the initial zoom level
-  const absoluteZoomScale = getAbsoluteZoomScale( zoomLevel );
-
-  // number of view coordinates for 1 model coordinate
-  const modelToViewScale = NOMINAL_MODEL_TO_VIEW_SCALE * absoluteZoomScale;
-
-  // create a Y inverted modelViewTransform with isometric scaling along X and Y
-  return ModelViewTransform2.createOffsetXYScaleMapping( viewOrigin, modelToViewScale, -modelToViewScale );
 }
 
 geometricOptics.register( 'GOScreenView', GOScreenView );
