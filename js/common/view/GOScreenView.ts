@@ -423,6 +423,19 @@ class GOScreenView extends ScreenView {
 
     // Layout ================================================================================================
 
+    const controlsLayer = new Node( {
+      children: [
+        opticShapeRadioButtonGroup,
+        controlPanel,
+        showHideToggleButton,
+        resetAllButton,
+        rulersToolbox,
+        zoomButtonGroup,
+        representationComboBox,
+        dragLockedButton
+      ]
+    } );
+
     const rulersLayer = new Node( {
       children: [ horizontalRulerNode, verticalRulerNode ]
     } );
@@ -431,14 +444,7 @@ class GOScreenView extends ScreenView {
       children: [
         experimentAreaNode,
         labelsNode,
-        opticShapeRadioButtonGroup,
-        controlPanel,
-        showHideToggleButton,
-        resetAllButton,
-        rulersToolbox,
-        zoomButtonGroup,
-        representationComboBox,
-        dragLockedButton,
+        controlsLayer,
         rulersLayer,
         popupsParent
       ]
