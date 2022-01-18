@@ -11,7 +11,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
+import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -51,10 +51,12 @@ import DragLockedButton from './DragLockedButton.js';
 import OpticalAxisForegroundNode from './OpticalAxisForegroundNode.js';
 import LightRaysForegroundNode from './LightRaysForegroundNode.js';
 
-// constants
-const ZOOM_SCALES = [ 0.25, 0.5, 1 ]; // zoom scale factors, in ascending order
-const ZOOM_LEVEL_RANGE = new RangeWithValue( 0, ZOOM_SCALES.length - 1, ZOOM_SCALES.indexOf( 1 ) );
-const NOMINAL_MODEL_TO_VIEW_SCALE = 2; // view coordinates per cm when zoom scale is 1
+// Zoom scale factors, in ascending order.
+// Careful! If you add values here, you may get undesirable tick intervals on rulers.
+const ZOOM_SCALES = [ 0.25, 0.5, 1 ];
+
+// view coordinates per cm when zoom scale is 1
+const NOMINAL_MODEL_TO_VIEW_SCALE = 2;
 
 type GeometricOpticsScreenViewOptions = {
 
@@ -117,9 +119,9 @@ class GOScreenView extends ScreenView {
     } );
 
     // Controls zoom in experiment area
-    const zoomLevelProperty = new NumberProperty( ZOOM_LEVEL_RANGE.defaultValue, {
+    const zoomLevelProperty = new NumberProperty( ZOOM_SCALES.indexOf( 1 ), {
       numberType: 'Integer',
-      range: ZOOM_LEVEL_RANGE,
+      range: new Range( 0, ZOOM_SCALES.length - 1 ),
       tandem: options.tandem.createTandem( 'zoomLevelProperty' )
     } );
 
