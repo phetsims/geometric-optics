@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GOModel, { GeometricOpticsModelOptions } from '../../common/model/GOModel.js';
@@ -26,6 +27,9 @@ class MirrorModel extends GOModel {
   constructor( providedOptions: MirrorOptions ) {
 
     const options = merge( {
+
+      // Initial position of the source object, empirically set so that the entire framed object is above the optical axis
+      sourceObjectPosition: new Vector2( -170, 74 ),
 
       // Mirror only supports objects, no light source
       representations: RepresentationStaticInstances.filter( value => value.isObject )

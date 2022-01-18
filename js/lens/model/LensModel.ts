@@ -15,6 +15,7 @@ import LightSpot from './LightSpot.js';
 import ProjectionScreen from './ProjectionScreen.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 
 type LensModelOptions = {
   tandem: Tandem
@@ -57,6 +58,10 @@ class LensModel extends GOModel {
     } );
 
     const options = merge( {
+
+      // Initial position of the source object, empirically set so that the optical axis goes through the center
+      // of the framed object.
+      sourceObjectPosition: new Vector2( -170, 30 ),
       barrier: projectionScreen
     }, providedOptions ) as GeometricOpticsModelOptions;
 

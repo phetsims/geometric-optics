@@ -19,6 +19,7 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Mirror from '../model/Mirror.js';
 import MirrorNode from './MirrorNode.js';
 import { KeyboardUtils } from '../../../../scenery/js/imports.js';
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 
 type MirrorScreenViewOptions = {
   tandem: Tandem
@@ -47,7 +48,12 @@ class MirrorScreenView extends GOScreenView {
         } ),
 
       // Hotkey J+M moves a ruler to the lens
-      hotkeysMoveRulerToOptic: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_M ]
+      hotkeysMoveRulerToOptic: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_M ],
+
+      // Mirror screen support horizontal dragging only, see https://github.com/phetsims/geometric-optics/issues/288
+      dragLockedProperty: new BooleanProperty( true, {
+        validValues: [ true ]
+      } )
 
     }, providedOptions ) as GeometricOpticsScreenViewOptions;
 

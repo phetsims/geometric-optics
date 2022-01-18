@@ -25,6 +25,8 @@ import Lens from '../model/Lens.js';
 import LensNode from './LensNode.js';
 import GuidesNode from './GuidesNode.js';
 import GOColors from '../../common/GOColors.js';
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DragLockedButton from '../../common/view/DragLockedButton.js';
 
 type LensScreenViewOptions = {
   tandem: Tandem
@@ -32,7 +34,7 @@ type LensScreenViewOptions = {
 
 class LensScreenView extends GOScreenView {
 
-  private readonly projectionScreenNode: ProjectionScreenNode;
+  private readonly resetLensScreenView: () => void;
 
   /**
    * @param model
@@ -57,6 +59,13 @@ class LensScreenView extends GOScreenView {
 
     }, providedOptions ) as GeometricOpticsScreenViewOptions;
 
+    options.dragLockedProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'dragLockedProperty' ),
+      phetioDocumentation: 'Controls dragging of the source object and light sources.<br>' +
+                           'true = may be dragged horizontally only<br>' +
+                           'false = may be dragged horizontally and vertically'
+    } );
+
     super( model, options );
 
     const guides1Node = new GuidesNode( model.topGuide1, model.bottomGuide1,
@@ -78,7 +87,7 @@ class LensScreenView extends GOScreenView {
     this.experimentAreaNode.addChild( guides2Node );
 
     // Projection screen
-    this.projectionScreenNode = new ProjectionScreenNode(
+    const projectionScreenNode = new ProjectionScreenNode(
       model.projectionScreen,
       model.optic.positionProperty,
       this.modelBoundsProperty,
@@ -102,25 +111,39 @@ class LensScreenView extends GOScreenView {
 
     // Add projection screen and light spots in front of the optical axis.
     const lightSourceNodes = new Node( {
-      children: [ this.projectionScreenNode, lightSpot1Node, lightSpot2Node ],
+      children: [ projectionScreenNode, lightSpot1Node, lightSpot2Node ],
       visibleProperty: new DerivedProperty( [ model.representationProperty ],
         ( representation: Representation ) => !representation.isObject )
     } );
     this.additionalNodesParent.addChild( lightSourceNodes );
+
+    // Toggle button to lock dragging to horizontal
+    const dragLockedButton = new DragLockedButton( options.dragLockedProperty, {
+      left: this.representationComboBox.right + 25,
+      centerY: this.representationComboBox.centerY,
+      tandem: options.tandem.createTandem( 'dragLockedButton' )
+    } );
+    this.controlsLayer.addChild( dragLockedButton );
 
     // pdom -traversal order
     // Insert projectionScreenNode after zoomButtonGroup.
     const pdomOrder = this.screenViewRootNode.pdomOrder;
     assert && assert( pdomOrder ); // [] | null
     if ( pdomOrder ) {
-      pdomOrder.splice( pdomOrder.indexOf( this.zoomButtonGroup ), 0, this.projectionScreenNode );
+      pdomOrder.splice( pdomOrder.indexOf( this.opticShapeRadioButtonGroup ), 0, dragLockedButton );
+      pdomOrder.splice( pdomOrder.indexOf( this.zoomButtonGroup ), 0, projectionScreenNode );
       this.screenViewRootNode.pdomOrder = pdomOrder;
     }
+
+    this.resetLensScreenView = () => {
+      options.dragLockedProperty.reset();
+      projectionScreenNode.reset();
+    };
   }
 
   public reset(): void {
     super.reset();
-    this.projectionScreenNode.reset();
+    this.resetLensScreenView();
   }
 }
 

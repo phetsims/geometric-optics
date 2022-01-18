@@ -24,11 +24,15 @@ import SecondPoint from './SecondPoint.js';
 import SourceObject from './SourceObject.js';
 import Target from './Target.js';
 import Barrier from './Barrier.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 
 // constants
 const RAYS_ANIMATION_TIME = 10; // length of the rays animation, in seconds
 
 type GeometricOpticsModelOptions = {
+
+  // initial position of the source object and first light source
+  sourceObjectPosition: Vector2,
 
   // optional Barrier that may block rays
   barrier?: Barrier | null,
@@ -100,7 +104,7 @@ class GOModel {
       validValues: options.representations
     } );
 
-    this.sourceObject = new SourceObject( this.representationProperty );
+    this.sourceObject = new SourceObject( this.representationProperty, options.sourceObjectPosition );
 
     this.secondPoint = new SecondPoint( this.representationProperty, this.sourceObject.positionProperty );
 

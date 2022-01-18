@@ -17,9 +17,6 @@ import Property from '../../../../axon/js/Property.js';
 import Representation from './Representation.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
-// initial position of the source object, in cm
-const INITIAL_POSITION = new Vector2( -170, 30 );
-
 class SourceObject {
 
   // position of the left top position of image
@@ -33,8 +30,9 @@ class SourceObject {
 
   /**
    * @param representationProperty
+   * @param initialPosition
    */
-  constructor( representationProperty: IReadOnlyProperty<Representation> ) {
+  constructor( representationProperty: IReadOnlyProperty<Representation>, initialPosition: Vector2 ) {
 
     // {Vector2} displacement vector from the firstPosition to the left top, in cm - value depends on representation
     //TODO this feels unnecessary, and causes ordering dependencies herein
@@ -44,7 +42,7 @@ class SourceObject {
 
     //TODO should this be derived from representationProperty? or from positionProperty?
     //TODO left-top is unfortunate to have in the model, can this be avoided?
-    this.leftTopProperty = new Vector2Property( INITIAL_POSITION.plus( offset ) );
+    this.leftTopProperty = new Vector2Property( initialPosition.plus( offset ) );
 
     //TODO should this be derived from representationProperty instead?
     this.positionProperty = new DerivedProperty(

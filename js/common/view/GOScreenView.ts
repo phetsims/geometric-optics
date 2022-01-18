@@ -47,7 +47,6 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Optic from '../model/Optic.js';
 import TwoFPointNode from './TwoFPointNode.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import DragLockedButton from './DragLockedButton.js';
 import OpticalAxisForegroundNode from './OpticalAxisForegroundNode.js';
 import LightRaysForegroundNode from './LightRaysForegroundNode.js';
 
@@ -69,18 +68,23 @@ type GeometricOpticsScreenViewOptions = {
   // Hotkeys to move a ruler to the optic
   hotkeysMoveRulerToOptic: string[],
 
+  dragLockedProperty: BooleanProperty,
+
   // phet-io
   tandem: Tandem
 };
 
 class GOScreenView extends ScreenView {
 
-  protected readonly screenViewRootNode: Node;
   protected readonly modelViewTransform: ModelViewTransform2;
   protected readonly visibleProperties: VisibleProperties;
   protected readonly modelBoundsProperty: IReadOnlyProperty<Bounds2>;
+  protected readonly screenViewRootNode: Node;
   protected readonly experimentAreaNode: Node;
   protected readonly additionalNodesParent: Node;
+  protected readonly controlsLayer: Node;
+  protected readonly representationComboBox: Node;
+  protected readonly opticShapeRadioButtonGroup: Node;
   protected readonly zoomButtonGroup: Node;
 
   private readonly model: GOModel;
@@ -140,13 +144,6 @@ class GOScreenView extends ScreenView {
         const scale = NOMINAL_MODEL_TO_VIEW_SCALE * zoomScale;
         return ModelViewTransform2.createOffsetXYScaleMapping( viewOrigin, scale, -scale );
       } );
-
-    const dragLockedProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'dragLockedProperty' ),
-      phetioDocumentation: 'Controls dragging of the source object and light sources.<br>' +
-                           'true = may be dragged horizontally only<br>' +
-                           'false = may be dragged horizontally and vertically'
-    } );
 
     const targetNode = new TargetNode( model.representationProperty, model.firstTarget, model.optic,
       visibleProperties.virtualImageVisibleProperty, visibleProperties.rayTracingVisibleProperty, modelViewTransform, {
@@ -211,13 +208,6 @@ class GOScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'representationComboBox' )
     } );
 
-    // Toggle button to lock dragging to horizontal
-    const dragLockedButton = new DragLockedButton( dragLockedProperty, {
-      left: representationComboBox.right + 25,
-      centerY: representationComboBox.centerY,
-      tandem: options.tandem.createTandem( 'dragLockedButton' )
-    } );
-
     // Zoom buttons
     const zoomButtonGroup = new MagnifyingGlassZoomButtonGroup( zoomLevelProperty, {
       orientation: 'vertical',
@@ -264,13 +254,13 @@ class GOScreenView extends ScreenView {
 
     // the source object or first light source
     const sourceObjectNode = new SourceObjectNode( model.representationProperty, model.sourceObject,
-      modelBoundsProperty, model.optic.positionProperty, modelViewTransform, dragLockedProperty, {
+      modelBoundsProperty, model.optic.positionProperty, modelViewTransform, options.dragLockedProperty, {
         tandem: options.tandem.createTandem( 'sourceObjectNode' )
       } );
 
     // the second point or second light source
     const secondPointNode = new SecondPointNode( model.representationProperty, model.secondPoint,
-      sourceObjectNode.dragBoundsProperty, modelViewTransform, dragLockedProperty, {
+      sourceObjectNode.dragBoundsProperty, modelViewTransform, options.dragLockedProperty, {
         tandem: options.tandem.createTandem( 'secondPointNode' ),
         visibleProperty: visibleProperties.secondPointVisibleProperty
       } );
@@ -431,8 +421,7 @@ class GOScreenView extends ScreenView {
         resetAllButton,
         rulersToolbox,
         zoomButtonGroup,
-        representationComboBox,
-        dragLockedButton
+        representationComboBox
       ]
     } );
 
@@ -454,7 +443,6 @@ class GOScreenView extends ScreenView {
     this.resetGeometricScreenView = (): void => {
       visibleProperties.reset();
       zoomLevelProperty.reset();
-      dragLockedProperty.reset();
       sourceObjectNode.reset();
       secondPointNode.reset();
     };
@@ -463,7 +451,6 @@ class GOScreenView extends ScreenView {
     //TODO https://github.com/phetsims/geometric-optics/issues/235 add second point, light sources
     screenViewRootNode.pdomOrder = [
       representationComboBox,
-      dragLockedButton,
       opticShapeRadioButtonGroup,
       rulersToolbox,
       horizontalRulerNode,
@@ -475,14 +462,17 @@ class GOScreenView extends ScreenView {
       resetAllButton
     ];
 
-    this.model = model; // {GOModel}
-    this.screenViewRootNode = screenViewRootNode; // {Node}
-    this.modelViewTransform = modelViewTransform; // {ModelViewTransform2}
-    this.visibleProperties = visibleProperties; // {VisibleProperties}
-    this.modelBoundsProperty = modelBoundsProperty; // {DerivedProperty.<Bounds2>}
-    this.experimentAreaNode = experimentAreaNode; // {Node}
-    this.additionalNodesParent = additionalNodesParent; // {Node}
-    this.zoomButtonGroup = zoomButtonGroup; // {Node}
+    this.model = model;
+    this.modelViewTransform = modelViewTransform;
+    this.visibleProperties = visibleProperties;
+    this.modelBoundsProperty = modelBoundsProperty;
+    this.screenViewRootNode = screenViewRootNode;
+    this.experimentAreaNode = experimentAreaNode;
+    this.additionalNodesParent = additionalNodesParent;
+    this.controlsLayer = controlsLayer;
+    this.representationComboBox = representationComboBox;
+    this.opticShapeRadioButtonGroup = opticShapeRadioButtonGroup;
+    this.zoomButtonGroup = zoomButtonGroup;
   }
 
   public dispose(): void {
