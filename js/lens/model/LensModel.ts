@@ -62,7 +62,7 @@ class LensModel extends GOModel {
       // Initial position of the source object, empirically set so that the optical axis goes through the center
       // of the framed object.
       sourceObjectPosition: new Vector2( -170, 30 ),
-      barrier: projectionScreen
+      projectionScreen: projectionScreen
     }, providedOptions ) as GeometricOpticsModelOptions; //TODO don't use 'as'
 
     super( lens, options );

@@ -14,7 +14,6 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import Barrier from '../../common/model/Barrier.js';
 import geometricOptics from '../../geometricOptics.js';
 
 // Dimensions of the screen, in cm. "Near" and "far" refer to pseudo-3D perspective.
@@ -27,7 +26,7 @@ type ProjectionScreenOptions = {
   tandem: Tandem
 };
 
-class ProjectionScreen implements Barrier {
+class ProjectionScreen {
 
   // position of the center of the screen, in cm
   readonly positionProperty: Property<Vector2>;

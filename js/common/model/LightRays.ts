@@ -19,9 +19,9 @@ import Ray from './Ray.js';
 import RaysType from './RaysType.js';
 import Target from './Target.js';
 import Representation from './Representation.js';
-import Barrier from './Barrier.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import { MappedProperties } from '../../../../axon/js/DerivedProperty.js';
+import ProjectionScreen from '../../lens/model/ProjectionScreen.js';
 
 class LightRays {
 
@@ -41,12 +41,12 @@ class LightRays {
    * @param sourceObjectPositionProperty
    * @param optic
    * @param target - target model associated with this ray
-   * @param barrier - optional barrier that blocks rays
+   * @param projectionScreen - optional projection screen that blocks rays
    */
   constructor( timeProperty: Property<number>, raysTypeProperty: IReadOnlyProperty<RaysType>,
                representationProperty: IReadOnlyProperty<Representation>,
                sourceObjectPositionProperty: IReadOnlyProperty<Vector2>,
-               optic: Optic, target: Target, barrier: Barrier | null ) {
+               optic: Optic, target: Target, projectionScreen: ProjectionScreen | null ) {
 
     this.realSegments = [];
     this.virtualSegments = [];
@@ -59,8 +59,8 @@ class LightRays {
       sourceObjectPositionProperty, raysTypeProperty, timeProperty, representationProperty,
       optic.positionProperty, optic.diameterProperty, optic.focalLengthProperty, optic.surfaceTypeProperty
     ];
-    if ( barrier ) {
-      dependencies.push( barrier.positionProperty );
+    if ( projectionScreen ) {
+      dependencies.push( projectionScreen.positionProperty );
     }
 
     // Update all rays, then inform listeners via raysProcessedEmitter.
@@ -94,7 +94,7 @@ class LightRays {
 
           // determine the lightRay
           const lightRay = new LightRay( initialRay, time, optic, targetPoint, isVirtual, isPrincipalRaysType,
-            representation.isObject ? null : barrier
+            representation.isObject ? null : projectionScreen
           );
 
           // set target's visibility to true after the first ray reaches its target

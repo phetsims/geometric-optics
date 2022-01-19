@@ -286,7 +286,7 @@ class GOScreenView extends ScreenView {
       sourceObjectNode,
       model.firstTarget.positionProperty,
       targetNode,
-      model.barrier, {
+      model.projectionScreen, {
         visibleProperty: model.optic.opticalAxisVisibleProperty
       } );
 

@@ -19,12 +19,12 @@ import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import geometricOptics from '../../geometricOptics.js';
-import Barrier from '../model/Barrier.js';
 import Representation from '../model/Representation.js';
 import OpticalAxisNode, { OpticalAxisNodeOptions } from './OpticalAxisNode.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import { Node, Path } from '../../../../scenery/js/imports.js';
+import ProjectionScreen from '../../lens/model/ProjectionScreen.js';
 
 class OpticalAxisForegroundNode extends OpticalAxisNode {
 
@@ -38,7 +38,7 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
    * @param sourceObjectNode
    * @param targetPositionProperty
    * @param targetNode
-   * @param barrier
+   * @param projectionScreen
    * @param providedOptions
    */
   constructor( opticPositionProperty: IReadOnlyProperty<Vector2>,
@@ -50,7 +50,7 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
                sourceObjectNode: Node,
                targetPositionProperty: IReadOnlyProperty<Vector2>,
                targetNode: Node,
-               barrier: Barrier | null,
+               projectionScreen: ProjectionScreen | null,
                providedOptions: OpticalAxisNodeOptions ) {
 
     const options = merge( {}, providedOptions );
@@ -121,8 +121,8 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
 
         // For a light source, clipArea is 1 rectangle, between the optic and the projection screen.
         const minX = modelViewTransform.modelToViewX( opticPositionProperty.value.x );
-        assert && assert( barrier );
-        const maxX = modelViewTransform.modelToViewX( barrier!.positionProperty.value.x );
+        assert && assert( projectionScreen );
+        const maxX = modelViewTransform.modelToViewX( projectionScreen!.positionProperty.value.x );
         clipArea = Shape.rectangle( minX, minY, maxX - minX, clipHeight );
       }
       this.clipArea = clipArea;

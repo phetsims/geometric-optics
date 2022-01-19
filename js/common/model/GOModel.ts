@@ -23,8 +23,8 @@ import GORuler from './GORuler.js';
 import SecondPoint from './SecondPoint.js';
 import SourceObject from './SourceObject.js';
 import Target from './Target.js';
-import Barrier from './Barrier.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import ProjectionScreen from '../../lens/model/ProjectionScreen.js';
 
 // constants
 const RAYS_ANIMATION_TIME = 10; // length of the rays animation, in seconds
@@ -34,8 +34,8 @@ type GeometricOpticsModelOptions = {
   // initial position of the source object and first light source
   sourceObjectPosition: Vector2,
 
-  // optional Barrier that may block rays
-  barrier?: Barrier | null,
+  // optional projection screen that may block rays
+  projectionScreen?: ProjectionScreen | null,
 
   // representations of the source object supported by the model
   representations?: Representation[],
@@ -67,8 +67,8 @@ class GOModel {
   // target/ image associated with secondPoint
   readonly secondTarget: Target;
 
-  // optional barrier that may block rays
-  readonly barrier: Barrier | null;
+  // optional projection screen that may block rays
+  readonly projectionScreen: ProjectionScreen | null;
 
   // elapsed time of light rays animation
   readonly lightRaysTimeProperty: NumberProperty;
@@ -93,7 +93,7 @@ class GOModel {
   constructor( optic: Optic, providedOptions: GeometricOpticsModelOptions ) {
 
     const options = merge( {
-      barrier: null,
+      projectionScreen: null,
       representations: RepresentationStaticInstances,
       representation: RepresentationStaticInstances[ 0 ]
     }, providedOptions );
@@ -112,7 +112,7 @@ class GOModel {
 
     this.secondTarget = new Target( this.secondPoint.positionProperty, this.optic, this.representationProperty );
 
-    this.barrier = options.barrier;
+    this.projectionScreen = options.projectionScreen;
 
     this.lightRaysTimeProperty = new NumberProperty( 0, {
       units: 's',
@@ -136,7 +136,7 @@ class GOModel {
       this.sourceObject.positionProperty,
       this.optic,
       this.firstTarget,
-      options.barrier
+      options.projectionScreen
     );
 
     this.lightRays2 = new LightRays(
@@ -146,7 +146,7 @@ class GOModel {
       this.secondPoint.positionProperty,
       this.optic,
       this.secondTarget,
-      options.barrier
+      options.projectionScreen
     );
 
     this.horizontalRuler = new GORuler( {
