@@ -18,6 +18,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
+import { Path } from '../../../../scenery/js/imports.js';
 
 class LightRaysForegroundNode extends LightRaysNode {
 
@@ -49,6 +50,15 @@ class LightRaysForegroundNode extends LightRaysNode {
 
     super( lightRays, representationProperty, virtualImageVisibleProperty, modelViewTransform, options );
 
+    // Stroke the clipArea in red.
+    let clipAreaNode: Path;
+    if ( GOQueryParameters.debugRays ) {
+      clipAreaNode = new Path( null, {
+        stroke: 'red'
+      } );
+      this.addChild( clipAreaNode );
+    }
+
     // Update the clipArea, to make rays look like they pass through a real Image.
     // This shows only the parts of this Node that are in the foreground, i.e. not occluded by other things.
     const updateClipArea = () => {
@@ -79,6 +89,10 @@ class LightRaysForegroundNode extends LightRaysNode {
         clipArea = Shape.rectangle( minX, visibleBounds.minY, maxX - minX, visibleBounds.height );
       }
       this.clipArea = clipArea;
+
+      if ( clipAreaNode ) {
+        clipAreaNode.shape = clipArea;
+      }
     };
 
     lightRays.raysProcessedEmitter.addListener( () => {

@@ -24,7 +24,7 @@ import Representation from '../model/Representation.js';
 import OpticalAxisNode, { OpticalAxisNodeOptions } from './OpticalAxisNode.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import Emitter from '../../../../axon/js/Emitter.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import { Node, Path } from '../../../../scenery/js/imports.js';
 
 class OpticalAxisForegroundNode extends OpticalAxisNode {
 
@@ -60,6 +60,15 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
 
     // create optical axis line, with arbitrary length values.
     super( opticPositionProperty, modelBoundsProperty, modelViewTransform, options );
+
+    // Stroke the clipArea in red.
+    let clipAreaNode: Path;
+    if ( GOQueryParameters.debugOpticalAxis ) {
+      clipAreaNode = new Path( null, {
+        stroke: 'red'
+      } );
+      this.addChild( clipAreaNode );
+    }
 
     // Update the clipArea, to make the axis look like it passes through things.
     // This shows only the parts of this Node that are in the foreground, i.e. not occluded by other things.
@@ -117,6 +126,10 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
         clipArea = Shape.rectangle( minX, minY, maxX - minX, clipHeight );
       }
       this.clipArea = clipArea;
+
+      if ( clipAreaNode ) {
+        clipAreaNode.shape = clipArea;
+      }
     };
 
     lightRaysProcessedEmitter.addListener( () => {

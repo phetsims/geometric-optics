@@ -58,13 +58,13 @@ const SCHEMA = {
   },
 
   // The optical axis is drawn using 2 Nodes, OpticalAxisNode and OpticalAxisForegroundNode.
-  // This flag uses 'red' stroke for the segments drawn by OpticalAxisForegroundNode.
+  // This flag uses 'red' stroke for OpticalAxisForegroundNode and its clipArea.
   debugOpticalAxis: {
     type: 'flag'
   },
 
   // The light rays are drawn using 2 Nodes, LightRaysNode and LightRaysForegroundNode.
-  // This flag uses 'red' stroke for the segments drawn by LightRaysForegroundNode.
+  // This flag uses 'red' stroke for LightRaysForegroundNode and its clipArea.
   debugRays: {
     type: 'flag'
   },
