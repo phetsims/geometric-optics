@@ -19,10 +19,10 @@ const optionsTandem = Tandem.GLOBAL_VIEW.createTandem( 'options' );
 
 const GOGlobalOptions = {
 
-  focalLengthControlProperty:
+  focalLengthControlTypeProperty:
     new Property<FocalLengthControlType>( GOQueryParameters.focalLengthControl, {
       validValues: FocalLengthControlTypeValues,
-      tandem: optionsTandem.createTandem( 'focalLengthControlProperty' ),
+      tandem: optionsTandem.createTandem( 'focalLengthControlTypeProperty' ),
       phetioType: Property.PropertyIO( StringIO ),
       phetioDocumentation: 'Determines how focal length is controlled in the Lens and Mirror screens.<br>' +
                            'direct: provides a control labeled \'Focal Length\'<br>' +
