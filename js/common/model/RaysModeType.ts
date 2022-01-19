@@ -6,9 +6,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-const RaysModeValues = [ 'marginal', 'principal', 'many', 'none' ] as const;
-type RaysModeType = ( typeof RaysModeValues )[number];
+const RaysModeTypeValues = [ 'marginal', 'principal', 'many', 'none' ] as const;
+type RaysModeType = ( typeof RaysModeTypeValues )[number];
 
-export { RaysModeValues };
+export { RaysModeTypeValues };
 export type { RaysModeType as default };
 

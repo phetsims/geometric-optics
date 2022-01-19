@@ -6,9 +6,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-const OpticShapeValues = [ 'convex', 'concave', 'flat' ] as const;
-type OpticShapeType = ( typeof OpticShapeValues )[number];
+const OpticShapeTypeValues = [ 'convex', 'concave', 'flat' ] as const;
+type OpticShapeType = ( typeof OpticShapeTypeValues )[number];
 
-export { OpticShapeValues };
+export { OpticShapeTypeValues };
 export type { OpticShapeType as default };
 

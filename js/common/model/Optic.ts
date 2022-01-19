@@ -18,7 +18,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import geometricOptics from '../../geometricOptics.js';
 import OpticShapes from './OpticShapes.js';
-import OpticShapeType, { OpticShapeValues } from './OpticShapeType.js';
+import OpticShapeType, { OpticShapeTypeValues } from './OpticShapeType.js';
 import Property from '../../../../axon/js/Property.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
@@ -108,7 +108,7 @@ abstract class Optic {
 
     const options = merge( {
       position: Vector2.ZERO,
-      opticShapes: OpticShapeValues
+      opticShapes: OpticShapeTypeValues
     }, providedOptions );
 
     this.sign = options.sign;

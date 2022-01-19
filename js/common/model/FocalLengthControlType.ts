@@ -6,8 +6,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-const FocalLengthControlValues = [ 'direct', 'indirect' ] as const;
-type FocalLengthControlType = ( typeof FocalLengthControlValues )[number];
+const FocalLengthControlTypeValues = [ 'direct', 'indirect' ] as const;
+type FocalLengthControlType = ( typeof FocalLengthControlTypeValues )[number];
 
-export { FocalLengthControlValues };
+export { FocalLengthControlTypeValues };
 export type { FocalLengthControlType as default };
