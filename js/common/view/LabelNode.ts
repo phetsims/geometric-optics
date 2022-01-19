@@ -34,7 +34,7 @@ const RECTANGLE_OPTIONS = {
   opacity: 0.5
 };
 
-type Options = {
+type LabelNodeOptions = {
   visibleProperty?: IProperty<boolean>
 };
 
@@ -49,7 +49,7 @@ class LabelNode extends Node {
    * @param providedOptions
    */
   constructor( text: string, positionProperty: IReadOnlyProperty<Vector2>,
-               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>, providedOptions?: Options ) {
+               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>, providedOptions?: LabelNodeOptions ) {
 
     const textNode = new Text( text, TEXT_OPTIONS );
 

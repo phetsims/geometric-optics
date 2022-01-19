@@ -116,7 +116,7 @@ class GORulerNode extends Node {
 
       // phet-io options
       phetioInputEnabledPropertyInstrumented: true
-    }, providedOptions ) as GORulerNodeOptions;
+    }, providedOptions );
 
     super( options );
 

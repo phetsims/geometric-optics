@@ -15,7 +15,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GORulerNode from './GORulerNode.js';
 
-type Options = {
+type RulersToolboxOptions = {
   tandem: Tandem
 } & PanelOptions;
 
@@ -25,7 +25,7 @@ class RulersToolbox extends Panel {
    * @param rulerNodes - in the order that they appear in the toolbox, left to right
    * @param providedOptions
    */
-  constructor( rulerNodes: GORulerNode[], providedOptions: Options ) {
+  constructor( rulerNodes: GORulerNode[], providedOptions: RulersToolboxOptions ) {
 
     const toolboxContent = new HBox( {
       spacing: 20,

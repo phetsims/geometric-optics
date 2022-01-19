@@ -15,7 +15,7 @@ import GOConstants from '../GOConstants.js';
 import FocalLengthControlRadioButtonGroup from './FocalLengthControlRadioButtonGroup.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 
-type Options = {
+type GOGlobalOptionsNodeOptions = {
   tandem: Tandem
 };
 
@@ -27,7 +27,7 @@ class GOGlobalOptionsNode extends VBox {
   /**
    * @param providedOptions
    */
-  constructor( providedOptions: Options ) {
+  constructor( providedOptions: GOGlobalOptionsNodeOptions ) {
 
     // Projector Mode checkbox
     const projectorModeCheckbox = new ProjectorModeCheckbox( {

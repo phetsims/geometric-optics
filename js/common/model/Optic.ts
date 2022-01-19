@@ -109,7 +109,7 @@ abstract class Optic {
     const options = merge( {
       position: Vector2.ZERO,
       opticShapes: OpticShapeValues
-    }, providedOptions ) as Required<OpticOptions>;
+    }, providedOptions );
 
     this.sign = options.sign;
 

@@ -8,19 +8,17 @@
 
 import geometricOptics from '../../geometricOptics.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { NodeOptions, Path } from '../../../../scenery/js/imports.js';
+import { Path, PathOptions } from '../../../../scenery/js/imports.js';
 import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
 import Shape from '../../../../kite/js/Shape.js';
 import GOConstants from '../GOConstants.js';
 
 type CueingArrowsDirection = 'horizontal' | 'vertical' | 'both';
 
-type Options = {
+type CueingArrowsNodeOptions = {
   direction?: CueingArrowsDirection,
   length?: number,
-  fill?: ColorDef,
-  stroke?: ColorDef
-} & NodeOptions; //TODO https://github.com/phetsims/scenery/issues/1332 limit to Node translation options
+} & PathOptions;
 
 class CueingArrowsNode extends Path {
 
@@ -30,7 +28,7 @@ class CueingArrowsNode extends Path {
   /**
    * @param providedOptions
    */
-  constructor( providedOptions?: Options ) {
+  constructor( providedOptions?: CueingArrowsNodeOptions ) {
 
     const options = merge( {
       direction: 'both',
@@ -40,7 +38,7 @@ class CueingArrowsNode extends Path {
       fill: 'rgb( 0, 200, 0 )',
       stroke: 'black'
 
-    }, providedOptions ) as Required<Options>;
+    }, providedOptions );
 
     super( createArrowsShape( options.direction, options.length ), options );
 

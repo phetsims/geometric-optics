@@ -57,7 +57,7 @@ class LensScreenView extends GOScreenView {
       // Hotkey J+L moves a ruler to the lens
       hotkeysMoveRulerToOptic: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_L ]
 
-    }, providedOptions ) as GeometricOpticsScreenViewOptions;
+    }, providedOptions ) as GeometricOpticsScreenViewOptions; //TODO don't use 'as'
 
     options.dragLockedProperty = new BooleanProperty( false, {
       tandem: options.tandem.createTandem( 'dragLockedProperty' ),

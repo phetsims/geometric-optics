@@ -19,13 +19,13 @@ import MirrorNode from './view/MirrorNode.js';
 import MirrorScreenView from './view/MirrorScreenView.js';
 import GOKeyboardHelpContent from '../common/view/GOKeyboardHelpContent.js';
 
-type Options = {
+type MirrorScreenOptions = {
   tandem: Tandem
 };
 
 class MirrorScreen extends Screen {
 
-  constructor( options: Options ) {
+  constructor( options: MirrorScreenOptions ) {
 
     super(
       () => new MirrorModel( { tandem: options.tandem.createTandem( 'model' ) } ),

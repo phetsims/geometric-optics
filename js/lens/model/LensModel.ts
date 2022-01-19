@@ -63,7 +63,7 @@ class LensModel extends GOModel {
       // of the framed object.
       sourceObjectPosition: new Vector2( -170, 30 ),
       barrier: projectionScreen
-    }, providedOptions ) as GeometricOpticsModelOptions;
+    }, providedOptions ) as GeometricOpticsModelOptions; //TODO don't use 'as'
 
     super( lens, options );
 

@@ -29,7 +29,7 @@ const LINE_WIDTH = 2;
 const ICON_RADIUS_OF_CURVATURE = 20;
 const ICON_DIAMETER = 30;
 
-type Options = {
+type MirrorNodeOptions = {
   tandem: Tandem
 };
 
@@ -42,7 +42,7 @@ class MirrorNode extends Node {
    * @param providedOptions
    */
   constructor( mirror: Mirror, modelBoundsProperty: IReadOnlyProperty<Bounds2>,
-               modelViewTransform: ModelViewTransform2, providedOptions: Options ) {
+               modelViewTransform: ModelViewTransform2, providedOptions: MirrorNodeOptions ) {
 
     // the mirror's backing
     const backingNode = new Path( null, {

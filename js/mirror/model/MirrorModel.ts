@@ -33,7 +33,7 @@ class MirrorModel extends GOModel {
 
       // Mirror only supports objects, no light source
       representations: RepresentationStaticInstances.filter( value => value.isObject )
-    }, providedOptions ) as GeometricOpticsModelOptions;
+    }, providedOptions ) as GeometricOpticsModelOptions; //TODO don't use 'as'
 
     const mirror = new Mirror( {
       tandem: options.tandem.createTandem( 'mirror' )

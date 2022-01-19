@@ -22,7 +22,7 @@ import geometricOptics from '../../geometricOptics.js';
 const TRUE_COLOR = 'rgb( 240, 234, 227 )';
 const FALSE_COLOR = PhetColorScheme.BUTTON_YELLOW;
 
-type Options = {
+type ShowHideToggleButtonOptions = {
   tandem: Tandem
 };
 
@@ -32,7 +32,7 @@ class ShowHideToggleButton extends BooleanRoundToggleButton {
    * @param booleanProperty
    * @param providedOptions
    */
-  constructor( booleanProperty: Property<boolean>, providedOptions: Options ) {
+  constructor( booleanProperty: Property<boolean>, providedOptions: ShowHideToggleButtonOptions ) {
 
     // create nodes for open and closed eye icons
     const pathOptions = { fill: 'black' };

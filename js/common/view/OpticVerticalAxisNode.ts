@@ -19,7 +19,7 @@ import GOColors from '../GOColors.js';
 import Optic from '../model/Optic.js';
 import RaysModeType from '../model/RaysModeType.js';
 
-type Options = {
+type OpticVerticalAxisNodeOptions = {
   tandem: Tandem
 };
 
@@ -34,7 +34,7 @@ class OpticVerticalAxisNode extends Node {
    */
   constructor( optic: Optic, raysModeProperty: IReadOnlyProperty<RaysModeType>,
                visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-               modelViewTransform: ModelViewTransform2, providedOptions: Options ) {
+               modelViewTransform: ModelViewTransform2, providedOptions: OpticVerticalAxisNodeOptions ) {
 
     // create a vertical dashed line, through the optic - indicating the crossing plane of principal rays.
     const lineNode = new Path( modelViewTransform.modelToViewShape( optic.getVerticalAxis() ), {

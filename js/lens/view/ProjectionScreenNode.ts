@@ -27,7 +27,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OriginNode from '../../common/view/OriginNode.js';
 import GOConstants from '../../common/GOConstants.js';
 
-type Options = {
+type ProjectionScreenNodeOptions = {
   tandem: Tandem
 };
 
@@ -43,7 +43,7 @@ class ProjectionScreenNode extends Node {
    * @param providedOptions
    */
   constructor( projectionScreen: ProjectionScreen, opticPositionProperty: IReadOnlyProperty<Vector2>,
-               modelBoundsProperty: IReadOnlyProperty<Bounds2>, modelViewTransform: ModelViewTransform2, providedOptions: Options ) {
+               modelBoundsProperty: IReadOnlyProperty<Bounds2>, modelViewTransform: ModelViewTransform2, providedOptions: ProjectionScreenNodeOptions ) {
 
     // The screen part of the projection screen, drawn in perspective.
     const screenNode = new Path( modelViewTransform.modelToViewShape( projectionScreen.screenShape ), {
@@ -113,7 +113,7 @@ class ProjectionScreenNode extends Node {
 
       // phet-io options
       phetioInputEnabledPropertyInstrumented: true
-    }, providedOptions ) as Options;
+    }, providedOptions );
 
     super( options );
 

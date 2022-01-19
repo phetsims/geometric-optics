@@ -43,7 +43,7 @@ class LightRaysForegroundNode extends LightRaysNode {
                isVirtualProperty: IReadOnlyProperty<boolean>,
                providedOptions: LightRaysNodeOptions ) {
 
-    const options = merge( {}, providedOptions ) as LightRaysNodeOptions;
+    const options = merge( {}, providedOptions );
     if ( GOQueryParameters.debugRays ) {
       options.realRaysStroke = 'red';
     }

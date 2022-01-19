@@ -18,6 +18,7 @@ import geometricOptics from '../../geometricOptics.js';
 
 const RADIUS = 2;
 
+//TODO should be CircleOptions
 type DebugPointNodeOptions = {
   fill?: ColorDef
 };
@@ -33,7 +34,7 @@ class DebugPointNode extends Circle {
 
     const options = merge( {
       fill: 'red'
-    }, providedOptions ) as Required< DebugPointNodeOptions >;
+    }, providedOptions );
 
     super( RADIUS, options );
 

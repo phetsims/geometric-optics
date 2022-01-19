@@ -17,7 +17,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import Representation from '../model/Representation.js';
 
-type Options = {
+type RepresentationComboBoxOptions = {
   tandem: Tandem
 } & NodeOptions; //TODO https://github.com/phetsims/scenery/issues/1332 limit to Node translation options
 
@@ -28,7 +28,7 @@ class RepresentationComboBox extends ComboBox {
    * @param listParent - parent for the listbox popup
    * @param providedOptions
    */
-  constructor( representationProperty: Property<Representation>, listParent: Node, providedOptions: Options ) {
+  constructor( representationProperty: Property<Representation>, listParent: Node, providedOptions: RepresentationComboBoxOptions ) {
 
     // Create a ComboBoxItem for each representation.
     const items: ComboBoxItem[] = [];

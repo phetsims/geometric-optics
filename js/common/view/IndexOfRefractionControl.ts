@@ -16,7 +16,7 @@ import Utils from '../../../../dot/js/Utils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 
-type Options = {
+type IndexOfRefractionControlOptions = {
   tandem: Tandem
 };
 
@@ -26,7 +26,7 @@ class IndexOfRefractionControl extends NumberControl {
    * @param indexOfRefractionProperty
    * @param providedOptions
    */
-  constructor( indexOfRefractionProperty: NumberProperty, providedOptions: Options ) {
+  constructor( indexOfRefractionProperty: NumberProperty, providedOptions: IndexOfRefractionControlOptions ) {
 
     assert && assert( indexOfRefractionProperty.range ); // {Range|null}
     const indexOfRefractionRange: Range = indexOfRefractionProperty.range!;

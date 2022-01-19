@@ -32,7 +32,7 @@ const LINE_WIDTH = 2;
 const ICON_RADIUS_OF_CURVATURE = 20;
 const ICON_DIAMETER = 30;
 
-type Options = {
+type LensNodeOptions = {
   tandem: Tandem
 };
 
@@ -45,7 +45,7 @@ class LensNode extends Node {
    * @param providedOptions
    */
   constructor( lens: Lens, modelBoundsProperty: IReadOnlyProperty<Bounds2>,
-               modelViewTransform: ModelViewTransform2, providedOptions: Options ) {
+               modelViewTransform: ModelViewTransform2, providedOptions: LensNodeOptions ) {
 
     const fillNode = new Path( null, {
       fill: FILL

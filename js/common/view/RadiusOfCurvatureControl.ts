@@ -16,7 +16,7 @@ import Utils from '../../../../dot/js/Utils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 
-type Options = {
+type RadiusOfCurvatureControlOptions = {
   tandem: Tandem
 };
 
@@ -26,7 +26,7 @@ class RadiusOfCurvatureControl extends NumberControl {
    * @param radiusOfCurvatureProperty
    * @param providedOptions
    */
-  constructor( radiusOfCurvatureProperty: NumberProperty, providedOptions: Options ) {
+  constructor( radiusOfCurvatureProperty: NumberProperty, providedOptions: RadiusOfCurvatureControlOptions ) {
 
     assert && assert( radiusOfCurvatureProperty.range ); // {Range|null}
     const radiusOfCurvatureRange: Range = radiusOfCurvatureProperty.range!;

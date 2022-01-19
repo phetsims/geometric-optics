@@ -53,7 +53,7 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
                barrier: Barrier | null,
                providedOptions: OpticalAxisNodeOptions ) {
 
-    const options = merge( {}, providedOptions ) as OpticalAxisNodeOptions;
+    const options = merge( {}, providedOptions );
     if ( GOQueryParameters.debugOpticalAxis ) {
       options.stroke = 'red';
     }

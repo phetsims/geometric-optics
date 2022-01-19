@@ -27,7 +27,7 @@ import GOConstants from '../GOConstants.js';
 // too close to a mirror. See https://github.com/phetsims/geometric-optics/issues/73
 const MIN_X_DISTANCE_TO_OPTIC = 40;
 
-type Options = {
+type SourceObjectNodeOptions = {
   tandem: Tandem
 };
 
@@ -49,7 +49,7 @@ class SourceObjectNode extends Node {
   constructor( representationProperty: IReadOnlyProperty<Representation>, sourceObject: SourceObject,
                modelBoundsProperty: IReadOnlyProperty<Bounds2>, opticPositionProperty: IReadOnlyProperty<Vector2>,
                modelViewTransform: ModelViewTransform2, dragLockedProperty: IReadOnlyProperty<boolean>,
-               providedOptions: Options ) {
+               providedOptions: SourceObjectNodeOptions ) {
 
     const imageNode = new Image( representationProperty.value.rightFacingUpright );
 
@@ -70,7 +70,7 @@ class SourceObjectNode extends Node {
 
       // phet-io options
       phetioInputEnabledPropertyInstrumented: true
-    }, providedOptions ) as Options;
+    }, providedOptions );
 
     super( options );
 

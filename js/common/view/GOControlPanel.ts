@@ -28,7 +28,7 @@ import RadiusOfCurvatureControl from './RadiusOfCurvatureControl.js';
 import IndexOfRefractionControl from './IndexOfRefractionControl.js';
 import Lens from '../../lens/model/Lens.js';
 
-type Options = {
+type GOControlPanelOptions = {
   tandem: Tandem
 };
 
@@ -42,7 +42,7 @@ class GOControlPanel extends Panel {
    * @param providedOptions
    */
   constructor( representationProperty: Property<Representation>, optic: Optic, raysModeProperty: Property<RaysModeType>,
-               visibleProperties: VisibleProperties, providedOptions: Options ) {
+               visibleProperties: VisibleProperties, providedOptions: GOControlPanelOptions ) {
 
     // Rays radio buttons ---------------------------------------------------------------------------------------
 

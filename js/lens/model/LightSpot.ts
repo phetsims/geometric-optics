@@ -26,7 +26,7 @@ const FULL_INTENSITY_DIAMETER = 7; // cm, any light spot less than this diameter
 
 type PositionAndDiameter = { position: Vector2, diameter: number };
 
-type Options = {
+type LightSpotOptions = {
   tandem: Tandem,
   phetioDocumentation: string
 };
@@ -57,7 +57,7 @@ class LightSpot {
    * @param providedOptions
    */
   constructor( optic: Optic, projectionScreen: ProjectionScreen, sourcePositionProperty: IReadOnlyProperty<Vector2>,
-               targetPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: Options ) {
+               targetPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: LightSpotOptions ) {
 
     this.shapeProperty = new DerivedProperty(
       [ optic.positionProperty, optic.diameterProperty, projectionScreen.positionProperty, sourcePositionProperty, targetPositionProperty ],

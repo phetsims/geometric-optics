@@ -23,7 +23,7 @@ const LOCK_SCALE = 0.045;
 const UNLOCKED_FILL = 'black';
 const LOCKED_FILL = 'red';
 
-type Options = {
+type DragLockedButtonOptions = {
   tandem: Tandem
 } & NodeOptions; //TODO https://github.com/phetsims/scenery/issues/1332 limit to Node translation options
 
@@ -33,7 +33,7 @@ class DragLockedButton extends BooleanRectangularToggleButton {
    * @param dragLockedProperty
    * @param providedOptions
    */
-  constructor( dragLockedProperty: Property<boolean>, providedOptions?: Options ) {
+  constructor( dragLockedProperty: Property<boolean>, providedOptions?: DragLockedButtonOptions ) {
 
     // To make both icons have the same effective size
     const alignBoxOptions = {

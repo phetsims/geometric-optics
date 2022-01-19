@@ -18,7 +18,7 @@ import GOConstants from '../GOConstants.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
 import FocalLengthControlType from '../model/FocalLengthControlType.js';
 
-type Options = {
+type FocalLengthControlRadioButtonGroupOptions = {
   tandem: Tandem
 };
 
@@ -27,7 +27,7 @@ class FocalLengthControlRadioButtonGroup extends VerticalAquaRadioButtonGroup<Fo
   /**
    * @param providedOptions
    */
-  constructor( providedOptions: Options ) {
+  constructor( providedOptions: FocalLengthControlRadioButtonGroupOptions ) {
 
     const items = [
       createItem( 'indirect', geometricOpticsStrings.indirect ),

@@ -23,7 +23,7 @@ const SCREEN_NEAR_HEIGHT = 134;
 const SCREEN_FAR_HEIGHT = 112;
 assert && assert( SCREEN_NEAR_HEIGHT > SCREEN_FAR_HEIGHT );
 
-type Options = {
+type ProjectionScreenOptions = {
   tandem: Tandem
 };
 
@@ -38,7 +38,7 @@ class ProjectionScreen implements Barrier {
   // line that vertically bisects the screen, relative to positionProperty
   private readonly bisectorLine: Shape;
 
-  constructor( options: Options ) {
+  constructor( options: ProjectionScreenOptions ) {
 
     this.positionProperty = new Vector2Property( new Vector2( 200, 0 ), {
       tandem: options.tandem.createTandem( 'positionProperty' )

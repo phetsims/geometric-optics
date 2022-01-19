@@ -23,7 +23,7 @@ import GOColors from '../GOColors.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import Shape from '../../../../kite/js/Shape.js';
 
-type Options = {
+type TargetNodeOptions = {
   tandem: Tandem
 };
 
@@ -40,7 +40,7 @@ class TargetNode extends Node {
    */
   constructor( representationProperty: IReadOnlyProperty<Representation>, target: Target, optic: Optic,
                virtualImageVisibleProperty: IReadOnlyProperty<boolean>, rayTracingVisibleProperty: IReadOnlyProperty<boolean>,
-               modelViewTransform: ModelViewTransform2, providedOptions: Options ) {
+               modelViewTransform: ModelViewTransform2, providedOptions: TargetNodeOptions ) {
 
     super( providedOptions );
 

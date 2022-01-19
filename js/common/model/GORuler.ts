@@ -50,7 +50,7 @@ class GORuler {
     const options = merge( {
       orientation: 'horizontal',
       length: 100
-    }, providedOptions ) as Required<GeometricOpticsRulerOptions>;
+    }, providedOptions );
 
     assert && assert( isFinite( options.length ) && options.length > 0 );
 

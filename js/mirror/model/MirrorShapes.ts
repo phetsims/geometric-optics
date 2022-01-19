@@ -18,7 +18,7 @@ import OpticShapeType from '../../common/model/OpticShapeType.js';
 import OpticShapes from '../../common/model/OpticShapes.js';
 import geometricOptics from '../../geometricOptics.js';
 
-type Options = {
+type MirrorShapesOptions = {
   backingThickness?: number // thickness of the backing of the mirror, in cm
 };
 
@@ -40,12 +40,12 @@ class MirrorShapes implements OpticShapes {
    * @param diameter - vertical height of the mirror
    * @param providedOptions
    */
-  constructor( opticShape: OpticShapeType, radiusOfCurvature: number, diameter: number, providedOptions?: Options ) {
+  constructor( opticShape: OpticShapeType, radiusOfCurvature: number, diameter: number, providedOptions?: MirrorShapesOptions ) {
     assert && assert( radiusOfCurvature > diameter / 2 );
 
     const options = merge( {
       backingThickness: 5 // thickness of the backing of the mirror, in cm
-    }, providedOptions ) as Required<Options>;
+    }, providedOptions );
 
     // convenience variable
     const backingThickness = options.backingThickness;

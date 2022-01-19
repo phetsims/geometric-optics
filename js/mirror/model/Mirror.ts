@@ -18,7 +18,7 @@ import MirrorShapes from './MirrorShapes.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
-type Options = {
+type MirrorOptions = {
   tandem: Tandem
 };
 
@@ -27,7 +27,7 @@ class Mirror extends Optic {
   // See Optic
   readonly shapesProperty: IReadOnlyProperty<MirrorShapes>;
 
-  constructor( providedOptions: Options ) {
+  constructor( providedOptions: MirrorOptions ) {
 
     const options = merge( {
       opticShape: 'concave',
@@ -41,7 +41,7 @@ class Mirror extends Optic {
       sign: -1,
       isConverging: ( opticShape: OpticShapeType ) => ( opticShape === 'concave' )
 
-    }, providedOptions ) as OpticOptions;
+    }, providedOptions ) as OpticOptions; //TODO don't use 'as'
 
     super( options );
 

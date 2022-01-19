@@ -24,7 +24,7 @@ import Representation from '../model/Representation.js';
 import TwoFPointNode from './TwoFPointNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
-type Options = {
+type VisibilityCheckboxGroupOptions = {
   tandem: Tandem
 };
 
@@ -37,12 +37,12 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
    * @param providedOptions
    */
   constructor( visibleProperties: VisibleProperties, isLens: boolean,
-               representationProperty: IReadOnlyProperty<Representation>, providedOptions: Options ) {
+               representationProperty: IReadOnlyProperty<Representation>, providedOptions: VisibilityCheckboxGroupOptions ) {
 
     const options = merge( {
       spacing: 4,
       checkboxOptions: { boxWidth: 14 }
-    }, providedOptions ) as Options;
+    }, providedOptions );
 
     const items = [
 
@@ -98,7 +98,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
         property: visibleProperties.guidesVisibleProperty,
         options: {
           visible: GOQueryParameters.enableGuides
-        } as any, // TS any - options are passed to Checkbox constructor, should be of type CheckboxOptions
+        } as any, //TODO should be of type CheckboxOptions
         tandem: options.tandem.createTandem( 'guidesCheckbox' )
       } );
     }

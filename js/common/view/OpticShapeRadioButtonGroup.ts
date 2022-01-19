@@ -19,7 +19,7 @@ import MirrorNode from '../../mirror/view/MirrorNode.js';
 import LensNode from '../../lens/view/LensNode.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
 
-type Options = {
+type OpticShapeRadioButtonGroupOptions = {
   tandem: Tandem
 } & NodeOptions; //TODO https://github.com/phetsims/scenery/issues/1332 limit to Node translation options
 
@@ -29,7 +29,7 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeT
    * @param optic
    * @param providedOptions
    */
-  constructor( optic: Optic, providedOptions: Options ) {
+  constructor( optic: Optic, providedOptions: OpticShapeRadioButtonGroupOptions ) {
 
     // A radio button for each shape supported by the optic
     assert && assert( optic.opticShapeProperty.validValues ); // {OpticShapeType[]|undefined}

@@ -96,7 +96,7 @@ class GOModel {
       barrier: null,
       representations: RepresentationStaticInstances,
       representation: RepresentationStaticInstances[ 0 ]
-    }, providedOptions ) as Required<GeometricOpticsModelOptions>;
+    }, providedOptions );
 
     this.optic = optic;
 

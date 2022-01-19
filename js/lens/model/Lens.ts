@@ -18,7 +18,7 @@ import LensShapes from './LensShapes.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
-type Options = {
+type LensOptions = {
   tandem: Tandem
 };
 
@@ -30,7 +30,7 @@ class Lens extends Optic {
   /**
    * @param providedOptions
    */
-  constructor( providedOptions: Options ) {
+  constructor( providedOptions: LensOptions ) {
 
     const options = merge( {
       opticShape: 'convex',
@@ -43,7 +43,7 @@ class Lens extends Optic {
 
       // phet-io options
       tandem: Tandem.REQUIRED
-    }, providedOptions ) as OpticOptions;
+    }, providedOptions ) as OpticOptions; //TODO don't use 'as'
 
     super( options );
 

@@ -39,7 +39,7 @@ const LIGHT_SOURCE_OFFSET = new Vector2( 30, -20 );
 //TODO no idea why this worked for https://github.com/phetsims/geometric-optics/issues/191, circle back
 const LIGHT_SOURCE_DRAG_OFFSET = new Vector2( 2 * LIGHT_SOURCE_OFFSET.x, -2 * LIGHT_SOURCE_OFFSET.y );
 
-type Options = {
+type SecondPointNodeOptions = {
   visibleProperty: IProperty<boolean>,
   tandem: Tandem
 };
@@ -59,7 +59,7 @@ class SecondPointNode extends Node {
   constructor( representationProperty: IReadOnlyProperty<Representation>, secondPoint: SecondPoint,
                sourceObjectDragBoundsProperty: IReadOnlyProperty<Bounds2>,
                modelViewTransform: ModelViewTransform2, dragLockedProperty: IReadOnlyProperty<boolean>,
-               providedOptions: Options ) {
+               providedOptions: SecondPointNodeOptions ) {
 
     super( merge( {
 

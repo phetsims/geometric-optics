@@ -15,7 +15,7 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import merge from '../../../../phet-core/js/merge.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 
-type Options = {
+type GuidesNodeOptions = {
   visibleProperty: IProperty<boolean>,
   tandem: Tandem,
   phetioDocumentation: string
@@ -31,7 +31,7 @@ class GuidesNode extends Node {
    * @param providedOptions
    */
   constructor( topGuide: Guide, bottomGuide: Guide, armColor: ColorDef,
-               modelViewTransform: ModelViewTransform2, providedOptions: Options ) {
+               modelViewTransform: ModelViewTransform2, providedOptions: GuidesNodeOptions ) {
     super( merge( {
       children: [
         new GuideNode( topGuide, armColor, modelViewTransform ),

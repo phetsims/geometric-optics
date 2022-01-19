@@ -19,7 +19,7 @@ import geometricOptics from '../../geometricOptics.js';
 
 type GuideLocation = 'top' | 'bottom';
 
-type Options = {
+type GuideOptions = {
   tandem: Tandem,
   phetioDocumentation: string
 };
@@ -41,11 +41,11 @@ class Guide extends PhetioObject {
    * @param location
    * @param providedOptions
    */
-  constructor( optic: Optic, objectPositionProperty: IReadOnlyProperty<Vector2>, location: GuideLocation, providedOptions: Options ) {
+  constructor( optic: Optic, objectPositionProperty: IReadOnlyProperty<Vector2>, location: GuideLocation, providedOptions: GuideOptions ) {
 
     const options = merge( {
       phetioState: false
-    }, providedOptions ) as Options;
+    }, providedOptions );
 
     super( options );
 

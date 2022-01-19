@@ -19,13 +19,13 @@ import LensModel from './model/LensModel.js';
 import LensNode from './view/LensNode.js';
 import LensScreenView from './view/LensScreenView.js';
 
-type Options = {
+type LensScreenOptions = {
   tandem: Tandem
 };
 
 class LensScreen extends Screen {
 
-  constructor( options: Options ) {
+  constructor( options: LensScreenOptions ) {
 
     super(
       () => new LensModel( { tandem: options.tandem.createTandem( 'model' ) } ),

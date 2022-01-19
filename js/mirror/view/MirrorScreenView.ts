@@ -55,7 +55,7 @@ class MirrorScreenView extends GOScreenView {
         validValues: [ true ]
       } )
 
-    }, providedOptions ) as GeometricOpticsScreenViewOptions;
+    }, providedOptions ) as GeometricOpticsScreenViewOptions; //TODO don't use 'as'
 
     super( model, options );
   }

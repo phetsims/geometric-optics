@@ -13,7 +13,7 @@ import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 
-type Options = {
+type VisiblePropertiesOptions = {
   tandem: Tandem
 };
 
@@ -45,7 +45,7 @@ class VisibleProperties {
    * @param isLens
    * @param providedOptions
    */
-  constructor( isLens: boolean, providedOptions: Options ) {
+  constructor( isLens: boolean, providedOptions: VisiblePropertiesOptions ) {
 
     this.focalPointsVisibleProperty = new BooleanProperty( true, {
       tandem: providedOptions.tandem.createTandem( 'focalPointsVisibleProperty' )

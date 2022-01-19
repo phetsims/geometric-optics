@@ -18,7 +18,7 @@ import RaysModeType from '../model/RaysModeType.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
 
-type Options = {
+type RaysRadioButtonGroupOptions = {
   tandem: Tandem
 };
 
@@ -28,7 +28,7 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysModeType> {
    * @param raysModeProperty
    * @param providedOptions
    */
-  constructor( raysModeProperty: Property<RaysModeType>, providedOptions: Options ) {
+  constructor( raysModeProperty: Property<RaysModeType>, providedOptions: RaysRadioButtonGroupOptions ) {
 
     // items for ray Mode radio buttons
     const items = [

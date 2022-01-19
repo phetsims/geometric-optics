@@ -19,7 +19,7 @@ import OpticShapeType from '../../common/model/OpticShapeType.js';
 import OpticShapes from '../../common/model/OpticShapes.js';
 import geometricOptics from '../../geometricOptics.js';
 
-type Options = {
+type LensShapesOptions = {
 
   // true: approximation, false: accurate, matches ROC
   isHollywooded?: boolean,
@@ -44,12 +44,12 @@ class LensShapes implements OpticShapes {
    * @param diameter - height of the lens
    * @param providedOptions
    */
-  constructor( opticShape: OpticShapeType, radiusOfCurvature: number, diameter: number, providedOptions?: Options ) {
+  constructor( opticShape: OpticShapeType, radiusOfCurvature: number, diameter: number, providedOptions?: LensShapesOptions ) {
 
     const options = merge( {
       isHollywooded: true, // true: approximation, false: accurate, matches ROC
       offsetRadius: 100 //TODO document
-    }, providedOptions ) as Required< Options >;
+    }, providedOptions );
 
     const halfHeight = diameter / 2;
 
