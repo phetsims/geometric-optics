@@ -1,4 +1,4 @@
-// Copyright 2021, University of Colorado Boulder
+// Copyright 2021-2022, University of Colorado Boulder
 
 /**
  * GOGlobalOptions defines the global options for this simulation, accessed via PhET > Options.
