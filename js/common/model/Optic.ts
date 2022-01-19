@@ -18,7 +18,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import geometricOptics from '../../geometricOptics.js';
 import OpticShapes from './OpticShapes.js';
-import OpticShapeType, { OpticShapeTypeValues } from './OpticShapeType.js';
+import SurfaceType, { SurfaceTypeValues } from './SurfaceType.js';
 import Property from '../../../../axon/js/Property.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
@@ -29,7 +29,10 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 type OpticOptions = {
 
   // initial shape of the optic, 'convex' or 'concave'
-  opticShape: OpticShapeType,
+  surfaceType: SurfaceType,
+
+  // supported values of SurfaceType, in the left-to-right order that they appear as radio buttons
+  surfaceTypes: SurfaceType[]
 
   // range of index of refraction, a unitless ratio
   radiusOfCurvatureRange: Range,
@@ -44,13 +47,10 @@ type OpticOptions = {
   sign: 1 | -1,
 
   // determines whether the optic is converging for the specified shape
-  isConverging: ( opticShape: OpticShapeType ) => boolean,
+  isConverging: ( surfaceType: SurfaceType ) => boolean,
 
   // position of the optic, in cm
   position?: Vector2
-
-  // supported values of OpticShapeType, in the left-to-right order that they appear as radio buttons
-  opticShapes: OpticShapeType[]
 
   // phet-io options
   tandem: Tandem
@@ -62,7 +62,7 @@ abstract class Optic {
   readonly abstract shapesProperty: IReadOnlyProperty<OpticShapes>;
 
   // shape of the optic
-  readonly opticShapeProperty: Property<OpticShapeType>;
+  readonly surfaceTypeProperty: Property<SurfaceType>;
 
   // position of the optic
   readonly positionProperty: Property<Vector2>;
@@ -108,14 +108,14 @@ abstract class Optic {
 
     const options = merge( {
       position: Vector2.ZERO,
-      opticShapes: OpticShapeTypeValues
+      surfaceTypes: SurfaceTypeValues
     }, providedOptions );
 
     this.sign = options.sign;
 
-    this.opticShapeProperty = new Property( options.opticShape, {
-      validValues: options.opticShapes,
-      tandem: options.tandem.createTandem( 'opticShapeProperty' ),
+    this.surfaceTypeProperty = new Property( options.surfaceType, {
+      validValues: options.surfaceTypes,
+      tandem: options.tandem.createTandem( 'surfaceTypeProperty' ),
       phetioType: Property.PropertyIO( StringIO ),
       phetioDocumentation: 'describes the shape of the optic'
     } );
@@ -159,12 +159,12 @@ abstract class Optic {
     this.maxDiameter = options.diameterRange.max;
 
     this.focalLengthProperty = new DerivedProperty(
-      [ this.opticShapeProperty, this.radiusOfCurvatureProperty, this.indexOfRefractionProperty ],
-      ( opticShape: OpticShapeType, radiusOfCurvature: number, indexOfRefraction: number ) => {
+      [ this.surfaceTypeProperty, this.radiusOfCurvatureProperty, this.indexOfRefractionProperty ],
+      ( surfaceType: SurfaceType, radiusOfCurvature: number, indexOfRefraction: number ) => {
 
         // A positive sign indicates the optic is converging.
         // Sign is determined based on the shape and the type of optic.
-        const sign = options.isConverging( opticShape ) ? 1 : -1;
+        const sign = options.isConverging( surfaceType ) ? 1 : -1;
 
         return sign * radiusOfCurvature / ( 2 * ( indexOfRefraction - 1 ) );
       }, {
@@ -229,7 +229,7 @@ abstract class Optic {
   protected abstract getExtremumPoint( sourcePoint: Vector2, targetPoint: Vector2, isTop: boolean ): Vector2;
 
   public reset(): void {
-    this.opticShapeProperty.reset();
+    this.surfaceTypeProperty.reset();
     this.positionProperty.reset();
     this.radiusOfCurvatureProperty.reset();
     this.indexOfRefractionProperty.reset();

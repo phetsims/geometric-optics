@@ -14,7 +14,7 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
-import OpticShapeType from '../../common/model/OpticShapeType.js';
+import SurfaceTypeValues from '../../common/model/SurfaceType.js';
 import OpticShapes from '../../common/model/OpticShapes.js';
 import geometricOptics from '../../geometricOptics.js';
 
@@ -35,12 +35,12 @@ class MirrorShapes implements OpticShapes {
 
   /**
    *
-   * @param opticShape
+   * @param surfaceType
    * @param radiusOfCurvature - radius of curvature at the center of the mirror
    * @param diameter - vertical height of the mirror
    * @param providedOptions
    */
-  constructor( opticShape: OpticShapeType, radiusOfCurvature: number, diameter: number, providedOptions?: MirrorShapesOptions ) {
+  constructor( surfaceType: SurfaceTypeValues, radiusOfCurvature: number, diameter: number, providedOptions?: MirrorShapesOptions ) {
     assert && assert( radiusOfCurvature > diameter / 2 );
 
     const options = merge( {
@@ -60,7 +60,7 @@ class MirrorShapes implements OpticShapes {
     const angle = Math.atan( halfHeight / radiusOfCurvature );
 
     // curveSign is +1 for convex and -1 for concave
-    const curveSign = ( opticShape === 'convex' ) ? 1 : -1;
+    const curveSign = ( surfaceType === 'convex' ) ? 1 : -1;
 
     // vector offset between the two top corners and bottom corners of the shape with a magnitude of backingThickness
     const offsetTopVector = Vector2.createPolar( backingThickness, -curveSign * angle );

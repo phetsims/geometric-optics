@@ -57,7 +57,7 @@ class LightRays {
     type DependencyTypes = [ Vector2, RaysModeType, number, Representation, ...any[] ];
     const dependencies: MappedProperties<DependencyTypes> = [
       sourceObjectPositionProperty, raysModeProperty, timeProperty, representationProperty,
-      optic.positionProperty, optic.diameterProperty, optic.focalLengthProperty, optic.opticShapeProperty
+      optic.positionProperty, optic.diameterProperty, optic.focalLengthProperty, optic.surfaceTypeProperty
     ];
     if ( barrier ) {
       dependencies.push( barrier.positionProperty );

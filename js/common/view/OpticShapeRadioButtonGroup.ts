@@ -13,7 +13,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import Optic from '../model/Optic.js';
-import OpticShapeType from '../model/OpticShapeType.js';
+import SurfaceTypeValues from '../model/SurfaceType.js';
 import Lens from '../../lens/model/Lens.js';
 import MirrorNode from '../../mirror/view/MirrorNode.js';
 import LensNode from '../../lens/view/LensNode.js';
@@ -23,7 +23,7 @@ type OpticShapeRadioButtonGroupOptions = {
   tandem: Tandem
 } & NodeOptions; //TODO https://github.com/phetsims/scenery/issues/1332 limit to Node translation options
 
-class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeType> {
+class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<SurfaceTypeValues> {
 
   /**
    * @param optic
@@ -32,17 +32,17 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShapeT
   constructor( optic: Optic, providedOptions: OpticShapeRadioButtonGroupOptions ) {
 
     // A radio button for each shape supported by the optic
-    assert && assert( optic.opticShapeProperty.validValues ); // {OpticShapeType[]|undefined}
-    const items = optic.opticShapeProperty.validValues!.map(
-      ( opticShape: OpticShapeType ) => {
+    assert && assert( optic.surfaceTypeProperty.validValues ); // {SurfaceType[]|undefined}
+    const items = optic.surfaceTypeProperty.validValues!.map(
+      ( surfaceType: SurfaceTypeValues ) => {
         return {
-          value: opticShape,
-          node: ( optic instanceof Lens ) ? LensNode.createIconNode( opticShape ) : MirrorNode.createIconNode( opticShape ),
-          tandemName: `${opticShape}RadioButton`
+          value: surfaceType,
+          node: ( optic instanceof Lens ) ? LensNode.createIconNode( surfaceType ) : MirrorNode.createIconNode( surfaceType ),
+          tandemName: `${surfaceType}RadioButton`
         };
       } );
 
-    super( optic.opticShapeProperty, items, merge( {
+    super( optic.surfaceTypeProperty, items, merge( {
 
       // RectangularRadioButtonGroup options
       orientation: 'horizontal',

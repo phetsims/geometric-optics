@@ -130,7 +130,7 @@ class LensScreenView extends GOScreenView {
     const pdomOrder = this.screenViewRootNode.pdomOrder;
     assert && assert( pdomOrder ); // [] | null
     if ( pdomOrder ) {
-      pdomOrder.splice( pdomOrder.indexOf( this.opticShapeRadioButtonGroup ), 0, dragLockedButton );
+      pdomOrder.splice( pdomOrder.indexOf( this.surfaceTypeRadioButtonGroup ), 0, dragLockedButton );
       pdomOrder.splice( pdomOrder.indexOf( this.zoomButtonGroup ), 0, projectionScreenNode );
       this.screenViewRootNode.pdomOrder = pdomOrder;
     }

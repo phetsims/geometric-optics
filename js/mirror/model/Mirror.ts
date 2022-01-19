@@ -12,7 +12,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Optic, { OpticOptions } from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
-import OpticShapeType from '../../common/model/OpticShapeType.js';
+import SurfaceTypeValues from '../../common/model/SurfaceType.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import MirrorShapes from './MirrorShapes.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
@@ -30,8 +30,8 @@ class Mirror extends Optic {
   constructor( providedOptions: MirrorOptions ) {
 
     const options = merge( {
-      opticShape: 'concave',
-      opticShapes: [ 'concave', 'convex' ], //TODO https://github.com/phetsims/geometric-optics/issues/227 add 'flat'
+      surfaceType: 'concave',
+      surfaceTypes: [ 'concave', 'convex' ], //TODO https://github.com/phetsims/geometric-optics/issues/227 add 'flat'
       radiusOfCurvatureRange: new RangeWithValue( 150, 300, 200 ), // in cm
 
       // Although a mirror does not have an index of refraction, its focal length is equivalent to a lens
@@ -39,16 +39,16 @@ class Mirror extends Optic {
       indexOfRefractionRange: new RangeWithValue( 2, 2, 2 ), // unitless
       diameterRange: new RangeWithValue( 30, 130, 80 ), // in cm
       sign: -1,
-      isConverging: ( opticShape: OpticShapeType ) => ( opticShape === 'concave' )
+      isConverging: ( surfaceType: SurfaceTypeValues ) => ( surfaceType === 'concave' )
 
     }, providedOptions ) as OpticOptions; //TODO don't use 'as'
 
     super( options );
 
     this.shapesProperty = new DerivedProperty(
-      [ this.opticShapeProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
-      ( opticShape: OpticShapeType, radiusOfCurvature: number, diameter: number ) =>
-        new MirrorShapes( opticShape, radiusOfCurvature, diameter )
+      [ this.surfaceTypeProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
+      ( surfaceType: SurfaceTypeValues, radiusOfCurvature: number, diameter: number ) =>
+        new MirrorShapes( surfaceType, radiusOfCurvature, diameter )
     );
   }
 
@@ -66,7 +66,7 @@ class Mirror extends Optic {
     const activeBounds = this.getActiveBoundsTranslated().erodedY( 1e-6 );
 
     // convenience variables
-    const isConcave = ( this.opticShapeProperty.value === 'concave' );
+    const isConcave = ( this.surfaceTypeProperty.value === 'concave' );
     const leftPoint = isTop ? activeBounds.leftTop : activeBounds.leftBottom;
     const rightPoint = isTop ? activeBounds.rightTop : activeBounds.rightBottom;
 
