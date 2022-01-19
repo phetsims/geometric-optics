@@ -18,7 +18,7 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOColors from '../GOColors.js';
 import GOConstants from '../GOConstants.js';
 import Optic from '../model/Optic.js';
-import RaysModeType from '../model/RaysModeType.js';
+import RaysType from '../model/RaysType.js';
 import Representation from '../model/Representation.js';
 import DiameterControl from './DiameterControl.js';
 import RaysRadioButtonGroup from './RaysRadioButtonGroup.js';
@@ -37,11 +37,11 @@ class GOControlPanel extends Panel {
   /**
    * @param representationProperty
    * @param optic
-   * @param raysModeProperty
+   * @param raysTypeProperty
    * @param visibleProperties
    * @param providedOptions
    */
-  constructor( representationProperty: Property<Representation>, optic: Optic, raysModeProperty: Property<RaysModeType>,
+  constructor( representationProperty: Property<Representation>, optic: Optic, raysTypeProperty: Property<RaysType>,
                visibleProperties: VisibleProperties, providedOptions: GOControlPanelOptions ) {
 
     // Rays radio buttons ---------------------------------------------------------------------------------------
@@ -56,7 +56,7 @@ class GOControlPanel extends Panel {
     } );
 
     // radio buttons
-    const raysRadioButtonGroup = new RaysRadioButtonGroup( raysModeProperty, {
+    const raysRadioButtonGroup = new RaysRadioButtonGroup( raysTypeProperty, {
       tandem: raysSubpanelTandem.createTandem( 'raysRadioButtonGroup' )
     } );
 

@@ -17,7 +17,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import LightRays from './LightRays.js';
 import Optic from './Optic.js';
-import RaysModeType, { RaysModeTypeValues } from './RaysModeType.js';
+import RaysType, { RaysTypeValues } from './RaysType.js';
 import Representation, { RepresentationStaticInstances } from './Representation.js';
 import GORuler from './GORuler.js';
 import SecondPoint from './SecondPoint.js';
@@ -74,7 +74,7 @@ class GOModel {
   readonly lightRaysTimeProperty: NumberProperty;
 
   // determines the representation used for rays
-  readonly raysModeProperty: Property<RaysModeType>;
+  readonly raysTypeProperty: Property<RaysType>;
 
   // light rays associated with the first light source
   readonly lightRays1: LightRays;
@@ -120,18 +120,18 @@ class GOModel {
       tandem: options.tandem.createTandem( 'lightRaysTimeProperty' )
     } );
 
-    this.raysModeProperty = new Property( 'marginal', {
-      validValues: RaysModeTypeValues,
-      tandem: options.tandem.createTandem( 'raysModeProperty' ),
+    this.raysTypeProperty = new Property( 'marginal', {
+      validValues: RaysTypeValues,
+      tandem: options.tandem.createTandem( 'raysTypeProperty' ),
       phetioType: Property.PropertyIO( StringIO )
     } );
 
-    // Changing raysModeProperty resets the animation time for rays.
-    this.raysModeProperty.link( () => this.lightRaysTimeProperty.reset() );
+    // Changing raysTypeProperty resets the animation time for rays.
+    this.raysTypeProperty.link( () => this.lightRaysTimeProperty.reset() );
 
     this.lightRays1 = new LightRays(
       this.lightRaysTimeProperty,
-      this.raysModeProperty,
+      this.raysTypeProperty,
       this.representationProperty,
       this.sourceObject.positionProperty,
       this.optic,
@@ -141,7 +141,7 @@ class GOModel {
 
     this.lightRays2 = new LightRays(
       this.lightRaysTimeProperty,
-      this.raysModeProperty,
+      this.raysTypeProperty,
       this.representationProperty,
       this.secondPoint.positionProperty,
       this.optic,
@@ -168,7 +168,7 @@ class GOModel {
     this.sourceObject.reset();
     this.secondPoint.reset();
     this.lightRaysTimeProperty.reset();
-    this.raysModeProperty.reset();
+    this.raysTypeProperty.reset();
     this.horizontalRuler.reset();
     this.verticalRuler.reset();
   }

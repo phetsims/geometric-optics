@@ -50,11 +50,11 @@ class LightRay {
    * @param optic - model of the optic
    * @param targetPoint - point of focus of all rays based on thin lens law
    * @param isVirtual - is the image virtual?
-   * @param isPrincipalRaysMode - is the light ray mode set to Principal rays
+   * @param isPrincipalRaysType - is the light ray mode set to Principal rays
    * @param barrier - optional barrier that can block the ray
    */
   constructor( initialRay: Ray, time: number, optic: Optic, targetPoint: Vector2, isVirtual: boolean,
-               isPrincipalRaysMode: boolean, barrier: Barrier | null ) {
+               isPrincipalRaysType: boolean, barrier: Barrier | null ) {
 
     assert && AssertUtils.assertNonNegativeNumber( time );
 
@@ -65,9 +65,9 @@ class LightRay {
     const distanceTraveled = GOQueryParameters.lightSpeed * time;
 
     // {Vector2|null} first intersection point - a null value implies that the initialRay does not intersect the optic
-    const firstPoint = getFirstPoint( initialRay, optic, isPrincipalRaysMode );
+    const firstPoint = getFirstPoint( initialRay, optic, isPrincipalRaysType );
 
-    this.realRays = getRealRays( initialRay, firstPoint, optic, isPrincipalRaysMode, targetPoint );
+    this.realRays = getRealRays( initialRay, firstPoint, optic, isPrincipalRaysType, targetPoint );
 
     // If we have a barrier (e.g. projection screen), check whether the last ray intersects the barrier,
     // and therefore terminates at the barrier.
@@ -176,10 +176,10 @@ class LightRay {
  * Gets the first intersection Point, where it hits the front (left-facing) surface of the optic.
  * @param initialRay
  * @param optic
- * @param isPrincipalRaysMode
+ * @param isPrincipalRaysType
  */
-function getFirstPoint( initialRay: Ray, optic: Optic, isPrincipalRaysMode: boolean ): Vector2 | null {
-  const firstIntersection = optic.getFrontShapeTranslated( isPrincipalRaysMode ).intersection( initialRay );
+function getFirstPoint( initialRay: Ray, optic: Optic, isPrincipalRaysType: boolean ): Vector2 | null {
+  const firstIntersection = optic.getFrontShapeTranslated( isPrincipalRaysType ).intersection( initialRay );
   return getPoint( firstIntersection );
 }
 
@@ -189,10 +189,10 @@ function getFirstPoint( initialRay: Ray, optic: Optic, isPrincipalRaysMode: bool
  * @param initialRay
  * @param firstPoint
  * @param optic
- * @param isPrincipalRaysMode
+ * @param isPrincipalRaysType
  * @param targetPoint
  */
-function getRealRays( initialRay: Ray, firstPoint: Vector2 | null, optic: Optic, isPrincipalRaysMode: boolean,
+function getRealRays( initialRay: Ray, firstPoint: Vector2 | null, optic: Optic, isPrincipalRaysType: boolean,
                       targetPoint: Vector2 ): Ray[] {
 
   // array to store all the rays
@@ -211,13 +211,13 @@ function getRealRays( initialRay: Ray, firstPoint: Vector2 | null, optic: Optic,
     // determine the ray(s) that come have the initial ray
 
     // mirror and principal ray mode have only "one surface" to hit
-    if ( optic instanceof Mirror || isPrincipalRaysMode ) {
+    if ( optic instanceof Mirror || isPrincipalRaysType ) {
 
       // add the semi-infinite transmitted ray
       rays.push( getTransmittedRay( firstPoint, targetPoint, optic ) );
     }
     else {
-      assert && assert( ( optic instanceof Lens ) && !isPrincipalRaysMode );
+      assert && assert( ( optic instanceof Lens ) && !isPrincipalRaysType );
 
       // {Vector2} find bisecting point of the lens, used to determine outgoin ray
       const intermediatePoint = getIntermediatePoint( initialRay, firstPoint, optic );

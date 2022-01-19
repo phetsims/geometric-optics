@@ -16,7 +16,7 @@ import LightRay from './LightRay.js';
 import LightRaySegment from './LightRaySegment.js';
 import Optic from './Optic.js';
 import Ray from './Ray.js';
-import RaysModeType from './RaysModeType.js';
+import RaysType from './RaysType.js';
 import Target from './Target.js';
 import Representation from './Representation.js';
 import Barrier from './Barrier.js';
@@ -36,14 +36,14 @@ class LightRays {
 
   /**
    * @param timeProperty
-   * @param raysModeProperty
+   * @param raysTypeProperty
    * @param representationProperty
    * @param sourceObjectPositionProperty
    * @param optic
    * @param target - target model associated with this ray
    * @param barrier - optional barrier that blocks rays
    */
-  constructor( timeProperty: Property<number>, raysModeProperty: IReadOnlyProperty<RaysModeType>,
+  constructor( timeProperty: Property<number>, raysTypeProperty: IReadOnlyProperty<RaysType>,
                representationProperty: IReadOnlyProperty<Representation>,
                sourceObjectPositionProperty: IReadOnlyProperty<Vector2>,
                optic: Optic, target: Target, barrier: Barrier | null ) {
@@ -54,9 +54,9 @@ class LightRays {
 
     // Things that result in a change to the rays.
     // We only care about the types of the first 4 dependencies, because the listener only has 4 parameters.
-    type DependencyTypes = [ Vector2, RaysModeType, number, Representation, ...any[] ];
+    type DependencyTypes = [ Vector2, RaysType, number, Representation, ...any[] ];
     const dependencies: MappedProperties<DependencyTypes> = [
-      sourceObjectPositionProperty, raysModeProperty, timeProperty, representationProperty,
+      sourceObjectPositionProperty, raysTypeProperty, timeProperty, representationProperty,
       optic.positionProperty, optic.diameterProperty, optic.focalLengthProperty, optic.surfaceTypeProperty
     ];
     if ( barrier ) {
@@ -65,7 +65,7 @@ class LightRays {
 
     // Update all rays, then inform listeners via raysProcessedEmitter.
     Property.multilink<DependencyTypes>( dependencies,
-      ( sourcePosition: Vector2, raysMode: RaysModeType, time: number, representation: Representation ) => {
+      ( sourcePosition: Vector2, raysType: RaysType, time: number, representation: Representation ) => {
 
         // Clear the arrays.
         this.realSegments = [];
@@ -78,13 +78,13 @@ class LightRays {
         const isVirtual = target.isVirtualProperty.value;
 
         // {Vector2[]} get the initial directions of the rays
-        const directions = getRayDirections( sourcePosition, optic, raysMode, targetPoint );
+        const directions = getRayDirections( sourcePosition, optic, raysType, targetPoint );
 
         // is the Rays mode set to Principal
-        const isPrincipalRaysMode = ( raysMode === 'principal' );
+        const isPrincipalRaysType = ( raysType === 'principal' );
 
         // set the target's visibility to false initially (unless there are no rays)
-        target.visibleProperty.value = ( raysMode === 'none' );
+        target.visibleProperty.value = ( raysType === 'none' );
 
         // loop over the direction of each ray
         directions.forEach( direction => {
@@ -93,7 +93,7 @@ class LightRays {
           const initialRay = new Ray( sourcePosition, direction );
 
           // determine the lightRay
-          const lightRay = new LightRay( initialRay, time, optic, targetPoint, isVirtual, isPrincipalRaysMode,
+          const lightRay = new LightRay( initialRay, time, optic, targetPoint, isVirtual, isPrincipalRaysType,
             representation.isObject ? null : barrier
           );
 
@@ -116,10 +116,10 @@ class LightRays {
  * Gets the initial directions of the rays for the different ray modes.
  * @param sourcePosition
  * @param optic
- * @param raysMode
+ * @param raysType
  * @param targetPoint
  */
-function getRayDirections( sourcePosition: Vector2, optic: Optic, raysMode: RaysModeType, targetPoint: Vector2 ): Vector2[] {
+function getRayDirections( sourcePosition: Vector2, optic: Optic, raysType: RaysType, targetPoint: Vector2 ): Vector2[] {
 
   // {Vector2[]} directions of the light rays emanating from the object
   const directions = [];
@@ -131,7 +131,7 @@ function getRayDirections( sourcePosition: Vector2, optic: Optic, raysMode: Rays
   // vector from source to optic
   const sourceOpticVector = opticPosition.minus( sourcePosition );
 
-  if ( raysMode === 'marginal' ) {
+  if ( raysType === 'marginal' ) {
 
     // direction for ray going through the center of optic
     directions.push( sourceOpticVector.normalized() );
@@ -150,7 +150,7 @@ function getRayDirections( sourcePosition: Vector2, optic: Optic, raysMode: Rays
 
     directions.push( topDirection, bottomDirection );
   }
-  else if ( raysMode === 'principal' ) {
+  else if ( raysType === 'principal' ) {
 
     // horizontal direction, unit vector along positive x
     directions.push( new Vector2( 1, 0 ) );
@@ -169,7 +169,7 @@ function getRayDirections( sourcePosition: Vector2, optic: Optic, raysMode: Rays
     // direction for ray going through the focal point
     directions.push( sourceFirstFocalVector.normalized() );
   }
-  else if ( raysMode === 'many' ) {
+  else if ( raysType === 'many' ) {
 
     // starting angle for showers of rays
     const startingAngle = Math.PI / 4;

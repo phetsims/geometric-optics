@@ -17,7 +17,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import Optic from '../model/Optic.js';
-import RaysModeType from '../model/RaysModeType.js';
+import RaysType from '../model/RaysType.js';
 
 type OpticVerticalAxisNodeOptions = {
   tandem: Tandem
@@ -27,12 +27,12 @@ class OpticVerticalAxisNode extends Node {
 
   /**
    * @param optic
-   * @param raysModeProperty
+   * @param raysTypeProperty
    * @param visibleBoundsProperty
    * @param modelViewTransform
    * @param providedOptions
    */
-  constructor( optic: Optic, raysModeProperty: IReadOnlyProperty<RaysModeType>,
+  constructor( optic: Optic, raysTypeProperty: IReadOnlyProperty<RaysType>,
                visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                modelViewTransform: ModelViewTransform2, providedOptions: OpticVerticalAxisNodeOptions ) {
 
@@ -48,8 +48,8 @@ class OpticVerticalAxisNode extends Node {
     }, providedOptions ) );
 
     // Make lineNode visible when Rays mode is Principal
-    raysModeProperty.link( raysMode => {
-      lineNode.visible = ( raysMode === 'principal' );
+    raysTypeProperty.link( raysType => {
+      lineNode.visible = ( raysType === 'principal' );
     } );
 
     // clip to the bounds
