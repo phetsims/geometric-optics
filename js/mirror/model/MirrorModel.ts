@@ -29,7 +29,7 @@ class MirrorModel extends GOModel {
     const options = merge( {
 
       // Initial position of the source object, empirically set so that the entire framed object is above the optical axis
-      sourceObjectPosition: new Vector2( -170, 74 ),
+      sourceObjectPosition: new Vector2( -170, 63.5 ),
 
       // Mirror only supports objects, no light source
       representations: RepresentationStaticInstances.filter( value => value.isObject )

@@ -47,8 +47,6 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Optic from '../model/Optic.js';
 import TwoFPointNode from './TwoFPointNode.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import OpticalAxisForegroundNode from './OpticalAxisForegroundNode.js';
-import LightRaysForegroundNode from './LightRaysForegroundNode.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.
@@ -276,19 +274,19 @@ class GOScreenView extends ScreenView {
       } );
 
     // The parts of the optical axis that appear to be in front of Nodes that have 3D perspective.
-    const opticalAxisForegroundNode = new OpticalAxisForegroundNode(
-      model.optic.positionProperty,
-      modelBoundsProperty,
-      modelViewTransform,
-      model.lightRays1.raysProcessedEmitter,
-      model.representationProperty,
-      model.sourceObject.positionProperty,
-      sourceObjectNode,
-      model.firstTarget.positionProperty,
-      targetNode,
-      model.barrier, {
-        visibleProperty: model.optic.opticalAxisVisibleProperty
-      } );
+    // const opticalAxisForegroundNode = new OpticalAxisForegroundNode(
+    //   model.optic.positionProperty,
+    //   modelBoundsProperty,
+    //   modelViewTransform,
+    //   model.lightRays1.raysProcessedEmitter,
+    //   model.representationProperty,
+    //   model.sourceObject.positionProperty,
+    //   sourceObjectNode,
+    //   model.firstTarget.positionProperty,
+    //   targetNode,
+    //   model.barrier, {
+    //     visibleProperty: model.optic.opticalAxisVisibleProperty
+    //   } );
 
     const opticVerticalAxisNode = new OpticVerticalAxisNode( model.optic, model.raysModeProperty,
       this.visibleBoundsProperty, modelViewTransform, {
@@ -322,9 +320,9 @@ class GOScreenView extends ScreenView {
     };
     const lightRays1Node = new LightRaysNode( model.lightRays1, model.representationProperty,
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, lightRays1Options );
-    const lightRays1ForegroundNode = new LightRaysForegroundNode( model.lightRays1, model.representationProperty,
-      visibleProperties.virtualImageVisibleProperty, modelViewTransform, this.visibleBoundsProperty,
-      model.optic.positionProperty, model.firstTarget.positionProperty, model.firstTarget.isVirtualProperty, lightRays1Options );
+    // const lightRays1ForegroundNode = new LightRaysForegroundNode( model.lightRays1, model.representationProperty,
+    //   visibleProperties.virtualImageVisibleProperty, modelViewTransform, this.visibleBoundsProperty,
+    //   model.optic.positionProperty, model.firstTarget.positionProperty, model.firstTarget.isVirtualProperty, lightRays1Options );
 
     // create the light rays associated with the second point and second light source
     const lightRays2Options = {
@@ -334,9 +332,9 @@ class GOScreenView extends ScreenView {
     };
     const lightRays2Node = new LightRaysNode( model.lightRays2, model.representationProperty,
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, lightRays2Options );
-    const lightRays2ForegroundNode = new LightRaysForegroundNode( model.lightRays2, model.representationProperty,
-      visibleProperties.virtualImageVisibleProperty, modelViewTransform, this.visibleBoundsProperty,
-      model.optic.positionProperty, model.firstTarget.positionProperty, model.firstTarget.isVirtualProperty, lightRays2Options );
+    // const lightRays2ForegroundNode = new LightRaysForegroundNode( model.lightRays2, model.representationProperty,
+    //   visibleProperties.virtualImageVisibleProperty, modelViewTransform, this.visibleBoundsProperty,
+    //   model.optic.positionProperty, model.firstTarget.positionProperty, model.firstTarget.isVirtualProperty, lightRays2Options );
 
     //TODO this is a hack to allow LensScreenView to add the projection screen etc. in the correct layering order
     const additionalNodesParent = new Node();
@@ -347,17 +345,19 @@ class GOScreenView extends ScreenView {
       children: [
         opticalAxisNode,
         sourceObjectNode,
-        lightRays1Node,
-        lightRays2Node,
+
         targetNode,
         additionalNodesParent,
-        opticalAxisForegroundNode,
+        // opticalAxisForegroundNode,
         opticNode,
         opticVerticalAxisNode,
+        lightRays1Node,
+        lightRays2Node,
         focalPointsNode,
         twoFPointsNode,
-        lightRays1ForegroundNode,
-        lightRays2ForegroundNode,
+
+        // lightRays1ForegroundNode,
+        // lightRays2ForegroundNode,
         secondPointNode
       ]
     } );
