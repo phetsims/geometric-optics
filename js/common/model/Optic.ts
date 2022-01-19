@@ -117,7 +117,7 @@ abstract class Optic {
       validValues: options.surfaceTypes,
       tandem: options.tandem.createTandem( 'surfaceTypeProperty' ),
       phetioType: Property.PropertyIO( StringIO ),
-      phetioDocumentation: 'describes the shape of the optic'
+      phetioDocumentation: 'describes the surface shape of the optic'
     } );
 
     // In https://github.com/phetsims/geometric-optics/issues/262, it was decided that the optic should have a fixed
