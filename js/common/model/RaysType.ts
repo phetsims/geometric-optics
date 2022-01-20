@@ -1,4 +1,4 @@
-// Copyright 2021-2022, University of Colorado Boulder
+// Copyright 2022, University of Colorado Boulder
 
 /**
  * RaysType is a union type for the different representations of rays, as set by the 'Rays' radio button group.

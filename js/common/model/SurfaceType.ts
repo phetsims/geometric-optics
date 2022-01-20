@@ -1,4 +1,4 @@
-// Copyright 2021-2022, University of Colorado Boulder
+// Copyright 2022, University of Colorado Boulder
 
 /**
  * SurfaceType is a union type for the possible surface shapes of an optic.
