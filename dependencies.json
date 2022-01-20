@@ -1,5 +1,5 @@
 {
-  "comment": "# geometric-optics 1.1.0-dev.16 Tue Jan 18 2022 17:44:58 GMT-0700 (Mountain Standard Time)",
+  "comment": "# geometric-optics 1.1.0-dev.17 Wed Jan 19 2022 19:17:04 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "767b2f345518ceca5144a152ecf40cd4f9206136",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "99023278807143fdc6b7fb4d87c0f8216b024bf9",
+    "sha": "1926b96ad2b2a93aadab0fdabbcb26a6da6f16ef",
     "branch": "master"
   },
   "dot": {
@@ -21,11 +21,11 @@
     "branch": "master"
   },
   "geometric-optics": {
-    "sha": "dd32cf6fb28703620dbbdb6ff8f6eb5b10c46522",
+    "sha": "e6b460ee08e43bf95473fe37c56b98e3ec25933f",
     "branch": "master"
   },
   "joist": {
-    "sha": "3db53f176f0298060fa186230ffd13483e983336",
+    "sha": "c39d1edf36a9208cc16cd5d77854b825585bf3b9",
     "branch": "master"
   },
   "kite": {
@@ -37,11 +37,11 @@
     "branch": "master"
   },
   "phet-core": {
-    "sha": "85b7c23330ca807fd7a185e2b82a9f7bbde73417",
+    "sha": "65388e46918f4cd97e80c52e1b2aefe46755fa77",
     "branch": "master"
   },
   "phet-io": {
-    "sha": "f39549814b369283de1f9a9cf50c6b2fc16a019b",
+    "sha": "a2d73dbbbf7e42a6f9b9eb9a78d09c3365c6dc58",
     "branch": "master"
   },
   "phet-io-client-guides": {
@@ -81,11 +81,11 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "ce7d7682c969a2144d742a65d84a09931bae73f6",
+    "sha": "1459e6fa6c90b64109a396f054c7754dc9553055",
     "branch": "master"
   },
   "tambo": {
-    "sha": "6e3d6d8f453951931acd5060cb46ce6169ced3d4",
+    "sha": "92327e8a77dcdad52c0a6bf030aaeb2c0777aea5",
     "branch": "master"
   },
   "tandem": {
@@ -97,7 +97,7 @@
     "branch": "master"
   },
   "utterance-queue": {
-    "sha": "02bfe5c32d99cd68ff1a29eec0737be7434cafd8",
+    "sha": "516f61a908f4f8ece1fc767f9403da8e3590d525",
     "branch": "master"
   }
 }
