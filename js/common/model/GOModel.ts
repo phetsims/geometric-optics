@@ -86,6 +86,11 @@ class GOModel {
   readonly horizontalRuler: GORuler;
   readonly verticalRuler: GORuler;
 
+  // Maximum distance that things can be dragged from the optical axis, in cm. This is constrained to prevent
+  // cases where the source object is close to the object and no 'Many' rays go through the optic.
+  // See https://github.com/phetsims/geometric-optics/issues/289
+  readonly maxDistanceFromOpticalAxis: number;
+
   /**
    * @param optic
    * @param providedOptions
@@ -160,6 +165,8 @@ class GOModel {
       length: GOConstants.VERTICAL_RULER_LENGTH,
       tandem: options.tandem.createTandem( 'verticalRuler' )
     } );
+
+    this.maxDistanceFromOpticalAxis = 100; // cm
   }
 
   public reset(): void {

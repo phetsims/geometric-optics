@@ -69,7 +69,7 @@ const SCHEMA = {
     type: 'flag'
   },
 
-  // Shows the model bounds as a green rectangle.
+  // Shows the model bounds as a red rectangle.
   debugModelBounds: {
     type: 'flag'
   },

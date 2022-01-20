@@ -245,18 +245,18 @@ class GOScreenView extends ScreenView {
     // ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied.
     const modelVisibleBoundsProperty = new DerivedProperty(
       [ this.visibleBoundsProperty, zoomTransformProperty ],
-      ( visibleBounds: Bounds2, zoomTransform: ModelViewTransform2 ) =>
-        zoomTransform.viewToModelBounds( visibleBounds )
+      ( visibleBounds: Bounds2, zoomTransform: ModelViewTransform2 ) => zoomTransform.viewToModelBounds( visibleBounds )
     );
 
     // Portion of the ScreenView's visibleBounds where things can be dragged, in the model coordinate frame,
-    // with zoom transform applied. See https://github.com/phetsims/geometric-optics/issues/204
+    // with zoom transform applied. See https://github.com/phetsims/geometric-optics/issues/204 and
+    // https://github.com/phetsims/geometric-optics/issues/289.
+    // Run with ?debugModelBounds to see this rendered.
     const modelBoundsProperty = new DerivedProperty(
-      [ this.visibleBoundsProperty, zoomTransformProperty ],
-      ( visibleBounds: Bounds2, zoomTransform: ModelViewTransform2 ) => {
-        const viewBounds = new Bounds2( visibleBounds.left, surfaceTypeRadioButtonGroup.bottom,
-          visibleBounds.right, controlPanel.top - 10 );
-        return zoomTransform.viewToModelBounds( viewBounds );
+      [ modelVisibleBoundsProperty ],
+      ( modelVisibleBounds: Bounds2 ) => {
+        const y = model.maxDistanceFromOpticalAxis;
+        return new Bounds2( modelVisibleBounds.minX, -y, modelVisibleBounds.maxX, y );
       } );
 
     // the source object or first light source
@@ -407,8 +407,7 @@ class GOScreenView extends ScreenView {
     // Show the model bounds as a green rectangle.
     if ( GOQueryParameters.debugModelBounds ) {
       const dragBoundsNode = new Rectangle( modelViewTransform.modelToViewBounds( modelBoundsProperty.value ), {
-        stroke: 'green',
-        lineWidth: 2
+        stroke: 'red'
       } );
       experimentAreaNode.addChild( dragBoundsNode );
       modelBoundsProperty.link( modelBounds => {
