@@ -67,7 +67,7 @@ class LightRaysForegroundNode extends LightRaysNode {
 
         const opticPosition = opticPositionProperty.value;
         const targetPosition = targetPositionProperty.value;
-        const visibleBounds = modelViewTransform.modelToViewBounds( modelVisibleBoundsProperty.value );
+        const viewVisibleBounds = modelViewTransform.modelToViewBounds( modelVisibleBoundsProperty.value );
 
         // For a real image...
         let minX: number;
@@ -76,7 +76,7 @@ class LightRaysForegroundNode extends LightRaysNode {
 
           // For a real image to the right of the optic, the clipArea is everything to the left of the image,
           // because the image is facing left in perspective.
-          minX = visibleBounds.minX;
+          minX = viewVisibleBounds.minX;
           maxX = modelViewTransform.modelToViewX( targetPosition.x );
         }
         else {
@@ -84,9 +84,9 @@ class LightRaysForegroundNode extends LightRaysNode {
           // For a real image to the left of the optic, the clipArea is everything to the right of the image,
           // because the image is facing right in perspective.
           minX = modelViewTransform.modelToViewX( targetPosition.x );
-          maxX = visibleBounds.maxX;
+          maxX = viewVisibleBounds.maxX;
         }
-        clipArea = Shape.rectangle( minX, visibleBounds.minY, maxX - minX, visibleBounds.height );
+        clipArea = Shape.rectangle( minX, viewVisibleBounds.minY, maxX - minX, viewVisibleBounds.height );
       }
       this.clipArea = clipArea;
 
