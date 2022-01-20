@@ -17,6 +17,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import MirrorShapes from './MirrorShapes.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import GOConstants from '../../common/GOConstants.js';
 
 type MirrorOptions = {
   tandem: Tandem
@@ -37,7 +38,7 @@ class Mirror extends Optic {
       // Although a mirror does not have an index of refraction, its focal length is equivalent to a lens
       // with an index of refraction of 2.
       indexOfRefractionRange: new RangeWithValue( 2, 2, 2 ), // unitless
-      diameterRange: new RangeWithValue( 30, 130, 80 ), // in cm
+      diameterRange: GOConstants.DIAMETER_RANGE, // in cm
       sign: -1,
       isConverging: ( surfaceType: SurfaceTypeValues ) => ( surfaceType === 'concave' )
 

@@ -12,6 +12,7 @@ import geometricOptics from '../geometricOptics.js';
 import NumberControl from '../../../scenery-phet/js/NumberControl.js';
 import Dimension2 from '../../../dot/js/Dimension2.js';
 import Range from '../../../dot/js/Range.js';
+import RangeWithValue from '../../../dot/js/RangeWithValue.js';
 
 const CONTROL_FONT = new PhetFont( 14 );
 
@@ -19,6 +20,10 @@ const GOConstants = {
 
   SCREEN_VIEW_X_MARGIN: 20,
   SCREEN_VIEW_Y_MARGIN: 15,
+
+  // Optic -------------------------------------------------------------------------------------------------------------
+
+  DIAMETER_RANGE: new RangeWithValue( 60, 120, 80 ),
 
   // Rulers ------------------------------------------------------------------------------------------------------------
 

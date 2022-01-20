@@ -17,6 +17,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import LensShapes from './LensShapes.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import GOConstants from '../../common/GOConstants.js';
 
 type LensOptions = {
   tandem: Tandem
@@ -37,7 +38,7 @@ class Lens extends Optic {
       surfaceTypes: [ 'convex', 'concave' ],
       radiusOfCurvatureRange: new RangeWithValue( 30, 130, 80 ), // in cm
       indexOfRefractionRange: new RangeWithValue( 1.2, 1.9, 1.5 ), // unitless
-      diameterRange: new RangeWithValue( 30, 130, 80 ), // in cm
+      diameterRange: GOConstants.DIAMETER_RANGE, // in cm
       sign: 1,
       isConverging: ( surfaceType: SurfaceTypeValues ) => ( surfaceType === 'convex' ),
 
