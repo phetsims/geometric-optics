@@ -27,7 +27,7 @@ class LightRaysForegroundNode extends LightRaysNode {
    * @param representationProperty
    * @param virtualImageVisibleProperty
    * @param modelViewTransform
-   * @param lightRaysBoundsProperty - bounds where rays may appear, in model coordinates
+   * @param modelVisibleBoundsProperty - bounds where rays may appear, in model coordinates
    * @param opticPositionProperty
    * @param targetPositionProperty
    * @param isVirtualProperty
@@ -37,7 +37,7 @@ class LightRaysForegroundNode extends LightRaysNode {
                representationProperty: IReadOnlyProperty<Representation>,
                virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
                modelViewTransform: ModelViewTransform2,
-               lightRaysBoundsProperty: IReadOnlyProperty<Bounds2>,
+               modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                opticPositionProperty: IReadOnlyProperty<Vector2>,
                targetPositionProperty: IReadOnlyProperty<Vector2>,
                isVirtualProperty: IReadOnlyProperty<boolean>,
@@ -67,7 +67,7 @@ class LightRaysForegroundNode extends LightRaysNode {
 
         const opticPosition = opticPositionProperty.value;
         const targetPosition = targetPositionProperty.value;
-        const lightRaysBounds = modelViewTransform.modelToViewBounds( lightRaysBoundsProperty.value );
+        const visibleBounds = modelViewTransform.modelToViewBounds( modelVisibleBoundsProperty.value );
 
         // For a real image...
         let minX: number;
@@ -76,7 +76,7 @@ class LightRaysForegroundNode extends LightRaysNode {
 
           // For a real image to the right of the optic, the clipArea is everything to the left of the image,
           // because the image is facing left in perspective.
-          minX = lightRaysBounds.minX;
+          minX = visibleBounds.minX;
           maxX = modelViewTransform.modelToViewX( targetPosition.x );
         }
         else {
@@ -84,9 +84,9 @@ class LightRaysForegroundNode extends LightRaysNode {
           // For a real image to the left of the optic, the clipArea is everything to the right of the image,
           // because the image is facing right in perspective.
           minX = modelViewTransform.modelToViewX( targetPosition.x );
-          maxX = lightRaysBounds.maxX;
+          maxX = visibleBounds.maxX;
         }
-        clipArea = Shape.rectangle( minX, lightRaysBounds.minY, maxX - minX, lightRaysBounds.height );
+        clipArea = Shape.rectangle( minX, visibleBounds.minY, maxX - minX, visibleBounds.height );
       }
       this.clipArea = clipArea;
 

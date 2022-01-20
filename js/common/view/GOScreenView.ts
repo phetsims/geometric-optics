@@ -242,8 +242,15 @@ class GOScreenView extends ScreenView {
     showHideToggleButton.centerX = resetAllButton.centerX;
     showHideToggleButton.top = controlPanel.top;
 
-    // {DerivedProperty.<Bounds2>} bounds of the model, an area that does not overlap any controls, in model coordinates
-    // See https://github.com/phetsims/geometric-optics/issues/204
+    // ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied.
+    const modelVisibleBoundsProperty = new DerivedProperty(
+      [ this.visibleBoundsProperty, zoomTransformProperty ],
+      ( visibleBounds: Bounds2, zoomTransform: ModelViewTransform2 ) =>
+        zoomTransform.viewToModelBounds( visibleBounds )
+    );
+    
+    // Portion of the ScreenView's visibleBounds where things can be dragged, in the model coordinate frame,
+    // with zoom transform applied. See https://github.com/phetsims/geometric-optics/issues/204
     const modelBoundsProperty = new DerivedProperty(
       [ this.visibleBoundsProperty, zoomTransformProperty ],
       ( visibleBounds: Bounds2, zoomTransform: ModelViewTransform2 ) => {
@@ -315,14 +322,6 @@ class GOScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'twoFPointsNode' )
     } );
 
-    // Bounds where rays may appear, in model coordinates.
-    // Rays may appear anywhere in the ScreenView's visibleBounds.
-    const lightRaysBoundsProperty = new DerivedProperty(
-      [ this.visibleBoundsProperty, zoomTransformProperty ],
-      ( visibleBounds: Bounds2, zoomTransform: ModelViewTransform2 ) =>
-        zoomTransform.viewToModelBounds( visibleBounds )
-    );
-
     // create the light rays associated with the source object and first light source
     const lightRays1Options = {
       realRaysStroke: GOColors.rays1StrokeProperty,
@@ -331,7 +330,7 @@ class GOScreenView extends ScreenView {
     const lightRays1Node = new LightRaysNode( model.lightRays1, model.representationProperty,
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, lightRays1Options );
     const lightRays1ForegroundNode = new LightRaysForegroundNode( model.lightRays1, model.representationProperty,
-      visibleProperties.virtualImageVisibleProperty, modelViewTransform, lightRaysBoundsProperty,
+      visibleProperties.virtualImageVisibleProperty, modelViewTransform, modelVisibleBoundsProperty,
       model.optic.positionProperty, model.firstTarget.positionProperty, model.firstTarget.isVirtualProperty, lightRays1Options );
 
     // create the light rays associated with the second point and second light source
@@ -343,7 +342,7 @@ class GOScreenView extends ScreenView {
     const lightRays2Node = new LightRaysNode( model.lightRays2, model.representationProperty,
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, lightRays2Options );
     const lightRays2ForegroundNode = new LightRaysForegroundNode( model.lightRays2, model.representationProperty,
-      visibleProperties.virtualImageVisibleProperty, modelViewTransform, lightRaysBoundsProperty,
+      visibleProperties.virtualImageVisibleProperty, modelViewTransform, modelVisibleBoundsProperty,
       model.optic.positionProperty, model.firstTarget.positionProperty, model.firstTarget.isVirtualProperty, lightRays2Options );
 
     //TODO this is a hack to allow LensScreenView to add the projection screen etc. in the correct layering order
