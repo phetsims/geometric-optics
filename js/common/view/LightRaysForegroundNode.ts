@@ -61,6 +61,7 @@ class LightRaysForegroundNode extends LightRaysNode {
 
     // Update the clipArea, to make rays look like they pass through a real Image.
     // This shows only the parts of this Node that are in the foreground, i.e. not occluded by other things.
+    // Run with ?debugRays to see the clipArea rendered as a rectangle.
     const updateClipArea = () => {
       let clipArea: Shape | null = null; // in view coordinates
       if ( representationProperty.value.isObject && !isVirtualProperty.value ) {

@@ -75,6 +75,7 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
     // While it may seem a bit odd to be listening to the light rays, this is an optimization. When computation
     // of the light rays has completed, we know that other things are in their final positions, and therefore
     // don't end up computing intermediate states as things move around.
+    // Run with ?debugOpticalAxis to see the clipArea rendered as a rectangle.
     const updateClipArea = () => {
 
       let clipArea: Shape; // in view coordinates

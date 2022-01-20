@@ -251,7 +251,7 @@ class GOScreenView extends ScreenView {
     // Portion of the ScreenView's visibleBounds where things can be dragged, in the model coordinate frame,
     // with zoom transform applied. See https://github.com/phetsims/geometric-optics/issues/204 and
     // https://github.com/phetsims/geometric-optics/issues/289.
-    // Run with ?debugModelBounds to see this rendered.
+    // Run with ?debugModelBounds to see this rendered as a rectangle.
     const modelBoundsProperty = new DerivedProperty(
       [ modelVisibleBoundsProperty ],
       ( modelVisibleBounds: Bounds2 ) => {
