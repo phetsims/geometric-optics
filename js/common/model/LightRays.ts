@@ -22,6 +22,12 @@ import Representation from './Representation.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import { MappedProperties } from '../../../../axon/js/DerivedProperty.js';
 import ProjectionScreen from '../../lens/model/ProjectionScreen.js';
+import Utils from '../../../../dot/js/Utils.js';
+
+// constants related to 'Many' rays representation, see https://github.com/phetsims/geometric-optics/issues/289
+const MANY_MIN_RAYS = 20;
+const MANY_MIN_RAYS_DISTANCE = 300; // cm, MANY_MIN_RAYS will be shown up to this distance
+const MANY_FAN_ANGLE = Utils.toRadians( 120 ); // degrees to radians
 
 class LightRays {
 
@@ -172,19 +178,22 @@ function getRayDirections( sourcePosition: Vector2, optic: Optic, raysType: Rays
   else if ( raysType === 'many' ) {
 
     // starting angle for showers of rays
-    const startingAngle = Math.PI / 4;
+    const startingAngle = MANY_FAN_ANGLE / 2;
 
     // symmetric condition for end angle
     const endAngle = -startingAngle;
 
+    // x distance from the Object to the optic
+    const distanceX = Math.abs( optic.positionProperty.value.x - sourcePosition.x );
+
     // number of rays
-    const N = 15;
+    const numberOfRays = MANY_MIN_RAYS * ( Math.floor( distanceX / MANY_MIN_RAYS_DISTANCE ) + 1 );
 
     // Degrees between adjacent arrays
-    const deltaTheta = ( endAngle - startingAngle ) / ( N - 1 );
+    const deltaTheta = ( endAngle - startingAngle ) / ( numberOfRays - 1 );
 
     // create a show of equidistant rays between startingAngle and endAngle
-    for ( let i = 0; i < N; i++ ) {
+    for ( let i = 0; i < numberOfRays; i++ ) {
       const angle = startingAngle + i * deltaTheta;
       directions.push( Vector2.createPolar( 1, angle ) );
     }

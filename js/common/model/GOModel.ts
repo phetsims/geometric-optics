@@ -105,6 +105,7 @@ class GOModel {
     } );
 
     this.sourceObject = new SourceObject( this.representationProperty, options.sourceObjectPosition );
+    this.sourceObject.positionProperty.link( position => console.log( `position.x=${position.x}` ) );//XXX
 
     this.secondPoint = new SecondPoint( this.representationProperty, this.sourceObject.positionProperty );
 
