@@ -256,7 +256,7 @@ abstract class Optic {
    */
   public getVerticalAxis(): Shape {
 
-    const yMax = 800; // long enough for all zoom levels, in cm
+    const yMax = 2000; // long enough for all zoom levels, in cm
 
     // a straight vertical line going through the middle of the optic
     const verticalLine = Shape.lineSegment( 0, yMax, 0, -yMax );

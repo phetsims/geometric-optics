@@ -298,7 +298,7 @@ class GOScreenView extends ScreenView {
       } );
 
     const opticVerticalAxisNode = new OpticVerticalAxisNode( model.optic, model.raysTypeProperty,
-      this.visibleBoundsProperty, modelViewTransform, {
+      modelVisibleBoundsProperty, modelViewTransform, {
         tandem: options.tandem.createTandem( 'opticVerticalAxisNode' )
       } );
 
