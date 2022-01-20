@@ -248,7 +248,7 @@ class GOScreenView extends ScreenView {
       ( visibleBounds: Bounds2, zoomTransform: ModelViewTransform2 ) =>
         zoomTransform.viewToModelBounds( visibleBounds )
     );
-    
+
     // Portion of the ScreenView's visibleBounds where things can be dragged, in the model coordinate frame,
     // with zoom transform applied. See https://github.com/phetsims/geometric-optics/issues/204
     const modelBoundsProperty = new DerivedProperty(
@@ -297,10 +297,9 @@ class GOScreenView extends ScreenView {
         visibleProperty: model.optic.opticalAxisVisibleProperty
       } );
 
-    const opticVerticalAxisNode = new OpticVerticalAxisNode( model.optic, model.raysTypeProperty,
-      modelVisibleBoundsProperty, modelViewTransform, {
-        tandem: options.tandem.createTandem( 'opticVerticalAxisNode' )
-      } );
+    const opticVerticalAxisNode = new OpticVerticalAxisNode( model.optic, model.raysTypeProperty, modelViewTransform, {
+      tandem: options.tandem.createTandem( 'opticVerticalAxisNode' )
+    } );
 
     // focal points (F)
     const focalPointsNode = new Node( {
