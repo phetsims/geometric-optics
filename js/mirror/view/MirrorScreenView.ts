@@ -36,10 +36,7 @@ class MirrorScreenView extends GOScreenView {
     const options = merge( {
 
       // View origin is to right, and a little above center.
-      getViewOrigin: ( layoutBounds: Bounds2 ) => new Vector2(
-        layoutBounds.centerX + 200,
-        layoutBounds.centerY - 0.08 * layoutBounds.height
-      ),
+      getViewOrigin: ( layoutBounds: Bounds2 ) => new Vector2( layoutBounds.centerX + 200, layoutBounds.centerY - 35 ),
 
       // Creates the Node for the mirror
       createOpticNode: ( optic: Mirror, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) =>

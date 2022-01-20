@@ -45,8 +45,7 @@ class LensScreenView extends GOScreenView {
     const options = merge( {
 
       // View origin is slightly above center of the layoutBounds.
-      getViewOrigin: ( layoutBounds: Bounds2 ) =>
-        new Vector2( layoutBounds.centerX, layoutBounds.centerY - 0.08 * layoutBounds.height ),
+      getViewOrigin: ( layoutBounds: Bounds2 ) => new Vector2( layoutBounds.centerX, layoutBounds.centerY - 35 ),
 
       // Creates the Node for the lens
       createOpticNode: ( optic: Lens, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) =>
