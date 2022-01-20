@@ -30,7 +30,7 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
 
   /**
    * @param opticPositionProperty
-   * @param modelBoundsProperty
+   * @param modelVisibleBoundsProperty
    * @param modelViewTransform
    * @param lightRaysProcessedEmitter
    * @param representationProperty
@@ -42,7 +42,7 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
    * @param providedOptions
    */
   constructor( opticPositionProperty: IReadOnlyProperty<Vector2>,
-               modelBoundsProperty: IReadOnlyProperty<Bounds2>,
+               modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                modelViewTransform: ModelViewTransform2,
                lightRaysProcessedEmitter: Emitter<[]>,
                representationProperty: IReadOnlyProperty<Representation>,
@@ -59,7 +59,7 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
     }
 
     // create optical axis line, with arbitrary length values.
-    super( opticPositionProperty, modelBoundsProperty, modelViewTransform, options );
+    super( opticPositionProperty, modelVisibleBoundsProperty, modelViewTransform, options );
 
     // Stroke the clipArea in red.
     let clipAreaNode: Path;
@@ -79,9 +79,9 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
 
       let clipArea: Shape; // in view coordinates
 
-      const viewBounds = modelViewTransform.modelToViewBounds( modelBoundsProperty.value );
-      const minY = viewBounds.minY;
-      const maxY = viewBounds.maxY;
+      const viewVisibleBounds = modelViewTransform.modelToViewBounds( modelVisibleBoundsProperty.value );
+      const minY = viewVisibleBounds.minY;
+      const maxY = viewVisibleBounds.maxY;
       const clipHeight = maxY - minY;
 
       if ( representationProperty.value.isObject ) {

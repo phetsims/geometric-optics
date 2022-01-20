@@ -28,11 +28,11 @@ class OpticalAxisNode extends Line {
 
   /**
    * @param opticPositionProperty
-   * @param modelBoundsProperty
+   * @param modelVisibleBoundsProperty
    * @param modelViewTransform
    * @param providedOptions
    */
-  constructor( opticPositionProperty: IReadOnlyProperty<Vector2>, modelBoundsProperty: IReadOnlyProperty<Bounds2>,
+  constructor( opticPositionProperty: IReadOnlyProperty<Vector2>, modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                modelViewTransform: ModelViewTransform2, providedOptions: OpticalAxisNodeOptions ) {
 
     // create optical axis line, with arbitrary length values.
@@ -43,10 +43,9 @@ class OpticalAxisNode extends Line {
     }, providedOptions ) );
 
     // Set the horizontal extent of the optical axis line.
-    // This must be modelBoundsProperty because the user can zoom in/out.
-    modelBoundsProperty.link( bounds => {
-      this.setX1( modelViewTransform.modelToViewX( bounds.minX ) );
-      this.setX2( modelViewTransform.modelToViewX( bounds.maxX ) );
+    modelVisibleBoundsProperty.link( modelVisibleBounds => {
+      this.setX1( modelViewTransform.modelToViewX( modelVisibleBounds.minX ) );
+      this.setX2( modelViewTransform.modelToViewX( modelVisibleBounds.maxX ) );
     } );
 
     // update y-position of line based on position of optic
