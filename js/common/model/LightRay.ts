@@ -22,6 +22,8 @@ import GOQueryParameters from '../GOQueryParameters.js';
 import LightRaySegment from './LightRaySegment.js';
 import Optic from './Optic.js';
 import Ray from './Ray.js';
+import Shape from '../../../../kite/js/Shape.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 class LightRay {
 
@@ -51,9 +53,11 @@ class LightRay {
    * @param isVirtual - is the image virtual?
    * @param isPrincipalRaysType - is the light ray mode set to Principal rays
    * @param projectionScreen - optional projection screen that can block the rays
+   * @param sourceOjectPositionProperty
    */
   constructor( initialRay: Ray, time: number, optic: Optic, targetPoint: Vector2, isVirtual: boolean,
-               isPrincipalRaysType: boolean, projectionScreen: ProjectionScreen | null ) {
+               isPrincipalRaysType: boolean, projectionScreen: ProjectionScreen | null,
+               sourceOjectPositionProperty: IReadOnlyProperty<Vector2> ) {
 
     assert && AssertUtils.assertNonNegativeNumber( time );
 
@@ -68,10 +72,13 @@ class LightRay {
 
     this.realRays = getRealRays( initialRay, firstPoint, optic, isPrincipalRaysType, targetPoint );
 
-    // If we have a projection screen, check whether the last ray terminates on the projection screen.
+    // Check whether the last ray terminates on the projection screen or source object.
+    const lastRay = this.realRays[ this.realRays.length - 1 ];
     if ( projectionScreen ) {
-      const lastRay = this.realRays[ this.realRays.length - 1 ];
       terminateOnProjectionScreen( lastRay, projectionScreen );
+    }
+    else if ( optic instanceof Mirror ) {
+      terminateOnFramedObject( lastRay, sourceOjectPositionProperty.value );
     }
 
     this.hasVirtualRay = hasVirtualComponent( isVirtual, this.realRays );
@@ -277,6 +284,29 @@ function getIntermediatePoint( initialRay: Ray, firstPoint: Vector2, optic: Opti
   // return a point that will be directed along the initial ray but has an
   // x position that is equal to opticPosition.x
   return initialRay.position.blend( firstPoint, opticSourceVector.x / firstSourceVector.x );
+}
+
+/**
+ * If ray intersects the framed object, terminate the ray on the framed object by setting
+ * the ray's final point.
+ * @param realRay
+ * @param sourceObjectPosition
+ */
+function terminateOnFramedObject( realRay: Ray, sourceObjectPosition: Vector2 ): void {
+
+  //TODO This line was created empirically because it does not currently exist in the SourceObject model.
+  //TODO Factor out duplication with terminateOnProjectionScreen.
+  const bisectorLine = new Shape().moveToPoint( sourceObjectPosition.plusXY( 0, 18 ) ).lineToPoint( sourceObjectPosition.minusXY( 0, 72 ) );
+
+  const intersection = bisectorLine.intersection( realRay );
+
+  // {Vector2|null}
+  const pointOnScreen = getPoint( intersection );
+
+  // If intersection is found, set the transmittedRay final point
+  if ( pointOnScreen ) {
+    realRay.setFinalPoint( pointOnScreen );
+  }
 }
 
 /**
