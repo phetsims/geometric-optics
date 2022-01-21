@@ -1,11 +1,11 @@
 {
-  "comment": "# geometric-optics 1.1.0-dev.17 Wed Jan 19 2022 19:17:04 GMT-0700 (Mountain Standard Time)",
+  "comment": "# geometric-optics 1.1.0-dev.18 Fri Jan 21 2022 12:26:26 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "767b2f345518ceca5144a152ecf40cd4f9206136",
     "branch": "master"
   },
   "axon": {
-    "sha": "6c640796fb0c4e83a24a2d712c25fbe4e4773880",
+    "sha": "ab5556925237b9ba3c524169a789461be416f681",
     "branch": "master"
   },
   "brand": {
@@ -13,15 +13,15 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "1926b96ad2b2a93aadab0fdabbcb26a6da6f16ef",
+    "sha": "af26149f147a82e959a731630fa61d0ecd9e56a1",
     "branch": "master"
   },
   "dot": {
-    "sha": "8f43073b099e61a0d8676d42ed289e64314abcee",
+    "sha": "8473eec15b18a29fefae7a4b658bf4d0e63394c3",
     "branch": "master"
   },
   "geometric-optics": {
-    "sha": "e6b460ee08e43bf95473fe37c56b98e3ec25933f",
+    "sha": "760d4bde5e20ca33a05c6f2c2eb339498bbe11de",
     "branch": "master"
   },
   "joist": {
@@ -33,11 +33,11 @@
     "branch": "master"
   },
   "perennial-alias": {
-    "sha": "46a4ed77e1e308f70527bd84add47fdfea745af4",
+    "sha": "d77a38b35740e2a77907e8e5810e2903921b527c",
     "branch": "master"
   },
   "phet-core": {
-    "sha": "65388e46918f4cd97e80c52e1b2aefe46755fa77",
+    "sha": "bf874bb84af879c407d0ca471073aa2956034127",
     "branch": "master"
   },
   "phet-io": {
@@ -65,7 +65,7 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "ad0587c2b3339e1dc3d341323b57fcd54f727043",
+    "sha": "e4238d7e4cf2f30c350c11a73c49d5f65e7e7cb3",
     "branch": "master"
   },
   "scenery-phet": {
@@ -77,11 +77,11 @@
     "branch": "master"
   },
   "studio": {
-    "sha": "e56d9312a2ecfafbbd8b45b66010c0f8a98fa211",
+    "sha": "4ca70fd3ba3ee99460d9d6c1fab2c9abdede435f",
     "branch": "master"
   },
   "sun": {
-    "sha": "1459e6fa6c90b64109a396f054c7754dc9553055",
+    "sha": "0c107a2323019ce22ab6510d7f914e2acc5355f1",
     "branch": "master"
   },
   "tambo": {
@@ -97,7 +97,7 @@
     "branch": "master"
   },
   "utterance-queue": {
-    "sha": "516f61a908f4f8ece1fc767f9403da8e3590d525",
+    "sha": "980c554171994864bf9a9dab19c3ecc0f528c38f",
     "branch": "master"
   }
 }
