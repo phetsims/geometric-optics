@@ -90,9 +90,6 @@ class DragLockedButton extends BooleanRectangularToggleButton {
       mouseAreaXDilation: 5,
       mouseAreaYDilation: 5,
 
-      // pdom options
-      tagName: 'button',
-
       // phet-io options
       phetioEnabledPropertyInstrumented: true
     }, providedOptions ) );
