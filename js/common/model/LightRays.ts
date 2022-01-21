@@ -100,7 +100,7 @@ class LightRays {
 
           // determine the lightRay
           const lightRay = new LightRay( initialRay, time, optic, targetPoint, isVirtual, isPrincipalRaysType,
-            representation.isObject ? null : projectionScreen, sourceObjectPositionProperty
+            representation.isObject ? null : projectionScreen
           );
 
           // set target's visibility to true after the first ray reaches its target
