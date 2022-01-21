@@ -64,13 +64,14 @@ class LightRaysForegroundNode extends LightRaysNode {
     // Run with ?debugRays to see the clipArea rendered as a rectangle.
     const updateClipArea = () => {
       let clipArea: Shape | null = null; // in view coordinates
-      if ( representationProperty.value.isObject && !isVirtualProperty.value ) {
+
+      // For a real image created by a framed object...
+      if ( !isVirtualProperty.value && representationProperty.value.isObject ) {
 
         const opticPosition = opticPositionProperty.value;
         const targetPosition = targetPositionProperty.value;
         const viewVisibleBounds = modelViewTransform.modelToViewBounds( modelVisibleBoundsProperty.value );
 
-        // For a real image...
         let minX: number;
         let maxX: number;
         if ( targetPosition.x > opticPosition.x ) {
