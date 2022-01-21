@@ -12,7 +12,6 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import Shape from '../../../../kite/js/Shape.js';
 import RayIntersection from '../../../../kite/js/util/RayIntersection.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -69,10 +68,10 @@ class LightRay {
 
     this.realRays = getRealRays( initialRay, firstPoint, optic, isPrincipalRaysType, targetPoint );
 
-    // If we have a projection screen, check whether the last ray intersects the projection screen,
-    // and therefore terminates at the projection screen.
+    // If we have a projection screen, check whether the last ray terminates on the projection screen.
     if ( projectionScreen ) {
-      setFinalPointOnProjectionScreen( this.realRays, projectionScreen.getBisectorLineTranslated() );
+      const lastRay = this.realRays[ this.realRays.length - 1 ];
+      terminateOnProjectionScreen( lastRay, projectionScreen );
     }
 
     this.hasVirtualRay = hasVirtualComponent( isVirtual, this.realRays );
@@ -281,27 +280,21 @@ function getIntermediatePoint( initialRay: Ray, firstPoint: Vector2, optic: Opti
 }
 
 /**
- * Sets the final point of the real ray if it intersects with the vertical median of the projectionScreen.
- * @param realRays
- * @param projectionScreenBisectorLine
+ * If ray intersects the projection screen, terminate the ray on the projection screen by setting
+ * the ray's final point.
+ * @param realRay
+ * @param projectionScreen
  */
-function setFinalPointOnProjectionScreen( realRays: Ray[], projectionScreenBisectorLine: Shape ): void {
+function terminateOnProjectionScreen( realRay: Ray, projectionScreen: ProjectionScreen ): void {
 
-  // ensure that real rays has at least one ray
-  if ( realRays.length > 0 ) {
+  const intersection = projectionScreen.getBisectorLineTranslated().intersection( realRay );
 
-    // the projectionScreen can only intersect with the last ray
-    const lastRay = realRays[ realRays.length - 1 ];
+  // {Vector2|null}
+  const pointOnScreen = getPoint( intersection );
 
-    const intersection = projectionScreenBisectorLine.intersection( lastRay );
-
-    // {Vector2|null}
-    const pointOnScreen = getPoint( intersection );
-
-    // If intersection is found, set the transmittedRay final point
-    if ( pointOnScreen ) {
-      lastRay.setFinalPoint( pointOnScreen );
-    }
+  // If intersection is found, set the transmittedRay final point
+  if ( pointOnScreen ) {
+    realRay.setFinalPoint( pointOnScreen );
   }
 }
 
