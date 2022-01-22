@@ -52,6 +52,8 @@ const SCHEMA = {
     isValidValue: ( value: number ) => ( value >= 100 )
   },
 
+  // Range of opacity used for the real/virtual Image
+  // See https://github.com/phetsims/geometric-optics/issues/232
   imageOpacityRange: {
    type: 'array',
     elementSchema: {
