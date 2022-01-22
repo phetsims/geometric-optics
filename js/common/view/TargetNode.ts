@@ -22,6 +22,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import GOColors from '../GOColors.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import Shape from '../../../../kite/js/Shape.js';
+import Utils from '../../../../dot/js/Utils.js';
 
 type TargetNodeOptions = {
   tandem: Tandem
@@ -95,7 +96,8 @@ class TargetNode extends Node {
 
     // update the opacity of the image
     target.lightIntensityProperty.link( intensity => {
-      imageNode.opacity = intensity;
+      imageNode.opacity = Utils.linear( 0, 1, GOQueryParameters.imageOpacityRange[ 0 ], GOQueryParameters.imageOpacityRange[ 1 ], intensity );
+      phet.log && phet.log( `Image opacity=${imageNode.opacity}` );
     } );
 
     // update the image and its visibility

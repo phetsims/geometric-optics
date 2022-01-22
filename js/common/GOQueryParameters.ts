@@ -52,6 +52,15 @@ const SCHEMA = {
     isValidValue: ( value: number ) => ( value >= 100 )
   },
 
+  imageOpacityRange: {
+   type: 'array',
+    elementSchema: {
+      type: 'number'
+    },
+    defaultValue: [ 0, 1 ],
+    isValidValue: ( array: number[] ) => ( array.length === 2 && array[ 0 ] < array[ 1 ] && array[ 0 ] >= 0 && array[ 1 ] <= 1 )
+  },
+
   // Shows the positions of various things as red dots.
   debugOrigins: {
     type: 'flag'
