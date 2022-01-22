@@ -54,7 +54,7 @@ class TargetNode extends Node {
     // real or virtual image. See https://github.com/phetsims/geometric-optics/issues/283.
     const maskNode = new Path( null, {
       fill: GOColors.screenBackgroundColorProperty,
-      opacity: 0.80,
+      opacity: GOQueryParameters.imageMaskOpacity,
       stroke: GOQueryParameters.debugMask ? 'red' : null
     } );
 

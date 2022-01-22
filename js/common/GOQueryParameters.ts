@@ -63,6 +63,13 @@ const SCHEMA = {
     isValidValue: ( array: number[] ) => ( array.length === 2 && array[ 0 ] < array[ 1 ] && array[ 0 ] >= 0 && array[ 1 ] <= 1 )
   },
 
+  // Opacity for the real/virtual Image mask that controls how well obscured rays and optical axis are seen.
+  imageMaskOpacity: {
+    type: 'number',
+    defaultValue: 0.8,
+    isValidValue: ( value: number ) => ( value >= 0 && value <= 1 )
+  },
+
   // Shows the positions of various things as red dots.
   debugOrigins: {
     type: 'flag'
