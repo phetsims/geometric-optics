@@ -29,10 +29,13 @@ class LabelsNode extends Node {
    * @param model
    * @param visibleProperties
    * @param zoomTransformProperty
+   * @param modelVisibleBoundsProperty
    */
   //TODO eliminate union type
-  constructor( model: LensModel | MirrorModel, visibleProperties: VisibleProperties,
-               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2> ) {
+  constructor( model: LensModel | MirrorModel,
+               visibleProperties: VisibleProperties,
+               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+               modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2> ) {
 
     // Object label ------------------------------------------------------------------------------------
 
@@ -44,6 +47,7 @@ class LabelsNode extends Node {
 
     const objectLabel = new LabelNode( geometricOpticsStrings.object, objectLabelPositionProperty,
       zoomTransformProperty, {
+        yOffset: 2,
         visibleProperty: new DerivedProperty( [ model.representationProperty ],
           ( representation: Representation ) => representation.isFramedObject )
       } );
@@ -129,6 +133,7 @@ class LabelsNode extends Node {
     );
 
     const imageLabel = new LabelNode( '', imageLabelPositionProperty, zoomTransformProperty, {
+      yOffset: 2,
       visibleProperty: imageLabelVisibleProperty
     } );
 
@@ -139,7 +144,6 @@ class LabelsNode extends Node {
 
     // Screen label ------------------------------------------------------------------------------------
 
-    //TODO this is a temporary hack, because projectionScreen is irrelevant for Mirror screen
     let screenLabel;
     if ( model instanceof LensModel ) {
 
@@ -158,12 +162,17 @@ class LabelsNode extends Node {
 
     // Optical Axis label ------------------------------------------------------------------------------------
 
+    // Under the optical axis, but at the far-left of the model bounds.
     const opticalAxisLabelPositionProperty = new DerivedProperty(
-      [ model.optic.positionProperty ],
-      ( position: Vector2 ) => new Vector2( position.x - 230, position.y ) // empirically, model coordinates
-    );
+      [ model.optic.positionProperty, modelVisibleBoundsProperty ],
+      ( opticPosition: Vector2, modelVisibleBounds: Bounds2 ) => {
+        const modelXOffset = zoomTransformProperty.value.viewToModelDeltaX( 10 );
+        return new Vector2( modelVisibleBounds.x + modelXOffset, opticPosition.y );
+      } );
 
     const opticalAxisLabel = new LabelNode( geometricOpticsStrings.opticalAxis, opticalAxisLabelPositionProperty, zoomTransformProperty, {
+      xAlign: 'left',
+      yOffset: 5,
       visibleProperty: model.optic.opticalAxisVisibleProperty
     } );
 

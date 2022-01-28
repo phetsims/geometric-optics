@@ -22,7 +22,6 @@ import GOConstants from '../GOConstants.js';
 
 const X_MARGIN = 5;
 const Y_MARGIN = 5;
-const LABEL_Y_OFFSET = 12;
 const TEXT_OPTIONS = {
   fill: GOColors.labelFillProperty,
   font: GOConstants.LABEL_FONT,
@@ -35,6 +34,8 @@ const RECTANGLE_OPTIONS = {
 };
 
 type LabelNodeOptions = {
+  xAlign?: string,
+  yOffset?: number,
   visibleProperty?: IProperty<boolean>
 };
 
@@ -56,9 +57,13 @@ class LabelNode extends Node {
     // Background for the text, update the size and position later.
     const backgroundRectangle = new Rectangle( 0, 0, 1, 1, RECTANGLE_OPTIONS );
 
-    super( merge( {
+    const options = merge( {
+      xAlign: 'center',
+      yOffset: 10, // in view coordinates
       children: [ backgroundRectangle, textNode ]
-    }, providedOptions ) );
+    }, providedOptions );
+
+    super( options );
 
     Property.multilink(
       [ textNode.boundsProperty, zoomTransformProperty, positionProperty ],
@@ -71,8 +76,17 @@ class LabelNode extends Node {
         // Center the text in the background.
         backgroundRectangle.center = textNode.center;
 
-        // Center under the things that we're labeling.
-        this.centerTop = zoomTransform.modelToViewPosition( position ).plusXY( 0, LABEL_Y_OFFSET );
+        // Position under the thing that we're labeling, with specified x alignment
+        const viewPosition = zoomTransform.modelToViewPosition( position ).plusXY( 0, options.yOffset );
+        if ( options.xAlign === 'center' ) {
+          this.centerTop = viewPosition;
+        }
+        else if ( options.xAlign === 'left' ) {
+          this.leftTop = viewPosition;
+        }
+        else {
+          this.rightTop = viewPosition;
+        }
       } );
 
     this.textNode = textNode;

@@ -168,8 +168,6 @@ class GOScreenView extends ScreenView {
         tandem: options.tandem.createTandem( 'verticalRulerNode' )
       } );
 
-    const labelsNode = new LabelsNode( model, visibleProperties, zoomTransformProperty );
-
     // Control panel at the bottom-center of the screen
     const controlPanel = new GOControlPanel( model.representationProperty, model.optic,
       model.raysTypeProperty, visibleProperties, {
@@ -417,6 +415,8 @@ class GOScreenView extends ScreenView {
     }
 
     // Layout ================================================================================================
+
+    const labelsNode = new LabelsNode( model, visibleProperties, zoomTransformProperty, modelVisibleBoundsProperty );
 
     const controlsLayer = new Node( {
       children: [
