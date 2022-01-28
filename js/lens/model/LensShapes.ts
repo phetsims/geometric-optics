@@ -15,7 +15,7 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
-import SurfaceTypeValues from '../../common/model/SurfaceType.js';
+import { SurfaceType } from '../../common/model/SurfaceType.js';
 import OpticShapes from '../../common/model/OpticShapes.js';
 import geometricOptics from '../../geometricOptics.js';
 
@@ -44,7 +44,7 @@ class LensShapes implements OpticShapes {
    * @param diameter - height of the lens
    * @param providedOptions
    */
-  constructor( surfaceType: SurfaceTypeValues, radiusOfCurvature: number, diameter: number, providedOptions?: LensShapesOptions ) {
+  constructor( surfaceType: SurfaceType, radiusOfCurvature: number, diameter: number, providedOptions?: LensShapesOptions ) {
 
     const options = merge( {
       isHollywooded: true, // true: approximation, false: accurate, matches ROC

@@ -9,6 +9,6 @@
 const RaysTypeValues = [ 'marginal', 'principal', 'many', 'none' ] as const;
 type RaysType = ( typeof RaysTypeValues )[number];
 
+export type { RaysType };
 export { RaysTypeValues };
-export type { RaysType as default };
 

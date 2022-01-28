@@ -40,7 +40,7 @@ import ShowHideToggleButton from './ShowHideToggleButton.js';
 import SourceObjectNode from './SourceObjectNode.js';
 import TargetNode from './TargetNode.js';
 import VisibleProperties from './VisibleProperties.js';
-import RaysType from '../model/RaysType.js';
+import { RaysType } from '../model/RaysType.js';
 import Lens from '../../lens/model/Lens.js';
 import GORulerNode from './GORulerNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';

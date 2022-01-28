@@ -16,7 +16,7 @@ import LightRay from './LightRay.js';
 import LightRaySegment from './LightRaySegment.js';
 import Optic from './Optic.js';
 import Ray from './Ray.js';
-import RaysType from './RaysType.js';
+import { RaysType } from './RaysType.js';
 import Target from './Target.js';
 import Representation from './Representation.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';

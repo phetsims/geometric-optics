@@ -12,7 +12,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Optic, { OpticOptions } from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
-import SurfaceTypeValues from '../../common/model/SurfaceType.js';
+import { SurfaceType } from '../../common/model/SurfaceType.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import LensShapes from './LensShapes.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
@@ -40,7 +40,7 @@ class Lens extends Optic {
       indexOfRefractionRange: new RangeWithValue( 1.2, 1.9, 1.5 ), // unitless
       diameterRange: GOConstants.DIAMETER_RANGE, // in cm
       sign: 1,
-      isConverging: ( surfaceType: SurfaceTypeValues ) => ( surfaceType === 'convex' ),
+      isConverging: ( surfaceType: SurfaceType ) => ( surfaceType === 'convex' ),
 
       // phet-io options
       tandem: Tandem.REQUIRED
@@ -50,7 +50,7 @@ class Lens extends Optic {
 
     this.shapesProperty = new DerivedProperty(
       [ this.surfaceTypeProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
-      ( surfaceType: SurfaceTypeValues, radiusOfCurvature: number, diameter: number ) =>
+      ( surfaceType: SurfaceType, radiusOfCurvature: number, diameter: number ) =>
         new LensShapes( surfaceType, radiusOfCurvature, diameter )
     );
   }

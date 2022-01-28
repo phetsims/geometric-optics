@@ -14,7 +14,7 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
-import SurfaceTypeValues from '../../common/model/SurfaceType.js';
+import { SurfaceType } from '../../common/model/SurfaceType.js';
 import OpticShapes from '../../common/model/OpticShapes.js';
 import geometricOptics from '../../geometricOptics.js';
 
@@ -40,7 +40,7 @@ class MirrorShapes implements OpticShapes {
    * @param diameter - vertical height of the mirror
    * @param providedOptions
    */
-  constructor( surfaceType: SurfaceTypeValues, radiusOfCurvature: number, diameter: number, providedOptions?: MirrorShapesOptions ) {
+  constructor( surfaceType: SurfaceType, radiusOfCurvature: number, diameter: number, providedOptions?: MirrorShapesOptions ) {
     assert && assert( radiusOfCurvature > diameter / 2 );
 
     const options = merge( {

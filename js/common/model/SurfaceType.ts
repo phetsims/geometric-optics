@@ -9,6 +9,6 @@
 const SurfaceTypeValues = [ 'convex', 'concave', 'flat' ] as const;
 type SurfaceType = ( typeof SurfaceTypeValues )[number];
 
+export type { SurfaceType };
 export { SurfaceTypeValues };
-export type { SurfaceType as default };
 

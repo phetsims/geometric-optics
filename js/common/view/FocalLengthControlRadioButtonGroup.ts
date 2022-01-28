@@ -16,7 +16,7 @@ import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
-import FocalLengthControlType from '../model/FocalLengthControlType.js';
+import { FocalLengthControlType } from '../model/FocalLengthControlType.js';
 
 type FocalLengthControlRadioButtonGroupOptions = {
   tandem: Tandem

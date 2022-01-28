@@ -12,7 +12,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Optic, { OpticOptions } from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
-import SurfaceTypeValues from '../../common/model/SurfaceType.js';
+import { SurfaceType } from '../../common/model/SurfaceType.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import MirrorShapes from './MirrorShapes.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
@@ -40,7 +40,7 @@ class Mirror extends Optic {
       indexOfRefractionRange: new RangeWithValue( 2, 2, 2 ), // unitless
       diameterRange: GOConstants.DIAMETER_RANGE, // in cm
       sign: -1,
-      isConverging: ( surfaceType: SurfaceTypeValues ) => ( surfaceType === 'concave' )
+      isConverging: ( surfaceType: SurfaceType ) => ( surfaceType === 'concave' )
 
     }, providedOptions ) as OpticOptions; //TODO don't use 'as'
 
@@ -48,7 +48,7 @@ class Mirror extends Optic {
 
     this.shapesProperty = new DerivedProperty(
       [ this.surfaceTypeProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
-      ( surfaceType: SurfaceTypeValues, radiusOfCurvature: number, diameter: number ) =>
+      ( surfaceType: SurfaceType, radiusOfCurvature: number, diameter: number ) =>
         new MirrorShapes( surfaceType, radiusOfCurvature, diameter )
     );
   }

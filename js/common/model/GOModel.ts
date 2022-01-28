@@ -17,7 +17,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import LightRays from './LightRays.js';
 import Optic from './Optic.js';
-import RaysType, { RaysTypeValues } from './RaysType.js';
+import { RaysType, RaysTypeValues } from './RaysType.js';
 import Representation, { RepresentationStaticInstances } from './Representation.js';
 import GORuler from './GORuler.js';
 import SecondPoint from './SecondPoint.js';

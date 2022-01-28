@@ -13,7 +13,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import Optic from '../model/Optic.js';
-import SurfaceTypeValues from '../model/SurfaceType.js';
+import { SurfaceType } from '../model/SurfaceType.js';
 import Lens from '../../lens/model/Lens.js';
 import MirrorNode from '../../mirror/view/MirrorNode.js';
 import LensNode from '../../lens/view/LensNode.js';
@@ -23,7 +23,7 @@ type OpticShapeRadioButtonGroupOptions = {
   tandem: Tandem
 } & NodeOptions; //TODO https://github.com/phetsims/scenery/issues/1332 limit to Node translation options
 
-class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<SurfaceTypeValues> {
+class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<SurfaceType> {
 
   /**
    * @param optic
@@ -34,7 +34,7 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<SurfaceType
     // A radio button for each shape supported by the optic
     assert && assert( optic.surfaceTypeProperty.validValues ); // {SurfaceType[]|undefined}
     const items = optic.surfaceTypeProperty.validValues!.map(
-      ( surfaceType: SurfaceTypeValues ) => {
+      ( surfaceType: SurfaceType ) => {
         return {
           value: surfaceType,
           node: ( optic instanceof Lens ) ? LensNode.createIconNode( surfaceType ) : MirrorNode.createIconNode( surfaceType ),

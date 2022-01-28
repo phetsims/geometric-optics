@@ -15,7 +15,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import Optic from '../model/Optic.js';
-import RaysType from '../model/RaysType.js';
+import { RaysType } from '../model/RaysType.js';
 
 type OpticVerticalAxisNodeOptions = {
   tandem: Tandem

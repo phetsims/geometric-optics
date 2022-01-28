@@ -9,5 +9,5 @@
 const FocalLengthControlTypeValues = [ 'direct', 'indirect' ] as const;
 type FocalLengthControlType = ( typeof FocalLengthControlTypeValues )[number];
 
+export type { FocalLengthControlType };
 export { FocalLengthControlTypeValues };
-export type { FocalLengthControlType as default };

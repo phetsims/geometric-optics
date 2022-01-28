@@ -18,7 +18,7 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOColors from '../GOColors.js';
 import GOConstants from '../GOConstants.js';
 import Optic from '../model/Optic.js';
-import RaysType from '../model/RaysType.js';
+import { RaysType } from '../model/RaysType.js';
 import Representation from '../model/Representation.js';
 import DiameterControl from './DiameterControl.js';
 import RaysRadioButtonGroup from './RaysRadioButtonGroup.js';
