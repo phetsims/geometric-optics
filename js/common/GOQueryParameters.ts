@@ -53,20 +53,19 @@ const SCHEMA = {
   },
 
   // Range of opacity used for the real/virtual Image
-  // See https://github.com/phetsims/geometric-optics/issues/232
   imageOpacityRange: {
    type: 'array',
     elementSchema: {
       type: 'number'
     },
-    defaultValue: [ 0, 0.75 ],
+    defaultValue: [ 0, 0.75 ], // see https://github.com/phetsims/geometric-optics/issues/232
     isValidValue: ( array: number[] ) => ( array.length === 2 && array[ 0 ] < array[ 1 ] && array[ 0 ] >= 0 && array[ 1 ] <= 1 )
   },
 
   // Opacity for the real/virtual Image mask that controls how well obscured rays and optical axis are seen.
   imageMaskOpacity: {
     type: 'number',
-    defaultValue: 0.8,
+    defaultValue: 0.8, // see https://github.com/phetsims/geometric-optics/issues/300
     isValidValue: ( value: number ) => ( value >= 0 && value <= 1 )
   },
 
