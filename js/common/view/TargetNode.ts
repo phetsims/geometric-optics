@@ -36,17 +36,17 @@ class TargetNode extends Node {
    * @param target
    * @param optic
    * @param virtualImageVisibleProperty
-   * @param rayTracingVisibleProperty
+   * @param raysAndImagesVisibleProperty
    * @param modelViewTransform
    * @param providedOptions
    */
   constructor( representationProperty: IReadOnlyProperty<Representation>, target: Target, optic: Optic,
-               virtualImageVisibleProperty: IReadOnlyProperty<boolean>, rayTracingVisibleProperty: IReadOnlyProperty<boolean>,
+               virtualImageVisibleProperty: IReadOnlyProperty<boolean>, raysAndImagesVisibleProperty: IReadOnlyProperty<boolean>,
                modelViewTransform: ModelViewTransform2, providedOptions: TargetNodeOptions ) {
 
     const options = merge( {
       visibleProperty: new DerivedProperty(
-        [ representationProperty, rayTracingVisibleProperty ],
+        [ representationProperty, raysAndImagesVisibleProperty ],
         ( representation: Representation, rayTracingVisible: boolean ) =>
           representation.isFramedObject && rayTracingVisible
       )

@@ -39,7 +39,7 @@ class VisibleProperties {
 
   // visibility of the ray tracing
   //TODO this is poorly named, it controls visibility of rays + real image + virtual image
-  readonly rayTracingVisibleProperty: Property<boolean>;
+  readonly raysAndImagesVisibleProperty: Property<boolean>;
 
   /**
    * @param isLens
@@ -72,8 +72,8 @@ class VisibleProperties {
       tandem: providedOptions.tandem.createTandem( 'guidesVisibleProperty' )
     } );
 
-    this.rayTracingVisibleProperty = new BooleanProperty( true, {
-      tandem: providedOptions.tandem.createTandem( 'rayTracingVisibleProperty' )
+    this.raysAndImagesVisibleProperty = new BooleanProperty( true, {
+      tandem: providedOptions.tandem.createTandem( 'raysAndImagesVisibleProperty' )
     } );
   }
 
@@ -84,7 +84,7 @@ class VisibleProperties {
     this.labelsVisibleProperty.reset();
     this.secondPointVisibleProperty.reset();
     this.guidesVisibleProperty.reset();
-    this.rayTracingVisibleProperty.reset();
+    this.raysAndImagesVisibleProperty.reset();
   }
 }
 

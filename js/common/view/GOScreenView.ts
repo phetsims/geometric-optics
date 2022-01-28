@@ -146,7 +146,7 @@ class GOScreenView extends ScreenView {
       } );
 
     const targetNode = new TargetNode( model.representationProperty, model.firstTarget, model.optic,
-      visibleProperties.virtualImageVisibleProperty, visibleProperties.rayTracingVisibleProperty, modelViewTransform, {
+      visibleProperties.virtualImageVisibleProperty, visibleProperties.raysAndImagesVisibleProperty, modelViewTransform, {
         tandem: options.tandem.createTandem( 'targetNode' )
       } );
 
@@ -234,7 +234,7 @@ class GOScreenView extends ScreenView {
     } );
 
     // Show/hide toggle button above the Reset All button
-    const showHideToggleButton = new ShowHideToggleButton( visibleProperties.rayTracingVisibleProperty, {
+    const showHideToggleButton = new ShowHideToggleButton( visibleProperties.raysAndImagesVisibleProperty, {
       tandem: options.tandem.createTandem( 'showHideToggleButton' )
     } );
     showHideToggleButton.centerX = resetAllButton.centerX;
@@ -371,8 +371,9 @@ class GOScreenView extends ScreenView {
       experimentAreaNode.translation = viewOrigin;
     } );
 
+    //TODO document or rewrite this
     Property.multilink(
-      [ model.raysTypeProperty, visibleProperties.rayTracingVisibleProperty ],
+      [ model.raysTypeProperty, visibleProperties.raysAndImagesVisibleProperty ],
       ( raysType: RaysType, rayTracingVisible: boolean ) => {
         if ( raysType === 'none' ) {
           model.firstTarget.visibleProperty.value = rayTracingVisible;
@@ -494,7 +495,7 @@ class GOScreenView extends ScreenView {
    * @param dt - time step, in seconds
    */
   public step( dt: number ): void {
-    if ( this.visibleProperties.rayTracingVisibleProperty.value ) {
+    if ( this.visibleProperties.raysAndImagesVisibleProperty.value ) {
       this.model.stepLightRays( dt );
     }
   }
