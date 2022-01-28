@@ -71,7 +71,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 
           // Disable the 'Virtual Image' checkbox for light source, see https://github.com/phetsims/geometric-optics/issues/216
           enabledProperty: new DerivedProperty( [ representationProperty ],
-            ( representation: Representation ) => representation.isObject )
+            ( representation: Representation ) => representation.isFramedObject )
         },
         tandem: options.tandem.createTandem( 'virtualImageCheckbox' )
       },

@@ -66,7 +66,7 @@ class LightRaysForegroundNode extends LightRaysNode {
       let clipArea: Shape | null = null; // in view coordinates
 
       // For a real image created by a framed object...
-      if ( !isVirtualProperty.value && representationProperty.value.isObject ) {
+      if ( !isVirtualProperty.value && representationProperty.value.isFramedObject ) {
 
         const opticPosition = opticPositionProperty.value;
         const targetPosition = targetPositionProperty.value;

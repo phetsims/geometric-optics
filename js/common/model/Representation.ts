@@ -2,7 +2,7 @@
 
 //TODO name is too vague, maybe SourceRepresentation?
 /**
- * Representation is a set of static representation for source objects and light sources.
+ * Representation is a set of static representation for Objects and Light Sources.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -35,12 +35,12 @@ import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 
 // constants
-const OBJECT_SCALE_FACTOR = 4;
-const SOURCE_SCALE_FACTOR = 2;
+const FRAMED_OBJECT_SCALE_FACTOR = 4;
+const LIGHT_SOURCE_SCALE_FACTOR = 2;
 
-// How much to shift the upper-left corner of the Object image, in cm.
+// How much to shift the upper-left corner of the framed Object image, in cm.
 // This is specific to the object PNG files, and must be uniform for all object PNG files.
-const OBJECT_OFFSET = new Vector2( -67, 100 );
+const FRAMED_OBJECT_OFFSET = new Vector2( -67, 100 );
 
 // How much to shift the upper-left corner of the light source, in cm.
 // This is specific to the light-source PNG files, and must be uniform for all light-source PNG files.
@@ -49,8 +49,8 @@ const LIGHT_SOURCE_OFFSET = new Vector2( -62, 40 );
 // Configuration provided to the constructor
 type RepresentationConfig = {
 
-  // true = source object, false = light source
-  isObject: boolean,
+  // true = framed Object, false = Light Source
+  isFramedObject: boolean,
 
   // label for the representation, appears in combo box
   label: string,
@@ -74,7 +74,7 @@ type RepresentationConfig = {
 class Representation {
 
   // See RepresentationConfig documentation
-  readonly isObject: boolean;
+  readonly isFramedObject: boolean;
   readonly label: string;
   readonly icon: HTMLImageElement;
   readonly rightFacingUpright: HTMLImageElement;
@@ -93,7 +93,7 @@ class Representation {
   constructor( config: RepresentationConfig ) {
 
     // unpack config
-    this.isObject = config.isObject;
+    this.isFramedObject = config.isFramedObject;
     this.label = config.label;
     this.icon = config.icon;
     this.rightFacingUpright = config.rightFacingUpright;
@@ -104,7 +104,7 @@ class Representation {
     this.tandemPrefix = config.tandemPrefix;
 
     // additional fields
-    this.scaleFactor = this.isObject ? OBJECT_SCALE_FACTOR : SOURCE_SCALE_FACTOR;
+    this.scaleFactor = this.isFramedObject ? FRAMED_OBJECT_SCALE_FACTOR : LIGHT_SOURCE_SCALE_FACTOR;
   }
 }
 
@@ -113,58 +113,59 @@ const RepresentationStaticInstances: Representation[] = [
 
   // Pencil
   new Representation( {
+    isFramedObject: true,
     label: geometricOpticsStrings.pencil,
     icon: pencilIcon_png,
     rightFacingUpright: pencilRightFacingUpright_png,
     rightFacingInverted: pencilRightFacingInverted_png,
     leftFacingUpright: pencilLeftFacingUpright_png,
     leftFacingInverted: pencilLeftFacingInverted_png,
-    rightFacingUprightOffset: OBJECT_OFFSET,
-    isObject: true,
+    rightFacingUprightOffset: FRAMED_OBJECT_OFFSET,
     tandemPrefix: 'pencil'
   } ),
 
   // Penguin
   new Representation( {
+    isFramedObject: true,
     label: geometricOpticsStrings.penguin,
     icon: penguinIcon_png,
     rightFacingUpright: penguinRightFacingUpright_png,
     rightFacingInverted: penguinRightFacingInverted_png,
     leftFacingUpright: penguinLeftFacingUpright_png,
     leftFacingInverted: penguinLeftFacingInverted_png,
-    rightFacingUprightOffset: OBJECT_OFFSET,
-    isObject: true,
+    rightFacingUprightOffset: FRAMED_OBJECT_OFFSET,
     tandemPrefix: 'penguin'
   } ),
 
   // Planet
   new Representation( {
+    isFramedObject: true,
     label: geometricOpticsStrings.planet,
     icon: planetIcon_png,
     rightFacingUpright: planetRightFacingUpright_png,
     rightFacingInverted: planetRightFacingInverted_png,
     leftFacingUpright: planetLeftFacingUpright_png,
     leftFacingInverted: planetLeftFacingInverted_png,
-    rightFacingUprightOffset: OBJECT_OFFSET,
-    isObject: true,
+    rightFacingUprightOffset: FRAMED_OBJECT_OFFSET,
     tandemPrefix: 'planet'
   } ),
 
   // Star
   new Representation( {
+    isFramedObject: true,
     label: geometricOpticsStrings.star,
     icon: starIcon_png,
     rightFacingUpright: starRightFacingUpright_png,
     rightFacingInverted: starRightFacingInverted_png,
     leftFacingUpright: starLeftFacingUpright_png,
     leftFacingInverted: starLeftFacingInverted_png,
-    rightFacingUprightOffset: OBJECT_OFFSET,
-    isObject: true,
+    rightFacingUprightOffset: FRAMED_OBJECT_OFFSET,
     tandemPrefix: 'star'
   } ),
 
   // Light
   new Representation( {
+    isFramedObject: false, // this is what identifies it as a Light Source
     label: geometricOpticsStrings.light,
     icon: lightIcon_png,
     rightFacingUpright: lamp1_png,
@@ -172,7 +173,6 @@ const RepresentationStaticInstances: Representation[] = [
     leftFacingUpright: null,
     leftFacingInverted: null,
     rightFacingUprightOffset: LIGHT_SOURCE_OFFSET,
-    isObject: false, // this is what identifies it as a light source
     tandemPrefix: 'light'
   } )
 ];

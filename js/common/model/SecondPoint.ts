@@ -48,7 +48,7 @@ class SecondPoint {
     this.positionProperty = new DerivedProperty(
       [ sourceObjectPositionProperty, this.verticalOffsetProperty, this.lightSourcePositionProperty, representationProperty ],
       ( sourceObjectPosition: Vector2, verticalOffset: number, lightSourcePosition: Vector2, representation: Representation ) =>
-        representation.isObject ? sourceObjectPosition.plusXY( 0, verticalOffset ) : lightSourcePosition
+        representation.isFramedObject ? sourceObjectPosition.plusXY( 0, verticalOffset ) : lightSourcePosition
     );
 
     this.sourceObjectPositionProperty = sourceObjectPositionProperty;
@@ -61,11 +61,11 @@ class SecondPoint {
 
   /**
    * Sets the second source point
-   * @param isObject
+   * @param isFramedObject
    * @param position
    */
-  public setSecondPoint( isObject: boolean, position: Vector2 ): void {
-    if ( isObject ) {
+  public setSecondPoint( isFramedObject: boolean, position: Vector2 ): void {
+    if ( isFramedObject ) {
       this.verticalOffsetProperty.value = VERTICAL_OFFSET_RANGE.constrainValue(
         position.y - this.sourceObjectPositionProperty.value.y );
     }

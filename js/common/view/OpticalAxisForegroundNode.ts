@@ -85,7 +85,7 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
       const maxY = viewVisibleBounds.maxY;
       const clipHeight = maxY - minY;
 
-      if ( representationProperty.value.isObject ) {
+      if ( representationProperty.value.isFramedObject ) {
 
         const opticX = modelViewTransform.modelToViewX( opticPositionProperty.value.x );
         const sourceObjectX = modelViewTransform.modelToViewX( sourceObjectPositionProperty.value.x );

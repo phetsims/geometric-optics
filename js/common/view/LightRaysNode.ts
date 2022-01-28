@@ -54,7 +54,7 @@ class LightRaysNode extends Node {
       visibleProperty: new DerivedProperty(
         [ virtualImageVisibleProperty, representationProperty ],
         ( virtualImageVisible: boolean, representation: Representation ) =>
-          virtualImageVisible && representation.isObject
+          virtualImageVisible && representation.isFramedObject
       )
     } );
 

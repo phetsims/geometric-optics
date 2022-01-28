@@ -81,7 +81,7 @@ class SecondPointNode extends Node {
     // Property for the position of the second source node
     const positionProperty = new Vector2Property( secondPoint.positionProperty.value );
     positionProperty.link( position => {
-      secondPoint.setSecondPoint( representationProperty.value.isObject, position );
+      secondPoint.setSecondPoint( representationProperty.value.isFramedObject, position );
     } );
 
     // Drag bounds, in model coordinates.
@@ -90,7 +90,7 @@ class SecondPointNode extends Node {
       [ sourceObjectDragBoundsProperty, representationProperty, dragLockedProperty ],
       ( sourceObjectDragBounds: Bounds2, representation: Representation, dragLocked: boolean ) => {
         let dragBounds;
-        if ( representation.isObject ) {
+        if ( representation.isFramedObject ) {
           dragBounds = null;
         }
         else {
@@ -116,10 +116,10 @@ class SecondPointNode extends Node {
 
     // Keep the light source inside the drag bounds.
     dragBoundsProperty.link( dragBounds => {
-      const isObject = representationProperty.value.isObject;
-      if ( !isObject ) {
+      const isFramedObject = representationProperty.value.isFramedObject;
+      if ( !isFramedObject ) {
         assert && assert( dragBounds ); // {Bounds2|null}
-        secondPoint.setSecondPoint( isObject, dragBounds!.closestPointTo( secondPoint.positionProperty.value ) );
+        secondPoint.setSecondPoint( isFramedObject, dragBounds!.closestPointTo( secondPoint.positionProperty.value ) );
       }
     } );
 
@@ -130,9 +130,9 @@ class SecondPointNode extends Node {
       transform: modelViewTransform,
 
       //TODO this is awful, needed to fix https://github.com/phetsims/geometric-optics/issues/220
-      offsetPosition: () => representationProperty.value.isObject ? Vector2.ZERO : LIGHT_SOURCE_DRAG_OFFSET,
+      offsetPosition: () => representationProperty.value.isFramedObject ? Vector2.ZERO : LIGHT_SOURCE_DRAG_OFFSET,
       drag: () => {
-        if ( representationProperty.value.isObject ) {
+        if ( representationProperty.value.isFramedObject ) {
           cueingArrowsNode.visible = false;
         }
       }
@@ -141,7 +141,7 @@ class SecondPointNode extends Node {
 
     const updatePosition = ( modelPosition: Vector2 ): void => {
       const viewPosition = modelViewTransform.modelToViewPosition( modelPosition );
-      if ( representationProperty.value.isObject ) {
+      if ( representationProperty.value.isFramedObject ) {
         this.center = viewPosition;
       }
       else {
@@ -154,7 +154,7 @@ class SecondPointNode extends Node {
       // Remove all children from the second source.
       this.removeAllChildren();
 
-      if ( representation.isObject ) {
+      if ( representation.isFramedObject ) {
 
         // add point and cueing arrows
         this.addChild( pointNode );
@@ -182,7 +182,7 @@ class SecondPointNode extends Node {
 
     Property.multilink( [ representationProperty, dragLockedProperty ],
       ( representation: Representation, dragLocked: boolean ) => {
-        if ( representation.isObject ) {
+        if ( representation.isFramedObject ) {
 
           // second point of interest on source object can only be drag vertically
           this.cursor = 'ns-resize';

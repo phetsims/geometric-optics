@@ -31,8 +31,8 @@ class MirrorModel extends GOModel {
       // Initial position of the source object, empirically set so that the framed object is sitting on the optical axis.
       sourceObjectPosition: new Vector2( -170, 72.5 ),
 
-      // Mirror only supports objects, no light source
-      representations: RepresentationStaticInstances.filter( value => value.isObject )
+      // Mirror only supports Objects, no Light Sources
+      representations: RepresentationStaticInstances.filter( value => value.isFramedObject )
     }, providedOptions ) as GeometricOpticsModelOptions; //TODO don't use 'as'
 
     const mirror = new Mirror( {

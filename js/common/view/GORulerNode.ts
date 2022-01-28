@@ -239,7 +239,7 @@ class GORulerNode extends Node {
       {
         keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_I ],
         callback: () => {
-          if ( targetNodeVisibleProperty.value && representationProperty.value.isObject &&
+          if ( targetNodeVisibleProperty.value && representationProperty.value.isFramedObject &&
                dragBoundsProperty.value.containsPoint( targetPositionProperty.value ) ) {
             moveRuler( ruler, targetPositionProperty.value, opticPositionProperty.value.y );
           }
@@ -252,7 +252,7 @@ class GORulerNode extends Node {
         keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_S ],
         callback: () => {
           if ( secondPointVisibleProperty.value ) {
-            if ( representationProperty.value.isObject ) {
+            if ( representationProperty.value.isFramedObject ) {
               moveRuler( ruler, secondPointPositionProperty.value, opticPositionProperty.value.y );
             }
             else {

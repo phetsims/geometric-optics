@@ -46,7 +46,7 @@ class LabelsNode extends Node {
     const objectLabel = new LabelNode( geometricOpticsStrings.object, objectLabelPositionProperty,
       zoomTransformProperty, {
         visibleProperty: new DerivedProperty( [ model.representationProperty ],
-          ( representation: Representation ) => representation.isObject )
+          ( representation: Representation ) => representation.isFramedObject )
       } );
 
     // Optic label ------------------------------------------------------------------------------------
@@ -126,7 +126,7 @@ class LabelsNode extends Node {
         visibleProperties.virtualImageVisibleProperty
       ],
       ( visible: boolean, representation: Representation, isVirtual: boolean, virtualImageVisible: boolean ) =>
-        ( visible && representation.isObject && ( isVirtual ? virtualImageVisible : true ) )
+        ( visible && representation.isFramedObject && ( isVirtual ? virtualImageVisible : true ) )
     );
 
     const imageLabel = new LabelNode( '', imageLabelPositionProperty, zoomTransformProperty, {
@@ -152,7 +152,7 @@ class LabelsNode extends Node {
       screenLabel = new LabelNode( geometricOpticsStrings.projectionScreen, screenLabelPositionProperty, zoomTransformProperty, {
         visibleProperty: new DerivedProperty(
           [ model.representationProperty ],
-          ( representation: Representation ) => !representation.isObject
+          ( representation: Representation ) => !representation.isFramedObject
         )
       } );
     }

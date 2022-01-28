@@ -112,7 +112,7 @@ class LensScreenView extends GOScreenView {
     const lightSourceNodes = new Node( {
       children: [ projectionScreenNode, lightSpot1Node, lightSpot2Node ],
       visibleProperty: new DerivedProperty( [ model.representationProperty ],
-        ( representation: Representation ) => !representation.isObject )
+        ( representation: Representation ) => !representation.isFramedObject )
     } );
     this.additionalNodesParent.addChild( lightSourceNodes );
 

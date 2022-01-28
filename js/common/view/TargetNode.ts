@@ -106,13 +106,13 @@ class TargetNode extends Node {
       ( image: HTMLImageElement | null, rayTracingVisible: boolean ) => {
 
         // is the representation an object
-        const isObject = representationProperty.value.isObject;
+        const isFramedObject = representationProperty.value.isFramedObject;
 
         // make this entire node visible only if the representation is an object.
-        this.visible = isObject && rayTracingVisible;
+        this.visible = isFramedObject && rayTracingVisible;
 
         // update the representation if it is an object
-        if ( isObject ) {
+        if ( isFramedObject ) {
           assert && assert( image ); // {HTMLImageElement|null}
           imageNode.image = image!;
           maskNode.shape = imageNode.getSelfShape();
