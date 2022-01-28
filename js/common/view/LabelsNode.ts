@@ -18,10 +18,10 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Representation from '../model/Representation.js';
 import LensModel from '../../lens/model/LensModel.js';
-import MirrorModel from '../../mirror/model/MirrorModel.js';
 import Lens from '../../lens/model/Lens.js';
 import Mirror from '../../mirror/model/Mirror.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import GOModel from '../model/GOModel.js';
 
 class LabelsNode extends Node {
 
@@ -31,8 +31,7 @@ class LabelsNode extends Node {
    * @param zoomTransformProperty
    * @param modelVisibleBoundsProperty
    */
-  //TODO eliminate union type
-  constructor( model: LensModel | MirrorModel,
+  constructor( model: GOModel,
                visibleProperties: VisibleProperties,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2> ) {
