@@ -22,6 +22,8 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import GOColors from '../GOColors.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import Utils from '../../../../dot/js/Utils.js';
+import merge from '../../../../phet-core/js/merge.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 type TargetNodeOptions = {
   tandem: Tandem
@@ -42,7 +44,15 @@ class TargetNode extends Node {
                virtualImageVisibleProperty: IReadOnlyProperty<boolean>, rayTracingVisibleProperty: IReadOnlyProperty<boolean>,
                modelViewTransform: ModelViewTransform2, providedOptions: TargetNodeOptions ) {
 
-    super( providedOptions );
+    const options = merge( {
+      visibleProperty: new DerivedProperty(
+        [ representationProperty, rayTracingVisibleProperty ],
+        ( representation: Representation, rayTracingVisible: boolean ) =>
+          representation.isFramedObject && rayTracingVisible
+      )
+    }, providedOptions );
+
+    super( options );
 
     assert && assert( target.imageProperty.value ); // {HTMLImageElement|null}
     const imageNode = new Image( target.imageProperty.value!, {
@@ -90,9 +100,7 @@ class TargetNode extends Node {
       } );
 
     // update position and scale when model bounds change
-    target.boundsProperty.link( () => {
-      updateScaleAndPosition();
-    } );
+    target.boundsProperty.link( () => updateScaleAndPosition() );
 
     // update the opacity of the image
     target.lightIntensityProperty.link( intensity => {
@@ -100,28 +108,17 @@ class TargetNode extends Node {
       phet.log && phet.log( `Image opacity=${imageNode.opacity}` );
     } );
 
-    // update the image and its visibility
-    Property.multilink(
-      [ target.imageProperty, rayTracingVisibleProperty ],
-      ( image: HTMLImageElement | null, rayTracingVisible: boolean ) => {
-
-        // is the representation an object
-        const isFramedObject = representationProperty.value.isFramedObject;
-
-        // make this entire node visible only if the representation is an object.
-        this.visible = isFramedObject && rayTracingVisible;
-
-        // update the representation if it is an object
-        if ( isFramedObject ) {
-          assert && assert( image ); // {HTMLImageElement|null}
-          imageNode.image = image!;
-          maskNode.shape = imageNode.getSelfShape();
-          updateScaleAndPosition();
-        }
-        else {
-          maskNode.shape = null;
-        }
-      } );
+    // Update the image
+    target.imageProperty.link( image => {
+      if ( image ) {
+        imageNode.image = image!;
+        maskNode.shape = imageNode.getSelfShape();
+        updateScaleAndPosition();
+      }
+      else {
+        maskNode.shape = null;
+      }
+    } );
   }
 
   public dispose(): void {
