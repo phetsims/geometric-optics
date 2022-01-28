@@ -91,9 +91,9 @@ const SCHEMA = {
     type: 'flag'
   },
 
-  // Shows the Shape of the mask that sits behind the framed objects, rendered as a red outline.
-  // This mask is used to reduce the opacity of the portion of the axis that is occluded by the
-  // real or virtual image. See https://github.com/phetsims/geometric-optics/issues/283.
+  // Shows the Shape of the mask that sits behind the real/virtual Image associated with framed objects, rendered as
+  // a red outline. This mask is used to reduce the opacity of the portion of the axis that is occluded by the Image.
+  // See ?imageMaskOpacity and https://github.com/phetsims/geometric-optics/issues/283.
   debugMask: {
     type: 'flag'
   }
