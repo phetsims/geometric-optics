@@ -83,7 +83,7 @@ class Target {
         }
       } );
 
-    this.visibleProperty = new BooleanProperty( false );
+    this.visibleProperty = new BooleanProperty( false ); //TODO phet-io instrumentation
 
     this.positionProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
