@@ -59,7 +59,7 @@ const SCHEMA = {
     elementSchema: {
       type: 'number'
     },
-    defaultValue: [ 0, 1 ],
+    defaultValue: [ 0, 0.75 ],
     isValidValue: ( array: number[] ) => ( array.length === 2 && array[ 0 ] < array[ 1 ] && array[ 0 ] >= 0 && array[ 1 ] <= 1 )
   },
 
