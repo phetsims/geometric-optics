@@ -21,7 +21,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import GOColors from '../GOColors.js';
 import GOQueryParameters from '../GOQueryParameters.js';
-import Shape from '../../../../kite/js/Shape.js';
 import Utils from '../../../../dot/js/Utils.js';
 
 type TargetNodeOptions = {
@@ -47,11 +46,12 @@ class TargetNode extends Node {
 
     assert && assert( target.imageProperty.value ); // {HTMLImageElement|null}
     const imageNode = new Image( target.imageProperty.value!, {
-      hitTestPixels: false //TODO https://github.com/phetsims/geometric-optics/issues/283 hitTestPixels: true
+      hitTestPixels: true // See https://github.com/phetsims/geometric-optics/issues/283
     } );
 
-    // This mask is used to reduce the opacity of the portion of the axis that is occluded by the
-    // real or virtual image. See https://github.com/phetsims/geometric-optics/issues/283.
+    // This mask is used to reduce the opacity of the parts of the optical axis and rays that are occluded by
+    // the real or virtual image. The shape of the mask matches the shape of imageNode, using getSelfShape.
+    // See https://github.com/phetsims/geometric-optics/issues/283.
     const maskNode = new Path( null, {
       fill: GOColors.screenBackgroundColorProperty,
       opacity: GOQueryParameters.imageMaskOpacity,
@@ -113,41 +113,9 @@ class TargetNode extends Node {
 
         // update the representation if it is an object
         if ( isObject ) {
-
-          // update the image
           assert && assert( image ); // {HTMLImageElement|null}
           imageNode.image = image!;
-
-          //TODO https://github.com/phetsims/scenery/issues/1333 replace with: maskNode.shape = imageNode.getSelfShape();
-          {
-            const xInset1 = 12;
-            const xInset2 = 10;
-            const yInset1 = 56;
-            const yInset2 = 3;
-            const yInset3 = 6;
-            if ( target.positionProperty.value.x > optic.positionProperty.value.x ) {
-              maskNode.shape = new Shape()
-                .moveTo( xInset1, yInset1 )
-                .lineTo( imageNode.width - xInset2, yInset2 )
-                .lineTo( imageNode.width, yInset3 )
-                .lineTo( imageNode.width, imageNode.height - yInset3 )
-                .lineTo( imageNode.width - xInset2, imageNode.height - yInset2 )
-                .lineTo( xInset1, imageNode.height - yInset1 )
-                .close();
-            }
-            else {
-              maskNode.shape = new Shape()
-                .moveTo( 0, yInset3 )
-                .lineTo( xInset2, yInset2 )
-                .lineTo( imageNode.width - xInset1, yInset1 )
-                .lineTo( imageNode.width - xInset1, imageNode.height - yInset1 )
-                .lineTo( xInset2, imageNode.height - yInset2 )
-                .lineTo( 0, imageNode.height - yInset3 )
-                .close();
-            }
-          }
-
-          // update the scale of the image
+          maskNode.shape = imageNode.getSelfShape();
           updateScaleAndPosition();
         }
         else {
