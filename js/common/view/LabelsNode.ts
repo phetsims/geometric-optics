@@ -38,7 +38,7 @@ class LabelsNode extends Node {
 
     const objectLabelPositionProperty = new DerivedProperty(
       [ model.sourceObject.boundsProperty ],
-      // Because the we use a Y-inverted reference frame, the bottom of the image is the top of the model bounds.
+      // Because we use a Y-inverted model-view transform, the bottom of the image is the top of the model bounds.
       ( bounds: Bounds2 ) => bounds.centerTop
     );
 
