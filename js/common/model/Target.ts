@@ -49,7 +49,6 @@ class Target {
   // the magnification can be negative, indicating the target/image is inverted.
   private readonly magnificationProperty: IReadOnlyProperty<number>;
 
-  // the image with appropriate orientation to select for the display
   //TODO document
   private readonly isInvertedProperty: IReadOnlyProperty<boolean>;
 
