@@ -78,7 +78,7 @@ class Target {
 
           // Calculated based on the thin lens law/ mirror equation
           // For a lens, a positive distance, indicates that the target is on the opposite of object (wrt to the lens)
-          // For a mirror, a positive distance indicates that the target is on the same side as the object..
+          // For a mirror, a positive distance indicates that the target is on the same side as the object.
           return ( focalLength * opticObjectDistance ) / ( opticObjectDistance - focalLength );
         }
       } );
