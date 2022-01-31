@@ -38,12 +38,12 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 const FRAMED_OBJECT_SCALE_FACTOR = 0.25;
 const LIGHT_SOURCE_SCALE_FACTOR = 0.5;
 
-// How much to shift the upper-left corner of the framed Object image, in cm.
+// How much to shift the upper-left corner of the framed Object image, in view coordinates.
 // This is specific to the object PNG files, and must be uniform for all object PNG files.
 // x should be 1/2 of PNG file width. y should be tip of pencil.
 const FRAMED_OBJECT_OFFSET = new Vector2( -68.5, 100 );
 
-// How much to shift the upper-left corner of the light source, in cm.
+// How much to shift the upper-left corner of the light source, in view coordinates.
 // This is specific to the light-source PNG files, and must be uniform for all light-source PNG files.
 const LIGHT_SOURCE_OFFSET = new Vector2( -62, 40 );
 
@@ -65,7 +65,7 @@ type RepresentationConfig = {
   leftFacingUpright: HTMLImageElement | null,
   leftFacingInverted: HTMLImageElement | null,
 
-  // offset between point of interest and left-top corner of rightFacingUpright
+  // offset between point of interest and left-top corner of rightFacingUpright, in view coordinates
   rightFacingUprightOffset: Vector2,
 
   // phet-io
