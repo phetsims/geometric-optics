@@ -40,7 +40,8 @@ const LIGHT_SOURCE_SCALE_FACTOR = 2;
 
 // How much to shift the upper-left corner of the framed Object image, in cm.
 // This is specific to the object PNG files, and must be uniform for all object PNG files.
-const FRAMED_OBJECT_OFFSET = new Vector2( -67, 100 );
+// x should be 1/2 of PNG file width. y should be tip of pencil.
+const FRAMED_OBJECT_OFFSET = new Vector2( -68.5, 100 );
 
 // How much to shift the upper-left corner of the light source, in cm.
 // This is specific to the light-source PNG files, and must be uniform for all light-source PNG files.
