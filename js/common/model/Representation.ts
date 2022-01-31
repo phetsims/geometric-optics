@@ -35,8 +35,8 @@ import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 
 // constants
-const FRAMED_OBJECT_SCALE_FACTOR = 4;
-const LIGHT_SOURCE_SCALE_FACTOR = 2;
+const FRAMED_OBJECT_SCALE_FACTOR = 0.25;
+const LIGHT_SOURCE_SCALE_FACTOR = 0.5;
 
 // How much to shift the upper-left corner of the framed Object image, in cm.
 // This is specific to the object PNG files, and must be uniform for all object PNG files.

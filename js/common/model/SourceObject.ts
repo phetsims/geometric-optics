@@ -36,7 +36,7 @@ class SourceObject {
 
     // {Vector2} displacement vector from the firstPosition to the left top, in cm - value depends on representation
     //TODO this feels unnecessary, and causes ordering dependencies herein
-    let offset = representationProperty.value.rightFacingUprightOffset.dividedScalar(
+    let offset = representationProperty.value.rightFacingUprightOffset.timesScalar(
       representationProperty.value.scaleFactor
     );
 
@@ -53,8 +53,8 @@ class SourceObject {
     this.boundsProperty = new DerivedProperty(
       [ this.leftTopProperty, representationProperty ],
       ( leftTop: Vector2, representation: Representation ) => {
-        const size = new Dimension2( representation.rightFacingUpright.width / representation.scaleFactor,
-          representation.rightFacingUpright.height / representation.scaleFactor );
+        const size = new Dimension2( representation.scaleFactor * representation.rightFacingUpright.width,
+          representation.scaleFactor * representation.rightFacingUpright.height );
         return size.toBounds( leftTop.x, leftTop.y - size.height );
       } );
 
@@ -62,7 +62,7 @@ class SourceObject {
     representationProperty.link( representation => {
 
       // {Vector2} update the value of the offset
-      offset = representation.rightFacingUprightOffset.dividedScalar( representation.scaleFactor );
+      offset = representation.rightFacingUprightOffset.timesScalar( representation.scaleFactor );
 
       // {Vector2} update the left top position - positionProperty is the ground truth when changing representation
       this.leftTopProperty.value = this.positionProperty.value.plus( offset );

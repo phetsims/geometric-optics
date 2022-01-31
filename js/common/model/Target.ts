@@ -129,9 +129,9 @@ class Target {
       ( position: Vector2, representation: Representation, magnification: number, isInverted: boolean ) => {
 
         const scaleFactor = representation.scaleFactor;
-        const initialOffset = representation.rightFacingUprightOffset.timesScalar( 1 / scaleFactor );
-        const initialWidth = representation.rightFacingUpright.width / scaleFactor;
-        const initialHeight = representation.rightFacingUpright.height / scaleFactor;
+        const initialOffset = representation.rightFacingUprightOffset.timesScalar( scaleFactor );
+        const initialWidth = representation.rightFacingUpright.width * scaleFactor;
+        const initialHeight = representation.rightFacingUpright.height * scaleFactor;
 
         const offset = initialOffset.timesScalar( magnification );
         const width = initialWidth * magnification;
