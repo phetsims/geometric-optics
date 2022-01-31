@@ -74,34 +74,22 @@ class SourceObjectNode extends Node {
 
     super( options );
 
-    // Translate the source object to the specified position.
-    // This Node's origin is at the left-top of sourceObjectImage, so set translation.
-    const updateTranslation = ( leftTop: Vector2 ): void => {
-      this.translation = modelViewTransform.modelToViewPosition( leftTop );
-    };
-
-    const updateScale = (): void => {
-
-      const initialWidth = imageNode.width;
-      const initialHeight = imageNode.height;
-
-      const bounds = sourceObject.boundsProperty.value;
-      const viewBounds = modelViewTransform.modelToViewBounds( bounds );
-
-      const scaleX = viewBounds.width / initialWidth;
-      const scaleY = viewBounds.height / initialHeight;
-      imageNode.scale( scaleX, scaleY );
-    };
-
     sourceObject.leftTopProperty.link( leftTop => {
-      updateScale();
-      updateTranslation( leftTop );
+      this.translation = modelViewTransform.modelToViewPosition( leftTop );
     } );
 
+    //TODO This assumes that sourceObject.boundsProperty is updated before this listener is called.
     representationProperty.link( representation => {
+
+      // Change the PNG image.
       imageNode.image = representation.rightFacingUpright;
-      updateScale();
-      updateTranslation( sourceObject.leftTopProperty.value );
+
+      // Scale to match the model bounds.
+      const modelBounds = sourceObject.boundsProperty.value;
+      const viewBounds = modelViewTransform.modelToViewBounds( modelBounds );
+      const scaleX = viewBounds.width / imageNode.width;
+      const scaleY = viewBounds.height / imageNode.height;
+      imageNode.scale( scaleX, scaleY );
     } );
 
     // Drag bounds, in model coordinates.
