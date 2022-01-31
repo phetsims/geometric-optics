@@ -94,23 +94,18 @@ class SourceObjectNode extends Node {
       updateScale();
     } );
 
-    // Drag bounds, in model coordinates.
-    // Keep the full object within the model bounds and to the left of the optic.
-    //TODO This is problematic. There's no dependency on representationProperty here. The actual dependency is on
-    // sourceObject.boundsProperty, and we're relying on that changing before this value is derived. But changing
-    // the dependency to sourceObject.boundsProperty results in a reentry assertion failure.
+    // Drag bounds, in model coordinates. Keep the full object within the model bounds and to the left of the optic.
     this.dragBoundsProperty = new DerivedProperty(
-      [ modelBoundsProperty, representationProperty, dragLockedProperty ],
-      ( modelBounds: Bounds2, representation: Representation, horizontalDragLocked: boolean ) => {
+      [ sourceObject.boundsProperty, modelBoundsProperty, dragLockedProperty ],
+      ( sourceObjectBounds: Bounds2, modelBounds: Bounds2, dragLocked: boolean ) => {
 
         const sourceObjectPosition = sourceObject.positionProperty.value;
-        const sourceObjectBounds = sourceObject.boundsProperty.value;
         const minX = modelBounds.minX + ( sourceObjectPosition.x - sourceObjectBounds.minX );
         const maxX = opticPositionProperty.value.x - MIN_X_DISTANCE_TO_OPTIC;
         let minY: number;
         let maxY: number;
 
-        if ( horizontalDragLocked ) {
+        if ( dragLocked ) {
 
           // Dragging is 1D, constrained horizontally to object's current position.
           minY = sourceObjectPosition.y;
@@ -123,6 +118,11 @@ class SourceObjectNode extends Node {
           maxY = modelBounds.maxY - ( sourceObjectBounds.maxY - sourceObjectPosition.y );
         }
         return new Bounds2( minX, minY, maxX, maxY );
+      }, {
+
+        // Because changing dragBoundsProperty may necessitate moving sourceObject inside the new drag bounds,
+        // therefore changing dependency sourceObject.boundsProperty.
+        reentrant: true
       } );
     this.dragBoundsProperty.link( dragBounds => {
       sourceObject.positionProperty.value = dragBounds.closestPointTo( sourceObject.positionProperty.value );
