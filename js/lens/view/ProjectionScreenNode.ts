@@ -1,7 +1,7 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * ProjectionScreenNode is the view of of the projection screen.
+ * ProjectionScreenNode is the view of the projection screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  * @author Martin Veillette
@@ -50,6 +50,8 @@ class ProjectionScreenNode extends Node {
       fill: GOColors.projectionScreenFillProperty,
       stroke: phet.chipper.queryParameters.dev ? 'red' : GOColors.projectionScreenStrokeProperty,
       lineWidth: 2,
+
+      // projectionScreen.positionProperty is at the center of screenNode
       centerX: 0,
       centerY: 0
     } );
