@@ -40,11 +40,11 @@ class SourceObject {
       representationProperty.value.scaleFactor
     );
 
-    //TODO should this be derived from representationProperty? or from positionProperty?
+    //TODO this should be derived from representationProperty and positionProperty
     //TODO left-top is unfortunate to have in the model, can this be avoided?
     this.leftTopProperty = new Vector2Property( initialPosition.plus( offset ) );
 
-    //TODO should this be derived from representationProperty instead?
+    //TODO this should be the Property that we set
     this.positionProperty = new DerivedProperty(
       [ this.leftTopProperty ],
       ( leftTop: Vector2 ) => leftTop.minus( offset )
@@ -53,8 +53,10 @@ class SourceObject {
     this.boundsProperty = new DerivedProperty(
       [ this.leftTopProperty, representationProperty ],
       ( leftTop: Vector2, representation: Representation ) => {
-        const size = new Dimension2( representation.scaleFactor * representation.rightFacingUpright.width,
-          representation.scaleFactor * representation.rightFacingUpright.height );
+        const size = new Dimension2(
+          representation.scaleFactor * representation.rightFacingUpright.width,
+          representation.scaleFactor * representation.rightFacingUpright.height
+        );
         return size.toBounds( leftTop.x, leftTop.y - size.height );
       } );
 

@@ -34,7 +34,7 @@ import starRightFacingUpright_png from '../../../images/starRightFacingUpright_p
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 
-// constants
+// View-to-model scale for associated HTMLImageElement
 const FRAMED_OBJECT_SCALE_FACTOR = 0.25;
 const LIGHT_SOURCE_SCALE_FACTOR = 0.5;
 
