@@ -23,7 +23,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
 import GOConstants from '../GOConstants.js';
 
-// Closest that source object can be moved to the optic, in cm. This avoid problems that occur when the object is
+// Closest that source object can be moved to the optic, in cm. This avoids problems that occur when the object is
 // too close to a mirror. See https://github.com/phetsims/geometric-optics/issues/73
 const MIN_X_DISTANCE_TO_OPTIC = 40;
 
