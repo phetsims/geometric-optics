@@ -49,8 +49,8 @@ class SourceObject {
         return size.toBounds( leftTop.x, leftTop.y - size.height );
       }, {
 
-        // Because changing representationProperty may necessitate moving sourceObject inside the view's drag bounds,
-        // resulting in this derivation being called again.
+        // Because changing representationProperty may necessitate changing positionProperty to move
+        // the Object inside the view's drag bounds, resulting in this derivation being called again.
         reentrant: true
       } );
   }
