@@ -74,20 +74,13 @@ class SourceObjectNode extends Node {
 
     super( options );
 
-    // Update cursor and cueing arrows to reflect how this Node is draggable.
-    dragLockedProperty.link( locked => {
-      this.cursor = locked ? 'ew-resize' : 'pointer';
-      cueingArrowsNode.setDirection( locked ? 'horizontal' : 'both' );
-    } );
+    // Translate the source object to the specified position.
+    // This Node's origin is at the left-top of sourceObjectImage, so set translation.
+    const updateTranslation = ( leftTop: Vector2 ): void => {
+      this.translation = modelViewTransform.modelToViewPosition( leftTop );
+    };
 
-    // Keep cueing arrows next to the source object.
-    Property.multilink( [ sourceObjectNode.boundsProperty, cueingArrowsNode.boundsProperty ],
-      ( sourceObjectBounds: Bounds2, cueingArrowsNodeBounds: Bounds2 ) => {
-        cueingArrowsNode.right = sourceObjectNode.left - 10;
-        cueingArrowsNode.centerY = sourceObjectNode.centerY;
-      } );
-
-    const scaleImageNode = (): void => {
+    const updateScale = (): void => {
 
       const initialWidth = imageNode.width;
       const initialHeight = imageNode.height;
@@ -100,11 +93,16 @@ class SourceObjectNode extends Node {
       imageNode.scale( scaleX, scaleY );
     };
 
-    // Translate the source object to the specified position.
-    // This Node's origin is at the left-top of sourceObjectImage, so set translation.
-    const translateSourceObject = ( leftTop: Vector2 ): void => {
-      this.translation = modelViewTransform.modelToViewPosition( leftTop );
-    };
+    sourceObject.leftTopProperty.link( leftTop => {
+      updateScale();
+      updateTranslation( leftTop );
+    } );
+
+    representationProperty.link( representation => {
+      imageNode.image = representation.rightFacingUpright;
+      updateScale();
+      updateTranslation( sourceObject.leftTopProperty.value );
+    } );
 
     // Drag bounds, in model coordinates.
     // Keep at least half of the projection screen within visible bounds and right of the optic.
@@ -115,26 +113,23 @@ class SourceObjectNode extends Node {
     this.dragBoundsProperty = new DerivedProperty(
       [ modelBoundsProperty, representationProperty, dragLockedProperty ],
       ( modelBounds: Bounds2, representation: Representation, horizontalDragLocked: boolean ) => {
+        const minX = modelBounds.minX;
+        const maxX = opticPositionProperty.value.x - sourceObject.boundsProperty.value.width / 2 - MIN_X_DISTANCE_TO_OPTIC;
+        let minY: number;
+        let maxY: number;
         if ( horizontalDragLocked ) {
 
-          // Dragging is constrained horizontally, and source object's horizontal position is locked
-          return new Bounds2(
-            modelBounds.minX,
-            sourceObject.leftTopProperty.value.y,
-            opticPositionProperty.value.x - sourceObject.boundsProperty.value.width / 2 - MIN_X_DISTANCE_TO_OPTIC,
-            sourceObject.leftTopProperty.value.y
-          );
+          // Dragging is 1D, constrained horizontally, and source object's horizontal position is locked.
+          minY = sourceObject.leftTopProperty.value.y;
+          maxY = minY;
         }
         else {
 
-          // Dragging is 2D
-          return new Bounds2(
-            modelBounds.minX,
-            modelBounds.minY + sourceObject.boundsProperty.value.height,
-            opticPositionProperty.value.x - sourceObject.boundsProperty.value.width / 2 - MIN_X_DISTANCE_TO_OPTIC,
-            modelBounds.maxY
-          );
+          // Dragging is 2D.
+          minY = modelBounds.minY + sourceObject.boundsProperty.value.height;
+          maxY = modelBounds.maxY;
         }
+        return new Bounds2( minX, minY, maxX, maxY );
       } );
     this.dragBoundsProperty.link( dragBounds => {
       sourceObject.leftTopProperty.value = dragBounds.closestPointTo( sourceObject.leftTopProperty.value );
@@ -159,16 +154,12 @@ class SourceObjectNode extends Node {
     } ) );
     this.addInputListener( keyboardDragListener );
 
-    sourceObject.leftTopProperty.link( leftTop => {
-      scaleImageNode();
-      translateSourceObject( leftTop );
-    } );
-
-    representationProperty.link( representation => {
-      imageNode.image = representation.rightFacingUpright;
-      scaleImageNode();
-      translateSourceObject( sourceObject.leftTopProperty.value );
-    } );
+    // Keep cueing arrows next to the source object.
+    Property.multilink( [ sourceObjectNode.boundsProperty, cueingArrowsNode.boundsProperty ],
+      ( sourceObjectBounds: Bounds2, cueingArrowsNodeBounds: Bounds2 ) => {
+        cueingArrowsNode.right = sourceObjectNode.left - 10;
+        cueingArrowsNode.centerY = sourceObjectNode.centerY;
+      } );
 
     Property.multilink(
       [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty ],
@@ -176,6 +167,12 @@ class SourceObjectNode extends Node {
         cueingArrowsNode.visible = ( cueingArrowsEnabled && inputEnabled );
       }
     );
+
+    // Update cursor and cueing arrows to reflect how this Node is draggable.
+    dragLockedProperty.link( locked => {
+      this.cursor = locked ? 'ew-resize' : 'pointer';
+      cueingArrowsNode.setDirection( locked ? 'horizontal' : 'both' );
+    } );
 
     this.resetSourceObjectNode = (): void => {
       cueingArrowsNode.visible = ( GOGlobalOptions.cueingArrowsEnabledProperty.value &&
