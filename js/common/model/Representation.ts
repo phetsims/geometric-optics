@@ -1,6 +1,5 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
-//TODO name is too vague, maybe SourceRepresentation?
 /**
  * Representation is a set of static representation for Objects and Light Sources.
  *
