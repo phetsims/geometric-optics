@@ -74,60 +74,65 @@ class SourceObjectNode extends Node {
 
     super( options );
 
-    sourceObject.leftTopProperty.link( leftTop => {
-      this.translation = modelViewTransform.modelToViewPosition( leftTop );
-    } );
-
-    //TODO This assumes that sourceObject.boundsProperty is updated before this listener is called.
-    representationProperty.link( representation => {
-
-      // Change the PNG image.
-      imageNode.image = representation.rightFacingUpright;
-
-      // Scale to match the model bounds.
+    const updateScale = () => {
       const modelBounds = sourceObject.boundsProperty.value;
       const viewBounds = modelViewTransform.modelToViewBounds( modelBounds );
       const scaleX = viewBounds.width / imageNode.width;
       const scaleY = viewBounds.height / imageNode.height;
       imageNode.scale( scaleX, scaleY );
+    };
+
+    // Change the PNG image.
+    representationProperty.link( representation => {
+      imageNode.image = representation.rightFacingUpright;
+      updateScale();
+    } );
+
+    // Translate and scale
+    sourceObject.boundsProperty.link( bounds => {
+      this.translation = modelViewTransform.modelToViewBounds( bounds ).leftTop;
+      updateScale();
     } );
 
     // Drag bounds, in model coordinates.
-    // Keep at least half of the projection screen within visible bounds and right of the optic.
-    // opticPositionProperty is not a dependency because it only moves in the y dimension, so x is constant.
+    // Keep the full object within the model bounds and to the left of the optic.
     //TODO This is problematic. There's no dependency on representationProperty here. The actual dependency is on
     // sourceObject.boundsProperty, and we're relying on that changing before this value is derived. But changing
     // the dependency to sourceObject.boundsProperty results in a reentry assertion failure.
     this.dragBoundsProperty = new DerivedProperty(
       [ modelBoundsProperty, representationProperty, dragLockedProperty ],
       ( modelBounds: Bounds2, representation: Representation, horizontalDragLocked: boolean ) => {
-        const minX = modelBounds.minX;
-        const maxX = opticPositionProperty.value.x - sourceObject.boundsProperty.value.width / 2 - MIN_X_DISTANCE_TO_OPTIC;
+
+        const sourceObjectPosition = sourceObject.positionProperty.value;
+        const sourceObjectBounds = sourceObject.boundsProperty.value;
+        const minX = modelBounds.minX + ( sourceObjectPosition.x - sourceObjectBounds.minX );
+        const maxX = opticPositionProperty.value.x - MIN_X_DISTANCE_TO_OPTIC;
         let minY: number;
         let maxY: number;
+
         if ( horizontalDragLocked ) {
 
-          // Dragging is 1D, constrained horizontally, and source object's horizontal position is locked.
-          minY = sourceObject.leftTopProperty.value.y;
+          // Dragging is 1D, constrained horizontally to object's current position.
+          minY = sourceObjectPosition.y;
           maxY = minY;
         }
         else {
 
           // Dragging is 2D.
-          minY = modelBounds.minY + sourceObject.boundsProperty.value.height;
-          maxY = modelBounds.maxY;
+          minY = modelBounds.minY + ( sourceObjectPosition.y - sourceObjectBounds.minY );
+          maxY = modelBounds.maxY - ( sourceObjectBounds.maxY - sourceObjectPosition.y );
         }
         return new Bounds2( minX, minY, maxX, maxY );
       } );
     this.dragBoundsProperty.link( dragBounds => {
-      sourceObject.leftTopProperty.value = dragBounds.closestPointTo( sourceObject.leftTopProperty.value );
+      sourceObject.positionProperty.value = dragBounds.closestPointTo( sourceObject.positionProperty.value );
     } );
 
-    // create drag listener for source
     const dragListener = new DragListener( {
-      positionProperty: sourceObject.leftTopProperty,
+      positionProperty: sourceObject.positionProperty,
       dragBoundsProperty: this.dragBoundsProperty,
       transform: modelViewTransform,
+      useParentOffset: true,
       drag: () => {
         cueingArrowsNode.visible = false;
       },
@@ -136,8 +141,8 @@ class SourceObjectNode extends Node {
     this.addInputListener( dragListener );
 
     const keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
-      positionProperty: sourceObject.leftTopProperty,
-      dragBounds: this.dragBoundsProperty.value,
+      positionProperty: sourceObject.positionProperty,
+      dragBoundsProperty: this.dragBoundsProperty,
       transform: modelViewTransform
     } ) );
     this.addInputListener( keyboardDragListener );
