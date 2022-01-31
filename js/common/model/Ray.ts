@@ -1,7 +1,7 @@
 // Copyright 2021, University of Colorado Boulder
 
 /**
- * Model element of a Ray. A ray can be semi infinite, or of finite length
+ * Ray is an extension of dot.Ray2 that adds a length property. A Ray can have finite or semi-infinite length.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -21,11 +21,12 @@ class Ray extends Ray2 {
    */
   constructor( position: Vector2, direction: Vector2 ) {
     super( position, direction );
-    this.length = Infinity; // semi-infinite rays by default
+    this.length = Infinity; // semi-infinite by default
   }
 
   /**
-   * Sets the length of the ray
+   * Sets the length of the ray.
+   * @param length
    */
   public setLength( length: number ): void {
     assert && assert( isFinite( length ) );
@@ -40,7 +41,8 @@ class Ray extends Ray2 {
   }
 
   /**
-   * Sets the length of a ray by using a final point.
+   * Sets the length of the ray by using a final point.
+   * The final point must be along the direction of the ray.
    * @param finalPoint
    */
   public setFinalPoint( finalPoint: Vector2 ): void {
@@ -49,9 +51,9 @@ class Ray extends Ray2 {
   }
 
   /**
-   * Determines if the point is along the ray direction.
+   * Determines if a point is along the direction of the ray.
    * @param point
-   * @param epsilon - tolerance value
+   * @param [epsilon] - tolerance value
    */
   public isPointAlongRay( point: Vector2, epsilon = 1e-4 ): boolean {
     const displacementVector = point.minus( this.position );
@@ -59,7 +61,9 @@ class Ray extends Ray2 {
   }
 
   /**
-   * Gets distance from origin to point. The point may not lay along the direction of the ray.
+   * Gets the distance from the ray's position to a specified point.
+   * The point does not need to be along the direction of the ray.
+   * @param point
    */
   public getDistanceTo( point: Vector2 ): number {
     const displacementVector = point.minus( this.position );
