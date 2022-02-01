@@ -43,25 +43,25 @@ class LightRay {
   private readonly virtualRay: Ray | null;
 
   /**
-   * @param sourcePosition
-   * @param direction
-   * @param time - value of model time in seconds needed for the purpose of the animation
+   * @param sourcePosition - where this LightRay originated
+   * @param direction - initial direction of this LightRay
+   * @param lightRaysTime - elapsed time of light rays animation
    * @param optic - model of the optic
    * @param targetPoint - point of focus of all rays based on thin lens law
    * @param isVirtual - is the image virtual?
    * @param isPrincipalRaysType - is the light ray mode set to Principal rays
    * @param projectionScreen - optional projection screen that can block the rays
    */
-  constructor( sourcePosition: Vector2, direction: Vector2, time: number, optic: Optic, targetPoint: Vector2,
+  constructor( sourcePosition: Vector2, direction: Vector2, lightRaysTime: number, optic: Optic, targetPoint: Vector2,
                isVirtual: boolean, isPrincipalRaysType: boolean, projectionScreen: ProjectionScreen | null ) {
 
-    assert && AssertUtils.assertNonNegativeNumber( time );
+    assert && AssertUtils.assertNonNegativeNumber( lightRaysTime );
 
     this.realSegments = [];
     this.virtualSegments = [];
 
     // {number} maximum travel distance if ray is unimpeded
-    const distanceTraveled = GOQueryParameters.lightSpeed * time;
+    const distanceTraveled = GOQueryParameters.lightSpeed * lightRaysTime;
 
     // ray (position and direction) emerging from source
     const initialRay = new Ray( sourcePosition, direction );

@@ -40,7 +40,7 @@ class LightRays {
   readonly raysProcessedEmitter: Emitter<[]>;
 
   /**
-   * @param timeProperty
+   * @param lightRaysTimeProperty - elapsed time of light rays animation
    * @param raysTypeProperty
    * @param representationProperty
    * @param sourceObjectPositionProperty
@@ -48,7 +48,7 @@ class LightRays {
    * @param target - target model associated with this ray
    * @param projectionScreen - optional projection screen that blocks rays
    */
-  constructor( timeProperty: Property<number>, raysTypeProperty: IReadOnlyProperty<RaysType>,
+  constructor( lightRaysTimeProperty: Property<number>, raysTypeProperty: IReadOnlyProperty<RaysType>,
                representationProperty: IReadOnlyProperty<Representation>,
                sourceObjectPositionProperty: IReadOnlyProperty<Vector2>,
                optic: Optic, target: Target, projectionScreen: ProjectionScreen | null ) {
@@ -61,7 +61,7 @@ class LightRays {
     // We only care about the types of the first 4 dependencies, because the listener only has 4 parameters.
     type DependencyTypes = [ Vector2, RaysType, number, Representation, ...any[] ];
     const dependencies: MappedProperties<DependencyTypes> = [
-      sourceObjectPositionProperty, raysTypeProperty, timeProperty, representationProperty,
+      sourceObjectPositionProperty, raysTypeProperty, lightRaysTimeProperty, representationProperty,
       optic.positionProperty, optic.diameterProperty, optic.focalLengthProperty, optic.surfaceTypeProperty
     ];
     if ( projectionScreen ) {
@@ -70,7 +70,7 @@ class LightRays {
 
     // Update all rays, then inform listeners via raysProcessedEmitter.
     Property.multilink<DependencyTypes>( dependencies,
-      ( sourcePosition: Vector2, raysType: RaysType, time: number, representation: Representation ) => {
+      ( sourcePosition: Vector2, raysType: RaysType, lightRaysTime: number, representation: Representation ) => {
 
         // Clear the arrays.
         this.realSegments = [];
@@ -95,7 +95,7 @@ class LightRays {
         directions.forEach( direction => {
 
           // determine the lightRay
-          const lightRay = new LightRay( sourcePosition, direction, time, optic, targetPoint, isVirtual,
+          const lightRay = new LightRay( sourcePosition, direction, lightRaysTime, optic, targetPoint, isVirtual,
             isPrincipalRaysType, representation.isFramedObject ? null : projectionScreen
           );
 
