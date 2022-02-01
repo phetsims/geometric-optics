@@ -1,8 +1,10 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * GORay extends dot.Ray2 by adding a length property. A GORay can have finite or semi-infinite length.
- * Used by LightRay to compute the segments of a light ray.
+ * GORay extends dot.Ray2 by adding a length property. Generally speaking, a ray has one endpoint and goes on
+ * infinitely in only one direction - you cannot measure the length of a ray. But our GORay can have finite or
+ * semi-infinite length, and is used by LightRay to compute the line segments that describe a light ray as it
+ * propagates.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
