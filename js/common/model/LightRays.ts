@@ -15,7 +15,6 @@ import geometricOptics from '../../geometricOptics.js';
 import LightRay from './LightRay.js';
 import LightRaySegment from './LightRaySegment.js';
 import Optic from './Optic.js';
-import Ray from './Ray.js';
 import { RaysType } from './RaysType.js';
 import Target from './Target.js';
 import Representation from './Representation.js';
@@ -95,12 +94,9 @@ class LightRays {
         // loop over the direction of each ray
         directions.forEach( direction => {
 
-          // initial ray starting at the source position
-          const initialRay = new Ray( sourcePosition, direction );
-
           // determine the lightRay
-          const lightRay = new LightRay( initialRay, time, optic, targetPoint, isVirtual, isPrincipalRaysType,
-            representation.isFramedObject ? null : projectionScreen
+          const lightRay = new LightRay( sourcePosition, direction, time, optic, targetPoint, isVirtual,
+            isPrincipalRaysType, representation.isFramedObject ? null : projectionScreen
           );
 
           // set target's visibility to true after the first ray reaches its target

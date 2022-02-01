@@ -44,7 +44,8 @@ class LightRay {
   private readonly virtualRay: Ray | null;
 
   /**
-   * @param initialRay - ray (position and direction) emerging from source
+   * @param sourcePosition
+   * @param direction
    * @param time - value of model time in seconds needed for the purpose of the animation
    * @param optic - model of the optic
    * @param targetPoint - point of focus of all rays based on thin lens law
@@ -52,8 +53,8 @@ class LightRay {
    * @param isPrincipalRaysType - is the light ray mode set to Principal rays
    * @param projectionScreen - optional projection screen that can block the rays
    */
-  constructor( initialRay: Ray, time: number, optic: Optic, targetPoint: Vector2, isVirtual: boolean,
-               isPrincipalRaysType: boolean, projectionScreen: ProjectionScreen | null ) {
+  constructor( sourcePosition: Vector2, direction: Vector2, time: number, optic: Optic, targetPoint: Vector2,
+               isVirtual: boolean, isPrincipalRaysType: boolean, projectionScreen: ProjectionScreen | null ) {
 
     assert && AssertUtils.assertNonNegativeNumber( time );
 
@@ -62,6 +63,9 @@ class LightRay {
 
     // {number} maximum travel distance if ray is unimpeded
     const distanceTraveled = GOQueryParameters.lightSpeed * time;
+
+    // ray (position and direction) emerging from source
+    const initialRay = new Ray( sourcePosition, direction );
 
     // {Vector2|null} first intersection point - a null value implies that the initialRay does not intersect the optic
     const firstPoint = getFirstPoint( initialRay, optic, isPrincipalRaysType );
