@@ -1,7 +1,9 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * LightRaysNode is responsible for rendering the rays associated with the real image and virtual image.
+ * LightRaysNode is responsible for rendering a bundle of rays, as described by LightRays.
+ * LightRays provides a set of line segments (start and end points), and LightRaysNode draws each segment
+ * as a scenery.Line. Different styles are supported for real vs virtual rays.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -58,20 +60,19 @@ class LightRaysNode extends Node {
       )
     } );
 
-    const realRayOptions = {
-      stroke: providedOptions.realRaysStroke,
-      lineWidth: 2
-    };
-    const virtualRayOptions = {
-      stroke: providedOptions.virtualRaysStroke,
-      lineWidth: 2,
-      lineDash: [ 3, 3 ],
-      opacity: 0.5
-    };
-
     const update = (): void => {
-      realRaysNode.children = segmentsToLines( lightRays.realSegments, modelViewTransform, realRayOptions );
-      virtualRaysNode.children = segmentsToLines( lightRays.virtualSegments, modelViewTransform, virtualRayOptions );
+
+      realRaysNode.children = segmentsToLines( lightRays.realSegments, modelViewTransform, {
+        stroke: providedOptions.realRaysStroke,
+        lineWidth: 2
+      } );
+
+      virtualRaysNode.children = segmentsToLines( lightRays.virtualSegments, modelViewTransform, {
+        stroke: providedOptions.virtualRaysStroke,
+        lineWidth: 2,
+        lineDash: [ 3, 3 ],
+        opacity: 0.5
+      } );
     };
     update();
 
@@ -90,10 +91,10 @@ class LightRaysNode extends Node {
 }
 
 /**
- * Converts model ray segments to scenery Line nodes.
+ * Converts LightRaySegments (model) to scenery Lines (view).
  * @param segments
  * @param modelViewTransform
- * @param lineOptions
+ * @param lineOptions - options to Line
  */
 function segmentsToLines( segments: LightRaySegment[], modelViewTransform: ModelViewTransform2, lineOptions: LineOptions ): Line[] {
 
