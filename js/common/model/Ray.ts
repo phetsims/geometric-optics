@@ -1,4 +1,4 @@
-// Copyright 2021, University of Colorado Boulder
+// Copyright 2021-2022, University of Colorado Boulder
 
 /**
  * Ray is an extension of dot.Ray2 that adds a length property. A Ray can have finite or semi-infinite length.
