@@ -1,8 +1,8 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * LightRays is the model of bundles of rays. It's primary responsibilities is to collect the line segments of
- * multiple LightRay instances. Line segments are animated over time.
+ * LightRays is the model of bundles of rays. It's primary responsibility is to collect the segments of
+ * multiple LightRay instances. LightRays are animated over time.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -115,7 +115,7 @@ class LightRays {
 }
 
 /**
- * Gets the initial directions of the rays for the different ray modes.
+ * Gets the initial directions (as unit vectors) of the rays for the different ray types.
  * @param sourcePosition
  * @param optic
  * @param raysType
@@ -126,54 +126,42 @@ function getRayDirections( sourcePosition: Vector2, optic: Optic, raysType: Rays
   // {Vector2[]} directions of the light rays emanating from sourcePosition
   const directions = [];
 
-  // convenience variables
-  const f = optic.focalLengthProperty.value;
-  const opticPosition = optic.positionProperty.value;
-
   // vector from source to optic
-  const sourceOpticVector = opticPosition.minus( sourcePosition );
+  const sourceOpticVector = optic.positionProperty.value.minus( sourcePosition );
 
   if ( raysType === 'marginal' ) {
 
     // 3 rays: through center, top, and bottom of optic.
 
-    // direction for ray going through the center of optic
+    // #1: center of the optic
     directions.push( sourceOpticVector.normalized() );
 
-    // the top of the optic
+    // #2: top of the optic
     const topPoint = optic.getTopPoint( sourcePosition, targetPoint );
-
-    // the bottom of the optic
-    const bottomPoint = optic.getBottomPoint( sourcePosition, targetPoint );
-
-    // direction of a ray to the top of the optic
     const topDirection = topPoint.minus( sourcePosition ).normalized();
+    directions.push( topDirection );
 
-    // direction of a ray to the bottom of the optic
+    // #3: bottom of the optic
+    const bottomPoint = optic.getBottomPoint( sourcePosition, targetPoint );
     const bottomDirection = bottomPoint.minus( sourcePosition ).normalized();
-
-    directions.push( topDirection, bottomDirection );
+    directions.push( bottomDirection );
   }
   else if ( raysType === 'principal' ) {
 
-    // 3 rays: through center of optic, and each focal point
+    // 3 rays: parallel to optical axis, through center of optic, through focal point on left side of optic
     // This representation can result in some confusion, see https://github.com/phetsims/geometric-optics/issues/140.
 
-    // horizontal direction, unit vector along positive x
+    // #1: parallel to the optical axis
     directions.push( new Vector2( 1, 0 ) );
 
-    // direction for ray going through the center of optic
+    // #2: through the center of optic
     directions.push( sourceOpticVector.normalized() );
 
-    // vector from source to first focal point
-    const sourceFirstFocalVector = sourceOpticVector.minusXY( f, 0 );
-
-    // the vector should point to the right (to indicate the direction of the light rays)
+    // #3: through the focal point
+    const sourceFirstFocalVector = sourceOpticVector.minusXY( optic.focalLengthProperty.value, 0 );
     if ( sourceFirstFocalVector.x < 0 ) {
-      sourceFirstFocalVector.negate();
+      sourceFirstFocalVector.negate(); // should point to the right, to indicate the direction of the light rays
     }
-
-    // direction for ray going through the focal point
     directions.push( sourceFirstFocalVector.normalized() );
   }
   else if ( raysType === 'many' ) {
@@ -181,7 +169,7 @@ function getRayDirections( sourcePosition: Vector2, optic: Optic, raysType: Rays
     // Number of rays depends on how far sourcePosition is from the optic. But we want at least 2 rays to
     // go through the optic. See https://github.com/phetsims/geometric-optics/issues/289.
 
-    // starting angle for showers of rays
+    // starting angle for fan of rays
     const startingAngle = MANY_FAN_ANGLE / 2;
 
     // symmetric condition for end angle
@@ -196,7 +184,7 @@ function getRayDirections( sourcePosition: Vector2, optic: Optic, raysType: Rays
     // Degrees between adjacent arrays
     const deltaTheta = ( endAngle - startingAngle ) / ( numberOfRays - 1 );
 
-    // create a show of equidistant rays between startingAngle and endAngle
+    // Create a fan of equidistant rays between startingAngle and endAngle.
     for ( let i = 0; i < numberOfRays; i++ ) {
       const angle = startingAngle + i * deltaTheta;
       directions.push( Vector2.createPolar( 1, angle ) );
