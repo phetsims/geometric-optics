@@ -490,6 +490,7 @@ class GOScreenView extends ScreenView {
     this.resetGeometricScreenView();
   }
 
+  //TODO stepping model should be done in model.step
   /**
    * Steps the view.
    * @param dt - time step, in seconds
