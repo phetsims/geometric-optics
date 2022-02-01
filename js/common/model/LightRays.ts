@@ -25,7 +25,7 @@ import Utils from '../../../../dot/js/Utils.js';
 
 // constants related to 'Many' rays representation, see https://github.com/phetsims/geometric-optics/issues/289
 const MANY_MIN_RAYS = 20;
-const MANY_MIN_RAYS_DISTANCE = 300; // cm, MANY_MIN_RAYS will be shown up to this distance
+const MANY_MIN_RAYS_DISTANCE = 300; // cm, MANY_MIN_RAYS will be shown up to this distance from the optic
 const MANY_FAN_ANGLE = Utils.toRadians( 120 ); // degrees to radians
 
 class LightRays {
