@@ -2,6 +2,7 @@
 
 /**
  * GORay extends dot.Ray2 by adding a length property. A GORay can have finite or semi-infinite length.
+ * Used by LightRay to compute the segments of a light ray.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
