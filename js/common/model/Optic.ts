@@ -25,6 +25,7 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import { RaysType } from './RaysType.js';
 
 type OpticOptions = {
 
@@ -286,11 +287,14 @@ abstract class Optic {
 
   /**
    * Gets the shape of the front (left) surface of the optic. This is the surface that a ray will initially hit.
-   * @param isPrincipalRaysType
+   * @param raysType
    */
-  getFrontShapeTranslated( isPrincipalRaysType: boolean ): Shape {
-    if ( isPrincipalRaysType ) {
-      return this.getVerticalAxis(); // principal rays are refracted at the optic's vertical axis
+  getFrontShapeTranslated( raysType: RaysType ): Shape {
+    if ( raysType === 'principal' ) {
+
+      // Principal rays are refracted at the optic's vertical axis.
+      // See https://github.com/phetsims/geometric-optics/issues/140
+      return this.getVerticalAxis();
     }
     else {
       return this.translatedShape( this.shapesProperty.value.frontShape );

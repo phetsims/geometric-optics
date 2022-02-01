@@ -85,9 +85,6 @@ class LightRays {
         // {Vector2[]} get the initial directions of the rays
         const directions = getRayDirections( raysType, sourcePosition, optic, targetPoint );
 
-        // is the Rays mode set to Principal
-        const isPrincipalRaysType = ( raysType === 'principal' );
-
         // set the target's visibility to false initially (unless there are no rays)
         target.visibleProperty.value = ( raysType === 'none' );
 
@@ -96,7 +93,7 @@ class LightRays {
 
           // Create a LightRay, which is responsible for creating real and virtual ray segments.
           const lightRay = new LightRay( sourcePosition, direction, lightRaysTime, optic, targetPoint, isVirtual,
-            isPrincipalRaysType, representation.isFramedObject ? null : projectionScreen
+            raysType, representation.isFramedObject ? null : projectionScreen
           );
 
           // Set target's visibility to true when a ray reaches the target.
