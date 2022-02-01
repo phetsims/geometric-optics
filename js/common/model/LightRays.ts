@@ -135,6 +135,8 @@ function getRayDirections( sourcePosition: Vector2, optic: Optic, raysType: Rays
 
   if ( raysType === 'marginal' ) {
 
+    // 3 rays: through center, top, and bottom of optic.
+
     // direction for ray going through the center of optic
     directions.push( sourceOpticVector.normalized() );
 
@@ -154,6 +156,9 @@ function getRayDirections( sourcePosition: Vector2, optic: Optic, raysType: Rays
   }
   else if ( raysType === 'principal' ) {
 
+    // 3 rays: through center of optic, and each focal point
+    // This representation can result in some confusion, see https://github.com/phetsims/geometric-optics/issues/140.
+
     // horizontal direction, unit vector along positive x
     directions.push( new Vector2( 1, 0 ) );
 
@@ -172,6 +177,9 @@ function getRayDirections( sourcePosition: Vector2, optic: Optic, raysType: Rays
     directions.push( sourceFirstFocalVector.normalized() );
   }
   else if ( raysType === 'many' ) {
+
+    // Number of rays depends on how far sourcePosition is from the optic. But we want at least 2 rays to
+    // go through the optic. See https://github.com/phetsims/geometric-optics/issues/289.
 
     // starting angle for showers of rays
     const startingAngle = MANY_FAN_ANGLE / 2;
