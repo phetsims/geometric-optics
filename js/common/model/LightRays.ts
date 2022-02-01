@@ -123,7 +123,7 @@ class LightRays {
  */
 function getRayDirections( sourcePosition: Vector2, optic: Optic, raysType: RaysType, targetPoint: Vector2 ): Vector2[] {
 
-  // {Vector2[]} directions of the light rays emanating from the object
+  // {Vector2[]} directions of the light rays emanating from sourcePosition
   const directions = [];
 
   // convenience variables
