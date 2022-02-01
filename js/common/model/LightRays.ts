@@ -83,7 +83,7 @@ class LightRays {
         const isVirtual = target.isVirtualProperty.value;
 
         // {Vector2[]} get the initial directions of the rays
-        const directions = getRayDirections( sourcePosition, optic, raysType, targetPoint );
+        const directions = getRayDirections( raysType, sourcePosition, optic, targetPoint );
 
         // is the Rays mode set to Principal
         const isPrincipalRaysType = ( raysType === 'principal' );
@@ -116,12 +116,12 @@ class LightRays {
 
 /**
  * Gets the initial directions (as unit vectors) of the rays for the different ray types.
+ * @param raysType
  * @param sourcePosition
  * @param optic
- * @param raysType
  * @param targetPoint
  */
-function getRayDirections( sourcePosition: Vector2, optic: Optic, raysType: RaysType, targetPoint: Vector2 ): Vector2[] {
+function getRayDirections( raysType: RaysType, sourcePosition: Vector2, optic: Optic, targetPoint: Vector2 ): Vector2[] {
 
   // {Vector2[]} directions of the light rays emanating from sourcePosition
   const directions = [];
