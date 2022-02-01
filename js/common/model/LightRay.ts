@@ -18,10 +18,14 @@ import Lens from '../../lens/model/Lens.js';
 import ProjectionScreen from '../../lens/model/ProjectionScreen.js';
 import Mirror from '../../mirror/model/Mirror.js';
 import GOQueryParameters from '../GOQueryParameters.js';
-import LightRaySegment from './LightRaySegment.js';
 import Optic from './Optic.js';
 import Ray from './Ray.js';
 import { RaysType } from './RaysType.js';
+
+type LightRaySegment = {
+  startPoint: Vector2,
+  endPoint: Vector2
+};
 
 class LightRay {
 
@@ -153,7 +157,7 @@ class LightRay {
       const realEndPoint = realRay.pointAtDistance( realRayDistance );
 
       // Add a line segment based on the traveling distance of the ray being processed
-      this.realSegments.push( new LightRaySegment( realRay.position, realEndPoint ) );
+      this.realSegments.push( { startPoint: realRay.position, endPoint: realEndPoint } );
 
       // Wait to process virtual ray until the virtual starting point matches the starting point of the ray being processed.
       if ( this.virtualRay && this.virtualRay.position === realRay.position ) {
@@ -163,7 +167,7 @@ class LightRay {
         const virtualEndPoint = this.virtualRay.pointAtDistance( virtualRayDistance );
 
         // Add a line segment based on the virtual ray.
-        this.virtualSegments.push( new LightRaySegment( this.virtualRay.position, virtualEndPoint ) );
+        this.virtualSegments.push( { startPoint: this.virtualRay.position, endPoint: virtualEndPoint } );
       }
 
       // Update the value of the distance remaining.
@@ -368,3 +372,4 @@ function hasVirtualRay( isImageVirtual: boolean, realRays: Ray[] ): boolean {
 
 geometricOptics.register( 'LightRay', LightRay );
 export default LightRay;
+export type { LightRaySegment };

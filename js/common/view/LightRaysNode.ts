@@ -16,8 +16,8 @@ import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { ColorDef, Line, Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
+import { LightRaySegment } from '../model/LightRay.js';
 import LightRays from '../model/LightRays.js';
-import LightRaySegment from '../model/LightRaySegment.js';
 import Representation from '../model/Representation.js';
 
 type LineOptions = {
