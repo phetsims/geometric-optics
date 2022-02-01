@@ -61,10 +61,10 @@ class GOModel {
   // the second point on the source object, and the second light source
   readonly secondPoint: SecondPoint;
 
-  // model of the target/image associated with sourceObject
+  // Image associated with sourceObject
   readonly firstTarget: Target;
 
-  // target/ image associated with secondPoint
+  // Image associated with secondPoint
   readonly secondTarget: Target;
 
   // optional projection screen that may block rays
