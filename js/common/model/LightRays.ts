@@ -94,17 +94,17 @@ class LightRays {
         // loop over the direction of each ray
         directions.forEach( direction => {
 
-          // determine the lightRay
+          // Create a LightRay, which is responsible for creating real and virtual ray segments.
           const lightRay = new LightRay( sourcePosition, direction, lightRaysTime, optic, targetPoint, isVirtual,
             isPrincipalRaysType, representation.isFramedObject ? null : projectionScreen
           );
 
-          // set target's visibility to true after the first ray reaches its target
+          // Set target's visibility to true when a ray reaches the target.
           if ( lightRay.isTargetReached ) {
             target.visibleProperty.value = true;
           }
 
-          // Add lightRay's line segments
+          // Add lightRay's segments
           this.realSegments.push( ...lightRay.realSegments );
           this.virtualSegments.push( ...lightRay.virtualSegments );
         } );
