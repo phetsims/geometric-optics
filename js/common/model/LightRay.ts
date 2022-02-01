@@ -19,7 +19,7 @@ import ProjectionScreen from '../../lens/model/ProjectionScreen.js';
 import Mirror from '../../mirror/model/Mirror.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import Optic from './Optic.js';
-import Ray from './Ray.js';
+import GORay from './GORay.js';
 import { RaysType } from './RaysType.js';
 
 type LightRaySegment = {
@@ -39,13 +39,13 @@ class LightRay {
   readonly isTargetReached: boolean;
 
   // a collection of sequential rays
-  private readonly realRays: Array<Ray>;
+  private readonly realRays: Array<GORay>;
 
   // Does this light ray have a virtual ray attached to it?
   private readonly hasVirtualRay: boolean;
 
   // there is a maximum of one virtual ray per LightRay
-  private readonly virtualRay: Ray | null;
+  private readonly virtualRay: GORay | null;
 
   /**
    * @param sourcePosition - where this LightRay originated
@@ -69,7 +69,7 @@ class LightRay {
     const distanceTraveled = GOQueryParameters.lightSpeed * lightRaysTime;
 
     // ray (position and direction) emerging from source
-    const initialRay = new Ray( sourcePosition, direction );
+    const initialRay = new GORay( sourcePosition, direction );
 
     // {Vector2|null} first intersection point - a null value implies that the initialRay does not intersect the optic
     const firstPoint = getFirstPoint( initialRay, optic, raysType );
@@ -185,7 +185,7 @@ class LightRay {
  * @param optic
  * @param raysType
  */
-function getFirstPoint( initialRay: Ray, optic: Optic, raysType: RaysType ): Vector2 | null {
+function getFirstPoint( initialRay: GORay, optic: Optic, raysType: RaysType ): Vector2 | null {
   const firstIntersection = optic.getFrontShapeTranslated( raysType ).intersection( initialRay );
   return getPoint( firstIntersection );
 }
@@ -199,8 +199,8 @@ function getFirstPoint( initialRay: Ray, optic: Optic, raysType: RaysType ): Vec
  * @param raysType
  * @param targetPoint
  */
-function getRealRays( initialRay: Ray, firstPoint: Vector2 | null, optic: Optic, raysType: RaysType,
-                      targetPoint: Vector2 ): Ray[] {
+function getRealRays( initialRay: GORay, firstPoint: Vector2 | null, optic: Optic, raysType: RaysType,
+                      targetPoint: Vector2 ): GORay[] {
 
   // array to store all the rays
   const rays = [];
@@ -226,10 +226,10 @@ function getRealRays( initialRay: Ray, firstPoint: Vector2 | null, optic: Optic,
     else {
       assert && assert( optic instanceof Lens );
 
-      // {Vector2} find bisecting point of the lens, used to determine outgoin ray
+      // {Vector2} find bisecting point of the lens, used to determine outgoing ray
       const intermediatePoint = getIntermediatePoint( initialRay, firstPoint, optic );
 
-      // create a semi infinite ray starting at intermediate point to the target point
+      // create a semi-infinite ray starting at intermediate point to the target point
       const transmittedRay = getTransmittedRay( intermediatePoint, targetPoint, optic );
 
       // determine the intersection of the transmitted ray with the back shape of the optic
@@ -242,7 +242,7 @@ function getRealRays( initialRay: Ray, firstPoint: Vector2 | null, optic: Optic,
       if ( backPoint ) {
 
         // ray that spans the front to the back of the lens
-        const internalRay = new Ray( firstPoint, backPoint.minus( firstPoint ).normalized() );
+        const internalRay = new GORay( firstPoint, backPoint.minus( firstPoint ).normalized() );
 
         // set the internal ray back point
         internalRay.setFinalPoint( backPoint );
@@ -274,7 +274,7 @@ function getRealRays( initialRay: Ray, firstPoint: Vector2 | null, optic: Optic,
  * @param firstPoint
  * @param optic
  */
-function getIntermediatePoint( initialRay: Ray, firstPoint: Vector2, optic: Optic ): Vector2 {
+function getIntermediatePoint( initialRay: GORay, firstPoint: Vector2, optic: Optic ): Vector2 {
 
   // displacement vector from the source to the optic position
   const opticSourceVector = optic.positionProperty.value.minus( initialRay.position );
@@ -293,7 +293,7 @@ function getIntermediatePoint( initialRay: Ray, firstPoint: Vector2, optic: Opti
  * @param realRay
  * @param projectionScreen
  */
-function terminateOnProjectionScreen( realRay: Ray, projectionScreen: ProjectionScreen ): void {
+function terminateOnProjectionScreen( realRay: GORay, projectionScreen: ProjectionScreen ): void {
 
   const intersection = projectionScreen.getBisectorLineTranslated().intersection( realRay );
 
@@ -324,7 +324,7 @@ function getPoint( intersection: RayIntersection[] ): Vector2 | null {
 /**
  * Returns a semi-infinite ray starting at originPoint. The ray is along (or opposite to) the direction of targetPoint.
  */
-function getTransmittedRay( originPoint: Vector2, targetPoint: Vector2, optic: Optic ): Ray {
+function getTransmittedRay( originPoint: Vector2, targetPoint: Vector2, optic: Optic ): GORay {
 
   const direction = originPoint.minus( targetPoint ).normalized();
 
@@ -332,7 +332,7 @@ function getTransmittedRay( originPoint: Vector2, targetPoint: Vector2, optic: O
   if ( ( optic instanceof Lens && direction.x < 0 ) || ( optic instanceof Mirror && direction.x > 0 ) ) {
     direction.negate();
   }
-  return new Ray( originPoint, direction );
+  return new GORay( originPoint, direction );
 }
 
 /**
@@ -341,13 +341,13 @@ function getTransmittedRay( originPoint: Vector2, targetPoint: Vector2, optic: O
  * @param realRays
  * @param targetPoint
  */
-function getVirtualRay( realRays: Ray[], targetPoint: Vector2 ): Ray | null {
+function getVirtualRay( realRays: GORay[], targetPoint: Vector2 ): GORay | null {
   assert && assert( realRays.length > 1 );
 
   const lastRealRay = realRays[ realRays.length - 1 ];
 
   // Virtual ray has the same position as the real ray, but propagates in the opposite direction.
-  const virtualRay = new Ray( lastRealRay.position, lastRealRay.direction.negated() );
+  const virtualRay = new GORay( lastRealRay.position, lastRealRay.direction.negated() );
 
   // If the ray intersects the target point, terminate at the target point.
   if ( virtualRay.isPointAlongRay( targetPoint ) ) {
@@ -364,7 +364,7 @@ function getVirtualRay( realRays: Ray[], targetPoint: Vector2 ): Ray | null {
  * @param isImageVirtual
  * @param realRays
  */
-function hasVirtualRay( isImageVirtual: boolean, realRays: Ray[] ): boolean {
+function hasVirtualRay( isImageVirtual: boolean, realRays: GORay[] ): boolean {
 
   // Is the image virtual and have the real rays refracted?
   return isImageVirtual && realRays.length > 1;

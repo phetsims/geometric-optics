@@ -1,7 +1,7 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * Ray is an extension of dot.Ray2 that adds a length property. A Ray can have finite or semi-infinite length.
+ * GORay extends dot.Ray2 by adding a length property. A GORay can have finite or semi-infinite length.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -11,7 +11,7 @@ import Ray2 from '../../../../dot/js/Ray2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import geometricOptics from '../../geometricOptics.js';
 
-class Ray extends Ray2 {
+class GORay extends Ray2 {
 
   private length: number;
 
@@ -71,5 +71,5 @@ class Ray extends Ray2 {
   }
 }
 
-geometricOptics.register( 'Ray', Ray );
-export default Ray;
+geometricOptics.register( 'GORay', GORay );
+export default GORay;
