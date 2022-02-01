@@ -49,12 +49,12 @@ class LightRay {
    * @param lightRaysTime - elapsed time of light rays animation
    * @param optic - model of the optic
    * @param targetPoint - point of focus of all rays based on thin lens law
-   * @param isVirtual - is the image virtual?
+   * @param isImageVirtual - is the image virtual?
    * @param raysType
    * @param projectionScreen - optional projection screen that can block the rays
    */
   constructor( sourcePosition: Vector2, direction: Vector2, lightRaysTime: number, optic: Optic, targetPoint: Vector2,
-               isVirtual: boolean, raysType: RaysType, projectionScreen: ProjectionScreen | null ) {
+               isImageVirtual: boolean, raysType: RaysType, projectionScreen: ProjectionScreen | null ) {
 
     assert && AssertUtils.assertNonNegativeNumber( lightRaysTime );
 
@@ -78,7 +78,7 @@ class LightRay {
       terminateOnProjectionScreen( lastRay, projectionScreen );
     }
 
-    this.hasVirtualRay = hasVirtualComponent( isVirtual, this.realRays );
+    this.hasVirtualRay = hasVirtualRay( isImageVirtual, this.realRays );
 
     this.virtualRay = this.hasVirtualRay ?
                       getVirtualRay( this.realRays, targetPoint ) :
@@ -318,7 +318,7 @@ function getPoint( intersection: RayIntersection[] ): Vector2 | null {
 }
 
 /**
- * Returns a semi infinite ray starting at originPoint. The ray is along (or opposite to) the direction of targetPoint.
+ * Returns a semi-infinite ray starting at originPoint. The ray is along (or opposite to) the direction of targetPoint.
  */
 function getTransmittedRay( originPoint: Vector2, targetPoint: Vector2, optic: Optic ): Ray {
 
@@ -333,50 +333,36 @@ function getTransmittedRay( originPoint: Vector2, targetPoint: Vector2, optic: O
 
 /**
  * Returns a virtual ray that is opposite to the last real ray.
- * If the virtual ray does not exist or does not line up with the target point, it returns null.
+ * Returns null if the rays does not intersect the target point.
  * @param realRays
  * @param targetPoint
  */
 function getVirtualRay( realRays: Ray[], targetPoint: Vector2 ): Ray | null {
+  assert && assert( realRays.length > 1 );
 
-  // to have a virtual ray, the initial ray must be deflected
-  if ( realRays.length > 1 ) {
+  const lastRealRay = realRays[ realRays.length - 1 ];
 
-    // last real ray
-    const lastRay = realRays[ realRays.length - 1 ];
+  // Virtual ray has the same position as the real ray, but propagates in the opposite direction.
+  const virtualRay = new Ray( lastRealRay.position, lastRealRay.direction.negated() );
 
-    // virtual ray propagates in the opposite direction to the ray but same initial position
-    const virtualRay = new Ray( lastRay.position, lastRay.direction.negated() );
-
-    // ensure that the virtual ray is along the target point
-    if ( virtualRay.isPointAlongRay( targetPoint ) ) {
-
-      // set the target point to assign the length of ray
-      virtualRay.setFinalPoint( targetPoint );
-
-      return virtualRay;
-    }
-    else {
-
-      // no virtual ray to return
-      return null;
-    }
+  // If the ray intersects the target point, terminate at the target point.
+  if ( virtualRay.isPointAlongRay( targetPoint ) ) {
+    virtualRay.setFinalPoint( targetPoint );
+    return virtualRay;
   }
   else {
-
-    // no virtual ray to return
     return null;
   }
 }
 
 /**
- * Has the light ray a virtual component (virtual ray)?
+ * Does this LightRay have a virtual ray?
  * @param isImageVirtual
  * @param realRays
  */
-function hasVirtualComponent( isImageVirtual: boolean, realRays: Ray[] ): boolean {
+function hasVirtualRay( isImageVirtual: boolean, realRays: Ray[] ): boolean {
 
-  // is the image virtual and has the real rays refracted
+  // Is the image virtual and have the real rays refracted?
   return isImageVirtual && realRays.length > 1;
 }
 
