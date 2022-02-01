@@ -141,7 +141,7 @@ class LightRay {
     // counter for real rays
     let i = 0;
 
-    // Process until we cover the entire distance, or until we ran out of rays.
+    // Process until we cover the entire distance, or until we run out of rays.
     while ( remainingDistance > 0 && i < this.realRays.length ) {
 
       // Real ray being processed
