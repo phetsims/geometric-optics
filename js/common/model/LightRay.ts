@@ -1,11 +1,10 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * Model element of the Light Ray
- * A LightRay is made of several contiguous Rays
- * A light Ray can fork to have real and virtual ray components.
- * The lightRay has a flag that determines if it has reached a target
- * This class is responsible for the line segments that describe one ray.
+ * LightRay is the model of a single light ray, and creates the LightRaySegments that describe that light ray.
+ * A LightRay can fork to have real and virtual ray components.
+ * The segments are initially described as Rays, then converted to LightRaySegments.
+ * LightRay has a flag that determines if it has reached a target.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -40,7 +39,7 @@ class LightRay {
   // Does this light ray have a virtual ray attached to it?
   private readonly hasVirtualRay: boolean;
 
-  // there is a maximum of one virtual ray per lightRay
+  // there is a maximum of one virtual ray per LightRay
   private readonly virtualRay: Ray | null;
 
   /**
