@@ -30,7 +30,7 @@ class GORay extends Ray2 {
    * @param length
    */
   public setLength( length: number ): void {
-    assert && assert( isFinite( length ) );
+    assert && assert( isFinite( length ) && length > 0 );
     this.length = length;
   }
 
