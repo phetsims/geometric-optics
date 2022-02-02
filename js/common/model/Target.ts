@@ -111,13 +111,13 @@ class Target {
         this.getMagnification( objectPosition, opticPosition )
     );
 
-    // REVIEW: DerivedProperty that depends on an unlisted Property?
+    //TODO REVIEW: DerivedProperty that depends on an unlisted Property?
     this.isInvertedProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       ( ...args: any[] ) => ( this.targetOpticDistanceProperty.value > 0 )
     );
 
-    // REVIEW: DerivedProperty that depends on an unlisted Property?
+    //TODO REVIEW: DerivedProperty that depends on an unlisted Property?
     this.isVirtualProperty = new DerivedProperty(
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       ( ...args: any[] ) => ( this.targetOpticDistanceProperty.value < 0 )
