@@ -109,7 +109,10 @@ class GOModel {
       validValues: options.representations
     } );
 
-    this.sourceObject = new SourceObject( this.representationProperty, options.sourceObjectPosition );
+    this.sourceObject = new SourceObject( this.representationProperty, {
+      position: options.sourceObjectPosition,
+      tandem: options.tandem.createTandem( 'sourceObject' )
+    } );
 
     this.secondPoint = new SecondPoint( this.representationProperty, this.sourceObject.positionProperty );
 

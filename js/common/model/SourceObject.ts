@@ -10,28 +10,24 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import geometricOptics from '../../geometricOptics.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Property from '../../../../axon/js/Property.js';
 import Representation from './Representation.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import OpticalObject, { OpticalObjectOptions } from './OpticalObject.js';
 
-class SourceObject {
+class SourceObject extends OpticalObject {
 
-  // position of the source object or light source
-  public readonly positionProperty: Property<Vector2>;
-
-  // model bounds of the source object or first light source
+  // model bounds of the Object's visual representation
   public readonly boundsProperty: IReadOnlyProperty<Bounds2>;
 
   /**
    * @param representationProperty
-   * @param initialPosition
+   * @param options
    */
-  constructor( representationProperty: IReadOnlyProperty<Representation>, initialPosition: Vector2 ) {
+  constructor( representationProperty: IReadOnlyProperty<Representation>, options: OpticalObjectOptions ) {
 
-    this.positionProperty = new Vector2Property( initialPosition );
+    super( options );
 
     this.boundsProperty = new DerivedProperty(
       [ representationProperty, this.positionProperty ],
@@ -43,10 +39,13 @@ class SourceObject {
         const htmlImageElementHeight = representation.rightFacingUpright.height;
         const size = new Dimension2( scaleFactor * htmlImageElementWidth, scaleFactor * htmlImageElementHeight );
 
-        const offset = representation.rightFacingUprightOffset.timesScalar( scaleFactor );
-        const leftTop = position.plus( offset );
+        const origin = representation.rightFacingUprightOrigin.timesScalar( scaleFactor );
+        const offsetX = origin.x;
+        const offsetY = -origin.y;  // flip sign of offset.y because +y is up in the model
+        const left = position.x - offsetX;
+        const bottom = position.y - offsetY - size.height;
 
-        return size.toBounds( leftTop.x, leftTop.y - size.height );
+        return size.toBounds( left, bottom );
       }, {
 
         // Because changing representationProperty may necessitate changing positionProperty to move

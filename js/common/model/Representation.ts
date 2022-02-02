@@ -37,14 +37,15 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 const FRAMED_OBJECT_SCALE_FACTOR = 0.25;
 const LIGHT_SOURCE_SCALE_FACTOR = 0.5;
 
-// How much to shift the upper-left corner of the framed Object, in view coordinates.
+// Where the point of interest is relative to the left-top corner of PNG files for framed objects.
 // This is specific to the object PNG files, and must be uniform for all object PNG files.
-// x should be 1/2 of PNG file width. y should be tip of pencil.
-const FRAMED_OBJECT_OFFSET = new Vector2( -68.5, 100 );
+// x should be 1/2 of PNG file width. y should be tip of pencil. +x right, +y down.
+const FRAMED_OBJECT_ORIGIN = new Vector2( 68.5, 100 );
 
-// How much to shift the upper-left corner of the Light Source, in view coordinates.
+// Where the point of interest is relative to the left-top corner of PNG files for light sources.
 // This is specific to the light-source PNG files, and must be uniform for all light-source PNG files.
-const LIGHT_SOURCE_OFFSET = new Vector2( -62, 40 );
+// This should be at the right-center of the light's bulb. +x right, +y down.
+const LIGHT_SOURCE_ORIGIN = new Vector2( 62, 40 );
 
 // Configuration provided to the constructor
 type RepresentationConfig = {
@@ -65,7 +66,7 @@ type RepresentationConfig = {
   leftFacingInverted: HTMLImageElement | null,
 
   // offset between point of interest and left-top corner of rightFacingUpright, in view coordinates
-  rightFacingUprightOffset: Vector2,
+  rightFacingUprightOrigin: Vector2,
 
   // phet-io
   tandemPrefix: string
@@ -81,7 +82,7 @@ class Representation {
   readonly rightFacingInverted: HTMLImageElement | null;
   readonly leftFacingUpright: HTMLImageElement | null;
   readonly leftFacingInverted: HTMLImageElement | null;
-  readonly rightFacingUprightOffset: Vector2;
+  readonly rightFacingUprightOrigin: Vector2;
   readonly tandemPrefix: string;
 
   // Scale used when displaying the representation.
@@ -100,7 +101,7 @@ class Representation {
     this.rightFacingInverted = config.rightFacingInverted;
     this.leftFacingUpright = config.leftFacingUpright;
     this.leftFacingInverted = config.leftFacingInverted;
-    this.rightFacingUprightOffset = config.rightFacingUprightOffset;
+    this.rightFacingUprightOrigin = config.rightFacingUprightOrigin;
     this.tandemPrefix = config.tandemPrefix;
 
     // additional fields
@@ -120,7 +121,7 @@ const RepresentationStaticInstances: Representation[] = [
     rightFacingInverted: pencilRightFacingInverted_png,
     leftFacingUpright: pencilLeftFacingUpright_png,
     leftFacingInverted: pencilLeftFacingInverted_png,
-    rightFacingUprightOffset: FRAMED_OBJECT_OFFSET,
+    rightFacingUprightOrigin: FRAMED_OBJECT_ORIGIN,
     tandemPrefix: 'pencil'
   } ),
 
@@ -133,7 +134,7 @@ const RepresentationStaticInstances: Representation[] = [
     rightFacingInverted: penguinRightFacingInverted_png,
     leftFacingUpright: penguinLeftFacingUpright_png,
     leftFacingInverted: penguinLeftFacingInverted_png,
-    rightFacingUprightOffset: FRAMED_OBJECT_OFFSET,
+    rightFacingUprightOrigin: FRAMED_OBJECT_ORIGIN,
     tandemPrefix: 'penguin'
   } ),
 
@@ -146,7 +147,7 @@ const RepresentationStaticInstances: Representation[] = [
     rightFacingInverted: planetRightFacingInverted_png,
     leftFacingUpright: planetLeftFacingUpright_png,
     leftFacingInverted: planetLeftFacingInverted_png,
-    rightFacingUprightOffset: FRAMED_OBJECT_OFFSET,
+    rightFacingUprightOrigin: FRAMED_OBJECT_ORIGIN,
     tandemPrefix: 'planet'
   } ),
 
@@ -159,7 +160,7 @@ const RepresentationStaticInstances: Representation[] = [
     rightFacingInverted: starRightFacingInverted_png,
     leftFacingUpright: starLeftFacingUpright_png,
     leftFacingInverted: starLeftFacingInverted_png,
-    rightFacingUprightOffset: FRAMED_OBJECT_OFFSET,
+    rightFacingUprightOrigin: FRAMED_OBJECT_ORIGIN,
     tandemPrefix: 'star'
   } ),
 
@@ -172,7 +173,7 @@ const RepresentationStaticInstances: Representation[] = [
     rightFacingInverted: null,
     leftFacingUpright: null,
     leftFacingInverted: null,
-    rightFacingUprightOffset: LIGHT_SOURCE_OFFSET,
+    rightFacingUprightOrigin: LIGHT_SOURCE_ORIGIN,
     tandemPrefix: 'light'
   } )
 ];

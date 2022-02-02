@@ -129,18 +129,20 @@ class Target {
       ( position: Vector2, representation: Representation, magnification: number, isInverted: boolean ) => {
 
         const scaleFactor = representation.scaleFactor;
-        const initialOffset = representation.rightFacingUprightOffset.timesScalar( scaleFactor );
+        const initialOrigin = representation.rightFacingUprightOrigin.timesScalar( scaleFactor );
         const initialWidth = representation.rightFacingUpright.width * scaleFactor;
         const initialHeight = representation.rightFacingUpright.height * scaleFactor;
 
-        const offset = initialOffset.timesScalar( magnification );
+        const origin = initialOrigin.timesScalar( magnification );
+        const offsetX = -origin.x;
+        const offsetY = origin.y;
         const width = initialWidth * magnification;
         const height = initialHeight * magnification;
 
-        const x1 = optic.sign * offset.x;
-        const x2 = optic.sign * ( offset.x + width );
-        const y1 = offset.y;
-        const y2 = offset.y - height;
+        const x1 = optic.sign * offsetX;
+        const x2 = optic.sign * ( offsetX + width );
+        const y1 = offsetY;
+        const y2 = offsetY - height;
 
         const bounds = new Bounds2( Math.min( x1, x2 ), Math.min( y1, y2 ), Math.max( x1, x2 ), Math.max( y1, y2 ) );
 

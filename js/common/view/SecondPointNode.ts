@@ -33,7 +33,7 @@ const POINT_RADIUS = 5;
 const LIGHT_SOURCE_IMAGE_SCALE = 1;
 
 // Point where the light comes out of the light PNG image, in model coordinates
-//TODO why isn't this also used for the first light source? and can't use Representation.LIGHT.rightFacingUprightOffset ?
+//TODO why isn't this also used for the first light source? and can't use Representation.LIGHT.rightFacingUprightOrigin ?
 const LIGHT_SOURCE_OFFSET = new Vector2( 30, -20 );
 
 //TODO no idea why this worked for https://github.com/phetsims/geometric-optics/issues/191, circle back
