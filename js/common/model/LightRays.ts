@@ -78,7 +78,7 @@ class LightRays {
         // {Vector2} the position the target
         const targetPoint = target.positionProperty.value;
 
-        // {boolean} is the image virtual
+        // {boolean} is the Image virtual
         const isVirtual = target.isVirtualProperty.value;
 
         // {Vector2[]} get the initial directions of the rays

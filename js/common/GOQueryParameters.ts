@@ -52,7 +52,7 @@ const SCHEMA = {
     isValidValue: ( value: number ) => ( value >= 100 )
   },
 
-  // Range of opacity used for the real/virtual Image
+  // Range of opacity used for the optical Image
   imageOpacityRange: {
    type: 'array',
     elementSchema: {
@@ -62,7 +62,7 @@ const SCHEMA = {
     isValidValue: ( array: number[] ) => ( array.length === 2 && array[ 0 ] < array[ 1 ] && array[ 0 ] >= 0 && array[ 1 ] <= 1 )
   },
 
-  // Opacity for the real/virtual Image mask that controls how well obscured rays and optical axis are seen.
+  // Opacity for the optical Image mask that controls how well obscured rays and optical axis are seen.
   imageMaskOpacity: {
     type: 'number',
     defaultValue: 0.8, // see https://github.com/phetsims/geometric-optics/issues/300
@@ -91,9 +91,9 @@ const SCHEMA = {
     type: 'flag'
   },
 
-  // Shows the Shape of the mask that sits behind the real/virtual Image associated with framed objects, rendered as
-  // a red outline. This mask is used to reduce the opacity of the portion of the axis that is occluded by the Image.
-  // See ?imageMaskOpacity and https://github.com/phetsims/geometric-optics/issues/283.
+  // Shows the Shape of the mask that sits behind the optical Image associated with framed Objects, rendered as
+  // a red outline. This mask is used to reduce the opacity of the portion of the axis that is occluded by the
+  // optical Image. See ?imageMaskOpacity and https://github.com/phetsims/geometric-optics/issues/283.
   debugMask: {
     type: 'flag'
   }

@@ -4,7 +4,7 @@
  * LightRay is the model of a single light ray, and creates the LightRaySegments that describe that light ray.
  * A LightRay can fork to have real and virtual ray components.
  * The segments are initially described as Rays, then converted to LightRaySegments.
- * LightRay has a flag that determines if it has reached a target.
+ * LightRay has a flag that determines if it has reached the point where the optical Image forms.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -118,7 +118,7 @@ class LightRay {
         distance = distance + this.realRays[ i ].getLength();
       }
 
-      // if the image is virtual, the target point is along the virtual ray,
+      // if the Image is virtual, the target point is along the virtual ray,
       // otherwise, the target point probably lies along the last real ray
       const targetRay = this.hasVirtualRay ?
                         this.virtualRay :
@@ -366,7 +366,7 @@ function getVirtualRay( realRays: GORay[], targetPoint: Vector2 ): GORay | null 
  */
 function hasVirtualRay( isImageVirtual: boolean, realRays: GORay[] ): boolean {
 
-  // Is the image virtual and have the real rays refracted?
+  // Is the Image virtual and have the real rays refracted?
   return isImageVirtual && realRays.length > 1;
 }
 

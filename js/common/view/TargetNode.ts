@@ -1,9 +1,9 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * View of the image (both real and virtual)
- * This scenery node is responsible for scaling the image, setting its position,
- * its representation, and assigning the appropriate orientation of the image.
+ * View of the optical Image (both real and virtual)
+ * This scenery node is responsible for scaling the Image, setting its position,
+ * its representation, and assigning the appropriate orientation of the Image.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -76,10 +76,8 @@ class TargetNode extends Node {
 
     const updateScaleAndPosition = (): void => {
 
-      // desired bounds for the image
       const viewBounds = modelViewTransform.modelToViewBounds( target.boundsProperty.value );
 
-      // current values for width and height of the image
       const initialWidth = parentNode.width;
       const initialHeight = parentNode.height;
 
@@ -88,10 +86,10 @@ class TargetNode extends Node {
     };
 
     /**
-     * update the visibility of the image based on:
-     * is the image virtual?
-     * is the checkbox show virtual on?
-     * has the image been targeted by the rays?
+     * update the visibility of the optical Image based on:
+     * Is the Image virtual?
+     * Is the 'Virtual Image' checkbox checked?
+     * Has the Image been targeted by the rays?
      */
     Property.multilink(
       [ target.isVirtualProperty, virtualImageVisibleProperty, target.visibleProperty ],
@@ -102,13 +100,13 @@ class TargetNode extends Node {
     // update position and scale when model bounds change
     target.boundsProperty.link( () => updateScaleAndPosition() );
 
-    // update the opacity of the image
+    // update the opacity of the Image
     target.lightIntensityProperty.link( intensity => {
       imageNode.opacity = Utils.linear( 0, 1, GOQueryParameters.imageOpacityRange[ 0 ], GOQueryParameters.imageOpacityRange[ 1 ], intensity );
       phet.log && phet.log( `Image opacity=${imageNode.opacity}` );
     } );
 
-    // Update the image
+    // Update the image and mask
     target.imageProperty.link( image => {
       if ( image ) {
         imageNode.image = image!;

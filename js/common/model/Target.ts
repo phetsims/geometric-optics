@@ -2,8 +2,8 @@
 
 /**
  * Target is the model for what is called 'Image' in optics.  We're avoiding the term 'image' because it conflicts
- * with scenery.Image. An image can be real or virtual. It is responsible for the position, magnification, opacity,
- * and bounds.
+ * with scenery.Image. An optical Image can be real or virtual. It is responsible for the position, magnification,
+ * opacity, and bounds.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -27,26 +27,26 @@ class Target {
   //TODO visibleProperty should not be in the model
   public readonly visibleProperty: Property<boolean>;
 
-  // horizontal "distance" between target (image) and optic
+  // horizontal "distance" between Image and optic
   // the position of the focus as predicted by lens and mirror equation
   public readonly positionProperty: IReadOnlyProperty<Vector2>;
 
-  // For a mirror, the image is virtual if the image is on the opposite of the object
+  // For a mirror, the Image is virtual if the Image is on the opposite of the object
   readonly isVirtualProperty: IReadOnlyProperty<boolean>;
 
   // Bounds of the actual Image, based on the Representation
   readonly boundsProperty: IReadOnlyProperty<Bounds2>;
 
-  // light intensity of the image (Hollywood) - a value between 0 and 1
+  // light intensity of the Image (Hollywood) - a value between 0 and 1
   readonly lightIntensityProperty: IReadOnlyProperty<number>;
 
-  // the image to display, null if there is no image
+  // the HTMLImageElement to display, null if there is no HTMLImageElement
   readonly imageProperty: IReadOnlyProperty<HTMLImageElement | null>;
 
   // The distance can be negative. We follow the standard sign convention used in geometric optics courses.
   private readonly targetOpticDistanceProperty: IReadOnlyProperty<number>;
 
-  // the magnification can be negative, indicating the target/image is inverted.
+  // the magnification can be negative, indicating the Image is inverted.
   private readonly magnificationProperty: IReadOnlyProperty<number>;
 
   //TODO document
@@ -77,8 +77,8 @@ class Target {
         else {
 
           // Calculated based on the thin lens law/ mirror equation
-          // For a lens, a positive distance, indicates that the target is on the opposite of object (wrt to the lens)
-          // For a mirror, a positive distance indicates that the target is on the same side as the object.
+          // For a lens, a positive distance, indicates that the Image is on the opposite of object (wrt to the lens)
+          // For a mirror, a positive distance indicates that the Image is on the same side as the object.
           return ( focalLength * opticObjectDistance ) / ( opticObjectDistance - focalLength );
         }
       } );
@@ -92,10 +92,10 @@ class Target {
       ( objectPosition: Vector2, opticPosition: Vector2, focalLength: number ) => {
 
         // The height is determined as the vertical offset from the optical axis of the focus point.
-        // The height can be negative if the target is inverted.
+        // The height can be negative if the Image is inverted.
         const height = this.getMagnification( objectPosition, opticPosition ) * ( objectPosition.y - opticPosition.y );
 
-        // horizontal distance between target/image and optic.
+        // horizontal distance between Image and optic.
         const targetOpticDistance = this.targetOpticDistanceProperty.value;
 
         // recall that the meaning of targetOpticDistance is different for a lens and mirror.
@@ -151,10 +151,10 @@ class Target {
       [ this.magnificationProperty, optic.diameterProperty ],
       ( magnification: number, diameter: number ) => {
 
-        // effect of the distance on the opacity, Hollywooded as 1/magnification for upscaled image
+        // effect of the distance on the opacity, Hollywooded as 1/magnification for upscaled Image
         const distanceFactor = Math.min( 1, Math.abs( 1 / magnification ) );
 
-        // effect of the diameter of the optic on the light intensity of the image (also Hollywooded)
+        // effect of the diameter of the optic on the light intensity of the Image (also Hollywooded)
         assert && assert( optic.diameterProperty.range ); // {Range|null}
         const diameterRange: Range = optic.diameterProperty.range!;
         const diameterFactor = diameter / diameterRange.max;
@@ -181,8 +181,8 @@ class Target {
   }
 
   /**
-   * Returns the magnification of the image as defined in geometric optics courses.
-   * A negative magnification implies that the image is inverted.
+   * Returns the magnification of the Image as defined in geometric optics courses.
+   * A negative magnification implies that the Image is inverted.
    * @param objectPosition
    * @param opticPosition
    */

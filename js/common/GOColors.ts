@@ -80,22 +80,22 @@ const GOColors = {
     default: 'rgb( 133, 133, 182 )'
   } ),
 
-  // Fill for the second point on the source object
+  // Fill for the second point on the Object
   secondPointFillProperty: new ProfileColorProperty( geometricOptics, 'secondPointFill', {
     default: 'rgb( 255, 51, 51 )'
   } ),
 
-  // Stroke for the second point on the source object
+  // Stroke for the second point on the Object
   secondPointStrokeProperty: new ProfileColorProperty( geometricOptics, 'secondPointStroke', {
     default: 'black'
   } ),
 
-  // Rays associated with the image produced by the first point of interest on the object or light source
+  // Rays associated with the first Object or Light Source
   rays1StrokeProperty: new ProfileColorProperty( geometricOptics, 'realRayOneStroke', {
     default: 'rgb( 140, 140, 140 )'
   } ),
 
-  // Rays associated with the real image produced by the second point of interest on the object or light source
+  // Rays associated with the second point of interest on the Object or second Light Source
   rays2StrokeProperty: new ProfileColorProperty( geometricOptics, 'realRayTwoStroke', {
     default: 'rgb( 41, 214, 126 )'
   } ),

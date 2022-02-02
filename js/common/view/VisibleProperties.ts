@@ -25,7 +25,7 @@ class VisibleProperties {
   // visibility of the 2F points
   readonly twoFPointsVisibleProperty: Property<boolean>;
 
-  // visibility of the virtual image, when present
+  // visibility of the virtual Image, when present
   readonly virtualImageVisibleProperty: Property<boolean>;
 
   // visibility of the labels
@@ -38,7 +38,6 @@ class VisibleProperties {
   readonly guidesVisibleProperty: Property<boolean>;
 
   // visibility of the ray tracing
-  //TODO this is poorly named, it controls visibility of rays + real image + virtual image
   readonly raysAndImagesVisibleProperty: Property<boolean>;
 
   /**

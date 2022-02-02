@@ -3,7 +3,7 @@
 /**
  * OpticalAxisForegroundNode is a subclass of OpticalAxisNode that (using clipArea) shows only the parts of
  * OpticalAxisNode that are not occluded. It is intended to be layered in front of things that occlude the
- * optical axis (framed objects, images, and projection screen).
+ * optical axis (framed Objects, Images, and projection screen).
  *
  * Note that because the optical axis is dashed, we need to use clipArea instead of just drawing the relevant
  * line segments. If we were to draw line segments, the dash pattern would appear to move, and would not line
@@ -94,14 +94,14 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
         // For a source object...
         if ( targetX > opticX ) {
 
-          // If the image is to the right of the optic, clipArea is 1 rectangle, between the object and image.
+          // If the Image is to the right of the optic, clipArea is 1 rectangle, between the Object and Image.
           clipArea = Shape.rectangle( sourceObjectX, minY, targetX - sourceObjectX, clipHeight );
         }
         else {
 
-          // If the image is to the left of the optic, clipArea requires 2 rectangles.
+          // If the Image is to the left of the optic, clipArea requires 2 rectangles.
 
-          // Determine the relative position of the source object and image.
+          // Determine the relative position of the Object and Image.
           const targetOnRight = ( targetX > sourceObjectX );
 
           // The first rectangle is between the thing on the right and the optic.

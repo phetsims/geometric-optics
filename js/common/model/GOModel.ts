@@ -55,13 +55,13 @@ class GOModel {
   // representation of the source object
   readonly representationProperty: Property<Representation>;
 
-  // source object and first light source
+  // the Object or first Light Source
   readonly sourceObject: SourceObject;
 
-  // the second point on the source object, and the second light source
+  // the second point on the Object, and the second Light Source
   readonly secondPoint: SecondPoint;
 
-  // Image associated with sourceObject
+  // Image associated with the Object or first Light Source
   readonly firstTarget: Target;
 
   // Image associated with secondPoint
