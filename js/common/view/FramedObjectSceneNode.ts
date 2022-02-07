@@ -105,11 +105,10 @@ class FramedObjectSceneNode extends Node {
         tandem: options.tandem.createTandem( 'framedObjectNode' )
       } );
 
-    const secondPointNode = new SecondPointNode( scene.representationProperty, scene.secondPoint,
-      framedObjectNode.dragBoundsProperty, modelViewTransform, options.dragLockedProperty, {
-        tandem: options.tandem.createTandem( 'secondPointNode' ),
-        visibleProperty: visibleProperties.secondPointVisibleProperty
-      } );
+    const secondPointNode = new SecondPointNode( scene.secondPoint, modelViewTransform, {
+      visibleProperty: visibleProperties.secondPointVisibleProperty,
+      tandem: options.tandem.createTandem( 'secondPointNode' )
+    } );
 
     // Both points of interest are on the same Object, so we only render one Image. If we rendered 2 Images,
     // their opacities would combine.

@@ -66,7 +66,7 @@ class FramedObjectScene {
     } );
 
     //TODO make secondPoint a property of framedObject
-    this.secondPoint = new SecondPoint( this.representationProperty, this.framedObject.positionProperty );
+    this.secondPoint = new SecondPoint( this.framedObject.positionProperty );
 
     this.target1 = new Target( this.framedObject.positionProperty, this.optic, this.representationProperty );
 
