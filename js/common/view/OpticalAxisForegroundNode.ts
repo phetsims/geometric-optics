@@ -119,6 +119,8 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
         }
       }
       else {
+        //TODO https://github.com/phetsims/geometric-optics/issues/217 use different approach in LightSourceSceneNode,
+        //  draw foreground segment instead of using clipArea
 
         // For a light source, clipArea is 1 rectangle, between the optic and the projection screen.
         const minX = modelViewTransform.modelToViewX( opticPositionProperty.value.x );

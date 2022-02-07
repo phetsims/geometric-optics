@@ -1,5 +1,7 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/geometric-optics/issues/217 remove stuff having to do with light source
+//TODO https://github.com/phetsims/geometric-optics/issues/217 move this into FramedObject
 /**
  * SecondPoint is the model of the second point on the source object, and the second light source.
  *

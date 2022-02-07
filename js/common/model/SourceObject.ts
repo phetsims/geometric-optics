@@ -1,5 +1,6 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/geometric-optics/issues/217 factor out LightSource and rename this FramedObject
 /**
  * SourceObject is the model for what is typically called "Object" in optics, or the first light source.
  *
@@ -52,10 +53,6 @@ class SourceObject extends OpticalObject {
         // the Object inside the view's drag bounds, resulting in this derivation being called again.
         reentrant: true
       } );
-  }
-
-  public reset(): void {
-    this.positionProperty.reset();
   }
 }
 

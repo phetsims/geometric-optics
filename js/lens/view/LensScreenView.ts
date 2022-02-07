@@ -7,26 +7,22 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { KeyboardUtils, Node } from '../../../../scenery/js/imports.js';
+import { KeyboardUtils } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GOScreenView, { GeometricOpticsScreenViewOptions } from '../../common/view/GOScreenView.js';
 import geometricOptics from '../../geometricOptics.js';
 import LensModel from '../model/LensModel.js';
-import LightSpotNode from './LightSpotNode.js';
-import ProjectionScreenNode from './ProjectionScreenNode.js';
-import Representation from '../../common/model/Representation.js';
 import Property from '../../../../axon/js/Property.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Lens from '../model/Lens.js';
 import LensNode from './LensNode.js';
-import GuidesNode from './GuidesNode.js';
-import GOColors from '../../common/GOColors.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DragLockedButton from '../../common/view/DragLockedButton.js';
+import LightSourcesSceneNode from './LightSourcesSceneNode.js';
+import { LIGHT_SOURCE_REPRESENTATION } from '../../common/model/Representation.js';
 
 type LensScreenViewOptions = {
   tandem: Tandem
@@ -67,55 +63,6 @@ class LensScreenView extends GOScreenView {
 
     super( model, options );
 
-    const guides1Node = new GuidesNode( model.topGuide1, model.bottomGuide1,
-      GOColors.guideArm1FillProperty, this.modelViewTransform, {
-      visibleProperty: this.visibleProperties.guidesVisibleProperty,
-      tandem: options.tandem.createTandem( 'guides1Node' ),
-      phetioDocumentation: 'TODO'
-    } );
-    this.experimentAreaNode.addChild( guides1Node );
-
-    const guides2Node = new GuidesNode( model.topGuide2, model.bottomGuide2,
-      GOColors.guideArm2FillProperty, this.modelViewTransform, {
-      visibleProperty: DerivedProperty.and(
-        [ this.visibleProperties.guidesVisibleProperty, this.visibleProperties.secondPointVisibleProperty ]
-      ),
-      tandem: options.tandem.createTandem( 'guides2Node' ),
-      phetioDocumentation: 'TODO'
-    } );
-    this.experimentAreaNode.addChild( guides2Node );
-
-    // Projection screen
-    const projectionScreenNode = new ProjectionScreenNode(
-      model.projectionScreen,
-      model.optic.positionProperty,
-      this.modelBoundsProperty,
-      this.modelViewTransform, {
-        tandem: options.tandem.createTandem( 'projectionScreenNode' )
-      }
-    );
-
-    // LightSpot associated with the first source
-    const lightSpot1Node = new LightSpotNode( model.lightSpot1, this.modelViewTransform, {
-      visibleProperty: model.firstTarget.visibleProperty
-      // DO NOT instrument for PhET-iO, see https://github.com/phetsims/geometric-optics/issues/269
-    } );
-
-    // LightSpot associated with the second source
-    const lightSpot2Node = new LightSpotNode( model.lightSpot2, this.modelViewTransform, {
-      visibleProperty: DerivedProperty.and(
-        [ model.secondTarget.visibleProperty, this.visibleProperties.secondPointVisibleProperty ] )
-      // DO NOT instrument for PhET-iO, see https://github.com/phetsims/geometric-optics/issues/269
-    } );
-
-    // Add projection screen and light spots in front of the optical axis.
-    const lightSourceNodes = new Node( {
-      children: [ projectionScreenNode, lightSpot1Node, lightSpot2Node ],
-      visibleProperty: new DerivedProperty( [ model.representationProperty ],
-        ( representation: Representation ) => !representation.isFramedObject )
-    } );
-    this.additionalNodesParent.addChild( lightSourceNodes );
-
     // Toggle button to lock dragging to horizontal
     const dragLockedButton = new DragLockedButton( options.dragLockedProperty, {
       left: this.representationComboBox.right + 25,
@@ -124,19 +71,31 @@ class LensScreenView extends GOScreenView {
     } );
     this.controlsLayer.addChild( dragLockedButton );
 
+    const lightSourcesSceneNode = new LightSourcesSceneNode( model.lightSourcesScene, this.visibleProperties,
+      this.modelViewTransform, this.modelVisibleBoundsProperty, this.modelBoundsProperty, model.raysTypeProperty, {
+        createOpticNode: options.createOpticNode,
+        dragLockedProperty: options.dragLockedProperty,
+        tandem: options.tandem.createTandem( 'lightSourcesSceneNode' )
+      } );
+    this.scenesNode.addChild( lightSourcesSceneNode );
+
+    //TODO temporary
+    model.representationProperty.link( representation => {
+      lightSourcesSceneNode.visible = ( representation === LIGHT_SOURCE_REPRESENTATION );
+    } );
+
     // pdom -traversal order
     // Insert projectionScreenNode after zoomButtonGroup.
     const pdomOrder = this.screenViewRootNode.pdomOrder;
     assert && assert( pdomOrder ); // [] | null
     if ( pdomOrder ) {
       pdomOrder.splice( pdomOrder.indexOf( this.surfaceTypeRadioButtonGroup ), 0, dragLockedButton );
-      pdomOrder.splice( pdomOrder.indexOf( this.zoomButtonGroup ), 0, projectionScreenNode );
       this.screenViewRootNode.pdomOrder = pdomOrder;
     }
 
     this.resetLensScreenView = () => {
       options.dragLockedProperty.reset();
-      projectionScreenNode.reset();
+      lightSourcesSceneNode.reset();
     };
   }
 

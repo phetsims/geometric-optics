@@ -3,6 +3,7 @@
 /**
  * LightRaysForegroundNode is a subclass of LightRaysNode that (using clipArea) renders the parts of LightRaysNode
  * that are in front of a real image. It is intended to be layered in front of the real image Node in the scene graph.
+ * Note that this is only needed when the Object is a framed object with 3D perspective.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

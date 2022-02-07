@@ -10,12 +10,10 @@
 import GOModel, { GeometricOpticsModelOptions } from '../../common/model/GOModel.js';
 import Lens from './Lens.js';
 import geometricOptics from '../../geometricOptics.js';
-import Guide from './Guide.js';
-import LightSpot from './LightSpot.js';
-import ProjectionScreen from './ProjectionScreen.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import LightSourcesScene from './LightSourcesScene.js';
 
 type LensModelOptions = {
   tandem: Tandem
@@ -23,87 +21,40 @@ type LensModelOptions = {
 
 class LensModel extends GOModel {
 
-  // model of the projection screen
-  readonly projectionScreen: ProjectionScreen;
-
-  // light spot associated with the first light source
-  readonly lightSpot1: LightSpot;
-
-  // light spot associated with the second light source
-  readonly lightSpot2: LightSpot;
-
-  // top guide associated with the source object or first light source
-  readonly topGuide1: Guide;
-
-  // bottom guide associated with the source object or first light source
-  readonly bottomGuide1: Guide;
-
-  // top guide associated with the second point or second light source
-  readonly topGuide2: Guide;
-
-  // bottom guide associated with the second point or second light source
-  readonly bottomGuide2: Guide;
+  readonly lightSourcesScene: LightSourcesScene;
 
   /**
    * @param providedOptions
    */
   constructor( providedOptions: LensModelOptions ) {
 
+    const options = merge( {
+
+      //TODO give framedObject a bisector line so this isn't empirical
+      // Initial position of the framed object, empirically set so that the optical axis goes through its center.
+      framedObjectPosition: new Vector2( -170, 30 )
+    }, providedOptions ) as GeometricOpticsModelOptions; //TODO don't use 'as'
+
+    // super is responsible for resetting the lens
     const lens = new Lens( {
       tandem: providedOptions.tandem.createTandem( 'lens' )
     } );
 
-    const projectionScreen = new ProjectionScreen( {
-      tandem: providedOptions.tandem.createTandem( 'projectionScreen' )
-    } );
-
-    const options = merge( {
-
-      // Initial position of the source object, empirically set so that the optical axis goes through the center
-      // of the framed object.
-      sourceObjectPosition: new Vector2( -170, 30 ),
-      projectionScreen: projectionScreen
-    }, providedOptions ) as GeometricOpticsModelOptions; //TODO don't use 'as'
-
     super( lens, options );
 
-    this.projectionScreen = projectionScreen;
-
-    // Light Spots
-    this.lightSpot1 = new LightSpot( this.optic, this.projectionScreen, this.sourceObject.positionProperty,
-      this.firstTarget.positionProperty, {
-        tandem: options.tandem.createTandem( 'lightSpot1' ),
-        phetioDocumentation: 'the light spot on the projection screen that is created by the first light source'
-      } );
-    this.lightSpot2 = new LightSpot( this.optic, this.projectionScreen, this.secondPoint.positionProperty,
-      this.secondTarget.positionProperty, {
-        tandem: options.tandem.createTandem( 'lightSpot2' ),
-        phetioDocumentation: 'the light spot on the projection screen that is created by the second light source'
-      } );
-
-    // Guides
-    const guidesTandem = options.tandem.createTandem( 'guides' );
-    this.topGuide1 = new Guide( this.optic, this.sourceObject.positionProperty, 'top', {
-      tandem: guidesTandem.createTandem( 'topGuide1' ),
-      phetioDocumentation: 'TODO'
-    } );
-    this.bottomGuide1 = new Guide( this.optic, this.sourceObject.positionProperty, 'bottom', {
-      tandem: guidesTandem.createTandem( 'bottomGuide1' ),
-      phetioDocumentation: 'TODO'
-    } );
-    this.topGuide2 = new Guide( this.optic, this.secondPoint.positionProperty, 'top', {
-      tandem: guidesTandem.createTandem( 'topGuide2' ),
-      phetioDocumentation: 'TODO'
-    } );
-    this.bottomGuide2 = new Guide( this.optic, this.secondPoint.positionProperty, 'bottom', {
-      tandem: guidesTandem.createTandem( 'bottomGuide2' ),
-      phetioDocumentation: 'TODO'
+    this.lightSourcesScene = new LightSourcesScene( this.optic, this.raysTypeProperty, {
+      tandem: options.tandem.createTandem( 'framedObjectScene' )
     } );
   }
 
-  public reset(): void {
+  reset() {
     super.reset();
-    this.projectionScreen.reset();
+    this.lightSourcesScene.reset();
+  }
+
+  public stepLightRays( dt: number ): void {
+    super.stepLightRays( dt );
+    this.lightSourcesScene.stepLightRays( dt );
   }
 }
 

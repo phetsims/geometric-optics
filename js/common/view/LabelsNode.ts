@@ -16,7 +16,6 @@ import LabelNode from './LabelNode.js';
 import VisibleProperties from './VisibleProperties.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Representation from '../model/Representation.js';
 import LensModel from '../../lens/model/LensModel.js';
 import Lens from '../../lens/model/Lens.js';
 import Mirror from '../../mirror/model/Mirror.js';
@@ -38,18 +37,20 @@ class LabelsNode extends Node {
 
     // Object label ------------------------------------------------------------------------------------
 
-    const objectLabelPositionProperty = new DerivedProperty(
-      [ model.sourceObject.boundsProperty ],
-      // Because we use a Y-inverted model-view transform, the bottom of the Object is the top of the model bounds.
-      ( bounds: Bounds2 ) => bounds.centerTop
-    );
-
-    const objectLabel = new LabelNode( geometricOpticsStrings.object, objectLabelPositionProperty,
-      zoomTransformProperty, {
-        yOffset: 2,
-        visibleProperty: new DerivedProperty( [ model.representationProperty ],
-          ( representation: Representation ) => representation.isFramedObject )
-      } );
+    //TODO https://github.com/phetsims/geometric-optics/issues/217 restore labels
+    //
+    // const objectLabelPositionProperty = new DerivedProperty(
+    //   [ model.sourceObject.boundsProperty ],
+    //   // Because we use a Y-inverted model-view transform, the bottom of the Object is the top of the model bounds.
+    //   ( bounds: Bounds2 ) => bounds.centerTop
+    // );
+    //
+    // const objectLabel = new LabelNode( geometricOpticsStrings.object, objectLabelPositionProperty,
+    //   zoomTransformProperty, {
+    //     yOffset: 2,
+    //     visibleProperty: new DerivedProperty( [ model.representationProperty ],
+    //       ( representation: Representation ) => representation.isFramedObject )
+    //   } );
 
     // Optic label ------------------------------------------------------------------------------------
 
@@ -116,47 +117,51 @@ class LabelsNode extends Node {
 
     // Image label ------------------------------------------------------------------------------------
 
-    const imageLabelPositionProperty = new DerivedProperty(
-      [ model.firstTarget.boundsProperty ],
-      ( bounds: Bounds2 ) => bounds.centerTop
-    );
-
-    const imageLabelVisibleProperty = new DerivedProperty( [
-        model.firstTarget.visibleProperty,
-        model.representationProperty,
-        model.firstTarget.isVirtualProperty,
-        visibleProperties.virtualImageVisibleProperty
-      ],
-      ( visible: boolean, representation: Representation, isVirtual: boolean, virtualImageVisible: boolean ) =>
-        ( visible && representation.isFramedObject && ( isVirtual ? virtualImageVisible : true ) )
-    );
-
-    const imageLabel = new LabelNode( '', imageLabelPositionProperty, zoomTransformProperty, {
-      yOffset: 2,
-      visibleProperty: imageLabelVisibleProperty
-    } );
-
-    // Switch between 'Real Image' and 'Virtual Image'
-    model.firstTarget.isVirtualProperty.link( isVirtual => {
-      imageLabel.setText( isVirtual ? geometricOpticsStrings.virtualImage : geometricOpticsStrings.realImage );
-    } );
+    //TODO https://github.com/phetsims/geometric-optics/issues/217 restore labels
+    //
+    // const imageLabelPositionProperty = new DerivedProperty(
+    //   [ model.firstTarget.boundsProperty ],
+    //   ( bounds: Bounds2 ) => bounds.centerTop
+    // );
+    //
+    // const imageLabelVisibleProperty = new DerivedProperty( [
+    //     model.firstTarget.visibleProperty,
+    //     model.representationProperty,
+    //     model.firstTarget.isVirtualProperty,
+    //     visibleProperties.virtualImageVisibleProperty
+    //   ],
+    //   ( visible: boolean, representation: Representation, isVirtual: boolean, virtualImageVisible: boolean ) =>
+    //     ( visible && representation.isFramedObject && ( isVirtual ? virtualImageVisible : true ) )
+    // );
+    //
+    // const imageLabel = new LabelNode( '', imageLabelPositionProperty, zoomTransformProperty, {
+    //   yOffset: 2,
+    //   visibleProperty: imageLabelVisibleProperty
+    // } );
+    //
+    // // Switch between 'Real Image' and 'Virtual Image'
+    // model.firstTarget.isVirtualProperty.link( isVirtual => {
+    //   imageLabel.setText( isVirtual ? geometricOpticsStrings.virtualImage : geometricOpticsStrings.realImage );
+    // } );
 
     // Screen label ------------------------------------------------------------------------------------
 
     let screenLabel;
     if ( model instanceof LensModel ) {
 
-      const screenLabelPositionProperty = new DerivedProperty(
-        [ model.projectionScreen.positionProperty ],
-        ( position: Vector2 ) => new Vector2( position.x - 25, position.y - 65 ) // empirically, model coordinates
-      );
-
-      screenLabel = new LabelNode( geometricOpticsStrings.projectionScreen, screenLabelPositionProperty, zoomTransformProperty, {
-        visibleProperty: new DerivedProperty(
-          [ model.representationProperty ],
-          ( representation: Representation ) => !representation.isFramedObject
-        )
-      } );
+      //TODO https://github.com/phetsims/geometric-optics/issues/217 restore labels
+      //
+      // const screenLabelPositionProperty = new DerivedProperty(
+      //   [ model.projectionScreen.positionProperty ],
+      //   ( position: Vector2 ) => new Vector2( position.x - 25, position.y - 65 ) // empirically, model coordinates
+      // );
+      //
+      // screenLabel = new LabelNode( geometricOpticsStrings.projectionScreen, screenLabelPositionProperty, zoomTransformProperty, {
+      //   visibleProperty: new DerivedProperty(
+      //     [ model.representationProperty ],
+      //     ( representation: Representation ) => !representation.isFramedObject
+      //   )
+      // } );
     }
 
     // Optical Axis label ------------------------------------------------------------------------------------
@@ -181,7 +186,10 @@ class LabelsNode extends Node {
       opticalAxisLabel,
       leftFocalPointLabel, rightFocalPointLabel,
       left2FLabel, right2FLabel,
-      opticLabel, objectLabel, imageLabel
+      opticLabel
+      //TODO https://github.com/phetsims/geometric-optics/issues/217 restore labels
+      // objectLabel,
+      // imageLabel
     ];
     if ( screenLabel ) {
       children.push( screenLabel );

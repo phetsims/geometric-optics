@@ -9,7 +9,6 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -21,34 +20,20 @@ import MagnifyingGlassZoomButtonGroup from '../../../../scenery-phet/js/Magnifyi
 import { Node, Rectangle } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import GOColors from '../GOColors.js';
 import GOConstants from '../GOConstants.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import GOModel from '../model/GOModel.js';
-import DebugPointNode from './DebugPointNode.js';
-import FocalPointNode from './FocalPointNode.js';
 import GOControlPanel from './GOControlPanel.js';
-import LabelsNode from './LabelsNode.js';
-import LightRaysNode from './LightRaysNode.js';
-import OpticalAxisNode from './OpticalAxisNode.js';
 import OpticShapeRadioButtonGroup from './OpticShapeRadioButtonGroup.js';
-import OpticVerticalAxisNode from './OpticVerticalAxisNode.js';
 import RepresentationComboBox from './RepresentationComboBox.js';
-import RulersToolbox from './RulersToolbox.js';
-import SecondPointNode from './SecondPointNode.js';
 import ShowHideToggleButton from './ShowHideToggleButton.js';
-import SourceObjectNode from './SourceObjectNode.js';
-import TargetNode from './TargetNode.js';
 import VisibleProperties from './VisibleProperties.js';
-import { RaysType } from '../model/RaysType.js';
 import Lens from '../../lens/model/Lens.js';
-import GORulerNode from './GORulerNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Optic from '../model/Optic.js';
-import TwoFPointNode from './TwoFPointNode.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import OpticalAxisForegroundNode from './OpticalAxisForegroundNode.js';
-import LightRaysForegroundNode from './LightRaysForegroundNode.js';
+import FramedObjectSceneNode from './FramedObjectSceneNode.js';
+import { FRAMED_OBJECT_REPRESENTATIONS } from '../model/Representation.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.
@@ -63,7 +48,7 @@ type GeometricOpticsScreenViewOptions = {
   getViewOrigin: ( layoutBounds: Bounds2 ) => Vector2,
 
   // Creates the Node for the optic
-  createOpticNode: ( optic: Optic, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node,
+  createOpticNode: ( optic: Optic, modelBoundsProperty: IReadOnlyProperty<Bounds2>, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node,
 
   // Hotkeys to move a ruler to the optic
   hotkeysMoveRulerToOptic: string[],
@@ -79,16 +64,17 @@ class GOScreenView extends ScreenView {
   protected readonly modelViewTransform: ModelViewTransform2;
   protected readonly visibleProperties: VisibleProperties;
   protected readonly modelBoundsProperty: IReadOnlyProperty<Bounds2>;
+  protected readonly modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>;
   protected readonly screenViewRootNode: Node;
   protected readonly experimentAreaNode: Node;
-  protected readonly additionalNodesParent: Node;
+  protected readonly scenesNode: Node;
   protected readonly controlsLayer: Node;
   protected readonly representationComboBox: Node;
   protected readonly surfaceTypeRadioButtonGroup: Node;
   protected readonly zoomButtonGroup: Node;
 
   private readonly model: GOModel;
-  private readonly resetGeometricScreenView: () => void;
+  private readonly resetGOSceenView: () => void;
 
   /**
    * @param model
@@ -145,28 +131,25 @@ class GOScreenView extends ScreenView {
         return ModelViewTransform2.createOffsetXYScaleMapping( viewOrigin, scale, -scale );
       } );
 
-    const targetNode = new TargetNode( model.representationProperty, model.firstTarget, model.optic,
-      visibleProperties.virtualImageVisibleProperty, visibleProperties.raysAndImagesVisibleProperty, modelViewTransform, {
-        tandem: options.tandem.createTandem( 'targetNode' )
-      } );
-
-    const horizontalRulerNode = new GORulerNode( model.horizontalRuler, zoomTransformProperty, zoomScaleProperty,
-      this.visibleBoundsProperty, model.optic.positionProperty, model.sourceObject.positionProperty,
-      model.secondPoint.positionProperty, model.secondPoint.lightSourcePositionProperty,
-      visibleProperties.secondPointVisibleProperty, model.firstTarget.positionProperty,
-      targetNode.visibleProperty, model.representationProperty, {
-        hotkeysMoveRulerToOptic: options.hotkeysMoveRulerToOptic,
-        tandem: options.tandem.createTandem( 'horizontalRulerNode' )
-      } );
-
-    const verticalRulerNode = new GORulerNode( model.verticalRuler, zoomTransformProperty, zoomScaleProperty,
-      this.visibleBoundsProperty, model.optic.positionProperty, model.sourceObject.positionProperty,
-      model.secondPoint.positionProperty, model.secondPoint.lightSourcePositionProperty,
-      visibleProperties.secondPointVisibleProperty, model.firstTarget.positionProperty,
-      targetNode.visibleProperty, model.representationProperty, {
-        hotkeysMoveRulerToOptic: options.hotkeysMoveRulerToOptic,
-        tandem: options.tandem.createTandem( 'verticalRulerNode' )
-      } );
+    //TODO https://github.com/phetsims/geometric-optics/issues/217 restore rulers
+    //
+    // const horizontalRulerNode = new GORulerNode( model.horizontalRuler, zoomTransformProperty, zoomScaleProperty,
+    //   this.visibleBoundsProperty, model.optic.positionProperty, model.sourceObject.positionProperty,
+    //   model.secondPoint.positionProperty, model.secondPoint.lightSourcePositionProperty,
+    //   visibleProperties.secondPointVisibleProperty, model.firstTarget.positionProperty,
+    //   targetNode.visibleProperty, model.representationProperty, {
+    //     hotkeysMoveRulerToOptic: options.hotkeysMoveRulerToOptic,
+    //     tandem: options.tandem.createTandem( 'horizontalRulerNode' )
+    //   } );
+    //
+    // const verticalRulerNode = new GORulerNode( model.verticalRuler, zoomTransformProperty, zoomScaleProperty,
+    //   this.visibleBoundsProperty, model.optic.positionProperty, model.sourceObject.positionProperty,
+    //   model.secondPoint.positionProperty, model.secondPoint.lightSourcePositionProperty,
+    //   visibleProperties.secondPointVisibleProperty, model.firstTarget.positionProperty,
+    //   targetNode.visibleProperty, model.representationProperty, {
+    //     hotkeysMoveRulerToOptic: options.hotkeysMoveRulerToOptic,
+    //     tandem: options.tandem.createTandem( 'verticalRulerNode' )
+    //   } );
 
     // Control panel at the bottom-center of the screen
     const controlPanel = new GOControlPanel( model.representationProperty, model.optic,
@@ -177,18 +160,20 @@ class GOScreenView extends ScreenView {
       controlPanel.centerBottom = erodedLayoutBounds.centerBottom;
     } );
 
-    // Toolbox in the top-right corner of the screen
-    const rulersToolbox = new RulersToolbox( [ horizontalRulerNode, verticalRulerNode ], {
-      rightTop: erodedLayoutBounds.rightTop,
-      tandem: options.tandem.createTandem( 'rulersToolbox' )
-    } );
-
-    // Tell the rulers where the toolbox is.
-    rulersToolbox.visibleProperty.link( visible => {
-      const bounds = visible ? rulersToolbox.bounds : Bounds2.NOTHING;
-      horizontalRulerNode.setToolboxBounds( bounds );
-      verticalRulerNode.setToolboxBounds( bounds );
-    } );
+    //TODO https://github.com/phetsims/geometric-optics/issues/217 retore toolbox
+    //
+    // // Toolbox in the top-right corner of the screen
+    // const rulersToolbox = new RulersToolbox( [ horizontalRulerNode, verticalRulerNode ], {
+    //   rightTop: erodedLayoutBounds.rightTop,
+    //   tandem: options.tandem.createTandem( 'rulersToolbox' )
+    // } );
+    //
+    // // Tell the rulers where the toolbox is.
+    // rulersToolbox.visibleProperty.link( visible => {
+    //   const bounds = visible ? rulersToolbox.bounds : Bounds2.NOTHING;
+    //   horizontalRulerNode.setToolboxBounds( bounds );
+    //   verticalRulerNode.setToolboxBounds( bounds );
+    // } );
 
     // Radio buttons for the shape of the optic
     const surfaceTypeRadioButtonGroup = new OpticShapeRadioButtonGroup( model.optic, {
@@ -257,113 +242,21 @@ class GOScreenView extends ScreenView {
         return new Bounds2( modelVisibleBounds.minX, -y, modelVisibleBounds.maxX, y );
       } );
 
-    // the source object or first light source
-    const sourceObjectNode = new SourceObjectNode( model.representationProperty, model.sourceObject,
-      modelBoundsProperty, model.optic.positionProperty, modelViewTransform, options.dragLockedProperty, {
-        tandem: options.tandem.createTandem( 'sourceObjectNode' )
+    const framedObjectSceneNode = new FramedObjectSceneNode( model.framedObjectScene, visibleProperties, modelViewTransform,
+      modelVisibleBoundsProperty, modelBoundsProperty, model.raysTypeProperty, {
+        createOpticNode: options.createOpticNode,
+        dragLockedProperty: options.dragLockedProperty,
+        tandem: options.tandem.createTandem( 'framedObjectSceneNode' )
       } );
 
-    // the second point or second light source
-    const secondPointNode = new SecondPointNode( model.representationProperty, model.secondPoint,
-      sourceObjectNode.dragBoundsProperty, modelViewTransform, options.dragLockedProperty, {
-        tandem: options.tandem.createTandem( 'secondPointNode' ),
-        visibleProperty: visibleProperties.secondPointVisibleProperty
-      } );
-
-    const opticNode = options.createOpticNode( model.optic, modelBoundsProperty, modelViewTransform, options.tandem );
-
-    // The complete optical axis, to be put in the background
-    const opticalAxisNode = new OpticalAxisNode(
-      model.optic.positionProperty,
-      modelVisibleBoundsProperty,
-      modelViewTransform, {
-        visibleProperty: model.optic.opticalAxisVisibleProperty
-      } );
-
-    // The parts of the optical axis that appear to be in front of Nodes that have 3D perspective.
-    const opticalAxisForegroundNode = new OpticalAxisForegroundNode(
-      model.optic.positionProperty,
-      modelVisibleBoundsProperty,
-      modelViewTransform,
-      model.lightRays1.raysProcessedEmitter,
-      model.representationProperty,
-      model.sourceObject.positionProperty,
-      sourceObjectNode,
-      model.firstTarget.positionProperty,
-      targetNode,
-      model.projectionScreen, {
-        visibleProperty: model.optic.opticalAxisVisibleProperty
-      } );
-
-    const opticVerticalAxisNode = new OpticVerticalAxisNode( model.optic, model.raysTypeProperty, modelViewTransform, {
-      tandem: options.tandem.createTandem( 'opticVerticalAxisNode' )
+    const scenesNode = new Node( {
+      children: [ framedObjectSceneNode ]
     } );
-
-    // focal points (F)
-    const focalPointsNode = new Node( {
-      children: [
-        new FocalPointNode( model.optic.leftFocalPointProperty, modelViewTransform ),
-        new FocalPointNode( model.optic.rightFocalPointProperty, modelViewTransform )
-      ],
-      visibleProperty: visibleProperties.focalPointsVisibleProperty,
-      tandem: options.tandem.createTandem( 'focalPointsNode' )
-    } );
-
-    // 2F points
-    const twoFPointsNode = new Node( {
-      children: [
-        new TwoFPointNode( model.optic.left2FProperty, modelViewTransform ),
-        new TwoFPointNode( model.optic.right2FProperty, modelViewTransform )
-      ],
-      visibleProperty: visibleProperties.twoFPointsVisibleProperty,
-      tandem: options.tandem.createTandem( 'twoFPointsNode' )
-    } );
-
-    // create the light rays associated with the source object and first light source
-    const lightRays1Options = {
-      realRaysStroke: GOColors.rays1StrokeProperty,
-      virtualRaysStroke: GOColors.rays1StrokeProperty
-    };
-    const lightRays1Node = new LightRaysNode( model.lightRays1, model.representationProperty,
-      visibleProperties.virtualImageVisibleProperty, modelViewTransform, lightRays1Options );
-    const lightRays1ForegroundNode = new LightRaysForegroundNode( model.lightRays1, model.representationProperty,
-      visibleProperties.virtualImageVisibleProperty, modelViewTransform, modelVisibleBoundsProperty,
-      model.optic.positionProperty, model.firstTarget.positionProperty, model.firstTarget.isVirtualProperty, lightRays1Options );
-
-    // create the light rays associated with the second point and second light source
-    const lightRays2Options = {
-      realRaysStroke: GOColors.rays2StrokeProperty,
-      virtualRaysStroke: GOColors.rays2StrokeProperty,
-      visibleProperty: visibleProperties.secondPointVisibleProperty
-    };
-    const lightRays2Node = new LightRaysNode( model.lightRays2, model.representationProperty,
-      visibleProperties.virtualImageVisibleProperty, modelViewTransform, lightRays2Options );
-    const lightRays2ForegroundNode = new LightRaysForegroundNode( model.lightRays2, model.representationProperty,
-      visibleProperties.virtualImageVisibleProperty, modelViewTransform, modelVisibleBoundsProperty,
-      model.optic.positionProperty, model.firstTarget.positionProperty, model.firstTarget.isVirtualProperty, lightRays2Options );
-
-    //TODO this is a hack to allow LensScreenView to add the projection screen etc. in the correct layering order
-    const additionalNodesParent = new Node();
 
     // Layer for all the Nodes within the "experiment area".
     // The experiment area is subject to zoom in/out, so include add all Nodes that need to be zoomed.
     const experimentAreaNode = new Node( {
-      children: [
-        opticalAxisNode,
-        sourceObjectNode,
-        lightRays1Node,
-        lightRays2Node,
-        targetNode,
-        additionalNodesParent,
-        opticalAxisForegroundNode,
-        opticNode,
-        opticVerticalAxisNode,
-        focalPointsNode,
-        twoFPointsNode,
-        lightRays1ForegroundNode,
-        lightRays2ForegroundNode,
-        secondPointNode
-      ]
+      children: [ scenesNode ]
     } );
 
     zoomScaleProperty.link( zoomScale => {
@@ -371,22 +264,24 @@ class GOScreenView extends ScreenView {
       experimentAreaNode.translation = viewOrigin;
     } );
 
-    //TODO document or rewrite this
-    Property.multilink(
-      [ model.raysTypeProperty, visibleProperties.raysAndImagesVisibleProperty ],
-      ( raysType: RaysType, rayTracingVisible: boolean ) => {
-        if ( raysType === 'none' ) {
-          model.firstTarget.visibleProperty.value = rayTracingVisible;
-          model.secondTarget.visibleProperty.value = rayTracingVisible;
-        }
-        else {
-          if ( !rayTracingVisible ) {
-            model.firstTarget.visibleProperty.value = false;
-            model.secondTarget.visibleProperty.value = false;
-            model.lightRaysTimeProperty.reset();
-          }
-        }
-      } );
+    //TODO https://github.com/phetsims/geometric-optics/issues/217 restore ShowHideToggleButton feature
+    //
+    // //TODO document or rewrite this
+    // Property.multilink(
+    //   [ model.raysTypeProperty, visibleProperties.raysAndImagesVisibleProperty ],
+    //   ( raysType: RaysType, rayTracingVisible: boolean ) => {
+    //     if ( raysType === 'none' ) {
+    //       model.firstTarget.visibleProperty.value = rayTracingVisible;
+    //       model.secondTarget.visibleProperty.value = rayTracingVisible;
+    //     }
+    //     else {
+    //       if ( !rayTracingVisible ) {
+    //         model.firstTarget.visibleProperty.value = false;
+    //         model.secondTarget.visibleProperty.value = false;
+    //         model.lightRaysTimeProperty.reset();
+    //       }
+    //     }
+    //   } );
 
     // Changing these things interrupts interactions
     const interrupt = () => this.interruptSubtreeInput();
@@ -395,13 +290,15 @@ class GOScreenView extends ScreenView {
 
     // Debugging ================================================================================================
 
-    // Add points at the origins of things that have a position.
-    //TODO move these into the Nodes, ala LensNode
-    if ( GOQueryParameters.debugOrigins ) {
-      experimentAreaNode.addChild( new DebugPointNode( model.sourceObject.positionProperty, modelViewTransform ) );
-      experimentAreaNode.addChild( new DebugPointNode( model.secondPoint.lightSourcePositionProperty, modelViewTransform ) );
-      experimentAreaNode.addChild( new DebugPointNode( model.firstTarget.positionProperty, modelViewTransform ) );
-    }
+    //TODO https://github.com/phetsims/geometric-optics/issues/217 restore or delete DebugPointNode
+    //
+    // // Add points at the origins of things that have a position.
+    // //TODO move these into the Nodes, ala LensNode
+    // if ( GOQueryParameters.debugOrigins ) {
+    //   experimentAreaNode.addChild( new DebugPointNode( model.sourceObject.positionProperty, modelViewTransform ) );
+    //   experimentAreaNode.addChild( new DebugPointNode( model.secondPoint.lightSourcePositionProperty, modelViewTransform ) );
+    //   experimentAreaNode.addChild( new DebugPointNode( model.firstTarget.positionProperty, modelViewTransform ) );
+    // }
 
     // Show the model bounds as a green rectangle.
     if ( GOQueryParameters.debugModelBounds ) {
@@ -417,7 +314,8 @@ class GOScreenView extends ScreenView {
 
     // Layout ================================================================================================
 
-    const labelsNode = new LabelsNode( model, visibleProperties, zoomTransformProperty, modelVisibleBoundsProperty );
+    //TODO https://github.com/phetsims/geometric-optics/issues/217 restore labels
+    //const labelsNode = new LabelsNode( model, visibleProperties, zoomTransformProperty, modelVisibleBoundsProperty );
 
     const controlsLayer = new Node( {
       children: [
@@ -425,32 +323,47 @@ class GOScreenView extends ScreenView {
         controlPanel,
         showHideToggleButton,
         resetAllButton,
-        rulersToolbox,
+        //TOO https://github.com/phetsims/geometric-optics/issues/217 restore toolbox
+        //rulersToolbox,
         zoomButtonGroup,
         representationComboBox
       ]
     } );
 
-    const rulersLayer = new Node( {
-      children: [ horizontalRulerNode, verticalRulerNode ]
-    } );
+    //TODO https://github.com/phetsims/geometric-optics/issues/217 restore rulers
+    //
+    // const rulersLayer = new Node( {
+    //   children: [ horizontalRulerNode, verticalRulerNode ]
+    // } );
 
     const screenViewRootNode = new Node( {
       children: [
         experimentAreaNode,
-        labelsNode,
+        //TODO https://github.com/phetsims/geometric-optics/issues/217 restore labels
+        //labelsNode,
         controlsLayer,
-        rulersLayer,
+        //TODO https://github.com/phetsims/geometric-optics/issues/217 restore rulers
+        //rulersLayer,
         popupsParent
       ]
     } );
     this.addChild( screenViewRootNode );
 
-    this.resetGeometricScreenView = (): void => {
+    //TODO temporary
+    model.representationProperty.link( representation => {
+      if ( FRAMED_OBJECT_REPRESENTATIONS.includes( representation ) ) {
+        model.framedObjectScene.representationProperty.value = representation;
+        framedObjectSceneNode.visible = true;
+      }
+      else {
+        framedObjectSceneNode.visible = false;
+      }
+    } );
+
+    this.resetGOSceenView = (): void => {
       visibleProperties.reset();
       zoomLevelProperty.reset();
-      sourceObjectNode.reset();
-      secondPointNode.reset();
+      framedObjectSceneNode.reset();
     };
 
     // pdom -traversal order
@@ -458,10 +371,11 @@ class GOScreenView extends ScreenView {
     screenViewRootNode.pdomOrder = [
       representationComboBox,
       surfaceTypeRadioButtonGroup,
-      rulersToolbox,
-      horizontalRulerNode,
-      verticalRulerNode,
-      sourceObjectNode,
+      //TODO https://github.com/phetsims/geometric-optics/issues/217 restore rulers
+      // rulersToolbox,
+      // horizontalRulerNode,
+      // verticalRulerNode,
+      scenesNode,
       zoomButtonGroup,
       controlPanel,
       showHideToggleButton,
@@ -472,9 +386,10 @@ class GOScreenView extends ScreenView {
     this.modelViewTransform = modelViewTransform;
     this.visibleProperties = visibleProperties;
     this.modelBoundsProperty = modelBoundsProperty;
+    this.modelVisibleBoundsProperty = modelVisibleBoundsProperty;
     this.screenViewRootNode = screenViewRootNode;
     this.experimentAreaNode = experimentAreaNode;
-    this.additionalNodesParent = additionalNodesParent;
+    this.scenesNode = scenesNode;
     this.controlsLayer = controlsLayer;
     this.representationComboBox = representationComboBox;
     this.surfaceTypeRadioButtonGroup = surfaceTypeRadioButtonGroup;
@@ -487,7 +402,7 @@ class GOScreenView extends ScreenView {
   }
 
   public reset(): void {
-    this.resetGeometricScreenView();
+    this.resetGOSceenView();
   }
 
   //TODO stepping model should be done in model.step

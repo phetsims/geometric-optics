@@ -1,5 +1,6 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/geometric-optics/issues/217 factor out LightSourceNode and rename this FramedObjectNode
 /**
  * SourceObjectNode is the view of the source object and first light source.
  *
@@ -11,7 +12,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { DragListener, FocusHighlightFromNode, Image, KeyboardDragListener, Node } from '../../../../scenery/js/imports.js';
+import { DragListener, FocusHighlightFromNode, Image, KeyboardDragListener, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import SourceObject from '../model/SourceObject.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -28,8 +29,9 @@ import GOConstants from '../GOConstants.js';
 const MIN_X_DISTANCE_TO_OPTIC = 40;
 
 type SourceObjectNodeOptions = {
+  visibleProperty?: IReadOnlyProperty<boolean>,
   tandem: Tandem
-};
+} & NodeOptions; //TODO narrow this interface
 
 class SourceObjectNode extends Node {
 

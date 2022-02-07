@@ -7,41 +7,24 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
-import LightRays from './LightRays.js';
 import Optic from './Optic.js';
 import { RaysType, RaysTypeValues } from './RaysType.js';
-import Representation, { RepresentationStaticInstances } from './Representation.js';
 import GORuler from './GORuler.js';
-import SecondPoint from './SecondPoint.js';
-import SourceObject from './SourceObject.js';
-import Target from './Target.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import ProjectionScreen from '../../lens/model/ProjectionScreen.js';
-
-// constants
-const RAYS_ANIMATION_TIME = 10; // length of the rays animation, in seconds
+import FramedObjectScene from './FramedObjectScene.js';
+import Representation, { FRAMED_OBJECT_REPRESENTATIONS, LIGHT_SOURCE_REPRESENTATION } from './Representation.js';
+import Lens from '../../lens/model/Lens.js';
 
 type GeometricOpticsModelOptions = {
 
   // initial position of the source object and first light source
-  sourceObjectPosition: Vector2,
-
-  // optional projection screen that may block rays
-  projectionScreen?: ProjectionScreen | null,
-
-  // representations of the source object supported by the model
-  representations?: Representation[],
-
-  // initial representation of the source object
-  representation?: Representation,
+  framedObjectPosition: Vector2,
 
   // phet-io options
   tandem: Tandem
@@ -49,38 +32,16 @@ type GeometricOpticsModelOptions = {
 
 class GOModel {
 
+  readonly representationProperty: Property<Representation>;
+
   // model of the optic
   readonly optic: Optic;
 
-  // representation of the source object
-  readonly representationProperty: Property<Representation>;
-
-  // the Object or first Light Source
-  readonly sourceObject: SourceObject;
-
-  // the second point on the Object, and the second Light Source
-  readonly secondPoint: SecondPoint;
-
-  // Image associated with the Object or first Light Source
-  readonly firstTarget: Target;
-
-  // Image associated with secondPoint
-  readonly secondTarget: Target;
-
-  // optional projection screen that may block rays
-  readonly projectionScreen: ProjectionScreen | null;
-
-  // elapsed time of light rays animation
-  readonly lightRaysTimeProperty: NumberProperty;
-
-  // determines the representation used for rays
+  // representation used for rays
   readonly raysTypeProperty: Property<RaysType>;
 
-  // light rays associated with the first light source
-  readonly lightRays1: LightRays;
-
-  // light rays associated with the second light source
-  readonly lightRays2: LightRays;
+  // scenes
+  readonly framedObjectScene: FramedObjectScene;
 
   // rulers
   readonly horizontalRuler: GORuler;
@@ -98,35 +59,17 @@ class GOModel {
   constructor( optic: Optic, providedOptions: GeometricOpticsModelOptions ) {
 
     const options = merge( {
-      projectionScreen: null,
-      representations: RepresentationStaticInstances,
-      representation: RepresentationStaticInstances[ 0 ]
+      //TODO
     }, providedOptions );
 
+    //TODO this is a bit of a hack
+    this.representationProperty = new Property( FRAMED_OBJECT_REPRESENTATIONS[ 0 ], {
+      validValues: ( optic instanceof Lens ) ?
+                   [ ...FRAMED_OBJECT_REPRESENTATIONS, LIGHT_SOURCE_REPRESENTATION ] :
+                   [ ...FRAMED_OBJECT_REPRESENTATIONS ]
+    } );
+
     this.optic = optic;
-
-    this.representationProperty = new Property( options.representation, {
-      validValues: options.representations
-    } );
-
-    this.sourceObject = new SourceObject( this.representationProperty, {
-      position: options.sourceObjectPosition,
-      tandem: options.tandem.createTandem( 'sourceObject' )
-    } );
-
-    this.secondPoint = new SecondPoint( this.representationProperty, this.sourceObject.positionProperty );
-
-    this.firstTarget = new Target( this.sourceObject.positionProperty, this.optic, this.representationProperty );
-
-    this.secondTarget = new Target( this.secondPoint.positionProperty, this.optic, this.representationProperty );
-
-    this.projectionScreen = options.projectionScreen;
-
-    this.lightRaysTimeProperty = new NumberProperty( 0, {
-      units: 's',
-      range: new Range( 0, RAYS_ANIMATION_TIME ),
-      tandem: options.tandem.createTandem( 'lightRaysTimeProperty' )
-    } );
 
     this.raysTypeProperty = new Property( 'marginal', {
       validValues: RaysTypeValues,
@@ -134,28 +77,10 @@ class GOModel {
       phetioType: Property.PropertyIO( StringIO )
     } );
 
-    // Changing raysTypeProperty resets the animation time for rays.
-    this.raysTypeProperty.link( () => this.lightRaysTimeProperty.reset() );
-
-    this.lightRays1 = new LightRays(
-      this.lightRaysTimeProperty,
-      this.raysTypeProperty,
-      this.representationProperty,
-      this.sourceObject.positionProperty,
-      this.optic,
-      this.firstTarget,
-      options.projectionScreen
-    );
-
-    this.lightRays2 = new LightRays(
-      this.lightRaysTimeProperty,
-      this.raysTypeProperty,
-      this.representationProperty,
-      this.secondPoint.positionProperty,
-      this.optic,
-      this.secondTarget,
-      options.projectionScreen
-    );
+    this.framedObjectScene = new FramedObjectScene( this.optic, this.raysTypeProperty, {
+      framedObjectPosition: options.framedObjectPosition,
+      tandem: options.tandem.createTandem( 'framedObjectScene' )
+    } );
 
     this.horizontalRuler = new GORuler( {
       orientation: 'horizontal',
@@ -175,24 +100,14 @@ class GOModel {
   public reset(): void {
     this.representationProperty.reset();
     this.optic.reset();
-    this.sourceObject.reset();
-    this.secondPoint.reset();
-    this.lightRaysTimeProperty.reset();
     this.raysTypeProperty.reset();
+    this.framedObjectScene.reset();
     this.horizontalRuler.reset();
     this.verticalRuler.reset();
   }
 
-  /**
-   * Steps the animation of light rays.
-   * @param dt - time step, in seconds
-   */
   public stepLightRays( dt: number ): void {
-    const t = this.lightRaysTimeProperty.value + dt;
-    assert && assert( this.lightRaysTimeProperty.range ); // {Range|null}
-    if ( this.lightRaysTimeProperty.range!.contains( t ) ) {
-      this.lightRaysTimeProperty.value = t;
-    }
+    this.framedObjectScene.stepLightRays( dt );
   }
 }
 

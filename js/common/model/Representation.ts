@@ -1,5 +1,8 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/geometric-optics/issues/217 replace with a string union for Property and ComboBox
+//TODO https://github.com/phetsims/geometric-optics/issues/217 get rid of LIGHT_SOURCE_REPRESENTATION
+//TODO https://github.com/phetsims/geometric-optics/issues/217 rename Representation to something like FramedObjectConfig
 /**
  * Representation is a set of static representation for Objects and Light Sources.
  *
@@ -51,7 +54,7 @@ const LIGHT_SOURCE_ORIGIN = new Vector2( 62, 40 );
 type RepresentationConfig = {
 
   // true = framed Object, false = Light Source
-  isFramedObject: boolean,
+  isFramedObject: boolean, //TODO https://github.com/phetsims/geometric-optics/issues/217 delete this field
 
   // label for the representation, appears in combo box
   label: string,
@@ -109,8 +112,8 @@ class Representation {
   }
 }
 
-// static instances of Representation
-const RepresentationStaticInstances: Representation[] = [
+//TODO move this elsewhere?
+const FRAMED_OBJECT_REPRESENTATIONS: Representation[] = [
 
   // Pencil
   new Representation( {
@@ -162,21 +165,21 @@ const RepresentationStaticInstances: Representation[] = [
     leftFacingInverted: starLeftFacingInverted_png,
     rightFacingUprightOrigin: FRAMED_OBJECT_ORIGIN,
     tandemPrefix: 'star'
-  } ),
-
-  // Light
-  new Representation( {
-    isFramedObject: false, // this is what identifies it as a Light Source
-    label: geometricOpticsStrings.light,
-    icon: lightIcon_png,
-    rightFacingUpright: lamp1_png,
-    rightFacingInverted: null,
-    leftFacingUpright: null,
-    leftFacingInverted: null,
-    rightFacingUprightOrigin: LIGHT_SOURCE_ORIGIN,
-    tandemPrefix: 'light'
   } )
 ];
 
+//TODO get rid of this
+const LIGHT_SOURCE_REPRESENTATION = new Representation( {
+  isFramedObject: false, // this is what identifies it as a Light Source
+  label: geometricOpticsStrings.light,
+  icon: lightIcon_png,
+  rightFacingUpright: lamp1_png,
+  rightFacingInverted: null,
+  leftFacingUpright: null,
+  leftFacingInverted: null,
+  rightFacingUprightOrigin: LIGHT_SOURCE_ORIGIN,
+  tandemPrefix: 'light'
+} );
+
 geometricOptics.register( 'Representation', Representation );
-export { Representation as default, RepresentationStaticInstances };
+export { Representation as default, FRAMED_OBJECT_REPRESENTATIONS, LIGHT_SOURCE_REPRESENTATION };

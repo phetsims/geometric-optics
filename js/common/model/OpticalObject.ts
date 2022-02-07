@@ -43,6 +43,10 @@ class OpticalObject {
       tandem: options.tandem.createTandem( 'positionProperty' )
     } );
   }
+
+  public reset(): void {
+    this.positionProperty.reset();
+  }
 }
 
 geometricOptics.register( 'OpticalObject', OpticalObject );
