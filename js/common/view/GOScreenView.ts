@@ -253,6 +253,7 @@ class GOScreenView extends ScreenView {
       children: [ framedObjectSceneNode ]
     } );
 
+    //TODO is experimentAreaNode still needed, or does scenesNode fill that role?
     // Layer for all the Nodes within the "experiment area".
     // The experiment area is subject to zoom in/out, so include add all Nodes that need to be zoomed.
     const experimentAreaNode = new Node( {
