@@ -11,7 +11,6 @@ import Range from '../../../../dot/js/Range.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
 import FramedObject from './FramedObject.js';
-import SecondPoint from './SecondPoint.js';
 import Target from './Target.js';
 import Property from '../../../../axon/js/Property.js';
 import Representation, { FRAMED_OBJECT_REPRESENTATIONS } from './Representation.js';
@@ -36,7 +35,6 @@ class FramedObjectScene {
   readonly optic: Optic;
   readonly representationProperty: Property<Representation>;
   readonly framedObject: FramedObject;
-  readonly secondPoint: SecondPoint;
   readonly target1: Target;
   readonly target2: Target;
   readonly lightRaysTimeProperty: NumberProperty;
@@ -65,12 +63,9 @@ class FramedObjectScene {
       tandem: options.tandem.createTandem( 'framedObject' )
     } );
 
-    //TODO make secondPoint a property of framedObject
-    this.secondPoint = new SecondPoint( this.framedObject.positionProperty );
-
     this.target1 = new Target( this.framedObject.positionProperty, this.optic, this.representationProperty );
 
-    this.target2 = new Target( this.secondPoint.positionProperty, this.optic, this.representationProperty );
+    this.target2 = new Target( this.framedObject.secondPoint.positionProperty, this.optic, this.representationProperty );
 
     //TODO should each scene have this, or should it be shared by all scenes?
     this.lightRaysTimeProperty = new NumberProperty( 0, {
@@ -96,7 +91,7 @@ class FramedObjectScene {
       this.lightRaysTimeProperty,
       raysTypeProperty,
       this.representationProperty,
-      this.secondPoint.positionProperty,
+      this.framedObject.secondPoint.positionProperty,
       this.optic,
       this.target2,
       null //TODO projectionScreen is not relevant for this scene
@@ -109,7 +104,6 @@ class FramedObjectScene {
   public reset(): void {
     this.representationProperty.reset();
     this.framedObject.reset();
-    this.secondPoint.reset();
     this.lightRaysTimeProperty.reset();
   }
 

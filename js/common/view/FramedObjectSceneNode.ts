@@ -105,7 +105,7 @@ class FramedObjectSceneNode extends Node {
         tandem: options.tandem.createTandem( 'framedObjectNode' )
       } );
 
-    const secondPointNode = new SecondPointNode( scene.secondPoint, modelViewTransform, {
+    const secondPointNode = new SecondPointNode( scene.framedObject.secondPoint, modelViewTransform, {
       visibleProperty: visibleProperties.secondPointVisibleProperty,
       tandem: options.tandem.createTandem( 'secondPointNode' )
     } );

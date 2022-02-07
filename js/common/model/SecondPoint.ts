@@ -1,6 +1,6 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/geometric-optics/issues/217 move this into FramedObject
+//TODO this implementation is a little odd. Investigate making this a Property in FramedObject, with a relative DragListener in FramedObjectNode
 /**
  * SecondPoint is the model of the second point on a framed object.
  *

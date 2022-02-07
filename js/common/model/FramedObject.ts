@@ -15,11 +15,17 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Representation from './Representation.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OpticalObject, { OpticalObjectOptions } from './OpticalObject.js';
+import SecondPoint from './SecondPoint.js';
 
 class FramedObject extends OpticalObject {
 
+  // a second point of interest on the framed object
+  public readonly secondPoint: SecondPoint;
+
   // model bounds of the Object's visual representation
   public readonly boundsProperty: IReadOnlyProperty<Bounds2>;
+
+  private readonly resetFramedObject: () => void;
 
   /**
    * @param representationProperty
@@ -28,6 +34,8 @@ class FramedObject extends OpticalObject {
   constructor( representationProperty: IReadOnlyProperty<Representation>, options: OpticalObjectOptions ) {
 
     super( options );
+
+    this.secondPoint = new SecondPoint( this.positionProperty );
 
     this.boundsProperty = new DerivedProperty(
       [ representationProperty, this.positionProperty ],
@@ -52,6 +60,15 @@ class FramedObject extends OpticalObject {
         // the Object inside the view's drag bounds, resulting in this derivation being called again.
         reentrant: true
       } );
+
+    this.resetFramedObject = () => {
+      this.secondPoint.reset();
+    };
+  }
+
+  public reset() {
+    super.reset();
+    this.resetFramedObject();
   }
 }
 
