@@ -52,7 +52,7 @@ class LightSource extends OpticalObject {
 
     this.scaleFactor = 0.5;
 
-    //TODO some duplication with SourceObject here
+    //TODO some duplication with FramedObject here
     this.boundsProperty = new DerivedProperty(
       [ this.positionProperty ],
       ( position: Vector2 ) => {

@@ -53,7 +53,7 @@ class Target {
   private readonly isInvertedProperty: IReadOnlyProperty<boolean>;
 
   /**
-   * @param objectPositionProperty - position of the source object or light source
+   * @param objectPositionProperty - position of the optical object
    * @param optic - model of the optic
    * @param representationProperty
    */
@@ -64,10 +64,10 @@ class Target {
       [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       ( objectPosition: Vector2, opticPosition: Vector2, focalLength: number ) => {
 
-        // {number} horizontal distance between optic and source object
+        // {number} horizontal distance between optic and optical object
         const opticObjectDistance = getObjectOpticDistance( objectPosition, opticPosition );
 
-        // address the case where the source object shares the same x position as the focal point
+        // address the case where the optical object shares the same x position as the focal point
         if ( opticObjectDistance === focalLength ) {
 
           // Set the target distance to be very large (and arbitrarily positive).
@@ -190,7 +190,7 @@ class Target {
    */
   private getMagnification( objectPosition: Vector2, opticPosition: Vector2 ): number {
 
-    // horizontal distance between source object (or light source) and optic
+    // horizontal distance between optical object and optic
     const objectOpticDistance = getObjectOpticDistance( objectPosition, opticPosition );
 
     // prevent a division by zero

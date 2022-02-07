@@ -1,8 +1,8 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * DragLockedButton is the control used to lock dragging of the source object and light source, so
- * that it's only draggable in the horizontal dimension.
+ * DragLockedButton is the control used to lock dragging of the optical object, so that it's only draggable in
+ * the horizontal dimension.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

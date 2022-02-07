@@ -34,8 +34,8 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
    * @param modelViewTransform
    * @param lightRaysProcessedEmitter
    * @param representationProperty
-   * @param sourceObjectPositionProperty
-   * @param sourceObjectNode
+   * @param objectPositionProperty
+   * @param objectNode
    * @param targetPositionProperty
    * @param targetNode
    * @param projectionScreen
@@ -46,8 +46,8 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
                modelViewTransform: ModelViewTransform2,
                lightRaysProcessedEmitter: Emitter<[]>,
                representationProperty: IReadOnlyProperty<Representation>,
-               sourceObjectPositionProperty: IReadOnlyProperty<Vector2>,
-               sourceObjectNode: Node,
+               objectPositionProperty: IReadOnlyProperty<Vector2>,
+               objectNode: Node,
                targetPositionProperty: IReadOnlyProperty<Vector2>,
                targetNode: Node,
                projectionScreen: ProjectionScreen | null,
@@ -88,29 +88,29 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
       if ( representationProperty.value.isFramedObject ) {
 
         const opticX = modelViewTransform.modelToViewX( opticPositionProperty.value.x );
-        const sourceObjectX = modelViewTransform.modelToViewX( sourceObjectPositionProperty.value.x );
+        const objectX = modelViewTransform.modelToViewX( objectPositionProperty.value.x );
         const targetX = modelViewTransform.modelToViewX( targetPositionProperty.value.x );
 
-        // For a source object...
+        // For a framed object...
         if ( targetX > opticX ) {
 
           // If the Image is to the right of the optic, clipArea is 1 rectangle, between the Object and Image.
-          clipArea = Shape.rectangle( sourceObjectX, minY, targetX - sourceObjectX, clipHeight );
+          clipArea = Shape.rectangle( objectX, minY, targetX - objectX, clipHeight );
         }
         else {
 
           // If the Image is to the left of the optic, clipArea requires 2 rectangles.
 
           // Determine the relative position of the Object and Image.
-          const targetOnRight = ( targetX > sourceObjectX );
+          const targetOnRight = ( targetX > objectX );
 
           // The first rectangle is between the thing on the right and the optic.
-          const x1 = targetOnRight ? targetX : sourceObjectX;
+          const x1 = targetOnRight ? targetX : objectX;
           const clipWidth1 = opticX - x1;
 
           // The second rectangle is between the thing on the left and the left edge of the picture frame on the right.
-          const x2 = targetOnRight ? sourceObjectX : targetX;
-          const halfFrameWidth = ( targetOnRight ? targetNode.bounds.width : sourceObjectNode.visibleBounds.width ) / 2;
+          const x2 = targetOnRight ? objectX : targetX;
+          const halfFrameWidth = ( targetOnRight ? targetNode.bounds.width : objectNode.visibleBounds.width ) / 2;
           const clipWidth2 = x1 - x2 - halfFrameWidth;
 
           clipArea = new Shape()

@@ -31,7 +31,7 @@ class VisibleProperties {
   // visibility of the labels
   readonly labelsVisibleProperty: Property<boolean>;
 
-  // visibility of the second 'point' (point of interest on object, or light source)
+  // visibility of the second optical object
   readonly secondPointVisibleProperty: Property<boolean>;
 
   // visibility of the guides, which are irrelevant for mirror

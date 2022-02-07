@@ -1,8 +1,7 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/geometric-optics/issues/217 factor out LightSource and rename this FramedObject
 /**
- * SourceObject is the model for what is typically called "Object" in optics, or the first light source.
+ * FramedObject is the model for the "framed objects". These are objects in a picture frame, with 3D perspective.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -17,7 +16,7 @@ import Representation from './Representation.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OpticalObject, { OpticalObjectOptions } from './OpticalObject.js';
 
-class SourceObject extends OpticalObject {
+class FramedObject extends OpticalObject {
 
   // model bounds of the Object's visual representation
   public readonly boundsProperty: IReadOnlyProperty<Bounds2>;
@@ -56,5 +55,5 @@ class SourceObject extends OpticalObject {
   }
 }
 
-geometricOptics.register( 'SourceObject', SourceObject );
-export default SourceObject;
+geometricOptics.register( 'FramedObject', FramedObject );
+export default FramedObject;

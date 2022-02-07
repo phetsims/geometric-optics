@@ -48,7 +48,7 @@ class LightRay {
   private readonly virtualRay: GORay | null;
 
   /**
-   * @param sourcePosition - where this LightRay originated
+   * @param objectPosition - where this LightRay originated
    * @param direction - initial direction of this LightRay
    * @param lightRaysTime - elapsed time of light rays animation
    * @param optic - model of the optic
@@ -57,7 +57,7 @@ class LightRay {
    * @param raysType
    * @param projectionScreen - optional projection screen that can block the rays
    */
-  constructor( sourcePosition: Vector2, direction: Vector2, lightRaysTime: number, optic: Optic, targetPoint: Vector2,
+  constructor( objectPosition: Vector2, direction: Vector2, lightRaysTime: number, optic: Optic, targetPoint: Vector2,
                isImageVirtual: boolean, raysType: RaysType, projectionScreen: ProjectionScreen | null ) {
 
     assert && AssertUtils.assertNonNegativeNumber( lightRaysTime );
@@ -68,8 +68,8 @@ class LightRay {
     // {number} maximum travel distance if ray is unimpeded
     const distanceTraveled = GOQueryParameters.lightSpeed * lightRaysTime;
 
-    // ray (position and direction) emerging from source
-    const initialRay = new GORay( sourcePosition, direction );
+    // ray (position and direction) emerging from optical object
+    const initialRay = new GORay( objectPosition, direction );
 
     // {Vector2|null} first intersection point - a null value implies that the initialRay does not intersect the optic
     const firstPoint = getFirstPoint( initialRay, optic, raysType );
@@ -276,15 +276,15 @@ function getRealRays( initialRay: GORay, firstPoint: Vector2 | null, optic: Opti
  */
 function getIntermediatePoint( initialRay: GORay, firstPoint: Vector2, optic: Optic ): Vector2 {
 
-  // displacement vector from the source to the optic position
-  const opticSourceVector = optic.positionProperty.value.minus( initialRay.position );
+  // displacement vector from the object to the optic position
+  const objectOpticVector = optic.positionProperty.value.minus( initialRay.position );
 
-  // displacement vector from the source to the first point hit by the ray.
-  const firstSourceVector = firstPoint.minus( initialRay.position );
+  // displacement vector from the object to the first point hit by the ray.
+  const firstVector = firstPoint.minus( initialRay.position );
 
   // return a point that will be directed along the initial ray but has an
   // x position that is equal to opticPosition.x
-  return initialRay.position.blend( firstPoint, opticSourceVector.x / firstSourceVector.x );
+  return initialRay.position.blend( firstPoint, objectOpticVector.x / firstVector.x );
 }
 
 /**

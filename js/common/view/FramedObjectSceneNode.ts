@@ -13,7 +13,7 @@ import geometricOptics from '../../geometricOptics.js';
 import FramedObjectScene from '../model/FramedObjectScene.js';
 import TargetNode from './TargetNode.js';
 import VisibleProperties from './VisibleProperties.js';
-import SourceObjectNode from './SourceObjectNode.js';
+import FramedObjectNode from './FramedObjectNode.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import SecondPointNode from './SecondPointNode.js';
@@ -100,7 +100,7 @@ class FramedObjectSceneNode extends Node {
       tandem: options.tandem.createTandem( 'twoFPointsNode' )
     } );
 
-    const framedObjectNode = new SourceObjectNode( scene.representationProperty, scene.framedObject,
+    const framedObjectNode = new FramedObjectNode( scene.representationProperty, scene.framedObject,
       modelBoundsProperty, scene.optic.positionProperty, modelViewTransform, options.dragLockedProperty, {
         tandem: options.tandem.createTandem( 'framedObjectNode' )
       } );

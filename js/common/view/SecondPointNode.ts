@@ -51,13 +51,13 @@ class SecondPointNode extends Node {
   /**
    * @param representationProperty
    * @param secondPoint
-   * @param sourceObjectDragBoundsProperty
+   * @param framedObjectDragBoundsProperty
    * @param modelViewTransform
    * @param dragLockedProperty
    * @param providedOptions
    */
   constructor( representationProperty: IReadOnlyProperty<Representation>, secondPoint: SecondPoint,
-               sourceObjectDragBoundsProperty: IReadOnlyProperty<Bounds2>,
+               framedObjectDragBoundsProperty: IReadOnlyProperty<Bounds2>,
                modelViewTransform: ModelViewTransform2, dragLockedProperty: IReadOnlyProperty<boolean>,
                providedOptions: SecondPointNodeOptions ) {
 
@@ -87,15 +87,15 @@ class SecondPointNode extends Node {
     // Drag bounds, in model coordinates.
     // null when we are dealing with an Object, non-null for a Light Source
     const dragBoundsProperty = new DerivedProperty(
-      [ sourceObjectDragBoundsProperty, representationProperty, dragLockedProperty ],
-      ( sourceObjectDragBounds: Bounds2, representation: Representation, dragLocked: boolean ) => {
+      [ framedObjectDragBoundsProperty, representationProperty, dragLockedProperty ],
+      ( framedObjectDragBounds: Bounds2, representation: Representation, dragLocked: boolean ) => {
         let dragBounds;
         if ( representation.isFramedObject ) {
           dragBounds = null;
         }
         else {
           //TODO this is awful that we're having to undo the offset that is needed elsewhere
-          const offsetBounds = sourceObjectDragBounds.withOffsets(
+          const offsetBounds = framedObjectDragBounds.withOffsets(
             -LIGHT_SOURCE_OFFSET.x, // left
             -LIGHT_SOURCE_OFFSET.y, // top
             LIGHT_SOURCE_OFFSET.x, // right

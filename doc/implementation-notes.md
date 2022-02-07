@@ -11,7 +11,7 @@ worthwhile to define some terms uses throughout the simulation.
 
 **Object:**  
 Anything that can be viewed. Unfortunately this term conflicts with JavaScript's `Object` type, so we 
-use **SourceObject** in the code.
+use **FramedObject** in the code.
 
 **Image:**
 The likeness of an object produced at a point in space by a lens or a mirror.
@@ -109,12 +109,12 @@ The main model class
 is [GOModel](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/GeometricOpticsModel.js)
 .
 
-There are a three top-level model elements in GOModel that play an essential role, namely `SourceObject`
+There are a three top-level model elements in GOModel that play an essential role, namely `FramedObject`
 , `Optic` and `Target`. This trifecta of elements rules the entire simulation. Each of them is a component of the
 thin-lens and mirror equation. It is important to note that all the light rays do not drive the model, but take their
 marching orders from the trifecta.
 
-* [SourceObject](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/SourceObject.js) is the first
+* [FramedObject](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/SourceObject.js) is the first
   object/source.
 * [SecondPoint](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/SecondSource.js) is the second
   object/source.
@@ -147,7 +147,7 @@ Light rays form an important aspect of this simulation. There are three model cl
   object/source position. An additional responsibility of LightRays is to indicate if one of its ray has reached a
   target, or projector screen.
 
-We note that each light ray depends on the trifecta (SourceObject, Optic and Target) and their path is determined based
+We note that each light ray depends on the trifecta (FramedObject, Optic and Target) and their path is determined based
 on this information. This insures that all rays can converge to the same target.
 
 # View
@@ -160,7 +160,7 @@ There are a few top-level view elements that are instantiated in `GOScreenView`:
 * [TargetNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/TargetNode.js) is the scenery
   node for the optical image.
 
-* [SourceObjectNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/SourceObjectNode.js) is the
+* [FramedObjectNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/SourceObjectNode.js) is the
   node responsible for the first source/object.
 
 * [SecondPointNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/SecondSourceNode.js) is the

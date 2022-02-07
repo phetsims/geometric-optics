@@ -80,22 +80,22 @@ const GOColors = {
     default: 'rgb( 133, 133, 182 )'
   } ),
 
-  // Fill for the second point on the Object
+  // Fill for the second point on a Framed Object
   secondPointFillProperty: new ProfileColorProperty( geometricOptics, 'secondPointFill', {
     default: 'rgb( 255, 51, 51 )'
   } ),
 
-  // Stroke for the second point on the Object
+  // Stroke for the second point on a Framed Object
   secondPointStrokeProperty: new ProfileColorProperty( geometricOptics, 'secondPointStroke', {
     default: 'black'
   } ),
 
-  // Rays associated with the first Object or Light Source
+  // Rays associated with the first Optical Object
   rays1StrokeProperty: new ProfileColorProperty( geometricOptics, 'realRayOneStroke', {
     default: 'rgb( 140, 140, 140 )'
   } ),
 
-  // Rays associated with the second point of interest on the Object or second Light Source
+  // Rays associated with the second point on a Framed Object, or the second Light Source
   rays2StrokeProperty: new ProfileColorProperty( geometricOptics, 'realRayTwoStroke', {
     default: 'rgb( 41, 214, 126 )'
   } ),
@@ -125,12 +125,12 @@ const GOColors = {
     default: 'black'
   } ),
 
-  // Fill of the arm (rectangle) portion of the guide associated with the source object or first light source
+  // Fill of the arm (rectangle) portion of the guide associated with the first optical object
   guideArm1FillProperty: new ProfileColorProperty( geometricOptics, 'guideArm1Fill', {
     default: 'white'
   } ),
 
-  // Fill of the arm (rectangle) portion of the guide associated with the second point or second light source
+  // Fill of the arm (rectangle) portion of the guide associated with the second optical object
   guideArm2FillProperty: new ProfileColorProperty( geometricOptics, 'guideArm2Fill', {
     default: 'rgb( 41, 214, 126 )'
   } ),

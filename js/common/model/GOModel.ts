@@ -23,7 +23,7 @@ import Lens from '../../lens/model/Lens.js';
 
 type GeometricOpticsModelOptions = {
 
-  // initial position of the source object and first light source
+  // initial position of the framed object
   framedObjectPosition: Vector2,
 
   // phet-io options
@@ -48,7 +48,7 @@ class GOModel {
   readonly verticalRuler: GORuler;
 
   // Maximum distance that things can be dragged from the optical axis, in cm. This is constrained to prevent
-  // cases where the source object is close to the object and no 'Many' rays go through the optic.
+  // cases where the optical object is close to the optic and no 'Many' rays go through the optic.
   // See https://github.com/phetsims/geometric-optics/issues/289
   readonly maxDistanceFromOpticalAxis: number;
 

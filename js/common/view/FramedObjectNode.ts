@@ -1,8 +1,7 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/geometric-optics/issues/217 factor out LightSourceNode and rename this FramedObjectNode
 /**
- * SourceObjectNode is the view of the source object and first light source.
+ * FramedObjectNode is the view of a FramedObject, an object in a picture frame with 3D perspective.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -14,7 +13,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { DragListener, FocusHighlightFromNode, Image, KeyboardDragListener, Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
-import SourceObject from '../model/SourceObject.js';
+import FramedObject from '../model/FramedObject.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Representation from '../model/Representation.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
@@ -25,34 +24,35 @@ import merge from '../../../../phet-core/js/merge.js';
 import GOConstants from '../GOConstants.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 
-// Closest that source object can be moved to the optic, in cm. This avoids problems that occur when the object is
+// Closest that optical object can be moved to the optic, in cm. This avoids problems that occur when the object is
 // too close to a mirror. See https://github.com/phetsims/geometric-optics/issues/73
 const MIN_X_DISTANCE_TO_OPTIC = 40;
 
-type SourceObjectNodeOptions = {
+type FramedObjectNodeOptions = {
   visibleProperty?: IProperty<boolean>,
   tandem: Tandem
 };
 
-class SourceObjectNode extends Node {
+class FramedObjectNode extends Node {
 
-  // so that 1st and 2nd light source can share drag bounds
+  // Used by SecondPointNode
   public readonly dragBoundsProperty: IReadOnlyProperty<Bounds2>;
-  private readonly resetSourceObjectNode: () => void;
+
+  private readonly resetFramedObjectNode: () => void;
 
   /**
    * @param representationProperty
-   * @param sourceObject
+   * @param framedObject
    * @param modelBoundsProperty
    * @param opticPositionProperty
    * @param modelViewTransform
    * @param dragLockedProperty
    * @param providedOptions
    */
-  constructor( representationProperty: IReadOnlyProperty<Representation>, sourceObject: SourceObject,
+  constructor( representationProperty: IReadOnlyProperty<Representation>, framedObject: FramedObject,
                modelBoundsProperty: IReadOnlyProperty<Bounds2>, opticPositionProperty: IReadOnlyProperty<Vector2>,
                modelViewTransform: ModelViewTransform2, dragLockedProperty: IReadOnlyProperty<boolean>,
-               providedOptions: SourceObjectNodeOptions ) {
+               providedOptions: FramedObjectNodeOptions ) {
 
     const imageNode = new Image( representationProperty.value.rightFacingUpright );
 
@@ -78,7 +78,7 @@ class SourceObjectNode extends Node {
     super( options );
 
     const updateScale = () => {
-      const modelBounds = sourceObject.boundsProperty.value;
+      const modelBounds = framedObject.boundsProperty.value;
       const viewBounds = modelViewTransform.modelToViewBounds( modelBounds );
       const scaleX = viewBounds.width / imageNode.width;
       const scaleY = viewBounds.height / imageNode.height;
@@ -92,18 +92,18 @@ class SourceObjectNode extends Node {
     } );
 
     // Translate and scale
-    sourceObject.boundsProperty.link( bounds => {
+    framedObject.boundsProperty.link( bounds => {
       this.translation = modelViewTransform.modelToViewBounds( bounds ).leftTop;
       updateScale();
     } );
 
     // Drag bounds, in model coordinates. Keep the full object within the model bounds and to the left of the optic.
-    this.dragBoundsProperty = new DerivedProperty(
-      [ sourceObject.boundsProperty, modelBoundsProperty, dragLockedProperty ],
-      ( sourceObjectBounds: Bounds2, modelBounds: Bounds2, dragLocked: boolean ) => {
+    const dragBoundsProperty = new DerivedProperty(
+      [ framedObject.boundsProperty, modelBoundsProperty, dragLockedProperty ],
+      ( framedObjectBounds: Bounds2, modelBounds: Bounds2, dragLocked: boolean ) => {
 
-        const sourceObjectPosition = sourceObject.positionProperty.value;
-        const minX = modelBounds.minX + ( sourceObjectPosition.x - sourceObjectBounds.minX );
+        const framedObjectPosition = framedObject.positionProperty.value;
+        const minX = modelBounds.minX + ( framedObjectPosition.x - framedObjectBounds.minX );
         const maxX = opticPositionProperty.value.x - MIN_X_DISTANCE_TO_OPTIC;
         let minY: number;
         let maxY: number;
@@ -111,29 +111,29 @@ class SourceObjectNode extends Node {
         if ( dragLocked ) {
 
           // Dragging is 1D, constrained horizontally to object's current position.
-          minY = sourceObjectPosition.y;
+          minY = framedObjectPosition.y;
           maxY = minY;
         }
         else {
 
           // Dragging is 2D.
-          minY = modelBounds.minY + ( sourceObjectPosition.y - sourceObjectBounds.minY );
-          maxY = modelBounds.maxY - ( sourceObjectBounds.maxY - sourceObjectPosition.y );
+          minY = modelBounds.minY + ( framedObjectPosition.y - framedObjectBounds.minY );
+          maxY = modelBounds.maxY - ( framedObjectBounds.maxY - framedObjectPosition.y );
         }
         return new Bounds2( minX, minY, maxX, maxY );
       }, {
 
-        // Because changing dragBoundsProperty may necessitate moving sourceObject inside the new drag bounds,
-        // therefore changing dependency sourceObject.boundsProperty.
+        // Because changing dragBoundsProperty may necessitate moving framedObject inside the new drag bounds,
+        // therefore changing dependency framedObject.boundsProperty.
         reentrant: true
       } );
-    this.dragBoundsProperty.link( dragBounds => {
-      sourceObject.positionProperty.value = dragBounds.closestPointTo( sourceObject.positionProperty.value );
+    dragBoundsProperty.link( dragBounds => {
+      framedObject.positionProperty.value = dragBounds.closestPointTo( framedObject.positionProperty.value );
     } );
 
     const dragListener = new DragListener( {
-      positionProperty: sourceObject.positionProperty,
-      dragBoundsProperty: this.dragBoundsProperty,
+      positionProperty: framedObject.positionProperty,
+      dragBoundsProperty: dragBoundsProperty,
       transform: modelViewTransform,
       useParentOffset: true,
       drag: () => {
@@ -144,13 +144,13 @@ class SourceObjectNode extends Node {
     this.addInputListener( dragListener );
 
     const keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
-      positionProperty: sourceObject.positionProperty,
-      dragBoundsProperty: this.dragBoundsProperty,
+      positionProperty: framedObject.positionProperty,
+      dragBoundsProperty: dragBoundsProperty,
       transform: modelViewTransform
     } ) );
     this.addInputListener( keyboardDragListener );
 
-    // Keep cueing arrows next to the source object.
+    // Keep cueing arrows next to the framed object.
     Property.multilink( [ wrappedImageNode.boundsProperty, cueingArrowsNode.boundsProperty ],
       ( wrappedImageNodeBounds: Bounds2, cueingArrowsNodeBounds: Bounds2 ) => {
         cueingArrowsNode.right = wrappedImageNode.left - 10;
@@ -170,10 +170,12 @@ class SourceObjectNode extends Node {
       cueingArrowsNode.setDirection( locked ? 'horizontal' : 'both' );
     } );
 
-    this.resetSourceObjectNode = (): void => {
+    this.resetFramedObjectNode = (): void => {
       cueingArrowsNode.visible = ( GOGlobalOptions.cueingArrowsEnabledProperty.value &&
                                    this.inputEnabledProperty.value );
     };
+
+    this.dragBoundsProperty = dragBoundsProperty;
   }
 
   public dispose(): void {
@@ -182,9 +184,9 @@ class SourceObjectNode extends Node {
   }
 
   public reset(): void {
-    this.resetSourceObjectNode();
+    this.resetFramedObjectNode();
   }
 }
 
-geometricOptics.register( 'SourceObjectNode', SourceObjectNode );
-export default SourceObjectNode;
+geometricOptics.register( 'FramedObjectNode', FramedObjectNode );
+export default FramedObjectNode;

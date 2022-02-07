@@ -1,6 +1,6 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
-//TODO lots of duplication with SourceObjectNode
+//TODO lots of duplication with FramedObjectNode
 /**
  * LightSourceNode is the view of a LightSource.
  *
@@ -26,7 +26,7 @@ import LightSource from '../model/LightSource.js';
 
 // Closest that source object can be moved to the optic, in cm. This avoids problems that occur when the object is
 // too close to a mirror. See https://github.com/phetsims/geometric-optics/issues/73
-const MIN_X_DISTANCE_TO_OPTIC = 40; //TODO duplicated in in SourceObjectNode
+const MIN_X_DISTANCE_TO_OPTIC = 40; //TODO duplicated in in FramedObjectNode
 
 type LightSourceNodeOptions = {
   visibleProperty?: IProperty<boolean>,
@@ -92,10 +92,10 @@ class LightSourceNode extends Node {
     // Drag bounds, in model coordinates. Keep the full object within the model bounds and to the left of the optic.
     const dragBoundsProperty = new DerivedProperty(
       [ lightSource.boundsProperty, modelBoundsProperty, dragLockedProperty ],
-      ( sourceObjectBounds: Bounds2, modelBounds: Bounds2, dragLocked: boolean ) => {
+      ( lightSourceBounds: Bounds2, modelBounds: Bounds2, dragLocked: boolean ) => {
 
         const lightSourcePosition = lightSource.positionProperty.value;
-        const minX = modelBounds.minX + ( lightSourcePosition.x - sourceObjectBounds.minX );
+        const minX = modelBounds.minX + ( lightSourcePosition.x - lightSourceBounds.minX );
         const maxX = opticPositionProperty.value.x - MIN_X_DISTANCE_TO_OPTIC;
         let minY: number;
         let maxY: number;
@@ -109,14 +109,14 @@ class LightSourceNode extends Node {
         else {
 
           // Dragging is 2D.
-          minY = modelBounds.minY + ( lightSourcePosition.y - sourceObjectBounds.minY );
-          maxY = modelBounds.maxY - ( sourceObjectBounds.maxY - lightSourcePosition.y );
+          minY = modelBounds.minY + ( lightSourcePosition.y - lightSourceBounds.minY );
+          maxY = modelBounds.maxY - ( lightSourceBounds.maxY - lightSourcePosition.y );
         }
         return new Bounds2( minX, minY, maxX, maxY );
       }, {
 
-        // Because changing dragBoundsProperty may necessitate moving sourceObject inside the new drag bounds,
-        // therefore changing dependency sourceObject.boundsProperty.
+        // Because changing dragBoundsProperty may necessitate moving light source inside the new drag bounds,
+        // therefore changing dependency lightSource.boundsProperty.
         reentrant: true
       } );
     dragBoundsProperty.link( dragBounds => {

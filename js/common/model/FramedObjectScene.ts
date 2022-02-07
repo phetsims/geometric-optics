@@ -10,7 +10,7 @@
 import Range from '../../../../dot/js/Range.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
-import SourceObject from './SourceObject.js';
+import FramedObject from './FramedObject.js';
 import SecondPoint from './SecondPoint.js';
 import Target from './Target.js';
 import Property from '../../../../axon/js/Property.js';
@@ -24,7 +24,7 @@ import LightRays from './LightRays.js';
 
 type FramedObjectSceneOptions = {
 
-  // initial position of the source object and first light source
+  // initial position of the framed object
   framedObjectPosition: Vector2,
 
   // phet-io options
@@ -35,7 +35,7 @@ class FramedObjectScene {
 
   readonly optic: Optic;
   readonly representationProperty: Property<Representation>;
-  readonly framedObject: SourceObject;
+  readonly framedObject: FramedObject;
   readonly secondPoint: SecondPoint;
   readonly target1: Target;
   readonly target2: Target;
@@ -60,7 +60,7 @@ class FramedObjectScene {
       validValues: FRAMED_OBJECT_REPRESENTATIONS
     } );
 
-    this.framedObject = new SourceObject( this.representationProperty, {
+    this.framedObject = new FramedObject( this.representationProperty, {
       position: options.framedObjectPosition,
       tandem: options.tandem.createTandem( 'framedObject' )
     } );

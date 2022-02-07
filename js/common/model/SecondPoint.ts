@@ -3,7 +3,7 @@
 //TODO https://github.com/phetsims/geometric-optics/issues/217 remove stuff having to do with light source
 //TODO https://github.com/phetsims/geometric-optics/issues/217 move this into FramedObject
 /**
- * SecondPoint is the model of the second point on the source object, and the second light source.
+ * SecondPoint is the model of the second point on a framed object.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -36,13 +36,13 @@ class SecondPoint {
   // vertical offset of second point with respect to the first object, in cm
   private readonly verticalOffsetProperty: Property<number>
 
-  private readonly sourceObjectPositionProperty: IReadOnlyProperty<Vector2>;
+  private readonly framedObjectPositionProperty: IReadOnlyProperty<Vector2>;
 
   /**
    * @param representationProperty
-   * @param sourceObjectPositionProperty
+   * @param framedObjectPositionProperty
    */
-  constructor( representationProperty: Property<Representation>, sourceObjectPositionProperty: IReadOnlyProperty<Vector2> ) {
+  constructor( representationProperty: Property<Representation>, framedObjectPositionProperty: IReadOnlyProperty<Vector2> ) {
 
     this.lightSourcePositionProperty = new Vector2Property( INITIAL_LIGHT_SOURCE_POSITION );
 
@@ -51,12 +51,12 @@ class SecondPoint {
     } );
 
     this.positionProperty = new DerivedProperty(
-      [ sourceObjectPositionProperty, this.verticalOffsetProperty, this.lightSourcePositionProperty, representationProperty ],
-      ( sourceObjectPosition: Vector2, verticalOffset: number, lightSourcePosition: Vector2, representation: Representation ) =>
-        representation.isFramedObject ? sourceObjectPosition.plusXY( 0, verticalOffset ) : lightSourcePosition
+      [ framedObjectPositionProperty, this.verticalOffsetProperty, this.lightSourcePositionProperty, representationProperty ],
+      ( framedObjectPosition: Vector2, verticalOffset: number, lightSourcePosition: Vector2, representation: Representation ) =>
+        representation.isFramedObject ? framedObjectPosition.plusXY( 0, verticalOffset ) : lightSourcePosition
     );
 
-    this.sourceObjectPositionProperty = sourceObjectPositionProperty;
+    this.framedObjectPositionProperty = framedObjectPositionProperty;
   }
 
   public reset(): void {
@@ -72,7 +72,7 @@ class SecondPoint {
   public setSecondPoint( isFramedObject: boolean, position: Vector2 ): void {
     if ( isFramedObject ) {
       this.verticalOffsetProperty.value = VERTICAL_OFFSET_RANGE.constrainValue(
-        position.y - this.sourceObjectPositionProperty.value.y );
+        position.y - this.framedObjectPositionProperty.value.y );
     }
     else {
       this.lightSourcePositionProperty.value = position;

@@ -73,7 +73,7 @@ class GORulerNode extends Node {
    * @param zoomScaleProperty
    * @param visibleBoundsProperty
    * @param opticPositionProperty
-   * @param sourceObjectPositionProperty
+   * @param objectPositionProperty
    * @param secondPointPositionProperty
    * @param secondLightSourcePositionProperty
    * @param secondPointVisibleProperty
@@ -87,7 +87,7 @@ class GORulerNode extends Node {
                zoomScaleProperty: IReadOnlyProperty<number>,
                visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                opticPositionProperty: IReadOnlyProperty<Vector2>,
-               sourceObjectPositionProperty: IReadOnlyProperty<Vector2>,
+               objectPositionProperty: IReadOnlyProperty<Vector2>,
                secondPointPositionProperty: IReadOnlyProperty<Vector2>,
                secondLightSourcePositionProperty: IReadOnlyProperty<Vector2>,
                secondPointVisibleProperty: IReadOnlyProperty<boolean>,
@@ -226,11 +226,11 @@ class GORulerNode extends Node {
         }
       },
 
-      // J+O moves the ruler to the source object or first light source.
+      // J+O moves the ruler to the first optical object.
       {
         keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_O ],
         callback: () => {
-          moveRuler( ruler, sourceObjectPositionProperty.value, opticPositionProperty.value.y );
+          moveRuler( ruler, objectPositionProperty.value, opticPositionProperty.value.y );
         }
       },
 
@@ -246,7 +246,7 @@ class GORulerNode extends Node {
         }
       },
 
-      // J+S moves the ruler to the second point or second light source.
+      // J+S moves the ruler to the second optical object.
       // Ignored if 'Second Point' is not visible.
       {
         keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_S ],

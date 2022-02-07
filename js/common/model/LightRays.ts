@@ -42,14 +42,14 @@ class LightRays {
    * @param lightRaysTimeProperty - elapsed time of light rays animation
    * @param raysTypeProperty
    * @param representationProperty
-   * @param sourceObjectPositionProperty
+   * @param objectPositionProperty
    * @param optic
    * @param target - target model associated with this ray
    * @param projectionScreen - optional projection screen that blocks rays
    */
   constructor( lightRaysTimeProperty: Property<number>, raysTypeProperty: IReadOnlyProperty<RaysType>,
                representationProperty: IReadOnlyProperty<Representation>,
-               sourceObjectPositionProperty: IReadOnlyProperty<Vector2>,
+               objectPositionProperty: IReadOnlyProperty<Vector2>,
                optic: Optic, target: Target, projectionScreen: ProjectionScreen | null ) {
 
     this.realSegments = [];
@@ -60,7 +60,7 @@ class LightRays {
     // We only care about the types of the first 4 dependencies, because the listener only has 4 parameters.
     type DependencyTypes = [ Vector2, RaysType, number, Representation, ...any[] ];
     const dependencies: MappedProperties<DependencyTypes> = [
-      sourceObjectPositionProperty, raysTypeProperty, lightRaysTimeProperty, representationProperty,
+      objectPositionProperty, raysTypeProperty, lightRaysTimeProperty, representationProperty,
       optic.positionProperty, optic.diameterProperty, optic.focalLengthProperty, optic.surfaceTypeProperty
     ];
     if ( projectionScreen ) {
@@ -69,7 +69,7 @@ class LightRays {
 
     // Update all rays, then inform listeners via raysProcessedEmitter.
     Property.multilink<DependencyTypes>( dependencies,
-      ( sourcePosition: Vector2, raysType: RaysType, lightRaysTime: number, representation: Representation ) => {
+      ( objectPosition: Vector2, raysType: RaysType, lightRaysTime: number, representation: Representation ) => {
 
         // Clear the arrays.
         this.realSegments = [];
@@ -82,7 +82,7 @@ class LightRays {
         const isVirtual = target.isVirtualProperty.value;
 
         // {Vector2[]} get the initial directions of the rays
-        const directions = getRayDirections( raysType, sourcePosition, optic, targetPoint );
+        const directions = getRayDirections( raysType, objectPosition, optic, targetPoint );
 
         // set the target's visibility to false initially (unless there are no rays)
         target.visibleProperty.value = ( raysType === 'none' );
@@ -91,7 +91,7 @@ class LightRays {
         directions.forEach( direction => {
 
           // Create a LightRay, which is responsible for creating real and virtual ray segments.
-          const lightRay = new LightRay( sourcePosition, direction, lightRaysTime, optic, targetPoint, isVirtual,
+          const lightRay = new LightRay( objectPosition, direction, lightRaysTime, optic, targetPoint, isVirtual,
             raysType, representation.isFramedObject ? null : projectionScreen
           );
 
@@ -113,33 +113,33 @@ class LightRays {
 /**
  * Gets the initial directions (as unit vectors) of the rays for the different ray types.
  * @param raysType
- * @param sourcePosition
+ * @param objectPosition
  * @param optic
  * @param targetPoint
  */
-function getRayDirections( raysType: RaysType, sourcePosition: Vector2, optic: Optic, targetPoint: Vector2 ): Vector2[] {
+function getRayDirections( raysType: RaysType, objectPosition: Vector2, optic: Optic, targetPoint: Vector2 ): Vector2[] {
 
-  // {Vector2[]} directions of the light rays emanating from sourcePosition
+  // {Vector2[]} directions of the light rays emanating from objectPosition
   const directions = [];
 
-  // vector from source to optic
-  const sourceOpticVector = optic.positionProperty.value.minus( sourcePosition );
+  // vector from object to optic
+  const objectOpticVector = optic.positionProperty.value.minus( objectPosition );
 
   if ( raysType === 'marginal' ) {
 
     // 3 rays: through center, top, and bottom of optic.
 
     // #1: center of the optic
-    directions.push( sourceOpticVector.normalized() );
+    directions.push( objectOpticVector.normalized() );
 
     // #2: top of the optic
-    const topPoint = optic.getTopPoint( sourcePosition, targetPoint );
-    const topDirection = topPoint.minus( sourcePosition ).normalized();
+    const topPoint = optic.getTopPoint( objectPosition, targetPoint );
+    const topDirection = topPoint.minus( objectPosition ).normalized();
     directions.push( topDirection );
 
     // #3: bottom of the optic
-    const bottomPoint = optic.getBottomPoint( sourcePosition, targetPoint );
-    const bottomDirection = bottomPoint.minus( sourcePosition ).normalized();
+    const bottomPoint = optic.getBottomPoint( objectPosition, targetPoint );
+    const bottomDirection = bottomPoint.minus( objectPosition ).normalized();
     directions.push( bottomDirection );
   }
   else if ( raysType === 'principal' ) {
@@ -151,18 +151,18 @@ function getRayDirections( raysType: RaysType, sourcePosition: Vector2, optic: O
     directions.push( new Vector2( 1, 0 ) );
 
     // #2: through the center of optic
-    directions.push( sourceOpticVector.normalized() );
+    directions.push( objectOpticVector.normalized() );
 
     // #3: through the focal point
-    const sourceFirstFocalVector = sourceOpticVector.minusXY( optic.focalLengthProperty.value, 0 );
-    if ( sourceFirstFocalVector.x < 0 ) {
-      sourceFirstFocalVector.negate(); // should point to the right, to indicate the direction of the light rays
+    const firstFocalVector = objectOpticVector.minusXY( optic.focalLengthProperty.value, 0 );
+    if ( firstFocalVector.x < 0 ) {
+      firstFocalVector.negate(); // should point to the right, to indicate the direction of the light rays
     }
-    directions.push( sourceFirstFocalVector.normalized() );
+    directions.push( firstFocalVector.normalized() );
   }
   else if ( raysType === 'many' ) {
 
-    // Number of rays depends on how far sourcePosition is from the optic. But we want at least 2 rays to
+    // Number of rays depends on how far objectPosition is from the optic. But we want at least 2 rays to
     // go through the optic. See https://github.com/phetsims/geometric-optics/issues/289.
 
     // starting angle for fan of rays
@@ -172,7 +172,7 @@ function getRayDirections( raysType: RaysType, sourcePosition: Vector2, optic: O
     const endAngle = -startingAngle;
 
     // x distance from the Object to the optic
-    const distanceX = Math.abs( optic.positionProperty.value.x - sourcePosition.x );
+    const distanceX = Math.abs( optic.positionProperty.value.x - objectPosition.x );
 
     // number of rays
     const numberOfRays = MANY_MIN_RAYS * ( Math.floor( distanceX / MANY_MIN_RAYS_DISTANCE ) + 1 );
