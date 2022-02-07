@@ -74,7 +74,7 @@ class GOScreenView extends ScreenView {
   protected readonly zoomButtonGroup: Node;
 
   private readonly model: GOModel;
-  private readonly resetGOSceenView: () => void;
+  private readonly resetGOScreenView: () => void;
 
   /**
    * @param model
@@ -160,7 +160,7 @@ class GOScreenView extends ScreenView {
       controlPanel.centerBottom = erodedLayoutBounds.centerBottom;
     } );
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/217 retore toolbox
+    //TODO https://github.com/phetsims/geometric-optics/issues/217 restore toolbox
     //
     // // Toolbox in the top-right corner of the screen
     // const rulersToolbox = new RulersToolbox( [ horizontalRulerNode, verticalRulerNode ], {
@@ -360,7 +360,7 @@ class GOScreenView extends ScreenView {
       }
     } );
 
-    this.resetGOSceenView = (): void => {
+    this.resetGOScreenView = (): void => {
       visibleProperties.reset();
       zoomLevelProperty.reset();
       framedObjectSceneNode.reset();
@@ -402,7 +402,7 @@ class GOScreenView extends ScreenView {
   }
 
   public reset(): void {
-    this.resetGOSceenView();
+    this.resetGOScreenView();
   }
 
   //TODO stepping model should be done in model.step
