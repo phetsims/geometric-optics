@@ -1,8 +1,8 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/geometric-optics/issues/217 factor out LightSourceNode and rename this FramedObjectNode
+//TODO lots of duplication with SourceObjectNode
 /**
- * SourceObjectNode is the view of the source object and first light source.
+ * LightSourceNode is the view of a LightSource.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -14,47 +14,45 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { DragListener, FocusHighlightFromNode, Image, KeyboardDragListener, Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
-import SourceObject from '../model/SourceObject.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import Representation from '../model/Representation.js';
-import CueingArrowsNode from './CueingArrowsNode.js';
-import GOGlobalOptions from '../GOGlobalOptions.js';
+import CueingArrowsNode from '../../common/view/CueingArrowsNode.js';
+import GOGlobalOptions from '../../common/GOGlobalOptions.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
-import GOConstants from '../GOConstants.js';
+import GOConstants from '../../common/GOConstants.js';
 import IProperty from '../../../../axon/js/IProperty.js';
+import LightSource from '../model/LightSource.js';
 
 // Closest that source object can be moved to the optic, in cm. This avoids problems that occur when the object is
 // too close to a mirror. See https://github.com/phetsims/geometric-optics/issues/73
-const MIN_X_DISTANCE_TO_OPTIC = 40;
+const MIN_X_DISTANCE_TO_OPTIC = 40; //TODO duplicated in in SourceObjectNode
 
-type SourceObjectNodeOptions = {
+type LightSourceNodeOptions = {
   visibleProperty?: IProperty<boolean>,
   tandem: Tandem
 };
 
-class SourceObjectNode extends Node {
+class LightSourceNode extends Node {
 
-  // so that 1st and 2nd light source can share drag bounds
-  public readonly dragBoundsProperty: IReadOnlyProperty<Bounds2>;
-  private readonly resetSourceObjectNode: () => void;
+  private readonly resetLightSourceNode: () => void;
 
   /**
-   * @param representationProperty
-   * @param sourceObject
+   * @param lightSource
    * @param modelBoundsProperty
    * @param opticPositionProperty
    * @param modelViewTransform
    * @param dragLockedProperty
    * @param providedOptions
    */
-  constructor( representationProperty: IReadOnlyProperty<Representation>, sourceObject: SourceObject,
-               modelBoundsProperty: IReadOnlyProperty<Bounds2>, opticPositionProperty: IReadOnlyProperty<Vector2>,
-               modelViewTransform: ModelViewTransform2, dragLockedProperty: IReadOnlyProperty<boolean>,
-               providedOptions: SourceObjectNodeOptions ) {
+  constructor( lightSource: LightSource,
+               modelBoundsProperty: IReadOnlyProperty<Bounds2>,
+               opticPositionProperty: IReadOnlyProperty<Vector2>,
+               modelViewTransform: ModelViewTransform2,
+               dragLockedProperty: IReadOnlyProperty<boolean>,
+               providedOptions: LightSourceNodeOptions ) {
 
-    const imageNode = new Image( representationProperty.value.rightFacingUpright );
+    const imageNode = new Image( lightSource.htmlImageElement );
 
     // Wrap imageNode in a Node. We need to scale imageNode, but do not want its focus highlight to scale.
     const wrappedImageNode = new Node( {
@@ -78,32 +76,26 @@ class SourceObjectNode extends Node {
     super( options );
 
     const updateScale = () => {
-      const modelBounds = sourceObject.boundsProperty.value;
+      const modelBounds = lightSource.boundsProperty.value;
       const viewBounds = modelViewTransform.modelToViewBounds( modelBounds );
       const scaleX = viewBounds.width / imageNode.width;
       const scaleY = viewBounds.height / imageNode.height;
       imageNode.scale( scaleX, scaleY );
     };
 
-    // Change the PNG image.
-    representationProperty.link( representation => {
-      imageNode.image = representation.rightFacingUpright;
-      updateScale();
-    } );
-
     // Translate and scale
-    sourceObject.boundsProperty.link( bounds => {
+    lightSource.boundsProperty.link( bounds => {
       this.translation = modelViewTransform.modelToViewBounds( bounds ).leftTop;
       updateScale();
     } );
 
     // Drag bounds, in model coordinates. Keep the full object within the model bounds and to the left of the optic.
-    this.dragBoundsProperty = new DerivedProperty(
-      [ sourceObject.boundsProperty, modelBoundsProperty, dragLockedProperty ],
+    const dragBoundsProperty = new DerivedProperty(
+      [ lightSource.boundsProperty, modelBoundsProperty, dragLockedProperty ],
       ( sourceObjectBounds: Bounds2, modelBounds: Bounds2, dragLocked: boolean ) => {
 
-        const sourceObjectPosition = sourceObject.positionProperty.value;
-        const minX = modelBounds.minX + ( sourceObjectPosition.x - sourceObjectBounds.minX );
+        const lightSourcePosition = lightSource.positionProperty.value;
+        const minX = modelBounds.minX + ( lightSourcePosition.x - sourceObjectBounds.minX );
         const maxX = opticPositionProperty.value.x - MIN_X_DISTANCE_TO_OPTIC;
         let minY: number;
         let maxY: number;
@@ -111,14 +103,14 @@ class SourceObjectNode extends Node {
         if ( dragLocked ) {
 
           // Dragging is 1D, constrained horizontally to object's current position.
-          minY = sourceObjectPosition.y;
+          minY = lightSourcePosition.y;
           maxY = minY;
         }
         else {
 
           // Dragging is 2D.
-          minY = modelBounds.minY + ( sourceObjectPosition.y - sourceObjectBounds.minY );
-          maxY = modelBounds.maxY - ( sourceObjectBounds.maxY - sourceObjectPosition.y );
+          minY = modelBounds.minY + ( lightSourcePosition.y - sourceObjectBounds.minY );
+          maxY = modelBounds.maxY - ( sourceObjectBounds.maxY - lightSourcePosition.y );
         }
         return new Bounds2( minX, minY, maxX, maxY );
       }, {
@@ -127,13 +119,13 @@ class SourceObjectNode extends Node {
         // therefore changing dependency sourceObject.boundsProperty.
         reentrant: true
       } );
-    this.dragBoundsProperty.link( dragBounds => {
-      sourceObject.positionProperty.value = dragBounds.closestPointTo( sourceObject.positionProperty.value );
+    dragBoundsProperty.link( dragBounds => {
+      lightSource.positionProperty.value = dragBounds.closestPointTo( lightSource.positionProperty.value );
     } );
 
     const dragListener = new DragListener( {
-      positionProperty: sourceObject.positionProperty,
-      dragBoundsProperty: this.dragBoundsProperty,
+      positionProperty: lightSource.positionProperty,
+      dragBoundsProperty: dragBoundsProperty,
       transform: modelViewTransform,
       useParentOffset: true,
       drag: () => {
@@ -144,15 +136,15 @@ class SourceObjectNode extends Node {
     this.addInputListener( dragListener );
 
     const keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
-      positionProperty: sourceObject.positionProperty,
-      dragBoundsProperty: this.dragBoundsProperty,
+      positionProperty: lightSource.positionProperty,
+      dragBoundsProperty: dragBoundsProperty,
       transform: modelViewTransform
     } ) );
     this.addInputListener( keyboardDragListener );
 
     // Keep cueing arrows next to the source object.
     Property.multilink( [ wrappedImageNode.boundsProperty, cueingArrowsNode.boundsProperty ],
-      ( wrappedImageNodeBounds: Bounds2, cueingArrowsNodeBounds: Bounds2 ) => {
+      ( wrappedImageNodeNodeBounds: Bounds2, cueingArrowsNodeBounds: Bounds2 ) => {
         cueingArrowsNode.right = wrappedImageNode.left - 10;
         cueingArrowsNode.centerY = wrappedImageNode.centerY;
       } );
@@ -170,7 +162,7 @@ class SourceObjectNode extends Node {
       cueingArrowsNode.setDirection( locked ? 'horizontal' : 'both' );
     } );
 
-    this.resetSourceObjectNode = (): void => {
+    this.resetLightSourceNode = (): void => {
       cueingArrowsNode.visible = ( GOGlobalOptions.cueingArrowsEnabledProperty.value &&
                                    this.inputEnabledProperty.value );
     };
@@ -182,9 +174,9 @@ class SourceObjectNode extends Node {
   }
 
   public reset(): void {
-    this.resetSourceObjectNode();
+    this.resetLightSourceNode();
   }
 }
 
-geometricOptics.register( 'SourceObjectNode', SourceObjectNode );
-export default SourceObjectNode;
+geometricOptics.register( 'LightSourceNode', LightSourceNode );
+export default LightSourceNode;

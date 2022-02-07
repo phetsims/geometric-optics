@@ -22,7 +22,9 @@ import LightRays from '../../common/model/LightRays.js';
 import ProjectionScreen from '../../lens/model/ProjectionScreen.js';
 import LightSpot from '../../lens/model/LightSpot.js';
 import Guide from '../../lens/model/Guide.js';
-import SourceObject from '../../common/model/SourceObject.js';
+import LightSource from './LightSource.js';
+import lamp2_png from '../../../images/lamp2_png.js';
+import lamp1_png from '../../../images/lamp1_png.js';
 
 type LightSourcesSceneOptions = {
 
@@ -34,8 +36,8 @@ class LightSourcesScene {
 
   readonly representationProperty: Property<Representation>;
   readonly optic: Optic;
-  readonly lightSource1: SourceObject; //TODO change to LightSource
-  readonly lightSource2: SourceObject; //TODO change to LightSource
+  readonly lightSource1: LightSource;
+  readonly lightSource2: LightSource;
   readonly target1: Target;
   readonly target2: Target;
   readonly projectionScreen: ProjectionScreen;
@@ -67,17 +69,15 @@ class LightSourcesScene {
       validValues: [ LIGHT_SOURCE_REPRESENTATION ]
     } );
 
-    //TODO new LightSource
-    this.lightSource1 = new SourceObject( this.representationProperty, {
-      //TODO htmlImageElement: lamp1_png,
+    this.lightSource1 = new LightSource( {
+      htmlImageElement: lamp1_png,
       position: new Vector2( -170, 20 ),
       tandem: options.tandem.createTandem( 'lightSource1' )
     } );
 
-    //TODO new LightSource
-    this.lightSource2 = new SourceObject( this.representationProperty, {
-      //TODO htmlImageElement: lamp2_png,
-      position: new Vector2( -170, -20 ), //TODO
+    this.lightSource2 = new LightSource( {
+      htmlImageElement: lamp2_png,
+      position: new Vector2( -170, -20 ),
       tandem: options.tandem.createTandem( 'lightSource2' )
     } );
 

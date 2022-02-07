@@ -12,7 +12,6 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import { Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import VisibleProperties from '../../common/view/VisibleProperties.js';
-import SourceObjectNode from '../../common/view/SourceObjectNode.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OpticalAxisNode from '../../common/view/OpticalAxisNode.js';
@@ -33,6 +32,7 @@ import ProjectionScreenNode from './ProjectionScreenNode.js';
 import LightSpotNode from './LightSpotNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import GuidesNode from './GuidesNode.js';
+import LightSourceNode from './LightSourceNode.js';
 
 type LightSourcesSceneNodeOptions = {
 
@@ -104,14 +104,12 @@ class LightSourcesSceneNode extends Node {
       tandem: options.tandem.createTandem( 'twoFPointsNode' )
     } );
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/217 new LightSourceNode
-    const lightSource1Node = new SourceObjectNode( scene.representationProperty, scene.lightSource1,
+    const lightSource1Node = new LightSourceNode( scene.lightSource1,
       modelBoundsProperty, scene.optic.positionProperty, modelViewTransform, options.dragLockedProperty, {
         tandem: options.tandem.createTandem( 'lightSource1Node' )
       } );
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/217 new LightSourceNode
-    const lightSource2Node = new SourceObjectNode( scene.representationProperty, scene.lightSource2,
+    const lightSource2Node = new LightSourceNode( scene.lightSource2,
       modelBoundsProperty, scene.optic.positionProperty, modelViewTransform, options.dragLockedProperty, {
         visibleProperty: visibleProperties.secondPointVisibleProperty,
         tandem: options.tandem.createTandem( 'lightSource1Node' )
