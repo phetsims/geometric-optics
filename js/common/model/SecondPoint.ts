@@ -16,7 +16,7 @@ import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import geometricOptics from '../../geometricOptics.js';
 
-// range of the vertical offset for the second point, relative to the Object, in cm
+// range of the vertical offset for the second point, relative to frame object's position, in cm
 const VERTICAL_OFFSET_RANGE = new Range( -55, 0 );
 
 class SecondPoint {
