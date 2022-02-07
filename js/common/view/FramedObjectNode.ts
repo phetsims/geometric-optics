@@ -35,9 +35,6 @@ type FramedObjectNodeOptions = {
 
 class FramedObjectNode extends Node {
 
-  // Used by SecondPointNode
-  public readonly dragBoundsProperty: IReadOnlyProperty<Bounds2>;
-
   private readonly resetFramedObjectNode: () => void;
 
   /**
@@ -174,8 +171,6 @@ class FramedObjectNode extends Node {
       cueingArrowsNode.visible = ( GOGlobalOptions.cueingArrowsEnabledProperty.value &&
                                    this.inputEnabledProperty.value );
     };
-
-    this.dragBoundsProperty = dragBoundsProperty;
   }
 
   public dispose(): void {

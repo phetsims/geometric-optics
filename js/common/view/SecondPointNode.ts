@@ -59,7 +59,12 @@ class SecondPointNode extends Node {
 
     this.touchArea = Shape.circle( 0, 0, 2 * pointNode.width + 10 );
 
-    // Property for the position of the second point, so we're not setting secondPoint.positionProperty directly.
+    secondPoint.positionProperty.link( position => {
+      this.center = modelViewTransform.modelToViewPosition( position );
+    } );
+
+    // The position of the second point cannot be set directly, because it is derived based on the vertical
+    // offset from the framed object's position.  So create an adapter Property for use with DragListener.
     const positionProperty = new Vector2Property( secondPoint.positionProperty.value );
     positionProperty.link( position => secondPoint.setSecondPoint( position ) );
 
@@ -71,10 +76,6 @@ class SecondPointNode extends Node {
       }
     } );
     this.addInputListener( dragListener );
-
-    secondPoint.positionProperty.link( position => {
-      this.center = modelViewTransform.modelToViewPosition( position );
-    } );
 
     Property.multilink(
       [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty ],
@@ -106,7 +107,7 @@ class SecondPointNode extends Node {
   }
 }
 
-// The point that represents the position of the second source
+// Circle that denotes the second point
 class PointNode extends Circle {
   constructor() {
     super( 5, {
