@@ -52,6 +52,9 @@ class GOModel {
   // See https://github.com/phetsims/geometric-optics/issues/289
   readonly maxDistanceFromOpticalAxis: number;
 
+  // Scenes are grouped under this tandem
+  protected readonly scenesTandem: Tandem;
+
   /**
    * @param optic
    * @param providedOptions
@@ -77,21 +80,25 @@ class GOModel {
       phetioType: Property.PropertyIO( StringIO )
     } );
 
+    this.scenesTandem = options.tandem.createTandem( 'scenes' );
+
     this.framedObjectScene = new FramedObjectScene( this.optic, this.raysTypeProperty, {
       framedObjectPosition: options.framedObjectPosition,
-      tandem: options.tandem.createTandem( 'framedObjectScene' )
+      tandem: this.scenesTandem.createTandem( 'framedObjectScene' )
     } );
+
+    const rulersTandem = options.tandem.createTandem( 'rulers' );
 
     this.horizontalRuler = new GORuler( {
       orientation: 'horizontal',
       length: GOConstants.HORIZONTAL_RULER_LENGTH,
-      tandem: options.tandem.createTandem( 'horizontalRuler' )
+      tandem: rulersTandem.createTandem( 'horizontalRuler' )
     } );
 
     this.verticalRuler = new GORuler( {
       orientation: 'vertical',
       length: GOConstants.VERTICAL_RULER_LENGTH,
-      tandem: options.tandem.createTandem( 'verticalRuler' )
+      tandem: rulersTandem.createTandem( 'verticalRuler' )
     } );
 
     this.maxDistanceFromOpticalAxis = 100; // cm

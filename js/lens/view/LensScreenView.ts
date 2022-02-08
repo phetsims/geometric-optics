@@ -67,7 +67,7 @@ class LensScreenView extends GOScreenView {
     const dragLockedButton = new DragLockedButton( options.dragLockedProperty, {
       left: this.representationComboBox.right + 25,
       centerY: this.representationComboBox.centerY,
-      tandem: options.tandem.createTandem( 'dragLockedButton' )
+      tandem: this.controlsTandem.createTandem( 'dragLockedButton' )
     } );
     this.controlsLayer.addChild( dragLockedButton );
 
@@ -75,7 +75,7 @@ class LensScreenView extends GOScreenView {
       this.modelViewTransform, this.modelVisibleBoundsProperty, this.modelBoundsProperty, model.raysTypeProperty, {
         createOpticNode: options.createOpticNode,
         dragLockedProperty: options.dragLockedProperty,
-        tandem: options.tandem.createTandem( 'lightSourcesSceneNode' )
+        tandem: this.scenesTandem.createTandem( 'lightSourcesSceneNode' )
       } );
     this.scenesNode.addChild( lightSourcesSceneNode );
 

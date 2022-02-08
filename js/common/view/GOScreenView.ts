@@ -72,6 +72,8 @@ class GOScreenView extends ScreenView {
   protected readonly representationComboBox: Node;
   protected readonly surfaceTypeRadioButtonGroup: Node;
   protected readonly zoomButtonGroup: Node;
+  protected readonly scenesTandem: Tandem;
+  protected readonly controlsTandem: Tandem;
 
   private readonly model: GOModel;
   private readonly resetGOScreenView: () => void;
@@ -151,10 +153,12 @@ class GOScreenView extends ScreenView {
     //     tandem: options.tandem.createTandem( 'verticalRulerNode' )
     //   } );
 
+    this.controlsTandem = options.tandem.createTandem( 'controls' );
+
     // Control panel at the bottom-center of the screen
     const controlPanel = new GOControlPanel( model.representationProperty, model.optic,
       model.raysTypeProperty, visibleProperties, {
-        tandem: options.tandem.createTandem( 'controlPanel' )
+        tandem: this.controlsTandem.createTandem( 'controlPanel' )
       } );
     controlPanel.boundsProperty.link( () => {
       controlPanel.centerBottom = erodedLayoutBounds.centerBottom;
@@ -178,7 +182,7 @@ class GOScreenView extends ScreenView {
     // Radio buttons for the shape of the optic
     const surfaceTypeRadioButtonGroup = new OpticShapeRadioButtonGroup( model.optic, {
       centerTop: erodedLayoutBounds.centerTop,
-      tandem: options.tandem.createTandem( 'surfaceTypeRadioButtonGroup' )
+      tandem: this.controlsTandem.createTandem( 'surfaceTypeRadioButtonGroup' )
     } );
 
     // Parent for any popups
@@ -188,7 +192,7 @@ class GOScreenView extends ScreenView {
     const representationComboBox = new RepresentationComboBox( model.representationProperty, popupsParent, {
       left: this.layoutBounds.left + 100,
       top: erodedLayoutBounds.top,
-      tandem: options.tandem.createTandem( 'representationComboBox' )
+      tandem: this.controlsTandem.createTandem( 'representationComboBox' )
     } );
 
     // Zoom buttons
@@ -204,7 +208,7 @@ class GOScreenView extends ScreenView {
       },
       right: erodedLayoutBounds.left + ( controlPanel.left - erodedLayoutBounds.left ) / 2,
       centerY: controlPanel.centerY,
-      tandem: options.tandem.createTandem( 'zoomButtonGroup' )
+      tandem: this.controlsTandem.createTandem( 'zoomButtonGroup' )
     } );
 
     // Reset All button at right-bottom
@@ -215,12 +219,12 @@ class GOScreenView extends ScreenView {
         this.reset();
       },
       rightBottom: erodedLayoutBounds.rightBottom,
-      tandem: options.tandem.createTandem( 'resetAllButton' )
+      tandem: this.controlsTandem.createTandem( 'resetAllButton' )
     } );
 
     // Show/hide toggle button above the Reset All button
     const showHideToggleButton = new ShowHideToggleButton( visibleProperties.raysAndImagesVisibleProperty, {
-      tandem: options.tandem.createTandem( 'showHideToggleButton' )
+      tandem: this.controlsTandem.createTandem( 'showHideToggleButton' )
     } );
     showHideToggleButton.centerX = resetAllButton.centerX;
     showHideToggleButton.top = controlPanel.top;
@@ -242,11 +246,13 @@ class GOScreenView extends ScreenView {
         return new Bounds2( modelVisibleBounds.minX, -y, modelVisibleBounds.maxX, y );
       } );
 
+    this.scenesTandem = options.tandem.createTandem( 'scenes' );
+
     const framedObjectSceneNode = new FramedObjectSceneNode( model.framedObjectScene, visibleProperties, modelViewTransform,
       modelVisibleBoundsProperty, modelBoundsProperty, model.raysTypeProperty, {
         createOpticNode: options.createOpticNode,
         dragLockedProperty: options.dragLockedProperty,
-        tandem: options.tandem.createTandem( 'framedObjectSceneNode' )
+        tandem: this.scenesTandem.createTandem( 'framedObjectSceneNode' )
       } );
 
     const scenesNode = new Node( {

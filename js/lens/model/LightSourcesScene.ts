@@ -93,7 +93,8 @@ class LightSourcesScene {
     this.lightRaysTimeProperty = new NumberProperty( 0, {
       units: 's',
       range: new Range( 0, 10 ), // determines the duration of the light rays animation
-      tandem: options.tandem.createTandem( 'lightRaysTimeProperty' )
+      tandem: options.tandem.createTandem( 'lightRaysTimeProperty' ),
+      phetioReadOnly: true
     } );
 
     //TODO duplicated in FramedObjectScene
@@ -166,7 +167,7 @@ class LightSourcesScene {
    * @param dt - time step, in seconds
    */
   public stepLightRays( dt: number ): void {
-    const t = this.lightRaysTimeProperty.value + dt;
+    const t = Math.min( this.lightRaysTimeProperty.value + dt, this.lightRaysTimeProperty.range!.max );
     assert && assert( this.lightRaysTimeProperty.range ); // {Range|null}
     if ( this.lightRaysTimeProperty.range!.contains( t ) ) {
       this.lightRaysTimeProperty.value = t;
