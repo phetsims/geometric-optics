@@ -112,7 +112,7 @@ class LightSourcesSceneNode extends Node {
     const lightSource2Node = new LightSourceNode( scene.lightSource2,
       modelBoundsProperty, scene.optic.positionProperty, modelViewTransform, options.dragLockedProperty, {
         visibleProperty: visibleProperties.secondPointVisibleProperty,
-        tandem: options.tandem.createTandem( 'lightSource1Node' )
+        tandem: options.tandem.createTandem( 'lightSource2Node' )
       } );
 
     // The parts of the optical axis that appear to be in front of Nodes that have 3D perspective.
