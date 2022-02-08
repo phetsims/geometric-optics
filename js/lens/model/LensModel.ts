@@ -32,7 +32,7 @@ class LensModel extends GOModel {
 
       //TODO give framedObject a bisector line so this isn't empirical
       // Initial position of the framed object, empirically set so that the optical axis goes through its center.
-      framedObjectPosition: new Vector2( -170, 30 )
+      framedObjectPosition: new Vector2( -170, 27 )
     }, providedOptions ) as GeometricOpticsModelOptions; //TODO don't use 'as'
 
     // super is responsible for resetting the lens
