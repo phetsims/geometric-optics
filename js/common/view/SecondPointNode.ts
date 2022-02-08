@@ -110,7 +110,7 @@ class SecondPointNode extends Node {
 // Circle that denotes the second point
 class PointNode extends Circle {
   constructor() {
-    super( 5, {
+    super( 7, {
       fill: GOColors.secondPointFillProperty,
       stroke: GOColors.secondPointStrokeProperty
     } );
