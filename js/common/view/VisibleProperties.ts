@@ -78,6 +78,7 @@ class VisibleProperties {
 
     this.raysAndImagesVisibleProperty = new BooleanProperty( true, {
       tandem: providedOptions.tandem.createTandem( 'raysAndImagesVisibleProperty' )
+      //TODO phetioDocumentation
     } );
 
     this.opticalAxisVisibleProperty = new BooleanProperty( true, {
