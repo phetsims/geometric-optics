@@ -41,8 +41,10 @@ class MirrorNode extends Node {
    * @param modelViewTransform
    * @param providedOptions
    */
-  constructor( mirror: Mirror, modelBoundsProperty: IReadOnlyProperty<Bounds2>,
-               modelViewTransform: ModelViewTransform2, providedOptions: MirrorNodeOptions ) {
+  constructor( mirror: Mirror,
+               modelBoundsProperty: IReadOnlyProperty<Bounds2>,
+               modelViewTransform: ModelViewTransform2,
+               providedOptions: MirrorNodeOptions ) {
 
     // the mirror's backing
     const backingNode = new Path( null, {

@@ -49,8 +49,10 @@ class LabelNode extends Node {
    * @param zoomTransformProperty
    * @param providedOptions
    */
-  constructor( text: string, positionProperty: IReadOnlyProperty<Vector2>,
-               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>, providedOptions?: LabelNodeOptions ) {
+  constructor( text: string,
+               positionProperty: IReadOnlyProperty<Vector2>,
+               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+               providedOptions?: LabelNodeOptions ) {
 
     const textNode = new Text( text, TEXT_OPTIONS );
 

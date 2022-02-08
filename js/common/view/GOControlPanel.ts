@@ -41,8 +41,11 @@ class GOControlPanel extends Panel {
    * @param virtualImageCheckboxEnabledProperty
    * @param providedOptions
    */
-  constructor( optic: Optic, raysTypeProperty: Property<RaysType>, visibleProperties: VisibleProperties,
-               virtualImageCheckboxEnabledProperty: IReadOnlyProperty<boolean>, providedOptions: GOControlPanelOptions ) {
+  constructor( optic: Optic,
+               raysTypeProperty: Property<RaysType>,
+               visibleProperties: VisibleProperties,
+               virtualImageCheckboxEnabledProperty: IReadOnlyProperty<boolean>,
+               providedOptions: GOControlPanelOptions ) {
 
     // Rays radio buttons ---------------------------------------------------------------------------------------
 

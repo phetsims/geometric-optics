@@ -47,9 +47,12 @@ class FramedObjectNode extends Node {
    * @param dragLockedProperty
    * @param providedOptions
    */
-  constructor( representationProperty: IReadOnlyProperty<Representation>, framedObject: FramedObject,
-               modelBoundsProperty: IReadOnlyProperty<Bounds2>, opticPositionProperty: IReadOnlyProperty<Vector2>,
-               modelViewTransform: ModelViewTransform2, dragLockedProperty: IReadOnlyProperty<boolean>,
+  constructor( representationProperty: IReadOnlyProperty<Representation>,
+               framedObject: FramedObject,
+               modelBoundsProperty: IReadOnlyProperty<Bounds2>,
+               opticPositionProperty: IReadOnlyProperty<Vector2>,
+               modelViewTransform: ModelViewTransform2,
+               dragLockedProperty: IReadOnlyProperty<boolean>,
                providedOptions: FramedObjectNodeOptions ) {
 
     const imageNode = new Image( representationProperty.value.rightFacingUpright );

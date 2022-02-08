@@ -29,8 +29,10 @@ class OpticVerticalAxisNode extends Node {
    * @param modelViewTransform
    * @param providedOptions
    */
-  constructor( optic: Optic, raysTypeProperty: IReadOnlyProperty<RaysType>,
-               modelViewTransform: ModelViewTransform2, providedOptions: OpticVerticalAxisNodeOptions ) {
+  constructor( optic: Optic,
+               raysTypeProperty: IReadOnlyProperty<RaysType>,
+               modelViewTransform: ModelViewTransform2,
+               providedOptions: OpticVerticalAxisNodeOptions ) {
 
     // Create a vertical dashed line through the optic, indicating the crossing plane of Principal rays.
     // See https://github.com/phetsims/geometric-optics/issues/140 for decisions about the look of this axis.

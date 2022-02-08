@@ -32,8 +32,10 @@ class OpticalAxisNode extends Line {
    * @param modelViewTransform
    * @param providedOptions
    */
-  constructor( opticPositionProperty: IReadOnlyProperty<Vector2>, modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-               modelViewTransform: ModelViewTransform2, providedOptions: OpticalAxisNodeOptions ) {
+  constructor( opticPositionProperty: IReadOnlyProperty<Vector2>,
+               modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+               modelViewTransform: ModelViewTransform2,
+               providedOptions: OpticalAxisNodeOptions ) {
 
     // create optical axis line, with arbitrary length values.
     super( 0, 0, 1, 0, merge( {

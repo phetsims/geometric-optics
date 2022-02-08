@@ -44,8 +44,10 @@ class LensNode extends Node {
    * @param modelViewTransform
    * @param providedOptions
    */
-  constructor( lens: Lens, modelBoundsProperty: IReadOnlyProperty<Bounds2>,
-               modelViewTransform: ModelViewTransform2, providedOptions: LensNodeOptions ) {
+  constructor( lens: Lens,
+               modelBoundsProperty: IReadOnlyProperty<Bounds2>,
+               modelViewTransform: ModelViewTransform2,
+               providedOptions: LensNodeOptions ) {
 
     const fillNode = new Path( null, {
       fill: FILL

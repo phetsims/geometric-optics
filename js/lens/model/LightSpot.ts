@@ -56,8 +56,11 @@ class LightSpot {
    * @param targetPositionProperty
    * @param providedOptions
    */
-  constructor( optic: Optic, projectionScreen: ProjectionScreen, lightSourcePositionProperty: IReadOnlyProperty<Vector2>,
-               targetPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: LightSpotOptions ) {
+  constructor( optic: Optic,
+               projectionScreen: ProjectionScreen,
+               lightSourcePositionProperty: IReadOnlyProperty<Vector2>,
+               targetPositionProperty: IReadOnlyProperty<Vector2>,
+               providedOptions: LightSpotOptions ) {
 
     this.shapeProperty = new DerivedProperty(
       [ optic.positionProperty, optic.diameterProperty, projectionScreen.positionProperty, lightSourcePositionProperty, targetPositionProperty ],

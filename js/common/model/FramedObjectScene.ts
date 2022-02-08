@@ -21,6 +21,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import { RaysType } from './RaysType.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import LightRays from './LightRays.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 type FramedObjectSceneOptions = {
 
@@ -47,7 +48,7 @@ class FramedObjectScene {
    * @param raysTypeProperty
    * @param providedOptions
    */
-  constructor( optic: Optic, raysTypeProperty: Property<RaysType>, providedOptions: FramedObjectSceneOptions ) {
+  constructor( optic: Optic, raysTypeProperty: IReadOnlyProperty<RaysType>, providedOptions: FramedObjectSceneOptions ) {
 
     const options = merge( {
       //TODO

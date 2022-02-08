@@ -26,6 +26,7 @@ import Guide from '../../lens/model/Guide.js';
 import LightSource from './LightSource.js';
 import lamp2_png from '../../../images/lamp2_png.js';
 import lamp1_png from '../../../images/lamp1_png.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 type LightSourcesSceneOptions = {
 
@@ -57,7 +58,7 @@ class LightSourcesScene {
    * @param raysTypeProperty
    * @param providedOptions
    */
-  constructor( optic: Optic, raysTypeProperty: Property<RaysType>, providedOptions: LightSourcesSceneOptions ) {
+  constructor( optic: Optic, raysTypeProperty: IReadOnlyProperty<RaysType>, providedOptions: LightSourcesSceneOptions ) {
 
     const options = merge( {
       //TODO

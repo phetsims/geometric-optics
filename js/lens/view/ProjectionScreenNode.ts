@@ -42,8 +42,11 @@ class ProjectionScreenNode extends Node {
    * @param modelViewTransform
    * @param providedOptions
    */
-  constructor( projectionScreen: ProjectionScreen, opticPositionProperty: IReadOnlyProperty<Vector2>,
-               modelBoundsProperty: IReadOnlyProperty<Bounds2>, modelViewTransform: ModelViewTransform2, providedOptions: ProjectionScreenNodeOptions ) {
+  constructor( projectionScreen: ProjectionScreen,
+               opticPositionProperty: IReadOnlyProperty<Vector2>,
+               modelBoundsProperty: IReadOnlyProperty<Bounds2>,
+               modelViewTransform: ModelViewTransform2,
+               providedOptions: ProjectionScreenNodeOptions ) {
 
     // The screen part of the projection screen, drawn in perspective.
     const screenNode = new Path( modelViewTransform.modelToViewShape( projectionScreen.screenShape ), {

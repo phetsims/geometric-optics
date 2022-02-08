@@ -47,10 +47,13 @@ class LightRays {
    * @param target - target model associated with this ray
    * @param projectionScreen - optional projection screen that blocks rays
    */
-  constructor( lightRaysTimeProperty: Property<number>, raysTypeProperty: IReadOnlyProperty<RaysType>,
+  constructor( lightRaysTimeProperty: IReadOnlyProperty<number>,
+               raysTypeProperty: IReadOnlyProperty<RaysType>,
                representationProperty: IReadOnlyProperty<Representation>,
                objectPositionProperty: IReadOnlyProperty<Vector2>,
-               optic: Optic, target: Target, projectionScreen: ProjectionScreen | null ) {
+               optic: Optic,
+               target: Target,
+               projectionScreen: ProjectionScreen | null ) {
 
     this.realSegments = [];
     this.virtualSegments = [];

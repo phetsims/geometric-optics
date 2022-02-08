@@ -40,9 +40,13 @@ class TargetNode extends Node {
    * @param modelViewTransform
    * @param providedOptions
    */
-  constructor( representationProperty: IReadOnlyProperty<Representation>, target: Target, optic: Optic,
-               virtualImageVisibleProperty: IReadOnlyProperty<boolean>, raysAndImagesVisibleProperty: IReadOnlyProperty<boolean>,
-               modelViewTransform: ModelViewTransform2, providedOptions: TargetNodeOptions ) {
+  constructor( representationProperty: IReadOnlyProperty<Representation>,
+               target: Target,
+               optic: Optic,
+               virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
+               raysAndImagesVisibleProperty: IReadOnlyProperty<boolean>,
+               modelViewTransform: ModelViewTransform2,
+               providedOptions: TargetNodeOptions ) {
 
     const options = merge( {
       visibleProperty: new DerivedProperty(
