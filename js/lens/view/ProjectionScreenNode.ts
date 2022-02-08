@@ -148,7 +148,7 @@ class ProjectionScreenNode extends Node {
       phetioReadOnly: true
     } );
 
-    // Drag action that is common to mouse/touch and keyboard.
+    // Drag action that is common to DragListener and KeyboardDragListener
     const drag = () => {
       wasDraggedProperty.value = true;
     };
