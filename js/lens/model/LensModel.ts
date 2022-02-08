@@ -43,7 +43,7 @@ class LensModel extends GOModel {
     super( lens, options );
 
     this.lightSourcesScene = new LightSourcesScene( this.optic, this.raysTypeProperty, {
-      tandem: options.tandem.createTandem( 'framedObjectScene' )
+      tandem: options.tandem.createTandem( 'lightSourcesScene' )
     } );
   }
 
