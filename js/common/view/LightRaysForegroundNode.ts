@@ -11,7 +11,6 @@
 import LightRaysNode, { LightRaysNodeOptions } from './LightRaysNode.js';
 import geometricOptics from '../../geometricOptics.js';
 import LightRays from '../model/LightRays.js';
-import Representation from '../model/Representation.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import GOQueryParameters from '../GOQueryParameters.js';
@@ -25,7 +24,6 @@ class LightRaysForegroundNode extends LightRaysNode {
 
   /**
    * @param lightRays
-   * @param representationProperty
    * @param virtualImageVisibleProperty
    * @param modelViewTransform
    * @param modelVisibleBoundsProperty - bounds where rays may appear, in model coordinates
@@ -35,7 +33,6 @@ class LightRaysForegroundNode extends LightRaysNode {
    * @param providedOptions
    */
   constructor( lightRays: LightRays,
-               representationProperty: IReadOnlyProperty<Representation>,
                virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
                modelViewTransform: ModelViewTransform2,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
@@ -49,7 +46,7 @@ class LightRaysForegroundNode extends LightRaysNode {
       options.realRaysStroke = 'red';
     }
 
-    super( lightRays, representationProperty, virtualImageVisibleProperty, modelViewTransform, options );
+    super( lightRays, virtualImageVisibleProperty, modelViewTransform, options );
 
     // Stroke the clipArea in red.
     let clipAreaNode: Path;

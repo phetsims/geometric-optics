@@ -133,24 +133,26 @@ class FramedObjectSceneNode extends Node {
 
     // Light rays associated with the first point of interest (the Object's position).
     const lightRays1Options = {
+      isLightSource: false,
       realRaysStroke: GOColors.rays1StrokeProperty,
       virtualRaysStroke: GOColors.rays1StrokeProperty
     };
-    const lightRays1Node = new LightRaysNode( scene.lightRays1, scene.representationProperty,
+    const lightRays1Node = new LightRaysNode( scene.lightRays1,
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, lightRays1Options );
-    const lightRays1ForegroundNode = new LightRaysForegroundNode( scene.lightRays1, scene.representationProperty,
+    const lightRays1ForegroundNode = new LightRaysForegroundNode( scene.lightRays1,
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, modelVisibleBoundsProperty,
       scene.optic.positionProperty, scene.target1.positionProperty, scene.target1.isVirtualProperty, lightRays1Options );
 
     // Light rays associated with the second point of interest.
     const lightRays2Options = {
+      isLightSource: false,
       realRaysStroke: GOColors.rays2StrokeProperty,
       virtualRaysStroke: GOColors.rays2StrokeProperty,
       visibleProperty: visibleProperties.secondPointVisibleProperty
     };
-    const lightRays2Node = new LightRaysNode( scene.lightRays2, scene.representationProperty,
+    const lightRays2Node = new LightRaysNode( scene.lightRays2,
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, lightRays2Options );
-    const lightRays2ForegroundNode = new LightRaysForegroundNode( scene.lightRays2, scene.representationProperty,
+    const lightRays2ForegroundNode = new LightRaysForegroundNode( scene.lightRays2,
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, modelVisibleBoundsProperty,
       scene.optic.positionProperty, scene.target2.positionProperty, scene.target2.isVirtualProperty, lightRays2Options );
 

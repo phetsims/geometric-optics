@@ -1,5 +1,6 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
+//TODO split into 2 nodes, RealLightRaysNode and VirtualLightRaysNode, don't include VirtualLightRaysNode in LightSourceSceneNode
 /**
  * LightRaysNode is responsible for rendering a bundle of rays, as described by LightRays.
  * LightRays provides a set of line segments (start and end points), and LightRaysNode draws each segment
@@ -18,7 +19,6 @@ import { ColorDef, Line, Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import { LightRaySegment } from '../model/LightRay.js';
 import LightRays from '../model/LightRays.js';
-import Representation from '../model/Representation.js';
 
 type LineOptions = {
   stroke?: ColorDef,
@@ -28,6 +28,7 @@ type LineOptions = {
 };
 
 type LightRaysNodeOptions = {
+  isLightSource: boolean, // is the optical object a light source?
   realRaysStroke: ColorDef,
   virtualRaysStroke: ColorDef,
   visibleProperty?: IProperty<boolean>
@@ -37,13 +38,11 @@ class LightRaysNode extends Node {
 
   /**
    * @param lightRays
-   * @param representationProperty
    * @param virtualImageVisibleProperty
    * @param modelViewTransform
    * @param providedOptions
    */
   constructor( lightRays: LightRays,
-               representationProperty: IReadOnlyProperty<Representation>,
                virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
                modelViewTransform: ModelViewTransform2,
                providedOptions: LightRaysNodeOptions ) {
@@ -54,9 +53,8 @@ class LightRaysNode extends Node {
 
       // No virtual rays for light sources, see https://github.com/phetsims/geometric-optics/issues/216
       visibleProperty: new DerivedProperty(
-        [ virtualImageVisibleProperty, representationProperty ],
-        ( virtualImageVisible: boolean, representation: Representation ) =>
-          virtualImageVisible && representation.isFramedObject
+        [ virtualImageVisibleProperty ],
+        ( virtualImageVisible: boolean ) => virtualImageVisible && !providedOptions.isLightSource
       )
     } );
 

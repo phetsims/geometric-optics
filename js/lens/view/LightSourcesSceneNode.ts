@@ -130,15 +130,17 @@ class LightSourcesSceneNode extends Node {
       } );
 
     // Light rays associated with the first point of interest (the Object's position).
-    const lightRays1Node = new LightRaysNode( scene.lightRays1, scene.representationProperty,
+    const lightRays1Node = new LightRaysNode( scene.lightRays1,
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, {
+        isLightSource: true,
         realRaysStroke: GOColors.rays1StrokeProperty,
         virtualRaysStroke: GOColors.rays1StrokeProperty
       } );
 
     // Light rays associated with the second point of interest.
-    const lightRays2Node = new LightRaysNode( scene.lightRays2, scene.representationProperty,
+    const lightRays2Node = new LightRaysNode( scene.lightRays2,
       visibleProperties.virtualImageVisibleProperty, modelViewTransform, {
+        isLightSource: true,
         realRaysStroke: GOColors.rays2StrokeProperty,
         virtualRaysStroke: GOColors.rays2StrokeProperty,
         visibleProperty: visibleProperties.secondPointVisibleProperty
