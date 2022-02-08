@@ -35,14 +35,13 @@ type LightSourceNodeOptions = {
 
 class LightSourceNode extends Node {
 
-  private readonly resetLightSourceNode: () => void;
-
   /**
    * @param lightSource
    * @param modelBoundsProperty
    * @param opticPositionProperty
    * @param modelViewTransform
    * @param dragLockedProperty
+   * @param cueingArrowsVisibleProperty
    * @param providedOptions
    */
   constructor( lightSource: LightSource,
@@ -50,6 +49,7 @@ class LightSourceNode extends Node {
                opticPositionProperty: IReadOnlyProperty<Vector2>,
                modelViewTransform: ModelViewTransform2,
                dragLockedProperty: IReadOnlyProperty<boolean>,
+               cueingArrowsVisibleProperty: IProperty<boolean>,
                providedOptions: LightSourceNodeOptions ) {
 
     const imageNode = new Image( lightSource.htmlImageElement );
@@ -129,7 +129,7 @@ class LightSourceNode extends Node {
       transform: modelViewTransform,
       useParentOffset: true,
       drag: () => {
-        cueingArrowsNode.visible = false;
+        cueingArrowsVisibleProperty.value = false;
       },
       tandem: options.tandem.createTandem( 'dragListener' )
     } );
@@ -150,9 +150,9 @@ class LightSourceNode extends Node {
       } );
 
     Property.multilink(
-      [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty ],
-      ( cueingArrowsEnabled: boolean, inputEnabled: boolean ) => {
-        cueingArrowsNode.visible = ( cueingArrowsEnabled && inputEnabled );
+      [ GOGlobalOptions.cueingArrowsEnabledProperty, cueingArrowsVisibleProperty, this.inputEnabledProperty ],
+      ( cueingArrowsEnabled: boolean, cueingArrowsVisible: boolean, inputEnabled: boolean ) => {
+        cueingArrowsNode.visible = ( cueingArrowsEnabled && cueingArrowsVisible && inputEnabled );
       }
     );
 
@@ -161,20 +161,11 @@ class LightSourceNode extends Node {
       this.cursor = locked ? 'ew-resize' : 'pointer';
       cueingArrowsNode.setDirection( locked ? 'horizontal' : 'both' );
     } );
-
-    this.resetLightSourceNode = (): void => {
-      cueingArrowsNode.visible = ( GOGlobalOptions.cueingArrowsEnabledProperty.value &&
-                                   this.inputEnabledProperty.value );
-    };
   }
 
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
-  }
-
-  public reset(): void {
-    this.resetLightSourceNode();
   }
 }
 

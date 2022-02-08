@@ -33,8 +33,6 @@ type ProjectionScreenNodeOptions = {
 
 class ProjectionScreenNode extends Node {
 
-  private readonly resetProjectionScreenNode: () => void;
-
   /**
    * @param projectionScreen
    * @param opticPositionProperty
@@ -170,20 +168,11 @@ class ProjectionScreenNode extends Node {
         cueingArrowsNode.visible = ( cueingArrowsEnabled && inputEnabled );
       }
     );
-
-    this.resetProjectionScreenNode = (): void => {
-      cueingArrowsNode.visible = ( GOGlobalOptions.cueingArrowsEnabledProperty.value &&
-                                   this.inputEnabledProperty.value );
-    };
   }
 
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
-  }
-
-  public reset(): void {
-    this.resetProjectionScreenNode();
   }
 }
 

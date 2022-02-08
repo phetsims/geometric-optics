@@ -104,13 +104,19 @@ class LightSourcesSceneNode extends Node {
       tandem: options.tandem.createTandem( 'twoFPointsNode' )
     } );
 
-    const lightSource1Node = new LightSourceNode( scene.lightSource1,
-      modelBoundsProperty, scene.optic.positionProperty, modelViewTransform, options.dragLockedProperty, {
+    // Both light sources share the same state for cueing arrows. Moving either light source hides the arrows for both.
+    const lightCueingArrowsVisibleProperty = new BooleanProperty( true, {
+      tandem: options.tandem.createTandem( 'lightSource1Node' ),
+      phetioDocumentation: 'Controls the visibility of cueing arrows for both lights.'
+    } );
+
+    const lightSource1Node = new LightSourceNode( scene.lightSource1, modelBoundsProperty, scene.optic.positionProperty,
+      modelViewTransform, options.dragLockedProperty, lightCueingArrowsVisibleProperty, {
         tandem: options.tandem.createTandem( 'lightSource1Node' )
       } );
 
-    const lightSource2Node = new LightSourceNode( scene.lightSource2,
-      modelBoundsProperty, scene.optic.positionProperty, modelViewTransform, options.dragLockedProperty, {
+    const lightSource2Node = new LightSourceNode( scene.lightSource2, modelBoundsProperty, scene.optic.positionProperty,
+      modelViewTransform, options.dragLockedProperty, lightCueingArrowsVisibleProperty, {
         visibleProperty: visibleProperties.secondPointVisibleProperty,
         tandem: options.tandem.createTandem( 'lightSource2Node' )
       } );
@@ -210,9 +216,7 @@ class LightSourcesSceneNode extends Node {
 
     //TODO is this complete?
     this.resetLightSourcesSceneNode = () => {
-      lightSource1Node.reset();
-      lightSource2Node.reset();
-      projectionScreenNode.reset();
+      lightCueingArrowsVisibleProperty.reset();
     };
   }
 
