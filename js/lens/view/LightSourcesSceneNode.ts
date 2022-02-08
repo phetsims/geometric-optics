@@ -22,18 +22,16 @@ import FocalPointNode from '../../common/view/FocalPointNode.js';
 import TwoFPointNode from '../../common/view/TwoFPointNode.js';
 import GOColors from '../../common/GOColors.js';
 import LightRaysNode from '../../common/view/LightRaysNode.js';
-import OpticalAxisForegroundNode from '../../common/view/OpticalAxisForegroundNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Optic from '../../common/model/Optic.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import LightSourcesScene from '../model/LightSourcesScene.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import Property from '../../../../axon/js/Property.js';
 import ProjectionScreenNode from './ProjectionScreenNode.js';
 import LightSpotNode from './LightSpotNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import GuidesNode from './GuidesNode.js';
 import LightSourceNode from './LightSourceNode.js';
+import OpticalAxisInFrontOfProjectionScreenNode from './OpticalAxisInFrontOfProjectionScreenNode.js';
 
 type LightSourcesSceneNodeOptions = {
 
@@ -122,18 +120,12 @@ class LightSourcesSceneNode extends Node {
         tandem: options.tandem.createTandem( 'lightSource2Node' )
       } );
 
-    // The parts of the optical axis that appear to be in front of Nodes that have 3D perspective.
-    const opticalAxisForegroundNode = new OpticalAxisForegroundNode(
+    // The part of the optical axis that appears to be in front of the projection screen
+    const opticalAxisForegroundNode = new OpticalAxisInFrontOfProjectionScreenNode(
       scene.optic.positionProperty,
+      scene.projectionScreen.positionProperty,
       modelVisibleBoundsProperty,
-      modelViewTransform,
-      scene.lightRays1.raysProcessedEmitter,
-      scene.representationProperty,
-      new Property( Vector2.ZERO ), // TODO irrelevant for this scene
-      new Node(), // TODO irrelevant for this scene,
-      new Property( Vector2.ZERO ), // TODO irrelevant for this scene
-      new Node(), // TODO irrelevant for this scene
-      scene.projectionScreen, {
+      modelViewTransform, {
         visibleProperty: visibleProperties.opticalAxisVisibleProperty
       } );
 

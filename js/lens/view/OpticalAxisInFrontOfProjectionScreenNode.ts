@@ -1,11 +1,9 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * OpticalAxisNode is the horizontal line that passes through the geometric center of a lens or mirror.
- * It is referred to as 'optical axis', or sometimes as 'principal axis'.
- * It extends from left to right edges of the browser window.
+ * OpticalAxisInFrontOfProjectionScreenNode is the part of the optical axis that is in front of the projection screen
+ * in LightSourceSceneNode.
  *
- * @author Sarah Chang (Swarthmore College)
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
@@ -17,25 +15,27 @@ import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Line } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
-import GOColors from '../GOColors.js';
+import GOColors from '../../common/GOColors.js';
 
-type OpticalAxisNodeOptions = {
+type OpticalAxisInFrontOfProjectionScreenNodeOptions = {
   stroke?: ColorDef,
   visibleProperty: IProperty<boolean>
 };
 
-class OpticalAxisNode extends Line {
+class OpticalAxisInFrontOfProjectionScreenNode extends Line {
 
   /**
    * @param opticPositionProperty
+   * @param projectionScreenPositionProperty
    * @param modelVisibleBoundsProperty
    * @param modelViewTransform
    * @param providedOptions
    */
   constructor( opticPositionProperty: IReadOnlyProperty<Vector2>,
+               projectionScreenPositionProperty: IReadOnlyProperty<Vector2>,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                modelViewTransform: ModelViewTransform2,
-               providedOptions: OpticalAxisNodeOptions ) {
+               providedOptions: OpticalAxisInFrontOfProjectionScreenNodeOptions ) {
 
     // create optical axis line, with arbitrary length values.
     super( 0, 0, 1, 0, merge( {
@@ -44,10 +44,14 @@ class OpticalAxisNode extends Line {
       lineDash: [ 8, 5 ]
     }, providedOptions ) );
 
-    // Set the horizontal extents of the optical axis line.
+    // Set the left extent of the optical axis line.
     modelVisibleBoundsProperty.link( modelVisibleBounds => {
       this.setX1( modelViewTransform.modelToViewX( modelVisibleBounds.minX ) );
-      this.setX2( modelViewTransform.modelToViewX( modelVisibleBounds.maxX ) );
+    } );
+
+    // Set the right extent of the optical axis line.
+    projectionScreenPositionProperty.link( projectionScreenPosition => {
+      this.setX2( modelViewTransform.modelToViewX( projectionScreenPosition.x ) );
     } );
 
     // Set the y position of the optical axis line.
@@ -64,7 +68,7 @@ class OpticalAxisNode extends Line {
   }
 }
 
-geometricOptics.register( 'OpticalAxisNode', OpticalAxisNode );
+geometricOptics.register( 'OpticalAxisInFrontOfProjectionScreenNode', OpticalAxisInFrontOfProjectionScreenNode );
 
-export default OpticalAxisNode;
-export type { OpticalAxisNodeOptions };
+export default OpticalAxisInFrontOfProjectionScreenNode;
+export type { OpticalAxisInFrontOfProjectionScreenNode };

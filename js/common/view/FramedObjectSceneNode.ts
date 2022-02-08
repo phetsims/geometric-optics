@@ -118,18 +118,16 @@ class FramedObjectSceneNode extends Node {
         tandem: options.tandem.createTandem( 'targetNode' )
       } );
 
-    // The parts of the optical axis that appear to be in front of Nodes that have 3D perspective.
+    // The parts of the optical axis that appear to be in front of framed objects and images.
     const opticalAxisForegroundNode = new OpticalAxisForegroundNode(
       scene.optic.positionProperty,
       modelVisibleBoundsProperty,
       modelViewTransform,
-      scene.lightRays1.raysProcessedEmitter,
-      scene.representationProperty,
       scene.framedObject.positionProperty,
       framedObjectNode,
       scene.target1.positionProperty,
       targetNode,
-      null /* TODO projectionScreen */, {
+      scene.lightRays1.raysProcessedEmitter, {
         visibleProperty: visibleProperties.opticalAxisVisibleProperty
       } );
 
