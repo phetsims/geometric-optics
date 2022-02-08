@@ -1,7 +1,7 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * OpticShapeRadioButtonGroup is the radio button group for controlling the curve shape of the lens or mirror.
+ * SurfaceTypeRadioButtonGroup is the radio button group for controlling the shape of the optic's surface.
  *
  * @author Sarah Chang (Swarthmore College)
  * @author Chris Malley (PixelZoom, Inc.)
@@ -19,17 +19,17 @@ import MirrorNode from '../../mirror/view/MirrorNode.js';
 import LensNode from '../../lens/view/LensNode.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
 
-type OpticShapeRadioButtonGroupOptions = {
+type SurfaceTypeRadioButtonGroupOptions = {
   tandem: Tandem
 } & NodeOptions; //TODO https://github.com/phetsims/scenery/issues/1332 limit to Node translation options
 
-class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<SurfaceType> {
+class SurfaceTypeRadioButtonGroup extends RectangularRadioButtonGroup<SurfaceType> {
 
   /**
    * @param optic
    * @param providedOptions
    */
-  constructor( optic: Optic, providedOptions: OpticShapeRadioButtonGroupOptions ) {
+  constructor( optic: Optic, providedOptions: SurfaceTypeRadioButtonGroupOptions ) {
 
     // A radio button for each shape supported by the optic
     assert && assert( optic.surfaceTypeProperty.validValues ); // {SurfaceType[]|undefined}
@@ -59,5 +59,5 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<SurfaceType
   }
 }
 
-geometricOptics.register( 'OpticShapeRadioButtonGroup', OpticShapeRadioButtonGroup );
-export default OpticShapeRadioButtonGroup;
+geometricOptics.register( 'SurfaceTypeRadioButtonGroup', SurfaceTypeRadioButtonGroup );
+export default SurfaceTypeRadioButtonGroup;

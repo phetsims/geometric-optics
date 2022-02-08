@@ -24,7 +24,7 @@ import GOConstants from '../GOConstants.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import GOModel from '../model/GOModel.js';
 import GOControlPanel from './GOControlPanel.js';
-import OpticShapeRadioButtonGroup from './OpticShapeRadioButtonGroup.js';
+import SurfaceTypeRadioButtonGroup from './SurfaceTypeRadioButtonGroup.js';
 import RepresentationComboBox from './RepresentationComboBox.js';
 import ShowHideToggleButton from './ShowHideToggleButton.js';
 import VisibleProperties from './VisibleProperties.js';
@@ -70,7 +70,7 @@ class GOScreenView extends ScreenView {
   protected readonly scenesNode: Node;
   protected readonly controlsLayer: Node;
   protected readonly representationComboBox: Node;
-  protected readonly surfaceTypeRadioButtonGroup: Node;
+  protected readonly opticSurfaceTypeRadioButtonGroup: Node;
   protected readonly zoomButtonGroup: Node;
   protected readonly scenesTandem: Tandem;
   protected readonly controlsTandem: Tandem;
@@ -180,9 +180,9 @@ class GOScreenView extends ScreenView {
     // } );
 
     // Radio buttons for the shape of the optic
-    const surfaceTypeRadioButtonGroup = new OpticShapeRadioButtonGroup( model.optic, {
+    const opticSurfaceTypeRadioButtonGroup = new SurfaceTypeRadioButtonGroup( model.optic, {
       centerTop: erodedLayoutBounds.centerTop,
-      tandem: this.controlsTandem.createTandem( 'surfaceTypeRadioButtonGroup' )
+      tandem: this.controlsTandem.createTandem( 'opticSurfaceTypeRadioButtonGroup' )
     } );
 
     // Parent for any popups
@@ -326,7 +326,7 @@ class GOScreenView extends ScreenView {
 
     const controlsLayer = new Node( {
       children: [
-        surfaceTypeRadioButtonGroup,
+        opticSurfaceTypeRadioButtonGroup,
         controlPanel,
         showHideToggleButton,
         resetAllButton,
@@ -376,7 +376,7 @@ class GOScreenView extends ScreenView {
     // pdom -traversal order
     screenViewRootNode.pdomOrder = [
       representationComboBox,
-      surfaceTypeRadioButtonGroup,
+      opticSurfaceTypeRadioButtonGroup,
       //TODO https://github.com/phetsims/geometric-optics/issues/217 restore rulers
       // rulersToolbox,
       // horizontalRulerNode,
@@ -398,7 +398,7 @@ class GOScreenView extends ScreenView {
     this.scenesNode = scenesNode;
     this.controlsLayer = controlsLayer;
     this.representationComboBox = representationComboBox;
-    this.surfaceTypeRadioButtonGroup = surfaceTypeRadioButtonGroup;
+    this.opticSurfaceTypeRadioButtonGroup = opticSurfaceTypeRadioButtonGroup;
     this.zoomButtonGroup = zoomButtonGroup;
   }
 
