@@ -19,7 +19,6 @@ import GOColors from '../GOColors.js';
 import GOConstants from '../GOConstants.js';
 import Optic from '../model/Optic.js';
 import { RaysType } from '../model/RaysType.js';
-import Representation from '../model/Representation.js';
 import DiameterControl from './DiameterControl.js';
 import RaysRadioButtonGroup from './RaysRadioButtonGroup.js';
 import VisibilityCheckboxGroup from './VisibilityCheckboxGroup.js';
@@ -27,6 +26,7 @@ import VisibleProperties from './VisibleProperties.js';
 import RadiusOfCurvatureControl from './RadiusOfCurvatureControl.js';
 import IndexOfRefractionControl from './IndexOfRefractionControl.js';
 import Lens from '../../lens/model/Lens.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 type GOControlPanelOptions = {
   tandem: Tandem
@@ -35,14 +35,14 @@ type GOControlPanelOptions = {
 class GOControlPanel extends Panel {
 
   /**
-   * @param representationProperty
    * @param optic
    * @param raysTypeProperty
    * @param visibleProperties
+   * @param virtualImageCheckboxEnabledProperty
    * @param providedOptions
    */
-  constructor( representationProperty: Property<Representation>, optic: Optic, raysTypeProperty: Property<RaysType>,
-               visibleProperties: VisibleProperties, providedOptions: GOControlPanelOptions ) {
+  constructor( optic: Optic, raysTypeProperty: Property<RaysType>, visibleProperties: VisibleProperties,
+               virtualImageCheckboxEnabledProperty: IReadOnlyProperty<boolean>, providedOptions: GOControlPanelOptions ) {
 
     // Rays radio buttons ---------------------------------------------------------------------------------------
 
@@ -99,9 +99,10 @@ class GOControlPanel extends Panel {
 
     // Visibility checkboxes ---------------------------------------------------------------------------------------
 
-    const checkboxGroup = new VisibilityCheckboxGroup( visibleProperties, ( optic instanceof Lens ), representationProperty, {
-      tandem: providedOptions.tandem.createTandem( 'checkboxGroup' )
-    } );
+    const checkboxGroup = new VisibilityCheckboxGroup( ( optic instanceof Lens ), visibleProperties,
+      virtualImageCheckboxEnabledProperty, {
+        tandem: providedOptions.tandem.createTandem( 'checkboxGroup' )
+      } );
 
     // Put it all together ---------------------------------------------------------------------------------------
 

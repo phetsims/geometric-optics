@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import { HBox, Node, Text } from '../../../../scenery/js/imports.js';
 import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
@@ -20,7 +19,6 @@ import GOQueryParameters from '../GOQueryParameters.js';
 import FocalPointNode from './FocalPointNode.js';
 import SecondPointNode from './SecondPointNode.js';
 import VisibleProperties from './VisibleProperties.js';
-import Representation from '../model/Representation.js';
 import TwoFPointNode from './TwoFPointNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
@@ -31,13 +29,15 @@ type VisibilityCheckboxGroupOptions = {
 class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 
   /**
-   * @param visibleProperties
    * @param isLens
-   * @param representationProperty
+   * @param visibleProperties
+   * @param virtualImageCheckboxEnabledProperty
    * @param providedOptions
    */
-  constructor( visibleProperties: VisibleProperties, isLens: boolean,
-               representationProperty: IReadOnlyProperty<Representation>, providedOptions: VisibilityCheckboxGroupOptions ) {
+  constructor( isLens: boolean,
+               visibleProperties: VisibleProperties,
+               virtualImageCheckboxEnabledProperty: IReadOnlyProperty<boolean>,
+               providedOptions: VisibilityCheckboxGroupOptions ) {
 
     const options = merge( {
       spacing: 4,
@@ -68,10 +68,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
         node: createLabel( geometricOpticsStrings.virtualImage ),
         property: visibleProperties.virtualImageVisibleProperty,
         options: {
-
-          // Disable the 'Virtual Image' checkbox for light source, see https://github.com/phetsims/geometric-optics/issues/216
-          enabledProperty: new DerivedProperty( [ representationProperty ],
-            ( representation: Representation ) => representation.isFramedObject )
+          enabledProperty: virtualImageCheckboxEnabledProperty
         },
         tandem: options.tandem.createTandem( 'virtualImageCheckbox' )
       },

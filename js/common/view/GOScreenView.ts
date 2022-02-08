@@ -33,7 +33,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Optic from '../model/Optic.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import FramedObjectSceneNode from './FramedObjectSceneNode.js';
-import { FRAMED_OBJECT_REPRESENTATIONS } from '../model/Representation.js';
+import Representation, { FRAMED_OBJECT_REPRESENTATIONS } from '../model/Representation.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.
@@ -155,9 +155,14 @@ class GOScreenView extends ScreenView {
 
     this.controlsTandem = options.tandem.createTandem( 'controls' );
 
+    // Disable the 'Virtual Image' checkbox for light source, see https://github.com/phetsims/geometric-optics/issues/216
+    const virtualImageCheckboxEnabledProperty = new DerivedProperty(
+      [ model.representationProperty ],
+      ( representation: Representation ) => representation.isFramedObject );
+
     // Control panel at the bottom-center of the screen
-    const controlPanel = new GOControlPanel( model.representationProperty, model.optic,
-      model.raysTypeProperty, visibleProperties, {
+    const controlPanel = new GOControlPanel( model.optic, model.raysTypeProperty, visibleProperties,
+      virtualImageCheckboxEnabledProperty, {
         tandem: this.controlsTandem.createTandem( 'controlPanel' )
       } );
     controlPanel.boundsProperty.link( () => {
