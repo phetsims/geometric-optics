@@ -2,8 +2,8 @@
 
 /**
  * LightRaysForegroundNode is a subclass of LightRaysNode that (using clipArea) renders the parts of LightRaysNode
- * that are in front of a real image. It is intended to be layered in front of the real image Node in the scene graph.
- * Note that this is only needed when the Object is a framed object with 3D perspective.
+ * that are in front of a real framed image, which has 3D perspective. It is intended to be used in
+ * FramedObjectSceneNode, where it is layered in front of the real image Node in the scene graph.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -30,7 +30,7 @@ class LightRaysForegroundNode extends LightRaysNode {
    * @param modelViewTransform
    * @param modelVisibleBoundsProperty - bounds where rays may appear, in model coordinates
    * @param opticPositionProperty
-   * @param targetPositionProperty
+   * @param frameImagePositionProperty
    * @param isVirtualProperty
    * @param providedOptions
    */
@@ -40,7 +40,7 @@ class LightRaysForegroundNode extends LightRaysNode {
                modelViewTransform: ModelViewTransform2,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                opticPositionProperty: IReadOnlyProperty<Vector2>,
-               targetPositionProperty: IReadOnlyProperty<Vector2>,
+               frameImagePositionProperty: IReadOnlyProperty<Vector2>,
                isVirtualProperty: IReadOnlyProperty<boolean>,
                providedOptions: LightRaysNodeOptions ) {
 
@@ -64,29 +64,34 @@ class LightRaysForegroundNode extends LightRaysNode {
     // This shows only the parts of this Node that are in the foreground, i.e. not occluded by other things.
     // Run with ?debugRays to see the clipArea rendered as a rectangle.
     const updateClipArea = () => {
-      let clipArea: Shape | null = null; // in view coordinates
+      let clipArea: Shape | null; // in view coordinates
 
-      // For a real Image created by a framed object...
-      if ( !isVirtualProperty.value && representationProperty.value.isFramedObject ) {
+      if ( isVirtualProperty.value ) {
 
+        // virtual image
+        clipArea = null;
+      }
+      else {
+
+        // real image
         const opticPosition = opticPositionProperty.value;
-        const targetPosition = targetPositionProperty.value;
+        const imagePosition = frameImagePositionProperty.value;
         const viewVisibleBounds = modelViewTransform.modelToViewBounds( modelVisibleBoundsProperty.value );
 
         let minX: number;
         let maxX: number;
-        if ( targetPosition.x > opticPosition.x ) {
+        if ( imagePosition.x > opticPosition.x ) {
 
           // For a real Image to the right of the optic, the clipArea is everything to the left of the Image,
           // because the Image is facing left in perspective.
           minX = viewVisibleBounds.minX;
-          maxX = modelViewTransform.modelToViewX( targetPosition.x );
+          maxX = modelViewTransform.modelToViewX( imagePosition.x );
         }
         else {
 
           // For a real Image to the left of the optic, the clipArea is everything to the right of the Image,
           // because the Image is facing right in perspective.
-          minX = modelViewTransform.modelToViewX( targetPosition.x );
+          minX = modelViewTransform.modelToViewX( imagePosition.x );
           maxX = viewVisibleBounds.maxX;
         }
         clipArea = Shape.rectangle( minX, viewVisibleBounds.minY, maxX - minX, viewVisibleBounds.height );
