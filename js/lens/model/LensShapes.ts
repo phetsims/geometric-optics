@@ -15,7 +15,7 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { SurfaceType } from '../../common/model/SurfaceType.js';
+import { OpticShape } from '../../common/model/OpticShape.js';
 import OpticShapes from '../../common/model/OpticShapes.js';
 import geometricOptics from '../../geometricOptics.js';
 
@@ -39,12 +39,12 @@ class LensShapes implements OpticShapes {
   readonly activeBoundsShape: Shape; // the entire lens
 
   /**
-   * @param surfaceType
+   * @param opticShape
    * @param radiusOfCurvature - radius of curvature
    * @param diameter - height of the lens
    * @param providedOptions
    */
-  constructor( surfaceType: SurfaceType, radiusOfCurvature: number, diameter: number, providedOptions?: LensShapesOptions ) {
+  constructor( opticShape: OpticShape, radiusOfCurvature: number, diameter: number, providedOptions?: LensShapesOptions ) {
 
     const options = merge( {
       isHollywooded: true, // true: approximation, false: accurate, matches ROC
@@ -63,7 +63,7 @@ class LensShapes implements OpticShapes {
     let frontShape; // the front (left facing) part of the lens
     let backShape; // the back (right facing)  part of the lens
 
-    if ( surfaceType === 'convex' ) {
+    if ( opticShape === 'convex' ) {
 
       // two extrema points of the lens
       const top = new Vector2( 0, halfHeight );
@@ -92,7 +92,7 @@ class LensShapes implements OpticShapes {
         .quadraticCurveToPoint( right, bottom );
     }
     else {
-      assert && assert( surfaceType === 'concave' );
+      assert && assert( opticShape === 'concave' );
 
       const midWidth = halfWidth;
 

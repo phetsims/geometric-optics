@@ -1,7 +1,7 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * SurfaceTypeRadioButtonGroup is the radio button group for controlling the shape of the optic's surface.
+ * OpticShapeRadioButtonGroup is the radio button group for controlling the shape of the optic's surface.
  *
  * @author Sarah Chang (Swarthmore College)
  * @author Chris Malley (PixelZoom, Inc.)
@@ -13,36 +13,36 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import Optic from '../model/Optic.js';
-import { SurfaceType } from '../model/SurfaceType.js';
+import { OpticShape } from '../model/OpticShape.js';
 import Lens from '../../lens/model/Lens.js';
 import MirrorNode from '../../mirror/view/MirrorNode.js';
 import LensNode from '../../lens/view/LensNode.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
 
-type SurfaceTypeRadioButtonGroupOptions = {
+type OpticShapeRadioButtonGroupOptions = {
   tandem: Tandem
 } & NodeOptions; //TODO https://github.com/phetsims/scenery/issues/1332 limit to Node translation options
 
-class SurfaceTypeRadioButtonGroup extends RectangularRadioButtonGroup<SurfaceType> {
+class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShape> {
 
   /**
    * @param optic
    * @param providedOptions
    */
-  constructor( optic: Optic, providedOptions: SurfaceTypeRadioButtonGroupOptions ) {
+  constructor( optic: Optic, providedOptions: OpticShapeRadioButtonGroupOptions ) {
 
     // A radio button for each shape supported by the optic
-    assert && assert( optic.surfaceTypeProperty.validValues ); // {SurfaceType[]|undefined}
-    const items = optic.surfaceTypeProperty.validValues!.map(
-      ( surfaceType: SurfaceType ) => {
+    assert && assert( optic.opticShapeProperty.validValues ); // {OpticShape[]|undefined}
+    const items = optic.opticShapeProperty.validValues!.map(
+      ( opticShape: OpticShape ) => {
         return {
-          value: surfaceType,
-          node: ( optic instanceof Lens ) ? LensNode.createIconNode( surfaceType ) : MirrorNode.createIconNode( surfaceType ),
-          tandemName: `${surfaceType}RadioButton`
+          value: opticShape,
+          node: ( optic instanceof Lens ) ? LensNode.createIconNode( opticShape ) : MirrorNode.createIconNode( opticShape ),
+          tandemName: `${opticShape}RadioButton`
         };
       } );
 
-    super( optic.surfaceTypeProperty, items, merge( {
+    super( optic.opticShapeProperty, items, merge( {
 
       // RectangularRadioButtonGroup options
       orientation: 'horizontal',
@@ -59,5 +59,5 @@ class SurfaceTypeRadioButtonGroup extends RectangularRadioButtonGroup<SurfaceTyp
   }
 }
 
-geometricOptics.register( 'SurfaceTypeRadioButtonGroup', SurfaceTypeRadioButtonGroup );
-export default SurfaceTypeRadioButtonGroup;
+geometricOptics.register( 'OpticShapeRadioButtonGroup', OpticShapeRadioButtonGroup );
+export default OpticShapeRadioButtonGroup;

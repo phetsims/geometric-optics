@@ -12,7 +12,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Optic, { OpticOptions } from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
-import { SurfaceType } from '../../common/model/SurfaceType.js';
+import { OpticShape } from '../../common/model/OpticShape.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import LensShapes from './LensShapes.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
@@ -34,13 +34,13 @@ class Lens extends Optic {
   constructor( providedOptions: LensOptions ) {
 
     const options = merge( {
-      surfaceType: 'convex',
-      surfaceTypes: [ 'convex', 'concave' ],
+      opticShape: 'convex',
+      opticShapes: [ 'convex', 'concave' ],
       radiusOfCurvatureRange: new RangeWithValue( 30, 130, 80 ), // in cm
       indexOfRefractionRange: new RangeWithValue( 1.2, 1.9, 1.5 ), // unitless
       diameterRange: GOConstants.DIAMETER_RANGE, // in cm
       sign: 1,
-      isConverging: ( surfaceType: SurfaceType ) => ( surfaceType === 'convex' ),
+      isConverging: ( opticShape: OpticShape ) => ( opticShape === 'convex' ),
 
       // phet-io options
       tandem: Tandem.REQUIRED
@@ -49,9 +49,9 @@ class Lens extends Optic {
     super( options );
 
     this.shapesProperty = new DerivedProperty(
-      [ this.surfaceTypeProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
-      ( surfaceType: SurfaceType, radiusOfCurvature: number, diameter: number ) =>
-        new LensShapes( surfaceType, radiusOfCurvature, diameter )
+      [ this.opticShapeProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
+      ( opticShape: OpticShape, radiusOfCurvature: number, diameter: number ) =>
+        new LensShapes( opticShape, radiusOfCurvature, diameter )
     );
   }
 
@@ -70,11 +70,11 @@ class Lens extends Optic {
     // convenience variables
     const leftPoint = isTop ? activeBounds.leftTop : activeBounds.leftBottom;
     const rightPoint = isTop ? activeBounds.rightTop : activeBounds.rightBottom;
-    const surfaceType = this.surfaceTypeProperty.value;
+    const opticShape = this.opticShapeProperty.value;
 
     // extremum point along the direction of the ray, may not be on the optic itself
     let extremumPoint;
-    if ( surfaceType === 'concave' ) {
+    if ( opticShape === 'concave' ) {
 
       const opticPosition = this.positionProperty.value;
 
@@ -97,13 +97,13 @@ class Lens extends Optic {
       // get the direction of the ray as measured from the source
       extremumPoint = opticPosition.plusXY( 0, offsetY );
     }
-    else if ( surfaceType === 'convex' ) {
+    else if ( opticShape === 'convex' ) {
 
       // extremum point is based on the edge point (which is centered horizontally on the optic)
       extremumPoint = isTop ? activeBounds.centerTop : activeBounds.centerBottom;
     }
     else {
-      throw new Error( `unsupported lens shape: ${surfaceType}` );
+      throw new Error( `unsupported lens shape: ${opticShape}` );
     }
 
     return extremumPoint;

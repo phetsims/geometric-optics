@@ -16,7 +16,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../../common/GOColors.js';
 import Mirror from '../model/Mirror.js';
 import MirrorShapes from '../model/MirrorShapes.js';
-import { SurfaceType } from '../../common/model/SurfaceType.js';
+import { OpticShape } from '../../common/model/OpticShape.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
 import OriginNode from '../../common/view/OriginNode.js';
@@ -87,11 +87,11 @@ class MirrorNode extends Node {
 
   /**
    * Creates an icon for a mirror.
-   * @param surfaceType
+   * @param opticShape
    */
-  public static createIconNode( surfaceType: SurfaceType ): Node {
+  public static createIconNode( opticShape: OpticShape ): Node {
 
-    const mirrorShapes = new MirrorShapes( surfaceType, ICON_RADIUS_OF_CURVATURE, ICON_DIAMETER, {
+    const mirrorShapes = new MirrorShapes( opticShape, ICON_RADIUS_OF_CURVATURE, ICON_DIAMETER, {
       backingThickness: 4 // cm
     } );
 

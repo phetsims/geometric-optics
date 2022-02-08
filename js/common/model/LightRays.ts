@@ -61,7 +61,7 @@ class LightRays {
     type DependencyTypes = [ Vector2, RaysType, number, Representation, ...any[] ];
     const dependencies: MappedProperties<DependencyTypes> = [
       objectPositionProperty, raysTypeProperty, lightRaysTimeProperty, representationProperty,
-      optic.positionProperty, optic.diameterProperty, optic.focalLengthProperty, optic.surfaceTypeProperty
+      optic.positionProperty, optic.diameterProperty, optic.focalLengthProperty, optic.opticShapeProperty
     ];
     if ( projectionScreen ) {
       dependencies.push( projectionScreen.positionProperty );
