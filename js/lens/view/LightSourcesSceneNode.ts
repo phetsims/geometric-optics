@@ -5,6 +5,7 @@
  * LightSourcesSceneNode is the view of FramedObjectScene, the scene that uses a framed object.
  *
  * @author Chris Malley (PixelZoom, Inc.)
+ * @author Martin Veillette
  */
 
 import merge from '../../../../phet-core/js/merge.js';

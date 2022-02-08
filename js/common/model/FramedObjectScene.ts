@@ -5,6 +5,7 @@
  * an Image. Rays emanate from 2 points of interest on the framed object.
  *
  * @author Chris Malley (PixelZoom, Inc.)
+ * @author Martin Veillette
  */
 
 import Range from '../../../../dot/js/Range.js';

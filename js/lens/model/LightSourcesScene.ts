@@ -5,6 +5,7 @@
  * a projection screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
+ * @author Martin Veillette
  */
 
 import Range from '../../../../dot/js/Range.js';
