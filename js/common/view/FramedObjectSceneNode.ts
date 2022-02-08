@@ -171,6 +171,11 @@ class FramedObjectSceneNode extends Node {
       secondPointNode
     ];
 
+    this.pdomOrder = [
+      framedObjectNode,
+      secondPointNode
+    ];
+
     //TODO is this complete?
     this.resetFrameObjectSceneNode = () => {
       framedObjectNode.reset();

@@ -41,7 +41,7 @@ class LightSourceNode extends Node {
    * @param opticPositionProperty
    * @param modelViewTransform
    * @param dragLockedProperty
-   * @param cueingArrowsVisibleProperty
+   * @param wasDraggedProperty - was any LightSourceNode dragged?
    * @param providedOptions
    */
   constructor( lightSource: LightSource,
@@ -49,7 +49,7 @@ class LightSourceNode extends Node {
                opticPositionProperty: IReadOnlyProperty<Vector2>,
                modelViewTransform: ModelViewTransform2,
                dragLockedProperty: IReadOnlyProperty<boolean>,
-               cueingArrowsVisibleProperty: IProperty<boolean>,
+               wasDraggedProperty: Property<boolean>,
                providedOptions: LightSourceNodeOptions ) {
 
     const imageNode = new Image( lightSource.htmlImageElement );
@@ -123,14 +123,21 @@ class LightSourceNode extends Node {
       lightSource.positionProperty.value = dragBounds.closestPointTo( lightSource.positionProperty.value );
     } );
 
+    this.addLinkedElement( wasDraggedProperty, {
+      tandem: options.tandem.createTandem( 'wasDraggedProperty' )
+    } );
+
+    // Drag action that is common to mouse/touch and keyboard.
+    const drag = () => {
+      wasDraggedProperty.value = true;
+    };
+
     const dragListener = new DragListener( {
       positionProperty: lightSource.positionProperty,
       dragBoundsProperty: dragBoundsProperty,
       transform: modelViewTransform,
       useParentOffset: true,
-      drag: () => {
-        cueingArrowsVisibleProperty.value = false;
-      },
+      drag: drag,
       tandem: options.tandem.createTandem( 'dragListener' )
     } );
     this.addInputListener( dragListener );
@@ -138,7 +145,9 @@ class LightSourceNode extends Node {
     const keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
       positionProperty: lightSource.positionProperty,
       dragBoundsProperty: dragBoundsProperty,
+      drag: drag,
       transform: modelViewTransform
+      //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
     } ) );
     this.addInputListener( keyboardDragListener );
 
@@ -149,12 +158,10 @@ class LightSourceNode extends Node {
         cueingArrowsNode.centerY = wrappedImageNode.centerY;
       } );
 
-    Property.multilink(
-      [ GOGlobalOptions.cueingArrowsEnabledProperty, cueingArrowsVisibleProperty, this.inputEnabledProperty ],
-      ( cueingArrowsEnabled: boolean, cueingArrowsVisible: boolean, inputEnabled: boolean ) => {
-        cueingArrowsNode.visible = ( cueingArrowsEnabled && cueingArrowsVisible && inputEnabled );
-      }
-    );
+    cueingArrowsNode.setVisibleProperty( new DerivedProperty(
+      [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
+      ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
+        ( cueingArrowsEnabled && inputEnabled && !wasDragged ) ) );
 
     // Update cursor and cueing arrows to reflect how this Node is draggable.
     dragLockedProperty.link( locked => {

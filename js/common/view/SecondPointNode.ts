@@ -7,13 +7,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
-import { Circle, DragListener, Node, NodeOptions, VBox } from '../../../../scenery/js/imports.js';
+import { Circle, DragListener, FocusHighlightFromNode, KeyboardDragListener, Node, NodeOptions, VBox } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import SecondPoint from '../model/SecondPoint.js';
@@ -21,6 +20,8 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import GOConstants from '../GOConstants.js';
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 type SecondPointNodeOptions = {
   visibleProperty: IProperty<boolean>,
@@ -38,24 +39,31 @@ class SecondPointNode extends Node {
    */
   constructor( secondPoint: SecondPoint, modelViewTransform: ModelViewTransform2, providedOptions: SecondPointNodeOptions ) {
 
-    super( merge( {
-
-      // second point can only be dragged vertically
-      cursor: 'ns-resize',
-
-      // phet-io options
-      phetioInputEnabledPropertyInstrumented: true
-    }, providedOptions ) );
-
     // The point that represents the position of the second source.
     const pointNode = new PointNode();
-    this.addChild( pointNode );
 
     // Cueing arrows
     const cueingArrowsNode = new CueingArrowsNode( pointNode.width + 10, {
       center: pointNode.center
     } );
-    this.addChild( cueingArrowsNode );
+
+    const options = merge( {
+
+      children: [ pointNode, cueingArrowsNode ],
+
+      // second point can only be dragged vertically
+      cursor: 'ns-resize',
+
+      // pdom options
+      tagName: 'div',
+      focusable: true,
+      focusHighlight: new FocusHighlightFromNode( pointNode ),
+
+      // phet-io options
+      phetioInputEnabledPropertyInstrumented: true
+    }, providedOptions );
+
+    super( options );
 
     this.touchArea = Shape.circle( 0, 0, 2 * pointNode.width + 10 );
 
@@ -68,25 +76,39 @@ class SecondPointNode extends Node {
     const positionProperty = new Vector2Property( secondPoint.positionProperty.value );
     positionProperty.link( position => secondPoint.setSecondPoint( position ) );
 
+    const wasDraggedProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'wasDraggedProperty' ),
+      phetioReadOnly: true
+    } );
+
+    // Drag action that is common to mouse/touch and keyboard.
+    const drag = () => {
+      wasDraggedProperty.value = true;
+    };
+
     const dragListener = new DragListener( {
       positionProperty: positionProperty,
       transform: modelViewTransform,
-      drag: () => {
-        cueingArrowsNode.visible = false;
-      }
+      drag: drag,
+      tandem: options.tandem.createTandem( 'dragListener' )
     } );
     this.addInputListener( dragListener );
 
-    Property.multilink(
-      [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty ],
-      ( cueingArrowsEnabled: boolean, inputEnabled: boolean ) => {
-        cueingArrowsNode.visible = ( cueingArrowsEnabled && inputEnabled );
-      }
-    );
+    const keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
+      positionProperty: positionProperty,
+      transform: modelViewTransform,
+      drag: drag
+      //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
+    } ) );
+    this.addInputListener( keyboardDragListener );
+
+    cueingArrowsNode.setVisibleProperty( new DerivedProperty(
+      [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
+      ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
+        ( cueingArrowsEnabled && inputEnabled && !wasDragged ) ) );
 
     this.resetSecondPointNode = (): void => {
-      cueingArrowsNode.visible = ( GOGlobalOptions.cueingArrowsEnabledProperty.value &&
-                                   this.inputEnabledProperty.value );
+      wasDraggedProperty.reset();
     };
   }
 

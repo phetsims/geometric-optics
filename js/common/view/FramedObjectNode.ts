@@ -23,6 +23,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
 import GOConstants from '../GOConstants.js';
 import IProperty from '../../../../axon/js/IProperty.js';
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 
 // Closest that optical object can be moved to the optic, in cm. This avoids problems that occur when the object is
 // too close to a mirror. See https://github.com/phetsims/geometric-optics/issues/73
@@ -128,14 +129,22 @@ class FramedObjectNode extends Node {
       framedObject.positionProperty.value = dragBounds.closestPointTo( framedObject.positionProperty.value );
     } );
 
+    const wasDraggedProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'wasDraggedProperty' ),
+      phetioReadOnly: true
+    } );
+
+    // Drag action that is common to mouse/touch and keyboard.
+    const drag = () => {
+      wasDraggedProperty.value = true;
+    };
+
     const dragListener = new DragListener( {
       positionProperty: framedObject.positionProperty,
       dragBoundsProperty: dragBoundsProperty,
       transform: modelViewTransform,
       useParentOffset: true,
-      drag: () => {
-        cueingArrowsNode.visible = false;
-      },
+      drag: drag,
       tandem: options.tandem.createTandem( 'dragListener' )
     } );
     this.addInputListener( dragListener );
@@ -143,7 +152,9 @@ class FramedObjectNode extends Node {
     const keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
       positionProperty: framedObject.positionProperty,
       dragBoundsProperty: dragBoundsProperty,
-      transform: modelViewTransform
+      transform: modelViewTransform,
+      drag: drag
+      //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
     } ) );
     this.addInputListener( keyboardDragListener );
 
@@ -154,12 +165,10 @@ class FramedObjectNode extends Node {
         cueingArrowsNode.centerY = wrappedImageNode.centerY;
       } );
 
-    Property.multilink(
-      [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty ],
-      ( cueingArrowsEnabled: boolean, inputEnabled: boolean ) => {
-        cueingArrowsNode.visible = ( cueingArrowsEnabled && inputEnabled );
-      }
-    );
+    cueingArrowsNode.setVisibleProperty( new DerivedProperty(
+      [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
+      ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
+        ( cueingArrowsEnabled && inputEnabled && !wasDragged ) ) );
 
     // Update cursor and cueing arrows to reflect how this Node is draggable.
     dragLockedProperty.link( locked => {
@@ -168,8 +177,7 @@ class FramedObjectNode extends Node {
     } );
 
     this.resetFramedObjectNode = (): void => {
-      cueingArrowsNode.visible = ( GOGlobalOptions.cueingArrowsEnabledProperty.value &&
-                                   this.inputEnabledProperty.value );
+      wasDraggedProperty.reset();
     };
   }
 

@@ -8,7 +8,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -26,12 +25,15 @@ import GOQueryParameters from '../../common/GOQueryParameters.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OriginNode from '../../common/view/OriginNode.js';
 import GOConstants from '../../common/GOConstants.js';
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 
 type ProjectionScreenNodeOptions = {
   tandem: Tandem
 };
 
 class ProjectionScreenNode extends Node {
+
+  private readonly resetProjectionScreenNode: () => void;
 
   /**
    * @param projectionScreen
@@ -141,15 +143,23 @@ class ProjectionScreenNode extends Node {
       projectionScreen.positionProperty.value = dragBounds.closestPointTo( projectionScreen.positionProperty.value );
     } );
 
+    const wasDraggedProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'wasDraggedProperty' ),
+      phetioReadOnly: true
+    } );
+
+    // Drag action that is common to mouse/touch and keyboard.
+    const drag = () => {
+      wasDraggedProperty.value = true;
+    };
+
     this.addInputListener( new DragListener( {
       cursor: 'pointer',
       useInputListenerCursor: true,
       positionProperty: projectionScreen.positionProperty,
       dragBoundsProperty: dragBoundsProperty,
       transform: modelViewTransform,
-      drag: () => {
-        cueingArrowsNode.visible = false;
-      },
+      drag: drag,
       tandem: options.tandem.createTandem( 'dragListener' )
     } ) );
 
@@ -157,22 +167,29 @@ class ProjectionScreenNode extends Node {
     const keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
       positionProperty: projectionScreen.positionProperty,
       dragBoundsProperty: dragBoundsProperty,
+      drag: drag,
       transform: modelViewTransform
       //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
     } ) );
     this.addInputListener( keyboardDragListener );
 
-    Property.multilink(
-      [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty ],
-      ( cueingArrowsEnabled: boolean, inputEnabled: boolean ) => {
-        cueingArrowsNode.visible = ( cueingArrowsEnabled && inputEnabled );
-      }
-    );
+    cueingArrowsNode.setVisibleProperty( new DerivedProperty(
+      [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
+      ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
+        ( cueingArrowsEnabled && inputEnabled && !wasDragged ) ) );
+
+    this.resetProjectionScreenNode = () => {
+      wasDraggedProperty.reset();
+    };
   }
 
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
+  }
+
+  public reset() {
+    this.resetProjectionScreenNode();
   }
 }
 
