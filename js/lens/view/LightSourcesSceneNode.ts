@@ -77,7 +77,7 @@ class LightSourcesSceneNode extends Node {
       scene.optic.positionProperty,
       modelVisibleBoundsProperty,
       modelViewTransform, {
-        visibleProperty: scene.optic.opticalAxisVisibleProperty
+        visibleProperty: visibleProperties.opticalAxisVisibleProperty
       } );
 
     const opticVerticalAxisNode = new OpticVerticalAxisNode( scene.optic, raysTypeProperty, modelViewTransform, {
@@ -127,7 +127,7 @@ class LightSourcesSceneNode extends Node {
       new Property( Vector2.ZERO ), // TODO irrelevant for this scene
       new Node(), // TODO irrelevant for this scene
       scene.projectionScreen, {
-        visibleProperty: scene.optic.opticalAxisVisibleProperty
+        visibleProperty: visibleProperties.opticalAxisVisibleProperty
       } );
 
     // Light rays associated with the first point of interest (the Object's position).

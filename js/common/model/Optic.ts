@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
@@ -96,11 +95,6 @@ abstract class Optic {
   // 2F points to the left and right of the optic
   readonly left2FProperty: IReadOnlyProperty<Vector2>;
   readonly right2FProperty: IReadOnlyProperty<Vector2>;
-
-  // Determines whether the optical axis is visible.
-  // PhET-iO only, cannot be controlled from the sim UI, and is not subject to reset.
-  // See https://github.com/phetsims/geometric-optics/issues/252
-  readonly opticalAxisVisibleProperty: Property<boolean>;
 
   /**
    * @param providedOptions
@@ -217,10 +211,6 @@ abstract class Optic {
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
         phetioDocumentation: 'point 2F, at a distance 2f to the right of the optic'
       } );
-
-    this.opticalAxisVisibleProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'opticalAxisVisibleProperty' )
-    } );
   }
 
   /**

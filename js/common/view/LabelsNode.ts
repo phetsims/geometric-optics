@@ -177,7 +177,7 @@ class LabelsNode extends Node {
     const opticalAxisLabel = new LabelNode( geometricOpticsStrings.opticalAxis, opticalAxisLabelPositionProperty, zoomTransformProperty, {
       xAlign: 'left',
       yOffset: 5,
-      visibleProperty: model.optic.opticalAxisVisibleProperty
+      visibleProperty: visibleProperties.opticalAxisVisibleProperty
     } );
 
     // ------------------------------------------------------------------------------------

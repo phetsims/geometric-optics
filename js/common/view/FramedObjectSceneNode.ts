@@ -73,7 +73,7 @@ class FramedObjectSceneNode extends Node {
       scene.optic.positionProperty,
       modelVisibleBoundsProperty,
       modelViewTransform, {
-        visibleProperty: scene.optic.opticalAxisVisibleProperty
+        visibleProperty: visibleProperties.opticalAxisVisibleProperty
       } );
 
     const opticVerticalAxisNode = new OpticVerticalAxisNode( scene.optic, raysTypeProperty, modelViewTransform, {
@@ -129,7 +129,7 @@ class FramedObjectSceneNode extends Node {
       scene.target1.positionProperty,
       targetNode,
       null /* TODO projectionScreen */, {
-        visibleProperty: scene.optic.opticalAxisVisibleProperty
+        visibleProperty: visibleProperties.opticalAxisVisibleProperty
       } );
 
     // Light rays associated with the first point of interest (the Object's position).
