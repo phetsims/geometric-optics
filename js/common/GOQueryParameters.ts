@@ -21,7 +21,15 @@ const SCHEMA = {
   // Add the 'Guides' feature to the Lens screen. This is a representation that was invented by PhET.
   // A checkbox will be added to the control panel, for controlling the visibility of the Guides.
   enableGuides: {
-    type: 'flag',
+    type: 'boolean',
+    defaultValue: false,
+    public: true
+  },
+
+  // Enable the feature that lets you show points at 2F.
+  enable2F: {
+    type: 'boolean',
+    defaultValue: false,
     public: true
   },
 
@@ -38,12 +46,6 @@ const SCHEMA = {
   //----------------------------------------------------------------------------------------------------------------
   // Internal query parameters
   //----------------------------------------------------------------------------------------------------------------
-
-  // Enable the feature that lets you show points at 2F.
-  enable2F: {
-    type: 'boolean',
-    defaultValue: false
-  },
 
   // speed of light in cm/sec, for the purpose of the light rays animation
   lightSpeed: {
