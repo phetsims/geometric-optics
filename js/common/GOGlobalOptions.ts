@@ -32,8 +32,9 @@ const GOGlobalOptions = {
   cueingArrowsEnabledProperty: new BooleanProperty( true, {
     tandem: optionsTandem.createTandem( 'cueingArrowsEnabledProperty' ),
     phetioDocumentation: 'Use this Property to enable or disable the cueing arrows feature.<br>' +
+                         'This Property can be accessed through PhET-iO only; it is not settable in the sim.<br>' +
                          'true: draggable Nodes will have cueing arrows<br>' +
-                         'false: no cueing arrows will appear in the sim'
+                         'false: draggable Nodes will NOT have cueing arrows'
   } )
 };
 
