@@ -24,12 +24,14 @@ import { RaysType } from '../model/RaysType.js';
 import FocalPointNode from './FocalPointNode.js';
 import TwoFPointNode from './TwoFPointNode.js';
 import GOColors from '../GOColors.js';
-import LightRaysNode from './LightRaysNode.js';
-import LightRaysForegroundNode from './LightRaysForegroundNode.js';
+import RealLightRaysNode from './RealLightRaysNode.js';
+import RealLightRaysForegroundNode from './RealLightRaysForegroundNode.js';
 import OpticalAxisForegroundNode from './OpticalAxisForegroundNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Optic from '../model/Optic.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import VirtualLightRaysNode from './VirtualLightRaysNode.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 type FramedObjectSceneNodeOptions = {
 
@@ -131,44 +133,59 @@ class FramedObjectSceneNode extends Node {
         visibleProperty: visibleProperties.opticalAxisVisibleProperty
       } );
 
-    // Light rays associated with the first point of interest (the Object's position).
-    const lightRays1Options = {
-      isLightSource: false,
-      realRaysStroke: GOColors.rays1StrokeProperty,
-      virtualRaysStroke: GOColors.rays1StrokeProperty
+    // Light rays (real & virtual) associated with the first point of interest (the framed object's position).
+    const realLightRays1Options = {
+      stroke: GOColors.rays1StrokeProperty,
+      visibleProperty: visibleProperties.raysAndImagesVisibleProperty
     };
-    const lightRays1Node = new LightRaysNode( scene.lightRays1,
-      visibleProperties.virtualImageVisibleProperty, modelViewTransform, lightRays1Options );
-    const lightRays1ForegroundNode = new LightRaysForegroundNode( scene.lightRays1,
-      visibleProperties.virtualImageVisibleProperty, modelViewTransform, modelVisibleBoundsProperty,
-      scene.optic.positionProperty, scene.target1.positionProperty, scene.target1.isVirtualProperty, lightRays1Options );
+    const realLightRays1Node = new RealLightRaysNode( scene.lightRays1, modelViewTransform, realLightRays1Options );
+    const realLightRays1ForegroundNode = new RealLightRaysForegroundNode( scene.lightRays1, modelViewTransform,
+      modelVisibleBoundsProperty, scene.optic.positionProperty, scene.target1.positionProperty,
+      scene.target1.isVirtualProperty, realLightRays1Options );
+    const virtualLightRays1Node = new VirtualLightRaysNode( scene.lightRays1, modelViewTransform, {
+      stroke: realLightRays1Options.stroke,
+      visibleProperty: DerivedProperty.and( [
+        visibleProperties.virtualImageVisibleProperty,
+        visibleProperties.raysAndImagesVisibleProperty
+      ] )
+    } );
 
-    // Light rays associated with the second point of interest.
-    const lightRays2Options = {
-      isLightSource: false,
-      realRaysStroke: GOColors.rays2StrokeProperty,
-      virtualRaysStroke: GOColors.rays2StrokeProperty,
-      visibleProperty: visibleProperties.secondPointVisibleProperty
+    // Light rays (real & virtual) associated with the second point of interest (also on the framed object).
+    const realLightRays2Options = {
+      stroke: GOColors.rays2StrokeProperty,
+      visibleProperty: DerivedProperty.and( [
+        visibleProperties.secondPointVisibleProperty,
+        visibleProperties.raysAndImagesVisibleProperty
+      ] )
     };
-    const lightRays2Node = new LightRaysNode( scene.lightRays2,
-      visibleProperties.virtualImageVisibleProperty, modelViewTransform, lightRays2Options );
-    const lightRays2ForegroundNode = new LightRaysForegroundNode( scene.lightRays2,
-      visibleProperties.virtualImageVisibleProperty, modelViewTransform, modelVisibleBoundsProperty,
-      scene.optic.positionProperty, scene.target2.positionProperty, scene.target2.isVirtualProperty, lightRays2Options );
+    const realLightRays2Node = new RealLightRaysNode( scene.lightRays2, modelViewTransform, realLightRays2Options );
+    const realLightRays2ForegroundNode = new RealLightRaysForegroundNode( scene.lightRays2, modelViewTransform,
+      modelVisibleBoundsProperty, scene.optic.positionProperty, scene.target2.positionProperty,
+      scene.target2.isVirtualProperty, realLightRays2Options );
+    const virtualLightRays2Node = new VirtualLightRaysNode( scene.lightRays2, modelViewTransform, {
+      stroke: realLightRays2Options.stroke,
+      visibleProperty: DerivedProperty.and( [
+        visibleProperties.virtualImageVisibleProperty,
+        visibleProperties.secondPointVisibleProperty,
+        visibleProperties.raysAndImagesVisibleProperty
+      ] )
+    } );
 
     this.children = [
       opticalAxisNode,
       framedObjectNode,
-      lightRays1Node,
-      lightRays2Node,
+      realLightRays1Node,
+      realLightRays2Node,
       targetNode,
       opticalAxisForegroundNode,
       opticNode,
       opticVerticalAxisNode,
       focalPointsNode,
       twoFPointsNode,
-      lightRays1ForegroundNode,
-      lightRays2ForegroundNode,
+      realLightRays1ForegroundNode,
+      realLightRays2ForegroundNode,
+      virtualLightRays1Node,
+      virtualLightRays2Node,
       secondPointNode
     ];
 

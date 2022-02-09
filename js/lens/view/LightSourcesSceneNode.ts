@@ -21,7 +21,7 @@ import { RaysType } from '../../common/model/RaysType.js';
 import FocalPointNode from '../../common/view/FocalPointNode.js';
 import TwoFPointNode from '../../common/view/TwoFPointNode.js';
 import GOColors from '../../common/GOColors.js';
-import LightRaysNode from '../../common/view/LightRaysNode.js';
+import RealLightRaysNode from '../../common/view/RealLightRaysNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Optic from '../../common/model/Optic.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
@@ -129,22 +129,20 @@ class LightSourcesSceneNode extends Node {
         visibleProperty: visibleProperties.opticalAxisVisibleProperty
       } );
 
-    // Light rays associated with the first point of interest (the Object's position).
-    const lightRays1Node = new LightRaysNode( scene.lightRays1,
-      visibleProperties.virtualImageVisibleProperty, modelViewTransform, {
-        isLightSource: true,
-        realRaysStroke: GOColors.rays1StrokeProperty,
-        virtualRaysStroke: GOColors.rays1StrokeProperty
-      } );
+    // Real light rays associated with the first point of interest (the Object's position).
+    // Note that virtual rays are not shown in this scene, because no optical image is being formed.
+    const realLightRays1Node = new RealLightRaysNode( scene.lightRays1, modelViewTransform, {
+      stroke: GOColors.rays1StrokeProperty,
+      visibleProperty: visibleProperties.raysAndImagesVisibleProperty
+    } );
 
-    // Light rays associated with the second point of interest.
-    const lightRays2Node = new LightRaysNode( scene.lightRays2,
-      visibleProperties.virtualImageVisibleProperty, modelViewTransform, {
-        isLightSource: true,
-        realRaysStroke: GOColors.rays2StrokeProperty,
-        virtualRaysStroke: GOColors.rays2StrokeProperty,
-        visibleProperty: visibleProperties.secondPointVisibleProperty
-      } );
+    // Real light rays associated with the second point of interest.
+    // Note that virtual rays are not shown in this scene, because no optical image is being formed.
+    const realLightRays2Node = new RealLightRaysNode( scene.lightRays2, modelViewTransform, {
+      stroke: GOColors.rays2StrokeProperty,
+      visibleProperty: DerivedProperty.and(
+        [ visibleProperties.secondPointVisibleProperty, visibleProperties.raysAndImagesVisibleProperty ] )
+    } );
 
     // Projection screen
     const projectionScreenNode = new ProjectionScreenNode(
@@ -197,8 +195,8 @@ class LightSourcesSceneNode extends Node {
       opticVerticalAxisNode,
       focalPointsNode,
       twoFPointsNode,
-      lightRays1Node,
-      lightRays2Node,
+      realLightRays1Node,
+      realLightRays2Node,
       guides1Node,
       guides2Node
     ];

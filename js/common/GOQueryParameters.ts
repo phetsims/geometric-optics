@@ -82,8 +82,8 @@ const SCHEMA = {
     type: 'flag'
   },
 
-  // The light rays are drawn using 2 Nodes, LightRaysNode and LightRaysForegroundNode.
-  // This flag uses 'red' stroke for LightRaysForegroundNode and its clipArea.
+  // With framed objects, real light rays are drawn using 2 Nodes, RealLightRaysNode and RealLightRaysForegroundNode.
+  // This flag uses 'red' stroke for RealLightRaysForegroundNode and its clipArea.
   debugRays: {
     type: 'flag'
   },

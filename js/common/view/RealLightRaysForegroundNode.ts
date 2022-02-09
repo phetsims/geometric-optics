@@ -1,14 +1,14 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * LightRaysForegroundNode is a subclass of LightRaysNode that (using clipArea) renders the parts of LightRaysNode
+ * RealLightRaysForegroundNode is a subclass of RealLightRaysNode that (using clipArea) renders the parts of RealLightRaysNode
  * that are in front of a real framed image, which has 3D perspective. It is intended to be used in
  * FramedObjectSceneNode, where it is layered in front of the real image Node in the scene graph.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import LightRaysNode, { LightRaysNodeOptions } from './LightRaysNode.js';
+import RealLightRaysNode, { RealLightRaysNodeOptions } from './RealLightRaysNode.js';
 import geometricOptics from '../../geometricOptics.js';
 import LightRays from '../model/LightRays.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
@@ -20,11 +20,10 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import { Path } from '../../../../scenery/js/imports.js';
 
-class LightRaysForegroundNode extends LightRaysNode {
+class RealLightRaysForegroundNode extends RealLightRaysNode {
 
   /**
    * @param lightRays
-   * @param virtualImageVisibleProperty
    * @param modelViewTransform
    * @param modelVisibleBoundsProperty - bounds where rays may appear, in model coordinates
    * @param opticPositionProperty
@@ -33,20 +32,19 @@ class LightRaysForegroundNode extends LightRaysNode {
    * @param providedOptions
    */
   constructor( lightRays: LightRays,
-               virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
                modelViewTransform: ModelViewTransform2,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                opticPositionProperty: IReadOnlyProperty<Vector2>,
                frameImagePositionProperty: IReadOnlyProperty<Vector2>,
                isVirtualProperty: IReadOnlyProperty<boolean>,
-               providedOptions: LightRaysNodeOptions ) {
+               providedOptions: RealLightRaysNodeOptions ) {
 
     const options = merge( {}, providedOptions );
     if ( GOQueryParameters.debugRays ) {
-      options.realRaysStroke = 'red';
+      options.stroke = 'red';
     }
 
-    super( lightRays, virtualImageVisibleProperty, modelViewTransform, options );
+    super( lightRays, modelViewTransform, options );
 
     // Stroke the clipArea in red.
     let clipAreaNode: Path;
@@ -114,5 +112,5 @@ class LightRaysForegroundNode extends LightRaysNode {
   }
 }
 
-geometricOptics.register( 'LightRaysForegroundNode', LightRaysForegroundNode );
-export default LightRaysForegroundNode;
+geometricOptics.register( 'RealLightRaysForegroundNode', RealLightRaysForegroundNode );
+export default RealLightRaysForegroundNode;

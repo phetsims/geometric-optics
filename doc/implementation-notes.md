@@ -152,22 +152,17 @@ on this information. This insures that all rays can converge to the same target.
 
 # View
 
-There are a few top-level view elements that are instantiated in `GOScreenView`:
+There are a few top-level view elements:
 
-* [OpticNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/OpticNode.js) is responsible for
+* [OpticNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/OpticNode.js) renders
   the optical element (Lens or Mirror).
-
-* [TargetNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/TargetNode.js) is the scenery
-  node for the optical image.
-
-* [FramedObjectNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/SourceObjectNode.js) is the
-  node responsible for the first source/object.
-
-* [SecondPointNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/SecondSourceNode.js) is the
-  node responsible for the second source/object.
-
-* [LightRaysNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/LightRaysNode.js) is
-  responsible for laying out the light rays.
+* [FramedObjectNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/SourceObjectNode.js) renders framed objects.
+* [SecondPointNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/SecondSourceNode.js) renders the second point-of-interest on a framed object.
+* [TargetNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/TargetNode.js) renders
+  the optical image.
+* [RealLightRaysNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/RealLightRaysNode.js) and 
+[VirtualLightRaysNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/VirtualLightRaysNode.js)
+  render real and virtual light rays respectively.
 
 Properties in [VisibileProperties](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/VisibleProperties.js) are used to toggle the visibility of Nodes.
 
