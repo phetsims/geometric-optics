@@ -291,16 +291,6 @@ class GOScreenView extends ScreenView {
 
     // Debugging ================================================================================================
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/217 restore or delete DebugPointNode
-    //
-    // // Add points at the origins of things that have a position.
-    // //TODO move these into the Nodes, ala LensNode
-    // if ( GOQueryParameters.debugOrigins ) {
-    //   experimentAreaNode.addChild( new DebugPointNode( model.sourceObject.positionProperty, modelViewTransform ) );
-    //   experimentAreaNode.addChild( new DebugPointNode( model.secondPoint.lightSourcePositionProperty, modelViewTransform ) );
-    //   experimentAreaNode.addChild( new DebugPointNode( model.firstTarget.positionProperty, modelViewTransform ) );
-    // }
-
     // Show the model bounds as a green rectangle.
     if ( GOQueryParameters.debugModelBounds ) {
       const dragBoundsNode = new Rectangle( modelViewTransform.modelToViewBounds( modelBoundsProperty.value ), {
