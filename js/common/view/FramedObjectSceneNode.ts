@@ -113,7 +113,8 @@ class FramedObjectSceneNode extends Node {
 
     const secondPointNode = new SecondPointNode( scene.framedObject.secondPoint, modelViewTransform, {
       visibleProperty: visibleProperties.secondPointVisibleProperty,
-      tandem: options.tandem.createTandem( 'secondPointNode' )
+      tandem: options.tandem.createTandem( 'secondPointNode' ),
+      phetioDocumentation: 'second point-of-interest on the framed object'
     } );
 
     // Both points of interest are on the same Object, so we only render one Image. If we rendered 2 Images,

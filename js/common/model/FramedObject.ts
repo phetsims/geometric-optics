@@ -17,6 +17,7 @@ import OpticalObject, { OpticalObjectOptions } from './OpticalObject.js';
 import SecondPoint from './SecondPoint.js';
 import OpticalObjectChoice, { ObjectHTMLImageElements } from './OpticalObjectChoice.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import merge from '../../../../phet-core/js/merge.js';
 
 class FramedObject extends OpticalObject {
 
@@ -43,7 +44,9 @@ class FramedObject extends OpticalObject {
    */
   constructor( opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>, providedOptions: OpticalObjectOptions ) {
 
-    super( providedOptions );
+    const options = merge( {}, providedOptions );
+
+    super( options );
 
     this.objectHTMLImageElementsProperty = new DerivedProperty(
       [ opticalObjectChoiceProperty ], ( opticalObjectChoice: OpticalObjectChoice ) => {
@@ -64,7 +67,10 @@ class FramedObject extends OpticalObject {
       }
     );
 
-    this.secondPoint = new SecondPoint( this.positionProperty );
+    this.secondPoint = new SecondPoint( this.positionProperty, {
+      tandem: options.tandem.createTandem( 'secondPoint' ),
+      phetioDocumentation: 'second point-of-interest on the framed object'
+    } );
 
     this.boundsProperty = new DerivedProperty(
       [ this.objectHTMLImageElementsProperty, this.positionProperty ],

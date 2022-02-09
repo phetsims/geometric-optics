@@ -14,12 +14,20 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import merge from '../../../../phet-core/js/merge.js';
+import PhetioObject from '../../../../tandem/js/PhetioObject.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 
 // range of the vertical offset for the second point, relative to frame object's position, in cm
 const VERTICAL_OFFSET_RANGE = new Range( -55, 0 );
 
-class SecondPoint {
+type SecondPointOptions = {
+  tandem: Tandem,
+  phetioDocumentation: string
+};
+
+class SecondPoint extends PhetioObject {
 
   // position of the second point
   readonly positionProperty: IReadOnlyProperty<Vector2>;
@@ -31,18 +39,29 @@ class SecondPoint {
 
   /**
    * @param framedObjectPositionProperty
+   * @param providedOptions
    */
-  constructor( framedObjectPositionProperty: IReadOnlyProperty<Vector2> ) {
+  constructor( framedObjectPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: SecondPointOptions ) {
+
+    const options = merge( {
+      phetioState: false
+    }, providedOptions );
+
+    super( options );
 
     this.verticalOffsetProperty = new NumberProperty( VERTICAL_OFFSET_RANGE.min, {
-      range: VERTICAL_OFFSET_RANGE
+      range: VERTICAL_OFFSET_RANGE,
+      tandem: options.tandem.createTandem( 'verticalOffsetProperty' ),
+      phetioDocumentation: 'offset relative to framed object position'
     } );
 
     this.positionProperty = new DerivedProperty(
       [ framedObjectPositionProperty, this.verticalOffsetProperty ],
       ( framedObjectPosition: Vector2, verticalOffset: number ) =>
-        framedObjectPosition.plusXY( 0, verticalOffset )
-    );
+        framedObjectPosition.plusXY( 0, verticalOffset ), {
+        tandem: options.tandem.createTandem( 'positionProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
+      } );
 
     this.framedObjectPositionProperty = framedObjectPositionProperty;
   }

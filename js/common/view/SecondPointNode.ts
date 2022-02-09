@@ -25,7 +25,8 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 type SecondPointNodeOptions = {
   visibleProperty: IProperty<boolean>,
-  tandem: Tandem
+  tandem: Tandem,
+  phetioDocumentation: string
 };
 
 class SecondPointNode extends Node {
@@ -105,6 +106,10 @@ class SecondPointNode extends Node {
       [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
       ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
         ( cueingArrowsEnabled && inputEnabled && !wasDragged ) ) );
+
+    this.addLinkedElement( secondPoint, {
+      tandem: options.tandem.createTandem( 'secondPoint' )
+    } );
 
     this.resetSecondPointNode = (): void => {
       wasDraggedProperty.reset();
