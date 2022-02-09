@@ -70,23 +70,23 @@ class RealLightRaysForegroundNode extends RealLightRaysNode {
 
         // real image
         const opticPosition = opticPositionProperty.value;
-        const imagePosition = frameImagePositionProperty.value;
+        const frameImagePosition = frameImagePositionProperty.value;
         const viewVisibleBounds = modelViewTransform.modelToViewBounds( modelVisibleBoundsProperty.value );
 
         let minX: number;
         let maxX: number;
-        if ( imagePosition.x > opticPosition.x ) {
+        if ( frameImagePosition.x > opticPosition.x ) {
 
           // For a real Image to the right of the optic, the clipArea is everything to the left of the Image,
           // because the Image is facing left in perspective.
           minX = viewVisibleBounds.minX;
-          maxX = modelViewTransform.modelToViewX( imagePosition.x );
+          maxX = modelViewTransform.modelToViewX( frameImagePosition.x );
         }
         else {
 
           // For a real Image to the left of the optic, the clipArea is everything to the right of the Image,
           // because the Image is facing right in perspective.
-          minX = modelViewTransform.modelToViewX( imagePosition.x );
+          minX = modelViewTransform.modelToViewX( frameImagePosition.x );
           maxX = viewVisibleBounds.maxX;
         }
         clipArea = Shape.rectangle( minX, viewVisibleBounds.minY, maxX - minX, viewVisibleBounds.height );

@@ -37,11 +37,11 @@ class Guide extends PhetioObject {
 
   /**
    * @param optic
-   * @param objectPositionProperty
+   * @param opticalObjectPositionProperty
    * @param location
    * @param providedOptions
    */
-  constructor( optic: Optic, objectPositionProperty: IReadOnlyProperty<Vector2>, location: GuideLocation, providedOptions: GuideOptions ) {
+  constructor( optic: Optic, opticalObjectPositionProperty: IReadOnlyProperty<Vector2>, location: GuideLocation, providedOptions: GuideOptions ) {
 
     const options = merge( {
       phetioState: false
@@ -62,9 +62,9 @@ class Guide extends PhetioObject {
       } );
 
     this.incidentAngleProperty = new DerivedProperty(
-      [ objectPositionProperty, this.fulcrumPositionProperty ],
-      ( objectPosition: Vector2, fulcrumPosition: Vector2 ) => {
-        const displacementVector = objectPosition.minus( fulcrumPosition );
+      [ opticalObjectPositionProperty, this.fulcrumPositionProperty ],
+      ( opticalObjectPosition: Vector2, fulcrumPosition: Vector2 ) => {
+        const displacementVector = opticalObjectPosition.minus( fulcrumPosition );
         return displacementVector.getAngle();
       }, {
         tandem: options.tandem.createTandem( 'incidentAngleProperty' ),

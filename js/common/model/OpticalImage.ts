@@ -31,17 +31,17 @@ class OpticalImage {
   protected readonly opticImageDistanceProperty: IReadOnlyProperty<number>;
 
   /**
-   * @param objectPositionProperty - position of the optical object
+   * @param opticalObjectPositionProperty - position of the optical object
    * @param optic - model of the optic
    */
-  constructor( objectPositionProperty: IReadOnlyProperty<Vector2>, optic: Optic ) {
+  constructor( opticalObjectPositionProperty: IReadOnlyProperty<Vector2>, optic: Optic ) {
 
     this.opticImageDistanceProperty = new DerivedProperty(
-      [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
-      ( objectPosition: Vector2, opticPosition: Vector2, focalLength: number ) => {
+      [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
+      ( opticalObjectPosition: Vector2, opticPosition: Vector2, focalLength: number ) => {
 
         // {number} horizontal distance between optic and optical object
-        const opticObjectDistance = OpticalImage.getObjectOpticDistance( objectPosition, opticPosition );
+        const opticObjectDistance = OpticalImage.getObjectOpticDistance( opticalObjectPosition, opticPosition );
 
         // address the case where the optical object shares the same x position as the focal point
         if ( opticObjectDistance === focalLength ) {
@@ -60,14 +60,14 @@ class OpticalImage {
       } );
 
     this.positionProperty = new DerivedProperty(
-      [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
+      [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       //TODO focalLength is not used, is focalLengthProperty dependency needed?
       //TODO Calls this.getMagnification, should there be a dependency here on magnificationProperty instead?
-      ( objectPosition: Vector2, opticPosition: Vector2, focalLength: number ) => {
+      ( opticalObjectPosition: Vector2, opticPosition: Vector2, focalLength: number ) => {
 
         // The height is determined as the vertical offset from the optical axis of the focus point.
         // The height can be negative if the Image is inverted.
-        const height = this.getMagnification( objectPosition, opticPosition ) * ( objectPosition.y - opticPosition.y );
+        const height = this.getMagnification( opticalObjectPosition, opticPosition ) * ( opticalObjectPosition.y - opticPosition.y );
 
         // recall that the meaning of opticImageDistanceProperty is different for lens vs mirror.
         const horizontalDisplacement = optic.sign * this.opticImageDistanceProperty.value;
@@ -79,7 +79,7 @@ class OpticalImage {
 
     //TODO REVIEW: DerivedProperty that depends on an unlisted Property?
     this.isVirtualProperty = new DerivedProperty(
-      [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
+      [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       ( ...args: any[] ) => ( this.opticImageDistanceProperty.value < 0 )
     );
   }
@@ -87,23 +87,23 @@ class OpticalImage {
   /**
    * Returns the horizontal distance from the object to the optic.
    * A negative distance indicates that the object is to the right of the optic.
-   * @param objectPosition
+   * @param opticalObjectPosition
    * @param opticPosition
    */
-  static getObjectOpticDistance( objectPosition: Vector2, opticPosition: Vector2 ): number {
-    return opticPosition.x - objectPosition.x;
+  static getObjectOpticDistance( opticalObjectPosition: Vector2, opticPosition: Vector2 ): number {
+    return opticPosition.x - opticalObjectPosition.x;
   }
 
   /**
    * Returns the magnification of the Image as defined in geometric optics courses.
    * A negative magnification implies that the Image is inverted.
-   * @param objectPosition
+   * @param opticalObjectPosition
    * @param opticPosition
    */
-  protected getMagnification( objectPosition: Vector2, opticPosition: Vector2 ): number {
+  protected getMagnification( opticalObjectPosition: Vector2, opticPosition: Vector2 ): number {
 
     // horizontal distance between optical object and optic
-    const objectOpticDistance = OpticalImage.getObjectOpticDistance( objectPosition, opticPosition );
+    const objectOpticDistance = OpticalImage.getObjectOpticDistance( opticalObjectPosition, opticPosition );
 
     // prevent a division by zero
     if ( objectOpticDistance === 0 ) {

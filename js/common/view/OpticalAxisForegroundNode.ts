@@ -80,27 +80,27 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
       const clipHeight = maxY - minY;
 
       const opticX = modelViewTransform.modelToViewX( opticPositionProperty.value.x );
-      const objectX = modelViewTransform.modelToViewX( framedObjectPositionProperty.value.x );
-      const imageX = modelViewTransform.modelToViewX( framedImagePositionProperty.value.x );
+      const framedObjectX = modelViewTransform.modelToViewX( framedObjectPositionProperty.value.x );
+      const framedImageX = modelViewTransform.modelToViewX( framedImagePositionProperty.value.x );
 
-      if ( imageX > opticX ) {
+      if ( framedImageX > opticX ) {
 
         // If the Image is to the right of the optic, clipArea is 1 rectangle, between the Object and Image.
-        clipArea = Shape.rectangle( objectX, minY, imageX - objectX, clipHeight );
+        clipArea = Shape.rectangle( framedObjectX, minY, framedImageX - framedObjectX, clipHeight );
       }
       else {
 
         // If the Image is to the left of the optic, clipArea requires 2 rectangles.
 
         // Determine the relative position of the Object and Image.
-        const imageOnRight = ( imageX > objectX );
+        const imageOnRight = ( framedImageX > framedObjectX );
 
         // The first rectangle is between the thing on the right and the optic.
-        const x1 = imageOnRight ? imageX : objectX;
+        const x1 = imageOnRight ? framedImageX : framedObjectX;
         const clipWidth1 = opticX - x1;
 
         // The second rectangle is between the thing on the left and the left edge of the picture frame on the right.
-        const x2 = imageOnRight ? objectX : imageX;
+        const x2 = imageOnRight ? framedObjectX : framedImageX;
         const halfFrameWidth = ( imageOnRight ? framedImageNode.bounds.width : framedObjectNode.visibleBounds.width ) / 2;
         const clipWidth2 = x1 - x2 - halfFrameWidth;
 

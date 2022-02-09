@@ -37,25 +37,25 @@ class FramedImage extends OpticalImage {
   readonly lightIntensityProperty: IReadOnlyProperty<number>;
 
   /**
-   * @param objectPositionProperty - position of the optical object
+   * @param framedObjectPositionProperty - position of the optical object
    * @param optic - model of the optic
    * @param representationProperty
    */
-  constructor( objectPositionProperty: IReadOnlyProperty<Vector2>, optic: Optic,
+  constructor( framedObjectPositionProperty: IReadOnlyProperty<Vector2>, optic: Optic,
                representationProperty: IReadOnlyProperty<Representation> ) {
 
-    super( objectPositionProperty, optic );
+    super( framedObjectPositionProperty, optic );
 
     this.magnificationProperty = new DerivedProperty(
-      [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
+      [ framedObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       //TODO focalLength is not used, is focalLengthProperty dependency needed?
-      ( objectPosition: Vector2, opticPosition: Vector2, focalLength: number ) =>
-        this.getMagnification( objectPosition, opticPosition )
+      ( framedObjectPosition: Vector2, opticPosition: Vector2, focalLength: number ) =>
+        this.getMagnification( framedObjectPosition, opticPosition )
     );
 
     //TODO REVIEW: DerivedProperty that depends on an unlisted Property?
     this.isInvertedProperty = new DerivedProperty(
-      [ objectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
+      [ framedObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       ( ...args: any[] ) => ( this.opticImageDistanceProperty.value > 0 )
     );
 

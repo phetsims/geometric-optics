@@ -40,14 +40,14 @@ class LightRays {
   /**
    * @param lightRaysTimeProperty - elapsed time of light rays animation
    * @param raysTypeProperty
-   * @param objectPositionProperty
+   * @param opticalObjectPositionProperty
    * @param optic
    * @param opticalImage - optical image associated with this ray
    * @param projectionScreen - optional projection screen that blocks rays
    */
   constructor( lightRaysTimeProperty: IReadOnlyProperty<number>,
                raysTypeProperty: IReadOnlyProperty<RaysType>,
-               objectPositionProperty: IReadOnlyProperty<Vector2>,
+               opticalObjectPositionProperty: IReadOnlyProperty<Vector2>,
                optic: Optic,
                opticalImage: OpticalImage,
                projectionScreen: ProjectionScreen | null = null ) {
@@ -60,7 +60,7 @@ class LightRays {
     // We only care about the types of the first 3 dependencies, because the listener only has 3 parameters.
     type DependencyTypes = [ Vector2, RaysType, number, ...any[] ];
     const dependencies: MappedProperties<DependencyTypes> = [
-      objectPositionProperty, raysTypeProperty, lightRaysTimeProperty,
+      opticalObjectPositionProperty, raysTypeProperty, lightRaysTimeProperty,
       optic.positionProperty, optic.diameterProperty, optic.focalLengthProperty, optic.opticShapeProperty
     ];
     if ( projectionScreen ) {
@@ -69,7 +69,7 @@ class LightRays {
 
     // Update all rays, then inform listeners via raysProcessedEmitter.
     Property.multilink<DependencyTypes>( dependencies,
-      ( objectPosition: Vector2, raysType: RaysType, lightRaysTime: number ) => {
+      ( opticalObjectPosition: Vector2, raysType: RaysType, lightRaysTime: number ) => {
 
         // Clear the arrays.
         this.realSegments = [];
@@ -82,7 +82,7 @@ class LightRays {
         const isVirtual = opticalImage.isVirtualProperty.value;
 
         // {Vector2[]} get the initial directions of the rays
-        const directions = getRayDirections( raysType, objectPosition, optic, opticalImagePosition );
+        const directions = getRayDirections( raysType, opticalObjectPosition, optic, opticalImagePosition );
 
         // set the optical image's visibility to false initially (unless there are no rays)
         opticalImage.visibleProperty.value = ( raysType === 'none' );
@@ -91,7 +91,7 @@ class LightRays {
         directions.forEach( direction => {
 
           // Create a LightRay, which is responsible for creating real and virtual ray segments.
-          const lightRay = new LightRay( objectPosition, direction, lightRaysTime, optic, opticalImagePosition, isVirtual,
+          const lightRay = new LightRay( opticalObjectPosition, direction, lightRaysTime, optic, opticalImagePosition, isVirtual,
             raysType, projectionScreen );
 
           // Set optical image's visibility to true when a ray reaches the image.

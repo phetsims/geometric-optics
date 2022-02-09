@@ -1,7 +1,7 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * FramedImageNode renders the image (real or virtual) associated with a framed object.
+ * FramedImageNode renders the optical image (real or virtual) associated with a framed object.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
