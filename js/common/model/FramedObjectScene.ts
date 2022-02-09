@@ -1,7 +1,7 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * FramedObjectScene is a scene in which rays from a single framed object interact with an optic and produce 
+ * FramedObjectScene is a scene in which rays from a single framed object interact with an optic and produce
  * an Image. Rays emanate from 2 points of interest on the framed object.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -83,21 +83,17 @@ class FramedObjectScene {
     this.lightRays1 = new LightRays(
       this.lightRaysTimeProperty,
       raysTypeProperty,
-      this.representationProperty,
       this.framedObject.positionProperty,
       this.optic,
-      this.target1,
-      null //TODO projectionScreen is not relevant for this scene
+      this.target1
     );
 
     this.lightRays2 = new LightRays(
       this.lightRaysTimeProperty,
       raysTypeProperty,
-      this.representationProperty,
       this.framedObject.secondPoint.positionProperty,
       this.optic,
-      this.target2,
-      null //TODO projectionScreen is not relevant for this scene
+      this.target2
     );
 
     //TODO add Guides ala LightSourcesScene, but for Lens screen only

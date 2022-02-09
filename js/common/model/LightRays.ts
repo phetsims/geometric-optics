@@ -16,7 +16,6 @@ import LightRay, { LightRaySegment } from './LightRay.js';
 import Optic from './Optic.js';
 import { RaysType } from './RaysType.js';
 import Target from './Target.js';
-import Representation from './Representation.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import { MappedProperties } from '../../../../axon/js/DerivedProperty.js';
 import ProjectionScreen from '../../lens/model/ProjectionScreen.js';
@@ -41,7 +40,6 @@ class LightRays {
   /**
    * @param lightRaysTimeProperty - elapsed time of light rays animation
    * @param raysTypeProperty
-   * @param representationProperty
    * @param objectPositionProperty
    * @param optic
    * @param target - target model associated with this ray
@@ -49,21 +47,20 @@ class LightRays {
    */
   constructor( lightRaysTimeProperty: IReadOnlyProperty<number>,
                raysTypeProperty: IReadOnlyProperty<RaysType>,
-               representationProperty: IReadOnlyProperty<Representation>,
                objectPositionProperty: IReadOnlyProperty<Vector2>,
                optic: Optic,
                target: Target,
-               projectionScreen: ProjectionScreen | null ) {
+               projectionScreen: ProjectionScreen | null = null ) {
 
     this.realSegments = [];
     this.virtualSegments = [];
     this.raysProcessedEmitter = new Emitter();
 
     // Things that result in a change to the rays.
-    // We only care about the types of the first 4 dependencies, because the listener only has 4 parameters.
-    type DependencyTypes = [ Vector2, RaysType, number, Representation, ...any[] ];
+    // We only care about the types of the first 3 dependencies, because the listener only has 3 parameters.
+    type DependencyTypes = [ Vector2, RaysType, number, ...any[] ];
     const dependencies: MappedProperties<DependencyTypes> = [
-      objectPositionProperty, raysTypeProperty, lightRaysTimeProperty, representationProperty,
+      objectPositionProperty, raysTypeProperty, lightRaysTimeProperty,
       optic.positionProperty, optic.diameterProperty, optic.focalLengthProperty, optic.opticShapeProperty
     ];
     if ( projectionScreen ) {
@@ -72,7 +69,7 @@ class LightRays {
 
     // Update all rays, then inform listeners via raysProcessedEmitter.
     Property.multilink<DependencyTypes>( dependencies,
-      ( objectPosition: Vector2, raysType: RaysType, lightRaysTime: number, representation: Representation ) => {
+      ( objectPosition: Vector2, raysType: RaysType, lightRaysTime: number ) => {
 
         // Clear the arrays.
         this.realSegments = [];
@@ -95,8 +92,7 @@ class LightRays {
 
           // Create a LightRay, which is responsible for creating real and virtual ray segments.
           const lightRay = new LightRay( objectPosition, direction, lightRaysTime, optic, targetPoint, isVirtual,
-            raysType, representation.isFramedObject ? null : projectionScreen
-          );
+            raysType, projectionScreen );
 
           // Set target's visibility to true when a ray reaches the target.
           if ( lightRay.isTargetReached ) {

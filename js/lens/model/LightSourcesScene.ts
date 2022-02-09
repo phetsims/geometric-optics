@@ -106,7 +106,6 @@ class LightSourcesScene {
     this.lightRays1 = new LightRays(
       this.lightRaysTimeProperty,
       raysTypeProperty,
-      this.representationProperty,
       this.lightSource1.positionProperty,
       this.optic,
       this.target1,
@@ -116,7 +115,6 @@ class LightSourcesScene {
     this.lightRays2 = new LightRays(
       this.lightRaysTimeProperty,
       raysTypeProperty,
-      this.representationProperty,
       this.lightSource2.positionProperty,
       this.optic,
       this.target2,
