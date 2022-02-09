@@ -213,7 +213,7 @@ class GORulerNode extends Node {
     this.addInputListener( keyboardDragListener );
 
     // Hotkeys for rulers, see https://github.com/phetsims/geometric-optics/issues/279
-    keyboardDragListener.hotkeys = ( [
+    keyboardDragListener.hotkeys = [
 
       // Escape returns the ruler to the toolbox.
       {
@@ -278,7 +278,7 @@ class GORulerNode extends Node {
           }
         }
       }
-    ] );
+    ];
 
     // When the transform changes, update the input listeners
     zoomTransformProperty.link( zoomTransform => {
