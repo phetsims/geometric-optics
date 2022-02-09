@@ -12,7 +12,7 @@ import logGlobal from '../../../phet-core/js/logGlobal.js';
 import geometricOptics from '../geometricOptics.js';
 import { FocalLengthControlTypeValues } from './model/FocalLengthControlType.js';
 
-const SCHEMA = {
+const SCHEMA_MAP = {
 
   //----------------------------------------------------------------------------------------------------------------
   // Public-facing query parameters
@@ -101,8 +101,8 @@ const SCHEMA = {
   }
 };
 
-const GOQueryParameters = QueryStringMachine.getAll( SCHEMA );
-GOQueryParameters.SCHEMA = SCHEMA;
+const GOQueryParameters = QueryStringMachine.getAll( SCHEMA_MAP );
+GOQueryParameters.SCHEMA_MAP = SCHEMA_MAP;
 
 geometricOptics.register( 'GOQueryParameters', GOQueryParameters );
 
