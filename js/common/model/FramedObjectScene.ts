@@ -94,7 +94,7 @@ class FramedObjectScene {
       this.framedImage2
     );
 
-    //TODO add Guides ala LightSourcesScene, but for Lens screen only
+    //TODO https://github.com/phetsims/geometric-optics/issues/217 restore Guides ala LightSourcesScene, but for Lens screen only
   }
 
   //TODO is this complete?
