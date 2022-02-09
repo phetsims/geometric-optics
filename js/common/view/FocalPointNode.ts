@@ -7,27 +7,41 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Circle, Node } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
+
+type FocalPointNodeOptions = {
+  tandem: Tandem
+};
 
 class FocalPointNode extends Node {
 
   /**
    * @param focalPointProperty
    * @param modelViewTransform
+   * @param providedOptions
    */
-  constructor( focalPointProperty: IReadOnlyProperty<Vector2>, modelViewTransform: ModelViewTransform2 ) {
+  constructor( focalPointProperty: Property<Vector2>, modelViewTransform: ModelViewTransform2, providedOptions: FocalPointNodeOptions ) {
 
-    super( {
-      children: [ FocalPointNode.createIcon() ]
-    } );
+    const options = merge( {
+      children: [ FocalPointNode.createIcon() ],
+      phetioVisiblePropertyInstrumented: false
+    }, providedOptions );
+
+    super( options );
 
     focalPointProperty.link( focalPoint => {
       this.center = modelViewTransform.modelToViewPosition( focalPoint );
+    } );
+
+    this.addLinkedElement( focalPointProperty, {
+      tandem: options.tandem.createTandem( 'focalPointProperty' )
     } );
   }
 

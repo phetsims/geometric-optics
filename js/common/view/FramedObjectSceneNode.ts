@@ -87,13 +87,18 @@ class FramedObjectSceneNode extends Node {
     const opticVerticalAxisNode = new OpticVerticalAxisNode( scene.optic, raysTypeProperty, modelViewTransform );
 
     // focal points (F)
+    const focalPointsNodeTandem = options.tandem.createTandem( 'focalPointsNode' );
     const focalPointsNode = new Node( {
       children: [
-        new FocalPointNode( scene.optic.leftFocalPointProperty, modelViewTransform ),
-        new FocalPointNode( scene.optic.rightFocalPointProperty, modelViewTransform )
+        new FocalPointNode( scene.optic.leftFocalPointProperty, modelViewTransform, {
+          tandem: focalPointsNodeTandem.createTandem( 'leftFocalPointNode' )
+        } ),
+        new FocalPointNode( scene.optic.rightFocalPointProperty, modelViewTransform, {
+          tandem: focalPointsNodeTandem.createTandem( 'rightFocalPointNode' )
+        } )
       ],
       visibleProperty: visibleProperties.focalPointsVisibleProperty,
-      tandem: options.tandem.createTandem( 'focalPointsNode' )
+      tandem: focalPointsNodeTandem
     } );
 
     // 2F points
