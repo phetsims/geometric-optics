@@ -102,13 +102,18 @@ class FramedObjectSceneNode extends Node {
     } );
 
     // 2F points
+    const twoFPointsNodeTandem = options.tandem.createTandem( 'twoFPointsNode' );
     const twoFPointsNode = new Node( {
       children: [
-        new TwoFPointNode( scene.optic.left2FProperty, modelViewTransform ),
-        new TwoFPointNode( scene.optic.right2FProperty, modelViewTransform )
+        new TwoFPointNode( scene.optic.left2FProperty, modelViewTransform, {
+          tandem: twoFPointsNodeTandem.createTandem( 'left2FPointNode' )
+        } ),
+        new TwoFPointNode( scene.optic.right2FProperty, modelViewTransform, {
+          tandem: twoFPointsNodeTandem.createTandem( 'right2FPointNode' )
+        } )
       ],
       visibleProperty: visibleProperties.twoFPointsVisibleProperty,
-      tandem: options.tandem.createTandem( 'twoFPointsNode' )
+      tandem: twoFPointsNodeTandem
     } );
 
     const framedObjectNode = new FramedObjectNode( scene.framedObject,

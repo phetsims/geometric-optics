@@ -95,8 +95,8 @@ abstract class Optic extends PhetioObject {
   readonly twiceFocalLengthProperty: IReadOnlyProperty<number>;
 
   // 2F points to the left and right of the optic
-  readonly left2FProperty: IReadOnlyProperty<Vector2>;
-  readonly right2FProperty: IReadOnlyProperty<Vector2>;
+  readonly left2FProperty: Property<Vector2>;
+  readonly right2FProperty: Property<Vector2>;
 
   private readonly resetOptic: () => void;
 

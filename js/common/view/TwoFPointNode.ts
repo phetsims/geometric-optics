@@ -6,27 +6,41 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Circle, Node } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
+
+type TwoFPointNodeOptions = {
+  tandem: Tandem
+}
 
 class TwoFPointNode extends Node {
 
   /**
-   * @param pointProperty
+   * @param twoFPointProperty
    * @param modelViewTransform
+   * @param provideOptions
    */
-  constructor( pointProperty: IReadOnlyProperty<Vector2>, modelViewTransform: ModelViewTransform2 ) {
+  constructor( twoFPointProperty: Property<Vector2>, modelViewTransform: ModelViewTransform2, provideOptions: TwoFPointNodeOptions ) {
 
-    super( {
-      children: [ TwoFPointNode.createIcon() ]
+    const options = merge( {
+      children: [ TwoFPointNode.createIcon() ],
+      phetioVisiblePropertyInstrumented: false
+    }, provideOptions );
+
+    super( options );
+
+    twoFPointProperty.link( twoFPoint => {
+      this.center = modelViewTransform.modelToViewPosition( twoFPoint );
     } );
 
-    pointProperty.link( point => {
-      this.center = modelViewTransform.modelToViewPosition( point );
+    this.addLinkedElement( twoFPointProperty, {
+      tandem: options.tandem.createTandem( 'twoFPointProperty' )
     } );
   }
 
