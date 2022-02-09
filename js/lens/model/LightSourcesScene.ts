@@ -11,8 +11,6 @@
 import Range from '../../../../dot/js/Range.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from '../../common/model/Optic.js';
-import Property from '../../../../axon/js/Property.js';
-import Representation, { LIGHT_SOURCE_REPRESENTATION } from '../../common/model/Representation.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -36,7 +34,6 @@ type LightSourcesSceneOptions = {
 
 class LightSourcesScene {
 
-  readonly representationProperty: Property<Representation>;
   readonly optic: Optic;
   readonly lightSource1: LightSource;
   readonly lightSource2: LightSource;
@@ -58,18 +55,15 @@ class LightSourcesScene {
    * @param raysTypeProperty
    * @param providedOptions
    */
-  constructor( optic: Optic, raysTypeProperty: IReadOnlyProperty<RaysType>, providedOptions: LightSourcesSceneOptions ) {
+  constructor( optic: Optic,
+               raysTypeProperty: IReadOnlyProperty<RaysType>,
+               providedOptions: LightSourcesSceneOptions ) {
 
     const options = merge( {
       //TODO
     }, providedOptions );
 
     this.optic = optic;
-
-    //TODO get rid of this
-    this.representationProperty = new Property( LIGHT_SOURCE_REPRESENTATION, {
-      validValues: [ LIGHT_SOURCE_REPRESENTATION ]
-    } );
 
     this.lightSource1 = new LightSource( {
       htmlImageElement: lamp1_png,
