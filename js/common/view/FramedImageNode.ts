@@ -19,6 +19,8 @@ import GOColors from '../GOColors.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import Utils from '../../../../dot/js/Utils.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import merge from '../../../../phet-core/js/merge.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 
 type FramedImageNodeOptions = {
   tandem: Tandem
@@ -41,7 +43,12 @@ class FramedImageNode extends Node {
                modelViewTransform: ModelViewTransform2,
                providedOptions: FramedImageNodeOptions ) {
 
-    super( providedOptions );
+    const options = merge( {
+      // because we'll be supplying our own visibleProperty via setVisibleProperty
+      phetioVisiblePropertyInstrumented: false
+    }, providedOptions );
+
+    super( options );
 
     assert && assert( framedImage.imageProperty.value ); // {HTMLImageElement|null}
     const imageNode = new Image( framedImage.imageProperty.value!, {
@@ -76,8 +83,10 @@ class FramedImageNode extends Node {
     this.setVisibleProperty( new DerivedProperty(
       [ virtualImageVisibleProperty, framedImage.isVirtualProperty, raysAndImagesVisibleProperty, framedImage.visibleProperty ],
       ( virtualImageVisible: boolean, isVirtual: boolean, raysAndImagesVisible: boolean, framedImageVisible: boolean ) =>
-        ( virtualImageVisible || !isVirtual ) && raysAndImagesVisible && framedImageVisible
-    ) );
+        ( virtualImageVisible || !isVirtual ) && raysAndImagesVisible && framedImageVisible, {
+        tandem: options.tandem.createTandem( 'visibleProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
+      } ) );
 
     // update position and scale when model bounds change
     framedImage.boundsProperty.link( () => updateScaleAndPosition() );
