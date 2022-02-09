@@ -108,6 +108,10 @@ class FramedImageNode extends Node {
         maskNode.shape = null;
       }
     } );
+
+    this.addLinkedElement( framedImage, {
+      tandem: options.tandem.createTandem( 'framedImage' )
+    } );
   }
 
   public dispose(): void {
