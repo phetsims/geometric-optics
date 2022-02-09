@@ -78,9 +78,6 @@ class FramedObjectScene {
       phetioReadOnly: true
     } );
 
-    // Changing raysTypeProperty resets the animation time for rays.
-    raysTypeProperty.link( () => this.lightRaysTimeProperty.reset() );
-
     this.lightRays1 = new LightRays(
       this.lightRaysTimeProperty,
       raysTypeProperty,

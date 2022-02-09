@@ -34,6 +34,8 @@ import Optic from '../model/Optic.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import FramedObjectSceneNode from './FramedObjectSceneNode.js';
 import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
+import Property from '../../../../axon/js/Property.js';
+import { RaysType } from '../model/RaysType.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.
@@ -276,24 +278,11 @@ class GOScreenView extends ScreenView {
       experimentAreaNode.translation = viewOrigin;
     } );
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/217 restore ShowHideToggleButton feature
-    //
-    // //TODO document or rewrite this
-    // Property.multilink(
-    //   [ model.raysTypeProperty, visibleProperties.raysAndImagesVisibleProperty ],
-    //   ( raysType: RaysType, rayTracingVisible: boolean ) => {
-    //     if ( raysType === 'none' ) {
-    //       model.firstTarget.visibleProperty.value = rayTracingVisible;
-    //       model.secondTarget.visibleProperty.value = rayTracingVisible;
-    //     }
-    //     else {
-    //       if ( !rayTracingVisible ) {
-    //         model.firstTarget.visibleProperty.value = false;
-    //         model.secondTarget.visibleProperty.value = false;
-    //         model.lightRaysTimeProperty.reset();
-    //       }
-    //     }
-    //   } );
+    // Changing any of these Properties resets the animation time for rays.
+    Property.multilink(
+      [ model.raysTypeProperty, visibleProperties.raysAndImagesVisibleProperty ],
+      ( raysType: RaysType, raysAndImagesVisible: boolean ) =>
+        model.framedObjectScene.lightRaysTimeProperty.reset() );
 
     // Changing these things interrupts interactions
     const interrupt = () => this.interruptSubtreeInput();

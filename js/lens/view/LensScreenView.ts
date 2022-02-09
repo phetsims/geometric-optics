@@ -23,6 +23,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DragLockedButton from '../../common/view/DragLockedButton.js';
 import LightSourcesSceneNode from './LightSourcesSceneNode.js';
 import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
+import { RaysType } from '../../common/model/RaysType.js';
 
 type LensScreenViewOptions = {
   tandem: Tandem
@@ -91,6 +92,13 @@ class LensScreenView extends GOScreenView {
       pdomOrder.splice( pdomOrder.indexOf( this.opticShapeRadioButtonGroup ), 0, dragLockedButton );
       this.screenViewRootNode.pdomOrder = pdomOrder;
     }
+
+    //TODO this is duplicated in GOScreenView for framedObjectScene
+    // Changing any of these Properties resets the animation time for rays.
+    Property.multilink(
+      [ model.raysTypeProperty, this.visibleProperties.raysAndImagesVisibleProperty ],
+      ( raysType: RaysType, raysAndImagesVisible: boolean ) =>
+        model.lightSourcesScene.lightRaysTimeProperty.reset() );
 
     this.resetLensScreenView = () => {
       options.dragLockedProperty.reset();
