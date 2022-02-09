@@ -252,7 +252,7 @@ class GORulerNode extends Node {
         }
       },
 
-      // J+S moves the ruler to the second optical object. Ignored if there is no second optical object is visible.
+      // J+S moves the ruler to the second optical object. Ignored if no second optical object is visible.
       {
         keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_S ],
         callback: () => {
