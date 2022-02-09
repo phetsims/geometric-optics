@@ -20,6 +20,8 @@ import ProjectionScreen from './ProjectionScreen.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import GOConstants from '../../common/GOConstants.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import merge from '../../../../phet-core/js/merge.js';
+import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 
 // constants
 const FULL_INTENSITY_DIAMETER = 7; // cm, any light spot less than this diameter will be full intensity
@@ -28,10 +30,10 @@ type PositionAndDiameter = { position: Vector2, diameter: number };
 
 type LightSpotOptions = {
   tandem: Tandem,
-  phetioDocumentation: string
+  phetioDocumentation?: string
 };
 
-class LightSpot {
+class LightSpot extends PhetioObject {
 
   // Shape of the light spot, based on its intersection with the projection screen.
   // If the spot does not intersect the screen, the value will be a Shape with zero area.
@@ -62,6 +64,12 @@ class LightSpot {
                opticalImagePositionProperty: IReadOnlyProperty<Vector2>,
                providedOptions: LightSpotOptions ) {
 
+    const options = merge( {
+      phetioState: false
+    }, providedOptions );
+
+    super( options );
+
     this.shapeProperty = new DerivedProperty(
       [ optic.positionProperty, optic.diameterProperty, projectionScreen.positionProperty, lightSourcePositionProperty, opticalImagePositionProperty ],
       ( opticPosition: Vector2, opticDiameter: number, projectionScreenPosition: Vector2, lightSourcePosition: Vector2, opticalImagePosition: Vector2 ) =>
@@ -78,7 +86,7 @@ class LightSpot {
       ( positionAndDiameter: PositionAndDiameter | null ) =>
         ( positionAndDiameter === null ) ? null : positionAndDiameter.position, {
         units: 'cm',
-        tandem: providedOptions.tandem.createTandem( 'positionProperty' ),
+        tandem: options.tandem.createTandem( 'positionProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NullableIO( Vector2.Vector2IO ) ),
         phetioDocumentation: 'position of the center of the light spot (which may not be on the screen), ' +
                              'null if the light is not hitting the screen'
@@ -88,7 +96,7 @@ class LightSpot {
       ( positionAndDiameter: PositionAndDiameter | null ) =>
         ( positionAndDiameter === null ) ? null : positionAndDiameter.diameter, {
         units: 'cm',
-        tandem: providedOptions.tandem.createTandem( 'diameterProperty' ),
+        tandem: options.tandem.createTandem( 'diameterProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NullableIO( NumberIO ) ),
         phetioDocumentation: 'diameter (in the y dimension) of the light spot, null if the light is not hitting the screen'
       } );
@@ -101,7 +109,7 @@ class LightSpot {
       ( diameter: number | null ) => ( diameter === null || diameter === 0 ) ? null :
                                      GOConstants.INTENSITY_RANGE.constrainValue( FULL_INTENSITY_DIAMETER / diameter ), {
         isValidValue: ( value: number | null ) => ( value === null ) || GOConstants.INTENSITY_RANGE.contains( value ),
-        tandem: providedOptions.tandem.createTandem( 'intensityProperty' ),
+        tandem: options.tandem.createTandem( 'intensityProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NullableIO( NumberIO ) ),
         phetioDocumentation: 'intensity of the light hitting the screen, in the range [0,1], ' +
                              'null if the light is not hitting the screen'

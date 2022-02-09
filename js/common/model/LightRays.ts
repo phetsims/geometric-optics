@@ -38,14 +38,14 @@ class LightRays {
   readonly raysProcessedEmitter: Emitter<[]>;
 
   /**
-   * @param lightRaysTimeProperty - elapsed time of light rays animation
+   * @param lightRaysAnimationTimeProperty - elapsed time of light rays animation
    * @param raysTypeProperty
    * @param opticalObjectPositionProperty
    * @param optic
    * @param opticalImage - optical image associated with this ray
    * @param projectionScreen - optional projection screen that blocks rays
    */
-  constructor( lightRaysTimeProperty: IReadOnlyProperty<number>,
+  constructor( lightRaysAnimationTimeProperty: IReadOnlyProperty<number>,
                raysTypeProperty: IReadOnlyProperty<RaysType>,
                opticalObjectPositionProperty: IReadOnlyProperty<Vector2>,
                optic: Optic,
@@ -60,7 +60,7 @@ class LightRays {
     // We only care about the types of the first 3 dependencies, because the listener only has 3 parameters.
     type DependencyTypes = [ Vector2, RaysType, number, ...any[] ];
     const dependencies: MappedProperties<DependencyTypes> = [
-      opticalObjectPositionProperty, raysTypeProperty, lightRaysTimeProperty,
+      opticalObjectPositionProperty, raysTypeProperty, lightRaysAnimationTimeProperty,
       optic.positionProperty, optic.diameterProperty, optic.focalLengthProperty, optic.opticShapeProperty
     ];
     if ( projectionScreen ) {

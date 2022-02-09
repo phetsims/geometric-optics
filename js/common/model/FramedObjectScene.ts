@@ -24,6 +24,7 @@ import OpticalObjectChoice from './OpticalObjectChoice.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Guide from '../../lens/model/Guide.js';
 import Lens from '../../lens/model/Lens.js';
+import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 
 type FramedObjectSceneOptions = {
 
@@ -34,13 +35,13 @@ type FramedObjectSceneOptions = {
   tandem: Tandem
 };
 
-class FramedObjectScene {
+class FramedObjectScene extends PhetioObject {
 
   readonly optic: Optic;
   readonly framedObject: FramedObject;
   readonly framedImage1: FramedImage;
   readonly framedImage2: FramedImage;
-  readonly lightRaysTimeProperty: NumberProperty;
+  readonly lightRaysAnimationTimeProperty: NumberProperty;
   readonly lightRays1: LightRays;
   readonly lightRays2: LightRays;
   readonly topGuide1: Guide | null;
@@ -60,10 +61,16 @@ class FramedObjectScene {
                providedOptions: FramedObjectSceneOptions ) {
 
     const options = merge( {
-      //TODO
+      phetioState: false
     }, providedOptions );
 
+    super( options );
+
     this.optic = optic;
+
+    this.addLinkedElement( optic, {
+      tandem: options.tandem.createTandem( 'optic' )
+    } );
 
     this.framedObject = new FramedObject( opticalObjectChoiceProperty, {
       position: options.framedObjectPosition,
@@ -71,21 +78,27 @@ class FramedObjectScene {
     } );
 
     this.framedImage1 = new FramedImage( this.framedObject.positionProperty,
-      this.framedObject.objectHTMLImageElementsProperty, this.optic );
+      this.framedObject.objectHTMLImageElementsProperty, this.optic, {
+        tandem: options.tandem.createTandem( 'framedImage1' ),
+        phetioDocumentation: 'optical image associated with the first point-of-interest on the framed object'
+      } );
 
     this.framedImage2 = new FramedImage( this.framedObject.secondPoint.positionProperty,
-      this.framedObject.objectHTMLImageElementsProperty, this.optic );
+      this.framedObject.objectHTMLImageElementsProperty, this.optic, {
+        tandem: options.tandem.createTandem( 'framedImage2' ),
+        phetioDocumentation: 'optical image associated with the second point-of-interest on the framed object'
+      } );
 
     //TODO should each scene have this, or should it be shared by all scenes?
-    this.lightRaysTimeProperty = new NumberProperty( 0, {
+    this.lightRaysAnimationTimeProperty = new NumberProperty( 0, {
       units: 's',
       range: new Range( 0, 10 ), // determines the duration of the light rays animation
-      tandem: options.tandem.createTandem( 'lightRaysTimeProperty' ),
+      tandem: options.tandem.createTandem( 'lightRaysAnimationTimeProperty' ),
       phetioReadOnly: true
     } );
 
     this.lightRays1 = new LightRays(
-      this.lightRaysTimeProperty,
+      this.lightRaysAnimationTimeProperty,
       raysTypeProperty,
       this.framedObject.positionProperty,
       this.optic,
@@ -93,7 +106,7 @@ class FramedObjectScene {
     );
 
     this.lightRays2 = new LightRays(
-      this.lightRaysTimeProperty,
+      this.lightRaysAnimationTimeProperty,
       raysTypeProperty,
       this.framedObject.secondPoint.positionProperty,
       this.optic,
@@ -131,7 +144,7 @@ class FramedObjectScene {
   //TODO is this complete?
   public reset(): void {
     this.framedObject.reset();
-    this.lightRaysTimeProperty.reset();
+    this.lightRaysAnimationTimeProperty.reset();
   }
 
   /**
@@ -139,10 +152,10 @@ class FramedObjectScene {
    * @param dt - time step, in seconds
    */
   public stepLightRays( dt: number ): void {
-    const t = Math.min( this.lightRaysTimeProperty.value + dt, this.lightRaysTimeProperty.range!.max );
-    assert && assert( this.lightRaysTimeProperty.range ); // {Range|null}
-    if ( this.lightRaysTimeProperty.range!.contains( t ) ) {
-      this.lightRaysTimeProperty.value = t;
+    const t = Math.min( this.lightRaysAnimationTimeProperty.value + dt, this.lightRaysAnimationTimeProperty.range!.max );
+    assert && assert( this.lightRaysAnimationTimeProperty.range ); // {Range|null}
+    if ( this.lightRaysAnimationTimeProperty.range!.contains( t ) ) {
+      this.lightRaysAnimationTimeProperty.value = t;
     }
   }
 }

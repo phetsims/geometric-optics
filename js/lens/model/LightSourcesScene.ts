@@ -25,6 +25,7 @@ import lamp2_png from '../../../images/lamp2_png.js';
 import lamp1_png from '../../../images/lamp1_png.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OpticalImage from '../../common/model/OpticalImage.js';
+import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 
 type LightSourcesSceneOptions = {
 
@@ -32,7 +33,7 @@ type LightSourcesSceneOptions = {
   tandem: Tandem
 };
 
-class LightSourcesScene {
+class LightSourcesScene extends PhetioObject {
 
   readonly optic: Optic;
   readonly lightSource1: LightSource;
@@ -40,7 +41,7 @@ class LightSourcesScene {
   readonly opticalImage1: OpticalImage;
   readonly opticalImage2: OpticalImage;
   readonly projectionScreen: ProjectionScreen;
-  readonly lightRaysTimeProperty: NumberProperty;
+  readonly lightRaysAnimationTimeProperty: NumberProperty;
   readonly lightRays1: LightRays;
   readonly lightRays2: LightRays;
   readonly lightSpot1: LightSpot;
@@ -60,41 +61,55 @@ class LightSourcesScene {
                providedOptions: LightSourcesSceneOptions ) {
 
     const options = merge( {
-      //TODO
+      phetioState: false
     }, providedOptions );
 
+    super( options );
+
     this.optic = optic;
+
+    this.addLinkedElement( optic, {
+      tandem: options.tandem.createTandem( 'optic' )
+    } );
 
     this.lightSource1 = new LightSource( {
       htmlImageElement: lamp1_png,
       position: new Vector2( -170, 20 ),
-      tandem: options.tandem.createTandem( 'lightSource1' )
+      tandem: options.tandem.createTandem( 'lightSource1' ),
+      phetioDocumentation: 'the first light source'
     } );
 
     this.lightSource2 = new LightSource( {
       htmlImageElement: lamp2_png,
       position: new Vector2( -170, -20 ),
-      tandem: options.tandem.createTandem( 'lightSource2' )
+      tandem: options.tandem.createTandem( 'lightSource2' ),
+      phetioDocumentation: 'the second light source'
     } );
 
-    this.opticalImage1 = new OpticalImage( this.lightSource1.positionProperty, this.optic );
+    this.opticalImage1 = new OpticalImage( this.lightSource1.positionProperty, this.optic, {
+      tandem: options.tandem.createTandem( 'opticalImage1' ),
+      phetioDocumentation: 'Point where light rays from the first light source converge. No image is formed in this scene.'
+    } );
 
-    this.opticalImage2 = new OpticalImage( this.lightSource2.positionProperty, this.optic );
+    this.opticalImage2 = new OpticalImage( this.lightSource2.positionProperty, this.optic, {
+      tandem: options.tandem.createTandem( 'opticalImage2' ),
+      phetioDocumentation: 'Point where light rays from the second light source converge. No image is formed in this scene.'
+    } );
 
     this.projectionScreen = new ProjectionScreen( {
       tandem: providedOptions.tandem.createTandem( 'projectionScreen' )
     } );
 
     //TODO should each scene have this, or should it be shared by all scenes?
-    this.lightRaysTimeProperty = new NumberProperty( 0, {
+    this.lightRaysAnimationTimeProperty = new NumberProperty( 0, {
       units: 's',
       range: new Range( 0, 10 ), // determines the duration of the light rays animation
-      tandem: options.tandem.createTandem( 'lightRaysTimeProperty' ),
+      tandem: options.tandem.createTandem( 'lightRaysAnimationTimeProperty' ),
       phetioReadOnly: true
     } );
 
     this.lightRays1 = new LightRays(
-      this.lightRaysTimeProperty,
+      this.lightRaysAnimationTimeProperty,
       raysTypeProperty,
       this.lightSource1.positionProperty,
       this.optic,
@@ -103,7 +118,7 @@ class LightSourcesScene {
     );
 
     this.lightRays2 = new LightRays(
-      this.lightRaysTimeProperty,
+      this.lightRaysAnimationTimeProperty,
       raysTypeProperty,
       this.lightSource2.positionProperty,
       this.optic,
@@ -147,7 +162,7 @@ class LightSourcesScene {
   public reset(): void {
     this.lightSource1.reset();
     this.lightSource2.reset();
-    this.lightRaysTimeProperty.reset();
+    this.lightRaysAnimationTimeProperty.reset();
     this.projectionScreen.reset();
   }
 
@@ -157,10 +172,10 @@ class LightSourcesScene {
    * @param dt - time step, in seconds
    */
   public stepLightRays( dt: number ): void {
-    const t = Math.min( this.lightRaysTimeProperty.value + dt, this.lightRaysTimeProperty.range!.max );
-    assert && assert( this.lightRaysTimeProperty.range ); // {Range|null}
-    if ( this.lightRaysTimeProperty.range!.contains( t ) ) {
-      this.lightRaysTimeProperty.value = t;
+    const t = Math.min( this.lightRaysAnimationTimeProperty.value + dt, this.lightRaysAnimationTimeProperty.range!.max );
+    assert && assert( this.lightRaysAnimationTimeProperty.range ); // {Range|null}
+    if ( this.lightRaysAnimationTimeProperty.range!.contains( t ) ) {
+      this.lightRaysAnimationTimeProperty.value = t;
     }
   }
 }

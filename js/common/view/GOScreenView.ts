@@ -276,7 +276,7 @@ class GOScreenView extends ScreenView {
     Property.multilink(
       [ model.raysTypeProperty, visibleProperties.raysAndImagesVisibleProperty ],
       ( raysType: RaysType, raysAndImagesVisible: boolean ) =>
-        model.framedObjectScene.lightRaysTimeProperty.reset() );
+        model.framedObjectScene.lightRaysAnimationTimeProperty.reset() );
 
     // Changing these things interrupts interactions
     const interrupt = () => this.interruptSubtreeInput();

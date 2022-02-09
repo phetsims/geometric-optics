@@ -102,7 +102,7 @@ class LensScreenView extends GOScreenView {
     Property.multilink(
       [ model.raysTypeProperty, this.visibleProperties.raysAndImagesVisibleProperty ],
       ( raysType: RaysType, raysAndImagesVisible: boolean ) =>
-        model.lightSourcesScene.lightRaysTimeProperty.reset() );
+        model.lightSourcesScene.lightRaysAnimationTimeProperty.reset() );
 
     this.resetLensScreenView = () => {
       options.dragLockedProperty.reset();

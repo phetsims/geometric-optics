@@ -18,15 +18,17 @@ import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
+import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 
 type OpticalObjectOptions = {
   position?: Vector2,
-  tandem: Tandem
+  tandem: Tandem,
+  phetioDocumentation?: string
 };
 
-class OpticalObject {
+class OpticalObject extends PhetioObject {
 
   public readonly positionProperty: Property<Vector2>;
 
@@ -36,8 +38,11 @@ class OpticalObject {
   constructor( providedOptions: OpticalObjectOptions ) {
 
     const options = merge( {
-      position: Vector2.ZERO
+      position: Vector2.ZERO,
+      phetioState: false
     }, providedOptions );
+
+    super( options );
 
     this.positionProperty = new Vector2Property( options.position, {
       tandem: options.tandem.createTandem( 'positionProperty' )

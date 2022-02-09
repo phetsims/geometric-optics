@@ -16,9 +16,10 @@ import Lens from '../../lens/model/Lens.js';
 import Optic from './Optic.js';
 import GOConstants from '../GOConstants.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import OpticalImage from './OpticalImage.js';
+import OpticalImage, { OpticalImageOptions } from './OpticalImage.js';
 import { ObjectHTMLImageElements } from './OpticalObjectChoice.js';
 import FramedObject from './FramedObject.js';
+import merge from '../../../../phet-core/js/merge.js';
 
 class FramedImage extends OpticalImage {
 
@@ -42,12 +43,16 @@ class FramedImage extends OpticalImage {
    * @param framedObjectPositionProperty
    * @param objectHTMLImageElementsProperty
    * @param optic
+   * @param providedOptions
    */
   constructor( framedObjectPositionProperty: IReadOnlyProperty<Vector2>,
                objectHTMLImageElementsProperty: IReadOnlyProperty<ObjectHTMLImageElements>,
-               optic: Optic ) {
+               optic: Optic,
+               providedOptions: OpticalImageOptions ) {
 
-    super( framedObjectPositionProperty, optic );
+    const options = merge( {}, providedOptions );
+
+    super( framedObjectPositionProperty, optic, options );
 
     this.magnificationProperty = new DerivedProperty(
       [ framedObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],

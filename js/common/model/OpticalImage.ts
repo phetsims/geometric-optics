@@ -12,10 +12,19 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import merge from '../../../../phet-core/js/merge.js';
+import PhetioObject from '../../../../tandem/js/PhetioObject.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
 
-class OpticalImage {
+type OpticalImageOptions = {
+  tandem: Tandem,
+  phetioDocumentation?: string
+};
+
+class OpticalImage extends PhetioObject {
 
   // the position of the focus as predicted by lens and mirror equation
   public readonly positionProperty: IReadOnlyProperty<Vector2>;
@@ -31,10 +40,17 @@ class OpticalImage {
   protected readonly opticImageDistanceProperty: IReadOnlyProperty<number>;
 
   /**
-   * @param opticalObjectPositionProperty - position of the optical object
-   * @param optic - model of the optic
+   * @param opticalObjectPositionProperty
+   * @param optic
+   * @param providedOptions
    */
-  constructor( opticalObjectPositionProperty: IReadOnlyProperty<Vector2>, optic: Optic ) {
+  constructor( opticalObjectPositionProperty: IReadOnlyProperty<Vector2>, optic: Optic, providedOptions: OpticalImageOptions ) {
+
+    const options = merge( {
+      phetioState: false
+    }, providedOptions );
+
+    super( options );
 
     this.opticImageDistanceProperty = new DerivedProperty(
       [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
@@ -73,6 +89,9 @@ class OpticalImage {
         const horizontalDisplacement = optic.sign * this.opticImageDistanceProperty.value;
 
         return opticPosition.plusXY( horizontalDisplacement, height );
+      }, {
+        tandem: options.tandem.createTandem( 'positionProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
       } );
 
     this.visibleProperty = new BooleanProperty( false ); //TODO phet-io instrumentation
@@ -80,8 +99,11 @@ class OpticalImage {
     //TODO REVIEW: DerivedProperty that depends on an unlisted Property?
     this.isVirtualProperty = new DerivedProperty(
       [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
-      ( ...args: any[] ) => ( this.opticImageDistanceProperty.value < 0 )
-    );
+      ( ...args: any[] ) => ( this.opticImageDistanceProperty.value < 0 ), {
+        tandem: options.tandem.createTandem( 'isVirtualProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO ),
+        phetioDocumentation: 'whether the optical image is real (false) or virtual (true)'
+      } );
   }
 
   /**
@@ -119,3 +141,4 @@ class OpticalImage {
 
 geometricOptics.register( 'OpticalImage', OpticalImage );
 export default OpticalImage;
+export type { OpticalImageOptions };

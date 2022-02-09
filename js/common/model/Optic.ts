@@ -25,6 +25,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import { RaysType } from './RaysType.js';
+import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 
 type OpticOptions = {
 
@@ -53,10 +54,11 @@ type OpticOptions = {
   position?: Vector2
 
   // phet-io options
-  tandem: Tandem
+  tandem: Tandem,
+  phetioDocumentation?: string
 };
 
-abstract class Optic {
+abstract class Optic extends PhetioObject {
 
   // Shapes that describe the optic
   readonly abstract shapesProperty: IReadOnlyProperty<OpticShapes>;
@@ -103,8 +105,11 @@ abstract class Optic {
 
     const options = merge( {
       position: Vector2.ZERO,
-      opticShapes: OpticShapeValues
+      opticShapes: OpticShapeValues,
+      phetioState: false
     }, providedOptions );
+
+    super( options );
 
     this.sign = options.sign;
 
