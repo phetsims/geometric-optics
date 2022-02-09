@@ -19,13 +19,15 @@ import { RaysType, RaysTypeValues } from './RaysType.js';
 import GORuler from './GORuler.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import FramedObjectScene from './FramedObjectScene.js';
-import Lens from '../../lens/model/Lens.js';
 import OpticalObjectChoice from './OpticalObjectChoice.js';
 
 type GeometricOpticsModelOptions = {
 
   // initial position of the framed object
   framedObjectPosition: Vector2,
+
+  // optical object choices, in the order that they will appear in OpticalObjectChoiceComboBox
+  opticalObjectChoices: OpticalObjectChoice[],
 
   // phet-io options
   tandem: Tandem
@@ -66,10 +68,8 @@ class GOModel {
       //TODO
     }, providedOptions );
 
-    this.opticalObjectChoiceProperty = new EnumerationProperty( OpticalObjectChoice.PENCIL, {
-      validValues: ( optic instanceof Lens ) ?
-                   OpticalObjectChoice.enumeration.values :
-                   OpticalObjectChoice.FRAMED_OBJECT_CHOICES,
+    this.opticalObjectChoiceProperty = new EnumerationProperty( options.opticalObjectChoices[ 0 ], {
+      validValues: options.opticalObjectChoices,
       tandem: options.tandem.createTandem( 'opticalObjectChoiceProperty' )
     } );
 

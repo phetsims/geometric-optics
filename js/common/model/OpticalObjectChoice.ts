@@ -32,7 +32,7 @@ import starRightFacingInverted_png from '../../../images/starRightFacingInverted
 import starLeftFacingUpright_png from '../../../images/starLeftFacingUpright_png.js';
 import starLeftFacingInverted_png from '../../../images/starLeftFacingInverted_png.js';
 
-// HTMLImageElements that depict a framed object and its associated optical image
+// Set of HTMLImageElements that depict a framed object and its associated optical image
 type ObjectHTMLImageElements = {
   rightFacingUpright: HTMLImageElement,
   rightFacingInverted: HTMLImageElement,
@@ -73,7 +73,7 @@ class OpticalObjectChoice extends EnumerationValue {
   static LIGHT = new OpticalObjectChoice( geometricOpticsStrings.light, lightIcon_png, 'light' );
 
   // These values correspond to framed objects.
-  static FRAMED_OBJECT_CHOICES = [
+  private static FRAMED_OBJECT_CHOICES = [
     OpticalObjectChoice.PENCIL,
     OpticalObjectChoice.PENGUIN,
     OpticalObjectChoice.PLANET,
@@ -85,9 +85,16 @@ class OpticalObjectChoice extends EnumerationValue {
     phetioDocumentation: 'describes an optical object choice'
   } );
 
+  // Label that appears in OpticalObjectChoiceComboBox
   public readonly label: string;
+
+  // Icon that appears in OpticalObjectChoiceComboBox
   public readonly icon: HTMLImageElement;
+
+  // Prefix for tandems related to the OpticalObjectChoice
   public readonly tandemPrefix: string;
+
+  // Set of HTMLImageElements related to the OpticalObjectChoice. Populated for framed objects, null otherwise.
   public readonly objectHTMLImageElements: ObjectHTMLImageElements | null;
 
   /**

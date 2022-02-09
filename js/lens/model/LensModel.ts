@@ -7,13 +7,14 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import GOModel, { GeometricOpticsModelOptions } from '../../common/model/GOModel.js';
+import GOModel from '../../common/model/GOModel.js';
 import Lens from './Lens.js';
 import geometricOptics from '../../geometricOptics.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import LightSourcesScene from './LightSourcesScene.js';
+import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
 
 type LensModelOptions = {
   tandem: Tandem
@@ -30,10 +31,19 @@ class LensModel extends GOModel {
 
     const options = merge( {
 
-      //TODO give framedObject a bisector line so this isn't empirical
+      //TODO give FramedObject a bisector line so this isn't empirical
       // Initial position of the framed object, empirically set so that the optical axis goes through its center.
-      framedObjectPosition: new Vector2( -170, 27 )
-    }, providedOptions ) as GeometricOpticsModelOptions; //TODO don't use 'as'
+      framedObjectPosition: new Vector2( -170, 27 ),
+
+      // optical object choices, in the order that they will appear in OpticalObjectChoiceComboBox
+      opticalObjectChoices: [
+        OpticalObjectChoice.PENCIL,
+        OpticalObjectChoice.PENGUIN,
+        OpticalObjectChoice.PLANET,
+        OpticalObjectChoice.STAR,
+        OpticalObjectChoice.LIGHT
+      ]
+    }, providedOptions );
 
     // super is responsible for resetting the lens
     const lens = new Lens( {
