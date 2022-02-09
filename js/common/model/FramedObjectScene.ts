@@ -25,6 +25,7 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Lens from '../../lens/model/Lens.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Guides from '../../lens/model/Guides.js';
+import SecondPoint from './SecondPoint.js';
 
 type FramedObjectSceneOptions = {
 
@@ -39,6 +40,7 @@ class FramedObjectScene extends PhetioObject {
 
   readonly optic: Optic;
   readonly framedObject: FramedObject;
+  readonly secondPoint: SecondPoint;
   readonly framedImage1: FramedImage;
   readonly framedImage2: FramedImage;
   readonly lightRaysAnimationTimeProperty: NumberProperty;
@@ -75,13 +77,18 @@ class FramedObjectScene extends PhetioObject {
       tandem: options.tandem.createTandem( 'framedObject' )
     } );
 
+    this.secondPoint = new SecondPoint( this.framedObject.positionProperty, {
+      tandem: options.tandem.createTandem( 'secondPoint' ),
+      phetioDocumentation: 'second point-of-interest on the framed object'
+    } );
+
     this.framedImage1 = new FramedImage( this.framedObject.positionProperty,
       this.framedObject.objectHTMLImageElementsProperty, this.optic, {
         tandem: options.tandem.createTandem( 'framedImage1' ),
         phetioDocumentation: 'optical image associated with the first point-of-interest on the framed object'
       } );
 
-    this.framedImage2 = new FramedImage( this.framedObject.secondPoint.positionProperty,
+    this.framedImage2 = new FramedImage( this.secondPoint.positionProperty,
       this.framedObject.objectHTMLImageElementsProperty, this.optic, {
         tandem: options.tandem.createTandem( 'framedImage2' ),
         phetioDocumentation: 'optical image associated with the second point-of-interest on the framed object'
@@ -106,7 +113,7 @@ class FramedObjectScene extends PhetioObject {
     this.lightRays2 = new LightRays(
       this.lightRaysAnimationTimeProperty,
       raysTypeProperty,
-      this.framedObject.secondPoint.positionProperty,
+      this.secondPoint.positionProperty,
       this.optic,
       this.framedImage2
     );
@@ -118,7 +125,7 @@ class FramedObjectScene extends PhetioObject {
         tandem: options.tandem.createTandem( 'guides1' ),
         phetioDocumentation: 'guides associated with the first point-of-interest on the framed object'
       } );
-      this.guides2 = new Guides( this.optic, this.framedObject.secondPoint.positionProperty, {
+      this.guides2 = new Guides( this.optic, this.secondPoint.positionProperty, {
         tandem: options.tandem.createTandem( 'guides2' ),
         phetioDocumentation: 'guides associated with the second point-of-interest on the framed object'
       } );
@@ -132,6 +139,7 @@ class FramedObjectScene extends PhetioObject {
   //TODO is this complete?
   public reset(): void {
     this.framedObject.reset();
+    this.secondPoint.reset();
     this.lightRaysAnimationTimeProperty.reset();
   }
 

@@ -116,7 +116,7 @@ class FramedObjectSceneNode extends Node {
         tandem: options.tandem.createTandem( 'framedObjectNode' )
       } );
 
-    const secondPointNode = new SecondPointNode( scene.framedObject.secondPoint, modelViewTransform, {
+    const secondPointNode = new SecondPointNode( scene.secondPoint, modelViewTransform, {
       visibleProperty: visibleProperties.secondPointVisibleProperty,
       tandem: options.tandem.createTandem( 'secondPointNode' ),
       phetioDocumentation: 'second point-of-interest on the framed object'
@@ -226,7 +226,7 @@ class FramedObjectSceneNode extends Node {
       framedObjectPositionProperty: scene.framedObject.positionProperty,
       framedImagePositionProperty: scene.framedImage1.positionProperty,
       framedImageNodeVisibleProperty: framedImageNode.visibleProperty,
-      secondPointPositionProperty: scene.framedObject.secondPoint.positionProperty,
+      secondPointPositionProperty: scene.secondPoint.positionProperty,
       secondPointVisibleProperty: visibleProperties.secondPointVisibleProperty,
       lightSource1PositionProperty: null,
       lightSource2PositionProperty: null

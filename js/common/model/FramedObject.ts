@@ -14,7 +14,6 @@ import geometricOptics from '../../geometricOptics.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OpticalObject, { OpticalObjectOptions } from './OpticalObject.js';
-import SecondPoint from './SecondPoint.js';
 import OpticalObjectChoice, { ObjectHTMLImageElements } from './OpticalObjectChoice.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -24,13 +23,8 @@ class FramedObject extends OpticalObject {
   // x should be 1/2 of PNG file width. y should be the tip of the pencil. +x right, +y down.
   public static ORIGIN_OFFSET = new Vector2( 68.5, 100 );
 
-  // a second point-of-interest on the framed object
-  public readonly secondPoint: SecondPoint;
-
   // model bounds of the Object's visual representation
   public readonly boundsProperty: IReadOnlyProperty<Bounds2>;
-
-  private readonly resetFramedObject: () => void;
 
   // Where the point-of-interest is relative to the left-top corner of PNG files for framed objects.
   // This is specific to the object PNG files, and must be uniform for all object PNG files.
@@ -67,11 +61,6 @@ class FramedObject extends OpticalObject {
       }
     );
 
-    this.secondPoint = new SecondPoint( this.positionProperty, {
-      tandem: options.tandem.createTandem( 'secondPoint' ),
-      phetioDocumentation: 'second point-of-interest on the framed object'
-    } );
-
     this.boundsProperty = new DerivedProperty(
       [ this.objectHTMLImageElementsProperty, this.positionProperty ],
       ( htmlImageElements: ObjectHTMLImageElements, position: Vector2 ) => {
@@ -95,15 +84,6 @@ class FramedObject extends OpticalObject {
         // the Object inside the view's drag bounds, resulting in this derivation being called again.
         reentrant: true
       } );
-
-    this.resetFramedObject = () => {
-      this.secondPoint.reset();
-    };
-  }
-
-  public reset() {
-    super.reset();
-    this.resetFramedObject();
   }
 }
 
