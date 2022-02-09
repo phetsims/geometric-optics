@@ -22,6 +22,8 @@ import LightRays from './LightRays.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OpticalObjectChoice from './OpticalObjectChoice.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Guide from '../../lens/model/Guide.js';
+import Lens from '../../lens/model/Lens.js';
 
 type FramedObjectSceneOptions = {
 
@@ -41,6 +43,10 @@ class FramedObjectScene {
   readonly lightRaysTimeProperty: NumberProperty;
   readonly lightRays1: LightRays;
   readonly lightRays2: LightRays;
+  readonly topGuide1: Guide | null;
+  readonly bottomGuide1: Guide | null;
+  readonly topGuide2: Guide | null;
+  readonly bottomGuide2: Guide | null;
 
   /**
    * @param opticalObjectChoiceProperty
@@ -94,7 +100,32 @@ class FramedObjectScene {
       this.framedImage2
     );
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/217 restore Guides ala LightSourcesScene, but for Lens screen only
+    // Guides
+    if ( optic instanceof Lens ) {
+      const guidesTandem = options.tandem.createTandem( 'guides' );
+      this.topGuide1 = new Guide( this.optic, this.framedObject.positionProperty, 'top', {
+        tandem: guidesTandem.createTandem( 'topGuide1' ),
+        phetioDocumentation: 'TODO'
+      } );
+      this.bottomGuide1 = new Guide( this.optic, this.framedObject.positionProperty, 'bottom', {
+        tandem: guidesTandem.createTandem( 'bottomGuide1' ),
+        phetioDocumentation: 'TODO'
+      } );
+      this.topGuide2 = new Guide( this.optic, this.framedObject.secondPoint.positionProperty, 'top', {
+        tandem: guidesTandem.createTandem( 'topGuide2' ),
+        phetioDocumentation: 'TODO'
+      } );
+      this.bottomGuide2 = new Guide( this.optic, this.framedObject.secondPoint.positionProperty, 'bottom', {
+        tandem: guidesTandem.createTandem( 'bottomGuide2' ),
+        phetioDocumentation: 'TODO'
+      } );
+    }
+    else {
+      this.topGuide1 = null;
+      this.bottomGuide1 = null;
+      this.topGuide2 = null;
+      this.bottomGuide2 = null;
+    }
   }
 
   //TODO is this complete?

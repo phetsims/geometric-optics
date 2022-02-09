@@ -32,6 +32,7 @@ import Optic from '../model/Optic.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import VirtualLightRaysNode from './VirtualLightRaysNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import GuidesNode from '../../lens/view/GuidesNode.js';
 
 type FramedObjectSceneNodeOptions = {
 
@@ -188,6 +189,28 @@ class FramedObjectSceneNode extends Node {
       virtualLightRays2Node,
       secondPointNode
     ];
+
+    if ( scene.topGuide1 && scene.bottomGuide1 ) {
+      const guides1Node = new GuidesNode( scene.topGuide1, scene.bottomGuide1,
+        GOColors.guideArm1FillProperty, modelViewTransform, {
+          visibleProperty: visibleProperties.guidesVisibleProperty,
+          tandem: options.tandem.createTandem( 'guides1Node' ),
+          phetioDocumentation: 'TODO'
+        } );
+      this.addChild( guides1Node );
+    }
+
+    if ( scene.topGuide2 && scene.bottomGuide2 ) {
+      const guides2Node = new GuidesNode( scene.topGuide2, scene.bottomGuide2,
+        GOColors.guideArm2FillProperty, modelViewTransform, {
+          visibleProperty: DerivedProperty.and(
+            [ visibleProperties.guidesVisibleProperty, visibleProperties.secondPointVisibleProperty ]
+          ),
+          tandem: options.tandem.createTandem( 'guides2Node' ),
+          phetioDocumentation: 'TODO'
+        } );
+      this.addChild( guides2Node );
+    }
 
     this.pdomOrder = [
       framedObjectNode,
