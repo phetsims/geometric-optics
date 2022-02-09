@@ -53,8 +53,7 @@ type GORulerNodeOptions = {
   tandem: Tandem
 };
 
-//TODO This is a quick-and-dirty way to get hotkeys working again - revisit this.
-// Describes points of interest that we can move to with hotkeys
+// Describes points-of-interest that we can move to with hotkeys
 type RulerHotkeysData = {
   opticPositionProperty: IReadOnlyProperty<Vector2>,
   opticalObject1PositionProperty: IReadOnlyProperty<Vector2>,
