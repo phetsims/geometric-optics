@@ -52,7 +52,7 @@ class SecondPoint {
   }
 
   /**
-   * Sets the source point on the framed object.
+   * Sets the second point-of-interest on the framed object.
    * @param position - relative to the framed object's position
    */
   public setSecondPoint( position: Vector2 ): void {

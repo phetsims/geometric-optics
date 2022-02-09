@@ -156,14 +156,14 @@ class LightSourcesSceneNode extends Node {
 
     // LightSpot associated with the first light source
     const lightSpot1Node = new LightSpotNode( scene.lightSpot1, modelViewTransform, {
-      visibleProperty: scene.target1.visibleProperty
+      visibleProperty: scene.opticalImage1.visibleProperty
       // DO NOT instrument for PhET-iO, see https://github.com/phetsims/geometric-optics/issues/269
     } );
 
     // LightSpot associated with the second light source
     const lightSpot2Node = new LightSpotNode( scene.lightSpot2, modelViewTransform, {
       visibleProperty: DerivedProperty.and(
-        [ scene.target2.visibleProperty, visibleProperties.secondPointVisibleProperty ] )
+        [ scene.opticalImage2.visibleProperty, visibleProperties.secondPointVisibleProperty ] )
       // DO NOT instrument for PhET-iO, see https://github.com/phetsims/geometric-optics/issues/269
     } );
 

@@ -73,12 +73,12 @@ class GORulerNode extends Node {
    * @param zoomScaleProperty
    * @param visibleBoundsProperty
    * @param opticPositionProperty
-   * @param objectPositionProperty
+   * @param opticalObjectPositionProperty
    * @param secondPointPositionProperty
    * @param secondLightSourcePositionProperty
    * @param secondPointVisibleProperty
-   * @param targetPositionProperty
-   * @param targetNodeVisibleProperty
+   * @param opticalImagePositionProperty
+   * @param opticalImageNodeVisibleProperty
    * @param representationProperty
    * @param providedOptions
    */
@@ -87,12 +87,12 @@ class GORulerNode extends Node {
                zoomScaleProperty: IReadOnlyProperty<number>,
                visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                opticPositionProperty: IReadOnlyProperty<Vector2>,
-               objectPositionProperty: IReadOnlyProperty<Vector2>,
+               opticalObjectPositionProperty: IReadOnlyProperty<Vector2>,
                secondPointPositionProperty: IReadOnlyProperty<Vector2>,
                secondLightSourcePositionProperty: IReadOnlyProperty<Vector2>,
                secondPointVisibleProperty: IReadOnlyProperty<boolean>,
-               targetPositionProperty: IReadOnlyProperty<Vector2>,
-               targetNodeVisibleProperty: IReadOnlyProperty<boolean>,
+               opticalImagePositionProperty: IReadOnlyProperty<Vector2>,
+               opticalImageNodeVisibleProperty: IReadOnlyProperty<boolean>,
                representationProperty: IReadOnlyProperty<Representation>,
                providedOptions: GORulerNodeOptions ) {
 
@@ -230,7 +230,7 @@ class GORulerNode extends Node {
       {
         keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_O ],
         callback: () => {
-          moveRuler( ruler, objectPositionProperty.value, opticPositionProperty.value.y );
+          moveRuler( ruler, opticalObjectPositionProperty.value, opticPositionProperty.value.y );
         }
       },
 
@@ -239,9 +239,9 @@ class GORulerNode extends Node {
       {
         keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_I ],
         callback: () => {
-          if ( targetNodeVisibleProperty.value && representationProperty.value.isFramedObject &&
-               dragBoundsProperty.value.containsPoint( targetPositionProperty.value ) ) {
-            moveRuler( ruler, targetPositionProperty.value, opticPositionProperty.value.y );
+          if ( opticalImageNodeVisibleProperty.value && representationProperty.value.isFramedObject &&
+               dragBoundsProperty.value.containsPoint( opticalImagePositionProperty.value ) ) {
+            moveRuler( ruler, opticalImagePositionProperty.value, opticPositionProperty.value.y );
           }
         }
       },

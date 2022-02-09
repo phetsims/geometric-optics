@@ -53,25 +53,25 @@ class LightSpot {
    * @param optic
    * @param projectionScreen
    * @param lightSourcePositionProperty
-   * @param targetPositionProperty
+   * @param opticalImagePositionProperty
    * @param providedOptions
    */
   constructor( optic: Optic,
                projectionScreen: ProjectionScreen,
                lightSourcePositionProperty: IReadOnlyProperty<Vector2>,
-               targetPositionProperty: IReadOnlyProperty<Vector2>,
+               opticalImagePositionProperty: IReadOnlyProperty<Vector2>,
                providedOptions: LightSpotOptions ) {
 
     this.shapeProperty = new DerivedProperty(
-      [ optic.positionProperty, optic.diameterProperty, projectionScreen.positionProperty, lightSourcePositionProperty, targetPositionProperty ],
-      ( opticPosition: Vector2, opticDiameter: number, projectionScreenPosition: Vector2, lightSourcePosition: Vector2, targetPosition: Vector2 ) =>
-        getLightSpotShape( optic, projectionScreenPosition, lightSourcePosition, targetPosition, projectionScreen.getScreenShapeTranslated() )
+      [ optic.positionProperty, optic.diameterProperty, projectionScreen.positionProperty, lightSourcePositionProperty, opticalImagePositionProperty ],
+      ( opticPosition: Vector2, opticDiameter: number, projectionScreenPosition: Vector2, lightSourcePosition: Vector2, opticalImagePosition: Vector2 ) =>
+        getLightSpotShape( optic, projectionScreenPosition, lightSourcePosition, opticalImagePosition, projectionScreen.getScreenShapeTranslated() )
     );
 
     const positionAndDiameterProperty = new DerivedProperty( [ this.shapeProperty ],
       ( shape: Shape ) =>
         ( shape.getArea() === 0 ) ? null :
-        getPositionAndDiameter( optic, projectionScreen.positionProperty.value, lightSourcePositionProperty.value, targetPositionProperty.value )
+        getPositionAndDiameter( optic, projectionScreen.positionProperty.value, lightSourcePositionProperty.value, opticalImagePositionProperty.value )
     );
 
     this.positionProperty = new DerivedProperty( [ positionAndDiameterProperty ],
@@ -114,16 +114,16 @@ class LightSpot {
  * @param optic
  * @param projectionScreenPosition
  * @param lightSourcePosition
- * @param targetPosition
+ * @param opticalImagePosition
  * @param screenShape
  */
 function getLightSpotShape( optic: Optic, projectionScreenPosition: Vector2, lightSourcePosition: Vector2,
-                            targetPosition: Vector2, screenShape: Shape ): Shape {
+                            opticalImagePosition: Vector2, screenShape: Shape ): Shape {
 
   const {
     position,
     diameter
-  } = getPositionAndDiameter( optic, projectionScreenPosition, lightSourcePosition, targetPosition );
+  } = getPositionAndDiameter( optic, projectionScreenPosition, lightSourcePosition, opticalImagePosition );
 
   // The unclipped light spot is an ellipse, to give pseudo-3D perspective.
   // Arbitrarily use an aspect ratio of 1:2.
@@ -138,18 +138,18 @@ function getLightSpotShape( optic: Optic, projectionScreenPosition: Vector2, lig
  * @param optic
  * @param projectionScreenPosition
  * @param lightSourcePosition
- * @param targetPosition
+ * @param opticalImagePosition
  */
 function getPositionAndDiameter( optic: Optic, projectionScreenPosition: Vector2,
-                                 lightSourcePosition: Vector2, targetPosition: Vector2 ): PositionAndDiameter {
+                                 lightSourcePosition: Vector2, opticalImagePosition: Vector2 ): PositionAndDiameter {
 
   // Get the extrema points of the optic.
-  const opticTopPoint = optic.getTopPoint( lightSourcePosition, targetPosition );
-  const opticBottomPoint = optic.getBottomPoint( lightSourcePosition, targetPosition );
+  const opticTopPoint = optic.getTopPoint( lightSourcePosition, opticalImagePosition );
+  const opticBottomPoint = optic.getBottomPoint( lightSourcePosition, opticalImagePosition );
 
   // Determine the top and bottom positions of the unclipped light spot.
-  const diskTopPosition = getIntersectionPosition( projectionScreenPosition, opticTopPoint, targetPosition );
-  const diskBottomPosition = getIntersectionPosition( projectionScreenPosition, opticBottomPoint, targetPosition );
+  const diskTopPosition = getIntersectionPosition( projectionScreenPosition, opticTopPoint, opticalImagePosition );
+  const diskBottomPosition = getIntersectionPosition( projectionScreenPosition, opticBottomPoint, opticalImagePosition );
 
   return {
     position: diskTopPosition.average( diskBottomPosition ),
@@ -159,17 +159,17 @@ function getPositionAndDiameter( optic: Optic, projectionScreenPosition: Vector2
 
 /**
  * Gets the projected position on the screen of a point.
- * This is determined by extrapolating the point from the target point onto the projection screen.
+ * This is determined by extrapolating the point from the optical image onto the projection screen.
  * @param projectionScreenPosition
  * @param opticPoint
- * @param targetPosition
+ * @param opticalImagePosition
  */
-function getIntersectionPosition( projectionScreenPosition: Vector2, opticPoint: Vector2, targetPosition: Vector2 ): Vector2 {
-  const targetOpticDistance = ( targetPosition.x - opticPoint.x );
-  const ratio = ( targetOpticDistance === 0 ) ?
+function getIntersectionPosition( projectionScreenPosition: Vector2, opticPoint: Vector2, opticalImagePosition: Vector2 ): Vector2 {
+  const opticImageDistance = ( opticalImagePosition.x - opticPoint.x );
+  const ratio = ( opticImageDistance === 0 ) ?
                 10e6 : // This should technically be Infinity, but practically must be a (very large) finite value.
-                ( projectionScreenPosition.x - opticPoint.x ) / targetOpticDistance;
-  return opticPoint.blend( targetPosition, ratio );
+                ( projectionScreenPosition.x - opticPoint.x ) / opticImageDistance;
+  return opticPoint.blend( opticalImagePosition, ratio );
 }
 
 geometricOptics.register( 'LightSpot', LightSpot );

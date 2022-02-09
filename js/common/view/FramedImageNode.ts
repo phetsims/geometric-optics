@@ -12,7 +12,7 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import { Image, Node, Path } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from '../model/Optic.js';
-import Target from '../model/Target.js';
+import FramedImage from '../model/FramedImage.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import GOColors from '../GOColors.js';
@@ -34,7 +34,7 @@ class FramedImageNode extends Node {
    * @param modelViewTransform
    * @param providedOptions
    */
-  constructor( framedImage: Target,
+  constructor( framedImage: FramedImage,
                optic: Optic,
                virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
                raysAndImagesVisibleProperty: IReadOnlyProperty<boolean>,

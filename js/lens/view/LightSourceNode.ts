@@ -24,7 +24,7 @@ import GOConstants from '../../common/GOConstants.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import LightSource from '../model/LightSource.js';
 
-// Closest that source object can be moved to the optic, in cm. This avoids problems that occur when the object is
+// Closest that light source can be moved to the optic, in cm. This avoids problems that occur when the object is
 // too close to a mirror. See https://github.com/phetsims/geometric-optics/issues/73
 const MIN_X_DISTANCE_TO_OPTIC = 40; //TODO duplicated in in FramedObjectNode
 
@@ -151,7 +151,7 @@ class LightSourceNode extends Node {
     } ) );
     this.addInputListener( keyboardDragListener );
 
-    // Keep cueing arrows next to the source object.
+    // Keep cueing arrows next to the light source
     Property.multilink( [ wrappedImageNode.boundsProperty, cueingArrowsNode.boundsProperty ],
       ( wrappedImageNodeNodeBounds: Bounds2, cueingArrowsNodeBounds: Bounds2 ) => {
         cueingArrowsNode.right = wrappedImageNode.left - 10;

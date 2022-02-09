@@ -11,7 +11,6 @@
 import Range from '../../../../dot/js/Range.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from '../../common/model/Optic.js';
-import Target from '../../common/model/Target.js';
 import Property from '../../../../axon/js/Property.js';
 import Representation, { LIGHT_SOURCE_REPRESENTATION } from '../../common/model/Representation.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -27,6 +26,7 @@ import LightSource from './LightSource.js';
 import lamp2_png from '../../../images/lamp2_png.js';
 import lamp1_png from '../../../images/lamp1_png.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import OpticalImage from '../../common/model/OpticalImage.js';
 
 type LightSourcesSceneOptions = {
 
@@ -40,8 +40,8 @@ class LightSourcesScene {
   readonly optic: Optic;
   readonly lightSource1: LightSource;
   readonly lightSource2: LightSource;
-  readonly target1: Target;
-  readonly target2: Target;
+  readonly opticalImage1: OpticalImage;
+  readonly opticalImage2: OpticalImage;
   readonly projectionScreen: ProjectionScreen;
   readonly lightRaysTimeProperty: NumberProperty;
   readonly lightRays1: LightRays;
@@ -83,9 +83,9 @@ class LightSourcesScene {
       tandem: options.tandem.createTandem( 'lightSource2' )
     } );
 
-    this.target1 = new Target( this.lightSource1.positionProperty, this.optic, this.representationProperty );
+    this.opticalImage1 = new OpticalImage( this.lightSource1.positionProperty, this.optic );
 
-    this.target2 = new Target( this.lightSource2.positionProperty, this.optic, this.representationProperty );
+    this.opticalImage2 = new OpticalImage( this.lightSource2.positionProperty, this.optic );
 
     this.projectionScreen = new ProjectionScreen( {
       tandem: providedOptions.tandem.createTandem( 'projectionScreen' )
@@ -108,7 +108,7 @@ class LightSourcesScene {
       raysTypeProperty,
       this.lightSource1.positionProperty,
       this.optic,
-      this.target1,
+      this.opticalImage1,
       this.projectionScreen
     );
 
@@ -117,18 +117,18 @@ class LightSourcesScene {
       raysTypeProperty,
       this.lightSource2.positionProperty,
       this.optic,
-      this.target2,
+      this.opticalImage2,
       this.projectionScreen
     );
 
     // Light Spots
     this.lightSpot1 = new LightSpot( this.optic, this.projectionScreen, this.lightSource1.positionProperty,
-      this.target1.positionProperty, {
+      this.opticalImage1.positionProperty, {
         tandem: options.tandem.createTandem( 'lightSpot1' ),
         phetioDocumentation: 'the light spot on the projection screen that is created by the first light source'
       } );
     this.lightSpot2 = new LightSpot( this.optic, this.projectionScreen, this.lightSource2.positionProperty,
-      this.target2.positionProperty, {
+      this.opticalImage2.positionProperty, {
         tandem: options.tandem.createTandem( 'lightSpot2' ),
         phetioDocumentation: 'the light spot on the projection screen that is created by the second light source'
       } );

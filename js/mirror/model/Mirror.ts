@@ -57,11 +57,11 @@ class Mirror extends Optic {
   /**
    * Returns the most extreme position within the mirror that would ensure that a ray would be transmitted (or reflected).
    * See https://github.com/phetsims/geometric-optics/issues/111
-   * @param sourcePoint
-   * @param targetPoint
+   * @param opticalObjectPosition
+   * @param opticalImagePosition
    * @param isTop
    */
-  protected getExtremumPoint( sourcePoint: Vector2, targetPoint: Vector2, isTop: boolean ): Vector2 {
+  protected getExtremumPoint( opticalObjectPosition: Vector2, opticalImagePosition: Vector2, isTop: boolean ): Vector2 {
 
     // Erode the bounds a tiny bit so that the point is always within the bounds.
     const activeBounds = this.getActiveBoundsTranslated().erodedY( 1e-6 );

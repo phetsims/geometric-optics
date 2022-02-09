@@ -1,7 +1,7 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * SecondPointNode is the view of the second point on the source object, and the second light source.
+ * SecondPointNode is the view of the second point of interest on a framed object.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -39,7 +39,6 @@ class SecondPointNode extends Node {
    */
   constructor( secondPoint: SecondPoint, modelViewTransform: ModelViewTransform2, providedOptions: SecondPointNodeOptions ) {
 
-    // The point that represents the position of the second source.
     const pointNode = new PointNode();
 
     // Cueing arrows

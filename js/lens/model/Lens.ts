@@ -58,11 +58,11 @@ class Lens extends Optic {
   /**
    * Returns the most extreme position within the lens that would ensure that a ray would be transmitted (or reflected).
    * See https://github.com/phetsims/geometric-optics/issues/111
-   * @param sourcePoint
-   * @param targetPoint
+   * @param opticalObjectPosition
+   * @param opticalImagePosition
    * @param isTop
    */
-  protected getExtremumPoint( sourcePoint: Vector2, targetPoint: Vector2, isTop: boolean ): Vector2 {
+  protected getExtremumPoint( opticalObjectPosition: Vector2, opticalImagePosition: Vector2, isTop: boolean ): Vector2 {
 
     // Erode the bounds a tiny bit so that the point is always within the bounds.
     const activeBounds = this.getActiveBoundsTranslated().erodedY( 1e-6 );
@@ -78,23 +78,23 @@ class Lens extends Optic {
 
       const opticPosition = this.positionProperty.value;
 
-      // displacement vector from targetPoint to the right corner of the lens
-      const rightTarget = rightPoint.minus( targetPoint );
+      // displacement vector from opticalImagePosition to the right corner of the lens
+      const rightTarget = rightPoint.minus( opticalImagePosition );
 
-      // displacement vector from sourcePoint to the left corner of the lens
-      const leftSource = leftPoint.minus( sourcePoint );
+      // displacement vector from opticalObjectPosition to the left corner of the lens
+      const leftSource = leftPoint.minus( opticalObjectPosition );
 
-      // yOffset (from center of lens) of a ray directed from targetPoint to the right corner of lens
+      // yOffset (from center of lens) of a ray directed from opticalImagePosition to the right corner of lens
       const yOffset1 = ( rightPoint.y - opticPosition.y ) + ( opticPosition.x - rightPoint.x ) *
                        rightTarget.y / rightTarget.x;
 
-      // yOffset (from center of lens) of a ray directed from targetPoint to the right corner of lens
+      // yOffset (from center of lens) of a ray directed from opticalImagePosition to the right corner of lens
       const yOffset2 = ( leftPoint.y - opticPosition.y ) + ( opticPosition.x - leftPoint.x ) * leftSource.y / leftSource.x;
 
       // find the smallest offset to ensure that a ray will always hit both front and back surfaces
       const offsetY = Math.abs( yOffset1 ) < Math.abs( yOffset2 ) ? yOffset1 : yOffset2;
 
-      // get the direction of the ray as measured from the source
+      // get the direction of the ray as measured from the optical object
       extremumPoint = opticPosition.plusXY( 0, offsetY );
     }
     else if ( opticShape === 'convex' ) {

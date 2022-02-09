@@ -115,7 +115,7 @@ class FramedObjectSceneNode extends Node {
 
     // Both points of interest are on the same Object, so we only render one Image. If we rendered 2 Images,
     // their opacities would combine.
-    const framedImageNode = new FramedImageNode( scene.target1, scene.optic,
+    const framedImageNode = new FramedImageNode( scene.framedImage1, scene.optic,
       visibleProperties.virtualImageVisibleProperty, visibleProperties.raysAndImagesVisibleProperty, modelViewTransform, {
         tandem: options.tandem.createTandem( 'framedImageNode' )
       } );
@@ -127,7 +127,7 @@ class FramedObjectSceneNode extends Node {
       modelViewTransform,
       scene.framedObject.positionProperty,
       framedObjectNode,
-      scene.target1.positionProperty,
+      scene.framedImage1.positionProperty,
       framedImageNode,
       scene.lightRays1.raysProcessedEmitter, {
         visibleProperty: visibleProperties.opticalAxisVisibleProperty
@@ -140,8 +140,8 @@ class FramedObjectSceneNode extends Node {
     };
     const realLightRays1Node = new RealLightRaysNode( scene.lightRays1, modelViewTransform, realLightRays1Options );
     const realLightRays1ForegroundNode = new RealLightRaysForegroundNode( scene.lightRays1, modelViewTransform,
-      modelVisibleBoundsProperty, scene.optic.positionProperty, scene.target1.positionProperty,
-      scene.target1.isVirtualProperty, realLightRays1Options );
+      modelVisibleBoundsProperty, scene.optic.positionProperty, scene.framedImage1.positionProperty,
+      scene.framedImage1.isVirtualProperty, realLightRays1Options );
     const virtualLightRays1Node = new VirtualLightRaysNode( scene.lightRays1, modelViewTransform, {
       stroke: realLightRays1Options.stroke,
       visibleProperty: DerivedProperty.and( [
@@ -160,8 +160,8 @@ class FramedObjectSceneNode extends Node {
     };
     const realLightRays2Node = new RealLightRaysNode( scene.lightRays2, modelViewTransform, realLightRays2Options );
     const realLightRays2ForegroundNode = new RealLightRaysForegroundNode( scene.lightRays2, modelViewTransform,
-      modelVisibleBoundsProperty, scene.optic.positionProperty, scene.target2.positionProperty,
-      scene.target2.isVirtualProperty, realLightRays2Options );
+      modelVisibleBoundsProperty, scene.optic.positionProperty, scene.framedImage2.positionProperty,
+      scene.framedImage2.isVirtualProperty, realLightRays2Options );
     const virtualLightRays2Node = new VirtualLightRaysNode( scene.lightRays2, modelViewTransform, {
       stroke: realLightRays2Options.stroke,
       visibleProperty: DerivedProperty.and( [

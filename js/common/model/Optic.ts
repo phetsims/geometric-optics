@@ -214,10 +214,13 @@ abstract class Optic {
   }
 
   /**
-   * Returns the most extreme position within the optic that would ensure that a ray would be transmitted (or reflected).
-   * See https://github.com/phetsims/geometric-optics/issues/111
+   * Returns the top position within the optic that would ensure that a ray would be transmitted (or reflected).
+   * @param opticalObjectPosition
+   * @param opticalImagePosition
    */
-  protected abstract getExtremumPoint( sourcePoint: Vector2, targetPoint: Vector2, isTop: boolean ): Vector2;
+  public getTopPoint( opticalObjectPosition: Vector2, opticalImagePosition: Vector2 ): Vector2 {
+    return this.getExtremumPoint( opticalObjectPosition, opticalImagePosition, true /* isTop */ );
+  }
 
   public reset(): void {
     this.opticShapeProperty.reset();
@@ -258,22 +261,19 @@ abstract class Optic {
   }
 
   /**
-   * Returns the top position within the optic that would ensure that a ray would be transmitted (or reflected).
-   * @param sourcePoint
-   * @param targetPoint
+   * Returns the bottom position within the optic that would ensure that a ray would be transmitted (or reflected).
+   * @param opticalObjectPosition
+   * @param opticalImagePosition
    */
-  public getTopPoint( sourcePoint: Vector2, targetPoint: Vector2 ): Vector2 {
-    return this.getExtremumPoint( sourcePoint, targetPoint, true /* isTop */ );
+  public getBottomPoint( opticalObjectPosition: Vector2, opticalImagePosition: Vector2 ): Vector2 {
+    return this.getExtremumPoint( opticalObjectPosition, opticalImagePosition, false /* isTop */ );
   }
 
   /**
-   * Returns the bottom position within the optic that would ensure that a ray would be transmitted (or reflected).
-   * @param sourcePoint
-   * @param targetPoint
+   * Returns the most extreme position within the optic that would ensure that a ray would be transmitted (or reflected).
+   * See https://github.com/phetsims/geometric-optics/issues/111
    */
-  public getBottomPoint( sourcePoint: Vector2, targetPoint: Vector2 ): Vector2 {
-    return this.getExtremumPoint( sourcePoint, targetPoint, false /* isTop */ );
-  }
+  protected abstract getExtremumPoint( opticalObjectPosition: Vector2, opticalImagePosition: Vector2, isTop: boolean ): Vector2;
 
   /**
    * Gets the shape of the front (left) surface of the optic. This is the surface that a ray will initially hit.

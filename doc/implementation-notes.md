@@ -15,7 +15,7 @@ use **FramedObject** in the code.
 
 **Image:**
 The likeness of an object produced at a point in space by a lens or a mirror.
-Unfortunately this term conflicts with `SCENERY/Image` so we use the term **Target** in the code.
+Unfortunately this term conflicts with `SCENERY/Image` so we use the term **FramedImage** in the code.
 
 **Real image:**
 An image for which light rays physically intersect at the image location.
@@ -110,7 +110,7 @@ is [GOModel](https://github.com/phetsims/geometric-optics/blob/master/js/common/
 .
 
 There are a three top-level model elements in GOModel that play an essential role, namely `FramedObject`
-, `Optic` and `Target`. This trifecta of elements rules the entire simulation. Each of them is a component of the
+, `Optic` and `FramedImage`. This trifecta of elements rules the entire simulation. Each of them is a component of the
 thin-lens and mirror equation. It is important to note that all the light rays do not drive the model, but take their
 marching orders from the trifecta.
 
@@ -122,7 +122,7 @@ marching orders from the trifecta.
   mirror. It is responsible for the optical element position, diameter, curvature radius and refractive index. The
   previous Properties are used to determine the focal length. Optic is also responsible for the shape of the optical
   element, which can be used for ray hit-testing, as well as drawing its shape.
-* [Target](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/Target.js) is the optical image (real or vitual). It is responsible for the
+* [FramedImage](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/Target.js) is the optical image (real or vitual). It is responsible for the
   position of the target, its bounds and scale. It includes multiple methods that determine if the target is
   real/virtual, inverted/upright, etc.
 
@@ -147,7 +147,7 @@ Light rays form an important aspect of this simulation. There are three model cl
   object/source position. An additional responsibility of LightRays is to indicate if one of its ray has reached a
   target, or projector screen.
 
-We note that each light ray depends on the trifecta (FramedObject, Optic and Target) and their path is determined based
+We note that each light ray depends on the trifecta (FramedObject, Optic and FramedImage) and their path is determined based
 on this information. This insures that all rays can converge to the same target.
 
 # View

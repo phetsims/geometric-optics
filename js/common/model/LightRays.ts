@@ -15,11 +15,11 @@ import geometricOptics from '../../geometricOptics.js';
 import LightRay, { LightRaySegment } from './LightRay.js';
 import Optic from './Optic.js';
 import { RaysType } from './RaysType.js';
-import Target from './Target.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import { MappedProperties } from '../../../../axon/js/DerivedProperty.js';
 import ProjectionScreen from '../../lens/model/ProjectionScreen.js';
 import Utils from '../../../../dot/js/Utils.js';
+import OpticalImage from './OpticalImage.js';
 
 // constants related to 'Many' rays representation, see https://github.com/phetsims/geometric-optics/issues/289
 const MANY_MIN_RAYS = 20;
@@ -42,14 +42,14 @@ class LightRays {
    * @param raysTypeProperty
    * @param objectPositionProperty
    * @param optic
-   * @param target - target model associated with this ray
+   * @param opticalImage - optical image associated with this ray
    * @param projectionScreen - optional projection screen that blocks rays
    */
   constructor( lightRaysTimeProperty: IReadOnlyProperty<number>,
                raysTypeProperty: IReadOnlyProperty<RaysType>,
                objectPositionProperty: IReadOnlyProperty<Vector2>,
                optic: Optic,
-               target: Target,
+               opticalImage: OpticalImage,
                projectionScreen: ProjectionScreen | null = null ) {
 
     this.realSegments = [];
@@ -75,31 +75,31 @@ class LightRays {
         this.realSegments = [];
         this.virtualSegments = [];
 
-        // {Vector2} the position the target
-        const targetPoint = target.positionProperty.value;
+        // {Vector2} the position the opticalImage
+        const opticalImagePosition = opticalImage.positionProperty.value;
 
         // {boolean} is the Image virtual
-        const isVirtual = target.isVirtualProperty.value;
+        const isVirtual = opticalImage.isVirtualProperty.value;
 
         // {Vector2[]} get the initial directions of the rays
-        const directions = getRayDirections( raysType, objectPosition, optic, targetPoint );
+        const directions = getRayDirections( raysType, objectPosition, optic, opticalImagePosition );
 
-        // set the target's visibility to false initially (unless there are no rays)
-        target.visibleProperty.value = ( raysType === 'none' );
+        // set the optical image's visibility to false initially (unless there are no rays)
+        opticalImage.visibleProperty.value = ( raysType === 'none' );
 
         // loop over the direction of each ray
         directions.forEach( direction => {
 
           // Create a LightRay, which is responsible for creating real and virtual ray segments.
-          const lightRay = new LightRay( objectPosition, direction, lightRaysTime, optic, targetPoint, isVirtual,
+          const lightRay = new LightRay( objectPosition, direction, lightRaysTime, optic, opticalImagePosition, isVirtual,
             raysType, projectionScreen );
 
-          // Set target's visibility to true when a ray reaches the target.
+          // Set optical image's visibility to true when a ray reaches the image.
           if ( lightRay.isTargetReached ) {
-            target.visibleProperty.value = true;
+            opticalImage.visibleProperty.value = true;
           }
 
-          // Add lightRay's segments
+          // Add LightRaySegments
           this.realSegments.push( ...lightRay.realSegments );
           this.virtualSegments.push( ...lightRay.virtualSegments );
         } );
@@ -112,17 +112,17 @@ class LightRays {
 /**
  * Gets the initial directions (as unit vectors) of the rays for the different ray types.
  * @param raysType
- * @param objectPosition
+ * @param opticalObjectPosition
  * @param optic
- * @param targetPoint
+ * @param opticalImagePosition
  */
-function getRayDirections( raysType: RaysType, objectPosition: Vector2, optic: Optic, targetPoint: Vector2 ): Vector2[] {
+function getRayDirections( raysType: RaysType, opticalObjectPosition: Vector2, optic: Optic, opticalImagePosition: Vector2 ): Vector2[] {
 
-  // {Vector2[]} directions of the light rays emanating from objectPosition
+  // {Vector2[]} directions of the light rays emanating from opticalObjectPosition
   const directions = [];
 
   // vector from object to optic
-  const objectOpticVector = optic.positionProperty.value.minus( objectPosition );
+  const objectOpticVector = optic.positionProperty.value.minus( opticalObjectPosition );
 
   if ( raysType === 'marginal' ) {
 
@@ -132,13 +132,13 @@ function getRayDirections( raysType: RaysType, objectPosition: Vector2, optic: O
     directions.push( objectOpticVector.normalized() );
 
     // #2: top of the optic
-    const topPoint = optic.getTopPoint( objectPosition, targetPoint );
-    const topDirection = topPoint.minus( objectPosition ).normalized();
+    const topPoint = optic.getTopPoint( opticalObjectPosition, opticalImagePosition );
+    const topDirection = topPoint.minus( opticalObjectPosition ).normalized();
     directions.push( topDirection );
 
     // #3: bottom of the optic
-    const bottomPoint = optic.getBottomPoint( objectPosition, targetPoint );
-    const bottomDirection = bottomPoint.minus( objectPosition ).normalized();
+    const bottomPoint = optic.getBottomPoint( opticalObjectPosition, opticalImagePosition );
+    const bottomDirection = bottomPoint.minus( opticalObjectPosition ).normalized();
     directions.push( bottomDirection );
   }
   else if ( raysType === 'principal' ) {
@@ -161,7 +161,7 @@ function getRayDirections( raysType: RaysType, objectPosition: Vector2, optic: O
   }
   else if ( raysType === 'many' ) {
 
-    // Number of rays depends on how far objectPosition is from the optic. But we want at least 2 rays to
+    // Number of rays depends on how far opticalObjectPosition is from the optic. But we want at least 2 rays to
     // go through the optic. See https://github.com/phetsims/geometric-optics/issues/289.
 
     // starting angle for fan of rays
@@ -171,7 +171,7 @@ function getRayDirections( raysType: RaysType, objectPosition: Vector2, optic: O
     const endAngle = -startingAngle;
 
     // x distance from the Object to the optic
-    const distanceX = Math.abs( optic.positionProperty.value.x - objectPosition.x );
+    const distanceX = Math.abs( optic.positionProperty.value.x - opticalObjectPosition.x );
 
     // number of rays
     const numberOfRays = MANY_MIN_RAYS * ( Math.floor( distanceX / MANY_MIN_RAYS_DISTANCE ) + 1 );

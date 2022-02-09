@@ -12,7 +12,7 @@ import Range from '../../../../dot/js/Range.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
 import FramedObject from './FramedObject.js';
-import Target from './Target.js';
+import FramedImage from './FramedImage.js';
 import Property from '../../../../axon/js/Property.js';
 import Representation, { FRAMED_OBJECT_REPRESENTATIONS } from './Representation.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -37,8 +37,8 @@ class FramedObjectScene {
   readonly optic: Optic;
   readonly representationProperty: Property<Representation>;
   readonly framedObject: FramedObject;
-  readonly target1: Target;
-  readonly target2: Target;
+  readonly framedImage1: FramedImage;
+  readonly framedImage2: FramedImage;
   readonly lightRaysTimeProperty: NumberProperty;
   readonly lightRays1: LightRays;
   readonly lightRays2: LightRays;
@@ -65,9 +65,9 @@ class FramedObjectScene {
       tandem: options.tandem.createTandem( 'framedObject' )
     } );
 
-    this.target1 = new Target( this.framedObject.positionProperty, this.optic, this.representationProperty );
+    this.framedImage1 = new FramedImage( this.framedObject.positionProperty, this.optic, this.representationProperty );
 
-    this.target2 = new Target( this.framedObject.secondPoint.positionProperty, this.optic, this.representationProperty );
+    this.framedImage2 = new FramedImage( this.framedObject.secondPoint.positionProperty, this.optic, this.representationProperty );
 
     //TODO should each scene have this, or should it be shared by all scenes?
     this.lightRaysTimeProperty = new NumberProperty( 0, {
@@ -85,7 +85,7 @@ class FramedObjectScene {
       raysTypeProperty,
       this.framedObject.positionProperty,
       this.optic,
-      this.target1
+      this.framedImage1
     );
 
     this.lightRays2 = new LightRays(
@@ -93,7 +93,7 @@ class FramedObjectScene {
       raysTypeProperty,
       this.framedObject.secondPoint.positionProperty,
       this.optic,
-      this.target2
+      this.framedImage2
     );
 
     //TODO add Guides ala LightSourcesScene, but for Lens screen only
