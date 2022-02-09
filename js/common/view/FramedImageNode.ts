@@ -21,6 +21,7 @@ import Utils from '../../../../dot/js/Utils.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
+import { OpticalImageType } from '../model/OpticalImageType.js';
 
 type FramedImageNodeOptions = {
   tandem: Tandem
@@ -81,9 +82,9 @@ class FramedImageNode extends Node {
     };
 
     this.setVisibleProperty( new DerivedProperty(
-      [ virtualImageVisibleProperty, framedImage.isVirtualProperty, raysAndImagesVisibleProperty, framedImage.visibleProperty ],
-      ( virtualImageVisible: boolean, isVirtual: boolean, raysAndImagesVisible: boolean, framedImageVisible: boolean ) =>
-        ( virtualImageVisible || !isVirtual ) && raysAndImagesVisible && framedImageVisible, {
+      [ virtualImageVisibleProperty, framedImage.opticalImageTypeProperty, raysAndImagesVisibleProperty, framedImage.visibleProperty ],
+      ( virtualImageVisible: boolean, opticalImageType: OpticalImageType, raysAndImagesVisible: boolean, framedImageVisible: boolean ) =>
+        ( virtualImageVisible || opticalImageType === 'real' ) && raysAndImagesVisible && framedImageVisible, {
         tandem: options.tandem.createTandem( 'visibleProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
       } ) );

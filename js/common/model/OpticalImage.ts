@@ -15,9 +15,10 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
+import StringIO from '../../../../tandem/js/types/StringIO.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
+import { OpticalImageType, OpticalImageTypeValues } from './OpticalImageType.js';
 
 type OpticalImageOptions = {
   tandem: Tandem,
@@ -35,7 +36,8 @@ class OpticalImage extends PhetioObject {
 
   //TODO visibleProperty should not be in the model
   // For a mirror, the Image is virtual if the Image is on the opposite of the object
-  readonly isVirtualProperty: IReadOnlyProperty<boolean>;
+  readonly opticalImageTypeProperty: IReadOnlyProperty<OpticalImageType>;
+
   // The distance can be negative. We follow the standard sign convention used in geometric optics courses.
   protected readonly opticImageDistanceProperty: IReadOnlyProperty<number>;
 
@@ -97,12 +99,12 @@ class OpticalImage extends PhetioObject {
     this.visibleProperty = new BooleanProperty( false ); //TODO phet-io instrumentation
 
     //TODO REVIEW: DerivedProperty that depends on an unlisted Property?
-    this.isVirtualProperty = new DerivedProperty(
+    this.opticalImageTypeProperty = new DerivedProperty(
       [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
-      ( ...args: any[] ) => ( this.opticImageDistanceProperty.value < 0 ), {
-        tandem: options.tandem.createTandem( 'isVirtualProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO ),
-        phetioDocumentation: 'whether the optical image is real (false) or virtual (true)'
+      ( ...args: any[] ) => ( this.opticImageDistanceProperty.value < 0 ) ? 'virtual' : 'real', {
+        tandem: options.tandem.createTandem( 'opticalImageTypeProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( StringIO ),
+        validValues: OpticalImageTypeValues
       } );
   }
 

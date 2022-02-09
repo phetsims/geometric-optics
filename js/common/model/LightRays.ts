@@ -79,7 +79,7 @@ class LightRays {
         const opticalImagePosition = opticalImage.positionProperty.value;
 
         // {boolean} is the Image virtual
-        const isVirtual = opticalImage.isVirtualProperty.value;
+        const isVirtual = ( opticalImage.opticalImageTypeProperty.value === 'virtual' );
 
         // {Vector2[]} get the initial directions of the rays
         const directions = getRayDirections( raysType, opticalObjectPosition, optic, opticalImagePosition );

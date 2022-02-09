@@ -150,7 +150,7 @@ class FramedObjectSceneNode extends Node {
     const realLightRays1Node = new RealLightRaysNode( scene.lightRays1, modelViewTransform, realLightRays1Options );
     const realLightRays1ForegroundNode = new RealLightRaysForegroundNode( scene.lightRays1, modelViewTransform,
       modelVisibleBoundsProperty, scene.optic.positionProperty, scene.framedImage1.positionProperty,
-      scene.framedImage1.isVirtualProperty, realLightRays1Options );
+      scene.framedImage1.opticalImageTypeProperty, realLightRays1Options );
     const virtualLightRays1Node = new VirtualLightRaysNode( scene.lightRays1, modelViewTransform, {
       stroke: realLightRays1Options.stroke,
       visibleProperty: DerivedProperty.and( [
@@ -170,7 +170,7 @@ class FramedObjectSceneNode extends Node {
     const realLightRays2Node = new RealLightRaysNode( scene.lightRays2, modelViewTransform, realLightRays2Options );
     const realLightRays2ForegroundNode = new RealLightRaysForegroundNode( scene.lightRays2, modelViewTransform,
       modelVisibleBoundsProperty, scene.optic.positionProperty, scene.framedImage2.positionProperty,
-      scene.framedImage2.isVirtualProperty, realLightRays2Options );
+      scene.framedImage2.opticalImageTypeProperty, realLightRays2Options );
     const virtualLightRays2Node = new VirtualLightRaysNode( scene.lightRays2, modelViewTransform, {
       stroke: realLightRays2Options.stroke,
       visibleProperty: DerivedProperty.and( [

@@ -20,6 +20,7 @@ import OpticalImage, { OpticalImageOptions } from './OpticalImage.js';
 import { ObjectHTMLImageElements } from './OpticalObjectChoice.js';
 import FramedObject from './FramedObject.js';
 import merge from '../../../../phet-core/js/merge.js';
+import { OpticalImageType } from './OpticalImageType.js';
 
 class FramedImage extends OpticalImage {
 
@@ -68,12 +69,12 @@ class FramedImage extends OpticalImage {
     );
 
     this.imageProperty = new DerivedProperty(
-      [ objectHTMLImageElementsProperty, this.isVirtualProperty ],
-      ( objectHTMLImageElements: ObjectHTMLImageElements, isVirtual: boolean ) => {
+      [ objectHTMLImageElementsProperty, this.opticalImageTypeProperty ],
+      ( objectHTMLImageElements: ObjectHTMLImageElements, opticalImageType: OpticalImageType ) => {
         const isLens = ( optic instanceof Lens );
         const realImage = isLens ? objectHTMLImageElements.leftFacingInverted : objectHTMLImageElements.rightFacingInverted;
         const virtualImage = isLens ? objectHTMLImageElements.rightFacingUpright : objectHTMLImageElements.leftFacingUpright;
-        return isVirtual ? virtualImage : realImage;
+        return ( opticalImageType === 'real' ) ? realImage : virtualImage;
       } );
 
     this.boundsProperty = new DerivedProperty(

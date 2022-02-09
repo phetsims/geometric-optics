@@ -19,6 +19,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import { Path } from '../../../../scenery/js/imports.js';
+import { OpticalImageType } from '../model/OpticalImageType.js';
 
 class RealLightRaysForegroundNode extends RealLightRaysNode {
 
@@ -28,7 +29,7 @@ class RealLightRaysForegroundNode extends RealLightRaysNode {
    * @param modelVisibleBoundsProperty - bounds where rays may appear, in model coordinates
    * @param opticPositionProperty
    * @param frameImagePositionProperty
-   * @param isVirtualProperty
+   * @param opticalImageTypeProperty
    * @param providedOptions
    */
   constructor( lightRays: LightRays,
@@ -36,7 +37,7 @@ class RealLightRaysForegroundNode extends RealLightRaysNode {
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                opticPositionProperty: IReadOnlyProperty<Vector2>,
                frameImagePositionProperty: IReadOnlyProperty<Vector2>,
-               isVirtualProperty: IReadOnlyProperty<boolean>,
+               opticalImageTypeProperty: IReadOnlyProperty<OpticalImageType>,
                providedOptions: RealLightRaysNodeOptions ) {
 
     const options = merge( {}, providedOptions );
@@ -61,7 +62,7 @@ class RealLightRaysForegroundNode extends RealLightRaysNode {
     const updateClipArea = () => {
       let clipArea: Shape | null; // in view coordinates
 
-      if ( isVirtualProperty.value ) {
+      if ( opticalImageTypeProperty.value === 'virtual' ) {
 
         // virtual image
         clipArea = null;
