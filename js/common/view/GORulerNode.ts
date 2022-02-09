@@ -53,7 +53,7 @@ type GORulerNodeOptions = {
   tandem: Tandem
 };
 
-//TODO this is a quick-and-dirty way to get rulers feature working again, revisit this
+//TODO This is a quick-and-dirty way to get hotkeys working again - revisit this.
 // Describes points of interest that we can move to with hotkeys
 type RulerHotkeysData = {
   opticPositionProperty: IReadOnlyProperty<Vector2>,
