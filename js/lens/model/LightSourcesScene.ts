@@ -139,21 +139,23 @@ class LightSourcesScene extends PhetioObject {
       } );
 
     // Guides
-    const guidesTandem = options.tandem.createTandem( 'guides' );
+    const guides1Tandem = options.tandem.createTandem( 'guides1' );
     this.topGuide1 = new Guide( this.optic, this.lightSource1.positionProperty, 'top', {
-      tandem: guidesTandem.createTandem( 'topGuide1' ),
+      tandem: guides1Tandem.createTandem( 'topGuide' ),
       phetioDocumentation: 'TODO'
     } );
     this.bottomGuide1 = new Guide( this.optic, this.lightSource1.positionProperty, 'bottom', {
-      tandem: guidesTandem.createTandem( 'bottomGuide1' ),
+      tandem: guides1Tandem.createTandem( 'bottomGuide' ),
       phetioDocumentation: 'TODO'
     } );
+
+    const guides2Tandem = options.tandem.createTandem( 'guides2' );
     this.topGuide2 = new Guide( this.optic, this.lightSource2.positionProperty, 'top', {
-      tandem: guidesTandem.createTandem( 'topGuide2' ),
+      tandem: guides2Tandem.createTandem( 'topGuide' ),
       phetioDocumentation: 'TODO'
     } );
     this.bottomGuide2 = new Guide( this.optic, this.lightSource2.positionProperty, 'bottom', {
-      tandem: guidesTandem.createTandem( 'bottomGuide2' ),
+      tandem: guides2Tandem.createTandem( 'bottomGuide' ),
       phetioDocumentation: 'TODO'
     } );
   }

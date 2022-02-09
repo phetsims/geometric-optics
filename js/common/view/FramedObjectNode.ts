@@ -70,6 +70,7 @@ class FramedObjectNode extends Node {
       focusHighlight: new FocusHighlightFromNode( wrappedImageNode ),
 
       // phet-io options
+      phetioVisiblePropertyInstrumented: false,
       phetioInputEnabledPropertyInstrumented: true
     }, providedOptions );
 
@@ -174,6 +175,10 @@ class FramedObjectNode extends Node {
     dragLockedProperty.link( locked => {
       this.cursor = locked ? 'ew-resize' : 'pointer';
       cueingArrowsNode.setDirection( locked ? 'horizontal' : 'both' );
+    } );
+
+    this.addLinkedElement( framedObject, {
+      tandem: options.tandem.createTandem( 'framedObject' )
     } );
 
     this.resetFramedObjectNode = (): void => {
