@@ -82,6 +82,10 @@ class LensScreenView extends GOScreenView {
 
     model.opticalObjectChoiceProperty.link( opticalObjectChoice => {
       lightSourcesSceneNode.visible = OpticalObjectChoice.isLightSource( opticalObjectChoice );
+      if ( lightSourcesSceneNode.visible ) {
+        this.horizontalRulerNode.setHotkeysData( lightSourcesSceneNode.rulerHotkeysData );
+        this.verticalRulerNode.setHotkeysData( lightSourcesSceneNode.rulerHotkeysData );
+      }
     } );
 
     // pdom -traversal order

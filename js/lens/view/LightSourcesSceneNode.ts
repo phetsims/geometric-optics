@@ -32,6 +32,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import GuidesNode from './GuidesNode.js';
 import LightSourceNode from './LightSourceNode.js';
 import OpticalAxisInFrontOfProjectionScreenNode from './OpticalAxisInFrontOfProjectionScreenNode.js';
+import { RulerHotkeysData } from '../../common/view/GORulerNode.js';
 
 type LightSourcesSceneNodeOptions = {
 
@@ -45,6 +46,7 @@ type LightSourcesSceneNodeOptions = {
 
 class LightSourcesSceneNode extends Node {
 
+  public readonly rulerHotkeysData: RulerHotkeysData;
   private readonly resetLightSourcesSceneNode: () => void;
 
   /**
@@ -200,6 +202,17 @@ class LightSourcesSceneNode extends Node {
       guides1Node,
       guides2Node
     ];
+
+    this.rulerHotkeysData = {
+      opticPositionProperty: scene.optic.positionProperty,
+      framedObjectPositionProperty: null,
+      framedImagePositionProperty: null,
+      framedImageNodeVisibleProperty: null,
+      secondPointPositionProperty: null,
+      secondPointVisibleProperty: visibleProperties.secondPointVisibleProperty,
+      lightSource1PositionProperty: scene.lightSource1.positionProperty,
+      lightSource2PositionProperty: scene.lightSource2.positionProperty
+    };
 
     this.pdomOrder = [
       lightSource1Node,

@@ -27,7 +27,6 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import RulerIconNode from './RulerIconNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;
@@ -54,6 +53,24 @@ type GORulerNodeOptions = {
   tandem: Tandem
 };
 
+//TODO this is a quick-and-dirty way to get rulers feature working again, revisit this
+type RulerHotkeysData = {
+
+  // all scenes have this
+  opticPositionProperty: IReadOnlyProperty<Vector2>,
+
+  // FramedObjectScene
+  framedObjectPositionProperty: IReadOnlyProperty<Vector2> | null,
+  framedImagePositionProperty: IReadOnlyProperty<Vector2> | null,
+  framedImageNodeVisibleProperty: IReadOnlyProperty<boolean> | null,
+  secondPointPositionProperty: IReadOnlyProperty<Vector2> | null,
+  secondPointVisibleProperty: IReadOnlyProperty<boolean> | null,
+
+  // LightSourcesScene
+  lightSource1PositionProperty: IReadOnlyProperty<Vector2> | null,
+  lightSource2PositionProperty: IReadOnlyProperty<Vector2> | null
+};
+
 class GORulerNode extends Node {
 
   // the ruler model that is associated with this Node
@@ -67,33 +84,19 @@ class GORulerNode extends Node {
 
   private readonly dragListener: DragListener;
 
+  private hotkeysData: RulerHotkeysData | null;
+
   /**
    * @param ruler
    * @param zoomTransformProperty
    * @param zoomScaleProperty
    * @param visibleBoundsProperty
-   * @param opticPositionProperty
-   * @param opticalObjectPositionProperty
-   * @param secondPointPositionProperty
-   * @param secondLightSourcePositionProperty
-   * @param secondPointVisibleProperty
-   * @param opticalImagePositionProperty
-   * @param opticalImageNodeVisibleProperty
-   * @param opticalObjectChoiceProperty
    * @param providedOptions
    */
   constructor( ruler: GORuler,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                zoomScaleProperty: IReadOnlyProperty<number>,
                visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-               opticPositionProperty: IReadOnlyProperty<Vector2>,
-               opticalObjectPositionProperty: IReadOnlyProperty<Vector2>,
-               secondPointPositionProperty: IReadOnlyProperty<Vector2>,
-               secondLightSourcePositionProperty: IReadOnlyProperty<Vector2>,
-               secondPointVisibleProperty: IReadOnlyProperty<boolean>,
-               opticalImagePositionProperty: IReadOnlyProperty<Vector2>,
-               opticalImageNodeVisibleProperty: IReadOnlyProperty<boolean>,
-               opticalObjectChoiceProperty: IReadOnlyProperty<OpticalObjectChoice>,
                providedOptions: GORulerNodeOptions ) {
 
     const options = merge( {
@@ -121,6 +124,7 @@ class GORulerNode extends Node {
     super( options );
 
     this.ruler = ruler;
+    this.hotkeysData = null;
     this.toolboxBounds = Bounds2.NOTHING; // to be set later via setToolboxBounds
     this.iconNode = new RulerIconNode( this, zoomTransformProperty );
 
@@ -222,7 +226,9 @@ class GORulerNode extends Node {
       {
         keys: options.hotkeysMoveRulerToOptic,
         callback: () => {
-          ruler.positionProperty.value = opticPositionProperty.value;
+          if ( this.hotkeysData ) {
+            ruler.positionProperty.value = this.hotkeysData.opticPositionProperty.value;
+          }
         }
       },
 
@@ -230,7 +236,14 @@ class GORulerNode extends Node {
       {
         keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_O ],
         callback: () => {
-          moveRuler( ruler, opticalObjectPositionProperty.value, opticPositionProperty.value.y );
+          if ( this.hotkeysData ) {
+            if ( this.hotkeysData.framedObjectPositionProperty ) {
+              moveRuler( ruler, this.hotkeysData.framedObjectPositionProperty.value, this.hotkeysData.opticPositionProperty.value.y );
+            }
+            else if ( this.hotkeysData.lightSource1PositionProperty ) {
+              moveRuler( ruler, this.hotkeysData.lightSource1PositionProperty.value, this.hotkeysData.opticPositionProperty.value.y );
+            }
+          }
         }
       },
 
@@ -239,25 +252,26 @@ class GORulerNode extends Node {
       {
         keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_I ],
         callback: () => {
-          if ( opticalImageNodeVisibleProperty.value &&
-               OpticalObjectChoice.isFramedObject( opticalObjectChoiceProperty.value ) &&
-               dragBoundsProperty.value.containsPoint( opticalImagePositionProperty.value ) ) {
-            moveRuler( ruler, opticalImagePositionProperty.value, opticPositionProperty.value.y );
+          if ( this.hotkeysData ) {
+            if ( this.hotkeysData.framedImagePositionProperty &&
+                 this.hotkeysData.framedImageNodeVisibleProperty!.value &&
+                 dragBoundsProperty.value.containsPoint( this.hotkeysData.framedImagePositionProperty.value ) ) {
+              moveRuler( ruler, this.hotkeysData.framedImagePositionProperty.value, this.hotkeysData.opticPositionProperty.value.y );
+            }
           }
         }
       },
 
       // J+S moves the ruler to the second optical object.
-      // Ignored if 'Second Point' is not visible.
       {
         keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_S ],
         callback: () => {
-          if ( secondPointVisibleProperty.value ) {
-            if ( OpticalObjectChoice.isFramedObject( opticalObjectChoiceProperty.value ) ) {
-              moveRuler( ruler, secondPointPositionProperty.value, opticPositionProperty.value.y );
+          if ( this.hotkeysData ) {
+            if ( this.hotkeysData.secondPointPositionProperty && this.hotkeysData.secondPointVisibleProperty!.value ) {
+              moveRuler( ruler, this.hotkeysData.secondPointPositionProperty.value, this.hotkeysData.opticPositionProperty.value.y );
             }
-            else {
-              moveRuler( ruler, secondLightSourcePositionProperty.value, opticPositionProperty.value.y );
+            else if ( this.hotkeysData.lightSource2PositionProperty && this.hotkeysData.secondPointVisibleProperty!.value ) {
+              moveRuler( ruler, this.hotkeysData.lightSource2PositionProperty.value, this.hotkeysData.opticPositionProperty.value.y );
             }
           }
         }
@@ -278,6 +292,10 @@ class GORulerNode extends Node {
   // Forwards an event from the toolbox to start dragging this Node
   public startDrag( event: SceneryEvent ): void {
     this.dragListener.press( event, this );
+  }
+  
+  public setHotkeysData( hotkeysData: RulerHotkeysData | null ) {
+    this.hotkeysData = hotkeysData;
   }
 }
 
@@ -341,4 +359,4 @@ function createRulerNode( rulerLength: number, zoomTransform: ModelViewTransform
 
 geometricOptics.register( 'GORulerNode', GORulerNode );
 export default GORulerNode;
-export type { GORulerNodeOptions };
+export type { GORulerNodeOptions, RulerHotkeysData };

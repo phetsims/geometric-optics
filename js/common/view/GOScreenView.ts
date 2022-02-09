@@ -36,6 +36,8 @@ import FramedObjectSceneNode from './FramedObjectSceneNode.js';
 import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
 import Property from '../../../../axon/js/Property.js';
 import { RaysType } from '../model/RaysType.js';
+import GORulerNode from './GORulerNode.js';
+import RulersToolbox from './RulersToolbox.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.
@@ -76,6 +78,8 @@ class GOScreenView extends ScreenView {
   protected readonly zoomButtonGroup: Node;
   protected readonly scenesTandem: Tandem;
   protected readonly controlsTandem: Tandem;
+  protected readonly horizontalRulerNode: GORulerNode;
+  protected readonly verticalRulerNode: GORulerNode;
 
   private readonly model: GOModel;
   private readonly resetGOScreenView: () => void;
@@ -135,25 +139,17 @@ class GOScreenView extends ScreenView {
         return ModelViewTransform2.createOffsetXYScaleMapping( viewOrigin, scale, -scale );
       } );
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/217 restore rulers
-    //
-    // const horizontalRulerNode = new GORulerNode( model.horizontalRuler, zoomTransformProperty, zoomScaleProperty,
-    //   this.visibleBoundsProperty, model.optic.positionProperty, model.sourceObject.positionProperty,
-    //   model.secondPoint.positionProperty, model.secondPoint.lightSourcePositionProperty,
-    //   visibleProperties.secondPointVisibleProperty, model.firstTarget.positionProperty,
-    //   targetNode.visibleProperty, model.representationProperty, {
-    //     hotkeysMoveRulerToOptic: options.hotkeysMoveRulerToOptic,
-    //     tandem: options.tandem.createTandem( 'horizontalRulerNode' )
-    //   } );
-    //
-    // const verticalRulerNode = new GORulerNode( model.verticalRuler, zoomTransformProperty, zoomScaleProperty,
-    //   this.visibleBoundsProperty, model.optic.positionProperty, model.sourceObject.positionProperty,
-    //   model.secondPoint.positionProperty, model.secondPoint.lightSourcePositionProperty,
-    //   visibleProperties.secondPointVisibleProperty, model.firstTarget.positionProperty,
-    //   targetNode.visibleProperty, model.representationProperty, {
-    //     hotkeysMoveRulerToOptic: options.hotkeysMoveRulerToOptic,
-    //     tandem: options.tandem.createTandem( 'verticalRulerNode' )
-    //   } );
+    const horizontalRulerNode = new GORulerNode( model.horizontalRuler, zoomTransformProperty, zoomScaleProperty,
+      this.visibleBoundsProperty, {
+        hotkeysMoveRulerToOptic: options.hotkeysMoveRulerToOptic,
+        tandem: options.tandem.createTandem( 'horizontalRulerNode' )
+      } );
+
+    const verticalRulerNode = new GORulerNode( model.verticalRuler, zoomTransformProperty, zoomScaleProperty,
+      this.visibleBoundsProperty, {
+        hotkeysMoveRulerToOptic: options.hotkeysMoveRulerToOptic,
+        tandem: options.tandem.createTandem( 'verticalRulerNode' )
+      } );
 
     this.controlsTandem = options.tandem.createTandem( 'controls' );
 
@@ -171,20 +167,18 @@ class GOScreenView extends ScreenView {
       controlPanel.centerBottom = erodedLayoutBounds.centerBottom;
     } );
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/217 restore toolbox
-    //
-    // // Toolbox in the top-right corner of the screen
-    // const rulersToolbox = new RulersToolbox( [ horizontalRulerNode, verticalRulerNode ], {
-    //   rightTop: erodedLayoutBounds.rightTop,
-    //   tandem: options.tandem.createTandem( 'rulersToolbox' )
-    // } );
-    //
-    // // Tell the rulers where the toolbox is.
-    // rulersToolbox.visibleProperty.link( visible => {
-    //   const bounds = visible ? rulersToolbox.bounds : Bounds2.NOTHING;
-    //   horizontalRulerNode.setToolboxBounds( bounds );
-    //   verticalRulerNode.setToolboxBounds( bounds );
-    // } );
+    // Toolbox in the top-right corner of the screen
+    const rulersToolbox = new RulersToolbox( [ horizontalRulerNode, verticalRulerNode ], {
+      rightTop: erodedLayoutBounds.rightTop,
+      tandem: options.tandem.createTandem( 'rulersToolbox' )
+    } );
+
+    // Tell the rulers where the toolbox is.
+    rulersToolbox.visibleProperty.link( visible => {
+      const bounds = visible ? rulersToolbox.bounds : Bounds2.NOTHING;
+      horizontalRulerNode.setToolboxBounds( bounds );
+      verticalRulerNode.setToolboxBounds( bounds );
+    } );
 
     // Radio buttons for the shape of the optic
     const opticShapeRadioButtonGroup = new OpticShapeRadioButtonGroup( model.optic, {
@@ -314,18 +308,15 @@ class GOScreenView extends ScreenView {
         controlPanel,
         showHideToggleButton,
         resetAllButton,
-        //TOO https://github.com/phetsims/geometric-optics/issues/217 restore toolbox
-        //rulersToolbox,
+        rulersToolbox,
         zoomButtonGroup,
         representationComboBox
       ]
     } );
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/217 restore rulers
-    //
-    // const rulersLayer = new Node( {
-    //   children: [ horizontalRulerNode, verticalRulerNode ]
-    // } );
+    const rulersLayer = new Node( {
+      children: [ horizontalRulerNode, verticalRulerNode ]
+    } );
 
     const screenViewRootNode = new Node( {
       children: [
@@ -333,8 +324,7 @@ class GOScreenView extends ScreenView {
         //TODO https://github.com/phetsims/geometric-optics/issues/217 restore labels
         //labelsNode,
         controlsLayer,
-        //TODO https://github.com/phetsims/geometric-optics/issues/217 restore rulers
-        //rulersLayer,
+        rulersLayer,
         popupsParent
       ]
     } );
@@ -342,6 +332,10 @@ class GOScreenView extends ScreenView {
 
     model.opticalObjectChoiceProperty.link( opticalObjectChoice => {
       framedObjectSceneNode.visible = ( OpticalObjectChoice.isFramedObject( opticalObjectChoice ) );
+      if ( framedObjectSceneNode.visible ) {
+        horizontalRulerNode.setHotkeysData( framedObjectSceneNode.rulerHotkeysData );
+        verticalRulerNode.setHotkeysData( framedObjectSceneNode.rulerHotkeysData );
+      }
     } );
 
     this.resetGOScreenView = (): void => {
@@ -354,10 +348,9 @@ class GOScreenView extends ScreenView {
     screenViewRootNode.pdomOrder = [
       representationComboBox,
       opticShapeRadioButtonGroup,
-      //TODO https://github.com/phetsims/geometric-optics/issues/217 restore rulers
-      // rulersToolbox,
-      // horizontalRulerNode,
-      // verticalRulerNode,
+      rulersToolbox,
+      horizontalRulerNode,
+      verticalRulerNode,
       scenesNode,
       zoomButtonGroup,
       controlPanel,
@@ -377,6 +370,8 @@ class GOScreenView extends ScreenView {
     this.representationComboBox = representationComboBox;
     this.opticShapeRadioButtonGroup = opticShapeRadioButtonGroup;
     this.zoomButtonGroup = zoomButtonGroup;
+    this.horizontalRulerNode = horizontalRulerNode;
+    this.verticalRulerNode = verticalRulerNode;
   }
 
   public dispose(): void {

@@ -33,6 +33,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import VirtualLightRaysNode from './VirtualLightRaysNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import GuidesNode from '../../lens/view/GuidesNode.js';
+import { RulerHotkeysData } from './GORulerNode.js';
 
 type FramedObjectSceneNodeOptions = {
 
@@ -46,6 +47,7 @@ type FramedObjectSceneNodeOptions = {
 
 class FramedObjectSceneNode extends Node {
 
+  public readonly rulerHotkeysData: RulerHotkeysData;
   private readonly resetFrameObjectSceneNode: () => void;
 
   /**
@@ -211,6 +213,17 @@ class FramedObjectSceneNode extends Node {
         } );
       this.addChild( guides2Node );
     }
+
+    this.rulerHotkeysData = {
+      opticPositionProperty: scene.optic.positionProperty,
+      framedObjectPositionProperty: scene.framedObject.positionProperty,
+      framedImagePositionProperty: scene.framedImage1.positionProperty,
+      framedImageNodeVisibleProperty: framedImageNode.visibleProperty,
+      secondPointPositionProperty: scene.framedObject.secondPoint.positionProperty,
+      secondPointVisibleProperty: visibleProperties.secondPointVisibleProperty,
+      lightSource1PositionProperty: null,
+      lightSource2PositionProperty: null
+    };
 
     this.pdomOrder = [
       framedObjectNode,
