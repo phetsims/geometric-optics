@@ -23,11 +23,11 @@ type FocalPointNodeOptions = {
 class FocalPointNode extends Node {
 
   /**
-   * @param focalPointProperty
+   * @param pointProperty
    * @param modelViewTransform
    * @param providedOptions
    */
-  constructor( focalPointProperty: Property<Vector2>, modelViewTransform: ModelViewTransform2, providedOptions: FocalPointNodeOptions ) {
+  constructor( pointProperty: Property<Vector2>, modelViewTransform: ModelViewTransform2, providedOptions: FocalPointNodeOptions ) {
 
     const options = merge( {
       children: [ FocalPointNode.createIcon() ],
@@ -36,12 +36,12 @@ class FocalPointNode extends Node {
 
     super( options );
 
-    focalPointProperty.link( focalPoint => {
+    pointProperty.link( focalPoint => {
       this.center = modelViewTransform.modelToViewPosition( focalPoint );
     } );
 
-    this.addLinkedElement( focalPointProperty, {
-      tandem: options.tandem.createTandem( 'focalPointProperty' )
+    this.addLinkedElement( pointProperty, {
+      tandem: options.tandem.createTandem( 'pointProperty' )
     } );
   }
 

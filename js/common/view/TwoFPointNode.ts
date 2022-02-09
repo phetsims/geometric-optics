@@ -22,11 +22,11 @@ type TwoFPointNodeOptions = {
 class TwoFPointNode extends Node {
 
   /**
-   * @param twoFPointProperty
+   * @param pointProperty
    * @param modelViewTransform
    * @param provideOptions
    */
-  constructor( twoFPointProperty: Property<Vector2>, modelViewTransform: ModelViewTransform2, provideOptions: TwoFPointNodeOptions ) {
+  constructor( pointProperty: Property<Vector2>, modelViewTransform: ModelViewTransform2, provideOptions: TwoFPointNodeOptions ) {
 
     const options = merge( {
       children: [ TwoFPointNode.createIcon() ],
@@ -35,12 +35,12 @@ class TwoFPointNode extends Node {
 
     super( options );
 
-    twoFPointProperty.link( twoFPoint => {
+    pointProperty.link( twoFPoint => {
       this.center = modelViewTransform.modelToViewPosition( twoFPoint );
     } );
 
-    this.addLinkedElement( twoFPointProperty, {
-      tandem: options.tandem.createTandem( 'twoFPointProperty' )
+    this.addLinkedElement( pointProperty, {
+      tandem: options.tandem.createTandem( 'pointProperty' )
     } );
   }
 
