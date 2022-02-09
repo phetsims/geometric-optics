@@ -12,7 +12,7 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import { Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import FramedObjectScene from '../model/FramedObjectScene.js';
-import TargetNode from './TargetNode.js';
+import FramedImageNode from './FramedImageNode.js';
 import VisibleProperties from './VisibleProperties.js';
 import FramedObjectNode from './FramedObjectNode.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -115,9 +115,9 @@ class FramedObjectSceneNode extends Node {
 
     // Both points of interest are on the same Object, so we only render one Image. If we rendered 2 Images,
     // their opacities would combine.
-    const targetNode = new TargetNode( scene.representationProperty, scene.target1, scene.optic,
+    const framedImageNode = new FramedImageNode( scene.target1, scene.optic,
       visibleProperties.virtualImageVisibleProperty, visibleProperties.raysAndImagesVisibleProperty, modelViewTransform, {
-        tandem: options.tandem.createTandem( 'targetNode' )
+        tandem: options.tandem.createTandem( 'framedImageNode' )
       } );
 
     // The parts of the optical axis that appear to be in front of framed objects and images.
@@ -128,7 +128,7 @@ class FramedObjectSceneNode extends Node {
       scene.framedObject.positionProperty,
       framedObjectNode,
       scene.target1.positionProperty,
-      targetNode,
+      framedImageNode,
       scene.lightRays1.raysProcessedEmitter, {
         visibleProperty: visibleProperties.opticalAxisVisibleProperty
       } );
@@ -176,7 +176,7 @@ class FramedObjectSceneNode extends Node {
       framedObjectNode,
       realLightRays1Node,
       realLightRays2Node,
-      targetNode,
+      framedImageNode,
       opticalAxisForegroundNode,
       opticNode,
       opticVerticalAxisNode,

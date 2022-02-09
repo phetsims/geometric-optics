@@ -40,6 +40,7 @@ class Target {
   // light intensity of the Image (Hollywood) - a value between 0 and 1
   readonly lightIntensityProperty: IReadOnlyProperty<number>;
 
+  //TODO remove null here and checks at use sites
   // the HTMLImageElement to display, null if there is no HTMLImageElement
   readonly imageProperty: IReadOnlyProperty<HTMLImageElement | null>;
 

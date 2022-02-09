@@ -158,8 +158,8 @@ There are a few top-level view elements:
   the optical element (Lens or Mirror).
 * [FramedObjectNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/SourceObjectNode.js) renders framed objects.
 * [SecondPointNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/SecondSourceNode.js) renders the second point-of-interest on a framed object.
-* [TargetNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/TargetNode.js) renders
-  the optical image.
+* [FramedImageNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/FramedImageNode.js) renders
+  the optical image associated with a framed object.
 * [RealLightRaysNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/RealLightRaysNode.js) and 
 [VirtualLightRaysNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/VirtualLightRaysNode.js)
   render real and virtual light rays respectively.
