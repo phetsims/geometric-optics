@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -18,8 +19,8 @@ import { RaysType, RaysTypeValues } from './RaysType.js';
 import GORuler from './GORuler.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import FramedObjectScene from './FramedObjectScene.js';
-import Representation, { FRAMED_OBJECT_REPRESENTATIONS, LIGHT_SOURCE_REPRESENTATION } from './Representation.js';
 import Lens from '../../lens/model/Lens.js';
+import OpticalObjectChoice from './OpticalObjectChoice.js';
 
 type GeometricOpticsModelOptions = {
 
@@ -32,7 +33,7 @@ type GeometricOpticsModelOptions = {
 
 class GOModel {
 
-  readonly representationProperty: Property<Representation>;
+  readonly opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>;
 
   // model of the optic
   readonly optic: Optic;
@@ -65,11 +66,11 @@ class GOModel {
       //TODO
     }, providedOptions );
 
-    //TODO this is a bit of a hack
-    this.representationProperty = new Property( FRAMED_OBJECT_REPRESENTATIONS[ 0 ], {
+    this.opticalObjectChoiceProperty = new EnumerationProperty( OpticalObjectChoice.PENCIL, {
       validValues: ( optic instanceof Lens ) ?
-                   [ ...FRAMED_OBJECT_REPRESENTATIONS, LIGHT_SOURCE_REPRESENTATION ] :
-                   [ ...FRAMED_OBJECT_REPRESENTATIONS ]
+                   OpticalObjectChoice.enumeration.values :
+                   OpticalObjectChoice.FRAMED_OBJECT_CHOICES,
+      tandem: options.tandem.createTandem( 'opticalObjectChoiceProperty' )
     } );
 
     this.optic = optic;
@@ -82,7 +83,7 @@ class GOModel {
 
     this.scenesTandem = options.tandem.createTandem( 'scenes' );
 
-    this.framedObjectScene = new FramedObjectScene( this.optic, this.raysTypeProperty, {
+    this.framedObjectScene = new FramedObjectScene( this.opticalObjectChoiceProperty, this.optic, this.raysTypeProperty, {
       framedObjectPosition: options.framedObjectPosition,
       tandem: this.scenesTandem.createTandem( 'framedObjectScene' )
     } );
@@ -105,7 +106,7 @@ class GOModel {
   }
 
   public reset(): void {
-    this.representationProperty.reset();
+    this.opticalObjectChoiceProperty.reset();
     this.optic.reset();
     this.raysTypeProperty.reset();
     this.framedObjectScene.reset();

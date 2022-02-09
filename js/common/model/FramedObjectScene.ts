@@ -13,8 +13,6 @@ import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
 import FramedObject from './FramedObject.js';
 import FramedImage from './FramedImage.js';
-import Property from '../../../../axon/js/Property.js';
-import Representation, { FRAMED_OBJECT_REPRESENTATIONS } from './Representation.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -22,6 +20,8 @@ import { RaysType } from './RaysType.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import LightRays from './LightRays.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import OpticalObjectChoice from './OpticalObjectChoice.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 
 type FramedObjectSceneOptions = {
 
@@ -35,7 +35,6 @@ type FramedObjectSceneOptions = {
 class FramedObjectScene {
 
   readonly optic: Optic;
-  readonly representationProperty: Property<Representation>;
   readonly framedObject: FramedObject;
   readonly framedImage1: FramedImage;
   readonly framedImage2: FramedImage;
@@ -44,11 +43,15 @@ class FramedObjectScene {
   readonly lightRays2: LightRays;
 
   /**
+   * @param opticalObjectChoiceProperty
    * @param optic
    * @param raysTypeProperty
    * @param providedOptions
    */
-  constructor( optic: Optic, raysTypeProperty: IReadOnlyProperty<RaysType>, providedOptions: FramedObjectSceneOptions ) {
+  constructor( opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>,
+               optic: Optic,
+               raysTypeProperty: IReadOnlyProperty<RaysType>,
+               providedOptions: FramedObjectSceneOptions ) {
 
     const options = merge( {
       //TODO
@@ -56,18 +59,16 @@ class FramedObjectScene {
 
     this.optic = optic;
 
-    this.representationProperty = new Property( FRAMED_OBJECT_REPRESENTATIONS[ 0 ], {
-      validValues: FRAMED_OBJECT_REPRESENTATIONS
-    } );
-
-    this.framedObject = new FramedObject( this.representationProperty, {
+    this.framedObject = new FramedObject( opticalObjectChoiceProperty, {
       position: options.framedObjectPosition,
       tandem: options.tandem.createTandem( 'framedObject' )
     } );
 
-    this.framedImage1 = new FramedImage( this.framedObject.positionProperty, this.optic, this.representationProperty );
+    this.framedImage1 = new FramedImage( this.framedObject.positionProperty,
+      this.framedObject.objectHTMLImageElementsProperty, this.optic );
 
-    this.framedImage2 = new FramedImage( this.framedObject.secondPoint.positionProperty, this.optic, this.representationProperty );
+    this.framedImage2 = new FramedImage( this.framedObject.secondPoint.positionProperty,
+      this.framedObject.objectHTMLImageElementsProperty, this.optic );
 
     //TODO should each scene have this, or should it be shared by all scenes?
     this.lightRaysTimeProperty = new NumberProperty( 0, {
@@ -101,7 +102,6 @@ class FramedObjectScene {
 
   //TODO is this complete?
   public reset(): void {
-    this.representationProperty.reset();
     this.framedObject.reset();
     this.lightRaysTimeProperty.reset();
   }

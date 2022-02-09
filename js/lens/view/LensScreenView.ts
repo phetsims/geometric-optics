@@ -22,7 +22,7 @@ import LensNode from './LensNode.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DragLockedButton from '../../common/view/DragLockedButton.js';
 import LightSourcesSceneNode from './LightSourcesSceneNode.js';
-import { LIGHT_SOURCE_REPRESENTATION } from '../../common/model/Representation.js';
+import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
 
 type LensScreenViewOptions = {
   tandem: Tandem
@@ -79,9 +79,8 @@ class LensScreenView extends GOScreenView {
       } );
     this.scenesNode.addChild( lightSourcesSceneNode );
 
-    //TODO temporary
-    model.representationProperty.link( representation => {
-      lightSourcesSceneNode.visible = ( representation === LIGHT_SOURCE_REPRESENTATION );
+    model.opticalObjectChoiceProperty.link( opticalObjectChoice => {
+      lightSourcesSceneNode.visible = OpticalObjectChoice.isLightSource( opticalObjectChoice );
     } );
 
     // pdom -traversal order
@@ -89,7 +88,7 @@ class LensScreenView extends GOScreenView {
     const pdomOrder = this.screenViewRootNode.pdomOrder;
     assert && assert( pdomOrder ); // [] | null
     if ( pdomOrder ) {
-        pdomOrder.splice( pdomOrder.indexOf( this.opticShapeRadioButtonGroup ), 0, dragLockedButton );
+      pdomOrder.splice( pdomOrder.indexOf( this.opticShapeRadioButtonGroup ), 0, dragLockedButton );
       this.screenViewRootNode.pdomOrder = pdomOrder;
     }
 

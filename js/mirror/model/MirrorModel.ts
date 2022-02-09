@@ -13,6 +13,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import GOModel, { GeometricOpticsModelOptions } from '../../common/model/GOModel.js';
 import geometricOptics from '../../geometricOptics.js';
 import Mirror from './Mirror.js';
+import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
 
 type MirrorOptions = {
   tandem: Tandem
@@ -38,6 +39,9 @@ class MirrorModel extends GOModel {
     } );
 
     super( mirror, options );
+
+    assert && assert( !this.opticalObjectChoiceProperty.validValues?.includes( OpticalObjectChoice.LIGHT ),
+      'Mirror screen does not support Light as an optical object choice' );
   }
 }
 

@@ -103,7 +103,7 @@ class FramedObjectSceneNode extends Node {
       tandem: options.tandem.createTandem( 'twoFPointsNode' )
     } );
 
-    const framedObjectNode = new FramedObjectNode( scene.representationProperty, scene.framedObject,
+    const framedObjectNode = new FramedObjectNode( scene.framedObject,
       modelBoundsProperty, scene.optic.positionProperty, modelViewTransform, options.dragLockedProperty, {
         tandem: options.tandem.createTandem( 'framedObjectNode' )
       } );

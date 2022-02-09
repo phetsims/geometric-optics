@@ -70,8 +70,7 @@ class LightSource extends OpticalObject {
         return size.toBounds( left, bottom );
       }, {
 
-        // Because changing representationProperty may necessitate changing positionProperty to move
-        // the Object inside the view's drag bounds, resulting in this derivation being called again.
+        //TODO is this still needed?
         reentrant: true
       } );
   }

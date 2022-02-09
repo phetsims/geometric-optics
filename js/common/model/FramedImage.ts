@@ -14,15 +14,17 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import geometricOptics from '../../geometricOptics.js';
 import Lens from '../../lens/model/Lens.js';
 import Optic from './Optic.js';
-import Representation from './Representation.js';
 import GOConstants from '../GOConstants.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OpticalImage from './OpticalImage.js';
+import { ObjectHTMLImageElements } from './OpticalObjectChoice.js';
+import FramedObject from './FramedObject.js';
 
 class FramedImage extends OpticalImage {
 
   // the HTMLImageElement to display, null if there is no HTMLImageElement
   readonly imageProperty: IReadOnlyProperty<HTMLImageElement | null>;
+
   // the magnification can be negative, indicating the Image is inverted.
   private readonly magnificationProperty: IReadOnlyProperty<number>;
 
@@ -30,19 +32,20 @@ class FramedImage extends OpticalImage {
   //TODO document
   private readonly isInvertedProperty: IReadOnlyProperty<boolean>;
 
-  // Bounds of the actual Image, based on the Representation
+  // Bounds of the optical image's visual representation, in model coordinates
   readonly boundsProperty: IReadOnlyProperty<Bounds2>;
 
   // light intensity of the Image (Hollywood) - a value between 0 and 1
   readonly lightIntensityProperty: IReadOnlyProperty<number>;
 
   /**
-   * @param framedObjectPositionProperty - position of the optical object
-   * @param optic - model of the optic
-   * @param representationProperty
+   * @param framedObjectPositionProperty
+   * @param objectHTMLImageElementsProperty
+   * @param optic
    */
-  constructor( framedObjectPositionProperty: IReadOnlyProperty<Vector2>, optic: Optic,
-               representationProperty: IReadOnlyProperty<Representation> ) {
+  constructor( framedObjectPositionProperty: IReadOnlyProperty<Vector2>,
+               objectHTMLImageElementsProperty: IReadOnlyProperty<ObjectHTMLImageElements>,
+               optic: Optic ) {
 
     super( framedObjectPositionProperty, optic );
 
@@ -60,23 +63,23 @@ class FramedImage extends OpticalImage {
     );
 
     this.imageProperty = new DerivedProperty(
-      [ representationProperty, this.isVirtualProperty ],
-      ( representation: Representation, isVirtual: boolean ) => {
+      [ objectHTMLImageElementsProperty, this.isVirtualProperty ],
+      ( objectHTMLImageElements: ObjectHTMLImageElements, isVirtual: boolean ) => {
         const isLens = ( optic instanceof Lens );
-        const realImage = isLens ? representation.leftFacingInverted : representation.rightFacingInverted;
-        const virtualImage = isLens ? representation.rightFacingUpright : representation.leftFacingUpright;
+        const realImage = isLens ? objectHTMLImageElements.leftFacingInverted : objectHTMLImageElements.rightFacingInverted;
+        const virtualImage = isLens ? objectHTMLImageElements.rightFacingUpright : objectHTMLImageElements.leftFacingUpright;
         return isVirtual ? virtualImage : realImage;
       } );
 
     this.boundsProperty = new DerivedProperty(
-      [ this.positionProperty, representationProperty, this.magnificationProperty, this.isInvertedProperty ],
+      [ this.positionProperty, objectHTMLImageElementsProperty, this.magnificationProperty, this.isInvertedProperty ],
       //TODO isInverted is not used, is dependency needed?
-      ( position: Vector2, representation: Representation, magnification: number, isInverted: boolean ) => {
+      ( position: Vector2, objectHTMLImageElements: ObjectHTMLImageElements, magnification: number, isInverted: boolean ) => {
 
-        const scaleFactor = representation.scaleFactor;
-        const initialOrigin = representation.rightFacingUprightOrigin.timesScalar( scaleFactor );
-        const initialWidth = representation.rightFacingUpright.width * scaleFactor;
-        const initialHeight = representation.rightFacingUpright.height * scaleFactor;
+        const scaleFactor = FramedObject.SCALE_FACTOR;
+        const initialOrigin = FramedObject.ORIGIN_OFFSET.timesScalar( scaleFactor );
+        const initialWidth = objectHTMLImageElements.rightFacingUpright.width * scaleFactor;
+        const initialHeight = objectHTMLImageElements.rightFacingUpright.height * scaleFactor;
 
         const origin = initialOrigin.timesScalar( magnification );
         const offsetX = -origin.x;

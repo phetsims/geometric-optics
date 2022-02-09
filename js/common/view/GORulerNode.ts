@@ -27,7 +27,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import RulerIconNode from './RulerIconNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import Representation from '../model/Representation.js';
+import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;
@@ -79,7 +79,7 @@ class GORulerNode extends Node {
    * @param secondPointVisibleProperty
    * @param opticalImagePositionProperty
    * @param opticalImageNodeVisibleProperty
-   * @param representationProperty
+   * @param opticalObjectChoiceProperty
    * @param providedOptions
    */
   constructor( ruler: GORuler,
@@ -93,7 +93,7 @@ class GORulerNode extends Node {
                secondPointVisibleProperty: IReadOnlyProperty<boolean>,
                opticalImagePositionProperty: IReadOnlyProperty<Vector2>,
                opticalImageNodeVisibleProperty: IReadOnlyProperty<boolean>,
-               representationProperty: IReadOnlyProperty<Representation>,
+               opticalObjectChoiceProperty: IReadOnlyProperty<OpticalObjectChoice>,
                providedOptions: GORulerNodeOptions ) {
 
     const options = merge( {
@@ -239,7 +239,8 @@ class GORulerNode extends Node {
       {
         keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_I ],
         callback: () => {
-          if ( opticalImageNodeVisibleProperty.value && representationProperty.value.isFramedObject &&
+          if ( opticalImageNodeVisibleProperty.value &&
+               OpticalObjectChoice.isFramedObject( opticalObjectChoiceProperty.value ) &&
                dragBoundsProperty.value.containsPoint( opticalImagePositionProperty.value ) ) {
             moveRuler( ruler, opticalImagePositionProperty.value, opticPositionProperty.value.y );
           }
@@ -252,7 +253,7 @@ class GORulerNode extends Node {
         keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_S ],
         callback: () => {
           if ( secondPointVisibleProperty.value ) {
-            if ( representationProperty.value.isFramedObject ) {
+            if ( OpticalObjectChoice.isFramedObject( opticalObjectChoiceProperty.value ) ) {
               moveRuler( ruler, secondPointPositionProperty.value, opticPositionProperty.value.y );
             }
             else {

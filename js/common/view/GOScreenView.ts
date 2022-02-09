@@ -25,7 +25,7 @@ import GOQueryParameters from '../GOQueryParameters.js';
 import GOModel from '../model/GOModel.js';
 import GOControlPanel from './GOControlPanel.js';
 import OpticShapeRadioButtonGroup from './OpticShapeRadioButtonGroup.js';
-import RepresentationComboBox from './RepresentationComboBox.js';
+import OpticalObjectChoiceComboBox from './OpticalObjectChoiceComboBox.js';
 import ShowHideToggleButton from './ShowHideToggleButton.js';
 import VisibleProperties from './VisibleProperties.js';
 import Lens from '../../lens/model/Lens.js';
@@ -33,7 +33,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Optic from '../model/Optic.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import FramedObjectSceneNode from './FramedObjectSceneNode.js';
-import Representation, { FRAMED_OBJECT_REPRESENTATIONS } from '../model/Representation.js';
+import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.
@@ -157,8 +157,8 @@ class GOScreenView extends ScreenView {
 
     // Disable the 'Virtual Image' checkbox for light source, see https://github.com/phetsims/geometric-optics/issues/216
     const virtualImageCheckboxEnabledProperty = new DerivedProperty(
-      [ model.representationProperty ],
-      ( representation: Representation ) => representation.isFramedObject );
+      [ model.opticalObjectChoiceProperty ],
+      ( opticalObjectChoice: OpticalObjectChoice ) => !OpticalObjectChoice.isLightSource( opticalObjectChoice ) );
 
     // Control panel at the bottom-center of the screen
     const controlPanel = new GOControlPanel( model.optic, model.raysTypeProperty, visibleProperties,
@@ -193,8 +193,8 @@ class GOScreenView extends ScreenView {
     // Parent for any popups
     const popupsParent = new Node();
 
-    // Combo box for choosing object representation
-    const representationComboBox = new RepresentationComboBox( model.representationProperty, popupsParent, {
+    // Combo box for choosing the optical object
+    const representationComboBox = new OpticalObjectChoiceComboBox( model.opticalObjectChoiceProperty, popupsParent, {
       left: this.layoutBounds.left + 100,
       top: erodedLayoutBounds.top,
       tandem: this.controlsTandem.createTandem( 'representationComboBox' )
@@ -298,7 +298,7 @@ class GOScreenView extends ScreenView {
     // Changing these things interrupts interactions
     const interrupt = () => this.interruptSubtreeInput();
     zoomLevelProperty.lazyLink( interrupt );
-    model.representationProperty.lazyLink( interrupt );
+    model.opticalObjectChoiceProperty.lazyLink( interrupt );
 
     // Debugging ================================================================================================
 
@@ -361,15 +361,8 @@ class GOScreenView extends ScreenView {
     } );
     this.addChild( screenViewRootNode );
 
-    //TODO temporary
-    model.representationProperty.link( representation => {
-      if ( FRAMED_OBJECT_REPRESENTATIONS.includes( representation ) ) {
-        model.framedObjectScene.representationProperty.value = representation;
-        framedObjectSceneNode.visible = true;
-      }
-      else {
-        framedObjectSceneNode.visible = false;
-      }
+    model.opticalObjectChoiceProperty.link( opticalObjectChoice => {
+      framedObjectSceneNode.visible = ( OpticalObjectChoice.isFramedObject( opticalObjectChoice ) );
     } );
 
     this.resetGOScreenView = (): void => {

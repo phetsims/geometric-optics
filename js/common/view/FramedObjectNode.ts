@@ -15,7 +15,6 @@ import { DragListener, FocusHighlightFromNode, Image, KeyboardDragListener, Node
 import geometricOptics from '../../geometricOptics.js';
 import FramedObject from '../model/FramedObject.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import Representation from '../model/Representation.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
@@ -39,7 +38,6 @@ class FramedObjectNode extends Node {
   private readonly resetFramedObjectNode: () => void;
 
   /**
-   * @param representationProperty
    * @param framedObject
    * @param modelBoundsProperty
    * @param opticPositionProperty
@@ -47,15 +45,14 @@ class FramedObjectNode extends Node {
    * @param dragLockedProperty
    * @param providedOptions
    */
-  constructor( representationProperty: IReadOnlyProperty<Representation>,
-               framedObject: FramedObject,
+  constructor( framedObject: FramedObject,
                modelBoundsProperty: IReadOnlyProperty<Bounds2>,
                opticPositionProperty: IReadOnlyProperty<Vector2>,
                modelViewTransform: ModelViewTransform2,
                dragLockedProperty: IReadOnlyProperty<boolean>,
                providedOptions: FramedObjectNodeOptions ) {
 
-    const imageNode = new Image( representationProperty.value.rightFacingUpright );
+    const imageNode = new Image( framedObject.objectHTMLImageElementsProperty.value.rightFacingUpright );
 
     // Wrap imageNode in a Node. We need to scale imageNode, but do not want its focus highlight to scale.
     const wrappedImageNode = new Node( {
@@ -87,8 +84,8 @@ class FramedObjectNode extends Node {
     };
 
     // Change the PNG image.
-    representationProperty.link( representation => {
-      imageNode.image = representation.rightFacingUpright;
+    framedObject.objectHTMLImageElementsProperty.link( objectHTMLImageElements => {
+      imageNode.image = objectHTMLImageElements.rightFacingUpright;
       updateScale();
     } );
 

@@ -12,12 +12,16 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import geometricOptics from '../../geometricOptics.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Representation from './Representation.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OpticalObject, { OpticalObjectOptions } from './OpticalObject.js';
 import SecondPoint from './SecondPoint.js';
+import OpticalObjectChoice, { ObjectHTMLImageElements } from './OpticalObjectChoice.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 
 class FramedObject extends OpticalObject {
+
+  // x should be 1/2 of PNG file width. y should be the tip of the pencil. +x right, +y down.
+  public static ORIGIN_OFFSET = new Vector2( 68.5, 100 );
 
   // a second point of interest on the framed object
   public readonly secondPoint: SecondPoint;
@@ -27,27 +31,52 @@ class FramedObject extends OpticalObject {
 
   private readonly resetFramedObject: () => void;
 
-  /**
-   * @param representationProperty
-   * @param options
-   */
-  constructor( representationProperty: IReadOnlyProperty<Representation>, options: OpticalObjectOptions ) {
+  // Where the point of interest is relative to the left-top corner of PNG files for framed objects.
+  // This is specific to the object PNG files, and must be uniform for all object PNG files.
+  // View-to-model scale for associated HTMLImageElement
+  public static SCALE_FACTOR = 0.25;
+  public readonly objectHTMLImageElementsProperty: IReadOnlyProperty<ObjectHTMLImageElements>;
 
-    super( options );
+  /**
+   * @param opticalObjectChoiceProperty
+   * @param providedOptions
+   */
+  constructor( opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>, providedOptions: OpticalObjectOptions ) {
+
+    super( providedOptions );
+
+    this.objectHTMLImageElementsProperty = new DerivedProperty(
+      [ opticalObjectChoiceProperty ], ( opticalObjectChoice: OpticalObjectChoice ) => {
+        let objectHTMLImageElements = opticalObjectChoice.objectHTMLImageElements;
+
+        // If the object choice isn't a framed object, first fallback is to keep our current value.
+        if ( !objectHTMLImageElements ) {
+          objectHTMLImageElements = this.objectHTMLImageElementsProperty.value;
+        }
+
+        // If we didn't have a current value, second fallback is PENCIL.
+        if ( !objectHTMLImageElements ) {
+          assert && assert( OpticalObjectChoice.PENCIL.objectHTMLImageElements );
+          objectHTMLImageElements = OpticalObjectChoice.PENCIL.objectHTMLImageElements!;
+        }
+
+        return objectHTMLImageElements;
+      }
+    );
 
     this.secondPoint = new SecondPoint( this.positionProperty );
 
     this.boundsProperty = new DerivedProperty(
-      [ representationProperty, this.positionProperty ],
-      ( representation: Representation, position: Vector2 ) => {
+      [ this.objectHTMLImageElementsProperty, this.positionProperty ],
+      ( htmlImageElements: ObjectHTMLImageElements, position: Vector2 ) => {
 
-        const scaleFactor = representation.scaleFactor;
+        const scaleFactor = FramedObject.SCALE_FACTOR;
 
-        const htmlImageElementWidth = representation.rightFacingUpright.width;
-        const htmlImageElementHeight = representation.rightFacingUpright.height;
+        const htmlImageElementWidth = htmlImageElements.rightFacingUpright.width;
+        const htmlImageElementHeight = htmlImageElements.rightFacingUpright.height;
         const size = new Dimension2( scaleFactor * htmlImageElementWidth, scaleFactor * htmlImageElementHeight );
 
-        const origin = representation.rightFacingUprightOrigin.timesScalar( scaleFactor );
+        const origin = FramedObject.ORIGIN_OFFSET.timesScalar( scaleFactor );
         const offsetX = origin.x;
         const offsetY = -origin.y;  // flip sign of offset.y because +y is up in the model
         const left = position.x - offsetX;
@@ -56,7 +85,7 @@ class FramedObject extends OpticalObject {
         return size.toBounds( left, bottom );
       }, {
 
-        // Because changing representationProperty may necessitate changing positionProperty to move
+        // Because changing objectHTMLImageElementsProperty may necessitate changing positionProperty to move
         // the Object inside the view's drag bounds, resulting in this derivation being called again.
         reentrant: true
       } );
