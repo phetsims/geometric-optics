@@ -70,7 +70,7 @@ type RulerHotkeysData = {
   lightSource1PositionProperty: IReadOnlyProperty<Vector2> | null,
   lightSource2PositionProperty: IReadOnlyProperty<Vector2> | null
 
-  //TODO add fields for ArrowsScene
+  //TODO add fields for ArrowsScene, modify hotkey callbacks
 };
 
 class GORulerNode extends Node {
