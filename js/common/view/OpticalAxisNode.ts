@@ -16,12 +16,14 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Line } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 
 type OpticalAxisNodeOptions = {
   stroke?: ColorDef,
-  visibleProperty: IProperty<boolean>
+  visibleProperty: IProperty<boolean>,
+  tandem?: Tandem
 };
 
 class OpticalAxisNode extends Line {

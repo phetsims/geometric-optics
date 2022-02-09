@@ -9,8 +9,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 import Vector2 from '../../../../dot/js/Vector2.js';
+import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Circle, Node, Rectangle } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import GOColors from '../../common/GOColors.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from '../model/Guide.js';
@@ -25,6 +27,10 @@ const FULCRUM_OPTIONS = {
 };
 const ARM_STROKE = GOColors.guideStrokeProperty;
 
+type GuideNodeOptions = {
+ tandem: Tandem
+};
+
 class GuideNode extends Node {
 
   private readonly guide: Guide;
@@ -34,8 +40,9 @@ class GuideNode extends Node {
    * @param guide
    * @param armColor
    * @param modelViewTransform
+   * @param providedOptions
    */
-  constructor( guide: Guide, armColor: ColorDef, modelViewTransform: ModelViewTransform2 ) {
+  constructor( guide: Guide, armColor: ColorDef, modelViewTransform: ModelViewTransform2, providedOptions: GuideNodeOptions ) {
 
     const fulcrumNode = new Circle( FULCRUM_RADIUS, FULCRUM_OPTIONS );
 
@@ -47,11 +54,18 @@ class GuideNode extends Node {
     const incidentArmNode = new Rectangle( fulcrumNode.x, fulcrumNode.y - ARM_HEIGHT / 2, ARM_WIDTH, ARM_HEIGHT, armOptions );
     const transmittedArmNode = new Rectangle( fulcrumNode.x, fulcrumNode.y - ARM_HEIGHT / 2, ARM_WIDTH, ARM_HEIGHT, armOptions );
 
-    super( {
-      children: [ incidentArmNode, transmittedArmNode, fulcrumNode ]
-    } );
+    const options = merge( {
+      children: [ incidentArmNode, transmittedArmNode, fulcrumNode ],
+      phetioVisiblePropertyInstrumented: false
+    }, providedOptions );
+
+    super( options );
 
     this.guide = guide;
+    this.addLinkedElement( guide, {
+      tandem: options.tandem.createTandem( 'guide' )
+    } );
+
     this.modelViewTransform = modelViewTransform;
 
     guide.fulcrumPositionProperty.link( fulcrumPosition => {

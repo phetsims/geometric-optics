@@ -18,7 +18,7 @@ import IProperty from '../../../../axon/js/IProperty.js';
 type GuidesNodeOptions = {
   visibleProperty: IProperty<boolean>,
   tandem: Tandem,
-  phetioDocumentation: string
+  phetioDocumentation?: string
 };
 
 class GuidesNode extends Node {
@@ -34,8 +34,12 @@ class GuidesNode extends Node {
                modelViewTransform: ModelViewTransform2, providedOptions: GuidesNodeOptions ) {
     super( merge( {
       children: [
-        new GuideNode( topGuide, armColor, modelViewTransform ),
-        new GuideNode( bottomGuide, armColor, modelViewTransform )
+        new GuideNode( topGuide, armColor, modelViewTransform, {
+          tandem: providedOptions.tandem.createTandem( 'topGuideNode' )
+        } ),
+        new GuideNode( bottomGuide, armColor, modelViewTransform, {
+          tandem: providedOptions.tandem.createTandem( 'bottomGuideNode' )
+        } )
       ]
     }, providedOptions ) );
   }

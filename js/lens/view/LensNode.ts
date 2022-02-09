@@ -11,10 +11,8 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
-import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Line, Node, Path } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../../common/GOColors.js';
 import Lens from '../model/Lens.js';
@@ -24,6 +22,8 @@ import Matrix3 from '../../../../dot/js/Matrix3.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
 import OriginNode from '../../common/view/OriginNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import merge from '../../../../phet-core/js/merge.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 const FILL = GOColors.lensFillProperty;
@@ -48,6 +48,10 @@ class LensNode extends Node {
                modelBoundsProperty: IReadOnlyProperty<Bounds2>,
                modelViewTransform: ModelViewTransform2,
                providedOptions: LensNodeOptions ) {
+
+    const options = merge( {
+      phetioVisiblePropertyInstrumented: false
+    }, providedOptions );
 
     const fillNode = new Path( null, {
       fill: FILL
@@ -74,7 +78,7 @@ class LensNode extends Node {
 
     super( merge( {
       children: children
-    }, providedOptions ) );
+    }, options ) );
 
     // Shapes are described in model coordinates. Scale them to view coordinates.
     // Translation is handled by lens.positionProperty listener.
@@ -105,6 +109,10 @@ class LensNode extends Node {
         return Utils.linear( range.min, range.max, 0.2, 1, indexOfRefraction );
       } );
     opacityProperty.linkAttribute( fillNode, 'opacity' );
+
+    this.addLinkedElement( lens, {
+      tandem: options.tandem.createTandem( 'lens' )
+    } );
   }
 
   public dispose(): void {

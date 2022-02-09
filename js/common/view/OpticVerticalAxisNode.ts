@@ -8,18 +8,12 @@
  */
 
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Node, Path } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import Optic from '../model/Optic.js';
 import { RaysType } from '../model/RaysType.js';
-
-type OpticVerticalAxisNodeOptions = {
-  tandem: Tandem
-};
 
 class OpticVerticalAxisNode extends Node {
 
@@ -27,12 +21,10 @@ class OpticVerticalAxisNode extends Node {
    * @param optic
    * @param raysTypeProperty
    * @param modelViewTransform
-   * @param providedOptions
    */
   constructor( optic: Optic,
                raysTypeProperty: IReadOnlyProperty<RaysType>,
-               modelViewTransform: ModelViewTransform2,
-               providedOptions: OpticVerticalAxisNodeOptions ) {
+               modelViewTransform: ModelViewTransform2 ) {
 
     // Create a vertical dashed line through the optic, indicating the crossing plane of Principal rays.
     // See https://github.com/phetsims/geometric-optics/issues/140 for decisions about the look of this axis.
@@ -42,9 +34,9 @@ class OpticVerticalAxisNode extends Node {
       opacity: 0.4
     } );
 
-    super( merge( {
+    super( {
       children: [ lineNode ]
-    }, providedOptions ) );
+    } );
 
     // Make lineNode visible when Rays mode is Principal
     raysTypeProperty.link( raysType => {

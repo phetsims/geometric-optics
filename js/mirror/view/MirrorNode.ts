@@ -8,10 +8,8 @@
  */
 
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Node, Path } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../../common/GOColors.js';
 import Mirror from '../model/Mirror.js';
@@ -21,6 +19,8 @@ import Matrix3 from '../../../../dot/js/Matrix3.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
 import OriginNode from '../../common/view/OriginNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import merge from '../../../../phet-core/js/merge.js';
 
 // constants
 const FILL = GOColors.mirrorBackingColorProperty;
@@ -46,6 +46,10 @@ class MirrorNode extends Node {
                modelViewTransform: ModelViewTransform2,
                providedOptions: MirrorNodeOptions ) {
 
+    const options = merge( {
+      phetioVisiblePropertyInstrumented: false
+    }, providedOptions );
+
     // the mirror's backing
     const backingNode = new Path( null, {
       fill: FILL
@@ -66,7 +70,7 @@ class MirrorNode extends Node {
 
     super( merge( {
       children: children
-    }, providedOptions ) );
+    }, options ) );
 
     // Shapes are described in model coordinates. Scale them to view coordinates.
     // Translation is handled by mirror.positionProperty listener.
@@ -79,6 +83,10 @@ class MirrorNode extends Node {
 
     mirror.positionProperty.link( position => {
       this.translation = modelViewTransform.modelToViewPosition( position );
+    } );
+
+    this.addLinkedElement( mirror, {
+      tandem: options.tandem.createTandem( 'mirror' )
     } );
   }
 

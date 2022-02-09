@@ -34,6 +34,7 @@ import VirtualLightRaysNode from './VirtualLightRaysNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import GuidesNode from '../../lens/view/GuidesNode.js';
 import { RulerHotkeysData } from './GORulerNode.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 
 type FramedObjectSceneNodeOptions = {
 
@@ -68,7 +69,7 @@ class FramedObjectSceneNode extends Node {
                providedOptions: FramedObjectSceneNodeOptions ) {
 
     const options = merge( {
-      //TODO
+      visiblePropertyOptions: { phetioReadOnly: true }
     }, providedOptions );
 
     super( options );
@@ -79,12 +80,11 @@ class FramedObjectSceneNode extends Node {
       scene.optic.positionProperty,
       modelVisibleBoundsProperty,
       modelViewTransform, {
-        visibleProperty: visibleProperties.opticalAxisVisibleProperty
+        visibleProperty: visibleProperties.opticalAxisVisibleProperty,
+        tandem: options.tandem.createTandem( 'opticalAxisNode' )
       } );
 
-    const opticVerticalAxisNode = new OpticVerticalAxisNode( scene.optic, raysTypeProperty, modelViewTransform, {
-      tandem: options.tandem.createTandem( 'opticVerticalAxisNode' )
-    } );
+    const opticVerticalAxisNode = new OpticVerticalAxisNode( scene.optic, raysTypeProperty, modelViewTransform );
 
     // focal points (F)
     const focalPointsNode = new Node( {
@@ -197,19 +197,22 @@ class FramedObjectSceneNode extends Node {
         GOColors.guideArm1FillProperty, modelViewTransform, {
           visibleProperty: visibleProperties.guidesVisibleProperty,
           tandem: options.tandem.createTandem( 'guides1Node' ),
-          phetioDocumentation: 'TODO'
+          phetioDocumentation: 'guides associated with the first point-of-interest'
         } );
       this.addChild( guides1Node );
     }
 
     if ( scene.topGuide2 && scene.bottomGuide2 ) {
+      const guides2Tandem = options.tandem.createTandem( 'guides2Node' );
       const guides2Node = new GuidesNode( scene.topGuide2, scene.bottomGuide2,
         GOColors.guideArm2FillProperty, modelViewTransform, {
           visibleProperty: DerivedProperty.and(
-            [ visibleProperties.guidesVisibleProperty, visibleProperties.secondPointVisibleProperty ]
-          ),
-          tandem: options.tandem.createTandem( 'guides2Node' ),
-          phetioDocumentation: 'TODO'
+            [ visibleProperties.guidesVisibleProperty, visibleProperties.secondPointVisibleProperty ], {
+              tandem: guides2Tandem.createTandem( 'visibleProperty' ),
+              phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
+            } ),
+          tandem: guides2Tandem,
+          phetioDocumentation: 'guides associated with the second point-of-interest'
         } );
       this.addChild( guides2Node );
     }
