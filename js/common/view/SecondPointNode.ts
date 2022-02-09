@@ -1,7 +1,7 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * SecondPointNode is the view of the second point of interest on a framed object.
+ * SecondPointNode is the view of the second point-of-interest on a framed object.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)

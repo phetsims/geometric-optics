@@ -45,7 +45,7 @@ class LightSource extends OpticalObject {
 
     this.htmlImageElement = options.htmlImageElement;
 
-    // Where the point of interest is relative to the left-top corner of PNG files for light sources.
+    // Where the point-of-interest is relative to the left-top corner of PNG files for light sources.
     // This value is specific to the lamp*.png files, and must be uniform for all lamp*.png files.
     // This should be at the right-center of the light's bulb. +x right, +y down.
     this.originOffset = new Vector2( 62, 40 );

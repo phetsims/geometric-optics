@@ -131,14 +131,14 @@ class LightSourcesSceneNode extends Node {
         visibleProperty: visibleProperties.opticalAxisVisibleProperty
       } );
 
-    // Real light rays associated with the first point of interest (the Object's position).
+    // Real light rays associated with the first light source.
     // Note that virtual rays are not shown in this scene, because no optical image is being formed.
     const realLightRays1Node = new RealLightRaysNode( scene.lightRays1, modelViewTransform, {
       stroke: GOColors.rays1StrokeProperty,
       visibleProperty: visibleProperties.raysAndImagesVisibleProperty
     } );
 
-    // Real light rays associated with the second point of interest.
+    // Real light rays associated with the second light source.
     // Note that virtual rays are not shown in this scene, because no optical image is being formed.
     const realLightRays2Node = new RealLightRaysNode( scene.lightRays2, modelViewTransform, {
       stroke: GOColors.rays2StrokeProperty,
@@ -169,24 +169,22 @@ class LightSourcesSceneNode extends Node {
       // DO NOT instrument for PhET-iO, see https://github.com/phetsims/geometric-optics/issues/269
     } );
 
-    const guides1Node = new GuidesNode( scene.topGuide1, scene.bottomGuide1,
-      GOColors.guideArm1FillProperty, modelViewTransform, {
-        visibleProperty: visibleProperties.guidesVisibleProperty,
-        tandem: options.tandem.createTandem( 'guides1Node' ),
-        phetioDocumentation: 'guides associated with the first point-of-interest'
-      } );
+    const guides1Node = new GuidesNode( scene.guides1, GOColors.guideArm1FillProperty, modelViewTransform, {
+      visibleProperty: visibleProperties.guidesVisibleProperty,
+      tandem: options.tandem.createTandem( 'guides1Node' ),
+      phetioDocumentation: 'guides associated with the first light source'
+    } );
 
     const guides2Tandem = options.tandem.createTandem( 'guides2Node' );
-    const guides2Node = new GuidesNode( scene.topGuide2, scene.bottomGuide2,
-      GOColors.guideArm2FillProperty, modelViewTransform, {
-        visibleProperty: DerivedProperty.and(
-          [ visibleProperties.guidesVisibleProperty, visibleProperties.secondPointVisibleProperty ], {
-            tandem: guides2Tandem.createTandem( 'visibleProperty' ),
-            phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
-          } ),
-        tandem: guides2Tandem,
-        phetioDocumentation: 'guides associated with the second point-of-interest'
-      } );
+    const guides2Node = new GuidesNode( scene.guides2, GOColors.guideArm2FillProperty, modelViewTransform, {
+      visibleProperty: DerivedProperty.and(
+        [ visibleProperties.guidesVisibleProperty, visibleProperties.secondPointVisibleProperty ], {
+          tandem: guides2Tandem.createTandem( 'visibleProperty' ),
+          phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
+        } ),
+      tandem: guides2Tandem,
+      phetioDocumentation: 'guides associated with the second list source'
+    } );
 
     this.children = [
       opticalAxisNode,

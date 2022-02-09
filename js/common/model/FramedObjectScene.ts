@@ -22,9 +22,9 @@ import LightRays from './LightRays.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OpticalObjectChoice from './OpticalObjectChoice.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import Guide from '../../lens/model/Guide.js';
 import Lens from '../../lens/model/Lens.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
+import Guides from '../../lens/model/Guides.js';
 
 type FramedObjectSceneOptions = {
 
@@ -44,10 +44,8 @@ class FramedObjectScene extends PhetioObject {
   readonly lightRaysAnimationTimeProperty: NumberProperty;
   readonly lightRays1: LightRays;
   readonly lightRays2: LightRays;
-  readonly topGuide1: Guide | null;
-  readonly bottomGuide1: Guide | null;
-  readonly topGuide2: Guide | null;
-  readonly bottomGuide2: Guide | null;
+  readonly guides1: Guides | null;
+  readonly guides2: Guides | null;
 
   /**
    * @param opticalObjectChoiceProperty
@@ -116,31 +114,18 @@ class FramedObjectScene extends PhetioObject {
     // Guides
     if ( optic instanceof Lens ) {
 
-      const guides1Tandem = options.tandem.createTandem( 'guides1' );
-      this.topGuide1 = new Guide( this.optic, this.framedObject.positionProperty, 'top', {
-        tandem: guides1Tandem.createTandem( 'topGuide' ),
-        phetioDocumentation: 'TODO'
+      this.guides1 = new Guides( this.optic, this.framedObject.positionProperty, {
+        tandem: options.tandem.createTandem( 'guides1' ),
+        phetioDocumentation: 'guides associated with the first point-of-interest on the framed object'
       } );
-      this.bottomGuide1 = new Guide( this.optic, this.framedObject.positionProperty, 'bottom', {
-        tandem: guides1Tandem.createTandem( 'bottomGuide' ),
-        phetioDocumentation: 'TODO'
-      } );
-
-      const guides2Tandem = options.tandem.createTandem( 'guides2' );
-      this.topGuide2 = new Guide( this.optic, this.framedObject.secondPoint.positionProperty, 'top', {
-        tandem: guides2Tandem.createTandem( 'topGuide' ),
-        phetioDocumentation: 'TODO'
-      } );
-      this.bottomGuide2 = new Guide( this.optic, this.framedObject.secondPoint.positionProperty, 'bottom', {
-        tandem: guides2Tandem.createTandem( 'bottomGuide' ),
-        phetioDocumentation: 'TODO'
+      this.guides2 = new Guides( this.optic, this.framedObject.secondPoint.positionProperty, {
+        tandem: options.tandem.createTandem( 'guides2' ),
+        phetioDocumentation: 'guides associated with the second point-of-interest on the framed object'
       } );
     }
     else {
-      this.topGuide1 = null;
-      this.bottomGuide1 = null;
-      this.topGuide2 = null;
-      this.bottomGuide2 = null;
+      this.guides1 = null;
+      this.guides2 = null;
     }
   }
 

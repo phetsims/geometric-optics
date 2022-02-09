@@ -20,8 +20,7 @@ import geometricOptics from '../../geometricOptics.js';
 type GuideLocation = 'top' | 'bottom';
 
 type GuideOptions = {
-  tandem: Tandem,
-  phetioDocumentation: string
+  tandem: Tandem
 };
 
 class Guide extends PhetioObject {

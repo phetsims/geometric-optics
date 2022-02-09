@@ -136,7 +136,7 @@ class FramedObjectSceneNode extends Node {
         visibleProperty: visibleProperties.opticalAxisVisibleProperty
       } );
 
-    // Light rays (real & virtual) associated with the first point of interest (the framed object's position).
+    // Light rays (real & virtual) associated with the first point-of-interest (the framed object's position).
     const realLightRays1Options = {
       stroke: GOColors.rays1StrokeProperty,
       visibleProperty: visibleProperties.raysAndImagesVisibleProperty
@@ -153,7 +153,7 @@ class FramedObjectSceneNode extends Node {
       ] )
     } );
 
-    // Light rays (real & virtual) associated with the second point of interest (also on the framed object).
+    // Light rays (real & virtual) associated with the second point-of-interest (also on the framed object).
     const realLightRays2Options = {
       stroke: GOColors.rays2StrokeProperty,
       visibleProperty: DerivedProperty.and( [
@@ -192,27 +192,25 @@ class FramedObjectSceneNode extends Node {
       secondPointNode
     ];
 
-    if ( scene.topGuide1 && scene.bottomGuide1 ) {
-      const guides1Node = new GuidesNode( scene.topGuide1, scene.bottomGuide1,
-        GOColors.guideArm1FillProperty, modelViewTransform, {
-          visibleProperty: visibleProperties.guidesVisibleProperty,
-          tandem: options.tandem.createTandem( 'guides1Node' ),
-          phetioDocumentation: 'guides associated with the first point-of-interest'
-        } );
+    if ( scene.guides1 ) {
+      const guides1Node = new GuidesNode( scene.guides1, GOColors.guideArm1FillProperty, modelViewTransform, {
+        visibleProperty: visibleProperties.guidesVisibleProperty,
+        tandem: options.tandem.createTandem( 'guides1Node' ),
+        phetioDocumentation: 'guides associated with the first point-of-interest on the framed object'
+      } );
       this.addChild( guides1Node );
     }
 
-    if ( scene.topGuide2 && scene.bottomGuide2 ) {
+    if ( scene.guides2 ) {
       const guides2Tandem = options.tandem.createTandem( 'guides2Node' );
-      const guides2Node = new GuidesNode( scene.topGuide2, scene.bottomGuide2,
-        GOColors.guideArm2FillProperty, modelViewTransform, {
+      const guides2Node = new GuidesNode( scene.guides2, GOColors.guideArm2FillProperty, modelViewTransform, {
           visibleProperty: DerivedProperty.and(
             [ visibleProperties.guidesVisibleProperty, visibleProperties.secondPointVisibleProperty ], {
               tandem: guides2Tandem.createTandem( 'visibleProperty' ),
               phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
             } ),
           tandem: guides2Tandem,
-          phetioDocumentation: 'guides associated with the second point-of-interest'
+          phetioDocumentation: 'guides associated with the second point-of-interest on the framed object'
         } );
       this.addChild( guides2Node );
     }

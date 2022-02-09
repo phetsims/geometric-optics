@@ -23,7 +23,7 @@ class FramedObject extends OpticalObject {
   // x should be 1/2 of PNG file width. y should be the tip of the pencil. +x right, +y down.
   public static ORIGIN_OFFSET = new Vector2( 68.5, 100 );
 
-  // a second point of interest on the framed object
+  // a second point-of-interest on the framed object
   public readonly secondPoint: SecondPoint;
 
   // model bounds of the Object's visual representation
@@ -31,7 +31,7 @@ class FramedObject extends OpticalObject {
 
   private readonly resetFramedObject: () => void;
 
-  // Where the point of interest is relative to the left-top corner of PNG files for framed objects.
+  // Where the point-of-interest is relative to the left-top corner of PNG files for framed objects.
   // This is specific to the object PNG files, and must be uniform for all object PNG files.
   // View-to-model scale for associated HTMLImageElement
   public static SCALE_FACTOR = 0.25;

@@ -19,13 +19,13 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import LightRays from '../../common/model/LightRays.js';
 import ProjectionScreen from '../../lens/model/ProjectionScreen.js';
 import LightSpot from '../../lens/model/LightSpot.js';
-import Guide from '../../lens/model/Guide.js';
 import LightSource from './LightSource.js';
 import lamp2_png from '../../../images/lamp2_png.js';
 import lamp1_png from '../../../images/lamp1_png.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OpticalImage from '../../common/model/OpticalImage.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
+import Guides from './Guides.js';
 
 type LightSourcesSceneOptions = {
 
@@ -46,10 +46,8 @@ class LightSourcesScene extends PhetioObject {
   readonly lightRays2: LightRays;
   readonly lightSpot1: LightSpot;
   readonly lightSpot2: LightSpot;
-  readonly topGuide1: Guide;
-  readonly bottomGuide1: Guide;
-  readonly topGuide2: Guide;
-  readonly bottomGuide2: Guide;
+  readonly guides1: Guides;
+  readonly guides2: Guides;
 
   /**
    * @param optic
@@ -139,24 +137,13 @@ class LightSourcesScene extends PhetioObject {
       } );
 
     // Guides
-    const guides1Tandem = options.tandem.createTandem( 'guides1' );
-    this.topGuide1 = new Guide( this.optic, this.lightSource1.positionProperty, 'top', {
-      tandem: guides1Tandem.createTandem( 'topGuide' ),
-      phetioDocumentation: 'TODO'
+    this.guides1 = new Guides( this.optic, this.lightSource1.positionProperty, {
+      tandem: options.tandem.createTandem( 'guides1' ),
+      phetioDocumentation: 'guides associated with the first light source'
     } );
-    this.bottomGuide1 = new Guide( this.optic, this.lightSource1.positionProperty, 'bottom', {
-      tandem: guides1Tandem.createTandem( 'bottomGuide' ),
-      phetioDocumentation: 'TODO'
-    } );
-
-    const guides2Tandem = options.tandem.createTandem( 'guides2' );
-    this.topGuide2 = new Guide( this.optic, this.lightSource2.positionProperty, 'top', {
-      tandem: guides2Tandem.createTandem( 'topGuide' ),
-      phetioDocumentation: 'TODO'
-    } );
-    this.bottomGuide2 = new Guide( this.optic, this.lightSource2.positionProperty, 'bottom', {
-      tandem: guides2Tandem.createTandem( 'bottomGuide' ),
-      phetioDocumentation: 'TODO'
+    this.guides2 = new Guides( this.optic, this.lightSource2.positionProperty, {
+      tandem: options.tandem.createTandem( 'guides2' ),
+      phetioDocumentation: 'guides associated with the second light source'
     } );
   }
 
