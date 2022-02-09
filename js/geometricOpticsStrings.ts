@@ -59,8 +59,8 @@ type StringsType = {
     'returnToToolbox': string,
     'jumpToLens': string,
     'jumpToMirror': string,
-    'jumpToObject': string,
-    'jumpToSecondPointOrLightSource': string,
+    'jumpToFirstObject': string,
+    'jumpToSecondObject': string,
     'jumpToImage': string,
     'comboBoxOption': string
   }

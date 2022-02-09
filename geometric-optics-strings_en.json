@@ -137,11 +137,11 @@
   "keyboardHelpDialog.jumpToMirror": {
     "value": "Jump to Mirror"
   },
-  "keyboardHelpDialog.jumpToObject": {
-    "value": "Jump to Object or first light source"
+  "keyboardHelpDialog.jumpToFirstObject": {
+    "value": "Jump to first Object"
   },
-  "keyboardHelpDialog.jumpToSecondPointOrLightSource": {
-    "value": "Jump to Second point or light source"
+  "keyboardHelpDialog.jumpToSecondObject": {
+    "value": "Jump to Second object"
   },
   "keyboardHelpDialog.jumpToImage": {
     "value": "Jump to Image"
