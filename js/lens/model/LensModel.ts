@@ -23,6 +23,7 @@ type LensModelOptions = {
 class LensModel extends GOModel {
 
   readonly lightSourcesScene: LightSourcesScene;
+  readonly resetLensModel: () => void;
 
   /**
    * @param providedOptions
@@ -55,11 +56,15 @@ class LensModel extends GOModel {
     this.lightSourcesScene = new LightSourcesScene( this.optic, this.raysTypeProperty, {
       tandem: this.scenesTandem.createTandem( 'lightSourcesScene' )
     } );
+
+    this.resetLensModel = () => {
+      this.lightSourcesScene.reset();
+    };
   }
 
-  reset() {
+  public reset(): void {
     super.reset();
-    this.lightSourcesScene.reset();
+    this.resetLensModel();
   }
 
   public stepLightRays( dt: number ): void {

@@ -37,6 +37,8 @@ class ProjectionScreen {
   // line that vertically bisects the screen, relative to positionProperty
   private readonly bisectorLine: Shape;
 
+  private readonly resetProjectionScreen: () => void;
+
   constructor( options: ProjectionScreenOptions ) {
 
     this.positionProperty = new Vector2Property( new Vector2( 200, 0 ), {
@@ -56,10 +58,14 @@ class ProjectionScreen {
     this.bisectorLine = new Shape()
       .moveTo( 0, averageScreenHeight / 2 )
       .lineTo( 0, -averageScreenHeight / 2 );
+
+    this.resetProjectionScreen = () => {
+      this.positionProperty.reset();
+    };
   }
 
   public reset(): void {
-    this.positionProperty.reset();
+    this.resetProjectionScreen();
   }
 
   /**

@@ -48,6 +48,7 @@ class FramedObjectScene extends PhetioObject {
   readonly lightRays2: LightRays;
   readonly guides1: Guides | null;
   readonly guides2: Guides | null;
+  private readonly resetFramedObjectScene: () => void;
 
   /**
    * @param opticalObjectChoiceProperty
@@ -134,13 +135,17 @@ class FramedObjectScene extends PhetioObject {
       this.guides1 = null;
       this.guides2 = null;
     }
+
+    //TODO is this complete?
+    this.resetFramedObjectScene = () => {
+      this.framedObject.reset();
+      this.secondPoint.reset();
+      this.lightRaysAnimationTimeProperty.reset();
+    };
   }
 
-  //TODO is this complete?
   public reset(): void {
-    this.framedObject.reset();
-    this.secondPoint.reset();
-    this.lightRaysAnimationTimeProperty.reset();
+    this.resetFramedObjectScene();
   }
 
   /**

@@ -233,7 +233,7 @@ class LightSourcesSceneNode extends Node {
     };
   }
 
-  reset() {
+  public reset(): void {
     this.resetLightSourcesSceneNode();
   }
 }

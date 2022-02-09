@@ -45,6 +45,8 @@ class VisibleProperties {
   // See https://github.com/phetsims/geometric-optics/issues/252
   readonly opticalAxisVisibleProperty: Property<boolean>;
 
+  private readonly resetVisibleProperties: () => void;
+
   /**
    * @param isLens
    * @param providedOptions
@@ -85,17 +87,21 @@ class VisibleProperties {
       tandem: providedOptions.tandem.createTandem( 'opticalAxisVisibleProperty' ),
       phetioDocumentation: 'PhET-iO only, not settable in the sim'
     } );
+
+    this.resetVisibleProperties = () => {
+      this.focalPointsVisibleProperty.reset();
+      this.twoFPointsVisibleProperty.reset();
+      this.virtualImageVisibleProperty.reset();
+      this.labelsVisibleProperty.reset();
+      this.secondPointVisibleProperty.reset();
+      this.guidesVisibleProperty.reset();
+      this.raysAndImagesVisibleProperty.reset();
+      // Do not reset opticalAxisVisibleProperty, it's PhET-iO only.
+    };
   }
 
   public reset(): void {
-    this.focalPointsVisibleProperty.reset();
-    this.twoFPointsVisibleProperty.reset();
-    this.virtualImageVisibleProperty.reset();
-    this.labelsVisibleProperty.reset();
-    this.secondPointVisibleProperty.reset();
-    this.guidesVisibleProperty.reset();
-    this.raysAndImagesVisibleProperty.reset();
-    // Do not reset opticalAxisVisibleProperty, it's PhET-iO only.
+    this.resetVisibleProperties();
   }
 }
 

@@ -48,6 +48,7 @@ class LightSourcesScene extends PhetioObject {
   readonly lightSpot2: LightSpot;
   readonly guides1: Guides;
   readonly guides2: Guides;
+  private readonly resetLightSourcesScene: () => void;
 
   /**
    * @param optic
@@ -145,14 +146,18 @@ class LightSourcesScene extends PhetioObject {
       tandem: options.tandem.createTandem( 'guides2' ),
       phetioDocumentation: 'guides associated with the second light source'
     } );
+
+    //TODO is this complete?
+    this.resetLightSourcesScene = () => {
+      this.lightSource1.reset();
+      this.lightSource2.reset();
+      this.lightRaysAnimationTimeProperty.reset();
+      this.projectionScreen.reset();
+    };
   }
 
-  //TODO is this complete?
   public reset(): void {
-    this.lightSource1.reset();
-    this.lightSource2.reset();
-    this.lightRaysAnimationTimeProperty.reset();
-    this.projectionScreen.reset();
+    this.resetLightSourcesScene();
   }
 
   //TODO duplicated in FramedObjectScene

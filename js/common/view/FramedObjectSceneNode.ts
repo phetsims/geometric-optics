@@ -244,7 +244,7 @@ class FramedObjectSceneNode extends Node {
     };
   }
 
-  reset() {
+  public reset(): void {
     this.resetFrameObjectSceneNode();
   }
 }

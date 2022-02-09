@@ -98,6 +98,8 @@ abstract class Optic extends PhetioObject {
   readonly left2FProperty: IReadOnlyProperty<Vector2>;
   readonly right2FProperty: IReadOnlyProperty<Vector2>;
 
+  private readonly resetOptic: () => void;
+
   /**
    * @param providedOptions
    */
@@ -216,6 +218,14 @@ abstract class Optic extends PhetioObject {
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
         phetioDocumentation: 'point 2F, at a distance 2f to the right of the optic'
       } );
+
+    this.resetOptic = () => {
+      this.opticShapeProperty.reset();
+      this.positionProperty.reset();
+      this.radiusOfCurvatureProperty.reset();
+      this.indexOfRefractionProperty.reset();
+      this.diameterProperty.reset();
+    };
   }
 
   /**
@@ -228,11 +238,7 @@ abstract class Optic extends PhetioObject {
   }
 
   public reset(): void {
-    this.opticShapeProperty.reset();
-    this.positionProperty.reset();
-    this.radiusOfCurvatureProperty.reset();
-    this.indexOfRefractionProperty.reset();
-    this.diameterProperty.reset();
+    this.resetOptic();
   }
 
   /**

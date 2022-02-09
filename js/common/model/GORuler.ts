@@ -42,6 +42,8 @@ class GORuler {
 
   readonly visibleProperty: Property<boolean>;
 
+  private readonly resetGORuler: () => void;
+
   /**
    * @param providedOptions
    */
@@ -69,11 +71,15 @@ class GORuler {
     this.visibleProperty = new BooleanProperty( false, {
       tandem: options.tandem.createTandem( 'visibleProperty' )
     } );
+
+    this.resetGORuler = () => {
+      this.positionProperty.reset();
+      this.visibleProperty.reset();
+    };
   }
 
   public reset(): void {
-    this.positionProperty.reset();
-    this.visibleProperty.reset();
+    this.resetGORuler();
   }
 
   /**

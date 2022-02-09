@@ -31,6 +31,7 @@ type OpticalObjectOptions = {
 class OpticalObject extends PhetioObject {
 
   public readonly positionProperty: Property<Vector2>;
+  private readonly resetOpticalObject: () => void;
 
   /**
    * @param providedOptions
@@ -47,10 +48,14 @@ class OpticalObject extends PhetioObject {
     this.positionProperty = new Vector2Property( options.position, {
       tandem: options.tandem.createTandem( 'positionProperty' )
     } );
+
+    this.resetOpticalObject = () => {
+      this.positionProperty.reset();
+    };
   }
 
   public reset(): void {
-    this.positionProperty.reset();
+    this.resetOpticalObject();
   }
 }
 

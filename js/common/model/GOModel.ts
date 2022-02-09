@@ -58,6 +58,8 @@ class GOModel {
   // Scenes are grouped under this tandem
   protected readonly scenesTandem: Tandem;
 
+  private readonly resetGOModel: () => void;
+
   /**
    * @param optic
    * @param providedOptions
@@ -103,15 +105,19 @@ class GOModel {
     } );
 
     this.maxDistanceFromOpticalAxis = 100; // cm
+
+    this.resetGOModel = () => {
+      this.opticalObjectChoiceProperty.reset();
+      this.optic.reset();
+      this.raysTypeProperty.reset();
+      this.framedObjectScene.reset();
+      this.horizontalRuler.reset();
+      this.verticalRuler.reset();
+    };
   }
 
   public reset(): void {
-    this.opticalObjectChoiceProperty.reset();
-    this.optic.reset();
-    this.raysTypeProperty.reset();
-    this.framedObjectScene.reset();
-    this.horizontalRuler.reset();
-    this.verticalRuler.reset();
+    this.resetGOModel();
   }
 
   public stepLightRays( dt: number ): void {

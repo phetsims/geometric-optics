@@ -191,7 +191,7 @@ class ProjectionScreenNode extends Node {
     super.dispose();
   }
 
-  public reset() {
+  public reset(): void {
     this.resetProjectionScreenNode();
   }
 }

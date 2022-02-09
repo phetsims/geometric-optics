@@ -37,6 +37,8 @@ class SecondPoint extends PhetioObject {
 
   private readonly framedObjectPositionProperty: IReadOnlyProperty<Vector2>;
 
+  private readonly resetSecondPoint: () => void;
+
   /**
    * @param framedObjectPositionProperty
    * @param providedOptions
@@ -64,10 +66,14 @@ class SecondPoint extends PhetioObject {
       } );
 
     this.framedObjectPositionProperty = framedObjectPositionProperty;
+
+    this.resetSecondPoint = () => {
+      this.verticalOffsetProperty.reset();
+    };
   }
 
   public reset(): void {
-    this.verticalOffsetProperty.reset();
+    this.resetSecondPoint();
   }
 
   /**
