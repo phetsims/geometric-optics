@@ -54,23 +54,15 @@ type GORulerNodeOptions = {
 };
 
 //TODO this is a quick-and-dirty way to get rulers feature working again, revisit this
+// Describes points of interest that we can move to with hotkeys
 type RulerHotkeysData = {
-
-  // all scenes have this
   opticPositionProperty: IReadOnlyProperty<Vector2>,
-
-  // FramedObjectScene
-  framedObjectPositionProperty: IReadOnlyProperty<Vector2> | null,
-  framedImagePositionProperty: IReadOnlyProperty<Vector2> | null,
-  framedImageNodeVisibleProperty: IReadOnlyProperty<boolean> | null,
-  secondPointPositionProperty: IReadOnlyProperty<Vector2> | null,
-  secondPointVisibleProperty: IReadOnlyProperty<boolean> | null,
-
-  // LightSourcesScene
-  lightSource1PositionProperty: IReadOnlyProperty<Vector2> | null,
-  lightSource2PositionProperty: IReadOnlyProperty<Vector2> | null
-
-  //TODO add fields for ArrowsScene, modify hotkey callbacks
+  opticalObject1PositionProperty: IReadOnlyProperty<Vector2>,
+  opticalObject2PositionProperty: IReadOnlyProperty<Vector2>,
+  opticalObject2VisibleProperty: IReadOnlyProperty<boolean>,
+  opticalImage1PositionProperty: IReadOnlyProperty<Vector2> | null,
+  opticalImage1VisibleProperty: IReadOnlyProperty<boolean> | null,
+  //TODO do we need opticalImage2PositionProperty, for the 2nd arrow?
 };
 
 class GORulerNode extends Node {
@@ -239,41 +231,36 @@ class GORulerNode extends Node {
         keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_O ],
         callback: () => {
           if ( this.hotkeysData ) {
-            if ( this.hotkeysData.framedObjectPositionProperty ) {
-              moveRuler( ruler, this.hotkeysData.framedObjectPositionProperty.value, this.hotkeysData.opticPositionProperty.value.y );
-            }
-            else if ( this.hotkeysData.lightSource1PositionProperty ) {
-              moveRuler( ruler, this.hotkeysData.lightSource1PositionProperty.value, this.hotkeysData.opticPositionProperty.value.y );
-            }
+            moveRuler( ruler, this.hotkeysData.opticalObject1PositionProperty.value, this.hotkeysData.opticPositionProperty.value.y );
           }
         }
       },
 
       // J+I moves the ruler to the Image position.
-      // Ignored if no Image is visible, or if moving the ruler would put it outside the drag bounds.
+      // Ignored if no optical image is visible, or if moving the ruler would put it outside the drag bounds.
       {
         keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_I ],
         callback: () => {
           if ( this.hotkeysData ) {
-            if ( this.hotkeysData.framedImagePositionProperty &&
-                 this.hotkeysData.framedImageNodeVisibleProperty!.value &&
-                 dragBoundsProperty.value.containsPoint( this.hotkeysData.framedImagePositionProperty.value ) ) {
-              moveRuler( ruler, this.hotkeysData.framedImagePositionProperty.value, this.hotkeysData.opticPositionProperty.value.y );
+            if ( this.hotkeysData.opticalImage1PositionProperty &&
+                 this.hotkeysData.opticalImage1VisibleProperty &&
+                 this.hotkeysData.opticalImage1VisibleProperty.value &&
+                 dragBoundsProperty.value.containsPoint( this.hotkeysData.opticalImage1PositionProperty.value ) ) {
+              moveRuler( ruler, this.hotkeysData.opticalImage1PositionProperty.value, this.hotkeysData.opticPositionProperty.value.y );
             }
           }
         }
       },
 
-      // J+S moves the ruler to the second optical object.
+      // J+S moves the ruler to the second optical object. Ignored if there is no second optical object is visible.
       {
         keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_S ],
         callback: () => {
           if ( this.hotkeysData ) {
-            if ( this.hotkeysData.secondPointPositionProperty && this.hotkeysData.secondPointVisibleProperty!.value ) {
-              moveRuler( ruler, this.hotkeysData.secondPointPositionProperty.value, this.hotkeysData.opticPositionProperty.value.y );
-            }
-            else if ( this.hotkeysData.lightSource2PositionProperty && this.hotkeysData.secondPointVisibleProperty!.value ) {
-              moveRuler( ruler, this.hotkeysData.lightSource2PositionProperty.value, this.hotkeysData.opticPositionProperty.value.y );
+            if ( this.hotkeysData.opticalObject2PositionProperty &&
+                 this.hotkeysData.opticalObject2VisibleProperty &&
+                 this.hotkeysData.opticalObject2VisibleProperty.value ) {
+              moveRuler( ruler, this.hotkeysData.opticalObject2PositionProperty.value, this.hotkeysData.opticPositionProperty.value.y );
             }
           }
         }
@@ -295,7 +282,7 @@ class GORulerNode extends Node {
   public startDrag( event: SceneryEvent ): void {
     this.dragListener.press( event, this );
   }
-  
+
   public setHotkeysData( hotkeysData: RulerHotkeysData | null ) {
     this.hotkeysData = hotkeysData;
   }

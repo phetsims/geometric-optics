@@ -216,13 +216,11 @@ class LightSourcesSceneNode extends Node {
 
     this.rulerHotkeysData = {
       opticPositionProperty: scene.optic.positionProperty,
-      framedObjectPositionProperty: null,
-      framedImagePositionProperty: null,
-      framedImageNodeVisibleProperty: null,
-      secondPointPositionProperty: null,
-      secondPointVisibleProperty: visibleProperties.secondPointVisibleProperty,
-      lightSource1PositionProperty: scene.lightSource1.positionProperty,
-      lightSource2PositionProperty: scene.lightSource2.positionProperty
+      opticalObject1PositionProperty: scene.lightSource1.positionProperty,
+      opticalObject2PositionProperty: scene.lightSource2.positionProperty,
+      opticalObject2VisibleProperty: lightSource2Node.visibleProperty,
+      opticalImage1PositionProperty: null,
+      opticalImage1VisibleProperty: null
     };
 
     this.pdomOrder = [

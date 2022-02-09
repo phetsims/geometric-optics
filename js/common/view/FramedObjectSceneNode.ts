@@ -228,13 +228,11 @@ class FramedObjectSceneNode extends Node {
 
     this.rulerHotkeysData = {
       opticPositionProperty: scene.optic.positionProperty,
-      framedObjectPositionProperty: scene.framedObject.positionProperty,
-      framedImagePositionProperty: scene.framedImage1.positionProperty,
-      framedImageNodeVisibleProperty: framedImageNode.visibleProperty,
-      secondPointPositionProperty: scene.secondPoint.positionProperty,
-      secondPointVisibleProperty: visibleProperties.secondPointVisibleProperty,
-      lightSource1PositionProperty: null,
-      lightSource2PositionProperty: null
+      opticalObject1PositionProperty: scene.framedObject.positionProperty,
+      opticalObject2PositionProperty: scene.secondPoint.positionProperty,
+      opticalObject2VisibleProperty: secondPointNode.visibleProperty,
+      opticalImage1PositionProperty: scene.framedImage1.positionProperty,
+      opticalImage1VisibleProperty: framedImageNode.visibleProperty
     };
 
     this.pdomOrder = [
