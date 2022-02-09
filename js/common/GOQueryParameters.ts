@@ -4,8 +4,8 @@
  * Query parameters supported by the geometric-optics simulation.
  * Running with ?log will print these query parameters and their values to the console at startup.
  *
- * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
+ * @author Martin Veillette
  */
 
 import logGlobal from '../../../phet-core/js/logGlobal.js';
