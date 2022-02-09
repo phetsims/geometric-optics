@@ -278,7 +278,7 @@ class GOScreenView extends ScreenView {
       experimentAreaNode.translation = viewOrigin;
     } );
 
-    // Changing any of these Properties resets the animation time for rays.
+    // Changing any of these Properties causes the light rays to animate.
     Property.multilink(
       [ model.raysTypeProperty, visibleProperties.raysAndImagesVisibleProperty ],
       ( raysType: RaysType, raysAndImagesVisible: boolean ) =>

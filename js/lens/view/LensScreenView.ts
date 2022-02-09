@@ -94,7 +94,7 @@ class LensScreenView extends GOScreenView {
     }
 
     //TODO this is duplicated in GOScreenView for framedObjectScene
-    // Changing any of these Properties resets the animation time for rays.
+    // Changing any of these Properties causes the light rays to animate.
     Property.multilink(
       [ model.raysTypeProperty, this.visibleProperties.raysAndImagesVisibleProperty ],
       ( raysType: RaysType, raysAndImagesVisible: boolean ) =>
