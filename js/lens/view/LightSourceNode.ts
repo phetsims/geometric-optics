@@ -154,7 +154,7 @@ class LightSourceNode extends Node {
     // Keep cueing arrows next to the light source
     Property.multilink( [ wrappedImageNode.boundsProperty, cueingArrowsNode.boundsProperty ],
       ( wrappedImageNodeNodeBounds: Bounds2, cueingArrowsNodeBounds: Bounds2 ) => {
-        cueingArrowsNode.right = wrappedImageNode.left - 10;
+        cueingArrowsNode.right = wrappedImageNode.left - 5;
         cueingArrowsNode.centerY = wrappedImageNode.centerY;
       } );
 

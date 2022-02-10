@@ -162,7 +162,7 @@ class FramedObjectNode extends Node {
     // Keep cueing arrows next to the framed object.
     Property.multilink( [ wrappedImageNode.boundsProperty, cueingArrowsNode.boundsProperty ],
       ( wrappedImageNodeBounds: Bounds2, cueingArrowsNodeBounds: Bounds2 ) => {
-        cueingArrowsNode.right = wrappedImageNode.left - 10;
+        cueingArrowsNode.right = wrappedImageNode.left - 5;
         cueingArrowsNode.centerY = wrappedImageNode.centerY;
       } );
 
