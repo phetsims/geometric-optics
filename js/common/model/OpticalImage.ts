@@ -1,5 +1,6 @@
 // Copyright 2022, University of Colorado Boulder
 
+//TODO this entire class needs to be reviewed/revised
 /**
  * OpticalImage is the base class for all optical images. It describes where the image would occur, the point where
  * light rays intersect. What the image looks like is the responsibility of subclasses.
@@ -31,10 +32,10 @@ class OpticalImage extends PhetioObject {
   public readonly positionProperty: IReadOnlyProperty<Vector2>;
 
   // horizontal "distance" between Image and optic
+  //TODO visibleProperty should not be in the model
   //TODO reset?
   public readonly visibleProperty: Property<boolean>;
 
-  //TODO visibleProperty should not be in the model
   // For a mirror, the Image is virtual if the Image is on the opposite of the object
   readonly opticalImageTypeProperty: IReadOnlyProperty<OpticalImageType>;
 

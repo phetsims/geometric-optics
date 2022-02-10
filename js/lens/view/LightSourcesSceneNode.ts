@@ -1,6 +1,6 @@
 // Copyright 2022, University of Colorado Boulder
 
-//TODO factor out GOSceneNode that creates common things
+//TODO lots of duplication with FramedObjectSceneNode
 /**
  * LightSourcesSceneNode is the view of FramedObjectScene, the scene that uses a framed object.
  *

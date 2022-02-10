@@ -99,7 +99,6 @@ class LightSourcesScene extends PhetioObject {
       tandem: providedOptions.tandem.createTandem( 'projectionScreen' )
     } );
 
-    //TODO should each scene have this, or should it be shared by all scenes?
     this.lightRaysAnimationTimeProperty = new NumberProperty( 0, {
       units: 's',
       range: new Range( 0, 10 ), // determines the duration of the light rays animation
