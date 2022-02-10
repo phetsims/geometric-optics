@@ -1,5 +1,6 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
+//TODO this entire class needs to be reviewed/revised
 /**
  * FramedImage is the model of an optical image associated with a framed object.
  *
