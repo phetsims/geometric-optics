@@ -61,7 +61,7 @@ type RulerHotkeysData = {
   opticalObject2VisibleProperty: IReadOnlyProperty<boolean>,
   opticalImage1PositionProperty: IReadOnlyProperty<Vector2> | null,
   opticalImage1VisibleProperty: IReadOnlyProperty<boolean> | null,
-  //TODO do we need opticalImage2PositionProperty, for the 2nd arrow?
+  //TODO do we need opticalImage2PositionProperty and opticalImage2VisibleProperty, for the 2nd arrow?
 };
 
 class GORulerNode extends Node {
