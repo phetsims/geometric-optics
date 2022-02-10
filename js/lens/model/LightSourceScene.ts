@@ -1,5 +1,6 @@
 // Copyright 2022, University of Colorado Boulder
 
+//TODO lots of duplication with FramedObjectScene
 /**
  * LightSourceScene is a scene in rays from 2 light sources interact with an optic, and project light spots on
  * a projection screen.

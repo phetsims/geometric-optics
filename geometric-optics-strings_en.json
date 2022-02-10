@@ -77,6 +77,9 @@
   "valueCentimetersPattern": {
     "value": "{{value}} cm"
   },
+  "arrow": {
+    "value": "Arrow"
+  },
   "pencil": {
     "value": "Pencil"
   },

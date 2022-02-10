@@ -1,4 +1,11 @@
 {
+  "arrowIcon.png": {
+    "text": [
+      "Copyright 2022 University of Colorado Boulder"
+    ],
+    "projectURL": "https://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu"
+  },
   "pencilIcon.png": {
     "text": [
       "Copyright 2021 University of Colorado Boulder"

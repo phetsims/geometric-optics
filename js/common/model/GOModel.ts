@@ -20,11 +20,14 @@ import GORuler from './GORuler.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import FramedObjectScene from './FramedObjectScene.js';
 import OpticalObjectChoice from './OpticalObjectChoice.js';
+import ArrowObjectScene from './ArrowObjectScene.js';
 
-type GeometricOpticsModelOptions = {
+type GOModelOptions = {
 
-  // initial position of the framed object
+  // initial positions of optical objects
   framedObjectPosition: Vector2,
+  arrowObject1Position: Vector2,
+  arrowObject2Position: Vector2,
 
   // optical object choices, in the order that they will appear in OpticalObjectChoiceComboBox
   opticalObjectChoices: OpticalObjectChoice[],
@@ -44,6 +47,7 @@ class GOModel {
   readonly raysTypeProperty: Property<RaysType>;
 
   // scenes
+  readonly arrowObjectScene: ArrowObjectScene;
   readonly framedObjectScene: FramedObjectScene;
 
   // rulers
@@ -64,7 +68,7 @@ class GOModel {
    * @param optic
    * @param providedOptions
    */
-  constructor( optic: Optic, providedOptions: GeometricOpticsModelOptions ) {
+  constructor( optic: Optic, providedOptions: GOModelOptions ) {
 
     const options = merge( {
       //TODO
@@ -84,6 +88,12 @@ class GOModel {
     } );
 
     this.scenesTandem = options.tandem.createTandem( 'scenes' );
+
+    this.arrowObjectScene = new ArrowObjectScene( this.optic, this.raysTypeProperty, {
+      arrowObject1Position: options.arrowObject1Position,
+      arrowObject2Position: options.arrowObject2Position,
+      tandem: this.scenesTandem.createTandem( 'arrowObjectScene' )
+    } );
 
     this.framedObjectScene = new FramedObjectScene( this.opticalObjectChoiceProperty, this.optic, this.raysTypeProperty, {
       framedObjectPosition: options.framedObjectPosition,
@@ -111,6 +121,7 @@ class GOModel {
       this.optic.reset();
       this.raysTypeProperty.reset();
       this.framedObjectScene.reset();
+      this.arrowObjectScene.reset();
       this.horizontalRuler.reset();
       this.verticalRuler.reset();
     };
@@ -127,4 +138,3 @@ class GOModel {
 
 geometricOptics.register( 'GOModel', GOModel );
 export default GOModel;
-export type { GeometricOpticsModelOptions };

@@ -1,18 +1,15 @@
 // Copyright 2022, University of Colorado Boulder
 
+//TODO lots of duplication with FramedObjectScene
 /**
- * FramedObjectScene is a scene in which rays from a single framed object interact with an optic and produce
- * an Image. Rays emanate from 2 points of interest on the framed object.
+ * ArrowObjectScene is a scene in which rays from two arrows interact with an optic and produce an Image.
  *
  * @author Chris Malley (PixelZoom, Inc.)
- * @author Martin Veillette
  */
 
 import Range from '../../../../dot/js/Range.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
-import FramedObject from './FramedObject.js';
-import FramedImage from './FramedImage.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -20,46 +17,45 @@ import { RaysType } from './RaysType.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import LightRays from './LightRays.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import OpticalObjectChoice from './OpticalObjectChoice.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Lens from '../../lens/model/Lens.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Guides from '../../lens/model/Guides.js';
-import SecondPoint from './SecondPoint.js';
+import ArrowObject from './ArrowObject.js';
+import ArrowImage from './ArrowImage.js';
+import GOColors from '../GOColors.js';
 
-type FramedObjectSceneOptions = {
+type ArrowObjectSceneOptions = {
 
-  // initial position of the framed object
-  framedObjectPosition: Vector2,
+  // initial positions of the arrow objects
+  arrowObject1Position: Vector2,
+  arrowObject2Position: Vector2,
 
   // phet-io options
   tandem: Tandem
 };
 
-class FramedObjectScene extends PhetioObject {
+class ArrowObjectScene extends PhetioObject {
 
   readonly optic: Optic;
-  readonly framedObject: FramedObject;
-  readonly secondPoint: SecondPoint;
-  readonly framedImage1: FramedImage;
-  readonly framedImage2: FramedImage;
+  readonly arrowObject1: ArrowObject;
+  readonly arrowObject2: ArrowObject;
+  readonly arrowImage1: ArrowImage;
+  readonly arrowImage2: ArrowImage;
   readonly lightRaysAnimationTimeProperty: NumberProperty;
   readonly lightRays1: LightRays;
   readonly lightRays2: LightRays;
   readonly guides1: Guides | null;
   readonly guides2: Guides | null;
-  private readonly resetFramedObjectScene: () => void;
+  private readonly resetArrowObjectScene: () => void;
 
   /**
-   * @param opticalObjectChoiceProperty
    * @param optic
    * @param raysTypeProperty
    * @param providedOptions
    */
-  constructor( opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>,
-               optic: Optic,
+  constructor( optic: Optic,
                raysTypeProperty: IReadOnlyProperty<RaysType>,
-               providedOptions: FramedObjectSceneOptions ) {
+               providedOptions: ArrowObjectSceneOptions ) {
 
     const options = merge( {
       phetioState: false
@@ -73,27 +69,29 @@ class FramedObjectScene extends PhetioObject {
       tandem: options.tandem.createTandem( 'optic' )
     } );
 
-    this.framedObject = new FramedObject( opticalObjectChoiceProperty, {
-      position: options.framedObjectPosition,
-      tandem: options.tandem.createTandem( 'framedObject' )
+    this.arrowObject1 = new ArrowObject( {
+      position: options.arrowObject1Position,
+      fill: GOColors.arrow1FillProperty,
+      stroke: GOColors.arrow1StrokeProperty,
+      tandem: options.tandem.createTandem( 'arrowObject1' )
     } );
 
-    this.secondPoint = new SecondPoint( this.framedObject.positionProperty, {
-      tandem: options.tandem.createTandem( 'secondPoint' ),
-      phetioDocumentation: 'second point-of-interest on the framed object'
+    this.arrowObject2 = new ArrowObject( {
+      position: options.arrowObject2Position,
+      fill: GOColors.arrow2FillProperty,
+      stroke: GOColors.arrow2StrokeProperty,
+      tandem: options.tandem.createTandem( 'arrowObject2' )
     } );
 
-    this.framedImage1 = new FramedImage( this.framedObject.positionProperty,
-      this.framedObject.objectHTMLImageElementsProperty, this.optic, {
-        tandem: options.tandem.createTandem( 'framedImage1' ),
-        phetioDocumentation: 'optical image associated with the first point-of-interest on the framed object'
-      } );
+    this.arrowImage1 = new ArrowImage( this.arrowObject1, this.optic, {
+      tandem: options.tandem.createTandem( 'arrowImage1' ),
+      phetioDocumentation: 'optical image associated with the first arrow object'
+    } );
 
-    this.framedImage2 = new FramedImage( this.secondPoint.positionProperty,
-      this.framedObject.objectHTMLImageElementsProperty, this.optic, {
-        tandem: options.tandem.createTandem( 'framedImage2' ),
-        phetioDocumentation: 'optical image associated with the second point-of-interest on the framed object'
-      } );
+    this.arrowImage2 = new ArrowImage( this.arrowObject2, this.optic, {
+      tandem: options.tandem.createTandem( 'arrowImage2' ),
+      phetioDocumentation: 'optical image associated with the second arrow object'
+    } );
 
     this.lightRaysAnimationTimeProperty = new NumberProperty( 0, {
       units: 's',
@@ -105,28 +103,28 @@ class FramedObjectScene extends PhetioObject {
     this.lightRays1 = new LightRays(
       this.lightRaysAnimationTimeProperty,
       raysTypeProperty,
-      this.framedObject.positionProperty,
+      this.arrowObject1.positionProperty,
       this.optic,
-      this.framedImage1
+      this.arrowImage1
     );
 
     this.lightRays2 = new LightRays(
       this.lightRaysAnimationTimeProperty,
       raysTypeProperty,
-      this.secondPoint.positionProperty,
+      this.arrowObject2.positionProperty,
       this.optic,
-      this.framedImage2
+      this.arrowImage2
     );
 
     // Guides
     if ( optic instanceof Lens ) {
-      this.guides1 = new Guides( this.optic, this.framedObject.positionProperty, {
+      this.guides1 = new Guides( this.optic, this.arrowObject1.positionProperty, {
         tandem: options.tandem.createTandem( 'guides1' ),
-        phetioDocumentation: 'guides associated with the first point-of-interest on the framed object'
+        phetioDocumentation: 'guides associated with the first arrow object'
       } );
-      this.guides2 = new Guides( this.optic, this.secondPoint.positionProperty, {
+      this.guides2 = new Guides( this.optic, this.arrowObject2.positionProperty, {
         tandem: options.tandem.createTandem( 'guides2' ),
-        phetioDocumentation: 'guides associated with the second point-of-interest on the framed object'
+        phetioDocumentation: 'guides associated with the second arrow object'
       } );
     }
     else {
@@ -135,15 +133,15 @@ class FramedObjectScene extends PhetioObject {
     }
 
     //TODO is this complete?
-    this.resetFramedObjectScene = () => {
-      this.framedObject.reset();
-      this.secondPoint.reset();
+    this.resetArrowObjectScene = () => {
+      this.arrowObject1.reset();
+      this.arrowObject2.reset();
       this.lightRaysAnimationTimeProperty.reset();
     };
   }
 
   public reset(): void {
-    this.resetFramedObjectScene();
+    this.resetArrowObjectScene();
   }
 
   /**
@@ -159,5 +157,5 @@ class FramedObjectScene extends PhetioObject {
   }
 }
 
-geometricOptics.register( 'FramedObjectScene', FramedObjectScene );
-export default FramedObjectScene;
+geometricOptics.register( 'ArrowObjectScene', ArrowObjectScene );
+export default ArrowObjectScene;

@@ -39,6 +39,7 @@ import { RaysType } from '../model/RaysType.js';
 import GORulerNode from './GORulerNode.js';
 import RulersToolbox from './RulersToolbox.js';
 import FramedObjectSceneLabelsNode from './FramedObjectSceneLabelsNode.js';
+import ArrowObjectSceneNode from './ArrowObjectSceneNode.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.
@@ -252,6 +253,13 @@ class GOScreenView extends ScreenView {
 
     this.scenesTandem = options.tandem.createTandem( 'scenes' );
 
+    const arrowObjectSceneNode = new ArrowObjectSceneNode( model.arrowObjectScene, visibleProperties, modelViewTransform,
+      modelVisibleBoundsProperty, modelBoundsProperty, model.raysTypeProperty, {
+        createOpticNode: options.createOpticNode,
+        dragLockedProperty: options.dragLockedProperty,
+        tandem: this.scenesTandem.createTandem( 'arrowObjectSceneNode' )
+      } );
+
     const framedObjectSceneNode = new FramedObjectSceneNode( model.framedObjectScene, visibleProperties, modelViewTransform,
       modelVisibleBoundsProperty, modelBoundsProperty, model.raysTypeProperty, {
         createOpticNode: options.createOpticNode,
@@ -260,7 +268,7 @@ class GOScreenView extends ScreenView {
       } );
 
     const scenesNode = new Node( {
-      children: [ framedObjectSceneNode ]
+      children: [ arrowObjectSceneNode, framedObjectSceneNode ]
     } );
 
     //TODO is experimentAreaNode still needed, or does scenesNode fill that role?
@@ -308,6 +316,8 @@ class GOScreenView extends ScreenView {
           framedObjectSceneNode.visibleProperty ] )
       } );
 
+    //TODO arrowObjectSceneLabelsNode
+
     const controlsLayer = new Node( {
       children: [
         opticShapeRadioButtonGroup,
@@ -340,6 +350,13 @@ class GOScreenView extends ScreenView {
     this.addChild( screenViewRootNode );
 
     model.opticalObjectChoiceProperty.link( opticalObjectChoice => {
+
+      arrowObjectSceneNode.visible = ( OpticalObjectChoice.isArrowObject( opticalObjectChoice ) );
+      if ( arrowObjectSceneNode.visible ) {
+        horizontalRulerNode.setHotkeysData( arrowObjectSceneNode.rulerHotkeysData );
+        verticalRulerNode.setHotkeysData( arrowObjectSceneNode.rulerHotkeysData );
+      }
+
       framedObjectSceneNode.visible = ( OpticalObjectChoice.isFramedObject( opticalObjectChoice ) );
       if ( framedObjectSceneNode.visible ) {
         horizontalRulerNode.setHotkeysData( framedObjectSceneNode.rulerHotkeysData );

@@ -90,6 +90,22 @@ const GOColors = {
     default: 'black'
   } ),
 
+  arrow1FillProperty: new ProfileColorProperty( geometricOptics, 'arrow1Fill', {
+    default: 'green'
+  } ),
+
+  arrow1StrokeProperty: new ProfileColorProperty( geometricOptics, 'arrow1Stroke', {
+    default: 'black'
+  } ),
+
+  arrow2FillProperty: new ProfileColorProperty( geometricOptics, 'arrow2Fill', {
+    default: 'rgb( 255, 51, 51 )' //TODO same as secondPointFillProperty
+  } ),
+
+  arrow2StrokeProperty: new ProfileColorProperty( geometricOptics, 'arrow2Stroke', {
+    default: 'black'
+  } ),
+
   // Rays associated with the first Optical Object
   rays1StrokeProperty: new ProfileColorProperty( geometricOptics, 'realRayOneStroke', {
     default: 'rgb( 140, 140, 140 )'

@@ -38,6 +38,7 @@ type StringsType = {
   'many': string,
   'secondPoint': string,
   'valueCentimetersPattern': string,
+  'arrow': string,
   'pencil': string,
   'penguin': string,
   'planet': string,

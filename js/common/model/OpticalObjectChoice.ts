@@ -31,6 +31,7 @@ import starRightFacingUpright_png from '../../../images/starRightFacingUpright_p
 import starRightFacingInverted_png from '../../../images/starRightFacingInverted_png.js';
 import starLeftFacingUpright_png from '../../../images/starLeftFacingUpright_png.js';
 import starLeftFacingInverted_png from '../../../images/starLeftFacingInverted_png.js';
+import arrowIcon_png from '../../../images/arrowIcon_png.js';
 
 // Set of HTMLImageElements that depict a framed object and its associated optical image
 type ObjectHTMLImageElements = {
@@ -41,6 +42,9 @@ type ObjectHTMLImageElements = {
 };
 
 class OpticalObjectChoice extends EnumerationValue {
+
+  //TODO replace arrowIcon_png with new PNG file, or generate programmatically
+  static ARROW = new OpticalObjectChoice( geometricOpticsStrings.arrow, arrowIcon_png, 'arrow' );
 
   static PENCIL = new OpticalObjectChoice( geometricOpticsStrings.pencil, pencilIcon_png, 'pencil', {
     rightFacingUpright: pencilRightFacingUpright_png,
@@ -112,6 +116,14 @@ class OpticalObjectChoice extends EnumerationValue {
   }
 
   /**
+   * Is the choice an arrow object?
+   * @param choice
+   */
+  static isArrowObject( choice: OpticalObjectChoice ): boolean {
+    return ( choice === OpticalObjectChoice.ARROW );
+  }
+
+  /**
    * Is the choice a framed object?
    * @param choice
    */
@@ -124,7 +136,7 @@ class OpticalObjectChoice extends EnumerationValue {
    * @param choice
    */
   static isLightSource( choice: OpticalObjectChoice ): boolean {
-    return choice === OpticalObjectChoice.LIGHT;
+    return ( choice === OpticalObjectChoice.LIGHT );
   }
 }
 

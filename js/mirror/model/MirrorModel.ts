@@ -32,8 +32,12 @@ class MirrorModel extends GOModel {
       // Initial position of the framed object, empirically set so that the optical axis goes through its center.
       framedObjectPosition: new Vector2( -170, 72.5 ),
 
+      arrowObject1Position: new Vector2( -150, 50 ),
+      arrowObject2Position: new Vector2( -150, -50 ),
+
       // optical object choices, in the order that they will appear in OpticalObjectChoiceComboBox
       opticalObjectChoices: [
+        OpticalObjectChoice.ARROW,
         OpticalObjectChoice.PENCIL,
         OpticalObjectChoice.PENGUIN,
         OpticalObjectChoice.PLANET,
