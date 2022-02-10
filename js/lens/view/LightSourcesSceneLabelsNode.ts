@@ -1,7 +1,8 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
+//TODO lots of duplication with FramedObjectSceneLabelsNode
 /**
- * FramedObjectSceneLabelsNode labels things in the 'framed object' scene.
+ * LightSourcesSceneLabelsNode labels things in the 'light sources' scene.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  * @author Sarah Chang (Swarthmore College)
@@ -12,23 +13,22 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
-import LabelNode from './LabelNode.js';
-import VisibleProperties from './VisibleProperties.js';
+import LabelNode from '../../common/view/LabelNode.js';
+import VisibleProperties from '../../common/view/VisibleProperties.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Lens from '../../lens/model/Lens.js';
 import Mirror from '../../mirror/model/Mirror.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import FramedObjectScene from '../model/FramedObjectScene.js';
-import { OpticalImageType } from '../model/OpticalImageType.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
+import LightSourcesScene from '../model/LightSourcesScene.js';
 
-type FramedObjectSceneLabelsNodeOptions = {
+type LightSourcesSceneLabelsNodeOptions = {
   visibleProperty: Property<boolean>
 };
 
-class FramedObjectSceneLabelsNode extends Node {
+class LightSourcesSceneLabelsNode extends Node {
 
   /**
    * @param scene
@@ -37,23 +37,37 @@ class FramedObjectSceneLabelsNode extends Node {
    * @param modelVisibleBoundsProperty
    * @param providedOptions
    */
-  constructor( scene: FramedObjectScene,
+  constructor( scene: LightSourcesScene,
                visibleProperties: VisibleProperties,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-               providedOptions: FramedObjectSceneLabelsNodeOptions ) {
+               providedOptions: LightSourcesSceneLabelsNodeOptions ) {
 
-    // Object label ------------------------------------------------------------------------------------
+    // Light labels ------------------------------------------------------------------------------------
 
-    const objectLabelPositionProperty = new DerivedProperty(
-      [ scene.framedObject.boundsProperty ],
+    const light1LabelPositionProperty = new DerivedProperty(
+      [ scene.lightSource1.boundsProperty ],
       // Because we use a Y-inverted model-view transform, the bottom of the Object is the top of the model bounds.
       ( bounds: Bounds2 ) => bounds.centerTop
     );
 
-    const objectLabel = new LabelNode( geometricOpticsStrings.object, objectLabelPositionProperty,
+    const light1Label = new LabelNode( geometricOpticsStrings.object, light1LabelPositionProperty,
       zoomTransformProperty, {
+        xOffset: -30,
         yOffset: 2
+      } );
+
+    const light2LabelPositionProperty = new DerivedProperty(
+      [ scene.lightSource2.boundsProperty ],
+      // Because we use a Y-inverted model-view transform, the bottom of the Object is the top of the model bounds.
+      ( bounds: Bounds2 ) => bounds.centerTop
+    );
+
+    const light2Label = new LabelNode( geometricOpticsStrings.object, light2LabelPositionProperty,
+      zoomTransformProperty, {
+        xOffset: -30,
+        yOffset: 2,
+        visibleProperty: visibleProperties.secondPointVisibleProperty
       } );
 
     // Optic label ------------------------------------------------------------------------------------
@@ -119,29 +133,14 @@ class FramedObjectSceneLabelsNode extends Node {
         visibleProperty: visibleProperties.twoFPointsVisibleProperty
       } );
 
-    // Image label ------------------------------------------------------------------------------------
+    // Screen label ------------------------------------------------------------------------------------
 
-    const imageLabelPositionProperty = new DerivedProperty(
-      [ scene.framedImage1.boundsProperty ],
-      ( bounds: Bounds2 ) => bounds.centerTop
+    const screenLabelPositionProperty = new DerivedProperty(
+      [ scene.projectionScreen.positionProperty ],
+      ( position: Vector2 ) => new Vector2( position.x - 25, position.y - 65 ) // empirically, model coordinates
     );
 
-    const imageLabel = new LabelNode( '', imageLabelPositionProperty, zoomTransformProperty, {
-      yOffset: 2,
-      visibleProperty: new DerivedProperty( [
-          scene.framedImage1.visibleProperty,
-          scene.framedImage1.opticalImageTypeProperty,
-          visibleProperties.virtualImageVisibleProperty
-        ],
-        ( visible: boolean, opticalImageType: OpticalImageType, virtualImageVisible: boolean ) =>
-          ( visible && ( opticalImageType === 'real' || virtualImageVisible ) )
-      )
-    } );
-
-    // Switch between 'Real Image' and 'Virtual Image'
-    scene.framedImage1.opticalImageTypeProperty.link( opticalImageType => {
-      imageLabel.setText( opticalImageType === 'real' ? geometricOpticsStrings.realImage : geometricOpticsStrings.virtualImage );
-    } );
+    const screenLabel = new LabelNode( geometricOpticsStrings.projectionScreen, screenLabelPositionProperty, zoomTransformProperty );
 
     // Optical Axis label ------------------------------------------------------------------------------------
 
@@ -166,8 +165,9 @@ class FramedObjectSceneLabelsNode extends Node {
       leftFocalPointLabel, rightFocalPointLabel,
       left2FLabel, right2FLabel,
       opticLabel,
-      objectLabel,
-      imageLabel
+      light1Label,
+      light2Label,
+      screenLabel
     ];
 
     super( merge( {
@@ -181,5 +181,5 @@ class FramedObjectSceneLabelsNode extends Node {
   }
 }
 
-geometricOptics.register( 'FramedObjectSceneLabelsNode', FramedObjectSceneLabelsNode );
-export default FramedObjectSceneLabelsNode;
+geometricOptics.register( 'LightSourcesSceneLabelsNode', LightSourcesSceneLabelsNode );
+export default LightSourcesSceneLabelsNode;

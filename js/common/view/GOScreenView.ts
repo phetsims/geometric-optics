@@ -70,9 +70,11 @@ class GOScreenView extends ScreenView {
   protected readonly visibleProperties: VisibleProperties;
   protected readonly modelBoundsProperty: IReadOnlyProperty<Bounds2>;
   protected readonly modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>;
+  protected readonly zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>;
   protected readonly screenViewRootNode: Node;
   protected readonly experimentAreaNode: Node;
   protected readonly scenesNode: Node;
+  protected readonly labelsLayer: Node;
   protected readonly controlsLayer: Node;
   protected readonly representationComboBox: Node;
   protected readonly opticShapeRadioButtonGroup: Node;
@@ -322,10 +324,14 @@ class GOScreenView extends ScreenView {
       children: [ horizontalRulerNode, verticalRulerNode ]
     } );
 
+    const labelsLayer = new Node( {
+      children: [ framedObjectSceneLabelsNode ]
+    } );
+
     const screenViewRootNode = new Node( {
       children: [
         experimentAreaNode,
-        framedObjectSceneLabelsNode,
+        labelsLayer,
         controlsLayer,
         rulersLayer,
         popupsParent
@@ -366,9 +372,11 @@ class GOScreenView extends ScreenView {
     this.visibleProperties = visibleProperties;
     this.modelBoundsProperty = modelBoundsProperty;
     this.modelVisibleBoundsProperty = modelVisibleBoundsProperty;
+    this.zoomTransformProperty = zoomTransformProperty;
     this.screenViewRootNode = screenViewRootNode;
     this.experimentAreaNode = experimentAreaNode;
     this.scenesNode = scenesNode;
+    this.labelsLayer = labelsLayer;
     this.controlsLayer = controlsLayer;
     this.representationComboBox = representationComboBox;
     this.opticShapeRadioButtonGroup = opticShapeRadioButtonGroup;

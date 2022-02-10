@@ -35,6 +35,7 @@ const RECTANGLE_OPTIONS = {
 
 type LabelNodeOptions = {
   xAlign?: string,
+  xOffset?: number,
   yOffset?: number,
   visibleProperty?: IProperty<boolean>
 };
@@ -61,6 +62,7 @@ class LabelNode extends Node {
 
     const options = merge( {
       xAlign: 'center',
+      xOffset: 0, // from center, in view coordinates
       yOffset: 10, // in view coordinates
       children: [ backgroundRectangle, textNode ]
     }, providedOptions );
@@ -79,7 +81,7 @@ class LabelNode extends Node {
         backgroundRectangle.center = textNode.center;
 
         // Position under the thing that we're labeling, with specified x alignment
-        const viewPosition = zoomTransform.modelToViewPosition( position ).plusXY( 0, options.yOffset );
+        const viewPosition = zoomTransform.modelToViewPosition( position ).plusXY( options.xOffset, options.yOffset );
         if ( options.xAlign === 'center' ) {
           this.centerTop = viewPosition;
         }

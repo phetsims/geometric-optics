@@ -24,6 +24,8 @@ import DragLockedButton from '../../common/view/DragLockedButton.js';
 import LightSourcesSceneNode from './LightSourcesSceneNode.js';
 import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
 import { RaysType } from '../../common/model/RaysType.js';
+import LightSourcesSceneLabelsNode from './LightSourcesSceneLabelsNode.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 type LensScreenViewOptions = {
   tandem: Tandem
@@ -79,6 +81,13 @@ class LensScreenView extends GOScreenView {
         tandem: this.scenesTandem.createTandem( 'lightSourcesSceneNode' )
       } );
     this.scenesNode.addChild( lightSourcesSceneNode );
+
+    const lightSourcesSceneLabelsNode = new LightSourcesSceneLabelsNode( model.lightSourcesScene, this.visibleProperties,
+      this.zoomTransformProperty, this.modelVisibleBoundsProperty, {
+        visibleProperty: DerivedProperty.and( [ this.visibleProperties.labelsVisibleProperty,
+          lightSourcesSceneNode.visibleProperty ] )
+      } );
+    this.labelsLayer.addChild( lightSourcesSceneLabelsNode );
 
     model.opticalObjectChoiceProperty.link( opticalObjectChoice => {
       lightSourcesSceneNode.visible = OpticalObjectChoice.isLightSource( opticalObjectChoice );
