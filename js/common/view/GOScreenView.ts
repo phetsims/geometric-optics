@@ -38,6 +38,7 @@ import Property from '../../../../axon/js/Property.js';
 import { RaysType } from '../model/RaysType.js';
 import GORulerNode from './GORulerNode.js';
 import RulersToolbox from './RulersToolbox.js';
+import FramedObjectSceneLabelsNode from './FramedObjectSceneLabelsNode.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.
@@ -299,8 +300,11 @@ class GOScreenView extends ScreenView {
 
     // Layout ================================================================================================
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/217 restore labels
-    //const labelsNode = new LabelsNode( model, visibleProperties, zoomTransformProperty, modelVisibleBoundsProperty );
+    const framedObjectSceneLabelsNode = new FramedObjectSceneLabelsNode( model.framedObjectScene, visibleProperties,
+      zoomTransformProperty, modelVisibleBoundsProperty, {
+        visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty,
+          framedObjectSceneNode.visibleProperty ] )
+      } );
 
     const controlsLayer = new Node( {
       children: [
@@ -321,8 +325,7 @@ class GOScreenView extends ScreenView {
     const screenViewRootNode = new Node( {
       children: [
         experimentAreaNode,
-        //TODO https://github.com/phetsims/geometric-optics/issues/217 restore labels
-        //labelsNode,
+        framedObjectSceneLabelsNode,
         controlsLayer,
         rulersLayer,
         popupsParent
