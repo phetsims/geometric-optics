@@ -2,7 +2,7 @@
 
 //TODO lots of duplication with FramedObjectSceneNode
 /**
- * LightSourcesSceneNode is the view of FramedObjectScene, the scene that uses a framed object.
+ * LightSourceSceneNode is the view of FramedObjectScene, the scene that uses a framed object.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  * @author Martin Veillette
@@ -25,7 +25,7 @@ import RealLightRaysNode from '../../common/view/RealLightRaysNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Optic from '../../common/model/Optic.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import LightSourcesScene from '../model/LightSourcesScene.js';
+import LightSourceScene from '../model/LightSourceScene.js';
 import ProjectionScreenNode from './ProjectionScreenNode.js';
 import LightSpotNode from './LightSpotNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
@@ -45,7 +45,7 @@ type LightSourcesSceneNodeOptions = {
   tandem: Tandem
 };
 
-class LightSourcesSceneNode extends Node {
+class LightSourceSceneNode extends Node {
 
   public readonly rulerHotkeysData: RulerHotkeysData;
   private readonly resetLightSourcesSceneNode: () => void;
@@ -59,7 +59,7 @@ class LightSourcesSceneNode extends Node {
    * @param raysTypeProperty
    * @param providedOptions
    */
-  constructor( scene: LightSourcesScene,
+  constructor( scene: LightSourceScene,
                visibleProperties: VisibleProperties,
                modelViewTransform: ModelViewTransform2,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
@@ -241,5 +241,5 @@ class LightSourcesSceneNode extends Node {
   }
 }
 
-geometricOptics.register( 'LightSourcesSceneNode', LightSourcesSceneNode );
-export default LightSourcesSceneNode;
+geometricOptics.register( 'LightSourceSceneNode', LightSourceSceneNode );
+export default LightSourceSceneNode;

@@ -2,7 +2,7 @@
 
 //TODO lots of duplication with FramedObjectSceneLabelsNode
 /**
- * LightSourcesSceneLabelsNode labels things in the 'light sources' scene.
+ * LightSourceSceneLabelsNode labels things in the 'light sources' scene.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  * @author Sarah Chang (Swarthmore College)
@@ -22,13 +22,13 @@ import Mirror from '../../mirror/model/Mirror.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
-import LightSourcesScene from '../model/LightSourcesScene.js';
+import LightSourceScene from '../model/LightSourceScene.js';
 
 type LightSourcesSceneLabelsNodeOptions = {
   visibleProperty: Property<boolean>
 };
 
-class LightSourcesSceneLabelsNode extends Node {
+class LightSourceSceneLabelsNode extends Node {
 
   /**
    * @param scene
@@ -37,7 +37,7 @@ class LightSourcesSceneLabelsNode extends Node {
    * @param modelVisibleBoundsProperty
    * @param providedOptions
    */
-  constructor( scene: LightSourcesScene,
+  constructor( scene: LightSourceScene,
                visibleProperties: VisibleProperties,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
@@ -183,5 +183,5 @@ class LightSourcesSceneLabelsNode extends Node {
   }
 }
 
-geometricOptics.register( 'LightSourcesSceneLabelsNode', LightSourcesSceneLabelsNode );
-export default LightSourcesSceneLabelsNode;
+geometricOptics.register( 'LightSourceSceneLabelsNode', LightSourceSceneLabelsNode );
+export default LightSourceSceneLabelsNode;

@@ -13,7 +13,7 @@ import geometricOptics from '../../geometricOptics.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import LightSourcesScene from './LightSourcesScene.js';
+import LightSourceScene from './LightSourceScene.js';
 import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
 
 type LensModelOptions = {
@@ -22,7 +22,7 @@ type LensModelOptions = {
 
 class LensModel extends GOModel {
 
-  readonly lightSourcesScene: LightSourcesScene;
+  readonly lightSourceScene: LightSourceScene;
   readonly resetLensModel: () => void;
 
   /**
@@ -53,12 +53,12 @@ class LensModel extends GOModel {
 
     super( lens, options );
 
-    this.lightSourcesScene = new LightSourcesScene( this.optic, this.raysTypeProperty, {
-      tandem: this.scenesTandem.createTandem( 'lightSourcesScene' )
+    this.lightSourceScene = new LightSourceScene( this.optic, this.raysTypeProperty, {
+      tandem: this.scenesTandem.createTandem( 'lightSourceScene' )
     } );
 
     this.resetLensModel = () => {
-      this.lightSourcesScene.reset();
+      this.lightSourceScene.reset();
     };
   }
 
@@ -69,7 +69,7 @@ class LensModel extends GOModel {
 
   public stepLightRays( dt: number ): void {
     super.stepLightRays( dt );
-    this.lightSourcesScene.stepLightRays( dt );
+    this.lightSourceScene.stepLightRays( dt );
   }
 }
 

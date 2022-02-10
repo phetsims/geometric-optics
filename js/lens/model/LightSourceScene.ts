@@ -1,7 +1,7 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * LightSourcesScene is a scene in rays from 2 light sources interact with an optic, and project light spots on
+ * LightSourceScene is a scene in rays from 2 light sources interact with an optic, and project light spots on
  * a projection screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -33,7 +33,7 @@ type LightSourcesSceneOptions = {
   tandem: Tandem
 };
 
-class LightSourcesScene extends PhetioObject {
+class LightSourceScene extends PhetioObject {
 
   readonly optic: Optic;
   readonly lightSource1: LightSource;
@@ -173,5 +173,5 @@ class LightSourcesScene extends PhetioObject {
   }
 }
 
-geometricOptics.register( 'LightSourcesScene', LightSourcesScene );
-export default LightSourcesScene;
+geometricOptics.register( 'LightSourceScene', LightSourceScene );
+export default LightSourceScene;

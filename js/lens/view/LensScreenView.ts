@@ -21,10 +21,10 @@ import Lens from '../model/Lens.js';
 import LensNode from './LensNode.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DragLockedButton from '../../common/view/DragLockedButton.js';
-import LightSourcesSceneNode from './LightSourcesSceneNode.js';
+import LightSourceSceneNode from './LightSourceSceneNode.js';
 import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
 import { RaysType } from '../../common/model/RaysType.js';
-import LightSourcesSceneLabelsNode from './LightSourcesSceneLabelsNode.js';
+import LightSourceSceneLabelsNode from './LightSourceSceneLabelsNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 type LensScreenViewOptions = {
@@ -74,26 +74,26 @@ class LensScreenView extends GOScreenView {
     } );
     this.controlsLayer.addChild( dragLockedButton );
 
-    const lightSourcesSceneNode = new LightSourcesSceneNode( model.lightSourcesScene, this.visibleProperties,
+    const lightSourceSceneNode = new LightSourceSceneNode( model.lightSourceScene, this.visibleProperties,
       this.modelViewTransform, this.modelVisibleBoundsProperty, this.modelBoundsProperty, model.raysTypeProperty, {
         createOpticNode: options.createOpticNode,
         dragLockedProperty: options.dragLockedProperty,
-        tandem: this.scenesTandem.createTandem( 'lightSourcesSceneNode' )
+        tandem: this.scenesTandem.createTandem( 'lightSourceSceneNode' )
       } );
-    this.scenesNode.addChild( lightSourcesSceneNode );
+    this.scenesNode.addChild( lightSourceSceneNode );
 
-    const lightSourcesSceneLabelsNode = new LightSourcesSceneLabelsNode( model.lightSourcesScene, this.visibleProperties,
+    const lightSourceSceneLabelsNode = new LightSourceSceneLabelsNode( model.lightSourceScene, this.visibleProperties,
       this.zoomTransformProperty, this.modelVisibleBoundsProperty, {
         visibleProperty: DerivedProperty.and( [ this.visibleProperties.labelsVisibleProperty,
-          lightSourcesSceneNode.visibleProperty ] )
+          lightSourceSceneNode.visibleProperty ] )
       } );
-    this.labelsLayer.addChild( lightSourcesSceneLabelsNode );
+    this.labelsLayer.addChild( lightSourceSceneLabelsNode );
 
     model.opticalObjectChoiceProperty.link( opticalObjectChoice => {
-      lightSourcesSceneNode.visible = OpticalObjectChoice.isLightSource( opticalObjectChoice );
-      if ( lightSourcesSceneNode.visible ) {
-        this.horizontalRulerNode.setHotkeysData( lightSourcesSceneNode.rulerHotkeysData );
-        this.verticalRulerNode.setHotkeysData( lightSourcesSceneNode.rulerHotkeysData );
+      lightSourceSceneNode.visible = OpticalObjectChoice.isLightSource( opticalObjectChoice );
+      if ( lightSourceSceneNode.visible ) {
+        this.horizontalRulerNode.setHotkeysData( lightSourceSceneNode.rulerHotkeysData );
+        this.verticalRulerNode.setHotkeysData( lightSourceSceneNode.rulerHotkeysData );
       }
     } );
 
@@ -111,11 +111,11 @@ class LensScreenView extends GOScreenView {
     Property.multilink(
       [ model.raysTypeProperty, this.visibleProperties.raysAndImagesVisibleProperty ],
       ( raysType: RaysType, raysAndImagesVisible: boolean ) =>
-        model.lightSourcesScene.lightRaysAnimationTimeProperty.reset() );
+        model.lightSourceScene.lightRaysAnimationTimeProperty.reset() );
 
     this.resetLensScreenView = () => {
       options.dragLockedProperty.reset();
-      lightSourcesSceneNode.reset();
+      lightSourceSceneNode.reset();
     };
   }
 
