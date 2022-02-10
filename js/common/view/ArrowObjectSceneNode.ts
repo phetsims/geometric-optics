@@ -133,13 +133,12 @@ class ArrowObjectSceneNode extends Node {
       } );
 
     // Light rays (real & virtual) associated with the first point-of-interest (the framed object's position).
-    const realLightRays1Options = {
+    const realLightRays1Node = new RealLightRaysNode( scene.lightRays1, modelViewTransform, {
       stroke: GOColors.rays1StrokeProperty,
       visibleProperty: visibleProperties.raysAndImagesVisibleProperty
-    };
-    const realLightRays1Node = new RealLightRaysNode( scene.lightRays1, modelViewTransform, realLightRays1Options );
+    } );
     const virtualLightRays1Node = new VirtualLightRaysNode( scene.lightRays1, modelViewTransform, {
-      stroke: realLightRays1Options.stroke,
+      stroke: GOColors.rays1StrokeProperty,
       visibleProperty: DerivedProperty.and( [
         visibleProperties.virtualImageVisibleProperty,
         visibleProperties.raysAndImagesVisibleProperty
@@ -147,16 +146,15 @@ class ArrowObjectSceneNode extends Node {
     } );
 
     // Light rays (real & virtual) associated with the second point-of-interest (also on the framed object).
-    const realLightRays2Options = {
+    const realLightRays2Node = new RealLightRaysNode( scene.lightRays2, modelViewTransform, {
       stroke: GOColors.rays2StrokeProperty,
       visibleProperty: DerivedProperty.and( [
         visibleProperties.secondPointVisibleProperty,
         visibleProperties.raysAndImagesVisibleProperty
       ] )
-    };
-    const realLightRays2Node = new RealLightRaysNode( scene.lightRays2, modelViewTransform, realLightRays2Options );
+    } );
     const virtualLightRays2Node = new VirtualLightRaysNode( scene.lightRays2, modelViewTransform, {
-      stroke: realLightRays2Options.stroke,
+      stroke: GOColors.rays2StrokeProperty,
       visibleProperty: DerivedProperty.and( [
         visibleProperties.virtualImageVisibleProperty,
         visibleProperties.secondPointVisibleProperty,
