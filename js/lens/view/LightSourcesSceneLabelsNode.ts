@@ -45,28 +45,30 @@ class LightSourcesSceneLabelsNode extends Node {
 
     // Light labels ------------------------------------------------------------------------------------
 
+    // empirically, model coordinates
+    const getLightLabelPosition = ( lightSourceBounds: Bounds2 ) =>
+      new Vector2( lightSourceBounds.centerX - 15, lightSourceBounds.top );
+
+    const lightLabelYOffset = 2; // view coordinates
+
     const light1LabelPositionProperty = new DerivedProperty(
       [ scene.lightSource1.boundsProperty ],
-      // Because we use a Y-inverted model-view transform, the bottom of the Object is the top of the model bounds.
-      ( bounds: Bounds2 ) => bounds.centerTop
+      ( bounds: Bounds2 ) => getLightLabelPosition( bounds )
     );
 
     const light1Label = new LabelNode( geometricOpticsStrings.object, light1LabelPositionProperty,
       zoomTransformProperty, {
-        xOffset: -30,
-        yOffset: 2
+        yOffset: lightLabelYOffset
       } );
 
     const light2LabelPositionProperty = new DerivedProperty(
       [ scene.lightSource2.boundsProperty ],
-      // Because we use a Y-inverted model-view transform, the bottom of the Object is the top of the model bounds.
-      ( bounds: Bounds2 ) => bounds.centerTop
+      ( bounds: Bounds2 ) => getLightLabelPosition( bounds )
     );
 
     const light2Label = new LabelNode( geometricOpticsStrings.object, light2LabelPositionProperty,
       zoomTransformProperty, {
-        xOffset: -30,
-        yOffset: 2,
+        yOffset: lightLabelYOffset,
         visibleProperty: visibleProperties.secondPointVisibleProperty
       } );
 
