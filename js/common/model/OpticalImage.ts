@@ -12,6 +12,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
@@ -20,6 +21,7 @@ import StringIO from '../../../../tandem/js/types/StringIO.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
 import { OpticalImageType, OpticalImageTypeValues } from './OpticalImageType.js';
+import GOConstants from '../GOConstants.js';
 
 type OpticalImageOptions = {
   tandem: Tandem,
@@ -41,6 +43,15 @@ class OpticalImage extends PhetioObject {
 
   // The distance can be negative. We follow the standard sign convention used in geometric optics courses.
   protected readonly opticImageDistanceProperty: IReadOnlyProperty<number>;
+
+  // light intensity of the Image (Hollywood) - a value between 0 and 1
+  readonly lightIntensityProperty: IReadOnlyProperty<number>;
+
+  //TODO remove null here and checks at use sites
+  // the magnification can be negative, indicating the Image is inverted.
+  protected readonly magnificationProperty: IReadOnlyProperty<number>;
+  //TODO document
+  protected readonly isInvertedProperty: IReadOnlyProperty<boolean>;
 
   /**
    * @param opticalObjectPositionProperty
@@ -106,6 +117,38 @@ class OpticalImage extends PhetioObject {
         tandem: options.tandem.createTandem( 'opticalImageTypeProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( StringIO ),
         validValues: OpticalImageTypeValues
+      } );
+
+    this.magnificationProperty = new DerivedProperty(
+      [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
+      //TODO focalLength is not used, is focalLengthProperty dependency needed?
+      ( framedObjectPosition: Vector2, opticPosition: Vector2, focalLength: number ) =>
+        this.getMagnification( framedObjectPosition, opticPosition )
+    );
+
+    //TODO REVIEW: DerivedProperty that depends on an unlisted Property?
+    this.isInvertedProperty = new DerivedProperty(
+      [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
+      ( ...args: any[] ) => ( this.opticImageDistanceProperty.value > 0 )
+    );
+
+    this.lightIntensityProperty = new DerivedProperty(
+      [ this.magnificationProperty, optic.diameterProperty ],
+      ( magnification: number, diameter: number ) => {
+
+        // effect of the distance on the opacity, Hollywooded as 1/magnification for upscaled Image
+        const distanceFactor = Math.min( 1, Math.abs( 1 / magnification ) );
+
+        // effect of the diameter of the optic on the light intensity of the Image (also Hollywooded)
+        assert && assert( optic.diameterProperty.range ); // {Range|null}
+        const diameterRange: Range = optic.diameterProperty.range!;
+        const diameterFactor = diameter / diameterRange.max;
+        assert && assert( diameterFactor >= 0 && diameterFactor <= 1 );
+
+        // product of the two factors
+        return distanceFactor * diameterFactor;
+      }, {
+        isValidValue: ( value: number ) => GOConstants.INTENSITY_RANGE.contains( value )
       } );
   }
 
