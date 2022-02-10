@@ -47,7 +47,7 @@ class FramedObject extends OpticalObject {
         let objectHTMLImageElements = opticalObjectChoice.objectHTMLImageElements;
 
         // If the object choice isn't a framed object, first fallback is to keep our current value.
-        if ( !objectHTMLImageElements ) {
+        if ( !objectHTMLImageElements && this.objectHTMLImageElementsProperty ) {
           objectHTMLImageElements = this.objectHTMLImageElementsProperty.value;
         }
 
