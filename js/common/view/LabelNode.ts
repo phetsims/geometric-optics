@@ -76,8 +76,8 @@ class LabelNode extends BackgroundNode {
     this.textNode = textNode;
 
     Property.multilink(
-      [ zoomTransformProperty, positionProperty, this.boundsProperty ],
-      ( zoomTransform: ModelViewTransform2, position: Vector2, bounds: Bounds2 ) => {
+      [ zoomTransformProperty, positionProperty, textNode.boundsProperty ],
+      ( zoomTransform: ModelViewTransform2, position: Vector2, textBounds: Bounds2 ) => {
         const viewPosition = zoomTransform.modelToViewPosition( position ).plusXY( options.xOffset, options.yOffset );
 
         // x
