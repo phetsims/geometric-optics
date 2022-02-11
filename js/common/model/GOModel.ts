@@ -132,6 +132,7 @@ class GOModel {
   }
 
   public stepLightRays( dt: number ): void {
+    this.arrowObjectScene.stepLightRays( dt );
     this.framedObjectScene.stepLightRays( dt );
   }
 }
