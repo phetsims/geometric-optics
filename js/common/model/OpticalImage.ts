@@ -22,6 +22,8 @@ import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
 import { OpticalImageType, OpticalImageTypeValues } from './OpticalImageType.js';
 import GOConstants from '../GOConstants.js';
+import GOQueryParameters from '../GOQueryParameters.js';
+import Utils from '../../../../dot/js/Utils.js';
 
 type OpticalImageOptions = {
   tandem: Tandem,
@@ -44,12 +46,12 @@ class OpticalImage extends PhetioObject {
   // The distance can be negative. We follow the standard sign convention used in geometric optics courses.
   protected readonly opticImageDistanceProperty: IReadOnlyProperty<number>;
 
-  // light intensity of the Image (Hollywood) - a value between 0 and 1
-  readonly lightIntensityProperty: IReadOnlyProperty<number>;
+  readonly opacityProperty: IReadOnlyProperty<number>;
 
   //TODO remove null here and checks at use sites
   // the magnification can be negative, indicating the Image is inverted.
-  protected readonly magnificationProperty: IReadOnlyProperty<number>;
+  public readonly magnificationProperty: IReadOnlyProperty<number>;
+
   //TODO document
   protected readonly isInvertedProperty: IReadOnlyProperty<boolean>;
 
@@ -127,12 +129,14 @@ class OpticalImage extends PhetioObject {
     );
 
     //TODO REVIEW: DerivedProperty that depends on an unlisted Property?
+    //TODO shouldn't this just depend on the sign of this.magnificationProperty?
     this.isInvertedProperty = new DerivedProperty(
       [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       ( ...args: any[] ) => ( this.opticImageDistanceProperty.value > 0 )
     );
 
-    this.lightIntensityProperty = new DerivedProperty(
+    // light intensity of the Image (Hollywood), a value between 0 and 1
+    const lightIntensityProperty = new DerivedProperty(
       [ this.magnificationProperty, optic.diameterProperty ],
       ( magnification: number, diameter: number ) => {
 
@@ -150,6 +154,10 @@ class OpticalImage extends PhetioObject {
       }, {
         isValidValue: ( value: number ) => GOConstants.INTENSITY_RANGE.contains( value )
       } );
+
+    this.opacityProperty = new DerivedProperty( [ lightIntensityProperty ], ( lightIntensity: number ) =>
+      Utils.linear( 0, 1, GOQueryParameters.imageOpacityRange[ 0 ], GOQueryParameters.imageOpacityRange[ 1 ], lightIntensity )
+    );
   }
 
   /**

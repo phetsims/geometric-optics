@@ -14,6 +14,9 @@ import ArrowObject from './ArrowObject.js';
 
 class ArrowImage extends OpticalImage {
 
+  readonly arrowObject: ArrowObject;
+  readonly optic: Optic;
+
   /**
    * @param arrowObject
    * @param optic
@@ -26,6 +29,9 @@ class ArrowImage extends OpticalImage {
     const options = merge( {}, providedOptions );
 
     super( arrowObject.positionProperty, optic, options );
+
+    this.arrowObject = arrowObject;
+    this.optic = optic;
 
     //TODO more?
   }

@@ -30,6 +30,9 @@ type ArrowObjectNodeOptions = {
 
 class ArrowObjectNode extends Node {
 
+  // For use by ArrowImageNode
+  readonly arrowNode: Node;
+
   /**
    * @param arrowObject
    * @param optic
@@ -77,6 +80,8 @@ class ArrowObjectNode extends Node {
     }, providedOptions );
 
     super( options );
+
+    this.arrowNode = arrowNode;
 
     // Drag action that is common to DragListener and KeyboardDragListener
     const drag = () => {

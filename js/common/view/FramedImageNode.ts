@@ -17,7 +17,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import GOColors from '../GOColors.js';
 import GOQueryParameters from '../GOQueryParameters.js';
-import Utils from '../../../../dot/js/Utils.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
@@ -93,9 +92,8 @@ class FramedImageNode extends Node {
     framedImage.boundsProperty.link( () => updateScaleAndPosition() );
 
     // update the opacity of the Image
-    framedImage.lightIntensityProperty.link( lightIntensity => {
-      imageNode.opacity = Utils.linear( 0, 1, GOQueryParameters.imageOpacityRange[ 0 ], GOQueryParameters.imageOpacityRange[ 1 ], lightIntensity );
-      phet.log && phet.log( `Image opacity=${imageNode.opacity}` );
+    framedImage.opacityProperty.link( opacity => {
+      imageNode.opacity = opacity;
     } );
 
     // Update the image and mask
