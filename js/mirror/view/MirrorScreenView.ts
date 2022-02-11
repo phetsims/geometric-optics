@@ -3,7 +3,6 @@
 /**
  * MirrorScreenView is the view for the 'Mirror' screen.
  *
- * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
  */
 

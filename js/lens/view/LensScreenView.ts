@@ -21,11 +21,6 @@ import Lens from '../model/Lens.js';
 import LensNode from './LensNode.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DragLockedButton from '../../common/view/DragLockedButton.js';
-import LightSourceSceneNode from './LightSourceSceneNode.js';
-import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
-import { RaysType } from '../../common/model/RaysType.js';
-import LightSourceSceneLabelsNode from './LightSourceSceneLabelsNode.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 type LensScreenViewOptions = {
   tandem: Tandem
@@ -68,34 +63,11 @@ class LensScreenView extends GOScreenView {
 
     // Toggle button to lock dragging to horizontal
     const dragLockedButton = new DragLockedButton( options.dragLockedProperty, {
-      left: this.representationComboBox.right + 25,
-      centerY: this.representationComboBox.centerY,
+      left: this.opticalObjectChoiceComboBox.right + 25,
+      centerY: this.opticalObjectChoiceComboBox.centerY,
       tandem: this.controlsTandem.createTandem( 'dragLockedButton' )
     } );
     this.controlsLayer.addChild( dragLockedButton );
-
-    const lightSourceSceneNode = new LightSourceSceneNode( model.lightSourceScene, this.visibleProperties,
-      this.modelViewTransform, this.modelVisibleBoundsProperty, this.modelBoundsProperty, model.raysTypeProperty, {
-        createOpticNode: options.createOpticNode,
-        dragLockedProperty: options.dragLockedProperty,
-        tandem: this.scenesTandem.createTandem( 'lightSourceSceneNode' )
-      } );
-    this.scenesNode.addChild( lightSourceSceneNode );
-
-    const lightSourceSceneLabelsNode = new LightSourceSceneLabelsNode( model.lightSourceScene, this.visibleProperties,
-      this.zoomTransformProperty, this.modelVisibleBoundsProperty, {
-        visibleProperty: DerivedProperty.and( [ this.visibleProperties.labelsVisibleProperty,
-          lightSourceSceneNode.visibleProperty ] )
-      } );
-    this.labelsLayer.addChild( lightSourceSceneLabelsNode );
-
-    model.opticalObjectChoiceProperty.link( opticalObjectChoice => {
-      lightSourceSceneNode.visible = OpticalObjectChoice.isLightSource( opticalObjectChoice );
-      if ( lightSourceSceneNode.visible ) {
-        this.horizontalRulerNode.setHotkeysData( lightSourceSceneNode.rulerHotkeysData );
-        this.verticalRulerNode.setHotkeysData( lightSourceSceneNode.rulerHotkeysData );
-      }
-    } );
 
     // pdom -traversal order
     // Insert projectionScreenNode after zoomButtonGroup.
@@ -106,16 +78,8 @@ class LensScreenView extends GOScreenView {
       this.screenViewRootNode.pdomOrder = pdomOrder;
     }
 
-    //TODO this is duplicated in GOScreenView for framedObjectScene
-    // Changing any of these Properties causes the light rays to animate.
-    Property.multilink(
-      [ model.raysTypeProperty, this.visibleProperties.raysAndImagesVisibleProperty ],
-      ( raysType: RaysType, raysAndImagesVisible: boolean ) =>
-        model.lightSourceScene.lightRaysAnimationTimeProperty.reset() );
-
     this.resetLensScreenView = () => {
       options.dragLockedProperty.reset();
-      lightSourceSceneNode.reset();
     };
   }
 

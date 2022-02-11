@@ -3,7 +3,6 @@
 /**
  * LensModel is the model for the 'Lens' screen.
  *
- * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
@@ -13,7 +12,6 @@ import geometricOptics from '../../geometricOptics.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import LightSourceScene from './LightSourceScene.js';
 import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
 
 type LensModelOptions = {
@@ -21,9 +19,6 @@ type LensModelOptions = {
 };
 
 class LensModel extends GOModel {
-
-  readonly lightSourceScene: LightSourceScene;
-  readonly resetLensModel: () => void;
 
   /**
    * @param providedOptions
@@ -56,24 +51,6 @@ class LensModel extends GOModel {
     } );
 
     super( lens, options );
-
-    this.lightSourceScene = new LightSourceScene( this.optic, this.raysTypeProperty, {
-      tandem: this.scenesTandem.createTandem( 'lightSourceScene' )
-    } );
-
-    this.resetLensModel = () => {
-      this.lightSourceScene.reset();
-    };
-  }
-
-  public reset(): void {
-    super.reset();
-    this.resetLensModel();
-  }
-
-  public stepLightRays( dt: number ): void {
-    super.stepLightRays( dt );
-    this.lightSourceScene.stepLightRays( dt );
   }
 }
 

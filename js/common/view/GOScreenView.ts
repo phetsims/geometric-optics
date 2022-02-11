@@ -41,6 +41,8 @@ import RulersToolbox from './RulersToolbox.js';
 import FramedObjectSceneLabelsNode from './FramedObjectSceneLabelsNode.js';
 import ArrowObjectSceneNode from './ArrowObjectSceneNode.js';
 import ArrowObjectSceneLabelsNode from './ArrowObjectSceneLabelsNode.js';
+import LightSourceSceneNode from '../../lens/view/LightSourceSceneNode.js';
+import LightSourceSceneLabelsNode from '../../lens/view/LightSourceSceneLabelsNode.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.
@@ -75,10 +77,8 @@ class GOScreenView extends ScreenView {
   protected readonly zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>;
   protected readonly screenViewRootNode: Node;
   protected readonly experimentAreaNode: Node;
-  protected readonly scenesNode: Node;
-  protected readonly labelsLayer: Node;
   protected readonly controlsLayer: Node;
-  protected readonly representationComboBox: Node;
+  protected readonly opticalObjectChoiceComboBox: Node;
   protected readonly opticShapeRadioButtonGroup: Node;
   protected readonly zoomButtonGroup: Node;
   protected readonly scenesTandem: Tandem;
@@ -195,10 +195,10 @@ class GOScreenView extends ScreenView {
     const popupsParent = new Node();
 
     // Combo box for choosing the optical object
-    const representationComboBox = new OpticalObjectChoiceComboBox( model.opticalObjectChoiceProperty, popupsParent, {
+    const opticalObjectChoiceComboBox = new OpticalObjectChoiceComboBox( model.opticalObjectChoiceProperty, popupsParent, {
       left: this.layoutBounds.left + 100,
       top: erodedLayoutBounds.top,
-      tandem: this.controlsTandem.createTandem( 'representationComboBox' )
+      tandem: this.controlsTandem.createTandem( 'opticalObjectChoiceComboBox' )
     } );
 
     // Zoom buttons
@@ -252,14 +252,27 @@ class GOScreenView extends ScreenView {
         return new Bounds2( modelVisibleBounds.minX, -y, modelVisibleBounds.maxX, y );
       } );
 
+    // Scenes ================================================================================================
+
     this.scenesTandem = options.tandem.createTandem( 'scenes' );
 
+    const scenesLayer = new Node();
+    const labelsLayer = new Node();
+    
     const arrowObjectSceneNode = new ArrowObjectSceneNode( model.arrowObjectScene, visibleProperties, modelViewTransform,
       modelVisibleBoundsProperty, modelBoundsProperty, model.raysTypeProperty, {
         createOpticNode: options.createOpticNode,
         dragLockedProperty: options.dragLockedProperty,
         tandem: this.scenesTandem.createTandem( 'arrowObjectSceneNode' )
       } );
+    scenesLayer.addChild( arrowObjectSceneNode );
+
+    const arrowObjectSceneLabelsNode = new ArrowObjectSceneLabelsNode( model.arrowObjectScene, visibleProperties,
+      zoomTransformProperty, modelVisibleBoundsProperty, {
+        visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty,
+          arrowObjectSceneNode.visibleProperty ] )
+      } );
+    labelsLayer.addChild( arrowObjectSceneLabelsNode );
 
     const framedObjectSceneNode = new FramedObjectSceneNode( model.framedObjectScene, visibleProperties, modelViewTransform,
       modelVisibleBoundsProperty, modelBoundsProperty, model.raysTypeProperty, {
@@ -267,16 +280,41 @@ class GOScreenView extends ScreenView {
         dragLockedProperty: options.dragLockedProperty,
         tandem: this.scenesTandem.createTandem( 'framedObjectSceneNode' )
       } );
+    scenesLayer.addChild( framedObjectSceneNode );
 
-    const scenesNode = new Node( {
-      children: [ arrowObjectSceneNode, framedObjectSceneNode ]
-    } );
+    const framedObjectSceneLabelsNode = new FramedObjectSceneLabelsNode( model.framedObjectScene, visibleProperties,
+      zoomTransformProperty, modelVisibleBoundsProperty, {
+        visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty,
+          framedObjectSceneNode.visibleProperty ] )
+      } );
+    labelsLayer.addChild( framedObjectSceneLabelsNode );
 
-    //TODO is experimentAreaNode still needed, or does scenesNode fill that role?
+    let lightSourceSceneNode: LightSourceSceneNode | null = null;
+    let lightSourceSceneLabelsNode: Node | null = null;
+    if ( model.lightSourceScene ) {
+      lightSourceSceneNode = new LightSourceSceneNode( model.lightSourceScene, visibleProperties,
+        modelViewTransform, modelVisibleBoundsProperty, modelBoundsProperty, model.raysTypeProperty, {
+          createOpticNode: options.createOpticNode,
+          dragLockedProperty: options.dragLockedProperty,
+          tandem: this.scenesTandem.createTandem( 'lightSourceSceneNode' )
+        } );
+      scenesLayer.addChild( lightSourceSceneNode );
+
+      if ( model.lightSourceScene ) {
+        lightSourceSceneLabelsNode = new LightSourceSceneLabelsNode( model.lightSourceScene, visibleProperties,
+          zoomTransformProperty, modelVisibleBoundsProperty, {
+            visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty,
+              lightSourceSceneNode.visibleProperty ] )
+          } );
+        labelsLayer.addChild( lightSourceSceneLabelsNode );
+      }
+    }
+
+    //TODO is experimentAreaNode still needed, or does scenesLayer fill that role?
     // Layer for all the Nodes within the "experiment area".
     // The experiment area is subject to zoom in/out, so include add all Nodes that need to be zoomed.
     const experimentAreaNode = new Node( {
-      children: [ scenesNode ]
+      children: [ scenesLayer ]
     } );
 
     zoomScaleProperty.link( zoomScale => {
@@ -285,10 +323,8 @@ class GOScreenView extends ScreenView {
     } );
 
     // Changing any of these Properties causes the light rays to animate.
-    Property.multilink(
-      [ model.raysTypeProperty, visibleProperties.raysAndImagesVisibleProperty ],
-      ( raysType: RaysType, raysAndImagesVisible: boolean ) =>
-        model.framedObjectScene.lightRaysAnimationTimeProperty.reset() );
+    Property.multilink( [ model.raysTypeProperty, visibleProperties.raysAndImagesVisibleProperty ],
+      ( raysType: RaysType, raysAndImagesVisible: boolean ) => model.resetLightRays() );
 
     // Changing these things interrupts interactions
     const interrupt = () => this.interruptSubtreeInput();
@@ -310,21 +346,7 @@ class GOScreenView extends ScreenView {
     }
 
     // Layout ================================================================================================
-
-    const arrowObjectSceneLabelsNode = new ArrowObjectSceneLabelsNode( model.arrowObjectScene, visibleProperties,
-      zoomTransformProperty, modelVisibleBoundsProperty, {
-        visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty,
-          arrowObjectSceneNode.visibleProperty ] )
-      } );
-
-    const framedObjectSceneLabelsNode = new FramedObjectSceneLabelsNode( model.framedObjectScene, visibleProperties,
-      zoomTransformProperty, modelVisibleBoundsProperty, {
-        visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty,
-          framedObjectSceneNode.visibleProperty ] )
-      } );
-
-    //TODO arrowObjectSceneLabelsNode
-
+    
     const controlsLayer = new Node( {
       children: [
         opticShapeRadioButtonGroup,
@@ -333,16 +355,12 @@ class GOScreenView extends ScreenView {
         resetAllButton,
         rulersToolbox,
         zoomButtonGroup,
-        representationComboBox
+        opticalObjectChoiceComboBox
       ]
     } );
 
     const rulersLayer = new Node( {
       children: [ horizontalRulerNode, verticalRulerNode ]
-    } );
-
-    const labelsLayer = new Node( {
-      children: [ framedObjectSceneLabelsNode, arrowObjectSceneLabelsNode ]
     } );
 
     const screenViewRootNode = new Node( {
@@ -369,6 +387,14 @@ class GOScreenView extends ScreenView {
         horizontalRulerNode.setHotkeysData( framedObjectSceneNode.rulerHotkeysData );
         verticalRulerNode.setHotkeysData( framedObjectSceneNode.rulerHotkeysData );
       }
+
+      if ( lightSourceSceneNode ) {
+        lightSourceSceneNode.visible = OpticalObjectChoice.isLightSource( opticalObjectChoice );
+        if ( lightSourceSceneNode.visible ) {
+          this.horizontalRulerNode.setHotkeysData( lightSourceSceneNode.rulerHotkeysData );
+          this.verticalRulerNode.setHotkeysData( lightSourceSceneNode.rulerHotkeysData );
+        }
+      }
     } );
 
     this.resetGOScreenView = (): void => {
@@ -376,16 +402,17 @@ class GOScreenView extends ScreenView {
       zoomLevelProperty.reset();
       arrowObjectSceneNode.reset();
       framedObjectSceneNode.reset();
+      lightSourceSceneNode && lightSourceSceneNode.reset();
     };
 
     // pdom -traversal order
     screenViewRootNode.pdomOrder = [
-      representationComboBox,
+      opticalObjectChoiceComboBox,
       opticShapeRadioButtonGroup,
       rulersToolbox,
       horizontalRulerNode,
       verticalRulerNode,
-      scenesNode,
+      scenesLayer,
       zoomButtonGroup,
       controlPanel,
       showHideToggleButton,
@@ -400,10 +427,8 @@ class GOScreenView extends ScreenView {
     this.zoomTransformProperty = zoomTransformProperty;
     this.screenViewRootNode = screenViewRootNode;
     this.experimentAreaNode = experimentAreaNode;
-    this.scenesNode = scenesNode;
-    this.labelsLayer = labelsLayer;
     this.controlsLayer = controlsLayer;
-    this.representationComboBox = representationComboBox;
+    this.opticalObjectChoiceComboBox = opticalObjectChoiceComboBox;
     this.opticShapeRadioButtonGroup = opticShapeRadioButtonGroup;
     this.zoomButtonGroup = zoomButtonGroup;
     this.horizontalRulerNode = horizontalRulerNode;
