@@ -22,11 +22,11 @@ import lamp1_png from '../../../images/lamp1_png.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OpticalImage from '../../common/model/OpticalImage.js';
 import Guides from './Guides.js';
-import GOObjectScene, { GOObjectSceneOptions } from '../../common/model/GOObjectScene.js';
+import GOScene, { GOSceneOptions } from '../../common/model/GOScene.js';
 
-type LightSourcesSceneOptions = {} & GOObjectSceneOptions;
+type LightSourcesSceneOptions = {} & GOSceneOptions;
 
-class LightSourceScene extends GOObjectScene {
+class LightSourceScene extends GOScene {
 
   readonly lightSource1: LightSource;
   readonly lightSource2: LightSource;

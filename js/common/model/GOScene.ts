@@ -1,7 +1,7 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * GOObjectScene is base class for all scenes that involve optical objects.
+ * GOScene is base class for all scenes.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,13 +14,13 @@ import merge from '../../../../phet-core/js/merge.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 
-type GOObjectSceneOptions = {
+type GOSceneOptions = {
 
   // phet-io options
   tandem: Tandem
 };
 
-class GOObjectScene extends PhetioObject {
+class GOScene extends PhetioObject {
 
   readonly optic: Optic;
   readonly lightRaysAnimationTimeProperty: NumberProperty;
@@ -30,8 +30,7 @@ class GOObjectScene extends PhetioObject {
    * @param optic
    * @param providedOptions
    */
-  constructor( optic: Optic,
-               providedOptions: GOObjectSceneOptions ) {
+  constructor( optic: Optic, providedOptions: GOSceneOptions ) {
 
     const options = merge( {
       phetioState: false
@@ -79,6 +78,6 @@ class GOObjectScene extends PhetioObject {
   }
 }
 
-geometricOptics.register( 'GOObjectScene', GOObjectScene );
-export default GOObjectScene;
-export type { GOObjectSceneOptions };
+geometricOptics.register( 'GOScene', GOScene );
+export default GOScene;
+export type { GOSceneOptions };

@@ -22,15 +22,15 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Lens from '../../lens/model/Lens.js';
 import Guides from '../../lens/model/Guides.js';
 import SecondPoint from './SecondPoint.js';
-import GOObjectScene, { GOObjectSceneOptions } from './GOObjectScene.js';
+import GOScene, { GOSceneOptions } from './GOScene.js';
 
 type FramedObjectSceneOptions = {
 
   // initial position of the framed object
   framedObjectPosition: Vector2
-} & GOObjectSceneOptions;
+} & GOSceneOptions;
 
-class FramedObjectScene extends GOObjectScene {
+class FramedObjectScene extends GOScene {
 
   readonly framedObject: FramedObject;
   readonly secondPoint: SecondPoint;

@@ -18,16 +18,16 @@ import Guides from '../../lens/model/Guides.js';
 import ArrowObject from './ArrowObject.js';
 import ArrowImage from './ArrowImage.js';
 import GOColors from '../GOColors.js';
-import GOObjectScene, { GOObjectSceneOptions } from './GOObjectScene.js';
+import GOScene, { GOSceneOptions } from './GOScene.js';
 
 type ArrowObjectSceneOptions = {
 
   // initial positions of the arrow objects
   arrowObject1Position: Vector2,
   arrowObject2Position: Vector2
-} & GOObjectSceneOptions;
+} & GOSceneOptions;
 
-class ArrowObjectScene extends GOObjectScene {
+class ArrowObjectScene extends GOScene {
 
   readonly arrowObject1: ArrowObject;
   readonly arrowObject2: ArrowObject;

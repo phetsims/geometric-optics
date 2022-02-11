@@ -21,7 +21,7 @@ import FramedObjectScene from './FramedObjectScene.js';
 import OpticalObjectChoice from './OpticalObjectChoice.js';
 import ArrowObjectScene from './ArrowObjectScene.js';
 import LightSourceScene from '../../lens/model/LightSourceScene.js';
-import GOObjectScene from './GOObjectScene.js';
+import GOScene from './GOScene.js';
 
 type GOModelOptions = {
 
@@ -49,7 +49,7 @@ class GOModel {
   readonly raysTypeProperty: Property<RaysType>;
 
   // scenes
-  private readonly scenes: GOObjectScene[];
+  private readonly scenes: GOScene[];
   readonly arrowObjectScene: ArrowObjectScene;
   readonly framedObjectScene: FramedObjectScene;
   readonly lightSourceScene: LightSourceScene | null; // not supported by Mirrors screen
