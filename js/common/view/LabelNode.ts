@@ -10,37 +10,29 @@
 
 import IProperty from '../../../../axon/js/IProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import Property from '../../../../axon/js/Property.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
+import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Node, Rectangle, Text } from '../../../../scenery/js/imports.js';
+import { Text } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import GOConstants from '../GOConstants.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Property from '../../../../axon/js/Property.js';
 
-const X_MARGIN = 5;
-const Y_MARGIN = 5;
-const TEXT_OPTIONS = {
-  fill: GOColors.labelFillProperty,
-  font: GOConstants.LABEL_FONT,
-  maxWidth: 85
-};
-const RECTANGLE_OPTIONS = {
-  fill: GOColors.screenBackgroundColorProperty,
-  cornerRadius: 4,
-  opacity: 0.5
-};
+type XAlign = 'left' | 'center' | 'right';
+type YAlign = 'top' | 'center' | 'bottom';
 
 type LabelNodeOptions = {
-  xAlign?: string,
+  xAlign?: XAlign,
+  yAlign?: YAlign,
   xOffset?: number,
   yOffset?: number,
   visibleProperty?: IProperty<boolean>
 };
 
-class LabelNode extends Node {
+class LabelNode extends BackgroundNode {
 
   private readonly textNode: Text;
 
@@ -55,45 +47,61 @@ class LabelNode extends Node {
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                providedOptions?: LabelNodeOptions ) {
 
-    const textNode = new Text( text, TEXT_OPTIONS );
-
-    // Background for the text, update the size and position later.
-    const backgroundRectangle = new Rectangle( 0, 0, 1, 1, RECTANGLE_OPTIONS );
+    const textNode = new Text( text, {
+      fill: GOColors.labelFillProperty,
+      font: GOConstants.LABEL_FONT,
+      maxWidth: 85
+    } );
 
     const options = merge( {
+
+      // LabelNode options
       xAlign: 'center',
+      yAlign: 'top',
       xOffset: 0, // from center, in view coordinates
       yOffset: 10, // in view coordinates
-      children: [ backgroundRectangle, textNode ]
+
+      // BackgroundNode options
+      xMargin: 5,
+      yMargin: 5,
+      rectangleOptions: {
+        fill: GOColors.screenBackgroundColorProperty,
+        cornerRadius: 4,
+        opacity: 0.5
+      }
     }, providedOptions );
 
-    super( options );
-
-    Property.multilink(
-      [ textNode.boundsProperty, zoomTransformProperty, positionProperty ],
-      ( textNodeBounds: Bounds2, zoomTransform: ModelViewTransform2, position: Vector2 ) => {
-
-        // Size the background to fit the text.
-        backgroundRectangle.setRectWidth( textNodeBounds.width + X_MARGIN * 2 );
-        backgroundRectangle.setRectHeight( textNodeBounds.height + Y_MARGIN * 2 );
-
-        // Center the text in the background.
-        backgroundRectangle.center = textNode.center;
-
-        // Position under the thing that we're labeling, with specified x alignment
-        const viewPosition = zoomTransform.modelToViewPosition( position ).plusXY( options.xOffset, options.yOffset );
-        if ( options.xAlign === 'center' ) {
-          this.centerTop = viewPosition;
-        }
-        else if ( options.xAlign === 'left' ) {
-          this.leftTop = viewPosition;
-        }
-        else {
-          this.rightTop = viewPosition;
-        }
-      } );
+    super( textNode, options );
 
     this.textNode = textNode;
+
+    Property.multilink(
+      [ zoomTransformProperty, positionProperty, this.boundsProperty ],
+      ( zoomTransform: ModelViewTransform2, position: Vector2, bounds: Bounds2 ) => {
+        const viewPosition = zoomTransform.modelToViewPosition( position ).plusXY( options.xOffset, options.yOffset );
+
+        // x
+        if ( options.xAlign === 'center' ) {
+          this.centerX = viewPosition.x;
+        }
+        else if ( options.xAlign === 'left' ) {
+          this.left = viewPosition.x;
+        }
+        else {
+          this.right = viewPosition.x;
+        }
+
+        // y
+        if ( options.yAlign === 'center' ) {
+          this.centerY = viewPosition.y;
+        }
+        else if ( options.yAlign === 'top' ) {
+          this.top = viewPosition.y;
+        }
+        else {
+          this.bottom = viewPosition.y;
+        }
+      } );
   }
 
   public dispose(): void {
@@ -101,7 +109,7 @@ class LabelNode extends Node {
     super.dispose();
   }
 
-  public setText( text: string ): void {
+  setText( text: string ) {
     this.textNode.text = text;
   }
 }

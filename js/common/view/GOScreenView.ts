@@ -40,6 +40,7 @@ import GORulerNode from './GORulerNode.js';
 import RulersToolbox from './RulersToolbox.js';
 import FramedObjectSceneLabelsNode from './FramedObjectSceneLabelsNode.js';
 import ArrowObjectSceneNode from './ArrowObjectSceneNode.js';
+import ArrowObjectSceneLabelsNode from './ArrowObjectSceneLabelsNode.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.
@@ -310,6 +311,12 @@ class GOScreenView extends ScreenView {
 
     // Layout ================================================================================================
 
+    const arrowObjectSceneLabelsNode = new ArrowObjectSceneLabelsNode( model.arrowObjectScene, visibleProperties,
+      zoomTransformProperty, modelVisibleBoundsProperty, {
+        visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty,
+          arrowObjectSceneNode.visibleProperty ] )
+      } );
+
     const framedObjectSceneLabelsNode = new FramedObjectSceneLabelsNode( model.framedObjectScene, visibleProperties,
       zoomTransformProperty, modelVisibleBoundsProperty, {
         visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty,
@@ -335,7 +342,7 @@ class GOScreenView extends ScreenView {
     } );
 
     const labelsLayer = new Node( {
-      children: [ framedObjectSceneLabelsNode ]
+      children: [ framedObjectSceneLabelsNode, arrowObjectSceneLabelsNode ]
     } );
 
     const screenViewRootNode = new Node( {
