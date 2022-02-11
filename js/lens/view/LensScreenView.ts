@@ -73,9 +73,6 @@ class LensScreenView extends GOScreenView {
       tandem: this.controlsTandem.createTandem( 'dragLockedButton' )
     } );
     this.controlsLayer.addChild( dragLockedButton );
-    model.opticalObjectChoiceProperty.link( opticalObjectChoice => {
-      dragLockedButton.enabled = !OpticalObjectChoice.isArrowObject( opticalObjectChoice );
-    } );
 
     const lightSourceSceneNode = new LightSourceSceneNode( model.lightSourceScene, this.visibleProperties,
       this.modelViewTransform, this.modelVisibleBoundsProperty, this.modelBoundsProperty, model.raysTypeProperty, {
