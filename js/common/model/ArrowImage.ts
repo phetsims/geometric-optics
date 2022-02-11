@@ -32,8 +32,6 @@ class ArrowImage extends OpticalImage {
 
     this.arrowObject = arrowObject;
     this.optic = optic;
-
-    //TODO more?
   }
 }
 

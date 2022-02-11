@@ -32,8 +32,6 @@ class ArrowObject extends OpticalObject {
 
     this.fill = options.fill;
     this.stroke = options.stroke;
-
-    //TODO more?
   }
 }
 
