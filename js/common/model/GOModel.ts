@@ -22,6 +22,7 @@ import OpticalObjectChoice from './OpticalObjectChoice.js';
 import ArrowObjectScene from './ArrowObjectScene.js';
 import LightSourceScene from '../../lens/model/LightSourceScene.js';
 import GOScene from './GOScene.js';
+import Lens from '../../lens/model/Lens.js';
 
 type GOModelOptions = {
 
@@ -108,7 +109,8 @@ class GOModel {
 
     this.lightSourceScene = null;
     if ( options.opticalObjectChoices.includes( OpticalObjectChoice.LIGHT ) ) {
-      this.lightSourceScene = new LightSourceScene( this.optic, this.raysTypeProperty, {
+      assert && assert( this.optic instanceof Lens, 'Light is only supported by the Lens screen' );
+      this.lightSourceScene = new LightSourceScene( this.optic as Lens, this.raysTypeProperty, {
         tandem: this.scenesTandem.createTandem( 'lightSourceScene' )
       } );
       this.scenes.push( this.lightSourceScene );

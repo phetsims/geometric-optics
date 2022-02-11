@@ -1,15 +1,14 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * LightSourceScene is a scene in rays from 2 light sources interact with an optic, and project light spots on
- * a projection screen.
+ * LightSourceScene is a scene in rays from 2 light sources interact with a lens, and project light spots on
+ * a projection screen. Note that this scene supports only Lens, not Mirror.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  * @author Martin Veillette
  */
 
 import geometricOptics from '../../geometricOptics.js';
-import Optic from '../../common/model/Optic.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import { RaysType } from '../../common/model/RaysType.js';
@@ -23,6 +22,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OpticalImage from '../../common/model/OpticalImage.js';
 import Guides from './Guides.js';
 import GOScene, { GOSceneOptions } from '../../common/model/GOScene.js';
+import Lens from './Lens.js';
 
 type LightSourcesSceneOptions = {} & GOSceneOptions;
 
@@ -42,11 +42,11 @@ class LightSourceScene extends GOScene {
   private readonly resetLightSourcesScene: () => void;
 
   /**
-   * @param optic
+   * @param lens
    * @param raysTypeProperty
    * @param providedOptions
    */
-  constructor( optic: Optic,
+  constructor( lens: Lens,
                raysTypeProperty: IReadOnlyProperty<RaysType>,
                providedOptions: LightSourcesSceneOptions ) {
 
@@ -54,7 +54,7 @@ class LightSourceScene extends GOScene {
       phetioState: false
     }, providedOptions );
 
-    super( optic, options );
+    super( lens, options );
 
     this.lightSource1 = new LightSource( {
       htmlImageElement: lamp1_png,
