@@ -63,7 +63,7 @@ class ArrowImageNode extends Node {
         arrowNode.setTailAndTip( 0, 0, 0, objectPosition.y - opticPosition.y );
 
         // Scale
-        //TODO setScaleMagnitude doesn't work here, arrow flips up and down, does it work with negative numbers?
+        //TODO setScaleMagnitude misbehaves, this Node reflects back and forth around x-axis
         // this.setScaleMagnitude( magnification );
         const matrix = new Matrix3();
         matrix.setToScale( magnification );
