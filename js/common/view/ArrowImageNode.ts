@@ -1,7 +1,7 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * ArrowImageNode is the visual representation of an arrow object.
+ * ArrowImageNode renders the optical image (real or virtual) associated with an arrow object.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
