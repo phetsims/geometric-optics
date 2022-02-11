@@ -185,7 +185,7 @@ class FramedObjectSceneNode extends Node {
       ] )
     } );
 
-    this.children = [
+    const children = [
       opticalAxisNode,
       framedObjectNode,
       realLightRays1Node,
@@ -209,7 +209,7 @@ class FramedObjectSceneNode extends Node {
         tandem: options.tandem.createTandem( 'guides1Node' ),
         phetioDocumentation: 'guides associated with the first point-of-interest on the framed object'
       } );
-      this.addChild( guides1Node );
+      children.push( guides1Node );
     }
 
     if ( scene.guides2 ) {
@@ -223,8 +223,15 @@ class FramedObjectSceneNode extends Node {
           tandem: guides2Tandem,
           phetioDocumentation: 'guides associated with the second point-of-interest on the framed object'
         } );
-      this.addChild( guides2Node );
+      children.push( guides2Node );
     }
+
+    this.children = children;
+
+    this.pdomOrder = [
+      framedObjectNode,
+      secondPointNode
+    ];
 
     this.rulerHotkeysData = {
       opticPositionProperty: scene.optic.positionProperty,
@@ -234,11 +241,6 @@ class FramedObjectSceneNode extends Node {
       opticalImage1PositionProperty: scene.framedImage1.positionProperty,
       opticalImage1VisibleProperty: framedImageNode.visibleProperty
     };
-
-    this.pdomOrder = [
-      framedObjectNode,
-      secondPointNode
-    ];
 
     //TODO is this complete?
     this.resetFrameObjectSceneNode = () => {

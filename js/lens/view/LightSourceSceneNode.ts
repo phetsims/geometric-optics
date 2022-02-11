@@ -214,6 +214,12 @@ class LightSourceSceneNode extends Node {
       guides2Node
     ];
 
+    this.pdomOrder = [
+      lightSource1Node,
+      lightSource2Node,
+      projectionScreenNode
+    ];
+
     this.rulerHotkeysData = {
       opticPositionProperty: scene.optic.positionProperty,
       opticalObject1PositionProperty: scene.lightSource1.positionProperty,
@@ -222,12 +228,6 @@ class LightSourceSceneNode extends Node {
       opticalImage1PositionProperty: null,
       opticalImage1VisibleProperty: null
     };
-
-    this.pdomOrder = [
-      lightSource1Node,
-      lightSource2Node,
-      projectionScreenNode
-    ];
 
     //TODO is this complete?
     this.resetLightSourcesSceneNode = () => {
