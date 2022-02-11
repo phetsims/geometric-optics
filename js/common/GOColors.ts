@@ -11,6 +11,8 @@
 import { ProfileColorProperty } from '../../../scenery/js/imports.js';
 import geometricOptics from '../geometricOptics.js';
 
+const OBJECT_2_FILL = 'rgb( 255, 51, 51 )';
+
 const GOColors = {
 
   // Background color used for all screens
@@ -82,7 +84,7 @@ const GOColors = {
 
   // Fill for the second point on a Framed Object
   secondPointFillProperty: new ProfileColorProperty( geometricOptics, 'secondPointFill', {
-    default: 'rgb( 255, 51, 51 )'
+    default: OBJECT_2_FILL
   } ),
 
   // Stroke for the second point on a Framed Object
@@ -91,7 +93,7 @@ const GOColors = {
   } ),
 
   arrow1FillProperty: new ProfileColorProperty( geometricOptics, 'arrow1Fill', {
-    default: 'green'
+    default: 'rgb( 81, 203, 245 )'
   } ),
 
   arrow1StrokeProperty: new ProfileColorProperty( geometricOptics, 'arrow1Stroke', {
@@ -99,7 +101,7 @@ const GOColors = {
   } ),
 
   arrow2FillProperty: new ProfileColorProperty( geometricOptics, 'arrow2Fill', {
-    default: 'rgb( 255, 51, 51 )' //TODO same as secondPointFillProperty
+    default: OBJECT_2_FILL
   } ),
 
   arrow2StrokeProperty: new ProfileColorProperty( geometricOptics, 'arrow2Stroke', {
