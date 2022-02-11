@@ -18,6 +18,7 @@ import ArrowImage from '../model/ArrowImage.js';
 import GOConstants from '../GOConstants.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import Property from '../../../../axon/js/Property.js';
+import Matrix3 from '../../../../dot/js/Matrix3.js';
 
 type ArrowImageNodeOptions = {
   visibleProperty?: IProperty<boolean>,
@@ -58,13 +59,19 @@ class ArrowImageNode extends Node {
         const objectPosition = modelViewTransform.modelToViewPosition( arrowImage.arrowObject.positionProperty.value );
         const imagePosition = modelViewTransform.modelToViewPosition( arrowImagePosition );
 
-        // Create an arrow that's identical to the arrow object.
-        const x = imagePosition.x;
-        arrowNode.setTailAndTip( x, opticPosition.y, x, objectPosition.y );
+        // Create an arrow with identical magnitude and direction to the arrow object.
+        arrowNode.setTailAndTip( 0, 0, 0, objectPosition.y - opticPosition.y );
 
-        // Scale the arrow
-        // const scale = ( arrowImagePosition.y - opticPosition.y ) / ( objectPosition.y - opticPosition.y );
-        // this.setScaleMagnitude( Math.abs( magnification ), magnification );
+        // Scale
+        //TODO setScaleMagnitude doesn't work here, arrow flips up and down, does it work with negative numbers?
+        // this.setScaleMagnitude( magnification );
+        const matrix = new Matrix3();
+        matrix.setToScale( magnification );
+        this.matrix = matrix;
+
+        // Translate
+        this.centerX = imagePosition.x;
+        this.y = opticPosition.y;
       } );
 
     arrowImage.opacityProperty.link( ( opacity: number ) => {

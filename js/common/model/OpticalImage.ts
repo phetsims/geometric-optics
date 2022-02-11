@@ -53,7 +53,7 @@ class OpticalImage extends PhetioObject {
   public readonly magnificationProperty: IReadOnlyProperty<number>;
 
   //TODO document
-  protected readonly isInvertedProperty: IReadOnlyProperty<boolean>;
+  public readonly isInvertedProperty: IReadOnlyProperty<boolean>;
 
   /**
    * @param opticalObjectPositionProperty
