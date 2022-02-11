@@ -374,6 +374,7 @@ class GOScreenView extends ScreenView {
     this.resetGOScreenView = (): void => {
       visibleProperties.reset();
       zoomLevelProperty.reset();
+      arrowObjectSceneNode.reset();
       framedObjectSceneNode.reset();
     };
 

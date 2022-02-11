@@ -113,14 +113,22 @@ class ArrowObjectSceneNode extends Node {
       tandem: twoFPointsNodeTandem
     } );
 
-    const arrowObject1Node = new ArrowObjectNode( scene.arrowObject1, scene.optic, modelBoundsProperty, modelViewTransform, {
-      tandem: options.tandem.createTandem( 'arrowObject1Node' )
+    const arrowWasDraggedProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'arrowWasDraggedProperty' ),
+      phetioReadOnly: true,
+      phetioDocumentation: 'Was either arrow dragged? Dragging either arrow hides the cueing arrows for both arrows.'
     } );
 
-    const arrowObject2Node = new ArrowObjectNode( scene.arrowObject2, scene.optic, modelBoundsProperty, modelViewTransform, {
-      visibleProperty: visibleProperties.secondPointVisibleProperty,
-      tandem: options.tandem.createTandem( 'arrowObject2Node' )
-    } );
+    const arrowObject1Node = new ArrowObjectNode( scene.arrowObject1, scene.optic, modelBoundsProperty,
+      modelViewTransform, options.dragLockedProperty, arrowWasDraggedProperty, {
+        tandem: options.tandem.createTandem( 'arrowObject1Node' )
+      } );
+
+    const arrowObject2Node = new ArrowObjectNode( scene.arrowObject2, scene.optic, modelBoundsProperty,
+      modelViewTransform, options.dragLockedProperty, arrowWasDraggedProperty, {
+        visibleProperty: visibleProperties.secondPointVisibleProperty,
+        tandem: options.tandem.createTandem( 'arrowObject2Node' )
+      } );
 
     const arrowImage1Node = new ArrowImageNode( scene.arrowImage1, visibleProperties.virtualImageVisibleProperty,
       visibleProperties.raysAndImagesVisibleProperty, modelViewTransform, {
@@ -219,8 +227,7 @@ class ArrowObjectSceneNode extends Node {
 
     //TODO is this complete?
     this.resetFrameObjectSceneNode = () => {
-      arrowObject1Node.reset();
-      arrowObject2Node.reset();
+      arrowWasDraggedProperty.reset();
     };
   }
 
