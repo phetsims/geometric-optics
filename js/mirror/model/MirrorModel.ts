@@ -45,15 +45,15 @@ class MirrorModel extends GOModel {
       ]
     }, providedOptions );
 
+    assert && assert( !options.opticalObjectChoices.includes( OpticalObjectChoice.LIGHT ),
+      'Mirror screen does not support Light as an optical object choice' );
+
     // super is responsible for resetting the mirror
     const mirror = new Mirror( {
       tandem: options.tandem.createTandem( 'mirror' )
     } );
 
     super( mirror, options );
-
-    assert && assert( !this.opticalObjectChoiceProperty.validValues?.includes( OpticalObjectChoice.LIGHT ),
-      'Mirror screen does not support Light as an optical object choice' );
   }
 }
 
