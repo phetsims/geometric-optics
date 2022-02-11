@@ -19,6 +19,9 @@ import GOConstants from '../GOConstants.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import Property from '../../../../axon/js/Property.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
+import { OpticalImageType } from '../model/OpticalImageType.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 
 type ArrowImageNodeOptions = {
   visibleProperty?: IProperty<boolean>,
@@ -31,12 +34,14 @@ class ArrowImageNode extends Node {
    * @param arrowImage
    * @param virtualImageVisibleProperty
    * @param raysAndImagesVisibleProperty
+   * @param objectVisibleProperty
    * @param modelViewTransform
    * @param providedOptions
    */
   constructor( arrowImage: ArrowImage,
                virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
                raysAndImagesVisibleProperty: IReadOnlyProperty<boolean>,
+               objectVisibleProperty: IReadOnlyProperty<boolean>,
                modelViewTransform: ModelViewTransform2,
                providedOptions: ArrowImageNodeOptions ) {
 
@@ -47,7 +52,10 @@ class ArrowImageNode extends Node {
     } ) );
 
     const options = merge( {
-      children: [ arrowNode ]
+      children: [ arrowNode ],
+
+      // because we'll be supplying our own visibleProperty via setVisibleProperty
+      phetioVisiblePropertyInstrumented: false
     }, providedOptions );
 
     super( options );
@@ -77,6 +85,14 @@ class ArrowImageNode extends Node {
     arrowImage.opacityProperty.link( ( opacity: number ) => {
       this.opacity = opacity;
     } );
+
+    this.setVisibleProperty( new DerivedProperty(
+      [ virtualImageVisibleProperty, arrowImage.opticalImageTypeProperty, raysAndImagesVisibleProperty, arrowImage.visibleProperty, objectVisibleProperty ],
+      ( virtualImageVisible: boolean, opticalImageType: OpticalImageType, raysAndImagesVisible: boolean, framedImageVisible: boolean, objectVisible: boolean ) =>
+        ( virtualImageVisible || opticalImageType === 'real' ) && raysAndImagesVisible && framedImageVisible && objectVisible, {
+        tandem: options.tandem.createTandem( 'visibleProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
+      } ) );
   }
 }
 

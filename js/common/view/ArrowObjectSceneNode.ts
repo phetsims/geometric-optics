@@ -132,13 +132,13 @@ class ArrowObjectSceneNode extends Node {
 
     const arrowImage1Node = new ArrowImageNode( scene.arrowImage1,
       visibleProperties.virtualImageVisibleProperty, visibleProperties.raysAndImagesVisibleProperty,
-      modelViewTransform, {
+      arrowObject1Node.visibleProperty, modelViewTransform, {
         tandem: options.tandem.createTandem( 'arrowImage1Node' )
       } );
 
     const arrowImage2Node = new ArrowImageNode( scene.arrowImage2,
       visibleProperties.virtualImageVisibleProperty, visibleProperties.raysAndImagesVisibleProperty,
-      modelViewTransform, {
+      arrowObject2Node.visibleProperty, modelViewTransform, {
         visibleProperty: visibleProperties.secondPointVisibleProperty,
         tandem: options.tandem.createTandem( 'arrowImage2Node' )
       } );

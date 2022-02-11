@@ -33,6 +33,7 @@ class FramedImageNode extends Node {
    * @param optic
    * @param virtualImageVisibleProperty
    * @param raysAndImagesVisibleProperty
+   * @param objectVisibleProperty
    * @param modelViewTransform
    * @param providedOptions
    */
@@ -40,6 +41,7 @@ class FramedImageNode extends Node {
                optic: Optic,
                virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
                raysAndImagesVisibleProperty: IReadOnlyProperty<boolean>,
+               objectVisibleProperty: IReadOnlyProperty<boolean>,
                modelViewTransform: ModelViewTransform2,
                providedOptions: FramedImageNodeOptions ) {
 
@@ -81,9 +83,9 @@ class FramedImageNode extends Node {
     };
 
     this.setVisibleProperty( new DerivedProperty(
-      [ virtualImageVisibleProperty, framedImage.opticalImageTypeProperty, raysAndImagesVisibleProperty, framedImage.visibleProperty ],
-      ( virtualImageVisible: boolean, opticalImageType: OpticalImageType, raysAndImagesVisible: boolean, framedImageVisible: boolean ) =>
-        ( virtualImageVisible || opticalImageType === 'real' ) && raysAndImagesVisible && framedImageVisible, {
+      [ virtualImageVisibleProperty, framedImage.opticalImageTypeProperty, raysAndImagesVisibleProperty, framedImage.visibleProperty, objectVisibleProperty ],
+      ( virtualImageVisible: boolean, opticalImageType: OpticalImageType, raysAndImagesVisible: boolean, framedImageVisible: boolean, objectVisible: boolean ) =>
+        ( virtualImageVisible || opticalImageType === 'real' ) && raysAndImagesVisible && framedImageVisible && objectVisible, {
         tandem: options.tandem.createTandem( 'visibleProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
       } ) );

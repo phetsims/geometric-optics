@@ -130,7 +130,8 @@ class FramedObjectSceneNode extends Node {
     // Both points of interest are on the same Object, so we only render one Image. If we rendered 2 Images,
     // their opacities would combine.
     const framedImageNode = new FramedImageNode( scene.framedImage1, scene.optic,
-      visibleProperties.virtualImageVisibleProperty, visibleProperties.raysAndImagesVisibleProperty, modelViewTransform, {
+      visibleProperties.virtualImageVisibleProperty, visibleProperties.raysAndImagesVisibleProperty,
+      framedObjectNode.visibleProperty, modelViewTransform, {
         tandem: options.tandem.createTandem( 'framedImageNode' )
       } );
 
