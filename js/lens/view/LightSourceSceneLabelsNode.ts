@@ -56,7 +56,7 @@ class LightSourceSceneLabelsNode extends Node {
       ( bounds: Bounds2 ) => getLightLabelPosition( bounds )
     );
 
-    const light1Label = new LabelNode( geometricOpticsStrings.object, light1LabelPositionProperty,
+    const light1Label = new LabelNode( geometricOpticsStrings.object1, light1LabelPositionProperty,
       zoomTransformProperty, {
         yOffset: lightLabelYOffset
       } );
@@ -66,7 +66,7 @@ class LightSourceSceneLabelsNode extends Node {
       ( bounds: Bounds2 ) => getLightLabelPosition( bounds )
     );
 
-    const light2Label = new LabelNode( geometricOpticsStrings.object, light2LabelPositionProperty,
+    const light2Label = new LabelNode( geometricOpticsStrings.object2, light2LabelPositionProperty,
       zoomTransformProperty, {
         yOffset: lightLabelYOffset,
         visibleProperty: visibleProperties.secondPointVisibleProperty

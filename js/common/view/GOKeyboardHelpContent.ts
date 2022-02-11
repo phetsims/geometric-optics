@@ -82,13 +82,16 @@ class RulersKeyboardHelpSection extends KeyboardHelpSection {
       KeyboardHelpSection.createJumpKeyRow( 'M', geometricOpticsStrings.keyboardHelpDialog.jumpToMirror ),
 
       // J+O
-      KeyboardHelpSection.createJumpKeyRow( 'O', geometricOpticsStrings.keyboardHelpDialog.jumpToFirstObject ),
+      KeyboardHelpSection.createJumpKeyRow( 'O', geometricOpticsStrings.keyboardHelpDialog.jumpToObject1 ),
 
       // J+S
-      KeyboardHelpSection.createJumpKeyRow( 'S', geometricOpticsStrings.keyboardHelpDialog.jumpToSecondObject ),
+      KeyboardHelpSection.createJumpKeyRow( 'S', geometricOpticsStrings.keyboardHelpDialog.jumpToObject2 ),
 
       // J+I
-      KeyboardHelpSection.createJumpKeyRow( 'I', geometricOpticsStrings.keyboardHelpDialog.jumpToImage )
+      KeyboardHelpSection.createJumpKeyRow( 'I', geometricOpticsStrings.keyboardHelpDialog.jumpToImage1 ),
+
+      // J+K
+      KeyboardHelpSection.createJumpKeyRow( 'K', geometricOpticsStrings.keyboardHelpDialog.jumpToImage2 )
     ], {
       labelMaxWidth: 300
     } );

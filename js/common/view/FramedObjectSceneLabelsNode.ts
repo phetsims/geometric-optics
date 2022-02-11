@@ -51,7 +51,7 @@ class FramedObjectSceneLabelsNode extends Node {
       ( bounds: Bounds2 ) => bounds.centerTop
     );
 
-    const objectLabel = new LabelNode( geometricOpticsStrings.object, objectLabelPositionProperty,
+    const objectLabel = new LabelNode( geometricOpticsStrings.object1, objectLabelPositionProperty,
       zoomTransformProperty, {
         yOffset: 2
       } );
@@ -140,7 +140,7 @@ class FramedObjectSceneLabelsNode extends Node {
 
     // Switch between 'Real Image' and 'Virtual Image'
     scene.framedImage1.opticalImageTypeProperty.link( opticalImageType => {
-      imageLabel.setText( opticalImageType === 'real' ? geometricOpticsStrings.realImage : geometricOpticsStrings.virtualImage );
+      imageLabel.setText( opticalImageType === 'real' ? geometricOpticsStrings.realImage1 : geometricOpticsStrings.virtualImage1 );
     } );
 
     // Optical Axis label ------------------------------------------------------------------------------------
