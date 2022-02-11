@@ -1,47 +1,38 @@
 // Copyright 2022, University of Colorado Boulder
 
-//TODO lots of duplication with FramedObjectScene
 /**
  * ArrowObjectScene is a scene in which rays from two arrows interact with an optic and produce an Image.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Range from '../../../../dot/js/Range.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
 import { RaysType } from './RaysType.js';
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import LightRays from './LightRays.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Lens from '../../lens/model/Lens.js';
-import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Guides from '../../lens/model/Guides.js';
 import ArrowObject from './ArrowObject.js';
 import ArrowImage from './ArrowImage.js';
 import GOColors from '../GOColors.js';
+import GOObjectScene, { GOObjectSceneOptions } from './GOObjectScene.js';
 
 type ArrowObjectSceneOptions = {
 
   // initial positions of the arrow objects
   arrowObject1Position: Vector2,
-  arrowObject2Position: Vector2,
+  arrowObject2Position: Vector2
+} & GOObjectSceneOptions;
 
-  // phet-io options
-  tandem: Tandem
-};
+class ArrowObjectScene extends GOObjectScene {
 
-class ArrowObjectScene extends PhetioObject {
-
-  readonly optic: Optic;
   readonly arrowObject1: ArrowObject;
   readonly arrowObject2: ArrowObject;
   readonly arrowImage1: ArrowImage;
   readonly arrowImage2: ArrowImage;
-  readonly lightRaysAnimationTimeProperty: NumberProperty;
   readonly lightRays1: LightRays;
   readonly lightRays2: LightRays;
   readonly guides1: Guides | null;
@@ -61,13 +52,7 @@ class ArrowObjectScene extends PhetioObject {
       phetioState: false
     }, providedOptions );
 
-    super( options );
-
-    this.optic = optic;
-
-    this.addLinkedElement( optic, {
-      tandem: options.tandem.createTandem( 'optic' )
-    } );
+    super( optic, options );
 
     this.arrowObject1 = new ArrowObject( {
       position: options.arrowObject1Position,
@@ -91,13 +76,6 @@ class ArrowObjectScene extends PhetioObject {
     this.arrowImage2 = new ArrowImage( this.arrowObject2, this.optic, {
       tandem: options.tandem.createTandem( 'arrowImage2' ),
       phetioDocumentation: 'optical image associated with the second arrow object'
-    } );
-
-    this.lightRaysAnimationTimeProperty = new NumberProperty( 0, {
-      units: 's',
-      range: new Range( 0, 10 ), // determines the duration of the light rays animation
-      tandem: options.tandem.createTandem( 'lightRaysAnimationTimeProperty' ),
-      phetioReadOnly: true
     } );
 
     this.lightRays1 = new LightRays(
@@ -136,24 +114,12 @@ class ArrowObjectScene extends PhetioObject {
     this.resetArrowObjectScene = () => {
       this.arrowObject1.reset();
       this.arrowObject2.reset();
-      this.lightRaysAnimationTimeProperty.reset();
     };
   }
 
   public reset(): void {
+    super.reset();
     this.resetArrowObjectScene();
-  }
-
-  /**
-   * Steps the animation of light rays.
-   * @param dt - time step, in seconds
-   */
-  public stepLightRays( dt: number ): void {
-    const t = Math.min( this.lightRaysAnimationTimeProperty.value + dt, this.lightRaysAnimationTimeProperty.range!.max );
-    assert && assert( this.lightRaysAnimationTimeProperty.range ); // {Range|null}
-    if ( this.lightRaysAnimationTimeProperty.range!.contains( t ) ) {
-      this.lightRaysAnimationTimeProperty.value = t;
-    }
   }
 }
 

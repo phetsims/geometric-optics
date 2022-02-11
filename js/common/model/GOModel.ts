@@ -1,10 +1,8 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
-//TODO put scenes in an array, iterate of array to reset, step, etc.
 /**
- * GOModel is the common top-level model for this simulation.
+ * GOModel is base class for this simulation's top-level model, which contains all the model elements.
  *
- * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
@@ -23,6 +21,7 @@ import FramedObjectScene from './FramedObjectScene.js';
 import OpticalObjectChoice from './OpticalObjectChoice.js';
 import ArrowObjectScene from './ArrowObjectScene.js';
 import LightSourceScene from '../../lens/model/LightSourceScene.js';
+import GOObjectScene from './GOObjectScene.js';
 
 type GOModelOptions = {
 
@@ -40,6 +39,7 @@ type GOModelOptions = {
 
 class GOModel {
 
+  // choice of optical object
   readonly opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>;
 
   // model of the optic
@@ -49,6 +49,7 @@ class GOModel {
   readonly raysTypeProperty: Property<RaysType>;
 
   // scenes
+  private readonly scenes: GOObjectScene[];
   readonly arrowObjectScene: ArrowObjectScene;
   readonly framedObjectScene: FramedObjectScene;
   readonly lightSourceScene: LightSourceScene | null; // not supported by Mirrors screen
@@ -73,9 +74,7 @@ class GOModel {
    */
   constructor( optic: Optic, providedOptions: GOModelOptions ) {
 
-    const options = merge( {
-      //TODO
-    }, providedOptions );
+    const options = merge( {}, providedOptions );
 
     this.opticalObjectChoiceProperty = new EnumerationProperty( options.opticalObjectChoices[ 0 ], {
       validValues: options.opticalObjectChoices,
@@ -92,22 +91,27 @@ class GOModel {
 
     this.scenesTandem = options.tandem.createTandem( 'scenes' );
 
+    this.scenes = [];
+
     this.arrowObjectScene = new ArrowObjectScene( this.optic, this.raysTypeProperty, {
       arrowObject1Position: options.arrowObject1Position,
       arrowObject2Position: options.arrowObject2Position,
       tandem: this.scenesTandem.createTandem( 'arrowObjectScene' )
     } );
+    this.scenes.push( this.arrowObjectScene );
 
     this.framedObjectScene = new FramedObjectScene( this.opticalObjectChoiceProperty, this.optic, this.raysTypeProperty, {
       framedObjectPosition: options.framedObjectPosition,
       tandem: this.scenesTandem.createTandem( 'framedObjectScene' )
     } );
+    this.scenes.push( this.framedObjectScene );
 
     this.lightSourceScene = null;
     if ( options.opticalObjectChoices.includes( OpticalObjectChoice.LIGHT ) ) {
       this.lightSourceScene = new LightSourceScene( this.optic, this.raysTypeProperty, {
         tandem: this.scenesTandem.createTandem( 'lightSourceScene' )
       } );
+      this.scenes.push( this.lightSourceScene );
     }
 
     const rulersTandem = options.tandem.createTandem( 'rulers' );
@@ -130,9 +134,7 @@ class GOModel {
       this.opticalObjectChoiceProperty.reset();
       this.optic.reset();
       this.raysTypeProperty.reset();
-      this.arrowObjectScene.reset();
-      this.framedObjectScene.reset();
-      this.lightSourceScene && this.lightSourceScene.reset();
+      this.scenes.forEach( scene => scene.reset() );
       this.horizontalRuler.reset();
       this.verticalRuler.reset();
     };
@@ -143,15 +145,11 @@ class GOModel {
   }
 
   public stepLightRays( dt: number ): void {
-    this.arrowObjectScene.stepLightRays( dt );
-    this.framedObjectScene.stepLightRays( dt );
-    this.lightSourceScene && this.lightSourceScene.stepLightRays( dt );
+    this.scenes.forEach( scene => scene.stepLightRays( dt ) );
   }
 
   public resetLightRays(): void {
-    this.arrowObjectScene.lightRaysAnimationTimeProperty.reset();
-    this.framedObjectScene.lightRaysAnimationTimeProperty.reset();
-    this.lightSourceScene && this.lightSourceScene.lightRaysAnimationTimeProperty.reset();
+    this.scenes.forEach( scene => scene.lightRaysAnimationTimeProperty.reset() );
   }
 }
 

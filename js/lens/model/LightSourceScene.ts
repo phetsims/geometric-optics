@@ -1,6 +1,5 @@
 // Copyright 2022, University of Colorado Boulder
 
-//TODO lots of duplication with FramedObjectScene
 /**
  * LightSourceScene is a scene in rays from 2 light sources interact with an optic, and project light spots on
  * a projection screen.
@@ -9,14 +8,11 @@
  * @author Martin Veillette
  */
 
-import Range from '../../../../dot/js/Range.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from '../../common/model/Optic.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
 import { RaysType } from '../../common/model/RaysType.js';
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import LightRays from '../../common/model/LightRays.js';
 import ProjectionScreen from '../../lens/model/ProjectionScreen.js';
 import LightSpot from '../../lens/model/LightSpot.js';
@@ -25,24 +21,18 @@ import lamp2_png from '../../../images/lamp2_png.js';
 import lamp1_png from '../../../images/lamp1_png.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OpticalImage from '../../common/model/OpticalImage.js';
-import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Guides from './Guides.js';
+import GOObjectScene, { GOObjectSceneOptions } from '../../common/model/GOObjectScene.js';
 
-type LightSourcesSceneOptions = {
+type LightSourcesSceneOptions = {} & GOObjectSceneOptions;
 
-  // phet-io options
-  tandem: Tandem
-};
+class LightSourceScene extends GOObjectScene {
 
-class LightSourceScene extends PhetioObject {
-
-  readonly optic: Optic;
   readonly lightSource1: LightSource;
   readonly lightSource2: LightSource;
   readonly opticalImage1: OpticalImage;
   readonly opticalImage2: OpticalImage;
   readonly projectionScreen: ProjectionScreen;
-  readonly lightRaysAnimationTimeProperty: NumberProperty;
   readonly lightRays1: LightRays;
   readonly lightRays2: LightRays;
   readonly lightSpot1: LightSpot;
@@ -64,13 +54,7 @@ class LightSourceScene extends PhetioObject {
       phetioState: false
     }, providedOptions );
 
-    super( options );
-
-    this.optic = optic;
-
-    this.addLinkedElement( optic, {
-      tandem: options.tandem.createTandem( 'optic' )
-    } );
+    super( optic, options );
 
     this.lightSource1 = new LightSource( {
       htmlImageElement: lamp1_png,
@@ -98,13 +82,6 @@ class LightSourceScene extends PhetioObject {
 
     this.projectionScreen = new ProjectionScreen( {
       tandem: providedOptions.tandem.createTandem( 'projectionScreen' )
-    } );
-
-    this.lightRaysAnimationTimeProperty = new NumberProperty( 0, {
-      units: 's',
-      range: new Range( 0, 10 ), // determines the duration of the light rays animation
-      tandem: options.tandem.createTandem( 'lightRaysAnimationTimeProperty' ),
-      phetioReadOnly: true
     } );
 
     this.lightRays1 = new LightRays(
@@ -151,26 +128,13 @@ class LightSourceScene extends PhetioObject {
     this.resetLightSourcesScene = () => {
       this.lightSource1.reset();
       this.lightSource2.reset();
-      this.lightRaysAnimationTimeProperty.reset();
       this.projectionScreen.reset();
     };
   }
 
   public reset(): void {
+    super.reset();
     this.resetLightSourcesScene();
-  }
-
-  //TODO duplicated in FramedObjectScene
-  /**
-   * Steps the animation of light rays.
-   * @param dt - time step, in seconds
-   */
-  public stepLightRays( dt: number ): void {
-    const t = Math.min( this.lightRaysAnimationTimeProperty.value + dt, this.lightRaysAnimationTimeProperty.range!.max );
-    assert && assert( this.lightRaysAnimationTimeProperty.range ); // {Range|null}
-    if ( this.lightRaysAnimationTimeProperty.range!.contains( t ) ) {
-      this.lightRaysAnimationTimeProperty.value = t;
-    }
   }
 }
 
