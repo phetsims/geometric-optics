@@ -12,7 +12,7 @@ import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
-import { Circle, DragListener, FocusHighlightFromNode, KeyboardDragListener, Node, NodeOptions, VBox } from '../../../../scenery/js/imports.js';
+import { Circle, DragListener, FocusHighlightFromNode, KeyboardDragListener, Node, NodeOptions, VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import SecondPoint from '../model/SecondPoint.js';
@@ -22,6 +22,7 @@ import IProperty from '../../../../axon/js/IProperty.js';
 import GOConstants from '../GOConstants.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 type SecondPointNodeOptions = {
   visibleProperty: IProperty<boolean>,
@@ -152,7 +153,7 @@ class CueingArrowsNode extends VBox {
       fill: GOColors.secondPointFillProperty
     }, GOConstants.CUEING_ARROW_SHAPE_OPTIONS );
 
-    super( merge( {
+    super( optionize<VBoxOptions, {}, VBoxOptions>( {
       spacing: spacing,
       align: 'center',
       children: [

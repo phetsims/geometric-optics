@@ -7,17 +7,18 @@
  */
 
 import ProjectorModeCheckbox from '../../../../joist/js/ProjectorModeCheckbox.js';
-import merge from '../../../../phet-core/js/merge.js';
-import { Text, VBox } from '../../../../scenery/js/imports.js';
+import { Text, VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import FocalLengthControlRadioButtonGroup from './FocalLengthControlRadioButtonGroup.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
-type GOGlobalOptionsNodeOptions = {
+type GOGlobalOptionsNodeSelfOptions = {
   tandem: Tandem
 };
+type GOGlobalOptionsNodeOptions = GOGlobalOptionsNodeSelfOptions & VBoxOptions;
 
 class GOGlobalOptionsNode extends VBox {
 
@@ -52,7 +53,7 @@ class GOGlobalOptionsNode extends VBox {
       align: 'left'
     } );
 
-    super( merge( {
+    super( optionize<GOGlobalOptionsNodeOptions, GOGlobalOptionsNodeSelfOptions, VBoxOptions>( {
 
       // VBox options
       align: 'left',
