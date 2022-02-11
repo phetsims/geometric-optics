@@ -57,6 +57,8 @@ class ArrowObjectNode extends Node {
         const tipPosition = modelViewTransform.modelToViewPosition( arrowObjectPosition );
         const tailY = modelViewTransform.modelToViewY( opticPosition.y );
         arrowNode.setTailAndTip( tipPosition.x, tailY, tipPosition.x, tipPosition.y );
+        arrowNode.mouseArea = arrowNode.localBounds.dilated( 2 );
+        arrowNode.touchArea = arrowNode.localBounds.dilated( 3 );
       } );
 
     const cueingArrowsNode = new CueingArrowsNode();
