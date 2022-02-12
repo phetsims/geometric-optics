@@ -31,7 +31,11 @@ import starRightFacingUpright_png from '../../../images/starRightFacingUpright_p
 import starRightFacingInverted_png from '../../../images/starRightFacingInverted_png.js';
 import starLeftFacingUpright_png from '../../../images/starLeftFacingUpright_png.js';
 import starLeftFacingInverted_png from '../../../images/starLeftFacingInverted_png.js';
-import arrowIcon_png from '../../../images/arrowIcon_png.js';
+import GOConstants from '../GOConstants.js';
+import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
+import { Node } from '../../../../scenery/js/imports.js';
+import merge from '../../../../phet-core/js/merge.js';
+import GOColors from '../GOColors.js';
 
 // Set of HTMLImageElements that depict a framed object and its associated optical image
 type ObjectHTMLImageElements = {
@@ -41,10 +45,16 @@ type ObjectHTMLImageElements = {
   leftFacingInverted: HTMLImageElement
 };
 
+const arrowIcon = new ArrowNode( 0, 0, 0, -50, merge( {
+  fill: GOColors.arrow1FillProperty,
+  stroke: GOColors.arrow1StrokeProperty,
+  scale: 0.5
+}, GOConstants.ARROW_NODE_OPTIONS ) );
+
 class OpticalObjectChoice extends EnumerationValue {
 
   //TODO replace arrowIcon_png with new PNG file, or generate programmatically
-  static ARROW = new OpticalObjectChoice( geometricOpticsStrings.arrow, arrowIcon_png, 'arrow' );
+  static ARROW = new OpticalObjectChoice( geometricOpticsStrings.arrow, arrowIcon, 'arrow' );
 
   static PENCIL = new OpticalObjectChoice( geometricOpticsStrings.pencil, pencilIcon_png, 'pencil', {
     rightFacingUpright: pencilRightFacingUpright_png,
@@ -93,7 +103,7 @@ class OpticalObjectChoice extends EnumerationValue {
   public readonly label: string;
 
   // Icon that appears in OpticalObjectChoiceComboBox
-  public readonly icon: HTMLImageElement;
+  public readonly icon: HTMLImageElement | Node;
 
   // Prefix for tandems related to the OpticalObjectChoice
   public readonly tandemPrefix: string;
@@ -107,7 +117,7 @@ class OpticalObjectChoice extends EnumerationValue {
    * @param tandemPrefix
    * @param objectHTMLImageElements
    */
-  constructor( label: string, icon: HTMLImageElement, tandemPrefix: string, objectHTMLImageElements: ObjectHTMLImageElements | null = null ) {
+  constructor( label: string, icon: HTMLImageElement | Node, tandemPrefix: string, objectHTMLImageElements: ObjectHTMLImageElements | null = null ) {
     super();
     this.label = label;
     this.icon = icon;

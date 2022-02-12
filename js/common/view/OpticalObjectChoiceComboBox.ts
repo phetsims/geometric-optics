@@ -9,7 +9,7 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { HBox, Image, Node, NodeOptions, Text } from '../../../../scenery/js/imports.js';
+import { AlignBox, AlignGroup, HBox, Image, Node, NodeOptions, Text } from '../../../../scenery/js/imports.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -31,6 +31,9 @@ class OpticalObjectChoiceComboBox extends ComboBox {
   constructor( opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>, listParent: Node,
                providedOptions: OpticalObjectChoiceComboBoxOptions ) {
 
+    // To make all icons have the same effective dimensions
+    const iconsAlignGroup = new AlignGroup();
+
     // Create a ComboBoxItem for each representation.
     const items: ComboBoxItem[] = [];
     assert && assert( opticalObjectChoiceProperty.validValues ); // {OpticalObjectChoice[]|undefined}
@@ -43,10 +46,15 @@ class OpticalObjectChoiceComboBox extends ComboBox {
       } );
 
       // create icon
-      const icon = new Image( opticalObjectChoice.icon, { scale: 0.5 } );
+      const icon = ( opticalObjectChoice.icon instanceof Node ) ?
+                   opticalObjectChoice.icon :
+                   new Image( opticalObjectChoice.icon, { scale: 0.5 } );
+      const iconAlignBox = new AlignBox( icon, {
+        group: iconsAlignGroup
+      } );
 
       // hold the logo followed by text in a hbox
-      const hBox = new HBox( { spacing: 5, children: [ icon, text ] } );
+      const hBox = new HBox( { spacing: 5, children: [ iconAlignBox, text ] } );
 
       // create and add combo box item to the array
       items.push( new ComboBoxItem( hBox, opticalObjectChoice, {
