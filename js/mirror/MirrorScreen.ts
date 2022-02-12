@@ -23,13 +23,13 @@ type MirrorScreenOptions = {
   tandem: Tandem
 };
 
-class MirrorScreen extends Screen {
+class MirrorScreen extends Screen<MirrorModel, MirrorScreenView> {
 
   constructor( options: MirrorScreenOptions ) {
 
     super(
       () => new MirrorModel( { tandem: options.tandem.createTandem( 'model' ) } ),
-      ( model: MirrorModel ) => new MirrorScreenView( model, { tandem: options.tandem.createTandem( 'view' ) } ),
+      model => new MirrorScreenView( model, { tandem: options.tandem.createTandem( 'view' ) } ),
       merge( {
         name: geometricOpticsStrings.screen.mirror,
         homeScreenIcon: createScreenIcon(),

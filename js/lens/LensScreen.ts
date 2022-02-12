@@ -23,13 +23,13 @@ type LensScreenOptions = {
   tandem: Tandem
 };
 
-class LensScreen extends Screen {
+class LensScreen extends Screen<LensModel, LensScreenView> {
 
   constructor( options: LensScreenOptions ) {
 
     super(
       () => new LensModel( { tandem: options.tandem.createTandem( 'model' ) } ),
-      ( model: LensModel ) => new LensScreenView( model, { tandem: options.tandem.createTandem( 'view' ) } ),
+      model => new LensScreenView( model, { tandem: options.tandem.createTandem( 'view' ) } ),
       merge( {
         name: geometricOpticsStrings.screen.lens,
         homeScreenIcon: createScreenIcon(),
