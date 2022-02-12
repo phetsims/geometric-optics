@@ -22,6 +22,7 @@ import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 
 type ArrowObjectNodeOptions = {
   visibleProperty?: IProperty<boolean>,
@@ -88,12 +89,21 @@ class ArrowObjectNode extends Node {
       wasDraggedProperty.value = true;
     };
 
+    const end = () => {
+     const length = arrowObject.positionProperty.value.y - optic.positionProperty.value.y;
+     if ( Math.abs( length ) < ArrowObject.MIN_MAGNITUDE ) {
+       const sign = Math.sign( length );
+       arrowObject.positionProperty.value = new Vector2( arrowObject.positionProperty.value.x, sign * ArrowObject.MIN_MAGNITUDE );
+     }
+    };
+
     const dragListener = new DragListener( {
       positionProperty: arrowObject.positionProperty,
       dragBoundsProperty: modelBoundsProperty,
       transform: modelViewTransform,
       useParentOffset: true,
       drag: drag,
+      end: end,
       tandem: options.tandem.createTandem( 'dragListener' )
     } );
     this.addInputListener( dragListener );
@@ -102,7 +112,8 @@ class ArrowObjectNode extends Node {
       positionProperty: arrowObject.positionProperty,
       dragBoundsProperty: modelBoundsProperty,
       transform: modelViewTransform,
-      drag: drag
+      drag: drag,
+      end: end
       //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
     } ) );
     this.addInputListener( keyboardDragListener );
