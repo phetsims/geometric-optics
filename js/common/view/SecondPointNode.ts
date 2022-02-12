@@ -41,16 +41,7 @@ class SecondPointNode extends Node {
    */
   constructor( secondPoint: SecondPoint, modelViewTransform: ModelViewTransform2, providedOptions: SecondPointNodeOptions ) {
 
-    const pointNode = new PointNode();
-
-    // Cueing arrows
-    const cueingArrowsNode = new CueingArrowsNode( pointNode.width + 10, {
-      center: pointNode.center
-    } );
-
     const options = merge( {
-
-      children: [ pointNode, cueingArrowsNode ],
 
       // second point can only be dragged vertically
       cursor: 'ns-resize',
@@ -58,13 +49,31 @@ class SecondPointNode extends Node {
       // pdom options
       tagName: 'div',
       focusable: true,
-      focusHighlight: new FocusHighlightFromNode( pointNode ),
 
       // phet-io options
       phetioInputEnabledPropertyInstrumented: true
     }, providedOptions );
 
     super( options );
+
+    const pointNode = new PointNode();
+    this.addChild( pointNode );
+    this.setFocusHighlight( new FocusHighlightFromNode( pointNode ) );
+
+    const wasDraggedProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'wasDraggedProperty' ),
+      phetioReadOnly: true
+    } );
+
+    // Cueing arrows
+    const cueingArrowsNode = new CueingArrowsNode( pointNode.width + 10, {
+      center: pointNode.center,
+      visibleProperty: new DerivedProperty(
+        [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
+        ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
+          ( cueingArrowsEnabled && inputEnabled && !wasDragged ) )
+    } );
+    this.addChild( cueingArrowsNode );
 
     this.touchArea = Shape.circle( 0, 0, 2 * pointNode.width + 10 );
 
@@ -76,11 +85,6 @@ class SecondPointNode extends Node {
     // offset from the framed object's position.  So create an adapter Property for use with DragListener.
     const positionProperty = new Vector2Property( secondPoint.positionProperty.value );
     positionProperty.link( position => secondPoint.setSecondPoint( position ) );
-
-    const wasDraggedProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'wasDraggedProperty' ),
-      phetioReadOnly: true
-    } );
 
     // Drag action that is common to DragListener and KeyboardDragListener
     const drag = () => {
@@ -102,13 +106,6 @@ class SecondPointNode extends Node {
       //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
     } ) );
     this.addInputListener( keyboardDragListener );
-
-    cueingArrowsNode.mutate( {
-      visibleProperty: new DerivedProperty(
-        [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
-        ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
-          ( cueingArrowsEnabled && inputEnabled && !wasDragged ) )
-    } );
 
     this.addLinkedElement( secondPoint, {
       tandem: options.tandem.createTandem( 'secondPoint' )

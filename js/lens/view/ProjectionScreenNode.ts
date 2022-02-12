@@ -48,6 +48,18 @@ class ProjectionScreenNode extends Node {
                modelViewTransform: ModelViewTransform2,
                providedOptions: ProjectionScreenNodeOptions ) {
 
+    const options = merge( {
+
+      // pdom providedOptions
+      tagName: 'div',
+      focusable: true,
+
+      // phet-io options
+      phetioInputEnabledPropertyInstrumented: true
+    }, providedOptions );
+
+    super( options );
+
     // The screen part of the projection screen, drawn in perspective.
     const screenNode = new Path( modelViewTransform.modelToViewShape( projectionScreen.screenShape ), {
       fill: GOColors.projectionScreenFillProperty,
@@ -93,34 +105,28 @@ class ProjectionScreenNode extends Node {
     const parentNode = new Node( {
       children: [ pullStringNode, knobNode, topBarNode, bottomBarNode, screenNode ]
     } );
+    this.addChild( parentNode );
+    this.setFocusHighlight( new FocusHighlightFromNode( parentNode ) );
+
+    const wasDraggedProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'wasDraggedProperty' ),
+      phetioReadOnly: true
+    } );
 
     const cueingArrowsNode = new CueingArrowsNode( {
       left: parentNode.right,
-      centerY: parentNode.centerY
+      centerY: parentNode.centerY,
+      visibleProperty: new DerivedProperty(
+        [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
+        ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
+          ( cueingArrowsEnabled && inputEnabled && !wasDragged ) )
     } );
-
-    const children: Node[] = [ parentNode, cueingArrowsNode ];
+    this.addChild( cueingArrowsNode );
 
     // Red dot at the origin
     if ( GOQueryParameters.debugOrigins ) {
-      children.push( new OriginNode() );
+      this.addChild( new OriginNode() );
     }
-
-    const options = merge( {
-
-      // Node options
-      children: children,
-
-      // pdom providedOptions
-      tagName: 'div',
-      focusable: true,
-      focusHighlight: new FocusHighlightFromNode( parentNode ),
-
-      // phet-io options
-      phetioInputEnabledPropertyInstrumented: true
-    }, providedOptions );
-
-    super( options );
 
     projectionScreen.positionProperty.link( position => {
       this.translation = modelViewTransform.modelToViewPosition( position );
@@ -144,11 +150,6 @@ class ProjectionScreenNode extends Node {
     // Keep the projection screen within drag bounds.
     dragBoundsProperty.link( dragBounds => {
       projectionScreen.positionProperty.value = dragBounds.closestPointTo( projectionScreen.positionProperty.value );
-    } );
-
-    const wasDraggedProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'wasDraggedProperty' ),
-      phetioReadOnly: true
     } );
 
     // Drag action that is common to DragListener and KeyboardDragListener
@@ -175,13 +176,6 @@ class ProjectionScreenNode extends Node {
       //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
     } ) );
     this.addInputListener( keyboardDragListener );
-
-    cueingArrowsNode.mutate( {
-      visibleProperty: new DerivedProperty(
-        [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
-        ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
-          ( cueingArrowsEnabled && inputEnabled && !wasDragged ) )
-    } );
 
     this.resetProjectionScreenNode = () => {
       wasDraggedProperty.reset();

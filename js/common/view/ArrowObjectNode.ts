@@ -51,10 +51,26 @@ class ArrowObjectNode extends Node {
                wasDraggedProperty: Property<boolean>,
                providedOptions: ArrowObjectNodeOptions ) {
 
+    const options = merge( {
+
+      // pdom options
+      tagName: 'div',
+      focusable: true,
+
+      // phet-io options
+      phetioVisiblePropertyInstrumented: false,
+      phetioInputEnabledPropertyInstrumented: true
+    }, providedOptions );
+
+    super( options );
+
     const arrowNode = new ArrowNode( 0, 0, 0, 1, merge( {}, GOConstants.ARROW_NODE_OPTIONS, {
       fill: arrowObject.fill,
       stroke: arrowObject.stroke
     } ) );
+    this.addChild( arrowNode );
+    this.arrowNode = arrowNode;
+    this.setFocusHighlight( new FocusHighlightFromNode( arrowNode ) );
 
     Property.multilink( [ arrowObject.positionProperty, optic.positionProperty ],
       ( arrowObjectPosition, opticPosition ) => {
@@ -65,24 +81,13 @@ class ArrowObjectNode extends Node {
         arrowNode.touchArea = arrowNode.localBounds.dilated( 3 );
       } );
 
-    const cueingArrowsNode = new CueingArrowsNode();
-
-    const options = merge( {
-      children: [ arrowNode, cueingArrowsNode ],
-
-      // pdom options
-      tagName: 'div',
-      focusable: true,
-      focusHighlight: new FocusHighlightFromNode( arrowNode ),
-
-      // phet-io options
-      phetioVisiblePropertyInstrumented: false,
-      phetioInputEnabledPropertyInstrumented: true
-    }, providedOptions );
-
-    super( options );
-
-    this.arrowNode = arrowNode;
+    const cueingArrowsNode = new CueingArrowsNode( {
+      visibleProperty: new DerivedProperty(
+        [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
+        ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
+          ( cueingArrowsEnabled && inputEnabled && !wasDragged ) )
+    } );
+    this.addChild( cueingArrowsNode );
 
     // Drag action that is common to DragListener and KeyboardDragListener
     const drag = () => {
@@ -131,13 +136,6 @@ class ArrowObjectNode extends Node {
         cueingArrowsNode.right = arrowNodeBounds.left - 5;
         cueingArrowsNode.centerY = arrowNodeBounds.centerY;
       } );
-
-    cueingArrowsNode.mutate( {
-      visibleProperty: new DerivedProperty(
-        [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
-        ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
-          ( cueingArrowsEnabled && inputEnabled && !wasDragged ) )
-    } );
 
     // Update cursor and cueing arrows to reflect how this Node is draggable.
     dragLockedProperty.link( locked => {

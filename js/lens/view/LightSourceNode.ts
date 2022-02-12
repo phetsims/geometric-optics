@@ -52,28 +52,34 @@ class LightSourceNode extends Node {
                wasDraggedProperty: Property<boolean>,
                providedOptions: LightSourceNodeOptions ) {
 
-    const imageNode = new Image( lightSource.htmlImageElement );
-
-    // Wrap imageNode in a Node. We need to scale imageNode, but do not want its focus highlight to scale.
-    const wrappedImageNode = new Node( {
-      children: [ imageNode ]
-    } );
-
-    const cueingArrowsNode = new CueingArrowsNode();
-
     const options = merge( {
-      children: [ wrappedImageNode, cueingArrowsNode ],
 
       // pdom options
       tagName: 'div',
       focusable: true,
-      focusHighlight: new FocusHighlightFromNode( wrappedImageNode ),
 
       // phet-io options
       phetioInputEnabledPropertyInstrumented: true
     }, providedOptions );
 
     super( options );
+
+    const imageNode = new Image( lightSource.htmlImageElement );
+
+    // Wrap imageNode in a Node. We need to scale imageNode, but do not want its focus highlight to scale.
+    const wrappedImageNode = new Node( {
+      children: [ imageNode ]
+    } );
+    this.addChild( wrappedImageNode );
+    this.setFocusHighlight( new FocusHighlightFromNode( wrappedImageNode ) );
+
+    const cueingArrowsNode = new CueingArrowsNode( {
+      visibleProperty: new DerivedProperty(
+        [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
+        ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
+          ( cueingArrowsEnabled && inputEnabled && !wasDragged ) )
+    } );
+    this.addChild( cueingArrowsNode );
 
     const updateScale = () => {
       const modelBounds = lightSource.boundsProperty.value;
@@ -157,13 +163,6 @@ class LightSourceNode extends Node {
         cueingArrowsNode.right = wrappedImageNode.left - 5;
         cueingArrowsNode.centerY = wrappedImageNode.centerY;
       } );
-
-    cueingArrowsNode.mutate( {
-      visibleProperty: new DerivedProperty(
-        [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
-        ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
-          ( cueingArrowsEnabled && inputEnabled && !wasDragged ) )
-    } );
 
     // Update cursor and cueing arrows to reflect how this Node is draggable.
     dragLockedProperty.link( locked => {

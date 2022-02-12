@@ -52,22 +52,11 @@ class FramedObjectNode extends Node {
                dragLockedProperty: IReadOnlyProperty<boolean>,
                providedOptions: FramedObjectNodeOptions ) {
 
-    const imageNode = new Image( framedObject.objectHTMLImageElementsProperty.value.rightFacingUpright );
-
-    // Wrap imageNode in a Node. We need to scale imageNode, but do not want its focus highlight to scale.
-    const wrappedImageNode = new Node( {
-      children: [ imageNode ]
-    } );
-
-    const cueingArrowsNode = new CueingArrowsNode();
-
     const options = merge( {
-      children: [ wrappedImageNode, cueingArrowsNode ],
 
       // pdom options
       tagName: 'div',
       focusable: true,
-      focusHighlight: new FocusHighlightFromNode( wrappedImageNode ),
 
       // phet-io options
       phetioVisiblePropertyInstrumented: false,
@@ -75,6 +64,28 @@ class FramedObjectNode extends Node {
     }, providedOptions );
 
     super( options );
+
+    const imageNode = new Image( framedObject.objectHTMLImageElementsProperty.value.rightFacingUpright );
+
+    // Wrap imageNode in a Node. We need to scale imageNode, but do not want its focus highlight to scale.
+    const wrappedImageNode = new Node( {
+      children: [ imageNode ]
+    } );
+    this.addChild( wrappedImageNode );
+    this.setFocusHighlight( new FocusHighlightFromNode( wrappedImageNode ) );
+
+    const wasDraggedProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'wasDraggedProperty' ),
+      phetioReadOnly: true
+    } );
+
+    const cueingArrowsNode = new CueingArrowsNode( {
+      visibleProperty: new DerivedProperty(
+        [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
+        ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
+          ( cueingArrowsEnabled && inputEnabled && !wasDragged ) )
+    } );
+    this.addChild( cueingArrowsNode );
 
     const updateScale = () => {
       const modelBounds = framedObject.boundsProperty.value;
@@ -130,11 +141,6 @@ class FramedObjectNode extends Node {
       framedObject.positionProperty.value = dragBounds.closestPointTo( framedObject.positionProperty.value );
     } );
 
-    const wasDraggedProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'wasDraggedProperty' ),
-      phetioReadOnly: true
-    } );
-
     // Drag action that is common to DragListener and KeyboardDragListener
     const drag = () => {
       wasDraggedProperty.value = true;
@@ -165,13 +171,6 @@ class FramedObjectNode extends Node {
         cueingArrowsNode.right = wrappedImageNode.left - 5;
         cueingArrowsNode.centerY = wrappedImageNode.centerY;
       } );
-
-    cueingArrowsNode.mutate( {
-      visibleProperty: new DerivedProperty(
-        [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
-        ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
-          ( cueingArrowsEnabled && inputEnabled && !wasDragged ) )
-    } );
 
     // Update cursor and cueing arrows to reflect how this Node is draggable.
     dragLockedProperty.link( locked => {
