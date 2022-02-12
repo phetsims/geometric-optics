@@ -89,12 +89,14 @@ class ArrowObjectNode extends Node {
       wasDraggedProperty.value = true;
     };
 
+    // When dragging is completed, snap arrow to its minimum length.
     const end = () => {
-     const length = arrowObject.positionProperty.value.y - optic.positionProperty.value.y;
-     if ( Math.abs( length ) < ArrowObject.MIN_MAGNITUDE ) {
-       const sign = Math.sign( length );
-       arrowObject.positionProperty.value = new Vector2( arrowObject.positionProperty.value.x, sign * ArrowObject.MIN_MAGNITUDE );
-     }
+      const arrowLength = arrowObject.positionProperty.value.y - optic.positionProperty.value.y;
+      if ( Math.abs( arrowLength ) < ArrowObject.MIN_MAGNITUDE ) {
+        const x = arrowObject.positionProperty.value.x;
+        const y = Math.sign( arrowLength ) * ArrowObject.MIN_MAGNITUDE;
+        arrowObject.positionProperty.value = new Vector2( x, y );
+      }
     };
 
     const dragListener = new DragListener( {
