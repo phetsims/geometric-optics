@@ -311,6 +311,10 @@ function createRulerNode( rulerLength: number, zoomTransform: ModelViewTransform
                           providedOptions?: RulerNodeOptions ): Node {
 
   const options = merge( {
+
+    // Because RulerNode instances are created dynamically, whenever the zoom level changes.
+    // GORulerNode is therefore a wrapper around RulerNode, and will consequently not have the
+    // same PhET-iO API as RulerNode.
     tandem: Tandem.OPT_OUT
   }, providedOptions ) as RulerNodeOptions;
 
