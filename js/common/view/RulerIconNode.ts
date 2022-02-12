@@ -13,6 +13,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import { DragListener, SceneryEvent } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GORulerNode from './GORulerNode.js';
 
@@ -52,7 +53,10 @@ class RulerIconNode extends RulerNode {
       visibleProperty: DerivedProperty.not( rulerNode.visibleProperty ),
 
       // pdom options
-      tagName: 'button'
+      tagName: 'button',
+
+      // phet-io options
+      tandem: Tandem.OPT_OUT
     };
 
     // major ticks have no labels, it would be too much detail in an icon

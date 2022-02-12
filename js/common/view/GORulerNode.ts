@@ -310,7 +310,9 @@ function moveRuler( ruler: GORuler, position: Vector2, opticalAxisY: number ) {
 function createRulerNode( rulerLength: number, zoomTransform: ModelViewTransform2, zoomScale: number,
                           providedOptions?: RulerNodeOptions ): Node {
 
-  const options = merge( {}, providedOptions ) as RulerNodeOptions;
+  const options = merge( {
+    tandem: Tandem.OPT_OUT
+  }, providedOptions ) as RulerNodeOptions;
 
   assert && assert( options.majorTickDistance === undefined );
   options.majorTickDistance = 10 / zoomScale; // in model coordinate (cm)
