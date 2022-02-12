@@ -85,20 +85,20 @@ class LightSourceScene extends GOScene {
     } );
 
     this.lightRays1 = new LightRays(
-      this.lightRaysAnimationTimeProperty,
-      raysTypeProperty,
       this.lightSource1.positionProperty,
       this.optic,
       this.opticalImage1,
+      raysTypeProperty,
+      this.lightRaysAnimationTimeProperty,
       this.projectionScreen
     );
 
     this.lightRays2 = new LightRays(
-      this.lightRaysAnimationTimeProperty,
-      raysTypeProperty,
       this.lightSource2.positionProperty,
       this.optic,
       this.opticalImage2,
+      raysTypeProperty,
+      this.lightRaysAnimationTimeProperty,
       this.projectionScreen
     );
 

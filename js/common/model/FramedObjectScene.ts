@@ -82,19 +82,19 @@ class FramedObjectScene extends GOScene {
       } );
 
     this.lightRays1 = new LightRays(
-      this.lightRaysAnimationTimeProperty,
-      raysTypeProperty,
       this.framedObject.positionProperty,
       this.optic,
-      this.framedImage1
+      this.framedImage1,
+      raysTypeProperty,
+      this.lightRaysAnimationTimeProperty
     );
 
     this.lightRays2 = new LightRays(
-      this.lightRaysAnimationTimeProperty,
-      raysTypeProperty,
       this.secondPoint.positionProperty,
       this.optic,
-      this.framedImage2
+      this.framedImage2,
+      raysTypeProperty,
+      this.lightRaysAnimationTimeProperty
     );
 
     // Guides

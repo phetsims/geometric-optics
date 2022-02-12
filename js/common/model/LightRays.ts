@@ -38,18 +38,18 @@ class LightRays {
   readonly raysProcessedEmitter: Emitter<[]>;
 
   /**
-   * @param lightRaysAnimationTimeProperty - elapsed time of light rays animation
-   * @param raysTypeProperty
    * @param opticalObjectPositionProperty
    * @param optic
    * @param opticalImage - optical image associated with this ray
+   * @param raysTypeProperty
+   * @param lightRaysAnimationTimeProperty - elapsed time of light rays animation
    * @param projectionScreen - optional projection screen that blocks rays
    */
-  constructor( lightRaysAnimationTimeProperty: IReadOnlyProperty<number>,
-               raysTypeProperty: IReadOnlyProperty<RaysType>,
-               opticalObjectPositionProperty: IReadOnlyProperty<Vector2>,
+  constructor( opticalObjectPositionProperty: IReadOnlyProperty<Vector2>,
                optic: Optic,
                opticalImage: OpticalImage,
+               raysTypeProperty: IReadOnlyProperty<RaysType>,
+               lightRaysAnimationTimeProperty: IReadOnlyProperty<number>,
                projectionScreen: ProjectionScreen | null = null ) {
 
     this.realSegments = [];

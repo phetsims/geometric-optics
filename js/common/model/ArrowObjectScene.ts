@@ -79,19 +79,19 @@ class ArrowObjectScene extends GOScene {
     } );
 
     this.lightRays1 = new LightRays(
-      this.lightRaysAnimationTimeProperty,
-      raysTypeProperty,
       this.arrowObject1.positionProperty,
       this.optic,
-      this.arrowImage1
+      this.arrowImage1,
+      raysTypeProperty,
+      this.lightRaysAnimationTimeProperty
     );
 
     this.lightRays2 = new LightRays(
-      this.lightRaysAnimationTimeProperty,
-      raysTypeProperty,
       this.arrowObject2.positionProperty,
       this.optic,
-      this.arrowImage2
+      this.arrowImage2,
+      raysTypeProperty,
+      this.lightRaysAnimationTimeProperty
     );
 
     // Guides
