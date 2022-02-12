@@ -103,10 +103,12 @@ class SecondPointNode extends Node {
     } ) );
     this.addInputListener( keyboardDragListener );
 
-    cueingArrowsNode.setVisibleProperty( new DerivedProperty(
-      [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
-      ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
-        ( cueingArrowsEnabled && inputEnabled && !wasDragged ) ) );
+    cueingArrowsNode.mutate( {
+      visibleProperty: new DerivedProperty(
+        [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
+        ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
+          ( cueingArrowsEnabled && inputEnabled && !wasDragged ) )
+    } );
 
     this.addLinkedElement( secondPoint, {
       tandem: options.tandem.createTandem( 'secondPoint' )

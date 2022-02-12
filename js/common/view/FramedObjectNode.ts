@@ -166,10 +166,12 @@ class FramedObjectNode extends Node {
         cueingArrowsNode.centerY = wrappedImageNode.centerY;
       } );
 
-    cueingArrowsNode.setVisibleProperty( new DerivedProperty(
-      [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
-      ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
-        ( cueingArrowsEnabled && inputEnabled && !wasDragged ) ) );
+    cueingArrowsNode.mutate( {
+      visibleProperty: new DerivedProperty(
+        [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
+        ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
+          ( cueingArrowsEnabled && inputEnabled && !wasDragged ) )
+    } );
 
     // Update cursor and cueing arrows to reflect how this Node is draggable.
     dragLockedProperty.link( locked => {

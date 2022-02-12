@@ -54,8 +54,13 @@ class ArrowImageNode extends Node {
     const options = merge( {
       children: [ arrowNode ],
 
-      // because we'll be supplying our own visibleProperty via setVisibleProperty
-      phetioVisiblePropertyInstrumented: false
+      visibleProperty: new DerivedProperty(
+        [ virtualImageVisibleProperty, arrowImage.opticalImageTypeProperty, raysAndImagesVisibleProperty, arrowImage.visibleProperty, objectVisibleProperty ],
+        ( virtualImageVisible: boolean, opticalImageType: OpticalImageType, raysAndImagesVisible: boolean, framedImageVisible: boolean, objectVisible: boolean ) =>
+          ( virtualImageVisible || opticalImageType === 'real' ) && raysAndImagesVisible && framedImageVisible && objectVisible, {
+          tandem: providedOptions.tandem.createTandem( 'visibleProperty' ),
+          phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
+        } )
     }, providedOptions );
 
     super( options );
@@ -85,14 +90,6 @@ class ArrowImageNode extends Node {
     arrowImage.opacityProperty.link( ( opacity: number ) => {
       this.opacity = opacity;
     } );
-
-    this.setVisibleProperty( new DerivedProperty(
-      [ virtualImageVisibleProperty, arrowImage.opticalImageTypeProperty, raysAndImagesVisibleProperty, arrowImage.visibleProperty, objectVisibleProperty ],
-      ( virtualImageVisible: boolean, opticalImageType: OpticalImageType, raysAndImagesVisible: boolean, framedImageVisible: boolean, objectVisible: boolean ) =>
-        ( virtualImageVisible || opticalImageType === 'real' ) && raysAndImagesVisible && framedImageVisible && objectVisible, {
-        tandem: options.tandem.createTandem( 'visibleProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
-      } ) );
   }
 }
 

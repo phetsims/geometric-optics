@@ -46,8 +46,13 @@ class FramedImageNode extends Node {
                providedOptions: FramedImageNodeOptions ) {
 
     const options = merge( {
-      // because we'll be supplying our own visibleProperty via setVisibleProperty
-      phetioVisiblePropertyInstrumented: false
+      visibleProperty: new DerivedProperty(
+        [ virtualImageVisibleProperty, framedImage.opticalImageTypeProperty, raysAndImagesVisibleProperty, framedImage.visibleProperty, objectVisibleProperty ],
+        ( virtualImageVisible: boolean, opticalImageType: OpticalImageType, raysAndImagesVisible: boolean, framedImageVisible: boolean, objectVisible: boolean ) =>
+          ( virtualImageVisible || opticalImageType === 'real' ) && raysAndImagesVisible && framedImageVisible && objectVisible, {
+          tandem: providedOptions.tandem.createTandem( 'visibleProperty' ),
+          phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
+        } )
     }, providedOptions );
 
     super( options );
@@ -81,14 +86,6 @@ class FramedImageNode extends Node {
       parentNode.scale( viewBounds.width / initialWidth, viewBounds.height / initialHeight );
       parentNode.translation = new Vector2( viewBounds.minX, viewBounds.minY );
     };
-
-    this.setVisibleProperty( new DerivedProperty(
-      [ virtualImageVisibleProperty, framedImage.opticalImageTypeProperty, raysAndImagesVisibleProperty, framedImage.visibleProperty, objectVisibleProperty ],
-      ( virtualImageVisible: boolean, opticalImageType: OpticalImageType, raysAndImagesVisible: boolean, framedImageVisible: boolean, objectVisible: boolean ) =>
-        ( virtualImageVisible || opticalImageType === 'real' ) && raysAndImagesVisible && framedImageVisible && objectVisible, {
-        tandem: options.tandem.createTandem( 'visibleProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
-      } ) );
 
     // update position and scale when model bounds change
     framedImage.boundsProperty.link( () => updateScaleAndPosition() );
