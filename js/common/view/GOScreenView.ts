@@ -26,7 +26,7 @@ import GOModel from '../model/GOModel.js';
 import GOControlPanel from './GOControlPanel.js';
 import OpticShapeRadioButtonGroup from './OpticShapeRadioButtonGroup.js';
 import OpticalObjectChoiceComboBox from './OpticalObjectChoiceComboBox.js';
-import ShowHideToggleButton from './ShowHideToggleButton.js';
+import LightPropagationToggleButton from './LightPropagationToggleButton.js';
 import VisibleProperties from './VisibleProperties.js';
 import Lens from '../../lens/model/Lens.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
@@ -124,9 +124,9 @@ class GOScreenView extends ScreenView {
 
     const lightPropagationEnabledProperty = new BooleanProperty( true, {
       tandem: providedOptions.tandem.createTandem( 'lightPropagationEnabledProperty' ),
-      phetioDocumentation: 'Turns light propagation on (true) and off (false), to support predictive questioning.<br>' +
+      phetioDocumentation: 'Turns light propagation on (true) and off (false) to support predictive questioning.<br>' +
                            'When off, the following things are not visible: <br>' +
-                           '- rays<br>' +
+                           '- rays (real and virtual)<br>' +
                            '- images (real and virtual)<br>' +
                            '- light spots on the projection screen'
     } );
@@ -238,12 +238,12 @@ class GOScreenView extends ScreenView {
       tandem: this.controlsTandem.createTandem( 'resetAllButton' )
     } );
 
-    // Show/hide toggle button above the Reset All button
-    const showHideToggleButton = new ShowHideToggleButton( lightPropagationEnabledProperty, {
-      tandem: this.controlsTandem.createTandem( 'showHideToggleButton' )
+    // Toggle button above the Reset All button
+    const lightPropagationToggleButton = new LightPropagationToggleButton( lightPropagationEnabledProperty, {
+      tandem: this.controlsTandem.createTandem( 'lightPropagationToggleButton' )
     } );
-    showHideToggleButton.centerX = resetAllButton.centerX;
-    showHideToggleButton.top = controlPanel.top;
+    lightPropagationToggleButton.centerX = resetAllButton.centerX;
+    lightPropagationToggleButton.top = controlPanel.top;
 
     // ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied.
     const modelVisibleBoundsProperty = new DerivedProperty(
@@ -361,7 +361,7 @@ class GOScreenView extends ScreenView {
       children: [
         opticShapeRadioButtonGroup,
         controlPanel,
-        showHideToggleButton,
+        lightPropagationToggleButton,
         resetAllButton,
         rulersToolbox,
         zoomButtonGroup,
@@ -425,7 +425,7 @@ class GOScreenView extends ScreenView {
       scenesLayer,
       zoomButtonGroup,
       controlPanel,
-      showHideToggleButton,
+      lightPropagationToggleButton,
       resetAllButton
     ];
 
