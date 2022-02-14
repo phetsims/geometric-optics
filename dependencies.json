@@ -1,11 +1,11 @@
 {
-  "comment": "# geometric-optics 1.1.0-dev.24 Fri Feb 11 2022 20:42:37 GMT-0700 (Mountain Standard Time)",
+  "comment": "# geometric-optics 1.1.0-dev.25 Mon Feb 14 2022 16:38:02 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "767b2f345518ceca5144a152ecf40cd4f9206136",
     "branch": "master"
   },
   "axon": {
-    "sha": "74822621671aec0d67b88caba1cee14dc7f5f7af",
+    "sha": "557276af408de024dcefa4206761d461cf7c688c",
     "branch": "master"
   },
   "brand": {
@@ -21,11 +21,11 @@
     "branch": "master"
   },
   "geometric-optics": {
-    "sha": "a74af82fb124ca23c47d8fa02f7ad1169d41559d",
+    "sha": "b6fa0827a91efe7df70528dd48596d1e3605e411",
     "branch": "master"
   },
   "joist": {
-    "sha": "77010a05d6c8f97a0000d1ce47f4b17a52acfa77",
+    "sha": "af383b2dca198f533b41f3ac536dc7548aed193f",
     "branch": "master"
   },
   "kite": {
@@ -37,7 +37,7 @@
     "branch": "master"
   },
   "phet-core": {
-    "sha": "108123565fe92f2fe03ce69918243b55e74c1083",
+    "sha": "59a7e14b3bc4b9fe8820c3f56a4fb7e36ffe60ec",
     "branch": "master"
   },
   "phet-io": {
@@ -65,7 +65,7 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "414a0ed90fdedf258fa96c49768968a6a1c8901a",
+    "sha": "a0f5f1d95b221d6f7ddf7b219a83b3ad049d11c2",
     "branch": "master"
   },
   "scenery-phet": {
@@ -81,7 +81,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "8e1b1ad4275d3b3dbef79d7adab62ac97a279ee3",
+    "sha": "4129a3d7639ed15c3e5f0195c5f1374b3d3ae965",
     "branch": "master"
   },
   "tambo": {
@@ -89,7 +89,7 @@
     "branch": "master"
   },
   "tandem": {
-    "sha": "7d753090d61a010d31dad07b6d9d5042d2122e91",
+    "sha": "fc5683d22de15bf5e077899ea76434287aae220c",
     "branch": "master"
   },
   "twixt": {
