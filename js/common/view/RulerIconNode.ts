@@ -1,4 +1,4 @@
-// Copyright 2021, University of Colorado Boulder
+// Copyright 2021-2022, University of Colorado Boulder
 
 /**
  * RulerIconNode is a ruler icon that appears in the RulersToolbox. It is associated with a specific ruler Node,
