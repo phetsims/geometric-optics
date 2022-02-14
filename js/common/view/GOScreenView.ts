@@ -123,8 +123,12 @@ class GOScreenView extends ScreenView {
     } );
 
     const lightPropagationEnabledProperty = new BooleanProperty( true, {
-      tandem: providedOptions.tandem.createTandem( 'lightPropagationEnabledProperty' )
-      //TODO phetioDocumentation
+      tandem: providedOptions.tandem.createTandem( 'lightPropagationEnabledProperty' ),
+      phetioDocumentation: 'Turns light propagation on (true) and off (false), to support predictive questioning.<br>' +
+                           'When off, the following things are not visible: <br>' +
+                           '- rays<br>' +
+                           '- images (real and virtual)<br>' +
+                           '- light spots on the projection screen'
     } );
 
     // Controls zoom in experiment area
@@ -264,7 +268,7 @@ class GOScreenView extends ScreenView {
 
     const scenesLayer = new Node();
     const labelsLayer = new Node();
-    
+
     const arrowObjectSceneNode = new ArrowObjectSceneNode( model.arrowObjectScene, visibleProperties, modelViewTransform,
       modelVisibleBoundsProperty, modelBoundsProperty, model.raysTypeProperty, lightPropagationEnabledProperty, {
         createOpticNode: options.createOpticNode,
@@ -352,7 +356,7 @@ class GOScreenView extends ScreenView {
     }
 
     // Layout ================================================================================================
-    
+
     const controlsLayer = new Node( {
       children: [
         opticShapeRadioButtonGroup,
