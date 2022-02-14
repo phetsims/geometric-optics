@@ -142,7 +142,7 @@ class OpticalObjectChoice extends EnumerationValue {
   }
 
   /**
-   * Is the choice a light source?
+   * Is the choice a light object?
    * @param choice
    */
   static isLightSource( choice: OpticalObjectChoice ): boolean {

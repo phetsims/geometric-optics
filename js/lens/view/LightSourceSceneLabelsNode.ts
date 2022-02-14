@@ -2,7 +2,7 @@
 
 //TODO lots of duplication with FramedObjectSceneLabelsNode
 /**
- * LightSourceSceneLabelsNode labels things in the 'light sources' scene.
+ * LightSourceSceneLabelsNode labels things in the 'light object' scene.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  * @author Sarah Chang (Swarthmore College)

@@ -1,7 +1,7 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * LightSourceScene is a scene in rays from 2 light sources interact with a lens, and project light spots on
+ * LightSourceScene is a scene in rays from 2 lights interact with a lens, and project light spots on
  * a projection screen. Note that this scene supports only Lens, not Mirror.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -60,24 +60,24 @@ class LightSourceScene extends GOScene {
       htmlImageElement: lamp1_png,
       position: new Vector2( -170, 20 ),
       tandem: options.tandem.createTandem( 'lightSource1' ),
-      phetioDocumentation: 'the first light source'
+      phetioDocumentation: 'the first light'
     } );
 
     this.lightSource2 = new LightSource( {
       htmlImageElement: lamp2_png,
       position: new Vector2( -170, -20 ),
       tandem: options.tandem.createTandem( 'lightSource2' ),
-      phetioDocumentation: 'the second light source'
+      phetioDocumentation: 'the second light'
     } );
 
     this.opticalImage1 = new OpticalImage( this.lightSource1.positionProperty, this.optic, {
       tandem: options.tandem.createTandem( 'opticalImage1' ),
-      phetioDocumentation: 'Point where light rays from the first light source converge. No image is formed in this scene.'
+      phetioDocumentation: 'Point where light rays from the first light converge. No image is formed in this scene.'
     } );
 
     this.opticalImage2 = new OpticalImage( this.lightSource2.positionProperty, this.optic, {
       tandem: options.tandem.createTandem( 'opticalImage2' ),
-      phetioDocumentation: 'Point where light rays from the second light source converge. No image is formed in this scene.'
+      phetioDocumentation: 'Point where light rays from the second light converge. No image is formed in this scene.'
     } );
 
     this.projectionScreen = new ProjectionScreen( {
@@ -106,22 +106,22 @@ class LightSourceScene extends GOScene {
     this.lightSpot1 = new LightSpot( this.optic, this.projectionScreen, this.lightSource1.positionProperty,
       this.opticalImage1.positionProperty, {
         tandem: options.tandem.createTandem( 'lightSpot1' ),
-        phetioDocumentation: 'the light spot on the projection screen that is created by the first light source'
+        phetioDocumentation: 'the light spot on the projection screen that is created by the first light'
       } );
     this.lightSpot2 = new LightSpot( this.optic, this.projectionScreen, this.lightSource2.positionProperty,
       this.opticalImage2.positionProperty, {
         tandem: options.tandem.createTandem( 'lightSpot2' ),
-        phetioDocumentation: 'the light spot on the projection screen that is created by the second light source'
+        phetioDocumentation: 'the light spot on the projection screen that is created by the second light'
       } );
 
     // Guides
     this.guides1 = new Guides( this.optic, this.lightSource1.positionProperty, {
       tandem: options.tandem.createTandem( 'guides1' ),
-      phetioDocumentation: 'guides associated with the first light source'
+      phetioDocumentation: 'guides associated with the first light'
     } );
     this.guides2 = new Guides( this.optic, this.lightSource2.positionProperty, {
       tandem: options.tandem.createTandem( 'guides2' ),
-      phetioDocumentation: 'guides associated with the second light source'
+      phetioDocumentation: 'guides associated with the second light'
     } );
 
     //TODO is this complete?

@@ -141,14 +141,14 @@ class LightSourceSceneNode extends Node {
         visibleProperty: visibleProperties.opticalAxisVisibleProperty
       } );
 
-    // Real light rays associated with the first light source.
+    // Real light rays associated with the first light.
     // Note that virtual rays are not shown in this scene, because no optical image is being formed.
     const realLightRays1Node = new RealLightRaysNode( scene.lightRays1, modelViewTransform, {
       stroke: GOColors.rays1StrokeProperty,
       visibleProperty: visibleProperties.raysAndImagesVisibleProperty
     } );
 
-    // Real light rays associated with the second light source.
+    // Real light rays associated with the second light.
     // Note that virtual rays are not shown in this scene, because no optical image is being formed.
     const realLightRays2Node = new RealLightRaysNode( scene.lightRays2, modelViewTransform, {
       stroke: GOColors.rays2StrokeProperty,
@@ -166,13 +166,13 @@ class LightSourceSceneNode extends Node {
       }
     );
 
-    // LightSpot associated with the first light source
+    // LightSpot associated with the first light
     const lightSpot1Node = new LightSpotNode( scene.lightSpot1, modelViewTransform, {
       visibleProperty: scene.opticalImage1.visibleProperty
       // DO NOT instrument for PhET-iO, see https://github.com/phetsims/geometric-optics/issues/269
     } );
 
-    // LightSpot associated with the second light source
+    // LightSpot associated with the second light
     const lightSpot2Node = new LightSpotNode( scene.lightSpot2, modelViewTransform, {
       visibleProperty: DerivedProperty.and(
         [ scene.opticalImage2.visibleProperty, visibleProperties.secondPointVisibleProperty ] )
@@ -182,7 +182,7 @@ class LightSourceSceneNode extends Node {
     const guides1Node = new GuidesNode( scene.guides1, GOColors.guideArm1FillProperty, modelViewTransform, {
       visibleProperty: visibleProperties.guidesVisibleProperty,
       tandem: options.tandem.createTandem( 'guides1Node' ),
-      phetioDocumentation: 'guides associated with the first light source'
+      phetioDocumentation: 'guides associated with the first light'
     } );
 
     const guides2Tandem = options.tandem.createTandem( 'guides2Node' );
@@ -193,7 +193,7 @@ class LightSourceSceneNode extends Node {
           phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
         } ),
       tandem: guides2Tandem,
-      phetioDocumentation: 'guides associated with the second list source'
+      phetioDocumentation: 'guides associated with the second light'
     } );
 
     this.children = [

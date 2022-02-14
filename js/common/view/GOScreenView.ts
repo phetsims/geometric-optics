@@ -158,7 +158,7 @@ class GOScreenView extends ScreenView {
 
     this.controlsTandem = options.tandem.createTandem( 'controls' );
 
-    // Disable the 'Virtual Image' checkbox for light source, see https://github.com/phetsims/geometric-optics/issues/216
+    // Disable the 'Virtual Image' checkbox for lights, see https://github.com/phetsims/geometric-optics/issues/216
     const virtualImageCheckboxEnabledProperty = new DerivedProperty(
       [ model.opticalObjectChoiceProperty ],
       ( opticalObjectChoice: OpticalObjectChoice ) => !OpticalObjectChoice.isLightSource( opticalObjectChoice ) );
