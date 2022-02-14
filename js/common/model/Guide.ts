@@ -14,7 +14,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
-import Optic from '../../common/model/Optic.js';
+import Optic from './Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 
 type GuideLocation = 'top' | 'bottom';

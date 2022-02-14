@@ -17,7 +17,7 @@ import Optic from './Optic.js';
 import { RaysType } from './RaysType.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import { MappedProperties } from '../../../../axon/js/DerivedProperty.js';
-import ProjectionScreen from '../../common/model/ProjectionScreen.js';
+import ProjectionScreen from './ProjectionScreen.js';
 import Utils from '../../../../dot/js/Utils.js';
 import OpticalImage from './OpticalImage.js';
 

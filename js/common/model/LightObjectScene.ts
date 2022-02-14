@@ -11,17 +11,17 @@
 import geometricOptics from '../../geometricOptics.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { RaysType } from '../../common/model/RaysType.js';
-import LightRays from '../../common/model/LightRays.js';
-import ProjectionScreen from '../../common/model/ProjectionScreen.js';
-import LightSpot from '../../common/model/LightSpot.js';
+import { RaysType } from './RaysType.js';
+import LightRays from './LightRays.js';
+import ProjectionScreen from './ProjectionScreen.js';
+import LightSpot from './LightSpot.js';
 import LightObject from './LightObject.js';
 import lamp2_png from '../../../images/lamp2_png.js';
 import lamp1_png from '../../../images/lamp1_png.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import OpticalImage from '../../common/model/OpticalImage.js';
+import OpticalImage from './OpticalImage.js';
 import Guides from './Guides.js';
-import GOScene, { GOSceneOptions } from '../../common/model/GOScene.js';
+import GOScene, { GOSceneOptions } from './GOScene.js';
 import Lens from '../../lens/model/Lens.js';
 
 type LightObjectSceneOptions = {} & GOSceneOptions;

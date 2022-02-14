@@ -15,7 +15,7 @@ import RayIntersection from '../../../../kite/js/util/RayIntersection.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import geometricOptics from '../../geometricOptics.js';
 import Lens from '../../lens/model/Lens.js';
-import ProjectionScreen from '../../common/model/ProjectionScreen.js';
+import ProjectionScreen from './ProjectionScreen.js';
 import Mirror from '../../mirror/model/Mirror.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import Optic from './Optic.js';

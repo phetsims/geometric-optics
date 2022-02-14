@@ -9,7 +9,7 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import geometricOptics from '../../geometricOptics.js';
-import OpticalObject, { OpticalObjectOptions } from '../../common/model/OpticalObject.js';
+import OpticalObject, { OpticalObjectOptions } from './OpticalObject.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';

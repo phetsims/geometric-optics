@@ -32,7 +32,7 @@ import Optic from '../model/Optic.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import VirtualLightRaysNode from './VirtualLightRaysNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import GuidesNode from '../../common/view/GuidesNode.js';
+import GuidesNode from './GuidesNode.js';
 import { RulerHotkeysData } from './GORulerNode.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 

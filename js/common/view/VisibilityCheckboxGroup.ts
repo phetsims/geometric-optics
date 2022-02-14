@@ -13,7 +13,7 @@ import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
-import GuideNode from '../../common/view/GuideNode.js';
+import GuideNode from './GuideNode.js';
 import GOConstants from '../GOConstants.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import FocalPointNode from './FocalPointNode.js';

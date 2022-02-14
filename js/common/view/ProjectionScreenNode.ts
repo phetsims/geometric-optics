@@ -19,11 +19,11 @@ import projectionScreenTop_png from '../../../images/projectionScreenTop_png.js'
 import GOColors from '../../common/GOColors.js';
 import geometricOptics from '../../geometricOptics.js';
 import ProjectionScreen from '../model/ProjectionScreen.js';
-import CueingArrowsNode from '../../common/view/CueingArrowsNode.js';
+import CueingArrowsNode from './CueingArrowsNode.js';
 import GOGlobalOptions from '../../common/GOGlobalOptions.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import OriginNode from '../../common/view/OriginNode.js';
+import OriginNode from './OriginNode.js';
 import GOConstants from '../../common/GOConstants.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 
