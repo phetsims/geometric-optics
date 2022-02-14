@@ -161,7 +161,7 @@ class GOScreenView extends ScreenView {
     // Disable the 'Virtual Image' checkbox for lights, see https://github.com/phetsims/geometric-optics/issues/216
     const virtualImageCheckboxEnabledProperty = new DerivedProperty(
       [ model.opticalObjectChoiceProperty ],
-      ( opticalObjectChoice: OpticalObjectChoice ) => !OpticalObjectChoice.isLightSource( opticalObjectChoice ) );
+      ( opticalObjectChoice: OpticalObjectChoice ) => !OpticalObjectChoice.isLight( opticalObjectChoice ) );
 
     // Control panel at the bottom-center of the screen
     const controlPanel = new GOControlPanel( model.optic, model.raysTypeProperty, visibleProperties,
@@ -389,7 +389,7 @@ class GOScreenView extends ScreenView {
       }
 
       if ( lightSourceSceneNode ) {
-        lightSourceSceneNode.visible = OpticalObjectChoice.isLightSource( opticalObjectChoice );
+        lightSourceSceneNode.visible = OpticalObjectChoice.isLight( opticalObjectChoice );
         if ( lightSourceSceneNode.visible ) {
           this.horizontalRulerNode.setHotkeysData( lightSourceSceneNode.rulerHotkeysData );
           this.verticalRulerNode.setHotkeysData( lightSourceSceneNode.rulerHotkeysData );
