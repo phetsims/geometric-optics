@@ -1,8 +1,8 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * GOSceneNode is the abstract base class for all scenes.  It handles things related to the optic, and creates
- * "layers" for things that may be added by subclasses.
+ * GOSceneNode is the abstract base class for all scenes.  It handles things related to the optic and guides,
+ * and creates "layers" for things that may be added by subclasses.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
