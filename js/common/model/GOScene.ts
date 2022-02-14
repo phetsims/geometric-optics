@@ -14,6 +14,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Lens from '../../lens/model/Lens.js';
+import Guides from './Guides.js';
 
 type GOSceneOptions = {
 
@@ -21,10 +22,12 @@ type GOSceneOptions = {
   tandem: Tandem
 };
 
-class GOScene extends PhetioObject {
+abstract class GOScene extends PhetioObject {
 
   readonly optic: Optic;
   readonly lightRaysAnimationTimeProperty: NumberProperty;
+  abstract readonly guides1: Guides | null;
+  abstract readonly guides2: Guides | null;
   private readonly resetGOObjectScene: () => void;
 
   /**

@@ -1,7 +1,7 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * FramedObjectSceneNode is the view of FramedObjectScene, the scene that uses a framed object.
+ * FramedObjectSceneNode is the view of FramedObjectScene, the scene that has a framed object.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  * @author Martin Veillette
@@ -18,11 +18,7 @@ import FramedObjectNode from './FramedObjectNode.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import SecondPointNode from './SecondPointNode.js';
-import OpticalAxisNode from './OpticalAxisNode.js';
-import OpticVerticalAxisNode from './OpticVerticalAxisNode.js';
 import { RaysType } from '../model/RaysType.js';
-import FocalPointNode from './FocalPointNode.js';
-import TwoFPointNode from './TwoFPointNode.js';
 import GOColors from '../GOColors.js';
 import RealLightRaysNode from './RealLightRaysNode.js';
 import RealLightRaysForegroundNode from './RealLightRaysForegroundNode.js';
@@ -32,9 +28,8 @@ import Optic from '../model/Optic.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import VirtualLightRaysNode from './VirtualLightRaysNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import GuidesNode from './GuidesNode.js';
 import { RulerHotkeysData } from './GORulerNode.js';
-import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
+import GOSceneNode from './GOSceneNode.js';
 
 type FramedObjectSceneNodeOptions = {
 
@@ -46,7 +41,7 @@ type FramedObjectSceneNodeOptions = {
   tandem: Tandem
 };
 
-class FramedObjectSceneNode extends Node {
+class FramedObjectSceneNode extends GOSceneNode {
 
   public readonly rulerHotkeysData: RulerHotkeysData;
   private readonly resetFrameObjectSceneNode: () => void;
@@ -72,60 +67,22 @@ class FramedObjectSceneNode extends Node {
       visiblePropertyOptions: { phetioReadOnly: true }
     }, providedOptions );
 
-    super( options );
+    super( scene, visibleProperties, modelViewTransform, modelVisibleBoundsProperty, modelBoundsProperty, raysTypeProperty, options );
 
-    const opticNode = options.createOpticNode( scene.optic, modelBoundsProperty, modelViewTransform, options.tandem );
-
-    const opticalAxisNode = new OpticalAxisNode(
-      scene.optic.positionProperty,
-      modelVisibleBoundsProperty,
-      modelViewTransform, {
-        visibleProperty: visibleProperties.opticalAxisVisibleProperty,
-        tandem: options.tandem.createTandem( 'opticalAxisNode' )
-      } );
-
-    const opticVerticalAxisNode = new OpticVerticalAxisNode( scene.optic, raysTypeProperty, modelViewTransform );
-
-    // focal points (F)
-    const focalPointsNodeTandem = options.tandem.createTandem( 'focalPointsNode' );
-    const focalPointsNode = new Node( {
-      children: [
-        new FocalPointNode( scene.optic.leftFocalPointProperty, modelViewTransform, {
-          tandem: focalPointsNodeTandem.createTandem( 'leftFocalPointNode' )
-        } ),
-        new FocalPointNode( scene.optic.rightFocalPointProperty, modelViewTransform, {
-          tandem: focalPointsNodeTandem.createTandem( 'rightFocalPointNode' )
-        } )
-      ],
-      visibleProperty: visibleProperties.focalPointsVisibleProperty,
-      tandem: focalPointsNodeTandem
-    } );
-
-    // 2F points
-    const twoFPointsNodeTandem = options.tandem.createTandem( 'twoFPointsNode' );
-    const twoFPointsNode = new Node( {
-      children: [
-        new TwoFPointNode( scene.optic.left2FProperty, modelViewTransform, {
-          tandem: twoFPointsNodeTandem.createTandem( 'left2FPointNode' )
-        } ),
-        new TwoFPointNode( scene.optic.right2FProperty, modelViewTransform, {
-          tandem: twoFPointsNodeTandem.createTandem( 'right2FPointNode' )
-        } )
-      ],
-      visibleProperty: visibleProperties.twoFPointsVisibleProperty,
-      tandem: twoFPointsNodeTandem
-    } );
-
+    // Framed object
     const framedObjectNode = new FramedObjectNode( scene.framedObject,
       modelBoundsProperty, scene.optic.positionProperty, modelViewTransform, options.dragLockedProperty, {
         tandem: options.tandem.createTandem( 'framedObjectNode' )
       } );
+    this.opticalObjectsLayer.addChild( framedObjectNode );
 
+    // Second point-of-interest on the framed object
     const secondPointNode = new SecondPointNode( scene.secondPoint, modelViewTransform, {
       visibleProperty: visibleProperties.secondPointVisibleProperty,
       tandem: options.tandem.createTandem( 'secondPointNode' ),
       phetioDocumentation: 'second point-of-interest on the framed object'
     } );
+    this.opticalObjectsLayer.addChild( secondPointNode );
 
     // Both points of interest are on the same Object, so we only render one Image. If we rendered 2 Images,
     // their opacities would combine.
@@ -134,6 +91,7 @@ class FramedObjectSceneNode extends Node {
       framedObjectNode.visibleProperty, modelViewTransform, {
         tandem: options.tandem.createTandem( 'framedImageNode' )
       } );
+    this.opticalImagesLayer.addChild( framedImageNode );
 
     // The parts of the optical axis that appear to be in front of framed objects and images.
     const opticalAxisForegroundNode = new OpticalAxisForegroundNode(
@@ -147,6 +105,7 @@ class FramedObjectSceneNode extends Node {
       scene.lightRays1.raysProcessedEmitter, {
         visibleProperty: visibleProperties.opticalAxisVisibleProperty
       } );
+    this.opticalAxisForegroundLayer.addChild( opticalAxisForegroundNode );
 
     // Light rays (real & virtual) associated with the first point-of-interest (the framed object's position).
     const realLightRays1Options = {
@@ -154,9 +113,11 @@ class FramedObjectSceneNode extends Node {
       visibleProperty: visibleProperties.raysAndImagesVisibleProperty
     };
     const realLightRays1Node = new RealLightRaysNode( scene.lightRays1, modelViewTransform, realLightRays1Options );
+    this.raysBackgroundLayer.addChild( realLightRays1Node );
     const realLightRays1ForegroundNode = new RealLightRaysForegroundNode( scene.lightRays1, modelViewTransform,
       modelVisibleBoundsProperty, scene.optic.positionProperty, scene.framedImage1.positionProperty,
       scene.framedImage1.opticalImageTypeProperty, realLightRays1Options );
+    this.raysForegroundLayer.addChild( realLightRays1ForegroundNode );
     const virtualLightRays1Node = new VirtualLightRaysNode( scene.lightRays1, modelViewTransform, {
       stroke: realLightRays1Options.stroke,
       visibleProperty: DerivedProperty.and( [
@@ -164,6 +125,7 @@ class FramedObjectSceneNode extends Node {
         visibleProperties.raysAndImagesVisibleProperty
       ] )
     } );
+    this.raysForegroundLayer.addChild( virtualLightRays1Node );
 
     // Light rays (real & virtual) associated with the second point-of-interest (also on the framed object).
     const realLightRays2Options = {
@@ -174,9 +136,11 @@ class FramedObjectSceneNode extends Node {
       ] )
     };
     const realLightRays2Node = new RealLightRaysNode( scene.lightRays2, modelViewTransform, realLightRays2Options );
+    this.raysBackgroundLayer.addChild( realLightRays2Node );
     const realLightRays2ForegroundNode = new RealLightRaysForegroundNode( scene.lightRays2, modelViewTransform,
       modelVisibleBoundsProperty, scene.optic.positionProperty, scene.framedImage2.positionProperty,
       scene.framedImage2.opticalImageTypeProperty, realLightRays2Options );
+    this.raysForegroundLayer.addChild( realLightRays2ForegroundNode );
     const virtualLightRays2Node = new VirtualLightRaysNode( scene.lightRays2, modelViewTransform, {
       stroke: realLightRays2Options.stroke,
       visibleProperty: DerivedProperty.and( [
@@ -185,50 +149,9 @@ class FramedObjectSceneNode extends Node {
         visibleProperties.raysAndImagesVisibleProperty
       ] )
     } );
+    this.raysForegroundLayer.addChild( virtualLightRays2Node );
 
-    const children = [
-      opticalAxisNode,
-      framedObjectNode,
-      realLightRays1Node,
-      realLightRays2Node,
-      framedImageNode,
-      opticalAxisForegroundNode,
-      opticNode,
-      opticVerticalAxisNode,
-      focalPointsNode,
-      twoFPointsNode,
-      realLightRays1ForegroundNode,
-      realLightRays2ForegroundNode,
-      virtualLightRays1Node,
-      virtualLightRays2Node,
-      secondPointNode
-    ];
-
-    if ( scene.guides1 ) {
-      const guides1Node = new GuidesNode( scene.guides1, GOColors.guideArm1FillProperty, modelViewTransform, {
-        visibleProperty: visibleProperties.guidesVisibleProperty,
-        tandem: options.tandem.createTandem( 'guides1Node' ),
-        phetioDocumentation: 'guides associated with the first point-of-interest on the framed object'
-      } );
-      children.push( guides1Node );
-    }
-
-    if ( scene.guides2 ) {
-      const guides2Tandem = options.tandem.createTandem( 'guides2Node' );
-      const guides2Node = new GuidesNode( scene.guides2, GOColors.guideArm2FillProperty, modelViewTransform, {
-          visibleProperty: DerivedProperty.and(
-            [ visibleProperties.guidesVisibleProperty, visibleProperties.secondPointVisibleProperty ], {
-              tandem: guides2Tandem.createTandem( 'visibleProperty' ),
-              phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
-            } ),
-          tandem: guides2Tandem,
-          phetioDocumentation: 'guides associated with the second point-of-interest on the framed object'
-        } );
-      children.push( guides2Node );
-    }
-
-    this.children = children;
-
+    // Add things that are interactive in this scene to the focus traversal order.
     this.pdomOrder = [
       framedObjectNode,
       secondPointNode
