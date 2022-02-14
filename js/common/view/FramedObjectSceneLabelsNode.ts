@@ -23,6 +23,7 @@ import FramedObjectScene from '../model/FramedObjectScene.js';
 import { OpticalImageType } from '../model/OpticalImageType.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
+import IProperty from '../../../../axon/js/IProperty.js';
 
 type FramedObjectSceneLabelsNodeOptions = {
   visibleProperty: Property<boolean>
@@ -35,12 +36,14 @@ class FramedObjectSceneLabelsNode extends Node {
    * @param visibleProperties
    * @param zoomTransformProperty
    * @param modelVisibleBoundsProperty
+   * @param lightPropagationEnabledProperty
    * @param providedOptions
    */
   constructor( scene: FramedObjectScene,
                visibleProperties: VisibleProperties,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+               lightPropagationEnabledProperty: IProperty<boolean>,
                providedOptions: FramedObjectSceneLabelsNodeOptions ) {
 
     // Object label ------------------------------------------------------------------------------------
@@ -129,12 +132,13 @@ class FramedObjectSceneLabelsNode extends Node {
     const imageLabel = new LabelNode( '', imageLabelPositionProperty, zoomTransformProperty, {
       yOffset: 2,
       visibleProperty: new DerivedProperty( [
+          lightPropagationEnabledProperty,
           scene.framedImage1.visibleProperty,
           scene.framedImage1.opticalImageTypeProperty,
           visibleProperties.virtualImageVisibleProperty
         ],
-        ( visible: boolean, opticalImageType: OpticalImageType, virtualImageVisible: boolean ) =>
-          ( visible && ( opticalImageType === 'real' || virtualImageVisible ) )
+        ( lightPropagationEnabled: boolean, imageVisible: boolean, opticalImageType: OpticalImageType, virtualImageVisible: boolean ) =>
+          ( lightPropagationEnabled && imageVisible && ( opticalImageType === 'real' || virtualImageVisible ) )
       )
     } );
 

@@ -23,6 +23,7 @@ import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ArrowObjectScene from '../model/ArrowObjectScene.js';
 import IProperty from '../../../../axon/js/IProperty.js';
+import { OpticalImageType } from '../model/OpticalImageType.js';
 
 type ArrowObjectSceneLabelsNodeOptions = {
   visibleProperty: Property<boolean>
@@ -162,7 +163,15 @@ class ArrowObjectSceneLabelsNode extends Node {
     const image1Label = new LabelNode( '', image1LabelPositionProperty,
       zoomTransformProperty, {
         yOffset: 2,
-        visibleProperty: lightPropagationEnabledProperty
+        visibleProperty: new DerivedProperty( [
+            lightPropagationEnabledProperty,
+            scene.arrowImage1.visibleProperty,
+            scene.arrowImage1.opticalImageTypeProperty,
+            visibleProperties.virtualImageVisibleProperty
+          ],
+          ( lightPropagationEnabled: boolean, imageVisible: boolean, opticalImageType: OpticalImageType, virtualImageVisible: boolean ) =>
+            ( lightPropagationEnabled && imageVisible && ( opticalImageType === 'real' || virtualImageVisible ) )
+        )
       } );
 
     // Switch between 'Real Image' and 'Virtual Image'
@@ -185,7 +194,16 @@ class ArrowObjectSceneLabelsNode extends Node {
     const image2Label = new LabelNode( '', image2LabelPositionProperty,
       zoomTransformProperty, {
         yOffset: 2,
-        visibleProperty: DerivedProperty.and( [ lightPropagationEnabledProperty, visibleProperties.secondPointVisibleProperty ] )
+        visibleProperty: new DerivedProperty( [
+            visibleProperties.secondPointVisibleProperty,
+            lightPropagationEnabledProperty,
+            scene.arrowImage2.visibleProperty,
+            scene.arrowImage2.opticalImageTypeProperty,
+            visibleProperties.virtualImageVisibleProperty
+          ],
+          ( secondPointVisible: boolean, lightPropagationEnabled: boolean, imageVisible: boolean, opticalImageType: OpticalImageType, virtualImageVisible: boolean ) =>
+            ( secondPointVisible && lightPropagationEnabled && imageVisible && ( opticalImageType === 'real' || virtualImageVisible ) )
+        )
       } );
 
     // Switch between 'Real Image' and 'Virtual Image'
