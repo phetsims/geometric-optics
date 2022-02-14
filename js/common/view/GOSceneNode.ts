@@ -145,6 +145,7 @@ abstract class GOSceneNode extends Node {
       guidesLayer.addChild( guides2Node );
     }
 
+    // Rendering order is VERY important here.
     this.children = [
       opticalAxisNode,
       this.raysBackgroundLayer,
