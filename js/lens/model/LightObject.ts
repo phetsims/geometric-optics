@@ -1,7 +1,7 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * Light Source is an optical object that is a point light source.
+ * LightObject is an optical object that is a point light source.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,11 +15,11 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 
-type LightSourceOptions = {
+type LightObjectOptions = {
   htmlImageElement: HTMLImageElement,
 } & OpticalObjectOptions;
 
-class LightSource extends OpticalObject {
+class LightObject extends OpticalObject {
 
   // the PNG file used to visually represent the light
   readonly htmlImageElement: HTMLImageElement;
@@ -35,7 +35,7 @@ class LightSource extends OpticalObject {
   /**
    * @param providedOptions
    */
-  constructor( providedOptions: LightSourceOptions ) {
+  constructor( providedOptions: LightObjectOptions ) {
 
     const options = merge( {
       //TODO
@@ -76,5 +76,5 @@ class LightSource extends OpticalObject {
   }
 }
 
-geometricOptics.register( 'LightSource', LightSource );
-export default LightSource;
+geometricOptics.register( 'LightObject', LightObject );
+export default LightObject;

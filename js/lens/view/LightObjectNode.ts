@@ -2,7 +2,7 @@
 
 //TODO lots of duplication with FramedObjectNode
 /**
- * LightSourceNode is the view of a LightSource.
+ * LightObjectNode is the view of a LightObject.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -22,35 +22,35 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
 import GOConstants from '../../common/GOConstants.js';
 import IProperty from '../../../../axon/js/IProperty.js';
-import LightSource from '../model/LightSource.js';
+import LightObject from '../model/LightObject.js';
 
 // Closest that light can be moved to the optic, in cm. This avoids problems that occur when the object is
 // too close to a mirror. See https://github.com/phetsims/geometric-optics/issues/73
 const MIN_X_DISTANCE_TO_OPTIC = 40; //TODO duplicated in in FramedObjectNode
 
-type LightSourceNodeOptions = {
+type LightObjectNodeOptions = {
   visibleProperty?: IProperty<boolean>,
   tandem: Tandem
 };
 
-class LightSourceNode extends Node {
+class LightObjectNode extends Node {
 
   /**
-   * @param lightSource
+   * @param lightObject
    * @param modelBoundsProperty
    * @param opticPositionProperty
    * @param modelViewTransform
    * @param dragLockedProperty
-   * @param wasDraggedProperty - was any LightSourceNode dragged?
+   * @param wasDraggedProperty - was any LightObjectNode dragged?
    * @param providedOptions
    */
-  constructor( lightSource: LightSource,
+  constructor( lightObject: LightObject,
                modelBoundsProperty: IReadOnlyProperty<Bounds2>,
                opticPositionProperty: IReadOnlyProperty<Vector2>,
                modelViewTransform: ModelViewTransform2,
                dragLockedProperty: IReadOnlyProperty<boolean>,
                wasDraggedProperty: Property<boolean>,
-               providedOptions: LightSourceNodeOptions ) {
+               providedOptions: LightObjectNodeOptions ) {
 
     const options = merge( {
 
@@ -64,7 +64,7 @@ class LightSourceNode extends Node {
 
     super( options );
 
-    const imageNode = new Image( lightSource.htmlImageElement );
+    const imageNode = new Image( lightObject.htmlImageElement );
 
     // Wrap imageNode in a Node. We need to scale imageNode, but do not want its focus highlight to scale.
     const wrappedImageNode = new Node( {
@@ -82,7 +82,7 @@ class LightSourceNode extends Node {
     this.addChild( cueingArrowsNode );
 
     const updateScale = () => {
-      const modelBounds = lightSource.boundsProperty.value;
+      const modelBounds = lightObject.boundsProperty.value;
       const viewBounds = modelViewTransform.modelToViewBounds( modelBounds );
       const scaleX = viewBounds.width / imageNode.width;
       const scaleY = viewBounds.height / imageNode.height;
@@ -90,18 +90,18 @@ class LightSourceNode extends Node {
     };
 
     // Translate and scale
-    lightSource.boundsProperty.link( bounds => {
+    lightObject.boundsProperty.link( bounds => {
       this.translation = modelViewTransform.modelToViewBounds( bounds ).leftTop;
       updateScale();
     } );
 
     // Drag bounds, in model coordinates. Keep the full object within the model bounds and to the left of the optic.
     const dragBoundsProperty = new DerivedProperty(
-      [ lightSource.boundsProperty, modelBoundsProperty, dragLockedProperty ],
-      ( lightSourceBounds: Bounds2, modelBounds: Bounds2, dragLocked: boolean ) => {
+      [ lightObject.boundsProperty, modelBoundsProperty, dragLockedProperty ],
+      ( lightObjectBounds: Bounds2, modelBounds: Bounds2, dragLocked: boolean ) => {
 
-        const lightSourcePosition = lightSource.positionProperty.value;
-        const minX = modelBounds.minX + ( lightSourcePosition.x - lightSourceBounds.minX );
+        const lightObjectPosition = lightObject.positionProperty.value;
+        const minX = modelBounds.minX + ( lightObjectPosition.x - lightObjectBounds.minX );
         const maxX = opticPositionProperty.value.x - MIN_X_DISTANCE_TO_OPTIC;
         let minY: number;
         let maxY: number;
@@ -109,24 +109,24 @@ class LightSourceNode extends Node {
         if ( dragLocked ) {
 
           // Dragging is 1D, constrained horizontally to object's current position.
-          minY = lightSourcePosition.y;
+          minY = lightObjectPosition.y;
           maxY = minY;
         }
         else {
 
           // Dragging is 2D.
-          minY = modelBounds.minY + ( lightSourcePosition.y - lightSourceBounds.minY );
-          maxY = modelBounds.maxY - ( lightSourceBounds.maxY - lightSourcePosition.y );
+          minY = modelBounds.minY + ( lightObjectPosition.y - lightObjectBounds.minY );
+          maxY = modelBounds.maxY - ( lightObjectBounds.maxY - lightObjectPosition.y );
         }
         return new Bounds2( minX, minY, maxX, maxY );
       }, {
 
         // Because changing dragBoundsProperty may necessitate moving light inside the new drag bounds,
-        // therefore changing dependency lightSource.boundsProperty.
+        // therefore changing dependency lightObject.boundsProperty.
         reentrant: true
       } );
     dragBoundsProperty.link( dragBounds => {
-      lightSource.positionProperty.value = dragBounds.closestPointTo( lightSource.positionProperty.value );
+      lightObject.positionProperty.value = dragBounds.closestPointTo( lightObject.positionProperty.value );
     } );
 
     this.addLinkedElement( wasDraggedProperty, {
@@ -139,7 +139,7 @@ class LightSourceNode extends Node {
     };
 
     const dragListener = new DragListener( {
-      positionProperty: lightSource.positionProperty,
+      positionProperty: lightObject.positionProperty,
       dragBoundsProperty: dragBoundsProperty,
       transform: modelViewTransform,
       useParentOffset: true,
@@ -149,7 +149,7 @@ class LightSourceNode extends Node {
     this.addInputListener( dragListener );
 
     const keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
-      positionProperty: lightSource.positionProperty,
+      positionProperty: lightObject.positionProperty,
       dragBoundsProperty: dragBoundsProperty,
       drag: drag,
       transform: modelViewTransform
@@ -177,5 +177,5 @@ class LightSourceNode extends Node {
   }
 }
 
-geometricOptics.register( 'LightSourceNode', LightSourceNode );
-export default LightSourceNode;
+geometricOptics.register( 'LightObjectNode', LightObjectNode );
+export default LightObjectNode;

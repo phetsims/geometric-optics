@@ -41,8 +41,8 @@ import RulersToolbox from './RulersToolbox.js';
 import FramedObjectSceneLabelsNode from './FramedObjectSceneLabelsNode.js';
 import ArrowObjectSceneNode from './ArrowObjectSceneNode.js';
 import ArrowObjectSceneLabelsNode from './ArrowObjectSceneLabelsNode.js';
-import LightSourceSceneNode from '../../lens/view/LightSourceSceneNode.js';
-import LightSourceSceneLabelsNode from '../../lens/view/LightSourceSceneLabelsNode.js';
+import LightObjectSceneNode from '../../lens/view/LightObjectSceneNode.js';
+import LightObjectSceneLabelsNode from '../../lens/view/LightObjectSceneLabelsNode.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.
@@ -289,24 +289,24 @@ class GOScreenView extends ScreenView {
       } );
     labelsLayer.addChild( framedObjectSceneLabelsNode );
 
-    let lightSourceSceneNode: LightSourceSceneNode | null = null;
-    let lightSourceSceneLabelsNode: Node | null = null;
-    if ( model.lightSourceScene ) {
-      lightSourceSceneNode = new LightSourceSceneNode( model.lightSourceScene, visibleProperties,
+    let lightObjectSceneNode: LightObjectSceneNode | null = null;
+    let lightObjectSceneLabelsNode: Node | null = null;
+    if ( model.lightObjectScene ) {
+      lightObjectSceneNode = new LightObjectSceneNode( model.lightObjectScene, visibleProperties,
         modelViewTransform, modelVisibleBoundsProperty, modelBoundsProperty, model.raysTypeProperty, {
           createOpticNode: options.createOpticNode,
           dragLockedProperty: options.dragLockedProperty,
-          tandem: this.scenesTandem.createTandem( 'lightSourceSceneNode' )
+          tandem: this.scenesTandem.createTandem( 'lightObjectSceneNode' )
         } );
-      scenesLayer.addChild( lightSourceSceneNode );
+      scenesLayer.addChild( lightObjectSceneNode );
 
-      if ( model.lightSourceScene ) {
-        lightSourceSceneLabelsNode = new LightSourceSceneLabelsNode( model.lightSourceScene, visibleProperties,
+      if ( model.lightObjectScene ) {
+        lightObjectSceneLabelsNode = new LightObjectSceneLabelsNode( model.lightObjectScene, visibleProperties,
           zoomTransformProperty, modelVisibleBoundsProperty, {
             visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty,
-              lightSourceSceneNode.visibleProperty ] )
+              lightObjectSceneNode.visibleProperty ] )
           } );
-        labelsLayer.addChild( lightSourceSceneLabelsNode );
+        labelsLayer.addChild( lightObjectSceneLabelsNode );
       }
     }
 
@@ -388,11 +388,11 @@ class GOScreenView extends ScreenView {
         verticalRulerNode.setHotkeysData( framedObjectSceneNode.rulerHotkeysData );
       }
 
-      if ( lightSourceSceneNode ) {
-        lightSourceSceneNode.visible = OpticalObjectChoice.isLight( opticalObjectChoice );
-        if ( lightSourceSceneNode.visible ) {
-          this.horizontalRulerNode.setHotkeysData( lightSourceSceneNode.rulerHotkeysData );
-          this.verticalRulerNode.setHotkeysData( lightSourceSceneNode.rulerHotkeysData );
+      if ( lightObjectSceneNode ) {
+        lightObjectSceneNode.visible = OpticalObjectChoice.isLight( opticalObjectChoice );
+        if ( lightObjectSceneNode.visible ) {
+          this.horizontalRulerNode.setHotkeysData( lightObjectSceneNode.rulerHotkeysData );
+          this.verticalRulerNode.setHotkeysData( lightObjectSceneNode.rulerHotkeysData );
         }
       }
     } );
@@ -402,7 +402,7 @@ class GOScreenView extends ScreenView {
       zoomLevelProperty.reset();
       arrowObjectSceneNode.reset();
       framedObjectSceneNode.reset();
-      lightSourceSceneNode && lightSourceSceneNode.reset();
+      lightObjectSceneNode && lightObjectSceneNode.reset();
     };
 
     // pdom -traversal order

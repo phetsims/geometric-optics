@@ -109,12 +109,12 @@ const GOColors = {
     default: 'black'
   } ),
 
-  // Rays associated with the first Optical Object
+  // Rays associated with the first optical object
   rays1StrokeProperty: new ProfileColorProperty( geometricOptics, 'realRayOneStroke', {
     default: 'rgb( 140, 140, 140 )'
   } ),
 
-  // Rays associated with the second point on a Framed Object, or the second Light Source
+  // Rays associated with the second optical object
   rays2StrokeProperty: new ProfileColorProperty( geometricOptics, 'realRayTwoStroke', {
     default: 'rgb( 41, 214, 126 )'
   } ),

@@ -2,7 +2,7 @@
 
 //TODO lots of duplication with FramedObjectSceneNode
 /**
- * LightSourceSceneNode is the view of FramedObjectScene, the scene that uses a framed object.
+ * LightObjectSceneNode is the view of FramedObjectScene, the scene that uses a framed object.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  * @author Martin Veillette
@@ -25,17 +25,17 @@ import RealLightRaysNode from '../../common/view/RealLightRaysNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Optic from '../../common/model/Optic.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import LightSourceScene from '../model/LightSourceScene.js';
+import LightObjectScene from '../model/LightObjectScene.js';
 import ProjectionScreenNode from './ProjectionScreenNode.js';
 import LightSpotNode from './LightSpotNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import GuidesNode from './GuidesNode.js';
-import LightSourceNode from './LightSourceNode.js';
+import LightObjectNode from './LightObjectNode.js';
 import OpticalAxisInFrontOfProjectionScreenNode from './OpticalAxisInFrontOfProjectionScreenNode.js';
 import { RulerHotkeysData } from '../../common/view/GORulerNode.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 
-type LightSourcesSceneNodeOptions = {
+type LightObjectSceneNodeOptions = {
 
   // Creates the Node for the optic
   createOpticNode: ( optic: Optic, modelBoundsProperty: IReadOnlyProperty<Bounds2>, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node,
@@ -45,10 +45,10 @@ type LightSourcesSceneNodeOptions = {
   tandem: Tandem
 };
 
-class LightSourceSceneNode extends Node {
+class LightObjectSceneNode extends Node {
 
   public readonly rulerHotkeysData: RulerHotkeysData;
-  private readonly resetLightSourcesSceneNode: () => void;
+  private readonly resetLightObjectSceneNode: () => void;
 
   /**
    * @param scene
@@ -59,13 +59,13 @@ class LightSourceSceneNode extends Node {
    * @param raysTypeProperty
    * @param providedOptions
    */
-  constructor( scene: LightSourceScene,
+  constructor( scene: LightObjectScene,
                visibleProperties: VisibleProperties,
                modelViewTransform: ModelViewTransform2,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                modelBoundsProperty: IReadOnlyProperty<Bounds2>,
                raysTypeProperty: IReadOnlyProperty<RaysType>,
-               providedOptions: LightSourcesSceneNodeOptions ) {
+               providedOptions: LightObjectSceneNodeOptions ) {
 
     const options = merge( {
       visiblePropertyOptions: { phetioReadOnly: true }
@@ -121,15 +121,15 @@ class LightSourceSceneNode extends Node {
       phetioDocumentation: 'Was either light dragged? Dragging either light hides the cueing arrows for both lights.'
     } );
 
-    const lightSource1Node = new LightSourceNode( scene.lightSource1, modelBoundsProperty, scene.optic.positionProperty,
+    const lightObject1Node = new LightObjectNode( scene.lightObject1, modelBoundsProperty, scene.optic.positionProperty,
       modelViewTransform, options.dragLockedProperty, lightWasDraggedProperty, {
-        tandem: options.tandem.createTandem( 'lightSource1Node' )
+        tandem: options.tandem.createTandem( 'lightObject1Node' )
       } );
 
-    const lightSource2Node = new LightSourceNode( scene.lightSource2, modelBoundsProperty, scene.optic.positionProperty,
+    const lightObject2Node = new LightObjectNode( scene.lightObject2, modelBoundsProperty, scene.optic.positionProperty,
       modelViewTransform, options.dragLockedProperty, lightWasDraggedProperty, {
         visibleProperty: visibleProperties.secondPointVisibleProperty,
-        tandem: options.tandem.createTandem( 'lightSource2Node' )
+        tandem: options.tandem.createTandem( 'lightObject2Node' )
       } );
 
     // The part of the optical axis that appears to be in front of the projection screen
@@ -198,8 +198,8 @@ class LightSourceSceneNode extends Node {
 
     this.children = [
       opticalAxisNode,
-      lightSource1Node,
-      lightSource2Node,
+      lightObject1Node,
+      lightObject2Node,
       projectionScreenNode,
       lightSpot1Node,
       lightSpot2Node,
@@ -215,31 +215,31 @@ class LightSourceSceneNode extends Node {
     ];
 
     this.pdomOrder = [
-      lightSource1Node,
-      lightSource2Node,
+      lightObject1Node,
+      lightObject2Node,
       projectionScreenNode
     ];
 
     this.rulerHotkeysData = {
       opticPositionProperty: scene.optic.positionProperty,
-      opticalObject1PositionProperty: scene.lightSource1.positionProperty,
-      opticalObject2PositionProperty: scene.lightSource2.positionProperty,
-      opticalObject2VisibleProperty: lightSource2Node.visibleProperty,
+      opticalObject1PositionProperty: scene.lightObject1.positionProperty,
+      opticalObject2PositionProperty: scene.lightObject2.positionProperty,
+      opticalObject2VisibleProperty: lightObject2Node.visibleProperty,
       opticalImage1PositionProperty: null,
       opticalImage1VisibleProperty: null
     };
 
     //TODO is this complete?
-    this.resetLightSourcesSceneNode = () => {
+    this.resetLightObjectSceneNode = () => {
       lightWasDraggedProperty.reset();
       projectionScreenNode.reset();
     };
   }
 
   public reset(): void {
-    this.resetLightSourcesSceneNode();
+    this.resetLightObjectSceneNode();
   }
 }
 
-geometricOptics.register( 'LightSourceSceneNode', LightSourceSceneNode );
-export default LightSourceSceneNode;
+geometricOptics.register( 'LightObjectSceneNode', LightObjectSceneNode );
+export default LightObjectSceneNode;

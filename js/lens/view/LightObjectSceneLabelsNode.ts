@@ -2,7 +2,7 @@
 
 //TODO lots of duplication with FramedObjectSceneLabelsNode
 /**
- * LightSourceSceneLabelsNode labels things in the 'light object' scene.
+ * LightObjectSceneLabelsNode labels things in the 'light object' scene.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  * @author Sarah Chang (Swarthmore College)
@@ -22,13 +22,13 @@ import Mirror from '../../mirror/model/Mirror.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
-import LightSourceScene from '../model/LightSourceScene.js';
+import LightObjectScene from '../model/LightObjectScene.js';
 
-type LightSourcesSceneLabelsNodeOptions = {
+type LightObjectSceneLabelsNodeOptions = {
   visibleProperty: Property<boolean>
 };
 
-class LightSourceSceneLabelsNode extends Node {
+class LightObjectSceneLabelsNode extends Node {
 
   /**
    * @param scene
@@ -37,22 +37,22 @@ class LightSourceSceneLabelsNode extends Node {
    * @param modelVisibleBoundsProperty
    * @param providedOptions
    */
-  constructor( scene: LightSourceScene,
+  constructor( scene: LightObjectScene,
                visibleProperties: VisibleProperties,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-               providedOptions: LightSourcesSceneLabelsNodeOptions ) {
+               providedOptions: LightObjectSceneLabelsNodeOptions ) {
 
     // Light labels ------------------------------------------------------------------------------------
 
     // empirically, model coordinates
-    const getLightLabelPosition = ( lightSourceBounds: Bounds2 ) =>
-      new Vector2( lightSourceBounds.centerX - 15, lightSourceBounds.top );
+    const getLightLabelPosition = ( lightObjectBounds: Bounds2 ) =>
+      new Vector2( lightObjectBounds.centerX - 15, lightObjectBounds.top );
 
     const lightLabelYOffset = 2; // view coordinates
 
     const light1LabelPositionProperty = new DerivedProperty(
-      [ scene.lightSource1.boundsProperty ],
+      [ scene.lightObject1.boundsProperty ],
       ( bounds: Bounds2 ) => getLightLabelPosition( bounds )
     );
 
@@ -62,7 +62,7 @@ class LightSourceSceneLabelsNode extends Node {
       } );
 
     const light2LabelPositionProperty = new DerivedProperty(
-      [ scene.lightSource2.boundsProperty ],
+      [ scene.lightObject2.boundsProperty ],
       ( bounds: Bounds2 ) => getLightLabelPosition( bounds )
     );
 
@@ -183,5 +183,5 @@ class LightSourceSceneLabelsNode extends Node {
   }
 }
 
-geometricOptics.register( 'LightSourceSceneLabelsNode', LightSourceSceneLabelsNode );
-export default LightSourceSceneLabelsNode;
+geometricOptics.register( 'LightObjectSceneLabelsNode', LightObjectSceneLabelsNode );
+export default LightObjectSceneLabelsNode;

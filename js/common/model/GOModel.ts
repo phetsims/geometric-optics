@@ -20,7 +20,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import FramedObjectScene from './FramedObjectScene.js';
 import OpticalObjectChoice from './OpticalObjectChoice.js';
 import ArrowObjectScene from './ArrowObjectScene.js';
-import LightSourceScene from '../../lens/model/LightSourceScene.js';
+import LightObjectScene from '../../lens/model/LightObjectScene.js';
 import GOScene from './GOScene.js';
 import Lens from '../../lens/model/Lens.js';
 
@@ -53,7 +53,7 @@ class GOModel {
   private readonly scenes: GOScene[];
   readonly arrowObjectScene: ArrowObjectScene;
   readonly framedObjectScene: FramedObjectScene;
-  readonly lightSourceScene: LightSourceScene | null; // not supported by Mirrors screen
+  readonly lightObjectScene: LightObjectScene | null; // not supported by Mirrors screen
 
   // rulers
   readonly horizontalRuler: GORuler;
@@ -107,13 +107,13 @@ class GOModel {
     } );
     this.scenes.push( this.framedObjectScene );
 
-    this.lightSourceScene = null;
+    this.lightObjectScene = null;
     if ( options.opticalObjectChoices.includes( OpticalObjectChoice.LIGHT ) ) {
       assert && assert( this.optic instanceof Lens, 'Light is only supported by the Lens screen' );
-      this.lightSourceScene = new LightSourceScene( this.optic as Lens, this.raysTypeProperty, {
-        tandem: this.scenesTandem.createTandem( 'lightSourceScene' )
+      this.lightObjectScene = new LightObjectScene( this.optic as Lens, this.raysTypeProperty, {
+        tandem: this.scenesTandem.createTandem( 'lightObjectScene' )
       } );
-      this.scenes.push( this.lightSourceScene );
+      this.scenes.push( this.lightObjectScene );
     }
 
     const rulersTandem = options.tandem.createTandem( 'rulers' );
