@@ -32,7 +32,7 @@ class FramedImageNode extends Node {
    * @param framedImage
    * @param optic
    * @param virtualImageVisibleProperty
-   * @param raysAndImagesVisibleProperty
+   * @param lightPropagationEnabledProperty
    * @param objectVisibleProperty
    * @param modelViewTransform
    * @param providedOptions
@@ -40,16 +40,16 @@ class FramedImageNode extends Node {
   constructor( framedImage: FramedImage,
                optic: Optic,
                virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
-               raysAndImagesVisibleProperty: IReadOnlyProperty<boolean>,
+               lightPropagationEnabledProperty: IReadOnlyProperty<boolean>,
                objectVisibleProperty: IReadOnlyProperty<boolean>,
                modelViewTransform: ModelViewTransform2,
                providedOptions: FramedImageNodeOptions ) {
 
     const options = merge( {
       visibleProperty: new DerivedProperty(
-        [ virtualImageVisibleProperty, framedImage.opticalImageTypeProperty, raysAndImagesVisibleProperty, framedImage.visibleProperty, objectVisibleProperty ],
-        ( virtualImageVisible: boolean, opticalImageType: OpticalImageType, raysAndImagesVisible: boolean, framedImageVisible: boolean, objectVisible: boolean ) =>
-          ( virtualImageVisible || opticalImageType === 'real' ) && raysAndImagesVisible && framedImageVisible && objectVisible, {
+        [ virtualImageVisibleProperty, framedImage.opticalImageTypeProperty, lightPropagationEnabledProperty, framedImage.visibleProperty, objectVisibleProperty ],
+        ( virtualImageVisible: boolean, opticalImageType: OpticalImageType, lightPropagationEnabled: boolean, framedImageVisible: boolean, objectVisible: boolean ) =>
+          ( virtualImageVisible || opticalImageType === 'real' ) && lightPropagationEnabled && framedImageVisible && objectVisible, {
           tandem: providedOptions.tandem.createTandem( 'visibleProperty' ),
           phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
         } )

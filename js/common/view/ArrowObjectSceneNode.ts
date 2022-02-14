@@ -26,6 +26,7 @@ import ArrowObjectScene from '../model/ArrowObjectScene.js';
 import ArrowObjectNode from './ArrowObjectNode.js';
 import ArrowImageNode from './ArrowImageNode.js';
 import GOSceneNode from './GOSceneNode.js';
+import IProperty from '../../../../axon/js/IProperty.js';
 
 type ArrowObjectSceneNodeOptions = {
 
@@ -49,6 +50,7 @@ class ArrowObjectSceneNode extends GOSceneNode {
    * @param modelVisibleBoundsProperty
    * @param modelBoundsProperty
    * @param raysTypeProperty
+   * @param lightPropagationEnabledProperty
    * @param providedOptions
    */
   constructor( scene: ArrowObjectScene,
@@ -57,6 +59,7 @@ class ArrowObjectSceneNode extends GOSceneNode {
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                modelBoundsProperty: IReadOnlyProperty<Bounds2>,
                raysTypeProperty: IReadOnlyProperty<RaysType>,
+               lightPropagationEnabledProperty: IProperty<boolean>,
                providedOptions: ArrowObjectSceneNodeOptions ) {
 
     const options = merge( {
@@ -88,7 +91,7 @@ class ArrowObjectSceneNode extends GOSceneNode {
 
     // Image associated with the first arrow
     const arrowImage1Node = new ArrowImageNode( scene.arrowImage1,
-      visibleProperties.virtualImageVisibleProperty, visibleProperties.raysAndImagesVisibleProperty,
+      visibleProperties.virtualImageVisibleProperty, lightPropagationEnabledProperty,
       arrowObject1Node.visibleProperty, modelViewTransform, {
         tandem: options.tandem.createTandem( 'arrowImage1Node' )
       } );
@@ -96,7 +99,7 @@ class ArrowObjectSceneNode extends GOSceneNode {
 
     // Image associated with the second arrow
     const arrowImage2Node = new ArrowImageNode( scene.arrowImage2,
-      visibleProperties.virtualImageVisibleProperty, visibleProperties.raysAndImagesVisibleProperty,
+      visibleProperties.virtualImageVisibleProperty, lightPropagationEnabledProperty,
       arrowObject2Node.visibleProperty, modelViewTransform, {
         tandem: options.tandem.createTandem( 'arrowImage2Node' )
       } );
@@ -105,14 +108,14 @@ class ArrowObjectSceneNode extends GOSceneNode {
     // Light rays (real & virtual) associated with the first point-of-interest (the framed object's position).
     const realLightRays1Node = new RealLightRaysNode( scene.lightRays1, modelViewTransform, {
       stroke: GOColors.rays1StrokeProperty,
-      visibleProperty: visibleProperties.raysAndImagesVisibleProperty
+      visibleProperty: lightPropagationEnabledProperty
     } );
     this.raysForegroundLayer.addChild( realLightRays1Node );
     const virtualLightRays1Node = new VirtualLightRaysNode( scene.lightRays1, modelViewTransform, {
       stroke: GOColors.rays1StrokeProperty,
       visibleProperty: DerivedProperty.and( [
         visibleProperties.virtualImageVisibleProperty,
-        visibleProperties.raysAndImagesVisibleProperty
+        lightPropagationEnabledProperty
       ] )
     } );
     this.raysForegroundLayer.addChild( virtualLightRays1Node );
@@ -122,7 +125,7 @@ class ArrowObjectSceneNode extends GOSceneNode {
       stroke: GOColors.rays2StrokeProperty,
       visibleProperty: DerivedProperty.and( [
         visibleProperties.secondPointVisibleProperty,
-        visibleProperties.raysAndImagesVisibleProperty
+        lightPropagationEnabledProperty
       ] )
     } );
     this.raysForegroundLayer.addChild( realLightRays2Node );
@@ -131,7 +134,7 @@ class ArrowObjectSceneNode extends GOSceneNode {
       visibleProperty: DerivedProperty.and( [
         visibleProperties.virtualImageVisibleProperty,
         visibleProperties.secondPointVisibleProperty,
-        visibleProperties.raysAndImagesVisibleProperty
+        lightPropagationEnabledProperty
       ] )
     } );
     this.raysForegroundLayer.addChild( virtualLightRays2Node );

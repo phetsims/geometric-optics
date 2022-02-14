@@ -28,6 +28,7 @@ import LightObjectNode from './LightObjectNode.js';
 import OpticalAxisInFrontOfProjectionScreenNode from './OpticalAxisInFrontOfProjectionScreenNode.js';
 import { RulerHotkeysData } from './GORulerNode.js';
 import GOSceneNode from './GOSceneNode.js';
+import IProperty from '../../../../axon/js/IProperty.js';
 
 type LightObjectSceneNodeOptions = {
 
@@ -51,6 +52,7 @@ class LightObjectSceneNode extends GOSceneNode {
    * @param modelVisibleBoundsProperty
    * @param modelBoundsProperty
    * @param raysTypeProperty
+   * @param lightPropagationEnabledProperty
    * @param providedOptions
    */
   constructor( scene: LightObjectScene,
@@ -59,6 +61,7 @@ class LightObjectSceneNode extends GOSceneNode {
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                modelBoundsProperty: IReadOnlyProperty<Bounds2>,
                raysTypeProperty: IReadOnlyProperty<RaysType>,
+               lightPropagationEnabledProperty: IProperty<boolean>,
                providedOptions: LightObjectSceneNodeOptions ) {
 
     const options = merge( {
@@ -102,7 +105,7 @@ class LightObjectSceneNode extends GOSceneNode {
     // Note that virtual rays are not shown in this scene, because no optical image is being formed.
     const realLightRays1Node = new RealLightRaysNode( scene.lightRays1, modelViewTransform, {
       stroke: GOColors.rays1StrokeProperty,
-      visibleProperty: visibleProperties.raysAndImagesVisibleProperty
+      visibleProperty: lightPropagationEnabledProperty
     } );
     this.raysForegroundLayer.addChild( realLightRays1Node );
 
@@ -110,8 +113,7 @@ class LightObjectSceneNode extends GOSceneNode {
     // Note that virtual rays are not shown in this scene, because no optical image is being formed.
     const realLightRays2Node = new RealLightRaysNode( scene.lightRays2, modelViewTransform, {
       stroke: GOColors.rays2StrokeProperty,
-      visibleProperty: DerivedProperty.and(
-        [ visibleProperties.secondPointVisibleProperty, visibleProperties.raysAndImagesVisibleProperty ] )
+      visibleProperty: DerivedProperty.and( [ visibleProperties.secondPointVisibleProperty, lightPropagationEnabledProperty ] )
     } );
     this.raysForegroundLayer.addChild( realLightRays2Node );
 

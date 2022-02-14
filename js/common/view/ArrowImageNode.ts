@@ -33,14 +33,14 @@ class ArrowImageNode extends Node {
   /**
    * @param arrowImage
    * @param virtualImageVisibleProperty
-   * @param raysAndImagesVisibleProperty
+   * @param lightPropagationEnabledProperty
    * @param objectVisibleProperty
    * @param modelViewTransform
    * @param providedOptions
    */
   constructor( arrowImage: ArrowImage,
                virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
-               raysAndImagesVisibleProperty: IReadOnlyProperty<boolean>,
+               lightPropagationEnabledProperty: IReadOnlyProperty<boolean>,
                objectVisibleProperty: IReadOnlyProperty<boolean>,
                modelViewTransform: ModelViewTransform2,
                providedOptions: ArrowImageNodeOptions ) {
@@ -55,9 +55,9 @@ class ArrowImageNode extends Node {
       children: [ arrowNode ],
 
       visibleProperty: new DerivedProperty(
-        [ virtualImageVisibleProperty, arrowImage.opticalImageTypeProperty, raysAndImagesVisibleProperty, arrowImage.visibleProperty, objectVisibleProperty ],
-        ( virtualImageVisible: boolean, opticalImageType: OpticalImageType, raysAndImagesVisible: boolean, framedImageVisible: boolean, objectVisible: boolean ) =>
-          ( virtualImageVisible || opticalImageType === 'real' ) && raysAndImagesVisible && framedImageVisible && objectVisible, {
+        [ virtualImageVisibleProperty, arrowImage.opticalImageTypeProperty, lightPropagationEnabledProperty, arrowImage.visibleProperty, objectVisibleProperty ],
+        ( virtualImageVisible: boolean, opticalImageType: OpticalImageType, lightPropagationEnabled: boolean, framedImageVisible: boolean, objectVisible: boolean ) =>
+          ( virtualImageVisible || opticalImageType === 'real' ) && lightPropagationEnabled && framedImageVisible && objectVisible, {
           tandem: providedOptions.tandem.createTandem( 'visibleProperty' ),
           phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
         } )

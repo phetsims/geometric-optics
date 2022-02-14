@@ -30,6 +30,7 @@ import VirtualLightRaysNode from './VirtualLightRaysNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { RulerHotkeysData } from './GORulerNode.js';
 import GOSceneNode from './GOSceneNode.js';
+import IProperty from '../../../../axon/js/IProperty.js';
 
 type FramedObjectSceneNodeOptions = {
 
@@ -53,6 +54,7 @@ class FramedObjectSceneNode extends GOSceneNode {
    * @param modelVisibleBoundsProperty
    * @param modelBoundsProperty
    * @param raysTypeProperty
+   * @param lightPropagationEnabledProperty
    * @param providedOptions
    */
   constructor( scene: FramedObjectScene,
@@ -61,6 +63,7 @@ class FramedObjectSceneNode extends GOSceneNode {
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                modelBoundsProperty: IReadOnlyProperty<Bounds2>,
                raysTypeProperty: IReadOnlyProperty<RaysType>,
+               lightPropagationEnabledProperty: IProperty<boolean>,
                providedOptions: FramedObjectSceneNodeOptions ) {
 
     const options = merge( {
@@ -87,7 +90,7 @@ class FramedObjectSceneNode extends GOSceneNode {
     // Both points of interest are on the same Object, so we only render one Image. If we rendered 2 Images,
     // their opacities would combine.
     const framedImageNode = new FramedImageNode( scene.framedImage1, scene.optic,
-      visibleProperties.virtualImageVisibleProperty, visibleProperties.raysAndImagesVisibleProperty,
+      visibleProperties.virtualImageVisibleProperty, lightPropagationEnabledProperty,
       framedObjectNode.visibleProperty, modelViewTransform, {
         tandem: options.tandem.createTandem( 'framedImageNode' )
       } );
@@ -110,7 +113,7 @@ class FramedObjectSceneNode extends GOSceneNode {
     // Light rays (real & virtual) associated with the first point-of-interest (the framed object's position).
     const realLightRays1Options = {
       stroke: GOColors.rays1StrokeProperty,
-      visibleProperty: visibleProperties.raysAndImagesVisibleProperty
+      visibleProperty: lightPropagationEnabledProperty
     };
     const realLightRays1Node = new RealLightRaysNode( scene.lightRays1, modelViewTransform, realLightRays1Options );
     this.raysBackgroundLayer.addChild( realLightRays1Node );
@@ -122,7 +125,7 @@ class FramedObjectSceneNode extends GOSceneNode {
       stroke: realLightRays1Options.stroke,
       visibleProperty: DerivedProperty.and( [
         visibleProperties.virtualImageVisibleProperty,
-        visibleProperties.raysAndImagesVisibleProperty
+        lightPropagationEnabledProperty
       ] )
     } );
     this.raysForegroundLayer.addChild( virtualLightRays1Node );
@@ -132,7 +135,7 @@ class FramedObjectSceneNode extends GOSceneNode {
       stroke: GOColors.rays2StrokeProperty,
       visibleProperty: DerivedProperty.and( [
         visibleProperties.secondPointVisibleProperty,
-        visibleProperties.raysAndImagesVisibleProperty
+        lightPropagationEnabledProperty
       ] )
     };
     const realLightRays2Node = new RealLightRaysNode( scene.lightRays2, modelViewTransform, realLightRays2Options );
@@ -146,7 +149,7 @@ class FramedObjectSceneNode extends GOSceneNode {
       visibleProperty: DerivedProperty.and( [
         visibleProperties.virtualImageVisibleProperty,
         visibleProperties.secondPointVisibleProperty,
-        visibleProperties.raysAndImagesVisibleProperty
+        lightPropagationEnabledProperty
       ] )
     } );
     this.raysForegroundLayer.addChild( virtualLightRays2Node );

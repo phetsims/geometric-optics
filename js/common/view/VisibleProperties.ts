@@ -37,9 +37,6 @@ class VisibleProperties {
   // visibility of the guides, which are irrelevant for mirror
   readonly guidesVisibleProperty: Property<boolean>;
 
-  // visibility of the ray tracing
-  readonly raysAndImagesVisibleProperty: Property<boolean>;
-
   // Determines whether the optical axis is visible.
   // PhET-iO only, cannot be controlled from the sim UI, and is not subject to reset.
   // See https://github.com/phetsims/geometric-optics/issues/252
@@ -78,11 +75,6 @@ class VisibleProperties {
       tandem: providedOptions.tandem.createTandem( 'guidesVisibleProperty' )
     } );
 
-    this.raysAndImagesVisibleProperty = new BooleanProperty( true, {
-      tandem: providedOptions.tandem.createTandem( 'raysAndImagesVisibleProperty' )
-      //TODO phetioDocumentation
-    } );
-
     this.opticalAxisVisibleProperty = new BooleanProperty( true, {
       tandem: providedOptions.tandem.createTandem( 'opticalAxisVisibleProperty' ),
       phetioDocumentation: 'PhET-iO only, not settable in the sim'
@@ -95,7 +87,6 @@ class VisibleProperties {
       this.labelsVisibleProperty.reset();
       this.secondPointVisibleProperty.reset();
       this.guidesVisibleProperty.reset();
-      this.raysAndImagesVisibleProperty.reset();
       // Do not reset opticalAxisVisibleProperty, it's PhET-iO only.
     };
   }

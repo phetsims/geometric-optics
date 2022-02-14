@@ -22,6 +22,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ArrowObjectScene from '../model/ArrowObjectScene.js';
+import IProperty from '../../../../axon/js/IProperty.js';
 
 type ArrowObjectSceneLabelsNodeOptions = {
   visibleProperty: Property<boolean>
@@ -34,12 +35,14 @@ class ArrowObjectSceneLabelsNode extends Node {
    * @param visibleProperties
    * @param zoomTransformProperty
    * @param modelVisibleBoundsProperty
+   * @param lightPropagationEnabledProperty
    * @param providedOptions
    */
   constructor( scene: ArrowObjectScene,
                visibleProperties: VisibleProperties,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+               lightPropagationEnabledProperty: IProperty<boolean>,
                providedOptions: ArrowObjectSceneLabelsNodeOptions ) {
 
     // Object labels ------------------------------------------------------------------------------------
@@ -159,7 +162,7 @@ class ArrowObjectSceneLabelsNode extends Node {
     const image1Label = new LabelNode( '', image1LabelPositionProperty,
       zoomTransformProperty, {
         yOffset: 2,
-        visibleProperty: visibleProperties.raysAndImagesVisibleProperty
+        visibleProperty: lightPropagationEnabledProperty
       } );
 
     // Switch between 'Real Image' and 'Virtual Image'
@@ -182,8 +185,7 @@ class ArrowObjectSceneLabelsNode extends Node {
     const image2Label = new LabelNode( '', image2LabelPositionProperty,
       zoomTransformProperty, {
         yOffset: 2,
-        visibleProperty: DerivedProperty.and( [ visibleProperties.raysAndImagesVisibleProperty,
-          visibleProperties.secondPointVisibleProperty ] )
+        visibleProperty: DerivedProperty.and( [ lightPropagationEnabledProperty, visibleProperties.secondPointVisibleProperty ] )
       } );
 
     // Switch between 'Real Image' and 'Virtual Image'
