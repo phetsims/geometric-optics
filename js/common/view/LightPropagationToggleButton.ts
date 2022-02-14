@@ -1,8 +1,7 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * Round eye toggle button that shows/hides the light rays and optical Image. When on 'show', button is an open eye.
- * On 'hide', button is a closed eye.
+ * LightPropagationToggleButton is a toggle button used to turn light propagation on and off.
  *
  * @author Sarah Chang (Swarthmore College)
  * @author Chris Malley (PixelZoom, Inc.)
@@ -22,17 +21,17 @@ import geometricOptics from '../../geometricOptics.js';
 const TRUE_COLOR = 'rgb( 240, 234, 227 )';
 const FALSE_COLOR = PhetColorScheme.BUTTON_YELLOW;
 
-type ShowHideToggleButtonOptions = {
+type LightPropagationToggleButtonOptions = {
   tandem: Tandem
 };
 
-class ShowHideToggleButton extends BooleanRoundToggleButton {
+class LightPropagationToggleButton extends BooleanRoundToggleButton {
 
   /**
    * @param booleanProperty
    * @param providedOptions
    */
-  constructor( booleanProperty: Property<boolean>, providedOptions: ShowHideToggleButtonOptions ) {
+  constructor( booleanProperty: Property<boolean>, providedOptions: LightPropagationToggleButtonOptions ) {
 
     // create nodes for open and closed eye icons
     const pathOptions = { fill: 'black' };
@@ -56,5 +55,5 @@ class ShowHideToggleButton extends BooleanRoundToggleButton {
   }
 }
 
-geometricOptics.register( 'ShowHideToggleButton', ShowHideToggleButton );
-export default ShowHideToggleButton;
+geometricOptics.register( 'LightPropagationToggleButton', LightPropagationToggleButton );
+export default LightPropagationToggleButton;
