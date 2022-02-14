@@ -23,7 +23,10 @@ class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
     const leftColumn = [
       new MoveKeyboardHelpSection(),
       new RulersKeyboardHelpSection( isLens ),
-      new ComboBoxKeyboardHelpSection( geometricOpticsStrings.keyboardHelpDialog.comboBoxOption )
+      new ComboBoxKeyboardHelpSection( geometricOpticsStrings.keyboardHelpDialog.object, {
+        thingAsLowerCaseSingular: geometricOpticsStrings.keyboardHelpDialog.object,
+        thingAsLowerCasePlural: geometricOpticsStrings.keyboardHelpDialog.objects
+      } )
     ];
 
     const rightColumn = [

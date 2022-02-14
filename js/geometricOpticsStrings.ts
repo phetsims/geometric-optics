@@ -68,7 +68,8 @@ type StringsType = {
     'jumpToObject2': string,
     'jumpToImage1': string,
     'jumpToImage2': string,
-    'comboBoxOption': string
+    'objects': string,
+    'object': string
   }
 };
 

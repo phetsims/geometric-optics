@@ -164,7 +164,10 @@
   "keyboardHelpDialog.jumpToImage2": {
     "value": "Jump to Image 2"
   },
-  "keyboardHelpDialog.comboBoxOption": {
-    "value": "combo box option"
+  "keyboardHelpDialog.objects": {
+    "value": "Objects"
+  },
+  "keyboardHelpDialog.object": {
+    "value": "Object"
   }
 }
