@@ -66,7 +66,7 @@ class ArrowObjectNode extends Node {
 
     const arrowNode = new ArrowNode( 0, 0, 0, 1, merge( {}, GOConstants.ARROW_NODE_OPTIONS, {
       fill: arrowObject.fill,
-      stroke: arrowObject.stroke
+      stroke: null
     } ) );
     this.addChild( arrowNode );
     this.arrowNode = arrowNode;

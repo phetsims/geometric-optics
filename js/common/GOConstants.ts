@@ -98,9 +98,9 @@ const GOConstants = {
   },
 
   ARROW_NODE_OPTIONS: {
-    headWidth: 24,
-    headHeight: 28,
-    tailWidth: 7,
+    headWidth: 18,
+    headHeight: 21,
+    tailWidth: 2,
     isHeadDynamic: true,
     fractionalHeadHeight: 0.5
   }

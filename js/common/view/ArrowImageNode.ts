@@ -18,7 +18,6 @@ import ArrowImage from '../model/ArrowImage.js';
 import GOConstants from '../GOConstants.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import Property from '../../../../axon/js/Property.js';
-import Matrix3 from '../../../../dot/js/Matrix3.js';
 import { OpticalImageType } from '../model/OpticalImageType.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
@@ -47,8 +46,7 @@ class ArrowImageNode extends Node {
 
     const arrowNode = new ArrowNode( 0, 0, 0, 1, merge( {}, GOConstants.ARROW_NODE_OPTIONS, {
       fill: arrowImage.arrowObject.fill,
-      stroke: arrowImage.arrowObject.stroke,
-      lineDash: [ 3, 3 ] //TODO I don't like the dashed line, image should not look different than object
+      stroke: null
     } ) );
 
     const options = merge( {
@@ -65,26 +63,14 @@ class ArrowImageNode extends Node {
 
     super( options );
 
+    // Don't scale the head and tail, just the magnitude.
     Property.multilink( [ arrowImage.positionProperty, arrowImage.magnificationProperty ],
       ( arrowImagePosition: Vector2, magnification: number ) => {
-
         const opticPosition = modelViewTransform.modelToViewPosition( arrowImage.optic.positionProperty.value );
         const objectPosition = modelViewTransform.modelToViewPosition( arrowImage.arrowObject.positionProperty.value );
         const imagePosition = modelViewTransform.modelToViewPosition( arrowImagePosition );
-
-        // Create an arrow with identical magnitude and direction to the arrow object.
-        arrowNode.setTailAndTip( 0, 0, 0, objectPosition.y - opticPosition.y );
-
-        // Scale
-        //TODO setScaleMagnitude misbehaves, this Node reflects back and forth around x-axis
-        // this.setScaleMagnitude( magnification );
-        const matrix = new Matrix3();
-        matrix.setToScale( magnification );
-        this.matrix = matrix;
-
-        // Translate
-        this.centerX = imagePosition.x;
-        this.y = opticPosition.y;
+        const magnitude = magnification * ( objectPosition.y - opticPosition.y );
+        arrowNode.setTailAndTip( imagePosition.x, opticPosition.y, imagePosition.x, opticPosition.y + magnitude );
       } );
 
     arrowImage.opacityProperty.link( ( opacity: number ) => {

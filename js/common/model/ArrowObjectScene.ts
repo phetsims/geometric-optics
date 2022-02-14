@@ -57,14 +57,12 @@ class ArrowObjectScene extends GOScene {
     this.arrowObject1 = new ArrowObject( {
       position: options.arrowObject1Position,
       fill: GOColors.arrow1FillProperty,
-      stroke: GOColors.arrow1StrokeProperty,
       tandem: options.tandem.createTandem( 'arrowObject1' )
     } );
 
     this.arrowObject2 = new ArrowObject( {
       position: options.arrowObject2Position,
       fill: GOColors.arrow2FillProperty,
-      stroke: GOColors.arrow2StrokeProperty,
       tandem: options.tandem.createTandem( 'arrowObject2' )
     } );
 

@@ -37,15 +37,15 @@ class LensModel extends GOModel {
         OpticalObjectChoice.LIGHT
       ],
 
-      arrowObject1Position: new Vector2( -150, 50 ),
-      arrowObject2Position: new Vector2( -125, -50 ),
+      arrowObject1Position: new Vector2( -160, 60 ),
+      arrowObject2Position: new Vector2( -125, 30 ),
 
       //TODO give FramedObject a bisector line so this isn't empirical
       // Initial position of the framed object, empirically set so that the optical axis goes through its center.
       framedObjectPosition: new Vector2( -170, 27 ),
 
       lightObject1Position: new Vector2( -170, 20 ),
-      lightObject2Position: new Vector2( -145, -20 )
+      lightObject2Position: new Vector2( -124, -20 )
 
     }, providedOptions );
 

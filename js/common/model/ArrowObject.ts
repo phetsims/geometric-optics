@@ -13,13 +13,11 @@ import merge from '../../../../phet-core/js/merge.js';
 
 type ArrowObjectOptions = {
   fill: ColorDef
-  stroke: ColorDef
 } & OpticalObjectOptions;
 
 class ArrowObject extends OpticalObject {
 
   public readonly fill: ColorDef;
-  public readonly stroke: ColorDef;
   public static readonly MIN_MAGNITUDE = 20; // cm
 
   /**
@@ -32,7 +30,6 @@ class ArrowObject extends OpticalObject {
     super( options );
 
     this.fill = options.fill;
-    this.stroke = options.stroke;
   }
 }
 

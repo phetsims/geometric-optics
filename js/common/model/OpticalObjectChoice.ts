@@ -47,7 +47,7 @@ type ObjectHTMLImageElements = {
 
 const arrowIcon = new ArrowNode( 0, 0, 0, -50, merge( {
   fill: GOColors.arrow1FillProperty,
-  stroke: GOColors.arrow1StrokeProperty,
+  stroke: null,
   scale: 0.5
 }, GOConstants.ARROW_NODE_OPTIONS ) );
 
