@@ -13,6 +13,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
+import Lens from '../../lens/model/Lens.js';
 
 type GOSceneOptions = {
 
@@ -41,7 +42,7 @@ class GOScene extends PhetioObject {
     this.optic = optic;
 
     this.addLinkedElement( optic, {
-      tandem: options.tandem.createTandem( 'optic' )
+      tandem: options.tandem.createTandem( ( optic instanceof Lens ) ? 'lens' : 'mirror' )
     } );
 
     this.lightRaysAnimationTimeProperty = new NumberProperty( 0, {
