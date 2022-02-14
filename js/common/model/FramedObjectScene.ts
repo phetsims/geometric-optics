@@ -20,7 +20,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OpticalObjectChoice from './OpticalObjectChoice.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Lens from '../../lens/model/Lens.js';
-import Guides from '../../lens/model/Guides.js';
+import Guides from '../../common/model/Guides.js';
 import SecondPoint from './SecondPoint.js';
 import GOScene, { GOSceneOptions } from './GOScene.js';
 

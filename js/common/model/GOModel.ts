@@ -20,7 +20,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import FramedObjectScene from './FramedObjectScene.js';
 import OpticalObjectChoice from './OpticalObjectChoice.js';
 import ArrowObjectScene from './ArrowObjectScene.js';
-import LightObjectScene from '../../lens/model/LightObjectScene.js';
+import LightObjectScene from '../../common/model/LightObjectScene.js';
 import GOScene from './GOScene.js';
 import Lens from '../../lens/model/Lens.js';
 

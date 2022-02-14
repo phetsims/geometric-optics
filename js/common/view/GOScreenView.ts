@@ -41,8 +41,8 @@ import RulersToolbox from './RulersToolbox.js';
 import FramedObjectSceneLabelsNode from './FramedObjectSceneLabelsNode.js';
 import ArrowObjectSceneNode from './ArrowObjectSceneNode.js';
 import ArrowObjectSceneLabelsNode from './ArrowObjectSceneLabelsNode.js';
-import LightObjectSceneNode from '../../lens/view/LightObjectSceneNode.js';
-import LightObjectSceneLabelsNode from '../../lens/view/LightObjectSceneLabelsNode.js';
+import LightObjectSceneNode from '../../common/view/LightObjectSceneNode.js';
+import LightObjectSceneLabelsNode from '../../common/view/LightObjectSceneLabelsNode.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.

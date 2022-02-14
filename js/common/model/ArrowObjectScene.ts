@@ -14,7 +14,7 @@ import { RaysType } from './RaysType.js';
 import LightRays from './LightRays.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Lens from '../../lens/model/Lens.js';
-import Guides from '../../lens/model/Guides.js';
+import Guides from '../../common/model/Guides.js';
 import ArrowObject from './ArrowObject.js';
 import ArrowImage from './ArrowImage.js';
 import GOColors from '../GOColors.js';

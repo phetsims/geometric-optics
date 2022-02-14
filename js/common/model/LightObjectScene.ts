@@ -13,8 +13,8 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import { RaysType } from '../../common/model/RaysType.js';
 import LightRays from '../../common/model/LightRays.js';
-import ProjectionScreen from '../../lens/model/ProjectionScreen.js';
-import LightSpot from '../../lens/model/LightSpot.js';
+import ProjectionScreen from '../../common/model/ProjectionScreen.js';
+import LightSpot from '../../common/model/LightSpot.js';
 import LightObject from './LightObject.js';
 import lamp2_png from '../../../images/lamp2_png.js';
 import lamp1_png from '../../../images/lamp1_png.js';
@@ -22,7 +22,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OpticalImage from '../../common/model/OpticalImage.js';
 import Guides from './Guides.js';
 import GOScene, { GOSceneOptions } from '../../common/model/GOScene.js';
-import Lens from './Lens.js';
+import Lens from '../../lens/model/Lens.js';
 
 type LightObjectSceneOptions = {} & GOSceneOptions;
 
