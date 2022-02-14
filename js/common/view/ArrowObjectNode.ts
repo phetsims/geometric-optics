@@ -94,6 +94,18 @@ class ArrowObjectNode extends Node {
       wasDraggedProperty.value = true;
     };
 
+    const dragBoundsProperty = new DerivedProperty(
+      [ modelBoundsProperty, dragLockedProperty ],
+      ( modelBounds: Bounds2, dragLocked: boolean ) => {
+        if ( dragLocked ) {
+          const y = arrowObject.positionProperty.value.y;
+          return new Bounds2( modelBounds.minX, y, modelBounds.maxX, y );
+        }
+        else {
+          return modelBounds;
+        }
+      } );
+
     // When dragging is completed, snap arrow to its minimum length.
     const end = () => {
       const arrowLength = arrowObject.positionProperty.value.y - optic.positionProperty.value.y;
@@ -106,7 +118,7 @@ class ArrowObjectNode extends Node {
 
     const dragListener = new DragListener( {
       positionProperty: arrowObject.positionProperty,
-      dragBoundsProperty: modelBoundsProperty,
+      dragBoundsProperty: dragBoundsProperty,
       transform: modelViewTransform,
       useParentOffset: true,
       drag: drag,
@@ -117,7 +129,7 @@ class ArrowObjectNode extends Node {
 
     const keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
       positionProperty: arrowObject.positionProperty,
-      dragBoundsProperty: modelBoundsProperty,
+      dragBoundsProperty: dragBoundsProperty,
       transform: modelViewTransform,
       drag: drag,
       end: end
