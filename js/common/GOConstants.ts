@@ -25,6 +25,11 @@ const GOConstants = {
 
   DIAMETER_RANGE: new RangeWithValue( 60, 120, 80 ),
 
+  // Objects -----------------------------------------------------------------------------------------------------------
+
+  // BEWARE! Getting too close to the optic will reveal problems with the model.
+  MIN_DISTANCE_FROM_OBJECT_TO_OPTIC: 40, // cm
+
   // Rulers ------------------------------------------------------------------------------------------------------------
 
   // model

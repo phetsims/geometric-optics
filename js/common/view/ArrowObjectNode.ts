@@ -97,14 +97,27 @@ class ArrowObjectNode extends Node {
     const dragBoundsProperty = new DerivedProperty(
       [ modelBoundsProperty, dragLockedProperty ],
       ( modelBounds: Bounds2, dragLocked: boolean ) => {
+
+        const minX = modelBounds.minX + modelViewTransform.viewToModelDeltaX( arrowNode.width ) / 2;
+        const maxX = optic.positionProperty.value.x - GOConstants.MIN_DISTANCE_FROM_OBJECT_TO_OPTIC;
+        let minY: number;
+        let maxY: number;
+
         if ( dragLocked ) {
-          const y = arrowObject.positionProperty.value.y;
-          return new Bounds2( modelBounds.minX, y, modelBounds.maxX, y );
+          minY = arrowObject.positionProperty.value.y;
+          maxY = arrowObject.positionProperty.value.y;
         }
         else {
-          return modelBounds;
+          minY = modelBounds.minY;
+          maxY = modelBounds.maxY;
         }
+        return new Bounds2( minX, minY, maxX, maxY );
       } );
+
+    // Keep the arrow inside the model bounds.
+    dragBoundsProperty.link( dragBounds => {
+      arrowObject.positionProperty.value = dragBounds.closestPointTo( arrowObject.positionProperty.value );
+    } );
 
     // When dragging is completed, snap arrow to its minimum length.
     const end = () => {
@@ -136,11 +149,6 @@ class ArrowObjectNode extends Node {
       //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
     } ) );
     this.addInputListener( keyboardDragListener );
-
-    // Keep the arrow inside the model bounds.
-    modelBoundsProperty.link( modelBounds => {
-      arrowObject.positionProperty.value = modelBounds.closestPointTo( arrowObject.positionProperty.value );
-    } );
 
     // Keep cueing arrows next to the framed object.
     Property.multilink( [ arrowNode.boundsProperty, cueingArrowsNode.boundsProperty ],

@@ -24,10 +24,6 @@ import GOConstants from '../GOConstants.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 
-// Closest that optical object can be moved to the optic, in cm. This avoids problems that occur when the object is
-// too close to a mirror. See https://github.com/phetsims/geometric-optics/issues/73
-const MIN_X_DISTANCE_TO_OPTIC = 40;
-
 type FramedObjectNodeOptions = {
   visibleProperty?: IProperty<boolean>,
   tandem: Tandem
@@ -114,7 +110,7 @@ class FramedObjectNode extends Node {
 
         const framedObjectPosition = framedObject.positionProperty.value;
         const minX = modelBounds.minX + ( framedObjectPosition.x - framedObjectBounds.minX );
-        const maxX = opticPositionProperty.value.x - MIN_X_DISTANCE_TO_OPTIC;
+        const maxX = opticPositionProperty.value.x - GOConstants.MIN_DISTANCE_FROM_OBJECT_TO_OPTIC;
         let minY: number;
         let maxY: number;
 
