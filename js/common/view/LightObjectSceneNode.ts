@@ -26,7 +26,7 @@ import LightSpotNode from './LightSpotNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import LightObjectNode from './LightObjectNode.js';
 import OpticalAxisInFrontOfProjectionScreenNode from './OpticalAxisInFrontOfProjectionScreenNode.js';
-import { RulerHotkeysData } from './GORulerNode.js';
+import { RulerHotkeyTarget } from './GORulerNode.js';
 import GOSceneNode from './GOSceneNode.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 
@@ -42,7 +42,7 @@ type LightObjectSceneNodeOptions = {
 
 class LightObjectSceneNode extends GOSceneNode {
 
-  public readonly rulerHotkeysData: RulerHotkeysData;
+  public readonly rulerHotkeyTargets: RulerHotkeyTarget[];
   private readonly resetLightObjectSceneNode: () => void;
 
   /**
@@ -150,14 +150,12 @@ class LightObjectSceneNode extends GOSceneNode {
       projectionScreenNode
     ];
 
-    this.rulerHotkeysData = {
-      opticPositionProperty: scene.optic.positionProperty,
-      opticalObject1PositionProperty: scene.lightObject1.positionProperty,
-      opticalObject2PositionProperty: scene.lightObject2.positionProperty,
-      opticalObject2VisibleProperty: lightObject2Node.visibleProperty,
-      opticalImage1PositionProperty: null,
-      opticalImage1VisibleProperty: null
-    };
+    // Ruler J+R hotkey will cycle through these positions, in order.
+    this.rulerHotkeyTargets = [
+      { positionProperty: scene.optic.positionProperty, visibleProperty: this.opticNode.visibleProperty },
+      { positionProperty: scene.lightObject1.positionProperty, visibleProperty: lightObject1Node.visibleProperty },
+      { positionProperty: scene.lightObject2.positionProperty, visibleProperty: lightObject2Node.visibleProperty }
+    ];
 
     //TODO is this complete?
     this.resetLightObjectSceneNode = () => {

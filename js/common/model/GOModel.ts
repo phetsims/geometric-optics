@@ -26,13 +26,15 @@ import Lens from '../../lens/model/Lens.js';
 
 type GOModelOptions = {
 
-  // initial positions of optical objects
-  framedObjectPosition: Vector2,
-  arrowObject1Position: Vector2,
-  arrowObject2Position: Vector2,
-
   // optical object choices, in the order that they will appear in OpticalObjectChoiceComboBox
   opticalObjectChoices: OpticalObjectChoice[],
+
+  // initial positions of optical objects
+  arrowObject1Position?: Vector2,
+  arrowObject2Position?: Vector2,
+  framedObjectPosition?: Vector2,
+  lightObject1Position?: Vector2,
+  lightObject2Position?: Vector2,
 
   // phet-io options
   tandem: Tandem
@@ -75,7 +77,13 @@ class GOModel {
    */
   constructor( optic: Optic, providedOptions: GOModelOptions ) {
 
-    const options = merge( {}, providedOptions );
+    const options = merge( {
+      arrowObject1Position: Vector2.ZERO,
+      arrowObject2Position: Vector2.ZERO,
+      framedObjectPosition: Vector2.ZERO,
+      lightObject1Position: Vector2.ZERO,
+      lightObject2Position: Vector2.ZERO
+    }, providedOptions );
 
     this.opticalObjectChoiceProperty = new EnumerationProperty( options.opticalObjectChoices[ 0 ], {
       validValues: options.opticalObjectChoices,
@@ -111,6 +119,8 @@ class GOModel {
     if ( options.opticalObjectChoices.includes( OpticalObjectChoice.LIGHT ) ) {
       assert && assert( this.optic instanceof Lens, 'Light is only supported by the Lens screen' );
       this.lightObjectScene = new LightObjectScene( this.optic as Lens, this.raysTypeProperty, {
+        lightObject1Position: options.lightObject1Position,
+        lightObject2Position: options.lightObject2Position,
         tandem: this.scenesTandem.createTandem( 'lightObjectScene' )
       } );
       this.scenes.push( this.lightObjectScene );

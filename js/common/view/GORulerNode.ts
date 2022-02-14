@@ -53,21 +53,17 @@ type GORulerNodeOptions = {
   tandem: Tandem
 };
 
-// Describes points-of-interest that we can move to with hotkeys
-type RulerHotkeysData = {
-  opticPositionProperty: IReadOnlyProperty<Vector2>,
-  opticalObject1PositionProperty: IReadOnlyProperty<Vector2>,
-  opticalObject2PositionProperty: IReadOnlyProperty<Vector2>,
-  opticalObject2VisibleProperty: IReadOnlyProperty<boolean>,
-  opticalImage1PositionProperty: IReadOnlyProperty<Vector2> | null,
-  opticalImage1VisibleProperty: IReadOnlyProperty<boolean> | null,
-  //TODO do we need opticalImage2PositionProperty and opticalImage2VisibleProperty, for the 2nd arrow?
-};
+type RulerHotkeyTarget = {
+  positionProperty: IReadOnlyProperty<Vector2>,
+  visibleProperty: IReadOnlyProperty<boolean>
+}
 
 class GORulerNode extends Node {
 
   // the ruler model that is associated with this Node
   readonly ruler: GORuler;
+
+  private readonly opticPositionProperty: IReadOnlyProperty<Vector2>
 
   // the icon associated with this ruler, it appears in the toolbox
   readonly iconNode: RulerIconNode;
@@ -76,17 +72,21 @@ class GORulerNode extends Node {
   private toolboxBounds: Bounds2;
 
   private readonly dragListener: DragListener;
+  private readonly dragBoundsProperty: IReadOnlyProperty<Bounds2>;
 
-  private hotkeysData: RulerHotkeysData | null;
+  private hotkeyTargets: RulerHotkeyTarget[];
+  private hotkeyTargetsIndex: number;
 
   /**
    * @param ruler
+   * @param opticPositionProperty
    * @param zoomTransformProperty
    * @param zoomScaleProperty
    * @param visibleBoundsProperty
    * @param providedOptions
    */
   constructor( ruler: GORuler,
+               opticPositionProperty: IReadOnlyProperty<Vector2>,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                zoomScaleProperty: IReadOnlyProperty<number>,
                visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
@@ -117,7 +117,9 @@ class GORulerNode extends Node {
     super( options );
 
     this.ruler = ruler;
-    this.hotkeysData = null;
+    this.opticPositionProperty = opticPositionProperty;
+    this.hotkeyTargets = [];
+    this.hotkeyTargetsIndex = 0;
     this.toolboxBounds = Bounds2.NOTHING; // to be set later via setToolboxBounds
     this.iconNode = new RulerIconNode( this, zoomTransformProperty );
 
@@ -145,7 +147,7 @@ class GORulerNode extends Node {
 
     // Drag bounds for the ruler, in model coordinates.
     // This keeps a part of the ruler inside the visible bounds of the ScreenView.
-    const dragBoundsProperty = new DerivedProperty(
+    this.dragBoundsProperty = new DerivedProperty(
       [ visibleBoundsProperty, zoomTransformProperty ],
       ( visibleBounds: Bounds2, zoomTransform: ModelViewTransform2 ) => {
         let viewDragBounds;
@@ -170,7 +172,7 @@ class GORulerNode extends Node {
       cursor: 'pointer',
       useInputListenerCursor: true,
       positionProperty: ruler.positionProperty,
-      dragBoundsProperty: dragBoundsProperty,
+      dragBoundsProperty: this.dragBoundsProperty,
       transform: zoomTransformProperty.value,
       start: () => this.moveToFront(),
       end: ( event: SceneryEvent ) => {
@@ -188,7 +190,7 @@ class GORulerNode extends Node {
     // Dragging with the keyboard
     const keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
       positionProperty: ruler.positionProperty,
-      dragBoundsProperty: dragBoundsProperty,
+      dragBoundsProperty: this.dragBoundsProperty,
       transform: zoomTransformProperty.value,
       start: () => this.moveToFront(),
 
@@ -209,60 +211,13 @@ class GORulerNode extends Node {
       // Escape returns the ruler to the toolbox.
       {
         keys: [ KeyboardUtils.KEY_ESCAPE ],
-        callback: () => {
-          ruler.visibleProperty.value = false;
-          this.iconNode.focus();
-        }
+        callback: () => this.returnToToolbox()
       },
 
-      // J+L moves the ruler to the optic (Lens or Mirror) position.
+      // J+R move the ruler to next visible position in hotkeyTargets
       {
-        keys: options.hotkeysMoveRulerToOptic,
-        callback: () => {
-          if ( this.hotkeysData ) {
-            ruler.positionProperty.value = this.hotkeysData.opticPositionProperty.value;
-          }
-        }
-      },
-
-      // J+O moves the ruler to the first optical object.
-      {
-        keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_O ],
-        callback: () => {
-          if ( this.hotkeysData ) {
-            moveRuler( ruler, this.hotkeysData.opticalObject1PositionProperty.value, this.hotkeysData.opticPositionProperty.value.y );
-          }
-        }
-      },
-
-      // J+I moves the ruler to the Image position.
-      // Ignored if no optical image is visible, or if moving the ruler would put it outside the drag bounds.
-      {
-        keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_I ],
-        callback: () => {
-          if ( this.hotkeysData ) {
-            if ( this.hotkeysData.opticalImage1PositionProperty &&
-                 this.hotkeysData.opticalImage1VisibleProperty &&
-                 this.hotkeysData.opticalImage1VisibleProperty.value &&
-                 dragBoundsProperty.value.containsPoint( this.hotkeysData.opticalImage1PositionProperty.value ) ) {
-              moveRuler( ruler, this.hotkeysData.opticalImage1PositionProperty.value, this.hotkeysData.opticPositionProperty.value.y );
-            }
-          }
-        }
-      },
-
-      // J+S moves the ruler to the second optical object. Ignored if no second optical object is visible.
-      {
-        keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_S ],
-        callback: () => {
-          if ( this.hotkeysData ) {
-            if ( this.hotkeysData.opticalObject2PositionProperty &&
-                 this.hotkeysData.opticalObject2VisibleProperty &&
-                 this.hotkeysData.opticalObject2VisibleProperty.value ) {
-              moveRuler( ruler, this.hotkeysData.opticalObject2PositionProperty.value, this.hotkeysData.opticPositionProperty.value.y );
-            }
-          }
-        }
+        keys: [ KeyboardUtils.KEY_R ],
+        callback: () => this.jumpToNextHotkeyTarget()
       }
     ];
 
@@ -273,31 +228,79 @@ class GORulerNode extends Node {
     } );
   }
 
+  /**
+   * Sets the bounds of the toolbox, so the ruler know where to return to.
+   * @param toolboxBounds
+   */
   public setToolboxBounds( toolboxBounds: Bounds2 ): void {
     this.toolboxBounds = toolboxBounds;
   }
 
-  // Forwards an event from the toolbox to start dragging this Node
+  /**
+   * Forwards an event from the toolbox to start dragging this Node
+   * @param event
+   */
   public startDrag( event: SceneryEvent ): void {
     this.dragListener.press( event, this );
   }
 
-  public setHotkeysData( hotkeysData: RulerHotkeysData | null ) {
-    this.hotkeysData = hotkeysData;
+  /**
+   * Sets the targets for the J+R hotkey.
+   * @param hotkeyTargets
+   */
+  public setHotkeyTargets( hotkeyTargets: RulerHotkeyTarget[] ) {
+    this.hotkeyTargets = hotkeyTargets;
+    this.hotkeyTargetsIndex = 0;
   }
-}
 
-/**
- * Moves the ruler so that a vertical ruler is measuring a distance from the optical axis,
- * while a horizontal ruler is placed at the specified position.
- * @param ruler
- * @param position
- * @param opticalAxisY
- */
-function moveRuler( ruler: GORuler, position: Vector2, opticalAxisY: number ) {
-  const x = position.x;
-  const y = ruler.isVertical ? Math.min( position.y, opticalAxisY ) : opticalAxisY;
-  ruler.positionProperty.value = new Vector2( x, y );
+  /**
+   * Returns the ruler to the toolbox.
+   */
+  private returnToToolbox() {
+    this.ruler.visibleProperty.value = false;
+    this.iconNode.focus();
+  }
+
+  /**
+   * Jumps (moves) the ruler to the next target that is visible and inside drag bounds.
+   */
+  private jumpToNextHotkeyTarget() {
+    if ( this.hotkeyTargets.length > 0 ) {
+      const startIndex = this.hotkeyTargetsIndex;
+      let done = false;
+      while ( !done ) {
+
+        // Get the target
+        const hotkeyTarget = this.hotkeyTargets[ this.hotkeyTargetsIndex ];
+        const targetPosition = hotkeyTarget.positionProperty.value;
+
+        // If the target is visible, inside dragBounds, and the ruler is not already at the target's position...
+        if ( hotkeyTarget.visibleProperty.value &&
+             this.dragBoundsProperty.value.containsPoint( targetPosition ) &&
+             !this.ruler.positionProperty.value.equals( targetPosition ) ) {
+
+          // Move the ruler
+          const targetX = hotkeyTarget.positionProperty.value.x;
+          const targetY = hotkeyTarget.positionProperty.value.y;
+          const opticY = this.opticPositionProperty.value.y;
+          const y = this.ruler.isVertical ? Math.min( targetY, opticY ) : opticY;
+          this.ruler.positionProperty.value = new Vector2( targetX, y );
+          done = true;
+        }
+
+        // Increment hotkeyTargetsIndex
+        this.hotkeyTargetsIndex++;
+        if ( this.hotkeyTargetsIndex >= this.hotkeyTargets.length ) {
+          this.hotkeyTargetsIndex = 0;
+        }
+
+        // If we iterated through all targets without jumping, we're done.
+        if ( !done && this.hotkeyTargetsIndex === startIndex ) {
+          done = true;
+        }
+      }
+    }
+  }
 }
 
 /**
@@ -353,4 +356,4 @@ function createRulerNode( rulerLength: number, zoomTransform: ModelViewTransform
 
 geometricOptics.register( 'GORulerNode', GORulerNode );
 export default GORulerNode;
-export type { GORulerNodeOptions, RulerHotkeysData };
+export type { GORulerNodeOptions, RulerHotkeyTarget };

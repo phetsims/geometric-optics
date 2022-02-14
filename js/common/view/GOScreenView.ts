@@ -154,14 +154,14 @@ class GOScreenView extends ScreenView {
         return ModelViewTransform2.createOffsetXYScaleMapping( viewOrigin, scale, -scale );
       } );
 
-    const horizontalRulerNode = new GORulerNode( model.horizontalRuler, zoomTransformProperty, zoomScaleProperty,
-      this.visibleBoundsProperty, {
+    const horizontalRulerNode = new GORulerNode( model.horizontalRuler, model.optic.positionProperty,
+      zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, {
         hotkeysMoveRulerToOptic: options.hotkeysMoveRulerToOptic,
         tandem: options.tandem.createTandem( 'horizontalRulerNode' )
       } );
 
-    const verticalRulerNode = new GORulerNode( model.verticalRuler, zoomTransformProperty, zoomScaleProperty,
-      this.visibleBoundsProperty, {
+    const verticalRulerNode = new GORulerNode( model.verticalRuler, model.optic.positionProperty,
+      zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, {
         hotkeysMoveRulerToOptic: options.hotkeysMoveRulerToOptic,
         tandem: options.tandem.createTandem( 'verticalRulerNode' )
       } );
@@ -388,21 +388,21 @@ class GOScreenView extends ScreenView {
 
       arrowObjectSceneNode.visible = ( OpticalObjectChoice.isArrowObject( opticalObjectChoice ) );
       if ( arrowObjectSceneNode.visible ) {
-        horizontalRulerNode.setHotkeysData( arrowObjectSceneNode.rulerHotkeysData );
-        verticalRulerNode.setHotkeysData( arrowObjectSceneNode.rulerHotkeysData );
+        horizontalRulerNode.setHotkeyTargets( arrowObjectSceneNode.rulerHotkeyTargets );
+        verticalRulerNode.setHotkeyTargets( arrowObjectSceneNode.rulerHotkeyTargets );
       }
 
       framedObjectSceneNode.visible = ( OpticalObjectChoice.isFramedObject( opticalObjectChoice ) );
       if ( framedObjectSceneNode.visible ) {
-        horizontalRulerNode.setHotkeysData( framedObjectSceneNode.rulerHotkeysData );
-        verticalRulerNode.setHotkeysData( framedObjectSceneNode.rulerHotkeysData );
+        horizontalRulerNode.setHotkeyTargets( framedObjectSceneNode.rulerHotkeyTargets );
+        verticalRulerNode.setHotkeyTargets( framedObjectSceneNode.rulerHotkeyTargets );
       }
 
       if ( lightObjectSceneNode ) {
         lightObjectSceneNode.visible = OpticalObjectChoice.isLight( opticalObjectChoice );
         if ( lightObjectSceneNode.visible ) {
-          this.horizontalRulerNode.setHotkeysData( lightObjectSceneNode.rulerHotkeysData );
-          this.verticalRulerNode.setHotkeysData( lightObjectSceneNode.rulerHotkeysData );
+          this.horizontalRulerNode.setHotkeyTargets( lightObjectSceneNode.rulerHotkeyTargets );
+          this.verticalRulerNode.setHotkeyTargets( lightObjectSceneNode.rulerHotkeyTargets );
         }
       }
     } );

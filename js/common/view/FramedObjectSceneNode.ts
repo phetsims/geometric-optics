@@ -28,7 +28,7 @@ import Optic from '../model/Optic.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import VirtualLightRaysNode from './VirtualLightRaysNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import { RulerHotkeysData } from './GORulerNode.js';
+import { RulerHotkeyTarget } from './GORulerNode.js';
 import GOSceneNode from './GOSceneNode.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 
@@ -44,7 +44,7 @@ type FramedObjectSceneNodeOptions = {
 
 class FramedObjectSceneNode extends GOSceneNode {
 
-  public readonly rulerHotkeysData: RulerHotkeysData;
+  public readonly rulerHotkeyTargets: RulerHotkeyTarget[];
   private readonly resetFrameObjectSceneNode: () => void;
 
   /**
@@ -160,14 +160,12 @@ class FramedObjectSceneNode extends GOSceneNode {
       secondPointNode
     ];
 
-    this.rulerHotkeysData = {
-      opticPositionProperty: scene.optic.positionProperty,
-      opticalObject1PositionProperty: scene.framedObject.positionProperty,
-      opticalObject2PositionProperty: scene.secondPoint.positionProperty,
-      opticalObject2VisibleProperty: secondPointNode.visibleProperty,
-      opticalImage1PositionProperty: scene.framedImage1.positionProperty,
-      opticalImage1VisibleProperty: framedImageNode.visibleProperty
-    };
+    // Ruler J+R hotkey will cycle through these positions, in order.
+    this.rulerHotkeyTargets = [
+      { positionProperty: scene.optic.positionProperty, visibleProperty: this.opticNode.visibleProperty },
+      { positionProperty: scene.framedObject.positionProperty, visibleProperty: framedObjectNode.visibleProperty },
+      { positionProperty: scene.framedImage1.positionProperty, visibleProperty: framedImageNode.visibleProperty }
+    ];
 
     //TODO is this complete?
     this.resetFrameObjectSceneNode = () => {

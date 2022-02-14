@@ -21,7 +21,7 @@ import Optic from '../model/Optic.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import VirtualLightRaysNode from './VirtualLightRaysNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import { RulerHotkeysData } from './GORulerNode.js';
+import { RulerHotkeyTarget } from './GORulerNode.js';
 import ArrowObjectScene from '../model/ArrowObjectScene.js';
 import ArrowObjectNode from './ArrowObjectNode.js';
 import ArrowImageNode from './ArrowImageNode.js';
@@ -40,7 +40,7 @@ type ArrowObjectSceneNodeOptions = {
 
 class ArrowObjectSceneNode extends GOSceneNode {
 
-  public readonly rulerHotkeysData: RulerHotkeysData;
+  public readonly rulerHotkeyTargets: RulerHotkeyTarget[];
   private readonly resetFrameObjectSceneNode: () => void;
 
   /**
@@ -145,14 +145,14 @@ class ArrowObjectSceneNode extends GOSceneNode {
       arrowObject2Node
     ];
 
-    this.rulerHotkeysData = {
-      opticPositionProperty: scene.optic.positionProperty,
-      opticalObject1PositionProperty: scene.arrowObject1.positionProperty,
-      opticalObject2PositionProperty: scene.arrowObject2.positionProperty,
-      opticalObject2VisibleProperty: arrowObject2Node.visibleProperty,
-      opticalImage1PositionProperty: scene.arrowImage1.positionProperty,
-      opticalImage1VisibleProperty: arrowImage1Node.visibleProperty
-    };
+    // Ruler J+R hotkey will cycle through these positions, in order.
+    this.rulerHotkeyTargets = [
+      { positionProperty: scene.optic.positionProperty, visibleProperty: this.opticNode.visibleProperty },
+      { positionProperty: scene.arrowObject1.positionProperty, visibleProperty: arrowObject1Node.visibleProperty },
+      { positionProperty: scene.arrowImage1.positionProperty, visibleProperty: arrowImage1Node.visibleProperty },
+      { positionProperty: scene.arrowObject2.positionProperty, visibleProperty: arrowObject2Node.visibleProperty },
+      { positionProperty: scene.arrowImage2.positionProperty, visibleProperty: arrowImage2Node.visibleProperty }
+    ];
 
     //TODO is this complete?
     this.resetFrameObjectSceneNode = () => {

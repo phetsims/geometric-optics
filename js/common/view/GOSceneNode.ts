@@ -25,7 +25,7 @@ import Optic from '../model/Optic.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import GuidesNode from './GuidesNode.js';
-import { RulerHotkeysData } from './GORulerNode.js';
+import { RulerHotkeyTarget } from './GORulerNode.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import GOScene from '../model/GOScene.js';
 
@@ -41,7 +41,8 @@ type GOSceneNodeOptions = {
 
 abstract class GOSceneNode extends Node {
 
-  public abstract readonly rulerHotkeysData: RulerHotkeysData;
+  public abstract readonly rulerHotkeyTargets: RulerHotkeyTarget[];
+  protected readonly opticNode: Node;
   protected readonly opticalAxisForegroundLayer: Node;
   protected readonly opticalObjectsLayer: Node;
   protected readonly opticalImagesLayer: Node;
@@ -71,7 +72,7 @@ abstract class GOSceneNode extends Node {
 
     super( options );
 
-    const opticNode = options.createOpticNode( scene.optic, modelBoundsProperty, modelViewTransform, options.tandem );
+    this.opticNode = options.createOpticNode( scene.optic, modelBoundsProperty, modelViewTransform, options.tandem );
 
     const opticalAxisNode = new OpticalAxisNode(
       scene.optic.positionProperty,
@@ -152,7 +153,7 @@ abstract class GOSceneNode extends Node {
       this.opticalObjectsLayer,
       this.opticalImagesLayer,
       this.opticalAxisForegroundLayer,
-      opticNode,
+      this.opticNode,
       opticVerticalAxisNode,
       focalPointsNode,
       twoFPointsNode,

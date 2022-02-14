@@ -24,7 +24,10 @@ import Guides from './Guides.js';
 import GOScene, { GOSceneOptions } from './GOScene.js';
 import Lens from '../../lens/model/Lens.js';
 
-type LightObjectSceneOptions = {} & GOSceneOptions;
+type LightObjectSceneOptions = {
+  lightObject1Position: Vector2,
+  lightObject2Position: Vector2
+} & GOSceneOptions;
 
 class LightObjectScene extends GOScene {
 
@@ -58,14 +61,14 @@ class LightObjectScene extends GOScene {
 
     this.lightObject1 = new LightObject( {
       htmlImageElement: lamp1_png,
-      position: new Vector2( -170, 20 ),
+      position: options.lightObject1Position,
       tandem: options.tandem.createTandem( 'lightObject1' ),
       phetioDocumentation: 'the first light'
     } );
 
     this.lightObject2 = new LightObject( {
       htmlImageElement: lamp2_png,
-      position: new Vector2( -170, -20 ),
+      position: options.lightObject2Position,
       tandem: options.tandem.createTandem( 'lightObject2' ),
       phetioDocumentation: 'the second light'
     } );
