@@ -80,8 +80,8 @@ class LightObjectNode extends Node {
     const updateScale = () => {
       const modelBounds = lightObject.boundsProperty.value;
       const viewBounds = modelViewTransform.modelToViewBounds( modelBounds );
-      const scaleX = viewBounds.width / imageNode.width;
-      const scaleY = viewBounds.height / imageNode.height;
+      const scaleX = ( viewBounds.width / imageNode.width ) || GOConstants.MIN_SCALE; // prevent zero scale
+      const scaleY = ( viewBounds.height / imageNode.height ) || GOConstants.MIN_SCALE; // prevent zero scale
       imageNode.scale( scaleX, scaleY );
     };
 

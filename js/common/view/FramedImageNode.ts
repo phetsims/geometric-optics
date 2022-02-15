@@ -21,6 +21,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import { OpticalImageType } from '../model/OpticalImageType.js';
+import GOConstants from '../GOConstants.js';
 
 type FramedImageNodeOptions = {
   tandem: Tandem
@@ -82,8 +83,9 @@ class FramedImageNode extends Node {
 
       const initialWidth = parentNode.width;
       const initialHeight = parentNode.height;
-
-      parentNode.scale( viewBounds.width / initialWidth, viewBounds.height / initialHeight );
+      const scaleX = ( viewBounds.width / initialWidth ) || GOConstants.MIN_SCALE; // prevent zero scale
+      const scaleY = ( viewBounds.height / initialHeight ) || GOConstants.MIN_SCALE; // prevent zero scale
+      parentNode.scale( scaleX, scaleY );
       parentNode.translation = new Vector2( viewBounds.minX, viewBounds.minY );
     };
 

@@ -73,7 +73,7 @@ class ArrowImageNode extends Node {
 
         let magnitude = magnification * ( objectViewPosition.y - opticViewPosition.y );
         if ( magnitude === 0 ) {
-          magnitude = 1e-5; // prevent zero-length ArrowNode, see https://github.com/phetsims/geometric-optics/issues/306
+          magnitude = GOConstants.MIN_MAGNITUDE; // see https://github.com/phetsims/geometric-optics/issues/306
         }
 
         arrowNode.setTailAndTip( imageViewPosition.x, opticViewPosition.y, imageViewPosition.x, opticViewPosition.y + magnitude );
