@@ -14,6 +14,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
@@ -21,6 +22,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
+import GOConstants from '../GOConstants.js';
 
 type OpticalObjectOptions = {
   position?: Vector2,
@@ -36,9 +38,10 @@ class OpticalObject extends PhetioObject {
 
   /**
    * @param opticalObjectNumber
+   * @param opticPositionProperty
    * @param providedOptions
    */
-  constructor( opticalObjectNumber: number, providedOptions: OpticalObjectOptions ) {
+  constructor( opticalObjectNumber: number, opticPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: OpticalObjectOptions ) {
 
     const options = merge( {
       position: Vector2.ZERO,
@@ -50,6 +53,8 @@ class OpticalObject extends PhetioObject {
     this.opticalObjectNumber = opticalObjectNumber;
 
     this.positionProperty = new Vector2Property( options.position, {
+      isValidValue: ( position: Vector2 ) =>
+        ( position.x <= opticPositionProperty.value.x - GOConstants.MIN_DISTANCE_FROM_OBJECT_TO_OPTIC ),
       tandem: options.tandem.createTandem( 'positionProperty' )
     } );
 

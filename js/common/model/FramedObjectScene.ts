@@ -59,7 +59,7 @@ class FramedObjectScene extends GOScene {
 
     super( optic, options );
 
-    this.framedObject = new FramedObject( 1, opticalObjectChoiceProperty, {
+    this.framedObject = new FramedObject( 1, optic.positionProperty, opticalObjectChoiceProperty, {
       position: options.framedObjectPosition,
       tandem: options.tandem.createTandem( 'framedObject' )
     } );

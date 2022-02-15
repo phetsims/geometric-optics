@@ -8,6 +8,7 @@
  * @author Martin Veillette
  */
 
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -15,6 +16,7 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
+import GOConstants from '../GOConstants.js';
 
 // Dimensions of the screen, in cm. "Near" and "far" refer to pseudo-3D perspective.
 const SCREEN_WIDTH = 42;
@@ -39,10 +41,16 @@ class ProjectionScreen {
 
   private readonly resetProjectionScreen: () => void;
 
-  constructor( options: ProjectionScreenOptions ) {
+  /**
+   * @param opticPositionProperty
+   * @param providedOptions
+   */
+  constructor( opticPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: ProjectionScreenOptions ) {
 
     this.positionProperty = new Vector2Property( new Vector2( 200, 0 ), {
-      tandem: options.tandem.createTandem( 'positionProperty' )
+      isValidValue: ( position: Vector2 ) =>
+        ( position.x >= opticPositionProperty.value.x + GOConstants.MIN_DISTANCE_FROM_OPTIC_TO_PROJECTION_SCREEN ),
+      tandem: providedOptions.tandem.createTandem( 'positionProperty' )
     } );
 
     // Described clockwise, starting at left top, in model coordinates.

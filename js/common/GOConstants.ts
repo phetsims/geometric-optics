@@ -29,6 +29,7 @@ const GOConstants = {
 
   // BEWARE! Getting too close to the optic will reveal problems with the model.
   MIN_DISTANCE_FROM_OBJECT_TO_OPTIC: 40, // cm
+  MIN_DISTANCE_FROM_OPTIC_TO_PROJECTION_SCREEN: 60, // cm
 
   // Rulers ------------------------------------------------------------------------------------------------------------
 

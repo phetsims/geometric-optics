@@ -34,15 +34,16 @@ class LightObject extends OpticalObject {
 
   /**
    * @param opticalObjectNumber
+   * @param opticPositionProperty
    * @param providedOptions
    */
-  constructor( opticalObjectNumber: number, providedOptions: LightObjectOptions ) {
+  constructor( opticalObjectNumber: number, opticPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: LightObjectOptions ) {
 
     const options = merge( {
       //TODO
     }, providedOptions );
 
-    super( opticalObjectNumber, options );
+    super( opticalObjectNumber, opticPositionProperty, options );
 
     this.htmlImageElement = options.htmlImageElement;
 

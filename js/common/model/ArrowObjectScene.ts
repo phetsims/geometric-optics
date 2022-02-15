@@ -56,13 +56,13 @@ class ArrowObjectScene extends GOScene {
 
     let opticalObjectNumber = 1;
 
-    this.arrowObject1 = new ArrowObject( opticalObjectNumber++, {
+    this.arrowObject1 = new ArrowObject( opticalObjectNumber++, optic.positionProperty, {
       position: options.arrowObject1Position,
       fill: GOColors.arrow1FillProperty,
       tandem: options.tandem.createTandem( 'arrowObject1' )
     } );
 
-    this.arrowObject2 = new ArrowObject( opticalObjectNumber++, {
+    this.arrowObject2 = new ArrowObject( opticalObjectNumber++, optic.positionProperty, {
       position: options.arrowObject2Position,
       fill: GOColors.arrow2FillProperty,
       tandem: options.tandem.createTandem( 'arrowObject2' )

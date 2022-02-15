@@ -60,14 +60,14 @@ class LightObjectScene extends GOScene {
 
     let opticalObjectNumber = 1;
 
-    this.lightObject1 = new LightObject( opticalObjectNumber++, {
+    this.lightObject1 = new LightObject( opticalObjectNumber++, lens.positionProperty, {
       htmlImageElement: light1_png,
       position: options.lightObject1Position,
       tandem: options.tandem.createTandem( 'lightObject1' ),
       phetioDocumentation: 'the first light'
     } );
 
-    this.lightObject2 = new LightObject( opticalObjectNumber++, {
+    this.lightObject2 = new LightObject( opticalObjectNumber++, lens.positionProperty, {
       htmlImageElement: light2_png,
       position: options.lightObject2Position,
       tandem: options.tandem.createTandem( 'lightObject2' ),
@@ -84,7 +84,7 @@ class LightObjectScene extends GOScene {
       phetioDocumentation: 'Point where light rays from the second light converge. No image is formed in this scene.'
     } );
 
-    this.projectionScreen = new ProjectionScreen( {
+    this.projectionScreen = new ProjectionScreen( lens.positionProperty, {
       tandem: providedOptions.tandem.createTandem( 'projectionScreen' )
     } );
 

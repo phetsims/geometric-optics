@@ -140,7 +140,7 @@ class ProjectionScreenNode extends Node {
       [ modelBoundsProperty, opticPositionProperty ],
       ( modelBounds: Bounds2, opticPosition: Vector2 ) =>
         new Bounds2(
-          opticPosition.x + ( modelScreenWidth / 2 ) + 20,
+          opticPosition.x + GOConstants.MIN_DISTANCE_FROM_OPTIC_TO_PROJECTION_SCREEN,
           modelBounds.minY + modelScreenHeight / 2,
           modelBounds.maxX - modelScreenWidth / 2,
           modelBounds.maxY - modelScreenHeight / 2
