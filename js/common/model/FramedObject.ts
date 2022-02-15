@@ -22,6 +22,7 @@ class FramedObject extends OpticalObject {
 
   // x should be 1/2 of PNG file width. y should be the tip of the pencil. +x right, +y down.
   public static ORIGIN_OFFSET = new Vector2( 68.5, 100 );
+
   // HTMLImageElements used to draw this framed object and its associated image
   public readonly objectHTMLImageElementsProperty: IReadOnlyProperty<ObjectHTMLImageElements>;
 
