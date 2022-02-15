@@ -1,4 +1,4 @@
-// Copyright 2021, University of Colorado Boulder
+// Copyright 2021-2022, University of Colorado Boulder
 
 /**
  * OpticShapes identifies the Shapes that are common to all optics. Shapes are specified in model coordinates.
