@@ -24,6 +24,9 @@ class LightObject extends OpticalObject {
   // the PNG file used to visually represent the light
   readonly htmlImageElement: HTMLImageElement;
 
+  // model bounds of the object's visual representation
+  public readonly boundsProperty: IReadOnlyProperty<Bounds2>;
+
   // This should be at the right-center of the light's bulb. +x right, +y down.
   public static ORIGIN_OFFSET = new Vector2( 62, 40 );
 
@@ -31,9 +34,6 @@ class LightObject extends OpticalObject {
   // This value is specific to the light*.png files, and must be uniform for all light*.png files.
   // View-to-model scale for associated HTMLImageElement
   public static SCALE_FACTOR = 0.5;
-
-  // model bounds of the object's visual representation
-  public readonly boundsProperty: IReadOnlyProperty<Bounds2>;
 
   /**
    * @param opticalObjectNumber

@@ -20,9 +20,6 @@ import merge from '../../../../phet-core/js/merge.js';
 
 class FramedObject extends OpticalObject {
 
-  // x should be 1/2 of PNG file width. y should be the tip of the pencil. +x right, +y down.
-  public static ORIGIN_OFFSET = new Vector2( 68.5, 100 );
-
   // HTMLImageElements used to draw this framed object and its associated image
   public readonly objectHTMLImageElementsProperty: IReadOnlyProperty<ObjectHTMLImageElements>;
 
@@ -30,6 +27,9 @@ class FramedObject extends OpticalObject {
   // This is specific to the object PNG files, and must be uniform for all object PNG files.
   // model bounds of this framed object's visual representation
   public readonly boundsProperty: IReadOnlyProperty<Bounds2>;
+
+  // x should be 1/2 of PNG file width. y should be the tip of the pencil. +x right, +y down.
+  public static ORIGIN_OFFSET = new Vector2( 68.5, 100 );
 
   // View-to-model scale for associated HTMLImageElement
   public static SCALE_FACTOR = 0.25;
