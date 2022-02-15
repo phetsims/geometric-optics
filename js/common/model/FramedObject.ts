@@ -22,15 +22,16 @@ class FramedObject extends OpticalObject {
 
   // x should be 1/2 of PNG file width. y should be the tip of the pencil. +x right, +y down.
   public static ORIGIN_OFFSET = new Vector2( 68.5, 100 );
-
-  // model bounds of the Object's visual representation
-  public readonly boundsProperty: IReadOnlyProperty<Bounds2>;
+  // HTMLImageElements used to draw this framed object and its associated image
+  public readonly objectHTMLImageElementsProperty: IReadOnlyProperty<ObjectHTMLImageElements>;
 
   // Where the point-of-interest is relative to the left-top corner of PNG files for framed objects.
   // This is specific to the object PNG files, and must be uniform for all object PNG files.
+  // model bounds of this framed object's visual representation
+  public readonly boundsProperty: IReadOnlyProperty<Bounds2>;
+
   // View-to-model scale for associated HTMLImageElement
   public static SCALE_FACTOR = 0.25;
-  public readonly objectHTMLImageElementsProperty: IReadOnlyProperty<ObjectHTMLImageElements>;
 
   /**
    * @param opticalObjectNumber
@@ -70,10 +71,9 @@ class FramedObject extends OpticalObject {
       [ this.objectHTMLImageElementsProperty, this.positionProperty ],
       ( htmlImageElements: ObjectHTMLImageElements, position: Vector2 ) => {
 
-        const scaleFactor = FramedObject.SCALE_FACTOR;
-
         const htmlImageElementWidth = htmlImageElements.rightFacingUpright.width;
         const htmlImageElementHeight = htmlImageElements.rightFacingUpright.height;
+        const scaleFactor = FramedObject.SCALE_FACTOR;
         const size = new Dimension2( scaleFactor * htmlImageElementWidth, scaleFactor * htmlImageElementHeight );
 
         const origin = FramedObject.ORIGIN_OFFSET.timesScalar( scaleFactor );
