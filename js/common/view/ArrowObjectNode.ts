@@ -77,7 +77,7 @@ class ArrowObjectNode extends Node {
         const tipPosition = modelViewTransform.modelToViewPosition( arrowObjectPosition );
         let tailY = modelViewTransform.modelToViewY( opticPosition.y );
         if ( tailY === tipPosition.y ) {
-          tailY = tipPosition.y + 1e-5; // prevent zero-length arrow, see https://github.com/phetsims/geometric-optics/issues/306
+          tailY += 1e-5; // prevent zero-length ArrowNode, see https://github.com/phetsims/geometric-optics/issues/306
         }
         arrowNode.setTailAndTip( tipPosition.x, tailY, tipPosition.x, tipPosition.y );
         arrowNode.mouseArea = arrowNode.localBounds.dilated( 3 );

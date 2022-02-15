@@ -66,10 +66,16 @@ class ArrowImageNode extends Node {
     // Don't scale the head and tail, just the magnitude.
     Property.multilink( [ arrowImage.positionProperty, arrowImage.magnificationProperty ],
       ( arrowImagePosition: Vector2, magnification: number ) => {
+
         const opticViewPosition = modelViewTransform.modelToViewPosition( arrowImage.optic.positionProperty.value );
         const objectViewPosition = modelViewTransform.modelToViewPosition( arrowImage.opticalObject.positionProperty.value );
         const imageViewPosition = modelViewTransform.modelToViewPosition( arrowImagePosition );
-        const magnitude = magnification * ( objectViewPosition.y - opticViewPosition.y );
+
+        let magnitude = magnification * ( objectViewPosition.y - opticViewPosition.y );
+        if ( magnitude === 0 ) {
+          magnitude = 1e-5; // prevent zero-length ArrowNode, see https://github.com/phetsims/geometric-optics/issues/306
+        }
+
         arrowNode.setTailAndTip( imageViewPosition.x, opticViewPosition.y, imageViewPosition.x, opticViewPosition.y + magnitude );
       } );
 
