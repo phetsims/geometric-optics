@@ -1,5 +1,6 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
+//TODO lots of duplication with FramedObjectSceneLabelsNode
 /**
  * ArrowObjectSceneLabelsNode labels things in the 'arrow object' scene.
  *
