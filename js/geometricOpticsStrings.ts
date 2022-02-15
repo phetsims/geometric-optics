@@ -63,6 +63,7 @@ type StringsType = {
     'removeFromToolbox': string,
     'returnToToolbox': string,
     'jumpRuler': string,
+    'chooseAnObject': string,
     'objects': string,
     'object': string
   }
