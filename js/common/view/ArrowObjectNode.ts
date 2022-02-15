@@ -33,9 +33,6 @@ type ArrowObjectNodeOptions = {
 
 class ArrowObjectNode extends Node {
 
-  // For use by ArrowImageNode
-  readonly arrowNode: Node;
-
   /**
    * @param arrowObject
    * @param optic
@@ -71,7 +68,6 @@ class ArrowObjectNode extends Node {
       stroke: null
     } ) );
     this.addChild( arrowNode );
-    this.arrowNode = arrowNode;
     this.setFocusHighlight( new FocusHighlightFromNode( arrowNode ) );
 
     Property.multilink( [ arrowObject.positionProperty, optic.positionProperty ],
