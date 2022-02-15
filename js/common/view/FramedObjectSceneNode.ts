@@ -44,7 +44,8 @@ type FramedObjectSceneNodeOptions = {
 
 class FramedObjectSceneNode extends GOSceneNode {
 
-  public readonly rulerHotkeyTargets: RulerHotkeyTarget[];
+  public readonly horizontalRulerHotkeyTargets: RulerHotkeyTarget[];
+  public readonly verticalRulerHotkeyTargets: RulerHotkeyTarget[];
   private readonly resetFrameObjectSceneNode: () => void;
 
   /**
@@ -160,11 +161,16 @@ class FramedObjectSceneNode extends GOSceneNode {
       secondPointNode
     ];
 
-    // Ruler J+R hotkey will cycle through these positions, in order.
-    this.rulerHotkeyTargets = [
+    // Ruler J+R hotkey will cycle through these positions, from left-to-right x coordinate.
+    this.verticalRulerHotkeyTargets = [
       { positionProperty: scene.optic.positionProperty, visibleProperty: this.opticNode.visibleProperty },
       { positionProperty: scene.framedObject.positionProperty, visibleProperty: framedObjectNode.visibleProperty },
       { positionProperty: scene.framedImage1.positionProperty, visibleProperty: framedImageNode.visibleProperty }
+    ];
+    this.horizontalRulerHotkeyTargets = [
+      ...this.verticalRulerHotkeyTargets,
+      { positionProperty: scene.optic.leftFocalPointProperty, visibleProperty: visibleProperties.focalPointsVisibleProperty },
+      { positionProperty: scene.optic.left2FProperty, visibleProperty: visibleProperties.twoFPointsVisibleProperty }
     ];
 
     //TODO is this complete?

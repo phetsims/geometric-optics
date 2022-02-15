@@ -7,8 +7,8 @@
  * - As the zoom level is changed, the view dimensions remain constant, but the tick marks change.
  * - It handles dragging, including dragging back to the RulersToolbox.
  *
- * @author Sarah Chang (Swarthmore College)
  * @author Chris Malley (PixelZoom, Inc.)
+ * @author Sarah Chang (Swarthmore College)
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
@@ -53,6 +53,7 @@ type GORulerNodeOptions = {
   tandem: Tandem
 };
 
+// Describes a measurement point that can be 'jumped' to via J+R hotkey.
 type RulerHotkeyTarget = {
   positionProperty: IReadOnlyProperty<Vector2>,
   visibleProperty: IReadOnlyProperty<boolean>
@@ -262,7 +263,8 @@ class GORulerNode extends Node {
   }
 
   /**
-   * Jumps (moves) the ruler to the next target that is visible and inside drag bounds.
+   * Jumps (moves) the ruler to the next measurement point, from left-to-right.
+   * See https://github.com/phetsims/geometric-optics/issues/310
    */
   private jumpToNextHotkeyTarget() {
     if ( this.hotkeyTargets.length > 0 ) {
@@ -270,10 +272,12 @@ class GORulerNode extends Node {
       const rulerPosition = this.ruler.positionProperty.value;
 
       // Find the target positions that are visible, not the same as the ruler position, and in bounds.
+      // For horizontal rulers, exclude points to the right of the optic, because they are not useful.
       const visibleBoundedHotkeyTargets = this.hotkeyTargets.filter( target =>
         target.visibleProperty.value &&
         ( target.positionProperty.value.x !== rulerPosition.x ) &&
-        this.dragBoundsProperty.value.containsPoint( target.positionProperty.value ) );
+        this.dragBoundsProperty.value.containsPoint( target.positionProperty.value ) &&
+        ( this.ruler.isVertical || target.positionProperty.value.x <= this.opticPositionProperty.value.x ) );
 
       // Sort target positions left-to-right, by increasing x coordinate.
       const targetPositions = visibleBoundedHotkeyTargets.map( target => target.positionProperty.value );
@@ -281,7 +285,6 @@ class GORulerNode extends Node {
 
       // Find the first target position to the right of the ruler, with wrap-around to left.
       let targetPosition = _.find( sortedTargetPositions, targetPosition => targetPosition.x > rulerPosition.x );
-      console.log( `targetPosition=${targetPosition}` );
       if ( !targetPosition ) {
         const leftmostTargetPosition = sortedTargetPositions[ 0 ];
         if ( leftmostTargetPosition.x < rulerPosition.x ) {

@@ -40,7 +40,8 @@ type ArrowObjectSceneNodeOptions = {
 
 class ArrowObjectSceneNode extends GOSceneNode {
 
-  public readonly rulerHotkeyTargets: RulerHotkeyTarget[];
+  public readonly horizontalRulerHotkeyTargets: RulerHotkeyTarget[];
+  public readonly verticalRulerHotkeyTargets: RulerHotkeyTarget[];
   private readonly resetFrameObjectSceneNode: () => void;
 
   /**
@@ -145,13 +146,18 @@ class ArrowObjectSceneNode extends GOSceneNode {
       arrowObject2Node
     ];
 
-    // Ruler J+R hotkey will cycle through these positions, in order.
-    this.rulerHotkeyTargets = [
+    // Ruler J+R hotkey will cycle through these positions, from left-to-right x coordinate.
+    this.verticalRulerHotkeyTargets = [
       { positionProperty: scene.optic.positionProperty, visibleProperty: this.opticNode.visibleProperty },
       { positionProperty: scene.arrowObject1.positionProperty, visibleProperty: arrowObject1Node.visibleProperty },
-      { positionProperty: scene.arrowImage1.positionProperty, visibleProperty: arrowImage1Node.visibleProperty },
       { positionProperty: scene.arrowObject2.positionProperty, visibleProperty: arrowObject2Node.visibleProperty },
+      { positionProperty: scene.arrowImage1.positionProperty, visibleProperty: arrowImage1Node.visibleProperty },
       { positionProperty: scene.arrowImage2.positionProperty, visibleProperty: arrowImage2Node.visibleProperty }
+    ];
+    this.horizontalRulerHotkeyTargets = [
+      ...this.verticalRulerHotkeyTargets,
+      { positionProperty: scene.optic.leftFocalPointProperty, visibleProperty: visibleProperties.focalPointsVisibleProperty },
+      { positionProperty: scene.optic.left2FProperty, visibleProperty: visibleProperties.twoFPointsVisibleProperty }
     ];
 
     //TODO is this complete?

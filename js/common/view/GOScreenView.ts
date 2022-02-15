@@ -388,21 +388,21 @@ class GOScreenView extends ScreenView {
 
       arrowObjectSceneNode.visible = ( OpticalObjectChoice.isArrowObject( opticalObjectChoice ) );
       if ( arrowObjectSceneNode.visible ) {
-        horizontalRulerNode.setHotkeyTargets( arrowObjectSceneNode.rulerHotkeyTargets );
-        verticalRulerNode.setHotkeyTargets( arrowObjectSceneNode.rulerHotkeyTargets );
+        horizontalRulerNode.setHotkeyTargets( arrowObjectSceneNode.horizontalRulerHotkeyTargets );
+        verticalRulerNode.setHotkeyTargets( arrowObjectSceneNode.verticalRulerHotkeyTargets );
       }
 
       framedObjectSceneNode.visible = ( OpticalObjectChoice.isFramedObject( opticalObjectChoice ) );
       if ( framedObjectSceneNode.visible ) {
-        horizontalRulerNode.setHotkeyTargets( framedObjectSceneNode.rulerHotkeyTargets );
-        verticalRulerNode.setHotkeyTargets( framedObjectSceneNode.rulerHotkeyTargets );
+        horizontalRulerNode.setHotkeyTargets( framedObjectSceneNode.horizontalRulerHotkeyTargets );
+        verticalRulerNode.setHotkeyTargets( framedObjectSceneNode.verticalRulerHotkeyTargets );
       }
 
       if ( lightObjectSceneNode ) {
         lightObjectSceneNode.visible = OpticalObjectChoice.isLight( opticalObjectChoice );
         if ( lightObjectSceneNode.visible ) {
-          this.horizontalRulerNode.setHotkeyTargets( lightObjectSceneNode.rulerHotkeyTargets );
-          this.verticalRulerNode.setHotkeyTargets( lightObjectSceneNode.rulerHotkeyTargets );
+          this.horizontalRulerNode.setHotkeyTargets( lightObjectSceneNode.horizontalRulerHotkeyTargets );
+          this.verticalRulerNode.setHotkeyTargets( lightObjectSceneNode.verticalRulerHotkeyTargets );
         }
       }
     } );

@@ -41,7 +41,8 @@ type GOSceneNodeOptions = {
 
 abstract class GOSceneNode extends Node {
 
-  public abstract readonly rulerHotkeyTargets: RulerHotkeyTarget[];
+  public abstract readonly horizontalRulerHotkeyTargets: RulerHotkeyTarget[];
+  public abstract readonly verticalRulerHotkeyTargets: RulerHotkeyTarget[];
   protected readonly opticNode: Node;
   protected readonly opticalAxisForegroundLayer: Node;
   protected readonly opticalObjectsLayer: Node;

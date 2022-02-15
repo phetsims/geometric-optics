@@ -42,7 +42,8 @@ type LightObjectSceneNodeOptions = {
 
 class LightObjectSceneNode extends GOSceneNode {
 
-  public readonly rulerHotkeyTargets: RulerHotkeyTarget[];
+  public readonly horizontalRulerHotkeyTargets: RulerHotkeyTarget[];
+  public readonly verticalRulerHotkeyTargets: RulerHotkeyTarget[];
   private readonly resetLightObjectSceneNode: () => void;
 
   /**
@@ -150,11 +151,16 @@ class LightObjectSceneNode extends GOSceneNode {
       projectionScreenNode
     ];
 
-    // Ruler J+R hotkey will cycle through these positions, in order.
-    this.rulerHotkeyTargets = [
+    // Ruler J+R hotkey will cycle through these positions, from left-to-right x coordinate.
+    this.verticalRulerHotkeyTargets = [
       { positionProperty: scene.optic.positionProperty, visibleProperty: this.opticNode.visibleProperty },
       { positionProperty: scene.lightObject1.positionProperty, visibleProperty: lightObject1Node.visibleProperty },
       { positionProperty: scene.lightObject2.positionProperty, visibleProperty: lightObject2Node.visibleProperty }
+    ];
+    this.horizontalRulerHotkeyTargets = [
+      ...this.verticalRulerHotkeyTargets,
+      { positionProperty: scene.optic.leftFocalPointProperty, visibleProperty: visibleProperties.focalPointsVisibleProperty },
+      { positionProperty: scene.optic.left2FProperty, visibleProperty: visibleProperties.twoFPointsVisibleProperty }
     ];
 
     //TODO is this complete?
