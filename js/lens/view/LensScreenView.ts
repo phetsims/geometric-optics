@@ -10,17 +10,17 @@
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { KeyboardUtils } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import GOScreenView, { GeometricOpticsScreenViewOptions } from '../../common/view/GOScreenView.js';
+import GOScreenView from '../../common/view/GOScreenView.js';
 import geometricOptics from '../../geometricOptics.js';
 import LensModel from '../model/LensModel.js';
-import Property from '../../../../axon/js/Property.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Lens from '../model/Lens.js';
 import LensNode from './LensNode.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DragLockedButton from '../../common/view/DragLockedButton.js';
+import Optic from '../../common/model/Optic.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 type LensScreenViewOptions = {
   tandem: Tandem
@@ -42,22 +42,20 @@ class LensScreenView extends GOScreenView {
       getViewOrigin: ( layoutBounds: Bounds2 ) => new Vector2( layoutBounds.centerX, layoutBounds.centerY - 35 ),
 
       // Creates the Node for the lens
-      createOpticNode: ( optic: Lens, modelBoundsProperty: Property<Bounds2>, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) =>
-        new LensNode( optic, modelBoundsProperty, modelViewTransform, {
+      createOpticNode: ( optic: Optic, modelBoundsProperty: IReadOnlyProperty<Bounds2>, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => {
+        assert && assert( optic instanceof Lens );
+        return new LensNode( optic as Lens, modelBoundsProperty, modelViewTransform, {
           tandem: parentTandem.createTandem( 'lensNode' )
-        } ),
+        } );
+      },
 
-      // Hotkey J+L moves a ruler to the lens
-      hotkeysMoveRulerToOptic: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_L ]
-
-    }, providedOptions ) as GeometricOpticsScreenViewOptions; //TODO don't use 'as'
-
-    options.dragLockedProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'dragLockedProperty' ),
-      phetioDocumentation: 'Controls dragging of the optical object(s).<br>' +
-                           'true = may be dragged horizontally only<br>' +
-                           'false = may be dragged horizontally and vertically'
-    } );
+      dragLockedProperty: new BooleanProperty( false, {
+        tandem: providedOptions.tandem.createTandem( 'dragLockedProperty' ),
+        phetioDocumentation: 'Controls dragging of the optical object(s).<br>' +
+                             'true = may be dragged horizontally only<br>' +
+                             'false = may be dragged horizontally and vertically'
+      } )
+    }, providedOptions );
 
     super( model, options );
 

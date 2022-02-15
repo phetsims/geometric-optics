@@ -59,9 +59,6 @@ type GeometricOpticsScreenViewOptions = {
   // Creates the Node for the optic
   createOpticNode: ( optic: Optic, modelBoundsProperty: IReadOnlyProperty<Bounds2>, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node,
 
-  // Hotkeys to move a ruler to the optic
-  hotkeysMoveRulerToOptic: string[],
-
   dragLockedProperty: BooleanProperty,
 
   // phet-io
@@ -146,13 +143,11 @@ class GOScreenView extends ScreenView {
 
     const horizontalRulerNode = new GORulerNode( model.horizontalRuler, model.optic.positionProperty,
       zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, {
-        hotkeysMoveRulerToOptic: options.hotkeysMoveRulerToOptic,
         tandem: options.tandem.createTandem( 'horizontalRulerNode' )
       } );
 
     const verticalRulerNode = new GORulerNode( model.verticalRuler, model.optic.positionProperty,
       zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, {
-        hotkeysMoveRulerToOptic: options.hotkeysMoveRulerToOptic,
         tandem: options.tandem.createTandem( 'verticalRulerNode' )
       } );
 

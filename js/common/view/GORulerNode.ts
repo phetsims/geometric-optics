@@ -43,9 +43,6 @@ type RulerNodeOptions = {
 
 type GORulerNodeOptions = {
 
-  // Hotkeys that move the ruler to the optic, KeyboardUtils.KEY_* values
-  hotkeysMoveRulerToOptic: string[],
-
   // Options passed to RulerNode
   rulerOptions?: RulerNodeOptions,
 
