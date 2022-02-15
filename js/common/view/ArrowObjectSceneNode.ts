@@ -160,7 +160,6 @@ class ArrowObjectSceneNode extends GOSceneNode {
       { positionProperty: scene.optic.left2FProperty, visibleProperty: visibleProperties.twoFPointsVisibleProperty }
     ];
 
-    //TODO is this complete?
     this.resetFrameObjectSceneNode = () => {
       arrowWasDraggedProperty.reset();
     };

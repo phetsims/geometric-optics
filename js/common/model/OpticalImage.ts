@@ -52,7 +52,6 @@ class OpticalImage extends PhetioObject {
 
   protected readonly lightIntensityProperty: IReadOnlyProperty<number>;
 
-  //TODO remove null here and checks at use sites
   // the magnification can be negative, indicating the Image is inverted.
   public readonly magnificationProperty: IReadOnlyProperty<number>;
 

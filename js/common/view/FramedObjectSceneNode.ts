@@ -173,7 +173,6 @@ class FramedObjectSceneNode extends GOSceneNode {
       { positionProperty: scene.optic.left2FProperty, visibleProperty: visibleProperties.twoFPointsVisibleProperty }
     ];
 
-    //TODO is this complete?
     this.resetFrameObjectSceneNode = () => {
       framedObjectNode.reset();
       secondPointNode.reset();

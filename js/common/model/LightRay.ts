@@ -36,6 +36,7 @@ class LightRay {
   readonly virtualSegments: Array<LightRaySegment>;
 
   //TODO document
+  //TODO does this need to be a Property for PhET-iO state?
   readonly isTargetReached: boolean;
 
   // a collection of sequential rays

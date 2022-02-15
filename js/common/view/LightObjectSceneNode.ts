@@ -163,7 +163,6 @@ class LightObjectSceneNode extends GOSceneNode {
       { positionProperty: scene.optic.left2FProperty, visibleProperty: visibleProperties.twoFPointsVisibleProperty }
     ];
 
-    //TODO is this complete?
     this.resetLightObjectSceneNode = () => {
       lightWasDraggedProperty.reset();
       projectionScreenNode.reset();

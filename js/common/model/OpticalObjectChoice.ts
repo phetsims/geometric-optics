@@ -53,7 +53,6 @@ const arrowIcon = new ArrowNode( 0, 0, 0, -50, merge( {
 
 class OpticalObjectChoice extends EnumerationValue {
 
-  //TODO replace arrowIcon_png with new PNG file, or generate programmatically
   static ARROW = new OpticalObjectChoice( geometricOpticsStrings.arrow, arrowIcon, 'arrow' );
 
   static PENCIL = new OpticalObjectChoice( geometricOpticsStrings.pencil, pencilIcon_png, 'pencil', {
