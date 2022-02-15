@@ -3,8 +3,8 @@
 /**
  * Optic is the abstract base class for an optic in this simulation, and supports lens and mirror.
  *
- * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
+ * @author Martin Veillette
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';

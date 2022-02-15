@@ -3,7 +3,6 @@
 /**
  * ArrowObject is the model for arrow objects.
  *
- * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
  */
 

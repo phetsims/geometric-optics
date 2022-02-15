@@ -6,6 +6,7 @@
  * light rays intersect. What the image looks like is the responsibility of subclasses.
  *
  * @author Chris Malley (PixelZoom, Inc.)
+ * @author Martin Veillette
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';

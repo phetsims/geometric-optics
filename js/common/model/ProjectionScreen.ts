@@ -4,8 +4,8 @@
  * ProjectionScreen is the model of the projection screen.
  * It has a position and a Shape, and methods for computing Shapes needed by the view.
  *
- * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
+ * @author Martin Veillette
  */
 
 import Property from '../../../../axon/js/Property.js';

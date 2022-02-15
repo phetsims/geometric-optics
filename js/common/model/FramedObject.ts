@@ -3,8 +3,8 @@
 /**
  * FramedObject is the model for the "framed objects". These are objects in a picture frame, with 3D perspective.
  *
- * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
+ * @author Martin Veillette
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';

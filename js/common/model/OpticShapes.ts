@@ -3,8 +3,8 @@
 /**
  * OpticShapes identifies the Shapes that are common to all optics. Shapes are specified in model coordinates.
  *
- * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
+ * @author Martin Veillette
  */
 
 import Shape from '../../../../kite/js/Shape.js';

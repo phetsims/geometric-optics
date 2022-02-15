@@ -1,6 +1,5 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
-//TODO when arrow points up, put object and image labels above arrow
 /**
  * ArrowObjectSceneLabelsNode labels things in the 'arrow object' scene.
  *

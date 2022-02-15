@@ -5,7 +5,6 @@
  * a projection screen. Note that this scene supports only Lens, not Mirror.
  *
  * @author Chris Malley (PixelZoom, Inc.)
- * @author Martin Veillette
  */
 
 import geometricOptics from '../../geometricOptics.js';
