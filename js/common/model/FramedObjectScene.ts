@@ -112,7 +112,6 @@ class FramedObjectScene extends GOScene {
       this.guides2 = null;
     }
 
-    //TODO is this complete?
     this.resetFramedObjectScene = () => {
       this.framedObject.reset();
       this.secondPoint.reset();

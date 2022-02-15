@@ -128,7 +128,6 @@ class LightObjectScene extends GOScene {
       phetioDocumentation: 'guides associated with the second light'
     } );
 
-    //TODO is this complete?
     this.resetLightObjectScene = () => {
       this.lightObject1.reset();
       this.lightObject2.reset();

@@ -110,7 +110,6 @@ class ArrowObjectScene extends GOScene {
       this.guides2 = null;
     }
 
-    //TODO is this complete?
     this.resetArrowObjectScene = () => {
       this.arrowObject1.reset();
       this.arrowObject2.reset();
