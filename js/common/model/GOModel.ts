@@ -46,13 +46,14 @@ class GOModel {
   // choice of optical object
   readonly opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>;
 
-  // model of the optic
-  readonly optic: Optic;
-
   // representation used for rays
   readonly raysTypeProperty: Property<RaysType>;
 
+  // whether light propagation is enabled
   readonly lightPropagationEnabledProperty: Property<boolean>;
+
+  // model of the optic
+  readonly optic: Optic;
 
   // scenes
   private readonly scenes: GOScene[];
@@ -63,14 +64,6 @@ class GOModel {
   // rulers
   readonly horizontalRuler: GORuler;
   readonly verticalRuler: GORuler;
-
-  // Maximum distance that things can be dragged from the optical axis, in cm. This is constrained to prevent
-  // cases where the optical object is close to the optic and no 'Many' rays go through the optic.
-  // See https://github.com/phetsims/geometric-optics/issues/289
-  readonly maxDistanceFromOpticalAxis: number;
-
-  // Scenes are grouped under this tandem
-  protected readonly scenesTandem: Tandem;
 
   private readonly resetGOModel: () => void;
 
@@ -110,20 +103,21 @@ class GOModel {
                            '- light spots on the projection screen'
     } );
 
-    this.scenesTandem = options.tandem.createTandem( 'scenes' );
+    // Scenes are grouped under this tandem.
+    const scenesTandem = options.tandem.createTandem( 'scenes' );
 
     this.scenes = [];
 
     this.arrowObjectScene = new ArrowObjectScene( this.optic, this.raysTypeProperty, {
       arrowObject1Position: options.arrowObject1Position,
       arrowObject2Position: options.arrowObject2Position,
-      tandem: this.scenesTandem.createTandem( 'arrowObjectScene' )
+      tandem: scenesTandem.createTandem( 'arrowObjectScene' )
     } );
     this.scenes.push( this.arrowObjectScene );
 
     this.framedObjectScene = new FramedObjectScene( this.opticalObjectChoiceProperty, this.optic, this.raysTypeProperty, {
       framedObjectPosition: options.framedObjectPosition,
-      tandem: this.scenesTandem.createTandem( 'framedObjectScene' )
+      tandem: scenesTandem.createTandem( 'framedObjectScene' )
     } );
     this.scenes.push( this.framedObjectScene );
 
@@ -133,7 +127,7 @@ class GOModel {
       this.lightObjectScene = new LightObjectScene( this.optic as Lens, this.raysTypeProperty, {
         lightObject1Position: options.lightObject1Position,
         lightObject2Position: options.lightObject2Position,
-        tandem: this.scenesTandem.createTandem( 'lightObjectScene' )
+        tandem: scenesTandem.createTandem( 'lightObjectScene' )
       } );
       this.scenes.push( this.lightObjectScene );
     }
@@ -152,8 +146,6 @@ class GOModel {
       tandem: rulersTandem.createTandem( 'verticalRuler' )
     } );
 
-    this.maxDistanceFromOpticalAxis = 100; // cm
-
     this.resetGOModel = () => {
       this.opticalObjectChoiceProperty.reset();
       this.optic.reset();
@@ -170,6 +162,7 @@ class GOModel {
   }
 
   /**
+   * Steps the model.
    * @param dt - time step, in seconds
    */
   public step( dt: number ): void {
@@ -178,6 +171,9 @@ class GOModel {
     }
   }
 
+  /**
+   * Resets light rays, causing them to animate.
+   */
   public resetLightRays(): void {
     this.scenes.forEach( scene => scene.lightRaysAnimationTimeProperty.reset() );
   }
