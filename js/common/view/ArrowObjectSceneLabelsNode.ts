@@ -10,7 +10,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
-import LabelNode from './LabelNode.js';
+import LabelNode, { LabelNodeOptions } from './LabelNode.js';
 import VisibleProperties from './VisibleProperties.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -21,6 +21,9 @@ import ArrowObjectScene from '../model/ArrowObjectScene.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import { OpticalImageType } from '../model/OpticalImageType.js';
 import GOSceneLabelsNode from './GOSceneLabelsNode.js';
+import ArrowImage from '../model/ArrowImage.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 
 type ArrowObjectSceneLabelsNodeOptions = {
   visibleProperty: Property<boolean>
@@ -49,106 +52,117 @@ class ArrowObjectSceneLabelsNode extends GOSceneLabelsNode {
 
     // Object labels ------------------------------------------------------------------------------------
 
-    const object1LabelPositionProperty = new DerivedProperty(
-      [ scene.arrowObject1.positionProperty, scene.optic.positionProperty ],
-      ( arrowPosition: Vector2, opticPosition: Vector2 ) => {
-        if ( arrowPosition.y > opticPosition.y ) {
-          return new Vector2( arrowPosition.x, opticPosition.y );
-        }
-        else {
-          return arrowPosition;
-        }
-      }
-    );
-
-    const object1Label = new LabelNode( geometricOpticsStrings.object1, object1LabelPositionProperty, zoomTransformProperty );
+    const object1Label = new ArrowObjectLabelNode( 1, scene.arrowObject1.positionProperty,
+      scene.optic.positionProperty, zoomTransformProperty );
     this.addChild( object1Label );
 
-    const object2LabelPositionProperty = new DerivedProperty(
-      [ scene.arrowObject2.positionProperty, scene.optic.positionProperty ],
-      ( arrowPosition: Vector2, opticPosition: Vector2 ) => {
-        if ( arrowPosition.y > opticPosition.y ) {
-          return new Vector2( arrowPosition.x, opticPosition.y );
-        }
-        else {
-          return arrowPosition;
-        }
-      }
-    );
-
-    const object2Label = new LabelNode( geometricOpticsStrings.object2, object2LabelPositionProperty,
-      zoomTransformProperty, {
+    const object2Label = new ArrowObjectLabelNode( 2, scene.arrowObject2.positionProperty,
+      scene.optic.positionProperty, zoomTransformProperty, {
         visibleProperty: visibleProperties.secondPointVisibleProperty
       } );
     this.addChild( object2Label );
 
     // Image labels ------------------------------------------------------------------------------------
 
-    const image1LabelPositionProperty = new DerivedProperty(
-      [ scene.arrowImage1.positionProperty, scene.optic.positionProperty ],
-      ( arrowPosition: Vector2, opticPosition: Vector2 ) => {
-        if ( arrowPosition.y > opticPosition.y ) {
-          return new Vector2( arrowPosition.x, opticPosition.y );
-        }
-        else {
-          return arrowPosition;
-        }
-      }
-    );
-
-    const image1Label = new LabelNode( '', image1LabelPositionProperty, zoomTransformProperty, {
-      visibleProperty: new DerivedProperty( [
-          lightPropagationEnabledProperty,
-          scene.arrowImage1.visibleProperty,
-          scene.arrowImage1.opticalImageTypeProperty,
-          visibleProperties.virtualImageVisibleProperty
-        ],
-        ( lightPropagationEnabled: boolean, imageVisible: boolean, opticalImageType: OpticalImageType, virtualImageVisible: boolean ) =>
-          ( lightPropagationEnabled && imageVisible && ( opticalImageType === 'real' || virtualImageVisible ) )
-      )
-    } );
+    const image1Label = new ArrowImageLabelNode( 1, scene.arrowImage1, scene.optic.positionProperty, zoomTransformProperty,
+      lightPropagationEnabledProperty, new BooleanProperty( true ), visibleProperties.virtualImageVisibleProperty );
     this.addChild( image1Label );
 
-    // Switch between 'Real Image' and 'Virtual Image'
-    scene.arrowImage1.opticalImageTypeProperty.link( opticalImageType => {
-      image1Label.setText( opticalImageType === 'real' ? geometricOpticsStrings.realImage1 : geometricOpticsStrings.virtualImage1 );
-    } );
-
-    const image2LabelPositionProperty = new DerivedProperty(
-      [ scene.arrowImage2.positionProperty, scene.optic.positionProperty ],
-      ( arrowPosition: Vector2, opticPosition: Vector2 ) => {
-        if ( arrowPosition.y > opticPosition.y ) {
-          return new Vector2( arrowPosition.x, opticPosition.y );
-        }
-        else {
-          return arrowPosition;
-        }
-      }
-    );
-
-    const image2Label = new LabelNode( '', image2LabelPositionProperty, zoomTransformProperty, {
-      visibleProperty: new DerivedProperty( [
-          visibleProperties.secondPointVisibleProperty,
-          lightPropagationEnabledProperty,
-          scene.arrowImage2.visibleProperty,
-          scene.arrowImage2.opticalImageTypeProperty,
-          visibleProperties.virtualImageVisibleProperty
-        ],
-        ( secondPointVisible: boolean, lightPropagationEnabled: boolean, imageVisible: boolean, opticalImageType: OpticalImageType, virtualImageVisible: boolean ) =>
-          ( secondPointVisible && lightPropagationEnabled && imageVisible && ( opticalImageType === 'real' || virtualImageVisible ) )
-      )
-    } );
+    const image2Label = new ArrowImageLabelNode( 2, scene.arrowImage2, scene.optic.positionProperty, zoomTransformProperty,
+      lightPropagationEnabledProperty, visibleProperties.secondPointVisibleProperty, visibleProperties.virtualImageVisibleProperty );
     this.addChild( image2Label );
-
-    // Switch between 'Real Image' and 'Virtual Image'
-    scene.arrowImage2.opticalImageTypeProperty.link( opticalImageType => {
-      image2Label.setText( opticalImageType === 'real' ? geometricOpticsStrings.realImage2 : geometricOpticsStrings.virtualImage2 );
-    } );
   }
 
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
+  }
+}
+
+// Label for an arrow object.
+class ArrowObjectLabelNode extends LabelNode {
+
+  /**
+   * @param objectNumber
+   * @param arrowPositionProperty
+   * @param opticPositionProperty
+   * @param zoomTransformProperty
+   * @param providedOptions
+   */
+  constructor( objectNumber: number,
+               arrowPositionProperty: IReadOnlyProperty<Vector2>,
+               opticPositionProperty: IReadOnlyProperty<Vector2>,
+               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+               providedOptions?: LabelNodeOptions ) {
+    
+    const options = merge( {}, providedOptions );
+
+    const labelString = StringUtils.fillIn( geometricOpticsStrings.objectN, {
+      objectNumber: objectNumber
+    } );
+
+    const labelPositionProperty = new DerivedProperty(
+      [ arrowPositionProperty, opticPositionProperty ],
+      ( arrowPosition: Vector2, opticPosition: Vector2 ) =>
+        ( arrowPosition.y > opticPosition.y ) ? new Vector2( arrowPosition.x, opticPosition.y ) : arrowPosition
+    );
+
+    super( labelString, labelPositionProperty, zoomTransformProperty, options );
+  }
+}
+
+// Label for an arrow image.
+class ArrowImageLabelNode extends LabelNode {
+
+  /**
+   * @param imageNumber
+   * @param arrowImage
+   * @param opticPositionProperty
+   * @param zoomTransformProperty
+   * @param arrowObjectVisibleProperty
+   * @param lightPropagationEnabledProperty
+   * @param virtualImageVisibleProperty
+   * @param providedOptions
+   */
+  constructor( imageNumber: number,
+               arrowImage: ArrowImage,
+               opticPositionProperty: IReadOnlyProperty<Vector2>,
+               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+               arrowObjectVisibleProperty: IReadOnlyProperty<boolean>,
+               lightPropagationEnabledProperty: IReadOnlyProperty<boolean>,
+               virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
+               providedOptions?: LabelNodeOptions ) {
+
+    const options = merge( {
+      visibleProperty: new DerivedProperty(
+        [ lightPropagationEnabledProperty, arrowObjectVisibleProperty, arrowImage.visibleProperty,
+          arrowImage.opticalImageTypeProperty, virtualImageVisibleProperty ],
+        ( lightPropagationEnabled: boolean, arrowObjectVisible: boolean, arrowImageVisible: boolean,
+          opticalImageType: OpticalImageType, virtualImageVisible: boolean ) =>
+          ( lightPropagationEnabled && arrowObjectVisible && arrowImageVisible && ( opticalImageType === 'real' || virtualImageVisible ) )
+      )
+    }, providedOptions );
+
+    const labelPositionProperty = new DerivedProperty(
+      [ arrowImage.positionProperty, opticPositionProperty ],
+      ( arrowPosition: Vector2, opticPosition: Vector2 ) => {
+        if ( arrowPosition.y > opticPosition.y ) {
+          return new Vector2( arrowPosition.x, opticPosition.y );
+        }
+        else {
+          return arrowPosition;
+        }
+      }
+    );
+
+    super( '', labelPositionProperty, zoomTransformProperty, options );
+
+    // Switch between 'Real Image' and 'Virtual Image'
+    arrowImage.opticalImageTypeProperty.link( opticalImageType => {
+      this.setText( opticalImageType === 'real' ?
+                    StringUtils.fillIn( geometricOpticsStrings.realImageN, { imageNumber: imageNumber } ) :
+                    StringUtils.fillIn( geometricOpticsStrings.virtualImageN, { imageNumber: imageNumber } ) );
+    } );
   }
 }
 

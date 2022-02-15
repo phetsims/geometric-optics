@@ -23,11 +23,8 @@
   "flatMirror": {
     "value": "Flat Mirror"
   },
-  "object1": {
-    "value": "Object 1"
-  },
-  "object2": {
-    "value": "Object 2"
+  "objectN": {
+    "value": "Object {{objectNumber}}"
   },
   "focalPoint": {
     "value": "Focal Point (F)"
@@ -56,20 +53,14 @@
   "guides": {
     "value": "Guides"
   },
-  "realImage1": {
-    "value": "Real Image 1"
-  },
-  "realImage2": {
-    "value": "Real Image 2"
+  "realImageN": {
+    "value": "Real Image {{imageNumber}}"
   },
   "virtualImage": {
     "value": "Virtual Image"
   },
-  "virtualImage1": {
-    "value": "Virtual Image 1"
-  },
-  "virtualImage2": {
-    "value": "Virtual Image 2"
+  "virtualImageN": {
+    "value": "Virtual Image {{imageNumber}}"
   },
   "none": {
     "value": "None"

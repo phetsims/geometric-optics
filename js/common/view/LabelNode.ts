@@ -116,3 +116,4 @@ class LabelNode extends BackgroundNode {
 
 geometricOptics.register( 'LabelNode', LabelNode );
 export default LabelNode;
+export type { LabelNodeOptions };

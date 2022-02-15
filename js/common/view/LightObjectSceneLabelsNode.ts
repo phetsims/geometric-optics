@@ -4,14 +4,13 @@
  * LightObjectSceneLabelsNode labels things in the 'light object' scene.
  *
  * @author Chris Malley (PixelZoom, Inc.)
- * @author Sarah Chang (Swarthmore College)
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
-import LabelNode from './LabelNode.js';
+import LabelNode, { LabelNodeOptions } from './LabelNode.js';
 import VisibleProperties from './VisibleProperties.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -20,6 +19,8 @@ import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import LightObjectScene from '../model/LightObjectScene.js';
 import GOSceneLabelsNode from './GOSceneLabelsNode.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import LightObject from '../model/LightObject.js';
 
 type LightObjectSceneLabelsNodeOptions = {
   visibleProperty: Property<boolean>
@@ -46,24 +47,10 @@ class LightObjectSceneLabelsNode extends GOSceneLabelsNode {
 
     // Object labels ------------------------------------------------------------------------------------
 
-    // empirically, model coordinates
-    const getLightLabelPosition = ( lightObjectBounds: Bounds2 ) =>
-      new Vector2( lightObjectBounds.centerX - 15, lightObjectBounds.top );
-
-    const object1LabelPositionProperty = new DerivedProperty(
-      [ scene.lightObject1.boundsProperty ],
-      ( bounds: Bounds2 ) => getLightLabelPosition( bounds )
-    );
-
-    const object1Label = new LabelNode( geometricOpticsStrings.object1, object1LabelPositionProperty, zoomTransformProperty );
+    const object1Label = new LightObjectLabelNode( 1, scene.lightObject1, zoomTransformProperty );
     this.addChild( object1Label );
 
-    const object2LabelPositionProperty = new DerivedProperty(
-      [ scene.lightObject2.boundsProperty ],
-      ( bounds: Bounds2 ) => getLightLabelPosition( bounds )
-    );
-
-    const object2Label = new LabelNode( geometricOpticsStrings.object2, object2LabelPositionProperty, zoomTransformProperty, {
+    const object2Label = new LightObjectLabelNode( 2, scene.lightObject2, zoomTransformProperty, {
       visibleProperty: visibleProperties.secondPointVisibleProperty
     } );
     this.addChild( object2Label );
@@ -82,6 +69,34 @@ class LightObjectSceneLabelsNode extends GOSceneLabelsNode {
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
+  }
+}
+
+// Label for a light object.
+class LightObjectLabelNode extends LabelNode {
+
+  /**
+   * @param lightObjectNumber
+   * @param lightObject
+   * @param zoomTransformProperty
+   * @param providedOptions
+   */
+  constructor( lightObjectNumber: number,
+               lightObject: LightObject,
+               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+               providedOptions?: LabelNodeOptions ) {
+
+    const options = merge( {}, providedOptions );
+
+    const labelString = StringUtils.fillIn( geometricOpticsStrings.objectN, {
+      objectNumber: lightObjectNumber
+    } );
+
+    const labelPositionProperty = new DerivedProperty( [ lightObject.boundsProperty ],
+      ( bounds: Bounds2 ) => new Vector2( bounds.centerX - 15, bounds.top ) // empirically, model coordinates
+    );
+
+    super( labelString, labelPositionProperty, zoomTransformProperty, options );
   }
 }
 
