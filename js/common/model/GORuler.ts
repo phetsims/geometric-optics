@@ -28,17 +28,16 @@ type GeometricOpticsRulerOptions = {
 class GORuler {
 
   // orientation of the ruler
-  private readonly orientation: RulerOrientation;
-  readonly isVertical: boolean;
-
-  // position of the ruler, in cm
-  readonly positionProperty: Property<Vector2>;
+  public readonly orientation: RulerOrientation;
 
   // length of the ruler, in cm
   length: number;
 
   // original (unscaled) length of the ruler, in cm
   private readonly nominalLength: number;
+
+  // position of the ruler, in cm
+  readonly positionProperty: Property<Vector2>;
 
   readonly visibleProperty: Property<boolean>;
 
@@ -57,16 +56,14 @@ class GORuler {
     assert && assert( isFinite( options.length ) && options.length > 0 );
 
     this.orientation = options.orientation;
-    this.isVertical = ( this.orientation === 'vertical' );
+    this.length = options.length;
+    this.nominalLength = options.length;
 
     // The initial value of position really does not matter, because position will be set when the ruler is
     // removed from the toolbox.
     this.positionProperty = new Vector2Property( Vector2.ZERO, {
       tandem: options.tandem.createTandem( 'positionProperty' )
     } );
-
-    this.length = options.length;
-    this.nominalLength = options.length;
 
     this.visibleProperty = new BooleanProperty( false, {
       tandem: options.tandem.createTandem( 'visibleProperty' )
@@ -76,6 +73,10 @@ class GORuler {
       this.positionProperty.reset();
       this.visibleProperty.reset();
     };
+  }
+
+  public dispose(): void {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
   }
 
   public reset(): void {

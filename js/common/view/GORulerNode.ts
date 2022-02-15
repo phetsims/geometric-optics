@@ -104,7 +104,7 @@ class GORulerNode extends Node {
       },
 
       // Node options
-      rotation: ruler.isVertical ? -Math.PI / 2 : 0,
+      rotation: ( ruler.orientation === 'vertical' ) ? -Math.PI / 2 : 0,
       visibleProperty: ruler.visibleProperty,
 
       // pdom options
@@ -138,7 +138,7 @@ class GORulerNode extends Node {
 
     ruler.positionProperty.link( position => {
       const viewPosition = zoomTransformProperty.value.modelToViewPosition( position );
-      if ( this.ruler.isVertical ) {
+      if ( this.ruler.orientation === 'vertical' ) {
         this.leftBottom = viewPosition;
       }
       else {
@@ -152,7 +152,7 @@ class GORulerNode extends Node {
       [ visibleBoundsProperty, zoomTransformProperty ],
       ( visibleBounds: Bounds2, zoomTransform: ModelViewTransform2 ) => {
         let viewDragBounds;
-        if ( ruler.isVertical ) {
+        if ( ruler.orientation === 'vertical' ) {
 
           // if vertical the left and right bounds of the ruler stay within visible bounds
           // minimum visible length of the ruler is always showing inside top and bottom visible bounds.
@@ -277,7 +277,7 @@ class GORulerNode extends Node {
         target.visibleProperty.value &&
         ( target.positionProperty.value.x !== rulerPosition.x ) &&
         this.dragBoundsProperty.value.containsPoint( target.positionProperty.value ) &&
-        ( this.ruler.isVertical || target.positionProperty.value.x <= this.opticPositionProperty.value.x ) );
+        ( this.ruler.orientation === 'vertical' || target.positionProperty.value.x <= this.opticPositionProperty.value.x ) );
 
       // Sort target positions left-to-right, by increasing x coordinate.
       const targetPositions = visibleBoundedHotkeyTargets.map( target => target.positionProperty.value );
@@ -295,7 +295,7 @@ class GORulerNode extends Node {
       // Move the ruler
       if ( targetPosition ) {
         const opticY = this.opticPositionProperty.value.y;
-        const y = this.ruler.isVertical ? Math.min( targetPosition.y, opticY ) : opticY;
+        const y = ( this.ruler.orientation === 'vertical' ) ? Math.min( targetPosition.y, opticY ) : opticY;
         this.ruler.positionProperty.value = new Vector2( targetPosition.x, y );
       }
     }

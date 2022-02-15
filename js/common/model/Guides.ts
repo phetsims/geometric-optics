@@ -46,6 +46,11 @@ class Guides extends PhetioObject {
       tandem: options.tandem.createTandem( 'bottomGuide' )
     } );
   }
+
+  public dispose(): void {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
+  }
 }
 
 geometricOptics.register( 'Guides', Guides );

@@ -164,6 +164,11 @@ class OpticalImage extends PhetioObject {
       } );
   }
 
+  public dispose(): void {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
+  }
+
   /**
    * Returns the horizontal distance from the object to the optic.
    * A negative distance indicates that the object is to the right of the optic.

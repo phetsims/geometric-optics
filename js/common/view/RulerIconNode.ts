@@ -78,7 +78,7 @@ class RulerIconNode extends RulerNode {
     const ruler = rulerNode.ruler;
 
     // rotate to create a vertical ruler icon
-    if ( ruler.isVertical ) {
+    if ( ruler.orientation === 'vertical' ) {
       this.rotate( -Math.PI / 2 );
     }
 
@@ -94,7 +94,7 @@ class RulerIconNode extends RulerNode {
       const viewPosition = rulerNode.globalToParentPoint( event.pointer.point! );
       let x;
       let y;
-      if ( ruler.isVertical ) {
+      if ( ruler.orientation === 'vertical' ) {
         x = viewPosition.x - rulerNode.width / 2;
         y = viewPosition.y - zoomTransform.modelToViewDeltaY( ruler.length ) / 2;
       }
