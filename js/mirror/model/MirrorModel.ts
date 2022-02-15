@@ -36,8 +36,8 @@ class MirrorModel extends GOModel {
         OpticalObjectChoice.STAR
       ],
 
-      arrowObject1Position: new Vector2( -150, 50 ),
-      arrowObject2Position: new Vector2( -150, -50 ),
+      arrowObject1Position: new Vector2( -200, 60 ),
+      arrowObject2Position: new Vector2( -150, 30 ),
 
       //TODO give FramedObject a bisector line so this isn't empirical
       // Initial position of the framed object, empirically set so that it appears to sit on the optical axis
