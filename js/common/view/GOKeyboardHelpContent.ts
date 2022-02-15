@@ -79,22 +79,8 @@ class RulersKeyboardHelpSection extends KeyboardHelpSection {
       // Esc
       KeyboardHelpSection.labelWithIcon( geometricOpticsStrings.keyboardHelpDialog.returnToToolbox, TextKeyNode.esc() ),
 
-      // J+L or J+M
-      isLens ?
-      KeyboardHelpSection.createJumpKeyRow( 'L', geometricOpticsStrings.keyboardHelpDialog.jumpToLens ) :
-      KeyboardHelpSection.createJumpKeyRow( 'M', geometricOpticsStrings.keyboardHelpDialog.jumpToMirror ),
-
-      // J+O
-      KeyboardHelpSection.createJumpKeyRow( 'O', geometricOpticsStrings.keyboardHelpDialog.jumpToObject1 ),
-
-      // J+S
-      KeyboardHelpSection.createJumpKeyRow( 'S', geometricOpticsStrings.keyboardHelpDialog.jumpToObject2 ),
-
-      // J+I
-      KeyboardHelpSection.createJumpKeyRow( 'I', geometricOpticsStrings.keyboardHelpDialog.jumpToImage1 ),
-
-      // J+K
-      KeyboardHelpSection.createJumpKeyRow( 'K', geometricOpticsStrings.keyboardHelpDialog.jumpToImage2 )
+      // J+R
+      KeyboardHelpSection.createJumpKeyRow( 'R', geometricOpticsStrings.keyboardHelpDialog.jumpRuler )
     ], {
       labelMaxWidth: 300
     } );

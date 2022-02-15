@@ -62,12 +62,7 @@ type StringsType = {
     'rulerControls': string,
     'removeFromToolbox': string,
     'returnToToolbox': string,
-    'jumpToLens': string,
-    'jumpToMirror': string,
-    'jumpToObject1': string,
-    'jumpToObject2': string,
-    'jumpToImage1': string,
-    'jumpToImage2': string,
+    'jumpRuler': string,
     'objects': string,
     'object': string
   }
