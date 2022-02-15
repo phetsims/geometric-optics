@@ -208,7 +208,7 @@ class ArrowObjectSceneLabelsNode extends Node {
 
     // Switch between 'Real Image' and 'Virtual Image'
     scene.arrowImage2.opticalImageTypeProperty.link( opticalImageType => {
-      image2Label.setText( opticalImageType === 'real' ? geometricOpticsStrings.realImage1 : geometricOpticsStrings.virtualImage1 );
+      image2Label.setText( opticalImageType === 'real' ? geometricOpticsStrings.realImage2 : geometricOpticsStrings.virtualImage2 );
     } );
 
     // Optical Axis label ------------------------------------------------------------------------------------

@@ -15,8 +15,8 @@ import LightRays from './LightRays.js';
 import ProjectionScreen from './ProjectionScreen.js';
 import LightSpot from './LightSpot.js';
 import LightObject from './LightObject.js';
-import lamp2_png from '../../../images/lamp2_png.js';
-import lamp1_png from '../../../images/lamp1_png.js';
+import light1_png from '../../../images/light1_png.js';
+import light2_png from '../../../images/light2_png.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OpticalImage from './OpticalImage.js';
 import Guides from './Guides.js';
@@ -59,14 +59,14 @@ class LightObjectScene extends GOScene {
     super( lens, options );
 
     this.lightObject1 = new LightObject( {
-      htmlImageElement: lamp1_png,
+      htmlImageElement: light1_png,
       position: options.lightObject1Position,
       tandem: options.tandem.createTandem( 'lightObject1' ),
       phetioDocumentation: 'the first light'
     } );
 
     this.lightObject2 = new LightObject( {
-      htmlImageElement: lamp2_png,
+      htmlImageElement: light2_png,
       position: options.lightObject2Position,
       tandem: options.tandem.createTandem( 'lightObject2' ),
       phetioDocumentation: 'the second light'

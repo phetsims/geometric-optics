@@ -11,7 +11,7 @@
 import { ProfileColorProperty } from '../../../scenery/js/imports.js';
 import geometricOptics from '../geometricOptics.js';
 
-// BEWARE: If you change this, you should update lamp2.png.
+// BEWARE: If you change this, you should update light2.png.
 const OBJECT_2_FILL = 'rgb( 255, 51, 51 )';
 
 const GOColors = {

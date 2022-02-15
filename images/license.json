@@ -1,11 +1,4 @@
 {
-  "arrowIcon.png": {
-    "text": [
-      "Copyright 2022 University of Colorado Boulder"
-    ],
-    "projectURL": "https://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu"
-  },
   "pencilIcon.png": {
     "text": [
       "Copyright 2021 University of Colorado Boulder"
@@ -174,7 +167,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Megan Lai, edited by Amy Rouinfar"
   },
-  "lamp1.png": {
+  "light1.png": {
     "text": [
       "Copyright 2021 University of Colorado Boulder"
     ],
@@ -182,7 +175,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Megan Lai, edited by Amy Rouinfar"
   },
-  "lamp2.png": {
+  "light2.png": {
     "text": [
       "Copyright 2021 University of Colorado Boulder"
     ],
