@@ -38,7 +38,7 @@ class LabelNode extends BackgroundNode {
 
   /**
    * @param text
-   * @param positionProperty - position of the thing that we're labeling
+   * @param positionProperty - position of the thing that we're labeling, in model coordinates
    * @param zoomTransformProperty
    * @param providedOptions
    */
