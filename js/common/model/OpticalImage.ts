@@ -23,13 +23,18 @@ import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
 import { OpticalImageType, OpticalImageTypeValues } from './OpticalImageType.js';
 import GOConstants from '../GOConstants.js';
+import OpticalObject from './OpticalObject.js';
 
 type OpticalImageOptions = {
+  secondPointProperty?: IReadOnlyProperty<Vector2>,
   tandem: Tandem,
   phetioDocumentation?: string
 };
 
 class OpticalImage extends PhetioObject {
+
+  public readonly opticalObject: OpticalObject;
+  public readonly optic: Optic;
 
   // the position of the focus as predicted by lens and mirror equation
   public readonly positionProperty: IReadOnlyProperty<Vector2>;
@@ -55,17 +60,22 @@ class OpticalImage extends PhetioObject {
   public readonly isInvertedProperty: IReadOnlyProperty<boolean>;
 
   /**
-   * @param opticalObjectPositionProperty
+   * @param opticalObject
    * @param optic
    * @param providedOptions
    */
-  constructor( opticalObjectPositionProperty: IReadOnlyProperty<Vector2>, optic: Optic, providedOptions: OpticalImageOptions ) {
+  constructor( opticalObject: OpticalObject, optic: Optic, providedOptions: OpticalImageOptions ) {
 
     const options = merge( {
       phetioState: false
     }, providedOptions );
 
+    const opticalObjectPositionProperty = options.secondPointProperty || opticalObject.positionProperty;
+
     super( options );
+
+    this.opticalObject = opticalObject;
+    this.optic = optic;
 
     this.opticImageDistanceProperty = new DerivedProperty(
       [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],

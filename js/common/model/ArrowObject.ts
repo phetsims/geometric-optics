@@ -20,13 +20,14 @@ class ArrowObject extends OpticalObject {
   public static readonly MIN_MAGNITUDE = 20; // cm
 
   /**
+   * @param opticalObjectNumber
    * @param providedOptions
    */
-  constructor( providedOptions: ArrowObjectOptions ) {
+  constructor( opticalObjectNumber: number, providedOptions: ArrowObjectOptions ) {
 
     const options = merge( {}, providedOptions );
 
-    super( options );
+    super( opticalObjectNumber, options );
 
     this.fill = options.fill;
   }

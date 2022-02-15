@@ -33,22 +33,20 @@ class FramedImage extends OpticalImage {
   readonly boundsProperty: IReadOnlyProperty<Bounds2>;
 
   /**
-   * @param framedObjectPositionProperty
-   * @param objectHTMLImageElementsProperty
+   * @param framedObject
    * @param optic
    * @param providedOptions
    */
-  constructor( framedObjectPositionProperty: IReadOnlyProperty<Vector2>,
-               objectHTMLImageElementsProperty: IReadOnlyProperty<ObjectHTMLImageElements>,
-               optic: Optic,
-               providedOptions: OpticalImageOptions ) {
+  constructor( framedObject: FramedObject, optic: Optic, providedOptions: OpticalImageOptions ) {
 
-    const options = merge( {}, providedOptions );
+    const options = merge( {
 
-    super( framedObjectPositionProperty, optic, options );
+    }, providedOptions );
+
+    super( framedObject, optic, options );
 
     this.imageProperty = new DerivedProperty(
-      [ objectHTMLImageElementsProperty, this.opticalImageTypeProperty ],
+      [ framedObject.objectHTMLImageElementsProperty, this.opticalImageTypeProperty ],
       ( objectHTMLImageElements: ObjectHTMLImageElements, opticalImageType: OpticalImageType ) => {
         const isLens = ( optic instanceof Lens );
         const realImage = isLens ? objectHTMLImageElements.leftFacingInverted : objectHTMLImageElements.rightFacingInverted;
@@ -61,7 +59,7 @@ class FramedImage extends OpticalImage {
     );
 
     this.boundsProperty = new DerivedProperty(
-      [ this.positionProperty, objectHTMLImageElementsProperty, this.magnificationProperty, this.isInvertedProperty ],
+      [ this.positionProperty, framedObject.objectHTMLImageElementsProperty, this.magnificationProperty, this.isInvertedProperty ],
       //TODO isInverted is not used, is dependency needed?
       ( position: Vector2, objectHTMLImageElements: ObjectHTMLImageElements, magnification: number, isInverted: boolean ) => {
 

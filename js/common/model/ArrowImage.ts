@@ -18,8 +18,7 @@ import Utils from '../../../../dot/js/Utils.js';
 
 class ArrowImage extends OpticalImage {
 
-  readonly arrowObject: ArrowObject;
-  readonly optic: Optic;
+  readonly fill: ColorDef;
   readonly opacityProperty: IReadOnlyProperty<number>;
 
   /**
@@ -33,10 +32,9 @@ class ArrowImage extends OpticalImage {
 
     const options = merge( {}, providedOptions );
 
-    super( arrowObject.positionProperty, optic, options );
+    super( arrowObject, optic, options );
 
-    this.arrowObject = arrowObject;
-    this.optic = optic;
+    this.fill = arrowObject.fill;
 
     this.opacityProperty = new DerivedProperty( [ this.lightIntensityProperty ], ( lightIntensity: number ) =>
       Utils.linear( 0, 1, GOQueryParameters.arrowImageOpacityRange[ 0 ], GOQueryParameters.arrowImageOpacityRange[ 1 ], lightIntensity )

@@ -58,26 +58,28 @@ class LightObjectScene extends GOScene {
 
     super( lens, options );
 
-    this.lightObject1 = new LightObject( {
+    let opticalObjectNumber = 1;
+
+    this.lightObject1 = new LightObject( opticalObjectNumber++, {
       htmlImageElement: light1_png,
       position: options.lightObject1Position,
       tandem: options.tandem.createTandem( 'lightObject1' ),
       phetioDocumentation: 'the first light'
     } );
 
-    this.lightObject2 = new LightObject( {
+    this.lightObject2 = new LightObject( opticalObjectNumber++, {
       htmlImageElement: light2_png,
       position: options.lightObject2Position,
       tandem: options.tandem.createTandem( 'lightObject2' ),
       phetioDocumentation: 'the second light'
     } );
 
-    this.opticalImage1 = new OpticalImage( this.lightObject1.positionProperty, this.optic, {
+    this.opticalImage1 = new OpticalImage( this.lightObject1, this.optic, {
       tandem: options.tandem.createTandem( 'opticalImage1' ),
       phetioDocumentation: 'Point where light rays from the first light converge. No image is formed in this scene.'
     } );
 
-    this.opticalImage2 = new OpticalImage( this.lightObject2.positionProperty, this.optic, {
+    this.opticalImage2 = new OpticalImage( this.lightObject2, this.optic, {
       tandem: options.tandem.createTandem( 'opticalImage2' ),
       phetioDocumentation: 'Point where light rays from the second light converge. No image is formed in this scene.'
     } );

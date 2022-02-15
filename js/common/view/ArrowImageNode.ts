@@ -45,7 +45,7 @@ class ArrowImageNode extends Node {
                providedOptions: ArrowImageNodeOptions ) {
 
     const arrowNode = new ArrowNode( 0, 0, 0, 1, merge( {}, GOConstants.ARROW_NODE_OPTIONS, {
-      fill: arrowImage.arrowObject.fill,
+      fill: arrowImage.fill,
       stroke: null
     } ) );
 
@@ -67,7 +67,7 @@ class ArrowImageNode extends Node {
     Property.multilink( [ arrowImage.positionProperty, arrowImage.magnificationProperty ],
       ( arrowImagePosition: Vector2, magnification: number ) => {
         const opticPosition = modelViewTransform.modelToViewPosition( arrowImage.optic.positionProperty.value );
-        const objectPosition = modelViewTransform.modelToViewPosition( arrowImage.arrowObject.positionProperty.value );
+        const objectPosition = modelViewTransform.modelToViewPosition( arrowImage.opticalObject.positionProperty.value );
         const imagePosition = modelViewTransform.modelToViewPosition( arrowImagePosition );
         const magnitude = magnification * ( objectPosition.y - opticPosition.y );
         arrowNode.setTailAndTip( imagePosition.x, opticPosition.y, imagePosition.x, opticPosition.y + magnitude );

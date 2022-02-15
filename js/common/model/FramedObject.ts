@@ -33,14 +33,16 @@ class FramedObject extends OpticalObject {
   public readonly objectHTMLImageElementsProperty: IReadOnlyProperty<ObjectHTMLImageElements>;
 
   /**
+   * @param opticalObjectNumber
    * @param opticalObjectChoiceProperty
    * @param providedOptions
    */
-  constructor( opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>, providedOptions: OpticalObjectOptions ) {
+  constructor( opticalObjectNumber: number, opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>,
+               providedOptions: OpticalObjectOptions ) {
 
     const options = merge( {}, providedOptions );
 
-    super( options );
+    super( opticalObjectNumber, options );
 
     this.objectHTMLImageElementsProperty = new DerivedProperty(
       [ opticalObjectChoiceProperty ], ( opticalObjectChoice: OpticalObjectChoice ) => {

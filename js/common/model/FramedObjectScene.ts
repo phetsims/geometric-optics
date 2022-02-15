@@ -59,7 +59,7 @@ class FramedObjectScene extends GOScene {
 
     super( optic, options );
 
-    this.framedObject = new FramedObject( opticalObjectChoiceProperty, {
+    this.framedObject = new FramedObject( 1, opticalObjectChoiceProperty, {
       position: options.framedObjectPosition,
       tandem: options.tandem.createTandem( 'framedObject' )
     } );
@@ -69,17 +69,16 @@ class FramedObjectScene extends GOScene {
       phetioDocumentation: 'second point-of-interest on the framed object'
     } );
 
-    this.framedImage1 = new FramedImage( this.framedObject.positionProperty,
-      this.framedObject.objectHTMLImageElementsProperty, this.optic, {
-        tandem: options.tandem.createTandem( 'framedImage1' ),
-        phetioDocumentation: 'optical image associated with the first point-of-interest on the framed object'
-      } );
+    this.framedImage1 = new FramedImage( this.framedObject, this.optic, {
+      tandem: options.tandem.createTandem( 'framedImage1' ),
+      phetioDocumentation: 'optical image associated with the first point-of-interest on the framed object'
+    } );
 
-    this.framedImage2 = new FramedImage( this.secondPoint.positionProperty,
-      this.framedObject.objectHTMLImageElementsProperty, this.optic, {
-        tandem: options.tandem.createTandem( 'framedImage2' ),
-        phetioDocumentation: 'optical image associated with the second point-of-interest on the framed object'
-      } );
+    this.framedImage2 = new FramedImage( this.framedObject, this.optic, {
+      secondPointProperty: this.secondPoint.positionProperty,
+      tandem: options.tandem.createTandem( 'framedImage2' ),
+      phetioDocumentation: 'optical image associated with the second point-of-interest on the framed object'
+    } );
 
     this.lightRays1 = new LightRays(
       this.framedObject.positionProperty,

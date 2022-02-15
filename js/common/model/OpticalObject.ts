@@ -30,13 +30,15 @@ type OpticalObjectOptions = {
 
 class OpticalObject extends PhetioObject {
 
+  public readonly opticalObjectNumber: number;
   public readonly positionProperty: Property<Vector2>;
   private readonly resetOpticalObject: () => void;
 
   /**
+   * @param opticalObjectNumber
    * @param providedOptions
    */
-  constructor( providedOptions: OpticalObjectOptions ) {
+  constructor( opticalObjectNumber: number, providedOptions: OpticalObjectOptions ) {
 
     const options = merge( {
       position: Vector2.ZERO,
@@ -44,6 +46,8 @@ class OpticalObject extends PhetioObject {
     }, providedOptions );
 
     super( options );
+
+    this.opticalObjectNumber = opticalObjectNumber;
 
     this.positionProperty = new Vector2Property( options.position, {
       tandem: options.tandem.createTandem( 'positionProperty' )

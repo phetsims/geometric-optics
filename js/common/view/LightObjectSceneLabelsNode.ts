@@ -47,10 +47,10 @@ class LightObjectSceneLabelsNode extends GOSceneLabelsNode {
 
     // Object labels ------------------------------------------------------------------------------------
 
-    const object1Label = new LightObjectLabelNode( 1, scene.lightObject1, zoomTransformProperty );
+    const object1Label = new LightObjectLabelNode( scene.lightObject1, zoomTransformProperty );
     this.addChild( object1Label );
 
-    const object2Label = new LightObjectLabelNode( 2, scene.lightObject2, zoomTransformProperty, {
+    const object2Label = new LightObjectLabelNode( scene.lightObject2, zoomTransformProperty, {
       visibleProperty: visibleProperties.secondPointVisibleProperty
     } );
     this.addChild( object2Label );
@@ -76,13 +76,11 @@ class LightObjectSceneLabelsNode extends GOSceneLabelsNode {
 class LightObjectLabelNode extends LabelNode {
 
   /**
-   * @param lightObjectNumber
    * @param lightObject
    * @param zoomTransformProperty
    * @param providedOptions
    */
-  constructor( lightObjectNumber: number,
-               lightObject: LightObject,
+  constructor( lightObject: LightObject,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                providedOptions?: LabelNodeOptions ) {
 
@@ -90,11 +88,12 @@ class LightObjectLabelNode extends LabelNode {
 
     // Object N
     const labelString = StringUtils.fillIn( geometricOpticsStrings.objectN, {
-      objectNumber: lightObjectNumber
+      objectNumber: lightObject.opticalObjectNumber
     } );
 
+    // Position the label below the light, slightly to the left of center (determined empirically)
     const labelPositionProperty = new DerivedProperty( [ lightObject.boundsProperty ],
-      ( bounds: Bounds2 ) => new Vector2( bounds.centerX - 15, bounds.top ) // empirically, model coordinates
+      ( bounds: Bounds2 ) => new Vector2( bounds.centerX - 15, bounds.top )
     );
 
     super( labelString, labelPositionProperty, zoomTransformProperty, options );

@@ -33,15 +33,16 @@ class LightObject extends OpticalObject {
   public readonly boundsProperty: IReadOnlyProperty<Bounds2>;
 
   /**
+   * @param opticalObjectNumber
    * @param providedOptions
    */
-  constructor( providedOptions: LightObjectOptions ) {
+  constructor( opticalObjectNumber: number, providedOptions: LightObjectOptions ) {
 
     const options = merge( {
       //TODO
     }, providedOptions );
 
-    super( options );
+    super( opticalObjectNumber, options );
 
     this.htmlImageElement = options.htmlImageElement;
 
