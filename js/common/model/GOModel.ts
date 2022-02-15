@@ -132,6 +132,7 @@ class GOModel {
       this.scenes.push( this.lightObjectScene );
     }
 
+    // Rulers are grouped under this tandem.
     const rulersTandem = options.tandem.createTandem( 'rulers' );
 
     this.horizontalRuler = new GORuler( {
@@ -148,9 +149,9 @@ class GOModel {
 
     this.resetGOModel = () => {
       this.opticalObjectChoiceProperty.reset();
-      this.optic.reset();
       this.raysTypeProperty.reset();
       this.lightPropagationEnabledProperty.reset();
+      this.optic.reset();
       this.scenes.forEach( scene => scene.reset() );
       this.horizontalRuler.reset();
       this.verticalRuler.reset();
