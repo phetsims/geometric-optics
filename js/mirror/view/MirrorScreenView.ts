@@ -48,9 +48,9 @@ class MirrorScreenView extends GOScreenView {
       // See https://github.com/phetsims/geometric-optics/issues/288
       dragLockedProperty: new BooleanProperty( true, {
         validValues: [ true ],
-        //TOO uninstrument because Studio lets you set this to false?
         tandem: providedOptions.tandem.createTandem( 'dragLockedProperty' ),
-        phetioDocumentation: 'Mirror screen supports horizontal dragging only.'
+        phetioDocumentation: 'Mirror screen supports horizontal dragging only.',
+        phetioReadOnly: true
       } )
     }, providedOptions );
 
