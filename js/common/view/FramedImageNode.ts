@@ -67,7 +67,7 @@ class FramedImageNode extends Node {
     // See https://github.com/phetsims/geometric-optics/issues/283.
     const maskNode = new Path( null, {
       fill: GOColors.screenBackgroundColorProperty,
-      opacity: GOQueryParameters.imageMaskOpacity,
+      opacity: GOQueryParameters.frameImageMaskOpacity,
       stroke: GOQueryParameters.debugMask ? 'red' : null
     } );
 

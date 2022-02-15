@@ -11,11 +11,16 @@ import OpticalImage, { OpticalImageOptions } from './OpticalImage.js';
 import Optic from './Optic.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ArrowObject from './ArrowObject.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import GOQueryParameters from '../GOQueryParameters.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Utils from '../../../../dot/js/Utils.js';
 
 class ArrowImage extends OpticalImage {
 
   readonly arrowObject: ArrowObject;
   readonly optic: Optic;
+  readonly opacityProperty: IReadOnlyProperty<number>;
 
   /**
    * @param arrowObject
@@ -32,6 +37,10 @@ class ArrowImage extends OpticalImage {
 
     this.arrowObject = arrowObject;
     this.optic = optic;
+
+    this.opacityProperty = new DerivedProperty( [ this.lightIntensityProperty ], ( lightIntensity: number ) =>
+      Utils.linear( 0, 1, GOQueryParameters.arrowImageOpacityRange[ 0 ], GOQueryParameters.arrowImageOpacityRange[ 1 ], lightIntensity )
+    );
   }
 }
 

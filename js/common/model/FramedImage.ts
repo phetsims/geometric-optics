@@ -19,11 +19,15 @@ import { ObjectHTMLImageElements } from './OpticalObjectChoice.js';
 import FramedObject from './FramedObject.js';
 import merge from '../../../../phet-core/js/merge.js';
 import { OpticalImageType } from './OpticalImageType.js';
+import GOQueryParameters from '../GOQueryParameters.js';
+import Utils from '../../../../dot/js/Utils.js';
 
 class FramedImage extends OpticalImage {
 
   // the HTMLImageElement to display, null if there is no HTMLImageElement
   readonly imageProperty: IReadOnlyProperty<HTMLImageElement | null>;
+
+  readonly opacityProperty: IReadOnlyProperty<number>;
 
   // Bounds of the optical image's visual representation, in model coordinates
   readonly boundsProperty: IReadOnlyProperty<Bounds2>;
@@ -51,6 +55,10 @@ class FramedImage extends OpticalImage {
         const virtualImage = isLens ? objectHTMLImageElements.rightFacingUpright : objectHTMLImageElements.leftFacingUpright;
         return ( opticalImageType === 'real' ) ? realImage : virtualImage;
       } );
+
+    this.opacityProperty = new DerivedProperty( [ this.lightIntensityProperty ], ( lightIntensity: number ) =>
+      Utils.linear( 0, 1, GOQueryParameters.frameImageOpacityRange[ 0 ], GOQueryParameters.frameImageOpacityRange[ 1 ], lightIntensity )
+    );
 
     this.boundsProperty = new DerivedProperty(
       [ this.positionProperty, objectHTMLImageElementsProperty, this.magnificationProperty, this.isInvertedProperty ],
