@@ -266,38 +266,34 @@ class GORulerNode extends Node {
    */
   private jumpToNextHotkeyTarget() {
     if ( this.hotkeyTargets.length > 0 ) {
-      const startIndex = this.hotkeyTargetsIndex;
-      let done = false;
-      while ( !done ) {
 
-        // Get the target
-        const hotkeyTarget = this.hotkeyTargets[ this.hotkeyTargetsIndex ];
-        const targetPosition = hotkeyTarget.positionProperty.value;
+      const rulerPosition = this.ruler.positionProperty.value;
 
-        // If the target is visible, inside dragBounds, and the ruler is not already at the target's position...
-        if ( hotkeyTarget.visibleProperty.value &&
-             this.dragBoundsProperty.value.containsPoint( targetPosition ) &&
-             !this.ruler.positionProperty.value.equals( targetPosition ) ) {
+      // Find the target positions that are visible, not the same as the ruler position, and in bounds.
+      const visibleBoundedHotkeyTargets = this.hotkeyTargets.filter( target =>
+        target.visibleProperty.value &&
+        ( target.positionProperty.value.x !== rulerPosition.x ) &&
+        this.dragBoundsProperty.value.containsPoint( target.positionProperty.value ) );
 
-          // Move the ruler
-          const targetX = hotkeyTarget.positionProperty.value.x;
-          const targetY = hotkeyTarget.positionProperty.value.y;
-          const opticY = this.opticPositionProperty.value.y;
-          const y = this.ruler.isVertical ? Math.min( targetY, opticY ) : opticY;
-          this.ruler.positionProperty.value = new Vector2( targetX, y );
-          done = true;
+      // Sort target positions left-to-right, by increasing x coordinate.
+      const targetPositions = visibleBoundedHotkeyTargets.map( target => target.positionProperty.value );
+      const sortedTargetPositions = _.sortBy( targetPositions, targetPosition => targetPosition.x );
+
+      // Find the first target position to the right of the ruler, with wrap-around to left.
+      let targetPosition = _.find( sortedTargetPositions, targetPosition => targetPosition.x > rulerPosition.x );
+      console.log( `targetPosition=${targetPosition}` );
+      if ( !targetPosition ) {
+        const leftmostTargetPosition = sortedTargetPositions[ 0 ];
+        if ( leftmostTargetPosition.x < rulerPosition.x ) {
+          targetPosition = leftmostTargetPosition;
         }
+      }
 
-        // Increment hotkeyTargetsIndex
-        this.hotkeyTargetsIndex++;
-        if ( this.hotkeyTargetsIndex >= this.hotkeyTargets.length ) {
-          this.hotkeyTargetsIndex = 0;
-        }
-
-        // If we iterated through all targets without jumping, we're done.
-        if ( !done && this.hotkeyTargetsIndex === startIndex ) {
-          done = true;
-        }
+      // Move the ruler
+      if ( targetPosition ) {
+        const opticY = this.opticPositionProperty.value.y;
+        const y = this.ruler.isVertical ? Math.min( targetPosition.y, opticY ) : opticY;
+        this.ruler.positionProperty.value = new Vector2( targetPosition.x, y );
       }
     }
   }
