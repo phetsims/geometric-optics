@@ -59,7 +59,7 @@ class LabelNode extends BackgroundNode {
       xAlign: 'center',
       yAlign: 'top',
       xOffset: 0, // from center, in view coordinates
-      yOffset: 10, // in view coordinates
+      yOffset: 2, // in view coordinates
 
       // BackgroundNode options
       xMargin: 5,
