@@ -2,7 +2,7 @@
 
 /**
  * GOSceneLabelsNode is the base class for labeling things in a scene, supporting the "Labels" feature.
- * It is responsible for labeling things associated with the optic.
+ * It is responsible for labeling the optic, optical axis, and focal points (F, 2F).
  *
  * @author Chris Malley (PixelZoom, Inc.)
  * @author Sarah Chang (Swarthmore College)
