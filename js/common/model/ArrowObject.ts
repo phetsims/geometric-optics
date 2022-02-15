@@ -19,7 +19,6 @@ type ArrowObjectOptions = {
 class ArrowObject extends OpticalObject {
 
   public readonly fill: ColorDef;
-  public static readonly MIN_MAGNITUDE = 20; // cm
 
   /**
    * @param opticalObjectNumber

@@ -24,6 +24,8 @@ import GOGlobalOptions from '../GOGlobalOptions.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 
+const SNAP_TO_MIN_MAGNITUDE = 20; // cm
+
 type ArrowObjectNodeOptions = {
   visibleProperty?: IProperty<boolean>,
   tandem: Tandem
@@ -125,9 +127,9 @@ class ArrowObjectNode extends Node {
     // When dragging is completed, snap arrow to its minimum length.
     const end = () => {
       const arrowLength = arrowObject.positionProperty.value.y - optic.positionProperty.value.y;
-      if ( Math.abs( arrowLength ) < ArrowObject.MIN_MAGNITUDE ) {
+      if ( Math.abs( arrowLength ) < SNAP_TO_MIN_MAGNITUDE ) {
         const x = arrowObject.positionProperty.value.x;
-        const y = Math.sign( arrowLength ) * ArrowObject.MIN_MAGNITUDE;
+        const y = Math.sign( arrowLength ) * SNAP_TO_MIN_MAGNITUDE;
         arrowObject.positionProperty.value = new Vector2( x, y );
       }
     };
