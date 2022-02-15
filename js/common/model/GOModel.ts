@@ -23,6 +23,7 @@ import ArrowObjectScene from './ArrowObjectScene.js';
 import LightObjectScene from './LightObjectScene.js';
 import GOScene from './GOScene.js';
 import Lens from '../../lens/model/Lens.js';
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 
 type GOModelOptions = {
 
@@ -50,6 +51,8 @@ class GOModel {
 
   // representation used for rays
   readonly raysTypeProperty: Property<RaysType>;
+
+  readonly lightPropagationEnabledProperty: Property<boolean>;
 
   // scenes
   private readonly scenes: GOScene[];
@@ -96,6 +99,15 @@ class GOModel {
       validValues: RaysTypeValues,
       tandem: options.tandem.createTandem( 'raysTypeProperty' ),
       phetioType: Property.PropertyIO( StringIO )
+    } );
+
+    this.lightPropagationEnabledProperty = new BooleanProperty( true, {
+      tandem: providedOptions.tandem.createTandem( 'lightPropagationEnabledProperty' ),
+      phetioDocumentation: 'Turns light propagation on (true) and off (false) to support predictive questioning.<br>' +
+                           'When off, the following things are not visible: <br>' +
+                           '- rays (real and virtual)<br>' +
+                           '- images (real and virtual)<br>' +
+                           '- light spots on the projection screen'
     } );
 
     this.scenesTandem = options.tandem.createTandem( 'scenes' );
@@ -146,6 +158,7 @@ class GOModel {
       this.opticalObjectChoiceProperty.reset();
       this.optic.reset();
       this.raysTypeProperty.reset();
+      this.lightPropagationEnabledProperty.reset();
       this.scenes.forEach( scene => scene.reset() );
       this.horizontalRuler.reset();
       this.verticalRuler.reset();
@@ -156,8 +169,13 @@ class GOModel {
     this.resetGOModel();
   }
 
-  public stepLightRays( dt: number ): void {
-    this.scenes.forEach( scene => scene.stepLightRays( dt ) );
+  /**
+   * @param dt - time step, in seconds
+   */
+  public step( dt: number ): void {
+    if ( this.lightPropagationEnabledProperty.value ) {
+      this.scenes.forEach( scene => scene.stepLightRays( dt ) );
+    }
   }
 
   public resetLightRays(): void {

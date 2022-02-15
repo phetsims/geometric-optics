@@ -72,7 +72,6 @@ class GOScreenView extends ScreenView {
 
   protected readonly modelViewTransform: ModelViewTransform2;
   protected readonly visibleProperties: VisibleProperties;
-  protected readonly lightPropagationEnabledProperty: Property<boolean>;
   protected readonly modelBoundsProperty: IReadOnlyProperty<Bounds2>;
   protected readonly modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>;
   protected readonly zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>;
@@ -120,15 +119,6 @@ class GOScreenView extends ScreenView {
     // Create visibleProperty instances for Nodes in the view.
     const visibleProperties = new VisibleProperties( ( model.optic instanceof Lens ), {
       tandem: options.tandem.createTandem( 'visibleProperties' )
-    } );
-
-    const lightPropagationEnabledProperty = new BooleanProperty( true, {
-      tandem: providedOptions.tandem.createTandem( 'lightPropagationEnabledProperty' ),
-      phetioDocumentation: 'Turns light propagation on (true) and off (false) to support predictive questioning.<br>' +
-                           'When off, the following things are not visible: <br>' +
-                           '- rays (real and virtual)<br>' +
-                           '- images (real and virtual)<br>' +
-                           '- light spots on the projection screen'
     } );
 
     // Controls zoom in experiment area
@@ -239,7 +229,7 @@ class GOScreenView extends ScreenView {
     } );
 
     // Toggle button above the Reset All button
-    const lightPropagationToggleButton = new LightPropagationToggleButton( lightPropagationEnabledProperty, {
+    const lightPropagationToggleButton = new LightPropagationToggleButton( model.lightPropagationEnabledProperty, {
       tandem: this.controlsTandem.createTandem( 'lightPropagationToggleButton' )
     } );
     lightPropagationToggleButton.centerX = resetAllButton.centerX;
@@ -270,7 +260,7 @@ class GOScreenView extends ScreenView {
     const labelsLayer = new Node();
 
     const arrowObjectSceneNode = new ArrowObjectSceneNode( model.arrowObjectScene, visibleProperties, modelViewTransform,
-      modelVisibleBoundsProperty, modelBoundsProperty, model.raysTypeProperty, lightPropagationEnabledProperty, {
+      modelVisibleBoundsProperty, modelBoundsProperty, model.raysTypeProperty, model.lightPropagationEnabledProperty, {
         createOpticNode: options.createOpticNode,
         dragLockedProperty: options.dragLockedProperty,
         tandem: this.scenesTandem.createTandem( 'arrowObjectSceneNode' )
@@ -278,14 +268,14 @@ class GOScreenView extends ScreenView {
     scenesLayer.addChild( arrowObjectSceneNode );
 
     const arrowObjectSceneLabelsNode = new ArrowObjectSceneLabelsNode( model.arrowObjectScene, visibleProperties,
-      zoomTransformProperty, modelVisibleBoundsProperty, lightPropagationEnabledProperty, {
+      zoomTransformProperty, modelVisibleBoundsProperty, model.lightPropagationEnabledProperty, {
         visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty,
           arrowObjectSceneNode.visibleProperty ] )
       } );
     labelsLayer.addChild( arrowObjectSceneLabelsNode );
 
     const framedObjectSceneNode = new FramedObjectSceneNode( model.framedObjectScene, visibleProperties, modelViewTransform,
-      modelVisibleBoundsProperty, modelBoundsProperty, model.raysTypeProperty, lightPropagationEnabledProperty, {
+      modelVisibleBoundsProperty, modelBoundsProperty, model.raysTypeProperty, model.lightPropagationEnabledProperty, {
         createOpticNode: options.createOpticNode,
         dragLockedProperty: options.dragLockedProperty,
         tandem: this.scenesTandem.createTandem( 'framedObjectSceneNode' )
@@ -293,7 +283,7 @@ class GOScreenView extends ScreenView {
     scenesLayer.addChild( framedObjectSceneNode );
 
     const framedObjectSceneLabelsNode = new FramedObjectSceneLabelsNode( model.framedObjectScene, visibleProperties,
-      zoomTransformProperty, modelVisibleBoundsProperty, lightPropagationEnabledProperty, {
+      zoomTransformProperty, modelVisibleBoundsProperty, model.lightPropagationEnabledProperty, {
         visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty,
           framedObjectSceneNode.visibleProperty ] )
       } );
@@ -304,7 +294,7 @@ class GOScreenView extends ScreenView {
     if ( model.lightObjectScene ) {
       lightObjectSceneNode = new LightObjectSceneNode( model.lightObjectScene, visibleProperties,
         modelViewTransform, modelVisibleBoundsProperty, modelBoundsProperty, model.raysTypeProperty,
-        lightPropagationEnabledProperty, {
+        model.lightPropagationEnabledProperty, {
           createOpticNode: options.createOpticNode,
           dragLockedProperty: options.dragLockedProperty,
           tandem: this.scenesTandem.createTandem( 'lightObjectSceneNode' )
@@ -333,7 +323,7 @@ class GOScreenView extends ScreenView {
     } );
 
     // Changing any of these Properties causes the light rays to animate.
-    Property.multilink( [ model.raysTypeProperty, lightPropagationEnabledProperty ],
+    Property.multilink( [ model.raysTypeProperty, model.lightPropagationEnabledProperty ],
       ( raysType: RaysType, lightPropagationEnabled: boolean ) => model.resetLightRays() );
 
     // Changing these things interrupts interactions
@@ -432,7 +422,6 @@ class GOScreenView extends ScreenView {
     this.model = model;
     this.modelViewTransform = modelViewTransform;
     this.visibleProperties = visibleProperties;
-    this.lightPropagationEnabledProperty = lightPropagationEnabledProperty;
     this.modelBoundsProperty = modelBoundsProperty;
     this.modelVisibleBoundsProperty = modelVisibleBoundsProperty;
     this.zoomTransformProperty = zoomTransformProperty;
@@ -453,17 +442,6 @@ class GOScreenView extends ScreenView {
 
   public reset(): void {
     this.resetGOScreenView();
-  }
-
-  //TODO stepping model should be done in model.step
-  /**
-   * Steps the view.
-   * @param dt - time step, in seconds
-   */
-  public step( dt: number ): void {
-    if ( this.lightPropagationEnabledProperty.value ) {
-      this.model.stepLightRays( dt );
-    }
   }
 }
 
