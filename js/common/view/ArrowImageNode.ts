@@ -66,11 +66,11 @@ class ArrowImageNode extends Node {
     // Don't scale the head and tail, just the magnitude.
     Property.multilink( [ arrowImage.positionProperty, arrowImage.magnificationProperty ],
       ( arrowImagePosition: Vector2, magnification: number ) => {
-        const opticPosition = modelViewTransform.modelToViewPosition( arrowImage.optic.positionProperty.value );
-        const objectPosition = modelViewTransform.modelToViewPosition( arrowImage.opticalObject.positionProperty.value );
-        const imagePosition = modelViewTransform.modelToViewPosition( arrowImagePosition );
-        const magnitude = magnification * ( objectPosition.y - opticPosition.y );
-        arrowNode.setTailAndTip( imagePosition.x, opticPosition.y, imagePosition.x, opticPosition.y + magnitude );
+        const opticViewPosition = modelViewTransform.modelToViewPosition( arrowImage.optic.positionProperty.value );
+        const objectViewPosition = modelViewTransform.modelToViewPosition( arrowImage.opticalObject.positionProperty.value );
+        const imageViewPosition = modelViewTransform.modelToViewPosition( arrowImagePosition );
+        const magnitude = magnification * ( objectViewPosition.y - opticViewPosition.y );
+        arrowNode.setTailAndTip( imageViewPosition.x, opticViewPosition.y, imageViewPosition.x, opticViewPosition.y + magnitude );
       } );
 
     arrowImage.opacityProperty.link( ( opacity: number ) => {
