@@ -17,12 +17,11 @@ import LabelNode from './LabelNode.js';
 import VisibleProperties from './VisibleProperties.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Lens from '../../lens/model/Lens.js';
-import Mirror from '../../mirror/model/Mirror.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Optic from '../model/Optic.js';
+import OpticLabelNode from './OpticLabelNode.js';
 
 type GOSceneLabelsNodeOptions = {
   visibleProperty: Property<boolean>
@@ -48,45 +47,8 @@ class GOSceneLabelsNode extends Node {
 
     // Optic label ------------------------------------------------------------------------------------
 
-    const opticLabelPositionProperty = new DerivedProperty(
-      [ optic.positionProperty, optic.diameterProperty ],
-      ( position: Vector2, diameter: number ) => position.minusXY( 0, diameter / 2 )
-    );
-
-    const opticLabel = new LabelNode( '', opticLabelPositionProperty, zoomTransformProperty );
+    const opticLabel = new OpticLabelNode( optic, zoomTransformProperty );
     this.addChild( opticLabel );
-
-    optic.opticShapeProperty.link( opticShape => {
-      let text: string;
-      if ( optic instanceof Lens ) {
-        if ( opticShape === 'convex' ) {
-          text = geometricOpticsStrings.convexLens;
-        }
-        else if ( opticShape === 'concave' ) {
-          text = geometricOpticsStrings.concaveLens;
-        }
-        else {
-          throw Error( `unsupported opticShape for lens: ${opticShape}` );
-        }
-      }
-      else {
-        // mirror
-        assert && assert( optic instanceof Mirror );
-        if ( opticShape === 'convex' ) {
-          text = geometricOpticsStrings.convexMirror;
-        }
-        else if ( opticShape === 'concave' ) {
-          text = geometricOpticsStrings.concaveMirror;
-        }
-        else if ( opticShape === 'flat' ) {
-          text = geometricOpticsStrings.flatMirror;
-        }
-        else {
-          throw Error( `unsupported opticShape for mirror: ${opticShape}` );
-        }
-      }
-      opticLabel.setText( text );
-    } );
 
     // Optical Axis label ------------------------------------------------------------------------------------
 
