@@ -88,6 +88,7 @@ class LightObjectLabelNode extends LabelNode {
 
     const options = merge( {}, providedOptions );
 
+    // Object N
     const labelString = StringUtils.fillIn( geometricOpticsStrings.objectN, {
       objectNumber: lightObjectNumber
     } );

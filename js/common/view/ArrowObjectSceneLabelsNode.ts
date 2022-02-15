@@ -97,6 +97,7 @@ class ArrowObjectLabelNode extends LabelNode {
     
     const options = merge( {}, providedOptions );
 
+    // Object N
     const labelString = StringUtils.fillIn( geometricOpticsStrings.objectN, {
       objectNumber: objectNumber
     } );
@@ -157,7 +158,7 @@ class ArrowImageLabelNode extends LabelNode {
 
     super( '', labelPositionProperty, zoomTransformProperty, options );
 
-    // Switch between 'Real Image' and 'Virtual Image'
+    // Switch between 'Real Image N' and 'Virtual Image N'
     arrowImage.opticalImageTypeProperty.link( opticalImageType => {
       this.setText( opticalImageType === 'real' ?
                     StringUtils.fillIn( geometricOpticsStrings.realImageN, { imageNumber: imageNumber } ) :

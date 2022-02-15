@@ -44,6 +44,7 @@ class FramedObjectSceneLabelsNode extends GOSceneLabelsNode {
 
     // Object label ------------------------------------------------------------------------------------
 
+    // Object 1
     const objectLabelString = StringUtils.fillIn( geometricOpticsStrings.objectN, {
       objectNumber: 1
     } );
@@ -72,7 +73,7 @@ class FramedObjectSceneLabelsNode extends GOSceneLabelsNode {
     } );
     this.addChild( imageLabel );
 
-    // Switch between 'Real Image' and 'Virtual Image'
+    // Switch between 'Real Image 1' and 'Virtual Image 1'
     const imageNumber = 1;
     scene.framedImage1.opticalImageTypeProperty.link( opticalImageType => {
       imageLabel.setText( opticalImageType === 'real' ?
