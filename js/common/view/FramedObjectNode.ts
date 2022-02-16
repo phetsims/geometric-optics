@@ -36,7 +36,7 @@ class FramedObjectNode extends Node {
 
   /**
    * @param framedObject
-   * @param sceneBoundsProperty
+   * @param sceneBoundsProperty - bounds for the scene, in model coordinates
    * @param opticPositionProperty
    * @param modelViewTransform
    * @param dragLockedProperty

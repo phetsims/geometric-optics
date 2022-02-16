@@ -61,7 +61,7 @@ abstract class GOSceneNode extends Node {
    * @param visibleProperties
    * @param modelViewTransform
    * @param modelVisibleBoundsProperty
-   * @param sceneBoundsProperty
+   * @param sceneBoundsProperty - bounds for the scene, in model coordinates
    * @param raysTypeProperty
    * @param providedOptions
    */

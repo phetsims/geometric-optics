@@ -39,7 +39,7 @@ class ArrowObjectSceneNode extends GOSceneNode {
    * @param visibleProperties
    * @param modelViewTransform
    * @param modelVisibleBoundsProperty
-   * @param sceneBoundsProperty
+   * @param sceneBoundsProperty - bounds for the scene, in model coordinates
    * @param raysTypeProperty
    * @param lightPropagationEnabledProperty
    * @param providedOptions

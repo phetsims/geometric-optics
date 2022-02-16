@@ -36,7 +36,7 @@ class ArrowObjectNode extends Node {
   /**
    * @param arrowObject
    * @param optic
-   * @param sceneBoundsProperty
+   * @param sceneBoundsProperty - bounds for the scene, in model coordinates
    * @param modelViewTransform
    * @param dragLockedProperty
    * @param wasDraggedProperty - was any ArrowObjectNode dragged?

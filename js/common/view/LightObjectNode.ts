@@ -33,7 +33,7 @@ class LightObjectNode extends Node {
 
   /**
    * @param lightObject
-   * @param sceneBoundsProperty
+   * @param sceneBoundsProperty - bounds for the scene, in model coordinates
    * @param opticPositionProperty
    * @param modelViewTransform
    * @param dragLockedProperty

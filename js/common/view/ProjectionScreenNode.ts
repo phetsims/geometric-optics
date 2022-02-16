@@ -39,7 +39,7 @@ class ProjectionScreenNode extends Node {
   /**
    * @param projectionScreen
    * @param opticPositionProperty
-   * @param sceneBoundsProperty
+   * @param sceneBoundsProperty - bounds for the scene, in model coordinates
    * @param modelViewTransform
    * @param providedOptions
    */
