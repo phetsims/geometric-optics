@@ -32,7 +32,7 @@ class LightObjectSceneLabelsNode extends GOSceneLabelsNode {
    * @param scene
    * @param visibleProperties
    * @param zoomTransformProperty
-   * @param modelVisibleBoundsProperty
+   * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
    * @param providedOptions
    */
   constructor( scene: LightObjectScene,

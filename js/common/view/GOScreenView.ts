@@ -111,7 +111,7 @@ class GOScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'visibleProperties' )
     } );
 
-    // Controls zoom in experiment area
+    // Zoom level for scenes
     const zoomLevelProperty = new NumberProperty( ZOOM_SCALES.indexOf( 1 ), {
       numberType: 'Integer',
       range: new Range( 0, ZOOM_SCALES.length - 1 ),

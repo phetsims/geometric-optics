@@ -28,7 +28,7 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
 
   /**
    * @param opticPositionProperty
-   * @param modelVisibleBoundsProperty
+   * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
    * @param modelViewTransform
    * @param framedObjectPositionProperty
    * @param framedObjectNode

@@ -40,7 +40,7 @@ class LightObjectSceneNode extends GOSceneNode {
    * @param scene
    * @param visibleProperties
    * @param modelViewTransform
-   * @param modelVisibleBoundsProperty
+   * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
    * @param sceneBoundsProperty - bounds for the scene, in model coordinates
    * @param raysTypeProperty
    * @param lightPropagationEnabledProperty

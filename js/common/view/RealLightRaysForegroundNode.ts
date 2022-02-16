@@ -26,7 +26,7 @@ class RealLightRaysForegroundNode extends RealLightRaysNode {
   /**
    * @param lightRays
    * @param modelViewTransform
-   * @param modelVisibleBoundsProperty - bounds where rays may appear, in model coordinates
+   * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
    * @param opticPositionProperty
    * @param frameImagePositionProperty
    * @param opticalImageTypeProperty

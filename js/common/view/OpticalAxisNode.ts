@@ -30,7 +30,7 @@ class OpticalAxisNode extends Line {
 
   /**
    * @param opticPositionProperty
-   * @param modelVisibleBoundsProperty
+   * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
    * @param modelViewTransform
    * @param providedOptions
    */
