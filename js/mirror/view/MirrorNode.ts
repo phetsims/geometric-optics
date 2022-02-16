@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Node, Path } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -18,7 +17,6 @@ import { OpticShape } from '../../common/model/OpticShape.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
 import OriginNode from '../../common/view/OriginNode.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
 
@@ -37,14 +35,10 @@ class MirrorNode extends Node {
 
   /**
    * @param mirror
-   * @param modelBoundsProperty
    * @param modelViewTransform
    * @param providedOptions
    */
-  constructor( mirror: Mirror,
-               modelBoundsProperty: IReadOnlyProperty<Bounds2>,
-               modelViewTransform: ModelViewTransform2,
-               providedOptions: MirrorNodeOptions ) {
+  constructor( mirror: Mirror, modelViewTransform: ModelViewTransform2, providedOptions: MirrorNodeOptions ) {
 
     const options = merge( {
       phetioVisiblePropertyInstrumented: false

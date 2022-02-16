@@ -29,7 +29,6 @@ import OpticalObjectChoiceComboBox from './OpticalObjectChoiceComboBox.js';
 import LightPropagationToggleButton from './LightPropagationToggleButton.js';
 import VisibleProperties from './VisibleProperties.js';
 import Lens from '../../lens/model/Lens.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Optic from '../model/Optic.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import FramedObjectSceneNode from './FramedObjectSceneNode.js';
@@ -57,7 +56,7 @@ type GeometricOpticsScreenViewOptions = {
   getViewOrigin: ( layoutBounds: Bounds2 ) => Vector2,
 
   // Creates the Node for the optic
-  createOpticNode: ( optic: Optic, modelBoundsProperty: IReadOnlyProperty<Bounds2>, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node,
+  createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node,
 
   dragLockedProperty: BooleanProperty,
 
@@ -139,11 +138,9 @@ class GOScreenView extends ScreenView {
       ( visibleBounds: Bounds2, zoomTransform: ModelViewTransform2 ) => zoomTransform.viewToModelBounds( visibleBounds )
     );
 
-    // Portion of the ScreenView's visibleBounds where things can be dragged, in the model coordinate frame,
-    // with zoom transform applied. See https://github.com/phetsims/geometric-optics/issues/204 and
-    // https://github.com/phetsims/geometric-optics/issues/289.
-    // Run with ?debugModelBounds to see this rendered as a rectangle.
-    const modelBoundsProperty = new DerivedProperty(
+    // Portion of the ScreenView's visibleBounds that is dedicated to scenes, in the model coordinate frame,
+    // with zoom transform applied. Run with ?debugModelBounds to see this rendered as a red rectangle.
+    const sceneBoundsProperty = new DerivedProperty(
       [ modelVisibleBoundsProperty ],
       ( modelVisibleBounds: Bounds2 ) => {
         const y = GOConstants.MAX_DISTANCE_FROM_OPTICAL_AXIS;
@@ -266,7 +263,7 @@ class GOScreenView extends ScreenView {
     const scenesLayer = new Node();
 
     const arrowObjectSceneNode = new ArrowObjectSceneNode( model.arrowObjectScene, visibleProperties, modelViewTransform,
-      modelVisibleBoundsProperty, modelBoundsProperty, model.raysTypeProperty, model.lightPropagationEnabledProperty, {
+      modelVisibleBoundsProperty, sceneBoundsProperty, model.raysTypeProperty, model.lightPropagationEnabledProperty, {
         createOpticNode: options.createOpticNode,
         dragLockedProperty: options.dragLockedProperty,
         tandem: scenesTandem.createTandem( 'arrowObjectSceneNode' )
@@ -274,7 +271,7 @@ class GOScreenView extends ScreenView {
     scenesLayer.addChild( arrowObjectSceneNode );
 
     const framedObjectSceneNode = new FramedObjectSceneNode( model.framedObjectScene, visibleProperties, modelViewTransform,
-      modelVisibleBoundsProperty, modelBoundsProperty, model.raysTypeProperty, model.lightPropagationEnabledProperty, {
+      modelVisibleBoundsProperty, sceneBoundsProperty, model.raysTypeProperty, model.lightPropagationEnabledProperty, {
         createOpticNode: options.createOpticNode,
         dragLockedProperty: options.dragLockedProperty,
         tandem: scenesTandem.createTandem( 'framedObjectSceneNode' )
@@ -284,7 +281,7 @@ class GOScreenView extends ScreenView {
     let lightObjectSceneNode: LightObjectSceneNode | null = null;
     if ( model.lightObjectScene ) {
       lightObjectSceneNode = new LightObjectSceneNode( model.lightObjectScene, visibleProperties,
-        modelViewTransform, modelVisibleBoundsProperty, modelBoundsProperty, model.raysTypeProperty,
+        modelViewTransform, modelVisibleBoundsProperty, sceneBoundsProperty, model.raysTypeProperty,
         model.lightPropagationEnabledProperty, {
           createOpticNode: options.createOpticNode,
           dragLockedProperty: options.dragLockedProperty,
@@ -295,12 +292,12 @@ class GOScreenView extends ScreenView {
 
     // Show the model bounds as a green rectangle.
     if ( GOQueryParameters.debugModelBounds ) {
-      const dragBoundsNode = new Rectangle( modelViewTransform.modelToViewBounds( modelBoundsProperty.value ), {
+      const dragBoundsNode = new Rectangle( modelViewTransform.modelToViewBounds( sceneBoundsProperty.value ), {
         stroke: 'red'
       } );
       scenesLayer.addChild( dragBoundsNode );
-      modelBoundsProperty.link( modelBounds => {
-        const viewBounds = modelViewTransform.modelToViewBounds( modelBounds );
+      sceneBoundsProperty.link( sceneBounds => {
+        const viewBounds = modelViewTransform.modelToViewBounds( sceneBounds );
         dragBoundsNode.setRect( viewBounds.x, viewBounds.y, viewBounds.width, viewBounds.height );
       } );
     }

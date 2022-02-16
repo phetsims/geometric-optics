@@ -33,7 +33,7 @@ class LightObjectNode extends Node {
 
   /**
    * @param lightObject
-   * @param modelBoundsProperty
+   * @param sceneBoundsProperty
    * @param opticPositionProperty
    * @param modelViewTransform
    * @param dragLockedProperty
@@ -41,7 +41,7 @@ class LightObjectNode extends Node {
    * @param providedOptions
    */
   constructor( lightObject: LightObject,
-               modelBoundsProperty: IReadOnlyProperty<Bounds2>,
+               sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
                opticPositionProperty: IReadOnlyProperty<Vector2>,
                modelViewTransform: ModelViewTransform2,
                dragLockedProperty: IReadOnlyProperty<boolean>,
@@ -78,8 +78,8 @@ class LightObjectNode extends Node {
     this.addChild( cueingArrowsNode );
 
     const updateScale = () => {
-      const modelBounds = lightObject.boundsProperty.value;
-      const viewBounds = modelViewTransform.modelToViewBounds( modelBounds );
+      const sceneBounds = lightObject.boundsProperty.value;
+      const viewBounds = modelViewTransform.modelToViewBounds( sceneBounds );
       const scaleX = ( viewBounds.width / imageNode.width ) || GOConstants.MIN_SCALE; // prevent zero scale
       const scaleY = ( viewBounds.height / imageNode.height ) || GOConstants.MIN_SCALE; // prevent zero scale
       imageNode.scale( scaleX, scaleY );
@@ -93,11 +93,11 @@ class LightObjectNode extends Node {
 
     // Drag bounds, in model coordinates. Keep the full object within the model bounds and to the left of the optic.
     const dragBoundsProperty = new DerivedProperty(
-      [ lightObject.boundsProperty, modelBoundsProperty, dragLockedProperty ],
-      ( lightObjectBounds: Bounds2, modelBounds: Bounds2, dragLocked: boolean ) => {
+      [ lightObject.boundsProperty, sceneBoundsProperty, dragLockedProperty ],
+      ( lightObjectBounds: Bounds2, sceneBounds: Bounds2, dragLocked: boolean ) => {
 
         const lightObjectPosition = lightObject.positionProperty.value;
-        const minX = modelBounds.minX + ( lightObjectPosition.x - lightObjectBounds.minX );
+        const minX = sceneBounds.minX + ( lightObjectPosition.x - lightObjectBounds.minX );
         const maxX = opticPositionProperty.value.x - GOConstants.MIN_DISTANCE_FROM_OBJECT_TO_OPTIC;
         let minY: number;
         let maxY: number;
@@ -111,8 +111,8 @@ class LightObjectNode extends Node {
         else {
 
           // Dragging is 2D.
-          minY = modelBounds.minY + ( lightObjectPosition.y - lightObjectBounds.minY );
-          maxY = modelBounds.maxY - ( lightObjectBounds.maxY - lightObjectPosition.y );
+          minY = sceneBounds.minY + ( lightObjectPosition.y - lightObjectBounds.minY );
+          maxY = sceneBounds.maxY - ( lightObjectBounds.maxY - lightObjectPosition.y );
         }
         return new Bounds2( minX, minY, maxX, maxY );
       }, {

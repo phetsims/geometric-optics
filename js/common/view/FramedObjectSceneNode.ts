@@ -9,7 +9,6 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import FramedObjectScene from '../model/FramedObjectScene.js';
 import FramedImageNode from './FramedImageNode.js';
@@ -23,24 +22,11 @@ import GOColors from '../GOColors.js';
 import RealLightRaysNode from './RealLightRaysNode.js';
 import RealLightRaysForegroundNode from './RealLightRaysForegroundNode.js';
 import OpticalAxisForegroundNode from './OpticalAxisForegroundNode.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import Optic from '../model/Optic.js';
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import VirtualLightRaysNode from './VirtualLightRaysNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { RulerHotkeyTarget } from './GORulerNode.js';
-import GOSceneNode from './GOSceneNode.js';
+import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
 import IProperty from '../../../../axon/js/IProperty.js';
-
-type FramedObjectSceneNodeOptions = {
-
-  // Creates the Node for the optic
-  createOpticNode: ( optic: Optic, modelBoundsProperty: IReadOnlyProperty<Bounds2>, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node,
-
-  dragLockedProperty: BooleanProperty,
-
-  tandem: Tandem
-};
 
 class FramedObjectSceneNode extends GOSceneNode {
 
@@ -56,7 +42,7 @@ class FramedObjectSceneNode extends GOSceneNode {
    * @param visibleProperties
    * @param modelViewTransform
    * @param modelVisibleBoundsProperty
-   * @param modelBoundsProperty
+   * @param sceneBoundsProperty
    * @param raysTypeProperty
    * @param lightPropagationEnabledProperty
    * @param providedOptions
@@ -65,20 +51,20 @@ class FramedObjectSceneNode extends GOSceneNode {
                visibleProperties: VisibleProperties,
                modelViewTransform: ModelViewTransform2,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-               modelBoundsProperty: IReadOnlyProperty<Bounds2>,
+               sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
                raysTypeProperty: IReadOnlyProperty<RaysType>,
                lightPropagationEnabledProperty: IProperty<boolean>,
-               providedOptions: FramedObjectSceneNodeOptions ) {
+               providedOptions: GOSceneNodeOptions ) {
 
     const options = merge( {
       visiblePropertyOptions: { phetioReadOnly: true }
     }, providedOptions );
 
-    super( scene, visibleProperties, modelViewTransform, modelVisibleBoundsProperty, modelBoundsProperty, raysTypeProperty, options );
+    super( scene, visibleProperties, modelViewTransform, modelVisibleBoundsProperty, sceneBoundsProperty, raysTypeProperty, options );
 
     // Framed object
     const framedObjectNode = new FramedObjectNode( scene.framedObject,
-      modelBoundsProperty, scene.optic.positionProperty, modelViewTransform, options.dragLockedProperty, {
+      sceneBoundsProperty, scene.optic.positionProperty, modelViewTransform, options.dragLockedProperty, {
         tandem: options.tandem.createTandem( 'framedObjectNode' )
       } );
     this.opticalObjectsLayer.addChild( framedObjectNode );

@@ -32,7 +32,7 @@ import GOScene from '../model/GOScene.js';
 type GOSceneNodeOptions = {
 
   // Creates the Node for the optic
-  createOpticNode: ( optic: Optic, modelBoundsProperty: IReadOnlyProperty<Bounds2>, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node,
+  createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node,
 
   dragLockedProperty: BooleanProperty,
 
@@ -61,7 +61,7 @@ abstract class GOSceneNode extends Node {
    * @param visibleProperties
    * @param modelViewTransform
    * @param modelVisibleBoundsProperty
-   * @param modelBoundsProperty
+   * @param sceneBoundsProperty
    * @param raysTypeProperty
    * @param providedOptions
    */
@@ -69,7 +69,7 @@ abstract class GOSceneNode extends Node {
                visibleProperties: VisibleProperties,
                modelViewTransform: ModelViewTransform2,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-               modelBoundsProperty: IReadOnlyProperty<Bounds2>,
+               sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
                raysTypeProperty: IReadOnlyProperty<RaysType>,
                providedOptions: GOSceneNodeOptions ) {
 
@@ -79,7 +79,7 @@ abstract class GOSceneNode extends Node {
 
     super( options );
 
-    this.opticNode = options.createOpticNode( scene.optic, modelBoundsProperty, modelViewTransform, options.tandem );
+    this.opticNode = options.createOpticNode( scene.optic, modelViewTransform, options.tandem );
 
     const opticalAxisNode = new OpticalAxisNode(
       scene.optic.positionProperty,
@@ -172,3 +172,4 @@ abstract class GOSceneNode extends Node {
 
 geometricOptics.register( 'GOSceneNode', GOSceneNode );
 export default GOSceneNode;
+export type { GOSceneNodeOptions };

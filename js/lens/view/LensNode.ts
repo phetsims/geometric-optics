@@ -8,7 +8,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -21,7 +20,6 @@ import LensShapes from '../model/LensShapes.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
 import OriginNode from '../../common/view/OriginNode.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
@@ -40,14 +38,10 @@ class LensNode extends Node {
 
   /**
    * @param lens
-   * @param modelBoundsProperty
    * @param modelViewTransform
    * @param providedOptions
    */
-  constructor( lens: Lens,
-               modelBoundsProperty: IReadOnlyProperty<Bounds2>,
-               modelViewTransform: ModelViewTransform2,
-               providedOptions: LensNodeOptions ) {
+  constructor( lens: Lens, modelViewTransform: ModelViewTransform2, providedOptions: LensNodeOptions ) {
 
     const options = merge( {
       phetioVisiblePropertyInstrumented: false

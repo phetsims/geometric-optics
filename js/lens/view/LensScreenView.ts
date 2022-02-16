@@ -20,7 +20,6 @@ import LensNode from './LensNode.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DragLockedButton from '../../common/view/DragLockedButton.js';
 import Optic from '../../common/model/Optic.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 type LensScreenViewOptions = {
   tandem: Tandem
@@ -43,9 +42,9 @@ class LensScreenView extends GOScreenView {
       getViewOrigin: ( layoutBounds: Bounds2 ) => new Vector2( layoutBounds.centerX, layoutBounds.centerY - 35 ),
 
       // Creates the Node for the lens
-      createOpticNode: ( optic: Optic, modelBoundsProperty: IReadOnlyProperty<Bounds2>, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => {
+      createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => {
         assert && assert( optic instanceof Lens );
-        return new LensNode( optic as Lens, modelBoundsProperty, modelViewTransform, {
+        return new LensNode( optic as Lens, modelViewTransform, {
           tandem: parentTandem.createTandem( 'lensNode' )
         } );
       },

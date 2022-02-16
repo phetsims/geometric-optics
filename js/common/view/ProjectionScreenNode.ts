@@ -39,13 +39,13 @@ class ProjectionScreenNode extends Node {
   /**
    * @param projectionScreen
    * @param opticPositionProperty
-   * @param modelBoundsProperty
+   * @param sceneBoundsProperty
    * @param modelViewTransform
    * @param providedOptions
    */
   constructor( projectionScreen: ProjectionScreen,
                opticPositionProperty: IReadOnlyProperty<Vector2>,
-               modelBoundsProperty: IReadOnlyProperty<Bounds2>,
+               sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
                modelViewTransform: ModelViewTransform2,
                providedOptions: ProjectionScreenNodeOptions ) {
 
@@ -138,13 +138,13 @@ class ProjectionScreenNode extends Node {
 
     // Drag bounds, in model coordinates - within model bounds, and right of the optic.
     const dragBoundsProperty = new DerivedProperty(
-      [ modelBoundsProperty, opticPositionProperty ],
-      ( modelBounds: Bounds2, opticPosition: Vector2 ) =>
+      [ sceneBoundsProperty, opticPositionProperty ],
+      ( sceneBounds: Bounds2, opticPosition: Vector2 ) =>
         new Bounds2(
           opticPosition.x + GOConstants.MIN_DISTANCE_FROM_OPTIC_TO_PROJECTION_SCREEN,
-          modelBounds.minY + modelScreenHeight / 2,
-          modelBounds.maxX - modelScreenWidth / 2,
-          modelBounds.maxY - modelScreenHeight / 2
+          sceneBounds.minY + modelScreenHeight / 2,
+          sceneBounds.maxX - modelScreenWidth / 2,
+          sceneBounds.maxY - modelScreenHeight / 2
         )
     );
 

@@ -36,14 +36,14 @@ class FramedObjectNode extends Node {
 
   /**
    * @param framedObject
-   * @param modelBoundsProperty
+   * @param sceneBoundsProperty
    * @param opticPositionProperty
    * @param modelViewTransform
    * @param dragLockedProperty
    * @param providedOptions
    */
   constructor( framedObject: FramedObject,
-               modelBoundsProperty: IReadOnlyProperty<Bounds2>,
+               sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
                opticPositionProperty: IReadOnlyProperty<Vector2>,
                modelViewTransform: ModelViewTransform2,
                dragLockedProperty: IReadOnlyProperty<boolean>,
@@ -85,8 +85,8 @@ class FramedObjectNode extends Node {
     this.addChild( cueingArrowsNode );
 
     const updateScale = () => {
-      const modelBounds = framedObject.boundsProperty.value;
-      const viewBounds = modelViewTransform.modelToViewBounds( modelBounds );
+      const sceneBounds = framedObject.boundsProperty.value;
+      const viewBounds = modelViewTransform.modelToViewBounds( sceneBounds );
       const scaleX = ( viewBounds.width / imageNode.width ) || GOConstants.MIN_SCALE; // prevent zero scale
       const scaleY = ( viewBounds.height / imageNode.height ) || GOConstants.MIN_SCALE; // prevent zero scale
       imageNode.scale( scaleX, scaleY );
@@ -106,11 +106,11 @@ class FramedObjectNode extends Node {
 
     // Drag bounds, in model coordinates. Keep the full object within the model bounds and to the left of the optic.
     const dragBoundsProperty = new DerivedProperty(
-      [ framedObject.boundsProperty, modelBoundsProperty, dragLockedProperty ],
-      ( framedObjectBounds: Bounds2, modelBounds: Bounds2, dragLocked: boolean ) => {
+      [ framedObject.boundsProperty, sceneBoundsProperty, dragLockedProperty ],
+      ( framedObjectBounds: Bounds2, sceneBounds: Bounds2, dragLocked: boolean ) => {
 
         const framedObjectPosition = framedObject.positionProperty.value;
-        const minX = modelBounds.minX + ( framedObjectPosition.x - framedObjectBounds.minX );
+        const minX = sceneBounds.minX + ( framedObjectPosition.x - framedObjectBounds.minX );
         const maxX = opticPositionProperty.value.x - GOConstants.MIN_DISTANCE_FROM_OBJECT_TO_OPTIC;
         let minY: number;
         let maxY: number;
@@ -124,8 +124,8 @@ class FramedObjectNode extends Node {
         else {
 
           // Dragging is 2D.
-          minY = modelBounds.minY + ( framedObjectPosition.y - framedObjectBounds.minY );
-          maxY = modelBounds.maxY - ( framedObjectBounds.maxY - framedObjectPosition.y );
+          minY = sceneBounds.minY + ( framedObjectPosition.y - framedObjectBounds.minY );
+          maxY = sceneBounds.maxY - ( framedObjectBounds.maxY - framedObjectPosition.y );
         }
         return new Bounds2( minX, minY, maxX, maxY );
       }, {

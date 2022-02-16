@@ -17,7 +17,6 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Mirror from '../model/Mirror.js';
 import MirrorNode from './MirrorNode.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Optic from '../../common/model/Optic.js';
 
 type MirrorScreenViewOptions = {
@@ -38,9 +37,9 @@ class MirrorScreenView extends GOScreenView {
       getViewOrigin: ( layoutBounds: Bounds2 ) => new Vector2( layoutBounds.centerX + 200, layoutBounds.centerY - 35 ),
 
       // Creates the Node for the mirror
-      createOpticNode: ( optic: Optic, modelBoundsProperty: IReadOnlyProperty<Bounds2>, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => {
+      createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => {
         assert && assert( optic instanceof Mirror );
-        return new MirrorNode( optic as Mirror, modelBoundsProperty, modelViewTransform, {
+        return new MirrorNode( optic as Mirror, modelViewTransform, {
           tandem: parentTandem.createTandem( 'mirrorNode' )
         } );
       },

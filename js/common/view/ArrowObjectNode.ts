@@ -36,7 +36,7 @@ class ArrowObjectNode extends Node {
   /**
    * @param arrowObject
    * @param optic
-   * @param modelBoundsProperty
+   * @param sceneBoundsProperty
    * @param modelViewTransform
    * @param dragLockedProperty
    * @param wasDraggedProperty - was any ArrowObjectNode dragged?
@@ -44,7 +44,7 @@ class ArrowObjectNode extends Node {
    */
   constructor( arrowObject: ArrowObject,
                optic: Optic,
-               modelBoundsProperty: IReadOnlyProperty<Bounds2>,
+               sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
                modelViewTransform: ModelViewTransform2,
                dragLockedProperty: IReadOnlyProperty<boolean>,
                wasDraggedProperty: Property<boolean>,
@@ -96,10 +96,10 @@ class ArrowObjectNode extends Node {
     };
 
     const dragBoundsProperty = new DerivedProperty(
-      [ modelBoundsProperty, dragLockedProperty ],
-      ( modelBounds: Bounds2, dragLocked: boolean ) => {
+      [ sceneBoundsProperty, dragLockedProperty ],
+      ( sceneBounds: Bounds2, dragLocked: boolean ) => {
 
-        const minX = modelBounds.minX + modelViewTransform.viewToModelDeltaX( arrowNode.width ) / 2;
+        const minX = sceneBounds.minX + modelViewTransform.viewToModelDeltaX( arrowNode.width ) / 2;
         const maxX = optic.positionProperty.value.x - GOConstants.MIN_DISTANCE_FROM_OBJECT_TO_OPTIC;
         let minY: number;
         let maxY: number;
@@ -109,8 +109,8 @@ class ArrowObjectNode extends Node {
           maxY = arrowObject.positionProperty.value.y;
         }
         else {
-          minY = modelBounds.minY;
-          maxY = modelBounds.maxY;
+          minY = sceneBounds.minY;
+          maxY = sceneBounds.maxY;
         }
         return new Bounds2( minX, minY, maxX, maxY );
       } );
