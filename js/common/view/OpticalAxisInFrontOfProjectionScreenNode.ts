@@ -16,6 +16,7 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import { Line } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../../common/GOColors.js';
+import GOQueryParameters from '../GOQueryParameters.js';
 
 type OpticalAxisInFrontOfProjectionScreenNodeOptions = {
   stroke?: ColorDef,
@@ -39,7 +40,7 @@ class OpticalAxisInFrontOfProjectionScreenNode extends Line {
 
     // create optical axis line, with arbitrary length values.
     super( 0, 0, 1, 0, merge( {
-      stroke: GOColors.opticalAxisStrokeProperty,
+      stroke: GOQueryParameters.debugOpticalAxis ? 'red' : GOColors.opticalAxisStrokeProperty,
       lineWidth: 2,
       lineDash: [ 8, 5 ]
     }, providedOptions ) );

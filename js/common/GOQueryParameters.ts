@@ -74,7 +74,8 @@ const SCHEMA_MAP = {
     isValidValue: ( array: number[] ) => ( array.length === 2 && array[ 0 ] < array[ 1 ] && array[ 0 ] >= 0 && array[ 1 ] <= 1 )
   },
 
-  // Opacity for the frame-image mask that controls how well obscured rays and optical axis are seen.
+  // Opacity for the mask that sits behind the images associated with a framed object.
+  // This determines how well we can see obscured parts of rays and the optical axis.
   frameImageMaskOpacity: {
     type: 'number',
     defaultValue: 0.8, // see https://github.com/phetsims/geometric-optics/issues/300
@@ -86,8 +87,8 @@ const SCHEMA_MAP = {
     type: 'flag'
   },
 
-  // The optical axis is drawn using 2 Nodes, OpticalAxisNode and OpticalAxisForegroundNode.
-  // This flag uses 'red' stroke for OpticalAxisForegroundNode and its clipArea.
+  // With framed objects and light objects, the optical axis has foreground and background Nodes.
+  // This flag uses 'red' stroke for the foreground.
   debugOpticalAxis: {
     type: 'flag'
   },
@@ -103,9 +104,9 @@ const SCHEMA_MAP = {
     type: 'flag'
   },
 
-  // Shows the Shape of the mask that sits behind the optical Image associated with framed Objects, rendered as
+  // Shows the Shape of the mask that sits behind the optical image associated with framed objects, rendered as
   // a red outline. This mask is used to reduce the opacity of the portion of the axis that is occluded by the
-  // optical Image. See ?imageMaskOpacity and https://github.com/phetsims/geometric-optics/issues/283.
+  // optical image. See ?imageMaskOpacity and https://github.com/phetsims/geometric-optics/issues/283.
   debugMask: {
     type: 'flag'
   }
