@@ -40,8 +40,11 @@ type ArrowObjectSceneNodeOptions = {
 
 class ArrowObjectSceneNode extends GOSceneNode {
 
+  // See GOSceneNode
   public readonly horizontalRulerHotkeyTargets: RulerHotkeyTarget[];
   public readonly verticalRulerHotkeyTargets: RulerHotkeyTarget[];
+
+  // Resets things that are specific to this class.
   private readonly resetFrameObjectSceneNode: () => void;
 
   /**

@@ -41,6 +41,7 @@ class GORuler {
 
   readonly visibleProperty: Property<boolean>;
 
+  // Resets things that are specific to this class.
   private readonly resetGORuler: () => void;
 
   /**

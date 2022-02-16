@@ -33,6 +33,7 @@ type ProjectionScreenNodeOptions = {
 
 class ProjectionScreenNode extends Node {
 
+  // Resets things that are specific to this class.
   private readonly resetProjectionScreenNode: () => void;
 
   /**

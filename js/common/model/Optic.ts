@@ -98,6 +98,7 @@ abstract class Optic extends PhetioObject {
   readonly left2FProperty: Property<Vector2>;
   readonly right2FProperty: Property<Vector2>;
 
+  // Resets things that are specific to this class.
   private readonly resetOptic: () => void;
 
   /**

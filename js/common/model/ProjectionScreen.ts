@@ -39,6 +39,7 @@ class ProjectionScreen {
   // line that vertically bisects the screen, relative to positionProperty
   private readonly bisectorLine: Shape;
 
+  // Resets things that are specific to this class.
   private readonly resetProjectionScreen: () => void;
 
   /**

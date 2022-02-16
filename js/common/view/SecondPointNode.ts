@@ -32,6 +32,7 @@ type SecondPointNodeOptions = {
 
 class SecondPointNode extends Node {
 
+  // Resets things that are specific to this class.
   private readonly resetSecondPointNode: () => void;
 
   /**

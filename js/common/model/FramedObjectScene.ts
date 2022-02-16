@@ -40,6 +40,8 @@ class FramedObjectScene extends GOScene {
   readonly lightRays2: LightRays;
   readonly guides1: Guides | null;
   readonly guides2: Guides | null;
+
+  // Resets things that are specific to this class.
   private readonly resetFramedObjectScene: () => void;
 
   /**

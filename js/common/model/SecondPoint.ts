@@ -38,6 +38,7 @@ class SecondPoint extends PhetioObject {
   // position of the framed object that second point is associated with
   private readonly framedObjectPositionProperty: IReadOnlyProperty<Vector2>;
 
+  // Resets things that are specific to this class.
   private readonly resetSecondPoint: () => void;
 
   /**

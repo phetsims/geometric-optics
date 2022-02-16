@@ -31,6 +31,7 @@ type FramedObjectNodeOptions = {
 
 class FramedObjectNode extends Node {
 
+  // Resets things that are specific to this class.
   private readonly resetFramedObjectNode: () => void;
 
   /**

@@ -65,6 +65,7 @@ class GOModel {
   readonly horizontalRuler: GORuler;
   readonly verticalRuler: GORuler;
 
+  // Resets things that are specific to this class.
   private readonly resetGOModel: () => void;
 
   /**

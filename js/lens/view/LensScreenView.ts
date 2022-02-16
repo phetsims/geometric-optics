@@ -28,6 +28,7 @@ type LensScreenViewOptions = {
 
 class LensScreenView extends GOScreenView {
 
+  // Resets things that are specific to this class.
   private readonly resetLensScreenView: () => void;
 
   /**

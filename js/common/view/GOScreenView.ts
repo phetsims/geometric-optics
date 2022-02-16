@@ -74,6 +74,7 @@ class GOScreenView extends ScreenView {
   protected readonly opticShapeRadioButtonGroup: Node;
   protected readonly controlsTandem: Tandem;
 
+  // Resets things that are specific to this class.
   private readonly resetGOScreenView: () => void;
 
   /**

@@ -41,9 +41,15 @@ type GOSceneNodeOptions = {
 
 abstract class GOSceneNode extends Node {
 
+  // Measurement points for the horizontal ruler
   public abstract readonly horizontalRulerHotkeyTargets: RulerHotkeyTarget[];
+
+  // Measurement points for the vertical ruler
   public abstract readonly verticalRulerHotkeyTargets: RulerHotkeyTarget[];
+
   protected readonly opticNode: Node;
+
+  // Various rendering layers
   protected readonly opticalAxisForegroundLayer: Node;
   protected readonly opticalObjectsLayer: Node;
   protected readonly opticalImagesLayer: Node;

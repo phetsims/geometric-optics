@@ -41,6 +41,8 @@ class LightObjectScene extends GOScene {
   readonly lightSpot2: LightSpot;
   readonly guides1: Guides;
   readonly guides2: Guides;
+
+  // Resets things that are specific to this class.
   private readonly resetLightObjectScene: () => void;
 
   /**

@@ -28,6 +28,8 @@ abstract class GOScene extends PhetioObject {
   readonly lightRaysAnimationTimeProperty: NumberProperty;
   abstract readonly guides1: Guides | null;
   abstract readonly guides2: Guides | null;
+
+  // Resets things that are specific to this class.
   private readonly resetGOObjectScene: () => void;
 
   /**

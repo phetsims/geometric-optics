@@ -42,6 +42,7 @@ class VisibleProperties {
   // See https://github.com/phetsims/geometric-optics/issues/252
   readonly opticalAxisVisibleProperty: Property<boolean>;
 
+  // Resets things that are specific to this class.
   private readonly resetVisibleProperties: () => void;
 
   /**

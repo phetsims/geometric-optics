@@ -37,6 +37,7 @@ class OpticalObject extends PhetioObject {
 
   public readonly positionProperty: Property<Vector2>;
 
+  // Resets things that are specific to this class.
   private readonly resetOpticalObject: () => void;
 
   /**
