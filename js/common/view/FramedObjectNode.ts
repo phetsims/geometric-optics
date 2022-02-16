@@ -39,7 +39,7 @@ class FramedObjectNode extends Node {
    * @param sceneBoundsProperty - bounds for the scene, in model coordinates
    * @param opticPositionProperty
    * @param modelViewTransform
-   * @param dragLockedProperty
+   * @param dragLockedProperty - is dragging locked to horizontal?
    * @param providedOptions
    */
   constructor( framedObject: FramedObject,

@@ -30,7 +30,7 @@ type DragLockedButtonOptions = {
 class DragLockedButton extends BooleanRectangularToggleButton {
 
   /**
-   * @param dragLockedProperty
+   * @param dragLockedProperty - is dragging locked to horizontal?
    * @param providedOptions
    */
   constructor( dragLockedProperty: Property<boolean>, providedOptions?: DragLockedButtonOptions ) {
