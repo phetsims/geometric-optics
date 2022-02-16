@@ -153,7 +153,7 @@ class CueingArrowsNode extends VBox {
       fill: GOColors.secondPointFillProperty
     }, GOConstants.CUEING_ARROW_SHAPE_OPTIONS );
 
-    super( optionize<VBoxOptions, {}, VBoxOptions>( {
+    super( optionize<NodeOptions, {}, VBoxOptions>( {
       spacing: spacing,
       align: 'center',
       children: [
