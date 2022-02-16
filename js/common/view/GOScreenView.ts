@@ -211,7 +211,7 @@ class GOScreenView extends ScreenView {
 
     // Zoom buttons
     const zoomButtonGroup = new MagnifyingGlassZoomButtonGroup( zoomLevelProperty, {
-      orientation: 'vertical',
+      orientation: 'horizontal',
       spacing: 8,
       magnifyingGlassNodeOptions: {
         scale: 0.5
@@ -220,8 +220,8 @@ class GOScreenView extends ScreenView {
         xMargin: 5,
         yMargin: 4
       },
-      right: erodedLayoutBounds.left + ( controlPanel.left - erodedLayoutBounds.left ) / 2,
-      centerY: controlPanel.centerY,
+      centerX: this.layoutBounds.left + ( controlPanel.left - this.layoutBounds.left ) / 2,
+      top: controlPanel.top,
       tandem: this.controlsTandem.createTandem( 'zoomButtonGroup' )
     } );
 
@@ -240,8 +240,8 @@ class GOScreenView extends ScreenView {
     const lightPropagationToggleButton = new LightPropagationToggleButton( model.lightPropagationEnabledProperty, {
       tandem: this.controlsTandem.createTandem( 'lightPropagationToggleButton' )
     } );
-    lightPropagationToggleButton.centerX = resetAllButton.centerX;
-    lightPropagationToggleButton.top = controlPanel.top;
+    lightPropagationToggleButton.centerX = this.layoutBounds.left + ( controlPanel.left - this.layoutBounds.left ) / 2;
+    lightPropagationToggleButton.bottom = controlPanel.bottom;
 
     const controlsLayer = new Node( {
       children: [
