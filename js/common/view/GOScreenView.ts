@@ -67,23 +67,13 @@ type GeometricOpticsScreenViewOptions = {
 
 class GOScreenView extends ScreenView {
 
-  protected readonly modelViewTransform: ModelViewTransform2;
-  protected readonly visibleProperties: VisibleProperties;
-  protected readonly modelBoundsProperty: IReadOnlyProperty<Bounds2>;
-  protected readonly modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>;
-  protected readonly zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>;
+  // Nodes and Tandems needed by subclasses, to add additional Nodes.
   protected readonly screenViewRootNode: Node;
-  protected readonly experimentAreaNode: Node;
   protected readonly controlsLayer: Node;
   protected readonly opticalObjectChoiceComboBox: Node;
   protected readonly opticShapeRadioButtonGroup: Node;
-  protected readonly zoomButtonGroup: Node;
-  protected readonly scenesTandem: Tandem;
   protected readonly controlsTandem: Tandem;
-  protected readonly horizontalRulerNode: GORulerNode;
-  protected readonly verticalRulerNode: GORulerNode;
 
-  private readonly model: GOModel;
   private readonly resetGOScreenView: () => void;
 
   /**
@@ -101,17 +91,20 @@ class GOScreenView extends ScreenView {
 
     super( options );
 
+    const viewOrigin = options.getViewOrigin( this.layoutBounds );
+
     // convenience variable for laying out scenery Nodes
     const erodedLayoutBounds = this.layoutBounds.erodedXY(
       GOConstants.SCREEN_VIEW_X_MARGIN, GOConstants.SCREEN_VIEW_Y_MARGIN );
 
-    // Create a Y inverted modelViewTransform with isometric scaling along x and y axes.
+    // Create a y-inverted modelViewTransform with isometric scaling along x and y axes.
     // In the model coordinate frame, +x is right, +y is up.
-    // This transform is used for things that children of experimentAreaNode, and are subject to zooming.
+    // This transform is applied to scenesLayer.
+    //TODO rename scenesModelViewTransform?
     const modelViewTransform = ModelViewTransform2.createOffsetXYScaleMapping( Vector2.ZERO,
       NOMINAL_MODEL_TO_VIEW_SCALE, -NOMINAL_MODEL_TO_VIEW_SCALE );
 
-    // Properties  ====================================================================================================
+    // Properties  =====================================================================================================
 
     // Create visibleProperty instances for Nodes in the view.
     const visibleProperties = new VisibleProperties( ( model.optic instanceof Lens ), {
@@ -131,8 +124,6 @@ class GOScreenView extends ScreenView {
       ( zoomLevel: number ) => ZOOM_SCALES[ zoomLevel ]
     );
 
-    const viewOrigin = options.getViewOrigin( this.layoutBounds );
-
     // Transform applied to rulers and labels
     const zoomTransformProperty = new DerivedProperty(
       [ zoomScaleProperty ],
@@ -140,6 +131,25 @@ class GOScreenView extends ScreenView {
         const scale = NOMINAL_MODEL_TO_VIEW_SCALE * zoomScale;
         return ModelViewTransform2.createOffsetXYScaleMapping( viewOrigin, scale, -scale );
       } );
+
+    // ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied.
+    const modelVisibleBoundsProperty = new DerivedProperty(
+      [ this.visibleBoundsProperty, zoomTransformProperty ],
+      ( visibleBounds: Bounds2, zoomTransform: ModelViewTransform2 ) => zoomTransform.viewToModelBounds( visibleBounds )
+    );
+
+    // Portion of the ScreenView's visibleBounds where things can be dragged, in the model coordinate frame,
+    // with zoom transform applied. See https://github.com/phetsims/geometric-optics/issues/204 and
+    // https://github.com/phetsims/geometric-optics/issues/289.
+    // Run with ?debugModelBounds to see this rendered as a rectangle.
+    const modelBoundsProperty = new DerivedProperty(
+      [ modelVisibleBoundsProperty ],
+      ( modelVisibleBounds: Bounds2 ) => {
+        const y = GOConstants.MAX_DISTANCE_FROM_OPTICAL_AXIS;
+        return new Bounds2( modelVisibleBounds.minX, -y, modelVisibleBounds.maxX, y );
+      } );
+
+    // Rulers  =========================================================================================================
 
     const horizontalRulerNode = new GORulerNode( model.horizontalRuler, model.optic.positionProperty,
       zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, {
@@ -150,22 +160,6 @@ class GOScreenView extends ScreenView {
       zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, {
         tandem: options.tandem.createTandem( 'verticalRulerNode' )
       } );
-
-    this.controlsTandem = options.tandem.createTandem( 'controls' );
-
-    // Disable the 'Virtual Image' checkbox for lights, see https://github.com/phetsims/geometric-optics/issues/216
-    const virtualImageCheckboxEnabledProperty = new DerivedProperty(
-      [ model.opticalObjectChoiceProperty ],
-      ( opticalObjectChoice: OpticalObjectChoice ) => !OpticalObjectChoice.isLight( opticalObjectChoice ) );
-
-    // Control panel at the bottom-center of the screen
-    const controlPanel = new GOControlPanel( model.optic, model.raysTypeProperty, visibleProperties,
-      virtualImageCheckboxEnabledProperty, {
-        tandem: this.controlsTandem.createTandem( 'controlPanel' )
-      } );
-    controlPanel.boundsProperty.link( () => {
-      controlPanel.centerBottom = erodedLayoutBounds.centerBottom;
-    } );
 
     // Toolbox in the top-right corner of the screen
     const rulersToolbox = new RulersToolbox( [ horizontalRulerNode, verticalRulerNode ], {
@@ -180,11 +174,13 @@ class GOScreenView extends ScreenView {
       verticalRulerNode.setToolboxBounds( bounds );
     } );
 
-    // Radio buttons for the shape of the optic
-    const opticShapeRadioButtonGroup = new OpticShapeRadioButtonGroup( model.optic, {
-      centerTop: erodedLayoutBounds.centerTop,
-      tandem: this.controlsTandem.createTandem( 'opticShapeRadioButtonGroup' )
+    const rulersLayer = new Node( {
+      children: [ horizontalRulerNode, verticalRulerNode ]
     } );
+
+    // Controls  =======================================================================================================
+
+    this.controlsTandem = options.tandem.createTandem( 'controls' );
 
     // Parent for any popups
     const popupsParent = new Node();
@@ -194,6 +190,26 @@ class GOScreenView extends ScreenView {
       left: this.layoutBounds.left + 100,
       top: erodedLayoutBounds.top,
       tandem: this.controlsTandem.createTandem( 'opticalObjectChoiceComboBox' )
+    } );
+
+    // Radio buttons for the shape of the optic
+    const opticShapeRadioButtonGroup = new OpticShapeRadioButtonGroup( model.optic, {
+      centerTop: erodedLayoutBounds.centerTop,
+      tandem: this.controlsTandem.createTandem( 'opticShapeRadioButtonGroup' )
+    } );
+
+    // Disable the 'Virtual Image' checkbox for lights, see https://github.com/phetsims/geometric-optics/issues/216
+    const virtualImageCheckboxEnabledProperty = new DerivedProperty(
+      [ model.opticalObjectChoiceProperty ],
+      ( opticalObjectChoice: OpticalObjectChoice ) => !OpticalObjectChoice.isLight( opticalObjectChoice ) );
+
+    // Control panel at the bottom-center of the screen
+    const controlPanel = new GOControlPanel( model.optic, model.raysTypeProperty, visibleProperties,
+      virtualImageCheckboxEnabledProperty, {
+        tandem: this.controlsTandem.createTandem( 'controlPanel' )
+      } );
+    controlPanel.boundsProperty.link( () => {
+      controlPanel.centerBottom = erodedLayoutBounds.centerBottom;
     } );
 
     // Zoom buttons
@@ -230,118 +246,6 @@ class GOScreenView extends ScreenView {
     lightPropagationToggleButton.centerX = resetAllButton.centerX;
     lightPropagationToggleButton.top = controlPanel.top;
 
-    // ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied.
-    const modelVisibleBoundsProperty = new DerivedProperty(
-      [ this.visibleBoundsProperty, zoomTransformProperty ],
-      ( visibleBounds: Bounds2, zoomTransform: ModelViewTransform2 ) => zoomTransform.viewToModelBounds( visibleBounds )
-    );
-
-    // Portion of the ScreenView's visibleBounds where things can be dragged, in the model coordinate frame,
-    // with zoom transform applied. See https://github.com/phetsims/geometric-optics/issues/204 and
-    // https://github.com/phetsims/geometric-optics/issues/289.
-    // Run with ?debugModelBounds to see this rendered as a rectangle.
-    const modelBoundsProperty = new DerivedProperty(
-      [ modelVisibleBoundsProperty ],
-      ( modelVisibleBounds: Bounds2 ) => {
-        const y = GOConstants.MAX_DISTANCE_FROM_OPTICAL_AXIS;
-        return new Bounds2( modelVisibleBounds.minX, -y, modelVisibleBounds.maxX, y );
-      } );
-
-    // Scenes ================================================================================================
-
-    this.scenesTandem = options.tandem.createTandem( 'scenes' );
-
-    const scenesLayer = new Node();
-    const labelsLayer = new Node();
-
-    const arrowObjectSceneNode = new ArrowObjectSceneNode( model.arrowObjectScene, visibleProperties, modelViewTransform,
-      modelVisibleBoundsProperty, modelBoundsProperty, model.raysTypeProperty, model.lightPropagationEnabledProperty, {
-        createOpticNode: options.createOpticNode,
-        dragLockedProperty: options.dragLockedProperty,
-        tandem: this.scenesTandem.createTandem( 'arrowObjectSceneNode' )
-      } );
-    scenesLayer.addChild( arrowObjectSceneNode );
-
-    const arrowObjectSceneLabelsNode = new ArrowObjectSceneLabelsNode( model.arrowObjectScene, visibleProperties,
-      zoomTransformProperty, modelVisibleBoundsProperty, model.lightPropagationEnabledProperty, {
-        visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty,
-          arrowObjectSceneNode.visibleProperty ] )
-      } );
-    labelsLayer.addChild( arrowObjectSceneLabelsNode );
-
-    const framedObjectSceneNode = new FramedObjectSceneNode( model.framedObjectScene, visibleProperties, modelViewTransform,
-      modelVisibleBoundsProperty, modelBoundsProperty, model.raysTypeProperty, model.lightPropagationEnabledProperty, {
-        createOpticNode: options.createOpticNode,
-        dragLockedProperty: options.dragLockedProperty,
-        tandem: this.scenesTandem.createTandem( 'framedObjectSceneNode' )
-      } );
-    scenesLayer.addChild( framedObjectSceneNode );
-
-    const framedObjectSceneLabelsNode = new FramedObjectSceneLabelsNode( model.framedObjectScene, visibleProperties,
-      zoomTransformProperty, modelVisibleBoundsProperty, model.lightPropagationEnabledProperty, {
-        visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty,
-          framedObjectSceneNode.visibleProperty ] )
-      } );
-    labelsLayer.addChild( framedObjectSceneLabelsNode );
-
-    let lightObjectSceneNode: LightObjectSceneNode | null = null;
-    let lightObjectSceneLabelsNode: Node | null = null;
-    if ( model.lightObjectScene ) {
-      lightObjectSceneNode = new LightObjectSceneNode( model.lightObjectScene, visibleProperties,
-        modelViewTransform, modelVisibleBoundsProperty, modelBoundsProperty, model.raysTypeProperty,
-        model.lightPropagationEnabledProperty, {
-          createOpticNode: options.createOpticNode,
-          dragLockedProperty: options.dragLockedProperty,
-          tandem: this.scenesTandem.createTandem( 'lightObjectSceneNode' )
-        } );
-      scenesLayer.addChild( lightObjectSceneNode );
-
-      if ( model.lightObjectScene ) {
-        lightObjectSceneLabelsNode = new LightObjectSceneLabelsNode( model.lightObjectScene, visibleProperties,
-          zoomTransformProperty, modelVisibleBoundsProperty, {
-            visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty, lightObjectSceneNode.visibleProperty ] )
-          } );
-        labelsLayer.addChild( lightObjectSceneLabelsNode );
-      }
-    }
-
-    //TODO is experimentAreaNode still needed, or does scenesLayer fill that role?
-    // Layer for all the Nodes within the "experiment area".
-    // The experiment area is subject to zoom in/out, so include add all Nodes that need to be zoomed.
-    const experimentAreaNode = new Node( {
-      children: [ scenesLayer ]
-    } );
-
-    zoomScaleProperty.link( zoomScale => {
-      experimentAreaNode.setScaleMagnitude( zoomScale );
-      experimentAreaNode.translation = viewOrigin;
-    } );
-
-    // Changing any of these Properties causes the light rays to animate.
-    Property.multilink( [ model.raysTypeProperty, model.lightPropagationEnabledProperty ],
-      ( raysType: RaysType, lightPropagationEnabled: boolean ) => model.resetLightRays() );
-
-    // Changing these things interrupts interactions
-    const interrupt = () => this.interruptSubtreeInput();
-    zoomLevelProperty.lazyLink( interrupt );
-    model.opticalObjectChoiceProperty.lazyLink( interrupt );
-
-    // Debugging ================================================================================================
-
-    // Show the model bounds as a green rectangle.
-    if ( GOQueryParameters.debugModelBounds ) {
-      const dragBoundsNode = new Rectangle( modelViewTransform.modelToViewBounds( modelBoundsProperty.value ), {
-        stroke: 'red'
-      } );
-      experimentAreaNode.addChild( dragBoundsNode );
-      modelBoundsProperty.link( modelBounds => {
-        const viewBounds = modelViewTransform.modelToViewBounds( modelBounds );
-        dragBoundsNode.setRect( viewBounds.x, viewBounds.y, viewBounds.width, viewBounds.height );
-      } );
-    }
-
-    // Layout ================================================================================================
-
     const controlsLayer = new Node( {
       children: [
         opticShapeRadioButtonGroup,
@@ -354,13 +258,89 @@ class GOScreenView extends ScreenView {
       ]
     } );
 
-    const rulersLayer = new Node( {
-      children: [ horizontalRulerNode, verticalRulerNode ]
+    // Scenes ==========================================================================================================
+
+    const scenesTandem = options.tandem.createTandem( 'scenes' );
+
+    const scenesLayer = new Node();
+
+    const arrowObjectSceneNode = new ArrowObjectSceneNode( model.arrowObjectScene, visibleProperties, modelViewTransform,
+      modelVisibleBoundsProperty, modelBoundsProperty, model.raysTypeProperty, model.lightPropagationEnabledProperty, {
+        createOpticNode: options.createOpticNode,
+        dragLockedProperty: options.dragLockedProperty,
+        tandem: scenesTandem.createTandem( 'arrowObjectSceneNode' )
+      } );
+    scenesLayer.addChild( arrowObjectSceneNode );
+
+    const framedObjectSceneNode = new FramedObjectSceneNode( model.framedObjectScene, visibleProperties, modelViewTransform,
+      modelVisibleBoundsProperty, modelBoundsProperty, model.raysTypeProperty, model.lightPropagationEnabledProperty, {
+        createOpticNode: options.createOpticNode,
+        dragLockedProperty: options.dragLockedProperty,
+        tandem: scenesTandem.createTandem( 'framedObjectSceneNode' )
+      } );
+    scenesLayer.addChild( framedObjectSceneNode );
+
+    let lightObjectSceneNode: LightObjectSceneNode | null = null;
+    if ( model.lightObjectScene ) {
+      lightObjectSceneNode = new LightObjectSceneNode( model.lightObjectScene, visibleProperties,
+        modelViewTransform, modelVisibleBoundsProperty, modelBoundsProperty, model.raysTypeProperty,
+        model.lightPropagationEnabledProperty, {
+          createOpticNode: options.createOpticNode,
+          dragLockedProperty: options.dragLockedProperty,
+          tandem: scenesTandem.createTandem( 'lightObjectSceneNode' )
+        } );
+      scenesLayer.addChild( lightObjectSceneNode );
+    }
+
+    // Show the model bounds as a green rectangle.
+    if ( GOQueryParameters.debugModelBounds ) {
+      const dragBoundsNode = new Rectangle( modelViewTransform.modelToViewBounds( modelBoundsProperty.value ), {
+        stroke: 'red'
+      } );
+      scenesLayer.addChild( dragBoundsNode );
+      modelBoundsProperty.link( modelBounds => {
+        const viewBounds = modelViewTransform.modelToViewBounds( modelBounds );
+        dragBoundsNode.setRect( viewBounds.x, viewBounds.y, viewBounds.width, viewBounds.height );
+      } );
+    }
+
+    zoomScaleProperty.link( zoomScale => {
+      scenesLayer.setScaleMagnitude( zoomScale );
+      scenesLayer.translation = viewOrigin;
     } );
+
+    // Labels ==========================================================================================================
+
+    const labelsLayer = new Node();
+
+    const arrowObjectSceneLabelsNode = new ArrowObjectSceneLabelsNode( model.arrowObjectScene, visibleProperties,
+      zoomTransformProperty, modelVisibleBoundsProperty, model.lightPropagationEnabledProperty, {
+        visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty,
+          arrowObjectSceneNode.visibleProperty ] )
+      } );
+    labelsLayer.addChild( arrowObjectSceneLabelsNode );
+
+    const framedObjectSceneLabelsNode = new FramedObjectSceneLabelsNode( model.framedObjectScene, visibleProperties,
+      zoomTransformProperty, modelVisibleBoundsProperty, model.lightPropagationEnabledProperty, {
+        visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty,
+          framedObjectSceneNode.visibleProperty ] )
+      } );
+    labelsLayer.addChild( framedObjectSceneLabelsNode );
+
+    let lightObjectSceneLabelsNode: Node | null = null;
+    if ( model.lightObjectScene && lightObjectSceneNode ) {
+      lightObjectSceneLabelsNode = new LightObjectSceneLabelsNode( model.lightObjectScene, visibleProperties,
+        zoomTransformProperty, modelVisibleBoundsProperty, {
+          visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty, lightObjectSceneNode.visibleProperty ] )
+        } );
+      labelsLayer.addChild( lightObjectSceneLabelsNode );
+    }
+
+    // Layout ==========================================================================================================
 
     const screenViewRootNode = new Node( {
       children: [
-        experimentAreaNode,
+        scenesLayer,
         labelsLayer,
         controlsLayer,
         rulersLayer,
@@ -369,6 +349,9 @@ class GOScreenView extends ScreenView {
     } );
     this.addChild( screenViewRootNode );
 
+    // Listeners =======================================================================================================
+
+    //TODO duplication in here
     model.opticalObjectChoiceProperty.link( opticalObjectChoice => {
 
       arrowObjectSceneNode.visible = ( OpticalObjectChoice.isArrowObject( opticalObjectChoice ) );
@@ -386,11 +369,22 @@ class GOScreenView extends ScreenView {
       if ( lightObjectSceneNode ) {
         lightObjectSceneNode.visible = OpticalObjectChoice.isLight( opticalObjectChoice );
         if ( lightObjectSceneNode.visible ) {
-          this.horizontalRulerNode.setHotkeyTargets( lightObjectSceneNode.horizontalRulerHotkeyTargets );
-          this.verticalRulerNode.setHotkeyTargets( lightObjectSceneNode.verticalRulerHotkeyTargets );
+          horizontalRulerNode.setHotkeyTargets( lightObjectSceneNode.horizontalRulerHotkeyTargets );
+          verticalRulerNode.setHotkeyTargets( lightObjectSceneNode.verticalRulerHotkeyTargets );
         }
       }
     } );
+
+    // Changing any of these Properties causes the light rays to animate.
+    Property.multilink( [ model.raysTypeProperty, model.lightPropagationEnabledProperty ],
+      ( raysType: RaysType, lightPropagationEnabled: boolean ) => model.resetLightRays() );
+
+    // Changing these things interrupts interactions
+    const interrupt = () => this.interruptSubtreeInput();
+    zoomLevelProperty.lazyLink( interrupt );
+    model.opticalObjectChoiceProperty.lazyLink( interrupt );
+
+    //==================================================================================================================
 
     this.resetGOScreenView = (): void => {
       visibleProperties.reset();
@@ -414,20 +408,10 @@ class GOScreenView extends ScreenView {
       resetAllButton
     ];
 
-    this.model = model;
-    this.modelViewTransform = modelViewTransform;
-    this.visibleProperties = visibleProperties;
-    this.modelBoundsProperty = modelBoundsProperty;
-    this.modelVisibleBoundsProperty = modelVisibleBoundsProperty;
-    this.zoomTransformProperty = zoomTransformProperty;
     this.screenViewRootNode = screenViewRootNode;
-    this.experimentAreaNode = experimentAreaNode;
     this.controlsLayer = controlsLayer;
     this.opticalObjectChoiceComboBox = opticalObjectChoiceComboBox;
     this.opticShapeRadioButtonGroup = opticShapeRadioButtonGroup;
-    this.zoomButtonGroup = zoomButtonGroup;
-    this.horizontalRulerNode = horizontalRulerNode;
-    this.verticalRulerNode = verticalRulerNode;
   }
 
   public dispose(): void {
