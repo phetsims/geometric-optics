@@ -52,7 +52,7 @@ class GOModel {
   // whether light propagation is enabled
   readonly lightPropagationEnabledProperty: Property<boolean>;
 
-  // model of the optic
+  // model of the optic, shared with all scenes
   readonly optic: Optic;
 
   // scenes
