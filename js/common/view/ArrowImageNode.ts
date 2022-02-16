@@ -44,14 +44,7 @@ class ArrowImageNode extends Node {
                modelViewTransform: ModelViewTransform2,
                providedOptions: ArrowImageNodeOptions ) {
 
-    const arrowNode = new ArrowNode( 0, 0, 0, 1, merge( {}, GOConstants.ARROW_NODE_OPTIONS, {
-      fill: arrowImage.fill,
-      stroke: null
-    } ) );
-
     const options = merge( {
-      children: [ arrowNode ],
-
       visibleProperty: new DerivedProperty(
         [ virtualImageVisibleProperty, arrowImage.opticalImageTypeProperty, lightPropagationEnabledProperty, arrowImage.visibleProperty, objectVisibleProperty ],
         ( virtualImageVisible: boolean, opticalImageType: OpticalImageType, lightPropagationEnabled: boolean, framedImageVisible: boolean, objectVisible: boolean ) =>
@@ -62,6 +55,12 @@ class ArrowImageNode extends Node {
     }, providedOptions );
 
     super( options );
+
+    const arrowNode = new ArrowNode( 0, 0, 0, 1, merge( {}, GOConstants.ARROW_NODE_OPTIONS, {
+      fill: arrowImage.fill,
+      stroke: null
+    } ) );
+    this.addChild( arrowNode );
 
     // Don't scale the head and tail, just the magnitude.
     Property.multilink( [ arrowImage.positionProperty, arrowImage.magnificationProperty ],
