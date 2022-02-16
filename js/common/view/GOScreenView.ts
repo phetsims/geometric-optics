@@ -99,8 +99,7 @@ class GOScreenView extends ScreenView {
 
     // Create a y-inverted modelViewTransform with isometric scaling along x and y axes.
     // In the model coordinate frame, +x is right, +y is up.
-    // This transform is applied to scenesLayer.
-    //TODO rename scenesModelViewTransform?
+    // This transform is applied to things in the scenesLayer, and does NOT include zoom scaling.
     const modelViewTransform = ModelViewTransform2.createOffsetXYScaleMapping( Vector2.ZERO,
       NOMINAL_MODEL_TO_VIEW_SCALE, -NOMINAL_MODEL_TO_VIEW_SCALE );
 
