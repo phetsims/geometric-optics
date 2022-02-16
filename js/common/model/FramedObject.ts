@@ -35,7 +35,7 @@ class FramedObject extends OpticalObject {
   public static SCALE_FACTOR = 0.25;
 
   /**
-   * @param opticalObjectNumber
+   * @param opticalObjectNumber - positive integer used when labeling this object
    * @param opticPositionProperty
    * @param opticalObjectChoiceProperty
    * @param providedOptions

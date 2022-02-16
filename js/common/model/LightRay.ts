@@ -52,7 +52,7 @@ class LightRay {
    * @param opticalObjectPosition - where this LightRay originated
    * @param direction - initial direction of this LightRay
    * @param lightRaysTime - elapsed time of light rays animation
-   * @param optic - model of the optic
+   * @param optic
    * @param opticalImagePosition - point of focus of all rays based on thin lens law
    * @param isImageVirtual - is the optical image virtual?
    * @param raysType

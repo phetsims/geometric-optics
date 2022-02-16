@@ -32,7 +32,7 @@ type OpticalObjectOptions = {
 
 class OpticalObject extends PhetioObject {
 
-  // Number used when labeling this object
+  // Positive integer used when labeling this object
   public readonly opticalObjectNumber: number;
 
   public readonly positionProperty: Property<Vector2>;
@@ -46,7 +46,8 @@ class OpticalObject extends PhetioObject {
    * @param providedOptions
    */
   constructor( opticalObjectNumber: number, opticPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: OpticalObjectOptions ) {
-    assert && assert( Number.isInteger( opticalObjectNumber ), `opticalObjectNumber must be an integer: ${opticalObjectNumber}` );
+    assert && assert( Number.isInteger( opticalObjectNumber ) && opticalObjectNumber > 0,
+      `opticalObjectNumber must be a positive integer: ${opticalObjectNumber}` );
 
     const options = merge( {
       position: Vector2.ZERO,

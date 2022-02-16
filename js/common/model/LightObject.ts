@@ -36,7 +36,7 @@ class LightObject extends OpticalObject {
   public static SCALE_FACTOR = 0.5;
 
   /**
-   * @param opticalObjectNumber
+   * @param opticalObjectNumber - positive integer used when labeling this object
    * @param opticPositionProperty
    * @param providedOptions
    */

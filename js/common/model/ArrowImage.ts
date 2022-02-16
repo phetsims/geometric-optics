@@ -22,7 +22,7 @@ class ArrowImage extends OpticalImage {
   readonly opacityProperty: IReadOnlyProperty<number>;
 
   /**
-   * @param arrowObject
+   * @param arrowObject - the optical object that this image is associated with
    * @param optic
    * @param providedOptions
    */

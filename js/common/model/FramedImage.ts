@@ -33,7 +33,7 @@ class FramedImage extends OpticalImage {
   readonly boundsProperty: IReadOnlyProperty<Bounds2>;
 
   /**
-   * @param framedObject
+   * @param framedObject - the optical object that this image is associated with
    * @param optic
    * @param providedOptions
    */

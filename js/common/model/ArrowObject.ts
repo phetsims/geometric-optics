@@ -21,7 +21,7 @@ class ArrowObject extends OpticalObject {
   public readonly fill: ColorDef;
 
   /**
-   * @param opticalObjectNumber
+   * @param opticalObjectNumber - positive integer used when labeling this object
    * @param opticPositionProperty
    * @param providedOptions
    */
