@@ -36,7 +36,7 @@ abstract class GOScene extends PhetioObject {
    * @param optic
    * @param providedOptions
    */
-  constructor( optic: Optic, providedOptions: GOSceneOptions ) {
+  protected constructor( optic: Optic, providedOptions: GOSceneOptions ) {
 
     const options = merge( {
       phetioState: false

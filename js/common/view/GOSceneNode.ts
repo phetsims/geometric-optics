@@ -65,13 +65,13 @@ abstract class GOSceneNode extends Node {
    * @param raysTypeProperty
    * @param providedOptions
    */
-  constructor( scene: GOScene,
-               visibleProperties: VisibleProperties,
-               modelViewTransform: ModelViewTransform2,
-               modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-               sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
-               raysTypeProperty: IReadOnlyProperty<RaysType>,
-               providedOptions: GOSceneNodeOptions ) {
+  protected constructor( scene: GOScene,
+                         visibleProperties: VisibleProperties,
+                         modelViewTransform: ModelViewTransform2,
+                         modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+                         sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
+                         raysTypeProperty: IReadOnlyProperty<RaysType>,
+                         providedOptions: GOSceneNodeOptions ) {
 
     const options = merge( {
       visiblePropertyOptions: { phetioReadOnly: true }
