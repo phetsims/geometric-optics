@@ -42,8 +42,6 @@ type StringsType = {
   'arrow': string,
   'pencil': string,
   'penguin': string,
-  'planet': string,
-  'star': string,
   'light': string,
   'centimeters': string,
   'rays': string,

@@ -11,8 +11,6 @@ import EnumerationValue from '../../../../phet-core/js/EnumerationValue.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import pencilIcon_png from '../../../images/pencilIcon_png.js';
 import penguinIcon_png from '../../../images/penguinIcon_png.js';
-import planetIcon_png from '../../../images/planetIcon_png.js';
-import starIcon_png from '../../../images/starIcon_png.js';
 import lightIcon_png from '../../../images/lightIcon_png.js';
 import geometricOptics from '../../geometricOptics.js';
 import pencilRightFacingUpright_png from '../../../images/pencilRightFacingUpright_png.js';
@@ -23,14 +21,6 @@ import penguinRightFacingUpright_png from '../../../images/penguinRightFacingUpr
 import penguinRightFacingInverted_png from '../../../images/penguinRightFacingInverted_png.js';
 import penguinLeftFacingUpright_png from '../../../images/penguinLeftFacingUpright_png.js';
 import penguinLeftFacingInverted_png from '../../../images/penguinLeftFacingInverted_png.js';
-import planetRightFacingUpright_png from '../../../images/planetRightFacingUpright_png.js';
-import planetRightFacingInverted_png from '../../../images/planetRightFacingInverted_png.js';
-import planetLeftFacingUpright_png from '../../../images/planetLeftFacingUpright_png.js';
-import planetLeftFacingInverted_png from '../../../images/planetLeftFacingInverted_png.js';
-import starRightFacingUpright_png from '../../../images/starRightFacingUpright_png.js';
-import starRightFacingInverted_png from '../../../images/starRightFacingInverted_png.js';
-import starLeftFacingUpright_png from '../../../images/starLeftFacingUpright_png.js';
-import starLeftFacingInverted_png from '../../../images/starLeftFacingInverted_png.js';
 import GOConstants from '../GOConstants.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import { Node } from '../../../../scenery/js/imports.js';
@@ -69,28 +59,12 @@ class OpticalObjectChoice extends EnumerationValue {
     leftFacingInverted: penguinLeftFacingInverted_png
   } );
 
-  static PLANET = new OpticalObjectChoice( geometricOpticsStrings.planet, planetIcon_png, 'planet', {
-    rightFacingUpright: planetRightFacingUpright_png,
-    rightFacingInverted: planetRightFacingInverted_png,
-    leftFacingUpright: planetLeftFacingUpright_png,
-    leftFacingInverted: planetLeftFacingInverted_png
-  } );
-
-  static STAR = new OpticalObjectChoice( geometricOpticsStrings.star, starIcon_png, 'star', {
-    rightFacingUpright: starRightFacingUpright_png,
-    rightFacingInverted: starRightFacingInverted_png,
-    leftFacingUpright: starLeftFacingUpright_png,
-    leftFacingInverted: starLeftFacingInverted_png
-  } );
-
   static LIGHT = new OpticalObjectChoice( geometricOpticsStrings.light, lightIcon_png, 'light' );
 
   // These values correspond to framed objects.
   private static FRAMED_OBJECT_CHOICES = [
     OpticalObjectChoice.PENCIL,
-    OpticalObjectChoice.PENGUIN,
-    OpticalObjectChoice.PLANET,
-    OpticalObjectChoice.STAR
+    OpticalObjectChoice.PENGUIN
   ];
 
   // Gets a list of keys, values and mapping between them. For use by EnumerationProperty and PhET-iO.

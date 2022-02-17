@@ -29,11 +29,9 @@ class MirrorModel extends GOModel {
 
       // optical object choices, in the order that they will appear in OpticalObjectChoiceComboBox
       opticalObjectChoices: [
-        OpticalObjectChoice.ARROW,
         OpticalObjectChoice.PENCIL,
         OpticalObjectChoice.PENGUIN,
-        OpticalObjectChoice.PLANET,
-        OpticalObjectChoice.STAR
+        OpticalObjectChoice.ARROW
       ],
 
       arrowObject1Position: new Vector2( -200, 60 ),
