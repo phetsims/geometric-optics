@@ -7,7 +7,7 @@
  */
 
 import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/BasicActionsKeyboardHelpSection.js';
-import MenuKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/MenuKeyboardHelpSection.js';
+import ComboBoxKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/ComboBoxKeyboardHelpSection.js';
 import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import SliderControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SliderControlsKeyboardHelpSection.js';
@@ -23,7 +23,7 @@ class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
     const leftColumn = [
       new MoveKeyboardHelpSection(),
       new RulersKeyboardHelpSection( isLens ),
-      new MenuKeyboardHelpSection( {
+      new ComboBoxKeyboardHelpSection( {
         headingString: geometricOpticsStrings.keyboardHelpDialog.chooseAnObject,
         thingAsLowerCaseSingular: geometricOpticsStrings.keyboardHelpDialog.object,
         thingAsLowerCasePlural: geometricOpticsStrings.keyboardHelpDialog.objects
