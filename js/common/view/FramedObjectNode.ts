@@ -105,13 +105,15 @@ class FramedObjectNode extends Node {
     } );
 
     // Drag bounds, in model coordinates. Keep the full object within the model bounds and to the left of the optic.
+    // Use Math.floor herein to avoid floating-point rounding errors that result in unwanted changes and additional
+    // reentrant Properties, see https://github.com/phetsims/geometric-optics/issues/317.
     const dragBoundsProperty = new DerivedProperty(
       [ framedObject.boundsProperty, sceneBoundsProperty, dragLockedProperty ],
       ( framedObjectBounds: Bounds2, sceneBounds: Bounds2, dragLocked: boolean ) => {
 
         const framedObjectPosition = framedObject.positionProperty.value;
-        const minX = sceneBounds.minX + ( framedObjectPosition.x - framedObjectBounds.minX );
-        const maxX = opticPositionProperty.value.x - GOConstants.MIN_DISTANCE_FROM_OBJECT_TO_OPTIC;
+        const minX = Math.floor( sceneBounds.minX + ( framedObjectPosition.x - framedObjectBounds.minX ) );
+        const maxX = Math.floor( opticPositionProperty.value.x - GOConstants.MIN_DISTANCE_FROM_OBJECT_TO_OPTIC );
         let minY: number;
         let maxY: number;
 
@@ -124,8 +126,8 @@ class FramedObjectNode extends Node {
         else {
 
           // Dragging is 2D.
-          minY = sceneBounds.minY + ( framedObjectPosition.y - framedObjectBounds.minY );
-          maxY = sceneBounds.maxY - ( framedObjectBounds.maxY - framedObjectPosition.y );
+          minY = Math.floor( sceneBounds.minY + ( framedObjectPosition.y - framedObjectBounds.minY ) );
+          maxY = Math.floor( sceneBounds.maxY - ( framedObjectBounds.maxY - framedObjectPosition.y ) );
         }
         return new Bounds2( minX, minY, maxX, maxY );
       }, {
