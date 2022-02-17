@@ -46,19 +46,28 @@ const GOConstants = {
   RULER_HEIGHT: 40, // in view coordinates
   RULER_MINIMUM_VISIBLE_LENGTH: 40, // portion of the ruler always within visible bounds, in view coordinates
 
-  // Decimal places and intervals for controls -------------------------------------------------------------------------
+  // Decimal places and steps for controls -------------------------------------------------------------------------
 
   RADIUS_OF_CURVATURE_DECIMAL_PLACES: 0,
-  RADIUS_OF_CURVATURE_SLIDER_INTERVAL: 5, // cm
-  RADIUS_OF_CURVATURE_SPINNER_INTERVAL: 1, // cm
+  RADIUS_OF_CURVATURE_SPINNER_STEP: 1, // cm
+  RADIUS_OF_CURVATURE_SLIDER_STEP: 5, // cm
+  RADIUS_OF_CURVATURE_KEYBOARD_STEP: 5, // cm
+  RADIUS_OF_CURVATURE_SHIFT_KEYBOARD_STEP: 1, // cm
+  RADIUS_OF_CURVATURE_PAGE_KEYBOARD_STEP: 10, // cm
 
   INDEX_OF_REFRACTION_DECIMAL_PLACES: 2,
-  INDEX_OF_REFRACTION_SLIDER_INTERVAL: 0.05,
-  INDEX_OF_REFRACTION_SPINNER_INTERVAL: 0.01,
+  INDEX_OF_REFRACTION_SPINNER_STEP: 0.01,
+  INDEX_OF_REFRACTION_SLIDER_STEP: 0.05,
+  INDEX_OF_REFRACTION_KEYBOARD_STEP: 0.05,
+  INDEX_OF_REFRACTION_SHIFT_KEYBOARD_STEP: 0.01,
+  INDEX_OF_REFRACTION_PAGE_KEYBOARD_STEP: 0.1,
 
   DIAMETER_DECIMAL_PLACES: 0,
-  DIAMETER_SLIDER_INTERVAL: 5, // cm
-  DIAMETER_SPINNER_INTERVAL: 1, // cm
+  DIAMETER_SPINNER_STEP: 1, // cm
+  DIAMETER_SLIDER_STEP: 5, // cm
+  DIAMETER_KEYBOARD_STEP: 5, // cm
+  DIAMETER_SHIFT_KEYBOARD_STEP: 1, // cm
+  DIAMETER_PAGE_KEYBOARD_STEP: 10, // cm
 
   // Fonts -------------------------------------------------------------------------------------------------------------
 

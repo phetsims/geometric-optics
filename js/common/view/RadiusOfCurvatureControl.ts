@@ -33,10 +33,12 @@ class RadiusOfCurvatureControl extends NumberControl {
 
     super( geometricOpticsStrings.radiusOfCurvature, radiusOfCurvatureProperty, radiusOfCurvatureRange,
       merge( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
-        delta: GOConstants.RADIUS_OF_CURVATURE_SPINNER_INTERVAL,
+        delta: GOConstants.RADIUS_OF_CURVATURE_SPINNER_STEP,
         sliderOptions: {
-          constrainValue: ( value: number ) =>
-            Utils.roundToInterval( value, GOConstants.RADIUS_OF_CURVATURE_SLIDER_INTERVAL )
+          constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.RADIUS_OF_CURVATURE_SLIDER_STEP ),
+          keyboardStep: GOConstants.RADIUS_OF_CURVATURE_KEYBOARD_STEP, // used by all alternative-input devices
+          shiftKeyboardStep: GOConstants.RADIUS_OF_CURVATURE_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
+          pageKeyboardStep: GOConstants.RADIUS_OF_CURVATURE_PAGE_KEYBOARD_STEP // coarser grain, used by keyboard only
         },
         numberDisplayOptions: {
           decimalPlaces: GOConstants.RADIUS_OF_CURVATURE_DECIMAL_PLACES,
