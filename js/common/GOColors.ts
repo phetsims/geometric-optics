@@ -169,6 +169,10 @@ const GOColors = {
   // Fill for radio buttons that determines the shape of the lens/mirror
   curveRadioButtonFillProperty: new ProfileColorProperty( geometricOptics, 'curveRadioButtonFill', {
     default: 'rgba( 0, 0, 0, 0 )'
+  } ),
+
+  lightPropagationToggleButtonFillProperty: new ProfileColorProperty( geometricOptics, 'lightPropagationToggleButtonFill', {
+    default: 'rgb( 240, 234, 227 )'
   } )
 };
 

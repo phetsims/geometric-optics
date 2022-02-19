@@ -9,17 +9,14 @@
 
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
-import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import SceneryPhetConstants from '../../../../scenery-phet/js/SceneryPhetConstants.js';
-import { Path } from '../../../../scenery/js/imports.js';
-import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
-import eyeSolidString from '../../../../sherpa/js/fontawesome-5/eyeSolidString.js';
+import { Image } from '../../../../scenery/js/imports.js';
 import BooleanRoundToggleButton from '../../../../sun/js/buttons/BooleanRoundToggleButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import lightPropagationOffIcon_png from '../../../images/lightPropagationOffIcon_png.js';
+import lightPropagationOnIcon_png from '../../../images/lightPropagationOnIcon_png.js';
 import geometricOptics from '../../geometricOptics.js';
-
-const TRUE_COLOR = 'rgb( 240, 234, 227 )';
-const FALSE_COLOR = PhetColorScheme.BUTTON_YELLOW;
+import GOColors from '../GOColors.js';
 
 type LightPropagationToggleButtonOptions = {
   tandem: Tandem
@@ -34,19 +31,15 @@ class LightPropagationToggleButton extends BooleanRoundToggleButton {
   constructor( booleanProperty: Property<boolean>, providedOptions: LightPropagationToggleButtonOptions ) {
 
     // create nodes for open and closed eye icons
-    const pathOptions = { fill: 'black' };
-    const showNode = new Path( eyeSolidString, pathOptions );
-    const hideNode = new Path( eyeSlashSolidShape, pathOptions );
+    const onNode = new Image( lightPropagationOnIcon_png );
+    const offNode = new Image( lightPropagationOffIcon_png );
 
-    super( showNode, hideNode, booleanProperty, merge( {
-      xMargin: 9,
-      yMargin: 9,
-      radius: SceneryPhetConstants.DEFAULT_BUTTON_RADIUS // so that this button will be the same size as ResetAllButton
+    super( onNode, offNode, booleanProperty, merge( {
+      radius: SceneryPhetConstants.DEFAULT_BUTTON_RADIUS, // so that this button will be the same size as ResetAllButton
+      xMargin: 4,
+      yMargin: 4,
+      baseColor: GOColors.lightPropagationToggleButtonFillProperty
     }, providedOptions ) );
-
-    booleanProperty.link( value => {
-      this.setBaseColor( value ? TRUE_COLOR : FALSE_COLOR );
-    } );
   }
 
   public dispose(): void {

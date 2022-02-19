@@ -118,5 +118,21 @@
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Megan Lai, edited by Amy Rouinfar"
+  },
+  "lightPropagationOnIcon.png": {
+    "text": [
+      "Copyright 2022 University of Colorado Boulder"
+    ],
+    "projectURL": "https://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Amy Rouinfar"
+  },
+  "lightPropagationOffIcon.png": {
+    "text": [
+      "Copyright 2022 University of Colorado Boulder"
+    ],
+    "projectURL": "https://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Amy Rouinfar"
   }
 }
