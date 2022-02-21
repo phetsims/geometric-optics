@@ -17,7 +17,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import geometricOptics from '../../geometricOptics.js';
 import OpticShapes from './OpticShapes.js';
-import { OpticShape, OpticShapeValues } from './OpticShape.js';
+import { OpticShape } from './OpticShape.js';
 import Property from '../../../../axon/js/Property.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
@@ -120,7 +120,6 @@ abstract class Optic extends PhetioObject {
 
     const options = merge( {
       position: Vector2.ZERO,
-      opticShapes: OpticShapeValues,
       phetioState: false
     }, providedOptions );
 
