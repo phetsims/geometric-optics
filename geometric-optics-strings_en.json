@@ -47,6 +47,9 @@
   "indexOfRefraction": {
     "value": "Index of Refraction"
   },
+  "focalLength": {
+    "value": "Focal Length"
+  },
   "diameter": {
     "value": "Diameter"
   },

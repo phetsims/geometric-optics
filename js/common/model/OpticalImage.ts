@@ -77,14 +77,14 @@ class OpticalImage extends PhetioObject {
     this.optic = optic;
 
     this.opticImageDistanceProperty = new DerivedProperty(
-      [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
-      ( opticalObjectPosition: Vector2, opticPosition: Vector2, focalLength: number ) => {
+      [ opticalObjectPositionProperty, optic.positionProperty, optic.signedFocalLengthProperty ],
+      ( opticalObjectPosition: Vector2, opticPosition: Vector2, signedFocalLength: number ) => {
 
         // {number} horizontal distance between optic and optical object
         const opticObjectDistance = OpticalImage.getObjectOpticDistance( opticalObjectPosition, opticPosition );
 
         // address the case where the optical object shares the same x position as the focal point
-        if ( opticObjectDistance === focalLength ) {
+        if ( opticObjectDistance === signedFocalLength ) {
 
           // Set the distance to be very large (and arbitrarily positive).
           // This should technically be Infinity, but practically must be a (very large) finite value.
@@ -95,15 +95,15 @@ class OpticalImage extends PhetioObject {
           // Calculated based on the thin lens law/ mirror equation
           // For a lens, a positive distance, indicates that the Image is on the opposite of object (wrt to the lens)
           // For a mirror, a positive distance indicates that the Image is on the same side as the object.
-          return ( focalLength * opticObjectDistance ) / ( opticObjectDistance - focalLength );
+          return ( signedFocalLength * opticObjectDistance ) / ( opticObjectDistance - signedFocalLength );
         }
       } );
 
     this.positionProperty = new DerivedProperty(
-      [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
-      //TODO focalLength is not used, is focalLengthProperty dependency needed?
+      [ opticalObjectPositionProperty, optic.positionProperty, optic.signedFocalLengthProperty ],
+      //TODO signedFocalLength is not used, is signedFocalLengthProperty dependency needed?
       //TODO Calls this.getMagnification, should there be a dependency here on magnificationProperty instead?
-      ( opticalObjectPosition: Vector2, opticPosition: Vector2, focalLength: number ) => {
+      ( opticalObjectPosition: Vector2, opticPosition: Vector2, signedFocalLength: number ) => {
 
         // The height is determined as the vertical offset from the optical axis of the focus point.
         // The height can be negative if the Image is inverted.
@@ -122,7 +122,7 @@ class OpticalImage extends PhetioObject {
 
     //TODO REVIEW: DerivedProperty that depends on an unlisted Property?
     this.opticalImageTypeProperty = new DerivedProperty(
-      [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
+      [ opticalObjectPositionProperty, optic.positionProperty, optic.signedFocalLengthProperty ],
       ( ...args: any[] ) => ( this.opticImageDistanceProperty.value < 0 ) ? 'virtual' : 'real', {
         tandem: options.tandem.createTandem( 'opticalImageTypeProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( StringIO ),
@@ -130,16 +130,16 @@ class OpticalImage extends PhetioObject {
       } );
 
     this.magnificationProperty = new DerivedProperty(
-      [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
-      //TODO focalLength is not used, is focalLengthProperty dependency needed?
-      ( framedObjectPosition: Vector2, opticPosition: Vector2, focalLength: number ) =>
+      [ opticalObjectPositionProperty, optic.positionProperty, optic.signedFocalLengthProperty ],
+      //TODO signedFocalLength is not used, is signedFocalLengthProperty dependency needed?
+      ( framedObjectPosition: Vector2, opticPosition: Vector2, signedFocalLength: number ) =>
         this.getMagnification( framedObjectPosition, opticPosition )
     );
 
     //TODO REVIEW: DerivedProperty that depends on an unlisted Property?
     //TODO shouldn't this just depend on the sign of this.magnificationProperty?
     this.isInvertedProperty = new DerivedProperty(
-      [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
+      [ opticalObjectPositionProperty, optic.positionProperty, optic.signedFocalLengthProperty ],
       ( ...args: any[] ) => ( this.opticImageDistanceProperty.value > 0 )
     );
 

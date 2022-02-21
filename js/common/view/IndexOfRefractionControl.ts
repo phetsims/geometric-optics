@@ -15,8 +15,10 @@ import GOConstants from '../GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import IProperty from '../../../../axon/js/IProperty.js';
 
 type IndexOfRefractionControlOptions = {
+  visibleProperty: IProperty<boolean>,
   tandem: Tandem
 };
 

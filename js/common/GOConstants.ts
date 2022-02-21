@@ -48,6 +48,13 @@ const GOConstants = {
 
   // Decimal places and steps for controls -------------------------------------------------------------------------
 
+  FOCAL_LENGTH_DECIMAL_PLACES: 0,
+  FOCAL_LENGTH_SPINNER_STEP: 1, // cm
+  FOCAL_LENGTH_SLIDER_STEP: 5, // cm
+  FOCAL_LENGTH_KEYBOARD_STEP: 5, // cm
+  FOCAL_LENGTH_SHIFT_KEYBOARD_STEP: 1, // cm
+  FOCAL_LENGTH_PAGE_KEYBOARD_STEP: 10, // cm
+
   RADIUS_OF_CURVATURE_DECIMAL_PLACES: 0,
   RADIUS_OF_CURVATURE_SPINNER_STEP: 1, // cm
   RADIUS_OF_CURVATURE_SLIDER_STEP: 5, // cm

@@ -18,6 +18,7 @@ import LensShapes from './LensShapes.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import GOConstants from '../../common/GOConstants.js';
+import Utils from '../../../../dot/js/Utils.js';
 
 type LensOptions = {
   tandem: Tandem
@@ -28,6 +29,9 @@ class Lens extends Optic {
   // See Optic
   readonly shapesProperty: IReadOnlyProperty<LensShapes>;
 
+  // opacity of the lens
+  readonly opacityProperty: IReadOnlyProperty<number>;
+
   /**
    * @param providedOptions
    */
@@ -36,15 +40,23 @@ class Lens extends Optic {
     const options = merge( {
       opticShape: 'convex',
       opticShapes: [ 'convex', 'concave' ],
-      radiusOfCurvatureRange: new RangeWithValue( 30, 130, 80 ), // in cm
-      indexOfRefractionRange: new RangeWithValue( 1.2, 1.9, 1.5 ), // unitless
       diameterRange: GOConstants.DIAMETER_RANGE, // in cm
       sign: 1,
-      isConverging: ( opticShape: OpticShape ) => ( opticShape === 'convex' ),
-
-      // phet-io options
-      tandem: Tandem.REQUIRED
+      directFocalLengthModelOptions: {
+        focalLengthRange: new RangeWithValue( 30, 130, 80 ), // in cm
+        indexOfRefraction: 1.5, // fixed and unitless
+        tandem: providedOptions.tandem.createTandem( 'directFocalLengthModel' )
+      },
+      indirectFocalLengthModelOptions: {
+        radiusOfCurvatureRange: new RangeWithValue( 30, 130, 80 ), // in cm
+        indexOfRefractionRange: new RangeWithValue( 1.2, 1.9, 1.5 ), // unitless
+        tandem: providedOptions.tandem.createTandem( 'indirectFocalLengthModel' )
+      }
     }, providedOptions ) as OpticOptions; //TODO don't use 'as'
+
+    assert && assert( options.indirectFocalLengthModelOptions.indexOfRefractionRange.contains(
+      options.directFocalLengthModelOptions.indexOfRefraction
+    ) );
 
     super( options );
 
@@ -53,6 +65,18 @@ class Lens extends Optic {
       ( opticShape: OpticShape, radiusOfCurvature: number, diameter: number ) =>
         new LensShapes( opticShape, radiusOfCurvature, diameter )
     );
+
+    // Index of refraction determines the lens opacity.
+    // The lens is never fully transparent, because its index of refraction is not equivalent to air.
+    // See https://github.com/phetsims/geometric-optics/issues/242
+    this.opacityProperty = new DerivedProperty( [ this.indexOfRefractionProperty ],
+      ( indexOfRefraction: number ) => {
+
+        // Use the indirect model's IOR range in all cases, because the direct model's IOR is fixed.
+        assert && assert( this.indirectFocalLengthModel.indexOfRefractionProperty.range ); // {Range|null}
+        const range = this.indirectFocalLengthModel.indexOfRefractionProperty.range!;
+        return Utils.linear( range.min, range.max, 0.2, 1, indexOfRefraction );
+      } );
   }
 
   /**
@@ -107,6 +131,14 @@ class Lens extends Optic {
     }
 
     return extremumPoint;
+  }
+
+  /**
+   * A lens is converging if it is convex.
+   * @param opticShape
+   */
+  protected isConverging( opticShape: OpticShape ): boolean {
+    return ( opticShape === 'convex' );
   }
 }
 

@@ -19,6 +19,10 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import GOConstants from '../../common/GOConstants.js';
 
+// Although a mirror does not have an index of refraction, its focal length is equivalent to a lens
+// with an index of refraction of 2.
+const INDEX_OF_REFRACTION = 2;
+
 type MirrorOptions = {
   tandem: Tandem
 };
@@ -33,15 +37,18 @@ class Mirror extends Optic {
     const options = merge( {
       opticShape: 'concave',
       opticShapes: [ 'concave', 'convex' ], //TODO https://github.com/phetsims/geometric-optics/issues/227 add 'flat'
-      radiusOfCurvatureRange: new RangeWithValue( 150, 300, 200 ), // in cm
-
-      // Although a mirror does not have an index of refraction, its focal length is equivalent to a lens
-      // with an index of refraction of 2.
-      indexOfRefractionRange: new RangeWithValue( 2, 2, 2 ), // unitless
       diameterRange: GOConstants.DIAMETER_RANGE, // in cm
       sign: -1,
-      isConverging: ( opticShape: OpticShape ) => ( opticShape === 'concave' )
-
+      directFocalLengthModelOptions: {
+        focalLengthRange: new RangeWithValue( 75, 125, 100 ), // in cm
+        indexOfRefraction: INDEX_OF_REFRACTION, // fixed and unitless
+        tandem: providedOptions.tandem.createTandem( 'directFocalLengthModel' )
+      },
+      indirectFocalLengthModelOptions: {
+        radiusOfCurvatureRange: new RangeWithValue( 150, 300, 200 ), // in cm
+        indexOfRefractionRange: new RangeWithValue( INDEX_OF_REFRACTION, INDEX_OF_REFRACTION, INDEX_OF_REFRACTION ), // unitless
+        tandem: providedOptions.tandem.createTandem( 'indirectFocalLengthModel' )
+      }
     }, providedOptions ) as OpticOptions; //TODO don't use 'as'
 
     super( options );
@@ -51,6 +58,14 @@ class Mirror extends Optic {
       ( opticShape: OpticShape, radiusOfCurvature: number, diameter: number ) =>
         new MirrorShapes( opticShape, radiusOfCurvature, diameter )
     );
+  }
+
+  /**
+   * A mirror is converging if it is concave.
+   * @param opticShape
+   */
+  protected isConverging( opticShape: OpticShape ): boolean {
+    return ( opticShape === 'concave' );
   }
 
   //TODO a few lines here are copied from Lens getExtremumPoint

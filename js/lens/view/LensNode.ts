@@ -7,9 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Range from '../../../../dot/js/Range.js';
-import Utils from '../../../../dot/js/Utils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Line, Node, Path } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -93,16 +90,7 @@ class LensNode extends Node {
       verticalCenterLine.setLine( 0, -radiusView, 0, radiusView );
     } );
 
-    // Index of refraction determines the opacity used for the lens fill.
-    // The lens is never fully transparent, because its index of refraction is not equivalent to air.
-    // See https://github.com/phetsims/geometric-optics/issues/242
-    const opacityProperty = new DerivedProperty( [ lens.indexOfRefractionProperty ],
-      ( indexOfRefraction: number ) => {
-        assert && assert( lens.indexOfRefractionProperty.range ); // {Range|null}
-        const range: Range = lens.indexOfRefractionProperty.range!;
-        return Utils.linear( range.min, range.max, 0.2, 1, indexOfRefraction );
-      } );
-    opacityProperty.linkAttribute( fillNode, 'opacity' );
+    lens.opacityProperty.linkAttribute( fillNode, 'opacity' );
 
     this.addLinkedElement( lens, {
       tandem: options.tandem.createTandem( 'lens' )

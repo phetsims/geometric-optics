@@ -28,6 +28,7 @@ type StringsType = {
   'labels': string,
   'radiusOfCurvature': string,
   'indexOfRefraction': string,
+  'focalLength': string,
   'diameter': string,
   'guides': string,
   'realImageN': string,

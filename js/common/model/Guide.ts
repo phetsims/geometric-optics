@@ -72,8 +72,8 @@ class Guide extends PhetioObject {
       } );
 
     this.transmittedAngleProperty = new DerivedProperty(
-      [ optic.focalLengthProperty, optic.diameterProperty, this.incidentAngleProperty ],
-      ( focalLength: number, diameter: number, incidentAngle: number ) => {
+      [ optic.signedFocalLengthProperty, optic.diameterProperty, this.incidentAngleProperty ],
+      ( signedFocalLength: number, diameter: number, incidentAngle: number ) => {
 
         // transmitted angle if the optic was a blank.
         const throughAngle = incidentAngle + Math.PI;
@@ -81,8 +81,8 @@ class Guide extends PhetioObject {
         // ground truth for the deflection angle is determined such that the transmitted guide is perfectly aligned
         // with rays when the object is at a distance 2f on the optical axis.
 
-        // ratio of opposite side (diameter/2) over adjacent side (2*focalLength)
-        const toa = diameter / ( 4 * focalLength );
+        // ratio of opposite side (diameter/2) over adjacent side (2*signedFocalLength)
+        const toa = diameter / ( 4 * signedFocalLength );
 
         // deflected angle is measured from the "through angle", i.e. angle of an imaginary undeflected transmitted ray
         const deflectedAngle = ( optic.opticShapeProperty.value === 'convex' ) ?

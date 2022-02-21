@@ -27,6 +27,10 @@ import RadiusOfCurvatureControl from './RadiusOfCurvatureControl.js';
 import IndexOfRefractionControl from './IndexOfRefractionControl.js';
 import Lens from '../../lens/model/Lens.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import FocalLengthControl from './FocalLengthControl.js';
+import GOGlobalOptions from '../GOGlobalOptions.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import { FocalLengthControlType } from '../model/FocalLengthControlType.js';
 
 type GOControlPanelOptions = {
   tandem: Tandem
@@ -77,14 +81,28 @@ class GOControlPanel extends Panel {
 
     const opticSubpanelChildren = [];
 
+    // Focal Length
+    opticSubpanelChildren.push( new FocalLengthControl( optic.directFocalLengthModel.focalLengthProperty, {
+      visibleProperty: new DerivedProperty( [ GOGlobalOptions.focalLengthControlTypeProperty ],
+        ( focalLengthControlType: FocalLengthControlType ) => ( focalLengthControlType === 'direct' )
+      ),
+      tandem: opticSubpanelTandem.createTandem( 'focalLengthControl' )
+    } ) );
+
     // Radius of Curvature
-    opticSubpanelChildren.push( new RadiusOfCurvatureControl( optic.radiusOfCurvatureProperty, {
+    opticSubpanelChildren.push( new RadiusOfCurvatureControl( optic.indirectFocalLengthModel.radiusOfCurvatureProperty, {
+      visibleProperty: new DerivedProperty( [ GOGlobalOptions.focalLengthControlTypeProperty ],
+        ( focalLengthControlType: FocalLengthControlType ) => ( focalLengthControlType === 'indirect' )
+      ),
       tandem: opticSubpanelTandem.createTandem( 'radiusOfCurvatureControl' )
     } ) );
 
     // Index of Refraction (for lens only)
     if ( optic instanceof Lens ) {
-      opticSubpanelChildren.push( new IndexOfRefractionControl( optic.indexOfRefractionProperty, {
+      opticSubpanelChildren.push( new IndexOfRefractionControl( optic.indirectFocalLengthModel.indexOfRefractionProperty, {
+        visibleProperty: new DerivedProperty( [ GOGlobalOptions.focalLengthControlTypeProperty ],
+          ( focalLengthControlType: FocalLengthControlType ) => ( focalLengthControlType === 'indirect' )
+        ),
         tandem: opticSubpanelTandem.createTandem( 'indexOfRefractionControl' )
       } ) );
     }
