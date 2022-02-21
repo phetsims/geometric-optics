@@ -213,6 +213,10 @@ class GOScreenView extends ScreenView {
     const zoomButtonGroup = new MagnifyingGlassZoomButtonGroup( zoomLevelProperty, {
       orientation: 'horizontal',
       spacing: 8,
+      touchAreaXDilation: 6,
+      touchAreaYDilation: 6,
+      mouseAreaXDilation: 2,
+      mouseAreaYDilation: 2,
       magnifyingGlassNodeOptions: {
         scale: 0.5
       },
