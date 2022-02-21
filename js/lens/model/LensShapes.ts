@@ -45,6 +45,7 @@ class LensShapes implements OpticShapes {
    * @param providedOptions
    */
   constructor( opticShape: OpticShape, radiusOfCurvature: number, diameter: number, providedOptions?: LensShapesOptions ) {
+    assert && assert( opticShape !== 'flat', 'flat lens is not supported' );
 
     const options = merge( {
       isHollywooded: true, // true: approximation, false: accurate, matches ROC

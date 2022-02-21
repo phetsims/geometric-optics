@@ -107,6 +107,7 @@ class LensNode extends Node {
    * @param opticShape
    */
   public static createIconNode( opticShape: OpticShape ): Node {
+    assert && assert( opticShape !== 'flat', 'flat lens is not supported' );
 
     const lensShapes = new LensShapes( opticShape, ICON_RADIUS_OF_CURVATURE, ICON_DIAMETER, {
       isHollywooded: false
