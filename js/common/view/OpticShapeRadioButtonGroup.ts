@@ -54,7 +54,9 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShape>
       deselectedLineWidth: 2,
       selectedLineWidth: 2,
       buttonContentXMargin: 14,
-      buttonContentYMargin: 5
+      buttonContentYMargin: 5,
+      touchAreaXDilation: 4,
+      touchAreaYDilation: 5
     }, providedOptions ) );
   }
 }

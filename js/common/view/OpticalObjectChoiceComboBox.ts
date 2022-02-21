@@ -68,7 +68,9 @@ class OpticalObjectChoiceComboBox extends ComboBox {
       highlightFill: 'rgb( 168, 192, 245 )',
       listPosition: 'below',
       xMargin: 10,
-      yMargin: 5
+      yMargin: 5,
+      buttonTouchAreaXDilation: 5,
+      buttonTouchAreaYDilation: 5
     }, providedOptions ) );
   }
 }
