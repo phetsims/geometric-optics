@@ -30,8 +30,8 @@ class FocalLengthControlRadioButtonGroup extends VerticalAquaRadioButtonGroup<Fo
   constructor( providedOptions: FocalLengthControlRadioButtonGroupOptions ) {
 
     const items = [
-      createItem( 'indirect', geometricOpticsStrings.indirect ),
-      createItem( 'direct', geometricOpticsStrings.direct )
+      createItem( 'direct', geometricOpticsStrings.direct ),
+      createItem( 'indirect', geometricOpticsStrings.indirect )
     ];
 
     super( GOGlobalOptions.focalLengthControlTypeProperty, items, merge( {
