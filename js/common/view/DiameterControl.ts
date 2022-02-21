@@ -27,22 +27,27 @@ class DiameterControl extends NumberControl {
    */
   constructor( diameterProperty: NumberProperty, providedOptions: DiameterControlOptions ) {
 
+    const options = merge( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
+      delta: GOConstants.DIAMETER_SPINNER_STEP,
+      sliderOptions: {
+        constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.DIAMETER_SLIDER_STEP ),
+        keyboardStep: GOConstants.DIAMETER_KEYBOARD_STEP, // used by all alternative-input devices
+        shiftKeyboardStep: GOConstants.DIAMETER_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
+        pageKeyboardStep: GOConstants.DIAMETER_PAGE_KEYBOARD_STEP // coarser grain, used by keyboard only
+      },
+      numberDisplayOptions: {
+        decimalPlaces: GOConstants.DIAMETER_DECIMAL_PLACES,
+        valuePattern: geometricOpticsStrings.valueCentimetersPattern
+      }
+    }, providedOptions );
+
     assert && assert( diameterProperty.range ); // {Range|null}
 
-    super( geometricOpticsStrings.diameter, diameterProperty, diameterProperty.range!,
-      merge( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
-        delta: GOConstants.DIAMETER_SPINNER_STEP,
-        sliderOptions: {
-          constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.DIAMETER_SLIDER_STEP ),
-          keyboardStep: GOConstants.DIAMETER_KEYBOARD_STEP, // used by all alternative-input devices
-          shiftKeyboardStep: GOConstants.DIAMETER_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
-          pageKeyboardStep: GOConstants.DIAMETER_PAGE_KEYBOARD_STEP // coarser grain, used by keyboard only
-        },
-        numberDisplayOptions: {
-          decimalPlaces: GOConstants.DIAMETER_DECIMAL_PLACES,
-          valuePattern: geometricOpticsStrings.valueCentimetersPattern
-        }
-      }, providedOptions ) );
+    super( geometricOpticsStrings.diameter, diameterProperty, diameterProperty.range!, options );
+
+    this.addLinkedElement( diameterProperty, {
+      tandem: options.tandem.createTandem( 'diameterProperty' )
+    } );
   }
 }
 

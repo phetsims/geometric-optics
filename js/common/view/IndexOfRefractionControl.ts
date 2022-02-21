@@ -30,23 +30,28 @@ class IndexOfRefractionControl extends NumberControl {
    */
   constructor( indexOfRefractionProperty: NumberProperty, providedOptions: IndexOfRefractionControlOptions ) {
 
+    const options = merge( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
+      delta: GOConstants.INDEX_OF_REFRACTION_SPINNER_STEP,
+      sliderOptions: {
+        constrainValue: ( value: number ) =>
+          Utils.roundToInterval( value, GOConstants.INDEX_OF_REFRACTION_SLIDER_STEP ),
+        keyboardStep: GOConstants.INDEX_OF_REFRACTION_KEYBOARD_STEP, // used by all alternative-input devices
+        shiftKeyboardStep: GOConstants.INDEX_OF_REFRACTION_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
+        pageKeyboardStep: GOConstants.INDEX_OF_REFRACTION_PAGE_KEYBOARD_STEP // coarser grain, used by keyboard only
+      },
+      numberDisplayOptions: {
+        decimalPlaces: GOConstants.INDEX_OF_REFRACTION_DECIMAL_PLACES
+      }
+    }, providedOptions );
+
     assert && assert( indexOfRefractionProperty.range ); // {Range|null}
     const indexOfRefractionRange: Range = indexOfRefractionProperty.range!;
 
-    super( geometricOpticsStrings.indexOfRefraction, indexOfRefractionProperty, indexOfRefractionRange,
-      merge( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
-        delta: GOConstants.INDEX_OF_REFRACTION_SPINNER_STEP,
-        sliderOptions: {
-          constrainValue: ( value: number ) =>
-            Utils.roundToInterval( value, GOConstants.INDEX_OF_REFRACTION_SLIDER_STEP ),
-          keyboardStep: GOConstants.INDEX_OF_REFRACTION_KEYBOARD_STEP, // used by all alternative-input devices
-          shiftKeyboardStep: GOConstants.INDEX_OF_REFRACTION_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
-          pageKeyboardStep: GOConstants.INDEX_OF_REFRACTION_PAGE_KEYBOARD_STEP // coarser grain, used by keyboard only
-        },
-        numberDisplayOptions: {
-          decimalPlaces: GOConstants.INDEX_OF_REFRACTION_DECIMAL_PLACES
-        }
-      }, providedOptions ) );
+    super( geometricOpticsStrings.indexOfRefraction, indexOfRefractionProperty, indexOfRefractionRange, options );
+
+    this.addLinkedElement( indexOfRefractionProperty, {
+      tandem: options.tandem.createTandem( 'indexOfRefractionProperty' )
+    } );
   }
 }
 

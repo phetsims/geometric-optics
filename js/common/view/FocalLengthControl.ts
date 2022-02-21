@@ -30,23 +30,28 @@ class FocalLengthControl extends NumberControl {
    */
   constructor( focalLengthProperty: NumberProperty, providedOptions: FocalLengthControlOptions ) {
 
+    const options = merge( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
+      delta: GOConstants.FOCAL_LENGTH_SPINNER_STEP,
+      sliderOptions: {
+        constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.FOCAL_LENGTH_SLIDER_STEP ),
+        keyboardStep: GOConstants.FOCAL_LENGTH_KEYBOARD_STEP, // used by all alternative-input devices
+        shiftKeyboardStep: GOConstants.FOCAL_LENGTH_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
+        pageKeyboardStep: GOConstants.FOCAL_LENGTH_PAGE_KEYBOARD_STEP // coarser grain, used by keyboard only
+      },
+      numberDisplayOptions: {
+        decimalPlaces: GOConstants.FOCAL_LENGTH_DECIMAL_PLACES,
+        valuePattern: geometricOpticsStrings.valueCentimetersPattern
+      }
+    }, providedOptions );
+
     assert && assert( focalLengthProperty.range ); // {Range|null}
     const radiusOfCurvatureRange: Range = focalLengthProperty.range!;
 
-    super( geometricOpticsStrings.focalLength, focalLengthProperty, radiusOfCurvatureRange,
-      merge( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
-        delta: GOConstants.FOCAL_LENGTH_SPINNER_STEP,
-        sliderOptions: {
-          constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.FOCAL_LENGTH_SLIDER_STEP ),
-          keyboardStep: GOConstants.FOCAL_LENGTH_KEYBOARD_STEP, // used by all alternative-input devices
-          shiftKeyboardStep: GOConstants.FOCAL_LENGTH_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
-          pageKeyboardStep: GOConstants.FOCAL_LENGTH_PAGE_KEYBOARD_STEP // coarser grain, used by keyboard only
-        },
-        numberDisplayOptions: {
-          decimalPlaces: GOConstants.FOCAL_LENGTH_DECIMAL_PLACES,
-          valuePattern: geometricOpticsStrings.valueCentimetersPattern
-        }
-      }, providedOptions ) );
+    super( geometricOpticsStrings.focalLength, focalLengthProperty, radiusOfCurvatureRange, options );
+
+    this.addLinkedElement( focalLengthProperty, {
+      tandem: options.tandem.createTandem( 'focalLengthProperty' )
+    } );
   }
 }
 
