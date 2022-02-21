@@ -20,6 +20,9 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import GOConstants from '../../common/GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
 
+// Index of refraction is a fixed value for the 'direct' focal-length model.
+const DIRECT_INDEX_OF_REFRACTION = 1.5;
+
 type LensOptions = {
   tandem: Tandem
 };
@@ -44,7 +47,7 @@ class Lens extends Optic {
       sign: 1,
       directFocalLengthModelOptions: {
         focalLengthRange: new RangeWithValue( 30, 130, 80 ), // in cm
-        indexOfRefraction: 1.5, // fixed and unitless
+        indexOfRefractionRange: new RangeWithValue( DIRECT_INDEX_OF_REFRACTION, DIRECT_INDEX_OF_REFRACTION, DIRECT_INDEX_OF_REFRACTION ), // fixed and unitless
         tandem: providedOptions.tandem.createTandem( 'directFocalLengthModel' )
       },
       indirectFocalLengthModelOptions: {
@@ -54,9 +57,7 @@ class Lens extends Optic {
       }
     }, providedOptions ) as OpticOptions; //TODO don't use 'as'
 
-    assert && assert( options.indirectFocalLengthModelOptions.indexOfRefractionRange.contains(
-      options.directFocalLengthModelOptions.indexOfRefraction
-    ) );
+    assert && assert( options.indirectFocalLengthModelOptions.indexOfRefractionRange.contains( DIRECT_INDEX_OF_REFRACTION ) );
 
     super( options );
 

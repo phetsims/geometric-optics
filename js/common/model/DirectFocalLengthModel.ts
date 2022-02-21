@@ -22,7 +22,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 
 type DirectFocalLengthModelOptions = {
   focalLengthRange: RangeWithValue
-  indexOfRefraction: number,
+  indexOfRefractionRange: RangeWithValue,
 
   // phet-io
   tandem: Tandem
@@ -53,8 +53,8 @@ class DirectFocalLengthModel extends PhetioObject implements FocalLengthModel {
     } );
 
     // fixed value
-    this.indexOfRefractionProperty = new NumberProperty( options.indexOfRefraction, {
-      isValidValue: ( value: number ) => ( value === options.indexOfRefraction ),
+    this.indexOfRefractionProperty = new NumberProperty( options.indexOfRefractionRange.defaultValue, {
+      range: options.indexOfRefractionRange,
       // units: unitless
       tandem: options.tandem.createTandem( 'indexOfRefractionProperty' ),
       phetioReadOnly: true

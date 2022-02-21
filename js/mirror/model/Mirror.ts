@@ -19,6 +19,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import GOConstants from '../../common/GOConstants.js';
 
+// Index of refraction is a fixed value for both the 'direct' and 'indirect' focal-length models.
 // Although a mirror does not have an index of refraction, its focal length is equivalent to a lens
 // with an index of refraction of 2.
 const INDEX_OF_REFRACTION = 2;
@@ -41,12 +42,12 @@ class Mirror extends Optic {
       sign: -1,
       directFocalLengthModelOptions: {
         focalLengthRange: new RangeWithValue( 75, 125, 100 ), // in cm
-        indexOfRefraction: INDEX_OF_REFRACTION, // fixed and unitless
+        indexOfRefractionRange: new RangeWithValue( INDEX_OF_REFRACTION, INDEX_OF_REFRACTION, INDEX_OF_REFRACTION ), // fixed and unitless
         tandem: providedOptions.tandem.createTandem( 'directFocalLengthModel' )
       },
       indirectFocalLengthModelOptions: {
         radiusOfCurvatureRange: new RangeWithValue( 150, 300, 200 ), // in cm
-        indexOfRefractionRange: new RangeWithValue( INDEX_OF_REFRACTION, INDEX_OF_REFRACTION, INDEX_OF_REFRACTION ), // unitless
+        indexOfRefractionRange: new RangeWithValue( INDEX_OF_REFRACTION, INDEX_OF_REFRACTION, INDEX_OF_REFRACTION ), // fixed and unitless
         tandem: providedOptions.tandem.createTandem( 'indirectFocalLengthModel' )
       }
     }, providedOptions ) as OpticOptions; //TODO don't use 'as'
