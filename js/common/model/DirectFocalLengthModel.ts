@@ -21,7 +21,7 @@ import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
 type DirectFocalLengthModelOptions = {
-  focalLengthRange: RangeWithValue
+  focalLengthMagnitudeRange: RangeWithValue
   indexOfRefractionRange: RangeWithValue,
 
   // phet-io
@@ -30,9 +30,9 @@ type DirectFocalLengthModelOptions = {
 
 class DirectFocalLengthModel extends PhetioObject implements FocalLengthModel {
 
-  readonly radiusOfCurvatureProperty: IReadOnlyProperty<number>;
+  readonly radiusOfCurvatureMagnitudeProperty: IReadOnlyProperty<number>;
   readonly indexOfRefractionProperty: NumberProperty;
-  readonly focalLengthProperty: NumberProperty;
+  readonly focalLengthMagnitudeProperty: NumberProperty;
 
   constructor( opticShapeProperty: IReadOnlyProperty<OpticShape>, providedOptions: DirectFocalLengthModelOptions ) {
 
@@ -46,10 +46,11 @@ class DirectFocalLengthModel extends PhetioObject implements FocalLengthModel {
 
     super( options );
 
-    this.focalLengthProperty = new NumberProperty( options.focalLengthRange.defaultValue, {
+    this.focalLengthMagnitudeProperty = new NumberProperty( options.focalLengthMagnitudeRange.defaultValue, {
       units: 'cm',
-      range: options.focalLengthRange,
-      tandem: options.tandem.createTandem( 'focalLengthProperty' )
+      range: options.focalLengthMagnitudeRange,
+      tandem: options.tandem.createTandem( 'focalLengthMagnitudeProperty' ),
+      phetioDocumentation: 'magnitude of the focal length, absent the sign that determines whether the optic is converging or diverging'
     } );
 
     // fixed value
@@ -60,18 +61,20 @@ class DirectFocalLengthModel extends PhetioObject implements FocalLengthModel {
       phetioReadOnly: true
     } );
 
-    this.radiusOfCurvatureProperty = new DerivedProperty(
-      [ opticShapeProperty, this.focalLengthProperty, this.indexOfRefractionProperty ],
-      ( opticShape: OpticShape, focalLength: number, indexOfRefraction: number ) =>
-        focalLength * ( 2 * ( indexOfRefraction - 1 ) ), {
+    this.radiusOfCurvatureMagnitudeProperty = new DerivedProperty(
+      [ opticShapeProperty, this.focalLengthMagnitudeProperty, this.indexOfRefractionProperty ],
+      ( opticShape: OpticShape, focalLengthMagnitude: number, indexOfRefraction: number ) =>
+        focalLengthMagnitude * ( 2 * ( indexOfRefraction - 1 ) ), {
         units: 'cm',
-        tandem: options.tandem.createTandem( 'radiusOfCurvatureProperty' ),
+        tandem: options.tandem.createTandem( 'radiusOfCurvatureMagnitudeProperty' ),
+        phetioDocumentation: 'magnitude of the radius of curvature, absent the sign that determines whether ' +
+                             'the vertex lies to the left or right of the center of curvature',
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
       } );
   }
 
   reset() {
-    this.focalLengthProperty.reset();
+    this.focalLengthMagnitudeProperty.reset();
     this.indexOfRefractionProperty.reset();
   }
 

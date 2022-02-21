@@ -48,12 +48,12 @@ class Lens extends Optic {
       diameterRange: GOConstants.DIAMETER_RANGE, // in cm
       sign: 1,
       directFocalLengthModelOptions: {
-        focalLengthRange: new RangeWithValue( 30, 130, 80 ), // in cm
+        focalLengthMagnitudeRange: new RangeWithValue( 30, 130, 80 ), // in cm
         indexOfRefractionRange: new RangeWithValue( DIRECT_INDEX_OF_REFRACTION, DIRECT_INDEX_OF_REFRACTION, DIRECT_INDEX_OF_REFRACTION ), // fixed and unitless
         tandem: focalLengthModelsTandem.createTandem( 'directFocalLengthModel' )
       },
       indirectFocalLengthModelOptions: {
-        radiusOfCurvatureRange: new RangeWithValue( 30, 130, 80 ), // in cm
+        radiusOfCurvatureMagnitudeRange: new RangeWithValue( 30, 130, 80 ), // in cm
         indexOfRefractionRange: new RangeWithValue( 1.2, 1.9, 1.5 ), // unitless
         tandem: focalLengthModelsTandem.createTandem( 'indirectFocalLengthModel' )
       }

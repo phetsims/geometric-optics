@@ -90,15 +90,6 @@ abstract class Optic extends PhetioObject {
   // focal length (f) of the optic, positive=converging, negative=diverging
   readonly focalLengthProperty: IReadOnlyProperty<number>;
 
-  // While working on https://github.com/phetsims/geometric-optics/issues/255 (adding direct control of Focal Length)
-  // it was discovered that focalLengthProperty was not always a positive value. A sign was baked into the value,
-  // indicating where the optical image was to be formed. This made it problematic to set Focal Length directly.
-  // So the sign was removed from focalLengthProperty, and was added to this derived Property. So...
-  // This is the focal length, with a sign added that indicates where the optical image is formed.
-  // For a lens, a positive value indicates that the image is to the right of the lens.
-  // For a mirror, a positive value indicates that the image is to the left of the mirror.
-  readonly signedFocalLengthProperty: IReadOnlyProperty<number>;
-
   // focal points (F) to the left and right of the optic
   readonly leftFocalPointProperty: Property<Vector2>;
   readonly rightFocalPointProperty: Property<Vector2>;
@@ -163,21 +154,24 @@ abstract class Optic extends PhetioObject {
       if ( focalLengthControlType === 'direct' ) {
 
         // Copy focalLength from indirect to direct
-        assert && assert( this.directFocalLengthModel.focalLengthProperty.range ); // {Range|null}
-        this.directFocalLengthModel.focalLengthProperty.value =
-          this.directFocalLengthModel.focalLengthProperty.range!.constrainValue( this.indirectFocalLengthModel.focalLengthProperty.value );
+        assert && assert( this.directFocalLengthModel.focalLengthMagnitudeProperty.range ); // {Range|null}
+        this.directFocalLengthModel.focalLengthMagnitudeProperty.value =
+          this.directFocalLengthModel.focalLengthMagnitudeProperty.range!.constrainValue(
+            this.indirectFocalLengthModel.focalLengthMagnitudeProperty.value );
       }
       else {
 
         // Copy radiusOfCurvature from direct to indirect
-        assert && assert( this.indirectFocalLengthModel.radiusOfCurvatureProperty.range ); // {Range|null}
-        this.indirectFocalLengthModel.radiusOfCurvatureProperty.value =
-          this.indirectFocalLengthModel.radiusOfCurvatureProperty.range!.constrainValue( this.directFocalLengthModel.radiusOfCurvatureProperty.value );
+        assert && assert( this.indirectFocalLengthModel.radiusOfCurvatureMagnitudeProperty.range ); // {Range|null}
+        this.indirectFocalLengthModel.radiusOfCurvatureMagnitudeProperty.value =
+          this.indirectFocalLengthModel.radiusOfCurvatureMagnitudeProperty.range!.constrainValue(
+            this.directFocalLengthModel.radiusOfCurvatureMagnitudeProperty.value );
 
         // Copy indexOfRefraction from direct to indirect
         assert && assert( this.indirectFocalLengthModel.indexOfRefractionProperty.range ); // {Range|null}
         this.indirectFocalLengthModel.indexOfRefractionProperty.value =
-          this.indirectFocalLengthModel.indexOfRefractionProperty.range!.constrainValue( this.directFocalLengthModel.indexOfRefractionProperty.value );
+          this.indirectFocalLengthModel.indexOfRefractionProperty.range!.constrainValue(
+            this.directFocalLengthModel.indexOfRefractionProperty.value );
       }
     } );
 
@@ -191,53 +185,49 @@ abstract class Optic extends PhetioObject {
 
     // Get the radius of curvature value from the current focal-length model.
     this.radiusOfCurvatureProperty = new DerivedProperty(
-      [ GOGlobalOptions.focalLengthControlTypeProperty, this.directFocalLengthModel.radiusOfCurvatureProperty, this.indirectFocalLengthModel.radiusOfCurvatureProperty ],
-      ( focalLengthControlType: string, radiusOfCurvatureDirect: number, radiusOfCurvatureIndirect: number ) =>
-        ( focalLengthControlType === 'direct' ) ? radiusOfCurvatureDirect : radiusOfCurvatureIndirect, {
+      [ GOGlobalOptions.focalLengthControlTypeProperty, this.directFocalLengthModel.radiusOfCurvatureMagnitudeProperty,
+        this.indirectFocalLengthModel.radiusOfCurvatureMagnitudeProperty ],
+      ( focalLengthControlType: string, directRadiusOfCurvatureMagnitude: number, indirectRadiusOfCurvatureMagnitude: number ) =>
+        ( focalLengthControlType === 'direct' ) ? directRadiusOfCurvatureMagnitude : indirectRadiusOfCurvatureMagnitude, {
         units: 'cm',
         tandem: options.tandem.createTandem( 'radiusOfCurvatureProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
+        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+        phetioDocumentation: 'The radius of curvature of the optic. If the vertex lies to the left of the center of ' +
+                             'curvature, the radius of curvature is positive. If the vertex lies to the right of the ' +
+                             'center of curvature, the radius of curvature is negative.'
       } );
-    phet.log && this.radiusOfCurvatureProperty.link( ( radiusOfCurvature: number ) => {
-      phet.log && phet.log( `radiusOfCurvature=${radiusOfCurvature}` );
-    } );
 
     // Get the index of refraction value from the current focal-length model.
     this.indexOfRefractionProperty = new DerivedProperty(
-      [ GOGlobalOptions.focalLengthControlTypeProperty, this.directFocalLengthModel.indexOfRefractionProperty, this.indirectFocalLengthModel.indexOfRefractionProperty ],
-      ( focalLengthControlType: string, indexOfRefractionDirect: number, indexOfRefractionIndirect: number ) =>
-        ( focalLengthControlType === 'direct' ) ? indexOfRefractionDirect : indexOfRefractionIndirect, {
+      [ GOGlobalOptions.focalLengthControlTypeProperty, this.directFocalLengthModel.indexOfRefractionProperty,
+        this.indirectFocalLengthModel.indexOfRefractionProperty ],
+      ( focalLengthControlType: string, directIndexOfRefraction: number, indirectIndexOfRefraction: number ) =>
+        ( focalLengthControlType === 'direct' ) ? directIndexOfRefraction : indirectIndexOfRefraction, {
         // units: unitless
         tandem: options.tandem.createTandem( 'indexOfRefractionProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
       } );
-    phet.log && this.indexOfRefractionProperty.link( ( indexOfRefraction: number ) => {
-      phet.log && phet.log( `indexOfRefraction=${indexOfRefraction}` );
-    } );
 
-    // Use the focal length (f) value from the current focal-length model.
+    // Get the focal-length magnitude from the current focal-length model, add the appropriate sign.
+    // Positive is converging, negative is diverging.
     this.focalLengthProperty = new DerivedProperty(
-      [ GOGlobalOptions.focalLengthControlTypeProperty, this.directFocalLengthModel.focalLengthProperty, this.indirectFocalLengthModel.focalLengthProperty ],
-      ( focalLengthControlType: string, focalLengthDirect: number, focalLengthIndirect: number ) =>
-        ( focalLengthControlType === 'direct' ) ? focalLengthDirect : focalLengthIndirect, {
+      [ GOGlobalOptions.focalLengthControlTypeProperty, this.opticShapeProperty,
+        this.directFocalLengthModel.focalLengthMagnitudeProperty, this.indirectFocalLengthModel.focalLengthMagnitudeProperty ],
+      ( focalLengthControlType: string, opticShape: OpticShape, directFocalLengthMagnitude: number, indirectFocalLengthMagnitude: number ) => {
+        const sign = ( this.isConverging( opticShape ) ? 1 : -1 );
+        return sign * ( ( focalLengthControlType === 'direct' ) ? directFocalLengthMagnitude : indirectFocalLengthMagnitude );
+      }, {
         units: 'cm',
-        isValidValue: ( value: number ) => ( value > 0 ),
         tandem: options.tandem.createTandem( 'focalLengthProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
+        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+        phetioDocumentation: 'The focal length of the optic. A converging optic has a positive focal length, ' +
+                             'while a diverging optic has a negative focal length.'
       } );
-    phet.log && this.focalLengthProperty.link( ( focalLength: number ) => {
-      phet.log && phet.log( `focalLength=${focalLength}` );
-    } );
-
-    this.signedFocalLengthProperty = new DerivedProperty(
-      [ this.focalLengthProperty, this.opticShapeProperty ],
-      ( focalLength: number, opticShape: OpticShape ) => focalLength * ( this.isConverging( opticShape ) ? 1 : -1 )
-    );
 
     // left focal point (F)
     this.leftFocalPointProperty = new DerivedProperty(
       [ this.positionProperty, this.focalLengthProperty ],
-      ( position: Vector2, focalLength: number ) => position.plusXY( -focalLength, 0 ), {
+      ( position: Vector2, focalLength: number ) => position.plusXY( -Math.abs( focalLength ), 0 ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'leftFocalPointProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
@@ -247,7 +237,7 @@ abstract class Optic extends PhetioObject {
     // right focal point (F)
     this.rightFocalPointProperty = new DerivedProperty(
       [ this.positionProperty, this.focalLengthProperty ],
-      ( position: Vector2, focalLength: number ) => position.plusXY( focalLength, 0 ), {
+      ( position: Vector2, focalLength: number ) => position.plusXY( Math.abs( focalLength ), 0 ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'rightFocalPointProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
@@ -257,7 +247,6 @@ abstract class Optic extends PhetioObject {
     // 2f
     this.twiceFocalLengthProperty = new DerivedProperty( [ this.focalLengthProperty ], focalLength => 2 * focalLength, {
       units: 'cm',
-      isValidValue: ( value: number ) => ( value > 0 ),
       tandem: options.tandem.createTandem( 'twiceFocalLengthProperty' ),
       phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
       phetioDocumentation: '2f, twice the focal length'
@@ -266,7 +255,7 @@ abstract class Optic extends PhetioObject {
     // left 2F point
     this.left2FProperty = new DerivedProperty(
       [ this.positionProperty, this.twiceFocalLengthProperty ],
-      ( position: Vector2, twiceFocalLength: number ) => position.plusXY( -twiceFocalLength, 0 ), {
+      ( position: Vector2, twiceFocalLength: number ) => position.plusXY( -Math.abs( twiceFocalLength ), 0 ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'left2FProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
@@ -276,7 +265,7 @@ abstract class Optic extends PhetioObject {
     // right 2F point
     this.right2FProperty = new DerivedProperty(
       [ this.positionProperty, this.twiceFocalLengthProperty ],
-      ( position: Vector2, twiceFocalLength: number ) => position.plusXY( twiceFocalLength, 0 ), {
+      ( position: Vector2, twiceFocalLength: number ) => position.plusXY( Math.abs( twiceFocalLength ), 0 ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'right2FProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),

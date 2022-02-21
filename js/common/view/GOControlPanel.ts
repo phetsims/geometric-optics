@@ -82,15 +82,16 @@ class GOControlPanel extends Panel {
     const opticSubpanelChildren = [];
 
     // Focal Length
-    opticSubpanelChildren.push( new FocalLengthControl( optic.directFocalLengthModel.focalLengthProperty, {
-      visibleProperty: new DerivedProperty( [ GOGlobalOptions.focalLengthControlTypeProperty ],
-        ( focalLengthControlType: FocalLengthControlType ) => ( focalLengthControlType === 'direct' )
-      ),
-      tandem: opticSubpanelTandem.createTandem( 'focalLengthControl' )
-    } ) );
+    opticSubpanelChildren.push( new FocalLengthControl( optic.directFocalLengthModel.focalLengthMagnitudeProperty,
+      optic.focalLengthProperty, {
+        visibleProperty: new DerivedProperty( [ GOGlobalOptions.focalLengthControlTypeProperty ],
+          ( focalLengthControlType: FocalLengthControlType ) => ( focalLengthControlType === 'direct' )
+        ),
+        tandem: opticSubpanelTandem.createTandem( 'focalLengthControl' )
+      } ) );
 
     // Radius of Curvature
-    opticSubpanelChildren.push( new RadiusOfCurvatureControl( optic.indirectFocalLengthModel.radiusOfCurvatureProperty, {
+    opticSubpanelChildren.push( new RadiusOfCurvatureControl( optic.indirectFocalLengthModel.radiusOfCurvatureMagnitudeProperty, {
       visibleProperty: new DerivedProperty( [ GOGlobalOptions.focalLengthControlTypeProperty ],
         ( focalLengthControlType: FocalLengthControlType ) => ( focalLengthControlType === 'indirect' )
       ),

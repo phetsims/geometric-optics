@@ -21,8 +21,8 @@ import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
 type IndirectFocalLengthModelOptions = {
+  radiusOfCurvatureMagnitudeRange: RangeWithValue,
   indexOfRefractionRange: RangeWithValue,
-  radiusOfCurvatureRange: RangeWithValue,
 
   // phet-io
   tandem: Tandem
@@ -30,9 +30,9 @@ type IndirectFocalLengthModelOptions = {
 
 class IndirectFocalLengthModel extends PhetioObject implements FocalLengthModel {
 
-  readonly radiusOfCurvatureProperty: NumberProperty;
+  readonly radiusOfCurvatureMagnitudeProperty: NumberProperty;
   readonly indexOfRefractionProperty: NumberProperty;
-  readonly focalLengthProperty: IReadOnlyProperty<number>;
+  readonly focalLengthMagnitudeProperty: IReadOnlyProperty<number>;
 
   constructor( opticShapeProperty: IReadOnlyProperty<OpticShape>, providedOptions: IndirectFocalLengthModelOptions ) {
 
@@ -45,10 +45,12 @@ class IndirectFocalLengthModel extends PhetioObject implements FocalLengthModel 
 
     super( options );
 
-    this.radiusOfCurvatureProperty = new NumberProperty( options.radiusOfCurvatureRange.defaultValue, {
+    this.radiusOfCurvatureMagnitudeProperty = new NumberProperty( options.radiusOfCurvatureMagnitudeRange.defaultValue, {
       units: 'cm',
-      range: options.radiusOfCurvatureRange,
-      tandem: options.tandem.createTandem( 'radiusOfCurvatureProperty' )
+      range: options.radiusOfCurvatureMagnitudeRange,
+      tandem: options.tandem.createTandem( 'radiusOfCurvatureMagnitudeProperty' ),
+      phetioDocumentation: 'magnitude of the radius of curvature, absent the sign that determines whether ' +
+                           'the vertex lies to the left or right of the center of curvature'
     } );
 
     this.indexOfRefractionProperty = new NumberProperty( options.indexOfRefractionRange.defaultValue, {
@@ -57,18 +59,19 @@ class IndirectFocalLengthModel extends PhetioObject implements FocalLengthModel 
       tandem: options.tandem.createTandem( 'indexOfRefractionProperty' )
     } );
 
-    this.focalLengthProperty = new DerivedProperty(
-      [ opticShapeProperty, this.radiusOfCurvatureProperty, this.indexOfRefractionProperty ],
-      ( opticShape: OpticShape, radiusOfCurvature: number, indexOfRefraction: number ) =>
-        radiusOfCurvature / ( 2 * ( indexOfRefraction - 1 ) ), {
+    this.focalLengthMagnitudeProperty = new DerivedProperty(
+      [ opticShapeProperty, this.radiusOfCurvatureMagnitudeProperty, this.indexOfRefractionProperty ],
+      ( opticShape: OpticShape, radiusOfCurvatureMagnitude: number, indexOfRefraction: number ) =>
+        radiusOfCurvatureMagnitude / ( 2 * ( indexOfRefraction - 1 ) ), {
         units: 'cm',
-        tandem: options.tandem.createTandem( 'focalLengthProperty' ),
+        tandem: options.tandem.createTandem( 'focalLengthMagnitudeProperty' ),
+        phetioDocumentation: 'magnitude of the focal length, absent the sign that determines whether the optic is converging or diverging',
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
       } );
   }
 
   reset() {
-    this.radiusOfCurvatureProperty.reset();
+    this.radiusOfCurvatureMagnitudeProperty.reset();
     this.indexOfRefractionProperty.reset();
   }
 

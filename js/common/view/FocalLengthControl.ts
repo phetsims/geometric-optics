@@ -1,7 +1,8 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * FocalLengthControl is the control for changing the optic's focal length.
+ * FocalLengthControl is the control for changing the optic's focal length. It actually changes the focal-length
+ * magnitude, and indicates the sign by an annotation in the control's label, e.g. 'Focal Length (-)'.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -16,6 +17,8 @@ import Utils from '../../../../dot/js/Utils.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import IProperty from '../../../../axon/js/IProperty.js';
+import StringProperty from '../../../../axon/js/StringProperty.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 type FocalLengthControlOptions = {
   visibleProperty: IProperty<boolean>,
@@ -25,32 +28,48 @@ type FocalLengthControlOptions = {
 class FocalLengthControl extends NumberControl {
 
   /**
+   * @param focalLengthMagnitudeProperty
    * @param focalLengthProperty
    * @param providedOptions
    */
-  constructor( focalLengthProperty: NumberProperty, providedOptions: FocalLengthControlOptions ) {
+  constructor( focalLengthMagnitudeProperty: NumberProperty,
+               focalLengthProperty: IReadOnlyProperty<number>,
+               providedOptions: FocalLengthControlOptions ) {
+
+    // Preferable to have this be derived from focalLengthProperty, but scenery.Text requires textProperty to be settable.
+    const textProperty = new StringProperty( '', {
+      tandem: providedOptions.tandem.createTandem( 'textProperty' ),
+      phetioReadOnly: true
+    } );
+    focalLengthProperty.link( ( focalLength: number ) => {
+      textProperty.value = ( focalLength >= 0 ) ? geometricOpticsStrings.focalLengthPositive
+                                                : geometricOpticsStrings.focalLengthNegative;
+    } );
 
     const options = merge( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
       delta: GOConstants.FOCAL_LENGTH_SPINNER_STEP,
+      titleNodeOptions: {
+        textProperty: textProperty
+      },
+      numberDisplayOptions: {
+        decimalPlaces: GOConstants.FOCAL_LENGTH_DECIMAL_PLACES,
+        valuePattern: geometricOpticsStrings.valueCentimetersPattern
+      },
       sliderOptions: {
         constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.FOCAL_LENGTH_SLIDER_STEP ),
         keyboardStep: GOConstants.FOCAL_LENGTH_KEYBOARD_STEP, // used by all alternative-input devices
         shiftKeyboardStep: GOConstants.FOCAL_LENGTH_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
         pageKeyboardStep: GOConstants.FOCAL_LENGTH_PAGE_KEYBOARD_STEP // coarser grain, used by keyboard only
-      },
-      numberDisplayOptions: {
-        decimalPlaces: GOConstants.FOCAL_LENGTH_DECIMAL_PLACES,
-        valuePattern: geometricOpticsStrings.valueCentimetersPattern
       }
     }, providedOptions );
 
-    assert && assert( focalLengthProperty.range ); // {Range|null}
-    const radiusOfCurvatureRange: Range = focalLengthProperty.range!;
+    assert && assert( focalLengthMagnitudeProperty.range ); // {Range|null}
+    const radiusOfCurvatureRange: Range = focalLengthMagnitudeProperty.range!;
 
-    super( geometricOpticsStrings.focalLength, focalLengthProperty, radiusOfCurvatureRange, options );
+    super( options.titleNodeOptions.textProperty.value, focalLengthMagnitudeProperty, radiusOfCurvatureRange, options );
 
-    this.addLinkedElement( focalLengthProperty, {
-      tandem: options.tandem.createTandem( 'focalLengthProperty' )
+    this.addLinkedElement( focalLengthMagnitudeProperty, {
+      tandem: options.tandem.createTandem( 'focalLengthMagnitudeProperty' )
     } );
   }
 }

@@ -41,14 +41,20 @@
   "labels": {
     "value": "Labels"
   },
-  "radiusOfCurvature": {
-    "value": "Radius of Curvature"
+  "radiusOfCurvaturePositive": {
+    "value": "Radius of Curvature (+)"
+  },
+  "radiusOfCurvatureNegative": {
+    "value": "Radius of Curvature (\u2212)"
   },
   "indexOfRefraction": {
     "value": "Index of Refraction"
   },
-  "focalLength": {
-    "value": "Focal Length"
+  "focalLengthPositive": {
+    "value": "Focal Length (+)"
+  },
+  "focalLengthNegative": {
+    "value": "Focal Length (-)"
   },
   "diameter": {
     "value": "Diameter"

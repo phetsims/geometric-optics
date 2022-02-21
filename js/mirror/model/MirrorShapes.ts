@@ -34,7 +34,6 @@ class MirrorShapes implements OpticShapes {
   readonly activeBoundsShape: Shape; // the mirror's reflective coating
 
   /**
-   *
    * @param opticShape
    * @param radiusOfCurvature - radius of curvature at the center of the mirror
    * @param diameter - vertical height of the mirror
