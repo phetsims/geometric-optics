@@ -24,7 +24,7 @@ import merge from '../../../../phet-core/js/merge.js';
 const FILL = GOColors.mirrorBackingColorProperty;
 const STROKE = GOColors.mirrorReflectiveCoatingColorProperty;
 const LINE_WIDTH = 2;
-const ICON_RADIUS_OF_CURVATURE = 20;
+const ICON_RADIUS_OF_CURVATURE_MAGNITUDE = 20;
 const ICON_DIAMETER = 30;
 
 type MirrorNodeOptions = {
@@ -95,7 +95,9 @@ class MirrorNode extends Node {
    */
   public static createIconNode( opticShape: OpticShape ): Node {
 
-    const mirrorShapes = new MirrorShapes( opticShape, ICON_RADIUS_OF_CURVATURE, ICON_DIAMETER, {
+    const radiusOfCurvature = ( opticShape === 'convex' ) ? ICON_RADIUS_OF_CURVATURE_MAGNITUDE : -ICON_RADIUS_OF_CURVATURE_MAGNITUDE;
+
+    const mirrorShapes = new MirrorShapes( radiusOfCurvature, ICON_DIAMETER, {
       backingThickness: 4 // cm
     } );
 

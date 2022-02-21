@@ -49,8 +49,7 @@ class IndirectFocalLengthModel extends PhetioObject implements FocalLengthModel 
       units: 'cm',
       range: options.radiusOfCurvatureMagnitudeRange,
       tandem: options.tandem.createTandem( 'radiusOfCurvatureMagnitudeProperty' ),
-      phetioDocumentation: 'magnitude of the radius of curvature, absent the sign that determines whether ' +
-                           'the vertex lies to the left or right of the center of curvature'
+      phetioDocumentation: 'magnitude of the radius of curvature (no sign)'
     } );
 
     this.indexOfRefractionProperty = new NumberProperty( options.indexOfRefractionRange.defaultValue, {
@@ -65,7 +64,7 @@ class IndirectFocalLengthModel extends PhetioObject implements FocalLengthModel 
         radiusOfCurvatureMagnitude / ( 2 * ( indexOfRefraction - 1 ) ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'focalLengthMagnitudeProperty' ),
-        phetioDocumentation: 'magnitude of the focal length, absent the sign that determines whether the optic is converging or diverging',
+        phetioDocumentation: 'magnitude of the focal length (no sign)',
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
       } );
   }

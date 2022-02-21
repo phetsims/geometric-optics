@@ -65,9 +65,8 @@ class Lens extends Optic {
     super( options );
 
     this.shapesProperty = new DerivedProperty(
-      [ this.opticShapeProperty, this.radiusOfCurvatureProperty, this.diameterProperty ],
-      ( opticShape: OpticShape, radiusOfCurvature: number, diameter: number ) =>
-        new LensShapes( opticShape, radiusOfCurvature, diameter )
+      [ this.radiusOfCurvatureProperty, this.diameterProperty ],
+      ( radiusOfCurvature: number, diameter: number ) => new LensShapes( radiusOfCurvature, diameter )
     );
 
     // Index of refraction determines the lens opacity.

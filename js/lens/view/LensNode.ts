@@ -24,7 +24,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 const FILL = GOColors.lensFillProperty;
 const STROKE = GOColors.lensStrokeProperty;
 const LINE_WIDTH = 2;
-const ICON_RADIUS_OF_CURVATURE = 20;
+const ICON_RADIUS_OF_CURVATURE_MAGNITUDE = 20;
 const ICON_DIAMETER = 30;
 
 type LensNodeOptions = {
@@ -109,7 +109,9 @@ class LensNode extends Node {
   public static createIconNode( opticShape: OpticShape ): Node {
     assert && assert( opticShape !== 'flat', 'flat lens is not supported' );
 
-    const lensShapes = new LensShapes( opticShape, ICON_RADIUS_OF_CURVATURE, ICON_DIAMETER, {
+    const radiusOfCurvature = ( opticShape === 'convex' ) ? ICON_RADIUS_OF_CURVATURE_MAGNITUDE : -ICON_RADIUS_OF_CURVATURE_MAGNITUDE;
+
+    const lensShapes = new LensShapes( radiusOfCurvature, ICON_DIAMETER, {
       isHollywooded: false
     } );
 

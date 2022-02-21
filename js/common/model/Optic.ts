@@ -81,13 +81,13 @@ abstract class Optic extends PhetioObject {
   readonly directFocalLengthModel: DirectFocalLengthModel;
   readonly indirectFocalLengthModel: IndirectFocalLengthModel;
 
-  // radius of curvature (ROC) of the optic, positive is converging
+  // radius of curvature (ROC) of the optic, convex is positive, concave is negative
   readonly radiusOfCurvatureProperty: IReadOnlyProperty<number>;
 
   // index of refraction (IRC)
   readonly indexOfRefractionProperty: IReadOnlyProperty<number>;
 
-  // focal length (f) of the optic, positive=converging, negative=diverging
+  // focal length (f) of the optic, converging is positive, diverging is negative
   readonly focalLengthProperty: IReadOnlyProperty<number>;
 
   // focal points (F) to the left and right of the optic
@@ -183,18 +183,23 @@ abstract class Optic extends PhetioObject {
 
     this.maxDiameter = options.diameterRange.max;
 
-    // Get the radius of curvature value from the current focal-length model.
+    // Get the radius-of-curvature magnitude from the current focal-length model, add the appropriate sign.
+    // Convex is positive, concave is negative.
     this.radiusOfCurvatureProperty = new DerivedProperty(
-      [ GOGlobalOptions.focalLengthControlTypeProperty, this.directFocalLengthModel.radiusOfCurvatureMagnitudeProperty,
+      [ GOGlobalOptions.focalLengthControlTypeProperty, this.opticShapeProperty,
+        this.directFocalLengthModel.radiusOfCurvatureMagnitudeProperty,
         this.indirectFocalLengthModel.radiusOfCurvatureMagnitudeProperty ],
-      ( focalLengthControlType: string, directRadiusOfCurvatureMagnitude: number, indirectRadiusOfCurvatureMagnitude: number ) =>
-        ( focalLengthControlType === 'direct' ) ? directRadiusOfCurvatureMagnitude : indirectRadiusOfCurvatureMagnitude, {
+      ( focalLengthControlType: string, opticShape: OpticShape,
+        directRadiusOfCurvatureMagnitude: number, indirectRadiusOfCurvatureMagnitude: number ) => {
+        const sign = ( opticShape === 'convex' ) ? 1 : -1;
+        const magnitude = ( focalLengthControlType === 'direct' ) ? directRadiusOfCurvatureMagnitude : indirectRadiusOfCurvatureMagnitude;
+        return sign * magnitude;
+      }, {
         units: 'cm',
         tandem: options.tandem.createTandem( 'radiusOfCurvatureProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
-        phetioDocumentation: 'The radius of curvature of the optic. If the vertex lies to the left of the center of ' +
-                             'curvature, the radius of curvature is positive. If the vertex lies to the right of the ' +
-                             'center of curvature, the radius of curvature is negative.'
+        phetioDocumentation: 'The radius of curvature (ROC) of the optic. ' +
+                             'A convex optic has a positive ROC, while a concave optic has a negative ROC.'
       } );
 
     // Get the index of refraction value from the current focal-length model.
@@ -205,17 +210,19 @@ abstract class Optic extends PhetioObject {
         ( focalLengthControlType === 'direct' ) ? directIndexOfRefraction : indirectIndexOfRefraction, {
         // units: unitless
         tandem: options.tandem.createTandem( 'indexOfRefractionProperty' ),
+        phetioDocumentation: 'The index of refraction (IOR) of the optic',
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
       } );
 
     // Get the focal-length magnitude from the current focal-length model, add the appropriate sign.
-    // Positive is converging, negative is diverging.
+    // Converging is positive, diverging is negative.
     this.focalLengthProperty = new DerivedProperty(
       [ GOGlobalOptions.focalLengthControlTypeProperty, this.opticShapeProperty,
         this.directFocalLengthModel.focalLengthMagnitudeProperty, this.indirectFocalLengthModel.focalLengthMagnitudeProperty ],
       ( focalLengthControlType: string, opticShape: OpticShape, directFocalLengthMagnitude: number, indirectFocalLengthMagnitude: number ) => {
-        const sign = ( this.isConverging( opticShape ) ? 1 : -1 );
-        return sign * ( ( focalLengthControlType === 'direct' ) ? directFocalLengthMagnitude : indirectFocalLengthMagnitude );
+        const sign = this.isConverging( opticShape ) ? 1 : -1;
+        const magnitude = ( focalLengthControlType === 'direct' ) ? directFocalLengthMagnitude : indirectFocalLengthMagnitude;
+        return sign * magnitude;
       }, {
         units: 'cm',
         tandem: options.tandem.createTandem( 'focalLengthProperty' ),

@@ -15,7 +15,6 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { OpticShape } from '../../common/model/OpticShape.js';
 import OpticShapes from '../../common/model/OpticShapes.js';
 import geometricOptics from '../../geometricOptics.js';
 
@@ -39,32 +38,32 @@ class LensShapes implements OpticShapes {
   readonly activeBoundsShape: Shape; // the entire lens
 
   /**
-   * @param opticShape
-   * @param radiusOfCurvature - radius of curvature
+   * @param radiusOfCurvature
    * @param diameter - height of the lens
    * @param providedOptions
    */
-  constructor( opticShape: OpticShape, radiusOfCurvature: number, diameter: number, providedOptions?: LensShapesOptions ) {
-    assert && assert( opticShape !== 'flat', 'flat lens is not supported' );
+  constructor( radiusOfCurvature: number, diameter: number, providedOptions?: LensShapesOptions ) {
 
     const options = merge( {
       isHollywooded: true, // true: approximation, false: accurate, matches ROC
       offsetRadius: 100 //TODO document
     }, providedOptions );
 
+    const sign = Math.sign( radiusOfCurvature );
+    const magnitude = Math.abs( radiusOfCurvature );
     const halfHeight = diameter / 2;
 
     // the width of the lens changes with the radius
     const halfWidth = options.isHollywooded ?
-                      1 / 2 * halfHeight * halfHeight / ( radiusOfCurvature + options.offsetRadius ) :
-                      radiusOfCurvature - Math.sqrt( radiusOfCurvature ** 2 - halfHeight ** 2 );
+                      1 / 2 * halfHeight * halfHeight / ( magnitude + options.offsetRadius ) :
+                      magnitude - Math.sqrt( magnitude ** 2 - halfHeight ** 2 );
 
     // {Shape} shape of lens
     let lensShape; // the outline of the complete lens
     let frontShape; // the front (left facing) part of the lens
     let backShape; // the back (right facing)  part of the lens
 
-    if ( opticShape === 'convex' ) {
+    if ( sign >= 0 ) {
 
       // two extrema points of the lens
       const top = new Vector2( 0, halfHeight );
@@ -93,8 +92,6 @@ class LensShapes implements OpticShapes {
         .quadraticCurveToPoint( right, bottom );
     }
     else {
-      assert && assert( opticShape === 'concave' );
-
       const midWidth = halfWidth;
 
       // four corners of the concave shape

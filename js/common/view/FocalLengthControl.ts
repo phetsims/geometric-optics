@@ -36,7 +36,7 @@ class FocalLengthControl extends NumberControl {
                focalLengthProperty: IReadOnlyProperty<number>,
                providedOptions: FocalLengthControlOptions ) {
 
-    // Preferable to have this be derived from focalLengthProperty, but scenery.Text requires textProperty to be settable.
+    // Preferable to derive from focalLengthProperty, but scenery.Text requires textProperty to be settable.
     const textProperty = new StringProperty( '', {
       tandem: providedOptions.tandem.createTandem( 'textProperty' ),
       phetioReadOnly: true

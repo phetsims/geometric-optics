@@ -14,7 +14,6 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { OpticShape } from '../../common/model/OpticShape.js';
 import OpticShapes from '../../common/model/OpticShapes.js';
 import geometricOptics from '../../geometricOptics.js';
 
@@ -34,17 +33,19 @@ class MirrorShapes implements OpticShapes {
   readonly activeBoundsShape: Shape; // the mirror's reflective coating
 
   /**
-   * @param opticShape
    * @param radiusOfCurvature - radius of curvature at the center of the mirror
    * @param diameter - vertical height of the mirror
    * @param providedOptions
    */
-  constructor( opticShape: OpticShape, radiusOfCurvature: number, diameter: number, providedOptions?: MirrorShapesOptions ) {
-    assert && assert( radiusOfCurvature > diameter / 2 );
+  constructor( radiusOfCurvature: number, diameter: number, providedOptions?: MirrorShapesOptions ) {
 
     const options = merge( {
       backingThickness: 5 // thickness of the backing of the mirror, in cm
     }, providedOptions );
+
+    const sign = Math.sign( radiusOfCurvature );
+    const magnitude = Math.abs( radiusOfCurvature );
+    assert && assert( magnitude > diameter / 2 );
 
     // convenience variable
     const backingThickness = options.backingThickness;
@@ -53,27 +54,24 @@ class MirrorShapes implements OpticShapes {
     const halfHeight = diameter / 2;
 
     // half of the width of the outline shape of the mirror along the x -axis
-    const halfWidth = radiusOfCurvature - Math.sqrt( radiusOfCurvature ** 2 - halfHeight ** 2 );
+    const halfWidth = magnitude - Math.sqrt( magnitude ** 2 - halfHeight ** 2 );
 
     // top and bottom surfaces of fill shape must be tilted to generate right angle corners
-    const angle = Math.atan( halfHeight / radiusOfCurvature );
-
-    // curveSign is +1 for convex and -1 for concave
-    const curveSign = ( opticShape === 'convex' ) ? 1 : -1;
+    const angle = Math.atan( halfHeight / magnitude );
 
     // vector offset between the two top corners and bottom corners of the shape with a magnitude of backingThickness
-    const offsetTopVector = Vector2.createPolar( backingThickness, -curveSign * angle );
-    const offsetBottomVector = Vector2.createPolar( backingThickness, curveSign * angle );
+    const offsetTopVector = Vector2.createPolar( backingThickness, -sign * angle );
+    const offsetBottomVector = Vector2.createPolar( backingThickness, sign * angle );
 
     // four corners of the mirror shape
-    const topLeft = new Vector2( curveSign * halfWidth, halfHeight );
+    const topLeft = new Vector2( sign * halfWidth, halfHeight );
     const topRight = topLeft.plus( offsetTopVector );
-    const bottomLeft = new Vector2( curveSign * halfWidth, -halfHeight );
+    const bottomLeft = new Vector2( sign * halfWidth, -halfHeight );
     const bottomRight = bottomLeft.plus( offsetBottomVector );
 
     // control points: Note that the curve will not go through the control points.
     // rather, it will go through the two following points: (0,0) and ( backingThickness, 0 )
-    const midLeft = new Vector2( -curveSign * halfWidth, 0 );
+    const midLeft = new Vector2( -sign * halfWidth, 0 );
     const midRight = midLeft.plusXY( backingThickness, 0 );
 
     // reflective coating on the front (left-facing) surface of the mirror, with zero area.

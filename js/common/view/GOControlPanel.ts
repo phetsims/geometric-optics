@@ -91,12 +91,14 @@ class GOControlPanel extends Panel {
       } ) );
 
     // Radius of Curvature
-    opticSubpanelChildren.push( new RadiusOfCurvatureControl( optic.indirectFocalLengthModel.radiusOfCurvatureMagnitudeProperty, {
-      visibleProperty: new DerivedProperty( [ GOGlobalOptions.focalLengthControlTypeProperty ],
-        ( focalLengthControlType: FocalLengthControlType ) => ( focalLengthControlType === 'indirect' )
-      ),
-      tandem: opticSubpanelTandem.createTandem( 'radiusOfCurvatureControl' )
-    } ) );
+    opticSubpanelChildren.push( new RadiusOfCurvatureControl(
+      optic.indirectFocalLengthModel.radiusOfCurvatureMagnitudeProperty,
+      optic.radiusOfCurvatureProperty, {
+        visibleProperty: new DerivedProperty( [ GOGlobalOptions.focalLengthControlTypeProperty ],
+          ( focalLengthControlType: FocalLengthControlType ) => ( focalLengthControlType === 'indirect' )
+        ),
+        tandem: opticSubpanelTandem.createTandem( 'radiusOfCurvatureControl' )
+      } ) );
 
     // Index of Refraction (for lens only)
     if ( optic instanceof Lens ) {

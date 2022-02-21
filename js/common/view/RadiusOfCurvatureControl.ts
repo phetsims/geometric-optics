@@ -19,6 +19,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 type RadiusOfCurvatureControlOptions = {
   visibleProperty: IProperty<boolean>,
@@ -29,18 +30,27 @@ class RadiusOfCurvatureControl extends NumberControl {
 
   /**
    * @param radiusOfCurvatureMagnitudeProperty
+   * @param radiusOfCurvatureProperty
    * @param providedOptions
    */
   constructor( radiusOfCurvatureMagnitudeProperty: NumberProperty,
+               radiusOfCurvatureProperty: IReadOnlyProperty<number>,
                providedOptions: RadiusOfCurvatureControlOptions ) {
+
+    // Preferable to derive from radiusOfCurvatureProperty, but scenery.Text requires textProperty to be settable.
+    const textProperty = new StringProperty( '', {
+      tandem: providedOptions.tandem.createTandem( 'textProperty' ),
+      phetioReadOnly: true
+    } );
+    radiusOfCurvatureProperty.link( ( radiusOfCurvature: number ) => {
+      textProperty.value = ( radiusOfCurvature >= 0 ) ? geometricOpticsStrings.radiusOfCurvaturePositive
+                                                      : geometricOpticsStrings.radiusOfCurvatureNegative;
+    } );
 
     const options = merge( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
       delta: GOConstants.RADIUS_OF_CURVATURE_SPINNER_STEP,
       titleNodeOptions: {
-        textProperty: new StringProperty( geometricOpticsStrings.radiusOfCurvaturePositive, {
-          tandem: providedOptions.tandem.createTandem( 'textProperty' ),
-          phetioReadOnly: true
-        } )
+        textProperty: textProperty
       },
       numberDisplayOptions: {
         decimalPlaces: GOConstants.RADIUS_OF_CURVATURE_DECIMAL_PLACES,

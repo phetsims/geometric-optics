@@ -50,7 +50,7 @@ class DirectFocalLengthModel extends PhetioObject implements FocalLengthModel {
       units: 'cm',
       range: options.focalLengthMagnitudeRange,
       tandem: options.tandem.createTandem( 'focalLengthMagnitudeProperty' ),
-      phetioDocumentation: 'magnitude of the focal length, absent the sign that determines whether the optic is converging or diverging'
+      phetioDocumentation: 'magnitude of the focal length (no sign)'
     } );
 
     // fixed value
@@ -67,8 +67,7 @@ class DirectFocalLengthModel extends PhetioObject implements FocalLengthModel {
         focalLengthMagnitude * ( 2 * ( indexOfRefraction - 1 ) ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'radiusOfCurvatureMagnitudeProperty' ),
-        phetioDocumentation: 'magnitude of the radius of curvature, absent the sign that determines whether ' +
-                             'the vertex lies to the left or right of the center of curvature',
+        phetioDocumentation: 'magnitude of the radius of curvature (no sign)',
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
       } );
   }
