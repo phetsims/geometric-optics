@@ -38,6 +38,7 @@ class LightPropagationToggleButton extends BooleanRoundToggleButton {
       radius: SceneryPhetConstants.DEFAULT_BUTTON_RADIUS, // so that this button will be the same size as ResetAllButton
       xMargin: 4,
       yMargin: 4,
+      touchAreaDilation: 5.2, // same as ResetAllButton
       baseColor: GOColors.lightPropagationToggleButtonFillProperty
     }, providedOptions ) );
   }
