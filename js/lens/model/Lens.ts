@@ -40,6 +40,8 @@ class Lens extends Optic {
    */
   constructor( providedOptions: LensOptions ) {
 
+    const focalLengthModelsTandem = providedOptions.tandem.createTandem( 'focalLengthModels' );
+
     const options = merge( {
       opticShape: 'convex',
       opticShapes: [ 'convex', 'concave' ],
@@ -48,12 +50,12 @@ class Lens extends Optic {
       directFocalLengthModelOptions: {
         focalLengthRange: new RangeWithValue( 30, 130, 80 ), // in cm
         indexOfRefractionRange: new RangeWithValue( DIRECT_INDEX_OF_REFRACTION, DIRECT_INDEX_OF_REFRACTION, DIRECT_INDEX_OF_REFRACTION ), // fixed and unitless
-        tandem: providedOptions.tandem.createTandem( 'directFocalLengthModel' )
+        tandem: focalLengthModelsTandem.createTandem( 'directFocalLengthModel' )
       },
       indirectFocalLengthModelOptions: {
         radiusOfCurvatureRange: new RangeWithValue( 30, 130, 80 ), // in cm
         indexOfRefractionRange: new RangeWithValue( 1.2, 1.9, 1.5 ), // unitless
-        tandem: providedOptions.tandem.createTandem( 'indirectFocalLengthModel' )
+        tandem: focalLengthModelsTandem.createTandem( 'indirectFocalLengthModel' )
       }
     }, providedOptions ) as OpticOptions; //TODO don't use 'as'
 

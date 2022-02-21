@@ -35,6 +35,8 @@ class Mirror extends Optic {
 
   constructor( providedOptions: MirrorOptions ) {
 
+    const focalLengthModelsTandem = providedOptions.tandem.createTandem( 'focalLengthModels' );
+
     const options = merge( {
       opticShape: 'concave',
       opticShapes: [ 'concave', 'convex' ], //TODO https://github.com/phetsims/geometric-optics/issues/227 add 'flat'
@@ -43,12 +45,12 @@ class Mirror extends Optic {
       directFocalLengthModelOptions: {
         focalLengthRange: new RangeWithValue( 75, 125, 100 ), // in cm
         indexOfRefractionRange: new RangeWithValue( INDEX_OF_REFRACTION, INDEX_OF_REFRACTION, INDEX_OF_REFRACTION ), // fixed and unitless
-        tandem: providedOptions.tandem.createTandem( 'directFocalLengthModel' )
+        tandem: focalLengthModelsTandem.createTandem( 'directFocalLengthModel' )
       },
       indirectFocalLengthModelOptions: {
         radiusOfCurvatureRange: new RangeWithValue( 150, 300, 200 ), // in cm
         indexOfRefractionRange: new RangeWithValue( INDEX_OF_REFRACTION, INDEX_OF_REFRACTION, INDEX_OF_REFRACTION ), // fixed and unitless
-        tandem: providedOptions.tandem.createTandem( 'indirectFocalLengthModel' )
+        tandem: focalLengthModelsTandem.createTandem( 'indirectFocalLengthModel' )
       }
     }, providedOptions ) as OpticOptions; //TODO don't use 'as'
 
