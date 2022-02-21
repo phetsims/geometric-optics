@@ -45,8 +45,8 @@ class CueingArrowsNode extends Path {
     this.length = options.length;
 
     this.boundsProperty.link( () => {
-      this.touchArea = this.localBounds;
-      this.mouseArea = this.localBounds;
+      this.touchArea = this.localBounds.dilated( 5 );
+      this.mouseArea = this.localBounds.dilated( 3 );
     } );
   }
 
