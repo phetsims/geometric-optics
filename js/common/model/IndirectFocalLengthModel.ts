@@ -1,7 +1,7 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * DirectFocalLengthModel is the model where focal length is set indirectly.
+ * IndirectFocalLengthModel is the model where focal length is set indirectly.
  * Radius of curvature and index of refraction are settable, and used to derive focal length.
  * See https://github.com/phetsims/geometric-optics/issues/255
  *
