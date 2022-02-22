@@ -25,16 +25,24 @@ const GOGlobalOptions = {
       tandem: optionsTandem.createTandem( 'focalLengthControlTypeProperty' ),
       phetioType: Property.PropertyIO( StringIO ),
       phetioDocumentation: 'Determines how focal length is controlled in the Lens and Mirror screens.<br>' +
-                           'direct: provides a control labeled \'Focal Length\'<br>' +
-                           'indirect: provides controls for optic parameters, from which focal length is derived'
+                           'This can also be set via the focalLengthControl query parameter.<br>' +
+                           'The values are:' +
+                           '<ul/>' +
+                           '<li>direct: provides a control labeled \'Focal Length\'</li>' +
+                           '<li>indirect: provides controls for other optic parameters, from which focal length is derived</li>' +
+                           '</ul>'
+
     } ),
 
   cueingArrowsEnabledProperty: new BooleanProperty( true, {
     tandem: optionsTandem.createTandem( 'cueingArrowsEnabledProperty' ),
     phetioDocumentation: 'Use this Property to enable or disable the cueing arrows feature.<br>' +
                          'This Property can be accessed through PhET-iO only; it is not settable in the sim.<br>' +
-                         'true: draggable Nodes will have cueing arrows<br>' +
-                         'false: draggable Nodes will NOT have cueing arrows'
+                         'The values are:' +
+                         '<ul/>' +
+                         '<li>true: draggable Nodes will have cueing arrows' +
+                         '<li>false: draggable Nodes will NOT have cueing arrows' +
+                         '</ul>'
   } )
 };
 

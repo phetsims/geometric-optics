@@ -19,6 +19,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import geometricOptics from '../../geometricOptics.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import GOGlobalOptions from '../GOGlobalOptions.js';
 
 type IndirectFocalLengthModelOptions = {
   radiusOfCurvatureMagnitudeRange: RangeWithValue,
@@ -38,9 +39,13 @@ class IndirectFocalLengthModel extends PhetioObject implements FocalLengthModel 
 
     const options = merge( {
       phetioState: false,
-      phetioDocumentation: 'Model of focal length where:<br>' +
-                           '- radius of curvature and index of refraction are settable<br>' +
-                           '- focal length is derived'
+      phetioDocumentation: 'Model of focal length that is used when ' +
+                           `${GOGlobalOptions.focalLengthControlTypeProperty.tandem.phetioID} ` +
+                           'is set to \'indirect\'. In this model:' +
+                           '<ul>' +
+                           '<li>radius of curvature and index of refraction are settable' +
+                           '<li>focal length is derived' +
+                           '</ul>'
     }, providedOptions );
 
     super( options );

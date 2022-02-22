@@ -98,10 +98,12 @@ class GOModel {
     this.lightPropagationEnabledProperty = new BooleanProperty( true, {
       tandem: providedOptions.tandem.createTandem( 'lightPropagationEnabledProperty' ),
       phetioDocumentation: 'Turns light propagation on (true) and off (false) to support predictive questioning.<br>' +
-                           'When off, the following things are not visible: <br>' +
-                           '- rays (real and virtual)<br>' +
-                           '- images (real and virtual)<br>' +
-                           '- light spots on the projection screen'
+                           'When off, the following things are not visible:' +
+                           '<ul>' +
+                           '<li>rays (real and virtual)' +
+                           '<li>images (real and virtual)' +
+                           '<li>light spots on the projection screen' +
+                           '</ul>'
     } );
 
     // Scenes are grouped under this tandem.

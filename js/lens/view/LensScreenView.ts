@@ -51,9 +51,11 @@ class LensScreenView extends GOScreenView {
 
       dragLockedProperty: new BooleanProperty( false, {
         tandem: providedOptions.tandem.createTandem( 'dragLockedProperty' ),
-        phetioDocumentation: 'Controls dragging of the optical object(s).<br>' +
-                             'true = may be dragged horizontally only<br>' +
-                             'false = may be dragged horizontally and vertically'
+        phetioDocumentation: 'Controls dragging of the optical object(s).' +
+                             '<ul>' +
+                             '<li>true: may be dragged horizontally only</li>' +
+                             '<li>false = may be dragged horizontally and vertically</li>' +
+                             '</ul>'
       } )
     }, providedOptions );
 
