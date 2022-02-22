@@ -77,7 +77,7 @@ class OpticalImage extends PhetioObject {
     this.optic = optic;
 
     this.opticImageDistanceProperty = new DerivedProperty(
-      [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
+      [ opticalObjectPositionProperty, optic.positionProperty, optic.finiteFocalLengthProperty ],
       ( opticalObjectPosition: Vector2, opticPosition: Vector2, focalLength: number ) => {
 
         // {number} horizontal distance between optic and optical object
@@ -100,7 +100,7 @@ class OpticalImage extends PhetioObject {
       } );
 
     this.positionProperty = new DerivedProperty(
-      [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
+      [ opticalObjectPositionProperty, optic.positionProperty, optic.finiteFocalLengthProperty ],
       //TODO focalLength is not used, is focalLengthProperty dependency needed?
       //TODO Calls this.getMagnification, should there be a dependency here on magnificationProperty instead?
       ( opticalObjectPosition: Vector2, opticPosition: Vector2, focalLength: number ) => {
@@ -122,7 +122,7 @@ class OpticalImage extends PhetioObject {
 
     //TODO REVIEW: DerivedProperty that depends on an unlisted Property?
     this.opticalImageTypeProperty = new DerivedProperty(
-      [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
+      [ opticalObjectPositionProperty, optic.positionProperty, optic.finiteFocalLengthProperty ],
       ( ...args: any[] ) => ( this.opticImageDistanceProperty.value < 0 ) ? 'virtual' : 'real', {
         tandem: options.tandem.createTandem( 'opticalImageTypeProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( StringIO ),
@@ -130,7 +130,7 @@ class OpticalImage extends PhetioObject {
       } );
 
     this.magnificationProperty = new DerivedProperty(
-      [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
+      [ opticalObjectPositionProperty, optic.positionProperty, optic.finiteFocalLengthProperty ],
       //TODO focalLength is not used, is focalLengthProperty dependency needed?
       ( framedObjectPosition: Vector2, opticPosition: Vector2, focalLength: number ) =>
         this.getMagnification( framedObjectPosition, opticPosition )
@@ -139,7 +139,7 @@ class OpticalImage extends PhetioObject {
     //TODO REVIEW: DerivedProperty that depends on an unlisted Property?
     //TODO shouldn't this just depend on the sign of this.magnificationProperty?
     this.isInvertedProperty = new DerivedProperty(
-      [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
+      [ opticalObjectPositionProperty, optic.positionProperty, optic.finiteFocalLengthProperty ],
       ( ...args: any[] ) => ( this.opticImageDistanceProperty.value > 0 )
     );
 

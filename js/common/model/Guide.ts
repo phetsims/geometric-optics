@@ -72,7 +72,7 @@ class Guide extends PhetioObject {
       } );
 
     this.transmittedAngleProperty = new DerivedProperty(
-      [ optic.focalLengthProperty, optic.diameterProperty, this.incidentAngleProperty ],
+      [ optic.finiteFocalLengthProperty, optic.diameterProperty, this.incidentAngleProperty ],
       ( focalLength: number, diameter: number, incidentAngle: number ) => {
 
         // transmitted angle if the optic was a blank.

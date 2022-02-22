@@ -84,7 +84,7 @@ class GOControlPanel extends Panel {
 
     // Focal Length
     opticSubpanelChildren.push( new FocalLengthControl( optic.directFocalLengthModel.focalLengthMagnitudeProperty,
-      optic.focalLengthProperty, {
+      optic.finiteFocalLengthProperty, {
         visibleProperty: new DerivedProperty(
           [ GOGlobalOptions.focalLengthControlTypeProperty, optic.opticShapeProperty ],
           ( focalLengthControlType: FocalLengthControlType, opticShape: OpticShape ) =>
