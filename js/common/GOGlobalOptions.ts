@@ -12,7 +12,6 @@ import geometricOptics from '../geometricOptics.js';
 import GOQueryParameters from './GOQueryParameters.js';
 import { FocalLengthControlType, FocalLengthControlTypeValues } from './model/FocalLengthControlType.js';
 import StringIO from '../../../tandem/js/types/StringIO.js';
-import BooleanProperty from '../../../axon/js/BooleanProperty.js';
 
 // constants
 const optionsTandem = Tandem.GLOBAL_VIEW.createTandem( 'options' );
@@ -32,18 +31,7 @@ const GOGlobalOptions = {
                            '<li>indirect: provides controls for other optic parameters, from which focal length is derived</li>' +
                            '</ul>'
 
-    } ),
-
-  cueingArrowsEnabledProperty: new BooleanProperty( true, {
-    tandem: optionsTandem.createTandem( 'cueingArrowsEnabledProperty' ),
-    phetioDocumentation: 'Use this Property to enable or disable the cueing arrows feature.<br>' +
-                         'This Property can be accessed through PhET-iO only; it is not settable in the sim.<br>' +
-                         'The values are:' +
-                         '<ul/>' +
-                         '<li>true: draggable Nodes will have cueing arrows' +
-                         '<li>false: draggable Nodes will NOT have cueing arrows' +
-                         '</ul>'
-  } )
+    } )
 };
 
 geometricOptics.register( 'GOGlobalOptions', GOGlobalOptions );

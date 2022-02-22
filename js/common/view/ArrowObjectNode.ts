@@ -20,9 +20,9 @@ import Optic from '../model/Optic.js';
 import GOConstants from '../GOConstants.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
-import GOGlobalOptions from '../GOGlobalOptions.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import GOQueryParameters from '../GOQueryParameters.js';
 
 const SNAP_TO_MIN_MAGNITUDE = 20; // cm
 
@@ -84,9 +84,9 @@ class ArrowObjectNode extends Node {
 
     const cueingArrowsNode = new CueingArrowsNode( {
       visibleProperty: new DerivedProperty(
-        [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
-        ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
-          ( cueingArrowsEnabled && inputEnabled && !wasDragged ) )
+        [ this.inputEnabledProperty, wasDraggedProperty ],
+        ( inputEnabled: boolean, wasDragged: boolean ) =>
+          ( GOQueryParameters.enableCueingArrows && inputEnabled && !wasDragged ) )
     } );
     this.addChild( cueingArrowsNode );
 

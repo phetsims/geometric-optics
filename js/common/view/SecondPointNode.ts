@@ -17,12 +17,12 @@ import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import SecondPoint from '../model/SecondPoint.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import GOGlobalOptions from '../GOGlobalOptions.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import GOConstants from '../GOConstants.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import GOQueryParameters from '../GOQueryParameters.js';
 
 type SecondPointNodeOptions = {
   visibleProperty: IProperty<boolean>,
@@ -70,9 +70,9 @@ class SecondPointNode extends Node {
     const cueingArrowsNode = new CueingArrowsNode( pointNode.width + 10, {
       center: pointNode.center,
       visibleProperty: new DerivedProperty(
-        [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
-        ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
-          ( cueingArrowsEnabled && inputEnabled && !wasDragged ) )
+        [ this.inputEnabledProperty, wasDraggedProperty ],
+        ( inputEnabled: boolean, wasDragged: boolean ) =>
+          ( GOQueryParameters.enableCueingArrows && inputEnabled && !wasDragged ) )
     } );
     this.addChild( cueingArrowsNode );
 

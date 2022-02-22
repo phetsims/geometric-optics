@@ -20,7 +20,6 @@ import GOColors from '../../common/GOColors.js';
 import geometricOptics from '../../geometricOptics.js';
 import ProjectionScreen from '../model/ProjectionScreen.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
-import GOGlobalOptions from '../../common/GOGlobalOptions.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OriginNode from './OriginNode.js';
@@ -118,9 +117,9 @@ class ProjectionScreenNode extends Node {
       left: parentNode.right,
       centerY: parentNode.centerY,
       visibleProperty: new DerivedProperty(
-        [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
-        ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
-          ( cueingArrowsEnabled && inputEnabled && !wasDragged ) )
+        [ this.inputEnabledProperty, wasDraggedProperty ],
+        ( inputEnabled: boolean, wasDragged: boolean ) =>
+          ( GOQueryParameters.enableCueingArrows && inputEnabled && !wasDragged ) )
     } );
     this.addChild( cueingArrowsNode );
 

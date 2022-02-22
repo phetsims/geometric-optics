@@ -33,6 +33,13 @@ const SCHEMA_MAP = {
     public: true
   },
 
+  // Enable the feature that shows cueing arrows on things that are draggable.
+  enableCueingArrows: {
+    type: 'boolean',
+    defaultValue: true,
+    public: true
+  },
+
   // Determines how focal length is controlled in the Lens and Mirror screens.
   // direct: provides a control labeled 'Focal Length'
   // indirect: provides controls for optic parameters, from which focal length is derived

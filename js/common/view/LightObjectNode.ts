@@ -16,13 +16,13 @@ import { DragListener, FocusHighlightFromNode, Image, KeyboardDragListener, Node
 import geometricOptics from '../../geometricOptics.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
-import GOGlobalOptions from '../../common/GOGlobalOptions.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
 import GOConstants from '../../common/GOConstants.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import LightObject from '../model/LightObject.js';
+import GOQueryParameters from '../GOQueryParameters.js';
 
 type LightObjectNodeOptions = {
   visibleProperty?: IProperty<boolean>,
@@ -71,9 +71,9 @@ class LightObjectNode extends Node {
 
     const cueingArrowsNode = new CueingArrowsNode( {
       visibleProperty: new DerivedProperty(
-        [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
-        ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
-          ( cueingArrowsEnabled && inputEnabled && !wasDragged ) )
+        [ this.inputEnabledProperty, wasDraggedProperty ],
+        ( inputEnabled: boolean, wasDragged: boolean ) =>
+          ( GOQueryParameters.enableCueingArrows && inputEnabled && !wasDragged ) )
     } );
     this.addChild( cueingArrowsNode );
 

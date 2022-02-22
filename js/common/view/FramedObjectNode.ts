@@ -16,13 +16,13 @@ import geometricOptics from '../../geometricOptics.js';
 import FramedObject from '../model/FramedObject.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
-import GOGlobalOptions from '../GOGlobalOptions.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
 import GOConstants from '../GOConstants.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import GOQueryParameters from '../GOQueryParameters.js';
 
 type FramedObjectNodeOptions = {
   visibleProperty?: IProperty<boolean>,
@@ -78,9 +78,9 @@ class FramedObjectNode extends Node {
 
     const cueingArrowsNode = new CueingArrowsNode( {
       visibleProperty: new DerivedProperty(
-        [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
-        ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
-          ( cueingArrowsEnabled && inputEnabled && !wasDragged ) )
+        [ this.inputEnabledProperty, wasDraggedProperty ],
+        ( inputEnabled: boolean, wasDragged: boolean ) =>
+          ( GOQueryParameters.enableCueingArrows && inputEnabled && !wasDragged ) )
     } );
     this.addChild( cueingArrowsNode );
 
