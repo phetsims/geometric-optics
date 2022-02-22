@@ -31,8 +31,10 @@ import { FocalLengthControlType } from './FocalLengthControlType.js';
 import DirectFocalLengthModel, { DirectFocalLengthModelOptions } from './DirectFocalLengthModel.js';
 import IndirectFocalLengthModel, { IndirectFocalLengthModelOptions } from './IndirectFocalLengthModel.js';
 
-const EFFECTIVELY_INFINITE_ROC = 200000; // positive, to make it convex
-const EFFECTIVELY_INFINITE_FOCAL_LENGTH = EFFECTIVELY_INFINITE_ROC / 2; // f = ROC/2
+// A flat mirror is modeled as a convex mirror with effectively-infinite radius of curvature.
+// See https://github.com/phetsims/geometric-optics/issues/227
+const FLAT_MIRROR_RADIUS_OF_CURVATURE = 200000; // positive, to make it convex
+const FLAT_MIRROR_FOCAL_LENGTH = FLAT_MIRROR_RADIUS_OF_CURVATURE / 2; // f = ROC/2
 
 type OpticOptions = {
 
@@ -198,7 +200,7 @@ abstract class Optic extends PhetioObject {
         directRadiusOfCurvatureMagnitude: number,
         indirectRadiusOfCurvatureMagnitude: number ) => {
         if ( opticShape === 'flat' ) {
-          return EFFECTIVELY_INFINITE_ROC;
+          return FLAT_MIRROR_RADIUS_OF_CURVATURE;
         }
         else {
           const sign = ( opticShape === 'convex' ) ? 1 : -1;
@@ -237,7 +239,7 @@ abstract class Optic extends PhetioObject {
         directFocalLengthMagnitude: number,
         indirectFocalLengthMagnitude: number ) => {
         if ( opticShape === 'flat' ) {
-          return EFFECTIVELY_INFINITE_FOCAL_LENGTH;
+          return FLAT_MIRROR_FOCAL_LENGTH;
         }
         else {
           const sign = this.isConverging( opticShape ) ? 1 : -1;
