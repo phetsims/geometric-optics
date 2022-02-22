@@ -14,16 +14,11 @@ import GOGlobalOptionsNode from './common/view/GOGlobalOptionsNode.js';
 import geometricOpticsStrings from './geometricOpticsStrings.js';
 import LensScreen from './lens/LensScreen.js';
 import MirrorScreen from './mirror/MirrorScreen.js';
+import GOConstants from './common/GOConstants.js';
 
 const simOptions = {
 
-  credits: {
-    leadDesign: 'Amy Rouinfar, Michael Dubson',
-    softwareDevelopment: 'Sarah Chang, Chris Malley (PixelZoom, Inc.), Martin Veillette',
-    team: 'Chris Klusendorf, Diana L\u00f3pez Tavares, Ariel Paul, Kathy Perkins',
-    qualityAssurance: 'Steele Dalton, Emily Miller, Nancy Salpepi, Kathryn Woessner',
-    graphicArts: 'Megan Lai'
-  },
+  credits: GOConstants.CREDITS,
 
   // Creates content for the Options dialog, accessible via the PhET menu
   createOptionsDialogContent: ( tandem: Tandem ) => new GOGlobalOptionsNode( {

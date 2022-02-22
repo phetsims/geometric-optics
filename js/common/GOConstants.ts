@@ -21,6 +21,15 @@ const GOConstants = {
   SCREEN_VIEW_X_MARGIN: 20,
   SCREEN_VIEW_Y_MARGIN: 15,
 
+  // Shared with geometric-optics-basics
+  CREDITS: {
+    leadDesign: 'Amy Rouinfar, Michael Dubson',
+    softwareDevelopment: 'Sarah Chang, Chris Malley (PixelZoom, Inc.), Martin Veillette',
+    team: 'Chris Klusendorf, Diana L\u00f3pez Tavares, Ariel Paul, Kathy Perkins',
+    qualityAssurance: 'Steele Dalton, Emily Miller, Nancy Salpepi, Kathryn Woessner',
+    graphicArts: 'Megan Lai'
+  },
+
   // Optic -------------------------------------------------------------------------------------------------------------
 
   DIAMETER_RANGE: new RangeWithValue( 60, 120, 80 ),
