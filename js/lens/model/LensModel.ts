@@ -15,6 +15,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
 
 type LensModelOptions = {
+  isBasicsVersion?: boolean,
   tandem: Tandem
 };
 
@@ -26,6 +27,8 @@ class LensModel extends GOModel {
   constructor( providedOptions: LensModelOptions ) {
 
     const options = merge( {
+
+      isBasicsVersion: false,
 
       // optical object choices, in the order that they will appear in OpticalObjectChoiceComboBox
       opticalObjectChoices: [
@@ -46,6 +49,7 @@ class LensModel extends GOModel {
 
     // super is responsible for resetting the lens
     const lens = new Lens( {
+      isBasicsVersion: options.isBasicsVersion,
       tandem: providedOptions.tandem.createTandem( 'lens' )
     } );
 

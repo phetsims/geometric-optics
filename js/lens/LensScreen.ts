@@ -20,23 +20,32 @@ import LensNode from './view/LensNode.js';
 import LensScreenView from './view/LensScreenView.js';
 
 type LensScreenOptions = {
+  isBasicsVersion?: boolean,
   tandem: Tandem
 };
 
 class LensScreen extends Screen<LensModel, LensScreenView> {
 
-  constructor( options: LensScreenOptions ) {
+  constructor( providedOptions: LensScreenOptions ) {
+
+    const options = merge( {
+      isBasicsVersion: false,
+      name: geometricOpticsStrings.screen.lens,
+      homeScreenIcon: createScreenIcon(),
+      showUnselectedHomeScreenIconFrame: true,
+      backgroundColorProperty: GOColors.screenBackgroundColorProperty,
+      keyboardHelpNode: new GOKeyboardHelpContent( true /* isLens */ )
+    }, providedOptions );
 
     super(
-      () => new LensModel( { tandem: options.tandem.createTandem( 'model' ) } ),
-      model => new LensScreenView( model, { tandem: options.tandem.createTandem( 'view' ) } ),
-      merge( {
-        name: geometricOpticsStrings.screen.lens,
-        homeScreenIcon: createScreenIcon(),
-        showUnselectedHomeScreenIconFrame: true,
-        backgroundColorProperty: GOColors.screenBackgroundColorProperty,
-        keyboardHelpNode: new GOKeyboardHelpContent( true /* isLens */ )
-      }, options )
+      () => new LensModel( {
+        isBasicsVersion: options.isBasicsVersion,
+        tandem: options.tandem.createTandem( 'model' )
+      } ),
+      model => new LensScreenView( model, {
+        tandem: options.tandem.createTandem( 'view' )
+      } ),
+      options
     );
   }
 

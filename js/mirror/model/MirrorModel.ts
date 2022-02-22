@@ -15,6 +15,7 @@ import Mirror from './Mirror.js';
 import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
 
 type MirrorOptions = {
+  isBasicsVersion: boolean,
   tandem: Tandem
 }
 
@@ -48,6 +49,7 @@ class MirrorModel extends GOModel {
 
     // super is responsible for resetting the mirror
     const mirror = new Mirror( {
+      isBasicsVersion: options.isBasicsVersion,
       tandem: options.tandem.createTandem( 'mirror' )
     } );
 

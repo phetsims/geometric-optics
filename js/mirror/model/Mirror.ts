@@ -25,6 +25,7 @@ import GOConstants from '../../common/GOConstants.js';
 const INDEX_OF_REFRACTION = 2;
 
 type MirrorOptions = {
+  isBasicsVersion: boolean,
   tandem: Tandem
 };
 
@@ -38,8 +39,7 @@ class Mirror extends Optic {
     const focalLengthModelsTandem = providedOptions.tandem.createTandem( 'focalLengthModels' );
 
     const options = merge( {
-      opticShape: 'concave',
-      opticShapes: [ 'concave', 'convex', 'flat' ], // radio buttons will be created left-to-right in this order
+      opticShapes: providedOptions.isBasicsVersion ? [ 'flat' ] : [ 'concave', 'convex', 'flat' ],
       diameterRange: GOConstants.DIAMETER_RANGE, // in cm
       sign: -1,
       directFocalLengthModelOptions: {

@@ -33,7 +33,9 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShape>
 
     // A radio button for each shape supported by the optic
     assert && assert( optic.opticShapeProperty.validValues ); // {OpticShape[]|undefined}
-    const items = optic.opticShapeProperty.validValues!.map(
+    const validValues = optic.opticShapeProperty.validValues!;
+
+    const items = validValues.map(
       ( opticShape: OpticShape ) => {
         return {
           value: opticShape,
@@ -56,7 +58,8 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShape>
       buttonContentXMargin: 14,
       buttonContentYMargin: 5,
       touchAreaXDilation: 4,
-      touchAreaYDilation: 5
+      touchAreaYDilation: 5,
+      visible: ( validValues.length > 1 ) // hide if we only have 1 choice
     }, providedOptions ) );
   }
 }

@@ -43,10 +43,7 @@ const FLAT_MIRROR_FINITE_FOCAL_LENGTH = FLAT_MIRROR_FINITE_RADIUS_OF_CURVATURE /
 
 type OpticOptions = {
 
-  // initial shape of the optic, 'convex' or 'concave'
-  opticShape: OpticShape,
-
-  // supported values of OpticShape, radio buttons will be created left-to-right in this order
+  // supported values of OpticShape, radio buttons will be created left-to-right in this order, default is [0]
   opticShapes: OpticShape[]
 
   // range of diameter, in cm
@@ -136,7 +133,7 @@ abstract class Optic extends PhetioObject {
 
     this.sign = options.sign;
 
-    this.opticShapeProperty = new Property( options.opticShape, {
+    this.opticShapeProperty = new Property( options.opticShapes[ 0 ], {
       validValues: options.opticShapes,
       tandem: options.tandem.createTandem( 'opticShapeProperty' ),
       phetioType: Property.PropertyIO( StringIO ),

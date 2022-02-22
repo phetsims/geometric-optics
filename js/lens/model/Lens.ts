@@ -24,6 +24,7 @@ import Utils from '../../../../dot/js/Utils.js';
 const DIRECT_INDEX_OF_REFRACTION = 1.5;
 
 type LensOptions = {
+  isBasicsVersion: boolean,
   tandem: Tandem
 };
 
@@ -43,8 +44,7 @@ class Lens extends Optic {
     const focalLengthModelsTandem = providedOptions.tandem.createTandem( 'focalLengthModels' );
 
     const options = merge( {
-      opticShape: 'convex',
-      opticShapes: [ 'convex', 'concave' ], // radio buttons will be created left-to-right in this order
+      opticShapes: providedOptions.isBasicsVersion ? [ 'convex' ] : [ 'convex', 'concave' ],
       diameterRange: GOConstants.DIAMETER_RANGE, // in cm
       sign: 1,
       directFocalLengthModelOptions: {
