@@ -52,6 +52,8 @@ const NOMINAL_MODEL_TO_VIEW_SCALE = 2;
 
 type GeometricOpticsScreenViewOptions = {
 
+  isBasicsVersion: boolean,
+
   // Gets the position of the model origin in view coordinates
   getViewOrigin: ( layoutBounds: Bounds2 ) => Vector2,
 
@@ -203,6 +205,7 @@ class GOScreenView extends ScreenView {
     // Control panel at the bottom-center of the screen
     const controlPanel = new GOControlPanel( model.optic, model.raysTypeProperty, visibleProperties,
       virtualImageCheckboxEnabledProperty, {
+        isBasicsVersion: options.isBasicsVersion,
         tandem: this.controlsTandem.createTandem( 'controlPanel' )
       } );
     controlPanel.boundsProperty.link( () => {

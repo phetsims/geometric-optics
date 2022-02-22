@@ -32,8 +32,10 @@ import GOGlobalOptions from '../GOGlobalOptions.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { FocalLengthControlType } from '../model/FocalLengthControlType.js';
 import { OpticShape } from '../model/OpticShape.js';
+import Mirror from '../../mirror/model/Mirror.js';
 
 type GOControlPanelOptions = {
+  isBasicsVersion: boolean,
   tandem: Tandem
 };
 
@@ -52,9 +54,18 @@ class GOControlPanel extends Panel {
                virtualImageCheckboxEnabledProperty: IReadOnlyProperty<boolean>,
                providedOptions: GOControlPanelOptions ) {
 
+    const options = merge( {
+
+      // Panel options
+      xMargin: 15,
+      yMargin: 10,
+      fill: GOColors.panelFillProperty,
+      stroke: GOColors.panelStrokeProperty
+    }, providedOptions );
+
     // Rays radio buttons ---------------------------------------------------------------------------------------
 
-    const raysSubpanelTandem = providedOptions.tandem.createTandem( 'raysSubpanel' );
+    const raysSubpanelTandem = options.tandem.createTandem( 'raysSubpanel' );
 
     // title
     const raysText = new Text( geometricOpticsStrings.rays, {
@@ -78,7 +89,7 @@ class GOControlPanel extends Panel {
 
     // Lens/Mirror controls ---------------------------------------------------------------------------------------
 
-    const opticSubpanelTandem = providedOptions.tandem.createTandem( 'opticSubpanel' );
+    const opticSubpanelTandem = options.tandem.createTandem( 'opticSubpanel' );
 
     const opticSubpanelChildren = [];
 
@@ -130,7 +141,9 @@ class GOControlPanel extends Panel {
 
     const checkboxGroup = new VisibilityCheckboxGroup( ( optic instanceof Lens ), visibleProperties,
       virtualImageCheckboxEnabledProperty, {
-        tandem: providedOptions.tandem.createTandem( 'checkboxGroup' )
+        isBasicsVersion: options.isBasicsVersion,
+        isMirrorScreen: ( optic instanceof Mirror ),
+        tandem: options.tandem.createTandem( 'checkboxGroup' )
       } );
 
     // Put it all together ---------------------------------------------------------------------------------------
@@ -139,10 +152,10 @@ class GOControlPanel extends Panel {
     const separatorLength = Math.max( checkboxGroup.height, raysSubpanel.height );
     const separatorOptions = { stroke: 'gray', lineWidth: 1 };
     const leftSeparator = new VSeparator( separatorLength, merge( {
-      tandem: providedOptions.tandem.createTandem( 'leftSeparator' )
+      tandem: options.tandem.createTandem( 'leftSeparator' )
     }, separatorOptions ) );
     const rightSeparator = new VSeparator( separatorLength, merge( {
-      tandem: providedOptions.tandem.createTandem( 'rightSeparator' )
+      tandem: options.tandem.createTandem( 'rightSeparator' )
     }, separatorOptions ) );
 
     const content = new AlignBox( new HBox( {
@@ -153,14 +166,7 @@ class GOControlPanel extends Panel {
       { xAlign: 'left' }
     );
 
-    super( content, merge( {
-
-      // Panel options
-      xMargin: 15,
-      yMargin: 10,
-      fill: GOColors.panelFillProperty,
-      stroke: GOColors.panelStrokeProperty
-    }, providedOptions ) );
+    super( content, options );
   }
 
   /**

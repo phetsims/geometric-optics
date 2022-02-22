@@ -22,6 +22,7 @@ import DragLockedButton from '../../common/view/DragLockedButton.js';
 import Optic from '../../common/model/Optic.js';
 
 type LensScreenViewOptions = {
+  isBasicsVersion: boolean,
   tandem: Tandem
 };
 
