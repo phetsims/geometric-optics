@@ -43,16 +43,19 @@ class Mirror extends Optic {
       diameterRange: GOConstants.DIAMETER_RANGE, // in cm
       sign: -1,
       directFocalLengthModelOptions: {
-        focalLengthMagnitudeRange: new RangeWithValue( 75, 125, 100 ), // in cm
+        focalLengthMagnitudeRange: new RangeWithValue( 75, 125, 90 ), // in cm
         indexOfRefractionRange: new RangeWithValue( INDEX_OF_REFRACTION, INDEX_OF_REFRACTION, INDEX_OF_REFRACTION ), // fixed and unitless
         tandem: focalLengthModelsTandem.createTandem( 'directFocalLengthModel' )
       },
       indirectFocalLengthModelOptions: {
-        radiusOfCurvatureMagnitudeRange: new RangeWithValue( 150, 300, 200 ), // in cm
+        radiusOfCurvatureMagnitudeRange: new RangeWithValue( 150, 300, 180 ), // in cm
         indexOfRefractionRange: new RangeWithValue( INDEX_OF_REFRACTION, INDEX_OF_REFRACTION, INDEX_OF_REFRACTION ), // fixed and unitless
         tandem: focalLengthModelsTandem.createTandem( 'indirectFocalLengthModel' )
       }
     }, providedOptions ) as OpticOptions; //TODO don't use 'as'
+
+    assert && assert( 2 * options.directFocalLengthModelOptions.focalLengthMagnitudeRange.defaultValue ===
+                      options.indirectFocalLengthModelOptions.radiusOfCurvatureMagnitudeRange.defaultValue );
 
     super( options );
 

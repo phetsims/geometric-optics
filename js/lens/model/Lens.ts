@@ -60,6 +60,8 @@ class Lens extends Optic {
     }, providedOptions ) as OpticOptions; //TODO don't use 'as'
 
     assert && assert( !options.opticShapes.includes( 'flat' ), 'flat lens is not supported' );
+    assert && assert( options.directFocalLengthModelOptions.focalLengthMagnitudeRange.defaultValue ===
+                      options.indirectFocalLengthModelOptions.radiusOfCurvatureMagnitudeRange.defaultValue );
     assert && assert( options.indirectFocalLengthModelOptions.indexOfRefractionRange.contains( DIRECT_INDEX_OF_REFRACTION ) );
 
     super( options );
