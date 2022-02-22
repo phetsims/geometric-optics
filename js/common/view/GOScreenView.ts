@@ -327,7 +327,6 @@ class GOScreenView extends ScreenView {
 
     const framedObjectSceneLabelsNode = new FramedObjectSceneLabelsNode( model.framedObjectScene, visibleProperties,
       zoomTransformProperty, modelVisibleBoundsProperty, model.lightPropagationEnabledProperty, {
-        isBasicsVersion: options.isBasicsVersion,
         visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty,
           framedObjectSceneNode.visibleProperty ] )
       } );
