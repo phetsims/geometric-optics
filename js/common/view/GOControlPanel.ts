@@ -31,6 +31,7 @@ import FocalLengthControl from './FocalLengthControl.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { FocalLengthControlType } from '../model/FocalLengthControlType.js';
+import { OpticShape } from '../model/OpticShape.js';
 
 type GOControlPanelOptions = {
   tandem: Tandem
@@ -84,8 +85,10 @@ class GOControlPanel extends Panel {
     // Focal Length
     opticSubpanelChildren.push( new FocalLengthControl( optic.directFocalLengthModel.focalLengthMagnitudeProperty,
       optic.focalLengthProperty, {
-        visibleProperty: new DerivedProperty( [ GOGlobalOptions.focalLengthControlTypeProperty ],
-          ( focalLengthControlType: FocalLengthControlType ) => ( focalLengthControlType === 'direct' )
+        visibleProperty: new DerivedProperty(
+          [ GOGlobalOptions.focalLengthControlTypeProperty, optic.opticShapeProperty ],
+          ( focalLengthControlType: FocalLengthControlType, opticShape: OpticShape ) =>
+            ( focalLengthControlType === 'direct' ) && ( opticShape !== 'flat' )
         ),
         tandem: opticSubpanelTandem.createTandem( 'focalLengthControl' )
       } ) );
@@ -94,8 +97,10 @@ class GOControlPanel extends Panel {
     opticSubpanelChildren.push( new RadiusOfCurvatureControl(
       optic.indirectFocalLengthModel.radiusOfCurvatureMagnitudeProperty,
       optic.radiusOfCurvatureProperty, {
-        visibleProperty: new DerivedProperty( [ GOGlobalOptions.focalLengthControlTypeProperty ],
-          ( focalLengthControlType: FocalLengthControlType ) => ( focalLengthControlType === 'indirect' )
+        visibleProperty: new DerivedProperty(
+          [ GOGlobalOptions.focalLengthControlTypeProperty, optic.opticShapeProperty ],
+          ( focalLengthControlType: FocalLengthControlType, opticShape: OpticShape ) =>
+            ( focalLengthControlType === 'indirect' ) && ( opticShape !== 'flat' )
         ),
         tandem: opticSubpanelTandem.createTandem( 'radiusOfCurvatureControl' )
       } ) );
