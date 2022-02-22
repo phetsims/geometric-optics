@@ -21,6 +21,10 @@ import IProperty from '../../../../axon/js/IProperty.js';
 import GOSceneLabelsNode, { GOSceneLabelsNodeOptions } from './GOSceneLabelsNode.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 
+type FramedObjectSceneLabelsNodeOptions = {
+  isBasicsVersion: boolean
+} & GOSceneLabelsNodeOptions;
+
 class FramedObjectSceneLabelsNode extends GOSceneLabelsNode {
 
   /**
@@ -36,7 +40,7 @@ class FramedObjectSceneLabelsNode extends GOSceneLabelsNode {
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                lightPropagationEnabledProperty: IProperty<boolean>,
-               providedOptions: GOSceneLabelsNodeOptions ) {
+               providedOptions: FramedObjectSceneLabelsNodeOptions ) {
 
     const options = merge( {}, providedOptions );
 
@@ -45,9 +49,11 @@ class FramedObjectSceneLabelsNode extends GOSceneLabelsNode {
     // Object label ------------------------------------------------------------------------------------
 
     // Object 1
-    const objectLabelString = StringUtils.fillIn( geometricOpticsStrings.objectN, {
-      objectNumber: scene.framedObject.opticalObjectNumber
-    } );
+    const objectLabelString = options.isBasicsVersion ?
+                              geometricOpticsStrings.object :
+                              StringUtils.fillIn( geometricOpticsStrings.objectN, {
+                                objectNumber: scene.framedObject.opticalObjectNumber
+                              } );
 
     const objectLabelPositionProperty = new DerivedProperty(
       [ scene.framedObject.boundsProperty ],
@@ -73,12 +79,22 @@ class FramedObjectSceneLabelsNode extends GOSceneLabelsNode {
     } );
     this.addChild( imageLabel );
 
-    // Switch between 'Real Image 1' and 'Virtual Image 1'
     const stringParams = { imageNumber: scene.framedImage1.opticalObject.opticalObjectNumber };
     scene.framedImage1.opticalImageTypeProperty.link( opticalImageType => {
-      imageLabel.setText( opticalImageType === 'real' ?
-                          StringUtils.fillIn( geometricOpticsStrings.realImageN, stringParams ) :
-                          StringUtils.fillIn( geometricOpticsStrings.virtualImageN, stringParams ) );
+      if ( options.isBasicsVersion ) {
+
+        // Switch between 'Real Image' and 'Virtual Image'
+        imageLabel.setText( opticalImageType === 'real' ?
+                            geometricOpticsStrings.realImage :
+                            geometricOpticsStrings.virtualImage );
+      }
+      else {
+
+        // Switch between 'Real Image 1' and 'Virtual Image 1'
+        imageLabel.setText( opticalImageType === 'real' ?
+                            StringUtils.fillIn( geometricOpticsStrings.realImageN, stringParams ) :
+                            StringUtils.fillIn( geometricOpticsStrings.virtualImageN, stringParams ) );
+      }
     } );
   }
 

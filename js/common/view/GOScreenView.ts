@@ -319,6 +319,7 @@ class GOScreenView extends ScreenView {
 
     const arrowObjectSceneLabelsNode = new ArrowObjectSceneLabelsNode( model.arrowObjectScene, visibleProperties,
       zoomTransformProperty, modelVisibleBoundsProperty, model.lightPropagationEnabledProperty, {
+        isBasicsVersion: options.isBasicsVersion,
         visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty,
           arrowObjectSceneNode.visibleProperty ] )
       } );
@@ -326,6 +327,7 @@ class GOScreenView extends ScreenView {
 
     const framedObjectSceneLabelsNode = new FramedObjectSceneLabelsNode( model.framedObjectScene, visibleProperties,
       zoomTransformProperty, modelVisibleBoundsProperty, model.lightPropagationEnabledProperty, {
+        isBasicsVersion: options.isBasicsVersion,
         visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty,
           framedObjectSceneNode.visibleProperty ] )
       } );
@@ -335,6 +337,7 @@ class GOScreenView extends ScreenView {
     if ( model.lightObjectScene && lightObjectSceneNode ) {
       lightObjectSceneLabelsNode = new LightObjectSceneLabelsNode( model.lightObjectScene, visibleProperties,
         zoomTransformProperty, modelVisibleBoundsProperty, {
+          isBasicsVersion: options.isBasicsVersion,
           visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty, lightObjectSceneNode.visibleProperty ] )
         } );
       labelsLayer.addChild( lightObjectSceneLabelsNode );

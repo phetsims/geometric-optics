@@ -15,16 +15,15 @@ import VisibleProperties from './VisibleProperties.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import LightObjectScene from '../model/LightObjectScene.js';
-import GOSceneLabelsNode from './GOSceneLabelsNode.js';
+import GOSceneLabelsNode, { GOSceneLabelsNodeOptions } from './GOSceneLabelsNode.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import LightObject from '../model/LightObject.js';
 
 type LightObjectSceneLabelsNodeOptions = {
-  visibleProperty: Property<boolean>
-};
+  isBasicsVersion: boolean
+} & GOSceneLabelsNodeOptions;
 
 class LightObjectSceneLabelsNode extends GOSceneLabelsNode {
 
@@ -47,10 +46,13 @@ class LightObjectSceneLabelsNode extends GOSceneLabelsNode {
 
     // Object labels ------------------------------------------------------------------------------------
 
-    const object1Label = new LightObjectLabelNode( scene.lightObject1, zoomTransformProperty );
+    const object1Label = new LightObjectLabelNode( scene.lightObject1, zoomTransformProperty, {
+      isBasicsVersion: options.isBasicsVersion
+    } );
     this.addChild( object1Label );
 
     const object2Label = new LightObjectLabelNode( scene.lightObject2, zoomTransformProperty, {
+      isBasicsVersion: options.isBasicsVersion,
       visibleProperty: visibleProperties.secondPointVisibleProperty
     } );
     this.addChild( object2Label );
@@ -72,6 +74,10 @@ class LightObjectSceneLabelsNode extends GOSceneLabelsNode {
   }
 }
 
+type LightObjectLabelNodeOptions = {
+  isBasicsVersion: boolean
+} & LabelNodeOptions;
+
 // Label for a light object.
 class LightObjectLabelNode extends LabelNode {
 
@@ -82,14 +88,16 @@ class LightObjectLabelNode extends LabelNode {
    */
   constructor( lightObject: LightObject,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               providedOptions?: LabelNodeOptions ) {
+               providedOptions: LightObjectLabelNodeOptions ) {
 
     const options = merge( {}, providedOptions );
 
     // Object N
-    const labelString = StringUtils.fillIn( geometricOpticsStrings.objectN, {
-      objectNumber: lightObject.opticalObjectNumber
-    } );
+    const labelString = options?.isBasicsVersion ?
+                        geometricOpticsStrings.object :
+                        StringUtils.fillIn( geometricOpticsStrings.objectN, {
+                          objectNumber: lightObject.opticalObjectNumber
+                        } );
 
     // Position the label below the light, slightly to the left of center (determined empirically)
     const labelPositionProperty = new DerivedProperty( [ lightObject.boundsProperty ],

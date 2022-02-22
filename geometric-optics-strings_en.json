@@ -23,6 +23,9 @@
   "flatMirror": {
     "value": "Flat Mirror"
   },
+  "object": {
+    "value": "Object"
+  },
   "objectN": {
     "value": "Object {{objectNumber}}"
   },
@@ -61,6 +64,9 @@
   },
   "guides": {
     "value": "Guides"
+  },
+  "realImage": {
+    "value": "Real Image"
   },
   "realImageN": {
     "value": "Real Image {{imageNumber}}"

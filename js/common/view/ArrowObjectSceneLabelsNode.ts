@@ -15,12 +15,11 @@ import VisibleProperties from './VisibleProperties.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ArrowObjectScene from '../model/ArrowObjectScene.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import { OpticalImageType } from '../model/OpticalImageType.js';
-import GOSceneLabelsNode from './GOSceneLabelsNode.js';
+import GOSceneLabelsNode, { GOSceneLabelsNodeOptions } from './GOSceneLabelsNode.js';
 import ArrowImage from '../model/ArrowImage.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
@@ -28,8 +27,8 @@ import ArrowObject from '../model/ArrowObject.js';
 import Optic from '../model/Optic.js';
 
 type ArrowObjectSceneLabelsNodeOptions = {
-  visibleProperty: Property<boolean>
-};
+  isBasicsVersion: boolean
+} & GOSceneLabelsNodeOptions;
 
 class ArrowObjectSceneLabelsNode extends GOSceneLabelsNode {
 
@@ -54,10 +53,13 @@ class ArrowObjectSceneLabelsNode extends GOSceneLabelsNode {
 
     // Object labels ------------------------------------------------------------------------------------
 
-    const object1Label = new ArrowObjectLabelNode( scene.arrowObject1, scene.optic, zoomTransformProperty );
+    const object1Label = new ArrowObjectLabelNode( scene.arrowObject1, scene.optic, zoomTransformProperty, {
+      isBasicsVersion: options.isBasicsVersion
+    } );
     this.addChild( object1Label );
 
     const object2Label = new ArrowObjectLabelNode( scene.arrowObject2, scene.optic, zoomTransformProperty, {
+      isBasicsVersion: options.isBasicsVersion,
       visibleProperty: visibleProperties.secondPointVisibleProperty
     } );
     this.addChild( object2Label );
@@ -65,11 +67,16 @@ class ArrowObjectSceneLabelsNode extends GOSceneLabelsNode {
     // Image labels ------------------------------------------------------------------------------------
 
     const image1Label = new ArrowImageLabelNode( scene.arrowImage1, scene.optic, zoomTransformProperty,
-      lightPropagationEnabledProperty, new BooleanProperty( true ), visibleProperties.virtualImageVisibleProperty );
+      lightPropagationEnabledProperty, new BooleanProperty( true ), visibleProperties.virtualImageVisibleProperty, {
+        isBasicsVersion: options.isBasicsVersion
+      } );
     this.addChild( image1Label );
 
     const image2Label = new ArrowImageLabelNode( scene.arrowImage2, scene.optic, zoomTransformProperty,
-      lightPropagationEnabledProperty, visibleProperties.secondPointVisibleProperty, visibleProperties.virtualImageVisibleProperty );
+      lightPropagationEnabledProperty, visibleProperties.secondPointVisibleProperty,
+      visibleProperties.virtualImageVisibleProperty, {
+        isBasicsVersion: options.isBasicsVersion
+      } );
     this.addChild( image2Label );
   }
 
@@ -78,6 +85,10 @@ class ArrowObjectSceneLabelsNode extends GOSceneLabelsNode {
     super.dispose();
   }
 }
+
+type ArrowObjectLabelNodeOptions = {
+  isBasicsVersion: boolean
+} & LabelNodeOptions;
 
 // Label for an arrow object.
 class ArrowObjectLabelNode extends LabelNode {
@@ -91,14 +102,16 @@ class ArrowObjectLabelNode extends LabelNode {
   constructor( arrowObject: ArrowObject,
                optic: Optic,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               providedOptions?: LabelNodeOptions ) {
+               providedOptions: ArrowObjectLabelNodeOptions ) {
 
     const options = merge( {}, providedOptions );
 
     // Object N
-    const labelString = StringUtils.fillIn( geometricOpticsStrings.objectN, {
-      objectNumber: arrowObject.opticalObjectNumber
-    } );
+    const labelString = options?.isBasicsVersion ?
+                        geometricOpticsStrings.object :
+                        StringUtils.fillIn( geometricOpticsStrings.objectN, {
+                          objectNumber: arrowObject.opticalObjectNumber
+                        } );
 
     // If the arrow points up, position the label below the optical axis.
     // Otherwise, position the label below the arrow's tip.
@@ -111,6 +124,10 @@ class ArrowObjectLabelNode extends LabelNode {
     super( labelString, labelPositionProperty, zoomTransformProperty, options );
   }
 }
+
+type ArrowImageLabelNodeOptions = {
+  isBasicsVersion: boolean
+} & LabelNodeOptions;
 
 // Label for an arrow image.
 class ArrowImageLabelNode extends LabelNode {
@@ -130,7 +147,7 @@ class ArrowImageLabelNode extends LabelNode {
                arrowObjectVisibleProperty: IReadOnlyProperty<boolean>,
                lightPropagationEnabledProperty: IReadOnlyProperty<boolean>,
                virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
-               providedOptions?: LabelNodeOptions ) {
+               providedOptions: ArrowImageLabelNodeOptions ) {
 
     const options = merge( {
       visibleProperty: new DerivedProperty(
@@ -156,12 +173,22 @@ class ArrowImageLabelNode extends LabelNode {
 
     super( '', labelPositionProperty, zoomTransformProperty, options );
 
-    // Switch between 'Real Image N' and 'Virtual Image N'
     const stringParams = { imageNumber: arrowImage.opticalObject.opticalObjectNumber };
     arrowImage.opticalImageTypeProperty.link( opticalImageType => {
-      this.setText( opticalImageType === 'real' ?
-                    StringUtils.fillIn( geometricOpticsStrings.realImageN, stringParams ) :
-                    StringUtils.fillIn( geometricOpticsStrings.virtualImageN, stringParams ) );
+      if ( options.isBasicsVersion ) {
+
+        // Switch between 'Real Image' and 'Virtual Image'
+        this.setText( opticalImageType === 'real' ?
+                      geometricOpticsStrings.realImage :
+                      geometricOpticsStrings.virtualImage );
+      }
+      else {
+
+        // Switch between 'Real Image N' and 'Virtual Image N'
+        this.setText( opticalImageType === 'real' ?
+                      StringUtils.fillIn( geometricOpticsStrings.realImageN, stringParams ) :
+                      StringUtils.fillIn( geometricOpticsStrings.virtualImageN, stringParams ) );
+      }
     } );
   }
 }
