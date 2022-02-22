@@ -16,11 +16,6 @@ import StringIO from '../../../tandem/js/types/StringIO.js';
 // constants
 const optionsTandem = Tandem.GLOBAL_VIEW.createTandem( 'options' );
 
-// If focalLengthControl query parameter was not in the URL, change the default.
-if ( !QueryStringMachine.containsKey( 'focalLengthControl' ) ) {
-  GOQueryParameters.focalLengthControl = 'direct';
-}
-
 const GOGlobalOptions = {
 
   focalLengthControlTypeProperty:
