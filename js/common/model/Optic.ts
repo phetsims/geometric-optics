@@ -186,11 +186,14 @@ abstract class Optic extends PhetioObject {
     // Get the radius-of-curvature magnitude from the current focal-length model, add the appropriate sign.
     // Convex is positive, concave is negative.
     this.radiusOfCurvatureProperty = new DerivedProperty(
-      [ GOGlobalOptions.focalLengthControlTypeProperty, this.opticShapeProperty,
+      [ this.opticShapeProperty,
+        GOGlobalOptions.focalLengthControlTypeProperty,
         this.directFocalLengthModel.radiusOfCurvatureMagnitudeProperty,
         this.indirectFocalLengthModel.radiusOfCurvatureMagnitudeProperty ],
-      ( focalLengthControlType: string, opticShape: OpticShape,
-        directRadiusOfCurvatureMagnitude: number, indirectRadiusOfCurvatureMagnitude: number ) => {
+      ( opticShape: OpticShape,
+        focalLengthControlType: string,
+        directRadiusOfCurvatureMagnitude: number,
+        indirectRadiusOfCurvatureMagnitude: number ) => {
         const sign = ( opticShape === 'convex' ) ? 1 : -1;
         const magnitude = ( focalLengthControlType === 'direct' ) ? directRadiusOfCurvatureMagnitude : indirectRadiusOfCurvatureMagnitude;
         return sign * magnitude;
@@ -217,9 +220,14 @@ abstract class Optic extends PhetioObject {
     // Get the focal-length magnitude from the current focal-length model, add the appropriate sign.
     // Converging is positive, diverging is negative.
     this.focalLengthProperty = new DerivedProperty(
-      [ GOGlobalOptions.focalLengthControlTypeProperty, this.opticShapeProperty,
-        this.directFocalLengthModel.focalLengthMagnitudeProperty, this.indirectFocalLengthModel.focalLengthMagnitudeProperty ],
-      ( focalLengthControlType: string, opticShape: OpticShape, directFocalLengthMagnitude: number, indirectFocalLengthMagnitude: number ) => {
+      [ this.opticShapeProperty,
+        GOGlobalOptions.focalLengthControlTypeProperty,
+        this.directFocalLengthModel.focalLengthMagnitudeProperty,
+        this.indirectFocalLengthModel.focalLengthMagnitudeProperty ],
+      ( opticShape: OpticShape,
+        focalLengthControlType: string,
+        directFocalLengthMagnitude: number,
+        indirectFocalLengthMagnitude: number ) => {
         const sign = this.isConverging( opticShape ) ? 1 : -1;
         const magnitude = ( focalLengthControlType === 'direct' ) ? directFocalLengthMagnitude : indirectFocalLengthMagnitude;
         return sign * magnitude;
