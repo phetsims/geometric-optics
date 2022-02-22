@@ -25,6 +25,7 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import ArrowObject from '../model/ArrowObject.js';
 import Optic from '../model/Optic.js';
+import Property from '../../../../axon/js/Property.js';
 
 type ArrowObjectSceneLabelsNodeOptions = {
   isBasicsVersion: boolean
@@ -53,31 +54,36 @@ class ArrowObjectSceneLabelsNode extends GOSceneLabelsNode {
 
     // Object labels ------------------------------------------------------------------------------------
 
-    const object1Label = new ArrowObjectLabelNode( scene.arrowObject1, scene.optic, zoomTransformProperty, {
-      isBasicsVersion: options.isBasicsVersion
-    } );
-    this.addChild( object1Label );
-
     const object2Label = new ArrowObjectLabelNode( scene.arrowObject2, scene.optic, zoomTransformProperty, {
-      isBasicsVersion: options.isBasicsVersion,
       visibleProperty: visibleProperties.secondPointVisibleProperty
     } );
     this.addChild( object2Label );
 
-    // Image labels ------------------------------------------------------------------------------------
+    const object1Label = new ArrowObjectLabelNode( scene.arrowObject1, scene.optic, zoomTransformProperty, {
 
-    const image1Label = new ArrowImageLabelNode( scene.arrowImage1, scene.optic, zoomTransformProperty,
-      lightPropagationEnabledProperty, new BooleanProperty( true ), visibleProperties.virtualImageVisibleProperty, {
-        isBasicsVersion: options.isBasicsVersion
-      } );
-    this.addChild( image1Label );
+      // Use numbering in the full version of the sim, or in the basics version if Object 2 is visible.
+      isNumberedProperty: new DerivedProperty( [ object2Label.visibleProperty ],
+        ( object2LabelVisible: boolean ) => ( !options.isBasicsVersion || object2LabelVisible )
+      )
+    } );
+    this.addChild( object1Label );
+
+    // Image labels ------------------------------------------------------------------------------------
 
     const image2Label = new ArrowImageLabelNode( scene.arrowImage2, scene.optic, zoomTransformProperty,
       lightPropagationEnabledProperty, visibleProperties.secondPointVisibleProperty,
-      visibleProperties.virtualImageVisibleProperty, {
-        isBasicsVersion: options.isBasicsVersion
-      } );
+      visibleProperties.virtualImageVisibleProperty );
     this.addChild( image2Label );
+
+    const image1Label = new ArrowImageLabelNode( scene.arrowImage1, scene.optic, zoomTransformProperty,
+      lightPropagationEnabledProperty, new BooleanProperty( true ), visibleProperties.virtualImageVisibleProperty, {
+
+        // Use numbering in the full version of the sim, or in the basics version if Image 2 is visible.
+        isNumberedProperty: new DerivedProperty( [ image2Label.visibleProperty ],
+          ( image2LabelVisible: boolean ) => ( !options.isBasicsVersion || image2LabelVisible )
+        )
+      } );
+    this.addChild( image1Label );
   }
 
   public dispose(): void {
@@ -87,7 +93,7 @@ class ArrowObjectSceneLabelsNode extends GOSceneLabelsNode {
 }
 
 type ArrowObjectLabelNodeOptions = {
-  isBasicsVersion: boolean
+  isNumberedProperty?: IReadOnlyProperty<boolean>
 } & LabelNodeOptions;
 
 // Label for an arrow object.
@@ -102,16 +108,11 @@ class ArrowObjectLabelNode extends LabelNode {
   constructor( arrowObject: ArrowObject,
                optic: Optic,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               providedOptions: ArrowObjectLabelNodeOptions ) {
+               providedOptions?: ArrowObjectLabelNodeOptions ) {
 
-    const options = merge( {}, providedOptions );
-
-    // Object N
-    const labelString = options?.isBasicsVersion ?
-                        geometricOpticsStrings.object :
-                        StringUtils.fillIn( geometricOpticsStrings.objectN, {
-                          objectNumber: arrowObject.opticalObjectNumber
-                        } );
+    const options = merge( {
+      isNumberedProperty: new BooleanProperty( true )
+    }, providedOptions );
 
     // If the arrow points up, position the label below the optical axis.
     // Otherwise, position the label below the arrow's tip.
@@ -121,12 +122,27 @@ class ArrowObjectLabelNode extends LabelNode {
         ( arrowPosition.y > opticPosition.y ) ? new Vector2( arrowPosition.x, opticPosition.y ) : arrowPosition
     );
 
-    super( labelString, labelPositionProperty, zoomTransformProperty, options );
+    super( geometricOpticsStrings.object, labelPositionProperty, zoomTransformProperty, options );
+
+    options.isNumberedProperty.link( ( isNumbered: boolean ) => {
+      if ( isNumbered ) {
+
+        // Object N
+        this.setText( StringUtils.fillIn( geometricOpticsStrings.objectN, {
+          objectNumber: arrowObject.opticalObjectNumber
+        } ) );
+      }
+      else {
+
+        // Object
+        this.setText( geometricOpticsStrings.object );
+      }
+    } );
   }
 }
 
 type ArrowImageLabelNodeOptions = {
-  isBasicsVersion: boolean
+  isNumberedProperty?: IReadOnlyProperty<boolean>
 } & LabelNodeOptions;
 
 // Label for an arrow image.
@@ -147,9 +163,10 @@ class ArrowImageLabelNode extends LabelNode {
                arrowObjectVisibleProperty: IReadOnlyProperty<boolean>,
                lightPropagationEnabledProperty: IReadOnlyProperty<boolean>,
                virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
-               providedOptions: ArrowImageLabelNodeOptions ) {
+               providedOptions?: ArrowImageLabelNodeOptions ) {
 
     const options = merge( {
+      isNumberedProperty: new BooleanProperty( true ),
       visibleProperty: new DerivedProperty(
         [ lightPropagationEnabledProperty, arrowObjectVisibleProperty, arrowImage.visibleProperty,
           arrowImage.opticalImageTypeProperty, virtualImageVisibleProperty ],
@@ -173,23 +190,24 @@ class ArrowImageLabelNode extends LabelNode {
 
     super( '', labelPositionProperty, zoomTransformProperty, options );
 
-    const stringParams = { imageNumber: arrowImage.opticalObject.opticalObjectNumber };
-    arrowImage.opticalImageTypeProperty.link( opticalImageType => {
-      if ( options.isBasicsVersion ) {
+    Property.multilink( [ arrowImage.opticalImageTypeProperty, options.isNumberedProperty ],
+      ( opticalImageType: OpticalImageType, isNumbered: boolean ) => {
+        if ( isNumbered ) {
 
-        // Switch between 'Real Image' and 'Virtual Image'
-        this.setText( opticalImageType === 'real' ?
-                      geometricOpticsStrings.realImage :
-                      geometricOpticsStrings.virtualImage );
-      }
-      else {
+          // Switch between 'Real Image N' and 'Virtual Image N'
+          const stringParams = { imageNumber: arrowImage.opticalObject.opticalObjectNumber };
+          this.setText( opticalImageType === 'real' ?
+                        StringUtils.fillIn( geometricOpticsStrings.realImageN, stringParams ) :
+                        StringUtils.fillIn( geometricOpticsStrings.virtualImageN, stringParams ) );
+        }
+        else {
 
-        // Switch between 'Real Image N' and 'Virtual Image N'
-        this.setText( opticalImageType === 'real' ?
-                      StringUtils.fillIn( geometricOpticsStrings.realImageN, stringParams ) :
-                      StringUtils.fillIn( geometricOpticsStrings.virtualImageN, stringParams ) );
-      }
-    } );
+          // Switch between 'Real Image' and 'Virtual Image'
+          this.setText( opticalImageType === 'real' ?
+                        geometricOpticsStrings.realImage :
+                        geometricOpticsStrings.virtualImage );
+        }
+      } );
   }
 }
 

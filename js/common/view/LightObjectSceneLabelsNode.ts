@@ -20,6 +20,7 @@ import LightObjectScene from '../model/LightObjectScene.js';
 import GOSceneLabelsNode, { GOSceneLabelsNodeOptions } from './GOSceneLabelsNode.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import LightObject from '../model/LightObject.js';
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 
 type LightObjectSceneLabelsNodeOptions = {
   isBasicsVersion: boolean
@@ -46,16 +47,19 @@ class LightObjectSceneLabelsNode extends GOSceneLabelsNode {
 
     // Object labels ------------------------------------------------------------------------------------
 
-    const object1Label = new LightObjectLabelNode( scene.lightObject1, zoomTransformProperty, {
-      isBasicsVersion: options.isBasicsVersion
-    } );
-    this.addChild( object1Label );
-
     const object2Label = new LightObjectLabelNode( scene.lightObject2, zoomTransformProperty, {
-      isBasicsVersion: options.isBasicsVersion,
       visibleProperty: visibleProperties.secondPointVisibleProperty
     } );
     this.addChild( object2Label );
+
+    const object1Label = new LightObjectLabelNode( scene.lightObject1, zoomTransformProperty, {
+
+      // Use numbering in the full version of the sim, or in the basics version if Object 2 is visible.
+      isNumberedProperty: new DerivedProperty( [ object2Label.visibleProperty ],
+        ( object2LabelVisible: boolean ) => ( !options.isBasicsVersion || object2LabelVisible )
+      )
+    } );
+    this.addChild( object1Label );
 
     // Screen label ------------------------------------------------------------------------------------
 
@@ -75,7 +79,7 @@ class LightObjectSceneLabelsNode extends GOSceneLabelsNode {
 }
 
 type LightObjectLabelNodeOptions = {
-  isBasicsVersion: boolean
+  isNumberedProperty?: IReadOnlyProperty<boolean>
 } & LabelNodeOptions;
 
 // Label for a light object.
@@ -88,23 +92,33 @@ class LightObjectLabelNode extends LabelNode {
    */
   constructor( lightObject: LightObject,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               providedOptions: LightObjectLabelNodeOptions ) {
+               providedOptions?: LightObjectLabelNodeOptions ) {
 
-    const options = merge( {}, providedOptions );
-
-    // Object N
-    const labelString = options?.isBasicsVersion ?
-                        geometricOpticsStrings.object :
-                        StringUtils.fillIn( geometricOpticsStrings.objectN, {
-                          objectNumber: lightObject.opticalObjectNumber
-                        } );
+    const options = merge( {
+      isNumberedProperty: new BooleanProperty( true )
+    }, providedOptions );
 
     // Position the label below the light, slightly to the left of center (determined empirically)
     const labelPositionProperty = new DerivedProperty( [ lightObject.boundsProperty ],
       ( bounds: Bounds2 ) => new Vector2( bounds.centerX - 15, bounds.top )
     );
 
-    super( labelString, labelPositionProperty, zoomTransformProperty, options );
+    super( geometricOpticsStrings.object, labelPositionProperty, zoomTransformProperty, options );
+
+    options.isNumberedProperty.link( ( isNumbered: boolean ) => {
+      if ( isNumbered ) {
+
+        // Object N
+        this.setText( StringUtils.fillIn( geometricOpticsStrings.objectN, {
+          objectNumber: lightObject.opticalObjectNumber
+        } ) );
+      }
+      else {
+
+        // Object
+        this.setText( geometricOpticsStrings.object );
+      }
+    } );
   }
 }
 
