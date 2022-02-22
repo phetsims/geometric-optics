@@ -39,7 +39,7 @@ class Mirror extends Optic {
 
     const options = merge( {
       opticShape: 'concave',
-      opticShapes: [ 'concave', 'convex' ], //TODO https://github.com/phetsims/geometric-optics/issues/227 add 'flat'
+      opticShapes: [ 'concave', 'convex', 'flat' ], // radio buttons will be created left-to-right in this order
       diameterRange: GOConstants.DIAMETER_RANGE, // in cm
       sign: -1,
       directFocalLengthModelOptions: {

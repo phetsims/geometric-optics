@@ -31,12 +31,15 @@ import { FocalLengthControlType } from './FocalLengthControlType.js';
 import DirectFocalLengthModel, { DirectFocalLengthModelOptions } from './DirectFocalLengthModel.js';
 import IndirectFocalLengthModel, { IndirectFocalLengthModelOptions } from './IndirectFocalLengthModel.js';
 
+const EFFECTIVELY_INFINITE_ROC = -200000; // negative, to make it concave
+const EFFECTIVELY_INFINITE_FOCAL_LENGTH = EFFECTIVELY_INFINITE_ROC / 2;
+
 type OpticOptions = {
 
   // initial shape of the optic, 'convex' or 'concave'
   opticShape: OpticShape,
 
-  // supported values of OpticShape, in the left-to-right order that they appear as radio buttons
+  // supported values of OpticShape, radio buttons will be created left-to-right in this order
   opticShapes: OpticShape[]
 
   // range of diameter, in cm
@@ -194,9 +197,14 @@ abstract class Optic extends PhetioObject {
         focalLengthControlType: string,
         directRadiusOfCurvatureMagnitude: number,
         indirectRadiusOfCurvatureMagnitude: number ) => {
-        const sign = ( opticShape === 'convex' ) ? 1 : -1;
-        const magnitude = ( focalLengthControlType === 'direct' ) ? directRadiusOfCurvatureMagnitude : indirectRadiusOfCurvatureMagnitude;
-        return sign * magnitude;
+        if ( opticShape === 'flat' ) {
+          return EFFECTIVELY_INFINITE_ROC;
+        }
+        else {
+          const sign = ( opticShape === 'convex' ) ? 1 : -1;
+          const magnitude = ( focalLengthControlType === 'direct' ) ? directRadiusOfCurvatureMagnitude : indirectRadiusOfCurvatureMagnitude;
+          return sign * magnitude;
+        }
       }, {
         units: 'cm',
         tandem: options.tandem.createTandem( 'radiusOfCurvatureProperty' ),
@@ -228,9 +236,14 @@ abstract class Optic extends PhetioObject {
         focalLengthControlType: string,
         directFocalLengthMagnitude: number,
         indirectFocalLengthMagnitude: number ) => {
-        const sign = this.isConverging( opticShape ) ? 1 : -1;
-        const magnitude = ( focalLengthControlType === 'direct' ) ? directFocalLengthMagnitude : indirectFocalLengthMagnitude;
-        return sign * magnitude;
+        if ( opticShape === 'flat' ) {
+          return EFFECTIVELY_INFINITE_FOCAL_LENGTH;
+        }
+        else {
+          const sign = this.isConverging( opticShape ) ? 1 : -1;
+          const magnitude = ( focalLengthControlType === 'direct' ) ? directFocalLengthMagnitude : indirectFocalLengthMagnitude;
+          return sign * magnitude;
+        }
       }, {
         units: 'cm',
         tandem: options.tandem.createTandem( 'focalLengthProperty' ),

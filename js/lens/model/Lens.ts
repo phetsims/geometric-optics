@@ -44,7 +44,7 @@ class Lens extends Optic {
 
     const options = merge( {
       opticShape: 'convex',
-      opticShapes: [ 'convex', 'concave' ],
+      opticShapes: [ 'convex', 'concave' ], // radio buttons will be created left-to-right in this order
       diameterRange: GOConstants.DIAMETER_RANGE, // in cm
       sign: 1,
       directFocalLengthModelOptions: {
