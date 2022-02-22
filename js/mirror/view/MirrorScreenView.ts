@@ -20,6 +20,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Optic from '../../common/model/Optic.js';
 
 type MirrorScreenViewOptions = {
+  isBasicsVersion: boolean,
   tandem: Tandem
 };
 
@@ -34,7 +35,9 @@ class MirrorScreenView extends GOScreenView {
     const options = merge( {
 
       // View origin is to right, and a little above center.
-      getViewOrigin: ( layoutBounds: Bounds2 ) => new Vector2( layoutBounds.centerX + 200, layoutBounds.centerY - 35 ),
+      getViewOrigin: providedOptions.isBasicsVersion ?
+                     ( layoutBounds: Bounds2 ) => new Vector2( layoutBounds.centerX, layoutBounds.centerY - 35 ) :
+                     ( layoutBounds: Bounds2 ) => new Vector2( layoutBounds.centerX + 200, layoutBounds.centerY - 35 ),
 
       // Creates the Node for the mirror
       createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => {

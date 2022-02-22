@@ -45,6 +45,7 @@ class MirrorScreen extends Screen<MirrorModel, MirrorScreenView> {
         tandem: options.tandem.createTandem( 'model' )
       } ),
       model => new MirrorScreenView( model, {
+        isBasicsVersion: isBasicsVersion,
         tandem: options.tandem.createTandem( 'view' )
       } ),
       options
