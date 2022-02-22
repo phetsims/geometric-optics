@@ -32,7 +32,7 @@ import DirectFocalLengthModel, { DirectFocalLengthModelOptions } from './DirectF
 import IndirectFocalLengthModel, { IndirectFocalLengthModelOptions } from './IndirectFocalLengthModel.js';
 
 const EFFECTIVELY_INFINITE_ROC = -200000; // negative, to make it concave
-const EFFECTIVELY_INFINITE_FOCAL_LENGTH = EFFECTIVELY_INFINITE_ROC / 2;
+const EFFECTIVELY_INFINITE_FOCAL_LENGTH = EFFECTIVELY_INFINITE_ROC / 2; // f = ROC/2
 
 type OpticOptions = {
 
