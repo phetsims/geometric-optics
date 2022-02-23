@@ -358,7 +358,7 @@ abstract class Optic extends PhetioObject {
   /**
    * Returns a shape translated by the model position of the optic
    */
-  private translatedShape( shape: Shape ): Shape {
+  protected translatedShape( shape: Shape ): Shape {
     return shape.transformed( Matrix3.translationFromVector( this.positionProperty.value ) );
   }
 
@@ -414,16 +414,6 @@ abstract class Optic extends PhetioObject {
     else {
       return this.translatedShape( this.shapesProperty.value.frontShape );
     }
-  }
-
-  //TODO this fails for a mirror, because backShape is null, so doesn't belong in Optic
-  /**
-   * Gets the shape of the back (right) surface of the optic.
-   */
-  getBackShapeTranslated(): Shape {
-    const backShape = this.shapesProperty.value.backShape;
-    assert && assert( backShape ); // {Shape|null}
-    return this.translatedShape( backShape! );
   }
 }
 

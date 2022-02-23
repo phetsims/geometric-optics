@@ -226,15 +226,16 @@ function getRealRays( initialRay: GORay, firstPoint: Vector2 | null, optic: Opti
     }
     else {
       assert && assert( optic instanceof Lens );
+      const lens = optic as Lens;
 
       // {Vector2} find bisecting point of the lens, used to determine outgoing ray
-      const intermediatePoint = getIntermediatePoint( initialRay, firstPoint, optic );
+      const intermediatePoint = getIntermediatePoint( initialRay, firstPoint, lens );
 
       // create a semi-infinite ray starting at intermediate point to the target point
-      const transmittedRay = getTransmittedRay( intermediatePoint, opticalImagePosition, optic );
+      const transmittedRay = getTransmittedRay( intermediatePoint, opticalImagePosition, lens );
 
-      // determine the intersection of the transmitted ray with the back shape of the optic
-      const backIntersection = optic.getBackShapeTranslated().intersection( transmittedRay );
+      // determine the intersection of the transmitted ray with the back shape of the lens
+      const backIntersection = lens.getBackShapeTranslated().intersection( transmittedRay );
 
       // back shape point intersecting the transmitted ray
       const backPoint = getPoint( backIntersection );
@@ -249,7 +250,7 @@ function getRealRays( initialRay: GORay, firstPoint: Vector2 | null, optic: Opti
         internalRay.setFinalPoint( backPoint );
 
         // create a semi-infinite ray, starting at the back point, parallel to target point
-        const transmittedRay = getTransmittedRay( backPoint, opticalImagePosition, optic );
+        const transmittedRay = getTransmittedRay( backPoint, opticalImagePosition, lens );
 
         // add the rays
         rays.push( internalRay, transmittedRay );
@@ -258,7 +259,7 @@ function getRealRays( initialRay: GORay, firstPoint: Vector2 | null, optic: Opti
         // back shape is not hit, see https://github.com/phetsims/geometric-optics/issues/124
 
         // create a semi-infinite ray, starting at the front point, parallel to target point
-        const transmittedRay = getTransmittedRay( firstPoint, opticalImagePosition, optic );
+        const transmittedRay = getTransmittedRay( firstPoint, opticalImagePosition, lens );
 
         // add the rays
         rays.push( transmittedRay );

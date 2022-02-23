@@ -19,6 +19,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import GOConstants from '../../common/GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
+import Shape from '../../../../kite/js/Shape.js';
 
 // Index of refraction is a fixed value for the 'direct' focal-length model.
 const DIRECT_INDEX_OF_REFRACTION = 1.5;
@@ -136,6 +137,15 @@ class Lens extends Optic {
     }
 
     return extremumPoint;
+  }
+
+  /**
+   * Gets the shape of the back (right) surface of the lens.
+   */
+  getBackShapeTranslated(): Shape {
+    const backShape = this.shapesProperty.value.backShape;
+    assert && assert( backShape ); // {Shape|null}
+    return this.translatedShape( backShape! );
   }
 
   /**
