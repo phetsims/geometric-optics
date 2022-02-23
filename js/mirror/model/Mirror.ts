@@ -73,7 +73,6 @@ class Mirror extends Optic {
     return ( opticShape === 'concave' );
   }
 
-  //TODO a few lines here are copied from Lens getExtremumPoint
   /**
    * Returns the most extreme position within the mirror that would ensure that a ray would be transmitted (or reflected).
    * See https://github.com/phetsims/geometric-optics/issues/111
