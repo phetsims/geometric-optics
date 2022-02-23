@@ -35,7 +35,7 @@ type GOSceneNodeOptions = {
   // Creates the Node for the optic
   createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node,
 
-  dragLockedProperty: BooleanProperty, //TODO not use in this class, move to subclasses
+  dragLockedProperty: BooleanProperty, //TODO not used in this class, move to subclasses
 
   visibleProperty: IProperty<boolean>,
 
