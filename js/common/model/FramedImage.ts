@@ -24,8 +24,8 @@ import Utils from '../../../../dot/js/Utils.js';
 
 class FramedImage extends OpticalImage {
 
-  // the HTMLImageElement to display, null if there is no HTMLImageElement
-  readonly imageProperty: IReadOnlyProperty<HTMLImageElement | null>;
+  // the HTMLImageElement to display
+  readonly imageProperty: IReadOnlyProperty<HTMLImageElement>;
 
   readonly opacityProperty: IReadOnlyProperty<number>;
 
@@ -39,9 +39,7 @@ class FramedImage extends OpticalImage {
    */
   constructor( framedObject: FramedObject, optic: Optic, providedOptions: OpticalImageOptions ) {
 
-    const options = merge( {
-
-    }, providedOptions );
+    const options = merge( {}, providedOptions );
 
     super( framedObject, optic, options );
 
@@ -59,14 +57,13 @@ class FramedImage extends OpticalImage {
     );
 
     this.boundsProperty = new DerivedProperty(
-      [ this.positionProperty, framedObject.objectHTMLImageElementsProperty, this.magnificationProperty, this.isInvertedProperty ],
-      //TODO isInverted is not used, is dependency needed?
-      ( position: Vector2, objectHTMLImageElements: ObjectHTMLImageElements, magnification: number, isInverted: boolean ) => {
+      [ this.imageProperty, this.positionProperty, this.magnificationProperty ],
+      ( image: HTMLImageElement, position: Vector2, magnification: number ) => {
 
         const scaleFactor = FramedObject.SCALE_FACTOR;
         const initialOrigin = FramedObject.ORIGIN_OFFSET.timesScalar( scaleFactor );
-        const initialWidth = objectHTMLImageElements.rightFacingUpright.width * scaleFactor;
-        const initialHeight = objectHTMLImageElements.rightFacingUpright.height * scaleFactor;
+        const initialWidth = image.width * scaleFactor;
+        const initialHeight = image.height * scaleFactor;
 
         const origin = initialOrigin.timesScalar( magnification );
         const offsetX = -origin.x;
