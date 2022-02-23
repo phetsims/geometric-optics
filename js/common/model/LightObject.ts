@@ -11,7 +11,6 @@ import merge from '../../../../phet-core/js/merge.js';
 import geometricOptics from '../../geometricOptics.js';
 import OpticalObject, { OpticalObjectOptions } from './OpticalObject.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Dimension2 from '../../../../dot/js/Dimension2.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 
@@ -48,28 +47,12 @@ class LightObject extends OpticalObject {
 
     this.htmlImageElement = options.htmlImageElement;
 
-    //TODO some duplication with FramedObject here
-    this.boundsProperty = new DerivedProperty(
-      [ this.positionProperty ],
-      ( position: Vector2 ) => {
+    this.boundsProperty = new DerivedProperty( [ this.positionProperty ], ( position: Vector2 ) =>
+      OpticalObject.computeBounds( this.htmlImageElement, position, LightObject.SCALE_FACTOR, LightObject.ORIGIN_OFFSET ), {
 
-        const htmlImageElementWidth = this.htmlImageElement.width;
-        const htmlImageElementHeight = this.htmlImageElement.height;
-        const scaleFactor = LightObject.SCALE_FACTOR;
-        const size = new Dimension2( scaleFactor * htmlImageElementWidth, scaleFactor * htmlImageElementHeight );
-
-        const origin = LightObject.ORIGIN_OFFSET.timesScalar( scaleFactor );
-        const offsetX = origin.x;
-        const offsetY = -origin.y;  // flip sign of offset.y because +y is up in the model
-        const left = position.x - offsetX;
-        const bottom = position.y - offsetY - size.height;
-
-        return size.toBounds( left, bottom );
-      }, {
-
-        //TODO is this still needed?
-        reentrant: true
-      } );
+      //TODO is this still needed?
+      reentrant: true
+    } );
   }
 }
 

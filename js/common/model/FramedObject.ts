@@ -8,7 +8,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import geometricOptics from '../../geometricOptics.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -70,21 +69,9 @@ class FramedObject extends OpticalObject {
 
     this.boundsProperty = new DerivedProperty(
       [ this.objectHTMLImageElementsProperty, this.positionProperty ],
-      ( htmlImageElements: ObjectHTMLImageElements, position: Vector2 ) => {
-
-        const htmlImageElementWidth = htmlImageElements.rightFacingUpright.width;
-        const htmlImageElementHeight = htmlImageElements.rightFacingUpright.height;
-        const scaleFactor = FramedObject.SCALE_FACTOR;
-        const size = new Dimension2( scaleFactor * htmlImageElementWidth, scaleFactor * htmlImageElementHeight );
-
-        const origin = FramedObject.ORIGIN_OFFSET.timesScalar( scaleFactor );
-        const offsetX = origin.x;
-        const offsetY = -origin.y;  // flip sign of offset.y because +y is up in the model
-        const left = position.x - offsetX;
-        const bottom = position.y - offsetY - size.height;
-
-        return size.toBounds( left, bottom );
-      }, {
+      ( htmlImageElements: ObjectHTMLImageElements, position: Vector2 ) =>
+        OpticalObject.computeBounds( htmlImageElements.rightFacingUpright, position,
+          FramedObject.SCALE_FACTOR, FramedObject.ORIGIN_OFFSET ), {
 
         // Because changing objectHTMLImageElementsProperty may necessitate changing positionProperty to move
         // the Object inside the view's drag bounds, resulting in this derivation being called again.

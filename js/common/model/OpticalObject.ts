@@ -16,6 +16,7 @@
 
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -76,6 +77,25 @@ class OpticalObject extends PhetioObject {
 
   public reset(): void {
     this.resetOpticalObject();
+  }
+
+  /**
+   * Computes the bounds for an optical object that uses an HTMLImageElement for its visual representation.
+   * @param htmlImageElement
+   * @param position
+   * @param scaleFactor
+   * @param originOffset
+   */
+  public static computeBounds( htmlImageElement: HTMLImageElement, position: Vector2, scaleFactor: number, originOffset: Vector2 ) {
+
+    const size = new Dimension2( scaleFactor * htmlImageElement.width, scaleFactor * htmlImageElement.height );
+    const origin = originOffset.timesScalar( scaleFactor );
+    const offsetX = origin.x;
+    const offsetY = -origin.y;  // flip sign of offset.y because +y is up in the model
+    const left = position.x - offsetX;
+    const bottom = position.y - offsetY - size.height;
+
+    return size.toBounds( left, bottom );
   }
 }
 
