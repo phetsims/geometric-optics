@@ -16,7 +16,11 @@ import GOConstants from './common/GOConstants.js';
 import { Node } from '../../scenery/js/imports.js';
 
 type GOSimOptions = {
+
+  // Determines whether this is the Basics version of the sim. This flag is propagated to many components of the sim.
   isBasicsVersion?: boolean,
+
+  // Creates content for the Options dialog
   createOptionsDialogContent?: ( tandem: Tandem ) => Node
 };
 
