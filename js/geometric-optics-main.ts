@@ -16,9 +16,7 @@ simLauncher.launch( () => {
   const sim = new GOSim( geometricOpticsStrings[ 'geometric-optics' ].title, {
 
     // Creates content for the Options dialog, accessible via the PhET menu
-    createOptionsDialogContent: ( tandem: Tandem ) => new GOGlobalOptionsNode( {
-      tandem: tandem
-    } )
+    createOptionsDialogContent: ( tandem: Tandem ) => new GOGlobalOptionsNode( { tandem: tandem } )
   } );
   sim.start();
 } );
