@@ -42,6 +42,7 @@ import ArrowObjectSceneNode from './ArrowObjectSceneNode.js';
 import ArrowObjectSceneLabelsNode from './ArrowObjectSceneLabelsNode.js';
 import LightObjectSceneNode from './LightObjectSceneNode.js';
 import LightObjectSceneLabelsNode from './LightObjectSceneLabelsNode.js';
+import GOSceneNode from './GOSceneNode.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.
@@ -177,6 +178,12 @@ class GOScreenView extends ScreenView {
       children: [ horizontalRulerNode, verticalRulerNode ]
     } );
 
+    // Use a scene's hotkey targets for the rulers.
+    const setRulerHotkeyTargets = ( sceneNode: GOSceneNode ) => {
+      horizontalRulerNode.setHotkeyTargets( sceneNode.horizontalRulerHotkeyTargets );
+      verticalRulerNode.setHotkeyTargets( sceneNode.verticalRulerHotkeyTargets );
+    };
+
     // Controls  =======================================================================================================
 
     this.controlsTandem = options.tandem.createTandem( 'controls' );
@@ -272,28 +279,53 @@ class GOScreenView extends ScreenView {
       modelVisibleBoundsProperty, sceneBoundsProperty, model.raysTypeProperty, model.lightPropagationEnabledProperty, {
         createOpticNode: options.createOpticNode,
         dragLockedProperty: options.dragLockedProperty,
+        visibleProperty: new DerivedProperty( [ model.opticalObjectChoiceProperty ],
+          ( opticalObjectChoice: OpticalObjectChoice ) => OpticalObjectChoice.isArrowObject( opticalObjectChoice ) ),
         tandem: scenesTandem.createTandem( 'arrowObjectSceneNode' )
       } );
     scenesLayer.addChild( arrowObjectSceneNode );
+
+    arrowObjectSceneNode.visibleProperty.link( visible => {
+      if ( visible ) {
+        setRulerHotkeyTargets( arrowObjectSceneNode );
+      }
+    } );
 
     const framedObjectSceneNode = new FramedObjectSceneNode( model.framedObjectScene, visibleProperties, modelViewTransform,
       modelVisibleBoundsProperty, sceneBoundsProperty, model.raysTypeProperty, model.lightPropagationEnabledProperty, {
         createOpticNode: options.createOpticNode,
         dragLockedProperty: options.dragLockedProperty,
+        visibleProperty: new DerivedProperty( [ model.opticalObjectChoiceProperty ],
+          ( opticalObjectChoice: OpticalObjectChoice ) => OpticalObjectChoice.isFramedObject( opticalObjectChoice ) ),
         tandem: scenesTandem.createTandem( 'framedObjectSceneNode' )
       } );
     scenesLayer.addChild( framedObjectSceneNode );
 
+    framedObjectSceneNode.visibleProperty.link( visible => {
+      if ( visible ) {
+        setRulerHotkeyTargets( framedObjectSceneNode );
+      }
+    } );
+
     let lightObjectSceneNode: LightObjectSceneNode | null = null;
     if ( model.lightObjectScene ) {
+
       lightObjectSceneNode = new LightObjectSceneNode( model.lightObjectScene, visibleProperties,
         modelViewTransform, modelVisibleBoundsProperty, sceneBoundsProperty, model.raysTypeProperty,
         model.lightPropagationEnabledProperty, {
           createOpticNode: options.createOpticNode,
           dragLockedProperty: options.dragLockedProperty,
+          visibleProperty: new DerivedProperty( [ model.opticalObjectChoiceProperty ],
+            ( opticalObjectChoice: OpticalObjectChoice ) => OpticalObjectChoice.isLight( opticalObjectChoice ) ),
           tandem: scenesTandem.createTandem( 'lightObjectSceneNode' )
         } );
       scenesLayer.addChild( lightObjectSceneNode );
+
+      lightObjectSceneNode.visibleProperty.link( visible => {
+        if ( visible ) {
+          setRulerHotkeyTargets( lightObjectSceneNode! );
+        }
+      } );
     }
 
     // Show the model bounds as a green rectangle.
@@ -356,30 +388,6 @@ class GOScreenView extends ScreenView {
     this.addChild( screenViewRootNode );
 
     // Listeners =======================================================================================================
-
-    //TODO duplication in here
-    model.opticalObjectChoiceProperty.link( opticalObjectChoice => {
-
-      arrowObjectSceneNode.visible = ( OpticalObjectChoice.isArrowObject( opticalObjectChoice ) );
-      if ( arrowObjectSceneNode.visible ) {
-        horizontalRulerNode.setHotkeyTargets( arrowObjectSceneNode.horizontalRulerHotkeyTargets );
-        verticalRulerNode.setHotkeyTargets( arrowObjectSceneNode.verticalRulerHotkeyTargets );
-      }
-
-      framedObjectSceneNode.visible = ( OpticalObjectChoice.isFramedObject( opticalObjectChoice ) );
-      if ( framedObjectSceneNode.visible ) {
-        horizontalRulerNode.setHotkeyTargets( framedObjectSceneNode.horizontalRulerHotkeyTargets );
-        verticalRulerNode.setHotkeyTargets( framedObjectSceneNode.verticalRulerHotkeyTargets );
-      }
-
-      if ( lightObjectSceneNode ) {
-        lightObjectSceneNode.visible = OpticalObjectChoice.isLight( opticalObjectChoice );
-        if ( lightObjectSceneNode.visible ) {
-          horizontalRulerNode.setHotkeyTargets( lightObjectSceneNode.horizontalRulerHotkeyTargets );
-          verticalRulerNode.setHotkeyTargets( lightObjectSceneNode.verticalRulerHotkeyTargets );
-        }
-      }
-    } );
 
     // Changing any of these Properties causes the light rays to animate.
     Property.multilink( [ model.raysTypeProperty, model.lightPropagationEnabledProperty ],

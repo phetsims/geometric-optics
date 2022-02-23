@@ -28,13 +28,16 @@ import GuidesNode from './GuidesNode.js';
 import { RulerHotkeyTarget } from './GORulerNode.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import GOScene from '../model/GOScene.js';
+import IProperty from '../../../../axon/js/IProperty.js';
 
 type GOSceneNodeOptions = {
 
   // Creates the Node for the optic
   createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node,
 
-  dragLockedProperty: BooleanProperty,
+  dragLockedProperty: BooleanProperty, //TODO not use in this class, move to subclasses
+
+  visibleProperty: IProperty<boolean>,
 
   tandem: Tandem
 };
