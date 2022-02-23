@@ -1,7 +1,7 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * GOSim is the subclass of Sim used by both the 'full' and 'basics' versions of Geometric Optics.
+ * GOSim is the subclass of Sim used by both geometric-optics and geometric-optics-basics.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
