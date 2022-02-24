@@ -15,12 +15,12 @@ import VisibleProperties from './VisibleProperties.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
 import LightObjectScene from '../model/LightObjectScene.js';
 import GOSceneLabelsNode, { GOSceneLabelsNodeOptions } from './GOSceneLabelsNode.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import LightObject from '../model/LightObject.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {
   isBasicsVersion: boolean
@@ -78,9 +78,11 @@ class LightObjectSceneLabelsNode extends GOSceneLabelsNode {
   }
 }
 
-type LightObjectLabelNodeOptions = {
+type LightObjectLabelNodeSelfOptions = {
   isNumberedProperty?: IReadOnlyProperty<boolean>
-} & LabelNodeOptions;
+};
+
+type LightObjectLabelNodeOptions = LightObjectLabelNodeSelfOptions & LabelNodeOptions;
 
 // Label for a light object.
 class LightObjectLabelNode extends LabelNode {
@@ -94,7 +96,7 @@ class LightObjectLabelNode extends LabelNode {
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                providedOptions?: LightObjectLabelNodeOptions ) {
 
-    const options = merge( {
+    const options = optionize<LightObjectLabelNodeOptions, LightObjectLabelNodeSelfOptions, LabelNodeOptions>( {
       isNumberedProperty: new BooleanProperty( true )
     }, providedOptions );
 
