@@ -137,6 +137,7 @@ class FramedObjectNode extends Node {
         reentrant: true
       } );
     dragBoundsProperty.link( dragBounds => {
+      this.interruptSubtreeInput();
       framedObject.positionProperty.value = dragBounds.closestPointTo( framedObject.positionProperty.value );
     } );
 

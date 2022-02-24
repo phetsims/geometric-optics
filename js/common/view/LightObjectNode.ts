@@ -122,6 +122,7 @@ class LightObjectNode extends Node {
         reentrant: true
       } );
     dragBoundsProperty.link( dragBounds => {
+      this.interruptSubtreeInput();
       lightObject.positionProperty.value = dragBounds.closestPointTo( lightObject.positionProperty.value );
     } );
 

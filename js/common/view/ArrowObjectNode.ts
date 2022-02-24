@@ -117,6 +117,7 @@ class ArrowObjectNode extends Node {
 
     // Keep the arrow inside the model bounds.
     dragBoundsProperty.link( dragBounds => {
+      this.interruptSubtreeInput();
       arrowObject.positionProperty.value = dragBounds.closestPointTo( arrowObject.positionProperty.value );
     } );
 
