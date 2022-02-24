@@ -7,25 +7,30 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import GOModel, { GOModelOptions } from '../../common/model/GOModel.js';
 import geometricOptics from '../../geometricOptics.js';
 import Mirror from './Mirror.js';
 import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
 import { PickRequired } from '../../common/GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
-type MirrorOptions = {
-  isBasicsVersion: boolean
-} & PickRequired<GOModelOptions, 'tandem'>;
+type SelfOptions = {
+  isBasicsVersion?: boolean
+};
+
+type MirrorModelOptions = SelfOptions & PickRequired<GOModelOptions, 'tandem'>;
 
 class MirrorModel extends GOModel {
 
   /**
    * @param providedOptions
    */
-  constructor( providedOptions: MirrorOptions ) {
+  constructor( providedOptions: MirrorModelOptions ) {
 
-    const options = merge( {
+    const options = optionize<MirrorModelOptions, SelfOptions, GOModelOptions,
+      'opticalObjectChoices' | 'arrowObject1Position' | 'arrowObject2Position' | 'framedObjectPosition'>( {
+
+      isBasicsVersion: false,
 
       // optical object choices, in the order that they will appear in OpticalObjectChoiceComboBox
       opticalObjectChoices: [

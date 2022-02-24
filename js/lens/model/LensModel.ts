@@ -9,14 +9,16 @@
 import GOModel, { GOModelOptions } from '../../common/model/GOModel.js';
 import Lens from './Lens.js';
 import geometricOptics from '../../geometricOptics.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
 import { PickRequired } from '../../common/GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
-type LensModelOptions = {
+type SelfOptions = {
   isBasicsVersion?: boolean
-} & PickRequired<GOModelOptions, 'tandem'>;
+};
+
+type LensModelOptions = SelfOptions & PickRequired<GOModelOptions, 'tandem'>;
 
 class LensModel extends GOModel {
 
@@ -25,7 +27,8 @@ class LensModel extends GOModel {
    */
   constructor( providedOptions: LensModelOptions ) {
 
-    const options = merge( {
+    const options = optionize<LensModelOptions, SelfOptions, GOModelOptions,
+      'opticalObjectChoices' | 'arrowObject1Position' | 'arrowObject2Position' | 'framedObjectPosition'>( {
 
       isBasicsVersion: false,
 

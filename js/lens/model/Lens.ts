@@ -8,7 +8,6 @@
  */
 
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Optic, { OpticOptions } from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 import { OpticShape } from '../../common/model/OpticShape.js';
@@ -20,13 +19,16 @@ import GOConstants from '../../common/GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Shape from '../../../../kite/js/Shape.js';
 import { PickRequired } from '../../common/GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 // Index of refraction is a fixed value for the 'direct' focal-length model.
 const DIRECT_INDEX_OF_REFRACTION = 1.5;
 
-type LensOptions = {
+type SelfOptions = {
   isBasicsVersion: boolean
-} & PickRequired<OpticOptions, 'tandem'>;
+};
+
+type LensOptions = SelfOptions & PickRequired<OpticOptions, 'tandem'>;
 
 class Lens extends Optic {
 
@@ -43,7 +45,8 @@ class Lens extends Optic {
 
     const focalLengthModelsTandem = providedOptions.tandem.createTandem( 'focalLengthModels' );
 
-    const options = merge( {
+    const options = optionize<LensOptions, SelfOptions, OpticOptions,
+      'opticShapes' | 'diameterRange' | 'sign' | 'directFocalLengthModelOptions' | 'indirectFocalLengthModelOptions'>( {
       opticShapes: providedOptions.isBasicsVersion ? [ 'convex' ] : [ 'convex', 'concave' ],
       diameterRange: GOConstants.DIAMETER_RANGE, // in cm
       sign: 1,

@@ -8,8 +8,6 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import merge from '../../../../phet-core/js/merge.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
@@ -26,20 +24,24 @@ import Lens from '../../lens/model/Lens.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import { PickRequired } from '../GOTypes.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
-type GOModelOptions = {
+type SelfOptions = {
 
   // optical object choices, in the order that they will appear in OpticalObjectChoiceComboBox
   opticalObjectChoices: OpticalObjectChoice[],
 
   // initial positions of optical objects
-  arrowObject1Position?: Vector2,
-  arrowObject2Position?: Vector2,
-  framedObjectPosition?: Vector2,
+  arrowObject1Position: Vector2,
+  arrowObject2Position: Vector2,
+  framedObjectPosition: Vector2,
+
+  // lights are optional
   lightObject1Position?: Vector2,
   lightObject2Position?: Vector2
-  tandem: Tandem
-} & PickRequired<PhetioObjectOptions, 'tandem'>;
+};
+
+type GOModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 class GOModel {
 
@@ -74,10 +76,7 @@ class GOModel {
    */
   constructor( optic: Optic, providedOptions: GOModelOptions ) {
 
-    const options = merge( {
-      arrowObject1Position: Vector2.ZERO,
-      arrowObject2Position: Vector2.ZERO,
-      framedObjectPosition: Vector2.ZERO,
+    const options = optionize<GOModelOptions, SelfOptions>( {
       lightObject1Position: Vector2.ZERO,
       lightObject2Position: Vector2.ZERO
     }, providedOptions );

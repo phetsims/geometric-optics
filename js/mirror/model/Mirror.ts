@@ -8,7 +8,6 @@
  */
 
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Optic, { OpticOptions } from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 import { OpticShape } from '../../common/model/OpticShape.js';
@@ -18,15 +17,18 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import GOConstants from '../../common/GOConstants.js';
 import { PickRequired } from '../../common/GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 // Index of refraction is a fixed value for both the 'direct' and 'indirect' focal-length models.
 // Although a mirror does not have an index of refraction, its focal length is equivalent to a lens
 // with an index of refraction of 2.
 const INDEX_OF_REFRACTION = 2;
 
-type MirrorOptions = {
+type SelfOptions = {
   isBasicsVersion: boolean
-} & PickRequired<OpticOptions, 'tandem'>;
+};
+
+type MirrorOptions = SelfOptions & PickRequired<OpticOptions, 'tandem'>;
 
 class Mirror extends Optic {
 
@@ -37,7 +39,8 @@ class Mirror extends Optic {
 
     const focalLengthModelsTandem = providedOptions.tandem.createTandem( 'focalLengthModels' );
 
-    const options = merge( {
+    const options = optionize<MirrorOptions, SelfOptions, OpticOptions,
+      'opticShapes' | 'diameterRange' | 'sign' | 'directFocalLengthModelOptions' | 'indirectFocalLengthModelOptions'>( {
       opticShapes: providedOptions.isBasicsVersion ? [ 'flat' ] : [ 'concave', 'convex', 'flat' ],
       diameterRange: GOConstants.DIAMETER_RANGE, // in cm
       sign: -1,
@@ -51,7 +54,7 @@ class Mirror extends Optic {
         indexOfRefractionRange: new RangeWithValue( INDEX_OF_REFRACTION, INDEX_OF_REFRACTION, INDEX_OF_REFRACTION ), // fixed and unitless
         tandem: focalLengthModelsTandem.createTandem( 'indirectFocalLengthModel' )
       }
-    }, providedOptions ) as OpticOptions; //TODO don't use 'as'
+    }, providedOptions );
 
     assert && assert( 2 * options.directFocalLengthModelOptions.focalLengthMagnitudeRange.defaultValue ===
                       options.indirectFocalLengthModelOptions.radiusOfCurvatureMagnitudeRange.defaultValue );
