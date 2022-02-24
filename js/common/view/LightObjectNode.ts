@@ -143,6 +143,7 @@ class LightObjectNode extends Node {
     } );
     this.addInputListener( dragListener );
 
+    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when KeyboardDragListenerOptions exists
     const keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
       positionProperty: lightObject.positionProperty,
       dragBoundsProperty: dragBoundsProperty,
