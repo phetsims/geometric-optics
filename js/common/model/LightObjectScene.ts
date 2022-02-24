@@ -9,7 +9,6 @@
 
 import geometricOptics from '../../geometricOptics.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import { RaysType } from './RaysType.js';
 import LightRays from './LightRays.js';
 import ProjectionScreen from './ProjectionScreen.js';
@@ -22,11 +21,14 @@ import OpticalImage from './OpticalImage.js';
 import Guides from './Guides.js';
 import GOScene, { GOSceneOptions } from './GOScene.js';
 import Lens from '../../lens/model/Lens.js';
+import { PickRequired } from '../GOTypes.js';
 
-type LightObjectSceneOptions = {
+type SelfOptions = {
   lightObject1Position: Vector2,
   lightObject2Position: Vector2
-} & GOSceneOptions;
+};
+
+type LightObjectSceneOptions = SelfOptions & PickRequired<GOSceneOptions, 'tandem'>;
 
 class LightObjectScene extends GOScene {
 
@@ -54,35 +56,31 @@ class LightObjectScene extends GOScene {
                raysTypeProperty: IReadOnlyProperty<RaysType>,
                providedOptions: LightObjectSceneOptions ) {
 
-    const options = merge( {
-      phetioState: false
-    }, providedOptions );
-
-    super( lens, options );
+    super( lens, providedOptions );
 
     let opticalObjectNumber = 1;
 
     this.lightObject1 = new LightObject( opticalObjectNumber++, lens.positionProperty, {
       htmlImageElement: light1_png,
-      position: options.lightObject1Position,
-      tandem: options.tandem.createTandem( 'lightObject1' ),
+      position: providedOptions.lightObject1Position,
+      tandem: providedOptions.tandem.createTandem( 'lightObject1' ),
       phetioDocumentation: 'the first light'
     } );
 
     this.lightObject2 = new LightObject( opticalObjectNumber++, lens.positionProperty, {
       htmlImageElement: light2_png,
-      position: options.lightObject2Position,
-      tandem: options.tandem.createTandem( 'lightObject2' ),
+      position: providedOptions.lightObject2Position,
+      tandem: providedOptions.tandem.createTandem( 'lightObject2' ),
       phetioDocumentation: 'the second light'
     } );
 
     this.opticalImage1 = new OpticalImage( this.lightObject1, this.optic, {
-      tandem: options.tandem.createTandem( 'opticalImage1' ),
+      tandem: providedOptions.tandem.createTandem( 'opticalImage1' ),
       phetioDocumentation: 'Point where light rays from the first light converge. No image is formed in this scene.'
     } );
 
     this.opticalImage2 = new OpticalImage( this.lightObject2, this.optic, {
-      tandem: options.tandem.createTandem( 'opticalImage2' ),
+      tandem: providedOptions.tandem.createTandem( 'opticalImage2' ),
       phetioDocumentation: 'Point where light rays from the second light converge. No image is formed in this scene.'
     } );
 
@@ -111,22 +109,22 @@ class LightObjectScene extends GOScene {
     // Light Spots
     this.lightSpot1 = new LightSpot( this.optic, this.projectionScreen, this.lightObject1.positionProperty,
       this.opticalImage1.positionProperty, {
-        tandem: options.tandem.createTandem( 'lightSpot1' ),
+        tandem: providedOptions.tandem.createTandem( 'lightSpot1' ),
         phetioDocumentation: 'the light spot on the projection screen that is created by the first light'
       } );
     this.lightSpot2 = new LightSpot( this.optic, this.projectionScreen, this.lightObject2.positionProperty,
       this.opticalImage2.positionProperty, {
-        tandem: options.tandem.createTandem( 'lightSpot2' ),
+        tandem: providedOptions.tandem.createTandem( 'lightSpot2' ),
         phetioDocumentation: 'the light spot on the projection screen that is created by the second light'
       } );
 
     // Guides
     this.guides1 = new Guides( this.optic, this.lightObject1.positionProperty, {
-      tandem: options.tandem.createTandem( 'guides1' ),
+      tandem: providedOptions.tandem.createTandem( 'guides1' ),
       phetioDocumentation: 'guides associated with the first light'
     } );
     this.guides2 = new Guides( this.optic, this.lightObject2.positionProperty, {
-      tandem: options.tandem.createTandem( 'guides2' ),
+      tandem: providedOptions.tandem.createTandem( 'guides2' ),
       phetioDocumentation: 'guides associated with the second light'
     } );
 

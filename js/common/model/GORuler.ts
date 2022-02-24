@@ -11,17 +11,18 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import merge from '../../../../phet-core/js/merge.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import geometricOptics from '../../geometricOptics.js';
 import { PickRequired } from '../GOTypes.js';
 
 type RulerOrientation = 'horizontal' | 'vertical';
 
-type GeometricOpticsRulerOptions = {
-  orientation?: RulerOrientation,
-  length?: number
-} & PickRequired<PhetioObjectOptions, 'tandem'>;
+type SelfOptions = {
+  orientation: RulerOrientation,
+  length: number
+};
+
+type GeometricOpticsRulerOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 class GORuler {
 
@@ -47,25 +48,20 @@ class GORuler {
    */
   constructor( providedOptions: GeometricOpticsRulerOptions ) {
 
-    const options = merge( {
-      orientation: 'horizontal',
-      length: 100
-    }, providedOptions );
+    assert && assert( isFinite( providedOptions.length ) && providedOptions.length > 0 );
 
-    assert && assert( isFinite( options.length ) && options.length > 0 );
-
-    this.orientation = options.orientation;
-    this.length = options.length;
-    this.nominalLength = options.length;
+    this.orientation = providedOptions.orientation;
+    this.length = providedOptions.length;
+    this.nominalLength = providedOptions.length;
 
     // The initial value of position really does not matter, because position will be set when the ruler is
     // removed from the toolbox.
     this.positionProperty = new Vector2Property( Vector2.ZERO, {
-      tandem: options.tandem.createTandem( 'positionProperty' )
+      tandem: providedOptions.tandem.createTandem( 'positionProperty' )
     } );
 
     this.visibleProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'visibleProperty' )
+      tandem: providedOptions.tandem.createTandem( 'visibleProperty' )
     } );
 
     this.resetGORuler = () => {

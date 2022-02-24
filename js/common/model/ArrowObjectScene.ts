@@ -9,7 +9,6 @@
 import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import { RaysType } from './RaysType.js';
 import LightRays from './LightRays.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
@@ -19,13 +18,16 @@ import ArrowObject from './ArrowObject.js';
 import ArrowImage from './ArrowImage.js';
 import GOColors from '../GOColors.js';
 import GOScene, { GOSceneOptions } from './GOScene.js';
+import { PickRequired } from '../GOTypes.js';
 
-type ArrowObjectSceneOptions = {
+type SelfOptions = {
 
   // initial positions of the arrow objects
   arrowObject1Position: Vector2,
   arrowObject2Position: Vector2
-} & GOSceneOptions;
+};
+
+type ArrowObjectSceneOptions = SelfOptions & PickRequired<GOSceneOptions, 'tandem'>;
 
 class ArrowObjectScene extends GOScene {
 
@@ -50,33 +52,29 @@ class ArrowObjectScene extends GOScene {
                raysTypeProperty: IReadOnlyProperty<RaysType>,
                providedOptions: ArrowObjectSceneOptions ) {
 
-    const options = merge( {
-      phetioState: false
-    }, providedOptions );
-
-    super( optic, options );
+    super( optic, providedOptions );
 
     let opticalObjectNumber = 1;
 
     this.arrowObject1 = new ArrowObject( opticalObjectNumber++, optic.positionProperty, {
-      position: options.arrowObject1Position,
+      position: providedOptions.arrowObject1Position,
       fill: GOColors.arrow1FillProperty,
-      tandem: options.tandem.createTandem( 'arrowObject1' )
+      tandem: providedOptions.tandem.createTandem( 'arrowObject1' )
     } );
 
     this.arrowObject2 = new ArrowObject( opticalObjectNumber++, optic.positionProperty, {
-      position: options.arrowObject2Position,
+      position: providedOptions.arrowObject2Position,
       fill: GOColors.arrow2FillProperty,
-      tandem: options.tandem.createTandem( 'arrowObject2' )
+      tandem: providedOptions.tandem.createTandem( 'arrowObject2' )
     } );
 
     this.arrowImage1 = new ArrowImage( this.arrowObject1, this.optic, {
-      tandem: options.tandem.createTandem( 'arrowImage1' ),
+      tandem: providedOptions.tandem.createTandem( 'arrowImage1' ),
       phetioDocumentation: 'optical image associated with the first arrow object'
     } );
 
     this.arrowImage2 = new ArrowImage( this.arrowObject2, this.optic, {
-      tandem: options.tandem.createTandem( 'arrowImage2' ),
+      tandem: providedOptions.tandem.createTandem( 'arrowImage2' ),
       phetioDocumentation: 'optical image associated with the second arrow object'
     } );
 
@@ -99,11 +97,11 @@ class ArrowObjectScene extends GOScene {
     // Guides
     if ( optic instanceof Lens ) {
       this.guides1 = new Guides( this.optic, this.arrowObject1.positionProperty, {
-        tandem: options.tandem.createTandem( 'guides1' ),
+        tandem: providedOptions.tandem.createTandem( 'guides1' ),
         phetioDocumentation: 'guides associated with the first arrow object'
       } );
       this.guides2 = new Guides( this.optic, this.arrowObject2.positionProperty, {
-        tandem: options.tandem.createTandem( 'guides2' ),
+        tandem: providedOptions.tandem.createTandem( 'guides2' ),
         phetioDocumentation: 'guides associated with the second arrow object'
       } );
     }

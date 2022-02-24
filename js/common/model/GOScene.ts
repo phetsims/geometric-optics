@@ -9,12 +9,12 @@
 import Range from '../../../../dot/js/Range.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
-import merge from '../../../../phet-core/js/merge.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Lens from '../../lens/model/Lens.js';
 import Guides from './Guides.js';
 import { PickRequired } from '../GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 type GOSceneOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
 
@@ -34,7 +34,7 @@ abstract class GOScene extends PhetioObject {
    */
   protected constructor( optic: Optic, providedOptions: GOSceneOptions ) {
 
-    const options = merge( {
+    const options = optionize<GOSceneOptions, {}, PhetioObjectOptions>( {
       phetioState: false
     }, providedOptions );
 

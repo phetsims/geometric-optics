@@ -13,7 +13,6 @@ import Optic from './Optic.js';
 import FramedObject from './FramedObject.js';
 import FramedImage from './FramedImage.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import { RaysType } from './RaysType.js';
 import LightRays from './LightRays.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
@@ -23,12 +22,15 @@ import Lens from '../../lens/model/Lens.js';
 import Guides from './Guides.js';
 import SecondPoint from './SecondPoint.js';
 import GOScene, { GOSceneOptions } from './GOScene.js';
+import { PickRequired } from '../GOTypes.js';
 
-type FramedObjectSceneOptions = {
+type SelfOptions = {
 
   // initial position of the framed object
   framedObjectPosition: Vector2
-} & GOSceneOptions;
+};
+
+type FramedObjectSceneOptions = SelfOptions & PickRequired<GOSceneOptions, 'tandem'>;
 
 class FramedObjectScene extends GOScene {
 
@@ -55,30 +57,26 @@ class FramedObjectScene extends GOScene {
                raysTypeProperty: IReadOnlyProperty<RaysType>,
                providedOptions: FramedObjectSceneOptions ) {
 
-    const options = merge( {
-      phetioState: false
-    }, providedOptions );
-
-    super( optic, options );
+    super( optic, providedOptions );
 
     this.framedObject = new FramedObject( 1, optic.positionProperty, opticalObjectChoiceProperty, {
-      position: options.framedObjectPosition,
-      tandem: options.tandem.createTandem( 'framedObject' )
+      position: providedOptions.framedObjectPosition,
+      tandem: providedOptions.tandem.createTandem( 'framedObject' )
     } );
 
     this.secondPoint = new SecondPoint( this.framedObject.positionProperty, {
-      tandem: options.tandem.createTandem( 'secondPoint' ),
+      tandem: providedOptions.tandem.createTandem( 'secondPoint' ),
       phetioDocumentation: 'second point-of-interest on the framed object'
     } );
 
     this.framedImage1 = new FramedImage( this.framedObject, this.optic, {
-      tandem: options.tandem.createTandem( 'framedImage1' ),
+      tandem: providedOptions.tandem.createTandem( 'framedImage1' ),
       phetioDocumentation: 'optical image associated with the first point-of-interest on the framed object'
     } );
 
     this.framedImage2 = new FramedImage( this.framedObject, this.optic, {
       secondPointProperty: this.secondPoint.positionProperty,
-      tandem: options.tandem.createTandem( 'framedImage2' ),
+      tandem: providedOptions.tandem.createTandem( 'framedImage2' ),
       phetioDocumentation: 'optical image associated with the second point-of-interest on the framed object'
     } );
 
@@ -101,11 +99,11 @@ class FramedObjectScene extends GOScene {
     // Guides
     if ( optic instanceof Lens ) {
       this.guides1 = new Guides( this.optic, this.framedObject.positionProperty, {
-        tandem: options.tandem.createTandem( 'guides1' ),
+        tandem: providedOptions.tandem.createTandem( 'guides1' ),
         phetioDocumentation: 'guides associated with the first point-of-interest on the framed object'
       } );
       this.guides2 = new Guides( this.optic, this.secondPoint.positionProperty, {
-        tandem: options.tandem.createTandem( 'guides2' ),
+        tandem: providedOptions.tandem.createTandem( 'guides2' ),
         phetioDocumentation: 'guides associated with the second point-of-interest on the framed object'
       } );
     }
