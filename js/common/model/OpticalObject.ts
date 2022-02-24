@@ -19,15 +19,17 @@ import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import merge from '../../../../phet-core/js/merge.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import { PickOptional, PickRequired } from '../GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
-type OpticalObjectOptions = {
+type SelfOptions = {
   position?: Vector2
-} & PickRequired<PhetioObjectOptions, 'tandem'>
+};
+
+type OpticalObjectOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>
   & PickOptional<PhetioObjectOptions, 'phetioDocumentation'>;
 
 class OpticalObject extends PhetioObject {
@@ -49,7 +51,7 @@ class OpticalObject extends PhetioObject {
     assert && assert( Number.isInteger( opticalObjectNumber ) && opticalObjectNumber > 0,
       `opticalObjectNumber must be a positive integer: ${opticalObjectNumber}` );
 
-    const options = merge( {
+    const options = optionize<OpticalObjectOptions, SelfOptions, PhetioObjectOptions>( {
       position: Vector2.ZERO,
       phetioState: false
     }, providedOptions );
