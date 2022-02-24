@@ -8,7 +8,6 @@
 
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GOScreenView, { GOScreenViewOptions } from '../../common/view/GOScreenView.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -19,10 +18,9 @@ import MirrorNode from './MirrorNode.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Optic from '../../common/model/Optic.js';
 import { PickRequired } from '../../common/GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
-type MirrorScreenViewOptions = {
-  isBasicsVersion: boolean
-} & PickRequired<GOScreenViewOptions, 'tandem'>;
+type MirrorScreenViewOptions = PickRequired<GOScreenViewOptions, 'isBasicsVersion' | 'tandem'>;
 
 class MirrorScreenView extends GOScreenView {
 
@@ -32,7 +30,8 @@ class MirrorScreenView extends GOScreenView {
    */
   constructor( model: MirrorModel, providedOptions: MirrorScreenViewOptions ) {
 
-    const options = merge( {
+    const options = optionize<MirrorScreenViewOptions, {}, GOScreenViewOptions,
+      'getViewOrigin' | 'createOpticNode' | 'dragLockedProperty'>( {
 
       // View origin is to right, and a little above center.
       getViewOrigin: providedOptions.isBasicsVersion ?

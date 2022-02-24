@@ -9,7 +9,6 @@
 
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GOScreenView, { GOScreenViewOptions } from '../../common/view/GOScreenView.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -21,10 +20,9 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DragLockedButton from '../../common/view/DragLockedButton.js';
 import Optic from '../../common/model/Optic.js';
 import { PickRequired } from '../../common/GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
-type LensScreenViewOptions = {
-  isBasicsVersion: boolean
-} & PickRequired<GOScreenViewOptions, 'tandem'>;
+type LensScreenViewOptions = PickRequired<GOScreenViewOptions, 'isBasicsVersion' | 'tandem'>;
 
 class LensScreenView extends GOScreenView {
 
@@ -37,7 +35,8 @@ class LensScreenView extends GOScreenView {
    */
   constructor( model: LensModel, providedOptions: LensScreenViewOptions ) {
 
-    const options = merge( {
+    const options = optionize<LensScreenViewOptions, {}, GOScreenViewOptions,
+      'getViewOrigin' | 'createOpticNode' | 'dragLockedProperty'>( {
 
       // View origin is slightly above center of the layoutBounds.
       getViewOrigin: ( layoutBounds: Bounds2 ) => new Vector2( layoutBounds.centerX, layoutBounds.centerY - 35 ),

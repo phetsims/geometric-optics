@@ -13,7 +13,6 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView, { ScreenViewOptions } from '../../../../joist/js/ScreenView.js';
-import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import MagnifyingGlassZoomButtonGroup from '../../../../scenery-phet/js/MagnifyingGlassZoomButtonGroup.js';
@@ -44,6 +43,7 @@ import LightObjectSceneNode from './LightObjectSceneNode.js';
 import LightObjectSceneLabelsNode from './LightObjectSceneLabelsNode.js';
 import GOSceneNode from './GOSceneNode.js';
 import { PickRequired } from '../GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.
@@ -52,7 +52,7 @@ const ZOOM_SCALES = [ 0.25, 0.5, 1 ];
 // view coordinates per cm when zoom scale is 1
 const NOMINAL_MODEL_TO_VIEW_SCALE = 2;
 
-type GOScreenViewOptions = {
+type SelfOptions = {
 
   isBasicsVersion: boolean,
 
@@ -63,7 +63,9 @@ type GOScreenViewOptions = {
   createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node,
 
   dragLockedProperty: BooleanProperty
-} & PickRequired<ScreenViewOptions, 'tandem'>;
+};
+
+type GOScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions, 'tandem'>;
 
 class GOScreenView extends ScreenView {
 
@@ -83,7 +85,7 @@ class GOScreenView extends ScreenView {
    */
   constructor( model: GOModel, providedOptions: GOScreenViewOptions ) {
 
-    const options = merge( {
+    const options = optionize<GOScreenViewOptions, SelfOptions, ScreenViewOptions>( {
 
       // Workaround for things shifting around while dragging
       // See https://github.com/phetsims/scenery/issues/1289 and https://github.com/phetsims/geometric-optics/issues/213
