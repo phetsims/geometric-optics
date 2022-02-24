@@ -10,7 +10,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import LabelNode from './LabelNode.js';
@@ -18,14 +18,11 @@ import VisibleProperties from './VisibleProperties.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import Property from '../../../../axon/js/Property.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Optic from '../model/Optic.js';
 import OpticLabelNode from './OpticLabelNode.js';
+import { PickRequired } from '../GOTypes.js';
 
-type GOSceneLabelsNodeOptions = {
-  visibleProperty: Property<boolean>
-};
+type GOSceneLabelsNodeOptions = PickRequired<NodeOptions, 'visibleProperty'>;
 
 class GOSceneLabelsNode extends Node {
 
@@ -42,8 +39,7 @@ class GOSceneLabelsNode extends Node {
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                providedOptions: GOSceneLabelsNodeOptions ) {
 
-    const options = merge( {}, providedOptions );
-    super( options );
+    super( providedOptions );
 
     // Optic label ------------------------------------------------------------------------------------
 

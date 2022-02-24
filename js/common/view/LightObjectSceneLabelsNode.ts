@@ -22,9 +22,11 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import LightObject from '../model/LightObject.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 
-type LightObjectSceneLabelsNodeOptions = {
+type SelfOptions = {
   isBasicsVersion: boolean
-} & GOSceneLabelsNodeOptions;
+};
+
+type LightObjectSceneLabelsNodeOptions = SelfOptions & GOSceneLabelsNodeOptions;
 
 class LightObjectSceneLabelsNode extends GOSceneLabelsNode {
 
@@ -41,9 +43,7 @@ class LightObjectSceneLabelsNode extends GOSceneLabelsNode {
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                providedOptions: LightObjectSceneLabelsNodeOptions ) {
 
-    const options = merge( {}, providedOptions );
-
-    super( scene.optic, visibleProperties, zoomTransformProperty, modelVisibleBoundsProperty, options );
+    super( scene.optic, visibleProperties, zoomTransformProperty, modelVisibleBoundsProperty, providedOptions );
 
     // Object labels ------------------------------------------------------------------------------------
 
@@ -56,7 +56,7 @@ class LightObjectSceneLabelsNode extends GOSceneLabelsNode {
 
       // Use numbering in the full version of the sim, or in the basics version if Object 2 is visible.
       isNumberedProperty: new DerivedProperty( [ object2Label.visibleProperty ],
-        ( object2LabelVisible: boolean ) => ( !options.isBasicsVersion || object2LabelVisible )
+        ( object2LabelVisible: boolean ) => ( !providedOptions.isBasicsVersion || object2LabelVisible )
       )
     } );
     this.addChild( object1Label );

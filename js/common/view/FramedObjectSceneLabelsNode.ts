@@ -16,11 +16,8 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import FramedObjectScene from '../model/FramedObjectScene.js';
 import { OpticalImageType } from '../model/OpticalImageType.js';
-import merge from '../../../../phet-core/js/merge.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import GOSceneLabelsNode, { GOSceneLabelsNodeOptions } from './GOSceneLabelsNode.js';
-
-type FramedObjectSceneLabelsNodeOptions = {} & GOSceneLabelsNodeOptions;
 
 class FramedObjectSceneLabelsNode extends GOSceneLabelsNode {
 
@@ -37,11 +34,9 @@ class FramedObjectSceneLabelsNode extends GOSceneLabelsNode {
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                lightPropagationEnabledProperty: IProperty<boolean>,
-               providedOptions: FramedObjectSceneLabelsNodeOptions ) {
+               providedOptions: GOSceneLabelsNodeOptions ) {
 
-    const options = merge( {}, providedOptions );
-
-    super( scene.optic, visibleProperties, zoomTransformProperty, modelVisibleBoundsProperty, options );
+    super( scene.optic, visibleProperties, zoomTransformProperty, modelVisibleBoundsProperty, providedOptions );
 
     // Object label ------------------------------------------------------------------------------------
 

@@ -53,6 +53,7 @@ class LabelNode extends BackgroundNode {
       maxWidth: 85
     } );
 
+    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when BackgroundNodeOptions exists
     const options = merge( {
 
       // LabelNode options

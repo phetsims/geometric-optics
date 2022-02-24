@@ -27,9 +27,12 @@ import ArrowObject from '../model/ArrowObject.js';
 import Optic from '../model/Optic.js';
 import Property from '../../../../axon/js/Property.js';
 
-type ArrowObjectSceneLabelsNodeOptions = {
+
+type SelfOptions = {
   isBasicsVersion: boolean
-} & GOSceneLabelsNodeOptions;
+};
+
+type ArrowObjectSceneLabelsNodeOptions = SelfOptions & GOSceneLabelsNodeOptions;
 
 class ArrowObjectSceneLabelsNode extends GOSceneLabelsNode {
 
@@ -48,9 +51,7 @@ class ArrowObjectSceneLabelsNode extends GOSceneLabelsNode {
                lightPropagationEnabledProperty: IProperty<boolean>,
                providedOptions: ArrowObjectSceneLabelsNodeOptions ) {
 
-    const options = merge( {}, providedOptions );
-
-    super( scene.optic, visibleProperties, zoomTransformProperty, modelVisibleBoundsProperty, options );
+    super( scene.optic, visibleProperties, zoomTransformProperty, modelVisibleBoundsProperty, providedOptions );
 
     // Object labels ------------------------------------------------------------------------------------
 
@@ -63,7 +64,7 @@ class ArrowObjectSceneLabelsNode extends GOSceneLabelsNode {
 
       // Use numbering in the full version of the sim, or in the basics version if Object 2 is visible.
       isNumberedProperty: new DerivedProperty( [ object2Label.visibleProperty ],
-        ( object2LabelVisible: boolean ) => ( !options.isBasicsVersion || object2LabelVisible )
+        ( object2LabelVisible: boolean ) => ( !providedOptions.isBasicsVersion || object2LabelVisible )
       )
     } );
     this.addChild( object1Label );
@@ -80,7 +81,7 @@ class ArrowObjectSceneLabelsNode extends GOSceneLabelsNode {
 
         // Use numbering in the full version of the sim, or in the basics version if Image 2 is visible.
         isNumberedProperty: new DerivedProperty( [ image2Label.visibleProperty ],
-          ( image2LabelVisible: boolean ) => ( !options.isBasicsVersion || image2LabelVisible )
+          ( image2LabelVisible: boolean ) => ( !providedOptions.isBasicsVersion || image2LabelVisible )
         )
       } );
     this.addChild( image1Label );
