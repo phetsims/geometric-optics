@@ -13,7 +13,6 @@ import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import geometricOptics from '../../geometricOptics.js';
 import OpticShapes from './OpticShapes.js';
@@ -30,6 +29,7 @@ import GOGlobalOptions from '../GOGlobalOptions.js';
 import { FocalLengthControlType } from './FocalLengthControlType.js';
 import DirectFocalLengthModel, { DirectFocalLengthModelOptions } from './DirectFocalLengthModel.js';
 import IndirectFocalLengthModel, { IndirectFocalLengthModelOptions } from './IndirectFocalLengthModel.js';
+import { PickOptional, PickRequired } from '../GOTypes.js';
 
 // Actual physically-correct values for a flat mirror. We'll show these values in PhET-iO.
 const FLAT_MIRROR_ACTUAL_RADIUS_OF_CURVATURE = Infinity; // positive, to make it convex
@@ -59,10 +59,7 @@ type OpticOptions = {
   // position of the optic, in cm
   position?: Vector2
 
-  // phet-io options
-  tandem: Tandem,
-  phetioDocumentation?: string
-};
+} & PickRequired<PhetioObject, 'tandem'> & PickOptional<PhetioObject, 'phetioDocumentation'>;
 
 abstract class Optic extends PhetioObject {
 
