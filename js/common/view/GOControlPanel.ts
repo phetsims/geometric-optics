@@ -33,10 +33,13 @@ import { FocalLengthControlType } from '../model/FocalLengthControlType.js';
 import { OpticShape } from '../model/OpticShape.js';
 import Mirror from '../../mirror/model/Mirror.js';
 import { PickRequired } from '../GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
-type GOControlPanelOptions = {
+type SelfOptions = {
   isBasicsVersion: boolean
-} & PickRequired<PanelOptions, 'tandem'>;
+};
+
+type GOControlPanelOptions = SelfOptions & PickRequired<PanelOptions, 'tandem'>;
 
 class GOControlPanel extends Panel {
 
@@ -53,7 +56,7 @@ class GOControlPanel extends Panel {
                virtualImageCheckboxEnabledProperty: IReadOnlyProperty<boolean>,
                providedOptions: GOControlPanelOptions ) {
 
-    const options = merge( {
+    const options = optionize<GOControlPanelOptions, SelfOptions, PanelOptions>( {
 
       // Panel options
       xMargin: 15,

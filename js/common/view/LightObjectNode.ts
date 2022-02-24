@@ -19,14 +19,13 @@ import CueingArrowsNode from './CueingArrowsNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import GOConstants from '../../common/GOConstants.js';
-import IProperty from '../../../../axon/js/IProperty.js';
 import LightObject from '../model/LightObject.js';
 import GOQueryParameters from '../GOQueryParameters.js';
-import { PickRequired } from '../GOTypes.js';
+import { PickOptional, PickRequired } from '../GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
-type LightObjectNodeOptions = {
-  visibleProperty?: IProperty<boolean>
-} & PickRequired<NodeOptions, 'tandem'>;
+type LightObjectNodeOptions = PickRequired<NodeOptions, 'tandem'>
+  & PickOptional<NodeOptions, 'visibleProperty'>;
 
 class LightObjectNode extends Node {
 
@@ -47,7 +46,7 @@ class LightObjectNode extends Node {
                wasDraggedProperty: Property<boolean>,
                providedOptions: LightObjectNodeOptions ) {
 
-    const options = merge( {
+    const options = optionize<LightObjectNodeOptions, {}, NodeOptions>( {
 
       // pdom options
       tagName: 'div',
