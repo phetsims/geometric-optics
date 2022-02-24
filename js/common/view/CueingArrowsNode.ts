@@ -60,6 +60,7 @@ class CueingArrowsNode extends Path {
 
 function createArrowsShape( direction: CueingArrowsDirection, length: number ): Shape {
 
+  //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when ArrowNodeOptions exists
   const arrowShapeOptions = merge( {
     doubleHead: true
   }, GOConstants.CUEING_ARROW_SHAPE_OPTIONS );

@@ -151,6 +151,7 @@ class GOControlPanel extends Panel {
     // Put it all together ---------------------------------------------------------------------------------------
 
     // Vertical separators between sections of the control panel
+    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when VSeparatorOptions exists
     const separatorLength = Math.max( checkboxGroup.height, raysSubpanel.height );
     const separatorOptions = { stroke: 'gray', lineWidth: 1 };
     const leftSeparator = new VSeparator( separatorLength, merge( {

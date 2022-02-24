@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import { Text } from '../../../../scenery/js/imports.js';
 import { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
 import VerticalAquaRadioButtonGroup, { VerticalAquaRadioButtonGroupOptions } from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
@@ -17,6 +16,7 @@ import GOConstants from '../GOConstants.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
 import { FocalLengthControlType } from '../model/FocalLengthControlType.js';
 import { PickRequired } from '../GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 type FocalLengthControlRadioButtonGroupOptions = PickRequired<VerticalAquaRadioButtonGroupOptions, 'tandem'>;
 
@@ -27,14 +27,16 @@ class FocalLengthControlRadioButtonGroup extends VerticalAquaRadioButtonGroup<Fo
    */
   constructor( providedOptions: FocalLengthControlRadioButtonGroupOptions ) {
 
+    const options = optionize<FocalLengthControlRadioButtonGroupOptions, {}, VerticalAquaRadioButtonGroupOptions>( {
+      spacing: 8
+    }, providedOptions );
+
     const items = [
       createItem( 'direct', geometricOpticsStrings.direct ),
       createItem( 'indirect', geometricOpticsStrings.indirect )
     ];
 
-    super( GOGlobalOptions.focalLengthControlTypeProperty, items, merge( {
-      spacing: 8
-    }, providedOptions ) );
+    super( GOGlobalOptions.focalLengthControlTypeProperty, items, options );
   }
 }
 
