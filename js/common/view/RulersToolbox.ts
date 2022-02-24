@@ -8,12 +8,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import { HBox, NodeOptions } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import geometricOptics from '../../geometricOptics.js';
 import GORulerNode from './GORulerNode.js';
 import { PickOptional, PickRequired } from '../GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 //TODO https://github.com/phetsims/geometric-optics/issues/315 should be PanelOptions
 type RulersToolboxOptions = PickRequired<NodeOptions, 'tandem'>
@@ -27,13 +27,7 @@ class RulersToolbox extends Panel {
    */
   constructor( rulerNodes: GORulerNode[], providedOptions: RulersToolboxOptions ) {
 
-    const toolboxContent = new HBox( {
-      spacing: 20,
-      children: rulerNodes.map( rulerNode => rulerNode.iconNode ),
-      excludeInvisibleChildrenFromBounds: false
-    } );
-
-    super( toolboxContent, merge( {
+    const options = optionize<RulersToolboxOptions, {}, PanelOptions>( {
 
       // Panel options
       align: 'center',
@@ -42,7 +36,15 @@ class RulersToolbox extends Panel {
       yMargin: 7,
       fill: 'white',
       stroke: 'grey'
-    }, providedOptions ) );
+    }, providedOptions );
+
+    const toolboxContent = new HBox( {
+      spacing: 20,
+      children: rulerNodes.map( rulerNode => rulerNode.iconNode ),
+      excludeInvisibleChildrenFromBounds: false
+    } );
+
+    super( toolboxContent, options );
   }
 
   public dispose(): void {

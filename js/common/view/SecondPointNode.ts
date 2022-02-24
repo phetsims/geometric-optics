@@ -16,7 +16,6 @@ import { Circle, DragListener, FocusHighlightFromNode, KeyboardDragListener, Nod
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import SecondPoint from '../model/SecondPoint.js';
-import IProperty from '../../../../axon/js/IProperty.js';
 import GOConstants from '../GOConstants.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
@@ -24,9 +23,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import { PickRequired } from '../GOTypes.js';
 
-type SecondPointNodeOptions = {
-  visibleProperty: IProperty<boolean>
-} & PickRequired<NodeOptions, 'tandem' | 'phetioDocumentation'>;
+type SecondPointNodeOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem' | 'phetioDocumentation'>;
 
 class SecondPointNode extends Node {
 
@@ -40,7 +37,7 @@ class SecondPointNode extends Node {
    */
   constructor( secondPoint: SecondPoint, modelViewTransform: ModelViewTransform2, providedOptions: SecondPointNodeOptions ) {
 
-    const options = merge( {
+    const options = optionize<SecondPointNodeOptions, {}, NodeOptions>( {
 
       // second point can only be dragged vertically
       cursor: 'ns-resize',
@@ -144,6 +141,11 @@ class PointNode extends Circle {
 
 // Arrows for cueing the user that this Node can be moved up and down
 class CueingArrowsNode extends VBox {
+
+  /**
+   * @param spacing
+   * @param providedOptions
+   */
   constructor( spacing: number, providedOptions?: NodeOptions ) {
 
     const arrowLength = 20;

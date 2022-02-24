@@ -8,7 +8,7 @@
 
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Circle, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -26,7 +26,7 @@ class TwoFPointNode extends Node {
    */
   constructor( pointProperty: Property<Vector2>, modelViewTransform: ModelViewTransform2, provideOptions: TwoFPointNodeOptions ) {
 
-    const options = merge( {
+    const options = optionize<TwoFPointNodeOptions, {}, NodeOptions>( {
       children: [ TwoFPointNode.createIcon() ],
       phetioVisiblePropertyInstrumented: false
     }, provideOptions );

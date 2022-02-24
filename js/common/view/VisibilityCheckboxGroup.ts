@@ -22,10 +22,12 @@ import TwoFPointNode from './TwoFPointNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import { PickRequired } from '../GOTypes.js';
 
-type VisibilityCheckboxGroupOptions = {
+type SelfOptions = {
   isBasicsVersion: boolean,
   isMirrorScreen: boolean
-} & PickRequired<VerticalCheckboxGroupOptions, 'tandem'>;
+};
+
+type VisibilityCheckboxGroupOptions = SelfOptions & PickRequired<VerticalCheckboxGroupOptions, 'tandem'>;
 
 class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 
