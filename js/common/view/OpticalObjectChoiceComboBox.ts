@@ -62,6 +62,7 @@ class OpticalObjectChoiceComboBox extends ComboBox {
       } ) );
     } );
 
+    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when ComboBoxOptions exists
     super( items, opticalObjectChoiceProperty, listParent, merge( {
 
       // ComboBox options

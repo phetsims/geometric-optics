@@ -18,7 +18,6 @@ import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import { PickRequired } from '../GOTypes.js';
 
-//TODO https://github.com/phetsims/geometric-optics/issues/326 should be BooleanRoundToggleButtonOptions
 type LightPropagationToggleButtonOptions = PickRequired<NodeOptions, 'tandem'>;
 
 class LightPropagationToggleButton extends BooleanRoundToggleButton {
@@ -29,17 +28,20 @@ class LightPropagationToggleButton extends BooleanRoundToggleButton {
    */
   constructor( booleanProperty: Property<boolean>, providedOptions: LightPropagationToggleButtonOptions ) {
 
-    // create nodes for open and closed eye icons
-    const onNode = new Image( lightPropagationOnIcon_png );
-    const offNode = new Image( lightPropagationOffIcon_png );
-
-    super( onNode, offNode, booleanProperty, merge( {
+    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when BooleanRoundToggleButtonOptions exists
+    const options = merge( {
       radius: SceneryPhetConstants.DEFAULT_BUTTON_RADIUS, // so that this button will be the same size as ResetAllButton
       xMargin: 4,
       yMargin: 4,
       touchAreaDilation: 5.2, // same as ResetAllButton
       baseColor: GOColors.lightPropagationToggleButtonFillProperty
-    }, providedOptions ) );
+    }, providedOptions );
+
+    // create nodes for open and closed eye icons
+    const onNode = new Image( lightPropagationOnIcon_png );
+    const offNode = new Image( lightPropagationOffIcon_png );
+
+    super( onNode, offNode, booleanProperty, options );
   }
 
   public dispose(): void {

@@ -35,7 +35,7 @@ type ObjectHTMLImageElements = {
   leftFacingInverted: HTMLImageElement
 };
 
-//TODO https://github.com/phetsims/geometric-optics/issues/326 revisit replacing merge after ArrowNode has been converted to TypeScript
+//TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when ArrowNodeOptions exists
 const arrowIcon = new ArrowNode( 0, 0, 0, -50, merge( {
   fill: GOColors.arrow1FillProperty,
   stroke: null,

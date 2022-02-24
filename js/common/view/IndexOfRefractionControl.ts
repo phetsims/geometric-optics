@@ -14,13 +14,10 @@ import merge from '../../../../phet-core/js/merge.js';
 import GOConstants from '../GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import IProperty from '../../../../axon/js/IProperty.js';
 import { PickRequired } from '../GOTypes.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
 
-type IndexOfRefractionControlOptions = {
-  visibleProperty: IProperty<boolean>
-} & PickRequired<NodeOptions, 'tandem'>; //TODO https://github.com/phetsims/geometric-optics/issues/326 should be NumberControlOptions
+type IndexOfRefractionControlOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem'>;
 
 class IndexOfRefractionControl extends NumberControl {
 
@@ -30,6 +27,7 @@ class IndexOfRefractionControl extends NumberControl {
    */
   constructor( indexOfRefractionProperty: NumberProperty, providedOptions: IndexOfRefractionControlOptions ) {
 
+    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when NumberControlOptions exists
     const options = merge( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
       delta: GOConstants.INDEX_OF_REFRACTION_SPINNER_STEP,
       sliderOptions: {

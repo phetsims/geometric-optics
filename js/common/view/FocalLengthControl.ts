@@ -15,15 +15,12 @@ import merge from '../../../../phet-core/js/merge.js';
 import GOConstants from '../GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import IProperty from '../../../../axon/js/IProperty.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import { PickRequired } from '../GOTypes.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
 
-type FocalLengthControlOptions = {
-  visibleProperty: IProperty<boolean>
-} & PickRequired<NodeOptions, 'tandem'>; //TODO https://github.com/phetsims/geometric-optics/issues/326 should be NumberControlOptions
+type FocalLengthControlOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem'>;
 
 class FocalLengthControl extends NumberControl {
 
@@ -46,6 +43,7 @@ class FocalLengthControl extends NumberControl {
                                                 : geometricOpticsStrings.focalLengthNegative;
     } );
 
+    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when NumberControlOptions exists
     const options = merge( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
       delta: GOConstants.FOCAL_LENGTH_SPINNER_STEP,
       titleNodeOptions: {

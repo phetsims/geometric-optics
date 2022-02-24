@@ -9,22 +9,17 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import IProperty from '../../../../axon/js/IProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Line } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import { Line, LineOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
+import { PickOptional, PickRequired } from '../GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
-type OpticalAxisNodeOptions = {
-  stroke?: ColorDef,
-  visibleProperty: IProperty<boolean>,
-  tandem?: Tandem
-};
+type OpticalAxisNodeOptions = PickRequired<LineOptions, 'visibleProperty'> & PickOptional<LineOptions, 'stroke' | 'tandem'>;
 
 class OpticalAxisNode extends Line {
 
@@ -40,7 +35,7 @@ class OpticalAxisNode extends Line {
                providedOptions: OpticalAxisNodeOptions ) {
 
     // create optical axis line, with arbitrary length values.
-    super( 0, 0, 1, 0, merge( {
+    super( 0, 0, 1, 0, optionize<OpticalAxisNodeOptions, {}, LineOptions>( {
       stroke: GOColors.opticalAxisStrokeProperty,
       lineWidth: 2,
       lineDash: [ 8, 5 ]

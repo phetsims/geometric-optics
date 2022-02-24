@@ -16,7 +16,6 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import { PickRequired } from '../GOTypes.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
 
-//TODO https://github.com/phetsims/geometric-optics/issues/326 should be NumberControlOptions
 type DiameterControlOptions = PickRequired<NodeOptions, 'tandem'>;
 
 class DiameterControl extends NumberControl {
@@ -27,6 +26,7 @@ class DiameterControl extends NumberControl {
    */
   constructor( diameterProperty: NumberProperty, providedOptions: DiameterControlOptions ) {
 
+    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when NumberControlOptions exists
     const options = merge( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
       delta: GOConstants.DIAMETER_SPINNER_STEP,
       sliderOptions: {

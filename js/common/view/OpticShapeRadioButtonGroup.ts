@@ -19,7 +19,6 @@ import LensNode from '../../lens/view/LensNode.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
 import { PickOptional, PickRequired } from '../GOTypes.js';
 
-//TODO https://github.com/phetsims/geometric-optics/issues/326 should be RectangularRadioButtonGroupOptions
 type OpticShapeRadioButtonGroupOptions = PickRequired<NodeOptions, 'tandem'>
   & PickOptional<NodeOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
 
@@ -44,6 +43,7 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShape>
         };
       } );
 
+    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when RectangularRadioButtonGroupOptions exits
     super( optic.opticShapeProperty, items, merge( {
 
       // RectangularRadioButtonGroup options

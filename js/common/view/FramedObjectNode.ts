@@ -151,7 +151,8 @@ class FramedObjectNode extends Node {
       tandem: options.tandem.createTandem( 'dragListener' )
     } );
     this.addInputListener( dragListener );
-
+                                          
+    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when KeyboardDragListenerOptions exists
     const keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
       positionProperty: framedObject.positionProperty,
       dragBoundsProperty: dragBoundsProperty,

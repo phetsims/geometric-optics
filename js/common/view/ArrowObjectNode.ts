@@ -60,7 +60,7 @@ class ArrowObjectNode extends Node {
 
     super( options );
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/326 revisit replacing merge after ArrowNode has been converted to TypeScript
+    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when ArrowNodeOptions exists
     const arrowNode = new ArrowNode( 0, 0, 0, 1, merge( {}, GOConstants.ARROW_NODE_OPTIONS, {
       fill: arrowObject.fill,
       stroke: null
@@ -139,7 +139,7 @@ class ArrowObjectNode extends Node {
     } );
     this.addInputListener( dragListener );
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/326 revisit replacing merge after KeyboardDragListener has been converted to TypeScript
+    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when KeyboardDragListenerOptions exists
     const keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
       positionProperty: arrowObject.positionProperty,
       dragBoundsProperty: dragBoundsProperty,

@@ -23,7 +23,6 @@ const LOCK_SCALE = 0.045;
 const UNLOCKED_FILL = 'black';
 const LOCKED_FILL = 'red';
 
-//TODO https://github.com/phetsims/geometric-optics/issues/326 should be BooleanRectangularToggleButtonOptions
 type DragLockedButtonOptions = PickRequired<NodeOptions, 'tandem'>
   & PickOptional<NodeOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
 
@@ -34,6 +33,25 @@ class DragLockedButton extends BooleanRectangularToggleButton {
    * @param providedOptions
    */
   constructor( dragLockedProperty: Property<boolean>, providedOptions?: DragLockedButtonOptions ) {
+
+    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when BooleanRectangularToggleButtonOptions exists
+    const options = merge( {
+
+      // BooleanRectangularToggleButton options
+      baseColor: 'transparent',
+      disabledColor: 'transparent',
+      buttonAppearanceStrategy: ButtonNode.FlatAppearanceStrategy,
+
+      // Node options
+      cursor: 'pointer',
+      touchAreaXDilation: 5,
+      touchAreaYDilation: 5,
+      mouseAreaXDilation: 5,
+      mouseAreaYDilation: 5,
+
+      // phet-io options
+      phetioEnabledPropertyInstrumented: true
+    }, providedOptions );
 
     // To make both icons have the same effective size
     const alignBoxOptions = {
@@ -76,23 +94,7 @@ class DragLockedButton extends BooleanRectangularToggleButton {
       ]
     }, hBoxOptions ) ), alignBoxOptions );
 
-    super( lockedNode, unlockedNode, dragLockedProperty, merge( {
-
-      // BooleanRectangularToggleButton options
-      baseColor: 'transparent',
-      disabledColor: 'transparent',
-      buttonAppearanceStrategy: ButtonNode.FlatAppearanceStrategy,
-
-      // Node options
-      cursor: 'pointer',
-      touchAreaXDilation: 5,
-      touchAreaYDilation: 5,
-      mouseAreaXDilation: 5,
-      mouseAreaYDilation: 5,
-
-      // phet-io options
-      phetioEnabledPropertyInstrumented: true
-    }, providedOptions ) );
+    super( lockedNode, unlockedNode, dragLockedProperty, options );
 
     dragLockedProperty.link( dragLocked => {
       unlockedNode.visible = !dragLocked;

@@ -166,7 +166,7 @@ class ProjectionScreenNode extends Node {
       tandem: options.tandem.createTandem( 'dragListener' )
     } ) );
 
-    // pdom - dragging using the keyboard
+    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when KeyboardDragListenerOptions exists
     const keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
       positionProperty: projectionScreen.positionProperty,
       dragBoundsProperty: dragBoundsProperty,
