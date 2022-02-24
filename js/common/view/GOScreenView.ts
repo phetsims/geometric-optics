@@ -205,6 +205,7 @@ class GOScreenView extends ScreenView {
       top: erodedLayoutBounds.top,
       tandem: this.controlsTandem.createTandem( 'opticShapeRadioButtonGroup' )
     } );
+    opticShapeRadioButtonGroup.visible = !options.isBasicsVersion;
 
     // Disable the 'Virtual Image' checkbox for lights, see https://github.com/phetsims/geometric-optics/issues/216
     const virtualImageCheckboxEnabledProperty = new DerivedProperty(

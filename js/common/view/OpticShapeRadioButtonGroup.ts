@@ -58,8 +58,7 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShape>
       buttonContentXMargin: 14,
       buttonContentYMargin: 5,
       touchAreaXDilation: 4,
-      touchAreaYDilation: 5,
-      visible: ( validValues.length > 1 ) // hide if we only have 1 choice
+      touchAreaYDilation: 5
     }, providedOptions ) );
   }
 }

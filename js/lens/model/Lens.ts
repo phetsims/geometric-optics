@@ -24,11 +24,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 // Index of refraction is a fixed value for the 'direct' focal-length model.
 const DIRECT_INDEX_OF_REFRACTION = 1.5;
 
-type SelfOptions = {
-  isBasicsVersion: boolean
-};
-
-type LensOptions = SelfOptions & PickRequired<OpticOptions, 'tandem'>;
+type LensOptions = PickRequired<OpticOptions, 'tandem'>;
 
 class Lens extends Optic {
 
@@ -45,9 +41,9 @@ class Lens extends Optic {
 
     const focalLengthModelsTandem = providedOptions.tandem.createTandem( 'focalLengthModels' );
 
-    const options = optionize<LensOptions, SelfOptions, OpticOptions,
+    const options = optionize<LensOptions, {}, OpticOptions,
       'opticShapes' | 'diameterRange' | 'sign' | 'directFocalLengthModelOptions' | 'indirectFocalLengthModelOptions'>( {
-      opticShapes: providedOptions.isBasicsVersion ? [ 'convex' ] : [ 'convex', 'concave' ],
+      opticShapes: [ 'convex', 'concave' ],
       diameterRange: GOConstants.DIAMETER_RANGE, // in cm
       sign: 1,
       directFocalLengthModelOptions: {

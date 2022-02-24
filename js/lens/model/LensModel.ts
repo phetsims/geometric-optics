@@ -14,11 +14,7 @@ import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
 import { PickRequired } from '../../common/GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 
-type SelfOptions = {
-  isBasicsVersion?: boolean
-};
-
-type LensModelOptions = SelfOptions & PickRequired<GOModelOptions, 'tandem'>;
+type LensModelOptions = PickRequired<GOModelOptions, 'tandem'>;
 
 class LensModel extends GOModel {
 
@@ -27,10 +23,8 @@ class LensModel extends GOModel {
    */
   constructor( providedOptions: LensModelOptions ) {
 
-    const options = optionize<LensModelOptions, SelfOptions, GOModelOptions,
+    const options = optionize<LensModelOptions, {}, GOModelOptions,
       'opticalObjectChoices' | 'arrowObject1Position' | 'arrowObject2Position' | 'framedObjectPosition'>( {
-
-      isBasicsVersion: false,
 
       // optical object choices, in the order that they will appear in OpticalObjectChoiceComboBox
       opticalObjectChoices: [
@@ -51,7 +45,6 @@ class LensModel extends GOModel {
 
     // super is responsible for resetting the lens
     const lens = new Lens( {
-      isBasicsVersion: options.isBasicsVersion,
       tandem: providedOptions.tandem.createTandem( 'lens' )
     } );
 

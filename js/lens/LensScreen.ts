@@ -42,7 +42,6 @@ class LensScreen extends Screen<LensModel, LensScreenView> {
 
     super(
       () => new LensModel( {
-        isBasicsVersion: options.isBasicsVersion,
         tandem: options.tandem.createTandem( 'model' )
       } ),
       model => new LensScreenView( model, {
