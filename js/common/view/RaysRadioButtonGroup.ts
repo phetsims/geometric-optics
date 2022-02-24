@@ -8,7 +8,6 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import merge from '../../../../phet-core/js/merge.js';
 import { Text } from '../../../../scenery/js/imports.js';
 import VerticalAquaRadioButtonGroup, { VerticalAquaRadioButtonGroupOptions } from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -17,6 +16,7 @@ import GOConstants from '../GOConstants.js';
 import { RaysType } from '../model/RaysType.js';
 import { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
 import { PickRequired } from '../GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 type RaysRadioButtonGroupOptions = PickRequired<VerticalAquaRadioButtonGroupOptions, 'tandem'>;
 
@@ -28,6 +28,14 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysType> {
    */
   constructor( raysTypeProperty: Property<RaysType>, providedOptions: RaysRadioButtonGroupOptions ) {
 
+    const options = optionize<RaysRadioButtonGroupOptions, {}, VerticalAquaRadioButtonGroupOptions>( {
+      spacing: 4,
+      align: 'left',
+      radioButtonOptions: { radius: 7 },
+      touchAreaXDilation: 10,
+      mouseAreaXDilation: 10
+    }, providedOptions );
+
     // items for ray Mode radio buttons
     const items = [
       createItem( 'marginal', geometricOpticsStrings.marginal ),
@@ -36,13 +44,7 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysType> {
       createItem( 'none', geometricOpticsStrings.none )
     ];
 
-    super( raysTypeProperty, items, merge( {
-      spacing: 4,
-      align: 'left',
-      radioButtonOptions: { radius: 7 },
-      touchAreaXDilation: 10,
-      mouseAreaXDilation: 10
-    }, providedOptions ) );
+    super( raysTypeProperty, items, options );
   }
 }
 

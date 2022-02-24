@@ -13,9 +13,11 @@ import geometricOptics from '../../geometricOptics.js';
 import LightRays from '../model/LightRays.js';
 import LightRaysNode, { LightRaysNodeOptions } from './LightRaysNode.js';
 
-type RealLightRaysNodeOptions = {
-  stroke: ColorDef,
-} & LightRaysNodeOptions;
+type SelfOptions = {
+  stroke: ColorDef
+};
+
+type RealLightRaysNodeOptions = SelfOptions & LightRaysNodeOptions;
 
 class RealLightRaysNode extends LightRaysNode {
 

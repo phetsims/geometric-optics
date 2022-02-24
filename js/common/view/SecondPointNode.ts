@@ -149,6 +149,8 @@ class CueingArrowsNode extends VBox {
   constructor( spacing: number, providedOptions?: NodeOptions ) {
 
     const arrowLength = 20;
+
+    //TODO https://github.com/phetsims/geometric-optics/issues/326 revisit replacing merge after ArrowNode has been converted to TypeScript
     const arrowNodeOptions = merge( {
       fill: GOColors.secondPointFillProperty
     }, GOConstants.CUEING_ARROW_SHAPE_OPTIONS );

@@ -7,16 +7,14 @@
  * @author Martin Veillette
  */
 
-import IProperty from '../../../../axon/js/IProperty.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Line, LineOptions, Node } from '../../../../scenery/js/imports.js';
+import { Line, LineOptions, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import { LightRaySegment } from '../model/LightRay.js';
 import LightRays from '../model/LightRays.js';
+import { PickOptional } from '../GOTypes.js';
 
-type LightRaysNodeOptions = {
-  visibleProperty?: IProperty<boolean>
-};
+type LightRaysNodeOptions = PickOptional<NodeOptions, 'visibleProperty'>;
 
 class LightRaysNode extends Node {
 

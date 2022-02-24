@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import { HBox, Node, Text } from '../../../../scenery/js/imports.js';
 import VerticalCheckboxGroup, { VerticalCheckboxGroupOptions } from '../../../../sun/js/VerticalCheckboxGroup.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -21,6 +20,7 @@ import VisibleProperties from './VisibleProperties.js';
 import TwoFPointNode from './TwoFPointNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import { PickRequired } from '../GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {
   isBasicsVersion: boolean,
@@ -42,7 +42,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
                virtualImageCheckboxEnabledProperty: IReadOnlyProperty<boolean>,
                providedOptions: VisibilityCheckboxGroupOptions ) {
 
-    const options = merge( {
+    const options = optionize<VisibilityCheckboxGroupOptions, {}, VerticalCheckboxGroupOptions>( {
       spacing: 4,
       checkboxOptions: { boxWidth: 14 }
     }, providedOptions );

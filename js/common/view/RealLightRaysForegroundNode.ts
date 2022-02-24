@@ -14,12 +14,14 @@ import LightRays from '../model/LightRays.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import GOQueryParameters from '../GOQueryParameters.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import { Path } from '../../../../scenery/js/imports.js';
 import { OpticalImageType } from '../model/OpticalImageType.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+
+type RealLightRaysForegroundNodeOptions = RealLightRaysNodeOptions;
 
 class RealLightRaysForegroundNode extends RealLightRaysNode {
 
@@ -38,12 +40,11 @@ class RealLightRaysForegroundNode extends RealLightRaysNode {
                opticPositionProperty: IReadOnlyProperty<Vector2>,
                frameImagePositionProperty: IReadOnlyProperty<Vector2>,
                opticalImageTypeProperty: IReadOnlyProperty<OpticalImageType>,
-               providedOptions: RealLightRaysNodeOptions ) {
+               providedOptions: RealLightRaysForegroundNodeOptions ) {
 
-    const options = merge( {}, providedOptions );
-    if ( GOQueryParameters.debugRays ) {
-      options.stroke = 'red';
-    }
+    const options = optionize<RealLightRaysForegroundNodeOptions, {}, RealLightRaysNodeOptions, 'stroke'>( {
+      stroke: ( GOQueryParameters.debugRays ) ? 'red' : providedOptions.stroke
+    }, providedOptions );
 
     super( lightRays, modelViewTransform, options );
 
