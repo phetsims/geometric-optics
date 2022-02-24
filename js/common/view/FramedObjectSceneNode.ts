@@ -7,7 +7,6 @@
  * @author Martin Veillette
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import geometricOptics from '../../geometricOptics.js';
 import FramedObjectScene from '../model/FramedObjectScene.js';
@@ -56,23 +55,19 @@ class FramedObjectSceneNode extends GOSceneNode {
                lightPropagationEnabledProperty: IProperty<boolean>,
                providedOptions: GOSceneNodeOptions ) {
 
-    const options = merge( {
-      visiblePropertyOptions: { phetioReadOnly: true }
-    }, providedOptions );
-
-    super( scene, visibleProperties, modelViewTransform, modelVisibleBoundsProperty, sceneBoundsProperty, raysTypeProperty, options );
+    super( scene, visibleProperties, modelViewTransform, modelVisibleBoundsProperty, sceneBoundsProperty, raysTypeProperty, providedOptions );
 
     // Framed object
     const framedObjectNode = new FramedObjectNode( scene.framedObject,
-      sceneBoundsProperty, scene.optic.positionProperty, modelViewTransform, options.dragLockedProperty, {
-        tandem: options.tandem.createTandem( 'framedObjectNode' )
+      sceneBoundsProperty, scene.optic.positionProperty, modelViewTransform, providedOptions.dragLockedProperty, {
+        tandem: providedOptions.tandem.createTandem( 'framedObjectNode' )
       } );
     this.opticalObjectsLayer.addChild( framedObjectNode );
 
     // Second point-of-interest on the framed object
     const secondPointNode = new SecondPointNode( scene.secondPoint, modelViewTransform, {
       visibleProperty: visibleProperties.secondPointVisibleProperty,
-      tandem: options.tandem.createTandem( 'secondPointNode' ),
+      tandem: providedOptions.tandem.createTandem( 'secondPointNode' ),
       phetioDocumentation: 'second point-of-interest on the framed object'
     } );
     this.opticalObjectsLayer.addChild( secondPointNode );
@@ -82,7 +77,7 @@ class FramedObjectSceneNode extends GOSceneNode {
     const framedImageNode = new FramedImageNode( scene.framedImage1, scene.optic,
       visibleProperties.virtualImageVisibleProperty, lightPropagationEnabledProperty,
       framedObjectNode.visibleProperty, modelViewTransform, {
-        tandem: options.tandem.createTandem( 'framedImageNode' )
+        tandem: providedOptions.tandem.createTandem( 'framedImageNode' )
       } );
     this.opticalImagesLayer.addChild( framedImageNode );
 

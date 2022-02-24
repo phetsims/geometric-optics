@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import geometricOptics from '../../geometricOptics.js';
 import VisibleProperties from './VisibleProperties.js';
@@ -53,30 +52,26 @@ class ArrowObjectSceneNode extends GOSceneNode {
                lightPropagationEnabledProperty: IProperty<boolean>,
                providedOptions: GOSceneNodeOptions ) {
 
-    const options = merge( {
-      visiblePropertyOptions: { phetioReadOnly: true }
-    }, providedOptions );
-
-    super( scene, visibleProperties, modelViewTransform, modelVisibleBoundsProperty, sceneBoundsProperty, raysTypeProperty, options );
+    super( scene, visibleProperties, modelViewTransform, modelVisibleBoundsProperty, sceneBoundsProperty, raysTypeProperty, providedOptions );
 
     const arrowWasDraggedProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'arrowWasDraggedProperty' ),
+      tandem: providedOptions.tandem.createTandem( 'arrowWasDraggedProperty' ),
       phetioReadOnly: true,
       phetioDocumentation: 'Was either arrow dragged? Dragging either arrow hides the cueing arrows for both arrows.'
     } );
 
     // First arrow object
     const arrowObject1Node = new ArrowObjectNode( scene.arrowObject1, scene.optic, sceneBoundsProperty,
-      modelViewTransform, options.dragLockedProperty, arrowWasDraggedProperty, {
-        tandem: options.tandem.createTandem( 'arrowObject1Node' )
+      modelViewTransform, providedOptions.dragLockedProperty, arrowWasDraggedProperty, {
+        tandem: providedOptions.tandem.createTandem( 'arrowObject1Node' )
       } );
     this.opticalObjectsLayer.addChild( arrowObject1Node );
 
     // Second arrow object
     const arrowObject2Node = new ArrowObjectNode( scene.arrowObject2, scene.optic, sceneBoundsProperty,
-      modelViewTransform, options.dragLockedProperty, arrowWasDraggedProperty, {
+      modelViewTransform, providedOptions.dragLockedProperty, arrowWasDraggedProperty, {
         visibleProperty: visibleProperties.secondPointVisibleProperty,
-        tandem: options.tandem.createTandem( 'arrowObject2Node' )
+        tandem: providedOptions.tandem.createTandem( 'arrowObject2Node' )
       } );
     this.opticalObjectsLayer.addChild( arrowObject2Node );
 
@@ -84,7 +79,7 @@ class ArrowObjectSceneNode extends GOSceneNode {
     const arrowImage1Node = new ArrowImageNode( scene.arrowImage1,
       visibleProperties.virtualImageVisibleProperty, lightPropagationEnabledProperty,
       arrowObject1Node.visibleProperty, modelViewTransform, {
-        tandem: options.tandem.createTandem( 'arrowImage1Node' )
+        tandem: providedOptions.tandem.createTandem( 'arrowImage1Node' )
       } );
     this.opticalImagesLayer.addChild( arrowImage1Node );
 
@@ -92,7 +87,7 @@ class ArrowObjectSceneNode extends GOSceneNode {
     const arrowImage2Node = new ArrowImageNode( scene.arrowImage2,
       visibleProperties.virtualImageVisibleProperty, lightPropagationEnabledProperty,
       arrowObject2Node.visibleProperty, modelViewTransform, {
-        tandem: options.tandem.createTandem( 'arrowImage2Node' )
+        tandem: providedOptions.tandem.createTandem( 'arrowImage2Node' )
       } );
     this.opticalImagesLayer.addChild( arrowImage2Node );
 

@@ -7,7 +7,6 @@
  * @author Martin Veillette
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import geometricOptics from '../../geometricOptics.js';
 import VisibleProperties from './VisibleProperties.js';
@@ -26,6 +25,8 @@ import OpticalAxisInFrontOfProjectionScreenNode from './OpticalAxisInFrontOfProj
 import { RulerHotkeyTarget } from './GORulerNode.js';
 import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
 import IProperty from '../../../../axon/js/IProperty.js';
+
+type LightObjectSceneNodeOptions = GOSceneNodeOptions;
 
 class LightObjectSceneNode extends GOSceneNode {
 
@@ -53,32 +54,28 @@ class LightObjectSceneNode extends GOSceneNode {
                sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
                raysTypeProperty: IReadOnlyProperty<RaysType>,
                lightPropagationEnabledProperty: IProperty<boolean>,
-               providedOptions: GOSceneNodeOptions ) {
+               providedOptions: LightObjectSceneNodeOptions ) {
 
-    const options = merge( {
-      visiblePropertyOptions: { phetioReadOnly: true }
-    }, providedOptions );
-
-    super( scene, visibleProperties, modelViewTransform, modelVisibleBoundsProperty, sceneBoundsProperty, raysTypeProperty, options );
+    super( scene, visibleProperties, modelViewTransform, modelVisibleBoundsProperty, sceneBoundsProperty, raysTypeProperty, providedOptions );
 
     const lightWasDraggedProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'lightWasDraggedProperty' ),
+      tandem: providedOptions.tandem.createTandem( 'lightWasDraggedProperty' ),
       phetioReadOnly: true,
       phetioDocumentation: 'Was either light dragged? Dragging either light hides the cueing arrows for both lights.'
     } );
 
     // First light
     const lightObject1Node = new LightObjectNode( scene.lightObject1, sceneBoundsProperty, scene.optic.positionProperty,
-      modelViewTransform, options.dragLockedProperty, lightWasDraggedProperty, {
-        tandem: options.tandem.createTandem( 'lightObject1Node' )
+      modelViewTransform, providedOptions.dragLockedProperty, lightWasDraggedProperty, {
+        tandem: providedOptions.tandem.createTandem( 'lightObject1Node' )
       } );
     this.opticalObjectsLayer.addChild( lightObject1Node );
 
     // Second light
     const lightObject2Node = new LightObjectNode( scene.lightObject2, sceneBoundsProperty, scene.optic.positionProperty,
-      modelViewTransform, options.dragLockedProperty, lightWasDraggedProperty, {
+      modelViewTransform, providedOptions.dragLockedProperty, lightWasDraggedProperty, {
         visibleProperty: visibleProperties.secondPointVisibleProperty,
-        tandem: options.tandem.createTandem( 'lightObject2Node' )
+        tandem: providedOptions.tandem.createTandem( 'lightObject2Node' )
       } );
     this.opticalObjectsLayer.addChild( lightObject2Node );
 
@@ -114,7 +111,7 @@ class LightObjectSceneNode extends GOSceneNode {
       scene.optic.positionProperty,
       sceneBoundsProperty,
       modelViewTransform, {
-        tandem: options.tandem.createTandem( 'projectionScreenNode' )
+        tandem: providedOptions.tandem.createTandem( 'projectionScreenNode' )
       }
     );
     this.opticalImagesLayer.addChild( projectionScreenNode );
