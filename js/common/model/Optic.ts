@@ -24,7 +24,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import { RaysType } from './RaysType.js';
-import PhetioObject from '../../../../tandem/js/PhetioObject.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
 import { FocalLengthControlType } from './FocalLengthControlType.js';
 import DirectFocalLengthModel, { DirectFocalLengthModelOptions } from './DirectFocalLengthModel.js';
@@ -59,7 +59,7 @@ type OpticOptions = {
   // position of the optic, in cm
   position?: Vector2
 
-} & PickRequired<PhetioObject, 'tandem'> & PickOptional<PhetioObject, 'phetioDocumentation'>;
+} & PickRequired<PhetioObjectOptions, 'tandem'> & PickOptional<PhetioObjectOptions, 'phetioDocumentation'>;
 
 abstract class Optic extends PhetioObject {
 
