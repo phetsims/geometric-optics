@@ -27,7 +27,6 @@ import ArrowObject from '../model/ArrowObject.js';
 import Optic from '../model/Optic.js';
 import Property from '../../../../axon/js/Property.js';
 
-
 type SelfOptions = {
   isBasicsVersion: boolean
 };
