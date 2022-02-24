@@ -16,7 +16,8 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import { PickRequired } from '../GOTypes.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
 
-type DiameterControlOptions = PickRequired<NodeOptions, 'tandem'>; //TODO should be NumberControl
+//TODO https://github.com/phetsims/geometric-optics/issues/326 should be NumberControlOptions
+type DiameterControlOptions = PickRequired<NodeOptions, 'tandem'>;
 
 class DiameterControl extends NumberControl {
 

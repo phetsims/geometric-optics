@@ -161,7 +161,8 @@ class GOScreenView extends ScreenView {
 
     // Toolbox in the top-right corner of the screen
     const rulersToolbox = new RulersToolbox( [ horizontalRulerNode, verticalRulerNode ], {
-      rightTop: erodedLayoutBounds.rightTop,
+      right: erodedLayoutBounds.right,
+      top: erodedLayoutBounds.top,
       tandem: options.tandem.createTandem( 'rulersToolbox' )
     } );
 
@@ -198,7 +199,8 @@ class GOScreenView extends ScreenView {
 
     // Radio buttons for the shape of the optic
     const opticShapeRadioButtonGroup = new OpticShapeRadioButtonGroup( model.optic, {
-      centerTop: erodedLayoutBounds.centerTop,
+      centerX: erodedLayoutBounds.centerX,
+      top: erodedLayoutBounds.top,
       tandem: this.controlsTandem.createTandem( 'opticShapeRadioButtonGroup' )
     } );
 

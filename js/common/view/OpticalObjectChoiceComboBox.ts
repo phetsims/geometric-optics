@@ -15,10 +15,11 @@ import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
-import { PickRequired } from '../GOTypes.js';
+import { PickOptional, PickRequired } from '../GOTypes.js';
 
-type OpticalObjectChoiceComboBoxOptions = PickRequired<NodeOptions, 'tandem'> //TODO should be ComboBoxOptions
-  & NodeOptions; //TODO https://github.com/phetsims/scenery/issues/1332 limit to Node translation options
+//TODO https://github.com/phetsims/geometric-optics/issues/326 should be ComboBoxOptions
+type OpticalObjectChoiceComboBoxOptions = PickRequired<NodeOptions, 'tandem'>
+  & PickOptional<NodeOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
 
 class OpticalObjectChoiceComboBox extends ComboBox {
 

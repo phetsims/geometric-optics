@@ -23,7 +23,7 @@ import { NodeOptions } from '../../../../scenery/js/imports.js';
 
 type FocalLengthControlOptions = {
   visibleProperty: IProperty<boolean>
-} & PickRequired<NodeOptions, 'tandem'>; //TODO should be NumberControlOptions
+} & PickRequired<NodeOptions, 'tandem'>; //TODO https://github.com/phetsims/geometric-optics/issues/326 should be NumberControlOptions
 
 class FocalLengthControl extends NumberControl {
 

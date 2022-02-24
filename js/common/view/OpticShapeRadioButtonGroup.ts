@@ -17,10 +17,11 @@ import Lens from '../../lens/model/Lens.js';
 import MirrorNode from '../../mirror/view/MirrorNode.js';
 import LensNode from '../../lens/view/LensNode.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
-import { PickRequired } from '../GOTypes.js';
+import { PickOptional, PickRequired } from '../GOTypes.js';
 
-type OpticShapeRadioButtonGroupOptions = PickRequired<NodeOptions, 'tandem'> //TODO should be RectangularRadioButtonGroupOptions
-  & NodeOptions; //TODO https://github.com/phetsims/scenery/issues/1332 limit to Node translation options
+//TODO https://github.com/phetsims/geometric-optics/issues/326 should be RectangularRadioButtonGroupOptions
+type OpticShapeRadioButtonGroupOptions = PickRequired<NodeOptions, 'tandem'>
+  & PickOptional<NodeOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
 
 class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShape> {
 

@@ -9,12 +9,15 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import { HBox } from '../../../../scenery/js/imports.js';
+import { HBox, NodeOptions } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import geometricOptics from '../../geometricOptics.js';
 import GORulerNode from './GORulerNode.js';
+import { PickOptional, PickRequired } from '../GOTypes.js';
 
-type RulersToolboxOptions = PanelOptions; //TODO should be limited to tandem and translation options
+//TODO https://github.com/phetsims/geometric-optics/issues/315 should be PanelOptions
+type RulersToolboxOptions = PickRequired<NodeOptions, 'tandem'>
+  & PickOptional<NodeOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
 
 class RulersToolbox extends Panel {
 

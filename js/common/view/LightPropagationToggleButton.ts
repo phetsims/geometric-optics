@@ -18,7 +18,8 @@ import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import { PickRequired } from '../GOTypes.js';
 
-type LightPropagationToggleButtonOptions = PickRequired<NodeOptions, 'tandem'>; //TODO should be BooleanRoundToggleButtonOptions
+//TODO https://github.com/phetsims/geometric-optics/issues/326 should be BooleanRoundToggleButtonOptions
+type LightPropagationToggleButtonOptions = PickRequired<NodeOptions, 'tandem'>;
 
 class LightPropagationToggleButton extends BooleanRoundToggleButton {
 

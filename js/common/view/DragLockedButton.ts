@@ -16,16 +16,16 @@ import merge from '../../../../phet-core/js/merge.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
 import ButtonNode from '../../../../sun/js/buttons/ButtonNode.js';
 import BooleanRectangularToggleButton from '../../../../sun/js/buttons/BooleanRectangularToggleButton.js';
-import { PickRequired } from '../GOTypes.js';
+import { PickOptional, PickRequired } from '../GOTypes.js';
 
 const ARROWS_SCALE = 0.65;
 const LOCK_SCALE = 0.045;
 const UNLOCKED_FILL = 'black';
 const LOCKED_FILL = 'red';
 
-//TODO https://github.com/phetsims/scenery/issues/1332 limit to Node translation options
-//TODO should be BooleanRectangularToggleButtonOptions
-type DragLockedButtonOptions = PickRequired<NodeOptions, 'tandem'> & NodeOptions;
+//TODO https://github.com/phetsims/geometric-optics/issues/326 should be BooleanRectangularToggleButtonOptions
+type DragLockedButtonOptions = PickRequired<NodeOptions, 'tandem'>
+  & PickOptional<NodeOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
 
 class DragLockedButton extends BooleanRectangularToggleButton {
 

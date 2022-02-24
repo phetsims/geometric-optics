@@ -102,7 +102,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
         property: visibleProperties.guidesVisibleProperty,
         options: {
           visible: GOQueryParameters.enableGuides
-        } as any, //TODO should be of type CheckboxOptions
+        },
         tandem: options.tandem.createTandem( 'guidesCheckbox' )
       } );
     }

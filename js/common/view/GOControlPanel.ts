@@ -9,7 +9,7 @@
 
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { AlignBox, HBox, NodeOptions, Text, VBox } from '../../../../scenery/js/imports.js';
+import { AlignBox, HBox, Text, VBox } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import VSeparator from '../../../../sun/js/VSeparator.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -36,7 +36,7 @@ import { PickRequired } from '../GOTypes.js';
 
 type GOControlPanelOptions = {
   isBasicsVersion: boolean
-} & PickRequired<NodeOptions, 'tandem'>; //TODO should be PanelOptions
+} & PickRequired<PanelOptions, 'tandem'>;
 
 class GOControlPanel extends Panel {
 
