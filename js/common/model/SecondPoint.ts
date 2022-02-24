@@ -14,7 +14,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import geometricOptics from '../../geometricOptics.js';
 import { PickRequired } from '../GOTypes.js';
@@ -44,7 +44,7 @@ class SecondPoint extends PhetioObject {
    */
   constructor( framedObjectPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: SecondPointOptions ) {
 
-    const options = merge( {
+    const options = optionize<SecondPointOptions, {}, PhetioObjectOptions>( {
       phetioState: false
     }, providedOptions );
 
