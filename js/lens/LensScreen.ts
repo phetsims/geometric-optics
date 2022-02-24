@@ -9,7 +9,6 @@
 
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
-import merge from '../../../phet-core/js/merge.js';
 import GOColors from '../common/GOColors.js';
 import GOKeyboardHelpContent from '../common/view/GOKeyboardHelpContent.js';
 import geometricOptics from '../geometricOptics.js';
@@ -18,17 +17,22 @@ import LensModel from './model/LensModel.js';
 import LensNode from './view/LensNode.js';
 import LensScreenView from './view/LensScreenView.js';
 import { PickRequired } from '../common/GOTypes.js';
+import optionize from '../../../phet-core/js/optionize.js';
 
-type LensScreenOptions = {
+type SelfOptions = {
   isBasicsVersion?: boolean
-} & PickRequired<ScreenOptions, 'tandem'>;
+};
+
+type LensScreenOptions = SelfOptions & PickRequired<ScreenOptions, 'tandem'>;
 
 class LensScreen extends Screen<LensModel, LensScreenView> {
 
   constructor( providedOptions: LensScreenOptions ) {
 
-    const options = merge( {
+    const options = optionize<LensScreenOptions, SelfOptions, ScreenOptions>( {
       isBasicsVersion: false,
+
+      // Screen options
       name: geometricOpticsStrings.screen.lens,
       homeScreenIcon: createScreenIcon(),
       showUnselectedHomeScreenIconFrame: true,

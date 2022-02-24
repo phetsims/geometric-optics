@@ -9,7 +9,6 @@
 
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
-import merge from '../../../phet-core/js/merge.js';
 import GOColors from '../common/GOColors.js';
 import geometricOptics from '../geometricOptics.js';
 import geometricOpticsStrings from '../geometricOpticsStrings.js';
@@ -19,10 +18,13 @@ import MirrorScreenView from './view/MirrorScreenView.js';
 import GOKeyboardHelpContent from '../common/view/GOKeyboardHelpContent.js';
 import { OpticShape } from '../common/model/OpticShape.js';
 import { PickRequired } from '../common/GOTypes.js';
+import optionize from '../../../phet-core/js/optionize.js';
 
-type MirrorScreenOptions = {
+type SelfOptions = {
   isBasicsVersion?: boolean
-} & PickRequired<ScreenOptions, 'tandem'>;
+};
+
+type MirrorScreenOptions = SelfOptions & PickRequired<ScreenOptions, 'tandem'>;
 
 class MirrorScreen extends Screen<MirrorModel, MirrorScreenView> {
 
@@ -30,7 +32,10 @@ class MirrorScreen extends Screen<MirrorModel, MirrorScreenView> {
 
     const isBasicsVersion = ( providedOptions.isBasicsVersion || false );
 
-    const options = merge( {
+    const options = optionize<MirrorScreenOptions, SelfOptions, ScreenOptions>( {
+      isBasicsVersion: false,
+
+      // Screen options
       name: geometricOpticsStrings.screen.mirror,
       homeScreenIcon: createScreenIcon( isBasicsVersion ? 'flat' : 'concave' ),
       showUnselectedHomeScreenIconFrame: true,

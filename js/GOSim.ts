@@ -7,22 +7,27 @@
  */
 
 import Sim from '../../joist/js/Sim.js';
-import merge from '../../phet-core/js/merge.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import geometricOptics from './geometricOptics.js';
 import LensScreen from './lens/LensScreen.js';
 import MirrorScreen from './mirror/MirrorScreen.js';
 import GOConstants from './common/GOConstants.js';
 import { Node } from '../../scenery/js/imports.js';
+import optionize from '../../phet-core/js/optionize.js';
 
-type GOSimOptions = {
+//TODO https://github.com/phetsims/geometric-optics/issues/326 replace with Sim.SimOptions when it exists
+type SimOptions = {
+  credits?: object,
+  hasKeyboardHelpContent?: boolean,
+  createOptionsDialogContent?: ( tandem: Tandem ) => Node
+}
 
+type SelfOptions = {
   // Determines whether this is the Basics version of the sim. This flag is propagated to many components of the sim.
   isBasicsVersion?: boolean,
+}
 
-  // Creates content for the Options dialog
-  createOptionsDialogContent?: ( tandem: Tandem ) => Node
-};
+type GOSimOptions = SelfOptions & Pick<SimOptions, 'createOptionsDialogContent'>;
 
 class GOSim extends Sim {
 
@@ -32,10 +37,12 @@ class GOSim extends Sim {
    */
   constructor( title: string, providedOptions?: GOSimOptions ) {
 
-    const options = merge( {
-      credits: GOConstants.CREDITS,
+    const options = optionize<GOSimOptions, SelfOptions, SimOptions>( {
 
-      // pdom options
+      isBasicsVersion: false,
+
+      // Sim options
+      credits: GOConstants.CREDITS,
       hasKeyboardHelpContent: true
     }, providedOptions );
 
