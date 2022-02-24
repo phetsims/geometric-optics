@@ -13,7 +13,7 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
-import merge from '../../../../phet-core/js/merge.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import OpticShapes from '../../common/model/OpticShapes.js';
 import geometricOptics from '../../geometricOptics.js';
 
@@ -39,7 +39,7 @@ class MirrorShapes implements OpticShapes {
    */
   constructor( radiusOfCurvature: number, diameter: number, providedOptions?: MirrorShapesOptions ) {
 
-    const options = merge( {
+    const options = optionize<MirrorShapesOptions, MirrorShapesOptions>( {
       backingThickness: 5 // thickness of the backing of the mirror, in cm
     }, providedOptions );
 
