@@ -60,7 +60,7 @@ class Lens extends Optic {
         indexOfRefractionRange: new RangeWithValue( 1.2, 1.9, 1.5 ), // unitless
         tandem: focalLengthModelsTandem.createTandem( 'indirectFocalLengthModel' )
       }
-    }, providedOptions ) as OpticOptions; //TODO don't use 'as'
+    }, providedOptions );
 
     assert && assert( !options.opticShapes.includes( 'flat' ), 'flat lens is not supported' );
     assert && assert( options.directFocalLengthModelOptions.focalLengthMagnitudeRange.defaultValue ===
