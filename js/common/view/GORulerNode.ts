@@ -162,7 +162,7 @@ class GORulerNode extends Node {
     } );
     this.addInputListener( this.dragListener );
 
-    // Dragging with the keyboard
+    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when KeyboardDragListenerOptions exists
     const keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
       positionProperty: ruler.positionProperty,
       dragBoundsProperty: this.dragBoundsProperty,
