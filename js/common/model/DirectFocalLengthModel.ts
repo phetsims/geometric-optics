@@ -14,17 +14,19 @@ import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import geometricOptics from '../../geometricOptics.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
 import { PickRequired } from '../GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
-type DirectFocalLengthModelOptions = {
+type SelfOptions = {
   focalLengthMagnitudeRange: RangeWithValue
   indexOfRefractionRange: RangeWithValue
-} & PickRequired<PhetioObjectOptions, 'tandem'>;
+};
+
+type DirectFocalLengthModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 class DirectFocalLengthModel extends PhetioObject implements FocalLengthModel {
 
@@ -34,7 +36,7 @@ class DirectFocalLengthModel extends PhetioObject implements FocalLengthModel {
 
   constructor( opticShapeProperty: IReadOnlyProperty<OpticShape>, providedOptions: DirectFocalLengthModelOptions ) {
 
-    const options = merge( {
+    const options = optionize<DirectFocalLengthModelOptions, SelfOptions, PhetioObjectOptions>( {
       phetioState: false,
       phetioDocumentation: 'Model of focal length that is used when ' +
                            `${GOGlobalOptions.focalLengthControlTypeProperty.tandem.phetioID} ` +
