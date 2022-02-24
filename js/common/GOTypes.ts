@@ -1,5 +1,6 @@
 // Copyright 2022, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/geometric-optics/issues/315 migrate to common code?
 /**
  * This file contains utility types that are specific to this sim, and are not related to a specific class.
  *
