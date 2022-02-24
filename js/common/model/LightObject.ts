@@ -7,16 +7,21 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import geometricOptics from '../../geometricOptics.js';
 import OpticalObject, { OpticalObjectOptions } from './OpticalObject.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import { PickRequired } from '../GOTypes.js';
 
-type LightObjectOptions = {
-  htmlImageElement: HTMLImageElement,
-} & OpticalObjectOptions;
+type SelfOptions = {
+
+  // the PNG file used to visually represent the light
+  htmlImageElement: HTMLImageElement
+};
+
+type LightObjectOptions = SelfOptions
+  & PickRequired<OpticalObjectOptions, 'position' | 'tandem' | 'phetioDocumentation'>;
 
 class LightObject extends OpticalObject {
 
@@ -41,11 +46,9 @@ class LightObject extends OpticalObject {
    */
   constructor( opticalObjectNumber: number, opticPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: LightObjectOptions ) {
 
-    const options = merge( {}, providedOptions );
+    super( opticalObjectNumber, opticPositionProperty, providedOptions );
 
-    super( opticalObjectNumber, opticPositionProperty, options );
-
-    this.htmlImageElement = options.htmlImageElement;
+    this.htmlImageElement = providedOptions.htmlImageElement;
 
     this.boundsProperty = new DerivedProperty( [ this.positionProperty ], ( position: Vector2 ) =>
       OpticalObject.computeBounds( this.htmlImageElement, position, LightObject.SCALE_FACTOR, LightObject.ORIGIN_OFFSET ), {

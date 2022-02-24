@@ -17,10 +17,13 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OpticalImage, { OpticalImageOptions } from './OpticalImage.js';
 import { ObjectHTMLImageElements } from './OpticalObjectChoice.js';
 import FramedObject from './FramedObject.js';
-import merge from '../../../../phet-core/js/merge.js';
 import { OpticalImageType } from './OpticalImageType.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import Utils from '../../../../dot/js/Utils.js';
+import { PickOptional, PickRequired } from '../GOTypes.js';
+
+type FramedImageOptions = PickRequired<OpticalImageOptions, 'tandem' | 'phetioDocumentation'>
+  & PickOptional<OpticalImageOptions, 'secondPointProperty'>;
 
 class FramedImage extends OpticalImage {
 
@@ -37,11 +40,9 @@ class FramedImage extends OpticalImage {
    * @param optic
    * @param providedOptions
    */
-  constructor( framedObject: FramedObject, optic: Optic, providedOptions: OpticalImageOptions ) {
+  constructor( framedObject: FramedObject, optic: Optic, providedOptions: FramedImageOptions ) {
 
-    const options = merge( {}, providedOptions );
-
-    super( framedObject, optic, options );
+    super( framedObject, optic, providedOptions );
 
     this.imageProperty = new DerivedProperty(
       [ framedObject.objectHTMLImageElementsProperty, this.opticalImageTypeProperty ],

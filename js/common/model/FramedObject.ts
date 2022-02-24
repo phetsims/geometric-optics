@@ -15,7 +15,9 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OpticalObject, { OpticalObjectOptions } from './OpticalObject.js';
 import OpticalObjectChoice, { ObjectHTMLImageElements } from './OpticalObjectChoice.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
+import { PickRequired } from '../GOTypes.js';
+
+type FramedObjectOptions = PickRequired<OpticalObjectOptions, 'position' | 'tandem'>;
 
 class FramedObject extends OpticalObject {
 
@@ -42,11 +44,9 @@ class FramedObject extends OpticalObject {
   constructor( opticalObjectNumber: number,
                opticPositionProperty: IReadOnlyProperty<Vector2>,
                opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>,
-               providedOptions: OpticalObjectOptions ) {
+               providedOptions: FramedObjectOptions ) {
 
-    const options = merge( {}, providedOptions );
-
-    super( opticalObjectNumber, opticPositionProperty, options );
+    super( opticalObjectNumber, opticPositionProperty, providedOptions );
 
     this.objectHTMLImageElementsProperty = new DerivedProperty(
       [ opticalObjectChoiceProperty ], ( opticalObjectChoice: OpticalObjectChoice ) => {

@@ -7,14 +7,16 @@
  */
 
 import geometricOptics from '../../geometricOptics.js';
-import OpticalImage, { OpticalImageOptions } from './OpticalImage.js';
+import OpticalImage from './OpticalImage.js';
 import Optic from './Optic.js';
-import merge from '../../../../phet-core/js/merge.js';
 import ArrowObject from './ArrowObject.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
+import { PickRequired } from '../GOTypes.js';
+
+type ArrowImageOptions = PickRequired<OpticalImage, 'tandem' | 'phetioDocumentation'>;
 
 class ArrowImage extends OpticalImage {
 
@@ -26,13 +28,9 @@ class ArrowImage extends OpticalImage {
    * @param optic
    * @param providedOptions
    */
-  constructor( arrowObject: ArrowObject,
-               optic: Optic,
-               providedOptions: OpticalImageOptions ) {
+  constructor( arrowObject: ArrowObject, optic: Optic, providedOptions: ArrowImageOptions ) {
 
-    const options = merge( {}, providedOptions );
-
-    super( arrowObject, optic, options );
+    super( arrowObject, optic, providedOptions );
 
     this.fill = arrowObject.fill;
 
