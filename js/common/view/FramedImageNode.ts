@@ -17,11 +17,11 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import GOColors from '../GOColors.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import { OpticalImageType } from '../model/OpticalImageType.js';
 import GOConstants from '../GOConstants.js';
 import { PickRequired } from '../GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 type FramedImageNodeOptions = PickRequired<NodeOptions, 'tandem'>;
 
@@ -44,7 +44,7 @@ class FramedImageNode extends Node {
                modelViewTransform: ModelViewTransform2,
                providedOptions: FramedImageNodeOptions ) {
 
-    const options = merge( {
+    const options = optionize<FramedImageNodeOptions, {}, NodeOptions>( {
       visibleProperty: new DerivedProperty(
         [ virtualImageVisibleProperty, framedImage.opticalImageTypeProperty, lightPropagationEnabledProperty, framedImage.visibleProperty, objectVisibleProperty ],
         ( virtualImageVisible: boolean, opticalImageType: OpticalImageType, lightPropagationEnabled: boolean, framedImageVisible: boolean, objectVisible: boolean ) =>

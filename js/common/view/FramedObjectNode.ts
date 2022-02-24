@@ -19,14 +19,12 @@ import CueingArrowsNode from './CueingArrowsNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import GOConstants from '../GOConstants.js';
-import IProperty from '../../../../axon/js/IProperty.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import GOQueryParameters from '../GOQueryParameters.js';
-import { PickRequired } from '../GOTypes.js';
+import { PickOptional, PickRequired } from '../GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
-type FramedObjectNodeOptions = {
-  visibleProperty?: IProperty<boolean>
-} & PickRequired<NodeOptions, 'tandem'>;
+type FramedObjectNodeOptions = PickRequired<NodeOptions, 'tandem'> & PickOptional<NodeOptions, 'visibleProperty'>;
 
 class FramedObjectNode extends Node {
 
@@ -48,7 +46,7 @@ class FramedObjectNode extends Node {
                dragLockedProperty: IReadOnlyProperty<boolean>,
                providedOptions: FramedObjectNodeOptions ) {
 
-    const options = merge( {
+    const options = optionize<FramedObjectNodeOptions, {}, NodeOptions>( {
 
       // pdom options
       tagName: 'div',

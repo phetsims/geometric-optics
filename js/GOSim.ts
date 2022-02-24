@@ -15,7 +15,7 @@ import GOConstants from './common/GOConstants.js';
 import { Node } from '../../scenery/js/imports.js';
 import optionize from '../../phet-core/js/optionize.js';
 
-//TODO https://github.com/phetsims/geometric-optics/issues/326 replace with Sim.SimOptions when it exists
+//TODO https://github.com/phetsims/geometric-optics/issues/326 should be defined by Sim
 type SimOptions = {
   credits?: object,
   hasKeyboardHelpContent?: boolean,

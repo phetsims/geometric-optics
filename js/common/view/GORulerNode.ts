@@ -18,7 +18,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
-import { DragListener, Font, KeyboardDragListener, KeyboardUtils, Node, PressListenerEvent, SceneryEvent } from '../../../../scenery/js/imports.js';
+import { DragListener, KeyboardDragListener, KeyboardUtils, Node, NodeOptions, PressListenerEvent, SceneryEvent } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
@@ -28,23 +28,12 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import RulerIconNode from './RulerIconNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import { PickRequired } from '../GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;
 
-//TODO should be defined by RulerNode
-type RulerNodeOptions = {
-  opacity?: number,
-  minorTicksPerMajorTick?: number,
-  majorTickFont?: Font,
-  majorTickDistance?: number,
-  unitsMajorTickIndex?: number,
-  insetsWidth?: number,
-};
-
-type GORulerNodeOptions = {
-  rulerOptions?: RulerNodeOptions // Options passed to RulerNode
-} & PickRequired<Node, 'tandem'>;
+type GORulerNodeOptions = PickRequired<Node, 'tandem'>;
 
 // Describes a measurement point that can be 'jumped' to via J+R hotkey.
 type RulerHotkeyTarget = {
@@ -86,15 +75,7 @@ class GORulerNode extends Node {
                visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                providedOptions: GORulerNodeOptions ) {
 
-    const options = merge( {
-
-      // RulerNode options
-      rulerOptions: {
-        opacity: 0.8,
-        minorTicksPerMajorTick: 4,
-        majorTickFont: new PhetFont( 13 ),
-        insetsWidth: 0
-      },
+    const options = optionize<GORulerNodeOptions, {}, NodeOptions>( {
 
       // Node options
       rotation: ( ruler.orientation === 'vertical' ) ? -Math.PI / 2 : 0,
@@ -126,7 +107,7 @@ class GORulerNode extends Node {
 
       // update view
       this.removeAllChildren();
-      this.addChild( createRulerNode( this.ruler.length, zoomTransformProperty.value, zoomScale, options.rulerOptions ) );
+      this.addChild( createRulerNode( this.ruler.length, zoomTransformProperty.value, zoomScale ) );
     } );
 
     ruler.positionProperty.link( position => {
@@ -300,42 +281,28 @@ class GORulerNode extends Node {
  * @param rulerLength
  * @param zoomTransform
  * @param zoomScale
- * @param providedOptions - to RulerNode
  */
-function createRulerNode( rulerLength: number, zoomTransform: ModelViewTransform2, zoomScale: number,
-                          providedOptions?: RulerNodeOptions ): Node {
-
-  const options = merge( {
-
-    // Because RulerNode instances are created dynamically, whenever the zoom level changes.
-    // GORulerNode is therefore a wrapper around RulerNode, and will consequently not have the
-    // same PhET-iO API as RulerNode.
-    tandem: Tandem.OPT_OUT
-  }, providedOptions ) as RulerNodeOptions;
-
-  assert && assert( options.majorTickDistance === undefined );
-  options.majorTickDistance = 10 / zoomScale; // in model coordinate (cm)
+function createRulerNode( rulerLength: number, zoomTransform: ModelViewTransform2, zoomScale: number ): Node {
 
   // define the length ruler
   const rulerWidth = zoomTransform.modelToViewDeltaX( rulerLength );
 
+  const majorTickDistance = 10 / zoomScale; // in model coordinate (cm)
+
   // separation between the major ticks mark
-  const majorTickWidth = zoomTransform.modelToViewDeltaX( options.majorTickDistance );
+  const majorTickWidth = zoomTransform.modelToViewDeltaX( majorTickDistance );
 
   // set the units at the end of ruler
   const numberOfMajorTicks = Math.floor( rulerWidth / majorTickWidth ) + 1;
-  assert && assert( options.unitsMajorTickIndex === undefined );
-  options.unitsMajorTickIndex = numberOfMajorTicks - 3;
+  const unitsMajorTickIndex = numberOfMajorTicks - 3;
 
   // create major ticks label
   const majorTickLabels = [];
   for ( let i = 0; i < numberOfMajorTicks; i++ ) {
 
-    const majorTickInterval = options.majorTickDistance;
-
     // skip labels on every other major ticks
     if ( i % 2 === 0 ) {
-      majorTickLabels[ i ] = Utils.toFixed( i * majorTickInterval, 0 );
+      majorTickLabels[ i ] = Utils.toFixed( i * majorTickDistance, 0 );
     }
     else {
       majorTickLabels[ i ] = '';
@@ -343,7 +310,19 @@ function createRulerNode( rulerLength: number, zoomTransform: ModelViewTransform
   }
 
   return new RulerNode( rulerWidth, GOConstants.RULER_HEIGHT,
-    majorTickWidth, majorTickLabels, geometricOpticsStrings.centimeters, options );
+    majorTickWidth, majorTickLabels, geometricOpticsStrings.centimeters, {
+      opacity: 0.8,
+      minorTicksPerMajorTick: 4,
+      majorTickFont: new PhetFont( 13 ),
+      majorTickDistance: majorTickDistance,
+      unitsMajorTickIndex: unitsMajorTickIndex,
+      insetsWidth: 0,
+
+      // Because RulerNode instances are created dynamically, whenever the zoom level changes.
+      // GORulerNode is therefore a wrapper around RulerNode, and will consequently not have the
+      // same PhET-iO API as RulerNode.
+      tandem: Tandem.OPT_OUT
+    } );
 }
 
 geometricOptics.register( 'GORulerNode', GORulerNode );
