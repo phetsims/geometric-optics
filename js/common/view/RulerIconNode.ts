@@ -12,7 +12,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
-import { DragListener, SceneryEvent } from '../../../../scenery/js/imports.js';
+import { DragListener, PressListenerEvent } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GORulerNode from './GORulerNode.js';
@@ -83,7 +83,7 @@ class RulerIconNode extends RulerNode {
     }
 
     // Dragging with the keyboard. Drag events are forwarded from the icon to its associated ruler.
-    this.addInputListener( DragListener.createForwardingListener( ( event: SceneryEvent ) => {
+    this.addInputListener( DragListener.createForwardingListener( ( event: PressListenerEvent ) => {
 
       // Make the ruler visible.
       ruler.visibleProperty.value = true;

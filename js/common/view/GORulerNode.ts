@@ -18,7 +18,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
-import { DragListener, Font, KeyboardDragListener, KeyboardUtils, Node, SceneryEvent } from '../../../../scenery/js/imports.js';
+import { DragListener, Font, KeyboardDragListener, KeyboardUtils, Node, PressListenerEvent, SceneryEvent } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
@@ -238,7 +238,7 @@ class GORulerNode extends Node {
    * Forwards an event from the toolbox to start dragging this Node
    * @param event
    */
-  public startDrag( event: SceneryEvent ): void {
+  public startDrag( event: PressListenerEvent ): void {
     this.dragListener.press( event, this );
   }
 
