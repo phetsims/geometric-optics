@@ -23,6 +23,7 @@ import GOQueryParameters from '../GOQueryParameters.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import { Node, Path } from '../../../../scenery/js/imports.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import GOColors from '../GOColors.js';
 
 type OpticalAxisForegroundNodeOptions = OpticalAxisNodeOptions;
 
@@ -50,7 +51,7 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
                providedOptions: OpticalAxisForegroundNodeOptions ) {
 
     const options = optionize<OpticalAxisForegroundNodeOptions, {}, OpticalAxisNodeOptions>( {
-      stroke: ( GOQueryParameters.debugOpticalAxis ) ? 'red' : providedOptions.stroke
+      stroke: ( GOQueryParameters.debugOpticalAxis ) ? 'red' : GOColors.opticalAxisStrokeProperty
     }, providedOptions );
 
     // create optical axis line, with arbitrary length values.
