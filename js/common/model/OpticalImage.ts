@@ -15,7 +15,6 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -23,12 +22,17 @@ import Optic from './Optic.js';
 import { OpticalImageType, OpticalImageTypeValues } from './OpticalImageType.js';
 import GOConstants from '../GOConstants.js';
 import OpticalObject from './OpticalObject.js';
-import { PickOptional, PickRequired } from '../GOTypes.js';
+import { PickRequired } from '../GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
-type OpticalImageOptions = {
-  secondPointProperty?: IReadOnlyProperty<Vector2>
-} & PickRequired<PhetioObjectOptions, 'tandem'>
-  & PickOptional<PhetioObjectOptions, 'phetioDocumentation'>;
+type SelfOptions = {
+
+  // Optional position, defaults to opticalObject.positionProperty
+  positionProperty?: IReadOnlyProperty<Vector2>
+};
+
+type OpticalImageOptions = SelfOptions
+  & PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
 
 class OpticalImage extends PhetioObject {
 
@@ -64,11 +68,12 @@ class OpticalImage extends PhetioObject {
    */
   constructor( opticalObject: OpticalObject, optic: Optic, providedOptions: OpticalImageOptions ) {
 
-    const options = merge( {
+    const options = optionize<OpticalImageOptions, SelfOptions, PhetioObjectOptions>( {
+      positionProperty: opticalObject.positionProperty,
       phetioState: false
     }, providedOptions );
 
-    const opticalObjectPositionProperty = options.secondPointProperty || opticalObject.positionProperty;
+    const opticalObjectPositionProperty = options.positionProperty;
 
     super( options );
 

@@ -23,7 +23,7 @@ import Utils from '../../../../dot/js/Utils.js';
 import { PickOptional, PickRequired } from '../GOTypes.js';
 
 type FramedImageOptions = PickRequired<OpticalImageOptions, 'tandem' | 'phetioDocumentation'>
-  & PickOptional<OpticalImageOptions, 'secondPointProperty'>;
+  & PickOptional<OpticalImageOptions, 'positionProperty'>;
 
 class FramedImage extends OpticalImage {
 
