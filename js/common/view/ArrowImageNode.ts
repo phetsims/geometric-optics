@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import IProperty from '../../../../axon/js/IProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -21,10 +20,9 @@ import { OpticalImageType } from '../model/OpticalImageType.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import { PickRequired } from '../GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
-type ArrowImageNodeOptions = {
-  visibleProperty?: IProperty<boolean>
-} & PickRequired<NodeOptions, 'tandem'>;
+type ArrowImageNodeOptions = PickRequired<NodeOptions, 'tandem'>;
 
 class ArrowImageNode extends Node {
 
@@ -43,7 +41,7 @@ class ArrowImageNode extends Node {
                modelViewTransform: ModelViewTransform2,
                providedOptions: ArrowImageNodeOptions ) {
 
-    const options = merge( {
+    const options = optionize<ArrowImageNodeOptions, {}, NodeOptions>( {
       visibleProperty: new DerivedProperty(
         [ virtualImageVisibleProperty, arrowImage.opticalImageTypeProperty, lightPropagationEnabledProperty, arrowImage.visibleProperty, objectVisibleProperty ],
         ( virtualImageVisible: boolean, opticalImageType: OpticalImageType, lightPropagationEnabled: boolean, framedImageVisible: boolean, objectVisible: boolean ) =>
@@ -55,6 +53,7 @@ class ArrowImageNode extends Node {
 
     super( options );
 
+    //TODO https://github.com/phetsims/geometric-optics/issues/326 revisit replacing merge after ArrowNode has been converted to TypeScript
     const arrowNode = new ArrowNode( 0, 0, 0, 1, merge( {}, GOConstants.ARROW_NODE_OPTIONS, {
       fill: arrowImage.fill,
       stroke: null

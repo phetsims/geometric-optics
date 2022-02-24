@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import IProperty from '../../../../axon/js/IProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -22,13 +21,12 @@ import CueingArrowsNode from './CueingArrowsNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import GOQueryParameters from '../GOQueryParameters.js';
-import { PickRequired } from '../GOTypes.js';
+import { PickOptional, PickRequired } from '../GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 const SNAP_TO_MIN_MAGNITUDE = 20; // cm
 
-type ArrowObjectNodeOptions = {
-  visibleProperty?: IProperty<boolean>
-} & PickRequired<NodeOptions, 'tandem'>;
+type ArrowObjectNodeOptions = PickRequired<NodeOptions, 'tandem'> & PickOptional<NodeOptions, 'visibleProperty'>;
 
 class ArrowObjectNode extends Node {
 
@@ -49,7 +47,7 @@ class ArrowObjectNode extends Node {
                wasDraggedProperty: Property<boolean>,
                providedOptions: ArrowObjectNodeOptions ) {
 
-    const options = merge( {
+    const options = optionize<ArrowObjectNodeOptions, {}, NodeOptions>( {
 
       // pdom options
       tagName: 'div',
@@ -62,6 +60,7 @@ class ArrowObjectNode extends Node {
 
     super( options );
 
+    //TODO https://github.com/phetsims/geometric-optics/issues/326 revisit replacing merge after ArrowNode has been converted to TypeScript
     const arrowNode = new ArrowNode( 0, 0, 0, 1, merge( {}, GOConstants.ARROW_NODE_OPTIONS, {
       fill: arrowObject.fill,
       stroke: null
@@ -140,6 +139,7 @@ class ArrowObjectNode extends Node {
     } );
     this.addInputListener( dragListener );
 
+    //TODO https://github.com/phetsims/geometric-optics/issues/326 revisit replacing merge after KeyboardDragListener has been converted to TypeScript
     const keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
       positionProperty: arrowObject.positionProperty,
       dragBoundsProperty: dragBoundsProperty,

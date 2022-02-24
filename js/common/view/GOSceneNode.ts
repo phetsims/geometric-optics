@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -28,18 +27,17 @@ import GuidesNode from './GuidesNode.js';
 import { RulerHotkeyTarget } from './GORulerNode.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import GOScene from '../model/GOScene.js';
-import IProperty from '../../../../axon/js/IProperty.js';
 import { PickRequired } from '../GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
-type GOSceneNodeOptions = {
-
+type SelfOptions = {
   // Creates the Node for the optic
   createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node,
 
   dragLockedProperty: BooleanProperty, //TODO not used in this class, move to subclasses
+};
 
-  visibleProperty: IProperty<boolean>
-} & PickRequired<NodeOptions, 'tandem'>;
+type GOSceneNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem' | 'visibleProperty'>;
 
 abstract class GOSceneNode extends Node {
 
@@ -75,7 +73,7 @@ abstract class GOSceneNode extends Node {
                          raysTypeProperty: IReadOnlyProperty<RaysType>,
                          providedOptions: GOSceneNodeOptions ) {
 
-    const options = merge( {
+    const options = optionize<GOSceneNodeOptions, SelfOptions, NodeOptions>( {
       visiblePropertyOptions: { phetioReadOnly: true }
     }, providedOptions );
 
