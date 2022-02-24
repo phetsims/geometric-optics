@@ -15,7 +15,6 @@ import VisibleProperties from './VisibleProperties.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
 import ArrowObjectScene from '../model/ArrowObjectScene.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import { OpticalImageType } from '../model/OpticalImageType.js';
@@ -26,6 +25,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import ArrowObject from '../model/ArrowObject.js';
 import Optic from '../model/Optic.js';
 import Property from '../../../../axon/js/Property.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {
   isBasicsVersion: boolean
@@ -92,9 +92,11 @@ class ArrowObjectSceneLabelsNode extends GOSceneLabelsNode {
   }
 }
 
-type ArrowObjectLabelNodeOptions = {
+type ArrowObjectLabelNodeSelfOptions = {
   isNumberedProperty?: IReadOnlyProperty<boolean>
-} & LabelNodeOptions;
+};
+
+type ArrowObjectLabelNodeOptions = ArrowObjectLabelNodeSelfOptions & LabelNodeOptions;
 
 // Label for an arrow object.
 class ArrowObjectLabelNode extends LabelNode {
@@ -110,7 +112,7 @@ class ArrowObjectLabelNode extends LabelNode {
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                providedOptions?: ArrowObjectLabelNodeOptions ) {
 
-    const options = merge( {
+    const options = optionize<ArrowObjectLabelNodeOptions, ArrowObjectLabelNodeSelfOptions, LabelNodeOptions>( {
       isNumberedProperty: new BooleanProperty( true )
     }, providedOptions );
 
@@ -141,9 +143,11 @@ class ArrowObjectLabelNode extends LabelNode {
   }
 }
 
-type ArrowImageLabelNodeOptions = {
+type ArrowImageLabelNodeSelfOptions = {
   isNumberedProperty?: IReadOnlyProperty<boolean>
-} & LabelNodeOptions;
+};
+
+type ArrowImageLabelNodeOptions = ArrowImageLabelNodeSelfOptions & LabelNodeOptions;
 
 // Label for an arrow image.
 class ArrowImageLabelNode extends LabelNode {
@@ -165,7 +169,7 @@ class ArrowImageLabelNode extends LabelNode {
                virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
                providedOptions?: ArrowImageLabelNodeOptions ) {
 
-    const options = merge( {
+    const options = optionize<ArrowImageLabelNodeOptions, ArrowImageLabelNodeSelfOptions, LabelNodeOptions>( {
       isNumberedProperty: new BooleanProperty( true ),
       visibleProperty: new DerivedProperty(
         [ lightPropagationEnabledProperty, arrowObjectVisibleProperty, arrowImage.visibleProperty,
