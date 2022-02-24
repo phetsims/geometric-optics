@@ -10,12 +10,12 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import Optic from './Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 import { PickRequired } from '../GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 type GuideLocation = 'top' | 'bottom';
 
@@ -40,7 +40,7 @@ class Guide extends PhetioObject {
    */
   constructor( optic: Optic, opticalObjectPositionProperty: IReadOnlyProperty<Vector2>, location: GuideLocation, providedOptions: GuideOptions ) {
 
-    const options = merge( {
+    const options = optionize<GuideOptions, {}, PhetioObject>( {
       phetioState: false
     }, providedOptions );
 

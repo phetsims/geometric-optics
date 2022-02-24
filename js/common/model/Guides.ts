@@ -8,12 +8,12 @@
 
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Optic from './Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from './Guide.js';
 import { PickRequired } from '../GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 type GuidesOptions = PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
 
@@ -29,7 +29,7 @@ class Guides extends PhetioObject {
    */
   constructor( optic: Optic, opticalObjectPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: GuidesOptions ) {
 
-    const options = merge( {
+    const options = optionize<GuidesOptions, {}, PhetioObjectOptions>( {
       phetioState: false
     }, providedOptions );
 

@@ -19,9 +19,9 @@ import ProjectionScreen from './ProjectionScreen.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import GOConstants from '../../common/GOConstants.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import { PickOptional, PickRequired } from '../GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 // constants
 const FULL_INTENSITY_DIAMETER = 7; // cm, any light spot less than this diameter will be full intensity
@@ -62,7 +62,7 @@ class LightSpot extends PhetioObject {
                opticalImagePositionProperty: IReadOnlyProperty<Vector2>,
                providedOptions: LightSpotOptions ) {
 
-    const options = merge( {
+    const options = optionize<LightSpotOptions, {}, PhetioObject>( {
       phetioState: false
     }, providedOptions );
 

@@ -12,7 +12,6 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
-import merge from '../../../../phet-core/js/merge.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import geometricOptics from '../../geometricOptics.js';
 import OpticShapes from './OpticShapes.js';
@@ -30,6 +29,7 @@ import { FocalLengthControlType } from './FocalLengthControlType.js';
 import DirectFocalLengthModel, { DirectFocalLengthModelOptions } from './DirectFocalLengthModel.js';
 import IndirectFocalLengthModel, { IndirectFocalLengthModelOptions } from './IndirectFocalLengthModel.js';
 import { PickOptional, PickRequired } from '../GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 // Actual physically-correct values for a flat mirror. We'll show these values in PhET-iO.
 const FLAT_MIRROR_ACTUAL_RADIUS_OF_CURVATURE = Infinity; // positive, to make it convex
@@ -41,7 +41,7 @@ const FLAT_MIRROR_ACTUAL_FOCAL_LENGTH = FLAT_MIRROR_ACTUAL_RADIUS_OF_CURVATURE /
 const FLAT_MIRROR_FINITE_RADIUS_OF_CURVATURE = 200000; // positive, to make it convex
 const FLAT_MIRROR_FINITE_FOCAL_LENGTH = FLAT_MIRROR_FINITE_RADIUS_OF_CURVATURE / 2; // f = ROC/2
 
-type OpticOptions = {
+type SelfOptions = {
 
   // supported values of OpticShape, radio buttons will be created left-to-right in this order, default is [0]
   opticShapes: OpticShape[]
@@ -59,7 +59,9 @@ type OpticOptions = {
   // position of the optic, in cm
   position?: Vector2
 
-} & PickRequired<PhetioObjectOptions, 'tandem'> & PickOptional<PhetioObjectOptions, 'phetioDocumentation'>;
+};
+
+type OpticOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'> & PickOptional<PhetioObjectOptions, 'phetioDocumentation'>;
 
 abstract class Optic extends PhetioObject {
 
@@ -121,7 +123,7 @@ abstract class Optic extends PhetioObject {
    */
   protected constructor( providedOptions: OpticOptions ) {
 
-    const options = merge( {
+    const options = optionize<OpticOptions, SelfOptions, PhetioObjectOptions>( {
       position: Vector2.ZERO,
       phetioState: false
     }, providedOptions );
