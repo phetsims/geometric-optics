@@ -12,13 +12,16 @@ import { Path, PathOptions } from '../../../../scenery/js/imports.js';
 import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
 import Shape from '../../../../kite/js/Shape.js';
 import GOConstants from '../GOConstants.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 type CueingArrowsDirection = 'horizontal' | 'vertical' | 'both';
 
-type CueingArrowsNodeOptions = {
+type SelfOptions = {
   direction?: CueingArrowsDirection,
   length?: number,
-} & PathOptions;
+};
+
+type CueingArrowsNodeOptions = SelfOptions & PathOptions;
 
 class CueingArrowsNode extends Path {
 
@@ -30,7 +33,7 @@ class CueingArrowsNode extends Path {
    */
   constructor( providedOptions?: CueingArrowsNodeOptions ) {
 
-    const options = merge( {
+    const options = optionize<CueingArrowsNodeOptions, SelfOptions, PathOptions>( {
       direction: 'both',
       length: 35,
 
