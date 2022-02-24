@@ -17,8 +17,8 @@ import LensShapes from '../model/LensShapes.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
 import OriginNode from '../../common/view/OriginNode.js';
-import merge from '../../../../phet-core/js/merge.js';
 import { PickRequired } from '../../common/GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 // constants
 const FILL = GOColors.lensFillProperty;
@@ -38,9 +38,11 @@ class LensNode extends Node {
    */
   constructor( lens: Lens, modelViewTransform: ModelViewTransform2, providedOptions: LensNodeOptions ) {
 
-    const options = merge( {
+    const options = optionize<LensNodeOptions, {}, NodeOptions>( {
       phetioVisiblePropertyInstrumented: false
     }, providedOptions );
+
+    super( options );
 
     const fillNode = new Path( null, {
       fill: FILL
@@ -65,9 +67,7 @@ class LensNode extends Node {
       children.push( new OriginNode() );
     }
 
-    super( merge( {
-      children: children
-    }, options ) );
+    this.children = children;
 
     // Shapes are described in model coordinates. Scale them to view coordinates.
     // Translation is handled by lens.positionProperty listener.

@@ -17,8 +17,8 @@ import { OpticShape } from '../../common/model/OpticShape.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
 import OriginNode from '../../common/view/OriginNode.js';
-import merge from '../../../../phet-core/js/merge.js';
 import { PickRequired } from '../../common/GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 // constants
 const FILL = GOColors.mirrorBackingColorProperty;
@@ -40,9 +40,11 @@ class MirrorNode extends Node {
    */
   constructor( mirror: Mirror, modelViewTransform: ModelViewTransform2, providedOptions: MirrorNodeOptions ) {
 
-    const options = merge( {
+    const options = optionize<MirrorNodeOptions, {}, NodeOptions>( {
       phetioVisiblePropertyInstrumented: false
     }, providedOptions );
+    
+    super( options );
 
     // the mirror's backing
     const backingNode = new Path( null, {
@@ -62,9 +64,7 @@ class MirrorNode extends Node {
       children.push( new OriginNode() );
     }
 
-    super( merge( {
-      children: children
-    }, options ) );
+    this.children = children;
 
     // Shapes are described in model coordinates. Scale them to view coordinates.
     // Translation is handled by mirror.positionProperty listener.
