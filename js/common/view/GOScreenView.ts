@@ -236,10 +236,17 @@ class GOScreenView extends ScreenView {
         xMargin: 5,
         yMargin: 4
       },
-      centerX: this.layoutBounds.left + ( controlPanel.left - this.layoutBounds.left ) / 2,
+      left: erodedLayoutBounds.left,
       top: controlPanel.top,
       tandem: this.controlsTandem.createTandem( 'zoomButtonGroup' )
     } );
+
+    // Toggle button
+    const lightPropagationToggleButton = new LightPropagationToggleButton( model.lightPropagationEnabledProperty, {
+      tandem: this.controlsTandem.createTandem( 'lightPropagationToggleButton' )
+    } );
+    lightPropagationToggleButton.centerX = zoomButtonGroup.centerX;
+    lightPropagationToggleButton.bottom = controlPanel.bottom;
 
     // Reset All button at right-bottom
     const resetAllButton = new ResetAllButton( {
@@ -251,13 +258,6 @@ class GOScreenView extends ScreenView {
       rightBottom: erodedLayoutBounds.rightBottom,
       tandem: this.controlsTandem.createTandem( 'resetAllButton' )
     } );
-
-    // Toggle button above the Reset All button
-    const lightPropagationToggleButton = new LightPropagationToggleButton( model.lightPropagationEnabledProperty, {
-      tandem: this.controlsTandem.createTandem( 'lightPropagationToggleButton' )
-    } );
-    lightPropagationToggleButton.centerX = this.layoutBounds.left + ( controlPanel.left - this.layoutBounds.left ) / 2;
-    lightPropagationToggleButton.bottom = controlPanel.bottom;
 
     const controlsLayer = new Node( {
       children: [
