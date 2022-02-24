@@ -11,11 +11,11 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Circle, Node, Rectangle } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import { Circle, Node, NodeOptions, Rectangle } from '../../../../scenery/js/imports.js';
 import GOColors from '../../common/GOColors.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from '../model/Guide.js';
+import { PickRequired } from '../GOTypes.js';
 
 // constants, in view coordinates
 const FULCRUM_RADIUS = 5;
@@ -27,9 +27,7 @@ const FULCRUM_OPTIONS = {
 };
 const ARM_STROKE = GOColors.guideStrokeProperty;
 
-type GuideNodeOptions = {
- tandem: Tandem
-};
+type GuideNodeOptions = PickRequired<NodeOptions, 'tandem'>;
 
 class GuideNode extends Node {
 

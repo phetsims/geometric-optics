@@ -13,11 +13,9 @@ import GOConstants from '../GOConstants.js';
 import FocalLengthControlRadioButtonGroup from './FocalLengthControlRadioButtonGroup.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import { PickRequired } from '../GOTypes.js';
 
-type GOGlobalOptionsNodeOptions = {
-  tandem: Tandem
-};
+type GOGlobalOptionsNodeOptions = PickRequired<VBoxOptions, 'tandem'>;
 
 class GOGlobalOptionsNode extends VBox {
 

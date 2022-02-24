@@ -9,7 +9,6 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import Optic from '../model/Optic.js';
@@ -18,10 +17,10 @@ import Lens from '../../lens/model/Lens.js';
 import MirrorNode from '../../mirror/view/MirrorNode.js';
 import LensNode from '../../lens/view/LensNode.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
+import { PickRequired } from '../GOTypes.js';
 
-type OpticShapeRadioButtonGroupOptions = {
-  tandem: Tandem
-} & NodeOptions; //TODO https://github.com/phetsims/scenery/issues/1332 limit to Node translation options
+type OpticShapeRadioButtonGroupOptions = PickRequired<NodeOptions, 'tandem'> //TODO should be RectangularRadioButtonGroupOptions
+  & NodeOptions; //TODO https://github.com/phetsims/scenery/issues/1332 limit to Node translation options
 
 class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShape> {
 

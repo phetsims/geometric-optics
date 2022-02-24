@@ -11,7 +11,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import GOScreenView from '../../common/view/GOScreenView.js';
+import GOScreenView, { GOScreenViewOptions } from '../../common/view/GOScreenView.js';
 import geometricOptics from '../../geometricOptics.js';
 import LensModel from '../model/LensModel.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -20,11 +20,11 @@ import LensNode from './LensNode.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DragLockedButton from '../../common/view/DragLockedButton.js';
 import Optic from '../../common/model/Optic.js';
+import { PickRequired } from '../../common/GOTypes.js';
 
 type LensScreenViewOptions = {
-  isBasicsVersion: boolean,
-  tandem: Tandem
-};
+  isBasicsVersion: boolean
+} & PickRequired<GOScreenViewOptions, 'tandem'>;
 
 class LensScreenView extends GOScreenView {
 

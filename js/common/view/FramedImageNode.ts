@@ -9,11 +9,10 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Image, Node, Path } from '../../../../scenery/js/imports.js';
+import { Image, Node, NodeOptions, Path } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from '../model/Optic.js';
 import FramedImage from '../model/FramedImage.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import GOColors from '../GOColors.js';
 import GOQueryParameters from '../GOQueryParameters.js';
@@ -22,10 +21,9 @@ import merge from '../../../../phet-core/js/merge.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import { OpticalImageType } from '../model/OpticalImageType.js';
 import GOConstants from '../GOConstants.js';
+import { PickRequired } from '../GOTypes.js';
 
-type FramedImageNodeOptions = {
-  tandem: Tandem
-};
+type FramedImageNodeOptions = PickRequired<NodeOptions, 'tandem'>;
 
 class FramedImageNode extends Node {
 

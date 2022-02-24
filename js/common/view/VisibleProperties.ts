@@ -10,12 +10,11 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import geometricOptics from '../../geometricOptics.js';
+import { PickRequired } from '../GOTypes.js';
 
-type VisiblePropertiesOptions = {
-  tandem: Tandem
-};
+type VisiblePropertiesOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
 
 class VisibleProperties {
 

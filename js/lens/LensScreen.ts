@@ -7,10 +7,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Screen from '../../../joist/js/Screen.js';
+import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import merge from '../../../phet-core/js/merge.js';
-import Tandem from '../../../tandem/js/Tandem.js';
 import GOColors from '../common/GOColors.js';
 import GOKeyboardHelpContent from '../common/view/GOKeyboardHelpContent.js';
 import geometricOptics from '../geometricOptics.js';
@@ -18,11 +17,11 @@ import geometricOpticsStrings from '../geometricOpticsStrings.js';
 import LensModel from './model/LensModel.js';
 import LensNode from './view/LensNode.js';
 import LensScreenView from './view/LensScreenView.js';
+import { PickRequired } from '../common/GOTypes.js';
 
 type LensScreenOptions = {
-  isBasicsVersion?: boolean,
-  tandem: Tandem
-};
+  isBasicsVersion?: boolean
+} & PickRequired<ScreenOptions, 'tandem'>;
 
 class LensScreen extends Screen<LensModel, LensScreenView> {
 

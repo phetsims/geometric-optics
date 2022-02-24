@@ -12,12 +12,11 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import merge from '../../../../phet-core/js/merge.js';
 import GOConstants from '../GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import { PickRequired } from '../GOTypes.js';
+import { NodeOptions } from '../../../../scenery/js/imports.js';
 
-type DiameterControlOptions = {
-  tandem: Tandem
-};
+type DiameterControlOptions = PickRequired<NodeOptions, 'tandem'>; //TODO should be NumberControl
 
 class DiameterControl extends NumberControl {
 

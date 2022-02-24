@@ -12,20 +12,20 @@ import geometricOptics from '../../geometricOptics.js';
 import lockSolidShape from '../../../../sherpa/js/fontawesome-5/lockSolidShape.js';
 import unlockSolidShape from '../../../../sherpa/js/fontawesome-5/unlockSolidShape.js';
 import { AlignBox, AlignGroup, HBox, NodeOptions, Path } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
 import ButtonNode from '../../../../sun/js/buttons/ButtonNode.js';
 import BooleanRectangularToggleButton from '../../../../sun/js/buttons/BooleanRectangularToggleButton.js';
+import { PickRequired } from '../GOTypes.js';
 
 const ARROWS_SCALE = 0.65;
 const LOCK_SCALE = 0.045;
 const UNLOCKED_FILL = 'black';
 const LOCKED_FILL = 'red';
 
-type DragLockedButtonOptions = {
-  tandem: Tandem
-} & NodeOptions; //TODO https://github.com/phetsims/scenery/issues/1332 limit to Node translation options
+//TODO https://github.com/phetsims/scenery/issues/1332 limit to Node translation options
+//TODO should be BooleanRectangularToggleButtonOptions
+type DragLockedButtonOptions = PickRequired<NodeOptions, 'tandem'> & NodeOptions;
 
 class DragLockedButton extends BooleanRectangularToggleButton {
 

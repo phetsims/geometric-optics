@@ -11,23 +11,22 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { DragListener, FocusHighlightFromNode, Image, KeyboardDragListener, Node } from '../../../../scenery/js/imports.js';
+import { DragListener, FocusHighlightFromNode, Image, KeyboardDragListener, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import FramedObject from '../model/FramedObject.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
 import GOConstants from '../GOConstants.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import GOQueryParameters from '../GOQueryParameters.js';
+import { PickRequired } from '../GOTypes.js';
 
 type FramedObjectNodeOptions = {
-  visibleProperty?: IProperty<boolean>,
-  tandem: Tandem
-};
+  visibleProperty?: IProperty<boolean>
+} & PickRequired<NodeOptions, 'tandem'>;
 
 class FramedObjectNode extends Node {
 

@@ -11,8 +11,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import ArrowImage from '../model/ArrowImage.js';
 import GOConstants from '../GOConstants.js';
@@ -21,11 +20,11 @@ import Property from '../../../../axon/js/Property.js';
 import { OpticalImageType } from '../model/OpticalImageType.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
+import { PickRequired } from '../GOTypes.js';
 
 type ArrowImageNodeOptions = {
-  visibleProperty?: IProperty<boolean>,
-  tandem: Tandem
-};
+  visibleProperty?: IProperty<boolean>
+} & PickRequired<NodeOptions, 'tandem'>;
 
 class ArrowImageNode extends Node {
 

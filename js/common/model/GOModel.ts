@@ -24,6 +24,8 @@ import LightObjectScene from './LightObjectScene.js';
 import GOScene from './GOScene.js';
 import Lens from '../../lens/model/Lens.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import { PickRequired } from '../GOTypes.js';
+import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 
 type GOModelOptions = {
 
@@ -35,11 +37,9 @@ type GOModelOptions = {
   arrowObject2Position?: Vector2,
   framedObjectPosition?: Vector2,
   lightObject1Position?: Vector2,
-  lightObject2Position?: Vector2,
-
-  // phet-io options
+  lightObject2Position?: Vector2
   tandem: Tandem
-};
+} & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 class GOModel {
 
@@ -189,3 +189,4 @@ class GOModel {
 
 geometricOptics.register( 'GOModel', GOModel );
 export default GOModel;
+export type { GOModelOptions };

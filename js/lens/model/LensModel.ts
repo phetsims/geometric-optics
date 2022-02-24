@@ -6,18 +6,17 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import GOModel from '../../common/model/GOModel.js';
+import GOModel, { GOModelOptions } from '../../common/model/GOModel.js';
 import Lens from './Lens.js';
 import geometricOptics from '../../geometricOptics.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
+import { PickRequired } from '../../common/GOTypes.js';
 
 type LensModelOptions = {
-  isBasicsVersion?: boolean,
-  tandem: Tandem
-};
+  isBasicsVersion?: boolean
+} & PickRequired<GOModelOptions, 'tandem'>;
 
 class LensModel extends GOModel {
 

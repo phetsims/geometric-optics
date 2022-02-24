@@ -9,10 +9,9 @@
 
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { AlignBox, HBox, Text, VBox } from '../../../../scenery/js/imports.js';
+import { AlignBox, HBox, NodeOptions, Text, VBox } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import VSeparator from '../../../../sun/js/VSeparator.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOColors from '../GOColors.js';
@@ -33,11 +32,11 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { FocalLengthControlType } from '../model/FocalLengthControlType.js';
 import { OpticShape } from '../model/OpticShape.js';
 import Mirror from '../../mirror/model/Mirror.js';
+import { PickRequired } from '../GOTypes.js';
 
 type GOControlPanelOptions = {
-  isBasicsVersion: boolean,
-  tandem: Tandem
-};
+  isBasicsVersion: boolean
+} & PickRequired<NodeOptions, 'tandem'>; //TODO should be PanelOptions
 
 class GOControlPanel extends Panel {
 

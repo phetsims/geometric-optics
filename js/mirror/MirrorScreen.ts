@@ -7,10 +7,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Screen from '../../../joist/js/Screen.js';
+import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import merge from '../../../phet-core/js/merge.js';
-import Tandem from '../../../tandem/js/Tandem.js';
 import GOColors from '../common/GOColors.js';
 import geometricOptics from '../geometricOptics.js';
 import geometricOpticsStrings from '../geometricOpticsStrings.js';
@@ -19,11 +18,11 @@ import MirrorNode from './view/MirrorNode.js';
 import MirrorScreenView from './view/MirrorScreenView.js';
 import GOKeyboardHelpContent from '../common/view/GOKeyboardHelpContent.js';
 import { OpticShape } from '../common/model/OpticShape.js';
+import { PickRequired } from '../common/GOTypes.js';
 
 type MirrorScreenOptions = {
-  isBasicsVersion?: boolean,
-  tandem: Tandem
-};
+  isBasicsVersion?: boolean
+} & PickRequired<ScreenOptions, 'tandem'>;
 
 class MirrorScreen extends Screen<MirrorModel, MirrorScreenView> {
 

@@ -12,18 +12,16 @@ import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import geometricOptics from '../../geometricOptics.js';
+import { PickRequired } from '../GOTypes.js';
 
 type RulerOrientation = 'horizontal' | 'vertical';
 
 type GeometricOpticsRulerOptions = {
   orientation?: RulerOrientation,
-  length?: number,
-
-  // phet-io options
-  tandem: Tandem
-};
+  length?: number
+} & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 class GORuler {
 

@@ -20,16 +20,15 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
-import PhetioObject from '../../../../tandem/js/PhetioObject.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
+import { PickOptional, PickRequired } from '../GOTypes.js';
 
 type OpticalObjectOptions = {
-  position?: Vector2,
-  tandem: Tandem,
-  phetioDocumentation?: string
-};
+  position?: Vector2
+} & PickRequired<PhetioObjectOptions, 'tandem'>
+  & PickOptional<PhetioObjectOptions, 'phetioDocumentation'>;
 
 class OpticalObject extends PhetioObject {
 

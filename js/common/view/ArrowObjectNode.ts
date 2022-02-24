@@ -12,8 +12,7 @@ import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { DragListener, FocusHighlightFromNode, KeyboardDragListener, Node } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import { DragListener, FocusHighlightFromNode, KeyboardDragListener, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import ArrowObject from '../model/ArrowObject.js';
 import Optic from '../model/Optic.js';
@@ -23,13 +22,13 @@ import CueingArrowsNode from './CueingArrowsNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import GOQueryParameters from '../GOQueryParameters.js';
+import { PickRequired } from '../GOTypes.js';
 
 const SNAP_TO_MIN_MAGNITUDE = 20; // cm
 
 type ArrowObjectNodeOptions = {
-  visibleProperty?: IProperty<boolean>,
-  tandem: Tandem
-};
+  visibleProperty?: IProperty<boolean>
+} & PickRequired<NodeOptions, 'tandem'>;
 
 class ArrowObjectNode extends Node {
 

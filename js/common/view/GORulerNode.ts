@@ -27,6 +27,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import RulerIconNode from './RulerIconNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import { PickRequired } from '../GOTypes.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;
@@ -42,13 +43,8 @@ type RulerNodeOptions = {
 };
 
 type GORulerNodeOptions = {
-
-  // Options passed to RulerNode
-  rulerOptions?: RulerNodeOptions,
-
-  // phet-io options
-  tandem: Tandem
-};
+  rulerOptions?: RulerNodeOptions // Options passed to RulerNode
+} & PickRequired<Node, 'tandem'>;
 
 // Describes a measurement point that can be 'jumped' to via J+R hotkey.
 type RulerHotkeyTarget = {

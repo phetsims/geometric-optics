@@ -9,7 +9,6 @@
 
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import merge from '../../../../phet-core/js/merge.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import Optic, { OpticOptions } from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 import { OpticShape } from '../../common/model/OpticShape.js';
@@ -18,6 +17,7 @@ import MirrorShapes from './MirrorShapes.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import GOConstants from '../../common/GOConstants.js';
+import { PickRequired } from '../../common/GOTypes.js';
 
 // Index of refraction is a fixed value for both the 'direct' and 'indirect' focal-length models.
 // Although a mirror does not have an index of refraction, its focal length is equivalent to a lens
@@ -25,9 +25,8 @@ import GOConstants from '../../common/GOConstants.js';
 const INDEX_OF_REFRACTION = 2;
 
 type MirrorOptions = {
-  isBasicsVersion: boolean,
-  tandem: Tandem
-};
+  isBasicsVersion: boolean
+} & PickRequired<OpticOptions, 'tandem'>;
 
 class Mirror extends Optic {
 

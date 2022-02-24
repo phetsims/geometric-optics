@@ -9,18 +9,14 @@
 import Range from '../../../../dot/js/Range.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import merge from '../../../../phet-core/js/merge.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import PhetioObject from '../../../../tandem/js/PhetioObject.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Lens from '../../lens/model/Lens.js';
 import Guides from './Guides.js';
+import { PickRequired } from '../GOTypes.js';
 
-type GOSceneOptions = {
-
-  // phet-io options
-  tandem: Tandem
-};
+type GOSceneOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
 
 abstract class GOScene extends PhetioObject {
 

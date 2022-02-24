@@ -10,17 +10,15 @@
 import merge from '../../../../phet-core/js/merge.js';
 import { Text } from '../../../../scenery/js/imports.js';
 import { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
-import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import VerticalAquaRadioButtonGroup, { VerticalAquaRadioButtonGroupOptions } from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
 import { FocalLengthControlType } from '../model/FocalLengthControlType.js';
+import { PickRequired } from '../GOTypes.js';
 
-type FocalLengthControlRadioButtonGroupOptions = {
-  tandem: Tandem
-};
+type FocalLengthControlRadioButtonGroupOptions = PickRequired<VerticalAquaRadioButtonGroupOptions, 'tandem'>;
 
 class FocalLengthControlRadioButtonGroup extends VerticalAquaRadioButtonGroup<FocalLengthControlType> {
 

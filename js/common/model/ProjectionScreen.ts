@@ -14,9 +14,10 @@ import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
+import { PickRequired } from '../GOTypes.js';
 
 // Dimensions of the screen, in cm. "Near" and "far" refer to pseudo-3D perspective.
 const SCREEN_WIDTH = 42;
@@ -24,9 +25,7 @@ const SCREEN_NEAR_HEIGHT = 134;
 const SCREEN_FAR_HEIGHT = 112;
 assert && assert( SCREEN_NEAR_HEIGHT > SCREEN_FAR_HEIGHT );
 
-type ProjectionScreenOptions = {
-  tandem: Tandem
-};
+type ProjectionScreenOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
 
 class ProjectionScreen {
 

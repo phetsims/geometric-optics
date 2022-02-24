@@ -9,8 +9,7 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import { HBox, Node, Text } from '../../../../scenery/js/imports.js';
-import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import VerticalCheckboxGroup, { VerticalCheckboxGroupOptions } from '../../../../sun/js/VerticalCheckboxGroup.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GuideNode from './GuideNode.js';
@@ -21,12 +20,12 @@ import SecondPointNode from './SecondPointNode.js';
 import VisibleProperties from './VisibleProperties.js';
 import TwoFPointNode from './TwoFPointNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import { PickRequired } from '../GOTypes.js';
 
 type VisibilityCheckboxGroupOptions = {
   isBasicsVersion: boolean,
-  isMirrorScreen: boolean,
-  tandem: Tandem
-};
+  isMirrorScreen: boolean
+} & PickRequired<VerticalCheckboxGroupOptions, 'tandem'>;
 
 class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 

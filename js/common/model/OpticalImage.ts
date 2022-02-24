@@ -16,20 +16,19 @@ import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
-import PhetioObject from '../../../../tandem/js/PhetioObject.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
 import { OpticalImageType, OpticalImageTypeValues } from './OpticalImageType.js';
 import GOConstants from '../GOConstants.js';
 import OpticalObject from './OpticalObject.js';
+import { PickOptional, PickRequired } from '../GOTypes.js';
 
 type OpticalImageOptions = {
-  secondPointProperty?: IReadOnlyProperty<Vector2>,
-  tandem: Tandem,
-  phetioDocumentation?: string
-};
+  secondPointProperty?: IReadOnlyProperty<Vector2>
+} & PickRequired<PhetioObjectOptions, 'tandem'>
+  & PickOptional<PhetioObjectOptions, 'phetioDocumentation'>;
 
 class OpticalImage extends PhetioObject {
 

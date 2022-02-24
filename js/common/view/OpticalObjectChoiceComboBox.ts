@@ -12,14 +12,13 @@ import merge from '../../../../phet-core/js/merge.js';
 import { AlignBox, AlignGroup, HBox, Image, Node, NodeOptions, Text } from '../../../../scenery/js/imports.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
+import { PickRequired } from '../GOTypes.js';
 
-type OpticalObjectChoiceComboBoxOptions = {
-  tandem: Tandem
-} & NodeOptions; //TODO https://github.com/phetsims/scenery/issues/1332 limit to Node translation options
+type OpticalObjectChoiceComboBoxOptions = PickRequired<NodeOptions, 'tandem'> //TODO should be ComboBoxOptions
+  & NodeOptions; //TODO https://github.com/phetsims/scenery/issues/1332 limit to Node translation options
 
 class OpticalObjectChoiceComboBox extends ComboBox {
 

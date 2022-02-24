@@ -9,7 +9,6 @@
 
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import merge from '../../../../phet-core/js/merge.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import Optic, { OpticOptions } from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 import { OpticShape } from '../../common/model/OpticShape.js';
@@ -20,14 +19,14 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import GOConstants from '../../common/GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Shape from '../../../../kite/js/Shape.js';
+import { PickRequired } from '../../common/GOTypes.js';
 
 // Index of refraction is a fixed value for the 'direct' focal-length model.
 const DIRECT_INDEX_OF_REFRACTION = 1.5;
 
 type LensOptions = {
-  isBasicsVersion: boolean,
-  tandem: Tandem
-};
+  isBasicsVersion: boolean
+} & PickRequired<OpticOptions, 'tandem'>;
 
 class Lens extends Optic {
 

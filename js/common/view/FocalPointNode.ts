@@ -11,14 +11,12 @@ import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Circle, Node } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import { Circle, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
+import { PickRequired } from '../GOTypes.js';
 
-type FocalPointNodeOptions = {
-  tandem: Tandem
-};
+type FocalPointNodeOptions = PickRequired<NodeOptions, 'tandem'>;
 
 class FocalPointNode extends Node {
 

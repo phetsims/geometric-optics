@@ -16,19 +16,17 @@ import { Circle, DragListener, FocusHighlightFromNode, KeyboardDragListener, Nod
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import SecondPoint from '../model/SecondPoint.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import GOConstants from '../GOConstants.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import GOQueryParameters from '../GOQueryParameters.js';
+import { PickRequired } from '../GOTypes.js';
 
 type SecondPointNodeOptions = {
-  visibleProperty: IProperty<boolean>,
-  tandem: Tandem,
-  phetioDocumentation: string
-};
+  visibleProperty: IProperty<boolean>
+} & PickRequired<NodeOptions, 'tandem' | 'phetioDocumentation'>;
 
 class SecondPointNode extends Node {
 

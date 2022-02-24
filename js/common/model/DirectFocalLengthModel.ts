@@ -11,23 +11,20 @@
 import { OpticShape } from './OpticShape.js';
 import FocalLengthModel from './FocalLengthModel.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
-import PhetioObject from '../../../../tandem/js/PhetioObject.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import geometricOptics from '../../geometricOptics.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
+import { PickRequired } from '../GOTypes.js';
 
 type DirectFocalLengthModelOptions = {
   focalLengthMagnitudeRange: RangeWithValue
-  indexOfRefractionRange: RangeWithValue,
-
-  // phet-io
-  tandem: Tandem
-};
+  indexOfRefractionRange: RangeWithValue
+} & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 class DirectFocalLengthModel extends PhetioObject implements FocalLengthModel {
 

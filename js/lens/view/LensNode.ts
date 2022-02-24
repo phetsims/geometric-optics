@@ -8,7 +8,7 @@
  */
 
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Line, Node, Path } from '../../../../scenery/js/imports.js';
+import { Line, Node, NodeOptions, Path } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../../common/GOColors.js';
 import Lens from '../model/Lens.js';
@@ -18,7 +18,7 @@ import Matrix3 from '../../../../dot/js/Matrix3.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
 import OriginNode from '../../common/view/OriginNode.js';
 import merge from '../../../../phet-core/js/merge.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import { PickRequired } from '../../common/GOTypes.js';
 
 // constants
 const FILL = GOColors.lensFillProperty;
@@ -27,9 +27,7 @@ const LINE_WIDTH = 2;
 const ICON_RADIUS_OF_CURVATURE_MAGNITUDE = 20;
 const ICON_DIAMETER = 30;
 
-type LensNodeOptions = {
-  tandem: Tandem
-};
+type LensNodeOptions = PickRequired<NodeOptions, 'tandem'>;
 
 class LensNode extends Node {
 

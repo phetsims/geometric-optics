@@ -11,13 +11,10 @@
 import merge from '../../../../phet-core/js/merge.js';
 import { HBox } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GORulerNode from './GORulerNode.js';
 
-type RulersToolboxOptions = {
-  tandem: Tandem
-} & PanelOptions;
+type RulersToolboxOptions = PanelOptions; //TODO should be limited to tandem and translation options
 
 class RulersToolbox extends Panel {
 

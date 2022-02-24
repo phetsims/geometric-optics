@@ -9,16 +9,13 @@
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
-import PhetioObject from '../../../../tandem/js/PhetioObject.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Optic from './Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from './Guide.js';
+import { PickRequired } from '../GOTypes.js';
 
-type GuidesOptions = {
-  tandem: Tandem,
-  phetioDocumentation: string
-};
+type GuidesOptions = PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
 
 class Guides extends PhetioObject {
 

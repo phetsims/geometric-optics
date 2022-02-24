@@ -10,7 +10,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import GOScreenView from '../../common/view/GOScreenView.js';
+import GOScreenView, { GOScreenViewOptions } from '../../common/view/GOScreenView.js';
 import geometricOptics from '../../geometricOptics.js';
 import MirrorModel from '../model/MirrorModel.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -18,11 +18,11 @@ import Mirror from '../model/Mirror.js';
 import MirrorNode from './MirrorNode.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Optic from '../../common/model/Optic.js';
+import { PickRequired } from '../../common/GOTypes.js';
 
 type MirrorScreenViewOptions = {
-  isBasicsVersion: boolean,
-  tandem: Tandem
-};
+  isBasicsVersion: boolean
+} & PickRequired<GOScreenViewOptions, 'tandem'>;
 
 class MirrorScreenView extends GOScreenView {
 

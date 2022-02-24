@@ -12,8 +12,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Circle, Color, DragListener, FocusHighlightFromNode, Image, KeyboardDragListener, Line, Node, Path } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import { Circle, Color, DragListener, FocusHighlightFromNode, Image, KeyboardDragListener, Line, Node, NodeOptions, Path } from '../../../../scenery/js/imports.js';
 import projectionScreenBottom_png from '../../../images/projectionScreenBottom_png.js';
 import projectionScreenTop_png from '../../../images/projectionScreenTop_png.js';
 import GOColors from '../../common/GOColors.js';
@@ -25,10 +24,9 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OriginNode from './OriginNode.js';
 import GOConstants from '../../common/GOConstants.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import { PickRequired } from '../GOTypes.js';
 
-type ProjectionScreenNodeOptions = {
-  tandem: Tandem
-};
+type ProjectionScreenNodeOptions = PickRequired<NodeOptions, 'tandem'>;
 
 class ProjectionScreenNode extends Node {
 

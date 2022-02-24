@@ -12,7 +12,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Graph from '../../../../kite/js/ops/Graph.js';
 import Shape from '../../../../kite/js/Shape.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import Optic from './Optic.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -21,17 +20,16 @@ import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import GOConstants from '../../common/GOConstants.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
-import PhetioObject from '../../../../tandem/js/PhetioObject.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import { PickOptional, PickRequired } from '../GOTypes.js';
 
 // constants
 const FULL_INTENSITY_DIAMETER = 7; // cm, any light spot less than this diameter will be full intensity
 
 type PositionAndDiameter = { position: Vector2, diameter: number };
 
-type LightSpotOptions = {
-  tandem: Tandem,
-  phetioDocumentation?: string
-};
+type LightSpotOptions = PickRequired<PhetioObjectOptions, 'tandem'>
+  & PickOptional<PhetioObjectOptions, 'phetioDocumentation'>;
 
 class LightSpot extends PhetioObject {
 

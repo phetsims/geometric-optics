@@ -13,14 +13,14 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import merge from '../../../../phet-core/js/merge.js';
 import GOConstants from '../GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import IProperty from '../../../../axon/js/IProperty.js';
+import { PickRequired } from '../GOTypes.js';
+import { NodeOptions } from '../../../../scenery/js/imports.js';
 
 type IndexOfRefractionControlOptions = {
-  visibleProperty: IProperty<boolean>,
-  tandem: Tandem
-};
+  visibleProperty: IProperty<boolean>
+} & PickRequired<NodeOptions, 'tandem'>; //TODO should be NumberControlOptions
 
 class IndexOfRefractionControl extends NumberControl {
 

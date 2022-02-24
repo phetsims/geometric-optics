@@ -15,17 +15,14 @@ import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
-import PhetioObject from '../../../../tandem/js/PhetioObject.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import geometricOptics from '../../geometricOptics.js';
+import { PickRequired } from '../GOTypes.js';
 
 // range of the vertical offset for the second point, relative to frame object's position, in cm
 const VERTICAL_OFFSET_RANGE = new Range( -55, 0 );
 
-type SecondPointOptions = {
-  tandem: Tandem,
-  phetioDocumentation: string
-};
+type SecondPointOptions = PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
 
 class SecondPoint extends PhetioObject {
 

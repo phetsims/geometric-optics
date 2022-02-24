@@ -9,7 +9,7 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import VisibleProperties from './VisibleProperties.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -29,6 +29,7 @@ import { RulerHotkeyTarget } from './GORulerNode.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import GOScene from '../model/GOScene.js';
 import IProperty from '../../../../axon/js/IProperty.js';
+import { PickRequired } from '../GOTypes.js';
 
 type GOSceneNodeOptions = {
 
@@ -37,10 +38,8 @@ type GOSceneNodeOptions = {
 
   dragLockedProperty: BooleanProperty, //TODO not used in this class, move to subclasses
 
-  visibleProperty: IProperty<boolean>,
-
-  tandem: Tandem
-};
+  visibleProperty: IProperty<boolean>
+} & PickRequired<NodeOptions, 'tandem'>;
 
 abstract class GOSceneNode extends Node {
 

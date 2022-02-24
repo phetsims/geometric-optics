@@ -6,20 +6,18 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { Node } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import GuideNode from './GuideNode.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import Guides from '../model/Guides.js';
+import { PickOptional, PickRequired } from '../GOTypes.js';
 
 type GuidesNodeOptions = {
-  visibleProperty: IProperty<boolean>,
-  tandem: Tandem,
-  phetioDocumentation?: string
-};
+  visibleProperty: IProperty<boolean>
+} & PickRequired<NodeOptions, 'tandem'> & PickOptional<NodeOptions, 'phetioDocumentation'>;
 
 class GuidesNode extends Node {
 
