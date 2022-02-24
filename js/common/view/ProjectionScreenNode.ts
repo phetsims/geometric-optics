@@ -149,6 +149,7 @@ class ProjectionScreenNode extends Node {
 
     // Keep the projection screen within drag bounds.
     dragBoundsProperty.link( dragBounds => {
+      this.interruptSubtreeInput();
       projectionScreen.positionProperty.value = dragBounds.closestPointTo( projectionScreen.positionProperty.value );
     } );
 
