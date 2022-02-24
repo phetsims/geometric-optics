@@ -9,13 +9,13 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Circle, Node, NodeOptions, Rectangle } from '../../../../scenery/js/imports.js';
 import GOColors from '../../common/GOColors.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from '../model/Guide.js';
 import { PickRequired } from '../GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 // constants, in view coordinates
 const FULCRUM_RADIUS = 5;
@@ -52,7 +52,7 @@ class GuideNode extends Node {
     const incidentArmNode = new Rectangle( fulcrumNode.x, fulcrumNode.y - ARM_HEIGHT / 2, ARM_WIDTH, ARM_HEIGHT, armOptions );
     const transmittedArmNode = new Rectangle( fulcrumNode.x, fulcrumNode.y - ARM_HEIGHT / 2, ARM_WIDTH, ARM_HEIGHT, armOptions );
 
-    const options = merge( {
+    const options = optionize<GuideNodeOptions, {}, NodeOptions>( {
       children: [ incidentArmNode, transmittedArmNode, fulcrumNode ],
       phetioVisiblePropertyInstrumented: false
     }, providedOptions );

@@ -7,18 +7,15 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import IProperty from '../../../../axon/js/IProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
-import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Node, Path } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions, Path } from '../../../../scenery/js/imports.js';
 import GOColors from '../../common/GOColors.js';
 import geometricOptics from '../../geometricOptics.js';
 import LightSpot from '../model/LightSpot.js';
+import { PickRequired } from '../GOTypes.js';
 
-type LightSpotNodeOptions = {
-  visibleProperty: IProperty<boolean>
-};
+type LightSpotNodeOptions = PickRequired<NodeOptions, 'visibleProperty'>;
 
 class LightSpotNode extends Node {
 
@@ -29,10 +26,13 @@ class LightSpotNode extends Node {
    */
   constructor( lightSpot: LightSpot, modelViewTransform: ModelViewTransform2, providedOptions: LightSpotNodeOptions ) {
 
+    super( providedOptions );
+
     // Fill color of the spot
     const fillPath = new Path( null, {
       fill: GOColors.lightSpotFillProperty
     } );
+    this.addChild( fillPath );
 
     // Dashed outline of the spot, so it's easier to see when intensity is low.
     // See https://github.com/phetsims/geometric-optics/issues/240
@@ -41,10 +41,7 @@ class LightSpotNode extends Node {
       lineWidth: 0.75,
       lineDash: [ 4, 4 ]
     } );
-
-    super( merge( {
-      children: [ fillPath, strokePath ]
-    }, providedOptions ) );
+    this.addChild( strokePath );
 
     lightSpot.shapeProperty.link( shape => {
       const viewShape = modelViewTransform.modelToViewShape( shape );

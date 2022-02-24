@@ -25,6 +25,7 @@ import OriginNode from './OriginNode.js';
 import GOConstants from '../../common/GOConstants.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import { PickRequired } from '../GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 type ProjectionScreenNodeOptions = PickRequired<NodeOptions, 'tandem'>;
 
@@ -46,7 +47,7 @@ class ProjectionScreenNode extends Node {
                modelViewTransform: ModelViewTransform2,
                providedOptions: ProjectionScreenNodeOptions ) {
 
-    const options = merge( {
+    const options = optionize<ProjectionScreenNodeOptions, {}, NodeOptions>( {
 
       // pdom providedOptions
       tagName: 'div',

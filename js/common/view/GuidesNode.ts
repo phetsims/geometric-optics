@@ -10,14 +10,12 @@ import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GuideNode from './GuideNode.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import merge from '../../../../phet-core/js/merge.js';
-import IProperty from '../../../../axon/js/IProperty.js';
 import Guides from '../model/Guides.js';
 import { PickOptional, PickRequired } from '../GOTypes.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
-type GuidesNodeOptions = {
-  visibleProperty: IProperty<boolean>
-} & PickRequired<NodeOptions, 'tandem'> & PickOptional<NodeOptions, 'phetioDocumentation'>;
+type GuidesNodeOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem'>
+  & PickOptional<NodeOptions, 'phetioDocumentation'>;
 
 class GuidesNode extends Node {
 
@@ -29,7 +27,7 @@ class GuidesNode extends Node {
    */
   constructor( guides: Guides, armColor: ColorDef,
                modelViewTransform: ModelViewTransform2, providedOptions: GuidesNodeOptions ) {
-    super( merge( {
+    super( optionize<GuidesNodeOptions, {}, NodeOptions>( {
       children: [
         new GuideNode( guides.topGuide, armColor, modelViewTransform, {
           tandem: providedOptions.tandem.createTandem( 'topGuideNode' )
