@@ -17,11 +17,12 @@ import CueingArrowsNode from './CueingArrowsNode.js';
 import ButtonNode from '../../../../sun/js/buttons/ButtonNode.js';
 import BooleanRectangularToggleButton from '../../../../sun/js/buttons/BooleanRectangularToggleButton.js';
 import { PickOptional, PickRequired } from '../GOTypes.js';
+import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 
 const ARROWS_SCALE = 0.65;
 const LOCK_SCALE = 0.045;
 const UNLOCKED_FILL = 'black';
-const LOCKED_FILL = 'red';
+const LOCKED_FILL = PhetColorScheme.RED_COLORBLIND;
 
 type DragLockedButtonOptions = PickRequired<NodeOptions, 'tandem'>
   & PickOptional<NodeOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
