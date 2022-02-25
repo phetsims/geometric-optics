@@ -78,8 +78,8 @@ export type NumberControlOptions = {
   delta?: number,
   layoutFunction?: any,
   titleNodeOptions?: TextOptions,
-  sliderOptions: SliderOptions,
-  numberDisplayOptions: NumberDisplayOptions
+  sliderOptions?: SliderOptions,
+  numberDisplayOptions?: NumberDisplayOptions
 } & NodeOptions;
 
 export type NumberDisplayOptions = {
