@@ -15,6 +15,8 @@ import Utils from '../../../../dot/js/Utils.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import { NumberControlOptions } from '../GOTemporaryOptions.js';
+import optionize, { Defaults } from '../../../../phet-core/js/optionize.js';
 
 type DiameterControlOptions = PickRequired<NodeOptions, 'tandem'>;
 
@@ -26,8 +28,8 @@ class DiameterControl extends NumberControl {
    */
   constructor( diameterProperty: NumberProperty, providedOptions: DiameterControlOptions ) {
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when NumberControlOptions exists
-    const options = merge( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
+    // Assemble the defaults for NumberControl, because optionize doesn't currently support defaults in multiple objects.
+    const numberControlDefaults: Defaults<{}, NumberControlOptions> = merge( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
       delta: GOConstants.DIAMETER_SPINNER_STEP,
       sliderOptions: {
         constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.DIAMETER_SLIDER_STEP ),
@@ -39,7 +41,9 @@ class DiameterControl extends NumberControl {
         decimalPlaces: GOConstants.DIAMETER_DECIMAL_PLACES,
         valuePattern: geometricOpticsStrings.valueCentimetersPattern
       }
-    }, providedOptions );
+    } );
+
+    const options = optionize<DiameterControlOptions, {}, NumberControlOptions>( numberControlDefaults, providedOptions );
 
     assert && assert( diameterProperty.range ); // {Range|null}
 
