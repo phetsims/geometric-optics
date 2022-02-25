@@ -18,7 +18,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
-import { DragListener, KeyboardDragListener, KeyboardUtils, Node, NodeOptions, PressListenerEvent, SceneryEvent } from '../../../../scenery/js/imports.js';
+import { DragListener, KeyboardDragListener, KeyboardUtils, Node, PressedDragListener, NodeOptions, PressListenerEvent } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
@@ -27,8 +27,9 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import RulerIconNode from './RulerIconNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import IProperty from '../../../../axon/js/IProperty.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;
@@ -144,17 +145,19 @@ class GORulerNode extends Node {
 
     // Dragging with the pointer
     this.dragListener = new DragListener( {
-      cursor: 'pointer',
+      pressCursor: 'pointer',
       useInputListenerCursor: true,
       positionProperty: ruler.positionProperty,
-      dragBoundsProperty: this.dragBoundsProperty,
+      dragBoundsProperty: this.dragBoundsProperty as IProperty<Bounds2>, // Cast as we promise not to modify the listener's dragBounds?
       transform: zoomTransformProperty.value,
       start: () => this.moveToFront(),
-      end: ( event: SceneryEvent ) => {
+      end: ( listener: DragListener ) => {
+        assert && assert( listener.isPressed );
+        const pressedListener = listener as PressedDragListener;
 
         // Return ruler to toolbox if the pointer is inside the toolbox.
-        assert && assert( event.pointer.point instanceof Vector2 );
-        if ( this.toolboxBounds.containsPoint( this.globalToParentPoint( event.pointer.point as Vector2 ) ) ) {
+        assert && assert( pressedListener.pointer.point instanceof Vector2 );
+        if ( this.toolboxBounds.containsPoint( this.globalToParentPoint( pressedListener.pointer.point as Vector2 ) ) ) {
           ruler.visibleProperty.value = false;
         }
       },

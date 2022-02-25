@@ -157,7 +157,7 @@ class ProjectionScreenNode extends Node {
     };
 
     this.addInputListener( new DragListener( {
-      cursor: 'pointer',
+      pressCursor: 'pointer',
       useInputListenerCursor: true,
       positionProperty: projectionScreen.positionProperty,
       dragBoundsProperty: dragBoundsProperty,
