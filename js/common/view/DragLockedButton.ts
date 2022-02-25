@@ -11,8 +11,7 @@ import Property from '../../../../axon/js/Property.js';
 import geometricOptics from '../../geometricOptics.js';
 import lockSolidShape from '../../../../sherpa/js/fontawesome-5/lockSolidShape.js';
 import unlockSolidShape from '../../../../sherpa/js/fontawesome-5/unlockSolidShape.js';
-import { AlignBox, AlignGroup, HBox, NodeOptions, Path } from '../../../../scenery/js/imports.js';
-import merge from '../../../../phet-core/js/merge.js';
+import { AlignBox, AlignGroup, HBox, HBoxOptions, NodeOptions, Path } from '../../../../scenery/js/imports.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
 import ButtonNode from '../../../../sun/js/buttons/ButtonNode.js';
 import BooleanRectangularToggleButton from '../../../../sun/js/buttons/BooleanRectangularToggleButton.js';
@@ -66,7 +65,7 @@ class DragLockedButton extends BooleanRectangularToggleButton {
     };
 
     // 4-way arrow to the left of unlocked lock
-    const unlockedNode = new AlignBox( new HBox( merge( {
+    const unlockedNode = new AlignBox( new HBox( optionize<HBoxOptions, {}, HBoxOptions>( {
       children: [
         new CueingArrowsNode( {
           direction: 'both',
@@ -82,7 +81,7 @@ class DragLockedButton extends BooleanRectangularToggleButton {
     }, hBoxOptions ) ), alignBoxOptions );
 
     // horizontal 2-way arrow to the left of locked lock
-    const lockedNode = new AlignBox( new HBox( merge( {
+    const lockedNode = new AlignBox( new HBox( optionize<HBoxOptions, {}, HBoxOptions>( {
       children: [
         new CueingArrowsNode( {
           direction: 'horizontal',
