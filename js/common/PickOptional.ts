@@ -3,6 +3,7 @@
 /**
  * Use PickRequired to pick properties of a type T and make them optional.
  * This is useful when picking superclass options that you want to expose in a subclass API.
+ * It makes life a little easier because you have to fiddle with fewer '<' and '>' characters.
  *
  * Example:
  * type MyClassOptions = PickRequired<PathOptions, 'stroke', 'lineWidth'>;
