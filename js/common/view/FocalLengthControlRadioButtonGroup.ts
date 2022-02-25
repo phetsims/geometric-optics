@@ -13,19 +13,21 @@ import VerticalAquaRadioButtonGroup, { VerticalAquaRadioButtonGroupOptions } fro
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
-import GOGlobalOptions from '../GOGlobalOptions.js';
 import { FocalLengthControlType } from '../model/FocalLengthControlType.js';
 import { PickRequired } from '../GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import Property from '../../../../axon/js/Property.js';
 
 type FocalLengthControlRadioButtonGroupOptions = PickRequired<VerticalAquaRadioButtonGroupOptions, 'tandem'>;
 
 class FocalLengthControlRadioButtonGroup extends VerticalAquaRadioButtonGroup<FocalLengthControlType> {
 
   /**
+   * @param focalLengthControlTypeProperty
    * @param providedOptions
    */
-  constructor( providedOptions: FocalLengthControlRadioButtonGroupOptions ) {
+  constructor( focalLengthControlTypeProperty: Property<FocalLengthControlType>,
+               providedOptions: FocalLengthControlRadioButtonGroupOptions ) {
 
     const options = optionize<FocalLengthControlRadioButtonGroupOptions, {}, VerticalAquaRadioButtonGroupOptions>( {
       spacing: 8
@@ -36,7 +38,7 @@ class FocalLengthControlRadioButtonGroup extends VerticalAquaRadioButtonGroup<Fo
       createItem( 'indirect', geometricOpticsStrings.indirect )
     ];
 
-    super( GOGlobalOptions.focalLengthControlTypeProperty, items, options );
+    super( focalLengthControlTypeProperty, items, options );
   }
 }
 

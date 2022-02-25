@@ -7,15 +7,19 @@
  */
 
 import ProjectorModeCheckbox from '../../../../joist/js/ProjectorModeCheckbox.js';
-import { Text, VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
+import { VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
-import FocalLengthControlRadioButtonGroup from './FocalLengthControlRadioButtonGroup.js';
-import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../GOTypes.js';
+import FocalLengthModelTypeControl from './FocalLengthModelTypeControl.js';
+import GOGlobalOptions from '../GOGlobalOptions.js';
 
-type GOGlobalOptionsNodeOptions = PickRequired<VBoxOptions, 'tandem'>;
+type SelfOptions = {
+  isBasicsVersion?: boolean
+}
+
+type GOGlobalOptionsNodeOptions = SelfOptions & PickRequired<VBoxOptions, 'tandem'>;
 
 class GOGlobalOptionsNode extends VBox {
 
@@ -27,41 +31,35 @@ class GOGlobalOptionsNode extends VBox {
    */
   constructor( providedOptions: GOGlobalOptionsNodeOptions ) {
 
+    const options = optionize<GOGlobalOptionsNodeOptions, SelfOptions, VBoxOptions>( {
+      isBasicsVersion: false,
+
+      // VBox options
+      align: 'left',
+      spacing: 20
+    }, providedOptions );
+
+    super( options );
+
     // Projector Mode checkbox
     const projectorModeCheckbox = new ProjectorModeCheckbox( {
       boxWidth: 14,
       font: GOConstants.CONTROL_FONT,
       maxTextWidth: 350,
-      tandem: providedOptions.tandem.createTandem( 'projectorModeCheckbox' )
+      tandem: options.tandem.createTandem( 'projectorModeCheckbox' )
     } );
 
-    const focalLengthControlText = new Text( geometricOpticsStrings.focalLengthControl, {
-      font: GOConstants.CONTROL_FONT,
-      tandem: providedOptions.tandem.createTandem( 'focalLengthControlText' )
+    // Focal Length model type
+    const focalLengthModelControl = new FocalLengthModelTypeControl( GOGlobalOptions.focalLengthControlTypeProperty, {
+      visible: !options.isBasicsVersion,
+      tandem: options.tandem.createTandem( 'focalLengthModelControl' )
     } );
 
-    const focalLengthControlRadioButtonGroup = new FocalLengthControlRadioButtonGroup( {
-      tandem: providedOptions.tandem.createTandem( 'focalLengthControlRadioButtonGroup' )
-    } );
-
-    const focalLengthControlVBox = new VBox( {
-      children: [ focalLengthControlText, focalLengthControlRadioButtonGroup ],
-      spacing: 8,
-      align: 'left'
-    } );
-
-    super( optionize<GOGlobalOptionsNodeOptions, {}, VBoxOptions>( {
-
-      // VBox options
-      align: 'left',
-      spacing: 20,
-      children: [ projectorModeCheckbox, focalLengthControlVBox ]
-    }, providedOptions ) );
+    this.children = [ projectorModeCheckbox, focalLengthModelControl ];
 
     this.disposeGeometricOpticsGlobalOptionsNode = (): void => {
       projectorModeCheckbox.dispose();
-      focalLengthControlText.dispose();
-      focalLengthControlRadioButtonGroup.dispose();
+      focalLengthModelControl.dispose();
     };
   }
 

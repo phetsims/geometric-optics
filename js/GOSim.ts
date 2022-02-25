@@ -14,6 +14,7 @@ import MirrorScreen from './mirror/MirrorScreen.js';
 import GOConstants from './common/GOConstants.js';
 import { Node } from '../../scenery/js/imports.js';
 import optionize from '../../phet-core/js/optionize.js';
+import GOGlobalOptionsNode from './common/view/GOGlobalOptionsNode.js';
 
 //TODO https://github.com/phetsims/geometric-optics/issues/326 should be defined by Sim
 type SimOptions = {
@@ -24,7 +25,7 @@ type SimOptions = {
 
 type SelfOptions = {
   // Determines whether this is the Basics version of the sim. This flag is propagated to many components of the sim.
-  isBasicsVersion?: boolean,
+  isBasicsVersion: boolean,
 }
 
 type GOSimOptions = SelfOptions & Pick<SimOptions, 'createOptionsDialogContent'>;
@@ -35,15 +36,18 @@ class GOSim extends Sim {
    * @param title
    * @param providedOptions
    */
-  constructor( title: string, providedOptions?: GOSimOptions ) {
+  constructor( title: string, providedOptions: GOSimOptions ) {
 
     const options = optionize<GOSimOptions, SelfOptions, SimOptions>( {
 
-      isBasicsVersion: false,
-
       // Sim options
       credits: GOConstants.CREDITS,
-      hasKeyboardHelpContent: true
+      hasKeyboardHelpContent: true,
+      createOptionsDialogContent: ( tandem: Tandem ) => new GOGlobalOptionsNode( {
+        isBasicsVersion: providedOptions.isBasicsVersion,
+        tandem: tandem
+      } )
+
     }, providedOptions );
 
     super( title, [
