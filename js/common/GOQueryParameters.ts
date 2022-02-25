@@ -184,7 +184,7 @@ const SCHEMA_MAP = {
  */
 function parseRangeWithValue( value: string ): RangeWithValue {
   const tokens = value.split( ',' );
-  assert && assert( tokens.length === 3, `range format is min,max,initial: ${value}` );
+  assert && assert( tokens.length === 3, `bad query-parameter value, range format is min,max,initial: ${value}` );
   assert && assert( _.every( tokens, ( token: number ) => isFinite( token ) ), `range must be 3 numbers: ${value}` );
   const numbers = _.map( tokens, token => parseFloat( token ) );
   return new RangeWithValue( numbers[ 0 ], numbers[ 1 ], numbers[ 2 ] );
