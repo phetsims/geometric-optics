@@ -8,9 +8,9 @@
 
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
-import FocalLengthControlRadioButtonGroup from './FocalLengthControlRadioButtonGroup.js';
+import FocalLengthModelTypeRadioButtonGroup from './FocalLengthModelTypeRadioButtonGroup.js';
 import geometricOptics from '../../geometricOptics.js';
-import { FocalLengthControlType } from '../model/FocalLengthControlType.js';
+import { FocalLengthModelType } from '../model/FocalLengthModelType.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { Text, VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
 import { PickOptional, PickRequired } from '../GOTypes.js';
@@ -23,10 +23,10 @@ class FocalLengthModelTypeControl extends VBox {
   private readonly disposeFocalLengthModelControl: () => void;
 
   /**
-   * @param focalLengthControlTypeProperty
+   * @param focalLengthModelTypeProperty
    * @param providedOptions
    */
-  constructor( focalLengthControlTypeProperty: Property<FocalLengthControlType>, providedOptions: FocalLengthModelControlOptions ) {
+  constructor( focalLengthModelTypeProperty: Property<FocalLengthModelType>, providedOptions: FocalLengthModelControlOptions ) {
 
     const options = optionize<FocalLengthModelControlOptions, {}, VBoxOptions>( {
       spacing: 8,
@@ -40,7 +40,7 @@ class FocalLengthModelTypeControl extends VBox {
       tandem: options.tandem.createTandem( 'labelNode' )
     } );
 
-    const radioButtonGroup = new FocalLengthControlRadioButtonGroup( focalLengthControlTypeProperty, {
+    const radioButtonGroup = new FocalLengthModelTypeRadioButtonGroup( focalLengthModelTypeProperty, {
       tandem: options.tandem.createTandem( 'radioButtonGroup' )
     } );
 

@@ -1,8 +1,8 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * FocalLengthControlRadioButtonGroup is the radio button group that allows the user to select the method of
- * controlling focal length. It appears in the PhET > Options dialog.
+ * FocalLengthModelTypeRadioButtonGroup is the radio button group that allows the user to select the method of
+ * controlling focal length. It appears in the Options dialog.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -13,20 +13,20 @@ import VerticalAquaRadioButtonGroup, { VerticalAquaRadioButtonGroupOptions } fro
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
-import { FocalLengthControlType } from '../model/FocalLengthControlType.js';
+import { FocalLengthModelType } from '../model/FocalLengthModelType.js';
 import { PickRequired } from '../GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import Property from '../../../../axon/js/Property.js';
 
 type FocalLengthControlRadioButtonGroupOptions = PickRequired<VerticalAquaRadioButtonGroupOptions, 'tandem'>;
 
-class FocalLengthControlRadioButtonGroup extends VerticalAquaRadioButtonGroup<FocalLengthControlType> {
+class FocalLengthModelTypeRadioButtonGroup extends VerticalAquaRadioButtonGroup<FocalLengthModelType> {
 
   /**
-   * @param focalLengthControlTypeProperty
+   * @param focalLengthModelTypeProperty
    * @param providedOptions
    */
-  constructor( focalLengthControlTypeProperty: Property<FocalLengthControlType>,
+  constructor( focalLengthModelTypeProperty: Property<FocalLengthModelType>,
                providedOptions: FocalLengthControlRadioButtonGroupOptions ) {
 
     const options = optionize<FocalLengthControlRadioButtonGroupOptions, {}, VerticalAquaRadioButtonGroupOptions>( {
@@ -38,7 +38,7 @@ class FocalLengthControlRadioButtonGroup extends VerticalAquaRadioButtonGroup<Fo
       createItem( 'indirect', geometricOpticsStrings.indirect )
     ];
 
-    super( focalLengthControlTypeProperty, items, options );
+    super( focalLengthModelTypeProperty, items, options );
   }
 }
 
@@ -47,7 +47,7 @@ class FocalLengthControlRadioButtonGroup extends VerticalAquaRadioButtonGroup<Fo
  * @param value
  * @param text
  */
-function createItem( value: FocalLengthControlType, text: string ): AquaRadioButtonGroupItem<FocalLengthControlType> {
+function createItem( value: FocalLengthModelType, text: string ): AquaRadioButtonGroupItem<FocalLengthModelType> {
   return {
     value: value,
     node: new Text( text, {
@@ -58,5 +58,5 @@ function createItem( value: FocalLengthControlType, text: string ): AquaRadioBut
   };
 }
 
-geometricOptics.register( 'FocalLengthControlRadioButtonGroup', FocalLengthControlRadioButtonGroup );
-export default FocalLengthControlRadioButtonGroup;
+geometricOptics.register( 'FocalLengthModelTypeRadioButtonGroup', FocalLengthModelTypeRadioButtonGroup );
+export default FocalLengthModelTypeRadioButtonGroup;

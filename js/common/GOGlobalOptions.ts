@@ -10,7 +10,7 @@ import Property from '../../../axon/js/Property.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import geometricOptics from '../geometricOptics.js';
 import GOQueryParameters from './GOQueryParameters.js';
-import { FocalLengthControlType, FocalLengthControlTypeValues } from './model/FocalLengthControlType.js';
+import { FocalLengthModelType, FocalLengthModelTypeValues } from './model/FocalLengthModelType.js';
 import StringIO from '../../../tandem/js/types/StringIO.js';
 
 // constants
@@ -18,10 +18,10 @@ const optionsTandem = Tandem.GLOBAL_VIEW.createTandem( 'options' );
 
 const GOGlobalOptions = {
 
-  focalLengthControlTypeProperty:
-    new Property<FocalLengthControlType>( GOQueryParameters.focalLengthControl, {
-      validValues: FocalLengthControlTypeValues,
-      tandem: optionsTandem.createTandem( 'focalLengthControlTypeProperty' ),
+  focalLengthModelTypeProperty:
+    new Property<FocalLengthModelType>( GOQueryParameters.focalLengthControl, {
+      validValues: FocalLengthModelTypeValues,
+      tandem: optionsTandem.createTandem( 'focalLengthModelTypeProperty' ),
       phetioType: Property.PropertyIO( StringIO ),
       phetioDocumentation: 'Determines how focal length is controlled in the Lens and Mirror screens.<br>' +
                            'This can also be set via the focalLengthControl query parameter.<br>' +

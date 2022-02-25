@@ -29,7 +29,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import FocalLengthControl from './FocalLengthControl.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import { FocalLengthControlType } from '../model/FocalLengthControlType.js';
+import { FocalLengthModelType } from '../model/FocalLengthModelType.js';
 import { OpticShape } from '../model/OpticShape.js';
 import Mirror from '../../mirror/model/Mirror.js';
 import { PickRequired } from '../GOTypes.js';
@@ -99,9 +99,9 @@ class GOControlPanel extends Panel {
     opticSubpanelChildren.push( new FocalLengthControl( optic.directFocalLengthModel.focalLengthMagnitudeProperty,
       optic.finiteFocalLengthProperty, {
         visibleProperty: new DerivedProperty(
-          [ GOGlobalOptions.focalLengthControlTypeProperty, optic.opticShapeProperty ],
-          ( focalLengthControlType: FocalLengthControlType, opticShape: OpticShape ) =>
-            ( focalLengthControlType === 'direct' ) && ( opticShape !== 'flat' )
+          [ GOGlobalOptions.focalLengthModelTypeProperty, optic.opticShapeProperty ],
+          ( focalLengthModelType: FocalLengthModelType, opticShape: OpticShape ) =>
+            ( focalLengthModelType === 'direct' ) && ( opticShape !== 'flat' )
         ),
         tandem: opticSubpanelTandem.createTandem( 'focalLengthControl' )
       } ) );
@@ -111,9 +111,9 @@ class GOControlPanel extends Panel {
       optic.indirectFocalLengthModel.radiusOfCurvatureMagnitudeProperty,
       optic.radiusOfCurvatureProperty, {
         visibleProperty: new DerivedProperty(
-          [ GOGlobalOptions.focalLengthControlTypeProperty, optic.opticShapeProperty ],
-          ( focalLengthControlType: FocalLengthControlType, opticShape: OpticShape ) =>
-            ( focalLengthControlType === 'indirect' ) && ( opticShape !== 'flat' )
+          [ GOGlobalOptions.focalLengthModelTypeProperty, optic.opticShapeProperty ],
+          ( focalLengthModelType: FocalLengthModelType, opticShape: OpticShape ) =>
+            ( focalLengthModelType === 'indirect' ) && ( opticShape !== 'flat' )
         ),
         tandem: opticSubpanelTandem.createTandem( 'radiusOfCurvatureControl' )
       } ) );
@@ -121,8 +121,8 @@ class GOControlPanel extends Panel {
     // Index of Refraction (for lens only)
     if ( optic instanceof Lens ) {
       opticSubpanelChildren.push( new IndexOfRefractionControl( optic.indirectFocalLengthModel.indexOfRefractionProperty, {
-        visibleProperty: new DerivedProperty( [ GOGlobalOptions.focalLengthControlTypeProperty ],
-          ( focalLengthControlType: FocalLengthControlType ) => ( focalLengthControlType === 'indirect' )
+        visibleProperty: new DerivedProperty( [ GOGlobalOptions.focalLengthModelTypeProperty ],
+          ( focalLengthModelType: FocalLengthModelType ) => ( focalLengthModelType === 'indirect' )
         ),
         tandem: opticSubpanelTandem.createTandem( 'indexOfRefractionControl' )
       } ) );

@@ -39,7 +39,7 @@ class DirectFocalLengthModel extends PhetioObject implements FocalLengthModel {
     const options = optionize<DirectFocalLengthModelOptions, SelfOptions, PhetioObjectOptions>( {
       phetioState: false,
       phetioDocumentation: 'Model of focal length that is used when ' +
-                           `${GOGlobalOptions.focalLengthControlTypeProperty.tandem.phetioID} ` +
+                           `${GOGlobalOptions.focalLengthModelTypeProperty.tandem.phetioID} ` +
                            'is set to \'direct\'. In this model:' +
                            '<ul>' +
                            '<li>focal length is settable' +

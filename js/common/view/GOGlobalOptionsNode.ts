@@ -50,7 +50,7 @@ class GOGlobalOptionsNode extends VBox {
     } );
 
     // Focal Length model type
-    const focalLengthModelControl = new FocalLengthModelTypeControl( GOGlobalOptions.focalLengthControlTypeProperty, {
+    const focalLengthModelControl = new FocalLengthModelTypeControl( GOGlobalOptions.focalLengthModelTypeProperty, {
       visible: !options.isBasicsVersion,
       tandem: options.tandem.createTandem( 'focalLengthModelControl' )
     } );

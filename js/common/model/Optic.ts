@@ -25,7 +25,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import { RaysType } from './RaysType.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
-import { FocalLengthControlType } from './FocalLengthControlType.js';
+import { FocalLengthModelType } from './FocalLengthModelType.js';
 import DirectFocalLengthModel, { DirectFocalLengthModelOptions } from './DirectFocalLengthModel.js';
 import IndirectFocalLengthModel, { IndirectFocalLengthModelOptions } from './IndirectFocalLengthModel.js';
 import { PickOptional, PickRequired } from '../GOTypes.js';
@@ -164,8 +164,8 @@ abstract class Optic extends PhetioObject {
 
     // When switching between focal-length models, transfer value(s) from the previous model to the current model.
     // Constrain values so that floating-point error doesn't cause range exceptions.
-    GOGlobalOptions.focalLengthControlTypeProperty.link( ( focalLengthControlType: FocalLengthControlType ) => {
-      if ( focalLengthControlType === 'direct' ) {
+    GOGlobalOptions.focalLengthModelTypeProperty.link( ( focalLengthModelType: FocalLengthModelType ) => {
+      if ( focalLengthModelType === 'direct' ) {
 
         // Copy focalLength from indirect to direct
         assert && assert( this.directFocalLengthModel.focalLengthMagnitudeProperty.range ); // {Range|null}
@@ -201,11 +201,11 @@ abstract class Optic extends PhetioObject {
     // Convex is positive, concave is negative.
     this.radiusOfCurvatureProperty = new DerivedProperty(
       [ this.opticShapeProperty,
-        GOGlobalOptions.focalLengthControlTypeProperty,
+        GOGlobalOptions.focalLengthModelTypeProperty,
         this.directFocalLengthModel.radiusOfCurvatureMagnitudeProperty,
         this.indirectFocalLengthModel.radiusOfCurvatureMagnitudeProperty ],
       ( opticShape: OpticShape,
-        focalLengthControlType: string,
+        focalLengthModelType: string,
         directRadiusOfCurvatureMagnitude: number,
         indirectRadiusOfCurvatureMagnitude: number ) => {
         if ( opticShape === 'flat' ) {
@@ -213,7 +213,7 @@ abstract class Optic extends PhetioObject {
         }
         else {
           const sign = ( opticShape === 'convex' ) ? 1 : -1;
-          const magnitude = ( focalLengthControlType === 'direct' ) ? directRadiusOfCurvatureMagnitude : indirectRadiusOfCurvatureMagnitude;
+          const magnitude = ( focalLengthModelType === 'direct' ) ? directRadiusOfCurvatureMagnitude : indirectRadiusOfCurvatureMagnitude;
           return sign * magnitude;
         }
       }, {
@@ -231,10 +231,10 @@ abstract class Optic extends PhetioObject {
 
     // Get the index of refraction value from the current focal-length model.
     this.indexOfRefractionProperty = new DerivedProperty(
-      [ GOGlobalOptions.focalLengthControlTypeProperty, this.directFocalLengthModel.indexOfRefractionProperty,
+      [ GOGlobalOptions.focalLengthModelTypeProperty, this.directFocalLengthModel.indexOfRefractionProperty,
         this.indirectFocalLengthModel.indexOfRefractionProperty ],
-      ( focalLengthControlType: string, directIndexOfRefraction: number, indirectIndexOfRefraction: number ) =>
-        ( focalLengthControlType === 'direct' ) ? directIndexOfRefraction : indirectIndexOfRefraction, {
+      ( focalLengthModelType: string, directIndexOfRefraction: number, indirectIndexOfRefraction: number ) =>
+        ( focalLengthModelType === 'direct' ) ? directIndexOfRefraction : indirectIndexOfRefraction, {
         // units: unitless
         tandem: options.tandem.createTandem( 'indexOfRefractionProperty' ),
         phetioDocumentation: 'The index of refraction (IOR) of the optic',
@@ -245,11 +245,11 @@ abstract class Optic extends PhetioObject {
     // Converging is positive, diverging is negative.
     this.focalLengthProperty = new DerivedProperty(
       [ this.opticShapeProperty,
-        GOGlobalOptions.focalLengthControlTypeProperty,
+        GOGlobalOptions.focalLengthModelTypeProperty,
         this.directFocalLengthModel.focalLengthMagnitudeProperty,
         this.indirectFocalLengthModel.focalLengthMagnitudeProperty ],
       ( opticShape: OpticShape,
-        focalLengthControlType: string,
+        focalLengthModelType: string,
         directFocalLengthMagnitude: number,
         indirectFocalLengthMagnitude: number ) => {
         if ( opticShape === 'flat' ) {
@@ -257,7 +257,7 @@ abstract class Optic extends PhetioObject {
         }
         else {
           const sign = this.isConverging( opticShape ) ? 1 : -1;
-          const magnitude = ( focalLengthControlType === 'direct' ) ? directFocalLengthMagnitude : indirectFocalLengthMagnitude;
+          const magnitude = ( focalLengthModelType === 'direct' ) ? directFocalLengthMagnitude : indirectFocalLengthMagnitude;
           return sign * magnitude;
         }
       }, {
