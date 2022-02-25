@@ -8,11 +8,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import IProperty from '../../../../axon/js/IProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Text } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -20,17 +18,21 @@ import GOColors from '../GOColors.js';
 import GOConstants from '../GOConstants.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Property from '../../../../axon/js/Property.js';
+import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
+import { BackgroundNodeOptions } from '../GOTemporaryOptions.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 type XAlign = 'left' | 'center' | 'right';
 type YAlign = 'top' | 'center' | 'bottom';
 
-type LabelNodeOptions = {
+type SelfOptions = {
   xAlign?: XAlign,
   yAlign?: YAlign,
   xOffset?: number,
-  yOffset?: number,
-  visibleProperty?: IProperty<boolean>
+  yOffset?: number
 };
+
+type LabelNodeOptions = SelfOptions & PickOptional<BackgroundNodeOptions, 'visibleProperty'>;
 
 class LabelNode extends BackgroundNode {
 
@@ -53,8 +55,7 @@ class LabelNode extends BackgroundNode {
       maxWidth: 85
     } );
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when BackgroundNodeOptions exists
-    const options = merge( {
+    const options = optionize<LabelNodeOptions, SelfOptions, BackgroundNodeOptions>( {
 
       // LabelNode options
       xAlign: 'center',
