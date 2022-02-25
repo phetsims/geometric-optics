@@ -22,6 +22,8 @@ type MirrorModelOptions = SelfOptions & PickRequired<GOModelOptions, 'tandem'>;
 
 class MirrorModel extends GOModel {
 
+  public readonly resetMirrorModel: () => void;
+
   /**
    * @param providedOptions
    */
@@ -52,13 +54,21 @@ class MirrorModel extends GOModel {
     assert && assert( !options.opticalObjectChoices.includes( OpticalObjectChoice.LIGHT ),
       'Mirror screen does not support Light as an optical object choice' );
 
-    // super is responsible for resetting the mirror
     const mirror = new Mirror( {
       isBasicsVersion: options.isBasicsVersion,
       tandem: options.tandem.createTandem( 'mirror' )
     } );
 
     super( mirror, options );
+
+    this.resetMirrorModel = () => {
+      mirror.reset();
+    };
+  }
+
+  public reset(): void {
+    super.reset();
+    this.resetMirrorModel();
   }
 }
 

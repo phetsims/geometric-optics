@@ -150,10 +150,10 @@ class GOModel {
     } );
 
     this.resetGOModel = () => {
+      // client provided the optic, and is responsible for resetting the optic!
       this.opticalObjectChoiceProperty.reset();
       this.raysTypeProperty.reset();
       this.lightPropagationEnabledProperty.reset();
-      this.optic.reset();
       this.scenes.forEach( scene => scene.reset() );
       this.horizontalRuler.reset();
       this.verticalRuler.reset();

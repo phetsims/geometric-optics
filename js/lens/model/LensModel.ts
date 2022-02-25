@@ -18,6 +18,8 @@ type LensModelOptions = PickRequired<GOModelOptions, 'tandem'>;
 
 class LensModel extends GOModel {
 
+  public readonly resetLensModel: () => void;
+
   /**
    * @param providedOptions
    */
@@ -43,12 +45,20 @@ class LensModel extends GOModel {
 
     }, providedOptions );
 
-    // super is responsible for resetting the lens
     const lens = new Lens( {
       tandem: providedOptions.tandem.createTandem( 'lens' )
     } );
 
     super( lens, options );
+
+    this.resetLensModel = () => {
+      lens.reset();
+    };
+  }
+
+  public reset(): void {
+    super.reset();
+    this.resetLensModel();
   }
 }
 
