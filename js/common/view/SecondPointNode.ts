@@ -9,7 +9,6 @@
 
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
-import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import { Circle, DragListener, FocusHighlightFromNode, KeyboardDragListener, Node, NodeOptions, VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
@@ -22,7 +21,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
-import { ArrowNodeOptions } from '../GOCommonOptions.js';
+import { ArrowNodeOptions, KeyboardDragListenerOptions } from '../GOCommonOptions.js';
 
 type SecondPointNodeOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem' | 'phetioDocumentation'>;
 
@@ -96,12 +95,13 @@ class SecondPointNode extends Node {
     } );
     this.addInputListener( dragListener );
 
-    const keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
-      positionProperty: positionProperty,
-      transform: modelViewTransform,
-      drag: drag
-      //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
-    } ) );
+    const keyboardDragListener = new KeyboardDragListener(
+      optionize<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
+        positionProperty: positionProperty,
+        transform: modelViewTransform,
+        drag: drag
+        //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
+      } ) );
     this.addInputListener( keyboardDragListener );
 
     this.addLinkedElement( secondPoint, {
