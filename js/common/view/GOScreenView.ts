@@ -44,6 +44,8 @@ import LightObjectSceneLabelsNode from './LightObjectSceneLabelsNode.js';
 import GOSceneNode from './GOSceneNode.js';
 import { PickRequired } from '../GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import DragLockedButton from './DragLockedButton.js';
+import IProperty from '../../../../axon/js/IProperty.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.
@@ -60,21 +62,15 @@ type SelfOptions = {
   getViewOrigin: ( layoutBounds: Bounds2 ) => Vector2,
 
   // Creates the Node for the optic
-  createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node,
-
-  dragLockedProperty: BooleanProperty
+  createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node
 };
 
 type GOScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions, 'tandem'>;
 
 class GOScreenView extends ScreenView {
 
-  // Nodes and Tandems needed by subclasses, to add additional Nodes.
-  protected readonly screenViewRootNode: Node;
-  protected readonly controlsLayer: Node;
-  protected readonly opticalObjectChoiceComboBox: Node;
-  protected readonly opticShapeRadioButtonGroup: Node;
-  protected readonly controlsTandem: Tandem;
+  protected readonly dragLockedProperty: IProperty<boolean>;
+  protected readonly dragLockedButton: Node;
 
   // Resets things that are specific to this class.
   private readonly resetGOScreenView: () => void;
@@ -149,6 +145,16 @@ class GOScreenView extends ScreenView {
         return new Bounds2( modelVisibleBounds.minX, -y, modelVisibleBounds.maxX, y );
       } );
 
+    const dragLockedProperty = new BooleanProperty( false, {
+      tandem: providedOptions.tandem.createTandem( 'dragLockedProperty' ),
+      phetioDocumentation: 'Controls dragging of the optical object(s).' +
+                           '<ul>' +
+                           '<li>true: may be dragged horizontally only</li>' +
+                           '<li>false: may be dragged horizontally and vertically</li>' +
+                           '</ul>' +
+                           'Note that this is ignored for framed objects in the Mirror screen. They are permanently locked.'
+    } );
+
     // Rulers  =========================================================================================================
 
     const horizontalRulerNode = new GORulerNode( model.horizontalRuler, model.optic.positionProperty,
@@ -187,7 +193,7 @@ class GOScreenView extends ScreenView {
 
     // Controls  =======================================================================================================
 
-    this.controlsTandem = options.tandem.createTandem( 'controls' );
+    const controlsTandem = options.tandem.createTandem( 'controls' );
 
     // Parent for any popups
     const popupsParent = new Node();
@@ -196,14 +202,21 @@ class GOScreenView extends ScreenView {
     const opticalObjectChoiceComboBox = new OpticalObjectChoiceComboBox( model.opticalObjectChoiceProperty, popupsParent, {
       left: this.layoutBounds.left + 100,
       top: erodedLayoutBounds.top,
-      tandem: this.controlsTandem.createTandem( 'opticalObjectChoiceComboBox' )
+      tandem: controlsTandem.createTandem( 'opticalObjectChoiceComboBox' )
+    } );
+
+    // Toggle button to lock dragging to horizontal
+    const dragLockedButton = new DragLockedButton( dragLockedProperty, {
+      left: opticalObjectChoiceComboBox.right + 25,
+      centerY: opticalObjectChoiceComboBox.centerY,
+      tandem: controlsTandem.createTandem( 'dragLockedButton' )
     } );
 
     // Radio buttons for the shape of the optic
     const opticShapeRadioButtonGroup = new OpticShapeRadioButtonGroup( model.optic, {
       centerX: erodedLayoutBounds.centerX,
       top: erodedLayoutBounds.top,
-      tandem: this.controlsTandem.createTandem( 'opticShapeRadioButtonGroup' )
+      tandem: controlsTandem.createTandem( 'opticShapeRadioButtonGroup' )
     } );
     opticShapeRadioButtonGroup.visible = !options.isBasicsVersion;
 
@@ -216,7 +229,7 @@ class GOScreenView extends ScreenView {
     const controlPanel = new GOControlPanel( model.optic, model.raysTypeProperty, visibleProperties,
       virtualImageCheckboxEnabledProperty, {
         isBasicsVersion: options.isBasicsVersion,
-        tandem: this.controlsTandem.createTandem( 'controlPanel' )
+        tandem: controlsTandem.createTandem( 'controlPanel' )
       } );
     controlPanel.boundsProperty.link( () => {
       controlPanel.centerBottom = erodedLayoutBounds.centerBottom;
@@ -239,12 +252,12 @@ class GOScreenView extends ScreenView {
       },
       left: erodedLayoutBounds.left,
       top: controlPanel.top,
-      tandem: this.controlsTandem.createTandem( 'zoomButtonGroup' )
+      tandem: controlsTandem.createTandem( 'zoomButtonGroup' )
     } );
 
     // Toggle button
     const lightPropagationToggleButton = new LightPropagationToggleButton( model.lightPropagationEnabledProperty, {
-      tandem: this.controlsTandem.createTandem( 'lightPropagationToggleButton' )
+      tandem: controlsTandem.createTandem( 'lightPropagationToggleButton' )
     } );
     lightPropagationToggleButton.centerX = zoomButtonGroup.centerX;
     lightPropagationToggleButton.bottom = controlPanel.bottom;
@@ -257,18 +270,19 @@ class GOScreenView extends ScreenView {
         this.reset();
       },
       rightBottom: erodedLayoutBounds.rightBottom,
-      tandem: this.controlsTandem.createTandem( 'resetAllButton' )
+      tandem: controlsTandem.createTandem( 'resetAllButton' )
     } );
 
     const controlsLayer = new Node( {
       children: [
+        opticalObjectChoiceComboBox,
         opticShapeRadioButtonGroup,
-        controlPanel,
-        lightPropagationToggleButton,
-        resetAllButton,
+        dragLockedButton,
         rulersToolbox,
         zoomButtonGroup,
-        opticalObjectChoiceComboBox
+        lightPropagationToggleButton,
+        controlPanel,
+        resetAllButton
       ]
     } );
 
@@ -281,7 +295,7 @@ class GOScreenView extends ScreenView {
     const arrowObjectSceneNode = new ArrowObjectSceneNode( model.arrowObjectScene, visibleProperties, modelViewTransform,
       modelVisibleBoundsProperty, sceneBoundsProperty, model.raysTypeProperty, model.lightPropagationEnabledProperty, {
         createOpticNode: options.createOpticNode,
-        dragLockedProperty: options.dragLockedProperty,
+        dragLockedProperty: dragLockedProperty,
         visibleProperty: new DerivedProperty( [ model.opticalObjectChoiceProperty ],
           ( opticalObjectChoice: OpticalObjectChoice ) => OpticalObjectChoice.isArrowObject( opticalObjectChoice ) ),
         tandem: scenesTandem.createTandem( 'arrowObjectSceneNode' )
@@ -297,7 +311,7 @@ class GOScreenView extends ScreenView {
     const framedObjectSceneNode = new FramedObjectSceneNode( model.framedObjectScene, visibleProperties, modelViewTransform,
       modelVisibleBoundsProperty, sceneBoundsProperty, model.raysTypeProperty, model.lightPropagationEnabledProperty, {
         createOpticNode: options.createOpticNode,
-        dragLockedProperty: options.dragLockedProperty,
+        dragLockedProperty: dragLockedProperty,
         visibleProperty: new DerivedProperty( [ model.opticalObjectChoiceProperty ],
           ( opticalObjectChoice: OpticalObjectChoice ) => OpticalObjectChoice.isFramedObject( opticalObjectChoice ) ),
         tandem: scenesTandem.createTandem( 'framedObjectSceneNode' )
@@ -317,7 +331,7 @@ class GOScreenView extends ScreenView {
         modelViewTransform, modelVisibleBoundsProperty, sceneBoundsProperty, model.raysTypeProperty,
         model.lightPropagationEnabledProperty, {
           createOpticNode: options.createOpticNode,
-          dragLockedProperty: options.dragLockedProperty,
+          dragLockedProperty: dragLockedProperty,
           visibleProperty: new DerivedProperty( [ model.opticalObjectChoiceProperty ],
             ( opticalObjectChoice: OpticalObjectChoice ) => OpticalObjectChoice.isLight( opticalObjectChoice ) ),
           tandem: scenesTandem.createTandem( 'lightObjectSceneNode' )
@@ -406,6 +420,7 @@ class GOScreenView extends ScreenView {
     this.resetGOScreenView = (): void => {
       visibleProperties.reset();
       zoomLevelProperty.reset();
+      dragLockedProperty.reset();
       arrowObjectSceneNode.reset();
       framedObjectSceneNode.reset();
       lightObjectSceneNode && lightObjectSceneNode.reset();
@@ -415,6 +430,7 @@ class GOScreenView extends ScreenView {
     screenViewRootNode.pdomOrder = [
       scenesLayer,
       opticalObjectChoiceComboBox,
+      dragLockedButton,
       opticShapeRadioButtonGroup,
       rulersToolbox,
       horizontalRulerNode,
@@ -425,10 +441,8 @@ class GOScreenView extends ScreenView {
       resetAllButton
     ];
 
-    this.screenViewRootNode = screenViewRootNode;
-    this.controlsLayer = controlsLayer;
-    this.opticalObjectChoiceComboBox = opticalObjectChoiceComboBox;
-    this.opticShapeRadioButtonGroup = opticShapeRadioButtonGroup;
+    this.dragLockedProperty = dragLockedProperty;
+    this.dragLockedButton = dragLockedButton;
   }
 
   public dispose(): void {

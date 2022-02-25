@@ -51,7 +51,7 @@ class DragLockedButton extends BooleanRectangularToggleButton {
       mouseAreaYDilation: 5,
 
       // phet-io options
-      phetioEnabledPropertyInstrumented: true
+      phetioEnabledPropertyInstrumented: false
     }, providedOptions );
 
     // To make both icons have the same effective size

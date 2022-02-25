@@ -15,10 +15,10 @@ import MirrorModel from '../model/MirrorModel.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Mirror from '../model/Mirror.js';
 import MirrorNode from './MirrorNode.js';
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Optic from '../../common/model/Optic.js';
 import { PickRequired } from '../../common/GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
 
 type MirrorScreenViewOptions = PickRequired<GOScreenViewOptions, 'isBasicsVersion' | 'tandem'>;
 
@@ -31,7 +31,7 @@ class MirrorScreenView extends GOScreenView {
   constructor( model: MirrorModel, providedOptions: MirrorScreenViewOptions ) {
 
     const options = optionize<MirrorScreenViewOptions, {}, GOScreenViewOptions,
-      'getViewOrigin' | 'createOpticNode' | 'dragLockedProperty'>( {
+      'getViewOrigin' | 'createOpticNode'>( {
 
       // View origin is to right, and a little above center.
       getViewOrigin: providedOptions.isBasicsVersion ?
@@ -44,18 +44,20 @@ class MirrorScreenView extends GOScreenView {
         return new MirrorNode( optic as Mirror, modelViewTransform, {
           tandem: parentTandem.createTandem( 'mirrorNode' )
         } );
-      },
-
-      // See https://github.com/phetsims/geometric-optics/issues/288
-      dragLockedProperty: new BooleanProperty( true, {
-        validValues: [ true ],
-        tandem: providedOptions.tandem.createTandem( 'dragLockedProperty' ),
-        phetioDocumentation: 'Mirror screen supports horizontal dragging only.',
-        phetioReadOnly: true
-      } )
+      }
     }, providedOptions );
 
     super( model, options );
+
+    // Enable the drag-locked button only for Arrow object choice. Change the state of dragLockedProperty to indicate
+    // that non-Arrow objects are drag-locked.
+    if ( !options.isBasicsVersion ) {
+      model.opticalObjectChoiceProperty.link( ( opticalObjectChoice: OpticalObjectChoice ) => {
+        const isArrowObject = OpticalObjectChoice.isArrowObject( opticalObjectChoice );
+        this.dragLockedProperty.value = !isArrowObject;
+        this.dragLockedButton.enabled = isArrowObject;
+      } );
+    }
   }
 }
 
