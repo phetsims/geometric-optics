@@ -59,7 +59,6 @@ type SelfOptions = {
 
   // position of the optic, in cm
   position?: Vector2
-
 };
 
 type OpticOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'> & PickOptional<PhetioObjectOptions, 'phetioDocumentation'>;
