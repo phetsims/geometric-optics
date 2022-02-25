@@ -24,6 +24,12 @@ import ArrowImageNode from './ArrowImageNode.js';
 import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 
+type SelfOptions = {
+  dragLockedProperty: IReadOnlyProperty<boolean>
+};
+
+type ArrowObjectSceneNodeOptions = SelfOptions & GOSceneNodeOptions;
+
 class ArrowObjectSceneNode extends GOSceneNode {
 
   // See GOSceneNode
@@ -50,7 +56,7 @@ class ArrowObjectSceneNode extends GOSceneNode {
                sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
                raysTypeProperty: IReadOnlyProperty<RaysType>,
                lightPropagationEnabledProperty: IProperty<boolean>,
-               providedOptions: GOSceneNodeOptions ) {
+               providedOptions: ArrowObjectSceneNodeOptions ) {
 
     super( scene, visibleProperties, modelViewTransform, modelVisibleBoundsProperty, sceneBoundsProperty, raysTypeProperty, providedOptions );
 

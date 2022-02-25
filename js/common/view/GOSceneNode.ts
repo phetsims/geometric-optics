@@ -21,7 +21,6 @@ import TwoFPointNode from './TwoFPointNode.js';
 import GOColors from '../GOColors.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Optic from '../model/Optic.js';
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import GuidesNode from './GuidesNode.js';
 import { RulerHotkeyTarget } from './GORulerNode.js';
@@ -32,10 +31,9 @@ import IProperty from '../../../../axon/js/IProperty.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
-  // Creates the Node for the optic
-  createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node,
 
-  dragLockedProperty: BooleanProperty, //TODO not used in this class, move to subclasses
+  // Creates the Node for the optic
+  createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node
 };
 
 type GOSceneNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem' | 'visibleProperty'>;

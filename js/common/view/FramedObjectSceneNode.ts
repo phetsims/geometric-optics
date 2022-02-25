@@ -27,6 +27,12 @@ import { RulerHotkeyTarget } from './GORulerNode.js';
 import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 
+type SelfOptions = {
+  dragLockedProperty: IReadOnlyProperty<boolean>
+};
+
+type FramedObjectSceneNodeOptions = SelfOptions & GOSceneNodeOptions;
+
 class FramedObjectSceneNode extends GOSceneNode {
 
   // See GOSceneNode
@@ -53,7 +59,7 @@ class FramedObjectSceneNode extends GOSceneNode {
                sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
                raysTypeProperty: IReadOnlyProperty<RaysType>,
                lightPropagationEnabledProperty: IProperty<boolean>,
-               providedOptions: GOSceneNodeOptions ) {
+               providedOptions: FramedObjectSceneNodeOptions ) {
 
     super( scene, visibleProperties, modelViewTransform, modelVisibleBoundsProperty, sceneBoundsProperty, raysTypeProperty, providedOptions );
 
