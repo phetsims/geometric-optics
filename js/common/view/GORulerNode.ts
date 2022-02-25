@@ -28,7 +28,6 @@ import RulerIconNode from './RulerIconNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import IProperty from '../../../../axon/js/IProperty.js';
 import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
 
 // constants
@@ -148,11 +147,10 @@ class GORulerNode extends Node {
       pressCursor: 'pointer',
       useInputListenerCursor: true,
       positionProperty: ruler.positionProperty,
-      dragBoundsProperty: this.dragBoundsProperty as IProperty<Bounds2>, // Cast as we promise not to modify the listener's dragBounds?
+      dragBoundsProperty: this.dragBoundsProperty,
       transform: zoomTransformProperty.value,
       start: () => this.moveToFront(),
       end: ( listener: DragListener ) => {
-        assert && assert( listener.isPressed );
         const pressedListener = listener as PressedDragListener;
 
         // Return ruler to toolbox if the pointer is inside the toolbox.
