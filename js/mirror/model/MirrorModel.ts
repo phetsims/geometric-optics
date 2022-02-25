@@ -43,8 +43,9 @@ class MirrorModel extends GOModel {
       arrowObject2Position: new Vector2( -145, 30 ),
 
       //TODO give FramedObject a bisector line so this isn't empirical
-      // Initial position of the framed object, empirically set so that it appears to sit on the optical axis
-      framedObjectPosition: new Vector2( -130, 72.5 )
+      framedObjectPosition: ( providedOptions.isBasicsVersion ) ?
+                            new Vector2( -170, 27 ) : // empirically set so that it is vertically centered on the optical axis
+                            new Vector2( -130, 72.5 ) // empirically set so that it appears to sit on the optical axis
 
     }, providedOptions );
 
