@@ -15,11 +15,11 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import LensShapes from './LensShapes.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import GOConstants from '../../common/GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Shape from '../../../../kite/js/Shape.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import GOQueryParameters from '../../common/GOQueryParameters.js';
 
 // IOR is a fixed value for the 'direct' focal-length model.
 const DIRECT_INDEX_OF_REFRACTION = 1.5;
@@ -44,16 +44,16 @@ class Lens extends Optic {
     const options = optionize<LensOptions, {}, OpticOptions,
       'opticShapes' | 'diameterRange' | 'sign' | 'directFocalLengthModelOptions' | 'indirectFocalLengthModelOptions'>( {
       opticShapes: [ 'convex', 'concave' ],
-      diameterRange: GOConstants.DIAMETER_RANGE, // in cm
+      diameterRange: GOQueryParameters.dRangeLens, // in cm
       sign: 1,
       directFocalLengthModelOptions: {
-        focalLengthMagnitudeRange: new RangeWithValue( 30, 130, 80 ), // in cm
+        focalLengthMagnitudeRange: GOQueryParameters.fRangeLens, // in cm
         indexOfRefractionRange: new RangeWithValue( DIRECT_INDEX_OF_REFRACTION, DIRECT_INDEX_OF_REFRACTION, DIRECT_INDEX_OF_REFRACTION ), // fixed and unitless
         tandem: focalLengthModelsTandem.createTandem( 'directFocalLengthModel' )
       },
       indirectFocalLengthModelOptions: {
-        radiusOfCurvatureMagnitudeRange: new RangeWithValue( 30, 130, 80 ), // in cm
-        indexOfRefractionRange: new RangeWithValue( 1.2, 1.9, 1.5 ), // unitless
+        radiusOfCurvatureMagnitudeRange: GOQueryParameters.rocRangeLens, // in cm
+        indexOfRefractionRange: GOQueryParameters.iorRangeLens, // unitless
         tandem: focalLengthModelsTandem.createTandem( 'indirectFocalLengthModel' )
       }
     }, providedOptions );

@@ -15,9 +15,9 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import MirrorShapes from './MirrorShapes.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import GOConstants from '../../common/GOConstants.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import GOQueryParameters from '../../common/GOQueryParameters.js';
 
 // IOR is a fixed value for both the 'direct' and 'indirect' focal-length models.
 // Although a mirror does not have an IOR, its focal length is equivalent to a lens with an IOR of 2.
@@ -41,15 +41,15 @@ class Mirror extends Optic {
     const options = optionize<MirrorOptions, SelfOptions, OpticOptions,
       'opticShapes' | 'diameterRange' | 'sign' | 'directFocalLengthModelOptions' | 'indirectFocalLengthModelOptions'>( {
       opticShapes: providedOptions.isBasicsVersion ? [ 'flat' ] : [ 'concave', 'convex', 'flat' ],
-      diameterRange: GOConstants.DIAMETER_RANGE, // in cm
+      diameterRange: GOQueryParameters.dRangeMirror, // in cm
       sign: -1,
       directFocalLengthModelOptions: {
-        focalLengthMagnitudeRange: new RangeWithValue( 75, 125, 90 ), // in cm
+        focalLengthMagnitudeRange: GOQueryParameters.fRangeMirror, // in cm
         indexOfRefractionRange: INDEX_OF_REFRACTION_RANGE,
         tandem: focalLengthModelsTandem.createTandem( 'directFocalLengthModel' )
       },
       indirectFocalLengthModelOptions: {
-        radiusOfCurvatureMagnitudeRange: new RangeWithValue( 150, 300, 180 ), // in cm
+        radiusOfCurvatureMagnitudeRange: GOQueryParameters.rocRangeMirror, // in cm
         indexOfRefractionRange: INDEX_OF_REFRACTION_RANGE,
         tandem: focalLengthModelsTandem.createTandem( 'indirectFocalLengthModel' )
       }

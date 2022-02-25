@@ -12,7 +12,6 @@ import geometricOptics from '../geometricOptics.js';
 import NumberControl from '../../../scenery-phet/js/NumberControl.js';
 import Dimension2 from '../../../dot/js/Dimension2.js';
 import Range from '../../../dot/js/Range.js';
-import RangeWithValue from '../../../dot/js/RangeWithValue.js';
 
 const CONTROL_FONT = new PhetFont( 14 );
 
@@ -29,10 +28,6 @@ const GOConstants = {
     qualityAssurance: 'Steele Dalton, Emily Miller, Nancy Salpepi, Kathryn Woessner',
     graphicArts: 'Megan Lai'
   },
-
-  // Optic -------------------------------------------------------------------------------------------------------------
-
-  DIAMETER_RANGE: new RangeWithValue( 60, 120, 80 ), // cm
 
   // Objects -----------------------------------------------------------------------------------------------------------
 

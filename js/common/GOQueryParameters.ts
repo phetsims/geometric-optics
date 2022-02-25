@@ -8,6 +8,7 @@
  * @author Martin Veillette
  */
 
+import RangeWithValue from '../../../dot/js/RangeWithValue.js';
 import logGlobal from '../../../phet-core/js/logGlobal.js';
 import geometricOptics from '../geometricOptics.js';
 import { FocalLengthModelTypeValues } from './model/FocalLengthModelType.js';
@@ -56,6 +57,62 @@ const SCHEMA_MAP = {
   // Internal query parameters
   //----------------------------------------------------------------------------------------------------------------
 
+  // radius of curvature (ROC) range for the Lens screen
+  rocRangeLens: {
+    type: 'custom',
+    parse: parseRangeWithValue,
+    defaultValue: new RangeWithValue( 30, 130, 80 ),
+    isValidValue: ( range: RangeWithValue ) => ( range.min > 0 )
+  },
+
+  // index of refraction (IOR) range for the Lens screen
+  iorRangeLens: {
+    type: 'custom',
+    parse: parseRangeWithValue,
+    defaultValue: new RangeWithValue( 1.2, 1.9, 1.5 ),
+    isValidValue: ( range: RangeWithValue ) => ( range.min > 0 )
+  },
+
+  // focal length (f) range for the Lens screen
+  fRangeLens: {
+    type: 'custom',
+    parse: parseRangeWithValue,
+    defaultValue: new RangeWithValue( 30, 130, 80 ),
+    isValidValue: ( range: RangeWithValue ) => ( range.min > 0 )
+  },
+
+  // diameter (D) range for the Lens screen
+  dRangeLens: {
+    type: 'custom',
+    parse: parseRangeWithValue,
+    defaultValue: new RangeWithValue( 60, 120, 80 ),
+    isValidValue: ( range: RangeWithValue ) => ( range.min > 0 )
+  },
+
+  // radius of curvature (ROC) range for the Mirror screen
+  rocRangeMirror: {
+    type: 'custom',
+    parse: parseRangeWithValue,
+    defaultValue: new RangeWithValue( 150, 300, 180 ),
+    isValidValue: ( range: RangeWithValue ) => ( range.min > 0 )
+  },
+
+  // focal length (f) range for the Mirror screen
+  fRangeMirror: {
+    type: 'custom',
+    parse: parseRangeWithValue,
+    defaultValue: new RangeWithValue( 75, 125, 90 ),
+    isValidValue: ( range: RangeWithValue ) => ( range.min > 0 )
+  },
+
+  // diameter (D) range for the Mirror screen
+  dRangeMirror: {
+    type: 'custom',
+    parse: parseRangeWithValue,
+    defaultValue: new RangeWithValue( 60, 120, 80 ),
+    isValidValue: ( range: RangeWithValue ) => ( range.min > 0 )
+  },
+
   // speed of light in cm/sec, for the purpose of the light rays animation
   lightSpeed: {
     type: 'number',
@@ -75,7 +132,7 @@ const SCHEMA_MAP = {
 
   // Range of opacity for framed images, see https://github.com/phetsims/geometric-optics/issues/232
   frameImageOpacityRange: {
-   type: 'array',
+    type: 'array',
     elementSchema: {
       type: 'number'
     },
@@ -120,6 +177,18 @@ const SCHEMA_MAP = {
     type: 'flag'
   }
 };
+
+/**
+ * Parses a query-parameter value into a RangeWithValue.
+ * @param value
+ */
+function parseRangeWithValue( value: string ): RangeWithValue {
+  const tokens = value.split( ',' );
+  assert && assert( tokens.length === 3, `range format is min,max: ${value}` );
+  assert && assert( _.every( tokens, ( token: number ) => isFinite( token ) ), `range must be 3 numbers: ${value}` );
+  const numbers = _.map( tokens, token => parseFloat( token ) );
+  return new RangeWithValue( numbers[ 0 ], numbers[ 1 ], numbers[ 2 ] );
+}
 
 const GOQueryParameters = QueryStringMachine.getAll( SCHEMA_MAP );
 GOQueryParameters.SCHEMA_MAP = SCHEMA_MAP;
