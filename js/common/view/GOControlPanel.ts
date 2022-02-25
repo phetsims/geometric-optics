@@ -8,7 +8,6 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import merge from '../../../../phet-core/js/merge.js';
 import { AlignBox, HBox, Text, VBox } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import VSeparator from '../../../../sun/js/VSeparator.js';
@@ -151,15 +150,15 @@ class GOControlPanel extends Panel {
     // Put it all together ---------------------------------------------------------------------------------------
 
     // Vertical separators between sections of the control panel
-    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when VSeparatorOptions exists
     const separatorLength = Math.max( checkboxGroup.height, raysSubpanel.height );
-    const separatorOptions = { stroke: 'gray', lineWidth: 1 };
-    const leftSeparator = new VSeparator( separatorLength, merge( {
+    const leftSeparator = new VSeparator( separatorLength, {
+      stroke: GOColors.panelSeparatorStrokeProperty,
       tandem: options.tandem.createTandem( 'leftSeparator' )
-    }, separatorOptions ) );
-    const rightSeparator = new VSeparator( separatorLength, merge( {
+    } );
+    const rightSeparator = new VSeparator( separatorLength, {
+      stroke: GOColors.panelSeparatorStrokeProperty,
       tandem: options.tandem.createTandem( 'rightSeparator' )
-    }, separatorOptions ) );
+    } );
 
     const content = new AlignBox( new HBox( {
         children: [ raysSubpanel, leftSeparator, opticSubpanel, rightSeparator, checkboxGroup ],

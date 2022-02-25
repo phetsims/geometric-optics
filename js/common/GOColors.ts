@@ -33,6 +33,11 @@ const GOColors = {
     default: 'black'
   } ),
 
+  // Stroke for vertical separators in the control panel
+  panelSeparatorStrokeProperty: new ProfileColorProperty( geometricOptics, 'panelSeparatorStroke', {
+    default: 'gray'
+  } ),
+
   // Fill for the lens
   lensFillProperty: new ProfileColorProperty( geometricOptics, 'lensFill', {
     default: 'rgb( 100, 100, 216 )'

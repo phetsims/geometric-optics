@@ -19,6 +19,8 @@ import BooleanRectangularToggleButton from '../../../../sun/js/buttons/BooleanRe
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import { BooleanRectangularToggleButtonOptions } from '../GOTemporaryOptions.js';
 
 const ARROWS_SCALE = 0.65;
 const LOCK_SCALE = 0.045;
@@ -36,8 +38,7 @@ class DragLockedButton extends BooleanRectangularToggleButton {
    */
   constructor( dragLockedProperty: Property<boolean>, providedOptions?: DragLockedButtonOptions ) {
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when BooleanRectangularToggleButtonOptions exists
-    const options = merge( {
+    const options = optionize<DragLockedButtonOptions, {}, BooleanRectangularToggleButtonOptions>( {
 
       // BooleanRectangularToggleButton options
       baseColor: 'transparent',

@@ -29,6 +29,13 @@ export type ArrowNodeOptions = {
 } & NodeOptions;
 
 export type BooleanRectangularToggleButtonOptions = {
+  touchAreaXDilation?: number,
+  touchAreaYDilation?: number,
+  mouseAreaXDilation?: number,
+  mouseAreaYDilation?: number
+} & ButtonNodeOptions;
+
+export type ButtonNodeOptions = {
   baseColor?: ColorDef,
   disabledColor?: ColorDef,
   buttonAppearanceStrategy?: any
@@ -37,9 +44,9 @@ export type BooleanRectangularToggleButtonOptions = {
 export type KeyboardDragListenerOptions = {
   positionProperty?: IProperty<Vector2> | null,
   dragBoundsProperty?: IProperty<Bounds2> | null,
-  transform: ModelViewTransform2,
-  drag: ( event: SceneryEvent ) => void,
-  end: ( event: SceneryEvent ) => void
+  transform?: ModelViewTransform2,
+  drag?: ( event: SceneryEvent ) => void,
+  end?: ( event: SceneryEvent ) => void
 }
 
 export type NumberControlOptions = {
@@ -66,4 +73,9 @@ export type SliderOptions = {
   thumbSize?: Dimension2,
   thumbTouchAreaXDilation: number,
   thumbTouchAreaYDilation: number
-}
+};
+
+export type VSeparatorOptions = {
+  stroke?: ColorDef,
+  lineWidth?: number
+} & NodeOptions;
