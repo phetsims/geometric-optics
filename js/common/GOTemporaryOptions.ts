@@ -75,7 +75,7 @@ export type KeyboardDragListenerOptions = {
 
 export type NumberControlOptions = {
   delta?: number,
-  layoutFunction?: ( options: any ) => void,
+  layoutFunction?: any,
   titleNodeOptions?: TextOptions,
   sliderOptions: SliderOptions,
   numberDisplayOptions: NumberDisplayOptions
