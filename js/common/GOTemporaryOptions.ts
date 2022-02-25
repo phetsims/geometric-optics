@@ -82,8 +82,9 @@ export type NumberControlOptions = {
 } & NodeOptions;
 
 export type NumberDisplayOptions = {
-  maxWidth?: number,
-  textOptions?: TextOptions | RichTextOptions
+  textOptions?: TextOptions | RichTextOptions,
+  decimalPlaces?: number,
+  valuePattern?: string
 } & NodeOptions;
 
 export type RectangularRadioButtonGroupOptions = {
@@ -110,8 +111,12 @@ export type SimOptions = {
 export type SliderOptions = {
   trackSize?: Dimension2,
   thumbSize?: Dimension2,
-  thumbTouchAreaXDilation: number,
-  thumbTouchAreaYDilation: number
+  thumbTouchAreaXDilation?: number,
+  thumbTouchAreaYDilation?: number,
+  keyboardStep?: number,
+  shiftKeyboardStep?: number,
+  pageKeyboardStep?: number,
+  constrainValue?: ( value: number ) => number
 } & NodeOptions;
 
 export type VSeparatorOptions = {
