@@ -21,7 +21,7 @@ import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 // IOR is a fixed value for both the 'direct' and 'indirect' focal-length models.
 // Although a mirror does not have an IOR, its focal length is equivalent to a lens with an IOR of 2.
-const INDEX_OF_REFRACTION = 2;
+const INDEX_OF_REFRACTION_RANGE = new RangeWithValue( 2, 2, 2 ); // fixed
 
 type SelfOptions = {
   isBasicsVersion: boolean
@@ -45,12 +45,12 @@ class Mirror extends Optic {
       sign: -1,
       directFocalLengthModelOptions: {
         focalLengthMagnitudeRange: new RangeWithValue( 75, 125, 90 ), // in cm
-        indexOfRefractionRange: new RangeWithValue( INDEX_OF_REFRACTION, INDEX_OF_REFRACTION, INDEX_OF_REFRACTION ), // fixed and unitless
+        indexOfRefractionRange: INDEX_OF_REFRACTION_RANGE,
         tandem: focalLengthModelsTandem.createTandem( 'directFocalLengthModel' )
       },
       indirectFocalLengthModelOptions: {
         radiusOfCurvatureMagnitudeRange: new RangeWithValue( 150, 300, 180 ), // in cm
-        indexOfRefractionRange: new RangeWithValue( INDEX_OF_REFRACTION, INDEX_OF_REFRACTION, INDEX_OF_REFRACTION ), // fixed and unitless
+        indexOfRefractionRange: INDEX_OF_REFRACTION_RANGE,
         tandem: focalLengthModelsTandem.createTandem( 'indirectFocalLengthModel' )
       }
     }, providedOptions );
