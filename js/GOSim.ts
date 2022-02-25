@@ -12,16 +12,9 @@ import geometricOptics from './geometricOptics.js';
 import LensScreen from './lens/LensScreen.js';
 import MirrorScreen from './mirror/MirrorScreen.js';
 import GOConstants from './common/GOConstants.js';
-import { Node } from '../../scenery/js/imports.js';
 import optionize from '../../phet-core/js/optionize.js';
 import GOGlobalOptionsNode from './common/view/GOGlobalOptionsNode.js';
-
-//TODO https://github.com/phetsims/geometric-optics/issues/326 should be defined by Sim
-type SimOptions = {
-  credits?: object,
-  hasKeyboardHelpContent?: boolean,
-  createOptionsDialogContent?: ( tandem: Tandem ) => Node
-}
+import { SimOptions } from './common/GOTemporaryOptions.js';
 
 type SelfOptions = {
 

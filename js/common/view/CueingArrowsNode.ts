@@ -7,12 +7,12 @@
  */
 
 import geometricOptics from '../../geometricOptics.js';
-import merge from '../../../../phet-core/js/merge.js';
 import { Path, PathOptions } from '../../../../scenery/js/imports.js';
 import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
 import Shape from '../../../../kite/js/Shape.js';
 import GOConstants from '../GOConstants.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { ArrowNodeOptions } from '../GOTemporaryOptions.js';
 
 type CueingArrowsDirection = 'horizontal' | 'vertical' | 'both';
 
@@ -60,8 +60,7 @@ class CueingArrowsNode extends Path {
 
 function createArrowsShape( direction: CueingArrowsDirection, length: number ): Shape {
 
-  //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when ArrowNodeOptions exists
-  const arrowShapeOptions = merge( {
+  const arrowShapeOptions = optionize<ArrowNodeOptions, {}, ArrowNodeOptions>( {
     doubleHead: true
   }, GOConstants.CUEING_ARROW_SHAPE_OPTIONS );
 

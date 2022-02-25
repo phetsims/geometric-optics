@@ -9,7 +9,6 @@
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { DragListener, FocusHighlightFromNode, KeyboardDragListener, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -24,6 +23,7 @@ import GOQueryParameters from '../GOQueryParameters.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
+import { ArrowNodeOptions, KeyboardDragListenerOptions } from '../GOTemporaryOptions.js';
 
 const SNAP_TO_MIN_MAGNITUDE = 20; // cm
 
@@ -61,11 +61,11 @@ class ArrowObjectNode extends Node {
 
     super( options );
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when ArrowNodeOptions exists
-    const arrowNode = new ArrowNode( 0, 0, 0, 1, merge( {}, GOConstants.ARROW_NODE_OPTIONS, {
-      fill: arrowObject.fill,
-      stroke: null
-    } ) );
+    const arrowNode = new ArrowNode( 0, 0, 0, 1,
+      optionize<ArrowNodeOptions, {}, ArrowNodeOptions>( {}, GOConstants.ARROW_NODE_OPTIONS, {
+        fill: arrowObject.fill,
+        stroke: null
+      } ) );
     this.addChild( arrowNode );
     this.setFocusHighlight( new FocusHighlightFromNode( arrowNode ) );
 
@@ -140,15 +140,15 @@ class ArrowObjectNode extends Node {
     } );
     this.addInputListener( dragListener );
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when KeyboardDragListenerOptions exists
-    const keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
-      positionProperty: arrowObject.positionProperty,
-      dragBoundsProperty: dragBoundsProperty,
-      transform: modelViewTransform,
-      drag: drag,
-      end: end
-      //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
-    } ) );
+    const keyboardDragListener = new KeyboardDragListener(
+      optionize<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
+        positionProperty: arrowObject.positionProperty,
+        dragBoundsProperty: dragBoundsProperty,
+        transform: modelViewTransform,
+        drag: drag,
+        end: end
+        //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
+      } ) );
     this.addInputListener( keyboardDragListener );
 
     // Keep cueing arrows next to the framed object.

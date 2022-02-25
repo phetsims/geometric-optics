@@ -24,8 +24,9 @@ import penguinLeftFacingInverted_png from '../../../images/penguinLeftFacingInve
 import GOConstants from '../GOConstants.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import { Node } from '../../../../scenery/js/imports.js';
-import merge from '../../../../phet-core/js/merge.js';
 import GOColors from '../GOColors.js';
+import { ArrowNodeOptions } from '../GOTemporaryOptions.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 // Set of HTMLImageElements that depict a framed object and its associated optical image
 type ObjectHTMLImageElements = {
@@ -35,12 +36,12 @@ type ObjectHTMLImageElements = {
   leftFacingInverted: HTMLImageElement
 };
 
-//TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when ArrowNodeOptions exists
-const arrowIcon = new ArrowNode( 0, 0, 0, -50, merge( {
-  fill: GOColors.arrow1FillProperty,
-  stroke: null,
-  scale: 0.5
-}, GOConstants.ARROW_NODE_OPTIONS ) );
+const arrowIcon = new ArrowNode( 0, 0, 0, -50,
+  optionize<ArrowNodeOptions, {}, ArrowNodeOptions>( {
+    fill: GOColors.arrow1FillProperty,
+    stroke: null,
+    scale: 0.5
+  }, GOConstants.ARROW_NODE_OPTIONS ) );
 
 class OpticalObjectChoice extends EnumerationValue {
 
