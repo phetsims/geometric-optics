@@ -23,7 +23,7 @@ const GOGlobalOptions = {
       validValues: FocalLengthModelTypeValues,
       tandem: optionsTandem.createTandem( 'focalLengthModelTypeProperty' ),
       phetioType: Property.PropertyIO( StringIO ),
-      phetioDocumentation: 'Determines how focal length is controlled in the Lens and Mirror screens.<br>' +
+      phetioDocumentation: 'Determines how focal length is modeled and controlled in the Lens and Mirror screens.<br>' +
                            'This can also be set via the focalLengthControl query parameter.<br>' +
                            'The values are:' +
                            '<ul/>' +
