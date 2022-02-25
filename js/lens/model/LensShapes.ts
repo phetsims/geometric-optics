@@ -31,7 +31,7 @@ class LensShapes implements OpticShapes {
   // specific to LensShapes
   readonly lensShape: Shape; // the complete lens
 
-  // See OpticShapes
+  // See OpticShapes interface
   readonly frontShape: Shape; // the left half of the lens
   readonly backShape: Shape; // the right half of the lens
   readonly activeBoundsShape: Shape; // the entire lens

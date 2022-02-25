@@ -27,7 +27,7 @@ class MirrorShapes implements OpticShapes {
   readonly reflectiveCoatingShape: Shape; // reflective coating on the front (left-facing) surface of the mirror, with zero area
   readonly backingShape: Shape; // the mirror's backing
 
-  // See OpticShapes
+  // See OpticShapes interface
   readonly frontShape: Shape; // the mirror's reflective coating
   readonly backShape: null; // rays do not pass through a mirror, so there is no hit testing on its back
   readonly activeBoundsShape: Shape; // the mirror's reflective coating
