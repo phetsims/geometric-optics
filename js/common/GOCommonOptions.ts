@@ -27,7 +27,6 @@ export type ArrowNodeOptions = {
   fractionalHeadHeight?: number,
   fill?: ColorDef,
   stroke?: number | null,
-  scale?: number
 } & NodeOptions;
 
 export type BackgroundNodeOptions = {
@@ -53,7 +52,7 @@ export type BooleanRoundToggleButtonOptions = {
 export type ButtonNodeOptions = {
   baseColor?: ColorDef,
   disabledColor?: ColorDef,
-  buttonAppearanceStrategy?: any
+  buttonAppearanceStrategy?: any // ... because this was a can of worms
 } & NodeOptions;
 
 export type ComboBoxOptions = {
@@ -76,7 +75,7 @@ export type KeyboardDragListenerOptions = {
 
 export type NumberControlOptions = {
   delta?: number,
-  layoutFunction?: any,
+  layoutFunction?: any, // ... because this was a can of worms
   titleNodeOptions?: TextOptions,
   sliderOptions?: SliderOptions,
   numberDisplayOptions?: NumberDisplayOptions
