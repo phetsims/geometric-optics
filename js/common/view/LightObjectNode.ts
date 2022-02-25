@@ -17,13 +17,13 @@ import geometricOptics from '../../geometricOptics.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
 import GOConstants from '../../common/GOConstants.js';
 import LightObject from '../model/LightObject.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
+import { KeyboardDragListenerOptions } from '../GOTemporaryOptions.js';
 
 type LightObjectNodeOptions = PickRequired<NodeOptions, 'tandem'>
   & PickOptional<NodeOptions, 'visibleProperty'>;
@@ -143,14 +143,14 @@ class LightObjectNode extends Node {
     } );
     this.addInputListener( dragListener );
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when KeyboardDragListenerOptions exists
-    const keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
-      positionProperty: lightObject.positionProperty,
-      dragBoundsProperty: dragBoundsProperty,
-      drag: drag,
-      transform: modelViewTransform
-      //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
-    } ) );
+    const keyboardDragListener = new KeyboardDragListener(
+      optionize<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
+        positionProperty: lightObject.positionProperty,
+        dragBoundsProperty: dragBoundsProperty,
+        drag: drag,
+        transform: modelViewTransform
+        //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
+      } ) );
     this.addInputListener( keyboardDragListener );
 
     // Keep cueing arrows next to the light image

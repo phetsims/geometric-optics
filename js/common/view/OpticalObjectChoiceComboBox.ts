@@ -8,7 +8,6 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
 import { AlignBox, AlignGroup, HBox, Image, Node, NodeOptions, Text } from '../../../../scenery/js/imports.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
@@ -17,8 +16,9 @@ import GOConstants from '../GOConstants.js';
 import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
+import { ComboBoxOptions } from '../GOTemporaryOptions.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
-//TODO https://github.com/phetsims/geometric-optics/issues/326 should be ComboBoxOptions
 type OpticalObjectChoiceComboBoxOptions = PickRequired<NodeOptions, 'tandem'>
   & PickOptional<NodeOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
 
@@ -31,6 +31,17 @@ class OpticalObjectChoiceComboBox extends ComboBox {
    */
   constructor( opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>, listParent: Node,
                providedOptions: OpticalObjectChoiceComboBoxOptions ) {
+
+    const options = optionize<OpticalObjectChoiceComboBoxOptions, {}, ComboBoxOptions>( {
+
+      // ComboBox options
+      highlightFill: 'rgb( 168, 192, 245 )',
+      listPosition: 'below',
+      xMargin: 10,
+      yMargin: 5,
+      buttonTouchAreaXDilation: 5,
+      buttonTouchAreaYDilation: 5
+    }, providedOptions );
 
     // To make all icons have the same effective dimensions
     const iconsAlignGroup = new AlignGroup();
@@ -63,17 +74,7 @@ class OpticalObjectChoiceComboBox extends ComboBox {
       } ) );
     } );
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when ComboBoxOptions exists
-    super( items, opticalObjectChoiceProperty, listParent, merge( {
-
-      // ComboBox options
-      highlightFill: 'rgb( 168, 192, 245 )',
-      listPosition: 'below',
-      xMargin: 10,
-      yMargin: 5,
-      buttonTouchAreaXDilation: 5,
-      buttonTouchAreaYDilation: 5
-    }, providedOptions ) );
+    super( items, opticalObjectChoiceProperty, listParent, options );
   }
 }
 

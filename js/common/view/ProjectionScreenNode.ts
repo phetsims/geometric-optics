@@ -10,7 +10,6 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Circle, Color, DragListener, FocusHighlightFromNode, Image, KeyboardDragListener, Line, Node, NodeOptions, Path } from '../../../../scenery/js/imports.js';
 import projectionScreenBottom_png from '../../../images/projectionScreenBottom_png.js';
@@ -26,6 +25,7 @@ import GOConstants from '../../common/GOConstants.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import { KeyboardDragListenerOptions } from '../GOTemporaryOptions.js';
 
 type ProjectionScreenNodeOptions = PickRequired<NodeOptions, 'tandem'>;
 
@@ -166,8 +166,8 @@ class ProjectionScreenNode extends Node {
       tandem: options.tandem.createTandem( 'dragListener' )
     } ) );
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when KeyboardDragListenerOptions exists
-    const keyboardDragListener = new KeyboardDragListener( merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
+    const keyboardDragListener = new KeyboardDragListener(
+      optionize<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
       positionProperty: projectionScreen.positionProperty,
       dragBoundsProperty: dragBoundsProperty,
       drag: drag,

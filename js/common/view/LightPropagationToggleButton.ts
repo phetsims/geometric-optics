@@ -8,7 +8,6 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import merge from '../../../../phet-core/js/merge.js';
 import SceneryPhetConstants from '../../../../scenery-phet/js/SceneryPhetConstants.js';
 import { Image, NodeOptions } from '../../../../scenery/js/imports.js';
 import BooleanRoundToggleButton from '../../../../sun/js/buttons/BooleanRoundToggleButton.js';
@@ -17,6 +16,8 @@ import lightPropagationOnIcon_png from '../../../images/lightPropagationOnIcon_p
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import { BooleanRoundToggleButtonOptions } from '../GOTemporaryOptions.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 type LightPropagationToggleButtonOptions = PickRequired<NodeOptions, 'tandem'>;
 
@@ -28,8 +29,7 @@ class LightPropagationToggleButton extends BooleanRoundToggleButton {
    */
   constructor( booleanProperty: Property<boolean>, providedOptions: LightPropagationToggleButtonOptions ) {
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when BooleanRoundToggleButtonOptions exists
-    const options = merge( {
+    const options = optionize<LightPropagationToggleButtonOptions, {}, BooleanRoundToggleButtonOptions>( {
       radius: SceneryPhetConstants.DEFAULT_BUTTON_RADIUS, // so that this button will be the same size as ResetAllButton
       xMargin: 4,
       yMargin: 4,

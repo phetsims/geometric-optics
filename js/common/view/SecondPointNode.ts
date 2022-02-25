@@ -22,6 +22,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import { ArrowNodeOptions } from '../GOTemporaryOptions.js';
 
 type SecondPointNodeOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem' | 'phetioDocumentation'>;
 
@@ -149,9 +150,7 @@ class CueingArrowsNode extends VBox {
   constructor( spacing: number, providedOptions?: NodeOptions ) {
 
     const arrowLength = 20;
-
-    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when ArrowNodeOptions exists
-    const arrowNodeOptions = merge( {
+    const arrowNodeOptions = optionize<ArrowNodeOptions, {}, ArrowNodeOptions>( {
       fill: GOColors.secondPointFillProperty
     }, GOConstants.CUEING_ARROW_SHAPE_OPTIONS );
 

@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
@@ -19,6 +18,8 @@ import LensNode from '../../lens/view/LensNode.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
+import { RectangularRadioButtonGroupOptions } from '../GOTemporaryOptions.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 type OpticShapeRadioButtonGroupOptions = PickRequired<NodeOptions, 'tandem'>
   & PickOptional<NodeOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
@@ -31,21 +32,7 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShape>
    */
   constructor( optic: Optic, providedOptions: OpticShapeRadioButtonGroupOptions ) {
 
-    // A radio button for each shape supported by the optic
-    assert && assert( optic.opticShapeProperty.validValues ); // {OpticShape[]|undefined}
-    const validValues = optic.opticShapeProperty.validValues!;
-
-    const items = validValues.map(
-      ( opticShape: OpticShape ) => {
-        return {
-          value: opticShape,
-          node: ( optic instanceof Lens ) ? LensNode.createIconNode( opticShape ) : MirrorNode.createIconNode( opticShape ),
-          tandemName: `${opticShape}RadioButton`
-        };
-      } );
-
-    //TODO https://github.com/phetsims/geometric-optics/issues/326 convert to optionize when RectangularRadioButtonGroupOptions exits
-    super( optic.opticShapeProperty, items, merge( {
+    const options = optionize<OpticShapeRadioButtonGroupOptions, {}, RectangularRadioButtonGroupOptions>( {
 
       // RectangularRadioButtonGroup options
       orientation: 'horizontal',
@@ -60,7 +47,22 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShape>
       buttonContentYMargin: 5,
       touchAreaXDilation: 4,
       touchAreaYDilation: 5
-    }, providedOptions ) );
+    }, providedOptions );
+
+    // A radio button for each shape supported by the optic
+    assert && assert( optic.opticShapeProperty.validValues ); // {OpticShape[]|undefined}
+    const validValues = optic.opticShapeProperty.validValues!;
+
+    const items = validValues.map(
+      ( opticShape: OpticShape ) => {
+        return {
+          value: opticShape,
+          node: ( optic instanceof Lens ) ? LensNode.createIconNode( opticShape ) : MirrorNode.createIconNode( opticShape ),
+          tandemName: `${opticShape}RadioButton`
+        };
+      } );
+
+    super( optic.opticShapeProperty, items, options );
   }
 }
 

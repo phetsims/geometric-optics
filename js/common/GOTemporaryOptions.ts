@@ -42,11 +42,27 @@ export type BooleanRectangularToggleButtonOptions = {
   mouseAreaYDilation?: number
 } & ButtonNodeOptions;
 
+export type BooleanRoundToggleButtonOptions = {
+  radius?: number,
+  xMargin?: number,
+  yMargin?: number,
+  touchAreaDilation?: number
+} & ButtonNodeOptions;
+
 export type ButtonNodeOptions = {
   baseColor?: ColorDef,
   disabledColor?: ColorDef,
   buttonAppearanceStrategy?: any
 } & NodeOptions;
+
+export type ComboBoxOptions = {
+  highlightFill?: ColorDef,
+  listPosition?: 'above' | 'below',
+  xMargin?: number,
+  yMargin?: number,
+  buttonTouchAreaXDilation?: number,
+  buttonTouchAreaYDilation?: number
+};
 
 export type KeyboardDragListenerOptions = {
   positionProperty?: IProperty<Vector2> | null,
@@ -69,6 +85,21 @@ export type NumberDisplayOptions = {
   maxWidth?: number,
   textOptions?: TextOptions | RichTextOptions
 } & NodeOptions;
+
+export type RectangularRadioButtonGroupOptions = {
+  orientation?: 'horizontal' | 'vertical',
+  spacing?: number,
+  cornerRadius?: number,
+  baseColor?: ColorDef,
+  selectedStroke?: ColorDef,
+  deselectedStroke?: ColorDef,
+  deselectedLineWidth?: number,
+  selectedLineWidth?: number,
+  buttonContentXMargin?: number,
+  buttonContentYMargin?: number,
+  touchAreaXDilation?: number,
+  touchAreaYDilation?: number
+};
 
 export type SimOptions = {
   credits?: object,
