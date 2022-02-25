@@ -50,7 +50,7 @@ abstract class GOSceneNode extends Node {
   // Visibility of the optic. This is needed by subclasses to create their RulerHotkeyTarget[].
   protected readonly opticNodeVisibleProperty: IProperty<boolean>;
 
-  // Various rendering layers
+  // Various rendering layers where subclasses are expected to add Nodes.
   protected readonly opticalAxisForegroundLayer: Node;
   protected readonly opticalObjectsLayer: Node;
   protected readonly opticalImagesLayer: Node;
