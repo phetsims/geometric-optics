@@ -40,7 +40,7 @@ const SCHEMA_MAP = {
     public: true
   },
 
-  // Determines how focal length is controlled in the Lens and Mirror screens.
+  // Determines how focal length is modeled and controlled in the Lens and Mirror screens.
   // direct: provides a control labeled 'Focal Length'
   // indirect: provides controls for optic parameters, from which focal length is derived
   focalLengthControl: {
