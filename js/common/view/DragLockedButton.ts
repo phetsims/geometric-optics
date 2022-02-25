@@ -19,7 +19,7 @@ import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { BooleanRectangularToggleButtonOptions } from '../GOTemporaryOptions.js';
+import { BooleanRectangularToggleButtonOptions } from '../GOCommonOptions.js';
 
 const ARROWS_SCALE = 0.65;
 const LOCK_SCALE = 0.045;

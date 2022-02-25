@@ -25,7 +25,7 @@ import GOConstants from '../GOConstants.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import GOColors from '../GOColors.js';
-import { ArrowNodeOptions } from '../GOTemporaryOptions.js';
+import { ArrowNodeOptions } from '../GOCommonOptions.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 
 // Set of HTMLImageElements that depict a framed object and its associated optical image

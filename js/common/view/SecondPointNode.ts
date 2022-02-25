@@ -22,7 +22,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
-import { ArrowNodeOptions } from '../GOTemporaryOptions.js';
+import { ArrowNodeOptions } from '../GOCommonOptions.js';
 
 type SecondPointNodeOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem' | 'phetioDocumentation'>;
 

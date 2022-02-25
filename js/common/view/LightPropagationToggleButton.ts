@@ -16,7 +16,7 @@ import lightPropagationOnIcon_png from '../../../images/lightPropagationOnIcon_p
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
-import { BooleanRoundToggleButtonOptions } from '../GOTemporaryOptions.js';
+import { BooleanRoundToggleButtonOptions } from '../GOCommonOptions.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 
 type LightPropagationToggleButtonOptions = PickRequired<NodeOptions, 'tandem'>;

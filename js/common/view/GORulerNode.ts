@@ -29,7 +29,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import IProperty from '../../../../axon/js/IProperty.js';
-import { KeyboardDragListenerOptions } from '../GOTemporaryOptions.js';
+import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;

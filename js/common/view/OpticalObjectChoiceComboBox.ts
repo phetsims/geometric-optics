@@ -16,7 +16,7 @@ import GOConstants from '../GOConstants.js';
 import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
-import { ComboBoxOptions } from '../GOTemporaryOptions.js';
+import { ComboBoxOptions } from '../GOCommonOptions.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 
 type OpticalObjectChoiceComboBoxOptions = PickRequired<NodeOptions, 'tandem'>

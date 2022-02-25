@@ -14,7 +14,7 @@ import MirrorScreen from './mirror/MirrorScreen.js';
 import GOConstants from './common/GOConstants.js';
 import optionize from '../../phet-core/js/optionize.js';
 import GOGlobalOptionsNode from './common/view/GOGlobalOptionsNode.js';
-import { SimOptions } from './common/GOTemporaryOptions.js';
+import { SimOptions } from './common/GOCommonOptions.js';
 
 type SelfOptions = {
 

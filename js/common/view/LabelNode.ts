@@ -19,7 +19,7 @@ import GOConstants from '../GOConstants.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Property from '../../../../axon/js/Property.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
-import { BackgroundNodeOptions } from '../GOTemporaryOptions.js';
+import { BackgroundNodeOptions } from '../GOCommonOptions.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 
 type XAlign = 'left' | 'center' | 'right';

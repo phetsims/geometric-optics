@@ -18,7 +18,7 @@ import LensNode from '../../lens/view/LensNode.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
-import { RectangularRadioButtonGroupOptions } from '../GOTemporaryOptions.js';
+import { RectangularRadioButtonGroupOptions } from '../GOCommonOptions.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 
 type OpticShapeRadioButtonGroupOptions = PickRequired<NodeOptions, 'tandem'>
