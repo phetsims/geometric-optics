@@ -20,7 +20,8 @@ import FramedObject from './FramedObject.js';
 import { OpticalImageType } from './OpticalImageType.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import Utils from '../../../../dot/js/Utils.js';
-import { PickOptional, PickRequired } from '../GOTypes.js';
+import { PickRequired } from '../PickRequired.js';
+import { PickOptional } from '../PickOptional.js';
 
 type FramedImageOptions = PickRequired<OpticalImageOptions, 'tandem' | 'phetioDocumentation'>
   & PickOptional<OpticalImageOptions, 'positionProperty'>;

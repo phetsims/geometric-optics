@@ -19,8 +19,8 @@ import Property from '../../../../axon/js/Property.js';
 import { OpticalImageType } from '../model/OpticalImageType.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
-import { PickRequired } from '../GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { PickRequired } from '../PickRequired.js';
 
 type ArrowImageNodeOptions = PickRequired<NodeOptions, 'tandem'>;
 

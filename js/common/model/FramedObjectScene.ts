@@ -22,7 +22,7 @@ import Lens from '../../lens/model/Lens.js';
 import Guides from './Guides.js';
 import SecondPoint from './SecondPoint.js';
 import GOScene, { GOSceneOptions } from './GOScene.js';
-import { PickRequired } from '../GOTypes.js';
+import { PickRequired } from '../PickRequired.js';
 
 type SelfOptions = {
 

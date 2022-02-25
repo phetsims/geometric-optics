@@ -13,7 +13,7 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import { Circle, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
-import { PickRequired } from '../GOTypes.js';
+import { PickRequired } from '../PickRequired.js';
 
 type TwoFPointNodeOptions = PickRequired<NodeOptions, 'tandem'>;
 

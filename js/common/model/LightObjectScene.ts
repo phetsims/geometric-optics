@@ -21,7 +21,7 @@ import OpticalImage from './OpticalImage.js';
 import Guides from './Guides.js';
 import GOScene, { GOSceneOptions } from './GOScene.js';
 import Lens from '../../lens/model/Lens.js';
-import { PickRequired } from '../GOTypes.js';
+import { PickRequired } from '../PickRequired.js';
 
 type SelfOptions = {
   lightObject1Position: Vector2,

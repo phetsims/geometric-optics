@@ -17,7 +17,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import geometricOptics from '../../geometricOptics.js';
-import { PickRequired } from '../GOTypes.js';
+import { PickRequired } from '../PickRequired.js';
 
 // range of the vertical offset for the second point, relative to frame object's position, in cm
 const VERTICAL_OFFSET_RANGE = new Range( -55, 0 );

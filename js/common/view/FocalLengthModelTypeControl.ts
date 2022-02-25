@@ -13,8 +13,9 @@ import geometricOptics from '../../geometricOptics.js';
 import { FocalLengthModelType } from '../model/FocalLengthModelType.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { Text, VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
-import { PickOptional, PickRequired } from '../GOTypes.js';
 import Property from '../../../../axon/js/Property.js';
+import { PickRequired } from '../PickRequired.js';
+import { PickOptional } from '../PickOptional.js';
 
 type FocalLengthModelControlOptions = PickRequired<VBoxOptions, 'tandem'> & PickOptional<VBoxOptions, 'visible'>;
 

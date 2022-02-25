@@ -13,8 +13,8 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Lens from '../../lens/model/Lens.js';
 import Guides from './Guides.js';
-import { PickRequired } from '../GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { PickRequired } from '../PickRequired.js';
 
 type GOSceneOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
 

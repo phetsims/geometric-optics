@@ -19,8 +19,8 @@ import SecondPointNode from './SecondPointNode.js';
 import VisibleProperties from './VisibleProperties.js';
 import TwoFPointNode from './TwoFPointNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import { PickRequired } from '../GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { PickRequired } from '../PickRequired.js';
 
 type SelfOptions = {
   isBasicsVersion: boolean,

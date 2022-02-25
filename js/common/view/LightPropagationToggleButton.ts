@@ -16,7 +16,7 @@ import lightPropagationOffIcon_png from '../../../images/lightPropagationOffIcon
 import lightPropagationOnIcon_png from '../../../images/lightPropagationOnIcon_png.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
-import { PickRequired } from '../GOTypes.js';
+import { PickRequired } from '../PickRequired.js';
 
 type LightPropagationToggleButtonOptions = PickRequired<NodeOptions, 'tandem'>;
 

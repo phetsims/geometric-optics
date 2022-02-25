@@ -18,8 +18,8 @@ import Utils from '../../../../dot/js/Utils.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import { PickRequired } from '../GOTypes.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
+import { PickRequired } from '../PickRequired.js';
 
 type RadiusOfCurvatureControlOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem'>;
 

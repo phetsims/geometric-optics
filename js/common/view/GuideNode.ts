@@ -14,8 +14,8 @@ import { Circle, Node, NodeOptions, Rectangle } from '../../../../scenery/js/imp
 import GOColors from '../../common/GOColors.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from '../model/Guide.js';
-import { PickRequired } from '../GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { PickRequired } from '../PickRequired.js';
 
 // constants, in view coordinates
 const FULCRUM_RADIUS = 5;

@@ -16,9 +16,9 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Mirror from '../model/Mirror.js';
 import MirrorNode from './MirrorNode.js';
 import Optic from '../../common/model/Optic.js';
-import { PickRequired } from '../../common/GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
+import { PickRequired } from '../../common/PickRequired.js';
 
 type MirrorScreenViewOptions = PickRequired<GOScreenViewOptions, 'isBasicsVersion' | 'tandem'>;
 

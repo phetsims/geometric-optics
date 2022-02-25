@@ -13,8 +13,8 @@ import merge from '../../../../phet-core/js/merge.js';
 import GOConstants from '../GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import { PickRequired } from '../GOTypes.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
+import { PickRequired } from '../PickRequired.js';
 
 type DiameterControlOptions = PickRequired<NodeOptions, 'tandem'>;
 

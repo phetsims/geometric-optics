@@ -16,8 +16,8 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Lens from '../model/Lens.js';
 import LensNode from './LensNode.js';
 import Optic from '../../common/model/Optic.js';
-import { PickRequired } from '../../common/GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { PickRequired } from '../../common/PickRequired.js';
 
 type LensScreenViewOptions = PickRequired<GOScreenViewOptions, 'isBasicsVersion' | 'tandem'>;
 

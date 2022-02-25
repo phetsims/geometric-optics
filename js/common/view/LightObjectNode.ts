@@ -21,8 +21,9 @@ import merge from '../../../../phet-core/js/merge.js';
 import GOConstants from '../../common/GOConstants.js';
 import LightObject from '../model/LightObject.js';
 import GOQueryParameters from '../GOQueryParameters.js';
-import { PickOptional, PickRequired } from '../GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { PickRequired } from '../PickRequired.js';
+import { PickOptional } from '../PickOptional.js';
 
 type LightObjectNodeOptions = PickRequired<NodeOptions, 'tandem'>
   & PickOptional<NodeOptions, 'visibleProperty'>;

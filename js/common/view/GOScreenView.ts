@@ -42,10 +42,10 @@ import ArrowObjectSceneLabelsNode from './ArrowObjectSceneLabelsNode.js';
 import LightObjectSceneNode from './LightObjectSceneNode.js';
 import LightObjectSceneLabelsNode from './LightObjectSceneLabelsNode.js';
 import GOSceneNode from './GOSceneNode.js';
-import { PickRequired } from '../GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import DragLockedButton from './DragLockedButton.js';
 import IProperty from '../../../../axon/js/IProperty.js';
+import { PickRequired } from '../PickRequired.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.

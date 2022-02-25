@@ -17,8 +17,8 @@ import LensShapes from '../model/LensShapes.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
 import OriginNode from '../../common/view/OriginNode.js';
-import { PickRequired } from '../../common/GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { PickRequired } from '../../common/PickRequired.js';
 
 // constants
 const FILL = GOColors.lensFillProperty;

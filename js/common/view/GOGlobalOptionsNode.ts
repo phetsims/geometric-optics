@@ -11,9 +11,9 @@ import { VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { PickRequired } from '../GOTypes.js';
 import FocalLengthModelTypeControl from './FocalLengthModelTypeControl.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
+import { PickRequired } from '../PickRequired.js';
 
 type SelfOptions = {
   isBasicsVersion?: boolean

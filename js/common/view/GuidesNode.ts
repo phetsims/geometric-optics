@@ -11,8 +11,9 @@ import geometricOptics from '../../geometricOptics.js';
 import GuideNode from './GuideNode.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Guides from '../model/Guides.js';
-import { PickOptional, PickRequired } from '../GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { PickRequired } from '../PickRequired.js';
+import { PickOptional } from '../PickOptional.js';
 
 type GuidesNodeOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem'>
   & PickOptional<NodeOptions, 'phetioDocumentation'>;

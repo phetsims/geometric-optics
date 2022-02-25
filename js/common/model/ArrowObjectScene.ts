@@ -18,7 +18,7 @@ import ArrowObject from './ArrowObject.js';
 import ArrowImage from './ArrowImage.js';
 import GOColors from '../GOColors.js';
 import GOScene, { GOSceneOptions } from './GOScene.js';
-import { PickRequired } from '../GOTypes.js';
+import { PickRequired } from '../PickRequired.js';
 
 type SelfOptions = {
 

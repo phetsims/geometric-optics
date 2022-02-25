@@ -22,8 +22,9 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
-import { PickOptional, PickRequired } from '../GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { PickRequired } from '../PickRequired.js';
+import { PickOptional } from '../PickOptional.js';
 
 type SelfOptions = {
   position?: Vector2

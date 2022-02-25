@@ -16,8 +16,8 @@ import MirrorShapes from './MirrorShapes.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import GOConstants from '../../common/GOConstants.js';
-import { PickRequired } from '../../common/GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { PickRequired } from '../../common/PickRequired.js';
 
 // Index of refraction is a fixed value for both the 'direct' and 'indirect' focal-length models.
 // Although a mirror does not have an index of refraction, its focal length is equivalent to a lens

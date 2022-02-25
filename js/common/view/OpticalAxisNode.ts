@@ -16,8 +16,9 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import { Line, LineOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
-import { PickOptional, PickRequired } from '../GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { PickRequired } from '../PickRequired.js';
+import { PickOptional } from '../PickOptional.js';
 
 type OpticalAxisNodeOptions = PickRequired<LineOptions, 'visibleProperty'> & PickOptional<LineOptions, 'stroke' | 'tandem'>;
 

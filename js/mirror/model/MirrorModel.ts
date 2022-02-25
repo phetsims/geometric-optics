@@ -11,8 +11,8 @@ import GOModel, { GOModelOptions } from '../../common/model/GOModel.js';
 import geometricOptics from '../../geometricOptics.js';
 import Mirror from './Mirror.js';
 import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
-import { PickRequired } from '../../common/GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { PickRequired } from '../../common/PickRequired.js';
 
 type SelfOptions = {
   isBasicsVersion?: boolean

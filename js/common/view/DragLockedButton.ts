@@ -16,8 +16,9 @@ import merge from '../../../../phet-core/js/merge.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
 import ButtonNode from '../../../../sun/js/buttons/ButtonNode.js';
 import BooleanRectangularToggleButton from '../../../../sun/js/buttons/BooleanRectangularToggleButton.js';
-import { PickOptional, PickRequired } from '../GOTypes.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
+import { PickRequired } from '../PickRequired.js';
+import { PickOptional } from '../PickOptional.js';
 
 const ARROWS_SCALE = 0.65;
 const LOCK_SCALE = 0.045;

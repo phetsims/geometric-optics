@@ -20,8 +20,9 @@ import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import GOConstants from '../../common/GOConstants.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
-import { PickOptional, PickRequired } from '../GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { PickRequired } from '../PickRequired.js';
+import { PickOptional } from '../PickOptional.js';
 
 // constants
 const FULL_INTENSITY_DIAMETER = 7; // cm, any light spot less than this diameter will be full intensity

@@ -27,9 +27,9 @@ import GuidesNode from './GuidesNode.js';
 import { RulerHotkeyTarget } from './GORulerNode.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import GOScene from '../model/GOScene.js';
-import { PickRequired } from '../GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import IProperty from '../../../../axon/js/IProperty.js';
+import { PickRequired } from '../PickRequired.js';
 
 type SelfOptions = {
   // Creates the Node for the optic

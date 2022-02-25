@@ -12,8 +12,9 @@ import { HBox, NodeOptions } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import geometricOptics from '../../geometricOptics.js';
 import GORulerNode from './GORulerNode.js';
-import { PickOptional, PickRequired } from '../GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { PickRequired } from '../PickRequired.js';
+import { PickOptional } from '../PickOptional.js';
 
 //TODO https://github.com/phetsims/geometric-optics/issues/315 should be PanelOptions
 type RulersToolboxOptions = PickRequired<NodeOptions, 'tandem'>

@@ -32,8 +32,8 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { FocalLengthModelType } from '../model/FocalLengthModelType.js';
 import { OpticShape } from '../model/OpticShape.js';
 import Mirror from '../../mirror/model/Mirror.js';
-import { PickRequired } from '../GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { PickRequired } from '../PickRequired.js';
 
 type SelfOptions = {
   isBasicsVersion: boolean

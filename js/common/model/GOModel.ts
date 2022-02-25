@@ -22,9 +22,9 @@ import LightObjectScene from './LightObjectScene.js';
 import GOScene from './GOScene.js';
 import Lens from '../../lens/model/Lens.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import { PickRequired } from '../GOTypes.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { PickRequired } from '../PickRequired.js';
 
 type SelfOptions = {
 

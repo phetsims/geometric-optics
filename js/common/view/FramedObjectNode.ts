@@ -21,8 +21,9 @@ import merge from '../../../../phet-core/js/merge.js';
 import GOConstants from '../GOConstants.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import GOQueryParameters from '../GOQueryParameters.js';
-import { PickOptional, PickRequired } from '../GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { PickRequired } from '../PickRequired.js';
+import { PickOptional } from '../PickOptional.js';
 
 type FramedObjectNodeOptions = PickRequired<NodeOptions, 'tandem'> & PickOptional<NodeOptions, 'visibleProperty'>;
 

@@ -13,7 +13,7 @@ import { Node, NodeOptions, Path } from '../../../../scenery/js/imports.js';
 import GOColors from '../../common/GOColors.js';
 import geometricOptics from '../../geometricOptics.js';
 import LightSpot from '../model/LightSpot.js';
-import { PickRequired } from '../GOTypes.js';
+import { PickRequired } from '../PickRequired.js';
 
 type LightSpotNodeOptions = PickRequired<NodeOptions, 'visibleProperty'>;
 

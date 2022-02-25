@@ -12,8 +12,8 @@ import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioO
 import Optic from './Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from './Guide.js';
-import { PickRequired } from '../GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { PickRequired } from '../PickRequired.js';
 
 type GuidesOptions = PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
 

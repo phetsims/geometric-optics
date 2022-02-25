@@ -16,8 +16,8 @@ import geometricOpticsStrings from '../geometricOpticsStrings.js';
 import LensModel from './model/LensModel.js';
 import LensNode from './view/LensNode.js';
 import LensScreenView from './view/LensScreenView.js';
-import { PickRequired } from '../common/GOTypes.js';
 import optionize from '../../../phet-core/js/optionize.js';
+import { PickRequired } from '../common/PickRequired.js';
 
 type SelfOptions = {
   isBasicsVersion?: boolean

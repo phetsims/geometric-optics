@@ -28,8 +28,9 @@ import GOGlobalOptions from '../GOGlobalOptions.js';
 import { FocalLengthModelType } from './FocalLengthModelType.js';
 import DirectFocalLengthModel, { DirectFocalLengthModelOptions } from './DirectFocalLengthModel.js';
 import IndirectFocalLengthModel, { IndirectFocalLengthModelOptions } from './IndirectFocalLengthModel.js';
-import { PickOptional, PickRequired } from '../GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { PickRequired } from '../PickRequired.js';
+import { PickOptional } from '../PickOptional.js';
 
 // Actual physically-correct values for a flat mirror. We'll show these values in PhET-iO.
 const FLAT_MIRROR_ACTUAL_RADIUS_OF_CURVATURE = Infinity; // positive, to make it convex

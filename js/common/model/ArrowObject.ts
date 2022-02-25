@@ -10,7 +10,7 @@ import geometricOptics from '../../geometricOptics.js';
 import OpticalObject, { OpticalObjectOptions } from './OpticalObject.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import { PickRequired } from '../GOTypes.js';
+import { PickRequired } from '../PickRequired.js';
 
 type SelfOptions = {
   fill: ColorDef // the fill color for the arrow

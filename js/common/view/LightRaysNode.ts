@@ -12,7 +12,7 @@ import { Line, LineOptions, Node, NodeOptions } from '../../../../scenery/js/imp
 import geometricOptics from '../../geometricOptics.js';
 import { LightRaySegment } from '../model/LightRay.js';
 import LightRays from '../model/LightRays.js';
-import { PickOptional } from '../GOTypes.js';
+import { PickOptional } from '../PickOptional.js';
 
 type LightRaysNodeOptions = PickOptional<NodeOptions, 'visibleProperty'>;
 

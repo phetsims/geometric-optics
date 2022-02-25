@@ -14,8 +14,8 @@ import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioO
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import Optic from './Optic.js';
 import geometricOptics from '../../geometricOptics.js';
-import { PickRequired } from '../GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { PickRequired } from '../PickRequired.js';
 
 type GuideLocation = 'top' | 'bottom';
 

@@ -17,7 +17,7 @@ import Shape from '../../../../kite/js/Shape.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
-import { PickRequired } from '../GOTypes.js';
+import { PickRequired } from '../PickRequired.js';
 
 // Dimensions of the screen, in cm. "Near" and "far" refer to pseudo-3D perspective.
 const SCREEN_WIDTH = 42;

@@ -17,7 +17,8 @@ import Lens from '../../lens/model/Lens.js';
 import MirrorNode from '../../mirror/view/MirrorNode.js';
 import LensNode from '../../lens/view/LensNode.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
-import { PickOptional, PickRequired } from '../GOTypes.js';
+import { PickRequired } from '../PickRequired.js';
+import { PickOptional } from '../PickOptional.js';
 
 type OpticShapeRadioButtonGroupOptions = PickRequired<NodeOptions, 'tandem'>
   & PickOptional<NodeOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;

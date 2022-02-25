@@ -21,8 +21,9 @@ import CueingArrowsNode from './CueingArrowsNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import GOQueryParameters from '../GOQueryParameters.js';
-import { PickOptional, PickRequired } from '../GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { PickRequired } from '../PickRequired.js';
+import { PickOptional } from '../PickOptional.js';
 
 const SNAP_TO_MIN_MAGNITUDE = 20; // cm
 
