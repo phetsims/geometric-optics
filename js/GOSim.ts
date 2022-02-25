@@ -31,7 +31,7 @@ type SelfOptions = {
   isBasicsVersion: boolean,
 }
 
-type GOSimOptions = SelfOptions & Pick<SimOptions, 'createOptionsDialogContent'>;
+type GOSimOptions = SelfOptions;
 
 class GOSim extends Sim {
 
