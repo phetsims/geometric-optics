@@ -126,7 +126,7 @@
     "value": "direct (using Focal Length slider)"
   },
   "indirect": {
-    "value": "indirect (calculated from optic parameters)"
+    "value": "indirect (calculated from other optic parameters)"
   },
   "keyboardHelpDialog.moveDraggableItems": {
     "value": "Move Draggable Items"

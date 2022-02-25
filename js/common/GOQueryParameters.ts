@@ -41,8 +41,10 @@ const SCHEMA_MAP = {
   },
 
   // Determines how focal length is modeled and controlled in the Lens and Mirror screens.
+  // This sets the value of GOGlobalOptions.focalLengthModelTypeProperty, but was named focalLengthControl to align
+  // with the 'Focal Length control' label used in the Options dialog.
   // direct: provides a control labeled 'Focal Length'
-  // indirect: provides controls for optic parameters, from which focal length is derived
+  // indirect: provides controls for other optic parameters, from which focal length is derived
   focalLengthControl: {
     type: 'string',
     validValues: FocalLengthModelTypeValues,
