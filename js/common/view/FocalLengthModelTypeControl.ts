@@ -35,20 +35,20 @@ class FocalLengthModelTypeControl extends VBox {
 
     super( options );
 
-    const focalLengthControlText = new Text( geometricOpticsStrings.focalLengthControl, {
+    const labelNode = new Text( geometricOpticsStrings.focalLengthControl, {
       font: GOConstants.CONTROL_FONT,
-      tandem: options.tandem.createTandem( 'focalLengthControlText' )
+      tandem: options.tandem.createTandem( 'labelNode' )
     } );
 
-    const focalLengthControlRadioButtonGroup = new FocalLengthControlRadioButtonGroup( focalLengthControlTypeProperty, {
-      tandem: options.tandem.createTandem( 'focalLengthControlRadioButtonGroup' )
+    const radioButtonGroup = new FocalLengthControlRadioButtonGroup( focalLengthControlTypeProperty, {
+      tandem: options.tandem.createTandem( 'radioButtonGroup' )
     } );
 
-    this.children = [ focalLengthControlText, focalLengthControlRadioButtonGroup ];
+    this.children = [ labelNode, radioButtonGroup ];
 
     this.disposeFocalLengthModelControl = (): void => {
-      focalLengthControlText.dispose();
-      focalLengthControlRadioButtonGroup.dispose();
+      labelNode.dispose();
+      radioButtonGroup.dispose();
     };
   }
 
