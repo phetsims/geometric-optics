@@ -17,13 +17,13 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import OpticShapes from '../../common/model/OpticShapes.js';
 import geometricOptics from '../../geometricOptics.js';
 
+// When isHollywooded:true, this value is added to the actual ROC.
+const HOLLYWOOD_RADIUS_OFFSET = 100; // cm
+
 type LensShapesOptions = {
 
   // true: approximation, false: accurate, matches ROC
-  isHollywooded?: boolean,
-
-  //TODO document
-  offsetRadius?: number
+  isHollywooded?: boolean
 };
 
 class LensShapes implements OpticShapes {
@@ -44,8 +44,7 @@ class LensShapes implements OpticShapes {
   constructor( radiusOfCurvature: number, diameter: number, providedOptions?: LensShapesOptions ) {
 
     const options = optionize<LensShapesOptions, LensShapesOptions>( {
-      isHollywooded: true, // true: approximation, false: accurate, matches ROC
-      offsetRadius: 100 //TODO document
+      isHollywooded: true
     }, providedOptions );
 
     const sign = Math.sign( radiusOfCurvature );
@@ -54,7 +53,7 @@ class LensShapes implements OpticShapes {
 
     // the width of the lens changes with the radius
     const halfWidth = options.isHollywooded ?
-                      1 / 2 * halfHeight * halfHeight / ( magnitude + options.offsetRadius ) :
+                      1 / 2 * halfHeight * halfHeight / ( magnitude + HOLLYWOOD_RADIUS_OFFSET ) :
                       magnitude - Math.sqrt( magnitude ** 2 - halfHeight ** 2 );
 
     // {Shape} shape of lens
