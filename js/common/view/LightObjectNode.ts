@@ -1,6 +1,6 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
-//TODO lots of duplication with FramedObjectNode
+//TODO https://github.com/phetsims/geometric-optics/issues/329 lots of duplication with FramedObjectNode
 /**
  * LightObjectNode is the view of a LightObject.
  *
