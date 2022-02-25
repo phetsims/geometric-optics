@@ -48,7 +48,7 @@ class LensNode extends Node {
       fill: FILL
     } );
 
-    // Separate Node for stroke, because we'll be changing fillNode opacity to match index of refraction.
+    // Separate Node for stroke, because we'll be changing fillNode opacity to match IOR.
     const strokeNode = new Path( null, {
       stroke: STROKE,
       lineWidth: LINE_WIDTH

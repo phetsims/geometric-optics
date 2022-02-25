@@ -21,7 +21,7 @@ import Shape from '../../../../kite/js/Shape.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
-// Index of refraction is a fixed value for the 'direct' focal-length model.
+// IOR is a fixed value for the 'direct' focal-length model.
 const DIRECT_INDEX_OF_REFRACTION = 1.5;
 
 type LensOptions = PickRequired<OpticOptions, 'tandem'>;
@@ -71,7 +71,7 @@ class Lens extends Optic {
     );
 
     // Index of refraction determines the lens opacity.
-    // The lens is never fully transparent, because its index of refraction is not equivalent to air.
+    // The lens is never fully transparent, because its IOR is not equivalent to air.
     // See https://github.com/phetsims/geometric-optics/issues/242
     this.opacityProperty = new DerivedProperty( [ this.indexOfRefractionProperty ],
       ( indexOfRefraction: number ) => {

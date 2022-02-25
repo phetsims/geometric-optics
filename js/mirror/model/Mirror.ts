@@ -19,9 +19,8 @@ import GOConstants from '../../common/GOConstants.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
-// Index of refraction is a fixed value for both the 'direct' and 'indirect' focal-length models.
-// Although a mirror does not have an index of refraction, its focal length is equivalent to a lens
-// with an index of refraction of 2.
+// IOR is a fixed value for both the 'direct' and 'indirect' focal-length models.
+// Although a mirror does not have an IOR, its focal length is equivalent to a lens with an IOR of 2.
 const INDEX_OF_REFRACTION = 2;
 
 type SelfOptions = {

@@ -3,10 +3,9 @@
 /**
  * LensShapes is the set of Shapes that describe a lens. All Shapes are in model coordinates.
  *
- * The lens shape is approximated as a parabolic lens. The radius of curvature does not necessarily match the
- * actual radius of curvature, and can instead be Hollywooded. This gives the flexibility to draw lenses with radius
- * of curvature that is larger than diameter/2, a physical impossibility. The origin (0,0) is at the geometric
- * center of the lens.
+ * The lens shape is approximated as a parabolic lens. The ROC does not necessarily match the actual ROC, and can
+ * instead be Hollywooded. This gives the flexibility to draw lenses with ROC that is larger than diameter/2,
+ * a physical impossibility. The origin (0,0) is at the geometric center of the lens.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)

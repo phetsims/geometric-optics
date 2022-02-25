@@ -1,7 +1,7 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * IndexOfRefractionControl is the control for changing the lens' index of refraction.
+ * IndexOfRefractionControl is the control for changing the lens' index of refraction (IOR).
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

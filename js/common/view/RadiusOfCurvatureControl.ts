@@ -1,9 +1,8 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * RadiusOfCurvatureControl is the control for changing the optic's radius of curvature. It actually changes the
- * radius-of-curvature magnitude, and indicates the sign by an annotation in the control's label, e.g.
- * 'Radius of Curvature (-)'.
+ * RadiusOfCurvatureControl is the control for changing the optic's ROC. It actually changes the ROC magnitude, and
+ * indicates the sign by an annotation in the control's label, e.g. 'Radius of Curvature (-)'.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

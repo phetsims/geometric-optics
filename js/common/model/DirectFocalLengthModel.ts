@@ -2,7 +2,7 @@
 
 /**
  * DirectFocalLengthModel is the model where focal length is set directly.
- * Index of refraction is fixed, and radius of curvature is derived from focal length and index of refraction.
+ * IOR is fixed, and ROC is derived from focal length and IOR.
  * See https://github.com/phetsims/geometric-optics/issues/255
  *
  * @author Chris Malley (PixelZoom, Inc.)

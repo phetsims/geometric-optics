@@ -37,7 +37,7 @@ const FLAT_MIRROR_ACTUAL_RADIUS_OF_CURVATURE = Infinity; // positive, to make it
 const FLAT_MIRROR_ACTUAL_FOCAL_LENGTH = FLAT_MIRROR_ACTUAL_RADIUS_OF_CURVATURE / 2; // f = ROC/2
 
 // The physically-correct values are Infinity, which will cause programming failures.
-// So we'll map those values to a convex mirror with very large radius of curvature.
+// So we'll map those values to a convex mirror with very large ROC.
 // See https://github.com/phetsims/geometric-optics/issues/227
 const FLAT_MIRROR_FINITE_RADIUS_OF_CURVATURE = 200000; // positive, to make it convex
 const FLAT_MIRROR_FINITE_FOCAL_LENGTH = FLAT_MIRROR_FINITE_RADIUS_OF_CURVATURE / 2; // f = ROC/2
@@ -91,11 +91,11 @@ abstract class Optic extends PhetioObject {
   // radius of curvature (ROC) of the optic, convex is positive, concave is negative
   readonly radiusOfCurvatureProperty: IReadOnlyProperty<number>;
 
-  // Radius of curvature is infinite for a flat mirror. This converts it to a very-large finite value.
+  // ROC is infinite for a flat mirror. This converts it to a very-large finite value.
   // Listeners should typically use this instead of radiusOfCurvatureProperty, especially in the view.
   readonly finiteRadiusOfCurvatureProperty: IReadOnlyProperty<number>;
 
-  // index of refraction (IRC)
+  // index of refraction (IOR)
   readonly indexOfRefractionProperty: IReadOnlyProperty<number>;
 
   // focal length (f) of the optic, converging is positive, diverging is negative
@@ -230,7 +230,7 @@ abstract class Optic extends PhetioObject {
                                        FLAT_MIRROR_FINITE_RADIUS_OF_CURVATURE : radiusOfCurvature
     );
 
-    // Get the index of refraction value from the current focal-length model.
+    // Get the IOR value from the current focal-length model.
     this.indexOfRefractionProperty = new DerivedProperty(
       [ GOGlobalOptions.focalLengthModelTypeProperty, this.directFocalLengthModel.indexOfRefractionProperty,
         this.indirectFocalLengthModel.indexOfRefractionProperty ],
