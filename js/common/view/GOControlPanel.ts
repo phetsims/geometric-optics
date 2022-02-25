@@ -33,7 +33,7 @@ import { FocalLengthModelType } from '../model/FocalLengthModelType.js';
 import { OpticShape } from '../model/OpticShape.js';
 import Mirror from '../../mirror/model/Mirror.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { PickRequired } from '../PickRequired.js';
+import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
   isBasicsVersion: boolean

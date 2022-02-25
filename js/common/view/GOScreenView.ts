@@ -45,7 +45,7 @@ import GOSceneNode from './GOSceneNode.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import DragLockedButton from './DragLockedButton.js';
 import IProperty from '../../../../axon/js/IProperty.js';
-import { PickRequired } from '../PickRequired.js';
+import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.

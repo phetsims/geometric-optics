@@ -14,7 +14,7 @@ import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioO
 import Lens from '../../lens/model/Lens.js';
 import Guides from './Guides.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { PickRequired } from '../PickRequired.js';
+import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 type GOSceneOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
 

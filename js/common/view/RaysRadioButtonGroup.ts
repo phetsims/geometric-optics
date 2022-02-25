@@ -16,7 +16,7 @@ import GOConstants from '../GOConstants.js';
 import { RaysType } from '../model/RaysType.js';
 import { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { PickRequired } from '../PickRequired.js';
+import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 type RaysRadioButtonGroupOptions = PickRequired<VerticalAquaRadioButtonGroupOptions, 'tandem'>;
 

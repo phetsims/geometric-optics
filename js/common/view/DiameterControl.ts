@@ -14,7 +14,7 @@ import GOConstants from '../GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
-import { PickRequired } from '../PickRequired.js';
+import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 type DiameterControlOptions = PickRequired<NodeOptions, 'tandem'>;
 

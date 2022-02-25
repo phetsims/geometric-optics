@@ -28,7 +28,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import RulerIconNode from './RulerIconNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { PickRequired } from '../PickRequired.js';
+import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;

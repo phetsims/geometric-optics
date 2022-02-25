@@ -12,7 +12,7 @@ import OpticalObject, { OpticalObjectOptions } from './OpticalObject.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import { PickRequired } from '../PickRequired.js';
+import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
 

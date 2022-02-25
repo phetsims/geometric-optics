@@ -13,7 +13,7 @@ import GOConstants from '../GOConstants.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import FocalLengthModelTypeControl from './FocalLengthModelTypeControl.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
-import { PickRequired } from '../PickRequired.js';
+import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
   isBasicsVersion?: boolean

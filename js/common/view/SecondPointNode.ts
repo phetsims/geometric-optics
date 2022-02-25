@@ -21,7 +21,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import GOQueryParameters from '../GOQueryParameters.js';
-import { PickRequired } from '../PickRequired.js';
+import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 type SecondPointNodeOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem' | 'phetioDocumentation'>;
 

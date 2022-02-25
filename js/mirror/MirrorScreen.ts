@@ -18,7 +18,7 @@ import MirrorScreenView from './view/MirrorScreenView.js';
 import GOKeyboardHelpContent from '../common/view/GOKeyboardHelpContent.js';
 import { OpticShape } from '../common/model/OpticShape.js';
 import optionize from '../../../phet-core/js/optionize.js';
-import { PickRequired } from '../common/PickRequired.js';
+import { PickRequired } from '../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
   isBasicsVersion?: boolean

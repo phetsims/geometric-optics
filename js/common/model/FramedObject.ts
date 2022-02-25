@@ -15,7 +15,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OpticalObject, { OpticalObjectOptions } from './OpticalObject.js';
 import OpticalObjectChoice, { ObjectHTMLImageElements } from './OpticalObjectChoice.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import { PickRequired } from '../PickRequired.js';
+import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 type FramedObjectOptions = PickRequired<OpticalObjectOptions, 'position' | 'tandem'>;
 

@@ -12,7 +12,7 @@ import geometricOptics from '../../geometricOptics.js';
 import Mirror from './Mirror.js';
 import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { PickRequired } from '../../common/PickRequired.js';
+import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
   isBasicsVersion?: boolean

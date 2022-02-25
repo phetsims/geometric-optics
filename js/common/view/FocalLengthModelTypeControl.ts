@@ -14,8 +14,8 @@ import { FocalLengthModelType } from '../model/FocalLengthModelType.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { Text, VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
 import Property from '../../../../axon/js/Property.js';
-import { PickRequired } from '../PickRequired.js';
-import { PickOptional } from '../PickOptional.js';
+import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
 
 type FocalLengthModelControlOptions = PickRequired<VBoxOptions, 'tandem'> & PickOptional<VBoxOptions, 'visible'>;
 

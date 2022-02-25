@@ -23,8 +23,8 @@ import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioO
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { PickRequired } from '../PickRequired.js';
-import { PickOptional } from '../PickOptional.js';
+import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
 
 type SelfOptions = {
   position?: Vector2

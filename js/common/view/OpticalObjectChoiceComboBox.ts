@@ -15,8 +15,8 @@ import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
-import { PickRequired } from '../PickRequired.js';
-import { PickOptional } from '../PickOptional.js';
+import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
 
 //TODO https://github.com/phetsims/geometric-optics/issues/326 should be ComboBoxOptions
 type OpticalObjectChoiceComboBoxOptions = PickRequired<NodeOptions, 'tandem'>

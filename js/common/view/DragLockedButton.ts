@@ -17,8 +17,8 @@ import CueingArrowsNode from './CueingArrowsNode.js';
 import ButtonNode from '../../../../sun/js/buttons/ButtonNode.js';
 import BooleanRectangularToggleButton from '../../../../sun/js/buttons/BooleanRectangularToggleButton.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
-import { PickRequired } from '../PickRequired.js';
-import { PickOptional } from '../PickOptional.js';
+import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
 
 const ARROWS_SCALE = 0.65;
 const LOCK_SCALE = 0.045;

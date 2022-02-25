@@ -18,7 +18,7 @@ import MirrorNode from './MirrorNode.js';
 import Optic from '../../common/model/Optic.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
-import { PickRequired } from '../../common/PickRequired.js';
+import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 type MirrorScreenViewOptions = PickRequired<GOScreenViewOptions, 'isBasicsVersion' | 'tandem'>;
 

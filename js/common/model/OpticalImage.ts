@@ -23,7 +23,7 @@ import { OpticalImageType, OpticalImageTypeValues } from './OpticalImageType.js'
 import GOConstants from '../GOConstants.js';
 import OpticalObject from './OpticalObject.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { PickRequired } from '../PickRequired.js';
+import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
 

@@ -15,7 +15,7 @@ import GOColors from '../../common/GOColors.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from '../model/Guide.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { PickRequired } from '../PickRequired.js';
+import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 // constants, in view coordinates
 const FULCRUM_RADIUS = 5;

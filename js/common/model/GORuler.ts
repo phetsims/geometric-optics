@@ -13,7 +13,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import geometricOptics from '../../geometricOptics.js';
-import { PickRequired } from '../PickRequired.js';
+import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 type RulerOrientation = 'horizontal' | 'vertical';
 

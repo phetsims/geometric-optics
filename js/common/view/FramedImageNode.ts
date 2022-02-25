@@ -21,7 +21,7 @@ import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import { OpticalImageType } from '../model/OpticalImageType.js';
 import GOConstants from '../GOConstants.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { PickRequired } from '../PickRequired.js';
+import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 type FramedImageNodeOptions = PickRequired<NodeOptions, 'tandem'>;
 

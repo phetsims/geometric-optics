@@ -29,7 +29,7 @@ import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import GOScene from '../model/GOScene.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import IProperty from '../../../../axon/js/IProperty.js';
-import { PickRequired } from '../PickRequired.js';
+import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
   // Creates the Node for the optic

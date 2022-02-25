@@ -20,7 +20,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Optic from '../model/Optic.js';
 import OpticLabelNode from './OpticLabelNode.js';
-import { PickRequired } from '../PickRequired.js';
+import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 type GOSceneLabelsNodeOptions = PickRequired<NodeOptions, 'visibleProperty'>;
 

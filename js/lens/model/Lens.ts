@@ -19,7 +19,7 @@ import GOConstants from '../../common/GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Shape from '../../../../kite/js/Shape.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { PickRequired } from '../../common/PickRequired.js';
+import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 // Index of refraction is a fixed value for the 'direct' focal-length model.
 const DIRECT_INDEX_OF_REFRACTION = 1.5;

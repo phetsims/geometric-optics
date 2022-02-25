@@ -18,7 +18,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
-import { PickRequired } from '../PickRequired.js';
+import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 type FocalLengthControlOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem'>;
 

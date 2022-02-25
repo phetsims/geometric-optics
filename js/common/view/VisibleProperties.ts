@@ -12,7 +12,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import geometricOptics from '../../geometricOptics.js';
-import { PickRequired } from '../PickRequired.js';
+import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 type VisiblePropertiesOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
 
