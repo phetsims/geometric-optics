@@ -4,6 +4,14 @@
 
 Ths document is meant and to supplement the source code and comments of the simulation Geometric Optics.
 
+## Abbreviations
+
+**f** = focal length
+
+**IOR** = Index of Refraction
+
+**ROC** = Radius of Curvature
+
 ## Terminology 
 
 Since the language of optics is confusing, and terms overlap with those used in software development, it is
