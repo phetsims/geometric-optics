@@ -164,7 +164,7 @@ abstract class Optic extends PhetioObject {
 
     // When switching between focal-length models, transfer value(s) from the previous model to the current model.
     // Constrain values so that floating-point error doesn't cause range exceptions.
-    GOGlobalOptions.focalLengthModelTypeProperty.link( ( focalLengthModelType: FocalLengthModelType ) => {
+    GOGlobalOptions.focalLengthModelTypeProperty.lazyLink( ( focalLengthModelType: FocalLengthModelType ) => {
       if ( focalLengthModelType === 'direct' ) {
 
         // Copy focalLength from indirect to direct
