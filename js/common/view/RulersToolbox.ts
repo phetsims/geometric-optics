@@ -16,7 +16,6 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
 
-//TODO https://github.com/phetsims/geometric-optics/issues/315 should be PanelOptions
 type RulersToolboxOptions = PickRequired<NodeOptions, 'tandem'>
   & PickOptional<NodeOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
 
