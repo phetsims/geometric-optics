@@ -2,6 +2,7 @@
 
 /**
  * Use PickRequired to pick properties of a type T and make them required.
+ * This is useful when picking superclass options that you want to expose in a subclass API.
  *
  * Example:
  * type MyClassOptions = PickRequired<PhetioObject, 'tandem', 'phetioDocumentation'>;
