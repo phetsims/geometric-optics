@@ -118,8 +118,3 @@ export type SliderOptions = {
   pageKeyboardStep?: number,
   constrainValue?: ( value: number ) => number
 } & NodeOptions;
-
-export type VSeparatorOptions = {
-  stroke?: ColorDef,
-  lineWidth?: number
-} & NodeOptions;
