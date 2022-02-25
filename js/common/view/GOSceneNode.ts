@@ -29,6 +29,7 @@ import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import GOScene from '../model/GOScene.js';
 import { PickRequired } from '../GOTypes.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import IProperty from '../../../../axon/js/IProperty.js';
 
 type SelfOptions = {
   // Creates the Node for the optic
@@ -41,13 +42,13 @@ type GOSceneNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem' | 'vi
 
 abstract class GOSceneNode extends Node {
 
-  // Measurement points for the horizontal ruler
+  // Measurement points for the rulers. When a ruler has focus, J+R hotkey will cycle through these points,
+  // dynamically looking at left-to-right x coordinate.
   public abstract readonly horizontalRulerHotkeyTargets: RulerHotkeyTarget[];
-
-  // Measurement points for the vertical ruler
   public abstract readonly verticalRulerHotkeyTargets: RulerHotkeyTarget[];
 
-  protected readonly opticNode: Node;
+  // Visibility of the optic. This is needed by subclasses to create their RulerHotkeyTarget[].
+  protected readonly opticNodeVisibleProperty: IProperty<boolean>;
 
   // Various rendering layers
   protected readonly opticalAxisForegroundLayer: Node;
@@ -79,7 +80,7 @@ abstract class GOSceneNode extends Node {
 
     super( options );
 
-    this.opticNode = options.createOpticNode( scene.optic, modelViewTransform, options.tandem );
+    const opticNode = options.createOpticNode( scene.optic, modelViewTransform, options.tandem );
 
     const opticalAxisNode = new OpticalAxisNode(
       scene.optic.positionProperty,
@@ -160,13 +161,15 @@ abstract class GOSceneNode extends Node {
       this.opticalObjectsLayer,
       this.opticalImagesLayer,
       this.opticalAxisForegroundLayer,
-      this.opticNode,
+      opticNode,
       opticVerticalAxisNode,
       focalPointsNode,
       twoFPointsNode,
       this.raysForegroundLayer,
       guidesLayer
     ];
+
+    this.opticNodeVisibleProperty = opticNode.visibleProperty;
   }
 }
 

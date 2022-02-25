@@ -145,9 +145,9 @@ class FramedObjectSceneNode extends GOSceneNode {
       secondPointNode
     ];
 
-    // Ruler J+R hotkey will cycle through these positions, from left-to-right x coordinate.
+    // Ruler J+R hotkey will cycle through these positions, dynamically looking at left-to-right x coordinate.
     this.verticalRulerHotkeyTargets = [
-      { positionProperty: scene.optic.positionProperty, visibleProperty: this.opticNode.visibleProperty },
+      { positionProperty: scene.optic.positionProperty, visibleProperty: this.opticNodeVisibleProperty },
       { positionProperty: scene.framedObject.positionProperty, visibleProperty: framedObjectNode.visibleProperty },
       { positionProperty: scene.framedImage1.positionProperty, visibleProperty: framedImageNode.visibleProperty }
     ];

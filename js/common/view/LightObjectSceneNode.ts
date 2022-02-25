@@ -138,9 +138,9 @@ class LightObjectSceneNode extends GOSceneNode {
       projectionScreenNode
     ];
 
-    // Ruler J+R hotkey will cycle through these positions, from left-to-right x coordinate.
+    // Ruler J+R hotkey will cycle through these positions, dynamically looking at left-to-right x coordinate.
     this.verticalRulerHotkeyTargets = [
-      { positionProperty: scene.optic.positionProperty, visibleProperty: this.opticNode.visibleProperty },
+      { positionProperty: scene.optic.positionProperty, visibleProperty: this.opticNodeVisibleProperty },
       { positionProperty: scene.lightObject1.positionProperty, visibleProperty: lightObject1Node.visibleProperty },
       { positionProperty: scene.lightObject2.positionProperty, visibleProperty: lightObject2Node.visibleProperty }
     ];
