@@ -126,9 +126,11 @@ class OpticalImage extends PhetioObject {
         validValues: OpticalImageTypeValues
       } );
 
+    //TODO focalLengthProperty is not used here. But if that dependency is removed, then the image magnification
+    // is incorrect when switching the lens from convex to concave, and the mirror from concave to convex. So
+    // there must be some ordering problem here, or a dependency on focalLengthProperty down in the derivation.
     this.magnificationProperty = new DerivedProperty(
       [ opticalObjectPositionProperty, optic.positionProperty, optic.finiteFocalLengthProperty ],
-      //TODO focalLength is not used, is focalLengthProperty dependency needed?
       ( framedObjectPosition: Vector2, opticPosition: Vector2, focalLength: number ) =>
         this.getMagnification( framedObjectPosition, opticPosition )
     );
