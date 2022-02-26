@@ -65,8 +65,7 @@ class HTMLImageElementObject extends OpticalObject {
 
         // Because changing htmlImageElementProperty may necessitate changing positionProperty to move
         // the Object inside the view's drag bounds, resulting in this derivation being called again.
-        //TODO is this needed?
-        reentrant: true
+        reentrant: true //TODO is this needed?
       } );
   }
 }
