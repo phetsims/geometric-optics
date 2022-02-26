@@ -119,10 +119,8 @@ class OpticalImage extends PhetioObject {
 
     this.visibleProperty = new BooleanProperty( false ); //TODO phet-io instrumentation
 
-    //TODO REVIEW: DerivedProperty that depends on an unlisted Property?
-    this.opticalImageTypeProperty = new DerivedProperty(
-      [ opticalObjectPositionProperty, optic.positionProperty, optic.finiteFocalLengthProperty ],
-      ( ...args: any[] ) => ( this.opticImageDistanceProperty.value < 0 ) ? 'virtual' : 'real', {
+    this.opticalImageTypeProperty = new DerivedProperty( [ this.opticImageDistanceProperty ],
+      ( opticImageDistance: number ) => ( opticImageDistance < 0 ) ? 'virtual' : 'real', {
         tandem: options.tandem.createTandem( 'opticalImageTypeProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( StringIO ),
         validValues: OpticalImageTypeValues
