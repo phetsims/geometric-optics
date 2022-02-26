@@ -117,7 +117,13 @@ class OpticalImage extends PhetioObject {
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
       } );
 
-    this.visibleProperty = new BooleanProperty( false ); //TODO phet-io instrumentation
+    this.visibleProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'visibleProperty' ),
+      phetioReadOnly: true,
+      phetioDocumentation: 'This Property is controlled by the simulation and is therefore read-only. ' +
+                           'When light rays are animated, the optical image is visible only after rays ' +
+                           'have reached the position where the image is formed.'
+    } );
 
     this.opticalImageTypeProperty = new DerivedProperty( [ this.opticImageDistanceProperty ],
       ( opticImageDistance: number ) => ( opticImageDistance < 0 ) ? 'virtual' : 'real', {
