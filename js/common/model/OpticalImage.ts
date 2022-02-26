@@ -56,9 +56,6 @@ class OpticalImage extends PhetioObject {
   // the magnification can be negative, indicating the Image is inverted.
   public readonly magnificationProperty: IReadOnlyProperty<number>;
 
-  //TODO document
-  public readonly isInvertedProperty: IReadOnlyProperty<boolean>;
-
   /**
    * @param opticalObject
    * @param optic
@@ -136,13 +133,6 @@ class OpticalImage extends PhetioObject {
       //TODO focalLength is not used, is focalLengthProperty dependency needed?
       ( framedObjectPosition: Vector2, opticPosition: Vector2, focalLength: number ) =>
         this.getMagnification( framedObjectPosition, opticPosition )
-    );
-
-    //TODO REVIEW: DerivedProperty that depends on an unlisted Property?
-    //TODO shouldn't this just be the sign of this.magnificationProperty?
-    this.isInvertedProperty = new DerivedProperty(
-      [ opticalObjectPositionProperty, optic.positionProperty, optic.finiteFocalLengthProperty ],
-      ( ...args: any[] ) => ( this.opticImageDistanceProperty.value > 0 )
     );
 
     // light intensity of the Image (Hollywood), a value between 0 and 1
