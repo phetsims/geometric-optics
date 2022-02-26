@@ -119,12 +119,13 @@ class ArrowObjectNode extends Node {
       arrowObject.positionProperty.value = dragBounds.closestPointTo( arrowObject.positionProperty.value );
     } );
 
-    // When dragging is completed, snap arrow to its minimum length.
-    const end = () => {
+    // When mouse/touch dragging is completed, check the magnitude of the arrow. If it is less than the minimum
+    // magnitude, snap it to the minimum length. Optionally invert the sign, to facilitate keyboard dragging.
+    const end = ( sign: 1 | -1 ) => {
       const arrowLength = arrowObject.positionProperty.value.y - optic.positionProperty.value.y;
       if ( Math.abs( arrowLength ) < SNAP_TO_MIN_MAGNITUDE ) {
         const x = arrowObject.positionProperty.value.x;
-        const y = Math.sign( arrowLength ) * SNAP_TO_MIN_MAGNITUDE;
+        const y = sign * Math.sign( arrowLength ) * SNAP_TO_MIN_MAGNITUDE;
         arrowObject.positionProperty.value = new Vector2( x, y );
       }
     };
@@ -135,7 +136,7 @@ class ArrowObjectNode extends Node {
       transform: modelViewTransform,
       useParentOffset: true,
       drag: drag,
-      end: end,
+      end: () => end( 1 ),
       tandem: options.tandem.createTandem( 'dragListener' )
     } );
     this.addInputListener( dragListener );
@@ -146,7 +147,7 @@ class ArrowObjectNode extends Node {
         dragBoundsProperty: dragBoundsProperty,
         transform: modelViewTransform,
         drag: drag,
-        end: end
+        end: () => end( -1 )
         //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
       } ) );
     this.addInputListener( keyboardDragListener );
