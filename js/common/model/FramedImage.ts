@@ -62,8 +62,8 @@ class FramedImage extends OpticalImage {
       [ this.htmlImageElementProperty, this.positionProperty, this.magnificationProperty ],
       ( htmlImageElement: HTMLImageElement, position: Vector2, magnification: number ) => {
 
-        const scaleFactor = FramedObject.SCALE_FACTOR;
-        const initialOrigin = FramedObject.ORIGIN_OFFSET.timesScalar( scaleFactor );
+        const scaleFactor = framedObject.scaleFactor;
+        const initialOrigin = framedObject.originOffset.timesScalar( scaleFactor );
         const initialWidth = htmlImageElement.width * scaleFactor;
         const initialHeight = htmlImageElement.height * scaleFactor;
 
