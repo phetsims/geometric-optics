@@ -60,7 +60,7 @@ class FramedObjectNode extends Node {
 
     super( options );
 
-    const imageNode = new Image( framedObject.objectHTMLImageElementsProperty.value.rightFacingUpright );
+    const imageNode = new Image( framedObject.htmlImageElementProperty.value );
 
     // Wrap imageNode in a Node. We need to scale imageNode, but do not want its focus highlight to scale.
     const wrappedImageNode = new Node( {
@@ -91,8 +91,8 @@ class FramedObjectNode extends Node {
     };
 
     // Change the PNG image.
-    framedObject.objectHTMLImageElementsProperty.link( objectHTMLImageElements => {
-      imageNode.image = objectHTMLImageElements.rightFacingUpright;
+    framedObject.htmlImageElementProperty.link( htmlImageElement => {
+      imageNode.image = htmlImageElement;
       updateScale();
     } );
 

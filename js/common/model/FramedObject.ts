@@ -24,6 +24,9 @@ class FramedObject extends OpticalObject {
   // HTMLImageElements used to draw this framed object and its associated image
   public readonly objectHTMLImageElementsProperty: IReadOnlyProperty<ObjectHTMLImageElements>;
 
+  // the PNG file used to visually represent the light
+  public readonly htmlImageElementProperty: IReadOnlyProperty<HTMLImageElement>;
+
   // Where the point-of-interest is relative to the left-top corner of PNG files for framed objects.
   // This is specific to the object PNG files, and must be uniform for all object PNG files.
   // model bounds of this framed object's visual representation
@@ -52,12 +55,7 @@ class FramedObject extends OpticalObject {
       [ opticalObjectChoiceProperty ], ( opticalObjectChoice: OpticalObjectChoice ) => {
         let objectHTMLImageElements = opticalObjectChoice.objectHTMLImageElements;
 
-        // If the object choice isn't a framed object, first fallback is to keep our current value.
-        if ( !objectHTMLImageElements && this.objectHTMLImageElementsProperty ) {
-          objectHTMLImageElements = this.objectHTMLImageElementsProperty.value;
-        }
-
-        // If we didn't have a current value, second fallback is PENCIL.
+        // If the object choice isn't a framed object, fallback to PENCIL.
         if ( !objectHTMLImageElements ) {
           assert && assert( OpticalObjectChoice.PENCIL.objectHTMLImageElements );
           objectHTMLImageElements = OpticalObjectChoice.PENCIL.objectHTMLImageElements!;
@@ -67,11 +65,13 @@ class FramedObject extends OpticalObject {
       }
     );
 
+    this.htmlImageElementProperty = new DerivedProperty( [ this.objectHTMLImageElementsProperty ],
+      ( objectHTMLImageElements: ObjectHTMLImageElements ) => objectHTMLImageElements.rightFacingUpright );
+
     this.boundsProperty = new DerivedProperty(
-      [ this.objectHTMLImageElementsProperty, this.positionProperty ],
-      ( htmlImageElements: ObjectHTMLImageElements, position: Vector2 ) =>
-        OpticalObject.computeBounds( htmlImageElements.rightFacingUpright, position,
-          FramedObject.SCALE_FACTOR, FramedObject.ORIGIN_OFFSET ), {
+      [ this.htmlImageElementProperty, this.positionProperty ],
+      ( htmlImageElement: HTMLImageElement, position: Vector2 ) =>
+        OpticalObject.computeBounds( htmlImageElement, position, FramedObject.SCALE_FACTOR, FramedObject.ORIGIN_OFFSET ), {
 
         // Because changing objectHTMLImageElementsProperty may necessitate changing positionProperty to move
         // the Object inside the view's drag bounds, resulting in this derivation being called again.
