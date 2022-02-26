@@ -101,9 +101,9 @@ class LightSpot extends PhetioObject {
       } );
 
     // The normalized intensity of the light spot, in the range [0,1].
-    // Physically, the spot is dimmer when the light is spread on a larger surface.
+    // The spot is dimmer when the light is spread on a larger surface.
     // To preserve dynamic range, the intensity is instead inversely proportional to the diameter.
-    // The value saturates to max intensity for a spot height smaller than FULL_BRIGHT_SPOT_HEIGHT
+    // The value saturates to max intensity for a spot diameter <= FULL_INTENSITY_DIAMETER.
     this.intensityProperty = new DerivedProperty( [ this.diameterProperty ],
       ( diameter: number | null ) => ( diameter === null || diameter === 0 ) ? null :
                                      GOConstants.INTENSITY_RANGE.constrainValue( FULL_INTENSITY_DIAMETER / diameter ), {
