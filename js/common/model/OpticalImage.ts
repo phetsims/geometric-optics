@@ -28,7 +28,7 @@ import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 type SelfOptions = {
 
   // Optional alternate position, defaults to opticalObject.positionProperty
-  // This is used for the second point on the frame objects.
+  // This is used for the second point-of-interest on the frame objects.
   positionProperty?: IReadOnlyProperty<Vector2>
 };
 
