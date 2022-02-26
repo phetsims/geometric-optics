@@ -43,7 +43,7 @@ class OpticalImage extends PhetioObject {
   public readonly positionProperty: IReadOnlyProperty<Vector2>;
 
   // horizontal "distance" between Image and optic
-  public readonly visibleProperty: Property<boolean>; //TODO reset?
+  public readonly visibleProperty: Property<boolean>;
 
   // For a mirror, the Image is virtual if the Image is on the opposite of the object
   readonly opticalImageTypeProperty: IReadOnlyProperty<OpticalImageType>;
