@@ -16,26 +16,25 @@ import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import SecondPoint from '../model/SecondPoint.js';
 import GOConstants from '../GOConstants.js';
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { ArrowNodeOptions, KeyboardDragListenerOptions } from '../GOCommonOptions.js';
+import IProperty from '../../../../axon/js/IProperty.js';
 
 type SecondPointNodeOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem' | 'phetioDocumentation'>;
 
 class SecondPointNode extends Node {
 
-  // Resets things that are specific to this class.
-  private readonly resetSecondPointNode: () => void;
-
   /**
    * @param secondPoint
    * @param modelViewTransform
+   * @param wasDraggedProperty
    * @param providedOptions
    */
-  constructor( secondPoint: SecondPoint, modelViewTransform: ModelViewTransform2, providedOptions: SecondPointNodeOptions ) {
+  constructor( secondPoint: SecondPoint, modelViewTransform: ModelViewTransform2, wasDraggedProperty: IProperty<boolean>,
+               providedOptions: SecondPointNodeOptions ) {
 
     const options = optionize<SecondPointNodeOptions, {}, NodeOptions>( {
 
@@ -55,11 +54,6 @@ class SecondPointNode extends Node {
     const pointNode = new PointNode();
     this.addChild( pointNode );
     this.setFocusHighlight( new FocusHighlightFromNode( pointNode ) );
-
-    const wasDraggedProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'wasDraggedProperty' ),
-      phetioReadOnly: true
-    } );
 
     // Cueing arrows
     const cueingArrowsNode = new CueingArrowsNode( pointNode.width + 10, {
@@ -107,10 +101,6 @@ class SecondPointNode extends Node {
     this.addLinkedElement( secondPoint, {
       tandem: options.tandem.createTandem( 'secondPoint' )
     } );
-
-    this.resetSecondPointNode = (): void => {
-      wasDraggedProperty.reset();
-    };
   }
 
   /**
@@ -123,10 +113,6 @@ class SecondPointNode extends Node {
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
-  }
-
-  public reset(): void {
-    this.resetSecondPointNode();
   }
 }
 

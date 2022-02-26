@@ -2,9 +2,10 @@
 
 /**
  * HTMLImageElementObject is the base-class model for all optical objects that use an HTMLImageElement for their
- * visual representation.
+ * visual representation. Framed objects and light objects are subclasses of this object type.
  *
  * @author Chris Malley (PixelZoom, Inc.)
+ * @author Martin Veillette
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
@@ -22,6 +23,9 @@ type HTMLImageElementObjectOptions = PickRequired<OpticalObjectOptions, 'positio
 
 class HTMLImageElementObject extends OpticalObject {
 
+  // The HTMLImageElement used to visually represent the optical object.
+  public readonly htmlImageElementProperty: IReadOnlyProperty<HTMLImageElement>;
+
   // Where the point-of-interest is relative to the left-top corner of the HTMLImageElement.
   // This should be uniform for all values of htmlImageElementProperty.
   public readonly originOffset: Vector2;
@@ -30,7 +34,7 @@ class HTMLImageElementObject extends OpticalObject {
   // This should be uniform for all values of htmlImageElementProperty.
   public readonly scaleFactor: number
 
-  // model bounds of this framed object's visual representation
+  // model bounds of this object's visual representation
   public readonly boundsProperty: IReadOnlyProperty<Bounds2>;
 
   /**
@@ -50,6 +54,7 @@ class HTMLImageElementObject extends OpticalObject {
     
     super( opticalObjectNumber, opticPositionProperty, providedOptions );
 
+    this.htmlImageElementProperty = htmlImageElementProperty;
     this.originOffset = originOffset;
     this.scaleFactor = scaleFactor;
 

@@ -26,6 +26,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { RulerHotkeyTarget } from './GORulerNode.js';
 import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
 import IProperty from '../../../../axon/js/IProperty.js';
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 
 type SelfOptions = {
   dragLockedProperty: IReadOnlyProperty<boolean>
@@ -63,15 +64,27 @@ class FramedObjectSceneNode extends GOSceneNode {
 
     super( scene, visibleProperties, modelViewTransform, modelVisibleBoundsProperty, sceneBoundsProperty, raysTypeProperty, providedOptions );
 
+    const framedObjectWasDraggedProperty = new BooleanProperty( false, {
+      tandem: providedOptions.tandem.createTandem( 'framedObjectWasDraggedProperty' ),
+      phetioReadOnly: true,
+      phetioDocumentation: 'Was the framed object dragged?'
+    } );
+
     // Framed object
-    const framedObjectNode = new FramedObjectNode( scene.framedObject,
-      sceneBoundsProperty, scene.optic.positionProperty, modelViewTransform, providedOptions.dragLockedProperty, {
+    const framedObjectNode = new FramedObjectNode( scene.framedObject, sceneBoundsProperty, scene.optic.positionProperty,
+      modelViewTransform, providedOptions.dragLockedProperty, framedObjectWasDraggedProperty, {
         tandem: providedOptions.tandem.createTandem( 'framedObjectNode' )
       } );
     this.opticalObjectsLayer.addChild( framedObjectNode );
 
+    const secondPointWasDraggedProperty = new BooleanProperty( false, {
+      tandem: providedOptions.tandem.createTandem( 'secondPointWasDraggedProperty' ),
+      phetioReadOnly: true,
+      phetioDocumentation: 'Was the second point on the framed object dragged?'
+    } );
+
     // Second point-of-interest on the framed object
-    const secondPointNode = new SecondPointNode( scene.secondPoint, modelViewTransform, {
+    const secondPointNode = new SecondPointNode( scene.secondPoint, modelViewTransform, secondPointWasDraggedProperty, {
       visibleProperty: visibleProperties.secondPointVisibleProperty,
       tandem: providedOptions.tandem.createTandem( 'secondPointNode' ),
       phetioDocumentation: 'second point-of-interest on the framed object'
@@ -164,8 +177,8 @@ class FramedObjectSceneNode extends GOSceneNode {
     ];
 
     this.resetFrameObjectSceneNode = () => {
-      framedObjectNode.reset();
-      secondPointNode.reset();
+      framedObjectWasDraggedProperty.reset();
+      secondPointWasDraggedProperty.reset();
     };
   }
 
