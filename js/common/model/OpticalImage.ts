@@ -27,7 +27,7 @@ import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
 
-  // Optional position, defaults to opticalObject.positionProperty
+  // Optional alternate position, defaults to opticalObject.positionProperty
   positionProperty?: IReadOnlyProperty<Vector2>
 };
 
