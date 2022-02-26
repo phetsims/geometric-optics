@@ -43,9 +43,7 @@ class OpticalImage extends PhetioObject {
   public readonly positionProperty: IReadOnlyProperty<Vector2>;
 
   // horizontal "distance" between Image and optic
-  //TODO visibleProperty should not be in the model
-  //TODO reset?
-  public readonly visibleProperty: Property<boolean>;
+  public readonly visibleProperty: Property<boolean>; //TODO reset?
 
   // For a mirror, the Image is virtual if the Image is on the opposite of the object
   readonly opticalImageTypeProperty: IReadOnlyProperty<OpticalImageType>;
@@ -141,7 +139,7 @@ class OpticalImage extends PhetioObject {
     );
 
     //TODO REVIEW: DerivedProperty that depends on an unlisted Property?
-    //TODO shouldn't this just depend on the sign of this.magnificationProperty?
+    //TODO shouldn't this just be the sign of this.magnificationProperty?
     this.isInvertedProperty = new DerivedProperty(
       [ opticalObjectPositionProperty, optic.positionProperty, optic.finiteFocalLengthProperty ],
       ( ...args: any[] ) => ( this.opticImageDistanceProperty.value > 0 )
