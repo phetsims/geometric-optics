@@ -56,8 +56,7 @@ class FramedImageNode extends Node {
 
     super( options );
 
-    assert && assert( framedImage.imageProperty.value ); // {HTMLImageElement|null}
-    const imageNode = new Image( framedImage.imageProperty.value!, {
+    const imageNode = new Image( framedImage.htmlImageElementProperty.value, {
       hitTestPixels: true // See https://github.com/phetsims/geometric-optics/issues/283
     } );
 
@@ -96,15 +95,10 @@ class FramedImageNode extends Node {
     } );
 
     // Update the image and mask
-    framedImage.imageProperty.link( image => {
-      if ( image ) {
-        imageNode.image = image!;
-        maskNode.shape = imageNode.getSelfShape();
-        updateScaleAndPosition();
-      }
-      else {
-        maskNode.shape = null;
-      }
+    framedImage.htmlImageElementProperty.link( htmlImageElement => {
+      imageNode.image = htmlImageElement;
+      maskNode.shape = imageNode.getSelfShape();
+      updateScaleAndPosition();
     } );
 
     this.addLinkedElement( framedImage, {

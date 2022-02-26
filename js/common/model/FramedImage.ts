@@ -29,7 +29,7 @@ type FramedImageOptions = PickRequired<OpticalImageOptions, 'tandem' | 'phetioDo
 class FramedImage extends OpticalImage {
 
   // the HTMLImageElement to display
-  readonly imageProperty: IReadOnlyProperty<HTMLImageElement>;
+  readonly htmlImageElementProperty: IReadOnlyProperty<HTMLImageElement>;
 
   readonly opacityProperty: IReadOnlyProperty<number>;
 
@@ -45,7 +45,7 @@ class FramedImage extends OpticalImage {
 
     super( framedObject, optic, providedOptions );
 
-    this.imageProperty = new DerivedProperty(
+    this.htmlImageElementProperty = new DerivedProperty(
       [ framedObject.objectHTMLImageElementsProperty, this.opticalImageTypeProperty ],
       ( objectHTMLImageElements: ObjectHTMLImageElements, opticalImageType: OpticalImageType ) => {
         const isLens = ( optic instanceof Lens );
@@ -59,13 +59,13 @@ class FramedImage extends OpticalImage {
     );
 
     this.boundsProperty = new DerivedProperty(
-      [ this.imageProperty, this.positionProperty, this.magnificationProperty ],
-      ( image: HTMLImageElement, position: Vector2, magnification: number ) => {
+      [ this.htmlImageElementProperty, this.positionProperty, this.magnificationProperty ],
+      ( htmlImageElement: HTMLImageElement, position: Vector2, magnification: number ) => {
 
         const scaleFactor = FramedObject.SCALE_FACTOR;
         const initialOrigin = FramedObject.ORIGIN_OFFSET.timesScalar( scaleFactor );
-        const initialWidth = image.width * scaleFactor;
-        const initialHeight = image.height * scaleFactor;
+        const initialWidth = htmlImageElement.width * scaleFactor;
+        const initialHeight = htmlImageElement.height * scaleFactor;
 
         const origin = initialOrigin.timesScalar( magnification );
         const offsetX = -origin.x;
