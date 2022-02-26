@@ -56,6 +56,8 @@ class OpticalImage extends PhetioObject {
   // the magnification can be negative, indicating the Image is inverted.
   public readonly magnificationProperty: IReadOnlyProperty<number>;
 
+  public readonly resetOpticalImage: () => void;
+
   /**
    * @param opticalObject
    * @param optic
@@ -160,6 +162,14 @@ class OpticalImage extends PhetioObject {
       }, {
         isValidValue: ( value: number ) => GOConstants.INTENSITY_RANGE.contains( value )
       } );
+
+    this.resetOpticalImage = () => {
+      this.visibleProperty.reset();
+    };
+  }
+
+  public reset(): void {
+    this.resetOpticalImage();
   }
 
   public dispose(): void {

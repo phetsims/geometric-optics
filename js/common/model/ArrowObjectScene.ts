@@ -113,6 +113,8 @@ class ArrowObjectScene extends GOScene {
     this.resetArrowObjectScene = () => {
       this.arrowObject1.reset();
       this.arrowObject2.reset();
+      this.arrowImage1.reset();
+      this.arrowImage2.reset();
     };
   }
 

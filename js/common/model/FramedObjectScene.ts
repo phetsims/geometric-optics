@@ -115,6 +115,8 @@ class FramedObjectScene extends GOScene {
     this.resetFramedObjectScene = () => {
       this.framedObject.reset();
       this.secondPoint.reset();
+      this.framedImage1.reset();
+      this.framedImage2.reset();
     };
   }
 

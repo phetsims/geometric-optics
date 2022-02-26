@@ -131,6 +131,8 @@ class LightObjectScene extends GOScene {
     this.resetLightObjectScene = () => {
       this.lightObject1.reset();
       this.lightObject2.reset();
+      this.opticalImage1.reset();
+      this.opticalImage2.reset();
       this.projectionScreen.reset();
     };
   }
