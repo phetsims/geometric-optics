@@ -35,7 +35,7 @@ class LightRay {
   // segments for the virtual rays
   readonly virtualSegments: Array<LightRaySegment>;
 
-  // true when the LightRay has reached the point where the optial image would form
+  // true when the LightRay has reached the point where the optical image would form
   readonly isTargetReached: boolean; //TODO does this need to be a Property for PhET-iO state?
 
   // a collection of sequential rays
