@@ -79,6 +79,10 @@ class ArrowImageNode extends Node {
     arrowImage.opacityProperty.link( ( opacity: number ) => {
       this.opacity = opacity;
     } );
+
+    this.addLinkedElement( arrowImage, {
+      tandem: options.tandem.createTandem( 'arrowImage' )
+    } );
   }
 }
 
