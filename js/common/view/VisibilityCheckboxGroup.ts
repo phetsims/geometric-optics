@@ -90,6 +90,9 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
     if ( isLens ) {
       items.push( createItem( geometricOpticsStrings.guides, visibleProperties.guidesVisibleProperty, {
         iconNode: GuideNode.createIcon(),
+        options: {
+          visible: GOQueryParameters.enableGuides
+        },
         tandem: options.tandem.createTandem( 'guidesCheckbox' )
       } ) );
     }
