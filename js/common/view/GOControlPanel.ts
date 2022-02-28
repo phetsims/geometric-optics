@@ -8,7 +8,7 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import { AlignBox, HBox } from '../../../../scenery/js/imports.js';
+import { HBox } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import VSeparator from '../../../../sun/js/VSeparator.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -77,14 +77,11 @@ class GOControlPanel extends Panel {
       tandem: options.tandem.createTandem( 'rightSeparator' )
     } );
 
-    //TODO why are we using AlignBox here?
-    const content = new AlignBox( new HBox( {
-        children: [ raysSubpanel, leftSeparator, opticSubpanel, rightSeparator, checkboxGroup ],
-        spacing: 20,
-        align: 'center'
-      } ),
-      { xAlign: 'left' }
-    );
+    const content = new HBox( {
+      children: [ raysSubpanel, leftSeparator, opticSubpanel, rightSeparator, checkboxGroup ],
+      spacing: 20,
+      align: 'center'
+    } );
 
     super( content, options );
   }
