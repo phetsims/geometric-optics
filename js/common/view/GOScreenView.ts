@@ -115,8 +115,8 @@ class GOScreenView extends ScreenView {
       numberType: 'Integer',
       range: new Range( 0, ZOOM_SCALES.length - 1 ),
       tandem: options.tandem.createTandem( 'zoomLevelProperty' ),
-      phetioDocumentation: 'This Property is controlled by the zoom buttons.' +
-                           'An integer index that tells the sim how to scale the view. ' +
+      phetioDocumentation: 'This Property is controlled by the zoom buttons. ' +
+                           'It is integer index that tells the sim how to scale the view. ' +
                            'Smaller values are more zoomed out. ' +
                            'See zoomScaleProperty for the actual scale value.'
     } );
