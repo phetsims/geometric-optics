@@ -27,6 +27,11 @@ import { Node } from '../../../../scenery/js/imports.js';
 import GOColors from '../GOColors.js';
 import { ArrowNodeOptions } from '../GOCommonOptions.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import starRightFacingUpright_png from '../../../images/starRightFacingUpright_png.js';
+import starRightFacingInverted_png from '../../../images/starRightFacingInverted_png.js';
+import starLeftFacingUpright_png from '../../../images/starLeftFacingUpright_png.js';
+import starLeftFacingInverted_png from '../../../images/starLeftFacingInverted_png.js';
+import starIcon_png from '../../../images/starIcon_png.js';
 
 // Set of HTMLImageElements that depict a framed object and its associated optical image
 type ObjectHTMLImageElements = {
@@ -61,12 +66,20 @@ class OpticalObjectChoice extends EnumerationValue {
     leftFacingInverted: penguinLeftFacingInverted_png
   } );
 
+  static STAR = new OpticalObjectChoice( geometricOpticsStrings.star, starIcon_png, 'star', {
+    rightFacingUpright: starRightFacingUpright_png,
+    rightFacingInverted: starRightFacingInverted_png,
+    leftFacingUpright: starLeftFacingUpright_png,
+    leftFacingInverted: starLeftFacingInverted_png
+  } );
+
   static LIGHT = new OpticalObjectChoice( geometricOpticsStrings.light, lightIcon_png, 'light' );
 
   // These values correspond to framed objects.
   private static FRAMED_OBJECT_CHOICES = [
     OpticalObjectChoice.PENCIL,
-    OpticalObjectChoice.PENGUIN
+    OpticalObjectChoice.PENGUIN,
+    OpticalObjectChoice.STAR
   ];
 
   // Gets a list of keys, values and mapping between them. For use by EnumerationProperty and PhET-iO.

@@ -32,6 +32,7 @@ class LensModel extends GOModel {
       opticalObjectChoices: [
         OpticalObjectChoice.PENCIL,
         OpticalObjectChoice.PENGUIN,
+        OpticalObjectChoice.STAR,
         OpticalObjectChoice.ARROW,
         OpticalObjectChoice.LIGHT
       ],

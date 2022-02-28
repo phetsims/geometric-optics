@@ -38,6 +38,7 @@ class MirrorModel extends GOModel {
       opticalObjectChoices: [
         OpticalObjectChoice.PENCIL,
         OpticalObjectChoice.PENGUIN,
+        OpticalObjectChoice.STAR,
         OpticalObjectChoice.ARROW
       ],
 
