@@ -168,13 +168,17 @@ class ProjectionScreenNode extends Node {
 
     const keyboardDragListener = new KeyboardDragListener(
       optionize<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
-      positionProperty: projectionScreen.positionProperty,
-      dragBoundsProperty: dragBoundsProperty,
-      drag: drag,
-      transform: modelViewTransform
-      //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
-    } ) );
+        positionProperty: projectionScreen.positionProperty,
+        dragBoundsProperty: dragBoundsProperty,
+        drag: drag,
+        transform: modelViewTransform
+        //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
+      } ) );
     this.addInputListener( keyboardDragListener );
+
+    this.addLinkedElement( projectionScreen, {
+      tandem: options.tandem.createTandem( 'projectionScreen' )
+    } );
 
     this.resetProjectionScreenNode = () => {
       wasDraggedProperty.reset();

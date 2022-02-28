@@ -14,10 +14,11 @@ import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
-import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 // Dimensions of the screen, in cm. "Near" and "far" refer to pseudo-3D perspective.
 const SCREEN_WIDTH = 42;
@@ -27,7 +28,7 @@ assert && assert( SCREEN_NEAR_HEIGHT > SCREEN_FAR_HEIGHT );
 
 type ProjectionScreenOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
 
-class ProjectionScreen {
+class ProjectionScreen extends PhetioObject {
 
   // position of the center of the screen, in cm
   readonly positionProperty: Property<Vector2>;
@@ -47,10 +48,16 @@ class ProjectionScreen {
    */
   constructor( opticPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: ProjectionScreenOptions ) {
 
+    const options = optionize<ProjectionScreenOptions, {}, PhetioObjectOptions>( {
+      phetioState: false
+    }, providedOptions );
+
+    super( options );
+
     this.positionProperty = new Vector2Property( new Vector2( 200, 0 ), {
       isValidValue: ( position: Vector2 ) =>
         ( position.x >= opticPositionProperty.value.x + GOConstants.MIN_DISTANCE_FROM_OPTIC_TO_PROJECTION_SCREEN ),
-      tandem: providedOptions.tandem.createTandem( 'positionProperty' )
+      tandem: options.tandem.createTandem( 'positionProperty' )
     } );
 
     // Described clockwise, starting at left top, in model coordinates.
