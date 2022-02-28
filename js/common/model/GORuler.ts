@@ -61,7 +61,11 @@ class GORuler {
     } );
 
     this.visibleProperty = new BooleanProperty( false, {
-      tandem: providedOptions.tandem.createTandem( 'visibleProperty' )
+      tandem: providedOptions.tandem.createTandem( 'visibleProperty' ),
+      phetioDocumentation: 'Controls whether the full-size ruler is visible.' +
+                           '<ul>' +
+                           '<li>true: ruler is out of the toolbox</li>' +
+                           '<li>false: ruler is in the toolbox</li>'
     } );
 
     this.resetGORuler = () => {
