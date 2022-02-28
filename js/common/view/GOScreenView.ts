@@ -128,7 +128,8 @@ class GOScreenView extends ScreenView {
         validValues: ZOOM_SCALES,
         tandem: options.tandem.createTandem( 'zoomScaleProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
-        phetioDocumentation: 'scale that is applied to the view, controlled by the zoom buttons, and the value of zoomLevelProperty'
+        phetioDocumentation: 'Scale that is applied to the view. This Property is derived from zoomLevelProperty, ' +
+                             ' which is controlled by the zoom buttons.'
       } );
 
     // Transform applied to rulers and labels
