@@ -46,6 +46,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import DragLockedButton from './DragLockedButton.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.
@@ -113,14 +114,20 @@ class GOScreenView extends ScreenView {
     const zoomLevelProperty = new NumberProperty( ZOOM_SCALES.indexOf( 1 ), {
       numberType: 'Integer',
       range: new Range( 0, ZOOM_SCALES.length - 1 ),
-      tandem: options.tandem.createTandem( 'zoomLevelProperty' )
+      tandem: options.tandem.createTandem( 'zoomLevelProperty' ),
+      phetioDocumentation: 'An integer index that tells the sim how to scale the view. ' +
+                           'Smaller values are more zoomed out. ' +
+                           'See zoomScaleProperty for the actual scale value.'
     } );
 
     // Scale factor for the current zoom level
     const zoomScaleProperty = new DerivedProperty(
       [ zoomLevelProperty ],
-      ( zoomLevel: number ) => ZOOM_SCALES[ zoomLevel ]
-    );
+      ( zoomLevel: number ) => ZOOM_SCALES[ zoomLevel ], {
+        tandem: options.tandem.createTandem( 'zoomScaleProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+        phetioDocumentation: 'scale that is applied to the view, controlled by the zoom buttons'
+      } );
 
     // Transform applied to rulers and labels
     const zoomTransformProperty = new DerivedProperty(
