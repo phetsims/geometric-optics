@@ -20,7 +20,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { NumberControlOptions } from '../GOCommonOptions.js';
-import optionize, { Defaults } from '../../../../phet-core/js/optionize.js';
+import optionize, { OptionizeDefaults } from '../../../../phet-core/js/optionize.js';
 
 type RadiusOfCurvatureControlOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem'>;
 
@@ -46,7 +46,7 @@ class RadiusOfCurvatureControl extends NumberControl {
     } );
 
     // Assemble the defaults for NumberControl, because optionize doesn't currently support defaults in multiple objects.
-    const numberControlDefaults: Defaults<{}, NumberControlOptions> = merge( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
+    const numberControlDefaults: OptionizeDefaults<{}, NumberControlOptions> = merge( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
       delta: GOConstants.RADIUS_OF_CURVATURE_SPINNER_STEP,
       titleNodeOptions: {
         textProperty: textProperty

@@ -17,7 +17,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { NumberControlOptions } from '../GOCommonOptions.js';
-import optionize, { Defaults } from '../../../../phet-core/js/optionize.js';
+import optionize, { OptionizeDefaults } from '../../../../phet-core/js/optionize.js';
 
 type IndexOfRefractionControlOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem'>;
 
@@ -30,7 +30,7 @@ class IndexOfRefractionControl extends NumberControl {
   constructor( indexOfRefractionProperty: NumberProperty, providedOptions: IndexOfRefractionControlOptions ) {
 
     // Assemble the defaults for NumberControl, because optionize doesn't currently support defaults in multiple objects.
-    const numberControlDefaults: Defaults<{}, NumberControlOptions> = merge( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
+    const numberControlDefaults: OptionizeDefaults<{}, NumberControlOptions> = merge( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
       delta: GOConstants.INDEX_OF_REFRACTION_SPINNER_STEP,
       sliderOptions: {
         constrainValue: ( value: number ) =>
