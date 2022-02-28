@@ -15,7 +15,7 @@ import geometricOptics from '../../geometricOptics.js';
 import LightSpot from '../model/LightSpot.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
-type LightSpotNodeOptions = PickRequired<NodeOptions, 'visibleProperty'>;
+type LightSpotNodeOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem'>;
 
 class LightSpotNode extends Node {
 
@@ -60,6 +60,10 @@ class LightSpotNode extends Node {
       // Dashed outline is visible only for lower intensities [0,0.25], and becomes more visible as intensity decreases.
       // See https://github.com/phetsims/geometric-optics/issues/240
       strokePath.opacity = Utils.clamp( Utils.linear( 0, 0.25, 1, 0, opacity ), 0, 1 );
+    } );
+
+    this.addLinkedElement( lightSpot, {
+      tandem: providedOptions.tandem.createTandem( 'lightSpot' )
     } );
   }
 

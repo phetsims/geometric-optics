@@ -25,6 +25,7 @@ import OpticalAxisInFrontOfProjectionScreenNode from './OpticalAxisInFrontOfProj
 import { RulerHotkeyTarget } from './GORulerNode.js';
 import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
 import IProperty from '../../../../axon/js/IProperty.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 
 type SelfOptions = {
   dragLockedProperty: IReadOnlyProperty<boolean>
@@ -122,16 +123,20 @@ class LightObjectSceneNode extends GOSceneNode {
 
     // LightSpot associated with the first light
     const lightSpot1Node = new LightSpotNode( scene.lightSpot1, modelViewTransform, {
-      visibleProperty: scene.opticalImage1.visibleProperty
-      // DO NOT instrument for PhET-iO, see https://github.com/phetsims/geometric-optics/issues/269
+      visibleProperty: scene.opticalImage1.visibleProperty,
+      tandem: providedOptions.tandem.createTandem( 'lightSpot1Node' )
     } );
     this.opticalImagesLayer.addChild( lightSpot1Node );
 
     // LightSpot associated with the second light
+    const lightSpot2NodeTandem = providedOptions.tandem.createTandem( 'lightSpot2Node' );
     const lightSpot2Node = new LightSpotNode( scene.lightSpot2, modelViewTransform, {
       visibleProperty: DerivedProperty.and(
-        [ scene.opticalImage2.visibleProperty, visibleProperties.secondPointVisibleProperty ] )
-      // DO NOT instrument for PhET-iO, see https://github.com/phetsims/geometric-optics/issues/269
+        [ scene.opticalImage2.visibleProperty, visibleProperties.secondPointVisibleProperty ], {
+          tandem: lightSpot2NodeTandem.createTandem( 'visibleProperty' ),
+          phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
+        } ),
+      tandem: lightSpot2NodeTandem
     } );
     this.opticalImagesLayer.addChild( lightSpot2Node );
 
