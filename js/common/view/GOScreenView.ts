@@ -124,6 +124,7 @@ class GOScreenView extends ScreenView {
     const zoomScaleProperty = new DerivedProperty(
       [ zoomLevelProperty ],
       ( zoomLevel: number ) => ZOOM_SCALES[ zoomLevel ], {
+        validValues: ZOOM_SCALES,
         tandem: options.tandem.createTandem( 'zoomScaleProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
         phetioDocumentation: 'scale that is applied to the view, controlled by the zoom buttons'
