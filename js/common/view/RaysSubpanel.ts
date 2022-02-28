@@ -28,7 +28,8 @@ class RaysSubpanel extends VBox {
     const titleText = new Text( geometricOpticsStrings.rays, {
       font: GOConstants.TITLE_FONT,
       maxWidth: 100,
-      tandem: tandem.createTandem( 'titleText' )
+      tandem: tandem.createTandem( 'titleText' ),
+      phetioVisiblePropertyInstrumented: false
     } );
 
     // radio buttons

@@ -17,6 +17,7 @@ import { RaysType } from '../model/RaysType.js';
 import { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 type RaysRadioButtonGroupOptions = PickRequired<VerticalAquaRadioButtonGroupOptions, 'tandem'>;
 
@@ -38,10 +39,10 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysType> {
 
     // items for ray Mode radio buttons
     const items = [
-      createItem( 'marginal', geometricOpticsStrings.marginal ),
-      createItem( 'principal', geometricOpticsStrings.principal ),
-      createItem( 'many', geometricOpticsStrings.many ),
-      createItem( 'none', geometricOpticsStrings.none )
+      createItem( 'marginal', geometricOpticsStrings.marginal, options.tandem, 'marginalRadioButton' ),
+      createItem( 'principal', geometricOpticsStrings.principal, options.tandem, 'principalRadioButton' ),
+      createItem( 'many', geometricOpticsStrings.many, options.tandem, 'manyRadioButton' ),
+      createItem( 'none', geometricOpticsStrings.none, options.tandem, 'noneRadioButton' )
     ];
 
     super( raysTypeProperty, items, options );
@@ -52,15 +53,19 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysType> {
  * Creates an item for the radio button group.
  * @param value
  * @param text
+ * @param groupTandem
+ * @param itemTandemName
  */
-function createItem( value: RaysType, text: string ): AquaRadioButtonGroupItem<RaysType> {
+function createItem( value: RaysType, text: string, groupTandem: Tandem, itemTandemName: string ): AquaRadioButtonGroupItem<RaysType> {
   return {
     value: value,
     node: new Text( text, {
       font: GOConstants.CONTROL_FONT,
-      maxWidth: 100
+      maxWidth: 100,
+      tandem: groupTandem.createTandem( itemTandemName ).createTandem( 'textNode' ),
+      phetioVisiblePropertyInstrumented: false
     } ),
-    tandemName: `${value}RadioButton`
+    tandemName: itemTandemName
   };
 }
 
