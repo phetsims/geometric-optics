@@ -22,7 +22,7 @@ import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { NumberControlOptions } from '../GOCommonOptions.js';
 import optionize, { OptionizeDefaults } from '../../../../phet-core/js/optionize.js';
 
-type RadiusOfCurvatureControlOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem'>;
+type RadiusOfCurvatureControlOptions = PickRequired<NodeOptions, 'tandem'>;
 
 class RadiusOfCurvatureControl extends NumberControl {
 

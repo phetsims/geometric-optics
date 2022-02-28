@@ -22,6 +22,8 @@ import Optic from '../model/Optic.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
+const X_SPACING = 20; // horizontal space between control
+
 class OpticSubpanel extends HBox {
 
   /**
@@ -30,46 +32,60 @@ class OpticSubpanel extends HBox {
    */
   constructor( optic: Optic, tandem: Tandem ) {
 
-    const opticSubpanelChildren = [];
-
     // Focal Length
-    opticSubpanelChildren.push( new FocalLengthControl( optic.directFocalLengthModel.focalLengthMagnitudeProperty,
+    const focalLengthControl = new FocalLengthControl( optic.directFocalLengthModel.focalLengthMagnitudeProperty,
       optic.finiteFocalLengthProperty, {
-        visibleProperty: new DerivedProperty( [ GOGlobalOptions.focalLengthModelTypeProperty, optic.opticShapeProperty ], ( focalLengthModelType: FocalLengthModelType, opticShape: OpticShape ) =>
-          ( focalLengthModelType === 'direct' ) && ( opticShape !== 'flat' ) ),
         tandem: tandem.createTandem( 'focalLengthControl' )
-      } ) );
+      } );
+
+    // Wrapper for controls related to the 'direct' focal-length model. This allows the sim to handle which controls
+    // are visible for 'direct', while allowing the PhET-iO client to control focalLengthControl.visibleProperty.
+    // See https://github.com/phetsims/geometric-optics/issues/347
+    const directWrapperNode = new HBox( {
+      children: [ focalLengthControl ],
+      visibleProperty: new DerivedProperty( [ GOGlobalOptions.focalLengthModelTypeProperty, optic.opticShapeProperty ],
+        ( focalLengthModelType: FocalLengthModelType, opticShape: OpticShape ) =>
+          ( focalLengthModelType === 'direct' ) && ( opticShape !== 'flat' ) )
+    } );
+
+    // Children of indirectWrapperNode
+    const indirectChildren = [];
 
     // Radius of Curvature
-    opticSubpanelChildren.push( new RadiusOfCurvatureControl(
+    const radiusOfCurvatureControl = new RadiusOfCurvatureControl(
       optic.indirectFocalLengthModel.radiusOfCurvatureMagnitudeProperty,
       optic.radiusOfCurvatureProperty, {
-        visibleProperty: new DerivedProperty(
-          [ GOGlobalOptions.focalLengthModelTypeProperty, optic.opticShapeProperty ],
-          ( focalLengthModelType: FocalLengthModelType, opticShape: OpticShape ) =>
-            ( focalLengthModelType === 'indirect' ) && ( opticShape !== 'flat' )
-        ),
         tandem: tandem.createTandem( 'radiusOfCurvatureControl' )
-      } ) );
+      } );
+    indirectChildren.push( radiusOfCurvatureControl );
 
     // Index of Refraction (for lens only)
     if ( optic instanceof Lens ) {
-      opticSubpanelChildren.push( new IndexOfRefractionControl( optic.indirectFocalLengthModel.indexOfRefractionProperty, {
-        visibleProperty: new DerivedProperty( [ GOGlobalOptions.focalLengthModelTypeProperty ],
-          ( focalLengthModelType: FocalLengthModelType ) => ( focalLengthModelType === 'indirect' )
-        ),
+      const indexOfRefractionControl = new IndexOfRefractionControl( optic.indirectFocalLengthModel.indexOfRefractionProperty, {
         tandem: tandem.createTandem( 'indexOfRefractionControl' )
-      } ) );
+      } );
+      indirectChildren.push( indexOfRefractionControl );
     }
 
+    // Wrapper for controls related to the 'indirect' focal-length model. This allows the sim to handle which controls 
+    // are visible for 'indirect', while allowing the PhET-iO client to control radiusOfCurvatureControl.visibleProperty
+    // and indexOfRefractionControl.visibleProperty. See https://github.com/phetsims/geometric-optics/issues/347
+    const indirectWrapperNode = new HBox( {
+      children: indirectChildren,
+      spacing: X_SPACING,
+      visibleProperty: new DerivedProperty( [ GOGlobalOptions.focalLengthModelTypeProperty ],
+        ( focalLengthModelType: FocalLengthModelType ) => ( focalLengthModelType === 'indirect' )
+      )
+    } );
+
     // Diameter
-    opticSubpanelChildren.push( new DiameterControl( optic.diameterProperty, {
+    const diameterControl = new DiameterControl( optic.diameterProperty, {
       tandem: tandem.createTandem( 'diameterControl' )
-    } ) );
+    } );
 
     super( {
-      children: opticSubpanelChildren,
-      spacing: 20,
+      children: [ directWrapperNode, indirectWrapperNode, diameterControl ],
+      spacing: X_SPACING,
       tandem: tandem
     } );
   }

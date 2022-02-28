@@ -22,7 +22,7 @@ import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import optionize, { OptionizeDefaults } from '../../../../phet-core/js/optionize.js';
 import { NumberControlOptions } from '../GOCommonOptions.js';
 
-type FocalLengthControlOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem'>;
+type FocalLengthControlOptions = PickRequired<NodeOptions, 'tandem'>;
 
 class FocalLengthControl extends NumberControl {
 

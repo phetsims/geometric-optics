@@ -19,7 +19,7 @@ import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { NumberControlOptions } from '../GOCommonOptions.js';
 import optionize, { OptionizeDefaults } from '../../../../phet-core/js/optionize.js';
 
-type IndexOfRefractionControlOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem'>;
+type IndexOfRefractionControlOptions = PickRequired<NodeOptions, 'tandem'>;
 
 class IndexOfRefractionControl extends NumberControl {
 
