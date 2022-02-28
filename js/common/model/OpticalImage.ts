@@ -24,6 +24,7 @@ import GOConstants from '../GOConstants.js';
 import OpticalObject from './OpticalObject.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 
 type SelfOptions = {
 
@@ -141,8 +142,10 @@ class OpticalImage extends PhetioObject {
     this.magnificationProperty = new DerivedProperty(
       [ opticalObjectPositionProperty, optic.positionProperty, optic.finiteFocalLengthProperty ],
       ( framedObjectPosition: Vector2, opticPosition: Vector2, focalLength: number ) =>
-        this.getMagnification( framedObjectPosition, opticPosition )
-    );
+        this.getMagnification( framedObjectPosition, opticPosition ), {
+        tandem: options.tandem.createTandem( 'magnificationProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
+      } );
 
     // light intensity of the Image (Hollywood), a value between 0 and 1
     this.lightIntensityProperty = new DerivedProperty(
