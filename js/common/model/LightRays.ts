@@ -61,7 +61,7 @@ class LightRays {
     type DependencyTypes = [ Vector2, RaysType, number, ...any[] ];
     const dependencies: MappedProperties<DependencyTypes> = [
       opticalObjectPositionProperty, raysTypeProperty, lightRaysAnimationTimeProperty,
-      optic.positionProperty, optic.diameterProperty, optic.finiteFocalLengthProperty, optic.opticShapeProperty
+      optic.positionProperty, optic.diameterProperty, optic.focalLengthProperty, optic.opticShapeProperty
     ];
     if ( projectionScreen ) {
       dependencies.push( projectionScreen.positionProperty );
@@ -157,7 +157,7 @@ function getRayDirections( raysType: RaysType, opticalObjectPosition: Vector2, o
     directions.push( objectOpticVector.normalized() );
 
     // #3: through the focal point
-    const firstFocalVector = objectOpticVector.minusXY( optic.finiteFocalLengthProperty.value, 0 );
+    const firstFocalVector = objectOpticVector.minusXY( optic.focalLengthProperty.value, 0 );
     if ( firstFocalVector.x < 0 ) {
       firstFocalVector.negate(); // should point to the right, to indicate the direction of the light rays
     }

@@ -40,7 +40,7 @@ class IndirectFocalLengthModel extends PhetioObject implements FocalLengthModel 
       phetioState: false,
       phetioDocumentation: 'Model of focal length that is used when ' +
                            `${GOGlobalOptions.focalLengthModelTypeProperty.tandem.phetioID} ` +
-                           'is set to \'indirect\'. In this model:' +
+                           'is set to \'indirect\'. Ignored for flat mirror. In this model:' +
                            '<ul>' +
                            '<li>radius of curvature and index of refraction are settable' +
                            '<li>focal length is derived' +

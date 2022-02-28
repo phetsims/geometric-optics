@@ -88,7 +88,7 @@ class OpticalImage extends PhetioObject {
     } );
 
     this.opticImageDistanceProperty = new DerivedProperty(
-      [ opticalObjectPositionProperty, optic.positionProperty, optic.finiteFocalLengthProperty ],
+      [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       ( opticalObjectPosition: Vector2, opticPosition: Vector2, focalLength: number ) => {
 
         // {number} horizontal distance between optic and optical object
@@ -111,7 +111,7 @@ class OpticalImage extends PhetioObject {
       } );
 
     this.positionProperty = new DerivedProperty(
-      [ opticalObjectPositionProperty, optic.positionProperty, optic.finiteFocalLengthProperty ],
+      [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       //TODO focalLength is not used, is focalLengthProperty dependency needed?
       //TODO Calls this.getMagnification, should there be a dependency here on magnificationProperty instead?
       ( opticalObjectPosition: Vector2, opticPosition: Vector2, focalLength: number ) => {
@@ -140,7 +140,7 @@ class OpticalImage extends PhetioObject {
     // is incorrect when switching the lens from convex to concave, and the mirror from concave to convex. So
     // there must be some ordering problem here, or a dependency on focalLengthProperty down in the derivation.
     this.magnificationProperty = new DerivedProperty(
-      [ opticalObjectPositionProperty, optic.positionProperty, optic.finiteFocalLengthProperty ],
+      [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
       ( framedObjectPosition: Vector2, opticPosition: Vector2, focalLength: number ) =>
         this.getMagnification( framedObjectPosition, opticPosition ), {
         tandem: options.tandem.createTandem( 'magnificationProperty' ),

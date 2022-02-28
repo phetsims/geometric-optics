@@ -32,15 +32,11 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
 
-// Actual physically-correct values for a flat mirror. We'll show these values in PhET-iO.
-const FLAT_MIRROR_ACTUAL_RADIUS_OF_CURVATURE = Infinity; // positive, to make it convex
-const FLAT_MIRROR_ACTUAL_FOCAL_LENGTH = FLAT_MIRROR_ACTUAL_RADIUS_OF_CURVATURE / 2; // f = ROC/2
-
-// The physically-correct values are Infinity, which will cause programming failures.
-// So we'll map those values to a convex mirror with very large ROC.
+// A flat mirror has infinite focal length and ROC. We approximate a flat mirror as a convex mirror with very-large
+// focal length and ROC. Note that these very-large values will be visible in PhET-iO, and it was decided that is OK.
 // See https://github.com/phetsims/geometric-optics/issues/227
-const FLAT_MIRROR_FINITE_RADIUS_OF_CURVATURE = 200000; // positive, to make it convex
-const FLAT_MIRROR_FINITE_FOCAL_LENGTH = FLAT_MIRROR_FINITE_RADIUS_OF_CURVATURE / 2; // f = ROC/2
+const FLAT_MIRROR_FINITE_FOCAL_LENGTH = 100000; // positive, to make it convex
+const FLAT_MIRROR_FINITE_RADIUS_OF_CURVATURE = 2 * FLAT_MIRROR_FINITE_FOCAL_LENGTH; // ROC = 2 * f
 
 type SelfOptions = {
 
@@ -87,22 +83,15 @@ abstract class Optic extends PhetioObject {
   readonly directFocalLengthModel: DirectFocalLengthModel;
   readonly indirectFocalLengthModel: IndirectFocalLengthModel;
 
-  // radius of curvature (ROC) of the optic, convex is positive, concave is negative
+  // radius of curvature (ROC) of the optic, convex is positive, concave is negative.
+  // For a flat mirror with infinite ROC, we approximate using a very large ROC.
   readonly radiusOfCurvatureProperty: IReadOnlyProperty<number>;
-
-  // ROC is infinite for a flat mirror. This converts it to a very-large finite value.
-  // Listeners should typically use this instead of radiusOfCurvatureProperty, especially in the view.
-  readonly finiteRadiusOfCurvatureProperty: IReadOnlyProperty<number>;
 
   // index of refraction (IOR)
   readonly indexOfRefractionProperty: IReadOnlyProperty<number>;
 
-  // focal length (f) of the optic, converging is positive, diverging is negative
+  // focal length (f) of the optic, converging is positive, diverging is negative focal length.
   readonly focalLengthProperty: IReadOnlyProperty<number>;
-
-  // Focal length is infinite for a flat mirror. This converts it to a very-large finite value.
-  // Listeners should typically use this instead of focalLengthProperty, especially in the view.
-  readonly finiteFocalLengthProperty: IReadOnlyProperty<number>;
 
   // focal points (F) to the left and right of the optic
   readonly leftFocalPointProperty: Property<Vector2>;
@@ -209,7 +198,7 @@ abstract class Optic extends PhetioObject {
         directRadiusOfCurvatureMagnitude: number,
         indirectRadiusOfCurvatureMagnitude: number ) => {
         if ( opticShape === 'flat' ) {
-          return FLAT_MIRROR_ACTUAL_RADIUS_OF_CURVATURE;
+          return FLAT_MIRROR_FINITE_RADIUS_OF_CURVATURE;
         }
         else {
           const sign = ( opticShape === 'convex' ) ? 1 : -1;
@@ -223,11 +212,6 @@ abstract class Optic extends PhetioObject {
         phetioDocumentation: 'The radius of curvature (ROC) of the optic. ' +
                              'A convex optic has a positive ROC, while a concave optic has a negative ROC.'
       } );
-
-    this.finiteRadiusOfCurvatureProperty = new DerivedProperty( [ this.radiusOfCurvatureProperty ],
-      ( radiusOfCurvature: number ) => ( radiusOfCurvature === FLAT_MIRROR_ACTUAL_RADIUS_OF_CURVATURE ) ?
-                                       FLAT_MIRROR_FINITE_RADIUS_OF_CURVATURE : radiusOfCurvature
-    );
 
     // Get the IOR value from the current focal-length model.
     this.indexOfRefractionProperty = new DerivedProperty(
@@ -253,7 +237,7 @@ abstract class Optic extends PhetioObject {
         directFocalLengthMagnitude: number,
         indirectFocalLengthMagnitude: number ) => {
         if ( opticShape === 'flat' ) {
-          return FLAT_MIRROR_ACTUAL_FOCAL_LENGTH;
+          return FLAT_MIRROR_FINITE_FOCAL_LENGTH;
         }
         else {
           const sign = this.isConverging( opticShape ) ? 1 : -1;
@@ -268,14 +252,9 @@ abstract class Optic extends PhetioObject {
                              'while a diverging optic has a negative focal length.'
       } );
 
-    this.finiteFocalLengthProperty = new DerivedProperty( [ this.focalLengthProperty ],
-      ( focalLength: number ) => ( focalLength === FLAT_MIRROR_ACTUAL_FOCAL_LENGTH ) ?
-                                 FLAT_MIRROR_FINITE_FOCAL_LENGTH : focalLength
-    );
-
     // left focal point (F)
     this.leftFocalPointProperty = new DerivedProperty(
-      [ this.positionProperty, this.finiteFocalLengthProperty ],
+      [ this.positionProperty, this.focalLengthProperty ],
       ( position: Vector2, focalLength: number ) => position.plusXY( -Math.abs( focalLength ), 0 ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'leftFocalPointProperty' ),
@@ -285,7 +264,7 @@ abstract class Optic extends PhetioObject {
 
     // right focal point (F)
     this.rightFocalPointProperty = new DerivedProperty(
-      [ this.positionProperty, this.finiteFocalLengthProperty ],
+      [ this.positionProperty, this.focalLengthProperty ],
       ( position: Vector2, focalLength: number ) => position.plusXY( Math.abs( focalLength ), 0 ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'rightFocalPointProperty' ),
@@ -294,7 +273,7 @@ abstract class Optic extends PhetioObject {
       } );
 
     // 2f
-    this.twiceFocalLengthProperty = new DerivedProperty( [ this.finiteFocalLengthProperty ], focalLength => 2 * focalLength, {
+    this.twiceFocalLengthProperty = new DerivedProperty( [ this.focalLengthProperty ], focalLength => 2 * focalLength, {
       units: 'cm',
       tandem: options.tandem.createTandem( 'twiceFocalLengthProperty' ),
       phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),

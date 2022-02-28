@@ -40,7 +40,7 @@ class DirectFocalLengthModel extends PhetioObject implements FocalLengthModel {
       phetioState: false,
       phetioDocumentation: 'Model of focal length that is used when ' +
                            `${GOGlobalOptions.focalLengthModelTypeProperty.tandem.phetioID} ` +
-                           'is set to \'direct\'. In this model:' +
+                           'is set to \'direct\'. Ignored for flat mirror. In this model:' +
                            '<ul>' +
                            '<li>focal length is settable' +
                            '<li>index of refraction is fixed' +

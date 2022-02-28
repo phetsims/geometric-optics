@@ -34,7 +34,7 @@ class OpticSubpanel extends HBox {
 
     // Focal Length
     const focalLengthControl = new FocalLengthControl( optic.directFocalLengthModel.focalLengthMagnitudeProperty,
-      optic.finiteFocalLengthProperty, {
+      optic.focalLengthProperty, {
         tandem: tandem.createTandem( 'focalLengthControl' )
       } );
 

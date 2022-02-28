@@ -61,7 +61,7 @@ class Mirror extends Optic {
     super( options );
 
     this.shapesProperty = new DerivedProperty(
-      [ this.finiteRadiusOfCurvatureProperty, this.diameterProperty ],
+      [ this.radiusOfCurvatureProperty, this.diameterProperty ],
       ( radiusOfCurvature: number, diameter: number ) => new MirrorShapes( radiusOfCurvature, diameter )
     );
   }
