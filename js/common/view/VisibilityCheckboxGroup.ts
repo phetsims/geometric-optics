@@ -104,17 +104,17 @@ type ItemOptions = {
 
 function createItem( string: string, property: Property<boolean>, providedOptions: ItemOptions ): VerticalCheckboxGroupItem {
 
-  const textNode = new Text( string, {
+  const labelText = new Text( string, {
     font: GOConstants.CONTROL_FONT,
     maxWidth: 100,
-    tandem: providedOptions.tandem.createTandem( 'textNode' ),
+    tandem: providedOptions.tandem.createTandem( 'labelText' ),
     phetioVisiblePropertyInstrumented: false
   } );
 
   // Create HBox if icon is present, otherwise the label is just text.
   const labelNode = providedOptions.iconNode ?
-                    new HBox( { children: [ textNode, providedOptions.iconNode ], spacing: 8 } ) :
-                    textNode;
+                    new HBox( { children: [ labelText, providedOptions.iconNode ], spacing: 8 } ) :
+                    labelText;
 
   return {
     node: labelNode,
