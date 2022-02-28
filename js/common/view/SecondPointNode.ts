@@ -95,6 +95,7 @@ class SecondPointNode extends Node {
         transform: modelViewTransform,
         drag: drag
         //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
+        //tandem: options.tandem.createTandem( 'keyboardDragListener' )
       } ) );
     this.addInputListener( keyboardDragListener );
 

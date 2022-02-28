@@ -165,20 +165,21 @@ class GORulerNode extends Node {
 
     const keyboardDragListener = new KeyboardDragListener(
       optionize<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
-      positionProperty: ruler.positionProperty,
-      dragBoundsProperty: this.dragBoundsProperty,
-      transform: zoomTransformProperty.value,
-      start: () => this.moveToFront(),
+        positionProperty: ruler.positionProperty,
+        dragBoundsProperty: this.dragBoundsProperty,
+        transform: zoomTransformProperty.value,
+        start: () => this.moveToFront(),
 
-      // Return the ruler to the toolbox if the ruler's center point is inside the toolbox.
-      end: () => {
-        if ( this.toolboxBounds.containsPoint( this.center ) ) {
-          ruler.visibleProperty.value = false;
-          this.iconNode.focus();
+        // Return the ruler to the toolbox if the ruler's center point is inside the toolbox.
+        end: () => {
+          if ( this.toolboxBounds.containsPoint( this.center ) ) {
+            ruler.visibleProperty.value = false;
+            this.iconNode.focus();
+          }
         }
-      }
-      //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
-    } ) );
+        //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
+        // tandem: options.tandem.createTandem( 'keyboardDragListener' )
+      } ) );
     this.addInputListener( keyboardDragListener );
 
     // Hotkeys for rulers, see https://github.com/phetsims/geometric-optics/issues/279

@@ -149,6 +149,7 @@ class ArrowObjectNode extends Node {
         drag: drag,
         end: () => end( -1 )
         //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
+        // tandem: options.tandem.createTandem( 'keyboardDragListener' )
       } ) );
     this.addInputListener( keyboardDragListener );
 
