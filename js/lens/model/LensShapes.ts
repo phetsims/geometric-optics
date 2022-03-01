@@ -45,7 +45,7 @@ class LensShapes implements OpticShapes {
 
     const options = optionize<LensShapesOptions, LensShapesOptions>( {
 
-      // LensShapes options
+      // LensShapesOptions
       isHollywooded: true
     }, providedOptions );
 

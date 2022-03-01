@@ -40,7 +40,7 @@ class LensNode extends Node {
 
     const options = optionize<LensNodeOptions, {}, NodeOptions>( {
 
-      // Node options
+      // NodeOptions
       phetioVisiblePropertyInstrumented: false
     }, providedOptions );
 

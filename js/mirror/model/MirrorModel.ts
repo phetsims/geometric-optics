@@ -33,16 +33,16 @@ class MirrorModel extends GOModel {
     const options = optionize<MirrorModelOptions, SelfOptions, GOModelOptions,
       'opticalObjectChoices' | 'arrowObject1Position' | 'arrowObject2Position' | 'framedObjectPosition'>( {
 
+      // SelfOptions
       isBasicsVersion: false,
 
-      // optical object choices, in the order that they will appear in OpticalObjectChoiceComboBox
+      // GOModelOptions
       opticalObjectChoices: [
         OpticalObjectChoice.PENCIL,
         OpticalObjectChoice.PENGUIN,
         OpticalObjectChoice.STAR,
         OpticalObjectChoice.ARROW
       ],
-
       arrowObject1Position: new Vector2( -130, 60 ),
       arrowObject2Position: new Vector2( -145, 30 ),
       framedObjectPosition: ( providedOptions.isBasicsVersion ) ?

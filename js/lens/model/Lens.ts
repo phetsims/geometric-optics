@@ -44,7 +44,7 @@ class Lens extends Optic {
     const options = optionize<LensOptions, {}, OpticOptions,
       'opticShapes' | 'diameterRange' | 'sign' | 'directFocalLengthModelOptions' | 'indirectFocalLengthModelOptions'>( {
 
-      // Optic options
+      // OpticOptions
       opticShapes: [ 'convex', 'concave' ],
       diameterRange: GOQueryParameters.dRangeLens, // in cm
       sign: 1,

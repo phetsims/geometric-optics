@@ -42,7 +42,7 @@ class MirrorNode extends Node {
 
     const options = optionize<MirrorNodeOptions, {}, NodeOptions>( {
 
-      // Node options
+      // NodeoOtions
       phetioVisiblePropertyInstrumented: false
     }, providedOptions );
     

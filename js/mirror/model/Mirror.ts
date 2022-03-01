@@ -41,7 +41,7 @@ class Mirror extends Optic {
     const options = optionize<MirrorOptions, SelfOptions, OpticOptions,
       'opticShapes' | 'diameterRange' | 'sign' | 'directFocalLengthModelOptions' | 'indirectFocalLengthModelOptions'>( {
 
-      // Optic options
+      // OpticOptions
       opticShapes: providedOptions.isBasicsVersion ? [ 'flat' ] : [ 'concave', 'convex', 'flat' ],
       diameterRange: GOQueryParameters.dRangeMirror, // in cm
       sign: -1,

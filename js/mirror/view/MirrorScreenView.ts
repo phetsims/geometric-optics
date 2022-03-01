@@ -33,6 +33,8 @@ class MirrorScreenView extends GOScreenView {
     const options = optionize<MirrorScreenViewOptions, {}, GOScreenViewOptions,
       'getViewOrigin' | 'createOpticNode'>( {
 
+      // GOScreenViewOptions
+
       // Basics version has the origin in the center, full version has the origin shifted to the right.
       // Slightly above center of the layoutBounds in both versions.
       getViewOrigin: providedOptions.isBasicsVersion ?

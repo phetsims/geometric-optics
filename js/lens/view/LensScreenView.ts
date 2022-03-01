@@ -32,6 +32,8 @@ class LensScreenView extends GOScreenView {
     const options = optionize<LensScreenViewOptions, {}, GOScreenViewOptions,
       'getViewOrigin' | 'createOpticNode'>( {
 
+      // GOScreenViewOptions
+
       // View origin is slightly above center of the layoutBounds.
       getViewOrigin: ( layoutBounds: Bounds2 ) => new Vector2( layoutBounds.centerX, layoutBounds.centerY - 35 ),
 

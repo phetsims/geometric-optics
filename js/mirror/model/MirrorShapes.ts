@@ -41,7 +41,7 @@ class MirrorShapes implements OpticShapes {
 
     const options = optionize<MirrorShapesOptions, MirrorShapesOptions>( {
 
-      // MirrorShapes options
+      // MirrorShapesOptions
       backingThickness: 5 // thickness of the backing of the mirror, in cm
     }, providedOptions );
 

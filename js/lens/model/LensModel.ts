@@ -29,7 +29,7 @@ class LensModel extends GOModel {
     const options = optionize<LensModelOptions, {}, GOModelOptions,
       'opticalObjectChoices' | 'arrowObject1Position' | 'arrowObject2Position' | 'framedObjectPosition'>( {
 
-      // optical object choices, in the order that they will appear in OpticalObjectChoiceComboBox
+      // GOModelOptions
       opticalObjectChoices: [
         OpticalObjectChoice.PENCIL,
         OpticalObjectChoice.PENGUIN,
@@ -37,8 +37,6 @@ class LensModel extends GOModel {
         OpticalObjectChoice.ARROW,
         OpticalObjectChoice.LIGHT
       ],
-
-      // Initial positions of optical objects
       arrowObject1Position: new Vector2( -160, 60 ),
       arrowObject2Position: new Vector2( -125, 30 ),
       framedObjectPosition: new Vector2( -170, 27 ),
