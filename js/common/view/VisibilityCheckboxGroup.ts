@@ -20,6 +20,9 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
 import Property from '../../../../axon/js/Property.js';
+import SecondPointNode from './SecondPointNode.js';
+import FocalPointNode from './FocalPointNode.js';
+import TwoFPointNode from './TwoFPointNode.js';
 
 type SelfOptions = {
   isBasicsVersion: boolean,
@@ -50,6 +53,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 
       // Focal Points (F)
       createItem( geometricOpticsStrings.focalPoints, visibleProperties.focalPointsVisibleProperty, {
+        iconNode: FocalPointNode.createIcon(),
         options: {
           visible: !( options.isBasicsVersion && options.isMirrorScreen )
         },
@@ -58,6 +62,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 
       // 2F Points
       createItem( geometricOpticsStrings.twoFPoints, visibleProperties.twoFPointsVisibleProperty, {
+        iconNode: TwoFPointNode.createIcon(),
         options: {
           visible: GOQueryParameters.enable2F && !( options.isBasicsVersion && options.isMirrorScreen )
         },
@@ -79,6 +84,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 
       // Second Point
       createItem( geometricOpticsStrings.secondPoint, visibleProperties.secondPointVisibleProperty, {
+        iconNode: SecondPointNode.createIcon(),
         options: {
           visible: !options.isBasicsVersion
         },
