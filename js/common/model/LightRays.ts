@@ -56,6 +56,14 @@ class LightRays {
     this.virtualSegments = [];
     this.raysProcessedEmitter = new Emitter();
 
+    // When the light rays animation begins, hide the optical image. It will be made visible when a ray reaches the
+    // image position.  If Rays is set to 'None', make the image visible immediately, since there will be no animation.
+    lightRaysAnimationTimeProperty.link( ( t: number ) => {
+      if ( t === 0 ) {
+        opticalImage.visibleProperty.value = ( raysTypeProperty.value === 'none' );
+      }
+    } );
+
     // Things that result in a change to the rays.
     // We only care about the types of the first 3 dependencies, because the listener only has 3 parameters.
     type DependencyTypes = [ Vector2, RaysType, number, ...any[] ];
@@ -69,7 +77,7 @@ class LightRays {
 
     // Update all rays, then inform listeners via raysProcessedEmitter.
     Property.multilink<DependencyTypes>( dependencies,
-      ( opticalObjectPosition: Vector2, raysType: RaysType, lightRaysTime: number ) => {
+      ( opticalObjectPosition: Vector2, raysType: RaysType, lightRaysAnimationTime: number ) => {
 
         // Clear the arrays.
         this.realSegments = [];
@@ -84,14 +92,11 @@ class LightRays {
         // {Vector2[]} get the initial directions of the rays
         const directions = getRayDirections( raysType, opticalObjectPosition, optic, opticalImagePosition );
 
-        // set the optical image's visibility to false initially (unless there are no rays)
-        opticalImage.visibleProperty.value = ( raysType === 'none' );
-
         // loop over the direction of each ray
         directions.forEach( direction => {
 
           // Create a LightRay, which is responsible for creating real and virtual ray segments.
-          const lightRay = new LightRay( opticalObjectPosition, direction, lightRaysTime, optic, opticalImagePosition, isVirtual,
+          const lightRay = new LightRay( opticalObjectPosition, direction, lightRaysAnimationTime, optic, opticalImagePosition, isVirtual,
             raysType, projectionScreen );
 
           // Set optical image's visibility to true when a ray reaches the image.
