@@ -13,6 +13,7 @@ import Shape from '../../../../kite/js/Shape.js';
 import GOConstants from '../GOConstants.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { ArrowNodeOptions } from '../GOCommonOptions.js';
+import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
 
 type CueingArrowsDirection = 'horizontal' | 'vertical' | 'both';
 
@@ -21,7 +22,8 @@ type SelfOptions = {
   length?: number,
 };
 
-type CueingArrowsNodeOptions = SelfOptions & PathOptions; //TODO pick PathOptions
+type CueingArrowsNodeOptions = SelfOptions &
+  PickOptional<PathOptions, 'fill' | 'stroke' | 'scale' | 'visibleProperty' | 'left' | 'centerY'>;
 
 class CueingArrowsNode extends Path {
 
