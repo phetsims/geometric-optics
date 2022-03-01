@@ -38,18 +38,22 @@ type OpticalImageOptions = SelfOptions
 
 class OpticalImage extends PhetioObject {
 
-  public readonly opticalObject: OpticalObject;
   public readonly optic: Optic;
+
+  // the object that this image is associated with
+  public readonly opticalObject: OpticalObject;
 
   // the position of the focus as predicted by lens and mirror equation
   public readonly positionProperty: IReadOnlyProperty<Vector2>;
 
-  // horizontal "distance" between Image and optic
+  // whether the image is visible. The image is not visible until light rays have reached it.
   public readonly visibleProperty: Property<boolean>;
 
+  // whether the image is real or virtual
   // For a mirror, the Image is virtual if the Image is on the opposite of the object
-  readonly opticalImageTypeProperty: IReadOnlyProperty<OpticalImageType>;
+  public readonly opticalImageTypeProperty: IReadOnlyProperty<OpticalImageType>;
 
+  // horizontal "distance" between Image and optic
   // The distance can be negative. We follow the standard sign convention used in geometric optics courses.
   private readonly opticImageDistanceProperty: IReadOnlyProperty<number>;
 
