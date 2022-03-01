@@ -111,7 +111,7 @@ class LabelNode extends BackgroundNode {
     super.dispose();
   }
 
-  setText( text: string ) {
+  public setText( text: string ): void {
     this.textNode.text = text;
   }
 }

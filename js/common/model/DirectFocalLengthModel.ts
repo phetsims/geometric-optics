@@ -76,7 +76,7 @@ class DirectFocalLengthModel extends PhetioObject implements FocalLengthModel {
       } );
   }
 
-  reset() {
+  public reset(): void {
     this.focalLengthMagnitudeProperty.reset();
     this.indexOfRefractionProperty.reset();
   }

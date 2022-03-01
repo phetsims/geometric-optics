@@ -73,7 +73,7 @@ class IndirectFocalLengthModel extends PhetioObject implements FocalLengthModel 
       } );
   }
 
-  reset() {
+  public reset(): void {
     this.radiusOfCurvatureMagnitudeProperty.reset();
     this.indexOfRefractionProperty.reset();
   }

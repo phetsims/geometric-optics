@@ -51,7 +51,7 @@ class HTMLImageElementObject extends OpticalObject {
                originOffset: Vector2,
                scaleFactor: number,
                providedOptions: HTMLImageElementObjectOptions ) {
-    
+
     super( opticalObjectNumber, opticPositionProperty, providedOptions );
 
     this.htmlImageElementProperty = htmlImageElementProperty;
@@ -77,7 +77,8 @@ class HTMLImageElementObject extends OpticalObject {
  * @param scaleFactor
  * @param originOffset
  */
-function computeBounds( htmlImageElement: HTMLImageElement, position: Vector2, scaleFactor: number, originOffset: Vector2 ) {
+function computeBounds( htmlImageElement: HTMLImageElement, position: Vector2,
+                        scaleFactor: number, originOffset: Vector2 ): Bounds2 {
 
   const size = new Dimension2( scaleFactor * htmlImageElement.width, scaleFactor * htmlImageElement.height );
   const origin = originOffset.timesScalar( scaleFactor );
