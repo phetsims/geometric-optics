@@ -52,6 +52,7 @@ class OpticalImage extends PhetioObject {
   public readonly opticalImageTypeProperty: IReadOnlyProperty<OpticalImageType>;
 
   // horizontal "distance" between optic and image, which can be negative.
+  // Positive is a real image, negative is a virtual image.
   // For a lens, a positive distance indicates that the image is to the right of the lens.
   // For a mirror, a positive distance indicates that the image is to the left of the mirror.
   private readonly opticImageDistanceProperty: IReadOnlyProperty<number>;
