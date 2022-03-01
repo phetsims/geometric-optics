@@ -23,8 +23,8 @@ import Utils from '../../../../dot/js/Utils.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
 
-type FramedImageOptions = PickRequired<OpticalImageOptions, 'tandem' | 'phetioDocumentation'>
-  & PickOptional<OpticalImageOptions, 'positionProperty'>;
+type FramedImageOptions = PickOptional<OpticalImageOptions, 'opticalObjectPositionProperty'> &
+  PickRequired<OpticalImageOptions, 'tandem' | 'phetioDocumentation'>;
 
 class FramedImage extends OpticalImage {
 

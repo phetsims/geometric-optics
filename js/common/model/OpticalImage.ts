@@ -27,13 +27,12 @@ import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 
 type SelfOptions = {
 
-  // Optional alternate position, defaults to opticalObject.positionProperty.
+  // Optional alternate position of the optical object, defaults to opticalObject.positionProperty.
   // This is used for the second point-of-interest on the framed objects.
-  positionProperty?: IReadOnlyProperty<Vector2>
+  opticalObjectPositionProperty?: IReadOnlyProperty<Vector2>
 };
 
-type OpticalImageOptions = SelfOptions
-  & PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
+type OpticalImageOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
 
 class OpticalImage extends PhetioObject {
 
@@ -74,11 +73,11 @@ class OpticalImage extends PhetioObject {
   constructor( opticalObject: OpticalObject, optic: Optic, providedOptions: OpticalImageOptions ) {
 
     const options = optionize<OpticalImageOptions, SelfOptions, PhetioObjectOptions>( {
-      positionProperty: opticalObject.positionProperty,
+      opticalObjectPositionProperty: opticalObject.positionProperty,
       phetioState: false
     }, providedOptions );
 
-    const opticalObjectPositionProperty = options.positionProperty;
+    const opticalObjectPositionProperty = options.opticalObjectPositionProperty;
 
     super( options );
 

@@ -75,7 +75,7 @@ class FramedObjectScene extends GOScene {
     } );
 
     this.framedImage2 = new FramedImage( this.framedObject, this.optic, {
-      positionProperty: this.secondPoint.positionProperty,
+      opticalObjectPositionProperty: this.secondPoint.positionProperty,
       tandem: providedOptions.tandem.createTandem( 'framedImage2' ),
       phetioDocumentation: 'optical image associated with the second point-of-interest on the framed object'
     } );
