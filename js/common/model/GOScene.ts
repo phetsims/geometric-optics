@@ -84,7 +84,8 @@ abstract class GOScene extends PhetioObject {
    */
   public stepLightRays( dt: number ): void {
     if ( this.lightRaysAnimationTimeProperty.value < this.lightRaysAnimationTimeRange.max ) {
-      this.lightRaysAnimationTimeProperty.value += dt;
+      this.lightRaysAnimationTimeProperty.value =
+        Math.min( this.lightRaysAnimationTimeRange.max, this.lightRaysAnimationTimeProperty.value + dt );
     }
   }
 }
