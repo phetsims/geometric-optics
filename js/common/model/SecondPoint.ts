@@ -45,7 +45,7 @@ class SecondPoint extends PhetioObject {
 
     const options = optionize<SecondPointOptions, {}, PhetioObjectOptions>( {
 
-      // PhetioObject options
+      // PhetioObjectOptions
       phetioState: false
     }, providedOptions );
 

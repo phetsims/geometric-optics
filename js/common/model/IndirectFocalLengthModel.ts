@@ -39,7 +39,7 @@ class IndirectFocalLengthModel extends PhetioObject implements FocalLengthModel 
 
     const options = optionize<IndirectFocalLengthModelOptions, SelfOptions, PhetioObjectOptions>( {
 
-      // PhetioObject options
+      // PhetioObjectOptions
       phetioState: false,
       phetioDocumentation: 'Model of focal length that is used when ' +
                            `${GOGlobalOptions.focalLengthModelTypeProperty.tandem.phetioID} ` +

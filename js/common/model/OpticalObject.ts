@@ -54,10 +54,10 @@ class OpticalObject extends PhetioObject {
 
     const options = optionize<OpticalObjectOptions, SelfOptions, PhetioObjectOptions>( {
 
-      // OpticalObject options
+      // SelfOptions
       position: Vector2.ZERO,
 
-      // PhetioObject options
+      // PhetioObjectOptions
       phetioState: false
     }, providedOptions );
 

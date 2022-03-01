@@ -43,7 +43,7 @@ abstract class GOScene extends PhetioObject {
 
     const options = optionize<GOSceneOptions, {}, PhetioObjectOptions>( {
 
-      // PhetioObject options
+      // PhetioObjectOptions
       phetioState: false
     }, providedOptions );
 

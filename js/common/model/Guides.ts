@@ -32,7 +32,7 @@ class Guides extends PhetioObject {
 
     const options = optionize<GuidesOptions, {}, PhetioObjectOptions>( {
 
-      // PhetioObject options
+      // PhetioObjectOptions
       phetioState: false
     }, providedOptions );
 

@@ -50,7 +50,7 @@ class ProjectionScreen extends PhetioObject {
 
     const options = optionize<ProjectionScreenOptions, {}, PhetioObjectOptions>( {
 
-      // PhetioObject options
+      // PhetioObjectOptions
       phetioState: false
     }, providedOptions );
 

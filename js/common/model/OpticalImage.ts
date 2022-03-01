@@ -74,7 +74,7 @@ class OpticalImage extends PhetioObject {
 
     const options = optionize<OpticalImageOptions, SelfOptions, PhetioObjectOptions>( {
 
-      // OpticalImage options
+      // SelfOptions options
       opticalObjectPositionProperty: opticalObject.positionProperty,
 
       // PhetioObject options

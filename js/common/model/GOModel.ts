@@ -76,7 +76,7 @@ class GOModel {
 
     const options = optionize<GOModelOptions, SelfOptions>( {
 
-      // GOModel options
+      // SelfOptions
       lightObject1Position: Vector2.ZERO,
       lightObject2Position: Vector2.ZERO
     }, providedOptions );
