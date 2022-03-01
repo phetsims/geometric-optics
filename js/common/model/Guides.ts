@@ -31,6 +31,8 @@ class Guides extends PhetioObject {
   constructor( optic: Optic, opticalObjectPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: GuidesOptions ) {
 
     const options = optionize<GuidesOptions, {}, PhetioObjectOptions>( {
+
+      // PhetioObject options
       phetioState: false
     }, providedOptions );
 

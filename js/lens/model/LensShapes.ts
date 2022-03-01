@@ -44,6 +44,8 @@ class LensShapes implements OpticShapes {
   constructor( radiusOfCurvature: number, diameter: number, providedOptions?: LensShapesOptions ) {
 
     const options = optionize<LensShapesOptions, LensShapesOptions>( {
+
+      // LensShapes options
       isHollywooded: true
     }, providedOptions );
 

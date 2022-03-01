@@ -49,6 +49,8 @@ class ProjectionScreen extends PhetioObject {
   constructor( opticPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: ProjectionScreenOptions ) {
 
     const options = optionize<ProjectionScreenOptions, {}, PhetioObjectOptions>( {
+
+      // PhetioObject options
       phetioState: false
     }, providedOptions );
 

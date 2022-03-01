@@ -39,6 +39,8 @@ class LensNode extends Node {
   constructor( lens: Lens, modelViewTransform: ModelViewTransform2, providedOptions: LensNodeOptions ) {
 
     const options = optionize<LensNodeOptions, {}, NodeOptions>( {
+
+      // Node options
       phetioVisiblePropertyInstrumented: false
     }, providedOptions );
 

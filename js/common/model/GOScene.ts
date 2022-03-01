@@ -42,6 +42,8 @@ abstract class GOScene extends PhetioObject {
   protected constructor( optic: Optic, providedOptions: GOSceneOptions ) {
 
     const options = optionize<GOSceneOptions, {}, PhetioObjectOptions>( {
+
+      // PhetioObject options
       phetioState: false
     }, providedOptions );
 

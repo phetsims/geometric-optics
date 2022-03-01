@@ -30,6 +30,8 @@ class LensScreen extends Screen<LensModel, LensScreenView> {
   constructor( providedOptions: LensScreenOptions ) {
 
     const options = optionize<LensScreenOptions, SelfOptions, ScreenOptions>( {
+
+      // LensScreen options
       isBasicsVersion: false,
 
       // Screen options

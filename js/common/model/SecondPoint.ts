@@ -44,6 +44,8 @@ class SecondPoint extends PhetioObject {
   constructor( framedObjectPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: SecondPointOptions ) {
 
     const options = optionize<SecondPointOptions, {}, PhetioObjectOptions>( {
+
+      // PhetioObject options
       phetioState: false
     }, providedOptions );
 

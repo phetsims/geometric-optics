@@ -64,6 +64,8 @@ class LightSpot extends PhetioObject {
                providedOptions: LightSpotOptions ) {
 
     const options = optionize<LightSpotOptions, {}, PhetioObject>( {
+
+      // PhetioObject options
       phetioState: false
     }, providedOptions );
 

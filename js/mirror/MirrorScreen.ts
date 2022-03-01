@@ -33,6 +33,8 @@ class MirrorScreen extends Screen<MirrorModel, MirrorScreenView> {
     const isBasicsVersion = ( providedOptions.isBasicsVersion || false );
 
     const options = optionize<MirrorScreenOptions, SelfOptions, ScreenOptions>( {
+
+      // LensScreen options
       isBasicsVersion: false,
 
       // Screen options

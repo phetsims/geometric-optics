@@ -53,7 +53,11 @@ class OpticalObject extends PhetioObject {
       `opticalObjectNumber must be a positive integer: ${opticalObjectNumber}` );
 
     const options = optionize<OpticalObjectOptions, SelfOptions, PhetioObjectOptions>( {
+
+      // OpticalObject options
       position: Vector2.ZERO,
+
+      // PhetioObject options
       phetioState: false
     }, providedOptions );
 

@@ -75,6 +75,8 @@ class GOModel {
   constructor( optic: Optic, providedOptions: GOModelOptions ) {
 
     const options = optionize<GOModelOptions, SelfOptions>( {
+
+      // GOModel options
       lightObject1Position: Vector2.ZERO,
       lightObject2Position: Vector2.ZERO
     }, providedOptions );

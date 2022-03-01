@@ -41,6 +41,8 @@ class MirrorNode extends Node {
   constructor( mirror: Mirror, modelViewTransform: ModelViewTransform2, providedOptions: MirrorNodeOptions ) {
 
     const options = optionize<MirrorNodeOptions, {}, NodeOptions>( {
+
+      // Node options
       phetioVisiblePropertyInstrumented: false
     }, providedOptions );
     

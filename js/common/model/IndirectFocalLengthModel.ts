@@ -38,6 +38,8 @@ class IndirectFocalLengthModel extends PhetioObject implements FocalLengthModel 
   constructor( opticShapeProperty: IReadOnlyProperty<OpticShape>, providedOptions: IndirectFocalLengthModelOptions ) {
 
     const options = optionize<IndirectFocalLengthModelOptions, SelfOptions, PhetioObjectOptions>( {
+
+      // PhetioObject options
       phetioState: false,
       phetioDocumentation: 'Model of focal length that is used when ' +
                            `${GOGlobalOptions.focalLengthModelTypeProperty.tandem.phetioID} ` +

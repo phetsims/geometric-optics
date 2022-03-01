@@ -113,7 +113,11 @@ abstract class Optic extends PhetioObject {
   protected constructor( providedOptions: OpticOptions ) {
 
     const options = optionize<OpticOptions, SelfOptions, PhetioObjectOptions>( {
+
+      // Optic options
       position: Vector2.ZERO,
+
+      // PhetioObject options
       phetioState: false
     }, providedOptions );
 
