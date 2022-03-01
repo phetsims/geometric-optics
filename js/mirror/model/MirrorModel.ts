@@ -22,6 +22,7 @@ type MirrorModelOptions = SelfOptions & PickRequired<GOModelOptions, 'tandem'>;
 
 class MirrorModel extends GOModel {
 
+  // Resets things that are specific to this class.
   private readonly resetMirrorModel: () => void;
 
   /**

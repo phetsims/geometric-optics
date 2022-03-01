@@ -50,18 +50,20 @@ class OpticalImage extends PhetioObject {
   public readonly visibleProperty: Property<boolean>;
 
   // whether the image is real or virtual
-  // For a mirror, the Image is virtual if the Image is on the opposite of the object
   public readonly opticalImageTypeProperty: IReadOnlyProperty<OpticalImageType>;
 
-  // horizontal "distance" between Image and optic
-  // The distance can be negative. We follow the standard sign convention used in geometric optics courses.
+  // horizontal "distance" between optic and image, which can be negative.
+  // For a lens, a positive distance indicates that the image is to the right of the lens.
+  // For a mirror, a positive distance indicates that the image is to the left of the mirror.
   private readonly opticImageDistanceProperty: IReadOnlyProperty<number>;
 
+  // light intensity of the image (Hollywooded) in the range [0,1]
   protected readonly lightIntensityProperty: IReadOnlyProperty<number>;
 
   // the magnification can be negative, indicating the Image is inverted.
   public readonly magnificationProperty: IReadOnlyProperty<number>;
 
+  // Resets things that are specific to this class.
   private readonly resetOpticalImage: () => void;
 
   /**
@@ -108,8 +110,8 @@ class OpticalImage extends PhetioObject {
         else {
 
           // Calculated based on the thin lens law/ mirror equation
-          // For a lens, a positive distance, indicates that the Image is on the opposite of object (wrt to the lens)
-          // For a mirror, a positive distance indicates that the Image is on the same side as the object.
+          // For a lens, a positive distance indicates that the image is to the right of the lens.
+          // For a mirror, a positive distance indicates that the image is to the left of the mirror.
           return ( focalLength * opticObjectDistance ) / ( opticObjectDistance - focalLength );
         }
       } );
@@ -153,7 +155,6 @@ class OpticalImage extends PhetioObject {
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
       } );
 
-    // light intensity of the image (Hollywooded) in the range [0,1]
     this.lightIntensityProperty = new DerivedProperty(
       [ optic.diameterProperty, this.magnificationProperty ],
       ( diameter: number, magnification: number ) => {
