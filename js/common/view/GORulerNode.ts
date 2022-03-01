@@ -29,6 +29,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
+import Property from '../../../../axon/js/Property.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;
@@ -94,17 +95,20 @@ class GORulerNode extends Node {
     this.toolboxBounds = Bounds2.NOTHING; // to be set later via setToolboxBounds
     this.iconNode = new RulerIconNode( this, zoomTransformProperty );
 
-    // Create a RulerNode subcomponent to match zoomScale.
-    //TODO https://github.com/phetsims/geometric-optics/issues/133 this listener also depends on zoomTransformProperty, so there's a problematic ordering dependency there
-    zoomScaleProperty.link( zoomScale => {
+    // Create a RulerNode subcomponent whose scale matches the current zoom level.
+    Property.multilink( [ zoomTransformProperty ],
+      ( zoomTransform: ModelViewTransform2 ) => {
 
-      // update ruler size, so that view size remains the same
-      ruler.scaleLength( zoomScale );
+        // zoomTransformProperty is derived from zoomScaleProperty, so it does not need to be a dependency.
+        const zoomScale = zoomScaleProperty.value;
 
-      // update view
-      this.removeAllChildren();
-      this.addChild( createRulerNode( this.ruler.length, zoomTransformProperty.value, zoomScale ) );
-    } );
+        // update ruler size, so that view size remains the same
+        ruler.scaleLength( zoomScale );
+
+        // update view
+        this.removeAllChildren();
+        this.addChild( createRulerNode( this.ruler.length, zoomTransform, zoomScale ) );
+      } );
 
     ruler.positionProperty.link( position => {
       const viewPosition = zoomTransformProperty.value.modelToViewPosition( position );
