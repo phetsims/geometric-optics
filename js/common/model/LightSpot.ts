@@ -29,8 +29,8 @@ const FULL_INTENSITY_DIAMETER = 7; // cm, any light spot less than this diameter
 
 type PositionAndDiameter = { position: Vector2, diameter: number };
 
-type LightSpotOptions = PickRequired<PhetioObjectOptions, 'tandem'>
-  & PickOptional<PhetioObjectOptions, 'phetioDocumentation'>;
+type LightSpotOptions = PickRequired<PhetioObjectOptions, 'tandem'> &
+  PickOptional<PhetioObjectOptions, 'phetioDocumentation'>;
 
 class LightSpot extends PhetioObject {
 

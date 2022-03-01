@@ -57,7 +57,8 @@ type SelfOptions = {
   position?: Vector2
 };
 
-type OpticOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'> & PickOptional<PhetioObjectOptions, 'phetioDocumentation'>;
+type OpticOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'> &
+  PickOptional<PhetioObjectOptions, 'phetioDocumentation'>;
 
 abstract class Optic extends PhetioObject {
 

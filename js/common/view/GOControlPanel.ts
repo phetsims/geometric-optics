@@ -8,7 +8,7 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import { HBox, NodeOptions } from '../../../../scenery/js/imports.js';
+import { HBox } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import VSeparator from '../../../../sun/js/VSeparator.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -30,7 +30,7 @@ type SelfOptions = {
   isBasicsVersion: boolean
 };
 
-type GOControlPanelOptions = SelfOptions & PickOptional<NodeOptions, 'bottom'> & PickRequired<PanelOptions, 'tandem'>;
+type GOControlPanelOptions = SelfOptions & PickOptional<PanelOptions, 'bottom'> & PickRequired<PanelOptions, 'tandem'>;
 
 class GOControlPanel extends Panel {
 

@@ -14,12 +14,11 @@ import merge from '../../../../phet-core/js/merge.js';
 import GOConstants from '../GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import { NodeOptions } from '../../../../scenery/js/imports.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { NumberControlOptions } from '../GOCommonOptions.js';
 import optionize, { OptionizeDefaults } from '../../../../phet-core/js/optionize.js';
 
-type IndexOfRefractionControlOptions = PickRequired<NodeOptions, 'tandem'>;
+type IndexOfRefractionControlOptions = PickRequired<NumberControlOptions, 'tandem'>;
 
 class IndexOfRefractionControl extends NumberControl {
 

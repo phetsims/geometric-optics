@@ -34,7 +34,7 @@ export type ArrowNodeOptions = {
 export type BackgroundNodeOptions = {
   xMargin?: number,
   yMargin?: number,
-  rectangleOptions: RectangleOptions
+  rectangleOptions?: RectangleOptions
 } & NodeOptions;
 
 export type BooleanRectangularToggleButtonOptions = {
@@ -64,7 +64,7 @@ export type ComboBoxOptions = {
   yMargin?: number,
   buttonTouchAreaXDilation?: number,
   buttonTouchAreaYDilation?: number
-};
+} & NodeOptions;
 
 export type KeyboardDragListenerOptions = {
   positionProperty?: IProperty<Vector2> | null,
@@ -89,6 +89,15 @@ export type NumberDisplayOptions = {
   valuePattern?: string
 } & NodeOptions;
 
+export type PanelOptions = Partial<{
+  align?: 'left' | 'right' | 'center',
+  cornerRadius?: number,
+  xMargin?: number,
+  yMargin?: number,
+  fill?: ColorDef,
+  stroke?: ColorDef
+}> & NodeOptions;
+
 export type RectangularRadioButtonGroupOptions = {
   orientation?: 'horizontal' | 'vertical',
   spacing?: number,
@@ -102,7 +111,7 @@ export type RectangularRadioButtonGroupOptions = {
   buttonContentYMargin?: number,
   touchAreaXDilation?: number,
   touchAreaYDilation?: number
-};
+} & NodeOptions;
 
 export type SimOptions = {
   credits?: object,

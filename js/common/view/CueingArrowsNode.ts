@@ -21,7 +21,7 @@ type SelfOptions = {
   length?: number,
 };
 
-type CueingArrowsNodeOptions = SelfOptions & PathOptions;
+type CueingArrowsNodeOptions = SelfOptions & PathOptions; //TODO pick PathOptions
 
 class CueingArrowsNode extends Path {
 

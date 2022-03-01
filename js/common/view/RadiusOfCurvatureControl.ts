@@ -17,12 +17,11 @@ import Utils from '../../../../dot/js/Utils.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import { NodeOptions } from '../../../../scenery/js/imports.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { NumberControlOptions } from '../GOCommonOptions.js';
 import optionize, { OptionizeDefaults } from '../../../../phet-core/js/optionize.js';
 
-type RadiusOfCurvatureControlOptions = PickRequired<NodeOptions, 'tandem'>;
+type RadiusOfCurvatureControlOptions = PickRequired<NumberControlOptions, 'tandem'>;
 
 class RadiusOfCurvatureControl extends NumberControl {
 

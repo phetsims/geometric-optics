@@ -11,7 +11,7 @@ import Property from '../../../../axon/js/Property.js';
 import geometricOptics from '../../geometricOptics.js';
 import lockSolidShape from '../../../../sherpa/js/fontawesome-5/lockSolidShape.js';
 import unlockSolidShape from '../../../../sherpa/js/fontawesome-5/unlockSolidShape.js';
-import { AlignBox, AlignGroup, HBox, HBoxOptions, NodeOptions, Path } from '../../../../scenery/js/imports.js';
+import { AlignBox, AlignGroup, HBox, HBoxOptions, Path } from '../../../../scenery/js/imports.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
 import ButtonNode from '../../../../sun/js/buttons/ButtonNode.js';
 import BooleanRectangularToggleButton from '../../../../sun/js/buttons/BooleanRectangularToggleButton.js';
@@ -26,8 +26,8 @@ const LOCK_SCALE = 0.045;
 const UNLOCKED_FILL = 'black';
 const LOCKED_FILL = PhetColorScheme.RED_COLORBLIND;
 
-type DragLockedButtonOptions = PickRequired<NodeOptions, 'tandem'>
-  & PickOptional<NodeOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
+type DragLockedButtonOptions = PickRequired<BooleanRectangularToggleButtonOptions, 'tandem'>
+  & PickOptional<BooleanRectangularToggleButtonOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
 
 class DragLockedButton extends BooleanRectangularToggleButton {
 
