@@ -14,9 +14,10 @@ import IReadOnlyProperty from '../../../axon/js/IReadOnlyProperty.js';
 import Bounds2 from '../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../dot/js/Dimension2.js';
 import Vector2 from '../../../dot/js/Vector2.js';
+import { PickOptional } from '../../../phet-core/js/types/PickOptional.js';
 import ModelViewTransform2 from '../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Node, NodeOptions, RectangleOptions, RichTextOptions, SceneryEvent, TextOptions } from '../../../scenery/js/imports.js';
-import { RequiredTandem } from '../../../tandem/js/PhetioObject.js';
+import { PhetioObjectOptions } from '../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 
 export type ArrowNodeOptions = {
@@ -72,7 +73,7 @@ export type KeyboardDragListenerOptions = {
   drag?: ( event: SceneryEvent ) => void,
   start?: ( event: SceneryEvent ) => void
   end?: ( event: SceneryEvent ) => void
-} & RequiredTandem;
+} & PickOptional<PhetioObjectOptions, 'tandem'>;
 
 export type NumberControlOptions = {
   delta?: number,
