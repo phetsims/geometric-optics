@@ -124,6 +124,7 @@ class PointNode extends Circle {
 
 /**
  * SecondPointNode has its own cueing arrows that are very different from the CueingArrowNode used for other UI elements.
+ * These arrows point up and down, and are separated by a gap where the second point will appear.
  */
 class SecondPointCueingArrowsNode extends VBox {
 
