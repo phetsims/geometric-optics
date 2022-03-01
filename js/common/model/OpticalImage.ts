@@ -1,6 +1,5 @@
 // Copyright 2022, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/geometric-optics/issues/330 this entire class needs to be reviewed/revised
 /**
  * OpticalImage is the base class for all optical images. It describes where the image would occur, the point where
  * light rays intersect. What the image looks like is the responsibility of subclasses.
