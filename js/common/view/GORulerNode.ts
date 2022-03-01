@@ -176,9 +176,8 @@ class GORulerNode extends Node {
             ruler.visibleProperty.value = false;
             this.iconNode.focus();
           }
-        }
-        //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
-        // tandem: options.tandem.createTandem( 'keyboardDragListener' )
+        },
+        tandem: options.tandem.createTandem( 'keyboardDragListener' )
       } ) );
     this.addInputListener( keyboardDragListener );
 

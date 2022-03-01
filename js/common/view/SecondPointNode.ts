@@ -93,9 +93,8 @@ class SecondPointNode extends Node {
       optionize<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
         positionProperty: positionProperty,
         transform: modelViewTransform,
-        drag: drag
-        //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
-        //tandem: options.tandem.createTandem( 'keyboardDragListener' )
+        drag: drag,
+        tandem: options.tandem.createTandem( 'keyboardDragListener' )
       } ) );
     this.addInputListener( keyboardDragListener );
 

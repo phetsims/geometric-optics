@@ -171,9 +171,8 @@ class ProjectionScreenNode extends Node {
         positionProperty: projectionScreen.positionProperty,
         dragBoundsProperty: dragBoundsProperty,
         drag: drag,
-        transform: modelViewTransform
-        //TODO https://github.com/phetsims/scenery/issues/1313 KeyboardDragListener is not instrumented yet
-        //tandem: options.tandem.createTandem( 'keyboardDragListener' )
+        transform: modelViewTransform,
+        tandem: options.tandem.createTandem( 'keyboardDragListener' )
       } ) );
     this.addInputListener( keyboardDragListener );
 
