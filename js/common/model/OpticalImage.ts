@@ -45,23 +45,23 @@ class OpticalImage extends PhetioObject {
   // position of the optical image (the focus, as predicted by lens and mirror equation)
   public readonly positionProperty: IReadOnlyProperty<Vector2>;
 
+  // whether the optical image is real or virtual
+  public readonly opticalImageTypeProperty: IReadOnlyProperty<OpticalImageType>;
+
   // whether the optical image is visible. The image is not visible until light rays have reached it.
   public readonly visibleProperty: Property<boolean>;
 
-  // whether the optical image is real or virtual
-  public readonly opticalImageTypeProperty: IReadOnlyProperty<OpticalImageType>;
+  // the magnification can be negative, indicating that the optical image is inverted.
+  public readonly magnificationProperty: IReadOnlyProperty<number>;
+
+  // light intensity of the optical image (Hollywooded) in the range [0,1]
+  protected readonly lightIntensityProperty: IReadOnlyProperty<number>;
 
   // horizontal "distance" between optic and image, which can be negative.
   // Positive is a real image, negative is a virtual image.
   // For a lens, a positive distance indicates that the image is to the right of the lens.
   // For a mirror, a positive distance indicates that the image is to the left of the mirror.
   private readonly opticImageDistanceProperty: IReadOnlyProperty<number>;
-
-  // light intensity of the optical image (Hollywooded) in the range [0,1]
-  protected readonly lightIntensityProperty: IReadOnlyProperty<number>;
-
-  // the magnification can be negative, indicating that the optical image is inverted.
-  public readonly magnificationProperty: IReadOnlyProperty<number>;
 
   // Resets things that are specific to this class.
   private readonly resetOpticalImage: () => void;
