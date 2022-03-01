@@ -74,6 +74,10 @@ class FramedObjectScene extends GOScene {
       phetioDocumentation: 'optical image associated with the first point-of-interest on the framed object'
     } );
 
+    //XXX
+    this.framedImage1.visibleProperty.link( ( visible: boolean ) =>
+      console.log( `framedImage1.visible=${visible}` ) );
+
     this.framedImage2 = new FramedImage( this.framedObject, this.optic, {
       positionProperty: this.secondPoint.positionProperty,
       tandem: providedOptions.tandem.createTandem( 'framedImage2' ),

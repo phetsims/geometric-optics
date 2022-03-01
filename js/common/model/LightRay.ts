@@ -35,8 +35,8 @@ class LightRay {
   // segments for the virtual rays
   readonly virtualSegments: Array<LightRaySegment>;
 
-  // true when the LightRay has reached the point where the optical image would form
-  readonly isTargetReached: boolean; //TODO does this need to be a Property for PhET-iO state?
+  // true when the LightRay has reached its target (the optical image position, or the projection screen position)
+  readonly hasReachedTarget: boolean;
 
   // a collection of sequential rays
   private readonly realRays: Array<GORay>;
@@ -88,7 +88,7 @@ class LightRay {
                       getVirtualRay( this.realRays, opticalImagePosition ) :
                       null;
 
-    this.isTargetReached = this.getHasReachedTarget( distanceTraveled, !!projectionScreen, opticalImagePosition );
+    this.hasReachedTarget = this.getHasReachedTarget( distanceTraveled, !!projectionScreen, opticalImagePosition );
 
     // Process rays to convert them to line segments.
     this.raysToSegments( distanceTraveled );

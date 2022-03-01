@@ -95,7 +95,7 @@ class LightRays {
             raysType, projectionScreen );
 
           // Set optical image's visibility to true when a ray reaches the image.
-          if ( lightRay.isTargetReached ) {
+          if ( lightRay.hasReachedTarget ) {
             opticalImage.visibleProperty.value = true;
           }
 

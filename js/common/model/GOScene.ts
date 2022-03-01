@@ -21,6 +21,7 @@ type GOSceneOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
 abstract class GOScene extends PhetioObject {
 
   readonly optic: Optic;
+  private readonly lightRaysAnimationTimeRange: Range; // determines the duration of the light rays animation
   readonly lightRaysAnimationTimeProperty: NumberProperty;
   abstract readonly guides1: Guides | null;
   abstract readonly guides2: Guides | null;
@@ -46,9 +47,11 @@ abstract class GOScene extends PhetioObject {
       tandem: options.tandem.createTandem( ( optic instanceof Lens ) ? 'lens' : 'mirror' )
     } );
 
+    this.lightRaysAnimationTimeRange = new Range( 0, 10 );
+
     this.lightRaysAnimationTimeProperty = new NumberProperty( 0, {
       units: 's',
-      range: new Range( 0, 10 ), // determines the duration of the light rays animation
+      range: this.lightRaysAnimationTimeRange,
       tandem: options.tandem.createTandem( 'lightRaysAnimationTimeProperty' ),
       phetioReadOnly: true,
       phetioHighFrequency: true
@@ -69,14 +72,19 @@ abstract class GOScene extends PhetioObject {
   }
 
   /**
+   * Begins the animation of light rays.
+   */
+  public beginLightRaysAnimation(): void {
+    this.lightRaysAnimationTimeProperty.reset();
+  }
+
+  /**
    * Steps the animation of light rays.
    * @param dt - time step, in seconds
    */
   public stepLightRays( dt: number ): void {
-    const t = Math.min( this.lightRaysAnimationTimeProperty.value + dt, this.lightRaysAnimationTimeProperty.range!.max );
-    assert && assert( this.lightRaysAnimationTimeProperty.range ); // {Range|null}
-    if ( this.lightRaysAnimationTimeProperty.range!.contains( t ) ) {
-      this.lightRaysAnimationTimeProperty.value = t;
+    if ( this.lightRaysAnimationTimeProperty.value < this.lightRaysAnimationTimeRange.max ) {
+      this.lightRaysAnimationTimeProperty.value += dt;
     }
   }
 }

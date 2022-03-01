@@ -418,7 +418,7 @@ class GOScreenView extends ScreenView {
 
     // Changing any of these Properties causes the light rays to animate.
     Property.multilink( [ model.raysTypeProperty, model.lightPropagationEnabledProperty ],
-      ( raysType: RaysType, lightPropagationEnabled: boolean ) => model.resetLightRays() );
+      ( raysType: RaysType, lightPropagationEnabled: boolean ) => model.beginLightRaysAnimation() );
 
     // Changing these things interrupts interactions
     const interrupt = () => this.interruptSubtreeInput();

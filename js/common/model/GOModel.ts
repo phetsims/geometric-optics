@@ -179,10 +179,10 @@ class GOModel {
   }
 
   /**
-   * Resets light rays, causing them to animate.
+   * Causes the light rays animation to begin.
    */
-  public resetLightRays(): void {
-    this.scenes.forEach( scene => scene.lightRaysAnimationTimeProperty.reset() );
+  public beginLightRaysAnimation(): void {
+    this.scenes.forEach( scene => scene.beginLightRaysAnimation() );
   }
 }
 
