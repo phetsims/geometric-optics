@@ -81,8 +81,8 @@ class OpticalImage extends PhetioObject {
 
     super( options );
 
-    this.opticalObject = opticalObject;
     this.optic = optic;
+    this.opticalObject = opticalObject;
 
     this.visibleProperty = new BooleanProperty( false, {
       tandem: options.tandem.createTandem( 'visibleProperty' ),
@@ -97,7 +97,7 @@ class OpticalImage extends PhetioObject {
       ( opticalObjectPosition: Vector2, opticPosition: Vector2, focalLength: number ) => {
 
         // {number} horizontal distance between optic and optical object
-        const opticObjectDistance = OpticalImage.getObjectOpticDistance( opticalObjectPosition, opticPosition );
+        const opticObjectDistance = computeObjectOpticDistance( opticalObjectPosition, opticPosition );
 
         // address the case where the optical object shares the same x position as the focal point
         if ( opticObjectDistance === focalLength ) {
@@ -115,16 +115,32 @@ class OpticalImage extends PhetioObject {
         }
       } );
 
-    this.positionProperty = new DerivedProperty(
-      [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
-      //TODO https://github.com/phetsims/geometric-optics/issues/330
-      // focalLength is not used, is focalLengthProperty dependency needed?
-      // Calls this.getMagnification, should there be a dependency here on magnificationProperty instead?
-      ( opticalObjectPosition: Vector2, opticPosition: Vector2, focalLength: number ) => {
+    this.magnificationProperty = new DerivedProperty( [ this.opticImageDistanceProperty ],
+      ( opticImageDistance: number ) => {
+
+        // optic.positionProperty and opticalObjectPositionProperty are dependencies of opticImageDistanceProperty,
+        // so they are not needed as dependencies here.
+        const opticPosition = optic.positionProperty.value;
+        const opticalObjectPosition = opticalObjectPositionProperty.value;
+
+        return computeMagnification( opticalObjectPosition, opticPosition, opticImageDistance );
+      }, {
+        tandem: options.tandem.createTandem( 'magnificationProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+        phetioDocumentation: 'Magnification of the optical image. Negative indicates that the image is inverted.'
+      } );
+
+    this.positionProperty = new DerivedProperty( [ this.opticImageDistanceProperty, this.magnificationProperty ],
+      ( opticImageDistance: number, magnification: number ) => {
+
+        // optic.positionProperty and opticalObjectPositionProperty are dependencies of opticImageDistanceProperty,
+        // so they are not needed as dependencies here.
+        const opticPosition = optic.positionProperty.value;
+        const opticalObjectPosition = opticalObjectPositionProperty.value;
 
         // The height is determined as the vertical offset from the optical axis of the focus point.
         // The height can be negative if the Image is inverted.
-        const height = this.getMagnification( opticalObjectPosition, opticPosition ) * ( opticalObjectPosition.y - opticPosition.y );
+        const height = magnification * ( opticalObjectPosition.y - opticPosition.y );
 
         // recall that the meaning of opticImageDistanceProperty is different for lens vs mirror.
         const horizontalDisplacement = optic.sign * this.opticImageDistanceProperty.value;
@@ -140,18 +156,6 @@ class OpticalImage extends PhetioObject {
         tandem: options.tandem.createTandem( 'opticalImageTypeProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( StringIO ),
         validValues: OpticalImageTypeValues
-      } );
-
-    //TODO https://github.com/phetsims/geometric-optics/issues/330
-    // focalLengthProperty is not used here. But if that dependency is removed, then the image magnification
-    // is incorrect when switching the lens from convex to concave, and the mirror from concave to convex. So
-    // there must be some ordering problem here, or a dependency on focalLengthProperty down in the derivation.
-    this.magnificationProperty = new DerivedProperty(
-      [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
-      ( framedObjectPosition: Vector2, opticPosition: Vector2, focalLength: number ) =>
-        this.getMagnification( framedObjectPosition, opticPosition ), {
-        tandem: options.tandem.createTandem( 'magnificationProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
       } );
 
     this.lightIntensityProperty = new DerivedProperty(
@@ -186,37 +190,38 @@ class OpticalImage extends PhetioObject {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
+}
 
-  /**
-   * Returns the horizontal distance from the object to the optic.
-   * A negative distance indicates that the object is to the right of the optic.
-   * @param opticalObjectPosition
-   * @param opticPosition
-   */
-  static getObjectOpticDistance( opticalObjectPosition: Vector2, opticPosition: Vector2 ): number {
-    return opticPosition.x - opticalObjectPosition.x;
+/**
+ * Returns the horizontal distance from the object to the optic.
+ * A negative distance indicates that the object is to the right of the optic.
+ * @param opticalObjectPosition
+ * @param opticPosition
+ */
+function computeObjectOpticDistance( opticalObjectPosition: Vector2, opticPosition: Vector2 ): number {
+  return opticPosition.x - opticalObjectPosition.x;
+}
+
+/**
+ * Returns the magnification of the Image as defined in geometric optics courses.
+ * A negative magnification implies that the Image is inverted.
+ * @param opticalObjectPosition
+ * @param opticPosition
+ * @param opticImageDistance - see opticImageDistanceProperty documentation
+ */
+function computeMagnification( opticalObjectPosition: Vector2, opticPosition: Vector2, opticImageDistance: number ): number {
+
+  // horizontal distance between optical object and optic
+  const objectOpticDistance = computeObjectOpticDistance( opticalObjectPosition, opticPosition );
+
+  // prevent a division by zero
+  if ( objectOpticDistance === 0 ) {
+
+    // The magnification is 1 when the object is right on the lens or mirror.
+    return 1;
   }
-
-  /**
-   * Returns the magnification of the Image as defined in geometric optics courses.
-   * A negative magnification implies that the Image is inverted.
-   * @param opticalObjectPosition
-   * @param opticPosition
-   */
-  protected getMagnification( opticalObjectPosition: Vector2, opticPosition: Vector2 ): number {
-
-    // horizontal distance between optical object and optic
-    const objectOpticDistance = OpticalImage.getObjectOpticDistance( opticalObjectPosition, opticPosition );
-
-    // prevent a division by zero
-    if ( objectOpticDistance === 0 ) {
-
-      // The magnification is 1 when the object is right on the lens or mirror.
-      return 1;
-    }
-    else {
-      return -1 * this.opticImageDistanceProperty.value / objectOpticDistance;
-    }
+  else {
+    return -1 * opticImageDistance / objectOpticDistance;
   }
 }
 
