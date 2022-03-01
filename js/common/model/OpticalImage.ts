@@ -149,22 +149,22 @@ class OpticalImage extends PhetioObject {
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
       } );
 
-    // light intensity of the Image (Hollywood), a value between 0 and 1
+    // light intensity of the image (Hollywooded) in the range [0,1]
     this.lightIntensityProperty = new DerivedProperty(
-      [ this.magnificationProperty, optic.diameterProperty ],
-      ( magnification: number, diameter: number ) => {
+      [ optic.diameterProperty, this.magnificationProperty ],
+      ( diameter: number, magnification: number ) => {
 
-        // effect of the distance on the opacity, Hollywooded as 1/magnification for upscaled Image
-        const distanceFactor = Math.min( 1, Math.abs( 1 / magnification ) );
-
-        // effect of the diameter of the optic on the light intensity of the Image (also Hollywooded)
+        // Affect of optic diameter
         assert && assert( optic.diameterProperty.range ); // {Range|null}
         const diameterRange: Range = optic.diameterProperty.range!;
         const diameterFactor = diameter / diameterRange.max;
         assert && assert( diameterFactor >= 0 && diameterFactor <= 1 );
 
+        // Affect of magnification, for up-scaled images only. For down-scaled images, magnification has no affect.
+        const magnificationFactor = Math.min( 1, Math.abs( 1 / magnification ) );
+
         // product of the two factors
-        return distanceFactor * diameterFactor;
+        return diameterFactor * magnificationFactor;
       }, {
         isValidValue: ( value: number ) => GOConstants.INTENSITY_RANGE.contains( value )
       } );
