@@ -1,7 +1,7 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * LightRays is the model of bundles of rays. It's primary responsibility is to collect the segments of
+ * LightRays is the model of bundles of light rays. It's primary responsibility is to collect the segments of
  * multiple LightRay instances. LightRays are animated over time.
  *
  * @author Martin Veillette
