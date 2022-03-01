@@ -29,7 +29,7 @@ import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 type SelfOptions = {
 
   // Optional alternate position, defaults to opticalObject.positionProperty
-  // This is used for the second point-of-interest on the frame objects.
+  // This is used for the second point-of-interest on the framed objects.
   positionProperty?: IReadOnlyProperty<Vector2>
 };
 
