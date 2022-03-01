@@ -51,14 +51,14 @@ class OpticalImage extends PhetioObject {
   readonly opticalImageTypeProperty: IReadOnlyProperty<OpticalImageType>;
 
   // The distance can be negative. We follow the standard sign convention used in geometric optics courses.
-  protected readonly opticImageDistanceProperty: IReadOnlyProperty<number>;
+  private readonly opticImageDistanceProperty: IReadOnlyProperty<number>;
 
   protected readonly lightIntensityProperty: IReadOnlyProperty<number>;
 
   // the magnification can be negative, indicating the Image is inverted.
   public readonly magnificationProperty: IReadOnlyProperty<number>;
 
-  public readonly resetOpticalImage: () => void;
+  private readonly resetOpticalImage: () => void;
 
   /**
    * @param opticalObject
