@@ -52,7 +52,7 @@ class SecondPointNode extends Node {
     this.setFocusHighlight( new FocusHighlightFromNode( pointNode ) );
 
     // Cueing arrows
-    const cueingArrowsNode = new CueingArrowsNode( pointNode.width + 10, {
+    const cueingArrowsNode = new SecondPointCueingArrowsNode( pointNode.width + 10, {
       center: pointNode.center,
       visibleProperty: new DerivedProperty(
         [ this.inputEnabledProperty, wasDraggedProperty ],
@@ -122,8 +122,10 @@ class PointNode extends Circle {
   }
 }
 
-// Arrows for cueing the user that this Node can be moved up and down
-class CueingArrowsNode extends VBox {
+/**
+ * SecondPointNode has its own cueing arrows that are very different from the CueingArrowNode used for other UI elements.
+ */
+class SecondPointCueingArrowsNode extends VBox {
 
   /**
    * @param spacing
