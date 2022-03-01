@@ -32,13 +32,14 @@ type LightObjectSceneOptions = SelfOptions & PickRequired<GOSceneOptions, 'tande
 
 class LightObjectScene extends GOScene {
 
+  // the elements that make up this scene
   public readonly lightObject1: LightObject;
   public readonly lightObject2: LightObject;
   public readonly opticalImage1: OpticalImage;
   public readonly opticalImage2: OpticalImage;
-  public readonly projectionScreen: ProjectionScreen;
   public readonly lightRays1: LightRays;
   public readonly lightRays2: LightRays;
+  public readonly projectionScreen: ProjectionScreen;
   public readonly lightSpot1: LightSpot;
   public readonly lightSpot2: LightSpot;
   public readonly guides1: Guides;

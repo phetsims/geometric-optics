@@ -23,7 +23,7 @@ type HTMLImageElementObjectOptions = PickRequired<OpticalObjectOptions, 'positio
 
 class HTMLImageElementObject extends OpticalObject {
 
-  // The HTMLImageElement used to visually represent the optical object.
+  // The HTMLImageElement (PNG file) used to visually represent the optical object.
   public readonly htmlImageElementProperty: IReadOnlyProperty<HTMLImageElement>;
 
   // Where the point-of-interest is relative to the left-top corner of the HTMLImageElement.

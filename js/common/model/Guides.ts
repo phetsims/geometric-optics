@@ -19,6 +19,7 @@ type GuidesOptions = PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumen
 
 class Guides extends PhetioObject {
 
+  // the pair of guides
   public readonly topGuide: Guide;
   public readonly bottomGuide: Guide;
 

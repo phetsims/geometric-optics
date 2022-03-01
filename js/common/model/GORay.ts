@@ -16,6 +16,7 @@ import geometricOptics from '../../geometricOptics.js';
 
 class GORay extends Ray2 {
 
+  // length of the ray, in cm
   private length: number;
 
   /**

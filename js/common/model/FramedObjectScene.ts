@@ -34,6 +34,7 @@ type FramedObjectSceneOptions = SelfOptions & PickRequired<GOSceneOptions, 'tand
 
 class FramedObjectScene extends GOScene {
 
+  // the elements that make up this scene
   public readonly framedObject: FramedObject;
   public readonly secondPoint: SecondPoint;
   public readonly framedImage1: FramedImage;

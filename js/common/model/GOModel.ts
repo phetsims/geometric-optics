@@ -31,12 +31,10 @@ type SelfOptions = {
   // optical object choices, in the order that they will appear in OpticalObjectChoiceComboBox
   opticalObjectChoices: OpticalObjectChoice[],
 
-  // initial positions of optical objects
+  // initial positions of optical objects (lights are optional)
   arrowObject1Position: Vector2,
   arrowObject2Position: Vector2,
   framedObjectPosition: Vector2,
-
-  // lights are optional
   lightObject1Position?: Vector2,
   lightObject2Position?: Vector2
 };

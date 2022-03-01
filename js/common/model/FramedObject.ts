@@ -26,10 +26,10 @@ type FramedObjectOptions = PickRequired<HTMLImageElementObjectOptions, 'position
 
 class FramedObject extends HTMLImageElementObject {
 
-  // HTMLImageElements used to draw this framed object and its associated image
+  // HTMLImageElements (PNG files) used to draw this framed object and its associated image
   public readonly objectHTMLImageElementsProperty: IReadOnlyProperty<ObjectHTMLImageElements>;
 
-  // HTMLImageElement used to draw this framed object
+  // HTMLImageElement (PNG file) used to draw this framed object
   public readonly htmlImageElementProperty: IReadOnlyProperty<HTMLImageElement>;
 
   /**

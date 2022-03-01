@@ -37,6 +37,7 @@ class OpticalObject extends PhetioObject {
   // Positive integer used when labeling this object
   public readonly opticalObjectNumber: number;
 
+  // position of the point-of-interest on the optical object, from which rays propagate
   public readonly positionProperty: Property<Vector2>;
 
   // Resets things that are specific to this class.

@@ -33,7 +33,7 @@ import starLeftFacingUpright_png from '../../../images/starLeftFacingUpright_png
 import starLeftFacingInverted_png from '../../../images/starLeftFacingInverted_png.js';
 import starIcon_png from '../../../images/starIcon_png.js';
 
-// Set of HTMLImageElements that depict a framed object and its associated optical image
+// Set of HTMLImageElements (PNG files) that depict a framed object and its associated optical image
 type ObjectHTMLImageElements = {
   rightFacingUpright: HTMLImageElement,
   rightFacingInverted: HTMLImageElement,
@@ -41,6 +41,7 @@ type ObjectHTMLImageElements = {
   leftFacingInverted: HTMLImageElement
 };
 
+// icon used for 'Arrow' in the combo box
 const arrowIcon = new ArrowNode( 0, 0, 0, -50,
   optionize<ArrowNodeOptions, {}, ArrowNodeOptions>( {
     fill: GOColors.arrow1FillProperty,

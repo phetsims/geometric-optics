@@ -32,7 +32,7 @@ type LightObjectOptions = SelfOptions
 
 class LightObject extends HTMLImageElementObject {
 
-  // the PNG file used to visually represent the light
+  // the HTMLImageElement (PNG file) used to visually represent the light
   public readonly htmlImageElement: HTMLImageElement;
 
   /**

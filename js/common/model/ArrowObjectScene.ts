@@ -31,6 +31,7 @@ type ArrowObjectSceneOptions = SelfOptions & PickRequired<GOSceneOptions, 'tande
 
 class ArrowObjectScene extends GOScene {
 
+  // the elements that make up this scene
   public readonly arrowObject1: ArrowObject;
   public readonly arrowObject2: ArrowObject;
   public readonly arrowImage1: ArrowImage;
