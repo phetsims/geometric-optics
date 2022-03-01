@@ -18,7 +18,7 @@ type LensModelOptions = PickRequired<GOModelOptions, 'tandem'>;
 
 class LensModel extends GOModel {
 
-  public readonly resetLensModel: () => void;
+  private readonly resetLensModel: () => void;
 
   /**
    * @param providedOptions
