@@ -96,19 +96,18 @@ class GORulerNode extends Node {
     this.iconNode = new RulerIconNode( this, zoomTransformProperty );
 
     // Create a RulerNode subcomponent whose scale matches the current zoom level.
-    Property.multilink( [ zoomTransformProperty ],
-      ( zoomTransform: ModelViewTransform2 ) => {
+    Property.multilink( [ zoomTransformProperty ], ( zoomTransform: ModelViewTransform2 ) => {
 
-        // zoomTransformProperty is derived from zoomScaleProperty, so it does not need to be a dependency.
-        const zoomScale = zoomScaleProperty.value;
+      // zoomTransformProperty is derived from zoomScaleProperty, so it does not need to be a dependency.
+      const zoomScale = zoomScaleProperty.value;
 
-        // update ruler size, so that view size remains the same
-        ruler.scaleLength( zoomScale );
+      // update ruler size, so that view size remains the same
+      ruler.scaleLength( zoomScale );
 
-        // update view
-        this.removeAllChildren();
-        this.addChild( createRulerNode( this.ruler.length, zoomTransform, zoomScale ) );
-      } );
+      // update view
+      this.removeAllChildren();
+      this.addChild( createRulerNode( this.ruler.length, zoomTransform, zoomScale ) );
+    } );
 
     ruler.positionProperty.link( position => {
       const viewPosition = zoomTransformProperty.value.modelToViewPosition( position );
