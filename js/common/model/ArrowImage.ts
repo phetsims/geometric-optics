@@ -20,8 +20,8 @@ type ArrowImageOptions = PickRequired<OpticalImage, 'tandem' | 'phetioDocumentat
 
 class ArrowImage extends OpticalImage {
 
-  readonly fill: ColorDef;
-  readonly opacityProperty: IReadOnlyProperty<number>;
+  public readonly fill: ColorDef;
+  public readonly opacityProperty: IReadOnlyProperty<number>;
 
   /**
    * @param arrowObject - the optical object that this image is associated with

@@ -29,10 +29,10 @@ type LensOptions = PickRequired<OpticOptions, 'tandem'>;
 class Lens extends Optic {
 
   // See Optic
-  readonly shapesProperty: IReadOnlyProperty<LensShapes>;
+  public readonly shapesProperty: IReadOnlyProperty<LensShapes>;
 
   // opacity of the lens
-  readonly opacityProperty: IReadOnlyProperty<number>;
+  public readonly opacityProperty: IReadOnlyProperty<number>;
 
   /**
    * @param providedOptions

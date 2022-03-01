@@ -24,13 +24,13 @@ type MirrorShapesOptions = {
 class MirrorShapes implements OpticShapes {
 
   // specific to MirrorShapes
-  readonly reflectiveCoatingShape: Shape; // reflective coating on the front (left-facing) surface of the mirror, with zero area
-  readonly backingShape: Shape; // the mirror's backing
+  public readonly reflectiveCoatingShape: Shape; // reflective coating on the front (left-facing) surface of the mirror, with zero area
+  public readonly backingShape: Shape; // the mirror's backing
 
   // See OpticShapes interface
-  readonly frontShape: Shape; // the mirror's reflective coating
-  readonly backShape: null; // rays do not pass through a mirror, so there is no hit testing on its back
-  readonly activeBoundsShape: Shape; // the mirror's reflective coating
+  public readonly frontShape: Shape; // the mirror's reflective coating
+  public readonly backShape: null; // rays do not pass through a mirror, so there is no hit testing on its back
+  public readonly activeBoundsShape: Shape; // the mirror's reflective coating
 
   /**
    * @param radiusOfCurvature - radius of curvature (ROC) at the center of the mirror

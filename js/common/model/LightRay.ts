@@ -30,13 +30,13 @@ type LightRaySegment = {
 class LightRay {
 
   // segments for the real rays
-  readonly realSegments: Array<LightRaySegment>;
+  public readonly realSegments: Array<LightRaySegment>;
 
   // segments for the virtual rays
-  readonly virtualSegments: Array<LightRaySegment>;
+  public readonly virtualSegments: Array<LightRaySegment>;
 
   // true when the LightRay has reached its target (the optical image position, or the projection screen position)
-  readonly hasReachedTarget: boolean;
+  public readonly hasReachedTarget: boolean;
 
   // a collection of sequential rays
   private readonly realRays: Array<GORay>;

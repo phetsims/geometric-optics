@@ -24,13 +24,13 @@ type GuideOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
 class Guide extends PhetioObject {
 
   // position of the fulcrum point, in cm
-  readonly fulcrumPositionProperty: IReadOnlyProperty<Vector2>;
+  public readonly fulcrumPositionProperty: IReadOnlyProperty<Vector2>;
 
   // angle of rotation of the incident guide with respect to the positive x-axis, in radians
-  readonly incidentAngleProperty: IReadOnlyProperty<number>;
+  public readonly incidentAngleProperty: IReadOnlyProperty<number>;
 
   // the angle of the transmitted guide with respect to the positive x-axis, in radians
-  readonly transmittedAngleProperty: IReadOnlyProperty<number>;
+  public readonly transmittedAngleProperty: IReadOnlyProperty<number>;
 
   /**
    * @param optic

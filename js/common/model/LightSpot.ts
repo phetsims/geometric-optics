@@ -36,19 +36,19 @@ class LightSpot extends PhetioObject {
 
   // Shape of the light spot, based on its intersection with the projection screen.
   // If the spot does not intersect the screen, the value will be a Shape with zero area.
-  readonly shapeProperty: IReadOnlyProperty<Shape>;
+  public readonly shapeProperty: IReadOnlyProperty<Shape>;
 
   // Intensity of the light spot, in the range [0,1],
   // null if there is no light spot hitting the projection screen
-  readonly intensityProperty: IReadOnlyProperty<number | null>;
+  public readonly intensityProperty: IReadOnlyProperty<number | null>;
 
   // Position of the center of the light spot, which may not be on the screen,
   // null if there is no light spot hitting the projection screen
-  readonly positionProperty: IReadOnlyProperty<Vector2 | null>;
+  public readonly positionProperty: IReadOnlyProperty<Vector2 | null>;
 
   // Diameter of the light spot in the y dimension,
   // null if there is no light spot hitting the projection screen
-  readonly diameterProperty: IReadOnlyProperty<number | null>;
+  public readonly diameterProperty: IReadOnlyProperty<number | null>;
 
   /**
    * @param optic

@@ -62,36 +62,36 @@ type OpticOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'> & 
 abstract class Optic extends PhetioObject {
 
   // Shapes that describe the optic
-  readonly abstract shapesProperty: IReadOnlyProperty<OpticShapes>;
+  public readonly abstract shapesProperty: IReadOnlyProperty<OpticShapes>;
 
   // shape of the optic (concave, convex, flat)
-  readonly opticShapeProperty: Property<OpticShape>;
+  public readonly opticShapeProperty: Property<OpticShape>;
 
   // position of the optic
-  readonly positionProperty: Property<Vector2>;
+  public readonly positionProperty: Property<Vector2>;
 
   // diameter of the optic, controls the optic's aperture
-  readonly diameterProperty: NumberProperty;
+  public readonly diameterProperty: NumberProperty;
 
   // maximum diameter of the optic
-  readonly maxDiameter: number;
+  public readonly maxDiameter: number;
 
   // sign used for math operations
-  readonly sign: 1 | -1;
+  public readonly sign: 1 | -1;
 
   // focal-length models
-  readonly directFocalLengthModel: DirectFocalLengthModel;
-  readonly indirectFocalLengthModel: IndirectFocalLengthModel;
+  public readonly directFocalLengthModel: DirectFocalLengthModel;
+  public readonly indirectFocalLengthModel: IndirectFocalLengthModel;
 
   // radius of curvature (ROC) of the optic, convex is positive, concave is negative.
   // For a flat mirror with infinite ROC, we approximate using a very large ROC.
-  readonly radiusOfCurvatureProperty: IReadOnlyProperty<number>;
+  public readonly radiusOfCurvatureProperty: IReadOnlyProperty<number>;
 
   // index of refraction (IOR)
-  readonly indexOfRefractionProperty: IReadOnlyProperty<number>;
+  public readonly indexOfRefractionProperty: IReadOnlyProperty<number>;
 
   // focal length (f) of the optic, converging is positive, diverging is negative focal length.
-  readonly focalLengthProperty: IReadOnlyProperty<number>;
+  public readonly focalLengthProperty: IReadOnlyProperty<number>;
 
   // focal points (F) to the left and right of the optic
   readonly leftFocalPointProperty: Property<Vector2>;

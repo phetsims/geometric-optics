@@ -33,7 +33,7 @@ type LightObjectOptions = SelfOptions
 class LightObject extends HTMLImageElementObject {
 
   // the PNG file used to visually represent the light
-  readonly htmlImageElement: HTMLImageElement;
+  public readonly htmlImageElement: HTMLImageElement;
 
   /**
    * @param opticalObjectNumber - positive integer used when labeling this object

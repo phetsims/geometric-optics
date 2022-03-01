@@ -32,7 +32,7 @@ type MirrorOptions = SelfOptions & PickRequired<OpticOptions, 'tandem'>;
 class Mirror extends Optic {
 
   // See Optic
-  readonly shapesProperty: IReadOnlyProperty<MirrorShapes>;
+  public readonly shapesProperty: IReadOnlyProperty<MirrorShapes>;
 
   constructor( providedOptions: MirrorOptions ) {
 

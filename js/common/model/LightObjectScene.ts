@@ -32,17 +32,17 @@ type LightObjectSceneOptions = SelfOptions & PickRequired<GOSceneOptions, 'tande
 
 class LightObjectScene extends GOScene {
 
-  readonly lightObject1: LightObject;
-  readonly lightObject2: LightObject;
-  readonly opticalImage1: OpticalImage;
-  readonly opticalImage2: OpticalImage;
-  readonly projectionScreen: ProjectionScreen;
-  readonly lightRays1: LightRays;
-  readonly lightRays2: LightRays;
-  readonly lightSpot1: LightSpot;
-  readonly lightSpot2: LightSpot;
-  readonly guides1: Guides;
-  readonly guides2: Guides;
+  public readonly lightObject1: LightObject;
+  public readonly lightObject2: LightObject;
+  public readonly opticalImage1: OpticalImage;
+  public readonly opticalImage2: OpticalImage;
+  public readonly projectionScreen: ProjectionScreen;
+  public readonly lightRays1: LightRays;
+  public readonly lightRays2: LightRays;
+  public readonly lightSpot1: LightSpot;
+  public readonly lightSpot2: LightSpot;
+  public readonly guides1: Guides;
+  public readonly guides2: Guides;
 
   // Resets things that are specific to this class.
   private readonly resetLightObjectScene: () => void;

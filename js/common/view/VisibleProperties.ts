@@ -19,27 +19,27 @@ type VisiblePropertiesOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
 class VisibleProperties {
 
   // visibility of the focal points (F)
-  readonly focalPointsVisibleProperty: Property<boolean>;
+  public readonly focalPointsVisibleProperty: Property<boolean>;
 
   // visibility of the 2F points
-  readonly twoFPointsVisibleProperty: Property<boolean>;
+  public readonly twoFPointsVisibleProperty: Property<boolean>;
 
   // visibility of the virtual Image, when present
-  readonly virtualImageVisibleProperty: Property<boolean>;
+  public readonly virtualImageVisibleProperty: Property<boolean>;
 
   // visibility of the labels
-  readonly labelsVisibleProperty: Property<boolean>;
+  public readonly labelsVisibleProperty: Property<boolean>;
 
   // visibility of the second optical object
-  readonly secondPointVisibleProperty: Property<boolean>;
+  public readonly secondPointVisibleProperty: Property<boolean>;
 
   // visibility of the guides, which are irrelevant for mirror
-  readonly guidesVisibleProperty: Property<boolean>;
+  public readonly guidesVisibleProperty: Property<boolean>;
 
   // Determines whether the optical axis is visible.
   // PhET-iO only, cannot be controlled from the sim UI, and is not subject to reset.
   // See https://github.com/phetsims/geometric-optics/issues/252
-  readonly opticalAxisVisibleProperty: Property<boolean>;
+  public readonly opticalAxisVisibleProperty: Property<boolean>;
 
   // Resets things that are specific to this class.
   private readonly resetVisibleProperties: () => void;

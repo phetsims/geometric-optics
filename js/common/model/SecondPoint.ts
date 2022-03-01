@@ -26,7 +26,7 @@ type SecondPointOptions = PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDo
 class SecondPoint extends PhetioObject {
 
   // position of the second point
-  readonly positionProperty: IReadOnlyProperty<Vector2>;
+  public readonly positionProperty: IReadOnlyProperty<Vector2>;
 
   // vertical offset of second point with respect to the first point on the framed object position, in cm
   private readonly verticalOffsetProperty: Property<number>

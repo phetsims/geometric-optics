@@ -29,12 +29,12 @@ type LensShapesOptions = {
 class LensShapes implements OpticShapes {
 
   // specific to LensShapes
-  readonly lensShape: Shape; // the complete lens
+  public readonly lensShape: Shape; // the complete lens
 
   // See OpticShapes interface
-  readonly frontShape: Shape; // the left half of the lens
-  readonly backShape: Shape; // the right half of the lens
-  readonly activeBoundsShape: Shape; // the entire lens
+  public readonly frontShape: Shape; // the left half of the lens
+  public readonly backShape: Shape; // the right half of the lens
+  public readonly activeBoundsShape: Shape; // the entire lens
 
   /**
    * @param radiusOfCurvature

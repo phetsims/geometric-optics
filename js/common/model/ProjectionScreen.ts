@@ -31,10 +31,10 @@ type ProjectionScreenOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
 class ProjectionScreen extends PhetioObject {
 
   // position of the center of the screen, in cm
-  readonly positionProperty: Property<Vector2>;
+  public readonly positionProperty: Property<Vector2>;
 
   // Shape of the screen, relative to positionProperty
-  readonly screenShape: Shape;
+  public readonly screenShape: Shape;
 
   // line that vertically bisects the screen, relative to positionProperty
   private readonly bisectorLine: Shape;

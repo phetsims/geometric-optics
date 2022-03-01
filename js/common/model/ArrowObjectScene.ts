@@ -31,14 +31,14 @@ type ArrowObjectSceneOptions = SelfOptions & PickRequired<GOSceneOptions, 'tande
 
 class ArrowObjectScene extends GOScene {
 
-  readonly arrowObject1: ArrowObject;
-  readonly arrowObject2: ArrowObject;
-  readonly arrowImage1: ArrowImage;
-  readonly arrowImage2: ArrowImage;
-  readonly lightRays1: LightRays;
-  readonly lightRays2: LightRays;
-  readonly guides1: Guides | null;
-  readonly guides2: Guides | null;
+  public readonly arrowObject1: ArrowObject;
+  public readonly arrowObject2: ArrowObject;
+  public readonly arrowImage1: ArrowImage;
+  public readonly arrowImage2: ArrowImage;
+  public readonly lightRays1: LightRays;
+  public readonly lightRays2: LightRays;
+  public readonly guides1: Guides | null;
+  public readonly guides2: Guides | null;
 
   // Resets things that are specific to this class.
   private readonly resetArrowObjectScene: () => void;

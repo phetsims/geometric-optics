@@ -44,12 +44,12 @@ type RulerHotkeyTarget = {
 class GORulerNode extends Node {
 
   // the ruler model that is associated with this Node
-  readonly ruler: GORuler;
+  public readonly ruler: GORuler;
 
   private readonly opticPositionProperty: IReadOnlyProperty<Vector2>
 
   // the icon associated with this ruler, it appears in the toolbox
-  readonly iconNode: RulerIconNode;
+  public readonly iconNode: RulerIconNode;
 
   // bounds of the toolbox, in view coordinates
   private toolboxBounds: Bounds2;

@@ -30,15 +30,16 @@ class GORuler {
   public readonly orientation: RulerOrientation;
 
   // length of the ruler, in cm
-  length: number;
+  public length: number;
 
   // original (unscaled) length of the ruler, in cm
   private readonly nominalLength: number;
 
   // position of the ruler, in cm
-  readonly positionProperty: Property<Vector2>;
+  public readonly positionProperty: Property<Vector2>;
 
-  readonly visibleProperty: Property<boolean>;
+  // Whether the ruler is visible. If the ruler is not visible, then it is in the toolbox.
+  public readonly visibleProperty: Property<boolean>;
 
   // Resets things that are specific to this class.
   private readonly resetGORuler: () => void;

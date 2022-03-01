@@ -46,26 +46,26 @@ type GOModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 class GOModel {
 
   // choice of optical object
-  readonly opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>;
+  public readonly opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>;
 
   // representation used for rays
-  readonly raysTypeProperty: Property<RaysType>;
+  public readonly raysTypeProperty: Property<RaysType>;
 
   // whether light propagation is enabled
-  readonly lightPropagationEnabledProperty: Property<boolean>;
+  public readonly lightPropagationEnabledProperty: Property<boolean>;
 
   // model of the optic, shared with all scenes
-  readonly optic: Optic;
+  public readonly optic: Optic;
 
   // scenes
   private readonly scenes: GOScene[];
-  readonly arrowObjectScene: ArrowObjectScene;
-  readonly framedObjectScene: FramedObjectScene;
-  readonly lightObjectScene: LightObjectScene | null; // not supported by Mirrors screen
+  public readonly arrowObjectScene: ArrowObjectScene;
+  public readonly framedObjectScene: FramedObjectScene;
+  public readonly lightObjectScene: LightObjectScene | null; // not supported by Mirrors screen
 
   // rulers
-  readonly horizontalRuler: GORuler;
-  readonly verticalRuler: GORuler;
+  public readonly horizontalRuler: GORuler;
+  public readonly verticalRuler: GORuler;
 
   // Resets things that are specific to this class.
   private readonly resetGOModel: () => void;

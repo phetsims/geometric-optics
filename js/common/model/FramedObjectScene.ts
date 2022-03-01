@@ -34,14 +34,14 @@ type FramedObjectSceneOptions = SelfOptions & PickRequired<GOSceneOptions, 'tand
 
 class FramedObjectScene extends GOScene {
 
-  readonly framedObject: FramedObject;
-  readonly secondPoint: SecondPoint;
-  readonly framedImage1: FramedImage;
-  readonly framedImage2: FramedImage;
-  readonly lightRays1: LightRays;
-  readonly lightRays2: LightRays;
-  readonly guides1: Guides | null;
-  readonly guides2: Guides | null;
+  public readonly framedObject: FramedObject;
+  public readonly secondPoint: SecondPoint;
+  public readonly framedImage1: FramedImage;
+  public readonly framedImage2: FramedImage;
+  public readonly lightRays1: LightRays;
+  public readonly lightRays2: LightRays;
+  public readonly guides1: Guides | null;
+  public readonly guides2: Guides | null;
 
   // Resets things that are specific to this class.
   private readonly resetFramedObjectScene: () => void;

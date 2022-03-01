@@ -20,9 +20,9 @@ type GOSceneOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
 
 abstract class GOScene extends PhetioObject {
 
-  readonly optic: Optic;
+  public readonly optic: Optic;
   private readonly lightRaysAnimationTimeRange: Range; // determines the duration of the light rays animation
-  readonly lightRaysAnimationTimeProperty: NumberProperty;
+  public readonly lightRaysAnimationTimeProperty: NumberProperty;
   abstract readonly guides1: Guides | null;
   abstract readonly guides2: Guides | null;
 

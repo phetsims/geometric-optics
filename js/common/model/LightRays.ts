@@ -29,13 +29,13 @@ const MANY_FAN_ANGLE = Utils.toRadians( 120 ); // degrees to radians
 class LightRays {
 
   // segments for the real rays at a point in time
-  realSegments: LightRaySegment[];
+  public realSegments: LightRaySegment[];
 
   // segments for the virtual rays at a point in time
-  virtualSegments: LightRaySegment[];
+  public virtualSegments: LightRaySegment[];
 
   // tells view that it needs to update, fires after all rays are processed.
-  readonly raysProcessedEmitter: Emitter<[]>;
+  public readonly raysProcessedEmitter: Emitter<[]>;
 
   /**
    * @param opticalObjectPositionProperty

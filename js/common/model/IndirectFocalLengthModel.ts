@@ -30,9 +30,9 @@ type IndirectFocalLengthModelOptions = SelfOptions & PickRequired<PhetioObjectOp
 
 class IndirectFocalLengthModel extends PhetioObject implements FocalLengthModel {
 
-  readonly radiusOfCurvatureMagnitudeProperty: NumberProperty;
-  readonly indexOfRefractionProperty: NumberProperty;
-  readonly focalLengthMagnitudeProperty: IReadOnlyProperty<number>;
+  public readonly radiusOfCurvatureMagnitudeProperty: NumberProperty;
+  public readonly indexOfRefractionProperty: NumberProperty;
+  public readonly focalLengthMagnitudeProperty: IReadOnlyProperty<number>;
 
   constructor( opticShapeProperty: IReadOnlyProperty<OpticShape>, providedOptions: IndirectFocalLengthModelOptions ) {
 

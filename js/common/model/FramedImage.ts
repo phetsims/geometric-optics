@@ -29,12 +29,12 @@ type FramedImageOptions = PickOptional<OpticalImageOptions, 'opticalObjectPositi
 class FramedImage extends OpticalImage {
 
   // the HTMLImageElement to display
-  readonly htmlImageElementProperty: IReadOnlyProperty<HTMLImageElement>;
+  public readonly htmlImageElementProperty: IReadOnlyProperty<HTMLImageElement>;
 
-  readonly opacityProperty: IReadOnlyProperty<number>;
+  public readonly opacityProperty: IReadOnlyProperty<number>;
 
   // Bounds of the optical image's visual representation, in model coordinates
-  readonly boundsProperty: IReadOnlyProperty<Bounds2>;
+  public readonly boundsProperty: IReadOnlyProperty<Bounds2>;
 
   /**
    * @param framedObject - the optical object that this image is associated with
