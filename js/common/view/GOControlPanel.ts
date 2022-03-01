@@ -8,7 +8,7 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import { HBox } from '../../../../scenery/js/imports.js';
+import { HBox, NodeOptions } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import VSeparator from '../../../../sun/js/VSeparator.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -24,12 +24,13 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import RaysSubpanel from './RaysSubpanel.js';
 import OpticSubpanel from './OpticSubpanel.js';
+import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
 
 type SelfOptions = {
   isBasicsVersion: boolean
 };
 
-type GOControlPanelOptions = SelfOptions & PickRequired<PanelOptions, 'tandem'>;
+type GOControlPanelOptions = SelfOptions & PickOptional<NodeOptions, 'bottom'> & PickRequired<PanelOptions, 'tandem'>;
 
 class GOControlPanel extends Panel {
 

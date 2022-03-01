@@ -61,7 +61,7 @@ function createItem( value: RaysType, text: string, groupTandem: Tandem, itemTan
     value: value,
     node: new Text( text, {
       font: GOConstants.CONTROL_FONT,
-      maxWidth: 100,
+      maxWidth: 65,
       tandem: groupTandem.createTandem( itemTandemName ).createTandem( 'labelText' ),
       phetioVisiblePropertyInstrumented: false
     } ),

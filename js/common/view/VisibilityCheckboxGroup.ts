@@ -115,7 +115,7 @@ function createItem( string: string, property: Property<boolean>, providedOption
 
   const labelText = new Text( string, {
     font: GOConstants.CONTROL_FONT,
-    maxWidth: 100,
+    maxWidth: 90,
     tandem: providedOptions.tandem.createTandem( 'labelText' ),
     phetioVisiblePropertyInstrumented: false
   } );

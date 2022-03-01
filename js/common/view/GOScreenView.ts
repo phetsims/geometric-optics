@@ -239,11 +239,9 @@ class GOScreenView extends ScreenView {
     const controlPanel = new GOControlPanel( model.optic, model.raysTypeProperty, visibleProperties,
       virtualImageCheckboxEnabledProperty, {
         isBasicsVersion: options.isBasicsVersion,
+        bottom: erodedLayoutBounds.bottom,
         tandem: controlsTandem.createTandem( 'controlPanel' )
       } );
-    controlPanel.boundsProperty.link( () => {
-      controlPanel.centerBottom = erodedLayoutBounds.centerBottom;
-    } );
 
     // Zoom buttons
     const zoomButtonGroup = new MagnifyingGlassZoomButtonGroup( zoomLevelProperty, {
@@ -270,7 +268,7 @@ class GOScreenView extends ScreenView {
       tandem: controlsTandem.createTandem( 'lightPropagationToggleButton' )
     } );
     lightPropagationToggleButton.centerX = zoomButtonGroup.centerX;
-    lightPropagationToggleButton.bottom = controlPanel.bottom;
+    lightPropagationToggleButton.bottom = erodedLayoutBounds.bottom;
 
     // Reset All button at right-bottom
     const resetAllButton = new ResetAllButton( {
@@ -281,6 +279,13 @@ class GOScreenView extends ScreenView {
       },
       rightBottom: erodedLayoutBounds.rightBottom,
       tandem: controlsTandem.createTandem( 'resetAllButton' )
+    } );
+
+    // Center the control panel at the bottom of the screen, in the space between the controls that are to the left
+    // and right of the control panel. The size of the control panel changes dynamically, based on whether the
+    // 'direct' or 'indirect' focal-length model is selected.
+    controlPanel.boundsProperty.link( () => {
+      controlPanel.centerX = zoomButtonGroup.right + ( resetAllButton.left - zoomButtonGroup.right ) / 2;
     } );
 
     const controlsLayer = new Node( {

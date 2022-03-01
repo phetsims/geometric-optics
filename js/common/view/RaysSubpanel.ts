@@ -27,7 +27,7 @@ class RaysSubpanel extends VBox {
     // title
     const titleText = new Text( geometricOpticsStrings.rays, {
       font: GOConstants.TITLE_FONT,
-      maxWidth: 100,
+      maxWidth: 90,
       tandem: tandem.createTandem( 'titleText' ),
       phetioVisiblePropertyInstrumented: false
     } );
