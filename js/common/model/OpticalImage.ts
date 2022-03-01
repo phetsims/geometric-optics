@@ -1,6 +1,6 @@
 // Copyright 2022, University of Colorado Boulder
 
-//TODO this entire class needs to be reviewed/revised
+//TODO https://github.com/phetsims/geometric-optics/issues/330 this entire class needs to be reviewed/revised
 /**
  * OpticalImage is the base class for all optical images. It describes where the image would occur, the point where
  * light rays intersect. What the image looks like is the responsibility of subclasses.
@@ -112,8 +112,9 @@ class OpticalImage extends PhetioObject {
 
     this.positionProperty = new DerivedProperty(
       [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
-      //TODO focalLength is not used, is focalLengthProperty dependency needed?
-      //TODO Calls this.getMagnification, should there be a dependency here on magnificationProperty instead?
+      //TODO https://github.com/phetsims/geometric-optics/issues/330
+      // focalLength is not used, is focalLengthProperty dependency needed?
+      // Calls this.getMagnification, should there be a dependency here on magnificationProperty instead?
       ( opticalObjectPosition: Vector2, opticPosition: Vector2, focalLength: number ) => {
 
         // The height is determined as the vertical offset from the optical axis of the focus point.
@@ -136,7 +137,8 @@ class OpticalImage extends PhetioObject {
         validValues: OpticalImageTypeValues
       } );
 
-    //TODO focalLengthProperty is not used here. But if that dependency is removed, then the image magnification
+    //TODO https://github.com/phetsims/geometric-optics/issues/330
+    // focalLengthProperty is not used here. But if that dependency is removed, then the image magnification
     // is incorrect when switching the lens from convex to concave, and the mirror from concave to convex. So
     // there must be some ordering problem here, or a dependency on focalLengthProperty down in the derivation.
     this.magnificationProperty = new DerivedProperty(
