@@ -55,7 +55,7 @@ class FramedImage extends OpticalImage {
       } );
 
     this.opacityProperty = new DerivedProperty( [ this.lightIntensityProperty ], ( lightIntensity: number ) =>
-      Utils.linear( 0, 1, GOQueryParameters.frameImageOpacityRange[ 0 ], GOQueryParameters.frameImageOpacityRange[ 1 ], lightIntensity )
+      Utils.linear( 0, 1, GOQueryParameters.framedImageOpacityRange[ 0 ], GOQueryParameters.framedImageOpacityRange[ 1 ], lightIntensity )
     );
 
     this.boundsProperty = new DerivedProperty(

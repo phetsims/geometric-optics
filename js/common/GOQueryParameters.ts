@@ -131,7 +131,7 @@ const SCHEMA_MAP = {
   },
 
   // Range of opacity for framed images, see https://github.com/phetsims/geometric-optics/issues/232
-  frameImageOpacityRange: {
+  framedImageOpacityRange: {
     type: 'array',
     elementSchema: {
       type: 'number'
