@@ -127,7 +127,7 @@ class HTMLImageElementObjectNode extends Node {
 
         // Because changing dragBoundsProperty may necessitate moving opticalObjectNode inside the new drag bounds,
         // therefore changing dependency opticalObjectNode.boundsProperty.
-        reentrant: true //TODO is this needed?
+        reentrant: true //TODO https://github.com/phetsims/geometric-optics/issues/349 is this needed?
       } );
     dragBoundsProperty.link( dragBounds => {
       opticalObjectNode.positionProperty.value = dragBounds.closestPointTo( opticalObjectNode.positionProperty.value );

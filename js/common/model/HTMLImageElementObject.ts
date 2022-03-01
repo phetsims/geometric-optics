@@ -65,7 +65,7 @@ class HTMLImageElementObject extends OpticalObject {
 
         // Because changing htmlImageElementProperty may necessitate changing positionProperty to move
         // the Object inside the view's drag bounds, resulting in this derivation being called again.
-        reentrant: true //TODO is this needed?
+        reentrant: true //TODO https://github.com/phetsims/geometric-optics/issues/349 is this needed?
       } );
   }
 }
