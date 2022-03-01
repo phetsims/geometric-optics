@@ -38,14 +38,10 @@ class SecondPointNode extends Node {
 
     const options = optionize<SecondPointNodeOptions, {}, NodeOptions>( {
 
-      // second point can only be dragged vertically
-      cursor: 'ns-resize',
-
-      // pdom options
+      // NodeOptions
+      cursor: 'ns-resize', // second point can only be dragged vertically
       tagName: 'div',
       focusable: true,
-
-      // phet-io options
       phetioInputEnabledPropertyInstrumented: true
     }, providedOptions );
 

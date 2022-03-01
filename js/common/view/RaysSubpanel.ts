@@ -39,6 +39,8 @@ class RaysSubpanel extends VBox {
 
     // title + radio buttons
     super( {
+
+      // VBox options
       children: [ titleText, raysRadioButtonGroup ],
       align: 'left',
       spacing: 4,

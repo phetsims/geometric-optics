@@ -49,11 +49,9 @@ class ProjectionScreenNode extends Node {
 
     const options = optionize<ProjectionScreenNodeOptions, {}, NodeOptions>( {
 
-      // pdom providedOptions
+      // NodeOptions
       tagName: 'div',
       focusable: true,
-
-      // phet-io options
       phetioInputEnabledPropertyInstrumented: true
     }, providedOptions );
 

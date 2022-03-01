@@ -51,6 +51,8 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
                providedOptions: OpticalAxisForegroundNodeOptions ) {
 
     const options = optionize<OpticalAxisForegroundNodeOptions, {}, OpticalAxisNodeOptions>( {
+
+      // OpticalAxisNodeOptions
       stroke: ( GOQueryParameters.debugOpticalAxis ) ? 'red' : GOColors.opticalAxisStrokeProperty
     }, providedOptions );
 

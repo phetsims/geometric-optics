@@ -84,6 +84,7 @@ class GOScreenView extends ScreenView {
 
     const options = optionize<GOScreenViewOptions, SelfOptions, ScreenViewOptions>( {
 
+      // ScreenViewOptions
       // Workaround for things shifting around while dragging
       // See https://github.com/phetsims/scenery/issues/1289 and https://github.com/phetsims/geometric-optics/issues/213
       preventFit: true

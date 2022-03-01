@@ -30,6 +30,8 @@ class FocalLengthModelTypeControl extends VBox {
   constructor( focalLengthModelTypeProperty: Property<FocalLengthModelType>, providedOptions: FocalLengthModelControlOptions ) {
 
     const options = optionize<FocalLengthModelControlOptions, {}, VBoxOptions>( {
+
+      // VBoxOptions
       spacing: 8,
       align: 'left'
     }, providedOptions );

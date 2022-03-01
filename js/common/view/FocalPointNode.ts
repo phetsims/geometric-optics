@@ -28,6 +28,8 @@ class FocalPointNode extends Node {
   constructor( pointProperty: Property<Vector2>, modelViewTransform: ModelViewTransform2, providedOptions: FocalPointNodeOptions ) {
 
     const options = optionize<FocalPointNodeOptions, {}, NodeOptions>( {
+
+      // NodeOptions
       children: [ FocalPointNode.createIcon() ],
       phetioVisiblePropertyInstrumented: false
     }, providedOptions );

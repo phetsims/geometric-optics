@@ -50,11 +50,9 @@ class ArrowObjectNode extends Node {
 
     const options = optionize<ArrowObjectNodeOptions, {}, NodeOptions>( {
 
-      // pdom options
+      // NodeOptions
       tagName: 'div',
       focusable: true,
-
-      // phet-io options
       phetioVisiblePropertyInstrumented: false,
       phetioInputEnabledPropertyInstrumented: true
     }, providedOptions );

@@ -45,6 +45,8 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
                providedOptions: VisibilityCheckboxGroupOptions ) {
 
     const options = optionize<VisibilityCheckboxGroupOptions, {}, VerticalCheckboxGroupOptions>( {
+
+      // VerticalCheckboxGroupOptions
       spacing: 4,
       checkboxOptions: { boxWidth: 14 }
     }, providedOptions );

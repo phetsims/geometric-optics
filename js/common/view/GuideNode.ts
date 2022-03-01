@@ -53,6 +53,8 @@ class GuideNode extends Node {
     const transmittedArmNode = new Rectangle( fulcrumNode.x, fulcrumNode.y - ARM_HEIGHT / 2, ARM_WIDTH, ARM_HEIGHT, armOptions );
 
     const options = optionize<GuideNodeOptions, {}, NodeOptions>( {
+
+      // NodeOptions
       children: [ incidentArmNode, transmittedArmNode, fulcrumNode ],
       phetioVisiblePropertyInstrumented: false
     }, providedOptions );

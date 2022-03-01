@@ -45,6 +45,8 @@ class FramedImageNode extends Node {
                providedOptions: FramedImageNodeOptions ) {
 
     const options = optionize<FramedImageNodeOptions, {}, NodeOptions>( {
+
+      // NodeOptions
       visibleProperty: new DerivedProperty(
         [ virtualImageVisibleProperty, framedImage.opticalImageTypeProperty, lightPropagationEnabledProperty, framedImage.visibleProperty, objectVisibleProperty ],
         ( virtualImageVisible: boolean, opticalImageType: OpticalImageType, lightPropagationEnabled: boolean, framedImageVisible: boolean, objectVisible: boolean ) =>

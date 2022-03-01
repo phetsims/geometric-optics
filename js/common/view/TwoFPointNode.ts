@@ -27,6 +27,8 @@ class TwoFPointNode extends Node {
   constructor( pointProperty: Property<Vector2>, modelViewTransform: ModelViewTransform2, provideOptions: TwoFPointNodeOptions ) {
 
     const options = optionize<TwoFPointNodeOptions, {}, NodeOptions>( {
+
+      // NodeOptions
       children: [ TwoFPointNode.createIcon() ],
       phetioVisiblePropertyInstrumented: false
     }, provideOptions );

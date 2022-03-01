@@ -49,7 +49,7 @@ class GOControlPanel extends Panel {
 
     const options = optionize<GOControlPanelOptions, SelfOptions, PanelOptions>( {
 
-      // Panel options
+      // PanelOptions
       xMargin: 15,
       yMargin: 10,
       fill: GOColors.panelFillProperty,

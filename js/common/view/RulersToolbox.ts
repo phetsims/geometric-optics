@@ -29,7 +29,7 @@ class RulersToolbox extends Panel {
 
     const options = optionize<RulersToolboxOptions, {}, PanelOptions>( {
 
-      // Panel options
+      // PanelOptions
       align: 'center',
       cornerRadius: 5,
       xMargin: 20,

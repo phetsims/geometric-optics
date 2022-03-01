@@ -30,6 +30,8 @@ class FocalLengthModelTypeRadioButtonGroup extends VerticalAquaRadioButtonGroup<
                providedOptions: FocalLengthControlRadioButtonGroupOptions ) {
 
     const options = optionize<FocalLengthControlRadioButtonGroupOptions, {}, VerticalAquaRadioButtonGroupOptions>( {
+
+      // VerticalAquaRadioButtonGroupOptions
       spacing: 8
     }, providedOptions );
 

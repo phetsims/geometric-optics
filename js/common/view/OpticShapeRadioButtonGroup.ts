@@ -34,7 +34,7 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShape>
 
     const options = optionize<OpticShapeRadioButtonGroupOptions, {}, RectangularRadioButtonGroupOptions>( {
 
-      // RectangularRadioButtonGroup options
+      // RectangularRadioButtonGroupOptions
       orientation: 'horizontal',
       spacing: 10,
       cornerRadius: 3,

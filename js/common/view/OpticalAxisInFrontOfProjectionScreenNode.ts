@@ -38,6 +38,8 @@ class OpticalAxisInFrontOfProjectionScreenNode extends Line {
                providedOptions: OpticalAxisInFrontOfProjectionScreenNodeOptions ) {
 
     const options = optionize<OpticalAxisInFrontOfProjectionScreenNodeOptions, {}, LineOptions>( {
+
+      // LineOptions
       stroke: GOQueryParameters.debugOpticalAxis ? 'red' : GOColors.opticalAxisStrokeProperty,
       lineWidth: 2,
       lineDash: [ 8, 5 ]

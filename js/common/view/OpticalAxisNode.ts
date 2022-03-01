@@ -37,6 +37,8 @@ class OpticalAxisNode extends Line {
 
     // create optical axis line, with arbitrary length values.
     super( 0, 0, 1, 0, optionize<OpticalAxisNodeOptions, {}, LineOptions>( {
+
+      // LineOptions
       stroke: GOColors.opticalAxisStrokeProperty,
       strokePickable: true,
       lineWidth: 2,

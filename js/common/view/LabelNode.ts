@@ -57,13 +57,13 @@ class LabelNode extends BackgroundNode {
 
     const options = optionize<LabelNodeOptions, SelfOptions, BackgroundNodeOptions>( {
 
-      // LabelNode options
+      // SelfOptions
       xAlign: 'center',
       yAlign: 'top',
       xOffset: 0, // from center, in view coordinates
       yOffset: 2, // in view coordinates
 
-      // BackgroundNode options
+      // BackgroundNodeOptions
       xMargin: 5,
       yMargin: 5,
       rectangleOptions: {

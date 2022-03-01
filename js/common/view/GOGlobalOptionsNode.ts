@@ -32,9 +32,11 @@ class GOGlobalOptionsNode extends VBox {
   constructor( providedOptions: GOGlobalOptionsNodeOptions ) {
 
     const options = optionize<GOGlobalOptionsNodeOptions, SelfOptions, VBoxOptions>( {
+
+      // SelfOptions
       isBasicsVersion: false,
 
-      // VBox options
+      // VBoxOptions
       align: 'left',
       spacing: 20
     }, providedOptions );

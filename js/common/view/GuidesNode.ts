@@ -29,6 +29,8 @@ class GuidesNode extends Node {
   constructor( guides: Guides, armColor: ColorDef,
                modelViewTransform: ModelViewTransform2, providedOptions: GuidesNodeOptions ) {
     super( optionize<GuidesNodeOptions, {}, NodeOptions>( {
+
+      // NodeOptions
       children: [
         new GuideNode( guides.topGuide, armColor, modelViewTransform, {
           tandem: providedOptions.tandem.createTandem( 'topGuideNode' )

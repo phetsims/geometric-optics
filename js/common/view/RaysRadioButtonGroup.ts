@@ -30,6 +30,8 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysType> {
   constructor( raysTypeProperty: Property<RaysType>, providedOptions: RaysRadioButtonGroupOptions ) {
 
     const options = optionize<RaysRadioButtonGroupOptions, {}, VerticalAquaRadioButtonGroupOptions>( {
+
+      // VerticalAquaRadioButtonGroupOptions
       spacing: 4,
       align: 'left',
       radioButtonOptions: { radius: 7 },

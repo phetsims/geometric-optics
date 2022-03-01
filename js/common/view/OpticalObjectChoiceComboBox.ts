@@ -34,7 +34,7 @@ class OpticalObjectChoiceComboBox extends ComboBox {
 
     const options = optionize<OpticalObjectChoiceComboBoxOptions, {}, ComboBoxOptions>( {
 
-      // ComboBox options
+      // ComboBoxOptions
       highlightFill: 'rgb( 168, 192, 245 )',
       listPosition: 'below',
       xMargin: 10,

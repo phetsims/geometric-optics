@@ -34,10 +34,12 @@ class CueingArrowsNode extends Path {
   constructor( providedOptions?: CueingArrowsNodeOptions ) {
 
     const options = optionize<CueingArrowsNodeOptions, SelfOptions, PathOptions>( {
+
+      // CueingArrowsNodeOptions
       direction: 'both',
       length: 35,
 
-      // Path options
+      // PathOptions
       fill: 'rgb( 0, 200, 0 )',
       stroke: 'black'
 

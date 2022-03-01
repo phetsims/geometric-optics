@@ -32,14 +32,14 @@ class RulerIconNode extends RulerNode {
 
     const options = {
 
-      // RulerIconNode options
+      // RulerIconNodeOptions
       // pointer areas
       touchAreaDilationX: 5,
       touchAreaDilationY: 5,
       mouseAreaDilationX: 5,
       mouseAreaDilationY: 5,
 
-      // RulerNode options
+      // RulerNodeOptions
       backgroundLineWidth: 0.5,
       majorTickLineWidth: 0.5,
       minorTickLineWidth: 0.25,
@@ -48,14 +48,10 @@ class RulerIconNode extends RulerNode {
       minorTickHeight: ( 0.4 * ICON_HEIGHT ) / 2,
       insetsWidth: 0,
 
-      // Node options
+      // NodeOptions
       cursor: 'pointer',
       visibleProperty: DerivedProperty.not( rulerNode.visibleProperty ),
-
-      // pdom options
       tagName: 'button',
-
-      // phet-io options
       tandem: Tandem.OPT_OUT
     };
 

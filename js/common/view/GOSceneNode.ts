@@ -73,6 +73,8 @@ abstract class GOSceneNode extends Node {
                          providedOptions: GOSceneNodeOptions ) {
 
     const options = optionize<GOSceneNodeOptions, SelfOptions, NodeOptions>( {
+
+      // NodeOptions
       visiblePropertyOptions: { phetioReadOnly: true }
     }, providedOptions );
 

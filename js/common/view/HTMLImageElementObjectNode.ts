@@ -49,11 +49,9 @@ class HTMLImageElementObjectNode extends Node {
 
     const options = optionize<HTMLImageElementObjectNodeOptions, {}, NodeOptions>( {
 
-      // pdom options
+      // NodeOptions
       tagName: 'div',
       focusable: true,
-
-      // phet-io options
       phetioVisiblePropertyInstrumented: false,
       phetioInputEnabledPropertyInstrumented: true
     }, providedOptions );

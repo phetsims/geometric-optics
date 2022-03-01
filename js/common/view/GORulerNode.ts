@@ -77,15 +77,11 @@ class GORulerNode extends Node {
 
     const options = optionize<GORulerNodeOptions, {}, NodeOptions>( {
 
-      // Node options
+      // NodeOptions
       rotation: ( ruler.orientation === 'vertical' ) ? -Math.PI / 2 : 0,
       visibleProperty: ruler.visibleProperty,
-
-      // pdom options
       tagName: 'div',
       focusable: true,
-
-      // phet-io options
       phetioInputEnabledPropertyInstrumented: true
     }, providedOptions );
 

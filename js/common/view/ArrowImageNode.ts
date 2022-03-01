@@ -42,6 +42,8 @@ class ArrowImageNode extends Node {
                providedOptions: ArrowImageNodeOptions ) {
 
     const options = optionize<ArrowImageNodeOptions, {}, NodeOptions>( {
+
+      // NodeOptions
       visibleProperty: new DerivedProperty(
         [ virtualImageVisibleProperty, arrowImage.opticalImageTypeProperty, lightPropagationEnabledProperty, arrowImage.visibleProperty, objectVisibleProperty ],
         ( virtualImageVisible: boolean, opticalImageType: OpticalImageType, lightPropagationEnabled: boolean, framedImageVisible: boolean, objectVisible: boolean ) =>
