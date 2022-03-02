@@ -134,9 +134,12 @@ class HTMLImageElementObjectNode extends Node {
     // derived from htmlImageElementObject.boundsProperty, and will change htmlImageElementObject.boundsProperty by
     // setting htmlImageElementObject.positionProperty.
     dragBoundsProperty.link( dragBounds => {
-      stepTimer.setTimeout( () => {
-        htmlImageElementObject.positionProperty.value = dragBounds.closestPointTo( htmlImageElementObject.positionProperty.value );
-      }, 0 );
+      const closestPoint = dragBounds.closestPointTo( htmlImageElementObject.positionProperty.value );
+      if ( !closestPoint.equals( htmlImageElementObject.positionProperty.value ) ) {
+        stepTimer.setTimeout( () => {
+          htmlImageElementObject.positionProperty.value = closestPoint;
+        }, 0 );
+      }
     } );
 
     // Drag action that is common to DragListener and KeyboardDragListener
