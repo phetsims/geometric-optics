@@ -112,7 +112,7 @@ class ArrowObjectNode extends Node {
         return new Bounds2( minX, minY, maxX, maxY );
       } );
 
-    // Keep the arrow inside the model bounds.
+    // Keep the arrow inside the drag bounds.
     dragBoundsProperty.link( dragBounds => {
       arrowObject.positionProperty.value = dragBounds.closestPointTo( arrowObject.positionProperty.value );
     } );

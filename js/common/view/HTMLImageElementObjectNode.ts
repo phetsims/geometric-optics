@@ -127,6 +127,8 @@ class HTMLImageElementObjectNode extends Node {
         // therefore changing dependency htmlImageElementObject.boundsProperty.
         reentrant: true //TODO https://github.com/phetsims/geometric-optics/issues/349 is this needed?
       } );
+
+    // Keep the object inside the drag bounds.
     dragBoundsProperty.link( dragBounds => {
       htmlImageElementObject.positionProperty.value = dragBounds.closestPointTo( htmlImageElementObject.positionProperty.value );
     } );
