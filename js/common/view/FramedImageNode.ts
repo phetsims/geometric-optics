@@ -84,6 +84,11 @@ class FramedImageNode extends Node {
       const initialHeight = parentNode.height;
       const scaleX = ( viewBounds.width / initialWidth ) || GOConstants.MIN_SCALE; // prevent zero scale
       const scaleY = ( viewBounds.height / initialHeight ) || GOConstants.MIN_SCALE; // prevent zero scale
+
+      //TODO https://github.com/phetsims/geometric-optics/issues/321 Assertion failed: scales should be finite
+      assert && assert( isFinite( scaleX ), `scaleX is not finite: ${scaleX}, initialWidth=${initialWidth} viewBounds.width=${viewBounds.width}` );
+      assert && assert( isFinite( scaleY ), `scaleY is not finite: ${scaleY}, initialHeight=${initialWidth} viewBounds.height=${viewBounds.width}` );
+
       parentNode.scale( scaleX, scaleY );
       parentNode.translation = new Vector2( viewBounds.minX, viewBounds.minY );
     };
