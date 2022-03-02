@@ -61,8 +61,7 @@ abstract class GOScene extends PhetioObject {
       units: 's',
       range: this.lightRaysAnimationTimeRange,
       tandem: options.tandem.createTandem( 'lightRaysAnimationTimeProperty' ),
-      phetioReadOnly: true,
-      phetioHighFrequency: true
+      phetioReadOnly: true
     } );
 
     this.resetGOObjectScene = () => {
