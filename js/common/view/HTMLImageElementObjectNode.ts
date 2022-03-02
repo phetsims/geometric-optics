@@ -31,7 +31,7 @@ type HTMLImageElementObjectNodeOptions = PickRequired<NodeOptions, 'tandem'> & P
 class HTMLImageElementObjectNode extends Node {
 
   /**
-   * @param opticalObjectNode
+   * @param opticalObject
    * @param sceneBoundsProperty - bounds for the scene, in model coordinates
    * @param opticPositionProperty
    * @param modelViewTransform
@@ -39,7 +39,7 @@ class HTMLImageElementObjectNode extends Node {
    * @param wasDraggedProperty
    * @param providedOptions
    */
-  constructor( opticalObjectNode: HTMLImageElementObject,
+  constructor( opticalObject: HTMLImageElementObject,
                sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
                opticPositionProperty: IReadOnlyProperty<Vector2>,
                modelViewTransform: ModelViewTransform2,
@@ -58,7 +58,7 @@ class HTMLImageElementObjectNode extends Node {
 
     super( options );
 
-    const imageNode = new Image( opticalObjectNode.htmlImageElementProperty.value );
+    const imageNode = new Image( opticalObject.htmlImageElementProperty.value );
 
     // Wrap imageNode in a Node. We need to scale imageNode, but do not want its focus highlight to scale.
     const wrappedImageNode = new Node( {
@@ -76,7 +76,7 @@ class HTMLImageElementObjectNode extends Node {
     this.addChild( cueingArrowsNode );
 
     const updateScale = () => {
-      const sceneBounds = opticalObjectNode.boundsProperty.value;
+      const sceneBounds = opticalObject.boundsProperty.value;
       const viewBounds = modelViewTransform.modelToViewBounds( sceneBounds );
       const scaleX = ( viewBounds.width / imageNode.width ) || GOConstants.MIN_SCALE; // prevent zero scale
       const scaleY = ( viewBounds.height / imageNode.height ) || GOConstants.MIN_SCALE; // prevent zero scale
@@ -84,13 +84,13 @@ class HTMLImageElementObjectNode extends Node {
     };
 
     // Change the PNG image.
-    opticalObjectNode.htmlImageElementProperty.link( htmlImageElement => {
+    opticalObject.htmlImageElementProperty.link( htmlImageElement => {
       imageNode.image = htmlImageElement;
       updateScale();
     } );
 
     // Translate and scale
-    opticalObjectNode.boundsProperty.link( bounds => {
+    opticalObject.boundsProperty.link( bounds => {
       this.translation = modelViewTransform.modelToViewBounds( bounds ).leftTop;
       updateScale();
     } );
@@ -99,11 +99,11 @@ class HTMLImageElementObjectNode extends Node {
     // Use Math.floor herein to avoid floating-point rounding errors that result in unwanted changes and additional
     // reentrant Properties, see https://github.com/phetsims/geometric-optics/issues/317.
     const dragBoundsProperty = new DerivedProperty(
-      [ opticalObjectNode.boundsProperty, sceneBoundsProperty, dragLockedProperty ],
-      ( opticalObjectNodeBounds: Bounds2, sceneBounds: Bounds2, dragLocked: boolean ) => {
+      [ opticalObject.boundsProperty, sceneBoundsProperty, dragLockedProperty ],
+      ( opticalObjectBounds: Bounds2, sceneBounds: Bounds2, dragLocked: boolean ) => {
 
-        const opticalObjectNodePosition = opticalObjectNode.positionProperty.value;
-        const minX = Math.floor( sceneBounds.minX + ( opticalObjectNodePosition.x - opticalObjectNodeBounds.minX ) );
+        const opticalObjectPosition = opticalObject.positionProperty.value;
+        const minX = Math.floor( sceneBounds.minX + ( opticalObjectPosition.x - opticalObjectBounds.minX ) );
         const maxX = Math.floor( opticPositionProperty.value.x - GOConstants.MIN_DISTANCE_FROM_OBJECT_TO_OPTIC );
         let minY: number;
         let maxY: number;
@@ -111,24 +111,24 @@ class HTMLImageElementObjectNode extends Node {
         if ( dragLocked ) {
 
           // Dragging is 1D, constrained horizontally to object's current position.
-          minY = opticalObjectNodePosition.y;
+          minY = opticalObjectPosition.y;
           maxY = minY;
         }
         else {
 
           // Dragging is 2D.
-          minY = Math.floor( sceneBounds.minY + ( opticalObjectNodePosition.y - opticalObjectNodeBounds.minY ) );
-          maxY = Math.floor( sceneBounds.maxY - ( opticalObjectNodeBounds.maxY - opticalObjectNodePosition.y ) );
+          minY = Math.floor( sceneBounds.minY + ( opticalObjectPosition.y - opticalObjectBounds.minY ) );
+          maxY = Math.floor( sceneBounds.maxY - ( opticalObjectBounds.maxY - opticalObjectPosition.y ) );
         }
         return new Bounds2( minX, minY, maxX, maxY );
       }, {
 
-        // Because changing dragBoundsProperty may necessitate moving opticalObjectNode inside the new drag bounds,
-        // therefore changing dependency opticalObjectNode.boundsProperty.
+        // Because changing dragBoundsProperty may necessitate moving opticalObject inside the new drag bounds,
+        // therefore changing dependency opticalObject.boundsProperty.
         reentrant: true //TODO https://github.com/phetsims/geometric-optics/issues/349 is this needed?
       } );
     dragBoundsProperty.link( dragBounds => {
-      opticalObjectNode.positionProperty.value = dragBounds.closestPointTo( opticalObjectNode.positionProperty.value );
+      opticalObject.positionProperty.value = dragBounds.closestPointTo( opticalObject.positionProperty.value );
     } );
 
     // Drag action that is common to DragListener and KeyboardDragListener
@@ -137,7 +137,7 @@ class HTMLImageElementObjectNode extends Node {
     };
 
     const dragListener = new DragListener( {
-      positionProperty: opticalObjectNode.positionProperty,
+      positionProperty: opticalObject.positionProperty,
       dragBoundsProperty: dragBoundsProperty,
       transform: modelViewTransform,
       useParentOffset: true,
@@ -148,7 +148,7 @@ class HTMLImageElementObjectNode extends Node {
 
     const keyboardDragListener = new KeyboardDragListener(
       optionize<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
-        positionProperty: opticalObjectNode.positionProperty,
+        positionProperty: opticalObject.positionProperty,
         dragBoundsProperty: dragBoundsProperty,
         transform: modelViewTransform,
         drag: drag,
