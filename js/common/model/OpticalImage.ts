@@ -60,7 +60,7 @@ class OpticalImage extends PhetioObject {
   // Positive is a real image, negative is a virtual image.
   // For a lens, a positive distance indicates that the image is to the right of the lens.
   // For a mirror, a positive distance indicates that the image is to the left of the mirror.
-  private readonly opticImageDistanceProperty: IReadOnlyProperty<number>;
+  private readonly opticImageDistanceProperty: DerivedProperty<number, [ Vector2, Vector2, number]>;
 
   // Resets things that are specific to this class.
   private readonly resetOpticalImage: () => void;
@@ -123,7 +123,9 @@ class OpticalImage extends PhetioObject {
       ( opticImageDistance: number ) => {
 
         // optic.positionProperty and opticalObjectPositionProperty are dependencies of opticImageDistanceProperty,
-        // so they are not needed as dependencies here.
+        // so they are not needed as dependencies here, and it's safe to use their values.
+        assert && assert( this.opticImageDistanceProperty.hasDependency( optic.positionProperty ) );
+        assert && assert( this.opticImageDistanceProperty.hasDependency( opticalObjectPositionProperty ) );
         const opticPosition = optic.positionProperty.value;
         const opticalObjectPosition = opticalObjectPositionProperty.value;
 

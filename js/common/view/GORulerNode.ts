@@ -30,6 +30,7 @@ import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
 import Property from '../../../../axon/js/Property.js';
+import IntentionalAny from '../../../../phet-core/js/IntentionalAny.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;
@@ -71,7 +72,7 @@ class GORulerNode extends Node {
    */
   constructor( ruler: GORuler,
                opticPositionProperty: IReadOnlyProperty<Vector2>,
-               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+               zoomTransformProperty: DerivedProperty<ModelViewTransform2, IntentionalAny[]>,
                zoomScaleProperty: IReadOnlyProperty<number>,
                visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                providedOptions: GORulerNodeOptions ) {
@@ -98,7 +99,9 @@ class GORulerNode extends Node {
     // Create a RulerNode subcomponent whose scale matches the current zoom level.
     Property.multilink( [ zoomTransformProperty ], ( zoomTransform: ModelViewTransform2 ) => {
 
-      // zoomTransformProperty is derived from zoomScaleProperty, so it does not need to be a dependency.
+      // zoomTransformProperty is derived from zoomScaleProperty, so zoomScaleProperty does not need to be
+      // a dependency, and it's safe to use its value.
+      assert && assert( zoomTransformProperty.hasDependency( zoomScaleProperty ) );
       const zoomScale = zoomScaleProperty.value;
 
       // update ruler size, so that view size remains the same
