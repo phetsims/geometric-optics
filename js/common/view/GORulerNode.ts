@@ -144,6 +144,11 @@ class GORulerNode extends Node {
         return zoomTransform.viewToModelBounds( viewDragBounds );
       } );
 
+    // Keep the ruler inside the drag bounds.
+    this.dragBoundsProperty.link( dragBounds => {
+      ruler.positionProperty.value = dragBounds.closestPointTo( ruler.positionProperty.value );
+    } );
+
     // Dragging with the pointer
     this.dragListener = new DragListener( {
       pressCursor: 'pointer',
