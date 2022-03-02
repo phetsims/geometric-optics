@@ -31,7 +31,7 @@ type HTMLImageElementObjectNodeOptions = PickRequired<NodeOptions, 'tandem'> & P
 class HTMLImageElementObjectNode extends Node {
 
   /**
-   * @param opticalObject
+   * @param htmlImageElementObject
    * @param sceneBoundsProperty - bounds for the scene, in model coordinates
    * @param opticPositionProperty
    * @param modelViewTransform
@@ -39,7 +39,7 @@ class HTMLImageElementObjectNode extends Node {
    * @param wasDraggedProperty
    * @param providedOptions
    */
-  constructor( opticalObject: HTMLImageElementObject,
+  constructor( htmlImageElementObject: HTMLImageElementObject,
                sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
                opticPositionProperty: IReadOnlyProperty<Vector2>,
                modelViewTransform: ModelViewTransform2,
@@ -58,7 +58,7 @@ class HTMLImageElementObjectNode extends Node {
 
     super( options );
 
-    const imageNode = new Image( opticalObject.htmlImageElementProperty.value );
+    const imageNode = new Image( htmlImageElementObject.htmlImageElementProperty.value );
 
     // Wrap imageNode in a Node. We need to scale imageNode, but do not want its focus highlight to scale.
     const wrappedImageNode = new Node( {
@@ -76,7 +76,7 @@ class HTMLImageElementObjectNode extends Node {
     this.addChild( cueingArrowsNode );
 
     const updateScale = () => {
-      const sceneBounds = opticalObject.boundsProperty.value;
+      const sceneBounds = htmlImageElementObject.boundsProperty.value;
       const viewBounds = modelViewTransform.modelToViewBounds( sceneBounds );
       const scaleX = ( viewBounds.width / imageNode.width ) || GOConstants.MIN_SCALE; // prevent zero scale
       const scaleY = ( viewBounds.height / imageNode.height ) || GOConstants.MIN_SCALE; // prevent zero scale
@@ -84,13 +84,13 @@ class HTMLImageElementObjectNode extends Node {
     };
 
     // Change the PNG image.
-    opticalObject.htmlImageElementProperty.link( htmlImageElement => {
+    htmlImageElementObject.htmlImageElementProperty.link( htmlImageElement => {
       imageNode.image = htmlImageElement;
       updateScale();
     } );
 
     // Translate and scale
-    opticalObject.boundsProperty.link( bounds => {
+    htmlImageElementObject.boundsProperty.link( bounds => {
       this.translation = modelViewTransform.modelToViewBounds( bounds ).leftTop;
       updateScale();
     } );
@@ -99,11 +99,11 @@ class HTMLImageElementObjectNode extends Node {
     // Use Math.floor herein to avoid floating-point rounding errors that result in unwanted changes and additional
     // reentrant Properties, see https://github.com/phetsims/geometric-optics/issues/317.
     const dragBoundsProperty = new DerivedProperty(
-      [ opticalObject.boundsProperty, sceneBoundsProperty, dragLockedProperty ],
-      ( opticalObjectBounds: Bounds2, sceneBounds: Bounds2, dragLocked: boolean ) => {
+      [ htmlImageElementObject.boundsProperty, sceneBoundsProperty, dragLockedProperty ],
+      ( htmlImageElementObjectBounds: Bounds2, sceneBounds: Bounds2, dragLocked: boolean ) => {
 
-        const opticalObjectPosition = opticalObject.positionProperty.value;
-        const minX = Math.floor( sceneBounds.minX + ( opticalObjectPosition.x - opticalObjectBounds.minX ) );
+        const htmlImageElementObjectPosition = htmlImageElementObject.positionProperty.value;
+        const minX = Math.floor( sceneBounds.minX + ( htmlImageElementObjectPosition.x - htmlImageElementObjectBounds.minX ) );
         const maxX = Math.floor( opticPositionProperty.value.x - GOConstants.MIN_DISTANCE_FROM_OBJECT_TO_OPTIC );
         let minY: number;
         let maxY: number;
@@ -111,24 +111,24 @@ class HTMLImageElementObjectNode extends Node {
         if ( dragLocked ) {
 
           // Dragging is 1D, constrained horizontally to object's current position.
-          minY = opticalObjectPosition.y;
+          minY = htmlImageElementObjectPosition.y;
           maxY = minY;
         }
         else {
 
           // Dragging is 2D.
-          minY = Math.floor( sceneBounds.minY + ( opticalObjectPosition.y - opticalObjectBounds.minY ) );
-          maxY = Math.floor( sceneBounds.maxY - ( opticalObjectBounds.maxY - opticalObjectPosition.y ) );
+          minY = Math.floor( sceneBounds.minY + ( htmlImageElementObjectPosition.y - htmlImageElementObjectBounds.minY ) );
+          maxY = Math.floor( sceneBounds.maxY - ( htmlImageElementObjectBounds.maxY - htmlImageElementObjectPosition.y ) );
         }
         return new Bounds2( minX, minY, maxX, maxY );
       }, {
 
-        // Because changing dragBoundsProperty may necessitate moving opticalObject inside the new drag bounds,
-        // therefore changing dependency opticalObject.boundsProperty.
+        // Because changing dragBoundsProperty may necessitate moving htmlImageElementObject inside the new drag bounds,
+        // therefore changing dependency htmlImageElementObject.boundsProperty.
         reentrant: true //TODO https://github.com/phetsims/geometric-optics/issues/349 is this needed?
       } );
     dragBoundsProperty.link( dragBounds => {
-      opticalObject.positionProperty.value = dragBounds.closestPointTo( opticalObject.positionProperty.value );
+      htmlImageElementObject.positionProperty.value = dragBounds.closestPointTo( htmlImageElementObject.positionProperty.value );
     } );
 
     // Drag action that is common to DragListener and KeyboardDragListener
@@ -137,7 +137,7 @@ class HTMLImageElementObjectNode extends Node {
     };
 
     const dragListener = new DragListener( {
-      positionProperty: opticalObject.positionProperty,
+      positionProperty: htmlImageElementObject.positionProperty,
       dragBoundsProperty: dragBoundsProperty,
       transform: modelViewTransform,
       useParentOffset: true,
@@ -148,7 +148,7 @@ class HTMLImageElementObjectNode extends Node {
 
     const keyboardDragListener = new KeyboardDragListener(
       optionize<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
-        positionProperty: opticalObject.positionProperty,
+        positionProperty: htmlImageElementObject.positionProperty,
         dragBoundsProperty: dragBoundsProperty,
         transform: modelViewTransform,
         drag: drag,
