@@ -206,6 +206,11 @@ class GORulerNode extends Node {
     } );
   }
 
+  public dispose(): void {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
+  }
+
   /**
    * Sets the bounds of the toolbox, so the ruler know where to return to.
    * @param toolboxBounds

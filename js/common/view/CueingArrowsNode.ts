@@ -60,6 +60,11 @@ class CueingArrowsNode extends Path {
   public setDirection( direction: CueingArrowsDirection ): void {
     this.shape = createArrowsShape( direction, this.length );
   }
+
+  public dispose(): void {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
+  }
 }
 
 function createArrowsShape( direction: CueingArrowsDirection, length: number ): Shape {

@@ -86,6 +86,11 @@ class ArrowImageNode extends Node {
       tandem: options.tandem.createTandem( 'arrowImage' )
     } );
   }
+
+  public dispose(): void {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
+  }
 }
 
 geometricOptics.register( 'ArrowImageNode', ArrowImageNode );

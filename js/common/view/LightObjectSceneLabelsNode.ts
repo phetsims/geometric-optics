@@ -71,11 +71,6 @@ class LightObjectSceneLabelsNode extends GOSceneLabelsNode {
     const screenLabel = new LabelNode( geometricOpticsStrings.projectionScreen, screenLabelPositionProperty, zoomTransformProperty );
     this.addChild( screenLabel );
   }
-
-  public dispose(): void {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
-    super.dispose();
-  }
 }
 
 type LightObjectLabelNodeSelfOptions = {

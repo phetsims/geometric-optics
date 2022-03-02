@@ -72,11 +72,6 @@ class FramedObjectSceneLabelsNode extends GOSceneLabelsNode {
       imageLabel.setText( opticalImageType === 'real' ? geometricOpticsStrings.realImage : geometricOpticsStrings.virtualImage );
     } );
   }
-
-  public dispose(): void {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
-    super.dispose();
-  }
 }
 
 geometricOptics.register( 'FramedObjectSceneLabelsNode', FramedObjectSceneLabelsNode );
