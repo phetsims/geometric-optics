@@ -122,11 +122,6 @@ class HTMLImageElementObjectNode extends Node {
           maxY = Math.floor( sceneBounds.maxY - ( htmlImageElementObjectBounds.maxY - htmlImageElementObjectPosition.y ) );
         }
         return new Bounds2( minX, minY, maxX, maxY );
-      }, {
-
-        // Because changing dragBoundsProperty may necessitate moving htmlImageElementObject inside the new drag bounds,
-        // therefore changing dependency htmlImageElementObject.boundsProperty.
-        // reentrant: true //TODO https://github.com/phetsims/geometric-optics/issues/349 is this needed?
       } );
 
     // Keep the object inside the drag bounds. This is done in the next animation frame to prevent problems with
