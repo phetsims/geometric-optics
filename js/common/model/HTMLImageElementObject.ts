@@ -61,12 +61,8 @@ class HTMLImageElementObject extends OpticalObject {
     this.boundsProperty = new DerivedProperty(
       [ htmlImageElementProperty, this.positionProperty ],
       ( htmlImageElement: HTMLImageElement, position: Vector2 ) =>
-        computeBounds( htmlImageElement, position, scaleFactor, originOffset ), {
-
-        // Because changing htmlImageElementProperty may necessitate changing positionProperty to move
-        // the Object inside the view's drag bounds, resulting in this derivation being called again.
-        reentrant: true //TODO https://github.com/phetsims/geometric-optics/issues/349 is this needed?
-      } );
+        computeBounds( htmlImageElement, position, scaleFactor, originOffset )
+    );
   }
 }
 

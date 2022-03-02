@@ -25,6 +25,7 @@ import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
 import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
 import HTMLImageElementObject from '../model/HTMLImageElementObject.js';
 import IProperty from '../../../../axon/js/IProperty.js';
+import stepTimer from '../../../../axon/js/stepTimer.js';
 
 type HTMLImageElementObjectNodeOptions = PickRequired<NodeOptions, 'tandem'> & PickOptional<NodeOptions, 'visibleProperty'>;
 
@@ -125,12 +126,17 @@ class HTMLImageElementObjectNode extends Node {
 
         // Because changing dragBoundsProperty may necessitate moving htmlImageElementObject inside the new drag bounds,
         // therefore changing dependency htmlImageElementObject.boundsProperty.
-        reentrant: true //TODO https://github.com/phetsims/geometric-optics/issues/349 is this needed?
+        // reentrant: true //TODO https://github.com/phetsims/geometric-optics/issues/349 is this needed?
       } );
 
-    // Keep the object inside the drag bounds.
+    // Keep the object inside the drag bounds. This is done in the next animation frame to prevent problems with
+    // reentrant Properties, as in https://github.com/phetsims/geometric-optics/issues/325.  dragBoundsProperty is
+    // derived from htmlImageElementObject.boundsProperty, and will change htmlImageElementObject.boundsProperty by
+    // setting htmlImageElementObject.positionProperty.
     dragBoundsProperty.link( dragBounds => {
-      htmlImageElementObject.positionProperty.value = dragBounds.closestPointTo( htmlImageElementObject.positionProperty.value );
+      stepTimer.setTimeout( () => {
+        htmlImageElementObject.positionProperty.value = dragBounds.closestPointTo( htmlImageElementObject.positionProperty.value );
+      }, 0 );
     } );
 
     // Drag action that is common to DragListener and KeyboardDragListener
