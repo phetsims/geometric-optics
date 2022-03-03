@@ -9,19 +9,19 @@
     "value": "Mirror"
   },
   "convexLens": {
-    "value": "Convex Lens"
+    "value": "Convex<br>Lens"
   },
   "concaveLens": {
-    "value": "Concave Lens"
+    "value": "Concave<br>Lens"
   },
   "convexMirror": {
-    "value": "Convex Mirror"
+    "value": "Convex<br>Mirror"
   },
   "concaveMirror": {
-    "value": "Concave Mirror"
+    "value": "Concave<br>Mirror"
   },
   "flatMirror": {
-    "value": "Flat Mirror"
+    "value": "Flat<br>Mirror"
   },
   "object": {
     "value": "Object"
@@ -30,7 +30,7 @@
     "value": "Object {{objectNumber}}"
   },
   "focalPoint": {
-    "value": "Focal Point (F)"
+    "value": "F"
   },
   "focalPoints": {
     "value": "Focal Points (F)"
@@ -66,16 +66,19 @@
     "value": "Guides"
   },
   "realImage": {
-    "value": "Real Image"
+    "value": "Real<br>Image"
   },
   "realImageN": {
-    "value": "Real Image {{imageNumber}}"
+    "value": "Real<br>Image {{imageNumber}}"
   },
-  "virtualImage": {
+  "virtualImageCheckboxLabel": {
     "value": "Virtual Image"
   },
+  "virtualImage": {
+    "value": "Virtual<br>Image"
+  },
   "virtualImageN": {
-    "value": "Virtual Image {{imageNumber}}"
+    "value": "Virtual<br>Image {{imageNumber}}"
   },
   "none": {
     "value": "None"

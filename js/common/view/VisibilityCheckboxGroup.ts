@@ -72,7 +72,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       } ),
 
       // Virtual Image
-      createItem( geometricOpticsStrings.virtualImage, visibleProperties.virtualImageVisibleProperty, {
+      createItem( geometricOpticsStrings.virtualImageCheckboxLabel, visibleProperties.virtualImageVisibleProperty, {
         options: {
           enabledProperty: virtualImageCheckboxEnabledProperty
         },

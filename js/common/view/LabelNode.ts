@@ -12,7 +12,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Text } from '../../../../scenery/js/imports.js';
+import { RichText } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import GOConstants from '../GOConstants.js';
@@ -36,7 +36,7 @@ export type LabelNodeOptions = SelfOptions & PickOptional<BackgroundNodeOptions,
 
 class LabelNode extends BackgroundNode {
 
-  private readonly textNode: Text;
+  private readonly textNode: RichText;
 
   /**
    * @param text
@@ -49,7 +49,8 @@ class LabelNode extends BackgroundNode {
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                providedOptions?: LabelNodeOptions ) {
 
-    const textNode = new Text( text, {
+    const textNode = new RichText( text, {
+      align: 'center',
       fill: GOColors.labelFillProperty,
       font: GOConstants.LABEL_FONT,
       maxWidth: 85

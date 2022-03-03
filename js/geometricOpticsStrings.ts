@@ -36,6 +36,7 @@ type StringsType = {
   'guides': string,
   'realImage': string,
   'realImageN': string,
+  'virtualImageCheckboxLabel': string,
   'virtualImage': string,
   'virtualImageN': string,
   'none': string,
