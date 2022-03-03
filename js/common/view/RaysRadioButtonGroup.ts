@@ -41,10 +41,10 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysType> {
 
     // items for ray Mode radio buttons
     const items = [
-      createItem( 'marginal', geometricOpticsStrings.marginal, options.tandem, 'marginalRadioButton' ),
-      createItem( 'principal', geometricOpticsStrings.principal, options.tandem, 'principalRadioButton' ),
-      createItem( 'many', geometricOpticsStrings.many, options.tandem, 'manyRadioButton' ),
-      createItem( 'none', geometricOpticsStrings.none, options.tandem, 'noneRadioButton' )
+      createItem( 'marginal', geometricOpticsStrings.button.marginal, options.tandem, 'marginalRadioButton' ),
+      createItem( 'principal', geometricOpticsStrings.button.principal, options.tandem, 'principalRadioButton' ),
+      createItem( 'many', geometricOpticsStrings.button.many, options.tandem, 'manyRadioButton' ),
+      createItem( 'none', geometricOpticsStrings.button.none, options.tandem, 'noneRadioButton' )
     ];
 
     super( raysTypeProperty, items, options );

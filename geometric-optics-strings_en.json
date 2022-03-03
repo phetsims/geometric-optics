@@ -8,15 +8,6 @@
   "screen.mirror": {
     "value": "Mirror"
   },
-  "focalPoints": {
-    "value": "Focal Points (F)"
-  },
-  "twoFPoints": {
-    "value": "2F Points"
-  },
-  "labels": {
-    "value": "Labels"
-  },
   "radiusOfCurvaturePositive": {
     "value": "Radius of Curvature (+)"
   },
@@ -34,27 +25,6 @@
   },
   "diameter": {
     "value": "Diameter"
-  },
-  "guides": {
-    "value": "Guides"
-  },
-  "virtualImageCheckboxLabel": {
-    "value": "Virtual Image"
-  },
-  "none": {
-    "value": "None"
-  },
-  "marginal": {
-    "value": "Marginal"
-  },
-  "principal": {
-    "value": "Principal"
-  },
-  "many": {
-    "value": "Many"
-  },
-  "secondPoint": {
-    "value": "Second Point"
   },
   "valueCentimetersPattern": {
     "value": "{{value}} cm"
@@ -83,11 +53,41 @@
   "focalLengthControl": {
     "value": "Focal Length control:"
   },
-  "direct": {
+  "button.direct": {
     "value": "direct (using Focal Length slider)"
   },
-  "indirect": {
+  "button.indirect": {
     "value": "indirect (calculated from other optic parameters)"
+  },
+  "button.none": {
+    "value": "None"
+  },
+  "button.marginal": {
+    "value": "Marginal"
+  },
+  "button.principal": {
+    "value": "Principal"
+  },
+  "button.many": {
+    "value": "Many"
+  },
+  "checkbox.focalPoints": {
+    "value": "Focal Points (F)"
+  },
+  "checkbox.twoFPoints": {
+    "value": "2F Points"
+  },
+  "checkbox.labels": {
+    "value": "Labels"
+  },
+  "checkbox.virtualImage": {
+    "value": "Virtual Image"
+  },
+  "checkbox.secondPoint": {
+    "value": "Second Point"
+  },
+  "checkbox.guides": {
+    "value": "Guides"
   },
   "label.convexLens": {
     "value": "Convex<br>Lens"
