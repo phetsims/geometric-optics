@@ -22,7 +22,7 @@ import Optic from '../model/Optic.js';
 import OpticLabelNode from './OpticLabelNode.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
-type GOSceneLabelsNodeOptions = PickRequired<NodeOptions, 'visibleProperty'>;
+export type GOSceneLabelsNodeOptions = PickRequired<NodeOptions, 'visibleProperty'>;
 
 class GOSceneLabelsNode extends Node {
 
@@ -104,4 +104,3 @@ class GOSceneLabelsNode extends Node {
 
 geometricOptics.register( 'GOSceneLabelsNode', GOSceneLabelsNode );
 export default GOSceneLabelsNode;
-export type { GOSceneLabelsNodeOptions };

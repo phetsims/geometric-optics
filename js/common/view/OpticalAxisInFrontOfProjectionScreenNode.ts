@@ -19,7 +19,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
 
-type OpticalAxisInFrontOfProjectionScreenNodeOptions = PickRequired<LineOptions, 'visibleProperty'> &
+export type OpticalAxisInFrontOfProjectionScreenNodeOptions = PickRequired<LineOptions, 'visibleProperty'> &
   PickOptional<LineOptions, 'stroke'>;
 
 class OpticalAxisInFrontOfProjectionScreenNode extends Line {
@@ -75,4 +75,3 @@ class OpticalAxisInFrontOfProjectionScreenNode extends Line {
 geometricOptics.register( 'OpticalAxisInFrontOfProjectionScreenNode', OpticalAxisInFrontOfProjectionScreenNode );
 
 export default OpticalAxisInFrontOfProjectionScreenNode;
-export type { OpticalAxisInFrontOfProjectionScreenNode };

@@ -8,7 +8,6 @@
  */
 
 const FocalLengthModelTypeValues = [ 'direct', 'indirect' ] as const;
-type FocalLengthModelType = ( typeof FocalLengthModelTypeValues )[number];
+export type FocalLengthModelType = ( typeof FocalLengthModelTypeValues )[number];
 
-export type { FocalLengthModelType };
 export { FocalLengthModelTypeValues };

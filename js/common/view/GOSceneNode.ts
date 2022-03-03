@@ -36,7 +36,7 @@ type SelfOptions = {
   createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node
 };
 
-type GOSceneNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem' | 'visibleProperty'>;
+export type GOSceneNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem' | 'visibleProperty'>;
 
 abstract class GOSceneNode extends Node {
 
@@ -175,4 +175,3 @@ abstract class GOSceneNode extends Node {
 
 geometricOptics.register( 'GOSceneNode', GOSceneNode );
 export default GOSceneNode;
-export type { GOSceneNodeOptions };

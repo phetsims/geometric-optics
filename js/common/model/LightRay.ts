@@ -22,7 +22,7 @@ import Optic from './Optic.js';
 import GORay from './GORay.js';
 import { RaysType } from './RaysType.js';
 
-type LightRaySegment = {
+export type LightRaySegment = {
   startPoint: Vector2,
   endPoint: Vector2
 };
@@ -373,4 +373,3 @@ function hasVirtualRay( isImageVirtual: boolean, realRays: GORay[] ): boolean {
 
 geometricOptics.register( 'LightRay', LightRay );
 export default LightRay;
-export type { LightRaySegment };

@@ -32,7 +32,7 @@ type SelfOptions = {
   opticalObjectPositionProperty?: IReadOnlyProperty<Vector2>
 };
 
-type OpticalImageOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
+export type OpticalImageOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
 
 class OpticalImage extends PhetioObject {
 
@@ -233,4 +233,3 @@ function computeMagnification( opticalObjectPosition: Vector2, opticPosition: Ve
 
 geometricOptics.register( 'OpticalImage', OpticalImage );
 export default OpticalImage;
-export type { OpticalImageOptions };

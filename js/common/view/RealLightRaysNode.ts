@@ -17,7 +17,7 @@ type SelfOptions = {
   stroke: ColorDef
 };
 
-type RealLightRaysNodeOptions = SelfOptions & LightRaysNodeOptions;
+export type RealLightRaysNodeOptions = SelfOptions & LightRaysNodeOptions;
 
 class RealLightRaysNode extends LightRaysNode {
 
@@ -48,4 +48,3 @@ class RealLightRaysNode extends LightRaysNode {
 
 geometricOptics.register( 'RealLightRaysNode', RealLightRaysNode );
 export default RealLightRaysNode;
-export type { RealLightRaysNodeOptions };

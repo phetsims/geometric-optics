@@ -27,7 +27,7 @@ import HTMLImageElementObject from '../model/HTMLImageElementObject.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import stepTimer from '../../../../axon/js/stepTimer.js';
 
-type HTMLImageElementObjectNodeOptions = PickRequired<NodeOptions, 'tandem'> & PickOptional<NodeOptions, 'visibleProperty'>;
+export type HTMLImageElementObjectNodeOptions = PickRequired<NodeOptions, 'tandem'> & PickOptional<NodeOptions, 'visibleProperty'>;
 
 class HTMLImageElementObjectNode extends Node {
 
@@ -184,4 +184,3 @@ class HTMLImageElementObjectNode extends Node {
 
 geometricOptics.register( 'HTMLImageElementObjectNode', HTMLImageElementObjectNode );
 export default HTMLImageElementObjectNode;
-export type { HTMLImageElementObjectNodeOptions };

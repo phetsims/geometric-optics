@@ -29,7 +29,7 @@ type SelfOptions = {
   isMirrorScreen: boolean
 };
 
-type VisibilityCheckboxGroupOptions = SelfOptions & PickRequired<VerticalCheckboxGroupOptions, 'tandem'>;
+export type VisibilityCheckboxGroupOptions = SelfOptions & PickRequired<VerticalCheckboxGroupOptions, 'tandem'>;
 
 class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 
@@ -134,7 +134,6 @@ function createItem( string: string, property: Property<boolean>, providedOption
     tandem: providedOptions.tandem
   };
 }
-
 
 geometricOptics.register( 'VisibilityCheckboxGroup', VisibilityCheckboxGroup );
 export default VisibilityCheckboxGroup;

@@ -17,7 +17,7 @@ import geometricOptics from '../../geometricOptics.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
-type GuideLocation = 'top' | 'bottom';
+export type GuideLocation = 'top' | 'bottom';
 
 type GuideOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
 
@@ -105,4 +105,3 @@ class Guide extends PhetioObject {
 
 geometricOptics.register( 'Guide', Guide );
 export { Guide as default };
-export type { GuideLocation };

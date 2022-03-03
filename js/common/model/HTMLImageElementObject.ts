@@ -18,7 +18,7 @@ import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 
-type HTMLImageElementObjectOptions = PickRequired<OpticalObjectOptions, 'position' | 'tandem'>
+export type HTMLImageElementObjectOptions = PickRequired<OpticalObjectOptions, 'position' | 'tandem'>
   & PickOptional<OpticalObjectOptions, 'phetioDocumentation'>;
 
 class HTMLImageElementObject extends OpticalObject {
@@ -88,4 +88,3 @@ function computeBounds( htmlImageElement: HTMLImageElement, position: Vector2,
 
 geometricOptics.register( 'HTMLImageElementObject', HTMLImageElementObject );
 export default HTMLImageElementObject;
-export type { HTMLImageElementObjectOptions };

@@ -8,8 +8,7 @@
  */
 
 const OpticalImageTypeValues = [ 'real', 'virtual' ] as const;
-type OpticalImageType = ( typeof OpticalImageTypeValues )[number];
+export type OpticalImageType = ( typeof OpticalImageTypeValues )[number];
 
-export type { OpticalImageType };
 export { OpticalImageTypeValues };
 

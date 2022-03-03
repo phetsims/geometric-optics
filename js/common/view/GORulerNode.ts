@@ -35,13 +35,13 @@ import IntentionalAny from '../../../../phet-core/js/IntentionalAny.js';
 // constants
 const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;
 
-type GORulerNodeOptions = PickRequired<Node, 'tandem'>;
-
 // Describes a measurement point that can be 'jumped' to via J+R hotkey.
-type RulerHotkeyTarget = {
+export type RulerHotkeyTarget = {
   positionProperty: IReadOnlyProperty<Vector2>,
   visibleProperty: IReadOnlyProperty<boolean>
 }
+
+export type GORulerNodeOptions = PickRequired<Node, 'tandem'>;
 
 class GORulerNode extends Node {
 
@@ -340,4 +340,3 @@ function createRulerNode( rulerLength: number, zoomTransform: ModelViewTransform
 
 geometricOptics.register( 'GORulerNode', GORulerNode );
 export default GORulerNode;
-export type { GORulerNodeOptions, RulerHotkeyTarget };

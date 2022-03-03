@@ -34,7 +34,7 @@ import starLeftFacingInverted_png from '../../../images/starLeftFacingInverted_p
 import starIcon_png from '../../../images/starIcon_png.js';
 
 // Set of HTMLImageElements (PNG files) that depict a framed object and its associated optical image
-type ObjectHTMLImageElements = {
+export type ObjectHTMLImageElements = {
   rightFacingUpright: HTMLImageElement,
   rightFacingInverted: HTMLImageElement,
   leftFacingUpright: HTMLImageElement,
@@ -141,4 +141,3 @@ class OpticalObjectChoice extends EnumerationValue {
 
 geometricOptics.register( 'OpticalObjectChoice', OpticalObjectChoice );
 export default OpticalObjectChoice;
-export type { ObjectHTMLImageElements };

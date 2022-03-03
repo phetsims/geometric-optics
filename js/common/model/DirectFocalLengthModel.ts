@@ -26,7 +26,7 @@ type SelfOptions = {
   indexOfRefractionRange: RangeWithValue
 };
 
-type DirectFocalLengthModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
+export type DirectFocalLengthModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 class DirectFocalLengthModel extends PhetioObject implements FocalLengthModel {
 
@@ -92,4 +92,3 @@ class DirectFocalLengthModel extends PhetioObject implements FocalLengthModel {
 
 geometricOptics.register( 'DirectFocalLengthModel', DirectFocalLengthModel );
 export default DirectFocalLengthModel;
-export type { DirectFocalLengthModelOptions };

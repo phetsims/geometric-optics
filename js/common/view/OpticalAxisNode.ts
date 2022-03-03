@@ -20,7 +20,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
 
-type OpticalAxisNodeOptions = PickRequired<LineOptions, 'visibleProperty'> &
+export type OpticalAxisNodeOptions = PickRequired<LineOptions, 'visibleProperty'> &
   PickOptional<LineOptions, 'stroke' | 'tandem'>;
 
 class OpticalAxisNode extends Line {
@@ -69,4 +69,3 @@ class OpticalAxisNode extends Line {
 geometricOptics.register( 'OpticalAxisNode', OpticalAxisNode );
 
 export default OpticalAxisNode;
-export type { OpticalAxisNodeOptions };

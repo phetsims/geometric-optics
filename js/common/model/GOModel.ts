@@ -39,7 +39,7 @@ type SelfOptions = {
   lightObject2Position?: Vector2
 };
 
-type GOModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
+export type GOModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 class GOModel {
 
@@ -188,4 +188,3 @@ class GOModel {
 
 geometricOptics.register( 'GOModel', GOModel );
 export default GOModel;
-export type { GOModelOptions };

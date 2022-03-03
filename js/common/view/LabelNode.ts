@@ -32,7 +32,7 @@ type SelfOptions = {
   yOffset?: number
 };
 
-type LabelNodeOptions = SelfOptions & PickOptional<BackgroundNodeOptions, 'visibleProperty'>;
+export type LabelNodeOptions = SelfOptions & PickOptional<BackgroundNodeOptions, 'visibleProperty'>;
 
 class LabelNode extends BackgroundNode {
 
@@ -118,4 +118,3 @@ class LabelNode extends BackgroundNode {
 
 geometricOptics.register( 'LabelNode', LabelNode );
 export default LabelNode;
-export type { LabelNodeOptions };

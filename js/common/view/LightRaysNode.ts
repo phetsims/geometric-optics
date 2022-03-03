@@ -14,7 +14,7 @@ import { LightRaySegment } from '../model/LightRay.js';
 import LightRays from '../model/LightRays.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
 
-type LightRaysNodeOptions = PickOptional<NodeOptions, 'visibleProperty'>;
+export type LightRaysNodeOptions = PickOptional<NodeOptions, 'visibleProperty'>;
 
 class LightRaysNode extends Node {
 
@@ -59,4 +59,3 @@ class LightRaysNode extends Node {
 
 geometricOptics.register( 'LightRaysNode', LightRaysNode );
 export default LightRaysNode;
-export type { LightRaysNodeOptions };

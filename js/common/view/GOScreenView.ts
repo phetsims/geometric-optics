@@ -66,7 +66,7 @@ type SelfOptions = {
   createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node
 };
 
-type GOScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions, 'tandem'>;
+export type GOScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions, 'tandem'>;
 
 class GOScreenView extends ScreenView {
 
@@ -473,4 +473,3 @@ class GOScreenView extends ScreenView {
 
 geometricOptics.register( 'GOScreenView', GOScreenView );
 export default GOScreenView;
-export type { GOScreenViewOptions };

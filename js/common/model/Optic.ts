@@ -57,7 +57,7 @@ type SelfOptions = {
   position?: Vector2
 };
 
-type OpticOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'> &
+export type OpticOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'> &
   PickOptional<PhetioObjectOptions, 'phetioDocumentation'>;
 
 abstract class Optic extends PhetioObject {
@@ -403,4 +403,3 @@ abstract class Optic extends PhetioObject {
 geometricOptics.register( 'Optic', Optic );
 
 export default Optic;
-export type { OpticOptions };

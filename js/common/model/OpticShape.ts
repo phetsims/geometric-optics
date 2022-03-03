@@ -7,7 +7,6 @@
  */
 
 const OpticShapeValues = [ 'convex', 'concave', 'flat' ] as const;
-type OpticShape = ( typeof OpticShapeValues )[number];
+export type OpticShape = ( typeof OpticShapeValues )[number];
 
-export type { OpticShape };
 export { OpticShapeValues };

@@ -16,7 +16,7 @@ import Guides from './Guides.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
-type GOSceneOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
+export type GOSceneOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
 
 abstract class GOScene extends PhetioObject {
 
@@ -99,4 +99,3 @@ abstract class GOScene extends PhetioObject {
 
 geometricOptics.register( 'GOScene', GOScene );
 export default GOScene;
-export type { GOSceneOptions };
