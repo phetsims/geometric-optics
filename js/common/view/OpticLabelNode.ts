@@ -36,10 +36,10 @@ class OpticLabelNode extends LabelNode {
       let text: string;
       if ( optic instanceof Lens ) {
         if ( opticShape === 'convex' ) {
-          text = geometricOpticsStrings.convexLens;
+          text = geometricOpticsStrings.label.convexLens;
         }
         else if ( opticShape === 'concave' ) {
-          text = geometricOpticsStrings.concaveLens;
+          text = geometricOpticsStrings.label.concaveLens;
         }
         else {
           throw Error( `unsupported opticShape for lens: ${opticShape}` );
@@ -49,13 +49,13 @@ class OpticLabelNode extends LabelNode {
         // mirror
         assert && assert( optic instanceof Mirror );
         if ( opticShape === 'convex' ) {
-          text = geometricOpticsStrings.convexMirror;
+          text = geometricOpticsStrings.label.convexMirror;
         }
         else if ( opticShape === 'concave' ) {
-          text = geometricOpticsStrings.concaveMirror;
+          text = geometricOpticsStrings.label.concaveMirror;
         }
         else if ( opticShape === 'flat' ) {
-          text = geometricOpticsStrings.flatMirror;
+          text = geometricOpticsStrings.label.flatMirror;
         }
         else {
           throw Error( `unsupported opticShape for mirror: ${opticShape}` );

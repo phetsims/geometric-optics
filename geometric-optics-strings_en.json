@@ -8,35 +8,8 @@
   "screen.mirror": {
     "value": "Mirror"
   },
-  "convexLens": {
-    "value": "Convex<br>Lens"
-  },
-  "concaveLens": {
-    "value": "Concave<br>Lens"
-  },
-  "convexMirror": {
-    "value": "Convex<br>Mirror"
-  },
-  "concaveMirror": {
-    "value": "Concave<br>Mirror"
-  },
-  "flatMirror": {
-    "value": "Flat<br>Mirror"
-  },
-  "object": {
-    "value": "Object"
-  },
-  "objectN": {
-    "value": "Object {{objectNumber}}"
-  },
-  "focalPoint": {
-    "value": "F"
-  },
   "focalPoints": {
     "value": "Focal Points (F)"
-  },
-  "twoF": {
-    "value": "2F"
   },
   "twoFPoints": {
     "value": "2F Points"
@@ -65,20 +38,8 @@
   "guides": {
     "value": "Guides"
   },
-  "realImage": {
-    "value": "Real<br>Image"
-  },
-  "realImageN": {
-    "value": "Real<br>Image {{imageNumber}}"
-  },
   "virtualImageCheckboxLabel": {
     "value": "Virtual Image"
-  },
-  "virtualImage": {
-    "value": "Virtual<br>Image"
-  },
-  "virtualImageN": {
-    "value": "Virtual<br>Image {{imageNumber}}"
   },
   "none": {
     "value": "None"
@@ -119,12 +80,6 @@
   "rays": {
     "value": "Rays"
   },
-  "projectionScreen": {
-    "value": "Screen"
-  },
-  "opticalAxis": {
-    "value": "Optical Axis"
-  },
   "focalLengthControl": {
     "value": "Focal Length control:"
   },
@@ -133,6 +88,51 @@
   },
   "indirect": {
     "value": "indirect (calculated from other optic parameters)"
+  },
+  "label.convexLens": {
+    "value": "Convex<br>Lens"
+  },
+  "label.concaveLens": {
+    "value": "Concave<br>Lens"
+  },
+  "label.convexMirror": {
+    "value": "Convex<br>Mirror"
+  },
+  "label.concaveMirror": {
+    "value": "Concave<br>Mirror"
+  },
+  "label.flatMirror": {
+    "value": "Flat<br>Mirror"
+  },
+  "label.F": {
+    "value": "F"
+  },
+  "label.twoF": {
+    "value": "2F"
+  },
+  "label.object": {
+    "value": "Object"
+  },
+  "label.objectN": {
+    "value": "Object {{objectNumber}}"
+  },
+  "label.realImage": {
+    "value": "Real<br>Image"
+  },
+  "label.realImageN": {
+    "value": "Real<br>Image {{imageNumber}}"
+  },
+  "label.virtualImage": {
+    "value": "Virtual<br>Image"
+  },
+  "label.virtualImageN": {
+    "value": "Virtual<br>Image {{imageNumber}}"
+  },
+  "label.projectionScreen": {
+    "value": "Screen"
+  },
+  "label.opticalAxis": {
+    "value": "Optical Axis"
   },
   "keyboardHelpDialog.moveDraggableItems": {
     "value": "Move Draggable Items"

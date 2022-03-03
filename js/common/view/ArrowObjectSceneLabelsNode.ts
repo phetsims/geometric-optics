@@ -124,20 +124,20 @@ class ArrowObjectLabelNode extends LabelNode {
         ( arrowPosition.y > opticPosition.y ) ? new Vector2( arrowPosition.x, opticPosition.y ) : arrowPosition
     );
 
-    super( geometricOpticsStrings.object, labelPositionProperty, zoomTransformProperty, options );
+    super( '', labelPositionProperty, zoomTransformProperty, options );
 
     options.isNumberedProperty.link( ( isNumbered: boolean ) => {
       if ( isNumbered ) {
 
         // Object N
-        this.setText( StringUtils.fillIn( geometricOpticsStrings.objectN, {
+        this.setText( StringUtils.fillIn( geometricOpticsStrings.label.objectN, {
           objectNumber: arrowObject.opticalObjectNumber
         } ) );
       }
       else {
 
         // Object
-        this.setText( geometricOpticsStrings.object );
+        this.setText( geometricOpticsStrings.label.object );
       }
     } );
   }
@@ -201,15 +201,15 @@ class ArrowImageLabelNode extends LabelNode {
           // Switch between 'Real Image N' and 'Virtual Image N'
           const stringParams = { imageNumber: arrowImage.opticalObject.opticalObjectNumber };
           this.setText( opticalImageType === 'real' ?
-                        StringUtils.fillIn( geometricOpticsStrings.realImageN, stringParams ) :
-                        StringUtils.fillIn( geometricOpticsStrings.virtualImageN, stringParams ) );
+                        StringUtils.fillIn( geometricOpticsStrings.label.realImageN, stringParams ) :
+                        StringUtils.fillIn( geometricOpticsStrings.label.virtualImageN, stringParams ) );
         }
         else {
 
           // Switch between 'Real Image' and 'Virtual Image'
           this.setText( opticalImageType === 'real' ?
-                        geometricOpticsStrings.realImage :
-                        geometricOpticsStrings.virtualImage );
+                        geometricOpticsStrings.label.realImage :
+                        geometricOpticsStrings.label.virtualImage );
         }
       } );
   }

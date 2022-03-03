@@ -56,7 +56,7 @@ class GOSceneLabelsNode extends Node {
         return new Vector2( modelVisibleBounds.x + modelXOffset, opticPosition.y );
       } );
 
-    const opticalAxisLabel = new LabelNode( geometricOpticsStrings.opticalAxis, opticalAxisLabelPositionProperty, zoomTransformProperty, {
+    const opticalAxisLabel = new LabelNode( geometricOpticsStrings.label.opticalAxis, opticalAxisLabelPositionProperty, zoomTransformProperty, {
       xAlign: 'left',
       yOffset: 5,
       visibleProperty: visibleProperties.opticalAxisVisibleProperty
@@ -67,28 +67,28 @@ class GOSceneLabelsNode extends Node {
 
     const focalPointLabelYOffset = 7;
 
-    const leftFocalPointLabel = new LabelNode( geometricOpticsStrings.focalPoint,
+    const leftFocalPointLabel = new LabelNode( geometricOpticsStrings.label.F,
       optic.leftFocalPointProperty, zoomTransformProperty, {
         yOffset: focalPointLabelYOffset,
         visibleProperty: visibleProperties.focalPointsVisibleProperty
       } );
     this.addChild( leftFocalPointLabel );
 
-    const rightFocalPointLabel = new LabelNode( geometricOpticsStrings.focalPoint,
+    const rightFocalPointLabel = new LabelNode( geometricOpticsStrings.label.F,
       optic.rightFocalPointProperty, zoomTransformProperty, {
         yOffset: focalPointLabelYOffset,
         visibleProperty: visibleProperties.focalPointsVisibleProperty
       } );
     this.addChild( rightFocalPointLabel );
 
-    const left2FLabel = new LabelNode( geometricOpticsStrings.twoF,
+    const left2FLabel = new LabelNode( geometricOpticsStrings.label.twoF,
       optic.left2FProperty, zoomTransformProperty, {
         yOffset: focalPointLabelYOffset,
         visibleProperty: visibleProperties.twoFPointsVisibleProperty
       } );
     this.addChild( left2FLabel );
 
-    const right2FLabel = new LabelNode( geometricOpticsStrings.twoF,
+    const right2FLabel = new LabelNode( geometricOpticsStrings.label.twoF,
       optic.right2FProperty, zoomTransformProperty, {
         yOffset: focalPointLabelYOffset,
         visibleProperty: visibleProperties.twoFPointsVisibleProperty

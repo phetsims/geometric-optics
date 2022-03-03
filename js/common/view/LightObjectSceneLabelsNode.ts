@@ -68,7 +68,7 @@ class LightObjectSceneLabelsNode extends GOSceneLabelsNode {
       ( position: Vector2 ) => new Vector2( position.x - 25, position.y - 65 ) // empirically, model coordinates
     );
 
-    const screenLabel = new LabelNode( geometricOpticsStrings.projectionScreen, screenLabelPositionProperty, zoomTransformProperty );
+    const screenLabel = new LabelNode( geometricOpticsStrings.label.projectionScreen, screenLabelPositionProperty, zoomTransformProperty );
     this.addChild( screenLabel );
   }
 }
@@ -100,20 +100,20 @@ class LightObjectLabelNode extends LabelNode {
       ( bounds: Bounds2 ) => new Vector2( bounds.centerX - 15, bounds.top )
     );
 
-    super( geometricOpticsStrings.object, labelPositionProperty, zoomTransformProperty, options );
+    super( '', labelPositionProperty, zoomTransformProperty, options );
 
     options.isNumberedProperty.link( ( isNumbered: boolean ) => {
       if ( isNumbered ) {
 
         // Object N
-        this.setText( StringUtils.fillIn( geometricOpticsStrings.objectN, {
+        this.setText( StringUtils.fillIn( geometricOpticsStrings.label.objectN, {
           objectNumber: lightObject.opticalObjectNumber
         } ) );
       }
       else {
 
         // Object
-        this.setText( geometricOpticsStrings.object );
+        this.setText( geometricOpticsStrings.label.object );
       }
     } );
   }
