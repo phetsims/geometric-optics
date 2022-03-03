@@ -108,7 +108,7 @@ class LightSpot extends PhetioObject {
     // The value saturates to max intensity for a spot diameter <= FULL_INTENSITY_DIAMETER.
     this.intensityProperty = new DerivedProperty( [ this.diameterProperty ],
       ( diameter: number | null ) => {
-        if ( ( diameter === null || diameter === 0 ) ) {
+        if ( ( diameter === 0 || diameter === null ) ) {
           return null;
         }
         else if ( diameter < FULL_INTENSITY_DIAMETER ) {
