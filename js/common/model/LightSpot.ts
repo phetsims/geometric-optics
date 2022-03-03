@@ -107,8 +107,17 @@ class LightSpot extends PhetioObject {
     // To preserve dynamic range, the intensity is instead inversely proportional to the diameter.
     // The value saturates to max intensity for a spot diameter <= FULL_INTENSITY_DIAMETER.
     this.intensityProperty = new DerivedProperty( [ this.diameterProperty ],
-      ( diameter: number | null ) => ( diameter === null || diameter === 0 ) ? null :
-                                     GOConstants.INTENSITY_RANGE.constrainValue( FULL_INTENSITY_DIAMETER / diameter ), {
+      ( diameter: number | null ) => {
+        if ( ( diameter === null || diameter === 0 ) ) {
+          return null;
+        }
+        else if ( diameter < FULL_INTENSITY_DIAMETER ) {
+          return 1;
+        }
+        else {
+          return FULL_INTENSITY_DIAMETER / diameter;
+        }
+      }, {
         isValidValue: ( value: number | null ) => ( value === null ) || GOConstants.INTENSITY_RANGE.contains( value ),
         tandem: options.tandem.createTandem( 'intensityProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NullableIO( NumberIO ) ),
