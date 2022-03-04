@@ -41,7 +41,6 @@ class OpticalAxisNode extends Line {
 
       // LineOptions
       stroke: GOColors.opticalAxisStrokeProperty,
-      strokePickable: true,
       lineWidth: 2,
       lineDash: [ 8, 5 ]
     }, providedOptions ) );
