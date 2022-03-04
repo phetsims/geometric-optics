@@ -7,7 +7,5 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-const FocalLengthModelTypeValues = [ 'direct', 'indirect' ] as const;
+export const FocalLengthModelTypeValues = [ 'direct', 'indirect' ] as const;
 export type FocalLengthModelType = ( typeof FocalLengthModelTypeValues )[number];
-
-export { FocalLengthModelTypeValues };

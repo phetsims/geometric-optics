@@ -7,8 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-const OpticalImageTypeValues = [ 'real', 'virtual' ] as const;
+export const OpticalImageTypeValues = [ 'real', 'virtual' ] as const;
 export type OpticalImageType = ( typeof OpticalImageTypeValues )[number];
-
-export { OpticalImageTypeValues };
 

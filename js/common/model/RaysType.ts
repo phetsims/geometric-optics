@@ -6,8 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-const RaysTypeValues = [ 'marginal', 'principal', 'many', 'none' ] as const;
+export const RaysTypeValues = [ 'marginal', 'principal', 'many', 'none' ] as const;
 export type RaysType = ( typeof RaysTypeValues )[number];
-
-export { RaysTypeValues };
 
