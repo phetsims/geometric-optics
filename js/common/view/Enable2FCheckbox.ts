@@ -27,9 +27,9 @@ class Enable2FCheckbox extends Checkbox {
    */
   constructor( enable2FProperty: Property<boolean>, providedOptions: Enable2FCheckboxOptions ) {
 
-    const labelNode = new Text( geometricOpticsStrings.checkbox.enable2FPoints, {
+    const labelNode = new Text( geometricOpticsStrings.checkbox.show2FPointsCheckbox, {
       font: GOConstants.CONTROL_FONT,
-      maxWidth: 150,
+      maxWidth: 250,
       tandem: providedOptions.tandem.createTandem( 'labelNode' )
     } );
 
