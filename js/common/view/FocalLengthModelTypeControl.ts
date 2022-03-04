@@ -17,19 +17,19 @@ import Property from '../../../../axon/js/Property.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
 
-type FocalLengthModelControlOptions = PickRequired<VBoxOptions, 'tandem'> & PickOptional<VBoxOptions, 'visible'>;
+type FocalLengthModelTypeOptions = PickRequired<VBoxOptions, 'tandem'> & PickOptional<VBoxOptions, 'visible'>;
 
 class FocalLengthModelTypeControl extends VBox {
 
-  private readonly disposeFocalLengthModelControl: () => void;
+  private readonly disposeFocalLengthModelTypeControl: () => void;
 
   /**
    * @param focalLengthModelTypeProperty
    * @param providedOptions
    */
-  constructor( focalLengthModelTypeProperty: Property<FocalLengthModelType>, providedOptions: FocalLengthModelControlOptions ) {
+  constructor( focalLengthModelTypeProperty: Property<FocalLengthModelType>, providedOptions: FocalLengthModelTypeOptions ) {
 
-    const options = optionize<FocalLengthModelControlOptions, {}, VBoxOptions>( {
+    const options = optionize<FocalLengthModelTypeOptions, {}, VBoxOptions>( {
 
       // VBoxOptions
       spacing: 8,
@@ -49,7 +49,7 @@ class FocalLengthModelTypeControl extends VBox {
 
     this.children = [ labelNode, radioButtonGroup ];
 
-    this.disposeFocalLengthModelControl = (): void => {
+    this.disposeFocalLengthModelTypeControl = (): void => {
       labelNode.dispose();
       radioButtonGroup.dispose();
     };
@@ -57,7 +57,7 @@ class FocalLengthModelTypeControl extends VBox {
 
   public dispose(): void {
     super.dispose();
-    this.disposeFocalLengthModelControl();
+    this.disposeFocalLengthModelTypeControl();
   }
 }
 

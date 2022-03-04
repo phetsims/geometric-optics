@@ -57,6 +57,10 @@ export type ButtonNodeOptions = {
   buttonAppearanceStrategy?: any // ... because this was a can of worms
 } & NodeOptions;
 
+export type CheckboxOptions = {
+  boxWidth: number
+} & NodeOptions;
+
 export type ComboBoxOptions = {
   highlightFill?: ColorDef,
   listPosition?: 'above' | 'below',
@@ -89,14 +93,14 @@ export type NumberDisplayOptions = {
   valuePattern?: string
 } & NodeOptions;
 
-export type PanelOptions = Partial<{
+export type PanelOptions = {
   align?: 'left' | 'right' | 'center',
   cornerRadius?: number,
   xMargin?: number,
   yMargin?: number,
   fill?: ColorDef,
   stroke?: ColorDef
-}> & NodeOptions;
+} & NodeOptions;
 
 export type RectangularRadioButtonGroupOptions = {
   orientation?: 'horizontal' | 'vertical',

@@ -89,6 +89,9 @@
   "checkbox.guides": {
     "value": "Guides"
   },
+  "checkbox.enable2FPoints": {
+    "value": "Enable 2F points"
+  },
   "label.convexLens": {
     "value": "Convex<br>Lens"
   },

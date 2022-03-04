@@ -28,6 +28,7 @@ const SCHEMA_MAP = {
   },
 
   // Enable the feature that lets you show points at 2F.
+  // This sets the initial value of GOGlobalOptions.enable2FProperty.
   enable2F: {
     type: 'boolean',
     defaultValue: false,

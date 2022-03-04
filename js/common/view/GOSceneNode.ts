@@ -29,6 +29,7 @@ import GOScene from '../model/GOScene.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import GOGlobalOptions from '../GOGlobalOptions.js';
 
 type SelfOptions = {
 
@@ -118,7 +119,7 @@ abstract class GOSceneNode extends Node {
           tandem: twoFPointsNodeTandem.createTandem( 'right2FPointNode' )
         } )
       ],
-      visibleProperty: visibleProperties.twoFPointsVisibleProperty,
+      visibleProperty: DerivedProperty.and( [ visibleProperties.twoFPointsVisibleProperty, GOGlobalOptions.enable2FProperty ] ),
       tandem: twoFPointsNodeTandem
     } );
 

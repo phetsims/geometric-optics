@@ -114,6 +114,8 @@ const GOConstants = {
     }
   },
 
+  CHECKBOX_BOX_WIDTH: 14,
+
   KEYBOARD_DRAG_LISTENER_OPTIONS: {
     dragVelocity: 300, // velocity of the Node being dragged, in view coordinates per second
     shiftDragVelocity: 20 // velocity with the Shift key pressed, typically slower than dragVelocity

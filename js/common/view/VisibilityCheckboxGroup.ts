@@ -23,6 +23,8 @@ import Property from '../../../../axon/js/Property.js';
 import SecondPointNode from './SecondPointNode.js';
 import FocalPointNode from './FocalPointNode.js';
 import TwoFPointNode from './TwoFPointNode.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import GOGlobalOptions from '../GOGlobalOptions.js';
 
 type SelfOptions = {
   isBasicsVersion: boolean,
@@ -48,7 +50,9 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 
       // VerticalCheckboxGroupOptions
       spacing: 4,
-      checkboxOptions: { boxWidth: 14 }
+      checkboxOptions: {
+        boxWidth: GOConstants.CHECKBOX_BOX_WIDTH
+      }
     }, providedOptions );
 
     const items = [
@@ -66,7 +70,8 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       createItem( geometricOpticsStrings.checkbox.twoFPoints, visibleProperties.twoFPointsVisibleProperty, {
         iconNode: TwoFPointNode.createIcon(),
         options: {
-          visible: GOQueryParameters.enable2F && !( options.isBasicsVersion && options.isMirrorScreen )
+          visibleProperty: new DerivedProperty( [ GOGlobalOptions.enable2FProperty ],
+            ( enable2F: boolean ) => ( enable2F && !( options.isBasicsVersion && options.isMirrorScreen ) ) )
         },
         tandem: options.tandem.createTandem( 'twoFPointsCheckbox' )
       } ),

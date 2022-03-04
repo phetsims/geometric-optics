@@ -12,12 +12,18 @@ import geometricOptics from '../geometricOptics.js';
 import GOQueryParameters from './GOQueryParameters.js';
 import { FocalLengthModelType, FocalLengthModelTypeValues } from './model/FocalLengthModelType.js';
 import StringIO from '../../../tandem/js/types/StringIO.js';
+import BooleanProperty from '../../../axon/js/BooleanProperty.js';
 
 // constants
 const optionsTandem = Tandem.GLOBAL_VIEW.createTandem( 'options' );
 
 const GOGlobalOptions = {
 
+  enable2FProperty: new BooleanProperty( GOQueryParameters.enable2F, {
+    tandem: optionsTandem.createTandem( 'enable2FProperty' ),
+    phetioDocumentation: 'enables the feature for showing the 2F points'
+  } ),
+  
   focalLengthModelTypeProperty:
     new Property<FocalLengthModelType>( GOQueryParameters.focalLengthControl, {
       validValues: FocalLengthModelTypeValues,
