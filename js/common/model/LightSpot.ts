@@ -10,8 +10,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import Graph from '../../../../kite/js/ops/Graph.js';
-import Shape from '../../../../kite/js/Shape.js';
+import { Shape, Graph } from '../../../../kite/js/imports.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import Optic from './Optic.js';
 import geometricOptics from '../../geometricOptics.js';

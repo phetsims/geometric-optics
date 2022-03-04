@@ -9,7 +9,7 @@
 import geometricOptics from '../../geometricOptics.js';
 import { Path, PathOptions } from '../../../../scenery/js/imports.js';
 import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
-import Shape from '../../../../kite/js/Shape.js';
+import { Shape } from '../../../../kite/js/imports.js';
 import GOConstants from '../GOConstants.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { ArrowNodeOptions } from '../GOCommonOptions.js';

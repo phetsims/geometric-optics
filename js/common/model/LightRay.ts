@@ -11,7 +11,7 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import RayIntersection from '../../../../kite/js/util/RayIntersection.js';
+import { RayIntersection } from '../../../../kite/js/imports.js';
 import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import geometricOptics from '../../geometricOptics.js';
 import Lens from '../../lens/model/Lens.js';
