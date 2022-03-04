@@ -35,7 +35,12 @@ class DiameterControl extends NumberControl {
         constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.DIAMETER_SLIDER_STEP ),
         keyboardStep: GOConstants.DIAMETER_KEYBOARD_STEP, // used by all alternative-input devices
         shiftKeyboardStep: GOConstants.DIAMETER_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
-        pageKeyboardStep: GOConstants.DIAMETER_PAGE_KEYBOARD_STEP // coarser grain, used by keyboard only
+        pageKeyboardStep: GOConstants.DIAMETER_PAGE_KEYBOARD_STEP, // coarser grain, used by keyboard only
+
+        // generate a sound for each slider step
+        soundGeneratorOptions: {
+          numberOfMiddleThresholds: diameterProperty.range!.getLength() / GOConstants.DIAMETER_SLIDER_STEP - 1
+        }
       },
       numberDisplayOptions: {
         decimalPlaces: GOConstants.DIAMETER_DECIMAL_PLACES,

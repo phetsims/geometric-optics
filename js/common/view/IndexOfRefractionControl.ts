@@ -28,15 +28,27 @@ class IndexOfRefractionControl extends NumberControl {
    */
   constructor( indexOfRefractionProperty: NumberProperty, providedOptions: IndexOfRefractionControlOptions ) {
 
+    assert && assert( indexOfRefractionProperty.range ); // {Range|null}
+    const indexOfRefractionRange: Range = indexOfRefractionProperty.range!;
+
+    // function to constrain the allowed values
+    const constrainValues = ( value: number ) =>
+      Utils.roundToInterval( value, GOConstants.INDEX_OF_REFRACTION_SLIDER_STEP );
+
     // Assemble the defaults for NumberControl, because optionize doesn't currently support defaults in multiple objects.
     const numberControlDefaults: OptionizeDefaults<{}, NumberControlOptions> = merge( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
       delta: GOConstants.INDEX_OF_REFRACTION_SPINNER_STEP,
       sliderOptions: {
-        constrainValue: ( value: number ) =>
-          Utils.roundToInterval( value, GOConstants.INDEX_OF_REFRACTION_SLIDER_STEP ),
+        constrainValue: constrainValues,
         keyboardStep: GOConstants.INDEX_OF_REFRACTION_KEYBOARD_STEP, // used by all alternative-input devices
         shiftKeyboardStep: GOConstants.INDEX_OF_REFRACTION_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
-        pageKeyboardStep: GOConstants.INDEX_OF_REFRACTION_PAGE_KEYBOARD_STEP // coarser grain, used by keyboard only
+        pageKeyboardStep: GOConstants.INDEX_OF_REFRACTION_PAGE_KEYBOARD_STEP, // coarser grain, used by keyboard only
+
+        // generate a sound for each slider step
+        soundGeneratorOptions: {
+          numberOfMiddleThresholds: Utils.roundSymmetric( indexOfRefractionRange.getLength() / GOConstants.INDEX_OF_REFRACTION_SLIDER_STEP ) - 1,
+          constrainThresholds: constrainValues
+        }
       },
       numberDisplayOptions: {
         decimalPlaces: GOConstants.INDEX_OF_REFRACTION_DECIMAL_PLACES
@@ -44,9 +56,6 @@ class IndexOfRefractionControl extends NumberControl {
     } );
 
     const options = optionize<IndexOfRefractionControlOptions, {}, NumberControlOptions>( numberControlDefaults, providedOptions );
-
-    assert && assert( indexOfRefractionProperty.range ); // {Range|null}
-    const indexOfRefractionRange: Range = indexOfRefractionProperty.range!;
 
     super( geometricOpticsStrings.indexOfRefraction, indexOfRefractionProperty, indexOfRefractionRange, options );
 

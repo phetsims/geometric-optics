@@ -44,6 +44,9 @@ class RadiusOfCurvatureControl extends NumberControl {
                                                       : geometricOpticsStrings.radiusOfCurvatureNegative;
     } );
 
+    assert && assert( radiusOfCurvatureMagnitudeProperty.range ); // {Range|null}
+    const radiusOfCurvatureRange: Range = radiusOfCurvatureMagnitudeProperty.range!;
+
     // Assemble the defaults for NumberControl, because optionize doesn't currently support defaults in multiple objects.
     const numberControlDefaults: OptionizeDefaults<{}, NumberControlOptions> = merge( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
       delta: GOConstants.RADIUS_OF_CURVATURE_SPINNER_STEP,
@@ -58,14 +61,16 @@ class RadiusOfCurvatureControl extends NumberControl {
         constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.RADIUS_OF_CURVATURE_SLIDER_STEP ),
         keyboardStep: GOConstants.RADIUS_OF_CURVATURE_KEYBOARD_STEP, // used by all alternative-input devices
         shiftKeyboardStep: GOConstants.RADIUS_OF_CURVATURE_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
-        pageKeyboardStep: GOConstants.RADIUS_OF_CURVATURE_PAGE_KEYBOARD_STEP // coarser grain, used by keyboard only
+        pageKeyboardStep: GOConstants.RADIUS_OF_CURVATURE_PAGE_KEYBOARD_STEP, // coarser grain, used by keyboard only
+
+        // generate a sound for each slider step
+        soundGeneratorOptions: {
+          numberOfMiddleThresholds: radiusOfCurvatureRange.getLength() / GOConstants.RADIUS_OF_CURVATURE_SLIDER_STEP - 1
+        }
       }
     } );
 
     const options = optionize<RadiusOfCurvatureControlOptions, {}, NumberControlOptions>( numberControlDefaults, providedOptions );
-
-    assert && assert( radiusOfCurvatureMagnitudeProperty.range ); // {Range|null}
-    const radiusOfCurvatureRange: Range = radiusOfCurvatureMagnitudeProperty.range!;
 
     super( textProperty.value, radiusOfCurvatureMagnitudeProperty, radiusOfCurvatureRange, options );
 
