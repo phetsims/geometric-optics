@@ -22,7 +22,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 type OpticalObjectChoiceComboBoxOptions = PickRequired<ComboBoxOptions, 'tandem'> &
   PickOptional<ComboBoxOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
 
-class OpticalObjectChoiceComboBox extends ComboBox {
+class OpticalObjectChoiceComboBox extends ComboBox<OpticalObjectChoice> {
 
   /**
    * @param opticalObjectChoiceProperty
@@ -47,7 +47,7 @@ class OpticalObjectChoiceComboBox extends ComboBox {
     const iconsAlignGroup = new AlignGroup();
 
     // Create a ComboBoxItem for each representation.
-    const items: ComboBoxItem[] = [];
+    const items: ComboBoxItem<OpticalObjectChoice>[] = [];
     assert && assert( opticalObjectChoiceProperty.validValues ); // {OpticalObjectChoice[]|undefined}
     opticalObjectChoiceProperty.validValues!.forEach( ( opticalObjectChoice: OpticalObjectChoice ) => {
 
