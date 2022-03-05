@@ -7,7 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import { ReadOnlyProperty } from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -25,7 +25,7 @@ class FocalPointNode extends Node {
    * @param modelViewTransform
    * @param providedOptions
    */
-  constructor( pointProperty: Property<Vector2>, modelViewTransform: ModelViewTransform2, providedOptions: FocalPointNodeOptions ) {
+  constructor( pointProperty: ReadOnlyProperty<Vector2>, modelViewTransform: ModelViewTransform2, providedOptions: FocalPointNodeOptions ) {
 
     const options = optionize<FocalPointNodeOptions, {}, NodeOptions>( {
 
