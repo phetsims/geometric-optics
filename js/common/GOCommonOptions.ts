@@ -28,7 +28,7 @@ export type ArrowNodeOptions = {
   doubleHead?: boolean,
   fractionalHeadHeight?: number,
   fill?: ColorDef,
-  stroke?: number | null,
+  stroke?: ColorDef,
 } & NodeOptions;
 
 export type BackgroundNodeOptions = {
