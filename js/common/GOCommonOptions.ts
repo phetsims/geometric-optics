@@ -73,21 +73,6 @@ export type PanelOptions = {
   stroke?: ColorDef
 } & NodeOptions;
 
-export type RectangularRadioButtonGroupOptions = {
-  orientation?: 'horizontal' | 'vertical',
-  spacing?: number,
-  cornerRadius?: number,
-  baseColor?: ColorDef,
-  selectedStroke?: ColorDef,
-  deselectedStroke?: ColorDef,
-  deselectedLineWidth?: number,
-  selectedLineWidth?: number,
-  buttonContentXMargin?: number,
-  buttonContentYMargin?: number,
-  touchAreaXDilation?: number,
-  touchAreaYDilation?: number
-} & NodeOptions;
-
 export type SimOptions = {
   credits?: object,
   hasKeyboardHelpContent?: boolean,
