@@ -6,7 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
+import { IColor, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GuideNode from './GuideNode.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -26,7 +26,7 @@ class GuidesNode extends Node {
    * @param modelViewTransform
    * @param providedOptions
    */
-  constructor( guides: Guides, armColor: ColorDef,
+  constructor( guides: Guides, armColor: IColor,
                modelViewTransform: ModelViewTransform2, providedOptions: GuidesNodeOptions ) {
     super( optionize<GuidesNodeOptions, {}, NodeOptions>( {
 

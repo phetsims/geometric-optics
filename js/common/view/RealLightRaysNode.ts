@@ -8,13 +8,13 @@
  */
 
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { ColorDef, Node } from '../../../../scenery/js/imports.js';
+import { IColor, Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import LightRays from '../model/LightRays.js';
 import LightRaysNode, { LightRaysNodeOptions } from './LightRaysNode.js';
 
 type SelfOptions = {
-  stroke: ColorDef
+  stroke: IColor
 };
 
 export type RealLightRaysNodeOptions = SelfOptions & LightRaysNodeOptions;

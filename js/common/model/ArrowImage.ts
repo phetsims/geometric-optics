@@ -15,12 +15,13 @@ import GOQueryParameters from '../GOQueryParameters.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import { IColor } from '../../../../scenery/js/imports.js';
 
 type ArrowImageOptions = PickRequired<OpticalImage, 'tandem' | 'phetioDocumentation'>;
 
 class ArrowImage extends OpticalImage {
 
-  public readonly fill: ColorDef;
+  public readonly fill: IColor;
   public readonly opacityProperty: IReadOnlyProperty<number>;
 
   /**

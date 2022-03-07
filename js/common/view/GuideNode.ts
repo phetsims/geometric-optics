@@ -10,7 +10,7 @@
  */
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Circle, Node, NodeOptions, Rectangle } from '../../../../scenery/js/imports.js';
+import { Circle, IColor, Node, NodeOptions, Rectangle } from '../../../../scenery/js/imports.js';
 import GOColors from '../../common/GOColors.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from '../model/Guide.js';
@@ -40,7 +40,7 @@ class GuideNode extends Node {
    * @param modelViewTransform
    * @param providedOptions
    */
-  constructor( guide: Guide, armColor: ColorDef, modelViewTransform: ModelViewTransform2, providedOptions: GuideNodeOptions ) {
+  constructor( guide: Guide, armColor: IColor, modelViewTransform: ModelViewTransform2, providedOptions: GuideNodeOptions ) {
 
     const fulcrumNode = new Circle( FULCRUM_RADIUS, FULCRUM_OPTIONS );
 
@@ -110,7 +110,7 @@ class GuideNode extends Node {
    * Creates an icon for guides, to be used with checkbox. This is intended to be a caricature of the actual guides.
    * @param armColor
    */
-  public static createIcon( armColor: ColorDef = GOColors.guideArm1FillProperty ): Node {
+  public static createIcon( armColor: IColor = GOColors.guideArm1FillProperty ): Node {
 
     // constants
     const fulcrumRadius = 5;

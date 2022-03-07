@@ -8,13 +8,13 @@
  */
 
 import geometricOptics from '../../geometricOptics.js';
-import { ColorDef, Node } from '../../../../scenery/js/imports.js';
+import { IColor, Node } from '../../../../scenery/js/imports.js';
 import LightRays from '../model/LightRays.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import LightRaysNode, { LightRaysNodeOptions } from './LightRaysNode.js';
 
 type VirtualRealLightRaysNodeOptions = {
-  stroke: ColorDef,
+  stroke: IColor,
 } & LightRaysNodeOptions;
 
 class VirtualLightRaysNode extends LightRaysNode {

@@ -15,7 +15,7 @@ import Bounds2 from '../../../dot/js/Bounds2.js';
 import Vector2 from '../../../dot/js/Vector2.js';
 import { PickOptional } from '../../../phet-core/js/types/PickOptional.js';
 import ModelViewTransform2 from '../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Node, NodeOptions, RectangleOptions, SceneryEvent } from '../../../scenery/js/imports.js';
+import { IColor, Node, NodeOptions, RectangleOptions, SceneryEvent } from '../../../scenery/js/imports.js';
 import { PhetioObjectOptions } from '../../../tandem/js/PhetioObject.js';
 import { ButtonNodeOptions } from '../../../sun/js/buttons/ButtonNode.js';
 import Tandem from '../../../tandem/js/Tandem.js';
@@ -27,8 +27,8 @@ export type ArrowNodeOptions = {
   isHeadDynamic?: boolean,
   doubleHead?: boolean,
   fractionalHeadHeight?: number,
-  fill?: ColorDef,
-  stroke?: ColorDef,
+  fill?: IColor,
+  stroke?: IColor,
 } & NodeOptions;
 
 export type BackgroundNodeOptions = {
@@ -69,8 +69,8 @@ export type PanelOptions = {
   cornerRadius?: number,
   xMargin?: number,
   yMargin?: number,
-  fill?: ColorDef,
-  stroke?: ColorDef
+  fill?: IColor,
+  stroke?: IColor
 } & NodeOptions;
 
 export type SimOptions = {
