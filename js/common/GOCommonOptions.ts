@@ -17,6 +17,7 @@ import { PickOptional } from '../../../phet-core/js/types/PickOptional.js';
 import ModelViewTransform2 from '../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Node, NodeOptions, RectangleOptions, SceneryEvent } from '../../../scenery/js/imports.js';
 import { PhetioObjectOptions } from '../../../tandem/js/PhetioObject.js';
+import { ButtonNodeOptions } from '../../../sun/js/buttons/ButtonNode.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 
 export type ArrowNodeOptions = {
@@ -49,12 +50,6 @@ export type BooleanRoundToggleButtonOptions = {
   yMargin?: number,
   touchAreaDilation?: number
 } & ButtonNodeOptions;
-
-export type ButtonNodeOptions = {
-  baseColor?: ColorDef,
-  disabledColor?: ColorDef,
-  buttonAppearanceStrategy?: any // ... because this was a can of worms
-} & NodeOptions;
 
 export type CheckboxOptions = {
   boxWidth: number
