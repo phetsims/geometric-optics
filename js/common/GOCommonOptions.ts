@@ -60,15 +60,6 @@ export type CheckboxOptions = {
   boxWidth: number
 } & NodeOptions;
 
-export type ComboBoxOptions = {
-  highlightFill?: ColorDef,
-  listPosition?: 'above' | 'below',
-  xMargin?: number,
-  yMargin?: number,
-  buttonTouchAreaXDilation?: number,
-  buttonTouchAreaYDilation?: number
-} & NodeOptions;
-
 export type KeyboardDragListenerOptions = {
   positionProperty?: IProperty<Vector2> | null,
   dragBoundsProperty?: IReadOnlyProperty<Bounds2> | null,

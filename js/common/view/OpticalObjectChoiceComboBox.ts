@@ -9,14 +9,13 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import { AlignBox, AlignGroup, HBox, Image, Node, Text } from '../../../../scenery/js/imports.js';
-import ComboBox from '../../../../sun/js/ComboBox.js';
+import ComboBox, { ComboBoxOptions } from '../../../../sun/js/ComboBox.js';
 import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
-import { ComboBoxOptions } from '../GOCommonOptions.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 
 type OpticalObjectChoiceComboBoxOptions = PickRequired<ComboBoxOptions, 'tandem'> &
