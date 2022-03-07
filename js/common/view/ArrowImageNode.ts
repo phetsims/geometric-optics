@@ -13,14 +13,13 @@ import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import ArrowImage from '../model/ArrowImage.js';
 import GOConstants from '../GOConstants.js';
-import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
+import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 import Property from '../../../../axon/js/Property.js';
 import { OpticalImageType } from '../model/OpticalImageType.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
-import { ArrowNodeOptions } from '../GOCommonOptions.js';
 
 type ArrowImageNodeOptions = PickRequired<NodeOptions, 'tandem'>;
 

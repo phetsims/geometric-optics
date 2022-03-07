@@ -22,10 +22,9 @@ import penguinRightFacingInverted_png from '../../../images/penguinRightFacingIn
 import penguinLeftFacingUpright_png from '../../../images/penguinLeftFacingUpright_png.js';
 import penguinLeftFacingInverted_png from '../../../images/penguinLeftFacingInverted_png.js';
 import GOConstants from '../GOConstants.js';
-import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
+import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import GOColors from '../GOColors.js';
-import { ArrowNodeOptions } from '../GOCommonOptions.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import starRightFacingUpright_png from '../../../images/starRightFacingUpright_png.js';
 import starRightFacingInverted_png from '../../../images/starRightFacingInverted_png.js';

@@ -15,7 +15,7 @@ import geometricOptics from '../../geometricOptics.js';
 import ArrowObject from '../model/ArrowObject.js';
 import Optic from '../model/Optic.js';
 import GOConstants from '../GOConstants.js';
-import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
+import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -23,7 +23,7 @@ import GOQueryParameters from '../GOQueryParameters.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
-import { ArrowNodeOptions, KeyboardDragListenerOptions } from '../GOCommonOptions.js';
+import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
 
 const SNAP_TO_MIN_MAGNITUDE = 20; // cm
 

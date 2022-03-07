@@ -15,21 +15,10 @@ import Bounds2 from '../../../dot/js/Bounds2.js';
 import Vector2 from '../../../dot/js/Vector2.js';
 import { PickOptional } from '../../../phet-core/js/types/PickOptional.js';
 import ModelViewTransform2 from '../../../phetcommon/js/view/ModelViewTransform2.js';
-import { IColor, Node, NodeOptions, SceneryEvent } from '../../../scenery/js/imports.js';
+import { Node, NodeOptions, SceneryEvent } from '../../../scenery/js/imports.js';
 import { PhetioObjectOptions } from '../../../tandem/js/PhetioObject.js';
 import { ButtonNodeOptions } from '../../../sun/js/buttons/ButtonNode.js';
 import Tandem from '../../../tandem/js/Tandem.js';
-
-export type ArrowNodeOptions = {
-  headWidth?: number,
-  headHeight?: number,
-  tailWidth?: number,
-  isHeadDynamic?: boolean,
-  doubleHead?: boolean,
-  fractionalHeadHeight?: number,
-  fill?: IColor,
-  stroke?: IColor,
-} & NodeOptions;
 
 export type BooleanRectangularToggleButtonOptions = {
   touchAreaXDilation?: number,
