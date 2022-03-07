@@ -12,11 +12,10 @@
 import IProperty from '../../../axon/js/IProperty.js';
 import IReadOnlyProperty from '../../../axon/js/IReadOnlyProperty.js';
 import Bounds2 from '../../../dot/js/Bounds2.js';
-import Dimension2 from '../../../dot/js/Dimension2.js';
 import Vector2 from '../../../dot/js/Vector2.js';
 import { PickOptional } from '../../../phet-core/js/types/PickOptional.js';
 import ModelViewTransform2 from '../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Node, NodeOptions, RectangleOptions, RichTextOptions, SceneryEvent, TextOptions } from '../../../scenery/js/imports.js';
+import { Node, NodeOptions, RectangleOptions, SceneryEvent } from '../../../scenery/js/imports.js';
 import { PhetioObjectOptions } from '../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 
@@ -79,20 +78,6 @@ export type KeyboardDragListenerOptions = {
   end?: ( event: SceneryEvent ) => void
 } & PickOptional<PhetioObjectOptions, 'tandem'>;
 
-export type NumberControlOptions = {
-  delta?: number,
-  layoutFunction?: any, // ... because this was a can of worms
-  titleNodeOptions?: TextOptions,
-  sliderOptions?: SliderOptions,
-  numberDisplayOptions?: NumberDisplayOptions
-} & NodeOptions;
-
-export type NumberDisplayOptions = {
-  textOptions?: TextOptions | RichTextOptions,
-  decimalPlaces?: number,
-  valuePattern?: string
-} & NodeOptions;
-
 export type PanelOptions = {
   align?: 'left' | 'right' | 'center',
   cornerRadius?: number,
@@ -122,14 +107,3 @@ export type SimOptions = {
   hasKeyboardHelpContent?: boolean,
   createOptionsDialogContent?: ( tandem: Tandem ) => Node
 };
-
-export type SliderOptions = {
-  trackSize?: Dimension2,
-  thumbSize?: Dimension2,
-  thumbTouchAreaXDilation?: number,
-  thumbTouchAreaYDilation?: number,
-  keyboardStep?: number,
-  shiftKeyboardStep?: number,
-  pageKeyboardStep?: number,
-  constrainValue?: ( value: number ) => number
-} & NodeOptions;

@@ -6,7 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
+import NumberControl, { NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
 import geometricOptics from '../../geometricOptics.js';
 import Range from '../../../../dot/js/Range.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
@@ -15,7 +15,6 @@ import GOConstants from '../GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
-import { NumberControlOptions } from '../GOCommonOptions.js';
 import optionize, { OptionizeDefaults } from '../../../../phet-core/js/optionize.js';
 
 type IndexOfRefractionControlOptions = PickRequired<NumberControlOptions, 'tandem'>;
