@@ -9,11 +9,10 @@
 import Property from '../../../../axon/js/Property.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { Text } from '../../../../scenery/js/imports.js';
-import Checkbox from '../../../../sun/js/Checkbox.js';
+import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
-import { CheckboxOptions } from '../GOCommonOptions.js';
 
 type Enable2FCheckboxOptions = PickRequired<CheckboxOptions, 'boxWidth' | 'tandem'>;
 

@@ -15,7 +15,7 @@ import Bounds2 from '../../../dot/js/Bounds2.js';
 import Vector2 from '../../../dot/js/Vector2.js';
 import { PickOptional } from '../../../phet-core/js/types/PickOptional.js';
 import ModelViewTransform2 from '../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Node, NodeOptions, SceneryEvent } from '../../../scenery/js/imports.js';
+import { Node, SceneryEvent } from '../../../scenery/js/imports.js';
 import { PhetioObjectOptions } from '../../../tandem/js/PhetioObject.js';
 import { ButtonNodeOptions } from '../../../sun/js/buttons/ButtonNode.js';
 import Tandem from '../../../tandem/js/Tandem.js';
@@ -33,10 +33,6 @@ export type BooleanRoundToggleButtonOptions = {
   yMargin?: number,
   touchAreaDilation?: number
 } & ButtonNodeOptions;
-
-export type CheckboxOptions = {
-  boxWidth: number
-} & NodeOptions;
 
 export type KeyboardDragListenerOptions = {
   positionProperty?: IProperty<Vector2> | null,
