@@ -157,7 +157,7 @@ class GORulerNode extends Node {
       dragBoundsProperty: this.dragBoundsProperty,
       transform: zoomTransformProperty.value,
       start: () => this.moveToFront(),
-      end: ( listener: DragListener ) => {
+      end: ( event: PressListenerEvent | null, listener: DragListener ) => {
         const pressedListener = listener as PressedDragListener;
 
         // Return ruler to toolbox if the pointer is inside the toolbox.
