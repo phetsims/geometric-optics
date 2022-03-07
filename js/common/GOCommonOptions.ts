@@ -64,15 +64,6 @@ export type KeyboardDragListenerOptions = {
   end?: ( event: SceneryEvent ) => void
 } & PickOptional<PhetioObjectOptions, 'tandem'>;
 
-export type PanelOptions = {
-  align?: 'left' | 'right' | 'center',
-  cornerRadius?: number,
-  xMargin?: number,
-  yMargin?: number,
-  fill?: IColor,
-  stroke?: IColor
-} & NodeOptions;
-
 export type SimOptions = {
   credits?: object,
   hasKeyboardHelpContent?: boolean,

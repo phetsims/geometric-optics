@@ -9,13 +9,12 @@
  */
 
 import { HBox } from '../../../../scenery/js/imports.js';
-import Panel from '../../../../sun/js/Panel.js';
+import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import geometricOptics from '../../geometricOptics.js';
 import GORulerNode from './GORulerNode.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
-import { PanelOptions } from '../GOCommonOptions.js';
 
 type RulersToolboxOptions = PickRequired<PanelOptions, 'tandem'>
   & PickOptional<PanelOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;

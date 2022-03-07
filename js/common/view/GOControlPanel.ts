@@ -9,7 +9,7 @@
 
 import Property from '../../../../axon/js/Property.js';
 import { HBox } from '../../../../scenery/js/imports.js';
-import Panel from '../../../../sun/js/Panel.js';
+import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import VSeparator from '../../../../sun/js/VSeparator.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
