@@ -14,12 +14,11 @@ import unlockSolidShape from '../../../../sherpa/js/fontawesome-5/unlockSolidSha
 import { AlignBox, AlignGroup, HBox, HBoxOptions, Path } from '../../../../scenery/js/imports.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
 import ButtonNode from '../../../../sun/js/buttons/ButtonNode.js';
-import BooleanRectangularToggleButton from '../../../../sun/js/buttons/BooleanRectangularToggleButton.js';
+import BooleanRectangularToggleButton, { BooleanRectangularToggleButtonOptions } from '../../../../sun/js/buttons/BooleanRectangularToggleButton.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { BooleanRectangularToggleButtonOptions } from '../GOCommonOptions.js';
 
 const ARROWS_SCALE = 0.65;
 const LOCK_SCALE = 0.045;

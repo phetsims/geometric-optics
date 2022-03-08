@@ -20,13 +20,6 @@ import { PhetioObjectOptions } from '../../../tandem/js/PhetioObject.js';
 import { ButtonNodeOptions } from '../../../sun/js/buttons/ButtonNode.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 
-export type BooleanRectangularToggleButtonOptions = {
-  touchAreaXDilation?: number;
-  touchAreaYDilation?: number;
-  mouseAreaXDilation?: number;
-  mouseAreaYDilation?: number;
-} & ButtonNodeOptions;
-
 export type BooleanRoundToggleButtonOptions = {
   radius?: number;
   xMargin?: number;
