@@ -82,6 +82,8 @@ class ArrowImageNode extends Node {
 
     const opacityProperty = new DerivedProperty( [ arrowImage.lightIntensityProperty ], ( lightIntensity: number ) =>
       Utils.linear( 0, 1, GOQueryParameters.arrowImageOpacityRange[ 0 ], GOQueryParameters.arrowImageOpacityRange[ 1 ], lightIntensity ), {
+
+      //TODO https://github.com/phetsims/geometric-optics/issues/350 should this remain instrumented?
       tandem: options.tandem.createTandem( 'opacityProperty' ),
       phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
     } );

@@ -12,7 +12,6 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
@@ -160,23 +159,33 @@ class OpticalImage extends PhetioObject {
         validValues: OpticalImageTypeValues
       } );
 
+    assert && assert( optic.diameterProperty.range ); // {Range|null}
+    const diameterRange = optic.diameterProperty.range!;
+
+    // See https://github.com/phetsims/geometric-optics/issues/350#issuecomment-1059790907
     this.lightIntensityProperty = new DerivedProperty(
-      [ optic.diameterProperty, this.magnificationProperty ],
-      ( diameter: number, magnification: number ) => {
+      [ opticalObject.opticObjectXDistanceProperty, optic.diameterProperty, this.magnificationProperty ],
+      ( opticObjectXDistance: number, diameter: number, magnification: number ) => {
+
+        // Affect of object's distance from the optic.
+        const referenceObjectDistance = 160;
+        const objectDistanceFactor = referenceObjectDistance / opticObjectXDistance;
 
         // Affect of optic diameter
-        assert && assert( optic.diameterProperty.range ); // {Range|null}
-        const diameterRange: Range = optic.diameterProperty.range!;
         const diameterFactor = diameter / diameterRange.max;
         assert && assert( diameterFactor >= 0 && diameterFactor <= 1 );
 
-        // Affect of magnification, for up-scaled images only. For down-scaled images, magnification has no affect.
-        const magnificationFactor = Math.min( 1, Math.abs( 1 / magnification ) );
+        // Affect of magnification.
+        const magnificationFactor = Math.abs( 1 / magnification );
 
-        // product of the two factors
-        return diameterFactor * magnificationFactor;
+        // Multiply factors, constrained to [0,1].
+        return GOConstants.INTENSITY_RANGE.constrainValue( objectDistanceFactor * diameterFactor * magnificationFactor );
       }, {
-        isValidValue: ( value: number ) => GOConstants.INTENSITY_RANGE.contains( value )
+        isValidValue: ( value: number ) => GOConstants.INTENSITY_RANGE.contains( value ),
+
+        //TODO https://github.com/phetsims/geometric-optics/issues/350 should this remain instrumented?
+        tandem: options.tandem.createTandem( 'lightIntensityProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
       } );
 
     this.resetOpticalImage = () => {

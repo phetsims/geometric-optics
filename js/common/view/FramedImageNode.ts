@@ -102,6 +102,8 @@ class FramedImageNode extends Node {
 
     const opacityProperty = new DerivedProperty( [ framedImage.lightIntensityProperty ], ( lightIntensity: number ) =>
       Utils.linear( 0, 1, GOQueryParameters.framedImageOpacityRange[ 0 ], GOQueryParameters.framedImageOpacityRange[ 1 ], lightIntensity ), {
+
+      //TODO https://github.com/phetsims/geometric-optics/issues/350 should this remain instrumented?
       tandem: options.tandem.createTandem( 'opacityProperty' ),
       phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
     } );
