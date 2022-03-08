@@ -10,7 +10,7 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Circle, DragListener, KeyboardDragListener, Node, NodeOptions, PressListenerEvent } from '../../../../scenery/js/imports.js';
+import { DragListener, KeyboardDragListener, Node, NodeOptions, Path, PathOptions, PressListenerEvent } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
@@ -20,8 +20,19 @@ import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
 import PositionMarker from '../model/PositionMarker.js';
 import PositionMarkerIconNode from './PositionMarkerIconNode.js';
 import ToolNode from './ToolNode.js';
+import mapMarkerAltSolidShape from '../../../../sherpa/js/fontawesome-5/mapMarkerAltSolidShape.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 
-export type PositionMarkerNodeOptions = PickRequired<Node, 'tandem'>;
+type SelfOptions = {
+
+  // pointer areas
+  touchAreaDilationX?: number;
+  touchAreaDilationY?: number;
+  mouseAreaDilationX?: number;
+  mouseAreaDilationY?: number;
+};
+
+export type PositionMarkerNodeOptions = SelfOptions & PickRequired<Node, 'tandem'>;
 
 class PositionMarkerNode extends Node implements ToolNode {
 
@@ -47,15 +58,20 @@ class PositionMarkerNode extends Node implements ToolNode {
                visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                providedOptions: PositionMarkerNodeOptions ) {
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/355 what should a position marker look like?
-    const circle = new Circle( 10, {
+    const node = PositionMarkerNode.createNode( {
       fill: positionMarker.fill
     } );
 
-    const options = optionize<PositionMarkerNodeOptions, {}, NodeOptions>( {
+    const options = optionize<PositionMarkerNodeOptions, SelfOptions, NodeOptions>( {
+
+      // SelfOptions
+      touchAreaDilationX: 5,
+      touchAreaDilationY: 5,
+      mouseAreaDilationX: 5,
+      mouseAreaDilationY: 5,
 
       // NodeOptions
-      children: [ circle ],
+      children: [ node ],
       visibleProperty: positionMarker.visibleProperty,
       tagName: 'div',
       focusable: true,
@@ -64,14 +80,16 @@ class PositionMarkerNode extends Node implements ToolNode {
 
     super( options );
 
+    // pointer areas
+    this.touchArea = this.localBounds.dilatedXY( options.touchAreaDilationX, options.touchAreaDilationY );
+    this.mouseArea = this.localBounds.dilatedXY( options.mouseAreaDilationX, options.mouseAreaDilationY );
+
     this.positionMarker = positionMarker;
     this.toolboxBounds = Bounds2.NOTHING; // to be set later via setToolboxBounds
     this.iconNode = new PositionMarkerIconNode( this, zoomTransformProperty );
 
     positionMarker.positionProperty.link( position => {
-      const viewPosition = zoomTransformProperty.value.modelToViewPosition( position );
-      this.centerX = viewPosition.x;
-      this.top = viewPosition.y;
+      this.centerTop = zoomTransformProperty.value.modelToViewPosition( position );
     } );
 
     // Update the marker position to match this Node's position, so that the marker remains stationary
@@ -97,12 +115,13 @@ class PositionMarkerNode extends Node implements ToolNode {
       positionMarker.positionProperty.value = dragBounds.closestPointTo( positionMarker.positionProperty.value );
     } );
 
-    // Dragging with the pointer
+    // Dragging with the pointer.
     this.dragListener = new DragListener( {
       pressCursor: 'pointer',
       useInputListenerCursor: true,
       positionProperty: positionMarker.positionProperty,
       dragBoundsProperty: dragBoundsProperty,
+      offsetPosition: () => new Vector2( -this.width / 2, -this.height ),
       transform: zoomTransformProperty.value,
       start: () => this.moveToFront(),
       end: ( event: PressListenerEvent | null, listener: DragListener ) => {
@@ -124,9 +143,9 @@ class PositionMarkerNode extends Node implements ToolNode {
         transform: zoomTransformProperty.value,
         start: () => this.moveToFront(),
 
-        // Return the marker to the toolbox if the marker's position is inside the toolbox.
+        // Return the marker to the toolbox if the marker's bounds overlap the toolbox.
         end: () => {
-          if ( this.toolboxBounds.containsPoint( positionMarker.positionProperty.value ) ) {
+          if ( this.toolboxBounds.containsBounds( this.bounds ) ) {
             positionMarker.visibleProperty.value = false;
             this.iconNode.focus();
           }
@@ -173,6 +192,17 @@ class PositionMarkerNode extends Node implements ToolNode {
   private returnToToolbox() {
     this.positionMarker.visibleProperty.value = false;
     this.iconNode.focus();
+  }
+
+  /**
+   * Create the visual representation of a position marker, with no interactivity.
+   * @param providedOptions
+   */
+  public static createNode( providedOptions: PathOptions ): Node {
+    return new Path( mapMarkerAltSolidShape, optionize<PathOptions, {}>( {
+      scale: 0.065,
+      rotation: Math.PI
+    }, providedOptions ) );
   }
 }
 

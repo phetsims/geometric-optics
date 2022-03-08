@@ -11,7 +11,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Circle, DragListener, Node, PressListenerEvent } from '../../../../scenery/js/imports.js';
+import { DragListener, Node, PressListenerEvent } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import PositionMarkerNode from './PositionMarkerNode.js';
@@ -26,8 +26,7 @@ class PositionMarkerIconNode extends Node {
 
     const positionMarker = positionMarkerNode.positionMarker;
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/355 what should a position marker look like?
-    const circle = new Circle( 10, {
+    const icon = PositionMarkerNode.createNode( {
       fill: positionMarker.fill
     } );
 
@@ -40,7 +39,7 @@ class PositionMarkerIconNode extends Node {
       mouseAreaDilationY: 5,
 
       // NodeOptions
-      children: [ circle ],
+      children: [ icon ],
       cursor: 'pointer',
       visibleProperty: DerivedProperty.not( positionMarker.visibleProperty ),
       tagName: 'button',
