@@ -196,15 +196,6 @@ class GOScreenView extends ScreenView {
       tandem: options.tandem.createTandem( 'toolbox' )
     } );
 
-    // Tell the tools where the toolbox is.
-    toolbox.visibleProperty.link( visible => {
-      const bounds = visible ? toolbox.bounds : Bounds2.NOTHING;
-      horizontalRulerNode.setToolboxBounds( bounds );
-      verticalRulerNode.setToolboxBounds( bounds );
-      positionMarker1Node.setToolboxBounds( bounds );
-      positionMarker2Node.setToolboxBounds( bounds );
-    } );
-
     //TODO should position markers be in their own layer, so that they stay on top of rulers?
     const toolsLayer = new Node( {
       children: [ horizontalRulerNode, verticalRulerNode, positionMarker2Node, positionMarker1Node ]

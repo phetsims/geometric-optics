@@ -15,6 +15,8 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
 import ToolNode from './ToolNode.js';
+import Property from '../../../../axon/js/Property.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 
 type RulersToolboxOptions = PickRequired<PanelOptions, 'tandem'>
   & PickOptional<PanelOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
@@ -45,6 +47,14 @@ class GOToolbox extends Panel {
     } );
 
     super( toolboxContent, options );
+
+    // Tell the tools where the toolbox is.
+    // This allows tools to determine when they has been dragged back to the toolbox.
+    Property.multilink( [ this.boundsProperty, this.visibleProperty ],
+      ( bounds: Bounds2, visible: boolean ) => {
+        const toolboxBounds = visible ? bounds : Bounds2.NOTHING;
+        toolNodes.forEach( toolNode => toolNode.setToolboxBounds( toolboxBounds ) );
+      } );
   }
 
   public dispose(): void {
