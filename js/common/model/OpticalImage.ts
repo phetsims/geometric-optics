@@ -173,7 +173,6 @@ class OpticalImage extends PhetioObject {
 
         // Affect of optic diameter
         const diameterFactor = diameter / diameterRange.max;
-        assert && assert( diameterFactor >= 0 && diameterFactor <= 1 );
 
         // Affect of magnification.
         const magnificationFactor = Math.abs( 1 / magnification );
