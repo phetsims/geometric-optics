@@ -21,30 +21,30 @@ import { ButtonNodeOptions } from '../../../sun/js/buttons/ButtonNode.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 
 export type BooleanRectangularToggleButtonOptions = {
-  touchAreaXDilation?: number,
-  touchAreaYDilation?: number,
-  mouseAreaXDilation?: number,
-  mouseAreaYDilation?: number
+  touchAreaXDilation?: number;
+  touchAreaYDilation?: number;
+  mouseAreaXDilation?: number;
+  mouseAreaYDilation?: number;
 } & ButtonNodeOptions;
 
 export type BooleanRoundToggleButtonOptions = {
-  radius?: number,
-  xMargin?: number,
-  yMargin?: number,
-  touchAreaDilation?: number
+  radius?: number;
+  xMargin?: number;
+  yMargin?: number;
+  touchAreaDilation?: number;
 } & ButtonNodeOptions;
 
 export type KeyboardDragListenerOptions = {
-  positionProperty?: IProperty<Vector2> | null,
-  dragBoundsProperty?: IReadOnlyProperty<Bounds2> | null,
-  transform?: ModelViewTransform2,
-  drag?: ( event: SceneryEvent ) => void,
+  positionProperty?: IProperty<Vector2> | null;
+  dragBoundsProperty?: IReadOnlyProperty<Bounds2> | null;
+  transform?: ModelViewTransform2;
+  drag?: ( event: SceneryEvent ) => void;
   start?: ( event: SceneryEvent ) => void
   end?: ( event: SceneryEvent ) => void
 } & PickOptional<PhetioObjectOptions, 'tandem'>;
 
 export type SimOptions = {
-  credits?: object,
-  hasKeyboardHelpContent?: boolean,
-  createOptionsDialogContent?: ( tandem: Tandem ) => Node
+  credits?: object;
+  hasKeyboardHelpContent?: boolean;
+  createOptionsDialogContent?: ( tandem: Tandem ) => Node;
 };

@@ -18,7 +18,7 @@ import OpticShapes from '../../common/model/OpticShapes.js';
 import geometricOptics from '../../geometricOptics.js';
 
 type MirrorShapesOptions = {
-  backingThickness?: number // thickness of the backing of the mirror, in cm
+  backingThickness?: number; // thickness of the backing of the mirror, in cm
 };
 
 class MirrorShapes implements OpticShapes {

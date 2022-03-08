@@ -25,7 +25,7 @@ import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 
 type SelfOptions = {
-  dragLockedProperty: IReadOnlyProperty<boolean>
+  dragLockedProperty: IReadOnlyProperty<boolean>;
 };
 
 type ArrowObjectSceneNodeOptions = SelfOptions & GOSceneNodeOptions;

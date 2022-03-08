@@ -23,7 +23,7 @@ const HOLLYWOOD_RADIUS_OFFSET = 100; // cm
 type LensShapesOptions = {
 
   // true: approximation, false: accurate, matches ROC
-  isHollywooded?: boolean
+  isHollywooded?: boolean;
 };
 
 class LensShapes implements OpticShapes {

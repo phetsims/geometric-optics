@@ -22,8 +22,8 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
-  radiusOfCurvatureMagnitudeRange: RangeWithValue,
-  indexOfRefractionRange: RangeWithValue
+  radiusOfCurvatureMagnitudeRange: RangeWithValue;
+  indexOfRefractionRange: RangeWithValue;
 };
 
 export type IndirectFocalLengthModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;

@@ -41,17 +41,17 @@ const FLAT_MIRROR_FINITE_RADIUS_OF_CURVATURE = 2 * FLAT_MIRROR_FINITE_FOCAL_LENG
 type SelfOptions = {
 
   // supported values of OpticShape, radio buttons will be created left-to-right in this order, default is [0]
-  opticShapes: OpticShape[]
+  opticShapes: OpticShape[];
 
   // range of diameter, in cm
-  diameterRange: Range,
+  diameterRange: Range;
 
   // sign used for math operations
-  sign: 1 | -1,
+  sign: 1 | -1;
 
   // models of focal length
-  directFocalLengthModelOptions: DirectFocalLengthModelOptions,
-  indirectFocalLengthModelOptions: IndirectFocalLengthModelOptions,
+  directFocalLengthModelOptions: DirectFocalLengthModelOptions;
+  indirectFocalLengthModelOptions: IndirectFocalLengthModelOptions;
 
   // position of the optic, in cm
   position?: Vector2

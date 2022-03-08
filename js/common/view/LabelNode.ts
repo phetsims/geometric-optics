@@ -25,10 +25,10 @@ type XAlign = 'left' | 'center' | 'right';
 type YAlign = 'top' | 'center' | 'bottom';
 
 type SelfOptions = {
-  xAlign?: XAlign,
-  yAlign?: YAlign,
-  xOffset?: number, // from center, in view coordinates
-  yOffset?: number // in view coordinates
+  xAlign?: XAlign;
+  yAlign?: YAlign;
+  xOffset?: number; // from center, in view coordinates
+  yOffset?: number; // in view coordinates
 };
 
 export type LabelNodeOptions = SelfOptions & PickOptional<BackgroundNodeOptions, 'visibleProperty'>;

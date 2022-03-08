@@ -14,7 +14,7 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import LightRaysNode, { LightRaysNodeOptions } from './LightRaysNode.js';
 
 type VirtualRealLightRaysNodeOptions = {
-  stroke: IColor,
+  stroke: IColor;
 } & LightRaysNodeOptions;
 
 class VirtualLightRaysNode extends LightRaysNode {

@@ -24,7 +24,7 @@ const SCALE_FACTOR = 0.5;
 type SelfOptions = {
 
   // the PNG file used to visually represent the light
-  htmlImageElement: HTMLImageElement
+  htmlImageElement: HTMLImageElement;
 };
 
 type LightObjectOptions = SelfOptions

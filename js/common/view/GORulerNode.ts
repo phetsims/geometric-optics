@@ -37,8 +37,8 @@ const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;
 
 // Describes a measurement point that can be 'jumped' to via J+R hotkey.
 export type RulerHotkeyTarget = {
-  positionProperty: IReadOnlyProperty<Vector2>,
-  visibleProperty: IReadOnlyProperty<boolean>
+  positionProperty: IReadOnlyProperty<Vector2>;
+  visibleProperty: IReadOnlyProperty<boolean>;
 }
 
 export type GORulerNodeOptions = PickRequired<Node, 'tandem'>;

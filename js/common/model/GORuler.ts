@@ -18,8 +18,8 @@ import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 type RulerOrientation = 'horizontal' | 'vertical';
 
 type SelfOptions = {
-  orientation: RulerOrientation,
-  length: number
+  orientation: RulerOrientation;
+  length: number;
 };
 
 type GeometricOpticsRulerOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;

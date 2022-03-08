@@ -24,7 +24,7 @@ import GOQueryParameters from '../../common/GOQueryParameters.js';
 const INDEX_OF_REFRACTION_RANGE = new RangeWithValue( 2, 2, 2 ); // fixed
 
 type SelfOptions = {
-  isBasicsVersion: boolean
+  isBasicsVersion: boolean;
 };
 
 type MirrorOptions = SelfOptions & PickRequired<OpticOptions, 'tandem'>;

@@ -27,7 +27,7 @@ import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 type SelfOptions = {
 
   // initial position of the framed object
-  framedObjectPosition: Vector2
+  framedObjectPosition: Vector2;
 };
 
 type FramedObjectSceneOptions = SelfOptions & PickRequired<GOSceneOptions, 'tandem'>;

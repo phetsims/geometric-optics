@@ -29,14 +29,14 @@ import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 type SelfOptions = {
 
   // optical object choices, in the order that they will appear in OpticalObjectChoiceComboBox
-  opticalObjectChoices: OpticalObjectChoice[],
+  opticalObjectChoices: OpticalObjectChoice[];
 
   // initial positions of optical objects (lights are optional)
-  arrowObject1Position: Vector2,
-  arrowObject2Position: Vector2,
-  framedObjectPosition: Vector2,
-  lightObject1Position?: Vector2,
-  lightObject2Position?: Vector2
+  arrowObject1Position: Vector2;
+  arrowObject2Position: Vector2;
+  framedObjectPosition: Vector2;
+  lightObject1Position?: Vector2;
+  lightObject2Position?: Vector2;
 };
 
 export type GOModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;

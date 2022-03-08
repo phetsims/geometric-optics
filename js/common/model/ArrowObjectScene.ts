@@ -23,8 +23,8 @@ import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 type SelfOptions = {
 
   // initial positions of the arrow objects
-  arrowObject1Position: Vector2,
-  arrowObject2Position: Vector2
+  arrowObject1Position: Vector2;
+  arrowObject2Position: Vector2;
 };
 
 type ArrowObjectSceneOptions = SelfOptions & PickRequired<GOSceneOptions, 'tandem'>;

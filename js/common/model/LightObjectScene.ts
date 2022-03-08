@@ -24,8 +24,8 @@ import Lens from '../../lens/model/Lens.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
-  lightObject1Position: Vector2,
-  lightObject2Position: Vector2
+  lightObject1Position: Vector2;
+  lightObject2Position: Vector2;
 };
 
 type LightObjectSceneOptions = SelfOptions & PickRequired<GOSceneOptions, 'tandem'>;

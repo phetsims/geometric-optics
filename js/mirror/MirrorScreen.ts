@@ -21,7 +21,7 @@ import optionize from '../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
-  isBasicsVersion?: boolean
+  isBasicsVersion?: boolean;
 };
 
 type MirrorScreenOptions = SelfOptions & PickRequired<ScreenOptions, 'tandem'>;

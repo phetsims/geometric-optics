@@ -26,7 +26,10 @@ import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
 // constants
 const FULL_INTENSITY_DIAMETER = 7; // cm, any light spot less than this diameter will be full intensity
 
-type PositionAndDiameter = { position: Vector2, diameter: number };
+type PositionAndDiameter = {
+  position: Vector2;
+  diameter: number;
+};
 
 type LightSpotOptions = PickRequired<PhetioObjectOptions, 'tandem'> &
   PickOptional<PhetioObjectOptions, 'phetioDocumentation'>;

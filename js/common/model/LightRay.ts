@@ -23,8 +23,8 @@ import GORay from './GORay.js';
 import { RaysType } from './RaysType.js';
 
 export type LightRaySegment = {
-  startPoint: Vector2,
-  endPoint: Vector2
+  startPoint: Vector2;
+  endPoint: Vector2;
 };
 
 class LightRay {

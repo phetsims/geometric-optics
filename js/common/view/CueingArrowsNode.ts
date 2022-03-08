@@ -18,8 +18,8 @@ import { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 type CueingArrowsDirection = 'horizontal' | 'vertical' | 'both';
 
 type SelfOptions = {
-  direction?: CueingArrowsDirection,
-  length?: number,
+  direction?: CueingArrowsDirection;
+  length?: number;
 };
 
 type CueingArrowsNodeOptions = SelfOptions &

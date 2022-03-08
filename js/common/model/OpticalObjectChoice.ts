@@ -34,10 +34,10 @@ import starIcon_png from '../../../images/starIcon_png.js';
 
 // Set of HTMLImageElements (PNG files) that depict a framed object and its associated optical image
 export type ObjectHTMLImageElements = {
-  rightFacingUpright: HTMLImageElement,
-  rightFacingInverted: HTMLImageElement,
-  leftFacingUpright: HTMLImageElement,
-  leftFacingInverted: HTMLImageElement
+  rightFacingUpright: HTMLImageElement;
+  rightFacingInverted: HTMLImageElement;
+  leftFacingUpright: HTMLImageElement;
+  leftFacingInverted: HTMLImageElement;
 };
 
 // icon used for 'Arrow' in the combo box

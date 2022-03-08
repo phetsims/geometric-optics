@@ -27,8 +27,8 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
 
 type SelfOptions = {
-  isBasicsVersion: boolean,
-  isMirrorScreen: boolean
+  isBasicsVersion: boolean;
+  isMirrorScreen: boolean;
 };
 
 export type VisibilityCheckboxGroupOptions = SelfOptions & PickRequired<VerticalCheckboxGroupOptions, 'tandem'>;
@@ -115,7 +115,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 }
 
 type ItemOptions = {
-  iconNode?: Node
+  iconNode?: Node;
 } & PickRequired<VerticalCheckboxGroupItem, 'tandem'> & PickOptional<VerticalCheckboxGroupItem, 'options'>;
 
 function createItem( string: string, property: Property<boolean>, providedOptions: ItemOptions ): VerticalCheckboxGroupItem {

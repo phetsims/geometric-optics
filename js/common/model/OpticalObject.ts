@@ -26,7 +26,7 @@ import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
 
 type SelfOptions = {
-  position?: Vector2
+  position?: Vector2;
 };
 
 export type OpticalObjectOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'> &

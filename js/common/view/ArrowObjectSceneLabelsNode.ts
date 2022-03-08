@@ -28,7 +28,7 @@ import Property from '../../../../axon/js/Property.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {
-  isBasicsVersion: boolean
+  isBasicsVersion: boolean;
 };
 
 type ArrowObjectSceneLabelsNodeOptions = SelfOptions & GOSceneLabelsNodeOptions;
@@ -93,7 +93,7 @@ class ArrowObjectSceneLabelsNode extends GOSceneLabelsNode {
 }
 
 type ArrowObjectLabelNodeSelfOptions = {
-  isNumberedProperty?: IReadOnlyProperty<boolean>
+  isNumberedProperty?: IReadOnlyProperty<boolean>;
 };
 
 type ArrowObjectLabelNodeOptions = ArrowObjectLabelNodeSelfOptions & LabelNodeOptions;
@@ -144,7 +144,7 @@ class ArrowObjectLabelNode extends LabelNode {
 }
 
 type ArrowImageLabelNodeSelfOptions = {
-  isNumberedProperty?: IReadOnlyProperty<boolean>
+  isNumberedProperty?: IReadOnlyProperty<boolean>;
 };
 
 type ArrowImageLabelNodeOptions = ArrowImageLabelNodeSelfOptions & LabelNodeOptions;

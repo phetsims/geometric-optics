@@ -23,7 +23,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {
-  isBasicsVersion: boolean
+  isBasicsVersion: boolean;
 };
 
 type LightObjectSceneLabelsNodeOptions = SelfOptions & GOSceneLabelsNodeOptions;
@@ -74,7 +74,7 @@ class LightObjectSceneLabelsNode extends GOSceneLabelsNode {
 }
 
 type LightObjectLabelNodeSelfOptions = {
-  isNumberedProperty?: IReadOnlyProperty<boolean>
+  isNumberedProperty?: IReadOnlyProperty<boolean>;
 };
 
 type LightObjectLabelNodeOptions = LightObjectLabelNodeSelfOptions & LabelNodeOptions;

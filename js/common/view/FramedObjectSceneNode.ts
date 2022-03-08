@@ -29,7 +29,7 @@ import IProperty from '../../../../axon/js/IProperty.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 
 type SelfOptions = {
-  dragLockedProperty: IReadOnlyProperty<boolean>
+  dragLockedProperty: IReadOnlyProperty<boolean>;
 };
 
 type FramedObjectSceneNodeOptions = SelfOptions & GOSceneNodeOptions;

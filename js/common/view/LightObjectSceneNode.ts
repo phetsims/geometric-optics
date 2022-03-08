@@ -28,7 +28,7 @@ import IProperty from '../../../../axon/js/IProperty.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 
 type SelfOptions = {
-  dragLockedProperty: IReadOnlyProperty<boolean>
+  dragLockedProperty: IReadOnlyProperty<boolean>;
 };
 
 type LightObjectSceneNodeOptions = SelfOptions & GOSceneNodeOptions;

@@ -34,7 +34,7 @@ import GOGlobalOptions from '../GOGlobalOptions.js';
 type SelfOptions = {
 
   // Creates the Node for the optic
-  createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node
+  createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node;
 };
 
 export type GOSceneNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem' | 'visibleProperty'>;

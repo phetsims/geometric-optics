@@ -29,7 +29,7 @@ type SelfOptions = {
 
   // Optional alternate position of the optical object, defaults to opticalObject.positionProperty.
   // This is used for the second point-of-interest on the framed objects.
-  opticalObjectPositionProperty?: IReadOnlyProperty<Vector2>
+  opticalObjectPositionProperty?: IReadOnlyProperty<Vector2>;
 };
 
 export type OpticalImageOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;

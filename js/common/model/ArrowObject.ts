@@ -14,7 +14,7 @@ import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { IColor } from '../../../../scenery/js/imports.js';
 
 type SelfOptions = {
-  fill: IColor // the fill color for the arrow
+  fill: IColor; // the fill color for the arrow
 };
 
 type ArrowObjectOptions = SelfOptions & PickRequired<OpticalObjectOptions, 'position' | 'tandem'>;

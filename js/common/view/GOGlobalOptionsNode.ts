@@ -17,7 +17,7 @@ import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import Enable2FCheckbox from './Enable2FCheckbox.js';
 
 type SelfOptions = {
-  isBasicsVersion?: boolean
+  isBasicsVersion?: boolean;
 }
 
 type GOGlobalOptionsNodeOptions = SelfOptions & PickRequired<VBoxOptions, 'tandem'>;

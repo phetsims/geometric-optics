@@ -57,13 +57,13 @@ const NOMINAL_MODEL_TO_VIEW_SCALE = 2;
 
 type SelfOptions = {
 
-  isBasicsVersion: boolean,
+  isBasicsVersion: boolean;
 
   // Gets the position of the model origin in view coordinates
-  getViewOrigin: ( layoutBounds: Bounds2 ) => Vector2,
+  getViewOrigin: ( layoutBounds: Bounds2 ) => Vector2;
 
   // Creates the Node for the optic
-  createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node
+  createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node;
 };
 
 export type GOScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions, 'tandem'>;

@@ -14,7 +14,7 @@ import LightRays from '../model/LightRays.js';
 import LightRaysNode, { LightRaysNodeOptions } from './LightRaysNode.js';
 
 type SelfOptions = {
-  stroke: IColor
+  stroke: IColor;
 };
 
 export type RealLightRaysNodeOptions = SelfOptions & LightRaysNodeOptions;

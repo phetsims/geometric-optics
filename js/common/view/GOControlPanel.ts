@@ -27,7 +27,7 @@ import OpticSubpanel from './OpticSubpanel.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
 
 type SelfOptions = {
-  isBasicsVersion: boolean
+  isBasicsVersion: boolean;
 };
 
 type GOControlPanelOptions = SelfOptions & PickOptional<PanelOptions, 'bottom'> & PickRequired<PanelOptions, 'tandem'>;

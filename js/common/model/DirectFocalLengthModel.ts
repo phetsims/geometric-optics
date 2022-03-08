@@ -22,8 +22,8 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
-  focalLengthMagnitudeRange: RangeWithValue
-  indexOfRefractionRange: RangeWithValue
+  focalLengthMagnitudeRange: RangeWithValue;
+  indexOfRefractionRange: RangeWithValue;
 };
 
 export type DirectFocalLengthModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
