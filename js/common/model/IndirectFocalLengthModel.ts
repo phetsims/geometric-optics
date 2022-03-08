@@ -76,6 +76,23 @@ class IndirectFocalLengthModel extends PhetioObject implements FocalLengthModel 
       } );
   }
 
+  /**
+   * Synchronizes with another focal-length model by copying the values that are settable in this model.
+   * Constrain values so that floating-point error doesn't cause range exceptions.
+   * @param model
+   */
+  public syncToModel( model: FocalLengthModel ): void {
+    assert && assert( model !== this );
+
+    assert && assert( this.radiusOfCurvatureMagnitudeProperty.range ); // {Range|null}
+    this.radiusOfCurvatureMagnitudeProperty.value =
+      this.radiusOfCurvatureMagnitudeProperty.range!.constrainValue( model.radiusOfCurvatureMagnitudeProperty.value );
+
+    assert && assert( this.indexOfRefractionProperty.range ); // {Range|null}
+    this.indexOfRefractionProperty.value =
+      this.indexOfRefractionProperty.range!.constrainValue( model.indexOfRefractionProperty.value );
+  }
+
   public reset(): void {
     this.radiusOfCurvatureMagnitudeProperty.reset();
     this.indexOfRefractionProperty.reset();

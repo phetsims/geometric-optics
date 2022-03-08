@@ -156,30 +156,13 @@ abstract class Optic extends PhetioObject {
     this.directFocalLengthModel = new DirectFocalLengthModel( this.opticShapeProperty, options.directFocalLengthModelOptions );
     this.indirectFocalLengthModel = new IndirectFocalLengthModel( this.opticShapeProperty, options.indirectFocalLengthModelOptions );
 
-    // When switching between focal-length models, transfer value(s) from the previous model to the current model.
-    // Constrain values so that floating-point error doesn't cause range exceptions.
+    // When switching between focal-length models, synchronize the new model with the old model.
     GOGlobalOptions.focalLengthModelTypeProperty.lazyLink( ( focalLengthModelType: FocalLengthModelType ) => {
       if ( focalLengthModelType === 'direct' ) {
-
-        // Copy focalLength from indirect to direct
-        assert && assert( this.directFocalLengthModel.focalLengthMagnitudeProperty.range ); // {Range|null}
-        this.directFocalLengthModel.focalLengthMagnitudeProperty.value =
-          this.directFocalLengthModel.focalLengthMagnitudeProperty.range!.constrainValue(
-            this.indirectFocalLengthModel.focalLengthMagnitudeProperty.value );
+        this.directFocalLengthModel.syncToModel( this.indirectFocalLengthModel );
       }
       else {
-
-        // Copy radiusOfCurvature from direct to indirect
-        assert && assert( this.indirectFocalLengthModel.radiusOfCurvatureMagnitudeProperty.range ); // {Range|null}
-        this.indirectFocalLengthModel.radiusOfCurvatureMagnitudeProperty.value =
-          this.indirectFocalLengthModel.radiusOfCurvatureMagnitudeProperty.range!.constrainValue(
-            this.directFocalLengthModel.radiusOfCurvatureMagnitudeProperty.value );
-
-        // Copy indexOfRefraction from direct to indirect
-        assert && assert( this.indirectFocalLengthModel.indexOfRefractionProperty.range ); // {Range|null}
-        this.indirectFocalLengthModel.indexOfRefractionProperty.value =
-          this.indirectFocalLengthModel.indexOfRefractionProperty.range!.constrainValue(
-            this.directFocalLengthModel.indexOfRefractionProperty.value );
+        this.indirectFocalLengthModel.syncToModel( this.directFocalLengthModel );
       }
     } );
 

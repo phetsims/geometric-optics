@@ -79,6 +79,18 @@ class DirectFocalLengthModel extends PhetioObject implements FocalLengthModel {
       } );
   }
 
+  /**
+   * Synchronizes with another focal-length model by copying the values that are settable in this model.
+   * Constrain values so that floating-point error doesn't cause range exceptions.
+   * @param model
+   */
+  public syncToModel( model: FocalLengthModel ): void {
+    assert && assert( model !== this );
+    assert && assert( this.focalLengthMagnitudeProperty.range ); // {Range|null}
+    this.focalLengthMagnitudeProperty.value =
+      this.focalLengthMagnitudeProperty.range!.constrainValue( model.focalLengthMagnitudeProperty.value );
+  }
+
   public reset(): void {
     this.focalLengthMagnitudeProperty.reset();
     this.indexOfRefractionProperty.reset();
