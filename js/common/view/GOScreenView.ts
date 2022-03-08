@@ -198,7 +198,6 @@ class GOScreenView extends ScreenView {
       tandem: toolsTandem.createTandem( 'toolbox' )
     } );
 
-    //TODO should position markers be in their own layer, so that they stay on top of rulers?
     const toolsLayer = new Node( {
       children: [ horizontalRulerNode, verticalRulerNode, positionMarker2Node, positionMarker1Node ]
     } );
