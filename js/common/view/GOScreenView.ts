@@ -47,6 +47,7 @@ import DragLockedButton from './DragLockedButton.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
+import PositionMarkerNode from './PositionMarkerNode.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.
@@ -133,7 +134,7 @@ class GOScreenView extends ScreenView {
                              ' which is controlled by the zoom buttons.'
       } );
 
-    // Transform applied to rulers and labels
+    // Transform applied to tools and labels
     const zoomTransformProperty = new DerivedProperty(
       [ zoomScaleProperty ],
       ( zoomScale: number ) => {
@@ -166,7 +167,7 @@ class GOScreenView extends ScreenView {
                            'Note that this is ignored for framed objects in the Mirror screen. They are permanently locked.'
     } );
 
-    // Rulers  =========================================================================================================
+    // Tools (Rulers & Position Markers) ===============================================================================
 
     const horizontalRulerNode = new GORulerNode( model.horizontalRuler, model.optic.positionProperty,
       zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, {
@@ -178,22 +179,35 @@ class GOScreenView extends ScreenView {
         tandem: options.tandem.createTandem( 'verticalRulerNode' )
       } );
 
+    const positionMarker1Node = new PositionMarkerNode( model.positionMarker1, zoomTransformProperty,
+      this.visibleBoundsProperty, {
+        tandem: options.tandem.createTandem( 'positionMarker1Node' )
+      } );
+
+    const positionMarker2Node = new PositionMarkerNode( model.positionMarker2, zoomTransformProperty,
+      this.visibleBoundsProperty, {
+        tandem: options.tandem.createTandem( 'positionMarker2Node' )
+      } );
+
     // Toolbox in the top-right corner of the screen
-    const rulersToolbox = new RulersToolbox( [ horizontalRulerNode, verticalRulerNode ], {
+    const toolbox = new RulersToolbox( [ horizontalRulerNode, verticalRulerNode, positionMarker1Node, positionMarker2Node ], {
       right: erodedLayoutBounds.right,
       top: erodedLayoutBounds.top,
-      tandem: options.tandem.createTandem( 'rulersToolbox' )
+      tandem: options.tandem.createTandem( 'toolbox' )
     } );
 
-    // Tell the rulers where the toolbox is.
-    rulersToolbox.visibleProperty.link( visible => {
-      const bounds = visible ? rulersToolbox.bounds : Bounds2.NOTHING;
+    // Tell the tools where the toolbox is.
+    toolbox.visibleProperty.link( visible => {
+      const bounds = visible ? toolbox.bounds : Bounds2.NOTHING;
       horizontalRulerNode.setToolboxBounds( bounds );
       verticalRulerNode.setToolboxBounds( bounds );
+      positionMarker1Node.setToolboxBounds( bounds );
+      positionMarker2Node.setToolboxBounds( bounds );
     } );
 
-    const rulersLayer = new Node( {
-      children: [ horizontalRulerNode, verticalRulerNode ]
+    //TODO should position markers be in their own layer, so that they stay on top of rulers?
+    const toolsLayer = new Node( {
+      children: [ horizontalRulerNode, verticalRulerNode, positionMarker2Node, positionMarker1Node ]
     } );
 
     // Use a scene's hotkey targets for the rulers.
@@ -294,7 +308,7 @@ class GOScreenView extends ScreenView {
         opticalObjectChoiceComboBox,
         opticShapeRadioButtonGroup,
         dragLockedButton,
-        rulersToolbox,
+        toolbox,
         zoomButtonGroup,
         lightPropagationToggleButton,
         controlPanel,
@@ -414,7 +428,7 @@ class GOScreenView extends ScreenView {
         scenesLayer,
         labelsLayer,
         controlsLayer,
-        rulersLayer,
+        toolsLayer,
         popupsParent
       ]
     } );
@@ -448,9 +462,11 @@ class GOScreenView extends ScreenView {
       opticalObjectChoiceComboBox,
       dragLockedButton,
       opticShapeRadioButtonGroup,
-      rulersToolbox,
+      toolbox,
       horizontalRulerNode,
       verticalRulerNode,
+      positionMarker1Node,
+      positionMarker2Node,
       zoomButtonGroup,
       lightPropagationToggleButton,
       controlPanel,

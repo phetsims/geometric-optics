@@ -11,9 +11,10 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import geometricOptics from '../../geometricOptics.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 type RulerOrientation = 'horizontal' | 'vertical';
 
@@ -24,7 +25,7 @@ type SelfOptions = {
 
 type GeometricOpticsRulerOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
-class GORuler {
+class GORuler extends PhetioObject {
 
   // orientation of the ruler
   public readonly orientation: RulerOrientation;
@@ -49,7 +50,15 @@ class GORuler {
    */
   constructor( providedOptions: GeometricOpticsRulerOptions ) {
 
+    const options = optionize<GeometricOpticsRulerOptions, SelfOptions, PhetioObjectOptions>( {
+
+      // PhetioObjectOptions
+      phetioState: false
+    }, providedOptions );
+
     assert && assert( isFinite( providedOptions.length ) && providedOptions.length > 0 );
+
+    super( options );
 
     this.orientation = providedOptions.orientation;
     this.length = providedOptions.length;
@@ -58,11 +67,11 @@ class GORuler {
     // The initial value of position really does not matter, because position will be set when the ruler is
     // removed from the toolbox.
     this.positionProperty = new Vector2Property( Vector2.ZERO, {
-      tandem: providedOptions.tandem.createTandem( 'positionProperty' )
+      tandem: options.tandem.createTandem( 'positionProperty' )
     } );
 
     this.visibleProperty = new BooleanProperty( false, {
-      tandem: providedOptions.tandem.createTandem( 'visibleProperty' ),
+      tandem: options.tandem.createTandem( 'visibleProperty' ),
       phetioDocumentation: 'Controls whether the full-size ruler is visible.' +
                            '<ul>' +
                            '<li>true: ruler is out of the toolbox</li>' +

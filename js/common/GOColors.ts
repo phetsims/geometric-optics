@@ -12,6 +12,7 @@ import { ProfileColorProperty } from '../../../scenery/js/imports.js';
 import geometricOptics from '../geometricOptics.js';
 
 // BEWARE: If you change this, you should update light2.png.
+const OBJECT_1_FILL = 'blue';
 const OBJECT_2_FILL = 'rgb( 255, 51, 51 )';
 
 const GOColors = {
@@ -99,7 +100,7 @@ const GOColors = {
   } ),
 
   arrow1FillProperty: new ProfileColorProperty( geometricOptics, 'arrow1Fill', {
-    default: 'blue'
+    default: OBJECT_1_FILL
   } ),
 
   arrow2FillProperty: new ProfileColorProperty( geometricOptics, 'arrow2Fill', {
@@ -178,6 +179,14 @@ const GOColors = {
 
   lightPropagationToggleButtonFillProperty: new ProfileColorProperty( geometricOptics, 'lightPropagationToggleButtonFill', {
     default: 'rgb( 240, 234, 227 )'
+  } ),
+
+  positionMarker1FillProperty: new ProfileColorProperty( geometricOptics, 'positionMarker1Fill', {
+    default: OBJECT_1_FILL
+  } ),
+
+  positionMarker2FillProperty: new ProfileColorProperty( geometricOptics, 'positionMarker2Fill', {
+    default: OBJECT_2_FILL
   } )
 };
 

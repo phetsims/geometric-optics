@@ -30,6 +30,8 @@ class RulerIconNode extends RulerNode {
    */
   constructor( rulerNode: GORulerNode, zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2> ) {
 
+    const ruler = rulerNode.ruler;
+
     const options = {
 
       // pointer areas
@@ -49,7 +51,7 @@ class RulerIconNode extends RulerNode {
 
       // NodeOptions
       cursor: 'pointer',
-      visibleProperty: DerivedProperty.not( rulerNode.visibleProperty ),
+      visibleProperty: DerivedProperty.not( ruler.visibleProperty ),
       tagName: 'button',
       tandem: Tandem.OPT_OUT
     };
@@ -69,8 +71,6 @@ class RulerIconNode extends RulerNode {
     // pointer areas
     this.touchArea = this.localBounds.dilatedXY( options.touchAreaDilationX, options.touchAreaDilationY );
     this.mouseArea = this.localBounds.dilatedXY( options.mouseAreaDilationX, options.mouseAreaDilationY );
-
-    const ruler = rulerNode.ruler;
 
     // rotate to create a vertical ruler icon
     if ( ruler.orientation === 'vertical' ) {

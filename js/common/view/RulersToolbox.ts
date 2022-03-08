@@ -11,10 +11,10 @@
 import { HBox } from '../../../../scenery/js/imports.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import geometricOptics from '../../geometricOptics.js';
-import GORulerNode from './GORulerNode.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
+import ToolNode from './ToolNode.js';
 
 type RulersToolboxOptions = PickRequired<PanelOptions, 'tandem'>
   & PickOptional<PanelOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
@@ -22,10 +22,10 @@ type RulersToolboxOptions = PickRequired<PanelOptions, 'tandem'>
 class RulersToolbox extends Panel {
 
   /**
-   * @param rulerNodes - in the order that they appear in the toolbox, left to right
+   * @param toolNodes - in the order that they appear in the toolbox, left to right
    * @param providedOptions
    */
-  constructor( rulerNodes: GORulerNode[], providedOptions: RulersToolboxOptions ) {
+  constructor( toolNodes: ToolNode[], providedOptions: RulersToolboxOptions ) {
 
     const options = optionize<RulersToolboxOptions, {}, PanelOptions>( {
 
@@ -40,7 +40,7 @@ class RulersToolbox extends Panel {
 
     const toolboxContent = new HBox( {
       spacing: 20,
-      children: rulerNodes.map( rulerNode => rulerNode.iconNode ),
+      children: toolNodes.map( toolNode => toolNode.iconNode ),
       excludeInvisibleChildrenFromBounds: false
     } );
 

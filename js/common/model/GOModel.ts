@@ -25,6 +25,8 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import PositionMarker from './PositionMarker.js';
+import GOColors from '../GOColors.js';
 
 type SelfOptions = {
 
@@ -64,6 +66,10 @@ class GOModel {
   // rulers
   public readonly horizontalRuler: GORuler;
   public readonly verticalRuler: GORuler;
+
+  // position markers
+  public readonly positionMarker1: PositionMarker;
+  public readonly positionMarker2: PositionMarker;
 
   // Resets things that are specific to this class.
   private readonly resetGOModel: () => void;
@@ -149,6 +155,19 @@ class GOModel {
       tandem: rulersTandem.createTandem( 'verticalRuler' )
     } );
 
+    // Position Markers are grouped under this tandem.
+    const positionMarkersTandem = options.tandem.createTandem( 'positionMarkers' );
+
+    this.positionMarker1 = new PositionMarker( {
+      fill: GOColors.positionMarker1FillProperty,
+      tandem: positionMarkersTandem.createTandem( 'positionMarker1' )
+    } );
+
+    this.positionMarker2 = new PositionMarker( {
+      fill: GOColors.positionMarker2FillProperty,
+      tandem: positionMarkersTandem.createTandem( 'positionMarker2' )
+    } );
+
     this.resetGOModel = () => {
       // client provided the optic, and is responsible for resetting the optic!
       this.opticalObjectChoiceProperty.reset();
@@ -157,6 +176,8 @@ class GOModel {
       this.scenes.forEach( scene => scene.reset() );
       this.horizontalRuler.reset();
       this.verticalRuler.reset();
+      this.positionMarker1.reset();
+      this.positionMarker2.reset();
     };
   }
 

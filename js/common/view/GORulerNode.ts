@@ -17,7 +17,7 @@ import Utils from '../../../../dot/js/Utils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
-import { DragListener, KeyboardDragListener, KeyboardUtils, Node, NodeOptions, PressedDragListener, PressListenerEvent } from '../../../../scenery/js/imports.js';
+import { DragListener, KeyboardDragListener, KeyboardUtils, Node, NodeOptions, PressListenerEvent } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
@@ -29,8 +29,8 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
-import Property from '../../../../axon/js/Property.js';
 import IntentionalAny from '../../../../phet-core/js/IntentionalAny.js';
+import ToolNode from './ToolNode.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;
@@ -43,15 +43,15 @@ export type RulerHotkeyTarget = {
 
 export type GORulerNodeOptions = PickRequired<Node, 'tandem'>;
 
-class GORulerNode extends Node {
+class GORulerNode extends Node implements ToolNode {
+
+  // see ToolNode
+  public readonly iconNode: RulerIconNode;
 
   // the ruler model that is associated with this Node
   public readonly ruler: GORuler;
 
   private readonly opticPositionProperty: IReadOnlyProperty<Vector2>
-
-  // the icon associated with this ruler, it appears in the toolbox
-  public readonly iconNode: RulerIconNode;
 
   // bounds of the toolbox, in view coordinates
   private toolboxBounds: Bounds2;
@@ -97,7 +97,7 @@ class GORulerNode extends Node {
     this.iconNode = new RulerIconNode( this, zoomTransformProperty );
 
     // Create a RulerNode subcomponent whose scale matches the current zoom level.
-    Property.multilink( [ zoomTransformProperty ], ( zoomTransform: ModelViewTransform2 ) => {
+    zoomTransformProperty.link( ( zoomTransform: ModelViewTransform2 ) => {
 
       // zoomTransformProperty is derived from zoomScaleProperty, so zoomScaleProperty does not need to be
       // a dependency, and it's safe to use its value.
@@ -110,6 +110,14 @@ class GORulerNode extends Node {
       // update view
       this.removeAllChildren();
       this.addChild( createRulerNode( this.ruler.length, zoomTransform, zoomScale ) );
+    } );
+
+    // Update the ruler position to match this Node's position, so that the ruler remains stationary
+    // in the view, and the model is correct.
+    zoomTransformProperty.lazyLink( ( zoomTransform: ModelViewTransform2 ) => {
+      ruler.positionProperty.value = ( this.ruler.orientation === 'vertical' ) ?
+                                     zoomTransform.viewToModelPosition( this.leftBottom ) :
+                                     zoomTransform.viewToModelPosition( this.leftTop );
     } );
 
     ruler.positionProperty.link( position => {
@@ -158,10 +166,10 @@ class GORulerNode extends Node {
       transform: zoomTransformProperty.value,
       start: () => this.moveToFront(),
       end: ( event: PressListenerEvent | null, listener: DragListener ) => {
-        const pressedListener = listener as PressedDragListener;
 
         // Return ruler to toolbox if the pointer is inside the toolbox.
-        if ( this.toolboxBounds.containsPoint( this.globalToParentPoint( pressedListener.pointer.point as Vector2 ) ) ) {
+        assert && assert( listener.pointer && listener.pointer.point ); // {Pointer|null}
+        if ( this.toolboxBounds.containsPoint( this.globalToParentPoint( listener.pointer!.point ) ) ) {
           ruler.visibleProperty.value = false;
         }
       },
@@ -208,6 +216,10 @@ class GORulerNode extends Node {
       this.dragListener.transform = zoomTransform;
       keyboardDragListener.transform = zoomTransform;
     } );
+
+    this.addLinkedElement( ruler, {
+      tandem: options.tandem.createTandem( 'ruler' )
+    } );
   }
 
   public dispose(): void {
@@ -224,7 +236,7 @@ class GORulerNode extends Node {
   }
 
   /**
-   * Forwards an event from the toolbox to start dragging this Node
+   * Forwards an event from the toolbox to start dragging this Node.
    * @param event
    */
   public startDrag( event: PressListenerEvent ): void {
