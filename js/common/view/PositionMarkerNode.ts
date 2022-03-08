@@ -203,7 +203,7 @@ class PositionMarkerNode extends Node implements ToolNode {
   }
 
   /**
-   * Create the visual representation of a position marker, with no interactivity.
+   * Creates the visual representation of a position marker, with no interactivity.
    * @param providedOptions
    */
   public static createNode( providedOptions: PathOptions ): Node {
