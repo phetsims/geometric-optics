@@ -49,7 +49,7 @@ class GOToolbox extends Panel {
     super( toolboxContent, options );
 
     // Tell the tools where the toolbox is.
-    // This allows tools to determine when they has been dragged back to the toolbox.
+    // This allows tools to determine when they have been dragged back to the toolbox.
     Property.multilink( [ this.boundsProperty, this.visibleProperty ],
       ( bounds: Bounds2, visible: boolean ) => {
         const toolboxBounds = visible ? bounds : Bounds2.NOTHING;
