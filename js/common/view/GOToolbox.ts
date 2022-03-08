@@ -1,8 +1,8 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * RulersToolbox is the toolbox that holds the rulers.
- * It has no responsibility for the behavior of its contents (icons) or the rulers.
+ * GOToolbox is the toolbox that holds the tools - rulers and position markers.
+ * It has no responsibility for the behavior of its contents (tools icons) or the tools themselves.
  *
  * @author Sarah Chang (Swarthmore College)
  * @author Chris Malley (PixelZoom, Inc.)
@@ -19,7 +19,7 @@ import ToolNode from './ToolNode.js';
 type RulersToolboxOptions = PickRequired<PanelOptions, 'tandem'>
   & PickOptional<PanelOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
 
-class RulersToolbox extends Panel {
+class GOToolbox extends Panel {
 
   /**
    * @param toolNodes - in the order that they appear in the toolbox, left to right
@@ -53,5 +53,5 @@ class RulersToolbox extends Panel {
   }
 }
 
-geometricOptics.register( 'RulersToolbox', RulersToolbox );
-export default RulersToolbox;
+geometricOptics.register( 'GOToolbox', GOToolbox );
+export default GOToolbox;

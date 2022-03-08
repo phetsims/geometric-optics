@@ -5,7 +5,7 @@
  *
  * - It wraps a scenery-phet.RulerNode, which is re-created when the zoom level changes.
  * - As the zoom level is changed, the view dimensions remain constant, but the tick marks change.
- * - It handles dragging, including dragging back to the RulersToolbox.
+ * - It handles dragging, including dragging back to the GOToolbox.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  * @author Sarah Chang (Swarthmore College)

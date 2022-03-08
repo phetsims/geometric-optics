@@ -35,7 +35,7 @@ import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
 import Property from '../../../../axon/js/Property.js';
 import { RaysType } from '../model/RaysType.js';
 import GORulerNode from './GORulerNode.js';
-import RulersToolbox from './RulersToolbox.js';
+import GOToolbox from './GOToolbox.js';
 import FramedObjectSceneLabelsNode from './FramedObjectSceneLabelsNode.js';
 import ArrowObjectSceneNode from './ArrowObjectSceneNode.js';
 import ArrowObjectSceneLabelsNode from './ArrowObjectSceneLabelsNode.js';
@@ -190,7 +190,7 @@ class GOScreenView extends ScreenView {
       } );
 
     // Toolbox in the top-right corner of the screen
-    const toolbox = new RulersToolbox( [ horizontalRulerNode, verticalRulerNode, positionMarker1Node, positionMarker2Node ], {
+    const toolbox = new GOToolbox( [ horizontalRulerNode, verticalRulerNode, positionMarker1Node, positionMarker2Node ], {
       right: erodedLayoutBounds.right,
       top: erodedLayoutBounds.top,
       tandem: options.tandem.createTandem( 'toolbox' )
