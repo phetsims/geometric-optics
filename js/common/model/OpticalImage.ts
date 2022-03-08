@@ -148,8 +148,8 @@ class OpticalImage extends PhetioObject {
 
         return opticPosition.plusXY( horizontalDisplacement, height );
       }, {
-        tandem: options.tandem.createTandem( 'positionProperty' ),
         units: 'cm',
+        tandem: options.tandem.createTandem( 'positionProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
       } );
 
