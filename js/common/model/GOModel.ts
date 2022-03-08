@@ -140,32 +140,29 @@ class GOModel {
       this.scenes.push( this.lightObjectScene );
     }
 
-    // Rulers are grouped under this tandem.
-    const rulersTandem = options.tandem.createTandem( 'rulers' );
+    // Tools are grouped under this tandem.
+    const toolsTandem = options.tandem.createTandem( 'tools' );
 
     this.horizontalRuler = new GORuler( {
       orientation: 'horizontal',
       length: GOConstants.HORIZONTAL_RULER_LENGTH,
-      tandem: rulersTandem.createTandem( 'horizontalRuler' )
+      tandem: toolsTandem.createTandem( 'horizontalRuler' )
     } );
 
     this.verticalRuler = new GORuler( {
       orientation: 'vertical',
       length: GOConstants.VERTICAL_RULER_LENGTH,
-      tandem: rulersTandem.createTandem( 'verticalRuler' )
+      tandem: toolsTandem.createTandem( 'verticalRuler' )
     } );
-
-    // Position Markers are grouped under this tandem.
-    const positionMarkersTandem = options.tandem.createTandem( 'positionMarkers' );
 
     this.positionMarker1 = new PositionMarker( {
       fill: GOColors.positionMarker1FillProperty,
-      tandem: positionMarkersTandem.createTandem( 'positionMarker1' )
+      tandem: toolsTandem.createTandem( 'positionMarker1' )
     } );
 
     this.positionMarker2 = new PositionMarker( {
       fill: GOColors.positionMarker2FillProperty,
-      tandem: positionMarkersTandem.createTandem( 'positionMarker2' )
+      tandem: toolsTandem.createTandem( 'positionMarker2' )
     } );
 
     this.resetGOModel = () => {

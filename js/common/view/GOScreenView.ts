@@ -169,31 +169,33 @@ class GOScreenView extends ScreenView {
 
     // Tools (Rulers & Position Markers) ===============================================================================
 
+    const toolsTandem = options.tandem.createTandem( 'tools' );
+
     const horizontalRulerNode = new GORulerNode( model.horizontalRuler, model.optic.positionProperty,
       zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, {
-        tandem: options.tandem.createTandem( 'horizontalRulerNode' )
+        tandem: toolsTandem.createTandem( 'horizontalRulerNode' )
       } );
 
     const verticalRulerNode = new GORulerNode( model.verticalRuler, model.optic.positionProperty,
       zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, {
-        tandem: options.tandem.createTandem( 'verticalRulerNode' )
+        tandem: toolsTandem.createTandem( 'verticalRulerNode' )
       } );
 
     const positionMarker1Node = new PositionMarkerNode( model.positionMarker1, zoomTransformProperty,
       this.visibleBoundsProperty, {
-        tandem: options.tandem.createTandem( 'positionMarker1Node' )
+        tandem: toolsTandem.createTandem( 'positionMarker1Node' )
       } );
 
     const positionMarker2Node = new PositionMarkerNode( model.positionMarker2, zoomTransformProperty,
       this.visibleBoundsProperty, {
-        tandem: options.tandem.createTandem( 'positionMarker2Node' )
+        tandem: toolsTandem.createTandem( 'positionMarker2Node' )
       } );
 
     // Toolbox in the top-right corner of the screen
     const toolbox = new GOToolbox( [ horizontalRulerNode, verticalRulerNode, positionMarker1Node, positionMarker2Node ], {
       right: erodedLayoutBounds.right,
       top: erodedLayoutBounds.top,
-      tandem: options.tandem.createTandem( 'toolbox' )
+      tandem: toolsTandem.createTandem( 'toolbox' )
     } );
 
     //TODO should position markers be in their own layer, so that they stay on top of rulers?
