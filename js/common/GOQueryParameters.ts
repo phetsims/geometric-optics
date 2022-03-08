@@ -127,7 +127,7 @@ const SCHEMA_MAP = {
     elementSchema: {
       type: 'number'
     },
-    defaultValue: [ 0, 0.6 ],
+    defaultValue: [ 0, 1 ],
     isValidValue: ( array: number[] ) => ( array.length === 2 && array[ 0 ] < array[ 1 ] && array[ 0 ] >= 0 && array[ 1 ] <= 1 )
   },
 
@@ -137,7 +137,7 @@ const SCHEMA_MAP = {
     elementSchema: {
       type: 'number'
     },
-    defaultValue: [ 0, 0.75 ],
+    defaultValue: [ 0, 1 ],
     isValidValue: ( array: number[] ) => ( array.length === 2 && array[ 0 ] < array[ 1 ] && array[ 0 ] >= 0 && array[ 1 ] <= 1 )
   },
 

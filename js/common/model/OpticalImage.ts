@@ -179,7 +179,7 @@ class OpticalImage extends PhetioObject {
         const magnificationFactor = Math.abs( 1 / magnification );
 
         // Multiply factors, constrained to [0,1].
-        return GOConstants.INTENSITY_RANGE.constrainValue( objectDistanceFactor * diameterFactor * magnificationFactor );
+        return GOConstants.INTENSITY_RANGE.constrainValue( 0.75 * objectDistanceFactor * diameterFactor * magnificationFactor );
       }, {
         isValidValue: ( value: number ) => GOConstants.INTENSITY_RANGE.contains( value ),
 
