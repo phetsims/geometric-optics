@@ -10,10 +10,6 @@ import geometricOptics from '../../geometricOptics.js';
 import OpticalImage from './OpticalImage.js';
 import Optic from './Optic.js';
 import ArrowObject from './ArrowObject.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import GOQueryParameters from '../GOQueryParameters.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Utils from '../../../../dot/js/Utils.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { IColor } from '../../../../scenery/js/imports.js';
 
@@ -22,7 +18,6 @@ type ArrowImageOptions = PickRequired<OpticalImage, 'tandem' | 'phetioDocumentat
 class ArrowImage extends OpticalImage {
 
   public readonly fill: IColor;
-  public readonly opacityProperty: IReadOnlyProperty<number>;
 
   /**
    * @param arrowObject - the optical object that this image is associated with
@@ -34,10 +29,6 @@ class ArrowImage extends OpticalImage {
     super( arrowObject, optic, providedOptions );
 
     this.fill = arrowObject.fill;
-
-    this.opacityProperty = new DerivedProperty( [ this.lightIntensityProperty ], ( lightIntensity: number ) =>
-      Utils.linear( 0, 1, GOQueryParameters.arrowImageOpacityRange[ 0 ], GOQueryParameters.arrowImageOpacityRange[ 1 ], lightIntensity )
-    );
   }
 }
 

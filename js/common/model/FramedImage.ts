@@ -18,8 +18,6 @@ import OpticalImage, { OpticalImageOptions } from './OpticalImage.js';
 import { ObjectHTMLImageElements } from './OpticalObjectChoice.js';
 import FramedObject from './FramedObject.js';
 import { OpticalImageType } from './OpticalImageType.js';
-import GOQueryParameters from '../GOQueryParameters.js';
-import Utils from '../../../../dot/js/Utils.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
 
@@ -30,9 +28,6 @@ class FramedImage extends OpticalImage {
 
   // the HTMLImageElement (PNG file) to display
   public readonly htmlImageElementProperty: IReadOnlyProperty<HTMLImageElement>;
-
-  // opacity applied to the HTMLImageElement
-  public readonly opacityProperty: IReadOnlyProperty<number>;
 
   // bounds of the optical image's visual representation, in model coordinates
   public readonly boundsProperty: IReadOnlyProperty<Bounds2>;
@@ -54,10 +49,6 @@ class FramedImage extends OpticalImage {
         const virtualImage = isLens ? objectHTMLImageElements.rightFacingUpright : objectHTMLImageElements.leftFacingUpright;
         return ( opticalImageType === 'real' ) ? realImage : virtualImage;
       } );
-
-    this.opacityProperty = new DerivedProperty( [ this.lightIntensityProperty ], ( lightIntensity: number ) =>
-      Utils.linear( 0, 1, GOQueryParameters.framedImageOpacityRange[ 0 ], GOQueryParameters.framedImageOpacityRange[ 1 ], lightIntensity )
-    );
 
     this.boundsProperty = new DerivedProperty(
       [ this.htmlImageElementProperty, this.positionProperty, this.magnificationProperty ],

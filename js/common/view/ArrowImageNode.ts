@@ -20,6 +20,9 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import GOQueryParameters from '../GOQueryParameters.js';
+import Utils from '../../../../dot/js/Utils.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 
 type ArrowImageNodeOptions = PickRequired<NodeOptions, 'tandem'>;
 
@@ -77,7 +80,13 @@ class ArrowImageNode extends Node {
         arrowNode.setTailAndTip( imageViewPosition.x, opticViewPosition.y, imageViewPosition.x, opticViewPosition.y + magnitude );
       } );
 
-    arrowImage.opacityProperty.link( ( opacity: number ) => {
+    const opacityProperty = new DerivedProperty( [ arrowImage.lightIntensityProperty ], ( lightIntensity: number ) =>
+      Utils.linear( 0, 1, GOQueryParameters.arrowImageOpacityRange[ 0 ], GOQueryParameters.arrowImageOpacityRange[ 1 ], lightIntensity ), {
+      tandem: options.tandem.createTandem( 'opacityProperty' ),
+      phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
+    } );
+
+    opacityProperty.link( ( opacity: number ) => {
       this.opacity = opacity;
     } );
 

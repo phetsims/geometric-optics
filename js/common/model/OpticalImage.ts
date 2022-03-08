@@ -54,7 +54,7 @@ class OpticalImage extends PhetioObject {
   public readonly magnificationProperty: IReadOnlyProperty<number>;
 
   // light intensity of the optical image (Hollywooded) in the range [0,1]
-  protected readonly lightIntensityProperty: IReadOnlyProperty<number>;
+  public readonly lightIntensityProperty: IReadOnlyProperty<number>;
 
   // Resets things that are specific to this class.
   private readonly resetOpticalImage: () => void;
