@@ -60,7 +60,7 @@ class OpticalImage extends PhetioObject {
   // Positive is a real image, negative is a virtual image.
   // For a lens, a positive distance indicates that the image is to the right of the lens.
   // For a mirror, a positive distance indicates that the image is to the left of the mirror.
-  private readonly opticImageDistanceProperty: DerivedProperty<number, [ Vector2, Vector2, number]>;
+  private readonly opticImageDistanceProperty: IReadOnlyProperty<number>;
 
   // Resets things that are specific to this class.
   private readonly resetOpticalImage: () => void;
@@ -119,34 +119,29 @@ class OpticalImage extends PhetioObject {
         }
       } );
 
-    this.magnificationProperty = new DerivedProperty( [ this.opticImageDistanceProperty ],
-      ( opticImageDistance: number ) => {
-
-        // optic.positionProperty and opticalObjectPositionProperty are dependencies of opticImageDistanceProperty,
-        // so they are not needed as dependencies here, and it's safe to use their values.
-        assert && assert( this.opticImageDistanceProperty.hasDependency( optic.positionProperty ) );
-        assert && assert( this.opticImageDistanceProperty.hasDependency( opticalObjectPositionProperty ) );
-        const opticPosition = optic.positionProperty.value;
-        const opticalObjectPosition = opticalObjectPositionProperty.value;
-
-        return computeMagnification( opticalObjectPosition, opticPosition, opticImageDistance );
-      }, {
+    //TODO https://github.com/phetsims/geometric-optics/issues/330
+    // focalLengthProperty is not used here. But if that dependency is removed, then the image magnification
+    // is incorrect when switching the lens from convex to concave, and the mirror from concave to convex. So
+    // there must be some ordering problem here, or a dependency on focalLengthProperty down in the derivation.
+    this.magnificationProperty = new DerivedProperty(
+      [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
+      ( framedObjectPosition: Vector2, opticPosition: Vector2, focalLength: number ) =>
+        computeMagnification( framedObjectPosition, opticPosition, this.opticImageDistanceProperty.value ), {
         tandem: options.tandem.createTandem( 'magnificationProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
-        phetioDocumentation: 'Magnification of the optical image. Negative indicates that the image is inverted.'
+        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
       } );
 
-    this.positionProperty = new DerivedProperty( [ this.opticImageDistanceProperty, this.magnificationProperty ],
-      ( opticImageDistance: number, magnification: number ) => {
-
-        // optic.positionProperty and opticalObjectPositionProperty are dependencies of opticImageDistanceProperty,
-        // so they are not needed as dependencies here.
-        const opticPosition = optic.positionProperty.value;
-        const opticalObjectPosition = opticalObjectPositionProperty.value;
+    this.positionProperty = new DerivedProperty(
+      [ opticalObjectPositionProperty, optic.positionProperty, optic.focalLengthProperty ],
+      //TODO https://github.com/phetsims/geometric-optics/issues/330
+      // focalLength is not used, is focalLengthProperty dependency needed?
+      // Calls computeMagnification, should there be a dependency here on magnificationProperty instead?
+      ( opticalObjectPosition: Vector2, opticPosition: Vector2, focalLength: number ) => {
 
         // The height is determined as the vertical offset from the optical axis of the focus point.
         // The height can be negative if the Image is inverted.
-        const height = magnification * ( opticalObjectPosition.y - opticPosition.y );
+        const height = computeMagnification( opticalObjectPosition, opticPosition, this.opticImageDistanceProperty.value ) *
+                       ( opticalObjectPosition.y - opticPosition.y );
 
         // recall that the meaning of opticImageDistanceProperty is different for lens vs mirror.
         const horizontalDisplacement = optic.sign * this.opticImageDistanceProperty.value;
