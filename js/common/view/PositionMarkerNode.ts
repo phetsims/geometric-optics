@@ -10,7 +10,7 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { DragListener, KeyboardDragListener, Node, NodeOptions, Path, PathOptions, PressListenerEvent } from '../../../../scenery/js/imports.js';
+import { DragListener, KeyboardDragListener, KeyboardUtils, Node, NodeOptions, Path, PathOptions, PressListenerEvent } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
@@ -152,6 +152,15 @@ class PositionMarkerNode extends Node implements ToolNode {
         tandem: options.tandem.createTandem( 'keyboardDragListener' )
       } ) );
     this.addInputListener( keyboardDragListener );
+
+    keyboardDragListener.hotkeys = [
+
+      // Escape returns the ruler to the toolbox.
+      {
+        keys: [ KeyboardUtils.KEY_ESCAPE ],
+        callback: () => this.returnToToolbox()
+      }
+    ];
 
     // When the transform changes, update the input listeners
     zoomTransformProperty.link( zoomTransform => {
