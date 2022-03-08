@@ -24,6 +24,8 @@ import GOConstants from '../GOConstants.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 
 type SelfOptions = {
   position?: Vector2;
@@ -39,6 +41,9 @@ class OpticalObject extends PhetioObject {
 
   // position of the point-of-interest on the optical object, from which rays propagate
   public readonly positionProperty: Property<Vector2>;
+
+  // x distance between the optic and object
+  public readonly opticObjectXDistanceProperty: IReadOnlyProperty<number>;
 
   // Resets things that are specific to this class.
   private readonly resetOpticalObject: () => void;
@@ -66,10 +71,19 @@ class OpticalObject extends PhetioObject {
     this.opticalObjectNumber = opticalObjectNumber;
 
     this.positionProperty = new Vector2Property( options.position, {
+      units: 'cm',
       isValidValue: ( position: Vector2 ) =>
         ( position.x <= opticPositionProperty.value.x - GOConstants.MIN_DISTANCE_FROM_OBJECT_TO_OPTIC ),
       tandem: options.tandem.createTandem( 'positionProperty' )
     } );
+
+    this.opticObjectXDistanceProperty = new DerivedProperty( [ opticPositionProperty, this.positionProperty ],
+      ( opticPosition: Vector2, opticalObjectPosition: Vector2 ) => ( opticPosition.x - opticalObjectPosition.x ), {
+        units: 'cm',
+        tandem: options.tandem.createTandem( 'opticObjectXDistanceProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+        phetioDocumentation: 'horizontal distance between the optic and the optical object'
+      } );
 
     this.resetOpticalObject = () => {
       this.positionProperty.reset();
