@@ -161,7 +161,6 @@ class GORulerNode extends Node {
         const pressedListener = listener as PressedDragListener;
 
         // Return ruler to toolbox if the pointer is inside the toolbox.
-        assert && assert( pressedListener.pointer.point instanceof Vector2 );
         if ( this.toolboxBounds.containsPoint( this.globalToParentPoint( pressedListener.pointer.point as Vector2 ) ) ) {
           ruler.visibleProperty.value = false;
         }
@@ -217,7 +216,7 @@ class GORulerNode extends Node {
   }
 
   /**
-   * Sets the bounds of the toolbox, so the ruler know where to return to.
+   * Sets the bounds of the toolbox, so the ruler knows where to return to.
    * @param toolboxBounds
    */
   public setToolboxBounds( toolboxBounds: Bounds2 ): void {
