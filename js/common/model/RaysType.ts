@@ -8,4 +8,3 @@
 
 export const RaysTypeValues = [ 'marginal', 'principal', 'many', 'none' ] as const;
 export type RaysType = ( typeof RaysTypeValues )[number];
-

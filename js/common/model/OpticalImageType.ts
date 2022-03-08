@@ -9,4 +9,3 @@
 
 export const OpticalImageTypeValues = [ 'real', 'virtual' ] as const;
 export type OpticalImageType = ( typeof OpticalImageTypeValues )[number];
-
