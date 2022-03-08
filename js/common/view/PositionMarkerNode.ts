@@ -124,11 +124,10 @@ class PositionMarkerNode extends Node implements ToolNode {
       offsetPosition: () => new Vector2( -this.width / 2, -this.height ),
       transform: zoomTransformProperty.value,
       start: () => this.moveToFront(),
-      end: ( event: PressListenerEvent | null, listener: DragListener ) => {
+      end: () => {
 
-        // Return marker to toolbox if the pointer is inside the toolbox.
-        assert && assert( listener.pointer && listener.pointer.point ); // {Pointer|null}
-        if ( this.toolboxBounds.containsPoint( this.globalToParentPoint( listener.pointer!.point ) ) ) {
+        // Return the marker to the toolbox if the marker's bounds intersect the toolbox.
+        if ( this.toolboxBounds.intersectsBounds( this.bounds ) ) {
           positionMarker.visibleProperty.value = false;
         }
       },
@@ -143,9 +142,9 @@ class PositionMarkerNode extends Node implements ToolNode {
         transform: zoomTransformProperty.value,
         start: () => this.moveToFront(),
 
-        // Return the marker to the toolbox if the marker's bounds overlap the toolbox.
+        // Return the marker to the toolbox if the marker's bounds intersect the toolbox.
         end: () => {
-          if ( this.toolboxBounds.containsBounds( this.bounds ) ) {
+          if ( this.toolboxBounds.intersectsBounds( this.bounds ) ) {
             positionMarker.visibleProperty.value = false;
             this.iconNode.focus();
           }
