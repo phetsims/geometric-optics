@@ -1,8 +1,8 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * RulerIconNode is a ruler icon that appears in the RulersToolbox. It is associated with a specific ruler Node,
- * and forwards events to that ruler Node.
+ * RulerIconNode is a ruler icon that appears in the toolbox. It is associated with a specific ruler Node,
+ * and forwards events to that Node.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -32,7 +32,6 @@ class RulerIconNode extends RulerNode {
 
     const options = {
 
-      // RulerIconNodeOptions
       // pointer areas
       touchAreaDilationX: 5,
       touchAreaDilationY: 5,
@@ -78,7 +77,7 @@ class RulerIconNode extends RulerNode {
       this.rotate( -Math.PI / 2 );
     }
 
-    // Dragging with the keyboard. Drag events are forwarded from the icon to its associated ruler.
+    // Dragging with mouse/touch. Drag events are forwarded from the icon to its associated ruler.
     this.addInputListener( DragListener.createForwardingListener( ( event: PressListenerEvent ) => {
 
       // Make the ruler visible.
