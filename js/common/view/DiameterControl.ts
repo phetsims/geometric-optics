@@ -27,6 +27,9 @@ class DiameterControl extends NumberControl {
    */
   constructor( diameterProperty: NumberProperty, providedOptions: DiameterControlOptions ) {
 
+    assert && assert( diameterProperty.range ); // {Range|null}
+    const range = diameterProperty.range!;
+
     // Assemble the defaults for NumberControl, because optionize doesn't currently support defaults in multiple objects.
     const numberControlDefaults: OptionizeDefaults<{}, NumberControlOptions> = merge( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
       delta: GOConstants.DIAMETER_SPINNER_STEP,
@@ -38,7 +41,7 @@ class DiameterControl extends NumberControl {
 
         // generate a sound for each slider step
         soundGeneratorOptions: {
-          numberOfMiddleThresholds: diameterProperty.range!.getLength() / GOConstants.DIAMETER_SLIDER_STEP - 1
+          numberOfMiddleThresholds: Utils.roundSymmetric( range.getLength() / GOConstants.DIAMETER_SLIDER_STEP ) - 1
         }
       },
       numberDisplayOptions: {
@@ -49,9 +52,7 @@ class DiameterControl extends NumberControl {
 
     const options = optionize<DiameterControlOptions, {}, NumberControlOptions>( numberControlDefaults, providedOptions );
 
-    assert && assert( diameterProperty.range ); // {Range|null}
-
-    super( geometricOpticsStrings.diameter, diameterProperty, diameterProperty.range!, options );
+    super( geometricOpticsStrings.diameter, diameterProperty, range, options );
 
     this.addLinkedElement( diameterProperty, {
       tandem: options.tandem.createTandem( 'diameterProperty' )

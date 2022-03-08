@@ -9,7 +9,6 @@
 
 import NumberControl, { NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
 import geometricOptics from '../../geometricOptics.js';
-import Range from '../../../../dot/js/Range.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import merge from '../../../../phet-core/js/merge.js';
 import GOConstants from '../GOConstants.js';
@@ -33,6 +32,9 @@ class RadiusOfCurvatureControl extends NumberControl {
                radiusOfCurvatureProperty: IReadOnlyProperty<number>,
                providedOptions: RadiusOfCurvatureControlOptions ) {
 
+    assert && assert( radiusOfCurvatureMagnitudeProperty.range ); // {Range|null}
+    const range = radiusOfCurvatureMagnitudeProperty.range!;
+
     // Preferable to derive from radiusOfCurvatureProperty, but scenery.Text requires textProperty to be settable.
     const textProperty = new StringProperty( '', {
       tandem: providedOptions.tandem.createTandem( 'textProperty' ),
@@ -42,9 +44,6 @@ class RadiusOfCurvatureControl extends NumberControl {
       textProperty.value = ( radiusOfCurvature >= 0 ) ? geometricOpticsStrings.radiusOfCurvaturePositive
                                                       : geometricOpticsStrings.radiusOfCurvatureNegative;
     } );
-
-    assert && assert( radiusOfCurvatureMagnitudeProperty.range ); // {Range|null}
-    const radiusOfCurvatureRange: Range = radiusOfCurvatureMagnitudeProperty.range!;
 
     // Assemble the defaults for NumberControl, because optionize doesn't currently support defaults in multiple objects.
     const numberControlDefaults: OptionizeDefaults<{}, NumberControlOptions> = merge( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
@@ -64,14 +63,14 @@ class RadiusOfCurvatureControl extends NumberControl {
 
         // generate a sound for each slider step
         soundGeneratorOptions: {
-          numberOfMiddleThresholds: radiusOfCurvatureRange.getLength() / GOConstants.RADIUS_OF_CURVATURE_SLIDER_STEP - 1
+          numberOfMiddleThresholds: Utils.roundSymmetric( range.getLength() / GOConstants.RADIUS_OF_CURVATURE_SLIDER_STEP ) - 1
         }
       }
     } );
 
     const options = optionize<RadiusOfCurvatureControlOptions, {}, NumberControlOptions>( numberControlDefaults, providedOptions );
 
-    super( textProperty.value, radiusOfCurvatureMagnitudeProperty, radiusOfCurvatureRange, options );
+    super( textProperty.value, radiusOfCurvatureMagnitudeProperty, range, options );
 
     this.addLinkedElement( radiusOfCurvatureMagnitudeProperty, {
       tandem: options.tandem.createTandem( 'radiusOfCurvatureMagnitudeProperty' )

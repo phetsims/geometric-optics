@@ -8,7 +8,6 @@
 
 import NumberControl, { NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
 import geometricOptics from '../../geometricOptics.js';
-import Range from '../../../../dot/js/Range.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import merge from '../../../../phet-core/js/merge.js';
 import GOConstants from '../GOConstants.js';
@@ -28,7 +27,7 @@ class IndexOfRefractionControl extends NumberControl {
   constructor( indexOfRefractionProperty: NumberProperty, providedOptions: IndexOfRefractionControlOptions ) {
 
     assert && assert( indexOfRefractionProperty.range ); // {Range|null}
-    const indexOfRefractionRange: Range = indexOfRefractionProperty.range!;
+    const range = indexOfRefractionProperty.range!;
 
     // function to constrain the allowed values
     const constrainValues = ( value: number ) =>
@@ -45,7 +44,7 @@ class IndexOfRefractionControl extends NumberControl {
 
         // generate a sound for each slider step
         soundGeneratorOptions: {
-          numberOfMiddleThresholds: Utils.roundSymmetric( indexOfRefractionRange.getLength() / GOConstants.INDEX_OF_REFRACTION_SLIDER_STEP ) - 1,
+          numberOfMiddleThresholds: Utils.roundSymmetric( range.getLength() / GOConstants.INDEX_OF_REFRACTION_SLIDER_STEP ) - 1,
           constrainThresholds: constrainValues
         }
       },
@@ -56,7 +55,7 @@ class IndexOfRefractionControl extends NumberControl {
 
     const options = optionize<IndexOfRefractionControlOptions, {}, NumberControlOptions>( numberControlDefaults, providedOptions );
 
-    super( geometricOpticsStrings.indexOfRefraction, indexOfRefractionProperty, indexOfRefractionRange, options );
+    super( geometricOpticsStrings.indexOfRefraction, indexOfRefractionProperty, range, options );
 
     this.addLinkedElement( indexOfRefractionProperty, {
       tandem: options.tandem.createTandem( 'indexOfRefractionProperty' )

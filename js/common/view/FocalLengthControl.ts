@@ -9,7 +9,6 @@
 
 import NumberControl, { NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
 import geometricOptics from '../../geometricOptics.js';
-import Range from '../../../../dot/js/Range.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import merge from '../../../../phet-core/js/merge.js';
 import GOConstants from '../GOConstants.js';
@@ -33,6 +32,9 @@ class FocalLengthControl extends NumberControl {
   constructor( focalLengthMagnitudeProperty: NumberProperty,
                focalLengthProperty: IReadOnlyProperty<number>,
                providedOptions: FocalLengthControlOptions ) {
+
+    assert && assert( focalLengthMagnitudeProperty.range ); // {Range|null}
+    const range = focalLengthMagnitudeProperty.range!;
 
     // Preferable to derive from focalLengthProperty, but scenery.Text requires textProperty to be settable.
     const textProperty = new StringProperty( '', {
@@ -62,17 +64,14 @@ class FocalLengthControl extends NumberControl {
 
         // generate a sound for each slider step
         soundGeneratorOptions: {
-          numberOfMiddleThresholds: focalLengthMagnitudeProperty.range!.getLength() / GOConstants.FOCAL_LENGTH_SLIDER_STEP - 1
+          numberOfMiddleThresholds: Utils.roundSymmetric( range.getLength() / GOConstants.FOCAL_LENGTH_SLIDER_STEP ) - 1
         }
       }
     } );
 
     const options = optionize<FocalLengthControlOptions, {}, NumberControlOptions>( {}, numberControlDefaults, providedOptions );
 
-    assert && assert( focalLengthMagnitudeProperty.range ); // {Range|null}
-    const radiusOfCurvatureRange: Range = focalLengthMagnitudeProperty.range!;
-
-    super( textProperty!.value, focalLengthMagnitudeProperty, radiusOfCurvatureRange, options );
+    super( textProperty.value, focalLengthMagnitudeProperty, range, options );
 
     this.addLinkedElement( focalLengthMagnitudeProperty, {
       tandem: options.tandem.createTandem( 'focalLengthMagnitudeProperty' )
