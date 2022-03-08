@@ -9,7 +9,7 @@
     "value": "Mirror"
   },
   "radiusOfCurvaturePositive": {
-    "value": "Radius of Curvature (+)"
+    "value": "Radius of Curvature"
   },
   "radiusOfCurvatureNegative": {
     "value": "Radius of Curvature (\u2212)"
@@ -18,7 +18,7 @@
     "value": "Index of Refraction"
   },
   "focalLengthPositive": {
-    "value": "Focal Length (+)"
+    "value": "Focal Length"
   },
   "focalLengthNegative": {
     "value": "Focal Length (\u2212)"

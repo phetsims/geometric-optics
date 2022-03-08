@@ -80,7 +80,7 @@ class GOControlPanel extends Panel {
 
     const content = new HBox( {
       children: [ raysSubpanel, leftSeparator, opticSubpanel, rightSeparator, checkboxGroup ],
-      spacing: 20,
+      spacing: 15,
       align: 'center'
     } );
 

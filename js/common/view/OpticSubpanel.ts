@@ -22,7 +22,7 @@ import Optic from '../model/Optic.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
-const X_SPACING = 20; // horizontal space between control
+const X_SPACING = 15; // horizontal space between control
 
 class OpticSubpanel extends HBox {
 
@@ -73,6 +73,7 @@ class OpticSubpanel extends HBox {
     const indirectWrapperNode = new HBox( {
       children: indirectChildren,
       spacing: X_SPACING,
+      align: 'bottom',
       visibleProperty: new DerivedProperty( [ GOGlobalOptions.focalLengthModelTypeProperty ],
         ( focalLengthModelType: FocalLengthModelType ) => ( focalLengthModelType === 'indirect' )
       )
@@ -86,6 +87,7 @@ class OpticSubpanel extends HBox {
     super( {
       children: [ directWrapperNode, indirectWrapperNode, diameterControl ],
       spacing: X_SPACING,
+      align: 'bottom',
       tandem: tandem
     } );
   }

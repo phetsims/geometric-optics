@@ -101,7 +101,7 @@ const GOConstants = {
       maxWidth: 140
     },
     sliderOptions: {
-      trackSize: new Dimension2( 120, 4 ),
+      trackSize: new Dimension2( 140, 4 ),
       thumbSize: new Dimension2( 15, 30 ),
       thumbTouchAreaXDilation: 5,
       thumbTouchAreaYDilation: 5
