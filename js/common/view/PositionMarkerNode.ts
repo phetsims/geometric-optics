@@ -155,7 +155,7 @@ class PositionMarkerNode extends Node implements ToolNode {
 
     keyboardDragListener.hotkeys = [
 
-      // Escape returns the ruler to the toolbox.
+      // Escape returns the marker to the toolbox.
       {
         keys: [ KeyboardUtils.KEY_ESCAPE ],
         callback: () => this.returnToToolbox()
