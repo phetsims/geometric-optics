@@ -182,11 +182,11 @@ const GOColors = {
   } ),
 
   positionMarker1FillProperty: new ProfileColorProperty( geometricOptics, 'positionMarker1Fill', {
-    default: OBJECT_1_FILL
+    default: 'black'
   } ),
 
   positionMarker2FillProperty: new ProfileColorProperty( geometricOptics, 'positionMarker2Fill', {
-    default: OBJECT_2_FILL
+    default: 'black'
   } )
 };
 
