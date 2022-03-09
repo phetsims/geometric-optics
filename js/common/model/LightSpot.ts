@@ -10,6 +10,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import Utils from '../../../../dot/js/Utils.js';
 import { Shape, Graph } from '../../../../kite/js/imports.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import Optic from './Optic.js';
@@ -22,9 +23,6 @@ import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioO
 import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
-
-// constants
-const FULL_INTENSITY_DIAMETER = 7; // cm, any light spot less than this diameter will be full intensity
 
 type PositionAndDiameter = {
   position: Vector2;
@@ -105,19 +103,23 @@ class LightSpot extends PhetioObject {
       } );
 
     // The normalized intensity of the light spot, in the range [0,1].
-    // The spot is dimmer when the light is spread on a larger surface.
-    // To preserve dynamic range, the intensity is instead inversely proportional to the diameter.
-    // The value saturates to max intensity for a spot diameter <= FULL_INTENSITY_DIAMETER.
-    this.intensityProperty = new DerivedProperty( [ this.diameterProperty ],
-      ( diameter: number | null ) => {
-        if ( ( diameter === 0 || diameter === null ) ) {
+    // See https://github.com/phetsims/geometric-optics/issues/335
+    this.intensityProperty = new DerivedProperty( [ this.diameterProperty, optic.diameterProperty ],
+      ( lightSpotDiameter: number | null, opticDiameter: number ) => {
+        if ( ( lightSpotDiameter === 0 || lightSpotDiameter === null ) ) {
           return null;
         }
-        else if ( diameter < FULL_INTENSITY_DIAMETER ) {
-          return 1;
-        }
         else {
-          return FULL_INTENSITY_DIAMETER / diameter;
+          //TODO double FULL_INTENSITY_DIAMETER, halve [1,2] range ?
+          assert && assert( optic.diameterProperty.range ); // {Range|null}
+          const opticDiameterRange = optic.diameterProperty.range!;
+          const opticDiameterFactor = Utils.linear( opticDiameterRange.min, opticDiameterRange.max, 1, 2, opticDiameter );
+
+          // Any light spot less than this diameter will have full intensity when the optic diameter is at its maximum.
+          const FULL_INTENSITY_DIAMETER = 7; // cm
+          const lightSpotDiameterFactor = FULL_INTENSITY_DIAMETER / lightSpotDiameter;
+
+          return GOConstants.INTENSITY_RANGE.constrainValue( opticDiameterFactor * lightSpotDiameterFactor );
         }
       }, {
         isValidValue: ( value: number | null ) => ( value === null ) || GOConstants.INTENSITY_RANGE.contains( value ),
@@ -126,6 +128,7 @@ class LightSpot extends PhetioObject {
         phetioDocumentation: 'intensity of the light hitting the screen, in the range [0,1], ' +
                              'null if the light is not hitting the screen'
       } );
+    this.intensityProperty.link( intensity => console.log( `LightSpot intensity=${intensity}` ) );
   }
 
   public dispose(): void {
