@@ -170,32 +170,40 @@ class GOScreenView extends ScreenView {
     // Tools (Rulers & Position Markers) ===============================================================================
 
     const toolsTandem = options.tandem.createTandem( 'tools' );
+    const toolboxTandem = toolsTandem.createTandem( 'toolbox' );
 
     const horizontalRulerNode = new GORulerNode( model.horizontalRuler, model.optic.positionProperty,
       zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, {
-        tandem: toolsTandem.createTandem( 'horizontalRulerNode' )
+        tandem: toolsTandem.createTandem( 'horizontalRulerNode' ),
+        iconTandem: toolboxTandem.createTandem( 'horizontalRulerIcon' )
       } );
 
     const verticalRulerNode = new GORulerNode( model.verticalRuler, model.optic.positionProperty,
       zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, {
-        tandem: toolsTandem.createTandem( 'verticalRulerNode' )
+        tandem: toolsTandem.createTandem( 'verticalRulerNode' ),
+        iconTandem: toolboxTandem.createTandem( 'verticalRulerIcon' )
       } );
 
     const positionMarker1Node = new PositionMarkerNode( model.positionMarker1, zoomTransformProperty,
       this.visibleBoundsProperty, {
-        tandem: toolsTandem.createTandem( 'positionMarker1Node' )
+        tandem: toolsTandem.createTandem( 'positionMarker1Node' ),
+        iconTandem: toolboxTandem.createTandem( 'positionMarker1Icon' )
       } );
 
     const positionMarker2Node = new PositionMarkerNode( model.positionMarker2, zoomTransformProperty,
       this.visibleBoundsProperty, {
-        tandem: toolsTandem.createTandem( 'positionMarker2Node' )
+        tandem: toolsTandem.createTandem( 'positionMarker2Node' ),
+        iconTandem: toolboxTandem.createTandem( 'positionMarker2Icon' )
       } );
 
     // Toolbox in the top-right corner of the screen
     const toolbox = new GOToolbox( [ horizontalRulerNode, verticalRulerNode, positionMarker1Node, positionMarker2Node ], {
-      right: erodedLayoutBounds.right,
-      top: erodedLayoutBounds.top,
-      tandem: toolsTandem.createTandem( 'toolbox' )
+      tandem: toolboxTandem
+    } );
+
+    // Icons in the toolbox can be hidden via iO. So keep the toolbox positioned in the rightTop corner.
+    toolbox.boundsProperty.link( bounds => {
+      toolbox.rightTop = erodedLayoutBounds.rightTop;
     } );
 
     const toolsLayer = new Node( {

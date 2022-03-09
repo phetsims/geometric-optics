@@ -1,6 +1,7 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/geometric-optics/issues/355 factor out duplication into GOToolIconNode
+//TODO https://github.com/phetsims/geometric-optics/issues/355 factor out duplication into GOToolIcon
+//TODO https://github.com/phetsims/geometric-optics/issues/355 rename to GORulerIcon
 /**
  * RulerIconNode is a ruler icon that appears in the toolbox. It is associated with a specific ruler Node,
  * and forwards events to that Node.
@@ -10,9 +11,11 @@
 
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
-import { DragListener, PressListenerEvent } from '../../../../scenery/js/imports.js';
+import { DragListener, Node, NodeOptions, PressListenerEvent } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GORulerNode from './GORulerNode.js';
@@ -22,38 +25,27 @@ const ICON_WIDTH = 48;
 const ICON_HEIGHT = 17;
 const NUMBER_OF_MAJOR_TICKS = 5;
 
-class RulerIconNode extends RulerNode {
+type SelfOptions = {
+  touchAreaDilationX?: number;
+  touchAreaDilationY?: number;
+  mouseAreaDilationX?: number;
+  mouseAreaDilationY?: number;
+};
+
+type RulerIconNodeOptions = SelfOptions & PickRequired<Node, 'tandem'>;
+
+class RulerIconNode extends Node {
 
   /**
    * @param rulerNode
    * @param zoomTransformProperty
+   * @param providedOptions
    */
-  constructor( rulerNode: GORulerNode, zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2> ) {
+  constructor( rulerNode: GORulerNode,
+               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+               providedOptions: RulerIconNodeOptions ) {
 
     const ruler = rulerNode.ruler;
-
-    const options = {
-
-      // pointer areas
-      touchAreaDilationX: 5,
-      touchAreaDilationY: 5,
-      mouseAreaDilationX: 5,
-      mouseAreaDilationY: 5,
-
-      // RulerNodeOptions
-      backgroundLineWidth: 0.5,
-      majorTickLineWidth: 0.5,
-      minorTickLineWidth: 0.25,
-      minorTicksPerMajorTick: 5,
-      majorTickHeight: ( 0.6 * ICON_HEIGHT ) / 2,
-      minorTickHeight: ( 0.4 * ICON_HEIGHT ) / 2,
-      insetsWidth: 0,
-
-      // NodeOptions
-      cursor: 'pointer',
-      tagName: 'button',
-      tandem: Tandem.OPT_OUT
-    };
 
     // major ticks have no labels, it would be too much detail in an icon
     const majorTickLabels = [ '' ];
@@ -65,7 +57,32 @@ class RulerIconNode extends RulerNode {
     // no units, it would be too much detail in an icon
     const units = '';
 
-    super( ICON_WIDTH, ICON_HEIGHT, majorTickWidth, majorTickLabels, units, options );
+    const icon = new RulerNode( ICON_WIDTH, ICON_HEIGHT, majorTickWidth, majorTickLabels, units, {
+      backgroundLineWidth: 0.5,
+      majorTickLineWidth: 0.5,
+      minorTickLineWidth: 0.25,
+      minorTicksPerMajorTick: 5,
+      majorTickHeight: ( 0.6 * ICON_HEIGHT ) / 2,
+      minorTickHeight: ( 0.4 * ICON_HEIGHT ) / 2,
+      insetsWidth: 0,
+      tandem: Tandem.OPT_OUT
+    } );
+
+    const options = optionize<RulerIconNodeOptions, SelfOptions, NodeOptions>( {
+
+      // pointer areas
+      touchAreaDilationX: 5,
+      touchAreaDilationY: 5,
+      mouseAreaDilationX: 5,
+      mouseAreaDilationY: 5,
+
+      // NodeOptions
+      children: [ icon ],
+      cursor: 'pointer',
+      tagName: 'button'
+    }, providedOptions );
+
+    super( options );
 
     // pointer areas
     this.touchArea = this.localBounds.dilatedXY( options.touchAreaDilationX, options.touchAreaDilationY );
@@ -76,8 +93,9 @@ class RulerIconNode extends RulerNode {
       this.rotate( -Math.PI / 2 );
     }
 
+    // Change visibility of icon instead of this, so that iO clients can hide icons in toolbox.
     ruler.isInToolboxProperty.link( isInToolbox => {
-      this.visible = isInToolbox;
+      icon.visible = isInToolbox;
     } );
 
     // Dragging with mouse/touch. Drag events are forwarded from the icon to its associated ruler.

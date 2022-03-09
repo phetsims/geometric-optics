@@ -1,6 +1,7 @@
 // Copyright 2022, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/geometric-optics/issues/355 factor out duplication into GOToolIconNode
+//TODO https://github.com/phetsims/geometric-optics/issues/355 factor out duplication into GOToolIcon
+//TODO rename PositionMarkerIcon
 /**
  * PositionMarkerIconNode is a position-marker icon that appears in the toolbox. It is associated with a specific
  * position-marker Node, and forwards events to that Node.
@@ -11,19 +12,32 @@
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { DragListener, Node, PressListenerEvent } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import { DragListener, Node, NodeOptions, PressListenerEvent } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import PositionMarkerNode from './PositionMarkerNode.js';
 import MapMarkerNode from './MapMarkerNode.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+
+type SelfOptions = {
+  touchAreaDilationX?: number;
+  touchAreaDilationY?: number;
+  mouseAreaDilationX?: number;
+  mouseAreaDilationY?: number;
+};
+
+type PositionMarkerIconNodeOptions = SelfOptions & PickRequired<Node, 'tandem'>;
 
 class PositionMarkerIconNode extends Node {
 
   /**
    * @param positionMarkerNode
    * @param zoomTransformProperty
+   * @param providedOptions
    */
-  constructor( positionMarkerNode: PositionMarkerNode, zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2> ) {
+  constructor( positionMarkerNode: PositionMarkerNode,
+               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+               providedOptions: PositionMarkerIconNodeOptions ) {
 
     const positionMarker = positionMarkerNode.positionMarker;
 
@@ -33,7 +47,7 @@ class PositionMarkerIconNode extends Node {
       scale: 0.8 // slightly smaller for toolbox icon
     } );
 
-    const options = {
+    const options = optionize<PositionMarkerIconNodeOptions, SelfOptions, NodeOptions>( {
 
       // pointer areas
       touchAreaDilationX: 5,
@@ -44,9 +58,8 @@ class PositionMarkerIconNode extends Node {
       // NodeOptions
       children: [ mapMarkerNode ],
       cursor: 'pointer',
-      tagName: 'button',
-      tandem: Tandem.OPT_OUT
-    };
+      tagName: 'button'
+    }, providedOptions );
 
     super( options );
 
@@ -54,8 +67,9 @@ class PositionMarkerIconNode extends Node {
     this.touchArea = this.localBounds.dilatedXY( options.touchAreaDilationX, options.touchAreaDilationY );
     this.mouseArea = this.localBounds.dilatedXY( options.mouseAreaDilationX, options.mouseAreaDilationY );
 
+    // Change visibility of  mapMarkerNode instead of this, so that iO clients can hide icons in toolbox.
     positionMarker.isInToolboxProperty.link( isInToolbox => {
-      this.visible = isInToolbox;
+      mapMarkerNode.visible = isInToolbox;
     } );
 
     // Dragging with mouse/touch. Drag events are forwarded from the icon to its associated ruler.

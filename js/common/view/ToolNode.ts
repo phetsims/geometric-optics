@@ -12,7 +12,7 @@ import { Node } from '../../../../scenery/js/imports.js';
 interface ToolNode {
 
   // the icon associated with a tool, as it appears in the toolbox
-  readonly iconNode: Node;
+  readonly icon: Node;
 
   // Tell the tool where the toolbox is located, in view coordinates.
   // This allows the tool to determine when it has been dragged back to the toolbox.

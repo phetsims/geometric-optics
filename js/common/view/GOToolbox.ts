@@ -13,13 +13,11 @@ import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import geometricOptics from '../../geometricOptics.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import ToolNode from './ToolNode.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 
-type RulersToolboxOptions = PickRequired<PanelOptions, 'tandem'>
-  & PickOptional<PanelOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
+type RulersToolboxOptions = PickRequired<PanelOptions, 'tandem'>;
 
 class GOToolbox extends Panel {
 
@@ -42,8 +40,7 @@ class GOToolbox extends Panel {
 
     const toolboxContent = new HBox( {
       spacing: 20,
-      children: toolNodes.map( toolNode => toolNode.iconNode ),
-      excludeInvisibleChildrenFromBounds: false
+      children: toolNodes.map( toolNode => toolNode.icon )
     } );
 
     super( toolboxContent, options );

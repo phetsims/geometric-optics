@@ -42,12 +42,16 @@ export type RulerHotkeyTarget = {
   visibleProperty: IReadOnlyProperty<boolean>;
 }
 
-export type GORulerNodeOptions = PickRequired<Node, 'tandem'>;
+type SelfOptions = {
+  iconTandem: Tandem
+};
+
+export type GORulerNodeOptions = SelfOptions & PickRequired<Node, 'tandem'>;
 
 class GORulerNode extends Node implements ToolNode {
 
   // see ToolNode
-  public readonly iconNode: RulerIconNode;
+  public readonly icon: RulerIconNode;
 
   // the ruler model that is associated with this Node
   public readonly ruler: GORuler;
@@ -78,7 +82,7 @@ class GORulerNode extends Node implements ToolNode {
                visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                providedOptions: GORulerNodeOptions ) {
 
-    const options = optionize<GORulerNodeOptions, {}, NodeOptions>( {
+    const options = optionize<GORulerNodeOptions, SelfOptions, NodeOptions>( {
 
       // NodeOptions
       rotation: ( ruler.orientation === 'vertical' ) ? -Math.PI / 2 : 0,
@@ -95,7 +99,9 @@ class GORulerNode extends Node implements ToolNode {
     this.hotkeyTargets = [];
     this.hotkeyTargetsIndex = 0;
     this.toolboxBounds = Bounds2.NOTHING; // to be set later via setToolboxBounds
-    this.iconNode = new RulerIconNode( this, zoomTransformProperty );
+    this.icon = new RulerIconNode( this, zoomTransformProperty, {
+      tandem: options.iconTandem
+    } );
 
     // Create a RulerNode subcomponent whose scale matches the current zoom level.
     zoomTransformProperty.link( ( zoomTransform: ModelViewTransform2 ) => {
@@ -262,7 +268,7 @@ class GORulerNode extends Node implements ToolNode {
    */
   private returnToToolbox( focus: boolean ) {
     this.ruler.isInToolboxProperty.value = true;
-    focus && this.iconNode.focus();
+    focus && this.icon.focus();
   }
 
   /**
