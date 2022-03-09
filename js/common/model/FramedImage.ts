@@ -111,7 +111,7 @@ class FramedImage extends OpticalImage {
       }, {
         isValidValue: ( value: number ) => GOConstants.OPACITY_RANGE.contains( value ),
 
-        //TODO https://github.com/phetsims/geometric-optics/issues/350 should this remain instrumented?
+        // Not necessarily useful to iO clients, but very useful when verifying this algorithm.
         tandem: providedOptions.tandem.createTandem( 'opacityProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
       } );
