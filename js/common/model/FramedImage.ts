@@ -105,10 +105,10 @@ class FramedImage extends OpticalImage {
         // Before rewriting this algorithm, the opacity range was [0,0.75]. Kathy included it here in this way
         // because "it was easiest to find ... where you would get a value of 1, and then just multiply that by 0.75
         // to create the visual effect we wanted".
-        const multipler = 0.75;
+        const multiplier = 0.75;
 
         // Multiply factors, constrain to range.
-        return GOConstants.OPACITY_RANGE.constrainValue( multipler * objectDistanceFactor * diameterFactor * magnificationFactor );
+        return GOConstants.OPACITY_RANGE.constrainValue( multiplier * objectDistanceFactor * diameterFactor * magnificationFactor );
       }, {
         isValidValue: ( value: number ) => GOConstants.OPACITY_RANGE.contains( value ),
 
