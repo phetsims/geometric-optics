@@ -19,7 +19,7 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
 import PositionMarker from '../model/PositionMarker.js';
-import PositionMarkerIconNode from './PositionMarkerIconNode.js';
+import PositionMarkerIcon from './PositionMarkerIcon.js';
 import ToolNode from './ToolNode.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import MapMarkerNode from './MapMarkerNode.js';
@@ -40,7 +40,7 @@ export type PositionMarkerNodeOptions = SelfOptions & PickRequired<Node, 'tandem
 class PositionMarkerNode extends Node implements ToolNode {
 
   // see ToolNode
-  public readonly icon: PositionMarkerIconNode;
+  public readonly icon: PositionMarkerIcon;
 
   // the marker that is associated with this Node
   public readonly positionMarker: PositionMarker;
@@ -90,7 +90,7 @@ class PositionMarkerNode extends Node implements ToolNode {
 
     this.positionMarker = positionMarker;
     this.toolboxBounds = Bounds2.NOTHING; // to be set later via setToolboxBounds
-    this.icon = new PositionMarkerIconNode( this, zoomTransformProperty, {
+    this.icon = new PositionMarkerIcon( this, zoomTransformProperty, {
       tandem: options.iconTandem
     } );
 

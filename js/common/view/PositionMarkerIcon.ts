@@ -1,9 +1,8 @@
 // Copyright 2022, University of Colorado Boulder
 
 //TODO https://github.com/phetsims/geometric-optics/issues/355 factor out duplication into GOToolIcon
-//TODO rename PositionMarkerIcon
 /**
- * PositionMarkerIconNode is a position-marker icon that appears in the toolbox. It is associated with a specific
+ * PositionMarkerIcon is a position-marker icon that appears in the toolbox. It is associated with a specific
  * position-marker Node, and forwards events to that Node.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -26,9 +25,9 @@ type SelfOptions = {
   mouseAreaDilationY?: number;
 };
 
-type PositionMarkerIconNodeOptions = SelfOptions & PickRequired<Node, 'tandem'>;
+type PositionMarkerIconOptions = SelfOptions & PickRequired<Node, 'tandem'>;
 
-class PositionMarkerIconNode extends Node {
+class PositionMarkerIcon extends Node {
 
   /**
    * @param positionMarkerNode
@@ -37,7 +36,7 @@ class PositionMarkerIconNode extends Node {
    */
   constructor( positionMarkerNode: PositionMarkerNode,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               providedOptions: PositionMarkerIconNodeOptions ) {
+               providedOptions: PositionMarkerIconOptions ) {
 
     const positionMarker = positionMarkerNode.positionMarker;
 
@@ -47,7 +46,7 @@ class PositionMarkerIconNode extends Node {
       scale: 0.8 // slightly smaller for toolbox icon
     } );
 
-    const options = optionize<PositionMarkerIconNodeOptions, SelfOptions, NodeOptions>( {
+    const options = optionize<PositionMarkerIconOptions, SelfOptions, NodeOptions>( {
 
       // pointer areas
       touchAreaDilationX: 5,
@@ -101,5 +100,5 @@ class PositionMarkerIconNode extends Node {
   }
 }
 
-geometricOptics.register( 'PositionMarkerIconNode', PositionMarkerIconNode );
-export default PositionMarkerIconNode;
+geometricOptics.register( 'PositionMarkerIcon', PositionMarkerIcon );
+export default PositionMarkerIcon;
