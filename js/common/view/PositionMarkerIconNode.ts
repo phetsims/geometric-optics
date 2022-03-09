@@ -1,4 +1,4 @@
-// Copyright 2021-2022, University of Colorado Boulder
+// Copyright 2022, University of Colorado Boulder
 
 /**
  * PositionMarkerIconNode is a position-marker icon that appears in the toolbox. It is associated with a specific
