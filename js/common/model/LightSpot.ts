@@ -110,13 +110,12 @@ class LightSpot extends PhetioObject {
           return null;
         }
         else {
-          //TODO double FULL_INTENSITY_DIAMETER, halve [1,2] range ?
           assert && assert( optic.diameterProperty.range ); // {Range|null}
           const opticDiameterRange = optic.diameterProperty.range!;
-          const opticDiameterFactor = Utils.linear( opticDiameterRange.min, opticDiameterRange.max, 1, 2, opticDiameter );
+          const opticDiameterFactor = Utils.linear( opticDiameterRange.min, opticDiameterRange.max, 0.5, 1, opticDiameter );
 
           // Any light spot less than this diameter will have full intensity when the optic diameter is at its maximum.
-          const FULL_INTENSITY_DIAMETER = 7; // cm
+          const FULL_INTENSITY_DIAMETER = 14; // cm
           const lightSpotDiameterFactor = FULL_INTENSITY_DIAMETER / lightSpotDiameter;
 
           return GOConstants.INTENSITY_RANGE.constrainValue( opticDiameterFactor * lightSpotDiameterFactor );
