@@ -89,6 +89,7 @@ const GOConstants = {
   // Misc --------------------------------------------------------------------------------------------------------------
 
   INTENSITY_RANGE: new Range( 0, 1 ),
+  OPACITY_RANGE: new Range( 0, 1 ),
   MIN_SCALE: 1e-5, // to prevent zero scaling, see https://github.com/phetsims/geometric-optics/issues/155
   MIN_MAGNITUDE: 1e-5, // to prevent zero-magnitude ArrowNode, see https://github.com/phetsims/geometric-optics/issues/306
 
