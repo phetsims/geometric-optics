@@ -29,7 +29,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
-import IntentionalAny from '../../../../phet-core/js/IntentionalAny.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import ToolNode from './ToolNode.js';
 
 // constants
