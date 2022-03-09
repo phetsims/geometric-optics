@@ -14,6 +14,7 @@ import GOColors from '../../common/GOColors.js';
 import geometricOptics from '../../geometricOptics.js';
 import LightSpot from '../model/LightSpot.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import GOConstants from '../GOConstants.js';
 
 type LightSpotNodeOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem'>;
 
@@ -51,8 +52,9 @@ class LightSpotNode extends Node {
 
     lightSpot.intensityProperty.link( intensity => {
 
-      // Convert intensity to opacity.
-      const opacity = ( intensity === null ) ? 0 : intensity!;
+      // Opacity is equivalent to opacity.
+      assert && assert( GOConstants.OPACITY_RANGE.equals( GOConstants.INTENSITY_RANGE ) );
+      const opacity = intensity;
 
       // Intensity of light is the opacity of the spot color.
       fillPath.opacity = opacity;
