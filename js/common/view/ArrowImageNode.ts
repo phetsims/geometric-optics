@@ -20,9 +20,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
-import GOQueryParameters from '../GOQueryParameters.js';
-import Utils from '../../../../dot/js/Utils.js';
-import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 
 type ArrowImageNodeOptions = PickRequired<NodeOptions, 'tandem'>;
 
@@ -46,6 +43,7 @@ class ArrowImageNode extends Node {
     const options = optionize<ArrowImageNodeOptions, {}, NodeOptions>( {
 
       // NodeOptions
+      opacity: 0.5, // fixed opacity, see https://github.com/phetsims/geometric-optics/issues/350#issuecomment-1062438996
       visibleProperty: new DerivedProperty(
         [ virtualImageVisibleProperty, arrowImage.opticalImageTypeProperty, lightPropagationEnabledProperty, arrowImage.visibleProperty, objectVisibleProperty ],
         ( virtualImageVisible: boolean, opticalImageType: OpticalImageType, lightPropagationEnabled: boolean, framedImageVisible: boolean, objectVisible: boolean ) =>
@@ -79,18 +77,6 @@ class ArrowImageNode extends Node {
 
         arrowNode.setTailAndTip( imageViewPosition.x, opticViewPosition.y, imageViewPosition.x, opticViewPosition.y + magnitude );
       } );
-
-    const opacityProperty = new DerivedProperty( [ arrowImage.lightIntensityProperty ], ( lightIntensity: number ) =>
-      Utils.linear( 0, 1, GOQueryParameters.arrowImageOpacityRange[ 0 ], GOQueryParameters.arrowImageOpacityRange[ 1 ], lightIntensity ), {
-
-      //TODO https://github.com/phetsims/geometric-optics/issues/350 should this remain instrumented?
-      tandem: options.tandem.createTandem( 'opacityProperty' ),
-      phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
-    } );
-
-    opacityProperty.link( ( opacity: number ) => {
-      this.opacity = opacity;
-    } );
 
     this.addLinkedElement( arrowImage, {
       tandem: options.tandem.createTandem( 'arrowImage' )
