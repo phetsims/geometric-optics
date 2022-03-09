@@ -19,7 +19,7 @@ import geometricOptics from '../../geometricOptics.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
   focalLengthMagnitudeRange: RangeWithValue;

@@ -16,8 +16,8 @@ import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../../common/GOColors.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
-import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 export type OpticalAxisInFrontOfProjectionScreenNodeOptions = PickRequired<LineOptions, 'visibleProperty'> &
   PickOptional<LineOptions, 'stroke'>;

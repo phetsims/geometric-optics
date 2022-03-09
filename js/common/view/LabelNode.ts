@@ -18,7 +18,7 @@ import GOColors from '../GOColors.js';
 import GOConstants from '../GOConstants.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Property from '../../../../axon/js/Property.js';
-import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 
 type XAlign = 'left' | 'center' | 'right';

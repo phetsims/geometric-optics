@@ -29,8 +29,8 @@ import { FocalLengthModelType } from './FocalLengthModelType.js';
 import DirectFocalLengthModel, { DirectFocalLengthModelOptions } from './DirectFocalLengthModel.js';
 import IndirectFocalLengthModel, { IndirectFocalLengthModelOptions } from './IndirectFocalLengthModel.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
-import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 // A flat mirror has infinite focal length and ROC. We approximate a flat mirror as a convex mirror with very-large
 // focal length and ROC. Note that these very-large values will be visible in PhET-iO, and it was decided that is OK.

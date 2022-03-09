@@ -14,7 +14,7 @@ import { DragListener, KeyboardDragListener, KeyboardUtils, Node, NodeOptions, P
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
 import PositionMarker from '../model/PositionMarker.js';

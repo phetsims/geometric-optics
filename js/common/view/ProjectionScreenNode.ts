@@ -24,7 +24,7 @@ import OriginNode from './OriginNode.js';
 import GOConstants from '../../common/GOConstants.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
 
 type ProjectionScreenNodeOptions = PickRequired<NodeOptions, 'tandem'>;

@@ -22,7 +22,7 @@ import Lens from '../../lens/model/Lens.js';
 import Guides from './Guides.js';
 import SecondPoint from './SecondPoint.js';
 import GOScene, { GOSceneOptions } from './GOScene.js';
-import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
 

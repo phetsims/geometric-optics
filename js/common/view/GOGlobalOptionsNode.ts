@@ -13,7 +13,7 @@ import GOConstants from '../GOConstants.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import FocalLengthModelTypeControl from './FocalLengthModelTypeControl.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
-import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Enable2FCheckbox from './Enable2FCheckbox.js';
 
 type SelfOptions = {

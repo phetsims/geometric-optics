@@ -21,10 +21,10 @@ import Lens from '../../lens/model/Lens.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Mirror from '../../mirror/model/Mirror.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import RaysSubpanel from './RaysSubpanel.js';
 import OpticSubpanel from './OpticSubpanel.js';
-import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 type SelfOptions = {
   isBasicsVersion: boolean;

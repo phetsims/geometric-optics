@@ -18,8 +18,8 @@ import OpticalImage, { OpticalImageOptions } from './OpticalImage.js';
 import { ObjectHTMLImageElements } from './OpticalObjectChoice.js';
 import FramedObject from './FramedObject.js';
 import { OpticalImageType } from './OpticalImageType.js';
-import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
-import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import GOConstants from '../GOConstants.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 

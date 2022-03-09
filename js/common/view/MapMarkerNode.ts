@@ -6,8 +6,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
-import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { Node, NodeOptions, Path, PathOptions } from '../../../../scenery/js/imports.js';
 import mapMarkerAltSolidShape from '../../../../sherpa/js/fontawesome-5/mapMarkerAltSolidShape.js';
 import geometricOptics from '../../geometricOptics.js';

@@ -13,7 +13,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import GOConstants from '../GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize, { OptionizeDefaults } from '../../../../phet-core/js/optionize.js';
 
 type IndexOfRefractionControlOptions = PickRequired<NumberControlOptions, 'tandem'>;

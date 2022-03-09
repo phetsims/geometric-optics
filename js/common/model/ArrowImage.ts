@@ -10,7 +10,7 @@ import geometricOptics from '../../geometricOptics.js';
 import OpticalImage from './OpticalImage.js';
 import Optic from './Optic.js';
 import ArrowObject from './ArrowObject.js';
-import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { IColor } from '../../../../scenery/js/imports.js';
 
 type ArrowImageOptions = PickRequired<OpticalImage, 'tandem' | 'phetioDocumentation'>;

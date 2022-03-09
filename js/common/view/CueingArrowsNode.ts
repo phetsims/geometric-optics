@@ -12,7 +12,7 @@ import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import GOConstants from '../GOConstants.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 
 type CueingArrowsDirection = 'horizontal' | 'vertical' | 'both';

@@ -12,7 +12,7 @@ import { Line, LineOptions, Node, NodeOptions } from '../../../../scenery/js/imp
 import geometricOptics from '../../geometricOptics.js';
 import { LightRaySegment } from '../model/LightRay.js';
 import LightRays from '../model/LightRays.js';
-import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 export type LightRaysNodeOptions = PickOptional<NodeOptions, 'visibleProperty'>;
 

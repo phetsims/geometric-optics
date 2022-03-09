@@ -9,7 +9,7 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import geometricOptics from '../../geometricOptics.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import HTMLImageElementObject, { HTMLImageElementObjectOptions } from './HTMLImageElementObject.js';
 import Property from '../../../../axon/js/Property.js';
 

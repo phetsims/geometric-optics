@@ -17,7 +17,7 @@ import Lens from '../model/Lens.js';
 import LensNode from './LensNode.js';
 import Optic from '../../common/model/Optic.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type LensScreenViewOptions = PickRequired<GOScreenViewOptions, 'isBasicsVersion' | 'tandem'>;
 

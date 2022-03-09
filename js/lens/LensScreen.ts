@@ -17,7 +17,7 @@ import LensModel from './model/LensModel.js';
 import LensNode from './view/LensNode.js';
 import LensScreenView from './view/LensScreenView.js';
 import optionize from '../../../phet-core/js/optionize.js';
-import { PickRequired } from '../../../phet-core/js/types/PickRequired.js';
+import PickRequired from '../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
   isBasicsVersion?: boolean;

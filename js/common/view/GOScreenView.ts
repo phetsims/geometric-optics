@@ -45,7 +45,7 @@ import GOSceneNode from './GOSceneNode.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import DragLockedButton from './DragLockedButton.js';
 import IProperty from '../../../../axon/js/IProperty.js';
-import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import PositionMarkerNode from './PositionMarkerNode.js';
 

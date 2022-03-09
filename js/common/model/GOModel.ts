@@ -24,7 +24,7 @@ import Lens from '../../lens/model/Lens.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PositionMarker from './PositionMarker.js';
 import GOColors from '../GOColors.js';
 

@@ -19,7 +19,7 @@ import GOConstants from '../GOConstants.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import GOQueryParameters from '../GOQueryParameters.js';
-import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 

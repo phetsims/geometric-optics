@@ -14,7 +14,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OpticalObjectChoice, { ObjectHTMLImageElements } from './OpticalObjectChoice.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import HTMLImageElementObject, { HTMLImageElementObjectOptions } from './HTMLImageElementObject.js';
-import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 // x should be 1/2 of PNG file width. y should be the tip of the pencil. +x right, +y down.
 const ORIGIN_OFFSET = new Vector2( 68.5, 100 );
