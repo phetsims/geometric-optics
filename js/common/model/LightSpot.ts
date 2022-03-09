@@ -38,9 +38,8 @@ class LightSpot extends PhetioObject {
   // If the spot does not intersect the screen, the value will be a Shape with zero area.
   public readonly shapeProperty: IReadOnlyProperty<Shape>;
 
-  // Intensity of the light spot, in the range [0,1],
-  // null if there is no light spot hitting the projection screen
-  public readonly intensityProperty: IReadOnlyProperty<number | null>;
+  // Intensity of the light spot, in the range [0,1], 0 if there is no light spot hitting the projection screen
+  public readonly intensityProperty: IReadOnlyProperty<number>;
 
   // Position of the center of the light spot, which may not be on the screen,
   // null if there is no light spot hitting the projection screen
@@ -107,7 +106,7 @@ class LightSpot extends PhetioObject {
     this.intensityProperty = new DerivedProperty( [ this.diameterProperty, optic.diameterProperty ],
       ( lightSpotDiameter: number | null, opticDiameter: number ) => {
         if ( ( lightSpotDiameter === 0 || lightSpotDiameter === null ) ) {
-          return null;
+          return 0;
         }
         else {
           assert && assert( optic.diameterProperty.range ); // {Range|null}

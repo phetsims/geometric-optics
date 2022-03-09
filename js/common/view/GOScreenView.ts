@@ -451,14 +451,14 @@ class GOScreenView extends ScreenView {
     // pdom -traversal order
     screenViewRootNode.pdomOrder = [
       scenesLayer,
-      opticalObjectChoiceComboBox,
-      dragLockedButton,
-      opticShapeRadioButtonGroup,
-      toolbox,
       horizontalRulerNode,
       verticalRulerNode,
       positionMarker1Node,
       positionMarker2Node,
+      opticalObjectChoiceComboBox,
+      dragLockedButton,
+      opticShapeRadioButtonGroup,
+      toolbox,
       zoomButtonGroup,
       lightPropagationToggleButton,
       controlPanel,

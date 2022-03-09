@@ -52,8 +52,8 @@ class OpticalImage extends PhetioObject {
   // the magnification can be negative, indicating that the optical image is inverted.
   public readonly magnificationProperty: IReadOnlyProperty<number>;
 
-  // light intensity of the optical image (Hollywooded) in the range [0,1]
-  public readonly lightIntensityProperty: IReadOnlyProperty<number>;
+  // opacity of the optical image
+  public readonly opacityProperty: IReadOnlyProperty<number>;
 
   // Resets things that are specific to this class.
   private readonly resetOpticalImage: () => void;
@@ -162,13 +162,13 @@ class OpticalImage extends PhetioObject {
     assert && assert( optic.diameterProperty.range ); // {Range|null}
     const diameterRange = optic.diameterProperty.range!;
 
-    // See https://github.com/phetsims/geometric-optics/issues/350#issuecomment-1059790907
-    this.lightIntensityProperty = new DerivedProperty(
+    // For the history of this algorithm, see https://github.com/phetsims/geometric-optics/issues/350
+    this.opacityProperty = new DerivedProperty(
       [ opticalObject.opticObjectXDistanceProperty, optic.diameterProperty, this.magnificationProperty ],
       ( opticObjectXDistance: number, diameter: number, magnification: number ) => {
 
         // Affect of object's distance from the optic.
-        const referenceObjectDistance = 160;
+        const referenceObjectDistance = 160; //TODO https://github.com/phetsims/geometric-optics/issues/350 magic number
         const objectDistanceFactor = referenceObjectDistance / opticObjectXDistance;
 
         // Affect of optic diameter
@@ -177,13 +177,13 @@ class OpticalImage extends PhetioObject {
         // Affect of magnification.
         const magnificationFactor = Math.abs( 1 / magnification );
 
-        // Multiply factors, constrained to [0,1].
-        return GOConstants.INTENSITY_RANGE.constrainValue( 0.75 * objectDistanceFactor * diameterFactor * magnificationFactor );
+        // Multiply factors, constrain to range
+        return GOConstants.OPACITY_RANGE.constrainValue( 0.75 * objectDistanceFactor * diameterFactor * magnificationFactor ); //TODO https://github.com/phetsims/geometric-optics/issues/350 magic number
       }, {
-        isValidValue: ( value: number ) => GOConstants.INTENSITY_RANGE.contains( value ),
+        isValidValue: ( value: number ) => GOConstants.OPACITY_RANGE.contains( value ),
 
         //TODO https://github.com/phetsims/geometric-optics/issues/350 should this remain instrumented?
-        tandem: options.tandem.createTandem( 'lightIntensityProperty' ),
+        tandem: options.tandem.createTandem( 'opacityProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
       } );
 

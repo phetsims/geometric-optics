@@ -22,8 +22,6 @@ import { OpticalImageType } from '../model/OpticalImageType.js';
 import GOConstants from '../GOConstants.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
-import Utils from '../../../../dot/js/Utils.js';
-import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 
 type FramedImageNodeOptions = PickRequired<NodeOptions, 'tandem'>;
 
@@ -100,16 +98,8 @@ class FramedImageNode extends Node {
     // update position and scale when model bounds change
     framedImage.boundsProperty.link( () => updateScaleAndPosition() );
 
-    const opacityProperty = new DerivedProperty( [ framedImage.lightIntensityProperty ], ( lightIntensity: number ) =>
-      Utils.linear( 0, 1, GOQueryParameters.framedImageOpacityRange[ 0 ], GOQueryParameters.framedImageOpacityRange[ 1 ], lightIntensity ), {
-
-      //TODO https://github.com/phetsims/geometric-optics/issues/350 should this remain instrumented?
-      tandem: options.tandem.createTandem( 'opacityProperty' ),
-      phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
-    } );
-
     // update the opacity of the Image
-    opacityProperty.link( opacity => {
+    framedImage.opacityProperty.link( opacity => {
       imageNode.opacity = opacity;
     } );
 
