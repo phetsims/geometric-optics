@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -51,7 +50,6 @@ class RulerIconNode extends RulerNode {
 
       // NodeOptions
       cursor: 'pointer',
-      visibleProperty: DerivedProperty.not( ruler.visibleProperty ),
       tagName: 'button',
       tandem: Tandem.OPT_OUT
     };
@@ -77,11 +75,15 @@ class RulerIconNode extends RulerNode {
       this.rotate( -Math.PI / 2 );
     }
 
+    ruler.isInToolboxProperty.link( isInToolbox => {
+      this.visible = isInToolbox;
+    } );
+
     // Dragging with mouse/touch. Drag events are forwarded from the icon to its associated ruler.
     this.addInputListener( DragListener.createForwardingListener( ( event: PressListenerEvent ) => {
 
-      // Make the ruler visible.
-      ruler.visibleProperty.value = true;
+      // Take the ruler out of the toolbox.
+      ruler.isInToolboxProperty.value = false;
 
       // Set position of the ruler so that the pointer is initially at the center of rulerNode.
       assert && assert( event.pointer.point ); // {Vector2|null}
@@ -103,10 +105,10 @@ class RulerIconNode extends RulerNode {
       rulerNode.startDrag( event );
     } ) );
 
-    // When the icon is clicked via the keyboard, make the associated ruler visible at the model origin.
+    // When the icon is clicked via the keyboard, take the ruler out of the toolbox, and place it at the model origin.
     this.addInputListener( {
       click: () => {
-        ruler.visibleProperty.value = true;
+        ruler.isInToolboxProperty.value = false;
         ruler.positionProperty.value = Vector2.ZERO;
         rulerNode.focus();
       }

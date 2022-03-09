@@ -73,9 +73,9 @@ class PositionMarkerNode extends Node implements ToolNode {
 
       // NodeOptions
       children: [ mapMarkerNode ],
-      visibleProperty: positionMarker.visibleProperty,
       tagName: 'div',
       focusable: true,
+      phetioVisiblePropertyInstrumented: false,
       phetioInputEnabledPropertyInstrumented: true
     }, providedOptions );
 
@@ -88,6 +88,10 @@ class PositionMarkerNode extends Node implements ToolNode {
     this.positionMarker = positionMarker;
     this.toolboxBounds = Bounds2.NOTHING; // to be set later via setToolboxBounds
     this.iconNode = new PositionMarkerIconNode( this, zoomTransformProperty );
+
+    positionMarker.isInToolboxProperty.link( isInToolbox => {
+      this.visible = !isInToolbox;
+    } );
 
     positionMarker.positionProperty.link( position => {
       this.centerTop = zoomTransformProperty.value.modelToViewPosition( position );
@@ -129,7 +133,7 @@ class PositionMarkerNode extends Node implements ToolNode {
 
         // Return the marker to the toolbox if the marker's bounds intersect the toolbox.
         if ( this.toolboxBounds.intersectsBounds( this.bounds ) ) {
-          positionMarker.visibleProperty.value = false;
+          this.returnToToolbox( false );
         }
       },
       tandem: options.tandem.createTandem( 'dragListener' )
@@ -146,8 +150,7 @@ class PositionMarkerNode extends Node implements ToolNode {
         // Return the marker to the toolbox if the marker's bounds intersect the toolbox.
         end: () => {
           if ( this.toolboxBounds.intersectsBounds( this.bounds ) ) {
-            positionMarker.visibleProperty.value = false;
-            this.iconNode.focus();
+            this.returnToToolbox( true );
           }
         },
         tandem: options.tandem.createTandem( 'keyboardDragListener' )
@@ -159,7 +162,7 @@ class PositionMarkerNode extends Node implements ToolNode {
       // Escape returns the marker to the toolbox.
       {
         keys: [ KeyboardUtils.KEY_ESCAPE ],
-        callback: () => this.returnToToolbox()
+        callback: () => this.returnToToolbox( true )
       }
     ];
 
@@ -197,10 +200,11 @@ class PositionMarkerNode extends Node implements ToolNode {
 
   /**
    * Returns the marker to the toolbox.
+   * @param focus - whether to move focus to the icon in the toolbox, should be true for keyboard input handling
    */
-  private returnToToolbox() {
-    this.positionMarker.visibleProperty.value = false;
-    this.iconNode.focus();
+  private returnToToolbox( focus: boolean ) {
+    this.positionMarker.isInToolboxProperty.value = true;
+    focus && this.iconNode.focus();
   }
 }
 

@@ -39,8 +39,8 @@ class GORuler extends PhetioObject {
   // position of the ruler, in cm
   public readonly positionProperty: Property<Vector2>;
 
-  // Whether the ruler is visible. If the ruler is not visible, then it is in the toolbox.
-  public readonly visibleProperty: Property<boolean>;
+  // Whether the ruler is in the toolbox.
+  public readonly isInToolboxProperty: Property<boolean>;
 
   // Resets things that are specific to this class.
   private readonly resetGORuler: () => void;
@@ -70,17 +70,14 @@ class GORuler extends PhetioObject {
       tandem: options.tandem.createTandem( 'positionProperty' )
     } );
 
-    this.visibleProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'visibleProperty' ),
-      phetioDocumentation: 'Controls whether the full-size ruler is visible.' +
-                           '<ul>' +
-                           '<li>true: ruler is out of the toolbox</li>' +
-                           '<li>false: ruler is in the toolbox</li>'
+    this.isInToolboxProperty = new BooleanProperty( true, {
+      tandem: options.tandem.createTandem( 'isInToolboxProperty' ),
+      phetioDocumentation: 'Controls whether the ruler is in the toolbox.'
     } );
 
     this.resetGORuler = () => {
       this.positionProperty.reset();
-      this.visibleProperty.reset();
+      this.isInToolboxProperty.reset();
     };
   }
 

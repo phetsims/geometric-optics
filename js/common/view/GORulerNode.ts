@@ -81,9 +81,9 @@ class GORulerNode extends Node implements ToolNode {
 
       // NodeOptions
       rotation: ( ruler.orientation === 'vertical' ) ? -Math.PI / 2 : 0,
-      visibleProperty: ruler.visibleProperty,
       tagName: 'div',
       focusable: true,
+      phetioVisiblePropertyInstrumented: false,
       phetioInputEnabledPropertyInstrumented: true
     }, providedOptions );
 
@@ -118,6 +118,10 @@ class GORulerNode extends Node implements ToolNode {
       ruler.positionProperty.value = ( this.ruler.orientation === 'vertical' ) ?
                                      zoomTransform.viewToModelPosition( this.leftBottom ) :
                                      zoomTransform.viewToModelPosition( this.leftTop );
+    } );
+
+    ruler.isInToolboxProperty.link( isInToolbox => {
+      this.visible = !isInToolbox;
     } );
 
     ruler.positionProperty.link( position => {
@@ -170,7 +174,7 @@ class GORulerNode extends Node implements ToolNode {
         // Return ruler to toolbox if the pointer is inside the toolbox.
         assert && assert( listener.pointer && listener.pointer.point ); // {Pointer|null}
         if ( this.toolboxBounds.containsPoint( this.globalToParentPoint( listener.pointer!.point ) ) ) {
-          ruler.visibleProperty.value = false;
+          this.returnToToolbox( false );
         }
       },
       tandem: options.tandem.createTandem( 'dragListener' )
@@ -187,8 +191,7 @@ class GORulerNode extends Node implements ToolNode {
         // Return the ruler to the toolbox if the ruler's center point is inside the toolbox.
         end: () => {
           if ( this.toolboxBounds.containsPoint( this.center ) ) {
-            ruler.visibleProperty.value = false;
-            this.iconNode.focus();
+            this.returnToToolbox( true );
           }
         },
         tandem: options.tandem.createTandem( 'keyboardDragListener' )
@@ -201,7 +204,7 @@ class GORulerNode extends Node implements ToolNode {
       // Escape returns the ruler to the toolbox.
       {
         keys: [ KeyboardUtils.KEY_ESCAPE ],
-        callback: () => this.returnToToolbox()
+        callback: () => this.returnToToolbox( true )
       },
 
       // J+R move the ruler to next visible position in hotkeyTargets
@@ -254,10 +257,11 @@ class GORulerNode extends Node implements ToolNode {
 
   /**
    * Returns the ruler to the toolbox.
+   * @param focus - whether to move focus to the icon in the toolbox, should be true for keyboard input handling
    */
-  private returnToToolbox() {
-    this.ruler.visibleProperty.value = false;
-    this.iconNode.focus();
+  private returnToToolbox( focus: boolean ) {
+    this.ruler.isInToolboxProperty.value = true;
+    focus && this.iconNode.focus();
   }
 
   /**

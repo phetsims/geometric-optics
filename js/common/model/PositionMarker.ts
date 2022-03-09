@@ -33,8 +33,8 @@ class PositionMarker extends PhetioObject {
   // position of the marker, in cm
   public readonly positionProperty: Property<Vector2>;
 
-  // Whether the marker is visible. If the marker is not visible, then it is in the toolbox.
-  public readonly visibleProperty: Property<boolean>;
+  // Whether the marker is in the toolbox.
+  public readonly isInToolboxProperty: Property<boolean>;
 
   // Resets things that are specific to this class.
   private readonly resetPositionMarker: () => void;
@@ -59,17 +59,14 @@ class PositionMarker extends PhetioObject {
       tandem: options.tandem.createTandem( 'positionProperty' )
     } );
 
-    this.visibleProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'visibleProperty' ),
-      phetioDocumentation: 'Controls whether the marker is visible.' +
-                           '<ul>' +
-                           '<li>true: marker is out of the toolbox</li>' +
-                           '<li>false: marker is in the toolbox</li>'
+    this.isInToolboxProperty = new BooleanProperty( true, {
+      tandem: options.tandem.createTandem( 'isInToolboxProperty' ),
+      phetioDocumentation: 'Controls whether the marker is in the toolbox.'
     } );
 
     this.resetPositionMarker = () => {
       this.positionProperty.reset();
-      this.visibleProperty.reset();
+      this.isInToolboxProperty.reset();
     };
   }
 
