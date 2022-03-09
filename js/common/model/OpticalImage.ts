@@ -18,7 +18,6 @@ import StringIO from '../../../../tandem/js/types/StringIO.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
 import { OpticalImageType, OpticalImageTypeValues } from './OpticalImageType.js';
-import GOConstants from '../GOConstants.js';
 import OpticalObject from './OpticalObject.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
@@ -51,9 +50,6 @@ class OpticalImage extends PhetioObject {
 
   // the magnification can be negative, indicating that the optical image is inverted.
   public readonly magnificationProperty: IReadOnlyProperty<number>;
-
-  // opacity of the optical image
-  public readonly opacityProperty: IReadOnlyProperty<number>;
 
   // Resets things that are specific to this class.
   private readonly resetOpticalImage: () => void;
@@ -157,34 +153,6 @@ class OpticalImage extends PhetioObject {
         tandem: options.tandem.createTandem( 'opticalImageTypeProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( StringIO ),
         validValues: OpticalImageTypeValues
-      } );
-
-    assert && assert( optic.diameterProperty.range ); // {Range|null}
-    const diameterRange = optic.diameterProperty.range!;
-
-    // For the history of this algorithm, see https://github.com/phetsims/geometric-optics/issues/350
-    this.opacityProperty = new DerivedProperty(
-      [ opticalObject.opticObjectXDistanceProperty, optic.diameterProperty, this.magnificationProperty ],
-      ( opticObjectXDistance: number, diameter: number, magnification: number ) => {
-
-        // Affect of object's distance from the optic.
-        const referenceObjectDistance = 160; //TODO https://github.com/phetsims/geometric-optics/issues/350 magic number
-        const objectDistanceFactor = referenceObjectDistance / opticObjectXDistance;
-
-        // Affect of optic diameter
-        const diameterFactor = diameter / diameterRange.max;
-
-        // Affect of magnification.
-        const magnificationFactor = Math.abs( 1 / magnification );
-
-        // Multiply factors, constrain to range
-        return GOConstants.OPACITY_RANGE.constrainValue( 0.75 * objectDistanceFactor * diameterFactor * magnificationFactor ); //TODO https://github.com/phetsims/geometric-optics/issues/350 magic number
-      }, {
-        isValidValue: ( value: number ) => GOConstants.OPACITY_RANGE.contains( value ),
-
-        //TODO https://github.com/phetsims/geometric-optics/issues/350 should this remain instrumented?
-        tandem: options.tandem.createTandem( 'opacityProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
       } );
 
     this.resetOpticalImage = () => {

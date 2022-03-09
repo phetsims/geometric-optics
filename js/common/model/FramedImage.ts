@@ -20,6 +20,8 @@ import FramedObject from './FramedObject.js';
 import { OpticalImageType } from './OpticalImageType.js';
 import { PickRequired } from '../../../../phet-core/js/types/PickRequired.js';
 import { PickOptional } from '../../../../phet-core/js/types/PickOptional.js';
+import GOConstants from '../GOConstants.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 
 type FramedImageOptions = PickOptional<OpticalImageOptions, 'opticalObjectPositionProperty'> &
   PickRequired<OpticalImageOptions, 'tandem' | 'phetioDocumentation'>;
@@ -31,6 +33,9 @@ class FramedImage extends OpticalImage {
 
   // bounds of the optical image's visual representation, in model coordinates
   public readonly boundsProperty: IReadOnlyProperty<Bounds2>;
+
+  // opacity of the framed image
+  public readonly opacityProperty: IReadOnlyProperty<number>;
 
   /**
    * @param framedObject - the optical object that this image is associated with
@@ -73,6 +78,34 @@ class FramedImage extends OpticalImage {
         const bounds = new Bounds2( Math.min( x1, x2 ), Math.min( y1, y2 ), Math.max( x1, x2 ), Math.max( y1, y2 ) );
 
         return bounds.shifted( position );
+      } );
+
+    assert && assert( optic.diameterProperty.range ); // {Range|null}
+    const diameterRange = optic.diameterProperty.range!;
+
+    // For the history of this algorithm, see https://github.com/phetsims/geometric-optics/issues/350
+    this.opacityProperty = new DerivedProperty(
+      [ framedObject.opticObjectXDistanceProperty, optic.diameterProperty, this.magnificationProperty ],
+      ( opticObjectXDistance: number, diameter: number, magnification: number ) => {
+
+        // Affect of object's distance from the optic.
+        const referenceObjectDistance = 160; //TODO https://github.com/phetsims/geometric-optics/issues/350 magic number
+        const objectDistanceFactor = referenceObjectDistance / opticObjectXDistance;
+
+        // Affect of optic diameter
+        const diameterFactor = diameter / diameterRange.max;
+
+        // Affect of magnification.
+        const magnificationFactor = Math.abs( 1 / magnification );
+
+        // Multiply factors, constrain to range
+        return GOConstants.OPACITY_RANGE.constrainValue( 0.75 * objectDistanceFactor * diameterFactor * magnificationFactor ); //TODO https://github.com/phetsims/geometric-optics/issues/350 magic number
+      }, {
+        isValidValue: ( value: number ) => GOConstants.OPACITY_RANGE.contains( value ),
+
+        //TODO https://github.com/phetsims/geometric-optics/issues/350 should this remain instrumented?
+        tandem: providedOptions.tandem.createTandem( 'opacityProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
       } );
   }
 
