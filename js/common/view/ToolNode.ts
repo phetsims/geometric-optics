@@ -1,5 +1,6 @@
 // Copyright 2022, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/geometric-optics/issues/355 fold this into new base class GOToolNode
 /**
  * ToolNode is the interface implemented by all tool Nodes (rulers, position markers).
  *
