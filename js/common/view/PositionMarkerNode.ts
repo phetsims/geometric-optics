@@ -10,7 +10,7 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { DragListener, KeyboardDragListener, KeyboardUtils, Node, NodeOptions, Path, PathOptions, PressListenerEvent } from '../../../../scenery/js/imports.js';
+import { DragListener, KeyboardDragListener, KeyboardUtils, Node, NodeOptions, PressListenerEvent } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
@@ -20,8 +20,8 @@ import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
 import PositionMarker from '../model/PositionMarker.js';
 import PositionMarkerIconNode from './PositionMarkerIconNode.js';
 import ToolNode from './ToolNode.js';
-import mapMarkerAltSolidShape from '../../../../sherpa/js/fontawesome-5/mapMarkerAltSolidShape.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import MapMarkerNode from './MapMarkerNode.js';
 
 type SelfOptions = {
 
@@ -58,8 +58,9 @@ class PositionMarkerNode extends Node implements ToolNode {
                visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                providedOptions: PositionMarkerNodeOptions ) {
 
-    const node = PositionMarkerNode.createNode( {
-      fill: positionMarker.fill
+    const mapMarkerNode = new MapMarkerNode( {
+      fill: positionMarker.fill,
+      stroke: positionMarker.stroke
     } );
 
     const options = optionize<PositionMarkerNodeOptions, SelfOptions, NodeOptions>( {
@@ -71,7 +72,7 @@ class PositionMarkerNode extends Node implements ToolNode {
       mouseAreaDilationY: 5,
 
       // NodeOptions
-      children: [ node ],
+      children: [ mapMarkerNode ],
       visibleProperty: positionMarker.visibleProperty,
       tagName: 'div',
       focusable: true,
@@ -200,17 +201,6 @@ class PositionMarkerNode extends Node implements ToolNode {
   private returnToToolbox() {
     this.positionMarker.visibleProperty.value = false;
     this.iconNode.focus();
-  }
-
-  /**
-   * Creates the visual representation of a position marker, with no interactivity.
-   * @param providedOptions
-   */
-  public static createNode( providedOptions: PathOptions ): Node {
-    return new Path( mapMarkerAltSolidShape, optionize<PathOptions, {}>( {
-      scale: 0.065,
-      rotation: Math.PI
-    }, providedOptions ) );
   }
 }
 

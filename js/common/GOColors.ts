@@ -11,9 +11,10 @@
 import { ProfileColorProperty } from '../../../scenery/js/imports.js';
 import geometricOptics from '../geometricOptics.js';
 
-// BEWARE: If you change this, you should update light2.png.
-const OBJECT_1_FILL = 'blue';
-const OBJECT_2_FILL = 'rgb( 255, 51, 51 )';
+const ARROW_1_FILL = 'blue';
+const ARROW_2_FILL = 'rgb( 255, 51, 51 )'; // BEWARE: If you change this, you should update light2.png.
+const POSITION_MARKER_FILL = 'rgb( 236, 225, 113 )';
+const POSITION_MARKER_STROKE = 'black';
 
 const GOColors = {
 
@@ -89,9 +90,9 @@ const GOColors = {
     default: 'rgb( 133, 133, 182 )'
   } ),
 
-  // Fill for the second point on a Framed Object
+  // Fill for the second point on a Framed Object, same as second arrow
   secondPointFillProperty: new ProfileColorProperty( geometricOptics, 'secondPointFill', {
-    default: OBJECT_2_FILL
+    default: ARROW_2_FILL
   } ),
 
   // Stroke for the second point on a Framed Object
@@ -100,11 +101,11 @@ const GOColors = {
   } ),
 
   arrow1FillProperty: new ProfileColorProperty( geometricOptics, 'arrow1Fill', {
-    default: OBJECT_1_FILL
+    default: ARROW_1_FILL
   } ),
 
   arrow2FillProperty: new ProfileColorProperty( geometricOptics, 'arrow2Fill', {
-    default: OBJECT_2_FILL
+    default: ARROW_2_FILL
   } ),
 
   // Rays associated with the first optical object
@@ -182,11 +183,19 @@ const GOColors = {
   } ),
 
   positionMarker1FillProperty: new ProfileColorProperty( geometricOptics, 'positionMarker1Fill', {
-    default: 'black'
+    default: POSITION_MARKER_FILL
+  } ),
+
+  positionMarker1StrokeProperty: new ProfileColorProperty( geometricOptics, 'positionMarker1Stroke', {
+    default: POSITION_MARKER_STROKE
   } ),
 
   positionMarker2FillProperty: new ProfileColorProperty( geometricOptics, 'positionMarker2Fill', {
-    default: 'black'
+    default: POSITION_MARKER_FILL
+  } ),
+
+  positionMarker2StrokeProperty: new ProfileColorProperty( geometricOptics, 'positionMarker2Stroke', {
+    default: POSITION_MARKER_STROKE
   } )
 };
 

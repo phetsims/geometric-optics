@@ -157,11 +157,13 @@ class GOModel {
 
     this.positionMarker1 = new PositionMarker( {
       fill: GOColors.positionMarker1FillProperty,
+      stroke: GOColors.positionMarker1StrokeProperty,
       tandem: toolsTandem.createTandem( 'positionMarker1' )
     } );
 
     this.positionMarker2 = new PositionMarker( {
       fill: GOColors.positionMarker2FillProperty,
+      stroke: GOColors.positionMarker2StrokeProperty,
       tandem: toolsTandem.createTandem( 'positionMarker2' )
     } );
 

@@ -19,14 +19,16 @@ import optionize from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {
   fill: IColor;
+  stroke: IColor;
 };
 
 type PositionMarkerOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 class PositionMarker extends PhetioObject {
 
-  // fill color for the marker
+  // fill and stroke for the marker
   public readonly fill: IColor;
+  public readonly stroke: IColor;
 
   // position of the marker, in cm
   public readonly positionProperty: Property<Vector2>;
@@ -51,6 +53,7 @@ class PositionMarker extends PhetioObject {
     super( options );
 
     this.fill = options.fill;
+    this.stroke = options.stroke;
 
     this.positionProperty = new Vector2Property( Vector2.ZERO, {
       tandem: options.tandem.createTandem( 'positionProperty' )

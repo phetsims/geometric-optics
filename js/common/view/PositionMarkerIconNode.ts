@@ -15,6 +15,7 @@ import { DragListener, Node, PressListenerEvent } from '../../../../scenery/js/i
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import PositionMarkerNode from './PositionMarkerNode.js';
+import MapMarkerNode from './MapMarkerNode.js';
 
 class PositionMarkerIconNode extends Node {
 
@@ -26,8 +27,10 @@ class PositionMarkerIconNode extends Node {
 
     const positionMarker = positionMarkerNode.positionMarker;
 
-    const icon = PositionMarkerNode.createNode( {
-      fill: positionMarker.fill
+    const mapMarkerNode = new MapMarkerNode( {
+      fill: positionMarker.fill,
+      stroke: positionMarker.stroke,
+      scale: 0.8 // slightly smaller for toolbox icon
     } );
 
     const options = {
@@ -39,7 +42,7 @@ class PositionMarkerIconNode extends Node {
       mouseAreaDilationY: 5,
 
       // NodeOptions
-      children: [ icon ],
+      children: [ mapMarkerNode ],
       cursor: 'pointer',
       visibleProperty: DerivedProperty.not( positionMarker.visibleProperty ),
       tagName: 'button',
