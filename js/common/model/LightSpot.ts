@@ -127,7 +127,6 @@ class LightSpot extends PhetioObject {
         phetioDocumentation: 'intensity of the light hitting the screen, in the range [0,1], ' +
                              'null if the light is not hitting the screen'
       } );
-    this.intensityProperty.link( intensity => console.log( `LightSpot intensity=${intensity}` ) );
   }
 
   public dispose(): void {
