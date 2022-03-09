@@ -1,9 +1,8 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 //TODO https://github.com/phetsims/geometric-optics/issues/355 factor out duplication into GOToolIcon
-//TODO https://github.com/phetsims/geometric-optics/issues/355 rename to GORulerIcon
 /**
- * RulerIconNode is a ruler icon that appears in the toolbox. It is associated with a specific ruler Node,
+ * GoRulerIcon is a ruler icon that appears in the toolbox. It is associated with a specific ruler Node,
  * and forwards events to that Node.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -32,9 +31,9 @@ type SelfOptions = {
   mouseAreaDilationY?: number;
 };
 
-type RulerIconNodeOptions = SelfOptions & PickRequired<Node, 'tandem'>;
+type GoRulerIconOptions = SelfOptions & PickRequired<Node, 'tandem'>;
 
-class RulerIconNode extends Node {
+class GoRulerIcon extends Node {
 
   /**
    * @param rulerNode
@@ -43,7 +42,7 @@ class RulerIconNode extends Node {
    */
   constructor( rulerNode: GORulerNode,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               providedOptions: RulerIconNodeOptions ) {
+               providedOptions: GoRulerIconOptions ) {
 
     const ruler = rulerNode.ruler;
 
@@ -68,7 +67,7 @@ class RulerIconNode extends Node {
       tandem: Tandem.OPT_OUT
     } );
 
-    const options = optionize<RulerIconNodeOptions, SelfOptions, NodeOptions>( {
+    const options = optionize<GoRulerIconOptions, SelfOptions, NodeOptions>( {
 
       // pointer areas
       touchAreaDilationX: 5,
@@ -135,5 +134,5 @@ class RulerIconNode extends Node {
   }
 }
 
-geometricOptics.register( 'RulerIconNode', RulerIconNode );
-export default RulerIconNode;
+geometricOptics.register( 'GoRulerIcon', GoRulerIcon );
+export default GoRulerIcon;

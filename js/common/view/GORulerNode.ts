@@ -25,7 +25,7 @@ import GOConstants from '../GOConstants.js';
 import GORuler from '../model/GORuler.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import RulerIconNode from './RulerIconNode.js';
+import GoRulerIcon from './GoRulerIcon.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize from '../../../../phet-core/js/optionize.js';
@@ -51,7 +51,7 @@ export type GORulerNodeOptions = SelfOptions & PickRequired<Node, 'tandem'>;
 class GORulerNode extends Node implements ToolNode {
 
   // see ToolNode
-  public readonly icon: RulerIconNode;
+  public readonly icon: GoRulerIcon;
 
   // the ruler model that is associated with this Node
   public readonly ruler: GORuler;
@@ -99,7 +99,7 @@ class GORulerNode extends Node implements ToolNode {
     this.hotkeyTargets = [];
     this.hotkeyTargetsIndex = 0;
     this.toolboxBounds = Bounds2.NOTHING; // to be set later via setToolboxBounds
-    this.icon = new RulerIconNode( this, zoomTransformProperty, {
+    this.icon = new GoRulerIcon( this, zoomTransformProperty, {
       tandem: options.iconTandem
     } );
 
