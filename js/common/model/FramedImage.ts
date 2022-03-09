@@ -83,13 +83,13 @@ class FramedImage extends OpticalImage {
     assert && assert( optic.diameterProperty.range ); // {Range|null}
     const diameterRange = optic.diameterProperty.range!;
 
-    // For the history of this algorithm, see https://github.com/phetsims/geometric-optics/issues/350
+    // This algorithm was specified by Kathy Perkins in https://github.com/phetsims/geometric-optics/issues/350.
     this.opacityProperty = new DerivedProperty(
       [ framedObject.opticObjectXDistanceProperty, optic.diameterProperty, this.magnificationProperty ],
       ( opticObjectXDistance: number, diameter: number, magnification: number ) => {
 
-        // This constant was specified by Kathy Perkins in https://github.com/phetsims/geometric-optics/issues/350.
-        // It is "a comfortable distance from the lens, and nominally where the image/object sizes are the same".
+        // Kathy Perkins described this constant as "a comfortable distance from the lens, and nominally where the
+        // image/object sizes are the same".
         const referenceObjectDistance = 160; // cm
         
         // Affect of object's distance from the optic.
@@ -101,10 +101,9 @@ class FramedImage extends OpticalImage {
         // Affect of magnification.
         const magnificationFactor = Math.abs( 1 / magnification );
 
-        // This constant was specified by Kathy Perkins in https://github.com/phetsims/geometric-optics/issues/350.
-        // Before rewriting this algorithm, the opacity range was [0,0.75]. Kathy included it here in this way
-        // because "it was easiest to find ... where you would get a value of 1, and then just multiply that by 0.75
-        // to create the visual effect we wanted".
+        // Prior to rewriting this algorithm, the opacity range was [0,0.75]. Kathy Perkins described this constant
+        // like this: "it was easiest to find ... where you would get a value of 1, and then just multiply that
+        // by 0.75 to create the visual effect we wanted".
         const multiplier = 0.75;
 
         // Multiply factors, constrain to range.
