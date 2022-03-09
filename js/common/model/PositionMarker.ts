@@ -1,5 +1,6 @@
 // Copyright 2022, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/geometric-optics/issues/355 factor out duplication into GOTool
 /**
  * PositionMarker is used to mark an arbitrary position.
  * See https://github.com/phetsims/geometric-optics/issues/355

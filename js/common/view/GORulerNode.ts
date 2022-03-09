@@ -1,5 +1,6 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/geometric-optics/issues/355 factor out duplication into GOToolNode
 /**
  * GORulerNode is the view of a ruler. Responsibilities include:
  *

@@ -1,5 +1,6 @@
 // Copyright 2022, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/geometric-optics/issues/355 factor out duplication into GOToolIconNode
 /**
  * PositionMarkerIconNode is a position-marker icon that appears in the toolbox. It is associated with a specific
  * position-marker Node, and forwards events to that Node.

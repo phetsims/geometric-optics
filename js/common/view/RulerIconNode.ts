@@ -1,5 +1,6 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/geometric-optics/issues/355 factor out duplication into GOToolIconNode
 /**
  * RulerIconNode is a ruler icon that appears in the toolbox. It is associated with a specific ruler Node,
  * and forwards events to that Node.

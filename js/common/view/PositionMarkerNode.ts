@@ -1,5 +1,6 @@
 // Copyright 2022, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/geometric-optics/issues/355 factor out duplication into GOToolNode
 /**
  * PositionMarkerNode is the view of a position marker. It can be dragged in/out of the toolbox, and
  * positioned anywhere within the drag bounds.
