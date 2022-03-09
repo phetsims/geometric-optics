@@ -90,7 +90,7 @@ class FramedImage extends OpticalImage {
 
         // This constant was specified by Kathy Perkins in https://github.com/phetsims/geometric-optics/issues/350.
         // It is "a comfortable distance from the lens, and nominally where the image/object sizes are the same".
-        const referenceObjectDistance = 160;
+        const referenceObjectDistance = 160; // cm
         
         // Affect of object's distance from the optic.
         const objectDistanceFactor = referenceObjectDistance / opticObjectXDistance;
