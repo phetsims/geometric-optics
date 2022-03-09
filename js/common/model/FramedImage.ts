@@ -88,8 +88,11 @@ class FramedImage extends OpticalImage {
       [ framedObject.opticObjectXDistanceProperty, optic.diameterProperty, this.magnificationProperty ],
       ( opticObjectXDistance: number, diameter: number, magnification: number ) => {
 
+        // This constant was specified by Kathy Perkins in https://github.com/phetsims/geometric-optics/issues/350.
+        // It is "a comfortable distance from the lens, and nominally where the image/object sizes are the same".
+        const referenceObjectDistance = 160;
+        
         // Affect of object's distance from the optic.
-        const referenceObjectDistance = 160; //TODO https://github.com/phetsims/geometric-optics/issues/350 magic number
         const objectDistanceFactor = referenceObjectDistance / opticObjectXDistance;
 
         // Affect of optic diameter
@@ -98,8 +101,14 @@ class FramedImage extends OpticalImage {
         // Affect of magnification.
         const magnificationFactor = Math.abs( 1 / magnification );
 
-        // Multiply factors, constrain to range
-        return GOConstants.OPACITY_RANGE.constrainValue( 0.75 * objectDistanceFactor * diameterFactor * magnificationFactor ); //TODO https://github.com/phetsims/geometric-optics/issues/350 magic number
+        // This constant was specified by Kathy Perkins in https://github.com/phetsims/geometric-optics/issues/350.
+        // Before rewriting this algorithm, the opacity range was [0,0.75]. Kathy included it here in this way
+        // because "it was easiest to find ... where you would get a value of 1, and then just multiply that by 0.75
+        // to create the visual effect we wanted".
+        const multipler = 0.75;
+
+        // Multiply factors, constrain to range.
+        return GOConstants.OPACITY_RANGE.constrainValue( multipler * objectDistanceFactor * diameterFactor * magnificationFactor );
       }, {
         isValidValue: ( value: number ) => GOConstants.OPACITY_RANGE.contains( value ),
 
