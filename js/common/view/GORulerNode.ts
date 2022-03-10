@@ -171,7 +171,7 @@ class GORulerNode extends GOToolNode {
     } );
     this.addInputListener( keyboardDragListener );
 
-    // J+R move the ruler to next visible position in hotkeyTargets.
+    // J+R moves the ruler to the next visible position in hotkeyTargets.
     // See https://github.com/phetsims/geometric-optics/issues/279
     keyboardDragListener.addHotkey( {
       keys: [ KeyboardUtils.KEY_R ],
