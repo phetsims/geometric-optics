@@ -108,19 +108,21 @@ class PositionMarkerNode extends GOToolNode {
       positionMarker.positionProperty.value = dragBounds.closestPointTo( positionMarker.positionProperty.value );
     } );
 
-    // Dragging with the pointer.
-    // Return to the toolbox when the pointer is released with any part of the marker intersecting the toolbox.
+    // Return the tool to the toolbox if the marker's bounds intersect the toolbox.
     const shouldReturnToToolbox = () => this.toolboxBounds.intersectsBounds( this.bounds );
+
+    // Dragging with the pointer.
     this.dragListener = new GOToolDragListener( this, zoomTransformProperty, dragBoundsProperty, shouldReturnToToolbox, {
       offsetPosition: () => new Vector2( -this.width / 2, -this.height ),
       tandem: options.tandem.createTandem( 'dragListener' )
     } );
     this.addInputListener( this.dragListener );
 
-    // Dragging with the keyboard
-    const keyboardDragListener = new GOToolKeyboardDragListener( this, zoomTransformProperty, dragBoundsProperty, {
-      tandem: options.tandem.createTandem( 'keyboardDragListener' )
-    } );
+    // Dragging with the keyboard.
+    const keyboardDragListener = new GOToolKeyboardDragListener( this, zoomTransformProperty, dragBoundsProperty,
+      shouldReturnToToolbox, {
+        tandem: options.tandem.createTandem( 'keyboardDragListener' )
+      } );
     this.addInputListener( keyboardDragListener );
   }
 }

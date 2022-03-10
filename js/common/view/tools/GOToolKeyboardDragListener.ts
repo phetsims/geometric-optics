@@ -26,11 +26,13 @@ class GOToolKeyboardDragListener extends KeyboardDragListener {
    * @param toolNode
    * @param zoomTransformProperty
    * @param dragBoundsProperty
+   * @param shouldReturnToToolbox - determine whether the tool should be returned to the toolbox
    * @param providedOptions
    */
   constructor( toolNode: GOToolNode,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                dragBoundsProperty: IReadOnlyProperty<Bounds2>,
+               shouldReturnToToolbox: () => boolean,
                providedOptions?: GOToolKeyboardDragListenerOptions ) {
 
     const keyboardDragListenerDefaults: OptionizeDefaults<{}, KeyboardDragListenerOptions> =
@@ -39,10 +41,8 @@ class GOToolKeyboardDragListener extends KeyboardDragListener {
         dragBoundsProperty: dragBoundsProperty,
         transform: zoomTransformProperty.value,
         start: () => toolNode.moveToFront(),
-
-        // Return the tool to the toolbox if the tool's bounds intersect the toolbox.
         end: () => {
-          if ( toolNode.toolboxBounds.intersectsBounds( toolNode.bounds ) ) {
+          if ( shouldReturnToToolbox() ) {
             toolNode.returnToToolbox( true );
           }
         }
