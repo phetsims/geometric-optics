@@ -34,7 +34,7 @@ import GOToolDragListener from './GOToolDragListener.js';
 // constants
 const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;
 
-// Describes a measurement point that can be 'jumped' to via J+R hotkey.
+// Describes a measurement point that can be 'jumped' to via J+P hotkey.
 export type RulerHotkeyTarget = {
   positionProperty: IReadOnlyProperty<Vector2>;
   visibleProperty: IReadOnlyProperty<boolean>;
@@ -175,7 +175,7 @@ class GORulerNode extends GOToolNode {
   }
 
   /**
-   * Sets the targets for the J+R hotkey.
+   * Sets the targets for the J+P hotkey.
    * @param hotkeyTargets
    */
   public setHotkeyTargets( hotkeyTargets: RulerHotkeyTarget[] ) {

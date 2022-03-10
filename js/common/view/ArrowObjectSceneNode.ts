@@ -137,7 +137,7 @@ class ArrowObjectSceneNode extends GOSceneNode {
       arrowObject2Node
     ];
 
-    // Ruler J+R hotkey will cycle through these positions, dynamically looking at left-to-right x coordinate.
+    // Ruler J+P hotkey will cycle through these positions, dynamically looking at left-to-right x coordinate.
     this.verticalRulerHotkeyTargets = [
       { positionProperty: scene.optic.positionProperty, visibleProperty: this.opticNodeVisibleProperty },
       { positionProperty: scene.arrowObject1.positionProperty, visibleProperty: arrowObject1Node.visibleProperty },

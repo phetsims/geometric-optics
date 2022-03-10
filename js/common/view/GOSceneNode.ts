@@ -41,7 +41,7 @@ export type GOSceneNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem
 
 abstract class GOSceneNode extends Node {
 
-  // Measurement points for the rulers. When a ruler has focus, J+R hotkey will cycle through these points,
+  // Measurement points for the tools. When a ruler has focus, J+P hotkey will cycle through these points,
   // dynamically looking at left-to-right x coordinate.
   public abstract readonly horizontalRulerHotkeyTargets: RulerHotkeyTarget[];
   public abstract readonly verticalRulerHotkeyTargets: RulerHotkeyTarget[];
