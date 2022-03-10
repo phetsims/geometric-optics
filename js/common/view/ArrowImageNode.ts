@@ -9,7 +9,6 @@
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import ArrowImage from '../model/ArrowImage.js';
 import GOConstants from '../GOConstants.js';
@@ -19,11 +18,12 @@ import { OpticalImageType } from '../model/OpticalImageType.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import OpticalImageNode, { OpticalImageNodeOptions } from './OpticalImageNode.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
-type ArrowImageNodeOptions = PickRequired<NodeOptions, 'tandem'>;
+type ArrowImageNodeOptions = PickRequired<OpticalImageNodeOptions, 'tandem'>;
 
-class ArrowImageNode extends Node {
+class ArrowImageNode extends OpticalImageNode {
 
   /**
    * @param arrowImage
@@ -40,10 +40,9 @@ class ArrowImageNode extends Node {
                modelViewTransform: ModelViewTransform2,
                providedOptions: ArrowImageNodeOptions ) {
 
-    const options = optionize<ArrowImageNodeOptions, {}, NodeOptions>( {
+    const options = optionize<ArrowImageNodeOptions, {}, OpticalImageNodeOptions, 'visibleProperty'>( {
 
-      // NodeOptions
-      opacity: 0.5, // fixed opacity, see https://github.com/phetsims/geometric-optics/issues/350#issuecomment-1062438996
+      // OpticalImageNodeOptions
       visibleProperty: new DerivedProperty(
         [ virtualImageVisibleProperty, arrowImage.opticalImageTypeProperty, lightPropagationEnabledProperty, arrowImage.visibleProperty, objectVisibleProperty ],
         ( virtualImageVisible: boolean, opticalImageType: OpticalImageType, lightPropagationEnabled: boolean, framedImageVisible: boolean, objectVisible: boolean ) =>
@@ -53,12 +52,13 @@ class ArrowImageNode extends Node {
         } )
     }, providedOptions );
 
-    super( options );
+    super( arrowImage, options );
 
     const arrowNode = new ArrowNode( 0, 0, 0, 1,
       optionize<ArrowNodeOptions, {}, ArrowNodeOptions>( {}, GOConstants.ARROW_NODE_OPTIONS, {
         fill: arrowImage.fill,
-        stroke: null
+        stroke: null,
+        opacity: 0.5 // fixed opacity, see https://github.com/phetsims/geometric-optics/issues/350#issuecomment-1062438996
       } ) );
     this.addChild( arrowNode );
 
@@ -77,15 +77,6 @@ class ArrowImageNode extends Node {
 
         arrowNode.setTailAndTip( imageViewPosition.x, opticViewPosition.y, imageViewPosition.x, opticViewPosition.y + magnitude );
       } );
-
-    this.addLinkedElement( arrowImage, {
-      tandem: options.tandem.createTandem( arrowImage.tandem.name )
-    } );
-  }
-
-  public dispose(): void {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
-    super.dispose();
   }
 }
 

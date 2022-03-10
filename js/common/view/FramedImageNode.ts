@@ -3,13 +3,13 @@
 /**
  * FramedImageNode renders the optical image (real or virtual) associated with a framed object.
  *
- * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
+ * @author Martin Veillette
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Image, Node, NodeOptions, Path } from '../../../../scenery/js/imports.js';
+import { Image, Node, Path } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from '../model/Optic.js';
 import FramedImage from '../model/FramedImage.js';
@@ -21,11 +21,12 @@ import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import { OpticalImageType } from '../model/OpticalImageType.js';
 import GOConstants from '../GOConstants.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import OpticalImageNode, { OpticalImageNodeOptions } from './OpticalImageNode.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
-type FramedImageNodeOptions = PickRequired<NodeOptions, 'tandem'>;
+type FramedImageNodeOptions = PickRequired<OpticalImageNodeOptions, 'tandem'>;
 
-class FramedImageNode extends Node {
+class FramedImageNode extends OpticalImageNode {
 
   /**
    * @param framedImage
@@ -44,9 +45,9 @@ class FramedImageNode extends Node {
                modelViewTransform: ModelViewTransform2,
                providedOptions: FramedImageNodeOptions ) {
 
-    const options = optionize<FramedImageNodeOptions, {}, NodeOptions>( {
+    const options = optionize<FramedImageNodeOptions, {}, OpticalImageNodeOptions, 'visibleProperty'>( {
 
-      // NodeOptions
+      // OpticalImageNodeOptions
       visibleProperty: new DerivedProperty(
         [ virtualImageVisibleProperty, framedImage.opticalImageTypeProperty, lightPropagationEnabledProperty, framedImage.visibleProperty, objectVisibleProperty ],
         ( virtualImageVisible: boolean, opticalImageType: OpticalImageType, lightPropagationEnabled: boolean, framedImageVisible: boolean, objectVisible: boolean ) =>
@@ -56,7 +57,7 @@ class FramedImageNode extends Node {
         } )
     }, providedOptions );
 
-    super( options );
+    super( framedImage, options );
 
     const imageNode = new Image( framedImage.htmlImageElementProperty.value, {
       hitTestPixels: true // See https://github.com/phetsims/geometric-optics/issues/283
@@ -95,29 +96,19 @@ class FramedImageNode extends Node {
       parentNode.translation = new Vector2( viewBounds.minX, viewBounds.minY );
     };
 
-    // update position and scale when model bounds change
     framedImage.boundsProperty.link( () => updateScaleAndPosition() );
 
-    // update the opacity of the Image
+    // Update the opacity of the image, but not the mask.
     framedImage.opacityProperty.link( opacity => {
       imageNode.opacity = opacity;
     } );
 
-    // Update the image and mask
+    // Update the image and mask.
     framedImage.htmlImageElementProperty.link( htmlImageElement => {
       imageNode.image = htmlImageElement;
       maskNode.shape = imageNode.getSelfShape();
       updateScaleAndPosition();
     } );
-
-    this.addLinkedElement( framedImage, {
-      tandem: options.tandem.createTandem( framedImage.tandem.name )
-    } );
-  }
-
-  public dispose(): void {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
-    super.dispose();
   }
 }
 
