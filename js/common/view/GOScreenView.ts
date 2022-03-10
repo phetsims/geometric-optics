@@ -214,10 +214,12 @@ class GOScreenView extends ScreenView {
       children: [ horizontalRulerNode, verticalRulerNode, positionMarker2Node, positionMarker1Node ]
     } );
 
-    // Use a scene's hotkey targets for the rulers.
+    // Use a scene's hotkey targets for the tools.
     const setRulerHotkeyTargets = ( sceneNode: GOSceneNode ) => {
-      horizontalRulerNode.setHotkeyTargets( sceneNode.horizontalRulerHotkeyTargets );
-      verticalRulerNode.setHotkeyTargets( sceneNode.verticalRulerHotkeyTargets );
+      horizontalRulerNode.setJumpPoints( sceneNode.horizontalRulerJumpPoints );
+      verticalRulerNode.setJumpPoints( sceneNode.verticalRulerJumpPoints );
+      positionMarker1Node.setJumpPoints( sceneNode.positionMarkerJumpPoints );
+      positionMarker2Node.setJumpPoints( sceneNode.positionMarkerJumpPoints );
     };
 
     // Controls  =======================================================================================================

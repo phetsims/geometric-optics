@@ -22,10 +22,10 @@ import LightSpotNode from './LightSpotNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import LightObjectNode from './LightObjectNode.js';
 import OpticalAxisInFrontOfProjectionScreenNode from './OpticalAxisInFrontOfProjectionScreenNode.js';
-import { RulerHotkeyTarget } from './tools/GORulerNode.js';
 import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
+import JumpPosition from './tools/JumpPosition.js';
 
 type SelfOptions = {
   dragLockedProperty: IReadOnlyProperty<boolean>;
@@ -36,8 +36,9 @@ type LightObjectSceneNodeOptions = SelfOptions & GOSceneNodeOptions;
 class LightObjectSceneNode extends GOSceneNode {
 
   // See GOSceneNode
-  public readonly horizontalRulerHotkeyTargets: RulerHotkeyTarget[];
-  public readonly verticalRulerHotkeyTargets: RulerHotkeyTarget[];
+  public readonly horizontalRulerJumpPoints: JumpPosition[];
+  public readonly verticalRulerJumpPoints: JumpPosition[];
+  public readonly positionMarkerJumpPoints: JumpPosition[];
 
   // Resets things that are specific to this class.
   private readonly resetLightObjectSceneNode: () => void;
@@ -148,16 +149,17 @@ class LightObjectSceneNode extends GOSceneNode {
     ];
 
     // Ruler J+P hotkey will cycle through these positions, dynamically looking at left-to-right x coordinate.
-    this.verticalRulerHotkeyTargets = [
+    this.verticalRulerJumpPoints = [
       { positionProperty: scene.optic.positionProperty, visibleProperty: this.opticNodeVisibleProperty },
       { positionProperty: scene.lightObject1.positionProperty, visibleProperty: lightObject1Node.visibleProperty },
       { positionProperty: scene.lightObject2.positionProperty, visibleProperty: lightObject2Node.visibleProperty }
     ];
-    this.horizontalRulerHotkeyTargets = [
-      ...this.verticalRulerHotkeyTargets,
+    this.horizontalRulerJumpPoints = [
+      ...this.verticalRulerJumpPoints,
       { positionProperty: scene.optic.leftFocalPointProperty, visibleProperty: visibleProperties.focalPointsVisibleProperty },
       { positionProperty: scene.optic.left2FProperty, visibleProperty: visibleProperties.twoFPointsVisibleProperty }
     ];
+    this.positionMarkerJumpPoints = this.horizontalRulerJumpPoints;
 
     this.resetLightObjectSceneNode = () => {
       lightWasDraggedProperty.reset();

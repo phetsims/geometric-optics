@@ -17,12 +17,12 @@ import RealLightRaysNode from './RealLightRaysNode.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import VirtualLightRaysNode from './VirtualLightRaysNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import { RulerHotkeyTarget } from './tools/GORulerNode.js';
 import ArrowObjectScene from '../model/ArrowObjectScene.js';
 import ArrowObjectNode from './ArrowObjectNode.js';
 import ArrowImageNode from './ArrowImageNode.js';
 import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
 import IProperty from '../../../../axon/js/IProperty.js';
+import JumpPosition from './tools/JumpPosition.js';
 
 type SelfOptions = {
   dragLockedProperty: IReadOnlyProperty<boolean>;
@@ -33,8 +33,9 @@ type ArrowObjectSceneNodeOptions = SelfOptions & GOSceneNodeOptions;
 class ArrowObjectSceneNode extends GOSceneNode {
 
   // See GOSceneNode
-  public readonly horizontalRulerHotkeyTargets: RulerHotkeyTarget[];
-  public readonly verticalRulerHotkeyTargets: RulerHotkeyTarget[];
+  public readonly horizontalRulerJumpPoints: JumpPosition[];
+  public readonly verticalRulerJumpPoints: JumpPosition[];
+  public readonly positionMarkerJumpPoints: JumpPosition[];
 
   // Resets things that are specific to this class.
   private readonly resetFrameObjectSceneNode: () => void;
@@ -138,18 +139,19 @@ class ArrowObjectSceneNode extends GOSceneNode {
     ];
 
     // Ruler J+P hotkey will cycle through these positions, dynamically looking at left-to-right x coordinate.
-    this.verticalRulerHotkeyTargets = [
+    this.verticalRulerJumpPoints = [
       { positionProperty: scene.optic.positionProperty, visibleProperty: this.opticNodeVisibleProperty },
       { positionProperty: scene.arrowObject1.positionProperty, visibleProperty: arrowObject1Node.visibleProperty },
       { positionProperty: scene.arrowObject2.positionProperty, visibleProperty: arrowObject2Node.visibleProperty },
       { positionProperty: scene.arrowImage1.positionProperty, visibleProperty: arrowImage1Node.visibleProperty },
       { positionProperty: scene.arrowImage2.positionProperty, visibleProperty: arrowImage2Node.visibleProperty }
     ];
-    this.horizontalRulerHotkeyTargets = [
-      ...this.verticalRulerHotkeyTargets,
+    this.horizontalRulerJumpPoints = [
+      ...this.verticalRulerJumpPoints,
       { positionProperty: scene.optic.leftFocalPointProperty, visibleProperty: visibleProperties.focalPointsVisibleProperty },
       { positionProperty: scene.optic.left2FProperty, visibleProperty: visibleProperties.twoFPointsVisibleProperty }
     ];
+    this.positionMarkerJumpPoints = this.horizontalRulerJumpPoints;
 
     this.resetFrameObjectSceneNode = () => {
       arrowWasDraggedProperty.reset();

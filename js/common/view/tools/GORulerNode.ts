@@ -34,12 +34,6 @@ import GOToolDragListener from './GOToolDragListener.js';
 // constants
 const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;
 
-// Describes a measurement point that can be 'jumped' to via J+P hotkey.
-export type RulerHotkeyTarget = {
-  positionProperty: IReadOnlyProperty<Vector2>;
-  visibleProperty: IReadOnlyProperty<boolean>;
-}
-
 export type GORulerNodeOptions = GOToolNodeOptions;
 
 class GORulerNode extends GOToolNode {
@@ -54,9 +48,6 @@ class GORulerNode extends GOToolNode {
   private readonly opticPositionProperty: IReadOnlyProperty<Vector2>
 
   private readonly dragBoundsProperty: IReadOnlyProperty<Bounds2>;
-
-  private hotkeyTargets: RulerHotkeyTarget[];
-  private hotkeyTargetsIndex: number;
 
   /**
    * @param ruler
@@ -82,8 +73,6 @@ class GORulerNode extends GOToolNode {
     } );
     this.ruler = ruler;
     this.opticPositionProperty = opticPositionProperty;
-    this.hotkeyTargets = [];
-    this.hotkeyTargetsIndex = 0;
 
     // Create a RulerNode subcomponent whose scale matches the current zoom level.
     zoomTransformProperty.link( ( zoomTransform: ModelViewTransform2 ) => {
@@ -166,58 +155,51 @@ class GORulerNode extends GOToolNode {
       } );
     this.addInputListener( keyboardDragListener );
 
-    // J+P is "Jump to Point". It moves (jumps) the ruler to the next visible position in hotkeyTargets.
+    // J+P is "Jump to Point". It moves (jumps) the ruler to the next visible position in jumpPoints.
     // See https://github.com/phetsims/geometric-optics/issues/279
     keyboardDragListener.addHotkey( {
       keys: [ KeyboardUtils.KEY_P ],
-      callback: () => this.jumpToNextHotkeyTarget()
+      callback: () => this.jumpToNextPoint()
     } );
-  }
-
-  /**
-   * Sets the targets for the J+P hotkey.
-   * @param hotkeyTargets
-   */
-  public setHotkeyTargets( hotkeyTargets: RulerHotkeyTarget[] ) {
-    this.hotkeyTargets = hotkeyTargets;
-    this.hotkeyTargetsIndex = 0;
   }
 
   /**
    * Jumps (moves) the ruler to the next measurement point, from left-to-right.
    * See https://github.com/phetsims/geometric-optics/issues/310
    */
-  private jumpToNextHotkeyTarget() {
-    if ( this.hotkeyTargets.length > 0 ) {
+  private jumpToNextPoint() {
+    if ( this.jumpPoints.length > 0 ) {
 
       const rulerPosition = this.ruler.positionProperty.value;
 
       // Find the target positions that are visible, not the same as the ruler position, and in bounds.
       // For horizontal rulers, exclude points to the right of the optic, because they are not useful.
-      const visibleBoundedHotkeyTargets = this.hotkeyTargets.filter( target =>
-        target.visibleProperty.value &&
-        ( target.positionProperty.value.x !== rulerPosition.x ) &&
-        this.dragBoundsProperty.value.containsPoint( target.positionProperty.value ) &&
-        ( this.ruler.orientation === 'vertical' || target.positionProperty.value.x <= this.opticPositionProperty.value.x ) );
+      const relevantJumpPoints = this.jumpPoints.filter( jumpPoint =>
+        jumpPoint.visibleProperty.value &&
+        ( jumpPoint.positionProperty.value.x !== rulerPosition.x ) &&
+        this.dragBoundsProperty.value.containsPoint( jumpPoint.positionProperty.value ) &&
+        ( this.ruler.orientation === 'vertical' || jumpPoint.positionProperty.value.x <= this.opticPositionProperty.value.x ) );
 
-      // Sort target positions left-to-right, by increasing x coordinate.
-      const targetPositions = visibleBoundedHotkeyTargets.map( target => target.positionProperty.value );
-      const sortedTargetPositions = _.sortBy( targetPositions, targetPosition => targetPosition.x );
+      // Extract just the position values.
+      const positions = relevantJumpPoints.map( jumpPoint => jumpPoint.positionProperty.value );
 
-      // Find the first target position to the right of the ruler, with wrap-around to left.
-      let targetPosition = _.find( sortedTargetPositions, targetPosition => targetPosition.x > rulerPosition.x );
-      if ( !targetPosition ) {
-        const leftmostTargetPosition = sortedTargetPositions[ 0 ];
-        if ( leftmostTargetPosition.x < rulerPosition.x ) {
-          targetPosition = leftmostTargetPosition;
+      // Sort positions left-to-right, by increasing x coordinate.
+      const sortedPositions = _.sortBy( positions, targetPosition => targetPosition.x );
+
+      // Find the next position to the right of the ruler, with wrap-around to left.
+      let nextPosition = _.find( sortedPositions, position => position.x > rulerPosition.x );
+      if ( !nextPosition ) {
+        const leftmostPosition = sortedPositions[ 0 ];
+        if ( leftmostPosition.x < rulerPosition.x ) {
+          nextPosition = leftmostPosition;
         }
       }
 
       // Move the ruler
-      if ( targetPosition ) {
+      if ( nextPosition ) {
         const opticY = this.opticPositionProperty.value.y;
-        const y = ( this.ruler.orientation === 'vertical' ) ? Math.min( targetPosition.y, opticY ) : opticY;
-        this.ruler.positionProperty.value = new Vector2( targetPosition.x, y );
+        const y = ( this.ruler.orientation === 'vertical' ) ? Math.min( nextPosition.y, opticY ) : opticY;
+        this.ruler.positionProperty.value = new Vector2( nextPosition.x, y );
       }
     }
   }

@@ -23,13 +23,13 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import Optic from '../model/Optic.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import GuidesNode from './GuidesNode.js';
-import { RulerHotkeyTarget } from './tools/GORulerNode.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import GOScene from '../model/GOScene.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
+import JumpPosition from './tools/JumpPosition.js';
 
 type SelfOptions = {
 
@@ -41,12 +41,13 @@ export type GOSceneNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem
 
 abstract class GOSceneNode extends Node {
 
-  // Measurement points for the tools. When a ruler has focus, J+P hotkey will cycle through these points,
-  // dynamically looking at left-to-right x coordinate.
-  public abstract readonly horizontalRulerHotkeyTargets: RulerHotkeyTarget[];
-  public abstract readonly verticalRulerHotkeyTargets: RulerHotkeyTarget[];
+  // 'Jump points' for the tools. These are interesting points, where you might want to place a tool.
+  // When a tool has focus, J+P hotkey will cycle through these points, in order of ascending x coordinate.
+  public abstract readonly horizontalRulerJumpPoints: JumpPosition[];
+  public abstract readonly verticalRulerJumpPoints: JumpPosition[];
+  public abstract readonly positionMarkerJumpPoints: JumpPosition[];
 
-  // Visibility of the optic. This is needed by subclasses to create their RulerHotkeyTarget[].
+  // Visibility of the optic. This is needed by subclasses to create their JumpPosition[].
   protected readonly opticNodeVisibleProperty: IProperty<boolean>;
 
   // Various rendering layers where subclasses are expected to add Nodes.

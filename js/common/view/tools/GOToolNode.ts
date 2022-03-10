@@ -13,6 +13,7 @@ import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import { DragListener, Node, NodeOptions, PressListenerEvent } from '../../../../../scenery/js/imports.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import GOTool from '../../model/tools/GOTool.js';
+import JumpPosition from './JumpPosition.js';
 
 type SelfOptions = {
   iconTandem: Tandem,
@@ -33,6 +34,12 @@ abstract class GOToolNode extends Node {
   // Bounds of the toolbox, in view coordinates. This tells the tool where to return to.
   public toolboxBounds: Bounds2; //TODO this is currently in parent coordinate frame, should be in global
 
+  // positions that are 'interesting' to measure, for the J+P hotkey
+  protected jumpPoints: JumpPosition[];
+
+  // current index into jumpPoints
+  protected jumpPointsIndex: number;
+
   /**
    * @param tool
    * @param providedOptions
@@ -52,6 +59,8 @@ abstract class GOToolNode extends Node {
 
     this.tool = tool;
     this.toolboxBounds = Bounds2.NOTHING; // to be set later via setToolboxBounds
+    this.jumpPoints = [];
+    this.jumpPointsIndex = 0;
 
     this.addLinkedElement( tool, {
       tandem: options.tandem.createTandem( options.linkedElementTandemName )
@@ -72,6 +81,15 @@ abstract class GOToolNode extends Node {
    */
   public startDrag( event: PressListenerEvent ): void {
     this.dragListener.press( event, this );
+  }
+
+  /**
+   * Sets the jump points used by the J+P hotkey.
+   * @param jumpPoints
+   */
+  public setJumpPoints( jumpPoints: JumpPosition[] ) {
+    this.jumpPoints = jumpPoints;
+    this.jumpPointsIndex = 0;
   }
 
   public dispose(): void {
