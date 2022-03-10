@@ -2,7 +2,7 @@
 
 //TODO https://github.com/phetsims/geometric-optics/issues/355 factor out duplication into GOToolIcon
 /**
- * GoRulerIcon2 is a ruler icon that appears in the toolbox. It is associated with a specific ruler Node,
+ * GORulerIcon is a ruler icon that appears in the toolbox. It is associated with a specific ruler Node,
  * and forwards events to that Node.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -26,7 +26,7 @@ const NUMBER_OF_MAJOR_TICKS = 5;
 
 type GoRulerIconOptions = PickRequired<GOToolIconOptions, 'tandem'>;
 
-class GoRulerIcon2 extends GOToolIcon {
+class GORulerIcon extends GOToolIcon {
 
   /**
    * @param ruler
@@ -95,5 +95,5 @@ class GoRulerIcon2 extends GOToolIcon {
   }
 }
 
-geometricOptics.register( 'GoRulerIcon2', GoRulerIcon2 );
-export default GoRulerIcon2;
+geometricOptics.register( 'GORulerIcon', GORulerIcon );
+export default GORulerIcon;
