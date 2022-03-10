@@ -160,6 +160,7 @@ class ArrowObjectNode extends Node {
         cueingArrowsNode.centerY = arrowNodeBounds.centerY;
       } );
 
+    //TODO duplicated in HTMLImageElementObjectNode
     // Update cursor and cueing arrows to reflect how this Node is draggable.
     objectDragModeProperty.link( objectDragMode => {
       if ( objectDragMode === 'freeDragging' ) {

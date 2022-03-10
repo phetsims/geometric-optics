@@ -171,9 +171,17 @@ class HTMLImageElementObjectNode extends Node {
       } );
 
     // Update cursor and cueing arrows to reflect how this Node is draggable.
-    objectDragModeProperty.link( locked => {
-      this.cursor = locked ? 'ew-resize' : 'pointer';
-      cueingArrowsNode.setDirection( locked ? 'horizontal' : 'both' );
+    objectDragModeProperty.link( objectDragMode => {
+      if ( objectDragMode === 'freeDragging' ) {
+        this.cursor = 'pointer';
+        cueingArrowsNode.setDirection( 'both' );
+      }
+      else {
+
+        // horizontal dragging
+        this.cursor = 'ew-resize';
+        cueingArrowsNode.setDirection( 'horizontal' );
+      }
     } );
   }
 
