@@ -1,7 +1,7 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * GOToolKeyboardDragListener is the DragListener for use with Geometric Optics tools.
+ * GOToolDragListener is the DragListener for use with Geometric Optics tools.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
