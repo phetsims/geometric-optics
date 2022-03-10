@@ -35,6 +35,12 @@ class GOToolKeyboardDragListener extends KeyboardDragListener {
                shouldReturnToToolbox: () => boolean,
                providedOptions?: GOToolKeyboardDragListenerOptions ) {
 
+    // Return the tool to the toolbox, and move focus to its icon in the toolbox.
+    const returnToToolbox = () => {
+      toolNode.tool.isInToolboxProperty.value = true;
+      toolNode.icon.focus();
+    };
+
     const keyboardDragListenerDefaults: OptionizeDefaults<{}, KeyboardDragListenerOptions> =
       merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
         positionProperty: toolNode.tool.positionProperty,
@@ -43,7 +49,7 @@ class GOToolKeyboardDragListener extends KeyboardDragListener {
         start: () => toolNode.moveToFront(),
         end: () => {
           if ( shouldReturnToToolbox() ) {
-            toolNode.returnToToolbox( true /* focus, because we are using the keyboard */ );
+            returnToToolbox();
           }
         }
       } );
@@ -61,7 +67,7 @@ class GOToolKeyboardDragListener extends KeyboardDragListener {
     // Escape returns the tool to the toolbox.
     this.addHotkey( {
       keys: [ KeyboardUtils.KEY_ESCAPE ],
-      callback: () => toolNode.returnToToolbox( true )
+      callback: returnToToolbox
     } );
   }
 }

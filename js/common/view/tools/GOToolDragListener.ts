@@ -45,7 +45,7 @@ class GOToolDragListener extends DragListener {
       end: ( event: PressListenerEvent | null ) => {
         assert && assert( event ); // {PressListenerEvent|null}
         if ( shouldReturnToToolbox( event!.pointer.point ) ) {
-          toolNode.returnToToolbox( false /* focus, because we're not using the keyboard */ );
+          toolNode.tool.isInToolboxProperty.value = true;
         }
       }
     }, providedOptions );

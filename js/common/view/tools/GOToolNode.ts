@@ -67,15 +67,6 @@ abstract class GOToolNode extends Node {
   }
 
   /**
-   * Returns the tool to the toolbox.
-   * @param focus - whether to move focus to the icon in the toolbox, should be true for keyboard input handling
-   */
-  public returnToToolbox( focus: boolean ) {
-    this.tool.isInToolboxProperty.value = true;
-    focus && this.icon.focus();
-  }
-
-  /**
    * Forwards an event from the toolbox to start dragging this Node.
    * @param event
    */
