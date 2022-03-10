@@ -121,26 +121,6 @@ const SCHEMA_MAP = {
     isValidValue: ( value: number ) => ( value >= 100 )
   },
 
-  // Range of opacity for arrow images, see https://github.com/phetsims/geometric-optics/issues/312
-  arrowImageOpacityRange: {
-    type: 'array',
-    elementSchema: {
-      type: 'number'
-    },
-    defaultValue: [ 0, 1 ],
-    isValidValue: ( array: number[] ) => ( array.length === 2 && array[ 0 ] < array[ 1 ] && array[ 0 ] >= 0 && array[ 1 ] <= 1 )
-  },
-
-  // Range of opacity for framed images, see https://github.com/phetsims/geometric-optics/issues/232
-  framedImageOpacityRange: {
-    type: 'array',
-    elementSchema: {
-      type: 'number'
-    },
-    defaultValue: [ 0, 1 ],
-    isValidValue: ( array: number[] ) => ( array.length === 2 && array[ 0 ] < array[ 1 ] && array[ 0 ] >= 0 && array[ 1 ] <= 1 )
-  },
-
   // Opacity for the mask that sits behind the images associated with a framed object.
   // This determines how well we can see obscured parts of rays and the optical axis.
   frameImageMaskOpacity: {
