@@ -9,32 +9,24 @@
  */
 
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
-import Vector2 from '../../../../../dot/js/Vector2.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import RulerNode from '../../../../../scenery-phet/js/RulerNode.js';
-import { DragListener, Node, NodeOptions, PressListenerEvent } from '../../../../../scenery/js/imports.js';
+import { DragListener, PressListenerEvent } from '../../../../../scenery/js/imports.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../../geometricOptics.js';
 import GORuler from '../../model/tools/GORuler.js';
 import GORulerNode from './GORulerNode.js';
+import GOToolIcon, { GOToolIconOptions } from './GOToolIcon.js';
 
 // constants
 const ICON_WIDTH = 48;
 const ICON_HEIGHT = 17;
 const NUMBER_OF_MAJOR_TICKS = 5;
 
-type SelfOptions = {
-  touchAreaDilationX?: number;
-  touchAreaDilationY?: number;
-  mouseAreaDilationX?: number;
-  mouseAreaDilationY?: number;
-};
+type GoRulerIconOptions = PickRequired<GOToolIconOptions, 'tandem'>;
 
-type GoRulerIconOptions = SelfOptions & PickRequired<Node, 'tandem'>;
-
-class GoRulerIcon extends Node {
+class GoRulerIcon extends GOToolIcon {
 
   /**
    * @param ruler
@@ -47,17 +39,17 @@ class GoRulerIcon extends Node {
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                providedOptions: GoRulerIconOptions ) {
 
-    // major ticks have no labels, it would be too much detail in an icon
+    // The ruler icon has no ticks labels, it would be too much detail in an icon.
     const majorTickLabels = [ '' ];
     for ( let i = 1; i < NUMBER_OF_MAJOR_TICKS; i++ ) {
       majorTickLabels.push( '' );
     }
     const majorTickWidth = ICON_WIDTH / ( majorTickLabels.length - 1 );
 
-    // no units, it would be too much detail in an icon
+    // The ruler icon has no units, it would be too much detail in an icon.
     const units = '';
 
-    const icon = new RulerNode( ICON_WIDTH, ICON_HEIGHT, majorTickWidth, majorTickLabels, units, {
+    const contentNode = new RulerNode( ICON_WIDTH, ICON_HEIGHT, majorTickWidth, majorTickLabels, units, {
       backgroundLineWidth: 0.5,
       majorTickLineWidth: 0.5,
       minorTickLineWidth: 0.25,
@@ -68,37 +60,14 @@ class GoRulerIcon extends Node {
       tandem: Tandem.OPT_OUT
     } );
 
-    const options = optionize<GoRulerIconOptions, SelfOptions, NodeOptions>( {
+    super( contentNode, rulerNode, zoomTransformProperty, providedOptions );
 
-      // pointer areas
-      touchAreaDilationX: 5,
-      touchAreaDilationY: 5,
-      mouseAreaDilationX: 5,
-      mouseAreaDilationY: 5,
-
-      // NodeOptions
-      children: [ icon ],
-      cursor: 'pointer',
-      tagName: 'button'
-    }, providedOptions );
-
-    super( options );
-
-    // pointer areas
-    this.touchArea = this.localBounds.dilatedXY( options.touchAreaDilationX, options.touchAreaDilationY );
-    this.mouseArea = this.localBounds.dilatedXY( options.mouseAreaDilationX, options.mouseAreaDilationY );
-
-    // rotate to create a vertical ruler icon
+    // Rotate to create a vertical ruler icon.
     if ( ruler.orientation === 'vertical' ) {
       this.rotate( -Math.PI / 2 );
     }
 
-    // Change visibility of icon instead of this, so that iO clients can hide icons in toolbox.
-    ruler.isInToolboxProperty.link( isInToolbox => {
-      icon.visible = isInToolbox;
-    } );
-
-    // Dragging with mouse/touch. Drag events are forwarded from the icon to its associated ruler.
+    // Dragging with mouse/touch. Drag events are forwarded from the icon to its associated tool.
     this.addInputListener( DragListener.createForwardingListener( ( event: PressListenerEvent ) => {
 
       // Take the ruler out of the toolbox.
@@ -123,15 +92,6 @@ class GoRulerIcon extends Node {
       // Forward events to the RulerNode.
       rulerNode.startDrag( event );
     } ) );
-
-    // When the icon is clicked via the keyboard, take the ruler out of the toolbox, and place it at the model origin.
-    this.addInputListener( {
-      click: () => {
-        ruler.isInToolboxProperty.value = false;
-        ruler.positionProperty.value = Vector2.ZERO;
-        rulerNode.focus();
-      }
-    } );
   }
 }
 
