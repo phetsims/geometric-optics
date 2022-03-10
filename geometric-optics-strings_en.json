@@ -156,7 +156,7 @@
     "value": "Return to toolbox"
   },
   "keyboardHelpDialog.jumpToPoint": {
-    "value": "Jump to next<br>measurement Point,<br>moving left-to-right"
+    "value": "Jump to Point,<br>move left-to-right<br>through interesting points"
   },
   "keyboardHelpDialog.chooseAnObject": {
     "value": "Choose an Object"
