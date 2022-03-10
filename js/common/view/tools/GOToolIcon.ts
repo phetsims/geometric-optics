@@ -1,7 +1,7 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * GOToolIcon is the abstract base class for icons that appears in the toolbox.
+ * GOToolIcon is the abstract base class for icons that appear in the toolbox.
  * An icon is associated with a specific tool Node, and forwards events to that Node.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -12,10 +12,11 @@ import Vector2 from '../../../../../dot/js/Vector2.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Node, NodeOptions } from '../../../../../scenery/js/imports.js';
+import { DragListener, Node, NodeOptions, PressListenerEvent } from '../../../../../scenery/js/imports.js';
 import geometricOptics from '../../../geometricOptics.js';
+import GOTool from '../../model/tools/GOTool.js';
 import GOToolNode from './GOToolNode.js';
-                                                   
+
 type SelfOptions = {
   touchAreaDilationX?: number;
   touchAreaDilationY?: number;
@@ -29,13 +30,17 @@ abstract class GOToolIcon extends Node {
 
   /**
    * @param contentNode - the icon's content, what it looks like
+   * @param tool
    * @param toolNode
    * @param zoomTransformProperty
+   * @param pointerPositionToToolPosition - given the pointer position, determine the tool's model position
    * @param providedOptions
    */
   protected constructor( contentNode: Node,
+                         tool: GOTool,
                          toolNode: GOToolNode,
                          zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+                         pointerPositionToToolPosition: ( pointerPosition: Vector2 ) => Vector2,
                          providedOptions: GOToolIconOptions ) {
 
     const options = optionize<GOToolIconOptions, SelfOptions, NodeOptions>( {
@@ -59,15 +64,29 @@ abstract class GOToolIcon extends Node {
     this.mouseArea = this.localBounds.dilatedXY( options.mouseAreaDilationX, options.mouseAreaDilationY );
 
     // Change contentNode.visible instead of this.visible, so that iO clients can hide toolbox icons.
-    toolNode.tool.isInToolboxProperty.link( isInToolbox => {
+    tool.isInToolboxProperty.link( isInToolbox => {
       contentNode.visible = isInToolbox;
     } );
 
-    // When the icon is clicked via the keyboard, take the ruler out of the toolbox, and place it at the model origin.
+    // Dragging with mouse/touch. Drag events are forwarded from the icon to its associated tool Node.
+    this.addInputListener( DragListener.createForwardingListener( ( event: PressListenerEvent ) => {
+
+      // Take the tool out of the toolbox.
+      tool.isInToolboxProperty.value = false;
+
+      // Set the position of the tool.
+      assert && assert( event.pointer.point ); // {Vector2|null}
+      tool.positionProperty.value = pointerPositionToToolPosition( event.pointer.point! );
+
+      // Forward the event to toolNode.
+      toolNode.startDrag( event );
+    } ) );
+
+    // When the icon is clicked via the keyboard, take the tool out of the toolbox, and place it at the model origin.
     this.addInputListener( {
       click: () => {
-        toolNode.tool.isInToolboxProperty.value = false;
-        toolNode.tool.positionProperty.value = Vector2.ZERO;
+        tool.isInToolboxProperty.value = false;
+        tool.positionProperty.value = Vector2.ZERO;
         toolNode.focus();
       }
     } );
