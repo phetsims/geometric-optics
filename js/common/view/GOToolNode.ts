@@ -28,10 +28,10 @@ abstract class GOToolNode extends Node {
 
   protected abstract dragListener: DragListener;
 
-  protected readonly tool: GOTool;
+  public readonly tool: GOTool;
 
   // Bounds of the toolbox, in view coordinates. This tells the tool where to return to.
-  protected toolboxBounds: Bounds2; //TODO this is currently in parent coordinate frame, should be in global
+  public toolboxBounds: Bounds2; //TODO this is currently in parent coordinate frame, should be in global
 
   /**
    * @param tool
@@ -70,7 +70,7 @@ abstract class GOToolNode extends Node {
    * Returns the tool to the toolbox.
    * @param focus - whether to move focus to the icon in the toolbox, should be true for keyboard input handling
    */
-  protected returnToToolbox( focus: boolean ) {
+  public returnToToolbox( focus: boolean ) {
     this.tool.isInToolboxProperty.value = true;
     focus && this.icon.focus();
   }

@@ -18,7 +18,7 @@ import Utils from '../../../../dot/js/Utils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
-import { DragListener, KeyboardDragListener, KeyboardUtils, Node, PressListenerEvent } from '../../../../scenery/js/imports.js';
+import { DragListener, KeyboardUtils, Node, PressListenerEvent } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
@@ -27,10 +27,9 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GoRulerIcon from './GoRulerIcon.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import optionize from '../../../../phet-core/js/optionize.js';
-import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import GOToolNode, { GOToolNodeOptions } from './GOToolNode.js';
+import GOToolKeyboardDragListener from './GOToolKeyboardDragListener.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;
@@ -167,43 +166,21 @@ class GORulerNode extends GOToolNode {
     } );
     this.addInputListener( this.dragListener );
 
-    const keyboardDragListener = new KeyboardDragListener(
-      optionize<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
-        positionProperty: ruler.positionProperty,
-        dragBoundsProperty: this.dragBoundsProperty,
-        transform: zoomTransformProperty.value,
-        start: () => this.moveToFront(),
-
-        // Return the ruler to the toolbox if the ruler's center point is inside the toolbox.
-        end: () => {
-          if ( this.toolboxBounds.containsPoint( this.center ) ) {
-            this.returnToToolbox( true );
-          }
-        },
-        tandem: providedOptions.tandem.createTandem( 'keyboardDragListener' )
-      } ) );
+    const keyboardDragListener = new GOToolKeyboardDragListener( this, zoomTransformProperty, this.dragBoundsProperty, {
+      tandem: providedOptions.tandem.createTandem( 'keyboardDragListener' )
+    } );
     this.addInputListener( keyboardDragListener );
 
-    // Hotkeys for rulers, see https://github.com/phetsims/geometric-optics/issues/279
-    keyboardDragListener.hotkeys = [
-
-      // Escape returns the ruler to the toolbox.
-      {
-        keys: [ KeyboardUtils.KEY_ESCAPE ],
-        callback: () => this.returnToToolbox( true )
-      },
-
-      // J+R move the ruler to next visible position in hotkeyTargets
-      {
-        keys: [ KeyboardUtils.KEY_R ],
-        callback: () => this.jumpToNextHotkeyTarget()
-      }
-    ];
+    // J+R move the ruler to next visible position in hotkeyTargets.
+    // See https://github.com/phetsims/geometric-optics/issues/279
+    keyboardDragListener.addHotkey( {
+      keys: [ KeyboardUtils.KEY_R ],
+      callback: () => this.jumpToNextHotkeyTarget()
+    } );
 
     // When the transform changes, update the input listeners
     zoomTransformProperty.link( zoomTransform => {
       this.dragListener.transform = zoomTransform;
-      keyboardDragListener.transform = zoomTransform;
     } );
   }
 

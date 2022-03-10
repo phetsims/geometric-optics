@@ -11,18 +11,17 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { DragListener, KeyboardDragListener, KeyboardUtils } from '../../../../scenery/js/imports.js';
+import { DragListener } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
-import GOConstants from '../GOConstants.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
 import PositionMarker from '../model/PositionMarker.js';
 import PositionMarkerIcon from './PositionMarkerIcon.js';
 import GOToolNode, { GOToolNodeOptions } from './GOToolNode.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import MapMarkerNode from './MapMarkerNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import GOToolKeyboardDragListener from './GOToolKeyboardDragListener.js';
 
 type SelfOptions = {
   iconTandem: Tandem,
@@ -128,36 +127,14 @@ class PositionMarkerNode extends GOToolNode {
     } );
     this.addInputListener( this.dragListener );
 
-    const keyboardDragListener = new KeyboardDragListener(
-      optionize<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
-        positionProperty: positionMarker.positionProperty,
-        dragBoundsProperty: dragBoundsProperty,
-        transform: zoomTransformProperty.value,
-        start: () => this.moveToFront(),
-
-        // Return the marker to the toolbox if the marker's bounds intersect the toolbox.
-        end: () => {
-          if ( this.toolboxBounds.intersectsBounds( this.bounds ) ) {
-            this.returnToToolbox( true );
-          }
-        },
-        tandem: options.tandem.createTandem( 'keyboardDragListener' )
-      } ) );
+    const keyboardDragListener = new GOToolKeyboardDragListener( this, zoomTransformProperty, dragBoundsProperty, {
+      tandem: options.tandem.createTandem( 'keyboardDragListener' )
+    } );
     this.addInputListener( keyboardDragListener );
-
-    keyboardDragListener.hotkeys = [
-
-      // Escape returns the marker to the toolbox.
-      {
-        keys: [ KeyboardUtils.KEY_ESCAPE ],
-        callback: () => this.returnToToolbox( true )
-      }
-    ];
 
     // When the transform changes, update the input listeners
     zoomTransformProperty.link( zoomTransform => {
       this.dragListener.transform = zoomTransform;
-      keyboardDragListener.transform = zoomTransform;
     } );
   }
 }
