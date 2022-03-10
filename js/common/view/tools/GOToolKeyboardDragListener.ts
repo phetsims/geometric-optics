@@ -43,7 +43,7 @@ class GOToolKeyboardDragListener extends KeyboardDragListener {
         start: () => toolNode.moveToFront(),
         end: () => {
           if ( shouldReturnToToolbox() ) {
-            toolNode.returnToToolbox( true );
+            toolNode.returnToToolbox( true /* focus, because we are using the keyboard */ );
           }
         }
       } );
