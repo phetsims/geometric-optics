@@ -1,7 +1,10 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * LightObjectNode is the view of a LightObject.
+ * LightObjectNode is the view of a light object. It looks like a lamp with a bulb, pointing towards the right.
+ *
+ * This class adds no additional functionality to its superclass, but is included for completeness and readability
+ * of the type hierarchy.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -26,7 +29,7 @@ class LightObjectNode extends HTMLImageElementObjectNode {
    * @param opticPositionProperty
    * @param modelViewTransform
    * @param objectDragModeProperty
-   * @param wasDraggedProperty - was any LightObjectNode dragged?
+   * @param wasDraggedProperty - was ANY LightObjectNode dragged?
    * @param providedOptions
    */
   constructor( lightObject: LightObject,
@@ -37,11 +40,8 @@ class LightObjectNode extends HTMLImageElementObjectNode {
                wasDraggedProperty: Property<boolean>,
                providedOptions: LightObjectNodeOptions ) {
 
-    super( lightObject, sceneBoundsProperty, opticPositionProperty, modelViewTransform, objectDragModeProperty, wasDraggedProperty, providedOptions );
-
-    this.addLinkedElement( lightObject, {
-      tandem: providedOptions.tandem.createTandem( lightObject.tandem.name )
-    } );
+    super( lightObject, sceneBoundsProperty, opticPositionProperty, modelViewTransform, objectDragModeProperty,
+      wasDraggedProperty, providedOptions );
   }
 }
 

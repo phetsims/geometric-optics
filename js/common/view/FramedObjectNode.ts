@@ -1,7 +1,10 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * FramedObjectNode is the view of a FramedObject, an object in a picture frame with 3D perspective.
+ * FramedObjectNode is the view of a framed object, an object in a picture frame, with 3D perspective.
+ *
+ * This class adds no additional functionality to its superclass, but is included for completeness and readability
+ * of the type hierarchy.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -26,7 +29,7 @@ class FramedObjectNode extends HTMLImageElementObjectNode {
    * @param opticPositionProperty
    * @param modelViewTransform
    * @param objectDragModeProperty
-   * @param wasDraggedProperty
+   * @param wasDraggedProperty - was this framed object dragged?
    * @param providedOptions
    */
   constructor( framedObject: FramedObject,
@@ -37,11 +40,8 @@ class FramedObjectNode extends HTMLImageElementObjectNode {
                wasDraggedProperty: Property<boolean>,
                providedOptions: FramedObjectNodeOptions ) {
 
-    super( framedObject, sceneBoundsProperty, opticPositionProperty, modelViewTransform, objectDragModeProperty, wasDraggedProperty, providedOptions );
-
-    this.addLinkedElement( framedObject, {
-      tandem: providedOptions.tandem.createTandem( framedObject.tandem.name )
-    } );
+    super( framedObject, sceneBoundsProperty, opticPositionProperty, modelViewTransform, objectDragModeProperty,
+      wasDraggedProperty, providedOptions );
   }
 }
 

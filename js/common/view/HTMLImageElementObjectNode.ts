@@ -12,25 +12,22 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { DragListener, FocusHighlightFromNode, Image, KeyboardDragListener, Node, NodeOptions } from '../../../../scenery/js/imports.js';
+import { DragListener, FocusHighlightFromNode, Image, KeyboardDragListener, Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import CueingArrowsNode from './CueingArrowsNode.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import GOConstants from '../GOConstants.js';
-import GOQueryParameters from '../GOQueryParameters.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
 import HTMLImageElementObject from '../model/HTMLImageElementObject.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import stepTimer from '../../../../axon/js/stepTimer.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
+import OpticalObjectNode, { OpticalObjectNodeOptions } from './OpticalObjectNode.js';
 
-export type HTMLImageElementObjectNodeOptions = PickRequired<NodeOptions, 'tandem'> & PickOptional<NodeOptions, 'visibleProperty'>;
+export type HTMLImageElementObjectNodeOptions = OpticalObjectNodeOptions;
 
-class HTMLImageElementObjectNode extends Node {
+class HTMLImageElementObjectNode extends OpticalObjectNode {
 
   /**
    * @param htmlImageElementObject
@@ -49,16 +46,7 @@ class HTMLImageElementObjectNode extends Node {
                wasDraggedProperty: IProperty<boolean>,
                providedOptions: HTMLImageElementObjectNodeOptions ) {
 
-    const options = optionize<HTMLImageElementObjectNodeOptions, {}, NodeOptions>( {
-
-      // NodeOptions
-      tagName: 'div',
-      focusable: true,
-      phetioVisiblePropertyInstrumented: false,
-      phetioInputEnabledPropertyInstrumented: true
-    }, providedOptions );
-
-    super( options );
+    super( htmlImageElementObject, objectDragModeProperty, wasDraggedProperty, providedOptions );
 
     const imageNode = new Image( htmlImageElementObject.htmlImageElementProperty.value );
 
@@ -68,14 +56,6 @@ class HTMLImageElementObjectNode extends Node {
     } );
     this.addChild( wrappedImageNode );
     this.setFocusHighlight( new FocusHighlightFromNode( wrappedImageNode ) );
-
-    const cueingArrowsNode = new CueingArrowsNode( {
-      visibleProperty: new DerivedProperty(
-        [ this.inputEnabledProperty, wasDraggedProperty ],
-        ( inputEnabled: boolean, wasDragged: boolean ) =>
-          ( GOQueryParameters.enableCueingArrows && inputEnabled && !wasDragged ) )
-    } );
-    this.addChild( cueingArrowsNode );
 
     const updateScale = () => {
       const sceneBounds = htmlImageElementObject.boundsProperty.value;
@@ -149,7 +129,7 @@ class HTMLImageElementObjectNode extends Node {
       transform: modelViewTransform,
       useParentOffset: true,
       drag: drag,
-      tandem: options.tandem.createTandem( 'dragListener' )
+      tandem: providedOptions.tandem.createTandem( 'dragListener' )
     } );
     this.addInputListener( dragListener );
 
@@ -159,30 +139,16 @@ class HTMLImageElementObjectNode extends Node {
         dragBoundsProperty: dragBoundsProperty,
         transform: modelViewTransform,
         drag: drag,
-        tandem: options.tandem.createTandem( 'keyboardDragListener' )
+        tandem: providedOptions.tandem.createTandem( 'keyboardDragListener' )
       } ) );
     this.addInputListener( keyboardDragListener );
 
     // Keep cueing arrows next to the framed object.
-    Property.multilink( [ wrappedImageNode.boundsProperty, cueingArrowsNode.boundsProperty ],
+    Property.multilink( [ wrappedImageNode.boundsProperty, this.cueingArrowsNode.boundsProperty ],
       ( wrappedImageNodeBounds: Bounds2, cueingArrowsNodeBounds: Bounds2 ) => {
-        cueingArrowsNode.right = wrappedImageNode.left - 5;
-        cueingArrowsNode.centerY = wrappedImageNode.centerY;
+        this.cueingArrowsNode.right = wrappedImageNode.left - 5;
+        this.cueingArrowsNode.centerY = wrappedImageNode.centerY;
       } );
-
-    // Update cursor and cueing arrows to reflect how this Node is draggable.
-    objectDragModeProperty.link( objectDragMode => {
-      if ( objectDragMode === 'freeDragging' ) {
-        this.cursor = 'pointer';
-        cueingArrowsNode.setDirection( 'both' );
-      }
-      else {
-
-        // horizontal dragging
-        this.cursor = 'ew-resize';
-        cueingArrowsNode.setDirection( 'horizontal' );
-      }
-    } );
   }
 
   public dispose(): void {

@@ -10,27 +10,24 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { DragListener, FocusHighlightFromNode, KeyboardDragListener, Node, NodeOptions } from '../../../../scenery/js/imports.js';
+import { DragListener, FocusHighlightFromNode, KeyboardDragListener } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import ArrowObject from '../model/ArrowObject.js';
 import Optic from '../model/Optic.js';
 import GOConstants from '../GOConstants.js';
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
-import CueingArrowsNode from './CueingArrowsNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import GOQueryParameters from '../GOQueryParameters.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
+import OpticalObjectNode, { OpticalObjectNodeOptions } from './OpticalObjectNode.js';
 
 const SNAP_TO_MIN_MAGNITUDE = 20; // cm
 
-type ArrowObjectNodeOptions = PickRequired<NodeOptions, 'tandem'> & PickOptional<NodeOptions, 'visibleProperty'>;
+type ArrowObjectNodeOptions = OpticalObjectNodeOptions;
 
-class ArrowObjectNode extends Node {
+class ArrowObjectNode extends OpticalObjectNode {
 
   /**
    * @param arrowObject
@@ -49,16 +46,7 @@ class ArrowObjectNode extends Node {
                wasDraggedProperty: Property<boolean>,
                providedOptions: ArrowObjectNodeOptions ) {
 
-    const options = optionize<ArrowObjectNodeOptions, {}, NodeOptions>( {
-
-      // NodeOptions
-      tagName: 'div',
-      focusable: true,
-      phetioVisiblePropertyInstrumented: false,
-      phetioInputEnabledPropertyInstrumented: true
-    }, providedOptions );
-
-    super( options );
+    super( arrowObject, objectDragModeProperty, wasDraggedProperty, providedOptions );
 
     const arrowNode = new ArrowNode( 0, 0, 0, 1,
       optionize<ArrowNodeOptions, {}, ArrowNodeOptions>( {}, GOConstants.ARROW_NODE_OPTIONS, {
@@ -79,14 +67,6 @@ class ArrowObjectNode extends Node {
         arrowNode.mouseArea = arrowNode.localBounds.dilated( 3 );
         arrowNode.touchArea = arrowNode.localBounds.dilated( 10 );
       } );
-
-    const cueingArrowsNode = new CueingArrowsNode( {
-      visibleProperty: new DerivedProperty(
-        [ this.inputEnabledProperty, wasDraggedProperty ],
-        ( inputEnabled: boolean, wasDragged: boolean ) =>
-          ( GOQueryParameters.enableCueingArrows && inputEnabled && !wasDragged ) )
-    } );
-    this.addChild( cueingArrowsNode );
 
     // Drag action that is common to DragListener and KeyboardDragListener
     const drag = () => {
@@ -138,7 +118,7 @@ class ArrowObjectNode extends Node {
       useParentOffset: true,
       drag: drag,
       end: () => end( 1 ),
-      tandem: options.tandem.createTandem( 'dragListener' )
+      tandem: providedOptions.tandem.createTandem( 'dragListener' )
     } );
     this.addInputListener( dragListener );
 
@@ -149,35 +129,16 @@ class ArrowObjectNode extends Node {
         transform: modelViewTransform,
         drag: drag,
         end: () => end( -1 ),
-        tandem: options.tandem.createTandem( 'keyboardDragListener' )
+        tandem: providedOptions.tandem.createTandem( 'keyboardDragListener' )
       } ) );
     this.addInputListener( keyboardDragListener );
 
-    // Keep cueing arrows next to the framed object.
-    Property.multilink( [ arrowNode.boundsProperty, cueingArrowsNode.boundsProperty ],
+    // Keep cueing arrows next to the arrow.
+    Property.multilink( [ arrowNode.boundsProperty, this.cueingArrowsNode.boundsProperty ],
       ( arrowNodeBounds: Bounds2, cueingArrowsNodeBounds: Bounds2 ) => {
-        cueingArrowsNode.right = arrowNodeBounds.left - 5;
-        cueingArrowsNode.centerY = arrowNodeBounds.centerY;
+        this.cueingArrowsNode.right = arrowNodeBounds.left - 5;
+        this.cueingArrowsNode.centerY = arrowNodeBounds.centerY;
       } );
-
-    //TODO duplicated in HTMLImageElementObjectNode
-    // Update cursor and cueing arrows to reflect how this Node is draggable.
-    objectDragModeProperty.link( objectDragMode => {
-      if ( objectDragMode === 'freeDragging' ) {
-        this.cursor = 'pointer';
-        cueingArrowsNode.setDirection( 'both' );
-      }
-      else {
-
-        // horizontal dragging
-        this.cursor = 'ew-resize';
-        cueingArrowsNode.setDirection( 'horizontal' );
-      }
-    } );
-
-    this.addLinkedElement( arrowObject, {
-      tandem: options.tandem.createTandem( arrowObject.tandem.name )
-    } );
   }
 
   public dispose(): void {
