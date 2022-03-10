@@ -88,7 +88,7 @@ abstract class GOToolNode extends Node {
    * Sets the jump points used by the J+P hotkey.
    * @param jumpPoints
    */
-  public setJumpPoints( jumpPoints: JumpPoint[] ) {
+  public setJumpPoints( jumpPoints: JumpPoint[] ): void {
     this.jumpPoints = jumpPoints;
     this.jumpPointsIndex = 0;
   }

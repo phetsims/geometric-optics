@@ -167,7 +167,7 @@ class GORulerNode extends GOToolNode {
    * Jumps (moves) the ruler to the next measurement point, from left-to-right.
    * See https://github.com/phetsims/geometric-optics/issues/310
    */
-  private jumpToNextPoint() {
+  private jumpToNextPoint(): void {
     if ( this.jumpPoints.length > 0 ) {
 
       const rulerPosition = this.ruler.positionProperty.value;
