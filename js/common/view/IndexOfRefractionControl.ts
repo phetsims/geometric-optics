@@ -58,7 +58,7 @@ class IndexOfRefractionControl extends NumberControl {
     super( geometricOpticsStrings.indexOfRefraction, indexOfRefractionProperty, range, options );
 
     this.addLinkedElement( indexOfRefractionProperty, {
-      tandem: options.tandem.createTandem( 'indexOfRefractionProperty' )
+      tandem: options.tandem.createTandem( indexOfRefractionProperty.tandem.name )
     } );
   }
 }

@@ -11,7 +11,6 @@ import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
-import Lens from '../../lens/model/Lens.js';
 import Guides from './Guides.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
@@ -52,7 +51,7 @@ abstract class GOScene extends PhetioObject {
     this.optic = optic;
 
     this.addLinkedElement( optic, {
-      tandem: options.tandem.createTandem( ( optic instanceof Lens ) ? 'lens' : 'mirror' )
+      tandem: options.tandem.createTandem( optic.tandem.name )
     } );
 
     this.lightRaysAnimationTimeRange = new Range( 0, 10 );

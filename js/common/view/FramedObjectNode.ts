@@ -39,7 +39,7 @@ class FramedObjectNode extends HTMLImageElementObjectNode {
     super( framedObject, sceneBoundsProperty, opticPositionProperty, modelViewTransform, dragLockedProperty, wasDraggedProperty, providedOptions );
 
     this.addLinkedElement( framedObject, {
-      tandem: providedOptions.tandem.createTandem( 'framedObject' )
+      tandem: providedOptions.tandem.createTandem( framedObject.tandem.name )
     } );
   }
 }

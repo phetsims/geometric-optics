@@ -63,7 +63,7 @@ class GuideNode extends Node {
 
     this.guide = guide;
     this.addLinkedElement( guide, {
-      tandem: options.tandem.createTandem( 'guide' )
+      tandem: options.tandem.createTandem( guide.tandem.name )
     } );
 
     this.modelViewTransform = modelViewTransform;

@@ -73,7 +73,7 @@ class RadiusOfCurvatureControl extends NumberControl {
     super( textProperty.value, radiusOfCurvatureMagnitudeProperty, range, options );
 
     this.addLinkedElement( radiusOfCurvatureMagnitudeProperty, {
-      tandem: options.tandem.createTandem( 'radiusOfCurvatureMagnitudeProperty' )
+      tandem: options.tandem.createTandem( radiusOfCurvatureMagnitudeProperty.tandem.name )
     } );
   }
 

@@ -82,7 +82,7 @@ class MirrorNode extends Node {
     } );
 
     this.addLinkedElement( mirror, {
-      tandem: options.tandem.createTandem( 'mirror' )
+      tandem: options.tandem.createTandem( mirror.tandem.name )
     } );
   }
 

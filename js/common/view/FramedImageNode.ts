@@ -111,7 +111,7 @@ class FramedImageNode extends Node {
     } );
 
     this.addLinkedElement( framedImage, {
-      tandem: options.tandem.createTandem( 'framedImage' )
+      tandem: options.tandem.createTandem( framedImage.tandem.name )
     } );
   }
 

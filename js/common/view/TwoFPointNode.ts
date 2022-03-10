@@ -40,7 +40,7 @@ class TwoFPointNode extends Node {
     } );
 
     this.addLinkedElement( pointProperty, {
-      tandem: options.tandem.createTandem( 'pointProperty' )
+      tandem: options.tandem.createTandem( pointProperty.tandem.name )
     } );
   }
 

@@ -74,7 +74,7 @@ class FocalLengthControl extends NumberControl {
     super( textProperty.value, focalLengthMagnitudeProperty, range, options );
 
     this.addLinkedElement( focalLengthMagnitudeProperty, {
-      tandem: options.tandem.createTandem( 'focalLengthMagnitudeProperty' )
+      tandem: options.tandem.createTandem( focalLengthMagnitudeProperty.tandem.name )
     } );
   }
 

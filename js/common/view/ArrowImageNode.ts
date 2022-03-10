@@ -79,7 +79,7 @@ class ArrowImageNode extends Node {
       } );
 
     this.addLinkedElement( arrowImage, {
-      tandem: options.tandem.createTandem( 'arrowImage' )
+      tandem: options.tandem.createTandem( arrowImage.tandem.name )
     } );
   }
 

@@ -39,7 +39,7 @@ class LightObjectNode extends HTMLImageElementObjectNode {
     super( lightObject, sceneBoundsProperty, opticPositionProperty, modelViewTransform, dragLockedProperty, wasDraggedProperty, providedOptions );
 
     this.addLinkedElement( lightObject, {
-      tandem: providedOptions.tandem.createTandem( 'lightObject' )
+      tandem: providedOptions.tandem.createTandem( lightObject.tandem.name )
     } );
   }
 }

@@ -93,7 +93,7 @@ class LensNode extends Node {
     lens.opacityProperty.linkAttribute( fillNode, 'opacity' );
 
     this.addLinkedElement( lens, {
-      tandem: options.tandem.createTandem( 'lens' )
+      tandem: options.tandem.createTandem( lens.tandem.name )
     } );
   }
 

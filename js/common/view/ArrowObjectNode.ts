@@ -164,7 +164,7 @@ class ArrowObjectNode extends Node {
     } );
 
     this.addLinkedElement( arrowObject, {
-      tandem: options.tandem.createTandem( 'arrowObject' )
+      tandem: options.tandem.createTandem( arrowObject.tandem.name )
     } );
   }
 

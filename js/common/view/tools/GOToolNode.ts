@@ -18,10 +18,7 @@ import JumpPoint from './JumpPoint.js';
 type SelfOptions = {
 
   // tandem to be used for the icon associated with this tool Node
-  iconTandem: Tandem,
-
-  // tandem name to be used for the link to the associated tool model element
-  linkedElementTandemName: string
+  iconTandem: Tandem
 };
 
 export type GOToolNodeOptions = SelfOptions & PickRequired<Node, 'tandem'>;
@@ -64,7 +61,7 @@ abstract class GOToolNode extends Node {
     this.jumpPointsIndex = 0;
 
     this.addLinkedElement( tool, {
-      tandem: options.tandem.createTandem( options.linkedElementTandemName )
+      tandem: options.tandem.createTandem( tool.tandem.name )
     } );
   }
 

@@ -65,7 +65,7 @@ class LightSpotNode extends Node {
     } );
 
     this.addLinkedElement( lightSpot, {
-      tandem: providedOptions.tandem.createTandem( 'lightSpot' )
+      tandem: providedOptions.tandem.createTandem( lightSpot.tandem.name )
     } );
   }
 

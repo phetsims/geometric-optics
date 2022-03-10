@@ -55,7 +55,7 @@ class DiameterControl extends NumberControl {
     super( geometricOpticsStrings.diameter, diameterProperty, range, options );
 
     this.addLinkedElement( diameterProperty, {
-      tandem: options.tandem.createTandem( 'diameterProperty' )
+      tandem: options.tandem.createTandem( diameterProperty.tandem.name )
     } );
   }
 }
