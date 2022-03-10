@@ -2,7 +2,7 @@
 
 /**
  * OpticalImageType is used to identify whether an optical image is real or virtual. While a boolean would usually
- * have sufficed, an enumeration presents better in Studio.
+ * have sufficed, a string union presents better in Studio.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
