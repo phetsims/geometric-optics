@@ -16,6 +16,7 @@ import GOToolNode from './GOToolNode.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
+import GOTool from '../../model/tools/GOTool.js';
 
 type GOToolDragListenerOptions = PickRequired<DragListenerOptions<PressedDragListener>, 'tandem'> &
   PickOptional<DragListenerOptions<PressedDragListener>, 'offsetPosition'>;
@@ -23,13 +24,15 @@ type GOToolDragListenerOptions = PickRequired<DragListenerOptions<PressedDragLis
 class GOToolDragListener extends DragListener {
 
   /**
+   * @param tool
    * @param toolNode
    * @param zoomTransformProperty
    * @param dragBoundsProperty
    * @param shouldReturnToToolbox - given the pointer's position, determine whether tool should be returned to toolbox
    * @param providedOptions
    */
-  constructor( toolNode: GOToolNode,
+  constructor( tool: GOTool,
+               toolNode: GOToolNode,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                dragBoundsProperty: IReadOnlyProperty<Bounds2>,
                shouldReturnToToolbox: ( pointerPosition: Vector2 ) => boolean,
@@ -38,14 +41,14 @@ class GOToolDragListener extends DragListener {
     const options = optionize<GOToolDragListenerOptions, {}, DragListenerOptions<PressedDragListener>>( {
       pressCursor: 'pointer',
       useInputListenerCursor: true,
-      positionProperty: toolNode.tool.positionProperty,
+      positionProperty: tool.positionProperty,
       dragBoundsProperty: dragBoundsProperty,
       transform: zoomTransformProperty.value,
       start: () => toolNode.moveToFront(),
       end: ( event: PressListenerEvent | null ) => {
         assert && assert( event ); // {PressListenerEvent|null}
         if ( shouldReturnToToolbox( event!.pointer.point ) ) {
-          toolNode.tool.isInToolboxProperty.value = true;
+          tool.isInToolboxProperty.value = true;
         }
       }
     }, providedOptions );

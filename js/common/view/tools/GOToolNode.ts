@@ -33,9 +33,6 @@ abstract class GOToolNode extends Node {
 
   protected abstract dragListener: DragListener;
 
-  // tool model element associated with this Node
-  public readonly tool: GOTool;
-
   // Bounds of the toolbox, in view coordinates. This tells the tool where to return to.
   public toolboxBounds: Bounds2; //TODO this is currently in parent coordinate frame, should be in global
 
@@ -62,7 +59,6 @@ abstract class GOToolNode extends Node {
 
     super( options );
 
-    this.tool = tool;
     this.toolboxBounds = Bounds2.NOTHING; // to be set later via setToolboxBounds
     this.jumpPoints = [];
     this.jumpPointsIndex = 0;

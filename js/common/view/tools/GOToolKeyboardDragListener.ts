@@ -17,19 +17,22 @@ import { KeyboardDragListenerOptions } from '../../GOCommonOptions.js';
 import GOToolNode from './GOToolNode.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
+import GOTool from '../../model/tools/GOTool.js';
 
 type GOToolKeyboardDragListenerOptions = PickRequired<KeyboardDragListenerOptions, 'tandem'>;
 
 class GOToolKeyboardDragListener extends KeyboardDragListener {
 
   /**
+   * @param tool
    * @param toolNode
    * @param zoomTransformProperty
    * @param dragBoundsProperty
    * @param shouldReturnToToolbox - determine whether the tool should be returned to the toolbox
    * @param providedOptions
    */
-  constructor( toolNode: GOToolNode,
+  constructor( tool: GOTool,
+               toolNode: GOToolNode,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                dragBoundsProperty: IReadOnlyProperty<Bounds2>,
                shouldReturnToToolbox: () => boolean,
@@ -37,13 +40,13 @@ class GOToolKeyboardDragListener extends KeyboardDragListener {
 
     // Return the tool to the toolbox, and move focus to its icon in the toolbox.
     const returnToToolbox = () => {
-      toolNode.tool.isInToolboxProperty.value = true;
+      tool.isInToolboxProperty.value = true;
       toolNode.icon.focus();
     };
 
     const keyboardDragListenerDefaults: OptionizeDefaults<{}, KeyboardDragListenerOptions> =
       merge( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
-        positionProperty: toolNode.tool.positionProperty,
+        positionProperty: tool.positionProperty,
         dragBoundsProperty: dragBoundsProperty,
         transform: zoomTransformProperty.value,
         start: () => toolNode.moveToFront(),

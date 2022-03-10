@@ -112,15 +112,16 @@ class PositionMarkerNode extends GOToolNode {
     const shouldReturnToToolbox = () => this.toolboxBounds.intersectsBounds( this.bounds );
 
     // Dragging with the pointer.
-    this.dragListener = new GOToolDragListener( this, zoomTransformProperty, dragBoundsProperty, shouldReturnToToolbox, {
-      offsetPosition: () => new Vector2( -this.width / 2, -this.height ),
-      tandem: options.tandem.createTandem( 'dragListener' )
-    } );
+    this.dragListener = new GOToolDragListener( positionMarker, this, zoomTransformProperty, dragBoundsProperty,
+      shouldReturnToToolbox, {
+        offsetPosition: () => new Vector2( -this.width / 2, -this.height ),
+        tandem: options.tandem.createTandem( 'dragListener' )
+      } );
     this.addInputListener( this.dragListener );
 
     // Dragging with the keyboard.
-    const keyboardDragListener = new GOToolKeyboardDragListener( this, zoomTransformProperty, dragBoundsProperty,
-      shouldReturnToToolbox, {
+    const keyboardDragListener = new GOToolKeyboardDragListener( positionMarker, this, zoomTransformProperty,
+      dragBoundsProperty, shouldReturnToToolbox, {
         tandem: options.tandem.createTandem( 'keyboardDragListener' )
       } );
     this.addInputListener( keyboardDragListener );
