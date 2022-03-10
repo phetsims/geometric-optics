@@ -33,6 +33,7 @@ abstract class GOToolNode extends Node {
 
   protected abstract dragListener: DragListener;
 
+  // tool model element associated with this Node
   public readonly tool: GOTool;
 
   // Bounds of the toolbox, in view coordinates. This tells the tool where to return to.
