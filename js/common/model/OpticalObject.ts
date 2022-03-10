@@ -53,7 +53,9 @@ class OpticalObject extends PhetioObject {
    * @param opticPositionProperty
    * @param providedOptions
    */
-  constructor( opticalObjectNumber: number, opticPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: OpticalObjectOptions ) {
+  protected constructor( opticalObjectNumber: number,
+                         opticPositionProperty: IReadOnlyProperty<Vector2>,
+                         providedOptions: OpticalObjectOptions ) {
     assert && assert( Number.isInteger( opticalObjectNumber ) && opticalObjectNumber > 0,
       `opticalObjectNumber must be a positive integer: ${opticalObjectNumber}` );
 

@@ -78,7 +78,7 @@ class GOModel {
    * @param optic
    * @param providedOptions
    */
-  constructor( optic: Optic, providedOptions: GOModelOptions ) {
+  protected constructor( optic: Optic, providedOptions: GOModelOptions ) {
 
     const options = optionize<GOModelOptions, SelfOptions>( {
 

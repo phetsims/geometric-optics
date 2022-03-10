@@ -33,11 +33,11 @@ class GOSceneLabelsNode extends Node {
    * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
    * @param providedOptions
    */
-  constructor( optic: Optic,
-               visibleProperties: VisibleProperties,
-               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-               providedOptions: GOSceneLabelsNodeOptions ) {
+  protected constructor( optic: Optic,
+                         visibleProperties: VisibleProperties,
+                         zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+                         modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+                         providedOptions: GOSceneLabelsNodeOptions ) {
 
     super( providedOptions );
 

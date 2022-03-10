@@ -23,7 +23,7 @@ class LightRaysNode extends Node {
    * @param update - called when LightRays.raysProcessedEmitter fires
    * @param providedOptions
    */
-  constructor( lightRays: LightRays, update: ( thisNode: Node ) => void, providedOptions: LightRaysNodeOptions ) {
+  protected constructor( lightRays: LightRays, update: ( thisNode: Node ) => void, providedOptions: LightRaysNodeOptions ) {
 
     super( providedOptions );
 

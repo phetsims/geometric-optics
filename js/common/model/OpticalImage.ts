@@ -2,7 +2,9 @@
 
 /**
  * OpticalImage is the base class for all optical images. It describes where the image would occur, the point where
- * light rays intersect. What the image looks like is the responsibility of subclasses.
+ * light rays intersect. What the image looks like is the responsibility of subclasses.  It can be instantiated
+ * directly in situations (like the 'Light' scene) where you want to know where an optical image would form, but
+ * you don't want to form an image.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  * @author Martin Veillette
