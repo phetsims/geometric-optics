@@ -1,7 +1,7 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * JumpPosition describes an 'interesting' measurement point for a tool, which can be 'jumped' to via J+P hotkey.
+ * JumpPoint describes an 'interesting' point to place a tool, which can be 'jumped' to via J+P hotkey.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -9,7 +9,7 @@
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 
-type JumpPosition = {
+type JumpPoint = {
 
   // a position that is interesting to put a tool, in model coordinates
   positionProperty: IReadOnlyProperty<Vector2>;
@@ -18,4 +18,4 @@ type JumpPosition = {
   visibleProperty: IReadOnlyProperty<boolean>;
 }
 
-export default JumpPosition;
+export default JumpPoint;

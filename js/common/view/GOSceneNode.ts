@@ -29,7 +29,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
-import JumpPosition from './tools/JumpPosition.js';
+import JumpPoint from './tools/JumpPoint.js';
 
 type SelfOptions = {
 
@@ -43,11 +43,11 @@ abstract class GOSceneNode extends Node {
 
   // 'Jump points' for the tools. These are interesting points, where you might want to place a tool.
   // When a tool has focus, J+P hotkey will cycle through these points, in order of ascending x coordinate.
-  public abstract readonly horizontalRulerJumpPoints: JumpPosition[];
-  public abstract readonly verticalRulerJumpPoints: JumpPosition[];
-  public abstract readonly positionMarkerJumpPoints: JumpPosition[];
+  public abstract readonly horizontalRulerJumpPoints: JumpPoint[];
+  public abstract readonly verticalRulerJumpPoints: JumpPoint[];
+  public abstract readonly positionMarkerJumpPoints: JumpPoint[];
 
-  // Visibility of the optic. This is needed by subclasses to create their JumpPosition[].
+  // Visibility of the optic. This is needed by subclasses to create their JumpPoint[].
   protected readonly opticNodeVisibleProperty: IProperty<boolean>;
 
   // Various rendering layers where subclasses are expected to add Nodes.
