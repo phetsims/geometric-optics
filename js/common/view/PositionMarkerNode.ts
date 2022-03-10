@@ -11,16 +11,15 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { DragListener, KeyboardDragListener, KeyboardUtils, Node, NodeOptions, PressListenerEvent } from '../../../../scenery/js/imports.js';
+import { DragListener, KeyboardDragListener, KeyboardUtils, PressListenerEvent } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
 import PositionMarker from '../model/PositionMarker.js';
 import PositionMarkerIcon from './PositionMarkerIcon.js';
-import ToolNode from './ToolNode.js';
+import GOToolNode, { GOToolNodeOptions } from './GOToolNode.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import MapMarkerNode from './MapMarkerNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -35,18 +34,15 @@ type SelfOptions = {
   mouseAreaDilationY?: number;
 };
 
-export type PositionMarkerNodeOptions = SelfOptions & PickRequired<Node, 'tandem'>;
+export type PositionMarkerNodeOptions = SelfOptions & GOToolNodeOptions;
 
-class PositionMarkerNode extends Node implements ToolNode {
+class PositionMarkerNode extends GOToolNode {
 
-  // see ToolNode
+  // See GOToolNode
   public readonly icon: PositionMarkerIcon;
 
   // the marker that is associated with this Node
   public readonly positionMarker: PositionMarker;
-
-  // bounds of the toolbox, in view coordinates
-  private toolboxBounds: Bounds2;
 
   private readonly dragListener: DragListener;
 
@@ -61,38 +57,34 @@ class PositionMarkerNode extends Node implements ToolNode {
                visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                providedOptions: PositionMarkerNodeOptions ) {
 
-    const mapMarkerNode = new MapMarkerNode( {
-      fill: positionMarker.fill,
-      stroke: positionMarker.stroke
-    } );
-
-    const options = optionize<PositionMarkerNodeOptions, SelfOptions, NodeOptions>( {
+    const options = optionize<PositionMarkerNodeOptions, SelfOptions, GOToolNodeOptions>( {
 
       // SelfOptions
       touchAreaDilationX: 5,
       touchAreaDilationY: 5,
       mouseAreaDilationX: 5,
-      mouseAreaDilationY: 5,
-
-      // NodeOptions
-      children: [ mapMarkerNode ],
-      tagName: 'div',
-      focusable: true,
-      phetioVisiblePropertyInstrumented: false,
-      phetioInputEnabledPropertyInstrumented: true
+      mouseAreaDilationY: 5
     }, providedOptions );
 
     super( options );
 
-    // pointer areas
-    this.touchArea = this.localBounds.dilatedXY( options.touchAreaDilationX, options.touchAreaDilationY );
-    this.mouseArea = this.localBounds.dilatedXY( options.mouseAreaDilationX, options.mouseAreaDilationY );
+    const mapMarkerNode = new MapMarkerNode( {
+      fill: positionMarker.fill,
+      stroke: positionMarker.stroke
+    } );
+    this.addChild( mapMarkerNode );
 
     this.positionMarker = positionMarker;
     this.toolboxBounds = Bounds2.NOTHING; // to be set later via setToolboxBounds
+
+    // Create the icon after all other this fields have been initialized.
     this.icon = new PositionMarkerIcon( this, zoomTransformProperty, {
       tandem: options.iconTandem
     } );
+
+    // pointer areas
+    this.touchArea = this.localBounds.dilatedXY( options.touchAreaDilationX, options.touchAreaDilationY );
+    this.mouseArea = this.localBounds.dilatedXY( options.mouseAreaDilationX, options.mouseAreaDilationY );
 
     positionMarker.isInToolboxProperty.link( isInToolbox => {
       this.visible = !isInToolbox;
@@ -180,19 +172,6 @@ class PositionMarkerNode extends Node implements ToolNode {
     this.addLinkedElement( positionMarker, {
       tandem: options.tandem.createTandem( 'positionMarker' )
     } );
-  }
-
-  public dispose(): void {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
-    super.dispose();
-  }
-
-  /**
-   * Sets the bounds of the toolbox, so the marker knows where to return to.
-   * @param toolboxBounds
-   */
-  public setToolboxBounds( toolboxBounds: Bounds2 ): void {
-    this.toolboxBounds = toolboxBounds;
   }
 
   /**

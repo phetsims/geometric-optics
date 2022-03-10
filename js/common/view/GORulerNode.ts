@@ -18,7 +18,7 @@ import Utils from '../../../../dot/js/Utils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
-import { DragListener, KeyboardDragListener, KeyboardUtils, Node, NodeOptions, PressListenerEvent } from '../../../../scenery/js/imports.js';
+import { DragListener, KeyboardDragListener, KeyboardUtils, Node, PressListenerEvent } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
@@ -27,11 +27,10 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GoRulerIcon from './GoRulerIcon.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
-import ToolNode from './ToolNode.js';
+import GOToolNode, { GOToolNodeOptions } from './GOToolNode.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;
@@ -42,24 +41,17 @@ export type RulerHotkeyTarget = {
   visibleProperty: IReadOnlyProperty<boolean>;
 }
 
-type SelfOptions = {
-  iconTandem: Tandem
-};
+export type GORulerNodeOptions = GOToolNodeOptions;
 
-export type GORulerNodeOptions = SelfOptions & PickRequired<Node, 'tandem'>;
+class GORulerNode extends GOToolNode {
 
-class GORulerNode extends Node implements ToolNode {
-
-  // see ToolNode
+  // See GOToolNode
   public readonly icon: GoRulerIcon;
 
   // the ruler model that is associated with this Node
   public readonly ruler: GORuler;
 
   private readonly opticPositionProperty: IReadOnlyProperty<Vector2>
-
-  // bounds of the toolbox, in view coordinates
-  private toolboxBounds: Bounds2;
 
   private readonly dragListener: DragListener;
   private readonly dragBoundsProperty: IReadOnlyProperty<Bounds2>;
@@ -82,25 +74,20 @@ class GORulerNode extends Node implements ToolNode {
                visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                providedOptions: GORulerNodeOptions ) {
 
-    const options = optionize<GORulerNodeOptions, SelfOptions, NodeOptions>( {
+    super( providedOptions );
 
-      // NodeOptions
-      rotation: ( ruler.orientation === 'vertical' ) ? -Math.PI / 2 : 0,
-      tagName: 'div',
-      focusable: true,
-      phetioVisiblePropertyInstrumented: false,
-      phetioInputEnabledPropertyInstrumented: true
-    }, providedOptions );
+    this.rotation = ( ruler.orientation === 'vertical' ) ? -Math.PI / 2 : 0;
 
-    super( options );
 
     this.ruler = ruler;
     this.opticPositionProperty = opticPositionProperty;
     this.hotkeyTargets = [];
     this.hotkeyTargetsIndex = 0;
     this.toolboxBounds = Bounds2.NOTHING; // to be set later via setToolboxBounds
+
+    // Create the icon after all other this fields have been initialized.
     this.icon = new GoRulerIcon( this, zoomTransformProperty, {
-      tandem: options.iconTandem
+      tandem: providedOptions.iconTandem
     } );
 
     // Create a RulerNode subcomponent whose scale matches the current zoom level.
@@ -184,7 +171,7 @@ class GORulerNode extends Node implements ToolNode {
           this.returnToToolbox( false );
         }
       },
-      tandem: options.tandem.createTandem( 'dragListener' )
+      tandem: providedOptions.tandem.createTandem( 'dragListener' )
     } );
     this.addInputListener( this.dragListener );
 
@@ -201,7 +188,7 @@ class GORulerNode extends Node implements ToolNode {
             this.returnToToolbox( true );
           }
         },
-        tandem: options.tandem.createTandem( 'keyboardDragListener' )
+        tandem: providedOptions.tandem.createTandem( 'keyboardDragListener' )
       } ) );
     this.addInputListener( keyboardDragListener );
 
@@ -228,21 +215,8 @@ class GORulerNode extends Node implements ToolNode {
     } );
 
     this.addLinkedElement( ruler, {
-      tandem: options.tandem.createTandem( 'ruler' )
+      tandem: providedOptions.tandem.createTandem( 'ruler' )
     } );
-  }
-
-  public dispose(): void {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
-    super.dispose();
-  }
-
-  /**
-   * Sets the bounds of the toolbox, so the ruler knows where to return to.
-   * @param toolboxBounds
-   */
-  public setToolboxBounds( toolboxBounds: Bounds2 ): void {
-    this.toolboxBounds = toolboxBounds;
   }
 
   /**

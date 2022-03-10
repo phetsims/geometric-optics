@@ -13,7 +13,7 @@ import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import geometricOptics from '../../geometricOptics.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import ToolNode from './ToolNode.js';
+import GOToolNode from './GOToolNode.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 
@@ -25,7 +25,7 @@ class GOToolbox extends Panel {
    * @param toolNodes - in the order that they appear in the toolbox, left to right
    * @param providedOptions
    */
-  constructor( toolNodes: ToolNode[], providedOptions: RulersToolboxOptions ) {
+  constructor( toolNodes: GOToolNode[], providedOptions: RulersToolboxOptions ) {
 
     const options = optionize<RulersToolboxOptions, {}, PanelOptions>( {
 
