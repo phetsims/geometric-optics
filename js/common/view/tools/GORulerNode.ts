@@ -24,7 +24,7 @@ import GOConstants from '../../GOConstants.js';
 import GORuler from '../../model/tools/GORuler.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
-import GoRulerIcon from './GoRulerIcon.js';
+import GoRulerIcon2 from './GoRulerIcon2.js';
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
 import IntentionalAny from '../../../../../phet-core/js/types/IntentionalAny.js';
 import GOToolNode, { GOToolNodeOptions } from './GOToolNode.js';
@@ -45,7 +45,7 @@ export type GORulerNodeOptions = GOToolNodeOptions;
 class GORulerNode extends GOToolNode {
 
   // See GOToolNode
-  public readonly icon: GoRulerIcon;
+  public readonly icon: GoRulerIcon2;
   protected readonly dragListener: DragListener;
 
   // the ruler model that is associated with this Node
@@ -77,7 +77,7 @@ class GORulerNode extends GOToolNode {
 
     this.rotation = ( ruler.orientation === 'vertical' ) ? -Math.PI / 2 : 0;
 
-    this.icon = new GoRulerIcon( ruler, this, zoomTransformProperty, {
+    this.icon = new GoRulerIcon2( ruler, this, zoomTransformProperty, {
       tandem: providedOptions.iconTandem
     } );
     this.ruler = ruler;
