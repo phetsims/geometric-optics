@@ -40,7 +40,7 @@ class GOToolKeyboardDragListener extends KeyboardDragListener {
         transform: zoomTransformProperty.value,
         start: () => toolNode.moveToFront(),
 
-        // Return the marker to the toolbox if the marker's bounds intersect the toolbox.
+        // Return the tool to the toolbox if the tool's bounds intersect the toolbox.
         end: () => {
           if ( toolNode.toolboxBounds.intersectsBounds( toolNode.bounds ) ) {
             toolNode.returnToToolbox( true );
