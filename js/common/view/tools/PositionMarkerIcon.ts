@@ -8,16 +8,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { DragListener, Node, NodeOptions, PressListenerEvent } from '../../../../scenery/js/imports.js';
-import geometricOptics from '../../geometricOptics.js';
+import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
+import Vector2 from '../../../../../dot/js/Vector2.js';
+import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
+import { DragListener, Node, NodeOptions, PressListenerEvent } from '../../../../../scenery/js/imports.js';
+import geometricOptics from '../../../geometricOptics.js';
 import PositionMarkerNode from './PositionMarkerNode.js';
-import MapMarkerNode from './MapMarkerNode.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import optionize from '../../../../phet-core/js/optionize.js';
-import PositionMarker from '../model/PositionMarker.js';
+import MapMarkerNode from '../MapMarkerNode.js';
+import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
+import PositionMarker from '../../model/tools/PositionMarker.js';
 
 type SelfOptions = {
   touchAreaDilationX?: number;

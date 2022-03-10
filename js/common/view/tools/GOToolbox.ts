@@ -1,4 +1,4 @@
-// Copyright 2021-2022, University of Colorado Boulder
+// Copyright 2022, University of Colorado Boulder
 
 /**
  * GOToolbox is the toolbox that holds the tools - rulers and position markers.
@@ -8,14 +8,14 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { HBox } from '../../../../scenery/js/imports.js';
-import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
-import geometricOptics from '../../geometricOptics.js';
-import optionize from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import { HBox } from '../../../../../scenery/js/imports.js';
+import Panel, { PanelOptions } from '../../../../../sun/js/Panel.js';
+import geometricOptics from '../../../geometricOptics.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import GOToolNode from './GOToolNode.js';
-import Property from '../../../../axon/js/Property.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Property from '../../../../../axon/js/Property.js';
+import Bounds2 from '../../../../../dot/js/Bounds2.js';
 
 type RulersToolboxOptions = PickRequired<PanelOptions, 'tandem'>;
 

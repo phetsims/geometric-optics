@@ -34,8 +34,8 @@ import FramedObjectSceneNode from './FramedObjectSceneNode.js';
 import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
 import Property from '../../../../axon/js/Property.js';
 import { RaysType } from '../model/RaysType.js';
-import GORulerNode from './GORulerNode.js';
-import GOToolbox from './GOToolbox.js';
+import GORulerNode from './tools/GORulerNode.js';
+import GOToolbox from './tools/GOToolbox.js';
 import FramedObjectSceneLabelsNode from './FramedObjectSceneLabelsNode.js';
 import ArrowObjectSceneNode from './ArrowObjectSceneNode.js';
 import ArrowObjectSceneLabelsNode from './ArrowObjectSceneLabelsNode.js';
@@ -47,7 +47,7 @@ import DragLockedButton from './DragLockedButton.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
-import PositionMarkerNode from './PositionMarkerNode.js';
+import PositionMarkerNode from './tools/PositionMarkerNode.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.

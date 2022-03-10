@@ -6,17 +6,17 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Bounds2 from '../../../../dot/js/Bounds2.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { KeyboardDragListener, KeyboardUtils } from '../../../../scenery/js/imports.js';
-import geometricOptics from '../../geometricOptics.js';
-import GOConstants from '../GOConstants.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import optionize, { OptionizeDefaults } from '../../../../phet-core/js/optionize.js';
-import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
+import Bounds2 from '../../../../../dot/js/Bounds2.js';
+import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
+import { KeyboardDragListener, KeyboardUtils } from '../../../../../scenery/js/imports.js';
+import geometricOptics from '../../../geometricOptics.js';
+import GOConstants from '../../GOConstants.js';
+import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
+import optionize, { OptionizeDefaults } from '../../../../../phet-core/js/optionize.js';
+import { KeyboardDragListenerOptions } from '../../GOCommonOptions.js';
 import GOToolNode from './GOToolNode.js';
-import merge from '../../../../phet-core/js/merge.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import merge from '../../../../../phet-core/js/merge.js';
+import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 
 type GOToolKeyboardDragListenerOptions = PickRequired<KeyboardDragListenerOptions, 'tandem'>;
 

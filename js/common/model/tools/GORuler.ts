@@ -1,4 +1,4 @@
-// Copyright 2021-2022, University of Colorado Boulder
+// Copyright 2022, University of Colorado Boulder
 
 /**
  * GORuler is the model for a movable ruler, with option for orientation.
@@ -7,8 +7,8 @@
  * @author Sarah Chang (Swarthmore College)
  */
 
-import geometricOptics from '../../geometricOptics.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import geometricOptics from '../../../geometricOptics.js';
+import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import GOTool, { GOToolOptions } from './GOTool.js';
 
 type RulerOrientation = 'horizontal' | 'vertical';

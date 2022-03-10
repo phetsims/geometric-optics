@@ -23,7 +23,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import Optic from '../model/Optic.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import GuidesNode from './GuidesNode.js';
-import { RulerHotkeyTarget } from './GORulerNode.js';
+import { RulerHotkeyTarget } from './tools/GORulerNode.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import GOScene from '../model/GOScene.js';
 import optionize from '../../../../phet-core/js/optionize.js';

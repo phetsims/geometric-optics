@@ -17,7 +17,7 @@ import RealLightRaysNode from './RealLightRaysNode.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import VirtualLightRaysNode from './VirtualLightRaysNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import { RulerHotkeyTarget } from './GORulerNode.js';
+import { RulerHotkeyTarget } from './tools/GORulerNode.js';
 import ArrowObjectScene from '../model/ArrowObjectScene.js';
 import ArrowObjectNode from './ArrowObjectNode.js';
 import ArrowImageNode from './ArrowImageNode.js';

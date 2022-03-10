@@ -1,4 +1,4 @@
-// Copyright 2021-2022, University of Colorado Boulder
+// Copyright 2022, University of Colorado Boulder
 
 /**
  * GORulerNode is the view of a ruler. Responsibilities include:
@@ -11,22 +11,22 @@
  * @author Sarah Chang (Swarthmore College)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Utils from '../../../../dot/js/Utils.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
-import { DragListener, KeyboardUtils, Node } from '../../../../scenery/js/imports.js';
-import geometricOptics from '../../geometricOptics.js';
-import geometricOpticsStrings from '../../geometricOpticsStrings.js';
-import GOConstants from '../GOConstants.js';
-import GORuler from '../model/GORuler.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import Bounds2 from '../../../../../dot/js/Bounds2.js';
+import Utils from '../../../../../dot/js/Utils.js';
+import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
+import PhetFont from '../../../../../scenery-phet/js/PhetFont.js';
+import RulerNode from '../../../../../scenery-phet/js/RulerNode.js';
+import { DragListener, KeyboardUtils, Node } from '../../../../../scenery/js/imports.js';
+import geometricOptics from '../../../geometricOptics.js';
+import geometricOpticsStrings from '../../../geometricOpticsStrings.js';
+import GOConstants from '../../GOConstants.js';
+import GORuler from '../../model/tools/GORuler.js';
+import Vector2 from '../../../../../dot/js/Vector2.js';
+import Tandem from '../../../../../tandem/js/Tandem.js';
 import GoRulerIcon from './GoRulerIcon.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
+import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
+import IntentionalAny from '../../../../../phet-core/js/types/IntentionalAny.js';
 import GOToolNode, { GOToolNodeOptions } from './GOToolNode.js';
 import GOToolKeyboardDragListener from './GOToolKeyboardDragListener.js';
 import GOToolDragListener from './GOToolDragListener.js';

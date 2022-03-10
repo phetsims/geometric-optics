@@ -6,14 +6,14 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import Property from '../../../../axon/js/Property.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
-import geometricOptics from '../../geometricOptics.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
+import Property from '../../../../../axon/js/Property.js';
+import Vector2 from '../../../../../dot/js/Vector2.js';
+import Vector2Property from '../../../../../dot/js/Vector2Property.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../../tandem/js/PhetioObject.js';
+import geometricOptics from '../../../geometricOptics.js';
+import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
 
 export type GOToolOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
 

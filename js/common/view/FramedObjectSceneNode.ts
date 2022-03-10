@@ -23,7 +23,7 @@ import RealLightRaysForegroundNode from './RealLightRaysForegroundNode.js';
 import OpticalAxisForegroundNode from './OpticalAxisForegroundNode.js';
 import VirtualLightRaysNode from './VirtualLightRaysNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import { RulerHotkeyTarget } from './GORulerNode.js';
+import { RulerHotkeyTarget } from './tools/GORulerNode.js';
 import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';

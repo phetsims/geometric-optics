@@ -6,13 +6,13 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
-import optionize from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { DragListener, Node, NodeOptions, PressListenerEvent } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import GOTool from '../model/GOTool.js';
+import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import Bounds2 from '../../../../../dot/js/Bounds2.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
+import { DragListener, Node, NodeOptions, PressListenerEvent } from '../../../../../scenery/js/imports.js';
+import Tandem from '../../../../../tandem/js/Tandem.js';
+import GOTool from '../../model/tools/GOTool.js';
 
 type SelfOptions = {
   iconTandem: Tandem,

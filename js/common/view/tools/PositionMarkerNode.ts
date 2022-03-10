@@ -7,19 +7,19 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { DragListener } from '../../../../scenery/js/imports.js';
-import geometricOptics from '../../geometricOptics.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import optionize from '../../../../phet-core/js/optionize.js';
-import PositionMarker from '../model/PositionMarker.js';
+import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import Bounds2 from '../../../../../dot/js/Bounds2.js';
+import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
+import { DragListener } from '../../../../../scenery/js/imports.js';
+import geometricOptics from '../../../geometricOptics.js';
+import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
+import PositionMarker from '../../model/tools/PositionMarker.js';
 import PositionMarkerIcon from './PositionMarkerIcon.js';
 import GOToolNode, { GOToolNodeOptions } from './GOToolNode.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import MapMarkerNode from './MapMarkerNode.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import Vector2 from '../../../../../dot/js/Vector2.js';
+import MapMarkerNode from '../MapMarkerNode.js';
+import Tandem from '../../../../../tandem/js/Tandem.js';
 import GOToolKeyboardDragListener from './GOToolKeyboardDragListener.js';
 import GOToolDragListener from './GOToolDragListener.js';
 

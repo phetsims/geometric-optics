@@ -1,4 +1,4 @@
-// Copyright 2021-2022, University of Colorado Boulder
+// Copyright 2022, University of Colorado Boulder
 
 //TODO https://github.com/phetsims/geometric-optics/issues/355 factor out duplication into GOToolIcon
 /**
@@ -8,16 +8,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import optionize from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
-import { DragListener, Node, NodeOptions, PressListenerEvent } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import geometricOptics from '../../geometricOptics.js';
-import GORuler from '../model/GORuler.js';
+import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
+import Vector2 from '../../../../../dot/js/Vector2.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
+import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
+import RulerNode from '../../../../../scenery-phet/js/RulerNode.js';
+import { DragListener, Node, NodeOptions, PressListenerEvent } from '../../../../../scenery/js/imports.js';
+import Tandem from '../../../../../tandem/js/Tandem.js';
+import geometricOptics from '../../../geometricOptics.js';
+import GORuler from '../../model/tools/GORuler.js';
 import GORulerNode from './GORulerNode.js';
 
 // constants

@@ -13,7 +13,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import Optic from './Optic.js';
 import { RaysType, RaysTypeValues } from './RaysType.js';
-import GORuler from './GORuler.js';
+import GORuler from './tools/GORuler.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import FramedObjectScene from './FramedObjectScene.js';
 import OpticalObjectChoice from './OpticalObjectChoice.js';
@@ -25,7 +25,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import PositionMarker from './PositionMarker.js';
+import PositionMarker from './tools/PositionMarker.js';
 import GOColors from '../GOColors.js';
 
 type SelfOptions = {
