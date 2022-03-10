@@ -121,7 +121,7 @@ const SCHEMA_MAP = {
     isValidValue: ( value: number ) => ( value >= 100 )
   },
 
-  // Opacity for the mask that sits behind the images associated with a framed object.
+  // Opacity for the mask that sits behind the image associated with a framed object.
   // This determines how well we can see obscured parts of rays and the optical axis.
   frameImageMaskOpacity: {
     type: 'number',
