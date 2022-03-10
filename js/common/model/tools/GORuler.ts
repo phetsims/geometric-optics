@@ -1,4 +1,4 @@
-// Copyright 2022, University of Colorado Boulder
+// Copyright 2021-2022, University of Colorado Boulder
 
 /**
  * GORuler is the model for a movable ruler, with option for orientation.

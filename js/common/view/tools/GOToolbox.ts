@@ -1,4 +1,4 @@
-// Copyright 2022, University of Colorado Boulder
+// Copyright 2021-2022, University of Colorado Boulder
 
 /**
  * GOToolbox is the toolbox that holds the tools - rulers and position markers.
