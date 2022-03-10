@@ -17,6 +17,7 @@ import PositionMarkerNode from './PositionMarkerNode.js';
 import MapMarkerNode from './MapMarkerNode.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import PositionMarker from '../model/PositionMarker.js';
 
 type SelfOptions = {
   touchAreaDilationX?: number;
@@ -30,15 +31,15 @@ type PositionMarkerIconOptions = SelfOptions & PickRequired<Node, 'tandem'>;
 class PositionMarkerIcon extends Node {
 
   /**
+   * @param positionMarker
    * @param positionMarkerNode
    * @param zoomTransformProperty
    * @param providedOptions
    */
-  constructor( positionMarkerNode: PositionMarkerNode,
+  constructor( positionMarker: PositionMarker,
+               positionMarkerNode: PositionMarkerNode,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                providedOptions: PositionMarkerIconOptions ) {
-
-    const positionMarker = positionMarkerNode.positionMarker;
 
     const mapMarkerNode = new MapMarkerNode( {
       fill: positionMarker.fill,

@@ -17,6 +17,7 @@ import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
 import { DragListener, Node, NodeOptions, PressListenerEvent } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
+import GORuler from '../model/GORuler.js';
 import GORulerNode from './GORulerNode.js';
 
 // constants
@@ -36,15 +37,15 @@ type GoRulerIconOptions = SelfOptions & PickRequired<Node, 'tandem'>;
 class GoRulerIcon extends Node {
 
   /**
+   * @param ruler
    * @param rulerNode
    * @param zoomTransformProperty
    * @param providedOptions
    */
-  constructor( rulerNode: GORulerNode,
+  constructor( ruler: GORuler,
+               rulerNode: GORulerNode,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                providedOptions: GoRulerIconOptions ) {
-
-    const ruler = rulerNode.ruler;
 
     // major ticks have no labels, it would be too much detail in an icon
     const majorTickLabels = [ '' ];

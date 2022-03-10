@@ -67,18 +67,16 @@ class PositionMarkerNode extends GOToolNode {
 
     super( positionMarker, options );
 
+    this.icon = new PositionMarkerIcon( positionMarker, this, zoomTransformProperty, {
+      tandem: options.iconTandem
+    } );
+    this.positionMarker = positionMarker;
+
     const mapMarkerNode = new MapMarkerNode( {
       fill: positionMarker.fill,
       stroke: positionMarker.stroke
     } );
     this.addChild( mapMarkerNode );
-
-    this.positionMarker = positionMarker;
-
-    // Create the icon after all other this fields have been initialized.
-    this.icon = new PositionMarkerIcon( this, zoomTransformProperty, {
-      tandem: options.iconTandem
-    } );
 
     // pointer areas
     this.touchArea = this.localBounds.dilatedXY( options.touchAreaDilationX, options.touchAreaDilationY );
@@ -94,7 +92,6 @@ class PositionMarkerNode extends GOToolNode {
       positionMarker.positionProperty.value = zoomTransform.viewToModelPosition( this.centerTop );
     } );
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/355 limit to the area above the control panel?
     // Drag bounds for the marker, in model coordinates.
     // This keeps the entire marker inside the visible bounds of the ScreenView.
     const dragBoundsProperty = new DerivedProperty(

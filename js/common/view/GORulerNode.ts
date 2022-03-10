@@ -78,15 +78,13 @@ class GORulerNode extends GOToolNode {
 
     this.rotation = ( ruler.orientation === 'vertical' ) ? -Math.PI / 2 : 0;
 
+    this.icon = new GoRulerIcon( ruler, this, zoomTransformProperty, {
+      tandem: providedOptions.iconTandem
+    } );
     this.ruler = ruler;
     this.opticPositionProperty = opticPositionProperty;
     this.hotkeyTargets = [];
     this.hotkeyTargetsIndex = 0;
-
-    // Create the icon after all other this fields have been initialized.
-    this.icon = new GoRulerIcon( this, zoomTransformProperty, {
-      tandem: providedOptions.iconTandem
-    } );
 
     // Create a RulerNode subcomponent whose scale matches the current zoom level.
     zoomTransformProperty.link( ( zoomTransform: ModelViewTransform2 ) => {
