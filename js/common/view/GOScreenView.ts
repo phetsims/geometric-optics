@@ -60,6 +60,9 @@ type SelfOptions = {
 
   isBasicsVersion: boolean;
 
+  // Initial value for dragLockedProperty
+  dragLocked?: boolean;
+
   // Gets the position of the model origin in view coordinates
   getViewOrigin: ( layoutBounds: Bounds2 ) => Vector2;
 
@@ -84,6 +87,9 @@ class GOScreenView extends ScreenView {
   constructor( model: GOModel, providedOptions: GOScreenViewOptions ) {
 
     const options = optionize<GOScreenViewOptions, SelfOptions, ScreenViewOptions>( {
+
+      // GOScreenViewOptions
+      dragLocked: false,
 
       // ScreenViewOptions
       // Workaround for things shifting around while dragging
@@ -157,7 +163,7 @@ class GOScreenView extends ScreenView {
         return new Bounds2( modelVisibleBounds.minX, -y, modelVisibleBounds.maxX, y );
       } );
 
-    const dragLockedProperty = new BooleanProperty( false, {
+    const dragLockedProperty = new BooleanProperty( options.dragLocked, {
       tandem: providedOptions.tandem.createTandem( 'dragLockedProperty' ),
       phetioDocumentation: 'Controls dragging of the optical object(s).' +
                            '<ul>' +

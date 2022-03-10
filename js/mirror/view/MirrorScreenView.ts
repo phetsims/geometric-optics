@@ -35,6 +35,12 @@ class MirrorScreenView extends GOScreenView {
 
       // GOScreenViewOptions
 
+      // In the basics version of the sim, we only have a flat mirror, so all objects can be dragged freely.
+      // In the full version of the sim, all non-Arrow objects are drag locked.
+      dragLocked: providedOptions.isBasicsVersion ?
+                  false :
+                  !OpticalObjectChoice.isArrowObject( model.opticalObjectChoiceProperty.value ),
+
       // Basics version has the origin in the center, full version has the origin shifted to the right.
       // Slightly above center of the layoutBounds in both versions.
       getViewOrigin: providedOptions.isBasicsVersion ?
@@ -52,8 +58,9 @@ class MirrorScreenView extends GOScreenView {
 
     super( model, options );
 
-    // Enable the drag-locked button only for Arrow object choice. Change the state of dragLockedProperty to indicate
-    // that non-Arrow objects are drag-locked.
+    // In the full version of the sim, the drag-locked button is enabled only for the Arrow object choice, so that
+    // the user can turn drag-lock on/off. Other choices are drag-locked at all times, and the button is disabled.
+    // In the basics version, we only have a flat mirror, so dragLocked is enabled for all object choices.
     if ( !options.isBasicsVersion ) {
       model.opticalObjectChoiceProperty.link( ( opticalObjectChoice: OpticalObjectChoice ) => {
         const isArrowObject = OpticalObjectChoice.isArrowObject( opticalObjectChoice );
