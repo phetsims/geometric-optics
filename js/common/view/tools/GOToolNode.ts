@@ -16,7 +16,11 @@ import GOTool from '../../model/tools/GOTool.js';
 import JumpPosition from './JumpPosition.js';
 
 type SelfOptions = {
+
+  // tandem to be used for the icon associated with this tool Node
   iconTandem: Tandem,
+
+  // tandem name to be used for the link to the associated tool model element
   linkedElementTandemName: string
 };
 
