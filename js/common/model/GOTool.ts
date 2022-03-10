@@ -41,8 +41,6 @@ class GOTool extends PhetioObject {
 
     super( options );
 
-    // The initial value of position really does not matter, because position will be set when the ruler is
-    // removed from the toolbox.
     this.positionProperty = new Vector2Property( Vector2.ZERO, {
       tandem: options.tandem.createTandem( 'positionProperty' )
     } );

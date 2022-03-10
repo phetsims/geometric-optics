@@ -1,19 +1,22 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * GOToolNode is the view base class for all tools.
+ * GOToolNode is the abstract base class for the view of all tools.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
+import { DragListener, Node, NodeOptions, PressListenerEvent } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import GOTool from '../model/GOTool.js';
 
 type SelfOptions = {
-  iconTandem: Tandem
+  iconTandem: Tandem,
+  linkedElementTandemName: string
 };
 
 export type GOToolNodeOptions = SelfOptions & PickRequired<Node, 'tandem'>;
@@ -21,28 +24,38 @@ export type GOToolNodeOptions = SelfOptions & PickRequired<Node, 'tandem'>;
 abstract class GOToolNode extends Node {
 
   // the icon associated with this tool, as it appears in the toolbox
-  abstract icon: Node;
+  public abstract icon: Node;
+
+  protected abstract dragListener: DragListener;
+
+  protected readonly tool: GOTool;
 
   // bounds of the toolbox, in view coordinates
   protected toolboxBounds: Bounds2; //TODO this is currently in parent coordinate frame, should be in global
 
   /**
+   * @param tool
    * @param providedOptions
    */
-  constructor( providedOptions: GOToolNodeOptions ) {
+  protected constructor( tool: GOTool, providedOptions: GOToolNodeOptions ) {
 
     const options = optionize<GOToolNodeOptions, SelfOptions, NodeOptions>( {
 
       // NodeOptions
+      visibleProperty: DerivedProperty.not( tool.isInToolboxProperty ), // visible when not in the toolbox
       tagName: 'div',
       focusable: true,
-      phetioVisiblePropertyInstrumented: false,
       phetioInputEnabledPropertyInstrumented: true
     }, providedOptions );
 
     super( options );
 
+    this.tool = tool;
     this.toolboxBounds = Bounds2.NOTHING; // to be set later via setToolboxBounds
+
+    this.addLinkedElement( tool, {
+      tandem: options.tandem.createTandem( options.linkedElementTandemName )
+    } );
   }
 
   /**
@@ -51,6 +64,23 @@ abstract class GOToolNode extends Node {
    */
   public setToolboxBounds( toolboxBounds: Bounds2 ): void {
     this.toolboxBounds = toolboxBounds;
+  }
+
+  /**
+   * Returns the tool to the toolbox.
+   * @param focus - whether to move focus to the icon in the toolbox, should be true for keyboard input handling
+   */
+  protected returnToToolbox( focus: boolean ) {
+    this.tool.isInToolboxProperty.value = true;
+    focus && this.icon.focus();
+  }
+
+  /**
+   * Forwards an event from the toolbox to start dragging this Node.
+   * @param event
+   */
+  public startDrag( event: PressListenerEvent ): void {
+    this.dragListener.press( event, this );
   }
 
   public dispose(): void {

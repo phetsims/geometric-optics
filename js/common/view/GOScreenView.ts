@@ -175,25 +175,29 @@ class GOScreenView extends ScreenView {
     const horizontalRulerNode = new GORulerNode( model.horizontalRuler, model.optic.positionProperty,
       zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, {
         tandem: toolsTandem.createTandem( 'horizontalRulerNode' ),
-        iconTandem: toolboxTandem.createTandem( 'horizontalRulerIcon' )
+        iconTandem: toolboxTandem.createTandem( 'horizontalRulerIcon' ),
+        linkedElementTandemName: 'horizontalRuler'
       } );
 
     const verticalRulerNode = new GORulerNode( model.verticalRuler, model.optic.positionProperty,
       zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, {
         tandem: toolsTandem.createTandem( 'verticalRulerNode' ),
-        iconTandem: toolboxTandem.createTandem( 'verticalRulerIcon' )
+        iconTandem: toolboxTandem.createTandem( 'verticalRulerIcon' ),
+        linkedElementTandemName: 'verticalRuler'
       } );
 
     const positionMarker1Node = new PositionMarkerNode( model.positionMarker1, zoomTransformProperty,
       this.visibleBoundsProperty, {
         tandem: toolsTandem.createTandem( 'positionMarker1Node' ),
-        iconTandem: toolboxTandem.createTandem( 'positionMarker1Icon' )
+        iconTandem: toolboxTandem.createTandem( 'positionMarker1Icon' ),
+        linkedElementTandemName: 'positionMarker1'
       } );
 
     const positionMarker2Node = new PositionMarkerNode( model.positionMarker2, zoomTransformProperty,
       this.visibleBoundsProperty, {
         tandem: toolsTandem.createTandem( 'positionMarker2Node' ),
-        iconTandem: toolboxTandem.createTandem( 'positionMarker2Icon' )
+        iconTandem: toolboxTandem.createTandem( 'positionMarker2Icon' ),
+        linkedElementTandemName: 'positionMarker2'
       } );
 
     // Toolbox in the top-right corner of the screen

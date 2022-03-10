@@ -11,7 +11,7 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { DragListener, KeyboardDragListener, KeyboardUtils, PressListenerEvent } from '../../../../scenery/js/imports.js';
+import { DragListener, KeyboardDragListener, KeyboardUtils } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
@@ -40,11 +40,10 @@ class PositionMarkerNode extends GOToolNode {
 
   // See GOToolNode
   public readonly icon: PositionMarkerIcon;
+  protected readonly dragListener: DragListener;
 
   // the marker that is associated with this Node
   public readonly positionMarker: PositionMarker;
-
-  private readonly dragListener: DragListener;
 
   /**
    * @param positionMarker
@@ -66,7 +65,7 @@ class PositionMarkerNode extends GOToolNode {
       mouseAreaDilationY: 5
     }, providedOptions );
 
-    super( options );
+    super( positionMarker, options );
 
     const mapMarkerNode = new MapMarkerNode( {
       fill: positionMarker.fill,
@@ -75,7 +74,6 @@ class PositionMarkerNode extends GOToolNode {
     this.addChild( mapMarkerNode );
 
     this.positionMarker = positionMarker;
-    this.toolboxBounds = Bounds2.NOTHING; // to be set later via setToolboxBounds
 
     // Create the icon after all other this fields have been initialized.
     this.icon = new PositionMarkerIcon( this, zoomTransformProperty, {
@@ -85,10 +83,6 @@ class PositionMarkerNode extends GOToolNode {
     // pointer areas
     this.touchArea = this.localBounds.dilatedXY( options.touchAreaDilationX, options.touchAreaDilationY );
     this.mouseArea = this.localBounds.dilatedXY( options.mouseAreaDilationX, options.mouseAreaDilationY );
-
-    positionMarker.isInToolboxProperty.link( isInToolbox => {
-      this.visible = !isInToolbox;
-    } );
 
     positionMarker.positionProperty.link( position => {
       this.centerTop = zoomTransformProperty.value.modelToViewPosition( position );
@@ -168,27 +162,6 @@ class PositionMarkerNode extends GOToolNode {
       this.dragListener.transform = zoomTransform;
       keyboardDragListener.transform = zoomTransform;
     } );
-
-    this.addLinkedElement( positionMarker, {
-      tandem: options.tandem.createTandem( 'positionMarker' )
-    } );
-  }
-
-  /**
-   * Forwards an event from the toolbox to start dragging this Node.
-   * @param event
-   */
-  public startDrag( event: PressListenerEvent ): void {
-    this.dragListener.press( event, this );
-  }
-
-  /**
-   * Returns the marker to the toolbox.
-   * @param focus - whether to move focus to the icon in the toolbox, should be true for keyboard input handling
-   */
-  private returnToToolbox( focus: boolean ) {
-    this.positionMarker.isInToolboxProperty.value = true;
-    focus && this.icon.focus();
   }
 }
 

@@ -47,13 +47,13 @@ class GORulerNode extends GOToolNode {
 
   // See GOToolNode
   public readonly icon: GoRulerIcon;
+  protected readonly dragListener: DragListener;
 
   // the ruler model that is associated with this Node
   public readonly ruler: GORuler;
 
   private readonly opticPositionProperty: IReadOnlyProperty<Vector2>
 
-  private readonly dragListener: DragListener;
   private readonly dragBoundsProperty: IReadOnlyProperty<Bounds2>;
 
   private hotkeyTargets: RulerHotkeyTarget[];
@@ -74,16 +74,14 @@ class GORulerNode extends GOToolNode {
                visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                providedOptions: GORulerNodeOptions ) {
 
-    super( providedOptions );
+    super( ruler, providedOptions );
 
     this.rotation = ( ruler.orientation === 'vertical' ) ? -Math.PI / 2 : 0;
-
 
     this.ruler = ruler;
     this.opticPositionProperty = opticPositionProperty;
     this.hotkeyTargets = [];
     this.hotkeyTargetsIndex = 0;
-    this.toolboxBounds = Bounds2.NOTHING; // to be set later via setToolboxBounds
 
     // Create the icon after all other this fields have been initialized.
     this.icon = new GoRulerIcon( this, zoomTransformProperty, {
@@ -112,10 +110,6 @@ class GORulerNode extends GOToolNode {
       ruler.positionProperty.value = ( this.ruler.orientation === 'vertical' ) ?
                                      zoomTransform.viewToModelPosition( this.leftBottom ) :
                                      zoomTransform.viewToModelPosition( this.leftTop );
-    } );
-
-    ruler.isInToolboxProperty.link( isInToolbox => {
-      this.visible = !isInToolbox;
     } );
 
     ruler.positionProperty.link( position => {
@@ -213,18 +207,6 @@ class GORulerNode extends GOToolNode {
       this.dragListener.transform = zoomTransform;
       keyboardDragListener.transform = zoomTransform;
     } );
-
-    this.addLinkedElement( ruler, {
-      tandem: providedOptions.tandem.createTandem( 'ruler' )
-    } );
-  }
-
-  /**
-   * Forwards an event from the toolbox to start dragging this Node.
-   * @param event
-   */
-  public startDrag( event: PressListenerEvent ): void {
-    this.dragListener.press( event, this );
   }
 
   /**
@@ -234,15 +216,6 @@ class GORulerNode extends GOToolNode {
   public setHotkeyTargets( hotkeyTargets: RulerHotkeyTarget[] ) {
     this.hotkeyTargets = hotkeyTargets;
     this.hotkeyTargetsIndex = 0;
-  }
-
-  /**
-   * Returns the ruler to the toolbox.
-   * @param focus - whether to move focus to the icon in the toolbox, should be true for keyboard input handling
-   */
-  private returnToToolbox( focus: boolean ) {
-    this.ruler.isInToolboxProperty.value = true;
-    focus && this.icon.focus();
   }
 
   /**
