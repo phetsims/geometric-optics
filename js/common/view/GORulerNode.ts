@@ -1,12 +1,11 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/geometric-optics/issues/355 factor out duplication into GOToolNode
 /**
  * GORulerNode is the view of a ruler. Responsibilities include:
  *
  * - It wraps a scenery-phet.RulerNode, which is re-created when the zoom level changes.
  * - As the zoom level is changed, the view dimensions remain constant, but the tick marks change.
- * - It handles dragging, including dragging back to the GOToolbox.
+ * - It handles dragging, including dragging back to the toolbox.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  * @author Sarah Chang (Swarthmore College)
@@ -18,7 +17,7 @@ import Utils from '../../../../dot/js/Utils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import RulerNode from '../../../../scenery-phet/js/RulerNode.js';
-import { DragListener, KeyboardUtils, Node, PressListenerEvent } from '../../../../scenery/js/imports.js';
+import { DragListener, KeyboardUtils, Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
@@ -30,6 +29,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import GOToolNode, { GOToolNodeOptions } from './GOToolNode.js';
 import GOToolKeyboardDragListener from './GOToolKeyboardDragListener.js';
+import GOToolDragListener from './GOToolDragListener.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;
@@ -101,14 +101,7 @@ class GORulerNode extends GOToolNode {
       this.addChild( createRulerNode( this.ruler.length, zoomTransform, zoomScale ) );
     } );
 
-    // Update the ruler position to match this Node's position, so that the ruler remains stationary
-    // in the view, and the model is correct.
-    zoomTransformProperty.lazyLink( ( zoomTransform: ModelViewTransform2 ) => {
-      ruler.positionProperty.value = ( this.ruler.orientation === 'vertical' ) ?
-                                     zoomTransform.viewToModelPosition( this.leftBottom ) :
-                                     zoomTransform.viewToModelPosition( this.leftTop );
-    } );
-
+    // Origin is at leftBottom for a vertical ruler, leftTop for a horizontal ruler.
     ruler.positionProperty.link( position => {
       const viewPosition = zoomTransformProperty.value.modelToViewPosition( position );
       if ( this.ruler.orientation === 'vertical' ) {
@@ -117,6 +110,14 @@ class GORulerNode extends GOToolNode {
       else {
         this.leftTop = viewPosition;
       }
+    } );
+
+    // Update the ruler's model position to match this Node's view position, so that the ruler remains stationary
+    // in the view, and the model is correct.
+    zoomTransformProperty.lazyLink( ( zoomTransform: ModelViewTransform2 ) => {
+      ruler.positionProperty.value = ( this.ruler.orientation === 'vertical' ) ?
+                                     zoomTransform.viewToModelPosition( this.leftBottom ) :
+                                     zoomTransform.viewToModelPosition( this.leftTop );
     } );
 
     // Drag bounds for the ruler, in model coordinates.
@@ -146,26 +147,16 @@ class GORulerNode extends GOToolNode {
       ruler.positionProperty.value = dragBounds.closestPointTo( ruler.positionProperty.value );
     } );
 
-    // Dragging with the pointer
-    this.dragListener = new DragListener( {
-      pressCursor: 'pointer',
-      useInputListenerCursor: true,
-      positionProperty: ruler.positionProperty,
-      dragBoundsProperty: this.dragBoundsProperty,
-      transform: zoomTransformProperty.value,
-      start: () => this.moveToFront(),
-      end: ( event: PressListenerEvent | null, listener: DragListener ) => {
-
-        // Return ruler to toolbox if the pointer is inside the toolbox.
-        assert && assert( listener.pointer && listener.pointer.point ); // {Pointer|null}
-        if ( this.toolboxBounds.containsPoint( this.globalToParentPoint( listener.pointer!.point ) ) ) {
-          this.returnToToolbox( false );
-        }
-      },
+    // Dragging with the pointer.
+    // Return to the toolbox when the pointer is released inside the toolbox.
+    const shouldReturnToToolbox = ( pointerPosition: Vector2 ) =>
+      this.toolboxBounds.containsPoint( this.globalToParentPoint( pointerPosition ) );
+    this.dragListener = new GOToolDragListener( this, zoomTransformProperty, this.dragBoundsProperty, shouldReturnToToolbox, {
       tandem: providedOptions.tandem.createTandem( 'dragListener' )
     } );
     this.addInputListener( this.dragListener );
 
+    // Dragging with the keyboard.
     const keyboardDragListener = new GOToolKeyboardDragListener( this, zoomTransformProperty, this.dragBoundsProperty, {
       tandem: providedOptions.tandem.createTandem( 'keyboardDragListener' )
     } );
@@ -176,11 +167,6 @@ class GORulerNode extends GOToolNode {
     keyboardDragListener.addHotkey( {
       keys: [ KeyboardUtils.KEY_R ],
       callback: () => this.jumpToNextHotkeyTarget()
-    } );
-
-    // When the transform changes, update the input listeners
-    zoomTransformProperty.link( zoomTransform => {
-      this.dragListener.transform = zoomTransform;
     } );
   }
 

@@ -1,6 +1,5 @@
 // Copyright 2022, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/geometric-optics/issues/355 factor out duplication into GOToolNode
 /**
  * PositionMarkerNode is the view of a position marker. It can be dragged in/out of the toolbox, and
  * positioned anywhere within the drag bounds.
@@ -22,6 +21,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import MapMarkerNode from './MapMarkerNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GOToolKeyboardDragListener from './GOToolKeyboardDragListener.js';
+import GOToolDragListener from './GOToolDragListener.js';
 
 type SelfOptions = {
   iconTandem: Tandem,
@@ -81,11 +81,12 @@ class PositionMarkerNode extends GOToolNode {
     this.touchArea = this.localBounds.dilatedXY( options.touchAreaDilationX, options.touchAreaDilationY );
     this.mouseArea = this.localBounds.dilatedXY( options.mouseAreaDilationX, options.mouseAreaDilationY );
 
+    // Origin is at centerTop.
     positionMarker.positionProperty.link( position => {
       this.centerTop = zoomTransformProperty.value.modelToViewPosition( position );
     } );
 
-    // Update the marker position to match this Node's position, so that the marker remains stationary
+    // Update the marker's model position to match this Node's view position, so that the marker remains stationary
     // in the view, and the model position is correct.
     zoomTransformProperty.lazyLink( ( zoomTransform: ModelViewTransform2 ) => {
       positionMarker.positionProperty.value = zoomTransform.viewToModelPosition( this.centerTop );
@@ -108,34 +109,19 @@ class PositionMarkerNode extends GOToolNode {
     } );
 
     // Dragging with the pointer.
-    this.dragListener = new DragListener( {
-      pressCursor: 'pointer',
-      useInputListenerCursor: true,
-      positionProperty: positionMarker.positionProperty,
-      dragBoundsProperty: dragBoundsProperty,
+    // Return to the toolbox when the pointer is released with any part of the marker intersecting the toolbox.
+    const shouldReturnToToolbox = () => this.toolboxBounds.intersectsBounds( this.bounds );
+    this.dragListener = new GOToolDragListener( this, zoomTransformProperty, dragBoundsProperty, shouldReturnToToolbox, {
       offsetPosition: () => new Vector2( -this.width / 2, -this.height ),
-      transform: zoomTransformProperty.value,
-      start: () => this.moveToFront(),
-      end: () => {
-
-        // Return the marker to the toolbox if the marker's bounds intersect the toolbox.
-        if ( this.toolboxBounds.intersectsBounds( this.bounds ) ) {
-          this.returnToToolbox( false );
-        }
-      },
       tandem: options.tandem.createTandem( 'dragListener' )
     } );
     this.addInputListener( this.dragListener );
 
+    // Dragging with the keyboard
     const keyboardDragListener = new GOToolKeyboardDragListener( this, zoomTransformProperty, dragBoundsProperty, {
       tandem: options.tandem.createTandem( 'keyboardDragListener' )
     } );
     this.addInputListener( keyboardDragListener );
-
-    // When the transform changes, update the input listeners
-    zoomTransformProperty.link( zoomTransform => {
-      this.dragListener.transform = zoomTransform;
-    } );
   }
 }
 

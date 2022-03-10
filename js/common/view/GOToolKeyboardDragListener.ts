@@ -18,7 +18,7 @@ import GOToolNode from './GOToolNode.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
-export type GOToolKeyboardDragListenerOptions = PickRequired<KeyboardDragListenerOptions, 'tandem'>;
+type GOToolKeyboardDragListenerOptions = PickRequired<KeyboardDragListenerOptions, 'tandem'>;
 
 class GOToolKeyboardDragListener extends KeyboardDragListener {
 
