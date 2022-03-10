@@ -30,7 +30,7 @@ abstract class GOToolNode extends Node {
 
   protected readonly tool: GOTool;
 
-  // bounds of the toolbox, in view coordinates
+  // Bounds of the toolbox, in view coordinates. This tells the tool where to return to.
   protected toolboxBounds: Bounds2; //TODO this is currently in parent coordinate frame, should be in global
 
   /**
