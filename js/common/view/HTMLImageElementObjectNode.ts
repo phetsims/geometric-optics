@@ -26,6 +26,7 @@ import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
 import HTMLImageElementObject from '../model/HTMLImageElementObject.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import stepTimer from '../../../../axon/js/stepTimer.js';
+import { ObjectDragMode } from './ObjectDragMode.js';
 
 export type HTMLImageElementObjectNodeOptions = PickRequired<NodeOptions, 'tandem'> & PickOptional<NodeOptions, 'visibleProperty'>;
 
@@ -36,7 +37,7 @@ class HTMLImageElementObjectNode extends Node {
    * @param sceneBoundsProperty - bounds for the scene, in model coordinates
    * @param opticPositionProperty
    * @param modelViewTransform
-   * @param dragLockedProperty - is dragging locked to horizontal?
+   * @param objectDragModeProperty
    * @param wasDraggedProperty
    * @param providedOptions
    */
@@ -44,7 +45,7 @@ class HTMLImageElementObjectNode extends Node {
                sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
                opticPositionProperty: IReadOnlyProperty<Vector2>,
                modelViewTransform: ModelViewTransform2,
-               dragLockedProperty: IReadOnlyProperty<boolean>,
+               objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>,
                wasDraggedProperty: IProperty<boolean>,
                providedOptions: HTMLImageElementObjectNodeOptions ) {
 
@@ -100,8 +101,8 @@ class HTMLImageElementObjectNode extends Node {
     // Use Math.floor herein to avoid floating-point rounding errors that result in unwanted changes and additional
     // reentrant Properties, see https://github.com/phetsims/geometric-optics/issues/317.
     const dragBoundsProperty = new DerivedProperty(
-      [ htmlImageElementObject.boundsProperty, sceneBoundsProperty, dragLockedProperty ],
-      ( htmlImageElementObjectBounds: Bounds2, sceneBounds: Bounds2, dragLocked: boolean ) => {
+      [ htmlImageElementObject.boundsProperty, sceneBoundsProperty, objectDragModeProperty ],
+      ( htmlImageElementObjectBounds: Bounds2, sceneBounds: Bounds2, objectDragMode: ObjectDragMode ) => {
 
         const htmlImageElementObjectPosition = htmlImageElementObject.positionProperty.value;
         const minX = Math.floor( sceneBounds.minX + ( htmlImageElementObjectPosition.x - htmlImageElementObjectBounds.minX ) );
@@ -109,17 +110,17 @@ class HTMLImageElementObjectNode extends Node {
         let minY: number;
         let maxY: number;
 
-        if ( dragLocked ) {
+        if ( objectDragMode === 'freeDragging' ) {
 
-          // Dragging is 1D, constrained horizontally to object's current position.
-          minY = htmlImageElementObjectPosition.y;
-          maxY = minY;
+          // free dragging
+          minY = Math.floor( sceneBounds.minY + ( htmlImageElementObjectPosition.y - htmlImageElementObjectBounds.minY ) );
+          maxY = Math.floor( sceneBounds.maxY - ( htmlImageElementObjectBounds.maxY - htmlImageElementObjectPosition.y ) );
         }
         else {
 
-          // Dragging is 2D.
-          minY = Math.floor( sceneBounds.minY + ( htmlImageElementObjectPosition.y - htmlImageElementObjectBounds.minY ) );
-          maxY = Math.floor( sceneBounds.maxY - ( htmlImageElementObjectBounds.maxY - htmlImageElementObjectPosition.y ) );
+          // horizontal dragging, locked to the object's current y position
+          minY = htmlImageElementObjectPosition.y;
+          maxY = minY;
         }
         return new Bounds2( minX, minY, maxX, maxY );
       } );
@@ -170,7 +171,7 @@ class HTMLImageElementObjectNode extends Node {
       } );
 
     // Update cursor and cueing arrows to reflect how this Node is draggable.
-    dragLockedProperty.link( locked => {
+    objectDragModeProperty.link( locked => {
       this.cursor = locked ? 'ew-resize' : 'pointer';
       cueingArrowsNode.setDirection( locked ? 'horizontal' : 'both' );
     } );

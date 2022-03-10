@@ -14,6 +14,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import HTMLImageElementObjectNode, { HTMLImageElementObjectNodeOptions } from './HTMLImageElementObjectNode.js';
 import Property from '../../../../axon/js/Property.js';
+import { ObjectDragMode } from './ObjectDragMode.js';
 
 type FramedObjectNodeOptions = HTMLImageElementObjectNodeOptions;
 
@@ -24,7 +25,7 @@ class FramedObjectNode extends HTMLImageElementObjectNode {
    * @param sceneBoundsProperty - bounds for the scene, in model coordinates
    * @param opticPositionProperty
    * @param modelViewTransform
-   * @param dragLockedProperty - is dragging locked to horizontal?
+   * @param objectDragModeProperty
    * @param wasDraggedProperty
    * @param providedOptions
    */
@@ -32,11 +33,11 @@ class FramedObjectNode extends HTMLImageElementObjectNode {
                sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
                opticPositionProperty: IReadOnlyProperty<Vector2>,
                modelViewTransform: ModelViewTransform2,
-               dragLockedProperty: IReadOnlyProperty<boolean>,
+               objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>,
                wasDraggedProperty: Property<boolean>,
                providedOptions: FramedObjectNodeOptions ) {
 
-    super( framedObject, sceneBoundsProperty, opticPositionProperty, modelViewTransform, dragLockedProperty, wasDraggedProperty, providedOptions );
+    super( framedObject, sceneBoundsProperty, opticPositionProperty, modelViewTransform, objectDragModeProperty, wasDraggedProperty, providedOptions );
 
     this.addLinkedElement( framedObject, {
       tandem: providedOptions.tandem.createTandem( framedObject.tandem.name )

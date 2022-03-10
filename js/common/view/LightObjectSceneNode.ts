@@ -26,9 +26,10 @@ import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import JumpPoint from './tools/JumpPoint.js';
+import { ObjectDragMode } from './ObjectDragMode.js';
 
 type SelfOptions = {
-  dragLockedProperty: IReadOnlyProperty<boolean>;
+  objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>,
 };
 
 type LightObjectSceneNodeOptions = SelfOptions & GOSceneNodeOptions;
@@ -72,14 +73,14 @@ class LightObjectSceneNode extends GOSceneNode {
 
     // First light
     const lightObject1Node = new LightObjectNode( scene.lightObject1, sceneBoundsProperty, scene.optic.positionProperty,
-      modelViewTransform, providedOptions.dragLockedProperty, lightWasDraggedProperty, {
+      modelViewTransform, providedOptions.objectDragModeProperty, lightWasDraggedProperty, {
         tandem: providedOptions.tandem.createTandem( 'lightObject1Node' )
       } );
     this.opticalObjectsLayer.addChild( lightObject1Node );
 
     // Second light
     const lightObject2Node = new LightObjectNode( scene.lightObject2, sceneBoundsProperty, scene.optic.positionProperty,
-      modelViewTransform, providedOptions.dragLockedProperty, lightWasDraggedProperty, {
+      modelViewTransform, providedOptions.objectDragModeProperty, lightWasDraggedProperty, {
         visibleProperty: visibleProperties.secondPointVisibleProperty,
         tandem: providedOptions.tandem.createTandem( 'lightObject2Node' )
       } );

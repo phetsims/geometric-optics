@@ -23,9 +23,10 @@ import ArrowImageNode from './ArrowImageNode.js';
 import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import JumpPoint from './tools/JumpPoint.js';
+import { ObjectDragMode } from './ObjectDragMode.js';
 
 type SelfOptions = {
-  dragLockedProperty: IReadOnlyProperty<boolean>;
+  objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>;
 };
 
 type ArrowObjectSceneNodeOptions = SelfOptions & GOSceneNodeOptions;
@@ -69,14 +70,14 @@ class ArrowObjectSceneNode extends GOSceneNode {
 
     // First arrow object
     const arrowObject1Node = new ArrowObjectNode( scene.arrowObject1, scene.optic, sceneBoundsProperty,
-      modelViewTransform, providedOptions.dragLockedProperty, arrowWasDraggedProperty, {
+      modelViewTransform, providedOptions.objectDragModeProperty, arrowWasDraggedProperty, {
         tandem: providedOptions.tandem.createTandem( 'arrowObject1Node' )
       } );
     this.opticalObjectsLayer.addChild( arrowObject1Node );
 
     // Second arrow object
     const arrowObject2Node = new ArrowObjectNode( scene.arrowObject2, scene.optic, sceneBoundsProperty,
-      modelViewTransform, providedOptions.dragLockedProperty, arrowWasDraggedProperty, {
+      modelViewTransform, providedOptions.objectDragModeProperty, arrowWasDraggedProperty, {
         visibleProperty: visibleProperties.secondPointVisibleProperty,
         tandem: providedOptions.tandem.createTandem( 'arrowObject2Node' )
       } );

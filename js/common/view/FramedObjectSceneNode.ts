@@ -27,9 +27,10 @@ import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import JumpPoint from './tools/JumpPoint.js';
+import { ObjectDragMode } from './ObjectDragMode.js';
 
 type SelfOptions = {
-  dragLockedProperty: IReadOnlyProperty<boolean>;
+  objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>;
 };
 
 type FramedObjectSceneNodeOptions = SelfOptions & GOSceneNodeOptions;
@@ -73,7 +74,7 @@ class FramedObjectSceneNode extends GOSceneNode {
 
     // Framed object
     const framedObjectNode = new FramedObjectNode( scene.framedObject, sceneBoundsProperty, scene.optic.positionProperty,
-      modelViewTransform, providedOptions.dragLockedProperty, framedObjectWasDraggedProperty, {
+      modelViewTransform, providedOptions.objectDragModeProperty, framedObjectWasDraggedProperty, {
         tandem: providedOptions.tandem.createTandem( 'framedObjectNode' )
       } );
     this.opticalObjectsLayer.addChild( framedObjectNode );

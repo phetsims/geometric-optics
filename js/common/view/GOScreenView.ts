@@ -29,7 +29,6 @@ import LightPropagationToggleButton from './LightPropagationToggleButton.js';
 import VisibleProperties from './VisibleProperties.js';
 import Lens from '../../lens/model/Lens.js';
 import Optic from '../model/Optic.js';
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import FramedObjectSceneNode from './FramedObjectSceneNode.js';
 import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
 import Property from '../../../../axon/js/Property.js';
@@ -43,11 +42,13 @@ import LightObjectSceneNode from './LightObjectSceneNode.js';
 import LightObjectSceneLabelsNode from './LightObjectSceneLabelsNode.js';
 import GOSceneNode from './GOSceneNode.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import DragLockedButton from './DragLockedButton.js';
+import ObjectDragModeToggleButton from './ObjectDragModeToggleButton.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import PositionMarkerNode from './tools/PositionMarkerNode.js';
+import { ObjectDragMode, ObjectDragModeValues } from './ObjectDragMode.js';
+import StringIO from '../../../../tandem/js/types/StringIO.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.
@@ -60,8 +61,8 @@ type SelfOptions = {
 
   isBasicsVersion: boolean;
 
-  // Initial value for dragLockedProperty
-  dragLocked?: boolean;
+  // Initial value for objectDragModeProperty
+  objectDragMode?: ObjectDragMode;
 
   // Gets the position of the model origin in view coordinates
   getViewOrigin: ( layoutBounds: Bounds2 ) => Vector2;
@@ -74,8 +75,8 @@ export type GOScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions, 
 
 class GOScreenView extends ScreenView {
 
-  protected readonly dragLockedProperty: IProperty<boolean>;
-  protected readonly dragLockedButton: Node;
+  protected readonly objectDragModeProperty: IProperty<ObjectDragMode>;
+  protected readonly objectDragModeToggleButton: Node;
 
   // Resets things that are specific to this class.
   private readonly resetGOScreenView: () => void;
@@ -89,7 +90,7 @@ class GOScreenView extends ScreenView {
     const options = optionize<GOScreenViewOptions, SelfOptions, ScreenViewOptions>( {
 
       // GOScreenViewOptions
-      dragLocked: false,
+      objectDragMode: 'freeDragging',
 
       // ScreenViewOptions
       // Workaround for things shifting around while dragging
@@ -163,14 +164,18 @@ class GOScreenView extends ScreenView {
         return new Bounds2( modelVisibleBounds.minX, -y, modelVisibleBounds.maxX, y );
       } );
 
-    const dragLockedProperty = new BooleanProperty( options.dragLocked, {
-      tandem: providedOptions.tandem.createTandem( 'dragLockedProperty' ),
-      phetioDocumentation: 'Controls dragging of the optical object(s).' +
+    const objectDragModeProperty = new Property( options.objectDragMode, {
+      validValues: ObjectDragModeValues,
+      tandem: providedOptions.tandem.createTandem( 'objectDragModeProperty' ),
+      phetioReadOnly: true,
+      phetioType: Property.PropertyIO( StringIO ),
+      phetioDocumentation: 'Controls dragging of the optical objects. ' +
+                           'This Property is read-only because the sim controls it, based on the type of optical object that is selected.' +
+                           'Values are:' +
                            '<ul>' +
-                           '<li>true: may be dragged horizontally only</li>' +
-                           '<li>false: may be dragged horizontally and vertically</li>' +
-                           '</ul>' +
-                           'Note that this is ignored for framed objects in the Mirror screen. They are permanently locked.'
+                           '<li>"freeDragging": objects can be dragged freely</li>' +
+                           '<li>"horizontalDragging": dragging is constrained to horizontal, parallel to the optical axis</li>' +
+                           '</ul>'
     } );
 
     // Tools (Rulers & Position Markers) ===============================================================================
@@ -238,11 +243,11 @@ class GOScreenView extends ScreenView {
       tandem: controlsTandem.createTandem( 'opticalObjectChoiceComboBox' )
     } );
 
-    // Toggle button to lock dragging to horizontal
-    const dragLockedButton = new DragLockedButton( dragLockedProperty, {
+    // Toggle button to switch between 'freeDragging' and 'horizontalDragging' of the optical object
+    const objectDragModeToggleButton = new ObjectDragModeToggleButton( objectDragModeProperty, {
       left: opticalObjectChoiceComboBox.right + 25,
       centerY: opticalObjectChoiceComboBox.centerY,
-      tandem: controlsTandem.createTandem( 'dragLockedButton' )
+      tandem: controlsTandem.createTandem( 'objectDragModeToggleButton' )
     } );
 
     // Radio buttons for the shape of the optic
@@ -315,7 +320,7 @@ class GOScreenView extends ScreenView {
       children: [
         opticalObjectChoiceComboBox,
         opticShapeRadioButtonGroup,
-        dragLockedButton,
+        objectDragModeToggleButton,
         toolbox,
         zoomButtonGroup,
         lightPropagationToggleButton,
@@ -333,7 +338,7 @@ class GOScreenView extends ScreenView {
     const arrowObjectSceneNode = new ArrowObjectSceneNode( model.arrowObjectScene, visibleProperties, modelViewTransform,
       modelVisibleBoundsProperty, sceneBoundsProperty, model.raysTypeProperty, model.lightPropagationEnabledProperty, {
         createOpticNode: options.createOpticNode,
-        dragLockedProperty: dragLockedProperty,
+        objectDragModeProperty: objectDragModeProperty,
         visibleProperty: new DerivedProperty( [ model.opticalObjectChoiceProperty ],
           ( opticalObjectChoice: OpticalObjectChoice ) => OpticalObjectChoice.isArrowObject( opticalObjectChoice ) ),
         tandem: scenesTandem.createTandem( 'arrowObjectSceneNode' )
@@ -349,7 +354,7 @@ class GOScreenView extends ScreenView {
     const framedObjectSceneNode = new FramedObjectSceneNode( model.framedObjectScene, visibleProperties, modelViewTransform,
       modelVisibleBoundsProperty, sceneBoundsProperty, model.raysTypeProperty, model.lightPropagationEnabledProperty, {
         createOpticNode: options.createOpticNode,
-        dragLockedProperty: dragLockedProperty,
+        objectDragModeProperty: objectDragModeProperty,
         visibleProperty: new DerivedProperty( [ model.opticalObjectChoiceProperty ],
           ( opticalObjectChoice: OpticalObjectChoice ) => OpticalObjectChoice.isFramedObject( opticalObjectChoice ) ),
         tandem: scenesTandem.createTandem( 'framedObjectSceneNode' )
@@ -369,7 +374,7 @@ class GOScreenView extends ScreenView {
         modelViewTransform, modelVisibleBoundsProperty, sceneBoundsProperty, model.raysTypeProperty,
         model.lightPropagationEnabledProperty, {
           createOpticNode: options.createOpticNode,
-          dragLockedProperty: dragLockedProperty,
+          objectDragModeProperty: objectDragModeProperty,
           visibleProperty: new DerivedProperty( [ model.opticalObjectChoiceProperty ],
             ( opticalObjectChoice: OpticalObjectChoice ) => OpticalObjectChoice.isLight( opticalObjectChoice ) ),
           tandem: scenesTandem.createTandem( 'lightObjectSceneNode' )
@@ -458,7 +463,7 @@ class GOScreenView extends ScreenView {
     this.resetGOScreenView = (): void => {
       visibleProperties.reset();
       zoomLevelProperty.reset();
-      dragLockedProperty.reset();
+      objectDragModeProperty.reset();
       arrowObjectSceneNode.reset();
       framedObjectSceneNode.reset();
       lightObjectSceneNode && lightObjectSceneNode.reset();
@@ -472,7 +477,7 @@ class GOScreenView extends ScreenView {
       positionMarker1Node,
       positionMarker2Node,
       opticalObjectChoiceComboBox,
-      dragLockedButton,
+      objectDragModeToggleButton,
       opticShapeRadioButtonGroup,
       toolbox,
       zoomButtonGroup,
@@ -481,8 +486,8 @@ class GOScreenView extends ScreenView {
       resetAllButton
     ];
 
-    this.dragLockedProperty = dragLockedProperty;
-    this.dragLockedButton = dragLockedButton;
+    this.objectDragModeProperty = objectDragModeProperty;
+    this.objectDragModeToggleButton = objectDragModeToggleButton;
   }
 
   public dispose(): void {

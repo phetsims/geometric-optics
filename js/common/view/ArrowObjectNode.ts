@@ -24,6 +24,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
+import { ObjectDragMode } from './ObjectDragMode.js';
 
 const SNAP_TO_MIN_MAGNITUDE = 20; // cm
 
@@ -36,7 +37,7 @@ class ArrowObjectNode extends Node {
    * @param optic
    * @param sceneBoundsProperty - bounds for the scene, in model coordinates
    * @param modelViewTransform
-   * @param dragLockedProperty - is dragging locked to horizontal?
+   * @param objectDragModeProperty
    * @param wasDraggedProperty - was any ArrowObjectNode dragged?
    * @param providedOptions
    */
@@ -44,7 +45,7 @@ class ArrowObjectNode extends Node {
                optic: Optic,
                sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
                modelViewTransform: ModelViewTransform2,
-               dragLockedProperty: IReadOnlyProperty<boolean>,
+               objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>,
                wasDraggedProperty: Property<boolean>,
                providedOptions: ArrowObjectNodeOptions ) {
 
@@ -93,21 +94,23 @@ class ArrowObjectNode extends Node {
     };
 
     const dragBoundsProperty = new DerivedProperty(
-      [ sceneBoundsProperty, dragLockedProperty ],
-      ( sceneBounds: Bounds2, dragLocked: boolean ) => {
+      [ sceneBoundsProperty, objectDragModeProperty ],
+      ( sceneBounds: Bounds2, objectDragMode: ObjectDragMode ) => {
 
         const minX = sceneBounds.minX + modelViewTransform.viewToModelDeltaX( arrowNode.width ) / 2;
         const maxX = optic.positionProperty.value.x - GOConstants.MIN_DISTANCE_FROM_OBJECT_TO_OPTIC;
         let minY: number;
         let maxY: number;
 
-        if ( dragLocked ) {
-          minY = arrowObject.positionProperty.value.y;
-          maxY = arrowObject.positionProperty.value.y;
-        }
-        else {
+        if ( objectDragMode === 'freeDragging' ) {
           minY = sceneBounds.minY;
           maxY = sceneBounds.maxY;
+        }
+        else {
+
+          // horizontal dragging, locked to the object's current y position
+          minY = arrowObject.positionProperty.value.y;
+          maxY = arrowObject.positionProperty.value.y;
         }
         return new Bounds2( minX, minY, maxX, maxY );
       } );
@@ -158,9 +161,17 @@ class ArrowObjectNode extends Node {
       } );
 
     // Update cursor and cueing arrows to reflect how this Node is draggable.
-    dragLockedProperty.link( locked => {
-      this.cursor = locked ? 'ew-resize' : 'pointer';
-      cueingArrowsNode.setDirection( locked ? 'horizontal' : 'both' );
+    objectDragModeProperty.link( objectDragMode => {
+      if ( objectDragMode === 'freeDragging' ) {
+        this.cursor = 'pointer';
+        cueingArrowsNode.setDirection( 'both' );
+      }
+      else {
+
+        // horizontal dragging
+        this.cursor = 'ew-resize';
+        cueingArrowsNode.setDirection( 'horizontal' );
+      }
     } );
 
     this.addLinkedElement( arrowObject, {
