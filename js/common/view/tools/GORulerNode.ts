@@ -166,10 +166,10 @@ class GORulerNode extends GOToolNode {
       } );
     this.addInputListener( keyboardDragListener );
 
-    // J+R moves the ruler to the next visible position in hotkeyTargets.
+    // J+P is "Jump to Point". It moves (jumps) the ruler to the next visible position in hotkeyTargets.
     // See https://github.com/phetsims/geometric-optics/issues/279
     keyboardDragListener.addHotkey( {
-      keys: [ KeyboardUtils.KEY_R ],
+      keys: [ KeyboardUtils.KEY_P ],
       callback: () => this.jumpToNextHotkeyTarget()
     } );
   }

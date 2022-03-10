@@ -71,7 +71,7 @@ class RulersKeyboardHelpSection extends KeyboardHelpSection {
    * @param isLens
    */
   constructor( isLens: boolean ) {
-    super( geometricOpticsStrings.keyboardHelpDialog.rulerControls, [
+    super( geometricOpticsStrings.keyboardHelpDialog.rulerAndMarkerControls, [
 
       // Space or Enter
       KeyboardHelpSection.labelWithIcon( geometricOpticsStrings.keyboardHelpDialog.removeFromToolbox,
@@ -80,8 +80,8 @@ class RulersKeyboardHelpSection extends KeyboardHelpSection {
       // Esc
       KeyboardHelpSection.labelWithIcon( geometricOpticsStrings.keyboardHelpDialog.returnToToolbox, TextKeyNode.esc() ),
 
-      // J+R
-      KeyboardHelpSection.createJumpKeyRow( 'R', geometricOpticsStrings.keyboardHelpDialog.jumpRuler )
+      // J+P, 'Jump to Point'
+      KeyboardHelpSection.createJumpKeyRow( 'P', geometricOpticsStrings.keyboardHelpDialog.jumpToPoint )
     ], {
       labelMaxWidth: 300
     } );

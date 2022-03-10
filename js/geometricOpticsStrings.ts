@@ -68,10 +68,10 @@ type StringsType = {
     'moveDraggableItems': string,
     'move': string,
     'moveSlower': string,
-    'rulerControls': string,
+    'rulerAndMarkerControls': string,
     'removeFromToolbox': string,
     'returnToToolbox': string,
-    'jumpRuler': string,
+    'jumpToPoint': string,
     'chooseAnObject': string,
     'objects': string,
     'object': string
