@@ -22,10 +22,17 @@ type GOToolDragListenerOptions = PickRequired<DragListenerOptions<PressedDragLis
 
 class GOToolDragListener extends DragListener {
 
+  /**
+   * @param toolNode
+   * @param zoomTransformProperty
+   * @param dragBoundsProperty
+   * @param shouldReturnToToolbox - given the pointer's position, determine whether tool should be returned to toolbox
+   * @param providedOptions
+   */
   constructor( toolNode: GOToolNode,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                dragBoundsProperty: IReadOnlyProperty<Bounds2>,
-               shouldReturnToToolbox: ( point: Vector2 ) => boolean,
+               shouldReturnToToolbox: ( pointerPosition: Vector2 ) => boolean,
                providedOptions: GOToolDragListenerOptions ) {
 
     const options = optionize<GOToolDragListenerOptions, {}, DragListenerOptions<PressedDragListener>>( {

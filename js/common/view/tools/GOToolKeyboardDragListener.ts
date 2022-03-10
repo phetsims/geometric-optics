@@ -22,6 +22,12 @@ type GOToolKeyboardDragListenerOptions = PickRequired<KeyboardDragListenerOption
 
 class GOToolKeyboardDragListener extends KeyboardDragListener {
 
+  /**
+   * @param toolNode
+   * @param zoomTransformProperty
+   * @param dragBoundsProperty
+   * @param providedOptions
+   */
   constructor( toolNode: GOToolNode,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                dragBoundsProperty: IReadOnlyProperty<Bounds2>,
