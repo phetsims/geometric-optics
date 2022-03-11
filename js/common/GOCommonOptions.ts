@@ -17,15 +17,7 @@ import PickOptional from '../../../phet-core/js/types/PickOptional.js';
 import ModelViewTransform2 from '../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Node, SceneryEvent } from '../../../scenery/js/imports.js';
 import { PhetioObjectOptions } from '../../../tandem/js/PhetioObject.js';
-import { ButtonNodeOptions } from '../../../sun/js/buttons/ButtonNode.js';
 import Tandem from '../../../tandem/js/Tandem.js';
-
-export type BooleanRoundToggleButtonOptions = {
-  radius?: number;
-  xMargin?: number;
-  yMargin?: number;
-  touchAreaDilation?: number;
-} & ButtonNodeOptions;
 
 export type KeyboardDragListenerOptions = {
   positionProperty?: IProperty<Vector2> | null;

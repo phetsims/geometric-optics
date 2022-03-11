@@ -10,13 +10,12 @@
 import Property from '../../../../axon/js/Property.js';
 import SceneryPhetConstants from '../../../../scenery-phet/js/SceneryPhetConstants.js';
 import { Image } from '../../../../scenery/js/imports.js';
-import BooleanRoundToggleButton from '../../../../sun/js/buttons/BooleanRoundToggleButton.js';
+import BooleanRoundToggleButton, { BooleanRoundToggleButtonOptions } from '../../../../sun/js/buttons/BooleanRoundToggleButton.js';
 import lightPropagationOffIcon_png from '../../../images/lightPropagationOffIcon_png.js';
 import lightPropagationOnIcon_png from '../../../images/lightPropagationOnIcon_png.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { BooleanRoundToggleButtonOptions } from '../GOCommonOptions.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 
 type LightPropagationToggleButtonOptions = PickRequired<BooleanRoundToggleButtonOptions, 'tandem'>;
