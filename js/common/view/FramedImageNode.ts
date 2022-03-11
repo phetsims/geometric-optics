@@ -65,22 +65,10 @@ class FramedImageNode extends OpticalImageNode {
       hitTestPixels: true // See https://github.com/phetsims/geometric-optics/issues/283
     } );
 
-    // Mask for an image that looks like it's facing right, which occurs to the left of the optic.
-    const rightFacingMaskShape = new MaskShape( imageNode.width, imageNode.height );
-
-    // Mask for an image that looks like it's facing left, which occurs to the right of the optic.
-    // It's the same shape as the right-facing mask, but reflected about the y, and shifted to the right.
-    const scaleX = -1;
-    const translateX = imageNode.width;
-    const matrix = new Matrix3().rowMajor(
-      scaleX, 0, translateX,
-      0, 1, 0,
-      0, 0, 1
-    );
-    const leftFacingMaskShape = rightFacingMaskShape.transformed( matrix );
-
-    // This mask is used to reduce the opacity of the parts of the optical axis and rays that are occluded by
+    // A mask is used to reduce the opacity of the parts of the optical axis and rays that are occluded by
     // the real or virtual image. See https://github.com/phetsims/geometric-optics/issues/283.
+    const rightFacingMaskShape = new MaskShape( imageNode.width, imageNode.height );
+    const leftFacingMaskShape = rightFacingMaskShape.getLeftFacingMaskShape();
     const maskNode = new Path( rightFacingMaskShape, {
       fill: GOColors.screenBackgroundColorProperty,
       opacity: GOQueryParameters.frameImageMaskOpacity,
@@ -144,6 +132,8 @@ class FramedImageNode extends OpticalImageNode {
  */
 class MaskShape extends Shape {
 
+  private readonly imageWidth: number;
+
   /**
    * @param imageWidth
    * @param imageHeight
@@ -168,6 +158,24 @@ class MaskShape extends Shape {
       .lineTo( xInset3, imageHeight - yInset2 )
       .lineTo( xInset1, imageHeight - yInset1 )
       .close();
+
+    this.imageWidth = imageWidth;
+  }
+
+  /**
+   * MaskShape is drawn for a right-facing image. This method returns the mask Shape for a left-facing image,
+   * which occurs to the right of the optic. It's the same shape as the right-facing mask, but reflected about
+   * the y-axis, and shifted to the right.
+   */
+  public getLeftFacingMaskShape(): Shape {
+    const scaleX = -1;
+    const translateX = this.imageWidth;
+    const matrix = new Matrix3().rowMajor(
+      scaleX, 0, translateX,
+      0, 1, 0,
+      0, 0, 1
+    );
+    return this.transformed( matrix );
   }
 }
 
