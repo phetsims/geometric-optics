@@ -1,7 +1,7 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * Enabled2FCheckbox is the check box used to enable the '2F' feature in the Options dialog.
+ * TwoFPointsEnabledCheckbox is the check box used to enable the '2F' feature in the Options dialog.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -16,15 +16,15 @@ import GOConstants from '../GOConstants.js';
 
 type Enable2FCheckboxOptions = PickRequired<CheckboxOptions, 'boxWidth' | 'tandem'>;
 
-class Enabled2FCheckbox extends Checkbox {
+class TwoFPointsEnabledCheckbox extends Checkbox {
 
   private readonly disposeEnable2FCheckbox: () => void;
 
   /**
-   * @param enabled2FProperty
+   * @param twoFPointsEnabledProperty
    * @param providedOptions
    */
-  constructor( enabled2FProperty: Property<boolean>, providedOptions: Enable2FCheckboxOptions ) {
+  constructor( twoFPointsEnabledProperty: Property<boolean>, providedOptions: Enable2FCheckboxOptions ) {
 
     const labelNode = new Text( geometricOpticsStrings.checkbox.show2FPointsCheckbox, {
       font: GOConstants.CONTROL_FONT,
@@ -32,7 +32,7 @@ class Enabled2FCheckbox extends Checkbox {
       tandem: providedOptions.tandem.createTandem( 'labelNode' )
     } );
 
-    super( labelNode, enabled2FProperty, providedOptions );
+    super( labelNode, twoFPointsEnabledProperty, providedOptions );
 
     this.disposeEnable2FCheckbox = (): void => {
       labelNode.dispose();
@@ -45,5 +45,5 @@ class Enabled2FCheckbox extends Checkbox {
   }
 }
 
-geometricOptics.register( 'Enabled2FCheckbox', Enabled2FCheckbox );
-export default Enabled2FCheckbox;
+geometricOptics.register( 'TwoFPointsEnabledCheckbox', TwoFPointsEnabledCheckbox );
+export default TwoFPointsEnabledCheckbox;

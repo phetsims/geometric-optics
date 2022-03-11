@@ -24,8 +24,8 @@ const GOGlobalOptions = {
     phetioDocumentation: 'enables the "Guides" feature'
   } ),
 
-  enabled2FProperty: new BooleanProperty( GOQueryParameters.enabled2F, {
-    tandem: optionsTandem.createTandem( 'enabled2FProperty' ),
+  twoFPointsEnabledProperty: new BooleanProperty( GOQueryParameters.twoFPointsEnabled, {
+    tandem: optionsTandem.createTandem( 'twoFPointsEnabledProperty' ),
     phetioDocumentation: 'enables the "2F Points" feature'
   } ),
 

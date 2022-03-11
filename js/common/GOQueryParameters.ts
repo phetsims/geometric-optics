@@ -30,9 +30,9 @@ const SCHEMA_MAP = {
 
   // Enables the feature that lets you show 2F points.
   // When true, a '2F Points' checkbox is added to the control panel.
-  // This sets the initial value of GOGlobalOptions.enabled2FProperty.
-  // Deviates from the usual somethingEnabled naming convention because 2FEnabled is not a valid JavaScript identifier.
-  enabled2F: {
+  // This sets the initial value of GOGlobalOptions.twoFPointsEnabledProperty.
+  // We're using this somewhat unfortunate name because 2FPointsEnabled is not a valid JavaScript identifier.
+  twoFPointsEnabled: {
     type: 'boolean',
     defaultValue: false,
     public: true
