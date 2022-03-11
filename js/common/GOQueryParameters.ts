@@ -19,23 +19,24 @@ const SCHEMA_MAP = {
   // Public-facing query parameters
   //----------------------------------------------------------------------------------------------------------------
 
-  // Add the 'Guides' feature to the Lens screen. This is a representation that was invented by PhET.
-  // A checkbox will be added to the control panel, for controlling the visibility of the Guides.
+  // Adds the 'Guides' feature to the Lens screen. This is a representation that was invented by PhET.
+  // When true, a 'Guides' checkbox is added to the control panel.
   enableGuides: {
     type: 'boolean',
     defaultValue: false,
     public: true
   },
 
-  // Enable the feature that lets you show points at 2F.
-  // This sets the initial value of GOGlobalOptions.enable2FProperty.
+  // Enables the feature that lets you show 2F points.
+  // When true, a '2F Points' checkbox is added to the control panel.
+  // This also sets the initial value of GOGlobalOptions.enable2FProperty.
   enable2F: {
     type: 'boolean',
     defaultValue: false,
     public: true
   },
 
-  // Enable the feature that shows cueing arrows on things that are draggable.
+  // Enables the feature that shows cueing arrows on things that are draggable.
   enableCueingArrows: {
     type: 'boolean',
     defaultValue: true,
@@ -135,25 +136,27 @@ const SCHEMA_MAP = {
   },
 
   // With framed objects and light objects, the optical axis has foreground and background Nodes.
-  // This flag uses 'red' stroke for the foreground.
+  // The foreground Node draws the segments of the optical axis that are not obscured by things that have 3D perspective.
+  // This flag uses 'red' stroke for the foreground Node and its clipArea.
   debugOpticalAxis: {
     type: 'flag'
   },
 
-  // With framed objects, real light rays are drawn using 2 Nodes, RealLightRaysNode and RealLightRaysForegroundNode.
-  // This flag uses 'red' stroke for RealLightRaysForegroundNode and its clipArea.
+  // With framed objects, real light rays are drawn using foreground and background Nodes.
+  // The foreground Node draws the parts of the rays that are not obscured by things that have 3D perspective.
+  // This flag uses 'red' stroke for the foreground Node and its clipArea.
   debugRays: {
     type: 'flag'
   },
 
-  // Shows the model bounds as a red rectangle.
-  debugModelBounds: {
+  // Shows the value of GOScreenView.sceneBoundsProperty as a red rectangle.
+  debugSceneBounds: {
     type: 'flag'
   },
 
-  // Shows the Shape of the mask that sits behind the optical image associated with framed objects, rendered as
-  // a red outline. This mask is used to reduce the opacity of the portion of the axis that is occluded by the
-  // optical image. See ?imageMaskOpacity and https://github.com/phetsims/geometric-optics/issues/283.
+  // Shows the Shape of the mask that sits behind the optical image associated with framed objects, rendered as a red
+  // outline. This mask is used to reduce the opacity of the portion of the axis that is occluded by the 3D perspective
+  // of the optical image. See ?frameImageMaskOpacity and https://github.com/phetsims/geometric-optics/issues/283.
   debugMask: {
     type: 'flag'
   }

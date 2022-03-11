@@ -389,7 +389,7 @@ class GOScreenView extends ScreenView {
     }
 
     // Show the model bounds as a green rectangle.
-    if ( GOQueryParameters.debugModelBounds ) {
+    if ( GOQueryParameters.debugSceneBounds ) {
       const dragBoundsNode = new Rectangle( modelViewTransform.modelToViewBounds( sceneBoundsProperty.value ), {
         stroke: 'red'
       } );
