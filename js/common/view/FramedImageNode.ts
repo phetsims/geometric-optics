@@ -98,16 +98,11 @@ class FramedImageNode extends OpticalImageNode {
     // Update the image and mask.
     framedImage.htmlImageElementProperty.link( htmlImageElement => {
 
-      // update the HTMLImageElement (PNG file)
+      // Update the HTMLImageElement (PNG file).
       imageNode.image = htmlImageElement;
 
-      // update the mask to match the orientation of the optical image
-      if ( ( framedImage.positionProperty.value.x < optic.positionProperty.value.x ) ) {
-        maskNode.shape = maskNode.rightFacingMaskShape;
-      }
-      else {
-        maskNode.shape = maskNode.leftFacingMaskShape;
-      }
+      // Update the mask to face towards the optic.
+      maskNode.setIsRightFacing( framedImage.positionProperty.value.x < optic.positionProperty.value.x );
 
       updateScaleAndPosition();
     } );

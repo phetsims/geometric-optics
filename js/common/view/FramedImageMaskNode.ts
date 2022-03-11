@@ -13,15 +13,17 @@
 import { Shape } from '../../../../kite/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
-import { Path } from '../../../../scenery/js/imports.js';
+import { Node, Path } from '../../../../scenery/js/imports.js';
 import GOColors from '../GOColors.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 
-class FramedImageMaskNode extends Path {
+class FramedImageMaskNode extends Node {
+
+  private readonly path: Path;
 
   // Shapes for the 2 orientations of a frame image
-  public readonly rightFacingMaskShape: Shape;
-  public readonly leftFacingMaskShape: Shape;
+  private readonly rightFacingMaskShape: Shape;
+  private readonly leftFacingMaskShape: Shape;
 
   /**
    * @param imageWidth
@@ -31,20 +33,33 @@ class FramedImageMaskNode extends Path {
 
     const rightFacingMaskShape = new MaskShape( imageWidth, imageHeight );
 
-    super( rightFacingMaskShape, {
+    // Same shape as the right-facing mask, but reflected about the y-axis, and shifted to the right.
+    const leftFacingMaskShape = new MaskShape( imageWidth, imageHeight ).transformed( new Matrix3().rowMajor(
+      -1, 0, imageWidth,
+      0, 1, 0,
+      0, 0, 1
+    ) );
+
+    const path = new Path( rightFacingMaskShape, {
       fill: GOColors.screenBackgroundColorProperty,
       opacity: GOQueryParameters.frameImageMaskOpacity,
       stroke: GOQueryParameters.debugMask ? 'red' : null
     } );
 
-    this.rightFacingMaskShape = rightFacingMaskShape;
+    super( {
+      children: [ path ]
+    } );
 
-    // Same shape as the right-facing mask, but reflected about the y-axis, and shifted to the right.
-    this.leftFacingMaskShape = new MaskShape( imageWidth, imageHeight ).transformed( new Matrix3().rowMajor(
-      -1, 0, imageWidth,
-      0, 1, 0,
-      0, 0, 1
-    ) );
+    this.path = path;
+    this.rightFacingMaskShape = rightFacingMaskShape;
+    this.leftFacingMaskShape = leftFacingMaskShape;
+  }
+
+  /**
+   * @param isRightFacing
+   */
+  public setIsRightFacing( isRightFacing: boolean ): void {
+    this.path.shape = ( isRightFacing ? this.rightFacingMaskShape : this.leftFacingMaskShape );
   }
 }
 
