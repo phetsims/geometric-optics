@@ -150,21 +150,23 @@ class MaskShape extends Shape {
    */
   constructor( imageWidth: number, imageHeight: number ) {
 
-    const xInset1 = 12;
-    const xInset2 = 10;
-    const yInset0 = 6;
-    const yInset1 = 55;
+    // insets are numbered as they are used, as we move clockwise
+    const xInset1 = 1;
+    const xInset2 = 12;
+    const xInset3 = 10;
+    const yInset1 = 6;
     const yInset2 = 3;
+    const yInset3 = 55;
 
     super();
 
     // Outline a right-facing framed image, starting at topLeft and moving clockwise.
-    this.moveTo( 0, yInset0 )
-      .lineTo( xInset2, yInset2 )
-      .lineTo( imageWidth - xInset1, yInset1 )
-      .lineTo( imageWidth - xInset1, imageHeight - yInset1 )
-      .lineTo( xInset2, imageHeight - yInset2 )
-      .lineTo( 0, imageHeight - yInset0 )
+    this.moveTo( xInset1, yInset1 )
+      .lineTo( xInset3, yInset2 )
+      .lineTo( imageWidth - xInset2, yInset3 )
+      .lineTo( imageWidth - xInset2, imageHeight - yInset3 )
+      .lineTo( xInset3, imageHeight - yInset2 )
+      .lineTo( xInset1, imageHeight - yInset1 )
       .close();
   }
 }
