@@ -173,8 +173,8 @@ class GOScreenView extends ScreenView {
                            'This Property is read-only because the sim controls it, based on the type of optical object that is selected.' +
                            'Values are:' +
                            '<ul>' +
-                           '<li>"freeDragging": objects can be dragged freely</li>' +
-                           '<li>"horizontalDragging": dragging is constrained to horizontal, parallel to the optical axis</li>' +
+                           '<li>freeDragging: objects can be dragged freely</li>' +
+                           '<li>horizontalDragging: dragging is constrained to horizontal, parallel to the optical axis</li>' +
                            '</ul>'
     } );
 
