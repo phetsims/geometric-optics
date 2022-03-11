@@ -120,7 +120,7 @@ abstract class GOSceneNode extends Node {
           tandem: twoFPointsNodeTandem.createTandem( 'right2FPointNode' )
         } )
       ],
-      visibleProperty: DerivedProperty.and( [ visibleProperties.twoFPointsVisibleProperty, GOGlobalOptions.twoFPointsEnabledProperty ] ),
+      visibleProperty: DerivedProperty.and( [ GOGlobalOptions.twoFPointsEnabledProperty, visibleProperties.twoFPointsVisibleProperty ] ),
       tandem: twoFPointsNodeTandem
     } );
 
@@ -134,9 +134,16 @@ abstract class GOSceneNode extends Node {
     const guidesLayer = new Node();
 
     if ( scene.guides1 ) {
+      const guides1Tandem = options.tandem.createTandem( 'guides1Node' );
       const guides1Node = new GuidesNode( scene.guides1, GOColors.guideArm1FillProperty, modelViewTransform, {
-        visibleProperty: visibleProperties.guidesVisibleProperty,
-        tandem: options.tandem.createTandem( 'guides1Node' ),
+        visibleProperty: DerivedProperty.and( [
+          GOGlobalOptions.guidesEnabledProperty,
+          visibleProperties.guidesVisibleProperty
+        ], {
+          tandem: guides1Tandem.createTandem( 'visibleProperty' ),
+          phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
+        } ),
+        tandem: guides1Tandem,
         phetioDocumentation: 'guides associated with the first object'
       } );
       guidesLayer.addChild( guides1Node );
@@ -145,11 +152,14 @@ abstract class GOSceneNode extends Node {
     if ( scene.guides2 ) {
       const guides2Tandem = options.tandem.createTandem( 'guides2Node' );
       const guides2Node = new GuidesNode( scene.guides2, GOColors.guideArm2FillProperty, modelViewTransform, {
-        visibleProperty: DerivedProperty.and(
-          [ visibleProperties.guidesVisibleProperty, visibleProperties.secondPointVisibleProperty ], {
-            tandem: guides2Tandem.createTandem( 'visibleProperty' ),
-            phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
-          } ),
+        visibleProperty: DerivedProperty.and( [
+          GOGlobalOptions.guidesEnabledProperty,
+          visibleProperties.guidesVisibleProperty,
+          visibleProperties.secondPointVisibleProperty
+        ], {
+          tandem: guides2Tandem.createTandem( 'visibleProperty' ),
+          phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
+        } ),
         tandem: guides2Tandem,
         phetioDocumentation: 'guides associated with the second object'
       } );
