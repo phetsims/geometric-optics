@@ -21,7 +21,7 @@ const SCHEMA_MAP = {
 
   // Adds the 'Guides' feature to the Lens screen. This is a representation that was invented by PhET.
   // When true, a 'Guides' checkbox is added to the control panel.
-  enableGuides: {
+  guidesEnabled: {
     type: 'boolean',
     defaultValue: false,
     public: true
@@ -37,7 +37,7 @@ const SCHEMA_MAP = {
   },
 
   // Enables the feature that shows cueing arrows on things that are draggable.
-  enableCueingArrows: {
+  cueingArrowsEnabled: {
     type: 'boolean',
     defaultValue: true,
     public: true

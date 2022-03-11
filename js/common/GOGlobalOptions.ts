@@ -19,9 +19,19 @@ const optionsTandem = Tandem.GLOBAL_VIEW.createTandem( 'options' );
 
 const GOGlobalOptions = {
 
+  guidesEnabledProperty: new BooleanProperty( GOQueryParameters.guidesEnabled, {
+    tandem: optionsTandem.createTandem( 'guidesEnabledProperty' ),
+    phetioDocumentation: 'enables the "Guides" feature'
+  } ),
+
   enable2FProperty: new BooleanProperty( GOQueryParameters.enable2F, {
     tandem: optionsTandem.createTandem( 'enable2FProperty' ),
-    phetioDocumentation: 'enables the feature for showing the 2F points'
+    phetioDocumentation: 'enables the "2F Points" feature'
+  } ),
+
+  cueingArrowsEnabledProperty: new BooleanProperty( GOQueryParameters.cueingArrowsEnabled, {
+    tandem: optionsTandem.createTandem( 'cueingArrowsEnabledProperty' ),
+    phetioDocumentation: 'shows cueing arrows on draggable elements'
   } ),
   
   focalLengthModelTypeProperty:

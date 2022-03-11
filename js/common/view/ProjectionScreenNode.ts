@@ -26,6 +26,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
+import GOGlobalOptions from '../GOGlobalOptions.js';
 
 type ProjectionScreenNodeOptions = PickRequired<NodeOptions, 'tandem'>;
 
@@ -114,9 +115,9 @@ class ProjectionScreenNode extends Node {
       left: parentNode.right,
       centerY: parentNode.centerY,
       visibleProperty: new DerivedProperty(
-        [ this.inputEnabledProperty, wasDraggedProperty ],
-        ( inputEnabled: boolean, wasDragged: boolean ) =>
-          ( GOQueryParameters.enableCueingArrows && inputEnabled && !wasDragged ) )
+        [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
+        ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
+          ( cueingArrowsEnabled && inputEnabled && !wasDragged ) )
     } );
     this.addChild( cueingArrowsNode );
 

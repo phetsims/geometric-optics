@@ -13,7 +13,6 @@ import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GuideNode from './GuideNode.js';
 import GOConstants from '../GOConstants.js';
-import GOQueryParameters from '../GOQueryParameters.js';
 import VisibleProperties from './VisibleProperties.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
@@ -104,7 +103,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       items.push( createItem( geometricOpticsStrings.checkbox.guides, visibleProperties.guidesVisibleProperty, {
         iconNode: GuideNode.createIcon(),
         options: {
-          visible: GOQueryParameters.enableGuides
+          visibleProperty: GOGlobalOptions.guidesEnabledProperty
         },
         tandem: options.tandem.createTandem( 'guidesCheckbox' )
       } ) );
