@@ -19,20 +19,17 @@ const SCHEMA_MAP = {
   // Public-facing query parameters
   //----------------------------------------------------------------------------------------------------------------
 
-  // Adds the 'Guides' feature to the Lens screen. This is a representation that was invented by PhET.
-  // When true, a 'Guides' checkbox is added to the control panel.
-  // This sets the initial value of GOGlobalOptions.guidesEnabledProperty.
-  guidesEnabled: {
+  // When true, adds a 'Guides' checkbox to the control panel in the Lens screen.
+  guidesCheckboxVisible: {
     type: 'boolean',
     defaultValue: false,
     public: true
   },
 
-  // Enables the feature that lets you show 2F points.
-  // When true, a '2F Points' checkbox is added to the control panel.
-  // This sets the initial value of GOGlobalOptions.twoFPointsEnabledProperty.
-  // We're using this somewhat unfortunate name because 2FPointsEnabled is not a valid JavaScript identifier.
-  twoFPointsEnabled: {
+  // When true, adds a '2F Points' checkbox to the control panel in both screens.
+  // This sets the initial value of GOGlobalOptions.twoFPointsCheckboxVisibleProperty.
+  // A preferable name would be 2FPointsCheckboxVisible, but that is not a valid JavaScript identifier.
+  twoFPointsCheckboxVisible: {
     type: 'boolean',
     defaultValue: false,
     public: true

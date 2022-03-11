@@ -21,10 +21,10 @@ class TwoFPointsEnabledCheckbox extends Checkbox {
   private readonly disposeEnable2FCheckbox: () => void;
 
   /**
-   * @param twoFPointsEnabledProperty
+   * @param twoFPointsCheckboxVisibleProperty
    * @param providedOptions
    */
-  constructor( twoFPointsEnabledProperty: Property<boolean>, providedOptions: Enable2FCheckboxOptions ) {
+  constructor( twoFPointsCheckboxVisibleProperty: Property<boolean>, providedOptions: Enable2FCheckboxOptions ) {
 
     const labelNode = new Text( geometricOpticsStrings.checkbox.show2FPointsCheckbox, {
       font: GOConstants.CONTROL_FONT,
@@ -32,7 +32,7 @@ class TwoFPointsEnabledCheckbox extends Checkbox {
       tandem: providedOptions.tandem.createTandem( 'labelNode' )
     } );
 
-    super( labelNode, twoFPointsEnabledProperty, providedOptions );
+    super( labelNode, twoFPointsCheckboxVisibleProperty, providedOptions );
 
     this.disposeEnable2FCheckbox = (): void => {
       labelNode.dispose();

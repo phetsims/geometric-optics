@@ -28,7 +28,6 @@ import GOScene from '../model/GOScene.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import GOGlobalOptions from '../GOGlobalOptions.js';
 import JumpPoint from './tools/JumpPoint.js';
 
 type SelfOptions = {
@@ -120,7 +119,7 @@ abstract class GOSceneNode extends Node {
           tandem: twoFPointsNodeTandem.createTandem( 'right2FPointNode' )
         } )
       ],
-      visibleProperty: DerivedProperty.and( [ GOGlobalOptions.twoFPointsEnabledProperty, visibleProperties.twoFPointsVisibleProperty ] ),
+      visibleProperty: visibleProperties.twoFPointsVisibleProperty,
       tandem: twoFPointsNodeTandem
     } );
 
@@ -136,13 +135,7 @@ abstract class GOSceneNode extends Node {
     if ( scene.guides1 ) {
       const guides1Tandem = options.tandem.createTandem( 'guides1Node' );
       const guides1Node = new GuidesNode( scene.guides1, GOColors.guideArm1FillProperty, modelViewTransform, {
-        visibleProperty: DerivedProperty.and( [
-          GOGlobalOptions.guidesEnabledProperty,
-          visibleProperties.guidesVisibleProperty
-        ], {
-          tandem: guides1Tandem.createTandem( 'visibleProperty' ),
-          phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
-        } ),
+        visibleProperty: visibleProperties.guidesVisibleProperty,
         tandem: guides1Tandem,
         phetioDocumentation: 'guides associated with the first object'
       } );
@@ -153,7 +146,6 @@ abstract class GOSceneNode extends Node {
       const guides2Tandem = options.tandem.createTandem( 'guides2Node' );
       const guides2Node = new GuidesNode( scene.guides2, GOColors.guideArm2FillProperty, modelViewTransform, {
         visibleProperty: DerivedProperty.and( [
-          GOGlobalOptions.guidesEnabledProperty,
           visibleProperties.guidesVisibleProperty,
           visibleProperties.secondPointVisibleProperty
         ], {

@@ -53,7 +53,7 @@ class GOGlobalOptionsNode extends VBox {
     } );
 
     // Enables the 2F Points feature
-    const twoFPointsEnabledCheckbox = new TwoFPointsEnabledCheckbox( GOGlobalOptions.twoFPointsEnabledProperty, {
+    const twoFPointsEnabledCheckbox = new TwoFPointsEnabledCheckbox( GOGlobalOptions.twoFPointsCheckboxVisibleProperty, {
       boxWidth: GOConstants.CHECKBOX_BOX_WIDTH,
       tandem: options.tandem.createTandem( 'twoFPointsEnabledCheckbox' )
     } );
