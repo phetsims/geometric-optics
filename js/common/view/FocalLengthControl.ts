@@ -60,12 +60,7 @@ class FocalLengthControl extends NumberControl {
         constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.FOCAL_LENGTH_SLIDER_STEP ),
         keyboardStep: GOConstants.FOCAL_LENGTH_KEYBOARD_STEP, // used by all alternative-input devices
         shiftKeyboardStep: GOConstants.FOCAL_LENGTH_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
-        pageKeyboardStep: GOConstants.FOCAL_LENGTH_PAGE_KEYBOARD_STEP, // coarser grain, used by keyboard only
-
-        // generate a sound for each slider step
-        soundGeneratorOptions: {
-          numberOfMiddleThresholds: Utils.roundSymmetric( range.getLength() / GOConstants.FOCAL_LENGTH_SLIDER_STEP ) - 1
-        }
+        pageKeyboardStep: GOConstants.FOCAL_LENGTH_PAGE_KEYBOARD_STEP
       }
     } );
 
