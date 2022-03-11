@@ -8,7 +8,7 @@
 
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { DragListener, DragListenerOptions, PressedDragListener, PressListenerEvent } from '../../../../../scenery/js/imports.js';
+import { DragListener, DragListenerOptions, PressedDragListener } from '../../../../../scenery/js/imports.js';
 import geometricOptics from '../../../geometricOptics.js';
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
@@ -35,8 +35,12 @@ class GOToolDragListener extends DragListener {
                toolNode: GOToolNode,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                dragBoundsProperty: IReadOnlyProperty<Bounds2>,
-               shouldReturnToToolbox: ( pointerPosition: Vector2 ) => boolean,
+               shouldReturnToToolbox: ( pointerPoint: Vector2 ) => boolean,
                providedOptions: GOToolDragListenerOptions ) {
+
+    // options.end will get a null event if the drag is interrupted, which can definitely happen with multitouch.
+    // So keep track of where the pointer is.
+    let previousPointerPoint: Vector2 = Vector2.ZERO;
 
     const options = optionize<GOToolDragListenerOptions, {}, DragListenerOptions<PressedDragListener>>( {
       pressCursor: 'pointer',
@@ -45,9 +49,12 @@ class GOToolDragListener extends DragListener {
       dragBoundsProperty: dragBoundsProperty,
       transform: zoomTransformProperty.value,
       start: () => toolNode.moveToFront(),
-      end: ( event: PressListenerEvent | null ) => {
-        assert && assert( event ); // {PressListenerEvent|null}
-        if ( shouldReturnToToolbox( event!.pointer.point ) ) {
+      drag: event => {
+        previousPointerPoint = event.pointer.point;
+      },
+      end: event => {
+        const point = event ? event.pointer.point : previousPointerPoint;
+        if ( shouldReturnToToolbox( point ) ) {
           tool.isInToolboxProperty.value = true;
         }
       }
