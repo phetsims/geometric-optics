@@ -30,8 +30,8 @@ abstract class GOToolNode extends Node {
 
   protected abstract dragListener: DragListener;
 
-  // Bounds of the toolbox, in view coordinates. This tells the tool where to return to.
-  public toolboxBounds: Bounds2; //TODO this is currently in parent coordinate frame, should be in global
+  // Bounds of the toolbox, in global view coordinates. This tells the tool where to return to.
+  public toolboxBounds: Bounds2;
 
   // positions that are 'interesting' to measure, for the J+P hotkey
   protected jumpPoints: JumpPoint[];

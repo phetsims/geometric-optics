@@ -138,8 +138,7 @@ class GORulerNode extends GOToolNode {
 
     // Dragging with the pointer.
     // Return to the toolbox when the pointer is released inside the toolbox.
-    const dragReturnToToolbox = ( pointerPoint: Vector2 ) =>
-      this.toolboxBounds.containsPoint( this.globalToParentPoint( pointerPoint ) );
+    const dragReturnToToolbox = ( pointerPoint: Vector2 ) => this.toolboxBounds.containsPoint( pointerPoint );
     this.dragListener = new GOToolDragListener( ruler, this, zoomTransformProperty, this.dragBoundsProperty,
       dragReturnToToolbox, {
         tandem: providedOptions.tandem.createTandem( 'dragListener' )
@@ -148,7 +147,7 @@ class GORulerNode extends GOToolNode {
 
     // Dragging with the keyboard.
     // Return the ruler to the toolbox if the ruler's center point is inside the toolbox.
-    const keyboardDragReturnToToolbox = () => this.toolboxBounds.containsPoint( this.center );
+    const keyboardDragReturnToToolbox = () => this.toolboxBounds.containsPoint( this.parentToGlobalPoint( this.center ) );
     const keyboardDragListener = new GOToolKeyboardDragListener( ruler, this, zoomTransformProperty,
       this.dragBoundsProperty, keyboardDragReturnToToolbox, {
         tandem: providedOptions.tandem.createTandem( 'keyboardDragListener' )

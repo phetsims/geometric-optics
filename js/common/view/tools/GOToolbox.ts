@@ -45,11 +45,11 @@ class GOToolbox extends Panel {
 
     super( toolboxContent, options );
 
-    // Tell the tools where the toolbox is.
+    // Tell the tools where the toolbox is, in global view coordinates.
     // This allows tools to determine when they have been dragged back to the toolbox.
     Property.multilink( [ this.boundsProperty, this.visibleProperty ],
       ( bounds: Bounds2, visible: boolean ) => {
-        const toolboxBounds = visible ? bounds : Bounds2.NOTHING;
+        const toolboxBounds = visible ? this.parentToGlobalBounds( bounds ) : Bounds2.NOTHING;
         toolNodes.forEach( toolNode => toolNode.setToolboxBounds( toolboxBounds ) );
       } );
   }
