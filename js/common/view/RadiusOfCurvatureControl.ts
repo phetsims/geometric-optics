@@ -59,12 +59,7 @@ class RadiusOfCurvatureControl extends NumberControl {
         constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.RADIUS_OF_CURVATURE_SLIDER_STEP ),
         keyboardStep: GOConstants.RADIUS_OF_CURVATURE_KEYBOARD_STEP, // used by all alternative-input devices
         shiftKeyboardStep: GOConstants.RADIUS_OF_CURVATURE_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
-        pageKeyboardStep: GOConstants.RADIUS_OF_CURVATURE_PAGE_KEYBOARD_STEP, // coarser grain, used by keyboard only
-
-        // generate a sound for each slider step
-        soundGeneratorOptions: {
-          numberOfMiddleThresholds: Utils.roundSymmetric( range.getLength() / GOConstants.RADIUS_OF_CURVATURE_SLIDER_STEP ) - 1
-        }
+        pageKeyboardStep: GOConstants.RADIUS_OF_CURVATURE_PAGE_KEYBOARD_STEP
       }
     } );
 
