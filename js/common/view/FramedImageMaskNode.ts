@@ -47,7 +47,7 @@ class FramedImageMaskNode extends Node {
     } );
 
     super( {
-      children: [ path ]
+      children: [ path ] // wrapped in Node so we don't expose Path API
     } );
 
     this.path = path;
