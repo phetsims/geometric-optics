@@ -43,7 +43,7 @@ const GOGlobalOptions = {
                            'This can also be set via the focalLengthControl query parameter.<br>' +
                            'The values are:' +
                            '<ul/>' +
-                           '<li>direct: provides a control labeled \'Focal Length\'</li>' +
+                           '<li>direct: provides a control labeled "Focal Length"</li>' +
                            '<li>indirect: provides controls for other optic parameters, from which focal length is derived</li>' +
                            '</ul>'
 
