@@ -14,7 +14,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import FocalLengthModelTypeControl from './FocalLengthModelTypeControl.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import Enable2FCheckbox from './Enable2FCheckbox.js';
+import Enabled2FCheckbox from './Enabled2FCheckbox.js';
 
 type SelfOptions = {
   isBasicsVersion?: boolean;
@@ -52,10 +52,10 @@ class GOGlobalOptionsNode extends VBox {
       tandem: options.tandem.createTandem( 'projectorModeCheckbox' )
     } );
 
-    // Enable 2F points
-    const enable2FCheckbox = new Enable2FCheckbox( GOGlobalOptions.enable2FProperty, {
+    // Enables the 2F Points feature
+    const enabled2FCheckbox = new Enabled2FCheckbox( GOGlobalOptions.enabled2FProperty, {
       boxWidth: GOConstants.CHECKBOX_BOX_WIDTH,
-      tandem: options.tandem.createTandem( 'enable2FCheckbox' )
+      tandem: options.tandem.createTandem( 'enabled2FCheckbox' )
     } );
 
     // Focal Length model type
@@ -64,7 +64,7 @@ class GOGlobalOptionsNode extends VBox {
       tandem: options.tandem.createTandem( 'focalLengthModelControl' )
     } );
 
-    this.children = [ projectorModeCheckbox, enable2FCheckbox, focalLengthModelControl ];
+    this.children = [ projectorModeCheckbox, enabled2FCheckbox, focalLengthModelControl ];
 
     this.disposeGeometricOpticsGlobalOptionsNode = (): void => {
       projectorModeCheckbox.dispose();

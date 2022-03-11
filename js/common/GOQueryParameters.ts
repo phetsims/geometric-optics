@@ -21,6 +21,7 @@ const SCHEMA_MAP = {
 
   // Adds the 'Guides' feature to the Lens screen. This is a representation that was invented by PhET.
   // When true, a 'Guides' checkbox is added to the control panel.
+  // This sets the initial value of GOGlobalOptions.guidesEnabledProperty.
   guidesEnabled: {
     type: 'boolean',
     defaultValue: false,
@@ -29,14 +30,16 @@ const SCHEMA_MAP = {
 
   // Enables the feature that lets you show 2F points.
   // When true, a '2F Points' checkbox is added to the control panel.
-  // This also sets the initial value of GOGlobalOptions.enable2FProperty.
-  enable2F: {
+  // This sets the initial value of GOGlobalOptions.enabled2FProperty.
+  // Deviates from the usual somethingEnabled naming convention because 2FEnabled is not a valid JavaScript identifier.
+  enabled2F: {
     type: 'boolean',
     defaultValue: false,
     public: true
   },
 
   // Enables the feature that shows cueing arrows on things that are draggable.
+  // This sets the initial value of GOGlobalOptions.cueingArrowsEnabledProperty.
   cueingArrowsEnabled: {
     type: 'boolean',
     defaultValue: true,

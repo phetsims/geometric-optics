@@ -120,7 +120,7 @@ abstract class GOSceneNode extends Node {
           tandem: twoFPointsNodeTandem.createTandem( 'right2FPointNode' )
         } )
       ],
-      visibleProperty: DerivedProperty.and( [ visibleProperties.twoFPointsVisibleProperty, GOGlobalOptions.enable2FProperty ] ),
+      visibleProperty: DerivedProperty.and( [ visibleProperties.twoFPointsVisibleProperty, GOGlobalOptions.enabled2FProperty ] ),
       tandem: twoFPointsNodeTandem
     } );
 
