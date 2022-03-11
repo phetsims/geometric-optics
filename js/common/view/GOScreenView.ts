@@ -267,7 +267,6 @@ class GOScreenView extends ScreenView {
     const controlPanel = new GOControlPanel( model.optic, model.raysTypeProperty, visibleProperties,
       virtualImageCheckboxEnabledProperty, {
         isBasicsVersion: options.isBasicsVersion,
-        bottom: erodedLayoutBounds.bottom,
         tandem: controlsTandem.createTandem( 'controlPanel' )
       } );
 
@@ -314,6 +313,7 @@ class GOScreenView extends ScreenView {
     // 'direct' or 'indirect' focal-length model is selected.
     controlPanel.boundsProperty.link( () => {
       controlPanel.centerX = zoomButtonGroup.right + ( resetAllButton.left - zoomButtonGroup.right ) / 2;
+      controlPanel.bottom = erodedLayoutBounds.bottom;
     } );
 
     const controlsLayer = new Node( {
