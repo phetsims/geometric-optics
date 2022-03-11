@@ -136,7 +136,8 @@ class FramedImageNode extends OpticalImageNode {
  * The original approach was to use imageNode.getSelfShape to create a Shape that matched the image exactly. But
  * getSelfShape is expensive, and caused performance issues when dragging the optical image. See
  * https://github.com/phetsims/geometric-optics/issues/361.  So I switched to drawing a specific Shape that matches
- * the image 'close enough'. This Shape is dependent on the .PNG files for the framed images, and also assumes that
+ * the image 'close enough'. This Shape was created empirically, by manually fiddling with the Shape until it matched
+ * the outline of framed images. It is dependent on the .PNG files for the framed images, and also assumes that
  * all .PNG files for frames images have the same dimensions.
  *
  * To visually inspect this mask, run with ?debugMask.
