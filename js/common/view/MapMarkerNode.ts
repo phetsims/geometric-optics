@@ -12,7 +12,7 @@ import { Node, NodeOptions, Path, PathOptions } from '../../../../scenery/js/imp
 import mapMarkerAltSolidShape from '../../../../sherpa/js/fontawesome-5/mapMarkerAltSolidShape.js';
 import geometricOptics from '../../geometricOptics.js';
 
-type MapMarkerNodeOptions = PickOptional<NodeOptions, 'scale'> & PickRequired<PathOptions, 'fill' | 'stroke'>;
+type MapMarkerNodeOptions = PickOptional<NodeOptions, 'scale' | 'tagName'> & PickRequired<PathOptions, 'fill' | 'stroke'>;
 
 class MapMarkerNode extends Node {
 

@@ -28,6 +28,8 @@ export type GOToolIconOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'
 
 abstract class GOToolIcon extends Node {
 
+  private readonly contentNode: Node;
+
   /**
    * @param contentNode - the icon's content, what it looks like
    * @param tool
@@ -53,11 +55,15 @@ abstract class GOToolIcon extends Node {
 
       // NodeOptions
       children: [ contentNode ],
-      cursor: 'pointer',
-      tagName: 'button'
+      cursor: 'pointer'
     }, providedOptions );
 
+    assert && assert( contentNode.tagName === 'button', 'expected contentNode to be the button' );
+    assert && assert( !options.tagName, 'expected contentNode to be the button' );
+
     super( options );
+
+    this.contentNode = contentNode;
 
     // pointer areas
     this.touchArea = this.localBounds.dilatedXY( options.touchAreaDilationX, options.touchAreaDilationY );
@@ -90,6 +96,15 @@ abstract class GOToolIcon extends Node {
         toolNode.focus();
       }
     } );
+  }
+
+  /**
+   * Override focus to set focus on the contentNode. The contentNode is the actual 'button', and GOToolIcon
+   * is a wrapper whose visibility can be controlled by iO clients.
+   * @override
+   */
+  public focus(): void {
+    this.contentNode.focus();
   }
 
   public dispose(): void {

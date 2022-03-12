@@ -56,6 +56,7 @@ class GORulerIcon extends GOToolIcon {
       majorTickHeight: ( 0.6 * ICON_HEIGHT ) / 2,
       minorTickHeight: ( 0.4 * ICON_HEIGHT ) / 2,
       insetsWidth: 0,
+      tagName: 'button', // contentNode is the button, what gets focus
       tandem: Tandem.OPT_OUT // because RulerNode is Tandem.REQUIRED by default
     } );
 

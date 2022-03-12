@@ -35,7 +35,8 @@ class PositionMarkerIcon extends GOToolIcon {
     const contentNode = new MapMarkerNode( {
       fill: positionMarker.fill,
       stroke: positionMarker.stroke,
-      scale: 0.8 // slightly smaller for toolbox icon
+      scale: 0.8, // slightly smaller for toolbox icon
+      tagName: 'button' // contentNode is the button, what gets focus
     } );
 
     const pointerPositionToToolPosition = ( pointerPosition: Vector2 ) => {
