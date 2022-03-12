@@ -20,16 +20,15 @@ const SCHEMA_MAP = {
   //----------------------------------------------------------------------------------------------------------------
 
   // When true, adds a 'Guides' checkbox to the control panel in the Lens screen.
-  guidesCheckboxVisible: {
+  addGuidesCheckbox: {
     type: 'boolean',
     defaultValue: false,
     public: true
   },
 
   // When true, adds a '2F Points' checkbox to the control panel in both screens.
-  // This sets the initial value of GOGlobalOptions.twoFPointsCheckboxVisibleProperty.
-  // A preferable name would be 2FPointsCheckboxVisible, but that is not a valid JavaScript identifier.
-  twoFPointsCheckboxVisible: {
+  // This sets the initial value of GOGlobalOptions.add2FPointsCheckboxProperty.
+  add2FPointsCheckbox: {
     type: 'boolean',
     defaultValue: false,
     public: true

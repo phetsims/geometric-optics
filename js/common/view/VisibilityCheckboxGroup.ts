@@ -70,9 +70,9 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       createItem( geometricOpticsStrings.checkbox.twoFPoints, visibleProperties.twoFPointsVisibleProperty, {
         iconNode: TwoFPointNode.createIcon(),
         options: {
-          visibleProperty: new DerivedProperty( [ GOGlobalOptions.twoFPointsCheckboxVisibleProperty ],
-            ( twoFPointsCheckboxVisible: boolean ) =>
-              ( twoFPointsCheckboxVisible && !( options.isBasicsVersion && options.isMirrorScreen ) ) )
+          visibleProperty: new DerivedProperty( [ GOGlobalOptions.add2FPointsCheckboxProperty ],
+            ( add2FPointsCheckbox: boolean ) =>
+              ( add2FPointsCheckbox && !( options.isBasicsVersion && options.isMirrorScreen ) ) )
         },
         tandem: options.tandem.createTandem( 'twoFPointsCheckbox' )
       } ),
@@ -105,7 +105,7 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       items.push( createItem( geometricOpticsStrings.checkbox.guides, visibleProperties.guidesVisibleProperty, {
         iconNode: GuideNode.createIcon(),
         options: {
-          visible: GOQueryParameters.guidesCheckboxVisible
+          visible: GOQueryParameters.addGuidesCheckbox
         },
         tandem: options.tandem.createTandem( 'guidesCheckbox' )
       } ) );

@@ -19,9 +19,9 @@ const optionsTandem = Tandem.GLOBAL_VIEW.createTandem( 'options' );
 
 const GOGlobalOptions = {
 
-  twoFPointsCheckboxVisibleProperty: new BooleanProperty( GOQueryParameters.twoFPointsCheckboxVisible, {
-    tandem: optionsTandem.createTandem( 'twoFPointsCheckboxVisibleProperty' ),
-    phetioDocumentation: 'controls visibility of the "2F Points" checkbox in the control panel'
+  add2FPointsCheckboxProperty: new BooleanProperty( GOQueryParameters.add2FPointsCheckbox, {
+    tandem: optionsTandem.createTandem( 'add2FPointsCheckboxProperty' ),
+    phetioDocumentation: 'adds a "2F Points" checkbox to the control panels'
   } ),
 
   cueingArrowsEnabledProperty: new BooleanProperty( GOQueryParameters.cueingArrowsEnabled, {

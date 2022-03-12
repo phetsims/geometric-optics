@@ -45,7 +45,7 @@ type StringsType = {
     'virtualImage': string,
     'secondPoint': string,
     'guides': string,
-    'show2FPointsCheckbox': string
+    'add2FPointsCheckbox': string
   },
   'label': {
     'convexLens': string,

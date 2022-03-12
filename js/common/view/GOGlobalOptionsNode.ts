@@ -7,14 +7,15 @@
  */
 
 import ProjectorModeCheckbox from '../../../../joist/js/ProjectorModeCheckbox.js';
-import { VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
+import { Text, VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import FocalLengthModelTypeControl from './FocalLengthModelTypeControl.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import TwoFPointsEnabledCheckbox from './TwoFPointsEnabledCheckbox.js';
+import geometricOpticsStrings from '../../geometricOpticsStrings.js';
+import Checkbox from '../../../../sun/js/Checkbox.js';
 
 type SelfOptions = {
   isBasicsVersion?: boolean;
@@ -44,7 +45,7 @@ class GOGlobalOptionsNode extends VBox {
 
     super( options );
 
-    // Projector Mode checkbox
+    // 'Projector Mode' checkbox
     const projectorModeCheckbox = new ProjectorModeCheckbox( {
       boxWidth: GOConstants.CHECKBOX_BOX_WIDTH,
       font: GOConstants.CONTROL_FONT,
@@ -52,19 +53,24 @@ class GOGlobalOptionsNode extends VBox {
       tandem: options.tandem.createTandem( 'projectorModeCheckbox' )
     } );
 
-    // Enables the 2F Points feature
-    const twoFPointsEnabledCheckbox = new TwoFPointsEnabledCheckbox( GOGlobalOptions.twoFPointsCheckboxVisibleProperty, {
+    // 'Add "2F Points" checkbox to control panels' checkbox
+    // The name should technically be add2FPointsCheckboxCheckbox, but that confused everyone who saw it.
+    const add2FPointsCheckbox = new Checkbox( new Text( geometricOpticsStrings.checkbox.add2FPointsCheckbox, {
+      font: GOConstants.CONTROL_FONT,
+      maxWidth: 250,
+      tandem: providedOptions.tandem.createTandem( 'labelNode' )
+    } ), GOGlobalOptions.add2FPointsCheckboxProperty, {
       boxWidth: GOConstants.CHECKBOX_BOX_WIDTH,
-      tandem: options.tandem.createTandem( 'twoFPointsEnabledCheckbox' )
+      tandem: options.tandem.createTandem( 'add2FCheckbox' )
     } );
 
-    // Focal Length model type
+    // 'Focal Length control' radio buttons
     const focalLengthModelControl = new FocalLengthModelTypeControl( GOGlobalOptions.focalLengthModelTypeProperty, {
       visible: !options.isBasicsVersion,
       tandem: options.tandem.createTandem( 'focalLengthModelControl' )
     } );
 
-    this.children = [ projectorModeCheckbox, twoFPointsEnabledCheckbox, focalLengthModelControl ];
+    this.children = [ projectorModeCheckbox, add2FPointsCheckbox, focalLengthModelControl ];
 
     this.disposeGeometricOpticsGlobalOptionsNode = (): void => {
       projectorModeCheckbox.dispose();
