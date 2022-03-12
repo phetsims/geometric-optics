@@ -58,6 +58,8 @@ abstract class GOToolIcon extends Node {
       cursor: 'pointer'
     }, providedOptions );
 
+    // So that visibility of icons in the toolbox can be controlled via PhET-iO, GOToolIcon is a wrapper Node,
+    // and we expect its contentNode to function as the 'button' for focus traversal.
     assert && assert( contentNode.tagName === 'button', 'expected contentNode to be the button' );
     assert && assert( !options.tagName, 'expected contentNode to be the button' );
 
