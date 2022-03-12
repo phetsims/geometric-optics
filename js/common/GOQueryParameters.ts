@@ -62,15 +62,15 @@ const SCHEMA_MAP = {
   rocRangeLens: {
     type: 'custom',
     parse: parseRangeWithValue,
-    defaultValue: new RangeWithValue( 30, 130, 80 ),
-    isValidValue: ( range: RangeWithValue ) => ( range.min > 0 )
+    defaultValue: new RangeWithValue( 40, 120, 80 ),
+    isValidValue: isPositiveIntegerRangeWithValue
   },
 
   // index of refraction (IOR) range for the Lens screen
   iorRangeLens: {
     type: 'custom',
     parse: parseRangeWithValue,
-    defaultValue: new RangeWithValue( 1.2, 1.9, 1.5 ),
+    defaultValue: new RangeWithValue( 1.2, 1.8, 1.5 ),
     isValidValue: ( range: RangeWithValue ) => ( range.min > 0 )
   },
 
@@ -78,8 +78,8 @@ const SCHEMA_MAP = {
   fRangeLens: {
     type: 'custom',
     parse: parseRangeWithValue,
-    defaultValue: new RangeWithValue( 30, 130, 80 ),
-    isValidValue: ( range: RangeWithValue ) => ( range.min > 0 )
+    defaultValue: new RangeWithValue( 40, 120, 80 ),
+    isValidValue: isPositiveIntegerRangeWithValue
   },
 
   // diameter (D) range for the Lens screen
@@ -87,7 +87,7 @@ const SCHEMA_MAP = {
     type: 'custom',
     parse: parseRangeWithValue,
     defaultValue: new RangeWithValue( 60, 120, 80 ),
-    isValidValue: ( range: RangeWithValue ) => ( range.min > 0 )
+    isValidValue: isPositiveIntegerRangeWithValue
   },
 
   // radius of curvature (ROC) range for the Mirror screen
@@ -95,15 +95,15 @@ const SCHEMA_MAP = {
     type: 'custom',
     parse: parseRangeWithValue,
     defaultValue: new RangeWithValue( 150, 300, 180 ),
-    isValidValue: ( range: RangeWithValue ) => ( range.min > 0 )
+    isValidValue: isPositiveIntegerRangeWithValue
   },
 
   // focal length (f) range for the Mirror screen
   fRangeMirror: {
     type: 'custom',
     parse: parseRangeWithValue,
-    defaultValue: new RangeWithValue( 75, 125, 90 ),
-    isValidValue: ( range: RangeWithValue ) => ( range.min > 0 )
+    defaultValue: new RangeWithValue( 75, 150, 90 ),
+    isValidValue: isPositiveIntegerRangeWithValue
   },
 
   // diameter (D) range for the Mirror screen
@@ -111,7 +111,7 @@ const SCHEMA_MAP = {
     type: 'custom',
     parse: parseRangeWithValue,
     defaultValue: new RangeWithValue( 60, 120, 80 ),
-    isValidValue: ( range: RangeWithValue ) => ( range.min > 0 )
+    isValidValue: isPositiveIntegerRangeWithValue
   },
 
   // speed of light in cm/sec, for the purpose of the light rays animation
@@ -171,6 +171,11 @@ function parseRangeWithValue( value: string ): RangeWithValue {
   assert && assert( _.every( tokens, ( token: number ) => isFinite( token ) ), `range must be 3 numbers: ${value}` );
   const numbers = _.map( tokens, token => parseFloat( token ) );
   return new RangeWithValue( numbers[ 0 ], numbers[ 1 ], numbers[ 2 ] );
+}
+
+function isPositiveIntegerRangeWithValue( range: RangeWithValue ) {
+  return Number.isInteger( range.min ) && ( range.min > 0 ) &&
+         Number.isInteger( range.max ) && Number.isInteger( range.defaultValue );
 }
 
 const GOQueryParameters = QueryStringMachine.getAll( SCHEMA_MAP );
