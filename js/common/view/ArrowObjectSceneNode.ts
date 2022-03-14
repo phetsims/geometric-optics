@@ -22,7 +22,7 @@ import ArrowObjectNode from './ArrowObjectNode.js';
 import ArrowImageNode from './ArrowImageNode.js';
 import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
 import IProperty from '../../../../axon/js/IProperty.js';
-import JumpPoint from './tools/JumpPoint.js';
+import ToolJumpPoint from './tools/ToolJumpPoint.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 
 type SelfOptions = {
@@ -34,7 +34,7 @@ type ArrowObjectSceneNodeOptions = SelfOptions & GOSceneNodeOptions;
 class ArrowObjectSceneNode extends GOSceneNode {
 
   // See GOSceneNode
-  public readonly toolJumpPoints: JumpPoint[];
+  public readonly toolJumpPoints: ToolJumpPoint[];
 
   // Resets things that are specific to this class.
   private readonly resetFrameObjectSceneNode: () => void;

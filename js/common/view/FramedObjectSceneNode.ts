@@ -26,7 +26,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import JumpPoint from './tools/JumpPoint.js';
+import ToolJumpPoint from './tools/ToolJumpPoint.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 
 type SelfOptions = {
@@ -38,7 +38,7 @@ type FramedObjectSceneNodeOptions = SelfOptions & GOSceneNodeOptions;
 class FramedObjectSceneNode extends GOSceneNode {
 
   // See GOSceneNode
-  public readonly toolJumpPoints: JumpPoint[];
+  public readonly toolJumpPoints: ToolJumpPoint[];
 
   // Resets things that are specific to this class.
   private readonly resetFrameObjectSceneNode: () => void;

@@ -28,7 +28,7 @@ import GOScene from '../model/GOScene.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import JumpPoint from './tools/JumpPoint.js';
+import ToolJumpPoint from './tools/ToolJumpPoint.js';
 
 type SelfOptions = {
 
@@ -42,12 +42,12 @@ abstract class GOSceneNode extends Node {
 
   // 'Jump points' for the tools. These are interesting points, where you might want to place a tool.
   // When a tool has focus, J+P hotkey will cycle through these points, in order of ascending x coordinate.
-  public abstract readonly toolJumpPoints: JumpPoint[];
+  public abstract readonly toolJumpPoints: ToolJumpPoint[];
 
   private readonly scene: GOScene;
   private readonly visibleProperties: VisibleProperties;
 
-  // Visibility of the optic. This is needed by subclasses to create their JumpPoint[].
+  // Visibility of the optic. This is needed by subclasses to create their ToolJumpPoint[].
   protected readonly opticNodeVisibleProperty: IProperty<boolean>;
 
   // Various rendering layers where subclasses are expected to add Nodes.
@@ -183,7 +183,7 @@ abstract class GOSceneNode extends Node {
   /**
    * Gets tool jump points (for the J+P hotkey) that are common to all scenes.
    */
-  public getOpticJumpPoints(): JumpPoint[] {
+  public getOpticJumpPoints(): ToolJumpPoint[] {
     return [
       {
         positionProperty: this.scene.optic.positionProperty,

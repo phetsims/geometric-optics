@@ -25,7 +25,7 @@ import OpticalAxisInFrontOfProjectionScreenNode from './OpticalAxisInFrontOfProj
 import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
-import JumpPoint from './tools/JumpPoint.js';
+import ToolJumpPoint from './tools/ToolJumpPoint.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 
@@ -38,7 +38,7 @@ type LightObjectSceneNodeOptions = SelfOptions & GOSceneNodeOptions;
 class LightObjectSceneNode extends GOSceneNode {
 
   // See GOSceneNode
-  public readonly toolJumpPoints: JumpPoint[];
+  public readonly toolJumpPoints: ToolJumpPoint[];
 
   // Resets things that are specific to this class.
   private readonly resetLightObjectSceneNode: () => void;

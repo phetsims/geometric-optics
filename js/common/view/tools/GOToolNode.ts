@@ -13,7 +13,7 @@ import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import { DragListener, Node, NodeOptions, PressListenerEvent } from '../../../../../scenery/js/imports.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import GOTool from '../../model/tools/GOTool.js';
-import JumpPoint from './JumpPoint.js';
+import ToolJumpPoint from './ToolJumpPoint.js';
 
 type SelfOptions = {
 
@@ -34,7 +34,7 @@ abstract class GOToolNode extends Node {
   public toolboxBounds: Bounds2;
 
   // positions that are 'interesting' to measure, for the J+P hotkey
-  protected jumpPoints: JumpPoint[];
+  protected jumpPoints: ToolJumpPoint[];
 
   // current index into jumpPoints
   protected jumpPointsIndex: number;
@@ -85,7 +85,7 @@ abstract class GOToolNode extends Node {
    * Sets the jump points used by the J+P hotkey.
    * @param jumpPoints
    */
-  public setJumpPoints( jumpPoints: JumpPoint[] ): void {
+  public setJumpPoints( jumpPoints: ToolJumpPoint[] ): void {
     this.jumpPoints = jumpPoints;
     this.jumpPointsIndex = 0;
   }
