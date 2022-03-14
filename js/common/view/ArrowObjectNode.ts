@@ -10,7 +10,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { DragListener, FocusHighlightFromNode, KeyboardDragListener } from '../../../../scenery/js/imports.js';
+import { DragListener, FocusHighlightFromNode, KeyboardDragListener, KeyboardDragListenerOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import ArrowObject from '../model/ArrowObject.js';
 import Optic from '../model/Optic.js';
@@ -19,7 +19,6 @@ import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNo
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 import OpticalObjectNode, { OpticalObjectNodeOptions } from './OpticalObjectNode.js';
 

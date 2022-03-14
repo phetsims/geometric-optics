@@ -11,7 +11,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Circle, Color, DragListener, FocusHighlightFromNode, Image, KeyboardDragListener, Line, Node, NodeOptions, Path } from '../../../../scenery/js/imports.js';
+import { Circle, Color, DragListener, FocusHighlightFromNode, Image, KeyboardDragListener, KeyboardDragListenerOptions, Line, Node, NodeOptions, Path } from '../../../../scenery/js/imports.js';
 import projectionScreenBottom_png from '../../../images/projectionScreenBottom_png.js';
 import projectionScreenTop_png from '../../../images/projectionScreenTop_png.js';
 import GOColors from '../../common/GOColors.js';
@@ -25,7 +25,6 @@ import GOConstants from '../../common/GOConstants.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { KeyboardDragListenerOptions } from '../GOCommonOptions.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
 
 type ProjectionScreenNodeOptions = PickRequired<NodeOptions, 'tandem'>;

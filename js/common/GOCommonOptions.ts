@@ -9,24 +9,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import IProperty from '../../../axon/js/IProperty.js';
-import IReadOnlyProperty from '../../../axon/js/IReadOnlyProperty.js';
-import Bounds2 from '../../../dot/js/Bounds2.js';
-import Vector2 from '../../../dot/js/Vector2.js';
-import PickOptional from '../../../phet-core/js/types/PickOptional.js';
-import ModelViewTransform2 from '../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Node, SceneryEvent } from '../../../scenery/js/imports.js';
-import { PhetioObjectOptions } from '../../../tandem/js/PhetioObject.js';
+import { Node } from '../../../scenery/js/imports.js';
 import Tandem from '../../../tandem/js/Tandem.js';
-
-export type KeyboardDragListenerOptions = {
-  positionProperty?: IProperty<Vector2> | null;
-  dragBoundsProperty?: IReadOnlyProperty<Bounds2> | null;
-  transform?: ModelViewTransform2;
-  drag?: ( viewDelta: Vector2 ) => void;
-  start?: ( event: SceneryEvent ) => void
-  end?: ( event: SceneryEvent ) => void
-} & PickOptional<PhetioObjectOptions, 'tandem'>;
 
 export type SimOptions = {
   credits?: object;
