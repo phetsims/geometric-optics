@@ -91,7 +91,7 @@ abstract class GOToolNode extends Node {
   }
 
   /**
-   * Handles the J+P hotkey.
+   * Handles the J+P (Jump to Point) hotkey, which jumps (moves) the ruler to the next 'interesting' point.
    */
   public abstract jumpToPoint(): void;
 

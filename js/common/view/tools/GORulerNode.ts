@@ -156,7 +156,7 @@ class GORulerNode extends GOToolNode {
   }
 
   /**
-   * Handles the J+P hotkey. Jumps (moves) the ruler to the next measurement point, from left-to-right.
+   * Handles the J+P (Jump to Point) hotkey, which jumps (moves) the ruler to the next 'interesting' point.
    * See https://github.com/phetsims/geometric-optics/issues/310
    */
   public jumpToPoint(): void {
