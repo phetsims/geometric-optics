@@ -23,7 +23,7 @@ export type KeyboardDragListenerOptions = {
   positionProperty?: IProperty<Vector2> | null;
   dragBoundsProperty?: IReadOnlyProperty<Bounds2> | null;
   transform?: ModelViewTransform2;
-  drag?: ( event: SceneryEvent ) => void;
+  drag?: ( viewDelta: Vector2 ) => void;
   start?: ( event: SceneryEvent ) => void
   end?: ( event: SceneryEvent ) => void
 } & PickOptional<PhetioObjectOptions, 'tandem'>;
