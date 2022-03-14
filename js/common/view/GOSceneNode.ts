@@ -42,9 +42,10 @@ abstract class GOSceneNode extends Node {
 
   // 'Jump points' for the tools. These are interesting points, where you might want to place a tool.
   // When a tool has focus, J+P hotkey will cycle through these points, in order of ascending x coordinate.
-  public abstract readonly horizontalRulerJumpPoints: JumpPoint[];
-  public abstract readonly verticalRulerJumpPoints: JumpPoint[];
-  public abstract readonly positionMarkerJumpPoints: JumpPoint[];
+  public abstract readonly toolJumpPoints: JumpPoint[];
+
+  private readonly scene: GOScene;
+  private readonly visibleProperties: VisibleProperties;
 
   // Visibility of the optic. This is needed by subclasses to create their JumpPoint[].
   protected readonly opticNodeVisibleProperty: IProperty<boolean>;
@@ -80,6 +81,9 @@ abstract class GOSceneNode extends Node {
     }, providedOptions );
 
     super( options );
+
+    this.scene = scene;
+    this.visibleProperties = visibleProperties;
 
     const opticNode = options.createOpticNode( scene.optic, modelViewTransform, options.tandem );
 
@@ -174,6 +178,34 @@ abstract class GOSceneNode extends Node {
     ];
 
     this.opticNodeVisibleProperty = opticNode.visibleProperty;
+  }
+
+  /**
+   * Gets tool jump points (for the J+P hotkey) that are common to all scenes.
+   */
+  public getOpticJumpPoints(): JumpPoint[] {
+    return [
+      {
+        positionProperty: this.scene.optic.positionProperty,
+        visibleProperty: this.opticNodeVisibleProperty
+      },
+      {
+        positionProperty: this.scene.optic.leftFocalPointProperty,
+        visibleProperty: this.visibleProperties.focalPointsVisibleProperty
+      },
+      {
+        positionProperty: this.scene.optic.rightFocalPointProperty,
+        visibleProperty: this.visibleProperties.focalPointsVisibleProperty
+      },
+      {
+        positionProperty: this.scene.optic.left2FProperty,
+        visibleProperty: this.visibleProperties.twoFPointsVisibleProperty
+      },
+      {
+        positionProperty: this.scene.optic.right2FProperty,
+        visibleProperty: this.visibleProperties.twoFPointsVisibleProperty
+      }
+    ];
   }
 }
 

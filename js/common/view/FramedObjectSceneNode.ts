@@ -38,9 +38,7 @@ type FramedObjectSceneNodeOptions = SelfOptions & GOSceneNodeOptions;
 class FramedObjectSceneNode extends GOSceneNode {
 
   // See GOSceneNode
-  public readonly horizontalRulerJumpPoints: JumpPoint[];
-  public readonly verticalRulerJumpPoints: JumpPoint[];
-  public readonly positionMarkerJumpPoints: JumpPoint[];
+  public readonly toolJumpPoints: JumpPoint[];
 
   // Resets things that are specific to this class.
   private readonly resetFrameObjectSceneNode: () => void;
@@ -167,19 +165,29 @@ class FramedObjectSceneNode extends GOSceneNode {
     ];
 
     // Ruler J+P hotkey will cycle through these positions, dynamically looking at left-to-right x coordinate.
-    this.verticalRulerJumpPoints = [
-      { positionProperty: scene.optic.positionProperty, visibleProperty: this.opticNodeVisibleProperty },
-      { positionProperty: scene.framedObject.positionProperty, visibleProperty: framedObjectNode.visibleProperty },
-      { positionProperty: scene.framedImage1.positionProperty, visibleProperty: framedImageNode.visibleProperty }
+    this.toolJumpPoints = [
+      ...this.getOpticJumpPoints(),
+
+      // objects
+      {
+        positionProperty: scene.framedObject.positionProperty,
+        visibleProperty: framedObjectNode.visibleProperty
+      },
+      {
+        positionProperty: scene.secondPoint.positionProperty,
+        visibleProperty: secondPointNode.visibleProperty
+      },
+
+      // images
+      {
+        positionProperty: scene.framedImage1.positionProperty,
+        visibleProperty: framedImageNode.visibleProperty
+      },
+      {
+        positionProperty: scene.framedImage2.positionProperty,
+        visibleProperty: DerivedProperty.and( [ framedImageNode.visibleProperty, secondPointNode.visibleProperty ] )
+      }
     ];
-    this.horizontalRulerJumpPoints = [
-      ...this.verticalRulerJumpPoints,
-      { positionProperty: scene.optic.leftFocalPointProperty, visibleProperty: visibleProperties.focalPointsVisibleProperty },
-      { positionProperty: scene.optic.rightFocalPointProperty, visibleProperty: visibleProperties.focalPointsVisibleProperty },
-      { positionProperty: scene.optic.left2FProperty, visibleProperty: visibleProperties.twoFPointsVisibleProperty },
-      { positionProperty: scene.optic.right2FProperty, visibleProperty: visibleProperties.twoFPointsVisibleProperty }
-    ];
-    this.positionMarkerJumpPoints = this.horizontalRulerJumpPoints;
 
     this.resetFrameObjectSceneNode = () => {
       framedObjectWasDraggedProperty.reset();

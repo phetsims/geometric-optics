@@ -38,9 +38,7 @@ type LightObjectSceneNodeOptions = SelfOptions & GOSceneNodeOptions;
 class LightObjectSceneNode extends GOSceneNode {
 
   // See GOSceneNode
-  public readonly horizontalRulerJumpPoints: JumpPoint[];
-  public readonly verticalRulerJumpPoints: JumpPoint[];
-  public readonly positionMarkerJumpPoints: JumpPoint[];
+  public readonly toolJumpPoints: JumpPoint[];
 
   // Resets things that are specific to this class.
   private readonly resetLightObjectSceneNode: () => void;
@@ -151,10 +149,20 @@ class LightObjectSceneNode extends GOSceneNode {
     ];
 
     // Ruler J+P hotkey will cycle through these positions, dynamically looking at left-to-right x coordinate.
-    this.verticalRulerJumpPoints = [
-      { positionProperty: scene.optic.positionProperty, visibleProperty: this.opticNodeVisibleProperty },
-      { positionProperty: scene.lightObject1.positionProperty, visibleProperty: lightObject1Node.visibleProperty },
-      { positionProperty: scene.lightObject2.positionProperty, visibleProperty: lightObject2Node.visibleProperty },
+    this.toolJumpPoints = [
+      ...this.getOpticJumpPoints(),
+
+      // objects
+      {
+        positionProperty: scene.lightObject1.positionProperty,
+        visibleProperty: lightObject1Node.visibleProperty
+      },
+      {
+        positionProperty: scene.lightObject2.positionProperty,
+        visibleProperty: lightObject2Node.visibleProperty
+      },
+
+      // positions where rays converge and an image would form
       {
         positionProperty: scene.opticalImage1.positionProperty,
         visibleProperty: new DerivedProperty( [ scene.opticalImage1.positionProperty, scene.projectionScreen.positionProperty ],
@@ -167,17 +175,17 @@ class LightObjectSceneNode extends GOSceneNode {
           ( opticalImagePosition: Vector2, screenPosition: Vector2 ) => opticalImagePosition.x <= screenPosition.x
         )
       },
-      { positionProperty: scene.lightSpot1.positionProperty, visibleProperty: lightSpot1Node.visibleProperty },
-      { positionProperty: scene.lightSpot2.positionProperty, visibleProperty: lightSpot2Node.visibleProperty }
+
+      // light spots on the projection screen
+      {
+        positionProperty: scene.lightSpot1.positionProperty,
+        visibleProperty: lightSpot1Node.visibleProperty
+      },
+      {
+        positionProperty: scene.lightSpot2.positionProperty,
+        visibleProperty: lightSpot2Node.visibleProperty
+      }
     ];
-    this.horizontalRulerJumpPoints = [
-      ...this.verticalRulerJumpPoints,
-      { positionProperty: scene.optic.leftFocalPointProperty, visibleProperty: visibleProperties.focalPointsVisibleProperty },
-      { positionProperty: scene.optic.rightFocalPointProperty, visibleProperty: visibleProperties.focalPointsVisibleProperty },
-      { positionProperty: scene.optic.left2FProperty, visibleProperty: visibleProperties.twoFPointsVisibleProperty },
-      { positionProperty: scene.optic.right2FProperty, visibleProperty: visibleProperties.twoFPointsVisibleProperty }
-    ];
-    this.positionMarkerJumpPoints = this.horizontalRulerJumpPoints;
 
     this.resetLightObjectSceneNode = () => {
       lightWasDraggedProperty.reset();

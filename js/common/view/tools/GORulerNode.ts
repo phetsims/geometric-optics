@@ -164,14 +164,27 @@ class GORulerNode extends GOToolNode {
 
       const rulerPosition = this.ruler.positionProperty.value;
 
-      // Find the target positions that are not null, visible, not the same as the ruler position, and in bounds.
-      // For horizontal rulers, exclude points to the right of the optic, because they are not useful.
+      // Find the points that are relevant.
       const relevantJumpPoints = this.jumpPoints.filter( jumpPoint =>
+
+        // not null
         ( jumpPoint.positionProperty.value !== null ) &&
+
+        // visible
         jumpPoint.visibleProperty.value &&
+
+        // not at the ruler position
         ( jumpPoint.positionProperty.value.x !== rulerPosition.x ) &&
+
+        // inside the tool's drag bounds, so the tool doesn't move out of bounds
         this.dragBoundsProperty.value.containsPoint( jumpPoint.positionProperty.value ) &&
-        ( this.ruler.orientation === 'vertical' || jumpPoint.positionProperty.value.x <= this.opticPositionProperty.value.x ) );
+
+        // For horizontal rulers, exclude points to the right of the optic, because they are not useful.
+        !( this.ruler.orientation === 'horizontal' && jumpPoint.positionProperty.value.x > this.opticPositionProperty.value.x ) &&
+
+        // For vertical rulers, exclude point on the optical axis, because they are not useful.
+        !( this.ruler.orientation === 'vertical' && jumpPoint.positionProperty.value.y === this.opticPositionProperty.value.y )
+      );
 
       if ( relevantJumpPoints.length > 0 ) {
 
@@ -181,7 +194,10 @@ class GORulerNode extends GOToolNode {
         // Sort positions left-to-right, by increasing x coordinate.
         const sortedPositions = _.sortBy( positions, position => position.x );
 
+        //TODO change y coordinate of of sortedPositions, y=opticY for horizontal, y=Math.min( nextPosition.y, opticY ) for vertical
+
         // Find the next position to the right of the ruler, with wrap-around to left.
+        //TODO this skips 2 points that have the same x coordinate, like second point
         let nextPosition = _.find( sortedPositions, position => position.x > rulerPosition.x );
         if ( !nextPosition ) {
           const leftmostPosition = sortedPositions[ 0 ];

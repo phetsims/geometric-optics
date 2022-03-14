@@ -139,9 +139,17 @@ class PositionMarkerNode extends GOToolNode {
 
       // Find the target positions that are not null, visible, not the same as the marker position, and in bounds.
       const relevantJumpPoints = this.jumpPoints.filter( jumpPoint =>
+
+        // not null
         ( jumpPoint.positionProperty.value !== null ) &&
+
+        // visible
         jumpPoint.visibleProperty.value &&
+
+        // not at the marker's position
         !jumpPoint.positionProperty.value.equals( markerPosition ) &&
+
+        // inside the tool's drag bounds, so the tool doesn't move out of bounds
         this.dragBoundsProperty.value.containsPoint( jumpPoint.positionProperty.value ) );
 
       if ( relevantJumpPoints.length > 0 ) {
@@ -153,10 +161,11 @@ class PositionMarkerNode extends GOToolNode {
         const sortedPositions = _.sortBy( positions, position => position.x );
 
         // Find the next position to the right of the marker, with wrap-around to left.
+        //TODO this skips 2 points that have the same x coordinate, like the light spots
         let nextPosition = _.find( sortedPositions, position => position.x > markerPosition.x );
         if ( !nextPosition ) {
           const leftmostPosition = sortedPositions[ 0 ];
-          if ( leftmostPosition.x < markerPosition.x ) {
+          if ( !leftmostPosition.equals( markerPosition ) ) {
             nextPosition = leftmostPosition;
           }
         }
