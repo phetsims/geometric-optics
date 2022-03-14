@@ -164,9 +164,10 @@ class GORulerNode extends GOToolNode {
 
       const rulerPosition = this.ruler.positionProperty.value;
 
-      // Find the target positions that are visible, not the same as the ruler position, and in bounds.
+      // Find the target positions that are not null, visible, not the same as the ruler position, and in bounds.
       // For horizontal rulers, exclude points to the right of the optic, because they are not useful.
       const relevantJumpPoints = this.jumpPoints.filter( jumpPoint =>
+        ( jumpPoint.positionProperty.value !== null ) &&
         jumpPoint.visibleProperty.value &&
         ( jumpPoint.positionProperty.value.x !== rulerPosition.x ) &&
         this.dragBoundsProperty.value.containsPoint( jumpPoint.positionProperty.value ) &&
@@ -175,10 +176,10 @@ class GORulerNode extends GOToolNode {
       if ( relevantJumpPoints.length > 0 ) {
 
         // Extract just the position values.
-        const positions = relevantJumpPoints.map( jumpPoint => jumpPoint.positionProperty.value );
+        const positions: Vector2[] = relevantJumpPoints.map( jumpPoint => jumpPoint.positionProperty.value! );
 
         // Sort positions left-to-right, by increasing x coordinate.
-        const sortedPositions = _.sortBy( positions, targetPosition => targetPosition.x );
+        const sortedPositions = _.sortBy( positions, position => position.x );
 
         // Find the next position to the right of the ruler, with wrap-around to left.
         let nextPosition = _.find( sortedPositions, position => position.x > rulerPosition.x );

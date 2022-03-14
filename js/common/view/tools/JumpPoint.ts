@@ -12,7 +12,7 @@ import Vector2 from '../../../../../dot/js/Vector2.js';
 type JumpPoint = {
 
   // a position that is interesting to put a tool, in model coordinates
-  positionProperty: IReadOnlyProperty<Vector2>;
+  positionProperty: IReadOnlyProperty<Vector2 | null>;
 
   // whether the thing at the position is currently visible
   visibleProperty: IReadOnlyProperty<boolean>;

@@ -27,6 +27,7 @@ import IProperty from '../../../../axon/js/IProperty.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import JumpPoint from './tools/JumpPoint.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 
 type SelfOptions = {
   objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>,
@@ -153,12 +154,28 @@ class LightObjectSceneNode extends GOSceneNode {
     this.verticalRulerJumpPoints = [
       { positionProperty: scene.optic.positionProperty, visibleProperty: this.opticNodeVisibleProperty },
       { positionProperty: scene.lightObject1.positionProperty, visibleProperty: lightObject1Node.visibleProperty },
-      { positionProperty: scene.lightObject2.positionProperty, visibleProperty: lightObject2Node.visibleProperty }
+      { positionProperty: scene.lightObject2.positionProperty, visibleProperty: lightObject2Node.visibleProperty },
+      {
+        positionProperty: scene.opticalImage1.positionProperty,
+        visibleProperty: new DerivedProperty( [ scene.opticalImage1.positionProperty, scene.projectionScreen.positionProperty ],
+          ( opticalImagePosition: Vector2, screenPosition: Vector2 ) => opticalImagePosition.x <= screenPosition.x
+        )
+      },
+      {
+        positionProperty: scene.opticalImage2.positionProperty,
+        visibleProperty: new DerivedProperty( [ scene.opticalImage2.positionProperty, scene.projectionScreen.positionProperty ],
+          ( opticalImagePosition: Vector2, screenPosition: Vector2 ) => opticalImagePosition.x <= screenPosition.x
+        )
+      },
+      { positionProperty: scene.lightSpot1.positionProperty, visibleProperty: lightSpot1Node.visibleProperty },
+      { positionProperty: scene.lightSpot2.positionProperty, visibleProperty: lightSpot2Node.visibleProperty }
     ];
     this.horizontalRulerJumpPoints = [
       ...this.verticalRulerJumpPoints,
       { positionProperty: scene.optic.leftFocalPointProperty, visibleProperty: visibleProperties.focalPointsVisibleProperty },
-      { positionProperty: scene.optic.left2FProperty, visibleProperty: visibleProperties.twoFPointsVisibleProperty }
+      { positionProperty: scene.optic.rightFocalPointProperty, visibleProperty: visibleProperties.focalPointsVisibleProperty },
+      { positionProperty: scene.optic.left2FProperty, visibleProperty: visibleProperties.twoFPointsVisibleProperty },
+      { positionProperty: scene.optic.right2FProperty, visibleProperty: visibleProperties.twoFPointsVisibleProperty }
     ];
     this.positionMarkerJumpPoints = this.horizontalRulerJumpPoints;
 
