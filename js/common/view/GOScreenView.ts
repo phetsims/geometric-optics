@@ -266,6 +266,7 @@ class GOScreenView extends ScreenView {
     // Control panel at the bottom-center of the screen
     const controlPanel = new GOControlPanel( model.optic, model.raysTypeProperty, visibleProperties,
       virtualImageCheckboxEnabledProperty, {
+        bottom: erodedLayoutBounds.bottom,
         isBasicsVersion: options.isBasicsVersion,
         tandem: controlsTandem.createTandem( 'controlPanel' )
       } );
