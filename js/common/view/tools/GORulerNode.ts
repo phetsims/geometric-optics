@@ -179,26 +179,29 @@ class GORulerNode extends GOToolNode {
         this.dragBoundsProperty.value.containsPoint( jumpPoint.positionProperty.value ) &&
         ( this.ruler.orientation === 'vertical' || jumpPoint.positionProperty.value.x <= this.opticPositionProperty.value.x ) );
 
-      // Extract just the position values.
-      const positions = relevantJumpPoints.map( jumpPoint => jumpPoint.positionProperty.value );
+      if ( relevantJumpPoints.length > 0 ) {
 
-      // Sort positions left-to-right, by increasing x coordinate.
-      const sortedPositions = _.sortBy( positions, targetPosition => targetPosition.x );
+        // Extract just the position values.
+        const positions = relevantJumpPoints.map( jumpPoint => jumpPoint.positionProperty.value );
 
-      // Find the next position to the right of the ruler, with wrap-around to left.
-      let nextPosition = _.find( sortedPositions, position => position.x > rulerPosition.x );
-      if ( !nextPosition ) {
-        const leftmostPosition = sortedPositions[ 0 ];
-        if ( leftmostPosition.x < rulerPosition.x ) {
-          nextPosition = leftmostPosition;
+        // Sort positions left-to-right, by increasing x coordinate.
+        const sortedPositions = _.sortBy( positions, targetPosition => targetPosition.x );
+
+        // Find the next position to the right of the ruler, with wrap-around to left.
+        let nextPosition = _.find( sortedPositions, position => position.x > rulerPosition.x );
+        if ( !nextPosition ) {
+          const leftmostPosition = sortedPositions[ 0 ];
+          if ( leftmostPosition.x < rulerPosition.x ) {
+            nextPosition = leftmostPosition;
+          }
         }
-      }
 
-      // Move the ruler
-      if ( nextPosition ) {
-        const opticY = this.opticPositionProperty.value.y;
-        const y = ( this.ruler.orientation === 'vertical' ) ? Math.min( nextPosition.y, opticY ) : opticY;
-        this.ruler.positionProperty.value = new Vector2( nextPosition.x, y );
+        // Move the ruler
+        if ( nextPosition ) {
+          const opticY = this.opticPositionProperty.value.y;
+          const y = ( this.ruler.orientation === 'vertical' ) ? Math.min( nextPosition.y, opticY ) : opticY;
+          this.ruler.positionProperty.value = new Vector2( nextPosition.x, y );
+        }
       }
     }
   }
