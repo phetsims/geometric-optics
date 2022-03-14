@@ -175,7 +175,9 @@ class FramedObjectSceneNode extends GOSceneNode {
     this.horizontalRulerJumpPoints = [
       ...this.verticalRulerJumpPoints,
       { positionProperty: scene.optic.leftFocalPointProperty, visibleProperty: visibleProperties.focalPointsVisibleProperty },
-      { positionProperty: scene.optic.left2FProperty, visibleProperty: visibleProperties.twoFPointsVisibleProperty }
+      { positionProperty: scene.optic.rightFocalPointProperty, visibleProperty: visibleProperties.focalPointsVisibleProperty },
+      { positionProperty: scene.optic.left2FProperty, visibleProperty: visibleProperties.twoFPointsVisibleProperty },
+      { positionProperty: scene.optic.right2FProperty, visibleProperty: visibleProperties.twoFPointsVisibleProperty }
     ];
     this.positionMarkerJumpPoints = this.horizontalRulerJumpPoints;
 

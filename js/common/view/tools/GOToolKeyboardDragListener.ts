@@ -72,6 +72,10 @@ class GOToolKeyboardDragListener extends KeyboardDragListener {
       keys: [ KeyboardUtils.KEY_ESCAPE ],
       callback: returnToToolbox
     } );
+    this.addHotkey( {
+      keys: [ KeyboardUtils.KEY_P ],
+      callback: () => toolNode.jumpToPoint()
+    } );
   }
 }
 

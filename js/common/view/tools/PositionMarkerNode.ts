@@ -11,7 +11,6 @@ import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { DragListener } from '../../../../../scenery/js/imports.js';
-import geometricOptics from '../../../geometricOptics.js';
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PositionMarker from '../../model/tools/PositionMarker.js';
@@ -22,6 +21,7 @@ import MapMarkerNode from '../MapMarkerNode.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import GOToolKeyboardDragListener from './GOToolKeyboardDragListener.js';
 import GOToolDragListener from './GOToolDragListener.js';
+import geometricOptics from '../../../geometricOptics.js';
 
 type SelfOptions = {
   iconTandem: Tandem,
@@ -43,6 +43,8 @@ class PositionMarkerNode extends GOToolNode {
 
   // the marker that is associated with this Node
   public readonly positionMarker: PositionMarker;
+
+  private readonly dragBoundsProperty: IReadOnlyProperty<Bounds2>;
 
   /**
    * @param positionMarker
@@ -94,7 +96,7 @@ class PositionMarkerNode extends GOToolNode {
 
     // Drag bounds for the marker, in model coordinates.
     // This keeps the entire marker inside the visible bounds of the ScreenView.
-    const dragBoundsProperty = new DerivedProperty(
+    this.dragBoundsProperty = new DerivedProperty(
       [ visibleBoundsProperty, zoomTransformProperty ],
       ( visibleBounds: Bounds2, zoomTransform: ModelViewTransform2 ) => {
         const viewBounds = new Bounds2( visibleBounds.minX + this.width / 2, visibleBounds.minY,
@@ -104,7 +106,7 @@ class PositionMarkerNode extends GOToolNode {
     );
 
     // Keep the marker inside the drag bounds.
-    dragBoundsProperty.link( dragBounds => {
+    this.dragBoundsProperty.link( dragBounds => {
       positionMarker.positionProperty.value = dragBounds.closestPointTo( positionMarker.positionProperty.value );
     } );
 
@@ -112,7 +114,7 @@ class PositionMarkerNode extends GOToolNode {
     const shouldReturnToToolbox = () => this.toolboxBounds.intersectsBounds( this.parentToGlobalBounds( this.bounds ) );
 
     // Dragging with the pointer.
-    this.dragListener = new GOToolDragListener( positionMarker, this, zoomTransformProperty, dragBoundsProperty,
+    this.dragListener = new GOToolDragListener( positionMarker, this, zoomTransformProperty, this.dragBoundsProperty,
       shouldReturnToToolbox, {
         offsetPosition: () => new Vector2( -this.width / 2, -this.height ),
         tandem: options.tandem.createTandem( 'dragListener' )
@@ -121,10 +123,49 @@ class PositionMarkerNode extends GOToolNode {
 
     // Dragging with the keyboard.
     const keyboardDragListener = new GOToolKeyboardDragListener( positionMarker, this, zoomTransformProperty,
-      dragBoundsProperty, shouldReturnToToolbox, {
+      this.dragBoundsProperty, shouldReturnToToolbox, {
         tandem: options.tandem.createTandem( 'keyboardDragListener' )
       } );
     this.addInputListener( keyboardDragListener );
+  }
+
+  /**
+   * Handles the J+P hotkey.  Jumps (moves) the marker to the next measurement point, from left-to-right.
+   * See https://github.com/phetsims/geometric-optics/issues/355
+   */
+  public jumpToPoint(): void {
+    if ( this.jumpPoints.length > 0 ) {
+      const markerPosition = this.positionMarker.positionProperty.value;
+
+      // Find the target positions that are visible, not the same as the marker position, and in bounds.
+      const relevantJumpPoints = this.jumpPoints.filter( jumpPoint =>
+        jumpPoint.visibleProperty.value &&
+        !jumpPoint.positionProperty.value.equals( markerPosition ) &&
+        this.dragBoundsProperty.value.containsPoint( jumpPoint.positionProperty.value ) );
+
+      if ( relevantJumpPoints.length > 0 ) {
+
+        // Extract just the position values.
+        const positions = relevantJumpPoints.map( jumpPoint => jumpPoint.positionProperty.value );
+
+        // Sort positions left-to-right, by increasing x coordinate.
+        const sortedPositions = _.sortBy( positions, targetPosition => targetPosition.x );
+
+        // Find the next position to the right of the marker, with wrap-around to left.
+        let nextPosition = _.find( sortedPositions, position => position.x > markerPosition.x );
+        if ( !nextPosition ) {
+          const leftmostPosition = sortedPositions[ 0 ];
+          if ( leftmostPosition.x < markerPosition.x ) {
+            nextPosition = leftmostPosition;
+          }
+        }
+
+        // Move the marker
+        if ( nextPosition ) {
+          this.positionMarker.positionProperty.value = nextPosition;
+        }
+      }
+    }
   }
 }
 

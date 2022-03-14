@@ -17,7 +17,7 @@ import Utils from '../../../../../dot/js/Utils.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import PhetFont from '../../../../../scenery-phet/js/PhetFont.js';
 import RulerNode from '../../../../../scenery-phet/js/RulerNode.js';
-import { DragListener, KeyboardUtils, Node } from '../../../../../scenery/js/imports.js';
+import { DragListener, Node } from '../../../../../scenery/js/imports.js';
 import geometricOptics from '../../../geometricOptics.js';
 import geometricOpticsStrings from '../../../geometricOpticsStrings.js';
 import GOConstants from '../../GOConstants.js';
@@ -153,20 +153,13 @@ class GORulerNode extends GOToolNode {
         tandem: providedOptions.tandem.createTandem( 'keyboardDragListener' )
       } );
     this.addInputListener( keyboardDragListener );
-
-    // J+P is "Jump to Point". It moves (jumps) the ruler to the next visible position in jumpPoints.
-    // See https://github.com/phetsims/geometric-optics/issues/279
-    keyboardDragListener.addHotkey( {
-      keys: [ KeyboardUtils.KEY_P ],
-      callback: () => this.jumpToNextPoint()
-    } );
   }
 
   /**
-   * Jumps (moves) the ruler to the next measurement point, from left-to-right.
+   * Handles the J+P hotkey. Jumps (moves) the ruler to the next measurement point, from left-to-right.
    * See https://github.com/phetsims/geometric-optics/issues/310
    */
-  private jumpToNextPoint(): void {
+  public jumpToPoint(): void {
     if ( this.jumpPoints.length > 0 ) {
 
       const rulerPosition = this.ruler.positionProperty.value;
