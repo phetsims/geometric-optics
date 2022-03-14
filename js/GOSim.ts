@@ -14,7 +14,14 @@ import MirrorScreen from './mirror/MirrorScreen.js';
 import GOConstants from './common/GOConstants.js';
 import optionize from '../../phet-core/js/optionize.js';
 import GOGlobalOptionsNode from './common/view/GOGlobalOptionsNode.js';
-import { SimOptions } from './common/GOCommonOptions.js';
+import { Node } from '../../scenery/js/imports.js';
+
+//TODO https://github.com/phetsims/joist/issues/795 import SimOptions from Sim.js
+type SimOptions = {
+  credits?: object;
+  hasKeyboardHelpContent?: boolean;
+  createOptionsDialogContent?: ( tandem: Tandem ) => Node;
+};
 
 type SelfOptions = {
 
