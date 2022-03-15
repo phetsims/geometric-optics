@@ -134,61 +134,60 @@ class PositionMarkerNode extends GOToolNode {
    * See https://github.com/phetsims/geometric-optics/issues/355
    */
   public jumpToPoint(): void {
-    if ( this.jumpPoints.length > 0 ) {
-      const markerPosition = this.positionMarker.positionProperty.value;
 
-      // Find the points that are relevant.
-      const relevantJumpPoints = this.jumpPoints.filter( jumpPoint =>
+    const markerPosition = this.positionMarker.positionProperty.value;
 
-        // not null
-        ( jumpPoint.positionProperty.value !== null ) &&
+    // Find the points that are relevant.
+    const relevantJumpPoints = this.jumpPoints.filter( jumpPoint =>
 
-        // visible
-        jumpPoint.visibleProperty.value &&
+      // not null
+      ( jumpPoint.positionProperty.value !== null ) &&
 
-        // inside the tool's drag bounds, so the tool doesn't move out of bounds
-        this.dragBoundsProperty.value.containsPoint( jumpPoint.positionProperty.value ) );
+      // visible
+      jumpPoint.visibleProperty.value &&
 
-      if ( relevantJumpPoints.length > 0 ) {
+      // inside the tool's drag bounds, so the tool doesn't move out of bounds
+      this.dragBoundsProperty.value.containsPoint( jumpPoint.positionProperty.value ) );
 
-        // Extract just the position values.
-        const points: Vector2[] = relevantJumpPoints.map( jumpPoint => jumpPoint.positionProperty.value! );
+    if ( relevantJumpPoints.length > 0 ) {
 
-        // Sort positions left-to-right, by increasing x coordinate.
-        const sortedPoints = _.sortBy( points, point => point.x );
+      // Extract just the position values.
+      const points: Vector2[] = relevantJumpPoints.map( jumpPoint => jumpPoint.positionProperty.value! );
 
-        let nextPoint: Vector2 | undefined;
+      // Sort positions left-to-right, by increasing x coordinate.
+      const sortedPoints = _.sortBy( points, point => point.x );
 
-        const thisPosition = _.find( sortedPoints, point => point.equals( markerPosition ) );
-        if ( thisPosition ) {
+      let nextPoint: Vector2 | undefined;
 
-          // If the marker is at one of the jump points, and there's more than 1 jump point, then
-          // get the next jump point by search for where we're current at in the array (with wrap-around).
-          if ( sortedPoints.length > 1 ) {
-            let nextIndex = sortedPoints.indexOf( thisPosition ) + 1;
-            if ( nextIndex > sortedPoints.length - 1 ) {
-              nextIndex = 0;
-            }
-            nextPoint = sortedPoints[ nextIndex ];
+      const thisPosition = _.find( sortedPoints, point => point.equals( markerPosition ) );
+      if ( thisPosition ) {
+
+        // If the marker is at one of the jump points, and there's more than 1 jump point, then
+        // get the next jump point by search for where we're current at in the array (with wrap-around).
+        if ( sortedPoints.length > 1 ) {
+          let nextIndex = sortedPoints.indexOf( thisPosition ) + 1;
+          if ( nextIndex > sortedPoints.length - 1 ) {
+            nextIndex = 0;
+          }
+          nextPoint = sortedPoints[ nextIndex ];
+        }
+      }
+      else {
+
+        // If the marker is not one of the jump points, then find the next jump point that is to the right of
+        // the marker (with wrap-around).
+        nextPoint = _.find( sortedPoints, position => position.x > markerPosition.x );
+        if ( !nextPoint ) {
+          const leftmostPosition = sortedPoints[ 0 ];
+          if ( !leftmostPosition.equals( markerPosition ) ) {
+            nextPoint = leftmostPosition;
           }
         }
-        else {
+      }
 
-          // If the marker is not one of the jump points, then find the next jump point that is to the right of
-          // the marker (with wrap-around).
-          nextPoint = _.find( sortedPoints, position => position.x > markerPosition.x );
-          if ( !nextPoint ) {
-            const leftmostPosition = sortedPoints[ 0 ];
-            if ( !leftmostPosition.equals( markerPosition ) ) {
-              nextPoint = leftmostPosition;
-            }
-          }
-        }
-
-        // Move the marker
-        if ( nextPoint ) {
-          this.positionMarker.positionProperty.value = nextPoint;
-        }
+      // Move the marker
+      if ( nextPoint ) {
+        this.positionMarker.positionProperty.value = nextPoint;
       }
     }
   }

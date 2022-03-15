@@ -160,58 +160,56 @@ class GORulerNode extends GOToolNode {
    * See https://github.com/phetsims/geometric-optics/issues/310
    */
   public jumpToPoint(): void {
-    if ( this.jumpPoints.length > 0 ) {
 
-      const rulerPosition = this.ruler.positionProperty.value;
+    const rulerPosition = this.ruler.positionProperty.value;
 
-      // Find the points that are relevant.
-      const relevantJumpPoints = this.jumpPoints.filter( jumpPoint =>
+    // Find the points that are relevant.
+    const relevantJumpPoints = this.jumpPoints.filter( jumpPoint =>
 
-        // not null
-        ( jumpPoint.positionProperty.value !== null ) &&
+      // not null
+      ( jumpPoint.positionProperty.value !== null ) &&
 
-        // visible
-        jumpPoint.visibleProperty.value &&
+      // visible
+      jumpPoint.visibleProperty.value &&
 
-        // not at the ruler position
-        ( jumpPoint.positionProperty.value.x !== rulerPosition.x ) &&
+      // not at the ruler position
+      ( jumpPoint.positionProperty.value.x !== rulerPosition.x ) &&
 
-        // inside the tool's drag bounds, so the tool doesn't move out of bounds
-        this.dragBoundsProperty.value.containsPoint( jumpPoint.positionProperty.value ) &&
+      // inside the tool's drag bounds, so the tool doesn't move out of bounds
+      this.dragBoundsProperty.value.containsPoint( jumpPoint.positionProperty.value ) &&
 
-        // For horizontal rulers, exclude points to the right of the optic, because they are not useful.
-        !( this.ruler.orientation === 'horizontal' && jumpPoint.positionProperty.value.x > this.opticPositionProperty.value.x ) &&
+      // For horizontal rulers, exclude points to the right of the optic, because they are not useful.
+      !( this.ruler.orientation === 'horizontal' && jumpPoint.positionProperty.value.x > this.opticPositionProperty.value.x ) &&
 
-        // For vertical rulers, exclude point on the optical axis, because they are not useful.
-        !( this.ruler.orientation === 'vertical' && jumpPoint.positionProperty.value.y === this.opticPositionProperty.value.y )
-      );
+      // For vertical rulers, exclude point on the optical axis, because they are not useful.
+      !( this.ruler.orientation === 'vertical' && jumpPoint.positionProperty.value.y === this.opticPositionProperty.value.y )
+    );
 
-      if ( relevantJumpPoints.length > 0 ) {
+    if ( relevantJumpPoints.length > 0 ) {
 
-        // Extract just the position values.
-        const positions: Vector2[] = relevantJumpPoints.map( jumpPoint => jumpPoint.positionProperty.value! );
+      // Extract just the position values.
+      const positions: Vector2[] = relevantJumpPoints.map( jumpPoint => jumpPoint.positionProperty.value! );
 
-        // Sort positions left-to-right, by increasing x coordinate.
-        const sortedPositions = _.sortBy( positions, position => position.x );
+      // Sort positions left-to-right, by increasing x coordinate.
+      const sortedPositions = _.sortBy( positions, position => position.x );
 
-        //TODO change y coordinate of of sortedPositions, y=opticY for horizontal, y=Math.min( nextPosition.y, opticY ) for vertical
+      //TODO change y coordinate of of sortedPositions, y=opticY for horizontal, y=Math.min( nextPosition.y, opticY ) for vertical
 
-        // Find the next position to the right of the ruler, with wrap-around to left.
-        //TODO this skips 2 points that have the same x coordinate, like second point
-        let nextPosition = _.find( sortedPositions, position => position.x > rulerPosition.x );
-        if ( !nextPosition ) {
-          const leftmostPosition = sortedPositions[ 0 ];
-          if ( leftmostPosition.x < rulerPosition.x ) {
-            nextPosition = leftmostPosition;
-          }
+      // Find the next position to the right of the ruler, with wrap-around to left.
+      //TODO this skips 2 points that have the same x coordinate, like second point
+      let nextPosition = _.find( sortedPositions, position => position.x > rulerPosition.x );
+      if ( !nextPosition ) {
+        const leftmostPosition = sortedPositions[ 0 ];
+        if ( leftmostPosition.x < rulerPosition.x ) {
+          nextPosition = leftmostPosition;
         }
+      }
 
-        // Move the ruler
-        if ( nextPosition ) {
-          const opticY = this.opticPositionProperty.value.y;
-          const y = ( this.ruler.orientation === 'vertical' ) ? Math.min( nextPosition.y, opticY ) : opticY;
-          this.ruler.positionProperty.value = new Vector2( nextPosition.x, y );
-        }
+      // Move the ruler
+      if ( nextPosition ) {
+        const opticY = this.opticPositionProperty.value.y;
+        const y = ( this.ruler.orientation === 'vertical' ) ? Math.min( nextPosition.y, opticY ) : opticY;
+        this.ruler.positionProperty.value = new Vector2( nextPosition.x, y );
       }
     }
   }
