@@ -8,7 +8,6 @@
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import geometricOptics from '../../../geometricOptics.js';
-import geometricOpticsStrings from '../../../geometricOpticsStrings.js';
 import LabelNode from './LabelNode.js';
 import VisibleProperties from '../VisibleProperties.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -18,6 +17,9 @@ import FramedObjectScene from '../../model/FramedObjectScene.js';
 import { OpticalImageType } from '../../model/OpticalImageType.js';
 import IProperty from '../../../../../axon/js/IProperty.js';
 import GOSceneLabelsNode, { GOSceneLabelsNodeOptions } from './GOSceneLabelsNode.js';
+import OpticalObjectLabelNode from './OpticalObjectLabelNode.js';
+import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
+import geometricOpticsStrings from '../../../geometricOpticsStrings.js';
 
 class FramedObjectSceneLabelsNode extends GOSceneLabelsNode {
 
@@ -38,17 +40,21 @@ class FramedObjectSceneLabelsNode extends GOSceneLabelsNode {
 
     super( scene.optic, visibleProperties, zoomTransformProperty, modelVisibleBoundsProperty, providedOptions );
 
-    // Object label ------------------------------------------------------------------------------------
+    const isNumberedProperty = new BooleanProperty( false, {
+      validValues: [ false ]
+    } );
 
-    // Object
-    const objectLabelString = geometricOpticsStrings.label.object;
+    // Object label ------------------------------------------------------------------------------------
 
     const objectLabelPositionProperty = new DerivedProperty(
       [ scene.framedObject.boundsProperty ],
       ( bounds: Bounds2 ) => bounds.centerTop
     );
 
-    const objectLabel = new LabelNode( objectLabelString, objectLabelPositionProperty, zoomTransformProperty );
+    const objectLabel = new OpticalObjectLabelNode( scene.framedObject.opticalObjectNumber,
+      objectLabelPositionProperty, zoomTransformProperty, {
+        isNumberedProperty: isNumberedProperty
+      } );
     this.addChild( objectLabel );
 
     // Image label ------------------------------------------------------------------------------------
@@ -59,8 +65,12 @@ class FramedObjectSceneLabelsNode extends GOSceneLabelsNode {
     );
 
     const imageLabel = new LabelNode( '', imageLabelPositionProperty, zoomTransformProperty, {
-      visibleProperty: new DerivedProperty( [ lightPropagationEnabledProperty, scene.framedImage1.visibleProperty,
-          scene.framedImage1.opticalImageTypeProperty, visibleProperties.virtualImageVisibleProperty ],
+      visibleProperty: new DerivedProperty( [
+          lightPropagationEnabledProperty,
+          scene.framedImage1.visibleProperty,
+          scene.framedImage1.opticalImageTypeProperty,
+          visibleProperties.virtualImageVisibleProperty
+        ],
         ( lightPropagationEnabled: boolean, imageVisible: boolean, opticalImageType: OpticalImageType, virtualImageVisible: boolean ) =>
           ( lightPropagationEnabled && imageVisible && ( opticalImageType === 'real' || virtualImageVisible ) )
       )

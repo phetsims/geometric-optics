@@ -9,23 +9,24 @@
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import geometricOptics from '../../../geometricOptics.js';
-import geometricOpticsStrings from '../../../geometricOpticsStrings.js';
-import LabelNode, { LabelNodeOptions } from './LabelNode.js';
 import VisibleProperties from '../VisibleProperties.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
 import ArrowObjectScene from '../../model/ArrowObjectScene.js';
 import IProperty from '../../../../../axon/js/IProperty.js';
-import { OpticalImageType } from '../../model/OpticalImageType.js';
 import GOSceneLabelsNode, { GOSceneLabelsNodeOptions } from './GOSceneLabelsNode.js';
 import ArrowImage from '../../model/ArrowImage.js';
-import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
 import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
 import ArrowObject from '../../model/ArrowObject.js';
 import Optic from '../../model/Optic.js';
-import Property from '../../../../../axon/js/Property.js';
+import OpticalObjectLabelNode, { OpticalObjectLabelNodeOptions } from './OpticalObjectLabelNode.js';
+import LabelNode, { LabelNodeOptions } from './LabelNode.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
+import { OpticalImageType } from '../../model/OpticalImageType.js';
+import Property from '../../../../../axon/js/Property.js';
+import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
+import geometricOpticsStrings from '../../../geometricOpticsStrings.js';
 
 type SelfOptions = {
   isBasicsVersion: boolean;
@@ -71,14 +72,14 @@ class ArrowObjectSceneLabelsNode extends GOSceneLabelsNode {
     // Image labels ------------------------------------------------------------------------------------
 
     const image2Label = new ArrowImageLabelNode( scene.arrowImage2, scene.optic, zoomTransformProperty,
-      lightPropagationEnabledProperty, visibleProperties.secondPointVisibleProperty,
+      visibleProperties.secondPointVisibleProperty, lightPropagationEnabledProperty,
       visibleProperties.virtualImageVisibleProperty );
     this.addChild( image2Label );
 
     const image1Label = new ArrowImageLabelNode( scene.arrowImage1, scene.optic, zoomTransformProperty,
-      lightPropagationEnabledProperty, new BooleanProperty( true ), visibleProperties.virtualImageVisibleProperty, {
+      new BooleanProperty( true ), lightPropagationEnabledProperty, visibleProperties.virtualImageVisibleProperty, {
 
-        // Use numbering in the full version of the sim, or in the basics version if Image 2 is visible.
+        // Use numbering in the full version of the sim, or in the basics version if Image 2 is made visible.
         isNumberedProperty: new DerivedProperty( [ image2Label.visibleProperty ],
           ( image2LabelVisible: boolean ) => ( !providedOptions.isBasicsVersion || image2LabelVisible )
         )
@@ -92,14 +93,8 @@ class ArrowObjectSceneLabelsNode extends GOSceneLabelsNode {
   }
 }
 
-type ArrowObjectLabelNodeSelfOptions = {
-  isNumberedProperty?: IReadOnlyProperty<boolean>;
-};
-
-type ArrowObjectLabelNodeOptions = ArrowObjectLabelNodeSelfOptions & LabelNodeOptions;
-
 // Label for an arrow object.
-class ArrowObjectLabelNode extends LabelNode {
+class ArrowObjectLabelNode extends OpticalObjectLabelNode {
 
   /**
    * @param arrowObject
@@ -110,11 +105,7 @@ class ArrowObjectLabelNode extends LabelNode {
   constructor( arrowObject: ArrowObject,
                optic: Optic,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               providedOptions?: ArrowObjectLabelNodeOptions ) {
-
-    const options = optionize<ArrowObjectLabelNodeOptions, ArrowObjectLabelNodeSelfOptions, LabelNodeOptions>( {
-      isNumberedProperty: new BooleanProperty( true )
-    }, providedOptions );
+               providedOptions?: OpticalObjectLabelNodeOptions ) {
 
     // If the arrow points up, position the label below the optical axis.
     // Otherwise, position the label below the arrow's tip.
@@ -124,22 +115,7 @@ class ArrowObjectLabelNode extends LabelNode {
         ( arrowPosition.y > opticPosition.y ) ? new Vector2( arrowPosition.x, opticPosition.y ) : arrowPosition
     );
 
-    super( '', labelPositionProperty, zoomTransformProperty, options );
-
-    options.isNumberedProperty.link( ( isNumbered: boolean ) => {
-      if ( isNumbered ) {
-
-        // Object N
-        this.setText( StringUtils.fillIn( geometricOpticsStrings.label.objectN, {
-          objectNumber: arrowObject.opticalObjectNumber
-        } ) );
-      }
-      else {
-
-        // Object
-        this.setText( geometricOpticsStrings.label.object );
-      }
-    } );
+    super( arrowObject.opticalObjectNumber, labelPositionProperty, zoomTransformProperty, providedOptions );
   }
 }
 
@@ -171,9 +147,13 @@ class ArrowImageLabelNode extends LabelNode {
 
     const options = optionize<ArrowImageLabelNodeOptions, ArrowImageLabelNodeSelfOptions, LabelNodeOptions>( {
       isNumberedProperty: new BooleanProperty( true ),
-      visibleProperty: new DerivedProperty(
-        [ lightPropagationEnabledProperty, arrowObjectVisibleProperty, arrowImage.visibleProperty,
-          arrowImage.opticalImageTypeProperty, virtualImageVisibleProperty ],
+      visibleProperty: new DerivedProperty( [
+          lightPropagationEnabledProperty,
+          arrowObjectVisibleProperty,
+          arrowImage.visibleProperty,
+          arrowImage.opticalImageTypeProperty,
+          virtualImageVisibleProperty
+        ],
         ( lightPropagationEnabled: boolean, arrowObjectVisible: boolean, arrowImageVisible: boolean,
           opticalImageType: OpticalImageType, virtualImageVisible: boolean ) =>
           ( lightPropagationEnabled && arrowObjectVisible && arrowImageVisible && ( opticalImageType === 'real' || virtualImageVisible ) )

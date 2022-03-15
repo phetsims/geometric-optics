@@ -10,17 +10,15 @@ import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import geometricOptics from '../../../geometricOptics.js';
 import geometricOpticsStrings from '../../../geometricOpticsStrings.js';
-import LabelNode, { LabelNodeOptions } from './LabelNode.js';
+import LabelNode from './LabelNode.js';
 import VisibleProperties from '../VisibleProperties.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
 import LightObjectScene from '../../model/LightObjectScene.js';
 import GOSceneLabelsNode, { GOSceneLabelsNodeOptions } from './GOSceneLabelsNode.js';
-import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
 import LightObject from '../../model/LightObject.js';
-import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
+import OpticalObjectLabelNode, { OpticalObjectLabelNodeOptions } from './OpticalObjectLabelNode.js';
 
 type SelfOptions = {
   isBasicsVersion: boolean;
@@ -73,14 +71,10 @@ class LightObjectSceneLabelsNode extends GOSceneLabelsNode {
   }
 }
 
-type LightObjectLabelNodeSelfOptions = {
-  isNumberedProperty?: IReadOnlyProperty<boolean>;
-};
-
-type LightObjectLabelNodeOptions = LightObjectLabelNodeSelfOptions & LabelNodeOptions;
+type LightObjectLabelNodeOptions = OpticalObjectLabelNodeOptions;
 
 // Label for a light object.
-class LightObjectLabelNode extends LabelNode {
+class LightObjectLabelNode extends OpticalObjectLabelNode {
 
   /**
    * @param lightObject
@@ -91,31 +85,12 @@ class LightObjectLabelNode extends LabelNode {
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                providedOptions?: LightObjectLabelNodeOptions ) {
 
-    const options = optionize<LightObjectLabelNodeOptions, LightObjectLabelNodeSelfOptions, LabelNodeOptions>( {
-      isNumberedProperty: new BooleanProperty( true )
-    }, providedOptions );
-
     // Position the label below the light, slightly to the left of center (determined empirically)
     const labelPositionProperty = new DerivedProperty( [ lightObject.boundsProperty ],
       ( bounds: Bounds2 ) => new Vector2( bounds.centerX - 15, bounds.top )
     );
 
-    super( '', labelPositionProperty, zoomTransformProperty, options );
-
-    options.isNumberedProperty.link( ( isNumbered: boolean ) => {
-      if ( isNumbered ) {
-
-        // Object N
-        this.setText( StringUtils.fillIn( geometricOpticsStrings.label.objectN, {
-          objectNumber: lightObject.opticalObjectNumber
-        } ) );
-      }
-      else {
-
-        // Object
-        this.setText( geometricOpticsStrings.label.object );
-      }
-    } );
+    super( lightObject.opticalObjectNumber, labelPositionProperty, zoomTransformProperty, providedOptions );
   }
 }
 
