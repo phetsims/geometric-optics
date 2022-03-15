@@ -45,12 +45,8 @@ class GuideNode extends Node {
     const fulcrumNode = new Circle( FULCRUM_RADIUS, FULCRUM_OPTIONS );
 
     // The arms are two rectangles, with left center side laying on fulcrum initially.
-    const armOptions = {
-      stroke: ARM_STROKE,
-      fill: armColor
-    };
-    const incidentArmNode = new Rectangle( fulcrumNode.x, fulcrumNode.y - ARM_HEIGHT / 2, ARM_WIDTH, ARM_HEIGHT, armOptions );
-    const transmittedArmNode = new Rectangle( fulcrumNode.x, fulcrumNode.y - ARM_HEIGHT / 2, ARM_WIDTH, ARM_HEIGHT, armOptions );
+    const incidentArmNode = createArmNode( armColor );
+    const transmittedArmNode = createArmNode( armColor );
 
     const options = optionize<GuideNodeOptions, {}, NodeOptions>( {
 
@@ -145,6 +141,17 @@ class GuideNode extends Node {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
+}
+
+/**
+ * Creates one of the guide arms.
+ * @param armColor
+ */
+function createArmNode( armColor: IColor ) {
+  return new Rectangle( 0, 0, ARM_WIDTH, ARM_HEIGHT, {
+    stroke: ARM_STROKE,
+    fill: armColor
+  } );
 }
 
 /**
