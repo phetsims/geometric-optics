@@ -16,11 +16,10 @@ import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import SecondPoint from '../model/SecondPoint.js';
 import GOConstants from '../GOConstants.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import IProperty from '../../../../axon/js/IProperty.js';
-import GOGlobalOptions from '../GOGlobalOptions.js';
+import CueingArrowsNode from './CueingArrowsNode.js';
 
 type SecondPointNodeOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem' | 'phetioDocumentation'>;
 
@@ -53,10 +52,7 @@ class SecondPointNode extends Node {
     // Cueing arrows
     const cueingArrowsNode = new SecondPointCueingArrowsNode( pointNode.width + 10, {
       center: pointNode.center,
-      visibleProperty: new DerivedProperty(
-        [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
-        ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
-          ( cueingArrowsEnabled && inputEnabled && !wasDragged ) )
+      visibleProperty: CueingArrowsNode.createVisibleProperty( this.inputEnabledProperty, wasDraggedProperty )
     } );
     this.addChild( cueingArrowsNode );
 

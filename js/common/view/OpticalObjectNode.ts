@@ -11,14 +11,12 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 import OpticalObject from '../model/OpticalObject.js';
 import IProperty from '../../../../axon/js/IProperty.js';
-import GOGlobalOptions from '../GOGlobalOptions.js';
 
 export type OpticalObjectNodeOptions = PickRequired<NodeOptions, 'tandem'> & PickOptional<NodeOptions, 'visibleProperty'>;
 
@@ -49,10 +47,7 @@ class OpticalObjectNode extends Node {
     super( options );
 
     this.cueingArrowsNode = new CueingArrowsNode( {
-      visibleProperty: new DerivedProperty(
-        [ GOGlobalOptions.cueingArrowsEnabledProperty, this.inputEnabledProperty, wasDraggedProperty ],
-        ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
-          ( cueingArrowsEnabled && inputEnabled && !wasDragged ) )
+      visibleProperty: CueingArrowsNode.createVisibleProperty( this.inputEnabledProperty, wasDraggedProperty )
     } );
     this.addChild( this.cueingArrowsNode );
 

@@ -14,6 +14,9 @@ import GOConstants from '../GOConstants.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
+import GOGlobalOptions from '../GOGlobalOptions.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 type CueingArrowsDirection = 'horizontal' | 'vertical' | 'both';
 
@@ -64,6 +67,18 @@ class CueingArrowsNode extends Path {
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
+  }
+
+  /**
+   * Common method of creating the visibleProperty for cueing arrows when they are associated with a draggable Node.
+   * @param inputEnabledProperty - is input enabled for the associated Node?
+   * @param wasDraggedProperty - has the associated Node been dragged?
+   */
+  static createVisibleProperty( inputEnabledProperty: IReadOnlyProperty<boolean>, wasDraggedProperty: IReadOnlyProperty<boolean> ) {
+    return new DerivedProperty(
+      [ GOGlobalOptions.cueingArrowsEnabledProperty, inputEnabledProperty, wasDraggedProperty ],
+      ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
+        ( cueingArrowsEnabled && inputEnabled && !wasDragged ) );
   }
 }
 
