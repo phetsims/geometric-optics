@@ -75,12 +75,12 @@ class LightObjectScene extends GOScene {
       phetioDocumentation: 'the second light'
     } );
 
-    this.opticalImage1 = new OpticalImage( this.lightObject1, this.optic, {
+    this.opticalImage1 = new OpticalImage( this.lightObject1, lens, {
       tandem: providedOptions.tandem.createTandem( 'opticalImage1' ),
       phetioDocumentation: 'Point where light rays from the first light converge. No image is formed in this scene.'
     } );
 
-    this.opticalImage2 = new OpticalImage( this.lightObject2, this.optic, {
+    this.opticalImage2 = new OpticalImage( this.lightObject2, lens, {
       tandem: providedOptions.tandem.createTandem( 'opticalImage2' ),
       phetioDocumentation: 'Point where light rays from the second light converge. No image is formed in this scene.'
     } );
@@ -91,7 +91,7 @@ class LightObjectScene extends GOScene {
 
     this.lightRays1 = new LightRays(
       this.lightObject1.positionProperty,
-      this.optic,
+      lens,
       this.opticalImage1,
       raysTypeProperty,
       this.lightRaysAnimationTimeProperty,
@@ -100,7 +100,7 @@ class LightObjectScene extends GOScene {
 
     this.lightRays2 = new LightRays(
       this.lightObject2.positionProperty,
-      this.optic,
+      lens,
       this.opticalImage2,
       raysTypeProperty,
       this.lightRaysAnimationTimeProperty,
@@ -108,23 +108,23 @@ class LightObjectScene extends GOScene {
     );
 
     // Light Spots
-    this.lightSpot1 = new LightSpot( this.optic, this.projectionScreen, this.lightObject1.positionProperty,
+    this.lightSpot1 = new LightSpot( lens, this.projectionScreen, this.lightObject1.positionProperty,
       this.opticalImage1.positionProperty, {
         tandem: providedOptions.tandem.createTandem( 'lightSpot1' ),
         phetioDocumentation: 'the light spot on the projection screen that is created by the first light'
       } );
-    this.lightSpot2 = new LightSpot( this.optic, this.projectionScreen, this.lightObject2.positionProperty,
+    this.lightSpot2 = new LightSpot( lens, this.projectionScreen, this.lightObject2.positionProperty,
       this.opticalImage2.positionProperty, {
         tandem: providedOptions.tandem.createTandem( 'lightSpot2' ),
         phetioDocumentation: 'the light spot on the projection screen that is created by the second light'
       } );
 
     // Guides
-    this.guides1 = new Guides( this.optic, this.lightObject1.positionProperty, {
+    this.guides1 = new Guides( lens, this.lightObject1.positionProperty, {
       tandem: providedOptions.tandem.createTandem( 'guides1' ),
       phetioDocumentation: 'guides associated with the first light'
     } );
-    this.guides2 = new Guides( this.optic, this.lightObject2.positionProperty, {
+    this.guides2 = new Guides( lens, this.lightObject2.positionProperty, {
       tandem: providedOptions.tandem.createTandem( 'guides2' ),
       phetioDocumentation: 'guides associated with the second light'
     } );
