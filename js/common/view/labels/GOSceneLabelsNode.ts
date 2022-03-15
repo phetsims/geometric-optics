@@ -19,7 +19,7 @@ import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTran
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
 import Optic from '../../model/Optic.js';
-import OpticLabelNode from '../OpticLabelNode.js';
+import OpticLabelNode from './OpticLabelNode.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 
 export type GOSceneLabelsNodeOptions = PickRequired<NodeOptions, 'visibleProperty'>;
