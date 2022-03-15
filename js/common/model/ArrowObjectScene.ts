@@ -95,7 +95,7 @@ class ArrowObjectScene extends GOScene {
       this.lightRaysAnimationTimeProperty
     );
 
-    // Guides
+    // Guides, for the Lens screen only
     if ( optic instanceof Lens ) {
       this.guides1 = new Guides( this.optic, this.arrowObject1.positionProperty, {
         tandem: providedOptions.tandem.createTandem( 'guides1' ),

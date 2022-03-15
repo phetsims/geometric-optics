@@ -97,7 +97,7 @@ class FramedObjectScene extends GOScene {
       this.lightRaysAnimationTimeProperty
     );
 
-    // Guides
+    // Guides, for the Lens screen only
     if ( optic instanceof Lens ) {
       this.guides1 = new Guides( this.optic, this.framedObject.positionProperty, {
         tandem: providedOptions.tandem.createTandem( 'guides1' ),
