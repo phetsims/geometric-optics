@@ -113,34 +113,38 @@ abstract class GOToolNode extends Node {
     let nextPoint: Vector2 | undefined;
 
     // Extract just the position values.
-    const points: Vector2[] = jumpPoints.map( jumpPoint => jumpPoint.positionProperty.value! );
+    let points: Vector2[] = jumpPoints.map( jumpPoint => jumpPoint.positionProperty.value! );
 
     // Sort positions left-to-right, by increasing x coordinate.
-    const sortedPoints = _.sortBy( points, point => point.x );
+    points = _.sortBy( points, point => point.x );
 
     // Apply optional map function.
-    const mappedPoints = map ? map( sortedPoints ) : sortedPoints;
+    if ( map ) {
+      points = map( points );
+    }
 
-    const thisPosition = _.find( mappedPoints, point => point.equals( toolPosition ) );
-    if ( thisPosition ) {
+    // Find the tool's position in the array of points.
+    const thisPoint = _.find( points, point => point.equals( toolPosition ) );
+
+    if ( thisPoint ) {
 
       // If the tool is at one of the jump points, and there's more than 1 jump point, then
-      // get the next jump point by search for where we're current at in the array (with wrap-around).
-      if ( mappedPoints.length > 1 ) {
-        let nextIndex = mappedPoints.indexOf( thisPosition ) + 1;
-        if ( nextIndex > mappedPoints.length - 1 ) {
+      // get the next jump point by searching for where we're current at in the array (with wrap-around).
+      if ( points.length > 1 ) {
+        let nextIndex = points.indexOf( thisPoint ) + 1;
+        if ( nextIndex > points.length - 1 ) {
           nextIndex = 0;
         }
-        nextPoint = mappedPoints[ nextIndex ];
+        nextPoint = points[ nextIndex ];
       }
     }
     else {
 
       // If the tool is not one of the jump points, then find the next jump point that is to the right of
       // the tool (with wrap-around).
-      nextPoint = _.find( mappedPoints, position => position.x > toolPosition.x );
+      nextPoint = _.find( points, position => position.x > toolPosition.x );
       if ( !nextPoint ) {
-        const leftmostPosition = mappedPoints[ 0 ];
+        const leftmostPosition = points[ 0 ];
         if ( !leftmostPosition.equals( toolPosition ) ) {
           nextPoint = leftmostPosition;
         }
