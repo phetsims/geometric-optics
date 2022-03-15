@@ -53,22 +53,22 @@
   "focalLengthControl": {
     "value": "Focal Length control:"
   },
-  "button.direct": {
+  "radioButton.direct": {
     "value": "direct (using Focal Length slider)"
   },
-  "button.indirect": {
+  "radioButton.indirect": {
     "value": "indirect (calculated from other optic parameters)"
   },
-  "button.none": {
+  "radioButton.none": {
     "value": "None"
   },
-  "button.marginal": {
+  "radioButton.marginal": {
     "value": "Marginal"
   },
-  "button.principal": {
+  "radioButton.principal": {
     "value": "Principal"
   },
-  "button.many": {
+  "radioButton.many": {
     "value": "Many"
   },
   "checkbox.focalPoints": {

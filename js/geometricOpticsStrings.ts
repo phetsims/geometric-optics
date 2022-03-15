@@ -30,7 +30,7 @@ type StringsType = {
   'centimeters': string,
   'rays': string,
   'focalLengthControl': string,
-  'button': {
+  'radioButton': {
     'direct': string,
     'indirect': string,
     'none': string,
