@@ -137,7 +137,7 @@ class PositionMarkerNode extends GOToolNode {
     if ( this.jumpPoints.length > 0 ) {
       const markerPosition = this.positionMarker.positionProperty.value;
 
-      // Find the target positions that are non-null, visible, and in drag bounds.
+      // Find the points that are relevant.
       const relevantJumpPoints = this.jumpPoints.filter( jumpPoint =>
 
         // not null
