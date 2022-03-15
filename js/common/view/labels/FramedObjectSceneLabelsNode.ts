@@ -8,18 +8,17 @@
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import geometricOptics from '../../../geometricOptics.js';
-import LabelNode from './LabelNode.js';
 import VisibleProperties from '../VisibleProperties.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
 import FramedObjectScene from '../../model/FramedObjectScene.js';
-import { OpticalImageType } from '../../model/OpticalImageType.js';
 import IProperty from '../../../../../axon/js/IProperty.js';
 import GOSceneLabelsNode, { GOSceneLabelsNodeOptions } from './GOSceneLabelsNode.js';
 import OpticalObjectLabelNode from './OpticalObjectLabelNode.js';
 import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
 import geometricOpticsStrings from '../../../geometricOpticsStrings.js';
+import OpticalImageLabelNode from './OpticalImageLabelNode.js';
 
 class FramedObjectSceneLabelsNode extends GOSceneLabelsNode {
 
@@ -64,17 +63,10 @@ class FramedObjectSceneLabelsNode extends GOSceneLabelsNode {
       ( bounds: Bounds2 ) => bounds.centerTop
     );
 
-    const imageLabel = new LabelNode( '', imageLabelPositionProperty, zoomTransformProperty, {
-      visibleProperty: new DerivedProperty( [
-          lightPropagationEnabledProperty,
-          scene.framedImage1.visibleProperty,
-          scene.framedImage1.opticalImageTypeProperty,
-          visibleProperties.virtualImageVisibleProperty
-        ],
-        ( lightPropagationEnabled: boolean, imageVisible: boolean, opticalImageType: OpticalImageType, virtualImageVisible: boolean ) =>
-          ( lightPropagationEnabled && imageVisible && ( opticalImageType === 'real' || virtualImageVisible ) )
-      )
-    } );
+    const imageLabel = new OpticalImageLabelNode( scene.framedImage1, imageLabelPositionProperty, zoomTransformProperty,
+      new BooleanProperty( true ), lightPropagationEnabledProperty, visibleProperties.virtualImageVisibleProperty, {
+        isNumberedProperty: isNumberedProperty
+      } );
     this.addChild( imageLabel );
 
     // Switch between 'Real Image' and 'Virtual Image'

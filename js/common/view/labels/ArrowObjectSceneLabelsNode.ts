@@ -21,12 +21,7 @@ import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
 import ArrowObject from '../../model/ArrowObject.js';
 import Optic from '../../model/Optic.js';
 import OpticalObjectLabelNode, { OpticalObjectLabelNodeOptions } from './OpticalObjectLabelNode.js';
-import LabelNode, { LabelNodeOptions } from './LabelNode.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
-import { OpticalImageType } from '../../model/OpticalImageType.js';
-import Property from '../../../../../axon/js/Property.js';
-import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
-import geometricOpticsStrings from '../../../geometricOpticsStrings.js';
+import OpticalImageLabelNode, { OpticalImageLabelNodeOptions } from './OpticalImageLabelNode.js';
 
 type SelfOptions = {
   isBasicsVersion: boolean;
@@ -119,14 +114,8 @@ class ArrowObjectLabelNode extends OpticalObjectLabelNode {
   }
 }
 
-type ArrowImageLabelNodeSelfOptions = {
-  isNumberedProperty?: IReadOnlyProperty<boolean>;
-};
-
-type ArrowImageLabelNodeOptions = ArrowImageLabelNodeSelfOptions & LabelNodeOptions;
-
 // Label for an arrow image.
-class ArrowImageLabelNode extends LabelNode {
+class ArrowImageLabelNode extends OpticalImageLabelNode {
 
   /**
    * @param arrowImage
@@ -143,22 +132,7 @@ class ArrowImageLabelNode extends LabelNode {
                arrowObjectVisibleProperty: IReadOnlyProperty<boolean>,
                lightPropagationEnabledProperty: IReadOnlyProperty<boolean>,
                virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
-               providedOptions?: ArrowImageLabelNodeOptions ) {
-
-    const options = optionize<ArrowImageLabelNodeOptions, ArrowImageLabelNodeSelfOptions, LabelNodeOptions>( {
-      isNumberedProperty: new BooleanProperty( true ),
-      visibleProperty: new DerivedProperty( [
-          lightPropagationEnabledProperty,
-          arrowObjectVisibleProperty,
-          arrowImage.visibleProperty,
-          arrowImage.opticalImageTypeProperty,
-          virtualImageVisibleProperty
-        ],
-        ( lightPropagationEnabled: boolean, arrowObjectVisible: boolean, arrowImageVisible: boolean,
-          opticalImageType: OpticalImageType, virtualImageVisible: boolean ) =>
-          ( lightPropagationEnabled && arrowObjectVisible && arrowImageVisible && ( opticalImageType === 'real' || virtualImageVisible ) )
-      )
-    }, providedOptions );
+               providedOptions?: OpticalImageLabelNodeOptions ) {
 
     const labelPositionProperty = new DerivedProperty(
       [ arrowImage.positionProperty, optic.positionProperty ],
@@ -172,26 +146,8 @@ class ArrowImageLabelNode extends LabelNode {
       }
     );
 
-    super( '', labelPositionProperty, zoomTransformProperty, options );
-
-    Property.multilink( [ arrowImage.opticalImageTypeProperty, options.isNumberedProperty ],
-      ( opticalImageType: OpticalImageType, isNumbered: boolean ) => {
-        if ( isNumbered ) {
-
-          // Switch between 'Real Image N' and 'Virtual Image N'
-          const stringParams = { imageNumber: arrowImage.opticalObject.opticalObjectNumber };
-          this.setText( opticalImageType === 'real' ?
-                        StringUtils.fillIn( geometricOpticsStrings.label.realImageN, stringParams ) :
-                        StringUtils.fillIn( geometricOpticsStrings.label.virtualImageN, stringParams ) );
-        }
-        else {
-
-          // Switch between 'Real Image' and 'Virtual Image'
-          this.setText( opticalImageType === 'real' ?
-                        geometricOpticsStrings.label.realImage :
-                        geometricOpticsStrings.label.virtualImage );
-        }
-      } );
+    super( arrowImage, labelPositionProperty, zoomTransformProperty, arrowObjectVisibleProperty,
+      lightPropagationEnabledProperty, virtualImageVisibleProperty, providedOptions );
   }
 }
 
