@@ -107,7 +107,7 @@ abstract class GOToolNode extends Node {
    * @param toolPosition
    * @param map - optional function for mapping jump points to new positions
    */
-  public static getNextJumpPoint( jumpPoints: ToolJumpPoint[], toolPosition: Vector2,
+  protected static getNextJumpPoint( jumpPoints: ToolJumpPoint[], toolPosition: Vector2,
                                   map?: ( points: Vector2[] ) => Vector2[] ): Vector2 | null {
 
     let nextPoint: Vector2 | undefined;
