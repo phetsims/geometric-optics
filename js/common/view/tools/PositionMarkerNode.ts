@@ -18,13 +18,11 @@ import PositionMarkerIcon from './PositionMarkerIcon.js';
 import GOToolNode, { GOToolNodeOptions } from './GOToolNode.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import MapMarkerNode from '../MapMarkerNode.js';
-import Tandem from '../../../../../tandem/js/Tandem.js';
 import GOToolKeyboardDragListener from './GOToolKeyboardDragListener.js';
 import GOToolDragListener from './GOToolDragListener.js';
 import geometricOptics from '../../../geometricOptics.js';
 
 type SelfOptions = {
-  iconTandem: Tandem,
 
   // pointer areas
   touchAreaDilationX?: number;
