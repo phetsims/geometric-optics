@@ -6,21 +6,21 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import geometricOptics from '../../geometricOptics.js';
-import geometricOpticsStrings from '../../geometricOpticsStrings.js';
+import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import Vector2 from '../../../../../dot/js/Vector2.js';
+import geometricOptics from '../../../geometricOptics.js';
+import geometricOpticsStrings from '../../../geometricOpticsStrings.js';
 import LabelNode, { LabelNodeOptions } from './LabelNode.js';
-import VisibleProperties from './VisibleProperties.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import LightObjectScene from '../model/LightObjectScene.js';
+import VisibleProperties from '../VisibleProperties.js';
+import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
+import Bounds2 from '../../../../../dot/js/Bounds2.js';
+import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
+import LightObjectScene from '../../model/LightObjectScene.js';
 import GOSceneLabelsNode, { GOSceneLabelsNodeOptions } from './GOSceneLabelsNode.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import LightObject from '../model/LightObject.js';
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
+import LightObject from '../../model/LightObject.js';
+import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {
   isBasicsVersion: boolean;

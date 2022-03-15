@@ -8,19 +8,19 @@
  * @author Sarah Chang (Swarthmore College)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
-import geometricOptics from '../../geometricOptics.js';
-import geometricOpticsStrings from '../../geometricOpticsStrings.js';
+import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import Vector2 from '../../../../../dot/js/Vector2.js';
+import { Node, NodeOptions } from '../../../../../scenery/js/imports.js';
+import geometricOptics from '../../../geometricOptics.js';
+import geometricOpticsStrings from '../../../geometricOpticsStrings.js';
 import LabelNode from './LabelNode.js';
-import VisibleProperties from './VisibleProperties.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import Optic from '../model/Optic.js';
-import OpticLabelNode from './OpticLabelNode.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import VisibleProperties from '../VisibleProperties.js';
+import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
+import Bounds2 from '../../../../../dot/js/Bounds2.js';
+import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
+import Optic from '../../model/Optic.js';
+import OpticLabelNode from '../OpticLabelNode.js';
+import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 
 export type GOSceneLabelsNodeOptions = PickRequired<NodeOptions, 'visibleProperty'>;
 

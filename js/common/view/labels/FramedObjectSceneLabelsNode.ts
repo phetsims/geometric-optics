@@ -6,17 +6,17 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import geometricOptics from '../../geometricOptics.js';
-import geometricOpticsStrings from '../../geometricOpticsStrings.js';
+import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import geometricOptics from '../../../geometricOptics.js';
+import geometricOpticsStrings from '../../../geometricOpticsStrings.js';
 import LabelNode from './LabelNode.js';
-import VisibleProperties from './VisibleProperties.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import FramedObjectScene from '../model/FramedObjectScene.js';
-import { OpticalImageType } from '../model/OpticalImageType.js';
-import IProperty from '../../../../axon/js/IProperty.js';
+import VisibleProperties from '../VisibleProperties.js';
+import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
+import Bounds2 from '../../../../../dot/js/Bounds2.js';
+import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
+import FramedObjectScene from '../../model/FramedObjectScene.js';
+import { OpticalImageType } from '../../model/OpticalImageType.js';
+import IProperty from '../../../../../axon/js/IProperty.js';
 import GOSceneLabelsNode, { GOSceneLabelsNodeOptions } from './GOSceneLabelsNode.js';
 
 class FramedObjectSceneLabelsNode extends GOSceneLabelsNode {

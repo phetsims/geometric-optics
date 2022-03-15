@@ -8,18 +8,18 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import BackgroundNode, { BackgroundNodeOptions } from '../../../../scenery-phet/js/BackgroundNode.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { RichText } from '../../../../scenery/js/imports.js';
-import geometricOptics from '../../geometricOptics.js';
-import GOColors from '../GOColors.js';
-import GOConstants from '../GOConstants.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Property from '../../../../axon/js/Property.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
+import BackgroundNode, { BackgroundNodeOptions } from '../../../../../scenery-phet/js/BackgroundNode.js';
+import Vector2 from '../../../../../dot/js/Vector2.js';
+import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
+import { RichText } from '../../../../../scenery/js/imports.js';
+import geometricOptics from '../../../geometricOptics.js';
+import GOColors from '../../GOColors.js';
+import GOConstants from '../../GOConstants.js';
+import Bounds2 from '../../../../../dot/js/Bounds2.js';
+import Property from '../../../../../axon/js/Property.js';
+import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
 
 type XAlign = 'left' | 'center' | 'right';
 type YAlign = 'top' | 'center' | 'bottom';

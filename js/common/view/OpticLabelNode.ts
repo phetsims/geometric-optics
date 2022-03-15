@@ -15,7 +15,7 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import Lens from '../../lens/model/Lens.js';
 import Mirror from '../../mirror/model/Mirror.js';
 import Optic from '../model/Optic.js';
-import LabelNode from './LabelNode.js';
+import LabelNode from './labels/LabelNode.js';
 
 class OpticLabelNode extends LabelNode {
 

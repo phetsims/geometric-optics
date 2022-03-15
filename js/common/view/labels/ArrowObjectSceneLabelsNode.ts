@@ -6,26 +6,26 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import geometricOptics from '../../geometricOptics.js';
-import geometricOpticsStrings from '../../geometricOpticsStrings.js';
+import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import Vector2 from '../../../../../dot/js/Vector2.js';
+import geometricOptics from '../../../geometricOptics.js';
+import geometricOpticsStrings from '../../../geometricOpticsStrings.js';
 import LabelNode, { LabelNodeOptions } from './LabelNode.js';
-import VisibleProperties from './VisibleProperties.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import ArrowObjectScene from '../model/ArrowObjectScene.js';
-import IProperty from '../../../../axon/js/IProperty.js';
-import { OpticalImageType } from '../model/OpticalImageType.js';
+import VisibleProperties from '../VisibleProperties.js';
+import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
+import Bounds2 from '../../../../../dot/js/Bounds2.js';
+import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
+import ArrowObjectScene from '../../model/ArrowObjectScene.js';
+import IProperty from '../../../../../axon/js/IProperty.js';
+import { OpticalImageType } from '../../model/OpticalImageType.js';
 import GOSceneLabelsNode, { GOSceneLabelsNodeOptions } from './GOSceneLabelsNode.js';
-import ArrowImage from '../model/ArrowImage.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import ArrowObject from '../model/ArrowObject.js';
-import Optic from '../model/Optic.js';
-import Property from '../../../../axon/js/Property.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import ArrowImage from '../../model/ArrowImage.js';
+import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
+import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
+import ArrowObject from '../../model/ArrowObject.js';
+import Optic from '../../model/Optic.js';
+import Property from '../../../../../axon/js/Property.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {
   isBasicsVersion: boolean;
