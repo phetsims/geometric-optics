@@ -22,6 +22,7 @@ export type OpticalObjectNodeOptions = PickRequired<NodeOptions, 'tandem'> & Pic
 
 class OpticalObjectNode extends Node {
 
+  private readonly wasDraggedProperty: IProperty<boolean>;
   protected readonly cueingArrowsNode: CueingArrowsNode;
 
   /**
@@ -46,6 +47,8 @@ class OpticalObjectNode extends Node {
 
     super( options );
 
+    this.wasDraggedProperty = wasDraggedProperty;
+
     this.cueingArrowsNode = new CueingArrowsNode( {
       visibleProperty: CueingArrowsNode.createVisibleProperty( this.inputEnabledProperty, wasDraggedProperty )
     } );
@@ -68,6 +71,14 @@ class OpticalObjectNode extends Node {
     this.addLinkedElement( opticalObject, {
       tandem: options.tandem.createTandem( opticalObject.tandem.name )
     } );
+  }
+
+  /**
+   * Called by drag listeners when this Node is dragged.
+   * @protected
+   */
+  protected drag(): void {
+    this.wasDraggedProperty.value = true;
   }
 
   public dispose(): void {

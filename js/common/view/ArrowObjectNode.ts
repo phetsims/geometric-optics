@@ -67,11 +67,6 @@ class ArrowObjectNode extends OpticalObjectNode {
         arrowNode.touchArea = arrowNode.localBounds.dilated( 10 );
       } );
 
-    // Drag action that is common to DragListener and KeyboardDragListener
-    const drag = () => {
-      wasDraggedProperty.value = true;
-    };
-
     const dragBoundsProperty = new DerivedProperty(
       [ sceneBoundsProperty, objectDragModeProperty ],
       ( sceneBounds: Bounds2, objectDragMode: ObjectDragMode ) => {
@@ -115,7 +110,7 @@ class ArrowObjectNode extends OpticalObjectNode {
       dragBoundsProperty: dragBoundsProperty,
       transform: modelViewTransform,
       useParentOffset: true,
-      drag: drag,
+      drag: () => this.drag(),
       end: () => end( 1 ),
       tandem: providedOptions.tandem.createTandem( 'dragListener' )
     } );
@@ -126,7 +121,7 @@ class ArrowObjectNode extends OpticalObjectNode {
         positionProperty: arrowObject.positionProperty,
         dragBoundsProperty: dragBoundsProperty,
         transform: modelViewTransform,
-        drag: drag,
+        drag: () => this.drag(),
         end: () => end( -1 ),
         tandem: providedOptions.tandem.createTandem( 'keyboardDragListener' )
       } ) );

@@ -117,17 +117,12 @@ class HTMLImageElementObjectNode extends OpticalObjectNode {
       }
     } );
 
-    // Drag action that is common to DragListener and KeyboardDragListener
-    const drag = () => {
-      wasDraggedProperty.value = true;
-    };
-
     const dragListener = new DragListener( {
       positionProperty: htmlImageElementObject.positionProperty,
       dragBoundsProperty: dragBoundsProperty,
       transform: modelViewTransform,
       useParentOffset: true,
-      drag: drag,
+      drag: () => this.drag(),
       tandem: providedOptions.tandem.createTandem( 'dragListener' )
     } );
     this.addInputListener( dragListener );
@@ -137,7 +132,7 @@ class HTMLImageElementObjectNode extends OpticalObjectNode {
         positionProperty: htmlImageElementObject.positionProperty,
         dragBoundsProperty: dragBoundsProperty,
         transform: modelViewTransform,
-        drag: drag,
+        drag: () => this.drag(),
         tandem: providedOptions.tandem.createTandem( 'keyboardDragListener' )
       } ) );
     this.addInputListener( keyboardDragListener );
