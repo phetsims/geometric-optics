@@ -8,6 +8,7 @@
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
+import Vector2 from '../../../../../dot/js/Vector2.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import { DragListener, Node, NodeOptions, PressListenerEvent } from '../../../../../scenery/js/imports.js';
@@ -98,6 +99,55 @@ abstract class GOToolNode extends Node {
   public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
+  }
+
+  /**
+   * Gets the next jump point, based on the current position of the tool.
+   * @param jumpPoints
+   * @param toolPosition
+   * @param map - optional function for mapping jump points to new positions
+   */
+  public static getNextJumpPoint( jumpPoints: ToolJumpPoint[], toolPosition: Vector2,
+                                  map?: ( points: Vector2[] ) => Vector2[] ): Vector2 | null {
+
+    let nextPoint: Vector2 | undefined;
+
+    // Extract just the position values.
+    const points: Vector2[] = jumpPoints.map( jumpPoint => jumpPoint.positionProperty.value! );
+
+    // Sort positions left-to-right, by increasing x coordinate.
+    const sortedPoints = _.sortBy( points, point => point.x );
+
+    // Apply optional map function.
+    const mappedPoints = map ? map( sortedPoints ) : sortedPoints;
+
+    const thisPosition = _.find( mappedPoints, point => point.equals( toolPosition ) );
+    if ( thisPosition ) {
+
+      // If the tool is at one of the jump points, and there's more than 1 jump point, then
+      // get the next jump point by search for where we're current at in the array (with wrap-around).
+      if ( mappedPoints.length > 1 ) {
+        let nextIndex = mappedPoints.indexOf( thisPosition ) + 1;
+        if ( nextIndex > mappedPoints.length - 1 ) {
+          nextIndex = 0;
+        }
+        nextPoint = mappedPoints[ nextIndex ];
+      }
+    }
+    else {
+
+      // If the tool is not one of the jump points, then find the next jump point that is to the right of
+      // the tool (with wrap-around).
+      nextPoint = _.find( mappedPoints, position => position.x > toolPosition.x );
+      if ( !nextPoint ) {
+        const leftmostPosition = mappedPoints[ 0 ];
+        if ( !leftmostPosition.equals( toolPosition ) ) {
+          nextPoint = leftmostPosition;
+        }
+      }
+    }
+
+    return nextPoint || null;
   }
 }
 

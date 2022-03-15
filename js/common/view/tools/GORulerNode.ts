@@ -172,44 +172,34 @@ class GORulerNode extends GOToolNode {
       // visible
       jumpPoint.visibleProperty.value &&
 
-      // not at the ruler position
-      ( jumpPoint.positionProperty.value.x !== rulerPosition.x ) &&
-
       // inside the tool's drag bounds, so the tool doesn't move out of bounds
       this.dragBoundsProperty.value.containsPoint( jumpPoint.positionProperty.value ) &&
 
       // For horizontal rulers, exclude points to the right of the optic, because they are not useful.
       !( this.ruler.orientation === 'horizontal' && jumpPoint.positionProperty.value.x > this.opticPositionProperty.value.x ) &&
 
-      // For vertical rulers, exclude point on the optical axis, because they are not useful.
+      // For vertical rulers, exclude points on the optical axis, because they are not useful.
       !( this.ruler.orientation === 'vertical' && jumpPoint.positionProperty.value.y === this.opticPositionProperty.value.y )
     );
 
+    // Find the next jump point and move there.
     if ( relevantJumpPoints.length > 0 ) {
 
-      // Extract just the position values.
-      const positions: Vector2[] = relevantJumpPoints.map( jumpPoint => jumpPoint.positionProperty.value! );
+      // Change the y coordinate of each point, based on the ruler's orientation. Horizontal rulers are placed on the
+      // optical axis. Placement of vertical rulers depends on whether the jump point is above or below the optical
+      // axis, and the ruler is placed so that we're always measuring a distance from the optical axis.
+      const changeYCoordinates = ( points: Vector2[] ) => points.map( ( point: Vector2 ) => {
+        const opticY = this.opticPositionProperty.value.y;
+        const y = ( this.ruler.orientation === 'horizontal' ) ? opticY : Math.min( point.y, opticY );
+        return new Vector2( point.x, y );
+      } );
 
-      // Sort positions left-to-right, by increasing x coordinate.
-      const sortedPositions = _.sortBy( positions, position => position.x );
-
-      //TODO change y coordinate of of sortedPositions, y=opticY for horizontal, y=Math.min( nextPosition.y, opticY ) for vertical
-
-      // Find the next position to the right of the ruler, with wrap-around to left.
-      //TODO this skips 2 points that have the same x coordinate, like second point
-      let nextPosition = _.find( sortedPositions, position => position.x > rulerPosition.x );
-      if ( !nextPosition ) {
-        const leftmostPosition = sortedPositions[ 0 ];
-        if ( leftmostPosition.x < rulerPosition.x ) {
-          nextPosition = leftmostPosition;
-        }
-      }
+      // Get the next point, based on the ruler's position.
+      const nextPoint = GOToolNode.getNextJumpPoint( relevantJumpPoints, rulerPosition, changeYCoordinates );
 
       // Move the ruler
-      if ( nextPosition ) {
-        const opticY = this.opticPositionProperty.value.y;
-        const y = ( this.ruler.orientation === 'vertical' ) ? Math.min( nextPosition.y, opticY ) : opticY;
-        this.ruler.positionProperty.value = new Vector2( nextPosition.x, y );
+      if ( nextPoint ) {
+        this.ruler.positionProperty.value = nextPoint;
       }
     }
   }
