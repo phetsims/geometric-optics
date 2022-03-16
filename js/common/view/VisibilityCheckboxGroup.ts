@@ -63,6 +63,9 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       createItem( geometricOpticsStrings.checkbox.focalPoints, visibleProperties.focalPointsVisibleProperty, {
         iconNode: FocalPointNode.createIcon(),
         options: {
+
+          // Hide this checkbox in Geometric Optics: Basics, because it only has a flat mirror,
+          // with focal points at infinity.
           visible: !( options.isBasicsVersion && options.isMirrorScreen )
         },
         tandem: options.tandem.createTandem( 'focalPointsCheckbox' )
@@ -72,6 +75,9 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       createItem( geometricOpticsStrings.checkbox.twoFPoints, visibleProperties.twoFPointsVisibleProperty, {
         iconNode: TwoFPointNode.createIcon(),
         options: {
+
+          // Hide this checkbox in Geometric Optics: Basics, because it only has a flat mirror,
+          // with 2F points at infinity.
           visibleProperty: new DerivedProperty( [ GOGlobalOptions.add2FPointsCheckboxProperty ],
             ( add2FPointsCheckbox: boolean ) =>
               ( add2FPointsCheckbox && !( options.isBasicsVersion && options.isMirrorScreen ) ) )
