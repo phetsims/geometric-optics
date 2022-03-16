@@ -17,7 +17,6 @@ import LabelNode from './LabelNode.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
-import Optic from '../../model/Optic.js';
 import OpticLabelNode from './OpticLabelNode.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import GOSceneNode from '../GOSceneNode.js';
@@ -29,19 +28,19 @@ export type GOSceneLabelsNodeOptions = PickRequired<NodeOptions, 'visiblePropert
 class GOSceneLabelsNode extends Node {
 
   /**
-   * @param optic
    * @param sceneNode
    * @param zoomTransformProperty
    * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
    * @param providedOptions
    */
-  protected constructor( optic: Optic,
-                         sceneNode: GOSceneNode,
+  protected constructor( sceneNode: GOSceneNode,
                          zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                          modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                          providedOptions: GOSceneLabelsNodeOptions ) {
 
     super( providedOptions );
+
+    const optic = sceneNode.scene.optic;
 
     // Optic label ------------------------------------------------------------------------------------
 

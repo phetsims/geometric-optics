@@ -40,6 +40,8 @@ class LightObjectSceneNode extends GOSceneNode {
   // See GOSceneNode
   public readonly toolJumpPoints: ToolJumpPoint[];
 
+  public readonly scene: LightObjectScene;
+
   // Visibility of things that have labels, intended to be used to control the visibility of associated labels.
   // Do not set these Properties. They should be IReadOnlyProperty<boolean>, but Node currently requires IProperty<boolean>.
   public readonly lightObject1NodeVisibleProperty: IProperty<boolean>;
@@ -69,6 +71,8 @@ class LightObjectSceneNode extends GOSceneNode {
                providedOptions: LightObjectSceneNodeOptions ) {
 
     super( scene, visibleProperties, modelViewTransform, modelVisibleBoundsProperty, sceneBoundsProperty, raysTypeProperty, providedOptions );
+
+    this.scene = scene;
 
     const lightWasDraggedProperty = new BooleanProperty( false, {
       tandem: providedOptions.tandem.createTandem( 'lightWasDraggedProperty' ),

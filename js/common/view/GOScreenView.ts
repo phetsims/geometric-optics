@@ -410,22 +410,22 @@ class GOScreenView extends ScreenView {
 
     const labelsLayer = new Node();
 
-    const arrowObjectSceneLabelsNode = new ArrowObjectSceneLabelsNode( model.arrowObjectScene, arrowObjectSceneNode,
+    const arrowObjectSceneLabelsNode = new ArrowObjectSceneLabelsNode( arrowObjectSceneNode,
       zoomTransformProperty, modelVisibleBoundsProperty, {
         isBasicsVersion: options.isBasicsVersion,
         visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty, arrowObjectSceneNode.visibleProperty ] )
       } );
     labelsLayer.addChild( arrowObjectSceneLabelsNode );
 
-    const framedObjectSceneLabelsNode = new FramedObjectSceneLabelsNode( model.framedObjectScene, framedObjectSceneNode,
-      zoomTransformProperty, modelVisibleBoundsProperty, model.lightPropagationEnabledProperty, {
+    const framedObjectSceneLabelsNode = new FramedObjectSceneLabelsNode( framedObjectSceneNode,
+      zoomTransformProperty, modelVisibleBoundsProperty, {
         visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty, framedObjectSceneNode.visibleProperty ] )
       } );
     labelsLayer.addChild( framedObjectSceneLabelsNode );
 
     let lightObjectSceneLabelsNode: Node | null = null;
     if ( model.lightObjectScene && lightObjectSceneNode ) {
-      lightObjectSceneLabelsNode = new LightObjectSceneLabelsNode( model.lightObjectScene, lightObjectSceneNode,
+      lightObjectSceneLabelsNode = new LightObjectSceneLabelsNode( lightObjectSceneNode,
         zoomTransformProperty, modelVisibleBoundsProperty, {
           isBasicsVersion: options.isBasicsVersion,
           visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty, lightObjectSceneNode.visibleProperty ] )

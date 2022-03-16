@@ -36,6 +36,8 @@ class ArrowObjectSceneNode extends GOSceneNode {
   // See GOSceneNode
   public readonly toolJumpPoints: ToolJumpPoint[];
 
+  public readonly scene: ArrowObjectScene;
+
   // Visibility of things that have labels, intended to be used to control the visibility of associated labels.
   // Do not set these Properties. They should be IReadOnlyProperty<boolean>, but Node currently requires IProperty<boolean>.
   public readonly arrowObject1NodeVisibleProperty: IProperty<boolean>;
@@ -66,6 +68,8 @@ class ArrowObjectSceneNode extends GOSceneNode {
                providedOptions: ArrowObjectSceneNodeOptions ) {
 
     super( scene, visibleProperties, modelViewTransform, modelVisibleBoundsProperty, sceneBoundsProperty, raysTypeProperty, providedOptions );
+
+    this.scene = scene;
 
     const arrowWasDraggedProperty = new BooleanProperty( false, {
       tandem: providedOptions.tandem.createTandem( 'arrowWasDraggedProperty' ),

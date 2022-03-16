@@ -11,8 +11,6 @@ import geometricOptics from '../../../geometricOptics.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
-import FramedObjectScene from '../../model/FramedObjectScene.js';
-import IProperty from '../../../../../axon/js/IProperty.js';
 import GOSceneLabelsNode, { GOSceneLabelsNodeOptions } from './GOSceneLabelsNode.js';
 import OpticalObjectLabelNode from './OpticalObjectLabelNode.js';
 import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
@@ -22,21 +20,19 @@ import FramedObjectSceneNode from '../FramedObjectSceneNode.js';
 class FramedObjectSceneLabelsNode extends GOSceneLabelsNode {
 
   /**
-   * @param scene
    * @param sceneNode
    * @param zoomTransformProperty
    * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
-   * @param lightPropagationEnabledProperty
    * @param providedOptions
    */
-  constructor( scene: FramedObjectScene,
-               sceneNode: FramedObjectSceneNode,
+  constructor( sceneNode: FramedObjectSceneNode,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-               lightPropagationEnabledProperty: IProperty<boolean>,
                providedOptions: GOSceneLabelsNodeOptions ) {
 
-    super( scene.optic, sceneNode, zoomTransformProperty, modelVisibleBoundsProperty, providedOptions );
+    super( sceneNode, zoomTransformProperty, modelVisibleBoundsProperty, providedOptions );
+
+    const scene = sceneNode.scene;
 
     const isNumberedProperty = new BooleanProperty( false, {
       validValues: [ false ]

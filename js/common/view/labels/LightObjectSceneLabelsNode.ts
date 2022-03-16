@@ -14,7 +14,6 @@ import LabelNode from './LabelNode.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
-import LightObjectScene from '../../model/LightObjectScene.js';
 import GOSceneLabelsNode, { GOSceneLabelsNodeOptions } from './GOSceneLabelsNode.js';
 import LightObject from '../../model/LightObject.js';
 import OpticalObjectLabelNode, { OpticalObjectLabelNodeOptions } from './OpticalObjectLabelNode.js';
@@ -29,19 +28,19 @@ type LightObjectSceneLabelsNodeOptions = SelfOptions & GOSceneLabelsNodeOptions;
 class LightObjectSceneLabelsNode extends GOSceneLabelsNode {
 
   /**
-   * @param scene
    * @param sceneNode
    * @param zoomTransformProperty
    * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
    * @param providedOptions
    */
-  constructor( scene: LightObjectScene,
-               sceneNode: LightObjectSceneNode,
+  constructor( sceneNode: LightObjectSceneNode,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                providedOptions: LightObjectSceneLabelsNodeOptions ) {
 
-    super( scene.optic, sceneNode, zoomTransformProperty, modelVisibleBoundsProperty, providedOptions );
+    super( sceneNode, zoomTransformProperty, modelVisibleBoundsProperty, providedOptions );
+
+    const scene = sceneNode.scene;
 
     // Object labels ------------------------------------------------------------------------------------
 

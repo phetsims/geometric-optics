@@ -44,6 +44,8 @@ abstract class GOSceneNode extends Node {
   // When a tool has focus, J+P hotkey will cycle through these points, in order of ascending x coordinate.
   public abstract readonly toolJumpPoints: ToolJumpPoint[];
 
+  public abstract readonly scene: GOScene;
+
   // Jump points related to the optic, common to all scenes
   protected readonly opticJumpPoints: ToolJumpPoint[];
 
