@@ -17,7 +17,6 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import MagnifyingGlassZoomButtonGroup from '../../../../scenery-phet/js/MagnifyingGlassZoomButtonGroup.js';
 import { Node, Rectangle } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import GOQueryParameters from '../GOQueryParameters.js';
@@ -28,7 +27,6 @@ import OpticalObjectChoiceComboBox from './OpticalObjectChoiceComboBox.js';
 import LightPropagationToggleButton from './LightPropagationToggleButton.js';
 import VisibleProperties from './VisibleProperties.js';
 import Lens from '../../lens/model/Lens.js';
-import Optic from '../model/Optic.js';
 import FramedObjectSceneNode from './FramedObjectSceneNode.js';
 import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
 import Property from '../../../../axon/js/Property.js';
@@ -40,7 +38,7 @@ import ArrowObjectSceneNode from './ArrowObjectSceneNode.js';
 import ArrowObjectSceneLabelsNode from './labels/ArrowObjectSceneLabelsNode.js';
 import LightObjectSceneNode from './LightObjectSceneNode.js';
 import LightObjectSceneLabelsNode from './labels/LightObjectSceneLabelsNode.js';
-import GOSceneNode from './GOSceneNode.js';
+import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import ObjectDragModeToggleButton from './ObjectDragModeToggleButton.js';
 import IProperty from '../../../../axon/js/IProperty.js';
@@ -66,9 +64,7 @@ type SelfOptions = {
   // Gets the position of the model origin in view coordinates
   getViewOrigin: ( layoutBounds: Bounds2 ) => Vector2;
 
-  // Creates the Node for the optic
-  createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node;
-} & PickRequired<GOSimOptions, 'isBasicsVersion'>;
+} & PickRequired<GOSimOptions, 'isBasicsVersion'> & PickRequired<GOSceneNodeOptions, 'createOpticNode'>;
 
 export type GOScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions, 'tandem'>;
 
