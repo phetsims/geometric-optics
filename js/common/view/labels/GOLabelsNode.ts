@@ -23,7 +23,7 @@ import GOSceneNode from '../GOSceneNode.js';
 
 const FOCAL_POINT_LABEL_Y_OFFSET = 7;
 
-export type GOSceneLabelsNodeOptions = PickRequired<NodeOptions, 'visibleProperty'>;
+export type GOSceneLabelsNodeOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem'>;
 
 class GOLabelsNode extends Node {
 

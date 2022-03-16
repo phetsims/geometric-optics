@@ -47,6 +47,7 @@ import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import PositionMarkerNode from './tools/PositionMarkerNode.js';
 import { ObjectDragMode, ObjectDragModeValues } from './ObjectDragMode.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import { GOSimOptions } from '../../GOSim.js';
 
 // Zoom scale factors, in ascending order.
@@ -331,13 +332,17 @@ class GOScreenView extends ScreenView {
 
     const scenesLayer = new Node();
 
+    const arrowSceneNodeTandem = scenesTandem.createTandem( 'arrowSceneNode' );
     const arrowSceneNode = new ArrowSceneNode( model.arrowScene, visibleProperties, modelViewTransform,
       modelVisibleBoundsProperty, sceneBoundsProperty, model.raysTypeProperty, model.lightPropagationEnabledProperty, {
         createOpticNode: options.createOpticNode,
         objectDragModeProperty: objectDragModeProperty,
         visibleProperty: new DerivedProperty( [ model.opticalObjectChoiceProperty ],
-          ( opticalObjectChoice: OpticalObjectChoice ) => OpticalObjectChoice.isArrowObject( opticalObjectChoice ) ),
-        tandem: scenesTandem.createTandem( 'arrowSceneNode' )
+          ( opticalObjectChoice: OpticalObjectChoice ) => OpticalObjectChoice.isArrowObject( opticalObjectChoice ), {
+            tandem: arrowSceneNodeTandem.createTandem( 'visibleProperty' ),
+            phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
+          } ),
+        tandem: arrowSceneNodeTandem
       } );
     scenesLayer.addChild( arrowSceneNode );
 
@@ -347,13 +352,17 @@ class GOScreenView extends ScreenView {
       }
     } );
 
+    const frameSceneNodeTandem = scenesTandem.createTandem( 'framedSceneNode' );
     const framedSceneNode = new FramedSceneNode( model.framedScene, visibleProperties, modelViewTransform,
       modelVisibleBoundsProperty, sceneBoundsProperty, model.raysTypeProperty, model.lightPropagationEnabledProperty, {
         createOpticNode: options.createOpticNode,
         objectDragModeProperty: objectDragModeProperty,
         visibleProperty: new DerivedProperty( [ model.opticalObjectChoiceProperty ],
-          ( opticalObjectChoice: OpticalObjectChoice ) => OpticalObjectChoice.isFramedObject( opticalObjectChoice ) ),
-        tandem: scenesTandem.createTandem( 'framedSceneNode' )
+          ( opticalObjectChoice: OpticalObjectChoice ) => OpticalObjectChoice.isFramedObject( opticalObjectChoice ), {
+            tandem: frameSceneNodeTandem.createTandem( 'visibleProperty' ),
+            phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
+          } ),
+        tandem: frameSceneNodeTandem
       } );
     scenesLayer.addChild( framedSceneNode );
 
@@ -366,14 +375,18 @@ class GOScreenView extends ScreenView {
     let lightSceneNode: LightSceneNode | null = null;
     if ( model.lightScene ) {
 
+      const lightSceneNodeTandem = scenesTandem.createTandem( 'lightSceneNode' );
       lightSceneNode = new LightSceneNode( model.lightScene, visibleProperties,
         modelViewTransform, modelVisibleBoundsProperty, sceneBoundsProperty, model.raysTypeProperty,
         model.lightPropagationEnabledProperty, {
           createOpticNode: options.createOpticNode,
           objectDragModeProperty: objectDragModeProperty,
           visibleProperty: new DerivedProperty( [ model.opticalObjectChoiceProperty ],
-            ( opticalObjectChoice: OpticalObjectChoice ) => OpticalObjectChoice.isLight( opticalObjectChoice ) ),
-          tandem: scenesTandem.createTandem( 'lightSceneNode' )
+            ( opticalObjectChoice: OpticalObjectChoice ) => OpticalObjectChoice.isLight( opticalObjectChoice ), {
+              tandem: lightSceneNodeTandem.createTandem( 'visibleProperty' ),
+              phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
+            } ),
+          tandem: lightSceneNodeTandem
         } );
       scenesLayer.addChild( lightSceneNode );
 
@@ -414,14 +427,16 @@ class GOScreenView extends ScreenView {
     const arrowLabelsNode = new ArrowLabelsNode( arrowSceneNode,
       zoomTransformProperty, modelVisibleBoundsProperty, {
         isBasicsVersion: options.isBasicsVersion,
-        visibleProperty: arrowSceneNode.visibleProperty
+        visibleProperty: arrowSceneNode.visibleProperty,
+        tandem: labelsLayerTandem.createTandem( 'arrowLabelsNode' )
       } );
     labelsLayer.addChild( arrowLabelsNode );
 
     // Labels for things in the 'Framed Object' scene
     const framedLabelsNode = new FramedLabelsNode( framedSceneNode,
       zoomTransformProperty, modelVisibleBoundsProperty, {
-        visibleProperty: framedSceneNode.visibleProperty
+        visibleProperty: framedSceneNode.visibleProperty,
+        tandem: labelsLayerTandem.createTandem( 'framedLabelsNode' )
       } );
     labelsLayer.addChild( framedLabelsNode );
 
@@ -431,7 +446,8 @@ class GOScreenView extends ScreenView {
       lightLabelsNode = new LightLabelsNode( lightSceneNode,
         zoomTransformProperty, modelVisibleBoundsProperty, {
           isBasicsVersion: options.isBasicsVersion,
-          visibleProperty: lightSceneNode.visibleProperty
+          visibleProperty: lightSceneNode.visibleProperty,
+          tandem: labelsLayerTandem.createTandem( 'lightLabelsNode' )
         } );
       labelsLayer.addChild( lightLabelsNode );
     }
