@@ -72,7 +72,10 @@ export type GOScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions, 
 
 class GOScreenView extends ScreenView {
 
+  // See phetioDocumentation at instantiation
   protected readonly objectDragModeProperty: IProperty<ObjectDragMode>;
+
+  // Button for toggling between 'freeDragging' and 'horizontalDragging'
   protected readonly objectDragModeToggleButton: Node;
 
   // Resets things that are specific to this class.
