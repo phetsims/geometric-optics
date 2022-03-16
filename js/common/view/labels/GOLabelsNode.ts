@@ -1,7 +1,7 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * GOSceneLabelsNode is the base class for labeling things in a scene, supporting the "Labels" feature.
+ * GOLabelsNode is the base class for labeling things in a scene, supporting the "Labels" feature.
  * It is responsible for labeling the optic, optical axis, and focal points (F, 2F).
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -25,7 +25,7 @@ const FOCAL_POINT_LABEL_Y_OFFSET = 7;
 
 export type GOSceneLabelsNodeOptions = PickRequired<NodeOptions, 'visibleProperty'>;
 
-class GOSceneLabelsNode extends Node {
+class GOLabelsNode extends Node {
 
   /**
    * @param sceneNode
@@ -103,5 +103,5 @@ class GOSceneLabelsNode extends Node {
   }
 }
 
-geometricOptics.register( 'GOSceneLabelsNode', GOSceneLabelsNode );
-export default GOSceneLabelsNode;
+geometricOptics.register( 'GOLabelsNode', GOLabelsNode );
+export default GOLabelsNode;

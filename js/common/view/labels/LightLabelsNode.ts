@@ -1,7 +1,7 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * LightObjectSceneLabelsNode labels things in the 'light object' scene.
+ * LightLabelsNode labels things in the 'Light' scene.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,7 +14,7 @@ import LabelNode from './LabelNode.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
-import GOSceneLabelsNode, { GOSceneLabelsNodeOptions } from './GOSceneLabelsNode.js';
+import GOLabelsNode, { GOSceneLabelsNodeOptions } from './GOLabelsNode.js';
 import LightObject from '../../model/LightObject.js';
 import OpticalObjectLabelNode, { OpticalObjectLabelNodeOptions } from './OpticalObjectLabelNode.js';
 import LightObjectSceneNode from '../LightObjectSceneNode.js';
@@ -25,7 +25,7 @@ type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 
 type LightObjectSceneLabelsNodeOptions = SelfOptions & GOSceneLabelsNodeOptions;
 
-class LightObjectSceneLabelsNode extends GOSceneLabelsNode {
+class LightLabelsNode extends GOLabelsNode {
 
   /**
    * @param sceneNode
@@ -97,5 +97,5 @@ class LightObjectLabelNode extends OpticalObjectLabelNode {
   }
 }
 
-geometricOptics.register( 'LightObjectSceneLabelsNode', LightObjectSceneLabelsNode );
-export default LightObjectSceneLabelsNode;
+geometricOptics.register( 'LightLabelsNode', LightLabelsNode );
+export default LightLabelsNode;

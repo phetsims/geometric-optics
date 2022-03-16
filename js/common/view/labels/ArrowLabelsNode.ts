@@ -1,7 +1,7 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * ArrowObjectSceneLabelsNode labels things in the 'arrow object' scene.
+ * ArrowLabelsNode labels things in the 'Arrow' scene.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -12,7 +12,7 @@ import geometricOptics from '../../../geometricOptics.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
-import GOSceneLabelsNode, { GOSceneLabelsNodeOptions } from './GOSceneLabelsNode.js';
+import GOLabelsNode, { GOSceneLabelsNodeOptions } from './GOLabelsNode.js';
 import ArrowImage from '../../model/ArrowImage.js';
 import ArrowObject from '../../model/ArrowObject.js';
 import OpticalObjectLabelNode, { OpticalObjectLabelNodeOptions } from './OpticalObjectLabelNode.js';
@@ -25,7 +25,7 @@ type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 
 type ArrowObjectSceneLabelsNodeOptions = SelfOptions & GOSceneLabelsNodeOptions;
 
-class ArrowObjectSceneLabelsNode extends GOSceneLabelsNode {
+class ArrowLabelsNode extends GOLabelsNode {
 
   /**
    * @param sceneNode
@@ -137,5 +137,5 @@ class ArrowImageLabelNode extends OpticalImageLabelNode {
   }
 }
 
-geometricOptics.register( 'ArrowObjectSceneLabelsNode', ArrowObjectSceneLabelsNode );
-export default ArrowObjectSceneLabelsNode;
+geometricOptics.register( 'ArrowLabelsNode', ArrowLabelsNode );
+export default ArrowLabelsNode;

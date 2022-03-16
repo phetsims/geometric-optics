@@ -33,11 +33,11 @@ import Property from '../../../../axon/js/Property.js';
 import { RaysType } from '../model/RaysType.js';
 import GORulerNode from './tools/GORulerNode.js';
 import GOToolbox from './tools/GOToolbox.js';
-import FramedObjectSceneLabelsNode from './labels/FramedObjectSceneLabelsNode.js';
+import FramedObjectLabelsNode from './labels/FramedObjectLabelsNode.js';
 import ArrowObjectSceneNode from './ArrowObjectSceneNode.js';
-import ArrowObjectSceneLabelsNode from './labels/ArrowObjectSceneLabelsNode.js';
+import ArrowLabelsNode from './labels/ArrowLabelsNode.js';
 import LightObjectSceneNode from './LightObjectSceneNode.js';
-import LightObjectSceneLabelsNode from './labels/LightObjectSceneLabelsNode.js';
+import LightLabelsNode from './labels/LightLabelsNode.js';
 import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import ObjectDragModeToggleButton from './ObjectDragModeToggleButton.js';
@@ -405,27 +405,30 @@ class GOScreenView extends ScreenView {
 
     const labelsLayer = new Node();
 
-    const arrowObjectSceneLabelsNode = new ArrowObjectSceneLabelsNode( arrowObjectSceneNode,
+    // Labels for things in the 'Arrow' scene
+    const arrowLabelsNode = new ArrowLabelsNode( arrowObjectSceneNode,
       zoomTransformProperty, modelVisibleBoundsProperty, {
         isBasicsVersion: options.isBasicsVersion,
         visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty, arrowObjectSceneNode.visibleProperty ] )
       } );
-    labelsLayer.addChild( arrowObjectSceneLabelsNode );
+    labelsLayer.addChild( arrowLabelsNode );
 
-    const framedObjectSceneLabelsNode = new FramedObjectSceneLabelsNode( framedObjectSceneNode,
+    // Labels for things in the 'Framed Object' scene
+    const framedObjectLabelsNode = new FramedObjectLabelsNode( framedObjectSceneNode,
       zoomTransformProperty, modelVisibleBoundsProperty, {
         visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty, framedObjectSceneNode.visibleProperty ] )
       } );
-    labelsLayer.addChild( framedObjectSceneLabelsNode );
+    labelsLayer.addChild( framedObjectLabelsNode );
 
-    let lightObjectSceneLabelsNode: Node | null = null;
+    // Labels for things in the 'Light' scene
+    let lightLabelsNode: Node | null = null;
     if ( model.lightObjectScene && lightObjectSceneNode ) {
-      lightObjectSceneLabelsNode = new LightObjectSceneLabelsNode( lightObjectSceneNode,
+      lightLabelsNode = new LightLabelsNode( lightObjectSceneNode,
         zoomTransformProperty, modelVisibleBoundsProperty, {
           isBasicsVersion: options.isBasicsVersion,
           visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty, lightObjectSceneNode.visibleProperty ] )
         } );
-      labelsLayer.addChild( lightObjectSceneLabelsNode );
+      labelsLayer.addChild( lightLabelsNode );
     }
 
     // Layout ==========================================================================================================

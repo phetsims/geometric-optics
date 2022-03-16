@@ -1,7 +1,7 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * FramedObjectSceneLabelsNode labels things in the 'framed object' scene.
+ * FramedObjectLabelsNode labels things in the 'Framed Object' scene.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -11,13 +11,13 @@ import geometricOptics from '../../../geometricOptics.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
-import GOSceneLabelsNode, { GOSceneLabelsNodeOptions } from './GOSceneLabelsNode.js';
+import GOLabelsNode, { GOSceneLabelsNodeOptions } from './GOLabelsNode.js';
 import OpticalObjectLabelNode from './OpticalObjectLabelNode.js';
 import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
 import OpticalImageLabelNode from './OpticalImageLabelNode.js';
 import FramedObjectSceneNode from '../FramedObjectSceneNode.js';
 
-class FramedObjectSceneLabelsNode extends GOSceneLabelsNode {
+class FramedObjectLabelsNode extends GOLabelsNode {
 
   /**
    * @param sceneNode
@@ -67,5 +67,5 @@ class FramedObjectSceneLabelsNode extends GOSceneLabelsNode {
   }
 }
 
-geometricOptics.register( 'FramedObjectSceneLabelsNode', FramedObjectSceneLabelsNode );
-export default FramedObjectSceneLabelsNode;
+geometricOptics.register( 'FramedObjectLabelsNode', FramedObjectLabelsNode );
+export default FramedObjectLabelsNode;
