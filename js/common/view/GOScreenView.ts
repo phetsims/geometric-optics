@@ -403,20 +403,25 @@ class GOScreenView extends ScreenView {
 
     // Labels ==========================================================================================================
 
-    const labelsLayer = new Node(); //TODO move visibleProperties.labelsVisibleProperty here
+    const labelsLayerTandem = options.tandem.createTandem( 'labelsLayer' );
+
+    const labelsLayer = new Node( {
+      visibleProperty: visibleProperties.labelsVisibleProperty,
+      tandem: labelsLayerTandem
+    } );
 
     // Labels for things in the 'Arrow' scene
     const arrowLabelsNode = new ArrowLabelsNode( arrowSceneNode,
       zoomTransformProperty, modelVisibleBoundsProperty, {
         isBasicsVersion: options.isBasicsVersion,
-        visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty, arrowSceneNode.visibleProperty ] )
+        visibleProperty: arrowSceneNode.visibleProperty
       } );
     labelsLayer.addChild( arrowLabelsNode );
 
     // Labels for things in the 'Framed Object' scene
     const framedLabelsNode = new FramedLabelsNode( framedSceneNode,
       zoomTransformProperty, modelVisibleBoundsProperty, {
-        visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty, framedSceneNode.visibleProperty ] )
+        visibleProperty: framedSceneNode.visibleProperty
       } );
     labelsLayer.addChild( framedLabelsNode );
 
@@ -426,7 +431,7 @@ class GOScreenView extends ScreenView {
       lightLabelsNode = new LightLabelsNode( lightSceneNode,
         zoomTransformProperty, modelVisibleBoundsProperty, {
           isBasicsVersion: options.isBasicsVersion,
-          visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty, lightSceneNode.visibleProperty ] )
+          visibleProperty: lightSceneNode.visibleProperty
         } );
       labelsLayer.addChild( lightLabelsNode );
     }
