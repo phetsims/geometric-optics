@@ -36,7 +36,7 @@ class OpticalObjectLabelNode extends LabelNode {
   constructor( objectNumber: number,
                labelPositionProperty: IReadOnlyProperty<Vector2>,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               providedOptions?: OpticalObjectLabelNodeOptions ) {
+               providedOptions: OpticalObjectLabelNodeOptions ) {
 
     const options = optionize<OpticalObjectLabelNodeOptions, SelfOptions, LabelNodeOptions>( {
       isNumberedProperty: new BooleanProperty( true )

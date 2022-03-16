@@ -40,6 +40,12 @@ class LightObjectSceneNode extends GOSceneNode {
   // See GOSceneNode
   public readonly toolJumpPoints: ToolJumpPoint[];
 
+  // Visibility of things that have labels, intended to be used to control the visibility of associated labels.
+  // Do not set these Properties. They should be IReadOnlyProperty<boolean>, but Node currently requires IProperty<boolean>.
+  public readonly lightObject1NodeVisibleProperty: IProperty<boolean>;
+  public readonly lightObject2NodeVisibleProperty: IProperty<boolean>;
+  public readonly projectionScreenNodeVisibleProperty: IProperty<boolean>;
+
   // Resets things that are specific to this class.
   private readonly resetLightObjectSceneNode: () => void;
 
@@ -150,7 +156,7 @@ class LightObjectSceneNode extends GOSceneNode {
 
     // Ruler J+P hotkey will cycle through these positions, dynamically looking at left-to-right x coordinate.
     this.toolJumpPoints = [
-      ...this.getOpticJumpPoints(),
+      ...this.opticJumpPoints,
 
       // objects
       {
@@ -186,6 +192,11 @@ class LightObjectSceneNode extends GOSceneNode {
         visibleProperty: lightSpot2Node.visibleProperty
       }
     ];
+
+    // Visibility for associates labels
+    this.lightObject1NodeVisibleProperty = lightObject1Node.visibleProperty;
+    this.lightObject2NodeVisibleProperty = lightObject2Node.visibleProperty;
+    this.projectionScreenNodeVisibleProperty = projectionScreenNode.visibleProperty;
 
     this.resetLightObjectSceneNode = () => {
       lightWasDraggedProperty.reset();

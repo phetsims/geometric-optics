@@ -410,24 +410,22 @@ class GOScreenView extends ScreenView {
 
     const labelsLayer = new Node();
 
-    const arrowObjectSceneLabelsNode = new ArrowObjectSceneLabelsNode( model.arrowObjectScene, visibleProperties,
-      zoomTransformProperty, modelVisibleBoundsProperty, model.lightPropagationEnabledProperty, {
+    const arrowObjectSceneLabelsNode = new ArrowObjectSceneLabelsNode( model.arrowObjectScene, arrowObjectSceneNode,
+      zoomTransformProperty, modelVisibleBoundsProperty, {
         isBasicsVersion: options.isBasicsVersion,
-        visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty,
-          arrowObjectSceneNode.visibleProperty ] )
+        visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty, arrowObjectSceneNode.visibleProperty ] )
       } );
     labelsLayer.addChild( arrowObjectSceneLabelsNode );
 
-    const framedObjectSceneLabelsNode = new FramedObjectSceneLabelsNode( model.framedObjectScene, visibleProperties,
+    const framedObjectSceneLabelsNode = new FramedObjectSceneLabelsNode( model.framedObjectScene, framedObjectSceneNode,
       zoomTransformProperty, modelVisibleBoundsProperty, model.lightPropagationEnabledProperty, {
-        visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty,
-          framedObjectSceneNode.visibleProperty ] )
+        visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty, framedObjectSceneNode.visibleProperty ] )
       } );
     labelsLayer.addChild( framedObjectSceneLabelsNode );
 
     let lightObjectSceneLabelsNode: Node | null = null;
     if ( model.lightObjectScene && lightObjectSceneNode ) {
-      lightObjectSceneLabelsNode = new LightObjectSceneLabelsNode( model.lightObjectScene, visibleProperties,
+      lightObjectSceneLabelsNode = new LightObjectSceneLabelsNode( model.lightObjectScene, lightObjectSceneNode,
         zoomTransformProperty, modelVisibleBoundsProperty, {
           isBasicsVersion: options.isBasicsVersion,
           visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty, lightObjectSceneNode.visibleProperty ] )

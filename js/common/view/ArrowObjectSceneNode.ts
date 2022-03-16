@@ -36,6 +36,13 @@ class ArrowObjectSceneNode extends GOSceneNode {
   // See GOSceneNode
   public readonly toolJumpPoints: ToolJumpPoint[];
 
+  // Visibility of things that have labels, intended to be used to control the visibility of associated labels.
+  // Do not set these Properties. They should be IReadOnlyProperty<boolean>, but Node currently requires IProperty<boolean>.
+  public readonly arrowObject1NodeVisibleProperty: IProperty<boolean>;
+  public readonly arrowObject2NodeVisibleProperty: IProperty<boolean>;
+  public readonly arrowImage1NodeVisibleProperty: IProperty<boolean>;
+  public readonly arrowImage2NodeVisibleProperty: IProperty<boolean>;
+
   // Resets things that are specific to this class.
   private readonly resetFrameObjectSceneNode: () => void;
 
@@ -139,7 +146,7 @@ class ArrowObjectSceneNode extends GOSceneNode {
 
     // Ruler J+P hotkey will cycle through these positions, dynamically looking at left-to-right x coordinate.
     this.toolJumpPoints = [
-      ...this.getOpticJumpPoints(),
+      ...this.opticJumpPoints,
 
       // objects
       {
@@ -161,6 +168,12 @@ class ArrowObjectSceneNode extends GOSceneNode {
         visibleProperty: arrowImage2Node.visibleProperty
       }
     ];
+
+    // Visibility for associates labels
+    this.arrowObject1NodeVisibleProperty = arrowObject1Node.visibleProperty;
+    this.arrowObject2NodeVisibleProperty = arrowObject2Node.visibleProperty;
+    this.arrowImage1NodeVisibleProperty = arrowImage1Node.visibleProperty;
+    this.arrowImage2NodeVisibleProperty = arrowImage2Node.visibleProperty;
 
     this.resetFrameObjectSceneNode = () => {
       arrowWasDraggedProperty.reset();

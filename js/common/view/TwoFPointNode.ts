@@ -15,7 +15,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
-type TwoFPointNodeOptions = PickRequired<NodeOptions, 'tandem'>;
+type TwoFPointNodeOptions = PickRequired<NodeOptions, 'tandem' | 'visibleProperty'>;
 
 class TwoFPointNode extends Node {
 

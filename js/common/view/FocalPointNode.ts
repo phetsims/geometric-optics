@@ -16,7 +16,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
-type FocalPointNodeOptions = PickRequired<NodeOptions, 'tandem'>;
+type FocalPointNodeOptions = PickRequired<NodeOptions, 'tandem' | 'visibleProperty'>;
 
 class FocalPointNode extends Node {
 

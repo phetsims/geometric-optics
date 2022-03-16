@@ -19,7 +19,6 @@ import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTran
 import OpticalImage from '../../model/OpticalImage.js';
 import { OpticalImageType } from '../../model/OpticalImageType.js';
 import Property from '../../../../../axon/js/Property.js';
-import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 
 type SelfOptions = {
 
@@ -35,31 +34,15 @@ class OpticalImageLabelNode extends LabelNode {
    * @param opticalImage
    * @param labelPositionProperty
    * @param zoomTransformProperty
-   * @param objectVisibleProperty
-   * @param lightPropagationEnabledProperty
-   * @param virtualImageVisibleProperty
    * @param providedOptions
    */
-  constructor( opticalImage: OpticalImage,
+  constructor( opticalImage: OpticalImage, //TODO replace with opticalObjectNumber, opticalImageTypeProperty
                labelPositionProperty: IReadOnlyProperty<Vector2>,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               objectVisibleProperty: IReadOnlyProperty<boolean>,
-               lightPropagationEnabledProperty: IReadOnlyProperty<boolean>,
-               virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
-               providedOptions?: OpticalImageLabelNodeOptions ) {
+               providedOptions: OpticalImageLabelNodeOptions ) {
 
     const options = optionize<OpticalImageLabelNodeOptions, SelfOptions, LabelNodeOptions>( {
-      isNumberedProperty: new BooleanProperty( true ),
-      visibleProperty: new DerivedProperty( [
-          objectVisibleProperty,
-          lightPropagationEnabledProperty,
-          opticalImage.visibleProperty,
-          opticalImage.opticalImageTypeProperty,
-          virtualImageVisibleProperty
-        ],
-        ( objectVisible: boolean, lightPropagationEnabled: boolean, imageVisible: boolean,
-          opticalImageType: OpticalImageType, virtualImageVisible: boolean ) =>
-          ( objectVisible && lightPropagationEnabled && imageVisible && ( opticalImageType === 'real' || virtualImageVisible ) ) )
+      isNumberedProperty: new BooleanProperty( true )
     }, providedOptions );
 
     super( '', labelPositionProperty, zoomTransformProperty, options );

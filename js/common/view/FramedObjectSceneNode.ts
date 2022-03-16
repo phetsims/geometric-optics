@@ -40,6 +40,11 @@ class FramedObjectSceneNode extends GOSceneNode {
   // See GOSceneNode
   public readonly toolJumpPoints: ToolJumpPoint[];
 
+  // Visibility of things that have labels, intended to be used to control the visibility of associated labels.
+  // Do not set these Properties. They should be IReadOnlyProperty<boolean>, but Node currently requires IProperty<boolean>.
+  public readonly framedObjectNodeVisibleProperty: IProperty<boolean>;
+  public readonly framedImageNodeVisibleProperty: IProperty<boolean>;
+
   // Resets things that are specific to this class.
   private readonly resetFrameObjectSceneNode: () => void;
 
@@ -166,7 +171,7 @@ class FramedObjectSceneNode extends GOSceneNode {
 
     // Ruler J+P hotkey will cycle through these positions, dynamically looking at left-to-right x coordinate.
     this.toolJumpPoints = [
-      ...this.getOpticJumpPoints(),
+      ...this.opticJumpPoints,
 
       // objects
       {
@@ -188,6 +193,10 @@ class FramedObjectSceneNode extends GOSceneNode {
         visibleProperty: DerivedProperty.and( [ framedImageNode.visibleProperty, secondPointNode.visibleProperty ] )
       }
     ];
+
+    // Visibility for associates labels
+    this.framedObjectNodeVisibleProperty = framedObjectNode.visibleProperty;
+    this.framedImageNodeVisibleProperty = framedImageNode.visibleProperty;
 
     this.resetFrameObjectSceneNode = () => {
       framedObjectWasDraggedProperty.reset();

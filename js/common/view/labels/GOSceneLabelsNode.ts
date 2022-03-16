@@ -14,13 +14,15 @@ import { Node, NodeOptions } from '../../../../../scenery/js/imports.js';
 import geometricOptics from '../../../geometricOptics.js';
 import geometricOpticsStrings from '../../../geometricOpticsStrings.js';
 import LabelNode from './LabelNode.js';
-import VisibleProperties from '../VisibleProperties.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
 import Optic from '../../model/Optic.js';
 import OpticLabelNode from './OpticLabelNode.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
+import GOSceneNode from '../GOSceneNode.js';
+
+const FOCAL_POINT_LABEL_Y_OFFSET = 7;
 
 export type GOSceneLabelsNodeOptions = PickRequired<NodeOptions, 'visibleProperty'>;
 
@@ -28,13 +30,13 @@ class GOSceneLabelsNode extends Node {
 
   /**
    * @param optic
-   * @param visibleProperties
+   * @param sceneNode
    * @param zoomTransformProperty
    * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
    * @param providedOptions
    */
   protected constructor( optic: Optic,
-                         visibleProperties: VisibleProperties,
+                         sceneNode: GOSceneNode,
                          zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                          modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                          providedOptions: GOSceneLabelsNodeOptions ) {
@@ -43,7 +45,9 @@ class GOSceneLabelsNode extends Node {
 
     // Optic label ------------------------------------------------------------------------------------
 
-    const opticLabel = new OpticLabelNode( optic, zoomTransformProperty );
+    const opticLabel = new OpticLabelNode( optic, zoomTransformProperty, {
+      visibleProperty: sceneNode.opticNodeVisibleProperty
+    } );
     this.addChild( opticLabel );
 
     // Optical Axis label ------------------------------------------------------------------------------------
@@ -59,39 +63,37 @@ class GOSceneLabelsNode extends Node {
     const opticalAxisLabel = new LabelNode( geometricOpticsStrings.label.opticalAxis, opticalAxisLabelPositionProperty, zoomTransformProperty, {
       xAlign: 'left',
       yOffset: 5,
-      visibleProperty: visibleProperties.opticalAxisVisibleProperty
+      visibleProperty: sceneNode.opticalAxisNodeVisibleProperty
     } );
     this.addChild( opticalAxisLabel );
 
     // Focal point labels ------------------------------------------------------------------------------------
 
-    const focalPointLabelYOffset = 7;
-
     const leftFocalPointLabel = new LabelNode( geometricOpticsStrings.label.F,
       optic.leftFocalPointProperty, zoomTransformProperty, {
-        yOffset: focalPointLabelYOffset,
-        visibleProperty: visibleProperties.focalPointsVisibleProperty
+        yOffset: FOCAL_POINT_LABEL_Y_OFFSET,
+        visibleProperty: sceneNode.leftFocalPointNodeVisibleProperty
       } );
     this.addChild( leftFocalPointLabel );
 
     const rightFocalPointLabel = new LabelNode( geometricOpticsStrings.label.F,
       optic.rightFocalPointProperty, zoomTransformProperty, {
-        yOffset: focalPointLabelYOffset,
-        visibleProperty: visibleProperties.focalPointsVisibleProperty
+        yOffset: FOCAL_POINT_LABEL_Y_OFFSET,
+        visibleProperty: sceneNode.rightFocalPointNodeVisibleProperty
       } );
     this.addChild( rightFocalPointLabel );
 
     const left2FLabel = new LabelNode( geometricOpticsStrings.label.twoF,
       optic.left2FProperty, zoomTransformProperty, {
-        yOffset: focalPointLabelYOffset,
-        visibleProperty: visibleProperties.twoFPointsVisibleProperty
+        yOffset: FOCAL_POINT_LABEL_Y_OFFSET,
+        visibleProperty: sceneNode.left2FPointNodeVisibleProperty
       } );
     this.addChild( left2FLabel );
 
     const right2FLabel = new LabelNode( geometricOpticsStrings.label.twoF,
       optic.right2FProperty, zoomTransformProperty, {
-        yOffset: focalPointLabelYOffset,
-        visibleProperty: visibleProperties.twoFPointsVisibleProperty
+        yOffset: FOCAL_POINT_LABEL_Y_OFFSET,
+        visibleProperty: sceneNode.right2FPointNodeVisibleProperty
       } );
     this.addChild( right2FLabel );
   }

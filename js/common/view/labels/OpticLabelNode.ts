@@ -15,22 +15,27 @@ import geometricOpticsStrings from '../../../geometricOpticsStrings.js';
 import Lens from '../../../lens/model/Lens.js';
 import Mirror from '../../../mirror/model/Mirror.js';
 import Optic from '../../model/Optic.js';
-import LabelNode from './LabelNode.js';
+import LabelNode, { LabelNodeOptions } from './LabelNode.js';
+
+export type OpticLabelNodeOptions = LabelNodeOptions;
 
 class OpticLabelNode extends LabelNode {
 
   /**
    * @param optic
    * @param zoomTransformProperty
+   * @param providedOptions
    */
-  constructor( optic: Optic, zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2> ) {
+  constructor( optic: Optic,
+               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+               providedOptions: OpticLabelNodeOptions ) {
 
     const opticLabelPositionProperty = new DerivedProperty(
       [ optic.positionProperty, optic.diameterProperty ],
       ( position: Vector2, diameter: number ) => position.minusXY( 0, diameter / 2 )
     );
 
-    super( '', opticLabelPositionProperty, zoomTransformProperty );
+    super( '', opticLabelPositionProperty, zoomTransformProperty, providedOptions );
 
     optic.opticShapeProperty.link( opticShape => {
       let text: string;

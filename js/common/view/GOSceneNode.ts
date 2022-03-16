@@ -26,9 +26,9 @@ import GuidesNode from './GuidesNode.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import GOScene from '../model/GOScene.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import IProperty from '../../../../axon/js/IProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ToolJumpPoint from './tools/ToolJumpPoint.js';
+import IProperty from '../../../../axon/js/IProperty.js';
 
 type SelfOptions = {
 
@@ -44,11 +44,8 @@ abstract class GOSceneNode extends Node {
   // When a tool has focus, J+P hotkey will cycle through these points, in order of ascending x coordinate.
   public abstract readonly toolJumpPoints: ToolJumpPoint[];
 
-  private readonly scene: GOScene;
-  private readonly visibleProperties: VisibleProperties;
-
-  // Visibility of the optic. This is needed by subclasses to create their ToolJumpPoint[].
-  protected readonly opticNodeVisibleProperty: IProperty<boolean>;
+  // Jump points related to the optic, common to all scenes
+  protected readonly opticJumpPoints: ToolJumpPoint[];
 
   // Various rendering layers where subclasses are expected to add Nodes.
   protected readonly opticalAxisForegroundLayer: Node;
@@ -56,6 +53,15 @@ abstract class GOSceneNode extends Node {
   protected readonly opticalImagesLayer: Node;
   protected readonly raysForegroundLayer: Node;
   protected readonly raysBackgroundLayer: Node;
+
+  // Visibility of things that have labels, intended to be used to control the visibility of associated labels.
+  // Do not set these Properties. They should be IReadOnlyProperty<boolean>, but Node currently requires IProperty<boolean>.
+  public readonly opticNodeVisibleProperty: IProperty<boolean>;
+  public readonly opticalAxisNodeVisibleProperty: IProperty<boolean>;
+  public readonly leftFocalPointNodeVisibleProperty: IProperty<boolean>;
+  public readonly rightFocalPointNodeVisibleProperty: IProperty<boolean>;
+  public readonly left2FPointNodeVisibleProperty: IProperty<boolean>;
+  public readonly right2FPointNodeVisibleProperty: IProperty<boolean>;
 
   /**
    * @param scene
@@ -82,9 +88,6 @@ abstract class GOSceneNode extends Node {
 
     super( options );
 
-    this.scene = scene;
-    this.visibleProperties = visibleProperties;
-
     const opticNode = options.createOpticNode( scene.optic, modelViewTransform, options.tandem );
 
     const opticalAxisNode = new OpticalAxisNode(
@@ -97,34 +100,26 @@ abstract class GOSceneNode extends Node {
 
     const opticVerticalAxisNode = new OpticVerticalAxisNode( scene.optic, raysTypeProperty, modelViewTransform );
 
-    // focal points (F)
-    const focalPointsNodeTandem = options.tandem.createTandem( 'focalPointsNode' );
-    const focalPointsNode = new Node( {
-      children: [
-        new FocalPointNode( scene.optic.leftFocalPointProperty, modelViewTransform, {
-          tandem: focalPointsNodeTandem.createTandem( 'leftFocalPointNode' )
-        } ),
-        new FocalPointNode( scene.optic.rightFocalPointProperty, modelViewTransform, {
-          tandem: focalPointsNodeTandem.createTandem( 'rightFocalPointNode' )
-        } )
-      ],
+    // Focal Points (F)
+    const focalPointsTandem = options.tandem.createTandem( 'focalPoints' );
+    const leftFocalPointNode = new FocalPointNode( scene.optic.leftFocalPointProperty, modelViewTransform, {
       visibleProperty: visibleProperties.focalPointsVisibleProperty,
-      tandem: focalPointsNodeTandem
+      tandem: focalPointsTandem.createTandem( 'leftFocalPointNode' )
+    } );
+    const rightFocalPointNode = new FocalPointNode( scene.optic.rightFocalPointProperty, modelViewTransform, {
+      visibleProperty: visibleProperties.focalPointsVisibleProperty,
+      tandem: focalPointsTandem.createTandem( 'rightFocalPointNode' )
     } );
 
-    // 2F points
-    const twoFPointsNodeTandem = options.tandem.createTandem( 'twoFPointsNode' );
-    const twoFPointsNode = new Node( {
-      children: [
-        new TwoFPointNode( scene.optic.left2FProperty, modelViewTransform, {
-          tandem: twoFPointsNodeTandem.createTandem( 'left2FPointNode' )
-        } ),
-        new TwoFPointNode( scene.optic.right2FProperty, modelViewTransform, {
-          tandem: twoFPointsNodeTandem.createTandem( 'right2FPointNode' )
-        } )
-      ],
+    // 2F Points
+    const twoFPointTandem = options.tandem.createTandem( 'twoFPoints' );
+    const left2FPointNode = new TwoFPointNode( scene.optic.left2FProperty, modelViewTransform, {
       visibleProperty: visibleProperties.twoFPointsVisibleProperty,
-      tandem: twoFPointsNodeTandem
+      tandem: twoFPointTandem.createTandem( 'left2FPointNode' )
+    } );
+    const right2FPointNode = new TwoFPointNode( scene.optic.right2FProperty, modelViewTransform, {
+      visibleProperty: visibleProperties.twoFPointsVisibleProperty,
+      tandem: twoFPointTandem.createTandem( 'right2FPointNode' )
     } );
 
     // Layers for things that may be added by subclasses
@@ -171,41 +166,44 @@ abstract class GOSceneNode extends Node {
       this.opticalAxisForegroundLayer,
       opticNode,
       opticVerticalAxisNode,
-      focalPointsNode,
-      twoFPointsNode,
+      leftFocalPointNode,
+      rightFocalPointNode,
+      left2FPointNode,
+      right2FPointNode,
       this.raysForegroundLayer,
       guidesLayer
     ];
 
-    this.opticNodeVisibleProperty = opticNode.visibleProperty;
-  }
-
-  /**
-   * Gets tool jump points (for the J+P hotkey) that are common to all scenes.
-   */
-  public getOpticJumpPoints(): ToolJumpPoint[] {
-    return [
+    this.opticJumpPoints = [
       {
-        positionProperty: this.scene.optic.positionProperty,
-        visibleProperty: this.opticNodeVisibleProperty
+        positionProperty: scene.optic.positionProperty,
+        visibleProperty: opticNode.visibleProperty
       },
       {
-        positionProperty: this.scene.optic.leftFocalPointProperty,
-        visibleProperty: this.visibleProperties.focalPointsVisibleProperty
+        positionProperty: scene.optic.leftFocalPointProperty,
+        visibleProperty: leftFocalPointNode.visibleProperty
       },
       {
-        positionProperty: this.scene.optic.rightFocalPointProperty,
-        visibleProperty: this.visibleProperties.focalPointsVisibleProperty
+        positionProperty: scene.optic.rightFocalPointProperty,
+        visibleProperty: rightFocalPointNode.visibleProperty
       },
       {
-        positionProperty: this.scene.optic.left2FProperty,
-        visibleProperty: this.visibleProperties.twoFPointsVisibleProperty
+        positionProperty: scene.optic.left2FProperty,
+        visibleProperty: left2FPointNode.visibleProperty
       },
       {
-        positionProperty: this.scene.optic.right2FProperty,
-        visibleProperty: this.visibleProperties.twoFPointsVisibleProperty
+        positionProperty: scene.optic.right2FProperty,
+        visibleProperty: right2FPointNode.visibleProperty
       }
     ];
+
+    // Visibility for associates labels
+    this.opticNodeVisibleProperty = opticNode.visibleProperty;
+    this.opticalAxisNodeVisibleProperty = opticalAxisNode.visibleProperty;
+    this.leftFocalPointNodeVisibleProperty = leftFocalPointNode.visibleProperty;
+    this.rightFocalPointNodeVisibleProperty = rightFocalPointNode.visibleProperty;
+    this.left2FPointNodeVisibleProperty = left2FPointNode.visibleProperty;
+    this.right2FPointNodeVisibleProperty = right2FPointNode.visibleProperty;
   }
 }
 

@@ -18,8 +18,8 @@ import GOColors from '../../GOColors.js';
 import GOConstants from '../../GOConstants.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Property from '../../../../../axon/js/Property.js';
-import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 
 type XAlign = 'left' | 'center' | 'right';
 type YAlign = 'top' | 'center' | 'bottom';
@@ -31,7 +31,7 @@ type SelfOptions = {
   yOffset?: number; // in view coordinates
 };
 
-export type LabelNodeOptions = SelfOptions & PickOptional<BackgroundNodeOptions, 'visibleProperty'>;
+export type LabelNodeOptions = SelfOptions & PickRequired<BackgroundNodeOptions, 'visibleProperty'>;
 
 class LabelNode extends BackgroundNode {
 
@@ -46,7 +46,7 @@ class LabelNode extends BackgroundNode {
   constructor( text: string,
                positionProperty: IReadOnlyProperty<Vector2>,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               providedOptions?: LabelNodeOptions ) {
+               providedOptions: LabelNodeOptions ) {
 
     const textNode = new RichText( text, {
       align: 'center',

@@ -9,19 +9,17 @@
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import geometricOptics from '../../../geometricOptics.js';
-import VisibleProperties from '../VisibleProperties.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
 import ArrowObjectScene from '../../model/ArrowObjectScene.js';
-import IProperty from '../../../../../axon/js/IProperty.js';
 import GOSceneLabelsNode, { GOSceneLabelsNodeOptions } from './GOSceneLabelsNode.js';
 import ArrowImage from '../../model/ArrowImage.js';
-import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
 import ArrowObject from '../../model/ArrowObject.js';
 import Optic from '../../model/Optic.js';
 import OpticalObjectLabelNode, { OpticalObjectLabelNodeOptions } from './OpticalObjectLabelNode.js';
 import OpticalImageLabelNode, { OpticalImageLabelNodeOptions } from './OpticalImageLabelNode.js';
+import ArrowObjectSceneNode from '../ArrowObjectSceneNode.js';
 
 type SelfOptions = {
   isBasicsVersion: boolean;
@@ -33,53 +31,51 @@ class ArrowObjectSceneLabelsNode extends GOSceneLabelsNode {
 
   /**
    * @param scene
-   * @param visibleProperties
+   * @param sceneNode
    * @param zoomTransformProperty
    * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
-   * @param lightPropagationEnabledProperty
    * @param providedOptions
    */
   constructor( scene: ArrowObjectScene,
-               visibleProperties: VisibleProperties,
+               sceneNode: ArrowObjectSceneNode,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-               lightPropagationEnabledProperty: IProperty<boolean>,
                providedOptions: ArrowObjectSceneLabelsNodeOptions ) {
 
-    super( scene.optic, visibleProperties, zoomTransformProperty, modelVisibleBoundsProperty, providedOptions );
+    super( scene.optic, sceneNode, zoomTransformProperty, modelVisibleBoundsProperty, providedOptions );
 
     // Object labels ------------------------------------------------------------------------------------
 
-    const object2Label = new ArrowObjectLabelNode( scene.arrowObject2, scene.optic, zoomTransformProperty, {
-      visibleProperty: visibleProperties.secondPointVisibleProperty
-    } );
-    this.addChild( object2Label );
-
     const object1Label = new ArrowObjectLabelNode( scene.arrowObject1, scene.optic, zoomTransformProperty, {
 
-      // Use numbering in the full version of the sim, or in the basics version if Object 2 is visible.
-      isNumberedProperty: new DerivedProperty( [ object2Label.visibleProperty ],
-        ( object2LabelVisible: boolean ) => ( !providedOptions.isBasicsVersion || object2LabelVisible )
-      )
+      // Use numbering in the full version of the sim, or in the basics version if Object 2 is made visible.
+      isNumberedProperty: new DerivedProperty( [ sceneNode.arrowObject2NodeVisibleProperty ],
+        ( arrowObject2NodeVisible: boolean ) => ( !providedOptions.isBasicsVersion || arrowObject2NodeVisible ) ),
+      visibleProperty: sceneNode.arrowObject1NodeVisibleProperty
     } );
     this.addChild( object1Label );
 
+    const object2Label = new ArrowObjectLabelNode( scene.arrowObject2, scene.optic, zoomTransformProperty, {
+      visibleProperty: sceneNode.arrowObject2NodeVisibleProperty
+    } );
+    this.addChild( object2Label );
+
     // Image labels ------------------------------------------------------------------------------------
 
-    const image2Label = new ArrowImageLabelNode( scene.arrowImage2, scene.optic, zoomTransformProperty,
-      visibleProperties.secondPointVisibleProperty, lightPropagationEnabledProperty,
-      visibleProperties.virtualImageVisibleProperty );
-    this.addChild( image2Label );
+    const image1Label = new ArrowImageLabelNode( scene.arrowImage1, scene.optic, zoomTransformProperty, {
 
-    const image1Label = new ArrowImageLabelNode( scene.arrowImage1, scene.optic, zoomTransformProperty,
-      new BooleanProperty( true ), lightPropagationEnabledProperty, visibleProperties.virtualImageVisibleProperty, {
-
-        // Use numbering in the full version of the sim, or in the basics version if Image 2 is made visible.
-        isNumberedProperty: new DerivedProperty( [ image2Label.visibleProperty ],
-          ( image2LabelVisible: boolean ) => ( !providedOptions.isBasicsVersion || image2LabelVisible )
-        )
-      } );
+      // Use numbering in the full version of the sim, or in the basics version if Object 2 is made visible.
+      isNumberedProperty: new DerivedProperty( [ sceneNode.arrowImage2NodeVisibleProperty ],
+        ( arrowImage2NodeVisible: boolean ) => ( !providedOptions.isBasicsVersion || arrowImage2NodeVisible )
+      ),
+      visibleProperty: sceneNode.arrowImage1NodeVisibleProperty
+    } );
     this.addChild( image1Label );
+
+    const image2Label = new ArrowImageLabelNode( scene.arrowImage2, scene.optic, zoomTransformProperty, {
+      visibleProperty: sceneNode.arrowImage2NodeVisibleProperty
+    } );
+    this.addChild( image2Label );
   }
 
   public dispose(): void {
@@ -98,9 +94,9 @@ class ArrowObjectLabelNode extends OpticalObjectLabelNode {
    * @param providedOptions
    */
   constructor( arrowObject: ArrowObject,
-               optic: Optic,
+               optic: Optic, //TODO replace with opticalObjectNumber, opticPositionProperty
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               providedOptions?: OpticalObjectLabelNodeOptions ) {
+               providedOptions: OpticalObjectLabelNodeOptions ) {
 
     // If the arrow points up, position the label below the optical axis.
     // Otherwise, position the label below the arrow's tip.
@@ -121,18 +117,12 @@ class ArrowImageLabelNode extends OpticalImageLabelNode {
    * @param arrowImage
    * @param optic
    * @param zoomTransformProperty
-   * @param arrowObjectVisibleProperty
-   * @param lightPropagationEnabledProperty
-   * @param virtualImageVisibleProperty
    * @param providedOptions
    */
   constructor( arrowImage: ArrowImage,
-               optic: Optic,
+               optic: Optic, //TODO replace with opticPositionProperty
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               arrowObjectVisibleProperty: IReadOnlyProperty<boolean>,
-               lightPropagationEnabledProperty: IReadOnlyProperty<boolean>,
-               virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
-               providedOptions?: OpticalImageLabelNodeOptions ) {
+               providedOptions: OpticalImageLabelNodeOptions ) {
 
     const labelPositionProperty = new DerivedProperty(
       [ arrowImage.positionProperty, optic.positionProperty ],
@@ -146,8 +136,7 @@ class ArrowImageLabelNode extends OpticalImageLabelNode {
       }
     );
 
-    super( arrowImage, labelPositionProperty, zoomTransformProperty, arrowObjectVisibleProperty,
-      lightPropagationEnabledProperty, virtualImageVisibleProperty, providedOptions );
+    super( arrowImage, labelPositionProperty, zoomTransformProperty, providedOptions );
   }
 }
 
