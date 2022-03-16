@@ -30,7 +30,7 @@ import { ObjectDragMode } from './ObjectDragMode.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 
 type SelfOptions = {
-  objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>,
+  objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>;
 };
 
 type LightObjectSceneNodeOptions = SelfOptions & GOSceneNodeOptions;

@@ -19,7 +19,7 @@ import ToolJumpPoint from './ToolJumpPoint.js';
 type SelfOptions = {
 
   // tandem to be used for the icon associated with this tool Node
-  iconTandem: Tandem
+  iconTandem: Tandem;
 };
 
 export type GOToolNodeOptions = SelfOptions & PickRequired<Node, 'tandem'>;

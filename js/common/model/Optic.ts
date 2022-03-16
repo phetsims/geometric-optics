@@ -54,7 +54,7 @@ type SelfOptions = {
   indirectFocalLengthModelOptions: IndirectFocalLengthModelOptions;
 
   // position of the optic, in cm
-  position?: Vector2
+  position?: Vector2;
 };
 
 export type OpticOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'> &
