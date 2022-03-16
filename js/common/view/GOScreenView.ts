@@ -220,10 +220,6 @@ class GOScreenView extends ScreenView {
       children: toolNodes
     } );
 
-    // Use a scene's hotkey targets for the tools.
-    const setRulerHotkeyTargets = ( sceneNode: GOSceneNode ) =>
-      toolNodes.forEach( toolNode => toolNode.setJumpPoints( sceneNode.toolJumpPoints ) );
-
     // Controls  =======================================================================================================
 
     const controlsTandem = options.tandem.createTandem( 'controls' );
@@ -329,7 +325,7 @@ class GOScreenView extends ScreenView {
 
     const scenesTandem = options.tandem.createTandem( 'scenes' );
 
-    const scenesLayer = new Node();
+    const sceneNodes: GOSceneNode[] = [];
 
     const arrowSceneNodeTandem = scenesTandem.createTandem( 'arrowSceneNode' );
     const arrowSceneNode = new ArrowSceneNode( model.arrowScene, visibleProperties, modelViewTransform,
@@ -343,13 +339,7 @@ class GOScreenView extends ScreenView {
           } ),
         tandem: arrowSceneNodeTandem
       } );
-    scenesLayer.addChild( arrowSceneNode );
-
-    arrowSceneNode.visibleProperty.link( visible => {
-      if ( visible ) {
-        setRulerHotkeyTargets( arrowSceneNode );
-      }
-    } );
+    sceneNodes.push( arrowSceneNode );
 
     const frameSceneNodeTandem = scenesTandem.createTandem( 'framedSceneNode' );
     const framedSceneNode = new FramedSceneNode( model.framedScene, visibleProperties, modelViewTransform,
@@ -363,13 +353,7 @@ class GOScreenView extends ScreenView {
           } ),
         tandem: frameSceneNodeTandem
       } );
-    scenesLayer.addChild( framedSceneNode );
-
-    framedSceneNode.visibleProperty.link( visible => {
-      if ( visible ) {
-        setRulerHotkeyTargets( framedSceneNode );
-      }
-    } );
+    sceneNodes.push( framedSceneNode );
 
     let lightSceneNode: LightSceneNode | null = null;
     if ( model.lightScene ) {
@@ -387,14 +371,21 @@ class GOScreenView extends ScreenView {
             } ),
           tandem: lightSceneNodeTandem
         } );
-      scenesLayer.addChild( lightSceneNode );
+      sceneNodes.push( lightSceneNode );
+    }
 
-      lightSceneNode.visibleProperty.link( visible => {
+    // When a sceneNode becomes visible, use the scene's jump points for tools.
+    sceneNodes.forEach( sceneNode => {
+      sceneNode.visibleProperty.link( visible => {
         if ( visible ) {
-          setRulerHotkeyTargets( lightSceneNode! );
+          toolNodes.forEach( toolNode => toolNode.setJumpPoints( sceneNode.toolJumpPoints ) );
         }
       } );
-    }
+    } );
+
+    const scenesLayer = new Node( {
+      children: sceneNodes
+    } );
 
     // Show sceneBounds as a red rectangle.
     if ( GOQueryParameters.debugSceneBounds ) {
@@ -408,6 +399,7 @@ class GOScreenView extends ScreenView {
       } );
     }
 
+    // Scale the scene
     zoomScaleProperty.link( zoomScale => {
       scenesLayer.setScaleMagnitude( zoomScale );
       scenesLayer.translation = viewOrigin;
