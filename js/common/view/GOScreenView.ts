@@ -49,6 +49,7 @@ import { ObjectDragMode, ObjectDragModeValues } from './ObjectDragMode.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import { GOSimOptions } from '../../GOSim.js';
+import GOToolNode from './tools/GOToolNode.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.
@@ -213,17 +214,15 @@ class GOScreenView extends ScreenView {
       toolbox.rightTop = erodedLayoutBounds.rightTop;
     } );
 
+    const toolNodes: GOToolNode[] = [ horizontalRulerNode, verticalRulerNode, positionMarker2Node, positionMarker1Node ];
+
     const toolsLayer = new Node( {
-      children: [ horizontalRulerNode, verticalRulerNode, positionMarker2Node, positionMarker1Node ]
+      children: toolNodes
     } );
 
     // Use a scene's hotkey targets for the tools.
-    const setRulerHotkeyTargets = ( sceneNode: GOSceneNode ) => {
-      horizontalRulerNode.setJumpPoints( sceneNode.toolJumpPoints );
-      verticalRulerNode.setJumpPoints( sceneNode.toolJumpPoints );
-      positionMarker1Node.setJumpPoints( sceneNode.toolJumpPoints );
-      positionMarker2Node.setJumpPoints( sceneNode.toolJumpPoints );
-    };
+    const setRulerHotkeyTargets = ( sceneNode: GOSceneNode ) =>
+      toolNodes.forEach( toolNode => toolNode.setJumpPoints( sceneNode.toolJumpPoints ) );
 
     // Controls  =======================================================================================================
 
@@ -397,7 +396,7 @@ class GOScreenView extends ScreenView {
       } );
     }
 
-    // Show the model bounds as a green rectangle.
+    // Show sceneBounds as a red rectangle.
     if ( GOQueryParameters.debugSceneBounds ) {
       const dragBoundsNode = new Rectangle( modelViewTransform.modelToViewBounds( sceneBoundsProperty.value ), {
         stroke: 'red'
