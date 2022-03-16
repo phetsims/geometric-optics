@@ -13,12 +13,10 @@ import Mirror from './Mirror.js';
 import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import { GOSimOptions } from '../../GOSim.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
-type SelfOptions = {
-
-  // Is this Geometric Optics: Basics?
-  isBasicsVersion?: boolean;
-};
+type SelfOptions = PickOptional<GOSimOptions, 'isBasicsVersion'>;
 
 type MirrorModelOptions = SelfOptions & PickRequired<GOModelOptions, 'tandem'>;
 

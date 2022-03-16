@@ -25,12 +25,9 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import RaysSubpanel from './RaysSubpanel.js';
 import OpticSubpanel from './OpticSubpanel.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import { GOSimOptions } from '../../GOSim.js';
 
-type SelfOptions = {
-
-  // Is this Geometric Optics: Basics?
-  isBasicsVersion: boolean;
-};
+type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 
 type GOControlPanelOptions = SelfOptions & PickOptional<PanelOptions, 'bottom'> & PickRequired<PanelOptions, 'tandem'>;
 

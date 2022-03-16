@@ -16,12 +16,10 @@ import GOGlobalOptions from '../GOGlobalOptions.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
+import { GOSimOptions } from '../../GOSim.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
-type SelfOptions = {
-
-  // Is this Geometric Optics: Basics?
-  isBasicsVersion?: boolean;
-}
+type SelfOptions = PickOptional<GOSimOptions, 'isBasicsVersion'>;
 
 type GOGlobalOptionsNodeOptions = SelfOptions & PickRequired<VBoxOptions, 'tandem'>;
 

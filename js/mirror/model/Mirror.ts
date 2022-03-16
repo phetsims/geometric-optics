@@ -18,16 +18,13 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
+import { GOSimOptions } from '../../GOSim.js';
 
 // IOR is a fixed value for both the 'direct' and 'indirect' focal-length models.
 // Although a mirror does not have an IOR, its focal length is equivalent to a lens with an IOR of 2.
 const INDEX_OF_REFRACTION_RANGE = new RangeWithValue( 2, 2, 2 ); // fixed
 
-type SelfOptions = {
-
-  // Is this Geometric Optics: Basics?
-  isBasicsVersion: boolean;
-};
+type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 
 type MirrorOptions = SelfOptions & PickRequired<OpticOptions, 'tandem'>;
 

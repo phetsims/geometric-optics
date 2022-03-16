@@ -18,12 +18,10 @@ import GOSceneLabelsNode, { GOSceneLabelsNodeOptions } from './GOSceneLabelsNode
 import LightObject from '../../model/LightObject.js';
 import OpticalObjectLabelNode, { OpticalObjectLabelNodeOptions } from './OpticalObjectLabelNode.js';
 import LightObjectSceneNode from '../LightObjectSceneNode.js';
+import { GOSimOptions } from '../../../GOSim.js';
+import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 
-type SelfOptions = {
-
-  // Is this Geometric Optics: Basics?
-  isBasicsVersion: boolean;
-};
+type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 
 type LightObjectSceneLabelsNodeOptions = SelfOptions & GOSceneLabelsNodeOptions;
 

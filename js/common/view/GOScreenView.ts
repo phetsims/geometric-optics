@@ -49,6 +49,7 @@ import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import PositionMarkerNode from './tools/PositionMarkerNode.js';
 import { ObjectDragMode, ObjectDragModeValues } from './ObjectDragMode.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
+import { GOSimOptions } from '../../GOSim.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.
@@ -59,9 +60,6 @@ const NOMINAL_MODEL_TO_VIEW_SCALE = 2;
 
 type SelfOptions = {
 
-  // Is this Geometric Optics: Basics?
-  isBasicsVersion: boolean;
-
   // Initial value for objectDragModeProperty
   objectDragMode?: ObjectDragMode;
 
@@ -70,7 +68,7 @@ type SelfOptions = {
 
   // Creates the Node for the optic
   createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node;
-};
+} & PickRequired<GOSimOptions, 'isBasicsVersion'>;
 
 export type GOScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions, 'tandem'>;
 

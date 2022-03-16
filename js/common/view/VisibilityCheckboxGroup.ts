@@ -25,15 +25,13 @@ import TwoFPointNode from './TwoFPointNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
 import GOQueryParameters from '../GOQueryParameters.js';
+import { GOSimOptions } from '../../GOSim.js';
 
 type SelfOptions = {
 
-  // Is this Geometric Optics: Basics?
-  isBasicsVersion: boolean;
-
   // Is this the Mirror screen?
   isMirrorScreen: boolean;
-};
+} & PickRequired<GOSimOptions, 'isBasicsVersion'>;
 
 export type VisibilityCheckboxGroupOptions = SelfOptions & PickRequired<VerticalCheckboxGroupOptions, 'tandem'>;
 
