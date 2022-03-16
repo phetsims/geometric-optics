@@ -27,7 +27,11 @@ import GOGlobalOptions from '../GOGlobalOptions.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 
 type SelfOptions = {
+
+  // Is this Geometric Optics: Basics?
   isBasicsVersion: boolean;
+
+  // Is this the Mirror screen?
   isMirrorScreen: boolean;
 };
 

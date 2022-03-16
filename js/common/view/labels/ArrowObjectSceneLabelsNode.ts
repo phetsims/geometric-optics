@@ -20,6 +20,8 @@ import OpticalImageLabelNode, { OpticalImageLabelNodeOptions } from './OpticalIm
 import ArrowObjectSceneNode from '../ArrowObjectSceneNode.js';
 
 type SelfOptions = {
+
+  // Is this Geometric Optics: Basics?
   isBasicsVersion: boolean;
 };
 

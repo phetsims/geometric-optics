@@ -20,6 +20,8 @@ import OpticalObjectLabelNode, { OpticalObjectLabelNodeOptions } from './Optical
 import LightObjectSceneNode from '../LightObjectSceneNode.js';
 
 type SelfOptions = {
+
+  // Is this Geometric Optics: Basics?
   isBasicsVersion: boolean;
 };
 

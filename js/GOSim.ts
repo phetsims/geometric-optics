@@ -25,9 +25,9 @@ type SimOptions = {
 
 type SelfOptions = {
 
-  // Determines whether this is the Basics version of the sim. This flag is propagated to many components of the sim.
-  // To identify how the Basics version is customized, search the code base for isBasicsVersion, and inspect
-  // geometric-optics-basics-main.ts.
+  // Is this 'Geometric Optics: Basics', the 'basics version' of the sim?
+  // This flag is propagated to many components of the sim. To identify how the Basics version is customized,
+  // search the code base for isBasicsVersion, and inspect geometric-optics-basics-main.ts.
   isBasicsVersion: boolean;
 }
 

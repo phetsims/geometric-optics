@@ -15,6 +15,8 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
+
+  // Is this Geometric Optics: Basics?
   isBasicsVersion?: boolean;
 };
 

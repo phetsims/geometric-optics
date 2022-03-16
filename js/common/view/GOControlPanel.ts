@@ -27,6 +27,8 @@ import OpticSubpanel from './OpticSubpanel.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 type SelfOptions = {
+
+  // Is this Geometric Optics: Basics?
   isBasicsVersion: boolean;
 };
 

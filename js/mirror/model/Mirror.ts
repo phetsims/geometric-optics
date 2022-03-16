@@ -24,6 +24,8 @@ import GOQueryParameters from '../../common/GOQueryParameters.js';
 const INDEX_OF_REFRACTION_RANGE = new RangeWithValue( 2, 2, 2 ); // fixed
 
 type SelfOptions = {
+
+  // Is this Geometric Optics: Basics?
   isBasicsVersion: boolean;
 };
 

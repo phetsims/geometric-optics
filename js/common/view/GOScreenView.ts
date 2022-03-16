@@ -59,6 +59,7 @@ const NOMINAL_MODEL_TO_VIEW_SCALE = 2;
 
 type SelfOptions = {
 
+  // Is this Geometric Optics: Basics?
   isBasicsVersion: boolean;
 
   // Initial value for objectDragModeProperty

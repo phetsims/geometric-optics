@@ -18,6 +18,8 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 
 type SelfOptions = {
+
+  // Is this Geometric Optics: Basics?
   isBasicsVersion?: boolean;
 }
 
