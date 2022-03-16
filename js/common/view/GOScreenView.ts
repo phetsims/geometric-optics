@@ -416,11 +416,8 @@ class GOScreenView extends ScreenView {
 
     // Labels ==========================================================================================================
 
-    const labelsLayerTandem = options.tandem.createTandem( 'labelsLayer' );
-
     const labelsLayer = new Node( {
-      visibleProperty: visibleProperties.labelsVisibleProperty,
-      tandem: labelsLayerTandem
+      visibleProperty: visibleProperties.labelsVisibleProperty
     } );
 
     // Labels for things in the 'Arrow' scene
@@ -428,7 +425,7 @@ class GOScreenView extends ScreenView {
       zoomTransformProperty, modelVisibleBoundsProperty, {
         isBasicsVersion: options.isBasicsVersion,
         visibleProperty: arrowSceneNode.visibleProperty,
-        tandem: labelsLayerTandem.createTandem( 'arrowLabelsNode' ),
+        tandem: arrowSceneNode.tandem.createTandem( 'labels' ), // child of scene
         phetioDocumentation: `Labels for things in ${arrowSceneNode.tandem.name}`
       } );
     labelsLayer.addChild( arrowLabelsNode );
@@ -437,7 +434,7 @@ class GOScreenView extends ScreenView {
     const framedLabelsNode = new FramedLabelsNode( framedSceneNode,
       zoomTransformProperty, modelVisibleBoundsProperty, {
         visibleProperty: framedSceneNode.visibleProperty,
-        tandem: labelsLayerTandem.createTandem( 'framedLabelsNode' ),
+        tandem: framedSceneNode.tandem.createTandem( 'labels' ), // child of scene
         phetioDocumentation: `Labels for things in ${framedSceneNode.tandem.name}`
       } );
     labelsLayer.addChild( framedLabelsNode );
@@ -449,7 +446,7 @@ class GOScreenView extends ScreenView {
         zoomTransformProperty, modelVisibleBoundsProperty, {
           isBasicsVersion: options.isBasicsVersion,
           visibleProperty: lightSceneNode.visibleProperty,
-          tandem: labelsLayerTandem.createTandem( 'lightLabelsNode' ),
+          tandem: lightSceneNode.tandem.createTandem( 'labels' ), // child of scene
           phetioDocumentation: `Labels for things in ${lightSceneNode.tandem.name}`
         } );
       labelsLayer.addChild( lightLabelsNode );
