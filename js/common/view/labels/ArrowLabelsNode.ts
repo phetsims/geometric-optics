@@ -17,7 +17,7 @@ import ArrowImage from '../../model/ArrowImage.js';
 import ArrowObject from '../../model/ArrowObject.js';
 import OpticalObjectLabelNode, { OpticalObjectLabelNodeOptions } from './OpticalObjectLabelNode.js';
 import OpticalImageLabelNode, { OpticalImageLabelNodeOptions } from './OpticalImageLabelNode.js';
-import ArrowObjectSceneNode from '../ArrowObjectSceneNode.js';
+import ArrowSceneNode from '../ArrowSceneNode.js';
 import { GOSimOptions } from '../../../GOSim.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 
@@ -33,7 +33,7 @@ class ArrowLabelsNode extends GOLabelsNode {
    * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
    * @param providedOptions
    */
-  constructor( sceneNode: ArrowObjectSceneNode,
+  constructor( sceneNode: ArrowSceneNode,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                providedOptions: ArrowObjectSceneLabelsNodeOptions ) {

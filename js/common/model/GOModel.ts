@@ -17,8 +17,8 @@ import GORuler from './tools/GORuler.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import FramedObjectScene from './FramedObjectScene.js';
 import OpticalObjectChoice from './OpticalObjectChoice.js';
-import ArrowObjectScene from './ArrowObjectScene.js';
-import LightObjectScene from './LightObjectScene.js';
+import ArrowScene from './ArrowScene.js';
+import LightScene from './LightScene.js';
 import GOScene from './GOScene.js';
 import Lens from '../../lens/model/Lens.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
@@ -59,9 +59,9 @@ class GOModel {
 
   // scenes
   private readonly scenes: GOScene[];
-  public readonly arrowObjectScene: ArrowObjectScene;
+  public readonly arrowScene: ArrowScene;
   public readonly framedObjectScene: FramedObjectScene;
-  public readonly lightObjectScene: LightObjectScene | null; // not supported by Mirrors screen
+  public readonly lightScene: LightScene | null; // not supported by Mirrors screen
 
   // rulers
   public readonly horizontalRuler: GORuler;
@@ -116,12 +116,12 @@ class GOModel {
 
     this.scenes = [];
 
-    this.arrowObjectScene = new ArrowObjectScene( this.optic, this.raysTypeProperty, {
+    this.arrowScene = new ArrowScene( this.optic, this.raysTypeProperty, {
       arrowObject1Position: options.arrowObject1Position,
       arrowObject2Position: options.arrowObject2Position,
-      tandem: scenesTandem.createTandem( 'arrowObjectScene' )
+      tandem: scenesTandem.createTandem( 'arrowScene' )
     } );
-    this.scenes.push( this.arrowObjectScene );
+    this.scenes.push( this.arrowScene );
 
     this.framedObjectScene = new FramedObjectScene( this.opticalObjectChoiceProperty, this.optic, this.raysTypeProperty, {
       framedObjectPosition: options.framedObjectPosition,
@@ -129,15 +129,15 @@ class GOModel {
     } );
     this.scenes.push( this.framedObjectScene );
 
-    this.lightObjectScene = null;
+    this.lightScene = null;
     if ( options.opticalObjectChoices.includes( OpticalObjectChoice.LIGHT ) ) {
       assert && assert( this.optic instanceof Lens, 'Light is only supported by the Lens screen' );
-      this.lightObjectScene = new LightObjectScene( this.optic as Lens, this.raysTypeProperty, {
+      this.lightScene = new LightScene( this.optic as Lens, this.raysTypeProperty, {
         lightObject1Position: options.lightObject1Position,
         lightObject2Position: options.lightObject2Position,
-        tandem: scenesTandem.createTandem( 'lightObjectScene' )
+        tandem: scenesTandem.createTandem( 'lightScene' )
       } );
-      this.scenes.push( this.lightObjectScene );
+      this.scenes.push( this.lightScene );
     }
 
     // Tools are grouped under this tandem.

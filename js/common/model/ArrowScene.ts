@@ -1,7 +1,7 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * ArrowObjectScene is a scene in which rays from two arrows interact with an optic and produce an Image.
+ * ArrowScene is a scene in which rays from two arrows interact with an optic and produce an Image.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -29,7 +29,7 @@ type SelfOptions = {
 
 type ArrowObjectSceneOptions = SelfOptions & PickRequired<GOSceneOptions, 'tandem'>;
 
-class ArrowObjectScene extends GOScene {
+class ArrowScene extends GOScene {
 
   // the elements that make up this scene
   public readonly arrowObject1: ArrowObject;
@@ -125,5 +125,5 @@ class ArrowObjectScene extends GOScene {
   }
 }
 
-geometricOptics.register( 'ArrowObjectScene', ArrowObjectScene );
-export default ArrowObjectScene;
+geometricOptics.register( 'ArrowScene', ArrowScene );
+export default ArrowScene;

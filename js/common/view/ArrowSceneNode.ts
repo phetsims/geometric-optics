@@ -1,7 +1,7 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * ArrowObjectSceneNode is the view of ArrowObjectScene, the scene that has arrow objects.
+ * ArrowSceneNode is the view of 'Arrow' scene, the scene that has arrow objects.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -17,7 +17,7 @@ import RealLightRaysNode from './RealLightRaysNode.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import VirtualLightRaysNode from './VirtualLightRaysNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import ArrowObjectScene from '../model/ArrowObjectScene.js';
+import ArrowScene from '../model/ArrowScene.js';
 import ArrowObjectNode from './ArrowObjectNode.js';
 import ArrowImageNode from './ArrowImageNode.js';
 import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
@@ -31,12 +31,12 @@ type SelfOptions = {
 
 type ArrowObjectSceneNodeOptions = SelfOptions & GOSceneNodeOptions;
 
-class ArrowObjectSceneNode extends GOSceneNode {
+class ArrowSceneNode extends GOSceneNode {
 
   // See GOSceneNode
   public readonly toolJumpPoints: ToolJumpPoint[];
 
-  public readonly scene: ArrowObjectScene;
+  public readonly scene: ArrowScene;
 
   // Visibility of things that have labels, intended to be used to control the visibility of associated labels.
   // Do not set these Properties. They should be IReadOnlyProperty<boolean>, but Node currently requires IProperty<boolean>.
@@ -58,7 +58,7 @@ class ArrowObjectSceneNode extends GOSceneNode {
    * @param lightPropagationEnabledProperty
    * @param providedOptions
    */
-  constructor( scene: ArrowObjectScene,
+  constructor( scene: ArrowScene,
                visibleProperties: VisibleProperties,
                modelViewTransform: ModelViewTransform2,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
@@ -189,5 +189,5 @@ class ArrowObjectSceneNode extends GOSceneNode {
   }
 }
 
-geometricOptics.register( 'ArrowObjectSceneNode', ArrowObjectSceneNode );
-export default ArrowObjectSceneNode;
+geometricOptics.register( 'ArrowSceneNode', ArrowSceneNode );
+export default ArrowSceneNode;

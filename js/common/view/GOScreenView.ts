@@ -34,9 +34,9 @@ import { RaysType } from '../model/RaysType.js';
 import GORulerNode from './tools/GORulerNode.js';
 import GOToolbox from './tools/GOToolbox.js';
 import FramedObjectLabelsNode from './labels/FramedObjectLabelsNode.js';
-import ArrowObjectSceneNode from './ArrowObjectSceneNode.js';
+import ArrowSceneNode from './ArrowSceneNode.js';
 import ArrowLabelsNode from './labels/ArrowLabelsNode.js';
-import LightObjectSceneNode from './LightObjectSceneNode.js';
+import LightSceneNode from './LightSceneNode.js';
 import LightLabelsNode from './labels/LightLabelsNode.js';
 import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
 import optionize from '../../../../phet-core/js/optionize.js';
@@ -331,19 +331,19 @@ class GOScreenView extends ScreenView {
 
     const scenesLayer = new Node();
 
-    const arrowObjectSceneNode = new ArrowObjectSceneNode( model.arrowObjectScene, visibleProperties, modelViewTransform,
+    const arrowSceneNode = new ArrowSceneNode( model.arrowScene, visibleProperties, modelViewTransform,
       modelVisibleBoundsProperty, sceneBoundsProperty, model.raysTypeProperty, model.lightPropagationEnabledProperty, {
         createOpticNode: options.createOpticNode,
         objectDragModeProperty: objectDragModeProperty,
         visibleProperty: new DerivedProperty( [ model.opticalObjectChoiceProperty ],
           ( opticalObjectChoice: OpticalObjectChoice ) => OpticalObjectChoice.isArrowObject( opticalObjectChoice ) ),
-        tandem: scenesTandem.createTandem( 'arrowObjectSceneNode' )
+        tandem: scenesTandem.createTandem( 'arrowSceneNode' )
       } );
-    scenesLayer.addChild( arrowObjectSceneNode );
+    scenesLayer.addChild( arrowSceneNode );
 
-    arrowObjectSceneNode.visibleProperty.link( visible => {
+    arrowSceneNode.visibleProperty.link( visible => {
       if ( visible ) {
-        setRulerHotkeyTargets( arrowObjectSceneNode );
+        setRulerHotkeyTargets( arrowSceneNode );
       }
     } );
 
@@ -363,23 +363,23 @@ class GOScreenView extends ScreenView {
       }
     } );
 
-    let lightObjectSceneNode: LightObjectSceneNode | null = null;
-    if ( model.lightObjectScene ) {
+    let lightSceneNode: LightSceneNode | null = null;
+    if ( model.lightScene ) {
 
-      lightObjectSceneNode = new LightObjectSceneNode( model.lightObjectScene, visibleProperties,
+      lightSceneNode = new LightSceneNode( model.lightScene, visibleProperties,
         modelViewTransform, modelVisibleBoundsProperty, sceneBoundsProperty, model.raysTypeProperty,
         model.lightPropagationEnabledProperty, {
           createOpticNode: options.createOpticNode,
           objectDragModeProperty: objectDragModeProperty,
           visibleProperty: new DerivedProperty( [ model.opticalObjectChoiceProperty ],
             ( opticalObjectChoice: OpticalObjectChoice ) => OpticalObjectChoice.isLight( opticalObjectChoice ) ),
-          tandem: scenesTandem.createTandem( 'lightObjectSceneNode' )
+          tandem: scenesTandem.createTandem( 'lightSceneNode' )
         } );
-      scenesLayer.addChild( lightObjectSceneNode );
+      scenesLayer.addChild( lightSceneNode );
 
-      lightObjectSceneNode.visibleProperty.link( visible => {
+      lightSceneNode.visibleProperty.link( visible => {
         if ( visible ) {
-          setRulerHotkeyTargets( lightObjectSceneNode! );
+          setRulerHotkeyTargets( lightSceneNode! );
         }
       } );
     }
@@ -406,10 +406,10 @@ class GOScreenView extends ScreenView {
     const labelsLayer = new Node();
 
     // Labels for things in the 'Arrow' scene
-    const arrowLabelsNode = new ArrowLabelsNode( arrowObjectSceneNode,
+    const arrowLabelsNode = new ArrowLabelsNode( arrowSceneNode,
       zoomTransformProperty, modelVisibleBoundsProperty, {
         isBasicsVersion: options.isBasicsVersion,
-        visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty, arrowObjectSceneNode.visibleProperty ] )
+        visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty, arrowSceneNode.visibleProperty ] )
       } );
     labelsLayer.addChild( arrowLabelsNode );
 
@@ -422,11 +422,11 @@ class GOScreenView extends ScreenView {
 
     // Labels for things in the 'Light' scene
     let lightLabelsNode: Node | null = null;
-    if ( model.lightObjectScene && lightObjectSceneNode ) {
-      lightLabelsNode = new LightLabelsNode( lightObjectSceneNode,
+    if ( model.lightScene && lightSceneNode ) {
+      lightLabelsNode = new LightLabelsNode( lightSceneNode,
         zoomTransformProperty, modelVisibleBoundsProperty, {
           isBasicsVersion: options.isBasicsVersion,
-          visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty, lightObjectSceneNode.visibleProperty ] )
+          visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty, lightSceneNode.visibleProperty ] )
         } );
       labelsLayer.addChild( lightLabelsNode );
     }
@@ -461,9 +461,9 @@ class GOScreenView extends ScreenView {
       visibleProperties.reset();
       zoomLevelProperty.reset();
       objectDragModeProperty.reset();
-      arrowObjectSceneNode.reset();
+      arrowSceneNode.reset();
       framedObjectSceneNode.reset();
-      lightObjectSceneNode && lightObjectSceneNode.reset();
+      lightSceneNode && lightSceneNode.reset();
     };
 
     // pdom -traversal order

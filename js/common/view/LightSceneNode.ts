@@ -1,7 +1,7 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * LightObjectSceneNode is the view of LightObjectScene, the scene that has light objects.
+ * LightSceneNode is the view of the 'Light' scene, the scene that has light objects.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  * @author Martin Veillette
@@ -16,7 +16,7 @@ import { RaysType } from '../model/RaysType.js';
 import GOColors from '../../common/GOColors.js';
 import RealLightRaysNode from './RealLightRaysNode.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import LightObjectScene from '../model/LightObjectScene.js';
+import LightScene from '../model/LightScene.js';
 import ProjectionScreenNode from './ProjectionScreenNode.js';
 import LightSpotNode from './LightSpotNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
@@ -35,12 +35,12 @@ type SelfOptions = {
 
 type LightObjectSceneNodeOptions = SelfOptions & GOSceneNodeOptions;
 
-class LightObjectSceneNode extends GOSceneNode {
+class LightSceneNode extends GOSceneNode {
 
   // See GOSceneNode
   public readonly toolJumpPoints: ToolJumpPoint[];
 
-  public readonly scene: LightObjectScene;
+  public readonly scene: LightScene;
 
   // Visibility of things that have labels, intended to be used to control the visibility of associated labels.
   // Do not set these Properties. They should be IReadOnlyProperty<boolean>, but Node currently requires IProperty<boolean>.
@@ -61,7 +61,7 @@ class LightObjectSceneNode extends GOSceneNode {
    * @param lightPropagationEnabledProperty
    * @param providedOptions
    */
-  constructor( scene: LightObjectScene,
+  constructor( scene: LightScene,
                visibleProperties: VisibleProperties,
                modelViewTransform: ModelViewTransform2,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
@@ -213,5 +213,5 @@ class LightObjectSceneNode extends GOSceneNode {
   }
 }
 
-geometricOptics.register( 'LightObjectSceneNode', LightObjectSceneNode );
-export default LightObjectSceneNode;
+geometricOptics.register( 'LightSceneNode', LightSceneNode );
+export default LightSceneNode;

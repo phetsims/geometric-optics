@@ -1,7 +1,7 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * LightObjectScene is a scene in rays from 2 lights interact with a lens, and project light spots on
+ * LightScene is a scene in rays from 2 lights interact with a lens, and project light spots on
  * a projection screen. Note that this scene supports only Lens, not Mirror.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -30,7 +30,7 @@ type SelfOptions = {
 
 type LightObjectSceneOptions = SelfOptions & PickRequired<GOSceneOptions, 'tandem'>;
 
-class LightObjectScene extends GOScene {
+class LightScene extends GOScene {
 
   // the elements that make up this scene
   public readonly lightObject1: LightObject;
@@ -144,5 +144,5 @@ class LightObjectScene extends GOScene {
   }
 }
 
-geometricOptics.register( 'LightObjectScene', LightObjectScene );
-export default LightObjectScene;
+geometricOptics.register( 'LightScene', LightScene );
+export default LightScene;

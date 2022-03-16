@@ -17,7 +17,7 @@ import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
 import GOLabelsNode, { GOSceneLabelsNodeOptions } from './GOLabelsNode.js';
 import LightObject from '../../model/LightObject.js';
 import OpticalObjectLabelNode, { OpticalObjectLabelNodeOptions } from './OpticalObjectLabelNode.js';
-import LightObjectSceneNode from '../LightObjectSceneNode.js';
+import LightSceneNode from '../LightSceneNode.js';
 import { GOSimOptions } from '../../../GOSim.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 
@@ -33,7 +33,7 @@ class LightLabelsNode extends GOLabelsNode {
    * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
    * @param providedOptions
    */
-  constructor( sceneNode: LightObjectSceneNode,
+  constructor( sceneNode: LightSceneNode,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                providedOptions: LightObjectSceneLabelsNodeOptions ) {

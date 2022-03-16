@@ -2,7 +2,7 @@
 
 /**
  * OpticalAxisInFrontOfProjectionScreenNode is the part of the optical axis that is in front of the projection screen
- * in LightObjectSceneNode.
+ * in LightSceneNode.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
