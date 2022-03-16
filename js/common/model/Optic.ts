@@ -46,7 +46,9 @@ type SelfOptions = {
   // range of diameter, in cm
   diameterRange: Range;
 
-  // sign used for math operations
+  // sign for computing distance between the optical image and the optic.
+  // For a lens, a positive distance indicates that the image is to the right of the lens.
+  // For a mirror, a positive distance indicates that the image is to the left of the mirror.
   sign: 1 | -1;
 
   // models of focal length
@@ -77,7 +79,7 @@ abstract class Optic extends PhetioObject {
   // maximum diameter of the optic
   public readonly maxDiameter: number;
 
-  // sign used for math operations
+  // sign for computing distance between the optical image and the optic
   public readonly sign: 1 | -1;
 
   // focal-length models

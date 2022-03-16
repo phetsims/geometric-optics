@@ -43,7 +43,7 @@ class Mirror extends Optic {
       // OpticOptions
       opticShapes: providedOptions.isBasicsVersion ? [ 'flat' ] : [ 'concave', 'convex', 'flat' ],
       diameterRange: GOQueryParameters.dRangeMirror, // in cm
-      sign: -1,
+      sign: -1, // a positive distance indicates that the image is to the left of the mirror, so invert the sign
       directFocalLengthModelOptions: {
         focalLengthMagnitudeRange: GOQueryParameters.fRangeMirror, // in cm
         indexOfRefractionRange: INDEX_OF_REFRACTION_RANGE,
