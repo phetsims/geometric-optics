@@ -50,12 +50,14 @@ class LightLabelsNode extends GOLabelsNode {
       isNumberedProperty: new DerivedProperty( [ sceneNode.lightObject2NodeVisibleProperty ],
         ( lightObject2NodeVisible: boolean ) => ( !providedOptions.isBasicsVersion || lightObject2NodeVisible )
       ),
-      visibleProperty: sceneNode.lightObject1NodeVisibleProperty
+      visibleProperty: sceneNode.lightObject1NodeVisibleProperty,
+      tandem: providedOptions.tandem.createTandem( 'object1Label' )
     } );
     this.addChild( object1Label );
 
     const object2Label = new LightObjectLabelNode( scene.lightObject2, zoomTransformProperty, {
-      visibleProperty: sceneNode.lightObject2NodeVisibleProperty
+      visibleProperty: sceneNode.lightObject2NodeVisibleProperty,
+      tandem: providedOptions.tandem.createTandem( 'object2Label' )
     } );
     this.addChild( object2Label );
 
@@ -68,7 +70,8 @@ class LightLabelsNode extends GOLabelsNode {
 
     const screenLabel = new LabelNode( geometricOpticsStrings.label.projectionScreen, screenLabelPositionProperty,
       zoomTransformProperty, {
-        visibleProperty: sceneNode.projectionScreenNodeVisibleProperty
+        visibleProperty: sceneNode.projectionScreenNodeVisibleProperty,
+        tandem: providedOptions.tandem.createTandem( 'screenLabel' )
       } );
     this.addChild( screenLabel );
   }

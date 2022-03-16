@@ -31,7 +31,7 @@ type SelfOptions = {
   yOffset?: number; // in view coordinates
 };
 
-export type LabelNodeOptions = SelfOptions & PickRequired<BackgroundNodeOptions, 'visibleProperty'>;
+export type LabelNodeOptions = SelfOptions & PickRequired<BackgroundNodeOptions, 'visibleProperty' | 'tandem'>;
 
 class LabelNode extends BackgroundNode {
 
@@ -52,7 +52,9 @@ class LabelNode extends BackgroundNode {
       align: 'center',
       fill: GOColors.labelFillProperty,
       font: GOConstants.LABEL_FONT,
-      maxWidth: 85
+      maxWidth: 85,
+      tandem: providedOptions.tandem.createTandem( 'textNode' ),
+      phetioVisiblePropertyInstrumented: false
     } );
 
     const options = optionize<LabelNodeOptions, SelfOptions, BackgroundNodeOptions>( {

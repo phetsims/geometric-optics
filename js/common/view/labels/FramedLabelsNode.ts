@@ -48,7 +48,8 @@ class FramedLabelsNode extends GOLabelsNode {
     const objectLabel = new OpticalObjectLabelNode( scene.framedObject.opticalObjectNumber,
       objectLabelPositionProperty, zoomTransformProperty, {
         isNumberedProperty: isNumberedProperty,
-        visibleProperty: sceneNode.framedObjectNodeVisibleProperty
+        visibleProperty: sceneNode.framedObjectNodeVisibleProperty,
+        tandem: providedOptions.tandem.createTandem( 'objectLabel' )
       } );
     this.addChild( objectLabel );
 
@@ -61,7 +62,8 @@ class FramedLabelsNode extends GOLabelsNode {
 
     const imageLabel = new OpticalImageLabelNode( scene.framedImage1, imageLabelPositionProperty, zoomTransformProperty, {
       isNumberedProperty: isNumberedProperty,
-      visibleProperty: sceneNode.framedImageNodeVisibleProperty
+      visibleProperty: sceneNode.framedImageNodeVisibleProperty,
+      tandem: providedOptions.tandem.createTandem( 'imageLabel' )
     } );
     this.addChild( imageLabel );
   }

@@ -50,13 +50,15 @@ class ArrowLabelsNode extends GOLabelsNode {
 
     const object1Label = new ArrowObjectLabelNode( scene.arrowObject1, scene.optic.positionProperty, zoomTransformProperty, {
       visibleProperty: sceneNode.arrowObject1NodeVisibleProperty,
-      isNumberedProperty: isNumberedProperty
+      isNumberedProperty: isNumberedProperty,
+      tandem: providedOptions.tandem.createTandem( 'object1Label' )
     } );
     this.addChild( object1Label );
 
     const object2Label = new ArrowObjectLabelNode( scene.arrowObject2, scene.optic.positionProperty, zoomTransformProperty, {
-      visibleProperty: sceneNode.arrowObject2NodeVisibleProperty
-      // 2nd object is always numbered, so isNumberedProperty is unnecessary
+      visibleProperty: sceneNode.arrowObject2NodeVisibleProperty,
+      // 2nd object is always numbered, so isNumberedProperty is unnecessary,
+      tandem: providedOptions.tandem.createTandem( 'object2Label' )
     } );
     this.addChild( object2Label );
 
@@ -64,13 +66,15 @@ class ArrowLabelsNode extends GOLabelsNode {
 
     const image1Label = new ArrowImageLabelNode( scene.arrowImage1, scene.optic.positionProperty, zoomTransformProperty, {
       visibleProperty: sceneNode.arrowImage1NodeVisibleProperty,
-      isNumberedProperty: isNumberedProperty
+      isNumberedProperty: isNumberedProperty,
+      tandem: providedOptions.tandem.createTandem( 'image1Label' )
     } );
     this.addChild( image1Label );
 
     const image2Label = new ArrowImageLabelNode( scene.arrowImage2, scene.optic.positionProperty, zoomTransformProperty, {
-      visibleProperty: sceneNode.arrowImage2NodeVisibleProperty
+      visibleProperty: sceneNode.arrowImage2NodeVisibleProperty,
       // 2nd image is always numbered, so isNumberedProperty is unnecessary
+      tandem: providedOptions.tandem.createTandem( 'image2Label' )
     } );
     this.addChild( image2Label );
   }
