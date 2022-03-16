@@ -36,7 +36,7 @@ class OpticalImageLabelNode extends LabelNode {
    * @param zoomTransformProperty
    * @param providedOptions
    */
-  constructor( opticalImage: OpticalImage, //TODO replace with opticalObjectNumber, opticalImageTypeProperty
+  constructor( opticalImage: OpticalImage,
                labelPositionProperty: IReadOnlyProperty<Vector2>,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                providedOptions: OpticalImageLabelNodeOptions ) {
