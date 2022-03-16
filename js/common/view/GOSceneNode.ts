@@ -176,6 +176,10 @@ abstract class GOSceneNode extends Node {
       guidesLayer
     ];
 
+    this.addLinkedElement( scene, {
+      tandem: options.tandem.createTandem( scene.tandem.name )
+    } );
+
     this.opticJumpPoints = [
       {
         positionProperty: scene.optic.positionProperty,
