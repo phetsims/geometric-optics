@@ -27,13 +27,13 @@ import OpticalObjectChoiceComboBox from './OpticalObjectChoiceComboBox.js';
 import LightPropagationToggleButton from './LightPropagationToggleButton.js';
 import VisibleProperties from './VisibleProperties.js';
 import Lens from '../../lens/model/Lens.js';
-import FramedObjectSceneNode from './FramedObjectSceneNode.js';
+import FramedSceneNode from './FramedSceneNode.js';
 import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
 import Property from '../../../../axon/js/Property.js';
 import { RaysType } from '../model/RaysType.js';
 import GORulerNode from './tools/GORulerNode.js';
 import GOToolbox from './tools/GOToolbox.js';
-import FramedObjectLabelsNode from './labels/FramedObjectLabelsNode.js';
+import FramedLabelsNode from './labels/FramedLabelsNode.js';
 import ArrowSceneNode from './ArrowSceneNode.js';
 import ArrowLabelsNode from './labels/ArrowLabelsNode.js';
 import LightSceneNode from './LightSceneNode.js';
@@ -347,19 +347,19 @@ class GOScreenView extends ScreenView {
       }
     } );
 
-    const framedObjectSceneNode = new FramedObjectSceneNode( model.framedObjectScene, visibleProperties, modelViewTransform,
+    const framedSceneNode = new FramedSceneNode( model.framedScene, visibleProperties, modelViewTransform,
       modelVisibleBoundsProperty, sceneBoundsProperty, model.raysTypeProperty, model.lightPropagationEnabledProperty, {
         createOpticNode: options.createOpticNode,
         objectDragModeProperty: objectDragModeProperty,
         visibleProperty: new DerivedProperty( [ model.opticalObjectChoiceProperty ],
           ( opticalObjectChoice: OpticalObjectChoice ) => OpticalObjectChoice.isFramedObject( opticalObjectChoice ) ),
-        tandem: scenesTandem.createTandem( 'framedObjectSceneNode' )
+        tandem: scenesTandem.createTandem( 'framedSceneNode' )
       } );
-    scenesLayer.addChild( framedObjectSceneNode );
+    scenesLayer.addChild( framedSceneNode );
 
-    framedObjectSceneNode.visibleProperty.link( visible => {
+    framedSceneNode.visibleProperty.link( visible => {
       if ( visible ) {
-        setRulerHotkeyTargets( framedObjectSceneNode );
+        setRulerHotkeyTargets( framedSceneNode );
       }
     } );
 
@@ -403,7 +403,7 @@ class GOScreenView extends ScreenView {
 
     // Labels ==========================================================================================================
 
-    const labelsLayer = new Node();
+    const labelsLayer = new Node(); //TODO move visibleProperties.labelsVisibleProperty here
 
     // Labels for things in the 'Arrow' scene
     const arrowLabelsNode = new ArrowLabelsNode( arrowSceneNode,
@@ -414,11 +414,11 @@ class GOScreenView extends ScreenView {
     labelsLayer.addChild( arrowLabelsNode );
 
     // Labels for things in the 'Framed Object' scene
-    const framedObjectLabelsNode = new FramedObjectLabelsNode( framedObjectSceneNode,
+    const framedLabelsNode = new FramedLabelsNode( framedSceneNode,
       zoomTransformProperty, modelVisibleBoundsProperty, {
-        visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty, framedObjectSceneNode.visibleProperty ] )
+        visibleProperty: DerivedProperty.and( [ visibleProperties.labelsVisibleProperty, framedSceneNode.visibleProperty ] )
       } );
-    labelsLayer.addChild( framedObjectLabelsNode );
+    labelsLayer.addChild( framedLabelsNode );
 
     // Labels for things in the 'Light' scene
     let lightLabelsNode: Node | null = null;
@@ -462,7 +462,7 @@ class GOScreenView extends ScreenView {
       zoomLevelProperty.reset();
       objectDragModeProperty.reset();
       arrowSceneNode.reset();
-      framedObjectSceneNode.reset();
+      framedSceneNode.reset();
       lightSceneNode && lightSceneNode.reset();
     };
 

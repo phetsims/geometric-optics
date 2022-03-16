@@ -80,7 +80,7 @@ ScreenView. The model-to-view scaling is isometric along the horizontal and vert
 
 For scenery Nodes outside the experimentAreaNode, we lay them out using view coordinates. There are two exceptions to
 this:
-(1) The `FramedObjectLabelsNode`, responsible for labels beneath the optical components and (2) the `GORulerNode`. The
+(1) The `FramedLabelsNode`, responsible for labels beneath the optical components and (2) the `GORulerNode`. The
 labels and ruler use `zoomTransformProperty` which allows it to relate its coordinates to within the experiment area at
 a particular zoom level.
 

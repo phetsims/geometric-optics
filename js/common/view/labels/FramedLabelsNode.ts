@@ -1,7 +1,7 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * FramedObjectLabelsNode labels things in the 'Framed Object' scene.
+ * FramedLabelsNode labels things in the 'Framed' scene, which has a framed object and image.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -15,9 +15,9 @@ import GOLabelsNode, { GOSceneLabelsNodeOptions } from './GOLabelsNode.js';
 import OpticalObjectLabelNode from './OpticalObjectLabelNode.js';
 import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
 import OpticalImageLabelNode from './OpticalImageLabelNode.js';
-import FramedObjectSceneNode from '../FramedObjectSceneNode.js';
+import FramedSceneNode from '../FramedSceneNode.js';
 
-class FramedObjectLabelsNode extends GOLabelsNode {
+class FramedLabelsNode extends GOLabelsNode {
 
   /**
    * @param sceneNode
@@ -25,7 +25,7 @@ class FramedObjectLabelsNode extends GOLabelsNode {
    * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
    * @param providedOptions
    */
-  constructor( sceneNode: FramedObjectSceneNode,
+  constructor( sceneNode: FramedSceneNode,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                providedOptions: GOSceneLabelsNodeOptions ) {
@@ -67,5 +67,5 @@ class FramedObjectLabelsNode extends GOLabelsNode {
   }
 }
 
-geometricOptics.register( 'FramedObjectLabelsNode', FramedObjectLabelsNode );
-export default FramedObjectLabelsNode;
+geometricOptics.register( 'FramedLabelsNode', FramedLabelsNode );
+export default FramedLabelsNode;

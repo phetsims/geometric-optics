@@ -15,7 +15,7 @@ import Optic from './Optic.js';
 import { RaysType, RaysTypeValues } from './RaysType.js';
 import GORuler from './tools/GORuler.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import FramedObjectScene from './FramedObjectScene.js';
+import FramedScene from './FramedScene.js';
 import OpticalObjectChoice from './OpticalObjectChoice.js';
 import ArrowScene from './ArrowScene.js';
 import LightScene from './LightScene.js';
@@ -60,7 +60,7 @@ class GOModel {
   // scenes
   private readonly scenes: GOScene[];
   public readonly arrowScene: ArrowScene;
-  public readonly framedObjectScene: FramedObjectScene;
+  public readonly framedScene: FramedScene;
   public readonly lightScene: LightScene | null; // not supported by Mirrors screen
 
   // rulers
@@ -123,11 +123,11 @@ class GOModel {
     } );
     this.scenes.push( this.arrowScene );
 
-    this.framedObjectScene = new FramedObjectScene( this.opticalObjectChoiceProperty, this.optic, this.raysTypeProperty, {
+    this.framedScene = new FramedScene( this.opticalObjectChoiceProperty, this.optic, this.raysTypeProperty, {
       framedObjectPosition: options.framedObjectPosition,
-      tandem: scenesTandem.createTandem( 'framedObjectScene' )
+      tandem: scenesTandem.createTandem( 'framedScene' )
     } );
-    this.scenes.push( this.framedObjectScene );
+    this.scenes.push( this.framedScene );
 
     this.lightScene = null;
     if ( options.opticalObjectChoices.includes( OpticalObjectChoice.LIGHT ) ) {

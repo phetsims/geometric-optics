@@ -1,7 +1,7 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * FramedObjectSceneNode is the view of FramedObjectScene, the scene that has a framed object.
+ * FramedSceneNode is the view of the 'Framed' scene, which has a framed object and image.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  * @author Martin Veillette
@@ -9,7 +9,7 @@
 
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import geometricOptics from '../../geometricOptics.js';
-import FramedObjectScene from '../model/FramedObjectScene.js';
+import FramedScene from '../model/FramedScene.js';
 import FramedImageNode from './FramedImageNode.js';
 import VisibleProperties from './VisibleProperties.js';
 import FramedObjectNode from './FramedObjectNode.js';
@@ -35,12 +35,12 @@ type SelfOptions = {
 
 type FramedObjectSceneNodeOptions = SelfOptions & GOSceneNodeOptions;
 
-class FramedObjectSceneNode extends GOSceneNode {
+class FramedSceneNode extends GOSceneNode {
 
   // See GOSceneNode
   public readonly toolJumpPoints: ToolJumpPoint[];
 
-  public readonly scene: FramedObjectScene;
+  public readonly scene: FramedScene;
 
   // Visibility of things that have labels, intended to be used to control the visibility of associated labels.
   // Do not set these Properties. They should be IReadOnlyProperty<boolean>, but Node currently requires IProperty<boolean>.
@@ -60,7 +60,7 @@ class FramedObjectSceneNode extends GOSceneNode {
    * @param lightPropagationEnabledProperty
    * @param providedOptions
    */
-  constructor( scene: FramedObjectScene,
+  constructor( scene: FramedScene,
                visibleProperties: VisibleProperties,
                modelViewTransform: ModelViewTransform2,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
@@ -213,5 +213,5 @@ class FramedObjectSceneNode extends GOSceneNode {
   }
 }
 
-geometricOptics.register( 'FramedObjectSceneNode', FramedObjectSceneNode );
-export default FramedObjectSceneNode;
+geometricOptics.register( 'FramedSceneNode', FramedSceneNode );
+export default FramedSceneNode;

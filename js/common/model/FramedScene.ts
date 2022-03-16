@@ -1,7 +1,7 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * FramedObjectScene is a scene in which rays from a single framed object interact with an optic and produce
+ * FramedScene is a scene in which rays from a single framed object interact with an optic and produce
  * an Image. Rays emanate from 2 points of interest on the framed object.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -32,7 +32,7 @@ type SelfOptions = {
 
 type FramedObjectSceneOptions = SelfOptions & PickRequired<GOSceneOptions, 'tandem'>;
 
-class FramedObjectScene extends GOScene {
+class FramedScene extends GOScene {
 
   // the elements that make up this scene
   public readonly framedObject: FramedObject;
@@ -127,5 +127,5 @@ class FramedObjectScene extends GOScene {
   }
 }
 
-geometricOptics.register( 'FramedObjectScene', FramedObjectScene );
-export default FramedObjectScene;
+geometricOptics.register( 'FramedScene', FramedScene );
+export default FramedScene;

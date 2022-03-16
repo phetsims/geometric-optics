@@ -3,7 +3,7 @@
 /**
  * RealLightRaysForegroundNode is a subclass of RealLightRaysNode that (using clipArea) renders the parts of RealLightRaysNode
  * that are in front of a real framed image, which has 3D perspective. It is intended to be used in
- * FramedObjectSceneNode, where it is layered in front of the real image Node in the scene graph.
+ * FramedSceneNode, where it is layered in front of the real image Node in the scene graph.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

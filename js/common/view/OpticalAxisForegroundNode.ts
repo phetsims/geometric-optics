@@ -3,7 +3,7 @@
 /**
  * OpticalAxisForegroundNode is a subclass of OpticalAxisNode that (using clipArea) shows only the parts of
  * OpticalAxisNode that are in front of framed objects and their associated images. It is intended to be used in 
- * FramedObjectSceneNode, and layered in front of framed objects and images.
+ * FramedSceneNode, and layered in front of framed objects and images.
  *
  * Note that because the optical axis is dashed, we need to use clipArea instead of just drawing the relevant
  * line segments. If we were to draw line segments, the dash pattern would appear to move, and would not line
