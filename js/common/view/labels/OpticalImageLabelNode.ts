@@ -42,7 +42,8 @@ class OpticalImageLabelNode extends LabelNode {
                providedOptions: OpticalImageLabelNodeOptions ) {
 
     const options = optionize<OpticalImageLabelNodeOptions, SelfOptions, LabelNodeOptions>( {
-      isNumberedProperty: new BooleanProperty( true )
+      isNumberedProperty: new BooleanProperty( true ),
+      phetioReadOnlyText: true // text is readonly because the sim controls it, see below
     }, providedOptions );
 
     super( '', labelPositionProperty, zoomTransformProperty, options );

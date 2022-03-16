@@ -29,6 +29,7 @@ type SelfOptions = {
   yAlign?: YAlign;
   xOffset?: number; // from center, in view coordinates
   yOffset?: number; // in view coordinates
+  phetioReadOnlyText?: boolean; // should the RichText be phetioReadOnly?
 };
 
 export type LabelNodeOptions = SelfOptions & PickRequired<BackgroundNodeOptions, 'visibleProperty' | 'tandem'>;
@@ -48,15 +49,6 @@ class LabelNode extends BackgroundNode {
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                providedOptions: LabelNodeOptions ) {
 
-    const textNode = new RichText( text, {
-      align: 'center',
-      fill: GOColors.labelFillProperty,
-      font: GOConstants.LABEL_FONT,
-      maxWidth: 85,
-      tandem: providedOptions.tandem.createTandem( 'textNode' ),
-      phetioVisiblePropertyInstrumented: false
-    } );
-
     const options = optionize<LabelNodeOptions, SelfOptions, BackgroundNodeOptions>( {
 
       // SelfOptions
@@ -64,6 +56,7 @@ class LabelNode extends BackgroundNode {
       yAlign: 'top',
       xOffset: 0,
       yOffset: 2,
+      phetioReadOnlyText: false,
 
       // BackgroundNodeOptions
       xMargin: 5,
@@ -74,6 +67,18 @@ class LabelNode extends BackgroundNode {
         opacity: 0.5
       }
     }, providedOptions );
+
+    const textNode = new RichText( text, {
+      align: 'center',
+      fill: GOColors.labelFillProperty,
+      font: GOConstants.LABEL_FONT,
+      maxWidth: 85,
+      tandem: providedOptions.tandem.createTandem( 'textNode' ),
+      phetioVisiblePropertyInstrumented: false,
+      textPropertyOptions: {
+        phetioReadOnly: options.phetioReadOnlyText
+      }
+    } );
 
     super( textNode, options );
 
