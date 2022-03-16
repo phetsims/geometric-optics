@@ -1,4 +1,4 @@
-// Copyright 2021-2022, University of Colorado Boulder
+// Copyright 2022, University of Colorado Boulder
 
 /**
  * OpticalImageLabelNode is the base class of labeling optical images, and distinguishes between real and virtual.
