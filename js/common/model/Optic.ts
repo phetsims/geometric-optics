@@ -47,8 +47,8 @@ type SelfOptions = {
   diameterRange: Range;
 
   // sign for computing distance between the optical image and the optic.
-  // For a lens, a positive distance indicates that the image is to the right of the lens.
-  // For a mirror, a positive distance indicates that the image is to the left of the mirror.
+  // For a lens, we use +1, because a positive distance indicates that the image is to the RIGHT of the lens.
+  // For a mirror, we use -1, because a positive distance indicates that the image is to the LEFT of the mirror.
   sign: 1 | -1;
 
   // models of focal length
