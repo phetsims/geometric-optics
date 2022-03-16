@@ -216,10 +216,10 @@ function createRulerNode( rulerLength: number, zoomTransform: ModelViewTransform
   // define the length ruler
   const rulerWidth = zoomTransform.modelToViewDeltaX( rulerLength );
 
-  const majorTickDistance = 10 / zoomScale; // in model coordinate (cm)
+  const majorTickInterval = 10 / zoomScale; // in model coordinate (cm)
 
   // separation between the major ticks mark
-  const majorTickWidth = zoomTransform.modelToViewDeltaX( majorTickDistance );
+  const majorTickWidth = zoomTransform.modelToViewDeltaX( majorTickInterval );
 
   // set the units at the end of ruler
   const numberOfMajorTicks = Math.floor( rulerWidth / majorTickWidth ) + 1;
@@ -231,7 +231,7 @@ function createRulerNode( rulerLength: number, zoomTransform: ModelViewTransform
 
     // skip labels on every other major ticks
     if ( i % 2 === 0 ) {
-      majorTickLabels[ i ] = Utils.toFixed( i * majorTickDistance, 0 );
+      majorTickLabels[ i ] = Utils.toFixed( i * majorTickInterval, 0 );
     }
     else {
       majorTickLabels[ i ] = '';
@@ -243,7 +243,6 @@ function createRulerNode( rulerLength: number, zoomTransform: ModelViewTransform
       opacity: 0.8,
       minorTicksPerMajorTick: 4,
       majorTickFont: new PhetFont( 13 ),
-      majorTickDistance: majorTickDistance,
       unitsMajorTickIndex: unitsMajorTickIndex,
       insetsWidth: 0,
 
