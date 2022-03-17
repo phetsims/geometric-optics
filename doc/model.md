@@ -13,6 +13,8 @@ It's assumed that the reader is familiar with geometric optics.
 
 Geometrical optics is a model of optics that describes light propagation in terms of rays. The rays in geometric optics are a useful abstraction for approximating the paths along which light propagates.
 
+This simulation supports two types of optics: lenses (convex, concave) and mirrors (convex, concave, flat).
+
 The magnitude of the focal length of the lens is given by `f = R/(2(1-n)))`
 where `n` is the index of refraction, and `R` is the radius of curvature of the lens.
 
