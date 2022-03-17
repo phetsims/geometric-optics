@@ -19,11 +19,11 @@ worthwhile to define some terms uses throughout the simulation.
 
 **Object:**  
 Anything that can be viewed. Unfortunately this term conflicts with JavaScript's `Object` type, so we 
-use **FramedObject** in the code.
+use **Optical Object** in the code.
 
 **Image:**
 The likeness of an object produced at a point in space by a lens or a mirror.
-Unfortunately this term conflicts with `SCENERY/Image` so we use the term **FramedImage** in the code.
+Unfortunately this term conflicts with `SCENERY/Image` so we use the term **Optical Image** in the code.
 
 **Real image:**
 An image for which light rays physically intersect at the image location.
