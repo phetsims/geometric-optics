@@ -22,6 +22,8 @@ In addition to this document, you are encouraged to read:
 
 **f** = focal length
 
+**F** = focal point, at a distance **f** from the optic
+
 **IOR** = Index of Refraction
 
 **ROC** = Radius of Curvature
