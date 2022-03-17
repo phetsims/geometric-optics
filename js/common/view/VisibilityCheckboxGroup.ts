@@ -22,7 +22,6 @@ import Property from '../../../../axon/js/Property.js';
 import SecondPointNode from './SecondPointNode.js';
 import FocalPointNode from './FocalPointNode.js';
 import TwoFPointNode from './TwoFPointNode.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import { GOSimOptions } from '../../GOSim.js';
@@ -57,17 +56,15 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       }
     }, providedOptions );
 
-    const items = [
+    const isBasicsMirrorScreen = ( options.isBasicsVersion && options.isMirrorScreen );
+
+    // These checkboxes are not present in Geometric Optics: Basics, because it only has a flat mirror, with infinite
+    // focal length. See https://github.com/phetsims/geometric-optics-basics/issues/2#issuecomment-998203690
+    const focalPointItems = isBasicsMirrorScreen ? [] : [
 
       // Focal Points (F)
       createItem( geometricOpticsStrings.checkbox.focalPoints, visibleProperties.focalPointsVisibleProperty, {
         iconNode: FocalPointNode.createIcon(),
-        options: {
-
-          // Hide this checkbox in Geometric Optics: Basics, because it only has a flat mirror,
-          // with focal points at infinity.
-          visible: !( options.isBasicsVersion && options.isMirrorScreen )
-        },
         tandem: options.tandem.createTandem( 'focalPointsCheckbox' )
       } ),
 
@@ -75,15 +72,14 @@ class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       createItem( geometricOpticsStrings.checkbox.twoFPoints, visibleProperties.twoFPointsVisibleProperty, {
         iconNode: TwoFPointNode.createIcon(),
         options: {
-
-          // Hide this checkbox in Geometric Optics: Basics, because it only has a flat mirror,
-          // with 2F points at infinity.
-          visibleProperty: new DerivedProperty( [ GOGlobalOptions.add2FPointsCheckboxProperty ],
-            ( add2FPointsCheckbox: boolean ) =>
-              ( add2FPointsCheckbox && !( options.isBasicsVersion && options.isMirrorScreen ) ) )
+          visibleProperty: GOGlobalOptions.add2FPointsCheckboxProperty
         },
         tandem: options.tandem.createTandem( 'twoFPointsCheckbox' )
-      } ),
+      } )
+    ];
+
+    const items = [
+      ...focalPointItems,
 
       // Virtual Image
       createItem( geometricOpticsStrings.checkbox.virtualImage, visibleProperties.virtualImageVisibleProperty, {
