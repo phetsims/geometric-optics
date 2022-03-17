@@ -178,8 +178,10 @@ class GORulerNode extends GOToolNode {
       // For horizontal rulers, exclude points to the right of the optic, because they are not useful.
       !( this.ruler.orientation === 'horizontal' && jumpPoint.positionProperty.value.x > this.opticPositionProperty.value.x ) &&
 
-      // For vertical rulers, exclude points on the optical axis, because they are not useful.
-      !( this.ruler.orientation === 'vertical' && jumpPoint.positionProperty.value.y === this.opticPositionProperty.value.y )
+      // For vertical rulers, exclude points on the optical axis (except the optic), because they are not useful.
+      !( this.ruler.orientation === 'vertical' &&
+      ( jumpPoint.positionProperty.value.y === this.opticPositionProperty.value.y &&
+      !jumpPoint.positionProperty.value.equals( this.opticPositionProperty.value ) ) )
     );
 
     // Find the next jump point and move there.
