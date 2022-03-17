@@ -7,7 +7,7 @@ This document is a high-level description of the model used in PhET's _Geometric
 
 ## Prerequisites
 
-It's assumed that the reader is has some general familiarity with geometric optics.
+It's assumed that the reader has some general familiarity with geometric optics.
 
 ## Model
 
