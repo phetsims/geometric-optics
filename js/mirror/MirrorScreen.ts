@@ -20,9 +20,8 @@ import { OpticShape } from '../common/model/OpticShape.js';
 import optionize from '../../../phet-core/js/optionize.js';
 import PickRequired from '../../../phet-core/js/types/PickRequired.js';
 import { GOSimOptions } from '../GOSim.js';
-import PickOptional from '../../../phet-core/js/types/PickOptional.js';
 
-type SelfOptions = PickOptional<GOSimOptions, 'isBasicsVersion'>;
+type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 
 type MirrorScreenOptions = SelfOptions & PickRequired<ScreenOptions, 'tandem'>;
 
@@ -30,16 +29,11 @@ class MirrorScreen extends Screen<MirrorModel, MirrorScreenView> {
 
   constructor( providedOptions: MirrorScreenOptions ) {
 
-    const isBasicsVersion = ( providedOptions.isBasicsVersion || false );
-
     const options = optionize<MirrorScreenOptions, SelfOptions, ScreenOptions>( {
-
-      // LensScreen options
-      isBasicsVersion: false,
 
       // Screen options
       name: geometricOpticsStrings.screen.mirror,
-      homeScreenIcon: createScreenIcon( isBasicsVersion ? 'flat' : 'concave' ),
+      homeScreenIcon: createScreenIcon( providedOptions.isBasicsVersion ? 'flat' : 'concave' ),
       showUnselectedHomeScreenIconFrame: true,
       backgroundColorProperty: GOColors.screenBackgroundColorProperty,
       keyboardHelpNode: new GOKeyboardHelpContent( false /* isLens */ )
@@ -47,11 +41,11 @@ class MirrorScreen extends Screen<MirrorModel, MirrorScreenView> {
 
     super(
       () => new MirrorModel( {
-        isBasicsVersion: isBasicsVersion,
+        isBasicsVersion: providedOptions.isBasicsVersion,
         tandem: options.tandem.createTandem( 'model' )
       } ),
       model => new MirrorScreenView( model, {
-        isBasicsVersion: isBasicsVersion,
+        isBasicsVersion: providedOptions.isBasicsVersion,
         tandem: options.tandem.createTandem( 'view' )
       } ),
       options
