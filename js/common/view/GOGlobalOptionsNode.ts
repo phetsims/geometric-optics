@@ -58,7 +58,7 @@ class GOGlobalOptionsNode extends VBox {
     const add2FPointsCheckbox = new Checkbox( new Text( geometricOpticsStrings.checkbox.add2FPointsCheckbox, {
       font: GOConstants.CONTROL_FONT,
       maxWidth: 250,
-      tandem: providedOptions.tandem.createTandem( 'labelNode' )
+      tandem: providedOptions.tandem.createTandem( 'add2FPointsCheckbox' )
     } ), GOGlobalOptions.add2FPointsCheckboxProperty, {
       boxWidth: GOConstants.CHECKBOX_BOX_WIDTH,
       tandem: options.tandem.createTandem( 'add2FCheckbox' )
@@ -73,8 +73,7 @@ class GOGlobalOptionsNode extends VBox {
     this.children = [ projectorModeCheckbox, add2FPointsCheckbox, focalLengthModelControl ];
 
     this.disposeGeometricOpticsGlobalOptionsNode = (): void => {
-      projectorModeCheckbox.dispose();
-      focalLengthModelControl.dispose();
+      this.getChildren().forEach( child => child.dispose() );
     };
   }
 
