@@ -35,6 +35,9 @@ class IndirectFocalLengthModel extends PhetioObject implements FocalLengthModel 
   public readonly indexOfRefractionProperty: NumberProperty;
   public readonly focalLengthMagnitudeProperty: IReadOnlyProperty<number>;
 
+  // Resets things that are specific to this class.
+  private readonly resetIndirectFocalLengthModel: () => void;
+
   constructor( opticShapeProperty: IReadOnlyProperty<OpticShape>, providedOptions: IndirectFocalLengthModelOptions ) {
 
     const options = optionize<IndirectFocalLengthModelOptions, SelfOptions, PhetioObjectOptions>( {
@@ -74,6 +77,11 @@ class IndirectFocalLengthModel extends PhetioObject implements FocalLengthModel 
         phetioDocumentation: 'magnitude of the focal length (no sign)',
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
       } );
+
+    this.resetIndirectFocalLengthModel = () => {
+      this.radiusOfCurvatureMagnitudeProperty.reset();
+      this.indexOfRefractionProperty.reset();
+    };
   }
 
   /**
@@ -94,8 +102,7 @@ class IndirectFocalLengthModel extends PhetioObject implements FocalLengthModel 
   }
 
   public reset(): void {
-    this.radiusOfCurvatureMagnitudeProperty.reset();
-    this.indexOfRefractionProperty.reset();
+    this.resetIndirectFocalLengthModel();
   }
 
   public dispose(): void {
