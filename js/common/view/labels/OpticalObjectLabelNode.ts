@@ -45,19 +45,12 @@ class OpticalObjectLabelNode extends LabelNode {
 
     super( '', labelPositionProperty, zoomTransformProperty, options );
 
+    const objectString = geometricOpticsStrings.label.object;
+    const objectNString = StringUtils.fillIn( geometricOpticsStrings.label.objectN, {
+      objectNumber: objectNumber
+    } );
     options.isNumberedProperty.link( ( isNumbered: boolean ) => {
-      if ( isNumbered ) {
-
-        // Object N
-        this.setText( StringUtils.fillIn( geometricOpticsStrings.label.objectN, {
-          objectNumber: objectNumber
-        } ) );
-      }
-      else {
-
-        // Object
-        this.setText( geometricOpticsStrings.label.object );
-      }
+      this.setText( isNumbered ? objectNString : objectString );
     } );
   }
 }

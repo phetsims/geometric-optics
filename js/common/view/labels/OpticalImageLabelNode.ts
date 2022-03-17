@@ -48,22 +48,23 @@ class OpticalImageLabelNode extends LabelNode {
 
     super( '', labelPositionProperty, zoomTransformProperty, options );
 
+    const stringParams = { imageNumber: opticalImage.opticalObject.opticalObjectNumber };
+    const realImageNString = StringUtils.fillIn( geometricOpticsStrings.label.realImageN, stringParams );
+    const virtualImageNString = StringUtils.fillIn( geometricOpticsStrings.label.virtualImageN, stringParams );
+    const realImageString = geometricOpticsStrings.label.realImage;
+    const virtualImageString = geometricOpticsStrings.label.virtualImage;
+
     Property.multilink( [ opticalImage.opticalImageTypeProperty, options.isNumberedProperty ],
       ( opticalImageType: OpticalImageType, isNumbered: boolean ) => {
         if ( isNumbered ) {
 
           // Switch between 'Real Image N' and 'Virtual Image N'
-          const stringParams = { imageNumber: opticalImage.opticalObject.opticalObjectNumber };
-          this.setText( opticalImageType === 'real' ?
-                        StringUtils.fillIn( geometricOpticsStrings.label.realImageN, stringParams ) :
-                        StringUtils.fillIn( geometricOpticsStrings.label.virtualImageN, stringParams ) );
+          this.setText( opticalImageType === 'real' ? realImageNString : virtualImageNString );
         }
         else {
 
           // Switch between 'Real Image' and 'Virtual Image'
-          this.setText( opticalImageType === 'real' ?
-                        geometricOpticsStrings.label.realImage :
-                        geometricOpticsStrings.label.virtualImage );
+          this.setText( opticalImageType === 'real' ? realImageString : virtualImageString );
         }
       } );
   }
