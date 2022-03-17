@@ -12,6 +12,7 @@ import { IColor, Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import LightRays from '../model/LightRays.js';
 import LightRaysNode, { LightRaysNodeOptions } from './LightRaysNode.js';
+import GOQueryParameters from '../GOQueryParameters.js';
 
 type SelfOptions = {
   stroke: IColor;
@@ -33,7 +34,7 @@ class RealLightRaysNode extends LightRaysNode {
     const update = ( thisNode: Node ) => {
       thisNode.children = LightRaysNode.segmentsToLines( lightRays.realSegments, modelViewTransform, {
         stroke: providedOptions.stroke,
-        lineWidth: 2
+        lineWidth: GOQueryParameters.raysLineWidth
       } );
     };
 

@@ -12,6 +12,7 @@ import { IColor, Node } from '../../../../scenery/js/imports.js';
 import LightRays from '../model/LightRays.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import LightRaysNode, { LightRaysNodeOptions } from './LightRaysNode.js';
+import GOQueryParameters from '../GOQueryParameters.js';
 
 type SelfOptions = {
   stroke: IColor;
@@ -33,7 +34,7 @@ class VirtualLightRaysNode extends LightRaysNode {
     const update = ( thisNode: Node ) => {
       thisNode.children = LightRaysNode.segmentsToLines( lightRays.virtualSegments, modelViewTransform, {
         stroke: providedOptions.stroke,
-        lineWidth: 2,
+        lineWidth: GOQueryParameters.raysLineWidth,
         lineDash: [ 3, 3 ],
         opacity: 0.5
       } );

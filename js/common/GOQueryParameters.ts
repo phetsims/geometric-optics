@@ -58,6 +58,12 @@ const SCHEMA_MAP = {
   // Internal query parameters
   //----------------------------------------------------------------------------------------------------------------
 
+  raysLineWidth: {
+    type: 'number',
+    defaultValue: 2,
+    isValidValue: ( raysLineWidth: number ) => ( raysLineWidth > 0 )
+  },
+
   // radius of curvature (ROC) range for the Lens screen
   rocRangeLens: {
     type: 'custom',
