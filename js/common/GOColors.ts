@@ -8,12 +8,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { ProfileColorProperty } from '../../../scenery/js/imports.js';
+import RulerNode from '../../../scenery-phet/js/RulerNode.js';
+import { Color, ProfileColorProperty } from '../../../scenery/js/imports.js';
 import geometricOptics from '../geometricOptics.js';
 
-const ARROW_1_FILL = 'blue';
-const ARROW_2_FILL = 'rgb( 255, 51, 51 )'; // BEWARE: If you change this, you should update light2.png.
-const POSITION_MARKER_FILL = 'rgb( 236, 225, 113 )';
+const SECOND_OBJECT_COLOR = 'rgb( 255, 51, 51 )'; // BEWARE: If you change this, you should update light2.png.
+const POSITION_MARKER_FILL = RulerNode.DEFAULT_FILL;
 const POSITION_MARKER_STROKE = 'black';
 
 const GOColors = {
@@ -90,7 +90,7 @@ const GOColors = {
 
   // Fill for the second point on a Framed Object, same as second arrow
   secondPointFillProperty: new ProfileColorProperty( geometricOptics, 'secondPointFill', {
-    default: ARROW_2_FILL
+    default: SECOND_OBJECT_COLOR
   } ),
 
   // Stroke for the second point on a Framed Object
@@ -99,21 +99,21 @@ const GOColors = {
   } ),
 
   arrow1FillProperty: new ProfileColorProperty( geometricOptics, 'arrow1Fill', {
-    default: ARROW_1_FILL
+    default: 'blue'
   } ),
 
   arrow2FillProperty: new ProfileColorProperty( geometricOptics, 'arrow2Fill', {
-    default: ARROW_2_FILL
+    default: SECOND_OBJECT_COLOR
   } ),
 
   // Rays associated with the first optical object
   rays1StrokeProperty: new ProfileColorProperty( geometricOptics, 'realRayOneStroke', {
-    default: 'rgb( 140, 140, 140 )'
+    default: 'black'
   } ),
 
   // Rays associated with the second optical object
   rays2StrokeProperty: new ProfileColorProperty( geometricOptics, 'realRayTwoStroke', {
-    default: 'rgb( 41, 214, 126 )'
+    default: SECOND_OBJECT_COLOR
   } ),
 
   // Fill for the screen part of the projection screen
@@ -143,12 +143,12 @@ const GOColors = {
 
   // Fill of the arm (rectangle) portion of the guide associated with the first optical object
   guideArm1FillProperty: new ProfileColorProperty( geometricOptics, 'guideArm1Fill', {
-    default: 'white'
+    default: Color.grayColor( 230 )
   } ),
 
   // Fill of the arm (rectangle) portion of the guide associated with the second optical object
   guideArm2FillProperty: new ProfileColorProperty( geometricOptics, 'guideArm2Fill', {
-    default: 'rgb( 41, 214, 126 )'
+    default: SECOND_OBJECT_COLOR
   } ),
 
   // Fill of the fulcrum (circle) portion of guides
@@ -181,7 +181,7 @@ const GOColors = {
   } ),
 
   positionMarker1FillProperty: new ProfileColorProperty( geometricOptics, 'positionMarker1Fill', {
-    default: POSITION_MARKER_FILL
+    default: 'rgb( 236, 225, 113 )'
   } ),
 
   positionMarker1StrokeProperty: new ProfileColorProperty( geometricOptics, 'positionMarker1Stroke', {
