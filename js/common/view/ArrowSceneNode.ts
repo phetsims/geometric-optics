@@ -26,6 +26,8 @@ import ToolJumpPoint from './tools/ToolJumpPoint.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 
 type SelfOptions = {
+
+  // how the optical object can be dragged, 'freeDragging' or 'horizontalDragging'
   objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>;
 };
 

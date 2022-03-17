@@ -77,9 +77,6 @@ class GOGlobalOptionsNode extends VBox {
     };
   }
 
-  /**
-   * @override
-   */
   public dispose(): void {
     this.disposeGeometricOpticsGlobalOptionsNode();
     super.dispose();
