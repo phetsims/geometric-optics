@@ -49,6 +49,7 @@ class OpticalObjectLabelNode extends LabelNode {
     const objectNString = StringUtils.fillIn( geometricOpticsStrings.label.objectN, {
       objectNumber: objectNumber
     } );
+
     options.isNumberedProperty.link( ( isNumbered: boolean ) => {
       this.setText( isNumbered ? objectNString : objectString );
     } );
