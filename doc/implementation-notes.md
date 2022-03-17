@@ -51,12 +51,10 @@ A image for which light rays do not physically intersect at the image point but 
 Light rays emanating from an object that are reflected/transmitted by an optical element
 
 **Virtual Rays:**
-Backward rays that indicate an apparent origin for the divergence of rays. Virtual rays are drawn from an optical
-element to the position of a virtual image.
+Backward rays that indicate an apparent origin for the divergence of rays. Virtual rays are drawn from an optical element to the position of a virtual image.
 
 **Optical Axis:**
-The straight line passing through the center of curvature and pole of  
-an optical element. It is also called the "principal axis".
+The straight line passing through the center of curvature and pole of an optical element. It is also called the "principal axis".
 
 **First Principal Focus:**
 A beam of light incident parallel to the optical axis, after reaching the optical element, will either actually converge
@@ -66,8 +64,7 @@ to or appear to diverge from a fixed point on the optical axis. The fixed point 
 The point opposite to the first principal focus from the optical element.
 
 **Guide:**
-This is a PhET construction, but is used in the simulation to denote the bending of the light due to a lens. A guide
-is attached to the ends of the lens and can freely rotate from its fulcrum point.
+This is a PhET construction, but is used in the simulation to denote the bending of the light due to a lens. A guide is attached to the ends of the lens and can freely rotate from its fulcrum point.
 
 **Screen:**
 Light is projected onto a screen. Unfortunately this term conflicts with `SCENERY/Screen`. So we use _ProjectorScreen_
