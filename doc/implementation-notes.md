@@ -1,6 +1,7 @@
 # Geometric Options - Implementation Notes
 
-@author Martin Veillette, Chris Malley (PixelZoom, Inc.)
+@author Martin Veillette<br>
+@author Chris Malley (PixelZoom, Inc.)
 
 Ths document is meant and to supplement the source code and comments of the simulation Geometric Optics.
 
