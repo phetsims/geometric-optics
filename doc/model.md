@@ -1,5 +1,8 @@
 # Geometric Optics - Model Description
 
+@author Martin Veillette
+@Chris Malley (PixelZoom, Inc.)
+
 This document is a high-level description of the model used in PhET's _Geometric Optics_ simulation.
 
 ## Prerequisites
