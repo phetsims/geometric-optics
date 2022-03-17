@@ -1,5 +1,13 @@
 # Geometric Optics - Model Description
 
+This document is a high-level description of the model used in PhET's _Geometric Optics_ simulation.
+
+## Prerequisites
+
+It's assumed that the reader is has some general familiarity with geometric optics.
+
+## Model
+
 The simulation describes light propagation through a lens in terms of rays. The rays in geometric optics are a useful
 abstraction for approximating the paths along which light propagates.
 
