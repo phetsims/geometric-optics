@@ -53,7 +53,7 @@ On the _Lens_ screen, the guides are meant to highlight the ability of lenses to
 guides is a property of the focal length of a lens and its diameter. Guides allow us to determine the (approximate) position 
 of the image without performing raytracing.
 
-On the _Lens_ screen, sources of light can be projected onto a screen. The spotlight that appears on the screen is based
-on the aperture of the lens (i.e. its diameter) and the size of the spotlight.
+On the _Lens_ screen, sources of light can be projected onto a screen. The light spots that appears on the screen are based
+on the aperture of the lens (i.e. its diameter) and the size of the light spot.
 
 The lenses in the simulation are considered to be ideal and free of spherical and comatic aberrations.
