@@ -59,7 +59,7 @@ image. For instance, for the lens, the principal rays are defined by three rays:
 "Marginal" rays, also called rim rays, are the rays that start at the object and touch the edges of the lens. The
 marginal rays emphasize the limiting aperture associated with an optical element.
 
-### Lens screen
+### _Lens_ screen
 
 On the _Lens_ screen, the guides are meant to highlight the ability of lenses to bend light. The internal angle of the
 guides is a property of the focal length of a lens and its diameter. Guides allow us to determine the (approximate) position 
