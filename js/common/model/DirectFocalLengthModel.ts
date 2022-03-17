@@ -60,7 +60,7 @@ class DirectFocalLengthModel extends PhetioObject implements FocalLengthModel {
       phetioDocumentation: 'magnitude of the focal length (no sign)'
     } );
 
-    // fixed value
+    assert && assert( options.indexOfRefractionRange?.getLength() === 0, 'indexOfRefraction should be a fixed value' );
     this.indexOfRefractionProperty = new NumberProperty( options.indexOfRefractionRange.defaultValue, {
       range: options.indexOfRefractionRange,
       // units: unitless
