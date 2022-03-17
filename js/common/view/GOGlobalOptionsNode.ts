@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import ProjectorModeCheckbox from '../../../../joist/js/ProjectorModeCheckbox.js';
 import { Text, VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
@@ -45,14 +44,6 @@ class GOGlobalOptionsNode extends VBox {
 
     super( options );
 
-    // 'Projector Mode' checkbox
-    const projectorModeCheckbox = new ProjectorModeCheckbox( {
-      boxWidth: GOConstants.CHECKBOX_BOX_WIDTH,
-      font: GOConstants.CONTROL_FONT,
-      maxTextWidth: 350,
-      tandem: options.tandem.createTandem( 'projectorModeCheckbox' )
-    } );
-
     // 'Add "2F Points" checkbox to control panels' checkbox
     // The name should technically be add2FPointsCheckboxCheckbox, but that confused everyone who saw it.
     const add2FPointsCheckbox = new Checkbox( new Text( geometricOpticsStrings.checkbox.add2FPointsCheckbox, {
@@ -70,7 +61,7 @@ class GOGlobalOptionsNode extends VBox {
       tandem: options.tandem.createTandem( 'focalLengthModelControl' )
     } );
 
-    this.children = [ projectorModeCheckbox, add2FPointsCheckbox, focalLengthModelControl ];
+    this.children = [ add2FPointsCheckbox, focalLengthModelControl ];
 
     this.disposeGeometricOpticsGlobalOptionsNode = (): void => {
       this.getChildren().forEach( child => child.dispose() );
