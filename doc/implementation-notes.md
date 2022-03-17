@@ -3,7 +3,20 @@
 @author Martin Veillette<br>
 @author Chris Malley (PixelZoom, Inc.)
 
-Ths document is meant and to supplement the source code and comments of the simulation Geometric Optics.
+This document contains notes related to the implementation of _Geometric Optics_. 
+This is not an exhaustive description of the implementation.  The intention is 
+to provide a high-level overview, and to supplement the internal documentation 
+(source code comments) and external documentation (design documents). 
+
+Before reading this document, please read:
+* [model.md](https://github.com/phetsims/geometric-optics/blob/master/doc/model.md), a high-level description of the simulation model
+
+In addition to this document, you are encouraged to read:
+
+* [PhET Development Overview](https://github.com/phetsims/phet-info/blob/master/doc/phet-development-overview.md)
+* [PhET Software Design Patterns](https://github.com/phetsims/phet-info/blob/master/doc/phet-software-design-patterns.md)
+* [Geometric Optics HTML5](https://docs.google.com/document/d/1hVxM-ax2UyxctbclAhutrRad5A0eeLWKFQNB4U7ls4o/edit), the
+  design document (which may be out of date)
 
 ## Abbreviations
 
