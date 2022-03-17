@@ -17,6 +17,7 @@ type ArrowImageOptions = PickRequired<OpticalImage, 'tandem' | 'phetioDocumentat
 
 class ArrowImage extends OpticalImage {
 
+  // fill for the arrow image
   public readonly fill: IColor;
 
   /**

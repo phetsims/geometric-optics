@@ -22,7 +22,7 @@ class GOTool extends PhetioObject {
   // position of the tool, in cm
   public readonly positionProperty: Property<Vector2>;
 
-  // whether the tool is in the toolbox.
+  // whether the tool is in the toolbox
   public readonly isInToolboxProperty: Property<boolean>;
 
   // Resets things that are specific to this class.

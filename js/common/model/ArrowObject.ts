@@ -21,6 +21,7 @@ type ArrowObjectOptions = SelfOptions & PickRequired<OpticalObjectOptions, 'posi
 
 class ArrowObject extends OpticalObject {
 
+  // fill for the arrow object
   public readonly fill: IColor;
 
   /**
