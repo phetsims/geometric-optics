@@ -21,8 +21,14 @@ class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
   constructor( isLens: boolean ) {
 
     const leftColumn = [
-      new MoveKeyboardHelpSection(),
-      new RulersKeyboardHelpSection( isLens ),
+
+      // Move Draggable Items
+      new MoveDraggableItemsKeyboardHelpSection(),
+
+      // Ruler and Marker Controls
+      new RulerAndMarkerControlsKeyboardHelpSection( isLens ),
+
+      // Choose an Object
       new ComboBoxKeyboardHelpSection( {
         headingString: geometricOpticsStrings.keyboardHelpDialog.chooseAnObject,
         thingAsLowerCaseSingular: geometricOpticsStrings.keyboardHelpDialog.object,
@@ -31,7 +37,11 @@ class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
     ];
 
     const rightColumn = [
+
+      // Slider Controls
       new SliderControlsKeyboardHelpSection(),
+
+      // Basic Actions
       new BasicActionsKeyboardHelpSection( {
         withCheckboxContent: true
       } )
@@ -42,9 +52,10 @@ class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 }
 
 /**
- * MoveKeyboardHelpSection is the keyboard-help section that describes the hotkeys supported by KeyboardDragListener.
+ * MoveDraggableItemsKeyboardHelpSection is the keyboard-help section that describes the hotkeys supported
+ * by KeyboardDragListener.
  */
-class MoveKeyboardHelpSection extends KeyboardHelpSection {
+class MoveDraggableItemsKeyboardHelpSection extends KeyboardHelpSection {
 
   constructor() {
 
@@ -63,9 +74,9 @@ class MoveKeyboardHelpSection extends KeyboardHelpSection {
 }
 
 /**
- * RulersKeyboardHelpSection is the keyboard-help section that describes the hotkeys related to the rulers.
+ * RulerAndMarkerControlsKeyboardHelpSection is the keyboard-help section that describes the hotkeys related to the tools.
  */
-class RulersKeyboardHelpSection extends KeyboardHelpSection {
+class RulerAndMarkerControlsKeyboardHelpSection extends KeyboardHelpSection {
 
   /**
    * @param isLens
