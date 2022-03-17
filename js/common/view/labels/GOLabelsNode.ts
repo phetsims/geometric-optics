@@ -68,7 +68,7 @@ class GOLabelsNode extends Node {
     } );
     this.addChild( opticalAxisLabel );
 
-    // Focal point labels ------------------------------------------------------------------------------------
+    // Focal Point labels ------------------------------------------------------------------------------------
 
     const leftFocalPointLabel = new LabelNode( geometricOpticsStrings.label.F,
       optic.leftFocalPointProperty, zoomTransformProperty, {
@@ -85,6 +85,8 @@ class GOLabelsNode extends Node {
         tandem: providedOptions.tandem.createTandem( 'rightFocalPointLabel' )
       } );
     this.addChild( rightFocalPointLabel );
+
+    // 2F Point labels ----------------------------------------------------------------------------------------
 
     const left2FPointLabel = new LabelNode( geometricOpticsStrings.label.twoF,
       optic.left2FProperty, zoomTransformProperty, {
