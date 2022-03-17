@@ -63,6 +63,7 @@ class ArrowImageNode extends OpticalImageNode {
     this.addChild( arrowNode );
 
     // Don't scale the head and tail, just the magnitude.
+    // See https://github.com/phetsims/geometric-optics/issues/228#issuecomment-1039672404
     Property.multilink( [ arrowImage.positionProperty, arrowImage.magnificationProperty ],
       ( arrowImagePosition: Vector2, magnification: number ) => {
 
