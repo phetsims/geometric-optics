@@ -13,7 +13,8 @@ It's assumed that the reader is familiar with geometric optics.
 
 Geometrical optics is a model of optics that describes light propagation in terms of rays. The rays in geometric optics are a useful abstraction for approximating the paths along which light propagates.
 
-This simulation supports two types of optics: lenses (convex, concave) and mirrors (convex, concave, flat).
+This simulation supports two types of optics: lenses (convex, concave) and mirrors (convex, concave, flat). 
+The lenses are considered to be ideal and free of spherical and comatic aberrations.
 
 The magnitude of the focal length of the lens is given by `f = R/(2(1-n)))`
 where `n` is the index of refraction, and `R` is the radius of curvature of the lens.
@@ -55,5 +56,3 @@ of the image without performing raytracing.
 
 On the _Lens_ screen, sources of light can be projected onto a screen. The light spots that appears on the screen are based
 on the aperture of the lens (i.e. its diameter) and the size of the light spot.
-
-The lenses in the simulation are considered to be ideal and free of spherical and comatic aberrations.
