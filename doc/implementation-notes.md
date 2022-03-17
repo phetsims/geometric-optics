@@ -33,49 +33,33 @@ In addition to this document, you are encouraged to read:
 Since the language of optics is confusing, and terms overlap with those used in software development, it is
 worthwhile to define some terms uses throughout the simulation.
 
-**Object:**  
-Anything that can be viewed. Unfortunately this term conflicts with JavaScript's `Object` type, so we 
+**Object:**  Anything that can be viewed. Unfortunately this term conflicts with JavaScript's `Object` type, so we 
 use **Optical Object** in the code.
 
-**Image:**
-The likeness of an object produced at a point in space by a lens or a mirror.
+**Image:** The likeness of an object produced at a point in space by a lens or a mirror.
 Unfortunately this term conflicts with `SCENERY/Image` so we use the term **Optical Image** in the code.
 
-**Real image:**
-An image for which light rays physically intersect at the image location.
+**Real image:** An image for which light rays physically intersect at the image location.
 
-**Virtual Image:**
-A image for which light rays do not physically intersect at the image point but appears to diverge from that point.
+**Virtual Image:** A image for which light rays do not physically intersect at the image point but appears to diverge from that point.
 
-**Real Rays:**
-Light rays emanating from an object that are reflected/transmitted by an optical element
+**Real Rays:** Light rays emanating from an object that are reflected/transmitted by an optical element
 
-**Virtual Rays:**
-Backward rays that indicate an apparent origin for the divergence of rays. Virtual rays are drawn from an optical element to the position of a virtual image.
+**Virtual Rays:** Backward rays that indicate an apparent origin for the divergence of rays. Virtual rays are drawn from an optical element to the position of a virtual image.
 
-**Optical Axis:**
-The straight line passing through the center of curvature and pole of an optical element. It is also called the "principal axis".
+**Optical Axis:** The straight line passing through the center of curvature and pole of an optical element. It is also called the "principal axis".
 
-**First Principal Focus:**
-A beam of light incident parallel to the optical axis, after reaching the optical element, will either actually converge
-to or appear to diverge from a fixed point on the optical axis. The fixed point is called the "First Principal focus".
+**First Principal Focus:** A beam of light incident parallel to the optical axis, after reaching the optical element, will either actually converge to or appear to diverge from a fixed point on the optical axis. The fixed point is called the "First Principal focus".
 
-**Second Principal Focus:**
-The point opposite to the first principal focus from the optical element.
+**Second Principal Focus:** The point opposite to the first principal focus from the optical element.
 
-**Guide:**
-This is a PhET construction, but is used in the simulation to denote the bending of the light due to a lens. A guide is attached to the ends of the lens and can freely rotate from its fulcrum point.
+**Guide:** This is a PhET construction, but is used in the simulation to denote the bending of the light due to a lens. A guide is attached to the ends of the lens and can freely rotate from its fulcrum point.
 
-**Screen:**
-Light is projected onto a screen. Unfortunately this term conflicts with `SCENERY/Screen`. So we use _ProjectorScreen_
-throughout the code.
+**Screen:** Light is projected onto a screen. Unfortunately this term conflicts with `SCENERY/Screen`. So we use _ProjectorScreen_ throughout the code.
 
-**Experiment Area:** This simulation creates a scenery layer called **experiment area** that includes all UI elements
-that are affected by the sim's zoom buttons. It is important to note that the rulers and the labels do not belong to the
-experiment area, since they contain text that may be hard to read upon zooming.
+**Experiment Area:** This simulation creates a scenery layer called **experiment area** that includes all UI elements that are affected by the sim's zoom buttons. It is important to note that the rulers and the labels do not belong to the experiment area, since they contain text that may be hard to read upon zooming.
 
-**positive/negative**: The meaning of positive and negative is a convention that may vary. We define the convention
-followed in the simulation in [model.md](https://github.com/phetsims/geometric-optics/blob/master/doc/model.md).
+**positive/negative**: The meaning of positive and negative is a convention that may vary. We define the convention followed in the simulation in [model.md](https://github.com/phetsims/geometric-optics/blob/master/doc/model.md).
 
 **distance**: In optics, a distance is always measured horizontally, and can be positive or negative. 
 
