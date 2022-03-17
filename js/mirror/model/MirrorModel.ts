@@ -14,9 +14,8 @@ import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { GOSimOptions } from '../../GOSim.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
-type SelfOptions = PickOptional<GOSimOptions, 'isBasicsVersion'>;
+type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 
 type MirrorModelOptions = SelfOptions & PickRequired<GOModelOptions, 'tandem'>;
 
@@ -32,9 +31,6 @@ class MirrorModel extends GOModel {
 
     const options = optionize<MirrorModelOptions, SelfOptions, GOModelOptions,
       'opticalObjectChoices' | 'arrowObject1Position' | 'arrowObject2Position' | 'framedObjectPosition'>( {
-
-      // SelfOptions
-      isBasicsVersion: false,
 
       // GOModelOptions
       opticalObjectChoices: [

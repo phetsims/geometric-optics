@@ -19,9 +19,8 @@ import LensScreenView from './view/LensScreenView.js';
 import optionize from '../../../phet-core/js/optionize.js';
 import PickRequired from '../../../phet-core/js/types/PickRequired.js';
 import { GOSimOptions } from '../GOSim.js';
-import PickOptional from '../../../phet-core/js/types/PickOptional.js';
 
-type SelfOptions = PickOptional<GOSimOptions, 'isBasicsVersion'>;
+type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 
 type LensScreenOptions = SelfOptions & PickRequired<ScreenOptions, 'tandem'>;
 
@@ -30,9 +29,6 @@ class LensScreen extends Screen<LensModel, LensScreenView> {
   constructor( providedOptions: LensScreenOptions ) {
 
     const options = optionize<LensScreenOptions, SelfOptions, ScreenOptions>( {
-
-      // LensScreen options
-      isBasicsVersion: false,
 
       // Screen options
       name: geometricOpticsStrings.screen.lens,
