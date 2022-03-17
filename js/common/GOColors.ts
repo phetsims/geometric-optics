@@ -20,14 +20,12 @@ const GOColors = {
 
   // Background color used for all screens
   screenBackgroundColorProperty: new ProfileColorProperty( geometricOptics, 'screenBackgroundColor', {
-    default: 'rgb( 250, 250, 250 )',
-    projector: 'white'
+    default: 'rgb( 250, 250, 250 )'
   } ),
 
   // Fill for the control panel
   panelFillProperty: new ProfileColorProperty( geometricOptics, 'panelFill', {
-    default: 'rgb( 230, 246, 249 )',
-    projector: 'rgb( 240, 240, 240 )'
+    default: 'rgb( 230, 246, 249 )'
   } ),
 
   // Stroke for the control panel
