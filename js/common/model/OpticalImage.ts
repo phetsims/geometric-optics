@@ -36,6 +36,7 @@ export type OpticalImageOptions = SelfOptions & PickRequired<PhetioObjectOptions
 
 class OpticalImage extends PhetioObject {
 
+  // the optic associated with this image
   public readonly optic: Optic;
 
   // the optical object that this optical image is associated with

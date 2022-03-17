@@ -47,8 +47,8 @@ type SelfOptions = {
   diameterRange: Range;
 
   // sign for computing distance between the optical image and the optic.
-  // For a lens, we use +1, because a positive distance indicates that the image is to the RIGHT of the lens.
-  // For a mirror, we use -1, because a positive distance indicates that the image is to the LEFT of the mirror.
+  // For a lens, use +1, because a positive distance indicates that the image is to the RIGHT of the lens.
+  // For a mirror, use -1, because a positive distance indicates that the image is to the LEFT of the mirror.
   sign: 1 | -1;
 
   // models of focal length
@@ -386,5 +386,4 @@ abstract class Optic extends PhetioObject {
 }
 
 geometricOptics.register( 'Optic', Optic );
-
 export default Optic;

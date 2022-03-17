@@ -25,7 +25,11 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 type PositionAndDiameter = {
+
+  // position of the light spot's center
   position: Vector2;
+
+  // diameter, in cm
   diameter: number;
 };
 

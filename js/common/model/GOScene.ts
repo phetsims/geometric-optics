@@ -19,6 +19,7 @@ export type GOSceneOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
 
 abstract class GOScene extends PhetioObject {
 
+  // the optic, provided by the client, and associated with all scenes
   public readonly optic: Optic;
 
   // determines the duration of the light rays animation

@@ -32,7 +32,8 @@ import starLeftFacingUpright_png from '../../../images/starLeftFacingUpright_png
 import starLeftFacingInverted_png from '../../../images/starLeftFacingInverted_png.js';
 import starIcon_png from '../../../images/starIcon_png.js';
 
-// Set of HTMLImageElements (PNG files) that depict a framed object and its associated optical image
+// Set of HTMLImageElements (PNG files) that depict a framed object and its associated optical image.
+// These PNG files have 3D perspective, and the field names used here refer to the orientation of the image.
 export type ObjectHTMLImageElements = {
   rightFacingUpright: HTMLImageElement;
   rightFacingInverted: HTMLImageElement;
@@ -41,7 +42,7 @@ export type ObjectHTMLImageElements = {
 };
 
 // icon used for 'Arrow' in the combo box
-const arrowIcon = new ArrowNode( 0, 0, 0, -50,
+const ARROW_ICON = new ArrowNode( 0, 0, 0, -50,
   optionize<ArrowNodeOptions, {}, ArrowNodeOptions>( {
     fill: GOColors.arrow1FillProperty,
     stroke: null,
@@ -50,7 +51,7 @@ const arrowIcon = new ArrowNode( 0, 0, 0, -50,
 
 class OpticalObjectChoice extends EnumerationValue {
 
-  static ARROW = new OpticalObjectChoice( geometricOpticsStrings.arrow, arrowIcon, 'arrow' );
+  static ARROW = new OpticalObjectChoice( geometricOpticsStrings.arrow, ARROW_ICON, 'arrow' );
 
   static PENCIL = new OpticalObjectChoice( geometricOpticsStrings.pencil, pencilIcon_png, 'pencil', {
     rightFacingUpright: pencilRightFacingUpright_png,
@@ -87,16 +88,16 @@ class OpticalObjectChoice extends EnumerationValue {
     phetioDocumentation: 'describes an optical object choice'
   } );
 
-  // Label that appears in OpticalObjectChoiceComboBox
+  // label that appears in OpticalObjectChoiceComboBox
   public readonly label: string;
 
-  // Icon that appears in OpticalObjectChoiceComboBox
+  // icon that appears in OpticalObjectChoiceComboBox
   public readonly icon: HTMLImageElement | Node;
 
-  // Prefix for tandems related to the OpticalObjectChoice
+  // prefix for tandems related to the OpticalObjectChoice
   public readonly tandemPrefix: string;
 
-  // Set of HTMLImageElements related to the OpticalObjectChoice. Populated for framed objects, null otherwise.
+  // set of HTMLImageElements related to the OpticalObjectChoice. Populated for framed objects, null otherwise.
   public readonly objectHTMLImageElements: ObjectHTMLImageElements | null;
 
   /**

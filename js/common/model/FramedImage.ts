@@ -116,10 +116,6 @@ class FramedImage extends OpticalImage {
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
       } );
   }
-
-  public dispose(): void {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
-  }
 }
 
 geometricOptics.register( 'FramedImage', FramedImage );

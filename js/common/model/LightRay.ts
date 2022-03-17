@@ -41,7 +41,7 @@ class LightRay {
   // a collection of sequential rays
   private readonly realRays: Array<GORay>;
 
-  // Does this light ray have a virtual ray attached to it?
+  // Does this light ray have a virtual component?
   private readonly hasVirtualRay: boolean;
 
   // there is a maximum of one virtual ray per LightRay

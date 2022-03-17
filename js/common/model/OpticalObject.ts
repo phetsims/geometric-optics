@@ -28,6 +28,8 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 
 type SelfOptions = {
+
+  // point from which rays propagate on the optical object
   position?: Vector2;
 };
 
@@ -36,7 +38,7 @@ export type OpticalObjectOptions = SelfOptions & PickRequired<PhetioObjectOption
 
 class OpticalObject extends PhetioObject {
 
-  // Positive integer used when labeling this object
+  // positive integer used when labeling this object
   public readonly opticalObjectNumber: number;
 
   // position of the point-of-interest on the optical object, from which rays propagate
