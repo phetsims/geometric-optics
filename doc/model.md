@@ -63,7 +63,7 @@ marginal rays emphasize the limiting aperture associated with an optical element
 
 On the _Lens_ screen, the guides are meant to highlight the ability of lenses to bend light. The internal angle of the
 guides is a property of the focal length of a lens and its diameter. Guides allow us to determine the (approximate) position 
-of the image without performing raytracing.
+of the image without performing ray tracing.
 
 On the _Lens_ screen, sources of light can be projected onto a screen. The light spots that appears on the screen are based
 on the aperture of the lens (i.e. its diameter) and the size of the light spot.
