@@ -5,13 +5,9 @@
 
 This document is a high-level description of the model used in PhET's _Geometric Optics_ simulation.
 
-## Prerequisites
-
 It's assumed that the reader is familiar with geometric optics. Geometrical optics is a model of optics that describes light propagation in terms of rays. The rays in geometric optics are a useful abstraction for approximating the paths along which light propagates.
 
-## Model
-
-### Optical Elements (Lens and Mirror)
+## Optical Elements (Lens and Mirror)
 
 This simulation supports two types of optical elements (a.k.a _optics_): lens (convex, concave) and mirror (convex, concave, flat). The lens is considered to be ideal, and free of spherical and comatic aberrations.
 
@@ -27,13 +23,13 @@ For the mirror, magnitude of the focal length is determined in the paraxial appr
 As for the sign, the focal length `f` is positive for converging optical elements (convex lenses and concave mirrors)
 and negative for diverging optical elements (concave lenses and convex mirrors)
 
-### Object
+## Object
 
 The position of the object is constrained such that it is always to the left of the optic.
 
 To avoid problematic cases, the object is always at least 40 cm from the optic, and never more than 100 cm from the optical axis.
 
-### Image
+## Image
 
 For the lens, the position of the image is approximated by the _thin lens equation_, given by `1/d_o + 1/d_i = 1/f`, where `d_o` is the distance from the optic to the object, `d_i` is the distance from the optic to the image, and `f` is the focal length of the lens.
 
@@ -43,7 +39,7 @@ A similar equation holds for mirrors, but where the sign convention is reversed.
 
 For both lenses and mirrors, a positive image distance results in a real image, while a negative image distance results in a virtual image.
 
-### Ray Tracing
+## Ray Tracing
 
 Rays approximate the path of light, as it propagates from a point on the object. The simulation's ray tracer provides three representation for rays: Marginal, Principal, and Many.
 
@@ -60,7 +56,7 @@ image. For instance, for the lens, the principal rays are defined by three rays:
 
 _Many_ rays consists of a 120-degree fan of rays. The number of rays varies with the distance of the object from the optic, such that at least 2 rays will pass through the optic.
 
-### _Lens_ screen
+## _Lens_ screen
 
 The _Lens_ screen includes features not found on the _Mirror_ screen.
 
