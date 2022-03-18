@@ -19,7 +19,7 @@ In addition to this document, you are encouraged to read:
 
 ## General Considerations
 
-### Model-view transform and Zoom
+### Model-view Transforms
 
 This simulation makes use of 2 model-view transforms to map model coordinates (in cm) to the view coordinates.
 
