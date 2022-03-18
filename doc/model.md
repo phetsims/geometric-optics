@@ -43,9 +43,9 @@ _f_ = focal length
 
 _F_ = focal point, at a distance _f_ from the optic
 
-_n, IOR_ = Index of Refraction
+_n, IOR_ = index of refraction
 
-_R, ROC_ = Radius of Curvature
+_R, ROC_ = radius of curvature
 
 _d<sub>o</sub>_ = distance from the optic to the object
 
