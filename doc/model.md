@@ -5,7 +5,7 @@
 
 This document is a high-level description of the model used in PhET's _Geometric Optics_ simulation.
 
-It's assumed that the reader is familiar with geometric optics. Geometrical optics is a model of optics that describes light propagation in terms of rays. Rays are a useful abstraction for approximating the paths along which light propagates.
+It's assumed that the reader is familiar with geometric optics. Geometric optics is a model of optics that describes light propagation in terms of rays. Rays are a useful abstraction for approximating the paths along which light propagates.
 
 ## Terminology
 
@@ -14,19 +14,18 @@ worthwhile to define some terms used throughout the simulation.
 
 **Optic**: an optical element or optical component in an optical instrument or system (e.g. lens, mirror)
 
-**Optical Axis:** The straight horizontal line passing through the center of curvature and pole of an optical element. It is also called the "principal axis".
+**Optical Axis:** The horizontal axis passing through the center of curvature and pole of an optical element. It is also called the "principal axis".
 
-**Object:**  Anything that can be viewed. Since this term conflicts with JavaScript's `Object` type, we 
-use **Optical Object** in the code.
+**Object:**  Anything that can be viewed. Since this term conflicts with the name of JavaScript's `Object` class, we use **Optical Object** in the code.
 
 **Image:** The likeness of an object produced at a point in space by an optic.
-Since this term conflicts with `SCENERY/Image`, we use the term **Optical Image** in the code.
+Since this term conflicts with the name of PhET's `scenery.Image` class, we use **Optical Image** in the code.
 
 **Real image:** An image for which light rays physically intersect at the image location.
 
 **Virtual Image:** An image for which light rays do not physically intersect at the image point but appears to diverge from that point.
 
-**Screen**: A surface perpendicular to the optical axis, onto which light is projected. Since this term conflicts with `SCENERY/Screen`, we use **ProjectorScreen** throughout the code.
+**Screen**: A surface perpendicular to the optical axis, onto which light is projected. Since this term conflicts with the name of PhET's `joist.Screen` class, we use **ProjectorScreen** in the code.
 
 **First Principal Focus:** A beam of light incident parallel to the optical axis, after reaching the optical element, will either actually converge to or appear to diverge from a fixed point on the optical axis. This fixed point is called the "first principal focus".
 
@@ -44,9 +43,9 @@ _f_ = focal length
 
 _F_ = focal point, at a distance _f_ from the optic
 
-_n, IOR_ = Index of Refraction
+_n, IOR_ = index of refraction
 
-_R, ROC_ = Radius of Curvature
+_R, ROC_ = radius of curvature
 
 _d<sub>o</sub>_ = distance from the optic to the object
 
@@ -60,13 +59,8 @@ The mirror is modeled as a lens with index of refraction = 2. The flat mirror is
 
 The position of the optic is fixed at (0,0).
 
-For the lens, magnitude of the focal length is given by _f = R/(2(1-n)))_.
-
-For the mirror, magnitude of the focal length is determined in the paraxial approximation, given by
-_f = R/2_.
-
-As for the sign, the focal length _f_ is positive for converging optic (convex lenses and concave mirrors)
-and negative for diverging optic (concave lenses and convex mirrors)
+For the lens, magnitude of the focal length is given by _f = R/(2(1-n))_. For the mirror, magnitude of the focal length is determined by the paraxial approximation, given by
+_f = R/2_. As for the sign, the focal length _f_ is positive for converging optics (convex lens, concave mirror) and negative for diverging optics (concave lens, convex mirror).
 
 ## Object
 
