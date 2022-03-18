@@ -60,7 +60,7 @@ const SCHEMA_MAP = {
 
   realRaysLineWidth: {
     type: 'number',
-    defaultValue: 2,
+    defaultValue: 1.5,
     isValidValue: ( raysLineWidth: number ) => ( raysLineWidth > 0 )
   },
 
