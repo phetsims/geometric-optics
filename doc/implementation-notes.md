@@ -119,7 +119,7 @@ There are a few top-level view elements:
 
 Properties in [VisibileProperties](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/VisibleProperties.js) are used to toggle the visibility of Nodes.
 
-## Constraints
+# Constraints
 
 Physical mirrors do not have an index of refraction. But for the purposes of the simulation, we model our mirror as a lens with index of refraction = 2.
 
