@@ -25,7 +25,7 @@ and negative for diverging optical elements (concave lenses and convex mirrors)
 
 ## Object
 
-The position of the object is constrained such that it is always to the left of the optic.
+The position of the object is constrained such that it is always to the left of the optical element.
 
 To avoid problematic cases, the object is always at least 40 cm from the optical element, and never more than 100 cm from the optical axis.
 
