@@ -64,8 +64,8 @@ For the lens, magnitude of the focal length is given by _f = R/(2(1-n)))_.
 For the mirror, magnitude of the focal length is determined in the paraxial approximation, given by
 _f = R/2_.
 
-As for the sign, the focal length _f_ is positive for converging optic (convex lenses and concave mirrors)
-and negative for diverging optic (concave lenses and convex mirrors)
+As for the sign, the focal length _f_ is positive for converging optics (convex lenses and concave mirrors)
+and negative for diverging optics (concave lenses and convex mirrors)
 
 ## Object
 
