@@ -42,7 +42,7 @@ Since this term conflicts with `SCENERY/Image`, we use the term **Optical Image*
 
 _f_ = focal length
 
-_F_ = focal point, at a distance **f** from the optic
+_F_ = focal point, at a distance _f_ from the optic
 
 _n, IOR_ = Index of Refraction
 
