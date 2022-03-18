@@ -238,7 +238,7 @@ abstract class Optic extends PhetioObject {
         units: 'cm',
         tandem: options.tandem.createTandem( 'focalLengthProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
-        phetioDocumentation: 'The focal length of the optic. A converging optic has a positive focal length, ' +
+        phetioDocumentation: 'The signed focal length of the optic. A converging optic has a positive focal length, ' +
                              'while a diverging optic has a negative focal length.'
       } );
 
