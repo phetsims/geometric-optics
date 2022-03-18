@@ -127,6 +127,6 @@ To ensure that at least 2 rays pass through the optic, the "Many" mode for Rays 
 
 Physical mirrors do not have an index of refraction. Our mirror is modeled as a lens with index of refraction = 2. See `INDEX_OF_REFRACTION_RANGE` in [Mirror.ts](https://github.com/phetsims/geometric-optics/blob/master/js/mirror/model/Mirror.ts).
 
-A flat mirror is modeled as a convex mirror with large radius of curvature (100,000 cm). PhET-iO clients should therefore be warned that model Properties are not accurate for the flat mirror. For example, focal length will be a very large number, not infinity.
+A flat mirror is modeled as a convex mirror with large radius of curvature. See `FLAT_MIRROR_FINITE_FOCAL_LENGTH` in [Optic.ts](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/Optic.ts). PhET-iO clients should therefore be warned that model Properties are not accurate for the flat mirror. For example, focal length will be a very large number, not infinity.
   
 The shape of the lens, as well as the refraction of the rays within the lens, is "Hollywooded". This leads to a few artifacts that we have attempted to minimize. See the `isHollywooded` option to [LensShapes.ts](https://github.com/phetsims/geometric-optics/blob/master/js/lens/model/LensShapes.ts).
