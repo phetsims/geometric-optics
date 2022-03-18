@@ -9,6 +9,8 @@ It's assumed that the reader is familiar with geometric optics. Geometrical opti
 
 ## Optics (Lens and Mirror)
 
+An _optic_ is an optical element or optical component in an optical instrument or system.
+
 This simulation supports two types of optics: lens (convex, concave) and mirror (convex, concave, flat). The lens is considered to be ideal, and free of spherical and comatic aberrations.
 
 The mirror is modeled as a lens with index of refraction = 2. The flat mirror is modeled as a convex mirror with a very large radius of curvature (100,000 cm).
