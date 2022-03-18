@@ -27,6 +27,10 @@ The first transform is a static mapping, see `const modelViewTransform` is GOScr
 
 The second transform is a dynamic mapping, based on zoom level, see `const zoomTransformProperty` in GOScreenView.ts. This transform is applied to all all elements within a "scene" (optic, objects, images, rays, projection screen).
 
+Rulers change their tick marks to match the zoom level, but otherwise do not change position or size. 
+
+Labels change their position to match the zoom level, but otherwise do not change this size.
+
 ### Memory management
 
 * **Dynamic allocation:** Most objects in this sim are allocated at startup, and exist for the lifetime of the simulation. The exception is GOOptionsDialogNode.ts and its children, which must all implemented `dispose`. This is the content for the Options dialog, and is instantiated each time the Options menu item is selected from the PhET menu.
