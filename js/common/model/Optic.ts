@@ -1,7 +1,7 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * Optic is the abstract base class for an optic in this simulation, and supports lens and mirror.
+ * Optic is the abstract base class for an optical element in this simulation, and supports lens and mirror.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  * @author Martin Veillette
