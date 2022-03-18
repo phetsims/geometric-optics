@@ -17,7 +17,7 @@ Geometrical optics is a model of optics that describes light propagation in term
 
 This simulation supports two types of optical elements (a.k.a _optics_): lens (convex, concave) and mirror (convex, concave, flat). The lens is considered to be ideal, and free of spherical and comatic aberrations.
 
-The mirror is modeled as a lens with index of refraction = 2. The flat mirror is modeled as a convex mirror with a very large radius of curvature (100000 cm).
+The mirror is modeled as a lens with index of refraction = 2. The flat mirror is modeled as a convex mirror with a very large radius of curvature (100,000 cm).
 
 The position of the optic is fixed at (0,0).
 
