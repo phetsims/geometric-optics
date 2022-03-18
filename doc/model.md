@@ -7,11 +7,9 @@ This document is a high-level description of the model used in PhET's _Geometric
 
 ## Prerequisites
 
-It's assumed that the reader is familiar with geometric optics.
+It's assumed that the reader is familiar with geometric optics. Geometrical optics is a model of optics that describes light propagation in terms of rays. The rays in geometric optics are a useful abstraction for approximating the paths along which light propagates.
 
 ## Model
-
-Geometrical optics is a model of optics that describes light propagation in terms of rays. The rays in geometric optics are a useful abstraction for approximating the paths along which light propagates.
 
 ### Optical Elements (Lens and Mirror)
 
