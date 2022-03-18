@@ -63,8 +63,10 @@ marginal rays emphasize the limiting aperture associated with an optical element
 
 ### _Lens_ screen
 
-On the _Lens_ screen, sources of light can be projected onto a screen. The light spots that appears on the screen are based on the aperture of the lens (i.e. its diameter) and the size of the light spot.
+The _Lens_ screen includes features not found on the _Mirror_ screen.
 
-On the _Lens_ screen, the guides are meant to highlight the ability of lenses to bend light. The internal angle of the guides is a property of the focal length of a lens and its diameter. Guides allow us to determine the (approximate) position of the image without performing ray tracing. _NOTE: The Guides feature is not enabled by default, and can be enabled by running the simulation with query parameter `addGuidesCheckbox=true`._
+**Light sources**: Light sources can be projected onto a screen. The light spots that appears on the screen are based on the aperture of the lens (i.e. its diameter) and the size of the light spot.
+
+**Guides**: Guides are a representation invented by PhET. The show the ability of lenses to bend light. The internal angle of the guides is a property of the focal length of a lens and its diameter. Guides allow us to determine the (approximate) position of the image without performing ray tracing. _NOTE: The Guides feature is not enabled by default, and can be enabled by running the simulation with query parameter `addGuidesCheckbox=true`._
 
 
