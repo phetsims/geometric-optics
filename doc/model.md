@@ -32,7 +32,7 @@ and negative for diverging optical elements (concave lenses and convex mirrors)
 
 ### Image
 
-For the lens, the position of the image is approximated by the _thin lens equation_, which states that `1/d_o + 1/d_i = 1/f`, where `d_o` is the distance from the optic to the object, `d_i` is the distance from the optic to the image and `f` is the focal length of the optical element.
+For the lens, the position of the image is approximated by the _thin lens equation_, which states that `1/d_o + 1/d_i = 1/f`, where `d_o` is the distance from the optic to the object, `d_i` is the distance from the optic to the image and `f` is the focal length of the lens.
 
 For lenses, the image distance `d_i` is positive for images on the opposite side of the optic (real images). If the image and object are on the same side of the lens, the image distance is negative (virtual images).
 
