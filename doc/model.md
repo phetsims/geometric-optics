@@ -28,9 +28,9 @@ Since this term conflicts with `SCENERY/Image`, we use the term **Optical Image*
 
 **Screen**: A surface perpendicular to the optical axis, onto which light is projected. Since this term conflicts with `SCENERY/Screen`, we use **ProjectorScreen** throughout the code.
 
-**First Principal Focus:** A beam of light incident parallel to the optical axis, after reaching the optical element, will either actually converge to or appear to diverge from a fixed point on the optical axis. The fixed point is called the "First Principal focus".
+**First Principal Focus:** A beam of light incident parallel to the optical axis, after reaching the optical element, will either actually converge to or appear to diverge from a fixed point on the optical axis. This fixed point is called the "first principal focus".
 
-**Second Principal Focus:** The point opposite to the first principal focus from the optical element.
+**Second Principal Focus:** The point opposite to the first principal focus from the optic.
 
 **distance**: In optics, a distance is always measured parallel to the optical axis, and can be positive or negative. 
 
