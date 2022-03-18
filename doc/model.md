@@ -60,7 +60,7 @@ The mirror is modeled as a lens with index of refraction = 2. The flat mirror is
 
 The position of the optic is fixed at (0,0).
 
-For the lens, magnitude of the focal length is given by `f = R/(2(1-n)))`, where `R` is the radius of curvature and `n` is the index of refraction.
+For the lens, magnitude of the focal length is given by `f = R/(2(1-n)))`.
 
 For the mirror, magnitude of the focal length is determined in the paraxial approximation, given by
 `f = R/2`.
@@ -76,7 +76,7 @@ To avoid problematic cases, the object is always at least 40 cm from the optic, 
 
 ## Image
 
-The position of the image is approximated by the _thin lens equation_, given by `1/d_o + 1/d_i = 1/f`, where `d_o` is the distance from the lens to the object, `d_i` is the distance from the lens to the image, and `f` is the focal length of the lens.
+The position of the image is approximated by the _thin lens equation_, given by `1/d_o + 1/d_i = 1/f`.
 
 For lenses, the image distance `d_i` is positive for images to the right of the lens (real images), and negative for images to the left of the lens (virtual images).
 
