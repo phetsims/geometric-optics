@@ -85,15 +85,15 @@ class FramedImage extends OpticalImage {
 
     // This algorithm was specified by Kathy Perkins in https://github.com/phetsims/geometric-optics/issues/350.
     this.opacityProperty = new DerivedProperty(
-      [ framedObject.opticObjectXDistanceProperty, optic.diameterProperty, this.magnificationProperty ],
-      ( opticObjectXDistance: number, diameter: number, magnification: number ) => {
+      [ framedObject.opticObjectDistanceProperty, optic.diameterProperty, this.magnificationProperty ],
+      ( opticObjectDistance: number, diameter: number, magnification: number ) => {
 
         // Kathy Perkins described this constant as "a comfortable distance from the lens, and nominally where the
-        // image/object sizes are the same".
+        // image/object sizes are the same". This is a horizontal distance.
         const referenceObjectDistance = 160; // cm
-        
+
         // Affect of object's distance from the optic.
-        const objectDistanceFactor = referenceObjectDistance / opticObjectXDistance;
+        const objectDistanceFactor = referenceObjectDistance / opticObjectDistance;
 
         // Affect of optic diameter
         const diameterFactor = diameter / diameterRange.max;

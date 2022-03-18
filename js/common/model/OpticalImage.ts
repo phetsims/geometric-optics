@@ -88,12 +88,12 @@ class OpticalImage extends PhetioObject {
                            'have reached the position where the image is formed.'
     } );
 
-    const opticImageXDistanceProperty = new DerivedProperty(
-      [ opticalObject.opticObjectXDistanceProperty, optic.focalLengthProperty ],
-      ( opticObjectXDistance: number, focalLength: number ) => {
+    const opticImageDistanceProperty = new DerivedProperty(
+      [ opticalObject.opticObjectDistanceProperty, optic.focalLengthProperty ],
+      ( opticObjectDistance: number, focalLength: number ) => {
 
         // address the case where the optical object shares the same x position as the focal point
-        if ( opticObjectXDistance === focalLength ) {
+        if ( opticObjectDistance === focalLength ) {
 
           // Set the distance to be very large (and arbitrarily positive).
           // This should technically be Infinity, but practically must be a (very large) finite value.
@@ -104,28 +104,28 @@ class OpticalImage extends PhetioObject {
           // Calculated based on the thin lens law/ mirror equation
           // For a lens, a positive distance indicates that the image is to the right of the lens.
           // For a mirror, a positive distance indicates that the image is to the left of the mirror.
-          return ( focalLength * opticObjectXDistance ) / ( opticObjectXDistance - focalLength );
+          return ( focalLength * opticObjectDistance ) / ( opticObjectDistance - focalLength );
         }
       }, {
         units: 'cm',
-        tandem: options.tandem.createTandem( 'opticImageXDistanceProperty' ),
+        tandem: options.tandem.createTandem( 'opticImageDistanceProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
-        phetioDocumentation: 'Horizontal "distance" between optic and image. ' +
+        phetioDocumentation: 'Horizontal distance between optic and image. ' +
                              'Positive is a real image, negative is a virtual image. ' +
                              'For a lens, a positive distance indicates that the image is to the right of the lens. ' +
                              'For a mirror, a positive distance indicates that the image is to the left of the mirror. '
       } );
 
     this.magnificationProperty = new DerivedProperty(
-      [ opticalObject.opticObjectXDistanceProperty, opticImageXDistanceProperty ],
-      ( opticObjectXDistance: number, opticImageXDistance: number ) => {
+      [ opticalObject.opticObjectDistanceProperty, opticImageDistanceProperty ],
+      ( opticObjectDistance: number, opticImageDistance: number ) => {
 
         // prevent division by zero
-        if ( opticObjectXDistance === 0 ) {
+        if ( opticObjectDistance === 0 ) {
           return 1; // The magnification is 1 when the object and optic are coincident.
         }
         else {
-          return -1 * opticImageXDistance / opticObjectXDistance;
+          return -1 * opticImageDistance / opticObjectDistance;
         }
       }, {
         tandem: options.tandem.createTandem( 'magnificationProperty' ),
@@ -134,15 +134,15 @@ class OpticalImage extends PhetioObject {
       } );
 
     this.positionProperty = new DerivedProperty(
-      [ opticalObjectPositionProperty, optic.positionProperty, opticImageXDistanceProperty, this.magnificationProperty ],
-      ( opticalObjectPosition: Vector2, opticPosition: Vector2, opticImageXDistance: number, magnification: number ) => {
+      [ opticalObjectPositionProperty, optic.positionProperty, opticImageDistanceProperty, this.magnificationProperty ],
+      ( opticalObjectPosition: Vector2, opticPosition: Vector2, opticImageDistance: number, magnification: number ) => {
 
         // The height is determined as the vertical offset from the optical axis of the focus point.
         // The height will be negative if the optical image is inverted.
         const height = magnification * ( opticalObjectPosition.y - opticPosition.y );
 
         // Recall that the sign is different for lens vs mirror.
-        const horizontalDisplacement = optic.sign * opticImageXDistanceProperty.value;
+        const horizontalDisplacement = optic.sign * opticImageDistanceProperty.value;
 
         return opticPosition.plusXY( horizontalDisplacement, height );
       }, {
@@ -151,8 +151,8 @@ class OpticalImage extends PhetioObject {
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
       } );
 
-    this.opticalImageTypeProperty = new DerivedProperty( [ opticImageXDistanceProperty ],
-      ( opticImageXDistance: number ) => ( opticImageXDistance < 0 ) ? 'virtual' : 'real', {
+    this.opticalImageTypeProperty = new DerivedProperty( [ opticImageDistanceProperty ],
+      ( opticImageDistance: number ) => ( opticImageDistance < 0 ) ? 'virtual' : 'real', {
         tandem: options.tandem.createTandem( 'opticalImageTypeProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( StringIO ),
         validValues: OpticalImageTypeValues
