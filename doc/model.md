@@ -38,6 +38,20 @@ Since this term conflicts with `SCENERY/Image`, we use the term **Optical Image*
 
 **Guide:** A representation invented by PhET, used in the simulation to denote the bending of the light due to a lens. A guide is attached to the ends of the lens and can freely rotate from its fulcrum point.
 
+## Abbreviations
+
+**f** = focal length
+
+**F** = focal point, at a distance **f** from the optic
+
+**n, IOR** = Index of Refraction
+
+**R, ROC** = Radius of Curvature
+
+**d_o, d<sub>o</sub>** = distance from the optic to the object
+
+**d_i, d<sub>i</sub>** = distance from the optic to the image
+
 ## Optics (Lens and Mirror)
 
 This simulation supports two types of optics: lens (convex, concave) and mirror (convex, concave, flat). The lens is considered to be ideal, and free of spherical and comatic aberrations.
