@@ -54,12 +54,9 @@ marginal rays emphasize the limiting aperture associated with an optical element
 rays and at times fail to go through the optic. Nevertheless, the method remains useful to find the location of the
 image. For instance, for the lens, the principal rays are defined by three rays:
 
-- A ray from the top of the object, proceeding parallel to the optical axis of the optical element. For a converging
-  lens, the ray will pass through the principal focal point. For a diverging lens, the ray will proceed from the lens as
-  if it emanated from the focal point on the near side of the lens.
 - A ray through the center of the lens, which will be undeflected.
-- A ray through the principal focal point on the near-side for a converging lens, or on the far-side for a diverging lens. The
-  ray will proceed parallel to the optical axis upon exit from the lens.
+- A ray from the top of the object, proceeding parallel to the optical axis of the optical element. For a converging lens, the ray will pass through the principal focal point. For a diverging lens, the ray will proceed from the lens as if it emanated from the focal point on the near side of the lens.
+- A ray through the principal focal point on the near-side for a converging lens, or on the far-side for a diverging lens. The ray will proceed parallel to the optical axis upon exit from the lens.
 
 "Many" rays consists of a 120-degree fan of rays. The number of rays varies with the distance of the object from the optic, such that at least 2 rays will pass through the optic.
 
