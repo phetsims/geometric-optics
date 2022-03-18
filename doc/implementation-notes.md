@@ -23,9 +23,9 @@ In addition to this document, you are encouraged to read:
 
 This simulation makes use of 2 model-view transforms to map model coordinates (in cm) to view coordinates.
 
-The first transform handles the static mapping, see `const modelViewTransform` is GOScreenView.ts. The model has +x to the left, and +y up, and scaling is isometric in both directions. In the _Lens_ screen, the origin (0,0) in the model coordinate frame is near the center of the ScreenView. In the _Mirror_ screen, the origin is shift to the right, to accommodate the behavior of mirrors.
+The first transform is a static mapping, see `const modelViewTransform` is GOScreenView.ts. The model has +x to the left, and +y up, and scaling is isometric in both directions. In the _Lens_ screen, the origin (0,0) in the model coordinate frame is near the center of the ScreenView. In the _Mirror_ screen, the origin is shift to the right, to accommodate the behavior of mirrors.
 
-The second transform handles zooming, see `const zoomTransformProperty` in GOScreenView.ts. This transform is applied to all all elements within a "scene" (optic, objects, images, rays, projection screen).
+The second transform is a dynamic mapping, based on zoom level, see `const zoomTransformProperty` in GOScreenView.ts. This transform is applied to all all elements within a "scene" (optic, objects, images, rays, projection screen).
 
 ### Memory management
 
