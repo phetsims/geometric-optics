@@ -36,7 +36,7 @@ Since this term conflicts with `SCENERY/Image`, we use the term **Optical Image*
 
 **height**: In optics, a height is always measured from (and perpendicular to) the optical axis. A positive (negative) height indicates the object is above (below) the optical axis.
 
-**Guide:** This is a representation invented by PhET, used in the simulation to denote the bending of the light due to a lens. A guide is attached to the ends of the lens and can freely rotate from its fulcrum point.
+**Guide:** A representation invented by PhET, used in the simulation to denote the bending of the light due to a lens. A guide is attached to the ends of the lens and can freely rotate from its fulcrum point.
 
 ## Optics (Lens and Mirror)
 
