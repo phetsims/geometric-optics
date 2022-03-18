@@ -16,11 +16,10 @@ worthwhile to define some terms used throughout the simulation.
 
 **Optical Axis:** The straight horizontal line passing through the center of curvature and pole of an optical element. It is also called the "principal axis".
 
-**Object:**  Anything that can be viewed. Since this term conflicts with the name of JavaScript's `Object` class, we 
-use **Optical Object** in the code.
+**Object:**  Anything that can be viewed. Since this term conflicts with the name of JavaScript's `Object` class, we use **Optical Object** in the code.
 
 **Image:** The likeness of an object produced at a point in space by an optic.
-Since this term conflicts with the name of PhET's `scenery.Image` class, we use the term **Optical Image** in the code.
+Since this term conflicts with the name of PhET's `scenery.Image` class, we use **Optical Image** in the code.
 
 **Real image:** An image for which light rays physically intersect at the image location.
 
