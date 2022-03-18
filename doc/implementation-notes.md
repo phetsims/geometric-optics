@@ -21,26 +21,15 @@ In addition to this document, you are encouraged to read:
 
 ### Model-view transform and Zoom
 
-This simulation makes use of model-view transform to map model coordinates to the view coordinates. The base units of
-the model is centimeters (cm). It is used throughout the model with a few exceptions that have been noted. A model-view
-transform is applied to all elements within the experiment area. All elements within the experiment area can be scaled
-up and down by scaling `experimentAreaNode`. The origin (0,0) in the model coordinate frame is near the center of the
-ScreenView. The model-to-view scaling is isometric along the horizontal and vertical directions.
+This simulation makes use of 2 model-view transforms to map model coordinates (in cm) to the view coordinates.
 
-For scenery Nodes outside the experimentAreaNode, we lay them out using view coordinates. There are two exceptions to
-this:
-(1) The `FramedLabelsNode`, responsible for labels beneath the optical components and (2) the `GORulerNode`. The
-labels and ruler use `zoomTransformProperty` which allows it to relate its coordinates to within the experiment area at
-a particular zoom level.
+The first transform handles the static mapping, see `const modelViewTransform` is GOScreenView.ts. The model has +x to the left, and +y up, and scaling is isometric in both directions. In the _Lens_ screen, the origin (0,0) in the model coordinate frame is near the center of the ScreenView. In the _Mirror_ screen, the origin is shift to the right, to accommodate the behavior of mirrors.
 
-The Nodes within the experiment area may need to know about the position of objects outside the experiment area, such as
-the bounds of the simulation. For instance, the `zoomTransform` can be used to convert the visibleBounds of the
-simulation to `modelBounds`.
+The second transform handles zooming, see `const zoomTransformProperty` in GOScreenView.ts. This transform is applied to all all elements within a "scene" (optic, objects, images, rays, projection screen).
 
 ### Memory management
 
-* **Dynamic allocation:** Most objects in this sim are allocated at startup, and exist for the lifetime of the simulation. 
-The exception is `GORulerNode`, which is instantiated each time the zoom level changes. 
+* **Dynamic allocation:** Most objects in this sim are allocated at startup, and exist for the lifetime of the simulation. The exception is GOOptionsDialogNode.ts and its children, which must all implemented `dispose`. This is the content for the Options dialog, and is instantiated each time the Options menu item is selected from the PhET menu.
 
 * **Listeners**: Unless otherwise noted in the code, all uses of `link`, `addListener`, etc. do NOT need a corresponding
   `unlink`, `removeListener`, etc.
