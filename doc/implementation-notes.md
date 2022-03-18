@@ -19,35 +19,32 @@ In addition to this document, you are encouraged to read:
 
 ## General Considerations
 
-### Model-view transform and Zoom
+### Model-View Transforms
 
-This simulation makes use of model-view transform to map model coordinates to the view coordinates. The base units of
-the model is centimeters (cm). It is used throughout the model with a few exceptions that have been noted. A model-view
-transform is applied to all elements within the experiment area. All elements within the experiment area can be scaled
-up and down by scaling `experimentAreaNode`. The origin (0,0) in the model coordinate frame is near the center of the
-ScreenView. The model-to-view scaling is isometric along the horizontal and vertical directions.
+This simulation makes use of 2 model-view transforms to map model coordinates (in cm) to view coordinates.
 
-For scenery Nodes outside the experimentAreaNode, we lay them out using view coordinates. There are two exceptions to
-this:
-(1) The `FramedLabelsNode`, responsible for labels beneath the optical components and (2) the `GORulerNode`. The
-labels and ruler use `zoomTransformProperty` which allows it to relate its coordinates to within the experiment area at
-a particular zoom level.
+The first transform is a static mapping, see `modelViewTransform` in [GOScreenView.ts](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/GOScreenView.ts). The model has +x to the left, and +y up, and scaling is isometric in both directions. In the _Lens_ screen, the origin (0,0) in the model coordinate frame is near the center of the ScreenView. In the _Mirror_ screen, the origin is shift to the right, to accommodate the behavior of mirrors.
 
-The Nodes within the experiment area may need to know about the position of objects outside the experiment area, such as
-the bounds of the simulation. For instance, the `zoomTransform` can be used to convert the visibleBounds of the
-simulation to `modelBounds`.
+The second transform is a dynamic mapping, based on zoom level, see `zoomTransformProperty` in [GOScreenView.ts](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/GOScreenView.ts). This transform is applied to all all elements within a "scene" (optic, objects, images, rays, projection screen).
+
+Rulers change their tick marks to match the zoom level, but otherwise do not change position or size. 
+
+Labels change their position to match the zoom level, but otherwise do not change this size.
+
+### Query Parameters
+
+Query parameters are used to enable sim-specific features. Sim-specific query parameters are documented in
+[GOQueryParameters.ts](https://github.com/phetsims/geometric-optics/blob/master/js/common/GOQueryParameters.ts).
+Running with `?log` will print the complete set of query parameters (common-code, PhET-iO, and sim-specific)
+to the browser console.
 
 ### Memory management
 
-* **Dynamic allocation:** Most objects in this sim are allocated at startup, and exist for the lifetime of the simulation. 
-The exception is `GORulerNode`, which is instantiated each time the zoom level changes. 
+* **Dynamic allocation:** Most objects in this sim are allocated at startup, and exist for the lifetime of the simulation. The exception is GOOptionsDialogNode.ts and its children, which must all implemented `dispose`. This is the content for the Options dialog, and is instantiated each time the Options menu item is selected from the PhET menu.
 
-* **Listeners**: Unless otherwise noted in the code, all uses of `link`, `addListener`, etc. do NOT need a corresponding
-  `unlink`, `removeListener`, etc.
+* **Listeners**: Unless otherwise noted in the code, all uses of `link`, `addListener`, etc. do NOT need a corresponding `unlink`, `removeListener`, etc.
 
-* **dispose**: Most sim-specific classes are not intended to be disposed, and therefore do not properly implement
-`dispose`.  Those classes will either have no `dispose` method, or will override their interited `dispose`
-method like this:
+* **dispose**: All classes have a `dispose` method. Sim-specific classes whose instances exist for the lifetime of the sim are not intended to be disposed, and their `dispose` implementation looks like this:
 
 ```js
 /**
@@ -63,8 +60,7 @@ dispose() {
 # Model
 
 The main model class
-is [GOModel](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/GeometricOpticsModel.js)
-.
+is [GOModel](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/GeometricOpticsModel.js).
 
 There are a three top-level model elements in GOModel that play an essential role, namely `FramedObject`
 , `Optic` and `FramedImage`. This trifecta of elements rules the entire simulation. Each of them is a component of the
@@ -123,21 +119,16 @@ There are a few top-level view elements:
 
 Properties in [VisibileProperties](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/VisibleProperties.js) are used to toggle the visibility of Nodes.
 
-## Gotchas
+# Hollywood!
 
-There a few odd things.
+To make programs behave correctly, it's not always possible to be physically accurate. This section enumerates the places where we have "Hollywooded" things to provide close approximations and convincing behavior.
 
-* Since LightRays have a dependency on the `projectorScreen`, the `projectorScreen` model is instantiated within the
-  common model. However, we note that there is no counterpart `ProjectionScreenNode` within the `MirrorScreen` since the
-  mirror screen does not have a light source representation.
-* The `Optic` model takes an index of refraction has a parameter. Physical mirror do not have an index of refraction,
-  but for the purposes of the simulation, we can make our model mirror to be functionally equivalent to a lens with an
-  index of refraction of 2.
-* The shape of the lens as well as the refraction of the rays within the lens is hollywooded. This leads to a few
-  artefacts that we attempted to minimize, but unfortunately complicates the codebase.
-* There is a not a one-to-one correspondence between the model instances and view instances.
-    - There is one instance of opticNode that depends on one optic model (so far so good).
-    - There is one instance of targetNode that depends on the firstTarget model. The secondTarget model does not have a
-      targetNode component but is used by the secondLightRay and projectorScreen.
-    - There is one objectSourceNode and one objectSource model. The position of the first and second source are embedded
-      within the `objectSourceModel`.
+* Physical mirrors do not have an index of refraction. Our mirror is modeled as a lens with index of refraction = 2. See `INDEX_OF_REFRACTION_RANGE` in [Mirror.ts](https://github.com/phetsims/geometric-optics/blob/master/js/mirror/model/Mirror.ts).
+
+* A flat mirror is modeled as a convex mirror with very large focal length. See `FLAT_MIRROR_FINITE_FOCAL_LENGTH` in [Optic.ts](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/Optic.ts). PhET-iO clients should therefore be warned that model Properties are not accurate for the flat mirror. For example, focal length will be a very large number, not infinity.
+  
+* The shape of the lens, as well as the refraction of the rays within the lens, is "Hollywooded". This leads to a few artifacts that we have attempted to minimize. See the `isHollywooded` option to [LensShapes.ts](https://github.com/phetsims/geometric-optics/blob/master/js/lens/model/LensShapes.ts).
+
+* To ensure that rays pass through the optic, the optical object is always at least 40 cm from the optic, and never more than 100 cm from the optical axis. See `MIN_DISTANCE_FROM_OBJECT_TO_OPTIC` and `MAX_DISTANCE_FROM_OBJECT_TO_OPTICAL_AXIS` in [GOConstants.ts](https://github.com/phetsims/geometric-optics/blob/master/js/common/GOConstants.ts).
+
+* To ensure that at least 2 rays pass through the optic, the "Many" mode for Rays dynamically varies the number of rays based on the object's distance from the object. See `'many'` in [LightRays.ts](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/LightRays.ts).
