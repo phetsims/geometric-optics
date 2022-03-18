@@ -60,8 +60,7 @@ dispose() {
 # Model
 
 The main model class
-is [GOModel](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/GeometricOpticsModel.js)
-.
+is [GOModel](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/GeometricOpticsModel.js).
 
 There are a three top-level model elements in GOModel that play an essential role, namely `FramedObject`
 , `Optic` and `FramedImage`. This trifecta of elements rules the entire simulation. Each of them is a component of the
