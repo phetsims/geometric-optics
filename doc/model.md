@@ -25,7 +25,7 @@ Since this term conflicts with the name of PhET's `scenery.Image` class, we use 
 
 **Virtual Image:** An image for which light rays do not physically intersect at the image point but appears to diverge from that point.
 
-**Screen**: A surface perpendicular to the optical axis, onto which light is projected. Since this term conflicts with the name of PhET's `joist.Screen` class, we use **ProjectorScreen** throughout the code.
+**Screen**: A surface perpendicular to the optical axis, onto which light is projected. Since this term conflicts with the name of PhET's `joist.Screen` class, we use **ProjectorScreen** in the code.
 
 **First Principal Focus:** A beam of light incident parallel to the optical axis, after reaching the optical element, will either actually converge to or appear to diverge from a fixed point on the optical axis. This fixed point is called the "first principal focus".
 
