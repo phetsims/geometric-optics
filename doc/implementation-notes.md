@@ -119,7 +119,9 @@ There are a few top-level view elements:
 
 Properties in [VisibileProperties](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/VisibleProperties.js) are used to toggle the visibility of Nodes.
 
-# Constraints
+# Hollywood!
+
+To make programs behave correctly, it's not always possible to be physically accurate. This section enumerates the places where we have "Hollywooded" things to provide close approximations and convincing behavior.
 
 To ensure that rays pass through the optic, the optical object is always at least 40 cm from the optic, and never more than 100 cm from the optical axis. 
 
