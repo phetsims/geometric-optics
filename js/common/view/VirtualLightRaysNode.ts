@@ -34,7 +34,7 @@ class VirtualLightRaysNode extends LightRaysNode {
     const update = ( thisNode: Node ) => {
       thisNode.children = LightRaysNode.segmentsToLines( lightRays.virtualSegments, modelViewTransform, {
         stroke: providedOptions.stroke,
-        lineWidth: GOQueryParameters.raysLineWidth,
+        lineWidth: GOQueryParameters.virtualRaysLineWidth,
         lineDash: [ 3, 3 ],
         opacity: 0.5
       } );

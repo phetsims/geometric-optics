@@ -58,7 +58,13 @@ const SCHEMA_MAP = {
   // Internal query parameters
   //----------------------------------------------------------------------------------------------------------------
 
-  raysLineWidth: {
+  realRaysLineWidth: {
+    type: 'number',
+    defaultValue: 2,
+    isValidValue: ( raysLineWidth: number ) => ( raysLineWidth > 0 )
+  },
+
+  virtualRaysLineWidth: {
     type: 'number',
     defaultValue: 2,
     isValidValue: ( raysLineWidth: number ) => ( raysLineWidth > 0 )

@@ -34,7 +34,7 @@ class RealLightRaysNode extends LightRaysNode {
     const update = ( thisNode: Node ) => {
       thisNode.children = LightRaysNode.segmentsToLines( lightRays.realSegments, modelViewTransform, {
         stroke: providedOptions.stroke,
-        lineWidth: GOQueryParameters.raysLineWidth
+        lineWidth: GOQueryParameters.realRaysLineWidth
       } );
     };
 
