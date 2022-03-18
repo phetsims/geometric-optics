@@ -55,11 +55,11 @@ _d<sub>i</sub>_ = distance from the optic to the image
 
 This simulation supports two types of optics: lens (convex, concave) and mirror (convex, concave, flat). The lens is considered to be ideal, and free of spherical and comatic aberrations.
 
-The radius of curvature is identical for both surfaces of our optics.
-
 The mirror is modeled as a lens with index of refraction = 2. The flat mirror is modeled as a convex mirror with a very large radius of curvature (100,000 cm).
 
 The position of the optic is fixed at (0,0).
+
+The radius of curvature is identical for both surfaces of our optics.
 
 For the lens, magnitude of the focal length is given by the _lens-maker's equation_, _f = R/(2(1-n))_. For the mirror, magnitude of the focal length is determined by the paraxial approximation, given by _f = R/2_. As for the sign, the focal length _f_ is positive for converging optics (convex lens, concave mirror) and negative for diverging optics (concave lens, convex mirror).
 
