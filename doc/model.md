@@ -31,13 +31,19 @@ In the case of a mirror, the magnitude of the focal length is determined in the 
 As for the sign, the focal length `f` is positive for converging optical elements (convex lenses and concave mirrors)
 and negative for diverging optical elements (concave lenses and convex mirrors)
 
+### Object
+
+The position of the object is constrained such that it is always to the left of the optic.
+
+To avoid problematic cases, the object is always at least 40 cm from the optic, and never more than 100 cm from the optical axis.
+
 ### Image
 
 For the lens, the position of the image is approximated by the _thin lens equation_, which states that `1/d_o + 1/d_i = 1/f`, where `d_o` is the distance from the optic to the object, `d_i` is the distance from the optic to the image, and `f` is the focal length of the lens.
 
-For lenses, the image distance `d_i` is positive for images on the opposite side of the optic (real images). If the image and object are on the same side of the lens, the image distance is negative (virtual images).
+For lenses, the image distance `d_i` is positive for images to the right of the optic (real images), and negative for images to the left of the optic (virtual images).
 
-A similar equation holds for mirrors, but where the sign convention of the distance is reversed. The image distance `d_i` is positive for images on the same side of the optic (real images). If the image is on opposite side of the optic, the image distance is negative (virtual images).
+A similar equation holds for mirrors, but where the sign convention of the distance is reversed. The image distance `d_i` is positive for images to the left of the optic (real images), and negative for images to the right of the optic (virtual images).
 
 ### Rays
 
