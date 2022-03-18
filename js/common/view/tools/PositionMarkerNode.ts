@@ -109,7 +109,8 @@ class PositionMarkerNode extends GOToolNode {
     } );
 
     // Return the tool to the toolbox if the marker's bounds intersect the toolbox.
-    const shouldReturnToToolbox = () => this.toolboxBounds.intersectsBounds( this.parentToGlobalBounds( this.bounds ) );
+    // toolboxNode should be set by the time this is called.
+    const shouldReturnToToolbox = () => this.toolboxNode!.intersectsGlobalBounds( this.parentToGlobalBounds( this.bounds ) );
 
     // Dragging with the pointer.
     this.dragListener = new GOToolDragListener( positionMarker, this, zoomTransformProperty, this.dragBoundsProperty,
