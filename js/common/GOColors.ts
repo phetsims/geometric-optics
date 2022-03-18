@@ -8,11 +8,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import PhetColorScheme from '../../../scenery-phet/js/PhetColorScheme.js';
 import RulerNode from '../../../scenery-phet/js/RulerNode.js';
 import { Color, ProfileColorProperty } from '../../../scenery/js/imports.js';
 import geometricOptics from '../geometricOptics.js';
 
-const SECOND_OBJECT_COLOR = 'rgb( 255, 51, 51 )'; // BEWARE: If you change this, you should update light2.png.
+const SECOND_OBJECT_COLOR = PhetColorScheme.RED_COLORBLIND; // BEWARE: If you change this, you should update light2.png.
 const POSITION_MARKER_FILL = RulerNode.DEFAULT_FILL;
 const POSITION_MARKER_STROKE = 'black';
 
