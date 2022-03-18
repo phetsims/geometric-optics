@@ -60,10 +60,10 @@ The mirror is modeled as a lens with index of refraction = 2. The flat mirror is
 
 The position of the optic is fixed at (0,0).
 
-For the lens, magnitude of the focal length is given by `f = R/(2(1-n)))`.
+For the lens, magnitude of the focal length is given by _f = R/(2(1-n)))_.
 
 For the mirror, magnitude of the focal length is determined in the paraxial approximation, given by
-`f = R/2`.
+_f = R/2_.
 
 As for the sign, the focal length `f` is positive for converging optic (convex lenses and concave mirrors)
 and negative for diverging optic (concave lenses and convex mirrors)
