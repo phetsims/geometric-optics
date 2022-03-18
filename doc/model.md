@@ -43,6 +43,8 @@ For lenses, the image distance `d_i` is positive for images to the right of the 
 
 A similar equation holds for mirrors, but where the sign convention is reversed. The image distance `d_i` is positive for images to the left of the optic (real images), and negative for images to the right of the optic (virtual images).
 
+For both lenses and mirrors, a positive image distance results in a real image, while a negative image distance results in a virtual image.
+
 ### Rays
 
 "Principal" rays help identify the position of the image. The principal rays are not physical
