@@ -119,21 +119,10 @@ There are a few top-level view elements:
 
 Properties in [VisibileProperties](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/VisibleProperties.js) are used to toggle the visibility of Nodes.
 
-## Gotchas
+## Constraints
 
-There a few odd things.
+Physical mirrors do not have an index of refraction. But for the purposes of the simulation, we model our mirror as a lens with index of refraction = 2.
 
-* Since LightRays have a dependency on the `projectorScreen`, the `projectorScreen` model is instantiated within the
-  common model. However, we note that there is no counterpart `ProjectionScreenNode` within the `MirrorScreen` since the
-  mirror screen does not have a light source representation.
-* The `Optic` model takes an index of refraction has a parameter. Physical mirror do not have an index of refraction,
-  but for the purposes of the simulation, we can make our model mirror to be functionally equivalent to a lens with an
-  index of refraction of 2.
-* The shape of the lens as well as the refraction of the rays within the lens is hollywooded. This leads to a few
-  artefacts that we attempted to minimize, but unfortunately complicates the codebase.
-* There is a not a one-to-one correspondence between the model instances and view instances.
-    - There is one instance of opticNode that depends on one optic model (so far so good).
-    - There is one instance of targetNode that depends on the firstTarget model. The secondTarget model does not have a
-      targetNode component but is used by the secondLightRay and projectorScreen.
-    - There is one objectSourceNode and one objectSource model. The position of the first and second source are embedded
-      within the `objectSourceModel`.
+A flat mirror is modeled as a convex mirror with large radius of curvature (100,000cm). PhET-iO clients should therefore be warned that model Properties are not accurate for the flat mirror. For example, focal length will be a very large number, not infinity.
+  
+The shape of the lens, as well as the refraction of the rays within the lens, is "Hollywooded". This leads to a few artifacts that we have attempted to minimize.
