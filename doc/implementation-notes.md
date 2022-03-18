@@ -21,7 +21,7 @@ In addition to this document, you are encouraged to read:
 
 ### Model-View Transforms
 
-This simulation makes use of 2 model-view transforms to map model coordinates (in cm) to the view coordinates.
+This simulation makes use of 2 model-view transforms to map model coordinates (in cm) to view coordinates.
 
 The first transform handles the static mapping, see `const modelViewTransform` is GOScreenView.ts. The model has +x to the left, and +y up, and scaling is isometric in both directions. In the _Lens_ screen, the origin (0,0) in the model coordinate frame is near the center of the ScreenView. In the _Mirror_ screen, the origin is shift to the right, to accommodate the behavior of mirrors.
 
