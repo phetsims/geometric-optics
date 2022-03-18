@@ -45,7 +45,7 @@ class OpticalObject extends PhetioObject {
   public readonly positionProperty: Property<Vector2>;
 
   // x distance between the optic and object
-  public readonly opticObjectDistanceProperty: IReadOnlyProperty<number>;
+  public readonly objectDistanceProperty: IReadOnlyProperty<number>;
 
   // Resets things that are specific to this class.
   private readonly resetOpticalObject: () => void;
@@ -81,10 +81,10 @@ class OpticalObject extends PhetioObject {
       tandem: options.tandem.createTandem( 'positionProperty' )
     } );
 
-    this.opticObjectDistanceProperty = new DerivedProperty( [ opticPositionProperty, this.positionProperty ],
+    this.objectDistanceProperty = new DerivedProperty( [ opticPositionProperty, this.positionProperty ],
       ( opticPosition: Vector2, opticalObjectPosition: Vector2 ) => ( opticPosition.x - opticalObjectPosition.x ), {
         units: 'cm',
-        tandem: options.tandem.createTandem( 'opticObjectDistanceProperty' ),
+        tandem: options.tandem.createTandem( 'objectDistanceProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
         phetioDocumentation: 'horizontal distance from the optical object to the optic'
       } );
