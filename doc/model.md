@@ -14,7 +14,7 @@ worthwhile to define some terms used throughout the simulation.
 
 **Optic**: an optical element or optical component in an optical instrument or system (e.g. lens, mirror)
 
-**Optical Axis:** The straight horizontal line passing through the center of curvature and pole of an optical element. It is also called the "principal axis".
+**Optical Axis:** The horizontal axis passing through the center of curvature and pole of an optical element. It is also called the "principal axis".
 
 **Object:**  Anything that can be viewed. Since this term conflicts with the name of JavaScript's `Object` class, we use **Optical Object** in the code.
 
