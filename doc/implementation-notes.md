@@ -57,71 +57,10 @@ dispose() {
 }
 ```
 
-# Model
-
-The main model class
-is [GOModel](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/GeometricOpticsModel.js).
-
-There are a three top-level model elements in GOModel that play an essential role, namely `FramedObject`
-, `Optic` and `FramedImage`. This trifecta of elements rules the entire simulation. Each of them is a component of the
-thin-lens and mirror equation. It is important to note that all the light rays do not drive the model, but take their
-marching orders from the trifecta.
-
-* [FramedObject](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/SourceObject.js) is the first
-  object/source.
-* [SecondPoint](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/SecondSource.js) is the second
-  object/source.
-* [Optic](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/Optic.js) is the optic, a lens or
-  mirror. It is responsible for the optical element position, diameter, curvature radius and refractive index. The
-  previous Properties are used to determine the focal length. Optic is also responsible for the shape of the optical
-  element, which can be used for ray hit-testing, as well as drawing its shape.
-* [FramedImage](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/Target.js) is the optical image (real or vitual). It is responsible for the
-  position of the target, its bounds and scale. It includes multiple methods that determine if the target is
-  real/virtual, inverted/upright, etc.
-
-The client can select from the combox box what we refer to as a representation of the object/source.
-
-* [Representation](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/Representation.js) is the
-  class responsible for the representation of the object and target. The representation provide a map to images with
-  different orientations that can be used to display source/object images and target images as well as the image logo.
-  The position of "interesting" points within images is defined in the representation.
-
-Light rays form an important aspect of this simulation. There are three model classes responsible for the rays:
-
-* [Ray](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/Ray.js) is a representation of a
-  finite, or semi-infinite straight rays. A ray can only be straight, not refracted. Note that `Ray` extends `dot/Ray2`.
-* [LightRay](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/LightRay.js) is a representation
-  of a ray emanating from a source or object. `LightRay` has a time dependencies. A `LightRay` can be refracted or
-  reflected from an optical element. It can even fork into a virtual and real ray. A `LightRay` is usually composed of one or more
-  `Rays`. A `LightRay` converts its rays at that point in time into `kite/Shape`. It can indicate if it has reached a target
-  or the projector screen.
-* [LightRays](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/LightRays.js) is a representation
-  of a bundle of light rays. LightRays depends on the `RayMode`. The bundle of light rays emerge from a single
-  object/source position. An additional responsibility of LightRays is to indicate if one of its ray has reached a
-  target, or projector screen.
-
-We note that each light ray depends on the trifecta (FramedObject, Optic and FramedImage) and their path is determined based
-on this information. This insures that all rays can converge to the same target.
-
-# View
-
-There are a few top-level view elements:
-
-* [OpticNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/OpticNode.js) renders
-  the optical element (Lens or Mirror).
-* [FramedObjectNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/SourceObjectNode.js) renders framed objects.
-* [SecondPointNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/SecondSourceNode.js) renders the second point-of-interest on a framed object.
-* [FramedImageNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/FramedImageNode.js) renders
-  the optical image associated with a framed object.
-* [RealLightRaysNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/RealLightRaysNode.js) and 
-[VirtualLightRaysNode](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/VirtualLightRaysNode.js)
-  render real and virtual light rays respectively.
-
-Properties in [VisibileProperties](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/VisibleProperties.js) are used to toggle the visibility of Nodes.
 
 # Hollywood!
 
-To make programs behave correctly, it's not always possible to be physically accurate. This section enumerates the places where we have "Hollywooded" things to provide close approximations and convincing behavior.
+To write well-behaved programs, it's not always possible to be physically accurate. This section enumerates the places where we have "Hollywooded" things to provide close approximations and convincing behavior.
 
 * Physical mirrors do not have an index of refraction. Our mirror is modeled as a lens with index of refraction = 2. See `INDEX_OF_REFRACTION_RANGE` in [Mirror.ts](https://github.com/phetsims/geometric-optics/blob/master/js/mirror/model/Mirror.ts).
 
