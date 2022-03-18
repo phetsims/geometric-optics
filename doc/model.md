@@ -40,17 +40,17 @@ Since this term conflicts with `SCENERY/Image`, we use the term **Optical Image*
 
 ## Abbreviations
 
-**f** = focal length
+_f_ = focal length
 
-**F** = focal point, at a distance **f** from the optic
+_F_ = focal point, at a distance **f** from the optic
 
-**n, IOR** = Index of Refraction
+_n, IOR_ = Index of Refraction
 
-**R, ROC** = Radius of Curvature
+_R, ROC_ = Radius of Curvature
 
-**d_o, d<sub>o</sub>** = distance from the optic to the object
+_d<sub>o</sub>_ = distance from the optic to the object
 
-**d_i, d<sub>i</sub>** = distance from the optic to the image
+_d<sub>i</sub>_ = distance from the optic to the image
 
 ## Optics (Lens and Mirror)
 
@@ -76,11 +76,11 @@ To avoid problematic cases, the object is always at least 40 cm from the optic, 
 
 ## Image
 
-The position of the image is approximated by the _thin lens equation_, given by `1/d_o + 1/d_i = 1/f`.
+The position of the image is approximated by the _thin lens equation_, given by _1/d<sub>o</sub> + 1/d<sub>i</sub> = 1/f_.
 
-For lenses, the image distance `d_i` is positive for images to the right of the lens (real images), and negative for images to the left of the lens (virtual images).
+For lenses, the image distance _d<sub>i</sub> is positive for images to the right of the lens (real images), and negative for images to the left of the lens (virtual images).
 
-A similar equation holds for mirrors, but where the sign convention is reversed. The image distance `d_i` is positive for images to the left of the mirror (real images), and negative for images to the right of the mirror (virtual images).
+A similar equation holds for mirrors, but where the sign convention is reversed. The image distance _d<sub>i</sub> is positive for images to the left of the mirror (real images), and negative for images to the right of the mirror (virtual images).
 
 For both lenses and mirrors, a positive image distance results in a real image, while a negative image distance results in a virtual image.
 
