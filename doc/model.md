@@ -9,11 +9,11 @@ It's assumed that the reader is familiar with geometric optics. Geometrical opti
 
 ## Optical Elements (Lens and Mirror)
 
-This simulation supports two types of optical elements (a.k.a _optics_): lens (convex, concave) and mirror (convex, concave, flat). The lens is considered to be ideal, and free of spherical and comatic aberrations.
+This simulation supports two types of optical elements: lens (convex, concave) and mirror (convex, concave, flat). The lens is considered to be ideal, and free of spherical and comatic aberrations.
 
 The mirror is modeled as a lens with index of refraction = 2. The flat mirror is modeled as a convex mirror with a very large radius of curvature (100,000 cm).
 
-The position of the optic is fixed at (0,0).
+The position of the optical element is fixed at (0,0).
 
 For the lens, magnitude of the focal length is given by `f = R/(2(1-n)))`, where `R` is the radius of curvature and `n` is the index of refraction.
 
@@ -27,15 +27,15 @@ and negative for diverging optical elements (concave lenses and convex mirrors)
 
 The position of the object is constrained such that it is always to the left of the optic.
 
-To avoid problematic cases, the object is always at least 40 cm from the optic, and never more than 100 cm from the optical axis.
+To avoid problematic cases, the object is always at least 40 cm from the optical element, and never more than 100 cm from the optical axis.
 
 ## Image
 
-For the lens, the position of the image is approximated by the _thin lens equation_, given by `1/d_o + 1/d_i = 1/f`, where `d_o` is the distance from the optic to the object, `d_i` is the distance from the optic to the image, and `f` is the focal length of the lens.
+The position of the image is approximated by the _thin lens equation_, given by `1/d_o + 1/d_i = 1/f`, where `d_o` is the distance from the lens to the object, `d_i` is the distance from the lens to the image, and `f` is the focal length of the lens.
 
-For lenses, the image distance `d_i` is positive for images to the right of the optic (real images), and negative for images to the left of the optic (virtual images).
+For lenses, the image distance `d_i` is positive for images to the right of the lens (real images), and negative for images to the left of the lens (virtual images).
 
-A similar equation holds for mirrors, but where the sign convention is reversed. The image distance `d_i` is positive for images to the left of the optic (real images), and negative for images to the right of the optic (virtual images).
+A similar equation holds for mirrors, but where the sign convention is reversed. The image distance `d_i` is positive for images to the left of the mirror (real images), and negative for images to the right of the mirror (virtual images).
 
 For both lenses and mirrors, a positive image distance results in a real image, while a negative image distance results in a virtual image.
 
@@ -54,7 +54,7 @@ image. For instance, for the lens, the principal rays are defined by three rays:
 - A ray from the top of the object, proceeding parallel to the optical axis of the optical element. For a converging lens, the ray will pass through the principal focal point. For a diverging lens, the ray will proceed from the lens as if it emanated from the focal point on the near side of the lens.
 - A ray through the principal focal point on the near-side for a converging lens, or on the far-side for a diverging lens. The ray will proceed parallel to the optical axis upon exit from the lens.
 
-_Many_ rays consists of a 120-degree fan of rays. The number of rays varies with the distance of the object from the optic, such that at least 2 rays will pass through the optic.
+_Many_ rays consists of a 120-degree fan of rays. The number of rays varies with the distance of the object from the optical element, such that at least 2 rays will pass through the optic.
 
 ## _Lens_ screen
 
