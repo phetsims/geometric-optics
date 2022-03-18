@@ -7,9 +7,11 @@ This document is a high-level description of the model used in PhET's _Geometric
 
 It's assumed that the reader is familiar with geometric optics. Geometrical optics is a model of optics that describes light propagation in terms of rays. Rays are a useful abstraction for approximating the paths along which light propagates.
 
-## Optics (Lens and Mirror)
+## Terminology
 
-An _optic_ is an optical element or optical component in an optical instrument or system.
+**Optic**: an optical element or optical component in an optical instrument or system
+
+## Optics (Lens and Mirror)
 
 This simulation supports two types of optics: lens (convex, concave) and mirror (convex, concave, flat). The lens is considered to be ideal, and free of spherical and comatic aberrations.
 
