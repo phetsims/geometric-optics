@@ -45,6 +45,9 @@ class OpticalImage extends PhetioObject {
   // position of the optical image (the focus, as predicted by lens and mirror equation)
   public readonly positionProperty: IReadOnlyProperty<Vector2>;
 
+  // horizontal distance from optic to image, see phetioDocumentation
+  public readonly imageDistanceProperty: IReadOnlyProperty<number>;
+
   // whether the optical image is real or virtual
   public readonly opticalImageTypeProperty: IReadOnlyProperty<OpticalImageType>;
 
@@ -88,7 +91,7 @@ class OpticalImage extends PhetioObject {
                            'have reached the position where the image is formed.'
     } );
 
-    const imageDistanceProperty = new DerivedProperty(
+    this.imageDistanceProperty = new DerivedProperty(
       [ opticalObject.objectDistanceProperty, optic.focalLengthProperty ],
       ( objectDistance: number, focalLength: number ) => {
 
@@ -124,7 +127,7 @@ class OpticalImage extends PhetioObject {
       } );
 
     this.magnificationProperty = new DerivedProperty(
-      [ opticalObject.objectDistanceProperty, imageDistanceProperty ],
+      [ opticalObject.objectDistanceProperty, this.imageDistanceProperty ],
       ( objectDistance: number, imageDistance: number ) => {
 
         // prevent division by zero
@@ -141,24 +144,22 @@ class OpticalImage extends PhetioObject {
       } );
 
     this.positionProperty = new DerivedProperty(
-      [ opticalObjectPositionProperty, optic.positionProperty, imageDistanceProperty, this.magnificationProperty ],
+      [ opticalObjectPositionProperty, optic.positionProperty, this.imageDistanceProperty, this.magnificationProperty ],
       ( opticalObjectPosition: Vector2, opticPosition: Vector2, imageDistance: number, magnification: number ) => {
 
         // The height is determined as the vertical offset from the optical axis of the focus point.
         // The height will be negative if the optical image is inverted.
         const height = magnification * ( opticalObjectPosition.y - opticPosition.y );
 
-        // Recall that the sign is different for lens vs mirror.
-        const horizontalDisplacement = optic.sign * imageDistanceProperty.value;
-
-        return opticPosition.plusXY( horizontalDisplacement, height );
+        // Recall that the sign is different for lens vs mirror. See phetioDocumentation for imageDistanceProperty.
+        return opticPosition.plusXY( optic.sign * imageDistance, height );
       }, {
         units: 'cm',
         tandem: options.tandem.createTandem( 'positionProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
       } );
 
-    this.opticalImageTypeProperty = new DerivedProperty( [ imageDistanceProperty ],
+    this.opticalImageTypeProperty = new DerivedProperty( [ this.imageDistanceProperty ],
       ( imageDistance: number ) => ( imageDistance < 0 ) ? 'virtual' : 'real', {
         tandem: options.tandem.createTandem( 'opticalImageTypeProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( StringIO ),
