@@ -23,24 +23,28 @@ In addition to this document, you are encouraged to read:
 
 This simulation makes use of 2 model-view transforms to map model coordinates (in cm) to view coordinates.
 
-The first transform is a static mapping, see `const modelViewTransform` is GOScreenView.ts. The model has +x to the left, and +y up, and scaling is isometric in both directions. In the _Lens_ screen, the origin (0,0) in the model coordinate frame is near the center of the ScreenView. In the _Mirror_ screen, the origin is shift to the right, to accommodate the behavior of mirrors.
+The first transform is a static mapping, see `const modelViewTransform` in [GOScreenView.ts](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/GOScreenView.ts). The model has +x to the left, and +y up, and scaling is isometric in both directions. In the _Lens_ screen, the origin (0,0) in the model coordinate frame is near the center of the ScreenView. In the _Mirror_ screen, the origin is shift to the right, to accommodate the behavior of mirrors.
 
-The second transform is a dynamic mapping, based on zoom level, see `const zoomTransformProperty` in GOScreenView.ts. This transform is applied to all all elements within a "scene" (optic, objects, images, rays, projection screen).
+The second transform is a dynamic mapping, based on zoom level, see `const zoomTransformProperty` in [GOScreenView.ts](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/GOScreenView.ts). This transform is applied to all all elements within a "scene" (optic, objects, images, rays, projection screen).
 
 Rulers change their tick marks to match the zoom level, but otherwise do not change position or size. 
 
 Labels change their position to match the zoom level, but otherwise do not change this size.
 
+### Query Parameters
+
+Query parameters are used to enable sim-specific features. Sim-specific query parameters are documented in
+[GOQueryParameters.ts](https://github.com/phetsims/geometric-optics/blob/master/js/common/GOQueryParameters.ts).
+Running with `?log` will print the complete set of query parameters (common-code, PhET-iO, and sim-specific)
+to the browser console.
+
 ### Memory management
 
 * **Dynamic allocation:** Most objects in this sim are allocated at startup, and exist for the lifetime of the simulation. The exception is GOOptionsDialogNode.ts and its children, which must all implemented `dispose`. This is the content for the Options dialog, and is instantiated each time the Options menu item is selected from the PhET menu.
 
-* **Listeners**: Unless otherwise noted in the code, all uses of `link`, `addListener`, etc. do NOT need a corresponding
-  `unlink`, `removeListener`, etc.
+* **Listeners**: Unless otherwise noted in the code, all uses of `link`, `addListener`, etc. do NOT need a corresponding `unlink`, `removeListener`, etc.
 
-* **dispose**: Most sim-specific classes are not intended to be disposed, and therefore do not properly implement
-`dispose`.  Those classes will either have no `dispose` method, or will override their interited `dispose`
-method like this:
+* **dispose**: All classes have a `dispose` method. Sim-specific classes whose instances exist for the lifetime of the sim are not intended to be disposed, and their `dispose` implementation looks like this:
 
 ```js
 /**
