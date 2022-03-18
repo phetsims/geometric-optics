@@ -11,6 +11,30 @@ It's assumed that the reader is familiar with geometric optics. Geometrical opti
 
 **Optic**: an optical element or optical component in an optical instrument or system
 
+**Optical Axis:** The straight horizontal line passing through the center of curvature and pole of an optical element. It is also called the "principal axis".
+
+**Object:**  Anything that can be viewed. Since this term conflicts with JavaScript's `Object` type, we 
+use **Optical Object** in the code.
+
+**Image:** The likeness of an object produced at a point in space by an optic.
+Since this term conflicts with `SCENERY/Image`, we use the term **Optical Image** in the code.
+
+**Real image:** An image for which light rays physically intersect at the image location.
+
+**Virtual Image:** An image for which light rays do not physically intersect at the image point but appears to diverge from that point.
+
+**Screen**: Light is projected onto a screen. Since this term conflicts with `SCENERY/Screen`, we use **ProjectorScreen** throughout the code.
+
+**First Principal Focus:** A beam of light incident parallel to the optical axis, after reaching the optical element, will either actually converge to or appear to diverge from a fixed point on the optical axis. The fixed point is called the "First Principal focus".
+
+**Second Principal Focus:** The point opposite to the first principal focus from the optical element.
+
+**distance**: In optics, a distance is always measured horizontally, and can be positive or negative. 
+
+**height**: The height in optics is always measured from the optical axis. A positive (negative) height indicates the object is above (below) the optical axis.
+
+**Guide:** This is a representation invented by PhET, used in the simulation to denote the bending of the light due to a lens. A guide is attached to the ends of the lens and can freely rotate from its fulcrum point.
+
 ## Optics (Lens and Mirror)
 
 This simulation supports two types of optics: lens (convex, concave) and mirror (convex, concave, flat). The lens is considered to be ideal, and free of spherical and comatic aberrations.
