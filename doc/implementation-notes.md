@@ -121,7 +121,7 @@ Properties in [VisibileProperties](https://github.com/phetsims/geometric-optics/
 
 # Hollywood!
 
-To ensure that at least 2 rays pass through the optic, the "Many" mode for Rays dynamically varies the number of rays based on the object's distance from the object. See `'many'` in [LightRays.ts](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/LightRays.ts).
+To make programs behave correctly, it's not always possible to be physically accurate. This section enumerates the places where we have "Hollywooded" things to provide close approximations and convincing behavior.
 
 Physical mirrors do not have an index of refraction. Our mirror is modeled as a lens with index of refraction = 2. See `INDEX_OF_REFRACTION_RANGE` in [Mirror.ts](https://github.com/phetsims/geometric-optics/blob/master/js/mirror/model/Mirror.ts).
 
@@ -129,6 +129,6 @@ A flat mirror is modeled as a convex mirror with very large focal length. See `F
   
 The shape of the lens, as well as the refraction of the rays within the lens, is "Hollywooded". This leads to a few artifacts that we have attempted to minimize. See the `isHollywooded` option to [LensShapes.ts](https://github.com/phetsims/geometric-optics/blob/master/js/lens/model/LensShapes.ts).
 
-To make programs behave correctly, it's not always possible to be physically accurate. This section enumerates the places where we have "Hollywooded" things to provide close approximations and convincing behavior.
-
 To ensure that rays pass through the optic, the optical object is always at least 40 cm from the optic, and never more than 100 cm from the optical axis. 
+
+To ensure that at least 2 rays pass through the optic, the "Many" mode for Rays dynamically varies the number of rays based on the object's distance from the object. See `'many'` in [LightRays.ts](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/LightRays.ts).
