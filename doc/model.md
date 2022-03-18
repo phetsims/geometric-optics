@@ -61,6 +61,8 @@ image. For instance, for the lens, the principal rays are defined by three rays:
 - A ray through the principal focal point on the near-side for a converging lens, or on the far-side for a diverging lens. The
   ray will proceed parallel to the optical axis upon exit from the lens.
 
+"Many" rays consists of a 120-degree fan of rays. The number of rays varies with the distance of the object from the optic, such that at least 2 rays will pass through the optic.
+
 ### _Lens_ screen
 
 The _Lens_ screen includes features not found on the _Mirror_ screen.
