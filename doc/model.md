@@ -21,7 +21,7 @@ The mirror is modeled as a lens with index of refraction = 2. The flat mirror is
 
 The position of the optic is fixed at (0,0).
 
-For the lens, magnitude of the focal length is given by `f = R/(2(1-n)))`, where `n` is the index of refraction, and `R` is the radius of curvature of the lens.
+For the lens, magnitude of the focal length is given by `f = R/(2(1-n)))`, where `R` is the radius of curvature and `n` is the index of refraction.
 
 For the mirror, magnitude of the focal length is determined in the paraxial approximation, given by
 `f = R/2`.
