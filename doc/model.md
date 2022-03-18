@@ -47,7 +47,7 @@ For both lenses and mirrors, a positive image distance results in a real image, 
 
 ### Rays
 
-The simulation provides three representation for rays.
+Rays propagate from a point on the object. The simulation provides three representation for rays.
 
 "Marginal" rays, also called rim rays, are the rays that start at the object and touch the edges of the lens. The
 marginal rays emphasize the limiting aperture associated with an optical element.
