@@ -123,7 +123,7 @@ Properties in [VisibileProperties](https://github.com/phetsims/geometric-optics/
 
 To ensure that rays pass through the optic, the optical object is always at least 40 cm from the optic, and never more than 100 cm from the optical axis. 
 
-To ensure that at least 2 rays pass through the optic, the "Many" mode for Rays dynamically varies the number of rays based on the object's distance from the object. See `'many'` in [LightRays.ts](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/LightRays.ts.
+To ensure that at least 2 rays pass through the optic, the "Many" mode for Rays dynamically varies the number of rays based on the object's distance from the object. See `'many'` in [LightRays.ts](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/LightRays.ts).
 
 Physical mirrors do not have an index of refraction. Our mirror is modeled as a lens with index of refraction = 2.
 
