@@ -35,10 +35,10 @@ const GOConstants = {
   MIN_DISTANCE_FROM_OBJECT_TO_OPTIC: 40, // cm
   MIN_DISTANCE_FROM_OPTIC_TO_PROJECTION_SCREEN: 60, // cm
 
-  // Maximum distance that things can be dragged vertically from the optical axis, in cm. This is constrained to
+  // Maximum distance that objects can be dragged vertically from the optical axis, in cm. This is constrained to
   // prevent cases where the optical object is close to the optic and no 'Many' rays go through the optic.
   // See https://github.com/phetsims/geometric-optics/issues/289
-  MAX_DISTANCE_FROM_OPTICAL_AXIS: 100, // cm
+  MAX_DISTANCE_FROM_OBJECT_TO_OPTICAL_AXIS: 100, // cm
 
   // Rulers ------------------------------------------------------------------------------------------------------------
 

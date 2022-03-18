@@ -160,7 +160,7 @@ class GOScreenView extends ScreenView {
     const sceneBoundsProperty = new DerivedProperty(
       [ modelVisibleBoundsProperty ],
       ( modelVisibleBounds: Bounds2 ) => {
-        const y = GOConstants.MAX_DISTANCE_FROM_OPTICAL_AXIS;
+        const y = GOConstants.MAX_DISTANCE_FROM_OBJECT_TO_OPTICAL_AXIS;
         return new Bounds2( modelVisibleBounds.minX, -y, modelVisibleBounds.maxX, y );
       } );
 
