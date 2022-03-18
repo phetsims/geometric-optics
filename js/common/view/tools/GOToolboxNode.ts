@@ -14,8 +14,8 @@ import geometricOptics from '../../../geometricOptics.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import GOToolNode from './GOToolNode.js';
-import Property from '../../../../../axon/js/Property.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
+import Vector2 from '../../../../../dot/js/Vector2.js';
 
 type RulersToolboxOptions = PickRequired<PanelOptions, 'tandem'>;
 
@@ -45,13 +45,34 @@ class GOToolboxNode extends Panel {
 
     super( toolboxContent, options );
 
-    // Tell the tools where the toolbox is, in global view coordinates.
+    // Tell the tools that they are associated with this toolbox.
     // This allows tools to determine when they have been dragged back to the toolbox.
-    Property.multilink( [ this.boundsProperty, this.visibleProperty ],
-      ( bounds: Bounds2, visible: boolean ) => {
-        const toolboxBounds = visible ? this.parentToGlobalBounds( bounds ) : Bounds2.NOTHING;
-        toolNodes.forEach( toolNode => toolNode.setToolboxBounds( toolboxBounds ) );
-      } );
+    toolNodes.forEach( toolNode => toolNode.setToolboxNode( this ) );
+  }
+
+  /**
+   * Given a point in the global coordinate frame, is it inside the visible bounds of the toolbox?
+   * @param globalPoint
+   */
+  public containsGlobalPoint( globalPoint: Vector2 ): boolean {
+    return this.getGlobalVisibleBounds().containsPoint( globalPoint );
+  }
+
+  /**
+   * Given bounds in the global coordinate frame, do they intersect the visible bounds of the toolbox?
+   * @param globalBounds
+   */
+  public intersectsGlobalBounds( globalBounds: Bounds2 ): boolean {
+    return this.getGlobalVisibleBounds().intersectsBounds( globalBounds );
+  }
+
+  /**
+   * Gets the visible bounds of the toolbox in the global coordinate frame.
+   * While we do not move the toolbox, this cannot be considered static because of pan-&-zoom.
+   * See https://github.com/phetsims/geometric-optics/issues/388
+   */
+  private getGlobalVisibleBounds(): Bounds2 {
+    return this.visible ? this.getGlobalBounds() : Bounds2.NOTHING;
   }
 
   public dispose(): void {

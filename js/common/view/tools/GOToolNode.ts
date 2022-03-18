@@ -7,7 +7,6 @@
  */
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
-import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
@@ -15,6 +14,7 @@ import { DragListener, Node, NodeOptions, PressListenerEvent } from '../../../..
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import GOTool from '../../model/tools/GOTool.js';
 import ToolJumpPoint from './ToolJumpPoint.js';
+import GOToolboxNode from './GOToolboxNode.js';
 
 type SelfOptions = {
 
@@ -31,8 +31,8 @@ abstract class GOToolNode extends Node {
 
   protected abstract dragListener: DragListener;
 
-  // Bounds of the toolbox, in global view coordinates. This tells the tool where to return to.
-  public toolboxBounds: Bounds2;
+  // the toolbox that contains this tool, so the tool knows where to return to
+  public toolboxNode: GOToolboxNode | null;
 
   // positions that are 'interesting' to measure, for the J+P hotkey
   protected jumpPoints: ToolJumpPoint[];
@@ -57,7 +57,7 @@ abstract class GOToolNode extends Node {
 
     super( options );
 
-    this.toolboxBounds = Bounds2.NOTHING; // to be set later via setToolboxBounds
+    this.toolboxNode = null; // to be set later via setToolboxNode
     this.jumpPoints = [];
     this.jumpPointsIndex = 0;
 
@@ -67,11 +67,11 @@ abstract class GOToolNode extends Node {
   }
 
   /**
-   * Sets the bounds of the toolbox, so the ruler knows where to return to.
-   * @param toolboxBounds
+   * Sets the toolbox, so the ruler knows where to return to.
+   * @param toolboxNode
    */
-  public setToolboxBounds( toolboxBounds: Bounds2 ): void {
-    this.toolboxBounds = toolboxBounds;
+  public setToolboxNode( toolboxNode: GOToolboxNode ): void {
+    this.toolboxNode = toolboxNode;
   }
 
   /**
