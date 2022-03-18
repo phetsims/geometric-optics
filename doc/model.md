@@ -32,16 +32,11 @@ and negative for diverging optical elements (concave lenses and convex mirrors)
 
 ### Image
 
-For the lens, the position of the image is determined by the lens law, which states that `1/d_o + 1/d_i = 1/f`
-where `d_o` is the distance to the object, `d_i` is the distance to the image and `f` is the focal length of the optical
-element.
+For the lens, the position of the image is approximated by the thin lens equation, which states that `1/d_o + 1/d_i = 1/f`, where `d_o` is the distance from the optic to the object, `d_i` is the distance from the optic to the image and `f` is the focal length of the optical element.
 
-For lenses, the image distance `d_i` is positive for images on the far side of the object (real images). If the image
-and object are on the same side of the lens, the image distance is negative (virtual images).
+For lenses, the image distance `d_i` is positive for images on the opposite side of the optic (real images). If the image and object are on the same side of the lens, the image distance is negative (virtual images).
 
-A similar equation holds for mirrors, but where the sign convention of the distance is reversed. The image
-distance `d_i` is positive for images on the same side of the object (real images). If the image is on the far side of
-the object, the image distance is negative (virtual images).
+A similar equation holds for mirrors, but where the sign convention of the distance is reversed. The image distance `d_i` is positive for images on the same side of the optic (real images). If the image is on opposite side of the optic, the image distance is negative (virtual images).
 
 ### Rays
 
