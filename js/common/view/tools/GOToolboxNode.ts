@@ -1,7 +1,7 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * GOToolbox is the toolbox that holds the tools - rulers and position markers.
+ * GOToolboxNode is the toolbox that holds the tools - rulers and position markers.
  * It has no responsibility for the behavior of its contents (tools icons) or the tools themselves.
  *
  * @author Sarah Chang (Swarthmore College)
@@ -19,7 +19,7 @@ import Bounds2 from '../../../../../dot/js/Bounds2.js';
 
 type RulersToolboxOptions = PickRequired<PanelOptions, 'tandem'>;
 
-class GOToolbox extends Panel {
+class GOToolboxNode extends Panel {
 
   /**
    * @param toolNodes - in the order that they appear in the toolbox, left to right
@@ -60,5 +60,5 @@ class GOToolbox extends Panel {
   }
 }
 
-geometricOptics.register( 'GOToolbox', GOToolbox );
-export default GOToolbox;
+geometricOptics.register( 'GOToolboxNode', GOToolboxNode );
+export default GOToolboxNode;

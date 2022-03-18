@@ -32,7 +32,7 @@ import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
 import Property from '../../../../axon/js/Property.js';
 import { RaysType } from '../model/RaysType.js';
 import GORulerNode from './tools/GORulerNode.js';
-import GOToolbox from './tools/GOToolbox.js';
+import GOToolboxNode from './tools/GOToolboxNode.js';
 import FramedLabelsNode from './labels/FramedLabelsNode.js';
 import ArrowSceneNode from './ArrowSceneNode.js';
 import ArrowLabelsNode from './labels/ArrowLabelsNode.js';
@@ -181,40 +181,40 @@ class GOScreenView extends ScreenView {
     // Tools (Rulers & Position Markers) ===============================================================================
 
     const toolsTandem = options.tandem.createTandem( 'tools' );
-    const toolboxTandem = toolsTandem.createTandem( 'toolbox' );
+    const toolboxNodeTandem = toolsTandem.createTandem( 'toolboxNode' );
 
     const horizontalRulerNode = new GORulerNode( model.horizontalRuler, model.optic.positionProperty,
       zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, {
         tandem: toolsTandem.createTandem( 'horizontalRulerNode' ),
-        iconTandem: toolboxTandem.createTandem( 'horizontalRulerIcon' )
+        iconTandem: toolboxNodeTandem.createTandem( 'horizontalRulerIcon' )
       } );
 
     const verticalRulerNode = new GORulerNode( model.verticalRuler, model.optic.positionProperty,
       zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, {
         tandem: toolsTandem.createTandem( 'verticalRulerNode' ),
-        iconTandem: toolboxTandem.createTandem( 'verticalRulerIcon' )
+        iconTandem: toolboxNodeTandem.createTandem( 'verticalRulerIcon' )
       } );
 
     const positionMarker1Node = new PositionMarkerNode( model.positionMarker1, zoomTransformProperty,
       this.visibleBoundsProperty, {
         tandem: toolsTandem.createTandem( 'positionMarker1Node' ),
-        iconTandem: toolboxTandem.createTandem( 'positionMarker1Icon' )
+        iconTandem: toolboxNodeTandem.createTandem( 'positionMarker1Icon' )
       } );
 
     const positionMarker2Node = new PositionMarkerNode( model.positionMarker2, zoomTransformProperty,
       this.visibleBoundsProperty, {
         tandem: toolsTandem.createTandem( 'positionMarker2Node' ),
-        iconTandem: toolboxTandem.createTandem( 'positionMarker2Icon' )
+        iconTandem: toolboxNodeTandem.createTandem( 'positionMarker2Icon' )
       } );
 
     // Toolbox in the top-right corner of the screen
-    const toolbox = new GOToolbox( [ horizontalRulerNode, verticalRulerNode, positionMarker1Node, positionMarker2Node ], {
-      tandem: toolboxTandem
+    const toolboxNode = new GOToolboxNode( [ horizontalRulerNode, verticalRulerNode, positionMarker1Node, positionMarker2Node ], {
+      tandem: toolboxNodeTandem
     } );
 
     // Icons in the toolbox can be hidden via iO. So keep the toolbox positioned in the rightTop corner.
-    toolbox.boundsProperty.link( bounds => {
-      toolbox.rightTop = erodedLayoutBounds.rightTop;
+    toolboxNode.boundsProperty.link( bounds => {
+      toolboxNode.rightTop = erodedLayoutBounds.rightTop;
     } );
 
     const toolNodes: GOToolNode[] = [ horizontalRulerNode, verticalRulerNode, positionMarker2Node, positionMarker1Node ];
@@ -316,7 +316,7 @@ class GOScreenView extends ScreenView {
         opticalObjectChoiceComboBox,
         opticShapeRadioButtonGroup,
         objectDragModeToggleButton,
-        toolbox,
+        toolboxNode,
         zoomButtonGroup,
         lightPropagationToggleButton,
         controlPanel,
@@ -491,7 +491,7 @@ class GOScreenView extends ScreenView {
       opticalObjectChoiceComboBox,
       objectDragModeToggleButton,
       opticShapeRadioButtonGroup,
-      toolbox,
+      toolboxNode,
       zoomButtonGroup,
       lightPropagationToggleButton,
       controlPanel,
