@@ -12,7 +12,7 @@ It's assumed that the reader is familiar with geometric optics. Geometrical opti
 Since the language of optics is confusing, and terms overlap with those used in software development, it is
 worthwhile to define some terms used throughout the simulation.
 
-**Optic**: an optical element or optical component in an optical instrument or system
+**Optic**: an optical element or optical component in an optical instrument or system (e.g. lens, mirror)
 
 **Optical Axis:** The straight horizontal line passing through the center of curvature and pole of an optical element. It is also called the "principal axis".
 
