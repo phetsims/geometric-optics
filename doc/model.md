@@ -16,7 +16,7 @@ worthwhile to define some terms used throughout the simulation.
 
 **Optical Axis:** The straight horizontal line passing through the center of curvature and pole of an optical element. It is also called the "principal axis".
 
-**Object:**  Anything that can be viewed. Since this term conflicts with the name of JavaScript's `Object` clas, we 
+**Object:**  Anything that can be viewed. Since this term conflicts with the name of JavaScript's `Object` class, we 
 use **Optical Object** in the code.
 
 **Image:** The likeness of an object produced at a point in space by an optic.
