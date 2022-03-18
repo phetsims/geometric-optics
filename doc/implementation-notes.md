@@ -125,4 +125,4 @@ Physical mirrors do not have an index of refraction. Our mirror is modeled as a 
 
 A flat mirror is modeled as a convex mirror with large radius of curvature (100,000cm). PhET-iO clients should therefore be warned that model Properties are not accurate for the flat mirror. For example, focal length will be a very large number, not infinity.
   
-The shape of the lens, as well as the refraction of the rays within the lens, is "Hollywooded". This leads to a few artifacts that we have attempted to minimize. See the `isHollywooded` option to [LensShapes.ts](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/LensShapes.ts).
+The shape of the lens, as well as the refraction of the rays within the lens, is "Hollywooded". This leads to a few artifacts that we have attempted to minimize. See the `isHollywooded` option to [LensShapes.ts](https://github.com/phetsims/geometric-optics/blob/master/js/lens/model/LensShapes.ts).
