@@ -47,6 +47,9 @@ For both lenses and mirrors, a positive image distance results in a real image, 
 
 ### Rays
 
+"Marginal" rays, also called rim rays, are the rays that start at the object and touch the edges of the lens. The
+marginal rays emphasize the limiting aperture associated with an optical element.
+
 "Principal" rays help identify the position of the image. The principal rays are not physical
 rays and at times fail to go through the optic. Nevertheless, the method remains useful to find the location of the
 image. For instance, for the lens, the principal rays are defined by three rays:
@@ -57,9 +60,6 @@ image. For instance, for the lens, the principal rays are defined by three rays:
 - A ray through the center of the lens, which will be undeflected.
 - A ray through the principal focal point on the near-side for a converging lens, or on the far-side for a diverging lens. The
   ray will proceed parallel to the optical axis upon exit from the lens.
-
-"Marginal" rays, also called rim rays, are the rays that start at the object and touch the edges of the lens. The
-marginal rays emphasize the limiting aperture associated with an optical element.
 
 ### _Lens_ screen
 
