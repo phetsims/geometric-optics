@@ -37,7 +37,7 @@ To avoid problematic cases, the object is always at least 40 cm from the optic, 
 
 ### Image
 
-For the lens, the position of the image is approximated by the _thin lens equation_, which states that `1/d_o + 1/d_i = 1/f`, where `d_o` is the distance from the optic to the object, `d_i` is the distance from the optic to the image, and `f` is the focal length of the lens.
+For the lens, the position of the image is approximated by the _thin lens equation_, given by `1/d_o + 1/d_i = 1/f`, where `d_o` is the distance from the optic to the object, `d_i` is the distance from the optic to the image, and `f` is the focal length of the lens.
 
 For lenses, the image distance `d_i` is positive for images to the right of the optic (real images), and negative for images to the left of the optic (virtual images).
 
