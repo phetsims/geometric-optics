@@ -121,7 +121,7 @@ Properties in [VisibileProperties](https://github.com/phetsims/geometric-optics/
 
 # Constraints
 
-Physical mirrors do not have an index of refraction. But for the purposes of the simulation, we model our mirror as a lens with index of refraction = 2.
+Physical mirrors do not have an index of refraction. Our mirror is modeled as a lens with index of refraction = 2.
 
 A flat mirror is modeled as a convex mirror with large radius of curvature (100,000cm). PhET-iO clients should therefore be warned that model Properties are not accurate for the flat mirror. For example, focal length will be a very large number, not infinity.
   
