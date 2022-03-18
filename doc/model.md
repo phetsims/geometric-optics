@@ -62,6 +62,6 @@ The _Lens_ screen includes features not found on the _Mirror_ screen.
 
 **Light sources**: Light sources can be projected onto a screen. The light spots that appear on the screen are based on the aperture of the lens (i.e. its diameter) and the size of the light spot.
 
-**Guides**: Guides are a representation invented by PhET. They demonstrate the ability of lenses to bend light, and allow us to approximate the position of the image without performing ray tracing. The internal angle of the guides is a property of the focal length of the lens and its diameter. _NOTE: The Guides feature is not enabled by default, and can be enabled by running the simulation with query parameter `addGuidesCheckbox=true`._
+**Guides**: Guides are a representation invented by PhET. They demonstrate the ability of lenses to bend light, and allow us to approximate the position of the image without performing ray tracing. The internal angle of the guides is a property of the focal length of the lens and its diameter. _NOTE: The Guides feature is not enabled by default. Running the simulation with query parameter `addGuidesCheckbox=true` will add a "Guides" checkbox to the control panel._
 
 
