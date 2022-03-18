@@ -19,9 +19,6 @@ This simulation supports two types of optics: lenses (convex, concave) and mirro
 
 The mirror is modeled as a lens with index of refraction = 2. The flat mirror is modeled as a convex mirror with a very large radius of curvature (100000 cm).
 
-
-### Focal Length
-
 The magnitude of the focal length of the lens is given by `f = R/(2(1-n)))`
 where `n` is the index of refraction, and `R` is the radius of curvature of the lens.
 
