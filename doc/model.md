@@ -45,7 +45,7 @@ A similar equation holds for mirrors, but where the sign convention is reversed.
 
 For both lenses and mirrors, a positive image distance results in a real image, while a negative image distance results in a virtual image.
 
-### Rays
+### Ray Tracing
 
 Rays propagate from a point on the object, towards the optic. The simulation's ray tracer provides three representation for rays.
 
