@@ -162,8 +162,8 @@ abstract class GOSceneNode extends Node {
     // Rendering order is VERY important here.
     this.children = [
       opticalAxisNode,
-      this.raysBackgroundLayer,
       this.opticalObjectsLayer,
+      this.raysBackgroundLayer,
       this.opticalImagesLayer,
       this.opticalAxisForegroundLayer,
       opticNode,
