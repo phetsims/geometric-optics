@@ -158,7 +158,7 @@ class LightSceneNode extends GOSceneNode {
       projectionScreenNode
     ];
 
-    // Ruler J+P hotkey will cycle through these positions, dynamically looking at left-to-right x coordinate.
+    // J+P hotkey will cycle tools through these points, dynamically looking at left-to-right x coordinate.
     this.toolJumpPoints = [
       ...this.opticJumpPoints,
 

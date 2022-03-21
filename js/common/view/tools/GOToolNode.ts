@@ -67,7 +67,7 @@ abstract class GOToolNode extends Node {
   }
 
   /**
-   * Sets the toolbox, so the ruler knows where to return to.
+   * Sets the toolbox, so the tool knows where to return to.
    * @param toolboxNode
    */
   public setToolboxNode( toolboxNode: GOToolboxNode ): void {
@@ -92,7 +92,7 @@ abstract class GOToolNode extends Node {
   }
 
   /**
-   * Handles the J+P (Jump to Point) hotkey, which jumps (moves) the ruler to the next 'interesting' point.
+   * Handles the J+P (Jump to Point) hotkey, which jumps (moves) the tool to the next 'interesting' point.
    */
   public abstract jumpToPoint(): void;
 
