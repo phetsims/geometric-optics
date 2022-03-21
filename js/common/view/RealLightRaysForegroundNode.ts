@@ -30,7 +30,7 @@ class RealLightRaysForegroundNode extends RealLightRaysNode {
    * @param modelViewTransform
    * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
    * @param opticPositionProperty
-   * @param frameImagePositionProperty
+   * @param framedImagePositionProperty
    * @param opticalImageTypeProperty
    * @param providedOptions
    */
@@ -38,17 +38,18 @@ class RealLightRaysForegroundNode extends RealLightRaysNode {
                modelViewTransform: ModelViewTransform2,
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                opticPositionProperty: IReadOnlyProperty<Vector2>,
-               frameImagePositionProperty: IReadOnlyProperty<Vector2>,
+               framedImagePositionProperty: IReadOnlyProperty<Vector2>,
                opticalImageTypeProperty: IReadOnlyProperty<OpticalImageType>,
                providedOptions: RealLightRaysForegroundNodeOptions ) {
 
-    const options = optionize<RealLightRaysForegroundNodeOptions, {}, RealLightRaysNodeOptions, 'stroke'>( {
-      stroke: ( GOQueryParameters.debugRays ) ? 'red' : providedOptions.stroke
-    }, providedOptions );
+    const options = optionize<RealLightRaysForegroundNodeOptions, {}, RealLightRaysNodeOptions, 'stroke'>( {},
+      providedOptions, {
+        stroke: ( GOQueryParameters.debugRays ) ? 'red' : providedOptions.stroke
+      } );
 
     super( lightRays, modelViewTransform, options );
 
-    // Stroke the clipArea in red.
+    // Show the clipArea.
     let clipAreaNode: Path;
     if ( GOQueryParameters.debugRays ) {
       clipAreaNode = new Path( null, {
@@ -72,23 +73,23 @@ class RealLightRaysForegroundNode extends RealLightRaysNode {
 
         // real image
         const opticPosition = opticPositionProperty.value;
-        const frameImagePosition = frameImagePositionProperty.value;
+        const framedImagePosition = framedImagePositionProperty.value;
         const viewVisibleBounds = modelViewTransform.modelToViewBounds( modelVisibleBoundsProperty.value );
 
         let minX: number;
         let maxX: number;
-        if ( frameImagePosition.x > opticPosition.x ) {
+        if ( framedImagePosition.x > opticPosition.x ) {
 
           // For a real Image to the right of the optic, the clipArea is everything to the left of the Image,
           // because the Image is facing left in perspective.
           minX = viewVisibleBounds.minX;
-          maxX = modelViewTransform.modelToViewX( frameImagePosition.x );
+          maxX = modelViewTransform.modelToViewX( framedImagePosition.x );
         }
         else {
 
           // For a real Image to the left of the optic, the clipArea is everything to the right of the Image,
           // because the Image is facing right in perspective.
-          minX = modelViewTransform.modelToViewX( frameImagePosition.x );
+          minX = modelViewTransform.modelToViewX( framedImagePosition.x );
           maxX = viewVisibleBounds.maxX;
         }
         clipArea = Shape.rectangle( minX, viewVisibleBounds.minY, maxX - minX, viewVisibleBounds.height );
