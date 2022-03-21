@@ -14,11 +14,7 @@ import geometricOptics from '../../geometricOptics.js';
 import Optic from '../model/Optic.js';
 import FramedImage from '../model/FramedImage.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
-import { OpticalImageType } from '../model/OpticalImageType.js';
 import GOConstants from '../GOConstants.js';
-import optionize from '../../../../phet-core/js/optionize.js';
 import OpticalImageNode, { OpticalImageNodeOptions } from './OpticalImageNode.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import FramedImageMaskNode from './FramedImageMaskNode.js';
@@ -44,19 +40,7 @@ class FramedImageNode extends OpticalImageNode {
                modelViewTransform: ModelViewTransform2,
                providedOptions: FramedImageNodeOptions ) {
 
-    const options = optionize<FramedImageNodeOptions, {}, OpticalImageNodeOptions, 'visibleProperty'>( {
-
-      // OpticalImageNodeOptions
-      visibleProperty: new DerivedProperty(
-        [ virtualImageVisibleProperty, framedImage.opticalImageTypeProperty, lightPropagationEnabledProperty, framedImage.visibleProperty, objectVisibleProperty ],
-        ( virtualImageVisible: boolean, opticalImageType: OpticalImageType, lightPropagationEnabled: boolean, framedImageVisible: boolean, objectVisible: boolean ) =>
-          ( virtualImageVisible || opticalImageType === 'real' ) && lightPropagationEnabled && framedImageVisible && objectVisible, {
-          tandem: providedOptions.tandem.createTandem( 'visibleProperty' ),
-          phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
-        } )
-    }, providedOptions );
-
-    super( framedImage, options );
+    super( framedImage, virtualImageVisibleProperty, lightPropagationEnabledProperty, objectVisibleProperty, providedOptions );
 
     const imageNode = new Image( framedImage.htmlImageElementProperty.value );
 

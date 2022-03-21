@@ -15,15 +15,15 @@ import Guides from './Guides.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
+// How long the animation of light rays lasts, in seconds
+const LIGHT_RAYS_ANIMATION_DURATION = 10;
+
 export type GOSceneOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
 
 abstract class GOScene extends PhetioObject {
 
   // the optic, provided by the client, and associated with all scenes
   public readonly optic: Optic;
-
-  // determines the duration of the light rays animation
-  private readonly lightRaysAnimationTimeRange: Range;
 
   // animation time for the light rays animation, determines how far the rays have propagated from the optical object
   public readonly lightRaysAnimationTimeProperty: NumberProperty;
@@ -55,11 +55,9 @@ abstract class GOScene extends PhetioObject {
       tandem: options.tandem.createTandem( optic.tandem.name )
     } );
 
-    this.lightRaysAnimationTimeRange = new Range( 0, 10 );
-
     this.lightRaysAnimationTimeProperty = new NumberProperty( 0, {
       units: 's',
-      range: this.lightRaysAnimationTimeRange,
+      range: new Range( 0, LIGHT_RAYS_ANIMATION_DURATION ),
       tandem: options.tandem.createTandem( 'lightRaysAnimationTimeProperty' ),
       phetioReadOnly: true
     } );
@@ -90,9 +88,9 @@ abstract class GOScene extends PhetioObject {
    * @param dt - time step, in seconds
    */
   public stepLightRays( dt: number ): void {
-    if ( this.lightRaysAnimationTimeProperty.value < this.lightRaysAnimationTimeRange.max ) {
-      this.lightRaysAnimationTimeProperty.value =
-        Math.min( this.lightRaysAnimationTimeRange.max, this.lightRaysAnimationTimeProperty.value + dt );
+    const tNow = this.lightRaysAnimationTimeProperty.value;
+    if ( tNow < LIGHT_RAYS_ANIMATION_DURATION ) {
+      this.lightRaysAnimationTimeProperty.value = Math.min( tNow + dt, LIGHT_RAYS_ANIMATION_DURATION );
     }
   }
 }
