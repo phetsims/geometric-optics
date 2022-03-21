@@ -95,7 +95,8 @@ class LightRay {
   }
 
   /**
-   * Have the rays reached the target (projection screen or target point)?
+   * Have the rays reached the target? If a projection screen is provided, the target is the projection screen.
+   * Otherwise, the target is the optical image position.
    * @param distanceTraveled
    * @param hasProjectionScreen
    * @param opticalImagePosition

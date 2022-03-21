@@ -99,7 +99,7 @@ class LightRays {
           const lightRay = new LightRay( opticalObjectPosition, direction, lightRaysAnimationTime, optic, opticalImagePosition, isVirtual,
             raysType, projectionScreen );
 
-          // Set optical image's visibility to true when a ray reaches the image.
+          // Set optical image's visibility to true when a ray reaches the optical image or projection screen.
           if ( lightRay.hasReachedTarget ) {
             opticalImage.visibleProperty.value = true;
           }
