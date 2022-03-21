@@ -69,11 +69,17 @@ class GOToolKeyboardDragListener extends KeyboardDragListener {
     // Escape returns the tool to the toolbox.
     this.addHotkey( {
       keys: [ KeyboardUtils.KEY_ESCAPE ],
-      callback: returnToToolbox
+      callback: () => {
+        phet.log && phet.log( 'hotkey ESCAPE' );
+        returnToToolbox();
+      }
     } );
     this.addHotkey( {
       keys: [ KeyboardUtils.KEY_P ],
-      callback: () => toolNode.jumpToPoint()
+      callback: () => {
+        phet.log && phet.log( 'hotkey J+P' );
+        toolNode.jumpToPoint();
+      }
     } );
   }
 }
