@@ -181,35 +181,34 @@ class GOScreenView extends ScreenView {
     // Tools (Rulers & Position Markers) ===============================================================================
 
     const toolsTandem = options.tandem.createTandem( 'tools' );
-    const toolboxNodeTandem = toolsTandem.createTandem( 'toolboxNode' );
 
     const horizontalRulerNode = new GORulerNode( model.horizontalRuler, model.optic.positionProperty,
       zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, {
         tandem: toolsTandem.createTandem( 'horizontalRulerNode' ),
-        iconTandem: toolboxNodeTandem.createTandem( 'horizontalRulerIcon' )
+        iconTandemName: 'horizontalRulerIcon'
       } );
 
     const verticalRulerNode = new GORulerNode( model.verticalRuler, model.optic.positionProperty,
       zoomTransformProperty, zoomScaleProperty, this.visibleBoundsProperty, {
         tandem: toolsTandem.createTandem( 'verticalRulerNode' ),
-        iconTandem: toolboxNodeTandem.createTandem( 'verticalRulerIcon' )
+        iconTandemName: 'verticalRulerIcon'
       } );
 
     const positionMarker1Node = new PositionMarkerNode( model.positionMarker1, zoomTransformProperty,
       this.visibleBoundsProperty, {
         tandem: toolsTandem.createTandem( 'positionMarker1Node' ),
-        iconTandem: toolboxNodeTandem.createTandem( 'positionMarker1Icon' )
+        iconTandemName: 'positionMarker1Icon'
       } );
 
     const positionMarker2Node = new PositionMarkerNode( model.positionMarker2, zoomTransformProperty,
       this.visibleBoundsProperty, {
         tandem: toolsTandem.createTandem( 'positionMarker2Node' ),
-        iconTandem: toolboxNodeTandem.createTandem( 'positionMarker2Icon' )
+        iconTandemName: 'positionMarker2Icon'
       } );
 
     // Toolbox in the top-right corner of the screen
     const toolboxNode = new GOToolboxNode( [ horizontalRulerNode, verticalRulerNode, positionMarker1Node, positionMarker2Node ], {
-      tandem: toolboxNodeTandem
+      tandem: toolsTandem.createTandem( 'toolboxNode' )
     } );
 
     // Icons in the toolbox can be hidden via iO. So keep the toolbox positioned in the rightTop corner.

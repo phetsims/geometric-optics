@@ -66,9 +66,7 @@ class PositionMarkerNode extends GOToolNode {
 
     super( positionMarker, options );
 
-    this.icon = new PositionMarkerIcon( positionMarker, this, zoomTransformProperty, {
-      tandem: options.iconTandem
-    } );
+    this.icon = new PositionMarkerIcon( positionMarker, this, zoomTransformProperty );
     this.positionMarker = positionMarker;
 
     const mapMarkerNode = new MapMarkerNode( {

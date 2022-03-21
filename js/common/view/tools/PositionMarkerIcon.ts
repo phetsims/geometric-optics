@@ -13,11 +13,8 @@ import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTran
 import geometricOptics from '../../../geometricOptics.js';
 import PositionMarkerNode from './PositionMarkerNode.js';
 import MapMarkerNode from '../MapMarkerNode.js';
-import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
-import GOToolIcon, { GOToolIconOptions } from './GOToolIcon.js';
+import GOToolIcon from './GOToolIcon.js';
 import PositionMarker from '../../model/tools/PositionMarker.js';
-
-type PositionMarkerIconOptions = PickRequired<GOToolIconOptions, 'tandem'>;
 
 class PositionMarkerIcon extends GOToolIcon {
 
@@ -25,18 +22,23 @@ class PositionMarkerIcon extends GOToolIcon {
    * @param positionMarker
    * @param positionMarkerNode
    * @param zoomTransformProperty
-   * @param providedOptions
    */
   constructor( positionMarker: PositionMarker,
                positionMarkerNode: PositionMarkerNode,
-               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               providedOptions: PositionMarkerIconOptions ) {
+               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2> ) {
+
+    // GOToolIconOptions
+    const options = {
+      touchAreaDilationX: 5,
+      touchAreaDilationY: 5,
+      mouseAreaDilationX: 5,
+      mouseAreaDilationY: 5
+    };
 
     const contentNode = new MapMarkerNode( {
       fill: positionMarker.fill,
       stroke: positionMarker.stroke,
-      scale: 0.8, // slightly smaller for toolbox icon
-      tagName: 'button' // contentNode is the button, what gets focus
+      scale: 0.8 // slightly smaller for toolbox icon
     } );
 
     const pointerPositionToToolPosition = ( pointerPosition: Vector2 ) => {
@@ -48,7 +50,7 @@ class PositionMarkerIcon extends GOToolIcon {
     };
 
     super( contentNode, positionMarker, positionMarkerNode, zoomTransformProperty, pointerPositionToToolPosition,
-      providedOptions );
+      options );
   }
 }
 
