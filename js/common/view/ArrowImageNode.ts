@@ -14,9 +14,6 @@ import ArrowImage from '../model/ArrowImage.js';
 import GOConstants from '../GOConstants.js';
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 import Property from '../../../../axon/js/Property.js';
-import { OpticalImageType } from '../model/OpticalImageType.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import OpticalImageNode, { OpticalImageNodeOptions } from './OpticalImageNode.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
@@ -40,19 +37,7 @@ class ArrowImageNode extends OpticalImageNode {
                modelViewTransform: ModelViewTransform2,
                providedOptions: ArrowImageNodeOptions ) {
 
-    const options = optionize<ArrowImageNodeOptions, {}, OpticalImageNodeOptions, 'visibleProperty'>( {
-
-      // OpticalImageNodeOptions
-      visibleProperty: new DerivedProperty(
-        [ virtualImageVisibleProperty, arrowImage.opticalImageTypeProperty, lightPropagationEnabledProperty, arrowImage.visibleProperty, objectVisibleProperty ],
-        ( virtualImageVisible: boolean, opticalImageType: OpticalImageType, lightPropagationEnabled: boolean, framedImageVisible: boolean, objectVisible: boolean ) =>
-          ( virtualImageVisible || opticalImageType === 'real' ) && lightPropagationEnabled && framedImageVisible && objectVisible, {
-          tandem: providedOptions.tandem.createTandem( 'visibleProperty' ),
-          phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
-        } )
-    }, providedOptions );
-
-    super( arrowImage, options );
+    super( arrowImage, virtualImageVisibleProperty, lightPropagationEnabledProperty, objectVisibleProperty, providedOptions );
 
     const arrowNode = new ArrowNode( 0, 0, 0, 1,
       optionize<ArrowNodeOptions, {}, ArrowNodeOptions>( {}, GOConstants.ARROW_NODE_OPTIONS, {
