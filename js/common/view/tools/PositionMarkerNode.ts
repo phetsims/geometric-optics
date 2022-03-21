@@ -129,7 +129,7 @@ class PositionMarkerNode extends GOToolNode {
   }
 
   /**
-   * Handles the J+P (Jump to Point) hotkey, which jumps (moves) the ruler to the next 'interesting' point.
+   * Handles the J+P (Jump to Point) hotkey, which jumps (moves) the marker to the next 'interesting' point.
    * See https://github.com/phetsims/geometric-optics/issues/355
    */
   public jumpToPoint(): void {
@@ -152,7 +152,7 @@ class PositionMarkerNode extends GOToolNode {
     // Find the next jump point and move there.
     if ( relevantJumpPoints.length > 0 ) {
 
-      // Get the next point, based on the ruler's position.
+      // Get the next point, based on the marker's position.
       const nextPoint = GOToolNode.getNextJumpPoint( relevantJumpPoints, markerPosition );
 
       // Move the marker

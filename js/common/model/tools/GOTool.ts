@@ -47,7 +47,7 @@ class GOTool extends PhetioObject {
 
     this.isInToolboxProperty = new BooleanProperty( true, {
       tandem: options.tandem.createTandem( 'isInToolboxProperty' ),
-      phetioDocumentation: 'Controls whether the ruler is in the toolbox.'
+      phetioDocumentation: 'Controls whether the tool is in the toolbox.'
     } );
 
     this.resetGOTool = () => {
