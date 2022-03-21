@@ -68,9 +68,7 @@ class GORulerNode extends GOToolNode {
 
     this.rotation = ( ruler.orientation === 'vertical' ) ? -Math.PI / 2 : 0;
 
-    this.icon = new GORulerIcon( ruler, this, zoomTransformProperty, {
-      tandem: providedOptions.iconTandem
-    } );
+    this.icon = new GORulerIcon( ruler, this, zoomTransformProperty );
     this.ruler = ruler;
     this.opticPositionProperty = opticPositionProperty;
 

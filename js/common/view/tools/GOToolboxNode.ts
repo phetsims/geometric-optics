@@ -8,7 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { HBox } from '../../../../../scenery/js/imports.js';
+import { HBox, Node } from '../../../../../scenery/js/imports.js';
 import Panel, { PanelOptions } from '../../../../../sun/js/Panel.js';
 import geometricOptics from '../../../geometricOptics.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
@@ -38,9 +38,16 @@ class GOToolboxNode extends Panel {
       stroke: 'grey'
     }, providedOptions );
 
+    // Wrap each icon in a Node, so that its visibility can be controlled via PhET-iO, and so that
+    // the wrappers are children of the toolbox in the tandem hierarchy.
+    const icons = toolNodes.map( toolNode => new Node( {
+      children: [ toolNode.icon ],
+      tandem: options.tandem.createTandem( toolNode.iconTandemName )
+    } ) );
+
     const toolboxContent = new HBox( {
       spacing: 20,
-      children: toolNodes.map( toolNode => toolNode.icon )
+      children: icons
     } );
 
     super( toolboxContent, options );

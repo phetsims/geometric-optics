@@ -9,21 +9,18 @@
 
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import RulerNode from '../../../../../scenery-phet/js/RulerNode.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../../geometricOptics.js';
 import GORuler from '../../model/tools/GORuler.js';
 import GORulerNode from './GORulerNode.js';
-import GOToolIcon, { GOToolIconOptions } from './GOToolIcon.js';
+import GOToolIcon from './GOToolIcon.js';
 
 // constants
 const ICON_WIDTH = 48;
 const ICON_HEIGHT = 17;
 const NUMBER_OF_MAJOR_TICKS = 5;
-
-type GoRulerIconOptions = PickRequired<GOToolIconOptions, 'tandem'>;
 
 class GORulerIcon extends GOToolIcon {
 
@@ -31,12 +28,18 @@ class GORulerIcon extends GOToolIcon {
    * @param ruler
    * @param rulerNode
    * @param zoomTransformProperty
-   * @param providedOptions
    */
   constructor( ruler: GORuler,
                rulerNode: GORulerNode,
-               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               providedOptions: GoRulerIconOptions ) {
+               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2> ) {
+
+    // GOToolIconOptions
+    const options = {
+      touchAreaDilationX: 4,
+      touchAreaDilationY: 4,
+      mouseAreaDilationX: 4,
+      mouseAreaDilationY: 4
+    };
 
     // The ruler icon has no ticks labels, it would be too much detail in an icon.
     const majorTickLabels = [ '' ];
@@ -56,7 +59,6 @@ class GORulerIcon extends GOToolIcon {
       majorTickHeight: ( 0.6 * ICON_HEIGHT ) / 2,
       minorTickHeight: ( 0.4 * ICON_HEIGHT ) / 2,
       insetsWidth: 0,
-      tagName: 'button', // contentNode is the button, what gets focus
       tandem: Tandem.OPT_OUT // because RulerNode is Tandem.REQUIRED by default
     } );
 
@@ -76,7 +78,7 @@ class GORulerIcon extends GOToolIcon {
       return zoomTransform.viewToModelXY( x, y );
     };
 
-    super( contentNode, ruler, rulerNode, zoomTransformProperty, pointerPositionToToolPosition, providedOptions );
+    super( contentNode, ruler, rulerNode, zoomTransformProperty, pointerPositionToToolPosition, options );
 
     // Rotate to create a vertical ruler icon.
     if ( ruler.orientation === 'vertical' ) {

@@ -11,15 +11,14 @@ import Vector2 from '../../../../../dot/js/Vector2.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import { DragListener, Node, NodeOptions, PressListenerEvent } from '../../../../../scenery/js/imports.js';
-import Tandem from '../../../../../tandem/js/Tandem.js';
 import GOTool from '../../model/tools/GOTool.js';
 import ToolJumpPoint from './ToolJumpPoint.js';
 import GOToolboxNode from './GOToolboxNode.js';
 
 type SelfOptions = {
 
-  // tandem to be used for the icon associated with this tool Node
-  iconTandem: Tandem;
+  // tandem name to be used for the icon associated with this tool Node
+  iconTandemName: string;
 };
 
 export type GOToolNodeOptions = SelfOptions & PickRequired<Node, 'tandem'>;
@@ -34,6 +33,9 @@ abstract class GOToolNode extends Node {
   // the toolbox that contains this tool, so the tool knows where to return to
   public toolboxNode: GOToolboxNode | null;
 
+  // tandem name to be used for the icon
+  public readonly iconTandemName: string;
+
   // positions that are 'interesting' to measure, for the J+P hotkey
   protected jumpPoints: ToolJumpPoint[];
 
@@ -46,7 +48,7 @@ abstract class GOToolNode extends Node {
    */
   protected constructor( tool: GOTool, providedOptions: GOToolNodeOptions ) {
 
-    const options = optionize<GOToolNodeOptions, SelfOptions, NodeOptions>( {
+    const options = optionize<GOToolNodeOptions, {}, NodeOptions>( {
 
       // NodeOptions
       visibleProperty: DerivedProperty.not( tool.isInToolboxProperty ), // visible when not in the toolbox
@@ -58,6 +60,7 @@ abstract class GOToolNode extends Node {
     super( options );
 
     this.toolboxNode = null; // to be set later via setToolboxNode
+    this.iconTandemName = options.iconTandemName;
     this.jumpPoints = [];
     this.jumpPointsIndex = 0;
 
