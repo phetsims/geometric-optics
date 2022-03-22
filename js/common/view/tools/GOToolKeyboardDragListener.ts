@@ -75,7 +75,7 @@ class GOToolKeyboardDragListener extends KeyboardDragListener {
       }
     } );
     this.addHotkey( {
-      keys: [ KeyboardUtils.KEY_P ],
+      keys: [ KeyboardUtils.KEY_J, KeyboardUtils.KEY_P ],
       callback: () => {
         phet.log && phet.log( 'hotkey J+P' );
         toolNode.jumpToPoint();
