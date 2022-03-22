@@ -19,7 +19,8 @@ import geometricOptics from '../../geometricOptics.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 // range of the vertical offset for the second point, relative to frame object's position, in cm
-const VERTICAL_OFFSET_RANGE = new Range( -55, 0 );
+// See https://github.com/phetsims/geometric-optics/issues/401
+const VERTICAL_OFFSET_RANGE = new Range( -56.5, 0 );
 
 type SecondPointOptions = PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
 
