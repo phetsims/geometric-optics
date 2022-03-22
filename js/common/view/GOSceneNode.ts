@@ -41,7 +41,7 @@ export type GOSceneNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem
 abstract class GOSceneNode extends Node {
 
   // 'Jump points' for the tools. These are interesting points, where you might want to place a tool.
-  // When a tool has focus, J+P hotkey will cycle through these points, in order of ascending x coordinate.
+  // When a tool has focus, 'J' hotkey will cycle through these points, in order of ascending x coordinate.
   public abstract readonly toolJumpPoints: ToolJumpPoint[];
 
   public abstract readonly scene: GOScene;
