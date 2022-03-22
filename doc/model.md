@@ -73,9 +73,9 @@ To avoid problematic cases, the object is always at least 40 cm from the optic, 
 
 The position of the image is approximated by the _thin lens equation_, given by _1/d<sub>o</sub> + 1/d<sub>i</sub> = 1/f_.
 
-For lenses, the image distance _d<sub>i</sub> is positive for images to the right of the lens (real images), and negative for images to the left of the lens (virtual images).
+For lenses, the image distance _d<sub>i</sub>_ is positive for images to the right of the lens (real images), and negative for images to the left of the lens (virtual images).
 
-A similar equation holds for mirrors, but where the sign convention is reversed. The image distance _d<sub>i</sub> is positive for images to the left of the mirror (real images), and negative for images to the right of the mirror (virtual images).
+A similar equation holds for mirrors, but the sign convention is reversed. The image distance _d<sub>i</sub>_ is positive for images to the left of the mirror (real images), and negative for images to the right of the mirror (virtual images).
 
 For both lenses and mirrors, a positive image distance results in a real image, while a negative image distance results in a virtual image.
 
