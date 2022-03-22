@@ -29,13 +29,13 @@ class LensModel extends GOModel {
 
     // See GOQueryParameters.fuzzScene and https://github.com/phetsims/geometric-optics/issues/397
     let opticalObjectChoices;
-    if ( GOQueryParameters.fuzzScene === 'framedObject' ) {
+    if ( GOQueryParameters.scene === 'framed' ) {
       opticalObjectChoices = [ OpticalObjectChoice.PENCIL ];
     }
-    else if ( GOQueryParameters.fuzzScene === 'arrow' ) {
+    else if ( GOQueryParameters.scene === 'arrow' ) {
       opticalObjectChoices = [ OpticalObjectChoice.ARROW ];
     }
-    else if ( GOQueryParameters.fuzzScene === 'light' ) {
+    else if ( GOQueryParameters.scene === 'light' ) {
       opticalObjectChoices = [ OpticalObjectChoice.LIGHT ];
     }
     else {
