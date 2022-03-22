@@ -173,7 +173,7 @@ class FramedSceneNode extends GOSceneNode {
       secondPointNode
     ];
 
-    // J+P hotkey will cycle tools through these points, dynamically looking at left-to-right x coordinate.
+    // 'J' hotkey will cycle tools through these points, dynamically looking at left-to-right x coordinate.
     this.toolJumpPoints = [
       ...this.opticJumpPoints,
 

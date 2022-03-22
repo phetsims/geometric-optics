@@ -1,7 +1,7 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * ToolJumpPoint describes an 'interesting' point to place a tool, which can be 'jumped' to via J+P hotkey.
+ * ToolJumpPoint describes an 'interesting' point to place a tool, which can be 'jumped' to via the 'J' hotkey.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

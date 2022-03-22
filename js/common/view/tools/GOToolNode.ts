@@ -36,7 +36,7 @@ abstract class GOToolNode extends Node {
   // tandem name to be used for the icon
   public readonly iconTandemName: string;
 
-  // positions that are 'interesting' to measure, for the J+P hotkey
+  // positions that are 'interesting' to measure, for the 'J' hotkey
   protected jumpPoints: ToolJumpPoint[];
 
   // current index into jumpPoints
@@ -86,7 +86,7 @@ abstract class GOToolNode extends Node {
   }
 
   /**
-   * Sets the jump points used by the J+P hotkey.
+   * Sets the jump points used by the 'J' hotkey.
    * @param jumpPoints
    */
   public setJumpPoints( jumpPoints: ToolJumpPoint[] ): void {
@@ -95,7 +95,7 @@ abstract class GOToolNode extends Node {
   }
 
   /**
-   * Handles the J+P (Jump to Point) hotkey, which jumps (moves) the tool to the next 'interesting' point.
+   * Handles the 'J' (Jump) hotkey, which moves the ruler to the next 'interesting' point.
    */
   public abstract jumpToPoint(): void;
 
