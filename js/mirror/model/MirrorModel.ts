@@ -30,7 +30,7 @@ class MirrorModel extends GOModel {
    */
   constructor( providedOptions: MirrorModelOptions ) {
 
-    // See GOQueryParameters.fuzzScene and https://github.com/phetsims/geometric-optics/issues/397
+    // See https://github.com/phetsims/geometric-optics/issues/397
     let opticalObjectChoices;
     if ( GOQueryParameters.scene === 'framed' ) {
       opticalObjectChoices = [ OpticalObjectChoice.PENCIL ];
