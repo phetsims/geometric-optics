@@ -13,6 +13,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import GOQueryParameters from '../../common/GOQueryParameters.js';
 
 type LensModelOptions = PickRequired<GOModelOptions, 'tandem'>;
 
@@ -26,17 +27,32 @@ class LensModel extends GOModel {
    */
   constructor( providedOptions: LensModelOptions ) {
 
-    const options = optionize<LensModelOptions, {}, GOModelOptions,
-      'opticalObjectChoices' | 'arrowObject1Position' | 'arrowObject2Position' | 'framedObjectPosition'>( {
-
-      // GOModelOptions
-      opticalObjectChoices: [
+    // See GOQueryParameters.fuzzScene and https://github.com/phetsims/geometric-optics/issues/397
+    let opticalObjectChoices;
+    if ( GOQueryParameters.fuzzScene === 'framedObject' ) {
+      opticalObjectChoices = [ OpticalObjectChoice.PENCIL ];
+    }
+    else if ( GOQueryParameters.fuzzScene === 'arrow' ) {
+      opticalObjectChoices = [ OpticalObjectChoice.ARROW ];
+    }
+    else if ( GOQueryParameters.fuzzScene === 'light' ) {
+      opticalObjectChoices = [ OpticalObjectChoice.LIGHT ];
+    }
+    else {
+      opticalObjectChoices = [
         OpticalObjectChoice.PENCIL,
         OpticalObjectChoice.PENGUIN,
         OpticalObjectChoice.STAR,
         OpticalObjectChoice.ARROW,
         OpticalObjectChoice.LIGHT
-      ],
+      ];
+    }
+
+    const options = optionize<LensModelOptions, {}, GOModelOptions,
+      'opticalObjectChoices' | 'arrowObject1Position' | 'arrowObject2Position' | 'framedObjectPosition'>( {
+
+      // GOModelOptions
+      opticalObjectChoices: opticalObjectChoices,
       arrowObject1Position: new Vector2( -160, 60 ),
       arrowObject2Position: new Vector2( -125, 30 ),
       framedObjectPosition: new Vector2( -170, 27 ),

@@ -58,6 +58,16 @@ const SCHEMA_MAP = {
   // Internal query parameters
   //----------------------------------------------------------------------------------------------------------------
 
+  // fuzz tests a specific scene.
+  // We discovered that framed objects were receiving 96% of the test coverage, due to the fact that selecting from a
+  // ComboBox requires 2 actions. So this query parameter is used by sim-specific CT test to fuzz the 'Arrow' and
+  // 'Light' scenes specifically. See listContinuousTests.js and https://github.com/phetsims/geometric-optics/issues/397
+  fuzzScene: {
+    type: 'string',
+    defaultValue: null,
+    isValidValue: ( value: string | null ) => [ 'framedObject', 'arrow', 'light', null ].includes( value )
+  },
+
   realRaysLineWidth: {
     type: 'number',
     defaultValue: 1.5,
