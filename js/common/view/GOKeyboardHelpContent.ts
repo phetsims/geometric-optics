@@ -91,8 +91,8 @@ class RulerAndMarkerControlsKeyboardHelpSection extends KeyboardHelpSection {
       // Esc
       KeyboardHelpSection.labelWithIcon( geometricOpticsStrings.keyboardHelpDialog.returnToToolbox, TextKeyNode.esc() ),
 
-      // J+P, 'Jump to Point'
-      KeyboardHelpSection.createJumpKeyRow( 'P', geometricOpticsStrings.keyboardHelpDialog.jumpToPoint )
+      // J, for 'Jump'
+      KeyboardHelpSection.createKeysRowFromStrings( [ 'J' ], geometricOpticsStrings.keyboardHelpDialog.jumpToPoint )
     ], {
       labelMaxWidth: 300
     } );
