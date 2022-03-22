@@ -58,7 +58,8 @@ const SCHEMA_MAP = {
   // Internal query parameters
   //----------------------------------------------------------------------------------------------------------------
 
-  // fuzz tests a specific scene.
+  // Use this with ?fuzz to test a specific scene, for example ?ea&fuzz&fuzzScene=arrow.
+  // The ComboBox for selecting the optical object will be populated with a single item related to that scene.
   // We discovered that framed objects were receiving 96% of the test coverage, due to the fact that selecting from a
   // ComboBox requires 2 actions. So this query parameter is used by sim-specific CT test to fuzz the 'Arrow' and
   // 'Light' scenes specifically. See listContinuousTests.js and https://github.com/phetsims/geometric-optics/issues/397
