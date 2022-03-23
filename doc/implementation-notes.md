@@ -114,20 +114,30 @@ In geometric optics, an **image** is the likeness of an object produced at a poi
 
 Arrows and framed objects have associated optical images; lights do not.  So the important classes are:
 
-Model class hierarchy:
-
 ```
+// model class hierarchy
 OpticalImage
   ArrowImage
   FramedImage
-```
 
-View class hierarchy:
-
-```
+// view class hierarchy
 OpticalImageNode
   ArrowImageNode
   FramedImageNode
+```
+
+## Projection Screen & Light Spots
+
+As mentioned in the **Optical Images** section, Lights form no optical image. Instead, they cast light spots on a projection screen.  The important classes are:
+
+```
+// model
+ProjectionScreen
+LightSpot
+
+// view
+ProjectionScreen Node
+LightSpotNode
 ```
 
 ## 3D Perspective
