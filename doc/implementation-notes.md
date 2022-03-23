@@ -3,6 +3,9 @@
 @author Chris Malley (PixelZoom, Inc.)<br>
 @author Martin Veillette
 
+## Table of Contents
+* [Introduction](https://github.com/phetsims/phet-info/blob/master/checklists/code_review_checklist.md#introduction)
+
 ## Introduction
 
 This document contains notes related to the implementation of _Geometric Optics_. 
