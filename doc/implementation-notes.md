@@ -217,7 +217,7 @@ The sim has two types of tools: rulers and position markers. Two instances of ea
 
 Tools live in a toolbox, see `GOToolbox` and `GOToolboxNode`. Tools move in and out of the toolbox via `isInToolboxProperty`, defined in `GOTool`.
 
-See `js/common/model/tools/` and `js/common/view/tools/` for source code related to tools.  
+See `js/common/model/tools/` and `js/common/view/tools/` for all source code related to tools.  
 
 Tools have support for 2 hotkeys:
 * `ESCAPE` returns the tool to the toolbox
@@ -226,6 +226,21 @@ Tools have support for 2 hotkeys:
 The "jump" hotkey is relatively complicated. A list of interesting points is provided by the scene, see `toolJumpPoints` and `opticJumpPoints`).  Each tool filters the list of points, then handles jumping to the next point, see `jumpToPoint`.  Since each scene has a list of points, and one set of tools is shared by all scenes, the list of points must be set when the scene changes, see `setJumpPoints`.
 
 ## Labels
+
+The Labels feature shows labels for things of interest in a scene. Each scene has an associated set of labels, made visible when that scene is selected (if the "Labels" checkbox is checked).  Those "collection" classes are:
+
+```
+// a top-level collection of labels for each scene
+GOLabelsNode
+  ArrowLabelsNode
+  FramedObjectLabelsNode
+  LightLabelsNode
+```
+
+When the thing that a label is associated with is not visible, the label is not visible.  When zooming in/out, a label moves with the thing that its labeling, but does not change change its scale (i.e. font size remains constant).
+
+See `js/common/view/labels/` for all source code related to the Labels feature.
+
 
 # Hollywood!
 
