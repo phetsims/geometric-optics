@@ -241,8 +241,22 @@ When the thing that a label is associated with is not visible, the label is not 
 
 See `js/common/view/labels/` for all source code related to the Labels feature.
 
+## Controls
 
-# Hollywood!
+Most of the controls in the view are straightforward. 
+
+From top-to-bottom, left-to-right as they appear in the UI, here are the classes for the controls:
+
+```
+OpticalObjectChoiceComboBox - combo box for selecting optical object
+ObjectDragModeToggleButton - toggle button used to lock dragging to horizontal
+OpticShapeRadioButtonGroup - radio buttons for choosing the shape of the optic
+zoomButtonGroup - zoom buttons, in GOScreenView.ts
+LightPropagationToggleButton - toggle button for turning light propagation on/off
+GOControlPanel - the main control panel
+```
+
+## Hollywood!
 
 To write well-behaved programs, it's not always possible to be physically accurate. This section enumerates the places where we have "Hollywooded" things to provide close approximations and convincing behavior.
 
