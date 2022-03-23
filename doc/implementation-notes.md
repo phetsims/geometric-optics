@@ -61,17 +61,13 @@ dispose() {
 
 The sim supports two types of optic: lens (concave, convex) and mirror (concave, convex, flat). The important classes are:
 
-Model class heirachy:
-
 ```
+// model class heirachy
 Optic
   Lens
   Mirror
-```
 
-View class hierarchy
-
-```
+// view class hierarchy
 OpticNode
   LensNode
   MirrorNode
@@ -88,20 +84,16 @@ Three types of optical object are implemented in this sim:
 
 `OpticalObjectChoice` is a rich enumeration of optical objects. While there are 3 choices of framed object (Pencil, Penguin, Star), those choices simply change the PNG files used to represent the single framed object.  `OpticalObjectChoiceComboBox`, in the upper-right corner of the screen, is used to select one of the value from `OpticalObjectChoice`.
 
-Important classes for the optical object include:
-
-Model class hierarchy:
+Important classes for the optical object are:
 
 ```
+// model class heirachy
 OpticalObject
   ArrowObject
   FramedObject
   LightObject
-```
 
-View class hierarchy:
-
-```
+// view class hierarchy:
 OpticalObjectNode
   ArrowObjectNode
   FramedObjectNode
