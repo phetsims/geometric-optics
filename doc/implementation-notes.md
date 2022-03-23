@@ -138,6 +138,25 @@ ProjectionScreen Node
 LightSpotNode
 ```
 
+## Rays
+
+Light rays propagate from a point on an optical object, and interact with the optic. In the case of arrows and framed objects, an optical image is formed. In the case of lights, light spots appear where the rays hit the projection screen.
+
+This sim has a relatively complicated ray tracer, which is also responsible for animation of rays.
+
+Important classes:
+
+```
+// model
+LightRays - a bundle of light rays that propagate from a point on an optical object
+LightRay - a single light ray
+GORay - a subclass of dot.Ray2 that adds functionality
+
+// view class hierachy
+LightRaysNode - base class
+  RealLightRaysNode - renders real rays as solid lines
+  VirtualLightRaysNode - renders virtual rays as dashed lines
+
 ## Guides
 
 Guides are a representation invented by PhET, and described in [model.md](https://github.com/phetsims/geometric-optics/blob/master/doc/model.md). The are hidden behind query parameter `addGuidesCheckbox`.
