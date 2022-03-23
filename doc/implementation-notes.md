@@ -57,6 +57,56 @@ dispose() {
 }
 ```
 
+# Optic
+
+The sim supports two types of optic: lens (concave, convex) and mirror (concave, convex, flat). The important classes are:
+
+Model class heirachy:
+
+```
+Optic
+  Lens
+  Mirror
+```
+
+View class hierarchy
+
+```
+OpticNode
+  LensNode
+  MirrorNode
+```
+
+# Optical Object
+
+In geometric optics, an **object** is anything that can be viewed. Since that term conflicts with the name of JavaScript's `Object` class, we use **optical object** in the code where there is potential for confusion.=
+
+Three types of optical object are implemented in this sim: 
+* Arrow: the most common representation used in geometric optics courses
+* Framed Object: an object shown in a picture frame, in 3D perspective
+* Light: a point light source
+
+OpticalObjectChoice is a rich enumeration of optical objects. While there are 3 choices of framed object (Pencil, Penguin, Star), those choices simply change the PNG files used to represent the single framed object.  OpticalObjectChoiceComboBox, in the upper-right corner of the screen, is used to select one of the value from OpticalObjectChoice.
+
+Important classes for the optical object include:
+
+Model class hierarchy:
+
+```
+OpticalObject
+  ArrowObject
+  FramedObject
+  LightObject
+```
+
+View class hierarchy:
+
+```
+OpticalObjectNode
+  ArrowObjectNode
+  FramedObjectNode
+  LightObjectNode
+```
 
 # Hollywood!
 
