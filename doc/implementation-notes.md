@@ -26,7 +26,7 @@
 
 This document contains notes related to the implementation of _Geometric Optics_. 
 This is not an exhaustive description of the implementation.  The intention is 
-to provide a high-level overview, and to supplement the internal documentation 
+to provide a concise high-level overview, and to supplement the internal documentation 
 (source code comments) and external documentation (design documents). 
 
 Before reading this document, please read:
