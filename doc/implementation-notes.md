@@ -82,11 +82,11 @@ OpticNode
 In geometric optics, an **object** is anything that can be viewed. Since that term conflicts with the name of JavaScript's `Object` class, we use **optical object** in the code where there is potential for confusion.
 
 Three types of optical object are implemented in this sim: 
-* Arrow: the most common representation used in geometric optics courses
-* Framed Object: an object shown in a picture frame, in 3D perspective
-* Light: a point light source
+* Arrow: the most common representation used in geometric optics courses. The arrow is drawn perpendicular to the optical axis, and its tail is always on the optical axis.
+* Framed Object: an object shown in a picture frame, in 3D perspective. The 3D perspective presents some additional implementation challenges, which we'll discuss below.
+* Light: point light sources
 
-OpticalObjectChoice is a rich enumeration of optical objects. While there are 3 choices of framed object (Pencil, Penguin, Star), those choices simply change the PNG files used to represent the single framed object.  OpticalObjectChoiceComboBox, in the upper-right corner of the screen, is used to select one of the value from OpticalObjectChoice.
+`OpticalObjectChoice` is a rich enumeration of optical objects. While there are 3 choices of framed object (Pencil, Penguin, Star), those choices simply change the PNG files used to represent the single framed object.  `OpticalObjectChoiceComboBox`, in the upper-right corner of the screen, is used to select one of the value from `OpticalObjectChoice`.
 
 Important classes for the optical object include:
 
@@ -107,6 +107,8 @@ OpticalObjectNode
   FramedObjectNode
   LightObjectNode
 ```
+
+As mentioned above, the 3D perspective of framed object presents additional implementation challenges. We want the optical axis and rays to look like they are passing through the framed object. This accomplish by drawing 2 copies of the axis and real rays, one behind the framed objects and one in front of the framed objects.  The copy in front uses a `clipArea` to shown only the parts of the axis and rays that are in front. See `OpticalAxisForegrondNode` and `RealLightRaysForegroundNode`.
 
 # Hollywood!
 
