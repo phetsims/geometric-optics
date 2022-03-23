@@ -323,7 +323,7 @@ All sound in this sim is provided by common code.
 
 To identify focus traversal order, search for `pdomOrder`.
 
-To identify sim-specific support for keyboard input, search for `tagName`. These classes will have custom input listeners that handle keyboard events.
+To identify sim-specific support for keyboard input, search for `tagName`. These classes will have custom input listeners that handle keyboard events (e.g. `KeyboardDragListener`).
 
 To identify hotkeys, search for `addHotkey`.
 
