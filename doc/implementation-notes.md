@@ -211,6 +211,21 @@ GOSceneNode
 
 Making a selection from `OpticalObjectComboBox` may or may not result in changing the scene. If switching between framed objects, the scene does not change, only the PNG files used for the framed object. For example, switching from "Pencil" to "Arrow" will switch from `FramedObjectScene` to `ArrowScene`. Switching from "Pencil" to "Penguin" will not change the scene, but will change from pencil PNG files to penguin PNG files for the optical object and image in `FramedObjectScene`.
 
+## Tools
+
+The sim has two types of tools: rulers and position markers. Two instances of each tool (model and view) are instantiated when the sim starts, and exist for the lifetime of the simulation. There is no dynamic creation of tools.  One set of tools is shared by all scenes. The tools do not change position when switching scenes, or when zooming in/out.
+
+Tools live in a toolbox, see `GOToolbox` and `GOToolboxNode`. Tools move in and out of the toolbox via `isInToolboxProperty`, defined in the `GOTool` model base class.
+
+See `js/common/model/tools/` and `js/common/view/tools/` for source code related to tools.  
+
+Tools have support for 2 hotkeys:
+* `ESCAPE` returns the tool to the toolbox
+* `J` jumps (moves) the tool to "interesting points", cycling through those points from left-to-right
+
+The "jump" hotkey is relatively complicated. A list of interesting points is provided by the scene, see `toolJumpPoints` and `opticJumpPoints`).  Each tool filters the list of points, then handles jumping to the next point, see `jumpToPoint`.  Since each scene has a list of points, and one set of tools is shared by all scenes, the list of points must be set when the scene changes, see `setJumpPoints`.
+
+## Labels
 
 # Hollywood!
 
