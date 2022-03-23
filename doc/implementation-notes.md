@@ -108,7 +108,7 @@ OpticalObjectNode
   LightObjectNode
 ```
 
-As mentioned above, the 3D perspective of framed object presents additional implementation challenges. We want the optical axis and rays to look like they are passing through the framed object. This accomplish by drawing 2 copies of the axis and real rays, one behind the framed objects and one in front of the framed objects.  The copy in front uses a `clipArea` to shown only the parts of the axis and rays that are in front. See `OpticalAxisForegrondNode` and `RealLightRaysForegroundNode`.
+As mentioned above, the 3D perspective of framed object presents additional implementation challenges. We want the optical axis and rays to look like they are passing through the framed object. This accomplish by drawing 2 copies of the axis and real rays, one behind the framed objects and one in front of the framed objects.  The copy in front uses a `clipArea` to shown only the parts of the axis and rays that are in front - see `OpticalAxisForegrondNode` and `RealLightRaysForegroundNode`.
 
 # Hollywood!
 
