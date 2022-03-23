@@ -331,4 +331,4 @@ Setting focus for tools is done via tab traversal. This sim does not use `GrabDr
 
 ## PhET-iO
 
-The PhET-iO instrumentation of this sim is relatively straightforward. As described in [Memory Management](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#memory-management), everything in this sim is created at startup. So there is no sim-specific use of PhetioGroup or PhetioCapsule.  
+The PhET-iO instrumentation of this sim is relatively straightforward. As described in [Memory Management](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#memory-management), everything in this sim is created at startup, and exists for the lifetime of the sim. So there is no sim-specific use of PhetioGroup or PhetioCapsule.  
