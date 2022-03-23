@@ -112,7 +112,7 @@ OpticalObjectNode
 
 In geometric optics, an **image** is the likeness of an object produced at a point in space by an optic. Since that term conflicts with the name of PhET's `scenery.Image` class, we use **optical image** in the code where there is potential for confusion.
 
-Arrows and framed objects have associated optical images; lights do not.  So the class hierachy is:
+Arrows and framed objects have associated optical images; lights do not.  So the important classes are:
 
 Model class hierarchy:
 
