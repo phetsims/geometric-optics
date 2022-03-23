@@ -215,7 +215,7 @@ Making a selection from `OpticalObjectComboBox` may or may not result in changin
 
 The sim has two types of tools: rulers and position markers. Two instances of each tool (model and view) are instantiated when the sim starts, and exist for the lifetime of the simulation. There is no dynamic creation of tools.  One set of tools is shared by all scenes. The tools do not change position when switching scenes, or when zooming in/out.
 
-Tools live in a toolbox, see `GOToolbox` and `GOToolboxNode`. Tools move in and out of the toolbox via `isInToolboxProperty`, defined in the `GOTool` model base class.
+Tools live in a toolbox, see `GOToolbox` and `GOToolboxNode`. Tools move in and out of the toolbox via `isInToolboxProperty`, defined in `GOTool`.
 
 See `js/common/model/tools/` and `js/common/view/tools/` for source code related to tools.  
 
