@@ -21,6 +21,9 @@
 * [Labels](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#labels)
 * [Controls](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#controls)
 * [Hollywood!](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#hollywood)
+* [Sound](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#sound)
+* [Alternative Input](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#alternative-input)
+* [PhET-iO](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#phet-io)
 
 ## Introduction
 
@@ -317,6 +320,12 @@ To write well-behaved programs, it's not always possible to be physically accura
 All sound in this sim is provided by common code.
 
 ## Alternative Input
+
+To identify focus traversal order, search for `pdomOrder`.
+
+To identify sim-specific support for keyboard input, search for `tagName`. These classes will have custom input listeners that handle keyboard events.
+
+To identify hotkeys, search for `addHotkey`.
 
 ## PhET-iO
 
