@@ -229,7 +229,9 @@ Tools live in a toolbox, see `GOToolbox` and `GOToolboxNode`. Tools move in and 
 
 See `js/common/model/tools/` and `js/common/view/tools/` for all source code related to tools.  
 
-Tools have support for 2 hotkeys:
+See `GOToolDragListener` for mouse/touch drag handling, `GOToolKeyboardDragListener` for keyboard drag handling.
+
+Tools support 2 hotkeys:
 * `ESCAPE` returns the tool to the toolbox
 * `J` jumps (moves) the tool to "interesting points", cycling through those points from left-to-right
 
