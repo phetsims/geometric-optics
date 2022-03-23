@@ -122,7 +122,9 @@ OpticalImageNode
 
 ## Projection Screen & Light Spots
 
-As mentioned in the **Optical Images** section, Lights form no optical image. Instead, they cast light spots on a projection screen.  The important classes are:
+As mentioned in the **Optical Images** section, lights form no optical image. Instead, they cast light spots on a projection screen.  
+
+The important classes are:
 
 ```
 // model
@@ -139,6 +141,36 @@ LightSpotNode
 Since the framed objects/images have 3D perspective, we want the the optical axis and rays to look like they are passing through the object/images. This accomplish by drawing 2 copies of the axis and real rays, one behind the objects/images and one in front of the objects/images.  The copy in front uses a `clipArea` to shown only the parts of the axis and rays that are in front - see `OpticalAxisForegrondNode` and `RealLightRaysForegroundNode`.
 
 The projection screen also has 3D perspective. To make the optical axis look like it passes through the screen, we similarly draw copies of the axis in front of and behind the screen.  A `clipArea` is not necessary, and the front axis is simply stops at where it meets the center of the screen. See `OpticalAxisInFrontOfProjectionScreenNode`.
+
+## Scenes
+
+There is one scene for each type of optical object. Things that are owned by a scene include:
+* optical objects
+* optical images
+* light rays
+* projection screen
+* light spots
+
+A single optic instance (lens or mirror) is shared by all scenes, as are the controls and tools.    
+
+The important classes are:
+
+```
+// model class hierarchy
+GOScene
+  ArrowScene
+  FramedObjectScene
+  LightScene
+
+// view class hierarchy
+GOSceneNode
+  ArrowSceneNode
+  FramedObjectSceneNode
+  LightSceneNode
+```
+
+Making a selection from `OpticalObjectComboBox` may or may not result in changing the scene. If switching between framed objects, the scene does not change, only the PNG files used for the framed object. For example, switching from "Pencil" to "Arrow" will switch from `FramedObjectScene` to `ArrowScene`. Switching from "Pencil" to "Penguin" will not change the scene, but will change from pencil PNG files to penguin PNG files for the optical object and image in `FramedObjectScene`.
+
 
 # Hollywood!
 
