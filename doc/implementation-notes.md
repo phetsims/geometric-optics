@@ -244,7 +244,6 @@ The "jump" hotkey is relatively complicated. A list of interesting points is pro
 The Labels feature shows labels for things of interest in a scene. Each scene has an associated set of labels, made visible when that scene is selected (if the "Labels" checkbox is checked).  Those "collection" classes are:
 
 ```
-// a top-level collection of labels for each scene
 GOLabelsNode
   ArrowLabelsNode
   FramedObjectLabelsNode
