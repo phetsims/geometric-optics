@@ -138,6 +138,22 @@ ProjectionScreen Node
 LightSpotNode
 ```
 
+## Guides
+
+Guides are a representation invented by PhET, and described in [model.md](https://github.com/phetsims/geometric-optics/blob/master/doc/model.md). The are hidden behind query parameter `addGuidesCheckbox`.
+
+The important classes are:
+
+```
+// model
+Guide - a single guide
+Guides - a pair of guides
+
+// view
+GuideNode - a single guide
+GuidesNode - a pair of guides
+```
+
 ## 3D Perspective
 
 Since the framed objects/images have 3D perspective, we want the the optical axis and rays to look like they are passing through the object/images. This accomplish by drawing 2 copies of the axis and real rays, one behind the objects/images and one in front of the objects/images.  The copy in front uses a `clipArea` to shown only the parts of the axis and rays that are in front - see `OpticalAxisForegrondNode` and `RealLightRaysForegroundNode`.
@@ -146,12 +162,14 @@ The projection screen also has 3D perspective. To make the optical axis look lik
 
 ## Scenes
 
-There is one scene for each type of optical object. Things that are owned by a scene include:
+There is one scene for each type of optical object (arrow, framed object, light). Things that are the responsibility of a scene include:
 * optical objects
 * optical images
 * light rays
-* projection screen
-* light spots
+* focal points & 2F points
+* optical axis
+* projection screen & light spots
+* guides
 
 A single optic instance (lens or mirror) is shared by all scenes, as are the controls and tools.    
 
