@@ -36,7 +36,7 @@ In addition to this document, you are encouraged to read:
 
 * [PhET Development Overview](https://github.com/phetsims/phet-info/blob/master/doc/phet-development-overview.md)
 * [PhET Software Design Patterns](https://github.com/phetsims/phet-info/blob/master/doc/phet-software-design-patterns.md)
-* [Geometric Optics HTML5](https://docs.google.com/document/d/1hVxM-ax2UyxctbclAhutrRad5A0eeLWKFQNB4U7ls4o/edit), the design document (definitely incomplete and out of date, but worth a look)
+* [Geometric Optics HTML5 design document](https://docs.google.com/document/d/1hVxM-ax2UyxctbclAhutrRad5A0eeLWKFQNB4U7ls4o/edit) (definitely incomplete and out of date, but worth a look)
 
 ## General Considerations
 
