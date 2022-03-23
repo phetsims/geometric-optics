@@ -40,7 +40,7 @@ Query parameters are used to enable sim-specific features. Sim-specific query pa
 Running with `?log` will print the complete set of query parameters (common-code, PhET-iO, and sim-specific)
 to the browser console.
 
-### Memory management
+### Memory Management
 
 * **Dynamic allocation:** Most objects in this sim are allocated at startup, and exist for the lifetime of the simulation. The exception is GOOptionsDialogNode.ts and its children, which must all implemented `dispose`. This is the content for the Options dialog, and is instantiated each time the Options menu item is selected from the PhET menu.
 
