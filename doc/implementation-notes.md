@@ -266,6 +266,8 @@ LightPropagationToggleButton - toggle button for turning light propagation on/of
 GOControlPanel - the main control panel
 ```
 
+For controls that appear in the Options dialog, start with `GOGlobalOptionsNode.ts`.
+
 ## Hollywood!
 
 To write well-behaved programs, it's not always possible to be physically accurate. This section enumerates the places where we have "Hollywooded" things to provide close approximations and convincing behavior.
