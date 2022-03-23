@@ -80,7 +80,7 @@ dispose() {
 
 ## Optic
 
-The sim supports two types of optic, with multuple shapes: lens (concave, convex) and mirror (concave, convex, flat). A single optic instance is used for each screen, and that instance supports all of the shapes. 
+The sim supports two types of optic, with multiple shapes: lens (concave, convex) and mirror (concave, convex, flat). A single optic instance is used for each screen, and that instance supports all of the shapes. 
 
 A relatively complex part of the optic model implementation is that it supports 2 focal-length models:
 * direct: focal length is settable, IOR is fixed, ROC is derived
@@ -95,6 +95,10 @@ The important classes are:
 Optic
   Lens
   Mirror
+  
+OpticShapes
+  LensShapes
+  MirrorShapes
   
 FocalLengthModel
   DirectFocalLengthModel
