@@ -4,7 +4,8 @@
 @author Martin Veillette
 
 ## Table of Contents
-* [Introduction](https://github.com/phetsims/phet-info/blob/master/checklists/code_review_checklist.md#introduction)
+* [Introduction](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#introduction)
+* [General Consideration](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#general-considerations)
 
 ## Introduction
 
