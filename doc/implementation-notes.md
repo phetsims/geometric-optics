@@ -3,7 +3,7 @@
 @author Chris Malley (PixelZoom, Inc.)<br>
 @author Martin Veillette
 
----
+## Introduction
 
 This document contains notes related to the implementation of _Geometric Optics_. 
 This is not an exhaustive description of the implementation.  The intention is 
