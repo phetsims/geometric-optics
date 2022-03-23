@@ -61,7 +61,9 @@ dispose() {
 
 ## Optic
 
-The sim supports two types of optic: lens (concave, convex) and mirror (concave, convex, flat). The important classes are:
+The sim supports two types of optic, with multuple shapes: lens (concave, convex) and mirror (concave, convex, flat). A single optic instance is used for each screen, and that instance supports all of the shapes. 
+
+The important classes are:
 
 ```
 // model class heirachy
