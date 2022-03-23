@@ -311,3 +311,13 @@ To write well-behaved programs, it's not always possible to be physically accura
 * To ensure that at least 2 rays pass through the optic, the "Many" mode for Rays dynamically varies the number of rays based on the object's distance from the object. See `'many'` in `LightRays.ts`.
 
 * The opacity of framed images is derived from several quantities and magic numbers. See `opactityProperty` in `FramedImage`. 
+
+## Sound
+
+All sound in this sim is provided by common code.
+
+## Alternative Input
+
+## PhET-iO
+
+The PhET-iO instrumentation of this sim is relatively straightforward. As described in [Memory Management](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#memory-management), everything in this sim is created at startup. So there is no sim-specific use of PhetioGroup or PhetioCapsule.  
