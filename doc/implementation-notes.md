@@ -6,8 +6,21 @@
 ## Table of Contents
 * [Introduction](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#introduction)
 * [General Consideration](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#general-considerations)
-    * [Model-View Transform](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#model-view-transform)
+    * [Model-View Transforms](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#model-view-transforms)
+    * [Query Parameters](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#query-parameters)
+    * [Memory Management](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#memory-management)
 * [Optic](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#optic)
+* [Optical Objects](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#optical-objects)
+* [Optical Images](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#optical-images)
+* [Projection Screen](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#projection-screen)
+* [Rays](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#rays)
+* [Guides](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#guides)
+* [3D Perspective](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#3d-perspective)
+* [Scenes](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#scenes)
+* [Tools](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#tools)
+* [Labels](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#labels)
+* [Controls](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#controls)
+* [Hollywood!](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#hollywood!)
 
 ## Introduction
 
@@ -93,7 +106,7 @@ OpticNode
   MirrorNode
 ```
 
-## Optical Object
+## Optical Objects
 
 In geometric optics, an **object** is anything that can be viewed. Since that term conflicts with the name of JavaScript's `Object` class, we use **optical object** in the code where there is potential for confusion.
 
@@ -140,7 +153,7 @@ OpticalImageNode
 
 Framed images have variable opacity (see `opactityProperty` in `FramedImage`). We wanted to independently control how well the occluded parts of the optical axis and rays could be seen through the image. So an additional mask was added behind the image. See `FramedImageMaskNode`. 
 
-## Projection Screen & Light Spots
+## Projection Screen
 
 As mentioned in the **Optical Images** section, lights form no optical image. Instead, they cast light spots on a projection screen.  
 
