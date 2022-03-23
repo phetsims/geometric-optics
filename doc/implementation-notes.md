@@ -132,6 +132,8 @@ OpticalImageNode
   FramedImageNode
 ```
 
+Framed images have variable opacity (see `opactityProperty` in `FramedImage`). We wanted to independently control how well the occluded parts of the optical axis and rays could be seen through the image. So an additional mask was added behind the image. See `FramedImageMaskNode`. 
+
 ## Projection Screen & Light Spots
 
 As mentioned in the **Optical Images** section, lights form no optical image. Instead, they cast light spots on a projection screen.  
