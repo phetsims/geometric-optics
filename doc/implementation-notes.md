@@ -79,7 +79,7 @@ OpticNode
 
 # Optical Object
 
-In geometric optics, an **object** is anything that can be viewed. Since that term conflicts with the name of JavaScript's `Object` class, we use **optical object** in the code where there is potential for confusion.=
+In geometric optics, an **object** is anything that can be viewed. Since that term conflicts with the name of JavaScript's `Object` class, we use **optical object** in the code where there is potential for confusion.
 
 Three types of optical object are implemented in this sim: 
 * Arrow: the most common representation used in geometric optics courses
