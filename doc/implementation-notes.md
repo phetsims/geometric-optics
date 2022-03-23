@@ -6,6 +6,8 @@
 ## Table of Contents
 * [Introduction](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#introduction)
 * [General Consideration](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#general-considerations)
+    * [Model-View Transform](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#model-view-transform)
+* [Optic](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#optic)
 
 ## Introduction
 
