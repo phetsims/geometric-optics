@@ -25,9 +25,9 @@ In addition to this document, you are encouraged to read:
 
 This simulation makes use of 2 model-view transforms to map model coordinates (in cm) to view coordinates.
 
-The first transform is a static mapping, see `modelViewTransform` in [GOScreenView.ts](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/GOScreenView.ts). The model has +x to the left, and +y up, and scaling is isometric in both directions. In the _Lens_ screen, the origin (0,0) in the model coordinate frame is near the center of the ScreenView. In the _Mirror_ screen, the origin is shift to the right, to accommodate the behavior of mirrors.
+The first transform is a static mapping, see `modelViewTransform` in `GOScreenView`. The model has +x to the left, and +y up, and scaling is isometric in both directions. In the _Lens_ screen, the origin (0,0) in the model coordinate frame is near the center of the ScreenView. In the _Mirror_ screen, the origin is shift to the right, to accommodate the behavior of mirrors.
 
-The second transform is a dynamic mapping, based on zoom level, see `zoomTransformProperty` in [GOScreenView.ts](https://github.com/phetsims/geometric-optics/blob/master/js/common/view/GOScreenView.ts). This transform is applied to all all elements within a "scene" (optic, objects, images, rays, projection screen).
+The second transform is a dynamic mapping, based on zoom level, see `zoomTransformProperty` in `GOScreenView`. This transform is applied to all all elements within a "scene" (optic, objects, images, rays, projection screen).
 
 Rulers change their tick marks to match the zoom level, but otherwise do not change position or size. 
 
@@ -273,14 +273,14 @@ For controls that appear in the Options dialog, start with `GOGlobalOptionsNode.
 
 To write well-behaved programs, it's not always possible to be physically accurate. This section enumerates the places where we have "Hollywooded" things to provide close approximations and convincing behavior.
 
-* Physical mirrors do not have an index of refraction. Our mirror is modeled as a lens with index of refraction = 2. See `INDEX_OF_REFRACTION_RANGE` in [Mirror.ts](https://github.com/phetsims/geometric-optics/blob/master/js/mirror/model/Mirror.ts).
+* Physical mirrors do not have an index of refraction. Our mirror is modeled as a lens with index of refraction = 2. See `INDEX_OF_REFRACTION_RANGE` in `Mirror.ts`.
 
-* A flat mirror is modeled as a convex mirror with very large focal length. See `FLAT_MIRROR_FINITE_FOCAL_LENGTH` in [Optic.ts](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/Optic.ts). PhET-iO clients should therefore be warned that model Properties are not accurate for the flat mirror. For example, focal length will be a very large number, not infinity.
+* A flat mirror is modeled as a convex mirror with very large focal length. See `FLAT_MIRROR_FINITE_FOCAL_LENGTH` in `Optic.ts`. PhET-iO clients should therefore be warned that model Properties are not accurate for the flat mirror. For example, focal length will be a very large number, not infinity.
   
-* The shape of the lens, as well as the refraction of the rays within the lens, is "Hollywooded". This leads to a few artifacts that we have attempted to minimize. See the `isHollywooded` option to [LensShapes.ts](https://github.com/phetsims/geometric-optics/blob/master/js/lens/model/LensShapes.ts).
+* The shape of the lens, as well as the refraction of the rays within the lens, is "Hollywooded". This leads to a few artifacts that we have attempted to minimize. See the `isHollywooded` option to `LensShapes.ts`.
 
-* To ensure that rays pass through the optic, the optical object is always at least 40 cm from the optic, and never more than 100 cm from the optical axis. See `MIN_DISTANCE_FROM_OBJECT_TO_OPTIC` and `MAX_DISTANCE_FROM_OBJECT_TO_OPTICAL_AXIS` in [GOConstants.ts](https://github.com/phetsims/geometric-optics/blob/master/js/common/GOConstants.ts).
+* To ensure that rays pass through the optic, the optical object is always at least 40 cm from the optic, and never more than 100 cm from the optical axis. See `MIN_DISTANCE_FROM_OBJECT_TO_OPTIC` and `MAX_DISTANCE_FROM_OBJECT_TO_OPTICAL_AXIS` in `GOConstants.ts`.
 
-* To ensure that at least 2 rays pass through the optic, the "Many" mode for Rays dynamically varies the number of rays based on the object's distance from the object. See `'many'` in [LightRays.ts](https://github.com/phetsims/geometric-optics/blob/master/js/common/model/LightRays.ts).
+* To ensure that at least 2 rays pass through the optic, the "Many" mode for Rays dynamically varies the number of rays based on the object's distance from the object. See `'many'` in `LightRays.ts`.
 
 * The opacity of framed images is derived from several quantities and magic numbers. See `opactityProperty` in `FramedImage`. 
