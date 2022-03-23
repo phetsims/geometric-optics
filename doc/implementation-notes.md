@@ -156,6 +156,7 @@ GORay - a subclass of dot.Ray2 that adds functionality
 LightRaysNode - base class
   RealLightRaysNode - renders real rays as solid lines
   VirtualLightRaysNode - renders virtual rays as dashed lines
+```
 
 ## Guides
 
