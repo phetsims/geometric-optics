@@ -61,7 +61,7 @@ to the browser console.
 
 ### Memory Management
 
-* **Dynamic allocation:** Most objects in this sim are allocated at startup, and exist for the lifetime of the simulation. The exception is GOOptionsDialogNode.ts and its children, which must all implemented `dispose`. This is the content for the Options dialog, and is instantiated each time the Options menu item is selected from the PhET menu.
+* **Dynamic allocation:** Most objects in this sim are allocated at startup, and exist for the lifetime of the simulation. The exception is `GOGlobalOptionsNode` and its children, which must all implemented `dispose`. This is the content for the Options dialog, whose instantiation is deferred until the user selects the _PhET > Options_ menu item.
 
 * **Listeners**: Unless otherwise noted in the code, all uses of `link`, `addListener`, etc. do NOT need a corresponding `unlink`, `removeListener`, etc.
 
@@ -80,13 +80,13 @@ dispose() {
 
 ## Optic
 
-The sim supports two types of optic, with multiple shapes: lens (concave, convex) and mirror (concave, convex, flat). A single optic instance is used for each screen, and that instance supports all of the shapes. 
+The sim supports two types of optic, with multiple shapes: lens (concave, convex) and mirror (concave, convex, flat). A single optic instance is used for each screen, shared by all scenes in the screen, and that instance supports all of the shapes.
 
 A relatively complex part of the optic model implementation is that it supports 2 focal-length models:
 * direct: focal length is settable, IOR is fixed, ROC is derived
 * indirect: ROC and IOR are settable, focal length is derived
 
-The user can switch between these focal-length models via radio buttons in the Options dialog.
+The user can switch between focal-length models via radio buttons in the Options dialog.
 
 The important classes are:
 
@@ -137,6 +137,8 @@ OpticalObjectNode
   LightObjectNode
 ```
 
+For the framed object, a second "point of interest" is also implemented. See `SecondPoint` and `SecondPointNode`.
+
 ## Optical Images
 
 In geometric optics, an **image** is the likeness of an object produced at a point in space by an optic. Since that term conflicts with the name of PhET's `scenery.Image` class, we use **optical image** in the code where there is potential for confusion.
@@ -155,11 +157,13 @@ OpticalImageNode
   FramedImageNode
 ```
 
-Framed images have variable opacity (see `opactityProperty` in `FramedImage`). We wanted to independently control how well the occluded parts of the optical axis and rays could be seen through the image. So an additional mask was added behind the image. See `FramedImageMaskNode`. 
+Arrow images do not uniformly scale with magnification. The dimensions of the arrows head and tail remain constant, only the magnitude changes.
+
+Framed images scale uniformly with magnification, and have variable opacity (see `opactityProperty` in `FramedImage`). We wanted to independently control how well the occluded parts of the optical axis and rays could be seen through the image. So an additional mask was added behind the image. See `FramedImageMaskNode`. 
 
 ## Projection Screen
 
-As mentioned in the **Optical Images** section, lights form no optical image. Instead, they cast light spots on a projection screen.  
+As mentioned in the **Optical Images** section, lights form no optical image. Instead, they cast light spots on a projection screen. 
 
 The important classes are:
 
@@ -177,9 +181,7 @@ LightSpotNode
 
 Light rays propagate from a point on an optical object, and interact with the optic. In the case of arrows and framed objects, an optical image is formed. In the case of lights, light spots appear where the rays hit the projection screen.
 
-This sim has a relatively complicated ray tracer, which is also responsible for animation of rays.
-
-Important classes:
+This sim has a relatively complicated ray tracer, which is also responsible for animation of rays. Instead of duplicating what's already in the source code, we'll point you to the important classes:
 
 ```
 // model
@@ -195,7 +197,7 @@ LightRaysNode - base class
 
 ## Guides
 
-Guides are a representation invented by PhET, and described in [model.md](https://github.com/phetsims/geometric-optics/blob/master/doc/model.md). The are hidden behind query parameter `addGuidesCheckbox`.
+Guides are a representation invented by PhET, and described in [model.md](https://github.com/phetsims/geometric-optics/blob/master/doc/model.md). They are hidden behind query parameter `addGuidesCheckbox`.
 
 The important classes are:
 
@@ -211,9 +213,9 @@ GuidesNode - a pair of guides
 
 ## 3D Perspective
 
-Since the framed objects/images have 3D perspective, we want the the optical axis and rays to look like they are passing through the object/images. This accomplish by drawing 2 copies of the axis and real rays, one behind the objects/images and one in front of the objects/images.  The copy in front uses a `clipArea` to shown only the parts of the axis and rays that are in front - see `OpticalAxisForegrondNode` and `RealLightRaysForegroundNode`.
+Since the framed objects/images have 3D perspective, we want the the optical axis and rays to look like they are passing through the object/images. This is accomplish by drawing 2 copies of the axis and real rays, one behind the objects/images and one in front of the objects/images.  The copy in front uses a `clipArea` to show only the parts of the axis and rays that are not occluded by the object/image - see `OpticalAxisForegrondNode` and `RealLightRaysForegroundNode`.
 
-The projection screen also has 3D perspective. To make the optical axis look like it passes through the screen, we similarly draw copies of the axis in front of and behind the screen.  A `clipArea` is not necessary, and the front axis is simply stops at where it meets the center of the screen. See `OpticalAxisInFrontOfProjectionScreenNode`.
+The projection screen also has 3D perspective. To make the optical axis look like it passes through the screen, we similarly draw 2 copies of the axis.  A `clipArea` is not necessary, and the front axis simply stops at where it meets the center of the screen. See `OpticalAxisInFrontOfProjectionScreenNode`.
 
 ## Scenes
 
@@ -226,7 +228,9 @@ There is one scene for each type of optical object (arrow, framed object, light)
 * projection screen & light spots
 * guides
 
-A single optic instance (lens or mirror) is shared by all scenes, as are the controls and tools.    
+A single optic instance (lens or mirror) is shared by all scenes, as are the controls and tools.
+
+Each scene has an associated collection of labels, see the [Labels](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#labels) section below.
 
 The important classes are:
 
@@ -244,11 +248,11 @@ GOSceneNode
   LightSceneNode
 ```
 
-Making a selection from `OpticalObjectComboBox` may or may not result in changing the scene. If switching between framed objects, the scene does not change, only the PNG files used for the framed object. For example, switching from "Pencil" to "Arrow" will switch from `FramedObjectScene` to `ArrowScene`. Switching from "Pencil" to "Penguin" will not change the scene, but will change from pencil PNG files to penguin PNG files for the optical object and image in `FramedObjectScene`.
+Making a selection from `OpticalObjectComboBox` may or may not result in changing the scene. If switching between framed objects, the scene does not change; the PNG files used for the framed object are changed. For example, switching from "Pencil" to "Arrow" will switch from `FramedObjectScene` to `ArrowScene`. Switching from "Pencil" to "Penguin" will not change the scene, but will change from pencil PNG files to penguin PNG files for the optical object and image in `FramedObjectScene`.
 
 ## Tools
 
-The sim has two types of tools: rulers and position markers. Two instances of each tool (model and view) are instantiated when the sim starts, and exist for the lifetime of the simulation. There is no dynamic creation of tools.  One set of tools is shared by all scenes. The tools do not change position when switching scenes, or when zooming in/out.
+The sim has two types of tools: rulers and position markers. For each screen, two instances of each tool are instantiated (model and view) when the sim starts, and exist for the lifetime of the simulation. There is no dynamic creation of tools.  One set of tools is shared by all scenes. The tools do not change position when switching scenes, or when zooming in/out.
 
 Tools live in a toolbox, see `GOToolbox` and `GOToolboxNode`. Tools move in and out of the toolbox via `isInToolboxProperty`, defined in `GOTool`.
 
