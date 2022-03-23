@@ -50,7 +50,7 @@ The second transform is a dynamic mapping, based on zoom level, see `zoomTransfo
 
 Rulers change their tick marks to match the zoom level, but otherwise do not change position or size. 
 
-Labels change their position to match the zoom level, but otherwise do not change this size.
+Labels change their position to match the zoom level, but do not change size.
 
 ### Query Parameters
 
