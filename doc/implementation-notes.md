@@ -57,7 +57,7 @@ dispose() {
 }
 ```
 
-# Optic
+## Optic
 
 The sim supports two types of optic: lens (concave, convex) and mirror (concave, convex, flat). The important classes are:
 
@@ -77,13 +77,13 @@ OpticNode
   MirrorNode
 ```
 
-# Optical Object
+## Optical Object
 
 In geometric optics, an **object** is anything that can be viewed. Since that term conflicts with the name of JavaScript's `Object` class, we use **optical object** in the code where there is potential for confusion.
 
 Three types of optical object are implemented in this sim: 
 * **Arrow**: the most common representation used in geometric optics courses. The arrow is drawn perpendicular to the optical axis, and its tail is always on the optical axis.
-* **Framed Object**: an object shown in a picture frame, in 3D perspective. The 3D perspective presents some additional implementation challenges, which we'll discuss in the **Optical Images** section.
+* **Framed Object**: an object shown in a picture frame, in 3D perspective. The 3D perspective presents some additional implementation challenges, which we'll discuss in the **3D Perspective** section.
 * **Light**: point light sources
 
 `OpticalObjectChoice` is a rich enumeration of optical objects. While there are 3 choices of framed object (Pencil, Penguin, Star), those choices simply change the PNG files used to represent the single framed object.  `OpticalObjectChoiceComboBox`, in the upper-right corner of the screen, is used to select one of the value from `OpticalObjectChoice`.
@@ -108,7 +108,7 @@ OpticalObjectNode
   LightObjectNode
 ```
 
-# Optical Images
+## Optical Images
 
 In geometric optics, an **image** is the likeness of an object produced at a point in space by an optic. Since that term conflicts with the name of PhET's `scenery.Image` class, we use **optical image** in the code where there is potential for confusion.
 
@@ -130,9 +130,11 @@ OpticalImageNode
   FramedImageNode
 ```
 
-# 3D Perspective
+## 3D Perspective
 
-As mentioned above, the 3D perspective of framed objects/images presents additional implementation challenges. We want the optical axis and rays to look like they are passing through the object/images. This accomplish by drawing 2 copies of the axis and real rays, one behind the objects/images and one in front of the objects/images.  The copy in front uses a `clipArea` to shown only the parts of the axis and rays that are in front - see `OpticalAxisForegrondNode` and `RealLightRaysForegroundNode`.
+Since the framed objects/images have 3D perspective, we want the the optical axis and rays to look like they are passing through the object/images. This accomplish by drawing 2 copies of the axis and real rays, one behind the objects/images and one in front of the objects/images.  The copy in front uses a `clipArea` to shown only the parts of the axis and rays that are in front - see `OpticalAxisForegrondNode` and `RealLightRaysForegroundNode`.
+
+The projection screen also has 3D perspective. To make the optical axis look like it passes through the screen, we similarly draw copies of the axis in front of and behind the screen.  A `clipArea` is not necessary, and the front axis is simply stops at where it meets the center of the screen. See `OpticalAxisInFrontOfProjectionScreenNode`.
 
 # Hollywood!
 
