@@ -20,7 +20,7 @@
 * [Tools](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#tools)
 * [Labels](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#labels)
 * [Controls](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#controls)
-* [Hollywood!](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#hollywood!)
+* [Hollywood!](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#hollywood)
 
 ## Introduction
 
