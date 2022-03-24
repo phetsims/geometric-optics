@@ -94,7 +94,7 @@ image. For instance, for the lens, the principal rays are defined by three rays:
 - A ray from the top of the object, proceeding parallel to the optical axis of the optic. For a converging lens, the ray will pass through the principal focal point. For a diverging lens, the ray will proceed from the lens as if it emanated from the focal point on the near side of the lens.
 - A ray through the principal focal point on the near-side for a converging lens, or on the far-side for a diverging lens. The ray will proceed parallel to the optical axis upon exit from the lens.
 
-_Many_ rays consists of a 120-degree fan of rays. The number of rays increases with the distance of the object from the optic, such that at least 2 rays will pass through the optic.
+_Many_ rays consists of a 120-degree fan of rays. The number of rays increases with the distance of the object from the optic, such that at least 2 rays will pass through the optic. At least one ray (preferrably two) must intersect the optic in order to form an image.
 
 ## _Lens_ screen
 
