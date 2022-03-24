@@ -319,7 +319,7 @@ To write well-behaved programs, it's not always possible to be physically accura
 
 ## Sound
 
-All sounds in this sim are provided by common code.
+All sounds in this sim are provided by common code UI components. This are currently no sounds associated with sim-specific UI components and interactions.
 
 ## Alternative Input
 
