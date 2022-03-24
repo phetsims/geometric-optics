@@ -202,7 +202,7 @@ LightRaysNode - base class
 
 ## Guides
 
-Guides are a representation invented by PhET, and described in [model.md](https://github.com/phetsims/geometric-optics/blob/master/doc/model.md). They are hidden behind query parameter `addGuidesCheckbox`.
+Guides are a representation invented by PhET, and are described in [model.md](https://github.com/phetsims/geometric-optics/blob/master/doc/model.md). They are hidden behind query parameter `addGuidesCheckbox`.
 
 The important classes are:
 
