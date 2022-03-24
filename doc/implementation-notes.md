@@ -178,7 +178,7 @@ ProjectionScreen
 LightSpot
 
 // view
-ProjectionScreen Node
+ProjectionScreenNode
 LightSpotNode
 ```
 
