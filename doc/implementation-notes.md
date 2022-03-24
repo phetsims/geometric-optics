@@ -256,7 +256,7 @@ GOSceneNode
 
 Making a selection from `OpticalObjectComboBox` may or may not result in changing the scene. If switching between framed objects, the scene does not change; the PNG files used for the framed object are changed. For example, switching from "Pencil" to "Arrow" will switch from `FramedObjectScene` to `ArrowScene`. Switching from "Pencil" to "Penguin" will not change the scene, but will change from pencil PNG files to penguin PNG files for the optical object and image in `FramedObjectScene`.
 
-Note that while the Light scene is relevant for the _Lens_ screen only, it was cleaner (and straightforward) to implement it as an option to the base classes for the model (`GOModel`) and view (`GOScreenView`). So you'll find things related to the Light scene in the `js/common/` subdirectory, rather than `js/mirror/`.
+Note that while the Light scene is relevant for the _Lens_ screen only, it was cleaner (and straightforward) to implement it as an option to the base classes for the model (`GOModel`) and view (`GOScreenView`). So you'll find things related to the Light scene in the `js/common/` subdirectory, rather than `js/lens/`.
 
 ## Tools
 
