@@ -319,7 +319,7 @@ To write well-behaved programs, it's not always possible to be physically accura
 
 ## Sound
 
-All sound in this sim is provided by common code.
+All sounds in this sim are provided by common code.
 
 ## Alternative Input
 
