@@ -129,10 +129,10 @@ Important classes for the optical object are:
 ```
 // model class heirachy
 OpticalObject
+  ArrowObject
   HTMLImageElementObject
     FramedObject
     LightObject
-  ArrowObject
 
 // view class hierarchy:
 OpticalObjectNode
