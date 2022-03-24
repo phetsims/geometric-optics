@@ -166,6 +166,8 @@ Framed images scale uniformly with magnification, and have variable opacity (see
 
 ## Projection Screen
 
+While this is labeled "Screen" in the view, that term conflicts with the name of PhET's `joist.Screen` class, so we use **projection screen** throughout the code.
+
 As mentioned in the **Optical Images** section, lights form no optical image. Instead, they cast light spots on a projection screen. 
 
 The important classes are:
