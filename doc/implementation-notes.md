@@ -256,6 +256,8 @@ GOSceneNode
 
 Making a selection from `OpticalObjectComboBox` may or may not result in changing the scene. If switching between framed objects, the scene does not change; the PNG files used for the framed object are changed. For example, switching from "Pencil" to "Arrow" will switch from `FramedObjectScene` to `ArrowScene`. Switching from "Pencil" to "Penguin" will not change the scene, but will change from pencil PNG files to penguin PNG files for the optical object and image in `FramedObjectScene`.
 
+Note that while the Light scene is relevant for the _Lens_ screen only, it was cleaner (and straightforward) to implement it as an option to the base classes for the model (`GOModel`) and view (`GOScreenView`).
+
 ## Tools
 
 The sim has two types of tools: rulers and position markers. For each screen, two instances of each tool are instantiated (model and view) when the sim starts, and exist for the lifetime of the simulation. There is no dynamic creation of tools.  One set of tools is shared by all scenes. The tools do not change position when switching scenes, or when zooming in/out.
