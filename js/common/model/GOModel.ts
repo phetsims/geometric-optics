@@ -193,7 +193,7 @@ class GOModel {
    * @param dt - time step, in seconds
    */
   public step( dt: number ): void {
-    if ( this.lightPropagationEnabledProperty.value ) {
+    if ( this.lightPropagationEnabledProperty.value && ( this.raysTypeProperty.value !== 'none' ) ) {
       this.scenes.forEach( scene => scene.stepLightRays( dt ) );
     }
   }
