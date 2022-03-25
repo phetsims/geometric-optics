@@ -123,7 +123,9 @@ class FramedSceneNode extends GOSceneNode {
       } );
     this.opticalAxisForegroundLayer.addChild( opticalAxisForegroundNode );
 
-    // Light rays (real & virtual) associated with the first point-of-interest (the framed object's position).
+    // Real light rays associated with the first point-of-interest (the framed object's position).
+    // There are foreground and background components to these rays, to handle occlusion of the rays by the
+    // 3D perspective of the framed object and image.
     const realLightRays1Options = {
       stroke: GOColors.rays1StrokeProperty,
       visibleProperty: lightPropagationEnabledProperty
@@ -134,22 +136,20 @@ class FramedSceneNode extends GOSceneNode {
       modelVisibleBoundsProperty, scene.optic.positionProperty, scene.framedImage1.positionProperty,
       scene.framedImage1.opticalImageTypeProperty, realLightRays1Options );
     this.raysForegroundLayer.addChild( realLightRays1ForegroundNode );
+
+    // Virtual light rays associated with the first point-of-interest (the framed object's position).
     const virtualLightRays1Node = new VirtualLightRaysNode( scene.lightRays1, modelViewTransform, {
-      stroke: realLightRays1Options.stroke,
-      visibleProperty: DerivedProperty.and( [
-        visibleProperties.virtualImageVisibleProperty,
-        lightPropagationEnabledProperty
-      ] )
+      stroke: GOColors.rays1StrokeProperty,
+      visibleProperty: DerivedProperty.and( [ lightPropagationEnabledProperty, visibleProperties.virtualImageVisibleProperty ] )
     } );
     this.raysForegroundLayer.addChild( virtualLightRays1Node );
 
-    // Light rays (real & virtual) associated with the second point-of-interest (also on the framed object).
+    // Real light rays associated with the second point-of-interest (also on the framed object).
+    // There are foreground and background components to these rays, to handle occlusion of the rays by the
+    // 3D perspective of the framed object and image.
     const realLightRays2Options = {
       stroke: GOColors.rays2StrokeProperty,
-      visibleProperty: DerivedProperty.and( [
-        visibleProperties.secondPointVisibleProperty,
-        lightPropagationEnabledProperty
-      ] )
+      visibleProperty: DerivedProperty.and( [ lightPropagationEnabledProperty, visibleProperties.secondPointVisibleProperty ] )
     };
     const realLightRays2Node = new RealLightRaysNode( scene.lightRays2, modelViewTransform, realLightRays2Options );
     this.raysBackgroundLayer.addChild( realLightRays2Node );
@@ -157,12 +157,14 @@ class FramedSceneNode extends GOSceneNode {
       modelVisibleBoundsProperty, scene.optic.positionProperty, scene.framedImage2.positionProperty,
       scene.framedImage2.opticalImageTypeProperty, realLightRays2Options );
     this.raysForegroundLayer.addChild( realLightRays2ForegroundNode );
+
+    // Virtual light rays associated with the second point-of-interest (also on the framed object).
     const virtualLightRays2Node = new VirtualLightRaysNode( scene.lightRays2, modelViewTransform, {
-      stroke: realLightRays2Options.stroke,
+      stroke: GOColors.rays2StrokeProperty,
       visibleProperty: DerivedProperty.and( [
+        lightPropagationEnabledProperty,
         visibleProperties.virtualImageVisibleProperty,
-        visibleProperties.secondPointVisibleProperty,
-        lightPropagationEnabledProperty
+        visibleProperties.secondPointVisibleProperty
       ] )
     } );
     this.raysForegroundLayer.addChild( virtualLightRays2Node );
