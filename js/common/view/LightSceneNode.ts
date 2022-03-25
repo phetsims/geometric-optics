@@ -133,8 +133,12 @@ class LightSceneNode extends GOSceneNode {
     this.opticalImagesLayer.addChild( projectionScreenNode );
 
     // LightSpot associated with the first light
+    const lightSpot1NodeTandem = providedOptions.tandem.createTandem( 'lightSpot1Node' );
     const lightSpot1Node = new LightSpotNode( scene.lightSpot1, modelViewTransform, {
-      visibleProperty: scene.opticalImage1.visibleProperty,
+      visibleProperty: DerivedProperty.and( [ lightPropagationEnabledProperty, scene.opticalImage1.visibleProperty ], {
+        tandem: lightSpot1NodeTandem.createTandem( 'visibleProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
+      } ),
       tandem: providedOptions.tandem.createTandem( 'lightSpot1Node' )
     } );
     this.opticalImagesLayer.addChild( lightSpot1Node );
@@ -143,7 +147,7 @@ class LightSceneNode extends GOSceneNode {
     const lightSpot2NodeTandem = providedOptions.tandem.createTandem( 'lightSpot2Node' );
     const lightSpot2Node = new LightSpotNode( scene.lightSpot2, modelViewTransform, {
       visibleProperty: DerivedProperty.and(
-        [ scene.opticalImage2.visibleProperty, visibleProperties.secondPointVisibleProperty ], {
+        [ lightPropagationEnabledProperty, scene.opticalImage2.visibleProperty, visibleProperties.secondPointVisibleProperty ], {
           tandem: lightSpot2NodeTandem.createTandem( 'visibleProperty' ),
           phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
         } ),
