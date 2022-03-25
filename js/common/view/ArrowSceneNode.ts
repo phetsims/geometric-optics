@@ -110,22 +110,21 @@ class ArrowSceneNode extends GOSceneNode {
       } );
     this.opticalImagesLayer.addChild( arrowImage2Node );
 
-    // Light rays (real & virtual) associated with the first point-of-interest (the framed object's position).
+    // Real light rays associated with the first point-of-interest (the framed object's position).
     const realLightRays1Node = new RealLightRaysNode( scene.lightRays1, modelViewTransform, {
       stroke: GOColors.rays1StrokeProperty,
       visibleProperty: lightPropagationEnabledProperty
     } );
     this.raysForegroundLayer.addChild( realLightRays1Node );
+
+    // Virtual light rays associated with the first point-of-interest (the framed object's position).
     const virtualLightRays1Node = new VirtualLightRaysNode( scene.lightRays1, modelViewTransform, {
       stroke: GOColors.rays1StrokeProperty,
-      visibleProperty: DerivedProperty.and( [
-        visibleProperties.virtualImageVisibleProperty,
-        lightPropagationEnabledProperty
-      ] )
+      visibleProperty: DerivedProperty.and( [ lightPropagationEnabledProperty, visibleProperties.virtualImageVisibleProperty ] )
     } );
     this.raysForegroundLayer.addChild( virtualLightRays1Node );
 
-    // Light rays (real & virtual) associated with the second point-of-interest (also on the framed object).
+    // Real light rays associated with the second point-of-interest (also on the framed object).
     const realLightRays2Node = new RealLightRaysNode( scene.lightRays2, modelViewTransform, {
       stroke: GOColors.rays2StrokeProperty,
       visibleProperty: DerivedProperty.and( [
@@ -134,12 +133,14 @@ class ArrowSceneNode extends GOSceneNode {
       ] )
     } );
     this.raysForegroundLayer.addChild( realLightRays2Node );
+
+    // Virtual light rays associated with the second point-of-interest (also on the framed object).
     const virtualLightRays2Node = new VirtualLightRaysNode( scene.lightRays2, modelViewTransform, {
       stroke: GOColors.rays2StrokeProperty,
       visibleProperty: DerivedProperty.and( [
+        lightPropagationEnabledProperty,
         visibleProperties.virtualImageVisibleProperty,
-        visibleProperties.secondPointVisibleProperty,
-        lightPropagationEnabledProperty
+        visibleProperties.secondPointVisibleProperty
       ] )
     } );
     this.raysForegroundLayer.addChild( virtualLightRays2Node );

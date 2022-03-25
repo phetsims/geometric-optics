@@ -117,7 +117,7 @@ class LightSceneNode extends GOSceneNode {
     // Note that virtual rays are not shown in this scene, because no optical image is being formed.
     const realLightRays2Node = new RealLightRaysNode( scene.lightRays2, modelViewTransform, {
       stroke: GOColors.rays2StrokeProperty,
-      visibleProperty: DerivedProperty.and( [ visibleProperties.secondPointVisibleProperty, lightPropagationEnabledProperty ] )
+      visibleProperty: DerivedProperty.and( [ lightPropagationEnabledProperty, visibleProperties.secondPointVisibleProperty ] )
     } );
     this.raysForegroundLayer.addChild( realLightRays2Node );
 
