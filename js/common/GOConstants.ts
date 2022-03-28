@@ -25,7 +25,7 @@ const GOConstants = {
     leadDesign: 'Amy Rouinfar, Michael Dubson',
     softwareDevelopment: 'Sarah Chang, Chris Malley (PixelZoom, Inc.), Martin Veillette',
     team: 'Chris Klusendorf, Diana L\u00f3pez Tavares, Ariel Paul, Kathy Perkins',
-    qualityAssurance: 'Steele Dalton, Emily Miller, Nancy Salpepi, Kathryn Woessner',
+    qualityAssurance: 'Steele Dalton, Clifford Hardin, Emily Miller, Nancy Salpepi, Kathryn Woessner',
     graphicArts: 'Megan Lai'
   },
 
