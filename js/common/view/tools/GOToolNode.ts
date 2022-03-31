@@ -48,7 +48,7 @@ abstract class GOToolNode extends Node {
    */
   protected constructor( tool: GOTool, providedOptions: GOToolNodeOptions ) {
 
-    const options = optionize<GOToolNodeOptions, {}, NodeOptions>( {
+    const options = optionize<GOToolNodeOptions, SelfOptions, NodeOptions>( {
 
       // NodeOptions
       visibleProperty: DerivedProperty.not( tool.isInToolboxProperty ), // visible when not in the toolbox
@@ -127,7 +127,9 @@ abstract class GOToolNode extends Node {
     }
 
     // Find the tool's position in the array of points.
-    const thisPoint = _.find( points, point => point.equals( toolPosition ) );
+    // Use _.findLast so that the tool doesn't get stuck when there are points that are the "same".
+    // See https://github.com/phetsims/geometric-optics/issues/413
+    const thisPoint = _.findLast( points, point => point.equals( toolPosition ) );
 
     if ( thisPoint ) {
 
