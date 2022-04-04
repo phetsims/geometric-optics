@@ -1,7 +1,8 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * LightSpotNode is the circular light that is projected onto the screen.
+ * LightSpotNode is a light spot that is projected onto the projection screen.
+ * It is responsible for creating the light spot's shape, and clipping it to the projection screen.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -15,6 +16,11 @@ import geometricOptics from '../../geometricOptics.js';
 import LightSpot from '../model/LightSpot.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import GOConstants from '../GOConstants.js';
+import ProjectionScreen from '../model/ProjectionScreen.js';
+import GOQueryParameters from '../GOQueryParameters.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import Property from '../../../../axon/js/Property.js';
+import { Shape } from '../../../../kite/js/imports.js';
 
 type LightSpotNodeOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem'>;
 
@@ -22,10 +28,14 @@ class LightSpotNode extends Node {
 
   /**
    * @param lightSpot
+   * @param projectionScreen
    * @param modelViewTransform
    * @param providedOptions
    */
-  constructor( lightSpot: LightSpot, modelViewTransform: ModelViewTransform2, providedOptions: LightSpotNodeOptions ) {
+  constructor( lightSpot: LightSpot,
+               projectionScreen: ProjectionScreen,
+               modelViewTransform: ModelViewTransform2,
+               providedOptions: LightSpotNodeOptions ) {
 
     super( providedOptions );
 
@@ -33,7 +43,6 @@ class LightSpotNode extends Node {
     const fillPath = new Path( null, {
       fill: GOColors.lightSpotFillProperty
     } );
-    this.addChild( fillPath );
 
     // Dashed outline of the spot, so it's easier to see when intensity is low.
     // See https://github.com/phetsims/geometric-optics/issues/240
@@ -42,13 +51,34 @@ class LightSpotNode extends Node {
       lineWidth: 0.75,
       lineDash: [ 4, 4 ]
     } );
-    this.addChild( strokePath );
 
-    lightSpot.shapeProperty.link( shape => {
-      const viewShape = modelViewTransform.modelToViewShape( shape );
-      fillPath.shape = viewShape;
-      strokePath.shape = viewShape;
+    const fillAndStrokeNode = new Node( {
+      children: [ fillPath, strokePath ]
     } );
+    this.addChild( fillAndStrokeNode );
+
+    // Complete, un-clipped path, for debugging.
+    let debugStrokePath: Path | null = null;
+    if ( GOQueryParameters.debugLightSpots ) {
+      debugStrokePath = new Path( null, {
+        stroke: 'red'
+      } );
+      this.addChild( debugStrokePath );
+    }
+
+    Property.multilink( [ lightSpot.positionProperty, lightSpot.diameterProperty ],
+      ( position: Vector2, diameter: number ) => {
+
+        // An ellipse with aspect ratio of 1:2, to give pseudo-3D perspective.
+        const radiusX = diameter / 4;
+        const radiusY = diameter / 2;
+        const modelShape = Shape.ellipse( position.x, position.y, radiusX, radiusY, 2 * Math.PI );
+
+        const viewShape = modelViewTransform.modelToViewShape( modelShape );
+        fillPath.shape = viewShape;
+        strokePath.shape = viewShape;
+        debugStrokePath && ( debugStrokePath.shape = viewShape );
+      } );
 
     lightSpot.intensityProperty.link( intensity => {
 
@@ -62,6 +92,12 @@ class LightSpotNode extends Node {
       // Dashed outline is visible only for lower intensities [0,0.25], and becomes more visible as intensity decreases.
       // See https://github.com/phetsims/geometric-optics/issues/240
       strokePath.opacity = Utils.clamp( Utils.linear( 0, 0.25, 1, 0, opacity ), 0, 1 );
+    } );
+
+    // Clip the light spot to the projection screen.
+    projectionScreen.positionProperty.link( projectionScreenPosition => {
+      const projectionScreenShape = projectionScreen.getScreenShapeTranslated();
+      fillAndStrokeNode.clipArea = modelViewTransform.modelToViewShape( projectionScreenShape );
     } );
 
     this.addLinkedElement( lightSpot, {
