@@ -41,9 +41,6 @@ class LightRay {
   // a collection of sequential rays
   private readonly realRays: Array<GORay>;
 
-  // Does this light ray have a virtual component?
-  private readonly hasVirtualRay: boolean;
-
   // there is a maximum of one virtual ray per LightRay
   private readonly virtualRay: GORay | null;
 
@@ -76,17 +73,13 @@ class LightRay {
 
     this.realRays = getRealRays( initialRay, firstPoint, optic, raysType, opticalImagePosition );
 
-    // If we have a projection screen, check whether the last ray terminates on the projection screen.
+    // If we have a projection screen, attempt to terminate the last real ray on the projection screen.
     if ( projectionScreen ) {
       const lastRay = this.realRays[ this.realRays.length - 1 ];
       terminateOnProjectionScreen( lastRay, projectionScreen );
     }
 
-    this.hasVirtualRay = hasVirtualRay( isImageVirtual, this.realRays );
-
-    this.virtualRay = this.hasVirtualRay ?
-                      getVirtualRay( this.realRays, opticalImagePosition ) :
-                      null;
+    this.virtualRay = getVirtualRay( isImageVirtual, this.realRays, opticalImagePosition );
 
     this.hasReachedTarget = this.getHasReachedTarget( distanceTraveled, !!projectionScreen, opticalImagePosition );
 
@@ -114,18 +107,16 @@ class LightRay {
     }
     else {
 
-      // exclude the last real ray in the calculation of length
+      // Exclude the last real ray in the calculation of length.
       for ( let i = 0; i < this.realRays.length - 1; i++ ) {
         distance = distance + this.realRays[ i ].getLength();
       }
 
-      // if the Image is virtual, the target point is along the virtual ray,
-      // otherwise, the target point probably lies along the last real ray
-      const targetRay = this.hasVirtualRay ?
-                        this.virtualRay :
-                        this.realRays[ this.realRays.length - 1 ];
+      // If the Image is virtual, the target point is along the virtual ray.
+      // Otherwise, the target point probably lies along the last real ray.
+      const targetRay = this.virtualRay || this.realRays[ this.realRays.length - 1 ];
 
-      // add the last bit of distance to the target
+      // Add the last bit of distance to the target.
       if ( targetRay ) {
         distance = distance + targetRay.getDistanceTo( opticalImagePosition );
       }
@@ -136,7 +127,7 @@ class LightRay {
   }
 
   /**
-   * Processes all the rays (virtual and real) into line segments.
+   * Processes all the rays into LightRaySegment instances, populates this.realSegments and this.virtualSegments.
    * @param distanceTraveled
    */
   private raysToSegments( distanceTraveled: number ): void {
@@ -339,37 +330,30 @@ function getTransmittedRay( originPoint: Vector2, opticalImagePosition: Vector2,
 
 /**
  * Returns a virtual ray that is opposite to the last real ray.
- * Returns null if the rays does not intersect the target point.
+ * Returns null if the ray does not intersect the optical image.
+ * @param isImageVirtual
  * @param realRays
  * @param opticalImagePosition
  */
-function getVirtualRay( realRays: GORay[], opticalImagePosition: Vector2 ): GORay | null {
-  assert && assert( realRays.length > 1 );
+function getVirtualRay( isImageVirtual: boolean, realRays: GORay[], opticalImagePosition: Vector2 ): GORay | null {
+  let virtualRay: GORay | null = null;
 
-  const lastRealRay = realRays[ realRays.length - 1 ];
+  // If the image is virtual and the real rays have refracted...
+  if ( isImageVirtual && realRays.length > 1 ) {
+    const lastRealRay = realRays[ realRays.length - 1 ];
 
-  // Virtual ray has the same position as the real ray, but propagates in the opposite direction.
-  const virtualRay = new GORay( lastRealRay.position, lastRealRay.direction.negated() );
+    // Virtual ray has the same position as the real ray, but propagates in the opposite direction.
+    virtualRay = new GORay( lastRealRay.position, lastRealRay.direction.negated() );
 
-  // If the ray intersects the target point, terminate at the target point.
-  if ( virtualRay.isPointAlongRay( opticalImagePosition ) ) {
-    virtualRay.setFinalPoint( opticalImagePosition );
-    return virtualRay;
+    // If the ray intersects the target point, terminate at the target point.
+    if ( virtualRay.isPointAlongRay( opticalImagePosition ) ) {
+      virtualRay.setFinalPoint( opticalImagePosition );
+    }
+    else {
+      virtualRay = null;
+    }
   }
-  else {
-    return null;
-  }
-}
-
-/**
- * Does this LightRay have a virtual ray?
- * @param isImageVirtual
- * @param realRays
- */
-function hasVirtualRay( isImageVirtual: boolean, realRays: GORay[] ): boolean {
-
-  // Is the Image virtual and have the real rays refracted?
-  return isImageVirtual && realRays.length > 1;
+  return virtualRay;
 }
 
 geometricOptics.register( 'LightRay', LightRay );
