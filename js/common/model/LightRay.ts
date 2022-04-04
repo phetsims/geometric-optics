@@ -81,7 +81,8 @@ class LightRay {
 
     this.virtualRay = getVirtualRay( isImageVirtual, this.realRays, opticalImagePosition );
 
-    this.hasReachedTarget = this.getHasReachedTarget( distanceTraveled, !!projectionScreen, opticalImagePosition );
+    this.hasReachedTarget = this.getHasReachedTarget( distanceTraveled, opticalObjectPosition, opticalImagePosition,
+      projectionScreen );
 
     // Process rays to convert them to line segments.
     this.raysToSegments( distanceTraveled );
@@ -91,21 +92,24 @@ class LightRay {
    * Have the rays reached the target? If a projection screen is provided, the target is the projection screen.
    * Otherwise, the target is the optical image position.
    * @param distanceTraveled
-   * @param hasProjectionScreen
+   * @param opticalObjectPosition
    * @param opticalImagePosition
+   * @param projectionScreen
    */
-  private getHasReachedTarget( distanceTraveled: number, hasProjectionScreen: boolean, opticalImagePosition: Vector2 ): boolean {
+  private getHasReachedTarget( distanceTraveled: number, opticalObjectPosition: Vector2,
+                               opticalImagePosition: Vector2, projectionScreen: ProjectionScreen | null ): boolean {
+    let hasReachedTarget;
+    if ( projectionScreen ) {
 
-    let distance = 0;
-
-    if ( hasProjectionScreen ) {
-
-      // distance to projection screen
-      for ( let i = 0; i < this.realRays.length; i++ ) {
-        distance = distance + this.realRays[ i ].getLength();
-      }
+      // For the projection screen, we're interested in whether the ray has reached the vertical plane of the
+      // screen, not whether it has intersected the screen. Since the ray originates at the optical object,
+      // compare the distance traveled to the distance of the screen from the optical object.
+      // See https://github.com/phetsims/geometric-optics/issues/417
+      hasReachedTarget = distanceTraveled >= ( projectionScreen.positionProperty.value.x - opticalObjectPosition.x );
     }
     else {
+
+      let distance = 0;
 
       // Exclude the last real ray in the calculation of length.
       for ( let i = 0; i < this.realRays.length - 1; i++ ) {
@@ -120,10 +124,11 @@ class LightRay {
       if ( targetRay ) {
         distance = distance + targetRay.getDistanceTo( opticalImagePosition );
       }
-    }
 
-    // only rays that have been refracted (or reflected) that have traveled long enough can reach the target.
-    return this.realRays.length > 1 && distanceTraveled > distance;
+      // only rays that have been refracted (or reflected) that have traveled long enough can reach the target.
+      hasReachedTarget = ( this.realRays.length > 1 ) && ( distanceTraveled > distance );
+    }
+    return hasReachedTarget;
   }
 
   /**
