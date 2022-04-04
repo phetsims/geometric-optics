@@ -1,8 +1,9 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * LightSpot is the model of the light spot that hits the projection screen.
- * Responsible for the shape of the spot (cropped to the screen shape) and the light intensity.
+ * LightSpot is the model of a light spot in the vertical plane of the projection screen.
+ * Responsible for the position, diameter, and intensity of the spot.
+ * The view decides how it should look, and clips it to the projection screen.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -11,7 +12,6 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Utils from '../../../../dot/js/Utils.js';
-import { Shape, Graph } from '../../../../kite/js/imports.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import Optic from './Optic.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -25,12 +25,8 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 type PositionAndDiameter = {
-
-  // position of the light spot's center
-  position: Vector2;
-
-  // diameter, in cm
-  diameter: number;
+  position: Vector2; // position of the light spot's center, in the vertical plane of the projection screen
+  diameter: number; // diameter, in cm
 };
 
 type LightSpotOptions = PickRequired<PhetioObjectOptions, 'tandem'> &
@@ -38,20 +34,14 @@ type LightSpotOptions = PickRequired<PhetioObjectOptions, 'tandem'> &
 
 class LightSpot extends PhetioObject {
 
-  // Shape of the light spot, based on its intersection with the projection screen.
-  // If the spot does not intersect the screen, the value will be a Shape with zero area.
-  public readonly shapeProperty: IReadOnlyProperty<Shape>;
-
   // Intensity of the light spot, in the range [0,1], 0 if there is no light spot hitting the projection screen
   public readonly intensityProperty: IReadOnlyProperty<number>;
 
   // Position of the center of the light spot, which may not be on the screen,
-  // null if there is no light spot hitting the projection screen
-  public readonly positionProperty: IReadOnlyProperty<Vector2 | null>;
+  public readonly positionProperty: IReadOnlyProperty<Vector2>;
 
   // Diameter of the light spot in the y dimension,
-  // null if there is no light spot hitting the projection screen
-  public readonly diameterProperty: IReadOnlyProperty<number | null>;
+  public readonly diameterProperty: IReadOnlyProperty<number>;
 
   /**
    * @param optic
@@ -74,43 +64,35 @@ class LightSpot extends PhetioObject {
 
     super( options );
 
-    this.shapeProperty = new DerivedProperty(
+    const positionAndDiameterProperty = new DerivedProperty(
       [ optic.positionProperty, optic.diameterProperty, projectionScreen.positionProperty, lightObjectPositionProperty, opticalImagePositionProperty ],
       ( opticPosition: Vector2, opticDiameter: number, projectionScreenPosition: Vector2, lightObjectPosition: Vector2, opticalImagePosition: Vector2 ) =>
-        getLightSpotShape( optic, projectionScreenPosition, lightObjectPosition, opticalImagePosition, projectionScreen.getScreenShapeTranslated() )
-    );
-
-    const positionAndDiameterProperty = new DerivedProperty( [ this.shapeProperty ],
-      ( shape: Shape ) =>
-        ( shape.getArea() === 0 ) ? null :
-        getPositionAndDiameter( optic, projectionScreen.positionProperty.value, lightObjectPositionProperty.value, opticalImagePositionProperty.value )
+        getPositionAndDiameter( optic, projectionScreenPosition, lightObjectPosition, opticalImagePosition )
     );
 
     this.positionProperty = new DerivedProperty( [ positionAndDiameterProperty ],
-      ( positionAndDiameter: PositionAndDiameter | null ) =>
-        ( positionAndDiameter === null ) ? null : positionAndDiameter.position, {
+      ( positionAndDiameter: PositionAndDiameter ) => positionAndDiameter.position, {
         units: 'cm',
         tandem: options.tandem.createTandem( 'positionProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( NullableIO( Vector2.Vector2IO ) ),
-        phetioDocumentation: 'position of the center of the light spot (which may not be on the screen), ' +
-                             'null if the light is not hitting the screen'
+        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
+        phetioDocumentation: 'position of the center of the light spot, in the vertical plane of the projection screen'
       } );
 
     this.diameterProperty = new DerivedProperty( [ positionAndDiameterProperty ],
-      ( positionAndDiameter: PositionAndDiameter | null ) =>
-        ( positionAndDiameter === null ) ? null : positionAndDiameter.diameter, {
+      ( positionAndDiameter: PositionAndDiameter ) => positionAndDiameter.diameter, {
+        isValidValue: ( diameter: number ) => ( diameter >= 0 ),
         units: 'cm',
         tandem: options.tandem.createTandem( 'diameterProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( NullableIO( NumberIO ) ),
-        phetioDocumentation: 'diameter (in the y dimension) of the light spot, null if the light is not hitting the screen'
+        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+        phetioDocumentation: 'diameter (in the y dimension) of the light spot, in the vertical plane of the projection screen'
       } );
 
     // The normalized intensity of the light spot, in the range [0,1].
     // See https://github.com/phetsims/geometric-optics/issues/335
     this.intensityProperty = new DerivedProperty( [ this.diameterProperty, optic.diameterProperty ],
-      ( lightSpotDiameter: number | null, opticDiameter: number ) => {
-        if ( ( lightSpotDiameter === 0 || lightSpotDiameter === null ) ) {
-          return 0;
+      ( lightSpotDiameter: number, opticDiameter: number ) => {
+        if ( lightSpotDiameter === 0 ) {
+          return 0; // avoid divide-by-zero
         }
         else {
           assert && assert( optic.diameterProperty.range ); // {Range|null}
@@ -124,11 +106,10 @@ class LightSpot extends PhetioObject {
           return GOConstants.INTENSITY_RANGE.constrainValue( opticDiameterFactor * lightSpotDiameterFactor );
         }
       }, {
-        isValidValue: ( value: number | null ) => ( value === null ) || GOConstants.INTENSITY_RANGE.contains( value ),
+        isValidValue: ( value: number ) => GOConstants.INTENSITY_RANGE.contains( value ),
         tandem: options.tandem.createTandem( 'intensityProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NullableIO( NumberIO ) ),
-        phetioDocumentation: 'intensity of the light hitting the screen, in the range [0,1], ' +
-                             'null if the light is not hitting the screen'
+        phetioDocumentation: 'intensity of the light spot, in the range [0,1]'
       } );
   }
 
@@ -139,31 +120,7 @@ class LightSpot extends PhetioObject {
 }
 
 /**
- * Gets the shape that results from the intersection of the light spot and the projection screen.
- * @param optic
- * @param projectionScreenPosition
- * @param lightObjectPosition
- * @param opticalImagePosition
- * @param screenShape
- */
-function getLightSpotShape( optic: Optic, projectionScreenPosition: Vector2, lightObjectPosition: Vector2,
-                            opticalImagePosition: Vector2, screenShape: Shape ): Shape {
-
-  const {
-    position,
-    diameter
-  } = getPositionAndDiameter( optic, projectionScreenPosition, lightObjectPosition, opticalImagePosition );
-
-  // The unclipped light spot is an ellipse, to give pseudo-3D perspective.
-  // Arbitrarily use an aspect ratio of 1:2.
-  const diameterX = diameter / 2;
-  const ellipseShape = Shape.ellipse( position.x, position.y, diameterX / 2, diameter / 2, 2 * Math.PI );
-
-  return Graph.binaryResult( screenShape, ellipseShape, Graph.BINARY_NONZERO_INTERSECTION );
-}
-
-/**
- * Gets the physical parameters (center position and radii) for the LightSpot
+ * Gets the center and diameter of the light spot, in the vertical plane of the projection screen.
  * @param optic
  * @param projectionScreenPosition
  * @param lightObjectPosition
@@ -176,7 +133,7 @@ function getPositionAndDiameter( optic: Optic, projectionScreenPosition: Vector2
   const opticTopPoint = optic.getTopPoint( lightObjectPosition, opticalImagePosition );
   const opticBottomPoint = optic.getBottomPoint( lightObjectPosition, opticalImagePosition );
 
-  // Determine the top and bottom positions of the unclipped light spot.
+  // Determine the top and bottom positions of the light spot.
   const diskTopPosition = getIntersectionPosition( projectionScreenPosition, opticTopPoint, opticalImagePosition );
   const diskBottomPosition = getIntersectionPosition( projectionScreenPosition, opticBottomPoint, opticalImagePosition );
 
@@ -198,7 +155,10 @@ function getIntersectionPosition( projectionScreenPosition: Vector2, opticPoint:
   const ratio = ( opticImageDistance === 0 ) ?
                 10e6 : // This should technically be Infinity, but practically must be a (very large) finite value.
                 ( projectionScreenPosition.x - opticPoint.x ) / opticImageDistance;
-  return opticPoint.blend( opticalImagePosition, ratio );
+
+  // linear interpolation between opticPoint.y (ratio=0) and another opticalImagePosition.y (ratio=1).
+  const y = opticPoint.y + ( opticalImagePosition.y - opticPoint.y ) * ratio;
+  return new Vector2( projectionScreenPosition.x, y );
 }
 
 geometricOptics.register( 'LightSpot', LightSpot );

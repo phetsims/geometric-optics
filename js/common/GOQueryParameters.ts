@@ -182,6 +182,11 @@ const SCHEMA_MAP = {
   // of the optical image. See ?frameImageMaskOpacity and https://github.com/phetsims/geometric-optics/issues/283.
   debugMask: {
     type: 'flag'
+  },
+
+  // Shows the outline of the light spots, not clipped to the projections screen.
+  debugLightSpots: {
+    type: 'flag'
   }
 };
 
