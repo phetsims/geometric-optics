@@ -58,8 +58,8 @@ class LightRays {
 
     // When the light rays animation begins, hide the optical image. It will be made visible when a ray reaches the
     // image position.  If Rays is set to 'None', make the image visible immediately, since there will be no animation.
-    lightRaysAnimationTimeProperty.link( ( t: number ) => {
-      if ( t === 0 ) {
+    Property.multilink( [ raysTypeProperty, lightRaysAnimationTimeProperty ], ( raysType, lightRaysAnimationTime ) => {
+      if ( raysType === 'none' || lightRaysAnimationTime === 0 ) {
         opticalImage.visibleProperty.value = ( raysTypeProperty.value === 'none' );
       }
     } );
