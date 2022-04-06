@@ -39,8 +39,8 @@ export default class FocalLengthModelTypeRadioButtonGroup extends VerticalAquaRa
     }, providedOptions );
 
     const items = [
-      createItem( 'direct', geometricOpticsStrings.radioButton.direct ),
-      createItem( 'indirect', geometricOpticsStrings.radioButton.indirect )
+      createItem( 'direct', geometricOpticsStrings.radioButton.direct, 'directRadioButton' ),
+      createItem( 'indirect', geometricOpticsStrings.radioButton.indirect, 'indirectRadioButton' )
     ];
 
     super( focalLengthModelTypeProperty, items, options );
@@ -51,15 +51,16 @@ export default class FocalLengthModelTypeRadioButtonGroup extends VerticalAquaRa
  * Creates an item for the radio button group.
  * @param value
  * @param text
+ * @param tandemName
  */
-function createItem( value: FocalLengthModelType, text: string ): AquaRadioButtonGroupItem<FocalLengthModelType> {
+function createItem( value: FocalLengthModelType, text: string, tandemName: string ): AquaRadioButtonGroupItem<FocalLengthModelType> {
   return {
     value: value,
     node: new Text( text, {
       font: GOConstants.CONTROL_FONT,
       maxWidth: 300
     } ),
-    tandemName: `${value}RadioButton`
+    tandemName: tandemName
   };
 }
 
