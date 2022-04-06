@@ -17,6 +17,7 @@ import { FocalLengthModelType } from '../model/FocalLengthModelType.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import IProperty from '../../../../axon/js/IProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 type SelfOptions = {};
 
@@ -39,8 +40,8 @@ export default class FocalLengthModelTypeRadioButtonGroup extends VerticalAquaRa
     }, providedOptions );
 
     const items = [
-      createItem( 'direct', geometricOpticsStrings.radioButton.direct, 'directRadioButton' ),
-      createItem( 'indirect', geometricOpticsStrings.radioButton.indirect, 'indirectRadioButton' )
+      createItem( 'direct', geometricOpticsStrings.radioButton.direct, options.tandem, 'directRadioButton' ),
+      createItem( 'indirect', geometricOpticsStrings.radioButton.indirect, options.tandem, 'indirectRadioButton' )
     ];
 
     super( focalLengthModelTypeProperty, items, options );
@@ -51,16 +52,20 @@ export default class FocalLengthModelTypeRadioButtonGroup extends VerticalAquaRa
  * Creates an item for the radio button group.
  * @param value
  * @param text
- * @param tandemName
+ * @param groupTandem
+ * @param itemTandemName
  */
-function createItem( value: FocalLengthModelType, text: string, tandemName: string ): AquaRadioButtonGroupItem<FocalLengthModelType> {
+function createItem( value: FocalLengthModelType, text: string, groupTandem: Tandem, itemTandemName: string ):
+  AquaRadioButtonGroupItem<FocalLengthModelType> {
   return {
     value: value,
     node: new Text( text, {
       font: GOConstants.CONTROL_FONT,
-      maxWidth: 300
+      maxWidth: 300,
+      tandem: groupTandem.createTandem( itemTandemName ).createTandem( 'labelText' ),
+      phetioVisiblePropertyInstrumented: false
     } ),
-    tandemName: tandemName
+    tandemName: itemTandemName
   };
 }
 
