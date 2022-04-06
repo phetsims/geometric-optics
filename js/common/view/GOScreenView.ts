@@ -357,6 +357,8 @@ export default class GOScreenView extends ScreenView {
       } );
     sceneNodes.push( framedSceneNode );
 
+    // Note that while the Light scene is specific to the Mirror screen, it was more straightforward to handle it
+    // as an optional part of this base class.
     let lightSceneNode: LightSceneNode | null = null;
     if ( model.lightScene ) {
 
@@ -432,7 +434,8 @@ export default class GOScreenView extends ScreenView {
       } );
     labelsLayer.addChild( framedLabelsNode );
 
-    // Labels for things in the 'Light' scene
+    // Labels for things in the 'Light' scene. Note that while the Light scene is specific to the Mirror screen,
+    // it was more straightforward to handle it as an optional part of this base class.
     let lightLabelsNode: Node | null = null;
     if ( model.lightScene && lightSceneNode ) {
       lightLabelsNode = new LightLabelsNode( lightSceneNode,

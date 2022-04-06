@@ -129,6 +129,8 @@ export default class GOModel {
     } );
     this.scenes.push( this.framedScene );
 
+    // Note that while the Light scene is specific to the Mirror screen, it was more straightforward to handle it
+    // as an optional part of this base class.
     this.lightScene = null;
     if ( options.opticalObjectChoices.includes( OpticalObjectChoice.LIGHT ) ) {
       assert && assert( this.optic instanceof Lens, 'Light is only supported by the Lens screen' );
