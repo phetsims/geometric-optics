@@ -10,10 +10,8 @@ import geometricOptics from '../../geometricOptics.js';
 import { Path, PathOptions } from '../../../../scenery/js/imports.js';
 import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import GOConstants from '../GOConstants.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
-import { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 import GOOptions from '../GOOptions.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
@@ -82,22 +80,24 @@ export default class CueingArrowsNode extends Path {
   }
 }
 
+const ARROW_SHAPE_OPTIONS = {
+  doubleHead: true,
+  headWidth: 12,
+  headHeight: 8,
+  tailWidth: 3
+};
+
 function createArrowsShape( direction: CueingArrowsDirection, length: number ): Shape {
-
-  const arrowShapeOptions = optionize<ArrowNodeOptions, {}, ArrowNodeOptions>( {
-    doubleHead: true
-  }, GOConstants.CUEING_ARROW_SHAPE_OPTIONS );
-
   let shape;
   if ( direction === 'horizontal' ) {
-    shape = new ArrowShape( -length / 2, 0, length / 2, 0, arrowShapeOptions );
+    shape = new ArrowShape( -length / 2, 0, length / 2, 0, ARROW_SHAPE_OPTIONS );
   }
   else if ( direction === 'vertical' ) {
-    shape = new ArrowShape( 0, -length / 2, 0, length / 2, arrowShapeOptions );
+    shape = new ArrowShape( 0, -length / 2, 0, length / 2, ARROW_SHAPE_OPTIONS );
   }
   else {
-    const leftRightArrowShape = new ArrowShape( -length / 2, 0, length / 2, 0, arrowShapeOptions );
-    const upDownArrowShape = new ArrowShape( 0, -length / 2, 0, length / 2, arrowShapeOptions );
+    const leftRightArrowShape = new ArrowShape( -length / 2, 0, length / 2, 0, ARROW_SHAPE_OPTIONS );
+    const upDownArrowShape = new ArrowShape( 0, -length / 2, 0, length / 2, ARROW_SHAPE_OPTIONS );
     shape = Shape.union( [ leftRightArrowShape, upDownArrowShape ] );
   }
   return shape;

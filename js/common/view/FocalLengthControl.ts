@@ -10,7 +10,6 @@
 import NumberControl, { NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
-import merge from '../../../../phet-core/js/merge.js';
 import GOConstants from '../GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
@@ -18,7 +17,7 @@ import StringProperty from '../../../../axon/js/StringProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import optionize, { OptionizeDefaults } from '../../../../phet-core/js/optionize.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {};
 
@@ -48,25 +47,28 @@ export default class FocalLengthControl extends NumberControl {
                                                 : geometricOpticsStrings.focalLengthNegative;
     } );
 
-    // Assemble the defaults for NumberControl, because optionize doesn't currently support defaults in multiple objects.
-    const numberControlDefaults: OptionizeDefaults<{}, NumberControlOptions> = merge( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
-      delta: GOConstants.FOCAL_LENGTH_SPINNER_STEP,
-      titleNodeOptions: {
-        textProperty: textProperty
-      },
-      numberDisplayOptions: {
-        decimalPlaces: GOConstants.FOCAL_LENGTH_DECIMAL_PLACES,
-        valuePattern: geometricOpticsStrings.valueCentimetersPattern
-      },
-      sliderOptions: {
-        constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.FOCAL_LENGTH_SLIDER_STEP ),
-        keyboardStep: GOConstants.FOCAL_LENGTH_KEYBOARD_STEP, // used by all alternative-input devices
-        shiftKeyboardStep: GOConstants.FOCAL_LENGTH_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
-        pageKeyboardStep: GOConstants.FOCAL_LENGTH_PAGE_KEYBOARD_STEP
-      }
-    } );
+    // Assemble the defaults for NumberControl, because optionize doesn't support defaults in multiple objects.
+    const numberControlDefaults = optionize<NumberControlOptions, {}, NumberControlOptions>(
+      {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
+        delta: GOConstants.FOCAL_LENGTH_SPINNER_STEP,
+        titleNodeOptions: {
+          textProperty: textProperty
+        },
+        numberDisplayOptions: {
+          decimalPlaces: GOConstants.FOCAL_LENGTH_DECIMAL_PLACES,
+          valuePattern: geometricOpticsStrings.valueCentimetersPattern
+        },
+        sliderOptions: {
+          constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.FOCAL_LENGTH_SLIDER_STEP ),
+          keyboardStep: GOConstants.FOCAL_LENGTH_KEYBOARD_STEP, // used by all alternative-input devices
+          shiftKeyboardStep: GOConstants.FOCAL_LENGTH_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
+          pageKeyboardStep: GOConstants.FOCAL_LENGTH_PAGE_KEYBOARD_STEP
+        }
+      } );
 
-    const options = optionize<FocalLengthControlOptions, SelfOptions, NumberControlOptions>( {}, numberControlDefaults, providedOptions );
+    // Now add providedOptions to the defaults.
+    const options = optionize<FocalLengthControlOptions, SelfOptions, NumberControlOptions>(
+      numberControlDefaults, providedOptions );
 
     super( textProperty.value, focalLengthMagnitudeProperty, range, options );
 

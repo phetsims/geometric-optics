@@ -9,9 +9,12 @@
 
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import geometricOptics from '../geometricOptics.js';
-import NumberControl from '../../../scenery-phet/js/NumberControl.js';
+import NumberControl, { NumberControlOptions } from '../../../scenery-phet/js/NumberControl.js';
 import Dimension2 from '../../../dot/js/Dimension2.js';
 import Range from '../../../dot/js/Range.js';
+import optionize from '../../../phet-core/js/optionize.js';
+import { KeyboardDragListenerOptions } from '../../../scenery/js/imports.js';
+import { ArrowNodeOptions } from '../../../scenery-phet/js/ArrowNode.js';
 
 const CONTROL_FONT = new PhetFont( 14 );
 
@@ -95,7 +98,9 @@ const GOConstants = {
 
   // Options -----------------------------------------------------------------------------------------------------------
 
-  NUMBER_CONTROL_OPTIONS: {
+  CHECKBOX_BOX_WIDTH: 14,
+
+  NUMBER_CONTROL_OPTIONS: optionize<NumberControlOptions, {}, NumberControlOptions>( {
     layoutFunction: NumberControl.createLayoutFunction3( { ySpacing: 12 } ),
     titleNodeOptions: {
       font: CONTROL_FONT,
@@ -113,28 +118,20 @@ const GOConstants = {
         font: CONTROL_FONT
       }
     }
-  },
+  } ),
 
-  CHECKBOX_BOX_WIDTH: 14,
-
-  KEYBOARD_DRAG_LISTENER_OPTIONS: {
+  KEYBOARD_DRAG_LISTENER_OPTIONS: optionize<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>( {
     dragVelocity: 300, // velocity of the Node being dragged, in view coordinates per second
     shiftDragVelocity: 20 // velocity with the Shift key pressed, typically slower than dragVelocity
-  },
+  } ),
 
-  CUEING_ARROW_SHAPE_OPTIONS: {
-    headWidth: 12,
-    headHeight: 8,
-    tailWidth: 3
-  },
-
-  ARROW_NODE_OPTIONS: {
+  ARROW_NODE_OPTIONS: optionize<ArrowNodeOptions, {}, ArrowNodeOptions>( {
     headWidth: 18,
     headHeight: 21,
     tailWidth: 2,
     isHeadDynamic: true,
     fractionalHeadHeight: 0.5
-  }
+  } )
 };
 
 geometricOptics.register( 'GOConstants', GOConstants );

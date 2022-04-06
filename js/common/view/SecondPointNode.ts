@@ -10,7 +10,7 @@
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
+import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import { Circle, DragListener, FocusHighlightFromNode, KeyboardDragListener, KeyboardDragListenerOptions, Node, NodeOptions, VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
@@ -120,6 +120,15 @@ class PointNode extends Circle {
   }
 }
 
+// Cueing arrow constants
+const ARROW_LENGTH = 20;
+const ARROW_NODE_OPTIONS = {
+  fill: GOColors.secondPointFillProperty,
+  headWidth: 12,
+  headHeight: 8,
+  tailWidth: 3
+};
+
 /**
  * SecondPointNode has its own cueing arrows that are very different from the CueingArrowNode used for other UI elements.
  * These arrows point up and down, and are separated by a gap where the second point will appear.
@@ -131,18 +140,12 @@ class SecondPointCueingArrowsNode extends VBox {
    * @param providedOptions
    */
   constructor( spacing: number, providedOptions?: NodeOptions ) {
-
-    const arrowLength = 20;
-    const arrowNodeOptions = optionize<ArrowNodeOptions, {}, ArrowNodeOptions>( {
-      fill: GOColors.secondPointFillProperty
-    }, GOConstants.CUEING_ARROW_SHAPE_OPTIONS );
-
     super( optionize<NodeOptions, {}, VBoxOptions>( {
       spacing: spacing,
       align: 'center',
       children: [
-        new ArrowNode( 0, 0, 0, -arrowLength, arrowNodeOptions ), // up arrow
-        new ArrowNode( 0, 0, 0, +arrowLength, arrowNodeOptions ) // down arrow
+        new ArrowNode( 0, 0, 0, -ARROW_LENGTH, ARROW_NODE_OPTIONS ), // up arrow
+        new ArrowNode( 0, 0, 0, +ARROW_LENGTH, ARROW_NODE_OPTIONS ) // down arrow
       ]
     }, providedOptions ) );
   }
