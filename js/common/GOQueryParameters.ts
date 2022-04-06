@@ -27,7 +27,7 @@ const SCHEMA_MAP = {
   },
 
   // When true, adds a '2F Points' checkbox to the control panel in both screens.
-  // This sets the initial value of GOGlobalOptions.add2FPointsCheckboxProperty.
+  // This sets the initial value of GOOptions.add2FPointsCheckboxProperty.
   add2FPointsCheckbox: {
     type: 'boolean',
     defaultValue: false,
@@ -35,7 +35,7 @@ const SCHEMA_MAP = {
   },
 
   // Enables the feature that shows cueing arrows on things that are draggable.
-  // This sets the initial value of GOGlobalOptions.cueingArrowsEnabledProperty.
+  // This sets the initial value of GOOptions.cueingArrowsEnabledProperty.
   cueingArrowsEnabled: {
     type: 'boolean',
     defaultValue: true,
@@ -43,7 +43,7 @@ const SCHEMA_MAP = {
   },
 
   // Determines how focal length is modeled and controlled in the Lens and Mirror screens.
-  // This sets the value of GOGlobalOptions.focalLengthModelTypeProperty, but was named focalLengthControl to align
+  // This sets the value of GOOptions.focalLengthModelTypeProperty, but was named focalLengthControl to align
   // with the 'Focal Length control' label used in the Options dialog.
   // direct: provides a control labeled 'Focal Length'
   // indirect: provides controls for other optic parameters, from which focal length is derived

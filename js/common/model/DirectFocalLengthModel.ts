@@ -17,7 +17,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import geometricOptics from '../../geometricOptics.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
-import GOGlobalOptions from '../GOGlobalOptions.js';
+import GOOptions from '../GOOptions.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
@@ -45,7 +45,7 @@ export default class DirectFocalLengthModel extends PhetioObject implements Foca
       // PhetioObjectOptions
       phetioState: false,
       phetioDocumentation: 'Model of focal length that is used when ' +
-                           `${GOGlobalOptions.focalLengthModelTypeProperty.tandem.phetioID} ` +
+                           `${GOOptions.focalLengthModelTypeProperty.tandem.phetioID} ` +
                            'is set to \'direct\'. Ignored for flat mirror. In this model:' +
                            '<ul>' +
                            '<li>focal length is settable' +

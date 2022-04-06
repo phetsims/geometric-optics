@@ -1,7 +1,7 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * GOGlobalOptions defines the global options for this simulation, accessed via PhET > Options.
+ * GOOptions defines the global options for this simulation, accessed via PhET > Options.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -17,7 +17,7 @@ import BooleanProperty from '../../../axon/js/BooleanProperty.js';
 // constants
 const optionsTandem = Tandem.GLOBAL_VIEW.createTandem( 'options' );
 
-const GOGlobalOptions = {
+const GOOptions = {
 
   add2FPointsCheckboxProperty: new BooleanProperty( GOQueryParameters.add2FPointsCheckbox, {
     tandem: optionsTandem.createTandem( 'add2FPointsCheckboxProperty' ),
@@ -45,5 +45,5 @@ const GOGlobalOptions = {
     } )
 };
 
-geometricOptics.register( 'GOGlobalOptions', GOGlobalOptions );
-export default GOGlobalOptions;
+geometricOptics.register( 'GOOptions', GOOptions );
+export default GOOptions;

@@ -13,7 +13,7 @@ import LensScreen from './lens/LensScreen.js';
 import MirrorScreen from './mirror/MirrorScreen.js';
 import GOConstants from './common/GOConstants.js';
 import optionize from '../../phet-core/js/optionize.js';
-import GOGlobalOptionsNode from './common/view/GOGlobalOptionsNode.js';
+import GOOptionsNode from './common/view/GOOptionsNode.js';
 import { Node } from '../../scenery/js/imports.js';
 
 //TODO https://github.com/phetsims/joist/issues/795 import SimOptions from Sim.js
@@ -46,7 +46,7 @@ export default class GOSim extends Sim {
       // Sim options
       credits: GOConstants.CREDITS,
       hasKeyboardHelpContent: true,
-      createOptionsDialogContent: ( tandem: Tandem ) => new GOGlobalOptionsNode( {
+      createOptionsDialogContent: ( tandem: Tandem ) => new GOOptionsNode( {
         isBasicsVersion: providedOptions.isBasicsVersion,
         tandem: tandem
       } )

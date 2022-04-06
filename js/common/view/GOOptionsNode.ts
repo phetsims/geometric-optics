@@ -1,10 +1,10 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * GOGlobalOptionsNode is the user interface for global options, accessed via PhET > Options.
+ * GOOptionsNode is the user interface for global options, accessed via PhET > Options.
  *
- * The Options dialog is created on demand by joist, using a PhetioCapsule. So GOGlobalOptionsNode must
- * implement dispose, and all elements of GOGlobalOptionsNode that have tandems must be disposed.
+ * The Options dialog is created on demand by joist, using a PhetioCapsule. So GOOptionsNode must
+ * implement dispose, and all elements of GOOptionsNode that have tandems must be disposed.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -13,7 +13,7 @@ import { VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import FocalLengthModelTypeControl from './FocalLengthModelTypeControl.js';
-import GOGlobalOptions from '../GOGlobalOptions.js';
+import GOOptions from '../GOOptions.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { GOSimOptions } from '../../GOSim.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
@@ -23,7 +23,7 @@ type SelfOptions = PickOptional<GOSimOptions, 'isBasicsVersion'>;
 
 type GOGlobalOptionsNodeOptions = SelfOptions & PickRequired<VBoxOptions, 'tandem'>;
 
-export default class GOGlobalOptionsNode extends VBox {
+export default class GOOptionsNode extends VBox {
 
   // Disposes of things that are specific to this class.
   private readonly disposeGeometricOpticsGlobalOptionsNode: () => void;
@@ -47,12 +47,12 @@ export default class GOGlobalOptionsNode extends VBox {
 
     // 'Add "2F Points" checkbox' checkbox
     // The name should technically be add2FPointsCheckboxCheckbox, but that confused everyone who saw it.
-    const add2FPointsCheckbox = new Add2FPointsCheckbox( GOGlobalOptions.add2FPointsCheckboxProperty, {
+    const add2FPointsCheckbox = new Add2FPointsCheckbox( GOOptions.add2FPointsCheckboxProperty, {
       tandem: options.tandem.createTandem( 'add2FPointsCheckbox' )
     } );
 
     // 'Focal Length control' radio buttons
-    const focalLengthModelControl = new FocalLengthModelTypeControl( GOGlobalOptions.focalLengthModelTypeProperty, {
+    const focalLengthModelControl = new FocalLengthModelTypeControl( GOOptions.focalLengthModelTypeProperty, {
       visible: !options.isBasicsVersion,
       tandem: options.tandem.createTandem( 'focalLengthModelControl' )
     } );
@@ -71,4 +71,4 @@ export default class GOGlobalOptionsNode extends VBox {
   }
 }
 
-geometricOptics.register( 'GOGlobalOptionsNode', GOGlobalOptionsNode );
+geometricOptics.register( 'GOOptionsNode', GOOptionsNode );

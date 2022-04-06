@@ -21,7 +21,7 @@ import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import SecondPointNode from './SecondPointNode.js';
 import FocalPointNode from './FocalPointNode.js';
 import TwoFPointNode from './TwoFPointNode.js';
-import GOGlobalOptions from '../GOGlobalOptions.js';
+import GOOptions from '../GOOptions.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import { GOSimOptions } from '../../GOSim.js';
 import IProperty from '../../../../axon/js/IProperty.js';
@@ -72,7 +72,7 @@ export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       createItem( geometricOpticsStrings.checkbox.twoFPoints, visibleProperties.twoFPointsVisibleProperty, {
         iconNode: TwoFPointNode.createIcon(),
         options: {
-          visibleProperty: GOGlobalOptions.add2FPointsCheckboxProperty
+          visibleProperty: GOOptions.add2FPointsCheckboxProperty
         },
         tandem: options.tandem.createTandem( 'twoFPointsCheckbox' )
       } )

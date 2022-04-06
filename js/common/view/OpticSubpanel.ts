@@ -11,7 +11,7 @@
 import { HBox } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import FocalLengthControl from './FocalLengthControl.js';
-import GOGlobalOptions from '../GOGlobalOptions.js';
+import GOOptions from '../GOOptions.js';
 import { FocalLengthModelType } from '../model/FocalLengthModelType.js';
 import { OpticShape } from '../model/OpticShape.js';
 import RadiusOfCurvatureControl from './RadiusOfCurvatureControl.js';
@@ -44,7 +44,7 @@ export default class OpticSubpanel extends HBox {
     // See https://github.com/phetsims/geometric-optics/issues/347
     const directWrapperNode = new HBox( {
       children: [ focalLengthControl ],
-      visibleProperty: new DerivedProperty( [ GOGlobalOptions.focalLengthModelTypeProperty, optic.opticShapeProperty ],
+      visibleProperty: new DerivedProperty( [ GOOptions.focalLengthModelTypeProperty, optic.opticShapeProperty ],
         ( focalLengthModelType: FocalLengthModelType, opticShape: OpticShape ) =>
           ( focalLengthModelType === 'direct' ) && ( opticShape !== 'flat' ) )
     } );
@@ -75,7 +75,7 @@ export default class OpticSubpanel extends HBox {
       children: indirectChildren,
       spacing: X_SPACING,
       align: ALIGN,
-      visibleProperty: new DerivedProperty( [ GOGlobalOptions.focalLengthModelTypeProperty ],
+      visibleProperty: new DerivedProperty( [ GOOptions.focalLengthModelTypeProperty ],
         ( focalLengthModelType: FocalLengthModelType ) => ( focalLengthModelType === 'indirect' )
       )
     } );

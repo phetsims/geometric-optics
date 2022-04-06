@@ -2,7 +2,7 @@
 
 /**
  * FocalPointControlEnum is a union type for the models of focal length.
- * See GOGlobalOptions.focalLengthModelTypeProperty for the semantics of 'direct' and 'indirect'.
+ * See GOOptions.focalLengthModelTypeProperty for the semantics of 'direct' and 'indirect'.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

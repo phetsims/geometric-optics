@@ -64,9 +64,12 @@ to the browser console.
 
 ### Memory Management
 
-* **Dynamic allocation:** Most objects in this sim are allocated at startup, and exist for the lifetime of the simulation. The exception is `GOGlobalOptionsNode` and its children, which must all implemented `dispose`. This is the content for the Options dialog, whose instantiation is deferred until the user selects the _PhET > Options_ menu item.
+* **Dynamic allocation:** Most objects in this sim are allocated at startup, and exist for the lifetime of the
+  simulation. The exception is `GOOptionsNode` and its children, which must all implemented `dispose`. This is the
+  content for the Options dialog, whose instantiation is deferred until the user selects the _PhET > Options_ menu item.
 
-* **Listeners**: Unless otherwise noted in the code, all uses of `link`, `addListener`, etc. do NOT need a corresponding `unlink`, `removeListener`, etc.
+* **Listeners**: Unless otherwise noted in the code, all uses of `link`, `addListener`, etc. do NOT need a
+  corresponding `unlink`, `removeListener`, etc.
 
 * **dispose**: All classes have a `dispose` method. Sim-specific classes whose instances exist for the lifetime of the sim are not intended to be disposed, and their `dispose` implementation looks like this:
 
@@ -301,7 +304,7 @@ LightPropagationToggleButton - toggle button for turning light propagation on/of
 GOControlPanel - the main control panel
 ```
 
-For controls that appear in the Options dialog, start with `GOGlobalOptionsNode.ts`.
+For controls that appear in the Options dialog, start with `GOOptionsNode.ts`.
 
 ## Hollywood!
 

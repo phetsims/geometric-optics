@@ -14,7 +14,7 @@ import GOConstants from '../GOConstants.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
-import GOGlobalOptions from '../GOGlobalOptions.js';
+import GOOptions from '../GOOptions.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
@@ -76,7 +76,7 @@ export default class CueingArrowsNode extends Path {
    */
   static createVisibleProperty( inputEnabledProperty: IReadOnlyProperty<boolean>, wasDraggedProperty: IReadOnlyProperty<boolean> ) {
     return new DerivedProperty(
-      [ GOGlobalOptions.cueingArrowsEnabledProperty, inputEnabledProperty, wasDraggedProperty ],
+      [ GOOptions.cueingArrowsEnabledProperty, inputEnabledProperty, wasDraggedProperty ],
       ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
         ( cueingArrowsEnabled && inputEnabled && !wasDragged ) );
   }
