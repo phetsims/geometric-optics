@@ -29,9 +29,6 @@ class FramedObject extends HTMLImageElementObject {
   // HTMLImageElements (PNG files) used to draw this framed object and its associated image
   public readonly objectHTMLImageElementsProperty: IReadOnlyProperty<ObjectHTMLImageElements>;
 
-  // HTMLImageElement (PNG file) used to draw this framed object
-  public override readonly htmlImageElementProperty: IReadOnlyProperty<HTMLImageElement>;
-
   /**
    * @param opticalObjectNumber - positive integer used when labeling this object
    * @param opticPositionProperty
@@ -63,7 +60,6 @@ class FramedObject extends HTMLImageElementObject {
     super( opticalObjectNumber, opticPositionProperty, htmlImageElementProperty, ORIGIN_OFFSET, SCALE_FACTOR, providedOptions );
 
     this.objectHTMLImageElementsProperty = objectHTMLImageElementsProperty;
-    this.htmlImageElementProperty = htmlImageElementProperty;
   }
 }
 
