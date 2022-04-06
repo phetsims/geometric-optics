@@ -88,7 +88,7 @@ export default class FramedScene extends GOScene {
       this.optic,
       this.framedImage1,
       raysTypeProperty,
-      this.lightRaysAnimationTimeProperty
+      this.raysAnimationTimeProperty
     );
 
     this.lightRays2 = new LightRays(
@@ -96,7 +96,7 @@ export default class FramedScene extends GOScene {
       this.optic,
       this.framedImage2,
       raysTypeProperty,
-      this.lightRaysAnimationTimeProperty
+      this.raysAnimationTimeProperty
     );
 
     // Guides, for the Lens screen only

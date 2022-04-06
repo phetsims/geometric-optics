@@ -16,7 +16,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 // How long the animation of light rays lasts, in seconds
-const LIGHT_RAYS_ANIMATION_DURATION = 10;
+const RAYS_ANIMATION_DURATION = 10;
 
 export type GOSceneOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
 
@@ -26,7 +26,7 @@ export default abstract class GOScene extends PhetioObject {
   public readonly optic: Optic;
 
   // animation time for the light rays animation, determines how far the rays have propagated from the optical object
-  public readonly lightRaysAnimationTimeProperty: NumberProperty;
+  public readonly raysAnimationTimeProperty: NumberProperty;
 
   // guides
   abstract readonly guides1: Guides | null;
@@ -55,15 +55,15 @@ export default abstract class GOScene extends PhetioObject {
       tandem: options.tandem.createTandem( optic.tandem.name )
     } );
 
-    this.lightRaysAnimationTimeProperty = new NumberProperty( 0, {
+    this.raysAnimationTimeProperty = new NumberProperty( 0, {
       units: 's',
-      range: new Range( 0, LIGHT_RAYS_ANIMATION_DURATION ),
-      tandem: options.tandem.createTandem( 'lightRaysAnimationTimeProperty' ),
+      range: new Range( 0, RAYS_ANIMATION_DURATION ),
+      tandem: options.tandem.createTandem( 'raysAnimationTimeProperty' ),
       phetioReadOnly: true
     } );
 
     this.resetGOObjectScene = () => {
-      this.lightRaysAnimationTimeProperty.reset();
+      this.raysAnimationTimeProperty.reset();
     };
   }
 
@@ -80,7 +80,7 @@ export default abstract class GOScene extends PhetioObject {
    * Begins the animation of light rays.
    */
   public beginLightRaysAnimation(): void {
-    this.lightRaysAnimationTimeProperty.reset();
+    this.raysAnimationTimeProperty.reset();
   }
 
   /**
@@ -88,9 +88,9 @@ export default abstract class GOScene extends PhetioObject {
    * @param dt - time step, in seconds
    */
   public stepLightRays( dt: number ): void {
-    const tNow = this.lightRaysAnimationTimeProperty.value;
-    if ( tNow < LIGHT_RAYS_ANIMATION_DURATION ) {
-      this.lightRaysAnimationTimeProperty.value = Math.min( tNow + dt, LIGHT_RAYS_ANIMATION_DURATION );
+    const tNow = this.raysAnimationTimeProperty.value;
+    if ( tNow < RAYS_ANIMATION_DURATION ) {
+      this.raysAnimationTimeProperty.value = Math.min( tNow + dt, RAYS_ANIMATION_DURATION );
     }
   }
 }

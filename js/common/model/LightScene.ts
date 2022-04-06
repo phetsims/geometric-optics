@@ -94,7 +94,7 @@ export default class LightScene extends GOScene {
       lens,
       this.opticalImage1,
       raysTypeProperty,
-      this.lightRaysAnimationTimeProperty,
+      this.raysAnimationTimeProperty,
       this.projectionScreen
     );
 
@@ -103,7 +103,7 @@ export default class LightScene extends GOScene {
       lens,
       this.opticalImage2,
       raysTypeProperty,
-      this.lightRaysAnimationTimeProperty,
+      this.raysAnimationTimeProperty,
       this.projectionScreen
     );
 

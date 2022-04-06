@@ -84,7 +84,7 @@ export default class ArrowScene extends GOScene {
       this.optic,
       this.arrowImage1,
       raysTypeProperty,
-      this.lightRaysAnimationTimeProperty
+      this.raysAnimationTimeProperty
     );
 
     this.lightRays2 = new LightRays(
@@ -92,7 +92,7 @@ export default class ArrowScene extends GOScene {
       this.optic,
       this.arrowImage2,
       raysTypeProperty,
-      this.lightRaysAnimationTimeProperty
+      this.raysAnimationTimeProperty
     );
 
     // Guides, for the Lens screen only

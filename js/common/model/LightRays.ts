@@ -42,14 +42,14 @@ export default class LightRays {
    * @param optic
    * @param opticalImage - optical image associated with this ray
    * @param raysTypeProperty
-   * @param lightRaysAnimationTimeProperty - elapsed time of light rays animation
+   * @param raysAnimationTimeProperty - elapsed time of light rays animation
    * @param projectionScreen - optional projection screen that blocks rays
    */
   constructor( opticalObjectPositionProperty: IReadOnlyProperty<Vector2>,
                optic: Optic,
                opticalImage: OpticalImage,
                raysTypeProperty: IReadOnlyProperty<RaysType>,
-               lightRaysAnimationTimeProperty: IReadOnlyProperty<number>,
+               raysAnimationTimeProperty: IReadOnlyProperty<number>,
                projectionScreen: ProjectionScreen | null = null ) {
 
     this.realSegments = [];
@@ -58,8 +58,8 @@ export default class LightRays {
 
     // When the light rays animation begins, hide the optical image. It will be made visible when a ray reaches the
     // image position.  If Rays is set to 'None', make the image visible immediately, since there will be no animation.
-    Property.multilink( [ raysTypeProperty, lightRaysAnimationTimeProperty ], ( raysType, lightRaysAnimationTime ) => {
-      if ( raysType === 'none' || lightRaysAnimationTime === 0 ) {
+    Property.multilink( [ raysTypeProperty, raysAnimationTimeProperty ], ( raysType, raysAnimationTime ) => {
+      if ( raysType === 'none' || raysAnimationTime === 0 ) {
         opticalImage.visibleProperty.value = ( raysTypeProperty.value === 'none' );
       }
     } );
@@ -68,7 +68,7 @@ export default class LightRays {
     // We only care about the types of the first 3 dependencies, because the listener only has 3 parameters.
     type DependencyTypes = [ Vector2, RaysType, number, ...any[] ];
     const dependencies: MappedProperties<DependencyTypes> = [
-      opticalObjectPositionProperty, raysTypeProperty, lightRaysAnimationTimeProperty,
+      opticalObjectPositionProperty, raysTypeProperty, raysAnimationTimeProperty,
       optic.positionProperty, optic.diameterProperty, optic.focalLengthProperty, optic.opticShapeProperty
     ];
     if ( projectionScreen ) {
@@ -77,7 +77,7 @@ export default class LightRays {
 
     // Update all rays, then inform listeners via raysProcessedEmitter.
     Property.multilink<DependencyTypes>( dependencies,
-      ( opticalObjectPosition: Vector2, raysType: RaysType, lightRaysAnimationTime: number ) => {
+      ( opticalObjectPosition: Vector2, raysType: RaysType, raysAnimationTime: number ) => {
 
         // Clear the arrays.
         this.realSegments = [];
@@ -96,7 +96,7 @@ export default class LightRays {
         directions.forEach( direction => {
 
           // Create a LightRay, which is responsible for creating real and virtual ray segments.
-          const lightRay = new LightRay( opticalObjectPosition, direction, lightRaysAnimationTime, optic, opticalImagePosition, isVirtual,
+          const lightRay = new LightRay( opticalObjectPosition, direction, raysAnimationTime, optic, opticalImagePosition, isVirtual,
             raysType, projectionScreen );
 
           // Set optical image's visibility to true when a ray reaches the optical image or projection screen.
