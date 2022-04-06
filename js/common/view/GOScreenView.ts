@@ -253,7 +253,7 @@ export default class GOScreenView extends ScreenView {
     // Disable the 'Virtual Image' checkbox for lights, see https://github.com/phetsims/geometric-optics/issues/216
     const virtualImageCheckboxEnabledProperty = new DerivedProperty(
       [ model.opticalObjectChoiceProperty ],
-      ( opticalObjectChoice: OpticalObjectChoice ) => !OpticalObjectChoice.isLight( opticalObjectChoice ) );
+      ( opticalObjectChoice: OpticalObjectChoice ) => ( opticalObjectChoice.type !== 'light' ) );
 
     // Control panel at the bottom-center of the screen
     const controlPanel = new GOControlPanel( model.optic, model.raysTypeProperty, visibleProperties,
@@ -334,7 +334,7 @@ export default class GOScreenView extends ScreenView {
         createOpticNode: options.createOpticNode,
         objectDragModeProperty: objectDragModeProperty,
         visibleProperty: new DerivedProperty( [ model.opticalObjectChoiceProperty ],
-          ( opticalObjectChoice: OpticalObjectChoice ) => OpticalObjectChoice.isArrowObject( opticalObjectChoice ), {
+          ( opticalObjectChoice: OpticalObjectChoice ) => ( opticalObjectChoice.type === 'arrow' ), {
             tandem: arrowSceneNodeTandem.createTandem( 'visibleProperty' ),
             phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
           } ),
@@ -348,7 +348,7 @@ export default class GOScreenView extends ScreenView {
         createOpticNode: options.createOpticNode,
         objectDragModeProperty: objectDragModeProperty,
         visibleProperty: new DerivedProperty( [ model.opticalObjectChoiceProperty ],
-          ( opticalObjectChoice: OpticalObjectChoice ) => OpticalObjectChoice.isFramedObject( opticalObjectChoice ), {
+          ( opticalObjectChoice: OpticalObjectChoice ) => ( opticalObjectChoice.type === 'framed' ), {
             tandem: frameSceneNodeTandem.createTandem( 'visibleProperty' ),
             phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
           } ),
@@ -368,7 +368,7 @@ export default class GOScreenView extends ScreenView {
           createOpticNode: options.createOpticNode,
           objectDragModeProperty: objectDragModeProperty,
           visibleProperty: new DerivedProperty( [ model.opticalObjectChoiceProperty ],
-            ( opticalObjectChoice: OpticalObjectChoice ) => OpticalObjectChoice.isLight( opticalObjectChoice ), {
+            ( opticalObjectChoice: OpticalObjectChoice ) => ( opticalObjectChoice.type === 'light' ), {
               tandem: lightSceneNodeTandem.createTandem( 'visibleProperty' ),
               phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
             } ),

@@ -32,6 +32,11 @@ import starLeftFacingUpright_png from '../../../images/starLeftFacingUpright_png
 import starLeftFacingInverted_png from '../../../images/starLeftFacingInverted_png.js';
 import starIcon_png from '../../../images/starIcon_png.js';
 
+// Identifies the general type of optical object for a choice in the combo box. I'd prefer not to have this addition
+// type baggage, but it's symptomatic of the fact that we have 3 scenes and 5 choices (3 of which map to the same scene).
+// So this was a small compromise to having to make even larger changes.
+type OpticalObjectType = 'framed' | 'arrow' | 'light';
+
 // Set of HTMLImageElements (PNG files) that depict a framed object and its associated optical image.
 // These PNG files have 3D perspective, and the field names used here refer to the orientation of the image.
 export type ObjectHTMLImageElements = {
@@ -39,6 +44,24 @@ export type ObjectHTMLImageElements = {
   rightFacingInverted: HTMLImageElement;
   leftFacingUpright: HTMLImageElement;
   leftFacingInverted: HTMLImageElement;
+};
+
+type OpticalObjectChoiceOptions = {
+
+  // type of optical object
+  type: OpticalObjectType;
+
+  // label that appears in combo box
+  label: string;
+
+  // icon that appears in combo box
+  icon: HTMLImageElement | Node;
+
+  // prefix used for tandem name
+  tandemPrefix: string;
+
+  // HTMLImageElements (PNG files) for optical objects that require them
+  objectHTMLImageElements?: ObjectHTMLImageElements;
 };
 
 // icon used for 'Arrow' in the combo box
@@ -51,91 +74,78 @@ const ARROW_ICON = new ArrowNode( 0, 0, 0, -50,
 
 export default class OpticalObjectChoice extends EnumerationValue {
 
-  static ARROW = new OpticalObjectChoice( geometricOpticsStrings.arrow, ARROW_ICON, 'arrow' );
-
-  static PENCIL = new OpticalObjectChoice( geometricOpticsStrings.pencil, pencilIcon_png, 'pencil', {
-    rightFacingUpright: pencilRightFacingUpright_png,
-    rightFacingInverted: pencilRightFacingInverted_png,
-    leftFacingUpright: pencilLeftFacingUpright_png,
-    leftFacingInverted: pencilLeftFacingInverted_png
+  static PENCIL = new OpticalObjectChoice( {
+    type: 'framed',
+    label: geometricOpticsStrings.pencil,
+    icon: pencilIcon_png,
+    tandemPrefix: 'pencil',
+    objectHTMLImageElements: {
+      rightFacingUpright: pencilRightFacingUpright_png,
+      rightFacingInverted: pencilRightFacingInverted_png,
+      leftFacingUpright: pencilLeftFacingUpright_png,
+      leftFacingInverted: pencilLeftFacingInverted_png
+    }
   } );
 
-  static PENGUIN = new OpticalObjectChoice( geometricOpticsStrings.penguin, penguinIcon_png, 'penguin', {
-    rightFacingUpright: penguinRightFacingUpright_png,
-    rightFacingInverted: penguinRightFacingInverted_png,
-    leftFacingUpright: penguinLeftFacingUpright_png,
-    leftFacingInverted: penguinLeftFacingInverted_png
+  static PENGUIN = new OpticalObjectChoice( {
+    type: 'framed',
+    label: geometricOpticsStrings.penguin,
+    icon: penguinIcon_png,
+    tandemPrefix: 'penguin',
+    objectHTMLImageElements: {
+      rightFacingUpright: penguinRightFacingUpright_png,
+      rightFacingInverted: penguinRightFacingInverted_png,
+      leftFacingUpright: penguinLeftFacingUpright_png,
+      leftFacingInverted: penguinLeftFacingInverted_png
+    }
   } );
 
-  static STAR = new OpticalObjectChoice( geometricOpticsStrings.star, starIcon_png, 'star', {
-    rightFacingUpright: starRightFacingUpright_png,
-    rightFacingInverted: starRightFacingInverted_png,
-    leftFacingUpright: starLeftFacingUpright_png,
-    leftFacingInverted: starLeftFacingInverted_png
+  static STAR = new OpticalObjectChoice( {
+    type: 'framed',
+    label: geometricOpticsStrings.star,
+    icon: starIcon_png,
+    tandemPrefix: 'star',
+    objectHTMLImageElements: {
+      rightFacingUpright: starRightFacingUpright_png,
+      rightFacingInverted: starRightFacingInverted_png,
+      leftFacingUpright: starLeftFacingUpright_png,
+      leftFacingInverted: starLeftFacingInverted_png
+    }
   } );
 
-  static LIGHT = new OpticalObjectChoice( geometricOpticsStrings.light, lightIcon_png, 'light' );
+  static ARROW = new OpticalObjectChoice( {
+    type: 'arrow',
+    label: geometricOpticsStrings.arrow,
+    icon: ARROW_ICON,
+    tandemPrefix: 'arrow'
+  } );
 
-  // These values correspond to framed objects.
-  private static FRAMED_OBJECT_CHOICES = [
-    OpticalObjectChoice.PENCIL,
-    OpticalObjectChoice.PENGUIN,
-    OpticalObjectChoice.STAR
-  ];
+  static LIGHT = new OpticalObjectChoice( {
+    type: 'light',
+    label: geometricOpticsStrings.light,
+    icon: lightIcon_png,
+    tandemPrefix: 'light'
+  } );
 
   // Gets a list of keys, values and mapping between them. For use by EnumerationProperty and PhET-iO.
   static enumeration = new Enumeration( OpticalObjectChoice, {
     phetioDocumentation: 'describes an optical object choice'
   } );
 
-  // label that appears in OpticalObjectChoiceComboBox
+  // see OpticalObjectChoiceOptions
+  public readonly type: OpticalObjectType;
   public readonly label: string;
-
-  // icon that appears in OpticalObjectChoiceComboBox
   public readonly icon: HTMLImageElement | Node;
-
-  // prefix for tandems related to the OpticalObjectChoice
   public readonly tandemPrefix: string;
-
-  // set of HTMLImageElements related to the OpticalObjectChoice. Populated for framed objects, null otherwise.
   public readonly objectHTMLImageElements: ObjectHTMLImageElements | null;
 
-  /**
-   * @param label
-   * @param icon
-   * @param tandemPrefix
-   * @param objectHTMLImageElements
-   */
-  constructor( label: string, icon: HTMLImageElement | Node, tandemPrefix: string, objectHTMLImageElements: ObjectHTMLImageElements | null = null ) {
+  constructor( options: OpticalObjectChoiceOptions ) {
     super();
-    this.label = label;
-    this.icon = icon;
-    this.tandemPrefix = tandemPrefix;
-    this.objectHTMLImageElements = objectHTMLImageElements;
-  }
-
-  /**
-   * Is the choice an arrow object?
-   * @param choice
-   */
-  static isArrowObject( choice: OpticalObjectChoice ): boolean {
-    return ( choice === OpticalObjectChoice.ARROW );
-  }
-
-  /**
-   * Is the choice a framed object?
-   * @param choice
-   */
-  static isFramedObject( choice: OpticalObjectChoice ): boolean {
-    return OpticalObjectChoice.FRAMED_OBJECT_CHOICES.includes( choice );
-  }
-
-  /**
-   * Is the choice a light object?
-   * @param choice
-   */
-  static isLight( choice: OpticalObjectChoice ): boolean {
-    return ( choice === OpticalObjectChoice.LIGHT );
+    this.type = options.type;
+    this.label = options.label;
+    this.icon = options.icon;
+    this.tandemPrefix = options.tandemPrefix;
+    this.objectHTMLImageElements = options.objectHTMLImageElements || null;
   }
 }
 
