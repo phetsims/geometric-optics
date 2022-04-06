@@ -34,17 +34,17 @@ export default class Add2FPointsCheckbox extends Checkbox {
       boxWidth: GOConstants.CHECKBOX_BOX_WIDTH
     }, providedOptions );
 
-    const labelNode = new Text( geometricOpticsStrings.checkbox.add2FPointsCheckbox, {
+    const labelText = new Text( geometricOpticsStrings.checkbox.add2FPointsCheckbox, {
       font: GOConstants.CONTROL_FONT,
       maxWidth: 250,
-      tandem: options.tandem.createTandem( 'labelNode' ),
+      tandem: options.tandem.createTandem( 'labelText' ),
       phetioVisiblePropertyInstrumented: false
     } );
 
-    super( labelNode, add2FPointsCheckboxProperty, options );
+    super( labelText, add2FPointsCheckboxProperty, options );
 
     this.disposeAdd2FPointsCheckbox = () => {
-      labelNode.dispose();
+      labelText.dispose();
     };
   }
 
