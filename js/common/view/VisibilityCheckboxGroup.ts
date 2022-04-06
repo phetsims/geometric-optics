@@ -23,27 +23,25 @@ import FocalPointNode from './FocalPointNode.js';
 import TwoFPointNode from './TwoFPointNode.js';
 import GOOptions from '../GOOptions.js';
 import GOQueryParameters from '../GOQueryParameters.js';
-import { GOSimOptions } from '../../GOSim.js';
 import IProperty from '../../../../axon/js/IProperty.js';
+import { GOSimOptions } from '../../GOSim.js';
+import Optic from '../model/Optic.js';
+import Lens from '../../lens/model/Lens.js';
 
-type SelfOptions = {
-
-  // Is this the Mirror screen?
-  isMirrorScreen: boolean;
-} & PickRequired<GOSimOptions, 'isBasicsVersion'>;
+type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 
 export type VisibilityCheckboxGroupOptions = SelfOptions & PickRequired<VerticalCheckboxGroupOptions, 'tandem'>;
 
 export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 
   /**
-   * @param isLens
    * @param visibleProperties
+   * @param optic
    * @param virtualImageCheckboxEnabledProperty
    * @param providedOptions
    */
-  constructor( isLens: boolean,
-               visibleProperties: VisibleProperties,
+  constructor( visibleProperties: VisibleProperties,
+               optic: Optic,
                virtualImageCheckboxEnabledProperty: IReadOnlyProperty<boolean>,
                providedOptions: VisibilityCheckboxGroupOptions ) {
 
@@ -56,11 +54,9 @@ export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       }
     }, providedOptions );
 
-    const isBasicsMirrorScreen = ( options.isBasicsVersion && options.isMirrorScreen );
-
     // These checkboxes are not present in Geometric Optics: Basics, because it only has a flat mirror, with infinite
     // focal length. See https://github.com/phetsims/geometric-optics-basics/issues/2#issuecomment-998203690
-    const focalPointItems = isBasicsMirrorScreen ? [] : [
+    const focalPointItems = optic.isExclusivelyFlatMirror() ? [] : [
 
       // Focal Points (F)
       createItem( geometricOpticsStrings.checkbox.focalPoints, visibleProperties.focalPointsVisibleProperty, {
@@ -105,7 +101,7 @@ export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
     ];
 
     // Guides
-    if ( isLens ) {
+    if ( optic instanceof Lens ) {
       items.push( createItem( geometricOpticsStrings.checkbox.guides, visibleProperties.guidesVisibleProperty, {
         iconNode: GuideNode.createIcon(),
         options: {

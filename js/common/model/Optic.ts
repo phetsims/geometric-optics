@@ -372,7 +372,7 @@ export default abstract class Optic extends PhetioObject {
    * Gets the shape of the front (left) surface of the optic. This is the surface that a ray will initially hit.
    * @param raysType
    */
-  getFrontShapeTranslated( raysType: RaysType ): Shape {
+  public getFrontShapeTranslated( raysType: RaysType ): Shape {
     if ( raysType === 'principal' ) {
 
       // Principal rays are refracted at the optic's vertical axis.
@@ -382,6 +382,14 @@ export default abstract class Optic extends PhetioObject {
     else {
       return this.translatedShape( this.shapesProperty.value.frontShape );
     }
+  }
+
+  /**
+   * Is the optic a mirror whose shape is exclusively flat?  This is (regrettably) needed to conditionally
+   * instrument/omit PhET-iO elements for the Basics version of the sim, which has only a flat mirror.
+   */
+  public isExclusivelyFlatMirror(): boolean {
+    return false;
   }
 }
 

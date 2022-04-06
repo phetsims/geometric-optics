@@ -13,6 +13,9 @@ import Property from '../../../../axon/js/Property.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import geometricOptics from '../../geometricOptics.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import Optic from '../model/Optic.js';
+import Mirror from '../../mirror/model/Mirror.js';
 
 type VisiblePropertiesOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
 
@@ -45,17 +48,24 @@ export default class VisibleProperties {
   private readonly resetVisibleProperties: () => void;
 
   /**
-   * @param isLens
+   * @param optic
    * @param providedOptions
    */
-  constructor( isLens: boolean, providedOptions: VisiblePropertiesOptions ) {
+  constructor( optic: Optic, providedOptions: VisiblePropertiesOptions ) {
+
+    const isMirror = ( optic instanceof Mirror );
+    const isExclusivelyFlatMirror = optic.isExclusivelyFlatMirror();
 
     this.focalPointsVisibleProperty = new BooleanProperty( true, {
-      tandem: providedOptions.tandem.createTandem( 'focalPointsVisibleProperty' )
+      tandem: isExclusivelyFlatMirror ?
+              Tandem.OPT_OUT :
+              providedOptions.tandem.createTandem( 'focalPointsVisibleProperty' )
     } );
 
     this.twoFPointsVisibleProperty = new BooleanProperty( false, {
-      tandem: providedOptions.tandem.createTandem( 'twoFPointsVisibleProperty' )
+      tandem: isExclusivelyFlatMirror ?
+              Tandem.OPT_OUT :
+              providedOptions.tandem.createTandem( 'twoFPointsVisibleProperty' )
     } );
 
     this.virtualImageVisibleProperty = new BooleanProperty( true, {
@@ -71,8 +81,8 @@ export default class VisibleProperties {
     } );
 
     this.guidesVisibleProperty = new BooleanProperty( false, {
-      validValues: isLens ? [ true, false ] : [ false ],
-      tandem: providedOptions.tandem.createTandem( 'guidesVisibleProperty' )
+      validValues: isMirror ? [ false ] : [ true, false ],
+      tandem: isMirror ? Tandem.OPT_OUT : providedOptions.tandem.createTandem( 'guidesVisibleProperty' )
     } );
 
     this.opticalAxisVisibleProperty = new BooleanProperty( true, {

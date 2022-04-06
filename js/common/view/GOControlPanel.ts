@@ -17,9 +17,7 @@ import Optic from '../model/Optic.js';
 import { RaysType } from '../model/RaysType.js';
 import VisibilityCheckboxGroup from './VisibilityCheckboxGroup.js';
 import VisibleProperties from './VisibleProperties.js';
-import Lens from '../../lens/model/Lens.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import Mirror from '../../mirror/model/Mirror.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import RaysSubpanel from './RaysSubpanel.js';
@@ -59,10 +57,9 @@ export default class GOControlPanel extends Panel {
 
     const opticSubpanel = new OpticSubpanel( optic, options.tandem.createTandem( 'opticSubpanel' ) );
 
-    const checkboxGroup = new VisibilityCheckboxGroup( ( optic instanceof Lens ), visibleProperties,
+    const checkboxGroup = new VisibilityCheckboxGroup( visibleProperties, optic,
       virtualImageCheckboxEnabledProperty, {
         isBasicsVersion: options.isBasicsVersion,
-        isMirrorScreen: ( optic instanceof Mirror ),
         tandem: options.tandem.createTandem( 'checkboxGroup' )
       } );
 

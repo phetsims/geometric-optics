@@ -95,6 +95,14 @@ export default class Mirror extends Optic {
     // since mirror reflects light, the extremum point is on the mirror itself
     return isConcave ? leftPoint : rightPoint;
   }
+
+  /**
+   * Is the optic a mirror whose shape is exclusively flat?  This is (regrettably) needed to conditionally
+   * instrument/omit PhET-iO elements for the Basics version of the sim, which has only a flat mirror.
+   */
+  public override isExclusivelyFlatMirror(): boolean {
+    return ( this.opticShapeProperty.validValues!.length === 1 ) && ( this.opticShapeProperty.value === 'flat' );
+  }
 }
 
 geometricOptics.register( 'Mirror', Mirror );

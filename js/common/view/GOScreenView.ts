@@ -26,7 +26,6 @@ import OpticShapeRadioButtonGroup from './OpticShapeRadioButtonGroup.js';
 import OpticalObjectChoiceComboBox from './OpticalObjectChoiceComboBox.js';
 import LightPropagationToggleButton from './LightPropagationToggleButton.js';
 import VisibleProperties from './VisibleProperties.js';
-import Lens from '../../lens/model/Lens.js';
 import FramedSceneNode from './FramedSceneNode.js';
 import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
 import Property from '../../../../axon/js/Property.js';
@@ -115,7 +114,7 @@ export default class GOScreenView extends ScreenView {
     // Properties  =====================================================================================================
 
     // Create visibleProperty instances for Nodes in the view.
-    const visibleProperties = new VisibleProperties( ( model.optic instanceof Lens ), {
+    const visibleProperties = new VisibleProperties( model.optic, {
       tandem: options.tandem.createTandem( 'visibleProperties' )
     } );
 
