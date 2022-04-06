@@ -51,7 +51,10 @@ export default class OpticalImage extends PhetioObject {
   // whether the optical image is real or virtual
   public readonly opticalImageTypeProperty: IReadOnlyProperty<OpticalImageType>;
 
-  // whether the optical image is visible. The image is not visible until light rays have reached it.
+  // Whether the optical image is visible. The image is not visible until light rays have reached it.
+  // Note that this Property has some odd quirks when used in the 'Light' scene. That scene does not have
+  // optical images, so visibleProperty controls the visibility of the light spots on the projection screen.
+  // For a more complete description, see https://github.com/phetsims/geometric-optics/issues/403
   public readonly visibleProperty: Property<boolean>;
 
   // the magnification can be negative, indicating that the optical image is inverted.
