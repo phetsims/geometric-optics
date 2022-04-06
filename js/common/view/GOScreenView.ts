@@ -127,7 +127,7 @@ export default class GOScreenView extends ScreenView {
                            'It is integer index that tells the sim how to scale the view. ' +
                            'Smaller values are more zoomed out. ' +
                            'See zoomScaleProperty for the actual scale value.'
-    } );
+    } ).asRanged();
 
     // Scale factor for the current zoom level
     const zoomScaleProperty = new DerivedProperty(
