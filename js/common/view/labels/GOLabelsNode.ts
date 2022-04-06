@@ -46,8 +46,7 @@ export default class GOLabelsNode extends Node {
 
     const opticLabel = new OpticLabelNode( optic, zoomTransformProperty, {
       visibleProperty: sceneNode.opticNodeVisibleProperty,
-      tandem: providedOptions.tandem.createTandem( 'opticLabel' ),
-      phetioReadOnlyText: true // see https://github.com/phetsims/geometric-optics/issues/411
+      tandem: providedOptions.tandem.createTandem( 'opticLabel' )
     } );
     this.addChild( opticLabel );
 

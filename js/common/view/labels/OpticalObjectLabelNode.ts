@@ -23,7 +23,7 @@ type SelfOptions = {
   isNumberedProperty?: IReadOnlyProperty<boolean>;
 };
 
-export type OpticalObjectLabelNodeOptions = SelfOptions & LabelNodeOptions;
+export type OpticalObjectLabelNodeOptions = SelfOptions & Omit<LabelNodeOptions, 'phetioReadOnlyText'>;
 
 export default class OpticalObjectLabelNode extends LabelNode {
 
