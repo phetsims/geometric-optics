@@ -27,8 +27,11 @@ const LOCK_SCALE = 0.045;
 const UNLOCKED_FILL = 'black';
 const LOCKED_FILL = PhetColorScheme.RED_COLORBLIND;
 
-type DragLockedButtonOptions = PickRequired<RectangularToggleButtonOptions, 'tandem'>
-  & PickOptional<RectangularToggleButtonOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
+type SelfOptions = {};
+
+type DragLockedButtonOptions = SelfOptions &
+  PickRequired<RectangularToggleButtonOptions, 'tandem'> &
+  PickOptional<RectangularToggleButtonOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
 
 export default class ObjectDragModeToggleButton extends RectangularToggleButton<ObjectDragMode> {
 
@@ -79,7 +82,7 @@ export default class ObjectDragModeToggleButton extends RectangularToggleButton<
       ]
     }, hBoxOptions ) ), alignBoxOptions );
 
-    const options = optionize<DragLockedButtonOptions, {}, RectangularToggleButtonOptions, 'content'>( {
+    const options = optionize<DragLockedButtonOptions, SelfOptions, RectangularToggleButtonOptions, 'content'>( {
 
       // RectangularToggleButton options
       content: new ToggleNode<ObjectDragMode>( objectDragModeProperty, [

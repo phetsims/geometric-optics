@@ -17,7 +17,11 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 
-type FocalLengthModelTypeOptions = PickRequired<VBoxOptions, 'tandem'> & PickOptional<VBoxOptions, 'visible'>;
+type SelfOptions = {};
+
+type FocalLengthModelTypeOptions = SelfOptions &
+  PickRequired<VBoxOptions, 'tandem'> &
+  PickOptional<VBoxOptions, 'visible'>;
 
 export default class FocalLengthModelTypeControl extends VBox {
 
@@ -29,7 +33,7 @@ export default class FocalLengthModelTypeControl extends VBox {
    */
   constructor( focalLengthModelTypeProperty: IProperty<FocalLengthModelType>, providedOptions: FocalLengthModelTypeOptions ) {
 
-    const options = optionize<FocalLengthModelTypeOptions, {}, VBoxOptions>( {
+    const options = optionize<FocalLengthModelTypeOptions, SelfOptions, VBoxOptions>( {
 
       // VBoxOptions
       spacing: 8,

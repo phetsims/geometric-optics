@@ -19,8 +19,11 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 
-type OpticShapeRadioButtonGroupOptions = PickRequired<RectangularRadioButtonGroupOptions, 'tandem'>
-  & PickOptional<RectangularRadioButtonGroupOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
+type SelfOptions = {};
+
+type OpticShapeRadioButtonGroupOptions = SelfOptions &
+  PickRequired<RectangularRadioButtonGroupOptions, 'tandem'> &
+  PickOptional<RectangularRadioButtonGroupOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
 
 export default class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShape> {
 
@@ -30,7 +33,7 @@ export default class OpticShapeRadioButtonGroup extends RectangularRadioButtonGr
    */
   constructor( optic: Optic, providedOptions: OpticShapeRadioButtonGroupOptions ) {
 
-    const options = optionize<OpticShapeRadioButtonGroupOptions, {}, RectangularRadioButtonGroupOptions>( {
+    const options = optionize<OpticShapeRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>( {
 
       // RectangularRadioButtonGroupOptions
       orientation: 'horizontal',

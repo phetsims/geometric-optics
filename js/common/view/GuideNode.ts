@@ -27,7 +27,9 @@ const FULCRUM_OPTIONS = {
 };
 const ARM_STROKE = GOColors.guideStrokeProperty;
 
-type GuideNodeOptions = PickRequired<NodeOptions, 'tandem'>;
+type SelfOptions = {};
+
+type GuideNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
 
 export default class GuideNode extends Node {
 
@@ -48,7 +50,7 @@ export default class GuideNode extends Node {
     const incidentArmNode = createArmNode( armColor );
     const transmittedArmNode = createArmNode( armColor );
 
-    const options = optionize<GuideNodeOptions, {}, NodeOptions>( {
+    const options = optionize<GuideNodeOptions, SelfOptions, NodeOptions>( {
 
       // NodeOptions
       children: [ incidentArmNode, transmittedArmNode, fulcrumNode ],

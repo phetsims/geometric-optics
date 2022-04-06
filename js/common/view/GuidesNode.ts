@@ -15,8 +15,11 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
-type GuidesNodeOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem'>
-  & PickOptional<NodeOptions, 'phetioDocumentation'>;
+type SelfOptions = {};
+
+type GuidesNodeOptions = SelfOptions &
+  PickRequired<NodeOptions, 'visibleProperty' | 'tandem'> &
+  PickOptional<NodeOptions, 'phetioDocumentation'>;
 
 export default class GuidesNode extends Node {
 
@@ -28,7 +31,7 @@ export default class GuidesNode extends Node {
    */
   constructor( guides: Guides, armColor: IColor,
                modelViewTransform: ModelViewTransform2, providedOptions: GuidesNodeOptions ) {
-    super( optionize<GuidesNodeOptions, {}, NodeOptions>( {
+    super( optionize<GuidesNodeOptions, SelfOptions, NodeOptions>( {
 
       // NodeOptions
       children: [

@@ -18,7 +18,11 @@ import { ObjectDragMode } from './ObjectDragMode.js';
 import OpticalObject from '../model/OpticalObject.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 
-export type OpticalObjectNodeOptions = PickRequired<NodeOptions, 'tandem'> & PickOptional<NodeOptions, 'visibleProperty'>;
+type SelfOptions = {};
+
+export type OpticalObjectNodeOptions = SelfOptions &
+  PickRequired<NodeOptions, 'tandem'> &
+  PickOptional<NodeOptions, 'visibleProperty'>;
 
 export default class OpticalObjectNode extends Node {
 
@@ -36,7 +40,7 @@ export default class OpticalObjectNode extends Node {
                          wasDraggedProperty: IProperty<boolean>,
                          providedOptions: OpticalObjectNodeOptions ) {
 
-    const options = optionize<OpticalObjectNodeOptions, {}, NodeOptions>( {
+    const options = optionize<OpticalObjectNodeOptions, SelfOptions, NodeOptions>( {
 
       // NodeOptions
       tagName: 'div',

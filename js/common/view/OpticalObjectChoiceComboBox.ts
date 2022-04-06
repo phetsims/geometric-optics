@@ -18,7 +18,10 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 
-type OpticalObjectChoiceComboBoxOptions = PickRequired<ComboBoxOptions, 'tandem'> &
+type SelfOptions = {};
+
+type OpticalObjectChoiceComboBoxOptions = SelfOptions &
+  PickRequired<ComboBoxOptions, 'tandem'> &
   PickOptional<ComboBoxOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
 
 export default class OpticalObjectChoiceComboBox extends ComboBox<OpticalObjectChoice> {
@@ -31,7 +34,7 @@ export default class OpticalObjectChoiceComboBox extends ComboBox<OpticalObjectC
   constructor( opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>, listParent: Node,
                providedOptions: OpticalObjectChoiceComboBoxOptions ) {
 
-    const options = optionize<OpticalObjectChoiceComboBoxOptions, {}, ComboBoxOptions>( {
+    const options = optionize<OpticalObjectChoiceComboBoxOptions, SelfOptions, ComboBoxOptions>( {
 
       // ComboBoxOptions
       highlightFill: 'rgb( 168, 192, 245 )',

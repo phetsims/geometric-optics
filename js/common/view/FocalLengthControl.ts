@@ -20,7 +20,9 @@ import { NodeOptions } from '../../../../scenery/js/imports.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize, { OptionizeDefaults } from '../../../../phet-core/js/optionize.js';
 
-type FocalLengthControlOptions = PickRequired<NodeOptions, 'tandem'>;
+type SelfOptions = {};
+
+type FocalLengthControlOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
 
 export default class FocalLengthControl extends NumberControl {
 
@@ -64,7 +66,7 @@ export default class FocalLengthControl extends NumberControl {
       }
     } );
 
-    const options = optionize<FocalLengthControlOptions, {}, NumberControlOptions>( {}, numberControlDefaults, providedOptions );
+    const options = optionize<FocalLengthControlOptions, SelfOptions, NumberControlOptions>( {}, numberControlDefaults, providedOptions );
 
     super( textProperty.value, focalLengthMagnitudeProperty, range, options );
 

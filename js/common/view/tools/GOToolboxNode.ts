@@ -17,7 +17,9 @@ import GOToolNode from './GOToolNode.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 
-type GOToolboxNodeOptions = PickRequired<PanelOptions, 'tandem'>;
+type SelfOptions = {};
+
+type GOToolboxNodeOptions = SelfOptions & PickRequired<PanelOptions, 'tandem'>;
 
 export default class GOToolboxNode extends Panel {
 
@@ -27,7 +29,7 @@ export default class GOToolboxNode extends Panel {
    */
   constructor( toolNodes: GOToolNode[], providedOptions: GOToolboxNodeOptions ) {
 
-    const options = optionize<GOToolboxNodeOptions, {}, PanelOptions>( {
+    const options = optionize<GOToolboxNodeOptions, SelfOptions, PanelOptions>( {
 
       // PanelOptions
       align: 'center',

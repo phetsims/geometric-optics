@@ -18,7 +18,9 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 
-type FocalLengthControlRadioButtonGroupOptions = PickRequired<VerticalAquaRadioButtonGroupOptions, 'tandem'>;
+type SelfOptions = {};
+
+type FocalLengthControlRadioButtonGroupOptions = SelfOptions & PickRequired<VerticalAquaRadioButtonGroupOptions, 'tandem'>;
 
 export default class FocalLengthModelTypeRadioButtonGroup extends VerticalAquaRadioButtonGroup<FocalLengthModelType> {
 
@@ -29,7 +31,7 @@ export default class FocalLengthModelTypeRadioButtonGroup extends VerticalAquaRa
   constructor( focalLengthModelTypeProperty: IProperty<FocalLengthModelType>,
                providedOptions: FocalLengthControlRadioButtonGroupOptions ) {
 
-    const options = optionize<FocalLengthControlRadioButtonGroupOptions, {}, VerticalAquaRadioButtonGroupOptions>( {
+    const options = optionize<FocalLengthControlRadioButtonGroupOptions, SelfOptions, VerticalAquaRadioButtonGroupOptions>( {
 
       // VerticalAquaRadioButtonGroupOptions
       spacing: 8

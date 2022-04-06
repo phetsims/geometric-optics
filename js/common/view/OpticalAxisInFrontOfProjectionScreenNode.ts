@@ -19,7 +19,10 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
-export type OpticalAxisInFrontOfProjectionScreenNodeOptions = PickRequired<LineOptions, 'visibleProperty'> &
+type SelfOptions = {};
+
+export type OpticalAxisInFrontOfProjectionScreenNodeOptions = SelfOptions &
+  PickRequired<LineOptions, 'visibleProperty'> &
   PickOptional<LineOptions, 'stroke'>;
 
 export default class OpticalAxisInFrontOfProjectionScreenNode extends Line {
@@ -37,7 +40,7 @@ export default class OpticalAxisInFrontOfProjectionScreenNode extends Line {
                modelViewTransform: ModelViewTransform2,
                providedOptions: OpticalAxisInFrontOfProjectionScreenNodeOptions ) {
 
-    const options = optionize<OpticalAxisInFrontOfProjectionScreenNodeOptions, {}, LineOptions>( {
+    const options = optionize<OpticalAxisInFrontOfProjectionScreenNodeOptions, SelfOptions, LineOptions>( {
 
       // LineOptions
       stroke: GOQueryParameters.debugOpticalAxis ? 'red' : GOColors.opticalAxisStrokeProperty,

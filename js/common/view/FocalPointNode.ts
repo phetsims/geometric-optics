@@ -16,7 +16,9 @@ import GOColors from '../GOColors.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 
-type FocalPointNodeOptions = PickRequired<NodeOptions, 'tandem' | 'visibleProperty'>;
+type SelfOptions = {};
+
+type FocalPointNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem' | 'visibleProperty'>;
 
 export default class FocalPointNode extends Node {
 
@@ -29,7 +31,7 @@ export default class FocalPointNode extends Node {
                modelViewTransform: ModelViewTransform2,
                providedOptions: FocalPointNodeOptions ) {
 
-    const options = optionize<FocalPointNodeOptions, {}, NodeOptions>( {
+    const options = optionize<FocalPointNodeOptions, SelfOptions, NodeOptions>( {
 
       // NodeOptions
       children: [ FocalPointNode.createIcon() ],

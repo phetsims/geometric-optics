@@ -15,7 +15,9 @@ import GOColors from '../GOColors.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 
-type TwoFPointNodeOptions = PickRequired<NodeOptions, 'tandem' | 'visibleProperty'>;
+type SelfOptions = {};
+
+type TwoFPointNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem' | 'visibleProperty'>;
 
 export default class TwoFPointNode extends Node {
 
@@ -26,7 +28,7 @@ export default class TwoFPointNode extends Node {
    */
   constructor( pointProperty: IProperty<Vector2>, modelViewTransform: ModelViewTransform2, provideOptions: TwoFPointNodeOptions ) {
 
-    const options = optionize<TwoFPointNodeOptions, {}, NodeOptions>( {
+    const options = optionize<TwoFPointNodeOptions, SelfOptions, NodeOptions>( {
 
       // NodeOptions
       children: [ TwoFPointNode.createIcon() ],

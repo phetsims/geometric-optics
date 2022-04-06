@@ -29,7 +29,10 @@ type PositionAndDiameter = {
   diameter: number; // diameter, in cm
 };
 
-type LightSpotOptions = PickRequired<PhetioObjectOptions, 'tandem'> &
+type SelfOptions = {};
+
+type LightSpotOptions = SelfOptions &
+  PickRequired<PhetioObjectOptions, 'tandem'> &
   PickOptional<PhetioObjectOptions, 'phetioDocumentation'>;
 
 export default class LightSpot extends PhetioObject {
@@ -56,7 +59,7 @@ export default class LightSpot extends PhetioObject {
                opticalImagePositionProperty: IReadOnlyProperty<Vector2>,
                providedOptions: LightSpotOptions ) {
 
-    const options = optionize<LightSpotOptions, {}, PhetioObject>( {
+    const options = optionize<LightSpotOptions, SelfOptions, PhetioObject>( {
 
       // PhetioObjectOptions
       phetioState: false

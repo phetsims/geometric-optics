@@ -26,7 +26,9 @@ const SCREEN_NEAR_HEIGHT = 134;
 const SCREEN_FAR_HEIGHT = 112;
 assert && assert( SCREEN_NEAR_HEIGHT > SCREEN_FAR_HEIGHT );
 
-type ProjectionScreenOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
+type SelfOptions = {};
+
+type ProjectionScreenOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 export default class ProjectionScreen extends PhetioObject {
 
@@ -48,7 +50,7 @@ export default class ProjectionScreen extends PhetioObject {
    */
   constructor( opticPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: ProjectionScreenOptions ) {
 
-    const options = optionize<ProjectionScreenOptions, {}, PhetioObjectOptions>( {
+    const options = optionize<ProjectionScreenOptions, SelfOptions, PhetioObjectOptions>( {
 
       // PhetioObjectOptions
       phetioState: false

@@ -19,7 +19,9 @@ import Optic from '../../common/model/Optic.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
-type LensScreenViewOptions = PickRequired<GOScreenViewOptions, 'isBasicsVersion' | 'tandem'>;
+type SelfOptions = {};
+
+type LensScreenViewOptions = SelfOptions & PickRequired<GOScreenViewOptions, 'isBasicsVersion' | 'tandem'>;
 
 export default class LensScreenView extends GOScreenView {
 
@@ -29,7 +31,7 @@ export default class LensScreenView extends GOScreenView {
    */
   constructor( model: LensModel, providedOptions: LensScreenViewOptions ) {
 
-    const options = optionize<LensScreenViewOptions, {}, GOScreenViewOptions,
+    const options = optionize<LensScreenViewOptions, SelfOptions, GOScreenViewOptions,
       'getViewOrigin' | 'createOpticNode'>( {
 
       // GOScreenViewOptions

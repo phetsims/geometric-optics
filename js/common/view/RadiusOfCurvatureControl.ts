@@ -19,7 +19,9 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize, { OptionizeDefaults } from '../../../../phet-core/js/optionize.js';
 
-type RadiusOfCurvatureControlOptions = PickRequired<NumberControlOptions, 'tandem'>;
+type SelfOptions = {};
+
+type RadiusOfCurvatureControlOptions = SelfOptions & PickRequired<NumberControlOptions, 'tandem'>;
 
 export default class RadiusOfCurvatureControl extends NumberControl {
 
@@ -63,7 +65,8 @@ export default class RadiusOfCurvatureControl extends NumberControl {
       }
     } );
 
-    const options = optionize<RadiusOfCurvatureControlOptions, {}, NumberControlOptions>( numberControlDefaults, providedOptions );
+    const options = optionize<RadiusOfCurvatureControlOptions, SelfOptions, NumberControlOptions>(
+      numberControlDefaults, providedOptions );
 
     super( textProperty.value, radiusOfCurvatureMagnitudeProperty, range, options );
 

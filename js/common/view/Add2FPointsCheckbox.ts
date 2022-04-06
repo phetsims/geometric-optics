@@ -16,7 +16,9 @@ import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
 
-type Add2FPointsCheckboxOptions = PickRequired<CheckboxOptions, 'tandem'>;
+type SelfOptions = {};
+
+type Add2FPointsCheckboxOptions = SelfOptions & PickRequired<CheckboxOptions, 'tandem'>;
 
 export default class Add2FPointsCheckbox extends Checkbox {
 
@@ -28,7 +30,7 @@ export default class Add2FPointsCheckbox extends Checkbox {
    */
   constructor( add2FPointsCheckboxProperty: IProperty<boolean>, providedOptions: Add2FPointsCheckboxOptions ) {
 
-    const options = optionize<Add2FPointsCheckboxOptions, {}, CheckboxOptions>( {
+    const options = optionize<Add2FPointsCheckboxOptions, SelfOptions, CheckboxOptions>( {
       boxWidth: GOConstants.CHECKBOX_BOX_WIDTH
     }, providedOptions );
 

@@ -16,7 +16,9 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
-export type OpticalImageNodeOptions = PickRequired<NodeOptions, 'tandem'>;
+type SelfOptions = {};
+
+export type OpticalImageNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
 
 export default class OpticalImageNode extends Node {
 
@@ -33,7 +35,7 @@ export default class OpticalImageNode extends Node {
                          objectVisibleProperty: IReadOnlyProperty<boolean>,
                          providedOptions: OpticalImageNodeOptions ) {
 
-    const options = optionize<OpticalImageNodeOptions, {}, NodeOptions>( {
+    const options = optionize<OpticalImageNodeOptions, SelfOptions, NodeOptions>( {
       visibleProperty: new DerivedProperty(
         [ opticalImage.visibleProperty, opticalImage.opticalImageTypeProperty, virtualImageVisibleProperty,
           lightPropagationEnabledProperty, objectVisibleProperty ],

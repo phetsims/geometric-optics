@@ -18,7 +18,9 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 // How long the animation of light rays lasts, in seconds
 const RAYS_ANIMATION_DURATION = 10;
 
-export type GOSceneOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
+type SelfOptions = {};
+
+export type GOSceneOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 export default abstract class GOScene extends PhetioObject {
 
@@ -41,7 +43,7 @@ export default abstract class GOScene extends PhetioObject {
    */
   protected constructor( optic: Optic, providedOptions: GOSceneOptions ) {
 
-    const options = optionize<GOSceneOptions, {}, PhetioObjectOptions>( {
+    const options = optionize<GOSceneOptions, SelfOptions, PhetioObjectOptions>( {
 
       // PhetioObjectOptions
       phetioState: false

@@ -15,7 +15,9 @@ import geometricOptics from '../../../geometricOptics.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 
-export type GOToolOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
+type SelfOptions = {};
+
+export type GOToolOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 class GOTool extends PhetioObject {
 
@@ -33,7 +35,7 @@ class GOTool extends PhetioObject {
    */
   protected constructor( providedOptions: GOToolOptions ) {
 
-    const options = optionize<GOToolOptions, {}, PhetioObjectOptions>( {
+    const options = optionize<GOToolOptions, SelfOptions, PhetioObjectOptions>( {
 
       // PhetioObjectOptions
       phetioState: false

@@ -20,7 +20,10 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
-export type OpticalAxisNodeOptions = PickRequired<LineOptions, 'visibleProperty'> &
+type SelfOptions = {};
+
+export type OpticalAxisNodeOptions = SelfOptions &
+  PickRequired<LineOptions, 'visibleProperty'> &
   PickOptional<LineOptions, 'stroke' | 'tandem'>;
 
 export default class OpticalAxisNode extends Line {
@@ -37,7 +40,7 @@ export default class OpticalAxisNode extends Line {
                providedOptions: OpticalAxisNodeOptions ) {
 
     // create optical axis line, with arbitrary length values.
-    super( 0, 0, 1, 0, optionize<OpticalAxisNodeOptions, {}, LineOptions>( {
+    super( 0, 0, 1, 0, optionize<OpticalAxisNodeOptions, SelfOptions, LineOptions>( {
 
       // LineOptions
       stroke: GOColors.opticalAxisStrokeProperty,

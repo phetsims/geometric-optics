@@ -25,7 +25,9 @@ import { Node, Path } from '../../../../scenery/js/imports.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import GOColors from '../GOColors.js';
 
-type OpticalAxisForegroundNodeOptions = OpticalAxisNodeOptions;
+type SelfOptions = {};
+
+type OpticalAxisForegroundNodeOptions = SelfOptions & OpticalAxisNodeOptions;
 
 export default class OpticalAxisForegroundNode extends OpticalAxisNode {
 
@@ -50,7 +52,7 @@ export default class OpticalAxisForegroundNode extends OpticalAxisNode {
                lightRaysProcessedEmitter: Emitter<[]>,
                providedOptions: OpticalAxisForegroundNodeOptions ) {
 
-    const options = optionize<OpticalAxisForegroundNodeOptions, {}, OpticalAxisNodeOptions>( {
+    const options = optionize<OpticalAxisForegroundNodeOptions, SelfOptions, OpticalAxisNodeOptions>( {
 
       // OpticalAxisNodeOptions
       stroke: ( GOQueryParameters.debugOpticalAxis ) ? 'red' : GOColors.opticalAxisStrokeProperty

@@ -17,7 +17,9 @@ import { NodeOptions } from '../../../../scenery/js/imports.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize, { OptionizeDefaults } from '../../../../phet-core/js/optionize.js';
 
-type DiameterControlOptions = PickRequired<NodeOptions, 'tandem'>;
+type SelfOptions = {};
+
+type DiameterControlOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
 
 export default class DiameterControl extends NumberControl {
 
@@ -45,7 +47,7 @@ export default class DiameterControl extends NumberControl {
       }
     } );
 
-    const options = optionize<DiameterControlOptions, {}, NumberControlOptions>( numberControlDefaults, providedOptions );
+    const options = optionize<DiameterControlOptions, SelfOptions, NumberControlOptions>( numberControlDefaults, providedOptions );
 
     super( geometricOpticsStrings.diameter, diameterProperty, range, options );
 

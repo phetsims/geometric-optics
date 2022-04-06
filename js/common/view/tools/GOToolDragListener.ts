@@ -18,7 +18,10 @@ import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import GOTool from '../../model/tools/GOTool.js';
 
-type GOToolDragListenerOptions = PickRequired<DragListenerOptions<PressedDragListener>, 'tandem'> &
+type SelfOptions = {};
+
+type GOToolDragListenerOptions = SelfOptions &
+  PickRequired<DragListenerOptions<PressedDragListener>, 'tandem'> &
   PickOptional<DragListenerOptions<PressedDragListener>, 'offsetPosition'>;
 
 export default class GOToolDragListener extends DragListener {
@@ -42,7 +45,7 @@ export default class GOToolDragListener extends DragListener {
     // So keep track of where the pointer is.
     let previousPointerPoint: Vector2 = Vector2.ZERO;
 
-    const options = optionize<GOToolDragListenerOptions, {}, DragListenerOptions<PressedDragListener>>( {
+    const options = optionize<GOToolDragListenerOptions, SelfOptions, DragListenerOptions<PressedDragListener>>( {
       pressCursor: 'pointer',
       useInputListenerCursor: true,
       positionProperty: tool.positionProperty,

@@ -22,7 +22,9 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 // See https://github.com/phetsims/geometric-optics/issues/401
 const VERTICAL_OFFSET_RANGE = new Range( -56.5, 0 );
 
-type SecondPointOptions = PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
+type SelfOptions = {};
+
+type SecondPointOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
 
 export default class SecondPoint extends PhetioObject {
 
@@ -44,7 +46,7 @@ export default class SecondPoint extends PhetioObject {
    */
   constructor( framedObjectPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: SecondPointOptions ) {
 
-    const options = optionize<SecondPointOptions, {}, PhetioObjectOptions>( {
+    const options = optionize<SecondPointOptions, SelfOptions, PhetioObjectOptions>( {
 
       // PhetioObjectOptions
       phetioState: false

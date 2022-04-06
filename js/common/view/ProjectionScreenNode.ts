@@ -26,7 +26,9 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
-type ProjectionScreenNodeOptions = PickRequired<NodeOptions, 'tandem'>;
+type SelfOptions = {};
+
+type ProjectionScreenNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
 
 export default class ProjectionScreenNode extends Node {
 
@@ -46,7 +48,7 @@ export default class ProjectionScreenNode extends Node {
                modelViewTransform: ModelViewTransform2,
                providedOptions: ProjectionScreenNodeOptions ) {
 
-    const options = optionize<ProjectionScreenNodeOptions, {}, NodeOptions>( {
+    const options = optionize<ProjectionScreenNodeOptions, SelfOptions, NodeOptions>( {
 
       // NodeOptions
       tagName: 'div',

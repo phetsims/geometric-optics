@@ -27,7 +27,9 @@ const LINE_WIDTH = 2;
 const ICON_RADIUS_OF_CURVATURE_MAGNITUDE = 20;
 const ICON_DIAMETER = 30;
 
-type LensNodeOptions = PickRequired<NodeOptions, 'tandem'>;
+type SelfOptions = {};
+
+type LensNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
 
 export default class LensNode extends Node {
 
@@ -38,7 +40,7 @@ export default class LensNode extends Node {
    */
   constructor( lens: Lens, modelViewTransform: ModelViewTransform2, providedOptions: LensNodeOptions ) {
 
-    const options = optionize<LensNodeOptions, {}, NodeOptions>( {
+    const options = optionize<LensNodeOptions, SelfOptions, NodeOptions>( {
 
       // NodeOptions
       phetioVisiblePropertyInstrumented: false

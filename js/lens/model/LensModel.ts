@@ -15,7 +15,9 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
 
-type LensModelOptions = PickRequired<GOModelOptions, 'tandem'>;
+type SelfOptions = {};
+
+type LensModelOptions = SelfOptions & PickRequired<GOModelOptions, 'tandem'>;
 
 export default class LensModel extends GOModel {
 
@@ -48,7 +50,7 @@ export default class LensModel extends GOModel {
       ];
     }
 
-    const options = optionize<LensModelOptions, {}, GOModelOptions,
+    const options = optionize<LensModelOptions, SelfOptions, GOModelOptions,
       'opticalObjectChoices' | 'arrowObject1Position' | 'arrowObject2Position' | 'framedObjectPosition'>( {
 
       // GOModelOptions

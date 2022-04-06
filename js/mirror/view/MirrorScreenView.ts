@@ -20,7 +20,9 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
-type MirrorScreenViewOptions = PickRequired<GOScreenViewOptions, 'isBasicsVersion' | 'tandem'>;
+type SelfOptions = {};
+
+type MirrorScreenViewOptions = SelfOptions & PickRequired<GOScreenViewOptions, 'isBasicsVersion' | 'tandem'>;
 
 export default class MirrorScreenView extends GOScreenView {
 
@@ -30,7 +32,7 @@ export default class MirrorScreenView extends GOScreenView {
    */
   constructor( model: MirrorModel, providedOptions: MirrorScreenViewOptions ) {
 
-    const options = optionize<MirrorScreenViewOptions, {}, GOScreenViewOptions,
+    const options = optionize<MirrorScreenViewOptions, SelfOptions, GOScreenViewOptions,
       'getViewOrigin' | 'createOpticNode'>( {
 
       // GOScreenViewOptions

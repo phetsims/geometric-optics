@@ -19,7 +19,9 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 export type GuideLocation = 'top' | 'bottom';
 
-type GuideOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
+type SelfOptions = {};
+
+type GuideOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 class Guide extends PhetioObject {
 
@@ -40,7 +42,7 @@ class Guide extends PhetioObject {
    */
   constructor( optic: Optic, opticalObjectPositionProperty: IReadOnlyProperty<Vector2>, location: GuideLocation, providedOptions: GuideOptions ) {
 
-    const options = optionize<GuideOptions, {}, PhetioObjectOptions>( {
+    const options = optionize<GuideOptions, SelfOptions, PhetioObjectOptions>( {
 
       // PhetioObjectOptions
       phetioState: false

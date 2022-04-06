@@ -29,7 +29,9 @@ const ICON_CONVEX_RADIUS_OF_CURVATURE_MAGNITUDE = 20;
 const ICON_CONCAVE_RADIUS_OF_CURVATURE_MAGNITUDE = -ICON_CONVEX_RADIUS_OF_CURVATURE_MAGNITUDE;
 const ICON_DIAMETER = 30;
 
-type MirrorNodeOptions = PickRequired<NodeOptions, 'tandem'>;
+type SelfOptions = {};
+
+type MirrorNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
 
 export default class MirrorNode extends Node {
 
@@ -40,7 +42,7 @@ export default class MirrorNode extends Node {
    */
   constructor( mirror: Mirror, modelViewTransform: ModelViewTransform2, providedOptions: MirrorNodeOptions ) {
 
-    const options = optionize<MirrorNodeOptions, {}, NodeOptions>( {
+    const options = optionize<MirrorNodeOptions, SelfOptions, NodeOptions>( {
 
       // NodeoOtions
       phetioVisiblePropertyInstrumented: false

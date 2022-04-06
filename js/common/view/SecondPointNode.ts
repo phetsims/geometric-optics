@@ -21,7 +21,10 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
 
-type SecondPointNodeOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem' | 'phetioDocumentation'>;
+type SelfOptions = {};
+
+type SecondPointNodeOptions = SelfOptions &
+  PickRequired<NodeOptions, 'visibleProperty' | 'tandem' | 'phetioDocumentation'>;
 
 export default class SecondPointNode extends Node {
 
@@ -34,7 +37,7 @@ export default class SecondPointNode extends Node {
   constructor( secondPoint: SecondPoint, modelViewTransform: ModelViewTransform2, wasDraggedProperty: IProperty<boolean>,
                providedOptions: SecondPointNodeOptions ) {
 
-    const options = optionize<SecondPointNodeOptions, {}, NodeOptions>( {
+    const options = optionize<SecondPointNodeOptions, SelfOptions, NodeOptions>( {
 
       // NodeOptions
       cursor: 'ns-resize', // second point can only be dragged vertically

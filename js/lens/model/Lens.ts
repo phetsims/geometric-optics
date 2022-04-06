@@ -24,7 +24,9 @@ import GOQueryParameters from '../../common/GOQueryParameters.js';
 // IOR is a fixed value for the 'direct' focal-length model.
 const DIRECT_INDEX_OF_REFRACTION = 1.5;
 
-type LensOptions = PickRequired<OpticOptions, 'tandem'>;
+type SelfOptions = {};
+
+type LensOptions = SelfOptions & PickRequired<OpticOptions, 'tandem'>;
 
 export default class Lens extends Optic {
 
@@ -41,7 +43,7 @@ export default class Lens extends Optic {
 
     const focalLengthModelsTandem = providedOptions.tandem.createTandem( 'focalLengthModels' );
 
-    const options = optionize<LensOptions, {}, OpticOptions,
+    const options = optionize<LensOptions, SelfOptions, OpticOptions,
       'opticShapes' | 'diameterRange' | 'sign' | 'directFocalLengthModelOptions' | 'indirectFocalLengthModelOptions'>( {
 
       // OpticOptions

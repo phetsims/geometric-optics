@@ -21,7 +21,9 @@ import { Path } from '../../../../scenery/js/imports.js';
 import { OpticalImageType } from '../model/OpticalImageType.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 
-type RealLightRaysForegroundNodeOptions = RealLightRaysNodeOptions;
+type SelfOptions = {};
+
+type RealLightRaysForegroundNodeOptions = SelfOptions & RealLightRaysNodeOptions;
 
 export default class RealLightRaysForegroundNode extends RealLightRaysNode {
 
@@ -42,7 +44,7 @@ export default class RealLightRaysForegroundNode extends RealLightRaysNode {
                opticalImageTypeProperty: IReadOnlyProperty<OpticalImageType>,
                providedOptions: RealLightRaysForegroundNodeOptions ) {
 
-    const options = optionize<RealLightRaysForegroundNodeOptions, {}, RealLightRaysNodeOptions, 'stroke'>( {},
+    const options = optionize<RealLightRaysForegroundNodeOptions, SelfOptions, RealLightRaysNodeOptions, 'stroke'>( {},
       providedOptions, {
         stroke: ( GOQueryParameters.debugRays ) ? 'red' : providedOptions.stroke
       } );

@@ -15,7 +15,9 @@ import Guide from './Guide.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
-type GuidesOptions = PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
+type SelfOptions = {};
+
+type GuidesOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
 
 export default class Guides extends PhetioObject {
 
@@ -30,7 +32,7 @@ export default class Guides extends PhetioObject {
    */
   constructor( optic: Optic, opticalObjectPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: GuidesOptions ) {
 
-    const options = optionize<GuidesOptions, {}, PhetioObjectOptions>( {
+    const options = optionize<GuidesOptions, SelfOptions, PhetioObjectOptions>( {
 
       // PhetioObjectOptions
       phetioState: false

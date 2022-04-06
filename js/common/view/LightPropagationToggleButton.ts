@@ -18,7 +18,9 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 
-type LightPropagationToggleButtonOptions = PickRequired<BooleanRoundToggleButtonOptions, 'tandem'>;
+type SelfOptions = {};
+
+type LightPropagationToggleButtonOptions = SelfOptions & PickRequired<BooleanRoundToggleButtonOptions, 'tandem'>;
 
 export default class LightPropagationToggleButton extends BooleanRoundToggleButton {
 
@@ -28,7 +30,7 @@ export default class LightPropagationToggleButton extends BooleanRoundToggleButt
    */
   constructor( booleanProperty: IProperty<boolean>, providedOptions: LightPropagationToggleButtonOptions ) {
 
-    const options = optionize<LightPropagationToggleButtonOptions, {}, BooleanRoundToggleButtonOptions>( {
+    const options = optionize<LightPropagationToggleButtonOptions, SelfOptions, BooleanRoundToggleButtonOptions>( {
 
       // BooleanRoundToggleButtonOptions
       radius: SceneryPhetConstants.DEFAULT_BUTTON_RADIUS, // so that this button will be the same size as ResetAllButton

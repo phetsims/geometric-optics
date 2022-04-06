@@ -16,7 +16,9 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize, { OptionizeDefaults } from '../../../../phet-core/js/optionize.js';
 
-type IndexOfRefractionControlOptions = PickRequired<NumberControlOptions, 'tandem'>;
+type SelfOptions = {};
+
+type IndexOfRefractionControlOptions = SelfOptions & PickRequired<NumberControlOptions, 'tandem'>;
 
 export default class IndexOfRefractionControl extends NumberControl {
 
@@ -44,7 +46,8 @@ export default class IndexOfRefractionControl extends NumberControl {
       }
     } );
 
-    const options = optionize<IndexOfRefractionControlOptions, {}, NumberControlOptions>( numberControlDefaults, providedOptions );
+    const options = optionize<IndexOfRefractionControlOptions, SelfOptions, NumberControlOptions>(
+      numberControlDefaults, providedOptions );
 
     super( geometricOpticsStrings.indexOfRefraction, indexOfRefractionProperty, range, options );
 
