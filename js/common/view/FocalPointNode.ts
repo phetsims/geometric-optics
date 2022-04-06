@@ -14,7 +14,7 @@ import { Circle, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import Property from '../../../../axon/js/Property.js';
+import IProperty from '../../../../axon/js/IProperty.js';
 
 type FocalPointNodeOptions = PickRequired<NodeOptions, 'tandem' | 'visibleProperty'>;
 
@@ -25,7 +25,7 @@ class FocalPointNode extends Node {
    * @param modelViewTransform
    * @param providedOptions
    */
-  constructor( pointProperty: Property<Vector2>,
+  constructor( pointProperty: IProperty<Vector2>,
                modelViewTransform: ModelViewTransform2,
                providedOptions: FocalPointNodeOptions ) {
 

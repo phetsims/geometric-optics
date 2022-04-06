@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -14,6 +13,7 @@ import { Circle, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import IProperty from '../../../../axon/js/IProperty.js';
 
 type TwoFPointNodeOptions = PickRequired<NodeOptions, 'tandem' | 'visibleProperty'>;
 
@@ -24,7 +24,7 @@ class TwoFPointNode extends Node {
    * @param modelViewTransform
    * @param provideOptions
    */
-  constructor( pointProperty: Property<Vector2>, modelViewTransform: ModelViewTransform2, provideOptions: TwoFPointNodeOptions ) {
+  constructor( pointProperty: IProperty<Vector2>, modelViewTransform: ModelViewTransform2, provideOptions: TwoFPointNodeOptions ) {
 
     const options = optionize<TwoFPointNodeOptions, {}, NodeOptions>( {
 
