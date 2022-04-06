@@ -9,7 +9,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -18,6 +17,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import LightObject from '../model/LightObject.js';
 import HTMLImageElementObjectNode, { HTMLImageElementObjectNodeOptions } from './HTMLImageElementObjectNode.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
+import IProperty from '../../../../axon/js/IProperty.js';
 
 type LightObjectNodeOptions = HTMLImageElementObjectNodeOptions;
 
@@ -37,7 +37,7 @@ class LightObjectNode extends HTMLImageElementObjectNode {
                opticPositionProperty: IReadOnlyProperty<Vector2>,
                modelViewTransform: ModelViewTransform2,
                objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>,
-               wasDraggedProperty: Property<boolean>,
+               wasDraggedProperty: IProperty<boolean>,
                providedOptions: LightObjectNodeOptions ) {
 
     super( lightObject, sceneBoundsProperty, opticPositionProperty, modelViewTransform, objectDragModeProperty,

@@ -18,13 +18,13 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
-import Property from '../../../../axon/js/Property.js';
 import SecondPointNode from './SecondPointNode.js';
 import FocalPointNode from './FocalPointNode.js';
 import TwoFPointNode from './TwoFPointNode.js';
 import GOGlobalOptions from '../GOGlobalOptions.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import { GOSimOptions } from '../../GOSim.js';
+import IProperty from '../../../../axon/js/IProperty.js';
 
 type SelfOptions = {
 
@@ -123,7 +123,7 @@ type ItemOptions = {
   iconNode?: Node;
 } & PickRequired<VerticalCheckboxGroupItem, 'tandem'> & PickOptional<VerticalCheckboxGroupItem, 'options'>;
 
-function createItem( string: string, property: Property<boolean>, providedOptions: ItemOptions ): VerticalCheckboxGroupItem {
+function createItem( string: string, property: IProperty<boolean>, providedOptions: ItemOptions ): VerticalCheckboxGroupItem {
 
   const labelText = new Text( string, {
     font: GOConstants.CONTROL_FONT,

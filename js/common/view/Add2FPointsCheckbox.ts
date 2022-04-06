@@ -7,7 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import IProperty from '../../../../axon/js/IProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { Text } from '../../../../scenery/js/imports.js';
@@ -26,7 +26,7 @@ class Add2FPointsCheckbox extends Checkbox {
    * @param add2FPointsCheckboxProperty
    * @param providedOptions
    */
-  constructor( add2FPointsCheckboxProperty: Property<boolean>, providedOptions: Add2FPointsCheckboxOptions ) {
+  constructor( add2FPointsCheckboxProperty: IProperty<boolean>, providedOptions: Add2FPointsCheckboxOptions ) {
 
     const options = optionize<Add2FPointsCheckboxOptions, {}, CheckboxOptions>( {
       boxWidth: GOConstants.CHECKBOX_BOX_WIDTH

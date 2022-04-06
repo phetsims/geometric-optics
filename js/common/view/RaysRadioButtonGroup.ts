@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
 import { Text } from '../../../../scenery/js/imports.js';
 import VerticalAquaRadioButtonGroup, { VerticalAquaRadioButtonGroupOptions } from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -18,6 +17,7 @@ import { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGrou
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import IProperty from '../../../../axon/js/IProperty.js';
 
 type RaysRadioButtonGroupOptions = PickRequired<VerticalAquaRadioButtonGroupOptions, 'tandem'>;
 
@@ -27,7 +27,7 @@ class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysType> {
    * @param raysTypeProperty
    * @param providedOptions
    */
-  constructor( raysTypeProperty: Property<RaysType>, providedOptions: RaysRadioButtonGroupOptions ) {
+  constructor( raysTypeProperty: IProperty<RaysType>, providedOptions: RaysRadioButtonGroupOptions ) {
 
     const options = optionize<RaysRadioButtonGroupOptions, {}, VerticalAquaRadioButtonGroupOptions>( {
 

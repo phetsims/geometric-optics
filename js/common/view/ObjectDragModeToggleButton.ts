@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
 import geometricOptics from '../../geometricOptics.js';
 import lockSolidShape from '../../../../sherpa/js/fontawesome-5/lockSolidShape.js';
 import unlockSolidShape from '../../../../sherpa/js/fontawesome-5/unlockSolidShape.js';
@@ -21,6 +20,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 import ToggleNode from '../../../../sun/js/ToggleNode.js';
 import RectangularToggleButton, { RectangularToggleButtonOptions } from '../../../../sun/js/buttons/RectangularToggleButton.js';
+import IProperty from '../../../../axon/js/IProperty.js';
 
 const ARROWS_SCALE = 0.65;
 const LOCK_SCALE = 0.045;
@@ -36,7 +36,7 @@ class ObjectDragModeToggleButton extends RectangularToggleButton<ObjectDragMode>
    * @param objectDragModeProperty - is dragging locked to horizontal?
    * @param providedOptions
    */
-  constructor( objectDragModeProperty: Property<ObjectDragMode>, providedOptions?: DragLockedButtonOptions ) {
+  constructor( objectDragModeProperty: IProperty<ObjectDragMode>, providedOptions?: DragLockedButtonOptions ) {
 
     // To make both icons have the same effective size
     const alignBoxOptions = {

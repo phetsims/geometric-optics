@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
 import SceneryPhetConstants from '../../../../scenery-phet/js/SceneryPhetConstants.js';
 import { Image } from '../../../../scenery/js/imports.js';
 import BooleanRoundToggleButton, { BooleanRoundToggleButtonOptions } from '../../../../sun/js/buttons/BooleanRoundToggleButton.js';
@@ -17,6 +16,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import IProperty from '../../../../axon/js/IProperty.js';
 
 type LightPropagationToggleButtonOptions = PickRequired<BooleanRoundToggleButtonOptions, 'tandem'>;
 
@@ -26,7 +26,7 @@ class LightPropagationToggleButton extends BooleanRoundToggleButton {
    * @param booleanProperty
    * @param providedOptions
    */
-  constructor( booleanProperty: Property<boolean>, providedOptions: LightPropagationToggleButtonOptions ) {
+  constructor( booleanProperty: IProperty<boolean>, providedOptions: LightPropagationToggleButtonOptions ) {
 
     const options = optionize<LightPropagationToggleButtonOptions, {}, BooleanRoundToggleButtonOptions>( {
 

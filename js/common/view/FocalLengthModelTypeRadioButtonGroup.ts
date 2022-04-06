@@ -15,8 +15,8 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
 import { FocalLengthModelType } from '../model/FocalLengthModelType.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import Property from '../../../../axon/js/Property.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import IProperty from '../../../../axon/js/IProperty.js';
 
 type FocalLengthControlRadioButtonGroupOptions = PickRequired<VerticalAquaRadioButtonGroupOptions, 'tandem'>;
 
@@ -26,7 +26,7 @@ class FocalLengthModelTypeRadioButtonGroup extends VerticalAquaRadioButtonGroup<
    * @param focalLengthModelTypeProperty
    * @param providedOptions
    */
-  constructor( focalLengthModelTypeProperty: Property<FocalLengthModelType>,
+  constructor( focalLengthModelTypeProperty: IProperty<FocalLengthModelType>,
                providedOptions: FocalLengthControlRadioButtonGroupOptions ) {
 
     const options = optionize<FocalLengthControlRadioButtonGroupOptions, {}, VerticalAquaRadioButtonGroupOptions>( {
