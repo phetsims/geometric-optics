@@ -22,7 +22,7 @@ const ICON_WIDTH = 48;
 const ICON_HEIGHT = 17;
 const NUMBER_OF_MAJOR_TICKS = 5;
 
-class GORulerIcon extends GOToolIcon {
+export default class GORulerIcon extends GOToolIcon {
 
   /**
    * @param ruler
@@ -88,4 +88,3 @@ class GORulerIcon extends GOToolIcon {
 }
 
 geometricOptics.register( 'GORulerIcon', GORulerIcon );
-export default GORulerIcon;

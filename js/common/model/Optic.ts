@@ -62,7 +62,7 @@ type SelfOptions = {
 export type OpticOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'> &
   PickOptional<PhetioObjectOptions, 'phetioDocumentation'>;
 
-abstract class Optic extends PhetioObject {
+export default abstract class Optic extends PhetioObject {
 
   // Shapes that describe the optic
   public readonly abstract shapesProperty: IReadOnlyProperty<OpticShapes>;
@@ -386,4 +386,3 @@ abstract class Optic extends PhetioObject {
 }
 
 geometricOptics.register( 'Optic', Optic );
-export default Optic;

@@ -23,7 +23,7 @@ type SelfOptions = PickOptional<GOSimOptions, 'isBasicsVersion'>;
 
 type GOGlobalOptionsNodeOptions = SelfOptions & PickRequired<VBoxOptions, 'tandem'>;
 
-class GOGlobalOptionsNode extends VBox {
+export default class GOGlobalOptionsNode extends VBox {
 
   // Disposes of things that are specific to this class.
   private readonly disposeGeometricOpticsGlobalOptionsNode: () => void;
@@ -72,4 +72,3 @@ class GOGlobalOptionsNode extends VBox {
 }
 
 geometricOptics.register( 'GOGlobalOptionsNode', GOGlobalOptionsNode );
-export default GOGlobalOptionsNode;

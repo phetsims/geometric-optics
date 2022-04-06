@@ -21,7 +21,7 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type LensScreenViewOptions = PickRequired<GOScreenViewOptions, 'isBasicsVersion' | 'tandem'>;
 
-class LensScreenView extends GOScreenView {
+export default class LensScreenView extends GOScreenView {
 
   /**
    * @param model
@@ -51,4 +51,3 @@ class LensScreenView extends GOScreenView {
 }
 
 geometricOptics.register( 'LensScreenView', LensScreenView );
-export default LensScreenView;

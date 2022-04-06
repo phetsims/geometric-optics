@@ -15,7 +15,7 @@ import GOColors from '../GOColors.js';
 import Optic from '../model/Optic.js';
 import { RaysType } from '../model/RaysType.js';
 
-class OpticVerticalAxisNode extends Node {
+export default class OpticVerticalAxisNode extends Node {
 
   /**
    * @param optic
@@ -50,4 +50,3 @@ class OpticVerticalAxisNode extends Node {
 }
 
 geometricOptics.register( 'OpticVerticalAxisNode', OpticVerticalAxisNode );
-export default OpticVerticalAxisNode;

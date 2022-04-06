@@ -16,7 +16,7 @@ import GOConstants from '../GOConstants.js';
 import { RaysType } from '../model/RaysType.js';
 import RaysRadioButtonGroup from './RaysRadioButtonGroup.js';
 
-class RaysSubpanel extends VBox {
+export default class RaysSubpanel extends VBox {
 
   /**
    * @param raysTypeProperty
@@ -50,4 +50,3 @@ class RaysSubpanel extends VBox {
 }
 
 geometricOptics.register( 'RaysSubpanel', RaysSubpanel );
-export default RaysSubpanel;

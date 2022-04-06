@@ -24,7 +24,7 @@ import { Shape } from '../../../../kite/js/imports.js';
 
 type LightSpotNodeOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem'>;
 
-class LightSpotNode extends Node {
+export default class LightSpotNode extends Node {
 
   /**
    * @param lightSpot
@@ -112,4 +112,3 @@ class LightSpotNode extends Node {
 }
 
 geometricOptics.register( 'LightSpotNode', LightSpotNode );
-export default LightSpotNode;

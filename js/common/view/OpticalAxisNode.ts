@@ -23,7 +23,7 @@ import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 export type OpticalAxisNodeOptions = PickRequired<LineOptions, 'visibleProperty'> &
   PickOptional<LineOptions, 'stroke' | 'tandem'>;
 
-class OpticalAxisNode extends Line {
+export default class OpticalAxisNode extends Line {
 
   /**
    * @param opticPositionProperty
@@ -66,5 +66,3 @@ class OpticalAxisNode extends Line {
 }
 
 geometricOptics.register( 'OpticalAxisNode', OpticalAxisNode );
-
-export default OpticalAxisNode;

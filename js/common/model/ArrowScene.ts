@@ -29,7 +29,7 @@ type SelfOptions = {
 
 type ArrowObjectSceneOptions = SelfOptions & PickRequired<GOSceneOptions, 'tandem'>;
 
-class ArrowScene extends GOScene {
+export default class ArrowScene extends GOScene {
 
   // the elements that make up this scene
   public readonly arrowObject1: ArrowObject;
@@ -126,4 +126,3 @@ class ArrowScene extends GOScene {
 }
 
 geometricOptics.register( 'ArrowScene', ArrowScene );
-export default ArrowScene;

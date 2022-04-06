@@ -22,7 +22,7 @@ import optionize, { OptionizeDefaults } from '../../../../phet-core/js/optionize
 
 type FocalLengthControlOptions = PickRequired<NodeOptions, 'tandem'>;
 
-class FocalLengthControl extends NumberControl {
+export default class FocalLengthControl extends NumberControl {
 
   /**
    * @param focalLengthMagnitudeProperty
@@ -80,4 +80,3 @@ class FocalLengthControl extends NumberControl {
 }
 
 geometricOptics.register( 'FocalLengthControl', FocalLengthControl );
-export default FocalLengthControl;

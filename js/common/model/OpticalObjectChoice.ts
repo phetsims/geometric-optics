@@ -49,7 +49,7 @@ const ARROW_ICON = new ArrowNode( 0, 0, 0, -50,
     scale: 0.5
   }, GOConstants.ARROW_NODE_OPTIONS ) );
 
-class OpticalObjectChoice extends EnumerationValue {
+export default class OpticalObjectChoice extends EnumerationValue {
 
   static ARROW = new OpticalObjectChoice( geometricOpticsStrings.arrow, ARROW_ICON, 'arrow' );
 
@@ -140,4 +140,3 @@ class OpticalObjectChoice extends EnumerationValue {
 }
 
 geometricOptics.register( 'OpticalObjectChoice', OpticalObjectChoice );
-export default OpticalObjectChoice;

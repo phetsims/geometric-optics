@@ -21,7 +21,7 @@ import IProperty from '../../../../axon/js/IProperty.js';
 
 type LightObjectNodeOptions = HTMLImageElementObjectNodeOptions;
 
-class LightObjectNode extends HTMLImageElementObjectNode {
+export default class LightObjectNode extends HTMLImageElementObjectNode {
 
   /**
    * @param lightObject
@@ -46,4 +46,3 @@ class LightObjectNode extends HTMLImageElementObjectNode {
 }
 
 geometricOptics.register( 'LightObjectNode', LightObjectNode );
-export default LightObjectNode;

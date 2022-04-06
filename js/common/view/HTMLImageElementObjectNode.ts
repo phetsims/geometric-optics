@@ -26,7 +26,7 @@ import OpticalObjectNode, { OpticalObjectNodeOptions } from './OpticalObjectNode
 
 export type HTMLImageElementObjectNodeOptions = OpticalObjectNodeOptions;
 
-class HTMLImageElementObjectNode extends OpticalObjectNode {
+export default class HTMLImageElementObjectNode extends OpticalObjectNode {
 
   /**
    * @param htmlImageElementObject
@@ -152,4 +152,3 @@ class HTMLImageElementObjectNode extends OpticalObjectNode {
 }
 
 geometricOptics.register( 'HTMLImageElementObjectNode', HTMLImageElementObjectNode );
-export default HTMLImageElementObjectNode;

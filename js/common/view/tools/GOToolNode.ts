@@ -14,6 +14,7 @@ import { DragListener, Node, NodeOptions, PressListenerEvent } from '../../../..
 import GOTool from '../../model/tools/GOTool.js';
 import ToolJumpPoint from './ToolJumpPoint.js';
 import GOToolboxNode from './GOToolboxNode.js';
+import geometricOptics from '../../../geometricOptics.js';
 
 type SelfOptions = {
 
@@ -23,7 +24,7 @@ type SelfOptions = {
 
 export type GOToolNodeOptions = SelfOptions & PickRequired<Node, 'tandem'>;
 
-abstract class GOToolNode extends Node {
+export default abstract class GOToolNode extends Node {
 
   // the icon associated with this tool, as it appears in the toolbox
   public abstract icon: Node;
@@ -160,4 +161,4 @@ abstract class GOToolNode extends Node {
   }
 }
 
-export default GOToolNode;
+geometricOptics.register( 'GOToolNode', GOToolNode );

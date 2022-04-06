@@ -19,7 +19,7 @@ import optionize, { OptionizeDefaults } from '../../../../phet-core/js/optionize
 
 type DiameterControlOptions = PickRequired<NodeOptions, 'tandem'>;
 
-class DiameterControl extends NumberControl {
+export default class DiameterControl extends NumberControl {
 
   /**
    * @param diameterProperty
@@ -56,4 +56,3 @@ class DiameterControl extends NumberControl {
 }
 
 geometricOptics.register( 'DiameterControl', DiameterControl );
-export default DiameterControl;

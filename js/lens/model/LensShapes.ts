@@ -26,7 +26,7 @@ type LensShapesOptions = {
   isHollywooded?: boolean;
 };
 
-class LensShapes implements OpticShapes {
+export default class LensShapes implements OpticShapes {
 
   // specific to LensShapes
   public readonly lensShape: Shape; // the complete lens
@@ -132,4 +132,3 @@ class LensShapes implements OpticShapes {
 }
 
 geometricOptics.register( 'LensShapes', LensShapes );
-export default LensShapes;

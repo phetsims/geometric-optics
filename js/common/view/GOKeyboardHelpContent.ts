@@ -16,7 +16,7 @@ import TextKeyNode from '../../../../scenery-phet/js/keyboard/TextKeyNode.js';
 import geometricOptics from '../../geometricOptics.js';
 import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 
-class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
+export default class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
   constructor( isLens: boolean ) {
 
@@ -100,4 +100,3 @@ class RulerAndMarkerControlsKeyboardHelpSection extends KeyboardHelpSection {
 }
 
 geometricOptics.register( 'GOKeyboardHelpContent', GOKeyboardHelpContent );
-export default GOKeyboardHelpContent;

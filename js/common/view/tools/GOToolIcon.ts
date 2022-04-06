@@ -25,7 +25,7 @@ type SelfOptions = {
 
 export type GOToolIconOptions = SelfOptions;
 
-abstract class GOToolIcon extends Node {
+export default abstract class GOToolIcon extends Node {
 
   /**
    * @param contentNode - the icon's content, what it looks like
@@ -97,4 +97,3 @@ abstract class GOToolIcon extends Node {
 }
 
 geometricOptics.register( 'GOToolIcon', GOToolIcon );
-export default GOToolIcon;

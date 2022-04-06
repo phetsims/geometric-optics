@@ -24,7 +24,7 @@ type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 
 type LensScreenOptions = SelfOptions & PickRequired<ScreenOptions, 'tandem'>;
 
-class LensScreen extends Screen<LensModel, LensScreenView> {
+export default class LensScreen extends Screen<LensModel, LensScreenView> {
 
   constructor( providedOptions: LensScreenOptions ) {
 
@@ -63,4 +63,3 @@ function createScreenIcon(): ScreenIcon {
 }
 
 geometricOptics.register( 'LensScreen', LensScreen );
-export default LensScreen;

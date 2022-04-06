@@ -36,7 +36,7 @@ type SelfOptions = {
 export type OpticalObjectOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'> &
   PickOptional<PhetioObjectOptions, 'phetioDocumentation'>;
 
-class OpticalObject extends PhetioObject {
+export default class OpticalObject extends PhetioObject {
 
   // positive integer used when labeling this object
   public readonly opticalObjectNumber: number;
@@ -107,4 +107,3 @@ class OpticalObject extends PhetioObject {
 }
 
 geometricOptics.register( 'OpticalObject', OpticalObject );
-export default OpticalObject;

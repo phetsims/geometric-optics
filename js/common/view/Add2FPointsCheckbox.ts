@@ -18,7 +18,7 @@ import GOConstants from '../GOConstants.js';
 
 type Add2FPointsCheckboxOptions = PickRequired<CheckboxOptions, 'tandem'>;
 
-class Add2FPointsCheckbox extends Checkbox {
+export default class Add2FPointsCheckbox extends Checkbox {
 
   private readonly disposeAdd2FPointsCheckbox: () => void;
 
@@ -52,4 +52,3 @@ class Add2FPointsCheckbox extends Checkbox {
 }
 
 geometricOptics.register( 'Add2FPointsCheckbox', Add2FPointsCheckbox );
-export default Add2FPointsCheckbox;

@@ -30,7 +30,7 @@ type SelfOptions = {
 type LightObjectOptions = SelfOptions
   & PickRequired<HTMLImageElementObjectOptions, 'position' | 'tandem' | 'phetioDocumentation'>;
 
-class LightObject extends HTMLImageElementObject {
+export default class LightObject extends HTMLImageElementObject {
 
   // the HTMLImageElement (PNG file) used to visually represent the light
   public readonly htmlImageElement: HTMLImageElement;
@@ -54,4 +54,3 @@ class LightObject extends HTMLImageElementObject {
 }
 
 geometricOptics.register( 'LightObject', LightObject );
-export default LightObject;

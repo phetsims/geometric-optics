@@ -33,7 +33,7 @@ type SelfOptions = {
 
 export type PositionMarkerNodeOptions = SelfOptions & GOToolNodeOptions;
 
-class PositionMarkerNode extends GOToolNode {
+export default class PositionMarkerNode extends GOToolNode {
 
   // See GOToolNode
   public readonly icon: PositionMarkerIcon;
@@ -162,4 +162,3 @@ class PositionMarkerNode extends GOToolNode {
 }
 
 geometricOptics.register( 'PositionMarkerNode', PositionMarkerNode );
-export default PositionMarkerNode;

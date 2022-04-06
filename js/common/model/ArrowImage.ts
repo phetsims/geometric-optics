@@ -15,7 +15,7 @@ import { IColor } from '../../../../scenery/js/imports.js';
 
 type ArrowImageOptions = PickRequired<OpticalImage, 'tandem' | 'phetioDocumentation'>;
 
-class ArrowImage extends OpticalImage {
+export default class ArrowImage extends OpticalImage {
 
   // fill for the arrow image
   public readonly fill: IColor;
@@ -34,4 +34,3 @@ class ArrowImage extends OpticalImage {
 }
 
 geometricOptics.register( 'ArrowImage', ArrowImage );
-export default ArrowImage;

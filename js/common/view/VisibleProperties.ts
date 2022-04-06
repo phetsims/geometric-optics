@@ -16,7 +16,7 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type VisiblePropertiesOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
 
-class VisibleProperties {
+export default class VisibleProperties {
 
   // visibility of the focal points (F)
   public readonly focalPointsVisibleProperty: Property<boolean>;
@@ -97,4 +97,3 @@ class VisibleProperties {
 }
 
 geometricOptics.register( 'VisibleProperties', VisibleProperties );
-export default VisibleProperties;

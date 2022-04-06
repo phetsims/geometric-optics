@@ -28,7 +28,7 @@ type SelfOptions = {
 
 export type OpticalImageLabelNodeOptions = SelfOptions & LabelNodeOptions;
 
-class OpticalImageLabelNode extends LabelNode {
+export default class OpticalImageLabelNode extends LabelNode {
 
   /**
    * @param opticalImage
@@ -71,4 +71,3 @@ class OpticalImageLabelNode extends LabelNode {
 }
 
 geometricOptics.register( 'OpticalImageLabelNode', OpticalImageLabelNode );
-export default OpticalImageLabelNode;

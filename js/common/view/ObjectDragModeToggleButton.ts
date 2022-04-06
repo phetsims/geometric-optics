@@ -30,7 +30,7 @@ const LOCKED_FILL = PhetColorScheme.RED_COLORBLIND;
 type DragLockedButtonOptions = PickRequired<RectangularToggleButtonOptions, 'tandem'>
   & PickOptional<RectangularToggleButtonOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
 
-class ObjectDragModeToggleButton extends RectangularToggleButton<ObjectDragMode> {
+export default class ObjectDragModeToggleButton extends RectangularToggleButton<ObjectDragMode> {
 
   /**
    * @param objectDragModeProperty - is dragging locked to horizontal?
@@ -114,4 +114,3 @@ class ObjectDragModeToggleButton extends RectangularToggleButton<ObjectDragMode>
 }
 
 geometricOptics.register( 'ObjectDragModeToggleButton', ObjectDragModeToggleButton );
-export default ObjectDragModeToggleButton;

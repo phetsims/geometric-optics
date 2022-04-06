@@ -16,7 +16,7 @@ import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 export type LightRaysNodeOptions = PickOptional<NodeOptions, 'visibleProperty'>;
 
-class LightRaysNode extends Node {
+export default class LightRaysNode extends Node {
 
   /**
    * @param lightRays
@@ -58,4 +58,3 @@ class LightRaysNode extends Node {
 }
 
 geometricOptics.register( 'LightRaysNode', LightRaysNode );
-export default LightRaysNode;

@@ -34,7 +34,7 @@ type SelfOptions = {
 
 export type OpticalImageOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
 
-class OpticalImage extends PhetioObject {
+export default class OpticalImage extends PhetioObject {
 
   // the optic associated with this image
   public readonly optic: Optic;
@@ -182,4 +182,3 @@ class OpticalImage extends PhetioObject {
 }
 
 geometricOptics.register( 'OpticalImage', OpticalImage );
-export default OpticalImage;

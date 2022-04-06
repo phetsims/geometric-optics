@@ -25,7 +25,7 @@ type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 
 type MirrorScreenOptions = SelfOptions & PickRequired<ScreenOptions, 'tandem'>;
 
-class MirrorScreen extends Screen<MirrorModel, MirrorScreenView> {
+export default class MirrorScreen extends Screen<MirrorModel, MirrorScreenView> {
 
   constructor( providedOptions: MirrorScreenOptions ) {
 
@@ -65,4 +65,3 @@ function createScreenIcon( opticShape: OpticShape ): ScreenIcon {
 }
 
 geometricOptics.register( 'MirrorScreen', MirrorScreen );
-export default MirrorScreen;

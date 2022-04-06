@@ -19,7 +19,7 @@ type SelfOptions = {
 
 type PositionMarkerOptions = SelfOptions & PickRequired<GOToolOptions, 'tandem'>;
 
-class PositionMarker extends GOTool {
+export default class PositionMarker extends GOTool {
 
   // fill and stroke for the marker
   public readonly fill: IColor;
@@ -38,4 +38,3 @@ class PositionMarker extends GOTool {
 }
 
 geometricOptics.register( 'PositionMarker', PositionMarker );
-export default PositionMarker;

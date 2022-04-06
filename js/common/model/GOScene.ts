@@ -20,7 +20,7 @@ const LIGHT_RAYS_ANIMATION_DURATION = 10;
 
 export type GOSceneOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
 
-abstract class GOScene extends PhetioObject {
+export default abstract class GOScene extends PhetioObject {
 
   // the optic, provided by the client, and associated with all scenes
   public readonly optic: Optic;
@@ -96,4 +96,3 @@ abstract class GOScene extends PhetioObject {
 }
 
 geometricOptics.register( 'GOScene', GOScene );
-export default GOScene;

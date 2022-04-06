@@ -29,7 +29,7 @@ const ICON_DIAMETER = 30;
 
 type LensNodeOptions = PickRequired<NodeOptions, 'tandem'>;
 
-class LensNode extends Node {
+export default class LensNode extends Node {
 
   /**
    * @param lens
@@ -130,4 +130,3 @@ class LensNode extends Node {
 }
 
 geometricOptics.register( 'LensNode', LensNode );
-export default LensNode;

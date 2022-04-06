@@ -21,7 +21,7 @@ import GOTool from '../../model/tools/GOTool.js';
 type GOToolDragListenerOptions = PickRequired<DragListenerOptions<PressedDragListener>, 'tandem'> &
   PickOptional<DragListenerOptions<PressedDragListener>, 'offsetPosition'>;
 
-class GOToolDragListener extends DragListener {
+export default class GOToolDragListener extends DragListener {
 
   /**
    * @param tool
@@ -70,4 +70,3 @@ class GOToolDragListener extends DragListener {
 }
 
 geometricOptics.register( 'GOToolDragListener', GOToolDragListener );
-export default GOToolDragListener;

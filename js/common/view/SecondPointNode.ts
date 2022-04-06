@@ -23,7 +23,7 @@ import CueingArrowsNode from './CueingArrowsNode.js';
 
 type SecondPointNodeOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem' | 'phetioDocumentation'>;
 
-class SecondPointNode extends Node {
+export default class SecondPointNode extends Node {
 
   /**
    * @param secondPoint
@@ -146,4 +146,3 @@ class SecondPointCueingArrowsNode extends VBox {
 }
 
 geometricOptics.register( 'SecondPointNode', SecondPointNode );
-export default SecondPointNode;

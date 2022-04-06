@@ -22,7 +22,7 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type MirrorScreenViewOptions = PickRequired<GOScreenViewOptions, 'isBasicsVersion' | 'tandem'>;
 
-class MirrorScreenView extends GOScreenView {
+export default class MirrorScreenView extends GOScreenView {
 
   /**
    * @param model
@@ -73,4 +73,3 @@ class MirrorScreenView extends GOScreenView {
 }
 
 geometricOptics.register( 'MirrorScreenView', MirrorScreenView );
-export default MirrorScreenView;

@@ -20,7 +20,7 @@ import IProperty from '../../../../axon/js/IProperty.js';
 
 type FocalLengthControlRadioButtonGroupOptions = PickRequired<VerticalAquaRadioButtonGroupOptions, 'tandem'>;
 
-class FocalLengthModelTypeRadioButtonGroup extends VerticalAquaRadioButtonGroup<FocalLengthModelType> {
+export default class FocalLengthModelTypeRadioButtonGroup extends VerticalAquaRadioButtonGroup<FocalLengthModelType> {
 
   /**
    * @param focalLengthModelTypeProperty
@@ -61,4 +61,3 @@ function createItem( value: FocalLengthModelType, text: string ): AquaRadioButto
 }
 
 geometricOptics.register( 'FocalLengthModelTypeRadioButtonGroup', FocalLengthModelTypeRadioButtonGroup );
-export default FocalLengthModelTypeRadioButtonGroup;

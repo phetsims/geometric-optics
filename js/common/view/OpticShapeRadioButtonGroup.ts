@@ -22,7 +22,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 type OpticShapeRadioButtonGroupOptions = PickRequired<RectangularRadioButtonGroupOptions, 'tandem'>
   & PickOptional<RectangularRadioButtonGroupOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
 
-class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShape> {
+export default class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShape> {
 
   /**
    * @param optic
@@ -65,4 +65,3 @@ class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShape>
 }
 
 geometricOptics.register( 'OpticShapeRadioButtonGroup', OpticShapeRadioButtonGroup );
-export default OpticShapeRadioButtonGroup;

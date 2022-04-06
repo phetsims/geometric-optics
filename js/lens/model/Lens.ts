@@ -26,7 +26,7 @@ const DIRECT_INDEX_OF_REFRACTION = 1.5;
 
 type LensOptions = PickRequired<OpticOptions, 'tandem'>;
 
-class Lens extends Optic {
+export default class Lens extends Optic {
 
   // See Optic
   public readonly shapesProperty: IReadOnlyProperty<LensShapes>;
@@ -158,4 +158,3 @@ class Lens extends Optic {
 }
 
 geometricOptics.register( 'Lens', Lens );
-export default Lens;

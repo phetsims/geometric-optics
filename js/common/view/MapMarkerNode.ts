@@ -14,7 +14,7 @@ import geometricOptics from '../../geometricOptics.js';
 
 type MapMarkerNodeOptions = PickOptional<NodeOptions, 'scale' | 'tagName'> & PickRequired<PathOptions, 'fill' | 'stroke'>;
 
-class MapMarkerNode extends Node {
+export default class MapMarkerNode extends Node {
 
   constructor( providedOptions: MapMarkerNodeOptions ) {
 
@@ -35,4 +35,3 @@ class MapMarkerNode extends Node {
 }
 
 geometricOptics.register( 'MapMarkerNode', MapMarkerNode );
-export default MapMarkerNode;

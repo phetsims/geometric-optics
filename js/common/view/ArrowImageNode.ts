@@ -20,7 +20,7 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type ArrowImageNodeOptions = PickRequired<OpticalImageNodeOptions, 'tandem'>;
 
-class ArrowImageNode extends OpticalImageNode {
+export default class ArrowImageNode extends OpticalImageNode {
 
   /**
    * @param arrowImage
@@ -67,4 +67,3 @@ class ArrowImageNode extends OpticalImageNode {
 }
 
 geometricOptics.register( 'ArrowImageNode', ArrowImageNode );
-export default ArrowImageNode;

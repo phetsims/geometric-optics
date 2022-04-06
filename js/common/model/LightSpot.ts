@@ -32,7 +32,7 @@ type PositionAndDiameter = {
 type LightSpotOptions = PickRequired<PhetioObjectOptions, 'tandem'> &
   PickOptional<PhetioObjectOptions, 'phetioDocumentation'>;
 
-class LightSpot extends PhetioObject {
+export default class LightSpot extends PhetioObject {
 
   // Intensity of the light spot, in the range [0,1], 0 if there is no light spot hitting the projection screen
   public readonly intensityProperty: IReadOnlyProperty<number>;
@@ -162,4 +162,3 @@ function getIntersectionPosition( projectionScreenPosition: Vector2, opticPoint:
 }
 
 geometricOptics.register( 'LightSpot', LightSpot );
-export default LightSpot;

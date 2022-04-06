@@ -16,7 +16,7 @@ import MapMarkerNode from '../MapMarkerNode.js';
 import GOToolIcon from './GOToolIcon.js';
 import PositionMarker from '../../model/tools/PositionMarker.js';
 
-class PositionMarkerIcon extends GOToolIcon {
+export default class PositionMarkerIcon extends GOToolIcon {
 
   /**
    * @param positionMarker
@@ -55,4 +55,3 @@ class PositionMarkerIcon extends GOToolIcon {
 }
 
 geometricOptics.register( 'PositionMarkerIcon', PositionMarkerIcon );
-export default PositionMarkerIcon;

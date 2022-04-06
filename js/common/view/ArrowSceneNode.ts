@@ -33,7 +33,7 @@ type SelfOptions = {
 
 type ArrowObjectSceneNodeOptions = SelfOptions & GOSceneNodeOptions;
 
-class ArrowSceneNode extends GOSceneNode {
+export default class ArrowSceneNode extends GOSceneNode {
 
   // See GOSceneNode
   public readonly toolJumpPoints: ToolJumpPoint[];
@@ -193,4 +193,3 @@ class ArrowSceneNode extends GOSceneNode {
 }
 
 geometricOptics.register( 'ArrowSceneNode', ArrowSceneNode );
-export default ArrowSceneNode;

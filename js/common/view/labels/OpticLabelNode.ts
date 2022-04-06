@@ -19,7 +19,7 @@ import LabelNode, { LabelNodeOptions } from './LabelNode.js';
 
 export type OpticLabelNodeOptions = LabelNodeOptions;
 
-class OpticLabelNode extends LabelNode {
+export default class OpticLabelNode extends LabelNode {
 
   /**
    * @param optic
@@ -72,4 +72,3 @@ class OpticLabelNode extends LabelNode {
 }
 
 geometricOptics.register( 'OpticLabelNode', OpticLabelNode );
-export default OpticLabelNode;

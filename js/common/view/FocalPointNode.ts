@@ -18,7 +18,7 @@ import IProperty from '../../../../axon/js/IProperty.js';
 
 type FocalPointNodeOptions = PickRequired<NodeOptions, 'tandem' | 'visibleProperty'>;
 
-class FocalPointNode extends Node {
+export default class FocalPointNode extends Node {
 
   /**
    * @param pointProperty
@@ -71,4 +71,3 @@ class FocalPointNode extends Node {
 }
 
 geometricOptics.register( 'FocalPointNode', FocalPointNode );
-export default FocalPointNode;

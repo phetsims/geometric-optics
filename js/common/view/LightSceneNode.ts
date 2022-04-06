@@ -35,7 +35,7 @@ type SelfOptions = {
 
 type LightObjectSceneNodeOptions = SelfOptions & GOSceneNodeOptions;
 
-class LightSceneNode extends GOSceneNode {
+export default class LightSceneNode extends GOSceneNode {
 
   // See GOSceneNode
   public readonly toolJumpPoints: ToolJumpPoint[];
@@ -218,4 +218,3 @@ class LightSceneNode extends GOSceneNode {
 }
 
 geometricOptics.register( 'LightSceneNode', LightSceneNode );
-export default LightSceneNode;

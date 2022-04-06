@@ -33,7 +33,7 @@ type SelfOptions = {
 
 export type GOSimOptions = SelfOptions;
 
-class GOSim extends Sim {
+export default class GOSim extends Sim {
 
   /**
    * @param title
@@ -67,4 +67,3 @@ class GOSim extends Sim {
 }
 
 geometricOptics.register( 'GOSim', GOSim );
-export default GOSim;

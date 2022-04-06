@@ -21,7 +21,7 @@ import FramedImageMaskNode from './FramedImageMaskNode.js';
 
 type FramedImageNodeOptions = PickRequired<OpticalImageNodeOptions, 'tandem'>;
 
-class FramedImageNode extends OpticalImageNode {
+export default class FramedImageNode extends OpticalImageNode {
 
   /**
    * @param framedImage
@@ -94,4 +94,3 @@ class FramedImageNode extends OpticalImageNode {
 }
 
 geometricOptics.register( 'FramedImageNode', FramedImageNode );
-export default FramedImageNode;

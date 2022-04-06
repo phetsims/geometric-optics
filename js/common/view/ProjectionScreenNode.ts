@@ -28,7 +28,7 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type ProjectionScreenNodeOptions = PickRequired<NodeOptions, 'tandem'>;
 
-class ProjectionScreenNode extends Node {
+export default class ProjectionScreenNode extends Node {
 
   // Resets things that are specific to this class.
   private readonly resetProjectionScreenNode: () => void;
@@ -190,4 +190,3 @@ class ProjectionScreenNode extends Node {
 }
 
 geometricOptics.register( 'ProjectionScreenNode', ProjectionScreenNode );
-export default ProjectionScreenNode;

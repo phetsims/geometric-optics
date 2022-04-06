@@ -17,7 +17,7 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type GuidesOptions = PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
 
-class Guides extends PhetioObject {
+export default class Guides extends PhetioObject {
 
   // the pair of guides
   public readonly topGuide: Guide;
@@ -54,4 +54,3 @@ class Guides extends PhetioObject {
 }
 
 geometricOptics.register( 'Guides', Guides );
-export default Guides;

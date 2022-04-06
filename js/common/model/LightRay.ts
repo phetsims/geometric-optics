@@ -27,7 +27,7 @@ export type LightRaySegment = {
   endPoint: Vector2;
 };
 
-class LightRay {
+export default class LightRay {
 
   // segments for the real rays
   public readonly realSegments: Array<LightRaySegment>;
@@ -362,4 +362,3 @@ function getVirtualRay( isImageVirtual: boolean, realRays: GORay[], opticalImage
 }
 
 geometricOptics.register( 'LightRay', LightRay );
-export default LightRay;

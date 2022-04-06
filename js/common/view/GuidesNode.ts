@@ -18,7 +18,7 @@ import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 type GuidesNodeOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem'>
   & PickOptional<NodeOptions, 'phetioDocumentation'>;
 
-class GuidesNode extends Node {
+export default class GuidesNode extends Node {
 
   /**
    * @param guides
@@ -44,4 +44,3 @@ class GuidesNode extends Node {
 }
 
 geometricOptics.register( 'GuidesNode', GuidesNode );
-export default GuidesNode;

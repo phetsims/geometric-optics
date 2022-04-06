@@ -25,7 +25,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 const X_SPACING = 15; // horizontal space between control
 const ALIGN = 'bottom'; // align bottoms of all NumberControls
 
-class OpticSubpanel extends HBox {
+export default class OpticSubpanel extends HBox {
 
   /**
    * @param optic
@@ -95,4 +95,3 @@ class OpticSubpanel extends HBox {
 }
 
 geometricOptics.register( 'OpticSubpanel', OpticSubpanel );
-export default OpticSubpanel;

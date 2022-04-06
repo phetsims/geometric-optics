@@ -24,7 +24,7 @@ const SCALE_FACTOR = 0.25;
 
 type FramedObjectOptions = PickRequired<HTMLImageElementObjectOptions, 'position' | 'tandem'>;
 
-class FramedObject extends HTMLImageElementObject {
+export default class FramedObject extends HTMLImageElementObject {
 
   // HTMLImageElements (PNG files) used to draw this framed object and its associated image
   public readonly objectHTMLImageElementsProperty: IReadOnlyProperty<ObjectHTMLImageElements>;
@@ -64,4 +64,3 @@ class FramedObject extends HTMLImageElementObject {
 }
 
 geometricOptics.register( 'FramedObject', FramedObject );
-export default FramedObject;

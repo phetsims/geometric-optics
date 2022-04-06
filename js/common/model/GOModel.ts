@@ -43,7 +43,7 @@ type SelfOptions = {
 
 export type GOModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
-class GOModel {
+export default class GOModel {
 
   // choice of optical object
   public readonly opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>;
@@ -207,4 +207,3 @@ class GOModel {
 }
 
 geometricOptics.register( 'GOModel', GOModel );
-export default GOModel;

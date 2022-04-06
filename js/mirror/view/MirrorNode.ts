@@ -31,7 +31,7 @@ const ICON_DIAMETER = 30;
 
 type MirrorNodeOptions = PickRequired<NodeOptions, 'tandem'>;
 
-class MirrorNode extends Node {
+export default class MirrorNode extends Node {
 
   /**
    * @param mirror
@@ -120,4 +120,3 @@ class MirrorNode extends Node {
 }
 
 geometricOptics.register( 'MirrorNode', MirrorNode );
-export default MirrorNode;

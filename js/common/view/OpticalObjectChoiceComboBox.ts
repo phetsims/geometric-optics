@@ -21,7 +21,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 type OpticalObjectChoiceComboBoxOptions = PickRequired<ComboBoxOptions, 'tandem'> &
   PickOptional<ComboBoxOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
 
-class OpticalObjectChoiceComboBox extends ComboBox<OpticalObjectChoice> {
+export default class OpticalObjectChoiceComboBox extends ComboBox<OpticalObjectChoice> {
 
   /**
    * @param opticalObjectChoiceProperty
@@ -78,4 +78,3 @@ class OpticalObjectChoiceComboBox extends ComboBox<OpticalObjectChoice> {
 }
 
 geometricOptics.register( 'OpticalObjectChoiceComboBox', OpticalObjectChoiceComboBox );
-export default OpticalObjectChoiceComboBox;

@@ -21,7 +21,7 @@ import optionize, { OptionizeDefaults } from '../../../../phet-core/js/optionize
 
 type RadiusOfCurvatureControlOptions = PickRequired<NumberControlOptions, 'tandem'>;
 
-class RadiusOfCurvatureControl extends NumberControl {
+export default class RadiusOfCurvatureControl extends NumberControl {
 
   /**
    * @param radiusOfCurvatureMagnitudeProperty
@@ -79,4 +79,3 @@ class RadiusOfCurvatureControl extends NumberControl {
 }
 
 geometricOptics.register( 'RadiusOfCurvatureControl', RadiusOfCurvatureControl );
-export default RadiusOfCurvatureControl;

@@ -20,7 +20,7 @@ type SelfOptions = {
 
 type VirtualRealLightRaysNodeOptions = SelfOptions & LightRaysNodeOptions;
 
-class VirtualLightRaysNode extends LightRaysNode {
+export default class VirtualLightRaysNode extends LightRaysNode {
 
   /**
    * @param lightRays
@@ -45,4 +45,3 @@ class VirtualLightRaysNode extends LightRaysNode {
 }
 
 geometricOptics.register( 'VirtualLightRaysNode', VirtualLightRaysNode );
-export default VirtualLightRaysNode;

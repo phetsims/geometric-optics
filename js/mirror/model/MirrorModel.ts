@@ -20,7 +20,7 @@ type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 
 type MirrorModelOptions = SelfOptions & PickRequired<GOModelOptions, 'tandem'>;
 
-class MirrorModel extends GOModel {
+export default class MirrorModel extends GOModel {
 
   // Resets things that are specific to this class.
   private readonly resetMirrorModel: () => void;
@@ -82,4 +82,3 @@ class MirrorModel extends GOModel {
 }
 
 geometricOptics.register( 'MirrorModel', MirrorModel );
-export default MirrorModel;

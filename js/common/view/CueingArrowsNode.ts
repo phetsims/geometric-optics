@@ -28,7 +28,7 @@ type SelfOptions = {
 type CueingArrowsNodeOptions = SelfOptions &
   PickOptional<PathOptions, 'fill' | 'stroke' | 'scale' | 'visibleProperty' | 'left' | 'centerY'>;
 
-class CueingArrowsNode extends Path {
+export default class CueingArrowsNode extends Path {
 
   // length of the arrows, from tip to tip
   private readonly length: number;
@@ -104,4 +104,3 @@ function createArrowsShape( direction: CueingArrowsDirection, length: number ): 
 }
 
 geometricOptics.register( 'CueingArrowsNode', CueingArrowsNode );
-export default CueingArrowsNode;

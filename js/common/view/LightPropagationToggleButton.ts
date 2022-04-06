@@ -20,7 +20,7 @@ import IProperty from '../../../../axon/js/IProperty.js';
 
 type LightPropagationToggleButtonOptions = PickRequired<BooleanRoundToggleButtonOptions, 'tandem'>;
 
-class LightPropagationToggleButton extends BooleanRoundToggleButton {
+export default class LightPropagationToggleButton extends BooleanRoundToggleButton {
 
   /**
    * @param booleanProperty
@@ -52,4 +52,3 @@ class LightPropagationToggleButton extends BooleanRoundToggleButton {
 }
 
 geometricOptics.register( 'LightPropagationToggleButton', LightPropagationToggleButton );
-export default LightPropagationToggleButton;

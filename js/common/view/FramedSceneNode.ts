@@ -35,7 +35,7 @@ type SelfOptions = {
 
 type FramedObjectSceneNodeOptions = SelfOptions & GOSceneNodeOptions;
 
-class FramedSceneNode extends GOSceneNode {
+export default class FramedSceneNode extends GOSceneNode {
 
   // See GOSceneNode
   public readonly toolJumpPoints: ToolJumpPoint[];
@@ -216,4 +216,3 @@ class FramedSceneNode extends GOSceneNode {
 }
 
 geometricOptics.register( 'FramedSceneNode', FramedSceneNode );
-export default FramedSceneNode;

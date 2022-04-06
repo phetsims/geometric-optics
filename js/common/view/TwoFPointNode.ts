@@ -17,7 +17,7 @@ import IProperty from '../../../../axon/js/IProperty.js';
 
 type TwoFPointNodeOptions = PickRequired<NodeOptions, 'tandem' | 'visibleProperty'>;
 
-class TwoFPointNode extends Node {
+export default class TwoFPointNode extends Node {
 
   /**
    * @param pointProperty
@@ -62,4 +62,3 @@ class TwoFPointNode extends Node {
 }
 
 geometricOptics.register( 'TwoFPointNode', TwoFPointNode );
-export default TwoFPointNode;

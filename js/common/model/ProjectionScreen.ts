@@ -28,7 +28,7 @@ assert && assert( SCREEN_NEAR_HEIGHT > SCREEN_FAR_HEIGHT );
 
 type ProjectionScreenOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
 
-class ProjectionScreen extends PhetioObject {
+export default class ProjectionScreen extends PhetioObject {
 
   // position of the center of the screen, in cm
   public readonly positionProperty: Property<Vector2>;
@@ -116,4 +116,3 @@ class ProjectionScreen extends PhetioObject {
 }
 
 geometricOptics.register( 'ProjectionScreen', ProjectionScreen );
-export default ProjectionScreen;

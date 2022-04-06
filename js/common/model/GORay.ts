@@ -14,7 +14,7 @@ import Ray2 from '../../../../dot/js/Ray2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import geometricOptics from '../../geometricOptics.js';
 
-class GORay extends Ray2 {
+export default class GORay extends Ray2 {
 
   // length of the ray, in cm
   private length: number;
@@ -76,4 +76,3 @@ class GORay extends Ray2 {
 }
 
 geometricOptics.register( 'GORay', GORay );
-export default GORay;

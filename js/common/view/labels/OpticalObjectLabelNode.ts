@@ -25,7 +25,7 @@ type SelfOptions = {
 
 export type OpticalObjectLabelNodeOptions = SelfOptions & LabelNodeOptions;
 
-class OpticalObjectLabelNode extends LabelNode {
+export default class OpticalObjectLabelNode extends LabelNode {
 
   /**
    * @param objectNumber
@@ -57,4 +57,3 @@ class OpticalObjectLabelNode extends LabelNode {
 }
 
 geometricOptics.register( 'OpticalObjectLabelNode', OpticalObjectLabelNode );
-export default OpticalObjectLabelNode;

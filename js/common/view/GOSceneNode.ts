@@ -38,7 +38,7 @@ type SelfOptions = {
 
 export type GOSceneNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem' | 'visibleProperty'>;
 
-abstract class GOSceneNode extends Node {
+export default abstract class GOSceneNode extends Node {
 
   // 'Jump points' for the tools. These are interesting points, where you might want to place a tool.
   // When a tool has focus, 'J' hotkey will cycle through these points, in order of ascending x coordinate.
@@ -214,4 +214,3 @@ abstract class GOSceneNode extends Node {
 }
 
 geometricOptics.register( 'GOSceneNode', GOSceneNode );
-export default GOSceneNode;

@@ -21,7 +21,7 @@ import IProperty from '../../../../axon/js/IProperty.js';
 
 type FramedObjectNodeOptions = HTMLImageElementObjectNodeOptions;
 
-class FramedObjectNode extends HTMLImageElementObjectNode {
+export default class FramedObjectNode extends HTMLImageElementObjectNode {
 
   /**
    * @param framedObject
@@ -46,4 +46,3 @@ class FramedObjectNode extends HTMLImageElementObjectNode {
 }
 
 geometricOptics.register( 'FramedObjectNode', FramedObjectNode );
-export default FramedObjectNode;

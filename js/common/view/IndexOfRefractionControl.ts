@@ -18,7 +18,7 @@ import optionize, { OptionizeDefaults } from '../../../../phet-core/js/optionize
 
 type IndexOfRefractionControlOptions = PickRequired<NumberControlOptions, 'tandem'>;
 
-class IndexOfRefractionControl extends NumberControl {
+export default class IndexOfRefractionControl extends NumberControl {
 
   /**
    * @param indexOfRefractionProperty
@@ -55,4 +55,3 @@ class IndexOfRefractionControl extends NumberControl {
 }
 
 geometricOptics.register( 'IndexOfRefractionControl', IndexOfRefractionControl );
-export default IndexOfRefractionControl;

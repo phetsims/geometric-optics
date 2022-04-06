@@ -19,7 +19,7 @@ type SelfOptions = {
 
 type ArrowObjectOptions = SelfOptions & PickRequired<OpticalObjectOptions, 'position' | 'tandem'>;
 
-class ArrowObject extends OpticalObject {
+export default class ArrowObject extends OpticalObject {
 
   // fill for the arrow object
   public readonly fill: IColor;
@@ -38,4 +38,3 @@ class ArrowObject extends OpticalObject {
 }
 
 geometricOptics.register( 'ArrowObject', ArrowObject );
-export default ArrowObject;

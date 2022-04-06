@@ -26,7 +26,7 @@ const MANY_MIN_RAYS = 20;
 const MANY_MIN_RAYS_DISTANCE = 300; // cm, MANY_MIN_RAYS will be shown up to this distance from the optic
 const MANY_FAN_ANGLE = Utils.toRadians( 120 ); // degrees to radians
 
-class LightRays {
+export default class LightRays {
 
   // segments for the real rays at a point in time
   public realSegments: LightRaySegment[];
@@ -198,4 +198,3 @@ function getRayDirections( raysType: RaysType, opticalObjectPosition: Vector2, o
 }
 
 geometricOptics.register( 'LightRays', LightRays );
-export default LightRays;

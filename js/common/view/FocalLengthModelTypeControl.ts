@@ -19,7 +19,7 @@ import IProperty from '../../../../axon/js/IProperty.js';
 
 type FocalLengthModelTypeOptions = PickRequired<VBoxOptions, 'tandem'> & PickOptional<VBoxOptions, 'visible'>;
 
-class FocalLengthModelTypeControl extends VBox {
+export default class FocalLengthModelTypeControl extends VBox {
 
   private readonly disposeFocalLengthModelTypeControl: () => void;
 
@@ -66,4 +66,3 @@ class FocalLengthModelTypeControl extends VBox {
 }
 
 geometricOptics.register( 'FocalLengthModelTypeControl', FocalLengthModelTypeControl );
-export default FocalLengthModelTypeControl;

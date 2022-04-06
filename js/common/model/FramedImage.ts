@@ -26,7 +26,7 @@ import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 type FramedImageOptions = PickOptional<OpticalImageOptions, 'opticalObjectPositionProperty'> &
   PickRequired<OpticalImageOptions, 'tandem' | 'phetioDocumentation'>;
 
-class FramedImage extends OpticalImage {
+export default class FramedImage extends OpticalImage {
 
   // the HTMLImageElement (PNG file) to display
   public readonly htmlImageElementProperty: IReadOnlyProperty<HTMLImageElement>;
@@ -119,4 +119,3 @@ class FramedImage extends OpticalImage {
 }
 
 geometricOptics.register( 'FramedImage', FramedImage );
-export default FramedImage;

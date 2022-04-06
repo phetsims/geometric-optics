@@ -21,7 +21,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 export type HTMLImageElementObjectOptions = PickRequired<OpticalObjectOptions, 'position' | 'tandem'>
   & PickOptional<OpticalObjectOptions, 'phetioDocumentation'>;
 
-class HTMLImageElementObject extends OpticalObject {
+export default class HTMLImageElementObject extends OpticalObject {
 
   // The HTMLImageElement (PNG file) used to visually represent the optical object.
   public readonly htmlImageElementProperty: IReadOnlyProperty<HTMLImageElement>;
@@ -87,4 +87,3 @@ function computeBounds( htmlImageElement: HTMLImageElement, position: Vector2,
 }
 
 geometricOptics.register( 'HTMLImageElementObject', HTMLImageElementObject );
-export default HTMLImageElementObject;

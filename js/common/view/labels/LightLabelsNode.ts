@@ -25,7 +25,7 @@ type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 
 type LightObjectSceneLabelsNodeOptions = SelfOptions & GOSceneLabelsNodeOptions;
 
-class LightLabelsNode extends GOLabelsNode {
+export default class LightLabelsNode extends GOLabelsNode {
 
   /**
    * @param sceneNode
@@ -101,4 +101,3 @@ class LightObjectLabelNode extends OpticalObjectLabelNode {
 }
 
 geometricOptics.register( 'LightLabelsNode', LightLabelsNode );
-export default LightLabelsNode;

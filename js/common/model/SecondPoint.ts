@@ -24,7 +24,7 @@ const VERTICAL_OFFSET_RANGE = new Range( -56.5, 0 );
 
 type SecondPointOptions = PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
 
-class SecondPoint extends PhetioObject {
+export default class SecondPoint extends PhetioObject {
 
   // position of the second point
   public readonly positionProperty: IReadOnlyProperty<Vector2>;
@@ -93,4 +93,3 @@ class SecondPoint extends PhetioObject {
 }
 
 geometricOptics.register( 'SecondPoint', SecondPoint );
-export default SecondPoint;

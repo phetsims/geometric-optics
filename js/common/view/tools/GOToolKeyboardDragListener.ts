@@ -20,7 +20,7 @@ import GOTool from '../../model/tools/GOTool.js';
 
 type GOToolKeyboardDragListenerOptions = PickRequired<KeyboardDragListenerOptions, 'tandem'>;
 
-class GOToolKeyboardDragListener extends KeyboardDragListener {
+export default class GOToolKeyboardDragListener extends KeyboardDragListener {
 
   /**
    * @param tool
@@ -85,4 +85,3 @@ class GOToolKeyboardDragListener extends KeyboardDragListener {
 }
 
 geometricOptics.register( 'GOToolKeyboardDragListener', GOToolKeyboardDragListener );
-export default GOToolKeyboardDragListener;

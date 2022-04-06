@@ -25,7 +25,7 @@ const FOCAL_POINT_LABEL_Y_OFFSET = 7;
 
 export type GOSceneLabelsNodeOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem' | 'phetioDocumentation'>;
 
-class GOLabelsNode extends Node {
+export default class GOLabelsNode extends Node {
 
   /**
    * @param sceneNode
@@ -112,4 +112,3 @@ class GOLabelsNode extends Node {
 }
 
 geometricOptics.register( 'GOLabelsNode', GOLabelsNode );
-export default GOLabelsNode;

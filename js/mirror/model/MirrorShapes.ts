@@ -21,7 +21,7 @@ type MirrorShapesOptions = {
   backingThickness?: number; // thickness of the backing of the mirror, in cm
 };
 
-class MirrorShapes implements OpticShapes {
+export default class MirrorShapes implements OpticShapes {
 
   // specific to MirrorShapes
   public readonly reflectiveCoatingShape: Shape; // reflective coating on the front (left-facing) surface of the mirror, with zero area
@@ -100,4 +100,3 @@ class MirrorShapes implements OpticShapes {
 }
 
 geometricOptics.register( 'MirrorShapes', MirrorShapes );
-export default MirrorShapes;

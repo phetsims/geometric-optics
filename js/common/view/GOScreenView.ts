@@ -70,7 +70,7 @@ type SelfOptions = {
 
 export type GOScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions, 'tandem'>;
 
-class GOScreenView extends ScreenView {
+export default class GOScreenView extends ScreenView {
 
   // See phetioDocumentation at instantiation
   protected readonly objectDragModeProperty: IProperty<ObjectDragMode>;
@@ -516,4 +516,3 @@ class GOScreenView extends ScreenView {
 }
 
 geometricOptics.register( 'GOScreenView', GOScreenView );
-export default GOScreenView;

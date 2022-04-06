@@ -29,7 +29,7 @@ const ARM_STROKE = GOColors.guideStrokeProperty;
 
 type GuideNodeOptions = PickRequired<NodeOptions, 'tandem'>;
 
-class GuideNode extends Node {
+export default class GuideNode extends Node {
 
   private readonly guide: Guide;
   private readonly modelViewTransform: ModelViewTransform2;
@@ -169,4 +169,3 @@ function setArmPosition( armNode: Node, viewFulcrumPosition: Vector2, angle: num
 }
 
 geometricOptics.register( 'GuideNode', GuideNode );
-export default GuideNode;

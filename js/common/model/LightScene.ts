@@ -30,7 +30,7 @@ type SelfOptions = {
 
 type LightObjectSceneOptions = SelfOptions & PickRequired<GOSceneOptions, 'tandem'>;
 
-class LightScene extends GOScene {
+export default class LightScene extends GOScene {
 
   // the elements that make up this scene
   public readonly lightObject1: LightObject;
@@ -145,4 +145,3 @@ class LightScene extends GOScene {
 }
 
 geometricOptics.register( 'LightScene', LightScene );
-export default LightScene;

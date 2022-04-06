@@ -28,7 +28,7 @@ type SelfOptions = {
 
 export type IndirectFocalLengthModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
-class IndirectFocalLengthModel extends PhetioObject implements FocalLengthModel {
+export default class IndirectFocalLengthModel extends PhetioObject implements FocalLengthModel {
 
   // see FocalLengthModel interface
   public readonly radiusOfCurvatureMagnitudeProperty: NumberProperty;
@@ -112,4 +112,3 @@ class IndirectFocalLengthModel extends PhetioObject implements FocalLengthModel 
 }
 
 geometricOptics.register( 'IndirectFocalLengthModel', IndirectFocalLengthModel );
-export default IndirectFocalLengthModel;

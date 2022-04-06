@@ -28,7 +28,7 @@ type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 
 type MirrorOptions = SelfOptions & PickRequired<OpticOptions, 'tandem'>;
 
-class Mirror extends Optic {
+export default class Mirror extends Optic {
 
   // See Optic
   public readonly shapesProperty: IReadOnlyProperty<MirrorShapes>;
@@ -98,4 +98,3 @@ class Mirror extends Optic {
 }
 
 geometricOptics.register( 'Mirror', Mirror );
-export default Mirror;

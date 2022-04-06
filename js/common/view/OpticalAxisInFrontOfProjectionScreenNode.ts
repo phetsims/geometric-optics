@@ -22,7 +22,7 @@ import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 export type OpticalAxisInFrontOfProjectionScreenNodeOptions = PickRequired<LineOptions, 'visibleProperty'> &
   PickOptional<LineOptions, 'stroke'>;
 
-class OpticalAxisInFrontOfProjectionScreenNode extends Line {
+export default class OpticalAxisInFrontOfProjectionScreenNode extends Line {
 
   /**
    * @param opticPositionProperty
@@ -73,5 +73,3 @@ class OpticalAxisInFrontOfProjectionScreenNode extends Line {
 }
 
 geometricOptics.register( 'OpticalAxisInFrontOfProjectionScreenNode', OpticalAxisInFrontOfProjectionScreenNode );
-
-export default OpticalAxisInFrontOfProjectionScreenNode;

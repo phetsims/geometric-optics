@@ -31,7 +31,7 @@ type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 
 type GOControlPanelOptions = SelfOptions & PickOptional<PanelOptions, 'bottom'> & PickRequired<PanelOptions, 'tandem'>;
 
-class GOControlPanel extends Panel {
+export default class GOControlPanel extends Panel {
 
   /**
    * @param optic
@@ -93,4 +93,3 @@ class GOControlPanel extends Panel {
 }
 
 geometricOptics.register( 'GOControlPanel', GOControlPanel );
-export default GOControlPanel;

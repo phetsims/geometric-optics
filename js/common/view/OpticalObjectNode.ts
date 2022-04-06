@@ -20,7 +20,7 @@ import IProperty from '../../../../axon/js/IProperty.js';
 
 export type OpticalObjectNodeOptions = PickRequired<NodeOptions, 'tandem'> & PickOptional<NodeOptions, 'visibleProperty'>;
 
-class OpticalObjectNode extends Node {
+export default class OpticalObjectNode extends Node {
 
   private readonly wasDraggedProperty: IProperty<boolean>;
   protected readonly cueingArrowsNode: CueingArrowsNode;
@@ -88,4 +88,3 @@ class OpticalObjectNode extends Node {
 }
 
 geometricOptics.register( 'OpticalObjectNode', OpticalObjectNode );
-export default OpticalObjectNode;

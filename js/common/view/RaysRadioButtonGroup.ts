@@ -21,7 +21,7 @@ import IProperty from '../../../../axon/js/IProperty.js';
 
 type RaysRadioButtonGroupOptions = PickRequired<VerticalAquaRadioButtonGroupOptions, 'tandem'>;
 
-class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysType> {
+export default class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysType> {
 
   /**
    * @param raysTypeProperty
@@ -72,4 +72,3 @@ function createItem( value: RaysType, text: string, groupTandem: Tandem, itemTan
 }
 
 geometricOptics.register( 'RaysRadioButtonGroup', RaysRadioButtonGroup );
-export default RaysRadioButtonGroup;

@@ -27,7 +27,7 @@ const SNAP_TO_MIN_MAGNITUDE = 20; // cm
 
 type ArrowObjectNodeOptions = OpticalObjectNodeOptions;
 
-class ArrowObjectNode extends OpticalObjectNode {
+export default class ArrowObjectNode extends OpticalObjectNode {
 
   /**
    * @param arrowObject
@@ -143,4 +143,3 @@ class ArrowObjectNode extends OpticalObjectNode {
 }
 
 geometricOptics.register( 'ArrowObjectNode', ArrowObjectNode );
-export default ArrowObjectNode;

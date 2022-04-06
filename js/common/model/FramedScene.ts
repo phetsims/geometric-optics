@@ -32,7 +32,7 @@ type SelfOptions = {
 
 type FramedObjectSceneOptions = SelfOptions & PickRequired<GOSceneOptions, 'tandem'>;
 
-class FramedScene extends GOScene {
+export default class FramedScene extends GOScene {
 
   // the elements that make up this scene
   public readonly framedObject: FramedObject;
@@ -130,4 +130,3 @@ class FramedScene extends GOScene {
 }
 
 geometricOptics.register( 'FramedScene', FramedScene );
-export default FramedScene;

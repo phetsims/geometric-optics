@@ -19,7 +19,7 @@ import Vector2 from '../../../../../dot/js/Vector2.js';
 
 type GOToolboxNodeOptions = PickRequired<PanelOptions, 'tandem'>;
 
-class GOToolboxNode extends Panel {
+export default class GOToolboxNode extends Panel {
 
   /**
    * @param toolNodes - in the order that they appear in the toolbox, left to right
@@ -89,4 +89,3 @@ class GOToolboxNode extends Panel {
 }
 
 geometricOptics.register( 'GOToolboxNode', GOToolboxNode );
-export default GOToolboxNode;

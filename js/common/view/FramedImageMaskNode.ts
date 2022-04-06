@@ -17,7 +17,7 @@ import { Node, Path } from '../../../../scenery/js/imports.js';
 import GOColors from '../GOColors.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 
-class FramedImageMaskNode extends Node {
+export default class FramedImageMaskNode extends Node {
 
   private readonly path: Path;
 
@@ -104,4 +104,3 @@ class MaskShape extends Shape {
 }
 
 geometricOptics.register( 'FramedImageMaskNode', FramedImageMaskNode );
-export default FramedImageMaskNode;

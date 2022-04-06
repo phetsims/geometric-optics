@@ -34,7 +34,7 @@ type SelfOptions = {
 
 export type VisibilityCheckboxGroupOptions = SelfOptions & PickRequired<VerticalCheckboxGroupOptions, 'tandem'>;
 
-class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
+export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 
   /**
    * @param isLens
@@ -146,4 +146,3 @@ function createItem( string: string, property: IProperty<boolean>, providedOptio
 }
 
 geometricOptics.register( 'VisibilityCheckboxGroup', VisibilityCheckboxGroup );
-export default VisibilityCheckboxGroup;

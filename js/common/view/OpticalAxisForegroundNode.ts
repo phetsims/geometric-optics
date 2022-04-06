@@ -27,7 +27,7 @@ import GOColors from '../GOColors.js';
 
 type OpticalAxisForegroundNodeOptions = OpticalAxisNodeOptions;
 
-class OpticalAxisForegroundNode extends OpticalAxisNode {
+export default class OpticalAxisForegroundNode extends OpticalAxisNode {
 
   /**
    * @param opticPositionProperty
@@ -140,5 +140,3 @@ class OpticalAxisForegroundNode extends OpticalAxisNode {
 }
 
 geometricOptics.register( 'OpticalAxisForegroundNode', OpticalAxisForegroundNode );
-
-export default OpticalAxisForegroundNode;

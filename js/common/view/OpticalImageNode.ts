@@ -18,7 +18,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
 export type OpticalImageNodeOptions = PickRequired<NodeOptions, 'tandem'>;
 
-class OpticalImageNode extends Node {
+export default class OpticalImageNode extends Node {
 
   /**
    * @param opticalImage
@@ -61,4 +61,3 @@ class OpticalImageNode extends Node {
 }
 
 geometricOptics.register( 'OpticalImageNode', OpticalImageNode );
-export default OpticalImageNode;

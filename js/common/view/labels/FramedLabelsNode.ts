@@ -17,7 +17,7 @@ import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
 import OpticalImageLabelNode from './OpticalImageLabelNode.js';
 import FramedSceneNode from '../FramedSceneNode.js';
 
-class FramedLabelsNode extends GOLabelsNode {
+export default class FramedLabelsNode extends GOLabelsNode {
 
   /**
    * @param sceneNode
@@ -70,4 +70,3 @@ class FramedLabelsNode extends GOLabelsNode {
 }
 
 geometricOptics.register( 'FramedLabelsNode', FramedLabelsNode );
-export default FramedLabelsNode;

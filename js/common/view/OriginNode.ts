@@ -9,7 +9,7 @@
 import { Circle } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 
-class OriginNode extends Circle {
+export default class OriginNode extends Circle {
   constructor() {
     super( 3, {
       fill: 'red'
@@ -18,4 +18,3 @@ class OriginNode extends Circle {
 }
 
 geometricOptics.register( 'OriginNode', OriginNode );
-export default OriginNode;

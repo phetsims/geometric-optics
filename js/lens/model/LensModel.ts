@@ -17,7 +17,7 @@ import GOQueryParameters from '../../common/GOQueryParameters.js';
 
 type LensModelOptions = PickRequired<GOModelOptions, 'tandem'>;
 
-class LensModel extends GOModel {
+export default class LensModel extends GOModel {
 
   // Resets things that are specific to this class.
   private readonly resetLensModel: () => void;
@@ -79,4 +79,3 @@ class LensModel extends GOModel {
 }
 
 geometricOptics.register( 'LensModel', LensModel );
-export default LensModel;

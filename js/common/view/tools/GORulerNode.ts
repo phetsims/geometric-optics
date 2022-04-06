@@ -36,7 +36,7 @@ const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;
 
 export type GORulerNodeOptions = GOToolNodeOptions;
 
-class GORulerNode extends GOToolNode {
+export default class GORulerNode extends GOToolNode {
 
   // See GOToolNode
   public readonly icon: GORulerIcon;
@@ -258,4 +258,3 @@ function createRulerNode( rulerLength: number, zoomTransform: ModelViewTransform
 }
 
 geometricOptics.register( 'GORulerNode', GORulerNode );
-export default GORulerNode;

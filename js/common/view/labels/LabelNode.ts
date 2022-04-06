@@ -34,7 +34,7 @@ type SelfOptions = {
 
 export type LabelNodeOptions = SelfOptions & PickRequired<BackgroundNodeOptions, 'visibleProperty' | 'tandem'>;
 
-class LabelNode extends BackgroundNode {
+export default class LabelNode extends BackgroundNode {
 
   private readonly textNode: RichText;
 
@@ -124,4 +124,3 @@ class LabelNode extends BackgroundNode {
 }
 
 geometricOptics.register( 'LabelNode', LabelNode );
-export default LabelNode;

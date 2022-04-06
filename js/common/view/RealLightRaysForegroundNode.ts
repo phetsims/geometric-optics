@@ -23,7 +23,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 
 type RealLightRaysForegroundNodeOptions = RealLightRaysNodeOptions;
 
-class RealLightRaysForegroundNode extends RealLightRaysNode {
+export default class RealLightRaysForegroundNode extends RealLightRaysNode {
 
   /**
    * @param lightRays
@@ -116,4 +116,3 @@ class RealLightRaysForegroundNode extends RealLightRaysNode {
 }
 
 geometricOptics.register( 'RealLightRaysForegroundNode', RealLightRaysForegroundNode );
-export default RealLightRaysForegroundNode;
