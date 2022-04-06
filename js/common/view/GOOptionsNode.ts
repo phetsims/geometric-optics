@@ -40,7 +40,8 @@ export default class GOOptionsNode extends VBox {
 
       // VBoxOptions
       align: 'left',
-      spacing: 20
+      spacing: 20,
+      phetioVisiblePropertyInstrumented: false
     }, providedOptions );
 
     super( options );

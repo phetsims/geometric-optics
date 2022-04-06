@@ -37,7 +37,8 @@ export default class Add2FPointsCheckbox extends Checkbox {
     const labelNode = new Text( geometricOpticsStrings.checkbox.add2FPointsCheckbox, {
       font: GOConstants.CONTROL_FONT,
       maxWidth: 250,
-      tandem: options.tandem.createTandem( 'labelNode' )
+      tandem: options.tandem.createTandem( 'labelNode' ),
+      phetioVisiblePropertyInstrumented: false
     } );
 
     super( labelNode, add2FPointsCheckboxProperty, options );

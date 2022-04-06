@@ -34,7 +34,8 @@ export default class FocalLengthModelTypeRadioButtonGroup extends VerticalAquaRa
     const options = optionize<FocalLengthControlRadioButtonGroupOptions, SelfOptions, VerticalAquaRadioButtonGroupOptions>( {
 
       // VerticalAquaRadioButtonGroupOptions
-      spacing: 8
+      spacing: 8,
+      phetioVisiblePropertyInstrumented: false
     }, providedOptions );
 
     const items = [
