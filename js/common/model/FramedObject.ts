@@ -30,7 +30,7 @@ class FramedObject extends HTMLImageElementObject {
   public readonly objectHTMLImageElementsProperty: IReadOnlyProperty<ObjectHTMLImageElements>;
 
   // HTMLImageElement (PNG file) used to draw this framed object
-  public readonly htmlImageElementProperty: IReadOnlyProperty<HTMLImageElement>;
+  public override readonly htmlImageElementProperty: IReadOnlyProperty<HTMLImageElement>;
 
   /**
    * @param opticalObjectNumber - positive integer used when labeling this object

@@ -45,7 +45,7 @@ class Add2FPointsCheckbox extends Checkbox {
     };
   }
 
-  public dispose(): void {
+  public override dispose(): void {
     super.dispose();
     this.disposeAdd2FPointsCheckbox();
   }

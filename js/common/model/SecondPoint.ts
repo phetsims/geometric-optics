@@ -73,7 +73,7 @@ class SecondPoint extends PhetioObject {
     };
   }
 
-  public dispose(): void {
+  public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }

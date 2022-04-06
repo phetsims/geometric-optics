@@ -59,7 +59,7 @@ class FocalLengthModelTypeControl extends VBox {
     };
   }
 
-  public dispose(): void {
+  public override dispose(): void {
     super.dispose();
     this.disposeFocalLengthModelTypeControl();
   }

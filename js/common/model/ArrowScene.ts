@@ -119,7 +119,7 @@ class ArrowScene extends GOScene {
     };
   }
 
-  public reset(): void {
+  public override reset(): void {
     super.reset();
     this.resetArrowObjectScene();
   }

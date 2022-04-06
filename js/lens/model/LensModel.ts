@@ -72,7 +72,7 @@ class LensModel extends GOModel {
     };
   }
 
-  public reset(): void {
+  public override reset(): void {
     super.reset();
     this.resetLensModel();
   }

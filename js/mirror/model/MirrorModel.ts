@@ -75,7 +75,7 @@ class MirrorModel extends GOModel {
     };
   }
 
-  public reset(): void {
+  public override reset(): void {
     super.reset();
     this.resetMirrorModel();
   }
