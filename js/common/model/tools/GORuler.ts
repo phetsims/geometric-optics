@@ -45,10 +45,6 @@ class GORuler extends GOTool {
     this.nominalLength = providedOptions.length;
   }
 
-  public override dispose(): void {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
-  }
-
   /**
    * Scales the length of the ruler based on zoomScale.
    * @param zoomScale

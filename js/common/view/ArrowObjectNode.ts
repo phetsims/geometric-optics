@@ -135,11 +135,6 @@ export default class ArrowObjectNode extends OpticalObjectNode {
         this.cueingArrowsNode.centerY = arrowNodeBounds.centerY;
       } );
   }
-
-  public override dispose(): void {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
-    super.dispose();
-  }
 }
 
 geometricOptics.register( 'ArrowObjectNode', ArrowObjectNode );
