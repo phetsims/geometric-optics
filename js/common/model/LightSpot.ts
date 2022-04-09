@@ -46,13 +46,6 @@ export default class LightSpot extends PhetioObject {
   // Diameter of the light spot in the y dimension,
   public readonly diameterProperty: IReadOnlyProperty<number>;
 
-  /**
-   * @param optic
-   * @param projectionScreen
-   * @param lightObjectPositionProperty
-   * @param opticalImagePositionProperty
-   * @param providedOptions
-   */
   constructor( optic: Optic,
                projectionScreen: ProjectionScreen,
                lightObjectPositionProperty: IReadOnlyProperty<Vector2>,
@@ -124,10 +117,6 @@ export default class LightSpot extends PhetioObject {
 
 /**
  * Gets the center and diameter of the light spot, in the vertical plane of the projection screen.
- * @param optic
- * @param projectionScreenPosition
- * @param lightObjectPosition
- * @param opticalImagePosition
  */
 function getPositionAndDiameter( optic: Optic, projectionScreenPosition: Vector2,
                                  lightObjectPosition: Vector2, opticalImagePosition: Vector2 ): PositionAndDiameter {
@@ -149,11 +138,9 @@ function getPositionAndDiameter( optic: Optic, projectionScreenPosition: Vector2
 /**
  * Gets the projected position on the screen of a point.
  * This is determined by extrapolating the point from the optical image onto the projection screen.
- * @param projectionScreenPosition
- * @param opticPoint
- * @param opticalImagePosition
  */
-function getIntersectionPosition( projectionScreenPosition: Vector2, opticPoint: Vector2, opticalImagePosition: Vector2 ): Vector2 {
+function getIntersectionPosition( projectionScreenPosition: Vector2, opticPoint: Vector2,
+                                  opticalImagePosition: Vector2 ): Vector2 {
   const opticImageDistance = ( opticalImagePosition.x - opticPoint.x );
   const ratio = ( opticImageDistance === 0 ) ?
                 10e6 : // This should technically be Infinity, but practically must be a (very large) finite value.

@@ -38,10 +38,10 @@ export default class LightRays {
   public readonly raysProcessedEmitter: Emitter<[]>;
 
   /**
-   * @param opticalObjectPositionProperty
-   * @param optic
+   * @param opticalObjectPositionProperty - position of the optical object
+   * @param optic - the optic that this bundle of rays may interact with
    * @param opticalImage - optical image associated with this ray
-   * @param raysTypeProperty
+   * @param raysTypeProperty - representation used for rays
    * @param raysAnimationTimeProperty - elapsed time of light rays animation
    * @param projectionScreen - optional projection screen that blocks rays
    */
@@ -120,12 +120,9 @@ export default class LightRays {
 
 /**
  * Gets the initial directions (as unit vectors) of the rays for the different ray types.
- * @param raysType
- * @param opticalObjectPosition
- * @param optic
- * @param opticalImagePosition
  */
-function getRayDirections( raysType: RaysType, opticalObjectPosition: Vector2, optic: Optic, opticalImagePosition: Vector2 ): Vector2[] {
+function getRayDirections( raysType: RaysType, opticalObjectPosition: Vector2, optic: Optic,
+                           opticalImagePosition: Vector2 ): Vector2[] {
 
   // {Vector2[]} directions of the light rays emanating from opticalObjectPosition
   const directions = [];

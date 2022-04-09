@@ -25,9 +25,6 @@ export default class MirrorModel extends GOModel {
   // Resets things that are specific to this class.
   private readonly resetMirrorModel: () => void;
 
-  /**
-   * @param providedOptions
-   */
   constructor( providedOptions: MirrorModelOptions ) {
 
     // See https://github.com/phetsims/geometric-optics/issues/397

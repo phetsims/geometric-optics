@@ -49,8 +49,8 @@ export default class LightScene extends GOScene {
   private readonly resetLightObjectScene: () => void;
 
   /**
-   * @param lens
-   * @param raysTypeProperty
+   * @param lens - the lens, shared by all scenes
+   * @param raysTypeProperty - the representation used for rays
    * @param providedOptions
    */
   constructor( lens: Lens,

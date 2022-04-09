@@ -90,7 +90,6 @@ export default class DirectFocalLengthModel extends PhetioObject implements Foca
   /**
    * Synchronizes with another focal-length model by copying the values that are settable in this model.
    * Constrain values so that floating-point error doesn't cause range exceptions.
-   * @param model
    */
   public syncToModel( model: FocalLengthModel ): void {
     assert && assert( model !== this );

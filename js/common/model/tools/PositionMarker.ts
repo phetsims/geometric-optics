@@ -25,9 +25,6 @@ export default class PositionMarker extends GOTool {
   public readonly fill: IColor;
   public readonly stroke: IColor;
 
-  /**
-   * @param providedOptions
-   */
   constructor( providedOptions: PositionMarkerOptions ) {
 
     super( providedOptions );

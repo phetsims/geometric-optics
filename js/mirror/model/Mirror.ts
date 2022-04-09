@@ -69,7 +69,6 @@ export default class Mirror extends Optic {
 
   /**
    * A mirror is converging if it is concave.
-   * @param opticShape
    */
   protected isConverging( opticShape: OpticShape ): boolean {
     return ( opticShape === 'concave' );
@@ -80,7 +79,7 @@ export default class Mirror extends Optic {
    * See https://github.com/phetsims/geometric-optics/issues/111
    * @param opticalObjectPosition
    * @param opticalImagePosition
-   * @param isTop
+   * @param isTop - true = top extreme, false = bottom extreme
    */
   protected getExtremumPoint( opticalObjectPosition: Vector2, opticalImagePosition: Vector2, isTop: boolean ): Vector2 {
 

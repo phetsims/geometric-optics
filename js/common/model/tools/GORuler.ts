@@ -31,9 +31,6 @@ class GORuler extends GOTool {
   // original (unscaled) length of the ruler, in cm
   private readonly nominalLength: number;
 
-  /**
-   * @param providedOptions
-   */
   constructor( providedOptions: GORulerOptions ) {
 
     assert && assert( isFinite( providedOptions.length ) && providedOptions.length > 0 );
@@ -47,7 +44,6 @@ class GORuler extends GOTool {
 
   /**
    * Scales the length of the ruler based on zoomScale.
-   * @param zoomScale
    */
   public scaleLength( zoomScale: number ): void {
     assert && assert( isFinite( zoomScale ) && zoomScale > 0 );

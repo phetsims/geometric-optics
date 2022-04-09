@@ -39,10 +39,10 @@ export default class HTMLImageElementObject extends OpticalObject {
 
   /**
    * @param opticalObjectNumber - positive integer used when labeling this object
-   * @param opticPositionProperty
-   * @param htmlImageElementProperty
-   * @param originOffset
-   * @param scaleFactor
+   * @param opticPositionProperty - position of the optic
+   * @param htmlImageElementProperty - see field htmlImageElementProperty
+   * @param originOffset - see field originOffset
+   * @param scaleFactor - see field scaleFactor
    * @param providedOptions
    */
   constructor( opticalObjectNumber: number,
@@ -68,10 +68,10 @@ export default class HTMLImageElementObject extends OpticalObject {
 
 /**
  * Computes the bounds for an optical object that uses an HTMLImageElement for its visual representation.
- * @param htmlImageElement
- * @param position
- * @param scaleFactor
- * @param originOffset
+ * @param htmlImageElement - the PNG file shown for this optical object
+ * @param position - position of the optical object
+ * @param scaleFactor - see field scaleFactor
+ * @param originOffset - see field originOffset
  */
 function computeBounds( htmlImageElement: HTMLImageElement, position: Vector2,
                         scaleFactor: number, originOffset: Vector2 ): Bounds2 {

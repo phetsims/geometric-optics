@@ -35,11 +35,6 @@ type MirrorNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
 
 export default class MirrorNode extends Node {
 
-  /**
-   * @param mirror
-   * @param modelViewTransform
-   * @param providedOptions
-   */
   constructor( mirror: Mirror, modelViewTransform: ModelViewTransform2, providedOptions: MirrorNodeOptions ) {
 
     const options = optionize<MirrorNodeOptions, SelfOptions, NodeOptions>( {
@@ -95,7 +90,6 @@ export default class MirrorNode extends Node {
 
   /**
    * Creates an icon for a mirror.
-   * @param opticShape
    */
   public static createIconNode( opticShape: OpticShape ): Node {
 

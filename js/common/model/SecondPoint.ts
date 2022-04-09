@@ -40,10 +40,6 @@ export default class SecondPoint extends PhetioObject {
   // Resets things that are specific to this class.
   private readonly resetSecondPoint: () => void;
 
-  /**
-   * @param framedObjectPositionProperty
-   * @param providedOptions
-   */
   constructor( framedObjectPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: SecondPointOptions ) {
 
     const options = optionize<SecondPointOptions, SelfOptions, PhetioObjectOptions>( {

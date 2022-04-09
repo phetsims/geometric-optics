@@ -45,8 +45,8 @@ export default class ArrowScene extends GOScene {
   private readonly resetArrowObjectScene: () => void;
 
   /**
-   * @param optic
-   * @param raysTypeProperty
+   * @param optic - the optic, shared by all scenes
+   * @param raysTypeProperty - the representation used for rays
    * @param providedOptions
    */
   constructor( optic: Optic,

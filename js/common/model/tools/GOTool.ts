@@ -30,9 +30,6 @@ class GOTool extends PhetioObject {
   // Resets things that are specific to this class.
   private readonly resetGOTool: () => void;
 
-  /**
-   * @param providedOptions
-   */
   protected constructor( providedOptions: GOToolOptions ) {
 
     const options = optionize<GOToolOptions, SelfOptions, PhetioObjectOptions>( {

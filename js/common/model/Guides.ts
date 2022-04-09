@@ -26,8 +26,8 @@ export default class Guides extends PhetioObject {
   public readonly bottomGuide: Guide;
 
   /**
-   * @param optic
-   * @param opticalObjectPositionProperty
+   * @param optic - the optic that these guides are associated with
+   * @param opticalObjectPositionProperty - position of the optical object
    * @param providedOptions
    */
   constructor( optic: Optic, opticalObjectPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: GuidesOptions ) {

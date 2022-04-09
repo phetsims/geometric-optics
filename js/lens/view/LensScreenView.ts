@@ -25,10 +25,6 @@ type LensScreenViewOptions = SelfOptions & PickRequired<GOScreenViewOptions, 'is
 
 export default class LensScreenView extends GOScreenView {
 
-  /**
-   * @param model
-   * @param providedOptions
-   */
   constructor( model: LensModel, providedOptions: LensScreenViewOptions ) {
 
     const options = optionize<LensScreenViewOptions, SelfOptions, GOScreenViewOptions,

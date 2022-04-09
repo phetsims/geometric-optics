@@ -50,11 +50,6 @@ export default class OpticalObject extends PhetioObject {
   // Resets things that are specific to this class.
   private readonly resetOpticalObject: () => void;
 
-  /**
-   * @param opticalObjectNumber
-   * @param opticPositionProperty
-   * @param providedOptions
-   */
   protected constructor( opticalObjectNumber: number,
                          opticPositionProperty: IReadOnlyProperty<Vector2>,
                          providedOptions: OpticalObjectOptions ) {

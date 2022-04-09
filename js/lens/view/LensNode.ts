@@ -33,11 +33,6 @@ type LensNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
 
 export default class LensNode extends Node {
 
-  /**
-   * @param lens
-   * @param modelViewTransform
-   * @param providedOptions
-   */
   constructor( lens: Lens, modelViewTransform: ModelViewTransform2, providedOptions: LensNodeOptions ) {
 
     const options = optionize<LensNodeOptions, SelfOptions, NodeOptions>( {
@@ -106,7 +101,6 @@ export default class LensNode extends Node {
 
   /**
    * Creates an icon for a lens.
-   * @param opticShape
    */
   public static createIconNode( opticShape: OpticShape ): Node {
     assert && assert( opticShape !== 'flat', 'flat lens is not supported' );

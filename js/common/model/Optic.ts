@@ -110,9 +110,6 @@ export default abstract class Optic extends PhetioObject {
   // Resets things that are specific to this class.
   private readonly resetOptic: () => void;
 
-  /**
-   * @param providedOptions
-   */
   protected constructor( providedOptions: OpticOptions ) {
 
     const options = optionize<OpticOptions, SelfOptions, PhetioObjectOptions>( {
@@ -301,8 +298,6 @@ export default abstract class Optic extends PhetioObject {
 
   /**
    * Returns the top position within the optic that would ensure that a ray would be transmitted (or reflected).
-   * @param opticalObjectPosition
-   * @param opticalImagePosition
    */
   public getTopPoint( opticalObjectPosition: Vector2, opticalImagePosition: Vector2 ): Vector2 {
     return this.getExtremumPoint( opticalObjectPosition, opticalImagePosition, true /* isTop */ );
@@ -319,7 +314,6 @@ export default abstract class Optic extends PhetioObject {
 
   /**
    * Determines whether the optic is converging for the specified optical shape.
-   * @param opticShape
    */
   protected abstract isConverging( opticShape: OpticShape ): boolean;
 
@@ -355,8 +349,6 @@ export default abstract class Optic extends PhetioObject {
 
   /**
    * Returns the bottom position within the optic that would ensure that a ray would be transmitted (or reflected).
-   * @param opticalObjectPosition
-   * @param opticalImagePosition
    */
   public getBottomPoint( opticalObjectPosition: Vector2, opticalImagePosition: Vector2 ): Vector2 {
     return this.getExtremumPoint( opticalObjectPosition, opticalImagePosition, false /* isTop */ );
@@ -370,7 +362,6 @@ export default abstract class Optic extends PhetioObject {
 
   /**
    * Gets the shape of the front (left) surface of the optic. This is the surface that a ray will initially hit.
-   * @param raysType
    */
   public getFrontShapeTranslated( raysType: RaysType ): Shape {
     if ( raysType === 'principal' ) {

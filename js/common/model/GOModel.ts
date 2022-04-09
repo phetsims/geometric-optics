@@ -75,7 +75,7 @@ export default class GOModel {
   private readonly resetGOModel: () => void;
 
   /**
-   * @param optic
+   * @param optic - the optic, shared by all scenes in the model
    * @param providedOptions
    */
   protected constructor( optic: Optic, providedOptions: GOModelOptions ) {
@@ -201,7 +201,7 @@ export default class GOModel {
   }
 
   /**
-   * Causes the light rays animation to begin.
+   * Causes the rays animation to begin.
    */
   public beginLightRaysAnimation(): void {
     this.scenes.forEach( scene => scene.beginLightRaysAnimation() );

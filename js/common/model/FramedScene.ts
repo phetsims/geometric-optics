@@ -48,9 +48,9 @@ export default class FramedScene extends GOScene {
   private readonly resetFramedObjectScene: () => void;
 
   /**
-   * @param opticalObjectChoiceProperty
-   * @param optic
-   * @param raysTypeProperty
+   * @param opticalObjectChoiceProperty - the choice of optical object, determines what PNG file is shown in the frame
+   * @param optic - the optic, shared by all scenes
+   * @param raysTypeProperty - the representation used for rays
    * @param providedOptions
    */
   constructor( opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>,

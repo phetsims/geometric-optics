@@ -34,7 +34,7 @@ export default class MirrorShapes implements OpticShapes {
 
   /**
    * @param radiusOfCurvature - radius of curvature (ROC) at the center of the mirror
-   * @param diameter - vertical height of the mirror
+   * @param diameter - height of the mirror, width is foreshortened to provide 3D perspective
    * @param providedOptions
    */
   constructor( radiusOfCurvature: number, diameter: number, providedOptions?: MirrorShapesOptions ) {

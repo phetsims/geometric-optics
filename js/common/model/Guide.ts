@@ -35,9 +35,9 @@ class Guide extends PhetioObject {
   public readonly transmittedAngleProperty: IReadOnlyProperty<number>;
 
   /**
-   * @param optic
-   * @param opticalObjectPositionProperty
-   * @param location
+   * @param optic - the optic that this guide is associated with
+   * @param opticalObjectPositionProperty - position of the optical object
+   * @param location - location of the guide, relative to the optic
    * @param providedOptions
    */
   constructor( optic: Optic, opticalObjectPositionProperty: IReadOnlyProperty<Vector2>, location: GuideLocation, providedOptions: GuideOptions ) {

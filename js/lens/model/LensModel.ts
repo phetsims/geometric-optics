@@ -24,9 +24,6 @@ export default class LensModel extends GOModel {
   // Resets things that are specific to this class.
   private readonly resetLensModel: () => void;
 
-  /**
-   * @param providedOptions
-   */
   constructor( providedOptions: LensModelOptions ) {
 
     // See https://github.com/phetsims/geometric-optics/issues/397

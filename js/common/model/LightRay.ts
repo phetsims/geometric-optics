@@ -48,7 +48,7 @@ export default class LightRay {
    * @param opticalObjectPosition - where this LightRay originated
    * @param direction - initial direction of this LightRay
    * @param raysAnimationTime - elapsed time of light rays animation
-   * @param optic
+   * @param optic - the optic that this ray may interact with
    * @param opticalImagePosition - point of focus of all rays based on thin lens law
    * @param isImageVirtual - is the optical image virtual?
    * @param raysType
@@ -91,7 +91,7 @@ export default class LightRay {
   /**
    * Have the rays reached the target? If a projection screen is provided, the target is the projection screen.
    * Otherwise, the target is the optical image position.
-   * @param distanceTraveled
+   * @param distanceTraveled - how far the ray has traveled in its animation
    * @param opticalObjectPosition
    * @param opticalImagePosition
    * @param projectionScreen
@@ -133,7 +133,7 @@ export default class LightRay {
 
   /**
    * Processes all the rays into LightRaySegment instances, populates this.realSegments and this.virtualSegments.
-   * @param distanceTraveled
+   * @param distanceTraveled - how far the ray has traveled in its animation
    */
   private raysToSegments( distanceTraveled: number ): void {
 
@@ -178,9 +178,9 @@ export default class LightRay {
 
 /**
  * Gets the first intersection Point, where it hits the front (left-facing) surface of the optic.
- * @param initialRay
- * @param optic
- * @param raysType
+ * @param initialRay - the ray emerging from the optical object
+ * @param optic - the optic that the ray may interact with
+ * @param raysType - representation used for rays
  */
 function getFirstPoint( initialRay: GORay, optic: Optic, raysType: RaysType ): Vector2 | null {
   const firstIntersection = optic.getFrontShapeTranslated( raysType ).intersection( initialRay );
@@ -190,11 +190,11 @@ function getFirstPoint( initialRay: GORay, optic: Optic, raysType: RaysType ): V
 /**
  * Gets all the real rays that form a light ray. The transmitted ray (last ray) is set to be of infinite length by
  * default This can be corrected later if the ray is intercepted by a projectionScreen
- * @param initialRay
- * @param firstPoint
- * @param optic
- * @param raysType
- * @param opticalImagePosition
+ * @param initialRay - the ray emerging from the optical object
+ * @param firstPoint - first intersection point with the optic
+ * @param optic - the optic that the ray may interact with
+ * @param raysType - representation used for rays
+ * @param opticalImagePosition - position of the optical image
  */
 function getRealRays( initialRay: GORay, firstPoint: Vector2 | null, optic: Optic, raysType: RaysType,
                       opticalImagePosition: Vector2 ): GORay[] {
@@ -268,9 +268,9 @@ function getRealRays( initialRay: GORay, firstPoint: Vector2 | null, optic: Opti
 /**
  * Gets an "intermediate" point. Find the point of intersection of the initial ray with an imaginary vertical line
  * at position share by the optic position
- * @param initialRay
- * @param firstPoint
- * @param optic
+ * @param initialRay - the ray emerging from the optical object
+ * @param firstPoint - first intersection point with the optic
+ * @param optic - the optic that the ray may interact with
  */
 function getIntermediatePoint( initialRay: GORay, firstPoint: Vector2, optic: Optic ): Vector2 {
 
@@ -288,8 +288,6 @@ function getIntermediatePoint( initialRay: GORay, firstPoint: Vector2, optic: Op
 /**
  * If ray intersects the projection screen, terminate the ray on the projection screen by setting
  * the ray's final point.
- * @param realRay
- * @param projectionScreen
  */
 function terminateOnProjectionScreen( realRay: GORay, projectionScreen: ProjectionScreen ): void {
 

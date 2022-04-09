@@ -36,9 +36,6 @@ export default class Lens extends Optic {
   // opacity of the lens
   public readonly opacityProperty: IReadOnlyProperty<number>;
 
-  /**
-   * @param providedOptions
-   */
   constructor( providedOptions: LensOptions ) {
 
     const focalLengthModelsTandem = providedOptions.tandem.createTandem( 'focalLengthModels' );
@@ -92,7 +89,7 @@ export default class Lens extends Optic {
    * See https://github.com/phetsims/geometric-optics/issues/111
    * @param opticalObjectPosition
    * @param opticalImagePosition
-   * @param isTop
+   * @param isTop - true = top extreme, false = bottom extreme
    */
   protected getExtremumPoint( opticalObjectPosition: Vector2, opticalImagePosition: Vector2, isTop: boolean ): Vector2 {
 

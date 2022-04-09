@@ -38,7 +38,7 @@ export default class LensShapes implements OpticShapes {
 
   /**
    * @param radiusOfCurvature
-   * @param diameter - height of the lens
+   * @param diameter - height of the lens, width is foreshortened to provide 3D perspective
    * @param providedOptions
    */
   constructor( radiusOfCurvature: number, diameter: number, providedOptions?: LensShapesOptions ) {

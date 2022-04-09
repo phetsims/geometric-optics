@@ -38,7 +38,7 @@ export default abstract class GOScene extends PhetioObject {
   private readonly resetGOObjectScene: () => void;
 
   /**
-   * @param optic
+   * @param optic - the optic, shared by all scenes
    * @param providedOptions
    */
   protected constructor( optic: Optic, providedOptions: GOSceneOptions ) {
