@@ -35,7 +35,7 @@ export default class LensScreen extends Screen<LensModel, LensScreenView> {
       homeScreenIcon: createScreenIcon(),
       showUnselectedHomeScreenIconFrame: true,
       backgroundColorProperty: GOColors.screenBackgroundColorProperty,
-      keyboardHelpNode: new GOKeyboardHelpContent( true /* isLens */ )
+      keyboardHelpNode: new GOKeyboardHelpContent()
     }, providedOptions );
 
     super(

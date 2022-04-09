@@ -36,7 +36,7 @@ export default class MirrorScreen extends Screen<MirrorModel, MirrorScreenView> 
       homeScreenIcon: createScreenIcon( providedOptions.isBasicsVersion ? 'flat' : 'concave' ),
       showUnselectedHomeScreenIconFrame: true,
       backgroundColorProperty: GOColors.screenBackgroundColorProperty,
-      keyboardHelpNode: new GOKeyboardHelpContent( false /* isLens */ )
+      keyboardHelpNode: new GOKeyboardHelpContent()
     }, providedOptions );
 
     super(

@@ -18,7 +18,7 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 
 export default class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
-  constructor( isLens: boolean ) {
+  constructor() {
 
     const leftColumn = [
 
@@ -26,7 +26,7 @@ export default class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent 
       new MoveDraggableItemsKeyboardHelpSection(),
 
       // Ruler and Marker Controls
-      new RulerAndMarkerControlsKeyboardHelpSection( isLens ),
+      new RulerAndMarkerControlsKeyboardHelpSection(),
 
       // Choose an Object
       new ComboBoxKeyboardHelpSection( {
@@ -78,10 +78,7 @@ class MoveDraggableItemsKeyboardHelpSection extends KeyboardHelpSection {
  */
 class RulerAndMarkerControlsKeyboardHelpSection extends KeyboardHelpSection {
 
-  /**
-   * @param isLens
-   */
-  constructor( isLens: boolean ) {
+  constructor() {
     super( geometricOpticsStrings.keyboardHelpDialog.rulerAndMarkerControls, [
 
       // Space or Enter
