@@ -50,11 +50,11 @@ export default class GORulerNode extends GOToolNode {
   private readonly dragBoundsProperty: IReadOnlyProperty<Bounds2>;
 
   /**
-   * @param ruler
-   * @param opticPositionProperty
-   * @param zoomTransformProperty
-   * @param zoomScaleProperty
-   * @param visibleBoundsProperty
+   * @param ruler - model element
+   * @param opticPositionProperty - position of the optic
+   * @param zoomTransformProperty - model-view transform that the user controls by zooming in/out
+   * @param zoomScaleProperty - scale factor for the current zoom level
+   * @param visibleBoundsProperty - visible bounds of the ScreenView
    * @param providedOptions
    */
   constructor( ruler: GORuler,

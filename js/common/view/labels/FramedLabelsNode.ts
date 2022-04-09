@@ -20,8 +20,8 @@ import FramedSceneNode from '../FramedSceneNode.js';
 export default class FramedLabelsNode extends GOLabelsNode {
 
   /**
-   * @param sceneNode
-   * @param zoomTransformProperty
+   * @param sceneNode - the scene whose optical objects we are labeling
+   * @param zoomTransformProperty - model-view transform that the user controls by zooming in/out
    * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
    * @param providedOptions
    */

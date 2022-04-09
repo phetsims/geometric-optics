@@ -31,9 +31,9 @@ export type OpticalImageLabelNodeOptions = SelfOptions & Omit<LabelNodeOptions, 
 export default class OpticalImageLabelNode extends LabelNode {
 
   /**
-   * @param opticalImage
-   * @param labelPositionProperty
-   * @param zoomTransformProperty
+   * @param opticalImage - the optical image to label
+   * @param labelPositionProperty - the position of the label
+   * @param zoomTransformProperty - model-view transform that the user controls by zooming in/out
    * @param providedOptions
    */
   constructor( opticalImage: OpticalImage,

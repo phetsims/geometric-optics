@@ -28,8 +28,8 @@ export type GOSceneLabelsNodeOptions = PickRequired<NodeOptions, 'visiblePropert
 export default class GOLabelsNode extends Node {
 
   /**
-   * @param sceneNode
-   * @param zoomTransformProperty
+   * @param sceneNode - the scene whose components we are labeling
+   * @param zoomTransformProperty - model-view transform that the user controls by zooming in/out
    * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
    * @param providedOptions
    */

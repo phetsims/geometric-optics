@@ -29,9 +29,9 @@ export default abstract class GOToolIcon extends Node {
 
   /**
    * @param contentNode - the icon's content, what it looks like
-   * @param tool
-   * @param toolNode
-   * @param zoomTransformProperty
+   * @param tool - model element
+   * @param toolNode - view element
+   * @param zoomTransformProperty - model-view transform that the user controls by zooming in/out
    * @param pointerPositionToToolPosition - given the pointer position, determine the tool's model position
    * @param providedOptions
    */

@@ -27,10 +27,10 @@ type GOToolDragListenerOptions = SelfOptions &
 export default class GOToolDragListener extends DragListener {
 
   /**
-   * @param tool
-   * @param toolNode
-   * @param zoomTransformProperty
-   * @param dragBoundsProperty
+   * @param tool - model element
+   * @param toolNode - view element
+   * @param zoomTransformProperty - model-view transform that the user controls by zooming in/out
+   * @param dragBoundsProperty - dragging is constrained to these bounds
    * @param shouldReturnToToolbox - given the pointer's position, determine whether tool should be returned to toolbox
    * @param providedOptions
    */

@@ -44,7 +44,7 @@ export default abstract class GOToolNode extends Node {
   protected jumpPointsIndex: number;
 
   /**
-   * @param tool
+   * @param tool - associated model element
    * @param providedOptions
    */
   protected constructor( tool: GOTool, providedOptions: GOToolNodeOptions ) {
@@ -72,7 +72,6 @@ export default abstract class GOToolNode extends Node {
 
   /**
    * Sets the toolbox, so the tool knows where to return to.
-   * @param toolboxNode
    */
   public setToolboxNode( toolboxNode: GOToolboxNode ): void {
     this.toolboxNode = toolboxNode;
@@ -80,7 +79,6 @@ export default abstract class GOToolNode extends Node {
 
   /**
    * Forwards an event from the toolbox to start dragging this Node.
-   * @param event
    */
   public startDrag( event: PressListenerEvent ): void {
     this.dragListener.press( event, this );
@@ -88,7 +86,6 @@ export default abstract class GOToolNode extends Node {
 
   /**
    * Sets the jump points used by the 'J' hotkey.
-   * @param jumpPoints
    */
   public setJumpPoints( jumpPoints: ToolJumpPoint[] ): void {
     this.jumpPoints = jumpPoints;

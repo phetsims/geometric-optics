@@ -19,9 +19,9 @@ import PositionMarker from '../../model/tools/PositionMarker.js';
 export default class PositionMarkerIcon extends GOToolIcon {
 
   /**
-   * @param positionMarker
-   * @param positionMarkerNode
-   * @param zoomTransformProperty
+   * @param positionMarker - model element
+   * @param positionMarkerNode - view element
+   * @param zoomTransformProperty - model-view transform that the user controls by zooming in/out
    */
   constructor( positionMarker: PositionMarker,
                positionMarkerNode: PositionMarkerNode,

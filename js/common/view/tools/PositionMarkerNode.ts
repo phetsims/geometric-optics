@@ -45,9 +45,9 @@ export default class PositionMarkerNode extends GOToolNode {
   private readonly dragBoundsProperty: IReadOnlyProperty<Bounds2>;
 
   /**
-   * @param positionMarker
-   * @param zoomTransformProperty
-   * @param visibleBoundsProperty
+   * @param positionMarker - model element
+   * @param zoomTransformProperty - model-view transform that the user controls by zooming in/out
+   * @param visibleBoundsProperty - visible bounds of the ScreenView
    * @param providedOptions
    */
   constructor( positionMarker: PositionMarker,

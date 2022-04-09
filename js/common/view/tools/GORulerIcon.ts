@@ -25,9 +25,9 @@ const NUMBER_OF_MAJOR_TICKS = 5;
 export default class GORulerIcon extends GOToolIcon {
 
   /**
-   * @param ruler
-   * @param rulerNode
-   * @param zoomTransformProperty
+   * @param ruler - model element associated with this icon
+   * @param rulerNode - view element associated with this icon
+   * @param zoomTransformProperty - model-view transform that the user controls by zooming in/out
    */
   constructor( ruler: GORuler,
                rulerNode: GORulerNode,

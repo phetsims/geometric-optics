@@ -28,9 +28,9 @@ export type OpticalObjectLabelNodeOptions = SelfOptions & Omit<LabelNodeOptions,
 export default class OpticalObjectLabelNode extends LabelNode {
 
   /**
-   * @param objectNumber
-   * @param labelPositionProperty
-   * @param zoomTransformProperty
+   * @param objectNumber - each optical object has a unique integer, used to label it
+   * @param labelPositionProperty - position of the label
+   * @param zoomTransformProperty - model-view transform that the user controls by zooming in/out
    * @param providedOptions
    */
   constructor( objectNumber: number,

@@ -39,9 +39,9 @@ export default class LabelNode extends BackgroundNode {
   private readonly textNode: RichText;
 
   /**
-   * @param text
+   * @param text - the label's text
    * @param positionProperty - position of the thing that we're labeling, in model coordinates
-   * @param zoomTransformProperty
+   * @param zoomTransformProperty - model-view transform that the user controls by zooming in/out
    * @param providedOptions
    */
   constructor( text: string,

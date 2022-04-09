@@ -28,8 +28,8 @@ type ArrowObjectSceneLabelsNodeOptions = SelfOptions & GOSceneLabelsNodeOptions;
 export default class ArrowLabelsNode extends GOLabelsNode {
 
   /**
-   * @param sceneNode
-   * @param zoomTransformProperty
+   * @param sceneNode - the scene whose arrows we are labeling
+   * @param zoomTransformProperty - model-view transform that the user controls by zooming in/out
    * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
    * @param providedOptions
    */
@@ -83,12 +83,6 @@ export default class ArrowLabelsNode extends GOLabelsNode {
 // Label for an arrow object.
 class ArrowObjectLabelNode extends OpticalObjectLabelNode {
 
-  /**
-   * @param arrowObject
-   * @param opticPositionProperty
-   * @param zoomTransformProperty
-   * @param providedOptions
-   */
   constructor( arrowObject: ArrowObject,
                opticPositionProperty: IReadOnlyProperty<Vector2>,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
@@ -109,12 +103,6 @@ class ArrowObjectLabelNode extends OpticalObjectLabelNode {
 // Label for an arrow image.
 class ArrowImageLabelNode extends OpticalImageLabelNode {
 
-  /**
-   * @param arrowImage
-   * @param opticPositionProperty
-   * @param zoomTransformProperty
-   * @param providedOptions
-   */
   constructor( arrowImage: ArrowImage,
                opticPositionProperty: IReadOnlyProperty<Vector2>,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,

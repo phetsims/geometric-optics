@@ -25,8 +25,8 @@ export type OpticLabelNodeOptions = SelfOptions & Omit<LabelNodeOptions, 'phetio
 export default class OpticLabelNode extends LabelNode {
 
   /**
-   * @param optic
-   * @param zoomTransformProperty
+   * @param optic - the optic to label
+   * @param zoomTransformProperty - model-view transform that the user controls by zooming in/out
    * @param providedOptions
    */
   constructor( optic: Optic,

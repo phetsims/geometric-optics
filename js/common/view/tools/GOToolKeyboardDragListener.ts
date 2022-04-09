@@ -22,10 +22,10 @@ type GOToolKeyboardDragListenerOptions = PickRequired<KeyboardDragListenerOption
 export default class GOToolKeyboardDragListener extends KeyboardDragListener {
 
   /**
-   * @param tool
-   * @param toolNode
-   * @param zoomTransformProperty
-   * @param dragBoundsProperty
+   * @param tool - model element
+   * @param toolNode - view element
+   * @param zoomTransformProperty - model-view transform that the user controls by zooming in/out
+   * @param dragBoundsProperty - dragging is constrained to these bounds
    * @param shouldReturnToToolbox - determine whether the tool should be returned to the toolbox
    * @param providedOptions
    */

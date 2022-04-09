@@ -28,8 +28,8 @@ type LightObjectSceneLabelsNodeOptions = SelfOptions & GOSceneLabelsNodeOptions;
 export default class LightLabelsNode extends GOLabelsNode {
 
   /**
-   * @param sceneNode
-   * @param zoomTransformProperty
+   * @param sceneNode - the scene whose lights were are labeling
+   * @param zoomTransformProperty - model-view transform that the user controls by zooming in/out
    * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
    * @param providedOptions
    */
@@ -82,11 +82,6 @@ type LightObjectLabelNodeOptions = OpticalObjectLabelNodeOptions;
 // Label for a light object.
 class LightObjectLabelNode extends OpticalObjectLabelNode {
 
-  /**
-   * @param lightObject
-   * @param zoomTransformProperty
-   * @param providedOptions
-   */
   constructor( lightObject: LightObject,
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                providedOptions: LightObjectLabelNodeOptions ) {
