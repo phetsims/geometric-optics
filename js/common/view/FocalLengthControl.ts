@@ -26,8 +26,8 @@ type FocalLengthControlOptions = SelfOptions & PickRequired<NodeOptions, 'tandem
 export default class FocalLengthControl extends NumberControl {
 
   /**
-   * @param focalLengthMagnitudeProperty
-   * @param focalLengthProperty
+   * @param focalLengthMagnitudeProperty - unsigned
+   * @param focalLengthProperty - signed
    * @param providedOptions
    */
   constructor( focalLengthMagnitudeProperty: NumberProperty,

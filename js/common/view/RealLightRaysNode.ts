@@ -22,11 +22,6 @@ export type RealLightRaysNodeOptions = SelfOptions & LightRaysNodeOptions;
 
 export default class RealLightRaysNode extends LightRaysNode {
 
-  /**
-   * @param lightRays
-   * @param modelViewTransform
-   * @param providedOptions
-   */
   constructor( lightRays: LightRays,
                modelViewTransform: ModelViewTransform2,
                providedOptions: RealLightRaysNodeOptions ) {

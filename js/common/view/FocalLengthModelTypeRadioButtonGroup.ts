@@ -26,7 +26,7 @@ type FocalLengthControlRadioButtonGroupOptions = SelfOptions & PickRequired<Vert
 export default class FocalLengthModelTypeRadioButtonGroup extends VerticalAquaRadioButtonGroup<FocalLengthModelType> {
 
   /**
-   * @param focalLengthModelTypeProperty
+   * @param focalLengthModelTypeProperty - whether to set focal length directly or indirectl
    * @param providedOptions
    */
   constructor( focalLengthModelTypeProperty: IProperty<FocalLengthModelType>,
@@ -53,10 +53,10 @@ export default class FocalLengthModelTypeRadioButtonGroup extends VerticalAquaRa
 
 /**
  * Creates an item for the radio button group.
- * @param value
- * @param text
- * @param groupTandem
- * @param itemTandemName
+ * @param value - value associated with the radio button
+ * @param text - label that appears on the radio button
+ * @param groupTandem - used to associate the item's tandem with the radio-button group
+ * @param itemTandemName - used to create the item's tandem
  */
 function createItem( value: FocalLengthModelType, text: string, groupTandem: Tandem, itemTandemName: string ):
   AquaRadioButtonGroupItem<FocalLengthModelType> {

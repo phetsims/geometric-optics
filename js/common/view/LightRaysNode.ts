@@ -19,7 +19,7 @@ export type LightRaysNodeOptions = PickOptional<NodeOptions, 'visibleProperty'>;
 export default class LightRaysNode extends Node {
 
   /**
-   * @param lightRays
+   * @param lightRays - model element
    * @param update - called when LightRays.raysProcessedEmitter fires
    * @param providedOptions
    */

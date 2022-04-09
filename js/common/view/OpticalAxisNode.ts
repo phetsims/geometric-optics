@@ -29,7 +29,7 @@ export type OpticalAxisNodeOptions = SelfOptions &
 export default class OpticalAxisNode extends Line {
 
   /**
-   * @param opticPositionProperty
+   * @param opticPositionProperty - position of the optic
    * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
    * @param modelViewTransform
    * @param providedOptions

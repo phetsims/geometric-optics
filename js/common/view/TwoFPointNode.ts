@@ -21,11 +21,6 @@ type TwoFPointNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem' | '
 
 export default class TwoFPointNode extends Node {
 
-  /**
-   * @param pointProperty
-   * @param modelViewTransform
-   * @param provideOptions
-   */
   constructor( pointProperty: IProperty<Vector2>, modelViewTransform: ModelViewTransform2, provideOptions: TwoFPointNodeOptions ) {
 
     const options = optionize<TwoFPointNodeOptions, SelfOptions, NodeOptions>( {
@@ -48,7 +43,6 @@ export default class TwoFPointNode extends Node {
 
   /**
    * Returns an icon for the 2F point
-   * @param radius
    */
   public static createIcon( radius: number = 5 ): Node {
     return new Circle( radius, {

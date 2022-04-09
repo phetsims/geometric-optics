@@ -28,12 +28,12 @@ type RealLightRaysForegroundNodeOptions = SelfOptions & RealLightRaysNodeOptions
 export default class RealLightRaysForegroundNode extends RealLightRaysNode {
 
   /**
-   * @param lightRays
+   * @param lightRays - model element
    * @param modelViewTransform
    * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
-   * @param opticPositionProperty
-   * @param framedImagePositionProperty
-   * @param opticalImageTypeProperty
+   * @param opticPositionProperty - position of the optic
+   * @param framedImagePositionProperty - position of the optical object
+   * @param opticalImageTypeProperty - type of optical image (real or virtual)
    * @param providedOptions
    */
   constructor( lightRays: LightRays,

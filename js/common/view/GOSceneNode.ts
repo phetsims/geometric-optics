@@ -66,12 +66,12 @@ export default abstract class GOSceneNode extends Node {
   public readonly right2FPointNodeVisibleProperty: IProperty<boolean>;
 
   /**
-   * @param scene
+   * @param scene - model element
    * @param visibleProperties
    * @param modelViewTransform
    * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
    * @param sceneBoundsProperty - bounds for the scene, in model coordinates
-   * @param raysTypeProperty
+   * @param raysTypeProperty - representation used for rays
    * @param providedOptions
    */
   protected constructor( scene: GOScene,

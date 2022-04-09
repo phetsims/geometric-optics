@@ -24,11 +24,11 @@ type FramedImageNodeOptions = PickRequired<OpticalImageNodeOptions, 'tandem'>;
 export default class FramedImageNode extends OpticalImageNode {
 
   /**
-   * @param framedImage
-   * @param optic
-   * @param virtualImageVisibleProperty
-   * @param lightPropagationEnabledProperty
-   * @param objectVisibleProperty
+   * @param framedImage - model element
+   * @param optic - associated optic
+   * @param virtualImageVisibleProperty - should a virtual image be visible?
+   * @param lightPropagationEnabledProperty - is light propagation enabled?
+   * @param objectVisibleProperty - is the optical object visible?
    * @param modelViewTransform
    * @param providedOptions
    */

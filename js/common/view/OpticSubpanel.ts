@@ -27,10 +27,6 @@ const ALIGN = 'bottom'; // align bottoms of all NumberControls
 
 export default class OpticSubpanel extends HBox {
 
-  /**
-   * @param optic
-   * @param tandem
-   */
   constructor( optic: Optic, tandem: Tandem ) {
 
     const children = [];

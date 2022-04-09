@@ -24,11 +24,11 @@ type LightObjectNodeOptions = HTMLImageElementObjectNodeOptions;
 export default class LightObjectNode extends HTMLImageElementObjectNode {
 
   /**
-   * @param lightObject
+   * @param lightObject - model element
    * @param sceneBoundsProperty - bounds for the scene, in model coordinates
-   * @param opticPositionProperty
+   * @param opticPositionProperty - position of the optic
    * @param modelViewTransform
-   * @param objectDragModeProperty
+   * @param objectDragModeProperty - constrains how the light can be dragged
    * @param wasDraggedProperty - was ANY LightObjectNode dragged?
    * @param providedOptions
    */

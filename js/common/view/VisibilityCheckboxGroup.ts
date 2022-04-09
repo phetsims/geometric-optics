@@ -35,9 +35,9 @@ export type VisibilityCheckboxGroupOptions = SelfOptions & PickRequired<Vertical
 export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 
   /**
-   * @param visibleProperties
+   * @param visibleProperties - Properties controlled by these check boxes
    * @param optic
-   * @param virtualImageCheckboxEnabledProperty
+   * @param virtualImageCheckboxEnabledProperty - is the 'Virtual Image' check box enabled?
    * @param providedOptions
    */
   constructor( visibleProperties: VisibleProperties,

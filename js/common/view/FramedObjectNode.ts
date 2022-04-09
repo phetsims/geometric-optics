@@ -24,11 +24,11 @@ type FramedObjectNodeOptions = HTMLImageElementObjectNodeOptions;
 export default class FramedObjectNode extends HTMLImageElementObjectNode {
 
   /**
-   * @param framedObject
+   * @param framedObject - model element
    * @param sceneBoundsProperty - bounds for the scene, in model coordinates
-   * @param opticPositionProperty
+   * @param opticPositionProperty - position of the optic
    * @param modelViewTransform
-   * @param objectDragModeProperty
+   * @param objectDragModeProperty - constrains how the object can be dragged
    * @param wasDraggedProperty - was this framed object dragged?
    * @param providedOptions
    */

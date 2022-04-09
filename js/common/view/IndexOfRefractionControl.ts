@@ -21,10 +21,6 @@ type IndexOfRefractionControlOptions = SelfOptions & PickRequired<NumberControlO
 
 export default class IndexOfRefractionControl extends NumberControl {
 
-  /**
-   * @param indexOfRefractionProperty
-   * @param providedOptions
-   */
   constructor( indexOfRefractionProperty: NumberProperty, providedOptions: IndexOfRefractionControlOptions ) {
 
     assert && assert( indexOfRefractionProperty.range ); // {Range|null}

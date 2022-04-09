@@ -25,10 +25,6 @@ type RaysRadioButtonGroupOptions = SelfOptions & PickRequired<VerticalAquaRadioB
 
 export default class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysType> {
 
-  /**
-   * @param raysTypeProperty
-   * @param providedOptions
-   */
   constructor( raysTypeProperty: IProperty<RaysType>, providedOptions: RaysRadioButtonGroupOptions ) {
 
     const options = optionize<RaysRadioButtonGroupOptions, SelfOptions, VerticalAquaRadioButtonGroupOptions>( {
@@ -55,10 +51,10 @@ export default class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<R
 
 /**
  * Creates an item for the radio button group.
- * @param value
- * @param text
- * @param groupTandem
- * @param itemTandemName
+ * @param value - value associated with the radio button
+ * @param text - label that appears on the radio button
+ * @param groupTandem - used to associate the item's tandem with the radio-button group
+ * @param itemTandemName - used to create the item's tandem
  */
 function createItem( value: RaysType, text: string, groupTandem: Tandem, itemTandemName: string ): AquaRadioButtonGroupItem<RaysType> {
   return {

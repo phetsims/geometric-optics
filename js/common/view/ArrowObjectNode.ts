@@ -30,11 +30,11 @@ type ArrowObjectNodeOptions = OpticalObjectNodeOptions;
 export default class ArrowObjectNode extends OpticalObjectNode {
 
   /**
-   * @param arrowObject
-   * @param optic
+   * @param arrowObject - model element
+   * @param optic - the associated optic
    * @param sceneBoundsProperty - bounds for the scene, in model coordinates
    * @param modelViewTransform
-   * @param objectDragModeProperty
+   * @param objectDragModeProperty - constrains how the object can be dragged
    * @param wasDraggedProperty - was any ArrowObjectNode dragged?
    * @param providedOptions
    */

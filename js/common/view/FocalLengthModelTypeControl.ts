@@ -28,7 +28,7 @@ export default class FocalLengthModelTypeControl extends VBox {
   private readonly disposeFocalLengthModelTypeControl: () => void;
 
   /**
-   * @param focalLengthModelTypeProperty
+   * @param focalLengthModelTypeProperty - whether to set focal length directly or indirectly
    * @param providedOptions
    */
   constructor( focalLengthModelTypeProperty: IProperty<FocalLengthModelType>, providedOptions: FocalLengthModelTypeOptions ) {

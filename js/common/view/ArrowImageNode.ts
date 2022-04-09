@@ -23,10 +23,10 @@ type ArrowImageNodeOptions = PickRequired<OpticalImageNodeOptions, 'tandem'>;
 export default class ArrowImageNode extends OpticalImageNode {
 
   /**
-   * @param arrowImage
-   * @param virtualImageVisibleProperty
-   * @param lightPropagationEnabledProperty
-   * @param objectVisibleProperty
+   * @param arrowImage - model element
+   * @param virtualImageVisibleProperty - should a virtual image be visible?
+   * @param lightPropagationEnabledProperty - is light propagation enabled?
+   * @param objectVisibleProperty - is the optical object visible?
    * @param modelViewTransform
    * @param providedOptions
    */

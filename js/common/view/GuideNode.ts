@@ -36,12 +36,6 @@ export default class GuideNode extends Node {
   private readonly guide: Guide;
   private readonly modelViewTransform: ModelViewTransform2;
 
-  /**
-   * @param guide
-   * @param armColor
-   * @param modelViewTransform
-   * @param providedOptions
-   */
   constructor( guide: Guide, armColor: IColor, modelViewTransform: ModelViewTransform2, providedOptions: GuideNodeOptions ) {
 
     const fulcrumNode = new Circle( FULCRUM_RADIUS, FULCRUM_OPTIONS );
@@ -106,7 +100,6 @@ export default class GuideNode extends Node {
 
   /**
    * Creates an icon for guides, to be used with checkbox. This is intended to be a caricature of the actual guides.
-   * @param armColor
    */
   public static createIcon( armColor: IColor = GOColors.guideArm1FillProperty ): Node {
 
@@ -147,7 +140,6 @@ export default class GuideNode extends Node {
 
 /**
  * Creates one of the guide arms.
- * @param armColor
  */
 function createArmNode( armColor: IColor ) {
   return new Rectangle( 0, 0, ARM_WIDTH, ARM_HEIGHT, {
@@ -158,9 +150,6 @@ function createArmNode( armColor: IColor ) {
 
 /**
  * Sets the position of an arm such that its left center is on the fulcrum point.
- * @param armNode
- * @param viewFulcrumPosition
- * @param angle
  */
 function setArmPosition( armNode: Node, viewFulcrumPosition: Vector2, angle: number ): void {
   assert && assert( isFinite( angle ) );

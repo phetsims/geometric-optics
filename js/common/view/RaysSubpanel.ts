@@ -19,7 +19,7 @@ import RaysRadioButtonGroup from './RaysRadioButtonGroup.js';
 export default class RaysSubpanel extends VBox {
 
   /**
-   * @param raysTypeProperty
+   * @param raysTypeProperty - representation used for rays
    * @param tandem
    */
   constructor( raysTypeProperty: IProperty<RaysType>, tandem: Tandem ) {

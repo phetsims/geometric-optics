@@ -22,11 +22,6 @@ type FocalPointNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem' | 
 
 export default class FocalPointNode extends Node {
 
-  /**
-   * @param pointProperty
-   * @param modelViewTransform
-   * @param providedOptions
-   */
   constructor( pointProperty: IProperty<Vector2>,
                modelViewTransform: ModelViewTransform2,
                providedOptions: FocalPointNodeOptions ) {
@@ -51,7 +46,6 @@ export default class FocalPointNode extends Node {
 
   /**
    * Returns an icon for the focal point
-   * @param radius
    */
   public static createIcon( radius: number = 7 ): Node {
     const circleNode = new Circle( radius, {

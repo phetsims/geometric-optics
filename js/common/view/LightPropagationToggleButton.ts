@@ -24,10 +24,6 @@ type LightPropagationToggleButtonOptions = SelfOptions & PickRequired<BooleanRou
 
 export default class LightPropagationToggleButton extends BooleanRoundToggleButton {
 
-  /**
-   * @param booleanProperty
-   * @param providedOptions
-   */
   constructor( booleanProperty: IProperty<boolean>, providedOptions: LightPropagationToggleButtonOptions ) {
 
     const options = optionize<LightPropagationToggleButtonOptions, SelfOptions, BooleanRoundToggleButtonOptions>( {

@@ -52,13 +52,13 @@ export default class LightSceneNode extends GOSceneNode {
   private readonly resetLightObjectSceneNode: () => void;
 
   /**
-   * @param scene
+   * @param scene - model element
    * @param visibleProperties
    * @param modelViewTransform
    * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
    * @param sceneBoundsProperty - bounds for the scene, in model coordinates
-   * @param raysTypeProperty
-   * @param lightPropagationEnabledProperty
+   * @param raysTypeProperty - representation used for rays
+   * @param lightPropagationEnabledProperty - is light propagation enabled?
    * @param providedOptions
    */
   constructor( scene: LightScene,

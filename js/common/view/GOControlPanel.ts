@@ -33,9 +33,9 @@ export default class GOControlPanel extends Panel {
 
   /**
    * @param optic
-   * @param raysTypeProperty
+   * @param raysTypeProperty - representation for rays
    * @param visibleProperties
-   * @param virtualImageCheckboxEnabledProperty
+   * @param virtualImageCheckboxEnabledProperty - whether to enable the 'Virtual Image' checkbox
    * @param providedOptions
    */
   constructor( optic: Optic,

@@ -25,8 +25,8 @@ type RadiusOfCurvatureControlOptions = SelfOptions & PickRequired<NumberControlO
 export default class RadiusOfCurvatureControl extends NumberControl {
 
   /**
-   * @param radiusOfCurvatureMagnitudeProperty
-   * @param radiusOfCurvatureProperty
+   * @param radiusOfCurvatureMagnitudeProperty - unsigned
+   * @param radiusOfCurvatureProperty - signed
    * @param providedOptions
    */
   constructor( radiusOfCurvatureMagnitudeProperty: NumberProperty,

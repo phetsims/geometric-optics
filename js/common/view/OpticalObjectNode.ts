@@ -30,9 +30,9 @@ export default class OpticalObjectNode extends Node {
   protected readonly cueingArrowsNode: CueingArrowsNode;
 
   /**
-   * @param opticalObject
-   * @param objectDragModeProperty
-   * @param wasDraggedProperty
+   * @param opticalObject - model element
+   * @param objectDragModeProperty - constrains how an optical object can be dragged
+   * @param wasDraggedProperty - was this optical object dragged?
    * @param providedOptions
    */
   protected constructor( opticalObject: OpticalObject,
@@ -79,7 +79,6 @@ export default class OpticalObjectNode extends Node {
 
   /**
    * Called by drag listeners when this Node is dragged.
-   * @protected
    */
   protected drag(): void {
     this.wasDraggedProperty.value = true;

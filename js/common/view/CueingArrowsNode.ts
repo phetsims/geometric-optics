@@ -31,9 +31,6 @@ export default class CueingArrowsNode extends Path {
   // length of the arrows, from tip to tip
   private readonly length: number;
 
-  /**
-   * @param providedOptions
-   */
   constructor( providedOptions?: CueingArrowsNodeOptions ) {
 
     const options = optionize<CueingArrowsNodeOptions, SelfOptions, PathOptions>( {

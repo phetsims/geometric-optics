@@ -29,9 +29,9 @@ type SecondPointNodeOptions = SelfOptions &
 export default class SecondPointNode extends Node {
 
   /**
-   * @param secondPoint
+   * @param secondPoint - model element
    * @param modelViewTransform
-   * @param wasDraggedProperty
+   * @param wasDraggedProperty - was the second point dragged?
    * @param providedOptions
    */
   constructor( secondPoint: SecondPoint, modelViewTransform: ModelViewTransform2, wasDraggedProperty: IProperty<boolean>,

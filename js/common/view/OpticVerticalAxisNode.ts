@@ -18,8 +18,8 @@ import { RaysType } from '../model/RaysType.js';
 export default class OpticVerticalAxisNode extends Node {
 
   /**
-   * @param optic
-   * @param raysTypeProperty
+   * @param optic - the optic model element
+   * @param raysTypeProperty - representation used for rays
    * @param modelViewTransform
    */
   constructor( optic: Optic,

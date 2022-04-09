@@ -32,14 +32,14 @@ type OpticalAxisForegroundNodeOptions = SelfOptions & OpticalAxisNodeOptions;
 export default class OpticalAxisForegroundNode extends OpticalAxisNode {
 
   /**
-   * @param opticPositionProperty
+   * @param opticPositionProperty - position of the optic
    * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
    * @param modelViewTransform
    * @param framedObjectPositionProperty
    * @param framedObjectNode
    * @param framedImagePositionProperty
    * @param framedImageNode
-   * @param lightRaysProcessedEmitter
+   * @param lightRaysProcessedEmitter - fires when animation of rays has completed
    * @param providedOptions
    */
   constructor( opticPositionProperty: IReadOnlyProperty<Vector2>,

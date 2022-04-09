@@ -29,12 +29,12 @@ export type HTMLImageElementObjectNodeOptions = OpticalObjectNodeOptions;
 export default class HTMLImageElementObjectNode extends OpticalObjectNode {
 
   /**
-   * @param htmlImageElementObject
+   * @param htmlImageElementObject - model element
    * @param sceneBoundsProperty - bounds for the scene, in model coordinates
-   * @param opticPositionProperty
+   * @param opticPositionProperty - position of the optic
    * @param modelViewTransform
-   * @param objectDragModeProperty
-   * @param wasDraggedProperty
+   * @param objectDragModeProperty - constrains how the optical object can be dragged
+   * @param wasDraggedProperty - was this optical object dragged?
    * @param providedOptions
    */
   constructor( htmlImageElementObject: HTMLImageElementObject,

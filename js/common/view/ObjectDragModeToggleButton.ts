@@ -36,7 +36,7 @@ type DragLockedButtonOptions = SelfOptions &
 export default class ObjectDragModeToggleButton extends RectangularToggleButton<ObjectDragMode> {
 
   /**
-   * @param objectDragModeProperty - is dragging locked to horizontal?
+   * @param objectDragModeProperty - constrains how an optical object can be dragged
    * @param providedOptions
    */
   constructor( objectDragModeProperty: IProperty<ObjectDragMode>, providedOptions?: DragLockedButtonOptions ) {

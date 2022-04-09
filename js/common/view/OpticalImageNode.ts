@@ -23,10 +23,10 @@ export type OpticalImageNodeOptions = SelfOptions & PickRequired<NodeOptions, 't
 export default class OpticalImageNode extends Node {
 
   /**
-   * @param opticalImage
-   * @param virtualImageVisibleProperty
-   * @param lightPropagationEnabledProperty
-   * @param objectVisibleProperty
+   * @param opticalImage - model element
+   * @param virtualImageVisibleProperty - are virtual images visible?
+   * @param lightPropagationEnabledProperty - is light propagation enabled?
+   * @param objectVisibleProperty - is the optical object visible?
    * @param providedOptions
    */
   protected constructor( opticalImage: OpticalImage,

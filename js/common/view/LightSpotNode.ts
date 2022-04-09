@@ -26,12 +26,6 @@ type LightSpotNodeOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tande
 
 export default class LightSpotNode extends Node {
 
-  /**
-   * @param lightSpot
-   * @param projectionScreen
-   * @param modelViewTransform
-   * @param providedOptions
-   */
   constructor( lightSpot: LightSpot,
                projectionScreen: ProjectionScreen,
                modelViewTransform: ModelViewTransform2,
