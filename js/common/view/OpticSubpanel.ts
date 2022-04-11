@@ -8,7 +8,7 @@
  * @author Martin Veillette
  */
 
-import { HBox } from '../../../../scenery/js/imports.js';
+import { HBox, Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import FocalLengthControl from './FocalLengthControl.js';
 import GOOptions from '../GOOptions.js';
@@ -31,61 +31,17 @@ export default class OpticSubpanel extends HBox {
 
     const children = [];
 
-    // An exclusively-flat mirror (as in the Basics version) has no control for focal length.
+    // An exclusively-flat mirror (as in the Basics version) has no controls for focal length.
     if ( !optic.isExclusivelyFlatMirror() ) {
 
-      // Focal Length
-      const focalLengthControl = new FocalLengthControl( optic.directFocalLengthModel.focalLengthMagnitudeProperty,
-        optic.focalLengthProperty, {
-          tandem: tandem.createTandem( 'focalLengthControl' )
-        } );
+      // Controls for 'direct' focal-length model
+      children.push( new DirectFocalLengthControls( optic, tandem ) );
 
-      // Wrapper for controls related to the 'direct' focal-length model. This allows the sim to handle which controls
-      // are visible for 'direct', while allowing the PhET-iO client to control focalLengthControl.visibleProperty.
-      // See https://github.com/phetsims/geometric-optics/issues/347
-      const directWrapperNode = new HBox( {
-        children: [ focalLengthControl ],
-        visibleProperty: new DerivedProperty( [ GOOptions.focalLengthModelTypeProperty, optic.opticShapeProperty ],
-          ( focalLengthModelType: FocalLengthModelType, opticShape: OpticShape ) =>
-            ( focalLengthModelType === 'direct' ) && ( opticShape !== 'flat' ) )
-      } );
-      children.push( directWrapperNode );
-
-      // Children of indirectWrapperNode
-      const indirectChildren = [];
-
-      // Radius of Curvature
-      const radiusOfCurvatureControl = new RadiusOfCurvatureControl(
-        optic.indirectFocalLengthModel.radiusOfCurvatureMagnitudeProperty,
-        optic.radiusOfCurvatureProperty, {
-          tandem: tandem.createTandem( 'radiusOfCurvatureControl' )
-        } );
-      indirectChildren.push( radiusOfCurvatureControl );
-
-      // Index of Refraction (for lens only)
-      if ( optic instanceof Lens ) {
-        const indexOfRefractionControl = new IndexOfRefractionControl( optic.indirectFocalLengthModel.indexOfRefractionProperty, {
-          tandem: tandem.createTandem( 'indexOfRefractionControl' )
-        } );
-        indirectChildren.push( indexOfRefractionControl );
-      }
-
-      // Wrapper for controls related to the 'indirect' focal-length model. This allows the sim to handle which controls
-      // are visible for 'indirect', while allowing the PhET-iO client to control radiusOfCurvatureControl.visibleProperty
-      // and indexOfRefractionControl.visibleProperty. See https://github.com/phetsims/geometric-optics/issues/347
-      const indirectWrapperNode = new HBox( {
-        children: indirectChildren,
-        spacing: X_SPACING,
-        align: ALIGN,
-        visibleProperty: new DerivedProperty( [ GOOptions.focalLengthModelTypeProperty, optic.opticShapeProperty ],
-          ( focalLengthModelType: FocalLengthModelType, opticShape: OpticShape ) =>
-            ( focalLengthModelType === 'indirect' ) && ( opticShape !== 'flat' )
-        )
-      } );
-      children.push( indirectWrapperNode );
+      // Controls for 'indirect' focal-length model
+      children.push( new IndirectFocalLengthControls( optic, tandem ) );
     }
 
-    // Diameter
+    // Diameter control, relevant for all optics
     const diameterControl = new DiameterControl( optic.diameterProperty, {
       tandem: tandem.createTandem( 'diameterControl' )
     } );
@@ -96,6 +52,71 @@ export default class OpticSubpanel extends HBox {
       spacing: X_SPACING,
       align: ALIGN,
       tandem: tandem
+    } );
+  }
+}
+
+/**
+ * Wrapper for controls related to the 'direct' focal-length model. This allows the sim to handle which controls
+ * are visible for 'direct', while allowing the PhET-iO client to control focalLengthControl.visibleProperty.
+ * See https://github.com/phetsims/geometric-optics/issues/347
+ */
+class DirectFocalLengthControls extends Node {
+
+  constructor( optic: Optic, tandem: Tandem ) {
+
+    // Focal Length
+    const focalLengthControl = new FocalLengthControl( optic.directFocalLengthModel.focalLengthMagnitudeProperty,
+      optic.focalLengthProperty, {
+        tandem: tandem.createTandem( 'focalLengthControl' )
+      } );
+
+    super( {
+      children: [ focalLengthControl ],
+      visibleProperty: new DerivedProperty( [ GOOptions.focalLengthModelTypeProperty, optic.opticShapeProperty ],
+        ( focalLengthModelType: FocalLengthModelType, opticShape: OpticShape ) =>
+          ( focalLengthModelType === 'direct' ) && ( opticShape !== 'flat' ) )
+      // no tandem, do not instrument!
+    } );
+  }
+}
+
+/**
+ * Wrapper for controls related to the 'indirect' focal-length model. This allows the sim to handle which controls
+ * are visible for 'indirect', while allowing the PhET-iO client to control radiusOfCurvatureControl.visibleProperty
+ * and indexOfRefractionControl.visibleProperty. See https://github.com/phetsims/geometric-optics/issues/347
+ */
+class IndirectFocalLengthControls extends HBox {
+
+  constructor( optic: Optic, tandem: Tandem ) {
+
+    const children = [];
+
+    // Radius of Curvature
+    const radiusOfCurvatureControl = new RadiusOfCurvatureControl(
+      optic.indirectFocalLengthModel.radiusOfCurvatureMagnitudeProperty,
+      optic.radiusOfCurvatureProperty, {
+        tandem: tandem.createTandem( 'radiusOfCurvatureControl' )
+      } );
+    children.push( radiusOfCurvatureControl );
+
+    // Index of Refraction (for lens only)
+    if ( optic instanceof Lens ) {
+      const indexOfRefractionControl = new IndexOfRefractionControl( optic.indirectFocalLengthModel.indexOfRefractionProperty, {
+        tandem: tandem.createTandem( 'indexOfRefractionControl' )
+      } );
+      children.push( indexOfRefractionControl );
+    }
+
+    super( {
+      children: children,
+      spacing: X_SPACING,
+      align: ALIGN,
+      visibleProperty: new DerivedProperty( [ GOOptions.focalLengthModelTypeProperty, optic.opticShapeProperty ],
+        ( focalLengthModelType: FocalLengthModelType, opticShape: OpticShape ) =>
+          ( focalLengthModelType === 'indirect' ) && ( opticShape !== 'flat' )
+      )
+      // no tandem, do not instrument!
     } );
   }
 }
