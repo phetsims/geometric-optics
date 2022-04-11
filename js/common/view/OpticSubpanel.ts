@@ -75,8 +75,9 @@ class OpticSubpanel extends HBox {
       children: indirectChildren,
       spacing: X_SPACING,
       align: ALIGN,
-      visibleProperty: new DerivedProperty( [ GOGlobalOptions.focalLengthModelTypeProperty ],
-        ( focalLengthModelType: FocalLengthModelType ) => ( focalLengthModelType === 'indirect' )
+      visibleProperty: new DerivedProperty( [ GOGlobalOptions.focalLengthModelTypeProperty, optic.opticShapeProperty ],
+        ( focalLengthModelType: FocalLengthModelType, opticShape: OpticShape ) =>
+          ( focalLengthModelType === 'indirect' ) && ( opticShape !== 'flat' )
       )
     } );
 
