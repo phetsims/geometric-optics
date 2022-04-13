@@ -32,6 +32,8 @@ type LightObjectSceneOptions = SelfOptions & PickRequired<GOSceneOptions, 'tande
 
 export default class LightScene extends GOScene {
 
+  public readonly lens: Lens;
+
   // the elements that make up this scene
   public readonly lightObject1: LightObject;
   public readonly lightObject2: LightObject;
@@ -58,6 +60,8 @@ export default class LightScene extends GOScene {
                providedOptions: LightObjectSceneOptions ) {
 
     super( lens, providedOptions );
+
+    this.lens = lens;
 
     let opticalObjectNumber = 1;
 

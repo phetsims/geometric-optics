@@ -81,14 +81,14 @@ export default class LightSceneNode extends GOSceneNode {
     } );
 
     // First light
-    const lightObject1Node = new LightObjectNode( scene.lightObject1, sceneBoundsProperty, scene.optic.positionProperty,
+    const lightObject1Node = new LightObjectNode( scene.lightObject1, sceneBoundsProperty, scene.lens.positionProperty,
       modelViewTransform, providedOptions.objectDragModeProperty, lightWasDraggedProperty, {
         tandem: providedOptions.tandem.createTandem( 'lightObject1Node' )
       } );
     this.opticalObjectsLayer.addChild( lightObject1Node );
 
     // Second light
-    const lightObject2Node = new LightObjectNode( scene.lightObject2, sceneBoundsProperty, scene.optic.positionProperty,
+    const lightObject2Node = new LightObjectNode( scene.lightObject2, sceneBoundsProperty, scene.lens.positionProperty,
       modelViewTransform, providedOptions.objectDragModeProperty, lightWasDraggedProperty, {
         visibleProperty: visibleProperties.secondPointVisibleProperty,
         tandem: providedOptions.tandem.createTandem( 'lightObject2Node' )
@@ -97,7 +97,7 @@ export default class LightSceneNode extends GOSceneNode {
 
     // The part of the optical axis that appears to be in front of the projection screen
     const opticalAxisForegroundNode = new OpticalAxisInFrontOfProjectionScreenNode(
-      scene.optic.positionProperty,
+      scene.lens.positionProperty,
       scene.projectionScreen.positionProperty,
       modelVisibleBoundsProperty,
       modelViewTransform, {
@@ -124,7 +124,7 @@ export default class LightSceneNode extends GOSceneNode {
     // Projection screen
     const projectionScreenNode = new ProjectionScreenNode(
       scene.projectionScreen,
-      scene.optic.positionProperty,
+      scene.lens.positionProperty,
       sceneBoundsProperty,
       modelViewTransform, {
         tandem: providedOptions.tandem.createTandem( 'projectionScreenNode' )
@@ -162,8 +162,8 @@ export default class LightSceneNode extends GOSceneNode {
       projectionScreenNode
     ];
 
-    // 'J' hotkey will cycle tools through these points, dynamically looking at left-to-right x coordinate.
-    this.toolJumpPoints = [
+    // Tool jump points that are common to both lens shapes.
+    const commonJumpPoints = [
       ...this.opticJumpPoints,
 
       // objects
@@ -174,7 +174,15 @@ export default class LightSceneNode extends GOSceneNode {
       {
         positionProperty: scene.lightObject2.positionProperty,
         visibleProperty: lightObject2Node.visibleProperty
-      },
+      }
+    ];
+
+    // 'J' hotkey will cycle tools through these points, dynamically looking at left-to-right x coordinate.
+    this.toolJumpPoints = [ ...commonJumpPoints ];
+
+    // Jump points that are interesting only for convex lenses.
+    // See https://github.com/phetsims/geometric-optics/issues/426
+    const convexJumpPoints = [
 
       // positions where rays converge and an image would form
       {
@@ -200,6 +208,34 @@ export default class LightSceneNode extends GOSceneNode {
         visibleProperty: lightSpot2Node.visibleProperty
       }
     ];
+
+    // Adjust the tool jump points based on the shape of the lens.
+    // The tools have a reference to this.toolJumpPoints, so it's important that this array is modified in place.
+    scene.lens.opticShapeProperty.link( opticShape => {
+      console.log( `opticShape=${opticShape}` );
+      if ( opticShape === 'convex' ) {
+
+        // Add jump points that are interesting only for a convex lens. We're checking points before pushing
+        // them in case there's any PhET-iO funny business, so we don't end up with duplicate points in the array.
+        convexJumpPoints.forEach( jumpPoint => {
+          if ( this.toolJumpPoints.indexOf( jumpPoint ) === -1 ) {
+            this.toolJumpPoints.push( jumpPoint );
+          }
+        } );
+        assert && assert( this.toolJumpPoints.length === commonJumpPoints.length + convexJumpPoints.length );
+      }
+      else {
+
+        // Remove jump points that are interesting only for a convex lens.
+        // We're confirming that the points are in the array in case there's any PhET-iO funny business.
+        convexJumpPoints.forEach( jumpPoint => {
+          const index = this.toolJumpPoints.indexOf( jumpPoint );
+          ( index !== -1 ) && this.toolJumpPoints.splice( index, 1 );
+        } );
+        assert && assert( this.toolJumpPoints.length === commonJumpPoints.length );
+      }
+      console.log( `toolJumpPoints.length=${this.toolJumpPoints.length}` );
+    } );
 
     // Visibility for associates labels
     this.lightObject1NodeVisibleProperty = lightObject1Node.visibleProperty;
