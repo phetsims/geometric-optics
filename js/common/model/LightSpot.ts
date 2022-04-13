@@ -23,6 +23,7 @@ import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioO
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 
 type PositionAndDiameter = {
   position: Vector2; // position of the light spot's center, in the vertical plane of the projection screen
@@ -40,11 +41,14 @@ export default class LightSpot extends PhetioObject {
   // Intensity of the light spot, in the range [0,1], 0 if there is no light spot hitting the projection screen
   public readonly intensityProperty: IReadOnlyProperty<number>;
 
-  // Position of the center of the light spot, which may not be on the screen,
+  // Position of the center of the light spot, which may not be on the screen
   public readonly positionProperty: IReadOnlyProperty<Vector2>;
 
-  // Diameter of the light spot in the y dimension,
+  // Diameter of the light spot in the y dimension
   public readonly diameterProperty: IReadOnlyProperty<number>;
+
+  // Whether the light spot intersects the projection screen
+  public readonly intersectsProjectionScreenProperty: IReadOnlyProperty<boolean>;
 
   constructor( optic: Optic,
                projectionScreen: ProjectionScreen,
@@ -106,6 +110,15 @@ export default class LightSpot extends PhetioObject {
         tandem: options.tandem.createTandem( 'intensityProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NullableIO( NumberIO ) ),
         phetioDocumentation: 'intensity of the light spot, in the range [0,1]'
+      } );
+
+    this.intersectsProjectionScreenProperty = new DerivedProperty(
+      [ this.positionProperty, this.diameterProperty, projectionScreen.positionProperty ],
+      ( position: Vector2, diameter: number, projectionScreenPosition: Vector2 ) =>
+        position.y >= projectionScreenPosition.y - projectionScreen.height / 2 - diameter / 2 &&
+        position.y <= projectionScreenPosition.y + projectionScreen.height / 2 + diameter / 2, {
+        tandem: options.tandem.createTandem( 'intersectsProjectionScreenProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
       } );
   }
 

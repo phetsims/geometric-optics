@@ -38,6 +38,9 @@ export default class ProjectionScreen extends PhetioObject {
   // Shape of the screen, relative to positionProperty
   public readonly screenShape: Shape;
 
+  // Height of the screen at its centerX.
+  public readonly height: number;
+
   // line that vertically bisects the screen, relative to positionProperty
   private readonly bisectorLine: Shape;
 
@@ -69,11 +72,13 @@ export default class ProjectionScreen extends PhetioObject {
       .lineTo( -SCREEN_WIDTH / 2, -SCREEN_FAR_HEIGHT / 2 )
       .close();
 
+    // Height at the centerX of the screen, the average of its near and far perspective heights
+    this.height = ( SCREEN_NEAR_HEIGHT + SCREEN_FAR_HEIGHT ) / 2;
+
     // Described from top to bottom, in model coordinates.
-    const averageScreenHeight = ( SCREEN_NEAR_HEIGHT + SCREEN_FAR_HEIGHT ) / 2;
     this.bisectorLine = new Shape()
-      .moveTo( 0, averageScreenHeight / 2 )
-      .lineTo( 0, -averageScreenHeight / 2 );
+      .moveTo( 0, this.height / 2 )
+      .lineTo( 0, -this.height / 2 );
 
     this.resetProjectionScreen = () => {
       this.positionProperty.reset();
