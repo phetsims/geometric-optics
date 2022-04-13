@@ -187,14 +187,18 @@ export default class LightSceneNode extends GOSceneNode {
       // positions where rays converge and an image would form
       {
         positionProperty: scene.opticalImage1.positionProperty,
-        visibleProperty: new DerivedProperty( [ scene.opticalImage1.positionProperty, scene.projectionScreen.positionProperty ],
-          ( opticalImagePosition: Vector2, screenPosition: Vector2 ) => opticalImagePosition.x <= screenPosition.x
+        visibleProperty: new DerivedProperty(
+          [ scene.opticalImage1.positionProperty, scene.projectionScreen.positionProperty, lightSpot1Node.visibleProperty ],
+          ( opticalImagePosition: Vector2, screenPosition: Vector2, lightSpot1NodeVisible: boolean ) =>
+            ( opticalImagePosition.x <= screenPosition.x ) && lightSpot1NodeVisible
         )
       },
       {
         positionProperty: scene.opticalImage2.positionProperty,
-        visibleProperty: new DerivedProperty( [ scene.opticalImage2.positionProperty, scene.projectionScreen.positionProperty ],
-          ( opticalImagePosition: Vector2, screenPosition: Vector2 ) => opticalImagePosition.x <= screenPosition.x
+        visibleProperty: new DerivedProperty(
+          [ scene.opticalImage2.positionProperty, scene.projectionScreen.positionProperty, lightSpot2Node.visibleProperty ],
+          ( opticalImagePosition: Vector2, screenPosition: Vector2, lightSpot2NodeVisible: boolean ) =>
+            ( opticalImagePosition.x <= screenPosition.x ) && lightSpot2NodeVisible
         )
       },
 
@@ -212,7 +216,6 @@ export default class LightSceneNode extends GOSceneNode {
     // Adjust the tool jump points based on the shape of the lens.
     // The tools have a reference to this.toolJumpPoints, so it's important that this array is modified in place.
     scene.lens.opticShapeProperty.link( opticShape => {
-      console.log( `opticShape=${opticShape}` );
       if ( opticShape === 'convex' ) {
 
         // Add jump points that are interesting only for a convex lens. We're checking points before pushing
@@ -234,7 +237,6 @@ export default class LightSceneNode extends GOSceneNode {
         } );
         assert && assert( this.toolJumpPoints.length === commonJumpPoints.length );
       }
-      console.log( `toolJumpPoints.length=${this.toolJumpPoints.length}` );
     } );
 
     // Visibility for associates labels
