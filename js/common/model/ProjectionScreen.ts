@@ -38,10 +38,10 @@ export default class ProjectionScreen extends PhetioObject {
   // Shape of the screen, relative to positionProperty
   public readonly screenShape: Shape;
 
-  // Height of the screen at its centerX.
+  // Height of the screen at its centerX
   public readonly height: number;
 
-  // line that vertically bisects the screen, relative to positionProperty
+  // line that vertically bisects the screen, at its centerX
   private readonly bisectorLine: Shape;
 
   // Resets things that are specific to this class.
