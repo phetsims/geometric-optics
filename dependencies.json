@@ -1,47 +1,47 @@
 {
-  "comment": "# geometric-optics 1.1.0-dev.38 Wed Mar 16 2022 17:39:57 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# geometric-optics 1.2.0-dev.1 Fri Apr 15 2022 14:41:10 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "767b2f345518ceca5144a152ecf40cd4f9206136",
     "branch": "master"
   },
   "axon": {
-    "sha": "cde0db2642ee711a9a8492cfe6a5a51fdb7e1f07",
+    "sha": "c2270a3b6d4b4dfc5b7afd8c034a91584784e00a",
     "branch": "master"
   },
   "brand": {
-    "sha": "abb2576ef6eb66541c6ff4524ab510e82e90303d",
+    "sha": "4bde3f7233c2ed7cfe4a22c5d8bc0a5f04f6f38c",
     "branch": "master"
   },
   "chipper": {
-    "sha": "2677c6192110ae9a2722fc7c73598408f3e075e3",
+    "sha": "29ad53c230141aa95976333d8b48d285b4ca7060",
     "branch": "master"
   },
   "dot": {
-    "sha": "b2be77e0864dc6dfc1be7228ad70c091da8a0fe2",
+    "sha": "4da44560e1e2df9ace3e8cc74f926a7f173044d2",
     "branch": "master"
   },
   "geometric-optics": {
-    "sha": "70379e265adeecb56ea107c3c510e33245c7fea4",
+    "sha": "912d1da4daa205c7e1e70acc4f1dc919bcb3e536",
     "branch": "master"
   },
   "joist": {
-    "sha": "a22fe2ff9be8a5ff23b8c6c3dcc1becd91eaf922",
+    "sha": "afa7283df677120a6b443f2d4f217e606461730c",
     "branch": "master"
   },
   "kite": {
-    "sha": "669baf6bb0f0c88606a5901c281f3c18a1235f5e",
+    "sha": "b1fa99ac3c06f3f788ddad84f48aebbff8571539",
     "branch": "master"
   },
   "perennial-alias": {
-    "sha": "71724e92e844fcba50419f95f0eb926747094470",
+    "sha": "faf014a847c038346904d65b66b7f87aab815458",
     "branch": "master"
   },
   "phet-core": {
-    "sha": "e599871127c58347e1f5fa3f44c668b7543e9b73",
+    "sha": "60272669c8b94533171a47dafcfaaba222f4270a",
     "branch": "master"
   },
   "phet-io": {
-    "sha": "390450db1801b8cbb13a8669f00a89e46feb000b",
+    "sha": "583e702d55dbb5dc61af8329db94e40b9f40baaf",
     "branch": "master"
   },
   "phet-io-client-guides": {
@@ -49,11 +49,11 @@
     "branch": "master"
   },
   "phet-io-wrappers": {
-    "sha": "17e332da4b14b43f1a54f7f00e87ffa278e05ec1",
+    "sha": "5ee55039e1e16b55485b0e279c05e8fa35464eff",
     "branch": "master"
   },
   "phetcommon": {
-    "sha": "76fdc36cd68167c7fc8d10a282539e3c77a0cf99",
+    "sha": "d813c290c2eec346c1213865458b8b0cfba6c1c4",
     "branch": "master"
   },
   "phetmarks": {
@@ -65,31 +65,31 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "7d39eef6883531369d327b6592eb2eed30887011",
+    "sha": "b0cbedf59f246923b3a2ee5e848e891d911a5a06",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "a3c5d0132ace8d231deaf2eb83b7c10cf2510a1b",
+    "sha": "0d32a61039829969edb2acc8a5a9e43b41c30eba",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "11a029ea6369995dc1bd7e848b144e29944c059d",
+    "sha": "b8d1225e74508e78977ca706f7c9c04f34f4e582",
     "branch": "master"
   },
   "studio": {
-    "sha": "dbf2959c7687b35447832c60e981d6cfceb735f3",
+    "sha": "9af65d0bde5cbce63446e207ec164577adb48b79",
     "branch": "master"
   },
   "sun": {
-    "sha": "62874d6e04189060dd0bd99fd8f499887113dab1",
+    "sha": "e660bbb14ff5bd045acc7071cb60e9834ffe4dff",
     "branch": "master"
   },
   "tambo": {
-    "sha": "8f28c61b87d7ed36a7b6d835665bf9753216bd77",
+    "sha": "c8f654984682720d7f342ce3d8c302f034be4e29",
     "branch": "master"
   },
   "tandem": {
-    "sha": "e3802f71179aa474379d9a61109ea9f5e6cefbe7",
+    "sha": "4258406331289dfc5c12ea52044c64732fb1487f",
     "branch": "master"
   },
   "twixt": {
@@ -97,7 +97,7 @@
     "branch": "master"
   },
   "utterance-queue": {
-    "sha": "c913734140afa0f7b3923e18234bf06f5e2ea866",
+    "sha": "fa50d7164d28ac712baed07314122187bb56b65a",
     "branch": "master"
   }
 }
