@@ -27,7 +27,6 @@ import IProperty from '../../../../axon/js/IProperty.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import ToolJumpPoint from './tools/ToolJumpPoint.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 
 type SelfOptions = {
   objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>;
@@ -191,24 +190,6 @@ export default class LightSceneNode extends GOSceneNode {
     // Jump points that are interesting only for convex lenses.
     // See https://github.com/phetsims/geometric-optics/issues/426
     const convexJumpPoints = [
-
-      // positions where rays converge and an image would form
-      {
-        positionProperty: scene.opticalImage1.positionProperty,
-        visibleProperty: new DerivedProperty(
-          [ scene.opticalImage1.positionProperty, scene.projectionScreen.positionProperty, lightSpot1Node.visibleProperty ],
-          ( opticalImagePosition: Vector2, screenPosition: Vector2, lightSpot1NodeVisible: boolean ) =>
-            ( opticalImagePosition.x <= screenPosition.x ) && lightSpot1NodeVisible
-        )
-      },
-      {
-        positionProperty: scene.opticalImage2.positionProperty,
-        visibleProperty: new DerivedProperty(
-          [ scene.opticalImage2.positionProperty, scene.projectionScreen.positionProperty, lightSpot2Node.visibleProperty ],
-          ( opticalImagePosition: Vector2, screenPosition: Vector2, lightSpot2NodeVisible: boolean ) =>
-            ( opticalImagePosition.x <= screenPosition.x ) && lightSpot2NodeVisible
-        )
-      },
 
       // light spots on the projection screen
       {
