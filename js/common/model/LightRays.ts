@@ -20,6 +20,7 @@ import { MappedProperties } from '../../../../axon/js/DerivedProperty.js';
 import ProjectionScreen from './ProjectionScreen.js';
 import Utils from '../../../../dot/js/Utils.js';
 import OpticalImage from './OpticalImage.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 
 // constants related to 'Many' rays representation, see https://github.com/phetsims/geometric-optics/issues/289
 const MANY_MIN_RAYS = 20;
@@ -66,7 +67,7 @@ export default class LightRays {
 
     // Things that result in a change to the rays.
     // We only care about the types of the first 3 dependencies, because the listener only has 3 parameters.
-    type DependencyTypes = [ Vector2, RaysType, number, ...any[] ];
+    type DependencyTypes = [ Vector2, RaysType, number, ...IntentionalAny[] ];
     const dependencies: MappedProperties<DependencyTypes> = [
       opticalObjectPositionProperty, raysTypeProperty, raysAnimationTimeProperty,
       optic.positionProperty, optic.diameterProperty, optic.focalLengthProperty, optic.opticShapeProperty
