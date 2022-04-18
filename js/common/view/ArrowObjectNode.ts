@@ -78,8 +78,10 @@ export default class ArrowObjectNode extends OpticalObjectNode {
         let maxY: number;
 
         if ( objectDragMode === 'freeDragging' ) {
-          minY = sceneBounds.minY;
-          maxY = sceneBounds.maxY;
+
+          // Constrain to the smaller of sceneBounds or MAX_MAGNITUDE. See https://github.com/phetsims/geometric-optics/issues/429
+          minY = Math.max( sceneBounds.minY, optic.positionProperty.value.x - ArrowObject.MAX_MAGNITUDE );
+          maxY = Math.min( sceneBounds.maxY, optic.positionProperty.value.x + ArrowObject.MAX_MAGNITUDE );
         }
         else {
 

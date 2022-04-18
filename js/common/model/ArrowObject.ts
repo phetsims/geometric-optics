@@ -24,6 +24,9 @@ export default class ArrowObject extends OpticalObject {
   // fill for the arrow object
   public readonly fill: IColor;
 
+  // See https://github.com/phetsims/geometric-optics/issues/429, in cm
+  public static readonly MAX_MAGNITUDE = 80;
+
   /**
    * @param opticalObjectNumber - positive integer used when labeling this object
    * @param opticPositionProperty
