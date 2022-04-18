@@ -14,8 +14,7 @@
     "simulation": true,
     "runnable": true,
     "colorProfiles": [
-      "default",
-      "projector"
+      "default"
     ],
     "supportedBrands": [
       "phet",
