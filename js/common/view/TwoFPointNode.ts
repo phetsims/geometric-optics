@@ -44,7 +44,7 @@ export default class TwoFPointNode extends Node {
   /**
    * Returns an icon for the 2F point
    */
-  public static createIcon( radius = 5 ): Node {
+  public static createIcon( radius: number = 5 ): Node {
     return new Circle( radius, {
       fill: GOColors.twoFPointFillProperty,
       stroke: GOColors.twoFPointStrokeProperty

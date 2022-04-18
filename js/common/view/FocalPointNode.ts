@@ -47,7 +47,7 @@ export default class FocalPointNode extends Node {
   /**
    * Returns an icon for the focal point
    */
-  public static createIcon( radius = 7 ): Node {
+  public static createIcon( radius: number = 7 ): Node {
     const circleNode = new Circle( radius, {
       fill: GOColors.focalPointFillProperty,
       stroke: GOColors.focalPointStrokeProperty
