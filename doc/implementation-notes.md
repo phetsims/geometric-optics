@@ -284,7 +284,7 @@ GOLabelsNode
   LightLabelsNode
 ```
 
-When the thing that a label is associated with is not visible, the label is not visible.  When zooming in/out, a label moves with the thing that its labeling, but does not change change its scale (i.e. font size remains constant).
+When the thing that a label is associated with is not visible, the label is not visible.  When zooming in/out, a label moves with the thing that it's labeling, but does not change change its scale (i.e. font size remains constant).
 
 See `js/common/view/labels/` for all source code related to the Labels feature.
 
