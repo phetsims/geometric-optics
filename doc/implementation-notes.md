@@ -5,11 +5,11 @@
 
 ## Table of Contents
 * [Introduction](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#introduction)
-* [General Consideration](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#general-considerations)
+* [General Considerations](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#general-considerations)
     * [Model-View Transforms](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#model-view-transforms)
     * [Query Parameters](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#query-parameters)
     * [Memory Management](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#memory-management)
-* [Optic](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#optic)
+* [Optics](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#optics)
 * [Optical Objects](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#optical-objects)
 * [Optical Images](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#optical-images)
 * [Projection Screen](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#projection-screen)
@@ -47,13 +47,13 @@ In addition to this document, you are encouraged to read:
 
 This simulation makes use of 2 model-view transforms to map model coordinates (in cm) to view coordinates.
 
-The first transform is a static mapping, see `modelViewTransform` in `GOScreenView`. The model has +x to the left, and +y up, and scaling is isometric in both directions. In the _Lens_ screen, the origin (0,0) in the model coordinate frame is near the center of the ScreenView. In the _Mirror_ screen, the origin is shift to the right, to accommodate the behavior of mirrors.
+The first transform is a static mapping, see `modelViewTransform` in `GOScreenView`. The model has +x to the left, and +y up, and scaling is isometric in both directions. In the _Lens_ screen, the origin (0,0) in the model coordinate frame is near the center of the ScreenView. In the _Mirror_ screen, the origin is shifted to the right, to accommodate the behavior of mirrors.
 
-The second transform is a dynamic mapping, based on zoom level, see `zoomTransformProperty` in `GOScreenView`. This transform is applied to all all elements within a "scene" (optic, objects, images, rays, projection screen).
+The second transform is a dynamic mapping, based on zoom level, see `zoomTransformProperty` in `GOScreenView`. This transform is applied to all elements within a "scene" (optic, objects, images, rays, projection screen).
 
-Rulers change their tick marks to match the zoom level, but otherwise do not change position or size. 
+Rulers change their tick marks to match the zoom level, but otherwise do not change their position or size. 
 
-Labels change their position to match the zoom level, but do not change size.
+Labels change their position to match the zoom level, but do not change their size.
 
 ### Query Parameters
 
@@ -65,25 +65,22 @@ to the browser console.
 ### Memory Management
 
 * **Dynamic allocation:** Most objects in this sim are allocated at startup, and exist for the lifetime of the
-  simulation. The exception is `GOOptionsNode` and its children, which must all implemented `dispose`. This is the
+  simulation. The exception is `GOOptionsNode` and its children, which must all implement `dispose`. This is the
   content for the Options dialog, whose instantiation is deferred until the user selects the _PhET > Options_ menu item.
 
 * **Listeners**: Unless otherwise noted in the code, all uses of `link`, `addListener`, etc. do NOT need a
   corresponding `unlink`, `removeListener`, etc.
 
-* **dispose**: All classes have a `dispose` method. Sim-specific classes whose instances exist for the lifetime of the sim are not intended to be disposed, and their `dispose` implementation looks like this:
+* **dispose**: All classes have a `dispose` method, possibly inherited from a super class. Sim-specific classes whose instances exist for the lifetime of the sim are not intended to be disposed, and their `dispose` implementation looks like this:
 
 ```js
-/**
- * @public
- */
-override dispose() {
+public override dispose(): void {
   assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
   super.dispose();
 }
 ```
 
-## Optic
+## Optics
 
 The sim supports two types of optic, with multiple shapes: lens (concave, convex) and mirror (concave, convex, flat). A single optic instance is used for each screen, shared by all scenes in the screen, and that instance supports all of the shapes.
 
@@ -121,10 +118,10 @@ In geometric optics, an **object** is anything that can be viewed. Since that te
 
 Three types of optical object are implemented in this sim: 
 * **Arrow**: the most common representation used in geometric optics courses. The arrow is drawn perpendicular to the optical axis, and its tail is always on the optical axis.
-* **Framed Object**: an object shown in a picture frame, in 3D perspective. The 3D perspective presents some additional implementation challenges, which we'll discuss in the **3D Perspective** section.
+* **Framed Object**: an object shown in a picture frame, in 3D perspective. The 3D perspective presents some additional implementation challenges, which we'll discuss in the **[3D Perspective](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#3d-perspective)** section.
 * **Light**: point light sources
 
-`OpticalObjectChoice` is a rich enumeration of optical objects. While there are 3 choices of framed object (Pencil, Penguin, Star), those choices simply change the PNG files used to represent the single framed object.  `OpticalObjectChoiceComboBox`, in the upper-right corner of the screen, is used to select one of the value from `OpticalObjectChoice`.
+`OpticalObjectChoice` is a rich enumeration of optical objects. While there are 3 choices of framed object (Pencil, Penguin, Star), those choices simply change the PNG files used to represent the single framed object.  `OpticalObjectChoiceComboBox`, in the upper-left corner of the screen, is used to select one of the values from `OpticalObjectChoice`.
 
 Important classes for the optical object are:
 
@@ -163,7 +160,7 @@ OpticalImageNode
   FramedImageNode
 ```
 
-Arrow images do not uniformly scale with magnification. The dimensions of the arrows head and tail remain constant, only the magnitude changes.
+Arrow images do not uniformly scale with magnification. The dimensions of the arrows head and tail remain constant, and only the magnitude changes.
 
 Framed images scale uniformly with magnification, and have variable opacity (see `opactityProperty` in `FramedImage`). We wanted to independently control how well the occluded parts of the optical axis and rays could be seen through the image. So an additional mask was added behind the image. See `FramedImageMaskNode`. 
 
@@ -223,7 +220,7 @@ GuidesNode - a pair of guides
 
 Since the framed objects/images have 3D perspective, we want the the optical axis and rays to look like they are passing through the object/images. This is accomplish by drawing 2 copies of the axis and real rays, one behind the objects/images and one in front of the objects/images.  The copy in front uses a `clipArea` to show only the parts of the axis and rays that are not occluded by the object/image - see `OpticalAxisForegrondNode` and `RealLightRaysForegroundNode`.
 
-The projection screen also has 3D perspective. To make the optical axis look like it passes through the screen, we similarly draw 2 copies of the axis.  A `clipArea` is not necessary, and the front axis simply stops at where it meets the center of the screen. See `OpticalAxisInFrontOfProjectionScreenNode`.
+The projection screen also has 3D perspective. To make the optical axis look like it passes through the screen, we similarly draw 2 copies of the axis.  A `clipArea` is not necessary, and the front axis simply stops where it meets the center of the screen. See `OpticalAxisInFrontOfProjectionScreenNode`.
 
 ## Scenes
 
@@ -274,7 +271,7 @@ Tools support 2 hotkeys (keyboard shortcuts):
 * `ESCAPE` returns the tool to the toolbox
 * `J` jumps (moves) the tool to "interesting points", cycling through those points from left-to-right
 
-The "jump" hotkey is relatively complicated. A list of interesting points is provided by the scene, see `toolJumpPoints` and `opticJumpPoints`).  Each tool filters the list of points, then handles jumping to the next point, see `jumpToPoint`.  Since each scene has a list of points, and one set of tools is shared by all scenes, the list of points must be set when the scene changes, see `setJumpPoints`.
+The "jump" hotkey is relatively complicated. A list of interesting points is provided by the scene, see `toolJumpPoints` and `opticJumpPoints`.  Each tool filters the list of points, then handles jumping to the next point, see `jumpToPoint`.  Since each scene has a list of points, and one set of tools is shared by all scenes, the list of points must be set when the scene changes, see `setJumpPoints`.
 
 ## Labels
 
@@ -287,16 +284,16 @@ GOLabelsNode
   LightLabelsNode
 ```
 
-When the thing that a label is associated with is not visible, the label is not visible.  When zooming in/out, a label moves with the thing that its labeling, but does not change change its scale (i.e. font size remains constant).
+When the thing that a label is associated with is not visible, the label is not visible.  When zooming in/out, a label moves with the thing that it's labeling, but does not change change its scale (i.e. font size remains constant).
 
 See `js/common/view/labels/` for all source code related to the Labels feature.
 
 ## Controls
 
-Most of the controls are straightforward, nothing too challenging in the implementation. From top-to-bottom, left-to-right as they appear in the UI, here are the classes for the controls:
+Most of the controls are straightforward, nothing too challenging or unusual in the implementation. From top-to-bottom, left-to-right as they appear in the UI, here are the classes for the controls:
 
 ```
-OpticalObjectChoiceComboBox - combo box for selecting optical object
+OpticalObjectChoiceComboBox - combo box for selecting optical object / scene
 ObjectDragModeToggleButton - toggle button used to lock dragging to horizontal
 OpticShapeRadioButtonGroup - radio buttons for choosing the shape of the optic
 zoomButtonGroup - zoom buttons, in GOScreenView.ts
@@ -316,21 +313,21 @@ To write well-behaved programs, it's not always possible to be physically accura
   
 * The shape of the lens, as well as the refraction of the rays within the lens, is "Hollywooded". This leads to a few artifacts that we have attempted to minimize. See the `isHollywooded` option to `LensShapes.ts`.
 
-* To ensure that rays pass through the optic, the optical object is always at least 40 cm from the optic, and never more than 100 cm from the optical axis. See `MIN_DISTANCE_FROM_OBJECT_TO_OPTIC` and `MAX_DISTANCE_FROM_OBJECT_TO_OPTICAL_AXIS` in `GOConstants.ts`.
+* To ensure that rays pass through the optic, the optical object is always at least 40 cm from the optic, and never more than 100 cm from the optical axis. See `MIN_DISTANCE_FROM_OBJECT_TO_OPTIC` and `MAX_DISTANCE_FROM_OBJECT_TO_OPTICAL_AXIS` in `GOConstants.ts`.  The arrow magnitude is  limited for the same reasons, see `ArrowObject.MAX_MAGNITUDE`
 
 * To ensure that at least 2 rays pass through the optic, the "Many" mode for Rays dynamically varies the number of rays based on the object's distance from the object. See `'many'` in `LightRays.ts`.
 
-* The opacity of framed images is derived from several quantities and magic numbers. See `opactityProperty` in `FramedImage`. 
+* The opacity of framed images is derived from several quantities and tuned constants. See `opactityProperty` in `FramedImage`. 
 
 ## Sound
 
-All sounds are provided by common code UI components. There are currently no sounds associated with sim-specific UI components and interactions.
+All sounds are provided by common-code UI components. There are currently no sounds associated with sim-specific UI components and interactions.
 
 ## Alternative Input
 
 To identify focus traversal order, search for `pdomOrder`.
 
-To identify sim-specific support for keyboard input, search for `tagName`. These classes will have custom input listeners that handle keyboard events (e.g. `KeyboardDragListener`).
+To identify sim-specific support for keyboard input, search for `tagName`. These classes have custom input listeners that handle keyboard events (e.g. `KeyboardDragListener`).
 
 To identify hotkeys, search for `addHotkey`.
 
