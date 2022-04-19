@@ -317,7 +317,7 @@ To write well-behaved programs, it's not always possible to be physically accura
 
 * To ensure that at least 2 rays pass through the optic, the "Many" mode for Rays dynamically varies the number of rays based on the object's distance from the object. See `'many'` in `LightRays.ts`.
 
-* The opacity of framed images is derived from several quantities and magic numbers. See `opactityProperty` in `FramedImage`. 
+* The opacity of framed images is derived from several quantities and tuned constants. See `opactityProperty` in `FramedImage`. 
 
 ## Sound
 
