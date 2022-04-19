@@ -74,10 +74,7 @@ to the browser console.
 * **dispose**: All classes have a `dispose` method, possibly inherited from a super class. Sim-specific classes whose instances exist for the lifetime of the sim are not intended to be disposed, and their `dispose` implementation looks like this:
 
 ```js
-/**
- * @public
- */
-override dispose() {
+public override dispose(): void {
   assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
   super.dispose();
 }
