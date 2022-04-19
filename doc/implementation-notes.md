@@ -65,13 +65,13 @@ to the browser console.
 ### Memory Management
 
 * **Dynamic allocation:** Most objects in this sim are allocated at startup, and exist for the lifetime of the
-  simulation. The exception is `GOOptionsNode` and its children, which must all implemented `dispose`. This is the
+  simulation. The exception is `GOOptionsNode` and its children, which must all implement `dispose`. This is the
   content for the Options dialog, whose instantiation is deferred until the user selects the _PhET > Options_ menu item.
 
 * **Listeners**: Unless otherwise noted in the code, all uses of `link`, `addListener`, etc. do NOT need a
   corresponding `unlink`, `removeListener`, etc.
 
-* **dispose**: All classes have a `dispose` method. Sim-specific classes whose instances exist for the lifetime of the sim are not intended to be disposed, and their `dispose` implementation looks like this:
+* **dispose**: All classes have a `dispose` method, possibly inherited from a super class. Sim-specific classes whose instances exist for the lifetime of the sim are not intended to be disposed, and their `dispose` implementation looks like this:
 
 ```js
 /**
