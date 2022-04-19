@@ -51,7 +51,7 @@ The first transform is a static mapping, see `modelViewTransform` in `GOScreenVi
 
 The second transform is a dynamic mapping, based on zoom level, see `zoomTransformProperty` in `GOScreenView`. This transform is applied to all elements within a "scene" (optic, objects, images, rays, projection screen).
 
-Rulers change their tick marks to match the zoom level, but otherwise do not change position or size. 
+Rulers change their tick marks to match the zoom level, but otherwise do not change their position or size. 
 
 Labels change their position to match the zoom level, but do not change their size.
 
