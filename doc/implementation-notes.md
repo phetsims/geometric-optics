@@ -160,7 +160,7 @@ OpticalImageNode
   FramedImageNode
 ```
 
-Arrow images do not uniformly scale with magnification. The dimensions of the arrows head and tail remain constant, only the magnitude changes.
+Arrow images do not uniformly scale with magnification. The dimensions of the arrows head and tail remain constant, and only the magnitude changes.
 
 Framed images scale uniformly with magnification, and have variable opacity (see `opactityProperty` in `FramedImage`). We wanted to independently control how well the occluded parts of the optical axis and rays could be seen through the image. So an additional mask was added behind the image. See `FramedImageMaskNode`. 
 
