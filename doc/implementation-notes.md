@@ -327,7 +327,7 @@ All sounds are provided by common-code UI components. There are currently no sou
 
 To identify focus traversal order, search for `pdomOrder`.
 
-To identify sim-specific support for keyboard input, search for `tagName`. These classes will have custom input listeners that handle keyboard events (e.g. `KeyboardDragListener`).
+To identify sim-specific support for keyboard input, search for `tagName`. These classes have custom input listeners that handle keyboard events (e.g. `KeyboardDragListener`).
 
 To identify hotkeys, search for `addHotkey`.
 
