@@ -121,7 +121,7 @@ Three types of optical object are implemented in this sim:
 * **Framed Object**: an object shown in a picture frame, in 3D perspective. The 3D perspective presents some additional implementation challenges, which we'll discuss in the **[3D Perspective](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#3d-perspective)** section.
 * **Light**: point light sources
 
-`OpticalObjectChoice` is a rich enumeration of optical objects. While there are 3 choices of framed object (Pencil, Penguin, Star), those choices simply change the PNG files used to represent the single framed object.  `OpticalObjectChoiceComboBox`, in the upper-right corner of the screen, is used to select one of the value from `OpticalObjectChoice`.
+`OpticalObjectChoice` is a rich enumeration of optical objects. While there are 3 choices of framed object (Pencil, Penguin, Star), those choices simply change the PNG files used to represent the single framed object.  `OpticalObjectChoiceComboBox`, in the upper-left corner of the screen, is used to select one of the value from `OpticalObjectChoice`.
 
 Important classes for the optical object are:
 
