@@ -313,7 +313,7 @@ To write well-behaved programs, it's not always possible to be physically accura
   
 * The shape of the lens, as well as the refraction of the rays within the lens, is "Hollywooded". This leads to a few artifacts that we have attempted to minimize. See the `isHollywooded` option to `LensShapes.ts`.
 
-* To ensure that rays pass through the optic, the optical object is always at least 40 cm from the optic, and never more than 100 cm from the optical axis. See `MIN_DISTANCE_FROM_OBJECT_TO_OPTIC` and `MAX_DISTANCE_FROM_OBJECT_TO_OPTICAL_AXIS` in `GOConstants.ts`.  The arrow magnitude is similarly limited, see `ArrowObject.MAX_MAGNITUDE`
+* To ensure that rays pass through the optic, the optical object is always at least 40 cm from the optic, and never more than 100 cm from the optical axis. See `MIN_DISTANCE_FROM_OBJECT_TO_OPTIC` and `MAX_DISTANCE_FROM_OBJECT_TO_OPTICAL_AXIS` in `GOConstants.ts`.  The arrow magnitude is  limited for the same reasons, see `ArrowObject.MAX_MAGNITUDE`
 
 * To ensure that at least 2 rays pass through the optic, the "Many" mode for Rays dynamically varies the number of rays based on the object's distance from the object. See `'many'` in `LightRays.ts`.
 
