@@ -9,7 +9,7 @@
     * [Model-View Transforms](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#model-view-transforms)
     * [Query Parameters](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#query-parameters)
     * [Memory Management](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#memory-management)
-* [Optic](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#optic)
+* [Optics](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#optics)
 * [Optical Objects](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#optical-objects)
 * [Optical Images](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#optical-images)
 * [Projection Screen](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#projection-screen)
@@ -83,7 +83,7 @@ override dispose() {
 }
 ```
 
-## Optic
+## Optics
 
 The sim supports two types of optic, with multiple shapes: lens (concave, convex) and mirror (concave, convex, flat). A single optic instance is used for each screen, shared by all scenes in the screen, and that instance supports all of the shapes.
 
