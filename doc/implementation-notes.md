@@ -5,7 +5,7 @@
 
 ## Table of Contents
 * [Introduction](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#introduction)
-* [General Consideration](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#general-considerations)
+* [General Considerations](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#general-considerations)
     * [Model-View Transforms](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#model-view-transforms)
     * [Query Parameters](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#query-parameters)
     * [Memory Management](https://github.com/phetsims/geometric-optics/blob/master/doc/implementation-notes.md#memory-management)
