@@ -293,7 +293,7 @@ See `js/common/view/labels/` for all source code related to the Labels feature.
 Most of the controls are straightforward, nothing too challenging or unusual in the implementation. From top-to-bottom, left-to-right as they appear in the UI, here are the classes for the controls:
 
 ```
-OpticalObjectChoiceComboBox - combo box for selecting optical object
+OpticalObjectChoiceComboBox - combo box for selecting optical object / scene
 ObjectDragModeToggleButton - toggle button used to lock dragging to horizontal
 OpticShapeRadioButtonGroup - radio buttons for choosing the shape of the optic
 zoomButtonGroup - zoom buttons, in GOScreenView.ts
