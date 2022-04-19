@@ -40,7 +40,7 @@ export default class OpticalObjectNode extends Node {
                          wasDraggedProperty: IProperty<boolean>,
                          providedOptions: OpticalObjectNodeOptions ) {
 
-    const options = optionize<OpticalObjectNodeOptions, SelfOptions, NodeOptions>( {
+    const options = optionize<OpticalObjectNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions
       tagName: 'div',

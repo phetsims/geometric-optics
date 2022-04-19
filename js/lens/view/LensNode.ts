@@ -35,7 +35,7 @@ export default class LensNode extends Node {
 
   constructor( lens: Lens, modelViewTransform: ModelViewTransform2, providedOptions: LensNodeOptions ) {
 
-    const options = optionize<LensNodeOptions, SelfOptions, NodeOptions>( {
+    const options = optionize<LensNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions
       phetioVisiblePropertyInstrumented: false

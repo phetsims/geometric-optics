@@ -19,7 +19,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import { Path } from '../../../../scenery/js/imports.js';
 import { OpticalImageType } from '../model/OpticalImageType.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import { optionize3 } from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {};
 
@@ -44,7 +44,7 @@ export default class RealLightRaysForegroundNode extends RealLightRaysNode {
                opticalImageTypeProperty: IReadOnlyProperty<OpticalImageType>,
                providedOptions: RealLightRaysForegroundNodeOptions ) {
 
-    const options = optionize<RealLightRaysForegroundNodeOptions, SelfOptions, RealLightRaysNodeOptions, 'stroke'>( {},
+    const options = optionize3<RealLightRaysForegroundNodeOptions, SelfOptions, RealLightRaysNodeOptions>()( {},
       providedOptions, {
         stroke: ( GOQueryParameters.debugRays ) ? 'red' : providedOptions.stroke
       } );

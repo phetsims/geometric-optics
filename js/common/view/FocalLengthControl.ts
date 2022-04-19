@@ -17,7 +17,7 @@ import StringProperty from '../../../../axon/js/StringProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import optionize, { optionize3 } from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {};
 
@@ -48,7 +48,7 @@ export default class FocalLengthControl extends NumberControl {
     } );
 
     // Assemble the defaults for NumberControl, because optionize doesn't support defaults in multiple objects.
-    const numberControlDefaults = optionize<NumberControlOptions, {}, NumberControlOptions>(
+    const numberControlDefaults = optionize3<NumberControlOptions, {}, NumberControlOptions>()(
       {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
         delta: GOConstants.FOCAL_LENGTH_SPINNER_STEP,
         titleNodeOptions: {
@@ -67,7 +67,7 @@ export default class FocalLengthControl extends NumberControl {
       } );
 
     // Now add providedOptions to the defaults.
-    const options = optionize<FocalLengthControlOptions, SelfOptions, NumberControlOptions>(
+    const options = optionize<FocalLengthControlOptions, SelfOptions, NumberControlOptions>()(
       numberControlDefaults, providedOptions );
 
     super( textProperty.value, focalLengthMagnitudeProperty, range, options );

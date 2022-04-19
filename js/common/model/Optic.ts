@@ -112,7 +112,7 @@ export default abstract class Optic extends PhetioObject {
 
   protected constructor( providedOptions: OpticOptions ) {
 
-    const options = optionize<OpticOptions, SelfOptions, PhetioObjectOptions>( {
+    const options = optionize<OpticOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // SelfOptions
       position: Vector2.ZERO,

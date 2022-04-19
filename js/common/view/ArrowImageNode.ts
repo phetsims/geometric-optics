@@ -14,7 +14,7 @@ import ArrowImage from '../model/ArrowImage.js';
 import GOConstants from '../GOConstants.js';
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 import Property from '../../../../axon/js/Property.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import { optionize3 } from '../../../../phet-core/js/optionize.js';
 import OpticalImageNode, { OpticalImageNodeOptions } from './OpticalImageNode.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
@@ -40,7 +40,7 @@ export default class ArrowImageNode extends OpticalImageNode {
     super( arrowImage, virtualImageVisibleProperty, lightPropagationEnabledProperty, objectVisibleProperty, providedOptions );
 
     const arrowNode = new ArrowNode( 0, 0, 0, 1,
-      optionize<ArrowNodeOptions, {}, ArrowNodeOptions>( {}, GOConstants.ARROW_NODE_OPTIONS, {
+      optionize3<ArrowNodeOptions, {}, ArrowNodeOptions>()( {}, GOConstants.ARROW_NODE_OPTIONS, {
         fill: arrowImage.fill,
         stroke: null,
         opacity: 0.5 // fixed opacity, see https://github.com/phetsims/geometric-optics/issues/350#issuecomment-1062438996

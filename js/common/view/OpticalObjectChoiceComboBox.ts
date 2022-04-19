@@ -34,7 +34,7 @@ export default class OpticalObjectChoiceComboBox extends ComboBox<OpticalObjectC
   constructor( opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>, listParent: Node,
                providedOptions: OpticalObjectChoiceComboBoxOptions ) {
 
-    const options = optionize<OpticalObjectChoiceComboBoxOptions, SelfOptions, ComboBoxOptions>( {
+    const options = optionize<OpticalObjectChoiceComboBoxOptions, SelfOptions, ComboBoxOptions>()( {
 
       // ComboBoxOptions
       highlightFill: 'rgb( 168, 192, 245 )',

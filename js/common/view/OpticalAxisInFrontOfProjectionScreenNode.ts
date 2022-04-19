@@ -40,7 +40,7 @@ export default class OpticalAxisInFrontOfProjectionScreenNode extends Line {
                modelViewTransform: ModelViewTransform2,
                providedOptions: OpticalAxisInFrontOfProjectionScreenNodeOptions ) {
 
-    const options = optionize<OpticalAxisInFrontOfProjectionScreenNodeOptions, SelfOptions, LineOptions>( {
+    const options = optionize<OpticalAxisInFrontOfProjectionScreenNodeOptions, SelfOptions, LineOptions>()( {
 
       // LineOptions
       stroke: GOQueryParameters.debugOpticalAxis ? 'red' : GOColors.opticalAxisStrokeProperty,

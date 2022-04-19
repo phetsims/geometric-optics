@@ -22,15 +22,13 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {};
 
-type MirrorScreenViewOptions = SelfOptions & PickRequired<GOScreenViewOptions, 'isBasicsVersion' | 'tandem'>;
+type MirrorScreenViewOptions = SelfOptions & PickRequired<GOScreenViewOptions, 'isBasicsVersion' | 'tandem' >;
 
 export default class MirrorScreenView extends GOScreenView {
 
   constructor( model: MirrorModel, providedOptions: MirrorScreenViewOptions ) {
 
-    const options = optionize<MirrorScreenViewOptions, SelfOptions, GOScreenViewOptions,
-      'getViewOrigin' | 'createOpticNode'>( {
-
+    const options = optionize<MirrorScreenViewOptions, SelfOptions, GOScreenViewOptions>()( {
       // GOScreenViewOptions
 
       // In the basics version of the sim, we only have a flat mirror, so all objects can be dragged freely.

@@ -33,7 +33,7 @@ export default class CueingArrowsNode extends Path {
 
   constructor( providedOptions?: CueingArrowsNodeOptions ) {
 
-    const options = optionize<CueingArrowsNodeOptions, SelfOptions, PathOptions>( {
+    const options = optionize<CueingArrowsNodeOptions, SelfOptions, PathOptions>()( {
 
       // CueingArrowsNodeOptions
       direction: 'both',

@@ -66,7 +66,7 @@ type OpticalObjectChoiceOptions = {
 
 // icon used for 'Arrow' in the combo box
 const ARROW_ICON = new ArrowNode( 0, 0, 0, -50,
-  optionize<ArrowNodeOptions, {}, ArrowNodeOptions>( {
+  optionize<ArrowNodeOptions, {}, ArrowNodeOptions>()( {
     fill: GOColors.arrow1FillProperty,
     stroke: null,
     scale: 0.5

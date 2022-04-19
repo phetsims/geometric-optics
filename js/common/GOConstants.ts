@@ -100,7 +100,7 @@ const GOConstants = {
 
   CHECKBOX_BOX_WIDTH: 14,
 
-  NUMBER_CONTROL_OPTIONS: optionize<NumberControlOptions, {}, NumberControlOptions>( {
+  NUMBER_CONTROL_OPTIONS: optionize<NumberControlOptions, {}, NumberControlOptions>()( {
     layoutFunction: NumberControl.createLayoutFunction3( { ySpacing: 12 } ),
     titleNodeOptions: {
       font: CONTROL_FONT,
@@ -120,12 +120,12 @@ const GOConstants = {
     }
   } ),
 
-  KEYBOARD_DRAG_LISTENER_OPTIONS: optionize<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>( {
+  KEYBOARD_DRAG_LISTENER_OPTIONS: optionize<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>()( {
     dragVelocity: 300, // velocity of the Node being dragged, in view coordinates per second
     shiftDragVelocity: 20 // velocity with the Shift key pressed, typically slower than dragVelocity
   } ),
 
-  ARROW_NODE_OPTIONS: optionize<ArrowNodeOptions, {}, ArrowNodeOptions>( {
+  ARROW_NODE_OPTIONS: optionize<ArrowNodeOptions, {}, ArrowNodeOptions>()( {
     headWidth: 18,
     headHeight: 21,
     tailWidth: 2,

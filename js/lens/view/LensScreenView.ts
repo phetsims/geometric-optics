@@ -27,8 +27,7 @@ export default class LensScreenView extends GOScreenView {
 
   constructor( model: LensModel, providedOptions: LensScreenViewOptions ) {
 
-    const options = optionize<LensScreenViewOptions, SelfOptions, GOScreenViewOptions,
-      'getViewOrigin' | 'createOpticNode'>( {
+    const options = optionize<LensScreenViewOptions, SelfOptions, GOScreenViewOptions>()( {
 
       // GOScreenViewOptions
 

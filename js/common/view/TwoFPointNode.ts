@@ -23,7 +23,7 @@ export default class TwoFPointNode extends Node {
 
   constructor( pointProperty: IProperty<Vector2>, modelViewTransform: ModelViewTransform2, provideOptions: TwoFPointNodeOptions ) {
 
-    const options = optionize<TwoFPointNodeOptions, SelfOptions, NodeOptions>( {
+    const options = optionize<TwoFPointNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions
       children: [ TwoFPointNode.createIcon() ],

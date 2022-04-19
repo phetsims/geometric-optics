@@ -80,7 +80,7 @@ export default class GOModel {
    */
   protected constructor( optic: Optic, providedOptions: GOModelOptions ) {
 
-    const options = optionize<GOModelOptions, SelfOptions>( {
+    const options = optionize<GOModelOptions, SelfOptions>()( {
 
       // SelfOptions
       lightObject1Position: Vector2.ZERO,

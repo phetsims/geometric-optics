@@ -23,7 +23,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OriginNode from './OriginNode.js';
 import GOConstants from '../../common/GOConstants.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import optionize, { optionize3 } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {};
@@ -48,7 +48,7 @@ export default class ProjectionScreenNode extends Node {
                modelViewTransform: ModelViewTransform2,
                providedOptions: ProjectionScreenNodeOptions ) {
 
-    const options = optionize<ProjectionScreenNodeOptions, SelfOptions, NodeOptions>( {
+    const options = optionize<ProjectionScreenNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions
       tagName: 'div',
@@ -163,7 +163,7 @@ export default class ProjectionScreenNode extends Node {
     } ) );
 
     const keyboardDragListener = new KeyboardDragListener(
-      optionize<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
+      optionize3<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>()( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
         positionProperty: projectionScreen.positionProperty,
         dragBoundsProperty: dragBoundsProperty,
         drag: drag,

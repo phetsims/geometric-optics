@@ -82,7 +82,7 @@ export default abstract class GOSceneNode extends Node {
                          raysTypeProperty: IReadOnlyProperty<RaysType>,
                          providedOptions: GOSceneNodeOptions ) {
 
-    const options = optionize<GOSceneNodeOptions, SelfOptions, NodeOptions>( {
+    const options = optionize<GOSceneNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions
       visiblePropertyOptions: { phetioReadOnly: true }

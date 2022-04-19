@@ -16,7 +16,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import optionize, { optionize3 } from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {};
 
@@ -47,7 +47,7 @@ export default class RadiusOfCurvatureControl extends NumberControl {
     } );
 
     // Assemble the defaults for NumberControl, because optionize doesn't support defaults in multiple objects.
-    const numberControlDefaults = optionize<NumberControlOptions, {}, NumberControlOptions>(
+    const numberControlDefaults = optionize3<NumberControlOptions, {}, NumberControlOptions>()(
       {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
         delta: GOConstants.RADIUS_OF_CURVATURE_SPINNER_STEP,
         titleNodeOptions: {
@@ -66,7 +66,7 @@ export default class RadiusOfCurvatureControl extends NumberControl {
       } );
 
     // Now add providedOptions to the defaults.
-    const options = optionize<RadiusOfCurvatureControlOptions, SelfOptions, NumberControlOptions>(
+    const options = optionize<RadiusOfCurvatureControlOptions, SelfOptions, NumberControlOptions>()(
       numberControlDefaults, providedOptions );
 
     super( textProperty.value, radiusOfCurvatureMagnitudeProperty, range, options );

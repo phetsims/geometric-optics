@@ -33,7 +33,7 @@ export default class GOSim extends Sim {
    */
   constructor( title: string, providedOptions: GOSimOptions ) {
 
-    const options = optionize<GOSimOptions, SelfOptions, SimOptions>( {
+    const options = optionize<GOSimOptions, SelfOptions, SimOptions>()( {
 
       // Sim options
       credits: GOConstants.CREDITS,

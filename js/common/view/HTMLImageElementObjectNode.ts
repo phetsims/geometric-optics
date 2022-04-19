@@ -17,7 +17,7 @@ import geometricOptics from '../../geometricOptics.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import GOConstants from '../GOConstants.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import { optionize3 } from '../../../../phet-core/js/optionize.js';
 import HTMLImageElementObject from '../model/HTMLImageElementObject.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import stepTimer from '../../../../axon/js/stepTimer.js';
@@ -128,7 +128,7 @@ export default class HTMLImageElementObjectNode extends OpticalObjectNode {
     this.addInputListener( dragListener );
 
     const keyboardDragListener = new KeyboardDragListener(
-      optionize<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
+      optionize3<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>()( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
         positionProperty: htmlImageElementObject.positionProperty,
         dragBoundsProperty: dragBoundsProperty,
         transform: modelViewTransform,

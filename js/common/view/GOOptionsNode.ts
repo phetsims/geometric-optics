@@ -30,7 +30,7 @@ export default class GOOptionsNode extends VBox {
 
   constructor( providedOptions: GOGlobalOptionsNodeOptions ) {
 
-    const options = optionize<GOGlobalOptionsNodeOptions, SelfOptions, VBoxOptions>( {
+    const options = optionize<GOGlobalOptionsNodeOptions, SelfOptions, VBoxOptions>()( {
 
       // SelfOptions
       isBasicsVersion: false,

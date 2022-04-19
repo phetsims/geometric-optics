@@ -43,7 +43,7 @@ export default abstract class GOScene extends PhetioObject {
    */
   protected constructor( optic: Optic, providedOptions: GOSceneOptions ) {
 
-    const options = optionize<GOSceneOptions, SelfOptions, PhetioObjectOptions>( {
+    const options = optionize<GOSceneOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // PhetioObjectOptions
       phetioState: false

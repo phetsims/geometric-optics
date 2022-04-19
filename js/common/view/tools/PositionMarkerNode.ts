@@ -55,7 +55,7 @@ export default class PositionMarkerNode extends GOToolNode {
                visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                providedOptions: PositionMarkerNodeOptions ) {
 
-    const options = optionize<PositionMarkerNodeOptions, SelfOptions, GOToolNodeOptions>( {
+    const options = optionize<PositionMarkerNodeOptions, SelfOptions, GOToolNodeOptions>()( {
 
       // SelfOptions
       touchAreaDilationX: 5,

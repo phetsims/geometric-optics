@@ -12,7 +12,7 @@ import { KeyboardDragListener, KeyboardDragListenerOptions, KeyboardUtils } from
 import geometricOptics from '../../../geometricOptics.js';
 import GOConstants from '../../GOConstants.js';
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
+import optionize, { optionize3 } from '../../../../../phet-core/js/optionize.js';
 import GOToolNode from './GOToolNode.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import GOTool from '../../model/tools/GOTool.js';
@@ -43,7 +43,7 @@ export default class GOToolKeyboardDragListener extends KeyboardDragListener {
     };
 
     // Assemble the defaults for KeyboardDragListener, because optionize doesn't support defaults in multiple objects.
-    const keyboardDragListenerDefaults = optionize<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>(
+    const keyboardDragListenerDefaults = optionize3<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>()(
       {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
         positionProperty: tool.positionProperty,
         dragBoundsProperty: dragBoundsProperty,
@@ -57,7 +57,7 @@ export default class GOToolKeyboardDragListener extends KeyboardDragListener {
       } );
 
     // Now add providedOptions to the defaults.
-    const options = optionize<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>(
+    const options = optionize<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>()(
       keyboardDragListenerDefaults, providedOptions );
 
     super( options );

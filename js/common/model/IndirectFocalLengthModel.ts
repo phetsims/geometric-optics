@@ -40,7 +40,7 @@ export default class IndirectFocalLengthModel extends PhetioObject implements Fo
 
   constructor( opticShapeProperty: IReadOnlyProperty<OpticShape>, providedOptions: IndirectFocalLengthModelOptions ) {
 
-    const options = optionize<IndirectFocalLengthModelOptions, SelfOptions, PhetioObjectOptions>( {
+    const options = optionize<IndirectFocalLengthModelOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // PhetioObjectOptions
       phetioState: false,

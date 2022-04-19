@@ -29,7 +29,7 @@ export default class MirrorScreen extends Screen<MirrorModel, MirrorScreenView> 
 
   constructor( providedOptions: MirrorScreenOptions ) {
 
-    const options = optionize<MirrorScreenOptions, SelfOptions, ScreenOptions>( {
+    const options = optionize<MirrorScreenOptions, SelfOptions, ScreenOptions>()( {
 
       // Screen options
       name: geometricOpticsStrings.screen.mirror,

@@ -44,7 +44,7 @@ export default class GuideNode extends Node {
     const incidentArmNode = createArmNode( armColor );
     const transmittedArmNode = createArmNode( armColor );
 
-    const options = optionize<GuideNodeOptions, SelfOptions, NodeOptions>( {
+    const options = optionize<GuideNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions
       children: [ incidentArmNode, transmittedArmNode, fulcrumNode ],

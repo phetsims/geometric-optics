@@ -44,8 +44,7 @@ export default class MirrorModel extends GOModel {
       ];
     }
 
-    const options = optionize<MirrorModelOptions, SelfOptions, GOModelOptions,
-      'opticalObjectChoices' | 'arrowObject1Position' | 'arrowObject2Position' | 'framedObjectPosition'>( {
+    const options = optionize<MirrorModelOptions, SelfOptions, GOModelOptions>()( {
 
       // GOModelOptions
       opticalObjectChoices: opticalObjectChoices,

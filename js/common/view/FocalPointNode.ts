@@ -26,7 +26,7 @@ export default class FocalPointNode extends Node {
                modelViewTransform: ModelViewTransform2,
                providedOptions: FocalPointNodeOptions ) {
 
-    const options = optionize<FocalPointNodeOptions, SelfOptions, NodeOptions>( {
+    const options = optionize<FocalPointNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions
       children: [ FocalPointNode.createIcon() ],

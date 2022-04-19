@@ -82,7 +82,7 @@ export default class GOScreenView extends ScreenView {
 
   constructor( model: GOModel, providedOptions: GOScreenViewOptions ) {
 
-    const options = optionize<GOScreenViewOptions, SelfOptions, ScreenViewOptions>( {
+    const options = optionize<GOScreenViewOptions, SelfOptions, ScreenViewOptions>()( {
 
       // GOScreenViewOptions
       objectDragMode: 'freeDragging',

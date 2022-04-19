@@ -43,7 +43,7 @@ export default class LensShapes implements OpticShapes {
    */
   constructor( radiusOfCurvature: number, diameter: number, providedOptions?: LensShapesOptions ) {
 
-    const options = optionize<LensShapesOptions, LensShapesOptions>( {
+    const options = optionize<LensShapesOptions, LensShapesOptions>()( {
 
       // LensShapesOptions
       isHollywooded: true

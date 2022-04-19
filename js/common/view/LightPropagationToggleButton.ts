@@ -26,7 +26,7 @@ export default class LightPropagationToggleButton extends BooleanRoundToggleButt
 
   constructor( booleanProperty: IProperty<boolean>, providedOptions: LightPropagationToggleButtonOptions ) {
 
-    const options = optionize<LightPropagationToggleButtonOptions, SelfOptions, BooleanRoundToggleButtonOptions>( {
+    const options = optionize<LightPropagationToggleButtonOptions, SelfOptions, BooleanRoundToggleButtonOptions>()( {
 
       // BooleanRoundToggleButtonOptions
       radius: SceneryPhetConstants.DEFAULT_BUTTON_RADIUS, // so that this button will be the same size as ResetAllButton

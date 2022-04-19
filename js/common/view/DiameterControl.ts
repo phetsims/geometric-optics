@@ -14,7 +14,7 @@ import Utils from '../../../../dot/js/Utils.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import optionize, { optionize3 } from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {};
 
@@ -28,7 +28,7 @@ export default class DiameterControl extends NumberControl {
     const range = diameterProperty.range!;
 
     // Assemble the defaults for NumberControl, because optionize doesn't support defaults in multiple objects.
-    const numberControlDefaults = optionize<NumberControlOptions, {}, NumberControlOptions>(
+    const numberControlDefaults = optionize3<NumberControlOptions, {}, NumberControlOptions>()(
       {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
         delta: GOConstants.DIAMETER_SPINNER_STEP,
         sliderOptions: {
@@ -44,7 +44,7 @@ export default class DiameterControl extends NumberControl {
       } );
 
     // Now add providedOptions to the defaults.
-    const options = optionize<DiameterControlOptions, SelfOptions, NumberControlOptions>(
+    const options = optionize<DiameterControlOptions, SelfOptions, NumberControlOptions>()(
       numberControlDefaults, providedOptions );
 
     super( geometricOpticsStrings.diameter, diameterProperty, range, options );

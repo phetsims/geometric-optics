@@ -33,7 +33,7 @@ export default class FocalLengthModelTypeControl extends VBox {
    */
   constructor( focalLengthModelTypeProperty: IProperty<FocalLengthModelType>, providedOptions: FocalLengthModelTypeOptions ) {
 
-    const options = optionize<FocalLengthModelTypeOptions, SelfOptions, VBoxOptions>( {
+    const options = optionize<FocalLengthModelTypeOptions, SelfOptions, VBoxOptions>()( {
 
       // VBoxOptions
       spacing: 8,

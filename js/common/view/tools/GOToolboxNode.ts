@@ -29,7 +29,7 @@ export default class GOToolboxNode extends Panel {
    */
   constructor( toolNodes: GOToolNode[], providedOptions: GOToolboxNodeOptions ) {
 
-    const options = optionize<GOToolboxNodeOptions, SelfOptions, PanelOptions>( {
+    const options = optionize<GOToolboxNodeOptions, SelfOptions, PanelOptions>()( {
 
       // PanelOptions
       align: 'center',

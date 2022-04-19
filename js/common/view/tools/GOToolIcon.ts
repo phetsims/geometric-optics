@@ -42,7 +42,7 @@ export default abstract class GOToolIcon extends Node {
                          pointerPositionToToolPosition: ( pointerPosition: Vector2 ) => Vector2,
                          providedOptions: GOToolIconOptions ) {
 
-    const options = optionize<GOToolIconOptions, SelfOptions, NodeOptions>( {
+    const options = optionize<GOToolIconOptions, SelfOptions, NodeOptions>()( {
 
       // pointer areas
       touchAreaDilationX: 5,

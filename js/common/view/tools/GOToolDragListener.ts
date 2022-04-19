@@ -45,7 +45,7 @@ export default class GOToolDragListener extends DragListener {
     // So keep track of where the pointer is.
     let previousPointerPoint: Vector2 = Vector2.ZERO;
 
-    const options = optionize<GOToolDragListenerOptions, SelfOptions, DragListenerOptions<PressedDragListener>>( {
+    const options = optionize<GOToolDragListenerOptions, SelfOptions, DragListenerOptions<PressedDragListener>>()( {
       pressCursor: 'pointer',
       useInputListenerCursor: true,
       positionProperty: tool.positionProperty,

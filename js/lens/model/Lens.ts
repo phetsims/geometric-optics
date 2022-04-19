@@ -40,8 +40,7 @@ export default class Lens extends Optic {
 
     const focalLengthModelsTandem = providedOptions.tandem.createTandem( 'focalLengthModels' );
 
-    const options = optionize<LensOptions, SelfOptions, OpticOptions,
-      'opticShapes' | 'diameterRange' | 'sign' | 'directFocalLengthModelOptions' | 'indirectFocalLengthModelOptions'>( {
+    const options = optionize<LensOptions, SelfOptions, OpticOptions>()( {
 
       // OpticOptions
       opticShapes: [ 'convex', 'concave' ],

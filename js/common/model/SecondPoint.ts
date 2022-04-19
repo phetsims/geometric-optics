@@ -42,7 +42,7 @@ export default class SecondPoint extends PhetioObject {
 
   constructor( framedObjectPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: SecondPointOptions ) {
 
-    const options = optionize<SecondPointOptions, SelfOptions, PhetioObjectOptions>( {
+    const options = optionize<SecondPointOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // PhetioObjectOptions
       phetioState: false

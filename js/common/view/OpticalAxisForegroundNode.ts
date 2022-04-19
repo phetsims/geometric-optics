@@ -52,7 +52,7 @@ export default class OpticalAxisForegroundNode extends OpticalAxisNode {
                lightRaysProcessedEmitter: Emitter<[]>,
                providedOptions: OpticalAxisForegroundNodeOptions ) {
 
-    const options = optionize<OpticalAxisForegroundNodeOptions, SelfOptions, OpticalAxisNodeOptions>( {
+    const options = optionize<OpticalAxisForegroundNodeOptions, SelfOptions, OpticalAxisNodeOptions>()( {
 
       // OpticalAxisNodeOptions
       stroke: ( GOQueryParameters.debugOpticalAxis ) ? 'red' : GOColors.opticalAxisStrokeProperty

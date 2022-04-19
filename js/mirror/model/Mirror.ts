@@ -37,8 +37,7 @@ export default class Mirror extends Optic {
 
     const focalLengthModelsTandem = providedOptions.tandem.createTandem( 'focalLengthModels' );
 
-    const options = optionize<MirrorOptions, SelfOptions, OpticOptions,
-      'opticShapes' | 'diameterRange' | 'sign' | 'directFocalLengthModelOptions' | 'indirectFocalLengthModelOptions'>( {
+    const options = optionize<MirrorOptions, SelfOptions, OpticOptions>()( {
 
       // OpticOptions
       opticShapes: providedOptions.isBasicsVersion ? [ 'flat' ] : [ 'concave', 'convex', 'flat' ],

@@ -35,7 +35,7 @@ export default class OpticalImageNode extends Node {
                          objectVisibleProperty: IReadOnlyProperty<boolean>,
                          providedOptions: OpticalImageNodeOptions ) {
 
-    const options = optionize<OpticalImageNodeOptions, SelfOptions, NodeOptions>( {
+    const options = optionize<OpticalImageNodeOptions, SelfOptions, NodeOptions>()( {
       visibleProperty: new DerivedProperty(
         [ opticalImage.visibleProperty, opticalImage.opticalImageTypeProperty, virtualImageVisibleProperty,
           lightPropagationEnabledProperty, objectVisibleProperty ],

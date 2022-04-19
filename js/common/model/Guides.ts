@@ -32,7 +32,7 @@ export default class Guides extends PhetioObject {
    */
   constructor( optic: Optic, opticalObjectPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: GuidesOptions ) {
 
-    const options = optionize<GuidesOptions, SelfOptions, PhetioObjectOptions>( {
+    const options = optionize<GuidesOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // PhetioObjectOptions
       phetioState: false

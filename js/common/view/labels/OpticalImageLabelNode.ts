@@ -41,7 +41,7 @@ export default class OpticalImageLabelNode extends LabelNode {
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                providedOptions: OpticalImageLabelNodeOptions ) {
 
-    const options = optionize<OpticalImageLabelNodeOptions, SelfOptions, LabelNodeOptions>( {
+    const options = optionize<OpticalImageLabelNodeOptions, SelfOptions, LabelNodeOptions>()( {
       isNumberedProperty: new BooleanProperty( true ),
       phetioReadOnlyText: true // text is readonly because the sim controls it, see below
     }, providedOptions );

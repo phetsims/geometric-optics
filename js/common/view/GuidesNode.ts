@@ -25,7 +25,7 @@ export default class GuidesNode extends Node {
 
   constructor( guides: Guides, armColor: IColor,
                modelViewTransform: ModelViewTransform2, providedOptions: GuidesNodeOptions ) {
-    super( optionize<GuidesNodeOptions, SelfOptions, NodeOptions>( {
+    super( optionize<GuidesNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions
       children: [

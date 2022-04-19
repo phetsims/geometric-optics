@@ -40,7 +40,7 @@ export default class DirectFocalLengthModel extends PhetioObject implements Foca
 
   constructor( opticShapeProperty: IReadOnlyProperty<OpticShape>, providedOptions: DirectFocalLengthModelOptions ) {
 
-    const options = optionize<DirectFocalLengthModelOptions, SelfOptions, PhetioObjectOptions>( {
+    const options = optionize<DirectFocalLengthModelOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // PhetioObjectOptions
       phetioState: false,

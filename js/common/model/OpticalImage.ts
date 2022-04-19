@@ -65,7 +65,7 @@ export default class OpticalImage extends PhetioObject {
 
   constructor( opticalObject: OpticalObject, optic: Optic, providedOptions: OpticalImageOptions ) {
 
-    const options = optionize<OpticalImageOptions, SelfOptions, PhetioObjectOptions>( {
+    const options = optionize<OpticalImageOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // SelfOptions options
       opticalObjectPositionProperty: opticalObject.positionProperty,

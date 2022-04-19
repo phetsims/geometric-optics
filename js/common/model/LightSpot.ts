@@ -56,7 +56,7 @@ export default class LightSpot extends PhetioObject {
                opticalImagePositionProperty: IReadOnlyProperty<Vector2>,
                providedOptions: LightSpotOptions ) {
 
-    const options = optionize<LightSpotOptions, SelfOptions, PhetioObject>( {
+    const options = optionize<LightSpotOptions, SelfOptions, PhetioObject>()( {
 
       // PhetioObjectOptions
       phetioState: false

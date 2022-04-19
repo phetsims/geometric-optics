@@ -49,7 +49,7 @@ export default abstract class GOToolNode extends Node {
    */
   protected constructor( tool: GOTool, providedOptions: GOToolNodeOptions ) {
 
-    const options = optionize<GOToolNodeOptions, SelfOptions, NodeOptions>( {
+    const options = optionize<GOToolNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions
       visibleProperty: DerivedProperty.not( tool.isInToolboxProperty ), // visible when not in the toolbox

@@ -26,7 +26,7 @@ export default class Add2FPointsCheckbox extends Checkbox {
 
   constructor( add2FPointsCheckboxProperty: IProperty<boolean>, providedOptions: Add2FPointsCheckboxOptions ) {
 
-    const options = optionize<Add2FPointsCheckboxOptions, SelfOptions, CheckboxOptions>( {
+    const options = optionize<Add2FPointsCheckboxOptions, SelfOptions, CheckboxOptions>()( {
       boxWidth: GOConstants.CHECKBOX_BOX_WIDTH
     }, providedOptions );
 

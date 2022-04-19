@@ -28,7 +28,7 @@ export default class LensScreen extends Screen<LensModel, LensScreenView> {
 
   constructor( providedOptions: LensScreenOptions ) {
 
-    const options = optionize<LensScreenOptions, SelfOptions, ScreenOptions>( {
+    const options = optionize<LensScreenOptions, SelfOptions, ScreenOptions>()( {
 
       // Screen options
       name: geometricOpticsStrings.screen.lens,

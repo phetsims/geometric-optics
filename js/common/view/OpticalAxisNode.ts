@@ -40,7 +40,7 @@ export default class OpticalAxisNode extends Line {
                providedOptions: OpticalAxisNodeOptions ) {
 
     // create optical axis line, with arbitrary length values.
-    super( 0, 0, 1, 0, optionize<OpticalAxisNodeOptions, SelfOptions, LineOptions>( {
+    super( 0, 0, 1, 0, optionize<OpticalAxisNodeOptions, SelfOptions, LineOptions>()( {
 
       // LineOptions
       stroke: GOColors.opticalAxisStrokeProperty,

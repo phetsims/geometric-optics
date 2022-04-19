@@ -32,7 +32,7 @@ class GOTool extends PhetioObject {
 
   protected constructor( providedOptions: GOToolOptions ) {
 
-    const options = optionize<GOToolOptions, SelfOptions, PhetioObjectOptions>( {
+    const options = optionize<GOToolOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // PhetioObjectOptions
       phetioState: false

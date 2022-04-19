@@ -44,7 +44,7 @@ export default class GOControlPanel extends Panel {
                virtualImageCheckboxEnabledProperty: IReadOnlyProperty<boolean>,
                providedOptions: GOControlPanelOptions ) {
 
-    const options = optionize<GOControlPanelOptions, SelfOptions, PanelOptions>( {
+    const options = optionize<GOControlPanelOptions, SelfOptions, PanelOptions>()( {
 
       // PanelOptions
       xMargin: 15,

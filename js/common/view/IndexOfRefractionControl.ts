@@ -13,7 +13,7 @@ import GOConstants from '../GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import optionize, { optionize3 } from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {};
 
@@ -27,7 +27,7 @@ export default class IndexOfRefractionControl extends NumberControl {
     const range = indexOfRefractionProperty.range!;
 
     // Assemble the defaults for NumberControl, because optionize doesn't support defaults in multiple objects.
-    const numberControlDefaults = optionize<NumberControlOptions, {}, NumberControlOptions>(
+    const numberControlDefaults = optionize3<NumberControlOptions, {}, NumberControlOptions>()(
       {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
         delta: GOConstants.INDEX_OF_REFRACTION_SPINNER_STEP,
         sliderOptions: {
@@ -43,7 +43,7 @@ export default class IndexOfRefractionControl extends NumberControl {
       } );
 
     // Now add providedOptions to the defaults.
-    const options = optionize<IndexOfRefractionControlOptions, SelfOptions, NumberControlOptions>(
+    const options = optionize<IndexOfRefractionControlOptions, SelfOptions, NumberControlOptions>()(
       numberControlDefaults, providedOptions );
 
     super( geometricOpticsStrings.indexOfRefraction, indexOfRefractionProperty, range, options );

@@ -39,7 +39,7 @@ export default class MirrorShapes implements OpticShapes {
    */
   constructor( radiusOfCurvature: number, diameter: number, providedOptions?: MirrorShapesOptions ) {
 
-    const options = optionize<MirrorShapesOptions, MirrorShapesOptions>( {
+    const options = optionize<MirrorShapesOptions, MirrorShapesOptions>()( {
 
       // MirrorShapesOptions
       backingThickness: 5 // thickness of the backing of the mirror, in cm

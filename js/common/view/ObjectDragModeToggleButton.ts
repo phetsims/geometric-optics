@@ -51,7 +51,7 @@ export default class ObjectDragModeToggleButton extends RectangularToggleButton<
     };
 
     // 4-way arrow to indicate free dragging
-    const freeDraggingNode = new AlignBox( new HBox( optionize<HBoxOptions, {}, HBoxOptions>( {
+    const freeDraggingNode = new AlignBox( new HBox( optionize<HBoxOptions, {}, HBoxOptions>()( {
       children: [
         new CueingArrowsNode( {
           direction: 'both',
@@ -67,7 +67,7 @@ export default class ObjectDragModeToggleButton extends RectangularToggleButton<
     }, hBoxOptions ) ), alignBoxOptions );
 
     // horizontal 2-way arrow to indicate horizontal dragging
-    const horizontalDragNode = new AlignBox( new HBox( optionize<HBoxOptions, {}, HBoxOptions>( {
+    const horizontalDragNode = new AlignBox( new HBox( optionize<HBoxOptions, {}, HBoxOptions>()( {
       children: [
         new CueingArrowsNode( {
           direction: 'horizontal',
@@ -82,7 +82,7 @@ export default class ObjectDragModeToggleButton extends RectangularToggleButton<
       ]
     }, hBoxOptions ) ), alignBoxOptions );
 
-    const options = optionize<DragLockedButtonOptions, SelfOptions, RectangularToggleButtonOptions, 'content'>( {
+    const options = optionize<DragLockedButtonOptions, SelfOptions, RectangularToggleButtonOptions>()( {
 
       // RectangularToggleButton options
       content: new ToggleNode<ObjectDragMode>( objectDragModeProperty, [

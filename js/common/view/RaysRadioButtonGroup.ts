@@ -27,7 +27,7 @@ export default class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<R
 
   constructor( raysTypeProperty: IProperty<RaysType>, providedOptions: RaysRadioButtonGroupOptions ) {
 
-    const options = optionize<RaysRadioButtonGroupOptions, SelfOptions, VerticalAquaRadioButtonGroupOptions>( {
+    const options = optionize<RaysRadioButtonGroupOptions, SelfOptions, VerticalAquaRadioButtonGroupOptions>()( {
 
       // VerticalAquaRadioButtonGroupOptions
       spacing: 4,

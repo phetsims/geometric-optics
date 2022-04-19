@@ -49,7 +49,7 @@ export default class LabelNode extends BackgroundNode {
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                providedOptions: LabelNodeOptions ) {
 
-    const options = optionize<LabelNodeOptions, SelfOptions, BackgroundNodeOptions>( {
+    const options = optionize<LabelNodeOptions, SelfOptions, BackgroundNodeOptions>()( {
 
       // SelfOptions
       xAlign: 'center',

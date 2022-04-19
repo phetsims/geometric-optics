@@ -47,8 +47,7 @@ export default class LensModel extends GOModel {
       ];
     }
 
-    const options = optionize<LensModelOptions, SelfOptions, GOModelOptions,
-      'opticalObjectChoices' | 'arrowObject1Position' | 'arrowObject2Position' | 'framedObjectPosition'>( {
+    const options = optionize<LensModelOptions, SelfOptions, GOModelOptions>()( {
 
       // GOModelOptions
       opticalObjectChoices: opticalObjectChoices,

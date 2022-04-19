@@ -16,7 +16,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import SecondPoint from '../model/SecondPoint.js';
 import GOConstants from '../GOConstants.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import optionize, { optionize3 } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
@@ -37,7 +37,7 @@ export default class SecondPointNode extends Node {
   constructor( secondPoint: SecondPoint, modelViewTransform: ModelViewTransform2, wasDraggedProperty: IProperty<boolean>,
                providedOptions: SecondPointNodeOptions ) {
 
-    const options = optionize<SecondPointNodeOptions, SelfOptions, NodeOptions>( {
+    const options = optionize<SecondPointNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions
       cursor: 'ns-resize', // second point can only be dragged vertically
@@ -84,7 +84,7 @@ export default class SecondPointNode extends Node {
     this.addInputListener( dragListener );
 
     const keyboardDragListener = new KeyboardDragListener(
-      optionize<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
+      optionize3<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>()( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
         positionProperty: positionProperty,
         transform: modelViewTransform,
         drag: drag,
@@ -140,7 +140,7 @@ class SecondPointCueingArrowsNode extends VBox {
    * @param providedOptions
    */
   constructor( spacing: number, providedOptions?: NodeOptions ) {
-    super( optionize<NodeOptions, {}, VBoxOptions>( {
+    super( optionize<NodeOptions, {}, VBoxOptions>()( {
       spacing: spacing,
       align: 'center',
       children: [

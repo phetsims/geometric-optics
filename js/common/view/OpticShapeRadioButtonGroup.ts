@@ -29,7 +29,7 @@ export default class OpticShapeRadioButtonGroup extends RectangularRadioButtonGr
 
   constructor( optic: Optic, providedOptions: OpticShapeRadioButtonGroupOptions ) {
 
-    const options = optionize<OpticShapeRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>( {
+    const options = optionize<OpticShapeRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()( {
 
       // RectangularRadioButtonGroupOptions
       orientation: 'horizontal',
