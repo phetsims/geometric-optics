@@ -102,8 +102,9 @@ export default class ArrowObjectNode extends OpticalObjectNode {
     const end = ( sign: 1 | -1 ) => {
       const arrowLength = arrowObject.positionProperty.value.y - optic.positionProperty.value.y;
       if ( Math.abs( arrowLength ) < SNAP_TO_MIN_MAGNITUDE ) {
+        const arrowSign = ( arrowLength >= 0 ) ? 1 : -1; // do not use Math.sign, because Math.sign(0) = 0
         const x = arrowObject.positionProperty.value.x;
-        const y = sign * Math.sign( arrowLength ) * SNAP_TO_MIN_MAGNITUDE;
+        const y = sign * arrowSign * SNAP_TO_MIN_MAGNITUDE;
         arrowObject.positionProperty.value = new Vector2( x, y );
       }
     };
