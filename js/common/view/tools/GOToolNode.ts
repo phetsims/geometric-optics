@@ -10,7 +10,7 @@ import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
-import { DragListener, Node, NodeOptions, PressListenerEvent } from '../../../../../scenery/js/imports.js';
+import { DragListener, IndexedNodeIO, Node, NodeOptions, PressListenerEvent } from '../../../../../scenery/js/imports.js';
 import GOTool from '../../model/tools/GOTool.js';
 import ToolJumpPoint from './ToolJumpPoint.js';
 import GOToolboxNode from './GOToolboxNode.js';
@@ -55,6 +55,8 @@ export default abstract class GOToolNode extends Node {
       visibleProperty: DerivedProperty.not( tool.isInToolboxProperty ), // visible when not in the toolbox
       tagName: 'div',
       focusable: true,
+      phetioType: IndexedNodeIO,
+      phetioState: true,
       phetioInputEnabledPropertyInstrumented: true
     }, providedOptions );
 
