@@ -55,9 +55,11 @@ export default abstract class GOToolNode extends Node {
       visibleProperty: DerivedProperty.not( tool.isInToolboxProperty ), // visible when not in the toolbox
       tagName: 'div',
       focusable: true,
+      phetioInputEnabledPropertyInstrumented: true,
+
+      // Make z-ordering of tools stateful, see https://github.com/phetsims/geometric-optics/issues/431
       phetioType: IndexedNodeIO,
-      phetioState: true,
-      phetioInputEnabledPropertyInstrumented: true
+      phetioState: true
     }, providedOptions );
 
     super( options );
