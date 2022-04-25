@@ -15,6 +15,7 @@ import Range from '../../../dot/js/Range.js';
 import optionize from '../../../phet-core/js/optionize.js';
 import { KeyboardDragListenerOptions } from '../../../scenery/js/imports.js';
 import { ArrowNodeOptions } from '../../../scenery-phet/js/ArrowNode.js';
+import { CreditsData } from '../../../joist/js/CreditsNode.js';
 
 const CONTROL_FONT = new PhetFont( 14 );
 
@@ -24,13 +25,13 @@ const GOConstants = {
   SCREEN_VIEW_Y_MARGIN: 15,
 
   // Shared with geometric-optics-basics
-  CREDITS: {
+  CREDITS: optionize<CreditsData, {}, CreditsData>()( {
     leadDesign: 'Amy Rouinfar, Michael Dubson',
     softwareDevelopment: 'Sarah Chang, Chris Malley (PixelZoom, Inc.), Martin Veillette',
     team: 'Chris Klusendorf, Diana L\u00f3pez Tavares, Ariel Paul, Kathy Perkins',
     qualityAssurance: 'Steele Dalton, Clifford Hardin, Emily Miller, Nancy Salpepi, Kathryn Woessner',
     graphicArts: 'Megan Lai'
-  },
+  } ),
 
   // Objects -----------------------------------------------------------------------------------------------------------
 
