@@ -97,6 +97,7 @@ export default abstract class Optic extends PhetioObject {
   public readonly focalLengthProperty: IReadOnlyProperty<number>;
 
   // focal points (F) to the left and right of the optic
+  //REVIEW: Some of these are explicitly public, and some are implicitly public. Is there a difference intent-wise between the two?
   readonly leftFocalPointProperty: Property<Vector2>;
   readonly rightFocalPointProperty: Property<Vector2>;
 

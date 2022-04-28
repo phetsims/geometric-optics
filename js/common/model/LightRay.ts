@@ -30,6 +30,7 @@ export type LightRaySegment = {
 export default class LightRay {
 
   // segments for the real rays
+  //REVIEW: Some are typed with Array<X>, some are typed with X[]
   public readonly realSegments: Array<LightRaySegment>;
 
   // segments for the virtual rays
@@ -62,6 +63,7 @@ export default class LightRay {
     this.realSegments = [];
     this.virtualSegments = [];
 
+    //REVIEW: Recommend explicit typescript typing for this, e.g. `const distanceTraveled: number = ...`
     // {number} maximum travel distance if ray is unimpeded
     const distanceTraveled = GOQueryParameters.lightSpeed * raysAnimationTime;
 
@@ -112,6 +114,7 @@ export default class LightRay {
       let distance = 0;
 
       // Exclude the last real ray in the calculation of length.
+      //REVIEW: Why exclude the last real ray?
       for ( let i = 0; i < this.realRays.length - 1; i++ ) {
         distance = distance + this.realRays[ i ].getLength();
       }

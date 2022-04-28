@@ -61,6 +61,8 @@ export default class FramedImage extends OpticalImage {
 
         const scaleFactor = framedObject.scaleFactor;
         const initialOrigin = framedObject.originOffset.timesScalar( scaleFactor );
+        //REVIEW Is this code guaranteed to run after images are loaded (and the sim is being constructed), and never
+        //REVIEW statically? Recommend assertion that width/height is non-zero if that's the case
         const initialWidth = htmlImageElement.width * scaleFactor;
         const initialHeight = htmlImageElement.height * scaleFactor;
 
@@ -92,6 +94,7 @@ export default class FramedImage extends OpticalImage {
         // image/object sizes are the same". This is a horizontal distance.
         const referenceObjectDistance = 160; // cm
 
+        //REVIEW: Effect instead of Affect? (pretty sure it's not an optics thing, but not sure so I didn't change it)
         // Affect of object's distance from the optic.
         const objectDistanceFactor = referenceObjectDistance / objectDistance;
 

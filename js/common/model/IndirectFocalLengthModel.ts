@@ -44,6 +44,7 @@ export default class IndirectFocalLengthModel extends PhetioObject implements Fo
 
       // PhetioObjectOptions
       phetioState: false,
+      //REVIEW: Consider multi-line strings with ``` in phetioDocumentation cases like this?
       phetioDocumentation: 'Model of focal length that is used when ' +
                            `${GOOptions.focalLengthModelTypeProperty.tandem.phetioID} ` +
                            'is set to \'indirect\'. Ignored for flat mirror. In this model:' +

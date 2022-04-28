@@ -44,6 +44,7 @@ export default class LightObject extends HTMLImageElementObject {
 
     // Fixed image, does not change.
     const htmlImageElementProperty = new Property( providedOptions.htmlImageElement, {
+      //REVIEW: Why a fixed validValues?
       validValues: [ providedOptions.htmlImageElement ]
     } );
 

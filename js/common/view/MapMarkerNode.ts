@@ -21,6 +21,7 @@ export default class MapMarkerNode extends Node {
     super( providedOptions );
 
     const mapMarkerNode = new Path( mapMarkerAltSolidShape, {
+      //REVIEW: Should options nesting be used here?
       fill: providedOptions.fill,
       stroke: providedOptions.stroke,
       lineWidth: 12,

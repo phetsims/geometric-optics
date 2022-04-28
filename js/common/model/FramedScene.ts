@@ -100,6 +100,7 @@ export default class FramedScene extends GOScene {
     );
 
     // Guides, for the Lens screen only
+    //REVIEW: This code is very similar between ArrowScene/FramedScene. Can this be factored out?
     if ( optic instanceof Lens ) {
       this.guides1 = new Guides( this.optic, this.framedObject.positionProperty, {
         tandem: providedOptions.tandem.createTandem( 'guides1' ),

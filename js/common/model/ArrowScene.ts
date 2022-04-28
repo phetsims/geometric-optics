@@ -112,6 +112,7 @@ export default class ArrowScene extends GOScene {
     }
 
     this.resetArrowObjectScene = () => {
+      //REVIEW: Seems less verbose and easier to move resets to the actual reset() method
       this.arrowObject1.reset();
       this.arrowObject2.reset();
       this.arrowImage1.reset();

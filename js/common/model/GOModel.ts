@@ -61,6 +61,7 @@ export default class GOModel {
   private readonly scenes: GOScene[];
   public readonly arrowScene: ArrowScene;
   public readonly framedScene: FramedScene;
+  //REVIEW: I've seen a lot of explicit null. Is that preferred to `lightScene?: LightScene` and removing the if-condition?
   public readonly lightScene: LightScene | null; // not supported by Mirrors screen
 
   // rulers

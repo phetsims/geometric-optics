@@ -34,6 +34,7 @@ export default class GOToolKeyboardDragListener extends KeyboardDragListener {
                zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
                dragBoundsProperty: IReadOnlyProperty<Bounds2>,
                shouldReturnToToolbox: () => boolean,
+               //REVIEW: required tandem, so presumably should be required here? But we're not using the tandem in this file?
                providedOptions?: GOToolKeyboardDragListenerOptions ) {
 
     // Return the tool to the toolbox, and move focus to its icon in the toolbox.
