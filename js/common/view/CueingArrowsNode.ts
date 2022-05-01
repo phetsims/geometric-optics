@@ -25,7 +25,8 @@ type SelfOptions = {
 };
 
 type CueingArrowsNodeOptions = SelfOptions &
-  PickOptional<PathOptions, 'fill' | 'stroke' | 'scale' | 'visibleProperty' | 'left' | 'centerY'>;
+  PickOptional<PathOptions, 'fill' | 'stroke' | 'scale' | 'visibleProperty'> &
+  PickOptional<PathOptions, 'left' | 'centerY'>; //TODO https://github.com/phetsims/scenery/issues/1332
 
 export default class CueingArrowsNode extends Path {
 

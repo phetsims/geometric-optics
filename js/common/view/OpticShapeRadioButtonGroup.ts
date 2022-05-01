@@ -23,7 +23,7 @@ type SelfOptions = {};
 
 type OpticShapeRadioButtonGroupOptions = SelfOptions &
   PickRequired<RectangularRadioButtonGroupOptions, 'tandem'> &
-  PickOptional<RectangularRadioButtonGroupOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
+  PickOptional<RectangularRadioButtonGroupOptions, 'centerX' | 'top'>; //TODO https://github.com/phetsims/scenery/issues/1332
 
 export default class OpticShapeRadioButtonGroup extends RectangularRadioButtonGroup<OpticShape> {
 

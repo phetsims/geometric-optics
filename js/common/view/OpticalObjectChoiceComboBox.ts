@@ -22,7 +22,7 @@ type SelfOptions = {};
 
 type OpticalObjectChoiceComboBoxOptions = SelfOptions &
   PickRequired<ComboBoxOptions, 'tandem'> &
-  PickOptional<ComboBoxOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
+  PickOptional<ComboBoxOptions, 'left' | 'top'>; //TODO https://github.com/phetsims/scenery/issues/1332
 
 export default class OpticalObjectChoiceComboBox extends ComboBox<OpticalObjectChoice> {
 

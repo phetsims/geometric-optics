@@ -31,7 +31,7 @@ type SelfOptions = {};
 
 type DragLockedButtonOptions = SelfOptions &
   PickRequired<RectangularToggleButtonOptions, 'tandem'> &
-  PickOptional<RectangularToggleButtonOptions, 'left' | 'right' | 'centerX' | 'top' | 'bottom' | 'centerY'>;
+  PickOptional<RectangularToggleButtonOptions, 'left' | 'centerY'>; //TODO https://github.com/phetsims/scenery/issues/1332
 
 export default class ObjectDragModeToggleButton extends RectangularToggleButton<ObjectDragMode> {
 
