@@ -68,8 +68,8 @@ export default class LightRay {
     // ray (position and direction) emerging from optical object
     const initialRay = new GORay( opticalObjectPosition, direction );
 
-    // {Vector2|null} first intersection point - a null value implies that the initialRay does not intersect the optic
-    const firstPoint = getFirstPoint( initialRay, optic, raysType );
+    // first intersection point - a null value implies that the initialRay does not intersect the optic
+    const firstPoint: Vector2 | null = getFirstPoint( initialRay, optic, raysType );
 
     this.realRays = getRealRays( initialRay, firstPoint, optic, raysType, opticalImagePosition );
 
@@ -138,7 +138,7 @@ export default class LightRay {
    */
   private raysToSegments( distanceTraveled: number ): void {
 
-    // {number} remaining distance to travel for the ray
+    // remaining distance to travel for the ray
     let remainingDistance = distanceTraveled;
 
     // counter for real rays
@@ -225,7 +225,7 @@ function getRealRays( initialRay: GORay, firstPoint: Vector2 | null, optic: Opti
       assert && assert( optic instanceof Lens );
       const lens = optic as Lens;
 
-      // {Vector2} find bisecting point of the lens, used to determine outgoing ray
+      // find bisecting point of the lens, used to determine outgoing ray
       const intermediatePoint = getIntermediatePoint( initialRay, firstPoint, lens );
 
       // create a semi-infinite ray starting at intermediate point to the target point
@@ -294,7 +294,6 @@ function terminateOnProjectionScreen( realRay: GORay, projectionScreen: Projecti
 
   const intersection = projectionScreen.getBisectorLineTranslated().intersection( realRay );
 
-  // {Vector2|null}
   const pointOnScreen = getPoint( intersection );
 
   // If intersection is found, set the transmittedRay final point

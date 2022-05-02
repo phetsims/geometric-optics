@@ -60,10 +60,10 @@ export default class LensShapes implements OpticShapes {
                       1 / 2 * halfHeight * halfHeight / ( magnitude + HOLLYWOOD_RADIUS_OFFSET ) :
                       magnitude - Math.sqrt( magnitude ** 2 - halfHeight ** 2 );
 
-    // {Shape} shape of lens
-    let lensShape; // the outline of the complete lens
-    let frontShape; // the front (left facing) part of the lens
-    let backShape; // the back (right facing)  part of the lens
+    // shape of lens
+    let lensShape: Shape; // the outline of the complete lens
+    let frontShape: Shape; // the front (left facing) part of the lens
+    let backShape: Shape; // the back (right facing)  part of the lens
 
     if ( sign >= 0 ) {
 

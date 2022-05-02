@@ -84,14 +84,14 @@ export default class LightRays {
         this.realSegments = [];
         this.virtualSegments = [];
 
-        // {Vector2} the position the opticalImage
+        // the position the opticalImage
         const opticalImagePosition = opticalImage.positionProperty.value;
 
-        // {boolean} is the Image virtual
+        // is the Image virtual
         const isVirtual = ( opticalImage.opticalImageTypeProperty.value === 'virtual' );
 
-        // {Vector2[]} get the initial directions of the rays
-        const directions = getRayDirections( raysType, opticalObjectPosition, optic, opticalImagePosition );
+        // get the initial directions of the rays
+        const directions: Vector2[] = getRayDirections( raysType, opticalObjectPosition, optic, opticalImagePosition );
 
         // loop over the direction of each ray
         directions.forEach( direction => {
@@ -125,8 +125,8 @@ export default class LightRays {
 function getRayDirections( raysType: RaysType, opticalObjectPosition: Vector2, optic: Optic,
                            opticalImagePosition: Vector2 ): Vector2[] {
 
-  // {Vector2[]} directions of the light rays emanating from opticalObjectPosition
-  const directions = [];
+  // directions of the light rays emanating from opticalObjectPosition
+  const directions: Vector2[] = [];
 
   // vector from object to optic
   const objectOpticVector = optic.positionProperty.value.minus( opticalObjectPosition );
