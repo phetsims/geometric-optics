@@ -201,8 +201,7 @@ function parseRangeWithValue( value: string ): RangeWithValue {
   return new RangeWithValue( numbers[ 0 ], numbers[ 1 ], numbers[ 2 ] );
 }
 
-//REVIEW: For consistency, should a return type be provided here?
-function isPositiveIntegerRangeWithValue( range: RangeWithValue ) {
+function isPositiveIntegerRangeWithValue( range: RangeWithValue ): boolean {
   return Number.isInteger( range.min ) && ( range.min > 0 ) &&
          Number.isInteger( range.max ) && Number.isInteger( range.defaultValue );
 }
