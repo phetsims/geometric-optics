@@ -28,9 +28,9 @@ const GOOptions = {
     tandem: optionsTandem.createTandem( 'cueingArrowsEnabledProperty' ),
     phetioDocumentation: 'shows cueing arrows on draggable elements'
   } ),
-  
+
+  //TODO https://github.com/phetsims/geometric-optics/issues/436 use StringEnumerationProperty
   focalLengthModelTypeProperty:
-  //REVIEW: Consider StringEnumerationProperty?
     new Property<FocalLengthModelType>( GOQueryParameters.focalLengthControl, {
       validValues: FocalLengthModelTypeValues,
       tandem: optionsTandem.createTandem( 'focalLengthModelTypeProperty' ),

@@ -159,7 +159,7 @@ export default class GOScreenView extends ScreenView {
         return new Bounds2( modelVisibleBounds.minX, -y, modelVisibleBounds.maxX, y );
       } );
 
-    //REVIEW: Consider StringEnumerationProperty?
+    //TODO https://github.com/phetsims/geometric-optics/issues/436 use StringEnumerationProperty
     const objectDragModeProperty = new Property( options.objectDragMode, {
       validValues: ObjectDragModeValues,
       tandem: providedOptions.tandem.createTandem( 'objectDragModeProperty' ),

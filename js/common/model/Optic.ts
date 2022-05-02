@@ -125,7 +125,7 @@ export default abstract class Optic extends PhetioObject {
 
     this.sign = options.sign;
 
-    //REVIEW: Consider StringEnumerationProperty?
+    //TODO https://github.com/phetsims/geometric-optics/issues/436 use StringEnumerationProperty
     this.opticShapeProperty = new Property( options.opticShapes[ 0 ], {
       validValues: options.opticShapes,
       tandem: options.tandem.createTandem( 'opticShapeProperty' ),

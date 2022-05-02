@@ -95,7 +95,7 @@ export default class GOModel {
 
     this.optic = optic;
 
-    //REVIEW: Consider StringEnumerationProperty?
+    //TODO https://github.com/phetsims/geometric-optics/issues/436 use StringEnumerationProperty
     this.raysTypeProperty = new Property( 'marginal', {
       validValues: RaysTypeValues,
       tandem: options.tandem.createTandem( 'raysTypeProperty' ),
