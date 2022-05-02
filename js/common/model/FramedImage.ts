@@ -94,14 +94,13 @@ export default class FramedImage extends OpticalImage {
         // image/object sizes are the same". This is a horizontal distance.
         const referenceObjectDistance = 160; // cm
 
-        //REVIEW: Effect instead of Affect? (pretty sure it's not an optics thing, but not sure so I didn't change it)
-        // Affect of object's distance from the optic.
+        // Effect of object's distance from the optic.
         const objectDistanceFactor = referenceObjectDistance / objectDistance;
 
-        // Affect of optic diameter
+        // Effect of optic diameter
         const diameterFactor = diameter / diameterRange.max;
 
-        // Affect of magnification.
+        // Effect of magnification.
         const magnificationFactor = Math.abs( 1 / magnification );
 
         // Prior to rewriting this algorithm, the opacity range was [0,0.75]. Kathy Perkins described this constant
