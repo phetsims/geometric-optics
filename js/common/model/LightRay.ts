@@ -30,17 +30,16 @@ export type LightRaySegment = {
 export default class LightRay {
 
   // segments for the real rays
-  //REVIEW: Some are typed with Array<X>, some are typed with X[]
-  public readonly realSegments: Array<LightRaySegment>;
+  public readonly realSegments: LightRaySegment[];
 
   // segments for the virtual rays
-  public readonly virtualSegments: Array<LightRaySegment>;
+  public readonly virtualSegments: LightRaySegment[];
 
   // true when the LightRay has reached its target (the optical image position, or the projection screen position)
   public readonly hasReachedTarget: boolean;
 
   // a collection of sequential rays
-  private readonly realRays: Array<GORay>;
+  private readonly realRays: GORay[];
 
   // there is a maximum of one virtual ray per LightRay
   private readonly virtualRay: GORay | null;
