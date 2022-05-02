@@ -20,11 +20,13 @@ import geometricOptics from '../../geometricOptics.js';
 // When isHollywooded:true, this value is added to the actual ROC.
 const HOLLYWOOD_RADIUS_OFFSET = 100; // cm
 
-type LensShapesOptions = {
+type SelfOptions = {
 
   // true: approximation, false: accurate, matches ROC
   isHollywooded?: boolean;
 };
+
+type LensShapesOptions = SelfOptions;
 
 export default class LensShapes implements OpticShapes {
 
@@ -43,8 +45,7 @@ export default class LensShapes implements OpticShapes {
    */
   constructor( radiusOfCurvature: number, diameter: number, providedOptions?: LensShapesOptions ) {
 
-    //REVIEW: With optionize's second type parameter default being the same as the first now, we can omit the second type parameter
-    const options = optionize<LensShapesOptions, LensShapesOptions>()( {
+    const options = optionize<LensShapesOptions, SelfOptions>()( {
 
       // LensShapesOptions
       isHollywooded: true

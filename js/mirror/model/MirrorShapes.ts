@@ -17,9 +17,11 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import OpticShapes from '../../common/model/OpticShapes.js';
 import geometricOptics from '../../geometricOptics.js';
 
-type MirrorShapesOptions = {
+type SelfOptions = {
   backingThickness?: number; // thickness of the backing of the mirror, in cm
 };
+
+type MirrorShapesOptions = SelfOptions;
 
 export default class MirrorShapes implements OpticShapes {
 
@@ -40,7 +42,7 @@ export default class MirrorShapes implements OpticShapes {
   constructor( radiusOfCurvature: number, diameter: number, providedOptions?: MirrorShapesOptions ) {
 
     //REVIEW: With optionize's second type parameter default being the same as the first now, we can omit the second type parameter
-    const options = optionize<MirrorShapesOptions, MirrorShapesOptions>()( {
+    const options = optionize<MirrorShapesOptions, SelfOptions>()( {
 
       // MirrorShapesOptions
       backingThickness: 5 // thickness of the backing of the mirror, in cm
