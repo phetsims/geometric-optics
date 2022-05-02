@@ -42,10 +42,8 @@ export default class LightObject extends HTMLImageElementObject {
    */
   constructor( opticalObjectNumber: number, opticPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: LightObjectOptions ) {
 
-    // Fixed image, does not change.
     const htmlImageElementProperty = new Property( providedOptions.htmlImageElement, {
-      //REVIEW: Why a fixed validValues?
-      validValues: [ providedOptions.htmlImageElement ]
+      validValues: [ providedOptions.htmlImageElement ]  // LightObject has a fixed image, it does not change.
     } );
 
     super( opticalObjectNumber, opticPositionProperty, htmlImageElementProperty, ORIGIN_OFFSET, SCALE_FACTOR, providedOptions );
