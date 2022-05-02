@@ -50,7 +50,6 @@ class GOTool extends PhetioObject {
     } );
 
     this.resetGOTool = () => {
-      //REVIEW: Why not just put these resets in the reset() method? It saves lines of declaring resetGOTool
       this.positionProperty.reset();
       this.isInToolboxProperty.reset();
     };
