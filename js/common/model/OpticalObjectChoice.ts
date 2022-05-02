@@ -74,8 +74,7 @@ const ARROW_ICON = new ArrowNode( 0, 0, 0, -50,
 
 export default class OpticalObjectChoice extends EnumerationValue {
 
-  //REVIEW: Guidelines note that `public` use should be consistent within a repo. Add `public` to enumeration values
-  static PENCIL = new OpticalObjectChoice( {
+  public static PENCIL = new OpticalObjectChoice( {
     type: 'framed',
     label: geometricOpticsStrings.pencil,
     icon: pencilIcon_png,
@@ -88,7 +87,7 @@ export default class OpticalObjectChoice extends EnumerationValue {
     }
   } );
 
-  static PENGUIN = new OpticalObjectChoice( {
+  public static PENGUIN = new OpticalObjectChoice( {
     type: 'framed',
     label: geometricOpticsStrings.penguin,
     icon: penguinIcon_png,
@@ -101,7 +100,7 @@ export default class OpticalObjectChoice extends EnumerationValue {
     }
   } );
 
-  static STAR = new OpticalObjectChoice( {
+  public static STAR = new OpticalObjectChoice( {
     type: 'framed',
     label: geometricOpticsStrings.star,
     icon: starIcon_png,
@@ -114,14 +113,14 @@ export default class OpticalObjectChoice extends EnumerationValue {
     }
   } );
 
-  static ARROW = new OpticalObjectChoice( {
+  public static ARROW = new OpticalObjectChoice( {
     type: 'arrow',
     label: geometricOpticsStrings.arrow,
     icon: ARROW_ICON,
     tandemPrefix: 'arrow'
   } );
 
-  static LIGHT = new OpticalObjectChoice( {
+  public static LIGHT = new OpticalObjectChoice( {
     type: 'light',
     label: geometricOpticsStrings.light,
     icon: lightIcon_png,
@@ -129,8 +128,7 @@ export default class OpticalObjectChoice extends EnumerationValue {
   } );
 
   // Gets a list of keys, values and mapping between them. For use by EnumerationProperty and PhET-iO.
-  //REVIEW: Guidelines note that `public` use should be consistent within a repo. Add `public` here?
-  static enumeration = new Enumeration( OpticalObjectChoice, {
+  public static enumeration = new Enumeration( OpticalObjectChoice, {
     phetioDocumentation: 'describes an optical object choice'
   } );
 
