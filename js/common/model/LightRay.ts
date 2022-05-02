@@ -62,8 +62,7 @@ export default class LightRay {
     this.realSegments = [];
     this.virtualSegments = [];
 
-    //REVIEW: Recommend explicit typescript typing for this, e.g. `const distanceTraveled: number = ...`
-    // {number} maximum travel distance if ray is unimpeded
+    // maximum travel distance if ray is unimpeded
     const distanceTraveled = GOQueryParameters.lightSpeed * raysAnimationTime;
 
     // ray (position and direction) emerging from optical object
