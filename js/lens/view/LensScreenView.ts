@@ -36,6 +36,7 @@ export default class LensScreenView extends GOScreenView {
 
       // Creates the Node for the lens
       createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => {
+        //REVIEW: Instead of the type assertion here, GOSceneNode could be parameterized by its Optic subtype?
         assert && assert( optic instanceof Lens );
         return new LensNode( optic as Lens, modelViewTransform, {
           tandem: parentTandem.createTandem( 'lensNode' )

@@ -43,6 +43,8 @@ export default class LensShapes implements OpticShapes {
    */
   constructor( radiusOfCurvature: number, diameter: number, providedOptions?: LensShapesOptions ) {
 
+    //REVIEW: With optionize's second type parameter default being the same as the first now, we can omit the second
+    //REVIEW: type parameter
     const options = optionize<LensShapesOptions, LensShapesOptions>()( {
 
       // LensShapesOptions

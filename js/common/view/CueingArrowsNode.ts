@@ -71,6 +71,7 @@ export default class CueingArrowsNode extends Path {
    * @param inputEnabledProperty - is input enabled for the associated Node?
    * @param wasDraggedProperty - has the associated Node been dragged?
    */
+  //REVIEW: Guidelines note that `public` use should be consistent within a repo. Add `public` here?
   static createVisibleProperty( inputEnabledProperty: IReadOnlyProperty<boolean>, wasDraggedProperty: IReadOnlyProperty<boolean> ): IProperty<boolean> {
     return new DerivedProperty(
       [ GOOptions.cueingArrowsEnabledProperty, inputEnabledProperty, wasDraggedProperty ],

@@ -31,6 +31,7 @@ export default abstract class GOScene extends PhetioObject {
   public readonly raysAnimationTimeProperty: NumberProperty;
 
   // guides
+  //REVIEW: Guidelines note that `public` use should be consistent within a repo. Add `public` here?
   abstract readonly guides1: Guides | null;
   abstract readonly guides2: Guides | null;
 

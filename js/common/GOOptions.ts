@@ -30,6 +30,7 @@ const GOOptions = {
   } ),
   
   focalLengthModelTypeProperty:
+  //REVIEW: Consider StringEnumerationProperty?
     new Property<FocalLengthModelType>( GOQueryParameters.focalLengthControl, {
       validValues: FocalLengthModelTypeValues,
       tandem: optionsTandem.createTandem( 'focalLengthModelTypeProperty' ),

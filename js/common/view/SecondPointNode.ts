@@ -136,6 +136,7 @@ const ARROW_NODE_OPTIONS = {
 class SecondPointCueingArrowsNode extends VBox {
 
   /**
+   * REVIEW: Can remove undocumented params
    * @param spacing
    * @param providedOptions
    */

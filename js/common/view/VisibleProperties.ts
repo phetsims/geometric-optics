@@ -48,6 +48,7 @@ export default class VisibleProperties {
   private readonly resetVisibleProperties: () => void;
 
   /**
+   * REVIEW: Can remove undocumented params
    * @param optic
    * @param providedOptions
    */

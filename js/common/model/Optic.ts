@@ -98,13 +98,16 @@ export default abstract class Optic extends PhetioObject {
 
   // focal points (F) to the left and right of the optic
   //REVIEW: Some of these are explicitly public, and some are implicitly public. Is there a difference intent-wise between the two?
+  //REVIEW: Guidelines note that `public` use should be consistent within a repo. Add `public` here?
   readonly leftFocalPointProperty: Property<Vector2>;
   readonly rightFocalPointProperty: Property<Vector2>;
 
   // twice the focal length (2f) of the optic
+  //REVIEW: Guidelines note that `public` use should be consistent within a repo. Add `public` here?
   readonly twiceFocalLengthProperty: IReadOnlyProperty<number>;
 
   // 2F points to the left and right of the optic
+  //REVIEW: Guidelines note that `public` use should be consistent within a repo. Add `public` here?
   readonly left2FProperty: Property<Vector2>;
   readonly right2FProperty: Property<Vector2>;
 
@@ -126,6 +129,7 @@ export default abstract class Optic extends PhetioObject {
 
     this.sign = options.sign;
 
+    //REVIEW: Consider StringEnumerationProperty?
     this.opticShapeProperty = new Property( options.opticShapes[ 0 ], {
       validValues: options.opticShapes,
       tandem: options.tandem.createTandem( 'opticShapeProperty' ),

@@ -337,6 +337,7 @@ function getTransmittedRay( originPoint: Vector2, opticalImagePosition: Vector2,
 /**
  * Returns a virtual ray that is opposite to the last real ray.
  * Returns null if the ray does not intersect the optical image.
+ * REVIEW: Can remove undocumented params
  * @param isImageVirtual
  * @param realRays
  * @param opticalImagePosition

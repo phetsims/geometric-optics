@@ -46,6 +46,7 @@ export default class MirrorScreenView extends GOScreenView {
 
       // Creates the Node for the mirror
       createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => {
+        //REVIEW: Instead of the type assertion here, GOSceneNode could be parameterized by its Optic subtype?
         assert && assert( optic instanceof Mirror );
         return new MirrorNode( optic as Mirror, modelViewTransform, {
           tandem: parentTandem.createTandem( 'mirrorNode' )

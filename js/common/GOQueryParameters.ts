@@ -192,6 +192,7 @@ const SCHEMA_MAP = {
 
 /**
  * Parses a query-parameter value into a RangeWithValue.
+ * REVIEW: Can remove undocumented params
  * @param value
  */
 function parseRangeWithValue( value: string ): RangeWithValue {
@@ -202,6 +203,7 @@ function parseRangeWithValue( value: string ): RangeWithValue {
   return new RangeWithValue( numbers[ 0 ], numbers[ 1 ], numbers[ 2 ] );
 }
 
+//REVIEW: For consistency, should a return type be provided here?
 function isPositiveIntegerRangeWithValue( range: RangeWithValue ) {
   return Number.isInteger( range.min ) && ( range.min > 0 ) &&
          Number.isInteger( range.max ) && Number.isInteger( range.defaultValue );

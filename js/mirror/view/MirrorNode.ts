@@ -39,7 +39,7 @@ export default class MirrorNode extends Node {
 
     const options = optionize<MirrorNodeOptions, SelfOptions, NodeOptions>()( {
 
-      // NodeoOtions
+      // NodeOptions
       phetioVisiblePropertyInstrumented: false
     }, providedOptions );
     
