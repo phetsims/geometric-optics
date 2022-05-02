@@ -73,9 +73,7 @@ export default abstract class GOToolIcon extends Node {
       tool.isInToolboxProperty.value = false;
 
       // Set the position of the tool.
-      //REVIEW: Guaranteed by typing now! Don't need to do (!) operators or assertions around event.pointer.point anymore
-      assert && assert( event.pointer.point ); // {Vector2|null}
-      tool.positionProperty.value = pointerPositionToToolPosition( event.pointer.point! );
+      tool.positionProperty.value = pointerPositionToToolPosition( event.pointer.point );
 
       // Forward the event to toolNode.
       toolNode.startDrag( event );
