@@ -47,11 +47,6 @@ export default class VisibleProperties {
   // Resets things that are specific to this class.
   private readonly resetVisibleProperties: () => void;
 
-  /**
-   * REVIEW: Can remove undocumented params
-   * @param optic
-   * @param providedOptions
-   */
   constructor( optic: Optic, providedOptions: VisiblePropertiesOptions ) {
 
     const isMirror = ( optic instanceof Mirror );

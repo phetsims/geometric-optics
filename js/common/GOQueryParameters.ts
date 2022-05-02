@@ -192,8 +192,6 @@ const SCHEMA_MAP = {
 
 /**
  * Parses a query-parameter value into a RangeWithValue.
- * REVIEW: Can remove undocumented params
- * @param value
  */
 function parseRangeWithValue( value: string ): RangeWithValue {
   const tokens = value.split( ',' );

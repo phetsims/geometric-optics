@@ -148,8 +148,6 @@ export default class Lens extends Optic {
 
   /**
    * A lens is converging if it is convex.
-   * REVIEW: Can ditch undocumented param?
-   * @param opticShape
    */
   protected isConverging( opticShape: OpticShape ): boolean {
     return ( opticShape === 'convex' );

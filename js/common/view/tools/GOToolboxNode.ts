@@ -61,8 +61,6 @@ export default class GOToolboxNode extends Panel {
 
   /**
    * Given a point in the global coordinate frame, is it inside the visible bounds of the toolbox?
-   * REVIEW: Can remove undocumented params
-   * @param globalPoint
    */
   public containsGlobalPoint( globalPoint: Vector2 ): boolean {
     return this.getGlobalVisibleBounds().containsPoint( globalPoint );
@@ -70,8 +68,6 @@ export default class GOToolboxNode extends Panel {
 
   /**
    * Given bounds in the global coordinate frame, do they intersect the visible bounds of the toolbox?
-   * REVIEW: Can remove undocumented params
-   * @param globalBounds
    */
   public intersectsGlobalBounds( globalBounds: Bounds2 ): boolean {
     return this.getGlobalVisibleBounds().intersectsBounds( globalBounds );

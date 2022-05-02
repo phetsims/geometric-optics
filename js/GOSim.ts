@@ -27,11 +27,6 @@ export type GOSimOptions = SelfOptions;
 
 export default class GOSim extends Sim {
 
-  /**
-   * REVIEW: Can remove undocumented params
-   * @param title
-   * @param providedOptions
-   */
   constructor( title: string, providedOptions: GOSimOptions ) {
 
     const options = optionize<GOSimOptions, SelfOptions, SimOptions>()( {

@@ -212,10 +212,6 @@ export default class GORulerNode extends GOToolNode {
 
 /**
  * Creates a scenery-phet.RulerNode appropriate for the zoomTransform and zoom scale.
- * REVIEW: Can remove undocumented params
- * @param rulerLength
- * @param zoomTransform
- * @param zoomScale
  */
 function createRulerNode( rulerLength: number, zoomTransform: ModelViewTransform2, zoomScale: number ): Node {
 
