@@ -75,7 +75,7 @@ function createItem( value: FocalLengthModelType, text: string, groupTandem: Tan
     value: value,
     node: new Text( text, {
       font: GOConstants.CONTROL_FONT,
-      maxWidth: 300,
+      maxWidth: 500,
       tandem: groupTandem.createTandem( itemTandemName ).createTandem( 'labelText' ),
       phetioVisiblePropertyInstrumented: false
     } ),

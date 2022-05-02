@@ -32,7 +32,7 @@ export default class Add2FPointsCheckbox extends Checkbox {
 
     const labelText = new Text( geometricOpticsStrings.checkbox.add2FPointsCheckbox, {
       font: GOConstants.CONTROL_FONT,
-      maxWidth: 250,
+      maxWidth: 500,
       tandem: options.tandem.createTandem( 'labelText' ),
       phetioVisiblePropertyInstrumented: false
     } );
