@@ -52,10 +52,10 @@ export default class LightRay {
    * @param opticalImagePosition - point of focus of all rays based on thin lens law
    * @param isImageVirtual - is the optical image virtual?
    * @param raysType
-   * @param projectionScreen - optional projection screen that can block the rays
+   * @param [projectionScreen] - optional projection screen that can block the rays
    */
   constructor( opticalObjectPosition: Vector2, direction: Vector2, raysAnimationTime: number, optic: Optic, opticalImagePosition: Vector2,
-               isImageVirtual: boolean, raysType: RaysType, projectionScreen: ProjectionScreen | null ) {
+               isImageVirtual: boolean, raysType: RaysType, projectionScreen?: ProjectionScreen ) {
 
     assert && AssertUtils.assertNonNegativeNumber( raysAnimationTime );
 
@@ -94,10 +94,10 @@ export default class LightRay {
    * @param distanceTraveled - how far the ray has traveled in its animation
    * @param opticalObjectPosition
    * @param opticalImagePosition
-   * @param projectionScreen
+   * @param [projectionScreen]
    */
   private getHasReachedTarget( distanceTraveled: number, opticalObjectPosition: Vector2,
-                               opticalImagePosition: Vector2, projectionScreen: ProjectionScreen | null ): boolean {
+                               opticalImagePosition: Vector2, projectionScreen?: ProjectionScreen ): boolean {
     let hasReachedTarget;
     if ( projectionScreen ) {
 

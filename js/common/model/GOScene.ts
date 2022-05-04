@@ -33,9 +33,9 @@ export default abstract class GOScene extends PhetioObject {
   // animation time for the light rays animation, determines how far the rays have propagated from the optical object
   public readonly raysAnimationTimeProperty: NumberProperty;
 
-  // guides
-  private _guides1: Guides | null;
-  private _guides2: Guides | null;
+  // optional guides, supported by the Lens screen
+  private _guides1?: Guides;
+  private _guides2?: Guides;
 
   // Resets things that are specific to this class.
   private readonly resetGOObjectScene: () => void;
@@ -55,8 +55,6 @@ export default abstract class GOScene extends PhetioObject {
     super( options );
 
     this.optic = optic;
-    this._guides1 = null;
-    this._guides2 = null;
 
     this.addLinkedElement( optic, {
       tandem: options.tandem.createTandem( optic.tandem.name )

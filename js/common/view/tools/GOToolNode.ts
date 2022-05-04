@@ -31,7 +31,7 @@ export default abstract class GOToolNode extends Node {
 
   protected abstract dragListener: DragListener;
 
-  // the toolbox that contains this tool, so the tool knows where to return to
+  // the toolbox that contains this tool, so the tool knows where to return to. null until setToolboxNode is called.
   public toolboxNode: GOToolboxNode | null;
 
   // tandem name to be used for the icon

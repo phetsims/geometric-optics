@@ -137,7 +137,7 @@ export default class OpticalObjectChoice extends EnumerationValue {
   public readonly label: string;
   public readonly icon: HTMLImageElement | Node;
   public readonly tandemPrefix: string;
-  public readonly objectHTMLImageElements: ObjectHTMLImageElements | null;
+  public readonly objectHTMLImageElements?: ObjectHTMLImageElements;
 
   constructor( options: OpticalObjectChoiceOptions ) {
     super();
@@ -145,7 +145,7 @@ export default class OpticalObjectChoice extends EnumerationValue {
     this.label = options.label;
     this.icon = options.icon;
     this.tandemPrefix = options.tandemPrefix;
-    this.objectHTMLImageElements = options.objectHTMLImageElements || null;
+    this.objectHTMLImageElements = options.objectHTMLImageElements;
   }
 }
 

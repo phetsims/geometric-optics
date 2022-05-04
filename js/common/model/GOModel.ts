@@ -61,8 +61,7 @@ export default class GOModel {
   private readonly scenes: GOScene[];
   public readonly arrowScene: ArrowScene;
   public readonly framedScene: FramedScene;
-  //REVIEW: I've seen a lot of explicit null. Is that preferred to `lightScene?: LightScene` and removing the if-condition?
-  public readonly lightScene: LightScene | null; // not supported by Mirrors screen
+  public readonly lightScene?: LightScene; // optional, supported by the Lens screen
 
   // rulers
   public readonly horizontalRuler: GORuler;
@@ -133,7 +132,6 @@ export default class GOModel {
 
     // Note that while the Light scene is specific to the Mirror screen, it was more straightforward to handle it
     // as an optional part of this base class.
-    this.lightScene = null;
     if ( options.opticalObjectChoices.includes( OpticalObjectChoice.LIGHT ) ) {
       assert && assert( this.optic instanceof Lens, 'Light is only supported by the Lens screen' );
       this.lightScene = new LightScene( this.optic as Lens, this.raysTypeProperty, {
