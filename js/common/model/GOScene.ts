@@ -14,6 +14,9 @@ import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioO
 import Guides from './Guides.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // How long the animation of light rays lasts, in seconds
 const RAYS_ANIMATION_DURATION = 10;
@@ -31,8 +34,8 @@ export default abstract class GOScene extends PhetioObject {
   public readonly raysAnimationTimeProperty: NumberProperty;
 
   // guides
-  public abstract readonly guides1: Guides | null;
-  public abstract readonly guides2: Guides | null;
+  private _guides1: Guides | null;
+  private _guides2: Guides | null;
 
   // Resets things that are specific to this class.
   private readonly resetGOObjectScene: () => void;
@@ -52,6 +55,8 @@ export default abstract class GOScene extends PhetioObject {
     super( options );
 
     this.optic = optic;
+    this._guides1 = null;
+    this._guides2 = null;
 
     this.addLinkedElement( optic, {
       tandem: options.tandem.createTandem( optic.tandem.name )
@@ -78,6 +83,10 @@ export default abstract class GOScene extends PhetioObject {
     this.resetGOObjectScene();
   }
 
+  public get guides1() { return this._guides1; }
+
+  public get guides2() { return this._guides2; }
+
   /**
    * Begins the animation of light rays.
    */
@@ -94,6 +103,24 @@ export default abstract class GOScene extends PhetioObject {
     if ( tNow < RAYS_ANIMATION_DURATION ) {
       this.raysAnimationTimeProperty.value = Math.min( tNow + dt, RAYS_ANIMATION_DURATION );
     }
+  }
+
+  /**
+   * Initializes the optional guides, called by subclasses.
+   */
+  protected initializeGuides( guides1PositionProperty: IReadOnlyProperty<Vector2>,
+                              guides2PositionProperty: IReadOnlyProperty<Vector2>,
+                              parentTandem: Tandem ): void {
+
+    this._guides1 = new Guides( this.optic, guides1PositionProperty, {
+      tandem: parentTandem.createTandem( 'guides1' ),
+      phetioDocumentation: 'guides associated with the first point-of-interest'
+    } );
+
+    this._guides2 = new Guides( this.optic, guides2PositionProperty, {
+      tandem: parentTandem.createTandem( 'guides2' ),
+      phetioDocumentation: 'guides associated with the second point-of-interest'
+    } );
   }
 }
 

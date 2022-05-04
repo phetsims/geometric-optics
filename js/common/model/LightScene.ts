@@ -18,7 +18,6 @@ import light1_png from '../../../images/light1_png.js';
 import light2_png from '../../../images/light2_png.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OpticalImage from './OpticalImage.js';
-import Guides from './Guides.js';
 import GOScene, { GOSceneOptions } from './GOScene.js';
 import Lens from '../../lens/model/Lens.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
@@ -44,8 +43,6 @@ export default class LightScene extends GOScene {
   public readonly projectionScreen: ProjectionScreen;
   public readonly lightSpot1: LightSpot;
   public readonly lightSpot2: LightSpot;
-  public readonly guides1: Guides;
-  public readonly guides2: Guides;
 
   // Resets things that are specific to this class.
   private readonly resetLightObjectScene: () => void;
@@ -124,14 +121,7 @@ export default class LightScene extends GOScene {
       } );
 
     // Guides
-    this.guides1 = new Guides( lens, this.lightObject1.positionProperty, {
-      tandem: providedOptions.tandem.createTandem( 'guides1' ),
-      phetioDocumentation: 'guides associated with the first light'
-    } );
-    this.guides2 = new Guides( lens, this.lightObject2.positionProperty, {
-      tandem: providedOptions.tandem.createTandem( 'guides2' ),
-      phetioDocumentation: 'guides associated with the second light'
-    } );
+    this.initializeGuides( this.lightObject1.positionProperty, this.lightObject2.positionProperty, providedOptions.tandem );
 
     this.resetLightObjectScene = () => {
       this.lightObject1.reset();

@@ -19,7 +19,6 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OpticalObjectChoice from './OpticalObjectChoice.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Lens from '../../lens/model/Lens.js';
-import Guides from './Guides.js';
 import SecondPoint from './SecondPoint.js';
 import GOScene, { GOSceneOptions } from './GOScene.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
@@ -41,8 +40,6 @@ export default class FramedScene extends GOScene {
   public readonly framedImage2: FramedImage;
   public readonly lightRays1: LightRays;
   public readonly lightRays2: LightRays;
-  public readonly guides1: Guides | null;
-  public readonly guides2: Guides | null;
 
   // Resets things that are specific to this class.
   private readonly resetFramedObjectScene: () => void;
@@ -100,20 +97,8 @@ export default class FramedScene extends GOScene {
     );
 
     // Guides, for the Lens screen only
-    //REVIEW: This code is very similar between ArrowScene/FramedScene. Can this be factored out?
     if ( optic instanceof Lens ) {
-      this.guides1 = new Guides( this.optic, this.framedObject.positionProperty, {
-        tandem: providedOptions.tandem.createTandem( 'guides1' ),
-        phetioDocumentation: 'guides associated with the first point-of-interest on the framed object'
-      } );
-      this.guides2 = new Guides( this.optic, this.secondPoint.positionProperty, {
-        tandem: providedOptions.tandem.createTandem( 'guides2' ),
-        phetioDocumentation: 'guides associated with the second point-of-interest on the framed object'
-      } );
-    }
-    else {
-      this.guides1 = null;
-      this.guides2 = null;
+      this.initializeGuides( this.framedObject.positionProperty, this.secondPoint.positionProperty, providedOptions.tandem );
     }
 
     this.resetFramedObjectScene = () => {

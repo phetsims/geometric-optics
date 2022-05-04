@@ -13,7 +13,6 @@ import { RaysType } from './RaysType.js';
 import LightRays from './LightRays.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Lens from '../../lens/model/Lens.js';
-import Guides from './Guides.js';
 import ArrowObject from './ArrowObject.js';
 import ArrowImage from './ArrowImage.js';
 import GOColors from '../GOColors.js';
@@ -38,8 +37,6 @@ export default class ArrowScene extends GOScene {
   public readonly arrowImage2: ArrowImage;
   public readonly lightRays1: LightRays;
   public readonly lightRays2: LightRays;
-  public readonly guides1: Guides | null;
-  public readonly guides2: Guides | null;
 
   // Resets things that are specific to this class.
   private readonly resetArrowObjectScene: () => void;
@@ -97,18 +94,7 @@ export default class ArrowScene extends GOScene {
 
     // Guides, for the Lens screen only
     if ( optic instanceof Lens ) {
-      this.guides1 = new Guides( this.optic, this.arrowObject1.positionProperty, {
-        tandem: providedOptions.tandem.createTandem( 'guides1' ),
-        phetioDocumentation: 'guides associated with the first arrow object'
-      } );
-      this.guides2 = new Guides( this.optic, this.arrowObject2.positionProperty, {
-        tandem: providedOptions.tandem.createTandem( 'guides2' ),
-        phetioDocumentation: 'guides associated with the second arrow object'
-      } );
-    }
-    else {
-      this.guides1 = null;
-      this.guides2 = null;
+      this.initializeGuides( this.arrowObject1.positionProperty, this.arrowObject2.positionProperty, providedOptions.tandem );
     }
 
     this.resetArrowObjectScene = () => {
