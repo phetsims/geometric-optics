@@ -61,8 +61,8 @@ export default class FramedImage extends OpticalImage {
 
         const scaleFactor = framedObject.scaleFactor;
         const initialOrigin = framedObject.originOffset.timesScalar( scaleFactor );
-        //REVIEW Is this code guaranteed to run after images are loaded (and the sim is being constructed), and never
-        //REVIEW statically? Recommend assertion that width/height is non-zero if that's the case
+
+        assert && assert( htmlImageElement.width !== 0 && htmlImageElement.height !== 0, 'htmlImageElement is not loaded' );
         const initialWidth = htmlImageElement.width * scaleFactor;
         const initialHeight = htmlImageElement.height * scaleFactor;
 

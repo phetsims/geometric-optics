@@ -76,8 +76,7 @@ export default class HTMLImageElementObject extends OpticalObject {
 function computeBounds( htmlImageElement: HTMLImageElement, position: Vector2,
                         scaleFactor: number, originOffset: Vector2 ): Bounds2 {
 
-  //REVIEW: are the HTMLImageElement width/height loaded by the time this runs? Presumably as a result of Sim.js startup?
-  //REVIEW: Recommend an assertion that they are non-zero
+  assert && assert( htmlImageElement.width !== 0 && htmlImageElement.height !== 0, 'htmlImageElement is not loaded' );
   const size = new Dimension2( scaleFactor * htmlImageElement.width, scaleFactor * htmlImageElement.height );
   const origin = originOffset.timesScalar( scaleFactor );
   const offsetX = origin.x;
