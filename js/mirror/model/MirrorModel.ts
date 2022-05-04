@@ -22,8 +22,7 @@ type MirrorModelOptions = SelfOptions & PickRequired<GOModelOptions, 'tandem'>;
 
 export default class MirrorModel extends GOModel {
 
-  // Resets things that are specific to this class.
-  private readonly resetMirrorModel: () => void;
+  public readonly mirror: Mirror;
 
   constructor( providedOptions: MirrorModelOptions ) {
 
@@ -66,14 +65,12 @@ export default class MirrorModel extends GOModel {
 
     super( mirror, options );
 
-    this.resetMirrorModel = () => {
-      mirror.reset();
-    };
+    this.mirror = mirror;
   }
 
   public override reset(): void {
     super.reset();
-    this.resetMirrorModel();
+    this.mirror.reset();
   }
 }
 

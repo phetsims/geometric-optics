@@ -13,9 +13,7 @@ import GOScreenView, { GOScreenViewOptions } from '../../common/view/GOScreenVie
 import geometricOptics from '../../geometricOptics.js';
 import MirrorModel from '../model/MirrorModel.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import Mirror from '../model/Mirror.js';
 import MirrorNode from './MirrorNode.js';
-import Optic from '../../common/model/Optic.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
@@ -45,10 +43,8 @@ export default class MirrorScreenView extends GOScreenView {
                      ( layoutBounds: Bounds2 ) => new Vector2( layoutBounds.centerX + 200, layoutBounds.centerY - 35 ),
 
       // Creates the Node for the mirror
-      createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => {
-        //REVIEW: Instead of the type assertion here, GOSceneNode could be parameterized by its Optic subtype?
-        assert && assert( optic instanceof Mirror );
-        return new MirrorNode( optic as Mirror, modelViewTransform, {
+      createOpticNode: ( modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => {
+        return new MirrorNode( model.mirror, modelViewTransform, {
           tandem: parentTandem.createTandem( 'mirrorNode' )
         } );
       }

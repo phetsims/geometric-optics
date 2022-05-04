@@ -13,9 +13,7 @@ import GOScreenView, { GOScreenViewOptions } from '../../common/view/GOScreenVie
 import geometricOptics from '../../geometricOptics.js';
 import LensModel from '../model/LensModel.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import Lens from '../model/Lens.js';
 import LensNode from './LensNode.js';
-import Optic from '../../common/model/Optic.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
@@ -35,10 +33,8 @@ export default class LensScreenView extends GOScreenView {
       getViewOrigin: ( layoutBounds: Bounds2 ) => new Vector2( layoutBounds.centerX, layoutBounds.centerY - 35 ),
 
       // Creates the Node for the lens
-      createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => {
-        //REVIEW: Instead of the type assertion here, GOSceneNode could be parameterized by its Optic subtype?
-        assert && assert( optic instanceof Lens );
-        return new LensNode( optic as Lens, modelViewTransform, {
+      createOpticNode: ( modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => {
+        return new LensNode( model.lens, modelViewTransform, {
           tandem: parentTandem.createTandem( 'lensNode' )
         } );
       }

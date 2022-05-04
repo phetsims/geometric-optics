@@ -21,8 +21,7 @@ type LensModelOptions = SelfOptions & PickRequired<GOModelOptions, 'tandem'>;
 
 export default class LensModel extends GOModel {
 
-  // Resets things that are specific to this class.
-  private readonly resetLensModel: () => void;
+  public readonly lens: Lens;
 
   constructor( providedOptions: LensModelOptions ) {
 
@@ -65,14 +64,12 @@ export default class LensModel extends GOModel {
 
     super( lens, options );
 
-    this.resetLensModel = () => {
-      lens.reset();
-    };
+    this.lens = lens;
   }
 
   public override reset(): void {
     super.reset();
-    this.resetLensModel();
+    this.lens.reset();
   }
 }
 

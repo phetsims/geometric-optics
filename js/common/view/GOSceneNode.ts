@@ -20,7 +20,6 @@ import FocalPointNode from './FocalPointNode.js';
 import TwoFPointNode from './TwoFPointNode.js';
 import GOColors from '../GOColors.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import Optic from '../model/Optic.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import GuidesNode from './GuidesNode.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
@@ -33,7 +32,7 @@ import IProperty from '../../../../axon/js/IProperty.js';
 type SelfOptions = {
 
   // Creates the Node for the optic
-  createOpticNode: ( optic: Optic, modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node;
+  createOpticNode: ( modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => Node;
 };
 
 export type GOSceneNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem' | 'visibleProperty'>;
@@ -90,7 +89,7 @@ export default abstract class GOSceneNode extends Node {
 
     super( options );
 
-    const opticNode = options.createOpticNode( scene.optic, modelViewTransform, options.tandem );
+    const opticNode = options.createOpticNode( modelViewTransform, options.tandem );
 
     const opticalAxisNode = new OpticalAxisNode(
       scene.optic.positionProperty,
