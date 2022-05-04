@@ -76,10 +76,7 @@ export default class ProjectionScreen extends PhetioObject {
     this.height = ( SCREEN_NEAR_HEIGHT + SCREEN_FAR_HEIGHT ) / 2;
 
     // Described from top to bottom, in model coordinates.
-    //REVIEW: Shape.lineSegment if it's every easier
-    this.bisectorLine = new Shape()
-      .moveTo( 0, this.height / 2 )
-      .lineTo( 0, -this.height / 2 );
+    this.bisectorLine = Shape.lineSegment( 0, this.height / 2, 0, -this.height / 2 );
 
     this.resetProjectionScreen = () => {
       this.positionProperty.reset();
