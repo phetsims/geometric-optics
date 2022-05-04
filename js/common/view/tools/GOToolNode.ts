@@ -15,6 +15,7 @@ import GOTool from '../../model/tools/GOTool.js';
 import ToolJumpPoint from './ToolJumpPoint.js';
 import GOToolboxNode from './GOToolboxNode.js';
 import geometricOptics from '../../../geometricOptics.js';
+import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 
 type SelfOptions = {
 
@@ -22,7 +23,7 @@ type SelfOptions = {
   iconTandemName: string;
 };
 
-export type GOToolNodeOptions = SelfOptions & PickRequired<Node, 'tandem'>;
+export type GOToolNodeOptions = SelfOptions & PickRequired<Node, 'tandem'> & PickOptional<Node, 'rotation'>;
 
 export default abstract class GOToolNode extends Node {
 

@@ -30,11 +30,14 @@ import IntentionalAny from '../../../../../phet-core/js/types/IntentionalAny.js'
 import GOToolNode, { GOToolNodeOptions } from './GOToolNode.js';
 import GOToolKeyboardDragListener from './GOToolKeyboardDragListener.js';
 import GOToolDragListener from './GOToolDragListener.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;
 
-export type GORulerNodeOptions = GOToolNodeOptions;
+type SelfOptions = {};
+
+export type GORulerNodeOptions = SelfOptions & GOToolNodeOptions;
 
 export default class GORulerNode extends GOToolNode {
 
@@ -64,9 +67,11 @@ export default class GORulerNode extends GOToolNode {
                visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                providedOptions: GORulerNodeOptions ) {
 
-    super( ruler, providedOptions );
+    const options = optionize<GORulerNodeOptions, SelfOptions, GOToolNodeOptions>()( {
+      rotation: ( ruler.orientation === 'vertical' ) ? ( -Math.PI / 2 ) : 0
+    }, providedOptions );
 
-    this.rotation = ( ruler.orientation === 'vertical' ) ? -Math.PI / 2 : 0;
+    super( ruler, options );
 
     this.icon = new GORulerIcon( ruler, this, zoomTransformProperty );
     this.ruler = ruler;
@@ -142,7 +147,7 @@ export default class GORulerNode extends GOToolNode {
     // Dragging with the pointer.
     this.dragListener = new GOToolDragListener( ruler, this, zoomTransformProperty, this.dragBoundsProperty,
       dragReturnToToolbox, {
-        tandem: providedOptions.tandem.createTandem( 'dragListener' )
+        tandem: options.tandem.createTandem( 'dragListener' )
       } );
     this.addInputListener( this.dragListener );
 
@@ -153,7 +158,7 @@ export default class GORulerNode extends GOToolNode {
     // Dragging with the keyboard.
     const keyboardDragListener = new GOToolKeyboardDragListener( ruler, this, zoomTransformProperty,
       this.dragBoundsProperty, keyboardDragReturnToToolbox, {
-        tandem: providedOptions.tandem.createTandem( 'keyboardDragListener' )
+        tandem: options.tandem.createTandem( 'keyboardDragListener' )
       } );
     this.addInputListener( keyboardDragListener );
   }

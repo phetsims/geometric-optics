@@ -35,6 +35,7 @@ export default class GORulerIcon extends GOToolIcon {
 
     // GOToolIconOptions
     const options = {
+      rotation: ( ruler.orientation === 'vertical' ) ? ( -Math.PI / 2 ) : 0,
       touchAreaDilationX: 4,
       touchAreaDilationY: 4,
       mouseAreaDilationX: 4,
@@ -79,13 +80,6 @@ export default class GORulerIcon extends GOToolIcon {
     };
 
     super( contentNode, ruler, rulerNode, zoomTransformProperty, pointerPositionToToolPosition, options );
-
-    // Rotate to create a vertical ruler icon.
-    //REVIEW: General preference to include a `rotation:` in the options, since this will change bounds (and if we
-    //REVIEW: position it with bounds-based things in options, e.g. `rulerIconOptions: { left: 5 }` it won't be correct.
-    if ( ruler.orientation === 'vertical' ) {
-      this.rotate( -Math.PI / 2 );
-    }
   }
 }
 
