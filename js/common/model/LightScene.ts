@@ -23,6 +23,8 @@ import Lens from '../../lens/model/Lens.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
+
+  // initial positions of the lights
   lightObject1Position: Vector2;
   lightObject2Position: Vector2;
 };
