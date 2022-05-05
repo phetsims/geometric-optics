@@ -45,10 +45,10 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import PositionMarkerNode from './tools/PositionMarkerNode.js';
 import { ObjectDragMode, ObjectDragModeValues } from './ObjectDragMode.js';
-import StringIO from '../../../../tandem/js/types/StringIO.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import { GOSimOptions } from '../../GOSim.js';
 import GOToolNode from './tools/GOToolNode.js';
+import StringEnumerationProperty from '../../../../axon/js/StringEnumerationProperty.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.
@@ -159,12 +159,9 @@ export default class GOScreenView extends ScreenView {
         return new Bounds2( modelVisibleBounds.minX, -y, modelVisibleBounds.maxX, y );
       } );
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/436 use StringEnumerationProperty
-    const objectDragModeProperty = new Property( options.objectDragMode, {
-      validValues: ObjectDragModeValues,
+    const objectDragModeProperty = new StringEnumerationProperty( ObjectDragModeValues, options.objectDragMode, {
       tandem: providedOptions.tandem.createTandem( 'objectDragModeProperty' ),
       phetioReadOnly: true,
-      phetioType: Property.PropertyIO( StringIO ),
       phetioDocumentation: 'Controls dragging of the optical objects. ' +
                            'This Property is read-only because the sim controls it, based on the type of optical object that is selected.' +
                            'Values are:' +

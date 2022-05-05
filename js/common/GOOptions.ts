@@ -6,13 +6,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../axon/js/Property.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import geometricOptics from '../geometricOptics.js';
 import GOQueryParameters from './GOQueryParameters.js';
-import { FocalLengthModelType, FocalLengthModelTypeValues } from './model/FocalLengthModelType.js';
-import StringIO from '../../../tandem/js/types/StringIO.js';
+import { FocalLengthModelTypeValues } from './model/FocalLengthModelType.js';
 import BooleanProperty from '../../../axon/js/BooleanProperty.js';
+import StringEnumerationProperty from '../../../axon/js/StringEnumerationProperty.js';
 
 // constants
 const optionsTandem = Tandem.GLOBAL_VIEW.createTandem( 'options' );
@@ -29,12 +28,9 @@ const GOOptions = {
     phetioDocumentation: 'shows cueing arrows on draggable elements'
   } ),
 
-  //TODO https://github.com/phetsims/geometric-optics/issues/436 use StringEnumerationProperty
   focalLengthModelTypeProperty:
-    new Property<FocalLengthModelType>( GOQueryParameters.focalLengthControl, {
-      validValues: FocalLengthModelTypeValues,
+    new StringEnumerationProperty( FocalLengthModelTypeValues, GOQueryParameters.focalLengthControl, {
       tandem: optionsTandem.createTandem( 'focalLengthModelTypeProperty' ),
-      phetioType: Property.PropertyIO( StringIO ),
       phetioDocumentation: 'Determines how focal length is modeled and controlled in the Lens and Mirror screens.<br>' +
                            'This can also be set via the focalLengthControl query parameter.<br>' +
                            'The values are:' +

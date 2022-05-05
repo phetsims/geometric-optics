@@ -7,6 +7,7 @@
  * @author Martin Veillette
  */
 
+import StringEnumerationProperty from '../../../../axon/js/StringEnumerationProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
@@ -17,7 +18,6 @@ import geometricOptics from '../../geometricOptics.js';
 import OpticShapes from './OpticShapes.js';
 import { OpticSurfaceType } from './OpticSurfaceType.js';
 import Property from '../../../../axon/js/Property.js';
-import StringIO from '../../../../tandem/js/types/StringIO.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
@@ -125,13 +125,11 @@ export default abstract class Optic extends PhetioObject {
 
     this.sign = options.sign;
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/436 use StringEnumerationProperty
-    this.opticSurfaceTypeProperty = new Property( options.opticSurfaceTypes[ 0 ], {
-      validValues: options.opticSurfaceTypes,
-      tandem: options.tandem.createTandem( 'opticSurfaceTypeProperty' ),
-      phetioType: Property.PropertyIO( StringIO ),
-      phetioDocumentation: 'surface type of the optic'
-    } );
+    this.opticSurfaceTypeProperty = new StringEnumerationProperty(
+      options.opticSurfaceTypes, options.opticSurfaceTypes[ 0 ], {
+        tandem: options.tandem.createTandem( 'opticSurfaceTypeProperty' ),
+        phetioDocumentation: 'surface type of the optic'
+      } );
 
     // In https://github.com/phetsims/geometric-optics/issues/262, it was decided that the optic should have a fixed
     // position, at the origin of the model coordinate frame.  This differs from the Flash version, where the optic
