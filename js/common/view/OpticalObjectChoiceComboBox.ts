@@ -8,21 +8,20 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import { AlignBox, AlignGroup, HBox, Image, Node, Text } from '../../../../scenery/js/imports.js';
+import { AlignBox, AlignGroup, HBox, Image, Node, NodeTranslationOptions, Text } from '../../../../scenery/js/imports.js';
 import ComboBox, { ComboBoxOptions } from '../../../../sun/js/ComboBox.js';
 import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {};
 
 type OpticalObjectChoiceComboBoxOptions = SelfOptions &
   PickRequired<ComboBoxOptions, 'tandem'> &
-  PickOptional<ComboBoxOptions, 'left' | 'top'>; //TODO https://github.com/phetsims/scenery/issues/1332
+  NodeTranslationOptions;
 
 export default class OpticalObjectChoiceComboBox extends ComboBox<OpticalObjectChoice> {
 

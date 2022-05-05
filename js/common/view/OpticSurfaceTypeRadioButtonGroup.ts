@@ -16,14 +16,14 @@ import Lens from '../../lens/model/Lens.js';
 import MirrorNode from '../../mirror/view/MirrorNode.js';
 import LensNode from '../../lens/view/LensNode.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 
 type SelfOptions = {};
 
 type OpticShapeRadioButtonGroupOptions = SelfOptions &
   PickRequired<RectangularRadioButtonGroupOptions, 'tandem'> &
-  PickOptional<RectangularRadioButtonGroupOptions, 'centerX' | 'top'>; //TODO https://github.com/phetsims/scenery/issues/1332
+  NodeTranslationOptions;
 
 export default class OpticSurfaceTypeRadioButtonGroup extends RectangularRadioButtonGroup<OpticSurfaceType> {
 

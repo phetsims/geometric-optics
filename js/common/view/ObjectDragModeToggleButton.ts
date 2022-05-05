@@ -10,12 +10,11 @@
 import geometricOptics from '../../geometricOptics.js';
 import lockSolidShape from '../../../../sherpa/js/fontawesome-5/lockSolidShape.js';
 import unlockSolidShape from '../../../../sherpa/js/fontawesome-5/unlockSolidShape.js';
-import { AlignBox, AlignGroup, HBox, HBoxOptions, Path } from '../../../../scenery/js/imports.js';
+import { AlignBox, AlignGroup, HBox, HBoxOptions, NodeTranslationOptions, Path } from '../../../../scenery/js/imports.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
 import ButtonNode from '../../../../sun/js/buttons/ButtonNode.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 import ToggleNode from '../../../../sun/js/ToggleNode.js';
@@ -31,7 +30,7 @@ type SelfOptions = {};
 
 type DragLockedButtonOptions = SelfOptions &
   PickRequired<RectangularToggleButtonOptions, 'tandem'> &
-  PickOptional<RectangularToggleButtonOptions, 'left' | 'centerY'>; //TODO https://github.com/phetsims/scenery/issues/1332
+  NodeTranslationOptions;
 
 export default class ObjectDragModeToggleButton extends RectangularToggleButton<ObjectDragMode> {
 

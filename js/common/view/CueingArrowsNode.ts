@@ -7,7 +7,7 @@
  */
 
 import geometricOptics from '../../geometricOptics.js';
-import { Path, PathOptions } from '../../../../scenery/js/imports.js';
+import { NodeTranslationOptions, Path, PathOptions } from '../../../../scenery/js/imports.js';
 import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import optionize from '../../../../phet-core/js/optionize.js';
@@ -26,7 +26,7 @@ type SelfOptions = {
 
 type CueingArrowsNodeOptions = SelfOptions &
   PickOptional<PathOptions, 'fill' | 'stroke' | 'scale' | 'visibleProperty'> &
-  PickOptional<PathOptions, 'left' | 'centerY'>; //TODO https://github.com/phetsims/scenery/issues/1332
+  NodeTranslationOptions;
 
 export default class CueingArrowsNode extends Path {
 
