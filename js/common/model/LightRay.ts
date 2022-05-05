@@ -111,8 +111,8 @@ export default class LightRay {
 
       let distance = 0;
 
-      // Exclude the last real ray in the calculation of length.
-      //REVIEW: Why exclude the last real ray?
+      // Exclude the last real ray in the calculation of length, because it has infinite length.
+      assert && assert( this.realRays[ this.realRays.length - 1 ].getLength() === Infinity );
       for ( let i = 0; i < this.realRays.length - 1; i++ ) {
         distance = distance + this.realRays[ i ].getLength();
       }
