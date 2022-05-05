@@ -81,8 +81,7 @@ export default class GORulerNode extends GOToolNode {
     zoomTransformProperty.link( ( zoomTransform: ModelViewTransform2 ) => {
 
       // zoomTransformProperty is derived from zoomScaleProperty, so zoomScaleProperty does not need to be
-      // a dependency, and it's safe to use its value.
-      //REVIEW: This assertion is causing more restrictive typing than necessary (IReadOnlyProperty/Property would be possible otherwise)
+      // a dependency of this listener, and it's safe to use its value.
       assert && assert( zoomTransformProperty.hasDependency( zoomScaleProperty ) );
       const zoomScale = zoomScaleProperty.value;
 
