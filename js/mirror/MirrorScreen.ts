@@ -16,7 +16,7 @@ import MirrorModel from './model/MirrorModel.js';
 import MirrorNode from './view/MirrorNode.js';
 import MirrorScreenView from './view/MirrorScreenView.js';
 import GOKeyboardHelpContent from '../common/view/GOKeyboardHelpContent.js';
-import { OpticShape } from '../common/model/OpticShape.js';
+import { OpticSurfaceType } from '../common/model/OpticSurfaceType.js';
 import optionize from '../../../phet-core/js/optionize.js';
 import PickRequired from '../../../phet-core/js/types/PickRequired.js';
 import { GOSimOptions } from '../GOSim.js';
@@ -58,8 +58,8 @@ export default class MirrorScreen extends Screen<MirrorModel, MirrorScreenView> 
   }
 }
 
-function createScreenIcon( opticShape: OpticShape ): ScreenIcon {
-  return new ScreenIcon( MirrorNode.createIconNode( opticShape ), {
+function createScreenIcon( opticSurfaceType: OpticSurfaceType ): ScreenIcon {
+  return new ScreenIcon( MirrorNode.createIconNode( opticSurfaceType ), {
     fill: GOColors.screenBackgroundColorProperty
   } );
 }

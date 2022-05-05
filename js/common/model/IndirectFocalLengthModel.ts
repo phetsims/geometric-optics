@@ -8,7 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { OpticShape } from './OpticShape.js';
+import { OpticSurfaceType } from './OpticSurfaceType.js';
 import FocalLengthModel from './FocalLengthModel.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
@@ -38,7 +38,8 @@ export default class IndirectFocalLengthModel extends PhetioObject implements Fo
   // Resets things that are specific to this class.
   private readonly resetIndirectFocalLengthModel: () => void;
 
-  constructor( opticShapeProperty: IReadOnlyProperty<OpticShape>, providedOptions: IndirectFocalLengthModelOptions ) {
+  constructor( opticSurfaceTypeProperty: IReadOnlyProperty<OpticSurfaceType>,
+               providedOptions: IndirectFocalLengthModelOptions ) {
 
     const options = optionize<IndirectFocalLengthModelOptions, SelfOptions, PhetioObjectOptions>()( {
 
@@ -69,8 +70,8 @@ export default class IndirectFocalLengthModel extends PhetioObject implements Fo
     } );
 
     this.focalLengthMagnitudeProperty = new DerivedProperty(
-      [ opticShapeProperty, this.radiusOfCurvatureMagnitudeProperty, this.indexOfRefractionProperty ],
-      ( opticShape: OpticShape, radiusOfCurvatureMagnitude: number, indexOfRefraction: number ) =>
+      [ opticSurfaceTypeProperty, this.radiusOfCurvatureMagnitudeProperty, this.indexOfRefractionProperty ],
+      ( opticSurfaceType: OpticSurfaceType, radiusOfCurvatureMagnitude: number, indexOfRefraction: number ) =>
         radiusOfCurvatureMagnitude / ( 2 * ( indexOfRefraction - 1 ) ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'focalLengthMagnitudeProperty' ),

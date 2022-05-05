@@ -15,7 +15,7 @@ import { Shape } from '../../../../kite/js/imports.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import geometricOptics from '../../geometricOptics.js';
 import OpticShapes from './OpticShapes.js';
-import { OpticShape } from './OpticShape.js';
+import { OpticSurfaceType } from './OpticSurfaceType.js';
 import Property from '../../../../axon/js/Property.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
@@ -40,8 +40,8 @@ const FLAT_MIRROR_FINITE_RADIUS_OF_CURVATURE = 2 * FLAT_MIRROR_FINITE_FOCAL_LENG
 
 type SelfOptions = {
 
-  // supported values of OpticShape, radio buttons will be created left-to-right in this order, default is [0]
-  opticShapes: OpticShape[];
+  // supported values of OpticSurfaceType, radio buttons will be created left-to-right in this order, default is [0]
+  opticSurfaceTypes: OpticSurfaceType[];
 
   // range of diameter, in cm
   diameterRange: Range;
@@ -67,8 +67,8 @@ export default abstract class Optic extends PhetioObject {
   // Shapes that describe the optic
   public readonly abstract shapesProperty: IReadOnlyProperty<OpticShapes>;
 
-  // shape of the optic (concave, convex, flat)
-  public readonly opticShapeProperty: Property<OpticShape>;
+  // surface type of the optic (concave, convex, flat)
+  public readonly opticSurfaceTypeProperty: Property<OpticSurfaceType>;
 
   // position of the optic
   public readonly positionProperty: Property<Vector2>;
@@ -126,11 +126,11 @@ export default abstract class Optic extends PhetioObject {
     this.sign = options.sign;
 
     //TODO https://github.com/phetsims/geometric-optics/issues/436 use StringEnumerationProperty
-    this.opticShapeProperty = new Property( options.opticShapes[ 0 ], {
-      validValues: options.opticShapes,
-      tandem: options.tandem.createTandem( 'opticShapeProperty' ),
+    this.opticSurfaceTypeProperty = new Property( options.opticSurfaceTypes[ 0 ], {
+      validValues: options.opticSurfaceTypes,
+      tandem: options.tandem.createTandem( 'opticSurfaceTypeProperty' ),
       phetioType: Property.PropertyIO( StringIO ),
-      phetioDocumentation: 'describes the surface shape of the optic'
+      phetioDocumentation: 'surface type of the optic'
     } );
 
     // In https://github.com/phetsims/geometric-optics/issues/262, it was decided that the optic should have a fixed
@@ -153,8 +153,8 @@ export default abstract class Optic extends PhetioObject {
     } );
 
     // Models of focal length
-    this.directFocalLengthModel = new DirectFocalLengthModel( this.opticShapeProperty, options.directFocalLengthModelOptions );
-    this.indirectFocalLengthModel = new IndirectFocalLengthModel( this.opticShapeProperty, options.indirectFocalLengthModelOptions );
+    this.directFocalLengthModel = new DirectFocalLengthModel( this.opticSurfaceTypeProperty, options.directFocalLengthModelOptions );
+    this.indirectFocalLengthModel = new IndirectFocalLengthModel( this.opticSurfaceTypeProperty, options.indirectFocalLengthModelOptions );
 
     // When switching between focal-length models, synchronize the new model with the old model.
     GOOptions.focalLengthModelTypeProperty.lazyLink( ( focalLengthModelType: FocalLengthModelType ) => {
@@ -177,19 +177,19 @@ export default abstract class Optic extends PhetioObject {
     // Get the radius-of-curvature magnitude from the current focal-length model, add the appropriate sign.
     // Convex is positive, concave is negative.
     this.radiusOfCurvatureProperty = new DerivedProperty(
-      [ this.opticShapeProperty,
+      [ this.opticSurfaceTypeProperty,
         GOOptions.focalLengthModelTypeProperty,
         this.directFocalLengthModel.radiusOfCurvatureMagnitudeProperty,
         this.indirectFocalLengthModel.radiusOfCurvatureMagnitudeProperty ],
-      ( opticShape: OpticShape,
+      ( opticSurfaceType: OpticSurfaceType,
         focalLengthModelType: string,
         directRadiusOfCurvatureMagnitude: number,
         indirectRadiusOfCurvatureMagnitude: number ) => {
-        if ( opticShape === 'flat' ) {
+        if ( opticSurfaceType === 'flat' ) {
           return FLAT_MIRROR_FINITE_RADIUS_OF_CURVATURE;
         }
         else {
-          const sign = ( opticShape === 'convex' ) ? 1 : -1;
+          const sign = ( opticSurfaceType === 'convex' ) ? 1 : -1;
           const magnitude = ( focalLengthModelType === 'direct' ) ? directRadiusOfCurvatureMagnitude : indirectRadiusOfCurvatureMagnitude;
           return sign * magnitude;
         }
@@ -216,19 +216,19 @@ export default abstract class Optic extends PhetioObject {
     // Get the focal-length magnitude from the current focal-length model, add the appropriate sign.
     // Converging is positive, diverging is negative.
     this.focalLengthProperty = new DerivedProperty(
-      [ this.opticShapeProperty,
+      [ this.opticSurfaceTypeProperty,
         GOOptions.focalLengthModelTypeProperty,
         this.directFocalLengthModel.focalLengthMagnitudeProperty,
         this.indirectFocalLengthModel.focalLengthMagnitudeProperty ],
-      ( opticShape: OpticShape,
+      ( opticSurfaceType: OpticSurfaceType,
         focalLengthModelType: string,
         directFocalLengthMagnitude: number,
         indirectFocalLengthMagnitude: number ) => {
-        if ( opticShape === 'flat' ) {
+        if ( opticSurfaceType === 'flat' ) {
           return FLAT_MIRROR_FINITE_FOCAL_LENGTH;
         }
         else {
-          const sign = this.isConverging( opticShape ) ? 1 : -1;
+          const sign = this.isConverging( opticSurfaceType ) ? 1 : -1;
           const magnitude = ( focalLengthModelType === 'direct' ) ? directFocalLengthMagnitude : indirectFocalLengthMagnitude;
           return sign * magnitude;
         }
@@ -289,7 +289,7 @@ export default abstract class Optic extends PhetioObject {
       } );
 
     this.resetOptic = () => {
-      this.opticShapeProperty.reset();
+      this.opticSurfaceTypeProperty.reset();
       this.positionProperty.reset();
       this.directFocalLengthModel.reset();
       this.indirectFocalLengthModel.reset();
@@ -314,9 +314,9 @@ export default abstract class Optic extends PhetioObject {
   }
 
   /**
-   * Determines whether the optic is converging for the specified optical shape.
+   * Determines whether the optic is converging for the specified optical surface type.
    */
-  protected abstract isConverging( opticShape: OpticShape ): boolean;
+  protected abstract isConverging( opticSurfaceType: OpticSurfaceType ): boolean;
 
   /**
    * Returns a shape translated by the model position of the optic

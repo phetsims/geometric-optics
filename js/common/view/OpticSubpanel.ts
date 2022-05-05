@@ -13,7 +13,7 @@ import geometricOptics from '../../geometricOptics.js';
 import FocalLengthControl from './FocalLengthControl.js';
 import GOOptions from '../GOOptions.js';
 import { FocalLengthModelType } from '../model/FocalLengthModelType.js';
-import { OpticShape } from '../model/OpticShape.js';
+import { OpticSurfaceType } from '../model/OpticSurfaceType.js';
 import RadiusOfCurvatureControl from './RadiusOfCurvatureControl.js';
 import Lens from '../../lens/model/Lens.js';
 import IndexOfRefractionControl from './IndexOfRefractionControl.js';
@@ -73,9 +73,9 @@ class DirectFocalLengthControls extends Node {
 
     super( {
       children: [ focalLengthControl ],
-      visibleProperty: new DerivedProperty( [ GOOptions.focalLengthModelTypeProperty, optic.opticShapeProperty ],
-        ( focalLengthModelType: FocalLengthModelType, opticShape: OpticShape ) =>
-          ( focalLengthModelType === 'direct' ) && ( opticShape !== 'flat' ) )
+      visibleProperty: new DerivedProperty( [ GOOptions.focalLengthModelTypeProperty, optic.opticSurfaceTypeProperty ],
+        ( focalLengthModelType: FocalLengthModelType, opticSurfaceType: OpticSurfaceType ) =>
+          ( focalLengthModelType === 'direct' ) && ( opticSurfaceType !== 'flat' ) )
       // no tandem, do not instrument!
     } );
   }
@@ -112,9 +112,9 @@ class IndirectFocalLengthControls extends HBox {
       children: children,
       spacing: X_SPACING,
       align: ALIGN,
-      visibleProperty: new DerivedProperty( [ GOOptions.focalLengthModelTypeProperty, optic.opticShapeProperty ],
-        ( focalLengthModelType: FocalLengthModelType, opticShape: OpticShape ) =>
-          ( focalLengthModelType === 'indirect' ) && ( opticShape !== 'flat' )
+      visibleProperty: new DerivedProperty( [ GOOptions.focalLengthModelTypeProperty, optic.opticSurfaceTypeProperty ],
+        ( focalLengthModelType: FocalLengthModelType, opticSurfaceType: OpticSurfaceType ) =>
+          ( focalLengthModelType === 'indirect' ) && ( opticSurfaceType !== 'flat' )
       )
       // no tandem, do not instrument!
     } );

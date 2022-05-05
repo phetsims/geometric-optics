@@ -70,7 +70,7 @@ export default class LightRays {
     type DependencyTypes = [ Vector2, RaysType, number, ...IntentionalAny[] ];
     const dependencies: MappedProperties<DependencyTypes> = [
       opticalObjectPositionProperty, raysTypeProperty, raysAnimationTimeProperty,
-      optic.positionProperty, optic.diameterProperty, optic.focalLengthProperty, optic.opticShapeProperty
+      optic.positionProperty, optic.diameterProperty, optic.focalLengthProperty, optic.opticSurfaceTypeProperty
     ];
     if ( projectionScreen ) {
       dependencies.push( projectionScreen.positionProperty );

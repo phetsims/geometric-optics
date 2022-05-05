@@ -12,7 +12,7 @@ import { Line, Node, NodeOptions, Path } from '../../../../scenery/js/imports.js
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../../common/GOColors.js';
 import Lens from '../model/Lens.js';
-import { OpticShape } from '../../common/model/OpticShape.js';
+import { OpticSurfaceType } from '../../common/model/OpticSurfaceType.js';
 import LensShapes from '../model/LensShapes.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
@@ -102,10 +102,10 @@ export default class LensNode extends Node {
   /**
    * Creates an icon for a lens.
    */
-  public static createIconNode( opticShape: OpticShape ): Node {
-    assert && assert( opticShape !== 'flat', 'flat lens is not supported' );
+  public static createIconNode( opticSurfaceType: OpticSurfaceType ): Node {
+    assert && assert( opticSurfaceType !== 'flat', 'flat lens is not supported' );
 
-    const radiusOfCurvature = ( opticShape === 'convex' ) ? ICON_RADIUS_OF_CURVATURE_MAGNITUDE : -ICON_RADIUS_OF_CURVATURE_MAGNITUDE;
+    const radiusOfCurvature = ( opticSurfaceType === 'convex' ) ? ICON_RADIUS_OF_CURVATURE_MAGNITUDE : -ICON_RADIUS_OF_CURVATURE_MAGNITUDE;
 
     const lensShapes = new LensShapes( radiusOfCurvature, ICON_DIAMETER, {
       isHollywooded: false

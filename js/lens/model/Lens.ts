@@ -10,7 +10,7 @@
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Optic, { OpticOptions } from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
-import { OpticShape } from '../../common/model/OpticShape.js';
+import { OpticSurfaceType } from '../../common/model/OpticSurfaceType.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import LensShapes from './LensShapes.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
@@ -43,7 +43,7 @@ export default class Lens extends Optic {
     const options = optionize<LensOptions, SelfOptions, OpticOptions>()( {
 
       // OpticOptions
-      opticShapes: [ 'convex', 'concave' ],
+      opticSurfaceTypes: [ 'convex', 'concave' ],
       diameterRange: GOQueryParameters.dRangeLens, // in cm
       sign: 1, // a positive distance indicates that the image is to the right of the lens
       directFocalLengthModelOptions: {
@@ -58,7 +58,7 @@ export default class Lens extends Optic {
       }
     }, providedOptions );
 
-    assert && assert( !options.opticShapes.includes( 'flat' ), 'flat lens is not supported' );
+    assert && assert( !options.opticSurfaceTypes.includes( 'flat' ), 'flat lens is not supported' );
     assert && assert( options.directFocalLengthModelOptions.focalLengthMagnitudeRange.defaultValue ===
                       options.indirectFocalLengthModelOptions.radiusOfCurvatureMagnitudeRange.defaultValue );
     assert && assert( options.indirectFocalLengthModelOptions.indexOfRefractionRange.contains( DIRECT_INDEX_OF_REFRACTION ) );
@@ -98,11 +98,11 @@ export default class Lens extends Optic {
     // convenience variables
     const leftPoint = isTop ? activeBounds.leftTop : activeBounds.leftBottom;
     const rightPoint = isTop ? activeBounds.rightTop : activeBounds.rightBottom;
-    const opticShape = this.opticShapeProperty.value;
+    const opticSurfaceType = this.opticSurfaceTypeProperty.value;
 
     // extremum point along the direction of the ray, may not be on the optic itself
     let extremumPoint;
-    if ( opticShape === 'concave' ) {
+    if ( opticSurfaceType === 'concave' ) {
 
       const opticPosition = this.positionProperty.value;
 
@@ -125,13 +125,13 @@ export default class Lens extends Optic {
       // get the direction of the ray as measured from the optical object
       extremumPoint = opticPosition.plusXY( 0, offsetY );
     }
-    else if ( opticShape === 'convex' ) {
+    else if ( opticSurfaceType === 'convex' ) {
 
       // extremum point is based on the edge point (which is centered horizontally on the optic)
       extremumPoint = isTop ? activeBounds.centerTop : activeBounds.centerBottom;
     }
     else {
-      throw new Error( `unsupported lens shape: ${opticShape}` );
+      throw new Error( `unsupported surface type for lens: ${opticSurfaceType}` );
     }
 
     return extremumPoint;
@@ -149,8 +149,8 @@ export default class Lens extends Optic {
   /**
    * A lens is converging if it is convex.
    */
-  protected isConverging( opticShape: OpticShape ): boolean {
-    return ( opticShape === 'convex' );
+  protected isConverging( opticSurfaceType: OpticSurfaceType ): boolean {
+    return ( opticSurfaceType === 'convex' );
   }
 }
 

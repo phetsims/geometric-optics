@@ -100,7 +100,7 @@ export default class ProjectionScreen extends PhetioObject {
   }
 
   /**
-   * Gets the shape of the screen, in the model's global coordinate frame.
+   * Gets the shape of the projection screen, in the model's global coordinate frame.
    */
   public getScreenShapeTranslated(): Shape {
     return this.translatedShape( this.screenShape );

@@ -87,7 +87,7 @@ class Guide extends PhetioObject {
         const toa = diameter / ( 4 * focalLength );
 
         // deflected angle is measured from the "through angle", i.e. angle of an imaginary undeflected transmitted ray
-        const deflectedAngle = ( optic.opticShapeProperty.value === 'convex' ) ?
+        const deflectedAngle = ( optic.opticSurfaceTypeProperty.value === 'convex' ) ?
                                -1 * locationSign * ( 2 * Math.atan( toa ) ) :
                                -1 * locationSign * ( Math.atan( 3 * toa ) - Math.atan( toa ) );
 

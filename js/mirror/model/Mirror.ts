@@ -10,7 +10,7 @@
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Optic, { OpticOptions } from '../../common/model/Optic.js';
 import geometricOptics from '../../geometricOptics.js';
-import { OpticShape } from '../../common/model/OpticShape.js';
+import { OpticSurfaceType } from '../../common/model/OpticSurfaceType.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import MirrorShapes from './MirrorShapes.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
@@ -40,7 +40,7 @@ export default class Mirror extends Optic {
     const options = optionize<MirrorOptions, SelfOptions, OpticOptions>()( {
 
       // OpticOptions
-      opticShapes: providedOptions.isBasicsVersion ? [ 'flat' ] : [ 'concave', 'convex', 'flat' ],
+      opticSurfaceTypes: providedOptions.isBasicsVersion ? [ 'flat' ] : [ 'concave', 'convex', 'flat' ],
       diameterRange: GOQueryParameters.dRangeMirror, // in cm
       sign: -1, // a positive distance indicates that the image is to the left of the mirror, so invert the sign
       directFocalLengthModelOptions: {
@@ -69,8 +69,8 @@ export default class Mirror extends Optic {
   /**
    * A mirror is converging if it is concave.
    */
-  protected isConverging( opticShape: OpticShape ): boolean {
-    return ( opticShape === 'concave' );
+  protected isConverging( opticSurfaceType: OpticSurfaceType ): boolean {
+    return ( opticSurfaceType === 'concave' );
   }
 
   /**
@@ -86,7 +86,7 @@ export default class Mirror extends Optic {
     const activeBounds = this.getActiveBoundsTranslated().erodedY( 1e-6 );
 
     // convenience variables
-    const isConcave = ( this.opticShapeProperty.value === 'concave' );
+    const isConcave = ( this.opticSurfaceTypeProperty.value === 'concave' );
     const leftPoint = isTop ? activeBounds.leftTop : activeBounds.leftBottom;
     const rightPoint = isTop ? activeBounds.rightTop : activeBounds.rightBottom;
 
@@ -99,7 +99,8 @@ export default class Mirror extends Optic {
    * instrument/omit PhET-iO elements for the Basics version of the sim, which has only a flat mirror.
    */
   public override isExclusivelyFlatMirror(): boolean {
-    return ( this.opticShapeProperty.validValues!.length === 1 ) && ( this.opticShapeProperty.value === 'flat' );
+    return ( this.opticSurfaceTypeProperty.validValues!.length === 1 ) &&
+           ( this.opticSurfaceTypeProperty.value === 'flat' );
   }
 }
 

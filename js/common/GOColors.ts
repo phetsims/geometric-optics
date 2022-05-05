@@ -162,17 +162,17 @@ const GOColors = {
     default: 'black'
   } ),
 
-  // Stroke for a selected radio button that determines the shape of the lens/mirror
+  // Stroke for a selected radio button that determines the surface type of the optic
   curveRadioButtonSelectedStrokeProperty: new ProfileColorProperty( geometricOptics, 'curveRadioButtonSelectedStroke', {
     default: 'rgb( 65, 154, 201 )'
   } ),
 
-  // Stroke for a deselected radio button that determines the shape of the lens/mirror
+  // Stroke for a deselected radio button that determines the surface type of the optic
   curveRadioButtonDeselectedStrokeProperty: new ProfileColorProperty( geometricOptics, 'curveRadioButtonDeselectedStroke', {
     default: 'grey'
   } ),
 
-  // Fill for radio buttons that determines the shape of the lens/mirror
+  // Fill for radio buttons that determines the surface type of the optic
   curveRadioButtonFillProperty: new ProfileColorProperty( geometricOptics, 'curveRadioButtonFill', {
     default: 'rgba( 0, 0, 0, 0 )'
   } ),

@@ -82,7 +82,9 @@ public override dispose(): void {
 
 ## Optics
 
-The sim supports two types of optic, with multiple shapes: lens (concave, convex) and mirror (concave, convex, flat). A single optic instance is used for each screen, shared by all scenes in the screen, and that instance supports all of the shapes.
+The sim supports two types of optic, with multiple surface types: lens (concave, convex) and mirror (concave, convex, flat).
+Both surfaces of the optic have the same type.
+A single optic instance is used for each screen, shared by all scenes in the screen.
 
 A relatively complex part of the optic model implementation is that it supports 2 focal-length models:
 * direct: focal length is settable, IOR is fixed, ROC is derived
@@ -295,7 +297,7 @@ Most of the controls are straightforward, nothing too challenging or unusual in 
 ```
 OpticalObjectChoiceComboBox - combo box for selecting optical object / scene
 ObjectDragModeToggleButton - toggle button used to lock dragging to horizontal
-OpticShapeRadioButtonGroup - radio buttons for choosing the shape of the optic
+OpticSurfaceTypeRadioButtonGroup - radio buttons for choosing the surface type of the optic
 zoomButtonGroup - zoom buttons, in GOScreenView.ts
 LightPropagationToggleButton - toggle button for turning light propagation on/off
 GOControlPanel - the main control panel

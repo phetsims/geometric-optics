@@ -44,33 +44,33 @@ export default class OpticLabelNode extends LabelNode {
 
     super( '', opticLabelPositionProperty, zoomTransformProperty, options );
 
-    optic.opticShapeProperty.link( opticShape => {
+    optic.opticSurfaceTypeProperty.link( opticSurfaceType => {
       let text: string;
       if ( optic instanceof Lens ) {
-        if ( opticShape === 'convex' ) {
+        if ( opticSurfaceType === 'convex' ) {
           text = geometricOpticsStrings.label.convexLens;
         }
-        else if ( opticShape === 'concave' ) {
+        else if ( opticSurfaceType === 'concave' ) {
           text = geometricOpticsStrings.label.concaveLens;
         }
         else {
-          throw Error( `unsupported opticShape for lens: ${opticShape}` );
+          throw Error( `unsupported opticSurfaceType for lens: ${opticSurfaceType}` );
         }
       }
       else {
         // mirror
         assert && assert( optic instanceof Mirror );
-        if ( opticShape === 'convex' ) {
+        if ( opticSurfaceType === 'convex' ) {
           text = geometricOpticsStrings.label.convexMirror;
         }
-        else if ( opticShape === 'concave' ) {
+        else if ( opticSurfaceType === 'concave' ) {
           text = geometricOpticsStrings.label.concaveMirror;
         }
-        else if ( opticShape === 'flat' ) {
+        else if ( opticSurfaceType === 'flat' ) {
           text = geometricOpticsStrings.label.flatMirror;
         }
         else {
-          throw Error( `unsupported opticShape for mirror: ${opticShape}` );
+          throw Error( `unsupported opticSurfaceType for mirror: ${opticSurfaceType}` );
         }
       }
       this.setText( text );

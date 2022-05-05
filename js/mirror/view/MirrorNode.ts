@@ -13,7 +13,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../../common/GOColors.js';
 import Mirror from '../model/Mirror.js';
 import MirrorShapes from '../model/MirrorShapes.js';
-import { OpticShape } from '../../common/model/OpticShape.js';
+import { OpticSurfaceType } from '../../common/model/OpticSurfaceType.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
 import OriginNode from '../../common/view/OriginNode.js';
@@ -91,10 +91,10 @@ export default class MirrorNode extends Node {
   /**
    * Creates an icon for a mirror.
    */
-  public static createIconNode( opticShape: OpticShape ): Node {
+  public static createIconNode( opticSurfaceType: OpticSurfaceType ): Node {
 
-    const radiusOfCurvature = ( opticShape === 'flat' ) ? ICON_FLAT_RADIUS_OF_CURVATURE_MAGNITUDE :
-                              ( opticShape === 'convex' ) ? ICON_CONVEX_RADIUS_OF_CURVATURE_MAGNITUDE :
+    const radiusOfCurvature = ( opticSurfaceType === 'flat' ) ? ICON_FLAT_RADIUS_OF_CURVATURE_MAGNITUDE :
+                              ( opticSurfaceType === 'convex' ) ? ICON_CONVEX_RADIUS_OF_CURVATURE_MAGNITUDE :
                               ICON_CONCAVE_RADIUS_OF_CURVATURE_MAGNITUDE;
 
     const mirrorShapes = new MirrorShapes( radiusOfCurvature, ICON_DIAMETER, {

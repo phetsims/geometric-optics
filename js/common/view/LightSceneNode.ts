@@ -202,10 +202,10 @@ export default class LightSceneNode extends GOSceneNode {
       }
     ];
 
-    // Adjust the tool jump points based on the shape of the lens.
+    // Adjust the tool jump points based on the surface type of the lens.
     // The tools have a reference to this.toolJumpPoints, so it's important that this array is modified in place.
-    scene.lens.opticShapeProperty.link( opticShape => {
-      if ( opticShape === 'convex' ) {
+    scene.lens.opticSurfaceTypeProperty.link( opticSurfaceType => {
+      if ( opticSurfaceType === 'convex' ) {
 
         // Add jump points that are interesting only for a convex lens. We're checking points before pushing
         // them in case there's any PhET-iO funny business, so we don't end up with duplicate points in the array.

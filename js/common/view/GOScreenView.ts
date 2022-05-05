@@ -22,7 +22,7 @@ import GOConstants from '../GOConstants.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import GOModel from '../model/GOModel.js';
 import GOControlPanel from './GOControlPanel.js';
-import OpticShapeRadioButtonGroup from './OpticShapeRadioButtonGroup.js';
+import OpticSurfaceTypeRadioButtonGroup from './OpticSurfaceTypeRadioButtonGroup.js';
 import OpticalObjectChoiceComboBox from './OpticalObjectChoiceComboBox.js';
 import LightPropagationToggleButton from './LightPropagationToggleButton.js';
 import VisibleProperties from './VisibleProperties.js';
@@ -239,13 +239,13 @@ export default class GOScreenView extends ScreenView {
       tandem: controlsTandem.createTandem( 'objectDragModeToggleButton' )
     } );
 
-    // Radio buttons for the shape of the optic
-    const opticShapeRadioButtonGroup = new OpticShapeRadioButtonGroup( model.optic, {
+    // Radio buttons for the surface type of the optic
+    const opticSurfaceTypeRadioButtonGroup = new OpticSurfaceTypeRadioButtonGroup( model.optic, {
       centerX: erodedLayoutBounds.centerX,
       top: erodedLayoutBounds.top,
-      tandem: controlsTandem.createTandem( 'opticShapeRadioButtonGroup' )
+      tandem: controlsTandem.createTandem( 'opticSurfaceTypeRadioButtonGroup' )
     } );
-    opticShapeRadioButtonGroup.visible = !options.isBasicsVersion;
+    opticSurfaceTypeRadioButtonGroup.visible = !options.isBasicsVersion;
 
     // Disable the 'Virtual Image' checkbox for lights, see https://github.com/phetsims/geometric-optics/issues/216
     const virtualImageCheckboxEnabledProperty = new DerivedProperty(
@@ -309,7 +309,7 @@ export default class GOScreenView extends ScreenView {
     const controlsLayer = new Node( {
       children: [
         opticalObjectChoiceComboBox,
-        opticShapeRadioButtonGroup,
+        opticSurfaceTypeRadioButtonGroup,
         objectDragModeToggleButton,
         toolboxNode,
         zoomButtonGroup,
@@ -492,7 +492,7 @@ export default class GOScreenView extends ScreenView {
       positionMarker2Node,
       opticalObjectChoiceComboBox,
       objectDragModeToggleButton,
-      opticShapeRadioButtonGroup,
+      opticSurfaceTypeRadioButtonGroup,
       toolboxNode,
       zoomButtonGroup,
       lightPropagationToggleButton,

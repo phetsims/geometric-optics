@@ -28,7 +28,7 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "geometricOptics.lensScreen.model.lens.indexOfRefractionProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.lensScreen.model.lens.opticShapeProperty": {
+    "geometricOptics.lensScreen.model.lens.opticSurfaceTypeProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.lensScreen.model.lens.positionProperty": {
@@ -367,7 +367,7 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "geometricOptics.mirrorScreen.model.mirror.focalLengthProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.mirrorScreen.model.mirror.opticShapeProperty": {
+    "geometricOptics.mirrorScreen.model.mirror.opticSurfaceTypeProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.model.mirror.positionProperty": {
