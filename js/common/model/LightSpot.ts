@@ -91,7 +91,6 @@ export default class LightSpot extends PhetioObject {
     // See https://github.com/phetsims/geometric-optics/issues/335
     this.intensityProperty = new DerivedProperty( [ this.diameterProperty, optic.diameterProperty ],
       ( lightSpotDiameter: number, opticDiameter: number ) => {
-        //REVIEW: Is this possible to hit 1e-16 or below?
         if ( lightSpotDiameter === 0 ) {
           return 0; // avoid divide-by-zero
         }
