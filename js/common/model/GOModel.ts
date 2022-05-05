@@ -1,7 +1,7 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * GOModel is base class for this simulation's top-level model, which contains all the model elements.
+ * GOModel is the base class for this simulation's top-level model.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
