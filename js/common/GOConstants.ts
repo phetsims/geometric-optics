@@ -25,6 +25,7 @@ const GOConstants = {
   SCREEN_VIEW_Y_MARGIN: 15,
 
   // Shared with geometric-optics-basics
+  //TODO https://github.com/phetsims/phet-core/issues/114 what is the preferred pattern?
   CREDITS: optionize<CreditsData, {}, CreditsData>()( {
     leadDesign: 'Amy Rouinfar, Michael Dubson',
     softwareDevelopment: 'Sarah Chang, Chris Malley (PixelZoom, Inc.), Martin Veillette',
@@ -101,6 +102,7 @@ const GOConstants = {
 
   CHECKBOX_BOX_WIDTH: 14,
 
+  //TODO https://github.com/phetsims/phet-core/issues/114 what is the preferred pattern?
   NUMBER_CONTROL_OPTIONS: optionize<NumberControlOptions, {}, NumberControlOptions>()( {
     layoutFunction: NumberControl.createLayoutFunction3( { ySpacing: 12 } ),
     titleNodeOptions: {
@@ -121,11 +123,13 @@ const GOConstants = {
     }
   } ),
 
+  //TODO https://github.com/phetsims/phet-core/issues/114 what is the preferred pattern?
   KEYBOARD_DRAG_LISTENER_OPTIONS: optionize<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>()( {
     dragVelocity: 300, // velocity of the Node being dragged, in view coordinates per second
     shiftDragVelocity: 20 // velocity with the Shift key pressed, typically slower than dragVelocity
   } ),
-
+  
+  //TODO https://github.com/phetsims/phet-core/issues/114 what is the preferred pattern?
   ARROW_NODE_OPTIONS: optionize<ArrowNodeOptions, {}, ArrowNodeOptions>()( {
     headWidth: 18,
     headHeight: 21,
