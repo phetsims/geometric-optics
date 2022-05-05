@@ -9,7 +9,6 @@
 
 import { Shape } from '../../../../kite/js/imports.js';
 
-//REVIEW: A bit confusing that this is somewhat unrelated to OpticSurfaceType
 interface OpticShapes {
 
   // Shapes used for ray hit testing
