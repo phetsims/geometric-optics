@@ -8,7 +8,6 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import StringIO from '../../../../tandem/js/types/StringIO.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import Optic from './Optic.js';
@@ -27,6 +26,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PositionMarker from './tools/PositionMarker.js';
 import GOColors from '../GOColors.js';
+import StringEnumerationProperty from '../../../../axon/js/StringEnumerationProperty.js';
 
 type SelfOptions = {
 
@@ -94,11 +94,8 @@ export default class GOModel {
 
     this.optic = optic;
 
-    //TODO https://github.com/phetsims/geometric-optics/issues/436 use StringEnumerationProperty
-    this.raysTypeProperty = new Property( 'marginal', {
-      validValues: RaysTypeValues,
-      tandem: options.tandem.createTandem( 'raysTypeProperty' ),
-      phetioType: Property.PropertyIO( StringIO )
+    this.raysTypeProperty = new StringEnumerationProperty( RaysTypeValues, 'marginal', {
+      tandem: options.tandem.createTandem( 'raysTypeProperty' )
     } );
 
     this.lightPropagationEnabledProperty = new BooleanProperty( true, {
