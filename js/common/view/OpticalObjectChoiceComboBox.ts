@@ -60,7 +60,7 @@ export default class OpticalObjectChoiceComboBox extends ComboBox<OpticalObjectC
 
       // create icon
       const icon = ( opticalObjectChoice.icon instanceof Node ) ?
-                   opticalObjectChoice.icon :
+                   new Node( { children: [ opticalObjectChoice.icon ] } ) :
                    new Image( opticalObjectChoice.icon, { scale: 0.5 } );
       const iconAlignBox = new AlignBox( icon, {
         group: iconsAlignGroup
