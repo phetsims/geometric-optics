@@ -59,7 +59,7 @@ export default class OpticLabelNode extends LabelNode {
       }
       else {
         // mirror
-        assert && assert( optic instanceof Mirror );
+        assert && assert( optic instanceof Mirror ); // eslint-disable-line bad-typescript-text
         if ( opticSurfaceType === 'convex' ) {
           text = geometricOpticsStrings.label.convexMirror;
         }

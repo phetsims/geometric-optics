@@ -222,7 +222,7 @@ function getRealRays( initialRay: GORay, firstPoint: Vector2 | null, optic: Opti
       rays.push( getTransmittedRay( firstPoint, opticalImagePosition, optic ) );
     }
     else {
-      assert && assert( optic instanceof Lens );
+      assert && assert( optic instanceof Lens ); // eslint-disable-line bad-typescript-text
       const lens = optic as Lens;
 
       // find bisecting point of the lens, used to determine outgoing ray
@@ -306,7 +306,6 @@ function terminateOnProjectionScreen( realRay: GORay, projectionScreen: Projecti
  * Processes a point from the intersection. Returns null if the point cannot be found.
  */
 function getPoint( intersection: RayIntersection[] ): Vector2 | null {
-  assert && assert( Array.isArray( intersection ) && _.every( intersection, element => element instanceof RayIntersection ) );
 
   // all shapes have been defined as line (straight or curved) so there can only be one intersection point at most
   if ( intersection && intersection[ 0 ] && intersection[ 0 ].point ) {
