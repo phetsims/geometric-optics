@@ -12,27 +12,60 @@ import geometricOptics from '../geometricOptics.js';
 import NumberControl, { NumberControlOptions } from '../../../scenery-phet/js/NumberControl.js';
 import Dimension2 from '../../../dot/js/Dimension2.js';
 import Range from '../../../dot/js/Range.js';
-import optionize from '../../../phet-core/js/optionize.js';
 import { KeyboardDragListenerOptions } from '../../../scenery/js/imports.js';
 import { ArrowNodeOptions } from '../../../scenery-phet/js/ArrowNode.js';
 import { CreditsData } from '../../../joist/js/CreditsNode.js';
 
 const CONTROL_FONT = new PhetFont( 14 );
 
+// Shared with geometric-optics-basics
+const CREDITS: CreditsData = {
+  leadDesign: 'Amy Rouinfar, Michael Dubson',
+  softwareDevelopment: 'Sarah Chang, Chris Malley (PixelZoom, Inc.), Martin Veillette',
+  team: 'Chris Klusendorf, Diana L\u00f3pez Tavares, Ariel Paul, Kathy Perkins',
+  qualityAssurance: 'Steele Dalton, Clifford Hardin, Emily Miller, Nancy Salpepi, Kathryn Woessner',
+  graphicArts: 'Megan Lai'
+};
+
+const ARROW_NODE_OPTIONS: ArrowNodeOptions = {
+  headWidth: 18,
+  headHeight: 21,
+  tailWidth: 2,
+  isHeadDynamic: true,
+  fractionalHeadHeight: 0.5
+};
+
+const KEYBOARD_DRAG_LISTENER_OPTIONS: KeyboardDragListenerOptions = {
+  dragVelocity: 300, // velocity of the Node being dragged, in view coordinates per second
+  shiftDragVelocity: 20 // velocity with the Shift key pressed, typically slower than dragVelocity
+};
+
+const NUMBER_CONTROL_OPTIONS: NumberControlOptions = {
+  layoutFunction: NumberControl.createLayoutFunction3( { ySpacing: 12 } ),
+  titleNodeOptions: {
+    font: CONTROL_FONT,
+    maxWidth: 140
+  },
+  sliderOptions: {
+    trackSize: new Dimension2( 140, 4 ),
+    thumbSize: new Dimension2( 15, 30 ),
+    thumbTouchAreaXDilation: 5,
+    thumbTouchAreaYDilation: 5
+  },
+  numberDisplayOptions: {
+    maxWidth: 70,
+    textOptions: {
+      font: CONTROL_FONT
+    }
+  }
+};
+
 const GOConstants = {
 
   SCREEN_VIEW_X_MARGIN: 20,
   SCREEN_VIEW_Y_MARGIN: 15,
 
-  // Shared with geometric-optics-basics
-  //TODO https://github.com/phetsims/phet-core/issues/114 what is the preferred pattern?
-  CREDITS: optionize<CreditsData, {}, CreditsData>()( {
-    leadDesign: 'Amy Rouinfar, Michael Dubson',
-    softwareDevelopment: 'Sarah Chang, Chris Malley (PixelZoom, Inc.), Martin Veillette',
-    team: 'Chris Klusendorf, Diana L\u00f3pez Tavares, Ariel Paul, Kathy Perkins',
-    qualityAssurance: 'Steele Dalton, Clifford Hardin, Emily Miller, Nancy Salpepi, Kathryn Woessner',
-    graphicArts: 'Megan Lai'
-  } ),
+  CREDITS: CREDITS,
 
   // Objects -----------------------------------------------------------------------------------------------------------
 
@@ -101,42 +134,9 @@ const GOConstants = {
   // Options -----------------------------------------------------------------------------------------------------------
 
   CHECKBOX_BOX_WIDTH: 14,
-
-  //TODO https://github.com/phetsims/phet-core/issues/114 what is the preferred pattern?
-  NUMBER_CONTROL_OPTIONS: optionize<NumberControlOptions, {}, NumberControlOptions>()( {
-    layoutFunction: NumberControl.createLayoutFunction3( { ySpacing: 12 } ),
-    titleNodeOptions: {
-      font: CONTROL_FONT,
-      maxWidth: 140
-    },
-    sliderOptions: {
-      trackSize: new Dimension2( 140, 4 ),
-      thumbSize: new Dimension2( 15, 30 ),
-      thumbTouchAreaXDilation: 5,
-      thumbTouchAreaYDilation: 5
-    },
-    numberDisplayOptions: {
-      maxWidth: 70,
-      textOptions: {
-        font: CONTROL_FONT
-      }
-    }
-  } ),
-
-  //TODO https://github.com/phetsims/phet-core/issues/114 what is the preferred pattern?
-  KEYBOARD_DRAG_LISTENER_OPTIONS: optionize<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>()( {
-    dragVelocity: 300, // velocity of the Node being dragged, in view coordinates per second
-    shiftDragVelocity: 20 // velocity with the Shift key pressed, typically slower than dragVelocity
-  } ),
-  
-  //TODO https://github.com/phetsims/phet-core/issues/114 what is the preferred pattern?
-  ARROW_NODE_OPTIONS: optionize<ArrowNodeOptions, {}, ArrowNodeOptions>()( {
-    headWidth: 18,
-    headHeight: 21,
-    tailWidth: 2,
-    isHeadDynamic: true,
-    fractionalHeadHeight: 0.5
-  } )
+  ARROW_NODE_OPTIONS: ARROW_NODE_OPTIONS,
+  KEYBOARD_DRAG_LISTENER_OPTIONS: KEYBOARD_DRAG_LISTENER_OPTIONS,
+  NUMBER_CONTROL_OPTIONS: NUMBER_CONTROL_OPTIONS
 };
 
 geometricOptics.register( 'GOConstants', GOConstants );
