@@ -480,7 +480,7 @@ export default class GOScreenView extends ScreenView {
       lightSceneNode && lightSceneNode.reset();
     };
 
-    // pdom -traversal order
+    // pdom - traversal order
     screenViewRootNode.pdomOrder = [
       scenesLayer,
       horizontalRulerNode,
