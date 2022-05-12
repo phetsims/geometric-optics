@@ -23,7 +23,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import LightObjectNode from './LightObjectNode.js';
 import OpticalAxisInFrontOfProjectionScreenNode from './OpticalAxisInFrontOfProjectionScreenNode.js';
 import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
-import IProperty from '../../../../axon/js/IProperty.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import ToolJumpPoint from './tools/ToolJumpPoint.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
@@ -42,10 +41,9 @@ export default class LightSceneNode extends GOSceneNode {
   public readonly scene: LightScene;
 
   // Visibility of things that have labels, intended to be used to control the visibility of associated labels.
-  // Do not set these Properties. They should be IReadOnlyProperty<boolean>, but Node currently requires IProperty<boolean>.
-  public readonly lightObject1NodeVisibleProperty: IProperty<boolean>;
-  public readonly lightObject2NodeVisibleProperty: IProperty<boolean>;
-  public readonly projectionScreenNodeVisibleProperty: IProperty<boolean>;
+  public readonly lightObject1NodeVisibleProperty: IReadOnlyProperty<boolean>;
+  public readonly lightObject2NodeVisibleProperty: IReadOnlyProperty<boolean>;
+  public readonly projectionScreenNodeVisibleProperty: IReadOnlyProperty<boolean>;
 
   // Resets things that are specific to this class.
   private readonly resetLightObjectSceneNode: () => void;
@@ -66,7 +64,7 @@ export default class LightSceneNode extends GOSceneNode {
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
                raysTypeProperty: IReadOnlyProperty<RaysType>,
-               lightPropagationEnabledProperty: IProperty<boolean>,
+               lightPropagationEnabledProperty: IReadOnlyProperty<boolean>,
                providedOptions: LightObjectSceneNodeOptions ) {
 
     super( scene, visibleProperties, modelViewTransform, modelVisibleBoundsProperty, sceneBoundsProperty, raysTypeProperty, providedOptions );

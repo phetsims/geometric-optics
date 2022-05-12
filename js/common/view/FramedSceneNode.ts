@@ -24,7 +24,6 @@ import OpticalAxisForegroundNode from './OpticalAxisForegroundNode.js';
 import VirtualLightRaysNode from './VirtualLightRaysNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
-import IProperty from '../../../../axon/js/IProperty.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import ToolJumpPoint from './tools/ToolJumpPoint.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
@@ -43,9 +42,8 @@ export default class FramedSceneNode extends GOSceneNode {
   public readonly scene: FramedScene;
 
   // Visibility of things that have labels, intended to be used to control the visibility of associated labels.
-  // Do not set these Properties. They should be IReadOnlyProperty<boolean>, but Node currently requires IProperty<boolean>.
-  public readonly framedObjectNodeVisibleProperty: IProperty<boolean>;
-  public readonly framedImageNodeVisibleProperty: IProperty<boolean>;
+  public readonly framedObjectNodeVisibleProperty: IReadOnlyProperty<boolean>;
+  public readonly framedImageNodeVisibleProperty: IReadOnlyProperty<boolean>;
 
   // Resets things that are specific to this class.
   private readonly resetFrameObjectSceneNode: () => void;
@@ -66,7 +64,7 @@ export default class FramedSceneNode extends GOSceneNode {
                modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
                raysTypeProperty: IReadOnlyProperty<RaysType>,
-               lightPropagationEnabledProperty: IProperty<boolean>,
+               lightPropagationEnabledProperty: IReadOnlyProperty<boolean>,
                providedOptions: FramedObjectSceneNodeOptions ) {
 
     super( scene, visibleProperties, modelViewTransform, modelVisibleBoundsProperty, sceneBoundsProperty, raysTypeProperty, providedOptions );

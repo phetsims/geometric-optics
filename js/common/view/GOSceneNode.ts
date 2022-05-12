@@ -27,7 +27,6 @@ import GOScene from '../model/GOScene.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ToolJumpPoint from './tools/ToolJumpPoint.js';
-import IProperty from '../../../../axon/js/IProperty.js';
 
 type SelfOptions = {
 
@@ -56,13 +55,12 @@ export default abstract class GOSceneNode extends Node {
   protected readonly raysBackgroundLayer: Node;
 
   // Visibility of things that have labels, intended to be used to control the visibility of associated labels.
-  // Do not set these Properties. They should be IReadOnlyProperty<boolean>, but Node currently requires IProperty<boolean>.
-  public readonly opticNodeVisibleProperty: IProperty<boolean>;
-  public readonly opticalAxisNodeVisibleProperty: IProperty<boolean>;
-  public readonly leftFocalPointNodeVisibleProperty: IProperty<boolean>;
-  public readonly rightFocalPointNodeVisibleProperty: IProperty<boolean>;
-  public readonly left2FPointNodeVisibleProperty: IProperty<boolean>;
-  public readonly right2FPointNodeVisibleProperty: IProperty<boolean>;
+  public readonly opticNodeVisibleProperty: IReadOnlyProperty<boolean>;
+  public readonly opticalAxisNodeVisibleProperty: IReadOnlyProperty<boolean>;
+  public readonly leftFocalPointNodeVisibleProperty: IReadOnlyProperty<boolean>;
+  public readonly rightFocalPointNodeVisibleProperty: IReadOnlyProperty<boolean>;
+  public readonly left2FPointNodeVisibleProperty: IReadOnlyProperty<boolean>;
+  public readonly right2FPointNodeVisibleProperty: IReadOnlyProperty<boolean>;
 
   /**
    * @param scene - model element
