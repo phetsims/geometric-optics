@@ -29,7 +29,8 @@ const GOOptions = {
   } ),
 
   focalLengthModelTypeProperty:
-    new StringEnumerationProperty( FocalLengthModelTypeValues, GOQueryParameters.focalLengthControl, {
+    new StringEnumerationProperty( GOQueryParameters.focalLengthControl, {
+      validValues: FocalLengthModelTypeValues,
       tandem: optionsTandem.createTandem( 'focalLengthModelTypeProperty' ),
       phetioDocumentation: 'Determines how focal length is modeled and controlled in the Lens and Mirror screens.<br>' +
                            'This can also be set via the focalLengthControl query parameter.<br>' +

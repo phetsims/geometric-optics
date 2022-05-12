@@ -159,7 +159,8 @@ export default class GOScreenView extends ScreenView {
         return new Bounds2( modelVisibleBounds.minX, -y, modelVisibleBounds.maxX, y );
       } );
 
-    const objectDragModeProperty = new StringEnumerationProperty( ObjectDragModeValues, options.objectDragMode, {
+    const objectDragModeProperty = new StringEnumerationProperty( options.objectDragMode, {
+      validValues: ObjectDragModeValues,
       tandem: providedOptions.tandem.createTandem( 'objectDragModeProperty' ),
       phetioReadOnly: true,
       phetioDocumentation: 'Controls dragging of the optical objects. ' +

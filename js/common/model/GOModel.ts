@@ -94,7 +94,8 @@ export default class GOModel {
 
     this.optic = optic;
 
-    this.raysTypeProperty = new StringEnumerationProperty( RaysTypeValues, 'marginal', {
+    this.raysTypeProperty = new StringEnumerationProperty( 'marginal', {
+      validValues: RaysTypeValues,
       tandem: options.tandem.createTandem( 'raysTypeProperty' )
     } );
 

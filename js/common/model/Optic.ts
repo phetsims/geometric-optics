@@ -125,11 +125,11 @@ export default abstract class Optic extends PhetioObject {
 
     this.sign = options.sign;
 
-    this.opticSurfaceTypeProperty = new StringEnumerationProperty(
-      options.opticSurfaceTypes, options.opticSurfaceTypes[ 0 ], {
-        tandem: options.tandem.createTandem( 'opticSurfaceTypeProperty' ),
-        phetioDocumentation: 'surface type of the optic'
-      } );
+    this.opticSurfaceTypeProperty = new StringEnumerationProperty( options.opticSurfaceTypes[ 0 ], {
+      validValues: options.opticSurfaceTypes,
+      tandem: options.tandem.createTandem( 'opticSurfaceTypeProperty' ),
+      phetioDocumentation: 'surface type of the optic'
+    } );
 
     // In https://github.com/phetsims/geometric-optics/issues/262, it was decided that the optic should have a fixed
     // position, at the origin of the model coordinate frame.  This differs from the Flash version, where the optic
