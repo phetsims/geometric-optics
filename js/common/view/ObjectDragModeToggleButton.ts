@@ -15,7 +15,7 @@ import CueingArrowsNode from './CueingArrowsNode.js';
 import ButtonNode from '../../../../sun/js/buttons/ButtonNode.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 import ToggleNode from '../../../../sun/js/ToggleNode.js';
 import RectangularToggleButton, { RectangularToggleButtonOptions } from '../../../../sun/js/buttons/RectangularToggleButton.js';
@@ -50,7 +50,7 @@ export default class ObjectDragModeToggleButton extends RectangularToggleButton<
     };
 
     // 4-way arrow to indicate free dragging
-    const freeDraggingNode = new AlignBox( new HBox( optionize<HBoxOptions, {}, HBoxOptions>()( {
+    const freeDraggingNode = new AlignBox( new HBox( combineOptions<HBoxOptions>( {
       children: [
         new CueingArrowsNode( {
           direction: 'both',
@@ -66,7 +66,7 @@ export default class ObjectDragModeToggleButton extends RectangularToggleButton<
     }, hBoxOptions ) ), alignBoxOptions );
 
     // horizontal 2-way arrow to indicate horizontal dragging
-    const horizontalDragNode = new AlignBox( new HBox( optionize<HBoxOptions, {}, HBoxOptions>()( {
+    const horizontalDragNode = new AlignBox( new HBox( combineOptions<HBoxOptions>( {
       children: [
         new CueingArrowsNode( {
           direction: 'horizontal',

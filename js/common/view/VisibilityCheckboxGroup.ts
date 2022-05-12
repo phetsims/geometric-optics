@@ -45,7 +45,7 @@ export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
                virtualImageCheckboxEnabledProperty: IReadOnlyProperty<boolean>,
                providedOptions: VisibilityCheckboxGroupOptions ) {
 
-    const options = optionize<VisibilityCheckboxGroupOptions, {}, VerticalCheckboxGroupOptions>()( {
+    const options = optionize<VisibilityCheckboxGroupOptions, SelfOptions, VerticalCheckboxGroupOptions>()( {
 
       // VerticalCheckboxGroupOptions
       spacing: 4,

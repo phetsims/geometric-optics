@@ -16,7 +16,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import optionize, { optionize3 } from '../../../../phet-core/js/optionize.js';
+import optionize, { combineOptions3 } from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {};
 
@@ -47,23 +47,22 @@ export default class RadiusOfCurvatureControl extends NumberControl {
     } );
 
     // Assemble the defaults for NumberControl, because optionize doesn't support defaults in multiple objects.
-    const numberControlDefaults = optionize3<NumberControlOptions, {}, NumberControlOptions>()(
-      {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
-        delta: GOConstants.RADIUS_OF_CURVATURE_SPINNER_STEP,
-        titleNodeOptions: {
-          textProperty: textProperty
-        },
-        numberDisplayOptions: {
-          decimalPlaces: GOConstants.RADIUS_OF_CURVATURE_DECIMAL_PLACES,
-          valuePattern: geometricOpticsStrings.valueCentimetersPattern
-        },
-        sliderOptions: {
-          constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.RADIUS_OF_CURVATURE_SLIDER_STEP ),
-          keyboardStep: GOConstants.RADIUS_OF_CURVATURE_KEYBOARD_STEP, // used by all alternative-input devices
-          shiftKeyboardStep: GOConstants.RADIUS_OF_CURVATURE_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
-          pageKeyboardStep: GOConstants.RADIUS_OF_CURVATURE_PAGE_KEYBOARD_STEP
-        }
-      } );
+    const numberControlDefaults = combineOptions3<NumberControlOptions>( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
+      delta: GOConstants.RADIUS_OF_CURVATURE_SPINNER_STEP,
+      titleNodeOptions: {
+        textProperty: textProperty
+      },
+      numberDisplayOptions: {
+        decimalPlaces: GOConstants.RADIUS_OF_CURVATURE_DECIMAL_PLACES,
+        valuePattern: geometricOpticsStrings.valueCentimetersPattern
+      },
+      sliderOptions: {
+        constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.RADIUS_OF_CURVATURE_SLIDER_STEP ),
+        keyboardStep: GOConstants.RADIUS_OF_CURVATURE_KEYBOARD_STEP, // used by all alternative-input devices
+        shiftKeyboardStep: GOConstants.RADIUS_OF_CURVATURE_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
+        pageKeyboardStep: GOConstants.RADIUS_OF_CURVATURE_PAGE_KEYBOARD_STEP
+      }
+    } );
 
     // Now add providedOptions to the defaults.
     const options = optionize<RadiusOfCurvatureControlOptions, SelfOptions, NumberControlOptions>()(

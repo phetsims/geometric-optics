@@ -25,7 +25,7 @@ import GOConstants from '../GOConstants.js';
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import GOColors from '../GOColors.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import starRightFacingUpright_png from '../../../images/starRightFacingUpright_png.js';
 import starRightFacingInverted_png from '../../../images/starRightFacingInverted_png.js';
 import starLeftFacingUpright_png from '../../../images/starLeftFacingUpright_png.js';
@@ -65,12 +65,11 @@ type OpticalObjectChoiceOptions = {
 };
 
 // icon used for 'Arrow' in the combo box
-const ARROW_ICON = new ArrowNode( 0, 0, 0, -50,
-  optionize<ArrowNodeOptions, {}, ArrowNodeOptions>()( {
-    fill: GOColors.arrow1FillProperty,
-    stroke: null,
-    scale: 0.5
-  }, GOConstants.ARROW_NODE_OPTIONS ) );
+const ARROW_ICON = new ArrowNode( 0, 0, 0, -50, combineOptions<ArrowNodeOptions>( {
+  fill: GOColors.arrow1FillProperty,
+  stroke: null,
+  scale: 0.5
+}, GOConstants.ARROW_NODE_OPTIONS ) );
 
 export default class OpticalObjectChoice extends EnumerationValue {
 

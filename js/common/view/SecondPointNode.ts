@@ -16,7 +16,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import SecondPoint from '../model/SecondPoint.js';
 import GOConstants from '../GOConstants.js';
-import optionize, { optionize3 } from '../../../../phet-core/js/optionize.js';
+import optionize, { combineOptions3 } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
@@ -84,7 +84,7 @@ export default class SecondPointNode extends Node {
     this.addInputListener( dragListener );
 
     const keyboardDragListener = new KeyboardDragListener(
-      optionize3<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>()( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
+      combineOptions3<KeyboardDragListenerOptions>( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
         positionProperty: positionProperty,
         transform: modelViewTransform,
         drag: drag,

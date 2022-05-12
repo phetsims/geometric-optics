@@ -17,7 +17,7 @@ import StringProperty from '../../../../axon/js/StringProperty.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import optionize, { optionize3 } from '../../../../phet-core/js/optionize.js';
+import optionize, { combineOptions3 } from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {};
 
@@ -48,23 +48,22 @@ export default class FocalLengthControl extends NumberControl {
     } );
 
     // Assemble the defaults for NumberControl, because optionize doesn't support defaults in multiple objects.
-    const numberControlDefaults = optionize3<NumberControlOptions, {}, NumberControlOptions>()(
-      {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
-        delta: GOConstants.FOCAL_LENGTH_SPINNER_STEP,
-        titleNodeOptions: {
-          textProperty: textProperty
-        },
-        numberDisplayOptions: {
-          decimalPlaces: GOConstants.FOCAL_LENGTH_DECIMAL_PLACES,
-          valuePattern: geometricOpticsStrings.valueCentimetersPattern
-        },
-        sliderOptions: {
-          constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.FOCAL_LENGTH_SLIDER_STEP ),
-          keyboardStep: GOConstants.FOCAL_LENGTH_KEYBOARD_STEP, // used by all alternative-input devices
-          shiftKeyboardStep: GOConstants.FOCAL_LENGTH_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
-          pageKeyboardStep: GOConstants.FOCAL_LENGTH_PAGE_KEYBOARD_STEP
-        }
-      } );
+    const numberControlDefaults = combineOptions3<NumberControlOptions>( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
+      delta: GOConstants.FOCAL_LENGTH_SPINNER_STEP,
+      titleNodeOptions: {
+        textProperty: textProperty
+      },
+      numberDisplayOptions: {
+        decimalPlaces: GOConstants.FOCAL_LENGTH_DECIMAL_PLACES,
+        valuePattern: geometricOpticsStrings.valueCentimetersPattern
+      },
+      sliderOptions: {
+        constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.FOCAL_LENGTH_SLIDER_STEP ),
+        keyboardStep: GOConstants.FOCAL_LENGTH_KEYBOARD_STEP, // used by all alternative-input devices
+        shiftKeyboardStep: GOConstants.FOCAL_LENGTH_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
+        pageKeyboardStep: GOConstants.FOCAL_LENGTH_PAGE_KEYBOARD_STEP
+      }
+    } );
 
     // Now add providedOptions to the defaults.
     const options = optionize<FocalLengthControlOptions, SelfOptions, NumberControlOptions>()(

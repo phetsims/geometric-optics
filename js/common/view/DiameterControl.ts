@@ -14,7 +14,7 @@ import Utils from '../../../../dot/js/Utils.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import optionize, { optionize3 } from '../../../../phet-core/js/optionize.js';
+import optionize, { combineOptions3 } from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {};
 
@@ -28,20 +28,19 @@ export default class DiameterControl extends NumberControl {
     const range = diameterProperty.range!;
 
     // Assemble the defaults for NumberControl, because optionize doesn't support defaults in multiple objects.
-    const numberControlDefaults = optionize3<NumberControlOptions, {}, NumberControlOptions>()(
-      {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
-        delta: GOConstants.DIAMETER_SPINNER_STEP,
-        sliderOptions: {
-          constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.DIAMETER_SLIDER_STEP ),
-          keyboardStep: GOConstants.DIAMETER_KEYBOARD_STEP, // used by all alternative-input devices
-          shiftKeyboardStep: GOConstants.DIAMETER_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
-          pageKeyboardStep: GOConstants.DIAMETER_PAGE_KEYBOARD_STEP // coarser grain, used by keyboard only
-        },
-        numberDisplayOptions: {
-          decimalPlaces: GOConstants.DIAMETER_DECIMAL_PLACES,
-          valuePattern: geometricOpticsStrings.valueCentimetersPattern
-        }
-      } );
+    const numberControlDefaults = combineOptions3<NumberControlOptions>( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
+      delta: GOConstants.DIAMETER_SPINNER_STEP,
+      sliderOptions: {
+        constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.DIAMETER_SLIDER_STEP ),
+        keyboardStep: GOConstants.DIAMETER_KEYBOARD_STEP, // used by all alternative-input devices
+        shiftKeyboardStep: GOConstants.DIAMETER_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
+        pageKeyboardStep: GOConstants.DIAMETER_PAGE_KEYBOARD_STEP // coarser grain, used by keyboard only
+      },
+      numberDisplayOptions: {
+        decimalPlaces: GOConstants.DIAMETER_DECIMAL_PLACES,
+        valuePattern: geometricOpticsStrings.valueCentimetersPattern
+      }
+    } );
 
     // Now add providedOptions to the defaults.
     const options = optionize<DiameterControlOptions, SelfOptions, NumberControlOptions>()(

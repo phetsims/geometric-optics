@@ -18,7 +18,7 @@ import GOConstants from '../GOConstants.js';
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import { optionize3 } from '../../../../phet-core/js/optionize.js';
+import { combineOptions3 } from '../../../../phet-core/js/optionize.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 import OpticalObjectNode, { OpticalObjectNodeOptions } from './OpticalObjectNode.js';
 import IProperty from '../../../../axon/js/IProperty.js';
@@ -49,7 +49,7 @@ export default class ArrowObjectNode extends OpticalObjectNode {
     super( arrowObject, objectDragModeProperty, wasDraggedProperty, providedOptions );
 
     const arrowNode = new ArrowNode( 0, 0, 0, 1,
-      optionize3<ArrowNodeOptions, {}, ArrowNodeOptions>()( {}, GOConstants.ARROW_NODE_OPTIONS, {
+      combineOptions3<ArrowNodeOptions>( {}, GOConstants.ARROW_NODE_OPTIONS, {
         fill: arrowObject.fill,
         stroke: null
       } ) );
@@ -121,7 +121,7 @@ export default class ArrowObjectNode extends OpticalObjectNode {
     this.addInputListener( dragListener );
 
     const keyboardDragListener = new KeyboardDragListener(
-      optionize3<KeyboardDragListenerOptions, {}, KeyboardDragListenerOptions>()( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
+      combineOptions3<KeyboardDragListenerOptions>( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
         positionProperty: arrowObject.positionProperty,
         dragBoundsProperty: dragBoundsProperty,
         transform: modelViewTransform,
