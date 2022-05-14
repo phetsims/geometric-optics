@@ -29,7 +29,6 @@ import VisibleProperties from './VisibleProperties.js';
 import FramedSceneNode from './FramedSceneNode.js';
 import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
 import Property from '../../../../axon/js/Property.js';
-import { RaysType } from '../model/RaysType.js';
 import GORulerNode from './tools/GORulerNode.js';
 import GOToolboxNode from './tools/GOToolboxNode.js';
 import FramedLabelsNode from './labels/FramedLabelsNode.js';
@@ -459,7 +458,7 @@ export default class GOScreenView extends ScreenView {
 
     // If light propagation is enabled, changing these Properties causes the light rays to animate.
     Property.multilink( [ model.lightPropagationEnabledProperty, model.raysTypeProperty ],
-      ( lightPropagationEnabled: boolean, raysType: RaysType ) => {
+      ( lightPropagationEnabled, raysType ) => {
         if ( lightPropagationEnabled ) {
           model.beginLightRaysAnimation();
         }

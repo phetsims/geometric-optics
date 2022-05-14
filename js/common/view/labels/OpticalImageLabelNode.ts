@@ -17,7 +17,6 @@ import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import OpticalImage from '../../model/OpticalImage.js';
-import { OpticalImageType } from '../../model/OpticalImageType.js';
 import Property from '../../../../../axon/js/Property.js';
 
 type SelfOptions = {
@@ -55,7 +54,7 @@ export default class OpticalImageLabelNode extends LabelNode {
     const virtualImageString = geometricOpticsStrings.label.virtualImage;
 
     Property.multilink( [ opticalImage.opticalImageTypeProperty, options.isNumberedProperty ],
-      ( opticalImageType: OpticalImageType, isNumbered: boolean ) => {
+      ( opticalImageType, isNumbered ) => {
         if ( isNumbered ) {
 
           // Switch between 'Real Image N' and 'Virtual Image N'

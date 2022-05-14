@@ -18,7 +18,6 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import GOConstants from '../GOConstants.js';
 import ProjectionScreen from '../model/ProjectionScreen.js';
 import GOQueryParameters from '../GOQueryParameters.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 import Property from '../../../../axon/js/Property.js';
 import { Shape } from '../../../../kite/js/imports.js';
 
@@ -61,7 +60,7 @@ export default class LightSpotNode extends Node {
     }
 
     Property.multilink( [ lightSpot.positionProperty, lightSpot.diameterProperty ],
-      ( position: Vector2, diameter: number ) => {
+      ( position, diameter ) => {
 
         // An ellipse with aspect ratio of 1:2, to give pseudo-3D perspective.
         const radiusX = diameter / 4;

@@ -7,7 +7,6 @@
  */
 
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import geometricOptics from '../../geometricOptics.js';
 import ArrowImage from '../model/ArrowImage.js';
@@ -50,7 +49,7 @@ export default class ArrowImageNode extends OpticalImageNode {
     // Don't scale the head and tail, just the magnitude.
     // See https://github.com/phetsims/geometric-optics/issues/228#issuecomment-1039672404
     Property.multilink( [ arrowImage.positionProperty, arrowImage.magnificationProperty ],
-      ( arrowImagePosition: Vector2, magnification: number ) => {
+      ( arrowImagePosition, magnification ) => {
 
         const opticViewPosition = modelViewTransform.modelToViewPosition( arrowImage.optic.positionProperty.value );
         const objectViewPosition = modelViewTransform.modelToViewPosition( arrowImage.opticalObject.positionProperty.value );

@@ -16,16 +16,16 @@ import LightRay, { LightRaySegment } from './LightRay.js';
 import Optic from './Optic.js';
 import { RaysType } from './RaysType.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import { MappedProperties } from '../../../../axon/js/DerivedProperty.js';
 import ProjectionScreen from './ProjectionScreen.js';
 import Utils from '../../../../dot/js/Utils.js';
 import OpticalImage from './OpticalImage.js';
-import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
+import Vector2Property from '../../../../dot/js/Vector2Property.js';
 
 // constants related to 'Many' rays representation, see https://github.com/phetsims/geometric-optics/issues/289
 const MANY_MIN_RAYS = 20;
 const MANY_MIN_RAYS_DISTANCE = 300; // cm, MANY_MIN_RAYS will be shown up to this distance from the optic
 const MANY_FAN_ANGLE = Utils.toRadians( 120 ); // degrees to radians
+const VECTOR2_PROPERTY = new Vector2Property( Vector2.ZERO ); // For helping the type checker with varargs multilink
 
 export default class LightRays {
 
@@ -67,18 +67,16 @@ export default class LightRays {
 
     // Things that result in a change to the rays.
     // We only care about the types of the first 3 dependencies, because the listener only has 3 parameters.
-    type DependencyTypes = [ Vector2, RaysType, number, ...IntentionalAny[] ];
-    const dependencies: MappedProperties<DependencyTypes> = [
+    const bonusProperty = projectionScreen ? projectionScreen.positionProperty : VECTOR2_PROPERTY;
+    const dependencies = [
       opticalObjectPositionProperty, raysTypeProperty, raysAnimationTimeProperty,
-      optic.positionProperty, optic.diameterProperty, optic.focalLengthProperty, optic.opticSurfaceTypeProperty
-    ];
-    if ( projectionScreen ) {
-      dependencies.push( projectionScreen.positionProperty );
-    }
+      optic.positionProperty, optic.diameterProperty, optic.focalLengthProperty, optic.opticSurfaceTypeProperty,
+      bonusProperty
+    ] as const;
 
     // Update all rays, then inform listeners via raysProcessedEmitter.
-    Property.multilink<DependencyTypes>( dependencies,
-      ( opticalObjectPosition: Vector2, raysType: RaysType, raysAnimationTime: number ) => {
+    Property.multilink( dependencies,
+      ( opticalObjectPosition, raysType, raysAnimationTime ) => {
 
         // Clear the arrays.
         this.realSegments = [];
