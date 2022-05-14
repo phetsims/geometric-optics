@@ -27,7 +27,6 @@ import OpticalObjectChoiceComboBox from './OpticalObjectChoiceComboBox.js';
 import LightPropagationToggleButton from './LightPropagationToggleButton.js';
 import VisibleProperties from './VisibleProperties.js';
 import FramedSceneNode from './FramedSceneNode.js';
-import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
 import Property from '../../../../axon/js/Property.js';
 import GORulerNode from './tools/GORulerNode.js';
 import GOToolboxNode from './tools/GOToolboxNode.js';

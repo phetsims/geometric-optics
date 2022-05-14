@@ -9,15 +9,12 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 import geometricOptics from '../../geometricOptics.js';
 import Lens from '../../lens/model/Lens.js';
 import Optic from './Optic.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OpticalImage, { OpticalImageOptions } from './OpticalImage.js';
-import { ObjectHTMLImageElements } from './OpticalObjectChoice.js';
 import FramedObject from './FramedObject.js';
-import { OpticalImageType } from './OpticalImageType.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import GOConstants from '../GOConstants.js';

@@ -8,7 +8,6 @@
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
-import Vector2 from '../../../../../dot/js/Vector2.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import geometricOptics from '../../../geometricOptics.js';
