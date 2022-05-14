@@ -55,7 +55,7 @@ class Guide extends PhetioObject {
 
     this.fulcrumPositionProperty = new DerivedProperty(
       [ optic.positionProperty, optic.diameterProperty ],
-      ( opticPosition: Vector2, opticDiameter: number ) =>
+      ( opticPosition, opticDiameter ) =>
         opticPosition.plusXY( 0, locationSign * opticDiameter / 2 ), {
         tandem: options.tandem.createTandem( 'fulcrumPositionProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
@@ -64,7 +64,7 @@ class Guide extends PhetioObject {
 
     this.incidentAngleProperty = new DerivedProperty(
       [ opticalObjectPositionProperty, this.fulcrumPositionProperty ],
-      ( opticalObjectPosition: Vector2, fulcrumPosition: Vector2 ) => {
+      ( opticalObjectPosition, fulcrumPosition ) => {
         const displacementVector = opticalObjectPosition.minus( fulcrumPosition );
         return displacementVector.getAngle();
       }, {
@@ -75,7 +75,7 @@ class Guide extends PhetioObject {
 
     this.transmittedAngleProperty = new DerivedProperty(
       [ optic.focalLengthProperty, optic.diameterProperty, this.incidentAngleProperty ],
-      ( focalLength: number, diameter: number, incidentAngle: number ) => {
+      ( focalLength, diameter, incidentAngle ) => {
 
         // transmitted angle if the optic was a blank.
         const throughAngle = incidentAngle + Math.PI;

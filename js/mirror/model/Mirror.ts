@@ -62,7 +62,7 @@ export default class Mirror extends Optic {
 
     this.shapesProperty = new DerivedProperty(
       [ this.radiusOfCurvatureProperty, this.diameterProperty ],
-      ( radiusOfCurvature: number, diameter: number ) => new MirrorShapes( radiusOfCurvature, diameter )
+      ( radiusOfCurvature, diameter ) => new MirrorShapes( radiusOfCurvature, diameter )
     );
   }
 

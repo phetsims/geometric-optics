@@ -94,7 +94,7 @@ export default class PositionMarkerNode extends GOToolNode {
     // This keeps the entire marker inside the visible bounds of the ScreenView.
     this.dragBoundsProperty = new DerivedProperty(
       [ visibleBoundsProperty, zoomTransformProperty ],
-      ( visibleBounds: Bounds2, zoomTransform: ModelViewTransform2 ) => {
+      ( visibleBounds, zoomTransform ) => {
         const viewBounds = new Bounds2( visibleBounds.minX + this.width / 2, visibleBounds.minY,
           visibleBounds.maxX - this.width / 2, visibleBounds.maxY - this.height );
         return zoomTransform.viewToModelBounds( viewBounds );

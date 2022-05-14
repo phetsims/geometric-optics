@@ -42,7 +42,7 @@ export default class FramedLabelsNode extends GOLabelsNode {
 
     const objectLabelPositionProperty = new DerivedProperty(
       [ scene.framedObject.boundsProperty ],
-      ( bounds: Bounds2 ) => bounds.centerTop
+      bounds => bounds.centerTop
     );
 
     const objectLabel = new OpticalObjectLabelNode( scene.framedObject.opticalObjectNumber,
@@ -57,7 +57,7 @@ export default class FramedLabelsNode extends GOLabelsNode {
 
     const imageLabelPositionProperty = new DerivedProperty(
       [ scene.framedImage1.boundsProperty ],
-      ( bounds: Bounds2 ) => bounds.centerTop
+      bounds => bounds.centerTop
     );
 
     const imageLabel = new OpticalImageLabelNode( scene.framedImage1, imageLabelPositionProperty, zoomTransformProperty, {

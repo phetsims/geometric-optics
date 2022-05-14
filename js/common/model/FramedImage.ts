@@ -48,7 +48,7 @@ export default class FramedImage extends OpticalImage {
 
     this.htmlImageElementProperty = new DerivedProperty(
       [ framedObject.objectHTMLImageElementsProperty, this.opticalImageTypeProperty ],
-      ( objectHTMLImageElements: ObjectHTMLImageElements, opticalImageType: OpticalImageType ) => {
+      ( objectHTMLImageElements, opticalImageType ) => {
         const isLens = ( optic instanceof Lens );
         const realImage = isLens ? objectHTMLImageElements.leftFacingInverted : objectHTMLImageElements.rightFacingInverted;
         const virtualImage = isLens ? objectHTMLImageElements.rightFacingUpright : objectHTMLImageElements.leftFacingUpright;
@@ -57,7 +57,7 @@ export default class FramedImage extends OpticalImage {
 
     this.boundsProperty = new DerivedProperty(
       [ this.htmlImageElementProperty, this.positionProperty, this.magnificationProperty ],
-      ( htmlImageElement: HTMLImageElement, position: Vector2, magnification: number ) => {
+      ( htmlImageElement, position, magnification ) => {
 
         const scaleFactor = framedObject.scaleFactor;
         const initialOrigin = framedObject.originOffset.timesScalar( scaleFactor );
@@ -88,7 +88,7 @@ export default class FramedImage extends OpticalImage {
     // This algorithm was specified by Kathy Perkins in https://github.com/phetsims/geometric-optics/issues/350.
     this.opacityProperty = new DerivedProperty(
       [ framedObject.objectDistanceProperty, optic.diameterProperty, this.magnificationProperty ],
-      ( objectDistance: number, diameter: number, magnification: number ) => {
+      ( objectDistance, diameter, magnification ) => {
 
         // Kathy Perkins described this constant as "a comfortable distance from the lens, and nominally where the
         // image/object sizes are the same". This is a horizontal distance.

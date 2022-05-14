@@ -127,7 +127,7 @@ export default class GOScreenView extends ScreenView {
     // Scale factor for the current zoom level
     const zoomScaleProperty = new DerivedProperty(
       [ zoomLevelProperty ],
-      ( zoomLevel: number ) => ZOOM_SCALES[ zoomLevel ], {
+      zoomLevel => ZOOM_SCALES[ zoomLevel ], {
         validValues: ZOOM_SCALES,
         tandem: options.tandem.createTandem( 'zoomScaleProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
@@ -138,7 +138,7 @@ export default class GOScreenView extends ScreenView {
     // Transform applied to tools and labels
     const zoomTransformProperty = new DerivedProperty(
       [ zoomScaleProperty ],
-      ( zoomScale: number ) => {
+      zoomScale => {
         const scale = NOMINAL_MODEL_TO_VIEW_SCALE * zoomScale;
         return ModelViewTransform2.createOffsetXYScaleMapping( viewOrigin, scale, -scale );
       } );
@@ -146,14 +146,14 @@ export default class GOScreenView extends ScreenView {
     // ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied.
     const modelVisibleBoundsProperty = new DerivedProperty(
       [ this.visibleBoundsProperty, zoomTransformProperty ],
-      ( visibleBounds: Bounds2, zoomTransform: ModelViewTransform2 ) => zoomTransform.viewToModelBounds( visibleBounds )
+      ( visibleBounds, zoomTransform ) => zoomTransform.viewToModelBounds( visibleBounds )
     );
 
     // Portion of the ScreenView's visibleBounds that is dedicated to scenes, in the model coordinate frame,
     // with zoom transform applied. Run with ?debugModelBounds to see this rendered as a red rectangle.
     const sceneBoundsProperty = new DerivedProperty(
       [ modelVisibleBoundsProperty ],
-      ( modelVisibleBounds: Bounds2 ) => {
+      modelVisibleBounds => {
         const y = GOConstants.MAX_DISTANCE_FROM_OBJECT_TO_OPTICAL_AXIS;
         return new Bounds2( modelVisibleBounds.minX, -y, modelVisibleBounds.maxX, y );
       } );
@@ -247,7 +247,7 @@ export default class GOScreenView extends ScreenView {
     // Disable the 'Virtual Image' checkbox for lights, see https://github.com/phetsims/geometric-optics/issues/216
     const virtualImageCheckboxEnabledProperty = new DerivedProperty(
       [ model.opticalObjectChoiceProperty ],
-      ( opticalObjectChoice: OpticalObjectChoice ) => ( opticalObjectChoice.type !== 'light' ) );
+      opticalObjectChoice => ( opticalObjectChoice.type !== 'light' ) );
 
     // Control panel at the bottom-center of the screen
     const controlPanel = new GOControlPanel( model.optic, model.raysTypeProperty, visibleProperties,
@@ -328,7 +328,7 @@ export default class GOScreenView extends ScreenView {
         createOpticNode: options.createOpticNode,
         objectDragModeProperty: objectDragModeProperty,
         visibleProperty: new DerivedProperty( [ model.opticalObjectChoiceProperty ],
-          ( opticalObjectChoice: OpticalObjectChoice ) => ( opticalObjectChoice.type === 'arrow' ), {
+          opticalObjectChoice => ( opticalObjectChoice.type === 'arrow' ), {
             tandem: arrowSceneNodeTandem.createTandem( 'visibleProperty' ),
             phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
           } ),
@@ -342,7 +342,7 @@ export default class GOScreenView extends ScreenView {
         createOpticNode: options.createOpticNode,
         objectDragModeProperty: objectDragModeProperty,
         visibleProperty: new DerivedProperty( [ model.opticalObjectChoiceProperty ],
-          ( opticalObjectChoice: OpticalObjectChoice ) => ( opticalObjectChoice.type === 'framed' ), {
+          opticalObjectChoice => ( opticalObjectChoice.type === 'framed' ), {
             tandem: frameSceneNodeTandem.createTandem( 'visibleProperty' ),
             phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
           } ),
@@ -362,7 +362,7 @@ export default class GOScreenView extends ScreenView {
           createOpticNode: options.createOpticNode,
           objectDragModeProperty: objectDragModeProperty,
           visibleProperty: new DerivedProperty( [ model.opticalObjectChoiceProperty ],
-            ( opticalObjectChoice: OpticalObjectChoice ) => ( opticalObjectChoice.type === 'light' ), {
+            opticalObjectChoice => ( opticalObjectChoice.type === 'light' ), {
               tandem: lightSceneNodeTandem.createTandem( 'visibleProperty' ),
               phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
             } ),

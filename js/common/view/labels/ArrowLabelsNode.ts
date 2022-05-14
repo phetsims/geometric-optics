@@ -44,7 +44,7 @@ export default class ArrowLabelsNode extends GOLabelsNode {
 
     // Use numbering in the full version of the sim, or in the basics version if Object 2 is made visible.
     const isNumberedProperty = new DerivedProperty( [ sceneNode.arrowObject2NodeVisibleProperty ],
-      ( arrowObject2NodeVisible: boolean ) => ( !providedOptions.isBasicsVersion || arrowObject2NodeVisible ) );
+      arrowObject2NodeVisible => ( !providedOptions.isBasicsVersion || arrowObject2NodeVisible ) );
 
     // Object labels ------------------------------------------------------------------------------------
 
@@ -92,7 +92,7 @@ class ArrowObjectLabelNode extends OpticalObjectLabelNode {
     // Otherwise, position the label below the arrow's tip.
     const labelPositionProperty = new DerivedProperty(
       [ arrowObject.positionProperty, opticPositionProperty ],
-      ( arrowPosition: Vector2, opticPosition: Vector2 ) =>
+      ( arrowPosition, opticPosition ) =>
         ( arrowPosition.y > opticPosition.y ) ? new Vector2( arrowPosition.x, opticPosition.y ) : arrowPosition
     );
 
@@ -110,7 +110,7 @@ class ArrowImageLabelNode extends OpticalImageLabelNode {
 
     const labelPositionProperty = new DerivedProperty(
       [ arrowImage.positionProperty, opticPositionProperty ],
-      ( arrowPosition: Vector2, opticPosition: Vector2 ) => {
+      ( arrowPosition, opticPosition ) => {
         if ( arrowPosition.y > opticPosition.y ) {
           return new Vector2( arrowPosition.x, opticPosition.y );
         }

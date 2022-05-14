@@ -39,8 +39,8 @@ export default class OpticalImageNode extends Node {
       visibleProperty: new DerivedProperty(
         [ opticalImage.visibleProperty, opticalImage.opticalImageTypeProperty, virtualImageVisibleProperty,
           lightPropagationEnabledProperty, objectVisibleProperty ],
-        ( imageVisible: boolean, opticalImageType: OpticalImageType, virtualImageVisible: boolean,
-          lightPropagationEnabled: boolean, objectVisible: boolean ) => {
+        ( imageVisible, opticalImageType, virtualImageVisible,
+          lightPropagationEnabled, objectVisible ) => {
           return ( imageVisible && ( opticalImageType === 'real' || virtualImageVisible ) &&
                    lightPropagationEnabled && objectVisible );
         }, {

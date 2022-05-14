@@ -78,7 +78,7 @@ export default class OpticalObject extends PhetioObject {
     } );
 
     this.objectDistanceProperty = new DerivedProperty( [ opticPositionProperty, this.positionProperty ],
-      ( opticPosition: Vector2, opticalObjectPosition: Vector2 ) => ( opticPosition.x - opticalObjectPosition.x ), {
+      ( opticPosition, opticalObjectPosition ) => ( opticPosition.x - opticalObjectPosition.x ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'objectDistanceProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),

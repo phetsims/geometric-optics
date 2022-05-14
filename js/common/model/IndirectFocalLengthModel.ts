@@ -71,7 +71,7 @@ export default class IndirectFocalLengthModel extends PhetioObject implements Fo
 
     this.focalLengthMagnitudeProperty = new DerivedProperty(
       [ opticSurfaceTypeProperty, this.radiusOfCurvatureMagnitudeProperty, this.indexOfRefractionProperty ],
-      ( opticSurfaceType: OpticSurfaceType, radiusOfCurvatureMagnitude: number, indexOfRefraction: number ) =>
+      ( opticSurfaceType, radiusOfCurvatureMagnitude, indexOfRefraction ) =>
         radiusOfCurvatureMagnitude / ( 2 * ( indexOfRefraction - 1 ) ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'focalLengthMagnitudeProperty' ),

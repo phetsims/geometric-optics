@@ -39,7 +39,7 @@ export default class OpticLabelNode extends LabelNode {
 
     const opticLabelPositionProperty = new DerivedProperty(
       [ optic.positionProperty, optic.diameterProperty ],
-      ( position: Vector2, diameter: number ) => position.minusXY( 0, diameter / 2 )
+      ( position, diameter ) => position.minusXY( 0, diameter / 2 )
     );
 
     super( '', opticLabelPositionProperty, zoomTransformProperty, options );

@@ -74,7 +74,7 @@ export default class CueingArrowsNode extends Path {
                                        wasDraggedProperty: IReadOnlyProperty<boolean> ): IReadOnlyProperty<boolean> {
     return new DerivedProperty(
       [ GOOptions.cueingArrowsEnabledProperty, inputEnabledProperty, wasDraggedProperty ],
-      ( cueingArrowsEnabled: boolean, inputEnabled: boolean, wasDragged: boolean ) =>
+      ( cueingArrowsEnabled, inputEnabled, wasDragged ) =>
         ( cueingArrowsEnabled && inputEnabled && !wasDragged ) );
   }
 }

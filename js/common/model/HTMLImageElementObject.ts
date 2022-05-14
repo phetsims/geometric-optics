@@ -60,7 +60,7 @@ export default class HTMLImageElementObject extends OpticalObject {
 
     this.boundsProperty = new DerivedProperty(
       [ htmlImageElementProperty, this.positionProperty ],
-      ( htmlImageElement: HTMLImageElement, position: Vector2 ) =>
+      ( htmlImageElement, position ) =>
         computeBounds( htmlImageElement, position, scaleFactor, originOffset )
     );
   }

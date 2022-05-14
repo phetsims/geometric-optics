@@ -133,7 +133,7 @@ export default class ProjectionScreenNode extends Node {
     // Drag bounds, in model coordinates - within model bounds, and right of the optic.
     const dragBoundsProperty = new DerivedProperty(
       [ sceneBoundsProperty, opticPositionProperty ],
-      ( sceneBounds: Bounds2, opticPosition: Vector2 ) =>
+      ( sceneBounds, opticPosition ) =>
         new Bounds2(
           opticPosition.x + GOConstants.MIN_DISTANCE_FROM_OPTIC_TO_PROJECTION_SCREEN,
           sceneBounds.minY + modelScreenHeight / 2,

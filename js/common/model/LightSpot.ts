@@ -66,12 +66,12 @@ export default class LightSpot extends PhetioObject {
 
     const positionAndDiameterProperty = new DerivedProperty(
       [ optic.positionProperty, optic.diameterProperty, projectionScreen.positionProperty, lightObjectPositionProperty, opticalImagePositionProperty ],
-      ( opticPosition: Vector2, opticDiameter: number, projectionScreenPosition: Vector2, lightObjectPosition: Vector2, opticalImagePosition: Vector2 ) =>
+      ( opticPosition, opticDiameter, projectionScreenPosition, lightObjectPosition, opticalImagePosition ) =>
         getPositionAndDiameter( optic, projectionScreenPosition, lightObjectPosition, opticalImagePosition )
     );
 
     this.positionProperty = new DerivedProperty( [ positionAndDiameterProperty ],
-      ( positionAndDiameter: PositionAndDiameter ) => positionAndDiameter.position, {
+      positionAndDiameter => positionAndDiameter.position, {
         units: 'cm',
         tandem: options.tandem.createTandem( 'positionProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
@@ -79,7 +79,7 @@ export default class LightSpot extends PhetioObject {
       } );
 
     this.diameterProperty = new DerivedProperty( [ positionAndDiameterProperty ],
-      ( positionAndDiameter: PositionAndDiameter ) => positionAndDiameter.diameter, {
+      positionAndDiameter => positionAndDiameter.diameter, {
         isValidValue: ( diameter: number ) => ( diameter >= 0 ),
         units: 'cm',
         tandem: options.tandem.createTandem( 'diameterProperty' ),
@@ -90,7 +90,7 @@ export default class LightSpot extends PhetioObject {
     // The normalized intensity of the light spot, in the range [0,1].
     // See https://github.com/phetsims/geometric-optics/issues/335
     this.intensityProperty = new DerivedProperty( [ this.diameterProperty, optic.diameterProperty ],
-      ( lightSpotDiameter: number, opticDiameter: number ) => {
+      ( lightSpotDiameter, opticDiameter ) => {
         if ( lightSpotDiameter === 0 ) {
           return 0; // avoid divide-by-zero
         }
@@ -114,7 +114,7 @@ export default class LightSpot extends PhetioObject {
 
     this.intersectsProjectionScreenProperty = new DerivedProperty(
       [ this.positionProperty, this.diameterProperty, projectionScreen.positionProperty ],
-      ( position: Vector2, diameter: number, projectionScreenPosition: Vector2 ) =>
+      ( position, diameter, projectionScreenPosition ) =>
         position.y >= projectionScreenPosition.y - projectionScreen.height / 2 - diameter / 2 &&
         position.y <= projectionScreenPosition.y + projectionScreen.height / 2 + diameter / 2, {
         tandem: options.tandem.createTandem( 'intersectsProjectionScreenProperty' ),

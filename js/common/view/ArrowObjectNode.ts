@@ -70,7 +70,7 @@ export default class ArrowObjectNode extends OpticalObjectNode {
 
     const dragBoundsProperty = new DerivedProperty(
       [ sceneBoundsProperty, objectDragModeProperty ],
-      ( sceneBounds: Bounds2, objectDragMode: ObjectDragMode ) => {
+      ( sceneBounds, objectDragMode ) => {
 
         const minX = sceneBounds.minX + modelViewTransform.viewToModelDeltaX( arrowNode.width ) / 2;
         const maxX = optic.positionProperty.value.x - GOConstants.MIN_DISTANCE_FROM_OBJECT_TO_OPTIC;

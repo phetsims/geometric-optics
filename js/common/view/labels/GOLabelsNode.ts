@@ -55,7 +55,7 @@ export default class GOLabelsNode extends Node {
     // Under the optical axis, but at the far-left of the model bounds.
     const opticalAxisLabelPositionProperty = new DerivedProperty(
       [ optic.positionProperty, modelVisibleBoundsProperty ],
-      ( opticPosition: Vector2, modelVisibleBounds: Bounds2 ) => {
+      ( opticPosition, modelVisibleBounds ) => {
         const modelXOffset = zoomTransformProperty.value.viewToModelDeltaX( 10 );
         return new Vector2( modelVisibleBounds.x + modelXOffset, opticPosition.y );
       } );

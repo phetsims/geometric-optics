@@ -74,7 +74,7 @@ class DirectFocalLengthControls extends Node {
     super( {
       children: [ focalLengthControl ],
       visibleProperty: new DerivedProperty( [ GOOptions.focalLengthModelTypeProperty, optic.opticSurfaceTypeProperty ],
-        ( focalLengthModelType: FocalLengthModelType, opticSurfaceType: OpticSurfaceType ) =>
+        ( focalLengthModelType, opticSurfaceType ) =>
           ( focalLengthModelType === 'direct' ) && ( opticSurfaceType !== 'flat' ) )
       // no tandem, do not instrument!
     } );
@@ -113,7 +113,7 @@ class IndirectFocalLengthControls extends HBox {
       spacing: X_SPACING,
       align: ALIGN,
       visibleProperty: new DerivedProperty( [ GOOptions.focalLengthModelTypeProperty, optic.opticSurfaceTypeProperty ],
-        ( focalLengthModelType: FocalLengthModelType, opticSurfaceType: OpticSurfaceType ) =>
+        ( focalLengthModelType, opticSurfaceType ) =>
           ( focalLengthModelType === 'indirect' ) && ( opticSurfaceType !== 'flat' )
       )
       // no tandem, do not instrument!

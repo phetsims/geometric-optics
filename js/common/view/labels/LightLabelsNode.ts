@@ -48,7 +48,7 @@ export default class LightLabelsNode extends GOLabelsNode {
 
       // Use numbering in the full version of the sim, or in the basics version if Object 2 is visible.
       isNumberedProperty: new DerivedProperty( [ sceneNode.lightObject2NodeVisibleProperty ],
-        ( lightObject2NodeVisible: boolean ) => ( !providedOptions.isBasicsVersion || lightObject2NodeVisible )
+        lightObject2NodeVisible => ( !providedOptions.isBasicsVersion || lightObject2NodeVisible )
       ),
       visibleProperty: sceneNode.lightObject1NodeVisibleProperty,
       tandem: providedOptions.tandem.createTandem( 'object1Label' )
@@ -65,7 +65,7 @@ export default class LightLabelsNode extends GOLabelsNode {
 
     const screenLabelPositionProperty = new DerivedProperty(
       [ scene.projectionScreen.positionProperty ],
-      ( position: Vector2 ) => new Vector2( position.x - 25, position.y - 65 ) // empirically, model coordinates
+      position => new Vector2( position.x - 25, position.y - 65 ) // empirically, model coordinates
     );
 
     const screenLabel = new LabelNode( geometricOpticsStrings.label.projectionScreen, screenLabelPositionProperty,
@@ -88,7 +88,7 @@ class LightObjectLabelNode extends OpticalObjectLabelNode {
 
     // Position the label below the light, slightly to the left of center (determined empirically)
     const labelPositionProperty = new DerivedProperty( [ lightObject.boundsProperty ],
-      ( bounds: Bounds2 ) => new Vector2( bounds.centerX - 15, bounds.top )
+      bounds => new Vector2( bounds.centerX - 15, bounds.top )
     );
 
     super( lightObject.opticalObjectNumber, labelPositionProperty, zoomTransformProperty, providedOptions );

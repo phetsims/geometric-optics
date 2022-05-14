@@ -179,10 +179,10 @@ export default abstract class Optic extends PhetioObject {
         GOOptions.focalLengthModelTypeProperty,
         this.directFocalLengthModel.radiusOfCurvatureMagnitudeProperty,
         this.indirectFocalLengthModel.radiusOfCurvatureMagnitudeProperty ],
-      ( opticSurfaceType: OpticSurfaceType,
-        focalLengthModelType: string,
-        directRadiusOfCurvatureMagnitude: number,
-        indirectRadiusOfCurvatureMagnitude: number ) => {
+      ( opticSurfaceType,
+        focalLengthModelType,
+        directRadiusOfCurvatureMagnitude,
+        indirectRadiusOfCurvatureMagnitude ) => {
         if ( opticSurfaceType === 'flat' ) {
           return FLAT_MIRROR_FINITE_RADIUS_OF_CURVATURE;
         }
@@ -203,7 +203,7 @@ export default abstract class Optic extends PhetioObject {
     this.indexOfRefractionProperty = new DerivedProperty(
       [ GOOptions.focalLengthModelTypeProperty, this.directFocalLengthModel.indexOfRefractionProperty,
         this.indirectFocalLengthModel.indexOfRefractionProperty ],
-      ( focalLengthModelType: string, directIndexOfRefraction: number, indirectIndexOfRefraction: number ) =>
+      ( focalLengthModelType, directIndexOfRefraction, indirectIndexOfRefraction ) =>
         ( focalLengthModelType === 'direct' ) ? directIndexOfRefraction : indirectIndexOfRefraction, {
         // units: unitless
         tandem: options.tandem.createTandem( 'indexOfRefractionProperty' ),
@@ -218,10 +218,10 @@ export default abstract class Optic extends PhetioObject {
         GOOptions.focalLengthModelTypeProperty,
         this.directFocalLengthModel.focalLengthMagnitudeProperty,
         this.indirectFocalLengthModel.focalLengthMagnitudeProperty ],
-      ( opticSurfaceType: OpticSurfaceType,
-        focalLengthModelType: string,
-        directFocalLengthMagnitude: number,
-        indirectFocalLengthMagnitude: number ) => {
+      ( opticSurfaceType,
+        focalLengthModelType,
+        directFocalLengthMagnitude,
+        indirectFocalLengthMagnitude ) => {
         if ( opticSurfaceType === 'flat' ) {
           return FLAT_MIRROR_FINITE_FOCAL_LENGTH;
         }
@@ -241,7 +241,7 @@ export default abstract class Optic extends PhetioObject {
     // left focal point (F)
     this.leftFocalPointProperty = new DerivedProperty(
       [ this.positionProperty, this.focalLengthProperty ],
-      ( position: Vector2, focalLength: number ) => position.plusXY( -Math.abs( focalLength ), 0 ), {
+      ( position, focalLength ) => position.plusXY( -Math.abs( focalLength ), 0 ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'leftFocalPointProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
@@ -251,7 +251,7 @@ export default abstract class Optic extends PhetioObject {
     // right focal point (F)
     this.rightFocalPointProperty = new DerivedProperty(
       [ this.positionProperty, this.focalLengthProperty ],
-      ( position: Vector2, focalLength: number ) => position.plusXY( Math.abs( focalLength ), 0 ), {
+      ( position, focalLength ) => position.plusXY( Math.abs( focalLength ), 0 ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'rightFocalPointProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
@@ -269,7 +269,7 @@ export default abstract class Optic extends PhetioObject {
     // left 2F point
     this.left2FProperty = new DerivedProperty(
       [ this.positionProperty, this.twiceFocalLengthProperty ],
-      ( position: Vector2, twiceFocalLength: number ) => position.plusXY( -Math.abs( twiceFocalLength ), 0 ), {
+      ( position, twiceFocalLength ) => position.plusXY( -Math.abs( twiceFocalLength ), 0 ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'left2FProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
@@ -279,7 +279,7 @@ export default abstract class Optic extends PhetioObject {
     // right 2F point
     this.right2FProperty = new DerivedProperty(
       [ this.positionProperty, this.twiceFocalLengthProperty ],
-      ( position: Vector2, twiceFocalLength: number ) => position.plusXY( Math.abs( twiceFocalLength ), 0 ), {
+      ( position, twiceFocalLength ) => position.plusXY( Math.abs( twiceFocalLength ), 0 ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'right2FProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),

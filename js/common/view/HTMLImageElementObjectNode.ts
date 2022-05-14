@@ -81,7 +81,7 @@ export default class HTMLImageElementObjectNode extends OpticalObjectNode {
     // reentrant Properties, see https://github.com/phetsims/geometric-optics/issues/317.
     const dragBoundsProperty = new DerivedProperty(
       [ htmlImageElementObject.boundsProperty, sceneBoundsProperty, objectDragModeProperty ],
-      ( htmlImageElementObjectBounds: Bounds2, sceneBounds: Bounds2, objectDragMode: ObjectDragMode ) => {
+      ( htmlImageElementObjectBounds, sceneBounds, objectDragMode ) => {
 
         const htmlImageElementObjectPosition = htmlImageElementObject.positionProperty.value;
         const minX = Math.floor( sceneBounds.minX + ( htmlImageElementObjectPosition.x - htmlImageElementObjectBounds.minX ) );

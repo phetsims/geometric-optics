@@ -91,7 +91,7 @@ export default class OpticalImage extends PhetioObject {
 
     this.imageDistanceProperty = new DerivedProperty(
       [ opticalObject.objectDistanceProperty, optic.focalLengthProperty ],
-      ( objectDistance: number, focalLength: number ) => {
+      ( objectDistance, focalLength ) => {
 
         // address the case where the optical object shares the same x position as the focal point
         if ( objectDistance === focalLength ) {
@@ -126,7 +126,7 @@ export default class OpticalImage extends PhetioObject {
 
     this.magnificationProperty = new DerivedProperty(
       [ opticalObject.objectDistanceProperty, this.imageDistanceProperty ],
-      ( objectDistance: number, imageDistance: number ) => {
+      ( objectDistance, imageDistance ) => {
 
         // prevent division by zero
         if ( objectDistance === 0 ) {
@@ -143,7 +143,7 @@ export default class OpticalImage extends PhetioObject {
 
     this.positionProperty = new DerivedProperty(
       [ opticalObjectPositionProperty, optic.positionProperty, this.imageDistanceProperty, this.magnificationProperty ],
-      ( opticalObjectPosition: Vector2, opticPosition: Vector2, imageDistance: number, magnification: number ) => {
+      ( opticalObjectPosition, opticPosition, imageDistance, magnification ) => {
 
         // The height is determined as the vertical offset from the optical axis of the focus point.
         // The height will be negative if the optical image is inverted.
@@ -158,7 +158,7 @@ export default class OpticalImage extends PhetioObject {
       } );
 
     this.opticalImageTypeProperty = new DerivedProperty( [ this.imageDistanceProperty ],
-      ( imageDistance: number ) => ( imageDistance < 0 ) ? 'virtual' : 'real', {
+      imageDistance => ( imageDistance < 0 ) ? 'virtual' : 'real', {
         tandem: options.tandem.createTandem( 'opticalImageTypeProperty' ),
         phetioType: DerivedProperty.DerivedPropertyIO( StringIO ),
         validValues: OpticalImageTypeValues

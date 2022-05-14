@@ -74,7 +74,7 @@ export default class DirectFocalLengthModel extends PhetioObject implements Foca
 
     this.radiusOfCurvatureMagnitudeProperty = new DerivedProperty(
       [ opticSurfaceTypeProperty, this.focalLengthMagnitudeProperty, this.indexOfRefractionProperty ],
-      ( opticSurfaceType: OpticSurfaceType, focalLengthMagnitude: number, indexOfRefraction: number ) =>
+      ( opticSurfaceType, focalLengthMagnitude, indexOfRefraction ) =>
         focalLengthMagnitude * ( 2 * ( indexOfRefraction - 1 ) ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'radiusOfCurvatureMagnitudeProperty' ),

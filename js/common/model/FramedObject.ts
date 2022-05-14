@@ -41,7 +41,7 @@ export default class FramedObject extends HTMLImageElementObject {
                providedOptions: FramedObjectOptions ) {
 
     const objectHTMLImageElementsProperty = new DerivedProperty(
-      [ opticalObjectChoiceProperty ], ( opticalObjectChoice: OpticalObjectChoice ) => {
+      [ opticalObjectChoiceProperty ], opticalObjectChoice => {
         let objectHTMLImageElements = opticalObjectChoice.objectHTMLImageElements;
 
         // If the object choice isn't a framed object, fallback to PENCIL.
@@ -55,7 +55,7 @@ export default class FramedObject extends HTMLImageElementObject {
     );
 
     const htmlImageElementProperty = new DerivedProperty( [ objectHTMLImageElementsProperty ],
-      ( objectHTMLImageElements: ObjectHTMLImageElements ) => objectHTMLImageElements.rightFacingUpright );
+      objectHTMLImageElements => objectHTMLImageElements.rightFacingUpright );
 
     super( opticalObjectNumber, opticPositionProperty, htmlImageElementProperty, ORIGIN_OFFSET, SCALE_FACTOR, providedOptions );
 

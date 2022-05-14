@@ -67,14 +67,14 @@ export default class Lens extends Optic {
 
     this.shapesProperty = new DerivedProperty(
       [ this.radiusOfCurvatureProperty, this.diameterProperty ],
-      ( radiusOfCurvature: number, diameter: number ) => new LensShapes( radiusOfCurvature, diameter )
+      ( radiusOfCurvature, diameter ) => new LensShapes( radiusOfCurvature, diameter )
     );
 
     // Index of refraction determines the lens opacity.
     // The lens is never fully transparent, because its IOR is not equivalent to air.
     // See https://github.com/phetsims/geometric-optics/issues/242
     this.opacityProperty = new DerivedProperty( [ this.indexOfRefractionProperty ],
-      ( indexOfRefraction: number ) => {
+      indexOfRefraction => {
 
         // Use the indirect model's IOR range in all cases, because the direct model's IOR is fixed.
         assert && assert( this.indirectFocalLengthModel.indexOfRefractionProperty.range ); // {Range|null}

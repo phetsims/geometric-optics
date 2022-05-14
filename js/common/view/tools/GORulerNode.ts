@@ -11,7 +11,7 @@
  * @author Sarah Chang (Swarthmore College)
  */
 
-import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import DerivedProperty, { UnknownDerivedProperty } from '../../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Utils from '../../../../../dot/js/Utils.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -26,7 +26,6 @@ import Vector2 from '../../../../../dot/js/Vector2.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import GORulerIcon from './GORulerIcon.js';
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
-import IntentionalAny from '../../../../../phet-core/js/types/IntentionalAny.js';
 import GOToolNode, { GOToolNodeOptions } from './GOToolNode.js';
 import GOToolKeyboardDragListener from './GOToolKeyboardDragListener.js';
 import GOToolDragListener from './GOToolDragListener.js';
@@ -48,7 +47,7 @@ export default class GORulerNode extends GOToolNode {
   // the ruler model that is associated with this Node
   public readonly ruler: GORuler;
 
-  private readonly opticPositionProperty: IReadOnlyProperty<Vector2>
+  private readonly opticPositionProperty: IReadOnlyProperty<Vector2>;
 
   private readonly dragBoundsProperty: IReadOnlyProperty<Bounds2>;
 
@@ -62,7 +61,7 @@ export default class GORulerNode extends GOToolNode {
    */
   constructor( ruler: GORuler,
                opticPositionProperty: IReadOnlyProperty<Vector2>,
-               zoomTransformProperty: DerivedProperty<ModelViewTransform2, IntentionalAny[]>,
+               zoomTransformProperty: UnknownDerivedProperty<ModelViewTransform2>,
                zoomScaleProperty: IReadOnlyProperty<number>,
                visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
                providedOptions: GORulerNodeOptions ) {
@@ -116,7 +115,7 @@ export default class GORulerNode extends GOToolNode {
     // This keeps a part of the ruler inside the visible bounds of the ScreenView.
     this.dragBoundsProperty = new DerivedProperty(
       [ visibleBoundsProperty, zoomTransformProperty ],
-      ( visibleBounds: Bounds2, zoomTransform: ModelViewTransform2 ) => {
+      ( visibleBounds, zoomTransform ) => {
         let viewDragBounds;
         if ( ruler.orientation === 'vertical' ) {
 
