@@ -24,7 +24,7 @@ import LightObjectNode from './LightObjectNode.js';
 import OpticalAxisInFrontOfProjectionScreenNode from './OpticalAxisInFrontOfProjectionScreenNode.js';
 import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
-import ToolJumpPoint from './tools/ToolJumpPoint.js';
+import ToolJumpPoint from '../model/tools/ToolJumpPoint.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 
 type SelfOptions = {

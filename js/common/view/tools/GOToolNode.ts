@@ -12,7 +12,7 @@ import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import { DragListener, IndexedNodeIO, Node, NodeOptions, PressListenerEvent } from '../../../../../scenery/js/imports.js';
 import GOTool from '../../model/tools/GOTool.js';
-import ToolJumpPoint from './ToolJumpPoint.js';
+import ToolJumpPoint from '../../model/tools/ToolJumpPoint.js';
 import GOToolboxNode from './GOToolboxNode.js';
 import geometricOptics from '../../../geometricOptics.js';
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';

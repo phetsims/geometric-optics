@@ -21,7 +21,7 @@ import ArrowScene from '../model/ArrowScene.js';
 import ArrowObjectNode from './ArrowObjectNode.js';
 import ArrowImageNode from './ArrowImageNode.js';
 import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
-import ToolJumpPoint from './tools/ToolJumpPoint.js';
+import ToolJumpPoint from '../model/tools/ToolJumpPoint.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 
 type SelfOptions = {

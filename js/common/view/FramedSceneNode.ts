@@ -25,7 +25,7 @@ import VirtualLightRaysNode from './VirtualLightRaysNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import ToolJumpPoint from './tools/ToolJumpPoint.js';
+import ToolJumpPoint from '../model/tools/ToolJumpPoint.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 
 type SelfOptions = {

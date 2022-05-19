@@ -26,7 +26,7 @@ import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import GOScene from '../model/GOScene.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import ToolJumpPoint from './tools/ToolJumpPoint.js';
+import ToolJumpPoint from '../model/tools/ToolJumpPoint.js';
 
 type SelfOptions = {
 
