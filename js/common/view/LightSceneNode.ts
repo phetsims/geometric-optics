@@ -169,17 +169,13 @@ export default class LightSceneNode extends GOSceneNode {
 
     // Tool jump points that are common to both lens shapes.
     const commonJumpPoints = [
+
+      // from base class
       ...this.opticJumpPoints,
 
-      // objects
-      {
-        positionProperty: scene.lightObject1.positionProperty,
-        visibleProperty: lightObject1Node.visibleProperty
-      },
-      {
-        positionProperty: scene.lightObject2.positionProperty,
-        visibleProperty: lightObject2Node.visibleProperty
-      }
+      // optical objects
+      new ToolJumpPoint( scene.lightObject1.positionProperty, lightObject1Node.visibleProperty ),
+      new ToolJumpPoint( scene.lightObject2.positionProperty, lightObject2Node.visibleProperty )
     ];
 
     // 'J' hotkey will cycle tools through these points, dynamically looking at left-to-right x coordinate.

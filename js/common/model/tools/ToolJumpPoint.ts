@@ -8,14 +8,20 @@
 
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
+import geometricOptics from '../../../geometricOptics.js';
 
-type ToolJumpPoint = {
+export default class ToolJumpPoint {
 
   // a position that is interesting to put a tool, in model coordinates
-  positionProperty: IReadOnlyProperty<Vector2>;
+  public readonly positionProperty: IReadOnlyProperty<Vector2>;
 
   // whether the thing at the position is currently visible
-  visibleProperty: IReadOnlyProperty<boolean>;
+  public readonly visibleProperty: IReadOnlyProperty<boolean>;
+
+  constructor( positionProperty: IReadOnlyProperty<Vector2>, visibleProperty: IReadOnlyProperty<boolean> ) {
+    this.positionProperty = positionProperty;
+    this.visibleProperty = visibleProperty;
+  }
 }
 
-export default ToolJumpPoint;
+geometricOptics.register( 'ToolJumpPoint', ToolJumpPoint );

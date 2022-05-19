@@ -151,27 +151,17 @@ export default class ArrowSceneNode extends GOSceneNode {
 
     // 'J' hotkey will cycle tools through these points, dynamically looking at left-to-right x coordinate.
     this.toolJumpPoints = [
+
+      // from base class
       ...this.opticJumpPoints,
 
-      // objects
-      {
-        positionProperty: scene.arrowObject1.positionProperty,
-        visibleProperty: arrowObject1Node.visibleProperty
-      },
-      {
-        positionProperty: scene.arrowObject2.positionProperty,
-        visibleProperty: arrowObject2Node.visibleProperty
-      },
+      // optical objects
+      new ToolJumpPoint( scene.arrowObject1.positionProperty, arrowObject1Node.visibleProperty ),
+      new ToolJumpPoint( scene.arrowObject2.positionProperty, arrowObject2Node.visibleProperty ),
 
-      // images
-      {
-        positionProperty: scene.arrowImage1.positionProperty,
-        visibleProperty: arrowImage1Node.visibleProperty
-      },
-      {
-        positionProperty: scene.arrowImage2.positionProperty,
-        visibleProperty: arrowImage2Node.visibleProperty
-      }
+      // optical images
+      new ToolJumpPoint( scene.arrowImage1.positionProperty, arrowImage1Node.visibleProperty ),
+      new ToolJumpPoint( scene.arrowImage2.positionProperty, arrowImage2Node.visibleProperty )
     ];
 
     // Visibility for associates labels

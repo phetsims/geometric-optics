@@ -175,27 +175,18 @@ export default class FramedSceneNode extends GOSceneNode {
 
     // 'J' hotkey will cycle tools through these points, dynamically looking at left-to-right x coordinate.
     this.toolJumpPoints = [
+
+      // from base class
       ...this.opticJumpPoints,
 
-      // objects
-      {
-        positionProperty: scene.framedObject.positionProperty,
-        visibleProperty: framedObjectNode.visibleProperty
-      },
-      {
-        positionProperty: scene.secondPoint.positionProperty,
-        visibleProperty: secondPointNode.visibleProperty
-      },
+      // optical objects
+      new ToolJumpPoint( scene.framedObject.positionProperty, framedObjectNode.visibleProperty ),
+      new ToolJumpPoint( scene.secondPoint.positionProperty, secondPointNode.visibleProperty ),
 
-      // images
-      {
-        positionProperty: scene.framedImage1.positionProperty,
-        visibleProperty: framedImageNode.visibleProperty
-      },
-      {
-        positionProperty: scene.framedImage2.positionProperty,
-        visibleProperty: DerivedProperty.and( [ framedImageNode.visibleProperty, secondPointNode.visibleProperty ] )
-      }
+      // optical images
+      new ToolJumpPoint( scene.framedImage1.positionProperty, framedImageNode.visibleProperty ),
+      new ToolJumpPoint( scene.framedImage2.positionProperty,
+        DerivedProperty.and( [ framedImageNode.visibleProperty, secondPointNode.visibleProperty ] ) )
     ];
 
     // Visibility for associates labels

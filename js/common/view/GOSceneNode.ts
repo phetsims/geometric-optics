@@ -178,26 +178,11 @@ export default abstract class GOSceneNode extends Node {
     } );
 
     this.opticJumpPoints = [
-      {
-        positionProperty: scene.optic.positionProperty,
-        visibleProperty: opticNode.visibleProperty
-      },
-      {
-        positionProperty: scene.optic.leftFocalPointProperty,
-        visibleProperty: leftFocalPointNode.visibleProperty
-      },
-      {
-        positionProperty: scene.optic.rightFocalPointProperty,
-        visibleProperty: rightFocalPointNode.visibleProperty
-      },
-      {
-        positionProperty: scene.optic.left2FProperty,
-        visibleProperty: left2FPointNode.visibleProperty
-      },
-      {
-        positionProperty: scene.optic.right2FProperty,
-        visibleProperty: right2FPointNode.visibleProperty
-      }
+      new ToolJumpPoint( scene.optic.positionProperty, opticNode.visibleProperty ),
+      new ToolJumpPoint( scene.optic.leftFocalPointProperty, leftFocalPointNode.visibleProperty ),
+      new ToolJumpPoint( scene.optic.rightFocalPointProperty, rightFocalPointNode.visibleProperty ),
+      new ToolJumpPoint( scene.optic.left2FProperty, left2FPointNode.visibleProperty ),
+      new ToolJumpPoint( scene.optic.right2FProperty, right2FPointNode.visibleProperty )
     ];
 
     // Visibility for associates labels
