@@ -119,7 +119,7 @@ export default abstract class GOToolNode extends Node {
     let nextPoint: Vector2 | undefined;
 
     // Extract just the position values.
-    let points: Vector2[] = jumpPoints.map( jumpPoint => jumpPoint.positionProperty.value! );
+    let points: Vector2[] = jumpPoints.map( jumpPoint => jumpPoint.positionProperty.value );
 
     // Sort positions left-to-right, by increasing x coordinate.
     points = _.sortBy( points, point => point.x );
