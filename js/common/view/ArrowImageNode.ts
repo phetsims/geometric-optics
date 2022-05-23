@@ -12,10 +12,10 @@ import geometricOptics from '../../geometricOptics.js';
 import ArrowImage from '../model/ArrowImage.js';
 import GOConstants from '../GOConstants.js';
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
-import Property from '../../../../axon/js/Property.js';
 import { combineOptions3 } from '../../../../phet-core/js/optionize.js';
 import OpticalImageNode, { OpticalImageNodeOptions } from './OpticalImageNode.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 
 type ArrowImageNodeOptions = PickRequired<OpticalImageNodeOptions, 'tandem'>;
 
@@ -48,7 +48,7 @@ export default class ArrowImageNode extends OpticalImageNode {
 
     // Don't scale the head and tail, just the magnitude.
     // See https://github.com/phetsims/geometric-optics/issues/228#issuecomment-1039672404
-    Property.multilink( [ arrowImage.positionProperty, arrowImage.magnificationProperty ],
+    Multilink.multilink( [ arrowImage.positionProperty, arrowImage.magnificationProperty ],
       ( arrowImagePosition, magnification ) => {
 
         const opticViewPosition = modelViewTransform.modelToViewPosition( arrowImage.optic.positionProperty.value );

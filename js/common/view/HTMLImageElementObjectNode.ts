@@ -9,7 +9,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { DragListener, FocusHighlightFromNode, Image, KeyboardDragListener, KeyboardDragListenerOptions, Node } from '../../../../scenery/js/imports.js';
@@ -23,6 +22,7 @@ import IProperty from '../../../../axon/js/IProperty.js';
 import stepTimer from '../../../../axon/js/stepTimer.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 import OpticalObjectNode, { OpticalObjectNodeOptions } from './OpticalObjectNode.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 
 export type HTMLImageElementObjectNodeOptions = OpticalObjectNodeOptions;
 
@@ -138,7 +138,7 @@ export default class HTMLImageElementObjectNode extends OpticalObjectNode {
     this.addInputListener( keyboardDragListener );
 
     // Keep cueing arrows next to the framed object.
-    Property.multilink( [ wrappedImageNode.boundsProperty, this.cueingArrowsNode.boundsProperty ],
+    Multilink.multilink( [ wrappedImageNode.boundsProperty, this.cueingArrowsNode.boundsProperty ],
       ( wrappedImageNodeBounds: Bounds2, cueingArrowsNodeBounds: Bounds2 ) => {
         this.cueingArrowsNode.right = wrappedImageNode.left - 5;
         this.cueingArrowsNode.centerY = wrappedImageNode.centerY;

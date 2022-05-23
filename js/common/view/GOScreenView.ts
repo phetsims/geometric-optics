@@ -27,7 +27,6 @@ import OpticalObjectChoiceComboBox from './OpticalObjectChoiceComboBox.js';
 import LightPropagationToggleButton from './LightPropagationToggleButton.js';
 import VisibleProperties from './VisibleProperties.js';
 import FramedSceneNode from './FramedSceneNode.js';
-import Property from '../../../../axon/js/Property.js';
 import GORulerNode from './tools/GORulerNode.js';
 import GOToolboxNode from './tools/GOToolboxNode.js';
 import FramedLabelsNode from './labels/FramedLabelsNode.js';
@@ -47,6 +46,7 @@ import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import { GOSimOptions } from '../../GOSim.js';
 import GOToolNode from './tools/GOToolNode.js';
 import StringEnumerationProperty from '../../../../axon/js/StringEnumerationProperty.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.
@@ -456,7 +456,7 @@ export default class GOScreenView extends ScreenView {
     // Listeners =======================================================================================================
 
     // If light propagation is enabled, changing these Properties causes the light rays to animate.
-    Property.multilink( [ model.lightPropagationEnabledProperty, model.raysTypeProperty ],
+    Multilink.multilink( [ model.lightPropagationEnabledProperty, model.raysTypeProperty ],
       ( lightPropagationEnabled, raysType ) => {
         if ( lightPropagationEnabled ) {
           model.beginLightRaysAnimation();

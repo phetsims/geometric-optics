@@ -9,7 +9,6 @@
  */
 
 import Emitter from '../../../../axon/js/Emitter.js';
-import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import geometricOptics from '../../geometricOptics.js';
 import LightRay, { LightRaySegment } from './LightRay.js';
@@ -20,6 +19,7 @@ import ProjectionScreen from './ProjectionScreen.js';
 import Utils from '../../../../dot/js/Utils.js';
 import OpticalImage from './OpticalImage.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 
 // constants related to 'Many' rays representation, see https://github.com/phetsims/geometric-optics/issues/289
 const MANY_MIN_RAYS = 20;
@@ -59,7 +59,7 @@ export default class LightRays {
 
     // When the light rays animation begins, hide the optical image. It will be made visible when a ray reaches the
     // image position.  If Rays is set to 'None', make the image visible immediately, since there will be no animation.
-    Property.multilink( [ raysTypeProperty, raysAnimationTimeProperty ], ( raysType, raysAnimationTime ) => {
+    Multilink.multilink( [ raysTypeProperty, raysAnimationTimeProperty ], ( raysType, raysAnimationTime ) => {
       if ( raysType === 'none' || raysAnimationTime === 0 ) {
         opticalImage.visibleProperty.value = ( raysTypeProperty.value === 'none' );
       }
@@ -75,7 +75,7 @@ export default class LightRays {
     ] as const;
 
     // Update all rays, then inform listeners via raysProcessedEmitter.
-    Property.multilink( dependencies,
+    Multilink.multilink( dependencies,
       ( opticalObjectPosition, raysType, raysAnimationTime ) => {
 
         // Clear the arrays.

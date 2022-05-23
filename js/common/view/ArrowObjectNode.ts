@@ -7,7 +7,6 @@
  */
 
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { DragListener, FocusHighlightFromNode, KeyboardDragListener, KeyboardDragListenerOptions } from '../../../../scenery/js/imports.js';
@@ -22,6 +21,7 @@ import { combineOptions3 } from '../../../../phet-core/js/optionize.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 import OpticalObjectNode, { OpticalObjectNodeOptions } from './OpticalObjectNode.js';
 import IProperty from '../../../../axon/js/IProperty.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 
 const SNAP_TO_MIN_MAGNITUDE = 20; // cm
 
@@ -56,7 +56,7 @@ export default class ArrowObjectNode extends OpticalObjectNode {
     this.addChild( arrowNode );
     this.setFocusHighlight( new FocusHighlightFromNode( arrowNode ) );
 
-    Property.multilink( [ arrowObject.positionProperty, optic.positionProperty ],
+    Multilink.multilink( [ arrowObject.positionProperty, optic.positionProperty ],
       ( arrowObjectPosition, opticPosition ) => {
         const tipPosition = modelViewTransform.modelToViewPosition( arrowObjectPosition );
         let tailY = modelViewTransform.modelToViewY( opticPosition.y );
@@ -132,7 +132,7 @@ export default class ArrowObjectNode extends OpticalObjectNode {
     this.addInputListener( keyboardDragListener );
 
     // Keep cueing arrows next to the arrow.
-    Property.multilink( [ arrowNode.boundsProperty, this.cueingArrowsNode.boundsProperty ],
+    Multilink.multilink( [ arrowNode.boundsProperty, this.cueingArrowsNode.boundsProperty ],
       ( arrowNodeBounds: Bounds2, cueingArrowsNodeBounds: Bounds2 ) => {
         this.cueingArrowsNode.right = arrowNodeBounds.left - 5;
         this.cueingArrowsNode.centerY = arrowNodeBounds.centerY;

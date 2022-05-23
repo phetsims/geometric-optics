@@ -16,9 +16,9 @@ import { RichText } from '../../../../../scenery/js/imports.js';
 import geometricOptics from '../../../geometricOptics.js';
 import GOColors from '../../GOColors.js';
 import GOConstants from '../../GOConstants.js';
-import Property from '../../../../../axon/js/Property.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
+import Multilink from '../../../../../axon/js/Multilink.js';
 
 type XAlign = 'left' | 'center' | 'right';
 type YAlign = 'top' | 'center' | 'bottom';
@@ -83,7 +83,7 @@ export default class LabelNode extends BackgroundNode {
 
     this.textNode = textNode;
 
-    Property.multilink(
+    Multilink.multilink(
       [ zoomTransformProperty, positionProperty, textNode.boundsProperty ],
       ( zoomTransform, position, textBounds ) => {
         const viewPosition = zoomTransform.modelToViewPosition( position ).plusXY( options.xOffset, options.yOffset );

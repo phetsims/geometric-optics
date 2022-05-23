@@ -18,8 +18,8 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import GOConstants from '../GOConstants.js';
 import ProjectionScreen from '../model/ProjectionScreen.js';
 import GOQueryParameters from '../GOQueryParameters.js';
-import Property from '../../../../axon/js/Property.js';
 import { Shape } from '../../../../kite/js/imports.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 
 type LightSpotNodeOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem'>;
 
@@ -59,7 +59,7 @@ export default class LightSpotNode extends Node {
       this.addChild( debugStrokePath );
     }
 
-    Property.multilink( [ lightSpot.positionProperty, lightSpot.diameterProperty ],
+    Multilink.multilink( [ lightSpot.positionProperty, lightSpot.diameterProperty ],
       ( position, diameter ) => {
 
         // An ellipse with aspect ratio of 1:2, to give pseudo-3D perspective.
