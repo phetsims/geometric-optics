@@ -18,7 +18,7 @@ import Vector2 from '../../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import OpticalImage from '../../model/OpticalImage.js';
 import Multilink from '../../../../../axon/js/Multilink.js';
-import OmitStrict from '../../../../../phet-core/js/types/OmitStrict.js';
+import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
 
 type SelfOptions = {
 
@@ -26,7 +26,7 @@ type SelfOptions = {
   isNumberedProperty?: IReadOnlyProperty<boolean>;
 };
 
-export type OpticalImageLabelNodeOptions = SelfOptions & OmitStrict<LabelNodeOptions, 'phetioReadOnlyText'>;
+export type OpticalImageLabelNodeOptions = SelfOptions & StrictOmit<LabelNodeOptions, 'phetioReadOnlyText'>;
 
 export default class OpticalImageLabelNode extends LabelNode {
 

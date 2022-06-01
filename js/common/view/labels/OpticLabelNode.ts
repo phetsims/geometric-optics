@@ -7,7 +7,7 @@
  */
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
-import OmitStrict from '../../../../../phet-core/js/types/OmitStrict.js';
+import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -20,7 +20,7 @@ import LabelNode, { LabelNodeOptions } from './LabelNode.js';
 
 type SelfOptions = {};
 
-export type OpticLabelNodeOptions = SelfOptions & OmitStrict<LabelNodeOptions, 'phetioReadOnlyText'>;
+export type OpticLabelNodeOptions = SelfOptions & StrictOmit<LabelNodeOptions, 'phetioReadOnlyText'>;
 
 export default class OpticLabelNode extends LabelNode {
 

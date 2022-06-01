@@ -16,7 +16,7 @@ import optionize from '../../../../../phet-core/js/optionize.js';
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
-import OmitStrict from '../../../../../phet-core/js/types/OmitStrict.js';
+import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
 
 type SelfOptions = {
 
@@ -24,7 +24,7 @@ type SelfOptions = {
   isNumberedProperty?: IReadOnlyProperty<boolean>;
 };
 
-export type OpticalObjectLabelNodeOptions = SelfOptions & OmitStrict<LabelNodeOptions, 'phetioReadOnlyText'>;
+export type OpticalObjectLabelNodeOptions = SelfOptions & StrictOmit<LabelNodeOptions, 'phetioReadOnlyText'>;
 
 export default class OpticalObjectLabelNode extends LabelNode {
 
