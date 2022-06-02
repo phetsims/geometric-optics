@@ -97,15 +97,15 @@ export default abstract class Optic extends PhetioObject {
   public readonly focalLengthProperty: IReadOnlyProperty<number>;
 
   // focal points (F) to the left and right of the optic
-  public readonly leftFocalPointProperty: Property<Vector2>;
-  public readonly rightFocalPointProperty: Property<Vector2>;
+  public readonly leftFocalPointProperty: IReadOnlyProperty<Vector2>;
+  public readonly rightFocalPointProperty: IReadOnlyProperty<Vector2>;
 
   // twice the focal length (2f) of the optic
   public readonly twiceFocalLengthProperty: IReadOnlyProperty<number>;
 
   // 2F points to the left and right of the optic
-  public readonly left2FProperty: Property<Vector2>;
-  public readonly right2FProperty: Property<Vector2>;
+  public readonly left2FProperty: IReadOnlyProperty<Vector2>;
+  public readonly right2FProperty: IReadOnlyProperty<Vector2>;
 
   // Resets things that are specific to this class.
   private readonly resetOptic: () => void;
