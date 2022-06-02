@@ -140,7 +140,7 @@ export default class Lens extends Optic {
   /**
    * Gets the shape of the back (right) surface of the lens.
    */
-  getBackShapeTranslated(): Shape {
+  public getBackShapeTranslated(): Shape {
     const backShape = this.shapesProperty.value.backShape;
     assert && assert( backShape ); // {Shape|null}
     return this.translatedShape( backShape! );

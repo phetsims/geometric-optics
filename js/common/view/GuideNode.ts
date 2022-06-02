@@ -83,7 +83,7 @@ export default class GuideNode extends Node {
    * @param armNode - incident or transmitted arm (rectangle) to be rotated and positioned
    * @param angle - incident or transmitted angle
    */
-  updateArm( armNode: Node, angle: number ): void {
+  public updateArm( armNode: Node, angle: number ): void {
     assert && assert( isFinite( angle ) );
 
     const viewFulcrumPosition = this.modelViewTransform.modelToViewPosition( this.guide.fulcrumPositionProperty.value );
