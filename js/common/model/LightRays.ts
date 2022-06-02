@@ -46,12 +46,12 @@ export default class LightRays {
    * @param raysAnimationTimeProperty - elapsed time of light rays animation
    * @param [projectionScreen] - optional projection screen that blocks rays
    */
-  constructor( opticalObjectPositionProperty: IReadOnlyProperty<Vector2>,
-               optic: Optic,
-               opticalImage: OpticalImage,
-               raysTypeProperty: IReadOnlyProperty<RaysType>,
-               raysAnimationTimeProperty: IReadOnlyProperty<number>,
-               projectionScreen?: ProjectionScreen ) {
+  public constructor( opticalObjectPositionProperty: IReadOnlyProperty<Vector2>,
+                      optic: Optic,
+                      opticalImage: OpticalImage,
+                      raysTypeProperty: IReadOnlyProperty<RaysType>,
+                      raysAnimationTimeProperty: IReadOnlyProperty<number>,
+                      projectionScreen?: ProjectionScreen ) {
 
     this.realSegments = [];
     this.virtualSegments = [];

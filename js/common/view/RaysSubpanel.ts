@@ -22,7 +22,7 @@ export default class RaysSubpanel extends VBox {
    * @param raysTypeProperty - representation used for rays
    * @param tandem
    */
-  constructor( raysTypeProperty: IProperty<RaysType>, tandem: Tandem ) {
+  public constructor( raysTypeProperty: IProperty<RaysType>, tandem: Tandem ) {
 
     // title
     const titleText = new Text( geometricOpticsStrings.rays, {

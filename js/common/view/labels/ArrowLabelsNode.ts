@@ -33,10 +33,10 @@ export default class ArrowLabelsNode extends GOLabelsNode {
    * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
    * @param providedOptions
    */
-  constructor( sceneNode: ArrowSceneNode,
-               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-               providedOptions: ArrowObjectSceneLabelsNodeOptions ) {
+  public constructor( sceneNode: ArrowSceneNode,
+                      zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+                      modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      providedOptions: ArrowObjectSceneLabelsNodeOptions ) {
 
     super( sceneNode, zoomTransformProperty, modelVisibleBoundsProperty, providedOptions );
 
@@ -83,10 +83,10 @@ export default class ArrowLabelsNode extends GOLabelsNode {
 // Label for an arrow object.
 class ArrowObjectLabelNode extends OpticalObjectLabelNode {
 
-  constructor( arrowObject: ArrowObject,
-               opticPositionProperty: IReadOnlyProperty<Vector2>,
-               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               providedOptions: OpticalObjectLabelNodeOptions ) {
+  public constructor( arrowObject: ArrowObject,
+                      opticPositionProperty: IReadOnlyProperty<Vector2>,
+                      zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+                      providedOptions: OpticalObjectLabelNodeOptions ) {
 
     // If the arrow points up, position the label below the optical axis.
     // Otherwise, position the label below the arrow's tip.
@@ -103,10 +103,10 @@ class ArrowObjectLabelNode extends OpticalObjectLabelNode {
 // Label for an arrow image.
 class ArrowImageLabelNode extends OpticalImageLabelNode {
 
-  constructor( arrowImage: ArrowImage,
-               opticPositionProperty: IReadOnlyProperty<Vector2>,
-               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               providedOptions: OpticalImageLabelNodeOptions ) {
+  public constructor( arrowImage: ArrowImage,
+                      opticPositionProperty: IReadOnlyProperty<Vector2>,
+                      zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+                      providedOptions: OpticalImageLabelNodeOptions ) {
 
     const labelPositionProperty = new DerivedProperty(
       [ arrowImage.positionProperty, opticPositionProperty ],

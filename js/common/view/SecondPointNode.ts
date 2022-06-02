@@ -34,8 +34,8 @@ export default class SecondPointNode extends Node {
    * @param wasDraggedProperty - was the second point dragged?
    * @param providedOptions
    */
-  constructor( secondPoint: SecondPoint, modelViewTransform: ModelViewTransform2, wasDraggedProperty: IProperty<boolean>,
-               providedOptions: SecondPointNodeOptions ) {
+  public constructor( secondPoint: SecondPoint, modelViewTransform: ModelViewTransform2, wasDraggedProperty: IProperty<boolean>,
+                      providedOptions: SecondPointNodeOptions ) {
 
     const options = optionize<SecondPointNodeOptions, SelfOptions, NodeOptions>()( {
 
@@ -112,7 +112,7 @@ export default class SecondPointNode extends Node {
 
 // Circle that denotes the second point
 class PointNode extends Circle {
-  constructor() {
+  public constructor() {
     super( 7, {
       fill: GOColors.secondPointFillProperty,
       stroke: GOColors.secondPointStrokeProperty
@@ -135,7 +135,7 @@ const ARROW_NODE_OPTIONS = {
  */
 class SecondPointCueingArrowsNode extends VBox {
 
-  constructor( spacing: number, providedOptions?: NodeOptions ) {
+  public constructor( spacing: number, providedOptions?: NodeOptions ) {
     super( optionize<NodeOptions, {}, VBoxOptions>()( {
       spacing: spacing,
       align: 'center',

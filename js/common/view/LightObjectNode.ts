@@ -32,13 +32,13 @@ export default class LightObjectNode extends HTMLImageElementObjectNode {
    * @param wasDraggedProperty - was ANY LightObjectNode dragged?
    * @param providedOptions
    */
-  constructor( lightObject: LightObject,
-               sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
-               opticPositionProperty: IReadOnlyProperty<Vector2>,
-               modelViewTransform: ModelViewTransform2,
-               objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>,
-               wasDraggedProperty: IProperty<boolean>,
-               providedOptions: LightObjectNodeOptions ) {
+  public constructor( lightObject: LightObject,
+                      sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      opticPositionProperty: IReadOnlyProperty<Vector2>,
+                      modelViewTransform: ModelViewTransform2,
+                      objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>,
+                      wasDraggedProperty: IProperty<boolean>,
+                      providedOptions: LightObjectNodeOptions ) {
 
     super( lightObject, sceneBoundsProperty, opticPositionProperty, modelViewTransform, objectDragModeProperty,
       wasDraggedProperty, providedOptions );

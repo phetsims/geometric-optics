@@ -50,10 +50,10 @@ export default class FramedScene extends GOScene {
    * @param raysTypeProperty - the representation used for rays
    * @param providedOptions
    */
-  constructor( opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>,
-               optic: Optic,
-               raysTypeProperty: IReadOnlyProperty<RaysType>,
-               providedOptions: FramedObjectSceneOptions ) {
+  public constructor( opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>,
+                      optic: Optic,
+                      raysTypeProperty: IReadOnlyProperty<RaysType>,
+                      providedOptions: FramedObjectSceneOptions ) {
 
     super( optic, providedOptions );
 

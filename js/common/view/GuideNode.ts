@@ -36,7 +36,7 @@ export default class GuideNode extends Node {
   private readonly guide: Guide;
   private readonly modelViewTransform: ModelViewTransform2;
 
-  constructor( guide: Guide, armColor: IColor, modelViewTransform: ModelViewTransform2, providedOptions: GuideNodeOptions ) {
+  public constructor( guide: Guide, armColor: IColor, modelViewTransform: ModelViewTransform2, providedOptions: GuideNodeOptions ) {
 
     const fulcrumNode = new Circle( FULCRUM_RADIUS, FULCRUM_OPTIONS );
 

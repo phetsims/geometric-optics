@@ -30,8 +30,8 @@ export default class OpticalObjectChoiceComboBox extends ComboBox<OpticalObjectC
    * @param listParent - parent for the listbox popup
    * @param providedOptions
    */
-  constructor( opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>, listParent: Node,
-               providedOptions: OpticalObjectChoiceComboBoxOptions ) {
+  public constructor( opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>, listParent: Node,
+                      providedOptions: OpticalObjectChoiceComboBoxOptions ) {
 
     const options = optionize<OpticalObjectChoiceComboBoxOptions, SelfOptions, ComboBoxOptions>()( {
 

@@ -38,13 +38,13 @@ export default class ArrowObjectNode extends OpticalObjectNode {
    * @param wasDraggedProperty - was any ArrowObjectNode dragged?
    * @param providedOptions
    */
-  constructor( arrowObject: ArrowObject,
-               optic: Optic,
-               sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
-               modelViewTransform: ModelViewTransform2,
-               objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>,
-               wasDraggedProperty: IProperty<boolean>,
-               providedOptions: ArrowObjectNodeOptions ) {
+  public constructor( arrowObject: ArrowObject,
+                      optic: Optic,
+                      sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      modelViewTransform: ModelViewTransform2,
+                      objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>,
+                      wasDraggedProperty: IProperty<boolean>,
+                      providedOptions: ArrowObjectNodeOptions ) {
 
     super( arrowObject, objectDragModeProperty, wasDraggedProperty, providedOptions );
 

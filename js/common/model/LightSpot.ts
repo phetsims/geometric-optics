@@ -50,11 +50,11 @@ export default class LightSpot extends PhetioObject {
   // Whether the light spot intersects the projection screen
   public readonly intersectsProjectionScreenProperty: IReadOnlyProperty<boolean>;
 
-  constructor( optic: Optic,
-               projectionScreen: ProjectionScreen,
-               lightObjectPositionProperty: IReadOnlyProperty<Vector2>,
-               opticalImagePositionProperty: IReadOnlyProperty<Vector2>,
-               providedOptions: LightSpotOptions ) {
+  public constructor( optic: Optic,
+                      projectionScreen: ProjectionScreen,
+                      lightObjectPositionProperty: IReadOnlyProperty<Vector2>,
+                      opticalImagePositionProperty: IReadOnlyProperty<Vector2>,
+                      providedOptions: LightSpotOptions ) {
 
     const options = optionize<LightSpotOptions, SelfOptions, PhetioObject>()( {
 

@@ -26,7 +26,7 @@ type LensScreenOptions = SelfOptions & PickRequired<ScreenOptions, 'tandem'>;
 
 export default class LensScreen extends Screen<LensModel, LensScreenView> {
 
-  constructor( providedOptions: LensScreenOptions ) {
+  public constructor( providedOptions: LensScreenOptions ) {
 
     const options = optionize<LensScreenOptions, SelfOptions, ScreenOptions>()( {
 

@@ -22,9 +22,9 @@ type FocalPointNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem' | 
 
 export default class FocalPointNode extends Node {
 
-  constructor( pointProperty: IReadOnlyProperty<Vector2>,
-               modelViewTransform: ModelViewTransform2,
-               providedOptions: FocalPointNodeOptions ) {
+  public constructor( pointProperty: IReadOnlyProperty<Vector2>,
+                      modelViewTransform: ModelViewTransform2,
+                      providedOptions: FocalPointNodeOptions ) {
 
     const options = optionize<FocalPointNodeOptions, SelfOptions, NodeOptions>()( {
 

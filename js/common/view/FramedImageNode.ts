@@ -32,13 +32,13 @@ export default class FramedImageNode extends OpticalImageNode {
    * @param modelViewTransform
    * @param providedOptions
    */
-  constructor( framedImage: FramedImage,
-               optic: Optic,
-               virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
-               lightPropagationEnabledProperty: IReadOnlyProperty<boolean>,
-               objectVisibleProperty: IReadOnlyProperty<boolean>,
-               modelViewTransform: ModelViewTransform2,
-               providedOptions: FramedImageNodeOptions ) {
+  public constructor( framedImage: FramedImage,
+                      optic: Optic,
+                      virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
+                      lightPropagationEnabledProperty: IReadOnlyProperty<boolean>,
+                      objectVisibleProperty: IReadOnlyProperty<boolean>,
+                      modelViewTransform: ModelViewTransform2,
+                      providedOptions: FramedImageNodeOptions ) {
 
     super( framedImage, virtualImageVisibleProperty, lightPropagationEnabledProperty, objectVisibleProperty, providedOptions );
 

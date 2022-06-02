@@ -25,7 +25,7 @@ export default class FramedImageMaskNode extends Node {
   private readonly rightFacingMaskShape: Shape;
   private readonly leftFacingMaskShape: Shape;
 
-  constructor( imageWidth: number, imageHeight: number ) {
+  public constructor( imageWidth: number, imageHeight: number ) {
 
     const rightFacingMaskShape = new MaskShape( imageWidth, imageHeight );
 
@@ -69,7 +69,7 @@ export default class FramedImageMaskNode extends Node {
  */
 class MaskShape extends Shape {
 
-  constructor( imageWidth: number, imageHeight: number ) {
+  public constructor( imageWidth: number, imageHeight: number ) {
 
     // insets are numbered as they are used, as we move clockwise
     const xInset1 = 1;

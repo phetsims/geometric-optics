@@ -25,7 +25,7 @@ const ALIGN = 'bottom'; // align bottoms of all NumberControls
 
 export default class OpticSubpanel extends HBox {
 
-  constructor( optic: Optic, tandem: Tandem ) {
+  public constructor( optic: Optic, tandem: Tandem ) {
 
     const children = [];
 
@@ -61,7 +61,7 @@ export default class OpticSubpanel extends HBox {
  */
 class DirectFocalLengthControls extends Node {
 
-  constructor( optic: Optic, tandem: Tandem ) {
+  public constructor( optic: Optic, tandem: Tandem ) {
 
     // Focal Length
     const focalLengthControl = new FocalLengthControl( optic.directFocalLengthModel.focalLengthMagnitudeProperty,
@@ -86,7 +86,7 @@ class DirectFocalLengthControls extends Node {
  */
 class IndirectFocalLengthControls extends HBox {
 
-  constructor( optic: Optic, tandem: Tandem ) {
+  public constructor( optic: Optic, tandem: Tandem ) {
 
     const children = [];
 

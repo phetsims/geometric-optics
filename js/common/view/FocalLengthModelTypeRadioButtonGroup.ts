@@ -31,8 +31,8 @@ export default class FocalLengthModelTypeRadioButtonGroup extends VerticalAquaRa
    * @param focalLengthModelTypeProperty - whether to set focal length directly or indirectl
    * @param providedOptions
    */
-  constructor( focalLengthModelTypeProperty: IProperty<FocalLengthModelType>,
-               providedOptions: FocalLengthControlRadioButtonGroupOptions ) {
+  public constructor( focalLengthModelTypeProperty: IProperty<FocalLengthModelType>,
+                      providedOptions: FocalLengthControlRadioButtonGroupOptions ) {
 
     const options = optionize<FocalLengthControlRadioButtonGroupOptions, SelfOptions, VerticalAquaRadioButtonGroupOptions>()( {
 

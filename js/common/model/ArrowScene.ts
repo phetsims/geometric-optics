@@ -46,9 +46,9 @@ export default class ArrowScene extends GOScene {
    * @param raysTypeProperty - the representation used for rays
    * @param providedOptions
    */
-  constructor( optic: Optic,
-               raysTypeProperty: IReadOnlyProperty<RaysType>,
-               providedOptions: ArrowObjectSceneOptions ) {
+  public constructor( optic: Optic,
+                      raysTypeProperty: IReadOnlyProperty<RaysType>,
+                      providedOptions: ArrowObjectSceneOptions ) {
 
     super( optic, providedOptions );
 

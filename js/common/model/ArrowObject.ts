@@ -32,7 +32,7 @@ export default class ArrowObject extends OpticalObject {
    * @param opticPositionProperty
    * @param providedOptions
    */
-  constructor( opticalObjectNumber: number, opticPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: ArrowObjectOptions ) {
+  public constructor( opticalObjectNumber: number, opticPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: ArrowObjectOptions ) {
 
     super( opticalObjectNumber, opticPositionProperty, providedOptions );
 

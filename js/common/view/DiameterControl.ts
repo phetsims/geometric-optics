@@ -22,7 +22,7 @@ type DiameterControlOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
 
 export default class DiameterControl extends NumberControl {
 
-  constructor( diameterProperty: NumberProperty, providedOptions: DiameterControlOptions ) {
+  public constructor( diameterProperty: NumberProperty, providedOptions: DiameterControlOptions ) {
 
     assert && assert( diameterProperty.range ); // {Range|null}
     const range = diameterProperty.range!;

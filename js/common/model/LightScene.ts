@@ -54,9 +54,9 @@ export default class LightScene extends GOScene {
    * @param raysTypeProperty - the representation used for rays
    * @param providedOptions
    */
-  constructor( lens: Lens,
-               raysTypeProperty: IReadOnlyProperty<RaysType>,
-               providedOptions: LightObjectSceneOptions ) {
+  public constructor( lens: Lens,
+                      raysTypeProperty: IReadOnlyProperty<RaysType>,
+                      providedOptions: LightObjectSceneOptions ) {
 
     super( lens, providedOptions );
 

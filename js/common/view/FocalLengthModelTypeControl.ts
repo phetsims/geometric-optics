@@ -31,7 +31,7 @@ export default class FocalLengthModelTypeControl extends VBox {
    * @param focalLengthModelTypeProperty - whether to set focal length directly or indirectly
    * @param providedOptions
    */
-  constructor( focalLengthModelTypeProperty: IProperty<FocalLengthModelType>, providedOptions: FocalLengthModelTypeOptions ) {
+  public constructor( focalLengthModelTypeProperty: IProperty<FocalLengthModelType>, providedOptions: FocalLengthModelTypeOptions ) {
 
     const options = optionize<FocalLengthModelTypeOptions, SelfOptions, VBoxOptions>()( {
 

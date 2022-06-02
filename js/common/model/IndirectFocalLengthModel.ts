@@ -38,8 +38,8 @@ export default class IndirectFocalLengthModel extends PhetioObject implements Fo
   // Resets things that are specific to this class.
   private readonly resetIndirectFocalLengthModel: () => void;
 
-  constructor( opticSurfaceTypeProperty: IReadOnlyProperty<OpticSurfaceType>,
-               providedOptions: IndirectFocalLengthModelOptions ) {
+  public constructor( opticSurfaceTypeProperty: IReadOnlyProperty<OpticSurfaceType>,
+                      providedOptions: IndirectFocalLengthModelOptions ) {
 
     const options = optionize<IndirectFocalLengthModelOptions, SelfOptions, PhetioObjectOptions>()( {
 

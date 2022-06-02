@@ -38,11 +38,11 @@ export default class GOControlPanel extends Panel {
    * @param virtualImageCheckboxEnabledProperty - whether to enable the 'Virtual Image' checkbox
    * @param providedOptions
    */
-  constructor( optic: Optic,
-               raysTypeProperty: Property<RaysType>,
-               visibleProperties: VisibleProperties,
-               virtualImageCheckboxEnabledProperty: IReadOnlyProperty<boolean>,
-               providedOptions: GOControlPanelOptions ) {
+  public constructor( optic: Optic,
+                      raysTypeProperty: Property<RaysType>,
+                      visibleProperties: VisibleProperties,
+                      virtualImageCheckboxEnabledProperty: IReadOnlyProperty<boolean>,
+                      providedOptions: GOControlPanelOptions ) {
 
     const options = optionize<GOControlPanelOptions, SelfOptions, PanelOptions>()( {
 

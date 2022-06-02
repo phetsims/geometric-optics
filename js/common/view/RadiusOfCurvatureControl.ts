@@ -29,9 +29,9 @@ export default class RadiusOfCurvatureControl extends NumberControl {
    * @param radiusOfCurvatureProperty - signed
    * @param providedOptions
    */
-  constructor( radiusOfCurvatureMagnitudeProperty: NumberProperty,
-               radiusOfCurvatureProperty: IReadOnlyProperty<number>,
-               providedOptions: RadiusOfCurvatureControlOptions ) {
+  public constructor( radiusOfCurvatureMagnitudeProperty: NumberProperty,
+                      radiusOfCurvatureProperty: IReadOnlyProperty<number>,
+                      providedOptions: RadiusOfCurvatureControlOptions ) {
 
     assert && assert( radiusOfCurvatureMagnitudeProperty.range ); // {Range|null}
     const range = radiusOfCurvatureMagnitudeProperty.range!;

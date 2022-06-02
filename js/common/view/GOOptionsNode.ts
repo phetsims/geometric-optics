@@ -28,7 +28,7 @@ export default class GOOptionsNode extends VBox {
   // Disposes of things that are specific to this class.
   private readonly disposeGeometricOpticsGlobalOptionsNode: () => void;
 
-  constructor( providedOptions: GOGlobalOptionsNodeOptions ) {
+  public constructor( providedOptions: GOGlobalOptionsNodeOptions ) {
 
     const options = optionize<GOGlobalOptionsNodeOptions, SelfOptions, VBoxOptions>()( {
 

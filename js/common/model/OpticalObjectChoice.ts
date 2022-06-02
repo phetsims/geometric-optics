@@ -138,7 +138,7 @@ export default class OpticalObjectChoice extends EnumerationValue {
   public readonly tandemPrefix: string;
   public readonly objectHTMLImageElements?: ObjectHTMLImageElements;
 
-  constructor( options: OpticalObjectChoiceOptions ) {
+  public constructor( options: OpticalObjectChoiceOptions ) {
     super();
     this.type = options.type;
     this.label = options.label;

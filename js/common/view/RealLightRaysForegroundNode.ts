@@ -36,13 +36,13 @@ export default class RealLightRaysForegroundNode extends RealLightRaysNode {
    * @param opticalImageTypeProperty - type of optical image (real or virtual)
    * @param providedOptions
    */
-  constructor( lightRays: LightRays,
-               modelViewTransform: ModelViewTransform2,
-               modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-               opticPositionProperty: IReadOnlyProperty<Vector2>,
-               framedImagePositionProperty: IReadOnlyProperty<Vector2>,
-               opticalImageTypeProperty: IReadOnlyProperty<OpticalImageType>,
-               providedOptions: RealLightRaysForegroundNodeOptions ) {
+  public constructor( lightRays: LightRays,
+                      modelViewTransform: ModelViewTransform2,
+                      modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      opticPositionProperty: IReadOnlyProperty<Vector2>,
+                      framedImagePositionProperty: IReadOnlyProperty<Vector2>,
+                      opticalImageTypeProperty: IReadOnlyProperty<OpticalImageType>,
+                      providedOptions: RealLightRaysForegroundNodeOptions ) {
 
     const options = optionize3<RealLightRaysForegroundNodeOptions, SelfOptions, RealLightRaysNodeOptions>()( {},
       providedOptions, {

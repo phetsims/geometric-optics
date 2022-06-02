@@ -33,7 +33,7 @@ export default class Mirror extends Optic {
   // See Optic
   public readonly shapesProperty: IReadOnlyProperty<MirrorShapes>;
 
-  constructor( providedOptions: MirrorOptions ) {
+  public constructor( providedOptions: MirrorOptions ) {
 
     const focalLengthModelsTandem = providedOptions.tandem.createTandem( 'focalLengthModels' );
 

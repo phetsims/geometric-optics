@@ -33,10 +33,10 @@ export default class LightLabelsNode extends GOLabelsNode {
    * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
    * @param providedOptions
    */
-  constructor( sceneNode: LightSceneNode,
-               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-               providedOptions: LightObjectSceneLabelsNodeOptions ) {
+  public constructor( sceneNode: LightSceneNode,
+                      zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+                      modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      providedOptions: LightObjectSceneLabelsNodeOptions ) {
 
     super( sceneNode, zoomTransformProperty, modelVisibleBoundsProperty, providedOptions );
 
@@ -82,9 +82,9 @@ type LightObjectLabelNodeOptions = OpticalObjectLabelNodeOptions;
 // Label for a light object.
 class LightObjectLabelNode extends OpticalObjectLabelNode {
 
-  constructor( lightObject: LightObject,
-               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               providedOptions: LightObjectLabelNodeOptions ) {
+  public constructor( lightObject: LightObject,
+                      zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+                      providedOptions: LightObjectLabelNodeOptions ) {
 
     // Position the label below the light, slightly to the left of center (determined empirically)
     const labelPositionProperty = new DerivedProperty( [ lightObject.boundsProperty ],

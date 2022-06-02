@@ -33,7 +33,7 @@ type LensNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
 
 export default class LensNode extends Node {
 
-  constructor( lens: Lens, modelViewTransform: ModelViewTransform2, providedOptions: LensNodeOptions ) {
+  public constructor( lens: Lens, modelViewTransform: ModelViewTransform2, providedOptions: LensNodeOptions ) {
 
     const options = optionize<LensNodeOptions, SelfOptions, NodeOptions>()( {
 

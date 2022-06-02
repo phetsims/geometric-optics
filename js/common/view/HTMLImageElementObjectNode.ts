@@ -37,13 +37,13 @@ export default class HTMLImageElementObjectNode extends OpticalObjectNode {
    * @param wasDraggedProperty - was this optical object dragged?
    * @param providedOptions
    */
-  constructor( htmlImageElementObject: HTMLImageElementObject,
-               sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
-               opticPositionProperty: IReadOnlyProperty<Vector2>,
-               modelViewTransform: ModelViewTransform2,
-               objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>,
-               wasDraggedProperty: IProperty<boolean>,
-               providedOptions: HTMLImageElementObjectNodeOptions ) {
+  public constructor( htmlImageElementObject: HTMLImageElementObject,
+                      sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      opticPositionProperty: IReadOnlyProperty<Vector2>,
+                      modelViewTransform: ModelViewTransform2,
+                      objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>,
+                      wasDraggedProperty: IProperty<boolean>,
+                      providedOptions: HTMLImageElementObjectNodeOptions ) {
 
     super( htmlImageElementObject, objectDragModeProperty, wasDraggedProperty, providedOptions );
 

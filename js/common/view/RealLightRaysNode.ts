@@ -22,9 +22,9 @@ export type RealLightRaysNodeOptions = SelfOptions & LightRaysNodeOptions;
 
 export default class RealLightRaysNode extends LightRaysNode {
 
-  constructor( lightRays: LightRays,
-               modelViewTransform: ModelViewTransform2,
-               providedOptions: RealLightRaysNodeOptions ) {
+  public constructor( lightRays: LightRays,
+                      modelViewTransform: ModelViewTransform2,
+                      providedOptions: RealLightRaysNodeOptions ) {
 
     const update = ( thisNode: Node ) => {
       thisNode.children = LightRaysNode.segmentsToLines( lightRays.realSegments, modelViewTransform, {

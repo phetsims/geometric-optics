@@ -22,9 +22,9 @@ export default class OpticVerticalAxisNode extends Node {
    * @param raysTypeProperty - representation used for rays
    * @param modelViewTransform
    */
-  constructor( optic: Optic,
-               raysTypeProperty: IReadOnlyProperty<RaysType>,
-               modelViewTransform: ModelViewTransform2 ) {
+  public constructor( optic: Optic,
+                      raysTypeProperty: IReadOnlyProperty<RaysType>,
+                      modelViewTransform: ModelViewTransform2 ) {
 
     super();
 

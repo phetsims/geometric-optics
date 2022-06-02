@@ -38,7 +38,7 @@ export default class ObjectDragModeToggleButton extends RectangularToggleButton<
    * @param objectDragModeProperty - constrains how an optical object can be dragged
    * @param providedOptions
    */
-  constructor( objectDragModeProperty: IProperty<ObjectDragMode>, providedOptions?: DragLockedButtonOptions ) {
+  public constructor( objectDragModeProperty: IProperty<ObjectDragMode>, providedOptions?: DragLockedButtonOptions ) {
 
     // To make both icons have the same effective size
     const alignBoxOptions = {

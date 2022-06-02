@@ -40,7 +40,7 @@ class Guide extends PhetioObject {
    * @param location - location of the guide, relative to the optic
    * @param providedOptions
    */
-  constructor( optic: Optic, opticalObjectPositionProperty: IReadOnlyProperty<Vector2>, location: GuideLocation, providedOptions: GuideOptions ) {
+  public constructor( optic: Optic, opticalObjectPositionProperty: IReadOnlyProperty<Vector2>, location: GuideLocation, providedOptions: GuideOptions ) {
 
     const options = optionize<GuideOptions, SelfOptions, PhetioObjectOptions>()( {
 

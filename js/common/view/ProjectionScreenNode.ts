@@ -42,11 +42,11 @@ export default class ProjectionScreenNode extends Node {
    * @param modelViewTransform
    * @param providedOptions
    */
-  constructor( projectionScreen: ProjectionScreen,
-               opticPositionProperty: IReadOnlyProperty<Vector2>,
-               sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
-               modelViewTransform: ModelViewTransform2,
-               providedOptions: ProjectionScreenNodeOptions ) {
+  public constructor( projectionScreen: ProjectionScreen,
+                      opticPositionProperty: IReadOnlyProperty<Vector2>,
+                      sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      modelViewTransform: ModelViewTransform2,
+                      providedOptions: ProjectionScreenNodeOptions ) {
 
     const options = optionize<ProjectionScreenNodeOptions, SelfOptions, NodeOptions>()( {
 

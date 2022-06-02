@@ -36,10 +36,10 @@ export default class OpticalImageLabelNode extends LabelNode {
    * @param zoomTransformProperty - model-view transform that the user controls by zooming in/out
    * @param providedOptions
    */
-  constructor( opticalImage: OpticalImage,
-               labelPositionProperty: IReadOnlyProperty<Vector2>,
-               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               providedOptions: OpticalImageLabelNodeOptions ) {
+  public constructor( opticalImage: OpticalImage,
+                      labelPositionProperty: IReadOnlyProperty<Vector2>,
+                      zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+                      providedOptions: OpticalImageLabelNodeOptions ) {
 
     const options = optionize<OpticalImageLabelNodeOptions, SelfOptions, LabelNodeOptions>()( {
       isNumberedProperty: new BooleanProperty( true ),

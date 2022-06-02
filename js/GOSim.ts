@@ -27,7 +27,7 @@ export type GOSimOptions = SelfOptions;
 
 export default class GOSim extends Sim {
 
-  constructor( title: string, providedOptions: GOSimOptions ) {
+  public constructor( title: string, providedOptions: GOSimOptions ) {
 
     const options = optionize<GOSimOptions, SelfOptions, SimOptions>()( {
 

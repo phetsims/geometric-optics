@@ -32,13 +32,13 @@ export default class FramedObjectNode extends HTMLImageElementObjectNode {
    * @param wasDraggedProperty - was this framed object dragged?
    * @param providedOptions
    */
-  constructor( framedObject: FramedObject,
-               sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
-               opticPositionProperty: IReadOnlyProperty<Vector2>,
-               modelViewTransform: ModelViewTransform2,
-               objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>,
-               wasDraggedProperty: IProperty<boolean>,
-               providedOptions: FramedObjectNodeOptions ) {
+  public constructor( framedObject: FramedObject,
+                      sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      opticPositionProperty: IReadOnlyProperty<Vector2>,
+                      modelViewTransform: ModelViewTransform2,
+                      objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>,
+                      wasDraggedProperty: IProperty<boolean>,
+                      providedOptions: FramedObjectNodeOptions ) {
 
     super( framedObject, sceneBoundsProperty, opticPositionProperty, modelViewTransform, objectDragModeProperty,
       wasDraggedProperty, providedOptions );

@@ -34,12 +34,12 @@ export default class GOToolDragListener extends DragListener {
    * @param shouldReturnToToolbox - given the pointer's position, determine whether tool should be returned to toolbox
    * @param providedOptions
    */
-  constructor( tool: GOTool,
-               toolNode: GOToolNode,
-               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               dragBoundsProperty: IReadOnlyProperty<Bounds2>,
-               shouldReturnToToolbox: ( pointerPoint: Vector2 ) => boolean,
-               providedOptions: GOToolDragListenerOptions ) {
+  public constructor( tool: GOTool,
+                      toolNode: GOToolNode,
+                      zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+                      dragBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      shouldReturnToToolbox: ( pointerPoint: Vector2 ) => boolean,
+                      providedOptions: GOToolDragListenerOptions ) {
 
     // options.end will get a null event if the drag is interrupted, which can definitely happen with multitouch.
     // So keep track of where the pointer is.

@@ -47,7 +47,7 @@ export default class ProjectionScreen extends PhetioObject {
   // Resets things that are specific to this class.
   private readonly resetProjectionScreen: () => void;
 
-  constructor( opticPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: ProjectionScreenOptions ) {
+  public constructor( opticPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: ProjectionScreenOptions ) {
 
     const options = optionize<ProjectionScreenOptions, SelfOptions, PhetioObjectOptions>()( {
 

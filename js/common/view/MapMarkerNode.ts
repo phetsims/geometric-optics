@@ -16,7 +16,7 @@ type MapMarkerNodeOptions = PickOptional<NodeOptions, 'scale' | 'tagName'> & Pic
 
 export default class MapMarkerNode extends Node {
 
-  constructor( providedOptions: MapMarkerNodeOptions ) {
+  public constructor( providedOptions: MapMarkerNodeOptions ) {
 
     super( providedOptions );
 

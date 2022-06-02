@@ -23,7 +23,7 @@ export default class LensModel extends GOModel {
 
   public readonly lens: Lens;
 
-  constructor( providedOptions: LensModelOptions ) {
+  public constructor( providedOptions: LensModelOptions ) {
 
     // See https://github.com/phetsims/geometric-optics/issues/397
     let opticalObjectChoices;

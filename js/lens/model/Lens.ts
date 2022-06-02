@@ -36,7 +36,7 @@ export default class Lens extends Optic {
   // opacity of the lens
   public readonly opacityProperty: IReadOnlyProperty<number>;
 
-  constructor( providedOptions: LensOptions ) {
+  public constructor( providedOptions: LensOptions ) {
 
     const focalLengthModelsTandem = providedOptions.tandem.createTandem( 'focalLengthModels' );
 

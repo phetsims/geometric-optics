@@ -39,7 +39,7 @@ export default class MirrorShapes implements OpticShapes {
    * @param diameter - height of the mirror, width is foreshortened to provide 3D perspective
    * @param providedOptions
    */
-  constructor( radiusOfCurvature: number, diameter: number, providedOptions?: MirrorShapesOptions ) {
+  public constructor( radiusOfCurvature: number, diameter: number, providedOptions?: MirrorShapesOptions ) {
 
     const options = optionize<MirrorShapesOptions, SelfOptions>()( {
 

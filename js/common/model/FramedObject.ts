@@ -35,10 +35,10 @@ export default class FramedObject extends HTMLImageElementObject {
    * @param opticalObjectChoiceProperty
    * @param providedOptions
    */
-  constructor( opticalObjectNumber: number,
-               opticPositionProperty: IReadOnlyProperty<Vector2>,
-               opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>,
-               providedOptions: FramedObjectOptions ) {
+  public constructor( opticalObjectNumber: number,
+                      opticPositionProperty: IReadOnlyProperty<Vector2>,
+                      opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>,
+                      providedOptions: FramedObjectOptions ) {
 
     const objectHTMLImageElementsProperty = new DerivedProperty(
       [ opticalObjectChoiceProperty ], opticalObjectChoice => {

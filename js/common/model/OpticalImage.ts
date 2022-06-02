@@ -63,7 +63,7 @@ export default class OpticalImage extends PhetioObject {
   // Resets things that are specific to this class.
   private readonly resetOpticalImage: () => void;
 
-  constructor( opticalObject: OpticalObject, optic: Optic, providedOptions: OpticalImageOptions ) {
+  public constructor( opticalObject: OpticalObject, optic: Optic, providedOptions: OpticalImageOptions ) {
 
     const options = optionize<OpticalImageOptions, SelfOptions, PhetioObjectOptions>()( {
 

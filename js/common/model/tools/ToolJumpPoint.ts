@@ -18,7 +18,7 @@ export default class ToolJumpPoint {
   // whether the thing at the position is currently visible
   public readonly visibleProperty: IReadOnlyProperty<boolean>;
 
-  constructor( positionProperty: IReadOnlyProperty<Vector2>, visibleProperty: IReadOnlyProperty<boolean> ) {
+  public constructor( positionProperty: IReadOnlyProperty<Vector2>, visibleProperty: IReadOnlyProperty<boolean> ) {
     this.positionProperty = positionProperty;
     this.visibleProperty = visibleProperty;
   }

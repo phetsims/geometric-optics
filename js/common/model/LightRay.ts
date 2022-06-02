@@ -54,8 +54,8 @@ export default class LightRay {
    * @param raysType
    * @param [projectionScreen] - optional projection screen that can block the rays
    */
-  constructor( opticalObjectPosition: Vector2, direction: Vector2, raysAnimationTime: number, optic: Optic, opticalImagePosition: Vector2,
-               isImageVirtual: boolean, raysType: RaysType, projectionScreen?: ProjectionScreen ) {
+  public constructor( opticalObjectPosition: Vector2, direction: Vector2, raysAnimationTime: number, optic: Optic, opticalImagePosition: Vector2,
+                      isImageVirtual: boolean, raysType: RaysType, projectionScreen?: ProjectionScreen ) {
 
     assert && AssertUtils.assertNonNegativeNumber( raysAnimationTime );
 

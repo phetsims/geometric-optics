@@ -40,10 +40,10 @@ export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
    * @param virtualImageCheckboxEnabledProperty - is the 'Virtual Image' check box enabled?
    * @param providedOptions
    */
-  constructor( visibleProperties: VisibleProperties,
-               optic: Optic,
-               virtualImageCheckboxEnabledProperty: IReadOnlyProperty<boolean>,
-               providedOptions: VisibilityCheckboxGroupOptions ) {
+  public constructor( visibleProperties: VisibleProperties,
+                      optic: Optic,
+                      virtualImageCheckboxEnabledProperty: IReadOnlyProperty<boolean>,
+                      providedOptions: VisibilityCheckboxGroupOptions ) {
 
     const options = optionize<VisibilityCheckboxGroupOptions, SelfOptions, VerticalCheckboxGroupOptions>()( {
 

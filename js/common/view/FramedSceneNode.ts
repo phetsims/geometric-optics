@@ -58,14 +58,14 @@ export default class FramedSceneNode extends GOSceneNode {
    * @param lightPropagationEnabledProperty - is light propagation enabled?
    * @param providedOptions
    */
-  constructor( scene: FramedScene,
-               visibleProperties: VisibleProperties,
-               modelViewTransform: ModelViewTransform2,
-               modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-               sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
-               raysTypeProperty: IReadOnlyProperty<RaysType>,
-               lightPropagationEnabledProperty: IReadOnlyProperty<boolean>,
-               providedOptions: FramedObjectSceneNodeOptions ) {
+  public constructor( scene: FramedScene,
+                      visibleProperties: VisibleProperties,
+                      modelViewTransform: ModelViewTransform2,
+                      modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      raysTypeProperty: IReadOnlyProperty<RaysType>,
+                      lightPropagationEnabledProperty: IReadOnlyProperty<boolean>,
+                      providedOptions: FramedObjectSceneNodeOptions ) {
 
     super( scene, visibleProperties, modelViewTransform, modelVisibleBoundsProperty, sceneBoundsProperty, raysTypeProperty, providedOptions );
 

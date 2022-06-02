@@ -27,7 +27,7 @@ type OpticShapeRadioButtonGroupOptions = SelfOptions &
 
 export default class OpticSurfaceTypeRadioButtonGroup extends RectangularRadioButtonGroup<OpticSurfaceType> {
 
-  constructor( optic: Optic, providedOptions: OpticShapeRadioButtonGroupOptions ) {
+  public constructor( optic: Optic, providedOptions: OpticShapeRadioButtonGroupOptions ) {
 
     const options = optionize<OpticShapeRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()( {
 

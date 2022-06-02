@@ -30,9 +30,9 @@ export default class FocalLengthControl extends NumberControl {
    * @param focalLengthProperty - signed
    * @param providedOptions
    */
-  constructor( focalLengthMagnitudeProperty: NumberProperty,
-               focalLengthProperty: IReadOnlyProperty<number>,
-               providedOptions: FocalLengthControlOptions ) {
+  public constructor( focalLengthMagnitudeProperty: NumberProperty,
+                      focalLengthProperty: IReadOnlyProperty<number>,
+                      providedOptions: FocalLengthControlOptions ) {
 
     assert && assert( focalLengthMagnitudeProperty.range ); // {Range|null}
     const range = focalLengthMagnitudeProperty.range!;

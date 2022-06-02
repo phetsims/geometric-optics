@@ -25,7 +25,7 @@ type RaysRadioButtonGroupOptions = SelfOptions & PickRequired<VerticalAquaRadioB
 
 export default class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysType> {
 
-  constructor( raysTypeProperty: IProperty<RaysType>, providedOptions: RaysRadioButtonGroupOptions ) {
+  public constructor( raysTypeProperty: IProperty<RaysType>, providedOptions: RaysRadioButtonGroupOptions ) {
 
     const options = optionize<RaysRadioButtonGroupOptions, SelfOptions, VerticalAquaRadioButtonGroupOptions>()( {
 

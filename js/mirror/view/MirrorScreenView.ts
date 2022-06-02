@@ -24,7 +24,7 @@ type MirrorScreenViewOptions = SelfOptions & PickRequired<GOScreenViewOptions, '
 
 export default class MirrorScreenView extends GOScreenView {
 
-  constructor( model: MirrorModel, providedOptions: MirrorScreenViewOptions ) {
+  public constructor( model: MirrorModel, providedOptions: MirrorScreenViewOptions ) {
 
     const options = optionize<MirrorScreenViewOptions, SelfOptions, GOScreenViewOptions>()( {
       // GOScreenViewOptions

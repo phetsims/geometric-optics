@@ -23,9 +23,9 @@ export default class PositionMarkerIcon extends GOToolIcon {
    * @param positionMarkerNode - view element
    * @param zoomTransformProperty - model-view transform that the user controls by zooming in/out
    */
-  constructor( positionMarker: PositionMarker,
-               positionMarkerNode: PositionMarkerNode,
-               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2> ) {
+  public constructor( positionMarker: PositionMarker,
+                      positionMarkerNode: PositionMarkerNode,
+                      zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2> ) {
 
     // GOToolIconOptions
     const options = {

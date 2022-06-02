@@ -24,7 +24,7 @@ export default class MirrorModel extends GOModel {
 
   public readonly mirror: Mirror;
 
-  constructor( providedOptions: MirrorModelOptions ) {
+  public constructor( providedOptions: MirrorModelOptions ) {
 
     // See https://github.com/phetsims/geometric-optics/issues/397
     let opticalObjectChoices;

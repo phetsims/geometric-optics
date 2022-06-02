@@ -25,10 +25,10 @@ export default class FramedLabelsNode extends GOLabelsNode {
    * @param modelVisibleBoundsProperty - ScreenView's visibleBounds in the model coordinate frame, with the zoom transform applied
    * @param providedOptions
    */
-  constructor( sceneNode: FramedSceneNode,
-               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-               providedOptions: GOSceneLabelsNodeOptions ) {
+  public constructor( sceneNode: FramedSceneNode,
+                      zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+                      modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      providedOptions: GOSceneLabelsNodeOptions ) {
 
     super( sceneNode, zoomTransformProperty, modelVisibleBoundsProperty, providedOptions );
 

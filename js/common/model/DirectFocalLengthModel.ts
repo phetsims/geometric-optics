@@ -38,8 +38,8 @@ export default class DirectFocalLengthModel extends PhetioObject implements Foca
   // Resets things that are specific to this class.
   private readonly resetDirectFocalLengthModel: () => void;
 
-  constructor( opticSurfaceTypeProperty: IReadOnlyProperty<OpticSurfaceType>,
-               providedOptions: DirectFocalLengthModelOptions ) {
+  public constructor( opticSurfaceTypeProperty: IReadOnlyProperty<OpticSurfaceType>,
+                      providedOptions: DirectFocalLengthModelOptions ) {
 
     const options = optionize<DirectFocalLengthModelOptions, SelfOptions, PhetioObjectOptions>()( {
 

@@ -45,12 +45,12 @@ export default class HTMLImageElementObject extends OpticalObject {
    * @param scaleFactor - see field scaleFactor
    * @param providedOptions
    */
-  constructor( opticalObjectNumber: number,
-               opticPositionProperty: IReadOnlyProperty<Vector2>,
-               htmlImageElementProperty: IReadOnlyProperty<HTMLImageElement>,
-               originOffset: Vector2,
-               scaleFactor: number,
-               providedOptions: HTMLImageElementObjectOptions ) {
+  public constructor( opticalObjectNumber: number,
+                      opticPositionProperty: IReadOnlyProperty<Vector2>,
+                      htmlImageElementProperty: IReadOnlyProperty<HTMLImageElement>,
+                      originOffset: Vector2,
+                      scaleFactor: number,
+                      providedOptions: HTMLImageElementObjectOptions ) {
 
     super( opticalObjectNumber, opticPositionProperty, providedOptions );
 

@@ -42,15 +42,15 @@ export default class OpticalAxisForegroundNode extends OpticalAxisNode {
    * @param lightRaysProcessedEmitter - fires when animation of rays has completed
    * @param providedOptions
    */
-  constructor( opticPositionProperty: IReadOnlyProperty<Vector2>,
-               modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-               modelViewTransform: ModelViewTransform2,
-               framedObjectPositionProperty: IReadOnlyProperty<Vector2>,
-               framedObjectNode: Node,
-               framedImagePositionProperty: IReadOnlyProperty<Vector2>,
-               framedImageNode: Node,
-               lightRaysProcessedEmitter: Emitter<[]>,
-               providedOptions: OpticalAxisForegroundNodeOptions ) {
+  public constructor( opticPositionProperty: IReadOnlyProperty<Vector2>,
+                      modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      modelViewTransform: ModelViewTransform2,
+                      framedObjectPositionProperty: IReadOnlyProperty<Vector2>,
+                      framedObjectNode: Node,
+                      framedImagePositionProperty: IReadOnlyProperty<Vector2>,
+                      framedImageNode: Node,
+                      lightRaysProcessedEmitter: Emitter<[]>,
+                      providedOptions: OpticalAxisForegroundNodeOptions ) {
 
     const options = optionize<OpticalAxisForegroundNodeOptions, SelfOptions, OpticalAxisNodeOptions>()( {
 

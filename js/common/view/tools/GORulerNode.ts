@@ -59,12 +59,12 @@ export default class GORulerNode extends GOToolNode {
    * @param visibleBoundsProperty - visible bounds of the ScreenView
    * @param providedOptions
    */
-  constructor( ruler: GORuler,
-               opticPositionProperty: IReadOnlyProperty<Vector2>,
-               zoomTransformProperty: UnknownDerivedProperty<ModelViewTransform2>,
-               zoomScaleProperty: IReadOnlyProperty<number>,
-               visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-               providedOptions: GORulerNodeOptions ) {
+  public constructor( ruler: GORuler,
+                      opticPositionProperty: IReadOnlyProperty<Vector2>,
+                      zoomTransformProperty: UnknownDerivedProperty<ModelViewTransform2>,
+                      zoomScaleProperty: IReadOnlyProperty<number>,
+                      visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      providedOptions: GORulerNodeOptions ) {
 
     const options = optionize<GORulerNodeOptions, SelfOptions, GOToolNodeOptions>()( {
       rotation: ( ruler.orientation === 'vertical' ) ? ( -Math.PI / 2 ) : 0

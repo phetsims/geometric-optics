@@ -58,14 +58,14 @@ export default class LightSceneNode extends GOSceneNode {
    * @param lightPropagationEnabledProperty - is light propagation enabled?
    * @param providedOptions
    */
-  constructor( scene: LightScene,
-               visibleProperties: VisibleProperties,
-               modelViewTransform: ModelViewTransform2,
-               modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-               sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
-               raysTypeProperty: IReadOnlyProperty<RaysType>,
-               lightPropagationEnabledProperty: IReadOnlyProperty<boolean>,
-               providedOptions: LightObjectSceneNodeOptions ) {
+  public constructor( scene: LightScene,
+                      visibleProperties: VisibleProperties,
+                      modelViewTransform: ModelViewTransform2,
+                      modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      raysTypeProperty: IReadOnlyProperty<RaysType>,
+                      lightPropagationEnabledProperty: IReadOnlyProperty<boolean>,
+                      providedOptions: LightObjectSceneNodeOptions ) {
 
     super( scene, visibleProperties, modelViewTransform, modelVisibleBoundsProperty, sceneBoundsProperty, raysTypeProperty, providedOptions );
 

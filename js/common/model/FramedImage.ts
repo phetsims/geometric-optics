@@ -39,7 +39,7 @@ export default class FramedImage extends OpticalImage {
    * @param optic - the optic is responsible for forming the optical image
    * @param providedOptions
    */
-  constructor( framedObject: FramedObject, optic: Optic, providedOptions: FramedImageOptions ) {
+  public constructor( framedObject: FramedObject, optic: Optic, providedOptions: FramedImageOptions ) {
 
     super( framedObject, optic, providedOptions );
 

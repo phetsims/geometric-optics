@@ -50,10 +50,10 @@ export default class PositionMarkerNode extends GOToolNode {
    * @param visibleBoundsProperty - visible bounds of the ScreenView
    * @param providedOptions
    */
-  constructor( positionMarker: PositionMarker,
-               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-               providedOptions: PositionMarkerNodeOptions ) {
+  public constructor( positionMarker: PositionMarker,
+                      zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+                      visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      providedOptions: PositionMarkerNodeOptions ) {
 
     const options = optionize<PositionMarkerNodeOptions, SelfOptions, GOToolNodeOptions>()( {
 

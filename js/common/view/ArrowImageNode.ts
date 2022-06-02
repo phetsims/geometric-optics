@@ -29,12 +29,12 @@ export default class ArrowImageNode extends OpticalImageNode {
    * @param modelViewTransform
    * @param providedOptions
    */
-  constructor( arrowImage: ArrowImage,
-               virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
-               lightPropagationEnabledProperty: IReadOnlyProperty<boolean>,
-               objectVisibleProperty: IReadOnlyProperty<boolean>,
-               modelViewTransform: ModelViewTransform2,
-               providedOptions: ArrowImageNodeOptions ) {
+  public constructor( arrowImage: ArrowImage,
+                      virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
+                      lightPropagationEnabledProperty: IReadOnlyProperty<boolean>,
+                      objectVisibleProperty: IReadOnlyProperty<boolean>,
+                      modelViewTransform: ModelViewTransform2,
+                      providedOptions: ArrowImageNodeOptions ) {
 
     super( arrowImage, virtualImageVisibleProperty, lightPropagationEnabledProperty, objectVisibleProperty, providedOptions );
 

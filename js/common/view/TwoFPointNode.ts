@@ -21,8 +21,8 @@ type TwoFPointNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem' | '
 
 export default class TwoFPointNode extends Node {
 
-  constructor( pointProperty: IReadOnlyProperty<Vector2>, modelViewTransform: ModelViewTransform2,
-               provideOptions: TwoFPointNodeOptions ) {
+  public constructor( pointProperty: IReadOnlyProperty<Vector2>, modelViewTransform: ModelViewTransform2,
+                      provideOptions: TwoFPointNodeOptions ) {
 
     const options = optionize<TwoFPointNodeOptions, SelfOptions, NodeOptions>()( {
 

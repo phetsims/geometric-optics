@@ -43,10 +43,10 @@ export default class LabelNode extends BackgroundNode {
    * @param zoomTransformProperty - model-view transform that the user controls by zooming in/out
    * @param providedOptions
    */
-  constructor( text: string,
-               positionProperty: IReadOnlyProperty<Vector2>,
-               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-               providedOptions: LabelNodeOptions ) {
+  public constructor( text: string,
+                      positionProperty: IReadOnlyProperty<Vector2>,
+                      zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+                      providedOptions: LabelNodeOptions ) {
 
     const options = optionize<LabelNodeOptions, SelfOptions, BackgroundNodeOptions>()( {
 

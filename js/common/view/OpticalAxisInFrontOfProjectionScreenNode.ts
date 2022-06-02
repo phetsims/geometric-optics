@@ -34,11 +34,11 @@ export default class OpticalAxisInFrontOfProjectionScreenNode extends Line {
    * @param modelViewTransform
    * @param providedOptions
    */
-  constructor( opticPositionProperty: IReadOnlyProperty<Vector2>,
-               projectionScreenPositionProperty: IReadOnlyProperty<Vector2>,
-               modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-               modelViewTransform: ModelViewTransform2,
-               providedOptions: OpticalAxisInFrontOfProjectionScreenNodeOptions ) {
+  public constructor( opticPositionProperty: IReadOnlyProperty<Vector2>,
+                      projectionScreenPositionProperty: IReadOnlyProperty<Vector2>,
+                      modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      modelViewTransform: ModelViewTransform2,
+                      providedOptions: OpticalAxisInFrontOfProjectionScreenNodeOptions ) {
 
     const options = optionize<OpticalAxisInFrontOfProjectionScreenNodeOptions, SelfOptions, LineOptions>()( {
 

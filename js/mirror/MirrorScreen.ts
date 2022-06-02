@@ -27,7 +27,7 @@ type MirrorScreenOptions = SelfOptions & PickRequired<ScreenOptions, 'tandem'>;
 
 export default class MirrorScreen extends Screen<MirrorModel, MirrorScreenView> {
 
-  constructor( providedOptions: MirrorScreenOptions ) {
+  public constructor( providedOptions: MirrorScreenOptions ) {
 
     const options = optionize<MirrorScreenOptions, SelfOptions, ScreenOptions>()( {
 

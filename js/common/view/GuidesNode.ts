@@ -23,8 +23,8 @@ type GuidesNodeOptions = SelfOptions &
 
 export default class GuidesNode extends Node {
 
-  constructor( guides: Guides, armColor: IColor,
-               modelViewTransform: ModelViewTransform2, providedOptions: GuidesNodeOptions ) {
+  public constructor( guides: Guides, armColor: IColor,
+                      modelViewTransform: ModelViewTransform2, providedOptions: GuidesNodeOptions ) {
     super( optionize<GuidesNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions

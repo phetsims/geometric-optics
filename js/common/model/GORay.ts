@@ -23,7 +23,7 @@ export default class GORay extends Ray2 {
    * @param position - origin of the ray
    * @param direction - direction of the ray, must be a normalized vector.
    */
-  constructor( position: Vector2, direction: Vector2 ) {
+  public constructor( position: Vector2, direction: Vector2 ) {
     super( position, direction );
     this.length = Infinity; // semi-infinite by default
   }

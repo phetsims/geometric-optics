@@ -29,9 +29,9 @@ export default class GORulerIcon extends GOToolIcon {
    * @param rulerNode - view element associated with this icon
    * @param zoomTransformProperty - model-view transform that the user controls by zooming in/out
    */
-  constructor( ruler: GORuler,
-               rulerNode: GORulerNode,
-               zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2> ) {
+  public constructor( ruler: GORuler,
+                      rulerNode: GORulerNode,
+                      zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2> ) {
 
     // GOToolIconOptions
     const options = {

@@ -78,7 +78,7 @@ export default class GOScreenView extends ScreenView {
   // Resets things that are specific to this class.
   private readonly resetGOScreenView: () => void;
 
-  constructor( model: GOModel, providedOptions: GOScreenViewOptions ) {
+  public constructor( model: GOModel, providedOptions: GOScreenViewOptions ) {
 
     const options = optionize<GOScreenViewOptions, SelfOptions, ScreenViewOptions>()( {
 

@@ -27,7 +27,7 @@ export default class GOToolboxNode extends Panel {
    * @param toolNodes - in the order that they appear in the toolbox, left to right
    * @param providedOptions
    */
-  constructor( toolNodes: GOToolNode[], providedOptions: GOToolboxNodeOptions ) {
+  public constructor( toolNodes: GOToolNode[], providedOptions: GOToolboxNodeOptions ) {
 
     const options = optionize<GOToolboxNodeOptions, SelfOptions, PanelOptions>()( {
 

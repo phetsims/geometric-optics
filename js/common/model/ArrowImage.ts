@@ -25,7 +25,7 @@ export default class ArrowImage extends OpticalImage {
    * @param optic - the optic is responsible for forming the optical image
    * @param providedOptions
    */
-  constructor( arrowObject: ArrowObject, optic: Optic, providedOptions: ArrowImageOptions ) {
+  public constructor( arrowObject: ArrowObject, optic: Optic, providedOptions: ArrowImageOptions ) {
 
     super( arrowObject, optic, providedOptions );
 
