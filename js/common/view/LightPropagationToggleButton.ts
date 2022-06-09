@@ -16,7 +16,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import IProperty from '../../../../axon/js/IProperty.js';
+import Property from '../../../../axon/js/Property.js';
 
 type SelfOptions = {};
 
@@ -24,7 +24,7 @@ type LightPropagationToggleButtonOptions = SelfOptions & PickRequired<BooleanRou
 
 export default class LightPropagationToggleButton extends BooleanRoundToggleButton {
 
-  public constructor( booleanProperty: IProperty<boolean>, providedOptions: LightPropagationToggleButtonOptions ) {
+  public constructor( booleanProperty: Property<boolean>, providedOptions: LightPropagationToggleButtonOptions ) {
 
     const options = optionize<LightPropagationToggleButtonOptions, SelfOptions, BooleanRoundToggleButtonOptions>()( {
 

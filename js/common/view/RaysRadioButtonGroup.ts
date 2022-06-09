@@ -17,7 +17,7 @@ import { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGrou
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import IProperty from '../../../../axon/js/IProperty.js';
+import Property from '../../../../axon/js/Property.js';
 
 type SelfOptions = {};
 
@@ -25,7 +25,7 @@ type RaysRadioButtonGroupOptions = SelfOptions & PickRequired<VerticalAquaRadioB
 
 export default class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<RaysType> {
 
-  public constructor( raysTypeProperty: IProperty<RaysType>, providedOptions: RaysRadioButtonGroupOptions ) {
+  public constructor( raysTypeProperty: Property<RaysType>, providedOptions: RaysRadioButtonGroupOptions ) {
 
     const options = optionize<RaysRadioButtonGroupOptions, SelfOptions, VerticalAquaRadioButtonGroupOptions>()( {
 

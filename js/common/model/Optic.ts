@@ -17,7 +17,7 @@ import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import geometricOptics from '../../geometricOptics.js';
 import OpticShapes from './OpticShapes.js';
 import { OpticSurfaceType } from './OpticSurfaceType.js';
-import Property from '../../../../axon/js/Property.js';
+import Property, { ReadOnlyProperty } from '../../../../axon/js/Property.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
@@ -97,15 +97,15 @@ export default abstract class Optic extends PhetioObject {
   public readonly focalLengthProperty: IReadOnlyProperty<number>;
 
   // focal points (F) to the left and right of the optic
-  public readonly leftFocalPointProperty: IReadOnlyProperty<Vector2>;
-  public readonly rightFocalPointProperty: IReadOnlyProperty<Vector2>;
+  public readonly leftFocalPointProperty: ReadOnlyProperty<Vector2>;
+  public readonly rightFocalPointProperty: ReadOnlyProperty<Vector2>;
 
   // twice the focal length (2f) of the optic
   public readonly twiceFocalLengthProperty: IReadOnlyProperty<number>;
 
   // 2F points to the left and right of the optic
-  public readonly left2FProperty: IReadOnlyProperty<Vector2>;
-  public readonly right2FProperty: IReadOnlyProperty<Vector2>;
+  public readonly left2FProperty: ReadOnlyProperty<Vector2>;
+  public readonly right2FProperty: ReadOnlyProperty<Vector2>;
 
   // Resets things that are specific to this class.
   private readonly resetOptic: () => void;

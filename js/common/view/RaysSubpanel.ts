@@ -7,7 +7,7 @@
  * @author Martin Veillette
  */
 
-import IProperty from '../../../../axon/js/IProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import { Text, VBox } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -22,7 +22,7 @@ export default class RaysSubpanel extends VBox {
    * @param raysTypeProperty - representation used for rays
    * @param tandem
    */
-  public constructor( raysTypeProperty: IProperty<RaysType>, tandem: Tandem ) {
+  public constructor( raysTypeProperty: Property<RaysType>, tandem: Tandem ) {
 
     // title
     const titleText = new Text( geometricOpticsStrings.rays, {

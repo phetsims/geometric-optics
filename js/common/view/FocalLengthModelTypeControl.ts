@@ -15,7 +15,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import { Text, VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
-import IProperty from '../../../../axon/js/IProperty.js';
+import Property from '../../../../axon/js/Property.js';
 
 type SelfOptions = {};
 
@@ -31,7 +31,7 @@ export default class FocalLengthModelTypeControl extends VBox {
    * @param focalLengthModelTypeProperty - whether to set focal length directly or indirectly
    * @param providedOptions
    */
-  public constructor( focalLengthModelTypeProperty: IProperty<FocalLengthModelType>, providedOptions: FocalLengthModelTypeOptions ) {
+  public constructor( focalLengthModelTypeProperty: Property<FocalLengthModelType>, providedOptions: FocalLengthModelTypeOptions ) {
 
     const options = optionize<FocalLengthModelTypeOptions, SelfOptions, VBoxOptions>()( {
 

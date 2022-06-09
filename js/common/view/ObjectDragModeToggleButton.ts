@@ -19,7 +19,7 @@ import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js
 import { ObjectDragMode } from './ObjectDragMode.js';
 import ToggleNode from '../../../../sun/js/ToggleNode.js';
 import RectangularToggleButton, { RectangularToggleButtonOptions } from '../../../../sun/js/buttons/RectangularToggleButton.js';
-import IProperty from '../../../../axon/js/IProperty.js';
+import Property from '../../../../axon/js/Property.js';
 
 const ARROWS_SCALE = 0.65;
 const LOCK_SCALE = 0.045;
@@ -38,7 +38,7 @@ export default class ObjectDragModeToggleButton extends RectangularToggleButton<
    * @param objectDragModeProperty - constrains how an optical object can be dragged
    * @param providedOptions
    */
-  public constructor( objectDragModeProperty: IProperty<ObjectDragMode>, providedOptions?: DragLockedButtonOptions ) {
+  public constructor( objectDragModeProperty: Property<ObjectDragMode>, providedOptions?: DragLockedButtonOptions ) {
 
     // To make both icons have the same effective size
     const alignBoxOptions = {

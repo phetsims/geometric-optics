@@ -23,10 +23,10 @@ import FocalPointNode from './FocalPointNode.js';
 import TwoFPointNode from './TwoFPointNode.js';
 import GOOptions from '../GOOptions.js';
 import GOQueryParameters from '../GOQueryParameters.js';
-import IProperty from '../../../../axon/js/IProperty.js';
 import { GOSimOptions } from '../../GOSim.js';
 import Optic from '../model/Optic.js';
 import Lens from '../../lens/model/Lens.js';
+import Property from '../../../../axon/js/Property.js';
 
 type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 
@@ -119,7 +119,7 @@ type ItemOptions = {
   iconNode?: Node;
 } & PickRequired<VerticalCheckboxGroupItem, 'tandem'> & PickOptional<VerticalCheckboxGroupItem, 'options'>;
 
-function createItem( string: string, property: IProperty<boolean>, providedOptions: ItemOptions ): VerticalCheckboxGroupItem {
+function createItem( string: string, property: Property<boolean>, providedOptions: ItemOptions ): VerticalCheckboxGroupItem {
 
   const labelText = new Text( string, {
     font: GOConstants.CONTROL_FONT,

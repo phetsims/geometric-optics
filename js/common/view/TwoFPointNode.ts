@@ -13,7 +13,7 @@ import { Circle, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import { ReadOnlyProperty } from '../../../../axon/js/ReadOnlyProperty.js';
 
 type SelfOptions = {};
 
@@ -21,7 +21,7 @@ type TwoFPointNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem' | '
 
 export default class TwoFPointNode extends Node {
 
-  public constructor( pointProperty: IReadOnlyProperty<Vector2>, modelViewTransform: ModelViewTransform2,
+  public constructor( pointProperty: ReadOnlyProperty<Vector2>, modelViewTransform: ModelViewTransform2,
                       provideOptions: TwoFPointNodeOptions ) {
 
     const options = optionize<TwoFPointNodeOptions, SelfOptions, NodeOptions>()( {

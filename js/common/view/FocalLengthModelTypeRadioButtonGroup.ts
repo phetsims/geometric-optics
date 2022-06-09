@@ -16,8 +16,8 @@ import GOConstants from '../GOConstants.js';
 import { FocalLengthModelType } from '../model/FocalLengthModelType.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import IProperty from '../../../../axon/js/IProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import Property from '../../../../axon/js/Property.js';
 
 type SelfOptions = {};
 
@@ -31,7 +31,7 @@ export default class FocalLengthModelTypeRadioButtonGroup extends VerticalAquaRa
    * @param focalLengthModelTypeProperty - whether to set focal length directly or indirectl
    * @param providedOptions
    */
-  public constructor( focalLengthModelTypeProperty: IProperty<FocalLengthModelType>,
+  public constructor( focalLengthModelTypeProperty: Property<FocalLengthModelType>,
                       providedOptions: FocalLengthControlRadioButtonGroupOptions ) {
 
     const options = optionize<FocalLengthControlRadioButtonGroupOptions, SelfOptions, VerticalAquaRadioButtonGroupOptions>()( {
