@@ -30,11 +30,12 @@ import GOToolNode, { GOToolNodeOptions } from './GOToolNode.js';
 import GOToolKeyboardDragListener from './GOToolKeyboardDragListener.js';
 import GOToolDragListener from './GOToolDragListener.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
+import EmptyObjectType from '../../../../../phet-core/js/types/EmptyObjectType.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;
 
-type SelfOptions = {};
+type SelfOptions = EmptyObjectType;
 
 export type GORulerNodeOptions = SelfOptions & GOToolNodeOptions;
 

@@ -18,6 +18,7 @@ import Matrix3 from '../../../../dot/js/Matrix3.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
 import OriginNode from '../../common/view/OriginNode.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import EmptyObjectType from '../../../../phet-core/js/types/EmptyObjectType.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 // constants
@@ -29,7 +30,7 @@ const ICON_CONVEX_RADIUS_OF_CURVATURE_MAGNITUDE = 20;
 const ICON_CONCAVE_RADIUS_OF_CURVATURE_MAGNITUDE = -ICON_CONVEX_RADIUS_OF_CURVATURE_MAGNITUDE;
 const ICON_DIAMETER = 30;
 
-type SelfOptions = {};
+type SelfOptions = EmptyObjectType;
 
 type MirrorNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
 

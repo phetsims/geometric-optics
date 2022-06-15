@@ -12,10 +12,11 @@ import GuideNode from './GuideNode.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Guides from '../model/Guides.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import EmptyObjectType from '../../../../phet-core/js/types/EmptyObjectType.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
-type SelfOptions = {};
+type SelfOptions = EmptyObjectType;
 
 type GuidesNodeOptions = SelfOptions &
   PickRequired<NodeOptions, 'visibleProperty' | 'tandem'> &

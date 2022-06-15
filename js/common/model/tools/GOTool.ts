@@ -14,8 +14,9 @@ import PhetioObject, { PhetioObjectOptions } from '../../../../../tandem/js/Phet
 import geometricOptics from '../../../geometricOptics.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
+import EmptyObjectType from '../../../../../phet-core/js/types/EmptyObjectType.js';
 
-type SelfOptions = {};
+type SelfOptions = EmptyObjectType;
 
 export type GOToolOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 

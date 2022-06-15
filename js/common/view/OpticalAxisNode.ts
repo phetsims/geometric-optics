@@ -17,10 +17,11 @@ import { Line, LineOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import EmptyObjectType from '../../../../phet-core/js/types/EmptyObjectType.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
-type SelfOptions = {};
+type SelfOptions = EmptyObjectType;
 
 export type OpticalAxisNodeOptions = SelfOptions &
   PickRequired<LineOptions, 'visibleProperty'> &

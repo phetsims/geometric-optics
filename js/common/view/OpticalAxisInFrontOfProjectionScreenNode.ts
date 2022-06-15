@@ -16,10 +16,11 @@ import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../../common/GOColors.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import EmptyObjectType from '../../../../phet-core/js/types/EmptyObjectType.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
-type SelfOptions = {};
+type SelfOptions = EmptyObjectType;
 
 export type OpticalAxisInFrontOfProjectionScreenNodeOptions = SelfOptions &
   PickRequired<LineOptions, 'visibleProperty'> &

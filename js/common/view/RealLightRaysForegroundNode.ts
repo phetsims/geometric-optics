@@ -20,8 +20,9 @@ import { Shape } from '../../../../kite/js/imports.js';
 import { Path } from '../../../../scenery/js/imports.js';
 import { OpticalImageType } from '../model/OpticalImageType.js';
 import { optionize3 } from '../../../../phet-core/js/optionize.js';
+import EmptyObjectType from '../../../../phet-core/js/types/EmptyObjectType.js';
 
-type SelfOptions = {};
+type SelfOptions = EmptyObjectType;
 
 type RealLightRaysForegroundNodeOptions = SelfOptions & RealLightRaysNodeOptions;
 

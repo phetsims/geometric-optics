@@ -12,13 +12,14 @@ import { DragListener, DragListenerOptions, PressedDragListener } from '../../..
 import geometricOptics from '../../../geometricOptics.js';
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
+import EmptyObjectType from '../../../../../phet-core/js/types/EmptyObjectType.js';
 import GOToolNode from './GOToolNode.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import GOTool from '../../model/tools/GOTool.js';
 
-type SelfOptions = {};
+type SelfOptions = EmptyObjectType;
 
 type GOToolDragListenerOptions = SelfOptions &
   PickRequired<DragListenerOptions<PressedDragListener>, 'tandem'> &

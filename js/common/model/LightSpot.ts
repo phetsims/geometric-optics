@@ -21,6 +21,7 @@ import GOConstants from '../../common/GOConstants.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import EmptyObjectType from '../../../../phet-core/js/types/EmptyObjectType.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
@@ -30,7 +31,7 @@ type PositionAndDiameter = {
   diameter: number; // diameter, in cm
 };
 
-type SelfOptions = {};
+type SelfOptions = EmptyObjectType;
 
 type LightSpotOptions = SelfOptions &
   PickRequired<PhetioObjectOptions, 'tandem'> &

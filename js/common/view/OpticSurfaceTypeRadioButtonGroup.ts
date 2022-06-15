@@ -17,9 +17,10 @@ import MirrorNode from '../../mirror/view/MirrorNode.js';
 import LensNode from '../../lens/view/LensNode.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import EmptyObjectType from '../../../../phet-core/js/types/EmptyObjectType.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 
-type SelfOptions = {};
+type SelfOptions = EmptyObjectType;
 
 type OpticShapeRadioButtonGroupOptions = SelfOptions &
   PickRequired<RectangularRadioButtonGroupOptions, 'tandem'> &

@@ -20,13 +20,14 @@ import { ObjectDragMode } from './ObjectDragMode.js';
 import ToggleNode from '../../../../sun/js/ToggleNode.js';
 import RectangularToggleButton, { RectangularToggleButtonOptions } from '../../../../sun/js/buttons/RectangularToggleButton.js';
 import Property from '../../../../axon/js/Property.js';
+import EmptyObjectType from '../../../../phet-core/js/types/EmptyObjectType.js';
 
 const ARROWS_SCALE = 0.65;
 const LOCK_SCALE = 0.045;
 const UNLOCKED_FILL = 'black';
 const LOCKED_FILL = PhetColorScheme.RED_COLORBLIND;
 
-type SelfOptions = {};
+type SelfOptions = EmptyObjectType;
 
 type DragLockedButtonOptions = SelfOptions &
   PickRequired<RectangularToggleButtonOptions, 'tandem'> &

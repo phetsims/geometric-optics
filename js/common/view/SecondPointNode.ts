@@ -18,10 +18,11 @@ import SecondPoint from '../model/SecondPoint.js';
 import GOConstants from '../GOConstants.js';
 import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import EmptyObjectType from '../../../../phet-core/js/types/EmptyObjectType.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
 
-type SelfOptions = {};
+type SelfOptions = EmptyObjectType;
 
 type SecondPointNodeOptions = SelfOptions &
   PickRequired<NodeOptions, 'visibleProperty' | 'tandem' | 'phetioDocumentation'>;
@@ -136,7 +137,7 @@ const ARROW_NODE_OPTIONS = {
 class SecondPointCueingArrowsNode extends VBox {
 
   public constructor( spacing: number, providedOptions?: NodeOptions ) {
-    super( optionize<NodeOptions, {}, VBoxOptions>()( {
+    super( optionize<NodeOptions, EmptyObjectType, VBoxOptions>()( {
       spacing: spacing,
       align: 'center',
       children: [

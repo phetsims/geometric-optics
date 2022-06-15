@@ -15,10 +15,11 @@ import MirrorModel from '../model/MirrorModel.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import MirrorNode from './MirrorNode.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import EmptyObjectType from '../../../../phet-core/js/types/EmptyObjectType.js';
 import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
-type SelfOptions = {};
+type SelfOptions = EmptyObjectType;
 
 type MirrorScreenViewOptions = SelfOptions & PickRequired<GOScreenViewOptions, 'isBasicsVersion' | 'tandem' >;
 

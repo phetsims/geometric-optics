@@ -12,10 +12,11 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import OpticalImage from '../model/OpticalImage.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import EmptyObjectType from '../../../../phet-core/js/types/EmptyObjectType.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 
-type SelfOptions = {};
+type SelfOptions = EmptyObjectType;
 
 export type OpticalImageNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
 

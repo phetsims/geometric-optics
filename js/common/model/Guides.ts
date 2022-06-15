@@ -13,9 +13,10 @@ import Optic from './Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from './Guide.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import EmptyObjectType from '../../../../phet-core/js/types/EmptyObjectType.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
-type SelfOptions = {};
+type SelfOptions = EmptyObjectType;
 
 type GuidesOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
 
