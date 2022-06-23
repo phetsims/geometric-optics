@@ -36,8 +36,7 @@
         "simulation": true,
         "runnable": true,
         "colorProfiles": [
-          "default",
-          "projector"
+          "default"
         ],
         "supportedBrands": [
           "phet",
@@ -52,7 +51,19 @@
         "supportsOutputJS": true
       },
       "eslintConfig": {
-        "extends": "../chipper/eslint/sim_eslintrc.js"
+        "extends": "../chipper/eslint/sim_eslintrc.js",
+        "overrides": [
+          {
+            "files": [
+              "**/*.ts"
+            ],
+            "rules": {
+              "@typescript-eslint/adjacent-overload-signatures": "error",
+              "@typescript-eslint/ban-ts-comment": "error",
+              "@typescript-eslint/no-explicit-any": "error"
+            }
+          }
+        ]
       }
     };
   window.phet.chipper.stringRepos =
