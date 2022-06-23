@@ -222,7 +222,7 @@ function getRealRays( initialRay: GORay, firstPoint: Vector2 | null, optic: Opti
       rays.push( getTransmittedRay( firstPoint, opticalImagePosition, optic ) );
     }
     else {
-      assert && assert( optic instanceof Lens ); // eslint-disable-line bad-typescript-text
+      assert && assert( optic instanceof Lens ); // eslint-disable-line no-simple-type-checking-assertions
       const lens = optic as Lens;
 
       // find bisecting point of the lens, used to determine outgoing ray
