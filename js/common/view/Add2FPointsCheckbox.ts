@@ -38,7 +38,7 @@ export default class Add2FPointsCheckbox extends Checkbox {
       phetioVisiblePropertyInstrumented: false
     } );
 
-    super( labelText, add2FPointsCheckboxProperty, options );
+    super( add2FPointsCheckboxProperty, labelText, options );
 
     this.disposeAdd2FPointsCheckbox = () => {
       labelText.dispose();
