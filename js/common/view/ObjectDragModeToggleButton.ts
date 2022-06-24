@@ -102,7 +102,7 @@ export default class ObjectDragModeToggleButton extends RectangularToggleButton<
       phetioEnabledPropertyInstrumented: false
     }, providedOptions );
 
-    super( 'freeDragging', 'horizontalDragging', objectDragModeProperty, options );
+    super( objectDragModeProperty, 'freeDragging', 'horizontalDragging', options );
 
     objectDragModeProperty.link( objectDragMode => {
       freeDraggingNode.visible = ( objectDragMode === 'freeDragging' );
