@@ -76,7 +76,7 @@ export default class OpticalObjectChoiceComboBox extends ComboBox<OpticalObjectC
       } ) );
     } );
 
-    super( items, opticalObjectChoiceProperty, listParent, options );
+    super( opticalObjectChoiceProperty, items, listParent, options );
   }
 }
 
