@@ -41,7 +41,7 @@ export default class LightPropagationToggleButton extends BooleanRoundToggleButt
     const onNode = new Image( lightPropagationOnIcon_png );
     const offNode = new Image( lightPropagationOffIcon_png );
 
-    super( onNode, offNode, booleanProperty, options );
+    super( booleanProperty, onNode, offNode, options );
   }
 
   public override dispose(): void {
