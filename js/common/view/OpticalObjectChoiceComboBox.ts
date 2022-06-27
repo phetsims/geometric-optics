@@ -9,8 +9,7 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import { AlignBox, AlignGroup, HBox, Image, Node, NodeTranslationOptions, Text } from '../../../../scenery/js/imports.js';
-import ComboBox, { ComboBoxOptions } from '../../../../sun/js/ComboBox.js';
-import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
+import ComboBox, { ComboBoxItem, ComboBoxOptions } from '../../../../sun/js/ComboBox.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
@@ -71,9 +70,11 @@ export default class OpticalObjectChoiceComboBox extends ComboBox<OpticalObjectC
       const hBox = new HBox( { spacing: 5, children: [ iconAlignBox, text ] } );
 
       // create and add combo box item to the array
-      items.push( new ComboBoxItem( hBox, opticalObjectChoice, {
-        tandemName: `${opticalObjectChoice.tandemPrefix}Item`
-      } ) );
+      items.push( {
+        value: opticalObjectChoice,
+        node: hBox,
+        tandemName: `${opticalObjectChoice.tandemPrefix}${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+      } );
     } );
 
     super( opticalObjectChoiceProperty, items, listParent, options );
