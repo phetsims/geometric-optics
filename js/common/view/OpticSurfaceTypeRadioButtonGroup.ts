@@ -35,16 +35,18 @@ export default class OpticSurfaceTypeRadioButtonGroup extends RectangularRadioBu
       // RectangularRadioButtonGroupOptions
       orientation: 'horizontal',
       spacing: 10,
-      cornerRadius: 3,
-      baseColor: GOColors.curveRadioButtonFillProperty,
-      selectedStroke: GOColors.curveRadioButtonSelectedStrokeProperty,
-      deselectedStroke: GOColors.curveRadioButtonDeselectedStrokeProperty,
-      deselectedLineWidth: 2,
-      selectedLineWidth: 2,
-      buttonContentXMargin: 14,
-      buttonContentYMargin: 5,
       touchAreaXDilation: 4,
-      touchAreaYDilation: 5
+      touchAreaYDilation: 5,
+      radioButtonOptions: {
+        cornerRadius: 3,
+        baseColor: GOColors.curveRadioButtonFillProperty,
+        selectedStroke: GOColors.curveRadioButtonSelectedStrokeProperty,
+        deselectedStroke: GOColors.curveRadioButtonDeselectedStrokeProperty,
+        deselectedLineWidth: 2,
+        selectedLineWidth: 2,
+        xMargin: 14,
+        yMargin: 5
+      }
     }, providedOptions );
 
     // A radio button for each shape supported by the optic
