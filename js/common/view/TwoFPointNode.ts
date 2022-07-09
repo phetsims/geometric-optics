@@ -14,7 +14,7 @@ import { Circle, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { ReadOnlyProperty } from '../../../../axon/js/ReadOnlyProperty.js';
+import ReadOnlyProperty from '../../../../axon/js/ReadOnlyProperty.js';
 
 type SelfOptions = EmptyObjectType;
 
