@@ -32,7 +32,7 @@ export default class HTMLImageElementObject extends OpticalObject {
 
   // View-to-model scale for the associated HTMLImageElement.
   // This should be uniform for all values of htmlImageElementProperty.
-  public readonly scaleFactor: number
+  public readonly scaleFactor: number;
 
   // model bounds of this object's visual representation
   public readonly boundsProperty: IReadOnlyProperty<Bounds2>;

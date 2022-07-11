@@ -33,7 +33,7 @@ export default class SecondPoint extends PhetioObject {
   public readonly positionProperty: IReadOnlyProperty<Vector2>;
 
   // vertical offset of second point with respect to the first point on the framed object position, in cm
-  private readonly verticalOffsetProperty: Property<number>
+  private readonly verticalOffsetProperty: Property<number>;
 
   // position of the framed object that second point is associated with
   private readonly framedObjectPositionProperty: IReadOnlyProperty<Vector2>;
