@@ -21,7 +21,7 @@ type SelfOptions = {
   // This flag is propagated to many components of the sim. To identify how the Basics version is customized,
   // search the code base for isBasicsVersion, and inspect geometric-optics-basics-main.ts.
   isBasicsVersion: boolean;
-}
+};
 
 export type GOSimOptions = SelfOptions;
 
