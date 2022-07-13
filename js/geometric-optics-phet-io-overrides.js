@@ -547,6 +547,9 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "geometricOptics.mirrorScreen.view.controls.zoomButtonGroup.zoomOutButton.visibleProperty": {
       "phetioFeatured": false
     },
+    "geometricOptics.mirrorScreen.view.objectDragModeProperty": {
+      "phetioFeatured": true
+    },
     "geometricOptics.mirrorScreen.view.scenes.arrowSceneNode.labels.left2FPointLabel.textNode.textProperty": {
       "phetioFeatured": true
     },
@@ -611,6 +614,9 @@ window.phet.preloads.phetio.phetioElementsOverrides =
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.view.zoomLevelProperty": {
+      "phetioFeatured": true
+    },
+    "geometricOptics.mirrorScreen.view.zoomScaleProperty": {
       "phetioFeatured": true
     }
   };
