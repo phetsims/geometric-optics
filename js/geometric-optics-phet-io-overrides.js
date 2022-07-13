@@ -1,6 +1,18 @@
 /* eslint-disable */
 window.phet.preloads.phetio.phetioElementsOverrides =
   {
+    "geometricOptics.general.view.navigationBar.phetButton.phetMenu.optionsDialogCapsule.archetype.content.add2FPointsCheckbox.labelText.textProperty": {
+      "phetioFeatured": true
+    },
+    "geometricOptics.general.view.navigationBar.phetButton.phetMenu.optionsDialogCapsule.archetype.content.focalLengthModelControl.radioButtonGroup.directRadioButton.labelText.textProperty": {
+      "phetioFeatured": true
+    },
+    "geometricOptics.general.view.navigationBar.phetButton.phetMenu.optionsDialogCapsule.archetype.content.focalLengthModelControl.radioButtonGroup.indirectRadioButton.labelText.textProperty": {
+      "phetioFeatured": true
+    },
+    "geometricOptics.general.view.navigationBar.phetButton.phetMenu.optionsDialogCapsule.archetype.content.focalLengthModelControl.visibleProperty": {
+      "phetioFeatured": true
+    },
     "geometricOptics.global.view.options.add2FPointsCheckboxProperty": {
       "phetioFeatured": true
     },
