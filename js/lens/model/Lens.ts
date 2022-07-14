@@ -144,7 +144,7 @@ export default class Lens extends Optic {
   public getBackShapeTranslated(): Shape {
     const backShape = this.shapesProperty.value.backShape;
     assert && assert( backShape ); // {Shape|null}
-    return this.translatedShape( backShape! );
+    return this.translatedShape( backShape );
   }
 
   /**
