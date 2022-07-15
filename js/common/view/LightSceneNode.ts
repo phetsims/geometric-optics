@@ -204,7 +204,7 @@ export default class LightSceneNode extends GOSceneNode {
         // Add jump points that are interesting only for a convex lens. We're checking points before pushing
         // them in case there's any PhET-iO funny business, so we don't end up with duplicate points in the array.
         convexJumpPoints.forEach( jumpPoint => {
-          if ( this.toolJumpPoints.indexOf( jumpPoint ) === -1 ) {
+          if ( !this.toolJumpPoints.includes( jumpPoint ) ) {
             this.toolJumpPoints.push( jumpPoint );
           }
         } );
