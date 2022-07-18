@@ -73,7 +73,7 @@ const ARROW_ICON = new ArrowNode( 0, 0, 0, -50, combineOptions<ArrowNodeOptions>
 
 export default class OpticalObjectChoice extends EnumerationValue {
 
-  public static PENCIL = new OpticalObjectChoice( {
+  public static readonly PENCIL = new OpticalObjectChoice( {
     type: 'framed',
     label: geometricOpticsStrings.pencil,
     icon: pencilIcon_png,
@@ -86,7 +86,7 @@ export default class OpticalObjectChoice extends EnumerationValue {
     }
   } );
 
-  public static PENGUIN = new OpticalObjectChoice( {
+  public static readonly PENGUIN = new OpticalObjectChoice( {
     type: 'framed',
     label: geometricOpticsStrings.penguin,
     icon: penguinIcon_png,
@@ -99,7 +99,7 @@ export default class OpticalObjectChoice extends EnumerationValue {
     }
   } );
 
-  public static STAR = new OpticalObjectChoice( {
+  public static readonly STAR = new OpticalObjectChoice( {
     type: 'framed',
     label: geometricOpticsStrings.star,
     icon: starIcon_png,
@@ -112,14 +112,14 @@ export default class OpticalObjectChoice extends EnumerationValue {
     }
   } );
 
-  public static ARROW = new OpticalObjectChoice( {
+  public static readonly ARROW = new OpticalObjectChoice( {
     type: 'arrow',
     label: geometricOpticsStrings.arrow,
     icon: ARROW_ICON,
     tandemPrefix: 'arrow'
   } );
 
-  public static LIGHT = new OpticalObjectChoice( {
+  public static readonly LIGHT = new OpticalObjectChoice( {
     type: 'light',
     label: geometricOpticsStrings.light,
     icon: lightIcon_png,
@@ -127,7 +127,7 @@ export default class OpticalObjectChoice extends EnumerationValue {
   } );
 
   // Gets a list of keys, values and mapping between them. For use by EnumerationProperty and PhET-iO.
-  public static enumeration = new Enumeration( OpticalObjectChoice, {
+  public static readonly enumeration = new Enumeration( OpticalObjectChoice, {
     phetioDocumentation: 'describes an optical object choice'
   } );
 
