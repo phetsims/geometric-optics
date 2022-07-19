@@ -156,7 +156,9 @@ export default abstract class Optic extends PhetioObject {
     this.indirectFocalLengthModel = new IndirectFocalLengthModel( this.opticSurfaceTypeProperty, options.indirectFocalLengthModelOptions );
 
     // When switching between focal-length models, synchronize the new model with the old model.
-    GOOptions.focalLengthModelTypeProperty.lazyLink( ( focalLengthModelType: FocalLengthModelType ) => {
+    GOOptions.focalLengthModelTypeProperty.lazyLink( ( input: string ) => {
+      const focalLengthModelType = input as FocalLengthModelType;
+
       if ( focalLengthModelType === 'direct' ) {
         this.directFocalLengthModel.syncToModel( this.indirectFocalLengthModel );
       }

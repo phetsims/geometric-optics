@@ -188,7 +188,7 @@ const SCHEMA_MAP = {
   debugLightSpots: {
     type: 'flag'
   }
-};
+} as const;
 
 /**
  * Parses a query-parameter value into a RangeWithValue.
