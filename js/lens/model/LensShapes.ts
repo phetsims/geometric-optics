@@ -33,7 +33,7 @@ export default class LensShapes implements OpticShapes {
   // specific to LensShapes
   public readonly lensShape: Shape; // the complete lens
 
-  // See OpticShapes interface
+  // See OpticShapes
   public readonly frontShape: Shape; // the left half of the lens
   public readonly backShape: Shape; // the right half of the lens
   public readonly activeBoundsShape: Shape; // the entire lens

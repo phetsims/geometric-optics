@@ -30,7 +30,7 @@ export type DirectFocalLengthModelOptions = SelfOptions & PickRequired<PhetioObj
 
 export default class DirectFocalLengthModel extends PhetioObject implements FocalLengthModel {
 
-  // see FocalLengthModel interface
+  // see FocalLengthModel
   public readonly radiusOfCurvatureMagnitudeProperty: IReadOnlyProperty<number>;
   public readonly indexOfRefractionProperty: NumberProperty;
   public readonly focalLengthMagnitudeProperty: NumberProperty;
