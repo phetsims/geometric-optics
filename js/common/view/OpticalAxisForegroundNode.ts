@@ -22,11 +22,11 @@ import OpticalAxisNode, { OpticalAxisNodeOptions } from './OpticalAxisNode.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import { Node, Path } from '../../../../scenery/js/imports.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import EmptyObjectType from '../../../../phet-core/js/types/EmptyObjectType.js';
+import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import GOColors from '../GOColors.js';
 import IEmitter from '../../../../axon/js/IEmitter.js';
 
-type SelfOptions = EmptyObjectType;
+type SelfOptions = EmptySelfOptions;
 
 type OpticalAxisForegroundNodeOptions = SelfOptions & OpticalAxisNodeOptions;
 

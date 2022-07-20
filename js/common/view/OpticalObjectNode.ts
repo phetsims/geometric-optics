@@ -12,14 +12,14 @@ import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import EmptyObjectType from '../../../../phet-core/js/types/EmptyObjectType.js';
+import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 import OpticalObject from '../model/OpticalObject.js';
 import IProperty from '../../../../axon/js/IProperty.js';
 
-type SelfOptions = EmptyObjectType;
+type SelfOptions = EmptySelfOptions;
 
 export type OpticalObjectNodeOptions = SelfOptions &
   PickRequired<NodeOptions, 'tandem'> &

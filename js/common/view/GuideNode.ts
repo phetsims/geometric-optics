@@ -15,7 +15,7 @@ import GOColors from '../../common/GOColors.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from '../model/Guide.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import EmptyObjectType from '../../../../phet-core/js/types/EmptyObjectType.js';
+import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 // constants, in view coordinates
@@ -28,7 +28,7 @@ const FULCRUM_OPTIONS = {
 };
 const ARM_STROKE = GOColors.guideStrokeProperty;
 
-type SelfOptions = EmptyObjectType;
+type SelfOptions = EmptySelfOptions;
 
 type GuideNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
 
