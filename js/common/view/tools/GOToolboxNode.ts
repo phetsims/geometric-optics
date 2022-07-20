@@ -11,8 +11,7 @@
 import { HBox, Node } from '../../../../../scenery/js/imports.js';
 import Panel, { PanelOptions } from '../../../../../sun/js/Panel.js';
 import geometricOptics from '../../../geometricOptics.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
-import { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import GOToolNode from './GOToolNode.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';

@@ -13,8 +13,7 @@ import Vector2Property from '../../../../../dot/js/Vector2Property.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../../tandem/js/PhetioObject.js';
 import geometricOptics from '../../../geometricOptics.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
-import { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 
 type SelfOptions = EmptySelfOptions;
 

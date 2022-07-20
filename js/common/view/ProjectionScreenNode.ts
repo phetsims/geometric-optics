@@ -23,8 +23,7 @@ import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import OriginNode from './OriginNode.js';
 import GOConstants from '../../common/GOConstants.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
-import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = EmptySelfOptions;

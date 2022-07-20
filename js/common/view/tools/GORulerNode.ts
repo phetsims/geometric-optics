@@ -29,8 +29,7 @@ import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
 import GOToolNode, { GOToolNodeOptions } from './GOToolNode.js';
 import GOToolKeyboardDragListener from './GOToolKeyboardDragListener.js';
 import GOToolDragListener from './GOToolDragListener.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
-import { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;

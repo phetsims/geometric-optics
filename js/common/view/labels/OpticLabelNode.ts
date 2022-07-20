@@ -9,8 +9,7 @@
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
-import { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import geometricOptics from '../../../geometricOptics.js';
 import geometricOpticsStrings from '../../../geometricOpticsStrings.js';

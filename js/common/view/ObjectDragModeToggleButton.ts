@@ -15,12 +15,11 @@ import CueingArrowsNode from './CueingArrowsNode.js';
 import ButtonNode from '../../../../sun/js/buttons/ButtonNode.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
+import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 import ToggleNode from '../../../../sun/js/ToggleNode.js';
 import RectangularToggleButton, { RectangularToggleButtonOptions } from '../../../../sun/js/buttons/RectangularToggleButton.js';
 import Property from '../../../../axon/js/Property.js';
-import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
 const ARROWS_SCALE = 0.65;
 const LOCK_SCALE = 0.045;

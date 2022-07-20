@@ -11,8 +11,7 @@ import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTran
 import { DragListener, DragListenerOptions, PressedDragListener } from '../../../../../scenery/js/imports.js';
 import geometricOptics from '../../../geometricOptics.js';
 import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
-import { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import GOToolNode from './GOToolNode.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
