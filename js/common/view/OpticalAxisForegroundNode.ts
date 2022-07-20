@@ -2,7 +2,7 @@
 
 /**
  * OpticalAxisForegroundNode is a subclass of OpticalAxisNode that (using clipArea) shows only the parts of
- * OpticalAxisNode that are in front of framed objects and their associated images. It is intended to be used in 
+ * OpticalAxisNode that are in front of framed objects and their associated images. It is intended to be used in
  * FramedSceneNode, and layered in front of framed objects and images.
  *
  * Note that because the optical axis is dashed, we need to use clipArea instead of just drawing the relevant
@@ -20,11 +20,11 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import geometricOptics from '../../geometricOptics.js';
 import OpticalAxisNode, { OpticalAxisNodeOptions } from './OpticalAxisNode.js';
 import GOQueryParameters from '../GOQueryParameters.js';
-import Emitter from '../../../../axon/js/Emitter.js';
 import { Node, Path } from '../../../../scenery/js/imports.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import EmptyObjectType from '../../../../phet-core/js/types/EmptyObjectType.js';
 import GOColors from '../GOColors.js';
+import IEmitter from '../../../../axon/js/IEmitter.js';
 
 type SelfOptions = EmptyObjectType;
 
@@ -50,7 +50,7 @@ export default class OpticalAxisForegroundNode extends OpticalAxisNode {
                       framedObjectNode: Node,
                       framedImagePositionProperty: IReadOnlyProperty<Vector2>,
                       framedImageNode: Node,
-                      lightRaysProcessedEmitter: Emitter<[]>,
+                      lightRaysProcessedEmitter: IEmitter,
                       providedOptions: OpticalAxisForegroundNodeOptions ) {
 
     const options = optionize<OpticalAxisForegroundNodeOptions, SelfOptions, OpticalAxisNodeOptions>()( {
