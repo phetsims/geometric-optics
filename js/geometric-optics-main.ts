@@ -12,7 +12,8 @@ import GOSim from './GOSim.js';
 
 simLauncher.launch( () => {
   const sim = new GOSim( geometricOpticsStrings[ 'geometric-optics' ].title, {
-    isBasicsVersion: false
+    isBasicsVersion: false,
+    phetioDesigned: true
   } );
   sim.start();
 } );

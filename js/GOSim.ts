@@ -14,6 +14,7 @@ import MirrorScreen from './mirror/MirrorScreen.js';
 import GOConstants from './common/GOConstants.js';
 import optionize from '../../phet-core/js/optionize.js';
 import GOOptionsNode from './common/view/GOOptionsNode.js';
+import PickOptional from '../../phet-core/js/types/PickOptional.js';
 
 type SelfOptions = {
 
@@ -23,7 +24,7 @@ type SelfOptions = {
   isBasicsVersion: boolean;
 };
 
-export type GOSimOptions = SelfOptions;
+export type GOSimOptions = SelfOptions & PickOptional<SimOptions, 'phetioDesigned'>;
 
 export default class GOSim extends Sim {
 
