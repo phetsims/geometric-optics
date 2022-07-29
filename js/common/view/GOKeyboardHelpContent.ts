@@ -91,7 +91,7 @@ class RulerAndMarkerControlsKeyboardHelpSection extends KeyboardHelpSection {
       // J, for 'Jump'
       KeyboardHelpSection.createKeysRowFromStrings( [ 'J' ], geometricOpticsStrings.keyboardHelpDialog.jumpToPoint )
     ], {
-      labelMaxWidth: 300
+      textMaxWidth: 300
     } );
   }
 }
