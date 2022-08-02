@@ -11,14 +11,14 @@ import OpticalImage from './OpticalImage.js';
 import Optic from './Optic.js';
 import ArrowObject from './ArrowObject.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { IColor } from '../../../../scenery/js/imports.js';
+import { TColor } from '../../../../scenery/js/imports.js';
 
 type ArrowImageOptions = PickRequired<OpticalImage, 'tandem' | 'phetioDocumentation'>;
 
 export default class ArrowImage extends OpticalImage {
 
   // fill for the arrow image
-  public readonly fill: IColor;
+  public readonly fill: TColor;
 
   /**
    * @param arrowObject - the optical object that this image is associated with

@@ -9,12 +9,12 @@
 
 import geometricOptics from '../../../geometricOptics.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
-import { IColor } from '../../../../../scenery/js/imports.js';
+import { TColor } from '../../../../../scenery/js/imports.js';
 import GOTool, { GOToolOptions } from './GOTool.js';
 
 type SelfOptions = {
-  fill: IColor;
-  stroke: IColor;
+  fill: TColor;
+  stroke: TColor;
 };
 
 type PositionMarkerOptions = SelfOptions & PickRequired<GOToolOptions, 'tandem'>;
@@ -22,8 +22,8 @@ type PositionMarkerOptions = SelfOptions & PickRequired<GOToolOptions, 'tandem'>
 export default class PositionMarker extends GOTool {
 
   // fill and stroke for the marker
-  public readonly fill: IColor;
-  public readonly stroke: IColor;
+  public readonly fill: TColor;
+  public readonly stroke: TColor;
 
   public constructor( providedOptions: PositionMarkerOptions ) {
 

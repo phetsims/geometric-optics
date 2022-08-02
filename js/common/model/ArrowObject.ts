@@ -11,10 +11,10 @@ import OpticalObject, { OpticalObjectOptions } from './OpticalObject.js';
 import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { IColor } from '../../../../scenery/js/imports.js';
+import { TColor } from '../../../../scenery/js/imports.js';
 
 type SelfOptions = {
-  fill: IColor; // the fill color for the arrow
+  fill: TColor; // the fill color for the arrow
 };
 
 type ArrowObjectOptions = SelfOptions & PickRequired<OpticalObjectOptions, 'position' | 'tandem'>;
@@ -22,7 +22,7 @@ type ArrowObjectOptions = SelfOptions & PickRequired<OpticalObjectOptions, 'posi
 export default class ArrowObject extends OpticalObject {
 
   // fill for the arrow object
-  public readonly fill: IColor;
+  public readonly fill: TColor;
 
   // See https://github.com/phetsims/geometric-optics/issues/429, in cm
   public static readonly MAX_MAGNITUDE = 80;

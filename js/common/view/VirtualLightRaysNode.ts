@@ -8,14 +8,14 @@
  */
 
 import geometricOptics from '../../geometricOptics.js';
-import { IColor, Node } from '../../../../scenery/js/imports.js';
+import { TColor, Node } from '../../../../scenery/js/imports.js';
 import LightRays from '../model/LightRays.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import LightRaysNode, { LightRaysNodeOptions } from './LightRaysNode.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 
 type SelfOptions = {
-  stroke: IColor;
+  stroke: TColor;
 };
 
 type VirtualRealLightRaysNodeOptions = SelfOptions & LightRaysNodeOptions;
