@@ -81,9 +81,9 @@ export default abstract class GOScene extends PhetioObject {
     this.resetGOObjectScene();
   }
 
-  public get guides1() { return this._guides1; }
+  public get guides1(): Guides | undefined { return this._guides1; }
 
-  public get guides2() { return this._guides2; }
+  public get guides2(): Guides | undefined { return this._guides2; }
 
   /**
    * Begins the animation of light rays.
