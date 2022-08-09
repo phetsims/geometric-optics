@@ -7,7 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Node, Path } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -23,7 +23,7 @@ export default class OpticVerticalAxisNode extends Node {
    * @param modelViewTransform
    */
   public constructor( optic: Optic,
-                      raysTypeProperty: IReadOnlyProperty<RaysType>,
+                      raysTypeProperty: TReadOnlyProperty<RaysType>,
                       modelViewTransform: ModelViewTransform2 ) {
 
     super();

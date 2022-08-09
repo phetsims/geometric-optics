@@ -7,7 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -38,7 +38,7 @@ export default abstract class GOToolIcon extends Node {
   protected constructor( contentNode: Node,
                          tool: GOTool,
                          toolNode: GOToolNode,
-                         zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+                         zoomTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                          pointerPositionToToolPosition: ( pointerPosition: Vector2 ) => Vector2,
                          providedOptions: GOToolIconOptions ) {
 

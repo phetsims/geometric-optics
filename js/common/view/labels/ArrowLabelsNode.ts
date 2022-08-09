@@ -11,7 +11,7 @@ import Vector2 from '../../../../../dot/js/Vector2.js';
 import geometricOptics from '../../../geometricOptics.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
-import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
 import GOLabelsNode, { GOSceneLabelsNodeOptions } from './GOLabelsNode.js';
 import ArrowImage from '../../model/ArrowImage.js';
 import ArrowObject from '../../model/ArrowObject.js';
@@ -34,8 +34,8 @@ export default class ArrowLabelsNode extends GOLabelsNode {
    * @param providedOptions
    */
   public constructor( sceneNode: ArrowSceneNode,
-                      zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-                      modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      zoomTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+                      modelVisibleBoundsProperty: TReadOnlyProperty<Bounds2>,
                       providedOptions: ArrowObjectSceneLabelsNodeOptions ) {
 
     super( sceneNode, zoomTransformProperty, modelVisibleBoundsProperty, providedOptions );
@@ -84,8 +84,8 @@ export default class ArrowLabelsNode extends GOLabelsNode {
 class ArrowObjectLabelNode extends OpticalObjectLabelNode {
 
   public constructor( arrowObject: ArrowObject,
-                      opticPositionProperty: IReadOnlyProperty<Vector2>,
-                      zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+                      opticPositionProperty: TReadOnlyProperty<Vector2>,
+                      zoomTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                       providedOptions: OpticalObjectLabelNodeOptions ) {
 
     // If the arrow points up, position the label below the optical axis.
@@ -104,8 +104,8 @@ class ArrowObjectLabelNode extends OpticalObjectLabelNode {
 class ArrowImageLabelNode extends OpticalImageLabelNode {
 
   public constructor( arrowImage: ArrowImage,
-                      opticPositionProperty: IReadOnlyProperty<Vector2>,
-                      zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+                      opticPositionProperty: TReadOnlyProperty<Vector2>,
+                      zoomTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                       providedOptions: OpticalImageLabelNodeOptions ) {
 
     const labelPositionProperty = new DerivedProperty(

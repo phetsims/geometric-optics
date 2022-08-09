@@ -10,7 +10,7 @@ import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import geometricOptics from '../../../geometricOptics.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
-import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
 import GOLabelsNode, { GOSceneLabelsNodeOptions } from './GOLabelsNode.js';
 import OpticalObjectLabelNode from './OpticalObjectLabelNode.js';
 import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
@@ -26,8 +26,8 @@ export default class FramedLabelsNode extends GOLabelsNode {
    * @param providedOptions
    */
   public constructor( sceneNode: FramedSceneNode,
-                      zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-                      modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      zoomTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+                      modelVisibleBoundsProperty: TReadOnlyProperty<Bounds2>,
                       providedOptions: GOSceneLabelsNodeOptions ) {
 
     super( sceneNode, zoomTransformProperty, modelVisibleBoundsProperty, providedOptions );

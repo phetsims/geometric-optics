@@ -14,7 +14,7 @@ import geometricOptics from '../../geometricOptics.js';
 import LightRay, { LightRaySegment } from './LightRay.js';
 import Optic from './Optic.js';
 import { RaysType } from './RaysType.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import ProjectionScreen from './ProjectionScreen.js';
 import Utils from '../../../../dot/js/Utils.js';
 import OpticalImage from './OpticalImage.js';
@@ -47,11 +47,11 @@ export default class LightRays {
    * @param raysAnimationTimeProperty - elapsed time of light rays animation
    * @param [projectionScreen] - optional projection screen that blocks rays
    */
-  public constructor( opticalObjectPositionProperty: IReadOnlyProperty<Vector2>,
+  public constructor( opticalObjectPositionProperty: TReadOnlyProperty<Vector2>,
                       optic: Optic,
                       opticalImage: OpticalImage,
-                      raysTypeProperty: IReadOnlyProperty<RaysType>,
-                      raysAnimationTimeProperty: IReadOnlyProperty<number>,
+                      raysTypeProperty: TReadOnlyProperty<RaysType>,
+                      raysAnimationTimeProperty: TReadOnlyProperty<number>,
                       projectionScreen?: ProjectionScreen ) {
 
     this.realSegments = [];

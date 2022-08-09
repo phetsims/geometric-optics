@@ -14,7 +14,7 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GuideNode from './GuideNode.js';
 import GOConstants from '../GOConstants.js';
 import VisibleProperties from './VisibleProperties.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
@@ -42,7 +42,7 @@ export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
    */
   public constructor( visibleProperties: VisibleProperties,
                       optic: Optic,
-                      virtualImageCheckboxEnabledProperty: IReadOnlyProperty<boolean>,
+                      virtualImageCheckboxEnabledProperty: TReadOnlyProperty<boolean>,
                       providedOptions: VisibilityCheckboxGroupOptions ) {
 
     const options = optionize<VisibilityCheckboxGroupOptions, SelfOptions, VerticalCheckboxGroupOptions>()( {

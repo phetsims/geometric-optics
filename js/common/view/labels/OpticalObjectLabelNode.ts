@@ -13,7 +13,7 @@ import geometricOptics from '../../../geometricOptics.js';
 import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
 import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
-import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
@@ -21,7 +21,7 @@ import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
 type SelfOptions = {
 
   // Whether the object should be numbered, like 'Object 1'
-  isNumberedProperty?: IReadOnlyProperty<boolean>;
+  isNumberedProperty?: TReadOnlyProperty<boolean>;
 };
 
 export type OpticalObjectLabelNodeOptions = SelfOptions & StrictOmit<LabelNodeOptions, 'phetioReadOnlyText'>;
@@ -35,8 +35,8 @@ export default class OpticalObjectLabelNode extends LabelNode {
    * @param providedOptions
    */
   public constructor( objectNumber: number,
-                      labelPositionProperty: IReadOnlyProperty<Vector2>,
-                      zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+                      labelPositionProperty: TReadOnlyProperty<Vector2>,
+                      zoomTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                       providedOptions: OpticalObjectLabelNodeOptions ) {
 
     const options = optionize<OpticalObjectLabelNodeOptions, SelfOptions, LabelNodeOptions>()( {

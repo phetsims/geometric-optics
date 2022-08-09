@@ -8,7 +8,7 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import geometricOptics from '../../geometricOptics.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import HTMLImageElementObject, { HTMLImageElementObjectOptions } from './HTMLImageElementObject.js';
 import Property from '../../../../axon/js/Property.js';
@@ -40,7 +40,7 @@ export default class LightObject extends HTMLImageElementObject {
    * @param opticPositionProperty
    * @param providedOptions
    */
-  public constructor( opticalObjectNumber: number, opticPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: LightObjectOptions ) {
+  public constructor( opticalObjectNumber: number, opticPositionProperty: TReadOnlyProperty<Vector2>, providedOptions: LightObjectOptions ) {
 
     const htmlImageElementProperty = new Property( providedOptions.htmlImageElement, {
       validValues: [ providedOptions.htmlImageElement ]  // LightObject has a fixed image, it does not change.

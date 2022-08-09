@@ -14,7 +14,7 @@ import { OpticSurfaceType } from '../../common/model/OpticSurfaceType.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import LensShapes from './LensShapes.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
@@ -31,10 +31,10 @@ type LensOptions = SelfOptions & PickRequired<OpticOptions, 'tandem'>;
 export default class Lens extends Optic {
 
   // See Optic
-  public readonly shapesProperty: IReadOnlyProperty<LensShapes>;
+  public readonly shapesProperty: TReadOnlyProperty<LensShapes>;
 
   // opacity of the lens
-  public readonly opacityProperty: IReadOnlyProperty<number>;
+  public readonly opacityProperty: TReadOnlyProperty<number>;
 
   public constructor( providedOptions: LensOptions ) {
 

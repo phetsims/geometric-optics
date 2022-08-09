@@ -15,7 +15,7 @@ import FramedImage from './FramedImage.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { RaysType } from './RaysType.js';
 import LightRays from './LightRays.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import OpticalObjectChoice from './OpticalObjectChoice.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Lens from '../../lens/model/Lens.js';
@@ -52,7 +52,7 @@ export default class FramedScene extends GOScene {
    */
   public constructor( opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>,
                       optic: Optic,
-                      raysTypeProperty: IReadOnlyProperty<RaysType>,
+                      raysTypeProperty: TReadOnlyProperty<RaysType>,
                       providedOptions: FramedObjectSceneOptions ) {
 
     super( optic, providedOptions );

@@ -11,7 +11,7 @@
 import RealLightRaysNode, { RealLightRaysNodeOptions } from './RealLightRaysNode.js';
 import geometricOptics from '../../geometricOptics.js';
 import LightRays from '../model/LightRays.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -38,10 +38,10 @@ export default class RealLightRaysForegroundNode extends RealLightRaysNode {
    */
   public constructor( lightRays: LightRays,
                       modelViewTransform: ModelViewTransform2,
-                      modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-                      opticPositionProperty: IReadOnlyProperty<Vector2>,
-                      framedImagePositionProperty: IReadOnlyProperty<Vector2>,
-                      opticalImageTypeProperty: IReadOnlyProperty<OpticalImageType>,
+                      modelVisibleBoundsProperty: TReadOnlyProperty<Bounds2>,
+                      opticPositionProperty: TReadOnlyProperty<Vector2>,
+                      framedImagePositionProperty: TReadOnlyProperty<Vector2>,
+                      opticalImageTypeProperty: TReadOnlyProperty<OpticalImageType>,
                       providedOptions: RealLightRaysForegroundNodeOptions ) {
 
     const options = optionize3<RealLightRaysForegroundNodeOptions, SelfOptions, RealLightRaysNodeOptions>()( {},

@@ -12,7 +12,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
@@ -42,12 +42,12 @@ export default class OpticalAxisForegroundNode extends OpticalAxisNode {
    * @param lightRaysProcessedEmitter - fires when animation of rays has completed
    * @param providedOptions
    */
-  public constructor( opticPositionProperty: IReadOnlyProperty<Vector2>,
-                      modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+  public constructor( opticPositionProperty: TReadOnlyProperty<Vector2>,
+                      modelVisibleBoundsProperty: TReadOnlyProperty<Bounds2>,
                       modelViewTransform: ModelViewTransform2,
-                      framedObjectPositionProperty: IReadOnlyProperty<Vector2>,
+                      framedObjectPositionProperty: TReadOnlyProperty<Vector2>,
                       framedObjectNode: Node,
-                      framedImagePositionProperty: IReadOnlyProperty<Vector2>,
+                      framedImagePositionProperty: TReadOnlyProperty<Vector2>,
                       framedImageNode: Node,
                       lightRaysProcessedEmitter: IEmitter,
                       providedOptions: OpticalAxisForegroundNodeOptions ) {

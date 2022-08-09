@@ -7,7 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
@@ -36,7 +36,7 @@ export default class OpticalObjectNode extends Node {
    * @param providedOptions
    */
   protected constructor( opticalObject: OpticalObject,
-                         objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>,
+                         objectDragModeProperty: TReadOnlyProperty<ObjectDragMode>,
                          wasDraggedProperty: IProperty<boolean>,
                          providedOptions: OpticalObjectNodeOptions ) {
 

@@ -14,7 +14,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
@@ -45,13 +45,13 @@ export default class OpticalObject extends PhetioObject {
   public readonly positionProperty: Property<Vector2>;
 
   // x distance between the optic and object
-  public readonly objectDistanceProperty: IReadOnlyProperty<number>;
+  public readonly objectDistanceProperty: TReadOnlyProperty<number>;
 
   // Resets things that are specific to this class.
   private readonly resetOpticalObject: () => void;
 
   protected constructor( opticalObjectNumber: number,
-                         opticPositionProperty: IReadOnlyProperty<Vector2>,
+                         opticPositionProperty: TReadOnlyProperty<Vector2>,
                          providedOptions: OpticalObjectOptions ) {
     assert && assert( Number.isInteger( opticalObjectNumber ) && opticalObjectNumber > 0,
       `opticalObjectNumber must be a positive integer: ${opticalObjectNumber}` );

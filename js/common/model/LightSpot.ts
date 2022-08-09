@@ -18,7 +18,7 @@ import geometricOptics from '../../geometricOptics.js';
 import ProjectionScreen from './ProjectionScreen.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import GOConstants from '../../common/GOConstants.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
@@ -39,21 +39,21 @@ type LightSpotOptions = SelfOptions &
 export default class LightSpot extends PhetioObject {
 
   // Intensity of the light spot, in the range [0,1], 0 if there is no light spot hitting the projection screen
-  public readonly intensityProperty: IReadOnlyProperty<number>;
+  public readonly intensityProperty: TReadOnlyProperty<number>;
 
   // Position of the center of the light spot, which may not be on the screen
-  public readonly positionProperty: IReadOnlyProperty<Vector2>;
+  public readonly positionProperty: TReadOnlyProperty<Vector2>;
 
   // Diameter of the light spot in the y dimension
-  public readonly diameterProperty: IReadOnlyProperty<number>;
+  public readonly diameterProperty: TReadOnlyProperty<number>;
 
   // Whether the light spot intersects the projection screen
-  public readonly intersectsProjectionScreenProperty: IReadOnlyProperty<boolean>;
+  public readonly intersectsProjectionScreenProperty: TReadOnlyProperty<boolean>;
 
   public constructor( optic: Optic,
                       projectionScreen: ProjectionScreen,
-                      lightObjectPositionProperty: IReadOnlyProperty<Vector2>,
-                      opticalImagePositionProperty: IReadOnlyProperty<Vector2>,
+                      lightObjectPositionProperty: TReadOnlyProperty<Vector2>,
+                      opticalImagePositionProperty: TReadOnlyProperty<Vector2>,
                       providedOptions: LightSpotOptions ) {
 
     const options = optionize<LightSpotOptions, SelfOptions, PhetioObject>()( {

@@ -13,7 +13,7 @@ import geometricOpticsStrings from '../../../geometricOpticsStrings.js';
 import LabelNode from './LabelNode.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
-import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
 import GOLabelsNode, { GOSceneLabelsNodeOptions } from './GOLabelsNode.js';
 import LightObject from '../../model/LightObject.js';
 import OpticalObjectLabelNode, { OpticalObjectLabelNodeOptions } from './OpticalObjectLabelNode.js';
@@ -34,8 +34,8 @@ export default class LightLabelsNode extends GOLabelsNode {
    * @param providedOptions
    */
   public constructor( sceneNode: LightSceneNode,
-                      zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-                      modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      zoomTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+                      modelVisibleBoundsProperty: TReadOnlyProperty<Bounds2>,
                       providedOptions: LightObjectSceneLabelsNodeOptions ) {
 
     super( sceneNode, zoomTransformProperty, modelVisibleBoundsProperty, providedOptions );
@@ -83,7 +83,7 @@ type LightObjectLabelNodeOptions = OpticalObjectLabelNodeOptions;
 class LightObjectLabelNode extends OpticalObjectLabelNode {
 
   public constructor( lightObject: LightObject,
-                      zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+                      zoomTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                       providedOptions: LightObjectLabelNodeOptions ) {
 
     // Position the label below the light, slightly to the left of center (determined empirically)

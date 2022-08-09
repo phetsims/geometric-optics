@@ -11,7 +11,7 @@ import Optic from './Optic.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { RaysType } from './RaysType.js';
 import LightRays from './LightRays.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Lens from '../../lens/model/Lens.js';
 import ArrowObject from './ArrowObject.js';
 import ArrowImage from './ArrowImage.js';
@@ -47,7 +47,7 @@ export default class ArrowScene extends GOScene {
    * @param providedOptions
    */
   public constructor( optic: Optic,
-                      raysTypeProperty: IReadOnlyProperty<RaysType>,
+                      raysTypeProperty: TReadOnlyProperty<RaysType>,
                       providedOptions: ArrowObjectSceneOptions ) {
 
     super( optic, providedOptions );

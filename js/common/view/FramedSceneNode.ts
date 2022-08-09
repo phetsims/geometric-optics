@@ -14,7 +14,7 @@ import FramedImageNode from './FramedImageNode.js';
 import VisibleProperties from './VisibleProperties.js';
 import FramedObjectNode from './FramedObjectNode.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import SecondPointNode from './SecondPointNode.js';
 import { RaysType } from '../model/RaysType.js';
 import GOColors from '../GOColors.js';
@@ -29,7 +29,7 @@ import ToolJumpPoint from '../model/tools/ToolJumpPoint.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 
 type SelfOptions = {
-  objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>;
+  objectDragModeProperty: TReadOnlyProperty<ObjectDragMode>;
 };
 
 type FramedObjectSceneNodeOptions = SelfOptions & GOSceneNodeOptions;
@@ -42,8 +42,8 @@ export default class FramedSceneNode extends GOSceneNode {
   public readonly scene: FramedScene;
 
   // Visibility of things that have labels, intended to be used to control the visibility of associated labels.
-  public readonly framedObjectNodeVisibleProperty: IReadOnlyProperty<boolean>;
-  public readonly framedImageNodeVisibleProperty: IReadOnlyProperty<boolean>;
+  public readonly framedObjectNodeVisibleProperty: TReadOnlyProperty<boolean>;
+  public readonly framedImageNodeVisibleProperty: TReadOnlyProperty<boolean>;
 
   // Resets things that are specific to this class.
   private readonly resetFrameObjectSceneNode: () => void;
@@ -61,10 +61,10 @@ export default class FramedSceneNode extends GOSceneNode {
   public constructor( scene: FramedScene,
                       visibleProperties: VisibleProperties,
                       modelViewTransform: ModelViewTransform2,
-                      modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-                      sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
-                      raysTypeProperty: IReadOnlyProperty<RaysType>,
-                      lightPropagationEnabledProperty: IReadOnlyProperty<boolean>,
+                      modelVisibleBoundsProperty: TReadOnlyProperty<Bounds2>,
+                      sceneBoundsProperty: TReadOnlyProperty<Bounds2>,
+                      raysTypeProperty: TReadOnlyProperty<RaysType>,
+                      lightPropagationEnabledProperty: TReadOnlyProperty<boolean>,
                       providedOptions: FramedObjectSceneNodeOptions ) {
 
     super( scene, visibleProperties, modelViewTransform, modelVisibleBoundsProperty, sceneBoundsProperty, raysTypeProperty, providedOptions );

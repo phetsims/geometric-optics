@@ -16,7 +16,7 @@ import geometricOpticsStrings from '../../../geometricOpticsStrings.js';
 import LabelNode from './LabelNode.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
-import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
 import OpticLabelNode from './OpticLabelNode.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import GOSceneNode from '../GOSceneNode.js';
@@ -34,8 +34,8 @@ export default class GOLabelsNode extends Node {
    * @param providedOptions
    */
   protected constructor( sceneNode: GOSceneNode,
-                         zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-                         modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+                         zoomTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+                         modelVisibleBoundsProperty: TReadOnlyProperty<Bounds2>,
                          providedOptions: GOSceneLabelsNodeOptions ) {
 
     super( providedOptions );

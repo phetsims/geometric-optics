@@ -8,7 +8,7 @@
  * @author Martin Veillette
  */
 
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -47,7 +47,7 @@ export default class ProjectionScreen extends PhetioObject {
   // Resets things that are specific to this class.
   private readonly resetProjectionScreen: () => void;
 
-  public constructor( opticPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: ProjectionScreenOptions ) {
+  public constructor( opticPositionProperty: TReadOnlyProperty<Vector2>, providedOptions: ProjectionScreenOptions ) {
 
     const options = optionize<ProjectionScreenOptions, SelfOptions, PhetioObjectOptions>()( {
 

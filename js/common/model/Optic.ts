@@ -22,7 +22,7 @@ import ReadOnlyProperty from '../../../../axon/js/ReadOnlyProperty.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import { RaysType } from './RaysType.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import GOOptions from '../GOOptions.js';
@@ -66,7 +66,7 @@ export type OpticOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tand
 export default abstract class Optic extends PhetioObject {
 
   // Shapes that describe the optic
-  public readonly abstract shapesProperty: IReadOnlyProperty<OpticShapes>;
+  public readonly abstract shapesProperty: TReadOnlyProperty<OpticShapes>;
 
   // surface type of the optic (concave, convex, flat)
   public readonly opticSurfaceTypeProperty: Property<OpticSurfaceType>;
@@ -89,20 +89,20 @@ export default abstract class Optic extends PhetioObject {
 
   // radius of curvature (ROC) of the optic, convex is positive, concave is negative.
   // For a flat mirror with infinite ROC, we approximate using a very large ROC.
-  public readonly radiusOfCurvatureProperty: IReadOnlyProperty<number>;
+  public readonly radiusOfCurvatureProperty: TReadOnlyProperty<number>;
 
   // index of refraction (IOR)
-  public readonly indexOfRefractionProperty: IReadOnlyProperty<number>;
+  public readonly indexOfRefractionProperty: TReadOnlyProperty<number>;
 
   // focal length (f) of the optic, converging is positive, diverging is negative focal length.
-  public readonly focalLengthProperty: IReadOnlyProperty<number>;
+  public readonly focalLengthProperty: TReadOnlyProperty<number>;
 
   // focal points (F) to the left and right of the optic
   public readonly leftFocalPointProperty: ReadOnlyProperty<Vector2>;
   public readonly rightFocalPointProperty: ReadOnlyProperty<Vector2>;
 
   // twice the focal length (2f) of the optic
-  public readonly twiceFocalLengthProperty: IReadOnlyProperty<number>;
+  public readonly twiceFocalLengthProperty: TReadOnlyProperty<number>;
 
   // 2F points to the left and right of the optic
   public readonly left2FProperty: ReadOnlyProperty<Vector2>;

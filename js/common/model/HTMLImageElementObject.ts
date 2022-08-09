@@ -11,7 +11,7 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import geometricOptics from '../../geometricOptics.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import OpticalObject, { OpticalObjectOptions } from './OpticalObject.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
@@ -24,7 +24,7 @@ export type HTMLImageElementObjectOptions = PickRequired<OpticalObjectOptions, '
 export default class HTMLImageElementObject extends OpticalObject {
 
   // The HTMLImageElement (PNG file) used to visually represent the optical object.
-  public readonly htmlImageElementProperty: IReadOnlyProperty<HTMLImageElement>;
+  public readonly htmlImageElementProperty: TReadOnlyProperty<HTMLImageElement>;
 
   // Where the point-of-interest is relative to the left-top corner of the HTMLImageElement.
   // This should be uniform for all values of htmlImageElementProperty.
@@ -35,7 +35,7 @@ export default class HTMLImageElementObject extends OpticalObject {
   public readonly scaleFactor: number;
 
   // model bounds of this object's visual representation
-  public readonly boundsProperty: IReadOnlyProperty<Bounds2>;
+  public readonly boundsProperty: TReadOnlyProperty<Bounds2>;
 
   /**
    * @param opticalObjectNumber - positive integer used when labeling this object
@@ -46,8 +46,8 @@ export default class HTMLImageElementObject extends OpticalObject {
    * @param providedOptions
    */
   public constructor( opticalObjectNumber: number,
-                      opticPositionProperty: IReadOnlyProperty<Vector2>,
-                      htmlImageElementProperty: IReadOnlyProperty<HTMLImageElement>,
+                      opticPositionProperty: TReadOnlyProperty<Vector2>,
+                      htmlImageElementProperty: TReadOnlyProperty<HTMLImageElement>,
                       originOffset: Vector2,
                       scaleFactor: number,
                       providedOptions: HTMLImageElementObjectOptions ) {

@@ -13,7 +13,7 @@ import geometricOptics from '../../geometricOptics.js';
 import { OpticSurfaceType } from '../../common/model/OpticSurfaceType.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import MirrorShapes from './MirrorShapes.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
@@ -31,7 +31,7 @@ type MirrorOptions = SelfOptions & PickRequired<OpticOptions, 'tandem'>;
 export default class Mirror extends Optic {
 
   // See Optic
-  public readonly shapesProperty: IReadOnlyProperty<MirrorShapes>;
+  public readonly shapesProperty: TReadOnlyProperty<MirrorShapes>;
 
   public constructor( providedOptions: MirrorOptions ) {
 

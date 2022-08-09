@@ -12,7 +12,7 @@ import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import VisibleProperties from './VisibleProperties.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import OpticalAxisNode from './OpticalAxisNode.js';
 import OpticVerticalAxisNode from './OpticVerticalAxisNode.js';
 import { RaysType } from '../model/RaysType.js';
@@ -55,12 +55,12 @@ export default abstract class GOSceneNode extends Node {
   protected readonly raysBackgroundLayer: Node;
 
   // Visibility of things that have labels, intended to be used to control the visibility of associated labels.
-  public readonly opticNodeVisibleProperty: IReadOnlyProperty<boolean>;
-  public readonly opticalAxisNodeVisibleProperty: IReadOnlyProperty<boolean>;
-  public readonly leftFocalPointNodeVisibleProperty: IReadOnlyProperty<boolean>;
-  public readonly rightFocalPointNodeVisibleProperty: IReadOnlyProperty<boolean>;
-  public readonly left2FPointNodeVisibleProperty: IReadOnlyProperty<boolean>;
-  public readonly right2FPointNodeVisibleProperty: IReadOnlyProperty<boolean>;
+  public readonly opticNodeVisibleProperty: TReadOnlyProperty<boolean>;
+  public readonly opticalAxisNodeVisibleProperty: TReadOnlyProperty<boolean>;
+  public readonly leftFocalPointNodeVisibleProperty: TReadOnlyProperty<boolean>;
+  public readonly rightFocalPointNodeVisibleProperty: TReadOnlyProperty<boolean>;
+  public readonly left2FPointNodeVisibleProperty: TReadOnlyProperty<boolean>;
+  public readonly right2FPointNodeVisibleProperty: TReadOnlyProperty<boolean>;
 
   /**
    * @param scene - model element
@@ -74,9 +74,9 @@ export default abstract class GOSceneNode extends Node {
   protected constructor( scene: GOScene,
                          visibleProperties: VisibleProperties,
                          modelViewTransform: ModelViewTransform2,
-                         modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-                         sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
-                         raysTypeProperty: IReadOnlyProperty<RaysType>,
+                         modelVisibleBoundsProperty: TReadOnlyProperty<Bounds2>,
+                         sceneBoundsProperty: TReadOnlyProperty<Bounds2>,
+                         raysTypeProperty: TReadOnlyProperty<RaysType>,
                          providedOptions: GOSceneNodeOptions ) {
 
     const options = optionize<GOSceneNodeOptions, SelfOptions, NodeOptions>()( {

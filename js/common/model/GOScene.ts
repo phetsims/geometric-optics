@@ -14,7 +14,7 @@ import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioO
 import Guides from './Guides.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
@@ -106,8 +106,8 @@ export default abstract class GOScene extends PhetioObject {
   /**
    * Initializes the optional guides, called by subclasses.
    */
-  protected initializeGuides( guides1PositionProperty: IReadOnlyProperty<Vector2>,
-                              guides2PositionProperty: IReadOnlyProperty<Vector2>,
+  protected initializeGuides( guides1PositionProperty: TReadOnlyProperty<Vector2>,
+                              guides2PositionProperty: TReadOnlyProperty<Vector2>,
                               parentTandem: Tandem ): void {
 
     this._guides1 = new Guides( this.optic, guides1PositionProperty, {

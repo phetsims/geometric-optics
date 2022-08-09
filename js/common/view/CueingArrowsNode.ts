@@ -14,7 +14,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import GOOptions from '../GOOptions.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 type CueingArrowsDirection = 'horizontal' | 'vertical' | 'both';
 
@@ -70,8 +70,8 @@ export default class CueingArrowsNode extends Path {
    * @param inputEnabledProperty - is input enabled for the associated Node?
    * @param wasDraggedProperty - has the associated Node been dragged?
    */
-  public static createVisibleProperty( inputEnabledProperty: IReadOnlyProperty<boolean>,
-                                       wasDraggedProperty: IReadOnlyProperty<boolean> ): IReadOnlyProperty<boolean> {
+  public static createVisibleProperty( inputEnabledProperty: TReadOnlyProperty<boolean>,
+                                       wasDraggedProperty: TReadOnlyProperty<boolean> ): TReadOnlyProperty<boolean> {
     return new DerivedProperty(
       [ GOOptions.cueingArrowsEnabledProperty, inputEnabledProperty, wasDraggedProperty ],
       ( cueingArrowsEnabled, inputEnabled, wasDragged ) =>

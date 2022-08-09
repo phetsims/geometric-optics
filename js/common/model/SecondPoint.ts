@@ -8,7 +8,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
@@ -29,18 +29,18 @@ type SecondPointOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tande
 export default class SecondPoint extends PhetioObject {
 
   // position of the second point
-  public readonly positionProperty: IReadOnlyProperty<Vector2>;
+  public readonly positionProperty: TReadOnlyProperty<Vector2>;
 
   // vertical offset of second point with respect to the first point on the framed object position, in cm
   private readonly verticalOffsetProperty: Property<number>;
 
   // position of the framed object that second point is associated with
-  private readonly framedObjectPositionProperty: IReadOnlyProperty<Vector2>;
+  private readonly framedObjectPositionProperty: TReadOnlyProperty<Vector2>;
 
   // Resets things that are specific to this class.
   private readonly resetSecondPoint: () => void;
 
-  public constructor( framedObjectPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: SecondPointOptions ) {
+  public constructor( framedObjectPositionProperty: TReadOnlyProperty<Vector2>, providedOptions: SecondPointOptions ) {
 
     const options = optionize<SecondPointOptions, SelfOptions, PhetioObjectOptions>()( {
 

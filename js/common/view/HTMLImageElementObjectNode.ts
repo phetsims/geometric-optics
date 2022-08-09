@@ -14,7 +14,7 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import { DragListener, FocusHighlightFromNode, Image, KeyboardDragListener, KeyboardDragListenerOptions, Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import GOConstants from '../GOConstants.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import HTMLImageElementObject from '../model/HTMLImageElementObject.js';
@@ -38,10 +38,10 @@ export default class HTMLImageElementObjectNode extends OpticalObjectNode {
    * @param providedOptions
    */
   public constructor( htmlImageElementObject: HTMLImageElementObject,
-                      sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
-                      opticPositionProperty: IReadOnlyProperty<Vector2>,
+                      sceneBoundsProperty: TReadOnlyProperty<Bounds2>,
+                      opticPositionProperty: TReadOnlyProperty<Vector2>,
                       modelViewTransform: ModelViewTransform2,
-                      objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>,
+                      objectDragModeProperty: TReadOnlyProperty<ObjectDragMode>,
                       wasDraggedProperty: IProperty<boolean>,
                       providedOptions: HTMLImageElementObjectNodeOptions ) {
 

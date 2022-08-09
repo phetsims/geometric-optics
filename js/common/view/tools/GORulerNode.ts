@@ -25,7 +25,7 @@ import GORuler from '../../model/tools/GORuler.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import GORulerIcon from './GORulerIcon.js';
-import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
 import GOToolNode, { GOToolNodeOptions } from './GOToolNode.js';
 import GOToolKeyboardDragListener from './GOToolKeyboardDragListener.js';
 import GOToolDragListener from './GOToolDragListener.js';
@@ -47,9 +47,9 @@ export default class GORulerNode extends GOToolNode {
   // the ruler model that is associated with this Node
   public readonly ruler: GORuler;
 
-  private readonly opticPositionProperty: IReadOnlyProperty<Vector2>;
+  private readonly opticPositionProperty: TReadOnlyProperty<Vector2>;
 
-  private readonly dragBoundsProperty: IReadOnlyProperty<Bounds2>;
+  private readonly dragBoundsProperty: TReadOnlyProperty<Bounds2>;
 
   /**
    * @param ruler - model element
@@ -60,10 +60,10 @@ export default class GORulerNode extends GOToolNode {
    * @param providedOptions
    */
   public constructor( ruler: GORuler,
-                      opticPositionProperty: IReadOnlyProperty<Vector2>,
+                      opticPositionProperty: TReadOnlyProperty<Vector2>,
                       zoomTransformProperty: ReadOnlyDerivedProperty<ModelViewTransform2>,
-                      zoomScaleProperty: IReadOnlyProperty<number>,
-                      visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      zoomScaleProperty: TReadOnlyProperty<number>,
+                      visibleBoundsProperty: TReadOnlyProperty<Bounds2>,
                       providedOptions: GORulerNodeOptions ) {
 
     const options = optionize<GORulerNodeOptions, SelfOptions, GOToolNodeOptions>()( {

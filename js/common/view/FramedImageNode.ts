@@ -13,7 +13,7 @@ import { Image, Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from '../model/Optic.js';
 import FramedImage from '../model/FramedImage.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import GOConstants from '../GOConstants.js';
 import OpticalImageNode, { OpticalImageNodeOptions } from './OpticalImageNode.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
@@ -34,9 +34,9 @@ export default class FramedImageNode extends OpticalImageNode {
    */
   public constructor( framedImage: FramedImage,
                       optic: Optic,
-                      virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
-                      lightPropagationEnabledProperty: IReadOnlyProperty<boolean>,
-                      objectVisibleProperty: IReadOnlyProperty<boolean>,
+                      virtualImageVisibleProperty: TReadOnlyProperty<boolean>,
+                      lightPropagationEnabledProperty: TReadOnlyProperty<boolean>,
+                      objectVisibleProperty: TReadOnlyProperty<boolean>,
                       modelViewTransform: ModelViewTransform2,
                       providedOptions: FramedImageNodeOptions ) {
 

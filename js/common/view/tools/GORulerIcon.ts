@@ -7,7 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import RulerNode from '../../../../../scenery-phet/js/RulerNode.js';
@@ -31,7 +31,7 @@ export default class GORulerIcon extends GOToolIcon {
    */
   public constructor( ruler: GORuler,
                       rulerNode: GORulerNode,
-                      zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2> ) {
+                      zoomTransformProperty: TReadOnlyProperty<ModelViewTransform2> ) {
 
     // GOToolIconOptions
     const options = {

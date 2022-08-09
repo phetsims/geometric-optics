@@ -10,7 +10,7 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import geometricOptics from '../../geometricOptics.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import OpticalObjectChoice, { ObjectHTMLImageElements } from './OpticalObjectChoice.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import HTMLImageElementObject, { HTMLImageElementObjectOptions } from './HTMLImageElementObject.js';
@@ -27,7 +27,7 @@ type FramedObjectOptions = PickRequired<HTMLImageElementObjectOptions, 'position
 export default class FramedObject extends HTMLImageElementObject {
 
   // HTMLImageElements (PNG files) used to draw this framed object and its associated image
-  public readonly objectHTMLImageElementsProperty: IReadOnlyProperty<ObjectHTMLImageElements>;
+  public readonly objectHTMLImageElementsProperty: TReadOnlyProperty<ObjectHTMLImageElements>;
 
   /**
    * @param opticalObjectNumber - positive integer used when labeling this object
@@ -36,7 +36,7 @@ export default class FramedObject extends HTMLImageElementObject {
    * @param providedOptions
    */
   public constructor( opticalObjectNumber: number,
-                      opticPositionProperty: IReadOnlyProperty<Vector2>,
+                      opticPositionProperty: TReadOnlyProperty<Vector2>,
                       opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>,
                       providedOptions: FramedObjectOptions ) {
 

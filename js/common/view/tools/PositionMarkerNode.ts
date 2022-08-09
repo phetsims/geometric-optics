@@ -11,7 +11,7 @@ import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { DragListener } from '../../../../../scenery/js/imports.js';
-import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PositionMarker from '../../model/tools/PositionMarker.js';
 import PositionMarkerIcon from './PositionMarkerIcon.js';
@@ -42,7 +42,7 @@ export default class PositionMarkerNode extends GOToolNode {
   // the marker that is associated with this Node
   public readonly positionMarker: PositionMarker;
 
-  private readonly dragBoundsProperty: IReadOnlyProperty<Bounds2>;
+  private readonly dragBoundsProperty: TReadOnlyProperty<Bounds2>;
 
   /**
    * @param positionMarker - model element
@@ -51,8 +51,8 @@ export default class PositionMarkerNode extends GOToolNode {
    * @param providedOptions
    */
   public constructor( positionMarker: PositionMarker,
-                      zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-                      visibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      zoomTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+                      visibleBoundsProperty: TReadOnlyProperty<Bounds2>,
                       providedOptions: PositionMarkerNodeOptions ) {
 
     const options = optionize<PositionMarkerNodeOptions, SelfOptions, GOToolNodeOptions>()( {

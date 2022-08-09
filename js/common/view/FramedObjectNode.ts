@@ -14,7 +14,7 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import geometricOptics from '../../geometricOptics.js';
 import FramedObject from '../model/FramedObject.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import HTMLImageElementObjectNode, { HTMLImageElementObjectNodeOptions } from './HTMLImageElementObjectNode.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 import IProperty from '../../../../axon/js/IProperty.js';
@@ -33,10 +33,10 @@ export default class FramedObjectNode extends HTMLImageElementObjectNode {
    * @param providedOptions
    */
   public constructor( framedObject: FramedObject,
-                      sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
-                      opticPositionProperty: IReadOnlyProperty<Vector2>,
+                      sceneBoundsProperty: TReadOnlyProperty<Bounds2>,
+                      opticPositionProperty: TReadOnlyProperty<Vector2>,
                       modelViewTransform: ModelViewTransform2,
-                      objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>,
+                      objectDragModeProperty: TReadOnlyProperty<ObjectDragMode>,
                       wasDraggedProperty: IProperty<boolean>,
                       providedOptions: FramedObjectNodeOptions ) {
 

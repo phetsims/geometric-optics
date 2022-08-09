@@ -17,7 +17,7 @@ import Optic from '../model/Optic.js';
 import { RaysType } from '../model/RaysType.js';
 import VisibilityCheckboxGroup from './VisibilityCheckboxGroup.js';
 import VisibleProperties from './VisibleProperties.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import RaysSubpanel from './RaysSubpanel.js';
@@ -41,7 +41,7 @@ export default class GOControlPanel extends Panel {
   public constructor( optic: Optic,
                       raysTypeProperty: Property<RaysType>,
                       visibleProperties: VisibleProperties,
-                      virtualImageCheckboxEnabledProperty: IReadOnlyProperty<boolean>,
+                      virtualImageCheckboxEnabledProperty: TReadOnlyProperty<boolean>,
                       providedOptions: GOControlPanelOptions ) {
 
     const options = optionize<GOControlPanelOptions, SelfOptions, PanelOptions>()( {

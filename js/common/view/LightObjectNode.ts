@@ -13,7 +13,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import geometricOptics from '../../geometricOptics.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import LightObject from '../model/LightObject.js';
 import HTMLImageElementObjectNode, { HTMLImageElementObjectNodeOptions } from './HTMLImageElementObjectNode.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
@@ -33,10 +33,10 @@ export default class LightObjectNode extends HTMLImageElementObjectNode {
    * @param providedOptions
    */
   public constructor( lightObject: LightObject,
-                      sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
-                      opticPositionProperty: IReadOnlyProperty<Vector2>,
+                      sceneBoundsProperty: TReadOnlyProperty<Bounds2>,
+                      opticPositionProperty: TReadOnlyProperty<Vector2>,
                       modelViewTransform: ModelViewTransform2,
-                      objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>,
+                      objectDragModeProperty: TReadOnlyProperty<ObjectDragMode>,
                       wasDraggedProperty: IProperty<boolean>,
                       providedOptions: LightObjectNodeOptions ) {
 

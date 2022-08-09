@@ -19,7 +19,7 @@ import geometricOptics from '../../geometricOptics.js';
 import ProjectionScreen from '../model/ProjectionScreen.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import OriginNode from './OriginNode.js';
 import GOConstants from '../../common/GOConstants.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
@@ -43,8 +43,8 @@ export default class ProjectionScreenNode extends Node {
    * @param providedOptions
    */
   public constructor( projectionScreen: ProjectionScreen,
-                      opticPositionProperty: IReadOnlyProperty<Vector2>,
-                      sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      opticPositionProperty: TReadOnlyProperty<Vector2>,
+                      sceneBoundsProperty: TReadOnlyProperty<Bounds2>,
                       modelViewTransform: ModelViewTransform2,
                       providedOptions: ProjectionScreenNodeOptions ) {
 

@@ -11,7 +11,7 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import geometricOptics from '../../geometricOptics.js';
 import VisibleProperties from './VisibleProperties.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import { RaysType } from '../model/RaysType.js';
 import GOColors from '../../common/GOColors.js';
 import RealLightRaysNode from './RealLightRaysNode.js';
@@ -28,7 +28,7 @@ import ToolJumpPoint from '../model/tools/ToolJumpPoint.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 
 type SelfOptions = {
-  objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>;
+  objectDragModeProperty: TReadOnlyProperty<ObjectDragMode>;
 };
 
 type LightObjectSceneNodeOptions = SelfOptions & GOSceneNodeOptions;
@@ -41,9 +41,9 @@ export default class LightSceneNode extends GOSceneNode {
   public readonly scene: LightScene;
 
   // Visibility of things that have labels, intended to be used to control the visibility of associated labels.
-  public readonly lightObject1NodeVisibleProperty: IReadOnlyProperty<boolean>;
-  public readonly lightObject2NodeVisibleProperty: IReadOnlyProperty<boolean>;
-  public readonly projectionScreenNodeVisibleProperty: IReadOnlyProperty<boolean>;
+  public readonly lightObject1NodeVisibleProperty: TReadOnlyProperty<boolean>;
+  public readonly lightObject2NodeVisibleProperty: TReadOnlyProperty<boolean>;
+  public readonly projectionScreenNodeVisibleProperty: TReadOnlyProperty<boolean>;
 
   // Resets things that are specific to this class.
   private readonly resetLightObjectSceneNode: () => void;
@@ -61,10 +61,10 @@ export default class LightSceneNode extends GOSceneNode {
   public constructor( scene: LightScene,
                       visibleProperties: VisibleProperties,
                       modelViewTransform: ModelViewTransform2,
-                      modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
-                      sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
-                      raysTypeProperty: IReadOnlyProperty<RaysType>,
-                      lightPropagationEnabledProperty: IReadOnlyProperty<boolean>,
+                      modelVisibleBoundsProperty: TReadOnlyProperty<Bounds2>,
+                      sceneBoundsProperty: TReadOnlyProperty<Bounds2>,
+                      raysTypeProperty: TReadOnlyProperty<RaysType>,
+                      lightPropagationEnabledProperty: TReadOnlyProperty<boolean>,
                       providedOptions: LightObjectSceneNodeOptions ) {
 
     super( scene, visibleProperties, modelViewTransform, modelVisibleBoundsProperty, sceneBoundsProperty, raysTypeProperty, providedOptions );

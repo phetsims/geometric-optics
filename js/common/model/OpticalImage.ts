@@ -12,7 +12,7 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
@@ -29,7 +29,7 @@ type SelfOptions = {
 
   // Optional alternate position of the optical object, defaults to opticalObject.positionProperty.
   // This is used for the second point-of-interest on the framed objects.
-  opticalObjectPositionProperty?: IReadOnlyProperty<Vector2>;
+  opticalObjectPositionProperty?: TReadOnlyProperty<Vector2>;
 };
 
 export type OpticalImageOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
@@ -43,13 +43,13 @@ export default class OpticalImage extends PhetioObject {
   public readonly opticalObject: OpticalObject;
 
   // position of the optical image (the focus, as predicted by lens and mirror equation)
-  public readonly positionProperty: IReadOnlyProperty<Vector2>;
+  public readonly positionProperty: TReadOnlyProperty<Vector2>;
 
   // horizontal distance from optic to image, see phetioDocumentation
-  public readonly imageDistanceProperty: IReadOnlyProperty<number>;
+  public readonly imageDistanceProperty: TReadOnlyProperty<number>;
 
   // whether the optical image is real or virtual
-  public readonly opticalImageTypeProperty: IReadOnlyProperty<OpticalImageType>;
+  public readonly opticalImageTypeProperty: TReadOnlyProperty<OpticalImageType>;
 
   // Whether the optical image is visible. The image is not visible until light rays have reached it.
   // Note that this Property has some odd quirks when used in the 'Light' scene. That scene does not have
@@ -58,7 +58,7 @@ export default class OpticalImage extends PhetioObject {
   public readonly visibleProperty: Property<boolean>;
 
   // the magnification can be negative, indicating that the optical image is inverted.
-  public readonly magnificationProperty: IReadOnlyProperty<number>;
+  public readonly magnificationProperty: TReadOnlyProperty<number>;
 
   // Resets things that are specific to this class.
   private readonly resetOpticalImage: () => void;

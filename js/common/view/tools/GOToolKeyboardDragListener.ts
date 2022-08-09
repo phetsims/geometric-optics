@@ -11,7 +11,7 @@ import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTran
 import { KeyboardDragListener, KeyboardDragListenerOptions, KeyboardUtils } from '../../../../../scenery/js/imports.js';
 import geometricOptics from '../../../geometricOptics.js';
 import GOConstants from '../../GOConstants.js';
-import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
 import { combineOptions } from '../../../../../phet-core/js/optionize.js';
 import GOToolNode from './GOToolNode.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
@@ -31,8 +31,8 @@ export default class GOToolKeyboardDragListener extends KeyboardDragListener {
    */
   public constructor( tool: GOTool,
                       toolNode: GOToolNode,
-                      zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
-                      dragBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      zoomTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+                      dragBoundsProperty: TReadOnlyProperty<Bounds2>,
                       shouldReturnToToolbox: () => boolean,
                       providedOptions?: GOToolKeyboardDragListenerOptions ) {
 

@@ -6,7 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Optic from './Optic.js';
@@ -30,7 +30,7 @@ export default class Guides extends PhetioObject {
    * @param opticalObjectPositionProperty - position of the optical object
    * @param providedOptions
    */
-  public constructor( optic: Optic, opticalObjectPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: GuidesOptions ) {
+  public constructor( optic: Optic, opticalObjectPositionProperty: TReadOnlyProperty<Vector2>, providedOptions: GuidesOptions ) {
 
     const options = optionize<GuidesOptions, SelfOptions, PhetioObjectOptions>()( {
 

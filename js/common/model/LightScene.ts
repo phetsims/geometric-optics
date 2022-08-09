@@ -16,7 +16,7 @@ import LightSpot from './LightSpot.js';
 import LightObject from './LightObject.js';
 import light1_png from '../../../images/light1_png.js';
 import light2_png from '../../../images/light2_png.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import OpticalImage from './OpticalImage.js';
 import GOScene, { GOSceneOptions } from './GOScene.js';
 import Lens from '../../lens/model/Lens.js';
@@ -55,7 +55,7 @@ export default class LightScene extends GOScene {
    * @param providedOptions
    */
   public constructor( lens: Lens,
-                      raysTypeProperty: IReadOnlyProperty<RaysType>,
+                      raysTypeProperty: TReadOnlyProperty<RaysType>,
                       providedOptions: LightObjectSceneOptions ) {
 
     super( lens, providedOptions );

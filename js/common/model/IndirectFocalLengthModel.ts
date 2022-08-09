@@ -13,7 +13,7 @@ import FocalLengthModel from './FocalLengthModel.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import geometricOptics from '../../geometricOptics.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
@@ -33,12 +33,12 @@ export default class IndirectFocalLengthModel extends PhetioObject implements Fo
   // see FocalLengthModel
   public readonly radiusOfCurvatureMagnitudeProperty: NumberProperty;
   public readonly indexOfRefractionProperty: NumberProperty;
-  public readonly focalLengthMagnitudeProperty: IReadOnlyProperty<number>;
+  public readonly focalLengthMagnitudeProperty: TReadOnlyProperty<number>;
 
   // Resets things that are specific to this class.
   private readonly resetIndirectFocalLengthModel: () => void;
 
-  public constructor( opticSurfaceTypeProperty: IReadOnlyProperty<OpticSurfaceType>,
+  public constructor( opticSurfaceTypeProperty: TReadOnlyProperty<OpticSurfaceType>,
                       providedOptions: IndirectFocalLengthModelOptions ) {
 
     const options = optionize<IndirectFocalLengthModelOptions, SelfOptions, PhetioObjectOptions>()( {

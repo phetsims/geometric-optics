@@ -6,7 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import geometricOptics from '../../geometricOptics.js';
 import ArrowImage from '../model/ArrowImage.js';
@@ -30,9 +30,9 @@ export default class ArrowImageNode extends OpticalImageNode {
    * @param providedOptions
    */
   public constructor( arrowImage: ArrowImage,
-                      virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
-                      lightPropagationEnabledProperty: IReadOnlyProperty<boolean>,
-                      objectVisibleProperty: IReadOnlyProperty<boolean>,
+                      virtualImageVisibleProperty: TReadOnlyProperty<boolean>,
+                      lightPropagationEnabledProperty: TReadOnlyProperty<boolean>,
+                      objectVisibleProperty: TReadOnlyProperty<boolean>,
                       modelViewTransform: ModelViewTransform2,
                       providedOptions: ArrowImageNodeOptions ) {
 

@@ -14,7 +14,7 @@ import GOConstants from '../GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
@@ -30,7 +30,7 @@ export default class RadiusOfCurvatureControl extends NumberControl {
    * @param providedOptions
    */
   public constructor( radiusOfCurvatureMagnitudeProperty: NumberProperty,
-                      radiusOfCurvatureProperty: IReadOnlyProperty<number>,
+                      radiusOfCurvatureProperty: TReadOnlyProperty<number>,
                       providedOptions: RadiusOfCurvatureControlOptions ) {
 
     assert && assert( radiusOfCurvatureMagnitudeProperty.range ); // {Range|null}

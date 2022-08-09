@@ -13,7 +13,7 @@ import OpticalImage from '../model/OpticalImage.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -29,9 +29,9 @@ export default class OpticalImageNode extends Node {
    * @param providedOptions
    */
   protected constructor( opticalImage: OpticalImage,
-                         virtualImageVisibleProperty: IReadOnlyProperty<boolean>,
-                         lightPropagationEnabledProperty: IReadOnlyProperty<boolean>,
-                         objectVisibleProperty: IReadOnlyProperty<boolean>,
+                         virtualImageVisibleProperty: TReadOnlyProperty<boolean>,
+                         lightPropagationEnabledProperty: TReadOnlyProperty<boolean>,
+                         objectVisibleProperty: TReadOnlyProperty<boolean>,
                          providedOptions: OpticalImageNodeOptions ) {
 
     const options = optionize<OpticalImageNodeOptions, SelfOptions, NodeOptions>()( {

@@ -8,7 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
 import BackgroundNode, { BackgroundNodeOptions } from '../../../../../scenery-phet/js/BackgroundNode.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -44,8 +44,8 @@ export default class LabelNode extends BackgroundNode {
    * @param providedOptions
    */
   public constructor( text: string,
-                      positionProperty: IReadOnlyProperty<Vector2>,
-                      zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+                      positionProperty: TReadOnlyProperty<Vector2>,
+                      zoomTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                       providedOptions: LabelNodeOptions ) {
 
     const options = optionize<LabelNodeOptions, SelfOptions, BackgroundNodeOptions>()( {

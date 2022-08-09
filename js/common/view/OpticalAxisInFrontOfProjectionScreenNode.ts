@@ -7,7 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -34,9 +34,9 @@ export default class OpticalAxisInFrontOfProjectionScreenNode extends Line {
    * @param modelViewTransform
    * @param providedOptions
    */
-  public constructor( opticPositionProperty: IReadOnlyProperty<Vector2>,
-                      projectionScreenPositionProperty: IReadOnlyProperty<Vector2>,
-                      modelVisibleBoundsProperty: IReadOnlyProperty<Bounds2>,
+  public constructor( opticPositionProperty: TReadOnlyProperty<Vector2>,
+                      projectionScreenPositionProperty: TReadOnlyProperty<Vector2>,
+                      modelVisibleBoundsProperty: TReadOnlyProperty<Bounds2>,
                       modelViewTransform: ModelViewTransform2,
                       providedOptions: OpticalAxisInFrontOfProjectionScreenNodeOptions ) {
 

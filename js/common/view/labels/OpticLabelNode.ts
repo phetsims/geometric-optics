@@ -8,7 +8,7 @@
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
-import IReadOnlyProperty from '../../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import geometricOptics from '../../../geometricOptics.js';
@@ -30,7 +30,7 @@ export default class OpticLabelNode extends LabelNode {
    * @param providedOptions
    */
   public constructor( optic: Optic,
-                      zoomTransformProperty: IReadOnlyProperty<ModelViewTransform2>,
+                      zoomTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                       providedOptions: OpticLabelNodeOptions ) {
 
     const options = optionize<OpticLabelNodeOptions, SelfOptions, LabelNodeOptions>()( {

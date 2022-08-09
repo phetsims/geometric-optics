@@ -12,7 +12,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import geometricOptics from '../../geometricOptics.js';
 import Lens from '../../lens/model/Lens.js';
 import Optic from './Optic.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import OpticalImage, { OpticalImageOptions } from './OpticalImage.js';
 import FramedObject from './FramedObject.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
@@ -26,13 +26,13 @@ type FramedImageOptions = PickOptional<OpticalImageOptions, 'opticalObjectPositi
 export default class FramedImage extends OpticalImage {
 
   // the HTMLImageElement (PNG file) to display
-  public readonly htmlImageElementProperty: IReadOnlyProperty<HTMLImageElement>;
+  public readonly htmlImageElementProperty: TReadOnlyProperty<HTMLImageElement>;
 
   // bounds of the optical image's visual representation, in model coordinates
-  public readonly boundsProperty: IReadOnlyProperty<Bounds2>;
+  public readonly boundsProperty: TReadOnlyProperty<Bounds2>;
 
   // opacity of the framed image
-  public readonly opacityProperty: IReadOnlyProperty<number>;
+  public readonly opacityProperty: TReadOnlyProperty<number>;
 
   /**
    * @param framedObject - the optical object that this image is associated with

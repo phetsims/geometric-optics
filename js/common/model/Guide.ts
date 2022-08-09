@@ -8,7 +8,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
@@ -26,13 +26,13 @@ type GuideOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 class Guide extends PhetioObject {
 
   // position of the fulcrum point, in cm
-  public readonly fulcrumPositionProperty: IReadOnlyProperty<Vector2>;
+  public readonly fulcrumPositionProperty: TReadOnlyProperty<Vector2>;
 
   // angle of rotation of the incident guide with respect to the positive x-axis, in radians
-  public readonly incidentAngleProperty: IReadOnlyProperty<number>;
+  public readonly incidentAngleProperty: TReadOnlyProperty<number>;
 
   // the angle of the transmitted guide with respect to the positive x-axis, in radians
-  public readonly transmittedAngleProperty: IReadOnlyProperty<number>;
+  public readonly transmittedAngleProperty: TReadOnlyProperty<number>;
 
   /**
    * @param optic - the optic that this guide is associated with
@@ -40,7 +40,7 @@ class Guide extends PhetioObject {
    * @param location - location of the guide, relative to the optic
    * @param providedOptions
    */
-  public constructor( optic: Optic, opticalObjectPositionProperty: IReadOnlyProperty<Vector2>, location: GuideLocation, providedOptions: GuideOptions ) {
+  public constructor( optic: Optic, opticalObjectPositionProperty: TReadOnlyProperty<Vector2>, location: GuideLocation, providedOptions: GuideOptions ) {
 
     const options = optionize<GuideOptions, SelfOptions, PhetioObjectOptions>()( {
 

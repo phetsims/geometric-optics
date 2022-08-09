@@ -8,7 +8,7 @@
 
 import geometricOptics from '../../geometricOptics.js';
 import OpticalObject, { OpticalObjectOptions } from './OpticalObject.js';
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { TColor } from '../../../../scenery/js/imports.js';
@@ -32,7 +32,7 @@ export default class ArrowObject extends OpticalObject {
    * @param opticPositionProperty
    * @param providedOptions
    */
-  public constructor( opticalObjectNumber: number, opticPositionProperty: IReadOnlyProperty<Vector2>, providedOptions: ArrowObjectOptions ) {
+  public constructor( opticalObjectNumber: number, opticPositionProperty: TReadOnlyProperty<Vector2>, providedOptions: ArrowObjectOptions ) {
 
     super( opticalObjectNumber, opticPositionProperty, providedOptions );
 

@@ -6,7 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { DragListener, FocusHighlightFromNode, KeyboardDragListener, KeyboardDragListenerOptions } from '../../../../scenery/js/imports.js';
@@ -40,9 +40,9 @@ export default class ArrowObjectNode extends OpticalObjectNode {
    */
   public constructor( arrowObject: ArrowObject,
                       optic: Optic,
-                      sceneBoundsProperty: IReadOnlyProperty<Bounds2>,
+                      sceneBoundsProperty: TReadOnlyProperty<Bounds2>,
                       modelViewTransform: ModelViewTransform2,
-                      objectDragModeProperty: IReadOnlyProperty<ObjectDragMode>,
+                      objectDragModeProperty: TReadOnlyProperty<ObjectDragMode>,
                       wasDraggedProperty: IProperty<boolean>,
                       providedOptions: ArrowObjectNodeOptions ) {
 

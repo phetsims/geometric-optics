@@ -7,19 +7,19 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import IReadOnlyProperty from '../../../../axon/js/IReadOnlyProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 type FocalLengthModel = {
 
   // Magnitude of the focal length in cm, absent the sign that indicates whether it's converging or diverging
-  readonly focalLengthMagnitudeProperty: IReadOnlyProperty<number>;
+  readonly focalLengthMagnitudeProperty: TReadOnlyProperty<number>;
 
   // Magnitude of the radius of curvature (ROC) in cm, absent the sign that indicates whether the vertex lies to the
   // left or right of the center of curvature
-  readonly radiusOfCurvatureMagnitudeProperty: IReadOnlyProperty<number>;
+  readonly radiusOfCurvatureMagnitudeProperty: TReadOnlyProperty<number>;
 
   // Index of refraction (IOR), unitless
-  readonly indexOfRefractionProperty: IReadOnlyProperty<number>;
+  readonly indexOfRefractionProperty: TReadOnlyProperty<number>;
 };
 
 export default FocalLengthModel;
