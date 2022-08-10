@@ -58,7 +58,7 @@ class Guide extends PhetioObject {
       ( opticPosition, opticDiameter ) =>
         opticPosition.plusXY( 0, locationSign * opticDiameter / 2 ), {
         tandem: options.tandem.createTandem( 'fulcrumPositionProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
+        phetioValueType: Vector2.Vector2IO,
         units: 'cm'
       } );
 
@@ -69,7 +69,7 @@ class Guide extends PhetioObject {
         return displacementVector.getAngle();
       }, {
         tandem: options.tandem.createTandem( 'incidentAngleProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+        phetioValueType: NumberIO,
         units: 'radians'
       } );
 
@@ -94,7 +94,7 @@ class Guide extends PhetioObject {
         return throughAngle + deflectedAngle;
       }, {
         tandem: options.tandem.createTandem( 'transmittedAngleProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+        phetioValueType: NumberIO,
         units: 'radians'
       } );
   }

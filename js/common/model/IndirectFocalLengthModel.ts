@@ -76,7 +76,7 @@ export default class IndirectFocalLengthModel extends PhetioObject implements Fo
         units: 'cm',
         tandem: options.tandem.createTandem( 'focalLengthMagnitudeProperty' ),
         phetioDocumentation: 'magnitude of the focal length (no sign)',
-        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
+        phetioValueType: NumberIO
       } );
 
     this.resetIndirectFocalLengthModel = () => {

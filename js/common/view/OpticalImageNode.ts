@@ -44,7 +44,7 @@ export default class OpticalImageNode extends Node {
                    lightPropagationEnabled && objectVisible );
         }, {
           tandem: providedOptions.tandem.createTandem( 'visibleProperty' ),
-          phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
+          phetioValueType: BooleanIO
         } )
     }, providedOptions );
 

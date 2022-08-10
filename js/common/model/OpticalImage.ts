@@ -110,7 +110,7 @@ export default class OpticalImage extends PhetioObject {
       }, {
         units: 'cm',
         tandem: options.tandem.createTandem( 'imageDistanceProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+        phetioValueType: NumberIO,
         phetioDocumentation: 'Horizontal distance between optic and image, where the sign has the following significance.<br><br>' +
                              'For a lens:' +
                              '<ul>' +
@@ -137,7 +137,7 @@ export default class OpticalImage extends PhetioObject {
         }
       }, {
         tandem: options.tandem.createTandem( 'magnificationProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+        phetioValueType: NumberIO,
         phetioDocumentation: 'Magnification of the optical image. Negative indicates that the image is inverted.'
       } );
 
@@ -154,13 +154,13 @@ export default class OpticalImage extends PhetioObject {
       }, {
         units: 'cm',
         tandem: options.tandem.createTandem( 'positionProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
+        phetioValueType: Vector2.Vector2IO
       } );
 
     this.opticalImageTypeProperty = new DerivedProperty( [ this.imageDistanceProperty ],
       imageDistance => ( imageDistance < 0 ) ? 'virtual' : 'real', {
         tandem: options.tandem.createTandem( 'opticalImageTypeProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( StringIO ),
+        phetioValueType: StringIO,
         validValues: OpticalImageTypeValues
       } );
 

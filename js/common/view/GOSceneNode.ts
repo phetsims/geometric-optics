@@ -148,7 +148,7 @@ export default abstract class GOSceneNode extends Node {
           visibleProperties.secondPointVisibleProperty
         ], {
           tandem: guides2Tandem.createTandem( 'visibleProperty' ),
-          phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
+          phetioValueType: BooleanIO
         } ),
         tandem: guides2Tandem,
         phetioDocumentation: 'guides associated with the second object'

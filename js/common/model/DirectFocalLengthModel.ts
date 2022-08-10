@@ -79,7 +79,7 @@ export default class DirectFocalLengthModel extends PhetioObject implements Foca
         units: 'cm',
         tandem: options.tandem.createTandem( 'radiusOfCurvatureMagnitudeProperty' ),
         phetioDocumentation: 'magnitude of the radius of curvature (no sign)',
-        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
+        phetioValueType: NumberIO
       } );
 
     this.resetDirectFocalLengthModel = () => {

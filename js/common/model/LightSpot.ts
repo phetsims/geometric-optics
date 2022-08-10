@@ -74,7 +74,7 @@ export default class LightSpot extends PhetioObject {
       positionAndDiameter => positionAndDiameter.position, {
         units: 'cm',
         tandem: options.tandem.createTandem( 'positionProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
+        phetioValueType: Vector2.Vector2IO,
         phetioDocumentation: 'position of the center of the light spot, in the vertical plane of the projection screen'
       } );
 
@@ -83,7 +83,7 @@ export default class LightSpot extends PhetioObject {
         isValidValue: ( diameter: number ) => ( diameter >= 0 ),
         units: 'cm',
         tandem: options.tandem.createTandem( 'diameterProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+        phetioValueType: NumberIO,
         phetioDocumentation: 'diameter (in the y dimension) of the light spot, in the vertical plane of the projection screen'
       } );
 
@@ -108,7 +108,7 @@ export default class LightSpot extends PhetioObject {
       }, {
         isValidValue: ( value: number ) => GOConstants.INTENSITY_RANGE.contains( value ),
         tandem: options.tandem.createTandem( 'intensityProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( NullableIO( NumberIO ) ),
+        phetioValueType: NullableIO( NumberIO ),
         phetioDocumentation: 'intensity of the light spot, in the range [0,1]'
       } );
 
@@ -118,7 +118,7 @@ export default class LightSpot extends PhetioObject {
         position.y >= projectionScreenPosition.y - projectionScreen.height / 2 - diameter / 2 &&
         position.y <= projectionScreenPosition.y + projectionScreen.height / 2 + diameter / 2, {
         tandem: options.tandem.createTandem( 'intersectsProjectionScreenProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
+        phetioValueType: BooleanIO
       } );
   }
 

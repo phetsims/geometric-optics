@@ -61,7 +61,7 @@ export default class SecondPoint extends PhetioObject {
       ( framedObjectPosition, verticalOffset ) =>
         framedObjectPosition.plusXY( 0, verticalOffset ), {
         tandem: options.tandem.createTandem( 'positionProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO )
+        phetioValueType: Vector2.Vector2IO
       } );
 
     this.framedObjectPositionProperty = framedObjectPositionProperty;

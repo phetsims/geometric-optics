@@ -138,7 +138,7 @@ export default class LightSceneNode extends GOSceneNode {
         scene.opticalImage1.visibleProperty
       ], {
         tandem: lightSpot1NodeTandem.createTandem( 'visibleProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
+        phetioValueType: BooleanIO
       } ),
       tandem: providedOptions.tandem.createTandem( 'lightSpot1Node' )
     } );
@@ -154,7 +154,7 @@ export default class LightSceneNode extends GOSceneNode {
         visibleProperties.secondPointVisibleProperty
       ], {
         tandem: lightSpot2NodeTandem.createTandem( 'visibleProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
+        phetioValueType: BooleanIO
       } ),
       tandem: lightSpot2NodeTandem
     } );

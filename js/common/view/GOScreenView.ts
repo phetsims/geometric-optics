@@ -129,7 +129,7 @@ export default class GOScreenView extends ScreenView {
       zoomLevel => ZOOM_SCALES[ zoomLevel ], {
         validValues: ZOOM_SCALES,
         tandem: options.tandem.createTandem( 'zoomScaleProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+        phetioValueType: NumberIO,
         phetioDocumentation: 'Scale that is applied to the view. This Property is derived from zoomLevelProperty, ' +
                              ' which is controlled by the zoom buttons.'
       } );
@@ -329,7 +329,7 @@ export default class GOScreenView extends ScreenView {
         visibleProperty: new DerivedProperty( [ model.opticalObjectChoiceProperty ],
           opticalObjectChoice => ( opticalObjectChoice.type === 'arrow' ), {
             tandem: arrowSceneNodeTandem.createTandem( 'visibleProperty' ),
-            phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
+            phetioValueType: BooleanIO
           } ),
         tandem: arrowSceneNodeTandem
       } );
@@ -343,7 +343,7 @@ export default class GOScreenView extends ScreenView {
         visibleProperty: new DerivedProperty( [ model.opticalObjectChoiceProperty ],
           opticalObjectChoice => ( opticalObjectChoice.type === 'framed' ), {
             tandem: frameSceneNodeTandem.createTandem( 'visibleProperty' ),
-            phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
+            phetioValueType: BooleanIO
           } ),
         tandem: frameSceneNodeTandem
       } );
@@ -363,7 +363,7 @@ export default class GOScreenView extends ScreenView {
           visibleProperty: new DerivedProperty( [ model.opticalObjectChoiceProperty ],
             opticalObjectChoice => ( opticalObjectChoice.type === 'light' ), {
               tandem: lightSceneNodeTandem.createTandem( 'visibleProperty' ),
-              phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
+              phetioValueType: BooleanIO
             } ),
           tandem: lightSceneNodeTandem
         } );

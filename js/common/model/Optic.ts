@@ -197,7 +197,7 @@ export default abstract class Optic extends PhetioObject {
       }, {
         units: 'cm',
         tandem: options.tandem.createTandem( 'radiusOfCurvatureProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+        phetioValueType: NumberIO,
         phetioDocumentation: 'The radius of curvature (ROC) of the optic. ' +
                              'A convex optic has a positive ROC, while a concave optic has a negative ROC.'
       } );
@@ -211,7 +211,7 @@ export default abstract class Optic extends PhetioObject {
         // units: unitless
         tandem: options.tandem.createTandem( 'indexOfRefractionProperty' ),
         phetioDocumentation: 'The index of refraction (IOR) of the optic',
-        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
+        phetioValueType: NumberIO
       } );
 
     // Get the focal-length magnitude from the current focal-length model, add the appropriate sign.
@@ -236,7 +236,7 @@ export default abstract class Optic extends PhetioObject {
       }, {
         units: 'cm',
         tandem: options.tandem.createTandem( 'focalLengthProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+        phetioValueType: NumberIO,
         phetioDocumentation: 'The signed focal length of the optic. A converging optic has a positive focal length, ' +
                              'while a diverging optic has a negative focal length.'
       } );
@@ -247,7 +247,7 @@ export default abstract class Optic extends PhetioObject {
       ( position, focalLength ) => position.plusXY( -Math.abs( focalLength ), 0 ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'leftFocalPointProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
+        phetioValueType: Vector2.Vector2IO,
         phetioDocumentation: 'focal point F, at a distance f to the left of the optic'
       } );
 
@@ -257,7 +257,7 @@ export default abstract class Optic extends PhetioObject {
       ( position, focalLength ) => position.plusXY( Math.abs( focalLength ), 0 ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'rightFocalPointProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
+        phetioValueType: Vector2.Vector2IO,
         phetioDocumentation: 'focal point F, at a distance f to the right of the optic'
       } );
 
@@ -265,7 +265,7 @@ export default abstract class Optic extends PhetioObject {
     this.twiceFocalLengthProperty = new DerivedProperty( [ this.focalLengthProperty ], focalLength => 2 * focalLength, {
       units: 'cm',
       tandem: options.tandem.createTandem( 'twiceFocalLengthProperty' ),
-      phetioType: DerivedProperty.DerivedPropertyIO( NumberIO ),
+      phetioValueType: NumberIO,
       phetioDocumentation: '2f, twice the focal length'
     } );
 
@@ -275,7 +275,7 @@ export default abstract class Optic extends PhetioObject {
       ( position, twiceFocalLength ) => position.plusXY( -Math.abs( twiceFocalLength ), 0 ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'left2FProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
+        phetioValueType: Vector2.Vector2IO,
         phetioDocumentation: 'point 2F, at a distance 2f to the left of the optic'
       } );
 
@@ -285,7 +285,7 @@ export default abstract class Optic extends PhetioObject {
       ( position, twiceFocalLength ) => position.plusXY( Math.abs( twiceFocalLength ), 0 ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'right2FProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( Vector2.Vector2IO ),
+        phetioValueType: Vector2.Vector2IO,
         phetioDocumentation: 'point 2F, at a distance 2f to the right of the optic'
       } );
 

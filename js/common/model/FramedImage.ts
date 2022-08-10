@@ -112,7 +112,7 @@ export default class FramedImage extends OpticalImage {
 
         // Not necessarily useful to iO clients, but very useful when verifying this algorithm.
         tandem: providedOptions.tandem.createTandem( 'opacityProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
+        phetioValueType: NumberIO
       } );
   }
 }
