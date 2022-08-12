@@ -20,7 +20,7 @@ import Utils from '../../../../dot/js/Utils.js';
 import OpticalImage from './OpticalImage.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Multilink from '../../../../axon/js/Multilink.js';
-import IEmitter from '../../../../axon/js/IEmitter.js';
+import TEmitter from '../../../../axon/js/TEmitter.js';
 
 // constants related to 'Many' rays representation, see https://github.com/phetsims/geometric-optics/issues/289
 const MANY_MIN_RAYS = 20;
@@ -37,7 +37,7 @@ export default class LightRays {
   public virtualSegments: LightRaySegment[];
 
   // tells view that it needs to update, fires after all rays are processed.
-  public readonly raysProcessedEmitter: IEmitter;
+  public readonly raysProcessedEmitter: TEmitter;
 
   /**
    * @param opticalObjectPositionProperty - position of the optical object
