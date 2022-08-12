@@ -141,7 +141,7 @@ export default class GuideNode extends Node {
 /**
  * Creates one of the guide arms.
  */
-function createArmNode( armColor: TColor ) {
+function createArmNode( armColor: TColor ): Rectangle {
   return new Rectangle( 0, 0, ARM_WIDTH, ARM_HEIGHT, {
     stroke: ARM_STROKE,
     fill: armColor
