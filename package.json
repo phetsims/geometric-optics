@@ -38,7 +38,6 @@
         "rules": {
           "@typescript-eslint/adjacent-overload-signatures": "error",
           "@typescript-eslint/ban-ts-comment": "error",
-          "@typescript-eslint/no-explicit-any": "error"
         }
       }
     ]
