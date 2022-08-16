@@ -20,7 +20,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 import OpticalObjectNode, { OpticalObjectNodeOptions } from './OpticalObjectNode.js';
-import IProperty from '../../../../axon/js/IProperty.js';
+import TProperty from '../../../../axon/js/TProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 
 const SNAP_TO_MIN_MAGNITUDE = 20; // cm
@@ -43,7 +43,7 @@ export default class ArrowObjectNode extends OpticalObjectNode {
                       sceneBoundsProperty: TReadOnlyProperty<Bounds2>,
                       modelViewTransform: ModelViewTransform2,
                       objectDragModeProperty: TReadOnlyProperty<ObjectDragMode>,
-                      wasDraggedProperty: IProperty<boolean>,
+                      wasDraggedProperty: TProperty<boolean>,
                       providedOptions: ArrowObjectNodeOptions ) {
 
     super( arrowObject, objectDragModeProperty, wasDraggedProperty, providedOptions );

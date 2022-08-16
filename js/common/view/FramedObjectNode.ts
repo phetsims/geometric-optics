@@ -17,7 +17,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import HTMLImageElementObjectNode, { HTMLImageElementObjectNodeOptions } from './HTMLImageElementObjectNode.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
-import IProperty from '../../../../axon/js/IProperty.js';
+import TProperty from '../../../../axon/js/TProperty.js';
 
 type FramedObjectNodeOptions = HTMLImageElementObjectNodeOptions;
 
@@ -37,7 +37,7 @@ export default class FramedObjectNode extends HTMLImageElementObjectNode {
                       opticPositionProperty: TReadOnlyProperty<Vector2>,
                       modelViewTransform: ModelViewTransform2,
                       objectDragModeProperty: TReadOnlyProperty<ObjectDragMode>,
-                      wasDraggedProperty: IProperty<boolean>,
+                      wasDraggedProperty: TProperty<boolean>,
                       providedOptions: FramedObjectNodeOptions ) {
 
     super( framedObject, sceneBoundsProperty, opticPositionProperty, modelViewTransform, objectDragModeProperty,

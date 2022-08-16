@@ -18,7 +18,7 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import GOConstants from '../GOConstants.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import HTMLImageElementObject from '../model/HTMLImageElementObject.js';
-import IProperty from '../../../../axon/js/IProperty.js';
+import TProperty from '../../../../axon/js/TProperty.js';
 import stepTimer from '../../../../axon/js/stepTimer.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 import OpticalObjectNode, { OpticalObjectNodeOptions } from './OpticalObjectNode.js';
@@ -42,7 +42,7 @@ export default class HTMLImageElementObjectNode extends OpticalObjectNode {
                       opticPositionProperty: TReadOnlyProperty<Vector2>,
                       modelViewTransform: ModelViewTransform2,
                       objectDragModeProperty: TReadOnlyProperty<ObjectDragMode>,
-                      wasDraggedProperty: IProperty<boolean>,
+                      wasDraggedProperty: TProperty<boolean>,
                       providedOptions: HTMLImageElementObjectNodeOptions ) {
 
     super( htmlImageElementObject, objectDragModeProperty, wasDraggedProperty, providedOptions );

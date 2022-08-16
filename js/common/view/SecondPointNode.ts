@@ -18,7 +18,7 @@ import SecondPoint from '../model/SecondPoint.js';
 import GOConstants from '../GOConstants.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import IProperty from '../../../../axon/js/IProperty.js';
+import TProperty from '../../../../axon/js/TProperty.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -34,7 +34,7 @@ export default class SecondPointNode extends Node {
    * @param wasDraggedProperty - was the second point dragged?
    * @param providedOptions
    */
-  public constructor( secondPoint: SecondPoint, modelViewTransform: ModelViewTransform2, wasDraggedProperty: IProperty<boolean>,
+  public constructor( secondPoint: SecondPoint, modelViewTransform: ModelViewTransform2, wasDraggedProperty: TProperty<boolean>,
                       providedOptions: SecondPointNodeOptions ) {
 
     const options = optionize<SecondPointNodeOptions, SelfOptions, NodeOptions>()( {

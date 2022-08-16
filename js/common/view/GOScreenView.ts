@@ -37,7 +37,7 @@ import LightLabelsNode from './labels/LightLabelsNode.js';
 import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import ObjectDragModeToggleButton from './ObjectDragModeToggleButton.js';
-import IProperty from '../../../../axon/js/IProperty.js';
+import TProperty from '../../../../axon/js/TProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import PositionMarkerNode from './tools/PositionMarkerNode.js';
@@ -70,7 +70,7 @@ export type GOScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions, 
 export default class GOScreenView extends ScreenView {
 
   // See phetioDocumentation at instantiation
-  protected readonly objectDragModeProperty: IProperty<ObjectDragMode>;
+  protected readonly objectDragModeProperty: TProperty<ObjectDragMode>;
 
   // Button for toggling between 'freeDragging' and 'horizontalDragging'
   protected readonly objectDragModeToggleButton: Node;

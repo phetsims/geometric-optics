@@ -16,7 +16,7 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 import OpticalObject from '../model/OpticalObject.js';
-import IProperty from '../../../../axon/js/IProperty.js';
+import TProperty from '../../../../axon/js/TProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -26,7 +26,7 @@ export type OpticalObjectNodeOptions = SelfOptions &
 
 export default class OpticalObjectNode extends Node {
 
-  private readonly wasDraggedProperty: IProperty<boolean>;
+  private readonly wasDraggedProperty: TProperty<boolean>;
   protected readonly cueingArrowsNode: CueingArrowsNode;
 
   /**
@@ -37,7 +37,7 @@ export default class OpticalObjectNode extends Node {
    */
   protected constructor( opticalObject: OpticalObject,
                          objectDragModeProperty: TReadOnlyProperty<ObjectDragMode>,
-                         wasDraggedProperty: IProperty<boolean>,
+                         wasDraggedProperty: TProperty<boolean>,
                          providedOptions: OpticalObjectNodeOptions ) {
 
     const options = optionize<OpticalObjectNodeOptions, SelfOptions, NodeOptions>()( {
