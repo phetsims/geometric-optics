@@ -41,7 +41,7 @@ export default class GOSim extends Sim {
           customPreferences: [ {
             createContent: tandem => new GOOptionsNode( {
               isBasicsVersion: providedOptions.isBasicsVersion,
-              tandem: tandem
+              tandem: tandem.createTandem( 'geometricOpticsPreferencesContent' )
             } )
           } ]
         }

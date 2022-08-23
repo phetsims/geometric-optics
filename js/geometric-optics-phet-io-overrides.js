@@ -1,16 +1,16 @@
 /* eslint-disable */
 window.phet.preloads.phetio.phetioElementsOverrides =
   {
-    "geometricOptics.general.view.navigationBar.phetButton.phetMenu.optionsDialogCapsule.archetype.content.add2FPointsCheckbox.labelText.textProperty": {
+    "geometricOptics.general.view.navigationBar.preferencesButton.preferencesDialogCapsule.archetype.preferencesPanels.generalPreferencesPanel.geometricOpticsPreferencesContent.add2FPointsCheckbox.labelText.textProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.general.view.navigationBar.phetButton.phetMenu.optionsDialogCapsule.archetype.content.focalLengthModelControl.radioButtonGroup.directRadioButton.labelText.textProperty": {
+    "geometricOptics.general.view.navigationBar.preferencesButton.preferencesDialogCapsule.archetype.preferencesPanels.generalPreferencesPanel.geometricOpticsPreferencesContent.focalLengthModelControl.radioButtonGroup.directRadioButton.labelText.textProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.general.view.navigationBar.phetButton.phetMenu.optionsDialogCapsule.archetype.content.focalLengthModelControl.radioButtonGroup.indirectRadioButton.labelText.textProperty": {
+    "geometricOptics.general.view.navigationBar.preferencesButton.preferencesDialogCapsule.archetype.preferencesPanels.generalPreferencesPanel.geometricOpticsPreferencesContent.focalLengthModelControl.radioButtonGroup.indirectRadioButton.labelText.textProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.general.view.navigationBar.phetButton.phetMenu.optionsDialogCapsule.archetype.content.focalLengthModelControl.visibleProperty": {
+    "geometricOptics.general.view.navigationBar.preferencesButton.preferencesDialogCapsule.archetype.preferencesPanels.generalPreferencesPanel.geometricOpticsPreferencesContent.focalLengthModelControl.visibleProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.global.view.options.add2FPointsCheckboxProperty": {
