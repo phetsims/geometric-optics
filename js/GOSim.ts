@@ -15,6 +15,7 @@ import GOConstants from './common/GOConstants.js';
 import optionize from '../../phet-core/js/optionize.js';
 import GOOptionsNode from './common/view/GOOptionsNode.js';
 import PickOptional from '../../phet-core/js/types/PickOptional.js';
+import PreferencesModel from '../../joist/js/preferences/PreferencesModel.js';
 
 type SelfOptions = {
 
@@ -35,11 +36,17 @@ export default class GOSim extends Sim {
       // Sim options
       credits: GOConstants.CREDITS,
       hasKeyboardHelpContent: true,
-      createOptionsDialogContent: ( tandem: Tandem ) => new GOOptionsNode( {
-        isBasicsVersion: providedOptions.isBasicsVersion,
-        tandem: tandem
-      } )
+      preferencesModel: new PreferencesModel( {
+        generalOptions: {
+          customPreferences: [ {
+            createContent: tandem => new GOOptionsNode( {
+              isBasicsVersion: providedOptions.isBasicsVersion,
+              tandem: tandem
+            } )
 
+          } ]
+        }
+      } )
     }, providedOptions );
 
     super( title, [
