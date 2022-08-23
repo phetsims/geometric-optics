@@ -43,7 +43,6 @@ export default class GOSim extends Sim {
               isBasicsVersion: providedOptions.isBasicsVersion,
               tandem: tandem
             } )
-
           } ]
         }
       } )
