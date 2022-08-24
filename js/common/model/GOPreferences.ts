@@ -7,12 +7,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Tandem from '../../../tandem/js/Tandem.js';
-import geometricOptics from '../geometricOptics.js';
-import GOQueryParameters from './GOQueryParameters.js';
-import { FocalLengthModelType, FocalLengthModelTypeValues } from './model/FocalLengthModelType.js';
-import BooleanProperty from '../../../axon/js/BooleanProperty.js';
-import StringEnumerationProperty from '../../../axon/js/StringEnumerationProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import geometricOptics from '../../geometricOptics.js';
+import GOQueryParameters from '../GOQueryParameters.js';
+import { FocalLengthModelType, FocalLengthModelTypeValues } from './FocalLengthModelType.js';
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import StringEnumerationProperty from '../../../../axon/js/StringEnumerationProperty.js';
 
 // constants
 const preferencesTandem = Tandem.GLOBAL_MODEL.createTandem( 'preferences' );

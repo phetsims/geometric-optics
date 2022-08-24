@@ -11,7 +11,7 @@
 import { HBox, Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import FocalLengthControl from './FocalLengthControl.js';
-import GOPreferences from '../GOPreferences.js';
+import GOPreferences from '../model/GOPreferences.js';
 import RadiusOfCurvatureControl from './RadiusOfCurvatureControl.js';
 import Lens from '../../lens/model/Lens.js';
 import IndexOfRefractionControl from './IndexOfRefractionControl.js';

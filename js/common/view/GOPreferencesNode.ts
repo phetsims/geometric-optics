@@ -14,7 +14,7 @@ import { VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import FocalLengthModelTypeControl from './FocalLengthModelTypeControl.js';
-import GOPreferences from '../GOPreferences.js';
+import GOPreferences from '../model/GOPreferences.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { GOSimOptions } from '../../GOSim.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';

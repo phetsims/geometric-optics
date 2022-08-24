@@ -21,7 +21,7 @@ import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import SecondPointNode from './SecondPointNode.js';
 import FocalPointNode from './FocalPointNode.js';
 import TwoFPointNode from './TwoFPointNode.js';
-import GOPreferences from '../GOPreferences.js';
+import GOPreferences from '../model/GOPreferences.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import { GOSimOptions } from '../../GOSim.js';
 import Optic from '../model/Optic.js';

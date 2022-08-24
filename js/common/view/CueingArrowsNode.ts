@@ -12,7 +12,7 @@ import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
-import GOPreferences from '../GOPreferences.js';
+import GOPreferences from '../model/GOPreferences.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
