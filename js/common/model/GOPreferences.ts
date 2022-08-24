@@ -14,25 +14,22 @@ import { FocalLengthModelType, FocalLengthModelTypeValues } from './FocalLengthM
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import StringEnumerationProperty from '../../../../axon/js/StringEnumerationProperty.js';
 
-// constants
-const preferencesTandem = Tandem.GLOBAL_MODEL.createTandem( 'preferences' );
-
 const GOPreferences = {
 
   add2FPointsCheckboxProperty: new BooleanProperty( GOQueryParameters.add2FPointsCheckbox, {
-    tandem: preferencesTandem.createTandem( 'add2FPointsCheckboxProperty' ),
+    tandem: Tandem.PREFERENCES.createTandem( 'add2FPointsCheckboxProperty' ),
     phetioDocumentation: 'adds a "2F Points" checkbox to the control panels'
   } ),
 
   cueingArrowsEnabledProperty: new BooleanProperty( GOQueryParameters.cueingArrowsEnabled, {
-    tandem: preferencesTandem.createTandem( 'cueingArrowsEnabledProperty' ),
+    tandem: Tandem.PREFERENCES.createTandem( 'cueingArrowsEnabledProperty' ),
     phetioDocumentation: 'shows cueing arrows on draggable elements'
   } ),
 
   focalLengthModelTypeProperty:
     new StringEnumerationProperty<FocalLengthModelType>( GOQueryParameters.focalLengthControl as FocalLengthModelType, {
       validValues: FocalLengthModelTypeValues,
-      tandem: preferencesTandem.createTandem( 'focalLengthModelTypeProperty' ),
+      tandem: Tandem.PREFERENCES.createTandem( 'focalLengthModelTypeProperty' ),
       phetioDocumentation: 'Determines how focal length is modeled and controlled in the Lens and Mirror screens.<br>' +
                            'This can also be set via the focalLengthControl query parameter.<br>' +
                            'The values are:' +
