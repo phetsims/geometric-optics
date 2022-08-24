@@ -25,7 +25,7 @@ import Range from '../../../../dot/js/Range.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import { RaysType } from './RaysType.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
-import GOOptions from '../GOOptions.js';
+import GOPreferences from '../GOPreferences.js';
 import { FocalLengthModelType } from './FocalLengthModelType.js';
 import DirectFocalLengthModel, { DirectFocalLengthModelOptions } from './DirectFocalLengthModel.js';
 import IndirectFocalLengthModel, { IndirectFocalLengthModelOptions } from './IndirectFocalLengthModel.js';
@@ -156,7 +156,7 @@ export default abstract class Optic extends PhetioObject {
     this.indirectFocalLengthModel = new IndirectFocalLengthModel( this.opticSurfaceTypeProperty, options.indirectFocalLengthModelOptions );
 
     // When switching between focal-length models, synchronize the new model with the old model.
-    GOOptions.focalLengthModelTypeProperty.lazyLink( ( input: string ) => {
+    GOPreferences.focalLengthModelTypeProperty.lazyLink( ( input: string ) => {
       const focalLengthModelType = input as FocalLengthModelType;
 
       if ( focalLengthModelType === 'direct' ) {
@@ -179,7 +179,7 @@ export default abstract class Optic extends PhetioObject {
     // Convex is positive, concave is negative.
     this.radiusOfCurvatureProperty = new DerivedProperty(
       [ this.opticSurfaceTypeProperty,
-        GOOptions.focalLengthModelTypeProperty,
+        GOPreferences.focalLengthModelTypeProperty,
         this.directFocalLengthModel.radiusOfCurvatureMagnitudeProperty,
         this.indirectFocalLengthModel.radiusOfCurvatureMagnitudeProperty ],
       ( opticSurfaceType,
@@ -204,7 +204,7 @@ export default abstract class Optic extends PhetioObject {
 
     // Get the IOR value from the current focal-length model.
     this.indexOfRefractionProperty = new DerivedProperty(
-      [ GOOptions.focalLengthModelTypeProperty, this.directFocalLengthModel.indexOfRefractionProperty,
+      [ GOPreferences.focalLengthModelTypeProperty, this.directFocalLengthModel.indexOfRefractionProperty,
         this.indirectFocalLengthModel.indexOfRefractionProperty ],
       ( focalLengthModelType, directIndexOfRefraction, indirectIndexOfRefraction ) =>
         ( focalLengthModelType === 'direct' ) ? directIndexOfRefraction : indirectIndexOfRefraction, {
@@ -218,7 +218,7 @@ export default abstract class Optic extends PhetioObject {
     // Converging is positive, diverging is negative.
     this.focalLengthProperty = new DerivedProperty(
       [ this.opticSurfaceTypeProperty,
-        GOOptions.focalLengthModelTypeProperty,
+        GOPreferences.focalLengthModelTypeProperty,
         this.directFocalLengthModel.focalLengthMagnitudeProperty,
         this.indirectFocalLengthModel.focalLengthMagnitudeProperty ],
       ( opticSurfaceType,

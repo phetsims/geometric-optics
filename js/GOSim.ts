@@ -13,7 +13,7 @@ import LensScreen from './lens/LensScreen.js';
 import MirrorScreen from './mirror/MirrorScreen.js';
 import GOConstants from './common/GOConstants.js';
 import optionize from '../../phet-core/js/optionize.js';
-import GOOptionsNode from './common/view/GOOptionsNode.js';
+import GOPreferencesNode from './common/view/GOPreferencesNode.js';
 import PickOptional from '../../phet-core/js/types/PickOptional.js';
 import PreferencesModel from '../../joist/js/preferences/PreferencesModel.js';
 
@@ -39,9 +39,9 @@ export default class GOSim extends Sim {
       preferencesModel: new PreferencesModel( {
         generalOptions: {
           customPreferences: [ {
-            createContent: tandem => new GOOptionsNode( {
+            createContent: tandem => new GOPreferencesNode( {
               isBasicsVersion: providedOptions.isBasicsVersion,
-              tandem: tandem.createTandem( 'geometricOpticsPreferencesContent' )
+              tandem: tandem.createTandem( 'simPreferences' )
             } )
           } ]
         }

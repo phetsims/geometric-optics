@@ -1,25 +1,25 @@
 /* eslint-disable */
 window.phet.preloads.phetio.phetioElementsOverrides =
   {
-    "geometricOptics.general.view.navigationBar.preferencesButton.preferencesDialogCapsule.archetype.preferencesPanels.generalPreferencesPanel.geometricOpticsPreferencesContent.add2FPointsCheckbox.labelText.textProperty": {
+    "geometricOptics.general.view.navigationBar.preferencesButton.preferencesDialogCapsule.archetype.preferencesPanels.generalPreferencesPanel.simPreferences.add2FPointsCheckbox.labelText.textProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.general.view.navigationBar.preferencesButton.preferencesDialogCapsule.archetype.preferencesPanels.generalPreferencesPanel.geometricOpticsPreferencesContent.focalLengthModelControl.radioButtonGroup.directRadioButton.labelText.textProperty": {
+    "geometricOptics.general.view.navigationBar.preferencesButton.preferencesDialogCapsule.archetype.preferencesPanels.generalPreferencesPanel.simPreferences.focalLengthModelControl.radioButtonGroup.directRadioButton.labelText.textProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.general.view.navigationBar.preferencesButton.preferencesDialogCapsule.archetype.preferencesPanels.generalPreferencesPanel.geometricOpticsPreferencesContent.focalLengthModelControl.radioButtonGroup.indirectRadioButton.labelText.textProperty": {
+    "geometricOptics.general.view.navigationBar.preferencesButton.preferencesDialogCapsule.archetype.preferencesPanels.generalPreferencesPanel.simPreferences.focalLengthModelControl.radioButtonGroup.indirectRadioButton.labelText.textProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.general.view.navigationBar.preferencesButton.preferencesDialogCapsule.archetype.preferencesPanels.generalPreferencesPanel.geometricOpticsPreferencesContent.focalLengthModelControl.visibleProperty": {
+    "geometricOptics.general.view.navigationBar.preferencesButton.preferencesDialogCapsule.archetype.preferencesPanels.generalPreferencesPanel.simPreferences.focalLengthModelControl.visibleProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.global.view.options.add2FPointsCheckboxProperty": {
+    "geometricOptics.global.model.preferences.add2FPointsCheckboxProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.global.view.options.cueingArrowsEnabledProperty": {
+    "geometricOptics.global.model.preferences.cueingArrowsEnabledProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.global.view.options.focalLengthModelTypeProperty": {
+    "geometricOptics.global.model.preferences.focalLengthModelTypeProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.lensScreen.model.lens.diameterProperty": {

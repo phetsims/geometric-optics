@@ -1,7 +1,8 @@
 // Copyright 2021-2022, University of Colorado Boulder
 
 /**
- * GOOptions defines the global options for this simulation, accessed via PhET > Options.
+ * GOPreferences is the model for sim-specific preferences, accessed via the Preferences dialog.
+ * These preferences are global, and affect all screens.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,24 +15,24 @@ import BooleanProperty from '../../../axon/js/BooleanProperty.js';
 import StringEnumerationProperty from '../../../axon/js/StringEnumerationProperty.js';
 
 // constants
-const optionsTandem = Tandem.GLOBAL_VIEW.createTandem( 'options' );
+const preferencesTandem = Tandem.GLOBAL_MODEL.createTandem( 'preferences' );
 
-const GOOptions = {
+const GOPreferences = {
 
   add2FPointsCheckboxProperty: new BooleanProperty( GOQueryParameters.add2FPointsCheckbox, {
-    tandem: optionsTandem.createTandem( 'add2FPointsCheckboxProperty' ),
+    tandem: preferencesTandem.createTandem( 'add2FPointsCheckboxProperty' ),
     phetioDocumentation: 'adds a "2F Points" checkbox to the control panels'
   } ),
 
   cueingArrowsEnabledProperty: new BooleanProperty( GOQueryParameters.cueingArrowsEnabled, {
-    tandem: optionsTandem.createTandem( 'cueingArrowsEnabledProperty' ),
+    tandem: preferencesTandem.createTandem( 'cueingArrowsEnabledProperty' ),
     phetioDocumentation: 'shows cueing arrows on draggable elements'
   } ),
 
   focalLengthModelTypeProperty:
     new StringEnumerationProperty<FocalLengthModelType>( GOQueryParameters.focalLengthControl as FocalLengthModelType, {
       validValues: FocalLengthModelTypeValues,
-      tandem: optionsTandem.createTandem( 'focalLengthModelTypeProperty' ),
+      tandem: preferencesTandem.createTandem( 'focalLengthModelTypeProperty' ),
       phetioDocumentation: 'Determines how focal length is modeled and controlled in the Lens and Mirror screens.<br>' +
                            'This can also be set via the focalLengthControl query parameter.<br>' +
                            'The values are:' +
@@ -43,5 +44,5 @@ const GOOptions = {
     } )
 };
 
-geometricOptics.register( 'GOOptions', GOOptions );
-export default GOOptions;
+geometricOptics.register( 'GOPreferences', GOPreferences );
+export default GOPreferences;

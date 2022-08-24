@@ -17,7 +17,7 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import geometricOptics from '../../geometricOptics.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
-import GOOptions from '../GOOptions.js';
+import GOPreferences from '../GOPreferences.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
@@ -46,7 +46,7 @@ export default class IndirectFocalLengthModel extends PhetioObject implements Fo
       // PhetioObjectOptions
       phetioState: false,
       phetioDocumentation: 'Model of focal length that is used when ' +
-                           `${GOOptions.focalLengthModelTypeProperty.tandem.phetioID} ` +
+                           `${GOPreferences.focalLengthModelTypeProperty.tandem.phetioID} ` +
                            'is set to \'indirect\'. Ignored for flat mirror. In this model:' +
                            '<ul>' +
                            '<li>radius of curvature and index of refraction are settable' +

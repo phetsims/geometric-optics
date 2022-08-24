@@ -11,7 +11,7 @@
 import { HBox, Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import FocalLengthControl from './FocalLengthControl.js';
-import GOOptions from '../GOOptions.js';
+import GOPreferences from '../GOPreferences.js';
 import RadiusOfCurvatureControl from './RadiusOfCurvatureControl.js';
 import Lens from '../../lens/model/Lens.js';
 import IndexOfRefractionControl from './IndexOfRefractionControl.js';
@@ -71,7 +71,7 @@ class DirectFocalLengthControls extends Node {
 
     super( {
       children: [ focalLengthControl ],
-      visibleProperty: new DerivedProperty( [ GOOptions.focalLengthModelTypeProperty, optic.opticSurfaceTypeProperty ],
+      visibleProperty: new DerivedProperty( [ GOPreferences.focalLengthModelTypeProperty, optic.opticSurfaceTypeProperty ],
         ( focalLengthModelType, opticSurfaceType ) =>
           ( focalLengthModelType === 'direct' ) && ( opticSurfaceType !== 'flat' ) )
       // no tandem, do not instrument!
@@ -110,7 +110,7 @@ class IndirectFocalLengthControls extends HBox {
       children: children,
       spacing: X_SPACING,
       align: ALIGN,
-      visibleProperty: new DerivedProperty( [ GOOptions.focalLengthModelTypeProperty, optic.opticSurfaceTypeProperty ],
+      visibleProperty: new DerivedProperty( [ GOPreferences.focalLengthModelTypeProperty, optic.opticSurfaceTypeProperty ],
         ( focalLengthModelType, opticSurfaceType ) =>
           ( focalLengthModelType === 'indirect' ) && ( opticSurfaceType !== 'flat' )
       )
