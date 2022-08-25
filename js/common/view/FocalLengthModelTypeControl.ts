@@ -42,7 +42,7 @@ export default class FocalLengthModelTypeControl extends VBox {
 
     super( options );
 
-    const labelText = new Text( geometricOpticsStrings.focalLengthControl, {
+    const labelText = new Text( geometricOpticsStrings.focalLengthControlProperty, {
       font: GOConstants.CONTROL_FONT,
       tandem: options.tandem.createTandem( 'labelText' ),
       phetioVisiblePropertyInstrumented: false
