@@ -27,7 +27,7 @@ type GOPreferencesNodeOptions = SelfOptions & PickRequired<VBoxOptions, 'tandem'
 export default class GOPreferencesNode extends VBox {
 
   // Disposes of things that are specific to this class.
-  private readonly disposeGeometricOpticsGlobalOptionsNode: () => void;
+  private readonly disposeGeometricOpticsGlobalPreferencesNode: () => void;
 
   public constructor( providedOptions: GOPreferencesNodeOptions ) {
 
@@ -58,14 +58,14 @@ export default class GOPreferencesNode extends VBox {
 
     this.children = [ add2FPointsCheckbox, focalLengthModelControl ];
 
-    this.disposeGeometricOpticsGlobalOptionsNode = (): void => {
+    this.disposeGeometricOpticsGlobalPreferencesNode = (): void => {
       add2FPointsCheckbox.dispose();
       focalLengthModelControl.dispose();
     };
   }
 
   public override dispose(): void {
-    this.disposeGeometricOpticsGlobalOptionsNode();
+    this.disposeGeometricOpticsGlobalPreferencesNode();
     super.dispose();
   }
 }
