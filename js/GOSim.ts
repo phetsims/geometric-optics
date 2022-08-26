@@ -16,6 +16,7 @@ import optionize from '../../phet-core/js/optionize.js';
 import GOPreferencesNode from './common/view/GOPreferencesNode.js';
 import PickOptional from '../../phet-core/js/types/PickOptional.js';
 import PreferencesModel from '../../joist/js/preferences/PreferencesModel.js';
+import GOPreferences from './common/model/GOPreferences.js';
 
 type SelfOptions = {
 
@@ -42,7 +43,12 @@ export default class GOSim extends Sim {
             createContent: tandem => new GOPreferencesNode( {
               isBasicsVersion: providedOptions.isBasicsVersion,
               tandem: tandem.createTandem( 'simPreferences' )
-            } )
+            } ),
+            linkedModelProperties: [
+              { property: GOPreferences.focalLengthModelTypeProperty },
+              { property: GOPreferences.add2FPointsCheckboxProperty },
+              { property: GOPreferences.cueingArrowsEnabledProperty }
+            ]
           } ]
         }
       } )
