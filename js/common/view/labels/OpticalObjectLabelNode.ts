@@ -16,7 +16,8 @@ import optionize from '../../../../../phet-core/js/optionize.js';
 import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
-import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
+import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import StringIO from '../../../../../tandem/js/types/StringIO.js';
 
 type SelfOptions = {
 
@@ -24,7 +25,7 @@ type SelfOptions = {
   isNumberedProperty?: TReadOnlyProperty<boolean>;
 };
 
-export type OpticalObjectLabelNodeOptions = SelfOptions & StrictOmit<LabelNodeOptions, 'phetioReadOnlyText'>;
+export type OpticalObjectLabelNodeOptions = SelfOptions & LabelNodeOptions;
 
 export default class OpticalObjectLabelNode extends LabelNode {
 
@@ -40,20 +41,23 @@ export default class OpticalObjectLabelNode extends LabelNode {
                       providedOptions: OpticalObjectLabelNodeOptions ) {
 
     const options = optionize<OpticalObjectLabelNodeOptions, SelfOptions, LabelNodeOptions>()( {
-      isNumberedProperty: new BooleanProperty( true ),
-      phetioReadOnlyText: true // text is readonly because the sim controls it, see below
+      isNumberedProperty: new BooleanProperty( true )
     }, providedOptions );
 
-    super( '', labelPositionProperty, zoomTransformProperty, options );
-
-    const objectString = geometricOpticsStrings.label.object;
-    const objectNString = StringUtils.fillIn( geometricOpticsStrings.label.objectN, {
-      objectNumber: objectNumber
+    const labelStringProperty = new DerivedProperty( [
+      options.isNumberedProperty,
+      geometricOpticsStrings.label.objectStringProperty,
+      geometricOpticsStrings.label.objectNStringProperty
+    ], (
+      isNumbered: boolean,
+      objectString: string,
+      objectNString: string
+    ) => isNumbered ? StringUtils.fillIn( objectNString, { objectNumber: objectNumber } ) : objectString, {
+      tandem: options.tandem.createTandem( 'labelStringProperty' ),
+      phetioValueType: StringIO
     } );
 
-    options.isNumberedProperty.link( ( isNumbered: boolean ) => {
-      this.setText( isNumbered ? objectNString : objectString );
-    } );
+    super( labelStringProperty, labelPositionProperty, zoomTransformProperty, options );
   }
 }
 

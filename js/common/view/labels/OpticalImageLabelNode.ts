@@ -17,8 +17,8 @@ import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import OpticalImage from '../../model/OpticalImage.js';
-import Multilink from '../../../../../axon/js/Multilink.js';
-import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
+import StringIO from '../../../../../tandem/js/types/StringIO.js';
+import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 
 type SelfOptions = {
 
@@ -26,7 +26,7 @@ type SelfOptions = {
   isNumberedProperty?: TReadOnlyProperty<boolean>;
 };
 
-export type OpticalImageLabelNodeOptions = SelfOptions & StrictOmit<LabelNodeOptions, 'phetioReadOnlyText'>;
+export type OpticalImageLabelNodeOptions = SelfOptions & LabelNodeOptions;
 
 export default class OpticalImageLabelNode extends LabelNode {
 
@@ -42,31 +42,46 @@ export default class OpticalImageLabelNode extends LabelNode {
                       providedOptions: OpticalImageLabelNodeOptions ) {
 
     const options = optionize<OpticalImageLabelNodeOptions, SelfOptions, LabelNodeOptions>()( {
-      isNumberedProperty: new BooleanProperty( true ),
-      phetioReadOnlyText: true // text is readonly because the sim controls it, see below
+      isNumberedProperty: new BooleanProperty( true )
     }, providedOptions );
 
-    super( '', labelPositionProperty, zoomTransformProperty, options );
-
     const stringParams = { imageNumber: opticalImage.opticalObject.opticalObjectNumber };
-    const realImageNString = StringUtils.fillIn( geometricOpticsStrings.label.realImageN, stringParams );
-    const virtualImageNString = StringUtils.fillIn( geometricOpticsStrings.label.virtualImageN, stringParams );
-    const realImageString = geometricOpticsStrings.label.realImage;
-    const virtualImageString = geometricOpticsStrings.label.virtualImage;
 
-    Multilink.multilink( [ opticalImage.opticalImageTypeProperty, options.isNumberedProperty ],
-      ( opticalImageType, isNumbered ) => {
-        if ( isNumbered ) {
+    const labelStringProperty = new DerivedProperty( [
+      opticalImage.opticalImageTypeProperty,
+      options.isNumberedProperty,
+      geometricOpticsStrings.label.realImageStringProperty,
+      geometricOpticsStrings.label.realImageNStringProperty,
+      geometricOpticsStrings.label.virtualImageStringProperty,
+      geometricOpticsStrings.label.virtualImageNStringProperty
+    ], (
+      opticalImageType,
+      isNumbered,
+      realImageString,
+      realImageNString,
+      virtualImageString,
+      virtualImageNString
+    ) => {
+      let text: string;
+      if ( isNumbered ) {
 
-          // Switch between 'Real Image N' and 'Virtual Image N'
-          this.setText( opticalImageType === 'real' ? realImageNString : virtualImageNString );
-        }
-        else {
+        // Switch between 'Real Image N' and 'Virtual Image N'
+        text = ( opticalImageType === 'real' ) ?
+               StringUtils.fillIn( geometricOpticsStrings.label.realImageN, stringParams ) :
+               StringUtils.fillIn( geometricOpticsStrings.label.virtualImageN, stringParams );
+      }
+      else {
 
-          // Switch between 'Real Image' and 'Virtual Image'
-          this.setText( opticalImageType === 'real' ? realImageString : virtualImageString );
-        }
-      } );
+        // Switch between 'Real Image' and 'Virtual Image'
+        text = ( opticalImageType === 'real' ) ? realImageString : virtualImageString;
+      }
+      return text;
+    }, {
+      tandem: options.tandem.createTandem( 'labelStringProperty' ),
+      phetioValueType: StringIO
+    } );
+
+    super( labelStringProperty, labelPositionProperty, zoomTransformProperty, options );
   }
 }
 

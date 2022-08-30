@@ -7,9 +7,8 @@
  */
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
-import StrictOmit from '../../../../../phet-core/js/types/StrictOmit.js';
 import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
-import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+import { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import geometricOptics from '../../../geometricOptics.js';
 import geometricOpticsStrings from '../../../geometricOpticsStrings.js';
@@ -17,10 +16,12 @@ import Lens from '../../../lens/model/Lens.js';
 import Mirror from '../../../mirror/model/Mirror.js';
 import Optic from '../../model/Optic.js';
 import LabelNode, { LabelNodeOptions } from './LabelNode.js';
+import { OpticSurfaceType } from '../../model/OpticSurfaceType.js';
+import StringIO from '../../../../../tandem/js/types/StringIO.js';
 
 type SelfOptions = EmptySelfOptions;
 
-export type OpticLabelNodeOptions = SelfOptions & StrictOmit<LabelNodeOptions, 'phetioReadOnlyText'>;
+export type OpticLabelNodeOptions = SelfOptions & LabelNodeOptions;
 
 export default class OpticLabelNode extends LabelNode {
 
@@ -33,25 +34,33 @@ export default class OpticLabelNode extends LabelNode {
                       zoomTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                       providedOptions: OpticLabelNodeOptions ) {
 
-    const options = optionize<OpticLabelNodeOptions, SelfOptions, LabelNodeOptions>()( {
-      phetioReadOnlyText: true // text is readonly because the sim controls it, see below
-    }, providedOptions );
-
     const opticLabelPositionProperty = new DerivedProperty(
       [ optic.positionProperty, optic.diameterProperty ],
       ( position, diameter ) => position.minusXY( 0, diameter / 2 )
     );
 
-    super( '', opticLabelPositionProperty, zoomTransformProperty, options );
-
-    optic.opticSurfaceTypeProperty.link( opticSurfaceType => {
+    const labelStringProperty = new DerivedProperty( [
+      optic.opticSurfaceTypeProperty,
+      geometricOpticsStrings.label.convexLensStringProperty,
+      geometricOpticsStrings.label.concaveLensStringProperty,
+      geometricOpticsStrings.label.convexMirrorStringProperty,
+      geometricOpticsStrings.label.concaveMirrorStringProperty,
+      geometricOpticsStrings.label.flatMirrorStringProperty
+    ], (
+      opticSurfaceType: OpticSurfaceType,
+      convexLensString: string,
+      concaveLensString: string,
+      convexMirrorString: string,
+      concaveMirrorString: string,
+      flatMirrorString: string
+    ) => {
       let text: string;
       if ( optic instanceof Lens ) {
         if ( opticSurfaceType === 'convex' ) {
-          text = geometricOpticsStrings.label.convexLens;
+          text = convexLensString;
         }
         else if ( opticSurfaceType === 'concave' ) {
-          text = geometricOpticsStrings.label.concaveLens;
+          text = concaveLensString;
         }
         else {
           throw Error( `unsupported opticSurfaceType for lens: ${opticSurfaceType}` );
@@ -61,20 +70,25 @@ export default class OpticLabelNode extends LabelNode {
         // mirror
         assert && assert( optic instanceof Mirror ); // eslint-disable-line no-simple-type-checking-assertions
         if ( opticSurfaceType === 'convex' ) {
-          text = geometricOpticsStrings.label.convexMirror;
+          text = convexMirrorString;
         }
         else if ( opticSurfaceType === 'concave' ) {
-          text = geometricOpticsStrings.label.concaveMirror;
+          text = concaveMirrorString;
         }
         else if ( opticSurfaceType === 'flat' ) {
-          text = geometricOpticsStrings.label.flatMirror;
+          text = flatMirrorString;
         }
         else {
           throw Error( `unsupported opticSurfaceType for mirror: ${opticSurfaceType}` );
         }
       }
-      this.setText( text );
+      return text;
+    }, {
+      tandem: providedOptions.tandem.createTandem( 'labelStringProperty' ),
+      phetioValueType: StringIO
     } );
+
+    super( labelStringProperty, opticLabelPositionProperty, zoomTransformProperty, providedOptions );
   }
 }
 

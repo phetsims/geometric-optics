@@ -28,22 +28,19 @@ type SelfOptions = {
   yAlign?: YAlign;
   xOffset?: number; // from center, in view coordinates
   yOffset?: number; // in view coordinates
-  phetioReadOnlyText?: boolean; // should the RichText be phetioReadOnly?
 };
 
 export type LabelNodeOptions = SelfOptions & PickRequired<BackgroundNodeOptions, 'visibleProperty' | 'tandem'>;
 
 export default class LabelNode extends BackgroundNode {
 
-  private readonly textNode: RichText;
-
   /**
-   * @param text - the label's text
+   * @param labelStringProperty - the label's string
    * @param positionProperty - position of the thing that we're labeling, in model coordinates
    * @param zoomTransformProperty - model-view transform that the user controls by zooming in/out
    * @param providedOptions
    */
-  public constructor( text: string,
+  public constructor( labelStringProperty: TReadOnlyProperty<string>,
                       positionProperty: TReadOnlyProperty<Vector2>,
                       zoomTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                       providedOptions: LabelNodeOptions ) {
@@ -55,7 +52,6 @@ export default class LabelNode extends BackgroundNode {
       yAlign: 'top',
       xOffset: 0,
       yOffset: 2,
-      phetioReadOnlyText: false,
 
       // BackgroundNodeOptions
       xMargin: 5,
@@ -64,25 +60,22 @@ export default class LabelNode extends BackgroundNode {
         fill: GOColors.screenBackgroundColorProperty,
         cornerRadius: 4,
         opacity: 0.5
-      }
+      },
+      phetioVisiblePropertyInstrumented: false
     }, providedOptions );
 
-    const textNode = new RichText( text, {
+    const textNode = new RichText( labelStringProperty, {
       align: 'center',
       fill: GOColors.labelFillProperty,
       font: GOConstants.LABEL_FONT,
       maxWidth: 85,
       tandem: providedOptions.tandem.createTandem( 'textNode' ),
-      phetioVisiblePropertyInstrumented: false,
-      textPropertyOptions: {
-        phetioReadOnly: options.phetioReadOnlyText
-      }
+      phetioVisiblePropertyInstrumented: false
     } );
 
     super( textNode, options );
 
-    this.textNode = textNode;
-
+    // Keep the label properly aligned with the thing it's labeling.
     Multilink.multilink(
       [ zoomTransformProperty, positionProperty, textNode.boundsProperty ],
       ( zoomTransform, position, textBounds ) => {
@@ -115,10 +108,6 @@ export default class LabelNode extends BackgroundNode {
   public override dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
-  }
-
-  public setText( text: string ): void {
-    this.textNode.text = text;
   }
 }
 

@@ -60,17 +60,18 @@ export default class GOLabelsNode extends Node {
         return new Vector2( modelVisibleBounds.x + modelXOffset, opticPosition.y );
       } );
 
-    const opticalAxisLabel = new LabelNode( geometricOpticsStrings.label.opticalAxis, opticalAxisLabelPositionProperty, zoomTransformProperty, {
-      xAlign: 'left',
-      yOffset: 5,
-      visibleProperty: sceneNode.opticalAxisNodeVisibleProperty,
-      tandem: providedOptions.tandem.createTandem( 'opticalAxisLabel' )
-    } );
+    const opticalAxisLabel = new LabelNode( geometricOpticsStrings.label.opticalAxisStringProperty,
+      opticalAxisLabelPositionProperty, zoomTransformProperty, {
+        xAlign: 'left',
+        yOffset: 5,
+        visibleProperty: sceneNode.opticalAxisNodeVisibleProperty,
+        tandem: providedOptions.tandem.createTandem( 'opticalAxisLabel' )
+      } );
     this.addChild( opticalAxisLabel );
 
     // Focal Point labels ------------------------------------------------------------------------------------
 
-    const leftFocalPointLabel = new LabelNode( geometricOpticsStrings.label.F,
+    const leftFocalPointLabel = new LabelNode( geometricOpticsStrings.label.FStringProperty,
       optic.leftFocalPointProperty, zoomTransformProperty, {
         yOffset: FOCAL_POINT_LABEL_Y_OFFSET,
         visibleProperty: sceneNode.leftFocalPointNodeVisibleProperty,
@@ -78,7 +79,7 @@ export default class GOLabelsNode extends Node {
       } );
     this.addChild( leftFocalPointLabel );
 
-    const rightFocalPointLabel = new LabelNode( geometricOpticsStrings.label.F,
+    const rightFocalPointLabel = new LabelNode( geometricOpticsStrings.label.FStringProperty,
       optic.rightFocalPointProperty, zoomTransformProperty, {
         yOffset: FOCAL_POINT_LABEL_Y_OFFSET,
         visibleProperty: sceneNode.rightFocalPointNodeVisibleProperty,
@@ -88,7 +89,7 @@ export default class GOLabelsNode extends Node {
 
     // 2F Point labels ----------------------------------------------------------------------------------------
 
-    const left2FPointLabel = new LabelNode( geometricOpticsStrings.label.twoF,
+    const left2FPointLabel = new LabelNode( geometricOpticsStrings.label.twoFStringProperty,
       optic.left2FProperty, zoomTransformProperty, {
         yOffset: FOCAL_POINT_LABEL_Y_OFFSET,
         visibleProperty: sceneNode.left2FPointNodeVisibleProperty,
@@ -96,7 +97,7 @@ export default class GOLabelsNode extends Node {
       } );
     this.addChild( left2FPointLabel );
 
-    const right2FPointLabel = new LabelNode( geometricOpticsStrings.label.twoF,
+    const right2FPointLabel = new LabelNode( geometricOpticsStrings.label.twoFStringProperty,
       optic.right2FProperty, zoomTransformProperty, {
         yOffset: FOCAL_POINT_LABEL_Y_OFFSET,
         visibleProperty: sceneNode.right2FPointNodeVisibleProperty,

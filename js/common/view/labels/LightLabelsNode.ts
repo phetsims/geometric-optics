@@ -68,8 +68,8 @@ export default class LightLabelsNode extends GOLabelsNode {
       position => new Vector2( position.x - 25, position.y - 65 ) // empirically, model coordinates
     );
 
-    const screenLabel = new LabelNode( geometricOpticsStrings.label.projectionScreen, screenLabelPositionProperty,
-      zoomTransformProperty, {
+    const screenLabel = new LabelNode( geometricOpticsStrings.label.projectionScreenStringProperty,
+      screenLabelPositionProperty, zoomTransformProperty, {
         visibleProperty: sceneNode.projectionScreenNodeVisibleProperty,
         tandem: providedOptions.tandem.createTandem( 'screenLabel' )
       } );
