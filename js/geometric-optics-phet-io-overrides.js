@@ -238,9 +238,6 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "geometricOptics.lensScreen.view.controls.controlPanel.raysSubpanel.raysRadioButtonGroup.principalRadioButton.labelText.textProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.lensScreen.view.controls.controlPanel.raysSubpanel.titleText.textProperty": {
-      "phetioFeatured": true
-    },
     "geometricOptics.lensScreen.view.controls.controlPanel.raysSubpanel.visibleProperty": {
       "phetioFeatured": true
     },
@@ -521,9 +518,6 @@ window.phet.preloads.phetio.phetioElementsOverrides =
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.view.controls.controlPanel.raysSubpanel.raysRadioButtonGroup.principalRadioButton.labelText.textProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.mirrorScreen.view.controls.controlPanel.raysSubpanel.titleText.textProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.view.controls.controlPanel.raysSubpanel.visibleProperty": {
