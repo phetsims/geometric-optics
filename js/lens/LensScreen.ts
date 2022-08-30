@@ -31,7 +31,7 @@ export default class LensScreen extends Screen<LensModel, LensScreenView> {
     const options = optionize<LensScreenOptions, SelfOptions, ScreenOptions>()( {
 
       // Screen options
-      name: geometricOpticsStrings.screen.lens,
+      name: geometricOpticsStrings.screen.lensStringProperty,
       homeScreenIcon: createScreenIcon(),
       showUnselectedHomeScreenIconFrame: true,
       backgroundColorProperty: GOColors.screenBackgroundColorProperty,

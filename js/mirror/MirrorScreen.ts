@@ -32,7 +32,7 @@ export default class MirrorScreen extends Screen<MirrorModel, MirrorScreenView> 
     const options = optionize<MirrorScreenOptions, SelfOptions, ScreenOptions>()( {
 
       // Screen options
-      name: geometricOpticsStrings.screen.mirror,
+      name: geometricOpticsStrings.screen.mirrorStringProperty,
       homeScreenIcon: createScreenIcon( providedOptions.isBasicsVersion ? 'flat' : 'concave' ),
       showUnselectedHomeScreenIconFrame: true,
       backgroundColorProperty: GOColors.screenBackgroundColorProperty,

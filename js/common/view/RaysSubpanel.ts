@@ -25,7 +25,7 @@ export default class RaysSubpanel extends VBox {
   public constructor( raysTypeProperty: Property<RaysType>, tandem: Tandem ) {
 
     // title
-    const titleText = new Text( geometricOpticsStrings.rays, {
+    const titleText = new Text( geometricOpticsStrings.raysStringProperty, {
       font: GOConstants.TITLE_FONT,
       maxWidth: 90,
       tandem: tandem.createTandem( 'titleText' ),
