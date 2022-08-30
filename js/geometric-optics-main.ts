@@ -11,7 +11,7 @@ import geometricOpticsStrings from './geometricOpticsStrings.js';
 import GOSim from './GOSim.js';
 
 simLauncher.launch( () => {
-  const sim = new GOSim( geometricOpticsStrings[ 'geometric-optics' ].title, {
+  const sim = new GOSim( geometricOpticsStrings[ 'geometric-optics' ].titleStringProperty, {
     isBasicsVersion: false,
     phetioDesigned: true
   } );

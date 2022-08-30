@@ -17,6 +17,7 @@ import GOPreferencesNode from './common/view/GOPreferencesNode.js';
 import PickOptional from '../../phet-core/js/types/PickOptional.js';
 import PreferencesModel from '../../joist/js/preferences/PreferencesModel.js';
 import GOPreferences from './common/model/GOPreferences.js';
+import TReadOnlyProperty from '../../axon/js/TReadOnlyProperty.js';
 
 type SelfOptions = {
 
@@ -30,7 +31,7 @@ export type GOSimOptions = SelfOptions & PickOptional<SimOptions, 'phetioDesigne
 
 export default class GOSim extends Sim {
 
-  public constructor( title: string, providedOptions: GOSimOptions ) {
+  public constructor( titleProperty: TReadOnlyProperty<string>, providedOptions: GOSimOptions ) {
 
     const options = optionize<GOSimOptions, SelfOptions, SimOptions>()( {
 
@@ -54,7 +55,7 @@ export default class GOSim extends Sim {
       } )
     }, providedOptions );
 
-    super( title, [
+    super( titleProperty, [
       new LensScreen( {
         isBasicsVersion: options.isBasicsVersion,
         tandem: Tandem.ROOT.createTandem( 'lensScreen' )
