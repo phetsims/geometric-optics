@@ -51,11 +51,14 @@ export default class OpticalObjectChoiceComboBox extends ComboBox<OpticalObjectC
     assert && assert( opticalObjectChoiceProperty.validValues ); // {OpticalObjectChoice[]|undefined}
     opticalObjectChoiceProperty.validValues!.forEach( ( opticalObjectChoice: OpticalObjectChoice ) => {
 
+      const itemTandemName = `${opticalObjectChoice.tandemPrefix}${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`;
+
       // create text
-      const text = new Text( opticalObjectChoice.labelStringProperty, {
+      const textNode = new Text( opticalObjectChoice.labelStringProperty, {
         font: GOConstants.CONTROL_FONT,
-        maxWidth: 100
-        //TODO https://github.com/phetsims/chipper/issues/1316 instrument
+        maxWidth: 100,
+        tandem: options.tandem.createTandem( itemTandemName ).createTandem( 'textNode' ),
+        phetioVisiblePropertyInstrumented: false
       } );
 
       // create icon
@@ -66,14 +69,16 @@ export default class OpticalObjectChoiceComboBox extends ComboBox<OpticalObjectC
         group: iconsAlignGroup
       } );
 
-      // hold the logo followed by text in a hbox
-      const hBox = new HBox( { spacing: 5, children: [ iconAlignBox, text ] } );
+      const hBox = new HBox( {
+        spacing: 5,
+        children: [ iconAlignBox, textNode ]
+      } );
 
       // create and add combo box item to the array
       items.push( {
         value: opticalObjectChoice,
         node: hBox,
-        tandemName: `${opticalObjectChoice.tandemPrefix}${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+        tandemName: itemTandemName
       } );
     } );
 
