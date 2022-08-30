@@ -37,7 +37,6 @@ export default class RadiusOfCurvatureControl extends NumberControl {
     assert && assert( radiusOfCurvatureMagnitudeProperty.range ); // {Range|null}
     const range = radiusOfCurvatureMagnitudeProperty.range!;
 
-    //TODO https://github.com/phetsims/sun/issues cannot make this a child of radiusOfCurvatureControl.titleNode
     const titleStringProperty = new DerivedProperty( [
       radiusOfCurvatureProperty,
       geometricOpticsStrings.radiusOfCurvaturePositiveStringProperty,

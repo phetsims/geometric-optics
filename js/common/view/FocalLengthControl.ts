@@ -38,7 +38,6 @@ export default class FocalLengthControl extends NumberControl {
     assert && assert( focalLengthMagnitudeProperty.range ); // {Range|null}
     const range = focalLengthMagnitudeProperty.range!;
 
-    //TODO https://github.com/phetsims/sun/issues cannot make this a child of focalLengthControl.titleNode
     const titleStringProperty = new DerivedProperty( [
       focalLengthProperty,
       geometricOpticsStrings.focalLengthPositiveStringProperty,
