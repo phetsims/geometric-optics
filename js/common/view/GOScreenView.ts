@@ -16,7 +16,7 @@ import ScreenView, { ScreenViewOptions } from '../../../../joist/js/ScreenView.j
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import MagnifyingGlassZoomButtonGroup from '../../../../scenery-phet/js/MagnifyingGlassZoomButtonGroup.js';
-import { Node, Rectangle } from '../../../../scenery/js/imports.js';
+import { HBox, Node, Rectangle } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import GOQueryParameters from '../GOQueryParameters.js';
@@ -223,16 +223,20 @@ export default class GOScreenView extends ScreenView {
 
     // Combo box for choosing the optical object
     const opticalObjectChoiceComboBox = new OpticalObjectChoiceComboBox( model.opticalObjectChoiceProperty, popupsParent, {
-      left: this.layoutBounds.left + 100,
-      top: erodedLayoutBounds.top,
       tandem: controlsTandem.createTandem( 'opticalObjectChoiceComboBox' )
     } );
 
     // Toggle button to switch between 'freeDragging' and 'horizontalDragging' of the optical object
     const objectDragModeToggleButton = new ObjectDragModeToggleButton( objectDragModeProperty, {
-      left: opticalObjectChoiceComboBox.right + 25,
-      centerY: opticalObjectChoiceComboBox.centerY,
       tandem: controlsTandem.createTandem( 'objectDragModeToggleButton' )
+    } );
+
+    const objectHBox = new HBox( {
+      children: [ opticalObjectChoiceComboBox, objectDragModeToggleButton ],
+      spacing: 25,
+      align: 'center',
+      left: this.layoutBounds.left + 100,
+      top: erodedLayoutBounds.top
     } );
 
     // Radio buttons for the surface type of the optic
@@ -304,9 +308,8 @@ export default class GOScreenView extends ScreenView {
 
     const controlsLayer = new Node( {
       children: [
-        opticalObjectChoiceComboBox,
+        objectHBox,
         opticSurfaceTypeRadioButtonGroup,
-        objectDragModeToggleButton,
         toolboxNode,
         zoomButtonGroup,
         lightPropagationToggleButton,
