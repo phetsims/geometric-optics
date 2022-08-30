@@ -31,6 +31,7 @@ import starRightFacingInverted_png from '../../../images/starRightFacingInverted
 import starLeftFacingUpright_png from '../../../images/starLeftFacingUpright_png.js';
 import starLeftFacingInverted_png from '../../../images/starLeftFacingInverted_png.js';
 import starIcon_png from '../../../images/starIcon_png.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 // Identifies the general type of optical object for a choice in the combo box. I'd prefer not to have this addition
 // type baggage, but it's symptomatic of the fact that we have 3 scenes and 5 choices (3 of which map to the same scene).
@@ -52,7 +53,7 @@ type OpticalObjectChoiceOptions = {
   type: OpticalObjectType;
 
   // label that appears in combo box
-  label: string;
+  labelStringProperty: TReadOnlyProperty<string>;
 
   // icon that appears in combo box
   icon: HTMLImageElement | Node;
@@ -75,7 +76,7 @@ export default class OpticalObjectChoice extends EnumerationValue {
 
   public static readonly PENCIL = new OpticalObjectChoice( {
     type: 'framed',
-    label: geometricOpticsStrings.pencil,
+    labelStringProperty: geometricOpticsStrings.pencilStringProperty,
     icon: pencilIcon_png,
     tandemPrefix: 'pencil',
     objectHTMLImageElements: {
@@ -88,7 +89,7 @@ export default class OpticalObjectChoice extends EnumerationValue {
 
   public static readonly PENGUIN = new OpticalObjectChoice( {
     type: 'framed',
-    label: geometricOpticsStrings.penguin,
+    labelStringProperty: geometricOpticsStrings.penguinStringProperty,
     icon: penguinIcon_png,
     tandemPrefix: 'penguin',
     objectHTMLImageElements: {
@@ -101,7 +102,7 @@ export default class OpticalObjectChoice extends EnumerationValue {
 
   public static readonly STAR = new OpticalObjectChoice( {
     type: 'framed',
-    label: geometricOpticsStrings.star,
+    labelStringProperty: geometricOpticsStrings.starStringProperty,
     icon: starIcon_png,
     tandemPrefix: 'star',
     objectHTMLImageElements: {
@@ -114,14 +115,14 @@ export default class OpticalObjectChoice extends EnumerationValue {
 
   public static readonly ARROW = new OpticalObjectChoice( {
     type: 'arrow',
-    label: geometricOpticsStrings.arrow,
+    labelStringProperty: geometricOpticsStrings.arrowStringProperty,
     icon: ARROW_ICON,
     tandemPrefix: 'arrow'
   } );
 
   public static readonly LIGHT = new OpticalObjectChoice( {
     type: 'light',
-    label: geometricOpticsStrings.light,
+    labelStringProperty: geometricOpticsStrings.lightStringProperty,
     icon: lightIcon_png,
     tandemPrefix: 'light'
   } );
@@ -133,7 +134,7 @@ export default class OpticalObjectChoice extends EnumerationValue {
 
   // see OpticalObjectChoiceOptions
   public readonly type: OpticalObjectType;
-  public readonly label: string;
+  public readonly labelStringProperty: TReadOnlyProperty<string>;
   public readonly icon: HTMLImageElement | Node;
   public readonly tandemPrefix: string;
   public readonly objectHTMLImageElements?: ObjectHTMLImageElements;
@@ -141,7 +142,7 @@ export default class OpticalObjectChoice extends EnumerationValue {
   public constructor( options: OpticalObjectChoiceOptions ) {
     super();
     this.type = options.type;
-    this.label = options.label;
+    this.labelStringProperty = options.labelStringProperty;
     this.icon = options.icon;
     this.tandemPrefix = options.tandemPrefix;
     this.objectHTMLImageElements = options.objectHTMLImageElements;

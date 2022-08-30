@@ -52,9 +52,10 @@ export default class OpticalObjectChoiceComboBox extends ComboBox<OpticalObjectC
     opticalObjectChoiceProperty.validValues!.forEach( ( opticalObjectChoice: OpticalObjectChoice ) => {
 
       // create text
-      const text = new Text( opticalObjectChoice.label, {
+      const text = new Text( opticalObjectChoice.labelStringProperty, {
         font: GOConstants.CONTROL_FONT,
         maxWidth: 100
+        //TODO https://github.com/phetsims/chipper/issues/1316 instrument
       } );
 
       // create icon
