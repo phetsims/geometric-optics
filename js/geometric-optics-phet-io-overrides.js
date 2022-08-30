@@ -226,18 +226,6 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "geometricOptics.lensScreen.view.controls.controlPanel.opticSubpanel.visibleProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.lensScreen.view.controls.controlPanel.raysSubpanel.raysRadioButtonGroup.manyRadioButton.labelText.textProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.lensScreen.view.controls.controlPanel.raysSubpanel.raysRadioButtonGroup.marginalRadioButton.labelText.textProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.lensScreen.view.controls.controlPanel.raysSubpanel.raysRadioButtonGroup.noneRadioButton.labelText.textProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.lensScreen.view.controls.controlPanel.raysSubpanel.raysRadioButtonGroup.principalRadioButton.labelText.textProperty": {
-      "phetioFeatured": true
-    },
     "geometricOptics.lensScreen.view.controls.controlPanel.raysSubpanel.visibleProperty": {
       "phetioFeatured": true
     },
@@ -506,18 +494,6 @@ window.phet.preloads.phetio.phetioElementsOverrides =
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.view.controls.controlPanel.opticSubpanel.visibleProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.mirrorScreen.view.controls.controlPanel.raysSubpanel.raysRadioButtonGroup.manyRadioButton.labelText.textProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.mirrorScreen.view.controls.controlPanel.raysSubpanel.raysRadioButtonGroup.marginalRadioButton.labelText.textProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.mirrorScreen.view.controls.controlPanel.raysSubpanel.raysRadioButtonGroup.noneRadioButton.labelText.textProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.mirrorScreen.view.controls.controlPanel.raysSubpanel.raysRadioButtonGroup.principalRadioButton.labelText.textProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.view.controls.controlPanel.raysSubpanel.visibleProperty": {

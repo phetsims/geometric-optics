@@ -18,6 +18,7 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -39,10 +40,10 @@ export default class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<R
 
     // items for ray Mode radio buttons
     const items = [
-      createItem( 'marginal', geometricOpticsStrings.radioButton.marginal, options.tandem, 'marginalRadioButton' ),
-      createItem( 'principal', geometricOpticsStrings.radioButton.principal, options.tandem, 'principalRadioButton' ),
-      createItem( 'many', geometricOpticsStrings.radioButton.many, options.tandem, 'manyRadioButton' ),
-      createItem( 'none', geometricOpticsStrings.radioButton.none, options.tandem, 'noneRadioButton' )
+      createItem( 'marginal', geometricOpticsStrings.radioButton.marginalStringProperty, options.tandem, 'marginalRadioButton' ),
+      createItem( 'principal', geometricOpticsStrings.radioButton.principalStringProperty, options.tandem, 'principalRadioButton' ),
+      createItem( 'many', geometricOpticsStrings.radioButton.manyStringProperty, options.tandem, 'manyRadioButton' ),
+      createItem( 'none', geometricOpticsStrings.radioButton.noneStringProperty, options.tandem, 'noneRadioButton' )
     ];
 
     super( raysTypeProperty, items, options );
@@ -52,14 +53,17 @@ export default class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<R
 /**
  * Creates an item for the radio button group.
  * @param value - value associated with the radio button
- * @param text - label that appears on the radio button
+ * @param labelStringProperty - label that appears on the radio button
  * @param groupTandem - used to associate the item's tandem with the radio-button group
  * @param itemTandemName - used to create the item's tandem
  */
-function createItem( value: RaysType, text: string, groupTandem: Tandem, itemTandemName: string ): AquaRadioButtonGroupItem<RaysType> {
+function createItem( value: RaysType,
+                     labelStringProperty: TReadOnlyProperty<string>,
+                     groupTandem: Tandem,
+                     itemTandemName: string ): AquaRadioButtonGroupItem<RaysType> {
   return {
     value: value,
-    node: new Text( text, {
+    node: new Text( labelStringProperty, {
       font: GOConstants.CONTROL_FONT,
       maxWidth: 65,
       tandem: groupTandem.createTandem( itemTandemName ).createTandem( 'labelText' ),
