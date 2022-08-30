@@ -56,7 +56,7 @@ export default class RadiusOfCurvatureControl extends NumberControl {
       },
       numberDisplayOptions: {
         decimalPlaces: GOConstants.RADIUS_OF_CURVATURE_DECIMAL_PLACES,
-        valuePattern: geometricOpticsStrings.valueCentimetersPattern
+        valuePattern: geometricOpticsStrings.valueCentimetersPatternStringProperty
       },
       sliderOptions: {
         constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.RADIUS_OF_CURVATURE_SLIDER_STEP ),
