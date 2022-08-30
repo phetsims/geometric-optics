@@ -45,7 +45,7 @@ export default class IndexOfRefractionControl extends NumberControl {
     const options = optionize<IndexOfRefractionControlOptions, SelfOptions, NumberControlOptions>()(
       numberControlDefaults, providedOptions );
 
-    super( geometricOpticsStrings.indexOfRefraction, indexOfRefractionProperty, range, options );
+    super( geometricOpticsStrings.indexOfRefractionStringProperty, indexOfRefractionProperty, range, options );
 
     this.addLinkedElement( indexOfRefractionProperty, {
       tandem: options.tandem.createTandem( indexOfRefractionProperty.tandem.name )
