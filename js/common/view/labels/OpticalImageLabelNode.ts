@@ -45,8 +45,6 @@ export default class OpticalImageLabelNode extends LabelNode {
       isNumberedProperty: new BooleanProperty( true )
     }, providedOptions );
 
-    const stringParams = { imageNumber: opticalImage.opticalObject.opticalObjectNumber };
-
     const labelStringProperty = new DerivedProperty( [
       opticalImage.opticalImageTypeProperty,
       options.isNumberedProperty,
@@ -66,9 +64,10 @@ export default class OpticalImageLabelNode extends LabelNode {
       if ( isNumbered ) {
 
         // Switch between 'Real Image N' and 'Virtual Image N'
-        text = ( opticalImageType === 'real' ) ?
-               StringUtils.fillIn( geometricOpticsStrings.label.realImageN, stringParams ) :
-               StringUtils.fillIn( geometricOpticsStrings.label.virtualImageN, stringParams );
+        const stringPattern = ( opticalImageType === 'real' ) ? realImageNString : virtualImageNString;
+        text = StringUtils.fillIn( stringPattern, {
+          imageNumber: opticalImage.opticalObject.opticalObjectNumber
+        } );
       }
       else {
 
