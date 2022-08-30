@@ -13,11 +13,12 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import StringProperty from '../../../../axon/js/StringProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import { NodeOptions } from '../../../../scenery/js/imports.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import StringIO from '../../../../tandem/js/types/StringIO.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -37,25 +38,26 @@ export default class FocalLengthControl extends NumberControl {
     assert && assert( focalLengthMagnitudeProperty.range ); // {Range|null}
     const range = focalLengthMagnitudeProperty.range!;
 
-    // Preferable to derive from focalLengthProperty, but scenery.Text requires textProperty to be settable.
-    const textProperty = new StringProperty( '', {
-      tandem: providedOptions.tandem.createTandem( 'textProperty' ),
-      phetioReadOnly: true
-    } );
-    focalLengthProperty.link( ( focalLength: number ) => {
-      textProperty.value = ( focalLength >= 0 ) ? geometricOpticsStrings.focalLengthPositive
-                                                : geometricOpticsStrings.focalLengthNegative;
+    //TODO https://github.com/phetsims/sun/issues cannot make this a child of focalLengthControl.titleNode
+    const titleStringProperty = new DerivedProperty( [
+      focalLengthProperty,
+      geometricOpticsStrings.focalLengthPositiveStringProperty,
+      geometricOpticsStrings.focalLengthNegativeStringProperty
+    ], ( focalLength: number, focalLengthPositiveString: string, focalLengthNegativeString: string ) =>
+      ( focalLength >= 0 ) ? focalLengthPositiveString : focalLengthNegativeString, {
+      tandem: providedOptions.tandem.createTandem( 'titleStringProperty' ),
+      phetioValueType: StringIO
     } );
 
     // Assemble the defaults for NumberControl, because optionize doesn't support defaults in multiple objects.
     const numberControlDefaults = combineOptions<NumberControlOptions>( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
       delta: GOConstants.FOCAL_LENGTH_SPINNER_STEP,
       titleNodeOptions: {
-        textProperty: textProperty
+        phetioVisiblePropertyInstrumented: false
       },
       numberDisplayOptions: {
         decimalPlaces: GOConstants.FOCAL_LENGTH_DECIMAL_PLACES,
-        valuePattern: geometricOpticsStrings.valueCentimetersPattern
+        valuePattern: geometricOpticsStrings.valueCentimetersPatternStringProperty
       },
       sliderOptions: {
         constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.FOCAL_LENGTH_SLIDER_STEP ),
@@ -69,7 +71,7 @@ export default class FocalLengthControl extends NumberControl {
     const options = optionize<FocalLengthControlOptions, SelfOptions, NumberControlOptions>()(
       numberControlDefaults, providedOptions );
 
-    super( textProperty.value, focalLengthMagnitudeProperty, range, options );
+    super( titleStringProperty, focalLengthMagnitudeProperty, range, options );
 
     this.addLinkedElement( focalLengthMagnitudeProperty, {
       tandem: options.tandem.createTandem( focalLengthMagnitudeProperty.tandem.name )

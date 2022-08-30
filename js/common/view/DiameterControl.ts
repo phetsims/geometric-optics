@@ -30,6 +30,9 @@ export default class DiameterControl extends NumberControl {
     // Assemble the defaults for NumberControl, because optionize doesn't support defaults in multiple objects.
     const numberControlDefaults = combineOptions<NumberControlOptions>( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
       delta: GOConstants.DIAMETER_SPINNER_STEP,
+      titleNodeOptions: {
+        phetioVisiblePropertyInstrumented: false
+      },
       sliderOptions: {
         constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.DIAMETER_SLIDER_STEP ),
         keyboardStep: GOConstants.DIAMETER_KEYBOARD_STEP, // used by all alternative-input devices
@@ -38,7 +41,7 @@ export default class DiameterControl extends NumberControl {
       },
       numberDisplayOptions: {
         decimalPlaces: GOConstants.DIAMETER_DECIMAL_PLACES,
-        valuePattern: geometricOpticsStrings.valueCentimetersPattern
+        valuePattern: geometricOpticsStrings.valueCentimetersPatternStringProperty
       }
     } );
 
@@ -46,7 +49,7 @@ export default class DiameterControl extends NumberControl {
     const options = optionize<DiameterControlOptions, SelfOptions, NumberControlOptions>()(
       numberControlDefaults, providedOptions );
 
-    super( geometricOpticsStrings.diameter, diameterProperty, range, options );
+    super( geometricOpticsStrings.diameterStringProperty, diameterProperty, range, options );
 
     this.addLinkedElement( diameterProperty, {
       tandem: options.tandem.createTandem( diameterProperty.tandem.name )

@@ -13,10 +13,11 @@ import geometricOpticsStrings from '../../geometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import StringProperty from '../../../../axon/js/StringProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import StringIO from '../../../../tandem/js/types/StringIO.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -36,21 +37,22 @@ export default class RadiusOfCurvatureControl extends NumberControl {
     assert && assert( radiusOfCurvatureMagnitudeProperty.range ); // {Range|null}
     const range = radiusOfCurvatureMagnitudeProperty.range!;
 
-    // Preferable to derive from radiusOfCurvatureProperty, but scenery.Text requires textProperty to be settable.
-    const textProperty = new StringProperty( '', {
-      tandem: providedOptions.tandem.createTandem( 'textProperty' ),
-      phetioReadOnly: true
-    } );
-    radiusOfCurvatureProperty.link( ( radiusOfCurvature: number ) => {
-      textProperty.value = ( radiusOfCurvature >= 0 ) ? geometricOpticsStrings.radiusOfCurvaturePositive
-                                                      : geometricOpticsStrings.radiusOfCurvatureNegative;
+    //TODO https://github.com/phetsims/sun/issues cannot make this a child of radiusOfCurvatureControl.titleNode
+    const titleStringProperty = new DerivedProperty( [
+      radiusOfCurvatureProperty,
+      geometricOpticsStrings.radiusOfCurvaturePositiveStringProperty,
+      geometricOpticsStrings.radiusOfCurvatureNegativeStringProperty
+    ], ( radiusOfCurvature: number, radiusOfCurvaturePositiveString: string, radiusOfCurvatureNegativeString: string ) =>
+      ( radiusOfCurvature >= 0 ) ? radiusOfCurvaturePositiveString : radiusOfCurvatureNegativeString, {
+      tandem: providedOptions.tandem.createTandem( 'titleStringProperty' ),
+      phetioValueType: StringIO
     } );
 
     // Assemble the defaults for NumberControl, because optionize doesn't support defaults in multiple objects.
     const numberControlDefaults = combineOptions<NumberControlOptions>( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
       delta: GOConstants.RADIUS_OF_CURVATURE_SPINNER_STEP,
       titleNodeOptions: {
-        textProperty: textProperty
+        phetioVisiblePropertyInstrumented: false
       },
       numberDisplayOptions: {
         decimalPlaces: GOConstants.RADIUS_OF_CURVATURE_DECIMAL_PLACES,
@@ -68,7 +70,7 @@ export default class RadiusOfCurvatureControl extends NumberControl {
     const options = optionize<RadiusOfCurvatureControlOptions, SelfOptions, NumberControlOptions>()(
       numberControlDefaults, providedOptions );
 
-    super( textProperty.value, radiusOfCurvatureMagnitudeProperty, range, options );
+    super( titleStringProperty, radiusOfCurvatureMagnitudeProperty, range, options );
 
     this.addLinkedElement( radiusOfCurvatureMagnitudeProperty, {
       tandem: options.tandem.createTandem( radiusOfCurvatureMagnitudeProperty.tandem.name )
