@@ -244,7 +244,7 @@ function createRulerNode( rulerLength: number, zoomTransform: ModelViewTransform
   }
 
   return new RulerNode( rulerWidth, GOConstants.RULER_HEIGHT,
-    majorTickWidth, majorTickLabels, geometricOpticsStrings.centimeters, {
+    majorTickWidth, majorTickLabels, geometricOpticsStrings.centimetersStringProperty, {
       opacity: 0.8,
       minorTicksPerMajorTick: 4,
       majorTickFont: new PhetFont( 13 ),
