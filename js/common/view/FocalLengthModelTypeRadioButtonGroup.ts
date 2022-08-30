@@ -18,6 +18,7 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -45,8 +46,8 @@ export default class FocalLengthModelTypeRadioButtonGroup extends VerticalAquaRa
     }, providedOptions );
 
     const items = [
-      createItem( 'direct', geometricOpticsStrings.radioButton.direct, options.tandem, 'directRadioButton' ),
-      createItem( 'indirect', geometricOpticsStrings.radioButton.indirect, options.tandem, 'indirectRadioButton' )
+      createItem( 'direct', geometricOpticsStrings.radioButton.directStringProperty, options.tandem, 'directRadioButton' ),
+      createItem( 'indirect', geometricOpticsStrings.radioButton.indirectStringProperty, options.tandem, 'indirectRadioButton' )
     ];
 
     super( focalLengthModelTypeProperty, items, options );
@@ -65,15 +66,17 @@ export default class FocalLengthModelTypeRadioButtonGroup extends VerticalAquaRa
 /**
  * Creates an item for the radio button group.
  * @param value - value associated with the radio button
- * @param text - label that appears on the radio button
+ * @param labelStringProperty - label that appears on the radio button
  * @param groupTandem - used to associate the item's tandem with the radio-button group
  * @param itemTandemName - used to create the item's tandem
  */
-function createItem( value: FocalLengthModelType, text: string, groupTandem: Tandem, itemTandemName: string ):
-  AquaRadioButtonGroupItem<FocalLengthModelType> {
+function createItem( value: FocalLengthModelType,
+                     labelStringProperty: TReadOnlyProperty<string>,
+                     groupTandem: Tandem,
+                     itemTandemName: string ): AquaRadioButtonGroupItem<FocalLengthModelType> {
   return {
     value: value,
-    node: new Text( text, {
+    node: new Text( labelStringProperty, {
       font: GOConstants.CONTROL_FONT,
       maxWidth: 500,
       tandem: groupTandem.createTandem( itemTandemName ).createTandem( 'labelText' ),
