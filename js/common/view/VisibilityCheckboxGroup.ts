@@ -59,13 +59,13 @@ export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
     const focalPointItems = optic.isExclusivelyFlatMirror() ? [] : [
 
       // Focal Points (F)
-      createItem( geometricOpticsStrings.checkbox.focalPoints, visibleProperties.focalPointsVisibleProperty, {
+      createItem( geometricOpticsStrings.checkbox.focalPointsStringProperty, visibleProperties.focalPointsVisibleProperty, {
         iconNode: FocalPointNode.createIcon(),
         tandem: options.tandem.createTandem( 'focalPointsCheckbox' )
       } ),
 
       // 2F Points
-      createItem( geometricOpticsStrings.checkbox.twoFPoints, visibleProperties.twoFPointsVisibleProperty, {
+      createItem( geometricOpticsStrings.checkbox.twoFPointsStringProperty, visibleProperties.twoFPointsVisibleProperty, {
         iconNode: TwoFPointNode.createIcon(),
         options: {
           visibleProperty: GOPreferences.add2FPointsCheckboxProperty
@@ -78,7 +78,7 @@ export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       ...focalPointItems,
 
       // Virtual Image
-      createItem( geometricOpticsStrings.checkbox.virtualImage, visibleProperties.virtualImageVisibleProperty, {
+      createItem( geometricOpticsStrings.checkbox.virtualImageStringProperty, visibleProperties.virtualImageVisibleProperty, {
         options: {
           enabledProperty: virtualImageCheckboxEnabledProperty
         },
@@ -86,12 +86,12 @@ export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       } ),
 
       // Labels
-      createItem( geometricOpticsStrings.checkbox.labels, visibleProperties.labelsVisibleProperty, {
+      createItem( geometricOpticsStrings.checkbox.labelsStringProperty, visibleProperties.labelsVisibleProperty, {
         tandem: options.tandem.createTandem( 'labelsCheckbox' )
       } ),
 
       // Second Point
-      createItem( geometricOpticsStrings.checkbox.secondPoint, visibleProperties.secondPointVisibleProperty, {
+      createItem( geometricOpticsStrings.checkbox.secondPointStringProperty, visibleProperties.secondPointVisibleProperty, {
         iconNode: SecondPointNode.createIcon(),
         options: {
           visible: !options.isBasicsVersion
@@ -102,7 +102,7 @@ export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 
     // Guides
     if ( optic instanceof Lens ) {
-      items.push( createItem( geometricOpticsStrings.checkbox.guides, visibleProperties.guidesVisibleProperty, {
+      items.push( createItem( geometricOpticsStrings.checkbox.guidesStringProperty, visibleProperties.guidesVisibleProperty, {
         iconNode: GuideNode.createIcon(),
         options: {
           visible: GOQueryParameters.addGuidesCheckbox
@@ -119,9 +119,10 @@ type ItemOptions = {
   iconNode?: Node;
 } & PickRequired<VerticalCheckboxGroupItem, 'tandem'> & PickOptional<VerticalCheckboxGroupItem, 'options'>;
 
-function createItem( string: string, property: Property<boolean>, providedOptions: ItemOptions ): VerticalCheckboxGroupItem {
+function createItem( labelStringProperty: TReadOnlyProperty<string>,
+                     property: Property<boolean>, providedOptions: ItemOptions ): VerticalCheckboxGroupItem {
 
-  const labelText = new Text( string, {
+  const labelText = new Text( labelStringProperty, {
     font: GOConstants.CONTROL_FONT,
     maxWidth: 90,
     tandem: providedOptions.tandem.createTandem( 'labelText' ),
