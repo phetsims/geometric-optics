@@ -61,7 +61,7 @@ export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       // Focal Points (F)
       createItem( geometricOpticsStrings.checkbox.focalPointsStringProperty, visibleProperties.focalPointsVisibleProperty, {
         iconNode: FocalPointNode.createIcon(),
-        tandem: options.tandem.createTandem( 'focalPointsCheckbox' )
+        tandemName: 'focalPointsCheckbox'
       } ),
 
       // 2F Points
@@ -70,7 +70,7 @@ export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
         options: {
           visibleProperty: GOPreferences.add2FPointsCheckboxProperty
         },
-        tandem: options.tandem.createTandem( 'twoFPointsCheckbox' )
+        tandemName: 'twoFPointsCheckbox'
       } )
     ];
 
@@ -82,12 +82,12 @@ export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
         options: {
           enabledProperty: virtualImageCheckboxEnabledProperty
         },
-        tandem: options.tandem.createTandem( 'virtualImageCheckbox' )
+        tandemName: 'virtualImageCheckbox'
       } ),
 
       // Labels
       createItem( geometricOpticsStrings.checkbox.labelsStringProperty, visibleProperties.labelsVisibleProperty, {
-        tandem: options.tandem.createTandem( 'labelsCheckbox' )
+        tandemName: 'labelsCheckbox'
       } ),
 
       // Second Point
@@ -96,7 +96,7 @@ export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
         options: {
           visible: !options.isBasicsVersion
         },
-        tandem: options.tandem.createTandem( 'secondPointCheckbox' )
+        tandemName: 'secondPointCheckbox'
       } )
     ];
 
@@ -107,7 +107,7 @@ export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
         options: {
           visible: GOQueryParameters.addGuidesCheckbox
         },
-        tandem: options.tandem.createTandem( 'guidesCheckbox' )
+        tandemName: 'guidesCheckbox'
       } ) );
     }
 
@@ -117,28 +117,28 @@ export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
 
 type ItemOptions = {
   iconNode?: Node;
-} & PickRequired<VerticalCheckboxGroupItem, 'tandem'> & PickOptional<VerticalCheckboxGroupItem, 'options'>;
+} & PickRequired<VerticalCheckboxGroupItem, 'tandemName'> & PickOptional<VerticalCheckboxGroupItem, 'options'>;
 
 function createItem( labelStringProperty: TReadOnlyProperty<string>,
                      property: Property<boolean>, providedOptions: ItemOptions ): VerticalCheckboxGroupItem {
 
-  const labelText = new Text( labelStringProperty, {
-    font: GOConstants.CONTROL_FONT,
-    maxWidth: 90,
-    tandem: providedOptions.tandem.createTandem( 'labelText' ),
-    phetioVisiblePropertyInstrumented: false
-  } );
-
-  // Create HBox if icon is present, otherwise the label is just text.
-  const labelNode = providedOptions.iconNode ?
-                    new HBox( { children: [ labelText, providedOptions.iconNode ], spacing: 8 } ) :
-                    labelText;
-
   return {
-    node: labelNode,
+    createNode: tandem => {
+      const labelText = new Text( labelStringProperty, {
+        font: GOConstants.CONTROL_FONT,
+        maxWidth: 90,
+        tandem: tandem.createTandem( 'labelText' ),
+        phetioVisiblePropertyInstrumented: false
+      } );
+
+      // Create HBox if icon is present, otherwise the label is just text.
+      return providedOptions.iconNode ?
+             new HBox( { children: [ labelText, providedOptions.iconNode ], spacing: 8 } ) :
+             labelText;
+    },
     property: property,
     options: providedOptions.options,
-    tandem: providedOptions.tandem
+    tandemName: providedOptions.tandemName
   };
 }
 
