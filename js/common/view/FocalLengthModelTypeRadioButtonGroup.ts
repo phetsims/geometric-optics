@@ -26,8 +26,6 @@ type FocalLengthControlRadioButtonGroupOptions = SelfOptions & PickRequired<Vert
 
 export default class FocalLengthModelTypeRadioButtonGroup extends VerticalAquaRadioButtonGroup<FocalLengthModelType> {
 
-  private readonly disposeFocalLengthModelTypeRadioButtonGroup: () => void;
-
   /**
    * @param focalLengthModelTypeProperty - whether to set focal length directly or indirectl
    * @param providedOptions
@@ -51,15 +49,6 @@ export default class FocalLengthModelTypeRadioButtonGroup extends VerticalAquaRa
     ];
 
     super( focalLengthModelTypeProperty, items, options );
-
-    this.disposeFocalLengthModelTypeRadioButtonGroup = () => {
-      items.forEach( item => item.node.dispose() );
-    };
-  }
-
-  public override dispose(): void {
-    this.disposeFocalLengthModelTypeRadioButtonGroup();
-    super.dispose();
   }
 }
 
@@ -76,10 +65,10 @@ function createItem( value: FocalLengthModelType,
                      itemTandemName: string ): AquaRadioButtonGroupItem<FocalLengthModelType> {
   return {
     value: value,
-    node: new Text( labelStringProperty, {
+    createNode: tandem => new Text( labelStringProperty, {
       font: GOConstants.CONTROL_FONT,
       maxWidth: 500,
-      tandem: groupTandem.createTandem( itemTandemName ).createTandem( 'labelText' ),
+      tandem: tandem.createTandem( 'labelText' ),
       phetioVisiblePropertyInstrumented: false
     } ),
     tandemName: itemTandemName

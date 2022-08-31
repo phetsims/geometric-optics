@@ -63,7 +63,7 @@ function createItem( value: RaysType,
                      itemTandemName: string ): AquaRadioButtonGroupItem<RaysType> {
   return {
     value: value,
-    node: new Text( labelStringProperty, {
+    createNode: tandem => new Text( labelStringProperty, {
       font: GOConstants.CONTROL_FONT,
       maxWidth: 65,
       tandem: groupTandem.createTandem( itemTandemName ).createTandem( 'labelText' ),
