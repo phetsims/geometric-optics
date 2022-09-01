@@ -1,7 +1,7 @@
 /* eslint-disable */
 window.phet.preloads.phetio.phetioElementsOverrides =
   {
-    "geometricOptics.general.view.navigationBar.preferencesButton.preferencesDialogCapsule.archetype.preferencesPanels.generalPreferencesPanel.simPreferences.focalLengthModelControl.visibleProperty": {
+    "geometricOptics.general.view.navigationBar.preferencesButton.preferencesDialogCapsule.archetype.preferencesPanels.simulationPreferencesPanel.simPreferences.focalLengthModelControl.visibleProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.global.model.preferences.add2FPointsCheckboxProperty": {
