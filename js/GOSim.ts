@@ -45,7 +45,7 @@ export default class GOSim extends Sim {
               isBasicsVersion: providedOptions.isBasicsVersion,
               tandem: tandem.createTandem( 'simPreferences' )
             } ),
-            linkedModelProperties: [
+            modelLinkables: [
               { property: GOPreferences.focalLengthModelTypeProperty },
               { property: GOPreferences.add2FPointsCheckboxProperty },
               { property: GOPreferences.cueingArrowsEnabledProperty }
