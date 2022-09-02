@@ -64,20 +64,20 @@ export default class LabelNode extends BackgroundNode {
       phetioVisiblePropertyInstrumented: false
     }, providedOptions );
 
-    const textNode = new RichText( labelStringProperty, {
+    const labelText = new RichText( labelStringProperty, {
       align: 'center',
       fill: GOColors.labelFillProperty,
       font: GOConstants.LABEL_FONT,
       maxWidth: 85,
-      tandem: providedOptions.tandem.createTandem( 'textNode' ),
+      tandem: providedOptions.tandem.createTandem( 'labelText' ),
       phetioVisiblePropertyInstrumented: false
     } );
 
-    super( textNode, options );
+    super( labelText, options );
 
     // Keep the label properly aligned with the thing it's labeling.
     Multilink.multilink(
-      [ zoomTransformProperty, positionProperty, textNode.boundsProperty ],
+      [ zoomTransformProperty, positionProperty, labelText.boundsProperty ],
       ( zoomTransform, position, textBounds ) => {
         const viewPosition = zoomTransform.modelToViewPosition( position ).plusXY( options.xOffset, options.yOffset );
 
