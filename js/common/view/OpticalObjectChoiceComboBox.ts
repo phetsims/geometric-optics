@@ -54,10 +54,10 @@ export default class OpticalObjectChoiceComboBox extends ComboBox<OpticalObjectC
       const itemTandemName = `${opticalObjectChoice.tandemPrefix}${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`;
 
       // create text
-      const textNode = new Text( opticalObjectChoice.labelStringProperty, {
+      const labelText = new Text( opticalObjectChoice.labelStringProperty, {
         font: GOConstants.CONTROL_FONT,
         maxWidth: 100,
-        tandem: options.tandem.createTandem( itemTandemName ).createTandem( 'textNode' ),
+        tandem: options.tandem.createTandem( itemTandemName ).createTandem( 'labelText' ),
         phetioVisiblePropertyInstrumented: false
       } );
 
@@ -71,7 +71,7 @@ export default class OpticalObjectChoiceComboBox extends ComboBox<OpticalObjectC
 
       const hBox = new HBox( {
         spacing: 5,
-        children: [ iconAlignBox, textNode ]
+        children: [ iconAlignBox, labelText ]
       } );
 
       // create and add combo box item to the array
