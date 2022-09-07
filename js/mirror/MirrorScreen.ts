@@ -11,7 +11,7 @@ import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import GOColors from '../common/GOColors.js';
 import geometricOptics from '../geometricOptics.js';
-import geometricOpticsStrings from '../geometricOpticsStrings.js';
+import GeometricOpticsStrings from '../GeometricOpticsStrings.js';
 import MirrorModel from './model/MirrorModel.js';
 import MirrorNode from './view/MirrorNode.js';
 import MirrorScreenView from './view/MirrorScreenView.js';
@@ -32,7 +32,7 @@ export default class MirrorScreen extends Screen<MirrorModel, MirrorScreenView> 
     const options = optionize<MirrorScreenOptions, SelfOptions, ScreenOptions>()( {
 
       // Screen options
-      name: geometricOpticsStrings.screen.mirrorStringProperty,
+      name: GeometricOpticsStrings.screen.mirrorStringProperty,
       homeScreenIcon: createScreenIcon( providedOptions.isBasicsVersion ? 'flat' : 'concave' ),
       showUnselectedHomeScreenIconFrame: true,
       backgroundColorProperty: GOColors.screenBackgroundColorProperty,

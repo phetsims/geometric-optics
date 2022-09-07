@@ -8,7 +8,7 @@
 
 import NumberControl, { NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
 import geometricOptics from '../../geometricOptics.js';
-import geometricOpticsStrings from '../../geometricOpticsStrings.js';
+import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
@@ -45,7 +45,7 @@ export default class IndexOfRefractionControl extends NumberControl {
     const options = optionize<IndexOfRefractionControlOptions, SelfOptions, NumberControlOptions>()(
       numberControlDefaults, providedOptions );
 
-    super( geometricOpticsStrings.indexOfRefractionStringProperty, indexOfRefractionProperty, range, options );
+    super( GeometricOpticsStrings.indexOfRefractionStringProperty, indexOfRefractionProperty, range, options );
 
     this.addLinkedElement( indexOfRefractionProperty, {
       tandem: options.tandem.createTandem( indexOfRefractionProperty.tandem.name )

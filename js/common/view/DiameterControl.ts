@@ -8,7 +8,7 @@
 
 import NumberControl, { NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
 import geometricOptics from '../../geometricOptics.js';
-import geometricOpticsStrings from '../../geometricOpticsStrings.js';
+import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
@@ -41,7 +41,7 @@ export default class DiameterControl extends NumberControl {
       },
       numberDisplayOptions: {
         decimalPlaces: GOConstants.DIAMETER_DECIMAL_PLACES,
-        valuePattern: geometricOpticsStrings.valueCentimetersPatternStringProperty
+        valuePattern: GeometricOpticsStrings.valueCentimetersPatternStringProperty
       }
     } );
 
@@ -49,7 +49,7 @@ export default class DiameterControl extends NumberControl {
     const options = optionize<DiameterControlOptions, SelfOptions, NumberControlOptions>()(
       numberControlDefaults, providedOptions );
 
-    super( geometricOpticsStrings.diameterStringProperty, diameterProperty, range, options );
+    super( GeometricOpticsStrings.diameterStringProperty, diameterProperty, range, options );
 
     this.addLinkedElement( diameterProperty, {
       tandem: options.tandem.createTandem( diameterProperty.tandem.name )

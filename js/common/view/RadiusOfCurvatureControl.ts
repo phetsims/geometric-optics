@@ -9,7 +9,7 @@
 
 import NumberControl, { NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
 import geometricOptics from '../../geometricOptics.js';
-import geometricOpticsStrings from '../../geometricOpticsStrings.js';
+import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
@@ -39,8 +39,8 @@ export default class RadiusOfCurvatureControl extends NumberControl {
 
     const titleStringProperty = new DerivedProperty( [
       radiusOfCurvatureProperty,
-      geometricOpticsStrings.radiusOfCurvaturePositiveStringProperty,
-      geometricOpticsStrings.radiusOfCurvatureNegativeStringProperty
+      GeometricOpticsStrings.radiusOfCurvaturePositiveStringProperty,
+      GeometricOpticsStrings.radiusOfCurvatureNegativeStringProperty
     ], ( radiusOfCurvature: number, radiusOfCurvaturePositiveString: string, radiusOfCurvatureNegativeString: string ) =>
       ( radiusOfCurvature >= 0 ) ? radiusOfCurvaturePositiveString : radiusOfCurvatureNegativeString, {
       tandem: providedOptions.tandem.createTandem( 'titleStringProperty' ),
@@ -55,7 +55,7 @@ export default class RadiusOfCurvatureControl extends NumberControl {
       },
       numberDisplayOptions: {
         decimalPlaces: GOConstants.RADIUS_OF_CURVATURE_DECIMAL_PLACES,
-        valuePattern: geometricOpticsStrings.valueCentimetersPatternStringProperty
+        valuePattern: GeometricOpticsStrings.valueCentimetersPatternStringProperty
       },
       sliderOptions: {
         constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.RADIUS_OF_CURVATURE_SLIDER_STEP ),

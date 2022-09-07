@@ -79,8 +79,8 @@ type StringsType = {
   }
 };
 
-const geometricOpticsStrings = getStringModule( 'GEOMETRIC_OPTICS' ) as StringsType;
+const GeometricOpticsStrings = getStringModule( 'GEOMETRIC_OPTICS' ) as StringsType;
 
-geometricOptics.register( 'geometricOpticsStrings', geometricOpticsStrings );
+geometricOptics.register( 'GeometricOpticsStrings', GeometricOpticsStrings );
 
-export default geometricOpticsStrings;
+export default GeometricOpticsStrings;

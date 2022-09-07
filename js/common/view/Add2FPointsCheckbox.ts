@@ -13,7 +13,7 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { Text } from '../../../../scenery/js/imports.js';
 import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
 import geometricOptics from '../../geometricOptics.js';
-import geometricOpticsStrings from '../../geometricOpticsStrings.js';
+import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -30,7 +30,7 @@ export default class Add2FPointsCheckbox extends Checkbox {
       boxWidth: GOConstants.CHECKBOX_BOX_WIDTH
     }, providedOptions );
 
-    const labelText = new Text( geometricOpticsStrings.checkbox.add2FPointsCheckboxStringProperty, {
+    const labelText = new Text( GeometricOpticsStrings.checkbox.add2FPointsCheckboxStringProperty, {
       font: GOConstants.CONTROL_FONT,
       maxWidth: 500,
       tandem: options.tandem.createTandem( 'labelText' ),

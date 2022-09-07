@@ -10,7 +10,7 @@
 import { Text } from '../../../../scenery/js/imports.js';
 import VerticalAquaRadioButtonGroup, { VerticalAquaRadioButtonGroupOptions } from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import geometricOptics from '../../geometricOptics.js';
-import geometricOpticsStrings from '../../geometricOpticsStrings.js';
+import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
 import { RaysType } from '../model/RaysType.js';
 import { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
@@ -40,10 +40,10 @@ export default class RaysRadioButtonGroup extends VerticalAquaRadioButtonGroup<R
 
     // items for ray Mode radio buttons
     const items = [
-      createItem( 'marginal', geometricOpticsStrings.radioButton.marginalStringProperty, options.tandem, 'marginalRadioButton' ),
-      createItem( 'principal', geometricOpticsStrings.radioButton.principalStringProperty, options.tandem, 'principalRadioButton' ),
-      createItem( 'many', geometricOpticsStrings.radioButton.manyStringProperty, options.tandem, 'manyRadioButton' ),
-      createItem( 'none', geometricOpticsStrings.radioButton.noneStringProperty, options.tandem, 'noneRadioButton' )
+      createItem( 'marginal', GeometricOpticsStrings.radioButton.marginalStringProperty, options.tandem, 'marginalRadioButton' ),
+      createItem( 'principal', GeometricOpticsStrings.radioButton.principalStringProperty, options.tandem, 'principalRadioButton' ),
+      createItem( 'many', GeometricOpticsStrings.radioButton.manyStringProperty, options.tandem, 'manyRadioButton' ),
+      createItem( 'none', GeometricOpticsStrings.radioButton.noneStringProperty, options.tandem, 'noneRadioButton' )
     ];
 
     super( raysTypeProperty, items, options );

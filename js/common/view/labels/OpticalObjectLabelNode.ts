@@ -8,7 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 import LabelNode, { LabelNodeOptions } from './LabelNode.js';
-import geometricOpticsStrings from '../../../geometricOpticsStrings.js';
+import GeometricOpticsStrings from '../../../GeometricOpticsStrings.js';
 import geometricOptics from '../../../geometricOptics.js';
 import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
 import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
@@ -46,8 +46,8 @@ export default class OpticalObjectLabelNode extends LabelNode {
 
     const labelStringProperty = new DerivedProperty( [
       options.isNumberedProperty,
-      geometricOpticsStrings.label.objectStringProperty,
-      geometricOpticsStrings.label.objectNStringProperty
+      GeometricOpticsStrings.label.objectStringProperty,
+      GeometricOpticsStrings.label.objectNStringProperty
     ], (
       isNumbered: boolean,
       objectString: string,

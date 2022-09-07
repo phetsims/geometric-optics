@@ -6,7 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import geometricOpticsStrings from '../../geometricOpticsStrings.js';
+import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
 import FocalLengthModelTypeRadioButtonGroup from './FocalLengthModelTypeRadioButtonGroup.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -42,7 +42,7 @@ export default class FocalLengthModelTypeControl extends VBox {
 
     super( options );
 
-    const labelText = new Text( geometricOpticsStrings.focalLengthControlStringProperty, {
+    const labelText = new Text( GeometricOpticsStrings.focalLengthControlStringProperty, {
       font: GOConstants.CONTROL_FONT,
       tandem: options.tandem.createTandem( 'labelText' ),
       phetioVisiblePropertyInstrumented: false

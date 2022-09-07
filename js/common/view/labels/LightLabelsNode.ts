@@ -9,7 +9,7 @@
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import geometricOptics from '../../../geometricOptics.js';
-import geometricOpticsStrings from '../../../geometricOpticsStrings.js';
+import GeometricOpticsStrings from '../../../GeometricOpticsStrings.js';
 import LabelNode from './LabelNode.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
@@ -68,7 +68,7 @@ export default class LightLabelsNode extends GOLabelsNode {
       position => new Vector2( position.x - 25, position.y - 65 ) // empirically, model coordinates
     );
 
-    const screenLabel = new LabelNode( geometricOpticsStrings.label.projectionScreenStringProperty,
+    const screenLabel = new LabelNode( GeometricOpticsStrings.label.projectionScreenStringProperty,
       screenLabelPositionProperty, zoomTransformProperty, {
         visibleProperty: sceneNode.projectionScreenNodeVisibleProperty,
         tandem: providedOptions.tandem.createTandem( 'screenLabel' )

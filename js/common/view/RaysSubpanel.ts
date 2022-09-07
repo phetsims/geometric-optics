@@ -11,7 +11,7 @@ import Property from '../../../../axon/js/Property.js';
 import { Text, VBox } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
-import geometricOpticsStrings from '../../geometricOpticsStrings.js';
+import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
 import { RaysType } from '../model/RaysType.js';
 import RaysRadioButtonGroup from './RaysRadioButtonGroup.js';
@@ -25,7 +25,7 @@ export default class RaysSubpanel extends VBox {
   public constructor( raysTypeProperty: Property<RaysType>, tandem: Tandem ) {
 
     // title
-    const titleText = new Text( geometricOpticsStrings.raysStringProperty, {
+    const titleText = new Text( GeometricOpticsStrings.raysStringProperty, {
       font: GOConstants.TITLE_FONT,
       maxWidth: 90,
       tandem: tandem.createTandem( 'titleText' ),

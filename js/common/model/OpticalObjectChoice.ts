@@ -8,7 +8,7 @@
 
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import EnumerationValue from '../../../../phet-core/js/EnumerationValue.js';
-import geometricOpticsStrings from '../../geometricOpticsStrings.js';
+import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
 import pencilIcon_png from '../../../images/pencilIcon_png.js';
 import penguinIcon_png from '../../../images/penguinIcon_png.js';
 import lightIcon_png from '../../../images/lightIcon_png.js';
@@ -76,7 +76,7 @@ export default class OpticalObjectChoice extends EnumerationValue {
 
   public static readonly PENCIL = new OpticalObjectChoice( {
     type: 'framed',
-    labelStringProperty: geometricOpticsStrings.pencilStringProperty,
+    labelStringProperty: GeometricOpticsStrings.pencilStringProperty,
     icon: pencilIcon_png,
     tandemPrefix: 'pencil',
     objectHTMLImageElements: {
@@ -89,7 +89,7 @@ export default class OpticalObjectChoice extends EnumerationValue {
 
   public static readonly PENGUIN = new OpticalObjectChoice( {
     type: 'framed',
-    labelStringProperty: geometricOpticsStrings.penguinStringProperty,
+    labelStringProperty: GeometricOpticsStrings.penguinStringProperty,
     icon: penguinIcon_png,
     tandemPrefix: 'penguin',
     objectHTMLImageElements: {
@@ -102,7 +102,7 @@ export default class OpticalObjectChoice extends EnumerationValue {
 
   public static readonly STAR = new OpticalObjectChoice( {
     type: 'framed',
-    labelStringProperty: geometricOpticsStrings.starStringProperty,
+    labelStringProperty: GeometricOpticsStrings.starStringProperty,
     icon: starIcon_png,
     tandemPrefix: 'star',
     objectHTMLImageElements: {
@@ -115,14 +115,14 @@ export default class OpticalObjectChoice extends EnumerationValue {
 
   public static readonly ARROW = new OpticalObjectChoice( {
     type: 'arrow',
-    labelStringProperty: geometricOpticsStrings.arrowStringProperty,
+    labelStringProperty: GeometricOpticsStrings.arrowStringProperty,
     icon: ARROW_ICON,
     tandemPrefix: 'arrow'
   } );
 
   public static readonly LIGHT = new OpticalObjectChoice( {
     type: 'light',
-    labelStringProperty: geometricOpticsStrings.lightStringProperty,
+    labelStringProperty: GeometricOpticsStrings.lightStringProperty,
     icon: lightIcon_png,
     tandemPrefix: 'light'
   } );

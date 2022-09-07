@@ -9,7 +9,7 @@
 
 import NumberControl, { NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
 import geometricOptics from '../../geometricOptics.js';
-import geometricOpticsStrings from '../../geometricOpticsStrings.js';
+import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
@@ -40,8 +40,8 @@ export default class FocalLengthControl extends NumberControl {
 
     const titleStringProperty = new DerivedProperty( [
       focalLengthProperty,
-      geometricOpticsStrings.focalLengthPositiveStringProperty,
-      geometricOpticsStrings.focalLengthNegativeStringProperty
+      GeometricOpticsStrings.focalLengthPositiveStringProperty,
+      GeometricOpticsStrings.focalLengthNegativeStringProperty
     ], ( focalLength: number, focalLengthPositiveString: string, focalLengthNegativeString: string ) =>
       ( focalLength >= 0 ) ? focalLengthPositiveString : focalLengthNegativeString, {
       tandem: providedOptions.tandem.createTandem( 'titleStringProperty' ),
@@ -56,7 +56,7 @@ export default class FocalLengthControl extends NumberControl {
       },
       numberDisplayOptions: {
         decimalPlaces: GOConstants.FOCAL_LENGTH_DECIMAL_PLACES,
-        valuePattern: geometricOpticsStrings.valueCentimetersPatternStringProperty
+        valuePattern: GeometricOpticsStrings.valueCentimetersPatternStringProperty
       },
       sliderOptions: {
         constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.FOCAL_LENGTH_SLIDER_STEP ),

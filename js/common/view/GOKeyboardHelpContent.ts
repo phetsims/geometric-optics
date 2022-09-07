@@ -15,7 +15,7 @@ import SliderControlsKeyboardHelpSection from '../../../../scenery-phet/js/keybo
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
 import TextKeyNode from '../../../../scenery-phet/js/keyboard/TextKeyNode.js';
 import geometricOptics from '../../geometricOptics.js';
-import geometricOpticsStrings from '../../geometricOpticsStrings.js';
+import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
 
 export default class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
@@ -31,9 +31,9 @@ export default class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent 
 
       // Choose an Object
       new ComboBoxKeyboardHelpSection( {
-        headingString: geometricOpticsStrings.keyboardHelpDialog.chooseAnObjectStringProperty,
-        thingAsLowerCaseSingular: geometricOpticsStrings.keyboardHelpDialog.objectStringProperty,
-        thingAsLowerCasePlural: geometricOpticsStrings.keyboardHelpDialog.objectsStringProperty
+        headingString: GeometricOpticsStrings.keyboardHelpDialog.chooseAnObjectStringProperty,
+        thingAsLowerCaseSingular: GeometricOpticsStrings.keyboardHelpDialog.objectStringProperty,
+        thingAsLowerCasePlural: GeometricOpticsStrings.keyboardHelpDialog.objectsStringProperty
       } )
     ];
 
@@ -61,16 +61,16 @@ class MoveDraggableItemsKeyboardHelpSection extends KeyboardHelpSection {
   public constructor() {
 
     // arrows or WASD
-    const normalRow = KeyboardHelpSectionRow.labelWithIcon( geometricOpticsStrings.keyboardHelpDialog.moveStringProperty,
+    const normalRow = KeyboardHelpSectionRow.labelWithIcon( GeometricOpticsStrings.keyboardHelpDialog.moveStringProperty,
       KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon() );
 
     // Shift+arrows or Shift+WASD
-    const slowerRow = KeyboardHelpSectionRow.labelWithIconList( geometricOpticsStrings.keyboardHelpDialog.moveSlowerStringProperty, [
+    const slowerRow = KeyboardHelpSectionRow.labelWithIconList( GeometricOpticsStrings.keyboardHelpDialog.moveSlowerStringProperty, [
       KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.arrowKeysRowIcon() ),
       KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.wasdRowIcon() )
     ] );
 
-    super( geometricOpticsStrings.keyboardHelpDialog.moveDraggableItemsStringProperty, [ normalRow, slowerRow ] );
+    super( GeometricOpticsStrings.keyboardHelpDialog.moveDraggableItemsStringProperty, [ normalRow, slowerRow ] );
   }
 }
 
@@ -80,17 +80,17 @@ class MoveDraggableItemsKeyboardHelpSection extends KeyboardHelpSection {
 class RulerAndMarkerControlsKeyboardHelpSection extends KeyboardHelpSection {
 
   public constructor() {
-    super( geometricOpticsStrings.keyboardHelpDialog.rulerAndMarkerControlsStringProperty, [
+    super( GeometricOpticsStrings.keyboardHelpDialog.rulerAndMarkerControlsStringProperty, [
 
       // Space or Enter
-      KeyboardHelpSectionRow.labelWithIcon( geometricOpticsStrings.keyboardHelpDialog.removeFromToolboxStringProperty,
+      KeyboardHelpSectionRow.labelWithIcon( GeometricOpticsStrings.keyboardHelpDialog.removeFromToolboxStringProperty,
         KeyboardHelpIconFactory.iconOrIcon( TextKeyNode.space(), TextKeyNode.enter() ) ),
 
       // Esc
-      KeyboardHelpSectionRow.labelWithIcon( geometricOpticsStrings.keyboardHelpDialog.returnToToolboxStringProperty, TextKeyNode.esc() ),
+      KeyboardHelpSectionRow.labelWithIcon( GeometricOpticsStrings.keyboardHelpDialog.returnToToolboxStringProperty, TextKeyNode.esc() ),
 
       // J, for 'Jump'
-      KeyboardHelpSectionRow.createKeysRowFromStrings( [ 'J' ], geometricOpticsStrings.keyboardHelpDialog.jumpToPointStringProperty )
+      KeyboardHelpSectionRow.createKeysRowFromStrings( [ 'J' ], GeometricOpticsStrings.keyboardHelpDialog.jumpToPointStringProperty )
     ], {
       textMaxWidth: 300
     } );

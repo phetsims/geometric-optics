@@ -19,7 +19,7 @@ import PhetFont from '../../../../../scenery-phet/js/PhetFont.js';
 import RulerNode from '../../../../../scenery-phet/js/RulerNode.js';
 import { DragListener, Node } from '../../../../../scenery/js/imports.js';
 import geometricOptics from '../../../geometricOptics.js';
-import geometricOpticsStrings from '../../../geometricOpticsStrings.js';
+import GeometricOpticsStrings from '../../../GeometricOpticsStrings.js';
 import GOConstants from '../../GOConstants.js';
 import GORuler from '../../model/tools/GORuler.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
@@ -244,7 +244,7 @@ function createRulerNode( rulerLength: number, zoomTransform: ModelViewTransform
   }
 
   return new RulerNode( rulerWidth, GOConstants.RULER_HEIGHT,
-    majorTickWidth, majorTickLabels, geometricOpticsStrings.centimetersStringProperty, {
+    majorTickWidth, majorTickLabels, GeometricOpticsStrings.centimetersStringProperty, {
       opacity: 0.8,
       minorTicksPerMajorTick: 4,
       majorTickFont: new PhetFont( 13 ),

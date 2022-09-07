@@ -11,7 +11,7 @@ import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
 import { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import geometricOptics from '../../../geometricOptics.js';
-import geometricOpticsStrings from '../../../geometricOpticsStrings.js';
+import GeometricOpticsStrings from '../../../GeometricOpticsStrings.js';
 import Lens from '../../../lens/model/Lens.js';
 import Mirror from '../../../mirror/model/Mirror.js';
 import Optic from '../../model/Optic.js';
@@ -41,11 +41,11 @@ export default class OpticLabelNode extends LabelNode {
 
     const labelStringProperty = new DerivedProperty( [
       optic.opticSurfaceTypeProperty,
-      geometricOpticsStrings.label.convexLensStringProperty,
-      geometricOpticsStrings.label.concaveLensStringProperty,
-      geometricOpticsStrings.label.convexMirrorStringProperty,
-      geometricOpticsStrings.label.concaveMirrorStringProperty,
-      geometricOpticsStrings.label.flatMirrorStringProperty
+      GeometricOpticsStrings.label.convexLensStringProperty,
+      GeometricOpticsStrings.label.concaveLensStringProperty,
+      GeometricOpticsStrings.label.convexMirrorStringProperty,
+      GeometricOpticsStrings.label.concaveMirrorStringProperty,
+      GeometricOpticsStrings.label.flatMirrorStringProperty
     ], (
       opticSurfaceType: OpticSurfaceType,
       convexLensString: string,

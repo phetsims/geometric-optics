@@ -11,7 +11,7 @@ import { Text } from '../../../../scenery/js/imports.js';
 import { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
 import VerticalAquaRadioButtonGroup, { VerticalAquaRadioButtonGroupOptions } from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import geometricOptics from '../../geometricOptics.js';
-import geometricOpticsStrings from '../../geometricOpticsStrings.js';
+import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
 import { FocalLengthModelType } from '../model/FocalLengthModelType.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
@@ -44,8 +44,8 @@ export default class FocalLengthModelTypeRadioButtonGroup extends VerticalAquaRa
     }, providedOptions );
 
     const items = [
-      createItem( 'direct', geometricOpticsStrings.radioButton.directStringProperty, options.tandem, 'directRadioButton' ),
-      createItem( 'indirect', geometricOpticsStrings.radioButton.indirectStringProperty, options.tandem, 'indirectRadioButton' )
+      createItem( 'direct', GeometricOpticsStrings.radioButton.directStringProperty, options.tandem, 'directRadioButton' ),
+      createItem( 'indirect', GeometricOpticsStrings.radioButton.indirectStringProperty, options.tandem, 'indirectRadioButton' )
     ];
 
     super( focalLengthModelTypeProperty, items, options );

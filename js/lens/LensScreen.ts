@@ -12,7 +12,7 @@ import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import GOColors from '../common/GOColors.js';
 import GOKeyboardHelpContent from '../common/view/GOKeyboardHelpContent.js';
 import geometricOptics from '../geometricOptics.js';
-import geometricOpticsStrings from '../geometricOpticsStrings.js';
+import GeometricOpticsStrings from '../GeometricOpticsStrings.js';
 import LensModel from './model/LensModel.js';
 import LensNode from './view/LensNode.js';
 import LensScreenView from './view/LensScreenView.js';
@@ -31,7 +31,7 @@ export default class LensScreen extends Screen<LensModel, LensScreenView> {
     const options = optionize<LensScreenOptions, SelfOptions, ScreenOptions>()( {
 
       // Screen options
-      name: geometricOpticsStrings.screen.lensStringProperty,
+      name: GeometricOpticsStrings.screen.lensStringProperty,
       homeScreenIcon: createScreenIcon(),
       showUnselectedHomeScreenIconFrame: true,
       backgroundColorProperty: GOColors.screenBackgroundColorProperty,
