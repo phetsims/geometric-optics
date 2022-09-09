@@ -69,8 +69,7 @@ export default class LabelNode extends BackgroundNode {
       fill: GOColors.labelFillProperty,
       font: GOConstants.LABEL_FONT,
       maxWidth: 85,
-      tandem: providedOptions.tandem.createTandem( 'labelText' ),
-      phetioVisiblePropertyInstrumented: false
+      tandem: providedOptions.tandem.createTandem( 'labelText' )
     } );
 
     super( labelText, options );

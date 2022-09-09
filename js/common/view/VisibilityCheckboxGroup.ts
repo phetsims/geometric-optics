@@ -127,8 +127,7 @@ function createItem( labelStringProperty: TReadOnlyProperty<string>,
       const labelText = new Text( labelStringProperty, {
         font: GOConstants.CONTROL_FONT,
         maxWidth: 90,
-        tandem: tandem.createTandem( 'labelText' ),
-        phetioVisiblePropertyInstrumented: false
+        tandem: tandem.createTandem( 'labelText' )
       } );
 
       // Create HBox if icon is present, otherwise the label is just text.

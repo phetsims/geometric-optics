@@ -51,9 +51,6 @@ export default class FocalLengthControl extends NumberControl {
     // Assemble the defaults for NumberControl, because optionize doesn't support defaults in multiple objects.
     const numberControlDefaults = combineOptions<NumberControlOptions>( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
       delta: GOConstants.FOCAL_LENGTH_SPINNER_STEP,
-      titleNodeOptions: {
-        phetioVisiblePropertyInstrumented: false
-      },
       numberDisplayOptions: {
         decimalPlaces: GOConstants.FOCAL_LENGTH_DECIMAL_PLACES,
         valuePattern: GeometricOpticsStrings.valueCentimetersPatternStringProperty

@@ -50,9 +50,6 @@ export default class RadiusOfCurvatureControl extends NumberControl {
     // Assemble the defaults for NumberControl, because optionize doesn't support defaults in multiple objects.
     const numberControlDefaults = combineOptions<NumberControlOptions>( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
       delta: GOConstants.RADIUS_OF_CURVATURE_SPINNER_STEP,
-      titleNodeOptions: {
-        phetioVisiblePropertyInstrumented: false
-      },
       numberDisplayOptions: {
         decimalPlaces: GOConstants.RADIUS_OF_CURVATURE_DECIMAL_PLACES,
         valuePattern: GeometricOpticsStrings.valueCentimetersPatternStringProperty

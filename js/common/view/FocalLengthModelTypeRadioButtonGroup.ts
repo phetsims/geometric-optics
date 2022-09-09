@@ -68,8 +68,7 @@ function createItem( value: FocalLengthModelType,
     createNode: tandem => new Text( labelStringProperty, {
       font: GOConstants.CONTROL_FONT,
       maxWidth: 500,
-      tandem: tandem.createTandem( 'labelText' ),
-      phetioVisiblePropertyInstrumented: false
+      tandem: tandem.createTandem( 'labelText' )
     } ),
     tandemName: itemTandemName
   };

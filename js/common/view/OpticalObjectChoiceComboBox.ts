@@ -57,8 +57,7 @@ export default class OpticalObjectChoiceComboBox extends ComboBox<OpticalObjectC
       const labelText = new Text( opticalObjectChoice.labelStringProperty, {
         font: GOConstants.CONTROL_FONT,
         maxWidth: 100,
-        tandem: options.tandem.createTandem( itemTandemName ).createTandem( 'labelText' ),
-        phetioVisiblePropertyInstrumented: false
+        tandem: options.tandem.createTandem( itemTandemName ).createTandem( 'labelText' )
       } );
 
       // create icon

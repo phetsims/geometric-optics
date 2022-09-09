@@ -44,8 +44,7 @@ export default class FocalLengthModelTypeControl extends VBox {
 
     const labelText = new Text( GeometricOpticsStrings.focalLengthControlStringProperty, {
       font: GOConstants.CONTROL_FONT,
-      tandem: options.tandem.createTandem( 'labelText' ),
-      phetioVisiblePropertyInstrumented: false
+      tandem: options.tandem.createTandem( 'labelText' )
     } );
 
     const radioButtonGroup = new FocalLengthModelTypeRadioButtonGroup( focalLengthModelTypeProperty, {
