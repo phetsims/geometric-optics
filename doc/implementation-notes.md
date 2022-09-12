@@ -220,9 +220,15 @@ GuidesNode - a pair of guides
 
 ## 3D Perspective
 
-Since the framed objects/images have 3D perspective, we want the the optical axis and rays to look like they are passing through the object/images. This is accomplish by drawing 2 copies of the axis and real rays, one behind the objects/images and one in front of the objects/images.  The copy in front uses a `clipArea` to show only the parts of the axis and rays that are not occluded by the object/image - see `OpticalAxisForegrondNode` and `RealLightRaysForegroundNode`.
+Since the framed objects/images have 3D perspective, we want the optical axis and rays to look like they are passing
+through the object/images. This is accomplished by drawing 2 copies of the axis and real rays, one behind the
+objects/images and one in front of the objects/images. The copy in front uses a `clipArea` to show only the parts of the
+axis and rays that are not occluded by the object/image - see `OpticalAxisForegrondNode`
+and `RealLightRaysForegroundNode`.
 
-The projection screen also has 3D perspective. To make the optical axis look like it passes through the screen, we similarly draw 2 copies of the axis.  A `clipArea` is not necessary, and the front axis simply stops where it meets the center of the screen. See `OpticalAxisInFrontOfProjectionScreenNode`.
+The projection screen also has 3D perspective. To make the optical axis look like it passes through the screen, we
+similarly draw 2 copies of the axis. A `clipArea` is not necessary, and the front axis simply stops where it meets the
+center of the screen. See `OpticalAxisInFrontOfProjectionScreenNode`.
 
 ## Scenes
 
@@ -286,7 +292,8 @@ GOLabelsNode
   LightLabelsNode
 ```
 
-When the thing that a label is associated with is not visible, the label is not visible.  When zooming in/out, a label moves with the thing that it's labeling, but does not change change its scale (i.e. font size remains constant).
+When the thing that a label is associated with is not visible, the label is not visible. When zooming in/out, a label
+moves with the thing that it's labeling, but does not change its scale (i.e. font size remains constant).
 
 See `js/common/view/labels/` for all source code related to the Labels feature.
 
