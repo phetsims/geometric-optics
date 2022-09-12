@@ -95,7 +95,7 @@ The user can switch between focal-length models via radio buttons in the Options
 The important classes are:
 
 ```
-// model class heirachy
+// model class hierarchy
 Optic
   Lens
   Mirror
@@ -128,7 +128,7 @@ Three types of optical object are implemented in this sim:
 Important classes for the optical object are:
 
 ```
-// model class heirachy
+// model class hierarchy
 OpticalObject
   ArrowObject
   HTMLImageElementObject
