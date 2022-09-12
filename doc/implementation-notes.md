@@ -223,7 +223,7 @@ GuidesNode - a pair of guides
 Since the framed objects/images have 3D perspective, we want the optical axis and rays to look like they are passing
 through the object/images. This is accomplished by drawing 2 copies of the axis and real rays, one behind the
 objects/images and one in front of the objects/images. The copy in front uses a `clipArea` to show only the parts of the
-axis and rays that are not occluded by the object/image - see `OpticalAxisForegrondNode`
+axis and rays that are not occluded by the object/image - see `OpticalAxisForegroundNode`
 and `RealLightRaysForegroundNode`.
 
 The projection screen also has 3D perspective. To make the optical axis look like it passes through the screen, we
