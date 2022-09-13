@@ -10,7 +10,7 @@
 import Property from '../../../../axon/js/Property.js';
 import { HBox } from '../../../../scenery/js/imports.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
-import VSeparator from '../../../../sun/js/VSeparator.js';
+import VSeparatorDeprecated from '../../../../sun/js/VSeparatorDeprecated.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import Optic from '../model/Optic.js';
@@ -65,11 +65,11 @@ export default class GOControlPanel extends Panel {
 
     // Vertical separators between sections of the control panel
     const separatorLength = Math.max( checkboxGroup.height, raysSubpanel.height );
-    const leftSeparator = new VSeparator( separatorLength, {
+    const leftSeparator = new VSeparatorDeprecated( separatorLength, {
       stroke: GOColors.panelSeparatorStrokeProperty,
       tandem: options.tandem.createTandem( 'leftSeparator' )
     } );
-    const rightSeparator = new VSeparator( separatorLength, {
+    const rightSeparator = new VSeparatorDeprecated( separatorLength, {
       stroke: GOColors.panelSeparatorStrokeProperty,
       tandem: options.tandem.createTandem( 'rightSeparator' )
     } );
