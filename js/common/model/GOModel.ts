@@ -27,6 +27,7 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PositionMarker from './tools/PositionMarker.js';
 import GOColors from '../GOColors.js';
 import StringEnumerationProperty from '../../../../axon/js/StringEnumerationProperty.js';
+import TModel from '../../../../joist/js/TModel.js';
 
 type SelfOptions = {
 
@@ -43,7 +44,7 @@ type SelfOptions = {
 
 export type GOModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
-export default class GOModel {
+export default class GOModel implements TModel {
 
   // choice of optical object
   public readonly opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>;
