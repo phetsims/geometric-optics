@@ -14,7 +14,6 @@ import GOConstants from '../GOConstants.js';
 import Utils from '../../../../dot/js/Utils.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import { NodeOptions } from '../../../../scenery/js/imports.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
@@ -22,7 +21,7 @@ import StringIO from '../../../../tandem/js/types/StringIO.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type FocalLengthControlOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
+type FocalLengthControlOptions = SelfOptions & PickRequired<NumberControlOptions, 'tandem'>;
 
 export default class FocalLengthControl extends NumberControl {
 
