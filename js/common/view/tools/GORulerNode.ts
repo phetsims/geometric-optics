@@ -17,7 +17,7 @@ import Utils from '../../../../../dot/js/Utils.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import PhetFont from '../../../../../scenery-phet/js/PhetFont.js';
 import RulerNode from '../../../../../scenery-phet/js/RulerNode.js';
-import { DragListener, Node } from '../../../../../scenery/js/imports.js';
+import { DragListener } from '../../../../../scenery/js/imports.js';
 import geometricOptics from '../../../geometricOptics.js';
 import GeometricOpticsStrings from '../../../GeometricOpticsStrings.js';
 import GOConstants from '../../GOConstants.js';
@@ -77,6 +77,8 @@ export default class GORulerNode extends GOToolNode {
     this.opticPositionProperty = opticPositionProperty;
 
     // Create a RulerNode subcomponent whose scale matches the current zoom level.
+    // Must be disposed, because it links to a translated string Property.
+    let rulerNode: RulerNode;
     zoomTransformProperty.link( ( zoomTransform: ModelViewTransform2 ) => {
 
       // zoomTransformProperty is derived from zoomScaleProperty, so zoomScaleProperty does not need to be
@@ -89,7 +91,9 @@ export default class GORulerNode extends GOToolNode {
 
       // update view
       this.removeAllChildren();
-      this.addChild( createRulerNode( this.ruler.length, zoomTransform, zoomScale ) );
+      rulerNode && rulerNode.dispose();
+      rulerNode = createRulerNode( this.ruler.length, zoomTransform, zoomScale );
+      this.addChild( rulerNode );
     } );
 
     // Origin is at leftBottom for a vertical ruler, leftTop for a horizontal ruler.
@@ -216,7 +220,7 @@ export default class GORulerNode extends GOToolNode {
 /**
  * Creates a scenery-phet.RulerNode appropriate for the zoomTransform and zoom scale.
  */
-function createRulerNode( rulerLength: number, zoomTransform: ModelViewTransform2, zoomScale: number ): Node {
+function createRulerNode( rulerLength: number, zoomTransform: ModelViewTransform2, zoomScale: number ): RulerNode {
 
   // define the length ruler
   const rulerWidth = zoomTransform.modelToViewDeltaX( rulerLength );
