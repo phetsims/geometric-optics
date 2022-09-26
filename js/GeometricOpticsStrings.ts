@@ -5,77 +5,77 @@
  */
 /* eslint-disable */
 import getStringModule from '../../chipper/js/getStringModule.js';
-import TReadOnlyProperty from '../../axon/js/TReadOnlyProperty.js';
+import LinkableProperty from '../../axon/js/LinkableProperty.js';
 import geometricOptics from './geometricOptics.js';
 
 type StringsType = {
   'geometric-optics': {
-    'titleStringProperty': TReadOnlyProperty<string>;
+    'titleStringProperty': LinkableProperty<string>;
   };
   'screen': {
-    'lensStringProperty': TReadOnlyProperty<string>;
-    'mirrorStringProperty': TReadOnlyProperty<string>;
+    'lensStringProperty': LinkableProperty<string>;
+    'mirrorStringProperty': LinkableProperty<string>;
   };
-  'radiusOfCurvaturePositiveStringProperty': TReadOnlyProperty<string>;
-  'radiusOfCurvatureNegativeStringProperty': TReadOnlyProperty<string>;
-  'indexOfRefractionStringProperty': TReadOnlyProperty<string>;
-  'focalLengthPositiveStringProperty': TReadOnlyProperty<string>;
-  'focalLengthNegativeStringProperty': TReadOnlyProperty<string>;
-  'diameterStringProperty': TReadOnlyProperty<string>;
-  'valueCentimetersPatternStringProperty': TReadOnlyProperty<string>;
-  'arrowStringProperty': TReadOnlyProperty<string>;
-  'pencilStringProperty': TReadOnlyProperty<string>;
-  'penguinStringProperty': TReadOnlyProperty<string>;
-  'starStringProperty': TReadOnlyProperty<string>;
-  'lightStringProperty': TReadOnlyProperty<string>;
-  'centimetersStringProperty': TReadOnlyProperty<string>;
-  'raysStringProperty': TReadOnlyProperty<string>;
-  'focalLengthControlStringProperty': TReadOnlyProperty<string>;
+  'radiusOfCurvaturePositiveStringProperty': LinkableProperty<string>;
+  'radiusOfCurvatureNegativeStringProperty': LinkableProperty<string>;
+  'indexOfRefractionStringProperty': LinkableProperty<string>;
+  'focalLengthPositiveStringProperty': LinkableProperty<string>;
+  'focalLengthNegativeStringProperty': LinkableProperty<string>;
+  'diameterStringProperty': LinkableProperty<string>;
+  'valueCentimetersPatternStringProperty': LinkableProperty<string>;
+  'arrowStringProperty': LinkableProperty<string>;
+  'pencilStringProperty': LinkableProperty<string>;
+  'penguinStringProperty': LinkableProperty<string>;
+  'starStringProperty': LinkableProperty<string>;
+  'lightStringProperty': LinkableProperty<string>;
+  'centimetersStringProperty': LinkableProperty<string>;
+  'raysStringProperty': LinkableProperty<string>;
+  'focalLengthControlStringProperty': LinkableProperty<string>;
   'radioButton': {
-    'directStringProperty': TReadOnlyProperty<string>;
-    'indirectStringProperty': TReadOnlyProperty<string>;
-    'noneStringProperty': TReadOnlyProperty<string>;
-    'marginalStringProperty': TReadOnlyProperty<string>;
-    'principalStringProperty': TReadOnlyProperty<string>;
-    'manyStringProperty': TReadOnlyProperty<string>;
+    'directStringProperty': LinkableProperty<string>;
+    'indirectStringProperty': LinkableProperty<string>;
+    'noneStringProperty': LinkableProperty<string>;
+    'marginalStringProperty': LinkableProperty<string>;
+    'principalStringProperty': LinkableProperty<string>;
+    'manyStringProperty': LinkableProperty<string>;
   };
   'checkbox': {
-    'focalPointsStringProperty': TReadOnlyProperty<string>;
-    'twoFPointsStringProperty': TReadOnlyProperty<string>;
-    'labelsStringProperty': TReadOnlyProperty<string>;
-    'virtualImageStringProperty': TReadOnlyProperty<string>;
-    'secondPointStringProperty': TReadOnlyProperty<string>;
-    'guidesStringProperty': TReadOnlyProperty<string>;
-    'add2FPointsCheckboxStringProperty': TReadOnlyProperty<string>;
+    'focalPointsStringProperty': LinkableProperty<string>;
+    'twoFPointsStringProperty': LinkableProperty<string>;
+    'labelsStringProperty': LinkableProperty<string>;
+    'virtualImageStringProperty': LinkableProperty<string>;
+    'secondPointStringProperty': LinkableProperty<string>;
+    'guidesStringProperty': LinkableProperty<string>;
+    'add2FPointsCheckboxStringProperty': LinkableProperty<string>;
   };
   'label': {
-    'convexLensStringProperty': TReadOnlyProperty<string>;
-    'concaveLensStringProperty': TReadOnlyProperty<string>;
-    'convexMirrorStringProperty': TReadOnlyProperty<string>;
-    'concaveMirrorStringProperty': TReadOnlyProperty<string>;
-    'flatMirrorStringProperty': TReadOnlyProperty<string>;
-    'FStringProperty': TReadOnlyProperty<string>;
-    'twoFStringProperty': TReadOnlyProperty<string>;
-    'objectStringProperty': TReadOnlyProperty<string>;
-    'objectNStringProperty': TReadOnlyProperty<string>;
-    'realImageStringProperty': TReadOnlyProperty<string>;
-    'realImageNStringProperty': TReadOnlyProperty<string>;
-    'virtualImageStringProperty': TReadOnlyProperty<string>;
-    'virtualImageNStringProperty': TReadOnlyProperty<string>;
-    'projectionScreenStringProperty': TReadOnlyProperty<string>;
-    'opticalAxisStringProperty': TReadOnlyProperty<string>;
+    'convexLensStringProperty': LinkableProperty<string>;
+    'concaveLensStringProperty': LinkableProperty<string>;
+    'convexMirrorStringProperty': LinkableProperty<string>;
+    'concaveMirrorStringProperty': LinkableProperty<string>;
+    'flatMirrorStringProperty': LinkableProperty<string>;
+    'FStringProperty': LinkableProperty<string>;
+    'twoFStringProperty': LinkableProperty<string>;
+    'objectStringProperty': LinkableProperty<string>;
+    'objectNStringProperty': LinkableProperty<string>;
+    'realImageStringProperty': LinkableProperty<string>;
+    'realImageNStringProperty': LinkableProperty<string>;
+    'virtualImageStringProperty': LinkableProperty<string>;
+    'virtualImageNStringProperty': LinkableProperty<string>;
+    'projectionScreenStringProperty': LinkableProperty<string>;
+    'opticalAxisStringProperty': LinkableProperty<string>;
   };
   'keyboardHelpDialog': {
-    'moveDraggableItemsStringProperty': TReadOnlyProperty<string>;
-    'moveStringProperty': TReadOnlyProperty<string>;
-    'moveSlowerStringProperty': TReadOnlyProperty<string>;
-    'rulerAndMarkerControlsStringProperty': TReadOnlyProperty<string>;
-    'removeFromToolboxStringProperty': TReadOnlyProperty<string>;
-    'returnToToolboxStringProperty': TReadOnlyProperty<string>;
-    'jumpToPointStringProperty': TReadOnlyProperty<string>;
-    'chooseAnObjectStringProperty': TReadOnlyProperty<string>;
-    'objectsStringProperty': TReadOnlyProperty<string>;
-    'objectStringProperty': TReadOnlyProperty<string>;
+    'moveDraggableItemsStringProperty': LinkableProperty<string>;
+    'moveStringProperty': LinkableProperty<string>;
+    'moveSlowerStringProperty': LinkableProperty<string>;
+    'rulerAndMarkerControlsStringProperty': LinkableProperty<string>;
+    'removeFromToolboxStringProperty': LinkableProperty<string>;
+    'returnToToolboxStringProperty': LinkableProperty<string>;
+    'jumpToPointStringProperty': LinkableProperty<string>;
+    'chooseAnObjectStringProperty': LinkableProperty<string>;
+    'objectsStringProperty': LinkableProperty<string>;
+    'objectStringProperty': LinkableProperty<string>;
   }
 };
 
