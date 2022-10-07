@@ -18,6 +18,7 @@ import LensNode from '../../lens/view/LensNode.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -58,7 +59,7 @@ export default class OpticSurfaceTypeRadioButtonGroup extends RectangularRadioBu
       ( opticSurfaceType: OpticSurfaceType ) => {
         return {
           value: opticSurfaceType,
-          node: ( optic instanceof Lens ) ? LensNode.createIconNode( opticSurfaceType ) : MirrorNode.createIconNode( opticSurfaceType ),
+          createNode: ( tandem: Tandem ) => ( optic instanceof Lens ) ? LensNode.createIconNode( opticSurfaceType ) : MirrorNode.createIconNode( opticSurfaceType ),
           tandemName: `${opticSurfaceType}RadioButton`
         };
       } );
