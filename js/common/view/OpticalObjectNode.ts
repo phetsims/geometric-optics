@@ -8,7 +8,7 @@
  */
 
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
+import { InteractiveHighlighting, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
@@ -24,7 +24,7 @@ export type OpticalObjectNodeOptions = SelfOptions &
   PickRequired<NodeOptions, 'tandem'> &
   PickOptional<NodeOptions, 'visibleProperty'>;
 
-export default class OpticalObjectNode extends Node {
+export default class OpticalObjectNode extends InteractiveHighlighting( Node ) {
 
   private readonly wasDraggedProperty: TProperty<boolean>;
   protected readonly cueingArrowsNode: CueingArrowsNode;

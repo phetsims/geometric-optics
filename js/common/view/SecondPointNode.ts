@@ -11,7 +11,7 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
-import { Circle, DragListener, FocusHighlightFromNode, KeyboardDragListener, KeyboardDragListenerOptions, Node, NodeOptions, VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
+import { Circle, DragListener, FocusHighlightFromNode, InteractiveHighlighting, KeyboardDragListener, KeyboardDragListenerOptions, Node, NodeOptions, VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import SecondPoint from '../model/SecondPoint.js';
@@ -26,7 +26,7 @@ type SelfOptions = EmptySelfOptions;
 type SecondPointNodeOptions = SelfOptions &
   PickRequired<NodeOptions, 'visibleProperty' | 'tandem' | 'phetioDocumentation'>;
 
-export default class SecondPointNode extends Node {
+export default class SecondPointNode extends InteractiveHighlighting( Node ) {
 
   /**
    * @param secondPoint - model element

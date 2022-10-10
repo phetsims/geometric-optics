@@ -11,7 +11,7 @@ import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { DragListener, Node, NodeOptions, PressListenerEvent } from '../../../../../scenery/js/imports.js';
+import { DragListener, InteractiveHighlighting, Node, NodeOptions, PressListenerEvent } from '../../../../../scenery/js/imports.js';
 import geometricOptics from '../../../geometricOptics.js';
 import GOTool from '../../model/tools/GOTool.js';
 import GOToolNode from './GOToolNode.js';
@@ -25,7 +25,7 @@ type SelfOptions = {
 
 export type GOToolIconOptions = SelfOptions;
 
-export default abstract class GOToolIcon extends Node {
+export default abstract class GOToolIcon extends InteractiveHighlighting( Node ) {
 
   /**
    * @param contentNode - the icon's content, what it looks like

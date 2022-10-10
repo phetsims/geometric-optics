@@ -10,7 +10,7 @@ import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
-import { DragListener, IndexedNodeIO, Node, NodeOptions, PressListenerEvent } from '../../../../../scenery/js/imports.js';
+import { DragListener, IndexedNodeIO, InteractiveHighlighting, Node, NodeOptions, PressListenerEvent } from '../../../../../scenery/js/imports.js';
 import GOTool from '../../model/tools/GOTool.js';
 import ToolJumpPoint from '../../model/tools/ToolJumpPoint.js';
 import GOToolboxNode from './GOToolboxNode.js';
@@ -25,7 +25,7 @@ type SelfOptions = {
 
 export type GOToolNodeOptions = SelfOptions & PickRequired<Node, 'tandem'> & PickOptional<Node, 'rotation'>;
 
-export default abstract class GOToolNode extends Node {
+export default abstract class GOToolNode extends InteractiveHighlighting( Node ) {
 
   // the icon associated with this tool, as it appears in the toolbox
   public abstract icon: Node;
