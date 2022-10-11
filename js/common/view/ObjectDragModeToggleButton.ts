@@ -85,8 +85,8 @@ export default class ObjectDragModeToggleButton extends RectangularToggleButton<
 
       // RectangularToggleButton options
       content: new ToggleNode<ObjectDragMode>( objectDragModeProperty, [
-        { value: 'freeDragging', node: freeDraggingNode },
-        { value: 'horizontalDragging', node: horizontalDragNode }
+        { value: 'freeDragging', createNode: tandem => freeDraggingNode },
+        { value: 'horizontalDragging', createNode: tandem => horizontalDragNode }
       ] ),
       baseColor: 'transparent',
       disabledColor: 'transparent',
