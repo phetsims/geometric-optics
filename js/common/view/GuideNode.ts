@@ -25,7 +25,7 @@ const FULCRUM_OPTIONS = {
   fill: GOColors.guideFulcrumFillProperty,
   stroke: GOColors.guideStrokeProperty
 };
-const ARM_STROKE = GOColors.guideStrokeProperty;
+const ARM_STROKE_PROPERTY = GOColors.guideStrokeProperty;
 
 type SelfOptions = EmptySelfOptions;
 
@@ -112,7 +112,7 @@ export default class GuideNode extends Node {
     // Nodes
     const fulcrumNode = new Circle( fulcrumRadius, FULCRUM_OPTIONS );
     const armOptions = {
-      stroke: ARM_STROKE,
+      stroke: ARM_STROKE_PROPERTY,
       fill: armColor
     };
     const leftArmNode = new Rectangle( 0, 0, armWidth, armHeight, armOptions );
@@ -143,7 +143,7 @@ export default class GuideNode extends Node {
  */
 function createArmNode( armColor: TColor ): Rectangle {
   return new Rectangle( 0, 0, ARM_WIDTH, ARM_HEIGHT, {
-    stroke: ARM_STROKE,
+    stroke: ARM_STROKE_PROPERTY,
     fill: armColor
   } );
 }

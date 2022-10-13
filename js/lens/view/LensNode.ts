@@ -21,8 +21,8 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 // constants
-const FILL = GOColors.lensFillProperty;
-const STROKE = GOColors.lensStrokeProperty;
+const FILL_PROPERTY = GOColors.lensFillProperty;
+const STROKE_PROPERTY = GOColors.lensStrokeProperty;
 const LINE_WIDTH = 2;
 const ICON_RADIUS_OF_CURVATURE_MAGNITUDE = 20;
 const ICON_DIAMETER = 30;
@@ -44,12 +44,12 @@ export default class LensNode extends Node {
     super( options );
 
     const fillNode = new Path( null, {
-      fill: FILL
+      fill: FILL_PROPERTY
     } );
 
     // Separate Node for stroke, because we'll be changing fillNode opacity to match IOR.
     const strokeNode = new Path( null, {
-      stroke: STROKE,
+      stroke: STROKE_PROPERTY,
       lineWidth: LINE_WIDTH
     } );
 

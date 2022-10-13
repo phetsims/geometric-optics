@@ -21,8 +21,8 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 // constants
-const FILL = GOColors.mirrorBackingColorProperty;
-const STROKE = GOColors.mirrorReflectiveCoatingColorProperty;
+const FILL_PROPERTY = GOColors.mirrorBackingColorProperty;
+const STROKE_PROPERTY = GOColors.mirrorReflectiveCoatingColorProperty;
 const LINE_WIDTH = 2;
 const ICON_FLAT_RADIUS_OF_CURVATURE_MAGNITUDE = 200000;
 const ICON_CONVEX_RADIUS_OF_CURVATURE_MAGNITUDE = 20;
@@ -47,12 +47,12 @@ export default class MirrorNode extends Node {
 
     // the mirror's backing
     const backingNode = new Path( null, {
-      fill: FILL
+      fill: FILL_PROPERTY
     } );
 
     // the mirror's reflective coating
     const reflectiveCoatingNode = new Path( null, {
-      stroke: STROKE,
+      stroke: STROKE_PROPERTY,
       lineWidth: LINE_WIDTH
     } );
 
