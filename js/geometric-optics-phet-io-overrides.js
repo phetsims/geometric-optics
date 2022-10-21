@@ -205,16 +205,10 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "geometricOptics.lensScreen.view.controls.controlPanel.checkboxGroup.visibleProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.lensScreen.view.controls.controlPanel.leftSeparator.visibleProperty": {
-      "phetioFeatured": true
-    },
     "geometricOptics.lensScreen.view.controls.controlPanel.opticSubpanel.visibleProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.lensScreen.view.controls.controlPanel.raysSubpanel.visibleProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.lensScreen.view.controls.controlPanel.rightSeparator.visibleProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.lensScreen.view.controls.controlPanel.visibleProperty": {
@@ -412,16 +406,10 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "geometricOptics.mirrorScreen.view.controls.controlPanel.checkboxGroup.visibleProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.mirrorScreen.view.controls.controlPanel.leftSeparator.visibleProperty": {
-      "phetioFeatured": true
-    },
     "geometricOptics.mirrorScreen.view.controls.controlPanel.opticSubpanel.visibleProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.view.controls.controlPanel.raysSubpanel.visibleProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.mirrorScreen.view.controls.controlPanel.rightSeparator.visibleProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.view.controls.controlPanel.visibleProperty": {
