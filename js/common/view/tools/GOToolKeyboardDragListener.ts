@@ -34,7 +34,7 @@ export default class GOToolKeyboardDragListener extends KeyboardDragListener {
                       zoomTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                       dragBoundsProperty: TReadOnlyProperty<Bounds2>,
                       shouldReturnToToolbox: () => boolean,
-                      providedOptions?: GOToolKeyboardDragListenerOptions ) {
+                      providedOptions: GOToolKeyboardDragListenerOptions ) {
 
     // Return the tool to the toolbox, and move focus to its icon in the toolbox.
     const returnToToolbox = () => {
