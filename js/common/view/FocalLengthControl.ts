@@ -15,7 +15,7 @@ import Utils from '../../../../dot/js/Utils.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 
@@ -47,24 +47,22 @@ export default class FocalLengthControl extends NumberControl {
       phetioValueType: StringIO
     } );
 
-    // Assemble the defaults for NumberControl, because optionize doesn't support defaults in multiple objects.
-    const numberControlDefaults = combineOptions<NumberControlOptions>( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
-      delta: GOConstants.FOCAL_LENGTH_SPINNER_STEP,
-      numberDisplayOptions: {
-        decimalPlaces: GOConstants.FOCAL_LENGTH_DECIMAL_PLACES,
-        valuePattern: GeometricOpticsStrings.valueCentimetersPatternStringProperty
-      },
-      sliderOptions: {
-        constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.FOCAL_LENGTH_SLIDER_STEP ),
-        keyboardStep: GOConstants.FOCAL_LENGTH_KEYBOARD_STEP, // used by all alternative-input devices
-        shiftKeyboardStep: GOConstants.FOCAL_LENGTH_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
-        pageKeyboardStep: GOConstants.FOCAL_LENGTH_PAGE_KEYBOARD_STEP
-      }
-    } );
+    const options = optionize4<FocalLengthControlOptions, SelfOptions, NumberControlOptions>()(
+      {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
 
-    // Now add providedOptions to the defaults.
-    const options = optionize<FocalLengthControlOptions, SelfOptions, NumberControlOptions>()(
-      numberControlDefaults, providedOptions );
+        // NumberControlOptions
+        delta: GOConstants.FOCAL_LENGTH_SPINNER_STEP,
+        numberDisplayOptions: {
+          decimalPlaces: GOConstants.FOCAL_LENGTH_DECIMAL_PLACES,
+          valuePattern: GeometricOpticsStrings.valueCentimetersPatternStringProperty
+        },
+        sliderOptions: {
+          constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.FOCAL_LENGTH_SLIDER_STEP ),
+          keyboardStep: GOConstants.FOCAL_LENGTH_KEYBOARD_STEP, // used by all alternative-input devices
+          shiftKeyboardStep: GOConstants.FOCAL_LENGTH_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
+          pageKeyboardStep: GOConstants.FOCAL_LENGTH_PAGE_KEYBOARD_STEP
+        }
+      }, providedOptions );
 
     super( titleStringProperty, focalLengthMagnitudeProperty, range, options );
 

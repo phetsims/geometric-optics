@@ -15,7 +15,7 @@ import Utils from '../../../../dot/js/Utils.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
@@ -47,24 +47,22 @@ export default class RadiusOfCurvatureControl extends NumberControl {
       phetioValueType: StringIO
     } );
 
-    // Assemble the defaults for NumberControl, because optionize doesn't support defaults in multiple objects.
-    const numberControlDefaults = combineOptions<NumberControlOptions>( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
-      delta: GOConstants.RADIUS_OF_CURVATURE_SPINNER_STEP,
-      numberDisplayOptions: {
-        decimalPlaces: GOConstants.RADIUS_OF_CURVATURE_DECIMAL_PLACES,
-        valuePattern: GeometricOpticsStrings.valueCentimetersPatternStringProperty
-      },
-      sliderOptions: {
-        constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.RADIUS_OF_CURVATURE_SLIDER_STEP ),
-        keyboardStep: GOConstants.RADIUS_OF_CURVATURE_KEYBOARD_STEP, // used by all alternative-input devices
-        shiftKeyboardStep: GOConstants.RADIUS_OF_CURVATURE_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
-        pageKeyboardStep: GOConstants.RADIUS_OF_CURVATURE_PAGE_KEYBOARD_STEP
-      }
-    } );
+    const options = optionize4<RadiusOfCurvatureControlOptions, SelfOptions, NumberControlOptions>()(
+      {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
 
-    // Now add providedOptions to the defaults.
-    const options = optionize<RadiusOfCurvatureControlOptions, SelfOptions, NumberControlOptions>()(
-      numberControlDefaults, providedOptions );
+        // NumberControlOptions
+        delta: GOConstants.RADIUS_OF_CURVATURE_SPINNER_STEP,
+        numberDisplayOptions: {
+          decimalPlaces: GOConstants.RADIUS_OF_CURVATURE_DECIMAL_PLACES,
+          valuePattern: GeometricOpticsStrings.valueCentimetersPatternStringProperty
+        },
+        sliderOptions: {
+          constrainValue: ( value: number ) => Utils.roundToInterval( value, GOConstants.RADIUS_OF_CURVATURE_SLIDER_STEP ),
+          keyboardStep: GOConstants.RADIUS_OF_CURVATURE_KEYBOARD_STEP, // used by all alternative-input devices
+          shiftKeyboardStep: GOConstants.RADIUS_OF_CURVATURE_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
+          pageKeyboardStep: GOConstants.RADIUS_OF_CURVATURE_PAGE_KEYBOARD_STEP
+        }
+      }, providedOptions );
 
     super( titleStringProperty, radiusOfCurvatureMagnitudeProperty, range, options );
 
