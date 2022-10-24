@@ -12,12 +12,14 @@ import { KeyboardDragListener, KeyboardDragListenerOptions, KeyboardUtils } from
 import geometricOptics from '../../../geometricOptics.js';
 import GOConstants from '../../GOConstants.js';
 import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
-import { combineOptions } from '../../../../../phet-core/js/optionize.js';
+import { EmptySelfOptions, optionize4 } from '../../../../../phet-core/js/optionize.js';
 import GOToolNode from './GOToolNode.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import GOTool from '../../model/tools/GOTool.js';
 
-type GOToolKeyboardDragListenerOptions = PickRequired<KeyboardDragListenerOptions, 'tandem'>;
+type SelfOptions = EmptySelfOptions;
+
+type GOToolKeyboardDragListenerOptions = SelfOptions & PickRequired<KeyboardDragListenerOptions, 'tandem'>;
 
 export default class GOToolKeyboardDragListener extends KeyboardDragListener {
 
@@ -42,9 +44,10 @@ export default class GOToolKeyboardDragListener extends KeyboardDragListener {
       toolNode.icon.focus();
     };
 
-    // Assemble the defaults for KeyboardDragListener, because optionize doesn't support defaults in multiple objects.
-    const keyboardDragListenerDefaults = combineOptions<KeyboardDragListenerOptions>(
+    const options = optionize4<GOToolKeyboardDragListenerOptions, SelfOptions, KeyboardDragListenerOptions>()(
       {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
+
+        // KeyboardDragListenerOptions
         positionProperty: tool.positionProperty,
         dragBoundsProperty: dragBoundsProperty,
         transform: zoomTransformProperty.value,
@@ -54,10 +57,7 @@ export default class GOToolKeyboardDragListener extends KeyboardDragListener {
             returnToToolbox();
           }
         }
-      } );
-
-    // Now add providedOptions to the defaults.
-    const options = combineOptions<KeyboardDragListenerOptions>( keyboardDragListenerDefaults, providedOptions );
+      }, providedOptions );
 
     super( options );
 
