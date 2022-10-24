@@ -66,11 +66,12 @@ type OpticalObjectChoiceOptions = {
 };
 
 // icon used for 'Arrow' in the combo box
-const ARROW_ICON = new ArrowNode( 0, 0, 0, -50, combineOptions<ArrowNodeOptions>( {
-  fill: GOColors.arrow1FillProperty,
-  stroke: null,
-  scale: 0.5
-}, GOConstants.ARROW_NODE_OPTIONS ) );
+const ARROW_ICON = new ArrowNode( 0, 0, 0, -50, combineOptions<ArrowNodeOptions>(
+  {}, GOConstants.ARROW_NODE_OPTIONS, {
+    fill: GOColors.arrow1FillProperty,
+    stroke: null,
+    scale: 0.5
+  } ) );
 
 export default class OpticalObjectChoice extends EnumerationValue {
 
