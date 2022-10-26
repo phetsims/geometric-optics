@@ -37,8 +37,7 @@ export default class GOSim extends Sim {
 
       // Sim options
       credits: GOConstants.CREDITS,
-      hasKeyboardHelpContent: true,
-      preferencesModel: new PreferencesModel( {
+        preferencesModel: new PreferencesModel( {
         simulationOptions: {
           customPreferences: [ {
             createContent: tandem => new GOPreferencesNode( {
