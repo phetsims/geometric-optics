@@ -11,7 +11,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Circle, Color, DragListener, FocusHighlightFromNode, Image, KeyboardDragListener, KeyboardDragListenerOptions, Line, Node, NodeOptions, Path } from '../../../../scenery/js/imports.js';
+import { Circle, Color, DragListener, FocusHighlightFromNode, Image, InteractiveHighlighting, KeyboardDragListener, KeyboardDragListenerOptions, Line, Node, NodeOptions, Path } from '../../../../scenery/js/imports.js';
 import projectionScreenBottom_png from '../../../images/projectionScreenBottom_png.js';
 import projectionScreenTop_png from '../../../images/projectionScreenTop_png.js';
 import GOColors from '../../common/GOColors.js';
@@ -30,7 +30,7 @@ type SelfOptions = EmptySelfOptions;
 
 type ProjectionScreenNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
 
-export default class ProjectionScreenNode extends Node {
+export default class ProjectionScreenNode extends InteractiveHighlighting( Node ) {
 
   // Resets things that are specific to this class.
   private readonly resetProjectionScreenNode: () => void;
