@@ -65,8 +65,9 @@ to the browser console.
 ### Memory Management
 
 * **Dynamic allocation:** Most objects in this sim are allocated at startup, and exist for the lifetime of the
-  simulation. The exception is `GOOptionsNode` and its children, which must all implement `dispose`. This is the
-  content for the Options dialog, whose instantiation is deferred until the user selects the _PhET > Options_ menu item.
+  simulation. The exception is `GOPreferencesNode` and its children, which must all implement `dispose`. This is the
+  content for the Simulations tab of the Preferences dialog, whose instantiation is deferred until the user presses
+  the Preferences button in the navigation bar.
 
 * **Listeners**: Unless otherwise noted in the code, all uses of `link`, `addListener`, etc. do NOT need a
   corresponding `unlink`, `removeListener`, etc.
@@ -90,7 +91,7 @@ A relatively complex part of the optic model implementation is that it supports 
 * direct: focal length is settable, IOR is fixed, ROC is derived
 * indirect: ROC and IOR are settable, focal length is derived
 
-The user can switch between focal-length models via radio buttons in the Options dialog.
+The user can switch between focal-length models via radio buttons in the Simulation tab of the Preferences dialog.
 
 The important classes are:
 
@@ -310,7 +311,7 @@ LightPropagationToggleButton - toggle button for turning light propagation on/of
 GOControlPanel - the main control panel
 ```
 
-For controls that appear in the Options dialog, start with `GOOptionsNode.ts`.
+For controls that appear in the Simulation tab of the Preferences dialog, start with `GOPreferencesNode.ts`.
 
 ## Hollywood!
 
