@@ -57,8 +57,7 @@ Labels change their position to match the zoom level, but do not change their si
 
 ### Query Parameters
 
-Query parameters are used to enable sim-specific features. Sim-specific query parameters are documented in
-[GOQueryParameters.ts](https://github.com/phetsims/geometric-optics/blob/master/js/common/GOQueryParameters.ts).
+Query parameters are used to enable sim-specific features. Sim-specific query parameters are documented in `GOQueryParameters.ts`.
 Running with `?log` will print the complete set of query parameters (common-code, PhET-iO, and sim-specific)
 to the browser console.
 
