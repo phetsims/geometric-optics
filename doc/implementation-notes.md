@@ -1,4 +1,4 @@
-# Geometric Options - Implementation Notes
+# Geometric Optics - Implementation Notes
 
 @author Chris Malley (PixelZoom, Inc.)<br>
 @author Martin Veillette
