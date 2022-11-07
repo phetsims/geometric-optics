@@ -50,6 +50,11 @@ export default class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent 
 
     super( leftColumn, rightColumn );
   }
+
+  public override dispose(): void {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
+  }
 }
 
 /**
@@ -71,6 +76,11 @@ class MoveDraggableItemsKeyboardHelpSection extends KeyboardHelpSection {
     ] );
 
     super( GeometricOpticsStrings.keyboardHelpDialog.moveDraggableItemsStringProperty, [ normalRow, slowerRow ] );
+  }
+
+  public override dispose(): void {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
   }
 }
 
@@ -94,6 +104,11 @@ class RulerAndMarkerControlsKeyboardHelpSection extends KeyboardHelpSection {
     ], {
       textMaxWidth: 300
     } );
+  }
+
+  public override dispose(): void {
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    super.dispose();
   }
 }
 
