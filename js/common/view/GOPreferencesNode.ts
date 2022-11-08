@@ -52,7 +52,6 @@ export default class GOPreferencesNode extends VBox {
 
     // 'Focal Length control' radio buttons
     const focalLengthModelControl = new FocalLengthModelTypeControl( GOPreferences.focalLengthModelTypeProperty, {
-      visible: !options.isBasicsVersion,
       tandem: options.tandem.createTandem( 'focalLengthModelControl' )
     } );
 
