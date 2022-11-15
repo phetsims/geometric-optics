@@ -12,7 +12,6 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { RayIntersection } from '../../../../kite/js/imports.js';
-import AssertUtils from '../../../../phetcommon/js/AssertUtils.js';
 import geometricOptics from '../../geometricOptics.js';
 import Lens from '../../lens/model/Lens.js';
 import ProjectionScreen from './ProjectionScreen.js';
@@ -57,7 +56,7 @@ export default class LightRay {
   public constructor( opticalObjectPosition: Vector2, direction: Vector2, raysAnimationTime: number, optic: Optic, opticalImagePosition: Vector2,
                       isImageVirtual: boolean, raysType: RaysType, projectionScreen?: ProjectionScreen ) {
 
-    assert && AssertUtils.assertNonNegativeNumber( raysAnimationTime );
+    assert && assert( raysAnimationTime >= 0, `invalid raysAnimationTime: ${raysAnimationTime}` );
 
     this.realSegments = [];
     this.virtualSegments = [];
