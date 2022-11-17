@@ -35,9 +35,9 @@ export default class GOSim extends Sim {
 
     const options = optionize<GOSimOptions, SelfOptions, SimOptions>()( {
 
-      // Sim options
+      // SimOptions
       credits: GOConstants.CREDITS,
-        preferencesModel: new PreferencesModel( {
+      preferencesModel: new PreferencesModel( {
         simulationOptions: {
           customPreferences: [ {
             createContent: tandem => new GOPreferencesNode( {

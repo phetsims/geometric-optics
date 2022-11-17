@@ -4,8 +4,8 @@
  * GOPreferencesNode is the user interface for sim-specific preferences, accessed via the Preferences dialog.
  * These preferences are global, and affect all screens.
  *
- * The Preferences dialog is created on demand by joist, using a PhetioCapsule. So GOPreferencesNode must
- * implement dispose, and all elements of GOPreferencesNode that have tandems must be disposed.
+ * The Preferences dialog is created on demand by joist, using a PhetioCapsule. So GOPreferencesNode and its
+ * subcomponents must implement dispose.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
