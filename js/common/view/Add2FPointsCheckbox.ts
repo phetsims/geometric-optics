@@ -1,7 +1,7 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * Add2FPointsCheckbox is the "Add 2F Points checkbox" checkbox that appears in the Options dialog.
+ * Add2FPointsCheckbox is the "Add 2F Points checkbox" checkbox that appears in the Preferences dialog.
  * The name should technically be Add2FPointsCheckboxCheckbox, but that confused everyone who saw it.
  *
  * @author Chris Malley (PixelZoom, Inc.)
