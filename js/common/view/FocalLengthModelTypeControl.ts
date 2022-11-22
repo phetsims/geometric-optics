@@ -7,7 +7,6 @@
  */
 
 import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
-import GOConstants from '../GOConstants.js';
 import FocalLengthModelTypeRadioButtonGroup from './FocalLengthModelTypeRadioButtonGroup.js';
 import geometricOptics from '../../geometricOptics.js';
 import { FocalLengthModelType } from '../model/FocalLengthModelType.js';
@@ -16,6 +15,7 @@ import { Text, VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import Property from '../../../../axon/js/Property.js';
+import PreferencesDialog from '../../../../joist/js/preferences/PreferencesDialog.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -43,7 +43,7 @@ export default class FocalLengthModelTypeControl extends VBox {
     super( options );
 
     const labelText = new Text( GeometricOpticsStrings.focalLengthControlStringProperty, {
-      font: GOConstants.CONTROL_FONT,
+      font: PreferencesDialog.CONTENT_FONT,
       tandem: options.tandem.createTandem( 'labelText' )
     } );
 

@@ -8,6 +8,7 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import PreferencesDialog from '../../../../joist/js/preferences/PreferencesDialog.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { Text } from '../../../../scenery/js/imports.js';
@@ -31,7 +32,7 @@ export default class Add2FPointsCheckbox extends Checkbox {
     }, providedOptions );
 
     const labelText = new Text( GeometricOpticsStrings.checkbox.add2FPointsCheckboxStringProperty, {
-      font: GOConstants.CONTROL_FONT,
+      font: PreferencesDialog.CONTENT_FONT,
       maxWidth: 500,
       tandem: options.tandem.createTandem( 'labelText' )
     } );
