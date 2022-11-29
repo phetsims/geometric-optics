@@ -11,7 +11,7 @@
  * @author Sarah Chang (Swarthmore College)
  */
 
-import DerivedProperty, { ReadOnlyDerivedProperty } from '../../../../../axon/js/DerivedProperty.js';
+import DerivedProperty, { UnknownDerivedProperty } from '../../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Utils from '../../../../../dot/js/Utils.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -61,7 +61,7 @@ export default class GORulerNode extends GOToolNode {
    */
   public constructor( ruler: GORuler,
                       opticPositionProperty: TReadOnlyProperty<Vector2>,
-                      zoomTransformProperty: ReadOnlyDerivedProperty<ModelViewTransform2>,
+                      zoomTransformProperty: TReadOnlyProperty<ModelViewTransform2> & Pick<UnknownDerivedProperty<unknown>, 'hasDependency'>,
                       zoomScaleProperty: TReadOnlyProperty<number>,
                       visibleBoundsProperty: TReadOnlyProperty<Bounds2>,
                       providedOptions: GORulerNodeOptions ) {
