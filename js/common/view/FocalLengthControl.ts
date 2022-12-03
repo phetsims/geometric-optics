@@ -35,7 +35,7 @@ export default class FocalLengthControl extends NumberControl {
                       providedOptions: FocalLengthControlOptions ) {
 
     assert && assert( focalLengthMagnitudeProperty.range ); // {Range|null}
-    const range = focalLengthMagnitudeProperty.range!;
+    const range = focalLengthMagnitudeProperty.range;
 
     const titleStringProperty = new DerivedProperty( [
       focalLengthProperty,

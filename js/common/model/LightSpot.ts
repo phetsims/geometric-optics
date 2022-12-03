@@ -96,7 +96,7 @@ export default class LightSpot extends PhetioObject {
         }
         else {
           assert && assert( optic.diameterProperty.range ); // {Range|null}
-          const opticDiameterRange = optic.diameterProperty.range!;
+          const opticDiameterRange = optic.diameterProperty.range;
           const opticDiameterFactor = Utils.linear( opticDiameterRange.min, opticDiameterRange.max, 0.5, 1, opticDiameter );
 
           // Any light spot less than this diameter will have full intensity when the optic diameter is at its maximum.

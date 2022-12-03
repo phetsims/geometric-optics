@@ -24,7 +24,7 @@ export default class IndexOfRefractionControl extends NumberControl {
   public constructor( indexOfRefractionProperty: NumberProperty, providedOptions: IndexOfRefractionControlOptions ) {
 
     assert && assert( indexOfRefractionProperty.range ); // {Range|null}
-    const range = indexOfRefractionProperty.range!;
+    const range = indexOfRefractionProperty.range;
 
     // Assemble the defaults for NumberControl, because optionize doesn't support defaults in multiple objects.
     const numberControlDefaults = combineOptions<NumberControlOptions>( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {

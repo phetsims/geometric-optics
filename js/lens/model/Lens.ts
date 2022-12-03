@@ -78,7 +78,7 @@ export default class Lens extends Optic {
 
         // Use the indirect model's IOR range in all cases, because the direct model's IOR is fixed.
         assert && assert( this.indirectFocalLengthModel.indexOfRefractionProperty.range ); // {Range|null}
-        const range = this.indirectFocalLengthModel.indexOfRefractionProperty.range!;
+        const range = this.indirectFocalLengthModel.indexOfRefractionProperty.range;
         return Utils.linear( range.min, range.max, 0.2, 1, indexOfRefraction );
       } );
   }
