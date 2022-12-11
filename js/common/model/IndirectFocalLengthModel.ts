@@ -92,11 +92,9 @@ export default class IndirectFocalLengthModel extends PhetioObject implements Fo
   public syncToModel( model: FocalLengthModel ): void {
     assert && assert( model !== this );
 
-    assert && assert( this.radiusOfCurvatureMagnitudeProperty.range ); // {Range|null}
     this.radiusOfCurvatureMagnitudeProperty.value =
       this.radiusOfCurvatureMagnitudeProperty.range.constrainValue( model.radiusOfCurvatureMagnitudeProperty.value );
 
-    assert && assert( this.indexOfRefractionProperty.range ); // {Range|null}
     this.indexOfRefractionProperty.value =
       this.indexOfRefractionProperty.range.constrainValue( model.indexOfRefractionProperty.value );
   }

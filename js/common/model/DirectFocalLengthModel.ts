@@ -94,7 +94,6 @@ export default class DirectFocalLengthModel extends PhetioObject implements Foca
    */
   public syncToModel( model: FocalLengthModel ): void {
     assert && assert( model !== this );
-    assert && assert( this.focalLengthMagnitudeProperty.range ); // {Range|null}
     this.focalLengthMagnitudeProperty.value =
       this.focalLengthMagnitudeProperty.range.constrainValue( model.focalLengthMagnitudeProperty.value );
   }

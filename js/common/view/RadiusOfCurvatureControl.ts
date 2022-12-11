@@ -34,7 +34,6 @@ export default class RadiusOfCurvatureControl extends NumberControl {
                       radiusOfCurvatureProperty: TReadOnlyProperty<number>,
                       providedOptions: RadiusOfCurvatureControlOptions ) {
 
-    assert && assert( radiusOfCurvatureMagnitudeProperty.range ); // {Range|null}
     const range = radiusOfCurvatureMagnitudeProperty.range;
 
     const titleStringProperty = new DerivedProperty( [

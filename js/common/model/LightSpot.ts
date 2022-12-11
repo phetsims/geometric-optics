@@ -95,7 +95,6 @@ export default class LightSpot extends PhetioObject {
           return 0; // avoid divide-by-zero
         }
         else {
-          assert && assert( optic.diameterProperty.range ); // {Range|null}
           const opticDiameterRange = optic.diameterProperty.range;
           const opticDiameterFactor = Utils.linear( opticDiameterRange.min, opticDiameterRange.max, 0.5, 1, opticDiameter );
 

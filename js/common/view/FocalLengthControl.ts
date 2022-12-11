@@ -34,7 +34,6 @@ export default class FocalLengthControl extends NumberControl {
                       focalLengthProperty: TReadOnlyProperty<number>,
                       providedOptions: FocalLengthControlOptions ) {
 
-    assert && assert( focalLengthMagnitudeProperty.range ); // {Range|null}
     const range = focalLengthMagnitudeProperty.range;
 
     const titleStringProperty = new DerivedProperty( [

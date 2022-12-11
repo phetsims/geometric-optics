@@ -79,7 +79,6 @@ export default class FramedImage extends OpticalImage {
         return bounds.shifted( position );
       } );
 
-    assert && assert( optic.diameterProperty.range ); // {Range|null}
     const diameterRange = optic.diameterProperty.range;
 
     // This algorithm was specified by Kathy Perkins in https://github.com/phetsims/geometric-optics/issues/350.

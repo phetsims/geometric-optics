@@ -23,7 +23,6 @@ export default class DiameterControl extends NumberControl {
 
   public constructor( diameterProperty: NumberProperty, providedOptions: DiameterControlOptions ) {
 
-    assert && assert( diameterProperty.range ); // {Range|null}
     const range = diameterProperty.range;
 
     const options = optionize4<DiameterControlOptions, SelfOptions, NumberControlOptions>()(
