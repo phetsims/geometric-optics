@@ -1,5 +1,5 @@
 {
-  "comment": "# geometric-optics 1.1.2-rc.1 Sat Nov 26 2022 11:14:15 GMT-0700 (Mountain Standard Time)",
+  "comment": "# geometric-optics 1.1.2 Mon Dec 12 2022 22:05:17 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "767b2f345518ceca5144a152ecf40cd4f9206136",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "geometric-optics": {
-    "sha": "ad38a4f75a0eb9d96b517d1c561b1c8b12e50224",
+    "sha": "3010c13b65491bc945e45f1a749d6f74a7f2553f",
     "branch": "1.1"
   },
   "joist": {
