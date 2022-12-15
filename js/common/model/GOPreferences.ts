@@ -12,7 +12,7 @@ import geometricOptics from '../../geometricOptics.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import { FocalLengthModelType, FocalLengthModelTypeValues } from './FocalLengthModelType.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import StringEnumerationProperty from '../../../../axon/js/StringEnumerationProperty.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 
 const GOPreferences = {
 
@@ -27,7 +27,7 @@ const GOPreferences = {
   } ),
 
   focalLengthModelTypeProperty:
-    new StringEnumerationProperty<FocalLengthModelType>( GOQueryParameters.focalLengthControl as FocalLengthModelType, {
+    new StringUnionProperty<FocalLengthModelType>( GOQueryParameters.focalLengthControl as FocalLengthModelType, {
       validValues: FocalLengthModelTypeValues,
       tandem: Tandem.PREFERENCES.createTandem( 'focalLengthModelTypeProperty' ),
       phetioDocumentation: 'Determines how focal length is modeled and controlled in the Lens and Mirror screens.<br>' +

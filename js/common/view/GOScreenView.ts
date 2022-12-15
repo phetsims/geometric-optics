@@ -45,7 +45,7 @@ import { ObjectDragMode, ObjectDragModeValues } from './ObjectDragMode.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import { GOSimOptions } from '../../GOSim.js';
 import GOToolNode from './tools/GOToolNode.js';
-import StringEnumerationProperty from '../../../../axon/js/StringEnumerationProperty.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 
 // Zoom scale factors, in ascending order.
@@ -157,7 +157,7 @@ export default class GOScreenView extends ScreenView {
         return new Bounds2( modelVisibleBounds.minX, -y, modelVisibleBounds.maxX, y );
       } );
 
-    const objectDragModeProperty = new StringEnumerationProperty( options.objectDragMode, {
+    const objectDragModeProperty = new StringUnionProperty( options.objectDragMode, {
       validValues: ObjectDragModeValues,
       tandem: providedOptions.tandem.createTandem( 'objectDragModeProperty' ),
       phetioReadOnly: true,

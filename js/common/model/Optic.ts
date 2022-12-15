@@ -7,7 +7,7 @@
  * @author Martin Veillette
  */
 
-import StringEnumerationProperty from '../../../../axon/js/StringEnumerationProperty.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
@@ -126,7 +126,7 @@ export default abstract class Optic extends PhetioObject {
 
     this.sign = options.sign;
 
-    this.opticSurfaceTypeProperty = new StringEnumerationProperty( options.opticSurfaceTypes[ 0 ], {
+    this.opticSurfaceTypeProperty = new StringUnionProperty( options.opticSurfaceTypes[ 0 ], {
       validValues: options.opticSurfaceTypes,
       tandem: options.tandem.createTandem( 'opticSurfaceTypeProperty' ),
       phetioDocumentation: 'surface type of the optic'

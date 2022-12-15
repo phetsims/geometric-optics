@@ -26,7 +26,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PositionMarker from './tools/PositionMarker.js';
 import GOColors from '../GOColors.js';
-import StringEnumerationProperty from '../../../../axon/js/StringEnumerationProperty.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import TModel from '../../../../joist/js/TModel.js';
 
 type SelfOptions = {
@@ -95,7 +95,7 @@ export default class GOModel implements TModel {
 
     this.optic = optic;
 
-    this.raysTypeProperty = new StringEnumerationProperty( 'marginal', {
+    this.raysTypeProperty = new StringUnionProperty( 'marginal', {
       validValues: RaysTypeValues,
       tandem: options.tandem.createTandem( 'raysTypeProperty' )
     } );
