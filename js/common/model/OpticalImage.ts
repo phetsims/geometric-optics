@@ -16,7 +16,7 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
-import StringIO from '../../../../tandem/js/types/StringIO.js';
+import StringUnionIO from '../../../../tandem/js/types/StringUnionIO.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
 import { OpticalImageType, OpticalImageTypeValues } from './OpticalImageType.js';
@@ -160,7 +160,7 @@ export default class OpticalImage extends PhetioObject {
     this.opticalImageTypeProperty = new DerivedProperty( [ this.imageDistanceProperty ],
       imageDistance => ( imageDistance < 0 ) ? 'virtual' : 'real', {
         tandem: options.tandem.createTandem( 'opticalImageTypeProperty' ),
-        phetioValueType: StringIO,
+        phetioValueType: StringUnionIO( OpticalImageTypeValues ),
         validValues: OpticalImageTypeValues
       } );
 
