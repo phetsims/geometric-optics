@@ -59,7 +59,7 @@ export default abstract class GOToolNode extends InteractiveHighlighting( Node )
       phetioInputEnabledPropertyInstrumented: true,
 
       // Make z-ordering of tools stateful, see https://github.com/phetsims/geometric-optics/issues/431
-      phetioType: IndexedNodeIO(),
+      phetioType: IndexedNodeIO,
       phetioState: true
     }, providedOptions );
 
