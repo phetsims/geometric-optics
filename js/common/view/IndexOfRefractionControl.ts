@@ -14,6 +14,7 @@ import Utils from '../../../../dot/js/Utils.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -26,7 +27,7 @@ export default class IndexOfRefractionControl extends NumberControl {
     const range = indexOfRefractionProperty.range;
 
     // Assemble the defaults for NumberControl, because optionize doesn't support defaults in multiple objects.
-    const numberControlDefaults = combineOptions<NumberControlOptions>( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
+    const numberControlDefaults = combineOptions<StrictOmit<NumberControlOptions, 'tandem'>>( {}, GOConstants.NUMBER_CONTROL_OPTIONS, {
       delta: GOConstants.INDEX_OF_REFRACTION_SPINNER_STEP,
       sliderOptions: {
         constrainValue: ( value: number ) =>
