@@ -76,7 +76,7 @@ export default class OpticalObjectChoiceComboBox extends ComboBox<OpticalObjectC
       // create and add combo box item to the array
       items.push( {
         value: opticalObjectChoice,
-        createNode: tandem => hBox,
+        createNode: () => hBox,
         tandemName: itemTandemName
       } );
     } );
