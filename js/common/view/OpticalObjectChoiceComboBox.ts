@@ -1,4 +1,4 @@
-// Copyright 2021-2022, University of Colorado Boulder
+// Copyright 2021-2023, University of Colorado Boulder
 
 /**
  * OpticalObjectChoiceComboBox is the combo box for selecting the object representation.
@@ -76,7 +76,7 @@ export default class OpticalObjectChoiceComboBox extends ComboBox<OpticalObjectC
       // create and add combo box item to the array
       items.push( {
         value: opticalObjectChoice,
-        node: hBox,
+        createNode: () => hBox,
         tandemName: itemTandemName
       } );
     } );

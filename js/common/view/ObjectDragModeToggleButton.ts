@@ -1,4 +1,4 @@
-// Copyright 2021-2022, University of Colorado Boulder
+// Copyright 2021-2023, University of Colorado Boulder
 
 /**
  * ObjectDragModeToggleButton is the control used to change how the optical object can be dragged. It toggles between
@@ -85,8 +85,8 @@ export default class ObjectDragModeToggleButton extends RectangularToggleButton<
 
       // RectangularToggleButton options
       content: new ToggleNode<ObjectDragMode>( objectDragModeProperty, [
-        { value: 'freeDragging', createNode: tandem => freeDraggingNode },
-        { value: 'horizontalDragging', createNode: tandem => horizontalDragNode }
+        { value: 'freeDragging', createNode: () => freeDraggingNode },
+        { value: 'horizontalDragging', createNode: () => horizontalDragNode }
       ] ),
       baseColor: 'transparent',
       disabledColor: 'transparent',
