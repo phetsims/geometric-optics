@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "geometric-optics": {
-    "sha": "c79ea90b0d222f33bbab14429edd51295fd91d2a",
+    "sha": "76dc23cf0b059049b7ee94265438c719d7d0a17a",
     "branch": "1.1"
   },
   "joist": {
@@ -53,7 +53,7 @@
     "branch": "HEAD"
   },
   "phetcommon": {
-    "sha": "20ec9b8394da07dfdaf97ded754fd3a1d1ceea42",
+    "sha": "8a832c36c00161ee370dde6d86d054acc1697a90",
     "branch": "HEAD"
   },
   "phetmarks": {
