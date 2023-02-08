@@ -89,13 +89,13 @@ const ARROW_SHAPE_OPTIONS = {
 function createArrowsShape( direction: CueingArrowsDirection, length: number ): Shape {
   let shape;
   if ( direction === 'horizontal' ) {
-    shape = new ArrowShape( -length / 2, 0, length / 2, 0, ARROW_SHAPE_OPTIONS );
-  }
+      shape = new ArrowShape( -length / 2, 0, length / 2, 0, ARROW_SHAPE_OPTIONS );
+    }
   else if ( direction === 'vertical' ) {
-    shape = new ArrowShape( 0, -length / 2, 0, length / 2, ARROW_SHAPE_OPTIONS );
-  }
-  else {
-    const leftRightArrowShape = new ArrowShape( -length / 2, 0, length / 2, 0, ARROW_SHAPE_OPTIONS );
+      shape = new ArrowShape( 0, -length / 2, 0, length / 2, ARROW_SHAPE_OPTIONS );
+    }
+    else {
+      const leftRightArrowShape = new ArrowShape( -length / 2, 0, length / 2, 0, ARROW_SHAPE_OPTIONS );
     const upDownArrowShape = new ArrowShape( 0, -length / 2, 0, length / 2, ARROW_SHAPE_OPTIONS );
     shape = Shape.union( [ leftRightArrowShape, upDownArrowShape ] );
   }
