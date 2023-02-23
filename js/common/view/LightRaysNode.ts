@@ -46,8 +46,8 @@ export default class LightRaysNode extends Node {
    */
   public static segmentsToLines( segments: LightRaySegment[], modelViewTransform: ModelViewTransform2, lineOptions: LineOptions ): Line[] {
 
-    // When attempting to render the rays as a single scenery.Path, we were seeing incorrect closed-path triangles
-    // being rendered. We had to resort to a scenery.Line per segment to make the problem go away.
+    // When attempting to render the rays as a single phet.scenery.Path, we were seeing incorrect closed-path triangles
+    // being rendered. We had to resort to a phet.scenery.Line per segment to make the problem go away.
     // See https://github.com/phetsims/geometric-optics/issues/209
     return segments.map( segment => {
       const viewStartPoint = modelViewTransform.modelToViewPosition( segment.startPoint );

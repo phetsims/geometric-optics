@@ -194,7 +194,7 @@ This sim has a relatively complicated ray tracer, which is also responsible for 
 // model
 LightRays - a bundle of light rays that propagate from a point on an optical object
 LightRay - a single light ray
-GORay - a subclass of dot.Ray2 that adds functionality
+GORay - a subclass of phet.dot.Ray2 that adds functionality
 
 // view class hierachy
 LightRaysNode - base class
