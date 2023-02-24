@@ -1,4 +1,4 @@
-// Copyright 2021-2022, University of Colorado Boulder
+// Copyright 2021-2023, University of Colorado Boulder
 
 /**
  * GORay extends phet.dot.Ray2 by adding a length property. Generally speaking, a ray has one endpoint and goes on
