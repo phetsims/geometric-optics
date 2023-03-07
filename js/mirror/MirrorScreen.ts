@@ -15,7 +15,6 @@ import GeometricOpticsStrings from '../GeometricOpticsStrings.js';
 import MirrorModel from './model/MirrorModel.js';
 import MirrorNode from './view/MirrorNode.js';
 import MirrorScreenView from './view/MirrorScreenView.js';
-import GOKeyboardHelpContent from '../common/view/GOKeyboardHelpContent.js';
 import { OpticSurfaceType } from '../common/model/OpticSurfaceType.js';
 import optionize from '../../../phet-core/js/optionize.js';
 import PickRequired from '../../../phet-core/js/types/PickRequired.js';
@@ -23,7 +22,7 @@ import { GOSimOptions } from '../GOSim.js';
 
 type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 
-type MirrorScreenOptions = SelfOptions & PickRequired<ScreenOptions, 'tandem'>;
+type MirrorScreenOptions = SelfOptions & PickRequired<ScreenOptions, 'tandem' | 'createKeyboardHelpNode'>;
 
 export default class MirrorScreen extends Screen<MirrorModel, MirrorScreenView> {
 
@@ -34,8 +33,7 @@ export default class MirrorScreen extends Screen<MirrorModel, MirrorScreenView> 
       // Screen options
       name: GeometricOpticsStrings.screen.mirrorStringProperty,
       homeScreenIcon: createScreenIcon( providedOptions.isBasicsVersion ? 'flat' : 'concave' ),
-      backgroundColorProperty: GOColors.screenBackgroundColorProperty,
-      createKeyboardHelpNode: () => new GOKeyboardHelpContent()
+      backgroundColorProperty: GOColors.screenBackgroundColorProperty
     }, providedOptions );
 
     super(

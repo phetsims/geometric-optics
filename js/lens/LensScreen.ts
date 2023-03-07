@@ -10,7 +10,6 @@
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import GOColors from '../common/GOColors.js';
-import GOKeyboardHelpContent from '../common/view/GOKeyboardHelpContent.js';
 import geometricOptics from '../geometricOptics.js';
 import GeometricOpticsStrings from '../GeometricOpticsStrings.js';
 import LensModel from './model/LensModel.js';
@@ -22,7 +21,7 @@ import { GOSimOptions } from '../GOSim.js';
 
 type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 
-type LensScreenOptions = SelfOptions & PickRequired<ScreenOptions, 'tandem'>;
+type LensScreenOptions = SelfOptions & PickRequired<ScreenOptions, 'tandem' | 'createKeyboardHelpNode'>;
 
 export default class LensScreen extends Screen<LensModel, LensScreenView> {
 
@@ -33,8 +32,7 @@ export default class LensScreen extends Screen<LensModel, LensScreenView> {
       // Screen options
       name: GeometricOpticsStrings.screen.lensStringProperty,
       homeScreenIcon: createScreenIcon(),
-      backgroundColorProperty: GOColors.screenBackgroundColorProperty,
-      createKeyboardHelpNode: () => new GOKeyboardHelpContent()
+      backgroundColorProperty: GOColors.screenBackgroundColorProperty
     }, providedOptions );
 
     super(

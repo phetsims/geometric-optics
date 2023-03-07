@@ -18,6 +18,8 @@ import PickOptional from '../../phet-core/js/types/PickOptional.js';
 import PreferencesModel from '../../joist/js/preferences/PreferencesModel.js';
 import GOPreferences from './common/model/GOPreferences.js';
 import TReadOnlyProperty from '../../axon/js/TReadOnlyProperty.js';
+import { Node } from '../../scenery/js/imports.js';
+import GOKeyboardHelpContent from './common/view/GOKeyboardHelpContent.js';
 
 type SelfOptions = {
 
@@ -54,13 +56,31 @@ export default class GOSim extends Sim {
       } )
     }, providedOptions );
 
+    let keyboardHelp: null | Node;
+
+    // Reuse the same help content between both screens, without creating a memory leak.
+    const createKeyboardHelpNode = () => {
+      if ( !keyboardHelp ) {
+        keyboardHelp = new GOKeyboardHelpContent();
+        keyboardHelp.disposeEmitter.addListener( function disposeListener() {
+          if ( keyboardHelp ) {
+            keyboardHelp.disposeEmitter.removeListener( disposeListener );
+            keyboardHelp = null;
+          }
+        } );
+      }
+      return keyboardHelp;
+    };
+
     super( titleProperty, [
       new LensScreen( {
         isBasicsVersion: options.isBasicsVersion,
+        createKeyboardHelpNode: createKeyboardHelpNode,
         tandem: Tandem.ROOT.createTandem( 'lensScreen' )
       } ),
       new MirrorScreen( {
         isBasicsVersion: options.isBasicsVersion,
+        createKeyboardHelpNode: createKeyboardHelpNode,
         tandem: Tandem.ROOT.createTandem( 'mirrorScreen' )
       } )
     ], options );
