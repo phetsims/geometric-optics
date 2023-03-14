@@ -50,7 +50,7 @@ export default class GOToolDragListener extends DragListener {
       useInputListenerCursor: true,
       positionProperty: tool.positionProperty,
       dragBoundsProperty: dragBoundsProperty,
-      transform: zoomTransformProperty.value,
+      transform: zoomTransformProperty,
       start: () => toolNode.moveToFront(),
       drag: event => {
         previousPointerPoint = event.pointer.point;
@@ -64,11 +64,6 @@ export default class GOToolDragListener extends DragListener {
     }, providedOptions );
 
     super( options );
-
-    // When the transform changes, update this listener.
-    zoomTransformProperty.link( zoomTransform => {
-      this.transform = zoomTransform;
-    } );
   }
 }
 

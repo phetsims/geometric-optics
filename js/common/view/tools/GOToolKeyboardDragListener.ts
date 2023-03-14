@@ -50,7 +50,7 @@ export default class GOToolKeyboardDragListener extends KeyboardDragListener {
         // KeyboardDragListenerOptions
         positionProperty: tool.positionProperty,
         dragBoundsProperty: dragBoundsProperty,
-        transform: zoomTransformProperty.value,
+        transform: zoomTransformProperty,
         start: () => toolNode.moveToFront(),
         end: () => {
           if ( shouldReturnToToolbox() ) {
@@ -60,11 +60,6 @@ export default class GOToolKeyboardDragListener extends KeyboardDragListener {
       }, providedOptions );
 
     super( options );
-
-    // When the transform changes, update this listener.
-    zoomTransformProperty.link( zoomTransform => {
-      this.transform = zoomTransform;
-    } );
 
     // Escape returns the tool to the toolbox.
     this.addHotkey( {
