@@ -1,4 +1,4 @@
-// Copyright 2022, University of Colorado Boulder
+// Copyright 2022-2023, University of Colorado Boulder
 
 /**
  * GOToolKeyboardDragListener is the KeyboardDragListener for use with Geometric Optics tools.
