@@ -26,9 +26,6 @@
         "default"
       ]
     },
-    "phet-io": {
-      "compareDesignedAPIChanges": true
-    },
     "phetLibs": [],
     "supportsOutputJS": true,
     "published": true
