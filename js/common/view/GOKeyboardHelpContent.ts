@@ -23,6 +23,7 @@ export default class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent 
 
   public constructor() {
 
+    // Sections in the left column. They need to be disposed.
     const leftSections = [
 
       // Move Draggable Items
@@ -39,6 +40,7 @@ export default class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent 
       } )
     ];
 
+    // Sections in the right column. They need to be disposed.
     const rightSections = [
 
       // Slider Controls
@@ -73,12 +75,15 @@ class MoveDraggableItemsSection extends KeyboardHelpSection {
 
   public constructor() {
 
+    // Icons used in this KeyboardHelpSection. They will need to be disposed.
     const arrowOrWasdKeysRowIcon = KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon();
     const arrowKeysRowIcon = KeyboardHelpIconFactory.arrowKeysRowIcon();
     const shiftPlusArrowKeysIcon = KeyboardHelpIconFactory.shiftPlusIcon( arrowKeysRowIcon );
     const wasdRowIcon = KeyboardHelpIconFactory.wasdRowIcon();
     const shiftPlusWASDIcon = KeyboardHelpIconFactory.shiftPlusIcon( wasdRowIcon );
+    const icons = [ arrowOrWasdKeysRowIcon, arrowKeysRowIcon, shiftPlusArrowKeysIcon, wasdRowIcon, shiftPlusWASDIcon ];
 
+    // Rows that make up this KeyboardHelpSection. They need to be disposed.
     const rows = [
 
       // arrows or WASD
@@ -95,11 +100,7 @@ class MoveDraggableItemsSection extends KeyboardHelpSection {
     super( GeometricOpticsStrings.keyboardHelpDialog.moveDraggableItemsStringProperty, rows );
 
     this.disposeMoveDraggableItemsSection = () => {
-      arrowOrWasdKeysRowIcon.dispose();
-      arrowKeysRowIcon.dispose();
-      shiftPlusArrowKeysIcon.dispose();
-      wasdRowIcon.dispose();
-      shiftPlusWASDIcon.dispose();
+      icons.forEach( icon => icon.dispose() );
       //TODO https://github.com/phetsims/scenery-phet/issues/769 uncomment when KeyboardHelpSection no longer disposes of content
       //rows.forEach( row => row.dispose() );
     };
@@ -120,11 +121,14 @@ class RulerAndMarkerControlsSection extends KeyboardHelpSection {
 
   public constructor() {
 
+    // Keys used in this KeyboardHelpSection. They need to be disposed.
     const spaceKeyNode = TextKeyNode.space();
     const enterKeyNode = TextKeyNode.enter();
     const escapeKeyNode = TextKeyNode.esc();
     const spaceOrEnterKeyNode = KeyboardHelpIconFactory.iconOrIcon( spaceKeyNode, enterKeyNode );
+    const keyNodes = [ spaceKeyNode, enterKeyNode, escapeKeyNode, spaceOrEnterKeyNode ];
 
+    // Rows that make up this KeyboardHelpSection. They need to be disposed.
     const rows = [
 
       // Space or Enter
@@ -143,10 +147,7 @@ class RulerAndMarkerControlsSection extends KeyboardHelpSection {
     } );
 
     this.disposeRulerAndMarkerControlsSection = () => {
-      spaceKeyNode.dispose();
-      enterKeyNode.dispose();
-      escapeKeyNode.dispose();
-      spaceOrEnterKeyNode.dispose();
+      keyNodes.forEach( keyNode => keyNode.dispose() );
       //TODO https://github.com/phetsims/scenery-phet/issues/769 uncomment when KeyboardHelpSection no longer disposes of content
       //rows.forEach( row => row.dispose() );
     };
