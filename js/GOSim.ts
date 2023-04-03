@@ -56,20 +56,22 @@ export default class GOSim extends Sim {
       } )
     }, providedOptions );
 
-    let keyboardHelp: null | Node;
-
-    // Reuse the same help content between both screens, without creating a memory leak.
+    // Since keyboard-help is identical for both screens, save memory by reusing the same instance of keyboardHelpNode
+    // for both screens, without creating a memory leak.
+    let keyboardHelpNode: null | Node = null;
     const createKeyboardHelpNode = () => {
-      if ( !keyboardHelp ) {
-        keyboardHelp = new GOKeyboardHelpContent();
-        keyboardHelp.disposeEmitter.addListener( function disposeListener() {
-          if ( keyboardHelp ) {
-            keyboardHelp.disposeEmitter.removeListener( disposeListener );
-            keyboardHelp = null;
+      if ( !keyboardHelpNode ) {
+        keyboardHelpNode = new GOKeyboardHelpContent();
+        keyboardHelpNode.disposeEmitter.addListener( function disposeListener() {
+          if ( keyboardHelpNode ) {
+            if ( keyboardHelpNode.disposeEmitter.hasListener( disposeListener ) ) {
+              keyboardHelpNode.disposeEmitter.removeListener( disposeListener );
+            }
+            keyboardHelpNode = null;
           }
         } );
       }
-      return keyboardHelp;
+      return keyboardHelpNode;
     };
 
     super( titleProperty, [

@@ -19,15 +19,17 @@ import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
 
 export default class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
+  private readonly disposeGOKeyboardHelpContent: () => void;
+
   public constructor() {
 
-    const leftColumn = [
+    const leftSections = [
 
       // Move Draggable Items
-      new MoveDraggableItemsKeyboardHelpSection(),
+      new MoveDraggableItemsSection(),
 
       // Ruler and Marker Controls
-      new RulerAndMarkerControlsKeyboardHelpSection(),
+      new RulerAndMarkerControlsSection(),
 
       // Choose an Object
       new ComboBoxKeyboardHelpSection( {
@@ -37,7 +39,7 @@ export default class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent 
       } )
     ];
 
-    const rightColumn = [
+    const rightSections = [
 
       // Slider Controls
       new SliderControlsKeyboardHelpSection(),
@@ -48,66 +50,110 @@ export default class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent 
       } )
     ];
 
-    super( leftColumn, rightColumn );
+    super( leftSections, rightSections );
+
+    this.disposeGOKeyboardHelpContent = () => {
+      leftSections.forEach( section => section.dispose() );
+      rightSections.forEach( section => section.dispose() );
+    };
   }
 
   public override dispose(): void {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    this.disposeGOKeyboardHelpContent();
     super.dispose();
   }
 }
 
 /**
- * MoveDraggableItemsKeyboardHelpSection is the keyboard-help section that describes the hotkeys supported
- * by KeyboardDragListener.
+ * MoveDraggableItemsSection is the keyboard-help section that describes the hotkeys supported by KeyboardDragListener.
  */
-class MoveDraggableItemsKeyboardHelpSection extends KeyboardHelpSection {
+class MoveDraggableItemsSection extends KeyboardHelpSection {
+
+  private readonly disposeMoveDraggableItemsSection: () => void;
 
   public constructor() {
 
-    // arrows or WASD
-    const normalRow = KeyboardHelpSectionRow.labelWithIcon( GeometricOpticsStrings.keyboardHelpDialog.moveStringProperty,
-      KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon() );
+    const arrowOrWasdKeysRowIcon = KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon();
+    const arrowKeysRowIcon = KeyboardHelpIconFactory.arrowKeysRowIcon();
+    const shiftPlusArrowKeysIcon = KeyboardHelpIconFactory.shiftPlusIcon( arrowKeysRowIcon );
+    const wasdRowIcon = KeyboardHelpIconFactory.wasdRowIcon();
+    const shiftPlusWASDIcon = KeyboardHelpIconFactory.shiftPlusIcon( wasdRowIcon );
 
-    // Shift+arrows or Shift+WASD
-    const slowerRow = KeyboardHelpSectionRow.labelWithIconList( GeometricOpticsStrings.keyboardHelpDialog.moveSlowerStringProperty, [
-      KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.arrowKeysRowIcon() ),
-      KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.wasdRowIcon() )
-    ] );
+    const rows = [
 
-    super( GeometricOpticsStrings.keyboardHelpDialog.moveDraggableItemsStringProperty, [ normalRow, slowerRow ] );
+      // arrows or WASD
+      KeyboardHelpSectionRow.labelWithIcon( GeometricOpticsStrings.keyboardHelpDialog.moveStringProperty,
+        arrowOrWasdKeysRowIcon ),
+
+      // Shift+arrows or Shift+WASD
+      KeyboardHelpSectionRow.labelWithIconList( GeometricOpticsStrings.keyboardHelpDialog.moveSlowerStringProperty, [
+        shiftPlusArrowKeysIcon,
+        shiftPlusWASDIcon
+      ] )
+    ];
+
+    super( GeometricOpticsStrings.keyboardHelpDialog.moveDraggableItemsStringProperty, rows );
+
+    this.disposeMoveDraggableItemsSection = () => {
+      arrowOrWasdKeysRowIcon.dispose();
+      arrowKeysRowIcon.dispose();
+      shiftPlusArrowKeysIcon.dispose();
+      wasdRowIcon.dispose();
+      shiftPlusWASDIcon.dispose();
+      //TODO https://github.com/phetsims/scenery-phet/issues/769 uncomment when KeyboardHelpSection no longer disposes of content
+      //rows.forEach( row => row.dispose() );
+    };
   }
 
   public override dispose(): void {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    this.disposeMoveDraggableItemsSection();
     super.dispose();
   }
 }
 
 /**
- * RulerAndMarkerControlsKeyboardHelpSection is the keyboard-help section that describes the hotkeys related to the tools.
+ * RulerAndMarkerControlsSection is the keyboard-help section that describes the hotkeys related to the tools.
  */
-class RulerAndMarkerControlsKeyboardHelpSection extends KeyboardHelpSection {
+class RulerAndMarkerControlsSection extends KeyboardHelpSection {
+
+  private readonly disposeRulerAndMarkerControlsSection: () => void;
 
   public constructor() {
-    super( GeometricOpticsStrings.keyboardHelpDialog.rulerAndMarkerControlsStringProperty, [
+
+    const spaceKeyNode = TextKeyNode.space();
+    const enterKeyNode = TextKeyNode.enter();
+    const escapeKeyNode = TextKeyNode.esc();
+    const spaceOrEnterKeyNode = KeyboardHelpIconFactory.iconOrIcon( spaceKeyNode, enterKeyNode );
+
+    const rows = [
 
       // Space or Enter
       KeyboardHelpSectionRow.labelWithIcon( GeometricOpticsStrings.keyboardHelpDialog.removeFromToolboxStringProperty,
-        KeyboardHelpIconFactory.iconOrIcon( TextKeyNode.space(), TextKeyNode.enter() ) ),
+        spaceOrEnterKeyNode ),
 
       // Esc
-      KeyboardHelpSectionRow.labelWithIcon( GeometricOpticsStrings.keyboardHelpDialog.returnToToolboxStringProperty, TextKeyNode.esc() ),
+      KeyboardHelpSectionRow.labelWithIcon( GeometricOpticsStrings.keyboardHelpDialog.returnToToolboxStringProperty, escapeKeyNode ),
 
       // J, for 'Jump'
       KeyboardHelpSectionRow.createKeysRowFromStrings( [ 'J' ], GeometricOpticsStrings.keyboardHelpDialog.jumpToPointStringProperty )
-    ], {
+    ];
+
+    super( GeometricOpticsStrings.keyboardHelpDialog.rulerAndMarkerControlsStringProperty, rows, {
       textMaxWidth: 300
     } );
+
+    this.disposeRulerAndMarkerControlsSection = () => {
+      spaceKeyNode.dispose();
+      enterKeyNode.dispose();
+      escapeKeyNode.dispose();
+      spaceOrEnterKeyNode.dispose();
+      //TODO https://github.com/phetsims/scenery-phet/issues/769 uncomment when KeyboardHelpSection no longer disposes of content
+      //rows.forEach( row => row.dispose() );
+    };
   }
 
   public override dispose(): void {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    this.disposeRulerAndMarkerControlsSection();
     super.dispose();
   }
 }
