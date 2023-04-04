@@ -101,8 +101,7 @@ class MoveDraggableItemsSection extends KeyboardHelpSection {
 
     this.disposeMoveDraggableItemsSection = () => {
       icons.forEach( icon => icon.dispose() );
-      //TODO https://github.com/phetsims/scenery-phet/issues/769 uncomment when KeyboardHelpSection no longer disposes of content
-      //rows.forEach( row => row.dispose() );
+      rows.forEach( row => row.dispose() );
     };
   }
 
@@ -148,8 +147,7 @@ class RulerAndMarkerControlsSection extends KeyboardHelpSection {
 
     this.disposeRulerAndMarkerControlsSection = () => {
       keyNodes.forEach( keyNode => keyNode.dispose() );
-      //TODO https://github.com/phetsims/scenery-phet/issues/769 uncomment when KeyboardHelpSection no longer disposes of content
-      //rows.forEach( row => row.dispose() );
+      rows.forEach( row => row.dispose() );
     };
   }
 
