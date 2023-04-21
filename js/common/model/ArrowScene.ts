@@ -94,7 +94,7 @@ export default class ArrowScene extends GOScene {
 
     // Guides, for the Lens screen only
     if ( optic instanceof Lens ) {
-      this.initializeGuides( this.arrowObject1.positionProperty, this.arrowObject2.positionProperty, providedOptions.tandem );
+      this.initializeGuides( this.arrowObject1.positionProperty, this.arrowObject2.positionProperty );
     }
 
     this.resetArrowObjectScene = () => {

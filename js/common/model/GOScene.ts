@@ -16,7 +16,6 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 
 // How long the animation of light rays lasts, in seconds
 const RAYS_ANIMATION_DURATION = 10;
@@ -107,18 +106,11 @@ export default abstract class GOScene extends PhetioObject {
    * Initializes the optional guides, called by subclasses.
    */
   protected initializeGuides( guides1PositionProperty: TReadOnlyProperty<Vector2>,
-                              guides2PositionProperty: TReadOnlyProperty<Vector2>,
-                              parentTandem: Tandem ): void {
+                              guides2PositionProperty: TReadOnlyProperty<Vector2> ): void {
 
-    this._guides1 = new Guides( this.optic, guides1PositionProperty, {
-      tandem: parentTandem.createTandem( 'guides1' ),
-      phetioDocumentation: 'guides associated with the first point-of-interest'
-    } );
+    this._guides1 = new Guides( this.optic, guides1PositionProperty );
 
-    this._guides2 = new Guides( this.optic, guides2PositionProperty, {
-      tandem: parentTandem.createTandem( 'guides2' ),
-      phetioDocumentation: 'guides associated with the second point-of-interest'
-    } );
+    this._guides2 = new Guides( this.optic, guides2PositionProperty );
   }
 }
 

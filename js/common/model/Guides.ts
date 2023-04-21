@@ -8,18 +8,11 @@
 
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Optic from './Optic.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from './Guide.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
-type SelfOptions = EmptySelfOptions;
-
-type GuidesOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
-
-export default class Guides extends PhetioObject {
+export default class Guides {
 
   // the pair of guides
   public readonly topGuide: Guide;
@@ -28,30 +21,16 @@ export default class Guides extends PhetioObject {
   /**
    * @param optic - the optic that these guides are associated with
    * @param opticalObjectPositionProperty - position of the optical object
-   * @param providedOptions
    */
-  public constructor( optic: Optic, opticalObjectPositionProperty: TReadOnlyProperty<Vector2>, providedOptions: GuidesOptions ) {
+  public constructor( optic: Optic, opticalObjectPositionProperty: TReadOnlyProperty<Vector2> ) {
 
-    const options = optionize<GuidesOptions, SelfOptions, PhetioObjectOptions>()( {
+    this.topGuide = new Guide( optic, opticalObjectPositionProperty, 'top' );
 
-      // PhetioObjectOptions
-      phetioState: false
-    }, providedOptions );
-
-    super( options );
-
-    this.topGuide = new Guide( optic, opticalObjectPositionProperty, 'top', {
-      tandem: options.tandem.createTandem( 'topGuide' )
-    } );
-
-    this.bottomGuide = new Guide( optic, opticalObjectPositionProperty, 'bottom', {
-      tandem: options.tandem.createTandem( 'bottomGuide' )
-    } );
+    this.bottomGuide = new Guide( optic, opticalObjectPositionProperty, 'bottom' );
   }
 
-  public override dispose(): void {
+  public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
-    super.dispose();
   }
 }
 

@@ -123,7 +123,7 @@ export default class LightScene extends GOScene {
       } );
 
     // Guides
-    this.initializeGuides( this.lightObject1.positionProperty, this.lightObject2.positionProperty, providedOptions.tandem );
+    this.initializeGuides( this.lightObject1.positionProperty, this.lightObject2.positionProperty );
 
     this.resetLightObjectScene = () => {
       this.lightObject1.reset();

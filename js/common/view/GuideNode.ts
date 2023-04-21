@@ -10,7 +10,7 @@
  */
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Circle, TColor, Node, NodeOptions, Rectangle } from '../../../../scenery/js/imports.js';
+import { Circle, Node, NodeOptions, Rectangle, TColor } from '../../../../scenery/js/imports.js';
 import GOColors from '../../common/GOColors.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from '../model/Guide.js';
@@ -54,9 +54,6 @@ export default class GuideNode extends Node {
     super( options );
 
     this.guide = guide;
-    this.addLinkedElement( guide, {
-      tandem: options.tandem.createTandem( guide.tandem.name )
-    } );
 
     this.modelViewTransform = modelViewTransform;
 

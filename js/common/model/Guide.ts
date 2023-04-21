@@ -10,20 +10,12 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
-import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import Optic from './Optic.js';
 import geometricOptics from '../../geometricOptics.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 export type GuideLocation = 'top' | 'bottom';
 
-type SelfOptions = EmptySelfOptions;
-
-type GuideOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
-
-class Guide extends PhetioObject {
+export default class Guide {
 
   // position of the fulcrum point, in cm
   public readonly fulcrumPositionProperty: TReadOnlyProperty<Vector2>;
@@ -38,17 +30,8 @@ class Guide extends PhetioObject {
    * @param optic - the optic that this guide is associated with
    * @param opticalObjectPositionProperty - position of the optical object
    * @param location - location of the guide, relative to the optic
-   * @param providedOptions
    */
-  public constructor( optic: Optic, opticalObjectPositionProperty: TReadOnlyProperty<Vector2>, location: GuideLocation, providedOptions: GuideOptions ) {
-
-    const options = optionize<GuideOptions, SelfOptions, PhetioObjectOptions>()( {
-
-      // PhetioObjectOptions
-      phetioState: false
-    }, providedOptions );
-
-    super( options );
+  public constructor( optic: Optic, opticalObjectPositionProperty: TReadOnlyProperty<Vector2>, location: GuideLocation ) {
 
     // sign is positive for top guide and negative below
     const locationSign = ( location === 'top' ) ? +1 : -1;
@@ -56,21 +39,13 @@ class Guide extends PhetioObject {
     this.fulcrumPositionProperty = new DerivedProperty(
       [ optic.positionProperty, optic.diameterProperty ],
       ( opticPosition, opticDiameter ) =>
-        opticPosition.plusXY( 0, locationSign * opticDiameter / 2 ), {
-        tandem: options.tandem.createTandem( 'fulcrumPositionProperty' ),
-        phetioValueType: Vector2.Vector2IO,
-        units: 'cm'
-      } );
+        opticPosition.plusXY( 0, locationSign * opticDiameter / 2 ) );
 
     this.incidentAngleProperty = new DerivedProperty(
       [ opticalObjectPositionProperty, this.fulcrumPositionProperty ],
       ( opticalObjectPosition, fulcrumPosition ) => {
         const displacementVector = opticalObjectPosition.minus( fulcrumPosition );
         return displacementVector.getAngle();
-      }, {
-        tandem: options.tandem.createTandem( 'incidentAngleProperty' ),
-        phetioValueType: NumberIO,
-        units: 'radians'
       } );
 
     this.transmittedAngleProperty = new DerivedProperty(
@@ -92,18 +67,12 @@ class Guide extends PhetioObject {
                                -1 * locationSign * ( Math.atan( 3 * toa ) - Math.atan( toa ) );
 
         return throughAngle + deflectedAngle;
-      }, {
-        tandem: options.tandem.createTandem( 'transmittedAngleProperty' ),
-        phetioValueType: NumberIO,
-        units: 'radians'
       } );
   }
 
-  public override dispose(): void {
+  public dispose(): void {
     assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
-    super.dispose();
   }
 }
 
 geometricOptics.register( 'Guide', Guide );
-export { Guide as default };

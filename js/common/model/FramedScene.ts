@@ -98,7 +98,7 @@ export default class FramedScene extends GOScene {
 
     // Guides, for the Lens screen only
     if ( optic instanceof Lens ) {
-      this.initializeGuides( this.framedObject.positionProperty, this.secondPoint.positionProperty, providedOptions.tandem );
+      this.initializeGuides( this.framedObject.positionProperty, this.secondPoint.positionProperty );
     }
 
     this.resetFramedObjectScene = () => {
