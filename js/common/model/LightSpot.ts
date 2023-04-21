@@ -56,6 +56,7 @@ export default class LightSpot extends PhetioObject {
                       opticalImagePositionProperty: TReadOnlyProperty<Vector2>,
                       providedOptions: LightSpotOptions ) {
 
+    // @ts-expect-error - chip away for https://github.com/phetsims/center-and-variability/issues/142
     const options = optionize<LightSpotOptions, SelfOptions, PhetioObject>()( {
 
       // PhetioObjectOptions
