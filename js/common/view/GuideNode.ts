@@ -15,7 +15,6 @@ import GOColors from '../../common/GOColors.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from '../model/Guide.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 // constants, in view coordinates
 const FULCRUM_RADIUS = 5;
@@ -29,14 +28,14 @@ const ARM_STROKE_PROPERTY = GOColors.guideStrokeProperty;
 
 type SelfOptions = EmptySelfOptions;
 
-type GuideNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
+type GuideNodeOptions = SelfOptions;
 
 export default class GuideNode extends Node {
 
   private readonly guide: Guide;
   private readonly modelViewTransform: ModelViewTransform2;
 
-  public constructor( guide: Guide, armColor: TColor, modelViewTransform: ModelViewTransform2, providedOptions: GuideNodeOptions ) {
+  public constructor( guide: Guide, armColor: TColor, modelViewTransform: ModelViewTransform2, providedOptions?: GuideNodeOptions ) {
 
     const fulcrumNode = new Circle( FULCRUM_RADIUS, FULCRUM_OPTIONS );
 
@@ -47,8 +46,7 @@ export default class GuideNode extends Node {
     const options = optionize<GuideNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions
-      children: [ incidentArmNode, transmittedArmNode, fulcrumNode ],
-      phetioVisiblePropertyInstrumented: false
+      children: [ incidentArmNode, transmittedArmNode, fulcrumNode ]
     }, providedOptions );
 
     super( options );

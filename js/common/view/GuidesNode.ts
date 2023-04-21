@@ -6,7 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { TColor, Node, NodeOptions } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions, TColor } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GuideNode from './GuideNode.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -29,12 +29,8 @@ export default class GuidesNode extends Node {
 
       // NodeOptions
       children: [
-        new GuideNode( guides.topGuide, armColor, modelViewTransform, {
-          tandem: providedOptions.tandem.createTandem( 'topGuideNode' )
-        } ),
-        new GuideNode( guides.bottomGuide, armColor, modelViewTransform, {
-          tandem: providedOptions.tandem.createTandem( 'bottomGuideNode' )
-        } )
+        new GuideNode( guides.topGuide, armColor, modelViewTransform ),
+        new GuideNode( guides.bottomGuide, armColor, modelViewTransform )
       ]
     }, providedOptions ) );
   }
