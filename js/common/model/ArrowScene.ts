@@ -1,4 +1,4 @@
-// Copyright 2022, University of Colorado Boulder
+// Copyright 2022-2023, University of Colorado Boulder
 
 /**
  * ArrowScene is a scene in which rays from two arrows interact with an optic and produce an Image.
