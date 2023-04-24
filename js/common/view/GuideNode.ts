@@ -10,11 +10,10 @@
  */
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Circle, Node, NodeOptions, Rectangle, TColor } from '../../../../scenery/js/imports.js';
+import { Circle, Node, Rectangle, TColor } from '../../../../scenery/js/imports.js';
 import GOColors from '../../common/GOColors.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from '../model/Guide.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
 // constants, in view coordinates
 const FULCRUM_RADIUS = 5;
@@ -26,16 +25,12 @@ const FULCRUM_OPTIONS = {
 };
 const ARM_STROKE_PROPERTY = GOColors.guideStrokeProperty;
 
-type SelfOptions = EmptySelfOptions;
-
-type GuideNodeOptions = SelfOptions;
-
 export default class GuideNode extends Node {
 
   private readonly guide: Guide;
   private readonly modelViewTransform: ModelViewTransform2;
 
-  public constructor( guide: Guide, armColor: TColor, modelViewTransform: ModelViewTransform2, providedOptions?: GuideNodeOptions ) {
+  public constructor( guide: Guide, armColor: TColor, modelViewTransform: ModelViewTransform2 ) {
 
     const fulcrumNode = new Circle( FULCRUM_RADIUS, FULCRUM_OPTIONS );
 
@@ -43,13 +38,9 @@ export default class GuideNode extends Node {
     const incidentArmNode = createArmNode( armColor );
     const transmittedArmNode = createArmNode( armColor );
 
-    const options = optionize<GuideNodeOptions, SelfOptions, NodeOptions>()( {
-
-      // NodeOptions
+    super( {
       children: [ incidentArmNode, transmittedArmNode, fulcrumNode ]
-    }, providedOptions );
-
-    super( options );
+    } );
 
     this.guide = guide;
 
