@@ -8,15 +8,12 @@
 
 import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/BasicActionsKeyboardHelpSection.js';
 import ComboBoxKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/ComboBoxKeyboardHelpSection.js';
-import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
-import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
-import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
 import SliderControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SliderControlsKeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
-import TextKeyNode from '../../../../scenery-phet/js/keyboard/TextKeyNode.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
 import MoveDraggableItemsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/MoveDraggableItemsKeyboardHelpSection.js';
+import { RulerAndMarkerControlsSection } from './RulerAndMarkerControlsSection.js';
 
 export default class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
@@ -63,52 +60,6 @@ export default class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent 
 
   public override dispose(): void {
     this.disposeGOKeyboardHelpContent();
-    super.dispose();
-  }
-}
-
-/**
- * RulerAndMarkerControlsSection is the keyboard-help section that describes the hotkeys related to the tools.
- */
-class RulerAndMarkerControlsSection extends KeyboardHelpSection {
-
-  private readonly disposeRulerAndMarkerControlsSection: () => void;
-
-  public constructor() {
-
-    // Keys used in this KeyboardHelpSection. They need to be disposed.
-    const spaceKeyNode = TextKeyNode.space();
-    const enterKeyNode = TextKeyNode.enter();
-    const escapeKeyNode = TextKeyNode.esc();
-    const spaceOrEnterKeyNode = KeyboardHelpIconFactory.iconOrIcon( spaceKeyNode, enterKeyNode );
-    const keyNodes = [ spaceKeyNode, enterKeyNode, escapeKeyNode, spaceOrEnterKeyNode ];
-
-    // Rows that make up this KeyboardHelpSection. They need to be disposed.
-    const rows = [
-
-      // Space or Enter
-      KeyboardHelpSectionRow.labelWithIcon( GeometricOpticsStrings.keyboardHelpDialog.removeFromToolboxStringProperty,
-        spaceOrEnterKeyNode ),
-
-      // Esc
-      KeyboardHelpSectionRow.labelWithIcon( GeometricOpticsStrings.keyboardHelpDialog.returnToToolboxStringProperty, escapeKeyNode ),
-
-      // J, for 'Jump'
-      KeyboardHelpSectionRow.createKeysRowFromStrings( [ 'J' ], GeometricOpticsStrings.keyboardHelpDialog.jumpToPointStringProperty )
-    ];
-
-    super( GeometricOpticsStrings.keyboardHelpDialog.rulerAndMarkerControlsStringProperty, rows, {
-      textMaxWidth: 300
-    } );
-
-    this.disposeRulerAndMarkerControlsSection = () => {
-      keyNodes.forEach( keyNode => keyNode.dispose() );
-      rows.forEach( row => row.dispose() );
-    };
-  }
-
-  public override dispose(): void {
-    this.disposeRulerAndMarkerControlsSection();
     super.dispose();
   }
 }
