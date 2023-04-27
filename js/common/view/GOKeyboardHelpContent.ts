@@ -16,6 +16,7 @@ import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/h
 import TextKeyNode from '../../../../scenery-phet/js/keyboard/TextKeyNode.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
+import MoveDraggableItemsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/MoveDraggableItemsKeyboardHelpSection.js';
 
 export default class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
@@ -27,7 +28,7 @@ export default class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent 
     const leftSections = [
 
       // Move Draggable Items
-      new MoveDraggableItemsSection(),
+      new MoveDraggableItemsKeyboardHelpSection(),
 
       // Ruler and Marker Controls
       new RulerAndMarkerControlsSection(),
@@ -62,51 +63,6 @@ export default class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent 
 
   public override dispose(): void {
     this.disposeGOKeyboardHelpContent();
-    super.dispose();
-  }
-}
-
-/**
- * MoveDraggableItemsSection is the keyboard-help section that describes the hotkeys supported by KeyboardDragListener.
- */
-class MoveDraggableItemsSection extends KeyboardHelpSection {
-
-  private readonly disposeMoveDraggableItemsSection: () => void;
-
-  public constructor() {
-
-    // Icons used in this KeyboardHelpSection. They will need to be disposed.
-    const arrowOrWasdKeysRowIcon = KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon();
-    const arrowKeysRowIcon = KeyboardHelpIconFactory.arrowKeysRowIcon();
-    const shiftPlusArrowKeysIcon = KeyboardHelpIconFactory.shiftPlusIcon( arrowKeysRowIcon );
-    const wasdRowIcon = KeyboardHelpIconFactory.wasdRowIcon();
-    const shiftPlusWASDIcon = KeyboardHelpIconFactory.shiftPlusIcon( wasdRowIcon );
-    const icons = [ arrowOrWasdKeysRowIcon, arrowKeysRowIcon, shiftPlusArrowKeysIcon, wasdRowIcon, shiftPlusWASDIcon ];
-
-    // Rows that make up this KeyboardHelpSection. They need to be disposed.
-    const rows = [
-
-      // arrows or WASD
-      KeyboardHelpSectionRow.labelWithIcon( GeometricOpticsStrings.keyboardHelpDialog.moveStringProperty,
-        arrowOrWasdKeysRowIcon ),
-
-      // Shift+arrows or Shift+WASD
-      KeyboardHelpSectionRow.labelWithIconList( GeometricOpticsStrings.keyboardHelpDialog.moveSlowerStringProperty, [
-        shiftPlusArrowKeysIcon,
-        shiftPlusWASDIcon
-      ] )
-    ];
-
-    super( GeometricOpticsStrings.keyboardHelpDialog.moveDraggableItemsStringProperty, rows );
-
-    this.disposeMoveDraggableItemsSection = () => {
-      icons.forEach( icon => icon.dispose() );
-      rows.forEach( row => row.dispose() );
-    };
-  }
-
-  public override dispose(): void {
-    this.disposeMoveDraggableItemsSection();
     super.dispose();
   }
 }
