@@ -76,10 +76,12 @@ export default class VisibleProperties {
       tandem: providedOptions.tandem.createTandem( 'secondPointVisibleProperty' )
     } );
 
-    this.guidesVisibleProperty = new BooleanProperty( false, {
-      validValues: isMirror ? [ false ] : [ true, false ],
-      tandem: isMirror ? Tandem.OPT_OUT : providedOptions.tandem.createTandem( 'guidesVisibleProperty' )
-    } );
+    // Mirrors cannot have guides, and guidesVisibleProperty should not be instrumented.
+    // See https://github.com/phetsims/geometric-optics/issues/456
+    const guidesVisiblePropertyOptions = isMirror ?
+      { validValues: [ false ] } :
+      { tandem: providedOptions.tandem.createTandem( 'guidesVisibleProperty' ) };
+    this.guidesVisibleProperty = new BooleanProperty( false, guidesVisiblePropertyOptions );
 
     this.opticalAxisVisibleProperty = new BooleanProperty( true, {
       tandem: providedOptions.tandem.createTandem( 'opticalAxisVisibleProperty' ),
