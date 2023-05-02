@@ -55,9 +55,6 @@ type SelfOptions = {
   // models of focal length
   directFocalLengthModelOptions: DirectFocalLengthModelOptions;
   indirectFocalLengthModelOptions: IndirectFocalLengthModelOptions;
-
-  // position of the optic, in cm
-  position?: Vector2;
 };
 
 export type OpticOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'> &
@@ -115,9 +112,6 @@ export default abstract class Optic extends PhetioObject {
 
     const options = optionize<OpticOptions, SelfOptions, PhetioObjectOptions>()( {
 
-      // SelfOptions
-      position: Vector2.ZERO,
-
       // PhetioObjectOptions
       phetioState: false
     }, providedOptions );
@@ -142,8 +136,9 @@ export default abstract class Optic extends PhetioObject {
     // about it being at (0,0), and (4) it is useful for PhET-iO, as a means of documenting where the optic is located.
     // If there is a future need to make position mutable, then it may be useful to consult this sha to see
     // what was changed: https://github.com/phetsims/geometric-optics/commit/c021a961816fb1911a73cdd2551c45a405816097
-    this.positionProperty = new Vector2Property( options.position, {
-      isValidValue: ( value: Vector2 ) => value.equals( options.position ),
+    const position = Vector2.ZERO;
+    this.positionProperty = new Vector2Property( position, {
+      isValidValue: ( value: Vector2 ) => value.equals( position ),
       units: 'cm',
       tandem: options.tandem.createTandem( 'positionProperty' ),
       phetioReadOnly: true,
