@@ -65,7 +65,7 @@ For the lens, magnitude of the focal length is given by the _lens-maker's equati
 
 A lens has two focal points (F) and two 2F points, while a mirror only has one surface, and therefore
 only one F point and one 2F point.  This difference is correctly reflected in the view for this simulation.
-But as a simplifying generalize, the model has two F points and two 2F points for both types of optics
+But as an implementation simplification, the model has two F points and two 2F points for both types of optics
 (lens and mirror). More specifically for this simulation:
 * For a lens, F and 2F points appear on both sides of the lens.
 * For a concave mirror, F and 2F appear to the _left_ of the mirror.
