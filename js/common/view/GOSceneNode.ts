@@ -27,6 +27,7 @@ import GOScene from '../model/GOScene.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ToolJumpPoint from '../model/tools/ToolJumpPoint.js';
+import Lens from '../../lens/model/Lens.js';
 
 type SelfOptions = {
 
@@ -99,26 +100,71 @@ export default abstract class GOSceneNode extends Node {
 
     const opticVerticalAxisNode = new OpticVerticalAxisNode( scene.optic, raysTypeProperty, modelViewTransform );
 
-    // Focal Points (F)
+    /**
+     * A note about visibility of focal points (F and 2F), see https://github.com/phetsims/geometric-optics/issues/457.
+     * A lens has 2 focal points. But since a mirror only has one surface, it only has one focal point. Unfortunately,
+     * our Optic base class is very dependent on having two F and 2F points. So rather than modify the model, we decided
+     * to control the visibility of F and 2F in the view - see 'visibleProperty: new DerivedProperty(...)' below.
+     * For a lens, all F and 2F points are made visible.
+     * For a concave mirror, F and 2F are on the left, so only leftFocalPointNode and left2FPointNode are made visible.
+     * For a convex mirror, F and 2F are on the right, so only rightFocalPointNode and right2FPointNode are visible.
+     * For a flat mirror, F and 2F are at infinity, so all F and 2F points are made invisible.
+     */
+
+      // Focal Points (F)
     const focalPointsTandem = options.tandem.createTandem( 'focalPoints' );
+    const leftFocalPointNodeTandem = focalPointsTandem.createTandem( 'leftFocalPointNode' );
     const leftFocalPointNode = new FocalPointNode( scene.optic.leftFocalPointProperty, modelViewTransform, {
-      visibleProperty: visibleProperties.focalPointsVisibleProperty,
-      tandem: focalPointsTandem.createTandem( 'leftFocalPointNode' )
+      visibleProperty: ( scene.optic instanceof Lens ) ?
+                       visibleProperties.focalPointsVisibleProperty :
+                       new DerivedProperty(
+                         [ visibleProperties.focalPointsVisibleProperty, scene.optic.opticSurfaceTypeProperty ],
+                         ( focalPointsVisible, surfaceType ) => focalPointsVisible && surfaceType === 'concave', {
+                           tandem: leftFocalPointNodeTandem.createTandem( 'visibleProperty' ),
+                           phetioValueType: BooleanIO
+                         } ),
+      tandem: leftFocalPointNodeTandem
     } );
+
+    const rightFocalPointNodeTandem = focalPointsTandem.createTandem( 'rightFocalPointNode' );
     const rightFocalPointNode = new FocalPointNode( scene.optic.rightFocalPointProperty, modelViewTransform, {
-      visibleProperty: visibleProperties.focalPointsVisibleProperty,
-      tandem: focalPointsTandem.createTandem( 'rightFocalPointNode' )
+      visibleProperty: ( scene.optic instanceof Lens ) ?
+                       visibleProperties.focalPointsVisibleProperty :
+                       new DerivedProperty(
+                         [ visibleProperties.focalPointsVisibleProperty, scene.optic.opticSurfaceTypeProperty ],
+                         ( focalPointsVisible, surfaceType ) => focalPointsVisible && surfaceType === 'convex', {
+                           tandem: rightFocalPointNodeTandem.createTandem( 'visibleProperty' ),
+                           phetioValueType: BooleanIO
+                         } ),
+      tandem: rightFocalPointNodeTandem
     } );
 
     // 2F Points
     const twoFPointTandem = options.tandem.createTandem( 'twoFPoints' );
+    const left2FPointNodeTandem = twoFPointTandem.createTandem( 'left2FPointNode' );
     const left2FPointNode = new TwoFPointNode( scene.optic.left2FProperty, modelViewTransform, {
-      visibleProperty: visibleProperties.twoFPointsVisibleProperty,
-      tandem: twoFPointTandem.createTandem( 'left2FPointNode' )
+      visibleProperty: ( scene.optic instanceof Lens ) ?
+                       visibleProperties.twoFPointsVisibleProperty :
+                       new DerivedProperty(
+                         [ visibleProperties.twoFPointsVisibleProperty, scene.optic.opticSurfaceTypeProperty ],
+                         ( twoFPointsVisible, surfaceType ) => twoFPointsVisible && surfaceType === 'concave', {
+                           tandem: left2FPointNodeTandem.createTandem( 'visibleProperty' ),
+                           phetioValueType: BooleanIO
+                         } ),
+      tandem: left2FPointNodeTandem
     } );
+
+    const right2FPointNodeTandem = twoFPointTandem.createTandem( 'right2FPointNode' );
     const right2FPointNode = new TwoFPointNode( scene.optic.right2FProperty, modelViewTransform, {
-      visibleProperty: visibleProperties.twoFPointsVisibleProperty,
-      tandem: twoFPointTandem.createTandem( 'right2FPointNode' )
+      visibleProperty: ( scene.optic instanceof Lens ) ?
+                       visibleProperties.twoFPointsVisibleProperty :
+                       new DerivedProperty(
+                         [ visibleProperties.twoFPointsVisibleProperty, scene.optic.opticSurfaceTypeProperty ],
+                         ( twoFPointsVisible, surfaceType ) => twoFPointsVisible && surfaceType === 'convex', {
+                           tandem: right2FPointNodeTandem.createTandem( 'visibleProperty' ),
+                           phetioValueType: BooleanIO
+                         } ),
+      tandem: right2FPointNodeTandem
     } );
 
     // Layers for things that may be added by subclasses
