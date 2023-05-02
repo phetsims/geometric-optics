@@ -77,6 +77,9 @@ export default class OpticalObject extends PhetioObject {
       tandem: options.tandem.createTandem( 'positionProperty' )
     } );
 
+    // For empirically setting the initial position of optical objects.
+    phet.log && this.positionProperty.link( position => phet.log( `${this.phetioID} position=${position}` ) );
+
     this.objectDistanceProperty = new DerivedProperty( [ opticPositionProperty, this.positionProperty ],
       ( opticPosition, opticalObjectPosition ) => ( opticPosition.x - opticalObjectPosition.x ), {
         units: 'cm',
