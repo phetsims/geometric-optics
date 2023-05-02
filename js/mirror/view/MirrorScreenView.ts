@@ -17,6 +17,7 @@ import MirrorNode from './MirrorNode.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import GOQueryParameters from '../../common/GOQueryParameters.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -40,7 +41,7 @@ export default class MirrorScreenView extends GOScreenView {
       // Slightly above center of the layoutBounds in both versions.
       getViewOrigin: providedOptions.isBasicsVersion ?
                      ( layoutBounds: Bounds2 ) => new Vector2( layoutBounds.centerX, layoutBounds.centerY - 35 ) :
-                     ( layoutBounds: Bounds2 ) => new Vector2( layoutBounds.centerX + 200, layoutBounds.centerY - 35 ),
+                     ( layoutBounds: Bounds2 ) => new Vector2( layoutBounds.centerX + GOQueryParameters.mirrorXOffset, layoutBounds.centerY - 35 ),
 
       // Creates the Node for the mirror
       createOpticNode: ( modelViewTransform: ModelViewTransform2, parentTandem: Tandem ) => {

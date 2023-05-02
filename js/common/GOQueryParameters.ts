@@ -187,6 +187,12 @@ const SCHEMA_MAP = {
   // Shows the outline of the light spots, not clipped to the projections screen.
   debugLightSpots: {
     type: 'flag'
+  },
+
+  //TODO https://github.com/phetsims/geometric-optics/issues/457 delete this when issue is resolved
+  mirrorXOffset: {
+    type: 'number',
+    defaultValue: 200
   }
 } as const;
 
