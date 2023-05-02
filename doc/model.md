@@ -63,6 +63,15 @@ The radius of curvature is identical for both surfaces of our optics.
 
 For the lens, magnitude of the focal length is given by the _lens-maker's equation_, _f = R/(2(1-n))_. For the mirror, magnitude of the focal length is determined by the paraxial approximation, given by _f = R/2_. As for the sign, the focal length _f_ is positive for converging optics (convex lens, concave mirror) and negative for diverging optics (concave lens, convex mirror).
 
+A lens has two focal points (F) and two 2F points, while a mirror only has one surface, and therefore
+only one F point and one 2F point.  This difference is correctly reflected in the view for this simulation.
+But as a simplifying generalize, the model has two F points and two 2F points for both types of optics
+(lens and mirror). More specifically for this simulation:
+* For a lens, F and 2F points appear on both sides of the lens.
+* For a concave mirror, F and 2F appear to the _left_ of the mirror.
+* For a convex mirror, F and 2F appear to the _right_ of the mirror.
+* For a flat mirror, F and 2F are at infinity, so are not visible in the simulation.
+
 ## Object
 
 The position of the object is constrained such that it is always to the left of the optic.
