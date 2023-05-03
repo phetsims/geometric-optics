@@ -22,7 +22,7 @@
   window.phet.chipper.packageObject =
     {
       "name": "geometric-optics",
-      "version": "1.2.0-dev.2",
+      "version": "1.2.0-dev.3",
       "license": "GPL-3.0",
       "repository": {
         "type": "git",
@@ -49,6 +49,9 @@
           ]
         },
         "phetLibs": [],
+        "phet-io": {
+          "compareDesignedAPIChanges": true
+        },
         "supportsOutputJS": true,
         "published": true
       },
@@ -60,7 +63,16 @@
               "**/*.ts"
             ],
             "rules": {
-              "@typescript-eslint/ban-ts-comment": "error"
+              "@typescript-eslint/no-explicit-any": "error",
+              "@typescript-eslint/ban-ts-comment": [
+                "error",
+                {
+                  "ts-expect-error": true,
+                  "ts-ignore": true,
+                  "ts-check": true,
+                  "ts-nocheck": true
+                }
+              ]
             }
           }
         ]
