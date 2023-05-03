@@ -1,103 +1,103 @@
 {
-  "comment": "# geometric-optics 1.2.0-dev.2 Tue Aug 30 2022 07:46:08 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# geometric-optics 1.2.0-dev.3 Wed May 03 2023 15:42:15 GMT-0600 (Mountain Daylight Time)",
   "assert": {
-    "sha": "c13a8c7741d95fbd8e37619c66ebcca8686dffe7",
+    "sha": "2b2495994e1a001ed46ba1e2147f70aacb5732d2",
     "branch": "master"
   },
   "axon": {
-    "sha": "0c05dc41b45edfd94d5e88251a516077a35f3cbb",
+    "sha": "95e6058546cc5e330da2b9ef136220ab00d5ab84",
     "branch": "master"
   },
   "brand": {
-    "sha": "5afb3877fc5c9530204b987fb98b8d7c67edff79",
+    "sha": "d2b54ef4d29edc31e64adb2f9488803811cad03a",
     "branch": "master"
   },
   "chipper": {
-    "sha": "b92cc76a0601e7c8e61195e120318f83de0d0a10",
+    "sha": "0d2782dd08d0f3a51a468677e42b27530c601e16",
     "branch": "master"
   },
   "dot": {
-    "sha": "e4dcc0f3885a0b39e58c5e4eec3de0b1969a52ef",
+    "sha": "bf884f163ad77fe3304c5cf88e912db47ce0f1a5",
     "branch": "master"
   },
   "geometric-optics": {
-    "sha": "9df5665a0ab4e472d9f77ed8c350f503cffe50f1",
+    "sha": "4429614a24a55359cdc1cb596ddc6f3a9893ea86",
     "branch": "master"
   },
   "joist": {
-    "sha": "1e5ca9da03bd7ba5049ea8b3ccca308a3054b07f",
+    "sha": "063be7bf1d3261c2044dd45b692181e1db7efd27",
     "branch": "master"
   },
   "kite": {
-    "sha": "e15603cd79e9a1bbd0ed8d5cb8435e7dd3cc87cf",
+    "sha": "162e75a0d26991ba8b121e68234b0b56b098e92b",
     "branch": "master"
   },
   "perennial-alias": {
-    "sha": "9018244461780758f2bf02390504065cf435ddfd",
+    "sha": "81cd234a4380d5267dce4875bafff4eb94215161",
     "branch": "master"
   },
   "phet-core": {
-    "sha": "395db868e16b888e045db07988bf86a6c39c0e30",
+    "sha": "449042e65311361766b8dbc3a06e0f72496c1ff4",
     "branch": "master"
   },
   "phet-io": {
-    "sha": "b0a733bd6cabdc78c56e335c3a06dcc42bbe13cf",
+    "sha": "f0b85fca7b9cdb66eb91f2d19aa5297750cd234d",
     "branch": "master"
   },
   "phet-io-sim-specific": {
-    "sha": "3b2abdc9d4e1cad8c266c09f151d153a66a73f2c",
+    "sha": "a07a6434d4dfbf94639fac8809382ba21c460643",
     "branch": "master"
   },
   "phet-io-wrappers": {
-    "sha": "d6b86d31c7989c9fc9e8bee8eea3211752cf8d85",
+    "sha": "ca61e84c7c4102c872863a49d3d56cc8acbcb66b",
     "branch": "master"
   },
   "phetcommon": {
-    "sha": "90d4126e49bbb6221cfede3d9c3eff07f621c7f1",
+    "sha": "2cab4633d443f3540b0f62585c633615383fd2c1",
     "branch": "master"
   },
   "phetmarks": {
-    "sha": "66ed340a867a6eb0383d3b727329a22317eaaf4c",
+    "sha": "b9890ffa84e9e182b0501d6a1b6e36e7c1787aeb",
     "branch": "master"
   },
   "query-string-machine": {
-    "sha": "c17bdbf6f721bdde9460e6b8d6ad032a42bec35b",
+    "sha": "b6549bb6e56dcec96fd900179ea7c4f421e06335",
     "branch": "master"
   },
   "scenery": {
-    "sha": "2f88b199e50d40539a4483d518a6dfbeabb62058",
+    "sha": "52421e3ce07d1c2f5b56551d827248b3b9840e2b",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "3abb078280a0c2b6e512318f30100762698eb62e",
+    "sha": "0b1da0df6c140d883d429b5d254eca5a56615889",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "d3e3deeb273cf41e5b0bb563654b34f2c1a0ccf7",
+    "sha": "9c625a605b50ac3e81f01a9c37a8f1b2bda0d297",
     "branch": "master"
   },
   "studio": {
-    "sha": "4bcb311e0d032d6be28a6b3ba30e6b49a3918c4c",
+    "sha": "a4ad67b33ca13cd2496823c59c74fdfb4488ab76",
     "branch": "master"
   },
   "sun": {
-    "sha": "a8a5b6aea0640527cdced0a6d5115139421abf2d",
+    "sha": "8346e6d4343725b09c3556e51b66efc658e2a6a1",
     "branch": "master"
   },
   "tambo": {
-    "sha": "0b2c3bac91ae78199eab3c8ed7abefe28f1533e9",
+    "sha": "ddba4c0c1b88a11599d0623a2b016925dd4c1d3e",
     "branch": "master"
   },
   "tandem": {
-    "sha": "065974c760b9dd3d12998a00e3f13294a6e3c1ae",
+    "sha": "43bc8075d160791449762bacea9d59a2faf01348",
     "branch": "master"
   },
   "twixt": {
-    "sha": "5d28c0cd19d9b2c53158a3052efd1530d426185f",
+    "sha": "8a22a11db4f279083ae3f2acdddad7c39df6ef39",
     "branch": "master"
   },
   "utterance-queue": {
-    "sha": "2c543b0d42d657b48f98690e6530ad69d9c68157",
+    "sha": "412dd8468a0e86bd514af54258ae98fba51debce",
     "branch": "master"
   }
 }
