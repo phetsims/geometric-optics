@@ -280,6 +280,9 @@ export default class GOScreenView extends ScreenView {
       },
       left: erodedLayoutBounds.left,
       top: controlPanel.top,
+      visiblePropertyOptions: {
+        phetioFeatured: true
+      },
       tandem: controlsTandem.createTandem( 'zoomButtonGroup' )
     } );
 
