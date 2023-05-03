@@ -117,6 +117,7 @@ export default class GOScreenView extends ScreenView {
       numberType: 'Integer',
       range: new Range( 0, ZOOM_SCALES.length - 1 ),
       tandem: options.tandem.createTandem( 'zoomLevelProperty' ),
+      phetioFeatured: true,
       phetioDocumentation: 'This Property is controlled by the zoom buttons. ' +
                            'It is integer index that tells the sim how to scale the view. ' +
                            'Smaller values are more zoomed out. ' +
@@ -129,6 +130,7 @@ export default class GOScreenView extends ScreenView {
       zoomLevel => ZOOM_SCALES[ zoomLevel ], {
         validValues: ZOOM_SCALES,
         tandem: options.tandem.createTandem( 'zoomScaleProperty' ),
+        phetioFeatured: true,
         phetioValueType: NumberIO,
         phetioDocumentation: 'Scale that is applied to the view. This Property is derived from zoomLevelProperty, ' +
                              ' which is controlled by the zoom buttons.'

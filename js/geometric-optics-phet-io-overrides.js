@@ -142,12 +142,6 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "geometricOptics.lensScreen.view.visibleProperties.virtualImageVisibleProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.lensScreen.view.zoomLevelProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.lensScreen.view.zoomScaleProperty": {
-      "phetioFeatured": true
-    },
     "geometricOptics.mirrorScreen.model.scenes.arrowScene.arrowImage1.magnificationProperty": {
       "phetioFeatured": true
     },
@@ -251,12 +245,6 @@ window.phet.preloads.phetio.phetioElementsOverrides =
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.view.visibleProperties.virtualImageVisibleProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.mirrorScreen.view.zoomLevelProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.mirrorScreen.view.zoomScaleProperty": {
       "phetioFeatured": true
     }
   };
