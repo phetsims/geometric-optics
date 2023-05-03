@@ -41,7 +41,8 @@ class GOTool extends PhetioObject {
     super( options );
 
     this.positionProperty = new Vector2Property( Vector2.ZERO, {
-      tandem: options.tandem.createTandem( 'positionProperty' )
+      tandem: options.tandem.createTandem( 'positionProperty' ),
+      phetioFeatured: true
     } );
 
     this.isInToolboxProperty = new BooleanProperty( true, {

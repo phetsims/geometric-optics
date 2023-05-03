@@ -61,6 +61,7 @@ export default class DirectFocalLengthModel extends PhetioObject implements Foca
       units: 'cm',
       range: options.focalLengthMagnitudeRange,
       tandem: options.tandem.createTandem( 'focalLengthMagnitudeProperty' ),
+      phetioFeatured: true,
       phetioDocumentation: 'magnitude of the focal length (no sign)'
     } );
 

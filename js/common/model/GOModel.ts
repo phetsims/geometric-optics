@@ -90,18 +90,21 @@ export default class GOModel implements TModel {
 
     this.opticalObjectChoiceProperty = new EnumerationProperty( options.opticalObjectChoices[ 0 ], {
       validValues: options.opticalObjectChoices,
-      tandem: options.tandem.createTandem( 'opticalObjectChoiceProperty' )
+      tandem: options.tandem.createTandem( 'opticalObjectChoiceProperty' ),
+      phetioFeatured: true
     } );
 
     this.optic = optic;
 
     this.raysTypeProperty = new StringUnionProperty( 'marginal', {
       validValues: RaysTypeValues,
-      tandem: options.tandem.createTandem( 'raysTypeProperty' )
+      tandem: options.tandem.createTandem( 'raysTypeProperty' ),
+      phetioFeatured: true
     } );
 
     this.lightPropagationEnabledProperty = new BooleanProperty( true, {
       tandem: providedOptions.tandem.createTandem( 'lightPropagationEnabledProperty' ),
+      phetioFeatured: true,
       phetioDocumentation: 'Turns light propagation on (true) and off (false) to support predictive questioning.<br>' +
                            'When off, the following things are not visible:' +
                            '<ul>' +

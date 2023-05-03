@@ -74,6 +74,7 @@ export default class LightSpot extends PhetioObject {
       positionAndDiameter => positionAndDiameter.position, {
         units: 'cm',
         tandem: options.tandem.createTandem( 'positionProperty' ),
+        phetioFeatured: true,
         phetioValueType: Vector2.Vector2IO,
         phetioDocumentation: 'position of the center of the light spot, in the vertical plane of the projection screen'
       } );
@@ -83,6 +84,7 @@ export default class LightSpot extends PhetioObject {
         isValidValue: ( diameter: number ) => ( diameter >= 0 ),
         units: 'cm',
         tandem: options.tandem.createTandem( 'diameterProperty' ),
+        phetioFeatured: true,
         phetioValueType: NumberIO,
         phetioDocumentation: 'diameter (in the y dimension) of the light spot, in the vertical plane of the projection screen'
       } );

@@ -110,6 +110,7 @@ export default class OpticalImage extends PhetioObject {
       }, {
         units: 'cm',
         tandem: options.tandem.createTandem( 'imageDistanceProperty' ),
+        phetioFeatured: true,
         phetioValueType: NumberIO,
         phetioDocumentation: 'Horizontal distance between optic and image, where the sign has the following significance.<br><br>' +
                              'For a lens:' +
@@ -154,6 +155,7 @@ export default class OpticalImage extends PhetioObject {
       }, {
         units: 'cm',
         tandem: options.tandem.createTandem( 'positionProperty' ),
+        phetioFeatured: true,
         phetioValueType: Vector2.Vector2IO
       } );
 

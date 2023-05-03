@@ -74,7 +74,8 @@ export default class OpticalObject extends PhetioObject {
       isValidValue: ( position: Vector2 ) =>
         Math.abs( position.x - opticPositionProperty.value.x ) >= GOConstants.MIN_DISTANCE_FROM_OBJECT_TO_OPTIC &&
         Math.abs( position.y - opticPositionProperty.value.y ) <= GOConstants.MAX_DISTANCE_FROM_OBJECT_TO_OPTICAL_AXIS,
-      tandem: options.tandem.createTandem( 'positionProperty' )
+      tandem: options.tandem.createTandem( 'positionProperty' ),
+      phetioFeatured: true
     } );
 
     // For empirically setting the initial position of optical objects.

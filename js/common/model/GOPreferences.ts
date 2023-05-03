@@ -18,11 +18,13 @@ const GOPreferences = {
 
   add2FPointsCheckboxProperty: new BooleanProperty( GOQueryParameters.add2FPointsCheckbox, {
     tandem: Tandem.PREFERENCES.createTandem( 'add2FPointsCheckboxProperty' ),
+    phetioFeatured: true,
     phetioDocumentation: 'adds a "2F Points" checkbox to the control panels'
   } ),
 
   cueingArrowsEnabledProperty: new BooleanProperty( GOQueryParameters.cueingArrowsEnabled, {
     tandem: Tandem.PREFERENCES.createTandem( 'cueingArrowsEnabledProperty' ),
+    phetioFeatured: true,
     phetioDocumentation: 'shows cueing arrows on draggable elements'
   } ),
 
@@ -30,6 +32,7 @@ const GOPreferences = {
     new StringUnionProperty<FocalLengthModelType>( GOQueryParameters.focalLengthControl as FocalLengthModelType, {
       validValues: FocalLengthModelTypeValues,
       tandem: Tandem.PREFERENCES.createTandem( 'focalLengthModelTypeProperty' ),
+      phetioFeatured: true,
       phetioDocumentation: 'Determines how focal length is modeled and controlled in the Lens and Mirror screens.<br>' +
                            'This can also be set via the focalLengthControl query parameter.<br>' +
                            'The values are:' +

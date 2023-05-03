@@ -41,7 +41,10 @@ export default class FocalLengthModelTypeControl extends VBox {
 
       // VBoxOptions
       spacing: 8,
-      align: 'left'
+      align: 'left',
+      visiblePropertyOptions: {
+        phetioFeatured: true
+      }
     }, providedOptions );
 
     super( options );

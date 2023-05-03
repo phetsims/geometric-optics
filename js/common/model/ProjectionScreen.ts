@@ -61,7 +61,8 @@ export default class ProjectionScreen extends PhetioObject {
       units: 'cm',
       isValidValue: ( position: Vector2 ) =>
         ( position.x >= opticPositionProperty.value.x + GOConstants.MIN_DISTANCE_FROM_OPTIC_TO_PROJECTION_SCREEN ),
-      tandem: options.tandem.createTandem( 'positionProperty' )
+      tandem: options.tandem.createTandem( 'positionProperty' ),
+      phetioFeatured: true
     } );
 
     // Described clockwise, starting at left top, in model coordinates.

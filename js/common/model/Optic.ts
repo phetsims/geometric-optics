@@ -123,6 +123,7 @@ export default abstract class Optic extends PhetioObject {
     this.opticSurfaceTypeProperty = new StringUnionProperty( options.opticSurfaceTypes[ 0 ], {
       validValues: options.opticSurfaceTypes,
       tandem: options.tandem.createTandem( 'opticSurfaceTypeProperty' ),
+      phetioFeatured: true,
       phetioDocumentation: 'surface type of the optic'
     } );
 
@@ -141,6 +142,7 @@ export default abstract class Optic extends PhetioObject {
       isValidValue: ( value: Vector2 ) => value.equals( position ),
       units: 'cm',
       tandem: options.tandem.createTandem( 'positionProperty' ),
+      phetioFeatured: true,
       phetioReadOnly: true,
       phetioDocumentation: 'The position of the geometric center of the optic, ' +
                            'fixed at the origin of the coordinate system.'
@@ -165,7 +167,8 @@ export default abstract class Optic extends PhetioObject {
     this.diameterProperty = new NumberProperty( options.diameterRange.defaultValue, {
       units: 'cm',
       range: options.diameterRange,
-      tandem: options.tandem.createTandem( 'diameterProperty' )
+      tandem: options.tandem.createTandem( 'diameterProperty' ),
+      phetioFeatured: true
     } );
 
     this.maxDiameter = options.diameterRange.max;
@@ -231,6 +234,7 @@ export default abstract class Optic extends PhetioObject {
       }, {
         units: 'cm',
         tandem: options.tandem.createTandem( 'focalLengthProperty' ),
+        phetioFeatured: true,
         phetioValueType: NumberIO,
         phetioDocumentation: 'The signed focal length of the optic. A converging optic has a positive focal length, ' +
                              'while a diverging optic has a negative focal length.'
