@@ -106,9 +106,6 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "geometricOptics.lensScreen.view.controls.zoomButtonGroup.visibleProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.lensScreen.view.objectDragModeProperty": {
-      "phetioFeatured": true
-    },
     "geometricOptics.lensScreen.view.tools.toolboxNode.horizontalRulerIcon.visibleProperty": {
       "phetioFeatured": true
     },
@@ -194,9 +191,6 @@ window.phet.preloads.phetio.phetioElementsOverrides =
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.view.controls.zoomButtonGroup.visibleProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.mirrorScreen.view.objectDragModeProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.view.tools.toolboxNode.horizontalRulerIcon.visibleProperty": {

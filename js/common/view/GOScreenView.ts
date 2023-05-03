@@ -162,6 +162,7 @@ export default class GOScreenView extends ScreenView {
     const objectDragModeProperty = new StringUnionProperty( options.objectDragMode, {
       validValues: ObjectDragModeValues,
       tandem: providedOptions.tandem.createTandem( 'objectDragModeProperty' ),
+      phetioFeatured: true,
       phetioReadOnly: true,
       phetioDocumentation: 'Controls dragging of the optical objects. ' +
                            'This Property is read-only because the sim controls it, based on the type of optical object that is selected.' +
