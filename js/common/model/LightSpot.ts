@@ -109,6 +109,7 @@ export default class LightSpot extends PhetioObject {
       }, {
         isValidValue: ( value: number ) => GOConstants.INTENSITY_RANGE.contains( value ),
         tandem: options.tandem.createTandem( 'intensityProperty' ),
+        phetioFeatured: true,
         phetioValueType: NullableIO( NumberIO ),
         phetioDocumentation: 'intensity of the light spot, in the range [0,1]'
       } );
