@@ -40,16 +40,10 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "geometricOptics.lensScreen.model.scenes.framedScene.framedImage1.magnificationProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.lensScreen.model.scenes.framedScene.framedImage1.opacityProperty": {
-      "phetioFeatured": true
-    },
     "geometricOptics.lensScreen.model.scenes.framedScene.framedImage1.opticalImageTypeProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.lensScreen.model.scenes.framedScene.framedImage2.magnificationProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.lensScreen.model.scenes.framedScene.framedImage2.opacityProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.lensScreen.model.scenes.framedScene.framedImage2.opticalImageTypeProperty": {
@@ -124,16 +118,10 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "geometricOptics.mirrorScreen.model.scenes.framedScene.framedImage1.magnificationProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.mirrorScreen.model.scenes.framedScene.framedImage1.opacityProperty": {
-      "phetioFeatured": true
-    },
     "geometricOptics.mirrorScreen.model.scenes.framedScene.framedImage1.opticalImageTypeProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.model.scenes.framedScene.framedImage2.magnificationProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.mirrorScreen.model.scenes.framedScene.framedImage2.opacityProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.model.scenes.framedScene.framedImage2.opticalImageTypeProperty": {
