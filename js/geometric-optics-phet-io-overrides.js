@@ -127,19 +127,7 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "geometricOptics.lensScreen.view.visibleProperties.focalPointsVisibleProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.lensScreen.view.visibleProperties.labelsVisibleProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.lensScreen.view.visibleProperties.opticalAxisVisibleProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.lensScreen.view.visibleProperties.secondPointVisibleProperty": {
-      "phetioFeatured": true
-    },
     "geometricOptics.lensScreen.view.visibleProperties.twoFPointsVisibleProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.lensScreen.view.visibleProperties.virtualImageVisibleProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.model.scenes.arrowScene.arrowImage1.magnificationProperty": {
@@ -232,19 +220,7 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "geometricOptics.mirrorScreen.view.visibleProperties.focalPointsVisibleProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.mirrorScreen.view.visibleProperties.labelsVisibleProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.mirrorScreen.view.visibleProperties.opticalAxisVisibleProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.mirrorScreen.view.visibleProperties.secondPointVisibleProperty": {
-      "phetioFeatured": true
-    },
     "geometricOptics.mirrorScreen.view.visibleProperties.twoFPointsVisibleProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.mirrorScreen.view.visibleProperties.virtualImageVisibleProperty": {
       "phetioFeatured": true
     }
   };

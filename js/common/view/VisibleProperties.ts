@@ -65,15 +65,18 @@ export default class VisibleProperties {
     } );
 
     this.virtualImageVisibleProperty = new BooleanProperty( true, {
-      tandem: providedOptions.tandem.createTandem( 'virtualImageVisibleProperty' )
+      tandem: providedOptions.tandem.createTandem( 'virtualImageVisibleProperty' ),
+      phetioFeatured: true
     } );
 
     this.labelsVisibleProperty = new BooleanProperty( false, {
-      tandem: providedOptions.tandem.createTandem( 'labelsVisibleProperty' )
+      tandem: providedOptions.tandem.createTandem( 'labelsVisibleProperty' ),
+      phetioFeatured: true
     } );
 
     this.secondPointVisibleProperty = new BooleanProperty( false, {
-      tandem: providedOptions.tandem.createTandem( 'secondPointVisibleProperty' )
+      tandem: providedOptions.tandem.createTandem( 'secondPointVisibleProperty' ),
+      phetioFeatured: true
     } );
 
     // Mirrors cannot have guides, and guidesVisibleProperty should not be instrumented.
@@ -85,6 +88,7 @@ export default class VisibleProperties {
 
     this.opticalAxisVisibleProperty = new BooleanProperty( true, {
       tandem: providedOptions.tandem.createTandem( 'opticalAxisVisibleProperty' ),
+      phetioFeatured: true,
       phetioDocumentation: 'PhET-iO only, not settable in the sim'
     } );
 
