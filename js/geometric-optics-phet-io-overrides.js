@@ -121,9 +121,6 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "geometricOptics.lensScreen.view.tools.toolboxNode.verticalRulerIcon.visibleProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.lensScreen.view.tools.toolboxNode.visibleProperty": {
-      "phetioFeatured": true
-    },
     "geometricOptics.lensScreen.view.visibleProperties.focalPointsVisibleProperty": {
       "phetioFeatured": true
     },
@@ -212,9 +209,6 @@ window.phet.preloads.phetio.phetioElementsOverrides =
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.view.tools.toolboxNode.verticalRulerIcon.visibleProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.mirrorScreen.view.tools.toolboxNode.visibleProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.view.visibleProperties.focalPointsVisibleProperty": {

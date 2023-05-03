@@ -37,7 +37,10 @@ export default class GOToolboxNode extends Panel {
       xMargin: 20,
       yMargin: 7,
       fill: 'white',
-      stroke: 'grey'
+      stroke: 'grey',
+      visiblePropertyOptions: {
+        phetioFeatured: true
+      }
     }, providedOptions );
 
     // Wrap each icon in a Node, so that its visibility can be controlled via PhET-iO, and so that
