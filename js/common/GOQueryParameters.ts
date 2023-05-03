@@ -192,7 +192,7 @@ const SCHEMA_MAP = {
   //TODO https://github.com/phetsims/geometric-optics/issues/457 delete this when issue is resolved
   mirrorXOffset: {
     type: 'number',
-    defaultValue: 200
+    defaultValue: 100
   }
 } as const;
 

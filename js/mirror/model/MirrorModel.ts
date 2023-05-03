@@ -47,11 +47,11 @@ export default class MirrorModel extends GOModel {
 
       // GOModelOptions
       opticalObjectChoices: opticalObjectChoices,
-      arrowObject1Position: new Vector2( -130, 60 ),
-      arrowObject2Position: new Vector2( -145, 30 ),
+      arrowObject1Position: new Vector2( -150, 60 ),
+      arrowObject2Position: new Vector2( -165, 30 ),
       framedObjectPosition: ( providedOptions.isBasicsVersion ) ?
                             new Vector2( -170, 27 ) : // empirically set so that it is vertically centered on the optical axis
-                            new Vector2( -130, 72.5 ) // empirically set so that it appears to sit on the optical axis
+                            new Vector2( -150, 72.5 ) // empirically set so that it appears to sit on the optical axis
 
     }, providedOptions );
 
