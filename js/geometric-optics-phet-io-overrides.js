@@ -67,18 +67,6 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "geometricOptics.lensScreen.view.controls.controlPanel.checkboxGroup.guidesCheckbox.visibleProperty": {
       "phetioFeatured": false
     },
-    "geometricOptics.lensScreen.view.tools.toolboxNode.horizontalRulerIcon.visibleProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.lensScreen.view.tools.toolboxNode.positionMarker1Icon.visibleProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.lensScreen.view.tools.toolboxNode.positionMarker2Icon.visibleProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.lensScreen.view.tools.toolboxNode.verticalRulerIcon.visibleProperty": {
-      "phetioFeatured": true
-    },
     "geometricOptics.lensScreen.view.visibleProperties.focalPointsVisibleProperty": {
       "phetioFeatured": true
     },
@@ -119,18 +107,6 @@ window.phet.preloads.phetio.phetioElementsOverrides =
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.model.scenes.framedScene.secondPoint.verticalOffsetProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.mirrorScreen.view.tools.toolboxNode.horizontalRulerIcon.visibleProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.mirrorScreen.view.tools.toolboxNode.positionMarker1Icon.visibleProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.mirrorScreen.view.tools.toolboxNode.positionMarker2Icon.visibleProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.mirrorScreen.view.tools.toolboxNode.verticalRulerIcon.visibleProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.view.visibleProperties.focalPointsVisibleProperty": {

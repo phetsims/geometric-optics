@@ -47,7 +47,10 @@ export default class GOToolboxNode extends Panel {
     // the wrappers are children of the toolbox in the tandem hierarchy.
     const icons = toolNodes.map( toolNode => new Node( {
       children: [ toolNode.icon ],
-      tandem: options.tandem.createTandem( toolNode.iconTandemName )
+      tandem: options.tandem.createTandem( toolNode.iconTandemName ),
+      visiblePropertyOptions: {
+        phetioFeatured: true
+      }
     } ) );
 
     const toolboxContent = new HBox( {
