@@ -19,22 +19,10 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "geometricOptics.mirrorScreen.model.mirror.focalLengthModels.indirectFocalLengthModel.radiusOfCurvatureMagnitudeProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.lensScreen.model.scenes.arrowScene.arrowImage1.magnificationProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.lensScreen.model.scenes.arrowScene.arrowImage2.magnificationProperty": {
-      "phetioFeatured": true
-    },
     "geometricOptics.lensScreen.model.scenes.arrowScene.arrowObject1.objectDistanceProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.lensScreen.model.scenes.arrowScene.arrowObject2.objectDistanceProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.lensScreen.model.scenes.framedScene.framedImage1.magnificationProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.lensScreen.model.scenes.framedScene.framedImage2.magnificationProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.lensScreen.model.scenes.framedScene.framedObject.objectDistanceProperty": {
@@ -52,22 +40,10 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "geometricOptics.lensScreen.view.visibleProperties.twoFPointsVisibleProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.mirrorScreen.model.scenes.arrowScene.arrowImage1.magnificationProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.mirrorScreen.model.scenes.arrowScene.arrowImage2.magnificationProperty": {
-      "phetioFeatured": true
-    },
     "geometricOptics.mirrorScreen.model.scenes.arrowScene.arrowObject1.objectDistanceProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.model.scenes.arrowScene.arrowObject2.objectDistanceProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.mirrorScreen.model.scenes.framedScene.framedImage1.magnificationProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.mirrorScreen.model.scenes.framedScene.framedImage2.magnificationProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.model.scenes.framedScene.framedObject.objectDistanceProperty": {

@@ -33,6 +33,9 @@ type SelfOptions = {
 
   // The phetioFeatured value for opticalImageTypeProperty
   opticalImageTypePropertyFeatured?: boolean;
+
+  // The phetioFeatured value for magnificationProperty
+  magnificationPropertyFeatured?: boolean;
 };
 
 export type OpticalImageOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
@@ -73,6 +76,7 @@ export default class OpticalImage extends PhetioObject {
       // SelfOptions options
       opticalObjectPositionProperty: opticalObject.positionProperty,
       opticalImageTypePropertyFeatured: true,
+      magnificationPropertyFeatured: true,
 
       // PhetioObject options
       phetioState: false
@@ -142,6 +146,7 @@ export default class OpticalImage extends PhetioObject {
         }
       }, {
         tandem: options.tandem.createTandem( 'magnificationProperty' ),
+        phetioFeatured: options.magnificationPropertyFeatured,
         phetioValueType: NumberIO,
         phetioDocumentation: 'Magnification of the optical image. Negative indicates that the image is inverted.'
       } );
