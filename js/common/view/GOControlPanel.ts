@@ -49,7 +49,10 @@ export default class GOControlPanel extends Panel {
       xMargin: 15,
       yMargin: 10,
       fill: GOColors.panelFillProperty,
-      stroke: GOColors.panelStrokeProperty
+      stroke: GOColors.panelStrokeProperty,
+      visiblePropertyOptions: {
+        phetioFeatured: true
+      }
     }, providedOptions );
 
     const raysSubpanel = new RaysSubpanel( raysTypeProperty, options.tandem.createTandem( 'raysSubpanel' ) );

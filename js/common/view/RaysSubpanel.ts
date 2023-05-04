@@ -43,6 +43,9 @@ export default class RaysSubpanel extends VBox {
       children: [ titleText, raysRadioButtonGroup ],
       align: 'left',
       spacing: 4,
+      visiblePropertyOptions: {
+        phetioFeatured: true
+      },
       tandem: tandem
     } );
   }

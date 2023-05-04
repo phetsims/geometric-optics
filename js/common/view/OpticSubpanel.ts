@@ -49,6 +49,9 @@ export default class OpticSubpanel extends HBox {
       children: children,
       spacing: X_SPACING,
       align: ALIGN,
+      visiblePropertyOptions: {
+        phetioFeatured: true
+      },
       tandem: tandem
     } );
   }
