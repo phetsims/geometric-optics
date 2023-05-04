@@ -58,6 +58,9 @@ type SelfOptions = {
 
   // Whether indexOfRefractionProperty is phetioFeatured
   indexOfRefractionPropertyFeatured?: boolean;
+
+  // Whether radiusOfCurvatureProperty is phetioFeatured
+  radiusOfCurvaturePropertyFeatured?: boolean;
 };
 
 export type OpticOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'> &
@@ -117,6 +120,7 @@ export default abstract class Optic extends PhetioObject {
 
       // SelfOptions
       indexOfRefractionPropertyFeatured: false,
+      radiusOfCurvaturePropertyFeatured: false,
 
       // PhetioObjectOptions
       phetioState: false
@@ -201,6 +205,7 @@ export default abstract class Optic extends PhetioObject {
       }, {
         units: 'cm',
         tandem: options.tandem.createTandem( 'radiusOfCurvatureProperty' ),
+        phetioFeatured: options.radiusOfCurvaturePropertyFeatured,
         phetioValueType: NumberIO,
         phetioDocumentation: 'The radius of curvature (ROC) of the optic. ' +
                              'A convex optic has a positive ROC, while a concave optic has a negative ROC.'
