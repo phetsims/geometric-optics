@@ -244,11 +244,11 @@ export default class GOScreenView extends ScreenView {
 
     // Radio buttons for the surface type of the optic
     const opticSurfaceTypeRadioButtonGroup = new OpticSurfaceTypeRadioButtonGroup( model.optic, {
+      isBasicsVersion: options.isBasicsVersion,
       centerX: erodedLayoutBounds.centerX,
       top: erodedLayoutBounds.top,
       tandem: controlsTandem.createTandem( 'opticSurfaceTypeRadioButtonGroup' )
     } );
-    opticSurfaceTypeRadioButtonGroup.visible = !options.isBasicsVersion;
 
     // Disable the 'Virtual Image' checkbox for lights, see https://github.com/phetsims/geometric-optics/issues/216
     const virtualImageCheckboxEnabledProperty = new DerivedProperty(

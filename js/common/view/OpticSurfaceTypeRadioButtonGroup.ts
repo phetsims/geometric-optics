@@ -19,10 +19,12 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import { GOSimOptions } from '../../GOSim.js';
 
 type SelfOptions = EmptySelfOptions;
 
 type OpticShapeRadioButtonGroupOptions = SelfOptions &
+  PickRequired<GOSimOptions, 'isBasicsVersion'> &
   PickRequired<RectangularRadioButtonGroupOptions, 'tandem'> &
   NodeTranslationOptions;
 
@@ -33,6 +35,7 @@ export default class OpticSurfaceTypeRadioButtonGroup extends RectangularRadioBu
     const options = optionize<OpticShapeRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()( {
 
       // RectangularRadioButtonGroupOptions
+      visible: !providedOptions.isBasicsVersion, // not visible in the Basics version
       orientation: 'horizontal',
       spacing: 10,
       touchAreaXDilation: 4,
