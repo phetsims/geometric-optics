@@ -119,8 +119,8 @@ export default abstract class Optic extends PhetioObject {
     const options = optionize<OpticOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // SelfOptions
-      indexOfRefractionPropertyFeatured: false,
-      radiusOfCurvaturePropertyFeatured: false,
+      indexOfRefractionPropertyFeatured: true,
+      radiusOfCurvaturePropertyFeatured: true,
 
       // PhetioObjectOptions
       phetioState: false
