@@ -46,7 +46,7 @@ export default class LightLabelsNode extends GOLabelsNode {
 
     const object1Label = new LightObjectLabelNode( scene.lightObject1, zoomTransformProperty, {
 
-      // Use numbering in the full version of the sim, or in the basics version if Object 2 is visible.
+      // Use numbering in the full version of the sim, or in the Basics version if Object 2 is visible.
       isNumberedProperty: new DerivedProperty( [ sceneNode.lightObject2NodeVisibleProperty ],
         lightObject2NodeVisible => ( !providedOptions.isBasicsVersion || lightObject2NodeVisible )
       ),

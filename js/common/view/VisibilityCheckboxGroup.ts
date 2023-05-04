@@ -97,7 +97,7 @@ export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       createItem( GeometricOpticsStrings.checkbox.secondPointStringProperty, visibleProperties.secondPointVisibleProperty, {
         iconNode: SecondPointNode.createIcon(),
         options: {
-          visible: !options.isBasicsVersion
+          visible: !options.isBasicsVersion // 'Second Point' checkbox is hidden in the Basics version
         },
         tandemName: 'secondPointCheckbox'
       } )

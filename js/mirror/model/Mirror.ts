@@ -37,7 +37,7 @@ export default class Mirror extends Optic {
 
     const focalLengthModelsTandem = providedOptions.tandem.createTandem( 'focalLengthModels' );
 
-    const radiusOfCurvatureMagnitudePropertyFeatured = !providedOptions.isBasicsVersion; // because Basics sim only has a flat mirror
+    const radiusOfCurvatureMagnitudePropertyFeatured = !providedOptions.isBasicsVersion; // because Basics version only has a flat mirror
     const indexOfRefractionPropertyFeatured = false; // because index of refraction is 'Hollywooded' for Mirror
 
     const options = optionize<MirrorOptions, SelfOptions, OpticOptions>()( {

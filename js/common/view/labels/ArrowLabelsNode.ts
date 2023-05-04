@@ -42,7 +42,7 @@ export default class ArrowLabelsNode extends GOLabelsNode {
 
     const scene = sceneNode.scene;
 
-    // Use numbering in the full version of the sim, or in the basics version if Object 2 is made visible.
+    // Use numbering in the full version of the sim, or in the Basics version if Object 2 is made visible.
     const isNumberedProperty = new DerivedProperty( [ sceneNode.arrowObject2NodeVisibleProperty ],
       arrowObject2NodeVisible => ( !providedOptions.isBasicsVersion || arrowObject2NodeVisible ) );
 

@@ -23,7 +23,7 @@ import GOKeyboardHelpContent from './common/view/GOKeyboardHelpContent.js';
 
 type SelfOptions = {
 
-  // Is this 'Geometric Optics: Basics', the 'basics version' of the sim?
+  // Is this 'Geometric Optics: Basics', aka the 'Basics version' of the sim?
   // This flag is propagated to many components of the sim. To identify how the Basics version is customized,
   // search the code base for isBasicsVersion, and inspect geometric-optics-basics-main.ts.
   isBasicsVersion: boolean;
