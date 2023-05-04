@@ -46,8 +46,8 @@ export default class IndirectFocalLengthModel extends PhetioObject implements Fo
     const options = optionize<IndirectFocalLengthModelOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // SelfOptions
-      radiusOfCurvatureMagnitudePropertyFeatured: false,
-      indexOfRefractionPropertyFeatured: false,
+      radiusOfCurvatureMagnitudePropertyFeatured: true,
+      indexOfRefractionPropertyFeatured: true,
 
       // PhetioObjectOptions
       phetioState: false,

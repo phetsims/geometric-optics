@@ -52,8 +52,9 @@ export default class Mirror extends Optic {
       },
       indirectFocalLengthModelOptions: {
         radiusOfCurvatureMagnitudeRange: GOQueryParameters.rocRangeMirror, // in cm
-        radiusOfCurvatureMagnitudePropertyFeatured: !providedOptions.isBasicsVersion,
+        radiusOfCurvatureMagnitudePropertyFeatured: !providedOptions.isBasicsVersion, // because Basics sim only has a flat mirror
         indexOfRefractionRange: INDEX_OF_REFRACTION_RANGE,
+        indexOfRefractionPropertyFeatured: false, // because index of refraction is 'Hollywooded' for Mirror
         tandem: focalLengthModelsTandem.createTandem( 'indirectFocalLengthModel' )
       }
     }, providedOptions );

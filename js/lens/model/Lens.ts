@@ -53,9 +53,7 @@ export default class Lens extends Optic {
       },
       indirectFocalLengthModelOptions: {
         radiusOfCurvatureMagnitudeRange: GOQueryParameters.rocRangeLens, // in cm
-        radiusOfCurvatureMagnitudePropertyFeatured: true,
         indexOfRefractionRange: GOQueryParameters.iorRangeLens, // unitless
-        indexOfRefractionPropertyFeatured: true,
         tandem: focalLengthModelsTandem.createTandem( 'indirectFocalLengthModel' )
       }
     }, providedOptions );
