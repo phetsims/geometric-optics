@@ -109,7 +109,6 @@ export default class GOScreenView extends ScreenView {
 
     // Create visibleProperty instances for Nodes in the view.
     const visibleProperties = new VisibleProperties( model.optic, {
-      isBasicsVersion: options.isBasicsVersion,
       tandem: options.tandem.createTandem( 'visibleProperties' )
     } );
 

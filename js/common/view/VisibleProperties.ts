@@ -16,9 +16,8 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Optic from '../model/Optic.js';
 import Mirror from '../../mirror/model/Mirror.js';
-import { GOSimOptions } from '../../GOSim.js';
 
-type VisiblePropertiesOptions = PickRequired<GOSimOptions, 'isBasicsVersion'> & PickRequired<PhetioObjectOptions, 'tandem'>;
+type VisiblePropertiesOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
 
 export default class VisibleProperties {
 
@@ -57,14 +56,14 @@ export default class VisibleProperties {
       tandem: isExclusivelyFlatMirror ?
               Tandem.OPT_OUT :
               providedOptions.tandem.createTandem( 'focalPointsVisibleProperty' ),
-      phetioFeatured: !( isMirror && providedOptions.isBasicsVersion ) // opt out for Mirror screen in Basics sim
+      phetioFeatured: !isExclusivelyFlatMirror // because a flat mirror's F point is at infinity
     } );
 
     this.twoFPointsVisibleProperty = new BooleanProperty( false, {
       tandem: isExclusivelyFlatMirror ?
               Tandem.OPT_OUT :
               providedOptions.tandem.createTandem( 'twoFPointsVisibleProperty' ),
-      phetioFeatured: !( isMirror && providedOptions.isBasicsVersion ) // opt out for Mirror screen in Basics sim
+      phetioFeatured: !isExclusivelyFlatMirror // because a flat mirror's 2F point is at infinity
     } );
 
     this.virtualImageVisibleProperty = new BooleanProperty( true, {
