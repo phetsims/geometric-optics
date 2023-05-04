@@ -55,6 +55,9 @@ type SelfOptions = {
   // models of focal length
   directFocalLengthModelOptions: DirectFocalLengthModelOptions;
   indirectFocalLengthModelOptions: IndirectFocalLengthModelOptions;
+
+  // Whether indexOfRefractionProperty is phetioFeatured
+  indexOfRefractionPropertyFeatured?: boolean;
 };
 
 export type OpticOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'> &
@@ -111,6 +114,9 @@ export default abstract class Optic extends PhetioObject {
   protected constructor( providedOptions: OpticOptions ) {
 
     const options = optionize<OpticOptions, SelfOptions, PhetioObjectOptions>()( {
+
+      // SelfOptions
+      indexOfRefractionPropertyFeatured: false,
 
       // PhetioObjectOptions
       phetioState: false
@@ -208,6 +214,7 @@ export default abstract class Optic extends PhetioObject {
         ( focalLengthModelType === 'direct' ) ? directIndexOfRefraction : indirectIndexOfRefraction, {
         // units: unitless
         tandem: options.tandem.createTandem( 'indexOfRefractionProperty' ),
+        phetioFeatured: options.indexOfRefractionPropertyFeatured,
         phetioDocumentation: 'The index of refraction (IOR) of the optic',
         phetioValueType: NumberIO
       } );

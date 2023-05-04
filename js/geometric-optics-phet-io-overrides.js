@@ -1,9 +1,6 @@
 /* eslint-disable */
 window.phet.preloads.phetio.phetioElementsOverrides =
   {
-    "geometricOptics.lensScreen.model.lens.indexOfRefractionProperty": {
-      "phetioFeatured": true
-    },
     "geometricOptics.lensScreen.model.lens.focalLengthModels.indirectFocalLengthModel.indexOfRefractionProperty": {
       "phetioFeatured": true
     },

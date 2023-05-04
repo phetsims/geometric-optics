@@ -46,6 +46,7 @@ export default class Lens extends Optic {
       opticSurfaceTypes: [ 'convex', 'concave' ],
       diameterRange: GOQueryParameters.dRangeLens, // in cm
       sign: 1, // a positive distance indicates that the image is to the right of the lens
+      indexOfRefractionPropertyFeatured: true,
       directFocalLengthModelOptions: {
         focalLengthMagnitudeRange: GOQueryParameters.fRangeLens, // in cm
         indexOfRefractionRange: new RangeWithValue( DIRECT_INDEX_OF_REFRACTION, DIRECT_INDEX_OF_REFRACTION, DIRECT_INDEX_OF_REFRACTION ), // fixed and unitless
