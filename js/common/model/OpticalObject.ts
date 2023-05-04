@@ -85,6 +85,7 @@ export default class OpticalObject extends PhetioObject {
       ( opticPosition, opticalObjectPosition ) => ( opticPosition.x - opticalObjectPosition.x ), {
         units: 'cm',
         tandem: options.tandem.createTandem( 'objectDistanceProperty' ),
+        phetioFeatured: true,
         phetioValueType: NumberIO,
         phetioDocumentation: 'horizontal distance from the optical object to the optic'
       } );
