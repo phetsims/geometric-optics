@@ -108,7 +108,13 @@ export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       items.push( createItem( GeometricOpticsStrings.checkbox.guidesStringProperty, visibleProperties.guidesVisibleProperty, {
         iconNode: GuideNode.createIcon(),
         options: {
-          visible: GOQueryParameters.addGuidesCheckbox
+          visible: GOQueryParameters.addGuidesCheckbox,
+          visiblePropertyOptions: {
+            phetioFeatured: false
+          },
+          enabledPropertyOptions: {
+            phetioFeatured: false
+          }
         },
         tandemName: 'guidesCheckbox'
       } ) );

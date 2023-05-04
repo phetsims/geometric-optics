@@ -61,12 +61,6 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "geometricOptics.lensScreen.model.scenes.lightScene.lightObject2.objectDistanceProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.lensScreen.view.controls.controlPanel.checkboxGroup.guidesCheckbox.enabledProperty": {
-      "phetioFeatured": false
-    },
-    "geometricOptics.lensScreen.view.controls.controlPanel.checkboxGroup.guidesCheckbox.visibleProperty": {
-      "phetioFeatured": false
-    },
     "geometricOptics.lensScreen.view.visibleProperties.focalPointsVisibleProperty": {
       "phetioFeatured": true
     },
