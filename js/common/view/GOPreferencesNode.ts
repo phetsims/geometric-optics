@@ -51,15 +51,15 @@ export default class GOPreferencesNode extends VBox {
     } );
 
     // 'Focal Length control' radio buttons
-    const focalLengthModelControl = new FocalLengthModelTypeControl( GOPreferences.focalLengthModelTypeProperty, {
-      tandem: options.tandem.createTandem( 'focalLengthModelControl' )
+    const focalLengthModelTypeControl = new FocalLengthModelTypeControl( GOPreferences.focalLengthModelTypeProperty, {
+      tandem: options.tandem.createTandem( 'focalLengthModelTypeControl' )
     } );
 
-    this.children = [ add2FPointsCheckbox, focalLengthModelControl ];
+    this.children = [ add2FPointsCheckbox, focalLengthModelTypeControl ];
 
     this.disposeGeometricOpticsPreferencesNode = (): void => {
       add2FPointsCheckbox.dispose();
-      focalLengthModelControl.dispose();
+      focalLengthModelTypeControl.dispose();
     };
   }
 
