@@ -80,15 +80,15 @@ export default class LightScene extends GOScene {
 
     this.opticalImage1 = new OpticalImage( this.lightObject1, lens, {
       tandem: providedOptions.tandem.createTandem( 'opticalImage1' ),
-      opticalImageTypePropertyFeatured: false,
-      magnificationPropertyFeatured: false,
+      opticalImageTypePropertyFeatured: false, // because no image is formed for lights
+      magnificationPropertyFeatured: false, // because no image is formed for lights
       phetioDocumentation: 'Point where light rays from the first light converge. No image is formed in this scene.'
     } );
 
     this.opticalImage2 = new OpticalImage( this.lightObject2, lens, {
       tandem: providedOptions.tandem.createTandem( 'opticalImage2' ),
-      opticalImageTypePropertyFeatured: false,
-      magnificationPropertyFeatured: false,
+      opticalImageTypePropertyFeatured: false, // because no image is formed for lights
+      magnificationPropertyFeatured: false, // because no image is formed for lights
       phetioDocumentation: 'Point where light rays from the second light converge. No image is formed in this scene.'
     } );
 
