@@ -1,4 +1,4 @@
-// Copyright 2021-2022, University of Colorado Boulder
+// Copyright 2021-2023, University of Colorado Boulder
 
 /**
  * GOPreferencesNode is the user interface for sim-specific preferences, accessed via the Preferences dialog.

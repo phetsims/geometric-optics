@@ -1,4 +1,4 @@
-// Copyright 2022, University of Colorado Boulder
+// Copyright 2022-2023, University of Colorado Boulder
 
 /**
  * FocalLengthModelTypeControl is the control used to choose the focal-length model type, 'direct' or 'indirect'
