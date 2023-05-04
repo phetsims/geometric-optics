@@ -51,6 +51,9 @@ export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       spacing: 4,
       checkboxOptions: {
         boxWidth: GOConstants.CHECKBOX_BOX_WIDTH
+      },
+      visiblePropertyOptions: {
+        phetioFeatured: true
       }
     }, providedOptions );
 

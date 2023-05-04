@@ -67,9 +67,6 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "geometricOptics.lensScreen.view.controls.controlPanel.checkboxGroup.guidesCheckbox.visibleProperty": {
       "phetioFeatured": false
     },
-    "geometricOptics.lensScreen.view.controls.controlPanel.checkboxGroup.visibleProperty": {
-      "phetioFeatured": true
-    },
     "geometricOptics.lensScreen.view.controls.controlPanel.opticSubpanel.visibleProperty": {
       "phetioFeatured": true
     },
@@ -131,9 +128,6 @@ window.phet.preloads.phetio.phetioElementsOverrides =
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.model.scenes.framedScene.secondPoint.verticalOffsetProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.mirrorScreen.view.controls.controlPanel.checkboxGroup.visibleProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.view.controls.controlPanel.opticSubpanel.visibleProperty": {
