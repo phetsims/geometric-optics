@@ -22,13 +22,7 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "geometricOptics.lensScreen.model.scenes.arrowScene.arrowImage1.magnificationProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.lensScreen.model.scenes.arrowScene.arrowImage1.opticalImageTypeProperty": {
-      "phetioFeatured": true
-    },
     "geometricOptics.lensScreen.model.scenes.arrowScene.arrowImage2.magnificationProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.lensScreen.model.scenes.arrowScene.arrowImage2.opticalImageTypeProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.lensScreen.model.scenes.arrowScene.arrowObject1.objectDistanceProperty": {
@@ -40,13 +34,7 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "geometricOptics.lensScreen.model.scenes.framedScene.framedImage1.magnificationProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.lensScreen.model.scenes.framedScene.framedImage1.opticalImageTypeProperty": {
-      "phetioFeatured": true
-    },
     "geometricOptics.lensScreen.model.scenes.framedScene.framedImage2.magnificationProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.lensScreen.model.scenes.framedScene.framedImage2.opticalImageTypeProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.lensScreen.model.scenes.framedScene.framedObject.objectDistanceProperty": {
@@ -67,13 +55,7 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "geometricOptics.mirrorScreen.model.scenes.arrowScene.arrowImage1.magnificationProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.mirrorScreen.model.scenes.arrowScene.arrowImage1.opticalImageTypeProperty": {
-      "phetioFeatured": true
-    },
     "geometricOptics.mirrorScreen.model.scenes.arrowScene.arrowImage2.magnificationProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.mirrorScreen.model.scenes.arrowScene.arrowImage2.opticalImageTypeProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.model.scenes.arrowScene.arrowObject1.objectDistanceProperty": {
@@ -85,13 +67,7 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "geometricOptics.mirrorScreen.model.scenes.framedScene.framedImage1.magnificationProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.mirrorScreen.model.scenes.framedScene.framedImage1.opticalImageTypeProperty": {
-      "phetioFeatured": true
-    },
     "geometricOptics.mirrorScreen.model.scenes.framedScene.framedImage2.magnificationProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.mirrorScreen.model.scenes.framedScene.framedImage2.opticalImageTypeProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.model.scenes.framedScene.framedObject.objectDistanceProperty": {

@@ -30,6 +30,9 @@ type SelfOptions = {
   // Optional alternate position of the optical object, defaults to opticalObject.positionProperty.
   // This is used for the second point-of-interest on the framed objects.
   opticalObjectPositionProperty?: TReadOnlyProperty<Vector2>;
+
+  // The phetioFeatured value for opticalImageTypeProperty
+  opticalImageTypePropertyFeatured?: boolean;
 };
 
 export type OpticalImageOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
@@ -69,6 +72,7 @@ export default class OpticalImage extends PhetioObject {
 
       // SelfOptions options
       opticalObjectPositionProperty: opticalObject.positionProperty,
+      opticalImageTypePropertyFeatured: true,
 
       // PhetioObject options
       phetioState: false
@@ -162,6 +166,7 @@ export default class OpticalImage extends PhetioObject {
     this.opticalImageTypeProperty = new DerivedProperty( [ this.imageDistanceProperty ],
       imageDistance => ( imageDistance < 0 ) ? 'virtual' : 'real', {
         tandem: options.tandem.createTandem( 'opticalImageTypeProperty' ),
+        phetioFeatured: options.opticalImageTypePropertyFeatured,
         phetioValueType: StringUnionIO( OpticalImageTypeValues ),
         validValues: OpticalImageTypeValues
       } );
