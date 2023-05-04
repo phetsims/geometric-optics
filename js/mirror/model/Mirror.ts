@@ -43,6 +43,7 @@ export default class Mirror extends Optic {
       opticSurfaceTypes: providedOptions.isBasicsVersion ? [ 'flat' ] : [ 'concave', 'convex', 'flat' ],
       diameterRange: GOQueryParameters.dRangeMirror, // in cm
       sign: -1, // a positive distance indicates that the image is to the left of the mirror, so invert the sign
+      radiusOfCurvaturePropertyFeatured: !providedOptions.isBasicsVersion,
       directFocalLengthModelOptions: {
         focalLengthMagnitudeRange: GOQueryParameters.fRangeMirror, // in cm
         indexOfRefractionRange: INDEX_OF_REFRACTION_RANGE,
