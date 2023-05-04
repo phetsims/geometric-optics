@@ -37,14 +37,17 @@ export default class Mirror extends Optic {
 
     const focalLengthModelsTandem = providedOptions.tandem.createTandem( 'focalLengthModels' );
 
+    const radiusOfCurvatureMagnitudePropertyFeatured = !providedOptions.isBasicsVersion; // because Basics sim only has a flat mirror
+    const indexOfRefractionPropertyFeatured = false; // because index of refraction is 'Hollywooded' for Mirror
+
     const options = optionize<MirrorOptions, SelfOptions, OpticOptions>()( {
 
       // OpticOptions
       opticSurfaceTypes: providedOptions.isBasicsVersion ? [ 'flat' ] : [ 'concave', 'convex', 'flat' ],
       diameterRange: GOQueryParameters.dRangeMirror, // in cm
       sign: -1, // a positive distance indicates that the image is to the left of the mirror, so invert the sign
-      indexOfRefractionPropertyFeatured: false, // because index of refraction is 'Hollywooded' for Mirror
-      radiusOfCurvaturePropertyFeatured: !providedOptions.isBasicsVersion, // because the Basics sim only has a flat mirror
+      indexOfRefractionPropertyFeatured: indexOfRefractionPropertyFeatured,
+      radiusOfCurvaturePropertyFeatured: radiusOfCurvatureMagnitudePropertyFeatured,
       directFocalLengthModelOptions: {
         focalLengthMagnitudeRange: GOQueryParameters.fRangeMirror, // in cm
         indexOfRefractionRange: INDEX_OF_REFRACTION_RANGE,
@@ -52,9 +55,9 @@ export default class Mirror extends Optic {
       },
       indirectFocalLengthModelOptions: {
         radiusOfCurvatureMagnitudeRange: GOQueryParameters.rocRangeMirror, // in cm
-        radiusOfCurvatureMagnitudePropertyFeatured: !providedOptions.isBasicsVersion, // because Basics sim only has a flat mirror
+        radiusOfCurvatureMagnitudePropertyFeatured: radiusOfCurvatureMagnitudePropertyFeatured,
         indexOfRefractionRange: INDEX_OF_REFRACTION_RANGE,
-        indexOfRefractionPropertyFeatured: false, // because index of refraction is 'Hollywooded' for Mirror
+        indexOfRefractionPropertyFeatured: indexOfRefractionPropertyFeatured,
         tandem: focalLengthModelsTandem.createTandem( 'indirectFocalLengthModel' )
       }
     }, providedOptions );
