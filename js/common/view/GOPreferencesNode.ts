@@ -17,10 +17,9 @@ import FocalLengthModelTypeControl from './FocalLengthModelTypeControl.js';
 import GOPreferences from '../model/GOPreferences.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { GOSimOptions } from '../../GOSim.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import Add2FPointsCheckbox from './Add2FPointsCheckbox.js';
 
-type SelfOptions = PickOptional<GOSimOptions, 'isBasicsVersion'>;
+type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 
 type GOPreferencesNodeOptions = SelfOptions & PickRequired<VBoxOptions, 'tandem'>;
 
@@ -32,9 +31,6 @@ export default class GOPreferencesNode extends VBox {
   public constructor( providedOptions: GOPreferencesNodeOptions ) {
 
     const options = optionize<GOPreferencesNodeOptions, SelfOptions, VBoxOptions>()( {
-
-      // SelfOptions
-      isBasicsVersion: false,
 
       // VBoxOptions
       align: 'left',
