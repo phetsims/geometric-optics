@@ -22,8 +22,10 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
-  radiusOfCurvatureMagnitudeRange: RangeWithValue;
-  indexOfRefractionRange: RangeWithValue;
+  radiusOfCurvatureMagnitudeRange: RangeWithValue; // range of radiusOfCurvatureMagnitudeProperty
+  radiusOfCurvatureMagnitudePropertyFeatured?: boolean; // Whether radiusOfCurvatureMagnitudeProperty is phetioFeatured
+  indexOfRefractionRange: RangeWithValue; // range of indexOfRefractionProperty
+  indexOfRefractionPropertyFeatured?: boolean; // Whether indexOfRefractionProperty is phetioFeatured
 };
 
 export type IndirectFocalLengthModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
@@ -43,6 +45,10 @@ export default class IndirectFocalLengthModel extends PhetioObject implements Fo
 
     const options = optionize<IndirectFocalLengthModelOptions, SelfOptions, PhetioObjectOptions>()( {
 
+      // SelfOptions
+      radiusOfCurvatureMagnitudePropertyFeatured: false,
+      indexOfRefractionPropertyFeatured: false,
+
       // PhetioObjectOptions
       phetioState: false,
       phetioDocumentation: 'Model of focal length that is used when ' +
@@ -60,13 +66,15 @@ export default class IndirectFocalLengthModel extends PhetioObject implements Fo
       units: 'cm',
       range: options.radiusOfCurvatureMagnitudeRange,
       tandem: options.tandem.createTandem( 'radiusOfCurvatureMagnitudeProperty' ),
+      phetioFeatured: options.radiusOfCurvatureMagnitudePropertyFeatured,
       phetioDocumentation: 'magnitude of the radius of curvature (no sign)'
     } );
 
     this.indexOfRefractionProperty = new NumberProperty( options.indexOfRefractionRange.defaultValue, {
       // units: unitless
       range: options.indexOfRefractionRange,
-      tandem: options.tandem.createTandem( 'indexOfRefractionProperty' )
+      tandem: options.tandem.createTandem( 'indexOfRefractionProperty' ),
+      phetioFeatured: options.indexOfRefractionPropertyFeatured
     } );
 
     this.focalLengthMagnitudeProperty = new DerivedProperty(

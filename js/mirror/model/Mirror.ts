@@ -51,6 +51,7 @@ export default class Mirror extends Optic {
       },
       indirectFocalLengthModelOptions: {
         radiusOfCurvatureMagnitudeRange: GOQueryParameters.rocRangeMirror, // in cm
+        radiusOfCurvatureMagnitudePropertyFeatured: !providedOptions.isBasicsVersion,
         indexOfRefractionRange: INDEX_OF_REFRACTION_RANGE,
         tandem: focalLengthModelsTandem.createTandem( 'indirectFocalLengthModel' )
       }
