@@ -52,9 +52,6 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "geometricOptics.lensScreen.model.scenes.framedScene.framedObject.objectDistanceProperty": {
       "phetioFeatured": true
     },
-    "geometricOptics.lensScreen.model.scenes.framedScene.secondPoint.verticalOffsetProperty": {
-      "phetioFeatured": true
-    },
     "geometricOptics.lensScreen.model.scenes.lightScene.lightObject1.objectDistanceProperty": {
       "phetioFeatured": true
     },
@@ -98,9 +95,6 @@ window.phet.preloads.phetio.phetioElementsOverrides =
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.model.scenes.framedScene.framedObject.objectDistanceProperty": {
-      "phetioFeatured": true
-    },
-    "geometricOptics.mirrorScreen.model.scenes.framedScene.secondPoint.verticalOffsetProperty": {
       "phetioFeatured": true
     },
     "geometricOptics.mirrorScreen.view.visibleProperties.focalPointsVisibleProperty": {

@@ -53,6 +53,7 @@ export default class SecondPoint extends PhetioObject {
     this.verticalOffsetProperty = new NumberProperty( VERTICAL_OFFSET_RANGE.min, {
       range: VERTICAL_OFFSET_RANGE,
       tandem: options.tandem.createTandem( 'verticalOffsetProperty' ),
+      phetioFeatured: true,
       phetioDocumentation: 'offset relative to framed object position'
     } );
 
