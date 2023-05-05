@@ -1,11 +1,11 @@
 {
-  "comment": "# geometric-optics 1.2.0-dev.3 Wed May 03 2023 15:42:15 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# geometric-optics 1.2.0-dev.4 Fri May 05 2023 09:31:41 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "2b2495994e1a001ed46ba1e2147f70aacb5732d2",
     "branch": "master"
   },
   "axon": {
-    "sha": "95e6058546cc5e330da2b9ef136220ab00d5ab84",
+    "sha": "cab2500922dbfd0b349a688a6a54179659dc1e12",
     "branch": "master"
   },
   "brand": {
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "0d2782dd08d0f3a51a468677e42b27530c601e16",
+    "sha": "885a919eed980fd8837c9fa434dc7930defeb0c5",
     "branch": "master"
   },
   "dot": {
@@ -21,11 +21,11 @@
     "branch": "master"
   },
   "geometric-optics": {
-    "sha": "4429614a24a55359cdc1cb596ddc6f3a9893ea86",
+    "sha": "f8c0dcbc1141952eedc5f01d7e155b841621e19b",
     "branch": "master"
   },
   "joist": {
-    "sha": "063be7bf1d3261c2044dd45b692181e1db7efd27",
+    "sha": "9273d7322753d706e7e014014c79595c14e0f171",
     "branch": "master"
   },
   "kite": {
@@ -33,7 +33,7 @@
     "branch": "master"
   },
   "perennial-alias": {
-    "sha": "81cd234a4380d5267dce4875bafff4eb94215161",
+    "sha": "6421058ed3154defbab42a64618323c6910ffca3",
     "branch": "master"
   },
   "phet-core": {
@@ -41,15 +41,15 @@
     "branch": "master"
   },
   "phet-io": {
-    "sha": "f0b85fca7b9cdb66eb91f2d19aa5297750cd234d",
+    "sha": "149524321ed3628bf7e3837577fa681ccd527797",
     "branch": "master"
   },
   "phet-io-sim-specific": {
-    "sha": "a07a6434d4dfbf94639fac8809382ba21c460643",
+    "sha": "92d94852f6857d0c8126bc57bbbace64e4e0f287",
     "branch": "master"
   },
   "phet-io-wrappers": {
-    "sha": "ca61e84c7c4102c872863a49d3d56cc8acbcb66b",
+    "sha": "59f1eb9c1fd08859f3ee7d0bc09b1ec8f1ad2383",
     "branch": "master"
   },
   "phetcommon": {
@@ -69,7 +69,7 @@
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "0b1da0df6c140d883d429b5d254eca5a56615889",
+    "sha": "7b704a5b7912d74c7c7fe5ec7b0aba788c2b8b4c",
     "branch": "master"
   },
   "sherpa": {
@@ -77,7 +77,7 @@
     "branch": "master"
   },
   "studio": {
-    "sha": "a4ad67b33ca13cd2496823c59c74fdfb4488ab76",
+    "sha": "f2f454dabd6484cc24b8c5aac86f8205c3151ef8",
     "branch": "master"
   },
   "sun": {
