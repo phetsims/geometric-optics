@@ -47,6 +47,7 @@ import { GOSimOptions } from '../../GOSim.js';
 import GOToolNode from './tools/GOToolNode.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // Zoom scale factors, in ascending order.
 // Careful! If you add values here, you may get undesirable tick intervals on rulers.
@@ -247,7 +248,12 @@ export default class GOScreenView extends ScreenView {
       isBasicsVersion: options.isBasicsVersion,
       centerX: erodedLayoutBounds.centerX,
       top: erodedLayoutBounds.top,
-      tandem: controlsTandem.createTandem( 'opticSurfaceTypeRadioButtonGroup' )
+
+      // Do not instrument for the Mirror screen in Geometric Optics: Basics, where we have only a flat mirror.
+      // See https://github.com/phetsims/geometric-optics/issues/463
+      tandem: model.optic.isExclusivelyFlatMirror() ?
+              Tandem.OPT_OUT :
+              controlsTandem.createTandem( 'opticSurfaceTypeRadioButtonGroup' )
     } );
 
     // Disable the 'Virtual Image' checkbox for lights, see https://github.com/phetsims/geometric-optics/issues/216
