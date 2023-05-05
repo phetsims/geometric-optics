@@ -53,17 +53,15 @@ export default class VisibleProperties {
     const isExclusivelyFlatMirror = optic.isExclusivelyFlatMirror();
 
     this.focalPointsVisibleProperty = new BooleanProperty( true, {
-      tandem: isExclusivelyFlatMirror ?
-              Tandem.OPT_OUT :
-              providedOptions.tandem.createTandem( 'focalPointsVisibleProperty' ),
-      phetioFeatured: !isExclusivelyFlatMirror // because a flat mirror's F point is at infinity
+      // Because a flat mirror's F point is at infinity, so this Property is irrelevant
+      tandem: isExclusivelyFlatMirror ? Tandem.OPT_OUT : providedOptions.tandem.createTandem( 'focalPointsVisibleProperty' ),
+      phetioFeatured: true
     } );
 
     this.twoFPointsVisibleProperty = new BooleanProperty( false, {
-      tandem: isExclusivelyFlatMirror ?
-              Tandem.OPT_OUT :
-              providedOptions.tandem.createTandem( 'twoFPointsVisibleProperty' ),
-      phetioFeatured: !isExclusivelyFlatMirror // because a flat mirror's 2F point is at infinity
+      // Because a flat mirror's 2F point is at infinity, so this Property is irrelevant
+      tandem: isExclusivelyFlatMirror ? Tandem.OPT_OUT : providedOptions.tandem.createTandem( 'twoFPointsVisibleProperty' ),
+      phetioFeatured: true
     } );
 
     this.virtualImageVisibleProperty = new BooleanProperty( true, {
