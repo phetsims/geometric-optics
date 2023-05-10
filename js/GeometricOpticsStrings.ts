@@ -66,9 +66,6 @@ type StringsType = {
     'opticalAxisStringProperty': LinkableProperty<string>;
   };
   'keyboardHelpDialog': {
-    'moveDraggableItemsStringProperty': LinkableProperty<string>;
-    'moveStringProperty': LinkableProperty<string>;
-    'moveSlowerStringProperty': LinkableProperty<string>;
     'rulerAndMarkerControlsStringProperty': LinkableProperty<string>;
     'removeFromToolboxStringProperty': LinkableProperty<string>;
     'returnToToolboxStringProperty': LinkableProperty<string>;

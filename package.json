@@ -31,7 +31,11 @@
       "compareDesignedAPIChanges": true
     },
     "supportsOutputJS": true,
-    "published": true
+    "published": true,
+    "screenNameKeys": [
+      "GEOMETRIC_OPTICS/screen.lens",
+      "GEOMETRIC_OPTICS/screen.mirror"
+    ]
   },
   "eslintConfig": {
     "extends": "../chipper/eslint/sim_eslintrc.js",
