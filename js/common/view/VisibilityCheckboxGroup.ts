@@ -27,6 +27,10 @@ import { GOSimOptions } from '../../GOSim.js';
 import Optic from '../model/Optic.js';
 import Lens from '../../lens/model/Lens.js';
 import Property from '../../../../axon/js/Property.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 
 type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 
@@ -37,12 +41,12 @@ export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
   /**
    * @param visibleProperties - Properties controlled by these check boxes
    * @param optic
-   * @param virtualImageCheckboxEnabledProperty - is the 'Virtual Image' check box enabled?
+   * @param opticalObjectChoiceProperty
    * @param providedOptions
    */
   public constructor( visibleProperties: VisibleProperties,
                       optic: Optic,
-                      virtualImageCheckboxEnabledProperty: TReadOnlyProperty<boolean>,
+                      opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>,
                       providedOptions: VisibilityCheckboxGroupOptions ) {
 
     const options = optionize<VisibilityCheckboxGroupOptions, SelfOptions, VerticalCheckboxGroupOptions>()( {
@@ -83,7 +87,15 @@ export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       // Virtual Image
       createItem( GeometricOpticsStrings.checkbox.virtualImageStringProperty, visibleProperties.virtualImageVisibleProperty, {
         options: {
-          enabledProperty: virtualImageCheckboxEnabledProperty
+
+          // Disable the 'Virtual Image' checkbox for lights, see https://github.com/phetsims/geometric-optics/issues/216
+          enabledProperty: new DerivedProperty(
+            [ opticalObjectChoiceProperty ],
+            opticalObjectChoice => ( opticalObjectChoice.type !== 'light' ), {
+              tandem: options.tandem.createTandem( 'virtualImageCheckboxEnabledProperty' ),
+              phetioValueType: BooleanIO,
+              phetioFeatured: true
+            } )
         },
         tandemName: 'virtualImageCheckbox'
       } ),

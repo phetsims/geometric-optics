@@ -256,14 +256,9 @@ export default class GOScreenView extends ScreenView {
               controlsTandem.createTandem( 'opticSurfaceTypeRadioButtonGroup' )
     } );
 
-    // Disable the 'Virtual Image' checkbox for lights, see https://github.com/phetsims/geometric-optics/issues/216
-    const virtualImageCheckboxEnabledProperty = new DerivedProperty(
-      [ model.opticalObjectChoiceProperty ],
-      opticalObjectChoice => ( opticalObjectChoice.type !== 'light' ) );
-
     // Control panel at the bottom-center of the screen
-    const controlPanel = new GOControlPanel( model.optic, model.raysTypeProperty, visibleProperties,
-      virtualImageCheckboxEnabledProperty, {
+    const controlPanel = new GOControlPanel( model.optic, model.raysTypeProperty, model.opticalObjectChoiceProperty,
+      visibleProperties, {
         bottom: erodedLayoutBounds.bottom,
         isBasicsVersion: options.isBasicsVersion,
         tandem: controlsTandem.createTandem( 'controlPanel' )

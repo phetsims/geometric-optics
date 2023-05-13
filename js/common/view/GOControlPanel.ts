@@ -16,13 +16,14 @@ import Optic from '../model/Optic.js';
 import { RaysType } from '../model/RaysType.js';
 import VisibilityCheckboxGroup from './VisibilityCheckboxGroup.js';
 import VisibleProperties from './VisibleProperties.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import RaysSubpanel from './RaysSubpanel.js';
 import OpticSubpanel from './OpticSubpanel.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import { GOSimOptions } from '../../GOSim.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
 
 type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 
@@ -33,14 +34,14 @@ export default class GOControlPanel extends Panel {
   /**
    * @param optic
    * @param raysTypeProperty - representation for rays
+   * @param opticalObjectChoiceProperty
    * @param visibleProperties
-   * @param virtualImageCheckboxEnabledProperty - whether to enable the 'Virtual Image' checkbox
    * @param providedOptions
    */
   public constructor( optic: Optic,
                       raysTypeProperty: Property<RaysType>,
+                      opticalObjectChoiceProperty: EnumerationProperty<OpticalObjectChoice>,
                       visibleProperties: VisibleProperties,
-                      virtualImageCheckboxEnabledProperty: TReadOnlyProperty<boolean>,
                       providedOptions: GOControlPanelOptions ) {
 
     const options = optionize<GOControlPanelOptions, SelfOptions, PanelOptions>()( {
@@ -59,11 +60,10 @@ export default class GOControlPanel extends Panel {
 
     const opticSubpanel = new OpticSubpanel( optic, options.tandem.createTandem( 'opticSubpanel' ) );
 
-    const checkboxGroup = new VisibilityCheckboxGroup( visibleProperties, optic,
-      virtualImageCheckboxEnabledProperty, {
-        isBasicsVersion: options.isBasicsVersion,
-        tandem: options.tandem.createTandem( 'checkboxGroup' )
-      } );
+    const checkboxGroup = new VisibilityCheckboxGroup( visibleProperties, optic, opticalObjectChoiceProperty, {
+      isBasicsVersion: options.isBasicsVersion,
+      tandem: options.tandem.createTandem( 'checkboxGroup' )
+    } );
 
     // Vertical separators between sections of the control panel
     const leftSeparator = new VSeparator( {
