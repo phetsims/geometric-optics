@@ -26,7 +26,6 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import { RaysType } from './RaysType.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import GOPreferences from './GOPreferences.js';
-import { FocalLengthModelType } from './FocalLengthModelType.js';
 import DirectFocalLengthModel, { DirectFocalLengthModelOptions } from './DirectFocalLengthModel.js';
 import IndirectFocalLengthModel, { IndirectFocalLengthModelOptions } from './IndirectFocalLengthModel.js';
 import optionize from '../../../../phet-core/js/optionize.js';
@@ -163,9 +162,7 @@ export default abstract class Optic extends PhetioObject {
     this.indirectFocalLengthModel = new IndirectFocalLengthModel( this.opticSurfaceTypeProperty, options.indirectFocalLengthModelOptions );
 
     // When switching between focal-length models, synchronize the new model with the old model.
-    GOPreferences.focalLengthModelTypeProperty.lazyLink( ( input: string ) => {
-      const focalLengthModelType = input as FocalLengthModelType;
-
+    GOPreferences.focalLengthModelTypeProperty.lazyLink( focalLengthModelType => {
       if ( focalLengthModelType === 'direct' ) {
         this.directFocalLengthModel.syncToModel( this.indirectFocalLengthModel );
       }
