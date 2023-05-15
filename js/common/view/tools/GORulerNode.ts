@@ -109,7 +109,7 @@ export default class GORulerNode extends GOToolNode {
 
     // Update the ruler's model position to match this Node's view position, so that the ruler remains stationary
     // in the view, and the model is correct.
-    zoomTransformProperty.lazyLink( ( zoomTransform: ModelViewTransform2 ) => {
+    zoomTransformProperty.lazyLink( zoomTransform => {
       ruler.positionProperty.value = ( this.ruler.orientation === 'vertical' ) ?
                                      zoomTransform.viewToModelPosition( this.leftBottom ) :
                                      zoomTransform.viewToModelPosition( this.leftTop );

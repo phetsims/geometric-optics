@@ -86,7 +86,7 @@ export default class PositionMarkerNode extends GOToolNode {
 
     // Update the marker's model position to match this Node's view position, so that the marker remains stationary
     // in the view, and the model position is correct.
-    zoomTransformProperty.lazyLink( ( zoomTransform: ModelViewTransform2 ) => {
+    zoomTransformProperty.lazyLink( zoomTransform => {
       positionMarker.positionProperty.value = zoomTransform.viewToModelPosition( this.centerTop );
     } );
 
