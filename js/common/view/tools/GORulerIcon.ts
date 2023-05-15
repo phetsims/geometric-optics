@@ -79,7 +79,7 @@ export default class GORulerIcon extends GOToolIcon {
       return zoomTransform.viewToModelXY( x, y );
     };
 
-    super( contentNode, ruler, rulerNode, zoomTransformProperty, pointerPositionToToolPosition, options );
+    super( contentNode, ruler, rulerNode, pointerPositionToToolPosition, options );
   }
 }
 

@@ -49,8 +49,7 @@ export default class PositionMarkerIcon extends GOToolIcon {
       return zoomTransform.viewToModelXY( x, y );
     };
 
-    super( contentNode, positionMarker, positionMarkerNode, zoomTransformProperty, pointerPositionToToolPosition,
-      options );
+    super( contentNode, positionMarker, positionMarkerNode, pointerPositionToToolPosition, options );
   }
 }
 
