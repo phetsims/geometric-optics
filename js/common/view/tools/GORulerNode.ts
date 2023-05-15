@@ -79,7 +79,7 @@ export default class GORulerNode extends GOToolNode {
     // Create a RulerNode subcomponent whose scale matches the current zoom level.
     // Must be disposed, because it links to a translated string Property.
     let rulerNode: RulerNode;
-    zoomTransformProperty.link( ( zoomTransform: ModelViewTransform2 ) => {
+    zoomTransformProperty.link( zoomTransform => {
 
       // zoomTransformProperty is derived from zoomScaleProperty, so zoomScaleProperty does not need to be
       // a dependency of this listener, and it's safe to use its value.
