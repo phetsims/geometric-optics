@@ -79,15 +79,23 @@ export default class PositionMarkerNode extends GOToolNode {
     this.touchArea = this.localBounds.dilatedXY( options.touchAreaDilationX, options.touchAreaDilationY );
     this.mouseArea = this.localBounds.dilatedXY( options.mouseAreaDilationX, options.mouseAreaDilationY );
 
-    // Origin is at centerTop.
-    positionMarker.positionProperty.link( position => {
-      this.centerTop = zoomTransformProperty.value.modelToViewPosition( position );
-    } );
+    // Translates this Node to the specified model position. Origin is at centerTop.
+    const translateNode = ( modelPosition: Vector2 ) => {
+      this.centerTop = zoomTransformProperty.value.modelToViewPosition( modelPosition );
+    };
+
+    positionMarker.positionProperty.link( position => translateNode( position ) );
 
     // Update the marker's model position to match this Node's view position, so that the marker remains stationary
     // in the view, and the model position is correct.
-    zoomTransformProperty.lazyLink( zoomTransform => {
+    zoomTransformProperty.link( zoomTransform => {
       positionMarker.positionProperty.value = zoomTransform.viewToModelPosition( this.centerTop );
+
+      // Workaround: If restoring state, we need to explicitly translate this Node, because the above positionProperty
+      // listener does not fire. I never figured out why. See https://github.com/phetsims/geometric-optics/issues/467
+      if ( phet.joist.sim.isSettingPhetioStateProperty.value ) {
+        translateNode( positionMarker.positionProperty.value );
+      }
     } );
 
     // Drag bounds for the marker, in model coordinates.

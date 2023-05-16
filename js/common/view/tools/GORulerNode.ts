@@ -96,16 +96,19 @@ export default class GORulerNode extends GOToolNode {
       this.addChild( rulerNode );
     } );
 
+    // Translates this Node to the specified model position.
     // Origin is at leftBottom for a vertical ruler, leftTop for a horizontal ruler.
-    ruler.positionProperty.link( position => {
-      const viewPosition = zoomTransformProperty.value.modelToViewPosition( position );
+    const translateNode = ( modelPosition: Vector2 ) => {
+      const viewPosition = zoomTransformProperty.value.modelToViewPosition( modelPosition );
       if ( this.ruler.orientation === 'vertical' ) {
         this.leftBottom = viewPosition;
       }
       else {
         this.leftTop = viewPosition;
       }
-    } );
+    };
+
+    ruler.positionProperty.link( position => translateNode( position ) );
 
     // Update the ruler's model position to match this Node's view position, so that the ruler remains stationary
     // in the view, and the model is correct.
@@ -113,6 +116,12 @@ export default class GORulerNode extends GOToolNode {
       ruler.positionProperty.value = ( this.ruler.orientation === 'vertical' ) ?
                                      zoomTransform.viewToModelPosition( this.leftBottom ) :
                                      zoomTransform.viewToModelPosition( this.leftTop );
+
+      // Workaround: If restoring state, we need to explicitly translate this Node, because the above positionProperty
+      // listener does not fire. I never figured out why. See https://github.com/phetsims/geometric-optics/issues/467
+      if ( phet.joist.sim.isSettingPhetioStateProperty.value ) {
+        translateNode( ruler.positionProperty.value );
+      }
     } );
 
     // Drag bounds for the ruler, in model coordinates.
