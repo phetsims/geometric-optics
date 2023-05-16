@@ -117,8 +117,9 @@ export default class GORulerNode extends GOToolNode {
                                      zoomTransform.viewToModelPosition( this.leftBottom ) :
                                      zoomTransform.viewToModelPosition( this.leftTop );
 
-      // Workaround: If restoring state, we need to explicitly translate this Node, because the above positionProperty
-      // listener does not fire. I never figured out why. See https://github.com/phetsims/geometric-optics/issues/467
+      // Workaround for restoring tool position, see https://github.com/phetsims/geometric-optics/issues/467.
+      // When restoring PhET-iO state, we need to explicitly translate this Node, because the positionProperty
+      // listener above does not fire. I never figured out why this is necessary.
       if ( phet.joist.sim.isSettingPhetioStateProperty.value ) {
         translateNode( ruler.positionProperty.value );
       }

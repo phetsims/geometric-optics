@@ -91,8 +91,9 @@ export default class PositionMarkerNode extends GOToolNode {
     zoomTransformProperty.link( zoomTransform => {
       positionMarker.positionProperty.value = zoomTransform.viewToModelPosition( this.centerTop );
 
-      // Workaround: If restoring state, we need to explicitly translate this Node, because the above positionProperty
-      // listener does not fire. I never figured out why. See https://github.com/phetsims/geometric-optics/issues/467
+      // Workaround for restoring tool position, see https://github.com/phetsims/geometric-optics/issues/467.
+      // When restoring PhET-iO state, we need to explicitly translate this Node, because the positionProperty
+      // listener above does not fire. I never figured out why this is necessary.
       if ( phet.joist.sim.isSettingPhetioStateProperty.value ) {
         translateNode( positionMarker.positionProperty.value );
       }
