@@ -80,23 +80,27 @@ export default class PositionMarkerNode extends GOToolNode {
     this.mouseArea = this.localBounds.dilatedXY( options.mouseAreaDilationX, options.mouseAreaDilationY );
 
     // Translates this Node to the specified model position. Origin is at centerTop.
-    const translateNode = ( modelPosition: Vector2 ) => {
+    const positionPropertyListener = ( modelPosition: Vector2 ) => {
       this.centerTop = zoomTransformProperty.value.modelToViewPosition( modelPosition );
     };
 
-    positionMarker.positionProperty.link( position => translateNode( position ) );
+    positionMarker.positionProperty.link( positionPropertyListener );
 
-    // Update the marker's model position to match this Node's view position, so that the marker remains stationary
-    // in the view, and the model position is correct.
     zoomTransformProperty.link( zoomTransform => {
-      positionMarker.positionProperty.value = zoomTransform.viewToModelPosition( this.centerTop );
-
-      // Fix for restoring tool position, see https://github.com/phetsims/geometric-optics/issues/467.
-      // When restoring PhET-iO state, positionProperty may be restored before zoomTransformProperty. When that happens,
-      // the tool will be at an incorrect location, because the positionProperty listener above is using an
-      // incorrect value for zoomTransformProperty. So we need to repeat positionProperty's listener here.
       if ( phet.joist.sim.isSettingPhetioStateProperty.value ) {
-        translateNode( positionMarker.positionProperty.value );
+
+        // Fix for restoring tool position, see https://github.com/phetsims/geometric-optics/issues/467.
+        // When restoring PhET-iO state, positionProperty may be restored before zoomTransformProperty. When that
+        // happens, the tool will be at an incorrect location, because the positionProperty listener above will be
+        // using an incorrect value for zoomTransformProperty. So we need to repeat positionProperty's listener here.
+        positionPropertyListener( positionMarker.positionProperty.value );
+      }
+      else {
+
+        // Update the marker's model position to match this Node's view position, so that the marker remains stationary
+        // in the view, and the model position is correct. Do this only when NOT restoring PhET-iO state.
+        // When restoring PhET-iO state, the value of positionProperty will already be correct.
+        positionMarker.positionProperty.value = zoomTransform.viewToModelPosition( this.centerTop );
       }
     } );
 

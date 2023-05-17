@@ -98,7 +98,7 @@ export default class GORulerNode extends GOToolNode {
 
     // Translates this Node to the specified model position.
     // Origin is at leftBottom for a vertical ruler, leftTop for a horizontal ruler.
-    const translateNode = ( modelPosition: Vector2 ) => {
+    const positionPropertyListener = ( modelPosition: Vector2 ) => {
       const viewPosition = zoomTransformProperty.value.modelToViewPosition( modelPosition );
       if ( this.ruler.orientation === 'vertical' ) {
         this.leftBottom = viewPosition;
@@ -108,21 +108,25 @@ export default class GORulerNode extends GOToolNode {
       }
     };
 
-    ruler.positionProperty.link( position => translateNode( position ) );
+    ruler.positionProperty.link( positionPropertyListener );
 
-    // Update the ruler's model position to match this Node's view position, so that the ruler remains stationary
-    // in the view, and the model is correct.
     zoomTransformProperty.lazyLink( zoomTransform => {
-      ruler.positionProperty.value = ( this.ruler.orientation === 'vertical' ) ?
-                                     zoomTransform.viewToModelPosition( this.leftBottom ) :
-                                     zoomTransform.viewToModelPosition( this.leftTop );
-
-      // Fix for restoring tool position, see https://github.com/phetsims/geometric-optics/issues/467.
-      // When restoring PhET-iO state, positionProperty may be restored before zoomTransformProperty. When that happens,
-      // the tool will be at an incorrect location, because the positionProperty listener above is using an
-      // incorrect value for zoomTransformProperty. So we need to repeat positionProperty's listener here.
       if ( phet.joist.sim.isSettingPhetioStateProperty.value ) {
-        translateNode( ruler.positionProperty.value );
+
+        // Fix for restoring tool position, see https://github.com/phetsims/geometric-optics/issues/467.
+        // When restoring PhET-iO state, positionProperty may be restored before zoomTransformProperty. When that
+        // happens, the tool will be at an incorrect location, because the positionProperty listener above will be
+        // using an incorrect value for zoomTransformProperty. So we need to repeat positionProperty's listener here.
+        positionPropertyListener( ruler.positionProperty.value );
+      }
+      else {
+
+        // Update the ruler's model position to match this Node's view position, so that the ruler remains stationary
+        // in the view, and the model is correct. Do this only when NOT restoring PhET-iO state. When restoring PhET-iO
+        // state, the value of positionProperty will already be correct.
+        ruler.positionProperty.value = ( this.ruler.orientation === 'vertical' ) ?
+                                       zoomTransform.viewToModelPosition( this.leftBottom ) :
+                                       zoomTransform.viewToModelPosition( this.leftTop );
       }
     } );
 
