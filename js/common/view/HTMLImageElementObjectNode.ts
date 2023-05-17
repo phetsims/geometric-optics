@@ -1,4 +1,4 @@
-// Copyright 2021-2022, University of Colorado Boulder
+// Copyright 2021-2023, University of Colorado Boulder
 
 /**
  * HTMLImageElementObjectNode is the view of an object that uses an HTMLImageElement for its visual representation.
