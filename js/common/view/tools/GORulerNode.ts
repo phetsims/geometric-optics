@@ -150,7 +150,11 @@ export default class GORulerNode extends GOToolNode {
 
     // Keep the ruler inside the drag bounds.
     this.dragBoundsProperty.link( dragBounds => {
-      ruler.positionProperty.value = dragBounds.closestPointTo( ruler.positionProperty.value );
+
+      // Do not disturb positionProperty when restoring PhET-iO state.
+      if ( !phet.joist.sim.isSettingPhetioStateProperty.value ) {
+        ruler.positionProperty.value = dragBounds.closestPointTo( ruler.positionProperty.value );
+      }
     } );
 
     // Return to the toolbox when the pointer is released inside the toolbox.

@@ -94,7 +94,11 @@ export default class ArrowObjectNode extends OpticalObjectNode {
 
     // Keep the arrow inside the drag bounds.
     dragBoundsProperty.link( dragBounds => {
-      arrowObject.positionProperty.value = dragBounds.closestPointTo( arrowObject.positionProperty.value );
+
+      // Do not disturb positionProperty when restoring PhET-iO state.
+      if ( !phet.joist.sim.isSettingPhetioStateProperty.value ) {
+        arrowObject.positionProperty.value = dragBounds.closestPointTo( arrowObject.positionProperty.value );
+      }
     } );
 
     // When mouse/touch dragging is completed, check the magnitude of the arrow. If it is less than the minimum

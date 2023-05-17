@@ -113,7 +113,11 @@ export default class PositionMarkerNode extends GOToolNode {
 
     // Keep the marker inside the drag bounds.
     this.dragBoundsProperty.link( dragBounds => {
-      positionMarker.positionProperty.value = dragBounds.closestPointTo( positionMarker.positionProperty.value );
+
+      // Do not disturb positionProperty when restoring PhET-iO state.
+      if ( !phet.joist.sim.isSettingPhetioStateProperty.value ) {
+        positionMarker.positionProperty.value = dragBounds.closestPointTo( positionMarker.positionProperty.value );
+      }
     } );
 
     // Return the tool to the toolbox if the marker's bounds intersect the toolbox.

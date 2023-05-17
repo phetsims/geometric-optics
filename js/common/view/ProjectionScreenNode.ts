@@ -144,7 +144,11 @@ export default class ProjectionScreenNode extends InteractiveHighlighting( Node 
 
     // Keep the projection screen within drag bounds.
     dragBoundsProperty.link( dragBounds => {
-      projectionScreen.positionProperty.value = dragBounds.closestPointTo( projectionScreen.positionProperty.value );
+
+      // Do not disturb positionProperty when restoring PhET-iO state.
+      if ( !phet.joist.sim.isSettingPhetioStateProperty.value ) {
+        projectionScreen.positionProperty.value = dragBounds.closestPointTo( projectionScreen.positionProperty.value );
+      }
     } );
 
     // Drag action that is common to DragListener and KeyboardDragListener

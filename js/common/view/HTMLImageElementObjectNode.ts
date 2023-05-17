@@ -110,7 +110,7 @@ export default class HTMLImageElementObjectNode extends OpticalObjectNode {
     // setting htmlImageElementObject.positionProperty.
     dragBoundsProperty.link( dragBounds => {
 
-      // Do not do this when restoring PhET-iO state, because we do not want to disturb the object's position.
+      // Do not disturb positionProperty when restoring PhET-iO state.
       // See https://github.com/phetsims/geometric-optics/issues/469
       if ( !phet.joist.sim.isSettingPhetioStateProperty.value ) {
         const closestPoint = dragBounds.closestPointTo( htmlImageElementObject.positionProperty.value );
