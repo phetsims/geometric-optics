@@ -145,7 +145,7 @@ export default class PositionMarkerNode extends GOToolNode {
   }
 
   /**
-   * Handles the 'J' (Jump) hotkey, which moves the ruler to the next 'interesting' point.
+   * Handles the 'J' (Jump) hotkey, which moves the tool to the next 'interesting' point.
    * See https://github.com/phetsims/geometric-optics/issues/355
    */
   public jumpToPoint(): void {

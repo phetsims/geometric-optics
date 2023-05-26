@@ -98,7 +98,7 @@ export default abstract class GOToolNode extends InteractiveHighlighting( Node )
   }
 
   /**
-   * Handles the 'J' (Jump) hotkey, which moves the ruler to the next 'interesting' point.
+   * Handles the 'J' (Jump) hotkey, which moves the tool to the next 'interesting' point.
    */
   public abstract jumpToPoint(): void;
 
