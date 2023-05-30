@@ -18,27 +18,27 @@ import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioO
 import geometricOptics from '../../geometricOptics.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
-// range of the vertical offset for the second point, relative to frame object's position, in cm
-// See https://github.com/phetsims/geometric-optics/issues/401
-const VERTICAL_OFFSET_RANGE = new Range( -56.5, 0 );
-
 type SelfOptions = EmptySelfOptions;
 
 type SecondPointOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem' | 'phetioDocumentation'>;
 
 export default class SecondPoint extends PhetioObject {
 
-  // position of the second point
-  public readonly positionProperty: TReadOnlyProperty<Vector2>;
-
-  // vertical offset of second point with respect to the first point on the framed object position, in cm
-  private readonly verticalOffsetProperty: Property<number>;
-
   // position of the framed object that second point is associated with
-  private readonly framedObjectPositionProperty: TReadOnlyProperty<Vector2>;
+  public readonly framedObjectPositionProperty: TReadOnlyProperty<Vector2>;
+
+  // vertical offset of second point, relative to the framed object's position, in cm
+  public readonly verticalOffsetProperty: Property<number>;
+
+  // position of the second point in the global model coordinate frame
+  public readonly positionProperty: TReadOnlyProperty<Vector2>;
 
   // Resets things that are specific to this class.
   private readonly resetSecondPoint: () => void;
+
+  // range of the vertical offset for the second point, relative to frame object's position, in cm
+  // See https://github.com/phetsims/geometric-optics/issues/401
+  public static readonly VERTICAL_OFFSET_RANGE = new Range( -56.5, 0 );
 
   public constructor( framedObjectPositionProperty: TReadOnlyProperty<Vector2>, providedOptions: SecondPointOptions ) {
 
@@ -50,8 +50,8 @@ export default class SecondPoint extends PhetioObject {
 
     super( options );
 
-    this.verticalOffsetProperty = new NumberProperty( VERTICAL_OFFSET_RANGE.min, {
-      range: VERTICAL_OFFSET_RANGE,
+    this.verticalOffsetProperty = new NumberProperty( SecondPoint.VERTICAL_OFFSET_RANGE.min, {
+      range: SecondPoint.VERTICAL_OFFSET_RANGE,
       tandem: options.tandem.createTandem( 'verticalOffsetProperty' ),
       phetioFeatured: true,
       phetioDocumentation: 'offset relative to framed object position'
@@ -80,15 +80,6 @@ export default class SecondPoint extends PhetioObject {
 
   public reset(): void {
     this.resetSecondPoint();
-  }
-
-  /**
-   * Sets the second point-of-interest on the framed object.
-   * @param position - relative to the framed object's position
-   */
-  public setSecondPoint( position: Vector2 ): void {
-    this.verticalOffsetProperty.value =
-      VERTICAL_OFFSET_RANGE.constrainValue( position.y - this.framedObjectPositionProperty.value.y );
   }
 }
 

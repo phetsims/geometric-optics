@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
@@ -65,29 +64,24 @@ export default class SecondPointNode extends InteractiveHighlighting( Node ) {
       this.center = modelViewTransform.modelToViewPosition( position );
     } );
 
-    // The position of the second point cannot be set directly, because it is derived based on the vertical
-    // offset from the framed object's position.  So create an adapter Property for use with DragListener.
-    const positionProperty = new Vector2Property( secondPoint.positionProperty.value );
-    positionProperty.link( position => secondPoint.setSecondPoint( position ) );
-
     // Drag action that is common to DragListener and KeyboardDragListener
-    const drag = () => {
+    const drag = ( modelDeltaY: number ) => {
       wasDraggedProperty.value = true;
+      const verticalOffset = secondPoint.positionProperty.value.y + modelDeltaY - secondPoint.framedObjectPositionProperty.value.y;
+      secondPoint.verticalOffsetProperty.value = SecondPoint.VERTICAL_OFFSET_RANGE.constrainValue( verticalOffset );
     };
 
     const dragListener = new DragListener( {
-      positionProperty: positionProperty,
       transform: modelViewTransform,
-      drag: drag,
+      drag: ( event, listener ) => drag( listener.modelDelta.y ),
       tandem: options.tandem.createTandem( 'dragListener' )
     } );
     this.addInputListener( dragListener );
 
     const keyboardDragListener = new KeyboardDragListener(
       combineOptions<KeyboardDragListenerOptions>( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
-        positionProperty: positionProperty,
         transform: modelViewTransform,
-        drag: drag,
+        drag: modelDelta => drag( modelDelta.y ),
         tandem: options.tandem.createTandem( 'keyboardDragListener' )
       } ) );
     this.addInputListener( keyboardDragListener );
