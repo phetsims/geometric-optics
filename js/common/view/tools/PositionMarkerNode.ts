@@ -104,13 +104,14 @@ export default class PositionMarkerNode extends GOToolNode {
       }
     } );
 
-    // Drag bounds for the marker, in model coordinates.
-    // This keeps the entire marker inside the visible bounds of the ScreenView.
+    // Drag bounds for the marker, in model coordinates. This keeps at least half of the width of the Node, and the
+    // entire height of the Node, inside the visible bounds of the ScreenView.  Note that we can only keep half
+    // of the width in bounds because we need to be able to place the tip of the marker at objects (like arrows) that
+    // may be at the extreme left edge of the screen. See https://github.com/phetsims/geometric-optics/issues/473
     this.dragBoundsProperty = new DerivedProperty(
       [ visibleBoundsProperty, zoomTransformProperty ],
       ( visibleBounds, zoomTransform ) => {
-        const viewBounds = new Bounds2( visibleBounds.minX + this.width / 2, visibleBounds.minY,
-          visibleBounds.maxX - this.width / 2, visibleBounds.maxY - this.height );
+        const viewBounds = new Bounds2( visibleBounds.minX, visibleBounds.minY, visibleBounds.maxX, visibleBounds.maxY - this.height );
         return zoomTransform.viewToModelBounds( viewBounds );
       }
     );
