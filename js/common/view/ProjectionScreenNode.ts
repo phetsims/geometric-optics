@@ -25,6 +25,7 @@ import GOConstants from '../../common/GOConstants.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -146,7 +147,7 @@ export default class ProjectionScreenNode extends InteractiveHighlighting( Node 
     dragBoundsProperty.link( dragBounds => {
 
       // Do not disturb positionProperty when restoring PhET-iO state.
-      if ( !phet.joist.sim.isSettingPhetioStateProperty.value ) {
+      if ( !isSettingPhetioStateProperty.value ) {
         projectionScreen.positionProperty.value = dragBounds.closestPointTo( projectionScreen.positionProperty.value );
       }
     } );

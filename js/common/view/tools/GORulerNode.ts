@@ -30,6 +30,7 @@ import GOToolNode, { GOToolNodeOptions } from './GOToolNode.js';
 import GOToolKeyboardDragListener from './GOToolKeyboardDragListener.js';
 import GOToolDragListener from './GOToolDragListener.js';
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;
@@ -111,7 +112,7 @@ export default class GORulerNode extends GOToolNode {
     ruler.positionProperty.link( positionPropertyListener );
 
     zoomTransformProperty.lazyLink( zoomTransform => {
-      if ( phet.joist.sim.isSettingPhetioStateProperty.value ) {
+      if ( isSettingPhetioStateProperty.value ) {
 
         // Fix for restoring tool position, see https://github.com/phetsims/geometric-optics/issues/467.
         // When restoring PhET-iO state, positionProperty may be restored before zoomTransformProperty. When that
@@ -156,7 +157,7 @@ export default class GORulerNode extends GOToolNode {
     this.dragBoundsProperty.link( dragBounds => {
 
       // Do not disturb positionProperty when restoring PhET-iO state.
-      if ( !phet.joist.sim.isSettingPhetioStateProperty.value ) {
+      if ( !isSettingPhetioStateProperty.value ) {
         ruler.positionProperty.value = dragBounds.closestPointTo( ruler.positionProperty.value );
       }
     } );

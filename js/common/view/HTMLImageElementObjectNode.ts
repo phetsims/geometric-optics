@@ -23,6 +23,7 @@ import stepTimer from '../../../../axon/js/stepTimer.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 import OpticalObjectNode, { OpticalObjectNodeOptions } from './OpticalObjectNode.js';
 import Multilink from '../../../../axon/js/Multilink.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 export type HTMLImageElementObjectNodeOptions = OpticalObjectNodeOptions;
 
@@ -112,7 +113,7 @@ export default class HTMLImageElementObjectNode extends OpticalObjectNode {
 
       // Do not disturb positionProperty when restoring PhET-iO state.
       // See https://github.com/phetsims/geometric-optics/issues/469
-      if ( !phet.joist.sim.isSettingPhetioStateProperty.value ) {
+      if ( !isSettingPhetioStateProperty.value ) {
         const closestPoint = dragBounds.closestPointTo( htmlImageElementObject.positionProperty.value );
         if ( !closestPoint.equals( htmlImageElementObject.positionProperty.value ) ) {
           stepTimer.setTimeout( () => {

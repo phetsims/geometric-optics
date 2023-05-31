@@ -21,6 +21,7 @@ import MapMarkerNode from '../MapMarkerNode.js';
 import GOToolKeyboardDragListener from './GOToolKeyboardDragListener.js';
 import GOToolDragListener from './GOToolDragListener.js';
 import geometricOptics from '../../../geometricOptics.js';
+import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 type SelfOptions = {
 
@@ -87,7 +88,7 @@ export default class PositionMarkerNode extends GOToolNode {
     positionMarker.positionProperty.link( positionPropertyListener );
 
     zoomTransformProperty.link( zoomTransform => {
-      if ( phet.joist.sim.isSettingPhetioStateProperty.value ) {
+      if ( isSettingPhetioStateProperty.value ) {
 
         // Fix for restoring tool position, see https://github.com/phetsims/geometric-optics/issues/467.
         // When restoring PhET-iO state, positionProperty may be restored before zoomTransformProperty. When that
@@ -120,7 +121,7 @@ export default class PositionMarkerNode extends GOToolNode {
     this.dragBoundsProperty.link( dragBounds => {
 
       // Do not disturb positionProperty when restoring PhET-iO state.
-      if ( !phet.joist.sim.isSettingPhetioStateProperty.value ) {
+      if ( !isSettingPhetioStateProperty.value ) {
         positionMarker.positionProperty.value = dragBounds.closestPointTo( positionMarker.positionProperty.value );
       }
     } );

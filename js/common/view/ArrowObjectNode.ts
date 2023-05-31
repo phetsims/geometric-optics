@@ -22,6 +22,7 @@ import { ObjectDragMode } from './ObjectDragMode.js';
 import OpticalObjectNode, { OpticalObjectNodeOptions } from './OpticalObjectNode.js';
 import TProperty from '../../../../axon/js/TProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 const SNAP_TO_MIN_MAGNITUDE = 20; // cm
 
@@ -96,7 +97,7 @@ export default class ArrowObjectNode extends OpticalObjectNode {
     dragBoundsProperty.link( dragBounds => {
 
       // Do not disturb positionProperty when restoring PhET-iO state.
-      if ( !phet.joist.sim.isSettingPhetioStateProperty.value ) {
+      if ( !isSettingPhetioStateProperty.value ) {
         arrowObject.positionProperty.value = dragBounds.closestPointTo( arrowObject.positionProperty.value );
       }
     } );
