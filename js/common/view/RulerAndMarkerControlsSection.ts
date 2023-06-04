@@ -14,8 +14,6 @@ import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
 
 export class RulerAndMarkerControlsSection extends KeyboardHelpSection {
 
-  private readonly disposeRulerAndMarkerControlsSection: () => void;
-
   public constructor() {
 
     // Keys used in this KeyboardHelpSection. They need to be disposed.
@@ -23,7 +21,6 @@ export class RulerAndMarkerControlsSection extends KeyboardHelpSection {
     const enterKeyNode = TextKeyNode.enter();
     const escapeKeyNode = TextKeyNode.esc();
     const spaceOrEnterKeyNode = KeyboardHelpIconFactory.iconOrIcon( spaceKeyNode, enterKeyNode );
-    const keyNodes = [ spaceKeyNode, enterKeyNode, escapeKeyNode, spaceOrEnterKeyNode ];
 
     // Rows that make up this KeyboardHelpSection. They need to be disposed.
     const rows = [
@@ -42,15 +39,11 @@ export class RulerAndMarkerControlsSection extends KeyboardHelpSection {
     super( GeometricOpticsStrings.keyboardHelpDialog.rulerAndMarkerControlsStringProperty, rows, {
       textMaxWidth: 300
     } );
-
-    this.disposeRulerAndMarkerControlsSection = () => {
-      keyNodes.forEach( keyNode => keyNode.dispose() );
-      rows.forEach( row => row.dispose() );
-    };
   }
 
+  // See https://github.com/phetsims/geometric-optics/issues/483
   public override dispose(): void {
-    this.disposeRulerAndMarkerControlsSection();
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 }

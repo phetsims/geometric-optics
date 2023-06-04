@@ -17,8 +17,6 @@ import { RulerAndMarkerControlsSection } from './RulerAndMarkerControlsSection.j
 
 export default class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
-  private readonly disposeGOKeyboardHelpContent: () => void;
-
   public constructor() {
 
     // Sections in the left column. They need to be disposed.
@@ -51,15 +49,11 @@ export default class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent 
     ];
 
     super( leftSections, rightSections );
-
-    this.disposeGOKeyboardHelpContent = () => {
-      leftSections.forEach( section => section.dispose() );
-      rightSections.forEach( section => section.dispose() );
-    };
   }
 
+  // See https://github.com/phetsims/geometric-optics/issues/483
   public override dispose(): void {
-    this.disposeGOKeyboardHelpContent();
+    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
     super.dispose();
   }
 }
