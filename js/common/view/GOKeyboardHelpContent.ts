@@ -19,7 +19,7 @@ export default class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent 
 
   public constructor() {
 
-    // Sections in the left column. They need to be disposed.
+    // Sections in the left column.
     const leftSections = [
 
       // Move Draggable Items
@@ -36,7 +36,7 @@ export default class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent 
       } )
     ];
 
-    // Sections in the right column. They need to be disposed.
+    // Sections in the right column.
     const rightSections = [
 
       // Slider Controls
