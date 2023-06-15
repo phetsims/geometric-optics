@@ -60,9 +60,7 @@ export default class FocalLengthModelTypeControl extends VBox {
 
     this.children = [ labelText, radioButtonGroup ];
 
-    this.addLinkedElement( focalLengthModelTypeProperty, {
-      tandem: options.tandem.createTandem( focalLengthModelTypeProperty.tandem.name )
-    } );
+    this.addLinkedElement( focalLengthModelTypeProperty );
 
     this.disposeFocalLengthModelTypeControl = (): void => {
       labelText.dispose();

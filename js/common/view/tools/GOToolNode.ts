@@ -70,9 +70,7 @@ export default abstract class GOToolNode extends InteractiveHighlighting( Node )
     this.jumpPoints = [];
     this.jumpPointsIndex = 0;
 
-    this.addLinkedElement( tool, {
-      tandem: options.tandem.createTandem( tool.tandem.name )
-    } );
+    this.addLinkedElement( tool );
   }
 
   /**

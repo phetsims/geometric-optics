@@ -72,9 +72,7 @@ export default class OpticalObjectNode extends InteractiveHighlighting( Node ) {
       }
     } );
 
-    this.addLinkedElement( opticalObject, {
-      tandem: options.tandem.createTandem( opticalObject.tandem.name )
-    } );
+    this.addLinkedElement( opticalObject );
   }
 
   /**

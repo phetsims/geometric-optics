@@ -47,9 +47,7 @@ export default class IndexOfRefractionControl extends NumberControl {
 
     super( GeometricOpticsStrings.indexOfRefractionStringProperty, indexOfRefractionProperty, range, options );
 
-    this.addLinkedElement( indexOfRefractionProperty, {
-      tandem: options.tandem.createTandem( indexOfRefractionProperty.tandem.name )
-    } );
+    this.addLinkedElement( indexOfRefractionProperty );
   }
 }
 

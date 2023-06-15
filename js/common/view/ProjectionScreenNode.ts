@@ -177,9 +177,7 @@ export default class ProjectionScreenNode extends InteractiveHighlighting( Node 
       } ) );
     this.addInputListener( keyboardDragListener );
 
-    this.addLinkedElement( projectionScreen, {
-      tandem: options.tandem.createTandem( projectionScreen.tandem.name )
-    } );
+    this.addLinkedElement( projectionScreen );
 
     this.resetProjectionScreenNode = () => {
       wasDraggedProperty.reset();

@@ -39,9 +39,7 @@ export default class FocalPointNode extends Node {
       this.center = modelViewTransform.modelToViewPosition( focalPoint );
     } );
 
-    this.addLinkedElement( pointProperty, {
-      tandem: options.tandem.createTandem( pointProperty.tandem.name )
-    } );
+    this.addLinkedElement( pointProperty );
   }
 
   /**

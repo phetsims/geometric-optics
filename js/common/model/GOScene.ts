@@ -55,9 +55,7 @@ export default abstract class GOScene extends PhetioObject {
 
     this.optic = optic;
 
-    this.addLinkedElement( optic, {
-      tandem: options.tandem.createTandem( optic.tandem.name )
-    } );
+    this.addLinkedElement( optic );
 
     this.raysAnimationTimeProperty = new NumberProperty( 0, {
       units: 's',

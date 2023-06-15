@@ -37,9 +37,7 @@ export default class TwoFPointNode extends Node {
       this.center = modelViewTransform.modelToViewPosition( twoFPoint );
     } );
 
-    this.addLinkedElement( pointProperty, {
-      tandem: options.tandem.createTandem( pointProperty.tandem.name )
-    } );
+    this.addLinkedElement( pointProperty );
   }
 
   /**

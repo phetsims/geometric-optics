@@ -78,9 +78,7 @@ export default class MirrorNode extends Node {
       this.translation = modelViewTransform.modelToViewPosition( position );
     } );
 
-    this.addLinkedElement( mirror, {
-      tandem: options.tandem.createTandem( mirror.tandem.name )
-    } );
+    this.addLinkedElement( mirror );
   }
 
   public override dispose(): void {

@@ -89,9 +89,7 @@ export default class LensNode extends Node {
 
     lens.opacityProperty.linkAttribute( fillNode, 'opacity' );
 
-    this.addLinkedElement( lens, {
-      tandem: options.tandem.createTandem( lens.tandem.name )
-    } );
+    this.addLinkedElement( lens );
   }
 
   public override dispose(): void {

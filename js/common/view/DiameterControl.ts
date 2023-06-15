@@ -44,9 +44,7 @@ export default class DiameterControl extends NumberControl {
 
     super( GeometricOpticsStrings.diameterStringProperty, diameterProperty, range, options );
 
-    this.addLinkedElement( diameterProperty, {
-      tandem: options.tandem.createTandem( diameterProperty.tandem.name )
-    } );
+    this.addLinkedElement( diameterProperty );
   }
 }
 

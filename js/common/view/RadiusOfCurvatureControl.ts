@@ -65,9 +65,7 @@ export default class RadiusOfCurvatureControl extends NumberControl {
 
     super( titleStringProperty, radiusOfCurvatureMagnitudeProperty, range, options );
 
-    this.addLinkedElement( radiusOfCurvatureMagnitudeProperty, {
-      tandem: options.tandem.createTandem( radiusOfCurvatureMagnitudeProperty.tandem.name )
-    } );
+    this.addLinkedElement( radiusOfCurvatureMagnitudeProperty );
   }
 
   public override dispose(): void {

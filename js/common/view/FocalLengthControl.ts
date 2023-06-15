@@ -65,9 +65,7 @@ export default class FocalLengthControl extends NumberControl {
 
     super( titleStringProperty, focalLengthMagnitudeProperty, range, options );
 
-    this.addLinkedElement( focalLengthMagnitudeProperty, {
-      tandem: options.tandem.createTandem( focalLengthMagnitudeProperty.tandem.name )
-    } );
+    this.addLinkedElement( focalLengthMagnitudeProperty );
   }
 
   public override dispose(): void {

@@ -93,9 +93,7 @@ export default class LightSpotNode extends Node {
       fillAndStrokeNode.clipArea = modelViewTransform.modelToViewShape( projectionScreenShape );
     } );
 
-    this.addLinkedElement( lightSpot, {
-      tandem: providedOptions.tandem.createTandem( lightSpot.tandem.name )
-    } );
+    this.addLinkedElement( lightSpot );
   }
 
   public override dispose(): void {

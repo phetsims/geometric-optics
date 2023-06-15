@@ -50,9 +50,7 @@ export default class OpticalImageNode extends Node {
 
     super( options );
 
-    this.addLinkedElement( opticalImage, {
-      tandem: providedOptions.tandem.createTandem( opticalImage.tandem.name )
-    } );
+    this.addLinkedElement( opticalImage );
   }
 
   public override dispose(): void {

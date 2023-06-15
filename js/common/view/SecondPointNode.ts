@@ -86,9 +86,7 @@ export default class SecondPointNode extends InteractiveHighlighting( Node ) {
       } ) );
     this.addInputListener( keyboardDragListener );
 
-    this.addLinkedElement( secondPoint, {
-      tandem: options.tandem.createTandem( secondPoint.tandem.name )
-    } );
+    this.addLinkedElement( secondPoint );
   }
 
   /**

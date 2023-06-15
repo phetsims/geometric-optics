@@ -219,9 +219,7 @@ export default abstract class GOSceneNode extends Node {
       guidesLayer
     ];
 
-    this.addLinkedElement( scene, {
-      tandem: options.tandem.createTandem( scene.tandem.name )
-    } );
+    this.addLinkedElement( scene );
 
     this.opticJumpPoints = [
       new ToolJumpPoint( scene.optic.positionProperty, opticNode.visibleProperty ),
