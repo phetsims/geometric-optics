@@ -16,8 +16,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
-import StringIO from '../../../../tandem/js/types/StringIO.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -36,14 +35,13 @@ export default class RadiusOfCurvatureControl extends NumberControl {
 
     const range = radiusOfCurvatureMagnitudeProperty.range;
 
-    const titleStringProperty = new DerivedProperty( [
+    const titleStringProperty = new DerivedStringProperty( [
       radiusOfCurvatureProperty,
       GeometricOpticsStrings.radiusOfCurvaturePositiveStringProperty,
       GeometricOpticsStrings.radiusOfCurvatureNegativeStringProperty
     ], ( radiusOfCurvature: number, radiusOfCurvaturePositiveString: string, radiusOfCurvatureNegativeString: string ) =>
       ( radiusOfCurvature >= 0 ) ? radiusOfCurvaturePositiveString : radiusOfCurvatureNegativeString, {
-      tandem: providedOptions.tandem.createTandem( 'titleStringProperty' ),
-      phetioValueType: StringIO
+      tandem: providedOptions.tandem.createTandem( 'titleStringProperty' )
     } );
 
     const options = optionize4<RadiusOfCurvatureControlOptions, SelfOptions, NumberControlOptions>()(

@@ -16,8 +16,7 @@ import optionize from '../../../../../phet-core/js/optionize.js';
 import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
-import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
-import StringIO from '../../../../../tandem/js/types/StringIO.js';
+import DerivedStringProperty from '../../../../../axon/js/DerivedStringProperty.js';
 
 type SelfOptions = {
 
@@ -44,7 +43,7 @@ export default class OpticalObjectLabelNode extends LabelNode {
       isNumberedProperty: new BooleanProperty( true )
     }, providedOptions );
 
-    const labelStringProperty = new DerivedProperty( [
+    const labelStringProperty = new DerivedStringProperty( [
       options.isNumberedProperty,
       GeometricOpticsStrings.label.objectStringProperty,
       GeometricOpticsStrings.label.objectNStringProperty
@@ -53,8 +52,7 @@ export default class OpticalObjectLabelNode extends LabelNode {
       objectString: string,
       objectNString: string
     ) => isNumbered ? StringUtils.fillIn( objectNString, { objectNumber: objectNumber } ) : objectString, {
-      tandem: options.tandem.createTandem( 'labelStringProperty' ),
-      phetioValueType: StringIO
+      tandem: options.tandem.createTandem( 'labelStringProperty' )
     } );
 
     super( labelStringProperty, labelPositionProperty, zoomTransformProperty, options );

@@ -16,8 +16,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import StringIO from '../../../../tandem/js/types/StringIO.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -36,14 +35,13 @@ export default class FocalLengthControl extends NumberControl {
 
     const range = focalLengthMagnitudeProperty.range;
 
-    const titleStringProperty = new DerivedProperty( [
+    const titleStringProperty = new DerivedStringProperty( [
       focalLengthProperty,
       GeometricOpticsStrings.focalLengthPositiveStringProperty,
       GeometricOpticsStrings.focalLengthNegativeStringProperty
     ], ( focalLength: number, focalLengthPositiveString: string, focalLengthNegativeString: string ) =>
       ( focalLength >= 0 ) ? focalLengthPositiveString : focalLengthNegativeString, {
-      tandem: providedOptions.tandem.createTandem( 'titleStringProperty' ),
-      phetioValueType: StringIO
+      tandem: providedOptions.tandem.createTandem( 'titleStringProperty' )
     } );
 
     const options = optionize4<FocalLengthControlOptions, SelfOptions, NumberControlOptions>()(

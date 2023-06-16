@@ -17,8 +17,7 @@ import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import OpticalImage from '../../model/OpticalImage.js';
-import StringIO from '../../../../../tandem/js/types/StringIO.js';
-import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import DerivedStringProperty from '../../../../../axon/js/DerivedStringProperty.js';
 
 type SelfOptions = {
 
@@ -45,7 +44,7 @@ export default class OpticalImageLabelNode extends LabelNode {
       isNumberedProperty: new BooleanProperty( true )
     }, providedOptions );
 
-    const labelStringProperty = new DerivedProperty( [
+    const labelStringProperty = new DerivedStringProperty( [
       opticalImage.opticalImageTypeProperty,
       options.isNumberedProperty,
       GeometricOpticsStrings.label.realImageStringProperty,
@@ -76,8 +75,7 @@ export default class OpticalImageLabelNode extends LabelNode {
       }
       return text;
     }, {
-      tandem: options.tandem.createTandem( 'labelStringProperty' ),
-      phetioValueType: StringIO
+      tandem: options.tandem.createTandem( 'labelStringProperty' )
     } );
 
     super( labelStringProperty, labelPositionProperty, zoomTransformProperty, options );

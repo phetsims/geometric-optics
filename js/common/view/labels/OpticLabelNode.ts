@@ -17,7 +17,7 @@ import Mirror from '../../../mirror/model/Mirror.js';
 import Optic from '../../model/Optic.js';
 import LabelNode, { LabelNodeOptions } from './LabelNode.js';
 import { OpticSurfaceType } from '../../model/OpticSurfaceType.js';
-import StringIO from '../../../../../tandem/js/types/StringIO.js';
+import DerivedStringProperty from '../../../../../axon/js/DerivedStringProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -39,7 +39,7 @@ export default class OpticLabelNode extends LabelNode {
       ( position, diameter ) => position.minusXY( 0, diameter / 2 )
     );
 
-    const labelStringProperty = new DerivedProperty( [
+    const labelStringProperty = new DerivedStringProperty( [
       optic.opticSurfaceTypeProperty,
       GeometricOpticsStrings.label.convexLensStringProperty,
       GeometricOpticsStrings.label.concaveLensStringProperty,
@@ -84,8 +84,7 @@ export default class OpticLabelNode extends LabelNode {
       }
       return text;
     }, {
-      tandem: providedOptions.tandem.createTandem( 'labelStringProperty' ),
-      phetioValueType: StringIO
+      tandem: providedOptions.tandem.createTandem( 'labelStringProperty' )
     } );
 
     super( labelStringProperty, opticLabelPositionProperty, zoomTransformProperty, providedOptions );
