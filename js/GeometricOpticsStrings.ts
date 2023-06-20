@@ -5,74 +5,74 @@
  */
 /* eslint-disable */
 import getStringModule from '../../chipper/js/getStringModule.js';
-import LinkableProperty from '../../axon/js/LinkableProperty.js';
+import type LocalizedStringProperty from '../../chipper/js/LocalizedStringProperty.js';
 import geometricOptics from './geometricOptics.js';
 
 type StringsType = {
   'geometric-optics': {
-    'titleStringProperty': LinkableProperty<string>;
+    'titleStringProperty': LocalizedStringProperty;
   };
   'screen': {
-    'lensStringProperty': LinkableProperty<string>;
-    'mirrorStringProperty': LinkableProperty<string>;
+    'lensStringProperty': LocalizedStringProperty;
+    'mirrorStringProperty': LocalizedStringProperty;
   };
-  'radiusOfCurvaturePositiveStringProperty': LinkableProperty<string>;
-  'radiusOfCurvatureNegativeStringProperty': LinkableProperty<string>;
-  'indexOfRefractionStringProperty': LinkableProperty<string>;
-  'focalLengthPositiveStringProperty': LinkableProperty<string>;
-  'focalLengthNegativeStringProperty': LinkableProperty<string>;
-  'diameterStringProperty': LinkableProperty<string>;
-  'valueCentimetersPatternStringProperty': LinkableProperty<string>;
-  'arrowStringProperty': LinkableProperty<string>;
-  'pencilStringProperty': LinkableProperty<string>;
-  'penguinStringProperty': LinkableProperty<string>;
-  'starStringProperty': LinkableProperty<string>;
-  'lightStringProperty': LinkableProperty<string>;
-  'centimetersStringProperty': LinkableProperty<string>;
-  'raysStringProperty': LinkableProperty<string>;
-  'focalLengthControlStringProperty': LinkableProperty<string>;
+  'radiusOfCurvaturePositiveStringProperty': LocalizedStringProperty;
+  'radiusOfCurvatureNegativeStringProperty': LocalizedStringProperty;
+  'indexOfRefractionStringProperty': LocalizedStringProperty;
+  'focalLengthPositiveStringProperty': LocalizedStringProperty;
+  'focalLengthNegativeStringProperty': LocalizedStringProperty;
+  'diameterStringProperty': LocalizedStringProperty;
+  'valueCentimetersPatternStringProperty': LocalizedStringProperty;
+  'arrowStringProperty': LocalizedStringProperty;
+  'pencilStringProperty': LocalizedStringProperty;
+  'penguinStringProperty': LocalizedStringProperty;
+  'starStringProperty': LocalizedStringProperty;
+  'lightStringProperty': LocalizedStringProperty;
+  'centimetersStringProperty': LocalizedStringProperty;
+  'raysStringProperty': LocalizedStringProperty;
+  'focalLengthControlStringProperty': LocalizedStringProperty;
   'radioButton': {
-    'directStringProperty': LinkableProperty<string>;
-    'indirectStringProperty': LinkableProperty<string>;
-    'noneStringProperty': LinkableProperty<string>;
-    'marginalStringProperty': LinkableProperty<string>;
-    'principalStringProperty': LinkableProperty<string>;
-    'manyStringProperty': LinkableProperty<string>;
+    'directStringProperty': LocalizedStringProperty;
+    'indirectStringProperty': LocalizedStringProperty;
+    'noneStringProperty': LocalizedStringProperty;
+    'marginalStringProperty': LocalizedStringProperty;
+    'principalStringProperty': LocalizedStringProperty;
+    'manyStringProperty': LocalizedStringProperty;
   };
   'checkbox': {
-    'focalPointsStringProperty': LinkableProperty<string>;
-    'twoFPointsStringProperty': LinkableProperty<string>;
-    'labelsStringProperty': LinkableProperty<string>;
-    'virtualImageStringProperty': LinkableProperty<string>;
-    'secondPointStringProperty': LinkableProperty<string>;
-    'guidesStringProperty': LinkableProperty<string>;
-    'add2FPointsCheckboxStringProperty': LinkableProperty<string>;
+    'focalPointsStringProperty': LocalizedStringProperty;
+    'twoFPointsStringProperty': LocalizedStringProperty;
+    'labelsStringProperty': LocalizedStringProperty;
+    'virtualImageStringProperty': LocalizedStringProperty;
+    'secondPointStringProperty': LocalizedStringProperty;
+    'guidesStringProperty': LocalizedStringProperty;
+    'add2FPointsCheckboxStringProperty': LocalizedStringProperty;
   };
   'label': {
-    'convexLensStringProperty': LinkableProperty<string>;
-    'concaveLensStringProperty': LinkableProperty<string>;
-    'convexMirrorStringProperty': LinkableProperty<string>;
-    'concaveMirrorStringProperty': LinkableProperty<string>;
-    'flatMirrorStringProperty': LinkableProperty<string>;
-    'FStringProperty': LinkableProperty<string>;
-    'twoFStringProperty': LinkableProperty<string>;
-    'objectStringProperty': LinkableProperty<string>;
-    'objectNStringProperty': LinkableProperty<string>;
-    'realImageStringProperty': LinkableProperty<string>;
-    'realImageNStringProperty': LinkableProperty<string>;
-    'virtualImageStringProperty': LinkableProperty<string>;
-    'virtualImageNStringProperty': LinkableProperty<string>;
-    'projectionScreenStringProperty': LinkableProperty<string>;
-    'opticalAxisStringProperty': LinkableProperty<string>;
+    'convexLensStringProperty': LocalizedStringProperty;
+    'concaveLensStringProperty': LocalizedStringProperty;
+    'convexMirrorStringProperty': LocalizedStringProperty;
+    'concaveMirrorStringProperty': LocalizedStringProperty;
+    'flatMirrorStringProperty': LocalizedStringProperty;
+    'FStringProperty': LocalizedStringProperty;
+    'twoFStringProperty': LocalizedStringProperty;
+    'objectStringProperty': LocalizedStringProperty;
+    'objectNStringProperty': LocalizedStringProperty;
+    'realImageStringProperty': LocalizedStringProperty;
+    'realImageNStringProperty': LocalizedStringProperty;
+    'virtualImageStringProperty': LocalizedStringProperty;
+    'virtualImageNStringProperty': LocalizedStringProperty;
+    'projectionScreenStringProperty': LocalizedStringProperty;
+    'opticalAxisStringProperty': LocalizedStringProperty;
   };
   'keyboardHelpDialog': {
-    'rulerAndMarkerControlsStringProperty': LinkableProperty<string>;
-    'removeFromToolboxStringProperty': LinkableProperty<string>;
-    'returnToToolboxStringProperty': LinkableProperty<string>;
-    'jumpToPointStringProperty': LinkableProperty<string>;
-    'chooseAnObjectStringProperty': LinkableProperty<string>;
-    'objectsStringProperty': LinkableProperty<string>;
-    'objectStringProperty': LinkableProperty<string>;
+    'rulerAndMarkerControlsStringProperty': LocalizedStringProperty;
+    'removeFromToolboxStringProperty': LocalizedStringProperty;
+    'returnToToolboxStringProperty': LocalizedStringProperty;
+    'jumpToPointStringProperty': LocalizedStringProperty;
+    'chooseAnObjectStringProperty': LocalizedStringProperty;
+    'objectsStringProperty': LocalizedStringProperty;
+    'objectStringProperty': LocalizedStringProperty;
   }
 };
 
