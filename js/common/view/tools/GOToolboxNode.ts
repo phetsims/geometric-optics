@@ -8,6 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Disposable from '../../../../../axon/js/Disposable.js';
 import { HBox, Node } from '../../../../../scenery/js/imports.js';
 import Panel, { PanelOptions } from '../../../../../sun/js/Panel.js';
 import geometricOptics from '../../../geometricOptics.js';
@@ -89,7 +90,7 @@ export default class GOToolboxNode extends Panel {
   }
 
   public override dispose(): void {
-    assert && assert( false, 'dispose is not supported, exists for the lifetime of the sim' );
+    Disposable.assertNotDisposable();
     super.dispose();
   }
 }
