@@ -8,7 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from 'axon/js/Disposable.js';
+import Disposable from '../../../../axon/js/Disposable.js';
 import { OpticSurfaceType } from './OpticSurfaceType.js';
 import FocalLengthModel from './FocalLengthModel.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
