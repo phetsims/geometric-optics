@@ -1,4 +1,4 @@
-// Copyright 2021-2022, University of Colorado Boulder
+// Copyright 2021-2023, University of Colorado Boulder
 
 /**
  * OpticVerticalAxisNode is the vertical axis through the center of the optic. For a lens, it bisects the symmetrical
