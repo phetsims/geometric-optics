@@ -7,7 +7,6 @@
  * @author Martin Veillette
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import Property from '../../../../axon/js/Property.js';
 import { HBox, VSeparator } from '../../../../scenery/js/imports.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
@@ -48,6 +47,7 @@ export default class GOControlPanel extends Panel {
     const options = optionize<GOControlPanelOptions, SelfOptions, PanelOptions>()( {
 
       // PanelOptions
+      isDisposable: false,
       xMargin: 15,
       yMargin: 10,
       fill: GOColors.panelFillProperty,
@@ -81,11 +81,6 @@ export default class GOControlPanel extends Panel {
     } );
 
     super( content, options );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

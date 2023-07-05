@@ -9,7 +9,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -60,6 +59,7 @@ export default class LightSpot extends PhetioObject {
     const options = optionize<LightSpotOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // PhetioObjectOptions
+      isDisposable: false,
       phetioState: false
     }, providedOptions );
 
@@ -123,11 +123,6 @@ export default class LightSpot extends PhetioObject {
         tandem: options.tandem.createTandem( 'intersectsProjectionScreenProperty' ),
         phetioValueType: BooleanIO
       } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

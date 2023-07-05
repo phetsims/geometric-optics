@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import TextKeyNode from '../../../../scenery-phet/js/keyboard/TextKeyNode.js';
 import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
@@ -38,13 +37,8 @@ export class RulerAndMarkerControlsSection extends KeyboardHelpSection {
     ];
 
     super( GeometricOpticsStrings.keyboardHelpDialog.rulerAndMarkerControlsStringProperty, rows, {
-      textMaxWidth: 300
+      textMaxWidth: 300,
+      isDisposable: false // See https://github.com/phetsims/geometric-optics/issues/483
     } );
-  }
-
-  // See https://github.com/phetsims/geometric-optics/issues/483
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }

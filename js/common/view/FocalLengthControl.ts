@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import NumberControl, { NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
@@ -59,17 +58,13 @@ export default class FocalLengthControl extends NumberControl {
           keyboardStep: GOConstants.FOCAL_LENGTH_KEYBOARD_STEP, // used by all alternative-input devices
           shiftKeyboardStep: GOConstants.FOCAL_LENGTH_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
           pageKeyboardStep: GOConstants.FOCAL_LENGTH_PAGE_KEYBOARD_STEP
-        }
+        },
+        isDisposable: false
       }, providedOptions );
 
     super( titleStringProperty, focalLengthMagnitudeProperty, range, options );
 
     this.addLinkedElement( focalLengthMagnitudeProperty );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

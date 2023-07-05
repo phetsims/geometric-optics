@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../../axon/js/Disposable.js';
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
@@ -57,6 +56,7 @@ export default abstract class GOToolNode extends InteractiveHighlighting( Node )
       visibleProperty: DerivedProperty.not( tool.isInToolboxProperty ), // visible when not in the toolbox
       tagName: 'div',
       focusable: true,
+      isDisposable: false,
       phetioInputEnabledPropertyInstrumented: true,
 
       // Make z-ordering of tools stateful, see https://github.com/phetsims/geometric-optics/issues/431
@@ -100,11 +100,6 @@ export default abstract class GOToolNode extends InteractiveHighlighting( Node )
    * Handles the 'J' (Jump) hotkey, which moves the tool to the next 'interesting' point.
    */
   public abstract jumpToPoint(): void;
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
-  }
 
   /**
    * Gets the next jump point, based on the current position of the tool.

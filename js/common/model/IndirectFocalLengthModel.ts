@@ -8,7 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import { OpticSurfaceType } from './OpticSurfaceType.js';
 import FocalLengthModel from './FocalLengthModel.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
@@ -51,6 +50,7 @@ export default class IndirectFocalLengthModel extends PhetioObject implements Fo
       indexOfRefractionPropertyFeatured: true,
 
       // PhetioObjectOptions
+      isDisposable: false,
       phetioState: false,
       phetioDocumentation: 'Model of focal length that is used when ' +
                            `${GOPreferences.focalLengthModelTypeProperty.tandem.phetioID} ` +
@@ -110,11 +110,6 @@ export default class IndirectFocalLengthModel extends PhetioObject implements Fo
 
   public reset(): void {
     this.resetIndirectFocalLengthModel();
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

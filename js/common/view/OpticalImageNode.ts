@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
@@ -36,6 +35,9 @@ export default class OpticalImageNode extends Node {
                          providedOptions: OpticalImageNodeOptions ) {
 
     const options = optionize<OpticalImageNodeOptions, SelfOptions, NodeOptions>()( {
+
+      // NodeOptions
+      isDisposable: false,
       visibleProperty: new DerivedProperty(
         [ opticalImage.visibleProperty, opticalImage.opticalImageTypeProperty, virtualImageVisibleProperty,
           lightPropagationEnabledProperty, objectVisibleProperty ],
@@ -52,11 +54,6 @@ export default class OpticalImageNode extends Node {
     super( options );
 
     this.addLinkedElement( opticalImage );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

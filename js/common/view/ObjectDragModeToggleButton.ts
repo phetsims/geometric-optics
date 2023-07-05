@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import geometricOptics from '../../geometricOptics.js';
 import lockSolidShape from '../../../../sherpa/js/fontawesome-5/lockSolidShape.js';
 import unlockSolidShape from '../../../../sherpa/js/fontawesome-5/unlockSolidShape.js';
@@ -84,7 +83,7 @@ export default class ObjectDragModeToggleButton extends RectangularToggleButton<
 
     const options = optionize<DragLockedButtonOptions, SelfOptions, RectangularToggleButtonOptions>()( {
 
-      // RectangularToggleButton options
+      // RectangularToggleButtonOptions
       content: new ToggleNode<ObjectDragMode>( objectDragModeProperty, [
         { value: 'freeDragging', createNode: () => freeDraggingNode },
         { value: 'horizontalDragging', createNode: () => horizontalDragNode }
@@ -92,13 +91,12 @@ export default class ObjectDragModeToggleButton extends RectangularToggleButton<
       baseColor: 'transparent',
       disabledColor: 'transparent',
       buttonAppearanceStrategy: ButtonNode.FlatAppearanceStrategy,
-
-      // Node options
       cursor: 'pointer',
       touchAreaXDilation: 5,
       touchAreaYDilation: 5,
       mouseAreaXDilation: 5,
       mouseAreaYDilation: 5,
+      isDisposable: false,
       phetioEnabledPropertyInstrumented: false
     }, providedOptions );
 
@@ -108,11 +106,6 @@ export default class ObjectDragModeToggleButton extends RectangularToggleButton<
       freeDraggingNode.visible = ( objectDragMode === 'freeDragging' );
       horizontalDragNode.visible = ( objectDragMode === 'horizontalDragging' );
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

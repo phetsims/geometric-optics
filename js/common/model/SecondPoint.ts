@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
@@ -46,6 +45,7 @@ export default class SecondPoint extends PhetioObject {
     const options = optionize<SecondPointOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // PhetioObjectOptions
+      isDisposable: false,
       phetioState: false
     }, providedOptions );
 
@@ -72,11 +72,6 @@ export default class SecondPoint extends PhetioObject {
     this.resetSecondPoint = () => {
       this.verticalOffsetProperty.reset();
     };
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 
   public reset(): void {

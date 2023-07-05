@@ -8,7 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../../axon/js/Disposable.js';
 import { HBox, Node } from '../../../../../scenery/js/imports.js';
 import Panel, { PanelOptions } from '../../../../../sun/js/Panel.js';
 import geometricOptics from '../../../geometricOptics.js';
@@ -39,6 +38,7 @@ export default class GOToolboxNode extends Panel {
       yMargin: 7,
       fill: 'white',
       stroke: 'grey',
+      isDisposable: false,
       visiblePropertyOptions: {
         phetioFeatured: true
       }
@@ -87,11 +87,6 @@ export default class GOToolboxNode extends Panel {
    */
   private getGlobalVisibleBounds(): Bounds2 {
     return this.visible ? this.getGlobalBounds() : Bounds2.NOTHING;
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

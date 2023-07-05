@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Node, Path } from '../../../../scenery/js/imports.js';
@@ -27,7 +26,9 @@ export default class OpticVerticalAxisNode extends Node {
                       raysTypeProperty: TReadOnlyProperty<RaysType>,
                       modelViewTransform: ModelViewTransform2 ) {
 
-    super();
+    super( {
+      isDisposable: false
+    } );
 
     // Create a vertical dashed line through the optic, indicating the crossing plane of Principal rays.
     // See https://github.com/phetsims/geometric-optics/issues/140 for decisions about the look of this axis.
@@ -42,11 +43,6 @@ export default class OpticVerticalAxisNode extends Node {
     raysTypeProperty.link( raysType => {
       lineNode.visible = ( raysType === 'principal' );
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

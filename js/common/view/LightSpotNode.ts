@@ -8,7 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import Utils from '../../../../dot/js/Utils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Node, NodeOptions, Path } from '../../../../scenery/js/imports.js';
@@ -21,8 +20,11 @@ import ProjectionScreen from '../model/ProjectionScreen.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import Multilink from '../../../../axon/js/Multilink.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
-type LightSpotNodeOptions = PickRequired<NodeOptions, 'visibleProperty' | 'tandem'>;
+type SelfOptions = EmptySelfOptions;
+
+type LightSpotNodeOptions = SelfOptions & PickRequired<NodeOptions, 'visibleProperty' | 'tandem'>;
 
 export default class LightSpotNode extends Node {
 
@@ -31,7 +33,13 @@ export default class LightSpotNode extends Node {
                       modelViewTransform: ModelViewTransform2,
                       providedOptions: LightSpotNodeOptions ) {
 
-    super( providedOptions );
+    const options = optionize<LightSpotNodeOptions, SelfOptions, NodeOptions>()( {
+
+      // NodeOptions
+      isDisposable: false
+    }, providedOptions );
+
+    super( options );
 
     // Fill color of the spot
     const fillPath = new Path( null, {
@@ -95,11 +103,6 @@ export default class LightSpotNode extends Node {
     } );
 
     this.addLinkedElement( lightSpot );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

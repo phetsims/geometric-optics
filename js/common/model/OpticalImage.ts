@@ -10,7 +10,6 @@
  * @author Martin Veillette
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
@@ -80,6 +79,7 @@ export default class OpticalImage extends PhetioObject {
       magnificationPropertyFeatured: true,
 
       // PhetioObject options
+      isDisposable: false,
       phetioState: false
     }, providedOptions );
 
@@ -184,11 +184,6 @@ export default class OpticalImage extends PhetioObject {
 
   public reset(): void {
     this.resetOpticalImage();
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

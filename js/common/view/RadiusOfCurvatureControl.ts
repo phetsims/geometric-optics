@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import NumberControl, { NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
@@ -59,17 +58,13 @@ export default class RadiusOfCurvatureControl extends NumberControl {
           keyboardStep: GOConstants.RADIUS_OF_CURVATURE_KEYBOARD_STEP, // used by all alternative-input devices
           shiftKeyboardStep: GOConstants.RADIUS_OF_CURVATURE_SHIFT_KEYBOARD_STEP, // finer grain, used by keyboard only
           pageKeyboardStep: GOConstants.RADIUS_OF_CURVATURE_PAGE_KEYBOARD_STEP
-        }
+        },
+        isDisposable: false
       }, providedOptions );
 
     super( titleStringProperty, radiusOfCurvatureMagnitudeProperty, range, options );
 
     this.addLinkedElement( radiusOfCurvatureMagnitudeProperty );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

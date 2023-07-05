@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Node, NodeOptions, Path } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -41,6 +40,7 @@ export default class MirrorNode extends Node {
     const options = optionize<MirrorNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions
+      isDisposable: false,
       phetioVisiblePropertyInstrumented: false
     }, providedOptions );
 
@@ -80,11 +80,6 @@ export default class MirrorNode extends Node {
     } );
 
     this.addLinkedElement( mirror );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 
   /**

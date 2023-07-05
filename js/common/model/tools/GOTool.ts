@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../../axon/js/Disposable.js';
 import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../../axon/js/Property.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
@@ -36,6 +35,7 @@ class GOTool extends PhetioObject {
     const options = optionize<GOToolOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // PhetioObjectOptions
+      isDisposable: false,
       phetioState: false
     }, providedOptions );
 
@@ -56,11 +56,6 @@ class GOTool extends PhetioObject {
       this.positionProperty.reset();
       this.isInToolboxProperty.reset();
     };
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 
   public reset(): void {

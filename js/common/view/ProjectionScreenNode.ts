@@ -7,7 +7,6 @@
  * @author Martin Veillette
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -55,6 +54,7 @@ export default class ProjectionScreenNode extends InteractiveHighlighting( Node 
       // NodeOptions
       tagName: 'div',
       focusable: true,
+      isDisposable: false,
       phetioInputEnabledPropertyInstrumented: true
     }, providedOptions );
 
@@ -183,11 +183,6 @@ export default class ProjectionScreenNode extends InteractiveHighlighting( Node 
     this.resetProjectionScreenNode = () => {
       wasDraggedProperty.reset();
     };
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 
   public reset(): void {

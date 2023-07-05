@@ -8,7 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../../axon/js/Disposable.js';
 import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
 import BackgroundNode, { BackgroundNodeOptions } from '../../../../../scenery-phet/js/BackgroundNode.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
@@ -62,6 +61,7 @@ export default class LabelNode extends BackgroundNode {
         cornerRadius: 4,
         opacity: 0.5
       },
+      isDisposable: false,
       phetioVisiblePropertyInstrumented: false
     }, providedOptions );
 
@@ -103,11 +103,6 @@ export default class LabelNode extends BackgroundNode {
           this.bottom = viewPosition.y;
         }
       } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

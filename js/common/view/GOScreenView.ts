@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -88,6 +87,8 @@ export default class GOScreenView extends ScreenView {
       objectDragMode: 'freeDragging',
 
       // ScreenViewOptions
+      isDisposable: false,
+
       // Workaround for things shifting around while dragging
       // See https://github.com/phetsims/scenery/issues/1289 and https://github.com/phetsims/geometric-optics/issues/213
       preventFit: true
@@ -509,11 +510,6 @@ export default class GOScreenView extends ScreenView {
 
     this.objectDragModeProperty = objectDragModeProperty;
     this.objectDragModeToggleButton = objectDragModeToggleButton;
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 
   public reset(): void {

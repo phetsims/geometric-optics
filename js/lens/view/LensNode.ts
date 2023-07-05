@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Line, Node, NodeOptions, Path } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -39,6 +38,7 @@ export default class LensNode extends Node {
     const options = optionize<LensNodeOptions, SelfOptions, NodeOptions>()( {
 
       // NodeOptions
+      isDisposable: false,
       phetioVisiblePropertyInstrumented: false
     }, providedOptions );
 
@@ -91,11 +91,6 @@ export default class LensNode extends Node {
     lens.opacityProperty.linkAttribute( fillNode, 'opacity' );
 
     this.addLinkedElement( lens );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 
   /**

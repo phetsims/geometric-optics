@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -29,6 +28,7 @@ export default class TwoFPointNode extends Node {
 
       // NodeOptions
       children: [ TwoFPointNode.createIcon() ],
+      isDisposable: false,
       phetioVisiblePropertyInstrumented: false
     }, provideOptions );
 
@@ -49,11 +49,6 @@ export default class TwoFPointNode extends Node {
       fill: GOColors.twoFPointFillProperty,
       stroke: GOColors.twoFPointStrokeProperty
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

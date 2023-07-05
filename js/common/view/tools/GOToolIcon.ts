@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../../axon/js/Disposable.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import { DragListener, InteractiveHighlighting, Node, NodeOptions, PressListenerEvent } from '../../../../../scenery/js/imports.js';
@@ -50,7 +49,8 @@ export default abstract class GOToolIcon extends InteractiveHighlighting( Node )
       // NodeOptions
       children: [ contentNode ],
       cursor: 'pointer',
-      tagName: 'button'
+      tagName: 'button',
+      isDisposable: false
     }, providedOptions );
 
     super( options );
@@ -84,11 +84,6 @@ export default abstract class GOToolIcon extends InteractiveHighlighting( Node )
         toolNode.focus();
       }
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

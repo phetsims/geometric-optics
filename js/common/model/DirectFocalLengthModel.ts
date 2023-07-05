@@ -8,7 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import { OpticSurfaceType } from './OpticSurfaceType.js';
 import FocalLengthModel from './FocalLengthModel.js';
 import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
@@ -45,6 +44,7 @@ export default class DirectFocalLengthModel extends PhetioObject implements Foca
     const options = optionize<DirectFocalLengthModelOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // PhetioObjectOptions
+      isDisposable: false,
       phetioState: false,
       phetioDocumentation: 'Model of focal length that is used when ' +
                            `${GOPreferences.focalLengthModelTypeProperty.tandem.phetioID} ` +
@@ -102,11 +102,6 @@ export default class DirectFocalLengthModel extends PhetioObject implements Foca
 
   public reset(): void {
     this.resetDirectFocalLengthModel();
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import { InteractiveHighlighting, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
@@ -46,6 +45,7 @@ export default class OpticalObjectNode extends InteractiveHighlighting( Node ) {
       // NodeOptions
       tagName: 'div',
       focusable: true,
+      isDisposable: false,
       phetioVisiblePropertyInstrumented: false,
       phetioInputEnabledPropertyInstrumented: true
     }, providedOptions );
@@ -81,11 +81,6 @@ export default class OpticalObjectNode extends InteractiveHighlighting( Node ) {
    */
   protected drag(): void {
     this.wasDraggedProperty.value = true;
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

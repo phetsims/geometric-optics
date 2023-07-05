@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import geometricOptics from '../../geometricOptics.js';
 import { NodeTranslationOptions, Path, PathOptions } from '../../../../scenery/js/imports.js';
 import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
@@ -43,7 +42,8 @@ export default class CueingArrowsNode extends Path {
 
       // PathOptions
       fill: 'rgb( 0, 200, 0 )',
-      stroke: 'black'
+      stroke: 'black',
+      isDisposable: false
 
     }, providedOptions );
 
@@ -59,11 +59,6 @@ export default class CueingArrowsNode extends Path {
 
   public setDirection( direction: CueingArrowsDirection ): void {
     this.shape = createArrowsShape( direction, this.length );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 
   /**

@@ -7,15 +7,17 @@
  * @author Martin Veillette
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Line, LineOptions, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import { LightRaySegment } from '../model/LightRay.js';
 import LightRays from '../model/LightRays.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
-export type LightRaysNodeOptions = PickOptional<NodeOptions, 'visibleProperty'>;
+type SelfOptions = EmptySelfOptions;
+
+export type LightRaysNodeOptions = SelfOptions & PickOptional<NodeOptions, 'visibleProperty'>;
 
 export default class LightRaysNode extends Node {
 
@@ -26,17 +28,18 @@ export default class LightRaysNode extends Node {
    */
   protected constructor( lightRays: LightRays, update: ( thisNode: Node ) => void, providedOptions: LightRaysNodeOptions ) {
 
-    super( providedOptions );
+    const options = optionize<LightRaysNodeOptions, SelfOptions, NodeOptions>()( {
+
+      // NodeOptions
+      isDisposable: false
+    }, providedOptions );
+
+    super( options );
 
     // Update this Node when the model tells us that it's time to update.
     lightRays.raysProcessedEmitter.addListener( () => update( this ) );
 
     update( this );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 
   /**

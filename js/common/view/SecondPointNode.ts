@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
@@ -43,6 +42,7 @@ export default class SecondPointNode extends InteractiveHighlighting( Node ) {
       cursor: 'ns-resize', // second point can only be dragged vertically
       tagName: 'div',
       focusable: true,
+      isDisposable: false,
       phetioInputEnabledPropertyInstrumented: true
     }, providedOptions );
 
@@ -95,11 +95,6 @@ export default class SecondPointNode extends InteractiveHighlighting( Node ) {
    */
   public static createIcon(): Node {
     return new PointNode();
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

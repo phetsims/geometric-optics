@@ -7,7 +7,6 @@
  * @author Martin Veillette
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
@@ -123,6 +122,7 @@ export default abstract class Optic extends PhetioObject {
       radiusOfCurvaturePropertyFeatured: true,
 
       // PhetioObjectOptions
+      isDisposable: false,
       phetioState: false
     }, providedOptions );
 
@@ -316,11 +316,6 @@ export default abstract class Optic extends PhetioObject {
 
   public reset(): void {
     this.resetOptic();
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 
   /**

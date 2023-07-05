@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../axon/js/Disposable.js';
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import GOColors from '../common/GOColors.js';
@@ -33,7 +32,8 @@ export default class LensScreen extends Screen<LensModel, LensScreenView> {
       // Screen options
       name: GeometricOpticsStrings.screen.lensStringProperty,
       homeScreenIcon: createScreenIcon(),
-      backgroundColorProperty: GOColors.screenBackgroundColorProperty
+      backgroundColorProperty: GOColors.screenBackgroundColorProperty,
+      isDisposable: false
     }, providedOptions );
 
     super(
@@ -46,11 +46,6 @@ export default class LensScreen extends Screen<LensModel, LensScreenView> {
       } ),
       options
     );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

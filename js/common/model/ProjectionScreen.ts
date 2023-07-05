@@ -8,7 +8,6 @@
  * @author Martin Veillette
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
@@ -53,6 +52,7 @@ export default class ProjectionScreen extends PhetioObject {
     const options = optionize<ProjectionScreenOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // PhetioObjectOptions
+      isDisposable: false,
       phetioState: false
     }, providedOptions );
 
@@ -83,11 +83,6 @@ export default class ProjectionScreen extends PhetioObject {
     this.resetProjectionScreen = () => {
       this.positionProperty.reset();
     };
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 
   public reset(): void {

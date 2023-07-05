@@ -14,7 +14,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -63,6 +62,7 @@ export default class OpticalObject extends PhetioObject {
       position: Vector2.ZERO,
 
       // PhetioObjectOptions
+      isDisposable: false,
       phetioState: false
     }, providedOptions );
 
@@ -94,11 +94,6 @@ export default class OpticalObject extends PhetioObject {
     this.resetOpticalObject = () => {
       this.positionProperty.reset();
     };
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 
   public reset(): void {

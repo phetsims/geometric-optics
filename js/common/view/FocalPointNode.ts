@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -31,7 +30,8 @@ export default class FocalPointNode extends Node {
 
       // NodeOptions
       children: [ FocalPointNode.createIcon() ],
-      phetioVisiblePropertyInstrumented: false
+      phetioVisiblePropertyInstrumented: false,
+      isDisposable: false
     }, providedOptions );
 
     super( options );
@@ -57,11 +57,6 @@ export default class FocalPointNode extends Node {
     return new Node( {
       children: [ circleNode, centerPointNode ]
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

@@ -15,7 +15,6 @@ import { Circle, Node, Rectangle, TColor } from '../../../../scenery/js/imports.
 import GOColors from '../../common/GOColors.js';
 import geometricOptics from '../../geometricOptics.js';
 import Guide from '../model/Guide.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 
 // constants, in view coordinates
 const FULCRUM_RADIUS = 5;
@@ -41,7 +40,8 @@ export default class GuideNode extends Node {
     const transmittedArmNode = createArmNode( armColor );
 
     super( {
-      children: [ incidentArmNode, transmittedArmNode, fulcrumNode ]
+      children: [ incidentArmNode, transmittedArmNode, fulcrumNode ],
+      isDisposable: false
     } );
 
     this.guide = guide;
@@ -118,11 +118,6 @@ export default class GuideNode extends Node {
       scale: 0.4,
       children: [ leftArmNode, rightArmNode, fulcrumNode ]
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

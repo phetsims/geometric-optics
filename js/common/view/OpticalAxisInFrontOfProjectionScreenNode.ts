@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -46,7 +45,8 @@ export default class OpticalAxisInFrontOfProjectionScreenNode extends Line {
       // LineOptions
       stroke: GOQueryParameters.debugOpticalAxis ? 'red' : GOColors.opticalAxisStrokeProperty,
       lineWidth: 2,
-      lineDash: [ 8, 5 ]
+      lineDash: [ 8, 5 ],
+      isDisposable: false
     }, providedOptions );
 
     // create optical axis line, with arbitrary length values.
@@ -68,11 +68,6 @@ export default class OpticalAxisInFrontOfProjectionScreenNode extends Line {
       this.setY1( yView );
       this.setY2( yView );
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import SceneryPhetConstants from '../../../../scenery-phet/js/SceneryPhetConstants.js';
 import { Image } from '../../../../scenery/js/imports.js';
 import BooleanRoundToggleButton, { BooleanRoundToggleButtonOptions } from '../../../../sun/js/buttons/BooleanRoundToggleButton.js';
@@ -34,7 +33,8 @@ export default class LightPropagationToggleButton extends BooleanRoundToggleButt
       xMargin: 4,
       yMargin: 4,
       touchAreaDilation: 5.2, // same as ResetAllButton
-      baseColor: GOColors.lightPropagationToggleButtonFillProperty
+      baseColor: GOColors.lightPropagationToggleButtonFillProperty,
+      isDisposable: false
     }, providedOptions );
 
     // create nodes for open and closed eye icons
@@ -42,11 +42,6 @@ export default class LightPropagationToggleButton extends BooleanRoundToggleButt
     const offNode = new Image( lightPropagationOffIcon_png );
 
     super( booleanProperty, onNode, offNode, options );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

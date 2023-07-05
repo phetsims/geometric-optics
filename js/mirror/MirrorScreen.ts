@@ -7,7 +7,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../axon/js/Disposable.js';
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import GOColors from '../common/GOColors.js';
@@ -34,7 +33,8 @@ export default class MirrorScreen extends Screen<MirrorModel, MirrorScreenView> 
       // Screen options
       name: GeometricOpticsStrings.screen.mirrorStringProperty,
       homeScreenIcon: createScreenIcon( providedOptions.isBasicsVersion ? 'flat' : 'concave' ),
-      backgroundColorProperty: GOColors.screenBackgroundColorProperty
+      backgroundColorProperty: GOColors.screenBackgroundColorProperty,
+      isDisposable: false
     }, providedOptions );
 
     super(
@@ -48,11 +48,6 @@ export default class MirrorScreen extends Screen<MirrorModel, MirrorScreenView> 
       } ),
       options
     );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

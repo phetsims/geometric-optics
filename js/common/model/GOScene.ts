@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import Range from '../../../../dot/js/Range.js';
 import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
@@ -49,6 +48,7 @@ export default abstract class GOScene extends PhetioObject {
     const options = optionize<GOSceneOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // PhetioObjectOptions
+      isDisposable: false,
       phetioState: false
     }, providedOptions );
 
@@ -68,11 +68,6 @@ export default abstract class GOScene extends PhetioObject {
     this.resetGOObjectScene = () => {
       this.raysAnimationTimeProperty.reset();
     };
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 
   public reset(): void {
