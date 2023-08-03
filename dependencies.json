@@ -21,11 +21,11 @@
     "branch": "HEAD"
   },
   "geometric-optics": {
-    "sha": "59f9867ada7ff74d4157ea63dc6aa8f20e7f568a",
+    "sha": "48a9662c418b806b6cc21dff55a9d3e4cff8df47",
     "branch": "1.3"
   },
   "joist": {
-    "sha": "eb840e360852bc1efa0e12251b987dc02dc2038d",
+    "sha": "cfb9d8f29aea00e0cb06ab6e36c3fb307e4e3a19",
     "branch": "HEAD"
   },
   "kite": {
