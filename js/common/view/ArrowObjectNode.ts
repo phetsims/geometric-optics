@@ -9,7 +9,7 @@
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { DragListener, FocusHighlightFromNode, KeyboardDragListener, KeyboardDragListenerOptions } from '../../../../scenery/js/imports.js';
+import { DragListener, HighlightFromNode, KeyboardDragListener, KeyboardDragListenerOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import ArrowObject from '../model/ArrowObject.js';
 import Optic from '../model/Optic.js';
@@ -55,7 +55,7 @@ export default class ArrowObjectNode extends OpticalObjectNode {
         stroke: null
       } ) );
     this.addChild( arrowNode );
-    this.setFocusHighlight( new FocusHighlightFromNode( arrowNode ) );
+    this.setFocusHighlight( new HighlightFromNode( arrowNode ) );
 
     Multilink.multilink( [ arrowObject.positionProperty, optic.positionProperty ],
       ( arrowObjectPosition, opticPosition ) => {

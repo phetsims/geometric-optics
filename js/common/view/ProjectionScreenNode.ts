@@ -11,7 +11,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Circle, Color, DragListener, FocusHighlightFromNode, Image, InteractiveHighlighting, KeyboardDragListener, KeyboardDragListenerOptions, Line, Node, NodeOptions, Path } from '../../../../scenery/js/imports.js';
+import { Circle, Color, DragListener, HighlightFromNode, Image, InteractiveHighlighting, KeyboardDragListener, KeyboardDragListenerOptions, Line, Node, NodeOptions, Path } from '../../../../scenery/js/imports.js';
 import projectionScreenBottom_png from '../../../images/projectionScreenBottom_png.js';
 import projectionScreenTop_png from '../../../images/projectionScreenTop_png.js';
 import GOColors from '../../common/GOColors.js';
@@ -106,7 +106,7 @@ export default class ProjectionScreenNode extends InteractiveHighlighting( Node 
       children: [ pullStringNode, knobNode, topBarNode, bottomBarNode, screenNode ]
     } );
     this.addChild( parentNode );
-    this.setFocusHighlight( new FocusHighlightFromNode( parentNode ) );
+    this.setFocusHighlight( new HighlightFromNode( parentNode ) );
 
     const wasDraggedProperty = new BooleanProperty( false, {
       tandem: options.tandem.createTandem( 'wasDraggedProperty' ),

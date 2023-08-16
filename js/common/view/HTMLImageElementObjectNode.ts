@@ -11,7 +11,7 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { DragListener, FocusHighlightFromNode, Image, KeyboardDragListener, KeyboardDragListenerOptions, Node } from '../../../../scenery/js/imports.js';
+import { DragListener, HighlightFromNode, Image, KeyboardDragListener, KeyboardDragListenerOptions, Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
@@ -55,7 +55,7 @@ export default class HTMLImageElementObjectNode extends OpticalObjectNode {
       children: [ imageNode ]
     } );
     this.addChild( wrappedImageNode );
-    this.setFocusHighlight( new FocusHighlightFromNode( wrappedImageNode ) );
+    this.setFocusHighlight( new HighlightFromNode( wrappedImageNode ) );
 
     const updateScale = () => {
       const sceneBounds = htmlImageElementObject.boundsProperty.value;

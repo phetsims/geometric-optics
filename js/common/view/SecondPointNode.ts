@@ -10,7 +10,7 @@
 import { Shape } from '../../../../kite/js/imports.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
-import { Circle, DragListener, FocusHighlightFromNode, InteractiveHighlighting, KeyboardDragListener, KeyboardDragListenerOptions, Node, NodeOptions, VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
+import { Circle, DragListener, HighlightFromNode, InteractiveHighlighting, KeyboardDragListener, KeyboardDragListenerOptions, Node, NodeOptions, VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import SecondPoint from '../model/SecondPoint.js';
@@ -50,7 +50,7 @@ export default class SecondPointNode extends InteractiveHighlighting( Node ) {
 
     const pointNode = new PointNode();
     this.addChild( pointNode );
-    this.setFocusHighlight( new FocusHighlightFromNode( pointNode ) );
+    this.setFocusHighlight( new HighlightFromNode( pointNode ) );
 
     // Cueing arrows
     const cueingArrowsNode = new SecondPointCueingArrowsNode( pointNode.width + 10, {
