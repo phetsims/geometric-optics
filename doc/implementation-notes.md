@@ -28,9 +28,9 @@
 
 ## Introduction
 
-This document contains notes related to the implementation of _Geometric Optics_.
-This is not an exhaustive description of the implementation. The intention is
-to provide a concise high-level overview, and to supplement the internal documentation
+This document contains notes related to the implementation of _Geometric Optics_. This is not an exhaustive description
+of the implementation. The intention is to provide a concise high-level overview, and to supplement the internal
+documentation
 (source code comments) and external documentation (design documents).
 
 Before reading this document, please read:
@@ -66,16 +66,16 @@ Labels change their position to match the zoom level, but do not change their si
 ### Query Parameters
 
 Query parameters are used to enable sim-specific features. Sim-specific query parameters are documented
-in `GOQueryParameters.ts`.
-Running with `?log` will print the complete set of query parameters (common-code, PhET-iO, and sim-specific)
+in `GOQueryParameters.ts`. Running with `?log` will print the complete set of query parameters (common-code, PhET-iO,
+and sim-specific)
 to the browser console.
 
 ### Memory Management
 
 * **Dynamic allocation:** Most objects in this sim are allocated at startup, and exist for the lifetime of the
   simulation. The exception is `GOPreferencesNode` and its children, which must all implement `dispose`. This is the
-  content for the Simulations tab of the Preferences dialog, whose instantiation is deferred until the user presses
-  the Preferences button in the navigation bar.
+  content for the Simulations tab of the Preferences dialog, whose instantiation is deferred until the user presses the
+  Preferences button in the navigation bar.
 
 * **Listeners**: Unless otherwise noted in the code, all uses of `link`, `addListener`, etc. do NOT need a
   corresponding `unlink`, `removeListener`, etc.
@@ -93,9 +93,8 @@ public dispose(): void {
 ## Optics
 
 The sim supports two types of optic, with multiple surface types: lens (concave, convex) and mirror (concave, convex,
-flat).
-Both surfaces of the optic have the same type.
-A single optic instance is used for each screen, shared by all scenes in the screen.
+flat). Both surfaces of the optic have the same type. A single optic instance is used for each screen, shared by all
+scenes in the screen.
 
 A relatively complex part of the optic model implementation is that it supports 2 focal-length models:
 
