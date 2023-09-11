@@ -11,8 +11,8 @@ propagates.
 
 ## Terminology
 
-Since the language of optics is confusing, and terms overlap with those used in software development, it is
-worthwhile to define some terms used throughout the simulation.
+Since the language of optics is confusing, and terms overlap with those used in software development, it is worthwhile
+to define some terms used throughout the simulation.
 
 **Optic**: an optical element or optical component in an optical instrument or system (e.g. lens, mirror)
 
@@ -22,8 +22,8 @@ called the "principal axis".
 **Object:**  Anything that can be viewed. Since this term conflicts with the name of JavaScript's `Object` class, we use
 **Optical Object** in the code.
 
-**Image:** The likeness of an object produced at a point in space by an optic.
-Since this term conflicts with the name of PhET's `scenery.Image` class, we use **Optical Image** in the code.
+**Image:** The likeness of an object produced at a point in space by an optic. Since this term conflicts with the name
+of PhET's `scenery.Image` class, we use **Optical Image** in the code.
 
 **Real image:** An image for which light rays physically intersect at the image location.
 
@@ -78,9 +78,9 @@ magnitude of the focal length is determined by the paraxial approximation, given
 focal length _f_ is positive for converging optics (convex lens, concave mirror) and negative for diverging optics (
 concave lens, convex mirror).
 
-A lens has two focal points (F) and two 2F points, while a mirror only has one surface, and therefore
-only one F point and one 2F point. This difference is correctly reflected in the view for this simulation.
-But as an implementation simplification, the model has two F points and two 2F points for both types of optics
+A lens has two focal points (F) and two 2F points, while a mirror only has one surface, and therefore only one F point
+and one 2F point. This difference is correctly reflected in the view for this simulation. But as an implementation
+simplification, the model has two F points and two 2F points for both types of optics
 (lens and mirror). More specifically for this simulation:
 
 * For a lens, F and 2F points appear on both sides of the lens.
@@ -118,9 +118,9 @@ three representations for rays: Marginal, Principal, and Many.
 _Marginal_ rays, also called rim rays, are the rays that start at the object and touch the edges of the lens. The
 marginal rays emphasize the limiting aperture associated with an optic.
 
-_Principal_ rays help identify the position of the image. The principal rays are not physical
-rays and at times fail to go through the optic. Nevertheless, the method remains useful to find the location of the
-image. For instance, for the lens, the principal rays are defined by three rays:
+_Principal_ rays help identify the position of the image. The principal rays are not physical rays and at times fail to
+go through the optic. Nevertheless, the method remains useful to find the location of the image. For instance, for the
+lens, the principal rays are defined by three rays:
 
 - A ray through the center of the lens, which will be undeflected.
 - A ray from the top of the object, proceeding parallel to the optical axis of the optic. For a converging lens, the ray
