@@ -65,7 +65,7 @@ export default class FramedImageNode extends OpticalImageNode {
       //TODO https://github.com/phetsims/geometric-optics/issues/321 Assertion failed: scales should be finite
       assert && assert( isFinite( scaleX ) && isFinite( scaleY ),
         'scale should be finite: ' +
-        `scaleX=${scaleX}, initialWidth=${initialWidth} viewBounds.width=${viewBounds.width}` +
+        `scaleX=${scaleX}, initialWidth=${initialWidth} viewBounds.width=${viewBounds.width} ` +
         `scaleY=${scaleY}, initialHeight=${initialWidth} viewBounds.height=${viewBounds.width}` );
 
       parentNode.scale( scaleX, scaleY );
