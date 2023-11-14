@@ -103,6 +103,8 @@ export default class HTMLImageElementObjectNode extends OpticalObjectNode {
           maxY = minY;
         }
         return new Bounds2( minX, minY, maxX, maxY );
+      }, {
+        accessNonDependencies: true
       } );
 
     // Keep the object inside the drag bounds. This is done in the next animation frame to prevent problems with

@@ -68,6 +68,8 @@ export default class Guide {
                                -1 * locationSign * ( Math.atan( 3 * toa ) - Math.atan( toa ) );
 
         return throughAngle + deflectedAngle;
+      }, {
+        accessNonDependencies: true
       } );
   }
 

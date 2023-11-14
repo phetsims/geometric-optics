@@ -68,7 +68,9 @@ export default class LightSpot extends PhetioObject {
     const positionAndDiameterProperty = new DerivedProperty(
       [ optic.positionProperty, optic.diameterProperty, projectionScreen.positionProperty, lightObjectPositionProperty, opticalImagePositionProperty ],
       ( opticPosition, opticDiameter, projectionScreenPosition, lightObjectPosition, opticalImagePosition ) =>
-        getPositionAndDiameter( optic, projectionScreenPosition, lightObjectPosition, opticalImagePosition )
+        getPositionAndDiameter( optic, projectionScreenPosition, lightObjectPosition, opticalImagePosition ), {
+        accessNonDependencies: true
+      }
     );
 
     this.positionProperty = new DerivedProperty( [ positionAndDiameterProperty ],
@@ -112,7 +114,8 @@ export default class LightSpot extends PhetioObject {
         tandem: options.tandem.createTandem( 'intensityProperty' ),
         phetioFeatured: true,
         phetioValueType: NullableIO( NumberIO ),
-        phetioDocumentation: 'intensity of the light spot, in the range [0,1]'
+        phetioDocumentation: 'intensity of the light spot, in the range [0,1]',
+        accessNonDependencies: true
       } );
 
     this.intersectsProjectionScreenProperty = new DerivedProperty(

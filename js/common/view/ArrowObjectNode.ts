@@ -91,6 +91,8 @@ export default class ArrowObjectNode extends OpticalObjectNode {
           maxY = arrowObject.positionProperty.value.y;
         }
         return new Bounds2( minX, minY, maxX, maxY );
+      }, {
+        accessNonDependencies: true
       } );
 
     // Keep the arrow inside the drag bounds.
