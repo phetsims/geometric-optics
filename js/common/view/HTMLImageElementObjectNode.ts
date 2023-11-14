@@ -104,7 +104,7 @@ export default class HTMLImageElementObjectNode extends OpticalObjectNode {
         }
         return new Bounds2( minX, minY, maxX, maxY );
       }, {
-        accessNonDependencies: true
+        accessNonDependencies: true //TODO https://github.com/phetsims/geometric-optics/issues/486
       } );
 
     // Keep the object inside the drag bounds. This is done in the next animation frame to prevent problems with

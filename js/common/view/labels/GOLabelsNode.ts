@@ -68,7 +68,7 @@ export default class GOLabelsNode extends Node {
         const modelXOffset = zoomTransformProperty.value.viewToModelDeltaX( 10 );
         return new Vector2( modelVisibleBounds.x + modelXOffset, opticPosition.y );
       }, {
-        accessNonDependencies: true
+        accessNonDependencies: true //TODO https://github.com/phetsims/geometric-optics/issues/486
       } );
 
     const opticalAxisLabel = new LabelNode( GeometricOpticsStrings.label.opticalAxisStringProperty,

@@ -69,7 +69,7 @@ export default class Guide {
 
         return throughAngle + deflectedAngle;
       }, {
-        accessNonDependencies: true
+        accessNonDependencies: true //TODO https://github.com/phetsims/geometric-optics/issues/486
       } );
   }
 

@@ -69,7 +69,7 @@ export default class LightSpot extends PhetioObject {
       [ optic.positionProperty, optic.diameterProperty, projectionScreen.positionProperty, lightObjectPositionProperty, opticalImagePositionProperty ],
       ( opticPosition, opticDiameter, projectionScreenPosition, lightObjectPosition, opticalImagePosition ) =>
         getPositionAndDiameter( optic, projectionScreenPosition, lightObjectPosition, opticalImagePosition ), {
-        accessNonDependencies: true
+        accessNonDependencies: true //TODO https://github.com/phetsims/geometric-optics/issues/486
       }
     );
 
@@ -115,7 +115,7 @@ export default class LightSpot extends PhetioObject {
         phetioFeatured: true,
         phetioValueType: NullableIO( NumberIO ),
         phetioDocumentation: 'intensity of the light spot, in the range [0,1]',
-        accessNonDependencies: true
+        accessNonDependencies: true //TODO https://github.com/phetsims/geometric-optics/issues/486
       } );
 
     this.intersectsProjectionScreenProperty = new DerivedProperty(
