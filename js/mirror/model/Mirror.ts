@@ -103,7 +103,7 @@ export default class Mirror extends Optic {
 
   /**
    * Is the optic a mirror whose shape is exclusively flat?  This is (regrettably) needed to conditionally
-   * instrument/omit PhET-iO elements for the Basics version of the sim, which has only a flat mirror.
+   * instrument/omit PhET-iO Elements for the Basics version of the sim, which has only a flat mirror.
    */
   public override isExclusivelyFlatMirror(): boolean {
     return ( this.opticSurfaceTypeProperty.validValues!.length === 1 ) &&
