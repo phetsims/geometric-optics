@@ -63,12 +63,10 @@ export default class GOLabelsNode extends Node {
 
     // Under the optical axis, but at the far-left of the model bounds.
     const opticalAxisLabelPositionProperty = new DerivedProperty(
-      [ optic.positionProperty, modelVisibleBoundsProperty ],
-      ( opticPosition, modelVisibleBounds ) => {
-        const modelXOffset = zoomTransformProperty.value.viewToModelDeltaX( 10 );
+      [ optic.positionProperty, modelVisibleBoundsProperty, zoomTransformProperty ],
+      ( opticPosition, modelVisibleBounds, zoomTransform ) => {
+        const modelXOffset = zoomTransform.viewToModelDeltaX( 10 );
         return new Vector2( modelVisibleBounds.x + modelXOffset, opticPosition.y );
-      }, {
-        accessNonDependencies: true //TODO https://github.com/phetsims/geometric-optics/issues/486
       } );
 
     const opticalAxisLabel = new LabelNode( GeometricOpticsStrings.label.opticalAxisStringProperty,

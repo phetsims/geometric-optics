@@ -70,25 +70,25 @@ export default class ArrowObjectNode extends OpticalObjectNode {
       } );
 
     const dragBoundsProperty = new DerivedProperty(
-      [ sceneBoundsProperty, objectDragModeProperty ],
-      ( sceneBounds, objectDragMode ) => {
+      [ sceneBoundsProperty, objectDragModeProperty, optic.positionProperty, arrowObject.positionProperty ],
+      ( sceneBounds, objectDragMode, opticPosition, arrowObjectPosition ) => {
 
         const minX = sceneBounds.minX + modelViewTransform.viewToModelDeltaX( arrowNode.width ) / 2;
-        const maxX = optic.positionProperty.value.x - GOConstants.MIN_DISTANCE_FROM_OBJECT_TO_OPTIC;
+        const maxX = opticPosition.x - GOConstants.MIN_DISTANCE_FROM_OBJECT_TO_OPTIC;
         let minY: number;
         let maxY: number;
 
         if ( objectDragMode === 'freeDragging' ) {
 
           // Constrain to the smaller of sceneBounds or MAX_MAGNITUDE. See https://github.com/phetsims/geometric-optics/issues/429
-          minY = Math.max( sceneBounds.minY, optic.positionProperty.value.x - ArrowObject.MAX_MAGNITUDE );
-          maxY = Math.min( sceneBounds.maxY, optic.positionProperty.value.x + ArrowObject.MAX_MAGNITUDE );
+          minY = Math.max( sceneBounds.minY, opticPosition.x - ArrowObject.MAX_MAGNITUDE );
+          maxY = Math.min( sceneBounds.maxY, opticPosition.x + ArrowObject.MAX_MAGNITUDE );
         }
         else {
 
           // horizontal dragging, locked to the object's current y position
-          minY = arrowObject.positionProperty.value.y;
-          maxY = arrowObject.positionProperty.value.y;
+          minY = arrowObjectPosition.y;
+          maxY = arrowObjectPosition.y;
         }
         return new Bounds2( minX, minY, maxX, maxY );
       }, {

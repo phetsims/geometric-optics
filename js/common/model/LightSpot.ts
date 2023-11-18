@@ -94,13 +94,13 @@ export default class LightSpot extends PhetioObject {
 
     // The normalized intensity of the light spot, in the range [0,1].
     // See https://github.com/phetsims/geometric-optics/issues/335
-    this.intensityProperty = new DerivedProperty( [ this.diameterProperty, optic.diameterProperty ],
-      ( lightSpotDiameter, opticDiameter ) => {
+    this.intensityProperty = new DerivedProperty(
+      [ this.diameterProperty, optic.diameterProperty, optic.diameterProperty.rangeProperty ],
+      ( lightSpotDiameter, opticDiameter, opticDiameterRange ) => {
         if ( lightSpotDiameter === 0 ) {
           return 0; // avoid divide-by-zero
         }
         else {
-          const opticDiameterRange = optic.diameterProperty.range;
           const opticDiameterFactor = Utils.linear( opticDiameterRange.min, opticDiameterRange.max, 0.5, 1, opticDiameter );
 
           // Any light spot less than this diameter will have full intensity when the optic diameter is at its maximum.
@@ -114,8 +114,7 @@ export default class LightSpot extends PhetioObject {
         tandem: options.tandem.createTandem( 'intensityProperty' ),
         phetioFeatured: true,
         phetioValueType: NullableIO( NumberIO ),
-        phetioDocumentation: 'intensity of the light spot, in the range [0,1]',
-        accessNonDependencies: true //TODO https://github.com/phetsims/geometric-optics/issues/486
+        phetioDocumentation: 'intensity of the light spot, in the range [0,1]'
       } );
 
     this.intersectsProjectionScreenProperty = new DerivedProperty(
