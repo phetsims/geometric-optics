@@ -72,16 +72,13 @@ export default class Lens extends Optic {
 
     // Index of refraction determines the lens opacity.
     // The lens is never fully transparent, because its IOR is not equivalent to air.
+    // Use the indirect model's IOR range in all cases, because the direct model's IOR is fixed.
     // See https://github.com/phetsims/geometric-optics/issues/242
-    this.opacityProperty = new DerivedProperty( [ this.indexOfRefractionProperty ],
-      indexOfRefraction => {
-
-        // Use the indirect model's IOR range in all cases, because the direct model's IOR is fixed.
-        const range = this.indirectFocalLengthModel.indexOfRefractionProperty.range;
-        return Utils.linear( range.min, range.max, 0.2, 1, indexOfRefraction );
-      }, {
-        accessNonDependencies: true //TODO https://github.com/phetsims/geometric-optics/issues/486
-      } );
+    this.opacityProperty = new DerivedProperty(
+      [ this.indexOfRefractionProperty, this.indirectFocalLengthModel.indexOfRefractionProperty.rangeProperty ],
+      ( indexOfRefraction, indirectIndexOfRefractionRange ) =>
+        Utils.linear( indirectIndexOfRefractionRange.min, indirectIndexOfRefractionRange.max, 0.2, 1, indexOfRefraction )
+    );
   }
 
   /**
