@@ -50,8 +50,8 @@ export default class Guide {
       } );
 
     this.transmittedAngleProperty = new DerivedProperty(
-      [ optic.focalLengthProperty, optic.diameterProperty, this.incidentAngleProperty ],
-      ( focalLength, diameter, incidentAngle ) => {
+      [ optic.focalLengthProperty, optic.diameterProperty, this.incidentAngleProperty, optic.opticSurfaceTypeProperty ],
+      ( focalLength, diameter, incidentAngle, opticSurfaceType ) => {
 
         // transmitted angle if the optic was a blank.
         const throughAngle = incidentAngle + Math.PI;
@@ -63,13 +63,11 @@ export default class Guide {
         const toa = diameter / ( 4 * focalLength );
 
         // deflected angle is measured from the "through angle", i.e. angle of an imaginary undeflected transmitted ray
-        const deflectedAngle = ( optic.opticSurfaceTypeProperty.value === 'convex' ) ?
+        const deflectedAngle = ( opticSurfaceType === 'convex' ) ?
                                -1 * locationSign * ( 2 * Math.atan( toa ) ) :
                                -1 * locationSign * ( Math.atan( 3 * toa ) - Math.atan( toa ) );
 
         return throughAngle + deflectedAngle;
-      }, {
-        accessNonDependencies: true //TODO https://github.com/phetsims/geometric-optics/issues/486
       } );
   }
 
