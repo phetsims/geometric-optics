@@ -65,12 +65,19 @@ export default class LightSpot extends PhetioObject {
 
     super( options );
 
-    const positionAndDiameterProperty = new DerivedProperty(
-      [ optic.positionProperty, optic.diameterProperty, projectionScreen.positionProperty, lightObjectPositionProperty, opticalImagePositionProperty ],
-      ( opticPosition, opticDiameter, projectionScreenPosition, lightObjectPosition, opticalImagePosition ) =>
-        getPositionAndDiameter( optic, projectionScreenPosition, lightObjectPosition, opticalImagePosition ), {
-        accessNonDependencies: true //TODO https://github.com/phetsims/geometric-optics/issues/486
-      }
+    const positionAndDiameterProperty = new DerivedProperty( [
+        projectionScreen.positionProperty, lightObjectPositionProperty, opticalImagePositionProperty, optic.positionProperty, optic.diameterProperty,
+
+        // This dependency is nested deeply in getPositionAndDiameter => optic.getTopPoint => optic.getExtremePoint.
+        // See https://github.com/phetsims/geometric-optics/issues/486
+        optic.opticSurfaceTypeProperty,
+
+        // This dependency is nested deeply in getPositionAndDiameter => optic.getTopPoint => optic.getExtremePoint => optic.getActiveBoundsTranslated.
+        // See https://github.com/phetsims/geometric-optics/issues/486
+        optic.shapesProperty
+      ],
+      ( projectionScreenPosition, lightObjectPosition, opticalImagePosition, opticPosition, opticDiameter, opticSurfaceType, opticShapes ) =>
+        getPositionAndDiameter( optic, projectionScreenPosition, lightObjectPosition, opticalImagePosition )
     );
 
     this.positionProperty = new DerivedProperty( [ positionAndDiameterProperty ],
