@@ -81,12 +81,11 @@ export default class HTMLImageElementObjectNode extends OpticalObjectNode {
     // Use Math.floor herein to avoid floating-point rounding errors that result in unwanted changes and additional
     // reentrant Properties, see https://github.com/phetsims/geometric-optics/issues/317.
     const dragBoundsProperty = new DerivedProperty(
-      [ htmlImageElementObject.boundsProperty, sceneBoundsProperty, objectDragModeProperty ],
-      ( htmlImageElementObjectBounds, sceneBounds, objectDragMode ) => {
+      [ htmlImageElementObject.boundsProperty, sceneBoundsProperty, objectDragModeProperty, htmlImageElementObject.positionProperty, opticPositionProperty ],
+      ( htmlImageElementObjectBounds, sceneBounds, objectDragMode, htmlImageElementObjectPosition, opticPosition ) => {
 
-        const htmlImageElementObjectPosition = htmlImageElementObject.positionProperty.value;
         const minX = Math.floor( sceneBounds.minX + ( htmlImageElementObjectPosition.x - htmlImageElementObjectBounds.minX ) );
-        const maxX = Math.floor( opticPositionProperty.value.x - GOConstants.MIN_DISTANCE_FROM_OBJECT_TO_OPTIC );
+        const maxX = Math.floor( opticPosition.x - GOConstants.MIN_DISTANCE_FROM_OBJECT_TO_OPTIC );
         let minY: number;
         let maxY: number;
 
@@ -103,8 +102,6 @@ export default class HTMLImageElementObjectNode extends OpticalObjectNode {
           maxY = minY;
         }
         return new Bounds2( minX, minY, maxX, maxY );
-      }, {
-        accessNonDependencies: true //TODO https://github.com/phetsims/geometric-optics/issues/486
       } );
 
     // Keep the object inside the drag bounds. This is done in the next animation frame to prevent problems with
