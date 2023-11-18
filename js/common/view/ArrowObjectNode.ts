@@ -91,8 +91,6 @@ export default class ArrowObjectNode extends OpticalObjectNode {
           maxY = arrowObjectPosition.y;
         }
         return new Bounds2( minX, minY, maxX, maxY );
-      }, {
-        accessNonDependencies: true //TODO https://github.com/phetsims/geometric-optics/issues/486
       } );
 
     // Keep the arrow inside the drag bounds.
