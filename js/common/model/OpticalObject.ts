@@ -75,6 +75,10 @@ export default class OpticalObject extends PhetioObject {
       isValidValue: ( position: Vector2 ) =>
         Math.abs( position.x - opticPositionProperty.value.x ) >= GOConstants.MIN_DISTANCE_FROM_OBJECT_TO_OPTIC &&
         Math.abs( position.y - opticPositionProperty.value.y ) <= GOConstants.MAX_DISTANCE_FROM_OBJECT_TO_OPTICAL_AXIS,
+
+      // Reentrant because dragBounds depends on positionProperty, and its listener modifies positionProperty to
+      // keep objects inside dragBounds. See https://github.com/phetsims/geometric-optics/issues/487
+      reentrant: true,
       tandem: options.tandem.createTandem( 'positionProperty' ),
       phetioFeatured: true
     } );
