@@ -91,6 +91,11 @@ export default class ArrowObjectNode extends OpticalObjectNode {
           maxY = arrowObjectPosition.y;
         }
         return new Bounds2( minX, minY, maxX, maxY );
+      }, {
+
+        // Reentrant because dragBounds depends on positionProperty, and its listener modifies positionProperty to
+        // keep objects inside dragBounds. See https://github.com/phetsims/geometric-optics/issues/487
+        reentrant: true
       } );
 
     // Keep the arrow inside the drag bounds.

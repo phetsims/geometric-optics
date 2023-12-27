@@ -141,8 +141,12 @@ export default class ProjectionScreenNode extends InteractiveHighlighting( Node 
           sceneBounds.minY + modelScreenHeight / 2,
           sceneBounds.maxX - modelScreenWidth / 2,
           sceneBounds.maxY - modelScreenHeight / 2
-        )
-    );
+        ), {
+
+        // Reentrant because dragBounds depends on positionProperty, and its listener modifies positionProperty to
+        // keep objects inside dragBounds. See https://github.com/phetsims/geometric-optics/issues/487
+        reentrant: true
+      } );
 
     // Keep the projection screen within drag bounds.
     dragBoundsProperty.link( dragBounds => {

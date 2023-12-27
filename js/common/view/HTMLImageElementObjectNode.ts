@@ -102,6 +102,11 @@ export default class HTMLImageElementObjectNode extends OpticalObjectNode {
           maxY = minY;
         }
         return new Bounds2( minX, minY, maxX, maxY );
+      }, {
+
+        // Reentrant because dragBounds depends on positionProperty, and its listener modifies positionProperty to
+        // keep objects inside dragBounds. See https://github.com/phetsims/geometric-optics/issues/487
+        reentrant: true
       } );
 
     // Keep the object inside the drag bounds. This is done in the next animation frame to prevent problems with
