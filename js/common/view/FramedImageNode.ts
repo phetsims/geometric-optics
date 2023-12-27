@@ -57,16 +57,15 @@ export default class FramedImageNode extends OpticalImageNode {
 
       const viewBounds = modelViewTransform.modelToViewBounds( framedImage.boundsProperty.value );
 
-      const initialWidth = parentNode.width;
-      const initialHeight = parentNode.height;
-      const scaleX = ( viewBounds.width / initialWidth ) || GOConstants.MIN_SCALE; // prevent zero scale
-      const scaleY = ( viewBounds.height / initialHeight ) || GOConstants.MIN_SCALE; // prevent zero scale
+      let scaleX = ( viewBounds.width / parentNode.width );
+      if ( scaleX === 0 || !isFinite( scaleX ) ) {
+        scaleX = GOConstants.MIN_SCALE;
+      }
 
-      //TODO https://github.com/phetsims/geometric-optics/issues/321 Assertion failed: scales should be finite
-      assert && assert( isFinite( scaleX ) && isFinite( scaleY ),
-        'scale should be finite: ' +
-        `scaleX=${scaleX}, initialWidth=${initialWidth} viewBounds.width=${viewBounds.width} ` +
-        `scaleY=${scaleY}, initialHeight=${initialWidth} viewBounds.height=${viewBounds.width}` );
+      let scaleY = ( viewBounds.height / parentNode.height );
+      if ( scaleY === 0 || !isFinite( scaleY ) ) {
+        scaleY = GOConstants.MIN_SCALE;
+      }
 
       parentNode.scale( scaleX, scaleY );
       parentNode.translation = new Vector2( viewBounds.minX, viewBounds.minY );
