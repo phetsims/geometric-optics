@@ -169,6 +169,11 @@ function getRayDirections( raysType: RaysType, opticalObjectPosition: Vector2, o
     if ( firstFocalVector.x < 0 ) {
       firstFocalVector.negate(); // should point to the right, to indicate the direction of the light rays
     }
+    if ( firstFocalVector.equals( Vector2.ZERO ) ) {
+      // Prevent attempt to normalize a zero vector by ensuring that there is always a small non-zero x component.
+      // See https://github.com/phetsims/geometric-optics/issues/178
+      firstFocalVector.addXY( 1e-20, 0 );
+    }
     directions.push( firstFocalVector.normalized() );
   }
   else if ( raysType === 'many' ) {
