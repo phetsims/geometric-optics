@@ -131,7 +131,6 @@ function getRayDirections( raysType: RaysType, opticalObjectPosition: Vector2, o
   // vector from object to optic
   const objectOpticVector = optic.positionProperty.value.minus( opticalObjectPosition );
 
-  //TODO https://github.com/phetsims/geometric-optics/issues/178
   assert && assert( objectOpticVector.magnitude !== 0,
     `unexpected zero-magnitude vector: objectOpticVector=${objectOpticVector}, ` +
     `optic.position=${optic.positionProperty.value}, opticalObjectPosition=${opticalObjectPosition}` );
