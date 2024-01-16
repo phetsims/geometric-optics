@@ -81,6 +81,8 @@ export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       } )
     ];
 
+    const virtualImageCheckboxTandemName = 'virtualImageCheckbox';
+
     const items = [
       ...focalPointItems,
 
@@ -92,12 +94,12 @@ export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
           enabledProperty: new DerivedProperty(
             [ opticalObjectChoiceProperty ],
             opticalObjectChoice => ( opticalObjectChoice.type !== 'light' ), {
-              tandem: options.tandem.createTandem( 'virtualImageCheckboxEnabledProperty' ),
+              tandem: options.tandem.createTandem( virtualImageCheckboxTandemName ).createTandem( 'enabledProperty' ),
               phetioValueType: BooleanIO,
               phetioFeatured: true
             } )
         },
-        tandemName: 'virtualImageCheckbox'
+        tandemName: virtualImageCheckboxTandemName
       } ),
 
       // Labels
