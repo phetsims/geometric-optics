@@ -84,11 +84,14 @@ export default class HTMLImageElementObjectNode extends OpticalObjectNode {
       [ htmlImageElementObject.boundsProperty, sceneBoundsProperty, objectDragModeProperty, htmlImageElementObject.positionProperty, opticPositionProperty ],
       ( htmlImageElementObjectBounds, sceneBounds, objectDragMode, htmlImageElementObjectPosition, opticPosition ) => {
 
-        const minX = Math.floor( sceneBounds.minX + ( htmlImageElementObjectPosition.x - htmlImageElementObjectBounds.minX ) );
         const maxX = Math.floor( opticPosition.x - GOConstants.MIN_DISTANCE_FROM_OBJECT_TO_OPTIC );
+
+        // Added Math.min to resolve https://github.com/phetsims/geometric-optics/issues/491, because we pass through
+        // and intermediate state when deriving dragBounds.
+        const minX = Math.min( maxX - 1, Math.floor( sceneBounds.minX + ( htmlImageElementObjectPosition.x - htmlImageElementObjectBounds.minX ) ) );
+
         let minY: number;
         let maxY: number;
-
         if ( objectDragMode === 'freeDragging' ) {
 
           // free dragging
