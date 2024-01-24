@@ -86,8 +86,8 @@ export default class HTMLImageElementObjectNode extends OpticalObjectNode {
 
         const maxX = Math.floor( opticPosition.x - GOConstants.MIN_DISTANCE_FROM_OBJECT_TO_OPTIC );
 
-        // Added Math.min to resolve https://github.com/phetsims/geometric-optics/issues/491, because we pass through
-        // and intermediate state when deriving dragBounds.
+        // Added Math.min to resolve https://github.com/phetsims/geometric-optics/issues/491. When running with
+        // ?listenerOrderRange, we pass through an intermediate state where minX is invalid, and actually > maxX.
         const minX = Math.min( maxX - 1, Math.floor( sceneBounds.minX + ( htmlImageElementObjectPosition.x - htmlImageElementObjectBounds.minX ) ) );
 
         let minY: number;
