@@ -51,7 +51,7 @@ export default class OpticalObjectChoiceComboBox extends ComboBox<OpticalObjectC
     assert && assert( opticalObjectChoiceProperty.validValues ); // {OpticalObjectChoice[]|undefined}
     opticalObjectChoiceProperty.validValues!.forEach( ( opticalObjectChoice: OpticalObjectChoice ) => {
 
-      const itemTandemName = `${opticalObjectChoice.tandemPrefix}${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`;
+      const itemTandemName = `${opticalObjectChoice.tandemPrefix}Item`;
 
       // create text
       const labelText = new Text( opticalObjectChoice.labelStringProperty, {
