@@ -23,7 +23,7 @@ import GOQueryParameters from '../GOQueryParameters.js';
 import { Node, Path } from '../../../../scenery/js/imports.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import GOColors from '../GOColors.js';
-import TEmitter from '../../../../axon/js/TEmitter.js';
+import { TReadOnlyEmitter } from '../../../../axon/js/TEmitter.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -49,7 +49,7 @@ export default class OpticalAxisForegroundNode extends OpticalAxisNode {
                       framedObjectNode: Node,
                       framedImagePositionProperty: TReadOnlyProperty<Vector2>,
                       framedImageNode: Node,
-                      lightRaysProcessedEmitter: TEmitter,
+                      lightRaysProcessedEmitter: TReadOnlyEmitter,
                       providedOptions: OpticalAxisForegroundNodeOptions ) {
 
     const options = optionize<OpticalAxisForegroundNodeOptions, SelfOptions, OpticalAxisNodeOptions>()( {
