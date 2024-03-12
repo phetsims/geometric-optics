@@ -16,6 +16,7 @@ import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import GOToolNode from './GOToolNode.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
+import InstanceRegistry from '../../../../../phet-core/js/documentation/InstanceRegistry.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -64,6 +65,9 @@ export default class GOToolboxNode extends Panel {
     // Tell the tools that they are associated with this toolbox.
     // This allows tools to determine when they have been dragged back to the toolbox.
     toolNodes.forEach( toolNode => toolNode.setToolboxNode( this ) );
+
+    // support for binder documentation, stripped out in builds and only runs when ?binder is specified
+    assert && phet?.chipper?.queryParameters?.binder && InstanceRegistry.registerToolbox( this );
   }
 
   /**
