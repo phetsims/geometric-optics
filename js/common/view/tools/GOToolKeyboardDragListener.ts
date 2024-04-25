@@ -8,7 +8,7 @@
 
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { KeyboardDragListener, KeyboardDragListenerOptions, KeyboardUtils } from '../../../../../scenery/js/imports.js';
+import { KeyboardDragListener, KeyboardDragListenerOptions, KeyboardListener } from '../../../../../scenery/js/imports.js';
 import geometricOptics from '../../../geometricOptics.js';
 import GOConstants from '../../GOConstants.js';
 import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
@@ -61,21 +61,20 @@ export default class GOToolKeyboardDragListener extends KeyboardDragListener {
 
     super( options );
 
-    // Escape returns the tool to the toolbox.
-    this.addHotkey( {
-      keys: [ KeyboardUtils.KEY_ESCAPE ],
-      callback: () => {
-        phet.log && phet.log( 'hotkey ESCAPE' );
-        returnToToolbox();
+    const hotkeyListener = new KeyboardListener( {
+      keys: [ 'escape', 'j' ],
+      fire: ( event, keysPressed ) => {
+        if ( keysPressed.includes( 'escape' ) ) {
+          phet.log && phet.log( 'hotkey ESCAPE' );
+          returnToToolbox();
+        }
+        else if ( keysPressed.includes( 'j' ) ) {
+          phet.log && phet.log( 'hotkey J' );
+          toolNode.jumpToPoint();
+        }
       }
     } );
-    this.addHotkey( {
-      keys: [ KeyboardUtils.KEY_J ],
-      callback: () => {
-        phet.log && phet.log( 'hotkey J' );
-        toolNode.jumpToPoint();
-      }
-    } );
+    toolNode.addInputListener( hotkeyListener );
   }
 }
 

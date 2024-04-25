@@ -82,7 +82,7 @@ export default class SecondPointNode extends InteractiveHighlighting( Node ) {
     const keyboardDragListener = new KeyboardDragListener(
       combineOptions<KeyboardDragListenerOptions>( {}, GOConstants.KEYBOARD_DRAG_LISTENER_OPTIONS, {
         transform: modelViewTransform,
-        drag: modelDelta => drag( modelDelta.y ),
+        drag: ( event, listener ) => drag( listener.vectorDelta.y ),
         tandem: options.tandem.createTandem( 'keyboardDragListener' )
       } ) );
     this.addInputListener( keyboardDragListener );
