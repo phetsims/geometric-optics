@@ -400,7 +400,7 @@ To identify focus traversal order, search for `pdomOrder`.
 To identify sim-specific support for keyboard input, search for `tagName`. These classes have custom input listeners
 that handle keyboard events (e.g. `KeyboardDragListener`).
 
-To identify hotkeys, search for `addHotkey`.
+To identify hotkeys, search for `new KeyboardListener`.
 
 Setting focus for tools is done via tab traversal. This sim does not use `GrabDragInteraction`.
 
