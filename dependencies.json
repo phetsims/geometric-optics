@@ -5,7 +5,7 @@
     "branch": "HEAD"
   },
   "axon": {
-    "sha": "9be46271b985cdebaf89a861b7e576c7e4c70c98",
+    "sha": "76f06b48b2068885e9e3c9ee24c566aa92463e70",
     "branch": "HEAD"
   },
   "brand": {
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "geometric-optics": {
-    "sha": "f1a141d8465505bee0bf9ee8010fbef99915adb4",
+    "sha": "ca3601f28bfdac783fbdb147014a7af52471df91",
     "branch": "1.3"
   },
   "joist": {
