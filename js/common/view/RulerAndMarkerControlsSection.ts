@@ -20,7 +20,6 @@ export class RulerAndMarkerControlsSection extends KeyboardHelpSection {
     // Keys used in this KeyboardHelpSection. They need to be disposed.
     const spaceKeyNode = TextKeyNode.space();
     const enterKeyNode = TextKeyNode.enter();
-    const escapeKeyNode = TextKeyNode.esc();
     const spaceOrEnterKeyNode = KeyboardHelpIconFactory.iconOrIcon( spaceKeyNode, enterKeyNode );
 
     // Rows that make up this KeyboardHelpSection. They need to be disposed.
