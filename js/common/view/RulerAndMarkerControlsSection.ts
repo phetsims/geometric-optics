@@ -11,6 +11,7 @@ import TextKeyNode from '../../../../scenery-phet/js/keyboard/TextKeyNode.js';
 import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
 import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
+import GOToolKeyboardDragListener from './tools/GOToolKeyboardDragListener.js';
 
 export class RulerAndMarkerControlsSection extends KeyboardHelpSection {
 
@@ -30,10 +31,10 @@ export class RulerAndMarkerControlsSection extends KeyboardHelpSection {
         spaceOrEnterKeyNode ),
 
       // Esc
-      KeyboardHelpSectionRow.labelWithIcon( GeometricOpticsStrings.keyboardHelpDialog.returnToToolboxStringProperty, escapeKeyNode ),
+      KeyboardHelpSectionRow.fromHotkeyData( GOToolKeyboardDragListener.RETURN_TO_TOOLBOX_HOTKEY_DATA ),
 
       // J, for 'Jump'
-      KeyboardHelpSectionRow.createKeysRowFromStrings( [ 'J' ], GeometricOpticsStrings.keyboardHelpDialog.jumpToPointStringProperty )
+      KeyboardHelpSectionRow.fromHotkeyData( GOToolKeyboardDragListener.JUMP_TO_POINT_HOTKEY_DATA )
     ];
 
     super( GeometricOpticsStrings.keyboardHelpDialog.rulerAndMarkerControlsStringProperty, rows, {

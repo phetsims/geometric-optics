@@ -8,7 +8,7 @@
 
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { KeyboardDragListener, KeyboardDragListenerOptions, KeyboardListener } from '../../../../../scenery/js/imports.js';
+import { KeyboardDragListener, KeyboardDragListenerOptions, KeyboardListener, HotkeyData } from '../../../../../scenery/js/imports.js';
 import geometricOptics from '../../../geometricOptics.js';
 import GOConstants from '../../GOConstants.js';
 import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
@@ -16,6 +16,8 @@ import { EmptySelfOptions, optionize4 } from '../../../../../phet-core/js/option
 import GOToolNode from './GOToolNode.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import GOTool from '../../model/tools/GOTool.js';
+import Property from '../../../../../axon/js/Property.js';
+import GeometricOpticsStrings from '../../../GeometricOpticsStrings.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -62,13 +64,16 @@ export default class GOToolKeyboardDragListener extends KeyboardDragListener {
     super( options );
 
     const hotkeyListener = new KeyboardListener( {
-      keys: [ 'escape', 'j' ],
+      keyStringProperties: HotkeyData.combineKeyStringProperties( [
+        GOToolKeyboardDragListener.RETURN_TO_TOOLBOX_HOTKEY_DATA,
+        GOToolKeyboardDragListener.JUMP_TO_POINT_HOTKEY_DATA
+      ] ),
       fire: ( event, keysPressed ) => {
-        if ( keysPressed.includes( 'escape' ) ) {
+        if ( GOToolKeyboardDragListener.RETURN_TO_TOOLBOX_HOTKEY_DATA.hasKeyStroke( keysPressed ) ) {
           phet.log && phet.log( 'hotkey ESCAPE' );
           returnToToolbox();
         }
-        else if ( keysPressed.includes( 'j' ) ) {
+        else if ( GOToolKeyboardDragListener.JUMP_TO_POINT_HOTKEY_DATA.hasKeyStroke( keysPressed ) ) {
           phet.log && phet.log( 'hotkey J' );
           toolNode.jumpToPoint();
         }
@@ -76,6 +81,18 @@ export default class GOToolKeyboardDragListener extends KeyboardDragListener {
     } );
     toolNode.addInputListener( hotkeyListener );
   }
+
+  public static readonly RETURN_TO_TOOLBOX_HOTKEY_DATA = new HotkeyData( {
+    keyStringProperties: [ new Property( 'escape' ) ],
+    repoName: geometricOptics.name,
+    keyboardHelpDialogLabelStringProperty: GeometricOpticsStrings.keyboardHelpDialog.returnToToolboxStringProperty
+  } );
+
+  public static readonly JUMP_TO_POINT_HOTKEY_DATA = new HotkeyData( {
+    keyStringProperties: [ new Property( 'j' ) ],
+    repoName: geometricOptics.name,
+    keyboardHelpDialogLabelStringProperty: GeometricOpticsStrings.keyboardHelpDialog.jumpToPointStringProperty
+  } );
 }
 
 geometricOptics.register( 'GOToolKeyboardDragListener', GOToolKeyboardDragListener );
