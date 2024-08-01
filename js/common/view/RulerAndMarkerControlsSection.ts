@@ -1,4 +1,4 @@
-// Copyright 2023, University of Colorado Boulder
+// Copyright 2023-2024, University of Colorado Boulder
 
 /**
  * RulerAndMarkerControlsSection is the keyboard-help section that describes the hotkeys related to the tools.
