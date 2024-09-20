@@ -54,6 +54,11 @@
               "ts-nocheck": true
             }
           ]
+        },
+        "parserOptions": {
+          "project": [
+            "../geometric-optics/tsconfig.json"
+          ]
         }
       }
     ]
