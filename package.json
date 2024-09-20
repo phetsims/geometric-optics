@@ -57,7 +57,7 @@
         },
         "parserOptions": {
           "project": [
-            "../geometric-optics/tsconfig.json"
+            "../chipper/tsconfig/eslint-all/tsconfig.json"
           ]
         }
       }
