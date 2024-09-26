@@ -68,7 +68,7 @@ export default class OpticLabelNode extends LabelNode {
       }
       else {
         // mirror
-        assert && assert( optic instanceof Mirror ); // eslint-disable-line no-simple-type-checking-assertions
+        assert && assert( optic instanceof Mirror ); // eslint-disable-line phet/no-simple-type-checking-assertions
         if ( opticSurfaceType === 'convex' ) {
           text = convexMirrorString;
         }
