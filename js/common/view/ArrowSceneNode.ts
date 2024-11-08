@@ -6,23 +6,23 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import geometricOptics from '../../geometricOptics.js';
-import VisibleProperties from './VisibleProperties.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import { RaysType } from '../model/RaysType.js';
 import GOColors from '../GOColors.js';
-import RealLightRaysNode from './RealLightRaysNode.js';
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import VirtualLightRaysNode from './VirtualLightRaysNode.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import ArrowScene from '../model/ArrowScene.js';
-import ArrowObjectNode from './ArrowObjectNode.js';
-import ArrowImageNode from './ArrowImageNode.js';
-import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
+import { RaysType } from '../model/RaysType.js';
 import ToolJumpPoint from '../model/tools/ToolJumpPoint.js';
+import ArrowImageNode from './ArrowImageNode.js';
+import ArrowObjectNode from './ArrowObjectNode.js';
+import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
+import RealLightRaysNode from './RealLightRaysNode.js';
+import VirtualLightRaysNode from './VirtualLightRaysNode.js';
+import VisibleProperties from './VisibleProperties.js';
 
 type SelfOptions = {
 

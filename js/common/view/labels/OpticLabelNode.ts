@@ -7,6 +7,7 @@
  */
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import DerivedStringProperty from '../../../../../axon/js/DerivedStringProperty.js';
 import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
 import { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -15,9 +16,8 @@ import GeometricOpticsStrings from '../../../GeometricOpticsStrings.js';
 import Lens from '../../../lens/model/Lens.js';
 import Mirror from '../../../mirror/model/Mirror.js';
 import Optic from '../../model/Optic.js';
-import LabelNode, { LabelNodeOptions } from './LabelNode.js';
 import { OpticSurfaceType } from '../../model/OpticSurfaceType.js';
-import DerivedStringProperty from '../../../../../axon/js/DerivedStringProperty.js';
+import LabelNode, { LabelNodeOptions } from './LabelNode.js';
 
 type SelfOptions = EmptySelfOptions;
 

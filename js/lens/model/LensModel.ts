@@ -6,14 +6,14 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import GOModel, { GOModelOptions } from '../../common/model/GOModel.js';
-import Lens from './Lens.js';
-import geometricOptics from '../../geometricOptics.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
+import GOModel, { GOModelOptions } from '../../common/model/GOModel.js';
+import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
+import geometricOptics from '../../geometricOptics.js';
+import Lens from './Lens.js';
 
 type SelfOptions = EmptySelfOptions;
 

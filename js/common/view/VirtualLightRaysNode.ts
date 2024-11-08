@@ -7,12 +7,12 @@
  * @author Martin Veillette
  */
 
-import geometricOptics from '../../geometricOptics.js';
-import { TColor, Node } from '../../../../scenery/js/imports.js';
-import LightRays from '../model/LightRays.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import LightRaysNode, { LightRaysNodeOptions } from './LightRaysNode.js';
+import { Node, TColor } from '../../../../scenery/js/imports.js';
+import geometricOptics from '../../geometricOptics.js';
 import GOQueryParameters from '../GOQueryParameters.js';
+import LightRays from '../model/LightRays.js';
+import LightRaysNode, { LightRaysNodeOptions } from './LightRaysNode.js';
 
 type SelfOptions = {
   stroke: TColor;

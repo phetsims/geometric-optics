@@ -7,18 +7,18 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Line, Node, NodeOptions, Path } from '../../../../scenery/js/imports.js';
-import geometricOptics from '../../geometricOptics.js';
-import GOColors from '../../common/GOColors.js';
-import Lens from '../model/Lens.js';
-import { OpticSurfaceType } from '../../common/model/OpticSurfaceType.js';
-import LensShapes from '../model/LensShapes.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
-import GOQueryParameters from '../../common/GOQueryParameters.js';
-import OriginNode from '../../common/view/OriginNode.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import { Line, Node, NodeOptions, Path } from '../../../../scenery/js/imports.js';
+import GOColors from '../../common/GOColors.js';
+import GOQueryParameters from '../../common/GOQueryParameters.js';
+import { OpticSurfaceType } from '../../common/model/OpticSurfaceType.js';
+import OriginNode from '../../common/view/OriginNode.js';
+import geometricOptics from '../../geometricOptics.js';
+import Lens from '../model/Lens.js';
+import LensShapes from '../model/LensShapes.js';
 
 // constants
 const FILL_PROPERTY = GOColors.lensFillProperty;

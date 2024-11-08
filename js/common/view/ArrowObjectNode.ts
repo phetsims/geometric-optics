@@ -6,23 +6,23 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Multilink from '../../../../axon/js/Multilink.js';
+import TProperty from '../../../../axon/js/TProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { DragListener, HighlightFromNode, KeyboardDragListener, KeyboardDragListenerOptions } from '../../../../scenery/js/imports.js';
-import geometricOptics from '../../geometricOptics.js';
-import ArrowObject from '../model/ArrowObject.js';
-import Optic from '../model/Optic.js';
-import GOConstants from '../GOConstants.js';
-import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
+import { DragListener, HighlightFromNode, KeyboardDragListener, KeyboardDragListenerOptions } from '../../../../scenery/js/imports.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
+import geometricOptics from '../../geometricOptics.js';
+import GOConstants from '../GOConstants.js';
+import ArrowObject from '../model/ArrowObject.js';
+import Optic from '../model/Optic.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 import OpticalObjectNode, { OpticalObjectNodeOptions } from './OpticalObjectNode.js';
-import TProperty from '../../../../axon/js/TProperty.js';
-import Multilink from '../../../../axon/js/Multilink.js';
-import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 const SNAP_TO_MIN_MAGNITUDE = 20; // cm
 

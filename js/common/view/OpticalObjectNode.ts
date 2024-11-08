@@ -7,16 +7,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import TProperty from '../../../../axon/js/TProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { InteractiveHighlighting, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
-import CueingArrowsNode from './CueingArrowsNode.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
-import { ObjectDragMode } from './ObjectDragMode.js';
 import OpticalObject from '../model/OpticalObject.js';
-import TProperty from '../../../../axon/js/TProperty.js';
+import CueingArrowsNode from './CueingArrowsNode.js';
+import { ObjectDragMode } from './ObjectDragMode.js';
 
 type SelfOptions = EmptySelfOptions;
 

@@ -6,16 +6,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import geometricOptics from '../../geometricOptics.js';
-import ArrowImage from '../model/ArrowImage.js';
-import GOConstants from '../GOConstants.js';
-import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
-import OpticalImageNode, { OpticalImageNodeOptions } from './OpticalImageNode.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Multilink from '../../../../axon/js/Multilink.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
+import geometricOptics from '../../geometricOptics.js';
+import GOConstants from '../GOConstants.js';
+import ArrowImage from '../model/ArrowImage.js';
+import OpticalImageNode, { OpticalImageNodeOptions } from './OpticalImageNode.js';
 
 type ArrowImageNodeOptions = PickRequired<OpticalImageNodeOptions, 'tandem'>;
 

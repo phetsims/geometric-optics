@@ -7,25 +7,25 @@
  * @author Martin Veillette
  */
 
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import geometricOptics from '../../geometricOptics.js';
-import VisibleProperties from './VisibleProperties.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import { RaysType } from '../model/RaysType.js';
-import GOColors from '../../common/GOColors.js';
-import RealLightRaysNode from './RealLightRaysNode.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import LightScene from '../model/LightScene.js';
-import ProjectionScreenNode from './ProjectionScreenNode.js';
-import LightSpotNode from './LightSpotNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import LightObjectNode from './LightObjectNode.js';
-import OpticalAxisInFrontOfProjectionScreenNode from './OpticalAxisInFrontOfProjectionScreenNode.js';
-import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
+import GOColors from '../../common/GOColors.js';
+import geometricOptics from '../../geometricOptics.js';
+import LightScene from '../model/LightScene.js';
+import { RaysType } from '../model/RaysType.js';
 import ToolJumpPoint from '../model/tools/ToolJumpPoint.js';
+import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
+import LightObjectNode from './LightObjectNode.js';
+import LightSpotNode from './LightSpotNode.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
+import OpticalAxisInFrontOfProjectionScreenNode from './OpticalAxisInFrontOfProjectionScreenNode.js';
+import ProjectionScreenNode from './ProjectionScreenNode.js';
+import RealLightRaysNode from './RealLightRaysNode.js';
+import VisibleProperties from './VisibleProperties.js';
 
 type SelfOptions = {
   objectDragModeProperty: TReadOnlyProperty<ObjectDragMode>;

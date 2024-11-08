@@ -10,10 +10,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { Shape } from '../../../../kite/js/imports.js';
-import geometricOptics from '../../geometricOptics.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
+import { Shape } from '../../../../kite/js/imports.js';
 import { Node, Path } from '../../../../scenery/js/imports.js';
+import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 

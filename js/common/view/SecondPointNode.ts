@@ -7,17 +7,17 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import TProperty from '../../../../axon/js/TProperty.js';
 import { Shape } from '../../../../kite/js/imports.js';
+import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import { Circle, DragListener, HighlightFromNode, InteractiveHighlighting, KeyboardDragListener, KeyboardDragListenerOptions, Node, NodeOptions, VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
-import SecondPoint from '../model/SecondPoint.js';
 import GOConstants from '../GOConstants.js';
-import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import TProperty from '../../../../axon/js/TProperty.js';
+import SecondPoint from '../model/SecondPoint.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
 
 type SelfOptions = EmptySelfOptions;

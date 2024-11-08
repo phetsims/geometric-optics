@@ -7,26 +7,26 @@
  * @author Martin Veillette
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import geometricOptics from '../../geometricOptics.js';
-import FramedScene from '../model/FramedScene.js';
-import FramedImageNode from './FramedImageNode.js';
-import VisibleProperties from './VisibleProperties.js';
-import FramedObjectNode from './FramedObjectNode.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import SecondPointNode from './SecondPointNode.js';
-import { RaysType } from '../model/RaysType.js';
 import GOColors from '../GOColors.js';
-import RealLightRaysNode from './RealLightRaysNode.js';
-import RealLightRaysForegroundNode from './RealLightRaysForegroundNode.js';
-import OpticalAxisForegroundNode from './OpticalAxisForegroundNode.js';
-import VirtualLightRaysNode from './VirtualLightRaysNode.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import FramedScene from '../model/FramedScene.js';
+import { RaysType } from '../model/RaysType.js';
 import ToolJumpPoint from '../model/tools/ToolJumpPoint.js';
+import FramedImageNode from './FramedImageNode.js';
+import FramedObjectNode from './FramedObjectNode.js';
+import GOSceneNode, { GOSceneNodeOptions } from './GOSceneNode.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
+import OpticalAxisForegroundNode from './OpticalAxisForegroundNode.js';
+import RealLightRaysForegroundNode from './RealLightRaysForegroundNode.js';
+import RealLightRaysNode from './RealLightRaysNode.js';
+import SecondPointNode from './SecondPointNode.js';
+import VirtualLightRaysNode from './VirtualLightRaysNode.js';
+import VisibleProperties from './VisibleProperties.js';
 
 type SelfOptions = {
   objectDragModeProperty: TReadOnlyProperty<ObjectDragMode>;

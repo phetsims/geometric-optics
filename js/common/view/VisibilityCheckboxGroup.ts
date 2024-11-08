@@ -7,30 +7,30 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { HBox, Node, Text } from '../../../../scenery/js/imports.js';
-import VerticalCheckboxGroup, { VerticalCheckboxGroupItem, VerticalCheckboxGroupOptions } from '../../../../sun/js/VerticalCheckboxGroup.js';
-import geometricOptics from '../../geometricOptics.js';
-import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
-import GuideNode from './GuideNode.js';
-import GOConstants from '../GOConstants.js';
-import VisibleProperties from './VisibleProperties.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
-import SecondPointNode from './SecondPointNode.js';
-import FocalPointNode from './FocalPointNode.js';
-import TwoFPointNode from './TwoFPointNode.js';
-import GOPreferences from '../model/GOPreferences.js';
-import GOQueryParameters from '../GOQueryParameters.js';
-import { GOSimOptions } from '../../GOSim.js';
-import Optic from '../model/Optic.js';
-import Lens from '../../lens/model/Lens.js';
-import Property from '../../../../axon/js/Property.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import { HBox, Node, Text } from '../../../../scenery/js/imports.js';
+import VerticalCheckboxGroup, { VerticalCheckboxGroupItem, VerticalCheckboxGroupOptions } from '../../../../sun/js/VerticalCheckboxGroup.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
+import geometricOptics from '../../geometricOptics.js';
+import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
+import { GOSimOptions } from '../../GOSim.js';
+import Lens from '../../lens/model/Lens.js';
+import GOConstants from '../GOConstants.js';
+import GOQueryParameters from '../GOQueryParameters.js';
+import GOPreferences from '../model/GOPreferences.js';
+import Optic from '../model/Optic.js';
+import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
+import FocalPointNode from './FocalPointNode.js';
+import GuideNode from './GuideNode.js';
+import SecondPointNode from './SecondPointNode.js';
+import TwoFPointNode from './TwoFPointNode.js';
+import VisibleProperties from './VisibleProperties.js';
 
 type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 

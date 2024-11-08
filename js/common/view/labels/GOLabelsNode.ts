@@ -9,18 +9,18 @@
  */
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
+import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
+import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Node, NodeOptions } from '../../../../../scenery/js/imports.js';
 import geometricOptics from '../../../geometricOptics.js';
 import GeometricOpticsStrings from '../../../GeometricOpticsStrings.js';
-import LabelNode from './LabelNode.js';
-import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
-import Bounds2 from '../../../../../dot/js/Bounds2.js';
-import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
-import OpticLabelNode from './OpticLabelNode.js';
-import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import GOSceneNode from '../GOSceneNode.js';
-import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+import LabelNode from './LabelNode.js';
+import OpticLabelNode from './OpticLabelNode.js';
 
 const FOCAL_POINT_LABEL_Y_OFFSET = 7;
 

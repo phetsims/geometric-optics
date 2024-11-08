@@ -6,14 +6,14 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
-import geometricOptics from '../../geometricOptics.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import OpticalImage from '../model/OpticalImage.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
+import geometricOptics from '../../geometricOptics.js';
+import OpticalImage from '../model/OpticalImage.js';
 
 type SelfOptions = EmptySelfOptions;
 

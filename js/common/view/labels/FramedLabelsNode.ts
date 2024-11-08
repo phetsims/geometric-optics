@@ -6,16 +6,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
-import geometricOptics from '../../../geometricOptics.js';
-import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
-import Bounds2 from '../../../../../dot/js/Bounds2.js';
-import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
-import GOLabelsNode, { GOSceneLabelsNodeOptions } from './GOLabelsNode.js';
-import OpticalObjectLabelNode from './OpticalObjectLabelNode.js';
 import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
-import OpticalImageLabelNode from './OpticalImageLabelNode.js';
+import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
+import Bounds2 from '../../../../../dot/js/Bounds2.js';
+import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
+import geometricOptics from '../../../geometricOptics.js';
 import FramedSceneNode from '../FramedSceneNode.js';
+import GOLabelsNode, { GOSceneLabelsNodeOptions } from './GOLabelsNode.js';
+import OpticalImageLabelNode from './OpticalImageLabelNode.js';
+import OpticalObjectLabelNode from './OpticalObjectLabelNode.js';
 
 export default class FramedLabelsNode extends GOLabelsNode {
 

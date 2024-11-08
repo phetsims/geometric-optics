@@ -10,14 +10,14 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
-import optionize from '../../../../phet-core/js/optionize.js';
-import FocalLengthModelTypeControl from './FocalLengthModelTypeControl.js';
-import GOPreferences from '../model/GOPreferences.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { GOSimOptions } from '../../GOSim.js';
+import GOPreferences from '../model/GOPreferences.js';
 import Add2FPointsCheckbox from './Add2FPointsCheckbox.js';
+import FocalLengthModelTypeControl from './FocalLengthModelTypeControl.js';
 
 type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 

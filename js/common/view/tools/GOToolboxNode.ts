@@ -8,15 +8,15 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { HBox, Node } from '../../../../../scenery/js/imports.js';
-import Panel, { PanelOptions } from '../../../../../sun/js/Panel.js';
-import geometricOptics from '../../../geometricOptics.js';
-import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
-import GOToolNode from './GOToolNode.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import InstanceRegistry from '../../../../../phet-core/js/documentation/InstanceRegistry.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
+import { HBox, Node } from '../../../../../scenery/js/imports.js';
+import Panel, { PanelOptions } from '../../../../../sun/js/Panel.js';
+import geometricOptics from '../../../geometricOptics.js';
+import GOToolNode from './GOToolNode.js';
 
 type SelfOptions = EmptySelfOptions;
 

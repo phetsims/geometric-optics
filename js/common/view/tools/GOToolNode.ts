@@ -9,13 +9,13 @@
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import { DragListener, IndexedNodeIO, InteractiveHighlighting, Node, NodeOptions, PressListenerEvent } from '../../../../../scenery/js/imports.js';
+import geometricOptics from '../../../geometricOptics.js';
 import GOTool from '../../model/tools/GOTool.js';
 import ToolJumpPoint from '../../model/tools/ToolJumpPoint.js';
 import GOToolboxNode from './GOToolboxNode.js';
-import geometricOptics from '../../../geometricOptics.js';
-import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 
 type SelfOptions = {
 

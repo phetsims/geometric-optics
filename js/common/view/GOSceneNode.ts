@@ -7,27 +7,27 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
-import geometricOptics from '../../geometricOptics.js';
-import VisibleProperties from './VisibleProperties.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import OpticalAxisNode from './OpticalAxisNode.js';
-import OpticVerticalAxisNode from './OpticVerticalAxisNode.js';
-import { RaysType } from '../model/RaysType.js';
-import FocalPointNode from './FocalPointNode.js';
-import TwoFPointNode from './TwoFPointNode.js';
-import GOColors from '../GOColors.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import GuidesNode from './GuidesNode.js';
-import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
-import GOScene from '../model/GOScene.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import ToolJumpPoint from '../model/tools/ToolJumpPoint.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
+import geometricOptics from '../../geometricOptics.js';
 import Lens from '../../lens/model/Lens.js';
+import GOColors from '../GOColors.js';
+import GOScene from '../model/GOScene.js';
+import { RaysType } from '../model/RaysType.js';
+import ToolJumpPoint from '../model/tools/ToolJumpPoint.js';
+import FocalPointNode from './FocalPointNode.js';
+import GuidesNode from './GuidesNode.js';
+import OpticalAxisNode from './OpticalAxisNode.js';
+import OpticVerticalAxisNode from './OpticVerticalAxisNode.js';
+import TwoFPointNode from './TwoFPointNode.js';
+import VisibleProperties from './VisibleProperties.js';
 
 type SelfOptions = {
 

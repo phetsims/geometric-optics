@@ -7,19 +7,19 @@
  */
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
-import Vector2 from '../../../../../dot/js/Vector2.js';
-import geometricOptics from '../../../geometricOptics.js';
-import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
-import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
-import GOLabelsNode, { GOSceneLabelsNodeOptions } from './GOLabelsNode.js';
+import Bounds2 from '../../../../../dot/js/Bounds2.js';
+import Vector2 from '../../../../../dot/js/Vector2.js';
+import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
+import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
+import geometricOptics from '../../../geometricOptics.js';
+import { GOSimOptions } from '../../../GOSim.js';
 import ArrowImage from '../../model/ArrowImage.js';
 import ArrowObject from '../../model/ArrowObject.js';
-import OpticalObjectLabelNode, { OpticalObjectLabelNodeOptions } from './OpticalObjectLabelNode.js';
-import OpticalImageLabelNode, { OpticalImageLabelNodeOptions } from './OpticalImageLabelNode.js';
 import ArrowSceneNode from '../ArrowSceneNode.js';
-import { GOSimOptions } from '../../../GOSim.js';
-import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
+import GOLabelsNode, { GOSceneLabelsNodeOptions } from './GOLabelsNode.js';
+import OpticalImageLabelNode, { OpticalImageLabelNodeOptions } from './OpticalImageLabelNode.js';
+import OpticalObjectLabelNode, { OpticalObjectLabelNodeOptions } from './OpticalObjectLabelNode.js';
 
 type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 

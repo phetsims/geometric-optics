@@ -7,19 +7,19 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
-import Optic, { OpticOptions } from '../../common/model/Optic.js';
-import geometricOptics from '../../geometricOptics.js';
-import { OpticSurfaceType } from '../../common/model/OpticSurfaceType.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import LensShapes from './LensShapes.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Utils from '../../../../dot/js/Utils.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
+import Optic, { OpticOptions } from '../../common/model/Optic.js';
+import { OpticSurfaceType } from '../../common/model/OpticSurfaceType.js';
+import geometricOptics from '../../geometricOptics.js';
+import LensShapes from './LensShapes.js';
 
 // IOR is a fixed value for the 'direct' focal-length model.
 const DIRECT_INDEX_OF_REFRACTION = 1.5;

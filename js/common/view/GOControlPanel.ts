@@ -7,23 +7,23 @@
  * @author Martin Veillette
  */
 
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { HBox, VSeparator } from '../../../../scenery/js/imports.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import geometricOptics from '../../geometricOptics.js';
+import { GOSimOptions } from '../../GOSim.js';
 import GOColors from '../GOColors.js';
 import Optic from '../model/Optic.js';
+import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
 import { RaysType } from '../model/RaysType.js';
+import OpticSubpanel from './OpticSubpanel.js';
+import RaysSubpanel from './RaysSubpanel.js';
 import VisibilityCheckboxGroup from './VisibilityCheckboxGroup.js';
 import VisibleProperties from './VisibleProperties.js';
-import optionize from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import RaysSubpanel from './RaysSubpanel.js';
-import OpticSubpanel from './OpticSubpanel.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
-import { GOSimOptions } from '../../GOSim.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
 
 type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 

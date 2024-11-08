@@ -6,15 +6,15 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import geometricOptics from '../../geometricOptics.js';
-import { NodeTranslationOptions, Path, PathOptions } from '../../../../scenery/js/imports.js';
-import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
+import { NodeTranslationOptions, Path, PathOptions } from '../../../../scenery/js/imports.js';
+import geometricOptics from '../../geometricOptics.js';
 import GOPreferences from '../model/GOPreferences.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 type CueingArrowsDirection = 'horizontal' | 'vertical' | 'both';
 

@@ -1,5 +1,15 @@
 // Copyright 2022-2023, University of Colorado Boulder
 
+import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
+import DerivedStringProperty from '../../../../../axon/js/DerivedStringProperty.js';
+import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
+import Vector2 from '../../../../../dot/js/Vector2.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
+import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
+import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
+import geometricOptics from '../../../geometricOptics.js';
+import GeometricOpticsStrings from '../../../GeometricOpticsStrings.js';
+import OpticalImage from '../../model/OpticalImage.js';
 /**
  * OpticalImageLabelNode is the base class of labeling optical images, and distinguishes between real and virtual.
  * It can label them as simply 'Real Image', or it can number them like 'Real Image 1'.
@@ -8,16 +18,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 import LabelNode, { LabelNodeOptions } from './LabelNode.js';
-import GeometricOpticsStrings from '../../../GeometricOpticsStrings.js';
-import geometricOptics from '../../../geometricOptics.js';
-import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
-import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
-import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
-import Vector2 from '../../../../../dot/js/Vector2.js';
-import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
-import OpticalImage from '../../model/OpticalImage.js';
-import DerivedStringProperty from '../../../../../axon/js/DerivedStringProperty.js';
 
 type SelfOptions = {
 

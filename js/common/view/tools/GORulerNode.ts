@@ -12,25 +12,25 @@
  */
 
 import DerivedProperty, { UnknownDerivedProperty } from '../../../../../axon/js/DerivedProperty.js';
+import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Utils from '../../../../../dot/js/Utils.js';
+import Vector2 from '../../../../../dot/js/Vector2.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import PhetFont from '../../../../../scenery-phet/js/PhetFont.js';
 import RulerNode from '../../../../../scenery-phet/js/RulerNode.js';
 import { DragListener } from '../../../../../scenery/js/imports.js';
+import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
+import Tandem from '../../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../../geometricOptics.js';
 import GeometricOpticsStrings from '../../../GeometricOpticsStrings.js';
 import GOConstants from '../../GOConstants.js';
 import GORuler from '../../model/tools/GORuler.js';
-import Vector2 from '../../../../../dot/js/Vector2.js';
-import Tandem from '../../../../../tandem/js/Tandem.js';
 import GORulerIcon from './GORulerIcon.js';
-import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
-import GOToolNode, { GOToolNodeOptions } from './GOToolNode.js';
-import GOToolKeyboardDragListener from './GOToolKeyboardDragListener.js';
 import GOToolDragListener from './GOToolDragListener.js';
-import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
-import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
+import GOToolKeyboardDragListener from './GOToolKeyboardDragListener.js';
+import GOToolNode, { GOToolNodeOptions } from './GOToolNode.js';
 
 // constants
 const MINIMUM_VISIBLE_LENGTH = GOConstants.RULER_MINIMUM_VISIBLE_LENGTH;

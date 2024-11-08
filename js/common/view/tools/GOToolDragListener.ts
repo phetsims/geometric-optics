@@ -6,17 +6,17 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
+import Vector2 from '../../../../../dot/js/Vector2.js';
+import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
+import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { DragListener, DragListenerOptions, PressedDragListener } from '../../../../../scenery/js/imports.js';
 import geometricOptics from '../../../geometricOptics.js';
-import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
-import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
-import GOToolNode from './GOToolNode.js';
-import Vector2 from '../../../../../dot/js/Vector2.js';
-import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
-import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import GOTool from '../../model/tools/GOTool.js';
+import GOToolNode from './GOToolNode.js';
 
 type SelfOptions = EmptySelfOptions;
 

@@ -8,17 +8,17 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Multilink from '../../../../../axon/js/Multilink.js';
 import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
-import BackgroundNode, { BackgroundNodeOptions } from '../../../../../scenery-phet/js/BackgroundNode.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
+import optionize from '../../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
+import BackgroundNode, { BackgroundNodeOptions } from '../../../../../scenery-phet/js/BackgroundNode.js';
 import { RichText } from '../../../../../scenery/js/imports.js';
 import geometricOptics from '../../../geometricOptics.js';
 import GOColors from '../../GOColors.js';
 import GOConstants from '../../GOConstants.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
-import Multilink from '../../../../../axon/js/Multilink.js';
 
 type XAlign = 'left' | 'center' | 'right';
 type YAlign = 'top' | 'center' | 'bottom';

@@ -9,15 +9,15 @@
 
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
+import optionize from '../../../phet-core/js/optionize.js';
+import PickRequired from '../../../phet-core/js/types/PickRequired.js';
 import GOColors from '../common/GOColors.js';
 import geometricOptics from '../geometricOptics.js';
 import GeometricOpticsStrings from '../GeometricOpticsStrings.js';
+import { GOSimOptions } from '../GOSim.js';
 import LensModel from './model/LensModel.js';
 import LensNode from './view/LensNode.js';
 import LensScreenView from './view/LensScreenView.js';
-import optionize from '../../../phet-core/js/optionize.js';
-import PickRequired from '../../../phet-core/js/types/PickRequired.js';
-import { GOSimOptions } from '../GOSim.js';
 
 type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 

@@ -8,17 +8,17 @@
  * @author Martin Veillette
  */
 
-import { HBox, Node } from '../../../../scenery/js/imports.js';
-import geometricOptics from '../../geometricOptics.js';
-import FocalLengthControl from './FocalLengthControl.js';
-import GOPreferences from '../model/GOPreferences.js';
-import RadiusOfCurvatureControl from './RadiusOfCurvatureControl.js';
-import Lens from '../../lens/model/Lens.js';
-import IndexOfRefractionControl from './IndexOfRefractionControl.js';
-import DiameterControl from './DiameterControl.js';
-import Optic from '../model/Optic.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import { HBox, Node } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import geometricOptics from '../../geometricOptics.js';
+import Lens from '../../lens/model/Lens.js';
+import GOPreferences from '../model/GOPreferences.js';
+import Optic from '../model/Optic.js';
+import DiameterControl from './DiameterControl.js';
+import FocalLengthControl from './FocalLengthControl.js';
+import IndexOfRefractionControl from './IndexOfRefractionControl.js';
+import RadiusOfCurvatureControl from './RadiusOfCurvatureControl.js';
 
 const X_SPACING = 15; // horizontal space between control
 const ALIGN = 'bottom'; // align bottoms of all NumberControls

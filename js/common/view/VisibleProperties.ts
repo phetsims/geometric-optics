@@ -10,12 +10,12 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
-import geometricOptics from '../../geometricOptics.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import Optic from '../model/Optic.js';
+import geometricOptics from '../../geometricOptics.js';
 import Mirror from '../../mirror/model/Mirror.js';
+import Optic from '../model/Optic.js';
 
 type VisiblePropertiesOptions = PickRequired<PhetioObjectOptions, 'tandem'>;
 

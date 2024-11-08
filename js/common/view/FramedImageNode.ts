@@ -7,17 +7,17 @@
  * @author Martin Veillette
  */
 
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Image, Node } from '../../../../scenery/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
-import Optic from '../model/Optic.js';
-import FramedImage from '../model/FramedImage.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import GOConstants from '../GOConstants.js';
-import OpticalImageNode, { OpticalImageNodeOptions } from './OpticalImageNode.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import FramedImage from '../model/FramedImage.js';
+import Optic from '../model/Optic.js';
 import FramedImageMaskNode from './FramedImageMaskNode.js';
+import OpticalImageNode, { OpticalImageNodeOptions } from './OpticalImageNode.js';
 
 type FramedImageNodeOptions = PickRequired<OpticalImageNodeOptions, 'tandem'>;
 
