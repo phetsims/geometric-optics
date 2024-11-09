@@ -1,4 +1,4 @@
-// Copyright 2022, University of Colorado Boulder
+// Copyright 2022-2024, University of Colorado Boulder
 
 /**
  * LightSceneNode is the view of the 'Light' scene, the scene that has light objects.

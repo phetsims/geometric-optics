@@ -1,4 +1,4 @@
-// Copyright 2022-2023, University of Colorado Boulder
+// Copyright 2022-2024, University of Colorado Boulder
 
 import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
 import DerivedStringProperty from '../../../../../axon/js/DerivedStringProperty.js';

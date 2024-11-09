@@ -1,4 +1,4 @@
-// Copyright 2021-2022, University of Colorado Boulder
+// Copyright 2021-2024, University of Colorado Boulder
 
 /**
  * RaysRadioButtonGroup is the radio button group labeled 'Rays', for choosing a representation of rays.

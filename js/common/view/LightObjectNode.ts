@@ -1,4 +1,4 @@
-// Copyright 2021-2022, University of Colorado Boulder
+// Copyright 2021-2024, University of Colorado Boulder
 
 /**
  * LightObjectNode is the view of a light object. It looks like a lamp with a bulb, pointing towards the right.

@@ -1,4 +1,4 @@
-// Copyright 2021-2023, University of Colorado Boulder
+// Copyright 2021-2024, University of Colorado Boulder
 
 /**
  * RadiusOfCurvatureControl is the control for changing the optic's ROC. It actually changes the ROC magnitude, and
