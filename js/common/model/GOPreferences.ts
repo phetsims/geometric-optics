@@ -7,12 +7,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import { FocalLengthModelType, FocalLengthModelTypeValues } from './FocalLengthModelType.js';
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 
 const GOPreferences = {
 

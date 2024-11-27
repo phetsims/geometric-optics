@@ -7,18 +7,18 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
-import Optic, { OpticOptions } from '../../common/model/Optic.js';
-import geometricOptics from '../../geometricOptics.js';
-import { OpticSurfaceType } from '../../common/model/OpticSurfaceType.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import MirrorShapes from './MirrorShapes.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
+import Optic, { OpticOptions } from '../../common/model/Optic.js';
+import { OpticSurfaceType } from '../../common/model/OpticSurfaceType.js';
+import geometricOptics from '../../geometricOptics.js';
 import { GOSimOptions } from '../../GOSim.js';
+import MirrorShapes from './MirrorShapes.js';
 
 // IOR is a fixed value for both the 'direct' and 'indirect' focal-length models.
 // Although a mirror does not have an IOR, its focal length is equivalent to a lens with an IOR of 2.

@@ -8,20 +8,20 @@
  * @author Martin Veillette
  */
 
-import geometricOptics from '../../geometricOptics.js';
-import Optic from './Optic.js';
-import FramedObject from './FramedObject.js';
-import FramedImage from './FramedImage.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import { RaysType } from './RaysType.js';
-import LightRays from './LightRays.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import OpticalObjectChoice from './OpticalObjectChoice.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import Lens from '../../lens/model/Lens.js';
-import SecondPoint from './SecondPoint.js';
-import GOScene, { GOSceneOptions } from './GOScene.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import geometricOptics from '../../geometricOptics.js';
+import Lens from '../../lens/model/Lens.js';
+import FramedImage from './FramedImage.js';
+import FramedObject from './FramedObject.js';
+import GOScene, { GOSceneOptions } from './GOScene.js';
+import LightRays from './LightRays.js';
+import Optic from './Optic.js';
+import OpticalObjectChoice from './OpticalObjectChoice.js';
+import { RaysType } from './RaysType.js';
+import SecondPoint from './SecondPoint.js';
 
 type SelfOptions = {
 

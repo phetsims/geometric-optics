@@ -7,14 +7,14 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import GOModel, { GOModelOptions } from '../../common/model/GOModel.js';
-import geometricOptics from '../../geometricOptics.js';
-import Mirror from './Mirror.js';
-import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { GOSimOptions } from '../../GOSim.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
+import GOModel, { GOModelOptions } from '../../common/model/GOModel.js';
+import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
+import geometricOptics from '../../geometricOptics.js';
+import { GOSimOptions } from '../../GOSim.js';
+import Mirror from './Mirror.js';
 
 type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 

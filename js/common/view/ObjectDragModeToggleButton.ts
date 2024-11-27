@@ -7,19 +7,19 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import geometricOptics from '../../geometricOptics.js';
+import Property from '../../../../axon/js/Property.js';
+import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
+import { AlignBox, AlignGroup, HBox, HBoxOptions, NodeTranslationOptions, Path } from '../../../../scenery/js/imports.js';
 import lockSolidShape from '../../../../sherpa/js/fontawesome-5/lockSolidShape.js';
 import unlockSolidShape from '../../../../sherpa/js/fontawesome-5/unlockSolidShape.js';
-import { AlignBox, AlignGroup, HBox, HBoxOptions, NodeTranslationOptions, Path } from '../../../../scenery/js/imports.js';
-import CueingArrowsNode from './CueingArrowsNode.js';
 import ButtonNode from '../../../../sun/js/buttons/ButtonNode.js';
-import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import { ObjectDragMode } from './ObjectDragMode.js';
-import ToggleNode from '../../../../sun/js/ToggleNode.js';
 import RectangularToggleButton, { RectangularToggleButtonOptions } from '../../../../sun/js/buttons/RectangularToggleButton.js';
-import Property from '../../../../axon/js/Property.js';
+import ToggleNode from '../../../../sun/js/ToggleNode.js';
+import geometricOptics from '../../geometricOptics.js';
+import CueingArrowsNode from './CueingArrowsNode.js';
+import { ObjectDragMode } from './ObjectDragMode.js';
 
 const ARROWS_SCALE = 0.65;
 const LOCK_SCALE = 0.045;

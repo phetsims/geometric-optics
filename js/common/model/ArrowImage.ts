@@ -6,12 +6,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import geometricOptics from '../../geometricOptics.js';
-import OpticalImage from './OpticalImage.js';
-import Optic from './Optic.js';
-import ArrowObject from './ArrowObject.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { TColor } from '../../../../scenery/js/imports.js';
+import geometricOptics from '../../geometricOptics.js';
+import ArrowObject from './ArrowObject.js';
+import Optic from './Optic.js';
+import OpticalImage from './OpticalImage.js';
 
 type ArrowImageOptions = PickRequired<OpticalImage, 'tandem' | 'phetioDocumentation'>;
 

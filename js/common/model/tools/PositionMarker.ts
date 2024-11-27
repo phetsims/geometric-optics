@@ -7,9 +7,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import geometricOptics from '../../../geometricOptics.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import { TColor } from '../../../../../scenery/js/imports.js';
+import geometricOptics from '../../../geometricOptics.js';
 import GOTool, { GOToolOptions } from './GOTool.js';
 
 type SelfOptions = {

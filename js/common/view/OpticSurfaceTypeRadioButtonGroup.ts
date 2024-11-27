@@ -7,19 +7,19 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import { NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 import RectangularRadioButtonGroup, { RectangularRadioButtonGroupOptions } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
+import { GOSimOptions } from '../../GOSim.js';
+import Lens from '../../lens/model/Lens.js';
+import LensNode from '../../lens/view/LensNode.js';
+import MirrorNode from '../../mirror/view/MirrorNode.js';
 import GOColors from '../GOColors.js';
 import Optic from '../model/Optic.js';
 import { OpticSurfaceType } from '../model/OpticSurfaceType.js';
-import Lens from '../../lens/model/Lens.js';
-import MirrorNode from '../../mirror/view/MirrorNode.js';
-import LensNode from '../../lens/view/LensNode.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import { NodeTranslationOptions } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import { GOSimOptions } from '../../GOSim.js';
 
 type SelfOptions = EmptySelfOptions;
 

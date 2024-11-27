@@ -7,8 +7,8 @@
  * @author Sarah Chang (Swarthmore College)
  */
 
-import geometricOptics from '../../../geometricOptics.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
+import geometricOptics from '../../../geometricOptics.js';
 import GOTool, { GOToolOptions } from './GOTool.js';
 
 type RulerOrientation = 'horizontal' | 'vertical';

@@ -14,11 +14,11 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import { RayIntersection } from '../../../../kite/js/imports.js';
 import geometricOptics from '../../geometricOptics.js';
 import Lens from '../../lens/model/Lens.js';
-import ProjectionScreen from './ProjectionScreen.js';
 import Mirror from '../../mirror/model/Mirror.js';
 import GOQueryParameters from '../GOQueryParameters.js';
-import Optic from './Optic.js';
 import GORay from './GORay.js';
+import Optic from './Optic.js';
+import ProjectionScreen from './ProjectionScreen.js';
 import { RaysType } from './RaysType.js';
 
 export type LightRaySegment = {

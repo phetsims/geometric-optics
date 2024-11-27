@@ -6,29 +6,29 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Disposable from '../../../../axon/js/Disposable.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import geometricOptics from '../../geometricOptics.js';
-import GOConstants from '../GOConstants.js';
-import Optic from './Optic.js';
-import { RaysType, RaysTypeValues } from './RaysType.js';
-import GORuler from './tools/GORuler.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import FramedScene from './FramedScene.js';
-import OpticalObjectChoice from './OpticalObjectChoice.js';
-import ArrowScene from './ArrowScene.js';
-import LightScene from './LightScene.js';
-import GOScene from './GOScene.js';
-import Lens from '../../lens/model/Lens.js';
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import TModel from '../../../../joist/js/TModel.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import PositionMarker from './tools/PositionMarker.js';
+import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import geometricOptics from '../../geometricOptics.js';
+import Lens from '../../lens/model/Lens.js';
 import GOColors from '../GOColors.js';
-import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
-import TModel from '../../../../joist/js/TModel.js';
+import GOConstants from '../GOConstants.js';
+import ArrowScene from './ArrowScene.js';
+import FramedScene from './FramedScene.js';
+import GOScene from './GOScene.js';
+import LightScene from './LightScene.js';
+import Optic from './Optic.js';
+import OpticalObjectChoice from './OpticalObjectChoice.js';
+import { RaysType, RaysTypeValues } from './RaysType.js';
+import GORuler from './tools/GORuler.js';
+import PositionMarker from './tools/PositionMarker.js';
 
 type SelfOptions = {
 

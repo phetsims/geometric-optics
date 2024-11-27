@@ -8,17 +8,17 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import geometricOptics from '../../geometricOptics.js';
 import Lens from '../../lens/model/Lens.js';
-import Optic from './Optic.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import OpticalImage, { OpticalImageOptions } from './OpticalImage.js';
-import FramedObject from './FramedObject.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import GOConstants from '../GOConstants.js';
-import NumberIO from '../../../../tandem/js/types/NumberIO.js';
+import FramedObject from './FramedObject.js';
+import Optic from './Optic.js';
+import OpticalImage, { OpticalImageOptions } from './OpticalImage.js';
 
 type FramedImageOptions = PickOptional<OpticalImageOptions, 'opticalObjectPositionProperty'> &
   PickRequired<OpticalImageOptions, 'tandem' | 'phetioDocumentation'>;

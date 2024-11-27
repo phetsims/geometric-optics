@@ -9,21 +9,21 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Multilink from '../../../../axon/js/Multilink.js';
+import stepTimer from '../../../../axon/js/stepTimer.js';
+import TProperty from '../../../../axon/js/TProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { DragListener, HighlightFromNode, Image, KeyboardDragListener, KeyboardDragListenerOptions, Node } from '../../../../scenery/js/imports.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import geometricOptics from '../../geometricOptics.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import GOConstants from '../GOConstants.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import HTMLImageElementObject from '../model/HTMLImageElementObject.js';
-import TProperty from '../../../../axon/js/TProperty.js';
-import stepTimer from '../../../../axon/js/stepTimer.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 import OpticalObjectNode, { OpticalObjectNodeOptions } from './OpticalObjectNode.js';
-import Multilink from '../../../../axon/js/Multilink.js';
-import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 export type HTMLImageElementObjectNodeOptions = OpticalObjectNodeOptions;
 

@@ -9,16 +9,16 @@
 
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
+import optionize from '../../../phet-core/js/optionize.js';
+import PickRequired from '../../../phet-core/js/types/PickRequired.js';
 import GOColors from '../common/GOColors.js';
+import { OpticSurfaceType } from '../common/model/OpticSurfaceType.js';
 import geometricOptics from '../geometricOptics.js';
 import GeometricOpticsStrings from '../GeometricOpticsStrings.js';
+import { GOSimOptions } from '../GOSim.js';
 import MirrorModel from './model/MirrorModel.js';
 import MirrorNode from './view/MirrorNode.js';
 import MirrorScreenView from './view/MirrorScreenView.js';
-import { OpticSurfaceType } from '../common/model/OpticSurfaceType.js';
-import optionize from '../../../phet-core/js/optionize.js';
-import PickRequired from '../../../phet-core/js/types/PickRequired.js';
-import { GOSimOptions } from '../GOSim.js';
 
 type SelfOptions = PickRequired<GOSimOptions, 'isBasicsVersion'>;
 

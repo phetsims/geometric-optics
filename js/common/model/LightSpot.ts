@@ -10,20 +10,20 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import Utils from '../../../../dot/js/Utils.js';
-import NumberIO from '../../../../tandem/js/types/NumberIO.js';
-import Optic from './Optic.js';
-import geometricOptics from '../../geometricOptics.js';
-import ProjectionScreen from './ProjectionScreen.js';
-import NullableIO from '../../../../tandem/js/types/NullableIO.js';
-import GOConstants from '../../common/GOConstants.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import Utils from '../../../../dot/js/Utils.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
+import NullableIO from '../../../../tandem/js/types/NullableIO.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
+import GOConstants from '../../common/GOConstants.js';
+import geometricOptics from '../../geometricOptics.js';
+import Optic from './Optic.js';
+import ProjectionScreen from './ProjectionScreen.js';
 
 type PositionAndDiameter = {
   position: Vector2; // position of the light spot's center, in the vertical plane of the projection screen

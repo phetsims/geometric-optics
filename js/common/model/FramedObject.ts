@@ -8,13 +8,13 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import geometricOptics from '../../geometricOptics.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import OpticalObjectChoice, { ObjectHTMLImageElements } from './OpticalObjectChoice.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import HTMLImageElementObject, { HTMLImageElementObjectOptions } from './HTMLImageElementObject.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import geometricOptics from '../../geometricOptics.js';
+import HTMLImageElementObject, { HTMLImageElementObjectOptions } from './HTMLImageElementObject.js';
+import OpticalObjectChoice, { ObjectHTMLImageElements } from './OpticalObjectChoice.js';
 
 // x should be 1/2 of PNG file width. y should be the tip of the pencil. +x right, +y down.
 const ORIGIN_OFFSET = new Vector2( 68.5, 100 );

@@ -12,18 +12,18 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import { TReadOnlyEmitter } from '../../../../axon/js/TEmitter.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import geometricOptics from '../../geometricOptics.js';
-import OpticalAxisNode, { OpticalAxisNodeOptions } from './OpticalAxisNode.js';
-import GOQueryParameters from '../GOQueryParameters.js';
-import { Node, Path } from '../../../../scenery/js/imports.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import { Node, Path } from '../../../../scenery/js/imports.js';
+import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
-import { TReadOnlyEmitter } from '../../../../axon/js/TEmitter.js';
+import GOQueryParameters from '../GOQueryParameters.js';
+import OpticalAxisNode, { OpticalAxisNodeOptions } from './OpticalAxisNode.js';
 
 type SelfOptions = EmptySelfOptions;
 

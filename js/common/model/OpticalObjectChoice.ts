@@ -6,32 +6,32 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import EnumerationValue from '../../../../phet-core/js/EnumerationValue.js';
-import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
-import pencilIcon_png from '../../../images/pencilIcon_png.js';
-import penguinIcon_png from '../../../images/penguinIcon_png.js';
-import lightIcon_png from '../../../images/lightIcon_png.js';
-import geometricOptics from '../../geometricOptics.js';
-import pencilRightFacingUpright_png from '../../../images/pencilRightFacingUpright_png.js';
-import pencilRightFacingInverted_png from '../../../images/pencilRightFacingInverted_png.js';
-import pencilLeftFacingUpright_png from '../../../images/pencilLeftFacingUpright_png.js';
-import pencilLeftFacingInverted_png from '../../../images/pencilLeftFacingInverted_png.js';
-import penguinRightFacingUpright_png from '../../../images/penguinRightFacingUpright_png.js';
-import penguinRightFacingInverted_png from '../../../images/penguinRightFacingInverted_png.js';
-import penguinLeftFacingUpright_png from '../../../images/penguinLeftFacingUpright_png.js';
-import penguinLeftFacingInverted_png from '../../../images/penguinLeftFacingInverted_png.js';
-import GOConstants from '../GOConstants.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 import { Node } from '../../../../scenery/js/imports.js';
-import GOColors from '../GOColors.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
-import starRightFacingUpright_png from '../../../images/starRightFacingUpright_png.js';
-import starRightFacingInverted_png from '../../../images/starRightFacingInverted_png.js';
-import starLeftFacingUpright_png from '../../../images/starLeftFacingUpright_png.js';
-import starLeftFacingInverted_png from '../../../images/starLeftFacingInverted_png.js';
+import lightIcon_png from '../../../images/lightIcon_png.js';
+import pencilIcon_png from '../../../images/pencilIcon_png.js';
+import pencilLeftFacingInverted_png from '../../../images/pencilLeftFacingInverted_png.js';
+import pencilLeftFacingUpright_png from '../../../images/pencilLeftFacingUpright_png.js';
+import pencilRightFacingInverted_png from '../../../images/pencilRightFacingInverted_png.js';
+import pencilRightFacingUpright_png from '../../../images/pencilRightFacingUpright_png.js';
+import penguinIcon_png from '../../../images/penguinIcon_png.js';
+import penguinLeftFacingInverted_png from '../../../images/penguinLeftFacingInverted_png.js';
+import penguinLeftFacingUpright_png from '../../../images/penguinLeftFacingUpright_png.js';
+import penguinRightFacingInverted_png from '../../../images/penguinRightFacingInverted_png.js';
+import penguinRightFacingUpright_png from '../../../images/penguinRightFacingUpright_png.js';
 import starIcon_png from '../../../images/starIcon_png.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import starLeftFacingInverted_png from '../../../images/starLeftFacingInverted_png.js';
+import starLeftFacingUpright_png from '../../../images/starLeftFacingUpright_png.js';
+import starRightFacingInverted_png from '../../../images/starRightFacingInverted_png.js';
+import starRightFacingUpright_png from '../../../images/starRightFacingUpright_png.js';
+import geometricOptics from '../../geometricOptics.js';
+import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
+import GOColors from '../GOColors.js';
+import GOConstants from '../GOConstants.js';
 
 // Identifies the general type of optical object for a choice in the combo box. I'd prefer not to have this addition
 // type baggage, but it's symptomatic of the fact that we have 3 scenes and 5 choices (3 of which map to the same scene).

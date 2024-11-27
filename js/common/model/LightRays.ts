@@ -10,18 +10,18 @@
 
 import Disposable from '../../../../axon/js/Disposable.js';
 import Emitter from '../../../../axon/js/Emitter.js';
+import Multilink from '../../../../axon/js/Multilink.js';
+import TEmitter from '../../../../axon/js/TEmitter.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import geometricOptics from '../../geometricOptics.js';
 import LightRay, { LightRaySegment } from './LightRay.js';
 import Optic from './Optic.js';
-import { RaysType } from './RaysType.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import ProjectionScreen from './ProjectionScreen.js';
-import Utils from '../../../../dot/js/Utils.js';
 import OpticalImage from './OpticalImage.js';
-import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import Multilink from '../../../../axon/js/Multilink.js';
-import TEmitter from '../../../../axon/js/TEmitter.js';
+import ProjectionScreen from './ProjectionScreen.js';
+import { RaysType } from './RaysType.js';
 
 // constants related to 'Many' rays representation, see https://github.com/phetsims/geometric-optics/issues/289
 const MANY_MIN_RAYS = 20;

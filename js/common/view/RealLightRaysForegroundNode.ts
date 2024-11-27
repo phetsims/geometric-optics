@@ -8,18 +8,18 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import RealLightRaysNode, { RealLightRaysNodeOptions } from './RealLightRaysNode.js';
-import geometricOptics from '../../geometricOptics.js';
-import LightRays from '../model/LightRays.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import GOQueryParameters from '../GOQueryParameters.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import { Path } from '../../../../scenery/js/imports.js';
-import { OpticalImageType } from '../model/OpticalImageType.js';
 import { EmptySelfOptions, optionize3 } from '../../../../phet-core/js/optionize.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import { Path } from '../../../../scenery/js/imports.js';
+import geometricOptics from '../../geometricOptics.js';
+import GOQueryParameters from '../GOQueryParameters.js';
+import LightRays from '../model/LightRays.js';
+import { OpticalImageType } from '../model/OpticalImageType.js';
+import RealLightRaysNode, { RealLightRaysNodeOptions } from './RealLightRaysNode.js';
 
 type SelfOptions = EmptySelfOptions;
 

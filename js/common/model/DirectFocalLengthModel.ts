@@ -8,18 +8,18 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { OpticSurfaceType } from './OpticSurfaceType.js';
-import FocalLengthModel from './FocalLengthModel.js';
-import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
-import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import geometricOptics from '../../geometricOptics.js';
-import NumberIO from '../../../../tandem/js/types/NumberIO.js';
-import GOPreferences from './GOPreferences.js';
+import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
+import geometricOptics from '../../geometricOptics.js';
+import FocalLengthModel from './FocalLengthModel.js';
+import GOPreferences from './GOPreferences.js';
+import { OpticSurfaceType } from './OpticSurfaceType.js';
 
 type SelfOptions = {
   focalLengthMagnitudeRange: RangeWithValue;

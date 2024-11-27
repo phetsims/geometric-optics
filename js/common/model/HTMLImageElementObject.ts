@@ -9,14 +9,14 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import geometricOptics from '../../geometricOptics.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import OpticalObject, { OpticalObjectOptions } from './OpticalObject.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import geometricOptics from '../../geometricOptics.js';
+import OpticalObject, { OpticalObjectOptions } from './OpticalObject.js';
 
 export type HTMLImageElementObjectOptions = PickRequired<OpticalObjectOptions, 'position' | 'tandem'>
   & PickOptional<OpticalObjectOptions, 'phetioDocumentation'>;

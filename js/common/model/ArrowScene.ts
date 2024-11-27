@@ -6,18 +6,18 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import geometricOptics from '../../geometricOptics.js';
-import Optic from './Optic.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import { RaysType } from './RaysType.js';
-import LightRays from './LightRays.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import Lens from '../../lens/model/Lens.js';
-import ArrowObject from './ArrowObject.js';
-import ArrowImage from './ArrowImage.js';
-import GOColors from '../GOColors.js';
-import GOScene, { GOSceneOptions } from './GOScene.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import geometricOptics from '../../geometricOptics.js';
+import Lens from '../../lens/model/Lens.js';
+import GOColors from '../GOColors.js';
+import ArrowImage from './ArrowImage.js';
+import ArrowObject from './ArrowObject.js';
+import GOScene, { GOSceneOptions } from './GOScene.js';
+import LightRays from './LightRays.js';
+import Optic from './Optic.js';
+import { RaysType } from './RaysType.js';
 
 type SelfOptions = {
 
