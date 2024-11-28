@@ -1,4 +1,4 @@
-// Copyright 2022, University of Colorado Boulder
+// Copyright 2022-2024, University of Colorado Boulder
 
 /**
  * RealLightRaysForegroundNode is a subclass of RealLightRaysNode that (using clipArea) renders the parts of RealLightRaysNode

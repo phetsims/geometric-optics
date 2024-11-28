@@ -1,4 +1,4 @@
-// Copyright 2022, University of Colorado Boulder
+// Copyright 2022-2024, University of Colorado Boulder
 
 /**
  * HTMLImageElementObject is the base-class model for all optical objects that use an HTMLImageElement for their

@@ -1,4 +1,4 @@
-// Copyright 2021-2022, University of Colorado Boulder
+// Copyright 2021-2024, University of Colorado Boulder
 
 /**
  * FramedObject is the model for the "framed objects". These are objects in a picture frame, with 3D perspective.

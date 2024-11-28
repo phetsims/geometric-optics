@@ -1,4 +1,4 @@
-// Copyright 2022, University of Colorado Boulder
+// Copyright 2022-2024, University of Colorado Boulder
 
 /**
  * LightObject is an optical object that is a point light source.
