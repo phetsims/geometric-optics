@@ -83,7 +83,10 @@ export default class VisibleProperties {
     // See https://github.com/phetsims/geometric-optics/issues/456
     const guidesVisiblePropertyOptions = isMirror ?
       { validValues: [ false ] } :
-      { tandem: providedOptions.tandem.createTandem( 'guidesVisibleProperty' ) };
+      {
+        tandem: providedOptions.tandem.createTandem( 'guidesVisibleProperty' ),
+        phetioFeatured: true
+      };
     this.guidesVisibleProperty = new BooleanProperty( false, guidesVisiblePropertyOptions );
 
     this.opticalAxisVisibleProperty = new BooleanProperty( true, {
