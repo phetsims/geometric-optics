@@ -68,14 +68,18 @@ export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       // Focal Points (F)
       createItem( GeometricOpticsStrings.checkbox.focalPointsStringProperty, visibleProperties.focalPointsVisibleProperty, {
         iconNode: FocalPointNode.createIcon(),
-        tandemName: 'focalPointsCheckbox'
+        tandemName: 'focalPointsCheckbox',
+        options: {
+          phetioDisplayOnlyPropertyInstrumented: true
+        }
       } ),
 
       // 2F Points
       createItem( GeometricOpticsStrings.checkbox.twoFPointsStringProperty, visibleProperties.twoFPointsVisibleProperty, {
         iconNode: TwoFPointNode.createIcon(),
         options: {
-          visibleProperty: GOPreferences.add2FPointsCheckboxProperty
+          visibleProperty: GOPreferences.add2FPointsCheckboxProperty,
+          phetioDisplayOnlyPropertyInstrumented: true
         },
         tandemName: 'twoFPointsCheckbox'
       } )
@@ -111,7 +115,8 @@ export default class VisibilityCheckboxGroup extends VerticalCheckboxGroup {
       createItem( GeometricOpticsStrings.checkbox.secondPointStringProperty, visibleProperties.secondPointVisibleProperty, {
         iconNode: SecondPointNode.createIcon(),
         options: {
-          visible: !options.isBasicsVersion // 'Second Point' checkbox is hidden in the Basics version
+          visible: !options.isBasicsVersion, // 'Second Point' checkbox is hidden in the Basics version
+          phetioDisplayOnlyPropertyInstrumented: true
         },
         tandemName: 'secondPointCheckbox'
       } )
