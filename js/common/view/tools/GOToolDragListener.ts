@@ -13,7 +13,7 @@ import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optioni
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { DragListener, DragListenerOptions, PressedDragListener } from '../../../../../scenery/js/imports.js';
+import DragListener, { DragListenerOptions, PressedDragListener } from '../../../../../scenery/js/listeners/DragListener.js';
 import geometricOptics from '../../../geometricOptics.js';
 import GOTool from '../../model/tools/GOTool.js';
 import GOToolNode from './GOToolNode.js';

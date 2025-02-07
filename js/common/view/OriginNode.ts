@@ -6,7 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { Circle } from '../../../../scenery/js/imports.js';
+import Circle from '../../../../scenery/js/nodes/Circle.js';
 import geometricOptics from '../../geometricOptics.js';
 
 export default class OriginNode extends Circle {

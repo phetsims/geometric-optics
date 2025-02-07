@@ -7,7 +7,7 @@
  */
 
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { TColor } from '../../../../scenery/js/imports.js';
+import TColor from '../../../../scenery/js/util/TColor.js';
 import geometricOptics from '../../geometricOptics.js';
 import ArrowObject from './ArrowObject.js';
 import Optic from './Optic.js';

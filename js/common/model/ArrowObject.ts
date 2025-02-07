@@ -9,7 +9,7 @@
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { TColor } from '../../../../scenery/js/imports.js';
+import TColor from '../../../../scenery/js/util/TColor.js';
 import geometricOptics from '../../geometricOptics.js';
 import OpticalObject, { OpticalObjectOptions } from './OpticalObject.js';
 

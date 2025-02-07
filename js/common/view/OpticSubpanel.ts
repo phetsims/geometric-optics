@@ -9,7 +9,8 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import { HBox, Node } from '../../../../scenery/js/imports.js';
+import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../geometricOptics.js';
 import Lens from '../../lens/model/Lens.js';

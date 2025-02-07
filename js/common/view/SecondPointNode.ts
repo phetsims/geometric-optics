@@ -8,12 +8,18 @@
  */
 
 import TProperty from '../../../../axon/js/TProperty.js';
-import { Shape } from '../../../../kite/js/imports.js';
+import Shape from '../../../../kite/js/Shape.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
-import { Circle, DragListener, HighlightFromNode, InteractiveHighlighting, KeyboardDragListener, KeyboardDragListenerOptions, Node, NodeOptions, VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
+import HighlightFromNode from '../../../../scenery/js/accessibility/HighlightFromNode.js';
+import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
+import VBox, { VBoxOptions } from '../../../../scenery/js/layout/nodes/VBox.js';
+import DragListener from '../../../../scenery/js/listeners/DragListener.js';
+import KeyboardDragListener, { KeyboardDragListenerOptions } from '../../../../scenery/js/listeners/KeyboardDragListener.js';
+import Circle from '../../../../scenery/js/nodes/Circle.js';
+import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import GOConstants from '../GOConstants.js';

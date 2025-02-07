@@ -13,7 +13,7 @@ import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { DragListener } from '../../../../../scenery/js/imports.js';
+import DragListener from '../../../../../scenery/js/listeners/DragListener.js';
 import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 import geometricOptics from '../../../geometricOptics.js';
 import PositionMarker from '../../model/tools/PositionMarker.js';

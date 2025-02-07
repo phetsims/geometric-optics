@@ -20,7 +20,7 @@ import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optioni
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import PhetFont from '../../../../../scenery-phet/js/PhetFont.js';
 import RulerNode from '../../../../../scenery-phet/js/RulerNode.js';
-import { DragListener } from '../../../../../scenery/js/imports.js';
+import DragListener from '../../../../../scenery/js/listeners/DragListener.js';
 import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import geometricOptics from '../../../geometricOptics.js';

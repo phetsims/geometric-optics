@@ -11,7 +11,7 @@ import Property from '../../../../axon/js/Property.js';
 import PreferencesDialog from '../../../../joist/js/preferences/PreferencesDialog.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { Text } from '../../../../scenery/js/imports.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
 import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
 import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';

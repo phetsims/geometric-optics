@@ -8,7 +8,8 @@
  */
 
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Node, TColor } from '../../../../scenery/js/imports.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import TColor from '../../../../scenery/js/util/TColor.js';
 import geometricOptics from '../../geometricOptics.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import LightRays from '../model/LightRays.js';

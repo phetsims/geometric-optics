@@ -9,7 +9,10 @@
 
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
-import { DragListener, InteractiveHighlighting, Node, NodeOptions, PressListenerEvent } from '../../../../../scenery/js/imports.js';
+import InteractiveHighlighting from '../../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
+import DragListener from '../../../../../scenery/js/listeners/DragListener.js';
+import { PressListenerEvent } from '../../../../../scenery/js/listeners/PressListener.js';
+import Node, { NodeOptions } from '../../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../../geometricOptics.js';
 import GOTool from '../../model/tools/GOTool.js';
 import GOToolNode from './GOToolNode.js';

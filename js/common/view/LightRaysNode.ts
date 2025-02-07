@@ -10,7 +10,8 @@
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Line, LineOptions, Node, NodeOptions } from '../../../../scenery/js/imports.js';
+import Line, { LineOptions } from '../../../../scenery/js/nodes/Line.js';
+import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../geometricOptics.js';
 import { LightRaySegment } from '../model/LightRay.js';
 import LightRays from '../model/LightRays.js';

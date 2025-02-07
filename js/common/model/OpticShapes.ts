@@ -8,7 +8,7 @@
  * @author Martin Veillette
  */
 
-import { Shape } from '../../../../kite/js/imports.js';
+import Shape from '../../../../kite/js/Shape.js';
 
 type OpticShapes = {
 

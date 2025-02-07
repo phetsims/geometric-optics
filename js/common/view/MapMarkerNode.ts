@@ -8,7 +8,8 @@
 
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { Node, NodeOptions, Path, PathOptions } from '../../../../scenery/js/imports.js';
+import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
+import Path, { PathOptions } from '../../../../scenery/js/nodes/Path.js';
 import mapMarkerAltSolidShape from '../../../../sherpa/js/fontawesome-5/mapMarkerAltSolidShape.js';
 import geometricOptics from '../../geometricOptics.js';
 

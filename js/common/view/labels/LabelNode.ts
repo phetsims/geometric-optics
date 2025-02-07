@@ -15,7 +15,7 @@ import optionize from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import BackgroundNode, { BackgroundNodeOptions } from '../../../../../scenery-phet/js/BackgroundNode.js';
-import { RichText } from '../../../../../scenery/js/imports.js';
+import RichText from '../../../../../scenery/js/nodes/RichText.js';
 import geometricOptics from '../../../geometricOptics.js';
 import GOColors from '../../GOColors.js';
 import GOConstants from '../../GOConstants.js';

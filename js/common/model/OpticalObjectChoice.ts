@@ -11,7 +11,7 @@ import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import EnumerationValue from '../../../../phet-core/js/EnumerationValue.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import lightIcon_png from '../../../images/lightIcon_png.js';
 import pencilIcon_png from '../../../images/pencilIcon_png.js';
 import pencilLeftFacingInverted_png from '../../../images/pencilLeftFacingInverted_png.js';

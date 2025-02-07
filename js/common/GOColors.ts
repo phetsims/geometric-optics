@@ -10,7 +10,8 @@
 
 import PhetColorScheme from '../../../scenery-phet/js/PhetColorScheme.js';
 import RulerNode from '../../../scenery-phet/js/RulerNode.js';
-import { Color, ProfileColorProperty } from '../../../scenery/js/imports.js';
+import Color from '../../../scenery/js/util/Color.js';
+import ProfileColorProperty from '../../../scenery/js/util/ProfileColorProperty.js';
 import geometricOptics from '../geometricOptics.js';
 
 const SECOND_OBJECT_COLOR = PhetColorScheme.RED_COLORBLIND; // BEWARE: If you change this, you should update light2.png.

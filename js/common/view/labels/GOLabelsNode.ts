@@ -15,7 +15,7 @@ import Vector2 from '../../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { Node, NodeOptions } from '../../../../../scenery/js/imports.js';
+import Node, { NodeOptions } from '../../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../../geometricOptics.js';
 import GeometricOpticsStrings from '../../../GeometricOpticsStrings.js';
 import GOSceneNode from '../GOSceneNode.js';

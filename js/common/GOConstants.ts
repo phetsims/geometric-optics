@@ -13,7 +13,7 @@ import { CreditsData } from '../../../joist/js/CreditsNode.js';
 import { ArrowNodeOptions } from '../../../scenery-phet/js/ArrowNode.js';
 import NumberControl, { NumberControlOptions } from '../../../scenery-phet/js/NumberControl.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
-import { KeyboardDragListenerOptions } from '../../../scenery/js/imports.js';
+import { KeyboardDragListenerOptions } from '../../../scenery/js/listeners/KeyboardDragListener.js';
 import geometricOptics from '../geometricOptics.js';
 
 const CONTROL_FONT = new PhetFont( 14 );
