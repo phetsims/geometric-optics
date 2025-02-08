@@ -1,4 +1,4 @@
-// Copyright 2021-2024, University of Colorado Boulder
+// Copyright 2021-2025, University of Colorado Boulder
 
 /**
  * GOLabelsNode is the base class for labeling things in a scene, supporting the "Labels" feature.

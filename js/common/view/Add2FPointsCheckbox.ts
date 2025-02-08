@@ -1,4 +1,4 @@
-// Copyright 2022, University of Colorado Boulder
+// Copyright 2022-2025, University of Colorado Boulder
 
 /**
  * Add2FPointsCheckbox is the "Add 2F Points checkbox" checkbox that appears in the Preferences dialog.

@@ -1,4 +1,4 @@
-// Copyright 2021-2024, University of Colorado Boulder
+// Copyright 2021-2025, University of Colorado Boulder
 
 /**
  * TwoFPointNode is the 2F point, whose distance from the optical is twice the focal length (f).

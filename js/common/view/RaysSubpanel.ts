@@ -1,4 +1,4 @@
-// Copyright 2022-2023, University of Colorado Boulder
+// Copyright 2022-2025, University of Colorado Boulder
 
 /**
  * RaysSubpanel is a subpanel of the main control panel. It has a 'Rays' title above a set of vertical radio buttons.

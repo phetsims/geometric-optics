@@ -1,4 +1,4 @@
-// Copyright 2021-2024, University of Colorado Boulder
+// Copyright 2021-2025, University of Colorado Boulder
 
 /**
  * LightRay is the model of a single light ray, and creates the LightRaySegments that describe that light ray.

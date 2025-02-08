@@ -1,4 +1,4 @@
-// Copyright 2021-2024, University of Colorado Boulder
+// Copyright 2021-2025, University of Colorado Boulder
 
 /**
  * LabelNode renders a label below something of interest in the user interface. It is responsible for adjusting its

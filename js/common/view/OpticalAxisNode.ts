@@ -1,4 +1,4 @@
-// Copyright 2021-2024, University of Colorado Boulder
+// Copyright 2021-2025, University of Colorado Boulder
 
 /**
  * OpticalAxisNode is the horizontal line that passes through the geometric center of a lens or mirror.

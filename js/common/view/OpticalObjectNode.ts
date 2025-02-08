@@ -1,4 +1,4 @@
-// Copyright 2022-2024, University of Colorado Boulder
+// Copyright 2022-2025, University of Colorado Boulder
 
 /**
  * OpticalObjectNode is the view base class for all optical objects.  It's primary responsibility is for cueing arrows,

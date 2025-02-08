@@ -1,4 +1,4 @@
-// Copyright 2022, University of Colorado Boulder
+// Copyright 2022-2025, University of Colorado Boulder
 
 /**
  * MapMarkerNode is the FontAwesome 'map marker' icon. It is re-purposed for position markers in this sim.

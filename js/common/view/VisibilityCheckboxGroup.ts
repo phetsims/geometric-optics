@@ -1,4 +1,4 @@
-// Copyright 2021-2024, University of Colorado Boulder
+// Copyright 2021-2025, University of Colorado Boulder
 
 /**
  * VisibilityCheckboxGroup is a group of checkboxes for controlling visibility of things in the user interface.

@@ -1,4 +1,4 @@
-// Copyright 2021-2022, University of Colorado Boulder
+// Copyright 2021-2025, University of Colorado Boulder
 
 /**
  * LensShapes is the set of Shapes that describe a lens. All Shapes are in model coordinates.

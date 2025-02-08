@@ -1,4 +1,4 @@
-// Copyright 2021-2024, University of Colorado Boulder
+// Copyright 2021-2025, University of Colorado Boulder
 
 /**
  * OpticShapes identifies the Shapes that must be implemented by all optics. Shapes are specified in model coordinates.

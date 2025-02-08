@@ -1,4 +1,4 @@
-// Copyright 2022-2024, University of Colorado Boulder
+// Copyright 2022-2025, University of Colorado Boulder
 
 /**
  * PositionMarkerNode is the view of a position marker. It can be dragged in/out of the toolbox, and
