@@ -9,7 +9,7 @@
 
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import PreferencesDialog from '../../../../joist/js/preferences/PreferencesDialog.js';
+import PreferencesDialogConstants from '../../../../joist/js/preferences/PreferencesDialogConstants.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
@@ -51,7 +51,7 @@ export default class FocalLengthModelTypeControl extends VBox {
     super( options );
 
     const labelText = new Text( GeometricOpticsStrings.focalLengthControlStringProperty, {
-      font: PreferencesDialog.CONTENT_FONT,
+      font: PreferencesDialogConstants.CONTENT_FONT,
       tandem: options.tandem.createTandem( 'labelText' )
     } );
 
@@ -125,7 +125,7 @@ function createItem( value: FocalLengthModelType,
   return {
     value: value,
     createNode: tandem => new Text( labelStringProperty, {
-      font: PreferencesDialog.CONTENT_FONT,
+      font: PreferencesDialogConstants.CONTENT_FONT,
       maxWidth: 500,
       tandem: tandem.createTandem( 'labelText' )
     } ),
