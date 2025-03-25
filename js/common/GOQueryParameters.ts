@@ -10,6 +10,7 @@
 
 import RangeWithValue from '../../../dot/js/RangeWithValue.js';
 import logGlobal from '../../../phet-core/js/logGlobal.js';
+import { QueryStringMachine } from '../../../query-string-machine/js/QueryStringMachineModule.js';
 import geometricOptics from '../geometricOptics.js';
 import { FocalLengthModelTypeValues } from './model/FocalLengthModelType.js';
 
