@@ -14,7 +14,23 @@ import { QueryStringMachine } from '../../../query-string-machine/js/QueryString
 import geometricOptics from '../geometricOptics.js';
 import { FocalLengthModelTypeValues } from './model/FocalLengthModelType.js';
 
-const SCHEMA_MAP = {
+/**
+ * Parses a query-parameter value into a RangeWithValue.
+ */
+function parseRangeWithValue( value: string ): RangeWithValue {
+  const tokens = value.split( ',' );
+  assert && assert( tokens.length === 3, `bad query-parameter value, range format is min,max,initial: ${value}` );
+  assert && assert( _.every( tokens, ( token: number ) => isFinite( token ) ), `range must be 3 numbers: ${value}` );
+  const numbers = _.map( tokens, token => parseFloat( token ) );
+  return new RangeWithValue( numbers[ 0 ], numbers[ 1 ], numbers[ 2 ] );
+}
+
+function isPositiveIntegerRangeWithValue( range: RangeWithValue ): boolean {
+  return Number.isInteger( range.min ) && ( range.min > 0 ) &&
+         Number.isInteger( range.max ) && Number.isInteger( range.defaultValue );
+}
+
+const GOQueryParameters = QueryStringMachine.getAll( {
 
   //----------------------------------------------------------------------------------------------------------------
   // Public-facing query parameters
@@ -189,26 +205,7 @@ const SCHEMA_MAP = {
   debugLightSpots: {
     type: 'flag'
   }
-} as const;
-
-/**
- * Parses a query-parameter value into a RangeWithValue.
- */
-function parseRangeWithValue( value: string ): RangeWithValue {
-  const tokens = value.split( ',' );
-  assert && assert( tokens.length === 3, `bad query-parameter value, range format is min,max,initial: ${value}` );
-  assert && assert( _.every( tokens, ( token: number ) => isFinite( token ) ), `range must be 3 numbers: ${value}` );
-  const numbers = _.map( tokens, token => parseFloat( token ) );
-  return new RangeWithValue( numbers[ 0 ], numbers[ 1 ], numbers[ 2 ] );
-}
-
-function isPositiveIntegerRangeWithValue( range: RangeWithValue ): boolean {
-  return Number.isInteger( range.min ) && ( range.min > 0 ) &&
-         Number.isInteger( range.max ) && Number.isInteger( range.defaultValue );
-}
-
-const GOQueryParameters = QueryStringMachine.getAll( SCHEMA_MAP );
-GOQueryParameters.SCHEMA_MAP = SCHEMA_MAP;
+} );
 
 geometricOptics.register( 'GOQueryParameters', GOQueryParameters );
 
