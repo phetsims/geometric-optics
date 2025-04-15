@@ -10,8 +10,7 @@
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import InteractiveHighlighting from '../../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
-import DragListener from '../../../../../scenery/js/listeners/DragListener.js';
-import { PressListenerEvent } from '../../../../../scenery/js/listeners/PressListener.js';
+import RichDragListener from '../../../../../scenery/js/listeners/RichDragListener.js';
 import Node, { NodeOptions } from '../../../../../scenery/js/nodes/Node.js';
 import geometricOptics from '../../../geometricOptics.js';
 import GOTool from '../../model/tools/GOTool.js';
@@ -66,27 +65,25 @@ export default abstract class GOToolIcon extends InteractiveHighlighting( Node )
       this.visible = isInToolbox;
     } );
 
-    // Dragging with mouse/touch. Drag events are forwarded from the icon to its associated tool Node.
-    this.addInputListener( DragListener.createForwardingListener( ( event: PressListenerEvent ) => {
+    this.addInputListener( RichDragListener.createForwardingListener( toolNode, event => {
 
       // Take the tool out of the toolbox.
       tool.isInToolboxProperty.value = false;
 
-      // Set the position of the tool.
-      tool.positionProperty.value = pointerPositionToToolPosition( event.pointer.point );
+      if ( event.isFromPDOM() ) {
 
-      // Forward the event to toolNode.
-      toolNode.startDrag( event );
-    } ) );
-
-    // When the icon is clicked via the keyboard, take the tool out of the toolbox, and place it at the model origin.
-    this.addInputListener( {
-      click: () => {
-        tool.isInToolboxProperty.value = false;
+        // Set the position of the tool.
         tool.positionProperty.value = Vector2.ZERO;
-        toolNode.focus();
       }
-    } );
+      else {
+
+        // Set the position of the tool.
+        tool.positionProperty.value = pointerPositionToToolPosition( event.pointer.point );
+
+        // Forward the event to toolNode DragListener.
+        toolNode.startDrag( event );
+      }
+    } ) );
   }
 }
 
