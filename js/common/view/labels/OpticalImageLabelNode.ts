@@ -1,5 +1,13 @@
 // Copyright 2022-2024, University of Colorado Boulder
 
+/**
+ * OpticalImageLabelNode is the base class of labeling optical images, and distinguishes between real and virtual.
+ * It can label them as simply 'Real Image', or it can number them like 'Real Image 1'.
+ * Numbering is dynamic to support PhET-iO.
+ *
+ * @author Chris Malley (PixelZoom, Inc.)
+ */
+
 import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
 import DerivedStringProperty from '../../../../../axon/js/DerivedStringProperty.js';
 import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
@@ -10,13 +18,7 @@ import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTran
 import geometricOptics from '../../../geometricOptics.js';
 import GeometricOpticsStrings from '../../../GeometricOpticsStrings.js';
 import OpticalImage from '../../model/OpticalImage.js';
-/**
- * OpticalImageLabelNode is the base class of labeling optical images, and distinguishes between real and virtual.
- * It can label them as simply 'Real Image', or it can number them like 'Real Image 1'.
- * Numbering is dynamic to support PhET-iO.
- *
- * @author Chris Malley (PixelZoom, Inc.)
- */
+
 import LabelNode, { LabelNodeOptions } from './LabelNode.js';
 
 type SelfOptions = {
