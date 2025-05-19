@@ -33,7 +33,7 @@ For an exemplar, see https://github.com/phetsims/balancing-chemical-equations/bl
 
 ### New Features
 * Alternative Input
-* UI Sound
+* UI Sounds
 * Preferences
 * Dynamic locale: see _Preferences > Localization_
 * PhET-iO
