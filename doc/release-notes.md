@@ -38,6 +38,8 @@ For an exemplar, see https://github.com/phetsims/balancing-chemical-equations/bl
 * Dynamic locale: see _Preferences > Localization_
 * PhET-iO
 
+## 1.2 (skipped, see https://github.com/phetsims/geometric-optics/issues/278#issuecomment-1295493111)
+
 ## 1.1 (2022-04-06)
 
 ### New Features
