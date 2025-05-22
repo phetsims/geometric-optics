@@ -33,6 +33,7 @@ For an exemplar, see https://github.com/phetsims/balancing-chemical-equations/bl
 
 ### New Features
 * Alternative Input
+* Interactive Highlights
 * UI Sounds
 * Preferences
 * Dynamic locale: see _Preferences > Localization_
