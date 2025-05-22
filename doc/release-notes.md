@@ -36,7 +36,7 @@ For an exemplar, see https://github.com/phetsims/balancing-chemical-equations/bl
 * Interactive Highlights
 * UI Sounds
 * Preferences
-* Dynamic locale: see _Preferences > Localization_
+* Dynamic locale: see _Preferences > Localization > Languages_
 * PhET-iO
 
 ## 1.2 (skipped, see https://github.com/phetsims/geometric-optics/issues/278#issuecomment-1295493111)
