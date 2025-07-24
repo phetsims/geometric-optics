@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import { EmptySelfOptions, optionize4 } from '../../../../../phet-core/js/optionize.js';
@@ -85,13 +84,13 @@ export default class GOToolKeyboardDragListener extends KeyboardDragListener {
   }
 
   public static readonly RETURN_TO_TOOLBOX_HOTKEY_DATA = new HotkeyData( {
-    keyStringProperties: [ new Property( 'escape' ) ],
+    keys: [ 'escape' ],
     repoName: geometricOptics.name,
     keyboardHelpDialogLabelStringProperty: GeometricOpticsStrings.keyboardHelpDialog.returnToToolboxStringProperty
   } );
 
   public static readonly JUMP_TO_POINT_HOTKEY_DATA = new HotkeyData( {
-    keyStringProperties: [ new Property( 'j' ) ],
+    keys: [ 'j' ],
     repoName: geometricOptics.name,
     keyboardHelpDialogLabelStringProperty: GeometricOpticsStrings.keyboardHelpDialog.jumpToPointStringProperty
   } );
