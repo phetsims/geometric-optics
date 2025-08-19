@@ -32,8 +32,7 @@ export default class LensScreen extends Screen<LensModel, LensScreenView> {
       // Screen options
       name: GeometricOpticsStrings.screen.lensStringProperty,
       homeScreenIcon: createScreenIcon(),
-      backgroundColorProperty: GOColors.screenBackgroundColorProperty,
-      isDisposable: false
+      backgroundColorProperty: GOColors.screenBackgroundColorProperty
     }, providedOptions );
 
     super(

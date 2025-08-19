@@ -33,8 +33,7 @@ export default class MirrorScreen extends Screen<MirrorModel, MirrorScreenView> 
       // Screen options
       name: GeometricOpticsStrings.screen.mirrorStringProperty,
       homeScreenIcon: createScreenIcon( providedOptions.isBasicsVersion ? 'flat' : 'concave' ),
-      backgroundColorProperty: GOColors.screenBackgroundColorProperty,
-      isDisposable: false
+      backgroundColorProperty: GOColors.screenBackgroundColorProperty
     }, providedOptions );
 
     super(
