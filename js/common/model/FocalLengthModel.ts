@@ -1,4 +1,4 @@
-// Copyright 2022, University of Colorado Boulder
+// Copyright 2022-2025, University of Colorado Boulder
 
 /**
  * FocalLengthModel is the type that models of focal length must implement.

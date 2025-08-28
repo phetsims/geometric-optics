@@ -1,4 +1,4 @@
-// Copyright 2022-2024, University of Colorado Boulder
+// Copyright 2022-2025, University of Colorado Boulder
 
 /**
  * FramedSceneNode is the view of the 'Framed' scene, which has a framed object and image.

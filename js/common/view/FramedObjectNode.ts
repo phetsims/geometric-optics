@@ -1,4 +1,4 @@
-// Copyright 2021-2024, University of Colorado Boulder
+// Copyright 2021-2025, University of Colorado Boulder
 
 /**
  * FramedObjectNode is the view of a framed object, an object in a picture frame, with 3D perspective.

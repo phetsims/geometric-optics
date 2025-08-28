@@ -1,4 +1,4 @@
-// Copyright 2021-2023, University of Colorado Boulder
+// Copyright 2021-2025, University of Colorado Boulder
 
 /**
  * GORulerIcon is a ruler icon that appears in the toolbox. It is associated with a specific ruler Node,

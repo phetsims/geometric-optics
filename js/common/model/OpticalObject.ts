@@ -1,4 +1,4 @@
-// Copyright 2022-2024, University of Colorado Boulder
+// Copyright 2022-2025, University of Colorado Boulder
 
 /**
  * OpticalObject is the base class for all optical objects. An optical object is anything that can be viewed with an
