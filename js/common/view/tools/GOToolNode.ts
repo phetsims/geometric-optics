@@ -8,9 +8,10 @@
 
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import optionize from '../../../../../phet-core/js/optionize.js';
+import { optionize4 } from '../../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
+import AccessibleDraggableOptions from '../../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 import InteractiveHighlighting from '../../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import DragListener from '../../../../../scenery/js/listeners/DragListener.js';
 import { PressListenerEvent } from '../../../../../scenery/js/listeners/PressListener.js';
@@ -54,12 +55,10 @@ export default abstract class GOToolNode extends InteractiveHighlighting( Node )
    */
   protected constructor( tool: GOTool, providedOptions: GOToolNodeOptions ) {
 
-    const options = optionize<GOToolNodeOptions, SelfOptions, NodeOptions>()( {
+    const options = optionize4<GOToolNodeOptions, SelfOptions, NodeOptions>()( {}, AccessibleDraggableOptions, {
 
       // NodeOptions
       visibleProperty: DerivedProperty.not( tool.isInToolboxProperty ), // visible when not in the toolbox
-      tagName: 'div',
-      focusable: true,
       isDisposable: false,
       phetioInputEnabledPropertyInstrumented: true,
 

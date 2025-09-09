@@ -9,7 +9,7 @@
 
 import TProperty from '../../../../axon/js/TProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
@@ -18,6 +18,7 @@ import geometricOptics from '../../geometricOptics.js';
 import OpticalObject from '../model/OpticalObject.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
+import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -41,11 +42,9 @@ export default class OpticalObjectNode extends InteractiveHighlighting( Node ) {
                          wasDraggedProperty: TProperty<boolean>,
                          providedOptions: OpticalObjectNodeOptions ) {
 
-    const options = optionize<OpticalObjectNodeOptions, SelfOptions, NodeOptions>()( {
+    const options = optionize4<OpticalObjectNodeOptions, SelfOptions, NodeOptions>()( {}, AccessibleDraggableOptions, {
 
       // NodeOptions
-      tagName: 'div',
-      focusable: true,
       isDisposable: false,
       phetioVisiblePropertyInstrumented: false,
       phetioInputEnabledPropertyInstrumented: true

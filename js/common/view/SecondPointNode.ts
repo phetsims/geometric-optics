@@ -9,9 +9,10 @@
 
 import TProperty from '../../../../axon/js/TProperty.js';
 import Shape from '../../../../kite/js/Shape.js';
-import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import optionize, { combineOptions, EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import HighlightFromNode from '../../../../scenery/js/accessibility/HighlightFromNode.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
@@ -42,12 +43,10 @@ export default class SecondPointNode extends InteractiveHighlighting( Node ) {
   public constructor( secondPoint: SecondPoint, modelViewTransform: ModelViewTransform2, wasDraggedProperty: TProperty<boolean>,
                       providedOptions: SecondPointNodeOptions ) {
 
-    const options = optionize<SecondPointNodeOptions, SelfOptions, NodeOptions>()( {
+    const options = optionize4<SecondPointNodeOptions, SelfOptions, NodeOptions>()( {}, AccessibleDraggableOptions, {
 
       // NodeOptions
       cursor: 'ns-resize', // second point can only be dragged vertically
-      tagName: 'div',
-      focusable: true,
       isDisposable: false,
       phetioInputEnabledPropertyInstrumented: true
     }, providedOptions );

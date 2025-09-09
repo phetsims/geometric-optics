@@ -12,9 +12,10 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import { combineOptions, EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 import HighlightFromNode from '../../../../scenery/js/accessibility/HighlightFromNode.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
@@ -58,11 +59,9 @@ export default class ProjectionScreenNode extends InteractiveHighlighting( Node 
                       modelViewTransform: ModelViewTransform2,
                       providedOptions: ProjectionScreenNodeOptions ) {
 
-    const options = optionize<ProjectionScreenNodeOptions, SelfOptions, NodeOptions>()( {
+    const options = optionize4<ProjectionScreenNodeOptions, SelfOptions, NodeOptions>()( {}, AccessibleDraggableOptions, {
 
       // NodeOptions
-      tagName: 'div',
-      focusable: true,
       isDisposable: false,
       phetioInputEnabledPropertyInstrumented: true
     }, providedOptions );
