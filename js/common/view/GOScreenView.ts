@@ -298,7 +298,6 @@ export default class GOScreenView extends ScreenView {
     // Reset All button at right-bottom
     const resetAllButton = new ResetAllButton( {
       listener: () => {
-        this.interruptSubtreeInput(); // cancel interactions that may be in progress
         model.reset();
         this.reset();
       },
