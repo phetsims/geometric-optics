@@ -9,7 +9,7 @@
     "branch": "HEAD"
   },
   "brand": {
-    "sha": "46bd1bea8a2079e3f826aedfec8acdbaa1ce557f",
+    "sha": "9f7044acb81b4b5146476aa610beb1944e928bd3",
     "branch": "HEAD"
   },
   "chipper": {
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "geometric-optics": {
-    "sha": "f7011e1e655c7f0522c6ab0bf25c0d7dd8e83d3e",
+    "sha": "a685d1f19f701e3010d510011ee7fa237411c477",
     "branch": "1.3"
   },
   "joist": {
