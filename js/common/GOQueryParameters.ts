@@ -209,6 +209,6 @@ const GOQueryParameters = QueryStringMachine.getAll( {
 // Log query parameters
 logGlobal( 'phet.chipper.queryParameters' );
 logGlobal( 'phet.preloads.phetio.queryParameters' );
-logGlobal( 'phet.geometricOptics.GOQueryParameters' );
+phet.log && phet.log( `GOQueryParameters: ${JSON.stringify( GOQueryParameters, null, 2 )}` );
 
 export default GOQueryParameters;
