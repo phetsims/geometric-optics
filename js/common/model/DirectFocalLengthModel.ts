@@ -16,7 +16,6 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
-import geometricOptics from '../../geometricOptics.js';
 import FocalLengthModel from './FocalLengthModel.js';
 import GOPreferences from './GOPreferences.js';
 import { OpticSurfaceType } from './OpticSurfaceType.js';
@@ -104,5 +103,3 @@ export default class DirectFocalLengthModel extends PhetioObject implements Foca
     this.resetDirectFocalLengthModel();
   }
 }
-
-geometricOptics.register( 'DirectFocalLengthModel', DirectFocalLengthModel );

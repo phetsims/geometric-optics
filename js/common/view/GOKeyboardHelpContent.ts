@@ -11,7 +11,6 @@ import ComboBoxKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/he
 import MoveDraggableItemsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/MoveDraggableItemsKeyboardHelpSection.js';
 import SliderControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SliderControlsKeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
-import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
 import { RulerAndMarkerControlsSection } from './RulerAndMarkerControlsSection.js';
 
@@ -53,5 +52,3 @@ export default class GOKeyboardHelpContent extends TwoColumnKeyboardHelpContent 
     } );
   }
 }
-
-geometricOptics.register( 'GOKeyboardHelpContent', GOKeyboardHelpContent );

@@ -11,7 +11,6 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Path, { PathOptions } from '../../../../scenery/js/nodes/Path.js';
 import mapMarkerAltSolidShape from '../../../../sherpa/js/fontawesome-5/mapMarkerAltSolidShape.js';
-import geometricOptics from '../../geometricOptics.js';
 
 type MapMarkerNodeOptions = PickOptional<NodeOptions, 'scale' | 'tagName'> & PickRequired<PathOptions, 'fill' | 'stroke'>;
 
@@ -34,5 +33,3 @@ export default class MapMarkerNode extends Node {
     mapMarkerNode.setScaleMagnitude( 0.06, 0.07 );
   }
 }
-
-geometricOptics.register( 'MapMarkerNode', MapMarkerNode );

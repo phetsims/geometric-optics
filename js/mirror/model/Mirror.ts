@@ -16,7 +16,6 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
 import Optic, { OpticOptions } from '../../common/model/Optic.js';
 import { OpticSurfaceType } from '../../common/model/OpticSurfaceType.js';
-import geometricOptics from '../../geometricOptics.js';
 import { GOSimOptions } from '../../GOSim.js';
 import MirrorShapes from './MirrorShapes.js';
 
@@ -110,5 +109,3 @@ export default class Mirror extends Optic {
            ( this.opticSurfaceTypeProperty.value === 'flat' );
   }
 }
-
-geometricOptics.register( 'Mirror', Mirror );

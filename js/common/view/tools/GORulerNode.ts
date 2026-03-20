@@ -23,7 +23,6 @@ import RulerNode from '../../../../../scenery-phet/js/RulerNode.js';
 import DragListener from '../../../../../scenery/js/listeners/DragListener.js';
 import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
-import geometricOptics from '../../../geometricOptics.js';
 import GeometricOpticsStrings from '../../../GeometricOpticsStrings.js';
 import GOConstants from '../../GOConstants.js';
 import GORuler from '../../model/tools/GORuler.js';
@@ -281,5 +280,3 @@ function createRulerNode( rulerLength: number, zoomTransform: ModelViewTransform
       tandem: Tandem.OPT_OUT
     } );
 }
-
-geometricOptics.register( 'GORulerNode', GORulerNode );

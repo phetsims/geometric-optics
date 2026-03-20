@@ -18,7 +18,6 @@ import GOColors from '../../common/GOColors.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
 import { OpticSurfaceType } from '../../common/model/OpticSurfaceType.js';
 import OriginNode from '../../common/view/OriginNode.js';
-import geometricOptics from '../../geometricOptics.js';
 import Lens from '../model/Lens.js';
 import LensShapes from '../model/LensShapes.js';
 
@@ -120,5 +119,3 @@ export default class LensNode extends Node {
     } );
   }
 }
-
-geometricOptics.register( 'LensNode', LensNode );

@@ -32,7 +32,6 @@ import projectionScreenTop_png from '../../../images/projectionScreenTop_png.js'
 import GOColors from '../../common/GOColors.js';
 import GOConstants from '../../common/GOConstants.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
-import geometricOptics from '../../geometricOptics.js';
 import ProjectionScreen from '../model/ProjectionScreen.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
 import OriginNode from './OriginNode.js';
@@ -201,5 +200,3 @@ export default class ProjectionScreenNode extends InteractiveHighlighting( Node 
     this.resetProjectionScreenNode();
   }
 }
-
-geometricOptics.register( 'ProjectionScreenNode', ProjectionScreenNode );

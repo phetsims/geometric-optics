@@ -15,7 +15,6 @@ import Image from '../../../../scenery/js/nodes/Image.js';
 import BooleanRoundToggleButton, { BooleanRoundToggleButtonOptions } from '../../../../sun/js/buttons/BooleanRoundToggleButton.js';
 import lightPropagationOffIcon_png from '../../../images/lightPropagationOffIcon_png.js';
 import lightPropagationOnIcon_png from '../../../images/lightPropagationOnIcon_png.js';
-import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -44,5 +43,3 @@ export default class LightPropagationToggleButton extends BooleanRoundToggleButt
     super( booleanProperty, onNode, offNode, options );
   }
 }
-
-geometricOptics.register( 'LightPropagationToggleButton', LightPropagationToggleButton );

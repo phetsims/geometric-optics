@@ -19,7 +19,6 @@ import HighlightFromNode from '../../../../scenery/js/accessibility/HighlightFro
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import KeyboardDragListener, { KeyboardDragListenerOptions } from '../../../../scenery/js/listeners/KeyboardDragListener.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
-import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import ArrowObject from '../model/ArrowObject.js';
 import Optic from '../model/Optic.js';
@@ -151,5 +150,3 @@ export default class ArrowObjectNode extends OpticalObjectNode {
       } );
   }
 }
-
-geometricOptics.register( 'ArrowObjectNode', ArrowObjectNode );

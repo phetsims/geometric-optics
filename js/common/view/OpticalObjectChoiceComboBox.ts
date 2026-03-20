@@ -17,7 +17,6 @@ import Image from '../../../../scenery/js/nodes/Image.js';
 import Node, { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import ComboBox, { ComboBoxItem, ComboBoxOptions } from '../../../../sun/js/ComboBox.js';
-import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import OpticalObjectChoice from '../model/OpticalObjectChoice.js';
 
@@ -89,5 +88,3 @@ export default class OpticalObjectChoiceComboBox extends ComboBox<OpticalObjectC
     super( opticalObjectChoiceProperty, items, listParent, options );
   }
 }
-
-geometricOptics.register( 'OpticalObjectChoiceComboBox', OpticalObjectChoiceComboBox );

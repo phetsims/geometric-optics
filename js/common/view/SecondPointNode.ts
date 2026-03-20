@@ -21,7 +21,6 @@ import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import KeyboardDragListener, { KeyboardDragListenerOptions } from '../../../../scenery/js/listeners/KeyboardDragListener.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
-import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import GOConstants from '../GOConstants.js';
 import SecondPoint from '../model/SecondPoint.js';
@@ -139,5 +138,3 @@ class SecondPointCueingArrowsNode extends VBox {
     }, providedOptions ) );
   }
 }
-
-geometricOptics.register( 'SecondPointNode', SecondPointNode );

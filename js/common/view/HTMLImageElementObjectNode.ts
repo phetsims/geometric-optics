@@ -23,7 +23,6 @@ import KeyboardDragListener, { KeyboardDragListenerOptions } from '../../../../s
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
-import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import HTMLImageElementObject from '../model/HTMLImageElementObject.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
@@ -162,5 +161,3 @@ export default class HTMLImageElementObjectNode extends OpticalObjectNode {
       } );
   }
 }
-
-geometricOptics.register( 'HTMLImageElementObjectNode', HTMLImageElementObjectNode );

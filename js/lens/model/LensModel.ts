@@ -12,7 +12,6 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
 import GOModel, { GOModelOptions } from '../../common/model/GOModel.js';
 import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
-import geometricOptics from '../../geometricOptics.js';
 import Lens from './Lens.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -72,5 +71,3 @@ export default class LensModel extends GOModel {
     this.lens.reset();
   }
 }
-
-geometricOptics.register( 'LensModel', LensModel );

@@ -21,7 +21,6 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import OpticalAxisNode, { OpticalAxisNodeOptions } from './OpticalAxisNode.js';
@@ -136,5 +135,3 @@ export default class OpticalAxisForegroundNode extends OpticalAxisNode {
     } );
   }
 }
-
-geometricOptics.register( 'OpticalAxisForegroundNode', OpticalAxisForegroundNode );

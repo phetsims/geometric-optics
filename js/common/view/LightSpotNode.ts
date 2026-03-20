@@ -17,7 +17,6 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import GOColors from '../../common/GOColors.js';
-import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import LightSpot from '../model/LightSpot.js';
@@ -106,5 +105,3 @@ export default class LightSpotNode extends Node {
     this.addLinkedElement( lightSpot );
   }
 }
-
-geometricOptics.register( 'LightSpotNode', LightSpotNode );

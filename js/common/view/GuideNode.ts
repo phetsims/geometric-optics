@@ -16,7 +16,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import TColor from '../../../../scenery/js/util/TColor.js';
 import GOColors from '../../common/GOColors.js';
-import geometricOptics from '../../geometricOptics.js';
 import Guide from '../model/Guide.js';
 
 // constants, in view coordinates
@@ -144,5 +143,3 @@ function setArmPosition( armNode: Node, viewFulcrumPosition: Vector2, angle: num
   // The model-view transform is Y-inverted, so a positive rotation in the model is counterclockwise (negative) in the view.
   armNode.center = Vector2.createPolar( ARM_WIDTH / 2, -angle ).plus( viewFulcrumPosition );
 }
-
-geometricOptics.register( 'GuideNode', GuideNode );

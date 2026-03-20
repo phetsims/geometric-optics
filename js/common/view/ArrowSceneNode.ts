@@ -11,7 +11,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import ArrowScene from '../model/ArrowScene.js';
 import { RaysType } from '../model/RaysType.js';
@@ -179,5 +178,3 @@ export default class ArrowSceneNode extends GOSceneNode {
     this.resetFrameObjectSceneNode();
   }
 }
-
-geometricOptics.register( 'ArrowSceneNode', ArrowSceneNode );

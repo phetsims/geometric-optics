@@ -13,7 +13,6 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GOScreenView, { GOScreenViewOptions } from '../../common/view/GOScreenView.js';
-import geometricOptics from '../../geometricOptics.js';
 import LensModel from '../model/LensModel.js';
 import LensNode from './LensNode.js';
 
@@ -43,5 +42,3 @@ export default class LensScreenView extends GOScreenView {
     super( model, options );
   }
 }
-
-geometricOptics.register( 'LensScreenView', LensScreenView );

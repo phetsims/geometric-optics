@@ -7,7 +7,6 @@
  */
 
 import Circle from '../../../../scenery/js/nodes/Circle.js';
-import geometricOptics from '../../geometricOptics.js';
 
 export default class OriginNode extends Circle {
   public constructor() {
@@ -16,5 +15,3 @@ export default class OriginNode extends Circle {
     } );
   }
 }
-
-geometricOptics.register( 'OriginNode', OriginNode );

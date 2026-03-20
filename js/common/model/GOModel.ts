@@ -16,7 +16,6 @@ import TModel from '../../../../joist/js/TModel.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
-import geometricOptics from '../../geometricOptics.js';
 import Lens from '../../lens/model/Lens.js';
 import GOColors from '../GOColors.js';
 import GOConstants from '../GOConstants.js';
@@ -210,5 +209,3 @@ export default class GOModel implements TModel {
     this.scenes.forEach( scene => scene.beginLightRaysAnimation() );
   }
 }
-
-geometricOptics.register( 'GOModel', GOModel );

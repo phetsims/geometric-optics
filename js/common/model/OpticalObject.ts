@@ -24,7 +24,6 @@ import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
-import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 
 type SelfOptions = {
@@ -104,5 +103,3 @@ export default class OpticalObject extends PhetioObject {
     this.resetOpticalObject();
   }
 }
-
-geometricOptics.register( 'OpticalObject', OpticalObject );

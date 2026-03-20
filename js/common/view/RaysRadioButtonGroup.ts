@@ -15,7 +15,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
 import VerticalAquaRadioButtonGroup, { VerticalAquaRadioButtonGroupOptions } from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
 import { RaysType } from '../model/RaysType.js';
@@ -71,5 +70,3 @@ function createItem( value: RaysType,
     tandemName: itemTandemName
   };
 }
-
-geometricOptics.register( 'RaysRadioButtonGroup', RaysRadioButtonGroup );

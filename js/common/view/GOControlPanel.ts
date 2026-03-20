@@ -15,7 +15,6 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import VSeparator from '../../../../scenery/js/layout/nodes/VSeparator.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
-import geometricOptics from '../../geometricOptics.js';
 import { GOSimOptions } from '../../GOSim.js';
 import GOColors from '../GOColors.js';
 import Optic from '../model/Optic.js';
@@ -84,5 +83,3 @@ export default class GOControlPanel extends Panel {
     super( content, options );
   }
 }
-
-geometricOptics.register( 'GOControlPanel', GOControlPanel );

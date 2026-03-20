@@ -24,7 +24,6 @@ import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
-import geometricOptics from '../../geometricOptics.js';
 import DirectFocalLengthModel, { DirectFocalLengthModelOptions } from './DirectFocalLengthModel.js';
 import GOPreferences from './GOPreferences.js';
 import IndirectFocalLengthModel, { IndirectFocalLengthModelOptions } from './IndirectFocalLengthModel.js';
@@ -389,5 +388,3 @@ export default abstract class Optic extends PhetioObject {
     return false;
   }
 }
-
-geometricOptics.register( 'Optic', Optic );

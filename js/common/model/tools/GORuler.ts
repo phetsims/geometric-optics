@@ -8,7 +8,6 @@
  */
 
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
-import geometricOptics from '../../../geometricOptics.js';
 import GOTool, { GOToolOptions } from './GOTool.js';
 
 type RulerOrientation = 'horizontal' | 'vertical';
@@ -51,5 +50,4 @@ class GORuler extends GOTool {
   }
 }
 
-geometricOptics.register( 'GORuler', GORuler );
 export { GORuler as default };

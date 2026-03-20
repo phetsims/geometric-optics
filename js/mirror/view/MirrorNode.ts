@@ -17,7 +17,6 @@ import GOColors from '../../common/GOColors.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
 import { OpticSurfaceType } from '../../common/model/OpticSurfaceType.js';
 import OriginNode from '../../common/view/OriginNode.js';
-import geometricOptics from '../../geometricOptics.js';
 import Mirror from '../model/Mirror.js';
 import MirrorShapes from '../model/MirrorShapes.js';
 
@@ -109,5 +108,3 @@ export default class MirrorNode extends Node {
     } );
   }
 }
-
-geometricOptics.register( 'MirrorNode', MirrorNode );

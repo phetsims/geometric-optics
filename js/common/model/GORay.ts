@@ -12,7 +12,6 @@
 
 import Ray2 from '../../../../dot/js/Ray2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import geometricOptics from '../../geometricOptics.js';
 
 export default class GORay extends Ray2 {
 
@@ -71,5 +70,3 @@ export default class GORay extends Ray2 {
     return this.direction.dot( displacementVector );
   }
 }
-
-geometricOptics.register( 'GORay', GORay );

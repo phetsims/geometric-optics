@@ -12,7 +12,6 @@ import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
-import geometricOptics from '../../../geometricOptics.js';
 import GeometricOpticsStrings from '../../../GeometricOpticsStrings.js';
 import { GOSimOptions } from '../../../GOSim.js';
 import LightObject from '../../model/LightObject.js';
@@ -94,5 +93,3 @@ class LightObjectLabelNode extends OpticalObjectLabelNode {
     super( lightObject.opticalObjectNumber, labelPositionProperty, zoomTransformProperty, providedOptions );
   }
 }
-
-geometricOptics.register( 'LightLabelsNode', LightLabelsNode );

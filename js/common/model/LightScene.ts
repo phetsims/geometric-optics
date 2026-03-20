@@ -12,7 +12,6 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import light1_png from '../../../images/light1_png.js';
 import light2_png from '../../../images/light2_png.js';
-import geometricOptics from '../../geometricOptics.js';
 import Lens from '../../lens/model/Lens.js';
 import GOScene, { GOSceneOptions } from './GOScene.js';
 import LightObject from './LightObject.js';
@@ -143,5 +142,3 @@ export default class LightScene extends GOScene {
     this.resetLightObjectScene();
   }
 }
-
-geometricOptics.register( 'LightScene', LightScene );

@@ -14,7 +14,6 @@ import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import Path, { PathOptions } from '../../../../scenery/js/nodes/Path.js';
-import geometricOptics from '../../geometricOptics.js';
 import GOPreferences from '../model/GOPreferences.js';
 
 type CueingArrowsDirection = 'horizontal' | 'vertical' | 'both';
@@ -98,5 +97,3 @@ function createArrowsShape( direction: CueingArrowsDirection, length: number ): 
   }
   return shape;
 }
-
-geometricOptics.register( 'CueingArrowsNode', CueingArrowsNode );

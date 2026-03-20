@@ -15,7 +15,6 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import OpticShapes from '../../common/model/OpticShapes.js';
-import geometricOptics from '../../geometricOptics.js';
 
 type SelfOptions = {
   backingThickness?: number; // thickness of the backing of the mirror, in cm
@@ -100,5 +99,3 @@ export default class MirrorShapes implements OpticShapes {
     this.activeBoundsShape = reflectiveCoatingShape;
   }
 }
-
-geometricOptics.register( 'MirrorShapes', MirrorShapes );

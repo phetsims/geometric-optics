@@ -11,7 +11,6 @@
 import RangeWithValue from '../../../dot/js/RangeWithValue.js';
 import logGlobal from '../../../phet-core/js/logGlobal.js';
 import { QueryStringMachine } from '../../../query-string-machine/js/QueryStringMachineModule.js';
-import geometricOptics from '../geometricOptics.js';
 import { FocalLengthModelTypeValues } from './model/FocalLengthModelType.js';
 
 /**
@@ -206,8 +205,6 @@ const GOQueryParameters = QueryStringMachine.getAll( {
     type: 'flag'
   }
 } );
-
-geometricOptics.register( 'GOQueryParameters', GOQueryParameters );
 
 // Log query parameters
 logGlobal( 'phet.chipper.queryParameters' );

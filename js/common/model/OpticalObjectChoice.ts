@@ -28,7 +28,6 @@ import starLeftFacingInverted_png from '../../../images/starLeftFacingInverted_p
 import starLeftFacingUpright_png from '../../../images/starLeftFacingUpright_png.js';
 import starRightFacingInverted_png from '../../../images/starRightFacingInverted_png.js';
 import starRightFacingUpright_png from '../../../images/starRightFacingUpright_png.js';
-import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
 import GOColors from '../GOColors.js';
 import GOConstants from '../GOConstants.js';
@@ -149,5 +148,3 @@ export default class OpticalObjectChoice extends EnumerationValue {
     this.objectHTMLImageElements = options.objectHTMLImageElements;
   }
 }
-
-geometricOptics.register( 'OpticalObjectChoice', OpticalObjectChoice );

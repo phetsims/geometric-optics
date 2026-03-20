@@ -95,5 +95,3 @@ export default class GOToolKeyboardDragListener extends KeyboardDragListener {
     keyboardHelpDialogLabelStringProperty: GeometricOpticsStrings.keyboardHelpDialog.jumpToPointStringProperty
   } );
 }
-
-geometricOptics.register( 'GOToolKeyboardDragListener', GOToolKeyboardDragListener );

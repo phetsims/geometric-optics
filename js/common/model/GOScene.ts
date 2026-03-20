@@ -13,7 +13,6 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
-import geometricOptics from '../../geometricOptics.js';
 import Guides from './Guides.js';
 import Optic from './Optic.js';
 
@@ -107,5 +106,3 @@ export default abstract class GOScene extends PhetioObject {
     this._guides2 = new Guides( this.optic, guides2PositionProperty );
   }
 }
-
-geometricOptics.register( 'GOScene', GOScene );

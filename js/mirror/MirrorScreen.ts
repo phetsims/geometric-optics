@@ -13,7 +13,6 @@ import optionize from '../../../phet-core/js/optionize.js';
 import PickRequired from '../../../phet-core/js/types/PickRequired.js';
 import GOColors from '../common/GOColors.js';
 import { OpticSurfaceType } from '../common/model/OpticSurfaceType.js';
-import geometricOptics from '../geometricOptics.js';
 import GeometricOpticsStrings from '../GeometricOpticsStrings.js';
 import { GOSimOptions } from '../GOSim.js';
 import MirrorModel from './model/MirrorModel.js';
@@ -55,5 +54,3 @@ function createScreenIcon( opticSurfaceType: OpticSurfaceType ): ScreenIcon {
     fill: GOColors.screenBackgroundColorProperty
   } );
 }
-
-geometricOptics.register( 'MirrorScreen', MirrorScreen );

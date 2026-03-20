@@ -16,7 +16,6 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
-import geometricOptics from '../../geometricOptics.js';
 import Lens from '../../lens/model/Lens.js';
 import GOColors from '../GOColors.js';
 import GOScene from '../model/GOScene.js';
@@ -238,5 +237,3 @@ export default abstract class GOSceneNode extends Node {
     this.right2FPointNodeVisibleProperty = right2FPointNode.visibleProperty;
   }
 }
-
-geometricOptics.register( 'GOSceneNode', GOSceneNode );

@@ -13,7 +13,6 @@
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import VBox, { VBoxOptions } from '../../../../scenery/js/layout/nodes/VBox.js';
-import geometricOptics from '../../geometricOptics.js';
 import { GOSimOptions } from '../../GOSim.js';
 import GOPreferences from '../model/GOPreferences.js';
 import Add2FPointsCheckbox from './Add2FPointsCheckbox.js';
@@ -52,5 +51,3 @@ export default class GOPreferencesNode extends VBox {
   }
 
 }
-
-geometricOptics.register( 'GOPreferencesNode', GOPreferencesNode );

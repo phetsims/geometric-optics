@@ -14,7 +14,6 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Tandem from '../../../../tandem/js/Tandem.js';
 import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
 import GOScreenView, { GOScreenViewOptions } from '../../common/view/GOScreenView.js';
-import geometricOptics from '../../geometricOptics.js';
 import MirrorModel from '../model/MirrorModel.js';
 import MirrorNode from './MirrorNode.js';
 
@@ -64,5 +63,3 @@ export default class MirrorScreenView extends GOScreenView {
     }
   }
 }
-
-geometricOptics.register( 'MirrorScreenView', MirrorScreenView );

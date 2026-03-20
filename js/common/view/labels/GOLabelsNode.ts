@@ -16,7 +16,6 @@ import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optioni
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Node, { NodeOptions } from '../../../../../scenery/js/nodes/Node.js';
-import geometricOptics from '../../../geometricOptics.js';
 import GeometricOpticsStrings from '../../../GeometricOpticsStrings.js';
 import GOSceneNode from '../GOSceneNode.js';
 import LabelNode from './LabelNode.js';
@@ -115,5 +114,3 @@ export default class GOLabelsNode extends Node {
     this.addChild( right2FPointLabel );
   }
 }
-
-geometricOptics.register( 'GOLabelsNode', GOLabelsNode );

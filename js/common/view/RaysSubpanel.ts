@@ -11,7 +11,6 @@ import Property from '../../../../axon/js/Property.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
 import { RaysType } from '../model/RaysType.js';
@@ -51,5 +50,3 @@ export default class RaysSubpanel extends VBox {
     } );
   }
 }
-
-geometricOptics.register( 'RaysSubpanel', RaysSubpanel );

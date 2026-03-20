@@ -13,7 +13,6 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import FramedImage from '../model/FramedImage.js';
 import Optic from '../model/Optic.js';
@@ -92,5 +91,3 @@ export default class FramedImageNode extends OpticalImageNode {
     } );
   }
 }
-
-geometricOptics.register( 'FramedImageNode', FramedImageNode );

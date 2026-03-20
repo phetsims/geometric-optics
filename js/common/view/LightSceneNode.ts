@@ -14,7 +14,6 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import GOColors from '../../common/GOColors.js';
-import geometricOptics from '../../geometricOptics.js';
 import LightScene from '../model/LightScene.js';
 import { RaysType } from '../model/RaysType.js';
 import ToolJumpPoint from '../model/tools/ToolJumpPoint.js';
@@ -237,5 +236,3 @@ export default class LightSceneNode extends GOSceneNode {
     this.resetLightObjectSceneNode();
   }
 }
-
-geometricOptics.register( 'LightSceneNode', LightSceneNode );

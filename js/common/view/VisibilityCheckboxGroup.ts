@@ -19,7 +19,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VerticalCheckboxGroup, { VerticalCheckboxGroupItem, VerticalCheckboxGroupOptions } from '../../../../sun/js/VerticalCheckboxGroup.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
-import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
 import { GOSimOptions } from '../../GOSim.js';
 import Lens from '../../lens/model/Lens.js';
@@ -170,5 +169,3 @@ function createItem( labelStringProperty: TReadOnlyProperty<string>,
     tandemName: providedOptions.tandemName
   };
 }
-
-geometricOptics.register( 'VisibilityCheckboxGroup', VisibilityCheckboxGroup );

@@ -11,7 +11,6 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import Optic from '../model/Optic.js';
 import { RaysType } from '../model/RaysType.js';
@@ -46,5 +45,3 @@ export default class OpticVerticalAxisNode extends Node {
     } );
   }
 }
-
-geometricOptics.register( 'OpticVerticalAxisNode', OpticVerticalAxisNode );

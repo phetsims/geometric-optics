@@ -12,7 +12,6 @@ import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-co
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import NumberControl, { NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
-import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
 
@@ -50,5 +49,3 @@ export default class IndexOfRefractionControl extends NumberControl {
     this.addLinkedElement( indexOfRefractionProperty );
   }
 }
-
-geometricOptics.register( 'IndexOfRefractionControl', IndexOfRefractionControl );

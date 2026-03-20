@@ -14,7 +14,6 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import geometricOptics from '../../geometricOptics.js';
 import LightObject from '../model/LightObject.js';
 import HTMLImageElementObjectNode, { HTMLImageElementObjectNodeOptions } from './HTMLImageElementObjectNode.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
@@ -44,5 +43,3 @@ export default class LightObjectNode extends HTMLImageElementObjectNode {
       wasDraggedProperty, providedOptions );
   }
 }
-
-geometricOptics.register( 'LightObjectNode', LightObjectNode );

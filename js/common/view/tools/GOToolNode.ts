@@ -17,7 +17,6 @@ import DragListener from '../../../../../scenery/js/listeners/DragListener.js';
 import { PressListenerEvent } from '../../../../../scenery/js/listeners/PressListener.js';
 import IndexedNodeIO from '../../../../../scenery/js/nodes/IndexedNodeIO.js';
 import Node, { NodeOptions } from '../../../../../scenery/js/nodes/Node.js';
-import geometricOptics from '../../../geometricOptics.js';
 import GOTool from '../../model/tools/GOTool.js';
 import ToolJumpPoint from '../../model/tools/ToolJumpPoint.js';
 import GOToolboxNode from './GOToolboxNode.js';
@@ -160,5 +159,3 @@ export default abstract class GOToolNode extends InteractiveHighlighting( Node )
     return nextPoint || null;
   }
 }
-
-geometricOptics.register( 'GOToolNode', GOToolNode );

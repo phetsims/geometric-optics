@@ -17,7 +17,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
-import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 
 // Dimensions of the screen, in cm. "Near" and "far" refer to pseudo-3D perspective.
@@ -117,5 +116,3 @@ export default class ProjectionScreen extends PhetioObject {
     return shape.transformed( Matrix3.translationFromVector( this.positionProperty.value ) );
   }
 }
-
-geometricOptics.register( 'ProjectionScreen', ProjectionScreen );

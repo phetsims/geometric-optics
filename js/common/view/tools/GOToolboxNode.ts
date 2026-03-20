@@ -16,7 +16,6 @@ import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import HBox from '../../../../../scenery/js/layout/nodes/HBox.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Panel, { PanelOptions } from '../../../../../sun/js/Panel.js';
-import geometricOptics from '../../../geometricOptics.js';
 import GOToolNode from './GOToolNode.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -94,5 +93,3 @@ export default class GOToolboxNode extends Panel {
     return this.visible ? this.getGlobalBounds() : Bounds2.NOTHING;
   }
 }
-
-geometricOptics.register( 'GOToolboxNode', GOToolboxNode );

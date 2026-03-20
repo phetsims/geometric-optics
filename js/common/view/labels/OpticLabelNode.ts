@@ -11,7 +11,6 @@ import DerivedStringProperty from '../../../../../axon/js/DerivedStringProperty.
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
-import geometricOptics from '../../../geometricOptics.js';
 import GeometricOpticsStrings from '../../../GeometricOpticsStrings.js';
 import Lens from '../../../lens/model/Lens.js';
 import Mirror from '../../../mirror/model/Mirror.js';
@@ -90,5 +89,3 @@ export default class OpticLabelNode extends LabelNode {
     super( labelStringProperty, opticLabelPositionProperty, zoomTransformProperty, providedOptions );
   }
 }
-
-geometricOptics.register( 'OpticLabelNode', OpticLabelNode );

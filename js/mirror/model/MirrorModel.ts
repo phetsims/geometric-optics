@@ -12,7 +12,6 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
 import GOModel, { GOModelOptions } from '../../common/model/GOModel.js';
 import OpticalObjectChoice from '../../common/model/OpticalObjectChoice.js';
-import geometricOptics from '../../geometricOptics.js';
 import { GOSimOptions } from '../../GOSim.js';
 import Mirror from './Mirror.js';
 
@@ -73,5 +72,3 @@ export default class MirrorModel extends GOModel {
     this.mirror.reset();
   }
 }
-
-geometricOptics.register( 'MirrorModel', MirrorModel );

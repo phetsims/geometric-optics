@@ -199,5 +199,4 @@ const GOColors = {
   } )
 };
 
-geometricOptics.register( 'GOColors', GOColors );
 export default GOColors;

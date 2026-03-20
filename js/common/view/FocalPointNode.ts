@@ -14,7 +14,6 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
-import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -60,5 +59,3 @@ export default class FocalPointNode extends Node {
     } );
   }
 }
-
-geometricOptics.register( 'FocalPointNode', FocalPointNode );

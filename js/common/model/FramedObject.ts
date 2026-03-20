@@ -12,7 +12,6 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import geometricOptics from '../../geometricOptics.js';
 import HTMLImageElementObject, { HTMLImageElementObjectOptions } from './HTMLImageElementObject.js';
 import OpticalObjectChoice, { ObjectHTMLImageElements } from './OpticalObjectChoice.js';
 
@@ -62,5 +61,3 @@ export default class FramedObject extends HTMLImageElementObject {
     this.objectHTMLImageElementsProperty = objectHTMLImageElementsProperty;
   }
 }
-
-geometricOptics.register( 'FramedObject', FramedObject );

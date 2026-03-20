@@ -16,7 +16,6 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Line, { LineOptions } from '../../../../scenery/js/nodes/Line.js';
 import GOColors from '../../common/GOColors.js';
-import geometricOptics from '../../geometricOptics.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -70,5 +69,3 @@ export default class OpticalAxisInFrontOfProjectionScreenNode extends Line {
     } );
   }
 }
-
-geometricOptics.register( 'OpticalAxisInFrontOfProjectionScreenNode', OpticalAxisInFrontOfProjectionScreenNode );

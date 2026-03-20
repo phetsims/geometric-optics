@@ -12,7 +12,6 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import geometricOptics from '../../geometricOptics.js';
 import Lens from '../../lens/model/Lens.js';
 import FramedImage from './FramedImage.js';
 import FramedObject from './FramedObject.js';
@@ -114,5 +113,3 @@ export default class FramedScene extends GOScene {
     this.resetFramedObjectScene();
   }
 }
-
-geometricOptics.register( 'FramedScene', FramedScene );

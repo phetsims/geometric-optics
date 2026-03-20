@@ -13,7 +13,6 @@ import Vector2Property from '../../../../../dot/js/Vector2Property.js';
 import optionize, { EmptySelfOptions } from '../../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../../tandem/js/PhetioObject.js';
-import geometricOptics from '../../../geometricOptics.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -63,5 +62,4 @@ class GOTool extends PhetioObject {
   }
 }
 
-geometricOptics.register( 'GOTool', GOTool );
 export { GOTool as default };

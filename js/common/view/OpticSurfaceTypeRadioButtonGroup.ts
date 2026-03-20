@@ -12,7 +12,6 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import RectangularRadioButtonGroup, { RectangularRadioButtonGroupOptions } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import geometricOptics from '../../geometricOptics.js';
 import { GOSimOptions } from '../../GOSim.js';
 import Lens from '../../lens/model/Lens.js';
 import LensNode from '../../lens/view/LensNode.js';
@@ -70,5 +69,3 @@ export default class OpticSurfaceTypeRadioButtonGroup extends RectangularRadioBu
     super( optic.opticSurfaceTypeProperty, items, options );
   }
 }
-
-geometricOptics.register( 'OpticSurfaceTypeRadioButtonGroup', OpticSurfaceTypeRadioButtonGroup );

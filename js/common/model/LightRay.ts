@@ -12,7 +12,6 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import RayIntersection from '../../../../kite/js/util/RayIntersection.js';
-import geometricOptics from '../../geometricOptics.js';
 import Lens from '../../lens/model/Lens.js';
 import Mirror from '../../mirror/model/Mirror.js';
 import GOQueryParameters from '../GOQueryParameters.js';
@@ -353,5 +352,3 @@ function getVirtualRay( isImageVirtual: boolean, realRays: GORay[], opticalImage
   }
   return virtualRay;
 }
-
-geometricOptics.register( 'LightRay', LightRay );

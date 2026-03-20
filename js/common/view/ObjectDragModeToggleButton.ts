@@ -21,7 +21,6 @@ import unlockSolidShape from '../../../../sherpa/js/fontawesome-5/unlockSolidSha
 import ButtonNode from '../../../../sun/js/buttons/ButtonNode.js';
 import RectangularToggleButton, { RectangularToggleButtonOptions } from '../../../../sun/js/buttons/RectangularToggleButton.js';
 import ToggleNode from '../../../../sun/js/ToggleNode.js';
-import geometricOptics from '../../geometricOptics.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
 
@@ -112,5 +111,3 @@ export default class ObjectDragModeToggleButton extends RectangularToggleButton<
     } );
   }
 }
-
-geometricOptics.register( 'ObjectDragModeToggleButton', ObjectDragModeToggleButton );

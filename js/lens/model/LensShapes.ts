@@ -15,7 +15,6 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import OpticShapes from '../../common/model/OpticShapes.js';
-import geometricOptics from '../../geometricOptics.js';
 
 // When isHollywooded:true, this value is added to the actual ROC.
 const HOLLYWOOD_RADIUS_OFFSET = 100; // cm
@@ -131,5 +130,3 @@ export default class LensShapes implements OpticShapes {
     this.activeBoundsShape = lensShape; // Active bounds are defined by the entire lens
   }
 }
-
-geometricOptics.register( 'LensShapes', LensShapes );

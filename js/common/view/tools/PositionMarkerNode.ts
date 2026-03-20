@@ -15,7 +15,6 @@ import optionize from '../../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import DragListener from '../../../../../scenery/js/listeners/DragListener.js';
 import isSettingPhetioStateProperty from '../../../../../tandem/js/isSettingPhetioStateProperty.js';
-import geometricOptics from '../../../geometricOptics.js';
 import PositionMarker from '../../model/tools/PositionMarker.js';
 import MapMarkerNode from '../MapMarkerNode.js';
 import GOToolDragListener from './GOToolDragListener.js';
@@ -180,5 +179,3 @@ export default class PositionMarkerNode extends GOToolNode {
     }
   }
 }
-
-geometricOptics.register( 'PositionMarkerNode', PositionMarkerNode );

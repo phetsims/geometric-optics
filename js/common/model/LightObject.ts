@@ -10,7 +10,6 @@ import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import geometricOptics from '../../geometricOptics.js';
 import HTMLImageElementObject, { HTMLImageElementObjectOptions } from './HTMLImageElementObject.js';
 
 // Where the point-of-interest is relative to the left-top corner of PNG files for lights.
@@ -51,5 +50,3 @@ export default class LightObject extends HTMLImageElementObject {
     this.htmlImageElement = htmlImageElementProperty.value;
   }
 }
-
-geometricOptics.register( 'LightObject', LightObject );

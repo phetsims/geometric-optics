@@ -15,7 +15,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import { EmptySelfOptions, optionize3 } from '../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import geometricOptics from '../../geometricOptics.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import LightRays from '../model/LightRays.js';
 import { OpticalImageType } from '../model/OpticalImageType.js';
@@ -116,5 +115,3 @@ export default class RealLightRaysForegroundNode extends RealLightRaysNode {
     } );
   }
 }
-
-geometricOptics.register( 'RealLightRaysForegroundNode', RealLightRaysForegroundNode );

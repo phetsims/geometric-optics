@@ -14,7 +14,6 @@ import { ArrowNodeOptions } from '../../../scenery-phet/js/ArrowNode.js';
 import NumberControl, { NumberControlOptions } from '../../../scenery-phet/js/NumberControl.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import { KeyboardDragListenerOptions } from '../../../scenery/js/listeners/KeyboardDragListener.js';
-import geometricOptics from '../geometricOptics.js';
 
 const CONTROL_FONT = new PhetFont( 14 );
 
@@ -139,5 +138,4 @@ const GOConstants = {
   NUMBER_CONTROL_OPTIONS: NUMBER_CONTROL_OPTIONS
 };
 
-geometricOptics.register( 'GOConstants', GOConstants );
 export default GOConstants;

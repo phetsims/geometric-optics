@@ -12,7 +12,6 @@ import Vector2 from '../../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import RulerNode from '../../../../../scenery-phet/js/RulerNode.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
-import geometricOptics from '../../../geometricOptics.js';
 import GORuler from '../../model/tools/GORuler.js';
 import GORulerNode from './GORulerNode.js';
 import GOToolIcon from './GOToolIcon.js';
@@ -82,5 +81,3 @@ export default class GORulerIcon extends GOToolIcon {
     super( contentNode, ruler, rulerNode, pointerPositionToToolPosition, options );
   }
 }
-
-geometricOptics.register( 'GORulerIcon', GORulerIcon );

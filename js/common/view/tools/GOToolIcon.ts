@@ -12,7 +12,6 @@ import optionize from '../../../../../phet-core/js/optionize.js';
 import InteractiveHighlighting from '../../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import RichDragListener from '../../../../../scenery/js/listeners/RichDragListener.js';
 import Node, { NodeOptions } from '../../../../../scenery/js/nodes/Node.js';
-import geometricOptics from '../../../geometricOptics.js';
 import GOTool from '../../model/tools/GOTool.js';
 import GOToolNode from './GOToolNode.js';
 
@@ -86,5 +85,3 @@ export default abstract class GOToolIcon extends InteractiveHighlighting( Node )
     } ) );
   }
 }
-
-geometricOptics.register( 'GOToolIcon', GOToolIcon );

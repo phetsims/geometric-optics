@@ -12,7 +12,6 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import TColor from '../../../../scenery/js/util/TColor.js';
-import geometricOptics from '../../geometricOptics.js';
 import Guides from '../model/Guides.js';
 import GuideNode from './GuideNode.js';
 
@@ -36,5 +35,3 @@ export default class GuidesNode extends Node {
     }, providedOptions ) );
   }
 }
-
-geometricOptics.register( 'GuidesNode', GuidesNode );

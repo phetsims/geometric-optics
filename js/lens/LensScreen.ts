@@ -12,7 +12,6 @@ import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import optionize from '../../../phet-core/js/optionize.js';
 import PickRequired from '../../../phet-core/js/types/PickRequired.js';
 import GOColors from '../common/GOColors.js';
-import geometricOptics from '../geometricOptics.js';
 import GeometricOpticsStrings from '../GeometricOpticsStrings.js';
 import { GOSimOptions } from '../GOSim.js';
 import LensModel from './model/LensModel.js';
@@ -53,5 +52,3 @@ function createScreenIcon(): ScreenIcon {
     fill: GOColors.screenBackgroundColorProperty
   } );
 }
-
-geometricOptics.register( 'LensScreen', LensScreen );

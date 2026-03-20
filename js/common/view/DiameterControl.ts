@@ -11,7 +11,6 @@ import Utils from '../../../../dot/js/Utils.js';
 import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import NumberControl, { NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
-import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
 
@@ -47,5 +46,3 @@ export default class DiameterControl extends NumberControl {
     this.addLinkedElement( diameterProperty );
   }
 }
-
-geometricOptics.register( 'DiameterControl', DiameterControl );

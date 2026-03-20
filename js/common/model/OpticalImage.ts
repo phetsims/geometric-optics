@@ -20,7 +20,6 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import StringUnionIO from '../../../../tandem/js/types/StringUnionIO.js';
-import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
 import { OpticalImageType, OpticalImageTypeValues } from './OpticalImageType.js';
 import OpticalObject from './OpticalObject.js';
@@ -186,5 +185,3 @@ export default class OpticalImage extends PhetioObject {
     this.resetOpticalImage();
   }
 }
-
-geometricOptics.register( 'OpticalImage', OpticalImage );

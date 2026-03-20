@@ -10,7 +10,6 @@
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import TColor from '../../../../scenery/js/util/TColor.js';
-import geometricOptics from '../../geometricOptics.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 import LightRays from '../model/LightRays.js';
 import LightRaysNode, { LightRaysNodeOptions } from './LightRaysNode.js';
@@ -39,5 +38,3 @@ export default class VirtualLightRaysNode extends LightRaysNode {
     super( lightRays, update, providedOptions );
   }
 }
-
-geometricOptics.register( 'VirtualLightRaysNode', VirtualLightRaysNode );

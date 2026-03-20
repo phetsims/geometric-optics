@@ -12,7 +12,6 @@ import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
-import geometricOptics from '../../geometricOptics.js';
 import GOConstants from '../GOConstants.js';
 import ArrowImage from '../model/ArrowImage.js';
 import OpticalImageNode, { OpticalImageNodeOptions } from './OpticalImageNode.js';
@@ -64,5 +63,3 @@ export default class ArrowImageNode extends OpticalImageNode {
       } );
   }
 }
-
-geometricOptics.register( 'ArrowImageNode', ArrowImageNode );

@@ -16,7 +16,6 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import geometricOptics from '../../geometricOptics.js';
 import LightRay, { LightRaySegment } from './LightRay.js';
 import Optic from './Optic.js';
 import OpticalImage from './OpticalImage.js';
@@ -203,5 +202,3 @@ function getRayDirections( raysType: RaysType, opticalObjectPosition: Vector2, o
   }
   return directions;
 }
-
-geometricOptics.register( 'LightRays', LightRays );

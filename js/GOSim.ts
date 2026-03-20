@@ -16,7 +16,6 @@ import Tandem from '../../tandem/js/Tandem.js';
 import GOConstants from './common/GOConstants.js';
 import GOKeyboardHelpContent from './common/view/GOKeyboardHelpContent.js';
 import GOPreferencesNode from './common/view/GOPreferencesNode.js';
-import geometricOptics from './geometricOptics.js';
 import LensScreen from './lens/LensScreen.js';
 import MirrorScreen from './mirror/MirrorScreen.js';
 
@@ -82,5 +81,3 @@ export default class GOSim extends Sim {
     ], options );
   }
 }
-
-geometricOptics.register( 'GOSim', GOSim );

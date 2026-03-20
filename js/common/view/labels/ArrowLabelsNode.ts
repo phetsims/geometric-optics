@@ -12,7 +12,6 @@ import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import PickRequired from '../../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
-import geometricOptics from '../../../geometricOptics.js';
 import { GOSimOptions } from '../../../GOSim.js';
 import ArrowImage from '../../model/ArrowImage.js';
 import ArrowObject from '../../model/ArrowObject.js';
@@ -123,5 +122,3 @@ class ArrowImageLabelNode extends OpticalImageLabelNode {
     super( arrowImage, labelPositionProperty, zoomTransformProperty, providedOptions );
   }
 }
-
-geometricOptics.register( 'ArrowLabelsNode', ArrowLabelsNode );

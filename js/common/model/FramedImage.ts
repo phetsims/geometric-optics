@@ -13,7 +13,6 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
-import geometricOptics from '../../geometricOptics.js';
 import Lens from '../../lens/model/Lens.js';
 import GOConstants from '../GOConstants.js';
 import FramedObject from './FramedObject.js';
@@ -116,5 +115,3 @@ export default class FramedImage extends OpticalImage {
       } );
   }
 }
-
-geometricOptics.register( 'FramedImage', FramedImage );

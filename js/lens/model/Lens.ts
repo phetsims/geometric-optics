@@ -18,7 +18,6 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import GOQueryParameters from '../../common/GOQueryParameters.js';
 import Optic, { OpticOptions } from '../../common/model/Optic.js';
 import { OpticSurfaceType } from '../../common/model/OpticSurfaceType.js';
-import geometricOptics from '../../geometricOptics.js';
 import LensShapes from './LensShapes.js';
 
 // IOR is a fixed value for the 'direct' focal-length model.
@@ -151,5 +150,3 @@ export default class Lens extends Optic {
     return ( opticSurfaceType === 'convex' );
   }
 }
-
-geometricOptics.register( 'Lens', Lens );

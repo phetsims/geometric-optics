@@ -10,7 +10,6 @@
 import { TReadOnlyProperty } from '../../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
-import geometricOptics from '../../../geometricOptics.js';
 import PositionMarker from '../../model/tools/PositionMarker.js';
 import MapMarkerNode from '../MapMarkerNode.js';
 import GOToolIcon from './GOToolIcon.js';
@@ -52,5 +51,3 @@ export default class PositionMarkerIcon extends GOToolIcon {
     super( contentNode, positionMarker, positionMarkerNode, pointerPositionToToolPosition, options );
   }
 }
-
-geometricOptics.register( 'PositionMarkerIcon', PositionMarkerIcon );

@@ -9,7 +9,6 @@
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import geometricOptics from '../../geometricOptics.js';
 import Lens from '../../lens/model/Lens.js';
 import GOColors from '../GOColors.js';
 import ArrowImage from './ArrowImage.js';
@@ -110,5 +109,3 @@ export default class ArrowScene extends GOScene {
     this.resetArrowObjectScene();
   }
 }
-
-geometricOptics.register( 'ArrowScene', ArrowScene );

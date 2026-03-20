@@ -18,7 +18,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
 import VerticalAquaRadioButtonGroup, { VerticalAquaRadioButtonGroupOptions } from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
 import { FocalLengthModelType } from '../model/FocalLengthModelType.js';
 
@@ -132,5 +131,3 @@ function createItem( value: FocalLengthModelType,
     tandemName: itemTandemName
   };
 }
-
-geometricOptics.register( 'FocalLengthModelTypeControl', FocalLengthModelTypeControl );

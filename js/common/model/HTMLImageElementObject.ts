@@ -15,7 +15,6 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import geometricOptics from '../../geometricOptics.js';
 import OpticalObject, { OpticalObjectOptions } from './OpticalObject.js';
 
 export type HTMLImageElementObjectOptions = PickRequired<OpticalObjectOptions, 'position' | 'tandem'>
@@ -86,5 +85,3 @@ function computeBounds( htmlImageElement: HTMLImageElement, position: Vector2,
 
   return size.toBounds( left, bottom );
 }
-
-geometricOptics.register( 'HTMLImageElementObject', HTMLImageElementObject );

@@ -12,7 +12,6 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
-import geometricOptics from '../../geometricOptics.js';
 import OpticalImage from '../model/OpticalImage.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -56,5 +55,3 @@ export default class OpticalImageNode extends Node {
     this.addLinkedElement( opticalImage );
   }
 }
-
-geometricOptics.register( 'OpticalImageNode', OpticalImageNode );

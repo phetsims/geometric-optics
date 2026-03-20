@@ -13,7 +13,6 @@ import Property from '../../../../axon/js/Property.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import geometricOptics from '../../geometricOptics.js';
 import Mirror from '../../mirror/model/Mirror.js';
 import Optic from '../model/Optic.js';
 
@@ -110,5 +109,3 @@ export default class VisibleProperties {
     this.resetVisibleProperties();
   }
 }
-
-geometricOptics.register( 'VisibleProperties', VisibleProperties );

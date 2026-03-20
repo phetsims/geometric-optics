@@ -15,7 +15,6 @@ import Vector2 from '../../../../../dot/js/Vector2.js';
 import optionize from '../../../../../phet-core/js/optionize.js';
 import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
-import geometricOptics from '../../../geometricOptics.js';
 import GeometricOpticsStrings from '../../../GeometricOpticsStrings.js';
 
 import LabelNode, { LabelNodeOptions } from './LabelNode.js';
@@ -60,5 +59,3 @@ export default class OpticalObjectLabelNode extends LabelNode {
     super( labelStringProperty, labelPositionProperty, zoomTransformProperty, options );
   }
 }
-
-geometricOptics.register( 'OpticalObjectLabelNode', OpticalObjectLabelNode );

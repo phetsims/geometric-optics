@@ -13,7 +13,6 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
-import geometricOptics from '../../geometricOptics.js';
 import GeometricOpticsStrings from '../../GeometricOpticsStrings.js';
 import GOConstants from '../GOConstants.js';
 
@@ -49,5 +48,3 @@ export default class Add2FPointsCheckbox extends Checkbox {
     this.disposeAdd2FPointsCheckbox();
   }
 }
-
-geometricOptics.register( 'Add2FPointsCheckbox', Add2FPointsCheckbox );

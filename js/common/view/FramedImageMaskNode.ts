@@ -14,7 +14,6 @@ import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import geometricOptics from '../../geometricOptics.js';
 import GOColors from '../GOColors.js';
 import GOQueryParameters from '../GOQueryParameters.js';
 
@@ -92,5 +91,3 @@ class MaskShape extends Shape {
       .close();
   }
 }
-
-geometricOptics.register( 'FramedImageMaskNode', FramedImageMaskNode );

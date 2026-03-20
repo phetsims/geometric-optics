@@ -21,7 +21,6 @@ import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import GOConstants from '../../common/GOConstants.js';
-import geometricOptics from '../../geometricOptics.js';
 import Optic from './Optic.js';
 import ProjectionScreen from './ProjectionScreen.js';
 
@@ -170,5 +169,3 @@ function getIntersectionPosition( projectionScreenPosition: Vector2, opticPoint:
   const y = opticPoint.y + ( opticalImagePosition.y - opticPoint.y ) * ratio;
   return new Vector2( projectionScreenPosition.x, y );
 }
-
-geometricOptics.register( 'LightSpot', LightSpot );

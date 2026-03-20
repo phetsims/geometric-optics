@@ -27,7 +27,6 @@ import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
-import geometricOptics from '../../geometricOptics.js';
 import { GOSimOptions } from '../../GOSim.js';
 import GOConstants from '../GOConstants.js';
 import GOQueryParameters from '../GOQueryParameters.js';
@@ -514,5 +513,3 @@ export default class GOScreenView extends ScreenView {
     this.resetGOScreenView();
   }
 }
-
-geometricOptics.register( 'GOScreenView', GOScreenView );

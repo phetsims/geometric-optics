@@ -14,7 +14,6 @@ import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
-import geometricOptics from '../../geometricOptics.js';
 import OpticalObject from '../model/OpticalObject.js';
 import CueingArrowsNode from './CueingArrowsNode.js';
 import { ObjectDragMode } from './ObjectDragMode.js';
@@ -83,5 +82,3 @@ export default class OpticalObjectNode extends InteractiveHighlighting( Node ) {
     this.wasDraggedProperty.value = true;
   }
 }
-
-geometricOptics.register( 'OpticalObjectNode', OpticalObjectNode );
