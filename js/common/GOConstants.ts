@@ -21,7 +21,7 @@ const CONTROL_FONT = new PhetFont( 14 );
 const CREDITS: CreditsData = {
   leadDesign: 'Amy Rouinfar, Michael Dubson',
   softwareDevelopment: 'Sarah Chang, Chris Malley (PixelZoom, Inc.), Martin Veillette',
-  team: 'Chris Klusendorf, Diana L\u00f3pez Tavares, Ariel Paul, Kathy Perkins',
+  team: 'Chris Klusendorf, Diana López Tavares, Ariel Paul, Kathy Perkins',
   qualityAssurance: 'Steele Dalton, Jaron Droder, Clifford Hardin, Emily Miller, Nancy Salpepi, Kathryn Woessner',
   graphicArts: 'Megan Lai'
 };
