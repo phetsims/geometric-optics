@@ -5,26 +5,26 @@
 
 ## Table of Contents
 
-* [Introduction](https://github.com/phetsims/geometric-optics/blob/main/doc/implementation-notes.md#introduction)
-* [General Considerations](https://github.com/phetsims/geometric-optics/blob/main/doc/implementation-notes.md#general-considerations)
-  * [Model-View Transforms](https://github.com/phetsims/geometric-optics/blob/main/doc/implementation-notes.md#model-view-transforms)
-  * [Query Parameters](https://github.com/phetsims/geometric-optics/blob/main/doc/implementation-notes.md#query-parameters)
-  * [Memory Management](https://github.com/phetsims/geometric-optics/blob/main/doc/implementation-notes.md#memory-management)
-* [Optics](https://github.com/phetsims/geometric-optics/blob/main/doc/implementation-notes.md#optics)
-* [Optical Objects](https://github.com/phetsims/geometric-optics/blob/main/doc/implementation-notes.md#optical-objects)
-* [Optical Images](https://github.com/phetsims/geometric-optics/blob/main/doc/implementation-notes.md#optical-images)
-* [Projection Screen](https://github.com/phetsims/geometric-optics/blob/main/doc/implementation-notes.md#projection-screen)
-* [Rays](https://github.com/phetsims/geometric-optics/blob/main/doc/implementation-notes.md#rays)
-* [Guides](https://github.com/phetsims/geometric-optics/blob/main/doc/implementation-notes.md#guides)
-* [3D Perspective](https://github.com/phetsims/geometric-optics/blob/main/doc/implementation-notes.md#3d-perspective)
-* [Scenes](https://github.com/phetsims/geometric-optics/blob/main/doc/implementation-notes.md#scenes)
-* [Tools](https://github.com/phetsims/geometric-optics/blob/main/doc/implementation-notes.md#tools)
-* [Labels](https://github.com/phetsims/geometric-optics/blob/main/doc/implementation-notes.md#labels)
-* [Controls](https://github.com/phetsims/geometric-optics/blob/main/doc/implementation-notes.md#controls)
-* [Hollywood!](https://github.com/phetsims/geometric-optics/blob/main/doc/implementation-notes.md#hollywood)
-* [Sound](https://github.com/phetsims/geometric-optics/blob/main/doc/implementation-notes.md#sound)
-* [Alternative Input](https://github.com/phetsims/geometric-optics/blob/main/doc/implementation-notes.md#alternative-input)
-* [PhET-iO](https://github.com/phetsims/geometric-optics/blob/main/doc/implementation-notes.md#phet-io)
+* [Introduction](implementation-notes.md#introduction)
+* [General Considerations](implementation-notes.md#general-considerations)
+  * [Model-View Transforms](implementation-notes.md#model-view-transforms)
+  * [Query Parameters](implementation-notes.md#query-parameters)
+  * [Memory Management](implementation-notes.md#memory-management)
+* [Optics](implementation-notes.md#optics)
+* [Optical Objects](implementation-notes.md#optical-objects)
+* [Optical Images](implementation-notes.md#optical-images)
+* [Projection Screen](implementation-notes.md#projection-screen)
+* [Rays](implementation-notes.md#rays)
+* [Guides](implementation-notes.md#guides)
+* [3D Perspective](implementation-notes.md#3d-perspective)
+* [Scenes](implementation-notes.md#scenes)
+* [Tools](implementation-notes.md#tools)
+* [Labels](implementation-notes.md#labels)
+* [Controls](implementation-notes.md#controls)
+* [Hollywood!](implementation-notes.md#hollywood)
+* [Sound](implementation-notes.md#sound)
+* [Alternative Input](implementation-notes.md#alternative-input)
+* [PhET-iO](implementation-notes.md#phet-io)
 
 ## Introduction
 
@@ -35,13 +35,13 @@ documentation
 
 Before reading this document, please read:
 
-* [model.md](https://github.com/phetsims/geometric-optics/blob/main/doc/model.md), a high-level description of the
+* [model.md](model.md), a high-level description of the
   simulation model
 
 In addition to this document, you are encouraged to read:
 
-* [PhET Development Overview](https://github.com/phetsims/phet-info/blob/main/doc/phet-development-overview.md)
-* [PhET Software Design Patterns](https://github.com/phetsims/phet-info/blob/main/doc/phet-software-design-patterns.md)
+* [PhET Development Overview](../../phet-info/doc/phet-development-overview.md)
+* [PhET Software Design Patterns](../../phet-info/doc/phet-software-design-patterns.md)
 * [Geometric Optics HTML5 design document](https://docs.google.com/document/d/1hVxM-ax2UyxctbclAhutrRad5A0eeLWKFQNB4U7ls4o/edit) (
   definitely incomplete and out of date, but worth a look)
 
@@ -136,7 +136,7 @@ Three types of optical object are implemented in this sim:
   optical axis, and its tail is always on the optical axis.
 * **Framed Object**: an object shown in a picture frame, in 3D perspective. The 3D perspective presents some additional
   implementation challenges, which we'll discuss in the *
-  *[3D Perspective](https://github.com/phetsims/geometric-optics/blob/main/doc/implementation-notes.md#3d-perspective)**
+  *[3D Perspective](implementation-notes.md#3d-perspective)**
   section.
 * **Light**: point light sources
 
@@ -234,7 +234,7 @@ LightRaysNode - base class
 ## Guides
 
 Guides are a representation invented by PhET, and are described
-in [model.md](https://github.com/phetsims/geometric-optics/blob/main/doc/model.md). They are hidden behind query
+in [model.md](model.md). They are hidden behind query
 parameter `addGuidesCheckbox`.
 
 The important classes are:
@@ -277,7 +277,7 @@ a scene include:
 A single optic instance (lens or mirror) is shared by all scenes, as are the controls and tools.
 
 Each scene has an associated collection of labels, see
-the [Labels](https://github.com/phetsims/geometric-optics/blob/main/doc/implementation-notes.md#labels) section below.
+the [Labels](implementation-notes.md#labels) section below.
 
 The important classes are:
 
@@ -407,6 +407,6 @@ Setting focus for tools is done via tab traversal. This sim does not use `GrabDr
 ## PhET-iO
 
 The PhET-iO instrumentation of this sim is relatively straightforward. As described
-in [Memory Management](https://github.com/phetsims/geometric-optics/blob/main/doc/implementation-notes.md#memory-management),
+in [Memory Management](implementation-notes.md#memory-management),
 everything in this sim is created at startup, and exists for the lifetime of the sim. So there is no sim-specific use of
 PhetioGroup or PhetioCapsule.  
